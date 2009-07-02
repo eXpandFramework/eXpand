@@ -106,6 +106,15 @@
     <Reference Include="eXpand.ExpressApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="eXpand.ExpressApp.Security, Version=1.0.0.1618, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="eXpand.Persistent.Base, Version=1.0.0.1688, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="eXpand.Persistent.BaseImpl, Version=1.0.0.1509, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="eXpand.Xpo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -131,6 +140,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseObjects\XpoModelDictionaryDifferenceStore.cs" />
+    <Compile Include="BaseObjects\XpoUserModelDictionaryDifferenceStore.cs" />
     <Compile Include="Controllers\CloneObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>

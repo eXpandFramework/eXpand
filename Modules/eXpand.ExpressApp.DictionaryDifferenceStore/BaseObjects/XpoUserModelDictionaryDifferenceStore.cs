@@ -7,8 +7,9 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using eXpand.Persistent.Base;
 
-namespace eXpand.Persistent.BaseImpl
+namespace eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects
 {
     [VisibleInReports(false)]
     [Custom(ClassInfoNodeWrapper.CaptionAttribute, "Μοντέλο χρηστών")]

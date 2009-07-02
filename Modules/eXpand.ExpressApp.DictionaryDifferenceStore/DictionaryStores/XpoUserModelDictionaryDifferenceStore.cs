@@ -6,6 +6,7 @@ using DevExpress.Xpo;
 using eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects;
 using eXpand.ExpressApp.DictionaryDifferenceStore.Controllers;
 using eXpand.ExpressApp.DictionaryDifferenceStore.Security;
+using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
 {

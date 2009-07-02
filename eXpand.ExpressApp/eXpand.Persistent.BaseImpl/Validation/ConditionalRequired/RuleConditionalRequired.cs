@@ -4,7 +4,7 @@ using DevExpress.Persistent.Validation;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Linq;
-using eXpand.Xpo.Linq;
+using eXpand.Utils.Linq.Dynamic;
 
 namespace eXpand.Persistent.BaseImpl.Validation.ConditionalRequired
 {

@@ -7,8 +7,9 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using eXpand.Persistent.Base;
 
-namespace eXpand.Persistent.BaseImpl
+namespace eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects
 {
     [DefaultClassOptions]
     [NavigationItem("Admin")]

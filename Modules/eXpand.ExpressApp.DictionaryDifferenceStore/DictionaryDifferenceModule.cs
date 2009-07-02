@@ -8,6 +8,8 @@ using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores;
+using XpoUserModelDictionaryDifferenceStore=
+    eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects.XpoUserModelDictionaryDifferenceStore;
 
 namespace eXpand.ExpressApp.DictionaryDifferenceStore
 {
@@ -66,7 +68,7 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore
                 throw new NoNullAllowedException("Custom objectSpaceProvider");
             args.Handled = true;
             args.Store =
-                new XpoUserModelDictionaryDifferenceStore(objectSpaceProvider.CreateUpdatingSession(),
+                new DictionaryStores.XpoUserModelDictionaryDifferenceStore(objectSpaceProvider.CreateUpdatingSession(),
                                                       Application);
 
         }
@@ -95,24 +97,24 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore
             if (SecuritySystem.UserType != null)
             {
                 XPClassInfo xpClassInfo = xpDictionary.GetClassInfo(SecuritySystem.UserType);
-                if (xpClassInfo.FindMember(typeof (BaseObjects.XpoUserModelDictionaryDifferenceStore).Name) == null)
+                if (xpClassInfo.FindMember(typeof (XpoUserModelDictionaryDifferenceStore).Name) == null)
                     addUserToModelAssociation(xpClassInfo);
             }
             addModelToUserAssociation(xpDictionary);
             if (SecuritySystem.UserType != null) XafTypesInfo.Instance.RefreshInfo(SecuritySystem.UserType);
-            XafTypesInfo.Instance.RefreshInfo(typeof(BaseObjects.XpoUserModelDictionaryDifferenceStore));
+            XafTypesInfo.Instance.RefreshInfo(typeof(XpoUserModelDictionaryDifferenceStore));
         }
 
         private void addModelToUserAssociation(XPDictionary xpDictionary)
         {
-            XPClassInfo xpClassInfo = xpDictionary.GetClassInfo(typeof(BaseObjects.XpoUserModelDictionaryDifferenceStore));
+            XPClassInfo xpClassInfo = xpDictionary.GetClassInfo(typeof(XpoUserModelDictionaryDifferenceStore));
 
 
             Type type = fetchType();
             if (xpClassInfo.FindMember("Users")== null)
                 xpClassInfo.CreateMember("Users", typeof(XPCollection), true,
                                      new AssociationAttribute(
-                                         BaseObjects.XpoUserModelDictionaryDifferenceStore.BasicUsersAssociation,
+                                         XpoUserModelDictionaryDifferenceStore.BasicUsersAssociation,
                                          type));
             
         }
@@ -131,12 +133,12 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore
 
         private void addUserToModelAssociation(XPClassInfo xpClassInfo)
         {
-            string propertyName = typeof(BaseObjects.XpoUserModelDictionaryDifferenceStore).Name;
+            string propertyName = typeof(XpoUserModelDictionaryDifferenceStore).Name;
             if (xpClassInfo.FindMember(propertyName) == null)
                 xpClassInfo.CreateMember(propertyName,
-                                         typeof (BaseObjects.XpoUserModelDictionaryDifferenceStore),
+                                         typeof (XpoUserModelDictionaryDifferenceStore),
                                          new AssociationAttribute(
-                                             BaseObjects.XpoUserModelDictionaryDifferenceStore.BasicUsersAssociation));
+                                             XpoUserModelDictionaryDifferenceStore.BasicUsersAssociation));
             
         }
     }

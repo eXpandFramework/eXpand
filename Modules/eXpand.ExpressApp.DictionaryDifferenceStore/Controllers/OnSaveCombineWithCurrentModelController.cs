@@ -10,7 +10,7 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.Controllers
         {
             InitializeComponent();
             RegisterActions(components);
-            TargetObjectType = typeof (BaseObjects.XpoModelDictionaryDifferenceStore);
+            TargetObjectType = typeof (XpoModelDictionaryDifferenceStore);
         }
 
         protected override void OnActivated()
@@ -21,8 +21,8 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.Controllers
 
         private void ObjectSpaceOnCommitting(object sender, CancelEventArgs args)
         {
-            var store = ((BaseObjects.XpoModelDictionaryDifferenceStore) View.CurrentObject);
-            BaseObjects.XpoUserModelDictionaryDifferenceStore activeStore =
+            var store = ((XpoModelDictionaryDifferenceStore) View.CurrentObject);
+            XpoUserModelDictionaryDifferenceStore activeStore =
                 XpoUserModelDictionaryDifferenceStoreBuilder.GetActiveStore(store.Session, store.DifferenceType, 
                                                                             Application.GetType().FullName);
             if (store.Equals(activeStore))

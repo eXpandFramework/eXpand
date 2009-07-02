@@ -1,6 +1,7 @@
 ﻿using System.Security;
 using DevExpress.Xpo;
-using PermissionBase=eXpand.ExpressApp.Security.PermissionBase;
+using eXpand.ExpressApp.Security.Permissions;
+
 
 namespace eXpand.ExpressApp.DictionaryDifferenceStore.Security
 {

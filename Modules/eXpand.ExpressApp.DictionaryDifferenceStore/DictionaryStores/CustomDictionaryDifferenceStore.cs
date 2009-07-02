@@ -1,11 +1,11 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 
-namespace eXpand.ExpressApp.DictionaryDifferenceStore
+namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
 {
     public class CustomDictionaryDifferenceStore : DevExpress.ExpressApp.DictionaryDifferenceStore
     {
-        private BaseObjects.XpoModelDictionaryDifferenceStore store;
+        private readonly BaseObjects.XpoModelDictionaryDifferenceStore store;
 
         public CustomDictionaryDifferenceStore(BaseObjects.XpoModelDictionaryDifferenceStore store)
         {

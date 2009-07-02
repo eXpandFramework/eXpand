@@ -1,6 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects;
+using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
 {

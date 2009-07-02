@@ -71,7 +71,9 @@
     <Reference Include="eXpand.Persistent.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="eXpand.Xpo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86" />
+    <Reference Include="eXpand.Xpo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -89,27 +91,10 @@
   <ItemGroup>
     <Compile Include="Category.cs" />
     <Compile Include="CustomBaseObject.cs" />
-    <Compile Include="DateRange.cs" />
-    <Compile Include="IHasResources.cs" />
-    <Compile Include="PersistentDateRange.cs" />
-    <Compile Include="PersistentDateRangeInfo.cs" />
-    <Compile Include="PersistentEnum.cs" />
-    <Compile Include="PersistentTimePattern.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResourceHelper.cs" />
-    <Compile Include="ResourceImpl.cs" />
-    <Compile Include="ResourceImpls.cs" />
-    <Compile Include="SchedulerEvent.cs" />
-    <Compile Include="Taxonomy.cs" />
-    <Compile Include="Term.cs" />
-    <Compile Include="TermInfo.cs" />
-    <Compile Include="TimePattern.cs" />
-    <Compile Include="TimeRange.cs" />
     <Compile Include="XFPBaseObject.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="XpoModelDictionaryDifferenceStore.cs" />
-    <Compile Include="XpoUserModelDictionaryDifferenceStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

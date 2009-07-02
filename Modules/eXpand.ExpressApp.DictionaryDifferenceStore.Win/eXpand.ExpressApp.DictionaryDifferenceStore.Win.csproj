@@ -82,6 +82,9 @@
     <Reference Include="eXpand.ExpressApp.DictionaryDifferenceStore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="eXpand.Persistent.BaseImpl, Version=1.0.0.1810, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>

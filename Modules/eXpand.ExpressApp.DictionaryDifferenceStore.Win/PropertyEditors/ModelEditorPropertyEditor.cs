@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores;
+using XpoModelDictionaryDifferenceStore=eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects.XpoModelDictionaryDifferenceStore;
 
 namespace eXpand.ExpressApp.DictionaryDifferenceStore.Win.PropertyEditors
 {
@@ -22,7 +23,7 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.Win.PropertyEditors
         protected override object CreateControlCore()
         {
             Dictionary dictionary = application.Model;
-            var dictionaryDifferenceStore = ((BaseObjects.XpoModelDictionaryDifferenceStore) CurrentObject);
+            var dictionaryDifferenceStore = ((XpoModelDictionaryDifferenceStore) CurrentObject);
             Dictionary applicationModel =
                 ((XpoUserModelDictionaryDifferenceStore) dictionary.LastDiffStore).ApplicationModel.Clone();
 
@@ -31,7 +32,7 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.Win.PropertyEditors
                                                    new ModelDictionaryDifferenceStore(applicationModel,
                                                                                       new CustomDictionaryDifferenceStore
                                                                                           ((
-                                                                                           BaseObjects.
+                                                                                           
                                                                                                XpoModelDictionaryDifferenceStore
                                                                                            ) CurrentObject)),
                                                    application.Modules);

@@ -1,4 +1,4 @@
-namespace eXpand.Persistent.BaseImpl
+namespace eXpand.Persistent.Base
 {
     public enum DifferenceType
     {

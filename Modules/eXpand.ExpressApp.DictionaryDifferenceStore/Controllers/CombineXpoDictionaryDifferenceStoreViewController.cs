@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.SystemModule;
 using eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects;
 using eXpand.ExpressApp.SystemModule;
 using System.Linq;
+using eXpand.Persistent.Base;
 using ListView=DevExpress.ExpressApp.ListView;
 using XpoUserModelDictionaryDifferenceStore=
     eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores.XpoUserModelDictionaryDifferenceStore;

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects;
+using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
 {
@@ -65,7 +67,7 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
             foreach (BaseObjects.XpoModelDictionaryDifferenceStore singletonStore in from store in singletonStores
                                                                                      where
                                                                                          store.Aspect !=
-                                                                                         DefaultAspect
+                                                                                         BaseObjects.XpoModelDictionaryDifferenceStore.DefaultAspect
                                                                                      select store)
                 dictionary.AddAspect(singletonStore.Aspect,
                                      new DictionaryXmlReader().ReadFromString(singletonStore.XmlContent));

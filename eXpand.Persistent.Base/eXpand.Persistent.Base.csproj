@@ -79,7 +79,6 @@
     <Compile Include="Sceduler\EventResourcePropertyAttribute.cs" />
     <Compile Include="IAuditable.cs" />
     <Compile Include="IBusinessObject.cs" />
-    <Compile Include="IDateRange.cs" />
     <Compile Include="IHidden.cs" />
     <Compile Include="IIndexedObject.cs" />
     <Compile Include="ILOBObject.cs" />
