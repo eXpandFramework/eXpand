@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>eXpand.ExpressApp.Win</RootNamespace>
+    <AssemblyName>eXpand.ExpressApp.Win</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AssemblyOriginatorKeyFile>..\eXpand.Key\eXpand.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>http://localhost/eXpand.ExpressApp.Win/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\eXpand.DLL\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\eXpand.DLL\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Win.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="eXpand.Xpo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\ListViewExtensions.cs" />
+    <Compile Include="Editors\FilterControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Editors\ObjectEdit.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Interfaces\ILogOut.cs" />
+    <Compile Include="ListEditors\LayoutViewGridListEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\GridListEditor.cs" />
+    <Compile Include="ListEditors\IPopupMenuHider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyEditors\BooleanPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\ButtonDetailViewItem.cs" />
+    <Compile Include="PropertyEditors\DatePropertyEditor.cs" />
+    <Compile Include="PropertyEditors\DoublePropertyEditor.cs" />
+    <Compile Include="PropertyEditors\IntegerPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\LookupPropertyEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PropertyEditors\ObjectPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\StringLookupPropertyEditor.cs" />
+    <Compile Include="SystemModule\CustomSelectionListViewViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\CustomSelectionListViewViewController.designer.cs">
+      <DependentUpon>CustomSelectionListViewViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\EditModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\EditModelController.designer.cs">
+      <DependentUpon>EditModelController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\EditModeViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\EditModeViewController.Designer.cs">
+      <DependentUpon>EditModeViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\FilterByPropertyPathViewController.designer.cs">
+      <DependentUpon>FilterByPropertyPathViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\FilterControlListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\FilterControlListViewController.Designer.cs">
+      <DependentUpon>FilterControlListViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\GridViewViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\GridViewViewController.designer.cs">
+      <DependentUpon>GridViewViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\HideGridPopUpMenuViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\HideGridPopUpMenuViewController.designer.cs">
+      <DependentUpon>HideGridPopUpMenuViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\HideNestedListViewToolBarViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\HideNestedListViewToolBarViewController.designer.cs">
+      <DependentUpon>HideNestedListViewToolBarViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\ListViewViewStyleController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ListViewViewStyleController.Designer.cs">
+      <DependentUpon>ListViewViewStyleController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\LookUpPropertyEditorViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\LookUpPropertyEditorViewController.Designer.cs">
+      <DependentUpon>LookUpPropertyEditorViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\MasterDetailViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\MasterDetailViewController.designer.cs">
+      <DependentUpon>MasterDetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\MoreSerializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SystemModule\NewObjectLookUpViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\NewObjectLookUpViewController.designer.cs">
+      <DependentUpon>NewObjectLookUpViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\RemoveNavigationItemsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\RemoveNavigationItemsController.designer.cs">
+      <DependentUpon>RemoveNavigationItemsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\TabStopViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\TabStopViewController.designer.cs">
+      <DependentUpon>TabStopViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\WinDetailViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\WinDetailViewController.Designer.cs">
+      <DependentUpon>WinDetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\WindowHintController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\WindowHintController.designer.cs">
+      <DependentUpon>WindowHintController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\WinLogoutWindowController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\WinLogoutWindowController.designer.cs">
+      <DependentUpon>WinLogoutWindowController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\eXpandSystemWindowsFormsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\eXpandSystemWindowsFormsModule.designer.cs">
+      <DependentUpon>eXpandSystemWindowsFormsModule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinComponent.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WinComponent.Designer.cs">
+      <DependentUpon>WinComponent.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SystemModule\EditModeViewController.resx">
+      <DependentUpon>EditModeViewController.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemModule\FilterByPropertyPathViewController.resx">
+      <DependentUpon>FilterByPropertyPathViewController.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemModule\FilterControlListViewController.resx">
+      <DependentUpon>FilterControlListViewController.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemModule\GridViewViewController.resx">
+      <DependentUpon>GridViewViewController.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemModule\MasterDetailViewController.resx">
+      <DependentUpon>MasterDetailViewController.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemModule\TabStopViewController.resx">
+      <DependentUpon>TabStopViewController.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemModule\WinLogoutWindowController.resx">
+      <DependentUpon>WinLogoutWindowController.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemModule\eXpandSystemWindowsFormsModule.resx">
+      <DependentUpon>eXpandSystemWindowsFormsModule.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
+if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
+  </PropertyGroup>
+</Project>
