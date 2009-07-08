@@ -154,7 +154,6 @@
       <DependentUpon>CloneObjectViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CombineXpoDictionaryDifferenceStoreViewController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\CombineXpoDictionaryDifferenceStoreViewController.Designer.cs">
       <DependentUpon>CombineXpoDictionaryDifferenceStoreViewController.cs</DependentUpon>
@@ -176,7 +175,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\CombineModelChangesWithApplicationModelPermission.cs" />
     <Compile Include="Security\Controllers\RemoveNavigationItemsController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Security\Controllers\RemoveNavigationItemsController.Designer.cs">
       <DependentUpon>RemoveNavigationItemsController.cs</DependentUpon>
