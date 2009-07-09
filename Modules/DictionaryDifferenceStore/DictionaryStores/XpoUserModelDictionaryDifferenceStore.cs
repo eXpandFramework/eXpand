@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -10,7 +11,7 @@ using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
 {
-    public class XpoUserModelDictionaryDifferenceStore : XpoModelDictionaryDifferenceStoreBase
+    public class XpoUserModelDictionaryDifferenceStore : XpoModelDictionaryDifferenceStoreBase, IApplicationModelDiffStore
     {
         private readonly Dictionary applicationModel;
 
@@ -88,6 +89,11 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
                     SecuritySystem.UserType,
                     ((XPBaseObject) SecuritySystem.CurrentUser).ClassInfo.KeyProperty.GetValue(
                         SecuritySystem.CurrentUser)));
+        }
+
+        public Dictionary GetActiveApplicationModel()
+        {
+            return new Dictionary(XpoModelDictionaryDifferenceStoreBuilder.GetActiveStore(Session, DifferenceType.Model, application.GetType().FullName).Model);
         }
     }
 }

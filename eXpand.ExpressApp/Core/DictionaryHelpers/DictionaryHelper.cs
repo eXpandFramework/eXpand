@@ -16,7 +16,9 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
         {
             var result = new List<PropertyInfoNodeWrapper>();
             foreach (DictionaryNode node in applicationNode.GetChildNode(BOModelNodeWrapper.NodeName).GetChildNodes(PropertyInfoNodeWrapper.NodeName, IsRuntimeMember, bool.TrueString, true))
+            {
                 result.Add(new PropertyInfoNodeWrapper(node));
+            }
 
             return result;
         }

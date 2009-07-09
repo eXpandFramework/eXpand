@@ -108,6 +108,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\OnSaveUserDifferenceStoreCombineWithCurrentModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\OnSaveUserDifferenceStoreCombineWithCurrentModelController.Designer.cs">
+      <DependentUpon>OnSaveUserDifferenceStoreCombineWithCurrentModelController.cs</DependentUpon>
+    </Compile>
     <Compile Include="DictionaryDifferenceStoreModuleWin.cs">
       <SubType>Component</SubType>
     </Compile>
