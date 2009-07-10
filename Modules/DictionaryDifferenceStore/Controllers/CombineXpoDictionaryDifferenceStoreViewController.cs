@@ -1,11 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
-using DevExpress.Xpo;
 using eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects;
 using eXpand.ExpressApp.SystemModule;
 using System.Linq;

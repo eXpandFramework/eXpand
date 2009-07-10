@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
 
         protected override Dictionary LoadDifferenceCore(Schema schema)
         {
-            if (Debugger.IsAttached && DifferenceType == DifferenceType.Model)
+            if ((Debugger.IsAttached&&debuggerAttachCheck()) && DifferenceType == DifferenceType.Model)
             {
                 DictionaryNode dictionaryNode =
                     new DictionaryXmlReader().ReadFromFile(
@@ -72,6 +73,12 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
                 dictionary.AddAspect(singletonStore.Aspect,
                                      new DictionaryXmlReader().ReadFromString(singletonStore.XmlContent));
             return dictionary;
+        }
+
+        private bool debuggerAttachCheck()
+        {
+            string setting = ConfigurationManager.AppSettings["DisableDebuggerAttachedCheck"];
+            return string.IsNullOrEmpty(setting) || setting.ToLower() == "false";
         }
 
         protected virtual string GetModelPath()

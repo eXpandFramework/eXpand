@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.SystemModule
 {
@@ -15,12 +16,21 @@ namespace eXpand.ExpressApp.SystemModule
     [ToolboxBitmap(typeof (XafApplication), "Resources.SystemModule.ico")]
     public sealed partial class eXpandSystemModule : ModuleBase
     {
+
         public override void UpdateModel(Dictionary model)
         {
             base.UpdateModel(model);
             new ApplicationNodeWrapper(model).Node.GetChildNode("Options").SetAttribute("UseServerMode", "True");
         }
 
+        public override void ValidateModel(Dictionary model)
+        {
+            base.ValidateModel(model);
+            DictionaryHelper.AddFields(model.RootNode, XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+
+        }
+
+        
         public override void CustomizeXPDictionary(XPDictionary xpDictionary)
         {
             base.CustomizeXPDictionary(xpDictionary);

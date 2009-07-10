@@ -79,6 +79,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.DictionaryDifferenceStore.dll</HintPath>
     </Reference>
+    <Reference Include="eXpand.Persistent.Base, Version=0.0.0.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -94,6 +97,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\OnSaveModelDifferenceStoreCombineWithCurrentModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\OnSaveModelDifferenceStoreCombineWithCurrentModelController.Designer.cs">
+      <DependentUpon>OnSaveModelDifferenceStoreCombineWithCurrentModelController.cs</DependentUpon>
+    </Compile>
     <Compile Include="DictionaryDifferenceStoreAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>

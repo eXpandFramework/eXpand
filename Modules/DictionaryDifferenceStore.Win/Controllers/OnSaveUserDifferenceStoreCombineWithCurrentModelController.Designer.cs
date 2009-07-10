@@ -1,6 +1,6 @@
-namespace eXpand.ExpressApp.DictionaryDifferenceStore.Controllers
+namespace eXpand.ExpressApp.DictionaryDifferenceStore.Win.Controllers
 {
-    partial class OnSaveCombineWithCurrentModelController
+    partial class OnSaveUserDifferenceStoreCombineWithCurrentModelController
     {
         /// <summary>
         /// Required designer variable.

@@ -127,6 +127,7 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -158,13 +159,10 @@
     <Compile Include="Controllers\CombineXpoDictionaryDifferenceStoreViewController.Designer.cs">
       <DependentUpon>CombineXpoDictionaryDifferenceStoreViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="Controllers\OnSaveCombineWithCurrentModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\OnSaveCombineWithCurrentModelController.Designer.cs">
-      <DependentUpon>OnSaveCombineWithCurrentModelController.cs</DependentUpon>
-    </Compile>
+    <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="DictionaryStores\CustomDictionaryDifferenceStore.cs" />
     <Compile Include="DictionaryDifferenceStoreModule.cs">
       <SubType>Component</SubType>
