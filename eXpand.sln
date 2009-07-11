@@ -31,8 +31,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXpand.ExpressApp.Web", "eX
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXpand.ExpressApp.DictionaryDifferenceStore.Web", "Modules\DictionaryDifferenceStore.Web\eXpand.ExpressApp.DictionaryDifferenceStore.Web.csproj", "{05E856F4-5329-4DB4-8C7E-8B63F24F6506}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{3DCAD7C4-D89E-4157-9529-D5CDA809269E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solution1.Module", "Solution1.Module\Solution1.Module.csproj", "{B023110E-88D8-4293-B416-C4974320A5FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solution1.Module.Win", "Solution1.Module.Win\Solution1.Module.Win.csproj", "{5CC97A8B-9401-45E1-9C16-5961B19A2D39}"
