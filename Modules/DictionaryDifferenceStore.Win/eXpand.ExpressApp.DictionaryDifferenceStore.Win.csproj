@@ -41,7 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -109,7 +109,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\OnSaveUserDifferenceStoreCombineWithCurrentModelController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\OnSaveUserDifferenceStoreCombineWithCurrentModelController.Designer.cs">
       <DependentUpon>OnSaveUserDifferenceStoreCombineWithCurrentModelController.cs</DependentUpon>
