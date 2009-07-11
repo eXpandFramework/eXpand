@@ -64,7 +64,7 @@
     <Reference Include="DevExpress.ExpressApp.Validation.v9.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Win.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v9.1">
@@ -73,7 +73,7 @@
     <Reference Include="DevExpress.Persistent.BaseImpl.v9.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v9.1">
@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\OnSaveUserDifferenceStoreCombineWithCurrentModelController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\OnSaveUserDifferenceStoreCombineWithCurrentModelController.Designer.cs">
       <DependentUpon>OnSaveUserDifferenceStoreCombineWithCurrentModelController.cs</DependentUpon>
