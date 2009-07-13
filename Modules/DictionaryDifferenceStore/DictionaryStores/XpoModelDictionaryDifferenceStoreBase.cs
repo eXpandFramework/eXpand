@@ -48,11 +48,11 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
             }
             IOrderedQueryable<BaseObjects.XpoModelDictionaryDifferenceStore> singletonStores = GetActiveStores(false);
             Dictionary dictionary;
-            if (singletonStores.Count() == 0)
+            if (singletonStores.Where(store => store.DifferenceType==DifferenceType).Count() == 0)
             {
                 dictionary = new Dictionary(new DictionaryNode("Application"), schema);
                 SaveDifference(dictionary);
-                return dictionary;
+//                return dictionary;
             }
 
             BaseObjects.XpoModelDictionaryDifferenceStore activeStore = GetActiveStore();
@@ -65,10 +65,11 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
             dictionary = new Dictionary(rootNode, schema);
 
 
-            foreach (BaseObjects.XpoModelDictionaryDifferenceStore singletonStore in from store in singletonStores
-                                                                                     where
-                                                                                         store.Aspect !=
-                                                                                         BaseObjects.XpoModelDictionaryDifferenceStore.DefaultAspect
+            foreach (BaseObjects.XpoModelDictionaryDifferenceStore singletonStore in from store in GetActiveStores(false).Where(store =>activeStore!=
+                                                                                                                                        null&& store.Oid!=activeStore.Oid)
+//                                                                                     where
+//                                                                                         store.Aspect !=
+//                                                                                         BaseObjects.XpoModelDictionaryDifferenceStore.DefaultAspect
                                                                                      select store)
                 dictionary.AddAspect(singletonStore.Aspect,
                                      new DictionaryXmlReader().ReadFromString(singletonStore.XmlContent));
@@ -103,7 +104,7 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
                     xpoUserModelDictionaryDifferenceStore.DifferenceType = DifferenceType;
                     xpoUserModelDictionaryDifferenceStore.ApplicationTypeName = application.GetType().FullName;
 
-//                    diffDictionary.CurrentAspect = aspect;
+
                     xpoUserModelDictionaryDifferenceStore.XmlContent =
                         "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n" +
                         (new DictionaryXmlWriter()).GetAspectXml(DictionaryAttribute.DefaultLanguage,

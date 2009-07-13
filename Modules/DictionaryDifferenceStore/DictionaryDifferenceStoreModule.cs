@@ -7,7 +7,9 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-using eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores;
+using eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects;
+using XpoModelDictionaryDifferenceStore=
+    eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores.XpoModelDictionaryDifferenceStore;
 using XpoUserModelDictionaryDifferenceStore=
     eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects.XpoUserModelDictionaryDifferenceStore;
 
@@ -35,7 +37,27 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore
             XPDictionary xpDictionary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
             createBasicUserProperties(xpDictionary);
             makeModifiedOnTime(xpDictionary);
+            addModelObjectsToRoles();
+        }
 
+        private void addModelObjectsToRoles()
+        {
+            XPClassInfo classInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeof(Role));
+            string propertyName = typeof(XpoRoleModelDictionaryDifferenceStore).Name + "s";
+            if (classInfo.FindMember(propertyName)== null)
+            {
+                classInfo.CreateMember(propertyName, typeof (XPCollection), true,
+                                       new Attribute[]
+                                           {
+                                               new AssociationAttribute(
+                                                   Associations.XpoRoleModelDictionaryDifferenceStoreRoles,
+                                                   typeof (XpoRoleModelDictionaryDifferenceStore)),
+                                               new BrowsableAttribute(false),
+                                               new MemberDesignTimeVisibilityAttribute(false)
+                                           });
+                XafTypesInfo.Instance.RefreshInfo(typeof(Role));
+            }
+            
         }
 
         public override void Setup(XafApplication application)
@@ -135,10 +157,13 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore
         {
             string propertyName = typeof(XpoUserModelDictionaryDifferenceStore).Name;
             if (xpClassInfo.FindMember(propertyName) == null)
+            {
                 xpClassInfo.CreateMember(propertyName,
                                          typeof (XpoUserModelDictionaryDifferenceStore),
-                                         new AssociationAttribute(
-                                             XpoUserModelDictionaryDifferenceStore.BasicUsersAssociation));
+                                         new Attribute[]{new AssociationAttribute(
+                                             XpoUserModelDictionaryDifferenceStore.BasicUsersAssociation),
+                                         new BrowsableAttribute(false),new MemberDesignTimeVisibilityAttribute(false)});
+            }
             
         }
     }

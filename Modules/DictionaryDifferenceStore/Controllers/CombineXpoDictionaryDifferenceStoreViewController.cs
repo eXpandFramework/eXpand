@@ -75,15 +75,23 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.Controllers
             }
         }
 
+
+        public static Dictionary Combine(Dictionary selectedStore, XpoModelDictionaryDifferenceStore store, XpoUserModelDictionaryDifferenceStore lastDiffStore)
+        {
+            Dictionary dictionary = lastDiffStore.ApplicationModel.Clone();
+            dictionary.AddAspect(selectedStore.CurrentAspect, selectedStore.RootNode);
+            dictionary.AddAspect(store.Aspect, store.Model);
+            return dictionary.GetDiffs();
+        }
         public static void Combine(List<XpoModelDictionaryDifferenceStore> objects, XpoModelDictionaryDifferenceStore store, XpoUserModelDictionaryDifferenceStore lastDiffStore)
         {
             foreach (var selectedStore in objects)
             {
-                Dictionary dictionary = lastDiffStore.ApplicationModel.Clone();
-                dictionary.AddAspect(selectedStore.Aspect, selectedStore.Model);
-                dictionary.AddAspect(store.Aspect, store.Model);
-                Dictionary diffs = dictionary.GetDiffs();
-
+//                Dictionary dictionary = lastDiffStore.ApplicationModel.Clone();
+//                dictionary.AddAspect(selectedStore.Aspect, selectedStore.Model);
+//                dictionary.AddAspect(store.Aspect, store.Model);
+//                Dictionary diffs = dictionary.GetDiffs();
+                Dictionary diffs = Combine(new Dictionary(selectedStore.Model), store, lastDiffStore);
                 string xml = (new DictionaryXmlWriter()).GetAspectXml(DictionaryAttribute.DefaultLanguage,
                                                                       diffs.RootNode);
                 selectedStore.XmlContent = xml;
