@@ -41,13 +41,26 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
             return XpoUserModelDictionaryDifferenceStoreBuilder.GetActiveStore(Session, DifferenceType, application.GetType().FullName);
         }
 
+
         protected override IOrderedQueryable<BaseObjects.XpoModelDictionaryDifferenceStore> GetActiveStores(
             bool queryAspect)
         {
             if (SecuritySystem.CurrentUser!= null)
             {
                 IOrderedQueryable<BaseObjects.XpoModelDictionaryDifferenceStore> stores = base.GetActiveStores(queryAspect);
-                return XpoUserModelDictionaryDifferenceStoreBuilder.GetActiveStores(Session, stores, application.GetType().FullName);
+                IQueryable<BaseObjects.XpoModelDictionaryDifferenceStore> queryable = XpoUserModelDictionaryDifferenceStoreBuilder.GetActiveStores(Session, stores,
+                                                                                                           application.GetType().FullName);
+                if (queryable.Count()>0)
+                {
+                    List<Guid> userModelDictionaryDifferenceStores =
+                        queryable.Select(store => store.Oid).ToList();
+                    List<Guid> guids = XpoRoleModelDictionaryDifferenceStoreBuilder.GetStores(Session).Select(store => store.Oid).ToList();
+                    userModelDictionaryDifferenceStores.AddRange(guids);
+                    IOrderedQueryable<BaseObjects.XpoModelDictionaryDifferenceStore> activeStores = new XPQuery<BaseObjects.XpoModelDictionaryDifferenceStore>(Session).Where(store => userModelDictionaryDifferenceStores.Contains(store.Oid)).OrderByDescending(store => store.DateCreated);
+                    int count = activeStores.Count();
+                    return activeStores;
+                }
+                return queryable.OrderByDescending(store => store.DateCreated);
             }
             return base.GetActiveStores(queryAspect);
         }

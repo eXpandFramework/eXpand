@@ -4,6 +4,7 @@ using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Base.Security;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -166,12 +167,10 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects
             base.AfterConstruction();
             if (Session.IsNewObject(this))
             {
-                aspect = DefaultAspect;
-                dateCreated = DateTime.Now;
-                Name = "AutoCreated" + DateTime.Now;
-                xmlContent = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<Application />";
+                XpoModelDictionaryDifferenceStoreBuilder.SetUp(this);
             }
         }
+        
     }
 
     public class XpoModelDictionaryDifferenceStoreBuilder
@@ -212,5 +211,20 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects
 //                    where !(store.Active == false) && store.DifferenceType == DifferenceType
 //             select store);
 //        }
+        public static void SetUp(XpoModelDictionaryDifferenceStore xpoModelDictionaryDifferenceStore)
+        {
+            xpoModelDictionaryDifferenceStore.Aspect = XpoModelDictionaryDifferenceStore.DefaultAspect;
+            xpoModelDictionaryDifferenceStore.DateCreated = DateTime.Now;
+            xpoModelDictionaryDifferenceStore.Name = "AutoCreated " + DateTime.Now;
+            if (xpoModelDictionaryDifferenceStore is XpoUserModelDictionaryDifferenceStore)
+                xpoModelDictionaryDifferenceStore.Name = string.Format("AutoCreated for {0} {1}", ((IAuthenticationStandardUser)SecuritySystem.CurrentUser).UserName, DateTime.Now);
+            xpoModelDictionaryDifferenceStore.XmlContent = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<Application />";
+        }
+
+        public static void SetUp(XpoModelDictionaryDifferenceStore xpoModelDictionaryDifferenceStore, string applicationTypeName)
+        {
+            SetUp(xpoModelDictionaryDifferenceStore);
+            xpoModelDictionaryDifferenceStore.ApplicationTypeName=applicationTypeName;
+        }
     }
 }

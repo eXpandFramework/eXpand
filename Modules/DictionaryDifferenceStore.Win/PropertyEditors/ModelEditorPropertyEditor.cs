@@ -6,7 +6,9 @@ using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using eXpand.ExpressApp.DictionaryDifferenceStore.Controllers;
 using eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores;
+using eXpand.ExpressApp.DictionaryDifferenceStore.Security;
 using eXpand.Persistent.Base;
 using XpoModelDictionaryDifferenceStore=eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects.XpoModelDictionaryDifferenceStore;
 
@@ -51,11 +53,8 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.Win.PropertyEditors
         private void ControllerOnCurrentNodeChanged(object sender, EventArgs args)
         {
             Dictionary dictionary = controller.Dictionary.GetDiffs();
-
             var modelDictionaryDifferenceStore = ((XpoModelDictionaryDifferenceStore) CurrentObject);
-            var dictionary1 = new Dictionary(modelDictionaryDifferenceStore.Model);
-            dictionary1.AddAspect(modelDictionaryDifferenceStore.Aspect, dictionary.RootNode);
-            modelDictionaryDifferenceStore.Model = dictionary1.RootNode;
+            modelDictionaryDifferenceStore.Model = dictionary.RootNode;
         }
 
         public void Setup(ObjectSpace space, XafApplication app)

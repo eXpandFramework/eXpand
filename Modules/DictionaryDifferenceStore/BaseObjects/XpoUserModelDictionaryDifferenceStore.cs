@@ -12,7 +12,7 @@ using eXpand.Persistent.Base;
 namespace eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects
 {
     [VisibleInReports(false)]
-    [Custom(ClassInfoNodeWrapper.CaptionAttribute, "Μοντέλο χρηστών")]
+    [Custom(ClassInfoNodeWrapper.CaptionAttribute, "User Model")]
     public class XpoUserModelDictionaryDifferenceStore : XpoModelDictionaryDifferenceStore
     {
         private bool nonPersistent;
@@ -34,45 +34,30 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects
                 DifferenceType=DifferenceType.User;
         }
         
-//        [Association(BasicUsersAssociation)]
-//        public XPCollection<BasicUser> BasicUsers
-//        {
-//            get { return GetCollection<BasicUser>(MethodBase.GetCurrentMethod().Name.Replace("get_", "")); }
-//        }
     }
 
     public class XpoUserModelDictionaryDifferenceStoreBuilder : XpoModelDictionaryDifferenceStoreBuilder
     {
-        public static IOrderedQueryable<XpoModelDictionaryDifferenceStore> GetActiveStores(Session session, IOrderedQueryable<XpoModelDictionaryDifferenceStore> stores, string clientType)
+        public static IQueryable<XpoModelDictionaryDifferenceStore> GetActiveStores(Session session, IOrderedQueryable<XpoModelDictionaryDifferenceStore> stores, string clientType)
         {
-//            IQueryable<XpoUserModelDictionaryDifferenceStore> queryable =
-//                from store1 in new XPQuery<XpoUserModelDictionaryDifferenceStore>(session)
-////                let value = (IList) store1.GetMemberValue(typeof (BasicUser).Name + "s")
-////                where store1.BasicUsers.Contains((BasicUser) SecuritySystem.CurrentUser)
-//                where ttt(store1).Contains(SecuritySystem.CurrentUser)
-//                select store1;
+            var containsOperator = new ContainsOperator("Users",new BinaryOperator("Oid",((XPBaseObject)SecuritySystem.CurrentUser)
+                                                                         .ClassInfo.KeyProperty.GetValue(SecuritySystem.CurrentUser)));
             var stores1 = new XPCollection<XpoUserModelDictionaryDifferenceStore>(session,
-                                                                                  new ContainsOperator("Users",
-                                                                                                       new BinaryOperator("Oid",
-                                                                                                                          ((XPBaseObject)
-                                                                                                                           SecuritySystem
-                                                                                                                               .
-                                                                                                                               CurrentUser)
-                                                                                                                              .ClassInfo.KeyProperty.GetValue(SecuritySystem
-                                                                                                                                                                  .
-                                                                                                                                                                  CurrentUser))));
-            IEnumerable<Guid> list = new List<Guid>();
+                                                                                  containsOperator);
+            IEnumerable<Guid> list = new List<Guid> {Guid.Empty};
 
             foreach (XpoUserModelDictionaryDifferenceStore store in stores1)
                 ((List<Guid>) list).Add(store.Oid);
-            stores = (IOrderedQueryable<XpoModelDictionaryDifferenceStore>) (from store in stores
-                                                                             where
-                                                                                 store is
-                                                                                 XpoUserModelDictionaryDifferenceStore
-                                                                             select store);
-            return
-                (IOrderedQueryable<XpoModelDictionaryDifferenceStore>)
-                (list.Count() > 0 ? from store in stores where list.Contains(store.Oid) select store : stores);
+            IQueryable<XpoModelDictionaryDifferenceStore> queryable = from store in stores
+                                   where
+                                       store is
+                                       XpoUserModelDictionaryDifferenceStore
+                                   select store;
+            
+            return queryable.Where(store => list.Contains(store.Oid));
+//            return
+//                (IOrderedQueryable<XpoModelDictionaryDifferenceStore>)
+//                (list.Count() > 0 ? from store in stores where list.Contains(store.Oid) select store : stores);
         }
 
 
