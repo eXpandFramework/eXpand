@@ -57,14 +57,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             bottomHintPanel = getHintPanel(DockStyle.Bottom);
             var controls = ((Control)((IViewSiteTemplate)Frame.Template).ViewSiteControl).Controls;
-//            var controlsList=new List<Control>();
-//            controlsList.AddRange(controls.Cast<Control>());
-//            controls.Clear();
-
             controls.Add(bottomHintPanel);
-//            controls.AddRange(controlsList.ToArray());
             DoHintPanelReady(bottomHintPanel,BottomHintPanelReady);
-
             warningHintPanel = getHintPanel(DockStyle.Top);
             controls.Add(warningHintPanel);
             DoHintPanelReady(warningHintPanel, WarningHintPanelReady);
