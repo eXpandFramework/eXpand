@@ -218,13 +218,16 @@ namespace eXpand.ExpressApp.Security.Calculators
 
         public static void ActivationCalculated(Controller controller,  Action<bool, StateRuleAttribute> active,Type actiovationRuleAttributeType)
         {
-            var view = controller.Frame.View;
-            List<ActivationRuleAttributeMethodInfo> instance = Instance[view.ObjectTypeInfo.Type, actiovationRuleAttributeType];
-            foreach (var pair in instance)
+            if (controller.Frame != null)
             {
-                StateRuleAttribute stateRuleAttribute = pair.StateRule;
-                if (view is DetailView) detailViewActivationCalculated(view, pair, stateRuleAttribute, active);
-                else listViewActivationCalculated(view, pair, stateRuleAttribute, active);
+                var view = controller.Frame.View;
+                List<ActivationRuleAttributeMethodInfo> instance = Instance[view.ObjectTypeInfo.Type, actiovationRuleAttributeType];
+                foreach (var pair in instance)
+                {
+                    StateRuleAttribute stateRuleAttribute = pair.StateRule;
+                    if (view is DetailView) detailViewActivationCalculated(view, pair, stateRuleAttribute, active);
+                    else listViewActivationCalculated(view, pair, stateRuleAttribute, active);
+                }
             }
         }
 
