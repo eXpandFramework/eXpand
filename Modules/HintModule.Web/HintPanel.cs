@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using DevExpress.Web.ASPxClasses;
+using DevExpress.Web.ASPxEditors;
+using DevExpress.Web.ASPxPanel;
 
-namespace eXpand.ExpressApp.Web
+namespace eXpand.ExpressApp.HintModule.Web
 {
     public class HintPanel : ASPxPanel
     {
-        private ASPxLabel label;
+        private readonly ASPxLabel label;
         public HintPanel()
         {
             Paddings.PaddingBottom = 8;
 
-            ASPxPanel innerHintPanel = new ASPxPanel();
+            var innerHintPanel = new ASPxPanel();
             innerHintPanel.Paddings.Assign(new Paddings(8, 8, 8, 8));
             innerHintPanel.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             Controls.Add(innerHintPanel);

@@ -1,4 +1,4 @@
-namespace eXpand.ExpressApp.SystemModule
+namespace eXpand.ExpressApp.HintModule.Controllers
 {
     partial class AdditionalInfoController
     {

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 
-namespace eXpand.ExpressApp
+namespace eXpand.ExpressApp.HintModule
 {
     public class HintCalculator : IDisposable
     {
@@ -23,37 +20,29 @@ namespace eXpand.ExpressApp
         }
         private void RemovePropertyChangedHandler(object obj)
         {
-            INotifyPropertyChanged supportNotifyPropertyChanged = obj as INotifyPropertyChanged;
+            var supportNotifyPropertyChanged = obj as INotifyPropertyChanged;
             if (supportNotifyPropertyChanged != null)
             {
-                supportNotifyPropertyChanged.PropertyChanged -= new PropertyChangedEventHandler(supportNotifyPropertyChanged_PropertyChanged);
+                supportNotifyPropertyChanged.PropertyChanged -= supportNotifyPropertyChanged_PropertyChanged;
             }
         }
         private void AddPropertyChangedHandler(object obj)
         {
-            INotifyPropertyChanged supportNotifyPropertyChanged = obj as INotifyPropertyChanged;
+            var supportNotifyPropertyChanged = obj as INotifyPropertyChanged;
             if (supportNotifyPropertyChanged != null)
-            {
-                supportNotifyPropertyChanged.PropertyChanged += new PropertyChangedEventHandler(supportNotifyPropertyChanged_PropertyChanged);
-            }
+                supportNotifyPropertyChanged.PropertyChanged +=supportNotifyPropertyChanged_PropertyChanged;
         }
         private void UpdateAdditionalText()
         {
             if (CurrentObject != null && attribute != null && !string.IsNullOrEmpty(attribute.HintPropertyName))
-            {
-                AdditionalText = (string)ReflectionHelper.GetMemberValue(CurrentObject, attribute.HintPropertyName);
-            }
+                AdditionalText = (string) ReflectionHelper.GetMemberValue(CurrentObject, attribute.HintPropertyName);
             else
-            {
                 AdditionalText = "";
-            }
         }
         protected virtual void OnHintChanged()
         {
             if (HintChanged != null)
-            {
                 HintChanged(this, EventArgs.Empty);
-            }
         }
         public HintCalculator(HintAttribute attribute)
         {

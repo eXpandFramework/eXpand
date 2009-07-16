@@ -1,7 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 
-namespace eXpand.ExpressApp
+namespace eXpand.ExpressApp.HintModule
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public class HintAttribute : Attribute

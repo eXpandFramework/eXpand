@@ -27,6 +27,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         protected override void OnActivated()
         {
             base.OnActivated();
+            Active[""] = false;
             Window.TemplateViewChanged += Window_TemplateViewChanged;
             Frame.GetController<DetailViewController>().Activated += (sender, e) =>
                                                                          {

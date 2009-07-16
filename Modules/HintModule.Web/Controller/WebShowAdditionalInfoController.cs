@@ -1,11 +1,9 @@
 using System;
 using System.Web.UI;
-using System.Windows.Forms;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Templates;
-using eXpand.ExpressApp.SystemModule;
+using eXpand.ExpressApp.HintModule.Controllers;
 
-namespace eXpand.ExpressApp.Web.SystemModule
+namespace eXpand.ExpressApp.HintModule.Web.Controller
 {
     public partial class WebShowAdditionalInfoController : AdditionalInfoController
     {

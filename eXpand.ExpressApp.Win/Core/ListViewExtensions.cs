@@ -14,5 +14,6 @@ namespace eXpand.ExpressApp.Win.Core
             operators.Add(CriteriaOperator.Parse(listView.Info.GetAttributeValue(GridListEditor.ActiveFilterString)));
             return ObjectSpace.CombineCriteria(operators.ToArray());
         }
+
     }
 }

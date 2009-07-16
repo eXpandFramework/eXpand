@@ -1,4 +1,4 @@
-namespace eXpand.ExpressApp.Web.SystemModule
+namespace eXpand.ExpressApp.HintModule.Web.Controller
 {
     partial class WebShowAdditionalInfoController
     {

@@ -1,4 +1,4 @@
-namespace eXpand.ExpressApp.Win.SystemModule
+namespace eXpand.ExpressApp.HintModule.Win.Controllers
 {
     partial class WinHintController
     {

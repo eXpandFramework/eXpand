@@ -1,14 +1,11 @@
 using System;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 
-namespace eXpand.ExpressApp.SystemModule
+namespace eXpand.ExpressApp.HintModule.Controllers
 {
-    public interface IAdditionalInfoControlProvider
-    {
-        object CreateControl();
-    }
     public abstract partial class AdditionalInfoController : WindowController
     {
         private readonly LightDictionary<IAdditionalInfoControlProvider, object> controlProviders = new LightDictionary<IAdditionalInfoControlProvider, object>();
@@ -23,24 +20,31 @@ namespace eXpand.ExpressApp.SystemModule
         }
         protected void AddInfoControls()
         {
-            var viewSiteTemplate = Window.Template as IViewSiteTemplate;
-            if (viewSiteTemplate == null)
+            if (Window != null)
             {
-                return;
-            }
-            if (viewSiteTemplate.ViewSiteControl != null)
-            {
-                foreach (IAdditionalInfoControlProvider controlProvider in controlProviders.Keys)
-                {
-                    object control = controlProvider.CreateControl();
-                    if (control != null)
+                var viewSiteTemplate = Window.Template as IViewSiteTemplate;
+                if (viewSiteTemplate == null)
+                    return;
+                if (viewSiteTemplate.ViewSiteControl != null)
+                    foreach (IAdditionalInfoControlProvider controlProvider in controlProviders.Keys)
                     {
-                        AddInfoControlOnTemplate(viewSiteTemplate.ViewSiteControl, control);
-                        controlProviders[controlProvider] = control;
+                        object control = controlProvider.CreateControl();
+                        if (control != null)
+                        {
+                            AddInfoControlOnTemplate(viewSiteTemplate.ViewSiteControl, control);
+                            OnControlAdded(new ControlEventArgs((Control) control));
+                            controlProviders[controlProvider] = control;
+                        }
                     }
-                }
             }
         }
+
+        private void OnControlAdded(ControlEventArgs args)
+        {
+            if (ControlAdded!= null)
+                ControlAdded(this,args);
+        }
+
         protected void ClearControls()
         {
             foreach (IAdditionalInfoControlProvider controlProvider in controlProviders.Keys)
@@ -48,10 +52,12 @@ namespace eXpand.ExpressApp.SystemModule
                 DisposeControl(controlProvider);
             }
         }
+        public event EventHandler<ControlEventArgs> ControlAdded;
         protected abstract void AddInfoControlOnTemplate(object viewSiteControl, object control);
         public void Register(IAdditionalInfoControlProvider controlProvider)
         {
             controlProviders.Add(controlProvider, null);
+            AddInfoControls();
         }
         public void Unregister(IAdditionalInfoControlProvider controlProvider)
         {

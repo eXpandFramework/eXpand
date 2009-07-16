@@ -1,15 +1,21 @@
 using DevExpress.ExpressApp;
 using DevExpress.Utils.Frames;
-using eXpand.ExpressApp.SystemModule;
+using eXpand.ExpressApp.HintModule.Controllers;
+using eXpand.ExpressApp.Core;
 
-namespace eXpand.ExpressApp.Win.SystemModule
+namespace eXpand.ExpressApp.HintModule.Win.Controllers
 {
     public partial class WinHintController : ViewController, IAdditionalInfoControlProvider
     {
         protected override void OnActivated()
         {
             base.OnActivated();
-            Frame.GetController<WinShowAdditionalInfoController>().Register(this);
+            if (View is DetailView|| !((ListView) View).IsNested(Frame))
+            {
+                var winShowAdditionalInfoController = Frame.GetController<WinShowAdditionalInfoController>();
+                winShowAdditionalInfoController.Register(this);
+            }
+            
         }
         protected override void OnDeactivating()
         {

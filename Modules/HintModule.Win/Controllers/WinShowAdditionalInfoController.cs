@@ -4,9 +4,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Templates;
-using eXpand.ExpressApp.SystemModule;
+using eXpand.ExpressApp.HintModule.Controllers;
 
-namespace eXpand.ExpressApp.Win.SystemModule
+namespace eXpand.ExpressApp.HintModule.Win.Controllers
 {
     public partial class WinShowAdditionalInfoController : AdditionalInfoController
     {

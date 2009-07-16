@@ -69,9 +69,13 @@
     <Reference Include="DevExpress.Persistent.BaseImpl.v9.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Web.ASPxEditors.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpo.v9.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="eXpand.ExpressApp, Version=0.0.0.6, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="eXpand.ExpressApp.HintModule, Version=1.0.0.6, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -83,10 +87,8 @@
       <Name>System.Data</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Windows.Forms">
-      <Name>System.Windows.Forms</Name>
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>
@@ -99,23 +101,26 @@
     <Compile Include="Controller\WebHintController.Designer.cs">
       <DependentUpon>WebHintController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controller\WebShowAdditionalInfoController.cs" />
+    <Compile Include="Controller\WebShowAdditionalInfoController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controller\WebShowAdditionalInfoController.Designer.cs">
       <DependentUpon>WebShowAdditionalInfoController.cs</DependentUpon>
     </Compile>
     <Compile Include="HintPanel.cs" />
-    <Compile Include="Module.cs">
+    <Compile Include="HintAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Module.Designer.cs">
-      <DependentUpon>Module.cs</DependentUpon>
+    <Compile Include="HintAspNetModule.Designer.cs">
+      <DependentUpon>HintAspNetModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
+    <Compile Include="WebHintDecorator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Module.resx">
-      <DependentUpon>Module.cs</DependentUpon>
+    <EmbeddedResource Include="HintAspNetModule.resx">
+      <DependentUpon>HintAspNetModule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

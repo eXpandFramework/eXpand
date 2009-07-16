@@ -11,7 +11,6 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils.Frames;
-using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.SystemModule;

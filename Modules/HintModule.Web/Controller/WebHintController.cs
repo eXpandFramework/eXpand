@@ -1,14 +1,16 @@
 using DevExpress.ExpressApp;
-using eXpand.ExpressApp.SystemModule;
+using eXpand.ExpressApp.HintModule.Controllers;
+using eXpand.ExpressApp.Core;
 
-namespace eXpand.ExpressApp.Web.SystemModule
+namespace eXpand.ExpressApp.HintModule.Web.Controller
 {
-    public class WebHintController : ViewController, IAdditionalInfoControlProvider
+    public partial class WebHintController : ViewController, IAdditionalInfoControlProvider
     {
         protected override void OnActivated()
         {
             base.OnActivated();
-            Frame.GetController<WebShowAdditionalInfoController>().Register(this);
+            if (View is DetailView || !((ListView)View).IsNested(Frame))
+                Frame.GetController<WebShowAdditionalInfoController>().Register(this);
         }
         protected override void OnDeactivating()
         {
@@ -17,7 +19,7 @@ namespace eXpand.ExpressApp.Web.SystemModule
         }
         public object CreateControl()
         {
-            HintPanel hintPanel = new HintPanel();
+            var hintPanel = new HintPanel();
             new WebHintDecorator(View, hintPanel);
             return hintPanel;
         }

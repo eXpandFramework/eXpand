@@ -7,9 +7,9 @@ using DevExpress.ExpressApp.NodeWrappers;
 namespace eXpand.ExpressApp.SystemModule
 {
     [Browsable(false)]
-    public  partial class BaseViewController : ViewController
+    public  abstract partial class BaseViewController : ViewController
     {
-        public BaseViewController()
+        protected BaseViewController()
         {
             InitializeComponent();
             RegisterActions(components);
