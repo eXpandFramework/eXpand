@@ -7,8 +7,8 @@
     <ProjectGuid>{0ED58058-1D06-4FE1-85D0-E82863D51FBB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>eXpand.ExpessApp.FilterDataStore.Win</RootNamespace>
-    <AssemblyName>eXpand.ExpessApp.FilterDataStore.Win</AssemblyName>
+    <RootNamespace>eXpand.ExpressApp.FilterDataStore.Win</RootNamespace>
+    <AssemblyName>eXpand.ExpressApp.FilterDataStore.Win</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -58,7 +58,9 @@
     <Reference Include="DevExpress.Xpo.v9.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.FilterDataStore, Version=0.0.0.6, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="eXpand.ExpressApp.FilterDataStore, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>

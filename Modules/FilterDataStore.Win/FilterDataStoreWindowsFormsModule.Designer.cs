@@ -1,6 +1,4 @@
-using eXpand.ExpressApp.FilterDataStore;
-
-namespace eXpand.ExpessApp.FilterDataStore.Win
+namespace eXpand.ExpressApp.FilterDataStore.Win
 {
     partial class FilterDataStoreWindowsFormsModule
     {

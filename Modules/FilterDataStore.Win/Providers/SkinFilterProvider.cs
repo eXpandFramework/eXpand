@@ -3,7 +3,7 @@ using DevExpress.LookAndFeel;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.FilterDataStore.Core;
 
-namespace eXpand.ExpessApp.FilterDataStore.Win.Providers
+namespace eXpand.ExpressApp.FilterDataStore.Win.Providers
 {
     public class SkinFilterProvider:FilterProviderBase
     {

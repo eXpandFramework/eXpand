@@ -1,11 +1,8 @@
 using System;
-using System.Security.Principal;
-
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
-using DevExpress.Data.Filtering;
 
-namespace eXpand.ExpessApp.FilterDataStore.Win
+namespace eXpand.ExpressApp.FilterDataStore.Win
 {
     public class Updater : ModuleUpdater
     {
