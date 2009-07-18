@@ -57,7 +57,7 @@ namespace DevExpress.ExpressApp.ConditionalEditorState {
         }
     }
     public class ConditionalEditorStateNodeWrapper : NodeWrapper {
-        public const string NodeName = "ConditionalEditorState1";
+        public const string NodeName = "ConditionalEditorState";
 
         public ConditionalEditorStateNodeWrapper() : this(new DictionaryNode(NodeName)) { }
         public ConditionalEditorStateNodeWrapper(DictionaryNode conditionalEditorStateNode) : base(conditionalEditorStateNode) { }

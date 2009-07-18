@@ -48,6 +48,14 @@ namespace eXpand.ExpressApp.FilterDataStore
 
             return new Schema(new DictionaryXmlReader().ReadFromString(s));
         }
+        public override void UpdateModel(Dictionary model)
+        {
+            base.UpdateModel(model);
+            var applicatioNodeWrapper = new ApplicationNodeWrapper(model);
+            foreach (ClassInfoNodeWrapper clw in applicatioNodeWrapper.BOModel.Classes)
+                clw.Node.AddChildNode(DisabledDataStoreFiltersAttributeName);
+        }
+
         public FilterDataStoreModule()
         {
             InitializeComponent();
