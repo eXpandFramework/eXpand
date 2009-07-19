@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXpandAddIns", "eXpandAddIn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.ExpressApp.ModelEditor", "DevExpress.ExpressApp.ModelEditor\DevExpress.ExpressApp.ModelEditor.csproj", "{91682A13-67A5-4FB6-9495-74CE699611DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eXpandAddins.Fixtures", "eXpandAddins.Fixtures\eXpandAddins.Fixtures.csproj", "{15B4CC4F-F7EA-4471-B119-901AC5C0F23E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,10 +18,6 @@ Global
 		{91682A13-67A5-4FB6-9495-74CE699611DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{91682A13-67A5-4FB6-9495-74CE699611DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91682A13-67A5-4FB6-9495-74CE699611DD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15B4CC4F-F7EA-4471-B119-901AC5C0F23E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15B4CC4F-F7EA-4471-B119-901AC5C0F23E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15B4CC4F-F7EA-4471-B119-901AC5C0F23E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15B4CC4F-F7EA-4471-B119-901AC5C0F23E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
