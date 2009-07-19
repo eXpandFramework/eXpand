@@ -42,3 +42,4 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyDescription("eXpressApp Framework Model Editor")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("Model Editor")]
+
