@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Configuration.Provider;
 using System.Linq;
 using System.Web.Configuration;
+using DevExpress.Persistent.Base;
 
 namespace eXpand.ExpressApp.FilterDataStore.Core
 {
@@ -84,7 +85,8 @@ namespace eXpand.ExpressApp.FilterDataStore.Core
             catch (Exception ex)
             {
                 isInitialized = true;
-                
+
+                Tracing.Tracer.LogError(ex);
                 throw;
             }
 

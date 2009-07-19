@@ -6,6 +6,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
@@ -120,6 +121,8 @@ namespace eXpand.ExpressApp.FilterDataStore
         public void UpdateData(IEnumerable<UpdateStatement> statements)
         {
             foreach (UpdateStatement statement in statements)
+            {
+                traceStatement(statement,"UpdateData");
                 if (!IsSystemTable(statement.TableName))
                 {
                     List<QueryOperand> operands = statement.Operands.OfType<QueryOperand>().ToList();
@@ -131,6 +134,8 @@ namespace eXpand.ExpressApp.FilterDataStore
                             statement.Parameters[i].Value = providerBase.FilterValue;
                     }
                 }
+                
+            }
         }
 
 
@@ -138,7 +143,7 @@ namespace eXpand.ExpressApp.FilterDataStore
         {
             foreach (InsertStatement statement in statements)
             {
-
+                traceStatement(statement, "InsertData");
                 if (!IsSystemTable(statement.TableName))
                 {
                     List<QueryOperand> operands = statement.Operands.OfType<QueryOperand>().ToList();
@@ -167,11 +172,14 @@ namespace eXpand.ExpressApp.FilterDataStore
         {
             var extractor = new CriteriaOperatorExtractor();
             extractor.Extract(statement.Condition);
+            traceStatement(statement, "ApplyCondition");
+
             foreach (FilterProviderBase provider in FilterProviderManager.Providers)
             {
                 FilterProviderBase providerBase = FilterProviderManager.GetFilterProvider(provider.FilterMemberName);
                 if (providerBase!= null)
                 {
+                    Tracing.Tracer.LogVerboseValue("providerName", providerBase.Name);
                     IEnumerable<BinaryOperator> binaryOperators =
                         extractor.BinaryOperators.Where(
                             @operator =>
@@ -186,23 +194,33 @@ namespace eXpand.ExpressApp.FilterDataStore
                                                operand => operand.ColumnName == providerBase.FilterMemberName).Select(
                                                operand => operand.NodeAlias).FirstOrDefault() ?? statement.Alias;
                         statement.Condition &= new QueryOperand(providerBase.FilterMemberName, nodeAlias) ==s;
+                        Tracing.Tracer.LogVerboseValue("new_statement", statement);
                     }
                 }
             }
-            
             return statement;
+        }
+
+        private void traceStatement(JoinNode statement, string methodName)
+        {
+            Tracing.Tracer.LogVerboseSubSeparator("Filter DataStore -- "+ methodName);
+            Tracing.Tracer.LogVerboseValue("statement.TableName", statement.TableName);
+            Tracing.Tracer.LogVerboseValue("statement", statement);
+            Tracing.Tracer.LogVerboseValue("FilterProviderManager.Providers.Count", FilterProviderManager.Providers.Count);
         }
 
 
         private bool IsSystemTable(string name)
         {
+            bool ret = false;
             DictionaryNode dictionaryNode = Application.Info.GetChildNode(FilterDataStoreModuleAttributeName).GetChildNode("SystemTables");
             foreach (DictionaryNode childNode in dictionaryNode.ChildNodes)
             {
                 if (childNode.GetAttributeValue("Name")==name)
-                    return true;
+                    ret= true;
             }
-            return false;
+            Tracing.Tracer.LogVerboseValue("IsSystemTable", ret);
+            return ret;
         }
 
         public string FindClassNameInDictionary(string tableName)
@@ -214,6 +232,7 @@ namespace eXpand.ExpressApp.FilterDataStore
 
         public bool FilterIsShared(string tableName,string providerName)
         {
+            bool ret = false;
             string classNameInDictionary = FindClassNameInDictionary(tableName);
             if (classNameInDictionary != null)
             {
@@ -223,9 +242,10 @@ namespace eXpand.ExpressApp.FilterDataStore
                         DictionaryNode childNode in
                             classInfoNodeWrapper.Node.GetChildNode(DisabledDataStoreFiltersAttributeName).ChildNodes)
                         if (childNode.GetAttributeValue("Name") == providerName)
-                            return true;
+                            ret =true;
             }
-            return false;
+            Tracing.Tracer.LogVerboseValue("FilterIsShared", ret);
+            return ret;
         }
     }
 }

@@ -66,10 +66,6 @@
     <Reference Include="DevExpress.Persistent.Base.v9.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v9.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="DevExpress.Xpo.v9.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -93,6 +89,7 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>
