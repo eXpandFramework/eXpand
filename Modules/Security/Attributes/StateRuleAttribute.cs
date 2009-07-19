@@ -5,9 +5,9 @@ using eXpand.ExpressApp.Security.Interfaces;
 namespace eXpand.ExpressApp.Security.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public abstract class ActivationRuleAttribute : Attribute, IActivationRule
+    public abstract class StateRuleAttribute : Attribute, IStateRule
     {
-        protected ActivationRuleAttribute(Nesting targetViewNesting, string normalCriteria, string emptyCriteria, ViewType viewType,string module)
+        protected StateRuleAttribute(Nesting targetViewNesting, string normalCriteria, string emptyCriteria, ViewType viewType,string module)
         {
             ViewType = viewType;
             Nesting = targetViewNesting;

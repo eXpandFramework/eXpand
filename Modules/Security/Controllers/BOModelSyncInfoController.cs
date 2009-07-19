@@ -24,7 +24,7 @@ namespace eXpand.ExpressApp.Security.Controllers
                             <Element Name=""" + GetElementStateActionName() + @""">
                                 <Element Name=""Item"" KeyAttribute=""" + STR_Name + @""" DisplayAttribute=""" + STR_Name + @""" Multiple=""True"">
                                     " +GetMoreSchema() + @"
-                                    " +schemaHelper.Serialize<IActivationRule>(true) + @"
+                                    " +schemaHelper.Serialize<IStateRule>(true) + @"
 				                </Element>
                             </Element>
                         </Element>

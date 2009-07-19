@@ -84,6 +84,9 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
+    <Reference Include="eXpand.Utils, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="eXpand.Xpo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
@@ -112,8 +115,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\ActivationRuleAttribute.cs" />
-    <Compile Include="Calculators\ActivationCalculator.cs" />
+    <Compile Include="Attributes\StateRuleAttribute.cs" />
+    <Compile Include="Calculators\StateCalculator.cs" />
     <Compile Include="Calculators\DictionaryActivationCalculator.cs" />
     <Compile Include="Controllers\BOModelSyncInfoController.cs">
       <SubType>Component</SubType>
@@ -139,15 +142,15 @@
     <Compile Include="Controllers\PopulateViewsController.Designer.cs">
       <DependentUpon>PopulateViewsController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IActivationRule.cs" />
+    <Compile Include="Interfaces\IStateRule.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Module.Designer.cs">
       <DependentUpon>Module.cs</DependentUpon>
     </Compile>
-    <Compile Include="NodeWrappers\DictionaryActivationNodeWrapperBase.cs" />
-    <Compile Include="Parsers\ActivationAttributesNodeParser.cs" />
+    <Compile Include="NodeWrappers\DictionaryStateNodeWrapperBase.cs" />
+    <Compile Include="Parsers\StateAttributesNodeParser.cs" />
     <Compile Include="Permissions\PermissionBase.cs" />
     <Compile Include="Permissions\StatePermission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

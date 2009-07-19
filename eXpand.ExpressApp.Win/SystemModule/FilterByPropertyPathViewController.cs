@@ -11,7 +11,6 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils.Frames;
-using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.SystemModule;
@@ -136,18 +135,19 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private CriteriaOperator SetCollectionSourceCriteria(FiltersByCollectionWrapper filtersByCollectionWrapper)
         {
-            CriteriaOperator criteriaOperator = CriteriaOperator.Parse(filtersByCollectionWrapper.ChildCollectionFilter);
+            CriteriaOperator criteriaOperator = CriteriaOperator.Parse(filtersByCollectionWrapper.PropertyPathFilter);
             if (criteriaOperator!= null)
             {
                 new FilterWithObjectsProcessor(View.ObjectSpace).Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
-                var condition = GetCondition(filtersByCollectionWrapper, criteriaOperator);
+//                var condition = GetCondition(filtersByCollectionWrapper, criteriaOperator);
                 ((ListView) View).CollectionSource.Criteria[filtersByCollectionWrapper.ID] =
-                    new ContainsOperator(filtersByCollectionWrapper.ContainsOperatorXpMemberInfoName,condition);
+                    new ContainsOperator(filtersByCollectionWrapper.ContainsOperatorXpMemberInfoName,CriteriaOperatorExtensions.Parse(filtersByCollectionWrapper.PropertyPath,criteriaOperator));
                 return criteriaOperator;
             }
             return criteriaOperator;
         }
 
+/*
         private CriteriaOperator GetCondition(FiltersByCollectionWrapper filtersByCollectionWrapper, CriteriaOperator criteriaOperator)
         {
             if (filtersByCollectionWrapper.FilteredObjectPath.IndexOf(".")>-1)
@@ -160,6 +160,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
             return criteriaOperator;
         }
+*/
 
 
         private void DialogControllerOnAccepting(object sender, DialogControllerAcceptingEventArgs args)
@@ -178,7 +179,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
 
             string attributeValue = nodeWrapper.Node.GetAttributeValue(GridListEditor.ActiveFilterString);
-            filtersByCollectionWrapper.ChildCollectionFilter = attributeValue;
+            filtersByCollectionWrapper.PropertyPathFilter = attributeValue;
             ApplyFilterString();
         }
 
@@ -187,10 +188,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
             var nodeWrapper =
                 (ListViewInfoNodeWrapper)
                 (new ApplicationNodeWrapper(Application.Info).Views.Items.Where(
-                    wrapper => wrapper.Id == filtersByCollectionWrapper.ChildCollectionListViewId)).
+                    wrapper => wrapper.Id == filtersByCollectionWrapper.PropertyPathListViewId)).
                     FirstOrDefault();
             if (nodeWrapper== null)
-                throw new ArgumentNullException(filtersByCollectionWrapper.ChildCollectionListViewId+" not found");
+                throw new ArgumentNullException(filtersByCollectionWrapper.PropertyPathListViewId+" not found");
             return nodeWrapper;
         }
 
@@ -206,7 +207,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
                                                              new CollectionSource(objectSpace, classType)
                                                            : new ServerCollectionSource(objectSpace, classType);
 
-            memberSearchWrapper.Node.SetAttribute(GridListEditor.ActiveFilterString, filtersByCollectionWrapper.ChildCollectionFilter);
+            memberSearchWrapper.Node.SetAttribute(GridListEditor.ActiveFilterString, filtersByCollectionWrapper.PropertyPathFilter);
 
             ListView listView = Application.CreateListView(memberSearchWrapper.Id,newCollectionSource,false);
 
@@ -235,27 +236,27 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 this.xpClassInfo = xpClassInfo;
             }
 
-            public string FilteredObjectPath
+            public string PropertyPath
             {
-                get { return childNode.GetAttributeValue(PropertyPath); }
-                set { childNode.SetAttribute(PropertyPath, value); }
+                get { return childNode.GetAttributeValue(FilterByPropertyPathViewController.PropertyPath); }
+                set { childNode.SetAttribute(FilterByPropertyPathViewController.PropertyPath, value); }
             }
 
             public string ID
             {
                 get { return childNode.GetAttributeValue("ID"); }
             }
-            public string ChildCollectionFilter
+            public string PropertyPathFilter
             {
-                get { return childNode.GetAttributeValue(PropertyPathFilter); }
-                set { childNode.SetAttribute(PropertyPathFilter, value); }
+                get { return childNode.GetAttributeValue(FilterByPropertyPathViewController.PropertyPathFilter); }
+                set { childNode.SetAttribute(FilterByPropertyPathViewController.PropertyPathFilter, value); }
             }
 
 
-            public string ChildCollectionListViewId
+            public string PropertyPathListViewId
             {
-                get { return childNode.GetAttributeValue(PropertyPathListViewId); }
-                set { childNode.SetAttribute(PropertyPathListViewId, value); }
+                get { return childNode.GetAttributeValue(FilterByPropertyPathViewController.PropertyPathListViewId); }
+                set { childNode.SetAttribute(FilterByPropertyPathViewController.PropertyPathListViewId, value); }
             }
 
             
@@ -266,7 +267,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
                     if (binaryOperatorLastMemberClassType== null)
                     {
                         var xpMemberInfo = ReflectorHelper.GetXpMemberInfo(xpClassInfo,
-                                                                           FilteredObjectPath);
+                                                                           PropertyPath);
                         binaryOperatorLastMemberClassType =xpMemberInfo.IsCollection?xpMemberInfo.CollectionElementType.ClassType: xpMemberInfo.ReferenceType.ClassType;
                     }
                     return binaryOperatorLastMemberClassType;
@@ -281,9 +282,9 @@ namespace eXpand.ExpressApp.Win.SystemModule
                     if (containsOperatorXpMemberInfoName== null&&BinaryOperatorLastMemberClassType != null)
 
                     {
-                        containsOperatorXpMemberInfoName =FilteredObjectPath.IndexOf(".")>-1?
-                                                                                                objectTypeInfo.FindMember(FilteredObjectPath.Substring(0, FilteredObjectPath.IndexOf("."))).
-                                                                                                    Name : FilteredObjectPath;
+                        containsOperatorXpMemberInfoName =PropertyPath.IndexOf(".")>-1?
+                                                                                                objectTypeInfo.FindMember(PropertyPath.Substring(0, PropertyPath.IndexOf("."))).
+                                                                                                    Name : PropertyPath;
                     }
                     return containsOperatorXpMemberInfoName;
                 }

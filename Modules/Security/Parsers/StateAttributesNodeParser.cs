@@ -6,7 +6,7 @@ using eXpand.ExpressApp.Security.Attributes;
 
 namespace eXpand.ExpressApp.Security.Parsers
 {
-    public abstract class ActivationAttributesNodeParser
+    public abstract class StateAttributesNodeParser
     {
         public void AddAttributesToXafTypesInfoFromBOModel(WindowController windowController, string nodeName)
         {
@@ -19,29 +19,29 @@ namespace eXpand.ExpressApp.Security.Parsers
                 foreach (DictionaryNode childNode in node.ChildNodes)
                 {
                     ViewType viewType = childNode.GetAttributeEnumValue(typeof (ViewType).Name, ViewType.Any);
-                    ActivationRuleAttribute controllerActivationRuleAttribute;
+                    StateRuleAttribute controllerStateRuleAttribute;
                     if (viewType == ViewType.Any)
                     {
                         
-                        controllerActivationRuleAttribute = GetActivationRuleAttribute(childNode, ViewType.
+                        controllerStateRuleAttribute = GetActivationRuleAttribute(childNode, ViewType.
                                                                                                       DetailView,
                                                                                        windowController.Application);
-                        classInfoNodeWrapper.ClassTypeInfo.AddAttribute(controllerActivationRuleAttribute);
-                        controllerActivationRuleAttribute = GetActivationRuleAttribute(childNode, ViewType.ListView,
+                        classInfoNodeWrapper.ClassTypeInfo.AddAttribute(controllerStateRuleAttribute);
+                        controllerStateRuleAttribute = GetActivationRuleAttribute(childNode, ViewType.ListView,
                                                                                        windowController.Application);
-                        classInfoNodeWrapper.ClassTypeInfo.AddAttribute(controllerActivationRuleAttribute);
+                        classInfoNodeWrapper.ClassTypeInfo.AddAttribute(controllerStateRuleAttribute);
                     }
                     else
                     {
-                        controllerActivationRuleAttribute = GetActivationRuleAttribute(childNode, viewType,
+                        controllerStateRuleAttribute = GetActivationRuleAttribute(childNode, viewType,
                                                                                        windowController.Application);
-                        classInfoNodeWrapper.ClassTypeInfo.AddAttribute(controllerActivationRuleAttribute);
+                        classInfoNodeWrapper.ClassTypeInfo.AddAttribute(controllerStateRuleAttribute);
                     }
                 }
             }
         }
 
-        protected abstract ActivationRuleAttribute GetActivationRuleAttribute(DictionaryNode childNode,
+        protected abstract StateRuleAttribute GetActivationRuleAttribute(DictionaryNode childNode,
                                                                               ViewType viewType,
                                                                               XafApplication xafApplication);
     }

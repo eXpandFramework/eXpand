@@ -24,7 +24,7 @@ namespace eXpand.ExpressApp.Security.Calculators
             public DictionaryNode DictionaryNode { get; set; }
             public string NodeName { get; set; }
         }
-        private readonly Dictionary<DictionaryNodeInfo, List<DictionaryActivationNodeWrapperBase>> attributesCore = new Dictionary<DictionaryNodeInfo, List<DictionaryActivationNodeWrapperBase>>();
+        private readonly Dictionary<DictionaryNodeInfo, List<DictionaryStateNodeWrapperBase>> attributesCore = new Dictionary<DictionaryNodeInfo, List<DictionaryStateNodeWrapperBase>>();
 
         static DictionaryActivationCalculator()
         {
@@ -34,7 +34,7 @@ namespace eXpand.ExpressApp.Security.Calculators
         {
             get { return singletonInstance; }
         }
-        public List<DictionaryActivationNodeWrapperBase> this[DictionaryNode dictionaryNode, string childNodeName,DictionaryActivationNodeWrapperDelegate wrapperDelegate]
+        public List<DictionaryStateNodeWrapperBase> this[DictionaryNode dictionaryNode, string childNodeName,DictionaryActivationNodeWrapperDelegate wrapperDelegate]
         {
             get
             {
@@ -49,11 +49,11 @@ namespace eXpand.ExpressApp.Security.Calculators
             }
         }
 
-        public delegate DictionaryActivationNodeWrapperBase DictionaryActivationNodeWrapperDelegate(DictionaryNode dictionaryNode);
-        private List<DictionaryActivationNodeWrapperBase> FindActivationWrappersAttributes(
+        public delegate DictionaryStateNodeWrapperBase DictionaryActivationNodeWrapperDelegate(DictionaryNode dictionaryNode);
+        private List<DictionaryStateNodeWrapperBase> FindActivationWrappersAttributes(
             DictionaryNode dictionaryNode, string childNodeName,DictionaryActivationNodeWrapperDelegate wrapperDelegate)
         {
-            var dictionaryActivationNodeWrappers = new List<DictionaryActivationNodeWrapperBase>();
+            var dictionaryActivationNodeWrappers = new List<DictionaryStateNodeWrapperBase>();
             foreach (var childNode in dictionaryNode.GetChildNode(childNodeName).ChildNodes)
                 dictionaryActivationNodeWrappers.Add(wrapperDelegate.Invoke(childNode));
             return dictionaryActivationNodeWrappers;
@@ -70,10 +70,10 @@ namespace eXpand.ExpressApp.Security.Calculators
 
         public static void ActivationCalculated(ViewController viewController, Type actiovationRuleAttributeType,
                                                 string childNodeName,
-                                                Action<DictionaryActivationNodeWrapperBase, bool> action,DictionaryActivationNodeWrapperDelegate wrapperDelegate)
+                                                Action<DictionaryStateNodeWrapperBase, bool> action,DictionaryActivationNodeWrapperDelegate wrapperDelegate)
         {
             View view = viewController.View;
-            foreach (DictionaryActivationNodeWrapperBase nodeWrapper in
+            foreach (DictionaryStateNodeWrapperBase nodeWrapper in
                 Instance[
                     view.Info,  childNodeName,wrapperDelegate])
             {
@@ -82,7 +82,7 @@ namespace eXpand.ExpressApp.Security.Calculators
             }
         }
 
-        private static void detailViewActivationCalculated(View view, DictionaryActivationNodeWrapperBase wrapper, Action<DictionaryActivationNodeWrapperBase, bool> action)
+        private static void detailViewActivationCalculated(View view, DictionaryStateNodeWrapperBase wrapper, Action<DictionaryStateNodeWrapperBase, bool> action)
         {
             if (view.CurrentObject != null)
             {
@@ -91,7 +91,7 @@ namespace eXpand.ExpressApp.Security.Calculators
             }
         }
 
-        private static void listViewActivationCalculated(View view, DictionaryActivationNodeWrapperBase nodeWrapper, Action<DictionaryActivationNodeWrapperBase, bool> action)
+        private static void listViewActivationCalculated(View view, DictionaryStateNodeWrapperBase nodeWrapper, Action<DictionaryStateNodeWrapperBase, bool> action)
         {
             if (view is ListView)
             {

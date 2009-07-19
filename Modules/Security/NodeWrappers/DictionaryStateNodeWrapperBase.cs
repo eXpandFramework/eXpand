@@ -4,7 +4,7 @@ using eXpand.ExpressApp.Security.Interfaces;
 
 namespace eXpand.ExpressApp.Security.NodeWrappers
 {
-    public abstract class DictionaryActivationNodeWrapperBase:NodeWrapper,IActivationRule
+    public abstract class DictionaryStateNodeWrapperBase:NodeWrapper,IStateRule
     {
         private DictionaryNode dictionaryNode;
 

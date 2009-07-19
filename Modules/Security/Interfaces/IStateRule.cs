@@ -2,7 +2,7 @@ using DevExpress.ExpressApp;
 
 namespace eXpand.ExpressApp.Security.Interfaces
 {
-    public interface IActivationRule
+    public interface IStateRule
     {
         ViewType ViewType { get; set; }
 

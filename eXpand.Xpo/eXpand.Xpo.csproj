@@ -84,6 +84,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Collections\XPCollectionExtensions.cs" />
+    <Compile Include="CriteriaOperatorExtensions.cs" />
     <Compile Include="CriteriaOperatorExtractor.cs" />
     <Compile Include="Collections\DBCollection.cs">
       <SubType>Component</SubType>
@@ -104,6 +105,15 @@
     <Compile Include="DB\DataStoreSelectDataEventArgs.cs" />
     <Compile Include="DB\DataStoreUpdateSchemaEventArgs.cs" />
     <Compile Include="FunctionOperators\ContainsFunction.cs" />
+    <Compile Include="PersistentMetaData\MyBaseObject.cs" />
+    <Compile Include="PersistentMetaData\PersistentAssociationAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentClassInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentCollectionMemberInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentCoreTypeMemberInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentMemberInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentReferenceMemberInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentTypeInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectorHelper.cs" />
     <Compile Include="DB\XpoDataStoreProxy.cs" />

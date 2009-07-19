@@ -1,7 +1,9 @@
 ﻿using DevExpress.Persistent.Validation;
+using DevExpress.Xpo;
 
 namespace eXpand.Persistent.BaseImpl.Validation.RuleMultiPropertiesValues
 {
+    [NonPersistent]
     public abstract class RuleMultiPropertiesValues : RuleBaseProperties, IRuleMultiPropertiesValues
     {
         [RulePropertiesRequired, RulePropertiesLocalized]

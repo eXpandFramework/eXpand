@@ -12,11 +12,11 @@ using eXpand.ExpressApp.Security.Interfaces;
 
 namespace eXpand.ExpressApp.Security.Calculators
 {
-    public class ActivationCalculator
+    public class StateCalculator
     {
         public const string TargetPropertiesDelimiters = ",:; ";
         private static readonly object dummyObject = new object();
-        private static readonly ActivationCalculator singletonInstance;
+        private static readonly StateCalculator singletonInstance;
 
         public struct TypeStruct
         {
@@ -27,12 +27,12 @@ namespace eXpand.ExpressApp.Security.Calculators
         private readonly Dictionary<TypeStruct, List<ActivationRuleAttributeMethodInfo>> attributesCore =
             new Dictionary<TypeStruct, List<ActivationRuleAttributeMethodInfo>>();
 
-        static ActivationCalculator()
+        static StateCalculator()
         {
-            singletonInstance = new ActivationCalculator();
+            singletonInstance = new StateCalculator();
         }
 
-        private ActivationCalculator()
+        private StateCalculator()
         {
         }
         
@@ -64,7 +64,7 @@ namespace eXpand.ExpressApp.Security.Calculators
             }
         }
 
-        public static ActivationCalculator Instance
+        public static StateCalculator Instance
         {
             get { return singletonInstance; }
         }
@@ -104,32 +104,32 @@ namespace eXpand.ExpressApp.Security.Calculators
             Guard.ArgumentNotNull(targetObject, "targetObject");
             Guard.ArgumentNotNull(pair, "attribute");
 
-            return ComputeControllerActivation(pair, targetObject, pair.ActivationRule.NormalCriteria);
+            return ComputeControllerActivation(pair, targetObject, pair.StateRule.NormalCriteria);
         }
 
         public static bool IsActive(ActivationRuleAttributeMethodInfo pair)
         {
             Guard.ArgumentNotNull(pair, "attribute");
-            return ComputeControllerActivation(pair, dummyObject, pair.ActivationRule.EmptyCriteria);
+            return ComputeControllerActivation(pair, dummyObject, pair.StateRule.EmptyCriteria);
         }
 
         public class ActivationRuleAttributeMethodInfo
         {
             
 
-            public ActivationRuleAttributeMethodInfo(ActivationRuleAttribute ruleAttribute, MethodInfo methodInfo)
+            public ActivationRuleAttributeMethodInfo(StateRuleAttribute ruleAttribute, MethodInfo methodInfo)
             {
-                ActivationRule = ruleAttribute;
+                StateRule = ruleAttribute;
                 MethodInfo = methodInfo;
             }
 
-            public ActivationRuleAttribute ActivationRule { get; set; }
+            public StateRuleAttribute StateRule { get; set; }
             public MethodInfo MethodInfo { get; set; }
         }
         /// <summary>
         /// 
         /// </summary>
-        public List<ActivationRuleAttributeMethodInfo> FindEditorStateAttributes<activationRuleAttribute>(Type type) where activationRuleAttribute : ActivationRuleAttribute
+        public List<ActivationRuleAttributeMethodInfo> FindEditorStateAttributes<activationRuleAttribute>(Type type) where activationRuleAttribute : StateRuleAttribute
         {
             Tracing.Tracer.LogSeparator(null);
             Tracing.Tracer.LogSeparator(string.Format("Begin of collecting attributes from methods of the {0} type.",
@@ -171,7 +171,7 @@ namespace eXpand.ExpressApp.Security.Calculators
 //                var attributeType =controllers? typeof (ControllerActivationRuleAttribute):typeof(ActionActivationRuleAttribute);
                 var attributeType = typeof(activationRuleAttribute);
                 object[] attributes = methodInfo.GetCustomAttributes(attributeType, true);
-                foreach (ActivationRuleAttribute attribute in attributes)
+                foreach (StateRuleAttribute attribute in attributes)
                     if (!IsFromBaseType<activationRuleAttribute>(methodInfo) )
                         dictionary.Add(new ActivationRuleAttributeMethodInfo(attribute,methodInfo));
             }
@@ -200,7 +200,7 @@ namespace eXpand.ExpressApp.Security.Calculators
         /// <summary>
         /// 
         /// </summary>
-        private static bool IsFromBaseType<activationRuleAttribute>(MethodInfo methodInfo) where activationRuleAttribute : ActivationRuleAttribute
+        private static bool IsFromBaseType<activationRuleAttribute>(MethodInfo methodInfo) where activationRuleAttribute : StateRuleAttribute
         {
             if (methodInfo.DeclaringType.BaseType != null)
             {
@@ -216,50 +216,53 @@ namespace eXpand.ExpressApp.Security.Calculators
             return false;
         }
 
-        public static void ActivationCalculated(Controller controller,  Action<bool, ActivationRuleAttribute> active,Type actiovationRuleAttributeType)
+        public static void ActivationCalculated(Controller controller,  Action<bool, StateRuleAttribute> active,Type actiovationRuleAttributeType)
         {
-            var view = controller.Frame.View;
-            List<ActivationRuleAttributeMethodInfo> instance = Instance[view.ObjectTypeInfo.Type, actiovationRuleAttributeType];
-            foreach (var pair in instance)
+            if (controller.Frame != null)
             {
-                ActivationRuleAttribute activationRuleAttribute = pair.ActivationRule;
-                if (view is DetailView) detailViewActivationCalculated(view, pair, activationRuleAttribute, active);
-                else listViewActivationCalculated(view, pair, activationRuleAttribute, active);
+                var view = controller.Frame.View;
+                List<ActivationRuleAttributeMethodInfo> instance = Instance[view.ObjectTypeInfo.Type, actiovationRuleAttributeType];
+                foreach (var pair in instance)
+                {
+                    StateRuleAttribute stateRuleAttribute = pair.StateRule;
+                    if (view is DetailView) detailViewActivationCalculated(view, pair, stateRuleAttribute, active);
+                    else listViewActivationCalculated(view, pair, stateRuleAttribute, active);
+                }
             }
         }
 
         private static void listViewActivationCalculated(View view, ActivationRuleAttributeMethodInfo pair,
-                                                         ActivationRuleAttribute activationRuleAttribute,
-                                                         Action<bool, ActivationRuleAttribute> active)
+                                                         StateRuleAttribute stateRuleAttribute,
+                                                         Action<bool, StateRuleAttribute> active)
         {
-            if (IsListViewTargeted(activationRuleAttribute, view))
+            if (IsListViewTargeted(stateRuleAttribute, view))
             {
                 bool isActive = view.CurrentObject == null ? IsActive(pair) : IsActive(view.CurrentObject, pair);
-                active(isActive,activationRuleAttribute);
+                active(isActive,stateRuleAttribute);
             }
         }
 
-        public static bool IsListViewTargeted(IActivationRule activationRuleAttribute, View view)
+        public static bool IsListViewTargeted(IStateRule stateRuleAttribute, View view)
         {
-            return (activationRuleAttribute.ViewType == ViewType.ListView || activationRuleAttribute.ViewType == ViewType.Any) && view is ListView &&
-                   ((activationRuleAttribute.Nesting == Nesting.Root && view.IsRoot) ||
-                    (activationRuleAttribute.Nesting == Nesting.Nested && view.IsRoot == false) ||
-                    (activationRuleAttribute.Nesting == Nesting.Any));
+            return (stateRuleAttribute.ViewType == ViewType.ListView || stateRuleAttribute.ViewType == ViewType.Any) && view is ListView &&
+                   ((stateRuleAttribute.Nesting == Nesting.Root && view.IsRoot) ||
+                    (stateRuleAttribute.Nesting == Nesting.Nested && view.IsRoot == false) ||
+                    (stateRuleAttribute.Nesting == Nesting.Any));
         }
 
-        private static void detailViewActivationCalculated(View view, ActivationRuleAttributeMethodInfo pair, ActivationRuleAttribute activationRuleAttribute, Action<bool, ActivationRuleAttribute> active)
+        private static void detailViewActivationCalculated(View view, ActivationRuleAttributeMethodInfo pair, StateRuleAttribute stateRuleAttribute, Action<bool, StateRuleAttribute> active)
         {
-            if (IsDetailViewTargeted(view, activationRuleAttribute))
+            if (IsDetailViewTargeted(view, stateRuleAttribute))
             {
                 bool isActive = IsActive(view.CurrentObject, pair);
-                active(isActive, activationRuleAttribute);
+                active(isActive, stateRuleAttribute);
             }
         }
 
-        public static bool IsDetailViewTargeted(View view, IActivationRule activationRule)
+        public static bool IsDetailViewTargeted(View view, IStateRule stateRule)
         {
             return view.CurrentObject != null &&
-                   ((activationRule.ViewType == ViewType.DetailView || activationRule.ViewType == ViewType.Any) && view is DetailView);
+                   ((stateRule.ViewType == ViewType.DetailView || stateRule.ViewType == ViewType.Any) && view is DetailView);
         }
     }
 }

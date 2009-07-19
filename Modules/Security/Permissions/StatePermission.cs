@@ -5,7 +5,7 @@ using eXpand.ExpressApp.Security.Interfaces;
 
 namespace eXpand.ExpressApp.Security.Permissions
 {
-    public abstract class StatePermission : PermissionBase,IActivationRule
+    public abstract class StatePermission : PermissionBase,IStateRule
     {
         [RuleRequiredField(null, DefaultContexts.Save)]
         public string Name { get; set; }
