@@ -54,10 +54,13 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
                 {
                     List<Guid> userModelDictionaryDifferenceStores =
                         queryable.Select(store => store.Oid).ToList();
-                    List<Guid> guids = XpoRoleModelDictionaryDifferenceStoreBuilder.GetStores(Session).Select(store => store.Oid).ToList();
-                    userModelDictionaryDifferenceStores.AddRange(guids);
+                    IQueryable<XpoRoleModelDictionaryDifferenceStore> differenceStores = XpoRoleModelDictionaryDifferenceStoreBuilder.GetStores(Session);
+                    if (differenceStores != null)
+                    {
+                        List<Guid> guids = differenceStores.Select(store => store.Oid).ToList();
+                        userModelDictionaryDifferenceStores.AddRange(guids);
+                    }
                     IOrderedQueryable<BaseObjects.XpoModelDictionaryDifferenceStore> activeStores = new XPQuery<BaseObjects.XpoModelDictionaryDifferenceStore>(Session).Where(store => userModelDictionaryDifferenceStores.Contains(store.Oid)).OrderByDescending(store => store.DateCreated);
-                    int count = activeStores.Count();
                     return activeStores;
                 }
                 return queryable.OrderByDescending(store => store.DateCreated);
