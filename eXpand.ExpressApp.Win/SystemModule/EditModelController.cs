@@ -21,7 +21,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             get { return editing; }
         }
 
-        protected override void OnActivated()
+        protected override void OnActivated
         {
             base.OnActivated();
             MessageBox.Show("");
