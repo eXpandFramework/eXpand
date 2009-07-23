@@ -141,4 +141,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\..\eXpand.DLL\$(TargetFileName)</PostBuildEvent>
+  </PropertyGroup>
 </Project>
