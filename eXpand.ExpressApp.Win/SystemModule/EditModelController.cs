@@ -24,7 +24,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
         protected override void OnActivated()
         {
             base.OnActivated();
-
             if (Application.MainWindow != null && Application.MainWindow.Template is MainForm)
                 ((MainForm) Application.MainWindow.Template).FormClosing += MainForm_FormClosing;
 

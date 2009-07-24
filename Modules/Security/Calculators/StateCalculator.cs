@@ -22,10 +22,10 @@ namespace eXpand.ExpressApp.Security.Calculators
         {
             public Type ObjectType { get; set; }
 
-            public Type ActivationRuleType { get; set; }
+            public Type StateRuleType { get; set; }
         }
-        private readonly Dictionary<TypeStruct, List<ActivationRuleAttributeMethodInfo>> attributesCore =
-            new Dictionary<TypeStruct, List<ActivationRuleAttributeMethodInfo>>();
+        private readonly Dictionary<TypeStruct, List<StateRuleAttributeMethodInfo>> attributesCore =
+            new Dictionary<TypeStruct, List<StateRuleAttributeMethodInfo>>();
 
         static StateCalculator()
         {
@@ -38,25 +38,25 @@ namespace eXpand.ExpressApp.Security.Calculators
         
 
             
-        public List<ActivationRuleAttributeMethodInfo> this[Type objectType,Type activationRuleAttributeType]
+        public List<StateRuleAttributeMethodInfo> this[Type objectType,Type stateRuleAttributeType]
         {
             get
             {
                 lock (new object())
                 {
-                    var key = new TypeStruct { ActivationRuleType = activationRuleAttributeType, ObjectType = objectType };
+                    var key = new TypeStruct { StateRuleType = stateRuleAttributeType, ObjectType = objectType };
                     if (!attributesCore.ContainsKey(key))
                     {
                         object invoke =GetType().GetMethod("FindEditorStateAttributes").MakeGenericMethod(new[]
                                                                                                               {
-                                                                                                                  activationRuleAttributeType
+                                                                                                                  stateRuleAttributeType
                                                                                                               }).Invoke(this, new object[]
                                                                                                                                   {
                                                                                                                                       objectType
                                                                                                                                   }
                             );
 
-                        attributesCore.Add(key, (List<ActivationRuleAttributeMethodInfo>)invoke);
+                        attributesCore.Add(key, (List<StateRuleAttributeMethodInfo>)invoke);
                     }
 
                     return attributesCore[key];
@@ -69,8 +69,8 @@ namespace eXpand.ExpressApp.Security.Calculators
             get { return singletonInstance; }
         }
 
-        private static bool ComputeControllerActivation(
-            ActivationRuleAttributeMethodInfo pair, object targetObject, string criteria)
+        private static bool ComputeControllerState(
+            StateRuleAttributeMethodInfo pair, object targetObject, string criteria)
         {
             Guard.ArgumentNotNull(targetObject, "targetObject");
             Guard.ArgumentNotNull(pair, "pair");
@@ -86,10 +86,10 @@ namespace eXpand.ExpressApp.Security.Calculators
                     return result;
                 return true;
             }
-            return ComputeControllerActivation(targetObject, criteria);
+            return ComputeControllerState(targetObject, criteria);
         }
 
-        public static bool ComputeControllerActivation(object targetObject, string criteria)
+        public static bool ComputeControllerState(object targetObject, string criteria)
         {
             if (string.IsNullOrEmpty(criteria))
                 return true;
@@ -99,25 +99,25 @@ namespace eXpand.ExpressApp.Security.Calculators
         }
 
         public static bool IsActive(object targetObject,
-                                    ActivationRuleAttributeMethodInfo pair)
+                                    StateRuleAttributeMethodInfo pair)
         {
             Guard.ArgumentNotNull(targetObject, "targetObject");
             Guard.ArgumentNotNull(pair, "attribute");
 
-            return ComputeControllerActivation(pair, targetObject, pair.StateRule.NormalCriteria);
+            return ComputeControllerState(pair, targetObject, pair.StateRule.NormalCriteria);
         }
 
-        public static bool IsActive(ActivationRuleAttributeMethodInfo pair)
+        public static bool IsActive(StateRuleAttributeMethodInfo pair)
         {
             Guard.ArgumentNotNull(pair, "attribute");
-            return ComputeControllerActivation(pair, dummyObject, pair.StateRule.EmptyCriteria);
+            return ComputeControllerState(pair, dummyObject, pair.StateRule.EmptyCriteria);
         }
 
-        public class ActivationRuleAttributeMethodInfo
+        public class StateRuleAttributeMethodInfo
         {
             
 
-            public ActivationRuleAttributeMethodInfo(StateRuleAttribute ruleAttribute, MethodInfo methodInfo)
+            public StateRuleAttributeMethodInfo(StateRuleAttribute ruleAttribute, MethodInfo methodInfo)
             {
                 StateRule = ruleAttribute;
                 MethodInfo = methodInfo;
@@ -129,12 +129,12 @@ namespace eXpand.ExpressApp.Security.Calculators
         /// <summary>
         /// 
         /// </summary>
-        public List<ActivationRuleAttributeMethodInfo> FindEditorStateAttributes<activationRuleAttribute>(Type type) where activationRuleAttribute : StateRuleAttribute
+        public List<StateRuleAttributeMethodInfo> FindEditorStateAttributes<stateRuleAttribute>(Type type) where stateRuleAttribute : StateRuleAttribute
         {
             Tracing.Tracer.LogSeparator(null);
             Tracing.Tracer.LogSeparator(string.Format("Begin of collecting attributes from methods of the {0} type.",
                                                       type.FullName));
-            var dictionary = new List<ActivationRuleAttributeMethodInfo>();
+            var dictionary = new List<StateRuleAttributeMethodInfo>();
             foreach (
                 MethodInfo methodInfo in
                     type.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance |
@@ -169,24 +169,24 @@ namespace eXpand.ExpressApp.Security.Calculators
                     }
                 }
 //                var attributeType =controllers? typeof (ControllerActivationRuleAttribute):typeof(ActionActivationRuleAttribute);
-                var attributeType = typeof(activationRuleAttribute);
+                var attributeType = typeof(stateRuleAttribute);
                 object[] attributes = methodInfo.GetCustomAttributes(attributeType, true);
                 foreach (StateRuleAttribute attribute in attributes)
-                    if (!IsFromBaseType<activationRuleAttribute>(methodInfo) )
-                        dictionary.Add(new ActivationRuleAttributeMethodInfo(attribute,methodInfo));
+                    if (!IsFromBaseType<stateRuleAttribute>(methodInfo) )
+                        dictionary.Add(new StateRuleAttributeMethodInfo(attribute,methodInfo));
             }
 //            var activationRuleAttributes = controllers
 //                                               ? (IEnumerable) XafTypesInfo.Instance.FindTypeInfo(type).FindAttributes<ControllerActivationRuleAttribute>()
 //                                               : XafTypesInfo.Instance.FindTypeInfo(type).FindAttributes<ActionActivationRuleAttribute>();
-            var activationRuleAttributes =
-                XafTypesInfo.Instance.FindTypeInfo(type).FindAttributes<activationRuleAttribute>();
+            var stateRuleAttributes =
+                XafTypesInfo.Instance.FindTypeInfo(type).FindAttributes<stateRuleAttribute>();
             
-            List<activationRuleAttribute> attributesRules = activationRuleAttributes.ToList();
+            List<stateRuleAttribute> attributesRules = stateRuleAttributes.ToList();
             for (int i = 0; i < attributesRules.Count; i++)
             {
-                activationRuleAttribute attribute = attributesRules[i];
+                stateRuleAttribute attribute = attributesRules[i];
                 
-                dictionary.Add(new ActivationRuleAttributeMethodInfo(attribute, null));
+                dictionary.Add(new StateRuleAttributeMethodInfo(attribute, null));
             }
             
             Tracing.Tracer.LogSeparator(null);
@@ -200,7 +200,7 @@ namespace eXpand.ExpressApp.Security.Calculators
         /// <summary>
         /// 
         /// </summary>
-        private static bool IsFromBaseType<activationRuleAttribute>(MethodInfo methodInfo) where activationRuleAttribute : StateRuleAttribute
+        private static bool IsFromBaseType<stateRuleAttribute>(MethodInfo methodInfo) where stateRuleAttribute : StateRuleAttribute
         {
             if (methodInfo.DeclaringType.BaseType != null)
             {
@@ -208,7 +208,7 @@ namespace eXpand.ExpressApp.Security.Calculators
                 if (baseMethodInfo != null)
                 {
 //                    var attributeType =controllers? typeof (ControllerActivationRuleAttribute):typeof(ActionActivationRuleAttribute);
-                    var attributeType = typeof(activationRuleAttribute);
+                    var attributeType = typeof(stateRuleAttribute);
                     if (baseMethodInfo.GetCustomAttributes(attributeType, true).Length > 0)
                         return true;
                 }
@@ -216,22 +216,22 @@ namespace eXpand.ExpressApp.Security.Calculators
             return false;
         }
 
-        public static void ActivationCalculated(Controller controller,  Action<bool, StateRuleAttribute> active,Type actiovationRuleAttributeType)
+        public static void StateCalculated(Controller controller,  Action<bool, StateRuleAttribute> active,Type actiovationRuleAttributeType)
         {
-            if (controller.Frame != null)
+            if (controller.Frame != null && controller.Frame.View != null)
             {
                 var view = controller.Frame.View;
-                List<ActivationRuleAttributeMethodInfo> instance = Instance[view.ObjectTypeInfo.Type, actiovationRuleAttributeType];
+                List<StateRuleAttributeMethodInfo> instance = Instance[view.ObjectTypeInfo.Type, actiovationRuleAttributeType];
                 foreach (var pair in instance)
                 {
                     StateRuleAttribute stateRuleAttribute = pair.StateRule;
-                    if (view is DetailView) detailViewActivationCalculated(view, pair, stateRuleAttribute, active);
-                    else listViewActivationCalculated(view, pair, stateRuleAttribute, active);
+                    if (view is DetailView) detailViewStateCalculated(view, pair, stateRuleAttribute, active);
+                    else listViewStateCalculated(view, pair, stateRuleAttribute, active);
                 }
             }
         }
 
-        private static void listViewActivationCalculated(View view, ActivationRuleAttributeMethodInfo pair,
+        private static void listViewStateCalculated(View view, StateRuleAttributeMethodInfo pair,
                                                          StateRuleAttribute stateRuleAttribute,
                                                          Action<bool, StateRuleAttribute> active)
         {
@@ -250,7 +250,7 @@ namespace eXpand.ExpressApp.Security.Calculators
                     (stateRuleAttribute.Nesting == Nesting.Any));
         }
 
-        private static void detailViewActivationCalculated(View view, ActivationRuleAttributeMethodInfo pair, StateRuleAttribute stateRuleAttribute, Action<bool, StateRuleAttribute> active)
+        private static void detailViewStateCalculated(View view, StateRuleAttributeMethodInfo pair, StateRuleAttribute stateRuleAttribute, Action<bool, StateRuleAttribute> active)
         {
             if (IsDetailViewTargeted(view, stateRuleAttribute))
             {

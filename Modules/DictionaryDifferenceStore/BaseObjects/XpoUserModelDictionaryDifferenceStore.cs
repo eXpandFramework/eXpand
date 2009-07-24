@@ -40,6 +40,7 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects
     {
         public static IQueryable<XpoModelDictionaryDifferenceStore> GetActiveStores(Session session, IOrderedQueryable<XpoModelDictionaryDifferenceStore> stores, string clientType)
         {
+            
             var containsOperator = new ContainsOperator("Users",new BinaryOperator("Oid",((XPBaseObject)SecuritySystem.CurrentUser)
                                                                          .ClassInfo.KeyProperty.GetValue(SecuritySystem.CurrentUser)));
             var stores1 = new XPCollection<XpoUserModelDictionaryDifferenceStore>(session,

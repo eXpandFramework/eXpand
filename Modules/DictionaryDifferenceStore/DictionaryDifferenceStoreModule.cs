@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Data;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Utils;
 using DevExpress.Xpo;
@@ -12,6 +14,8 @@ using XpoModelDictionaryDifferenceStore=
     eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores.XpoModelDictionaryDifferenceStore;
 using XpoUserModelDictionaryDifferenceStore=
     eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects.XpoUserModelDictionaryDifferenceStore;
+using System.Linq;
+using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.DictionaryDifferenceStore
 {
@@ -30,6 +34,21 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore
             InitializeComponent();
         }
 
+        public override void UpdateModel(Dictionary model)
+        {
+            base.UpdateModel(model);
+            if (!(SecuritySystem.Instance is ISecurityComplex))
+                RemoveXpoRoleModelDictionaryDifferenceStoreBONode(model);
+        }
+
+        private void RemoveXpoRoleModelDictionaryDifferenceStoreBONode(Dictionary model)
+        {
+            BOModelNodeWrapper boModelNodeWrapper = new ApplicationNodeWrapper(model).BOModel;
+            ClassInfoNodeWrapper wrapper = boModelNodeWrapper.Classes.Where(nodeWrapper => nodeWrapper.ClassTypeInfo.Type==typeof(XpoRoleModelDictionaryDifferenceStore)).FirstOrDefault();
+            if (wrapper != null) 
+                boModelNodeWrapper.Node.RemoveChildNode(wrapper.Node);
+        }
+
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
         {
             base.CustomizeTypesInfo(typesInfo);
@@ -37,27 +56,52 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore
             XPDictionary xpDictionary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
             createBasicUserProperties(xpDictionary);
             makeModifiedOnTime(xpDictionary);
-            addModelObjectsToRoles();
+
+            var complex = SecuritySystem.Instance as ISecurityComplex;
+            addModelObjectsToRoles(complex);
+            createXpoRoleModelDictionaryDifferenceStore(xpDictionary, complex);
+            if (complex!= null)
+            {
+                typesInfo.RefreshInfo(complex.RoleType);
+                typesInfo.RefreshInfo(typeof(XpoRoleModelDictionaryDifferenceStore));
+            }
         }
 
-        private void addModelObjectsToRoles()
+        private void createXpoRoleModelDictionaryDifferenceStore(XPDictionary dictionary, ISecurityComplex complex)
         {
-            XPClassInfo classInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeof(Role));
-            string propertyName = typeof(XpoRoleModelDictionaryDifferenceStore).Name + "s";
-            if (classInfo.FindMember(propertyName)== null)
+            if (complex != null)
             {
-                classInfo.CreateMember(propertyName, typeof (XPCollection), true,
-                                       new Attribute[]
-                                           {
-                                               new AssociationAttribute(
-                                                   Associations.XpoRoleModelDictionaryDifferenceStoreRoles,
-                                                   typeof (XpoRoleModelDictionaryDifferenceStore)),
-                                               new BrowsableAttribute(false),
-                                               new MemberDesignTimeVisibilityAttribute(false)
-                                           });
-                XafTypesInfo.Instance.RefreshInfo(typeof(Role));
+                XPClassInfo xpClassInfo = dictionary.GetClassInfo(typeof(XpoRoleModelDictionaryDifferenceStore));
+                string memberName = complex.RoleType.Name+ "s";
+                if (xpClassInfo.FindMember(memberName)== null)
+                {
+                    xpClassInfo.CreateMember(memberName, typeof(XPCollection), true, GetAttributes(complex.RoleType));
+                    XafTypesInfo.Instance.RefreshInfo(typeof(XpoRoleModelDictionaryDifferenceStore));
+                }
             }
-            
+        }
+
+        private void addModelObjectsToRoles(ISecurityComplex securityComplex)
+        {
+            if (securityComplex != null)
+            {
+                XPClassInfo classInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(securityComplex.RoleType);
+                string propertyName = typeof(XpoRoleModelDictionaryDifferenceStore).Name + "s";
+                if (classInfo.FindMember(propertyName) == null)
+                    classInfo.CreateMember(propertyName, typeof(XPCollection), true, GetAttributes(typeof(XpoRoleModelDictionaryDifferenceStore)));
+            }
+        }
+
+        private Attribute[] GetAttributes(Type type)
+        {
+            return new Attribute[]
+                       {
+                           new AssociationAttribute(
+                               Associations.XpoRoleModelDictionaryDifferenceStoreRoles,
+                               type),
+                           new BrowsableAttribute(false),
+                           new MemberDesignTimeVisibilityAttribute(false)
+                       };
         }
 
         public override void Setup(XafApplication application)

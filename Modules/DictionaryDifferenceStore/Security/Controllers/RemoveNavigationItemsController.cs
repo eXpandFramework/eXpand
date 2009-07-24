@@ -42,7 +42,7 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.Security.Controllers
 
         protected virtual bool HasEditModelPermission()
         {
-            var basicUser = SecuritySystem.CurrentUser as BasicUser;
+            var basicUser = SecuritySystem.Instance as BasicUser;
             if (basicUser!= null)
                 return basicUser.IsAdministrator;
             var user = SecuritySystem.CurrentUser as User;

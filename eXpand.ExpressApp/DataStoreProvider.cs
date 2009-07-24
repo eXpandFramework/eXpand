@@ -5,6 +5,7 @@ using eXpand.Xpo.DB;
 
 namespace eXpand.ExpressApp
 {
+
     public class DataStoreProvider : IXpoDataStoreProvider
     {
         private readonly XpoDataStoreProxy proxyCore;

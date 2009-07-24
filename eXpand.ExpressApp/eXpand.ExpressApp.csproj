@@ -101,7 +101,6 @@
     <Compile Include="Core\DictionaryHelpers\ViewIdRefNodeProvider.cs" />
     <Compile Include="Core\DictionaryHelpers\ViewTypeVisibilityCalculator.cs" />
     <Compile Include="Core\DictionaryNodeExtensions.cs" />
-    <Compile Include="Core\ListViewExtensions.cs" />
     <Compile Include="DataStoreProvider.cs" />
     <Compile Include="Enums\BooleanEnum.cs" />
     <Compile Include="Enums\RecycleBinEnum.cs" />

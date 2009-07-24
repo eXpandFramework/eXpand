@@ -15,5 +15,11 @@ namespace eXpand.ExpressApp.Win.Core
             return ObjectSpace.CombineCriteria(operators.ToArray());
         }
 
+        public static bool IsNested(this ListView listView, Frame frame)
+        {
+            return (frame.Template == null);
+        }
+
+
     }
 }

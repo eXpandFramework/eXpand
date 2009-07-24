@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Base.Security;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base;
@@ -25,24 +27,22 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects
             if (Session.IsNewObject(this))
                 DifferenceType = DifferenceType.Role;
         }
-        [Association(Associations.XpoRoleModelDictionaryDifferenceStoreRoles)]
-        public XPCollection<Role> Roles
-        {
-            get
-            {
-                return GetCollection<Role>(MethodBase.GetCurrentMethod().Name.Replace("get_", ""));
-            }
-        }
     }
 
     public class XpoRoleModelDictionaryDifferenceStoreBuilder
     {
         public static IQueryable<XpoRoleModelDictionaryDifferenceStore> GetStores(Session session)
         {
-            IEnumerable<Guid> collection = ((User)SecuritySystem.CurrentUser).Roles.Select(role => role.Oid);
-            var queryable = new XPQuery<XpoRoleModelDictionaryDifferenceStore>(session).Where(store => store.Roles.Any(role =>
-                                                                                                                              collection.Contains(role.Oid)));
-            return queryable;
+            var userWithRoles = SecuritySystem.CurrentUser as IUserWithRoles;
+            if (userWithRoles != null)
+            {
+                IEnumerable<Guid> collection =
+                    userWithRoles.Roles.Cast<BaseObject>().Select(role => role.Oid);
+                Type roleType = ((ISecurityComplex) SecuritySystem.Instance).RoleType;
+                return new XPCollection<XpoRoleModelDictionaryDifferenceStore>(session,
+                                                                               new ContainsOperator(roleType.Name+"s", new InOperator("Oid", collection.ToList()))).AsQueryable();
+            }
+            return null;
         }
     }
     internal class Associations
