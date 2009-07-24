@@ -193,7 +193,7 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore
             }
             catch (Exception)
             {
-                return new SecurityDummy().GetUserType();
+                return typeof(User);
             }
         }
 
