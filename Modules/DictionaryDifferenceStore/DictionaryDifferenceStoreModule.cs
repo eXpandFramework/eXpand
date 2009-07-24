@@ -15,6 +15,7 @@ using XpoModelDictionaryDifferenceStore=
 using XpoUserModelDictionaryDifferenceStore=
     eXpand.ExpressApp.DictionaryDifferenceStore.BaseObjects.XpoUserModelDictionaryDifferenceStore;
 using System.Linq;
+using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.DictionaryDifferenceStore
 {
@@ -192,7 +193,7 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore
             }
             catch (Exception)
             {
-                return typeof(User);
+                return new SecurityDummy().GetUserType();
             }
         }
 
