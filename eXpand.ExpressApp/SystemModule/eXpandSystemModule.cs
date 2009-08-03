@@ -28,7 +28,6 @@ namespace eXpand.ExpressApp.SystemModule
         {
             base.ValidateModel(model);
             DictionaryHelper.AddFields(model.RootNode, XafTypesInfo.XpoTypeInfoSource.XPDictionary);
-
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
