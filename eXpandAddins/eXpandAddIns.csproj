@@ -133,6 +133,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\..\eXpand.DLL\$(TargetFileName)</PostBuildEvent>
+    <PostBuildEvent>copy $(OutDir)\*.* $(SolutionDir)\..\eXpand.DLL\*.*</PostBuildEvent>
   </PropertyGroup>
 </Project>
