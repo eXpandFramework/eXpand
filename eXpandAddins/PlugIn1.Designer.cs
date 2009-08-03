@@ -1,4 +1,4 @@
-namespace XAFAddIns
+namespace eXpandAddIns
 {
     partial class PlugIn1 {
         /// <summary>

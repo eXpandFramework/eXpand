@@ -1,6 +1,8 @@
 using DevExpress.CodeRush.Core;
+using DevExpress.DXCore.Controls.XtraEditors;
+using DevExpress.DXCore.Controls.XtraEditors.Controls;
 
-namespace XAFAddIns
+namespace eXpandAddIns
 {
     partial class Options {
         /// <summary>
@@ -34,12 +36,12 @@ namespace XAFAddIns
         /// </summary>
         private void InitializeComponent() {
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.textEdit1 = new DevExpress.XtraEditors.ButtonEdit();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.buttonEdit2 = new DevExpress.XtraEditors.ButtonEdit();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.buttonEdit1 = new DevExpress.XtraEditors.ButtonEdit();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.textEdit1 = new ButtonEdit();
+            this.labelControl1 = new LabelControl();
+            this.buttonEdit2 = new ButtonEdit();
+            this.labelControl2 = new LabelControl();
+            this.buttonEdit1 = new ButtonEdit();
+            this.labelControl3 = new LabelControl();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit2.Properties)).BeginInit();
@@ -75,11 +77,11 @@ namespace XAFAddIns
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonEdit2.Location = new System.Drawing.Point(117, 24);
             this.buttonEdit2.Name = "buttonEdit2";
-            this.buttonEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.buttonEdit2.Properties.Buttons.AddRange(new EditorButton[] {
+            new EditorButton()});
             this.buttonEdit2.Size = new System.Drawing.Size(393, 20);
             this.buttonEdit2.TabIndex = 4;
-            this.buttonEdit2.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.buttonEdit1_ButtonClick);
+            this.buttonEdit2.ButtonClick += new ButtonPressedEventHandler(this.buttonEdit1_ButtonClick);
             // 
             // labelControl2
             // 
@@ -95,11 +97,11 @@ namespace XAFAddIns
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonEdit1.Location = new System.Drawing.Point(116, 77);
             this.buttonEdit1.Name = "buttonEdit1";
-            this.buttonEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.buttonEdit1.Properties.Buttons.AddRange(new EditorButton[] {
+            new EditorButton()});
             this.buttonEdit1.Size = new System.Drawing.Size(393, 20);
             this.buttonEdit1.TabIndex = 7;
-            this.buttonEdit1.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.buttonEdit1_ButtonClick_1);
+            this.buttonEdit1.ButtonClick += new ButtonPressedEventHandler(this.buttonEdit1_ButtonClick_1);
             // 
             // labelControl3
             // 
@@ -175,12 +177,12 @@ namespace XAFAddIns
             CodeRush.Command.Execute("Options", FullPath);
         }
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
-        private DevExpress.XtraEditors.ButtonEdit buttonEdit2;
-        private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.ButtonEdit textEdit1;
-        private DevExpress.XtraEditors.ButtonEdit buttonEdit1;
-        private DevExpress.XtraEditors.LabelControl labelControl3;
+        private LabelControl labelControl1;
+        private ButtonEdit buttonEdit2;
+        private LabelControl labelControl2;
+        private ButtonEdit textEdit1;
+        private ButtonEdit buttonEdit1;
+        private LabelControl labelControl3;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
     }
 }

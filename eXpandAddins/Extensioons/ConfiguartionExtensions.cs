@@ -1,8 +1,8 @@
 using System.Linq;
 using EnvDTE;
-using XAFAddIns.Enums;
+using eXpandAddIns.Enums;
 
-namespace XAFAddIns.Extensioons
+namespace eXpandAddIns.Extensioons
 {
     public static class ConfiguartionExtensions
     {

@@ -8,12 +8,12 @@ using DevExpress.Xpo.Metadata;
 namespace eXpand.Persistent.BaseImpl
 {
     [NonPersistent]
-    public abstract class XFPBaseObject : BaseObject
+    public abstract class eXpandBaseObject : BaseObject
     {
         public const string CancelTriggerObjectChangedName = "CancelTriggerObjectChanged";
 //        private string skin;
 
-        protected XFPBaseObject(Session session)
+        protected eXpandBaseObject(Session session)
             : base(session)
         {
         }

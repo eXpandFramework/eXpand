@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.CodeRush.Core;
 using EnvDTE;
-using XAFAddIns.Enums;
+using eXpandAddIns.Enums;
 using Project=EnvDTE.Project;
 
-namespace XAFAddIns.Extensioons
+namespace eXpandAddIns.Extensioons
 {
     public static class SolutionExtension
     {

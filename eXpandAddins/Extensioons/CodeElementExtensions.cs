@@ -2,7 +2,7 @@
 using DevExpress.CodeRush.StructuralParser;
 using Attribute=DevExpress.CodeRush.StructuralParser.Attribute;
 
-namespace XAFAddIns.Extensioons
+namespace eXpandAddIns.Extensioons
 {
     public static class CodeElementExtensions
     {
