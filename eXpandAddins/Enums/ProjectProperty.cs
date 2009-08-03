@@ -1,4 +1,4 @@
-namespace XAFAddIns.Enums
+namespace eXpandAddIns.Enums
 {
     public enum ProjectProperty
     {

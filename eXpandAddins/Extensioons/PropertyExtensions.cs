@@ -2,7 +2,7 @@
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.StructuralParser;
 
-namespace XAFAddIns.Extensioons
+namespace eXpandAddIns.Extensioons
 {
     public static class PropertyExtensions
     {

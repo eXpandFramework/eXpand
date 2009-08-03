@@ -7,15 +7,15 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
-using DevExpress.XtraGrid;
-using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.DXCore.Controls.XtraGrid;
+using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
 using EnvDTE;
-using XAFAddIns.Enums;
+using eXpandAddIns.Enums;
 using Process=System.Diagnostics.Process;
 using Project=EnvDTE.Project;
-using XAFAddIns.Extensioons;
+using eXpandAddIns.Extensioons;
 
-namespace XAFAddIns
+namespace eXpandAddIns
 {
     [Title("Xaf Models")]
     [ToolboxItem(false)]

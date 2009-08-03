@@ -1,12 +1,11 @@
-﻿using System;
-using System.ComponentModel;
-using DevExpress.CodeRush.Core;
+﻿using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.StructuralParser;
-using DevExpress.Xpo;
-using XAFAddIns.Extensioons;
+using DevExpress.DXCore.Controls.Xpo;
+using eXpandAddIns;
+using eXpandAddIns.Extensioons;
 using Attribute=DevExpress.CodeRush.StructuralParser.Attribute;
 
-namespace XAFAddIns
+namespace eXpandAddIns
 {
     public class AssociationBuilder
     {

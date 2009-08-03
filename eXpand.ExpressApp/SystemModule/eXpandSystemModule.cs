@@ -1,10 +1,11 @@
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.SystemModule
@@ -27,20 +28,20 @@ namespace eXpand.ExpressApp.SystemModule
         {
             base.ValidateModel(model);
             DictionaryHelper.AddFields(model.RootNode, XafTypesInfo.XpoTypeInfoSource.XPDictionary);
-
         }
 
-        
-        public override void CustomizeXPDictionary(XPDictionary xpDictionary)
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo)
         {
-            base.CustomizeXPDictionary(xpDictionary);
-            XPClassInfo personClassInfo = xpDictionary.GetClassInfo(typeof (Person));
-            XPMemberInfo personFullNameMemberInfo = personClassInfo.GetMember("FullName");
-            var persistentAliasAttribute =
-                personFullNameMemberInfo.FindAttributeInfo(typeof (PersistentAliasAttribute)) as
-                PersistentAliasAttribute;
-            if (persistentAliasAttribute == null)
-                personFullNameMemberInfo.AddAttribute(new PersistentAliasAttribute("FirstName + MiddleName + LastName"));
+            base.CustomizeTypesInfo(typesInfo);
+            ITypeInfo personClassInfo = typesInfo.PersistentTypes.Where(info => info.Type == typeof(Person)).SingleOrDefault();
+            if (personClassInfo != null)
+            {
+                IMemberInfo personFullNameMemberInfo = personClassInfo.FindMember("FullName");
+                var persistentAliasAttribute = personFullNameMemberInfo.FindAttribute<PersistentAliasAttribute>();
+                if (persistentAliasAttribute == null)
+                    personFullNameMemberInfo.AddAttribute(new PersistentAliasAttribute("FirstName + MiddleName + LastName"));
+            }
         }
+        
     }
 }

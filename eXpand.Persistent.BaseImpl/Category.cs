@@ -8,7 +8,7 @@ using eXpand.Persistent.Base.Interfaces;
 namespace eXpand.Persistent.BaseImpl
 {
     [NonPersistent]
-    public abstract class Category : XFPBaseObject, ITreeNode, INamedObject
+    public abstract class Category : eXpandBaseObject, ITreeNode, INamedObject
     {  
         [NonPersistent]
         protected abstract ITreeNode Parent { get; }

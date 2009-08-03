@@ -7,11 +7,11 @@ using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
-using DevExpress.Xpo;
 using EnvDTE;
 using EnvDTE80;
-using XAFAddIns.Enums;
-using XAFAddIns.Extensioons;
+using eXpandAddIns;
+using eXpandAddIns.Enums;
+using eXpandAddIns.Extensioons;
 using CodeElement=EnvDTE.CodeElement;
 using Process=System.Diagnostics.Process;
 using Project=EnvDTE.Project;
@@ -19,7 +19,7 @@ using Property=EnvDTE.Property;
 using Attribute=DevExpress.CodeRush.StructuralParser.Attribute;
 using Expression=DevExpress.CodeRush.StructuralParser.Expression;
 
-namespace XAFAddIns
+namespace eXpandAddIns
 {
     public partial class PlugIn1 : StandardPlugIn
     {

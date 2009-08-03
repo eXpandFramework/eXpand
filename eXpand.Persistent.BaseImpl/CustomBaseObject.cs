@@ -4,8 +4,8 @@ using DevExpress.Xpo;
 namespace eXpand.Persistent.BaseImpl
 {
     [NonPersistent]
-    [Obsolete("Use XFPBaseObject")]
-    public abstract class CustomBaseObject : XFPBaseObject
+    [Obsolete("Use eXpandBaseObject")]
+    public abstract class CustomBaseObject : eXpandBaseObject
     {
         protected CustomBaseObject(Session session) : base(session)
         {

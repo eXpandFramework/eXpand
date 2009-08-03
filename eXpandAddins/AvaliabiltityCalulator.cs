@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.StructuralParser;
-using DevExpress.Xpo;
-using XAFAddIns.Extensioons;
+using DevExpress.DXCore.Controls.Xpo;
+using eXpandAddIns.Extensioons;
 
-namespace XAFAddIns
+namespace eXpandAddIns
 {
     [Flags]
     public enum Avaliabiltity

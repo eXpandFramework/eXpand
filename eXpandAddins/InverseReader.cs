@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 
-namespace XAFAddIns
+namespace eXpandAddIns
 {
     public class InverseReader
     {

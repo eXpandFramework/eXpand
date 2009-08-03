@@ -1,4 +1,10 @@
-namespace XAFAddIns
+using DevExpress.DXCore.Controls.XtraEditors;
+using DevExpress.DXCore.Controls.XtraGrid;
+using DevExpress.DXCore.Controls.XtraGrid.Columns;
+using DevExpress.DXCore.Controls.XtraGrid.Views.Base;
+using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
+
+namespace eXpandAddIns
 {
     [System.Runtime.InteropServices.Guid("76ed6075-b303-4bb8-8071-6b3982623d5a")]
     partial class ToolWindow1
@@ -6,7 +12,7 @@ namespace XAFAddIns
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private System.ComponentModel.IContainer components;
         private DevExpress.DXCore.PlugInCore.DXCoreEvents events;
 
         public ToolWindow1()
@@ -39,10 +45,10 @@ namespace XAFAddIns
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolWindow1));
             this.events = new DevExpress.DXCore.PlugInCore.DXCoreEvents(this.components);
-            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumnName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
+            this.gridControl1 = new GridControl();
+            this.gridView1 = new GridView();
+            this.gridColumnName = new GridColumn();
+            this.textEdit1 = new TextEdit();
             this.openModelEditorAction = new DevExpress.CodeRush.Core.Action(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -60,12 +66,12 @@ namespace XAFAddIns
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.Size = new System.Drawing.Size(709, 356);
             this.gridControl1.TabIndex = 0;
-            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridControl1.ViewCollection.AddRange(new BaseView[] {
             this.gridView1});
             // 
             // gridView1
             // 
-            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridView1.Columns.AddRange(new GridColumn[] {
             this.gridColumnName});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
@@ -73,12 +79,10 @@ namespace XAFAddIns
             this.gridView1.OptionsCustomization.AllowColumnMoving = false;
             this.gridView1.OptionsCustomization.AllowColumnResizing = false;
             this.gridView1.OptionsCustomization.AllowGroup = false;
-            this.gridView1.OptionsCustomization.AllowQuickHideColumns = false;
             this.gridView1.OptionsFilter.AllowFilterEditor = false;
             this.gridView1.OptionsMenu.EnableColumnMenu = false;
             this.gridView1.OptionsMenu.EnableFooterMenu = false;
             this.gridView1.OptionsMenu.EnableGroupPanelMenu = false;
-            this.gridView1.OptionsMenu.ShowGroupSortSummaryItems = false;
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
@@ -89,7 +93,7 @@ namespace XAFAddIns
             this.gridColumnName.Caption = "Models";
             this.gridColumnName.FieldName = "Name";
             this.gridColumnName.Name = "gridColumnName";
-            this.gridColumnName.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains;
+            this.gridColumnName.OptionsFilter.AutoFilterCondition = AutoFilterCondition.Contains;
             this.gridColumnName.Visible = true;
             this.gridColumnName.VisibleIndex = 0;
             // 
@@ -148,10 +152,10 @@ namespace XAFAddIns
         }
         #endregion
 
-        private DevExpress.XtraGrid.GridControl gridControl1;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumnName;
-        private DevExpress.XtraEditors.TextEdit textEdit1;
+        private GridControl gridControl1;
+        private GridView gridView1;
+        private GridColumn gridColumnName;
+        private TextEdit textEdit1;
         private DevExpress.CodeRush.Core.Action openModelEditorAction;
     }
 }

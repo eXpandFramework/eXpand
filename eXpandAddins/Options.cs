@@ -1,8 +1,8 @@
-using System;
 using System.ComponentModel;
 using DevExpress.CodeRush.Core;
+using DevExpress.DXCore.Controls.XtraEditors.Controls;
 
-namespace XAFAddIns
+namespace eXpandAddIns
 {
     [UserLevel(UserLevel.Expert)]
     public partial class Options : OptionsPage {
@@ -31,7 +31,7 @@ namespace XAFAddIns
         }
         #endregion
 
-        private void buttonEdit1_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e) {
+        private void buttonEdit1_ButtonClick(object sender, ButtonPressedEventArgs e) {
             openFileDialog1.ShowDialog();
         }
 
@@ -51,7 +51,7 @@ namespace XAFAddIns
             buttonEdit1.Text = openFileDialog2.FileName;
         }
 
-        private void buttonEdit1_ButtonClick_1(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        private void buttonEdit1_ButtonClick_1(object sender, ButtonPressedEventArgs e)
         {
             openFileDialog2.ShowDialog();
         }
