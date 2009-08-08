@@ -138,6 +138,12 @@ namespace eXpandAddIns
                 if (GridControl.AutoFilterRowHandle!=gridView.FocusedRowHandle)
                 {
                     var project = (Project) gridView.GetRow(gridView.FocusedRowHandle);
+                    if (e.Control)
+                    {
+                        Solution solution = CodeRush.Solution.Active;
+                        string solutionConfigurationName = solution.SolutionBuild.ActiveConfiguration.Name;
+                        solution.SolutionBuild.BuildProject(solutionConfigurationName, project.UniqueName, true);
+                    }
                     openModelEditor(project);
                 }
                 else if (gridView.RowCount>0)

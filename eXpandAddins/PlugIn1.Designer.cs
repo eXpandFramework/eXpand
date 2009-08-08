@@ -36,13 +36,13 @@ namespace eXpandAddIns
             this.convertProject = new DevExpress.CodeRush.Core.Action(this.components);
             this.collapseAllItemsInSolutionExplorer = new DevExpress.CodeRush.Core.Action(this.components);
             this.exploreXafErrors = new DevExpress.CodeRush.Core.Action(this.components);
-            this.action1 = new DevExpress.CodeRush.Core.Action(this.components);
+            this.buildProject = new DevExpress.CodeRush.Core.Action(this.components);
             this.ImplementXpoManyPart = new DevExpress.CodeRush.Core.CodeProvider(this.components);
             this.ImplementXpoOnePart = new DevExpress.CodeRush.Core.CodeProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.action1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.buildProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImplementXpoManyPart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImplementXpoOnePart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -71,13 +71,13 @@ namespace eXpandAddIns
             this.exploreXafErrors.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
             this.exploreXafErrors.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.exploreXafErrors_Execute);
             // 
-            // action1
+            // buildProject
             // 
-            this.action1.ActionName = "test";
-            this.action1.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
-            this.action1.Image = ((System.Drawing.Bitmap)(resources.GetObject("action1.Image")));
-            this.action1.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
-            this.action1.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.action1_Execute);
+            this.buildProject.ActionName = "test";
+            this.buildProject.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+            this.buildProject.Image = ((System.Drawing.Bitmap)(resources.GetObject("buildProject.Image")));
+            this.buildProject.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+            this.buildProject.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.action1_Execute);
             // 
             // ImplementXpoManyPart
             // 
@@ -113,7 +113,7 @@ namespace eXpandAddIns
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.action1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.buildProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImplementXpoManyPart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImplementXpoOnePart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
@@ -125,7 +125,7 @@ namespace eXpandAddIns
         private DevExpress.CodeRush.Core.Action convertProject;
         private DevExpress.CodeRush.Core.Action collapseAllItemsInSolutionExplorer;
         private DevExpress.CodeRush.Core.Action exploreXafErrors;
-        private DevExpress.CodeRush.Core.Action action1;
+        private DevExpress.CodeRush.Core.Action buildProject;
         private DevExpress.CodeRush.Core.CodeProvider ImplementXpoManyPart;
         private DevExpress.CodeRush.Core.CodeProvider ImplementXpoOnePart;
     }
