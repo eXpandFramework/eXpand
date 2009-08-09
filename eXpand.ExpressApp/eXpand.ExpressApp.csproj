@@ -49,22 +49,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.1.Linq, Version=9.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.1.Linq, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=0.0.0.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
@@ -97,10 +97,12 @@
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\NumericFormat.cs" />
     <Compile Include="Core\DictionaryHelpers\DictionaryHelper.cs" />
+    <Compile Include="Core\DictionaryHelpers\ModuleRefNodeProvider.cs" />
     <Compile Include="Core\DictionaryHelpers\SchemaHelper.cs" />
     <Compile Include="Core\DictionaryHelpers\ViewIdRefNodeProvider.cs" />
-    <Compile Include="Core\DictionaryHelpers\ViewTypeVisibilityCalculator.cs" />
+    <Compile Include="Core\DictionaryHelpers\ViewVisibilityCalculator.cs" />
     <Compile Include="Core\DictionaryNodeExtensions.cs" />
+    <Compile Include="Core\FrameExtensions.cs" />
     <Compile Include="DataStoreProvider.cs" />
     <Compile Include="Enums\BooleanEnum.cs" />
     <Compile Include="Enums\RecycleBinEnum.cs" />
@@ -178,6 +180,12 @@
     </Compile>
     <Compile Include="SystemModule\ModelInfoWindowController.designer.cs">
       <DependentUpon>ModelInfoWindowController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\ModuleController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ModuleController.Designer.cs">
+      <DependentUpon>ModuleController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\ModuleSchemaController.cs">
       <SubType>Component</SubType>

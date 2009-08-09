@@ -1,4 +1,5 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.NodeWrappers;
 
 namespace eXpand.ExpressApp.Core
 {
@@ -6,10 +7,7 @@ namespace eXpand.ExpressApp.Core
     {
         public static bool IsView(this DictionaryNode node)
         {
-            DictionaryNode dictionaryNode = node;
-            while (dictionaryNode.Parent != null||dictionaryNode.KeyAttribute.Value=="Views")
-                dictionaryNode = dictionaryNode.Parent;
-            return dictionaryNode.KeyAttribute.Value == "Views";
+            return new ApplicationNodeWrapper(node.Dictionary).Views.FindViewById(node.GetAttributeValue("ID"))!=null;
         }
     }
 }

@@ -1,42 +1,51 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using eXpand.ExpressApp.Security.Interfaces;
+using eXpand.ExpressApp.Security.Permissions;
 
 namespace eXpand.ExpressApp.Security.NodeWrappers
 {
     public abstract class DictionaryStateNodeWrapperBase:NodeWrapper,IStateRule
     {
-        private DictionaryNode dictionaryNode;
+        public const string IDAttribute = "ID";
+        public const string StateAttribute = "State";
+        public const string NormalCriteriaAttribute = "NormalCriteria";
+        public const string EmptyCriteriaAttribute = "EmptyCriteria";
+        public const string ViewTypeAttribute = "ViewType";
+        public const string NestingAttribute = "Nesting";
+        protected DictionaryStateNodeWrapperBase(DictionaryNode ruleNode) : base(ruleNode) { }
+        public DictionaryNode DictionaryNode { get; set; }
 
-        public DictionaryNode DictionaryNode
+        public State State
         {
-            get { return dictionaryNode; }
-            set { dictionaryNode = value; }
+            get { return GetEnumValue(StateAttribute, State.Default); }
+            set { Node.SetAttribute(StateAttribute, value.ToString()); }
         }
-
-        public string EmptyCriteria
-        {
-            get { return dictionaryNode.GetAttributeValue("EmptyCriteria"); }
-            set { dictionaryNode.SetAttribute("EmptyCriteria", value); }
-        }
-
-
         public string NormalCriteria
         {
-            get { return dictionaryNode.GetAttributeValue("NormalCriteria"); }
-            set { dictionaryNode.SetAttribute("NormalCriteria", value); }
+            get { return Node.GetAttributeValue(NormalCriteriaAttribute); }
+            set { Node.SetAttribute(NormalCriteriaAttribute, value); }
         }
-
+        public string ID
+        {
+            get { return Node.GetAttributeValue(IDAttribute); }
+            set { Node.SetAttribute(IDAttribute, value); }
+        }
+        public string EmptyCriteria
+        {
+            get { return Node.GetAttributeValue(EmptyCriteriaAttribute); }
+            set { Node.SetAttribute(EmptyCriteriaAttribute, value); }
+        }
         public ViewType ViewType
         {
-            get { return dictionaryNode.GetAttributeEnumValue("ViewType", ViewType.Any); }
-            set { dictionaryNode.SetAttribute("ViewType", value.ToString()); }
+            get { return GetEnumValue(ViewTypeAttribute, ViewType.Any); }
+            set { Node.SetAttribute(ViewTypeAttribute, value.ToString()); }
         }
-
         public Nesting Nesting
         {
-            get { return dictionaryNode.GetAttributeEnumValue("Nesting", Nesting.Any); }
-            set { dictionaryNode.SetAttribute("Nesting", value.ToString()); }
+            get { return GetEnumValue(NestingAttribute, Nesting.Any); }
+            set { Node.SetAttribute(NestingAttribute, value.ToString()); }
         }
+        
     }
 }

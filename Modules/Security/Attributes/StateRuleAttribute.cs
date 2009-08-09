@@ -1,19 +1,23 @@
 using System;
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.Security.Interfaces;
+using eXpand.ExpressApp.Security.Permissions;
 
 namespace eXpand.ExpressApp.Security.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public abstract class StateRuleAttribute : Attribute, IStateRule
     {
-        protected StateRuleAttribute(Nesting targetViewNesting, string normalCriteria, string emptyCriteria, ViewType viewType,string module)
+        protected StateRuleAttribute(string id,Nesting targetViewNesting, string normalCriteria, string emptyCriteria, ViewType viewType,State state)
         {
+            State=state;
+            ID=id;
             ViewType = viewType;
             Nesting = targetViewNesting;
             NormalCriteria = normalCriteria;
             EmptyCriteria = emptyCriteria;
         }
+
 
         public ViewType ViewType { get; set; }
 
@@ -26,11 +30,14 @@ namespace eXpand.ExpressApp.Security.Attributes
         /// Criteria to apply when show DetailView or filled ListView 
         /// </summary>
         public string NormalCriteria { get; set; }
+        public string ID { get; set; }
 
         /// <summary>
         /// Criteria to apply when show ListView empty
         /// </summary>
         public string EmptyCriteria { get; set; }
+
+        public State State { get; set; }
 
         
     }

@@ -1,9 +1,12 @@
 using DevExpress.ExpressApp;
+using eXpand.ExpressApp.Security.Permissions;
 
 namespace eXpand.ExpressApp.Security.Interfaces
 {
     public interface IStateRule
     {
+        string ID { get; set; }
+
         ViewType ViewType { get; set; }
 
         /// <summary>
@@ -20,6 +23,8 @@ namespace eXpand.ExpressApp.Security.Interfaces
         /// Criteria to apply when show ListView empty
         /// </summary>
         string EmptyCriteria { get; set; }
+
+        State State { get; set; }
         
     }
 }

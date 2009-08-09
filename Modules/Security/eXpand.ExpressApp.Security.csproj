@@ -115,9 +115,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Permissions\State.cs" />
     <Compile Include="Attributes\StateRuleAttribute.cs" />
-    <Compile Include="Calculators\StateCalculator.cs" />
-    <Compile Include="Calculators\DictionaryActivationCalculator.cs" />
     <Compile Include="Controllers\BOModelSyncInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -150,7 +149,6 @@
       <DependentUpon>Module.cs</DependentUpon>
     </Compile>
     <Compile Include="NodeWrappers\DictionaryStateNodeWrapperBase.cs" />
-    <Compile Include="Parsers\StateAttributesNodeParser.cs" />
     <Compile Include="Permissions\PermissionBase.cs" />
     <Compile Include="Permissions\StatePermission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

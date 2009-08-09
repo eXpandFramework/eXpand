@@ -7,14 +7,15 @@ namespace eXpand.ExpressApp.Security.Permissions
 {
     public abstract class StatePermission : PermissionBase,IStateRule
     {
+        public string ViewId { get; set; }
         [RuleRequiredField(null, DefaultContexts.Save)]
-        public string Name { get; set; }
-        public string View { get; set; }
         public Type ObjectType { get; set; }
+        [RuleRequiredField(null, DefaultContexts.Save)]
+        public string ID { get; set; }
         public ViewType ViewType { get; set; }
         public Nesting Nesting { get; set; }
         public string NormalCriteria { get; set; }
         public string EmptyCriteria { get; set; }
-        
+        public State State { get; set; }
     }
 }

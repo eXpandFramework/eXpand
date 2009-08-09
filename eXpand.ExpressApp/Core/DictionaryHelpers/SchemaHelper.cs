@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
+using DevExpress.ExpressApp;
 
 namespace eXpand.ExpressApp.Core.DictionaryHelpers
 {
@@ -19,7 +21,7 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
         public string Serialize<T>(bool includeBaseTypes)
         {
             string schema = null;
-            foreach (var property in typeof(T).GetProperties())
+            foreach (var property in typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
                 if (!includeBaseTypes&&typeof(T)!=property.DeclaringType)
                     continue;
@@ -42,7 +44,98 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
                 s=args.Attribute;
             return s;
         }
+
+        public DictionaryNode CreateElement(ModelElement modelElement)
+        {
+            
+//            var dictionaryNode=new DictionaryNode(ModelElement.Application.ToString());
+            if (modelElement == ModelElement.Application)
+                return new DictionaryXmlReader().ReadFromString(
+                                  @"<?xml version=""1.0""?>" +
+                                  @"<Element Name=""Application"">" +
+                                  @"</Element>");
+            if (modelElement == ModelElement.BOModel)
+                return new DictionaryXmlReader().ReadFromString(
+                                  @"<?xml version=""1.0""?>" +
+                                  @"<Element Name=""Application"">" +
+                                  @"	<Element Name=""BOModel"">" +
+                                  @"	</Element>" +
+                                  @"</Element>");
+            if (modelElement == ModelElement.Views)
+                return new DictionaryXmlReader().ReadFromString(
+                                  @"<?xml version=""1.0""?>" +
+                                  @"<Element Name=""Application"">" +
+                                  @"	<Element Name=""Views"">" +
+                                  @"	</Element>" +
+                                  @"</Element>");
+            if (modelElement == ModelElement.Class)
+                return new DictionaryXmlReader().ReadFromString(
+                                  @"<?xml version=""1.0""?>" +
+                                  @"<Element Name=""Application"">" +
+                                  @"	<Element Name=""BOModel"">" +
+                                  @"		<Element Name=""Class"">" +
+                                  @"		</Element>" +
+                                  @"	</Element>" +
+                                  @"</Element>");
+            if (modelElement == ModelElement.ListView)
+                return new DictionaryXmlReader().ReadFromString(
+                                  @"<?xml version=""1.0""?>" +
+                                  @"<Element Name=""Application"">" +
+                                  @"	<Element Name=""Views"">" +
+                                  @"		<Element Name=""ListView"">" +
+                                  @"		</Element>" +
+                                  @"	</Element>" +
+                                  @"</Element>");
+            if (modelElement == ModelElement.DetailView)
+                return new DictionaryXmlReader().ReadFromString(
+                                  @"<?xml version=""1.0""?>" +
+                                  @"<Element Name=""Application"">" +
+                                  @"	<Element Name=""Views"">" +
+                                  @"		<Element Name=""DetailView"">" +
+                                  @"		</Element>" +
+                                  @"	</Element>" +
+                                  @"</Element>");
+            if (modelElement == ModelElement.Member)
+                return new DictionaryXmlReader().ReadFromString(
+                                  @"<?xml version=""1.0""?>" +
+                                  @"<Element Name=""Application"">" +
+                                  @"	<Element Name=""BOModel"">" +
+                                  @"		<Element Name=""Class"">" +
+                                  @"			<Element Name=""Member"">" +
+                                  @"			</Element>" +
+                                  @"		</Element>" +
+                                  @"	</Element>" +
+                                  @"</Element>");
+
+
+            throw new NotImplementedException(modelElement.ToString());
+        }
+
+        public DictionaryNode Inject(string injectString, ModelElement element)
+        {
+            DictionaryNode node = CreateElement(element);
+            if (element == ModelElement.Class || element == ModelElement.DetailView || element == ModelElement.ListView)
+            {
+                var path = (DictionaryNode) node.FindChildNodeByPath(@"Element\Element[@Name='" +element+ @"']");
+                path.AddChildNode(new DictionaryXmlReader().ReadFromString(injectString));
+            }
+            return node;
+        }
     }
+    [Flags]
+    public enum ModelElement
+    {
+        Application,
+        BOModel   ,
+        Views,
+        Class,
+        DetailView,
+        Member,
+
+
+        ListView
+    }
+    
 
     public class AttibuteCreatedEventArgs : HandledEventArgs
     {

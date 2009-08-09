@@ -65,12 +65,11 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
             dictionary = new Dictionary(rootNode, schema);
 
 
-            foreach (BaseObjects.XpoModelDictionaryDifferenceStore singletonStore in from store in GetActiveStores(false).Where(store =>activeStore!=
-                                                                                                                                        null&& store.Oid!=activeStore.Oid)
-//                                                                                     where
-//                                                                                         store.Aspect !=
-//                                                                                         BaseObjects.XpoModelDictionaryDifferenceStore.DefaultAspect
-                                                                                     select store)
+            foreach (
+                BaseObjects.XpoModelDictionaryDifferenceStore singletonStore in
+                    from store in GetActiveStores(false).Where(store => activeStore !=
+                                                                        null && store.Oid != activeStore.Oid)
+                    select store)
                 dictionary.AddAspect(singletonStore.Aspect,
                                      new DictionaryXmlReader().ReadFromString(singletonStore.XmlContent));
             return dictionary;
