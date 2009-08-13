@@ -39,9 +39,10 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
         {
             if ((Debugger.IsAttached&&debuggerAttachCheck()) && DifferenceType == DifferenceType.Model)
             {
-                DictionaryNode dictionaryNode =
-                    new DictionaryXmlReader().ReadFromFile(
-                        GetModelPath());
+                var dictionaryNode = new DictionaryNode("Application");
+                if (File.Exists(GetModelPath())){
+                    dictionaryNode =new DictionaryXmlReader().ReadFromFile(GetModelPath());
+                }   
                 var differenceCore = new Dictionary(dictionaryNode);
                 SaveDifference(differenceCore);
                 return differenceCore;
@@ -52,7 +53,6 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore.DictionaryStores
             {
                 dictionary = new Dictionary(new DictionaryNode("Application"), schema);
                 SaveDifference(dictionary);
-//                return dictionary;
             }
 
             BaseObjects.XpoModelDictionaryDifferenceStore activeStore = GetActiveStore();

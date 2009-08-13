@@ -4,24 +4,24 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{88207755-7F6B-4B53-9358-190364299985}</ProjectGuid>
+    <ProjectGuid>{D33DA85F-C92D-4A13-9880-B6A5343B957D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>eXpand.ExpressApp.DictionaryDifferenceStore.Win</RootNamespace>
-    <AssemblyName>eXpand.ExpressApp.DictionaryDifferenceStore.Win</AssemblyName>
-    <AssemblyOriginatorKeyFile>..\..\eXpand.Key\eXpand.snk</AssemblyOriginatorKeyFile>
+    <RootNamespace>eXpand.ExpressApp.AdditionalViewControlsProvider.Web</RootNamespace>
+    <AssemblyName>eXpand.ExpressApp.AdditionalViewControlsProvider.Web</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <AssemblyOriginatorKeyFile>..\..\eXpand.Key\eXpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <PublishUrl>http://localhost/eXpand.ExpressApp.DictionaryDifferenceStore.Win/</PublishUrl>
+    <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
@@ -41,7 +41,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -64,29 +63,23 @@
     <Reference Include="DevExpress.ExpressApp.Validation.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Web.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Persistent.Base.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.BaseImpl.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
+    <Reference Include="DevExpress.Web.ASPxEditors.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpo.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="eXpand.ExpressApp, Version=0.0.0.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="eXpand.ExpressApp.DictionaryDifferenceStore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
+    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="eXpand.Persistent.BaseImpl, Version=1.0.0.1810, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
+    <Reference Include="eXpand.ExpressApp.Web, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
     </Reference>
     <Reference Include="eXpand.Utils, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -102,35 +95,46 @@
       <Name>System.Data</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Windows.Forms">
-      <Name>System.Windows.Forms</Name>
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\OnSaveUserDifferenceStoreCombineWithCurrentModelController.cs">
+    <Compile Include="Controller\UpdateModelViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\OnSaveUserDifferenceStoreCombineWithCurrentModelController.Designer.cs">
-      <DependentUpon>OnSaveUserDifferenceStoreCombineWithCurrentModelController.cs</DependentUpon>
+    <Compile Include="Controller\UpdateModelViewController.Designer.cs">
+      <DependentUpon>UpdateModelViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="DictionaryDifferenceStoreModuleWin.cs">
+    <Compile Include="Controller\WebControlsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DictionaryDifferenceStoreModuleWin.Designer.cs">
-      <DependentUpon>DictionaryDifferenceStoreModuleWin.cs</DependentUpon>
+    <Compile Include="Controller\WebControlsController.Designer.cs">
+      <DependentUpon>WebControlsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\WebShowAdditionalViewControlsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controller\WebShowAdditionalViewControlsController.Designer.cs">
+      <DependentUpon>WebShowAdditionalViewControlsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\HintPanel.cs" />
+    <Compile Include="AdditionalViewControlsProviderAspNetModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AdditionalViewControlsProviderAspNetModule.Designer.cs">
+      <DependentUpon>AdditionalViewControlsProviderAspNetModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyEditors\ModelEditorPropertyEditor.cs" />
     <Compile Include="Updater.cs" />
+    <Compile Include="Decorators\WebHintPanelDecorator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DictionaryDifferenceStoreModuleWin.resx">
-      <DependentUpon>DictionaryDifferenceStoreModuleWin.cs</DependentUpon>
+    <EmbeddedResource Include="AdditionalViewControlsProviderAspNetModule.resx">
+      <DependentUpon>AdditionalViewControlsProviderAspNetModule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -163,12 +167,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\eXpand.Persistent.Base\eXpand.Persistent.Base.csproj">
-      <Project>{0E40CCB3-7904-4300-BCD6-E34D275E6370}</Project>
-      <Name>eXpand.Persistent.Base</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
