@@ -27,7 +27,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         public void SetViewEditState(ViewEditMode value) {
             toggleEditMode.Enabled["ViewEditMode"] = value == ViewEditMode.View ? true : false ;
-            View.AllowEdit["ViewEditMode"] = value == ViewEditMode.View ? true : false;
+            View.AllowEdit["ViewEditMode"] = value == ViewEditMode.View ? false : true;
             Frame.GetController<DetailViewController>().CancelAction.Enabled["Is modified"] = true;
             Frame.GetController<DetailViewController>().SaveAndNewAction.Active["ViewEditMode"] = false;
         }
