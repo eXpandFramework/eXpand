@@ -5,14 +5,12 @@
 // <author>Martin Praxmarer</author>
 //-----------------------------------------------------------------------
 
-namespace eXpand.ExpressApp.WizardUI.Win
-{
-    using System.ComponentModel;
-    using DevExpress.ExpressApp;
-    using DevExpress.ExpressApp.RibbonUI.Win;
-    using DevExpress.ExpressApp.Templates;
-    using eXpand.ExpressApp.WizardUI.Win.Templates;
+using System.ComponentModel;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.RibbonUI.Win;
+using eXpand.ExpressApp.WizardUI.Win.Templates;
 
+namespace eXpand.ExpressApp.WizardUI.Win{
     /// <summary>
     /// Contains an RibbonDetailView Template with an Wizard Control on it
     /// </summary>
@@ -21,28 +19,24 @@ namespace eXpand.ExpressApp.WizardUI.Win
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxItemFilter("Xaf.Platform.Win")]
     [Description("Contains an RibbonDetailView Template with an Wizard Control on it.")]
-    public sealed class WizardUIWindowsFormsModule : ModuleBase
-    {
+    public sealed class WizardUIWindowsFormsModule : ModuleBase{
         #region Methods
-
         /// <summary>
         /// Initializes the Module
         /// </summary>
         /// <param name="application">XafApplication Object</param>
-        public override void Setup(XafApplication application)
-        {
+        public override void Setup(XafApplication application){
             base.Setup(application);
 
             application.ShowViewStrategy = new WizardShowViewStrategy(application);
-            application.CreateCustomTemplate += this.Application_CreateCustomTemplate;
+            application.CreateCustomTemplate += Application_CreateCustomTemplate;
         }
 
         /// <summary>
         /// Returns the Schema extension which is combined with the entire Schema when loading the Application Model
         /// </summary>
         /// <returns>The Schema object that represents the Schema extension to be added to the application's entire Schema</returns>
-        public override Schema GetSchema()
-        {
+        public override Schema GetSchema(){
             const string WizardSchema =
                 @"<Element Name=""Application"">
 	                <Element Name=""Views"">
@@ -69,15 +63,17 @@ namespace eXpand.ExpressApp.WizardUI.Win
         /// </summary>
         /// <param name="sender">XafApplication Object</param>
         /// <param name="e">CreateCustomTemplate EventArgs</param>
-        private void Application_CreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e)
-        {
-            if (((WizardShowViewStrategy)((XafApplication)sender).ShowViewStrategy).ShowInWizard && e.Context == TemplateContext.View)
-            {
-                string infoPath = string.Format("{0}/{1}[@ID='{2}']", RibbonTemplatesInfoNodeWrapper.NodeName, TemplateInfoNodeWrapper.NodeName, e.Context.Name);
-                e.Template = (IFrameTemplate)new WizardRibbonDetailViewForm(new TemplateInfoNodeWrapper((DictionaryNode)e.Application.Model.RootNode.GetChildNodeByPath(infoPath)));
+        private void Application_CreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e){
+            if (((WizardShowViewStrategy) ((XafApplication) sender).ShowViewStrategy).ShowInWizard &&
+                e.Context == TemplateContext.View){
+                string infoPath = string.Format("{0}/{1}[@ID='{2}']", RibbonTemplatesInfoNodeWrapper.NodeName,
+                                                TemplateInfoNodeWrapper.NodeName, e.Context.Name);
+                e.Template =
+                    new WizardRibbonDetailViewForm(
+                        new TemplateInfoNodeWrapper(
+                            e.Application.Model.RootNode.GetChildNodeByPath(infoPath)));
             }
         }
-
         #endregion
     }
 }

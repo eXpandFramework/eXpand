@@ -60,11 +60,9 @@ namespace eXpand.ExpressApp.Win.Editors
 
         private void showObjectAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs args)
         {
-            
-            var helper = new ObjectEditorHelper();
             args.DialogController.Cancelling += DialogController_Cancelling;
             args.View =
-                helper.CreateDetailView(Properties.Application, Properties.ObjectSpace, EditValue,
+                ObjectEditorHelper.CreateDetailView(Properties.Application, Properties.ObjectSpace, EditValue,
                                         Properties.EditValueTypeInfo.Type, Properties.ReadOnly);
         }
 

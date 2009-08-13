@@ -59,11 +59,11 @@ namespace eXpand.ExpressApp.Win.PropertyEditors
 
         private void showObjectAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs args)
         {
-            var objectEditorHelper = new ObjectEditorHelper();
+//            var objectEditorHelper = new ObjectEditorHelper();
             args.DialogController.Cancelling += DialogController_Cancelling;
             
             args.View =
-                objectEditorHelper.CreateDetailView(Properties.Helper.Application, Properties.Helper.ObjectSpace, EditValue,
+                ObjectEditorHelper.CreateDetailView(Properties.Helper.Application, Properties.Helper.ObjectSpace, EditValue,
                                         Properties.Helper.LookupObjectType, Properties.ReadOnly);
         }
 

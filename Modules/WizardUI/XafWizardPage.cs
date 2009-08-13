@@ -5,43 +5,21 @@
 // <author>Martin Praxmarer</author>
 //-----------------------------------------------------------------------
 
-namespace eXpand.ExpressApp.WizardUI.Win
-{
-    using DevExpress.ExpressApp;
-    using DevExpress.XtraWizard;
+using DevExpress.ExpressApp;
+using DevExpress.XtraWizard;
 
+namespace eXpand.ExpressApp.WizardUI.Win{
     /// <summary>
     /// Extends the default WizardPage class
     /// </summary>
-    public class XafWizardPage : WizardPage
-    {
+    public class XafWizardPage : WizardPage{
         #region Members
-
-        /// <summary>
-        /// DetailView Object
-        /// </summary>
-        private DetailView _View;
-
         #endregion
-
         #region Properties
-
         /// <summary>
         /// Gets or sets the DetailView
         /// </summary>
-        public DetailView View
-        {
-            get
-            {
-                return this._View;
-            }
-
-            set
-            {
-                this._View = value;
-            }
-        }
-
+        public DetailView View { get; set; }
         #endregion
     }
 }
