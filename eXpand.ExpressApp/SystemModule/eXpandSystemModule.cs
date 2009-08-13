@@ -30,18 +30,6 @@ namespace eXpand.ExpressApp.SystemModule
             DictionaryHelper.AddFields(model.RootNode, XafTypesInfo.XpoTypeInfoSource.XPDictionary);
         }
 
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo)
-        {
-            base.CustomizeTypesInfo(typesInfo);
-            ITypeInfo personClassInfo = typesInfo.PersistentTypes.Where(info => info.Type == typeof(Person)).FirstOrDefault();
-            if (personClassInfo != null)
-            {
-                IMemberInfo personFullNameMemberInfo = personClassInfo.FindMember("FullName");
-                var persistentAliasAttribute = personFullNameMemberInfo.FindAttribute<PersistentAliasAttribute>();
-                if (persistentAliasAttribute == null)
-                    personFullNameMemberInfo.AddAttribute(new PersistentAliasAttribute("FirstName + MiddleName + LastName"));
-            }
-        }
         
     }
 }
