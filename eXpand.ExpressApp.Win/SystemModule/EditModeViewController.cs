@@ -27,7 +27,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         public void SetViewEditState(ViewEditMode value) {
             toggleEditMode.Enabled["ViewEditMode"] = value == ViewEditMode.View ? true : false ;
-            View.ReadOnly["ViewEditMode"] = value == ViewEditMode.View ? true : false;
+            View.AllowEdit["ViewEditMode"] = value == ViewEditMode.View ? true : false;
             Frame.GetController<DetailViewController>().CancelAction.Enabled["Is modified"] = true;
             Frame.GetController<DetailViewController>().SaveAndNewAction.Active["ViewEditMode"] = false;
         }
@@ -40,9 +40,9 @@ namespace eXpand.ExpressApp.Win.SystemModule
             
             if (!HasViewEditMode) return;
             
-            Frame.GetController<DetailViewController>().CancelAction.Executed += (sender, e) => { SetViewEditState(ViewEditMode.View); };
-            Frame.GetController<DetailViewController>().SaveAction.Executed += (sender, e) => { SetViewEditState(ViewEditMode.View); };
-            toggleEditMode.Execute += (sender, e) => { SetViewEditState(ViewEditMode.Edit); };
+            Frame.GetController<DetailViewController>().CancelAction.Executed += (sender, e) => SetViewEditState(ViewEditMode.View);
+            Frame.GetController<DetailViewController>().SaveAction.Executed += (sender, e) => SetViewEditState(ViewEditMode.View);
+            toggleEditMode.Execute += (sender, e) => SetViewEditState(ViewEditMode.Edit);
             SetViewEditState(ViewEditMode.View);
         }
     }

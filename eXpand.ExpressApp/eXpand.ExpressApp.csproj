@@ -49,22 +49,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.1, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.1.Linq, Version=9.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.2.Linq, Version=9.2.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=0.0.0.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
@@ -187,12 +187,6 @@
     <Compile Include="SystemModule\ModuleController.Designer.cs">
       <DependentUpon>ModuleController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SystemModule\ModuleSchemaController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\ModuleSchemaController.Designer.cs">
-      <DependentUpon>ModuleSchemaController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\RecycleBinViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -223,9 +217,6 @@
     <Compile Include="eXpand.Persistent.BaseImpl\Validation\ConditionalRequired\ConditionalIsRequiredAttribute.cs" />
     <Compile Include="eXpand.Persistent.BaseImpl\Validation\ConditionalRequired\RuleConditionalRequired.cs" />
     <Compile Include="eXpand.Persistent.BaseImpl\Validation\IRuleMultiPropertiesValues.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\CombinationOfPropertiesIsUnique\RuleCombinationOfPropertiesIsUnique.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\CombinationOfPropertiesIsUnique\RuleCombinationOfPropertiesIsUniqueAttribute.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\CombinationOfPropertiesIsUnique\RuleCombinationOfPropertiesIsUniqueProperties.cs" />
     <Compile Include="eXpand.Persistent.BaseImpl\Validation\FromIPropertyValueValidator\IPropertyValueValidator.cs" />
     <Compile Include="eXpand.Persistent.BaseImpl\Validation\FromIPropertyValueValidator\IRuleFromIPropertyValueValidatorProperties.cs" />
     <Compile Include="eXpand.Persistent.BaseImpl\Validation\FromIPropertyValueValidator\RuleFromIPropertyValueValidator.cs" />

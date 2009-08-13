@@ -28,10 +28,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
         public const string DetailListRelationName = "DetailListRelationName";
         public const string DetailListView = "DetailListView";
         public const string ExpandAllRows = "ExpandAllRows";
-        private readonly Dictionary<GridColumn, string> columnsProperties = new Dictionary<GridColumn, string>();
+        
         private GridControl gridControl;
 
-// private ListViewInfoNodeWrapper subModel;
+
         public MasterDetailViewController()
         {
             InitializeComponent();
@@ -97,21 +97,15 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         public GridColumn AddColumn(ColumnInfoNodeWrapper columnInfo,Type objectType,ListViewInfoNodeWrapper model)
         {
-            if (columnsProperties.ContainsValue(columnInfo.PropertyName))
-            {
-                return columnsProperties.Where(pair => pair.Value == columnInfo.PropertyName).Single().Key;
-//                throw new ArgumentException(string.Format(ExceptionLocalizerTemplate<SystemExceptionResourceLocalizer, ExceptionId>.GetExceptionMessage(ExceptionId.GridColumnExists), columnInfo.PropertyName), "columnInfo");
-            }
             ColumnInfoNodeWrapper frameColumn = model.Columns.FindColumnInfo(columnInfo.PropertyName);
             if (frameColumn == null)
             {
                 model.Columns.Node.AddChildNode(columnInfo.Node);
             }
             var column = new GridColumn();
-            columnsProperties.Add(column, columnInfo.PropertyName);
+            
             GridView.Columns.Add(column);
             var customArgs = new CustomCreateColumnEventArgs(column, columnInfo, repositoryFactory);
-//            OnCustomCreateColumn(customArgs);
             if (!customArgs.Handled)
             {
                 IMemberInfo memberInfo = XafTypesInfo.Instance.FindTypeInfo(objectType).FindMember(columnInfo.PropertyName);
@@ -145,16 +139,14 @@ namespace eXpand.ExpressApp.Win.SystemModule
                         {
                             gridControl.RepositoryItems.Add(repositoryItem);
                             column.ColumnEdit = repositoryItem;
-                            column.OptionsColumn.AllowEdit = IsDataShownOnDropDownWindow(repositoryItem) ? true : model.EditMode != EditMode.ReadOnly;
+                            column.OptionsColumn.AllowEdit = IsDataShownOnDropDownWindow(repositoryItem) ? true : model.AllowEdit;
                             column.AppearanceCell.Options.UseTextOptions = true;
                             column.AppearanceCell.TextOptions.HAlignment = WinAlignmentProvider.GetAlignment(memberInfo.MemberType);
-                            repositoryItem.ReadOnly |= model.EditMode != EditMode.Editable;
-                            if ((repositoryItem is ILookupEditRepositoryItem) && ((ILookupEditRepositoryItem)repositoryItem).IsFilterByValueSupported)
-                            {
+                            repositoryItem.ReadOnly |= !model.AllowEdit;
+                            if ((repositoryItem is ILookupEditRepositoryItem) &&((ILookupEditRepositoryItem) repositoryItem).IsFilterByValueSupported){
                                 column.FilterMode = ColumnFilterMode.Value;
                             }
-                            if ((repositoryItem is RepositoryItemPictureEdit) && (((RepositoryItemPictureEdit)repositoryItem).CustomHeight > 0))
-                            {
+                            if ((repositoryItem is RepositoryItemPictureEdit) && (((RepositoryItemPictureEdit)repositoryItem).CustomHeight > 0)){
                                 GridView.OptionsView.RowAutoHeight = true;
                             }
                         }
@@ -167,7 +159,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 }
                 
             }
-//            OnColumnCreated(column, columnInfo);
             if (!gridControl.IsLoading && gridView.DataController.Columns.GetColumnIndex(column.FieldName) == -1)
             {
                 gridView.DataController.RePopulateColumns();
@@ -182,12 +173,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             try
             {
                 var presentedColumns = new Dictionary<string, GridColumn>();
-                var toDelete = new List<GridColumn>();
-                foreach (GridColumn column in GridView.Columns)
-                {
-                    presentedColumns.Add(columnsProperties[column], column);
-                    toDelete.Add(column);
-                }
+                
                 foreach (ColumnInfoNodeWrapper column in from col in model.Columns.Items orderby col.SortIndex select col)
                 {
                     GridColumn gridColumn;
@@ -200,18 +186,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
                         gridColumn = AddColumn(column,objectType, model);
                         presentedColumns.Add(column.PropertyName, gridColumn);
                     }
-                    toDelete.Remove(gridColumn);
+                    
                 }
-                foreach (GridColumn gridColumn in toDelete)
-                {
-                    GridView.Columns.Remove(gridColumn);
-                    columnsProperties.Remove(gridColumn);
-                }
-//                GridView.SortInfo.ClearSorting();
-//                foreach (
-//                    var gridColumn in
-//                        from column in gridView.Columns.Cast<GridColumn>() orderby column.SortIndex select column)
-//                    gridView.SortInfo.Add(gridColumn, gridColumn.SortOrder);
             }
             finally
             {
@@ -277,15 +253,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             gridControl = (GridControl)View.Control;
             gridControl.HandleCreated += GridControl_OnHandleCreated;
-
-
-//            view.MasterRowExpanded += view_MasterRowExpanded;
-//            view.MasterRowExpanding += View_OnMasterRowExpanding;
         }
 
         private void GridControl_OnHandleCreated(object sender, EventArgs e)
         {
-            
             var view = (GridView) ((GridControl) sender).FocusedView;
             view.OptionsDetail.ShowDetailTabs = false;
             view.OptionsView.ShowDetailButtons = true;
@@ -301,44 +272,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 ExpandAllRowsSimpleAction.DoExecute();
         }
 
-//        private void View_OnMasterRowExpanding(object sender, MasterRowCanExpandEventArgs e)
-//        {
-//            e.Allow =
-//                ((GridView) sender).GetRelationDisplayName(e.RowHandle, e.RelationIndex) ==
-//                View.Info.GetAttributeValue(DetailListRelationName);
-//        }
 
-//        private void view_MasterRowExpanded(object sender, CustomMasterRowEventArgs e)
-//        {
-//            if (subModel != null)
-//                if (gridControl.ViewCollection.Count > 1)
-//                {
-//                    var gridView = (GridView) gridControl.ViewCollection[gridControl.ViewCollection.Count - 1];
-//                    if (gridControl.ViewCollection.Count > 2)
-//                        gridView.Synchronize(gridControl.ViewCollection[1], SynchronizationMode.Visual);
-//                    else
-//                    {
-//                        GridViewViewController.SetOptions(gridView, subModel);
-//                        RefreshColumns(subModel, gridView);
-//
-////                        gridView.SortInfo.ClearSorting();
-////                        foreach (ColumnInfoNodeWrapper wrapper in subModel.Columns.Items)
-////                        {
-////                            var descriptor = ReflectionHelper.FindMemberDescriptor(View.ObjectType.Assembly.GetType(subModel.Node.GetAttributeValue(BaseViewInfoNodeWrapper.ClassNameAttribute)), wrapper.PropertyName);
-////                            RefreshColumn(wrapper, gridView.Columns.ColumnByFieldName(descriptor != null ? descriptor.BindingMemberName : wrapper.PropertyName));
-////                        }
-//                        gridView.OptionsDetail.ShowDetailTabs = false;
-//                        gridView.OptionsView.ShowDetailButtons =
-//                            !string.IsNullOrEmpty(subModel.Node.GetAttributeValue(DetailListView));
-//                        gridView.OptionsDetail.EnableMasterViewMode = gridView.OptionsView.ShowDetailButtons;
-//                    }
-//                }
-//        }
 
         private void ExpandAllRowsSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-//            int index =
-//                ((GridView) gridControl.FocusedView).Columns.ColumnByFieldName("AnalysiUnitMethod.SortIndex").SortIndex;
             ObjectSpace.Session.PreFetch(((BaseObject) View.CurrentObject).ClassInfo,
                                          ((ListView) View).CollectionSource.Collection,
                                          View.Info.GetAttributeValue(DetailListRelationName));

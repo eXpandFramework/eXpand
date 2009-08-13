@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo.Metadata;
-using eXpand.Persistent.BaseImpl.Validation.CombinationOfPropertiesIsUnique;
 using System.Linq;
 
 namespace eXpand.ExpressApp.SystemModule

@@ -49,7 +49,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 {
                     if (item is PropertyEditor)
                     {
-                        if (((PropertyEditor) item).ReadOnly)
+                        if (((PropertyEditor) item).AllowEdit)
                         {
                             if (item.Control is TextEdit)
                                 ((TextEdit) item.Control).TabStop = false;

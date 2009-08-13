@@ -33,7 +33,7 @@ namespace eXpand.ExpressApp.SystemModule
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
         {
             base.CustomizeTypesInfo(typesInfo);
-            ITypeInfo personClassInfo = typesInfo.PersistentTypes.Where(info => info.Type == typeof(Person)).SingleOrDefault();
+            ITypeInfo personClassInfo = typesInfo.PersistentTypes.Where(info => info.Type == typeof(Person)).FirstOrDefault();
             if (personClassInfo != null)
             {
                 IMemberInfo personFullNameMemberInfo = personClassInfo.FindMember("FullName");

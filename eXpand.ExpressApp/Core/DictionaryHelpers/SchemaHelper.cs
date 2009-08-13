@@ -114,12 +114,27 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
         public DictionaryNode Inject(string injectString, ModelElement element)
         {
             DictionaryNode node = CreateElement(element);
+            
+            DictionaryNode dictionaryElement =node;
             if (element == ModelElement.Class || element == ModelElement.DetailView || element == ModelElement.ListView)
-            {
-                var path = (DictionaryNode) node.FindChildNodeByPath(@"Element\Element[@Name='" +element+ @"']");
-                path.AddChildNode(new DictionaryXmlReader().ReadFromString(injectString));
-            }
+                dictionaryElement =
+                    (DictionaryNode) node.FindChildElementByPath(@"Element\Element[@Name='" + element + @"']");
+
+            dictionaryElement.AddChildNode(new DictionaryXmlReader().ReadFromString(injectString));
             return node;
+        }
+
+        public int GetLevel(ModelElement modelElement)
+        {
+            if (modelElement==ModelElement.Application)
+                return 0;
+            if (modelElement==ModelElement.BOModel||modelElement==ModelElement.Views)
+                return 1;
+            if (modelElement == ModelElement.Class || modelElement == ModelElement.DetailView || modelElement == ModelElement.ListView)
+                return 2;
+            if (modelElement == ModelElement.Member )
+                return 3;
+            throw new NotImplementedException(modelElement.ToString());
         }
     }
     [Flags]
@@ -144,6 +159,12 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
         public AttibuteCreatedEventArgs(string attribute)
         {
             Attribute = attribute;
+        }
+
+        public void AddTag(string tag)
+        {
+            Handled = true;
+            Attribute = Attribute.Replace("/>"," "+ tag + "/>");
         }
     }
 }
