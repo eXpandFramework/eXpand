@@ -114,7 +114,7 @@ namespace eXpand.ExpressApp.Win.Templates
             this.logOutToolStripMenuItem,
             this.ExitToolStripMenuItem});
             this.TrayContextMenuStrip.Name = "contextMenuStrip1";
-            this.TrayContextMenuStrip.Size = new System.Drawing.Size(156, 158);
+            this.TrayContextMenuStrip.Size = new System.Drawing.Size(156, 136);
             // 
             // AboutToolStripMenuItem
             // 

@@ -276,12 +276,14 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private void ExpandAllRowsSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            ObjectSpace.Session.PreFetch(((BaseObject) View.CurrentObject).ClassInfo,
-                                         ((ListView) View).CollectionSource.Collection,
-                                         View.Info.GetAttributeValue(DetailListRelationName));
-            var view = (GridView) gridControl.MainView;
-            for (int i = 0; i < view.RowCount; i++)
-                view.ExpandMasterRow(i);
+            if (View.CurrentObject != null){
+                ObjectSpace.Session.PreFetch(((BaseObject) View.CurrentObject).ClassInfo,
+                                             ((ListView) View).CollectionSource.Collection,
+                                             View.Info.GetAttributeValue(DetailListRelationName));
+                var view = (GridView) gridControl.MainView;
+                for (int i = 0; i < view.RowCount; i++)
+                    view.ExpandMasterRow(i);
+            }
         }
 
         private void CollapseAllRowsSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)
