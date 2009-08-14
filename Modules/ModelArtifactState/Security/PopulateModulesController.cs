@@ -1,0 +1,31 @@
+using DevExpress.ExpressApp;
+using eXpand.ExpressApp.ModelArtifactState.Security.Permissions;
+using eXpand.ExpressApp.Security.Controllers;
+using eXpand.ExpressApp.SystemModule;
+
+namespace eXpand.ExpressApp.ModelArtifactState.Security
+{
+    public partial class PopulateModulesController : PopulateController
+    {
+        public PopulateModulesController()
+        {
+            InitializeComponent();
+            RegisterActions(components);
+            TargetObjectType = typeof(ArtifactStateRulePermission);
+        }
+
+
+        protected override string GetPredefinedValues()
+        {
+            string ret = "";
+            foreach (DictionaryNode node in Application.Info.GetChildNode(ModuleController.Modules).ChildNodes)
+                ret += node.GetAttributeValue("Name") + ";";
+            return ret.TrimEnd(';');
+        }
+
+        protected override string GetPermissionPropertyName()
+        {
+            return "Module";
+        }
+    }
+}
