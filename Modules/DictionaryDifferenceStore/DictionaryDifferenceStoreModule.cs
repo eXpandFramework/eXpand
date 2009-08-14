@@ -54,7 +54,7 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore
             
             XPDictionary xpDictionary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
             createBasicUserProperties(xpDictionary);
-            makeModifiedOnTime(xpDictionary);
+            
 
             var complex = SecuritySystem.Instance as ISecurityComplex;
             addModelObjectsToRoles(complex);
@@ -149,12 +149,6 @@ namespace eXpand.ExpressApp.DictionaryDifferenceStore
         }
 
 
-        private void makeModifiedOnTime(XPDictionary xpDictionary)
-        {
-            XPMemberInfo memberInfo = xpDictionary.GetClassInfo(typeof (AuditDataItemPersistent)).GetMember("ModifiedOn");
-            memberInfo.AddAttribute(new CustomAttribute("DisplayFormat", "{0: ddd, dd MMMM yyyy hh:mm:ss tt}"));
-            memberInfo.AddAttribute(new CustomAttribute("EditMask", "ddd, dd MMMM yyyy hh:mm:ss tt"));
-        }
 
         private void createBasicUserProperties(XPDictionary xpDictionary)
         {
