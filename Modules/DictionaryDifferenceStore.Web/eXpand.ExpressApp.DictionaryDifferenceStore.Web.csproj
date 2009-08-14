@@ -75,6 +75,7 @@
     <Reference Include="DevExpress.Persistent.Base.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Web.ASPxEditors.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -168,12 +169,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\DevExpress\eXpressApp Framework\Sources\DevExpress.Persistent\DevExpress.Persistent.BaseImpl\DevExpress.Persistent.BaseImpl.csproj">
-      <Project>{19815889-3518-45CB-98EE-A575A2198ED2}</Project>
-      <Name>DevExpress.Persistent.BaseImpl</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

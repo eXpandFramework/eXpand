@@ -64,19 +64,22 @@
     <Reference Include="DevExpress.ExpressApp.Validation.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Win.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v9.2, Version=9.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="eXpand.ExpressApp, Version=0.0.0.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="eXpand.ExpressApp, Version=0.0.0.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="eXpand.ExpressApp.DictionaryDifferenceStore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
@@ -162,10 +165,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\DevExpress\eXpressApp Framework\Sources\DevExpress.Persistent\DevExpress.Persistent.BaseImpl\DevExpress.Persistent.BaseImpl.csproj">
-      <Project>{19815889-3518-45CB-98EE-A575A2198ED2}</Project>
-      <Name>DevExpress.Persistent.BaseImpl</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\eXpand.Persistent.Base\eXpand.Persistent.Base.csproj">
       <Project>{0E40CCB3-7904-4300-BCD6-E34D275E6370}</Project>
       <Name>eXpand.Persistent.Base</Name>
