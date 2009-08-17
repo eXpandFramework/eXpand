@@ -22,7 +22,8 @@ namespace eXpand.ExpressApp.SystemModule
             var wrapper = new ApplicationNodeWrapper(dictionary);
             var node = wrapper.Node.AddChildNode(Modules);
             foreach (Type type in types)
-                node.AddChildNode("Module").SetAttribute("Name", type.FullName);
+                if (node.FindChildNode("Module", "Name", type.FullName)== null)
+                    node.AddChildNode("Module").SetAttribute("Name", type.FullName);
         }
 
         [DebuggerNonUserCode]
