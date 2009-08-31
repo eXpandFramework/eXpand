@@ -132,11 +132,11 @@
     <Compile Include="Controllers\ControllerStateCustomizationViewController.Designer.cs">
       <DependentUpon>ControllerStateCustomizationViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="eXpandReportsModule.cs">
+    <Compile Include="ModelArtifactStateModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="eXpandReportsModule.Designer.cs">
-      <DependentUpon>eXpandReportsModule.cs</DependentUpon>
+    <Compile Include="ModelArtifactStateModule.Designer.cs">
+      <DependentUpon>ModelArtifactStateModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\ISupportArtifactState.cs" />
     <Compile Include="Interfaces\ISupportArtifactStateAccessibilityCustomization.cs" />
@@ -216,8 +216,8 @@
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="eXpandReportsModule.resx">
-      <DependentUpon>eXpandReportsModule.cs</DependentUpon>
+    <EmbeddedResource Include="ModelArtifactStateModule.resx">
+      <DependentUpon>ModelArtifactStateModule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />

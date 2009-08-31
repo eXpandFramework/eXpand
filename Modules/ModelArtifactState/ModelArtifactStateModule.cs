@@ -8,9 +8,9 @@ using eXpand.ExpressApp.ModelArtifactState.NodeWrappers;
 using eXpand.ExpressApp.ModelArtifactState.StateRules;
 
 namespace eXpand.ExpressApp.ModelArtifactState{
-    public sealed partial class eXpandReportsModule : ModuleBase
+    public sealed partial class ModelArtifactStateModule : ModuleBase
     {
-        public eXpandReportsModule()
+        public ModelArtifactStateModule()
         {
             InitializeComponent();
         }

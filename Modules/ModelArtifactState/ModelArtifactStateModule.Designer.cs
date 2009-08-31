@@ -2,7 +2,7 @@ using DevExpress.ExpressApp.Validation;
 using eXpand.ExpressApp.Security;
 
 namespace eXpand.ExpressApp.ModelArtifactState{
-    partial class eXpandReportsModule
+    partial class ModelArtifactStateModule
     {
         /// <summary> 
         /// Required designer variable.
