@@ -1,3 +1,4 @@
+using DevExpress.ExpressApp.Validation;
 using eXpand.ExpressApp.Security;
 
 namespace eXpand.ExpressApp.ModelArtifactState{
@@ -29,8 +30,9 @@ namespace eXpand.ExpressApp.ModelArtifactState{
         /// </summary>
         private void InitializeComponent()
         {
-            this.RequiredModuleTypes.Add(typeof(ModelArtifactStateModule));
-            this.RequiredModuleTypes.Add(typeof(eXpandSecurityModule));
+         
+            RequiredModuleTypes.Add(typeof(ValidationModule));
+            RequiredModuleTypes.Add(typeof(eXpandSecurityModule));
         }
 
         #endregion

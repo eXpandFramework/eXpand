@@ -20,7 +20,6 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
             
             var controller = Frame.GetController<ArtifactStateCustomizationViewController>();
             controller.Register<ControllerStateRule>(this);
-            
         }
 
 

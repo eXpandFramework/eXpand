@@ -25,7 +25,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Security.Permissions
         /// <summary>
         /// Type of controller to activate or not
         /// </summary>
-        public string ControllerType { get; set; }
+        public virtual string ControllerType { get; set; }
         
        
     }
