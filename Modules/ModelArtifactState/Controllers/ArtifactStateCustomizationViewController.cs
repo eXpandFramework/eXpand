@@ -33,7 +33,8 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
             if (!args.Cancel){
 
                 foreach (ISupportArtifactState supportArtifactState in providers.Keys){
-                    if (info.Rule.GetType().IsAssignableFrom(providers[supportArtifactState])){
+                    if (providers[supportArtifactState].IsAssignableFrom(info.Rule.GetType()))
+                    {
                         switch (info.State)
                         {
                             case State.Default:
@@ -68,12 +69,12 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
                 providers.Remove(supportArtifactStateVisibilityCustomization);
         }
         /// <summary>
-        /// An event that can be used to be notified whenever editors begin customizing.
+        /// An event that can be used to be notified whenever artifact begin customizing.
         /// </summary>
         public event EventHandler<ArtifactStateInfoCustomizingEventArgs> ArtifactStateCustomizing;
 
         /// <summary>
-        /// An event that can be used to be notified whenever editors state has been customized.
+        /// An event that can be used to be notified whenever artifact state has been customized.
         /// </summary>
         public event EventHandler<ArtifactStateInfoCustomizedEventArgs> ArtifactStateCustomized;
         #endregion
