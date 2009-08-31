@@ -1,11 +1,8 @@
-using DevExpress.ExpressApp.Validation;
-using eXpand.ExpressApp.Security;
-using eXpand.ExpressApp.Validation;
-
-namespace eXpand.ExpressApp.ModelArtifactState{
-    partial class ModelArtifactStateModule
+namespace eXpand.ExpressApp.Security.Controllers
+{
+    partial class StatePermissionSynchronizerController
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
@@ -25,16 +22,13 @@ namespace eXpand.ExpressApp.ModelArtifactState{
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-         
-            RequiredModuleTypes.Add(typeof(ValidationModule));
-            RequiredModuleTypes.Add(typeof(eXpandSecurityModule));
-            RequiredModuleTypes.Add(typeof(eXpandValidationModule));
+            components = new System.ComponentModel.Container();
         }
 
         #endregion

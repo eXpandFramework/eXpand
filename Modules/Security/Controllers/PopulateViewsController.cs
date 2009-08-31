@@ -24,7 +24,7 @@ namespace eXpand.ExpressApp.Security.Controllers
 
         protected override string GetPermissionPropertyName()
         {
-            return "View";
+            return "ViewId";
         }
     }
 }

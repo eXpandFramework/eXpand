@@ -24,9 +24,10 @@ namespace eXpand.ExpressApp.ModelArtifactState{
         }
         public static ModelArtifactStateNodeWrapper CreateModelWrapper(Dictionary dictionary)
         {
-            if (dictionary != null)
-            {
-                return new ModelArtifactStateNodeWrapper(dictionary.RootNode.GetChildNode(ModelArtifactStateNodeWrapper.NodeNameAttribute));
+            if (dictionary != null){
+                return
+                    new ModelArtifactStateNodeWrapper(
+                        dictionary.RootNode.GetChildNode(ModelArtifactStateNodeWrapper.NodeNameAttribute));
             }
             return null;
         }
