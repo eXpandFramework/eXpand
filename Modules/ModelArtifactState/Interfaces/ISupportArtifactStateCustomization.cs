@@ -6,7 +6,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Interfaces{
     public interface ISupportArtifactStateCustomization
     {
         bool IsReady { get; }
-        void ForceCustomization(bool isReady,View view);
+        void ForceCustomization(bool isReady, View view, bool invertCustomization);
         void CustomizeArtifactState(ArtifactStateInfo info);
         event EventHandler<ArtifactStateInfoCustomizingEventArgs> ArtifactStateCustomizing;
         event EventHandler<ArtifactStateInfoCustomizedEventArgs> ArtifactStateCustomized;

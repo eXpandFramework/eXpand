@@ -105,7 +105,7 @@ namespace eXpand.ExpressApp.ModelArtifactState{
             var wrapper = new LocalizedCriteriaWrapper(objectType, criteria);
             wrapper.UpdateParametersValues();
             var descriptor = new EvaluatorContextDescriptorDefault(objectType);
-            var evaluator = new ExpressionEvaluator(descriptor, wrapper.CriteriaOperator.ToString());
+            var evaluator = new ExpressionEvaluator(descriptor, wrapper.CriteriaOperator);
             return evaluator.Fit(targetObject);
         }
 

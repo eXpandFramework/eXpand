@@ -1,7 +1,6 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using eXpand.ExpressApp.Security.Permissions;
-using System;
 
 namespace eXpand.ExpressApp.Security.Interfaces
 {

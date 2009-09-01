@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -8,7 +9,8 @@ using eXpand.ExpressApp.ModelArtifactState.StateRules;
 using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
-    public partial class ControllerStateCustomizationViewController : ViewController,ISupportArtifactStateVisibilityCustomization{
+    public partial class ControllerStateCustomizationViewController : ViewController, ISupportArtifactStateVisibilityCustomization, ISupportArtifactStateAccessibilityCustomization
+    {
         public ControllerStateCustomizationViewController()
         {
             InitializeComponent();
@@ -23,8 +25,11 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
         }
 
 
-
         public void CustomizeVisibility(ArtifactStateInfo artifactStateInfo){
+            customizeState(artifactStateInfo);
+        }
+
+        private void customizeState(ArtifactStateInfo artifactStateInfo){
             var controllerStateRule = (((ControllerStateRule)artifactStateInfo.Rule));
             if (!string.IsNullOrEmpty(controllerStateRule.Module)){
                 IEnumerable<string> assemblies = Application.Modules.Where(
@@ -34,13 +39,16 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
                     Controller controller in
                         Frame.Controllers.Cast<Controller>().Where(
                             controller => assemblies.Contains(controller.GetType().Assembly.FullName)))
-                    controller.Active[ArtifactStateCustomizationViewController.ActiveKeyObjectTypeHasRules] =
+                    controller.Active[ArtifactStateCustomizationViewController.ActiveObjectTypeHasRules] =
                         !artifactStateInfo.Active;
             }
             else
                 Frame.GetController(controllerStateRule.ControllerType).Active[
-                    ArtifactStateCustomizationViewController.ActiveKeyObjectTypeHasRules] = !artifactStateInfo.Active;
-           
+                    ArtifactStateCustomizationViewController.ActiveObjectTypeHasRules] = !artifactStateInfo.Active;
+        }
+
+        public void CustomizeAccessibility(ArtifactStateInfo info){
+            customizeState(info);
         }
     }
 }

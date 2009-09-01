@@ -26,7 +26,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
         public void CustomizeVisibility(ArtifactStateInfo artifactStateInfo){
             var rule = (((ActionStateRule)artifactStateInfo.Rule));
             foreach (ActionBase actionBase in GetActions(rule)){
-                actionBase.Active[ArtifactStateCustomizationViewController.ActiveKeyObjectTypeHasRules] =
+                actionBase.Active[ArtifactStateCustomizationViewController.ActiveObjectTypeHasRules] =
                     !artifactStateInfo.Active;
             }
             
@@ -53,7 +53,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
             var rule = (((ActionStateRule)artifactStateInfo.Rule));
             foreach (ActionBase actionBase in GetActions(rule))
             {
-                actionBase.Enabled[ArtifactStateCustomizationViewController.ActiveKeyObjectTypeHasRules] =
+                actionBase.Enabled[ArtifactStateCustomizationViewController.ActiveObjectTypeHasRules] =
                     !artifactStateInfo.Active;
             }
 

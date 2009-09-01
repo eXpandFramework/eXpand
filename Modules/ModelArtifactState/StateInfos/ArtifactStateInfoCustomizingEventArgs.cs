@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using DevExpress.ExpressApp;
 
 namespace eXpand.ExpressApp.ModelArtifactState.StateInfos
 {
@@ -7,11 +8,14 @@ namespace eXpand.ExpressApp.ModelArtifactState.StateInfos
     /// </summary>
     public class ArtifactStateInfoCustomizingEventArgs : CancelEventArgs
     {
+        
+
         public ArtifactStateInfoCustomizingEventArgs(ArtifactStateInfo info, bool cancel)
         {
             ArtifactStateInfo = info;
             Cancel = cancel;
         }
+
 
         /// <summary>
         /// Allows you to customize the information about the artifact states.

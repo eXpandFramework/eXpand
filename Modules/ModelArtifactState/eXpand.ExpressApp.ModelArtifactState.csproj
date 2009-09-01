@@ -132,13 +132,15 @@
     <Compile Include="Controllers\ControllerStateCustomizationViewController.Designer.cs">
       <DependentUpon>ControllerStateCustomizationViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ISupportArtifactState.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ModelArtifactStateModule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ModelArtifactStateModule.Designer.cs">
       <DependentUpon>ModelArtifactStateModule.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\ISupportArtifactState.cs" />
     <Compile Include="Interfaces\ISupportArtifactStateAccessibilityCustomization.cs" />
     <Compile Include="Interfaces\ISupportArtifactStateCustomization.cs" />
     <Compile Include="Interfaces\ISupportArtifactStateVisibilityCustomization.cs" />

@@ -8,5 +8,6 @@ namespace eXpand.ExpressApp.ModelArtifactState.Interfaces
         [DisplayName("Module (regex)")]
         string Module { get; set; }
 
+        
     }
 }

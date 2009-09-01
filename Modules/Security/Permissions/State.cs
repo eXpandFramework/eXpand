@@ -7,6 +7,6 @@ namespace eXpand.ExpressApp.Security.Permissions
     {
         Default,
         Disabled,
-        Hidden
+        Hidden,
     }
 }

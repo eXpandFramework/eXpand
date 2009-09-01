@@ -1,3 +1,4 @@
+using DevExpress.ExpressApp;
 using eXpand.ExpressApp.ModelArtifactState.StateRules;
 using eXpand.ExpressApp.Security.Permissions;
 
@@ -49,5 +50,9 @@ namespace eXpand.ExpressApp.ModelArtifactState.StateInfos
         /// Gets or sets whether the selected customization should be applied to the selected artifacts.
         /// </summary>
         public bool Active { get; set; }
+
+        public bool InvertingCustomization { get; set; }
+
+        public View View { get; set; }
     }
 }

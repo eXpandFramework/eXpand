@@ -9,22 +9,24 @@ using eXpand.ExpressApp.Security.Permissions;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
     public class ArtifactStateCustomizationViewController : ViewController, ISupportArtifactStateCustomization,
-                                                            ISupportArtifactStateVisibilityCustomization{
+                                                            ISupportArtifactStateVisibilityCustomization, ISupportArtifactStateAccessibilityCustomization
+    {
         private readonly LightDictionary<ISupportArtifactState, Type> providers = new LightDictionary<ISupportArtifactState, Type>();
         private bool isRefreshing;
-        public const string ActiveKeyObjectTypeHasRules = "ObjectTypeHasArtifactRules";
+        public const string ActiveObjectTypeHasRules = "ObjectTypeHasArtifactRules";
         #region ISupportArtifactStateCustomization Members
         public virtual bool IsReady{
             get { return Active.ResultValue && View != null && View.ObjectTypeInfo != null; }
         }
 
-        public virtual void ForceCustomization(bool isReady, View view){
+        public virtual void ForceCustomization(bool isReady, View view, bool invertCustomization){
             if (isReady){
                 object currentObject = view.CurrentObject;
                 foreach (ArtifactStateRule rule in ArtifactStateRuleManager.Instance[view.ObjectTypeInfo])
                     if (IsValidRule(rule, view))
-                        ForceCustomizationCore(currentObject, rule);
+                        ForceCustomizationCore(currentObject, rule, invertCustomization,view);
             }
+            
         }
 
         public virtual void CustomizeArtifactState(ArtifactStateInfo info){
@@ -82,16 +84,29 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
         public virtual void CustomizeVisibility(ArtifactStateInfo artifactStateInfo){
         }
         #endregion
+
         protected override void OnViewChanging(View view){
+            
             base.OnViewChanging(view);
-            Active[ActiveKeyObjectTypeHasRules] = ArtifactStateRuleManager.NeedsCustomization(view);
-            ForceCustomization(Active[ActiveKeyObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view);
+            Active[ActiveObjectTypeHasRules] = ArtifactStateRuleManager.NeedsCustomization(view);
+            ForceCustomization(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view,false);
         }
+
+        private void FrameOnViewChanging(object sender, EventArgs args){
+            if (View != null) ResetCustomization(View);
+        }
+
+        private void ResetCustomization(View view){
+            ForceCustomization(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view,true);
+        }
+
         protected override void OnFrameAssigned()
         {
             base.OnFrameAssigned();
+            Frame.ViewChanging+=FrameOnViewChanging;
             Register<ArtifactStateRule>(this);
         }
+
         protected override void OnActivated(){
             base.OnActivated();
             if (IsReady){
@@ -128,7 +143,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
         }
 
         private void ForceCustomization(){
-            ForceCustomization(IsReady,View);
+            ForceCustomization(IsReady,View, false);
         }
 
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs args){
@@ -166,12 +181,22 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
         }
 
 
-        protected virtual void ForceCustomizationCore(object currentObject, ArtifactStateRule rule){
+        protected virtual void ForceCustomizationCore(object currentObject, ArtifactStateRule rule, bool invertCustomization, View view)
+        {
             ArtifactStateInfo info = ArtifactStateRuleManager.CalculateArtifactStateInfo(currentObject, rule);
-            if (info != null)
+            if (info != null){
+                info.InvertingCustomization = invertCustomization;
+                info.View = view;
+                if (invertCustomization)
+                    info.Active = !info.Active;
                 CustomizeArtifactState(info);
+            }
         }
 
 
-                                                            }
+        public virtual void CustomizeAccessibility(ArtifactStateInfo info)
+        {
+            
+        }
+    }
 }
