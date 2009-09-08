@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Collapsed="true">
+    <Position X="3.25" Y="3" Width="3" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="PersistentApplication" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.PersistentApplication" Collapsed="true">
+    <Position X="7.5" Y="3.25" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
