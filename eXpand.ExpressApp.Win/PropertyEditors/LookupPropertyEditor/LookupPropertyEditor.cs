@@ -41,7 +41,7 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.LookupPropertyEditor{
         {
             try
             {
-                editButton.Visible = ControlValue != null;
+                editButton.Visible = ControlValue != null&&AllowEdit;
             }
             catch
             {

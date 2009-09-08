@@ -55,7 +55,6 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             base.AfterConstruction();
             differenceType=DifferenceType.Model;
         }
-        
         [VisibleInDetailView(false)]
         [Custom(ColumnInfoNodeWrapper.GroupIndexAttribute, "0")]
         [PersistentAlias("differenceType")]
@@ -140,12 +139,14 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         public Dictionary Model
         {
             get{
-                var dictionary = new Dictionary(_model.RootNode,PersistentApplication.Model.Schema);
-                foreach (var aspect in _model.Aspects){
-                    dictionary.AddAspect(aspect, new DictionaryXmlReader().ReadFromString(new DictionaryXmlWriter().GetAspectXml(aspect, _model.RootNode)));
+                if (!IsDeleted){
+                    var dictionary = new Dictionary(_model.RootNode,PersistentApplication.Model.Schema);
+                    foreach (var aspect in _model.Aspects){
+                        dictionary.AddAspect(aspect, new DictionaryXmlReader().ReadFromString(new DictionaryXmlWriter().GetAspectXml(aspect, _model.RootNode)));
+                    }
+                    return dictionary;
                 }
-                return dictionary;
-
+                return null;
             }
             set
             {
