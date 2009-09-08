@@ -145,6 +145,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
                     dictionary.AddAspect(aspect, new DictionaryXmlReader().ReadFromString(new DictionaryXmlWriter().GetAspectXml(aspect, _model.RootNode)));
                 }
                 return dictionary;
+
             }
             set
             {
