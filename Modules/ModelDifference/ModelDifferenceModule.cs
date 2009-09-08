@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using DevExpress.ExpressApp;
@@ -33,9 +34,9 @@ namespace eXpand.ExpressApp.ModelDifference{
         {
             base.UpdateModel(model);
             AddCultures(model);
-
-            if (!(SecuritySystem.Instance is ISecurityComplex))
+            if (SecuritySystem.UserType!= null&& !(SecuritySystem.Instance is ISecurityComplex)){
                 RemoveXpoRoleModelDictionaryDifferenceStoreBONode(model);
+            }
         }
 
         public void AddCultures(Dictionary model){
@@ -56,15 +57,17 @@ namespace eXpand.ExpressApp.ModelDifference{
             base.CustomizeTypesInfo(typesInfo);
             RoleDifferenceObjectBuilder.CreateDynamicMembers();
             if (!UserDifferenceObjectBuilder.CreateDynamicMembers()){
-                XPClassInfo info = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeof (UserModelDifferenceObject));
-                info.CreateMember("Users",typeof (XPCollection),true);
-                typesInfo.RefreshInfo(typeof(UserModelDifferenceObject));
+                createDesignTimeCollection(typesInfo, typeof(UserModelDifferenceObject), "Users");
+                createDesignTimeCollection(typesInfo, typeof(RoleModelDifferenceObject), "Roles");
             }
             
         }
-        
 
-
+        private void createDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName){
+            XPClassInfo info = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(classType);
+            info.CreateMember(propertyName,typeof (XPCollection),true);
+            typesInfo.RefreshInfo(classType);
+        }
 
 
         public override void Setup(XafApplication application)

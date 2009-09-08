@@ -13,11 +13,12 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Builders{
             return XafTypesInfo.Instance.PersistentTypes.Where(info => info.Type== ((ISecurityComplex) SecuritySystem.Instance).RoleType).Single();
         }
     
-        public static void CreateDynamicMembers(){
+        public static bool CreateDynamicMembers(){
             if (SecuritySystem.Instance is ISecurityComplex){
-                XafTypesInfo.Instance.CreateBothPartMembers(typeof (RoleModelDifferenceObject), GetRoleTypeInfo().Type,
+                return XafTypesInfo.Instance.CreateBothPartMembers(typeof(RoleModelDifferenceObject), GetRoleTypeInfo().Type,
                                                             XafTypesInfo.XpoTypeInfoSource.XPDictionary, true);
             }
+            return false;
         }
     }
 }
