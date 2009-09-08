@@ -49,35 +49,35 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.ExpressApp.Win.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Win.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraBars.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraEditors.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraGrid.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraLayout.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
@@ -138,56 +138,67 @@
     <Compile Include="PropertyEditors\ObjectPropertyEditor\ObjectPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringLookupPropertyEditor\StringLookupPropertyEditor.cs" />
     <Compile Include="SystemModule\CustomSelectionListViewViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\CustomSelectionListViewViewController.designer.cs">
       <DependentUpon>CustomSelectionListViewViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\EditModeViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\EditModeViewController.Designer.cs">
       <DependentUpon>EditModeViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FilterByPropertyPathViewController.designer.cs">
       <DependentUpon>FilterByPropertyPathViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\FilterControlListViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FilterControlListViewController.Designer.cs">
       <DependentUpon>FilterControlListViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\GridViewViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridViewViewController.designer.cs">
       <DependentUpon>GridViewViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\HideGridPopUpMenuViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HideGridPopUpMenuViewController.designer.cs">
       <DependentUpon>HideGridPopUpMenuViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\HideNestedListViewToolBarViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HideNestedListViewToolBarViewController.designer.cs">
       <DependentUpon>HideNestedListViewToolBarViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\ListViewViewStyleController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ListViewViewStyleController.Designer.cs">
       <DependentUpon>ListViewViewStyleController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\LookUpPropertyEditorViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\LookUpPropertyEditorViewController.Designer.cs">
       <DependentUpon>LookUpPropertyEditorViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\MasterDetailViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\MasterDetailViewController.designer.cs">
       <DependentUpon>MasterDetailViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\MinimizeOnCloseController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\MinimizeOnCloseController.Designer.cs">
       <DependentUpon>MinimizeOnCloseController.cs</DependentUpon>
@@ -196,41 +207,49 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SystemModule\NewObjectLookUpViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\NewObjectLookUpViewController.designer.cs">
       <DependentUpon>NewObjectLookUpViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\NotifyIconController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\NotifyIconController.Designer.cs">
       <DependentUpon>NotifyIconController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\RemoveNavigationItemsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\RemoveNavigationItemsController.designer.cs">
       <DependentUpon>RemoveNavigationItemsController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\TabStopViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\TabStopViewController.designer.cs">
       <DependentUpon>TabStopViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\WinDetailViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\WinDetailViewController.Designer.cs">
       <DependentUpon>WinDetailViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\WindowHintController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\WindowHintController.designer.cs">
       <DependentUpon>WindowHintController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\WinLogoutWindowController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\WinLogoutWindowController.designer.cs">
       <DependentUpon>WinLogoutWindowController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\eXpandSystemWindowsFormsModule.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\eXpandSystemWindowsFormsModule.designer.cs">
       <DependentUpon>eXpandSystemWindowsFormsModule.cs</DependentUpon>
@@ -239,6 +258,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WinComponent.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="WinComponent.Designer.cs">
       <DependentUpon>WinComponent.cs</DependentUpon>

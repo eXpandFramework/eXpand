@@ -84,8 +84,10 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             get { return dateCreated; }
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref dateCreated, value); }
         }
-        
-        [VisibleInListView(false)][NonPersistent]
+
+        [VisibleInListView(false)]
+        [NonPersistent]
+        [NonCloneable]
         public string PreferredAspect
         {
             get
@@ -95,8 +97,10 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             set
             {
                 SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _preferredAspect, value);
+
                 setCurrentAspect(Model);
                 setCurrentAspect(PersistentApplication.Model);
+                
                 OnChanged("Model");
             }
         }
@@ -114,7 +118,11 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
                 return _preferredAspect.IndexOf(" ")>-1?_preferredAspect.Substring(0,_preferredAspect.IndexOf(" ")):_preferredAspect;
             }
         }
-        [Size(-1)][NonPersistent][VisibleInListView(false)]
+
+        [Size(-1)]
+        [NonPersistent]
+        [VisibleInListView(false)]
+        [NonCloneable]
         public string XmlContent
         {
             get

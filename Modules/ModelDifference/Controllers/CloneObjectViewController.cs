@@ -18,6 +18,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
             {
                 var store =
                     ((ModelDifferenceObject) args.ShowViewParameters.CreatedView.CurrentObject);
+                store.PersistentApplication=new PersistentApplication(store.Session);
                 store.DateCreated = DateTime.Now;
                 store.Disabled = true;
                 store.Name = null;

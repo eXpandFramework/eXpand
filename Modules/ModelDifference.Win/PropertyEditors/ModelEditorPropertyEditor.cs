@@ -79,17 +79,6 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             var combiner = new DictionaryCombiner(CurrentObject.PersistentApplication.Model);
             combiner.CombineWith(CurrentObject);
             return CurrentObject.PersistentApplication.Model;
-//            var persistentAppDictionary = dictionaryDifferenceStore.PersistentApplication.Model;
-//            var dictionary = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), dictionaryDifferenceStore.PersistentApplication.Model.Schema);
-//            var combiner = new DictionaryCombiner(dictionary);
-//            combiner.CombineWith(persistentAppDictionary);
-//            combiner.CombineWith(dictionaryDifferenceStore.Model);
-
-//            combiner= new DictionaryCombiner(dictionaryDifferenceStore.Model);
-//            combiner.CombineWith(dictionaryDifferenceStore);
-//            combiner = new DictionaryCombiner(dictionary);
-//            combiner.CombineWith(dictionaryDifferenceStore.Model);
-//            return dictionary;
         }
 
         public void Setup(ObjectSpace space, XafApplication app)
