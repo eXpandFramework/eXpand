@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+	<NavigationItems>
+		<Item ID="Default">
+			<Item ID="ModelDifferenceObject_ListView" ImageName="MenuBar_EditModel" />
+		</Item>
+	</NavigationItems>
+	<SchemaModules IsNewNode="True">
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.AutoFilterRowListViewController" Version="9.2.4.0" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.2.4.0" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.2.4.0" IsNewNode="True" />
+		<SchemaModule Name="SystemModule" Version="9.2.4.0" IsNewNode="True" />
+	</SchemaModules>
+	<Views>
+		<DetailView ID="ModelDifferenceObject_DetailView">
+			<Layout Width="1024" Height="659">
+				<LayoutGroup ID="Main" CaptionLocation="Default" RelativeSize="100">
+					<TabbedGroup ID="Item1" CaptionLocation="Top" Index="1" RelativeSize="76" IsNewNode="True">
+						<LayoutGroup ID="Model" ShowCaption="True" Caption="Model" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" IsNewNode="True">
+							<LayoutItem ID="Model" ShowCaption="True" CaptionLocation="Default" Index="0" RelativeSize="100" SizeConstraintsType="Default" IsNewNode="True" />
+						</LayoutGroup>
+						<LayoutGroup ID="SizeableEditors" ShowCaption="True" Caption="Xml Content" CaptionLocation="Default" Direction="Vertical" Index="1" RelativeSize="100" IsNewNode="True">
+							<LayoutItem ID="XmlContent" ShowCaption="True" CaptionLocation="Default" Index="0" RelativeSize="100" SizeConstraintsType="Default" IsNewNode="True" />
+						</LayoutGroup>
+					</TabbedGroup>
+					<LayoutGroup ID="SimpleEditors" CaptionLocation="Default" RelativeSize="23">
+						<LayoutGroup ID="ModelDifferenceObject" CaptionLocation="Default" RelativeSize="100">
+							<LayoutGroup ID="ModelDifferenceObject_col1" CaptionLocation="Default" RelativeSize="45">
+								<LayoutItem ID="Disabled" RelativeSize="21" SizeConstraintsType="Default" />
+								<LayoutItem ID="Name" RelativeSize="28" SizeConstraintsType="Default" />
+							</LayoutGroup>
+							<LayoutGroup ID="ModelDifferenceObject_col2" CaptionLocation="Default" RelativeSize="52">
+								<LayoutItem ID="Model" Removed="True" />
+							</LayoutGroup>
+						</LayoutGroup>
+					</LayoutGroup>
+					<LayoutGroup ID="SizeableEditors" Removed="True" />
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<ListView ID="ModelDifferenceObject_ListView">
+			<Columns>
+				<ColumnInfo PropertyName="DifferenceType" GroupIndex="0" />
+			</Columns>
+		</ListView>
+	</Views>
+</Application>

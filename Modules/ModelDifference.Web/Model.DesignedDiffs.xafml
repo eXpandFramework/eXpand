@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+	<SchemaModules>
+		<SchemaModule Name="SystemAspNetModule" Version="9.1.5.0" IsNewNode="True" />
+	</SchemaModules>
+	<Views>
+		<DetailView ID="XpoModelDictionaryDifferenceStore_DetailView">
+			<Layout Width="1009" Height="777">
+				<LayoutGroup ID="Main">
+					<LayoutGroup ID="SimpleEditors">
+						<LayoutGroup ID="XpoModelDictionaryDifferenceStore">
+							<LayoutGroup ID="XpoModelDictionaryDifferenceStore_col1" RelativeSize="44" />
+							<LayoutGroup ID="XpoModelDictionaryDifferenceStore_col2" RelativeSize="54" />
+						</LayoutGroup>
+					</LayoutGroup>
+					<LayoutGroup ID="SizeableEditors">
+						<TabbedGroup ID="Content">
+							<LayoutGroup ID="ModelEditorLayoutGroup" Removed="True" />
+							<LayoutGroup ID="XmlContentGroup" Index="0" />
+						</TabbedGroup>
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<DetailView ID="XpoUserModelDictionaryDifferenceStore_DetailView">
+			<Layout>
+				<LayoutGroup ID="Main">
+					<LayoutGroup ID="SimpleEditors" RelativeSize="16">
+						<LayoutGroup ID="XpoModelDictionaryDifferenceStore">
+							<LayoutGroup ID="XpoModelDictionaryDifferenceStore_col1" RelativeSize="43" />
+							<LayoutGroup ID="XpoModelDictionaryDifferenceStore_col2" RelativeSize="55" />
+						</LayoutGroup>
+					</LayoutGroup>
+					<LayoutGroup ID="SizeableEditors" RelativeSize="81">
+						<TabbedGroup ID="Content" RelativeSize="96">
+							<LayoutGroup ID="ModelEditorLayoutGroup" Removed="True" />
+							<LayoutGroup ID="UsersGroup" Index="1" />
+							<LayoutGroup ID="XmlContentGroup" Index="0" />
+						</TabbedGroup>
+						<LayoutItem ID="NonPersistent" RelativeSize="3" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+	</Views>
+</Application>
