@@ -26,7 +26,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
         [Isolated]
         public void On_CurrentOBjectChanged_If_DefaultActiveUserDifference_Then_Combine_UserModel_With_it_And_save_it()
         {
-            var modelDifferenceObject = new UserModelDifferenceObject(Session.DefaultSession) { Model = new Dictionary(Schema.GetCommonSchema()) };
+            var modelDifferenceObject = new UserModelDifferenceObject(Session.DefaultSession) {PersistentApplication =new PersistentApplication(Session.DefaultSession), Model = new Dictionary(Schema.GetCommonSchema()) };
             var factory = new ViewControllerFactory();
             var controller = factory.CreateController<CombineUserModelWithActiveUserDifferenceController>(ViewType.ListView, modelDifferenceObject);
             var view = controller.View;

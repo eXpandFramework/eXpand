@@ -42,7 +42,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         {
             Isolate.Fake.StaticMethods(typeof(Validator));
             var application = Isolate.Fake.Instance<XafApplication>();
-            application.ApplicationName = "ApplicationName";
+            application.Title = "ApplicationName";
             var dictionary = new Dictionary();
             Isolate.WhenCalled(() => dictionary.Aspects).WillReturn(new List<string> { "aspect" });
             Isolate.WhenCalled(() => application.Model).WillReturn(dictionary);
@@ -76,7 +76,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             var ruleSet = Validator.RuleSet;
             Isolate.WhenCalled(() => ruleSet.ValidateAll(null, null)).DoInstead(context => called = true);
 
-            store.OnAspectStoreObjectSaving(new ModelDifferenceObject(Session.DefaultSession), new Dictionary());
+            store.OnAspectStoreObjectSaving(new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)}, new Dictionary());
 
             Assert.IsTrue(called);
         }

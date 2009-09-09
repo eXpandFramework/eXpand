@@ -96,10 +96,8 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             set
             {
                 SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _preferredAspect, value);
-
-                setCurrentAspect(Model);
+                setCurrentAspect(_model);
                 setCurrentAspect(PersistentApplication.Model);
-                
                 OnChanged("Model");
             }
         }
@@ -141,9 +139,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             get{
                 if (!IsDeleted){
                     var dictionary = new Dictionary(_model.RootNode,PersistentApplication.Model.Schema);
-                    foreach (var aspect in _model.Aspects){
-                        dictionary.AddAspect(aspect, new DictionaryXmlReader().ReadFromString(new DictionaryXmlWriter().GetAspectXml(aspect, _model.RootNode)));
-                    }
+                    var combiner = new DictionaryCombiner(dictionary);
+                    combiner.AddAspects(_model);
+                    dictionary.CurrentAspectProvider.CurrentAspect=_model.CurrentAspect;
                     return dictionary;
                 }
                 return null;
@@ -173,9 +171,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
 //        }
 
 
-        public virtual ModelDifferenceObject InitializeMembers(string applicationName){
+        public virtual ModelDifferenceObject InitializeMembers(string applicationName,string uniqueName){
 
-            PersistentApplication =new QueryPersistentApplication(Session).Find(applicationName)?? new PersistentApplication(Session){Name = applicationName};
+            PersistentApplication =new QueryPersistentApplication(Session).Find(uniqueName)?? new PersistentApplication(Session){Name = applicationName,UniqueName = uniqueName};
             ModelDifferenceObjectBuilder.SetUp(this, applicationName);
             return this;
         }

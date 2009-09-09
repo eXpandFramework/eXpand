@@ -23,7 +23,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
         [Isolated]
         public void Can_Create_ListView_For_An_Object(){
             var factory = new ControllerFactory();
-            var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession);
+            var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)};
 
             var controller = factory.CreateController<ViewController>(modelDifferenceObject);
 
@@ -33,7 +33,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
         [Isolated]
         public void When_Creating_A_ListView_For_An_Object_Current_Object_Should_Be_Set(){
             var factory = new ControllerFactory();
-            var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession);
+            var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)};
 
             var controller = factory.CreateController<ViewController>(modelDifferenceObject);
 

@@ -14,11 +14,11 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Creating{
         [Isolated]
         public void Should_InitializeMembers()
         {
-            var controller = new ViewControllerFactory().CreateController<CreateNewDifferenceObjectViewController>(ViewType.DetailView,new ModelDifferenceObject(Session.DefaultSession));
+            var controller = new ViewControllerFactory().CreateController<CreateNewDifferenceObjectViewController>(ViewType.DetailView,new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)});
             
-            var modelAspectObject = new ModelDifferenceObject(Session.DefaultSession);
+            var modelAspectObject = new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)};
             bool called = false;
-            Isolate.WhenCalled(() => modelAspectObject.InitializeMembers("")).DoInstead(context =>
+            Isolate.WhenCalled(() => modelAspectObject.InitializeMembers("", "")).DoInstead(context =>
             {
                 called = true;
                 return modelAspectObject;

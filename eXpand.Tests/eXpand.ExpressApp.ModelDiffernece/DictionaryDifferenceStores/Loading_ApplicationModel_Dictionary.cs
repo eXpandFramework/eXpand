@@ -46,6 +46,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
 
                 Assert.IsFalse(path);
             }
+
             [Test]
             [Isolated]
             [MultipleAsserts]
@@ -59,13 +60,13 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
                 #region isolate store
                 Isolate.WhenCalled(() => store.GetModelPaths()).WillReturn(new List<string> { "model.xafml", "model_el.xafml", "LogonParameters.xafml" });
                 Isolate.WhenCalled(() => store.UseModelFromPath()).WillReturn(true);
+                Isolate.WhenCalled(() => store.SaveDifference(null)).IgnoreCall();
                 #endregion
                 var dictionaryNode = new DictionaryNode("Application");
                 #region isolate dictionaryXmlReader
                 var dictionaryXmlReader = Isolate.Fake.Instance<DictionaryXmlReader>();
                 Isolate.Swap.AllInstances<DictionaryXmlReader>().With(dictionaryXmlReader);
                 Isolate.WhenCalled(() => dictionaryXmlReader.ReadFromFile(null)).WillReturn(dictionaryNode);
-
                 #endregion
 
                 Dictionary dictionary = store.LoadDifference(Schema.GetCommonSchema());
@@ -81,6 +82,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
                                                                          Session.DefaultSession,
                                                                          Isolate.Fake.Instance<XafApplication>());
                 Isolate.WhenCalled(() => store.UseModelFromPath()).WillReturn(true);
+                Isolate.WhenCalled(() => store.GetPath()).WillReturn(@"c:\1");
                 bool called = false;
                 Isolate.WhenCalled(() => store.SaveDifference(null)).DoInstead(context => called = true);
 

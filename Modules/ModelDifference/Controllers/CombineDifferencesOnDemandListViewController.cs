@@ -40,7 +40,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
 
 
         internal void CheckObjectCompatibility(List<ModelDifferenceObject> selectedObjects){
-            if (selectedObjects.GroupBy(o => o.PersistentApplication.Name).Select(grouping => grouping.Key).Count() > 1)
+            if (selectedObjects.GroupBy(o => o.PersistentApplication.UniqueName).Select(grouping => grouping.Key).Count() > 1)
                 throw new UserFriendlyException(
                     new Exception(
                         "Mixing applications is not supported. Select objects with the same application"));
@@ -50,9 +50,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
         public ModelDifferenceObject GetActiveApplicationModelDifference(
             List<ModelDifferenceObject> selectedModelAspectObjects){
             ModelDifferenceObject selectedModelDifferenceObject = selectedModelAspectObjects[0];
-            return
-                new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(
-                    selectedModelDifferenceObject.PersistentApplication.Name);
+            return new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(selectedModelDifferenceObject.PersistentApplication.UniqueName);
         }
 
         public void CombineAndSave(List<ModelDifferenceObject> selectedModelAspectObjects){

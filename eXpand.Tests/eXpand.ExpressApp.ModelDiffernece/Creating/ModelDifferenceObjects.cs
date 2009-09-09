@@ -25,7 +25,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Creating
             var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession);
             
 
-            modelDifferenceObject.InitializeMembers("appName");
+            modelDifferenceObject.InitializeMembers("appName","");
 
             Assert.AreEqual(application, modelDifferenceObject.PersistentApplication);
         }

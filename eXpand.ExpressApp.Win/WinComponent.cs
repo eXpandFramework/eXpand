@@ -10,10 +10,11 @@ using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.Win.Interfaces;
+using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.Win
 {
-    public partial class WinComponent : WinApplication, ILogOut
+    public partial class WinComponent : WinApplication, ILogOut,IApplicationUniqueName
     {
  
         public void Logout()
@@ -202,6 +203,9 @@ namespace eXpand.ExpressApp.Win
 //                }
 //            }
 //        }
+        public string UniqueName{
+            get { return "A2ABD988-3361-4f75-8790-E2E08E496AB5"; }
+        }
     }
 
     public class ModelEditFormShowningEventArgs : HandledEventArgs

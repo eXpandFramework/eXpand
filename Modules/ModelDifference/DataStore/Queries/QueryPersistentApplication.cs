@@ -11,9 +11,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Queries{
             _session = session;
         }
 
-        public PersistentApplication Find(string name)
+        public PersistentApplication Find(string uniqueName)
         {
-            return new XPQuery<PersistentApplication>(_session).Where(application => application.Name==name).FirstOrDefault();
+            return new XPQuery<PersistentApplication>(_session).Where(application => application.UniqueName==uniqueName).FirstOrDefault();
         }
     }
 }

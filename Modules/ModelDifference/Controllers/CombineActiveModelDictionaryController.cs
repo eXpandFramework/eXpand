@@ -18,13 +18,13 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
 
         internal void ObjectSpaceOnObjectSaved(object sender, ObjectManipulatingEventArgs args){
             var store = (args.Object) as DifferenceStore;
-            if (store != null && ReferenceEquals(GetActiveDifference(store.PersistentApplication.Name), store)){
+            if (store != null && ReferenceEquals(GetActiveDifference(store.PersistentApplication), store)){
                 var combiner = new DictionaryCombiner(Application.Model);
                 combiner.AddAspects(store.Model);
             }
         }
 
-        protected internal abstract DifferenceStore GetActiveDifference(string applicationName);
+        protected internal abstract DifferenceStore GetActiveDifference(PersistentApplication persistentApplication);
 
         
         protected override void OnDeactivating()

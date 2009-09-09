@@ -20,12 +20,15 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
 
         protected internal override ModelDifferenceObject GetActiveDifferenceObject(){
-            return new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(Application.ApplicationName);
+            return new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(
+                ((IApplicationUniqueName) Application).UniqueName);
         }
 
         protected internal IQueryable<ModelDifferenceObject> GetActiveDifferenceObjects(){
-            IQueryable<UserModelDifferenceObject> modelDifferenceObjects = new QueryUserModelDifferenceObject(Session).GetActiveModelDifferences(Application.ApplicationName);
-            List<RoleModelDifferenceObject> roleAspectObjects = new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(Application.ApplicationName).ToList();
+            IQueryable<UserModelDifferenceObject> modelDifferenceObjects = new QueryUserModelDifferenceObject(Session).GetActiveModelDifferences(
+                ((IApplicationUniqueName) Application).UniqueName);
+            List<RoleModelDifferenceObject> roleAspectObjects = new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(
+                ((IApplicationUniqueName) Application).UniqueName).ToList();
             IEnumerable<ModelDifferenceObject> roleAspectObjectsConcat = roleAspectObjects.Cast<ModelDifferenceObject>().Concat(modelDifferenceObjects.Cast<ModelDifferenceObject>());
             return roleAspectObjectsConcat.AsQueryable();
         }

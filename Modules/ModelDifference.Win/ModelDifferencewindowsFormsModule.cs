@@ -16,10 +16,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win{
         private void ApplicationOnCreateCustomModelDifferenceStore(object sender,
                                                                    CreateCustomModelDifferenceStoreEventArgs args){
             args.Handled = true;
-            using (
-                var provider =
-                    new DevExpress.ExpressApp.ObjectSpaceProvider(
-                        new ConnectionStringDataStoreProvider(Application.ConnectionString))){
+            using (var provider =new DevExpress.ExpressApp.ObjectSpaceProvider(new ConnectionStringDataStoreProvider(Application.ConnectionString))){
                 args.Store = new XpoWinModelDictionaryDifferenceStore(provider.CreateUpdatingSession(), Application);
             }
         }

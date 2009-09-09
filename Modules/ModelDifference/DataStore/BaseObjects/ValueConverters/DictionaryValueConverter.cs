@@ -40,7 +40,10 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ValueConverter
                 var schema = new Schema(new DictionaryXmlReader().ReadFromString(serializableDictionary["Schema"].Replace(":","")));
                 var dictionary = new Dictionary(rootNode, schema);
                 foreach (var valuePair in serializableDictionary.Where(pair => pair.Key!=DictionaryAttribute.DefaultLanguage&&pair.Key!="Schema")){
-                    var dictionaryNode = new DictionaryXmlReader().ReadFromString(valuePair.Value);
+                    var xml = valuePair.Value;
+                    if (string.IsNullOrEmpty(xml))
+                        xml = "<Application/>";
+                    var dictionaryNode = new DictionaryXmlReader().ReadFromString(xml);
                     dictionary.AddAspect(valuePair.Key, dictionaryNode);    
                 }
                 return dictionary;

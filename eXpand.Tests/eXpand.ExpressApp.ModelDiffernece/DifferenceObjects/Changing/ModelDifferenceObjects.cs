@@ -14,7 +14,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Chang
         [Test]
         [Isolated]
         public void When_Changing_PrefferedLanguage_Then_Model_CurrentAspect_Should_Be_ModelDifference_CurrentLanguage(){
-            var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession);
+            var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)};
             var dictionary = DefaultDictionary;
             modelDifferenceObject.Model=dictionary;
 

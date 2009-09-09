@@ -2,12 +2,14 @@
 using System.Globalization;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.DictionaryStores;
+using eXpand.ExpressApp.ModelDifference.Win;
 using MbUnit.Framework;
 using TypeMock;
 using TypeMock.ArrangeActAssert;
@@ -21,10 +23,20 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
     [TestFixture(Order = 1)]
     public class BeforeLogin:eXpandBaseFixture
     {
+        [Test][ExpectedException(typeof(NotImplementedException))]
+        [Isolated]
+        public void Application_Should_Be_OfType_IApplicationUnique(){
+            var module = new ModelDifferenceModule();
+
+            module.Setup(Isolate.Fake.Instance<XafApplication>());
+
+            
+        }
+
         [Test]
         [Isolated]
         public void Application_ModelDictionary_should_Be_Assign(){
-            var module = new ModelDifferenceModule();
+            var module = new ModelDifferenceWindowsFormsModule();
             var application = Isolate.Fake.Instance<XafApplication>(Members.CallOriginal);
             using (RecorderManager.StartRecording()){
                 application.CreateCustomModelDifferenceStore += null;
@@ -64,15 +76,15 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
 
         [Test(Order = 400)]
         [Isolated]
-        public void If_Security_Is_Not_Complex_Remove_RoleAspect_Node()
+        public void If_Security_Is_Not_Complex_UserType_Is_Set_Remove_RoleAspect_Node()
         {
-            MockManager.ClearAll();
+            Isolate.WhenCalled(() => SecuritySystem.UserType).WillReturn(typeof(User));
             var wrapper = new ApplicationNodeWrapper(new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema()));
             wrapper.Load(typeof(RoleModelDifferenceObject));
-            Assert.AreEqual(1, wrapper.BOModel.Classes.Count);
+            
             var module = new ModelDifferenceModule();
             Isolate.WhenCalled(() => module.AddCultures(null)).IgnoreCall();
-
+         
             module.UpdateModel(wrapper.Dictionary);
 
             Assert.AreEqual(0, wrapper.BOModel.Classes.Count);

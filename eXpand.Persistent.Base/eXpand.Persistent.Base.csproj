@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DifferenceType.cs" />
+    <Compile Include="IApplicationUniqueName.cs" />
     <Compile Include="IAuditable.cs" />
     <Compile Include="IBusinessObject.cs" />
     <Compile Include="IXpoModelDifference.cs" />

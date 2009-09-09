@@ -2,6 +2,7 @@ using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.ModelDifference.Controllers{
     public partial class CreateNewDifferenceObjectViewController : ViewController
@@ -11,10 +12,10 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
             InitializeComponent();
             RegisterActions(components);
             TargetObjectType = typeof (ModelDifferenceObject);
-//            TargetViewType=ViewType.DetailView;
+
         }
 
-        [CoverageExclude]
+        
         protected override void OnActivated()
         {
             base.OnActivated();
@@ -40,7 +41,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
         }
 
         protected virtual internal void OnObjectCreated(object sender, ObjectCreatedEventArgs args){
-            ((ModelDifferenceObject) args.CreatedObject).InitializeMembers(Application.ApplicationName);
+            ((ModelDifferenceObject) args.CreatedObject).InitializeMembers(Application.Title, ((IApplicationUniqueName) Application).UniqueName);
         }
     }
 }

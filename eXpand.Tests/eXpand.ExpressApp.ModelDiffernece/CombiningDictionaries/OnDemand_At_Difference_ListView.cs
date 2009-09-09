@@ -135,8 +135,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                                                                                                             new PersistentApplication
                                                                                                             (Session.
                                                                                                                  DefaultSession){
-                                                                                                                                    Name =
-                                                                                                                                        "appName",
+                                                                                                                                    Name ="appName",
                                                                                                                                     Model = new Dictionary(Schema.GetCommonSchema())
                                                                                                                                 },
                                                                                                         Model =DefaultDictionary2

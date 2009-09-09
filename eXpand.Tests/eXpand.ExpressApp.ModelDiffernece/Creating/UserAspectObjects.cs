@@ -27,7 +27,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Creating
             Isolate.Fake.ISecurityComplex();
             var aspectObject = new UserModelDifferenceObject(Session.DefaultSession);
 
-            aspectObject.InitializeMembers("name");
+            aspectObject.InitializeMembers("name","");
 
             Assert.IsNotNull(aspectObject.PersistentApplication);
             Assert.AreEqual("name", aspectObject.PersistentApplication.Name);
@@ -40,7 +40,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Creating
             var aspectObject = new UserModelDifferenceObject(Session.DefaultSession);
             ((User)SecuritySystem.CurrentUser).UserName = "UserName";
 
-            aspectObject.InitializeMembers("");
+            aspectObject.InitializeMembers("", "");
 
             Assert.IsTrue(aspectObject.Name.IndexOf("UserName") > -1);
         }

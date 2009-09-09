@@ -6,7 +6,7 @@ using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.Web
 {
-    public partial class WebComponent : DevExpress.ExpressApp.Web.WebApplication
+    public partial class WebComponent : DevExpress.ExpressApp.Web.WebApplication,IApplicationUniqueName
     {
 
         public WebComponent()
@@ -14,6 +14,10 @@ namespace eXpand.ExpressApp.Web
             InitializeComponent();
             DatabaseVersionMismatch += (sender, args) => this.DatabaseVersionMismatchEvent(sender, args);
 
+        }
+        public string UniqueName
+        {
+            get { return "A2ABD988-3361-4f75-8790-E2E08E496AB5"; }
         }
 
         protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)

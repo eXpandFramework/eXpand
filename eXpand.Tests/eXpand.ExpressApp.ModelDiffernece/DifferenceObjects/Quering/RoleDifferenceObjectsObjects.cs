@@ -32,7 +32,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Queri
             ((User)SecuritySystem.CurrentUser).Roles.Add(role);
             XafTypesInfo.Instance.RegisterEntity(typeof(RoleModelDifferenceObject));
             RoleDifferenceObjectBuilder.CreateDynamicMembers();
-            new ModelDifferenceObject(Session.DefaultSession).Save();
+            new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)}.Save();
             var roleDifferenceObjectsObject1 = new RoleModelDifferenceObject(Session.DefaultSession) { PersistentApplication =new PersistentApplication(Session.DefaultSession) { Name = "AppName" } };
             ((XPCollection)roleDifferenceObjectsObject1.GetMemberValue("Roles")).Add(role);
             roleDifferenceObjectsObject1.Save();

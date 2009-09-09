@@ -35,15 +35,13 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
         public override void SaveDifference(Dictionary diffDictionary){
             if (diffDictionary != null){
+                var applicationName = Application.Title;
                 ModelDifferenceObject modelDifferenceObject = GetActiveDifferenceObject() ??
                                                               GetNewDifferenceObject(session).
-                                                                  InitializeMembers(Application.ApplicationName);
+                                                                  InitializeMembers(applicationName, ((IApplicationUniqueName) Application).UniqueName);
                 var persistentApplication = modelDifferenceObject.PersistentApplication;
-                persistentApplication.Name = application.ApplicationName;
-//                var combiner = new DictionaryCombiner(modelDifferenceObject);
-//                combiner.CombineWith(diffDictionary);
-//                persistentApplication.Schema = diffDictionary.Schema;
-//                modelDifferenceObject.Model= diffDictionary.RootNode;
+                persistentApplication.Name = applicationName;
+                persistentApplication.UniqueName = ((IApplicationUniqueName) Application).UniqueName;
                 OnAspectStoreObjectSaving(modelDifferenceObject,diffDictionary);
             }
         }

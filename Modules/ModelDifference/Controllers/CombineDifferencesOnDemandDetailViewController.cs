@@ -63,7 +63,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
                 new XPQuery<ModelDifferenceObject>(ObjectSpace.Session).TransformExpression(
                     m =>
                     m.Oid != currentModelAspectObject.Oid && 
-                    m.PersistentApplication.Name == currentModelAspectObject.PersistentApplication.Name);
+                    m.PersistentApplication.UniqueName == currentModelAspectObject.PersistentApplication.UniqueName);
             source.Criteria["excludeCurrentObject"] = expression;
             return source;
         }

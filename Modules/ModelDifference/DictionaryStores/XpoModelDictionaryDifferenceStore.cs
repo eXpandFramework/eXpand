@@ -38,7 +38,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             return paths;
         }
 
-        protected abstract string GetPath();
+        protected internal abstract string GetPath();
 
         protected override Dictionary LoadDifferenceCore(Schema schema)
         {
@@ -76,7 +76,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         }
 
         protected internal override ModelDifferenceObject GetActiveDifferenceObject(){
-            return new QueryModelDifferenceObject(Session).GetActiveModelDifference(Application.ApplicationName);
+            return new QueryModelDifferenceObject(Session).GetActiveModelDifference(((IApplicationUniqueName) Application).UniqueName);
         }
 
         protected internal override ModelDifferenceObject GetNewDifferenceObject(Session session)

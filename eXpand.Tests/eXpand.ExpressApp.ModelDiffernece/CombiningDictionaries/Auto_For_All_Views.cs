@@ -32,7 +32,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                     Model = dictionary,
                     PersistentApplication =new PersistentApplication(Session.DefaultSession) { Name = "appNAme" }
                 };
-                Isolate.WhenCalled(() => controller.GetActiveDifference("appNAme")).WithExactArguments().WillReturn(modelDifferenceObject);
+                Isolate.WhenCalled(() => controller.GetActiveDifference(null)).WithExactArguments().WillReturn(modelDifferenceObject);
 
 
                 controller.ObjectSpaceOnObjectSaved(null, new ObjectManipulatingEventArgs(modelDifferenceObject));
@@ -50,7 +50,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                     var controller = new ViewControllerFactory().CreateAndActivateController<CombineActiveModelDictionaryWithActiveModelDifferenceController>(typeof(ModelDifferenceObject));
                     var queryUserModelDifferenceObject = Isolate.Fake.InstanceAndSwapAll<QueryModelDifferenceObject>();
 
-                    var modelDifferenceObject = controller.GetActiveDifference("");
+                    var modelDifferenceObject = controller.GetActiveDifference(null);
 
                     Assert.AreEqual(queryUserModelDifferenceObject.GetActiveModelDifference(""), modelDifferenceObject);
                 }
@@ -83,10 +83,10 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                 [Isolated]
                 public void ActiveDifference_Will_Be_OfType_UserDifferenceObject()
                 {
-                    var controller = new Tests.ViewControllerFactory().CreateAndActivateController<CombineActiveModelDictionaryWithActiveUserDifferenceController>(typeof(ModelDifferenceObject));
+                    var controller = new ViewControllerFactory().CreateAndActivateController<CombineActiveModelDictionaryWithActiveUserDifferenceController>(typeof(ModelDifferenceObject));
                     var queryUserModelDifferenceObject = Isolate.Fake.InstanceAndSwapAll<QueryUserModelDifferenceObject>();
 
-                    var modelDifferenceObject = controller.GetActiveDifference("");
+                    var modelDifferenceObject = controller.GetActiveDifference(null);
 
                     Assert.AreEqual(queryUserModelDifferenceObject.GetActiveModelDifference(""), modelDifferenceObject);
                 }

@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
@@ -12,8 +13,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         private string _name;
 
         public PersistentApplication(Session session) : base(session){
+            Debug.Print("");
         }
-        [RuleUniqueValue(null,DefaultContexts.Save)]
+        [RuleRequiredField(null,DefaultContexts.Save)]
         public string Name
         {
             get
@@ -34,21 +36,6 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
                 return GetCollection<ModelDifferenceObject>(MethodBase.GetCurrentMethod().Name.Replace("get_", ""));
             }
         }
-//        private Schema schema;
-//        [RuleRequiredField(null,DefaultContexts.Save)]
-//        [Size(SizeAttribute.Unlimited)]
-//        [ValueConverter(typeof(SchemaValueConverter))]
-//        public Schema Schema
-//        {
-//            get
-//            {
-//                return schema;
-//            }
-//            set
-//            {
-//                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref schema, value);
-//            }
-//        }
         private Dictionary _model=new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName),Schema.GetCommonSchema());
         [RuleRequiredField(null, DefaultContexts.Save)]
         [Browsable(false)]
@@ -64,6 +51,24 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             {
                 SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _model, value);
             }
+        }
+        private string uniqueName;
+        [RuleUniqueValue(null,DefaultContexts.Save)]
+        [Browsable(false)][MemberDesignTimeVisibility(false)]
+        public string UniqueName
+        {
+            get
+            {
+                return uniqueName;
+            }
+            set
+            {
+                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref uniqueName, value);
+            }
+        }
+        protected override void OnSaving()
+        {
+            base.OnSaving();
         }
     }
 }

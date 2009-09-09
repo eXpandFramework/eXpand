@@ -25,8 +25,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             base.ReadValueCore();
             if (!modifiedChanged)
                 Control.Controller = GetModelEditorController(_application);
-            Control.Controller.ModifiedChanged += ControllerOnModifiedChanged;            
-            
+            Control.Controller.ModifiedChanged+=ControllerOnModifiedChanged;
         }
 
 

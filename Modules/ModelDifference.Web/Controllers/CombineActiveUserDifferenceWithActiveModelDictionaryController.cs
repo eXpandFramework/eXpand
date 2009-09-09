@@ -13,8 +13,8 @@ namespace eXpand.ExpressApp.ModelDifference.Web.Controllers
         }
 
 
-        protected override ModelDifferenceObject GetActiveDifference(string applicationName){
-            return new QueryModelDifferenceObject(View.ObjectSpace.Session).GetActiveModelDifference(applicationName);
+        protected override ModelDifferenceObject GetActiveDifference(PersistentApplication persistentApplication){
+            return new QueryModelDifferenceObject(View.ObjectSpace.Session).GetActiveModelDifference(persistentApplication.UniqueName);
         }
     }
 }

@@ -13,6 +13,7 @@ using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 using System.Linq;
 using eXpand.ExpressApp.Core;
+using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.ModelDifference{
     
@@ -74,11 +75,13 @@ namespace eXpand.ExpressApp.ModelDifference{
         {
             
             base.Setup(application);
-            
+            if (!(application is IApplicationUniqueName))
+                throw new NotImplementedException(string.Format("Type {0} must implement {1} interface", application.GetType().FullName, typeof(IApplicationUniqueName).FullName));
             application.SetupComplete += (sender, args) =>{
                                              PersistentApplication persistentApplication;
                                              using (var objectSpace = application.CreateObjectSpace()){
-                                                 persistentApplication = new QueryPersistentApplication(objectSpace.Session).Find(application.ApplicationName);
+                                                 persistentApplication = new QueryPersistentApplication(objectSpace.Session).Find(
+                                                     ((IApplicationUniqueName) application).UniqueName);
                                                  persistentApplication.Model = application.Model;
                                                  objectSpace.CommitChanges();
                                              }
