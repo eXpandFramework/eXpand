@@ -79,7 +79,7 @@ namespace eXpand.ExpressApp.ModelDifference{
                                              PersistentApplication persistentApplication;
                                              using (var objectSpace = application.CreateObjectSpace()){
                                                  persistentApplication = new QueryPersistentApplication(objectSpace.Session).Find(application.ApplicationName);
-                                                 persistentApplication.Model = Application.Model;
+                                                 persistentApplication.Model = application.Model;
                                                  objectSpace.CommitChanges();
                                              }
                                              

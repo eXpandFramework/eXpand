@@ -57,7 +57,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
                                                                                         Model = DefaultDictionary2
                                                                                     };
             
-            store.OnAspectStoreObjectSaving(aspectObject);
+            store.OnAspectStoreObjectSaving(aspectObject, new Dictionary());
 
 
             Assert.IsNotNull(permission);
@@ -66,5 +66,16 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             Assert.IsNotNull(new ApplicationNodeWrapper(modelAspectObject.Model).BOModel.FindClassByName("MyClass2"));
         }
 
+        [Test]
+        [Isolated]
+        public void When_Saving_It_Should_Combined_With_Application_Diffs(){
+            Isolate.WhenCalled(() => Validator.RuleSet.ValidateAll(null, null)).ReturnRecursiveFake();
+            var modelDictionaryDifferenceStore = new XpoUserModelDictionaryDifferenceStore(Session.DefaultSession, Isolate.Fake.Instance<XafApplication>());
+            var modelDifferenceObject = new UserModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession),Model = DefaultDictionary};
+
+            modelDictionaryDifferenceStore.OnAspectStoreObjectSaving(modelDifferenceObject, elDictionary);
+
+            Assert.AreEqual("el", new ApplicationNodeWrapper(modelDifferenceObject.Model).BOModel.FindClassByName("MyClass").Caption);
+        }
     }
 }

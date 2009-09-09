@@ -18,7 +18,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
             var dictionaryNode = new DictionaryNode("Application");
             dictionaryNode.AddChildNode("node");
 
-            combiner.CombineWith(dictionaryNode);
+            combiner.AddAspects(dictionaryNode);
 
             Assert.IsNotNull(dictionary.FindChildNode("node"));
         }
@@ -31,7 +31,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
             var dictionaryNode = new DictionaryNode("Application");
             dictionaryNode.AddChildNode("node");
 
-            combiner.CombineWith(new Dictionary(dictionaryNode));
+            combiner.AddAspects(new Dictionary(dictionaryNode));
 
             Assert.IsNotNull(dictionary.RootNode.FindChildNode("node"));
         }
@@ -43,7 +43,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
             var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession){Model = DefaultDictionary,PersistentApplication = new PersistentApplication(Session.DefaultSession)};
             var combiner = new DictionaryCombiner(modelDifferenceObject);
 
-            combiner.CombineWith(new ModelDifferenceObject(Session.DefaultSession) { Model = DefaultDictionary2,PersistentApplication = new PersistentApplication(Session.DefaultSession)});
+            combiner.AddAspects(new ModelDifferenceObject(Session.DefaultSession) { Model = DefaultDictionary2,PersistentApplication = new PersistentApplication(Session.DefaultSession)});
 
             Assert.IsNotNull(new ApplicationNodeWrapper(modelDifferenceObject.Model).BOModel.FindClassByName("MyClass2"));
         }
@@ -55,7 +55,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
             
             var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession){Model = DefaultDictionary2,PersistentApplication = new PersistentApplication(Session.DefaultSession)};
 
-            combiner.CombineWith(modelDifferenceObject);
+            combiner.AddAspects(modelDifferenceObject);
 
             Assert.IsNotNull(new ApplicationNodeWrapper(DefaultDictionary).BOModel.FindClassByName("MyClass2"));
         }

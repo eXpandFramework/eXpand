@@ -1,4 +1,3 @@
-using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Validation;
@@ -41,9 +40,11 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                                                                   InitializeMembers(Application.ApplicationName);
                 var persistentApplication = modelDifferenceObject.PersistentApplication;
                 persistentApplication.Name = application.ApplicationName;
+//                var combiner = new DictionaryCombiner(modelDifferenceObject);
+//                combiner.CombineWith(diffDictionary);
 //                persistentApplication.Schema = diffDictionary.Schema;
 //                modelDifferenceObject.Model= diffDictionary.RootNode;
-                OnAspectStoreObjectSaving(modelDifferenceObject);
+                OnAspectStoreObjectSaving(modelDifferenceObject,diffDictionary);
             }
         }
 
@@ -52,7 +53,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
         protected internal abstract ModelDifferenceObject GetNewDifferenceObject(Session session);
 
-        protected internal virtual void OnAspectStoreObjectSaving(ModelDifferenceObject modelDifferenceObject){
+        protected internal virtual void OnAspectStoreObjectSaving(ModelDifferenceObject modelDifferenceObject, Dictionary diffDictionary){
             const DefaultContexts identifiers = DefaultContexts.Save;
             var objectsToValidate = new SaveContextTargetObjectSelector().GetObjectsToValidate(session, modelDifferenceObject);
             var ruleSet = Validator.RuleSet;

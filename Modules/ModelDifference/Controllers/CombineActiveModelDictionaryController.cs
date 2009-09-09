@@ -20,7 +20,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
             var store = (args.Object) as DifferenceStore;
             if (store != null && ReferenceEquals(GetActiveDifference(store.PersistentApplication.Name), store)){
                 var combiner = new DictionaryCombiner(Application.Model);
-                combiner.CombineWith(store.Model);
+                combiner.AddAspects(store.Model);
             }
         }
 

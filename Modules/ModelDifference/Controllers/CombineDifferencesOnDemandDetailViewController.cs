@@ -49,7 +49,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
             var dictionary = new Dictionary(modelAspectObject.Model.RootNode, Application.Model.Schema);
             foreach (var selectedObject in args.SelectedObjects.Cast<ModelDifferenceObject>()){
                 var combiner = new DictionaryCombiner(dictionary);
-                combiner.CombineWith(selectedObject);
+                combiner.AddAspects(selectedObject);
             }
             modelAspectObject.Model = dictionary;
         }

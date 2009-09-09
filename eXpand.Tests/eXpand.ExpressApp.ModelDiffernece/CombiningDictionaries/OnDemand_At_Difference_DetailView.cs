@@ -85,7 +85,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
 
             var combiner = Isolate.Fake.InstanceAndSwapAll<DictionaryCombiner>();
             bool combined = false;
-            Isolate.WhenCalled(() => combiner.CombineWith(currentModelDifferenceObject)).DoInstead(context => combined=true);
+            Isolate.WhenCalled(() => combiner.AddAspects(currentModelDifferenceObject)).DoInstead(context => combined=true);
 
             controller.DialogController.AcceptAction.DoExecute();
 

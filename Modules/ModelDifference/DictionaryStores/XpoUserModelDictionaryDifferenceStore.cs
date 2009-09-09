@@ -33,8 +33,10 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
         protected override Dictionary LoadDifferenceCore(Schema schema)
         {
-            var dictionary = new Dictionary(new DictionaryNode("Application"), schema);
-
+            var dictionary = new Dictionary(schema);
+            foreach (var aspect in Application.Model.Aspects){
+                dictionary.AddAspect(aspect, new DictionaryNode("Application"));
+            }
             var activeAspectObjects = GetActiveDifferenceObjects();
             if (activeAspectObjects.Count() == 0){
                 SaveDifference(dictionary);
@@ -42,7 +44,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             }
             foreach (ModelDifferenceObject modelStoreObject in activeAspectObjects){
                 var combiner = new DictionaryCombiner(dictionary);
-                combiner.CombineWith(modelStoreObject);
+                combiner.AddAspects(modelStoreObject);
             }
             return dictionary;
         }
@@ -53,10 +55,12 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             return aspectObject;
         }
 
-        protected internal override void OnAspectStoreObjectSaving(ModelDifferenceObject userModelDifferenceObject){
+        protected internal override void OnAspectStoreObjectSaving(ModelDifferenceObject userModelDifferenceObject, Dictionary diffDictionary){
             var userStoreObject = ((UserModelDifferenceObject) userModelDifferenceObject);
             if (!userStoreObject.NonPersistent){
-                base.OnAspectStoreObjectSaving(userModelDifferenceObject);
+                var combiner = new DictionaryCombiner(userModelDifferenceObject);
+                combiner.AddAspects(diffDictionary);
+                base.OnAspectStoreObjectSaving(userModelDifferenceObject, diffDictionary);
             }
             if (SecuritySystem.IsGranted(new ApplicationModelCombinePermission(ApplicationModelCombineModifier.Allow))){
                 ModelDifferenceObject activeModelDifferenceObject =
@@ -64,7 +68,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 if (activeModelDifferenceObject != null){
                     var dictionary = new Dictionary(activeModelDifferenceObject.Model.RootNode, Application.Model.Schema);
                     var combiner = new DictionaryCombiner(dictionary);
-                    combiner.CombineWith(userStoreObject);
+                    combiner.AddAspects(userStoreObject);
                     activeModelDifferenceObject.Model=dictionary;
                     activeModelDifferenceObject.Save();
                 }

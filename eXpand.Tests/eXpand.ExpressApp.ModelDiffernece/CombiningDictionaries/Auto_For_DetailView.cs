@@ -37,11 +37,11 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
             var queryUserModelDifferenceObject = Isolate.Fake.InstanceAndSwapAll<QueryUserModelDifferenceObject>();
             Isolate.WhenCalled(() => queryUserModelDifferenceObject.GetActiveModelDifference("")).WillReturn((UserModelDifferenceObject)controller.View.CurrentObject);
             var combiner = Isolate.Fake.InstanceAndSwapAll<DictionaryCombiner>();
-            Isolate.WhenCalled(() => combiner.CombineWith(modelDifferenceObject)).IgnoreCall();
+            Isolate.WhenCalled(() => combiner.AddAspects(modelDifferenceObject)).IgnoreCall();
 
             ((EventHandler) RecorderManager.LastMockedEvent.GetEventHandle()).Invoke(this,new EventArgs());
 
-            Isolate.Verify.WasCalledWithAnyArguments(() => combiner.CombineWith(modelDifferenceObject));
+            Isolate.Verify.WasCalledWithAnyArguments(() => combiner.AddAspects(modelDifferenceObject));
         }
 
     }

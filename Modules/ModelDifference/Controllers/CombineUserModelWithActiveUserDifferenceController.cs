@@ -30,7 +30,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
             ModelDifferenceObject differenceObject =userAspectObjectQuery.GetActiveModelDifference(Application.ApplicationName);
             if (ReferenceEquals(differenceObject, View.CurrentObject)){
                 var dictionaryCombiner = new DictionaryCombiner(Application.Model);
-                dictionaryCombiner.CombineWith(((UserModelDifferenceObject)View.CurrentObject));                
+                dictionaryCombiner.AddAspects(((UserModelDifferenceObject)View.CurrentObject));                
             }
         }
     }

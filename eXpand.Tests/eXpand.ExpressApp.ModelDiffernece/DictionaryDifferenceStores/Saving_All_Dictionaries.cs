@@ -17,7 +17,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
     {
         [Test]
         [Isolated]
-        public void Create_A_New_Aspect_If_No_Active_Aspect_Found()
+        public void Create_A_New_DifferenceObject_If_No_Active_DifferenceObject_Found()
         {
             var modelAspectObject = new ModelDifferenceObject(Session.DefaultSession);
             Isolate.Swap.AllInstances<ModelDifferenceObject>().With(modelAspectObject);
@@ -38,7 +38,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         }
         [Test]
         [Isolated]
-        public void Update_Values_Of_ActiveAspect_If_Found()
+        public void Update_Values_Of_ActiveDifferenceObject_If_Found()
         {
             Isolate.Fake.StaticMethods(typeof(Validator));
             var application = Isolate.Fake.Instance<XafApplication>();
@@ -76,7 +76,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             var ruleSet = Validator.RuleSet;
             Isolate.WhenCalled(() => ruleSet.ValidateAll(null, null)).DoInstead(context => called = true);
 
-            store.OnAspectStoreObjectSaving(new ModelDifferenceObject(Session.DefaultSession));
+            store.OnAspectStoreObjectSaving(new ModelDifferenceObject(Session.DefaultSession), new Dictionary());
 
             Assert.IsTrue(called);
         }
@@ -91,7 +91,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             var application = Isolate.Fake.InstanceAndSwapAll<QueryPersistentApplication>();
             var persistentApplication = new PersistentApplication(Session.DefaultSession);
             Isolate.WhenCalled(() => application.Find("")).WillReturn(persistentApplication);
-            Isolate.WhenCalled(() => modelDictionaryDifferenceStore.OnAspectStoreObjectSaving(null)).IgnoreCall();
+            Isolate.WhenCalled(() => modelDictionaryDifferenceStore.OnAspectStoreObjectSaving(null, new Dictionary())).IgnoreCall();
             Isolate.WhenCalled(() => modelDictionaryDifferenceStore.GetActiveDifferenceObject()).WillReturn(null);
             Isolate.WhenCalled(() => modelDictionaryDifferenceStore.GetNewDifferenceObject(Session.DefaultSession)).WillReturn(new ModelDifferenceObject(Session.DefaultSession));
 

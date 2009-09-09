@@ -62,7 +62,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
             var dictionary = activeApplicationModelAspect.Model;
             var combiner = new DictionaryCombiner(dictionary);
             foreach (ModelDifferenceObject selectedObject in selectedModelAspectObjects)
-                combiner.CombineWith(selectedObject);
+                combiner.AddAspects(selectedObject);
 
             activeApplicationModelAspect.Model = dictionary;
             ObjectSpace.CommitChanges();

@@ -70,14 +70,14 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             var dictionary = GetModel();
             if (Control.Controller != null){
                 var combiner = new DictionaryCombiner(dictionary);
-                combiner.CombineWith(Control.Controller.Dictionary);
+                combiner.AddAspects(Control.Controller.Dictionary);
             }
             return dictionary;
         }
 
         public Dictionary GetModel(){
             var combiner = new DictionaryCombiner(CurrentObject.PersistentApplication.Model);
-            combiner.CombineWith(CurrentObject);
+            combiner.AddAspects(CurrentObject);
             return CurrentObject.PersistentApplication.Model;
         }
 
