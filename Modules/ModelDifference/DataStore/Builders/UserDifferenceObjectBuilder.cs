@@ -16,8 +16,12 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Builders{
         public static bool CreateDynamicMembers(){
             bool members = false;
             if (SecuritySystem.UserType != null){
-                members = XafTypesInfo.Instance.CreateBothPartMembers(SecuritySystem.UserType, typeof (UserModelDifferenceObject),
-                                                                      XafTypesInfo.XpoTypeInfoSource.XPDictionary, true);
+                members = XafTypesInfo.Instance.CreateCollection(SecuritySystem.UserType, typeof(UserModelDifferenceObject), "UsersUserModelDiff", XafTypesInfo.XpoTypeInfoSource.XPDictionary, typeof(UserModelDifferenceObject).Name+"s");
+                if (members)
+                    members = XafTypesInfo.Instance.CreateCollection(typeof (UserModelDifferenceObject),SecuritySystem.UserType,
+                                                                     "UsersUserModelDiff",
+                                                                     XafTypesInfo.XpoTypeInfoSource.XPDictionary,
+                                                                     "Users");
             }
             return members;
         }

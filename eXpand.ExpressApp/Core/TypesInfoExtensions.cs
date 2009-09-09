@@ -6,16 +6,22 @@ using DevExpress.Xpo.Metadata;
 
 namespace eXpand.ExpressApp.Core{
     public static class TypesInfoExtensions{
-        public static bool CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection,
-                                            string associationName, XPDictionary dictionary){
-            if (typeIsRegister(typeInfo, typeToCreateOn)){
+        public static bool CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary,string typeToCreateOnCollectionName)
+        {
+            if (typeIsRegister(typeInfo, typeToCreateOn))
+            {
                 XPClassInfo xpClassInfo = dictionary.GetClassInfo(typeToCreateOn);
-                XPCustomMemberInfo member = xpClassInfo.CreateMember(typeOfCollection.Name + "s", typeof (XPCollection),true);
+                XPCustomMemberInfo member = xpClassInfo.CreateMember(typeToCreateOnCollectionName, typeof(XPCollection), true);
                 member.AddAttribute(new AssociationAttribute(associationName, typeOfCollection));
                 typeInfo.RefreshInfo(typeToCreateOn);
                 return true;
             }
             return false;
+        }
+
+        public static bool CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection,string associationName, XPDictionary dictionary){
+
+            return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, typeOfCollection.Name + "s");
         }
 
         private static bool typeIsRegister(ITypesInfo typeInfo, Type typeToCreateOn){
