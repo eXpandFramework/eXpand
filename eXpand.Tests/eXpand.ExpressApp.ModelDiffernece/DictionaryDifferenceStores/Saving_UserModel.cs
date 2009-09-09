@@ -66,6 +66,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             Assert.IsNotNull(new ApplicationNodeWrapper(modelAspectObject.Model).BOModel.FindClassByName("MyClass2"));
         }
 
+
         [Test]
         [Isolated]
         public void When_Saving_It_Should_Combined_With_Application_Diffs(){
