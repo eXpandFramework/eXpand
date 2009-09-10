@@ -86,7 +86,9 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="eXpand.Persistent.Base, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="eXpand.Persistent.Base, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="eXpand.Utils, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -114,6 +116,7 @@
     <Compile Include="Editors\FilterControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PropertyEditors\LookupPropertyEditor\LookupPropertyEditor.cs" />
     <Compile Include="PropertyEditors\LookupPropertyEditor\RepositoryItemLookupEdit.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -134,8 +137,6 @@
     <Compile Include="PropertyEditors\IntegerPropertyEditor\IntegerPropertyEditor.cs" />
     <Compile Include="PropertyEditors\LookupPropertyEditor\LookupEdit.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PropertyEditors\LookupPropertyEditor\LookupPropertyEditor.cs">
     </Compile>
     <Compile Include="PropertyEditors\ObjectPropertyEditor\ObjectPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringLookupPropertyEditor\StringLookupPropertyEditor.cs" />

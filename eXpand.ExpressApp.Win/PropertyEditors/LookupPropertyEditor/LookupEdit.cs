@@ -7,19 +7,24 @@ using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Drawing;
 
-namespace eXpand.ExpressApp.Win.PropertyEditors.LookupPropertyEditor{
+namespace eXpand.ExpressApp.Win.PropertyEditors.LookupPropertyEditor
+{
     public class LookupEdit : DevExpress.ExpressApp.Win.Editors.LookupEdit
     {
-//        private readonly XafApplication application;
-//        private readonly Type editValueType;
-//        private readonly ObjectSpace objectSpace;
+        static LookupEdit()
+        {
+            RepositoryItemLookupEdit.Register();
+        }
+        //        private readonly XafApplication application;
+        //        private readonly Type editValueType;
+        //        private readonly ObjectSpace objectSpace;
 
-//        public LookupEdit(XafApplication application, ObjectSpace objectSpace, Type editValueType)
-//        {
-//            this.application = application;
-//            this.objectSpace = objectSpace;
-//            this.editValueType = editValueType;
-//        }
+        //        public LookupEdit(XafApplication application, ObjectSpace objectSpace, Type editValueType)
+        //        {
+        //            this.application = application;
+        //            this.objectSpace = objectSpace;
+        //            this.editValueType = editValueType;
+        //        }
 
 
         protected override void OnClickButton(EditorButtonObjectInfoArgs buttonInfo)
@@ -52,9 +57,9 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.LookupPropertyEditor{
 
         private void showObjectAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs args)
         {
-//            var objectEditorHelper = new ObjectEditorHelper();
+            //            var objectEditorHelper = new ObjectEditorHelper();
             args.DialogController.Cancelling += DialogController_Cancelling;
-            
+
             args.View =
                 ObjectEditorHelper.CreateDetailView(Properties.Helper.Application, Properties.Helper.ObjectSpace, EditValue,
                                                     Properties.Helper.LookupObjectType, Properties.ReadOnly);
@@ -62,7 +67,7 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.LookupPropertyEditor{
 
         private void DialogController_Cancelling(object sender, EventArgs e)
         {
-            var controller = (DialogController) sender;
+            var controller = (DialogController)sender;
             controller.Window.GetController<WinDetailViewController>().SuppressConfirmation = true;
             controller.CanCloseWindow = true;
         }
