@@ -90,6 +90,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             dictionary.ResetIsModified();
             var combiner = new DictionaryCombiner(dictionary);
             combiner.AddAspects(CurrentObject);
+
             return dictionary;
         }
 
@@ -102,8 +103,6 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         private void SpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args){
             if (ReferenceEquals(args.Object, CurrentObject)){
                 Control.Controller.Dictionary.Validate();
-                //var dictionary = Control.Controller.Dictionary.GetDiffs();
-                //CurrentObject.Model = dictionary;
             }
 
         }
