@@ -29,9 +29,6 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         }
 
 
-        private void ControllerOnNodeDeleting(object sender, NodeDeletingEventArgs args){
-            modifyModel();
-        }
 
         private void modifyModel(){
             if (Control.Controller.IsModified){
@@ -79,7 +76,6 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             var controller = new ModelEditorController(GetModel(), null, application.Modules);
             controller.CurrentAttributeChanged += ControllerOnCurrentAttributeChanged;
             controller.CurrentNodeChanged += ControllerOnCurrentNodeChanged;
-            controller.NodeDeleting += ControllerOnNodeDeleting;
             controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);
             return controller;
         }
