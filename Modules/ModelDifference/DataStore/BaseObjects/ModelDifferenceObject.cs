@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
@@ -105,7 +106,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             dictionary.AddAspect(CurrentLanguage,new DictionaryNode(ApplicationNodeWrapper.NodeName));
             dictionary.CurrentAspectProvider.CurrentAspect = CurrentLanguage;
         }
-
+        [Browsable(false)][MemberDesignTimeVisibility(false)]
         public string CurrentLanguage
         {
             get{
@@ -126,11 +127,22 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
                 return new DictionaryXmlWriter().GetAspectXml(CurrentLanguage, Model.RootNode);
             }
             set{
-                new Dictionary(new DictionaryXmlReader().ReadFromString(value + ""), PersistentApplication.Model.Schema).Validate();
+                Dictionary dictionary = GetModel();
+                dictionary.Validate();
+                Model.AddAspect(CurrentLanguage, new DictionaryXmlReader().ReadFromString(value));
+                SetModelDirty();
             }
         }
 
+        public Dictionary GetModel()
+        {
+            Dictionary dictionary = PersistentApplication.Model.Clone();
+            dictionary.ResetIsModified();
+            var combiner = new DictionaryCombiner(dictionary);
+            combiner.AddAspects(Model);
 
+            return dictionary;
+        }
 
 
 

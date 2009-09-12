@@ -62,7 +62,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         protected override object CreateControlCore()
         {
-            Dictionary applicationModel = GetModel();
+            Dictionary applicationModel = CurrentObject.GetModel();
             return GetModelEditorControl(applicationModel);
         }
 
@@ -73,7 +73,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
 
         internal ModelEditorController GetModelEditorController(XafApplication application){
-            var controller = new ModelEditorController(GetModel(), null, application.Modules);
+            var controller = new ModelEditorController(CurrentObject.GetModel(), null, application.Modules);
             controller.CurrentAttributeChanged += ControllerOnCurrentAttributeChanged;
             controller.CurrentNodeChanged += ControllerOnCurrentNodeChanged;
             controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);
@@ -81,14 +81,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         }
 
         
-        public Dictionary GetModel(){
-            Dictionary dictionary = CurrentObject.PersistentApplication.Model.Clone();
-            dictionary.ResetIsModified();
-            var combiner = new DictionaryCombiner(dictionary);
-            combiner.AddAspects(CurrentObject);
-
-            return dictionary;
-        }
+        
 
         public void Setup(ObjectSpace space, XafApplication app)
         {
