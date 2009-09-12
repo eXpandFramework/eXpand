@@ -10,10 +10,9 @@ using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
-using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 using System.Linq;
 using eXpand.ExpressApp.Core;
-using eXpand.Persistent.Base;
+using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 
 namespace eXpand.ExpressApp.ModelDifference{
     
@@ -76,17 +75,19 @@ namespace eXpand.ExpressApp.ModelDifference{
         {
             
             base.Setup(application);
-            if (!(application is IApplicationUniqueName))
-                throw new NotImplementedException(string.Format("Type {0} must implement {1} interface", application.GetType().FullName, typeof(IApplicationUniqueName).FullName));
+            
             application.SetupComplete += (sender, args) =>{
                                              if (!applicationModelUpdated){
                                                  PersistentApplication persistentApplication;
                                                  using (var objectSpace = application.CreateObjectSpace()){
-                                                     persistentApplication = new QueryPersistentApplication(objectSpace.Session).Find(
-                                                         ((IApplicationUniqueName) application).UniqueName);
+                                                     persistentApplication =
+                                                            new QueryPersistentApplication(objectSpace.Session).Find(Application.GetType().FullName) ??
+                                                            new PersistentApplication(objectSpace.Session);
                                                      persistentApplication.Model = application.Model;
+                                                     persistentApplication.UniqueName = application.GetType().FullName;
+                                                     if (string.IsNullOrEmpty(persistentApplication.Name))
+                                                         persistentApplication.Name =application.Title;
                                                      objectSpace.CommitChanges();
-                                             
                                                  }
                                                  applicationModelUpdated = true;
                                              }
@@ -118,9 +119,7 @@ namespace eXpand.ExpressApp.ModelDifference{
         private void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs args)
         {
             args.Handled = true;
-            args.Store =
-                new XpoUserModelDictionaryDifferenceStore(Application.ObjectSpaceProvider.CreateUpdatingSession(),
-                                                                           Application);
+            args.Store =new XpoUserModelDictionaryDifferenceStore(Application.ObjectSpaceProvider.CreateUpdatingSession(), Application);
             
 
         }

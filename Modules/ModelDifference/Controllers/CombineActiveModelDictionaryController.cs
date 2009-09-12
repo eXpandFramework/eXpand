@@ -1,6 +1,5 @@
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.ModelDifference.Controllers{
     public abstract class CombineActiveModelDictionaryController<DifferenceStore> : ViewController where DifferenceStore : ModelDifferenceObject
@@ -19,13 +18,13 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
 
         internal void ObjectSpaceOnObjectSaved(object sender, ObjectManipulatingEventArgs args){
             var store = (args.Object) as DifferenceStore;
-            if (store != null && ReferenceEquals(GetActiveDifference(store.PersistentApplication, Application as IApplicationUniqueName), store)){
+            if (store != null && ReferenceEquals(GetActiveDifference(store.PersistentApplication, Application.Title), store)){
                 var combiner = new DictionaryCombiner(Application.Model);
                 combiner.AddAspects(store.Model);
             }
         }
 
-        protected internal abstract DifferenceStore GetActiveDifference(PersistentApplication persistentApplication,IApplicationUniqueName applicationUniqueName);
+        protected internal abstract DifferenceStore GetActiveDifference(PersistentApplication persistentApplication, string applicationUniqueName);
 
         
         protected override void OnDeactivating()

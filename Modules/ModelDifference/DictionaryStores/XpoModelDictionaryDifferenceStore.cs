@@ -12,12 +12,13 @@ using System.Linq;
 namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     public abstract class XpoModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore
     {
+        private readonly bool _enableLoading;
         public const string DisableDebuggerAttachedCheck = "DisableDebuggerAttachedCheck";
 
-        protected XpoModelDictionaryDifferenceStore(Session session, XafApplication application) : base(session, application){
-            
+        protected XpoModelDictionaryDifferenceStore(Session session, XafApplication application, bool enableLoading) : base(session, application){
+            _enableLoading = enableLoading;
         }
-        
+
         internal bool UseModelFromPath()
         {
             return IsDebuggerAttached && !debuggerAttachedDisabled();
@@ -39,9 +40,11 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         }
 
         protected internal abstract string GetPath();
-
+        
         protected override Dictionary LoadDifferenceCore(Schema schema)
         {
+            if (!_enableLoading)
+                return new Dictionary(schema);
             var dictionary = new Dictionary(new DictionaryNode("Application"), schema);
                     
             if ((UseModelFromPath())){
@@ -76,7 +79,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         }
 
         protected internal override ModelDifferenceObject GetActiveDifferenceObject(){
-            return new QueryModelDifferenceObject(Session).GetActiveModelDifference(((IApplicationUniqueName) Application).UniqueName);
+            return new QueryModelDifferenceObject(Session).GetActiveModelDifference(Application.GetType().FullName);
         }
 
         protected internal override ModelDifferenceObject GetNewDifferenceObject(Session session)

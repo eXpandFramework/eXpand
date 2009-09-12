@@ -9,9 +9,10 @@ using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     public class XpoUserModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore{
+        
+
         public XpoUserModelDictionaryDifferenceStore(Session session, XafApplication application)
             : base(session, application){
-            
         }
 
         public override DifferenceType DifferenceType{
@@ -20,15 +21,14 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
 
         protected internal override ModelDifferenceObject GetActiveDifferenceObject(){
-            return new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(
-                ((IApplicationUniqueName) Application).UniqueName);
+            return new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(Application.GetType().FullName);
         }
 
         protected internal IQueryable<ModelDifferenceObject> GetActiveDifferenceObjects(){
             IQueryable<UserModelDifferenceObject> modelDifferenceObjects = new QueryUserModelDifferenceObject(Session).GetActiveModelDifferences(
-                ((IApplicationUniqueName) Application).UniqueName);
+                Application.GetType().FullName);
             List<RoleModelDifferenceObject> roleAspectObjects = new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(
-                ((IApplicationUniqueName) Application).UniqueName).ToList();
+                Application.GetType().FullName).ToList();
             IEnumerable<ModelDifferenceObject> roleAspectObjectsConcat = roleAspectObjects.Cast<ModelDifferenceObject>().Concat(modelDifferenceObjects.Cast<ModelDifferenceObject>());
             return roleAspectObjectsConcat.AsQueryable();
         }
@@ -36,7 +36,10 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
         protected override Dictionary LoadDifferenceCore(Schema schema)
         {
+            
+                
             var dictionary = new Dictionary(schema);
+            
             foreach (var aspect in Application.Model.Aspects){
                 dictionary.AddAspect(aspect, new DictionaryNode("Application"));
             }

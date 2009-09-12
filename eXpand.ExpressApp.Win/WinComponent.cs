@@ -10,11 +10,10 @@ using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.Win.Interfaces;
-using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.Win
 {
-    public partial class WinComponent : WinApplication, ILogOut,IApplicationUniqueName
+    public partial class WinComponent : WinApplication, ILogOut
     {
  
         public void Logout()
@@ -73,6 +72,8 @@ namespace eXpand.ExpressApp.Win
         #endregion
         public event EventHandler<ModelEditFormShowningEventArgs> ModelEditFormShowning;
         
+
+
         public WinComponent()
         {
             InitializeComponent();
@@ -101,11 +102,6 @@ namespace eXpand.ExpressApp.Win
             
         }
 
-//        protected override void ProcessStartupActions(){
-//            base.ProcessStartupActions();
-//            Session session = ObjectSpaceProvider.CreateUpdatingSession();
-//            //this.InitializeXPObjectTypes(new UnitOfWork(session.DataLayer));
-//        }
 
         protected override Form CreateModelEditorForm()
         {
@@ -131,42 +127,7 @@ namespace eXpand.ExpressApp.Win
         {
             this.CreateCustomObjectSpaceprovider(args);
             base.OnCreateCustomObjectSpaceProvider(args);
-            
-//            objectSpaceProvider = args.ObjectSpaceProvider;
         }
-
-        
-//        protected override IFrameTemplate OnCreateCustomTemplate(string name)
-//        {
-//            if (name == TemplateContext.ApplicationWindow)
-//                return new MainForm(this);
-//            return base.OnCreateCustomTemplate(name);
-//        }
-
-//        protected override DictionaryDifferenceStore CreateModelDifferenceStoreCore()
-//        {
-//            Type type = Type.GetType(
-//                XpoModelDictionaryDifferenceModuleTypeName);
-//            if (type != null)
-//                return
-//                    (DictionaryDifferenceStore)
-//                    Activator.CreateInstance(type, new object[] {objectSpaceProvider.CreateUpdatingSession(), this});
-//
-//            return base.CreateModelDifferenceStoreCore();
-//        }
-
-//        protected override DictionaryDifferenceStore CreateUserModelDifferenceStoreCore()
-//        {
-//
-//            Type type = Type.GetType(
-//                XpoUserModelDictionaryDifferenceModuleTypeName);
-//            if (type != null)
-//                return
-//                    (DictionaryDifferenceStore)
-//                    Activator.CreateInstance(type, new object[] { objectSpaceProvider.CreateUpdatingSession(), this});
-//            
-//            return base.CreateUserModelDifferenceStoreCore();
-//        }
 
         protected override CollectionSourceBase CreateCollectionSourceCore(ObjectSpace objectSpace, Type objectType, string listViewID)
         {
@@ -189,23 +150,6 @@ namespace eXpand.ExpressApp.Win
 
         }
 
-//        //TODO:check webappliation
-//        protected override void HandleExceptionCore(Exception e)
-//        {
-//            base.HandleExceptionCore(e);
-//            if (!(e is ValidationException)&&!(e.InnerException!=null&&e.InnerException is ValidationException) )
-//            {
-//                if (!System.Diagnostics.Debugger.IsAttached)
-//                {
-//                    string asString = Tracing.Tracer.GetLastEntriesAsString();
-//                    asString = Regex.Replace(asString, @"\n", "<br>");
-//                    Logger.Write(asString);
-//                }
-//            }
-//        }
-        public string UniqueName{
-            get { return "A2ABD988-3361-4f75-8790-E2E08E496AB5"; }
-        }
     }
 
     public class ModelEditFormShowningEventArgs : HandledEventArgs

@@ -35,9 +35,8 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         
 
 
-        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute,"false")]
+        
         [Aggregated][NonCloneable]
-        [ExpandObjectMembersAttribute(ExpandObjectMembers.Never)]
         [RuleRequiredField(null,DefaultContexts.Save)]
         [Association(Associations.PersistentApplicationModelDifferenceObjects)]
         public PersistentApplication PersistentApplication

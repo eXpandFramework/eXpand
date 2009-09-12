@@ -24,17 +24,17 @@
 						</LayoutGroup>
 					</TabbedGroup>
 					<LayoutGroup ID="SimpleEditors" CaptionLocation="Default" RelativeSize="16">
+						<LayoutGroup ID="DifferenceObject" Removed="True" />
 						<LayoutGroup ID="ModelDifferenceObject" CaptionLocation="Default" RelativeSize="100">
-							<LayoutGroup ID="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a" ShowCaption="False" Caption="" CaptionLocation="" Direction="Vertical" Index="1" RelativeSize="53" IsNewNode="True">
+							<LayoutGroup ID="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a" ShowCaption="False" Caption="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a(9)" CaptionLocation="Default" Direction="Vertical" Index="1" RelativeSize="55" IsNewNode="True">
 								<LayoutItem ID="DateCreated" ShowCaption="True" CaptionLocation="Default" Index="0" RelativeSize="36" SizeConstraintsType="Default" IsNewNode="True" />
 								<LayoutItem ID="Disabled" ShowCaption="True" CaptionLocation="Default" Index="1" RelativeSize="27" SizeConstraintsType="Default" IsNewNode="True" />
 								<LayoutGroup ID="ModelDifferenceObject_col2" ShowCaption="False" Caption="ModelDifferenceObject_col2" CaptionLocation="Default" Direction="Horizontal" Index="2" RelativeSize="36" IsNewNode="True" />
 							</LayoutGroup>
-							<LayoutGroup ID="ModelDifferenceObject_col1" CaptionLocation="Default" RelativeSize="43">
-								<LayoutItem ID="DateCreated" Removed="True" />
-								<LayoutItem ID="Disabled" Removed="True" />
+							<LayoutGroup ID="ModelDifferenceObject_col1" CaptionLocation="Default" RelativeSize="41">
 								<LayoutItem ID="Name" Index="1" RelativeSize="27" SizeConstraintsType="Default" />
-								<LayoutItem ID="PersistentApplication" Index="0" RelativeSize="36" SizeConstraintsType="Default" />
+								<LayoutItem ID="PersistentApplication.Model" Removed="True" />
+								<LayoutItem ID="PersistentApplication.Name" Index="0" RelativeSize="36" SizeConstraintsType="Default" />
 								<LayoutItem ID="PreferredAspect" ShowCaption="True" CaptionLocation="Default" Index="2" RelativeSize="36" SizeConstraintsType="Default" IsNewNode="True" />
 							</LayoutGroup>
 							<LayoutGroup ID="ModelDifferenceObject_col2" Removed="True" />
@@ -65,17 +65,17 @@
 					</TabbedGroup>
 					<LayoutGroup ID="Roles_Group" Removed="True" />
 					<LayoutGroup ID="SimpleEditors" CaptionLocation="Default" RelativeSize="16">
+						<LayoutGroup ID="DifferenceObject" Removed="True" />
 						<LayoutGroup ID="ModelDifferenceObject" CaptionLocation="Default" RelativeSize="100">
-							<LayoutGroup ID="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a" ShowCaption="False" Caption="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a(8)" CaptionLocation="Default" Direction="Vertical" Index="1" RelativeSize="55" IsNewNode="True">
+							<LayoutGroup ID="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a" ShowCaption="False" Caption="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a(8)" CaptionLocation="Default" Direction="Vertical" Index="1" RelativeSize="57" IsNewNode="True">
 								<LayoutItem ID="DateCreated" ShowCaption="True" CaptionLocation="Default" Index="0" RelativeSize="36" SizeConstraintsType="Default" IsNewNode="True" />
 								<LayoutItem ID="Disabled" ShowCaption="True" CaptionLocation="Default" Index="1" RelativeSize="27" SizeConstraintsType="Default" IsNewNode="True" />
 								<LayoutGroup ID="ModelDifferenceObject_col2" ShowCaption="False" Caption="ModelDifferenceObject_col2" CaptionLocation="Default" Direction="Horizontal" Index="2" RelativeSize="36" IsNewNode="True" />
 							</LayoutGroup>
-							<LayoutGroup ID="ModelDifferenceObject_col1" CaptionLocation="Default" RelativeSize="41">
-								<LayoutItem ID="DateCreated" Removed="True" />
-								<LayoutItem ID="Disabled" Removed="True" />
+							<LayoutGroup ID="ModelDifferenceObject_col1" CaptionLocation="Default" RelativeSize="39">
 								<LayoutItem ID="Name" Index="1" RelativeSize="27" SizeConstraintsType="Default" />
-								<LayoutItem ID="PersistentApplication" Index="0" RelativeSize="36" SizeConstraintsType="Default" />
+								<LayoutItem ID="PersistentApplication.Model" Removed="True" />
+								<LayoutItem ID="PersistentApplication.Name" Index="0" RelativeSize="36" SizeConstraintsType="Default" />
 								<LayoutItem ID="PreferredAspect" ShowCaption="True" CaptionLocation="Default" Index="2" RelativeSize="36" SizeConstraintsType="Default" IsNewNode="True" />
 							</LayoutGroup>
 							<LayoutGroup ID="ModelDifferenceObject_col2" Removed="True" />
@@ -100,19 +100,19 @@
 						</LayoutGroup>
 					</TabbedGroup>
 					<LayoutGroup ID="SimpleEditors" CaptionLocation="Default" RelativeSize="17">
+						<LayoutGroup ID="DifferenceObject" Removed="True" />
 						<LayoutGroup ID="ModelDifferenceObject" Index="0" CaptionLocation="Default" RelativeSize="100">
-							<LayoutGroup ID="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a" ShowCaption="False" Caption="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a(10)" CaptionLocation="Default" Direction="Vertical" Index="1" RelativeSize="55" IsNewNode="True">
+							<LayoutGroup ID="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a" ShowCaption="False" Caption="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a(10)" CaptionLocation="Default" Direction="Vertical" Index="1" RelativeSize="57" IsNewNode="True">
 								<LayoutItem ID="DateCreated" ShowCaption="True" CaptionLocation="Default" Index="0" RelativeSize="34" SizeConstraintsType="Default" IsNewNode="True" />
 								<LayoutItem ID="Disabled" ShowCaption="True" CaptionLocation="Default" Index="1" RelativeSize="25" SizeConstraintsType="Default" IsNewNode="True" />
 								<LayoutGroup ID="ModelDifferenceObject_col2" ShowCaption="False" Caption="ModelDifferenceObject_col2" CaptionLocation="Default" Direction="Vertical" Index="2" RelativeSize="40" IsNewNode="True">
 									<LayoutItem ID="NonPersistent" ShowCaption="True" CaptionLocation="Default" Index="0" RelativeSize="100" SizeConstraintsType="Default" IsNewNode="True" />
 								</LayoutGroup>
 							</LayoutGroup>
-							<LayoutGroup ID="ModelDifferenceObject_col1" CaptionLocation="Default" RelativeSize="41">
-								<LayoutItem ID="DateCreated" Removed="True" />
-								<LayoutItem ID="Disabled" Removed="True" />
+							<LayoutGroup ID="ModelDifferenceObject_col1" CaptionLocation="Default" RelativeSize="39">
 								<LayoutItem ID="Name" Index="1" RelativeSize="25" SizeConstraintsType="Default" />
-								<LayoutItem ID="PersistentApplication" Index="0" RelativeSize="34" SizeConstraintsType="Default" />
+								<LayoutItem ID="PersistentApplication.Model" Removed="True" />
+								<LayoutItem ID="PersistentApplication.Name" Index="0" RelativeSize="34" SizeConstraintsType="Default" />
 								<LayoutItem ID="PreferredAspect" ShowCaption="True" CaptionLocation="Default" Index="2" RelativeSize="40" SizeConstraintsType="Default" IsNewNode="True" />
 							</LayoutGroup>
 							<LayoutGroup ID="ModelDifferenceObject_col2" Removed="True" />

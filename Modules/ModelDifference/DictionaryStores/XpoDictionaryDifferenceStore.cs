@@ -38,10 +38,10 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 var applicationName = Application.Title;
                 ModelDifferenceObject modelDifferenceObject = GetActiveDifferenceObject() ??
                                                               GetNewDifferenceObject(session).
-                                                                  InitializeMembers(applicationName, ((IApplicationUniqueName) Application).UniqueName);
+                                                                  InitializeMembers(applicationName, application.GetType().FullName);
                 var persistentApplication = modelDifferenceObject.PersistentApplication;
                 persistentApplication.Name = applicationName;
-                persistentApplication.UniqueName = ((IApplicationUniqueName) Application).UniqueName;
+                persistentApplication.UniqueName = application.GetType().FullName;
                 OnAspectStoreObjectSaving(modelDifferenceObject,diffDictionary);
             }
         }

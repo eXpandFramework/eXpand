@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.Core;
-using eXpand.Persistent.Base;
 
 
 namespace eXpand.ExpressApp.Web
 {
-    public partial class WebComponent : DevExpress.ExpressApp.Web.WebApplication,IApplicationUniqueName
+    public partial class WebComponent : DevExpress.ExpressApp.Web.WebApplication
     {
 
         public WebComponent()

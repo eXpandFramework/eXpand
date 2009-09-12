@@ -10,6 +10,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         public PersistentApplication(Session session) : base(session){
             
         }
+        [DevExpress.Xpo.DisplayName("Application Name")]
         [RuleRequiredField(null,DefaultContexts.Save)]
         public string Name
         {

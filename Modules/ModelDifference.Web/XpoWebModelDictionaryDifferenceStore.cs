@@ -7,7 +7,8 @@ namespace eXpand.ExpressApp.ModelDifference.Web
 {
     public class XpoWebModelDictionaryDifferenceStore : XpoModelDictionaryDifferenceStore
     {
-        public XpoWebModelDictionaryDifferenceStore(Session updatingSession, XafApplication xafApplication) : base(updatingSession, xafApplication)
+        public XpoWebModelDictionaryDifferenceStore(Session updatingSession, XafApplication xafApplication, bool enableLoading)
+            : base(updatingSession, xafApplication, enableLoading)
         {
             
         }
