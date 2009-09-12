@@ -83,6 +83,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -102,6 +103,7 @@
     <Compile Include="Core\CustomShowNavigationItemEventArgsExtensions.cs" />
     <Compile Include="Core\DictionaryFactory.cs" />
     <Compile Include="Core\DictionaryHelpers\DictionaryHelper.cs" />
+    <Compile Include="Core\DictionaryHelpers\DictionaryXmlWriterEx.cs" />
     <Compile Include="Core\DictionaryHelpers\ModuleRefNodeProvider.cs" />
     <Compile Include="Core\DictionaryHelpers\SchemaHelper.cs" />
     <Compile Include="Core\DictionaryHelpers\ViewIdRefNodeProvider.cs" />

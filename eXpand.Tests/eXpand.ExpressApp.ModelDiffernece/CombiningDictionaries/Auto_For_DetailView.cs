@@ -5,6 +5,7 @@ using eXpand.ExpressApp.ModelDifference;
 using eXpand.ExpressApp.ModelDifference.Controllers;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
+using eXpand.Persistent.Base;
 using MbUnit.Framework;
 using TypeMock;
 using TypeMock.ArrangeActAssert;
@@ -26,6 +27,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
         [Isolated]
         public void On_CurrentOBjectChanged_If_DefaultActiveUserDifference_Then_Combine_UserModel_With_it_And_save_it()
         {
+            IApplicationUniqueName applicationUniqueName = GetApplicationUniqueName();
             var modelDifferenceObject = new UserModelDifferenceObject(Session.DefaultSession) {PersistentApplication =new PersistentApplication(Session.DefaultSession), Model = new Dictionary(Schema.GetCommonSchema()) };
             var factory = new ViewControllerFactory();
             var controller = factory.CreateController<CombineUserModelWithActiveUserDifferenceController>(ViewType.ListView, modelDifferenceObject);
@@ -45,4 +47,5 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
         }
 
     }
+
 }

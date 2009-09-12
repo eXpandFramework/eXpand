@@ -8,16 +8,17 @@ using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.Web.Controllers;
 using eXpand.ExpressApp.ModelDifference.Win.Controllers;
+using eXpand.Persistent.Base;
 using MbUnit.Framework;
+using TypeMock;
 using TypeMock.ArrangeActAssert;
 using TypeMock.Extensions;
+using eXpand.Utils.Helpers;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
     [TestFixture]
     public class Auto_For_All_Views:eXpandBaseFixture
     {
-        
-
         public class With_ActiveDifference:Auto_For_All_Views{
             [Test]
             [Isolated]
@@ -32,7 +33,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                     Model = dictionary,
                     PersistentApplication =new PersistentApplication(Session.DefaultSession) { Name = "appNAme" }
                 };
-                Isolate.WhenCalled(() => controller.GetActiveDifference(null)).WithExactArguments().WillReturn(modelDifferenceObject);
+                Isolate.WhenCalled(() => controller.GetActiveDifference(null, null)).WithExactArguments().WillReturn(modelDifferenceObject);
 
 
                 controller.ObjectSpaceOnObjectSaved(null, new ObjectManipulatingEventArgs(modelDifferenceObject));
@@ -50,7 +51,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                     var controller = new ViewControllerFactory().CreateAndActivateController<CombineActiveModelDictionaryWithActiveModelDifferenceController>(typeof(ModelDifferenceObject));
                     var queryUserModelDifferenceObject = Isolate.Fake.InstanceAndSwapAll<QueryModelDifferenceObject>();
 
-                    var modelDifferenceObject = controller.GetActiveDifference(null);
+                    var modelDifferenceObject = controller.GetActiveDifference(new PersistentApplication(Session.DefaultSession),null);
 
                     Assert.AreEqual(queryUserModelDifferenceObject.GetActiveModelDifference(""), modelDifferenceObject);
                 }
@@ -66,9 +67,8 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                 }
 
             }
-            public class When_At_Win
+            public class When_At_Win:eXpandBaseFixture
             {
-
                 [Test]
                 [Isolated]
                 public void Combination_Is_Active_Only_For_UserDifferenceObjects()
@@ -83,13 +83,16 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                 [Isolated]
                 public void ActiveDifference_Will_Be_OfType_UserDifferenceObject()
                 {
+                    IApplicationUniqueName applicationUniqueName = GetApplicationUniqueName();
                     var controller = new ViewControllerFactory().CreateAndActivateController<CombineActiveModelDictionaryWithActiveUserDifferenceController>(typeof(ModelDifferenceObject));
                     var queryUserModelDifferenceObject = Isolate.Fake.InstanceAndSwapAll<QueryUserModelDifferenceObject>();
 
-                    var modelDifferenceObject = controller.GetActiveDifference(null);
+                    
+                    var modelDifferenceObject = controller.GetActiveDifference(new PersistentApplication(Session.DefaultSession),applicationUniqueName);
 
                     Assert.AreEqual(queryUserModelDifferenceObject.GetActiveModelDifference(""), modelDifferenceObject);
                 }
+
             }
         }
         

@@ -8,7 +8,6 @@ using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.Persistent.Base;
-using eXpand.Persistent.BaseImpl;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
     [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "PersistentApplication;DifferenceType", TargetCriteria = "DifferenceType=0 AND Disabled=false", SkipNullOrEmptyValues = false)]
@@ -16,7 +15,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
     [NavigationItem("Default")]
     [Custom(ClassInfoNodeWrapper.CaptionAttribute, Caption)]
     [Custom("IsClonable", "True")][VisibleInReports(false)]
-    public class ModelDifferenceObject : eXpandBaseObject, IXpoModelDifference
+    public class ModelDifferenceObject : DifferenceObject, IXpoModelDifference
     {
         public const string Caption = "Application Difference";
         private string _preferredAspect=DictionaryAttribute.DefaultLanguage;
@@ -32,7 +31,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
 
         private PersistentApplication persistentApplication;
 
-        private Dictionary _model = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName),Schema.GetCommonSchema());
+        
 
 
         [Custom(PropertyInfoNodeWrapper.AllowEditAttribute,"false")]
@@ -96,9 +95,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             set
             {
                 SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _preferredAspect, value);
-                setCurrentAspect(_model);
+                setCurrentAspect(Model);
                 setCurrentAspect(PersistentApplication.Model);
-                OnChanged("Model");
+                SetModelDirty();
             }
         }
 
@@ -132,43 +131,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         }
 
 
-        [Size(SizeAttribute.Unlimited)]
-        [ValueConverter(typeof(ValueConverters.DictionaryValueConverter))]
-        public Dictionary Model
-        {
-            get{
-                if (!IsDeleted){
-                    var dictionary = new Dictionary(_model.RootNode,PersistentApplication.Model.Schema);
-                    var combiner = new DictionaryCombiner(dictionary);
-                    combiner.AddAspects(_model);
-                    dictionary.CurrentAspectProvider.CurrentAspect=_model.CurrentAspect;
-                    return dictionary;
-                }
-                return null;
-            }
-            set
-            {
-                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _model, value);
-            }
-        }
 
-//        private DictionaryNode getNode(){
-//            var dictionaryNode = GetNode(DictionaryAttribute.DefaultLanguage);
-//            var dictionary = new Dictionary(dictionaryNode, persistentApplication.Model.Schema);
-//            dictionary.AddAspect(PreferredAspect, GetNode(PreferredAspect));
-//            return dictionary.RootNode;
-//        }
-
-//        private DictionaryNode GetNode(string aspect){
-//            var xml = new DictionaryXmlWriter().GetAspectXml(DictionaryAttribute.DefaultLanguage, new DictionaryXmlReader().ReadFromString(AspectXmls[aspect]));
-//            return new DictionaryXmlReader().ReadFromString(xml);
-//        }
-//        [Browsable(false)]
-//        [ValueConverter(typeof(DictionaryValueConverter))][Size(SizeAttribute.Unlimited)]
-//        public Dictionary<string, string> AspectXmls{
-//            get { return _aspectXmls; }
-//            set { _aspectXmls = value; }
-//        }
 
 
         public virtual ModelDifferenceObject InitializeMembers(string applicationName,string uniqueName){
@@ -178,6 +141,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             return this;
         }
 
+        public void SetModelDirty(){
+            OnChanged("Model");
+        }
     }
 
 }

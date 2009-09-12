@@ -13,9 +13,9 @@ namespace eXpand.ExpressApp.ModelDifference.Win.Controllers
             RegisterActions(components);
         }
 
-        protected override UserModelDifferenceObject GetActiveDifference(PersistentApplication persistentApplication){
+        protected override UserModelDifferenceObject GetActiveDifference(PersistentApplication persistentApplication,IApplicationUniqueName applicationUniqueName){
             return new QueryUserModelDifferenceObject(View.ObjectSpace.Session).GetActiveModelDifference(
-                ((IApplicationUniqueName) Application).UniqueName);
+                applicationUniqueName.UniqueName);
         }
     }
 }

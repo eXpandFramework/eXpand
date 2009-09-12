@@ -1,19 +1,14 @@
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Reflection;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ValueConverters;
-using eXpand.Persistent.BaseImpl;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
-    public class PersistentApplication:eXpandBaseObject{
+    public class PersistentApplication:DifferenceObject{
         private string _name;
 
         public PersistentApplication(Session session) : base(session){
-            Debug.Print("");
+            
         }
         [RuleRequiredField(null,DefaultContexts.Save)]
         public string Name
@@ -36,22 +31,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
                 return GetCollection<ModelDifferenceObject>(MethodBase.GetCurrentMethod().Name.Replace("get_", ""));
             }
         }
-        private Dictionary _model=new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName),Schema.GetCommonSchema());
-        [RuleRequiredField(null, DefaultContexts.Save)]
-        [Browsable(false)]
-        [Size(SizeAttribute.Unlimited)]
-        [ValueConverter(typeof(DictionaryValueConverter))]
-        public Dictionary Model
-        {
-            get
-            {
-                return _model;
-            }
-            set
-            {
-                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _model, value);
-            }
-        }
+        
         private string uniqueName;
         [RuleUniqueValue(null,DefaultContexts.Save)]
         [Browsable(false)][MemberDesignTimeVisibility(false)]
@@ -65,10 +45,6 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             {
                 SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref uniqueName, value);
             }
-        }
-        protected override void OnSaving()
-        {
-            base.OnSaving();
         }
     }
 }

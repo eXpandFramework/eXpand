@@ -7,9 +7,11 @@ using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using MbUnit.Framework;
+using TypeMock;
 using TypeMock.ArrangeActAssert;
 using eXpand.ExpressApp.Core;
 using TypeMock.Extensions.eXpand;
+using TypeMock.Extensions;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.BuildingModelDifferenceObjects{
     [TestFixture]
@@ -22,16 +24,12 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.BuildingModelDifference
             Isolate.Fake.ISecurityComplex();
             ITypesInfo instance = XafTypesInfo.Instance;
             instance.RegisterEntity(typeof(User));
-            bool passed = false;
-            Type type = SecuritySystem.UserType;
-            XPDictionary dictionary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
-            Isolate.WhenCalled(() => instance.CreateBothPartMembers(type, typeof(UserModelDifferenceObject),
-                                                                    dictionary, true)).WithExactArguments().DoInstead(context => passed =
-                                                                                                                                 true);
 
-            UserDifferenceObjectBuilder.CreateDynamicMembers();
 
-            Assert.IsTrue(passed);
+            bool members = UserDifferenceObjectBuilder.CreateDynamicMembers();
+
+            Assert.IsTrue(members);
+
 
         }
         [Test]

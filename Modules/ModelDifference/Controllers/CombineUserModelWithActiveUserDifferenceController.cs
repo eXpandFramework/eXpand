@@ -28,11 +28,13 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
 
         protected  virtual void ViewOnCurrentObjectChanged(object sender, EventArgs args){
             var userAspectObjectQuery = new QueryUserModelDifferenceObject(View.ObjectSpace.Session);
-            ModelDifferenceObject differenceObject =userAspectObjectQuery.GetActiveModelDifference(
-                ((IApplicationUniqueName) Application).UniqueName);
-            if (ReferenceEquals(differenceObject, View.CurrentObject)){
-                var dictionaryCombiner = new DictionaryCombiner(Application.Model);
-                dictionaryCombiner.AddAspects(((UserModelDifferenceObject)View.CurrentObject));                
+            var applicationUniqueName = Application as IApplicationUniqueName;
+            if (applicationUniqueName != null){
+                ModelDifferenceObject differenceObject =userAspectObjectQuery.GetActiveModelDifference(applicationUniqueName.UniqueName);
+                if (ReferenceEquals(differenceObject, View.CurrentObject)){
+                    var dictionaryCombiner = new DictionaryCombiner(Application.Model);
+                    dictionaryCombiner.AddAspects(((UserModelDifferenceObject)View.CurrentObject));                
+                }
             }
         }
     }

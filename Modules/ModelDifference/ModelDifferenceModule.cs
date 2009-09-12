@@ -19,7 +19,8 @@ namespace eXpand.ExpressApp.ModelDifference{
     
     public sealed partial class ModelDifferenceModule : ModuleBase
     {
-        
+        private bool applicationModelUpdated;
+
         public const string CreateCustomModelStore = "CreateCustomModelStore";
         public const string CreateCustomUserModelStore = "CreateCustomUserModelStore";
 
@@ -78,12 +79,16 @@ namespace eXpand.ExpressApp.ModelDifference{
             if (!(application is IApplicationUniqueName))
                 throw new NotImplementedException(string.Format("Type {0} must implement {1} interface", application.GetType().FullName, typeof(IApplicationUniqueName).FullName));
             application.SetupComplete += (sender, args) =>{
-                                             PersistentApplication persistentApplication;
-                                             using (var objectSpace = application.CreateObjectSpace()){
-                                                 persistentApplication = new QueryPersistentApplication(objectSpace.Session).Find(
-                                                     ((IApplicationUniqueName) application).UniqueName);
-                                                 persistentApplication.Model = application.Model;
-                                                 objectSpace.CommitChanges();
+                                             if (!applicationModelUpdated){
+                                                 PersistentApplication persistentApplication;
+                                                 using (var objectSpace = application.CreateObjectSpace()){
+                                                     persistentApplication = new QueryPersistentApplication(objectSpace.Session).Find(
+                                                         ((IApplicationUniqueName) application).UniqueName);
+                                                     persistentApplication.Model = application.Model;
+                                                     objectSpace.CommitChanges();
+                                             
+                                                 }
+                                                 applicationModelUpdated = true;
                                              }
                                              
                                          };            

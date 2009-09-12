@@ -13,7 +13,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
     {
         private XafApplication _application;
         private ModelEditorControl editorControl;
-        private bool modifiedChanged;
+        private bool isModifying;
 
 
         public ModelEditorPropertyEditor(Type objectType, DictionaryNode info) : base(objectType, info)
@@ -23,18 +23,34 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         protected override void ReadValueCore(){
             base.ReadValueCore();
-            if (!modifiedChanged)
+            if (!isModifying)
                 Control.Controller = GetModelEditorController(_application);
-            Control.Controller.ModifiedChanged+=ControllerOnModifiedChanged;
+            
         }
 
 
-
-        private void ControllerOnModifiedChanged(object sender, EventArgs args){
-            modifiedChanged = true;
-            CurrentObject.Model = Control.Controller.Dictionary.GetDiffs();
-            modifiedChanged = false;
+        private void ControllerOnNodeDeleting(object sender, NodeDeletingEventArgs args){
+            modifyModel();
         }
+
+        private void modifyModel(){
+            if (Control.Controller.IsModified){
+                CurrentObject.Model.AddAspect(Control.Controller.CurrentAspect,Control.Controller.Dictionary.GetDiffs().RootNode);
+                isModifying = true;
+                CurrentObject.SetModelDirty();
+                isModifying = false;
+            }
+        }
+
+        private void ControllerOnCurrentNodeChanged(object sender, EventArgs args){
+            modifyModel();
+        }
+
+        private void ControllerOnCurrentAttributeChanged(object sender, EventArgs args){
+            modifyModel();
+        }
+
+
 
 
         public new ModelDifferenceObject CurrentObject{
@@ -60,24 +76,21 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
 
         internal ModelEditorController GetModelEditorController(XafApplication application){
-            var controller = new ModelEditorController(GetControllerModel(), null, application.Modules);
+            var controller = new ModelEditorController(GetModel(), null, application.Modules);
+            controller.CurrentAttributeChanged += ControllerOnCurrentAttributeChanged;
+            controller.CurrentNodeChanged += ControllerOnCurrentNodeChanged;
+            controller.NodeDeleting += ControllerOnNodeDeleting;
             controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);
             return controller;
         }
 
-        internal Dictionary GetControllerModel(){
-            var dictionary = GetModel();
-            if (Control.Controller != null){
-                var combiner = new DictionaryCombiner(dictionary);
-                combiner.AddAspects(Control.Controller.Dictionary);
-            }
-            return dictionary;
-        }
-
+        
         public Dictionary GetModel(){
-            var combiner = new DictionaryCombiner(CurrentObject.PersistentApplication.Model);
+            Dictionary dictionary = CurrentObject.PersistentApplication.Model.Clone();
+            dictionary.ResetIsModified();
+            var combiner = new DictionaryCombiner(dictionary);
             combiner.AddAspects(CurrentObject);
-            return CurrentObject.PersistentApplication.Model;
+            return dictionary;
         }
 
         public void Setup(ObjectSpace space, XafApplication app)
@@ -89,8 +102,8 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         private void SpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args){
             if (ReferenceEquals(args.Object, CurrentObject)){
                 Control.Controller.Dictionary.Validate();
-                var dictionary = Control.Controller.Dictionary.GetDiffs();
-                CurrentObject.Model = dictionary;
+                //var dictionary = Control.Controller.Dictionary.GetDiffs();
+                //CurrentObject.Model = dictionary;
             }
 
         }
