@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Reflection;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
@@ -75,7 +76,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _disabled, value); }
         }
 
-
+        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute,"false")]
         [RuleRequiredField(null,DefaultContexts.Save)]
         public DateTime DateCreated
         {
