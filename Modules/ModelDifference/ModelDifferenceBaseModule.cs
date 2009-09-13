@@ -2,7 +2,7 @@ using System;
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 
-namespace eXpand.ExpressApp.ModelDifference.Win{
+namespace eXpand.ExpressApp.ModelDifference{
     public class ModelDifferenceBaseModule<T> : ModuleBase where T : XpoModelDictionaryDifferenceStore
     {
         private string connectionString;
@@ -15,9 +15,9 @@ namespace eXpand.ExpressApp.ModelDifference.Win{
 
         private void ApplicationOnSetupComplete(object sender, EventArgs args)
         {
-
-            var combiner = new DictionaryCombiner(Application.Model);
-            combiner.AddAspects(getModelDiffs());
+            Application.Model.CombineWith(getModelDiffs().Dictionary);
+//            var combiner = new DictionaryCombiner(Application.Model);
+//            combiner.AddAspects(getModelDiffs());
         }
 
 
@@ -33,7 +33,6 @@ namespace eXpand.ExpressApp.ModelDifference.Win{
         {
             args.Handled = true;
             connectionString = Application.ConnectionString;
-
         }
     }
 }

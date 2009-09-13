@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using eXpand.ExpressApp.ModelDifference.Win;
 
 namespace eXpand.ExpressApp.ModelDifference.Web
 {

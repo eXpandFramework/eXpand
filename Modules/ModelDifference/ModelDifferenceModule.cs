@@ -114,7 +114,7 @@ namespace eXpand.ExpressApp.ModelDifference{
 
 
 
-//        protected abstract XpoDictionaryDifferenceStore getModelDifferenceStore(Session updatingSession);
+
 
         private void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs args)
         {
@@ -122,42 +122,6 @@ namespace eXpand.ExpressApp.ModelDifference{
             args.Store =new XpoUserModelDictionaryDifferenceStore(Application.ObjectSpaceProvider.CreateUpdatingSession(), Application);
             
 
-        }
-
-        public class CultureDescription
-        {
-            private readonly string name;
-            private readonly string caption;
-            public CultureDescription(CultureInfo culture)
-            {
-                name = culture.Name;
-                caption = string.Concat(new[] { name, " (", culture.DisplayName, " - ", culture.NativeName, ")" });
-            }
-            public override string ToString()
-            {
-                return caption;
-            }
-            public override int GetHashCode()
-            {
-                return base.GetHashCode();
-            }
-            public override bool Equals(object obj)
-            {
-                var objCulture = obj as CultureDescription;
-                if (objCulture != null)
-                {
-                    return name == objCulture.Name;
-                }
-                return base.Equals(obj);
-            }
-            public string Caption
-            {
-                get { return caption; }
-            }
-            public string Name
-            {
-                get { return name; }
-            }
         }
 
         public string GetAllCultures()

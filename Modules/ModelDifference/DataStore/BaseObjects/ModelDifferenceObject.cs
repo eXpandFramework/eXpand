@@ -138,8 +138,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         {
             Dictionary dictionary = PersistentApplication.Model.Clone();
             dictionary.ResetIsModified();
-            var combiner = new DictionaryCombiner(dictionary);
-            combiner.AddAspects(Model);
+            dictionary.CombineWith(Model);
+//            var combiner = new DictionaryCombiner(dictionary);
+//            combiner.AddAspects(Model);
 
             return dictionary;
         }

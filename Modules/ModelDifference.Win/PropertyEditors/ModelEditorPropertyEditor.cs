@@ -1,6 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.Editors;
@@ -32,7 +33,9 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         private void modifyModel(){
             if (Control.Controller.IsModified){
-                CurrentObject.Model.AddAspect(Control.Controller.CurrentAspect,Control.Controller.Dictionary.GetDiffs().RootNode);
+                Dictionary diffs = Control.Controller.Dictionary.GetDiffs();
+                CurrentObject.Model.AddAspect(Control.Controller.CurrentAspect,diffs.RootNode);
+                
                 isModifying = true;
                 CurrentObject.SetModelDirty();
                 isModifying = false;
