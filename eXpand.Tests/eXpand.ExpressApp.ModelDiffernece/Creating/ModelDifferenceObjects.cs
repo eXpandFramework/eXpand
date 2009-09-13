@@ -20,12 +20,12 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Creating
         [Test]
         [Isolated]
         public void Cause_PersistentApplication_ShouldBe_Unique_Should_Query_DataStore_Befare_Creating_New(){
-            var application = new PersistentApplication(Session.DefaultSession){Name = "appName"};
+            var application = new PersistentApplication(Session.DefaultSession){UniqueName = "appName"};
             application.Save();
             var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession);
-            
 
-            modelDifferenceObject.InitializeMembers("appName","");
+
+            modelDifferenceObject.InitializeMembers("", "appName");
 
             Assert.AreEqual(application, modelDifferenceObject.PersistentApplication);
         }

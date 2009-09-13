@@ -8,12 +8,9 @@ using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.Web.Controllers;
 using eXpand.ExpressApp.ModelDifference.Win.Controllers;
-using eXpand.Persistent.Base;
 using MbUnit.Framework;
-using TypeMock;
 using TypeMock.ArrangeActAssert;
 using TypeMock.Extensions;
-using eXpand.Utils.Helpers;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
     [TestFixture]
@@ -83,12 +80,12 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                 [Isolated]
                 public void ActiveDifference_Will_Be_OfType_UserDifferenceObject()
                 {
-                    IApplicationUniqueName applicationUniqueName = GetApplicationUniqueName();
+
                     var controller = new ViewControllerFactory().CreateAndActivateController<CombineActiveModelDictionaryWithActiveUserDifferenceController>(typeof(ModelDifferenceObject));
                     var queryUserModelDifferenceObject = Isolate.Fake.InstanceAndSwapAll<QueryUserModelDifferenceObject>();
 
                     
-                    var modelDifferenceObject = controller.GetActiveDifference(new PersistentApplication(Session.DefaultSession),applicationUniqueName);
+                    var modelDifferenceObject = controller.GetActiveDifference(new PersistentApplication(Session.DefaultSession),null);
 
                     Assert.AreEqual(queryUserModelDifferenceObject.GetActiveModelDifference(""), modelDifferenceObject);
                 }

@@ -124,6 +124,7 @@
       <DependentUpon>CombineActiveModelDictionaryWithActiveUserDifferenceController.cs</DependentUpon>
     </Compile>
     <Compile Include="ModelDifferencewindowsFormsModule.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ModelDifferencewindowsFormsModule.Designer.cs">
       <DependentUpon>ModelDifferencewindowsFormsModule.cs</DependentUpon>

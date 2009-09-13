@@ -21,7 +21,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDifference.Win{
         [Isolated]
         public void ModelEditorPropertyEditor_Control_Will_Be_A_ModelEditorControl(){
             var editor = new ModelEditorPropertyEditor(null, null);
-            Isolate.WhenCalled(() => editor.GetModel()).ReturnRecursiveFake();
+//            Isolate.WhenCalled(() => editor.GetModel()).ReturnRecursiveFake();
             Isolate.WhenCalled(() => editor.GetModelEditorController(Isolate.Fake.Instance<XafApplication>())).ReturnRecursiveFake();
             editor.Setup(Isolate.Fake.Instance<ObjectSpace>(), Isolate.Fake.Instance<XafApplication>());
             Isolate.Swap.NextInstance<ModelEditorControl>().With(Isolate.Fake.Instance<ModelEditorControl>());
@@ -136,10 +136,11 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDifference.Win{
                                             }
                          };
 
-            var dictionary = editor.GetModel();
+//            var dictionary = editor.GetModel();
 
-            dictionary.CurrentAspectProvider.CurrentAspect = "el";
-            Assert.AreEqual("el3", new ApplicationNodeWrapper(dictionary).BOModel.FindClassByName("MyClass").Caption);
+//            dictionary.CurrentAspectProvider.CurrentAspect = "el";
+//            Assert.AreEqual("el3", new ApplicationNodeWrapper(dictionary).BOModel.FindClassByName("MyClass").Caption);
+            throw new NotImplementedException();
             
         }
         [Test]
@@ -151,12 +152,13 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDifference.Win{
                                                                   };
             Isolate.WhenCalled(() => editor.Control).WillReturn(new ModelEditorControl());
             var dictionary = new Dictionary();
-            Isolate.WhenCalled(() => editor.GetModel()).WillReturn(dictionary);
+            throw new NotImplementedException();
+//            Isolate.WhenCalled(() => editor.GetModel()).WillReturn(dictionary);
 
-            var controller = editor.GetModelEditorController(Isolate.Fake.Instance<XafApplication>());
-
-            Assert.AreEqual("el", controller.CurrentAspect);
-            Assert.AreEqual(dictionary, controller.Dictionary);
+//            var controller = editor.GetModelEditorController(Isolate.Fake.Instance<XafApplication>());
+//
+//            Assert.AreEqual("el", controller.CurrentAspect);
+//            Assert.AreEqual(dictionary, controller.Dictionary);
         }
 
 

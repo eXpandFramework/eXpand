@@ -12,16 +12,6 @@ using TypeMock.ArrangeActAssert;
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
     [TestFixture]
     public class OnDemand_At_Difference_ListView : OnDemand_At_All_Views<CombineDifferencesOnDemandDetailViewController>{
-//        [Test]
-//        [Isolated]
-//        public void Test()
-//        {
-//            string s =
-//                "<Application ><Templates ><Template ID=\"DevExpress.ExpressApp.Win.Templates.MainForm\" NavigationWidth=\"146\" NavigationDock=\"Left\" NavigationVisibility=\"Visible\" IsNewNode=\"True\"><FormState ID=\"Default\" State=\"Normal\" X=\"198\" Y=\"198\" Width=\"800\" Height=\"593\" IsNewNode=\"True\"/><NavBarCustomization Width=\"138\" IsNewNode=\"True\"/><XtraBarsCustomization ID=\"Default\" IsNewNode=\"True\"/></Template></Templates></Application>";
-//            var node = new DictionaryXmlReader().ReadFromString(s);
-//            new DictionaryXmlWriter().GetAspectXml(DictionaryAttribute.DefaultLanguage, node);
-//
-//        }
         [Test(Order = 2)]
         [Isolated]
         [ExpectedException(typeof (UserFriendlyException))]
@@ -43,7 +33,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                                                                                                                   PersistentApplication =
                                                                                                                       new PersistentApplication(
                                                                                                                       Session.DefaultSession)
-                                                                                                                      {Name = "appName"}
+                                                                                                                      {UniqueName = "appName"}
                                                                                                               }
                                                                                });
         }
@@ -71,7 +61,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
             var expectedActiveModelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession){
                                                                                                            PersistentApplication =
                                                                                                                new PersistentApplication(Session.DefaultSession)
-                                                                                                               {Name = "appName"}
+                                                                                                               {UniqueName = "appName"}
                                                                                                        };
             expectedActiveModelDifferenceObject.Save();
 
@@ -80,7 +70,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                                                                                                   new ModelDifferenceObject(Session.DefaultSession){
                                                                                                                                                        PersistentApplication =
                                                                                                                                                            new PersistentApplication(
-                                                                                                                                                           Session.DefaultSession){Name = "appName"}
+                                                                                                                                                           Session.DefaultSession){UniqueName = "appName"}
                                                                                                                                                    }
                                                                                               });
 

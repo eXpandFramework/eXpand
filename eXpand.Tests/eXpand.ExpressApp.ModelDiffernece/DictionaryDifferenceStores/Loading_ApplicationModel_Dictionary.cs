@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Validation;
@@ -97,10 +98,16 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         {
             [Test]
             [Isolated]
+            public void Will_Return_An_Empty_Dictionary_If_Loadinf_is_Disabled()
+            {
+                throw new NotImplementedException();
+            }
+            [Test]
+            [Isolated]
             public void If_ActiveDifference_Not_Found_It_Will_Save_A_New_Default_Dictionary(){
                 var store = Isolate.Fake.Instance<XpoModelDictionaryDifferenceStore>(Members.CallOriginal, ConstructorWillBe.Called,
                                                                          Session.DefaultSession,
-                                                                         Isolate.Fake.Instance<XafApplication>());
+                                                                         Isolate.Fake.Instance<XafApplication>(), true);
                 Isolate.WhenCalled(() => store.UseModelFromPath()).WillReturn(false);
                 Isolate.WhenCalled(() => store.GetActiveDifferenceObject()).WillReturn(null);
 
@@ -113,7 +120,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             public void If_Active_Difference_Foind_It_Will_Return_Its_Model(){
                 var store = Isolate.Fake.Instance<XpoModelDictionaryDifferenceStore>(Members.CallOriginal, ConstructorWillBe.Called,
                                                                          Session.DefaultSession,
-                                                                         Isolate.Fake.Instance<XafApplication>());
+                                                                         Isolate.Fake.Instance<XafApplication>(), true);
                 Isolate.WhenCalled(() => store.UseModelFromPath()).WillReturn(false);
                 Isolate.WhenCalled(() => store.GetActiveDifferenceObject()).WillReturn(new ModelDifferenceObject(Session.DefaultSession) { Model = DefaultDictionary, PersistentApplication = new PersistentApplication(Session.DefaultSession) });
                 Isolate.WhenCalled(() => store.SaveDifference(null)).IgnoreCall();

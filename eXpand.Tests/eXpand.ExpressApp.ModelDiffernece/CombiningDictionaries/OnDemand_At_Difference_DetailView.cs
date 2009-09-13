@@ -45,9 +45,9 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
         [Isolated]
         public void Popup_ListView_Collection_Will_contain_All_Difference_Objects_With_Same_Application_As_CurrentDifference_Except_Current()
         {
-            var currentModelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession) { PersistentApplication =new PersistentApplication(Session.DefaultSession) { Name = "AppName" }, };
+            var currentModelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession) { PersistentApplication =new PersistentApplication(Session.DefaultSession) { UniqueName = "AppName" }, };
             currentModelDifferenceObject.Save();
-            var expectedModelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession) { Name = "AppName" } };
+            var expectedModelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession) { UniqueName = "AppName" } };
             expectedModelDifferenceObject.Save();
             new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)}.Save();
             var controller = new ViewControllerFactory().CreateAndActivateController<CombineDifferencesOnDemandDetailViewController>(ViewType.DetailView, currentModelDifferenceObject);
@@ -61,9 +61,9 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
         [Isolated]
         public void Popup_ListView_Collection_Will_contain_All_Difference_Objects_With_Same_Difference_As_CurrentDifference_Except_Current()
         {
-            var currentModelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession) { Name = "AppName" } };
+            var currentModelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession) { UniqueName = "AppName" } };
             currentModelDifferenceObject.Save();
-            var expectedModelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession) { Name = "AppName" } };
+            var expectedModelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession) { UniqueName = "AppName" } };
             expectedModelDifferenceObject.Save();
             new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)}.Save();
             var controller = new ViewControllerFactory().CreateAndActivateController<CombineDifferencesOnDemandDetailViewController>(ViewType.DetailView, currentModelDifferenceObject);

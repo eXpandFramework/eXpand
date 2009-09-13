@@ -3,10 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
-using eXpand.Persistent.Base;
 using MbUnit.Framework;
-using TypeMock;
-using eXpand.Utils.Helpers;
 
 namespace eXpand.Tests{
     public abstract class eXpandBaseFixture{
@@ -43,13 +40,6 @@ namespace eXpand.Tests{
 
         }
 
-        public IApplicationUniqueName GetApplicationUniqueName()
-        {
-            MockObject mockObject = MockManager.MockObject(typeof(IApplicationUniqueName));
-            var applicationUniqueName = (IApplicationUniqueName)mockObject.MockedInstance;
-            mockObject.ExpectGet(applicationUniqueName.GetPropertyInfo(x => x.UniqueName).Name, "");
-            return applicationUniqueName;
-        }
 
 
         [TearDown]

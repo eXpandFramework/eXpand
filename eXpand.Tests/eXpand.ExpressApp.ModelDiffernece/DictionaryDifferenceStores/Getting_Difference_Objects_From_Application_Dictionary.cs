@@ -23,7 +23,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
 
             var store = Isolate.Fake.Instance<XpoModelDictionaryDifferenceStore>(Members.CallOriginal, ConstructorWillBe.Called,
                                                                          Session.DefaultSession,
-                                                                         Isolate.Fake.Instance<XafApplication>());
+                                                                         Isolate.Fake.Instance<XafApplication>(), false);
 
             ModelDifferenceObject modelDifferenceObject = store.GetNewDifferenceObject(Session.DefaultSession);
 
@@ -35,7 +35,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         {
             var store = Isolate.Fake.Instance<XpoModelDictionaryDifferenceStore>(Members.CallOriginal, ConstructorWillBe.Called,
                                                                          Session.DefaultSession,
-                                                                         Isolate.Fake.Instance<XafApplication>());
+                                                                         Isolate.Fake.Instance<XafApplication>(), false);
             Isolate.Fake.StaticMethods(typeof(ModelDifferenceObjectBuilder));
             var modelStoreObject = new ModelDifferenceObject(Session.DefaultSession);
             var queryModelDifferenceObject = Isolate.Fake.InstanceAndSwapAll<QueryModelDifferenceObject>();
