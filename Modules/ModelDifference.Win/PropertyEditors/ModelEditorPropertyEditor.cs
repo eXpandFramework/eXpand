@@ -33,7 +33,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         private void modifyModel(){
             if (Control.Controller.IsModified){
                 Dictionary diffs = Control.Controller.Dictionary.GetDiffs();
-                var model=GetModel();
+                var model=CurrentObject.GetModel();
                 model.CombineWith(diffs);
                 isModifying = true;
                 CurrentObject.Model = model.GetDiffs();
@@ -64,8 +64,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         protected override object CreateControlCore()
         {
-//            Dictionary applicationModel = CurrentObject.GetModel();
-            Dictionary applicationModel = GetModel();
+            Dictionary applicationModel = CurrentObject.GetModel();
             return GetModelEditorControl(applicationModel);
         }
 
@@ -74,21 +73,9 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             return editorControl;
         }
 
-        public Dictionary GetModel()
-        {
-//            Dictionary dictionary = PersistentApplication.Model.Clone();
-            Dictionary dictionary = CurrentObject.PersistentApplication.Model.Clone();
-            dictionary.ResetIsModified();
-            dictionary.CombineWith(CurrentObject.Model);
-            //            var combiner = new DictionaryCombiner(dictionary);
-            //            combiner.AddAspects(Model);
-
-            return dictionary;
-        }
 
         internal ModelEditorController GetModelEditorController(XafApplication application){
-//            var controller = new ModelEditorController(CurrentObject.GetModel(), null, application.Modules);
-            var controller = new ModelEditorController(GetModel(), null, application.Modules);
+            var controller = new ModelEditorController(CurrentObject.GetModel(), null, application.Modules);
             controller.CurrentAttributeChanged += ControllerOnCurrentAttributeChanged;
             controller.CurrentNodeChanged += ControllerOnCurrentNodeChanged;
             controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);

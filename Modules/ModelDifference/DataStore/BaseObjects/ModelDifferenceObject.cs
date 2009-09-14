@@ -110,7 +110,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
                 SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _preferredAspect, value);
                 setCurrentAspect(Model);
                 setCurrentAspect(PersistentApplication.Model);
-                SetModelDirty();
+                
             }
         }
 
@@ -141,23 +141,17 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             set{
                 Dictionary dictionary = GetModel();
                 dictionary.Validate();
-                Model.AddAspect(CurrentLanguage, new DictionaryXmlReader().ReadFromString(value));
-//                SetModelDirty();
+                dictionary.CombineWith(new Dictionary(new DictionaryXmlReader().ReadFromString(value),PersistentApplication.Model.Schema));
+                Model = dictionary.GetDiffs();
             }
         }
-
-//        public Dictionary GetModel()
-//        {
-//            Dictionary dictionary = PersistentApplication.Model.Clone();
-//            dictionary.ResetIsModified();
-//            dictionary.CombineWith(Model);
-////            var combiner = new DictionaryCombiner(dictionary);
-////            combiner.AddAspects(Model);
-//
-//            return dictionary;
-//        }
-
-
+        public Dictionary GetModel()
+        {
+            Dictionary dictionary = PersistentApplication.Model.Clone();
+            dictionary.ResetIsModified();
+            dictionary.CombineWith(Model);
+            return dictionary;
+        }
 
         public virtual ModelDifferenceObject InitializeMembers(string applicationName,string uniqueName){
 
@@ -166,9 +160,6 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             return this;
         }
 
-        public void SetModelDirty(){
-            OnChanged("Model");
-        }
     }
 
 }
