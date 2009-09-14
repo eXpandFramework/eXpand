@@ -52,17 +52,18 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         protected internal abstract ModelDifferenceObject GetNewDifferenceObject(Session session);
 
         protected internal virtual void OnAspectStoreObjectSaving(ModelDifferenceObject modelDifferenceObject, Dictionary diffDictionary){
-            const DefaultContexts identifiers = DefaultContexts.Save;
-            var objectsToValidate = new SaveContextTargetObjectSelector().GetObjectsToValidate(session, modelDifferenceObject);
-            var ruleSet = Validator.RuleSet;
-            ruleSet.CustomValidateRule += RuleSetOnCustomValidateRule;
-            ruleSet.ValidateAll(objectsToValidate, identifiers,args => { });
+//            const DefaultContexts identifiers = DefaultContexts.Save;
+//            var objectsToValidate = new SaveContextTargetObjectSelector().GetObjectsToValidate(session, modelDifferenceObject);
+//            var ruleSet = Validator.RuleSet;
+//            ruleSet.CustomValidateRule += RuleSetOnCustomValidateRule;
+//            ruleSet.ValidateAll(objectsToValidate, identifiers,args => { });
             
             modelDifferenceObject.Save();
             if (session is UnitOfWork)
                 ((UnitOfWork) session).CommitChanges();
         }
 
+/*
         private void RuleSetOnCustomValidateRule(object sender, CustomValidateRuleEventArgs args){
             if (args.Rule is RuleRequiredField&&args.Target is PersistentApplication){
                 var persistentApplication = ((PersistentApplication) args.Target);
@@ -70,5 +71,6 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                     args.RuleValidationResult=new RuleValidationResult(args.Rule, args.Target, ValidationState.Valid,null);
             }
         }
+*/
     }
 }

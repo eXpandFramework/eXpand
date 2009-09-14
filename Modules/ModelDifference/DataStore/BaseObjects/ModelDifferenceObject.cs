@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel;
 using System.Reflection;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
@@ -33,7 +32,20 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
 
         private PersistentApplication persistentApplication;
 
-        
+        private Dictionary _model = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema());
+        [Size(SizeAttribute.Unlimited)]
+        [ValueConverter(typeof(ValueConverters.DictionaryValueConverter))]
+        public Dictionary Model
+        {
+            get
+            {
+                return _model;
+            }
+            set
+            {
+                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _model, value);
+            }
+        }
 
 
         
@@ -127,23 +139,23 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
                 return new DictionaryXmlWriter().GetAspectXml(CurrentLanguage, Model.RootNode);
             }
             set{
-                Dictionary dictionary = GetModel();
-                dictionary.Validate();
-                Model.AddAspect(CurrentLanguage, new DictionaryXmlReader().ReadFromString(value));
-                SetModelDirty();
+//                Dictionary dictionary = GetModel();
+//                dictionary.Validate();
+//                Model.AddAspect(CurrentLanguage, new DictionaryXmlReader().ReadFromString(value));
+//                SetModelDirty();
             }
         }
 
-        public Dictionary GetModel()
-        {
-            Dictionary dictionary = PersistentApplication.Model.Clone();
-            dictionary.ResetIsModified();
-            dictionary.CombineWith(Model);
-//            var combiner = new DictionaryCombiner(dictionary);
-//            combiner.AddAspects(Model);
-
-            return dictionary;
-        }
+//        public Dictionary GetModel()
+//        {
+//            Dictionary dictionary = PersistentApplication.Model.Clone();
+//            dictionary.ResetIsModified();
+//            dictionary.CombineWith(Model);
+////            var combiner = new DictionaryCombiner(dictionary);
+////            combiner.AddAspects(Model);
+//
+//            return dictionary;
+//        }
 
 
 

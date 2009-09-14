@@ -1,7 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.Editors;
@@ -34,10 +33,10 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         private void modifyModel(){
             if (Control.Controller.IsModified){
                 Dictionary diffs = Control.Controller.Dictionary.GetDiffs();
-                CurrentObject.Model.AddAspect(Control.Controller.CurrentAspect,diffs.RootNode);
-                
+                var model=GetModel();
+                model.CombineWith(diffs);
                 isModifying = true;
-                CurrentObject.SetModelDirty();
+                CurrentObject.Model = model.GetDiffs();
                 isModifying = false;
             }
         }
@@ -65,7 +64,8 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         protected override object CreateControlCore()
         {
-            Dictionary applicationModel = CurrentObject.GetModel();
+//            Dictionary applicationModel = CurrentObject.GetModel();
+            Dictionary applicationModel = GetModel();
             return GetModelEditorControl(applicationModel);
         }
 
@@ -74,9 +74,21 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             return editorControl;
         }
 
+        public Dictionary GetModel()
+        {
+//            Dictionary dictionary = PersistentApplication.Model.Clone();
+            Dictionary dictionary = _application.Model.Clone();
+            dictionary.ResetIsModified();
+            dictionary.CombineWith(CurrentObject.Model);
+            //            var combiner = new DictionaryCombiner(dictionary);
+            //            combiner.AddAspects(Model);
+
+            return dictionary;
+        }
 
         internal ModelEditorController GetModelEditorController(XafApplication application){
-            var controller = new ModelEditorController(CurrentObject.GetModel(), null, application.Modules);
+//            var controller = new ModelEditorController(CurrentObject.GetModel(), null, application.Modules);
+            var controller = new ModelEditorController(GetModel(), null, application.Modules);
             controller.CurrentAttributeChanged += ControllerOnCurrentAttributeChanged;
             controller.CurrentNodeChanged += ControllerOnCurrentNodeChanged;
             controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);

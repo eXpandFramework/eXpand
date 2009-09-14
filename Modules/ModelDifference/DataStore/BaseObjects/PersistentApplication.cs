@@ -1,5 +1,7 @@
 using System.ComponentModel;
 using System.Reflection;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 
@@ -9,6 +11,20 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
 
         public PersistentApplication(Session session) : base(session){
             
+        }
+        private Dictionary _model = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema());
+        [Size(SizeAttribute.Unlimited)]
+        [ValueConverter(typeof(ValueConverters.DictionaryValueConverter1))]
+        public Dictionary Model
+        {
+            get
+            {
+                return _model;
+            }
+            set
+            {
+                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _model, value);
+            }
         }
         [DevExpress.Xpo.DisplayName("Application Name")]
         [RuleRequiredField(null,DefaultContexts.Save)]

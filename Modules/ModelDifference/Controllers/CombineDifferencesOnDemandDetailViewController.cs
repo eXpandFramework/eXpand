@@ -35,7 +35,10 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
             controller.AcceptAction.Execute += AcceptActionOnExecute;
         }
         public void CreatePopupListView(ShowViewParameters parameters){
-            
+
+//            string s = "<Application><Views><DetailView><Items><StaticText ID=\"AboutText\" Caption=\"AboutText\" /></Items></DetailView></Views></Application>";
+//            DictionaryNode node = new DictionaryXmlReader().ReadFromString(s);
+//            Application.Model.AddAspect("de",node);
             parameters.Controllers.Add(controller);
             parameters.CreatedView = Application.CreateListView(Application.FindListViewId(typeof (ModelDifferenceObject)),GetCollectionSource(), true);
             parameters.TargetWindow = TargetWindow.NewModalWindow;
