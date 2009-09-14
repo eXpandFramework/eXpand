@@ -9,6 +9,7 @@ using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.Persistent.Base;
+using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
     [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "PersistentApplication;DifferenceType", TargetCriteria = "DifferenceType=0 AND Disabled=false", SkipNullOrEmptyValues = false)]
@@ -110,7 +111,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
                 SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _preferredAspect, value);
                 setCurrentAspect(Model);
                 setCurrentAspect(PersistentApplication.Model);
-                
+                OnChanged(this.GetPropertyInfo(x=>x.Model).Name);
             }
         }
 

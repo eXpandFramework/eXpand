@@ -18,7 +18,7 @@ namespace eXpand.ExpressApp.ModelDifference{
     
     public sealed partial class ModelDifferenceModule : ModuleBase
     {
-        private bool applicationModelUpdated;
+        private bool _persistentApplicationModelUpdated;
 
         public const string CreateCustomModelStore = "CreateCustomModelStore";
         public const string CreateCustomUserModelStore = "CreateCustomUserModelStore";
@@ -70,6 +70,9 @@ namespace eXpand.ExpressApp.ModelDifference{
             typesInfo.RefreshInfo(classType);
         }
 
+        public bool PersistentApplicationModelUpdated{
+            get { return _persistentApplicationModelUpdated; }
+        }
 
         public override void Setup(XafApplication application)
         {
@@ -77,7 +80,8 @@ namespace eXpand.ExpressApp.ModelDifference{
             base.Setup(application);
             
             application.SetupComplete += (sender, args) =>{
-                                             if (!applicationModelUpdated){
+//                                            UpdatePersistentApplication();
+                                             if (!_persistentApplicationModelUpdated){
                                                  PersistentApplication persistentApplication;
                                                  using (var objectSpace = application.CreateObjectSpace()){
                                                      persistentApplication =
@@ -89,7 +93,7 @@ namespace eXpand.ExpressApp.ModelDifference{
                                                          persistentApplication.Name =application.Title;
                                                      objectSpace.CommitChanges();
                                                  }
-                                                 applicationModelUpdated = true;
+                                                 _persistentApplicationModelUpdated = true;
                                              }
                                              
                                          };            
@@ -134,6 +138,10 @@ namespace eXpand.ExpressApp.ModelDifference{
                 s += list1 + ";";
             }
             return s.TrimEnd(';');
+        }
+
+        public void UpdatePersistentApplication(){
+            throw new NotImplementedException();
         }
     }
 }
