@@ -20,7 +20,7 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
         {
             aspects = aspects.OrderBy(s => s).ToList();
             xml = xml.Replace("&#165;", "¥");
-            string defaultAspectValuesWhenNoOtherAspectExist = Regex.Replace(xml, "\":([^\":]*)\"", "\"$1\"");
+            string defaultAspectValuesWhenNoOtherAspectExist = Regex.Replace(xml, "\":([^\"\xA5]*)\"", "\"$1\"");
             string removedAspectsWithNoDefaultAspects = defaultAspectValuesWhenNoOtherAspectExist;
             if (!string.IsNullOrEmpty(aspects[0])){
                 string defaultAspectWhenOtherAspectExists = Regex.Replace(defaultAspectValuesWhenNoOtherAspectExist, @""":([^""\xA5]*)\xA5" +aspects[0]+ @":([^""]*)""", "\"$1\"");

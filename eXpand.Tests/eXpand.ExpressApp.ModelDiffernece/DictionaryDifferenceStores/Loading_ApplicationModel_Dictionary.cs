@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DictionaryStores;
+using eXpand.ExpressApp.ModelDifference.Win;
 using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 
@@ -20,9 +20,8 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             {
 
 
-                var store = Isolate.Fake.Instance<XpoModelDictionaryDifferenceStore>(Members.CallOriginal, ConstructorWillBe.Called,
-                                                                         Session.DefaultSession,
-                                                                         Isolate.Fake.Instance<XafApplication>());
+                var store = new XpoModelDictionaryDifferenceStoreFactory<XpoWinModelDictionaryDifferenceStore>().Create(Session.DefaultSession,
+                                                                         Isolate.Fake.Instance<XafApplication>(), true);
                 Isolate.WhenCalled(() => store.IsDebuggerAttached).WillReturn(true);
 
                 var path = store.UseModelFromPath();
@@ -36,9 +35,8 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             [Isolated]
             public void The_Load_From_Directory_Can_BeDisabled_Even_If_Debugger_Is_Attached(string disableDebuggerAttachedCheck)
             {
-                var store = Isolate.Fake.Instance<XpoModelDictionaryDifferenceStore>(Members.CallOriginal, ConstructorWillBe.Called,
-                                                                         Session.DefaultSession,
-                                                                         Isolate.Fake.Instance<XafApplication>());
+                var store = new XpoModelDictionaryDifferenceStoreFactory<XpoWinModelDictionaryDifferenceStore>().Create(Session.DefaultSession,
+                                                                         Isolate.Fake.Instance<XafApplication>(), true);
                 Isolate.WhenCalled(() => store.IsDebuggerAttached).WillReturn(true);
                 Isolate.Fake.StaticMethods(typeof(ConfigurationManager));
                 Isolate.WhenCalled(() => ConfigurationManager.AppSettings[XpoModelDictionaryDifferenceStore.DisableDebuggerAttachedCheck]).WillReturn(disableDebuggerAttachedCheck);
@@ -55,9 +53,8 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             {
 
                 Isolate.Fake.StaticMethods(typeof(Validator));
-                var store = Isolate.Fake.Instance<XpoModelDictionaryDifferenceStore>(Members.CallOriginal, ConstructorWillBe.Called,
-                                                                         Session.DefaultSession,
-                                                                         Isolate.Fake.Instance<XafApplication>());
+                var store = new XpoModelDictionaryDifferenceStoreFactory<XpoWinModelDictionaryDifferenceStore>().Create(Session.DefaultSession,
+                                                                         Isolate.Fake.Instance<XafApplication>(), true);
                 #region isolate store
                 Isolate.WhenCalled(() => store.GetModelPaths()).WillReturn(new List<string> { "model.xafml", "model_el.xafml", "LogonParameters.xafml" });
                 Isolate.WhenCalled(() => store.UseModelFromPath()).WillReturn(true);
@@ -79,9 +76,8 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             [Isolated]
             public void If_Can_Load_From_Path_ApplicationModel_Will_Saved()
             {
-                var store = Isolate.Fake.Instance<XpoModelDictionaryDifferenceStore>(Members.CallOriginal, ConstructorWillBe.Called,
-                                                                         Session.DefaultSession,
-                                                                         Isolate.Fake.Instance<XafApplication>());
+                var store = new XpoModelDictionaryDifferenceStoreFactory<XpoWinModelDictionaryDifferenceStore>().Create(Session.DefaultSession,
+                                                                         Isolate.Fake.Instance<XafApplication>(), true);
                 Isolate.WhenCalled(() => store.UseModelFromPath()).WillReturn(true);
                 Isolate.WhenCalled(() => store.GetPath()).WillReturn(@"c:\1");
                 bool called = false;
@@ -98,15 +94,19 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         {
             [Test]
             [Isolated]
-            public void Will_Return_An_Empty_Dictionary_If_Loadinf_is_Disabled()
+            public void Will_Return_An_Empty_Dictionary_If_Loading_is_Disabled()
             {
-                throw new NotImplementedException();
+                var store = new XpoModelDictionaryDifferenceStoreFactory<XpoWinModelDictionaryDifferenceStore>().Create(Session.DefaultSession,
+                                                                         Isolate.Fake.Instance<XafApplication>(), true);
+
+                Dictionary dictionary = store.LoadDifference(Schema.GetCommonSchema());
+
+                Assert.AreEqual("<Application />\r\n", dictionary.RootNode.ToXml());
             }
             [Test]
             [Isolated]
             public void If_ActiveDifference_Not_Found_It_Will_Save_A_New_Default_Dictionary(){
-                var store = Isolate.Fake.Instance<XpoModelDictionaryDifferenceStore>(Members.CallOriginal, ConstructorWillBe.Called,
-                                                                         Session.DefaultSession,
+                var store = new XpoModelDictionaryDifferenceStoreFactory<XpoWinModelDictionaryDifferenceStore>().Create(Session.DefaultSession,
                                                                          Isolate.Fake.Instance<XafApplication>(), true);
                 Isolate.WhenCalled(() => store.UseModelFromPath()).WillReturn(false);
                 Isolate.WhenCalled(() => store.GetActiveDifferenceObject()).WillReturn(null);
@@ -118,8 +118,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             [Test]
             [Isolated]
             public void If_Active_Difference_Foind_It_Will_Return_Its_Model(){
-                var store = Isolate.Fake.Instance<XpoModelDictionaryDifferenceStore>(Members.CallOriginal, ConstructorWillBe.Called,
-                                                                         Session.DefaultSession,
+                var store = new XpoModelDictionaryDifferenceStoreFactory<XpoWinModelDictionaryDifferenceStore>().Create(Session.DefaultSession,
                                                                          Isolate.Fake.Instance<XafApplication>(), true);
                 Isolate.WhenCalled(() => store.UseModelFromPath()).WillReturn(false);
                 Isolate.WhenCalled(() => store.GetActiveDifferenceObject()).WillReturn(new ModelDifferenceObject(Session.DefaultSession) { Model = DefaultDictionary, PersistentApplication = new PersistentApplication(Session.DefaultSession) });

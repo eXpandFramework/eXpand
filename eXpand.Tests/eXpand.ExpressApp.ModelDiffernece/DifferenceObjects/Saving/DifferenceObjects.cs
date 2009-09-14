@@ -3,12 +3,30 @@ using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
+using eXpand.Utils.Helpers;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Saving
 {
     [TestFixture]
     public class DifferenceObjects:eXpandBaseFixture
     {
+        [Test]
+        [Isolated]
+        public void Model_With_UpDownDotSymbol_Inside_AttributeValue_Is_Valid()
+        {
+            string ss = "{0:ProductName}<br>{0:Version}<br><br>{0:Copyright}<br><br>{0:Company}<br><br>{0:Description}".XMLEncode();
+            string formatStr = "<Application><Views><DetailView><Items><StaticText ID=\"AboutText\" Text=\"" +ss+ "\"/></Items></DetailView></Views></Application>";
+            DictionaryNode readFromString = new DictionaryXmlReader().ReadFromString(formatStr);
+            var dictionary1 = new Dictionary(readFromString, Schema.GetCommonSchema());
+            var differenceObject = Isolate.Fake.Instance<DifferenceObject>(Members.CallOriginal, ConstructorWillBe.Called, Session.DefaultSession);
+            differenceObject.Model=dictionary1.Clone();
+            differenceObject.Save();
+
+            differenceObject.Reload();
+
+            Assert.AreEqual(dictionary1.RootNode.ToXml(), differenceObject.Model.RootNode.ToXml());
+            
+        }
         [Test]
         [Isolated]
         public void ApplicationModel_with_one_aspect_Can_Be_Saved()

@@ -77,7 +77,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         public Dictionary GetModel()
         {
 //            Dictionary dictionary = PersistentApplication.Model.Clone();
-            Dictionary dictionary = _application.Model.Clone();
+            Dictionary dictionary = CurrentObject.PersistentApplication.Model.Clone();
             dictionary.ResetIsModified();
             dictionary.CombineWith(CurrentObject.Model);
             //            var combiner = new DictionaryCombiner(dictionary);
