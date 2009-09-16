@@ -32,7 +32,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         internal void ModifyCurrentObjectModel(){
             if (Control.Controller.IsModified){
                 Dictionary diffs = Control.Controller.Dictionary.GetDiffs();
-                var model=CurrentObject.GetCombinedModel();
+                var model = CurrentObject.PersistentApplication.Model.Clone();
                 model.CombineWith(diffs);
                 isModifying = true;
                 CurrentObject.Model = model.GetDiffs();
@@ -97,6 +97,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         private void SpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args){
             if (ReferenceEquals(args.Object, CurrentObject)){
                 Control.Controller.Dictionary.Validate();
+                ModifyCurrentObjectModel();
             }
 
         }
