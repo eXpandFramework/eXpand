@@ -9,11 +9,11 @@ namespace eXpand.ExpressApp.ModelDifference{
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
-            application.SetupComplete += ApplicationOnSetupComplete;
+            application.LoggedOn += OnLoggedOn;
             application.CreateCustomModelDifferenceStore += ApplicationOnCreateCustomModelDifferenceStore;
         }
 
-        private void ApplicationOnSetupComplete(object sender, EventArgs args)
+        private void OnLoggedOn(object sender, EventArgs args)
         {
             Application.Model.CombineWith(getModelDiffs().Dictionary);
 //            var combiner = new DictionaryCombiner(Application.Model);

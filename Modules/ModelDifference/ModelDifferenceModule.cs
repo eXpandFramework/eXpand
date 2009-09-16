@@ -79,7 +79,7 @@ namespace eXpand.ExpressApp.ModelDifference{
             
             base.Setup(application);
             
-            application.SetupComplete += (sender, args) =>{
+            application.LoggedOn += (sender, args) =>{
                                              if (!PersistentApplicationModelUpdated){
                                                  PersistentApplication persistentApplication = UpdatePersistentApplication(application,GetPersistentApplication(application));
                                                  ObjectSpace.FindObjectSpace(persistentApplication).CommitChanges();
