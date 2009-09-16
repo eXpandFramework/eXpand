@@ -9,7 +9,7 @@ namespace eXpand.ExpressApp.ModelDifference{
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
-            application.LoggedOn += OnLoggedOn;
+            application.LoggingOn += OnLoggedOn;
             application.CreateCustomModelDifferenceStore += ApplicationOnCreateCustomModelDifferenceStore;
         }
 
