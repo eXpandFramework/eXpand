@@ -9,8 +9,13 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects
     [NonPersistent]
     public abstract class DifferenceObject:eXpandBaseObject
     {
-        private Dictionary _model = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema());
+        private Dictionary _model ;
         protected DifferenceObject(Session session) : base(session){
+        }
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
+            _model = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema());
         }
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(ValueConverters.DictionaryValueConverter))]

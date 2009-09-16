@@ -80,28 +80,21 @@ namespace eXpand.ExpressApp.ModelDifference{
             base.Setup(application);
             
             application.SetupComplete += (sender, args) =>{
-//                                            UpdatePersistentApplication();
-                                             if (!_persistentApplicationModelUpdated){
-                                                 PersistentApplication persistentApplication;
-                                                 using (var objectSpace = application.CreateObjectSpace()){
-                                                     persistentApplication =
-                                                            new QueryPersistentApplication(objectSpace.Session).Find(Application.GetType().FullName) ??
-                                                            new PersistentApplication(objectSpace.Session);
-                                                     persistentApplication.Model = application.Model;
-                                                     persistentApplication.UniqueName = application.GetType().FullName;
-                                                     if (string.IsNullOrEmpty(persistentApplication.Name))
-                                                         persistentApplication.Name =application.Title;
-                                                     objectSpace.CommitChanges();
-                                                 }
+                                             if (!PersistentApplicationModelUpdated){
+                                                 PersistentApplication persistentApplication = UpdatePersistentApplication(application,GetPersistentApplication(application));
+                                                 ObjectSpace.FindObjectSpace(persistentApplication).CommitChanges();
                                                  _persistentApplicationModelUpdated = true;
                                              }
                                              
                                          };            
-            
+            application.LoggingOn+=ApplicationOnLoggingOn;
             application.CreateCustomUserModelDifferenceStore+=ApplicationOnCreateCustomUserModelDifferenceStore;
             
         }
 
+        private void ApplicationOnLoggingOn(object sender, LogonEventArgs args){
+            
+        }
 
 
         [CoverageExclude]
@@ -140,8 +133,24 @@ namespace eXpand.ExpressApp.ModelDifference{
             return s.TrimEnd(';');
         }
 
-        public void UpdatePersistentApplication(){
-            throw new NotImplementedException();
+        public PersistentApplication UpdatePersistentApplication(XafApplication application,PersistentApplication persistentApplication){
+            if (persistentApplication== null){
+                ObjectSpace objectSpace = application.CreateObjectSpace();
+                    persistentApplication=new PersistentApplication(objectSpace.Session);
+                
+            }
+            persistentApplication.Model = application.Model;
+            persistentApplication.UniqueName = application.GetType().FullName;
+            if (string.IsNullOrEmpty(persistentApplication.Name))
+                persistentApplication.Name = application.Title;
+            return persistentApplication;
+        }
+
+        public PersistentApplication GetPersistentApplication(XafApplication application){
+            ObjectSpace objectSpace = application.CreateObjectSpace();
+                PersistentApplication persistentApplication = new QueryPersistentApplication(objectSpace.Session).Find(application.GetType().FullName) ?? new PersistentApplication(objectSpace.Session);
+            
+            return persistentApplication;
         }
     }
 }

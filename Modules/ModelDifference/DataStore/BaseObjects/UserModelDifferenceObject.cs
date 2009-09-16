@@ -4,12 +4,14 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.Attributes;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
     [VisibleInReports(false)]
     [Custom(ClassInfoNodeWrapper.CaptionAttribute, "User Difference")]
+    [HideFromNewMenu]
     public class UserModelDifferenceObject : ModelDifferenceObject
     {
         private bool nonPersistent;

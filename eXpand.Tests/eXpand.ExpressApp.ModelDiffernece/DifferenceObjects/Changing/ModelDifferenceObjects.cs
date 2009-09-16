@@ -4,7 +4,6 @@ using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 using TypeMock.Extensions;
-using eXpand.Utils.Helpers;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Changing
 {
@@ -38,13 +37,10 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Chang
         [Test]
         [Isolated]
         public void When_Changing_XmlContent_It_Should_Be_Validated_Against_Application_Schema(){
-            var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession)
-            {
-                PersistentApplication =
-                    new PersistentApplication(Session.DefaultSession) { Model = new Dictionary(Schema.GetCommonSchema()) },
-
+            var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession){
+                PersistentApplication =new PersistentApplication(Session.DefaultSession) { Model = DefaultDictionary }
             };
-            var dictionary = Isolate.Fake.InstanceAndSwapAll<Dictionary>(Members.CallOriginal);
+            var dictionary = Isolate.Fake.InstanceAndSwapAll<Dictionary>(Members.CallOriginal,ConstructorWillBe.Called);
             bool validated = false;
             Isolate.WhenCalled(() => dictionary.Validate()).DoInstead(context => validated= true);
 
@@ -82,15 +78,17 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Chang
         }
         [Test]
         [Isolated]
-        public void When_PrefferedAspect_Because_a_Property_Editor_WillBind_Model_Should_Be_Marked_As_Changed(){
+        public void When_PrefferedAspect_Change_Then_Its_Aspect_Should_Be_Added_To_ALl_Models(){
             var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)};
-            bool marked = false;
-            modelDifferenceObject.Changed +=
-                (sender, args) => marked = args.PropertyName == modelDifferenceObject.GetPropertyInfo(x => x.Model).Name;
+            Dictionary dictionary = DefaultDictionary;
+            modelDifferenceObject.Model=dictionary;
+            modelDifferenceObject.PersistentApplication.Model=DefaultDictionary2;
 
-            modelDifferenceObject.PreferredAspect = "el";
+            modelDifferenceObject.PreferredAspect = "el blah";
 
-            Assert.IsTrue(marked);
+            Assert.AreEqual("el", modelDifferenceObject.CurrentLanguage);
+            Assert.Contains(modelDifferenceObject.Model.Aspects,"el");
+            Assert.Contains(modelDifferenceObject.PersistentApplication.Model.Aspects,"el");
         }
     }
 }

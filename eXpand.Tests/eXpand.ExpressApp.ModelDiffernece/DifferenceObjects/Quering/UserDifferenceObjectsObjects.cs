@@ -45,12 +45,12 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Queri
         private List<UserModelDifferenceObject> GetUserStoreObject()
         {
             var objects = new List<UserModelDifferenceObject>();
-            var userStoreObject = new UserModelDifferenceObject(Session.DefaultSession) { PersistentApplication =new PersistentApplication(Session.DefaultSession) { Name = "AppName" } };
+            var userStoreObject = new UserModelDifferenceObject(Session.DefaultSession) { PersistentApplication =new PersistentApplication(Session.DefaultSession) { UniqueName = "AppName" } };
             ((XPCollection)userStoreObject.GetMemberValue("Users")).Add(SecuritySystem.CurrentUser);
             userStoreObject.Save();
             objects.Add(userStoreObject);
 
-            userStoreObject = new UserModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession){ Name = "AppName" } };
+            userStoreObject = new UserModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession) { UniqueName = "AppName" } };
             ((XPCollection)userStoreObject.GetMemberValue("Users")).Add(SecuritySystem.CurrentUser);
             userStoreObject.Save();
             objects.Add(userStoreObject);

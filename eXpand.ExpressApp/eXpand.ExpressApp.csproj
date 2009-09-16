@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\FilterRecordAttribute.cs" />
+    <Compile Include="Attributes\HideFromNewMenuAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
     <Compile Include="Core\ApplicationNodeWrapperExtensions.cs" />
@@ -171,6 +172,12 @@
     </Compile>
     <Compile Include="SystemModule\FKViolationViewController.designer.cs">
       <DependentUpon>FKViolationViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\HideFromNewMenuViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\HideFromNewMenuViewController.Designer.cs">
+      <DependentUpon>HideFromNewMenuViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\IndexerController.cs">
       <SubType>Component</SubType>

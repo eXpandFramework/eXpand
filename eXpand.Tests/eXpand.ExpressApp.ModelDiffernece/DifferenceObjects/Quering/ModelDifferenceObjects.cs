@@ -13,13 +13,12 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Queri
         [Test]
         public void As_ActiveDifferenceObjectss_For_AnApplication_should_return_With_The_Same_Application(){
             var defaultModelDifferenceObjectsObject = new ModelDifferenceObject(Session.DefaultSession)
-                                                      {PersistentApplication =new PersistentApplication(Session.DefaultSession){Name = "appName"}};
+                                                      {PersistentApplication =new PersistentApplication(Session.DefaultSession){UniqueName = "appName"}};
             defaultModelDifferenceObjectsObject.Save();
             var elModelDifferenceObjectsObject = new ModelDifferenceObject(Session.DefaultSession)
-                                                 {PersistentApplication =new PersistentApplication(Session.DefaultSession){Name = "appName"}};
+                                                 {PersistentApplication =new PersistentApplication(Session.DefaultSession){UniqueName = "appName"}};
             elModelDifferenceObjectsObject.Save();
-            var modelDifferenceObject = new UserModelDifferenceObject(Session.DefaultSession)
-                                        {PersistentApplication =new PersistentApplication(Session.DefaultSession){Name = "appName"}};
+            var modelDifferenceObject = new UserModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession) { UniqueName = "appName" } };
             modelDifferenceObject.Save();
             
             
@@ -32,10 +31,10 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Queri
         public void Disabled_DifferenceObjectss_Should_Not_Be_Returned_As_ActiveDifferenceObjectss()
         {
             new ModelDifferenceObject(Session.DefaultSession){
-                                                                 PersistentApplication =new PersistentApplication(Session.DefaultSession){Name = "AppName"},
+                                                                 PersistentApplication =new PersistentApplication(Session.DefaultSession){UniqueName = "AppName"},
                                                                  Disabled = false
                                                              }.Save();
-            new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession){Name = "AppName"},  Disabled = true}.Save();
+            new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession){UniqueName = "AppName"},  Disabled = true}.Save();
 
             IQueryable<ModelDifferenceObject> stores =
                 new QueryModelDifferenceObject(Session.DefaultSession).GetActiveModelDifferences("AppName");

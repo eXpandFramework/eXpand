@@ -9,7 +9,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Queri
     {
         [Test]
         public void Can_Be_Searched_By_Name(){
-            var persistentApplication1 = new PersistentApplication(Session.DefaultSession){Name = "appname"};
+            var persistentApplication1 = new PersistentApplication(Session.DefaultSession){UniqueName = "appname"};
             persistentApplication1.Save();
             var application = new QueryPersistentApplication(Session.DefaultSession);
 

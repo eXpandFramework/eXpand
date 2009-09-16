@@ -5,7 +5,7 @@ using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Changing{
-    public class When_Current_Aspect_Is_The_Default_One : IWhen_Current_Aspect_Is
+    public class _When_Current_Aspect_Is_The_Default_One 
     {
         [Test]
         [Isolated]

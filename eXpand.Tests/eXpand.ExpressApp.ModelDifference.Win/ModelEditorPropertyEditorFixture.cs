@@ -37,27 +37,11 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDifference.Win{
             var editor = new ModelEditorPropertyEditor(null, null);
             editor.Setup(Isolate.Fake.Instance<ObjectSpace>(),Isolate.Fake.Instance<XafApplication>());
 
-            ModelEditorControl control = editor.GetModelEditorControl(new Dictionary());
+            throw new NotImplementedException();
+//            ModelEditorControl control = editor.GetModelEditorControl(new Dictionary());
 
-            Assert.IsNotNull(control.SettingsStorage);
-            Assert.IsInstanceOfType(typeof(SettingsStorageOnDictionary),control.SettingsStorage);
-
-        }
-        [Test]
-        [Isolated]
-        public void ModelEditorControl_Controller_Should_Be_Set_Every_Time_Editor_ReadsValue(){
-            var mock = MockManager.Mock(typeof(ModelEditorPropertyEditor));
-            mock.CallBase.ExpectCall("ReadValueCore");
-            var editor = new ModelEditorPropertyEditor(null, null);
-            Isolate.WhenCalled(() => editor.Control).WillReturn(new ModelEditorControl());
-            Isolate.NonPublic.WhenCalled(editor,"CanReadValue" ).WillReturn(true);
-            var controller =Isolate.Fake.Instance<ModelEditorController>();
-            Isolate.WhenCalled(() => editor.GetModelEditorController(null)).WillReturn(controller);
-
-            editor.ReadValue();
-
-            Assert.AreEqual(controller, editor.Control.Controller);
-
+//            Assert.IsNotNull(control.SettingsStorage);
+//            Assert.IsInstanceOfType(typeof(SettingsStorageOnDictionary),control.SettingsStorage);
 
         }
 

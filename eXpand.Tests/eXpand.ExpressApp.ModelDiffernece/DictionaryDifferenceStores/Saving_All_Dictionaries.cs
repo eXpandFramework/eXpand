@@ -64,24 +64,6 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         }
         [Test]
         [Isolated]
-        public void Validate_ApplicationModel()
-        {
-            var store = Isolate.Fake.Instance<XpoDictionaryDifferenceStore>(Members.CallOriginal,
-                                                                            ConstructorWillBe.Called,
-                                                                            new object[]{
-                                                                                            Session.DefaultSession,
-                                                                                            Isolate.Fake.Instance<XafApplication>()
-                                                                                        });
-            bool called = false;
-            var ruleSet = Validator.RuleSet;
-            Isolate.WhenCalled(() => ruleSet.ValidateAll(null, null)).DoInstead(context => called = true);
-
-            store.OnAspectStoreObjectSaving(new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)}, new Dictionary());
-
-            Assert.IsTrue(called);
-        }
-        [Test]
-        [Isolated]
         public void CauseOf_Application_Is_Unique_It_Should_Check_DataStore_Before_Creating_New()
         {
 

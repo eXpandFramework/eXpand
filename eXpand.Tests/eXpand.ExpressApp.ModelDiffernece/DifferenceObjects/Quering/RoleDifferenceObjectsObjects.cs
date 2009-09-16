@@ -33,10 +33,10 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Queri
             XafTypesInfo.Instance.RegisterEntity(typeof(RoleModelDifferenceObject));
             RoleDifferenceObjectBuilder.CreateDynamicMembers();
             new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)}.Save();
-            var roleDifferenceObjectsObject1 = new RoleModelDifferenceObject(Session.DefaultSession) { PersistentApplication =new PersistentApplication(Session.DefaultSession) { Name = "AppName" } };
+            var roleDifferenceObjectsObject1 = new RoleModelDifferenceObject(Session.DefaultSession) { PersistentApplication =new PersistentApplication(Session.DefaultSession) { UniqueName = "AppName" } };
             ((XPCollection)roleDifferenceObjectsObject1.GetMemberValue("Roles")).Add(role);
             roleDifferenceObjectsObject1.Save();
-            var roleDifferenceObjectsObject2 = new RoleModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession){ Name = "AppName" } };
+            var roleDifferenceObjectsObject2 = new RoleModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession) { UniqueName = "AppName" } };
             roleDifferenceObjectsObject2.Save();
             ((XPCollection)roleDifferenceObjectsObject2.GetMemberValue("Roles")).Add(role);
             new RoleModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession){ Name = "AppName" } }.Save();

@@ -7,56 +7,38 @@ using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
-using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
-using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 using eXpand.ExpressApp.ModelDifference.Win;
 using MbUnit.Framework;
 using TypeMock;
 using TypeMock.ArrangeActAssert;
-using TypeMock.Extensions;
 using eXpand.ExpressApp.Core;
 using System.Linq;
 using eXpand.Utils.Helpers;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
 
-    [TestFixture(Order = 1)]
+    [TestFixture]
     public class BeforeLogin:eXpandBaseFixture
     {
-        [Test][ExpectedException(typeof(NotImplementedException))]
-        [Isolated]
-        public void Application_Should_Be_OfType_IApplicationUnique(){
-            var module = new ModelDifferenceModule();
-
-            module.Setup(Isolate.Fake.Instance<XafApplication>());
-
-            
-        }
-
         [Test]
         [Isolated]
-        public void Application_ModelDictionary_should_Be_Assign(){
+        public void On_CreateCustomModelDiffernceStore_ApplicationConnectionString_Should_Be_Stored(){
             var module = new ModelDifferenceWindowsFormsModule();
             var application = Isolate.Fake.Instance<XafApplication>(Members.CallOriginal);
+            application.ConnectionString = "test";
             using (RecorderManager.StartRecording()){
                 application.CreateCustomModelDifferenceStore += null;
             }
             module.Setup(application);
-            var handler = ((EventHandler<CreateCustomModelDifferenceStoreEventArgs>)RecorderManager.LastMockedEvent.GetEventHandle());
+            var eventHandle = (EventHandler<CreateCustomModelDifferenceStoreEventArgs>) RecorderManager.LastMockedEvent.GetEventHandle();
             var args = new CreateCustomModelDifferenceStoreEventArgs();
-            var provider = Isolate.Fake.InstanceAndSwapAll<ObjectSpaceProvider>();
-            Isolate.WhenCalled(() => provider.CreateUpdatingSession()).WillReturn(Session.DefaultSession);
-            Isolate.Fake.InstanceAndSwapAll<ConnectionStringDataStoreProvider>();
 
-            handler.Invoke(this,args);
+            eventHandle.Invoke(this,args);
 
             Assert.IsTrue(args.Handled);
-            Assert.IsInstanceOfType(typeof(XpoModelDictionaryDifferenceStore),args.Store);
-            Assert.AreEqual(Session.DefaultSession, ((XpoModelDictionaryDifferenceStore) args.Store).Session);
+            Assert.AreEqual("test", module.ConnectionString);
         }
-
-
-        [Test(Order = 300)]
+        [Test]
         [Isolated]
         public void Create_User_And_Role_DynamicMembers()
         {
@@ -74,7 +56,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
         }
 
 
-        [Test(Order = 400)]
+        [Test]
         [Isolated]
         public void If_Security_Is_Not_Complex_UserType_Is_Set_Remove_RoleAspect_Node()
         {
@@ -90,26 +72,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
             Assert.AreEqual(0, wrapper.BOModel.Classes.Count);
 
         }
-        [Test]
-        [Isolated]
-        public void After_Setup_Persistent_Application_Model_Should_Be_Equal_To_XafApplication_Model(){
 
-            var modelDifferenceModule = new ModelDifferenceModule();
-            var queryPersistentApplication = Isolate.Fake.InstanceAndSwapAll<QueryPersistentApplication>();
-//            Isolate.WhenCalled(() => modelDifferenceModule.XpoModelDictionaryDifferenceStore.Session).WillReturn(Session.DefaultSession);
-            var application = Isolate.Fake.Instance<XafApplication>();
-            Isolate.WhenCalled(() => application.Model).WillReturn(new Dictionary(new DictionaryNode("test"),Schema.GetCommonSchema()));
-            using (RecorderManager.StartRecording()){
-                application.SetupComplete += null;
-            }
-            modelDifferenceModule.Setup(application);
-
-            ((EventHandler<EventArgs>) RecorderManager.LastMockedEvent.GetEventHandle()).Invoke(this,new EventArgs());
-
-            var persistentApplication = queryPersistentApplication.Find("");
-            Assert.AreEqual(persistentApplication.Model.RootNode.ToXml(), application.Model.RootNode.ToXml());
-//            Assert.AreEqual(persistentApplication.Schema.RootNode.ToXml(), application.Model.Schema.RootNode.ToXml());
-        }
         [Test]
         [Isolated]
         public void When_Updating_Model_It_Should_Add_AllCultures_As_Predifined_Values_Of_CurrentLanguage_Member(){

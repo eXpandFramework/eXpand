@@ -26,6 +26,7 @@ namespace eXpand.Tests{
             DefaultDictionary2 = new Dictionary(new DictionaryXmlReader().ReadFromString(DefaultClassXml2),
                                                Schema.GetCommonSchema());
             Session.DefaultSession.Disconnect();
+            
             dataSet = new DataSet();
             XafTypesInfo.Reset(true);
 
@@ -44,7 +45,6 @@ namespace eXpand.Tests{
 
         [TearDown]
         public void TearDown(){
-            
             if (dataLayer != null) {
                 dataLayer.Dispose();
             }

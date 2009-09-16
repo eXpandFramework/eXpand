@@ -39,19 +39,9 @@ namespace eXpand.ExpressApp.Win
             else
                 Logon(null);
 
-            if (SplashScreen != null)
-                SplashScreen.Start();
-            
-            try
-            {
-                ProcessStartupActions();
-                ShowStartupWindow();
-            }
-            finally
-            {
-                if (SplashScreen != null)
-                    SplashScreen.Stop();
-            }
+
+            ProcessStartupActions();
+            ShowStartupWindow();
             Tracing.Tracer.LogSeparator("Application running");
         }
 

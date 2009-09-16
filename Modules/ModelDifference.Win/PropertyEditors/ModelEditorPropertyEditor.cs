@@ -12,7 +12,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
     public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexPropertyEditor
     {
         private XafApplication _application;
-        private ModelEditorControl editorControl;
+        
         private bool isModifying;
 
 
@@ -29,11 +29,10 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         }
 
 
-
-        private void modifyModel(){
+        internal void ModifyCurrentObjectModel(){
             if (Control.Controller.IsModified){
                 Dictionary diffs = Control.Controller.Dictionary.GetDiffs();
-                var model=CurrentObject.GetModel();
+                var model=CurrentObject.GetCombinedModel();
                 model.CombineWith(diffs);
                 isModifying = true;
                 CurrentObject.Model = model.GetDiffs();
@@ -42,11 +41,11 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         }
 
         private void ControllerOnCurrentNodeChanged(object sender, EventArgs args){
-            modifyModel();
+            ModifyCurrentObjectModel();
         }
 
         private void ControllerOnCurrentAttributeChanged(object sender, EventArgs args){
-            modifyModel();
+            ModifyCurrentObjectModel();
         }
 
 
@@ -59,24 +58,28 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         public new ModelEditorControl Control
         {
-            get { return editorControl; }
+            get { return (ModelEditorControl) base.Control; }
+        }
+
+        public XafApplication Application{
+            get {
+                return _application;
+            }
         }
 
         protected override object CreateControlCore()
         {
-            Dictionary applicationModel = CurrentObject.GetModel();
-            return GetModelEditorControl(applicationModel);
+            return GetModelEditorControl();
         }
 
-        internal ModelEditorControl GetModelEditorControl(Dictionary applicationModel){
-            editorControl = new ModelEditorControl(null,new SettingsStorageOnDictionary(applicationModel.RootNode.GetChildNode("ModelEditor")));
-            return editorControl;
+        internal ModelEditorControl GetModelEditorControl(){
+            return new ModelEditorControl(null, new SettingsStorageOnDictionary(CurrentObject.GetCombinedModel().RootNode.GetChildNode("ModelEditor")));
         }
 
 
         internal ModelEditorController GetModelEditorController(XafApplication application){
-            var controller = new ModelEditorController(CurrentObject.GetModel(), null, application.Modules);
-            controller.CurrentAttributeChanged += ControllerOnCurrentAttributeChanged;
+            var controller = new ModelEditorController(CurrentObject.GetCombinedModel(), null, application.Modules);
+            controller.CurrentAttributeValueChanged += ControllerOnCurrentAttributeChanged;
             controller.CurrentNodeChanged += ControllerOnCurrentNodeChanged;
             controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);
             return controller;

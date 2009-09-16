@@ -135,6 +135,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\DifferenceTypeObject.cs" />
     <Compile Include="Controllers\CloneObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>

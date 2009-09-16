@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.Attributes;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.Persistent.Base;
@@ -16,7 +17,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
     [CreatableItem(false)]
     [NavigationItem("Default")]
     [Custom(ClassInfoNodeWrapper.CaptionAttribute, Caption)]
-    [Custom("IsClonable", "True")][VisibleInReports(false)]
+    [Custom("IsClonable", "True")][VisibleInReports(false)][HideFromNewMenu]
     public class ModelDifferenceObject : DifferenceObject, IXpoModelDifference
     {
         public const string Caption = "Application Difference";
@@ -140,13 +141,13 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
                 return new DictionaryXmlWriter().GetAspectXml(CurrentLanguage, Model.RootNode);
             }
             set{
-                Dictionary dictionary = GetModel();
+                Dictionary dictionary = GetCombinedModel();
                 dictionary.Validate();
                 dictionary.CombineWith(new Dictionary(new DictionaryXmlReader().ReadFromString(value),PersistentApplication.Model.Schema));
                 Model = dictionary.GetDiffs();
             }
         }
-        public Dictionary GetModel()
+        public Dictionary GetCombinedModel()
         {
             Dictionary dictionary = PersistentApplication.Model.Clone();
             dictionary.ResetIsModified();

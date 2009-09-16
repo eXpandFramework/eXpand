@@ -8,7 +8,7 @@ using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
     [TestFixture(Order = 2)]
-    public class AfterLogin
+    public class AfterLogin:eXpandBaseFixture
     {
         [Test]
         [Isolated]
