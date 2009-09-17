@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.Utils;
@@ -9,7 +8,7 @@ using eXpand.Utils;
 namespace eXpand.Persistent.BaseImpl
 {
     [NonPersistent]
-    public abstract class eXpandBaseObject : BaseObject,IHideObjectMembers
+    public abstract class eXpandBaseObject : DevExpress.Persistent.BaseImpl.BaseObject,IHideObjectMembers
     {
         public const string CancelTriggerObjectChangedName = "CancelTriggerObjectChanged";
 //        private string skin;

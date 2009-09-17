@@ -72,6 +72,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -82,17 +83,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="General\DateRange.cs" />
     <Compile Include="DifferenceType.cs" />
-    <Compile Include="IAuditable.cs" />
-    <Compile Include="IBusinessObject.cs" />
+    <Compile Include="General\IAuditable.cs" />
+    <Compile Include="General\IDateRange.cs" />
     <Compile Include="IXpoModelDifference.cs" />
-    <Compile Include="IHidden.cs" />
-    <Compile Include="IIndexedObject.cs" />
-    <Compile Include="ILOBObject.cs" />
-    <Compile Include="ILocalizable.cs" />
-    <Compile Include="IEnumObject.cs" />
-    <Compile Include="ITaggedObject.cs" />
+    <Compile Include="General\IHidden.cs" />
+    <Compile Include="General\IIndexedObject.cs" />
+    <Compile Include="General\ILocalizable.cs" />
+    <Compile Include="General\IEnumObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="General\ResourceImpl.cs" />
+    <Compile Include="General\ResourceImpls.cs" />
+    <Compile Include="General\TimePattern.cs" />
+    <Compile Include="General\TimeRange.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

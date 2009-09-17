@@ -3,36 +3,35 @@ using DevExpress.ExpressApp;
 using eXpand.ExpressApp.ModelArtifactState.Interfaces;
 using eXpand.ExpressApp.Security.Permissions;
 
-namespace eXpand.ExpressApp.ModelArtifactState.Attributes
-{
-    public class ControllerStateRuleAttribute : ArtifactStateRuleAttribute,IControllerStateRule
-    {
+namespace eXpand.ExpressApp.ModelArtifactState.Attributes{
+    public class ControllerStateRuleAttribute : ArtifactStateRuleAttribute, IControllerStateRule{
         private readonly Type controllerType;
 
-        public ControllerStateRuleAttribute(string id,Type controllerType, Nesting targetViewNesting, string normalCriteria,
-                                            string emptyCriteria, ViewType viewType, string module, State state, string viewId)
-            : base(id, targetViewNesting, normalCriteria, emptyCriteria, viewType, module,state,viewId)
-        {
+        public ControllerStateRuleAttribute(string id, Type controllerType, Nesting targetViewNesting,
+                                            string normalCriteria,
+                                            string emptyCriteria, ViewType viewType, string module, State state,
+                                            string viewId)
+            : base(id, targetViewNesting, normalCriteria, emptyCriteria, viewType, module, state, viewId){
             this.controllerType = controllerType;
         }
-        public Type ControllerType
-        {
+
+        public Type ControllerType{
             get { return controllerType; }
         }
-
+        #region IControllerStateRule Members
         public override State State{
-            get { 
-                if (base.State==State.Disabled)
+            get{
+                if (base.State == State.Disabled)
                     return State.Hidden;
                 return base.State;
             }
-            set { base.State=value; }
+            set { base.State = value; }
         }
 
-        string IControllerStateRule.ControllerType
-        {
+        string IControllerStateRule.ControllerType{
             get { return controllerType.FullName; }
             set { throw new NotImplementedException(); }
         }
+        #endregion
     }
 }

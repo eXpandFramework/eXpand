@@ -1,5 +1,5 @@
 using DevExpress.Xpo;
-using eXpand.Persistent.Base;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.Persistent.BaseImpl{
     [NonPersistent]

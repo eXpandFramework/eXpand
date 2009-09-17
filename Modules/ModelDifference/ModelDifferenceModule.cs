@@ -117,14 +117,11 @@ namespace eXpand.ExpressApp.ModelDifference{
         {
             args.Handled = true;
             args.Store =new XpoUserModelDictionaryDifferenceStore(Application.ObjectSpaceProvider.CreateUpdatingSession(), Application);
-            
-
         }
 
         public string GetAllCultures()
         {
             var list=new List<string>{DictionaryAttribute.DefaultLanguage};
-            
             list.AddRange(CultureInfo.GetCultures(CultureTypes.AllCultures).Select(info => new CultureDescription(info).ToString()));
             string s = "";
             foreach (var list1 in list){

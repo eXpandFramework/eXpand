@@ -84,6 +84,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Collections\XPCollectionExtensions.cs" />
+    <Compile Include="Converters\ValueConverters\TypeValueConverter.cs" />
+    <Compile Include="Converters\ValueConverters\UriValueConverter.cs" />
     <Compile Include="CriteriaOperatorExtensions.cs" />
     <Compile Include="CriteriaOperatorExtractor.cs" />
     <Compile Include="Collections\DBCollection.cs">
@@ -104,6 +106,7 @@
     <Compile Include="DB\DataStoreModifyDataEventArgs.cs" />
     <Compile Include="DB\DataStoreSelectDataEventArgs.cs" />
     <Compile Include="DB\DataStoreUpdateSchemaEventArgs.cs" />
+    <Compile Include="eXpandLiteObject.cs" />
     <Compile Include="FunctionOperators\ContainsFunction.cs" />
     <Compile Include="PersistentMetaData\MyBaseObject.cs" />
     <Compile Include="PersistentMetaData\PersistentAssociationAttribute.cs" />

@@ -98,6 +98,8 @@
     <Compile Include="Attributes\HideFromNewMenuAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
+    <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
+    <Compile Include="Attributes\ProvidedMemberAttribute.cs" />
     <Compile Include="Core\ApplicationNodeWrapperExtensions.cs" />
     <Compile Include="Core\BOModelNodeWrapperExtensions.cs" />
     <Compile Include="Core\ClassInfoNodeWrapperExtensions.cs" />
@@ -115,6 +117,7 @@
     <Compile Include="Core\ViewsNodeWrapper.cs" />
     <Compile Include="DataStoreProvider.cs" />
     <Compile Include="Enums\BooleanEnum.cs" />
+    <Compile Include="Enums\ManyToManyInfoType.cs" />
     <Compile Include="Enums\RecycleBinEnum.cs" />
     <Compile Include="Core\ModuleBaseExtensions.cs" />
     <Compile Include="ObjectSpaceProvider.cs" />
@@ -203,6 +206,13 @@
     <Compile Include="SystemModule\ModuleController.designer.cs">
       <DependentUpon>ModuleController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\ProvideAssociationsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ProvideAssociationsController.designer.cs">
+      <DependentUpon>ProvideAssociationsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\ProvidedAssociationProcessInfo.cs" />
     <Compile Include="SystemModule\RecycleBinViewController.cs">
       <SubType>Component</SubType>
     </Compile>

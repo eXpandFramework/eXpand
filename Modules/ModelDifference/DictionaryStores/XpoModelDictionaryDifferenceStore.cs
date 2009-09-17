@@ -48,7 +48,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             var dictionary = new Dictionary(new DictionaryNode("Application"), schema);
                     
             if ((UseModelFromPath())){
-                foreach (var s in GetModelPaths().Where(s => Path.GetFileName(s).ToLower().StartsWith("model") && s.IndexOf(".User.") == -1))
+                foreach (var s in GetModelPaths().Where(s => Path.GetFileName(s).ToLower().StartsWith("model") && s.IndexOf(".User") == -1))
                 {
                     var dictionaryNode = new DictionaryXmlReader().ReadFromFile(s);
                     string replace = s.Replace(".xafml", "");

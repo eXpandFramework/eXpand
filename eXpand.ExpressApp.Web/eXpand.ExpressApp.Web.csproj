@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="Core\ListViewExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyEditors\UriEditor.cs" />
     <Compile Include="SystemModule\eXpandSystemAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
