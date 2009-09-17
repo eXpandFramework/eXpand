@@ -1,9 +1,14 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using eXpand.Tests;
 using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
+using eXpand.Utils.Linq.Dynamic;
+using System.Linq;
+using eXpand.Xpo;
 
 namespace Fixtures
 {

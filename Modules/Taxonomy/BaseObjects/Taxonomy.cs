@@ -205,24 +205,32 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
                 if (pathSegments.Length == 0) {
                     throw new UserFriendlyException(new ArgumentException(string.Format("Invalid path: {0}", termPath)));
                 }
-                if (pathSegments.Length == 1)`
+                if (pathSegments.Length == 1)
                 {
                     return null;
                 }
                 term = new Term(unitOfWork){
                                                Key = pathSegments.Last(),
                                                Caption =
-                                                   string.IsNullOrEmpty(name) ? "(" + pathSegments.Last() + ")" : name,
-                                               Taxonomy = (Taxonomy) unitOfWork.GetObject(this)
+                                                   string.IsNullOrEmpty(name) ? pathSegments.Last() : name
                                            };
-                term.ParentTerm = AddTerm(unitOfWork, termPath.Replace(string.Format("/{0}", pathSegments.Last()), string.Empty), pathSegments.Last());
-                if (term.Parent == null) term.UpdateFullPath(false);
+
+                string format = string.Format("/{0}", pathSegments.Last());
+                term.ParentTerm = AddTerm(unitOfWork, termPath.Replace(format, string.Empty), string.Empty);
+                if (term.Parent == null){
+                    term.Taxonomy = getTaxonomy(unitOfWork);
+                    term.UpdateFullPath(false);
+                }
             }
             return term;
         }
 
+        private Taxonomy getTaxonomy(NestedUnitOfWork unitOfWork){
+            return unitOfWork.FindObject<Taxonomy>(PersistentCriteriaEvaluationBehavior.InTransaction,x=>x.Key == Key);
+        }
+
         private Term getTerm(NestedUnitOfWork unitOfWork, string termPath){
-            return unitOfWork.FindObject<Term>(t=>t.FullPath==termPath);
+            return unitOfWork.FindObject<Term>(PersistentCriteriaEvaluationBehavior.InTransaction, t=>t.FullPath==termPath);
         }
 
         public string[] GetPathSegments(string termPath) {
