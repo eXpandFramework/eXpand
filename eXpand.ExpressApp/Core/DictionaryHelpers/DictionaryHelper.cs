@@ -62,15 +62,17 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
                 try
                 {
                     Type classType = ReflectionHelper.GetType(customFieldInfo.Class.Name);
-                    var typeInfo = ((TypeInfo)XafTypesInfo.Instance.FindTypeInfo(classType));
+                    var typeInfo = dictionary.GetClassInfo(classType);
                     lock (typeInfo)
                     {
                         if (typeInfo.FindMember(customFieldInfo.Name) == null)
                         {
                             Type memberType = ReflectionHelper.GetType(customFieldInfo.Type);
-                            IMemberInfo memberInfo = typeInfo.CreateMember(customFieldInfo.Name, memberType);
+                            XPCustomMemberInfo memberInfo = typeInfo.CreateMember(customFieldInfo.Name, memberType);
                             if (customFieldInfo.Size != 0)
                                 memberInfo.AddAttribute(new DevExpress.Xpo.SizeAttribute(customFieldInfo.Size));
+
+                            XafTypesInfo.Instance.RefreshInfo(classType);
                         }
                     }
                 }
