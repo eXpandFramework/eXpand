@@ -3,15 +3,26 @@ using System.Xml.Serialization;
 using DevExpress.Xpo;
 using eXpand.Xpo;
 
-namespace eXpand.Persistent.BaseImpl{
+namespace eXpand.Persistent.BaseImpl {
+    public interface IPersistentProperty {
+        [XmlAttribute]
+        string Key { get; set; }
+
+        [XmlAttribute]
+        string Value { get; set; }
+
+        [XmlAttribute]
+        PersistentKeyValuePairStatus Status { get; set; }
+    }
+
     [Serializable]
-    public abstract class PersistentKeyValuePair : eXpandLiteObject{
+    public class PersistentKeyValuePair : eXpandLiteObject, IPersistentProperty{
         private string key;
 
         private PersistentKeyValuePairStatus status;
         private string _value;
-        protected PersistentKeyValuePair(Session session) : base(session) {}
-        protected PersistentKeyValuePair() {}
+        public PersistentKeyValuePair(Session session) : base(session) {}
+        public PersistentKeyValuePair() {}
 
         [XmlAttribute]
         public string Key{
