@@ -101,12 +101,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseObjects\Account.cs" />
     <Compile Include="BaseObjects\Associations.cs" />
     <Compile Include="BaseObjects\Employee.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BaseObjects\Company.cs" />
     <Compile Include="BaseObjects\CompanyUnit.cs" />
+    <Compile Include="BaseObjects\WeeklySchedule.cs" />
+    <Compile Include="BaseObjects\WheeklyScheduleInfo.cs" />
     <Compile Include="FoxhoundAdministrationModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -155,6 +158,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\eXpand.Persistent.BaseImpl\eXpand.Persistent.BaseImpl.csproj">
+      <Project>{025DE8E3-F6B9-4F87-99D9-4916546AFFE6}</Project>
+      <Name>eXpand.Persistent.BaseImpl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Modules\Taxonomy\eXpand.ExpressApp.Taxonomy.csproj">
       <Project>{391E11B2-9D83-4B7C-8959-6793331DDA24}</Project>
       <Name>eXpand.ExpressApp.Taxonomy</Name>

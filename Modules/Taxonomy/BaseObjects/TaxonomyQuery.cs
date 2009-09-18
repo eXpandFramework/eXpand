@@ -77,7 +77,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
 
         public CriteriaOperator ParseCriteria(params object[] args){
             return new GroupOperator(GroupOperatorType.And, new[]{
-                                                                     new BinaryOperator("Taxonomy", Taxonomy),
+                                                                     new BinaryOperator("Taxonomy.Key", Taxonomy.Key),
                                                                      CriteriaOperator.Parse(PrepareCriteriaString(CriteriaOnTerms, args)),
                                                                      new ContainsOperator("KeyValuePairs", CriteriaOperator.Parse(PrepareCriteriaString(CriteriaOnProperties, args)))
                                                                  }
@@ -87,7 +87,9 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
 
         private string PrepareCriteriaString(string criteriaString, object[] args){
             //string preparedString = 
-            return string.Format(criteriaString, args);
+            if (args.Length>0)
+                return string.Format(criteriaString, args);
+            return criteriaString;
         }
     }
 }

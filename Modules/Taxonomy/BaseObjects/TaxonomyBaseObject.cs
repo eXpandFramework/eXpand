@@ -1,10 +1,13 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
-using eXpand.Persistent.TaxonomyImpl;
+using eXpand.Utils.Linq.Dynamic;
+using System.Linq;
+using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
     [Serializable]
@@ -34,11 +37,40 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
                 oid = XpoDefault.NewGuid();
             }
         }
-
-        public void Taxonomize(TaxonomyRule taxonomyRule)
-        {
+        [Action]
+        public void Taxonomize(){
+            IQueryable<TaxonomyRule> queryable = new XPQuery<TaxonomyRule>(Session).Where(rule => rule.TypeOfObject == GetType().AssemblyQualifiedName);
+            foreach (var rule in queryable){
+                taxonomize(rule);   
+            }
             
         }
+
+        public string taxonomize(TaxonomyRule taxonomyRule)
+        {
+            var collection = new XPCollection<Term>(taxonomyRule.Session, taxonomyRule.TaxonomyQuery.ParseCriteria());
+            if (collection.Count>0){
+                foreach (var xpCollection in collection){
+                    string path = xpCollection.FullPath + "/" + GetMemberValue(taxonomyRule.PropertyName);
+                    ObjectInfos.Add(new BaseObjectInfo(Session) { KeyTerm = taxonomyRule.Taxonomy.GetTerm(path, String.Empty), Value = "BUMBACHA !!!"});
+                }
+            }
+            else{
+                Term term = taxonomyRule.Taxonomy.GetTerm(
+                    string.Format("{0}/{1}", taxonomyRule.Taxonomy.Key,
+                                  GetMemberValue(
+                                      taxonomyRule.PropertyName)),
+                    String.Empty);
+                ObjectInfos.Add(new BaseObjectInfo(Session){
+                                                               KeyTerm =
+                                                                   (Term) Session.GetObject(term),
+                                                               Value = "BUMBACHA !!!"
+                                                           });
+            }
+            this.Session.CommitTransaction();
+            return null;
+        }
+
         protected TaxonomyBaseObject(Session session) : base(session) { }
         protected TaxonomyBaseObject(){ }
         

@@ -1,2 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application/>
+<Application>
+	<SchemaModules IsNewNode="True">
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.AutoFilterRowListViewController" Version="9.2.4.0" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.2.4.0" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.2.4.0" IsNewNode="True" />
+		<SchemaModule Name="SystemModule" Version="9.2.4.0" IsNewNode="True" />
+	</SchemaModules>
+	<Views>
+		<ListView ID="BaseObjectInfo_ListView">
+			<Filters IsNewNode="True">
+				<Filter ID="OnlyStructural" Criteria="KeyTerm.ObjectType==5" IsNewNode="True" />
+			</Filters>
+		</ListView>
+		<ListView ID="StructuralTerm_ListView" Caption="Browse Taxonomies" />
+	</Views>
+</Application>

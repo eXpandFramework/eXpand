@@ -20,7 +20,6 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
         private string group;
         private string key;
         private string _name;
-        private string pathSeparator;
 
         public Taxonomy(Session session) : base(session) {}
         [Association(Associations.TaxonomyTaxonomyCreateObjectRules)]
@@ -32,6 +31,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
                 return GetCollection<TaxonomyRule>(MethodBase.GetCurrentMethod().Name.Replace("get_", ""));
             }
         }
+        
         [Key]
         [XmlAttribute]
         public string Key{
@@ -150,52 +150,23 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
         }
         
         public Term GetTerm(string termPath, string caption){
-            using (NestedUnitOfWork unitOfWork = Session.BeginNestedUnitOfWork()){
-                Term term = AddTerm(unitOfWork, termPath, caption);
-                unitOfWork.CommitChanges();
-                return term;
+            Term term = AddTerm(Session, termPath, caption);
+            return term;
+            
+        }
+
+        [Association(Associations.TaxonomyStructureTerms)]
+        public XPCollection<StructuralTerm> StructureTerms
+        {
+            get
+            {
+                return GetCollection<StructuralTerm>(MethodBase.GetCurrentMethod().Name.Replace("get_", ""));
             }
         }
 
-        //public Term GetTerm(string termPath, string caption){
-        //    Term term;
-        //    using (NestedUnitOfWork unitOfWork = Session.BeginNestedUnitOfWork()){
-        //        term = getTerm(unitOfWork, termPath);
-        //        if (term== null)
-        //        {
-        //            string last = GetPathSegments(termPath).Last();
-        //            term = new Term(unitOfWork){Key = last,Caption = caption,Taxonomy = (Taxonomy) unitOfWork.GetObject(this)};
-        //            string substring = termPath.Substring(0,termPath.LastIndexOf("/"));
-        //            AddTerm(unitOfWork, substring, caption, term,0);
-        //            unitOfWork.CommitChanges();
-        //        }
-        //    }
-        //    return term;
-        //}
-
-        //private void AddTerm(NestedUnitOfWork work, string termPath, string caption, Term term1,int index){
-        //    Term term2 = getTerm(work, termPath);
-        //    if (term2== null)
-        //    {
-                
-        //        if (termPath.IndexOf("/")>-1)
-        //        {
-        //            index++;
-        //            string[] segments = GetPathSegments(termPath);
-                    
-        //            var term = new Term(work) { Caption = caption, Taxonomy = (Taxonomy)work.GetObject(this), Key = segments[segments.Count()-index] };
-        //            term1.ParentTerm = term;
-                    
-        //            string substring = termPath.Substring(0, termPath.LastIndexOf("/"));
-        //            AddTerm(work, substring, caption, term, index);
-                        
-                    
-        //        }
-        //    }
-        //}
 
 
-        protected Term AddTerm(NestedUnitOfWork unitOfWork, string termPath, string name)
+        protected Term AddTerm(Session unitOfWork, string termPath, string name)
         {
             var term = getTerm(unitOfWork, termPath);
             if (term == null)
@@ -225,11 +196,11 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             return term;
         }
 
-        private Taxonomy getTaxonomy(NestedUnitOfWork unitOfWork){
+        private Taxonomy getTaxonomy(Session unitOfWork){
             return unitOfWork.FindObject<Taxonomy>(PersistentCriteriaEvaluationBehavior.InTransaction,x=>x.Key == Key);
         }
 
-        private Term getTerm(NestedUnitOfWork unitOfWork, string termPath){
+        private Term getTerm(Session unitOfWork, string termPath){
             return unitOfWork.FindObject<Term>(PersistentCriteriaEvaluationBehavior.InTransaction, t=>t.FullPath==termPath);
         }
 

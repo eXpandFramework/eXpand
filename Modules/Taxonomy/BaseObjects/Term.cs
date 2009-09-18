@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Helpers;
@@ -13,8 +12,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
 
     [DefaultProperty("Name")]
     [Serializable]
-    [DefaultClassOptions]
-    public class Term : eXpandLiteObject, ITreeNode {
+    public class Term : eXpandLiteObject, ITreeNode{
         [Persistent, Size(SizeAttribute.Unlimited)]
         protected string fullPath;
         private string key;
@@ -45,8 +43,8 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
 
         [Association("TermAssignmentKeys")]
         [XmlIgnore]
-        public XPCollection<TermAssignment> AssignmentKeys {
-            get { return GetCollection<TermAssignment>("AssignmentKeys"); }
+        public XPCollection<BaseObjectInfo> BaseObjectInfos {
+            get { return GetCollection<BaseObjectInfo>("BaseObjectInfos"); }
         }
 
         [Association("TermAssignmentValues")]
@@ -120,27 +118,30 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
         #endregion
         protected override void OnChanged(string propertyName, object oldValue, object newValue){
             base.OnChanged(propertyName, oldValue, newValue);
-            if (propertyName == "Caption"){
-                if (string.IsNullOrEmpty(Key)){
-                    Key = caption.ToLower();
+            if (!IsDeleted){
+                if (propertyName == "Caption"){
+                    if (string.IsNullOrEmpty(Key)){
+                        Key = caption.ToLower();
+                    }
                 }
-            }
-            if (propertyName == "Key" && !string.IsNullOrEmpty(Key)) {
-                UpdateAssignmentsKey();
-            }
-            if (propertyName == "ParentTerm")
-            {
-                Taxonomy = parentTerm.Taxonomy;
-            }
-            if ((propertyName == "Key" || propertyName == "ParentTerm")
-                && (!string.IsNullOrEmpty(Key)
-                    && (parentTerm != null || taxonomy != null))){
-                UpdateFullPath(true);
-            }
+                if (propertyName == "Key" && !string.IsNullOrEmpty(Key)){
+                    UpdateAssignmentsKey();
+                }
+                if (propertyName == "ParentTerm"){
+                    Taxonomy = parentTerm.Taxonomy;
+                }
+                if ((propertyName == "Key" || propertyName == "ParentTerm")
+                    && (!string.IsNullOrEmpty(Key)
+                        && (parentTerm != null || taxonomy != null))){
+                    UpdateFullPath(true);
+                }
+                
+            }                
         }
 
         public void UpdateAssignmentsKey(){
-            foreach (TermAssignment assignment in AssignmentKeys){
+            foreach (TermAssignment assignment in BaseObjectInfos)
+            {
                 assignment.Key = key;
             }
         }
@@ -152,7 +153,8 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
                                      , key);
             
             OnChanged("fullPath");
-            foreach (var assignment in AssignmentKeys) {
+            foreach (var assignment in BaseObjectInfos)
+            {
                 assignment.Value = fullPath;
             }
 
@@ -162,5 +164,16 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
                 }
             }
         }
+
+        [Persistent]
+        public string RelativePath{
+            get{
+                if (!IsLoading && !string.IsNullOrEmpty(fullPath)){
+                    return fullPath.Substring(fullPath.IndexOf("/"));
+                }
+                return null;
+            }
+        }
+
     }
 }

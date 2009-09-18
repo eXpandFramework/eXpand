@@ -95,6 +95,7 @@
     <Compile Include="CustomBaseObject.cs" />
     <Compile Include="EnumXPObject.cs" />
     <Compile Include="PersistentKeyValuePair.cs" />
+    <Compile Include="PersistentKeyValuePairStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="eXpandBaseObject.cs">
       <SubType>Code</SubType>

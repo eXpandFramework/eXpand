@@ -1,15 +1,18 @@
-using System.Linq;
+using System.Reflection;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.Attributes;
 using eXpand.ExpressApp.Taxonomy.BaseObjects;
-using System;
 
 namespace Foxhound.ExpressApp.Administration.BaseObjects{
-    
+    [DefaultClassOptions]
     public class Employee : TaxonomyBaseObject {
-        private Term companyUnit;
-        public Employee(Session session) : base(session) { }
         
-        public Term CompanyUnit
+        public Employee(Session session) : base(session) { }
+
+        private CompanyUnit companyUnit;
+        [Association(Associations.CompanyUnitEmployees)]
+        public CompanyUnit CompanyUnit
         {
             get
             {
@@ -17,21 +20,8 @@ namespace Foxhound.ExpressApp.Administration.BaseObjects{
             }
             set
             {
-                SetPropertyValue("CompanyUnit", ref companyUnit, value);
+                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref companyUnit, value);
             }
-            
         }
-        
-        //public Term Company
-        //{
-        //    get
-        //    {
-        //        if ((CompanyUnit!= null)){
-        //            return CompanyUnit.ParentTerm;
-        //        }
-        //        return null;
-        //    }
-        //}
-
     }
 }

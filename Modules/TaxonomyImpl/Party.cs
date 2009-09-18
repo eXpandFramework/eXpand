@@ -1,15 +1,17 @@
 
+using System;
 using System.Drawing;
 using System.ComponentModel;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using DevExpress.Persistent.Base;
+using eXpand.ExpressApp.Taxonomy.BaseObjects;
 using eXpand.Xpo;
 
 namespace eXpand.Persistent.TaxonomyImpl {
 	[MapInheritance(MapInheritanceType.OwnTable)]
 	[DefaultProperty("DisplayName")]
-    public abstract class Party : eXpandLiteObject
+    public abstract class Party : TaxonomyBaseObject
     {
 		private Address address1;
 		private Address address2;
@@ -38,10 +40,16 @@ namespace eXpand.Persistent.TaxonomyImpl {
 				OnChanged("Address2");
 			}
 		}
-		public abstract string DisplayName {
-			get;
+        [Persistent]
+		public virtual string DisplayName{
+		    get { throw new NotImplementedException(); }
+		    internal set{
+                
+            }
+
 		}
-		[Aggregated, Association("Party-PhoneNumbers")]
+
+	    [Aggregated, Association("Party-PhoneNumbers")]
 		public XPCollection<PhoneNumber> PhoneNumbers {
 			get { return GetCollection<PhoneNumber>("PhoneNumbers"); }
 		}
