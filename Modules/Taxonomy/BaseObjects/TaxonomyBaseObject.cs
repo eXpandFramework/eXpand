@@ -5,6 +5,8 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
+using eXpand.ExpressApp.Attributes;
+using eXpand.Persistent.BaseImpl;
 using eXpand.Utils.Linq.Dynamic;
 using System.Linq;
 using eXpand.Xpo;
@@ -52,7 +54,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             if (collection.Count>0){
                 foreach (var xpCollection in collection){
                     string path = xpCollection.FullPath + "/" + GetMemberValue(taxonomyRule.PropertyName);
-                    ObjectInfos.Add(new BaseObjectInfo(Session) { KeyTerm = taxonomyRule.Taxonomy.GetTerm(path, String.Empty), Value = "BUMBACHA !!!"});
+                    ObjectInfos.Add(new TaxonomyBaseObjectInfo(Session) { Key = taxonomyRule.Taxonomy.GetTerm(path, String.Empty)});
                 }
             }
             else{
@@ -61,13 +63,11 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
                                   GetMemberValue(
                                       taxonomyRule.PropertyName)),
                     String.Empty);
-                ObjectInfos.Add(new BaseObjectInfo(Session){
-                                                               KeyTerm =
-                                                                   (Term) Session.GetObject(term),
-                                                               Value = "BUMBACHA !!!"
+                ObjectInfos.Add(new TaxonomyBaseObjectInfo(Session){
+                                                               Key =(Term) Session.GetObject(term)
                                                            });
             }
-            this.Session.CommitTransaction();
+            Session.CommitTransaction();
             return null;
         }
 
@@ -99,16 +99,15 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             set { SetPropertyValue("Caption", ref caption, value); }
         }
 
-        
         [Association("ObjectInfos")]
         [XmlIgnore]
-        public XPCollection<BaseObjectInfo> ObjectInfos{
-            get { return GetCollection<BaseObjectInfo>("ObjectInfos"); }
+        public XPCollection<TaxonomyBaseObjectInfo> ObjectInfos{
+            get { return GetCollection<TaxonomyBaseObjectInfo>("ObjectInfos"); }
         }
 
         AssociationXmlSerializationHelper objectInfosSerializationHelper;
-        [XmlArray("ObjectInfos")]
-        [XmlArrayItem(typeof(BaseObjectInfo))]
+        [XmlArray("TaxonomyBaseObjectInfos")]
+        [XmlArrayItem(typeof(TaxonomyBaseObjectInfo))]
         [Browsable(false)]
         public AssociationXmlSerializationHelper ObjectInfosSerializationHelper
         {
@@ -119,6 +118,5 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
                 return objectInfosSerializationHelper;
             }
         }
-
     }
 }

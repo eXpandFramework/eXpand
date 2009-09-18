@@ -6,7 +6,7 @@ using DevExpress.Xpo;
 namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
     [DefaultClassOptions]
     [Serializable]
-    public class TermAssignment : BaseObjectInfo {
+    public class TermAssignment : TaxonomyBaseObjectInfo {
         private Term valueTerm;
         
         public TermAssignment(Session session) : base(session) {}

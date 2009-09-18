@@ -164,9 +164,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             }
         }
 
-
-
-        protected Term AddTerm(Session unitOfWork, string termPath, string name)
+        protected virtual Term AddTerm(Session unitOfWork, string termPath, string name)
         {
             var term = getTerm(unitOfWork, termPath);
             if (term == null)

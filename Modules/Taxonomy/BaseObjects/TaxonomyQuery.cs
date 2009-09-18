@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using eXpand.Persistent.BaseImpl;
+using eXpand.Persistent.TaxonomyImpl;
 using eXpand.Xpo;
 
 
