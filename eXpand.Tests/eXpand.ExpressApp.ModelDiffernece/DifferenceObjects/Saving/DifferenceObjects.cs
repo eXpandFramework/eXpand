@@ -27,6 +27,26 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Savin
             Assert.AreEqual(dictionary1.RootNode.ToXml(), differenceObject.Model.RootNode.ToXml());
             
         }
+
+        [Test]
+        [Isolated]
+        public void Model_With_Space_B4_Character_Of_End_Tag_Can_Be_Saved()
+        {
+            string s =
+                "<Application><Validation ><ErrorMessageTemplates ><RuleBase MessageTemplateCollectionValidationMessageSuffix=\"1(For the &quot;{TargetCollectionOwnerType}.{TargetCollectionPropertyName}&quot; collection elements).\"/></ErrorMessageTemplates></Validation></Application>";
+            Dictionary dictionary = DefaultDictionary.Clone();
+            dictionary.AddAspect("de", new DictionaryXmlReader().ReadFromString(s));
+            var differenceObject = Isolate.Fake.Instance<DifferenceObject>(Members.CallOriginal, ConstructorWillBe.Called, Session.DefaultSession);
+            differenceObject.Model = dictionary;
+            differenceObject.Save();
+
+            differenceObject.Reload();
+
+            Assert.AreEqual(new DictionaryXmlWriter().GetCurrentAspectXml(DefaultDictionary.RootNode), new DictionaryXmlWriter().GetCurrentAspectXml(differenceObject.Model.RootNode));
+
+            
+        }
+
         [Test]
         [Isolated]
         public void ApplicationModel_with_one_aspect_Can_Be_Saved()

@@ -19,7 +19,9 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
         public string GetAspectFromXml(List<string> aspects, string xml)
         {
             aspects = aspects.OrderBy(s => s).ToList();
+            
             xml = xml.Replace("&#165;", "¥");
+            xml = removeSpaces(xml);
             string defaultAspectValuesWhenNoOtherAspectExist = Regex.Replace(xml, "\":([^\"\xA5]*)\"", "\"$1\"");
             string removedAspectsWithNoDefaultAspects = defaultAspectValuesWhenNoOtherAspectExist;
             if (!string.IsNullOrEmpty(aspects[0])){
@@ -30,6 +32,10 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
                 }
             }
             return removedAspectsWithNoDefaultAspects;
+        }
+
+        private string removeSpaces(string aspects){
+            return aspects.Replace(" >",">");
         }
 
         private string removeAttributesWithNoDefaultValue(string aspect,string value){
