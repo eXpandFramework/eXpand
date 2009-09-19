@@ -64,8 +64,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         protected internal override void OnAspectStoreObjectSaving(ModelDifferenceObject userModelDifferenceObject, Dictionary diffDictionary){
             var userStoreObject = ((UserModelDifferenceObject) userModelDifferenceObject);
             if (!userStoreObject.NonPersistent){
-                var combiner = new DictionaryCombiner(userModelDifferenceObject);
-                combiner.AddAspects(diffDictionary);
+                
                 base.OnAspectStoreObjectSaving(userModelDifferenceObject, diffDictionary);
             }
             if (SecuritySystem.IsGranted(new ApplicationModelCombinePermission(ApplicationModelCombineModifier.Allow))){

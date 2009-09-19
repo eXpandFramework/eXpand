@@ -176,6 +176,7 @@
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Loading_ApplicationModel_Dictionary.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Loading_UserModel_Dictionary.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Saving_All_Dictionaries.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Saving_Application_Model.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Saving_UserModel.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Changing\ModelDifferenceObjects.cs">
       <SubType>Code</SubType>

@@ -1,10 +1,7 @@
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Validation;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.Persistent.Base;
-using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     public abstract class XpoDictionaryDifferenceStore : DictionaryDifferenceStore{
@@ -57,7 +54,8 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 //            var ruleSet = Validator.RuleSet;
 //            ruleSet.CustomValidateRule += RuleSetOnCustomValidateRule;
 //            ruleSet.ValidateAll(objectsToValidate, identifiers,args => { });
-            
+            var combiner = new DictionaryCombiner(modelDifferenceObject.Model);
+            combiner.AddAspects(diffDictionary);
             modelDifferenceObject.Save();
             if (session is UnitOfWork)
                 ((UnitOfWork) session).CommitChanges();
