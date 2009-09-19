@@ -15,10 +15,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Queries{
             get { return _session; }
         }
 
-        public virtual IQueryable<DifferenceObject> GetActiveModelDifferences(string uniqueApplicationName)
-        {
-            return
-                new XPQuery<DifferenceObject>(_session).Where(o => o.PersistentApplication.UniqueName == uniqueApplicationName && o.Disabled == false);
+        public virtual IQueryable<DifferenceObject> GetActiveModelDifferences(string uniqueApplicationName){
+            IQueryable<DifferenceObject> differences = new XPQuery<DifferenceObject>(_session).Where(o => o.PersistentApplication.UniqueName == uniqueApplicationName && o.Disabled == false);
+            return differences;
         }
 
         public virtual DifferenceObject GetActiveModelDifference(string applicationName)

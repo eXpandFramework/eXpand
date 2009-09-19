@@ -22,15 +22,18 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
         protected override void OnActivated()
         {
             base.OnActivated();
+            ViewOnCurrentObjectChanged(this,EventArgs.Empty);
             View.CurrentObjectChanged+=ViewOnCurrentObjectChanged;
         }
 
         protected  virtual void ViewOnCurrentObjectChanged(object sender, EventArgs args){
             var userAspectObjectQuery = new QueryUserModelDifferenceObject(View.ObjectSpace.Session);
-            ModelDifferenceObject differenceObject = userAspectObjectQuery.GetActiveModelDifference(Application.Title);
+            ModelDifferenceObject differenceObject = userAspectObjectQuery.GetActiveModelDifference(Application.GetType().FullName);
             if (ReferenceEquals(differenceObject, View.CurrentObject)){
-                var dictionaryCombiner = new DictionaryCombiner(Application.Model);
-                dictionaryCombiner.AddAspects(((UserModelDifferenceObject) View.CurrentObject));
+                var o = ((UserModelDifferenceObject) View.CurrentObject);
+                Dictionary dict = o.GetCombinedModel();
+                dict.CombineWith(Application.Model.GetDiffs());
+                o.Model = dict.GetDiffs();
             }
             }
         }

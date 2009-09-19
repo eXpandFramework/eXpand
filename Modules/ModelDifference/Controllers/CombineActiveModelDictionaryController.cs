@@ -18,7 +18,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
 
         internal void ObjectSpaceOnObjectSaved(object sender, ObjectManipulatingEventArgs args){
             var store = (args.Object) as DifferenceStore;
-            if (store != null && ReferenceEquals(GetActiveDifference(store.PersistentApplication, Application.Title), store)){
+            if (store != null && ReferenceEquals(GetActiveDifference(store.PersistentApplication, Application.GetType().FullName), store)){
                 var combiner = new DictionaryCombiner(Application.Model);
                 combiner.AddAspects(store.Model);
             }
