@@ -1,16 +1,62 @@
 using System;
-using System.Drawing;
-using System.Security.Principal;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
-using DevExpress.Data.Filtering;
+using eXpand.ExpressApp.Taxonomy.BaseObjects;
 using Foxhound.ExpressApp.Administration.BaseObjects;
+using eXpand.Xpo;
 
 namespace Foxhound.ExpressApp.Administration {
     public class Updater : ModuleUpdater {
         public Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) { }
         public override void UpdateDatabaseAfterUpdateSchema() {
+            if (Session.FindObject<CompanyUnit>(null)== null){
+                
+
+                var taxonomy3 = new Taxonomy(Session) { Key = "administration", Name = "Administration", Group = "Module Taxonomies" };
+                taxonomy3.Save();
+
+                var structuralTerm = taxonomy3.GetTerm<StructuralTerm>("administration/Structural View/Companies/Offices/Units/Employees", string.Empty);
+                structuralTerm.Save();
+                taxonomy3.GetTerm<Term>("administration/Browsable View", string.Empty).Save();
+
+//                using (var unitOfWork = new UnitOfWork(Session.DataLayer)){
+//                    structuralTerm = (StructuralTerm) unitOfWork.GetObject(structuralTerm);
+                    //structuralTerm.UpdateTypes(new[] { typeof(Employee), typeof(CompanyUnit), typeof(CompanyUnit), typeof(CompanyUnit)});
+                ((StructuralTerm) structuralTerm.ParentTerm).TypeOfObject = typeof (CompanyUnit).AssemblyQualifiedName;
+                structuralTerm.ParentTerm.Save();
+                ((StructuralTerm)structuralTerm.ParentTerm.ParentTerm).TypeOfObject = typeof(CompanyUnit).AssemblyQualifiedName;
+                structuralTerm.ParentTerm.ParentTerm.Save();
+                ((StructuralTerm)structuralTerm.ParentTerm.ParentTerm.ParentTerm).TypeOfObject = typeof(CompanyUnit).AssemblyQualifiedName;
+                structuralTerm.ParentTerm.ParentTerm.ParentTerm.Save();
+//                    unitOfWork.CommitChanges();
+//                }
+
+
+                //taxonomy3.GetTerm<Term>("administration/Browsable View/This Company/Central Office/Accounting", string.Empty).Save();
+                //taxonomy3.GetTerm<Term>("administration/Browsable View/This Company/Central Office/Sales", string.Empty).Save();
+                //taxonomy3.GetTerm<Term>("administration/Browsable View/This Company/Central Office/Human Resources", string.Empty).Save();
+                //taxonomy3.GetTerm<Term>("administration/Browsable View/This Company/London Offices", string.Empty).Save();
+                //taxonomy3.GetTerm<Term>("administration/Browsable View/This Company/Stores", string.Empty).Save();
+                //taxonomy3.GetTerm<Term>("administration/Browsable View/This Company/Stores/Store 1", string.Empty).Save();
+                //taxonomy3.GetTerm<Term>("administration/Browsable View/This Company/Stores/Store 2", string.Empty).Save();
+                //taxonomy3.GetTerm<Term>("administration/Browsable View/This Company/Stores/Store 3", string.Empty).Save();
+
+                
+                //var acccounting = new CompanyUnit(Session){Name = "Acounting"};
+                //acccounting.Save();
+                //new CompanyUnit(Session) { Name = "My Company" }.Save();
+                //new CompanyUnit(Session) { Name = "London Offices" }.Save();
+
+                //var employee = new Employee(Session) { Caption = "Employee1"  };
+                //employee.Save();
+                //var employee1 = new Employee(Session) { Caption = "Employee2"  };
+                //employee1.Save();
+                //var employee2 = new Employee(Session) { Caption = "Employee3"  };
+                //employee2.Save();
+                //var employee3 = new Employee(Session) { Caption = "Employee4" };
+                //employee3.Save();
+
+            }
 //            base.UpdateDatabaseAfterUpdateSchema();
 //
 //            _EmployeeRole userRole = Session.FindObject<_EmployeeRole>(new BinaryOperator("Name", "Users"));

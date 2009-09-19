@@ -74,6 +74,7 @@
     <Reference Include="DevExpress.Xpo.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Xpo.v9.2.Linq, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraTreeList.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="eXpand.ExpressApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
@@ -107,12 +108,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\FilterBaseInfoCategoriesViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\FilterBaseInfoCategoriesViewController.Designer.cs">
-      <DependentUpon>FilterBaseInfoCategoriesViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -121,6 +116,12 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
+    <Compile Include="Controllers\ViewController1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ViewController1.Designer.cs">
+      <DependentUpon>ViewController1.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Module.resx">
@@ -137,6 +138,10 @@
     <ProjectReference Include="..\..\..\..\DevExpress\eXpressApp Framework\Sources\DevExpress.ExpressApp\DevExpress.ExpressApp.Win\DevExpress.ExpressApp.Win.csproj">
       <Project>{C5DBCF36-36A3-4871-8EDC-5C52408C7317}</Project>
       <Name>DevExpress.ExpressApp.Win</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaxonomyImpl\eXpand.Persistent.TaxonomyImpl.csproj">
+      <Project>{2F1A2032-5042-46A5-BDBD-30608B79F919}</Project>
+      <Name>eXpand.Persistent.TaxonomyImpl</Name>
     </ProjectReference>
     <ProjectReference Include="..\Taxonomy\eXpand.ExpressApp.Taxonomy.csproj">
       <Project>{391E11B2-9D83-4B7C-8959-6793331DDA24}</Project>

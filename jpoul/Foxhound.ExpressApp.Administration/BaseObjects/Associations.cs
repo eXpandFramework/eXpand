@@ -1,6 +1,8 @@
 namespace Foxhound.ExpressApp.Administration.BaseObjects{
     public class Associations
     {
+        public const string JobDescriptionEmployees = "JobDescriptionEmployees";
+        public const string JobDescriptionCompanyUnits = "JobDescriptionCompanyUnits";
         public const string TermSalesInfosProductCategory = "TermSalesInfosProductCategory";
         public const string TermSalesInfos = "TermSalesInfos";
         public const string EmployeeWheeklyScheduleInfos = "EmployeeWheeklyScheduleInfos";

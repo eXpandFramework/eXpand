@@ -149,8 +149,8 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             Save();
         }
         
-        public Term GetTerm(string termPath, string caption){
-            Term term = AddTerm(Session, termPath, caption);
+        public TTerm GetTerm<TTerm>(string termPath, string caption) where TTerm:Term{
+            var term = AddTerm<TTerm>(Session, termPath, caption);
             return term;
             
         }
@@ -164,9 +164,9 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             }
         }
 
-        protected virtual Term AddTerm(Session unitOfWork, string termPath, string name)
+        protected virtual TTerm AddTerm<TTerm>(Session unitOfWork, string termPath, string name) where TTerm: Term
         {
-            var term = getTerm(unitOfWork, termPath);
+            var term = getTerm<TTerm>(unitOfWork, termPath);
             if (term == null)
             {
                 string[] pathSegments = GetPathSegments(termPath);
@@ -178,14 +178,14 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
                 {
                     return null;
                 }
-                term = new Term(unitOfWork){
-                                               Key = pathSegments.Last(),
-                                               Caption =
-                                                   string.IsNullOrEmpty(name) ? pathSegments.Last() : name
-                                           };
+                
+                term = (TTerm) Activator.CreateInstance(typeof (TTerm), unitOfWork);
+                term.Key = pathSegments.Last();
+                term.Caption = string.IsNullOrEmpty(name) ? pathSegments.Last() : name;
+                
 
                 string format = string.Format("/{0}", pathSegments.Last());
-                term.ParentTerm = AddTerm(unitOfWork, termPath.Replace(format, string.Empty), string.Empty);
+                term.ParentTerm = AddTerm<TTerm>(unitOfWork, termPath.Replace(format, string.Empty), string.Empty);
                 if (term.Parent == null){
                     term.Taxonomy = getTaxonomy(unitOfWork);
                     term.UpdateFullPath(false);
@@ -198,8 +198,8 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             return unitOfWork.FindObject<Taxonomy>(PersistentCriteriaEvaluationBehavior.InTransaction,x=>x.Key == Key);
         }
 
-        private Term getTerm(Session unitOfWork, string termPath){
-            return unitOfWork.FindObject<Term>(PersistentCriteriaEvaluationBehavior.InTransaction, t=>t.FullPath==termPath);
+        private TTerm getTerm<TTerm>(Session unitOfWork, string termPath)where TTerm:Term{
+            return unitOfWork.FindObject<TTerm>(PersistentCriteriaEvaluationBehavior.InTransaction, t=>t.FullPath==termPath);
         }
 
         public string[] GetPathSegments(string termPath) {

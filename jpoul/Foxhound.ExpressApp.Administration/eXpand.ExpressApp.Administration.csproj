@@ -101,15 +101,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseObjects\Account.cs" />
     <Compile Include="BaseObjects\Associations.cs" />
+    <Compile Include="BaseObjects\CompanyUnit.cs" />
     <Compile Include="BaseObjects\Employee.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BaseObjects\Company.cs" />
-    <Compile Include="BaseObjects\CompanyUnit.cs" />
-    <Compile Include="BaseObjects\WeeklySchedule.cs" />
-    <Compile Include="BaseObjects\WheeklyScheduleInfo.cs" />
+    <Compile Include="BaseObjects\JobDescription.cs" />
     <Compile Include="FoxhoundAdministrationModule.cs">
       <SubType>Component</SubType>
     </Compile>

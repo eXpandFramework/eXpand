@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Helpers;
@@ -9,6 +10,7 @@ using eXpand.Persistent.TaxonomyImpl;
 using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
+    [DefaultClassOptions]
     [DefaultProperty("Name")]
     [Serializable]
     public class Term : eXpandLiteObject, ITreeNode{
@@ -40,11 +42,12 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             set { SetPropertyValue("Taxonomy", ref taxonomy, value); }
         }
 
-        //[Association("TermAssignmentKeys")]
-        //[XmlIgnore]
-        //public XPCollection<TaxonomyBaseObjectInfo> BaseObjectInfos {
-        //    get { return GetCollection<TaxonomyBaseObjectInfo>("BaseObjectInfos"); }
-        //}
+        [Association("ObjectInfoTerms")]
+        [XmlIgnore]
+        public XPCollection<TaxonomyBaseObjectInfo> BaseObjectInfos
+        {
+            get { return GetCollection<TaxonomyBaseObjectInfo>("BaseObjectInfos"); }
+        }
 
         //[Association("TermAssignmentValues")]
         //[XmlIgnore]
@@ -70,7 +73,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             }
         }
 
-        public string Caption{
+        public string Caption {
             get { return caption; }
             set { SetPropertyValue("Caption", ref caption, value); }
         }
@@ -128,26 +131,35 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
                         Key = caption.ToLower();
                     }
                 }
-                //if (propertyName == "Key" && !string.IsNullOrEmpty(Key)){
-                //    UpdateAssignmentsKey();
-                //}
-                if (propertyName == "ParentTerm"){
-                    Taxonomy = parentTerm.Taxonomy;
-                }
-                if ((propertyName == "Key" || propertyName == "ParentTerm")
-                    && (!string.IsNullOrEmpty(Key)
-                        && (parentTerm != null || taxonomy != null))){
-                    UpdateFullPath(true);
-                }
+                
             }
         }
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+            
+                level = (ParentTerm == null ? 0 : ParentTerm.Level + 1);
 
+            if (parentTerm != null) Taxonomy = parentTerm.Taxonomy;
+
+            UpdateFullPath(true);
+            
+        }
         //public void UpdateAssignmentsKey(){
         //    foreach (TermAssignment assignment in BaseObjectInfos)
         //    {
         //        assignment.Key = key;
         //    }
         //}
+
+        [Persistent]
+        protected int level;
+        [PersistentAlias("level")]
+        public int Level
+        {
+            get { return level; }
+        }
+        
 
         public virtual void UpdateFullPath(bool updateChildren){
             fullPath = string.Format("{0}{1}{2}"

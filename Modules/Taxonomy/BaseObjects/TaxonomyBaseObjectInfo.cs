@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using System.Xml.Serialization;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
@@ -17,11 +18,26 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
 
         public TaxonomyBaseObjectInfo(Session session) : base(session) {}
 
-        [Association("TermAssignmentKeys")]
+        private StructuralTerm structuralTerm;
+        [Association(Associations.StructuralTermObjectInfos)]
+        [XmlIgnore]
+        public StructuralTerm StructuralTerm
+        {
+            get
+            {
+                return structuralTerm;
+            }
+            set
+            {
+                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref structuralTerm, value);
+            }
+        }
+
+        [Association("ObjectInfoTerms")]
         [XmlIgnore]
         public Term Key{
             get { return key; }
-            set { SetPropertyValue("KeyTerm", ref key, value); }
+            set { SetPropertyValue("Key", ref key, value); }
         }
 
         [Association("ObjectInfos")]

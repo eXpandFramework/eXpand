@@ -23,6 +23,7 @@ namespace eXpand.ExpressApp.Taxonomy.Win.Controllers{
         }
 
         private void ViewController1_Activated(object sender, EventArgs e){
+            return;
             if (View.ObjectTypeInfo.Type.GetInterface("ICategorizedItem") != null)
                 View.ControlsCreated += View_ControlsCreated;
         }

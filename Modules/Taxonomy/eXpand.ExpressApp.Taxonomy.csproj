@@ -129,12 +129,6 @@
     <Compile Include="BaseObjects\TaxonomyQuery.cs" />
     <Compile Include="BaseObjects\TaxonomyRule.cs" />
     <Compile Include="BaseObjects\Term.cs" />
-    <Compile Include="Controllers\TaxonomyQueryController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\TaxonomyQueryController.designer.cs">
-      <DependentUpon>TaxonomyQueryController.cs</DependentUpon>
-    </Compile>
     <Compile Include="TaxonomyModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -151,9 +145,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\TaxonomyQueryController.resx">
-      <DependentUpon>TaxonomyQueryController.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -190,6 +181,9 @@
       <Project>{2F1A2032-5042-46A5-BDBD-30608B79F919}</Project>
       <Name>eXpand.Persistent.TaxonomyImpl</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

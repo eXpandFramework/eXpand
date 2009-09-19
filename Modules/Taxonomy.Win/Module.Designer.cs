@@ -1,7 +1,7 @@
 using eXpand.ExpressApp.Win.SystemModule;
 
 namespace eXpand.ExpressApp.Taxonomy.Win {
-    partial class eXpandTaxonomyWinModule {
+    partial class TaxonomyWinModule {
         /// <summary> 
         /// Required designer variable.
         /// </summary>

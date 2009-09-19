@@ -1,8 +1,8 @@
 using DevExpress.ExpressApp;
 
 namespace eXpand.ExpressApp.Taxonomy.Win {
-    public sealed partial class eXpandTaxonomyWinModule : ModuleBase {
-        public eXpandTaxonomyWinModule() {
+    public sealed partial class TaxonomyWinModule : ModuleBase {
+        public TaxonomyWinModule() {
             InitializeComponent();
         }
     }

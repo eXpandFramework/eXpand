@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using DevExpress.Data.Filtering;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 
 namespace eXpand.Xpo
 {
@@ -11,6 +12,12 @@ namespace eXpand.Xpo
             return (int) session.Evaluate<ClassType>(new AggregateOperand("", Aggregate.Count), null);
         }
 
+        public static object GetObject(this Session session,PersistentCriteriaEvaluationBehavior behavior, object o){
+            if (o == null)
+                return null;
+            XPMemberInfo property = ((PersistentBase) o).ClassInfo.KeyProperty;
+            return session.FindObject(behavior, o.GetType(), new BinaryOperator(property.Name, property.GetValue(o)));
+        }
         public static object GetObject(this Session session, object o){
             if (o== null)
                 return null;

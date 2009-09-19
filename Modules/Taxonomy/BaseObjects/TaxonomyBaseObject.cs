@@ -5,9 +5,6 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
-using eXpand.ExpressApp.Attributes;
-using eXpand.Persistent.BaseImpl;
-using eXpand.Utils.Linq.Dynamic;
 using System.Linq;
 using eXpand.Xpo;
 
@@ -54,11 +51,11 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             if (collection.Count>0){
                 foreach (var xpCollection in collection){
                     string path = xpCollection.FullPath + "/" + GetMemberValue(taxonomyRule.PropertyName);
-                    ObjectInfos.Add(new TaxonomyBaseObjectInfo(Session) { Key = taxonomyRule.Taxonomy.GetTerm(path, String.Empty)});
+                    ObjectInfos.Add(new TaxonomyBaseObjectInfo(Session) { Key = taxonomyRule.Taxonomy.GetTerm<Term>(path, String.Empty)});
                 }
             }
             else{
-                Term term = taxonomyRule.Taxonomy.GetTerm(
+                Term term = taxonomyRule.Taxonomy.GetTerm<Term>(
                     string.Format("{0}/{1}", taxonomyRule.Taxonomy.Key,
                                   GetMemberValue(
                                       taxonomyRule.PropertyName)),
