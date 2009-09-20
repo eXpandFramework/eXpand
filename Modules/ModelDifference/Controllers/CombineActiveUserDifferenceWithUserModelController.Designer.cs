@@ -1,6 +1,6 @@
 namespace eXpand.ExpressApp.ModelDifference.Controllers
 {
-    partial class CombineUserModelWithActiveUserDifferenceController
+    partial class CombineActiveUserDifferenceWithUserModelController
     {
         /// <summary>
         /// Required designer variable.

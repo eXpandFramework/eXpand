@@ -12,11 +12,11 @@ using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 using TypeMock.Extensions;
 
-namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
+namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries.Automatic{
     [TestFixture]
-    public class Auto_For_All_Views:eXpandBaseFixture
+    public class For_All_Views:eXpandBaseFixture
     {
-        public class With_ActiveDifference:Auto_For_All_Views{
+        public class With_ActiveDifference:eXpandBaseFixture{
             [Test]
             [Isolated]
             public void When_Saving_Combine_With_Application_InstanceModel()
@@ -26,10 +26,10 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
 
                 var dictionary = DefaultDictionary;
                 var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession)
-                {
-                    Model = dictionary,
-                    PersistentApplication =new PersistentApplication(Session.DefaultSession) { Name = "appNAme" }
-                };
+                                            {
+                                                Model = dictionary,
+                                                PersistentApplication =new PersistentApplication(Session.DefaultSession) { Name = "appNAme" }
+                                            };
                 Isolate.WhenCalled(() => controller.GetActiveDifference(null, null)).WithExactArguments().WillReturn(modelDifferenceObject);
 
 

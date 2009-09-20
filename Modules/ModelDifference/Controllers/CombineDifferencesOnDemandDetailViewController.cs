@@ -36,9 +36,6 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
         }
         public void CreatePopupListView(ShowViewParameters parameters){
 
-//            string s = "<Application><Views><DetailView><Items><StaticText ID=\"AboutText\" Caption=\"AboutText\" /></Items></DetailView></Views></Application>";
-//            DictionaryNode node = new DictionaryXmlReader().ReadFromString(s);
-//            Application.Model.AddAspect("de",node);
             parameters.Controllers.Add(controller);
             parameters.CreatedView = Application.CreateListView(Application.FindListViewId(typeof (ModelDifferenceObject)),GetCollectionSource(), true);
             parameters.TargetWindow = TargetWindow.NewModalWindow;
@@ -49,21 +46,20 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
 
         private void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs args){
             var modelAspectObject = ((ModelDifferenceObject) View.CurrentObject);
-            var dictionary = new Dictionary(modelAspectObject.Model.RootNode, Application.Model.Schema);
+            Dictionary combinedModel = modelAspectObject.GetCombinedModel();
             foreach (var selectedObject in args.SelectedObjects.Cast<ModelDifferenceObject>()){
-                var combiner = new DictionaryCombiner(dictionary);
-                combiner.AddAspects(selectedObject);
+                combinedModel.CombineWith(selectedObject.Model);
             }
-            modelAspectObject.Model = dictionary;
+            modelAspectObject.Model = combinedModel.GetDiffs();
         }
 
         internal CollectionSourceBase GetCollectionSource()
         {
-
-            var source = new CollectionSource(ObjectSpace, TargetObjectType);
+            ObjectSpace objectSpace = Application.CreateObjectSpace();
+            var source = new CollectionSource(objectSpace, TargetObjectType);
             var currentModelAspectObject = ((ModelDifferenceObject)View.CurrentObject);
             var expression =
-                new XPQuery<ModelDifferenceObject>(ObjectSpace.Session).TransformExpression(
+                new XPQuery<ModelDifferenceObject>(objectSpace.Session).TransformExpression(
                     m =>
                     m.Oid != currentModelAspectObject.Oid && 
                     m.PersistentApplication.UniqueName == currentModelAspectObject.PersistentApplication.UniqueName);

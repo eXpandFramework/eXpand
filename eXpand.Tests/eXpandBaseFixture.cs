@@ -9,7 +9,7 @@ namespace eXpand.Tests{
     public abstract class eXpandBaseFixture{
         
         protected const string DefaultClassXml = "<Application><BOModel><Class Name=\"MyClass\" Caption=\"Default\"></Class></BOModel></Application>";
-        protected const string DefaultClassXml2 = "<Application><BOModel><Class Name=\"MyClass2\" Caption=\"Default\"></Class></BOModel></Application>";
+        protected const string DefaultClassXml2 = "<Application><BOModel><Class Name=\"MyClass2\" Caption=\"Default\" IsNewNode=\"True\"></Class></BOModel></Application>";
         protected const string elClassXml = "<Application><BOModel><Class Name=\"MyClass\" Caption=\"el\"></Class></BOModel></Application>";
         protected Dictionary DefaultDictionary;
         protected Dictionary DefaultDictionary2;

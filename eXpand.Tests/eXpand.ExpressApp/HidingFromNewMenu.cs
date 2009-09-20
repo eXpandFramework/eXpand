@@ -43,7 +43,7 @@ namespace eXpand.Tests.eXpand.ExpressApp
             var frame = Isolate.Fake.Instance<Frame>(Members.CallOriginal);
             frame.RegisterController(controller);
             Isolate.WhenCalled(() => hideFromNewMenuViewController.Frame).WillReturn(frame);
-            viewControllerFactory.Activate(hideFromNewMenuViewController, true);
+            viewControllerFactory.Activate(hideFromNewMenuViewController, new HandleInfo{ControlsCreated = true});
 
             viewControllerFactory.ControlsCreatedHandler.Invoke(this,EventArgs.Empty);
 

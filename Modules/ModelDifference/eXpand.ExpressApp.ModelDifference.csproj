@@ -157,11 +157,11 @@
     <Compile Include="Controllers\CombineDifferencesOnDemandListViewController.Designer.cs">
       <DependentUpon>CombineDifferencesOnDemandListViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\CombineUserModelWithActiveUserDifferenceController.cs">
+    <Compile Include="Controllers\CombineActiveUserDifferenceWithUserModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\CombineUserModelWithActiveUserDifferenceController.Designer.cs">
-      <DependentUpon>CombineUserModelWithActiveUserDifferenceController.cs</DependentUpon>
+    <Compile Include="Controllers\CombineActiveUserDifferenceWithUserModelController.Designer.cs">
+      <DependentUpon>CombineActiveUserDifferenceWithUserModelController.cs</DependentUpon>
     </Compile>
     <Compile Include="CultureDescription.cs" />
     <Compile Include="DataStore\BaseObjects\DifferenceObject.cs" />

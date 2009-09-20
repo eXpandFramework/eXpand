@@ -159,8 +159,8 @@
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\BuildingModelDifferenceObjects\RoleAspectObjects.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\BuildingModelDifferenceObjects\UserAspectsObjects.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\ClonningModelDifferencesObjects\OnDemand_At_All_Views.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\Auto_For_All_Views.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\Auto_For_DetailView.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\Automatic\For_All_Views.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\Automatic\For_DetailView.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\DictionaryCombiner_Tests.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\OnDemand_At_All_Views.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\OnDemand_At_Difference_DetailView.cs" />
@@ -240,6 +240,7 @@
     <Compile Include="eXpandBaseFixture.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="HandleInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,74 +8,94 @@ using TypeMock.ArrangeActAssert;
 namespace eXpand.Tests{
     public class ViewControllerFactory{
         private EventHandler controlsCreatedHandler;
+        private EventHandler currentObjectChangedHandler;
 
-        public void Activate<T>(T controller, bool getControlsCreatedHandle) where T : ViewController
+        public void Activate<T>(T controller, HandleInfo handleInfo) where T : ViewController
         {
             View view = controller.View;
-            if (getControlsCreatedHandle){
-                using (RecorderManager.StartRecording()){
-                    view.ControlsCreated += null;
+            MockedEvent controlsCreated = null;
+            MockedEvent currentObjectChanged = null;
+            if (handleInfo != null){
+                if (handleInfo.ControlsCreated){
+                    using (RecorderManager.StartRecording()){
+                        view.ControlsCreated += null;
+                    }
+                    controlsCreated = RecorderManager.LastMockedEvent;
                 }
+                if (handleInfo.CurrentObjectChanged){
+                    using (RecorderManager.StartRecording()){
+                        view.CurrentObjectChanged += null;
+                    }
+                    currentObjectChanged = RecorderManager.LastMockedEvent;
+                }
+                
             }
             controller.Active.Clear();
             controller.Active[""] = true;
-            if (getControlsCreatedHandle){
-                controlsCreatedHandler = (EventHandler)RecorderManager.LastMockedEvent.GetEventHandle();
+            if (controlsCreated!= null){
+                controlsCreatedHandler = (EventHandler) controlsCreated.GetEventHandle();
             }
+            if (currentObjectChanged != null)
+                currentObjectChangedHandler = (EventHandler)currentObjectChanged.GetEventHandle();
         }
 
         public void Activate<T>(T controller)where T:ViewController{
-            Activate(controller, false);
+            Activate(controller, null);
         }
 
         public EventHandler ControlsCreatedHandler{
             get { return controlsCreatedHandler; }
         }
+        public EventHandler CurrentObjectChangedHandler{
+            get { return currentObjectChangedHandler; }
+        }
 
-        private T createController<T>(ViewType viewType, PersistentBase currentObject, bool activate, bool getControlsCreatedHandle) where T : ViewController, new()
+        private T createController<T>(ViewType viewType, PersistentBase currentObject, bool activate, HandleInfo handleInfo) where T : ViewController, new()
         {
             if (currentObject.Session.IsNewObject(currentObject))
                 currentObject.Session.Save(currentObject);
             var objectSpace = new ObjectSpace(new UnitOfWork(XpoDefault.DataLayer), XafTypesInfo.Instance);
             var persistentBase = objectSpace.GetObject(currentObject);
             T controller = viewType == ViewType.ListView
-                               ? createListViewController<T>(persistentBase, activate, objectSpace,
-                                                             getControlsCreatedHandle)
-                               : createDetailViewController<T>(objectSpace, persistentBase, activate, getControlsCreatedHandle);
+                               ? createListViewController<T>(persistentBase, activate, objectSpace,handleInfo)
+                               : createDetailViewController<T>(objectSpace, persistentBase, activate, handleInfo);
+
             if (activate)
                 controller.View.CurrentObject = persistentBase;
-            Isolate.WhenCalled(() => controller.Application).WillReturn(Isolate.Fake.Instance<XafApplication>());
+            
             return controller;
         }
 
-        public T CreateAndActivateController<T>(ViewType viewType, PersistentBase currentObject, bool getControlsCreatedHandle) where T : ViewController, new()
+        public T CreateAndActivateController<T>(ViewType viewType, PersistentBase currentObject, HandleInfo handleInfo) where T : ViewController, new()
         {
-            return createController<T>(viewType, currentObject, true, getControlsCreatedHandle);
+            return createController<T>(viewType, currentObject, true, handleInfo);
         }
 
         public T CreateAndActivateController<T>(ViewType viewType, PersistentBase currentObject) where T : ViewController, new(){
-            return createController<T>(viewType, currentObject, true, false);
+            return createController<T>(viewType, currentObject, true, null);
         }
 
-        private T createDetailViewController<T>(ObjectSpace objectSpace, PersistentBase currentObject, bool activate, bool handle) where T : ViewController, new()
+        private T createDetailViewController<T>(ObjectSpace objectSpace, PersistentBase currentObject, bool activate, HandleInfo handleInfo) where T : ViewController, new()
         {
             XafTypesInfo.Instance.RegisterEntity(currentObject.GetType());
-            var detailView = new DetailView(objectSpace, currentObject, Isolate.Fake.Instance<XafApplication>(), true);
+            var application = Isolate.Fake.Instance<XafApplication>(Members.CallOriginal);
+            var detailView = new DetailView(objectSpace, currentObject, application, true);
             var conntroller = new T();
+            Isolate.WhenCalled(() => conntroller.Application).WillReturn(application);
             conntroller.Active[""] = false; 
             conntroller.SetView(detailView);
             if (activate)
-                Activate(conntroller,handle);
+                Activate(conntroller,handleInfo);
             return conntroller;
         }
 
-        private T createListViewController<T>(PersistentBase currentObject, bool activate, ObjectSpace objectSpace, bool getControlsCreatedHandle) where T : ViewController, new()
+        private T createListViewController<T>(PersistentBase currentObject, bool activate, ObjectSpace objectSpace, HandleInfo handleInfo) where T : ViewController, new()
         {
-            var controller = createController<T>(currentObject.GetType(),activate,objectSpace,getControlsCreatedHandle);
+            var controller = createController<T>(currentObject.GetType(),activate,objectSpace,handleInfo);
             return controller;
         }
 
-        private T createController<T>(Type objectType, bool activate, ObjectSpace objectSpace, bool getControlsCreatedHandle) where T : ViewController, new()
+        private T createController<T>(Type objectType, bool activate, ObjectSpace objectSpace, HandleInfo handleInfo) where T : ViewController, new()
         {
             XafTypesInfo.Instance.RegisterEntity(objectType);
             var source = new CollectionSource(objectSpace, objectType);
@@ -83,26 +103,27 @@ namespace eXpand.Tests{
             Isolate.WhenCalled(() => listEditor.RequiredProperties).WillReturn(new string[0]);
             var listView = new ListView(source, listEditor);
             var controller = new T();
+            Isolate.WhenCalled(() => controller.Application).WillReturn(Isolate.Fake.Instance<XafApplication>(Members.CallOriginal));
             controller.Active[""] = false; 
             controller.SetView(listView);
             if (activate)
-                Activate(controller,getControlsCreatedHandle);
-            Isolate.WhenCalled(() => controller.Application).WillReturn(Isolate.Fake.Instance<XafApplication>());
+                Activate(controller,handleInfo);
+            
             return controller;
         }
 
         public T CreateController<T>(Type objectType) where T : ViewController, new(){
-            return createController<T>(objectType, false, new ObjectSpace(new UnitOfWork(XpoDefault.DataLayer), XafTypesInfo.Instance), false);
+            return createController<T>(objectType, false, new ObjectSpace(new UnitOfWork(XpoDefault.DataLayer), XafTypesInfo.Instance),null);
         }
 
         public T CreateAndActivateController<T>(Type objectType) where T : ViewController, new(){
 
-            return createController<T>(objectType, true,new ObjectSpace(new UnitOfWork(XpoDefault.DataLayer),XafTypesInfo.Instance),false);
+            return createController<T>(objectType, true,new ObjectSpace(new UnitOfWork(XpoDefault.DataLayer),XafTypesInfo.Instance),null);
 
         }
 
         public T CreateController<T>(ViewType viewType, PersistentBase currentObject) where T : ViewController, new(){
-            return createController<T>(viewType, currentObject, false, false);
+            return createController<T>(viewType, currentObject, false, null);
         }
 
     }
