@@ -205,6 +205,17 @@
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Saving\PersistentApplications.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\ModelPropertyEditor\At_Reading_Value.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\ModelPropertyEditor\At_Setup.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\ModelPropertyEditor\When_Controller_IsModified.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\ModelPropertyEditor\When_Creating_Control.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\ModelPropertyEditor\When_Creating_Model_Editor_Controller.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Module\AfterLogin.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Module\After_Application_Setup.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Module\After_WinApplication_Setup.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Module\BeforeLogin.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Module\When_Updating_Persistent_App.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Navigation\OnDemand_At_ListView.cs" />
     <Compile Include="eXpand.ExpressApp\DictionaryHelperTests.cs" />
     <Compile Include="eXpand.ExpressApp\HidingFromNewMenu.cs" />
     <Compile Include="eXpand.ExpressApp\ISecurityFixture.cs">

@@ -97,8 +97,10 @@ namespace DevExpress.ExpressApp.ModelEditor {
 					DesignerModelFactory dmf = new DesignerModelFactory();
 					ApplicationModulesManager mgr = dmf.CreateModelManager(targetPath, diffsPath);
 					mgr.Load();
-					modelEditorForm = new ModelEditorForm(new ModelEditorController(mgr.Model, mgr.LastDiffsStore, mgr.Modules), new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor"));
+				    var controller = new ModelEditorController(mgr.Model, mgr.LastDiffsStore, mgr.Modules);
+				    modelEditorForm = new ModelEditorForm(controller, new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor"));
 					modelEditorForm.SetCaption(Path.GetFileName(targetPath));
+                    
 					Application.Run(modelEditorForm);
 				} catch(Exception exception) {
 					HandleException(exception);

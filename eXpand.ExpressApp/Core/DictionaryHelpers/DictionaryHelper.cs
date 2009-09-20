@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Localization;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;

@@ -10,6 +10,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         public PersistentApplication(Session session) : base(session){
             
         }
+
 //        private Dictionary _model = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema());
 //        [Size(SizeAttribute.Unlimited)]
 //        [ValueConverter(typeof(ValueConverters.DictionaryValueConverter1))]

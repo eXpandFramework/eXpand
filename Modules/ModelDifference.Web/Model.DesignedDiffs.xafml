@@ -1,43 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application>
 	<SchemaModules>
-		<SchemaModule Name="SystemAspNetModule" Version="9.1.5.0" IsNewNode="True" />
+		<SchemaModule Name="SystemAspNetModule" Version="9.2.4.0" IsNewNode="True" />
 	</SchemaModules>
 	<Views>
-		<DetailView ID="XpoModelDictionaryDifferenceStore_DetailView">
-			<Layout Width="1009" Height="777">
+		<DetailView ID="ModelDifferenceObject_DetailView">
+			<Layout>
 				<LayoutGroup ID="Main">
+					<TabbedGroup ID="Item1">
+						<LayoutGroup ID="Model" Removed="True" />
+						<LayoutGroup ID="SizeableEditors" Index="0" />
+					</TabbedGroup>
 					<LayoutGroup ID="SimpleEditors">
-						<LayoutGroup ID="XpoModelDictionaryDifferenceStore">
-							<LayoutGroup ID="XpoModelDictionaryDifferenceStore_col1" RelativeSize="44" />
-							<LayoutGroup ID="XpoModelDictionaryDifferenceStore_col2" RelativeSize="54" />
+						<LayoutGroup ID="ModelDifferenceObject">
+							<LayoutGroup ID="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a" RelativeSize="60" />
+							<LayoutGroup ID="ModelDifferenceObject_col1" RelativeSize="37" />
 						</LayoutGroup>
-					</LayoutGroup>
-					<LayoutGroup ID="SizeableEditors">
-						<TabbedGroup ID="Content">
-							<LayoutGroup ID="ModelEditorLayoutGroup" Removed="True" />
-							<LayoutGroup ID="XmlContentGroup" Index="0" />
-						</TabbedGroup>
 					</LayoutGroup>
 				</LayoutGroup>
 			</Layout>
 		</DetailView>
-		<DetailView ID="XpoUserModelDictionaryDifferenceStore_DetailView">
-			<Layout>
+		<DetailView ID="RoleModelDifferenceObject_DetailView">
+			<Layout Width="1127">
 				<LayoutGroup ID="Main">
-					<LayoutGroup ID="SimpleEditors" RelativeSize="16">
-						<LayoutGroup ID="XpoModelDictionaryDifferenceStore">
-							<LayoutGroup ID="XpoModelDictionaryDifferenceStore_col1" RelativeSize="43" />
-							<LayoutGroup ID="XpoModelDictionaryDifferenceStore_col2" RelativeSize="55" />
+					<TabbedGroup ID="Item1">
+						<LayoutGroup ID="Model" Removed="True" />
+						<LayoutGroup ID="Roles" Index="1" />
+						<LayoutGroup ID="SizeableEditors" Index="0" />
+					</TabbedGroup>
+					<LayoutGroup ID="SimpleEditors">
+						<LayoutGroup ID="ModelDifferenceObject">
+							<LayoutGroup ID="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a" RelativeSize="62">
+								<LayoutItem ID="DateCreated" RelativeSize="35" />
+								<LayoutItem ID="Disabled" RelativeSize="64" />
+							</LayoutGroup>
+							<LayoutGroup ID="ModelDifferenceObject_col1" RelativeSize="35">
+								<LayoutItem ID="CombineOrder" RelativeSize="26" SizeConstraintsType="Default" />
+								<LayoutItem ID="Name" RelativeSize="35" />
+								<LayoutItem ID="PersistentApplication" ShowCaption="False" Index="3" RelativeSize="11" />
+								<LayoutItem ID="PreferredAspect" RelativeSize="26" />
+							</LayoutGroup>
 						</LayoutGroup>
 					</LayoutGroup>
-					<LayoutGroup ID="SizeableEditors" RelativeSize="81">
-						<TabbedGroup ID="Content" RelativeSize="96">
-							<LayoutGroup ID="ModelEditorLayoutGroup" Removed="True" />
-							<LayoutGroup ID="UsersGroup" Index="1" />
-							<LayoutGroup ID="XmlContentGroup" Index="0" />
-						</TabbedGroup>
-						<LayoutItem ID="NonPersistent" RelativeSize="3" />
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<DetailView ID="UserModelDifferenceObject_DetailView">
+			<Layout Width="1127">
+				<LayoutGroup ID="Main">
+					<TabbedGroup ID="Item1" RelativeSize="80">
+						<LayoutGroup ID="Model" Removed="True" />
+						<LayoutGroup ID="SizeableEditors" Index="0" />
+						<LayoutGroup ID="Users" Index="1" />
+					</TabbedGroup>
+					<LayoutGroup ID="SimpleEditors" RelativeSize="19">
+						<LayoutGroup ID="ModelDifferenceObject">
+							<LayoutGroup ID="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a" RelativeSize="60">
+								<LayoutItem ID="DateCreated" RelativeSize="28" />
+								<LayoutItem ID="Disabled" RelativeSize="21" />
+								<LayoutGroup ID="ModelDifferenceObject_col2" RelativeSize="50" />
+							</LayoutGroup>
+							<LayoutGroup ID="ModelDifferenceObject_col1" RelativeSize="36">
+								<LayoutItem ID="CombineOrder" RelativeSize="21" SizeConstraintsType="Default" />
+								<LayoutItem ID="Name" RelativeSize="28" />
+								<LayoutItem ID="PersistentApplication.Name" Index="3" RelativeSize="28" />
+								<LayoutItem ID="PreferredAspect" RelativeSize="21" />
+							</LayoutGroup>
+						</LayoutGroup>
 					</LayoutGroup>
 				</LayoutGroup>
 			</Layout>

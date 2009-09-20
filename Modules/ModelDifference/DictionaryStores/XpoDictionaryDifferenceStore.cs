@@ -36,9 +36,6 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 ModelDifferenceObject modelDifferenceObject = GetActiveDifferenceObject() ??
                                                               GetNewDifferenceObject(session).
                                                                   InitializeMembers(applicationName, application.GetType().FullName);
-                var persistentApplication = modelDifferenceObject.PersistentApplication;
-                persistentApplication.Name = applicationName;
-                persistentApplication.UniqueName = application.GetType().FullName;
                 OnAspectStoreObjectSaving(modelDifferenceObject,diffDictionary);
             }
         }
@@ -49,11 +46,6 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         protected internal abstract ModelDifferenceObject GetNewDifferenceObject(Session session);
 
         protected internal virtual void OnAspectStoreObjectSaving(ModelDifferenceObject modelDifferenceObject, Dictionary diffDictionary){
-//            const DefaultContexts identifiers = DefaultContexts.Save;
-//            var objectsToValidate = new SaveContextTargetObjectSelector().GetObjectsToValidate(session, modelDifferenceObject);
-//            var ruleSet = Validator.RuleSet;
-//            ruleSet.CustomValidateRule += RuleSetOnCustomValidateRule;
-//            ruleSet.ValidateAll(objectsToValidate, identifiers,args => { });
             var combiner = new DictionaryCombiner(modelDifferenceObject.Model);
             combiner.AddAspects(diffDictionary);
             modelDifferenceObject.Save();
@@ -61,14 +53,5 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 ((UnitOfWork) session).CommitChanges();
         }
 
-/*
-        private void RuleSetOnCustomValidateRule(object sender, CustomValidateRuleEventArgs args){
-            if (args.Rule is RuleRequiredField&&args.Target is PersistentApplication){
-                var persistentApplication = ((PersistentApplication) args.Target);
-                if (args.Rule.UsedProperties.Contains(persistentApplication.GetPropertyInfo(x=>persistentApplication.Model).Name))
-                    args.RuleValidationResult=new RuleValidationResult(args.Rule, args.Target, ValidationState.Valid,null);
-            }
-        }
-*/
     }
 }

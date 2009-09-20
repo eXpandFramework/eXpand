@@ -123,6 +123,15 @@
     <Compile Include="Controllers\CombineActiveUserDifferenceWithActiveModelDictionaryController.Designer.cs">
       <DependentUpon>CombineActiveUserDifferenceWithActiveModelDictionaryController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\DataStoreKeyValueStorage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\WebListEditorSettingsStoreViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\WebListEditorSettingsStoreViewController.Designer.cs">
+      <DependentUpon>WebListEditorSettingsStoreViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModelDifferenceAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>

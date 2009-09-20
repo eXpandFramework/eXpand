@@ -4,6 +4,7 @@ using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
+using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 using MbUnit.Framework;
 using TypeMock;
 using TypeMock.ArrangeActAssert;
@@ -12,21 +13,22 @@ using TypeMock.Extensions;
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
     [TestFixture]
     public class After_Application_Setup:eXpandBaseFixture{
-        protected EventHandler<EventArgs> eventHandler;
+        protected EventHandler<LogonEventArgs> eventHandler;
         protected XafApplication application;
-        protected ModelDifferenceModule modelDifferenceModule;
+        protected ModelDifferenceBaseModule<XpoModelDictionaryDifferenceStore> modelDifferenceModule;
 
         [SetUp]
         public override void Setup(){
             base.Setup();
-            modelDifferenceModule = new ModelDifferenceModule();
+            modelDifferenceModule =
+                Isolate.Fake.Instance<ModelDifferenceBaseModule<XpoModelDictionaryDifferenceStore>>(Members.CallOriginal);
             application = Isolate.Fake.Instance<XafApplication>();
                 
             using (RecorderManager.StartRecording()){
-                application.SetupComplete += null;
+                application.LoggingOn += null;
             }
             modelDifferenceModule.Setup(application);
-            eventHandler = ((EventHandler<EventArgs>)RecorderManager.LastMockedEvent.GetEventHandle());
+            eventHandler = ((EventHandler<LogonEventArgs>)RecorderManager.LastMockedEvent.GetEventHandle());
         }
         [Test]
         [Isolated]
@@ -35,7 +37,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
             Isolate.WhenCalled(() => modelDifferenceModule.UpdatePersistentApplication(null, null)).WillThrow(new Exception());
             Isolate.WhenCalled(() => modelDifferenceModule.PersistentApplicationModelUpdated).WillReturn(true);
 
-            eventHandler.Invoke(this,EventArgs.Empty);
+            eventHandler.Invoke(this,new LogonEventArgs(null));
         }
         [Test]
         [Isolated]
@@ -51,10 +53,10 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
             Isolate.WhenCalled(() => modelDifferenceModule.GetPersistentApplication(null)).WillReturn(persistentApplication);
             Isolate.WhenCalled(() => modelDifferenceModule.UpdatePersistentApplication(null, null)).DoInstead(context => {updated=true;return persistentApplication;});
 
-            eventHandler.Invoke(this,EventArgs.Empty);
+            eventHandler.Invoke(this,new LogonEventArgs(null));
 
             Assert.IsTrue(updated);
-            Assert.IsTrue(modelDifferenceModule.PersistentApplicationModelUpdated);
+            Assert.IsTrue((bool) modelDifferenceModule.PersistentApplicationModelUpdated);
             Assert.IsTrue(commited);
 
         }

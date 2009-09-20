@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 using MbUnit.Framework;
 using TypeMock;
 using TypeMock.ArrangeActAssert;
@@ -13,11 +14,12 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
     {
         protected EventHandler<EventArgs> eventHandler;
         protected XafApplication application;
-        protected ModelDifferenceModule modelDifferenceModule;
+        protected ModelDifferenceBaseModule<XpoModelDictionaryDifferenceStore> modelDifferenceModule;
         [SetUp]
         public override void Setup(){
             base.Setup();
-            modelDifferenceModule = new ModelDifferenceModule();
+            modelDifferenceModule =
+                                    Isolate.Fake.Instance<ModelDifferenceBaseModule<XpoModelDictionaryDifferenceStore>>();
             application = Isolate.Fake.Instance<XafApplication>();
             Session session = Session.DefaultSession;
             

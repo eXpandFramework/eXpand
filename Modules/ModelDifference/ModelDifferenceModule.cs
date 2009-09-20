@@ -9,7 +9,6 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
-using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using System.Linq;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.ModelDifference.DictionaryStores;
@@ -18,7 +17,7 @@ namespace eXpand.ExpressApp.ModelDifference{
     
     public sealed partial class ModelDifferenceModule : ModuleBase
     {
-        private bool _persistentApplicationModelUpdated;
+        
 
         public const string CreateCustomModelStore = "CreateCustomModelStore";
         public const string CreateCustomUserModelStore = "CreateCustomUserModelStore";
@@ -70,34 +69,17 @@ namespace eXpand.ExpressApp.ModelDifference{
             typesInfo.RefreshInfo(classType);
         }
 
-        public bool PersistentApplicationModelUpdated{
-            get { return _persistentApplicationModelUpdated; }
-        }
 
         public override void Setup(XafApplication application)
         {
             
             base.Setup(application);
             
-            application.LoggingOn += (sender, args) =>{
-                                             if (!PersistentApplicationModelUpdated){
-                                                 PersistentApplication persistentApplication = UpdatePersistentApplication(application,GetPersistentApplication(application));
-                                                 ObjectSpace findObjectSpace = ObjectSpace.FindObjectSpace(persistentApplication);
-                                                 findObjectSpace.CommitChanges();
-                                                 findObjectSpace.Session.Disconnect();
-                                                 findObjectSpace.Dispose();
-                                                 _persistentApplicationModelUpdated = true;
-                                             }
-                                             
-                                         };            
-            application.LoggingOn+=ApplicationOnLoggingOn;
+
             application.CreateCustomUserModelDifferenceStore+=ApplicationOnCreateCustomUserModelDifferenceStore;
             
         }
 
-        private void ApplicationOnLoggingOn(object sender, LogonEventArgs args){
-            
-        }
 
 
         [CoverageExclude]
@@ -111,10 +93,6 @@ namespace eXpand.ExpressApp.ModelDifference{
                     </Element>";
             return new Schema(new DictionaryXmlReader().ReadFromString(s));
         }
-
-
-
-
 
         private void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs args)
         {
@@ -133,24 +111,6 @@ namespace eXpand.ExpressApp.ModelDifference{
             return s.TrimEnd(';');
         }
 
-        public PersistentApplication UpdatePersistentApplication(XafApplication application,PersistentApplication persistentApplication){
-            if (persistentApplication== null){
-                ObjectSpace objectSpace = application.CreateObjectSpace();
-                    persistentApplication=new PersistentApplication(objectSpace.Session);
-                
-            }
-            persistentApplication.Model = application.Model;
-            persistentApplication.UniqueName = application.GetType().FullName;
-            if (string.IsNullOrEmpty(persistentApplication.Name))
-                persistentApplication.Name = application.Title;
-            return persistentApplication;
-        }
 
-        public PersistentApplication GetPersistentApplication(XafApplication application){
-            ObjectSpace objectSpace = application.CreateObjectSpace();
-                PersistentApplication persistentApplication = new QueryPersistentApplication(objectSpace.Session).Find(application.GetType().FullName) ?? new PersistentApplication(objectSpace.Session);
-            
-            return persistentApplication;
-        }
     }
 }
