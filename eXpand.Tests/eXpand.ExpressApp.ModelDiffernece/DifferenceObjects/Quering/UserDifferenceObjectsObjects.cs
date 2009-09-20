@@ -56,6 +56,5 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Queri
             objects.Add(userStoreObject);
             return objects;
         }
-
     }
 }

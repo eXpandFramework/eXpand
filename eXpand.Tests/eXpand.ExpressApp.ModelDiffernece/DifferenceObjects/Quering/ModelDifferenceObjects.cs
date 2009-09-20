@@ -55,5 +55,21 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Queri
 
             Assert.IsNull(difference);
         }
+        [Test]
+        [Isolated]
+        public void ActiveDifferenceOBjects_Will_Be_Sorted_By_Combining_Order()
+        {
+            var persistentApplication = new PersistentApplication(Session.DefaultSession){UniqueName = "AppName"};
+            var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession){CombineOrder = 1,PersistentApplication = persistentApplication};
+            modelDifferenceObject.Save();
+            var modelDifferenceObject1 = new ModelDifferenceObject(Session.DefaultSession){CombineOrder = 0,PersistentApplication = persistentApplication};
+            modelDifferenceObject1.Save();
+
+            IQueryable<ModelDifferenceObject> modelDifferenceObjects = new QueryModelDifferenceObject(Session.DefaultSession).GetActiveModelDifferences("AppName");
+
+            Assert.AreEqual(modelDifferenceObject1, modelDifferenceObjects.ToList()[0]);
+            Assert.AreEqual(modelDifferenceObject, modelDifferenceObjects.ToList()[1]);
+        }
+
     }
 }

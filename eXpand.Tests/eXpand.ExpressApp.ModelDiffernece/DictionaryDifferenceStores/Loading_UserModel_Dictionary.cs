@@ -54,7 +54,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
 
 
 
-            var modelDifferenceObject = new UserModelDifferenceObject(Session.DefaultSession) { Model = DefaultDictionary, PersistentApplication = new PersistentApplication(Session.DefaultSession) { Model = new Dictionary(Schema.GetCommonSchema()) } };
+            var modelDifferenceObject = new UserModelDifferenceObject(Session.DefaultSession) { Model = DefaultDictionary, PersistentApplication = new PersistentApplication(Session.DefaultSession) { Model = PersistentAppDictionary } };
             Isolate.WhenCalled(() => store.GetActiveDifferenceObjects()).
                 WillReturnCollectionValuesOf(new List<ModelDifferenceObject>{
                                                                           modelDifferenceObject,
@@ -69,6 +69,5 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             Assert.IsNotNull(wrapper.FindClassByName("MyClass2"));
             
         }
-
     }
 }

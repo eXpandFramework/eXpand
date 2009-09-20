@@ -7,6 +7,7 @@ using DevExpress.Xpo;
 using eXpand.ExpressApp.Attributes;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.Persistent.Base;
+using System;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
     [VisibleInReports(false)]
@@ -21,7 +22,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         {
         }
 
-
+        
         public bool NonPersistent
         {
             get { return nonPersistent; }

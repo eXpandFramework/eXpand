@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
@@ -43,16 +44,24 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             foreach (var aspect in Application.Model.Aspects){
                 dictionary.AddAspect(aspect, new DictionaryNode("Application"));
             }
-            var activeAspectObjects = GetActiveDifferenceObjects();
-            if (activeAspectObjects.Count() == 0){
+            var modelDifferenceObjects = GetActiveDifferenceObjects().ToList();
+            if (modelDifferenceObjects.Count() == 0){
                 SaveDifference(dictionary);
                 return dictionary;
             }
-            foreach (ModelDifferenceObject modelStoreObject in activeAspectObjects){
-                var combiner = new DictionaryCombiner(dictionary);
-                combiner.AddAspects(modelStoreObject);
+            return CombineWithActiveDifferenceObjects(modelDifferenceObjects);
+//            Dictionary combinedModel = activeAspectObjects[0].GetCombinedModel();
+//            foreach (ModelDifferenceObject modelStoreObject in activeAspectObjects){
+//                combinedModel.CombineWith(modelStoreObject);
+//            }
+        }
+
+        public Dictionary CombineWithActiveDifferenceObjects(List<ModelDifferenceObject> modelDifferenceObjects){
+            Dictionary combinedModel = modelDifferenceObjects[0].GetCombinedModel();
+            foreach (var modelDifferenceObject in modelDifferenceObjects){
+                combinedModel.CombineWith(modelDifferenceObject.Model);
             }
-            return dictionary;
+            return combinedModel.GetDiffs();
         }
 
         protected internal override ModelDifferenceObject GetNewDifferenceObject(Session session){

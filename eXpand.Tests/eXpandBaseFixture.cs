@@ -9,6 +9,7 @@ namespace eXpand.Tests{
     public abstract class eXpandBaseFixture{
         
         protected const string DefaultClassXml = "<Application><BOModel><Class Name=\"MyClass\" Caption=\"Default\"></Class></BOModel></Application>";
+        protected const string PersistentAppClassXml = "<Application><BOModel><Class Name=\"MyClass\"></Class></BOModel></Application>";
         protected const string DefaultClassXml2 = "<Application><BOModel><Class Name=\"MyClass2\" Caption=\"Default\" IsNewNode=\"True\"></Class></BOModel></Application>";
         protected const string elClassXml = "<Application><BOModel><Class Name=\"MyClass\" Caption=\"el\"></Class></BOModel></Application>";
         protected Dictionary DefaultDictionary;
@@ -16,12 +17,16 @@ namespace eXpand.Tests{
         protected Dictionary elDictionary;
         private SimpleDataLayer dataLayer;
         private DataSet dataSet;
+        protected Dictionary PersistentAppDictionary;
+
         [SetUp]
         public virtual void Setup()
         {
             DictionaryNode.ReaderWriterLockWrapperCreator = new ReaderWriterLockWrapper();
             elDictionary = new Dictionary(new DictionaryXmlReader().ReadFromString(elClassXml), Schema.GetCommonSchema());
             DefaultDictionary = new Dictionary(new DictionaryXmlReader().ReadFromString(DefaultClassXml),
+                                               Schema.GetCommonSchema());
+            PersistentAppDictionary = new Dictionary(new DictionaryXmlReader().ReadFromString(PersistentAppClassXml),
                                                Schema.GetCommonSchema());
             DefaultDictionary2 = new Dictionary(new DictionaryXmlReader().ReadFromString(DefaultClassXml2),
                                                Schema.GetCommonSchema());

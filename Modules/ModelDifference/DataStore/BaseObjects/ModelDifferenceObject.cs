@@ -31,7 +31,18 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         {
         }
 
-
+        private int combineOrder;
+        public int CombineOrder
+        {
+            get
+            {
+                return combineOrder;
+            }
+            set
+            {
+                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref combineOrder, value);
+            }
+        }
         private PersistentApplication persistentApplication;
 
 //        private Dictionary _model = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema());
