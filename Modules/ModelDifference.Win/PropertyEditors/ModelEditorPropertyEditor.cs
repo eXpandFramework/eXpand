@@ -32,7 +32,8 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         internal void ModifyCurrentObjectModel(){
             if (Control.Controller.IsModified){
                 Dictionary diffs = Control.Controller.Dictionary.GetDiffs();
-                var model = CurrentObject.GetCombinedModel();
+                var model = CurrentObject.PersistentApplication.Model.Clone();
+                model.ResetIsModified();
                 model.CombineWith(diffs);
                 isModifying = true;
                 CurrentObject.Model = model.GetDiffs();
