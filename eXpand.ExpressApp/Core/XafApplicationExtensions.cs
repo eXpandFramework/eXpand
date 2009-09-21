@@ -11,23 +11,6 @@ namespace eXpand.ExpressApp.Core
             ObjectSpace objectSpace = xafApplication.CreateObjectSpace();
             return xafApplication.CreateDetailView(objectSpace, Activator.CreateInstance(objectType, new object[] { objectSpace.Session }));
         }
-        //public static void InitializeXPObjectTypes(this XafApplication xafApplication,UnitOfWork unit)
-        //{
-        //    foreach (var classInfo in unit.Dictionary.Classes)
-        //    {
-        //        var classInfo1 = classInfo as XPClassInfo;
-        //        if (classInfo1 != null && classInfo1.ClassType != null)
-        //        {
-        //            object o = unit.FindObject(typeof(XAFPObjectType),
-        //                                       new GroupOperator(
-        //                                           new BinaryOperator("AssemblyName", classInfo1.AssemblyName),
-        //                                           new BinaryOperator("TypeName", classInfo1.ClassType.Name)));
-        //            if (o == null && classInfo1.ClassType != null)
-        //                new XAFPObjectType(unit) { AssemblyName = classInfo1.AssemblyName, TypeName = classInfo1.ClassType.Name };
-        //        }
-        //    }
-        //    unit.CommitChanges();
-        //}
 
         public static void DatabaseVersionMismatchEvent(this XafApplication xafApplication, object sender, DatabaseVersionMismatchEventArgs e)
         {

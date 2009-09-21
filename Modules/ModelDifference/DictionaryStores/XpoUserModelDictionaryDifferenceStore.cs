@@ -57,7 +57,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         }
 
         public Dictionary CombineWithActiveDifferenceObjects(List<ModelDifferenceObject> modelDifferenceObjects){
-            Dictionary combinedModel = modelDifferenceObjects[0].GetCombinedModel();
+            Dictionary combinedModel = modelDifferenceObjects[0].GetCombinedModel(Application.Model);
             foreach (var modelDifferenceObject in modelDifferenceObjects){
                 combinedModel.CombineWith(modelDifferenceObject.Model);
             }

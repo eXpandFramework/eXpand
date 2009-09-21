@@ -30,7 +30,8 @@ namespace eXpand.ExpressApp.ModelDifference{
                 ((UnitOfWork) persistentApplication.Session).CommitChanges();
                 PersistentApplicationModelUpdated = true;
             }
-            Application.Model.CombineWith(getModelDiffs().Dictionary);
+            Dictionary dictionary = getModelDiffs().Dictionary;
+            Application.Model.CombineWith(dictionary);
         }
 
         protected internal abstract bool? PersistentApplicationModelUpdated { get; set; }

@@ -14,22 +14,22 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            Model = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema());
+//            Model = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema());
         }
-        [Delayed]
-        [Size(SizeAttribute.Unlimited)]
-        [ValueConverter(typeof(ValueConverters.DictionaryValueConverter))]
-        public Dictionary Model
-        {
-            get
-            {
-                return GetDelayedPropertyValue<Dictionary>("Model");
-            }
-            set
-            {
-                SetDelayedPropertyValue("Model",value);
-            }
-        }
+//        [Delayed]
+//        [Size(SizeAttribute.Unlimited)]
+//        [ValueConverter(typeof(ValueConverters.DictionaryValueConverter))]
+//        public Dictionary Model
+//        {
+//            get
+//            {
+//                return GetDelayedPropertyValue<Dictionary>("Model");
+//            }
+//            set
+//            {
+//                SetDelayedPropertyValue("Model",value);
+//            }
+//        }
 
     }
 }

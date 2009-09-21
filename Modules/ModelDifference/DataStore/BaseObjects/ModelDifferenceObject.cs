@@ -45,20 +45,20 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         }
         private PersistentApplication persistentApplication;
 
-//        private Dictionary _model = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema());
-//        [Size(SizeAttribute.Unlimited)]
-//        [ValueConverter(typeof(ValueConverters.DictionaryValueConverter))]
-//        public Dictionary Model
-//        {
-//            get
-//            {
-//                return _model;
-//            }
-//            set
-//            {
-//                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _model, value);
-//            }
-//        }
+        private Dictionary _model = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema());
+        [Size(SizeAttribute.Unlimited)]
+        [ValueConverter(typeof(ValueConverters.DictionaryValueConverter))]
+        public Dictionary Model
+        {
+            get
+            {
+                return _model;
+            }
+            set
+            {
+                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _model, value);
+            }
+        }
 
 
         
@@ -160,10 +160,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         }
         public Dictionary GetCombinedModel()
         {
-            Dictionary dictionary = PersistentApplication.Model.Clone();
-            dictionary.ResetIsModified();
-            dictionary.CombineWith(Model);
-            return dictionary;
+            return GetCombinedModel(PersistentApplication.Model.Clone());
         }
 
         public virtual ModelDifferenceObject InitializeMembers(string applicationName,string uniqueName){
@@ -173,6 +170,11 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             return this;
         }
 
+        public Dictionary GetCombinedModel(Dictionary dictionary){
+            dictionary.ResetIsModified();
+            dictionary.CombineWith(Model);
+            return dictionary;
+        }
     }
 
 }
