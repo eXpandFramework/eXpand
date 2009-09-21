@@ -36,10 +36,9 @@
 */
 #endregion Copyright (c) 2000-2009 Developer Express Inc.
 using DevExpress.Xpo;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl{
-    public class PropertyBagDescriptor : TaxonomyBaseObject{
+    public class PropertyBagDescriptor : BaseObject{
         public PropertyBagDescriptor(Session session) : base(session) {}
 
         [Aggregated]

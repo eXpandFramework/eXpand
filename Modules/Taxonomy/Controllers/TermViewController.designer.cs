@@ -1,9 +1,15 @@
-namespace Foxhound.ExpressApp.Administration {
-    partial class FoxhoundAdministrationModule {
-        /// <summary> 
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
+using eXpand.ExpressApp.Taxonomy.BaseObjects;
+
+namespace eXpand.ExpressApp.Taxonomy.Controllers{
+    partial class TermViewController {
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+
+        private SimpleAction executeTaxonomyQueryAction;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -18,18 +24,15 @@ namespace Foxhound.ExpressApp.Administration {
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            // 
-            // FoxhoundAdministrationModule
-            // 
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.Taxonomy.TaxonomyModule));
+            this.components = new System.ComponentModel.Container();
 
+            TargetViewType = ViewType.ListView;
+            TargetObjectType = typeof(Term);
         }
         #endregion
     }

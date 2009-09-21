@@ -6,14 +6,12 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using eXpand.Persistent.BaseImpl;
 using eXpand.Persistent.TaxonomyImpl;
 using eXpand.Xpo;
 
 
 namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
     [Serializable]
-    [DefaultClassOptions]
     public class TaxonomyQuery : eXpandLiteObject {
         private string criteriaOnProperties;
         private string criteriaOnTerms;
@@ -78,7 +76,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
 
         public CriteriaOperator ParseCriteria(params object[] args){
             return new GroupOperator(GroupOperatorType.And, new[]{
-                                                                     new BinaryOperator("Taxonomy.Key", Taxonomy.Key),
+                                                                     new BinaryOperator("Taxonomy.Term", Taxonomy.Key),
                                                                      CriteriaOperator.Parse(PrepareCriteriaString(CriteriaOnTerms, args)),
                                                                      new ContainsOperator("KeyValuePairs", CriteriaOperator.Parse(PrepareCriteriaString(CriteriaOnProperties, args)))
                                                                  }

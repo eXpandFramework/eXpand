@@ -5,13 +5,12 @@ using System.Xml.Serialization;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl{
 
     [DefaultProperty("FullAddress")]
     [CalculatedPersistentAlias("FullAddress", "FullAddressPersistentAlias")]
-    public class Address : TaxonomyBaseObject, IAddress{
+    public class Address : BaseObject, IAddress{
         private const string defaultFullAddressFormat = "{Country.Name}; {StateProvince}; {City}; {Street}; {ZipPostal}";
         private const string defaultfullAddressPersistentAlias = "Country.Name + StateProvince + City + Street + ZipPostal";
 

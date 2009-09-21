@@ -40,11 +40,10 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl{
     [DefaultProperty("Subject")]
-    public class Task : TaxonomyBaseObject, ITask{
+    public class Task : BaseObject, ITask{
         private readonly TaskImpl task = new TaskImpl();
         private Party assignedTo;
 #if MediumTrust

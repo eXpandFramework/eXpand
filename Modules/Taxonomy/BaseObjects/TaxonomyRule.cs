@@ -4,7 +4,6 @@ using DevExpress.Xpo;
 using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
-    [DefaultClassOptions]
     public class TaxonomyRule : eXpandLiteObject{
         private string _typeOfObject;
         private string propertyName;

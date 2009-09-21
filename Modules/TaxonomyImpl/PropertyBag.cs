@@ -40,11 +40,10 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl{
     [Browsable(false)]
-    public class PropertyBag : TaxonomyBaseObject, IPropertyBag{
+    public class PropertyBag : BaseObject, IPropertyBag{
         private readonly PropertyBagImpl propertyBag;
 
         public PropertyBag(Session session)

@@ -45,10 +45,9 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl {
-    public class HCategory : TaxonomyBaseObject, IHCategory {
+    public class HCategory : BaseObject, IHCategory {
         private string name;
         private HCategory parent;
         private void CheckCircularReferences(HCategory obj) {

@@ -1,5 +1,5 @@
 namespace eXpand.ExpressApp.Taxonomy.Win.Controllers{
-    partial class ViewController1
+    partial class TermWinViewController
     {
         /// <summary>
         /// Required designer variable.
@@ -27,7 +27,7 @@ namespace eXpand.ExpressApp.Taxonomy.Win.Controllers{
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            
         }
 
         #endregion

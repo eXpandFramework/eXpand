@@ -41,11 +41,10 @@ using System.ComponentModel;
 using DevExpress.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl {
 	[DefaultProperty("Number")]
-	public class PhoneNumber : TaxonomyBaseObject, IPhoneNumber {
+	public class PhoneNumber : BaseObject, IPhoneNumber {
 		private PhoneNumberImpl phone = new PhoneNumberImpl();
 		private Party party = null;
 		public PhoneNumber(Session session) : base(session) { }
@@ -76,7 +75,7 @@ namespace eXpand.Persistent.TaxonomyImpl {
 			}
 		}
 	}
-	public class PhoneType : TaxonomyBaseObject {
+	public class PhoneType : BaseObject {
 		public PhoneType(Session session) : base(session) { }
 		private string typeName;
 		public string TypeName {

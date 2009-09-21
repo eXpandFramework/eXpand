@@ -5,13 +5,12 @@ using System.ComponentModel;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using DevExpress.Persistent.Base;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 using eXpand.Xpo;
 
 namespace eXpand.Persistent.TaxonomyImpl {
 	[MapInheritance(MapInheritanceType.OwnTable)]
 	[DefaultProperty("DisplayName")]
-    public abstract class Party : TaxonomyBaseObject
+    public abstract class Party : BaseObject
     {
 		private Address address1;
 		private Address address2;

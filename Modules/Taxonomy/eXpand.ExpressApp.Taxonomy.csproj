@@ -71,6 +71,10 @@
     <Reference Include="DevExpress.ExpressApp.Validation.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v9.2, Version=9.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\WINDOWS\assembly\GAC_MSIL\DevExpress.ExpressApp.ViewVariantsModule.v9.2\9.2.5.0__c52ffed5d5ff0958\DevExpress.ExpressApp.ViewVariantsModule.v9.2.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Persistent.Base.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -86,17 +90,25 @@
     <Reference Include="DevExpress.XtraEditors.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="eXpand.ExpressApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
+    <Reference Include="eXpand.ExpressApp, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.dll</HintPath>
     </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="eXpand.Persistent.TaxonomyImpl, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.Utils, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.Xpo, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -121,14 +133,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseObjects\Associations.cs" />
-    <Compile Include="BaseObjects\TaxonomyBaseObjectInfo.cs" />
-    <Compile Include="BaseObjects\StartWithPathTaxonomyQueryImpl.cs" />
+    <Compile Include="BaseObjects\TermAssignment.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="BaseObjects\StructuralTerm.cs" />
     <Compile Include="BaseObjects\Taxonomy.cs" />
-    <Compile Include="BaseObjects\TaxonomyBaseObject.cs" />
-    <Compile Include="BaseObjects\TaxonomyQuery.cs" />
-    <Compile Include="BaseObjects\TaxonomyRule.cs" />
     <Compile Include="BaseObjects\Term.cs" />
+    <Compile Include="BaseObjects\TermBase.cs" />
+    <Compile Include="Controllers\TermViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\TermViewController.designer.cs">
+      <DependentUpon>TermViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="TaxonomyModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -175,15 +192,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TaxonomyImpl\eXpand.Persistent.TaxonomyImpl.csproj">
-      <Project>{2F1A2032-5042-46A5-BDBD-30608B79F919}</Project>
-      <Name>eXpand.Persistent.TaxonomyImpl</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

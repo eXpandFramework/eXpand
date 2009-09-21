@@ -39,10 +39,9 @@ using System;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.AuditTrail;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl{
-    public class AuditDataItemPersistent : TaxonomyBaseObject, IAuditDataItemPersistent<AuditedObjectWeakReference>{
+    public class AuditDataItemPersistent : BaseObject, IAuditDataItemPersistent<AuditedObjectWeakReference>{
         private AuditedObjectWeakReference auditedObject;
         private AuditOperationType auditOperationType;
         private XPDelayedProperty description = new XPDelayedProperty();

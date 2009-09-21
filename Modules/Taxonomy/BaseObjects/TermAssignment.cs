@@ -1,29 +1,48 @@
 using System;
+using System.Reflection;
 using System.Xml.Serialization;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
+using eXpand.Persistent.TaxonomyImpl;
+using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
-    [DefaultClassOptions]
     [Serializable]
-    public class TermAssignment : TaxonomyBaseObjectInfo {
-        private Term valueTerm;
-        
-        public TermAssignment(Session session) : base(session) {}
+    public class TermAssignment : BaseObjectInfo{ //}, ICategorizedItem {
+        private Term term;
+        public TermAssignment() {}
 
+        public TermAssignment(Session session) : base(session) { }
 
-        [Association("TermAssignmentValues")]
         [XmlIgnore]
-        public Term ValueTerm{
-            get { return valueTerm; }
-            set { SetPropertyValue("ValueTerm", ref valueTerm, value); }
+        [Association(Associations.TermTermAssignments)]
+        public Term Term{
+            get { return term; }
+            set { SetPropertyValue("Term", ref term, value); }
         }
 
-        protected override void OnChanged(string propertyName, object oldValue, object newValue) {
-            base.OnChanged(propertyName, oldValue, newValue);
-            if (valueTerm != null){
-                Value = valueTerm.FullPath;
-            }
+        public override string Key{
+            get { return term.Key; }
+            set { throw new NotImplementedException(); }
         }
+
+        public override string Value{
+            get { return term.FullPath; }
+            set { throw new NotImplementedException(); }
+        }
+
+        [XmlIgnore]
+        public Term Category{
+            get { return term; }
+            set { term = value; }
+        }
+        //#region ICategorizedItem Members
+        //[XmlIgnore]
+        //ITreeNode ICategorizedItem.Category{
+        //    get { return term; }
+        //    set { term = (Term) value; }
+        //}
+        //#endregion
     }
 }

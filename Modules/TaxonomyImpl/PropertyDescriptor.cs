@@ -39,10 +39,9 @@ using System;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl{
-    public class PropertyDescriptor : TaxonomyBaseObject, IPropertyDescriptor{
+    public class PropertyDescriptor : BaseObject, IPropertyDescriptor{
         private string code;
         private PropertyDescriptorImpl propertyDescriptor;
 

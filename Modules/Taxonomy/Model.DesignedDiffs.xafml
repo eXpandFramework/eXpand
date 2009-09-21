@@ -1,17 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application>
+	<NavigationItems NavigationStyle="TreeList" Current="">
+		<Item ID="Default">
+			<Item ID="Taxonomy_ListView" Removed="True" />
+			<Item ID="Term_ListView" Removed="True" />
+		</Item>
+		<Item ID="Taxonomies" Caption="Taxonomies" IsNewNode="True">
+			<Item ID="AllTerms" Caption="All Terms" IsNewNode="True">
+				<Item ID="StructureTerms" ViewID="StructuralTerm_ListView_Flat" IsNewNode="True" />
+				<Item ID="ValueTerms" Caption="All Value Terms" ViewID="Term_ListView_Flat" IsNewNode="True" />
+			</Item>
+			<Item ID="BrowseTrees" ViewID="" Caption="Browse Trees" ChildItemsDisplayStyle="List" IsNewNode="True">
+				<Item ID="StructureTrees" Caption="Structure Trees" ViewID="StructuralTerm_ListView" IsNewNode="True" />
+				<Item ID="ValueTrees" Caption="Value Trees" ViewID="Term_ListView" IsNewNode="True" />
+			</Item>
+			<Item ID="Taxonomy_ListView" ViewID="Taxonomy_ListView" ObjectKey="" Caption="All Taxonomies" IsNewNode="True" />
+		</Item>
+	</NavigationItems>
 	<SchemaModules IsNewNode="True">
-		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.AutoFilterRowListViewController" Version="9.2.4.0" IsNewNode="True" />
-		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.2.4.0" IsNewNode="True" />
-		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.2.4.0" IsNewNode="True" />
-		<SchemaModule Name="SystemModule" Version="9.2.4.0" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.AutoFilterRowListViewController" Version="9.2.5.0" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.2.5.0" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.2.5.0" IsNewNode="True" />
+		<SchemaModule Name="SystemModule" Version="9.2.5.0" IsNewNode="True" />
+		<SchemaModule Name="ViewVariantsModule" Version="9.2.5.0" IsNewNode="True" />
 	</SchemaModules>
 	<Views>
-		<ListView ID="BaseObjectInfo_ListView">
-			<Filters IsNewNode="True">
-				<Filter ID="OnlyStructural" Criteria="KeyTerm.ObjectType==5" IsNewNode="True" />
-			</Filters>
+		<ListView ID="StructuralTerm_ListView_Flat" ClassName="eXpand.ExpressApp.Taxonomy.BaseObjects.StructuralTerm" IsGroupPanelVisible="False" AutoExpandAllGroups="False" IsFooterVisible="True" IsNewNode="True">
+			<Columns IsNewNode="True">
+				<ColumnInfo PropertyName="FullPath" Width="70" Index="-1" IsNewNode="True" />
+				<ColumnInfo PropertyName="Key" Width="70" Index="-1" IsNewNode="True" />
+				<ColumnInfo PropertyName="Level" Width="50" Index="-1" IsNewNode="True" />
+				<ColumnInfo PropertyName="Name" Width="400" Index="0" SortIndex="0" SortOrder="Ascending" IsNewNode="True" />
+				<ColumnInfo PropertyName="Oid" Width="70" Index="-1" IsNewNode="True" />
+				<ColumnInfo PropertyName="ParentTerm" Width="70" Index="-1" IsNewNode="True" />
+				<ColumnInfo PropertyName="RelativePath" Width="70" Index="-1" IsNewNode="True" />
+				<ColumnInfo PropertyName="Taxonomy" Width="70" Index="-1" IsNewNode="True" />
+				<ColumnInfo PropertyName="TypeOfObject" Width="70" Index="1" IsNewNode="True" />
+			</Columns>
+			<SplitLayout Direction="Horizontal" IsNewNode="True" />
+			<Variants Current="Default" IsNewNode="True">
+				<Variant ID="Default" Caption="Default" ViewID="StructuralTerm_ListView" IsNewNode="True" />
+			</Variants>
 		</ListView>
-		<ListView ID="StructuralTerm_ListView" Caption="Browse Taxonomies" />
+		<ListView ID="Term_ListView_Flat" ClassName="eXpand.ExpressApp.Taxonomy.BaseObjects.Term" IsGroupPanelVisible="False" AutoExpandAllGroups="False" IsFooterVisible="True" IsNewNode="True">
+			<Columns IsNewNode="True">
+				<ColumnInfo PropertyName="FullPath" Width="70" Index="-1" IsNewNode="True" />
+				<ColumnInfo PropertyName="Key" Width="70" Index="-1" IsNewNode="True" />
+				<ColumnInfo PropertyName="Level" Width="50" Index="-1" IsNewNode="True" />
+				<ColumnInfo PropertyName="Name" Width="400" Index="0" SortIndex="0" SortOrder="Ascending" IsNewNode="True" />
+				<ColumnInfo PropertyName="Oid" Width="70" Index="-1" IsNewNode="True" />
+				<ColumnInfo PropertyName="ParentTerm" Width="70" Index="-1" IsNewNode="True" />
+				<ColumnInfo PropertyName="RelativePath" Width="70" Index="-1" IsNewNode="True" />
+				<ColumnInfo PropertyName="StructuralTerm" Width="70" Index="1" IsNewNode="True" />
+				<ColumnInfo PropertyName="Taxonomy" Width="70" Index="-1" IsNewNode="True" />
+			</Columns>
+			<SplitLayout Direction="Horizontal" IsNewNode="True" />
+			<Variants Current="Default" IsNewNode="True">
+				<Variant ID="Default" Caption="Default" ViewID="Term_ListView" IsNewNode="True" />
+			</Variants>
+		</ListView>
 	</Views>
 </Application>

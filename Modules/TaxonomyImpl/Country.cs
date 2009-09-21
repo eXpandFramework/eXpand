@@ -38,11 +38,10 @@
 using System.ComponentModel;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl{
     [DefaultProperty("Name")]
-    public class Country : TaxonomyBaseObject, ICountry{
+    public class Country : BaseObject, ICountry{
         private string name;
         private string phoneCode;
         public Country(Session session) : base(session) {}
@@ -69,7 +68,7 @@ namespace eXpand.Persistent.TaxonomyImpl{
     }
 
     [DefaultProperty("LongName")]
-    public class State : TaxonomyBaseObject{
+    public class State : BaseObject{
         private string longName = "";
         private string shortName = "";
         public State(Session session) : base(session) {}

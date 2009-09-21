@@ -1,5 +1,5 @@
-namespace Foxhound.ExpressApp.Administration {
-    partial class FoxhoundAdministrationModule {
+namespace eXpand.ExpressApp.Taxonomy.Web {
+    partial class TaxonomyWebModule {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -23,14 +23,8 @@ namespace Foxhound.ExpressApp.Administration {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            // 
-            // FoxhoundAdministrationModule
-            // 
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.Taxonomy.TaxonomyModule));
-
         }
+
         #endregion
     }
 }

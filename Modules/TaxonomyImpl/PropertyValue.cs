@@ -39,11 +39,10 @@ using System;
 using System.ComponentModel;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl{
     [Browsable(false)]
-    public class PropertyValue : TaxonomyBaseObject, IPropertyValue{
+    public class PropertyValue : BaseObject, IPropertyValue{
         private PropertyBag bag;
         private PropertyDescriptor descriptor;
         private PropertyValueImpl propertyValue;

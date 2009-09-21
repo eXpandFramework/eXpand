@@ -43,12 +43,11 @@ using DevExpress.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.Utils;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl{
     [Persistent]
     [DefaultProperty("FileName")]
-    public class FileData : TaxonomyBaseObject, IFileData, IEmptyCheckable {
+    public class FileData : BaseObject, IFileData, IEmptyCheckable {
 #if MediumTrust
 		private int size;
 		private string fileName = "";

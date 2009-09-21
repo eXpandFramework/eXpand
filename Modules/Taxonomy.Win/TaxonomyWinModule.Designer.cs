@@ -1,3 +1,4 @@
+
 using eXpand.ExpressApp.Win.SystemModule;
 
 namespace eXpand.ExpressApp.Taxonomy.Win {
@@ -25,13 +26,14 @@ namespace eXpand.ExpressApp.Taxonomy.Win {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.RequiredModuleTypes.Add(typeof(eXpandSystemWindowsFormsModule));
+            // 
+            // TaxonomyWinModule
+            // 
+            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.Win.SystemModule.eXpandSystemWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.Taxonomy.TaxonomyModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditorsWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(TaxonomyModule));
-            
 
         }
-
         #endregion
     }
 }

@@ -48,11 +48,10 @@ using DevExpress.Data.Filtering;
 using System.Xml.Serialization;
 using System.IO;
 using DevExpress.Persistent.Validation;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl {
 	[DefaultProperty("Subject")]
-	public class Event : TaxonomyBaseObject, IEvent, ISupportRecurrences {
+	public class Event : BaseObject, IEvent, ISupportRecurrences {
 #if MediumTrust
 		[Persistent("ResourceIds"), Size(SizeAttribute.Unlimited), ObjectValidatorIgnoreIssue(typeof(ObjectValidatorLargeNonDelayedMember))]
 		public String resourceIds;

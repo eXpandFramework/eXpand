@@ -39,11 +39,10 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl{
     [DefaultProperty("File"), NonPersistent, FileAttachment("File")]
-    public abstract class FileAttachmentBase : TaxonomyBaseObject{
+    public abstract class FileAttachmentBase : BaseObject{
         protected FileAttachmentBase(Session session) : base(session) {}
 
         [RuleRequiredField("FileAttachmentBaseRule", "Save", "File should be assigned")]

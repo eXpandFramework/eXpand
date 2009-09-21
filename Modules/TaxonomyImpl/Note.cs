@@ -41,11 +41,10 @@ using DevExpress.Xpo;
 using System.ComponentModel;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.Base;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl {
 	[DefaultProperty("Text")]
-	public class Note : TaxonomyBaseObject, INote {
+	public class Note : BaseObject, INote {
 		private NoteImpl note = new NoteImpl();
 		public Note(Session session) : base(session) {}
 		public string Author {

@@ -25,11 +25,13 @@ namespace eXpand.ExpressApp.Taxonomy {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.RequiredModuleTypes.Add(typeof(eXpandSystemModule));
-            
+            // 
+            // TaxonomyModule
+            // 
+            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.SystemModule.eXpandSystemModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule));
 
-        }
-
+            }
         #endregion
     }
 }

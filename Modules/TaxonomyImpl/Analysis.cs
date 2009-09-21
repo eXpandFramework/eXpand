@@ -42,7 +42,6 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl{
     public class DimensionPropertiesList : Collection<string>{
@@ -79,7 +78,7 @@ namespace eXpand.Persistent.TaxonomyImpl{
         public event EventHandler ListChanged;
     }
 
-    public class Analysis : TaxonomyBaseObject, IAnalysisInfo{
+    public class Analysis : BaseObject, IAnalysisInfo{
         private const string PropertiesSeparator = ";";
         private readonly DimensionPropertiesList dimensionProperties = new DimensionPropertiesList();
         private string criteria;

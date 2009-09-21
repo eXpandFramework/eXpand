@@ -40,11 +40,10 @@ using System.ComponentModel;
 using System.Drawing;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.Taxonomy.BaseObjects;
 
 namespace eXpand.Persistent.TaxonomyImpl{
     [DefaultProperty("Caption")]
-    public class Resource : TaxonomyBaseObject, IResource{
+    public class Resource : BaseObject, IResource{
 #if MediumTrust
 		[Persistent("Color")]
 		[Browsable(false)]
