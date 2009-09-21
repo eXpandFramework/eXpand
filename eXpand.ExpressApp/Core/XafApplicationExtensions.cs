@@ -31,6 +31,7 @@ namespace eXpand.ExpressApp.Core
 
         public static void DatabaseVersionMismatchEvent(this XafApplication xafApplication, object sender, DatabaseVersionMismatchEventArgs e)
         {
+
             try
             {
                 e.Updater.Update();

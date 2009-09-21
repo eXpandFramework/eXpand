@@ -1,5 +1,6 @@
 using System;
 using DevExpress.ExpressApp;
+using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.DictionaryStores;
@@ -16,8 +17,8 @@ namespace eXpand.ExpressApp.ModelDifference{
         }
         public PersistentApplication GetPersistentApplication(XafApplication application)
         {
-            ObjectSpace objectSpace = application.CreateObjectSpace();
-            PersistentApplication persistentApplication = new QueryPersistentApplication(objectSpace.Session).Find(application.GetType().FullName) ?? new PersistentApplication(objectSpace.Session);
+            var work = new UnitOfWork{ConnectionString = _connectionString};
+            PersistentApplication persistentApplication = new QueryPersistentApplication(work).Find(application.GetType().FullName) ?? new PersistentApplication(work);
 
             return persistentApplication;
         }
@@ -25,13 +26,8 @@ namespace eXpand.ExpressApp.ModelDifference{
         private void OnLoggingOn(object sender, EventArgs args)
         {
             if ((bool) (!PersistentApplicationModelUpdated)){
-                PersistentApplication application1 = GetPersistentApplication(Application);
-                PersistentApplication persistentApplication = UpdatePersistentApplication(Application,
-                                                                                          application1);
-                ObjectSpace findObjectSpace = ObjectSpace.FindObjectSpace(persistentApplication);
-                findObjectSpace.CommitChanges();
-                findObjectSpace.Session.Disconnect();
-                findObjectSpace.Dispose();
+                PersistentApplication persistentApplication = UpdatePersistentApplication(Application);
+                ((UnitOfWork) persistentApplication.Session).CommitChanges();
                 PersistentApplicationModelUpdated = true;
             }
             Application.Model.CombineWith(getModelDiffs().Dictionary);
@@ -40,14 +36,9 @@ namespace eXpand.ExpressApp.ModelDifference{
         protected internal abstract bool? PersistentApplicationModelUpdated { get; set; }
             
 
-        public PersistentApplication UpdatePersistentApplication(XafApplication application, PersistentApplication persistentApplication)
+        public PersistentApplication UpdatePersistentApplication(XafApplication application)
         {
-            if (persistentApplication == null)
-            {
-                ObjectSpace objectSpace = application.CreateObjectSpace();
-                persistentApplication = new PersistentApplication(objectSpace.Session);
-            }
-            
+            PersistentApplication persistentApplication = GetPersistentApplication(Application);
             persistentApplication.Model = application.Model;
             persistentApplication.UniqueName = application.GetType().FullName;
             if (string.IsNullOrEmpty(persistentApplication.Name))
