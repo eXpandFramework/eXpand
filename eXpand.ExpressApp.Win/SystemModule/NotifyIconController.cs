@@ -74,8 +74,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
         public override Schema GetSchema()
         {
             const string CommonTypeInfos = @"<Element Name=""Application"">
-                                                
-                                                <Attribute Name=""CanClose"" Choice=""False,True""/>
                                                 <Element Name=""Options"">
                                                     <Attribute Name=""" +NotifyIconAttributeName+ @""" Choice=""False,True""/>
                                                 </Element>

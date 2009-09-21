@@ -7,23 +7,28 @@ using DevExpress.ExpressApp.Web.SystemModule;
 
 namespace eXpand.ExpressApp.Web.SystemModule
 {
-    public partial class FixWebRecordsNavigationController : WebRecordsNavigationController
+    public partial class FixWebRecordsNavigationController : ViewController
     {
-        protected override void OnDeactivating()
+        private WebRecordsNavigationController controller;
+        protected override void OnActivated()
         {
-            base.OnDeactivating();
+            base.OnActivated();
+            controller = Frame.GetController<WebRecordsNavigationController>();
+            controller.Deactivating+=ControllerOnDeactivating;
+        }
 
+        private void ControllerOnDeactivating(object sender, EventArgs args){
             if (View is ListView)
             {
-                if (OrderProviderSource.OrderProvider is StandaloneOrderProvider)
+                if (controller.OrderProviderSource.OrderProvider is StandaloneOrderProvider)
                 {
-                    var standaloneOrderProvider = (StandaloneOrderProvider) OrderProviderSource.OrderProvider;
+                    var standaloneOrderProvider = (StandaloneOrderProvider)controller.OrderProviderSource.OrderProvider;
 
                     if (standaloneOrderProvider.GetOrderedObjects().Count == 0)
                     {
                         ArrayList list = null;
 
-                        var listView = (ListView) View;
+                        var listView = (ListView)View;
 
                         if (listView.Editor is ASPxGridListEditor)
                         {
@@ -52,10 +57,12 @@ namespace eXpand.ExpressApp.Web.SystemModule
 
                         if (list != null)
 
-                            OrderProviderSource.OrderProvider = new StandaloneOrderProvider(View.ObjectSpace, list);
+                            controller.OrderProviderSource.OrderProvider = new StandaloneOrderProvider(View.ObjectSpace, list);
                     }
                 }
             }
+
         }
+
     }
 }
