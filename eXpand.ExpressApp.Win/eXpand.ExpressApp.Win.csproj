@@ -188,12 +188,6 @@
     <Compile Include="SystemModule\ListViewViewStyleController.Designer.cs">
       <DependentUpon>ListViewViewStyleController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SystemModule\LookUpPropertyEditorViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\LookUpPropertyEditorViewController.Designer.cs">
-      <DependentUpon>LookUpPropertyEditorViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\MasterDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>

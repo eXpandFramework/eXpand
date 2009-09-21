@@ -137,33 +137,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DifferenceTypeObject.cs" />
-    <Compile Include="Controllers\CloneObjectViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\CloneObjectViewController.Designer.cs">
-      <DependentUpon>CloneObjectViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\CombineActiveModelDictionaryController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\CombineDifferencesOnDemandDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\CombineDifferencesOnDemandDetailViewController.Designer.cs">
-      <DependentUpon>CombineDifferencesOnDemandDetailViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\CombineDifferencesOnDemandListViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\CombineDifferencesOnDemandListViewController.Designer.cs">
-      <DependentUpon>CombineDifferencesOnDemandListViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\CombineActiveUserDifferenceWithUserModelController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\CombineActiveUserDifferenceWithUserModelController.Designer.cs">
-      <DependentUpon>CombineActiveUserDifferenceWithUserModelController.cs</DependentUpon>
-    </Compile>
     <Compile Include="CultureDescription.cs" />
     <Compile Include="DataStore\BaseObjects\DifferenceObject.cs" />
     <Compile Include="DataStore\Queries\IQueryDifferenceObject.cs" />
@@ -214,12 +187,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\CombineDifferencesOnDemandDetailViewController.resx">
-      <DependentUpon>CombineDifferencesOnDemandDetailViewController.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controllers\CombineDifferencesOnDemandListViewController.resx">
-      <DependentUpon>CombineDifferencesOnDemandListViewController.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

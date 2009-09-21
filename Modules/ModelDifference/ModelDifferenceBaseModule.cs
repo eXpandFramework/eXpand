@@ -47,6 +47,7 @@ namespace eXpand.ExpressApp.ModelDifference{
                 ObjectSpace objectSpace = application.CreateObjectSpace();
                 persistentApplication = new PersistentApplication(objectSpace.Session);
             }
+            
             persistentApplication.Model = application.Model;
             persistentApplication.UniqueName = application.GetType().FullName;
             if (string.IsNullOrEmpty(persistentApplication.Name))

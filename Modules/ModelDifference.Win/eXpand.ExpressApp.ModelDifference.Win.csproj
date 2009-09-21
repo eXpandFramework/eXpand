@@ -117,12 +117,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\CombineActiveModelDictionaryWithActiveUserDifferenceController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\CombineActiveModelDictionaryWithActiveUserDifferenceController.Designer.cs">
-      <DependentUpon>CombineActiveModelDictionaryWithActiveUserDifferenceController.cs</DependentUpon>
-    </Compile>
     <Compile Include="ModelDifferencewindowsFormsModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -179,6 +173,9 @@
       <Project>{0E40CCB3-7904-4300-BCD6-E34D275E6370}</Project>
       <Name>eXpand.Persistent.Base</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
