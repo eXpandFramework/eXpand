@@ -1,7 +1,5 @@
 using System.ComponentModel;
 using System.Reflection;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 
@@ -13,21 +11,21 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             
         }
 
-        private Dictionary _model = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema());
-                [Delayed]
-                [Size(SizeAttribute.Unlimited)]
-                [ValueConverter(typeof(ValueConverters.DictionaryValueConverter1))]
-                public Dictionary Model
-                {
-                    get
-                    {
-                        return GetDelayedPropertyValue<Dictionary>("Model");
-                    }
-                    set
-                    {
-                        SetDelayedPropertyValue("Model",value);
-                    }
-                }
+//        private Dictionary _model = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema());
+        //        [Delayed]
+//        [Size(SizeAttribute.Unlimited)]
+//        [ValueConverter(typeof(ValueConverters.DictionaryValueConverter))]
+//        public Dictionary Model
+//        {
+//            get
+//            {
+//                return GetDelayedPropertyValue<Dictionary>("Model");
+//            }
+//            set
+//            {
+//                SetDelayedPropertyValue("Model",value);
+//            }
+//        }
 
         [DevExpress.Xpo.DisplayName("Application Name")]
         [RuleRequiredField(null,DefaultContexts.Save)]
