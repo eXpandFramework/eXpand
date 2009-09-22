@@ -11,7 +11,7 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
     public class ViewIdRefNodeProvider : AttributeRefNodeProvider
     {
         private readonly string viewType;
-        private string className;
+        private string classNameAttrPath;
         private readonly string classAssociatedCollections;
         private readonly ExpressionParamsParser paramsParser;
 
@@ -19,8 +19,8 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
         {
             paramsParser = new ExpressionParamsParser(param);
             viewType = paramsParser.GetParamValue("ViewType", "Any");
-            className = paramsParser.GetParamValue("ClassName", "");
-            classAssociatedCollections = paramsParser.GetParamValue("classAssociatedCollections", "All");
+            classNameAttrPath = paramsParser.GetParamValue("ClassName", "");
+            classAssociatedCollections = paramsParser.GetParamValue("Relations", "All");
         }
 
         protected override ReadOnlyDictionaryNodeCollection GetNodesCollectionInternal(DictionaryNode node, string attributeName)
@@ -45,12 +45,11 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
                         wrapper => wrapper is DetailViewInfoNodeWrapper);
                 GetViews(collectionInternal, collections);
             }
-            else if (className!= null&&classAssociatedCollections=="All")
+            else if (classNameAttrPath!= null&&classAssociatedCollections=="All")
             {
-                if (className.Contains("@"))
-                    className = paramsParser.GetAttributeValueByPath(node, className);
+                string className = paramsParser.GetAttributeValueByPath(node, classNameAttrPath);
                 BOModelNodeWrapper boModelNodeWrapper = new ApplicationNodeWrapper(node.Dictionary.RootNode).BOModel;
-                IEnumerable<string> associatedCollection = GetAssociatedCollections(boModelNodeWrapper).Select(info => info.Name);
+                IEnumerable<string> associatedCollection = GetAssociatedCollections(className, boModelNodeWrapper).Select(info => info.Name);
                 var classInfoNodeWrappers = boModelNodeWrapper.Classes.Where(PropertiesAre(associatedCollection));
                 collectionInternal.Clear();
                 foreach (var classInfoNodeWrapper in classInfoNodeWrappers)
@@ -73,7 +72,7 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
         }
 
 
-        private IEnumerable<IMemberInfo> GetAssociatedCollections(BOModelNodeWrapper boModelNodeWrapper)
+        private IEnumerable<IMemberInfo> GetAssociatedCollections(string className, BOModelNodeWrapper boModelNodeWrapper)
         {
             return boModelNodeWrapper.FindClassByName(className).
                 ClassTypeInfo.Members.Where(info => info.IsAssociation && info.IsList);
