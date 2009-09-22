@@ -49,8 +49,10 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             ModifyCurrentObjectModel();
         }
 
-
-
+        private void ControllerModifiedChanged(object sender, EventArgs args)
+        {
+            ModifyCurrentObjectModel();
+        }
 
         public new ModelDifferenceObject CurrentObject{
             get { return base.CurrentObject as ModelDifferenceObject; }
@@ -83,6 +85,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             var controller = new ModelEditorController(CurrentObject.GetCombinedModel(), null, application.Modules);
             controller.CurrentAttributeValueChanged += ControllerOnCurrentAttributeChanged;
             controller.CurrentNodeChanged += ControllerOnCurrentNodeChanged;
+            controller.ModifiedChanged += ControllerModifiedChanged;
             controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);
             return controller;
         }
