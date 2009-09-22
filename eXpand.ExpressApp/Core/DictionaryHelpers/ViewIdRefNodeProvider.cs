@@ -50,10 +50,10 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
                 string className = paramsParser.GetAttributeValueByPath(node, classNameAttrPath);
                 BOModelNodeWrapper boModelNodeWrapper = new ApplicationNodeWrapper(node.Dictionary.RootNode).BOModel;
                 IEnumerable<string> associatedCollection = GetAssociatedCollections(className, boModelNodeWrapper).Select(info => info.Name);
-                var classInfoNodeWrappers = boModelNodeWrapper.Classes.Where(PropertiesAre(associatedCollection));
+                
                 collectionInternal.Clear();
-                foreach (var classInfoNodeWrapper in classInfoNodeWrappers)
-                    foreach (var dictionaryNode in GetDictionaryNodes(associatedCollection, classInfoNodeWrapper))
+
+                foreach (var dictionaryNode in GetDictionaryNodes(associatedCollection, boModelNodeWrapper.FindClassByName(className)))
                         collectionInternal.Add(dictionaryNode);
             }
             return collectionInternal;
