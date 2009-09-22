@@ -1,14 +1,13 @@
 using System.Web;
 using DevExpress.ExpressApp;
-using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 
 namespace eXpand.ExpressApp.ModelDifference.Web
 {
     public class XpoWebModelDictionaryDifferenceStore : XpoModelDictionaryDifferenceStore
     {
-        public XpoWebModelDictionaryDifferenceStore(Session updatingSession, XafApplication xafApplication, bool enableLoading)
-            : base(updatingSession, xafApplication, enableLoading)
+        public XpoWebModelDictionaryDifferenceStore(XafApplication xafApplication, bool enableLoading)
+            : base(xafApplication, enableLoading)
         {
             
         }

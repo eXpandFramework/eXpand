@@ -5,7 +5,7 @@ using eXpand.Persistent.Base;
 namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     public abstract class XpoDictionaryDifferenceStore : DictionaryDifferenceStore{
         private readonly XafApplication application;
-        private readonly ObjectSpace objectSpace;
+        private ObjectSpace objectSpace;
 
 
         protected XpoDictionaryDifferenceStore(XafApplication application){
@@ -25,13 +25,12 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         public override string Name{
             get { return DifferenceType.ToString(); }
         }
-
         public abstract DifferenceType DifferenceType { get; }
 
 
         public override void SaveDifference(Dictionary diffDictionary){
             if (diffDictionary != null){
-                
+                objectSpace = application.CreateObjectSpace();
                 ModelDifferenceObject modelDifferenceObject = GetActiveDifferenceObject() ??
                                                               GetNewDifferenceObject(objectSpace).
                                                                   InitializeMembers(Application.Title, application.GetType().FullName);
