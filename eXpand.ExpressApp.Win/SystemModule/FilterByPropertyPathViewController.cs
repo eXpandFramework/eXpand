@@ -43,7 +43,12 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         protected override void OnActivated()
         {
-            Frame.GetController<WindowHintController>().BottomHintPanelReady += ViewHintController_HintPanelReady;   
+            Frame.GetController<WindowHintController>().BottomHintPanelReady += ViewHintController_HintPanelReady;
+            
+            if (View.Info.FindChildNode(PropertyPathFilters) == null)
+                return;
+            
+
             filterByCollectionNode = View.Info.GetChildNode(PropertyPathFilters);
             filtersByCollectionWrappers = new Dictionary<string, FiltersByCollectionWrapper>();
 
