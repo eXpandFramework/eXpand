@@ -12,9 +12,9 @@ using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 using TypeMock.Extensions;
 
-namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries.Automatic{
+namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
     [TestFixture]
-    public class For_All_Views:eXpandBaseFixture
+    public class Automatic_For_All_Views:eXpandBaseFixture
     {
         public class With_ActiveDifference:eXpandBaseFixture{
             [Test]

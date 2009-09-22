@@ -97,7 +97,7 @@ namespace eXpand.ExpressApp.ModelDifference{
         private void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs args)
         {
             args.Handled = true;
-            args.Store =new XpoUserModelDictionaryDifferenceStore(Application.ObjectSpaceProvider.CreateUpdatingSession(), Application);
+            args.Store =new XpoUserModelDictionaryDifferenceStore( Application);
         }
 
         public string GetAllCultures()

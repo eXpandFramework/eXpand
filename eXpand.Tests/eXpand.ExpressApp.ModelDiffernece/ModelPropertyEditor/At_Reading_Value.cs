@@ -7,7 +7,7 @@ using TypeMock.ArrangeActAssert;
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.ModelPropertyEditor
 {
     [TestFixture]
-    public class At_Reading_Value
+    public class At_Reading_Value:eXpandBaseFixture
     {
         [Test]
         [Isolated]

@@ -54,13 +54,13 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
         }
 
         public void CombineAndSave(List<ModelDifferenceObject> selectedModelAspectObjects){
-            ModelDifferenceObject activeApplicationModelAspect =
+            ModelDifferenceObject activeApplicatiionModelDifferenceObject =
                 GetActiveApplicationModelDifference(selectedModelAspectObjects);
-            Dictionary combinedModel = activeApplicationModelAspect.GetCombinedModel();
+            Dictionary combinedModel = activeApplicatiionModelDifferenceObject.GetCombinedModel();
             foreach (ModelDifferenceObject selectedObject in selectedModelAspectObjects)
                 combinedModel.CombineWith(selectedObject.Model);
 
-            activeApplicationModelAspect.Model = combinedModel.GetDiffs();
+            activeApplicatiionModelDifferenceObject.Model = combinedModel.GetDiffs();
             ObjectSpace.CommitChanges();
         }
     }

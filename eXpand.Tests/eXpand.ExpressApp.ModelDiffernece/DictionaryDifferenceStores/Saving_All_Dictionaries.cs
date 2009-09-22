@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DevExpress.ExpressApp;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 using MbUnit.Framework;
@@ -35,32 +32,6 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             store.SaveDifference(dictionary);
 
             Isolate.Verify.WasCalledWithAnyArguments(() => modelAspectObject.Save());
-        }
-        [Test]
-        [Isolated]
-        public void Update_Values_Of_ActiveDifferenceObject_If_Found()
-        {
-            Isolate.Fake.StaticMethods(typeof(Validator));
-            var application = Isolate.Fake.Instance<XafApplication>();
-            application.Title = "ApplicationName";
-            var dictionary = new Dictionary();
-            Isolate.WhenCalled(() => dictionary.Aspects).WillReturn(new List<string> { "aspect" });
-            Isolate.WhenCalled(() => application.Model).WillReturn(dictionary);
-            var store = Isolate.Fake.Instance<XpoDictionaryDifferenceStore>(Members.CallOriginal, ConstructorWillBe.Called, new object[] { Session.DefaultSession, application });
-            Isolate.Fake.StaticMethods(typeof(ModelDifferenceObjectBuilder));
-            var dateCreated = new DateTime();
-            var modelStoreObject = new ModelDifferenceObject(Session.DefaultSession){
-                                                                                        DateCreated = dateCreated,
-                                                                                        PersistentApplication =
-                                                                                            new PersistentApplication(Session.DefaultSession){Name = "Name"}
-                                                                                    };
-            Isolate.WhenCalled(() => store.GetActiveDifferenceObject()).WillReturn(modelStoreObject);
-
-            store.SaveDifference(application.Model);
-
-
-            Assert.AreEqual("ApplicationName", modelStoreObject.PersistentApplication.Name);
-            Assert.AreEqual(dateCreated, modelStoreObject.DateCreated);
         }
         [Test]
         [Isolated]

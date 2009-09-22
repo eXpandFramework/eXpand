@@ -5,10 +5,9 @@ using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 using eXpand.Utils.Helpers;
 
-namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Saving
-{
+namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture]
-    public class DifferenceObjects:eXpandBaseFixture
+    public class Saving_DifferenceObjects:eXpandBaseFixture
     {
         [Test]
         [Isolated]
@@ -32,8 +31,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Savin
         [Isolated]
         public void Model_With_Space_B4_Character_Of_End_Tag_Can_Be_Saved()
         {
-            string s =
-                "<Application><Validation ><ErrorMessageTemplates ><RuleBase MessageTemplateCollectionValidationMessageSuffix=\"1(For the &quot;{TargetCollectionOwnerType}.{TargetCollectionPropertyName}&quot; collection elements).\"/></ErrorMessageTemplates></Validation></Application>";
+            const string s = "<Application><Validation ><ErrorMessageTemplates ><RuleBase MessageTemplateCollectionValidationMessageSuffix=\"1(For the &quot;{TargetCollectionOwnerType}.{TargetCollectionPropertyName}&quot; collection elements).\"/></ErrorMessageTemplates></Validation></Application>";
             Dictionary dictionary = DefaultDictionary.Clone();
             dictionary.AddAspect("de", new DictionaryXmlReader().ReadFromString(s));
             var differenceObject = Isolate.Fake.Instance<DifferenceObject>(Members.CallOriginal, ConstructorWillBe.Called, Session.DefaultSession);

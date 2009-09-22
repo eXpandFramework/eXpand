@@ -115,6 +115,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                                                                              new PersistentApplication(Session.DefaultSession) { Model = new Dictionary(Schema.GetCommonSchema()), Name = "appName" }
                                                                      });
             var currentObject = (ModelDifferenceObject) controller.View.CurrentObject;
+            Isolate.WhenCalled(() => currentObject.GetCombinedModel()).WillReturn(DefaultDictionary);
             Isolate.WhenCalled(() => controller.GetActiveApplicationModelDifference(null)).WillReturn(currentObject);
 
             controller.CombineAndSave(new List<ModelDifferenceObject>{
@@ -133,8 +134,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                                                                      });
 
             Assert.AreEqual(1, Session.DefaultSession.GetCount<ModelDifferenceObject>(), "not saved");
-            Assert.IsNotNull(new ApplicationNodeWrapper(currentObject.Model).BOModel.FindClassByName("MyClass2"),
-                             "not combined");
+            Assert.IsNotNull(new ApplicationNodeWrapper(currentObject.Model).BOModel.FindClassByName("MyClass2"),"not combined");
         }
     }
 }

@@ -78,7 +78,8 @@ namespace eXpand.Tests{
         private T createDetailViewController<T>(ObjectSpace objectSpace, PersistentBase currentObject, bool activate, HandleInfo handleInfo) where T : ViewController, new()
         {
             XafTypesInfo.Instance.RegisterEntity(currentObject.GetType());
-            var application = Isolate.Fake.Instance<XafApplication>(Members.CallOriginal);
+            var application = Isolate.Fake.Instance<XafApplication>();
+            Isolate.WhenCalled(() => application.CreateObjectSpace()).WillReturn(objectSpace);
             var detailView = new DetailView(objectSpace, currentObject, application, true);
             var conntroller = new T();
             Isolate.WhenCalled(() => conntroller.Application).WillReturn(application);
@@ -89,9 +90,12 @@ namespace eXpand.Tests{
             return conntroller;
         }
 
+
         private T createListViewController<T>(PersistentBase currentObject, bool activate, ObjectSpace objectSpace, HandleInfo handleInfo) where T : ViewController, new()
         {
             var controller = createController<T>(currentObject.GetType(),activate,objectSpace,handleInfo);
+            XafApplication application = controller.Application;
+            Isolate.WhenCalled(() => application.CreateObjectSpace()).WillReturn(objectSpace);
             return controller;
         }
 
@@ -103,7 +107,7 @@ namespace eXpand.Tests{
             Isolate.WhenCalled(() => listEditor.RequiredProperties).WillReturn(new string[0]);
             var listView = new ListView(source, listEditor);
             var controller = new T();
-            Isolate.WhenCalled(() => controller.Application).WillReturn(Isolate.Fake.Instance<XafApplication>(Members.CallOriginal));
+            Isolate.WhenCalled(() => controller.Application).WillReturn(Isolate.Fake.Instance<XafApplication>());
             controller.Active[""] = false; 
             controller.SetView(listView);
             if (activate)

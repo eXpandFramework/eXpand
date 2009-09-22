@@ -9,9 +9,9 @@ using eXpand.Xpo;
 using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 
-namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Saving{
+namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture]
-    public class ModelDifferenceObjects : eXpandBaseFixture
+    public class Saving_ModelDifferenceObjects : eXpandBaseFixture
     {
         [Row(DifferenceType.Role, ValidationState.Skipped)]
         [Row(DifferenceType.User, ValidationState.Skipped)]
@@ -93,9 +93,9 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Savin
         [Isolated]
         public void Same_ApplicationName_Differences_Cannot_Exist()
         {
-            new ModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession) { Name = "appName" } }.Save();
+            new ModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession) { UniqueName = "appName" } }.Save();
 
-            var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession) { Name = "appName" } };
+            var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession) { PersistentApplication = new PersistentApplication(Session.DefaultSession) { UniqueName = "appName" } };
             var objectsToValidate = new SaveContextTargetObjectSelector().GetObjectsToValidate(Session.DefaultSession, modelDifferenceObject);
 
             RuleSetValidationResult targets = Validator.RuleSet.ValidateAllTargets(objectsToValidate, ContextIdentifier.Save);
@@ -104,7 +104,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Savin
                 item =>
                 item.Rule is RuleUniqueValue &&
                 item.Rule.UsedProperties.Contains(
-                    modelDifferenceObject.GetPropertyInfo(x => modelDifferenceObject.PersistentApplication.Name).Name)).
+                    modelDifferenceObject.GetPropertyInfo(x => modelDifferenceObject.PersistentApplication.UniqueName).Name)).
                 FirstOrDefault();
 
             Assert.IsNotNull(resultItem);

@@ -3,7 +3,6 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using DevExpress.ExpressApp;
-using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.Persistent.Base;
@@ -15,7 +14,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         private readonly bool _enableLoading;
         public const string DisableDebuggerAttachedCheck = "DisableDebuggerAttachedCheck";
 
-        protected XpoModelDictionaryDifferenceStore(Session session, XafApplication application, bool enableLoading) : base(session, application){
+        protected XpoModelDictionaryDifferenceStore( XafApplication application, bool enableLoading) : base(application){
             _enableLoading = enableLoading;
         }
 
@@ -46,7 +45,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             if (!_enableLoading)
                 return new Dictionary(schema);
             var dictionary = new Dictionary(new DictionaryNode("Application"), schema);
-                    
+            
             if ((UseModelFromPath())){
                 foreach (var s in GetModelPaths().Where(s => Path.GetFileName(s).ToLower().StartsWith("model") && s.IndexOf(".User") == -1))
                 {
@@ -79,12 +78,12 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         }
 
         protected internal override ModelDifferenceObject GetActiveDifferenceObject(){
-            return new QueryModelDifferenceObject(Session).GetActiveModelDifference(Application.GetType().FullName);
+            return new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName);
         }
 
-        protected internal override ModelDifferenceObject GetNewDifferenceObject(Session session)
+        protected internal override ModelDifferenceObject GetNewDifferenceObject(ObjectSpace session)
         {
-            return new ModelDifferenceObject(session);
+            return new ModelDifferenceObject(ObjectSpace.Session);
         }
     }
 }

@@ -74,7 +74,8 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         }
 
         internal ModelEditorControl GetModelEditorControl(){
-            return new ModelEditorControl(null, new SettingsStorageOnDictionary(CurrentObject.GetCombinedModel().RootNode.GetChildNode("ModelEditor")));
+            var settingsStorageOnDictionary = new SettingsStorageOnDictionary(CurrentObject.GetCombinedModel().RootNode.GetChildNode("ModelEditor"));
+            return new ModelEditorControl(null, settingsStorageOnDictionary);
         }
 
 

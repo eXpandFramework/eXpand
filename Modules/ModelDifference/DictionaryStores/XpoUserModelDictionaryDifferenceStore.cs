@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.Security;
@@ -12,8 +10,8 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     public class XpoUserModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore{
         
 
-        public XpoUserModelDictionaryDifferenceStore(Session session, XafApplication application)
-            : base(session, application){
+        public XpoUserModelDictionaryDifferenceStore(XafApplication application)
+            : base(application){
         }
 
         public override DifferenceType DifferenceType{
@@ -22,13 +20,13 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
 
         protected internal override ModelDifferenceObject GetActiveDifferenceObject(){
-            return new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(Application.GetType().FullName);
+            return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName);
         }
 
         protected internal IQueryable<ModelDifferenceObject> GetActiveDifferenceObjects(){
-            IQueryable<UserModelDifferenceObject> modelDifferenceObjects = new QueryUserModelDifferenceObject(Session).GetActiveModelDifferences(
+            IQueryable<UserModelDifferenceObject> modelDifferenceObjects = new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(
                 Application.GetType().FullName);
-            List<RoleModelDifferenceObject> roleAspectObjects = new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(
+            List<RoleModelDifferenceObject> roleAspectObjects = new QueryRoleModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(
                 Application.GetType().FullName).ToList();
             IEnumerable<ModelDifferenceObject> roleAspectObjectsConcat = roleAspectObjects.Cast<ModelDifferenceObject>().Concat(modelDifferenceObjects.Cast<ModelDifferenceObject>());
             return roleAspectObjectsConcat.AsQueryable();
@@ -64,8 +62,8 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             return combinedModel.GetDiffs();
         }
 
-        protected internal override ModelDifferenceObject GetNewDifferenceObject(Session session){
-            var aspectObject = new UserModelDifferenceObject(session);
+        protected internal override ModelDifferenceObject GetNewDifferenceObject(ObjectSpace session){
+            var aspectObject = new UserModelDifferenceObject(ObjectSpace.Session);
             aspectObject.AssignToCurrentUser();
             return aspectObject;
         }
@@ -78,7 +76,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             }
             if (SecuritySystem.IsGranted(new ApplicationModelCombinePermission(ApplicationModelCombineModifier.Allow))){
                 ModelDifferenceObject activeModelDifferenceObject =
-                    new QueryModelDifferenceObject(Session).GetActiveModelDifference(userStoreObject.PersistentApplication.Name);
+                    new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(userStoreObject.PersistentApplication.Name);
                 if (activeModelDifferenceObject != null){
                     var dictionary = new Dictionary(activeModelDifferenceObject.Model.RootNode, Application.Model.Schema);
                     var combiner = new DictionaryCombiner(dictionary);

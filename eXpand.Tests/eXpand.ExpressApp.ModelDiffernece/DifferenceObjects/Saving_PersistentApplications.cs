@@ -6,16 +6,15 @@ using eXpand.Utils.Helpers;
 using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 
-namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Saving{
-
+namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture]
-    public class PersistentApplications : eXpandBaseFixture
+    public class Saving_PersistentApplications : eXpandBaseFixture
     {
         [Test]
         [Isolated]
         public void Name_Is_Unique()
         {
-            new PersistentApplication(Session.DefaultSession) { Name = "name" }.Save();
+            new PersistentApplication(Session.DefaultSession) { UniqueName = "name" }.Save();
 
             var application = new PersistentApplication(Session.DefaultSession) { Name = "name" };
             var target = new RuleSet().ValidateTarget(application, ContextIdentifier.Save);
@@ -24,7 +23,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Savin
                 target.Results.Where(
                     item =>
                     item.Rule is RuleUniqueValue &&
-                    item.Rule.UsedProperties.Contains(application.GetPropertyInfo(x => x.Name).Name)).FirstOrDefault();
+                    item.Rule.UsedProperties.Contains(application.GetPropertyInfo(x => x.UniqueName).Name)).FirstOrDefault();
             Assert.IsNotNull(items);
             Assert.AreEqual(ValidationState.Invalid, items.State);
         }

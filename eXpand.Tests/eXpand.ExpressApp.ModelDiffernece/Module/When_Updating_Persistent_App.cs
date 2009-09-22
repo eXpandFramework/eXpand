@@ -35,7 +35,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
         [Test]
         [Isolated]
         public void If_Persistent_App_Not_Exist_Create_New(){
-            PersistentApplication persistentApplication = modelDifferenceModule.UpdatePersistentApplication(application, null);
+            PersistentApplication persistentApplication = modelDifferenceModule.UpdatePersistentApplication(application);
             Assert.IsNotNull(persistentApplication);
         }
         [Test]
@@ -43,7 +43,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
         public void Set_UniqueName_To_Application_Type_FullName(){
             var persistentApplication = new PersistentApplication(Session.DefaultSession);
 
-            modelDifferenceModule.UpdatePersistentApplication(application, persistentApplication);
+            modelDifferenceModule.UpdatePersistentApplication(application);
 
             Assert.AreEqual(application.GetType().FullName, persistentApplication.UniqueName);
         }
@@ -53,7 +53,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
         {
             var persistentApplication = new PersistentApplication(Session.DefaultSession);
 
-            modelDifferenceModule.UpdatePersistentApplication(application, persistentApplication);
+            modelDifferenceModule.UpdatePersistentApplication(application);
 
             Assert.AreEqual(application.Model, persistentApplication.Model);
         }
@@ -64,7 +64,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
             var persistentApplication = new PersistentApplication(Session.DefaultSession);
             application.Title = "title";
 
-            modelDifferenceModule.UpdatePersistentApplication(application, persistentApplication);
+            modelDifferenceModule.UpdatePersistentApplication(application);
 
             Assert.AreEqual("title", persistentApplication.Name);
         }
@@ -76,7 +76,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
 
             application.Title = "title";
 
-            modelDifferenceModule.UpdatePersistentApplication(application, persistentApplication);
+            modelDifferenceModule.UpdatePersistentApplication(application);
 
             Assert.AreEqual("name", persistentApplication.Name);
         }

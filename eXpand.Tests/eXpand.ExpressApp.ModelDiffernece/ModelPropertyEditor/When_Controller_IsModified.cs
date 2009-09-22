@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp.NodeWrappers;
+﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.Win.PropertyEditors;
@@ -13,18 +14,19 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.ModelPropertyEditor
         
 
         [Test][Isolated]
-        public void CurrentObjectModel_Should_Be_Equal_CurrentObject_CombinedModel_Combined_With_Controller_Diffs(){
+        public void CurrentObjectModel_Should_Be_Equal_CurrentObject_PersistentApp_Not_Modified_Cloned_Combined_With_Controller_Diffs(){
 
+            string s = "<Application><BOModel><Class Name=\"MyClass2\" Caption=\"el\"></Class></BOModel></Application>";
             var modelEditorPropertyEditor = new ModelEditorPropertyEditor(null, null);
+            Isolate.WhenCalled(() => modelEditorPropertyEditor.Control.Controller.IsModified).WillReturn(true);
             var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession);
             Isolate.WhenCalled(() => modelEditorPropertyEditor.CurrentObject).WillReturn(modelDifferenceObject);
-            Isolate.WhenCalled(() => modelDifferenceObject.GetCombinedModel()).WillReturn(DefaultDictionary);
-            Isolate.WhenCalled(() => modelEditorPropertyEditor.Control.Controller.IsModified).WillReturn(true);
-            Isolate.WhenCalled(() => modelEditorPropertyEditor.Control.Controller.Dictionary.GetDiffs()).WillReturn(elDictionary);
+            Isolate.WhenCalled(() => modelDifferenceObject.PersistentApplication.Model.Clone()).WillReturn(DefaultDictionary2);
+            Isolate.WhenCalled(() => modelEditorPropertyEditor.Control.Controller.Dictionary.GetDiffs()).WillReturn(new Dictionary(new DictionaryXmlReader().ReadFromString(s),Schema.GetCommonSchema()));
 
             modelEditorPropertyEditor.ModifyCurrentObjectModel();
             
-            Assert.AreEqual("el", new ApplicationNodeWrapper(modelDifferenceObject.Model).BOModel.FindClassByName("MyClass").Caption);
+            Assert.AreEqual("el", new ApplicationNodeWrapper(modelDifferenceObject.Model).BOModel.FindClassByName("MyClass2").Caption);
         }
     }
 }

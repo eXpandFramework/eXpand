@@ -5,10 +5,9 @@ using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 using TypeMock.Extensions;
 
-namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Changing
-{
+namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture]
-    public class ModelDifferenceObjects:eXpandBaseFixture
+    public class Changing_ModelDifferenceObjects:eXpandBaseFixture
     {
         [Test]
         [Isolated]
@@ -38,8 +37,8 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Chang
         [Isolated]
         public void When_Changing_XmlContent_It_Should_Be_Validated_Against_Application_Schema(){
             var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession){
-                PersistentApplication =new PersistentApplication(Session.DefaultSession) { Model = DefaultDictionary }
-            };
+                                                                                             PersistentApplication =new PersistentApplication(Session.DefaultSession) { Model = DefaultDictionary }
+                                                                                         };
             var dictionary = Isolate.Fake.InstanceAndSwapAll<Dictionary>(Members.CallOriginal,ConstructorWillBe.Called);
             bool validated = false;
             Isolate.WhenCalled(() => dictionary.Validate()).DoInstead(context => validated= true);

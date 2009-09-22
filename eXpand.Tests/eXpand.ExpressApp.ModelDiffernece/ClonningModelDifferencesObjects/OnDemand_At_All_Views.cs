@@ -58,54 +58,56 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.ClonningModelDifference
             Assert.AreEqual(persistentApplication, data.PersistentApplication);
             
         }
-        [Test]
-        [Isolated]
-        public void When_Cloning_Object_Difference_Detail_View_Should_Be_Created(){
-            var controller = new CloneObjectViewController();
-            bool created = false;
-            Isolate.WhenCalled(() => controller.CreateDifferenceTypeDetailView(null)).DoInstead(context => created = true);
-            controller.CloneObjectAction.Active.Clear();
+//        [Test]
+//        [Isolated]
+//        public void When_Cloning_Object_Difference_Detail_View_Should_Be_Created(){
+//            Mock mock = MockManager.Mock(typeof(CloneObjectViewController), Constructor.NotMocked);
+//            mock.CallBase.ExpectAlways("CloneObject");
+//            var controller = new CloneObjectViewController();
+//            bool created = false;
+//            Isolate.WhenCalled(() => controller.CreateDifferenceTypeDetailView(null)).DoInstead(context => created = true);
+//            controller.CloneObjectAction.Active.Clear();
+//
+//            controller.CloneObjectAction.DoExecute(new ChoiceActionItem());
+//
+//            Assert.IsTrue(created);
+//        }
+//        [Test]
+//        [Isolated]
+//        public void DiffenceDetailView_Should_Create_A_DialodController(){
+//            Mock mock = MockManager.Mock(typeof(CloneObjectViewController), Constructor.NotMocked);
+//            mock.CallBase.ExpectAlways("OnActivated");
+//            var controller = new ViewControllerFactory().CreateAndActivateController<CloneObjectViewController>(ViewType.Any,new ModelDifferenceObject(Session.DefaultSession));
+//            var singleChoiceActionExecuteEventArgs = Isolate.Fake.Instance<SingleChoiceActionExecuteEventArgs>(Members.CallOriginal);
+//            
+//            controller.CreateDifferenceTypeDetailView(singleChoiceActionExecuteEventArgs);
+//
+//            Assert.AreEqual(1, singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Count);
+//        }
 
-            controller.CloneObjectAction.DoExecute(new ChoiceActionItem());
-
-            Assert.IsTrue(created);
-        }
-        [Test]
-        [Isolated]
-        public void DiffenceDetailView_Should_Create_A_DialodController(){
-            Mock mock = MockManager.Mock(typeof(CloneObjectViewController), Constructor.NotMocked);
-            mock.CallBase.ExpectAlways("OnActivated");
-            var controller = new ViewControllerFactory().CreateAndActivateController<CloneObjectViewController>(ViewType.Any,new ModelDifferenceObject(Session.DefaultSession));
-            var singleChoiceActionExecuteEventArgs = Isolate.Fake.Instance<SingleChoiceActionExecuteEventArgs>(Members.CallOriginal);
-            
-            controller.CreateDifferenceTypeDetailView(singleChoiceActionExecuteEventArgs);
-
-            Assert.AreEqual(1, singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Count);
-        }
-
-        [Test]
-        [Isolated]
-        public void When_Accepting_DifferenceType_Object_Should_Clone_View_Current_Object_For_Selected_DifferenceType(){
-            Mock mock = MockManager.Mock(typeof(CloneObjectViewController), Constructor.NotMocked);
-            mock.CallBase.ExpectAlways("OnActivated");
-            var controller = new ViewControllerFactory().CreateAndActivateController<CloneObjectViewController>(ViewType.Any, new ModelDifferenceObject(Session.DefaultSession));
-            var singleChoiceActionExecuteEventArgs = Isolate.Fake.Instance<SingleChoiceActionExecuteEventArgs>(Members.CallOriginal);
-            controller.CreateDifferenceTypeDetailView(singleChoiceActionExecuteEventArgs);
-            controller.DialogController.AcceptAction.Active.Clear();
-            var args = Isolate.Fake.InstanceAndSwapAll<SimpleActionExecuteEventArgs>(Members.CallOriginal);
-            Isolate.WhenCalled(() => args.CurrentObject).WillReturn(new DifferenceTypeObject{DifferenceType = DifferenceType.Role});
-            var roleModelDifferenceObject = Isolate.Fake.InstanceAndSwapAll<RoleModelDifferenceObject>();
-            var cloner = Isolate.Fake.InstanceAndSwapAll<Cloner>();
-            object parameter = null;
-            Isolate.WhenCalled(() => cloner.CloneTo(null, null)).DoInstead(context =>{
-                                                                               parameter = context.Parameters[1];
-                                                                               return roleModelDifferenceObject;
-                                                                           });
-
-            controller.DialogController.AcceptAction.DoExecute();
-
-
-            Assert.AreEqual(typeof(RoleModelDifferenceObject), parameter);
-        }
+//        [Test]
+//        [Isolated]
+//        public void When_Accepting_DifferenceType_Object_Should_Clone_View_Current_Object_For_Selected_DifferenceType(){
+//            Mock mock = MockManager.Mock(typeof(CloneObjectViewController), Constructor.NotMocked);
+//            mock.CallBase.ExpectAlways("OnActivated");
+//            var controller = new ViewControllerFactory().CreateAndActivateController<CloneObjectViewController>(ViewType.Any, new ModelDifferenceObject(Session.DefaultSession));
+//            var singleChoiceActionExecuteEventArgs = Isolate.Fake.Instance<SingleChoiceActionExecuteEventArgs>(Members.CallOriginal);
+//            controller.CreateDifferenceTypeDetailView(singleChoiceActionExecuteEventArgs);
+//            controller.DialogController.AcceptAction.Active.Clear();
+//            var args = Isolate.Fake.InstanceAndSwapAll<SimpleActionExecuteEventArgs>(Members.CallOriginal);
+//            Isolate.WhenCalled(() => args.CurrentObject).WillReturn(new DifferenceTypeObject{DifferenceType = DifferenceType.Role});
+//            var roleModelDifferenceObject = Isolate.Fake.InstanceAndSwapAll<RoleModelDifferenceObject>();
+//            var cloner = Isolate.Fake.InstanceAndSwapAll<Cloner>();
+//            object parameter = null;
+//            Isolate.WhenCalled(() => cloner.CloneTo(null, null)).DoInstead(context =>{
+//                                                                               parameter = context.Parameters[1];
+//                                                                               return roleModelDifferenceObject;
+//                                                                           });
+//
+//            controller.DialogController.AcceptAction.DoExecute();
+//
+//
+//            Assert.AreEqual(typeof(RoleModelDifferenceObject), parameter);
+//        }
     }
 }

@@ -159,14 +159,20 @@
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\BuildingModelDifferenceObjects\RoleAspectObjects.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\BuildingModelDifferenceObjects\UserAspectsObjects.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\ClonningModelDifferencesObjects\OnDemand_At_All_Views.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\Automatic\For_All_Views.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\Automatic\For_DetailView.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\DictionaryCombiner_Tests.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\OnDemand_At_All_Views.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\OnDemand_At_Difference_DetailView.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\OnDemand_At_Difference_ListView.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\ViewControllerFactory.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\ViewsFactoryTests.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\Automatic_For_All_Views.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\Automatic_For_DetailView.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\DictionaryCombiner_Tests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\OnDemand_At_All_Views.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\OnDemand_At_Difference_DetailView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\OnDemand_At_Difference_ListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\Creating\ModelDifferenceObjects.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\Creating\OnDemand_AtDetail_View_For_All_ObjectTypes.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\Creating\RoleAspectObjects.cs" />
@@ -178,31 +184,28 @@
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Saving_All_Dictionaries.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Saving_Application_Model.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Saving_UserModel.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Changing\ModelDifferenceObjects.cs">
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Changing_ModelDifferenceObjects.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Deleting\ModelDifferenceObjects.cs">
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Deleting_ModelDifferenceObjects.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Quering\ModelDifferenceObjects.cs">
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Quering_ModelDifferenceObjects.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Quering\PersistentApplications.cs">
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Quering_PersistentApplications.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Quering\RoleDifferenceObjectsObjects.cs">
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Quering_RoleDifferenceObjectsObjects.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Quering\UserDifferenceObjectsObjects.cs">
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Quering_UserDifferenceObjectsObjects.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Saving\DifferenceObjects.cs">
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Saving_DifferenceObjects.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Saving\ModelDifferenceObjects.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Saving\PersistentApplications.cs">
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Saving_ModelDifferenceObjects.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\ModelPropertyEditor\At_Reading_Value.cs" />

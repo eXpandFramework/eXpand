@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.ModelDifference;
 using eXpand.ExpressApp.ModelDifference.Controllers;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using MbUnit.Framework;
@@ -76,20 +76,19 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
         [Test]
         [Isolated]
         public void When_Selected_Objects_Accepted_Combine_With_Current_Object(){
-            var currentModelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession){Model = DefaultDictionary,PersistentApplication = new PersistentApplication(Session.DefaultSession)};
-            var controller = new ViewControllerFactory().CreateAndActivateController<CombineDifferencesOnDemandDetailViewController>(ViewType.DetailView, currentModelDifferenceObject);
+            
+            
+            var controller = new ViewControllerFactory().CreateAndActivateController<CombineDifferencesOnDemandDetailViewController>(ViewType.DetailView, new ModelDifferenceObject(Session.DefaultSession) { Model = DefaultDictionary, PersistentApplication = new PersistentApplication(Session.DefaultSession) });
+            var currentModelDifferenceObject = ((ModelDifferenceObject) controller.View.CurrentObject);
+            Isolate.WhenCalled(() => currentModelDifferenceObject.GetCombinedModel()).WillReturn(DefaultDictionary);
             controller.DialogController.AcceptAction.Active.Clear();
             var args = Isolate.Fake.InstanceAndSwapAll<SimpleActionExecuteEventArgs>();
             Isolate.WhenCalled(() => args.SelectedObjects).
-                WillReturn(new List<ModelDifferenceObject>{new ModelDifferenceObject(Session.DefaultSession)});
-
-            var combiner = Isolate.Fake.InstanceAndSwapAll<DictionaryCombiner>();
-            bool combined = false;
-            Isolate.WhenCalled(() => combiner.AddAspects(currentModelDifferenceObject)).DoInstead(context => combined=true);
+                WillReturn(new List<ModelDifferenceObject>{new ModelDifferenceObject(Session.DefaultSession){Model = DefaultDictionary2}});
 
             controller.DialogController.AcceptAction.DoExecute();
 
-            Assert.IsTrue(combined);            
+            Assert.IsNotNull(new ApplicationNodeWrapper(currentModelDifferenceObject.Model).BOModel.FindClassByName("MyClass2"));
         }
     }
 }

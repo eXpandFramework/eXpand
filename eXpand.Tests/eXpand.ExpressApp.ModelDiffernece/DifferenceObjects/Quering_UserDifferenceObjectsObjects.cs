@@ -9,9 +9,9 @@ using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 using TypeMock.Extensions.eXpand;
 
-namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Quering{
+namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture]
-    public class UserDifferenceObjectsObjects:eXpandBaseFixture
+    public class Quering_UserDifferenceObjectsObjects:eXpandBaseFixture
     {
         [Test]
         [Isolated]

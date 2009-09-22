@@ -1,18 +1,16 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.ModelDifference;
 using eXpand.ExpressApp.ModelDifference.Controllers;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using MbUnit.Framework;
-using TypeMock;
 using TypeMock.ArrangeActAssert;
 using TypeMock.Extensions;
 
-namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries.Automatic{
+namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
     [TestFixture]
-    public class For_DetailView:eXpandBaseFixture
+    public class Automatic_For_DetailView:eXpandBaseFixture
     {
         [Test]
         [Isolated]
@@ -66,7 +64,8 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries.A
             var userModelDifferenceObject = ((UserModelDifferenceObject) controller.View.CurrentObject);
             Dictionary dictionary = DefaultDictionary.Clone();
             Isolate.WhenCalled(() => userModelDifferenceObject.GetCombinedModel()).WillReturn(dictionary);
-            Isolate.WhenCalled(() => controller.Application.Model.GetDiffs()).WillReturn(DefaultDictionary2.Clone());
+            Dictionary model = controller.Application.Model;
+            Isolate.WhenCalled(() => model.GetDiffs()).WillReturn(DefaultDictionary2.Clone());
             Isolate.WhenCalled(() => queryUserModelDifferenceObject.GetActiveModelDifference("")).WillReturn((UserModelDifferenceObject) controller.View.CurrentObject);
 
             controller.CombineWithApplicationUserDiffs();

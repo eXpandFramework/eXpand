@@ -3,9 +3,9 @@ using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using MbUnit.Framework;
 
-namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Quering{
+namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture]
-    public class PersistentApplications:eXpandBaseFixture
+    public class Quering_PersistentApplications:eXpandBaseFixture
     {
         [Test]
         public void Can_Be_Searched_By_Name(){

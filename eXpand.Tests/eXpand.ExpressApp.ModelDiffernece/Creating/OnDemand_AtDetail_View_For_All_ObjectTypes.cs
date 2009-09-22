@@ -18,20 +18,20 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Creating{
         [Isolated]
         public void Should_InitializeMembers()
         {
-            throw new NotImplementedException();
-//            var controller = new ViewControllerFactory().CreateController<CreateNewDifferenceObjectViewController>(ViewType.DetailView,new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)});
-//            
-//            var modelAspectObject = new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)};
-//            bool called = false;
-//            Isolate.WhenCalled(() => modelAspectObject.InitializeMembers("", "")).DoInstead(context =>
-//            {
-//                called = true;
-//                return modelAspectObject;
-//            });
-//
-//            controller.OnObjectCreated(null, new ObjectCreatedEventArgs(modelAspectObject, null));
-//
-//            Assert.IsTrue(called);
+
+            var controller = new ViewControllerFactory().CreateController<CreateNewDifferenceObjectViewController>(ViewType.DetailView,new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)});
+            
+            var modelAspectObject = new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)};
+            bool called = false;
+            Isolate.WhenCalled(() => modelAspectObject.InitializeMembers("", "")).DoInstead(context =>
+            {
+                called = true;
+                return modelAspectObject;
+            });
+
+            controller.OnObjectCreated(null, new ObjectCreatedEventArgs(modelAspectObject, null));
+
+            Assert.IsTrue(called);
         }
     }
 }

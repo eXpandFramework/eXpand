@@ -12,20 +12,6 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.ModelPropertyEditor
     [TestFixture]
     public class When_Creating_Control:eXpandBaseFixture
     {
-        [Test]
-        [Isolated]
-        public void ModelEditorControl_Settings_Will_Be_Save()
-        {
-            Isolate.Fake.InstanceAndSwapAll<XtraScrollableControl>();
-            var editor = new ModelEditorPropertyEditor(null, null);
-            Isolate.WhenCalled(() => editor.CurrentObject).ReturnRecursiveFake();
-            var application = Isolate.Fake.Instance<XafApplication>();
-            Isolate.WhenCalled(() => application.Model).WillReturn(DefaultDictionary);
-            
-            var control = editor.GetModelEditorControl();
-
-            Assert.IsInstanceOfType(typeof(SettingsStorageOnDictionary),control.SettingsStorage);
-        }
 
         [Test]
         [Isolated]

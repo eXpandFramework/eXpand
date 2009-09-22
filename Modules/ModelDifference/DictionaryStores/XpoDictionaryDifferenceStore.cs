@@ -1,26 +1,25 @@
 using DevExpress.ExpressApp;
-using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     public abstract class XpoDictionaryDifferenceStore : DictionaryDifferenceStore{
         private readonly XafApplication application;
-        private readonly Session session;
+        private readonly ObjectSpace objectSpace;
 
 
-        protected XpoDictionaryDifferenceStore(Session session, XafApplication application){
-            this.session = session;
+        protected XpoDictionaryDifferenceStore(XafApplication application){
+            
             this.application = application;
+            objectSpace = application.CreateObjectSpace();
         }
 
         public XafApplication Application{
             get { return application; }
         }
 
-
-        public Session Session{
-            get { return session; }
+        public ObjectSpace ObjectSpace{
+            get { return objectSpace; }
         }
 
         public override string Name{
@@ -32,10 +31,10 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
         public override void SaveDifference(Dictionary diffDictionary){
             if (diffDictionary != null){
-                var applicationName = Application.Title;
+                
                 ModelDifferenceObject modelDifferenceObject = GetActiveDifferenceObject() ??
-                                                              GetNewDifferenceObject(session).
-                                                                  InitializeMembers(applicationName, application.GetType().FullName);
+                                                              GetNewDifferenceObject(objectSpace).
+                                                                  InitializeMembers(Application.Title, application.GetType().FullName);
                 OnAspectStoreObjectSaving(modelDifferenceObject,diffDictionary);
             }
         }
@@ -43,14 +42,13 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
         protected internal abstract ModelDifferenceObject GetActiveDifferenceObject();
 
-        protected internal abstract ModelDifferenceObject GetNewDifferenceObject(Session session);
+        protected internal abstract ModelDifferenceObject GetNewDifferenceObject(ObjectSpace objectSpace);
 
         protected internal virtual void OnAspectStoreObjectSaving(ModelDifferenceObject modelDifferenceObject, Dictionary diffDictionary){
             var combiner = new DictionaryCombiner(modelDifferenceObject.Model);
             combiner.AddAspects(diffDictionary);
             modelDifferenceObject.Save();
-            if (session is UnitOfWork)
-                ((UnitOfWork) session).CommitChanges();
+            objectSpace.CommitChanges();
         }
 
     }

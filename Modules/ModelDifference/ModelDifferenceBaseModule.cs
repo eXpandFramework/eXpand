@@ -55,7 +55,9 @@ namespace eXpand.ExpressApp.ModelDifference{
         private DictionaryNode getModelDiffs()
         {
             using (var provider =new DevExpress.ExpressApp.ObjectSpaceProvider(new ConnectionStringDataStoreProvider(_connectionString))){
-                return new XpoModelDictionaryDifferenceStoreFactory<T>().Create(provider.CreateUpdatingSession(),Application, true).LoadDifference(Application.Model.Schema).RootNode;
+                using (Session session = provider.CreateUpdatingSession()){
+                    return new XpoModelDictionaryDifferenceStoreFactory<T>().Create(session,Application, true).LoadDifference(Application.Model.Schema).RootNode;
+                }
             }
         }
 

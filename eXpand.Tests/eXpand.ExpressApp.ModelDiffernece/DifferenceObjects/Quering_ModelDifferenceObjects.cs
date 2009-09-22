@@ -5,9 +5,9 @@ using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 
-namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Quering{
+namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture(Order = 1)]
-    public class ModelDifferenceObjects:eXpandBaseFixture
+    public class Quering_ModelDifferenceObjects:eXpandBaseFixture
     {
         
         [Test]

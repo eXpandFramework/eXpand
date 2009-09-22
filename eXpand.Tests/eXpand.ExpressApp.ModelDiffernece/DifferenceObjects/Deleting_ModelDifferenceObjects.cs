@@ -3,10 +3,9 @@ using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 
-namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects.Deleting
-{
+namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture]
-    public class ModelDifferenceObjects:eXpandBaseFixture
+    public class Deleting_ModelDifferenceObjects:eXpandBaseFixture
     {
         [Test][Isolated]
         public void Can_Be_Deleted(){
