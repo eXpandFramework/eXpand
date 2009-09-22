@@ -32,6 +32,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
         public const string PropertyPathFilter = "PropertyPathFilter";
         public const string PropertyPathListViewId = "PropertyPathListViewId";
         private Dictionary<string, FiltersByCollectionWrapper> filtersByCollectionWrappers;
+        private WindowHintController windowHintController;
+
         public FilterByPropertyPathViewController()
         {
             InitializeComponent();
@@ -43,11 +45,11 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         protected override void OnActivated()
         {
-            Frame.GetController<WindowHintController>().BottomHintPanelReady += ViewHintController_HintPanelReady;
-            
             if (View.Info.FindChildNode(PropertyPathFilters) == null)
                 return;
-            
+
+            windowHintController = Frame.GetController<WindowHintController>();
+            windowHintController.BottomHintPanelReady += ViewHintController_HintPanelReady;
 
             filterByCollectionNode = View.Info.GetChildNode(PropertyPathFilters);
             filtersByCollectionWrappers = new Dictionary<string, FiltersByCollectionWrapper>();
@@ -70,6 +72,17 @@ namespace eXpand.ExpressApp.Win.SystemModule
             
         }
 
+        protected override void OnDeactivating()
+        {
+            base.OnDeactivating();
+
+            if (windowHintController != null)
+            {
+                windowHintController.BottomHintPanelReady -= ViewHintController_HintPanelReady;
+                windowHintController = null;
+            }
+        }
+
         public override Schema GetSchema()
         {
             string CommonTypeInfos = @"<Element Name=""Application"">
@@ -89,11 +102,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
             return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
         }
 
-        protected override void OnDeactivating()
-        {
-            base.OnDeactivating();
-            Frame.GetController<WindowHintController>().BottomHintPanelReady -= ViewHintController_HintPanelReady;
-        }
         private void ViewHintController_HintPanelReady(object sender, HintPanelReadyEventArgs e)
         {
             hintPanel = e.HintPanel;
