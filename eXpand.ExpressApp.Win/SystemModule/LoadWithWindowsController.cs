@@ -1,6 +1,6 @@
 using System;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Win.Templates;
+using DevExpress.XtraEditors;
 using Microsoft.Win32;
 
 namespace eXpand.ExpressApp.Win.SystemModule
@@ -22,7 +22,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private void FrameOnTemplateChanged(object sender, EventArgs args){
             if (Frame.Context == TemplateContext.ApplicationWindow)
-                ((MainForm) Frame.Template).Disposed += (o, eventArgs) => writeRegistry();
+                ((XtraForm) Frame.Template).Disposed += (o, eventArgs) => writeRegistry();
         }
 
         private void writeRegistry(){
