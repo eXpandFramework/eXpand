@@ -32,7 +32,8 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
         }
 
         private bool isCurreAppDiffObject(){
-            return ((ModelDifferenceObject) View.CurrentObject).PersistentApplication.UniqueName==Application.GetType().FullName;
+            return true;
+//            return ((ModelDifferenceObject) View.CurrentObject).PersistentApplication.UniqueName==Application.GetType().FullName;
         }
     }
 }
