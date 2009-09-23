@@ -71,18 +71,17 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         protected internal override void OnAspectStoreObjectSaving(ModelDifferenceObject userModelDifferenceObject, Dictionary diffDictionary){
             var userStoreObject = ((UserModelDifferenceObject) userModelDifferenceObject);
             if (!userStoreObject.NonPersistent){
-                
                 base.OnAspectStoreObjectSaving(userModelDifferenceObject, diffDictionary);
             }
             if (SecuritySystem.IsGranted(new ApplicationModelCombinePermission(ApplicationModelCombineModifier.Allow))){
+                ObjectSpace space = Application.CreateObjectSpace();
                 ModelDifferenceObject activeModelDifferenceObject =
-                    new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(userStoreObject.PersistentApplication.Name);
+                    new QueryModelDifferenceObject(space.Session).GetActiveModelDifference(userStoreObject.PersistentApplication.UniqueName);
                 if (activeModelDifferenceObject != null){
-                    var dictionary = new Dictionary(activeModelDifferenceObject.Model.RootNode, Application.Model.Schema);
-                    var combiner = new DictionaryCombiner(dictionary);
-                    combiner.AddAspects(userStoreObject);
-                    activeModelDifferenceObject.Model=dictionary;
-                    activeModelDifferenceObject.Save();
+                    Dictionary combinedModel = activeModelDifferenceObject.GetCombinedModel();
+                    combinedModel.CombineWith(userModelDifferenceObject.Model);
+                    activeModelDifferenceObject.Model=combinedModel;
+                    space.CommitChanges();
                 }
             }
             
