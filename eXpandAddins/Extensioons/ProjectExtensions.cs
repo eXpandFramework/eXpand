@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using DevExpress.CodeRush.Core;
 using EnvDTE;
 using eXpandAddIns.Enums;
+using Project=EnvDTE.Project;
 
 namespace eXpandAddIns.Extensioons
 {
@@ -10,5 +12,6 @@ namespace eXpandAddIns.Extensioons
         {
             return project.Properties.Cast<Property>().Where(property => property.Name == projectProperty.ToString()).Single();
         }
+
     }
 }

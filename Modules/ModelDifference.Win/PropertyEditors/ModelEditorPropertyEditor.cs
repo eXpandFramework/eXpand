@@ -83,8 +83,9 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         internal ModelEditorController GetModelEditorController(XafApplication application){
             var controller = new ModelEditorController(CurrentObject.GetCombinedModel(), null, application.Modules);
-            controller.CurrentAttributeValueChanged += ControllerOnCurrentAttributeChanged;
-            controller.CurrentNodeChanged += ControllerOnCurrentNodeChanged;
+            controller.ModifiedChanged+=ControllerOnCurrentAttributeChanged;
+//            controller.CurrentAttributeValueChanged += ControllerOnCurrentAttributeChanged;
+//            controller.CurrentNodeChanged += ControllerOnCurrentNodeChanged;
             controller.ModifiedChanged += ControllerModifiedChanged;
             controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);
             return controller;

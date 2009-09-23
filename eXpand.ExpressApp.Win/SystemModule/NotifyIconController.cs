@@ -34,11 +34,11 @@ namespace eXpand.ExpressApp.Win.SystemModule
                     IContainer  container=new Container();
                     
                     var strip = new ContextMenuStrip(container);
-                    strip.Items.Add(GetMenuItem(strip, "Maximize",(o,eventArgs) => changeFormVisibility(form)));
-                    strip.Items.Add(GetMenuItem(strip, "Minimize",(o,eventArgs) => changeFormVisibility(form)));
+                    strip.Items.Add(GetMenuItem("Maximize",(o,eventArgs) => changeFormVisibility(form)));
+                    strip.Items.Add(GetMenuItem("Minimize",(o,eventArgs) => changeFormVisibility(form)));
                     if (Application is ILogOut)
-                        strip.Items.Add(GetMenuItem(strip, "LogOut", (o, eventArgs) => ((ILogOut) Application).Logout()));
-                    strip.Items.Add(GetMenuItem(strip, "Exit", (o, eventArgs) => Environment.Exit(0)));
+                        strip.Items.Add(GetMenuItem("LogOut", (o, eventArgs) => ((ILogOut) Application).Logout()));
+                    strip.Items.Add(GetMenuItem("Exit", (o, eventArgs) => Environment.Exit(0)));
 
                     var notifyIcon1 = new NotifyIcon(container){Visible = true, ContextMenuStrip = strip};
                     setIcon(notifyIcon1);
@@ -47,11 +47,12 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
         }
 
-        private ToolStripMenuItem GetMenuItem(ContextMenuStrip strip, string text, EventHandler clickHandler){
+        private ToolStripMenuItem GetMenuItem(string text, EventHandler clickHandler){
             var item = new ToolStripMenuItem(text);
-            strip.Click += clickHandler;
+            item.Click+=clickHandler;
             return item;
         }
+
 
         private void changeFormVisibility(XtraForm form){
             if (form.Visible)

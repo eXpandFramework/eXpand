@@ -1,31 +1,29 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
-using DevExpress.CodeRush.StructuralParser;
 using EnvDTE;
-using EnvDTE80;
-using eXpandAddIns;
 using eXpandAddIns.Enums;
 using eXpandAddIns.Extensioons;
-using CodeElement=EnvDTE.CodeElement;
 using Process=System.Diagnostics.Process;
 using Project=EnvDTE.Project;
 using Property=EnvDTE.Property;
-using Attribute=DevExpress.CodeRush.StructuralParser.Attribute;
-using Debugger=System.Diagnostics.Debugger;
-using Expression=DevExpress.CodeRush.StructuralParser.Expression;
+using System.Linq;
+using Configuration=System.Configuration.Configuration;
+using ConfigurationManager=System.Configuration.ConfigurationManager;
+using ConfigurationProperty=eXpandAddIns.Enums.ConfigurationProperty;
 
 namespace eXpandAddIns
 {
     public partial class PlugIn1 : StandardPlugIn
     {
-        private bool syncing;
         #region InitializePlugIn
+
         #endregion
         #region FinalizePlugIn
         #endregion
@@ -320,9 +318,10 @@ namespace eXpandAddIns
 //            return true;
 //        }
 
- 
 
- 
+
+
+
 
 
 
@@ -353,13 +352,9 @@ namespace eXpandAddIns
 
         private void exploreXafErrors_Execute(ExecuteEventArgs ea)
         {
-            DTE dte = CodeRush.ApplicationObject;
-            Solution solution = dte.Solution;
-            Property startUpProperty = solution.GetProperty(SolutionProperty.StartupProject);
 
-            
-            
-            Project startUpProject = solution.FindProject((startUpProperty.Value + ""));
+
+            Project startUpProject = CodeRush.ApplicationObject.Solution.FindStartUpProject();
             Property outPut = startUpProject.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath);
             Property fullPath = startUpProject.FindProperty(ProjectProperty.FullPath);
             string path = Path.Combine(fullPath.Value.ToString(),outPut.Value.ToString());
@@ -399,59 +394,11 @@ namespace eXpandAddIns
             return builder.ToString();
         }
 
-        private void PlugIn1_BuildBegin(vsBuildScope scope, vsBuildAction action)
-        {
-
-        }
-
-        private void action1_Execute(ExecuteEventArgs ea)
-        {
-            
-            var dte2 = (DTE)Marshal.GetActiveObject("VisualStudio.DTE.9.0");
-
-            Class activeClass = CodeRush.Source.ActiveClass;
-            NodeList attributes = activeClass.Attributes;
-            var attribute = (Attribute) attributes[1];
-            Expression expression = attribute.Arguments[0];
-            object o = expression.Evaluate();
-            ProjectItem projectItem = CodeRush.ProjectItems.Active;
-            CodeClass codeClass = ExamineItem(projectItem);
-            string kind = projectItem.Kind;
-        }
 
 
-        private CodeClass ExamineItem(ProjectItem item)
-        {
-            var model = (FileCodeModel2)item.FileCodeModel;
-            foreach (CodeElement codeElement in model.CodeElements)
-            {
-                CodeClass element = ExamineCodeElement(codeElement);
-                if (element!= null)
-                    return element;
-            }
-            return null;
-        }
+
 
         // recursively examine code elements
-        private CodeClass ExamineCodeElement(CodeElement codeElement)
-        {
-            try
-            {
-                vsCMElement vsCmElement = codeElement.Kind;
-                if (vsCmElement == vsCMElement.vsCMElementClass)
-                {
-                    var codeClass = ((CodeClass)codeElement);
-                    return codeClass;
-                }
-
-                foreach (CodeElement childElement in codeElement.Children)
-                    ExamineCodeElement(childElement);
-            }
-            catch
-            {
-            }
-            return null;
-        }
 
 //        private void ImplementXpoManyPart_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
 //        {
@@ -491,6 +438,43 @@ namespace eXpandAddIns
         private void events_DebuggerEnterDesignMode(DebuggerEnterModeEventArgs ea)
         {
 //            CodeRush.ApplicationObject.ExecuteCommand("View.FullScreen", "");
+        }
+
+        private void SpAtDesignTime_Execute(ExecuteEventArgs ea)
+        {
+            IEnumerable<ProjectItem> enumerable = CodeRush.ApplicationObject.Solution.FindStartUpProject().ProjectItems.Cast<ProjectItem>();
+            foreach (var item in enumerable){
+                if (item.Name.ToLower() == "app.config" || item.Name.ToLower() == "web.config")
+                {
+                    using (var storage = new DecoupledStorage(typeof(Options)))
+                    {
+                        string connectionStringName = storage.ReadString(Options.GetPageName(), "connectionStringName");
+                        string dbCommandText = storage.ReadString(Options.GetPageName(), "dbCommandText");
+                        if (!string.IsNullOrEmpty(connectionStringName) && !string.IsNullOrEmpty(dbCommandText))
+                        {
+                            Property property = item.FindProperty(ProjectItemProperty.FullPath);
+                            var exeConfigurationFileMap = new ExeConfigurationFileMap { ExeConfigFilename = property.Value.ToString() };
+                            Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(exeConfigurationFileMap, ConfigurationUserLevel.None);
+                            ConnectionStringsSection strings = configuration.ConnectionStrings;
+                            ConnectionStringSettings connectionStringSettings = strings.ConnectionStrings["ConnectionString"];
+                            
+                            using (var connection = new SqlConnection(connectionStringSettings.ConnectionString)){
+                                using (var sqlConnection = new SqlConnection(connectionStringSettings.ConnectionString.Replace(connection.Database, "master")+";Pooling=false")){
+                                    sqlConnection.Open();
+                                    SqlCommand sqlCommand = sqlConnection.CreateCommand();
+                                    sqlCommand.CommandText = dbCommandText.Replace("$TargetDataBase$",connection.Database);
+                                    sqlCommand.ExecuteNonQuery();
+                                }
+                            }
+
+                        }
+                    }
+
+                    
+                }
+            }
+            
+
         }
     }
 }

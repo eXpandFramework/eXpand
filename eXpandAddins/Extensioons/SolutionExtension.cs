@@ -67,6 +67,11 @@ namespace eXpandAddIns.Extensioons
             rootItem.Select(vsUISelectionType.vsUISelectionTypeSelect);
             rootItem.DTE.SuppressUI = false;
         }
+        public static Project FindStartUpProject(this Solution solution)
+        {
+            Property startUpProperty = solution.GetProperty(SolutionProperty.StartupProject);
+            return solution.FindProject((startUpProperty.Value + ""));
+        }
 
         private static void Collapse(UIHierarchyItem item)
         {

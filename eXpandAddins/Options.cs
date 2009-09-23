@@ -11,11 +11,14 @@ namespace eXpandAddIns
         protected override void Initialize() {
             base.Initialize();
 
-            buttonEdit2.Text = GetStorage().ReadString(PageName, "modelEditorPath", buttonEdit2.Text);
-            buttonEdit1.Text = GetStorage().ReadString(PageName, "projectConverterPath", buttonEdit1.Text);
-            textEdit1.Text = GetStorage().ReadString(PageName, "token", textEdit1.Text);
-            openFileDialog1.FileName = GetStorage().ReadString(PageName, "modelEditorPath", buttonEdit2.Text);
-            openFileDialog2.FileName = GetStorage().ReadString(PageName, "projectConverterPath", buttonEdit1.Text);
+            DecoupledStorage storage = GetStorage();
+            connectionStringName.Text = storage.ReadString(PageName, connectionStringName.Name, connectionStringName.Text);
+            dbCommandText.Text = storage.ReadString(PageName, dbCommandText.Name, dbCommandText.Text);
+            buttonEdit2.Text = storage.ReadString(PageName, "modelEditorPath", buttonEdit2.Text);
+            buttonEdit1.Text = storage.ReadString(PageName, "projectConverterPath", buttonEdit1.Text);
+            textEdit1.Text = storage.ReadString(PageName, "token", textEdit1.Text);
+            openFileDialog1.FileName = storage.ReadString(PageName, "modelEditorPath", buttonEdit2.Text);
+            openFileDialog2.FileName = storage.ReadString(PageName, "projectConverterPath", buttonEdit1.Text);
 
         }
         #endregion
@@ -44,6 +47,8 @@ namespace eXpandAddIns
             ea.Storage.WriteString(PageName, "token", textEdit1.Text);
             ea.Storage.WriteString(PageName, "modelEditorPath", buttonEdit2.Text);
             ea.Storage.WriteString(PageName, "projectConverterPath", buttonEdit1.Text);
+            ea.Storage.WriteString(PageName, dbCommandText.Name, dbCommandText.Text);
+            ea.Storage.WriteString(PageName, connectionStringName.Name, connectionStringName.Text);
         }
 
         private void openFileDialog2_FileOk(object sender, CancelEventArgs e)
