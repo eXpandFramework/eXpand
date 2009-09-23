@@ -8,6 +8,8 @@ namespace eXpand.ExpressApp.ModelDifference.Security
     [NonPersistent]
     public class ApplicationModelCombinePermission:PermissionBase
     {
+        public ApplicationModelCombinePermission(){
+        }
 
         public ApplicationModelCombinePermission(ApplicationModelCombineModifier modifier)
         {
