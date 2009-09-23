@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.Security;
@@ -48,10 +49,6 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 return dictionary;
             }
             return CombineWithActiveDifferenceObjects(modelDifferenceObjects);
-//            Dictionary combinedModel = activeAspectObjects[0].GetCombinedModel();
-//            foreach (ModelDifferenceObject modelStoreObject in activeAspectObjects){
-//                combinedModel.CombineWith(modelStoreObject);
-//            }
         }
 
         public Dictionary CombineWithActiveDifferenceObjects(List<ModelDifferenceObject> modelDifferenceObjects){
@@ -73,7 +70,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             if (!userStoreObject.NonPersistent){
                 base.OnAspectStoreObjectSaving(userModelDifferenceObject, diffDictionary);
             }
-            if (SecuritySystem.IsGranted(new ApplicationModelCombinePermission(ApplicationModelCombineModifier.Allow))){
+            if (SecuritySystem.Instance is ISecurityComplex&& SecuritySystem.IsGranted(new ApplicationModelCombinePermission(ApplicationModelCombineModifier.Allow))){
                 ObjectSpace space = Application.CreateObjectSpace();
                 ModelDifferenceObject activeModelDifferenceObject =
                     new QueryModelDifferenceObject(space.Session).GetActiveModelDifference(userStoreObject.PersistentApplication.UniqueName);
