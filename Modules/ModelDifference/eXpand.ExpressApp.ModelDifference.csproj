@@ -170,6 +170,12 @@
       <DependentUpon>CreateNewDifferenceObjectViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\DifferenceTypeObject.cs" />
+    <Compile Include="Controllers\RunTimeMembersController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\RunTimeMembersController.Designer.cs">
+      <DependentUpon>RunTimeMembersController.cs</DependentUpon>
+    </Compile>
     <Compile Include="CultureDescription.cs" />
     <Compile Include="DataStore\BaseObjects\DifferenceObject.cs" />
     <Compile Include="DataStore\Queries\IQueryDifferenceObject.cs" />

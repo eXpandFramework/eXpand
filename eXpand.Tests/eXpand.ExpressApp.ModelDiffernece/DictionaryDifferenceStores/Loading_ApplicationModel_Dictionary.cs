@@ -39,7 +39,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
                                                                          Isolate.Fake.Instance<XafApplication>(), true);
                 Isolate.WhenCalled(() => store.IsDebuggerAttached).WillReturn(true);
                 Isolate.Fake.StaticMethods(typeof(ConfigurationManager));
-                Isolate.WhenCalled(() => ConfigurationManager.AppSettings[XpoModelDictionaryDifferenceStore.DisableDebuggerAttachedCheck]).WillReturn(disableDebuggerAttachedCheck);
+                Isolate.WhenCalled(() => ConfigurationManager.AppSettings[XpoModelDictionaryDifferenceStore.EnableDebuggerAttachedCheck]).WillReturn(disableDebuggerAttachedCheck);
 
                 var path = store.UseModelFromPath();
 

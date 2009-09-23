@@ -12,7 +12,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     public abstract class XpoModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore
     {
         private readonly bool _enableLoading;
-        public const string DisableDebuggerAttachedCheck = "DisableDebuggerAttachedCheck";
+        public const string EnableDebuggerAttachedCheck = "EnableDebuggerAttachedCheck";
 
         protected XpoModelDictionaryDifferenceStore( XafApplication application, bool enableLoading) : base(application){
             _enableLoading = enableLoading;
@@ -20,13 +20,13 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
         internal bool UseModelFromPath()
         {
-            return IsDebuggerAttached && !debuggerAttachedDisabled();
+            return IsDebuggerAttached && debuggerAttachedEnabled();
         }
 
 
-        private bool debuggerAttachedDisabled()
+        private bool debuggerAttachedEnabled()
         {
-            string setting = ConfigurationManager.AppSettings[DisableDebuggerAttachedCheck];
+            string setting = ConfigurationManager.AppSettings[EnableDebuggerAttachedCheck];
             if (string.IsNullOrEmpty(setting))
                 return false;
             return setting.ToLower() == "true";

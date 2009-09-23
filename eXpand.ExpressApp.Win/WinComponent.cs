@@ -78,19 +78,7 @@ namespace eXpand.ExpressApp.Win
             base.OnCustomCheckCompatibility(args);
         }
 
-        protected override void OnLoggedOn(LogonEventArgs args)
-        {
-            base.OnLoggedOn(args);
-            DictionaryHelper.AddFields(Info, ObjectSpaceProvider.XPDictionary);
-        }
 
-        protected override void OnSetupComplete()
-        {
-            base.OnSetupComplete();
-
-            DictionaryHelper.AddFields(Info, ObjectSpaceProvider.XPDictionary);
-            
-        }
 
 
         protected override Form CreateModelEditorForm()
