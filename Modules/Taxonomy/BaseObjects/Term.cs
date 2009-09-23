@@ -13,9 +13,9 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
         public Term() {}
 
         [XmlIgnore]
-        [Association(Associations.TermTermAssignments)]
-        public XPCollection<TermAssignment> Assignments{
-            get { return GetCollection<TermAssignment>("Assignments"); }
+        [Association(Associations.TermTaxonomizedInfos)]
+        public XPCollection<TaxonomizedInfo> Infos {
+            get { return GetCollection<TaxonomizedInfo>("Infos"); }
         }
 
         private StructuralTerm structuralTerm;

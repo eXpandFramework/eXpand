@@ -110,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\UpdateModelViewController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controller\UpdateModelViewController.Designer.cs">
       <DependentUpon>UpdateModelViewController.cs</DependentUpon>

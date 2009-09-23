@@ -210,7 +210,6 @@
     <Compile Include="Security\Permissions\ControllerStateRulePermission.cs" />
     <Compile Include="Security\Permissions\ArtifactStateRulePermission.cs" />
     <Compile Include="Security\PopulateModulesController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Security\PopulateModulesController.Designer.cs">
       <DependentUpon>PopulateModulesController.cs</DependentUpon>

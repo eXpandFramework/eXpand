@@ -81,7 +81,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eXpand.DLL\eXpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="eXpand.Xpo, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="eXpand.Xpo, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Foxhound.Xpo, Version=0.9.0.0, Culture=neutral, PublicKeyToken=7e2d5b191f45cc25, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -110,11 +115,12 @@
     <Compile Include="Analysis.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Associations.cs" />
     <Compile Include="AuditDataItemPersistent.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BaseObject.cs" />
-    <Compile Include="BaseObjectInfo.cs" />
+    <Compile Include="BasicInfo.cs" />
     <Compile Include="Country.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -133,7 +139,6 @@
     <Compile Include="IDGenerator.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IPersistentKeyValuePair.cs" />
     <Compile Include="Note.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -143,8 +148,7 @@
     <Compile Include="Party.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PersistentKeyValuePair.cs" />
-    <Compile Include="BaseObjectInfoValidity.cs" />
+    <Compile Include="InfoValidity.cs" />
     <Compile Include="PersistentPermission.cs" />
     <Compile Include="Person.cs">
       <SubType>Code</SubType>

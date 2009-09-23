@@ -10,16 +10,14 @@ using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
     [Serializable]
-
     public abstract class TermBase : eXpandLiteObject, ITreeNode{
-        private readonly string caption;
         [Persistent, Size(SizeAttribute.Unlimited)] protected string fullPath;
         private string key;
-        private AssociationXmlSerializationHelper keyValuePairsSerializationHelper;
 
         [Persistent] protected int level;
         [XmlAttribute] private string name;
         private TermBase parentTerm;
+        private AssociationXmlSerializationHelper persistentPropertiesSerializationHelper;
         private Taxonomy taxonomy;
 
         protected TermBase(Session session) : base(session) {}
@@ -56,67 +54,63 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             set { SetPropertyValue("Taxonomy", ref taxonomy, value); }
         }
 
-        [ProvidedAssociation(Associations.TermKeyValuePairs)]
-        [Association(Associations.TermKeyValuePairs, typeof(PersistentKeyValuePair)), Aggregated]
+        [ProvidedAssociation(Associations.TermAdditionalValues)]
+        [Association(Associations.TermAdditionalValues, typeof(BasicInfo)), Aggregated]
         [XmlIgnore]
-        public XPCollection KeyValuePairs {
-            get { return GetCollection("KeyValuePairs"); }
+        public XPCollection AdditionalValues {
+            get { return GetCollection("AdditionalValues"); }
         }
 
         [XmlArray("TermValuePairs")]
-        [XmlArrayItem(typeof(PersistentKeyValuePair))]
+        [XmlArrayItem(typeof(BasicInfo))]
         [Browsable(false)]
-        public AssociationXmlSerializationHelper KeyValuePairsSerializationHelper {
+        public AssociationXmlSerializationHelper PersistentPropertiesSerializationHelper {
             get {
-                if (keyValuePairsSerializationHelper == null)
-                    keyValuePairsSerializationHelper = new AssociationXmlSerializationHelper(KeyValuePairs);
-                return keyValuePairsSerializationHelper;
+                if (persistentPropertiesSerializationHelper == null)
+                    persistentPropertiesSerializationHelper = new AssociationXmlSerializationHelper(AdditionalValues);
+                return persistentPropertiesSerializationHelper;
             }
         }
 
         #region Tree structure and categorization implementation
-
         [Association(Associations.TermTerms), Aggregated]
         [XmlIgnore]
-        public XPCollection<TermBase> Terms {
+        public XPCollection<TermBase> Terms{
             get { return GetCollection<TermBase>("Terms"); }
         }
 
         [Association(Associations.TermTerms)]
         [XmlIgnore]
-        public TermBase ParentTerm {
+        public TermBase ParentTerm{
             get { return parentTerm; }
             set { SetPropertyValue("ParentTerm", ref parentTerm, value); }
         }
 
-        #region ITreeNode Members
-        [XmlAttribute]
-        public string Name {
-            get { return name; }
-            set { SetPropertyValue("Name", ref name, value); }
+        [PersistentAlias("level")]
+        public int Level{
+            get { return level; }
         }
 
-        [PersistentAlias("level")]
-        public int Level {
-            get { return level; }
+        [XmlAttribute]
+        public string Name{
+            get { return name; }
+            set { SetPropertyValue("Name", ref name, value); }
         }
 
         [XmlIgnore]
         [NonPersistent]
         [Browsable(false)]
-        public ITreeNode Parent {
+        public ITreeNode Parent{
             get { return ParentTerm; }
         }
 
         [XmlIgnore]
         [NonPersistent]
         [Browsable(false)]
-        public IBindingList Children {
+        public IBindingList Children{
             get { return Terms; }
         }
         #endregion
-        #endregion
-
         protected override void OnChanged(string propertyName, object oldValue, object newValue){
             base.OnChanged(propertyName, oldValue, newValue);
             if (!IsDeleted){
@@ -131,10 +125,12 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
         protected override void OnSaving(){
             base.OnSaving();
 
-            level = (ParentTerm == null ? 0 : ParentTerm.Level + 1);
-            if (parentTerm != null) Taxonomy = parentTerm.Taxonomy;
+            if (!IsDeleted){
+                level = (ParentTerm == null ? 0 : ParentTerm.Level + 1);
+                if (parentTerm != null) Taxonomy = parentTerm.Taxonomy;
 
-            UpdateFullPath(true);
+                UpdateFullPath(true);
+            }
         }
 
         public virtual void UpdateFullPath(bool updateChildren){
@@ -148,6 +144,16 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
                 foreach (TermBase term in Terms){
                     term.UpdateFullPath(true);
                 }
+            }
+        }
+
+        private string indexer;
+        public string Indexer {
+            get {
+                return indexer;
+            }
+            set {
+                SetPropertyValue("Indexer", ref indexer, value);
             }
         }
     }

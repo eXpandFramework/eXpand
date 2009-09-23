@@ -61,6 +61,7 @@
   <ItemGroup>
     <Reference Include="DevExpress.Data.v9.2">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v9.2">
       <SpecificVersion>False</SpecificVersion>
@@ -133,7 +134,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseObjects\Associations.cs" />
-    <Compile Include="BaseObjects\TermAssignment.cs">
+    <Compile Include="BaseObjects\InfosTaxonomy.cs" />
+    <Compile Include="BaseObjects\TaxonomizedInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BaseObjects\StructuralTerm.cs" />

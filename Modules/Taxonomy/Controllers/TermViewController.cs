@@ -41,6 +41,8 @@ namespace eXpand.ExpressApp.Taxonomy.Controllers{
                             newObjectAction.Items.Add(choiceActionItem);
                         }
                     }
+                    newObjectAction.Items.Add(new ChoiceActionItem(){BeginGroup = true});
+                    newObjectAction.Items.Add(new ChoiceActionItem("Term", typeof (Term)));
                 }
             }
         }
