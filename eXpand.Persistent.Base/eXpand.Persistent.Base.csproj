@@ -58,9 +58,6 @@
     <Reference Include="DevExpress.Persistent.Base.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.Xpo.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -85,7 +82,6 @@
   <ItemGroup>
     <Compile Include="General\DateRange.cs" />
     <Compile Include="DifferenceType.cs" />
-    <Compile Include="General\IAuditable.cs" />
     <Compile Include="General\IDateRange.cs" />
     <Compile Include="IXpoModelDifference.cs" />
     <Compile Include="General\IHidden.cs" />
