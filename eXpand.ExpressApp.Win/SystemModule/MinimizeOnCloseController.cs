@@ -18,9 +18,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         protected override void OnFrameAssigned()
         {
             base.OnFrameAssigned();
-
             Frame.TemplateChanged += FrameOnTemplateChanged;
-
         }
 
         private void FrameOnTemplateChanged(object sender, EventArgs args)

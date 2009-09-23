@@ -22,7 +22,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private void FrameOnTemplateChanged(object sender, EventArgs args){
             if (Frame.Context == TemplateContext.ApplicationWindow)
-                ((XtraForm) Frame.Template).Disposed += (o, eventArgs) => writeRegistry();
+                ((XtraForm) Frame.Template).Closing += (o, eventArgs) => writeRegistry();
         }
 
         private void writeRegistry(){
