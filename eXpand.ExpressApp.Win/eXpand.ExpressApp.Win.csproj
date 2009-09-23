@@ -188,6 +188,12 @@
     <Compile Include="SystemModule\ListViewViewStyleController.Designer.cs">
       <DependentUpon>ListViewViewStyleController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\LoadWithWindowsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\LoadWithWindowsController.Designer.cs">
+      <DependentUpon>LoadWithWindowsController.cs</DependentUpon>
+    </Compile>
     <Compile Include="SystemModule\MasterDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>

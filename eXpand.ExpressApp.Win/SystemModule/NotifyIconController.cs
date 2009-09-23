@@ -38,7 +38,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
                     strip.Items.Add(GetMenuItem("Minimize",(o,eventArgs) => changeFormVisibility(form)));
                     if (Application is ILogOut)
                         strip.Items.Add(GetMenuItem("LogOut", (o, eventArgs) => ((ILogOut) Application).Logout()));
-                    strip.Items.Add(GetMenuItem("Exit", (o, eventArgs) => Environment.Exit(0)));
+                    strip.Items.Add(GetMenuItem("Exit", (o, eventArgs) => Application.Exit()));
 
                     var notifyIcon1 = new NotifyIcon(container){Visible = true, ContextMenuStrip = strip};
                     setIcon(notifyIcon1);
