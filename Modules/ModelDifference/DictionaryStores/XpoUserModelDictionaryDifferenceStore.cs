@@ -77,7 +77,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 if (activeModelDifferenceObject != null){
                     Dictionary combinedModel = activeModelDifferenceObject.GetCombinedModel();
                     combinedModel.CombineWith(userModelDifferenceObject.Model);
-                    activeModelDifferenceObject.Model=combinedModel;
+                    activeModelDifferenceObject.Model=combinedModel.GetDiffs();
                     space.CommitChanges();
                 }
             }

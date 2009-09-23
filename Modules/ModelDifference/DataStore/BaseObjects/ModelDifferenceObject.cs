@@ -171,8 +171,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         }
 
         public Dictionary GetCombinedModel(Dictionary dictionary){
-            dictionary.ResetIsModified();
-            dictionary.CombineWith(Model);
+            Dictionary clone = dictionary.Clone();
+            clone.ResetIsModified();
+            clone.CombineWith(Model);
             return dictionary;
         }
     }
