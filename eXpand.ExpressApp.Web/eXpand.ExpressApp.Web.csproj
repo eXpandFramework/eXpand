@@ -108,12 +108,6 @@
     <Compile Include="SystemModule\eXpandSystemAspNetModule.designer.cs">
       <DependentUpon>eXpandSystemAspNetModule.cs</DependentUpon>
     </Compile>
-    <Compile Include="SystemModule\FixWebRecordsNavigationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\FixWebRecordsNavigationController.Designer.cs">
-      <DependentUpon>FixWebRecordsNavigationController.cs</DependentUpon>
-    </Compile>
     <Compile Include="WebComponent.cs">
       <SubType>Component</SubType>
     </Compile>
