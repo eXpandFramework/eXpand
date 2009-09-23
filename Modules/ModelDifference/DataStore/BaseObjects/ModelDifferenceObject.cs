@@ -174,7 +174,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             Dictionary clone = dictionary.Clone();
             clone.ResetIsModified();
             clone.CombineWith(Model);
-            return dictionary;
+            return clone;
         }
     }
 

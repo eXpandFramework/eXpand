@@ -41,13 +41,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             }
         }
 
-        private void ControllerOnCurrentNodeChanged(object sender, EventArgs args){
-            ModifyCurrentObjectModel();
-        }
 
-        private void ControllerOnCurrentAttributeChanged(object sender, EventArgs args){
-            ModifyCurrentObjectModel();
-        }
 
         private void ControllerModifiedChanged(object sender, EventArgs args)
         {
@@ -83,7 +77,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         internal ModelEditorController GetModelEditorController(XafApplication application){
             var controller = new ModelEditorController(CurrentObject.GetCombinedModel(), null, application.Modules);
-            controller.ModifiedChanged+=ControllerOnCurrentAttributeChanged;
+//            controller.ModifiedChanged+=ControllerOnCurrentAttributeChanged;
 //            controller.CurrentAttributeValueChanged += ControllerOnCurrentAttributeChanged;
 //            controller.CurrentNodeChanged += ControllerOnCurrentNodeChanged;
             controller.ModifiedChanged += ControllerModifiedChanged;

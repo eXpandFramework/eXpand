@@ -44,8 +44,9 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         protected internal abstract ModelDifferenceObject GetNewDifferenceObject(ObjectSpace objectSpace);
 
         protected internal virtual void OnAspectStoreObjectSaving(ModelDifferenceObject modelDifferenceObject, Dictionary diffDictionary){
-            var combiner = new DictionaryCombiner(modelDifferenceObject.Model);
-            combiner.AddAspects(diffDictionary);
+            Dictionary dictionary = modelDifferenceObject.GetCombinedModel();
+            dictionary.CombineWith(diffDictionary);
+            modelDifferenceObject.Model = dictionary.GetDiffs();
             objectSpace.CommitChanges();
         }
 
