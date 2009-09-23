@@ -70,7 +70,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             if (!userStoreObject.NonPersistent){
                 base.OnAspectStoreObjectSaving(userModelDifferenceObject, diffDictionary);
             }
-            if (SecuritySystem.Instance is ISecurityComplex&& SecuritySystem.IsGranted(new ApplicationModelCombinePermission(ApplicationModelCombineModifier.Allow))){
+            if (SecuritySystem.Instance is ISecurityComplex&& IsGranted()){
                 ObjectSpace space = Application.CreateObjectSpace();
                 ModelDifferenceObject activeModelDifferenceObject =
                     new QueryModelDifferenceObject(space.Session).GetActiveModelDifference(userStoreObject.PersistentApplication.UniqueName);
@@ -84,6 +84,13 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             
         }
 
-
+        private bool IsGranted(){
+            var securityComplex = ((SecurityComplex) SecuritySystem.Instance);
+            bool permission = securityComplex.IsGrantedForNonExistentPermission;
+            securityComplex.IsGrantedForNonExistentPermission = false;
+            bool granted = SecuritySystem.IsGranted(new ApplicationModelCombinePermission(ApplicationModelCombineModifier.Allow));
+            securityComplex.IsGrantedForNonExistentPermission=permission;
+            return granted;
+        }
     }
 }
