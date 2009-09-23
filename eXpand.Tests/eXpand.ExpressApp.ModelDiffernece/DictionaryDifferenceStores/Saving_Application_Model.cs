@@ -13,7 +13,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             var modelDictionaryDifferenceStore = Isolate.Fake.Instance<XpoModelDictionaryDifferenceStore>(Members.CallOriginal);
             var modelDifferenceObject = new ModelDifferenceObject(Session.DefaultSession);
 
-            modelDictionaryDifferenceStore.OnAspectStoreObjectSaving(modelDifferenceObject, DefaultDictionary);
+            modelDictionaryDifferenceStore.OnDifferenceObjectSaving(modelDifferenceObject, DefaultDictionary);
 
             Assert.AreEqual(DefaultDictionary.RootNode.ToXml(), modelDifferenceObject.Model.RootNode.ToXml());
         }

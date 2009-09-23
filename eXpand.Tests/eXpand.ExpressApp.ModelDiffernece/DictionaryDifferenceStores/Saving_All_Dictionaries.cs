@@ -44,7 +44,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             var application = Isolate.Fake.InstanceAndSwapAll<QueryPersistentApplication>();
             var persistentApplication = new PersistentApplication(Session.DefaultSession);
             Isolate.WhenCalled(() => application.Find("")).WillReturn(persistentApplication);
-            Isolate.WhenCalled(() => modelDictionaryDifferenceStore.OnAspectStoreObjectSaving(null, new Dictionary())).IgnoreCall();
+            Isolate.WhenCalled(() => modelDictionaryDifferenceStore.OnDifferenceObjectSaving(null, new Dictionary())).IgnoreCall();
             Isolate.WhenCalled(() => modelDictionaryDifferenceStore.GetActiveDifferenceObject()).WillReturn(null);
             Isolate.WhenCalled(() => modelDictionaryDifferenceStore.GetNewDifferenceObject(Session.DefaultSession)).WillReturn(new ModelDifferenceObject(Session.DefaultSession));
 

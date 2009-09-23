@@ -65,10 +65,10 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             return aspectObject;
         }
 
-        protected internal override void OnAspectStoreObjectSaving(ModelDifferenceObject userModelDifferenceObject, Dictionary diffDictionary){
+        protected internal override void OnDifferenceObjectSaving(ModelDifferenceObject userModelDifferenceObject, Dictionary diffDictionary){
             var userStoreObject = ((UserModelDifferenceObject) userModelDifferenceObject);
             if (!userStoreObject.NonPersistent){
-                base.OnAspectStoreObjectSaving(userModelDifferenceObject, diffDictionary);
+                base.OnDifferenceObjectSaving(userModelDifferenceObject, diffDictionary);
             }
             if (SecuritySystem.Instance is ISecurityComplex&& IsGranted()){
                 ObjectSpace space = Application.CreateObjectSpace();
@@ -77,6 +77,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 if (activeModelDifferenceObject != null){
                     Dictionary combinedModel = activeModelDifferenceObject.GetCombinedModel();
                     combinedModel.CombineWith(userModelDifferenceObject.Model);
+                    combinedModel.CombineWith(diffDictionary);
                     activeModelDifferenceObject.Model=combinedModel.GetDiffs();
                     space.CommitChanges();
                 }
@@ -84,7 +85,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             
         }
 
-        private bool IsGranted(){
+        private bool IsGranted(){            
             var securityComplex = ((SecurityComplex) SecuritySystem.Instance);
             bool permission = securityComplex.IsGrantedForNonExistentPermission;
             securityComplex.IsGrantedForNonExistentPermission = false;

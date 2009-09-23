@@ -57,7 +57,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
                                                                                         Model = DefaultDictionary2
                                                                                     };
             
-            store.OnAspectStoreObjectSaving(aspectObject, new Dictionary());
+            store.OnDifferenceObjectSaving(aspectObject, new Dictionary());
 
 
             Assert.IsNotNull(permission);
@@ -74,7 +74,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             var modelDictionaryDifferenceStore = new XpoUserModelDictionaryDifferenceStore(Session.DefaultSession, Isolate.Fake.Instance<XafApplication>());
             var modelDifferenceObject = new UserModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession),Model = DefaultDictionary};
 
-            modelDictionaryDifferenceStore.OnAspectStoreObjectSaving(modelDifferenceObject, elDictionary);
+            modelDictionaryDifferenceStore.OnDifferenceObjectSaving(modelDifferenceObject, elDictionary);
 
             Assert.AreEqual("el", new ApplicationNodeWrapper(modelDifferenceObject.Model).BOModel.FindClassByName("MyClass").Caption);
         }
