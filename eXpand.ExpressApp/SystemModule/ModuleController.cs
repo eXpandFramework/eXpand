@@ -1,8 +1,9 @@
 using System;
-using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.Persistent.Base;
 
 namespace eXpand.ExpressApp.SystemModule
 {
@@ -18,13 +19,21 @@ namespace eXpand.ExpressApp.SystemModule
         public override void UpdateModel(Dictionary dictionary)
         {
             base.UpdateModel(dictionary);
-            return;
-            var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetTypes()).Where(type => typeof(ModuleBase).IsAssignableFrom(type));
             var wrapper = new ApplicationNodeWrapper(dictionary);
-            var node = wrapper.Node.AddChildNode(Modules);
-            foreach (Type type in types)
-                if (node.FindChildNode("Module", "Name", type.FullName)== null)
-                    node.AddChildNode("Module").SetAttribute("Name", type.FullName);
+            DictionaryNode node = wrapper.Node.AddChildNode(Modules);
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                try{
+                    foreach (var type in assembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type))){
+                        if (node.FindChildNode("Module", "Name", type.FullName) == null)
+                            node.AddChildNode("Module").SetAttribute("Name", type.FullName);
+                    }
+                }
+                catch (ReflectionTypeLoadException)
+                {
+                    Tracing.Tracer.LogError(string.Format("ReflectionTypeLoadException for {0}", assembly.FullName));
+                }
+            }
         }
 
         [CoverageExclude]

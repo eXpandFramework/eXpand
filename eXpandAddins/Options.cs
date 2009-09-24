@@ -13,7 +13,7 @@ namespace eXpandAddIns
 
             DecoupledStorage storage = GetStorage();
             connectionStringName.Text = storage.ReadString(PageName, connectionStringName.Name, connectionStringName.Text);
-            dbCommandText.Text = storage.ReadString(PageName, dbCommandText.Name, dbCommandText.Text);
+
             buttonEdit2.Text = storage.ReadString(PageName, "modelEditorPath", buttonEdit2.Text);
             buttonEdit1.Text = storage.ReadString(PageName, "projectConverterPath", buttonEdit1.Text);
             textEdit1.Text = storage.ReadString(PageName, "token", textEdit1.Text);
@@ -47,7 +47,6 @@ namespace eXpandAddIns
             ea.Storage.WriteString(PageName, "token", textEdit1.Text);
             ea.Storage.WriteString(PageName, "modelEditorPath", buttonEdit2.Text);
             ea.Storage.WriteString(PageName, "projectConverterPath", buttonEdit1.Text);
-            ea.Storage.WriteString(PageName, dbCommandText.Name, dbCommandText.Text);
             ea.Storage.WriteString(PageName, connectionStringName.Name, connectionStringName.Text);
         }
 

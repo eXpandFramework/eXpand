@@ -37,12 +37,12 @@ namespace eXpandAddIns
             this.collapseAllItemsInSolutionExplorer = new DevExpress.CodeRush.Core.Action(this.components);
             this.exploreXafErrors = new DevExpress.CodeRush.Core.Action(this.components);
             this.events = new DevExpress.DXCore.PlugInCore.DXCoreEvents(this.components);
-            this.sqlCommandAtDesignTime = new DevExpress.CodeRush.Core.Action(this.components);
+            this.dropDataBase = new DevExpress.CodeRush.Core.Action(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sqlCommandAtDesignTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dropDataBase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // convertProject
@@ -75,18 +75,18 @@ namespace eXpandAddIns
             this.events.DebuggerEnterRunMode += new DevExpress.CodeRush.Core.DebuggerEnterRunModeHandler(this.events_DebuggerEnterRunMode);
             this.events.DebuggerContextChanged += new DevExpress.CodeRush.Core.DebuggerContextChangedHandler(this.events_DebuggerContextChanged);
             // 
-            // sqlCommandAtDesignTime
+            // dropDataBase
             // 
-            this.sqlCommandAtDesignTime.ActionName = "sqlCommandAtDesignTime";
-            this.sqlCommandAtDesignTime.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
-            this.sqlCommandAtDesignTime.Image = ((System.Drawing.Bitmap)(resources.GetObject("sqlCommandAtDesignTime.Image")));
-            this.sqlCommandAtDesignTime.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
-            this.sqlCommandAtDesignTime.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.SpAtDesignTime_Execute);
+            this.dropDataBase.ActionName = "dropDataBase";
+            this.dropDataBase.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+            this.dropDataBase.Image = ((System.Drawing.Bitmap)(resources.GetObject("dropDataBase.Image")));
+            this.dropDataBase.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+            this.dropDataBase.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.SpAtDesignTime_Execute);
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sqlCommandAtDesignTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dropDataBase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -97,6 +97,6 @@ namespace eXpandAddIns
         private DevExpress.CodeRush.Core.Action collapseAllItemsInSolutionExplorer;
         private DevExpress.CodeRush.Core.Action exploreXafErrors;
         private DevExpress.DXCore.PlugInCore.DXCoreEvents events;
-        private DevExpress.CodeRush.Core.Action sqlCommandAtDesignTime;
+        private DevExpress.CodeRush.Core.Action dropDataBase;
     }
 }

@@ -42,14 +42,11 @@ namespace eXpandAddIns
             this.buttonEdit1 = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
             this.labelControl3 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.dbCommandText = new DevExpress.DXCore.Controls.XtraEditors.MemoEdit();
-            this.labelControl4 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.labelControl5 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.connectionStringName = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dbCommandText.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.connectionStringName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
@@ -121,22 +118,6 @@ namespace eXpandAddIns
             this.openFileDialog2.FileName = "openFileDialog1";
             this.openFileDialog2.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog2_FileOk);
             // 
-            // dbCommandText
-            // 
-            this.dbCommandText.EditValue = "DROP DATABASE $TargetDataBase$";
-            this.dbCommandText.Location = new System.Drawing.Point(122, 132);
-            this.dbCommandText.Name = "dbCommandText";
-            this.dbCommandText.Size = new System.Drawing.Size(393, 63);
-            this.dbCommandText.TabIndex = 8;
-            // 
-            // labelControl4
-            // 
-            this.labelControl4.Location = new System.Drawing.Point(5, 135);
-            this.labelControl4.Name = "labelControl4";
-            this.labelControl4.Size = new System.Drawing.Size(72, 13);
-            this.labelControl4.TabIndex = 9;
-            this.labelControl4.Text = "Command Text";
-            // 
             // labelControl5
             // 
             this.labelControl5.Location = new System.Drawing.Point(7, 108);
@@ -160,8 +141,6 @@ namespace eXpandAddIns
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.Controls.Add(this.labelControl5);
             this.Controls.Add(this.connectionStringName);
-            this.Controls.Add(this.labelControl4);
-            this.Controls.Add(this.dbCommandText);
             this.Controls.Add(this.buttonEdit1);
             this.Controls.Add(this.labelControl3);
             this.Controls.Add(this.labelControl2);
@@ -173,7 +152,6 @@ namespace eXpandAddIns
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dbCommandText.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.connectionStringName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
@@ -230,8 +208,6 @@ namespace eXpandAddIns
         private ButtonEdit buttonEdit1;
         private LabelControl labelControl3;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
-        private MemoEdit dbCommandText;
-        private LabelControl labelControl4;
         private LabelControl labelControl5;
         private ButtonEdit connectionStringName;
     }

@@ -449,7 +449,7 @@ namespace eXpandAddIns
                     using (var storage = new DecoupledStorage(typeof(Options)))
                     {
                         string connectionStringName = storage.ReadString(Options.GetPageName(), "connectionStringName");
-                        string dbCommandText = storage.ReadString(Options.GetPageName(), "dbCommandText");
+                        const string dbCommandText = "DROP DATABASE $TargetDataBase$";
                         if (!string.IsNullOrEmpty(connectionStringName) && !string.IsNullOrEmpty(dbCommandText))
                         {
                             Property property = item.FindProperty(ProjectItemProperty.FullPath);
