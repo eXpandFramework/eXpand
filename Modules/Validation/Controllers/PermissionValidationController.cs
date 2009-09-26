@@ -1,7 +1,7 @@
 using System.Security;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Validation;
-using DevExpress.Persistent.BaseImpl;
+using DevExpress.Persistent.Base.Security;
 
 namespace eXpand.ExpressApp.Validation.Controllers
 {
@@ -13,13 +13,13 @@ namespace eXpand.ExpressApp.Validation.Controllers
         {
             InitializeComponent();
             RegisterActions(components);
-            TargetObjectType = typeof (PersistentPermission);
+            TargetObjectType = typeof(IPersistentPermission);
             TargetViewType = ViewType.DetailView;
         }
 
         private void controller_ContextValidating(object sender, ContextValidatingEventArgs e)
         {
-            IPermission permission = ((PersistentPermission) View.CurrentObject).Permission;
+            IPermission permission = ((IPersistentPermission)View.CurrentObject).Permission;
             if (!e.TargetObjects.Contains(permission))
                 e.TargetObjects.Add(permission);
         }

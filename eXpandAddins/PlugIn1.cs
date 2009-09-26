@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -464,6 +465,8 @@ namespace eXpandAddIns
                                     SqlCommand sqlCommand = sqlConnection.CreateCommand();
                                     sqlCommand.CommandText = dbCommandText.Replace("$TargetDataBase$",connection.Database);
                                     sqlCommand.ExecuteNonQuery();
+                                    Rectangle rectangle = Screen.PrimaryScreen.Bounds;
+                                    actionHint1.PointTo(new Point(rectangle.Width/2,rectangle.Height/2));
                                 }
                             }
 

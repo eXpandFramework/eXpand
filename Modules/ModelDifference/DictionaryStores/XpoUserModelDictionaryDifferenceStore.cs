@@ -2,6 +2,7 @@
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
+using DevExpress.Persistent.Base.Security;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.Security;
@@ -72,24 +73,33 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             }
             if (SecuritySystem.Instance is ISecurityComplex&& IsGranted()){
                 ObjectSpace space = Application.CreateObjectSpace();
-                ModelDifferenceObject activeModelDifferenceObject =
-                    new QueryModelDifferenceObject(space.Session).GetActiveModelDifference(userStoreObject.PersistentApplication.UniqueName);
-                if (activeModelDifferenceObject != null){
-                    Dictionary combinedModel = activeModelDifferenceObject.GetCombinedModel();
-                    combinedModel.CombineWith(userModelDifferenceObject.Model);
-                    combinedModel.CombineWith(diffDictionary);
-                    activeModelDifferenceObject.Model=combinedModel.GetDiffs();
-                    space.CommitChanges();
+                IQueryable<ModelDifferenceObject> differences = GetDifferences(space);
+                foreach (var difference in differences){
+                    combineDifference(userModelDifferenceObject, diffDictionary, difference);
                 }
+                space.CommitChanges();
             }
             
+        }
+
+        private void combineDifference(ModelDifferenceObject userModelDifferenceObject, Dictionary diffDictionary, ModelDifferenceObject difference){
+            Dictionary combinedModel = difference.GetCombinedModel();
+            combinedModel.CombineWith(userModelDifferenceObject.Model);
+            combinedModel.CombineWith(diffDictionary);
+            difference.Model = combinedModel.GetDiffs();
+        }
+
+        private IQueryable<ModelDifferenceObject> GetDifferences(ObjectSpace space){
+            return new QueryModelDifferenceObject(space.Session).GetModelDifferences(
+                ((IUser) SecuritySystem.CurrentUser).Permissions.OfType<ModelCombinePermission>().Select(
+                    permission => permission.Difference));
         }
 
         private bool IsGranted(){            
             var securityComplex = ((SecurityComplex) SecuritySystem.Instance);
             bool permission = securityComplex.IsGrantedForNonExistentPermission;
             securityComplex.IsGrantedForNonExistentPermission = false;
-            bool granted = SecuritySystem.IsGranted(new ApplicationModelCombinePermission(ApplicationModelCombineModifier.Allow));
+            bool granted = SecuritySystem.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow));
             securityComplex.IsGrantedForNonExistentPermission=permission;
             return granted;
         }

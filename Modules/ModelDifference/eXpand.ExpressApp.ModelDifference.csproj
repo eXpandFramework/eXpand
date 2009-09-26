@@ -81,9 +81,6 @@
     <Reference Include="DevExpress.Persistent.Base.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.Utils.v9.2, Version=9.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -203,7 +200,13 @@
       <DependentUpon>ModelDifferenceModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\ApplicationModelCombinePermission.cs" />
+    <Compile Include="Security\Controllers\PopuLateDifferenceObjectsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Security\Controllers\PopuLateDifferenceObjectsController.Designer.cs">
+      <DependentUpon>PopuLateDifferenceObjectsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Security\ModelCombinePermission.cs" />
     <Compile Include="Security\ApplicationModelCombineModifier.cs" />
     <Compile Include="Security\Controllers\NavigationItemsController.cs">
       <SubType>Component</SubType>

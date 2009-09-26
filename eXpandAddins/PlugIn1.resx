@@ -161,6 +161,9 @@
         8J+BIgAygBJMkWaw6ymxfdQASOyNBuJoGADTAQARBN8+1t/aZAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <metadata name="actionHint1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>101, 161</value>
+  </metadata>
   <metadata name="$this.TrayLargeIcon" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>

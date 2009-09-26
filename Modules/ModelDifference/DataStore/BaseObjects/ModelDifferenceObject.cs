@@ -87,8 +87,8 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         {
             get { return differenceType; }
         }
-
-        [RuleRequiredField(null, DefaultContexts.Save)]
+        [RuleUniqueValue("ModelDiffsObject_Uniq_Name", DefaultContexts.Save)]
+        [RuleRequiredField("ModelDiffsObject_Req_Name", DefaultContexts.Save)]
         public string Name
         {
             get { return name; }

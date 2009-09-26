@@ -1,6 +1,6 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.Persistent.BaseImpl;
+using DevExpress.Persistent.Base.Security;
 
 namespace eXpand.ExpressApp.Security.Controllers
 {
@@ -10,15 +10,16 @@ namespace eXpand.ExpressApp.Security.Controllers
         {
             InitializeComponent();
             RegisterActions(components);
-            TargetObjectType = typeof (Role);
+            TargetObjectType = typeof(ICustomizableRole);
             TargetViewType=ViewType.DetailView;
         }
         protected override void OnActivated()
         {
             base.OnActivated();
-            if (View.ObjectSpace.Session.IsNewObject(View.CurrentObject))
-                ((Role) View.CurrentObject).AddPermission(new ObjectAccessPermission(typeof (object),
-                                                                                     ObjectAccess.AllAccess));
+            if (View.ObjectSpace.Session.IsNewObject(View.CurrentObject)){
+                var permission = new ObjectAccessPermission(typeof (object),ObjectAccess.AllAccess);
+                ((ICustomizableRole)View.CurrentObject).AddPermission(permission);
+            }
         }
     }
 }

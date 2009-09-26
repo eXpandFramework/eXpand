@@ -14,7 +14,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Security.Controllers
             TargetObjectType = typeof(ActionStateRulePermission);
         }
 
-        protected override string GetPredefinedValues()
+        protected override string GetPredefinedValues(PropertyInfoNodeWrapper wrapper1)
         {
             string ret = "";
             foreach (var action in new ApplicationNodeWrapper(Application.Info).ActionDesign.Actions.List.OrderBy(wrapper => wrapper.Id))

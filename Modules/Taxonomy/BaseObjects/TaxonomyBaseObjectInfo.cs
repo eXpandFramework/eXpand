@@ -10,7 +10,7 @@ using eXpand.Xpo;
 namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
     [Serializable]
     [DefaultClassOptions]
-    public class TaxonomyBaseObjectInfo : eXpandLiteObject, ICategorizedItem, IPersistentProperty{
+    public class TaxonomyBaseObjectInfo : eXpandCustomObject, ICategorizedItem, IPersistentProperty{
         private Term key;
         private TaxonomyBaseObject owner;
         private PersistentKeyValuePairStatus status;

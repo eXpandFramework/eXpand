@@ -164,6 +164,12 @@
     <Compile Include="SystemModule\DisableCompatibilityCheck.Designer.cs">
       <DependentUpon>DisableCompatibilityCheck.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\ExpandAbleMembersViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ExpandAbleMembersViewController.Designer.cs">
+      <DependentUpon>ExpandAbleMembersViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="SystemModule\FilterController.cs">
       <SubType>Component</SubType>
     </Compile>

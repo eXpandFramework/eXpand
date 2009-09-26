@@ -1,12 +1,12 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
-using eXpand.Persistent.BaseImpl;
+using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects
 {
     [NonPersistent]
-    public abstract class DifferenceObject:eXpandBaseObject
+    public abstract class DifferenceObject : eXpandCustomObject
     {
         
         protected DifferenceObject(Session session) : base(session){

@@ -1,5 +1,5 @@
 using DevExpress.ExpressApp;
-using DevExpress.Persistent.BaseImpl;
+using DevExpress.Persistent.Base.Security;
 using eXpand.ExpressApp.ModelArtifactState.Security.Permissions;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Security.Controllers{
@@ -9,7 +9,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Security.Controllers{
         {
             InitializeComponent();
             RegisterActions(components);
-            TargetObjectType = typeof(PersistentPermission);
+            TargetObjectType = typeof(IPersistentPermission);
         }
 
         protected override void OnActivated(){
@@ -24,7 +24,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Security.Controllers{
             ObjectSpace.ObjectSaved -= ObjectSpaceOnObjectSaved;
         }
         private void ObjectSpaceOnObjectSaved(object sender, ObjectManipulatingEventArgs args){
-            if (((PersistentPermission) args.Object).Permission is ArtifactStateRulePermission){
+            if (((IPersistentPermission)args.Object).Permission is ArtifactStateRulePermission){
                 ModelArtifactStateModule.CollectRules(Application);
             }
         }

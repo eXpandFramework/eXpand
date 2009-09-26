@@ -19,7 +19,6 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.IntegerPropertyEditor{
             base.SetupRepositoryItem(item);
 
             var integerEdit = (RepositoryItemIntegerEdit) item;
-//            integerEdit.Mask.Culture = GridListEditor.GetCulture(Info);
             integerEdit.Init(EditMask, DisplayFormat);
             var repositoryItemIntegerEdit = (RepositoryItemIntegerEdit) item;
             if (View != null)

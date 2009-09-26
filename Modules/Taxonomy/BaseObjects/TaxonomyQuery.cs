@@ -14,7 +14,7 @@ using eXpand.Xpo;
 namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
     [Serializable]
     [DefaultClassOptions]
-    public class TaxonomyQuery : eXpandLiteObject {
+    public class TaxonomyQuery : eXpandCustomObject {
         private string criteriaOnProperties;
         private string criteriaOnTerms;
         private string desrciption;

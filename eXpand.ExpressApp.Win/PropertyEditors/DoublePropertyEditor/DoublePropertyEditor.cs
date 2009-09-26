@@ -19,7 +19,6 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.DoublePropertyEditor{
             base.SetupRepositoryItem(item);
             
             var integerEdit = (RepositoryItemDoubleEdit) item;
-//            integerEdit.Mask.Culture = GridListEditor.GetCulture(Info);
             integerEdit.Init(EditMask, DisplayFormat);
             var repositoryItemIntegerEdit = (RepositoryItemDoubleEdit) item;
             if (View != null)

@@ -13,7 +13,7 @@ namespace eXpand.ExpressApp.Security.Controllers
         }
 
 
-        protected override string GetPredefinedValues()
+        protected override string GetPredefinedValues(PropertyInfoNodeWrapper wrapper)
         {
             string ret = "";
             foreach (var view in new ApplicationNodeWrapper(Application.Info).Views.Items)

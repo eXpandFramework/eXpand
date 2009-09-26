@@ -19,7 +19,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Security.Controllers
                 base.populate();
         }
 
-        protected override string GetPredefinedValues()
+        protected override string GetPredefinedValues(PropertyInfoNodeWrapper wrapper1)
         {
             string ret = "";
             foreach (

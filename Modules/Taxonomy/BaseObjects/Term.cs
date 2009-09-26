@@ -13,7 +13,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
     [DefaultClassOptions]
     [DefaultProperty("Name")]
     [Serializable]
-    public class Term : eXpandLiteObject, ITreeNode{
+    public class Term : eXpandCustomObject, ITreeNode{
         private string caption;
         [Persistent, Size(SizeAttribute.Unlimited)] protected string fullPath;
         private string key;

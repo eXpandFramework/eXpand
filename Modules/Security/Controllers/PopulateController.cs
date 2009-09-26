@@ -6,6 +6,8 @@ namespace eXpand.ExpressApp.Security.Controllers
 {
     public abstract partial class PopulateController : BaseViewController
     {
+        private PropertyInfoNodeWrapper propertyInfoNodeWrapper;
+
         protected PopulateController()
         {
             InitializeComponent();
@@ -17,22 +19,27 @@ namespace eXpand.ExpressApp.Security.Controllers
             base.OnActivated();
             populate();
         }
-
+        protected override void OnDeactivating()
+        {
+            base.OnDeactivating();
+            if (propertyInfoNodeWrapper != null){
+                propertyInfoNodeWrapper.Node.SetAttribute("PredefinedValues","");
+            }
+        }
         protected virtual void populate()
         {
+            
             var classInfoNodeWrapper = GetClassInfoNodeWrapper();
-            PropertyInfoNodeWrapper propertyInfoNodeWrapper =
+            propertyInfoNodeWrapper =
                 (classInfoNodeWrapper.AllProperties.Where(
                     wrapper =>
                     wrapper.Name == GetPermissionPropertyName())).FirstOrDefault();
-            if (propertyInfoNodeWrapper != null)
-            {
-                propertyInfoNodeWrapper.Node.SetAttribute("PredefinedValues", GetPredefinedValues());
-                Active["Done"] = false;
+            if (propertyInfoNodeWrapper != null){
+                propertyInfoNodeWrapper.Node.SetAttribute("PredefinedValues",GetPredefinedValues(propertyInfoNodeWrapper));
             }
         }
 
-        protected abstract string GetPredefinedValues();
+        protected abstract string GetPredefinedValues(PropertyInfoNodeWrapper wrapper);
 
         protected abstract string GetPermissionPropertyName();
     }

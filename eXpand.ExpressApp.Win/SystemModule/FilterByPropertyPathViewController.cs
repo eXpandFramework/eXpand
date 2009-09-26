@@ -10,7 +10,7 @@ using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Editors;
-using DevExpress.Utils.Frames;
+using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.SystemModule;
@@ -21,18 +21,13 @@ namespace eXpand.ExpressApp.Win.SystemModule
 {
     public partial class FilterByPropertyPathViewController : BaseViewController
     {
-//        private readonly Dictionary<string,XPMemberInfo> binaryOperatorXpMemberInfo=new Dictionary<string, XPMemberInfo>();
         private DictionaryNode filterByCollectionNode;
-        private static NotePanelEx hintPanel;
-//        private Dictionary<string, IMemberInfo> containsOperatorXpMemberInfo=new Dictionary<string, IMemberInfo>();
-//        private readonly Dictionary<string, string> filteredObjectPaths=new Dictionary<string, string>();
         public const string PropertyPath = "PropertyPath";
         public const string PropertyPathFilters = "PropertyPathFilters";
         public const string Filter = "Filter";
         public const string PropertyPathFilter = "PropertyPathFilter";
         public const string PropertyPathListViewId = "PropertyPathListViewId";
         private Dictionary<string, FiltersByCollectionWrapper> filtersByCollectionWrappers;
-        private WindowHintController windowHintController;
 
         public FilterByPropertyPathViewController()
         {
@@ -48,9 +43,31 @@ namespace eXpand.ExpressApp.Win.SystemModule
             if (View.Info.FindChildNode(PropertyPathFilters) == null)
                 return;
 
-            windowHintController = Frame.GetController<WindowHintController>();
-            windowHintController.BottomHintPanelReady += ViewHintController_HintPanelReady;
+            getFilterWrappers();
+            createFilterSingleChoiceAction.Items.Clear();
+            bool active = filtersByCollectionWrappers.Count()>0;
+            checkIfAdditionalViewControlsModuleIsRegister(active);
+            setUpFilterAction(active);
+            ApplyFilterString();
+        }
 
+        private void setUpFilterAction(bool active){
+            createFilterSingleChoiceAction.Active[PropertyPath+" is valid"] = active;
+            foreach (var pair in filtersByCollectionWrappers)
+            {
+                var caption = CaptionHelper.GetClassCaption(
+                    pair.Value.BinaryOperatorLastMemberClassType.FullName);
+                createFilterSingleChoiceAction.Items.Add(new ChoiceActionItem(caption,pair.Value));
+            }
+        }
+
+        private void checkIfAdditionalViewControlsModuleIsRegister(bool active){
+            if (active && GetClassInfoNodeWrapper().Node.FindChildNode("AdditionalViewControls")== null){
+                throw new UserFriendlyException(new Exception("AdditionalViewControlsProvider module not found"));
+            }
+        }
+
+        private void getFilterWrappers(){
             filterByCollectionNode = View.Info.GetChildNode(PropertyPathFilters);
             filtersByCollectionWrappers = new Dictionary<string, FiltersByCollectionWrapper>();
 
@@ -59,29 +76,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
                                                 new FiltersByCollectionWrapper(View.ObjectTypeInfo, childNode,
                                                                                ObjectSpace.Session.GetClassInfo(
                                                                                    View.ObjectTypeInfo.Type)));
-
-
-            createFilterSingleChoiceAction.Items.Clear();
-            createFilterSingleChoiceAction.Active[PropertyPath+" is valid"] = filtersByCollectionWrappers.Count()>0;
-            foreach (var pair in filtersByCollectionWrappers)
-            {
-                var caption = CaptionHelper.GetClassCaption(
-                    pair.Value.BinaryOperatorLastMemberClassType.FullName);
-                createFilterSingleChoiceAction.Items.Add(new ChoiceActionItem(caption,pair.Value));
-            }
-            
         }
 
-        protected override void OnDeactivating()
-        {
-            base.OnDeactivating();
-
-            if (windowHintController != null)
-            {
-                windowHintController.BottomHintPanelReady -= ViewHintController_HintPanelReady;
-                windowHintController = null;
-            }
-        }
 
         public override Schema GetSchema()
         {
@@ -102,28 +98,27 @@ namespace eXpand.ExpressApp.Win.SystemModule
             return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
         }
 
-        private void ViewHintController_HintPanelReady(object sender, HintPanelReadyEventArgs e)
-        {
-            hintPanel = e.HintPanel;
-            ApplyFilterString();
-        }
 
-        private void ApplyFilterString()
-        {
-            hintPanel.Text = null;
+        private void ApplyFilterString(){
+            
+
+            string text = null;
             foreach (var pair in filtersByCollectionWrappers)
             {
                 var filterString = ApplyFilterString(pair.Value);
                 if (!string.IsNullOrEmpty(filterString))
-                    hintPanel.Text += filterString + Environment.NewLine;
+                    text += filterString + Environment.NewLine;
             }
             const string delimeter = ") AND (";
-            hintPanel.Text = (hintPanel.Text + "").Replace(Environment.NewLine, delimeter);
-            if (hintPanel.Text.EndsWith(delimeter))
-                hintPanel.Text = hintPanel.Text.Substring(0, hintPanel.Text.Length - delimeter.Length);
-            if (!string.IsNullOrEmpty(hintPanel.Text) )
-                hintPanel.Text = "(" + hintPanel.Text + ")";
-            hintPanel.Visible = !string.IsNullOrEmpty(hintPanel.Text);
+            text = (text + "").Replace(Environment.NewLine, delimeter);
+            if (text.EndsWith(delimeter))
+                text = text.Substring(0, text.Length - delimeter.Length);
+            if (!string.IsNullOrEmpty(text) )
+                text = "(" + text + ")";
+            
+            ClassInfoNodeWrapper wrapper = GetClassInfoNodeWrapper();
+            DictionaryNode dictionaryNode = wrapper.Node.FindChildNode("AdditionalViewControls");
+            dictionaryNode.SetAttribute("Message",text);
         }
 
         private string ApplyFilterString(FiltersByCollectionWrapper filtersByCollectionWrapper)
@@ -154,7 +149,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 new FilterWithObjectsProcessor(View.ObjectSpace).Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
 //                var condition = GetCondition(filtersByCollectionWrapper, criteriaOperator);
                 ((ListView) View).CollectionSource.Criteria[filtersByCollectionWrapper.ID] =
-                    new ContainsOperator(filtersByCollectionWrapper.ContainsOperatorXpMemberInfoName,CriteriaOperatorExtensions.Parse(filtersByCollectionWrapper.PropertyPath,criteriaOperator));
+                    new ContainsOperator(filtersByCollectionWrapper.ContainsOperatorXpMemberInfoName,criteriaOperator);
                 return criteriaOperator;
             }
             return criteriaOperator;
@@ -194,6 +189,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             string attributeValue = nodeWrapper.Node.GetAttributeValue(GridListEditor.ActiveFilterString);
             filtersByCollectionWrapper.PropertyPathFilter = attributeValue;
             ApplyFilterString();
+            View.Refresh();
         }
 
         private ListViewInfoNodeWrapper GetNodeMemberSearchWrapper(FiltersByCollectionWrapper filtersByCollectionWrapper)

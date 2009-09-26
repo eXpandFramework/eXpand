@@ -6,26 +6,28 @@ using eXpand.ExpressApp.Security.Permissions;
 namespace eXpand.ExpressApp.ModelDifference.Security
 {
     [NonPersistent]
-    public class ApplicationModelCombinePermission:PermissionBase
+    public class ModelCombinePermission:PermissionBase
     {
-        public ApplicationModelCombinePermission(){
+        public ModelCombinePermission(){
         }
 
-        public ApplicationModelCombinePermission(ApplicationModelCombineModifier modifier)
+        public ModelCombinePermission(ApplicationModelCombineModifier modifier)
         {
             Modifier = modifier;
         }
 
         public override string ToString()
         {
-            return string.Format("{0}({1})", base.ToString(), Modifier);
+            return string.Format("{0}({1},{2})", GetType().Name, Modifier,Difference);
         }
+
+        public string Difference { get; set; }
 
         public ApplicationModelCombineModifier Modifier { get; set; }
 
         public override IPermission Copy()
         {
-            return new ApplicationModelCombinePermission(Modifier);
+            return new ModelCombinePermission(Modifier);
         }
     }
 }

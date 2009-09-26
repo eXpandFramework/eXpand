@@ -103,9 +103,6 @@
     <Compile Include="CustomBaseObject.cs" />
     <Compile Include="EnumXPObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="eXpandBaseObject.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

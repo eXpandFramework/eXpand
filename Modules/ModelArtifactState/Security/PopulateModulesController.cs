@@ -1,4 +1,5 @@
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.NodeWrappers;
 using eXpand.ExpressApp.ModelArtifactState.Security.Permissions;
 using eXpand.ExpressApp.Security.Controllers;
 using eXpand.ExpressApp.SystemModule;
@@ -15,7 +16,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Security
         }
 
 
-        protected override string GetPredefinedValues()
+        protected override string GetPredefinedValues(PropertyInfoNodeWrapper wrapper)
         {
             string ret = "";
             foreach (DictionaryNode node in Application.Info.GetChildNode(ModuleController.Modules).ChildNodes)

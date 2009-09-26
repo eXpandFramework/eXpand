@@ -41,10 +41,10 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         [Isolated]
         public void If_User_Has_Permnission_To_Combine_With_Application_Model_Combination_Should_Occur()
         {
-            ApplicationModelCombinePermission permission = null;
+            ModelCombinePermission permission = null;
             Isolate.WhenCalled(() => SecuritySystem.IsGranted(null)).DoInstead(context =>
             {
-                permission = context.Parameters[0] as ApplicationModelCombinePermission;
+                permission = context.Parameters[0] as ModelCombinePermission;
                 return true;
             });
             var modelAspectObject = new ModelDifferenceObject(Session.DefaultSession){Model =DefaultDictionary,PersistentApplication = new PersistentApplication(Session.DefaultSession)};

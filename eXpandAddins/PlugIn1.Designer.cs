@@ -38,11 +38,13 @@ namespace eXpandAddIns
             this.exploreXafErrors = new DevExpress.CodeRush.Core.Action(this.components);
             this.events = new DevExpress.DXCore.PlugInCore.DXCoreEvents(this.components);
             this.dropDataBase = new DevExpress.CodeRush.Core.Action(this.components);
+            this.actionHint1 = new DevExpress.CodeRush.PlugInCore.ActionHint(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dropDataBase)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.actionHint1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // convertProject
@@ -82,11 +84,20 @@ namespace eXpandAddIns
             this.dropDataBase.Image = ((System.Drawing.Bitmap)(resources.GetObject("dropDataBase.Image")));
             this.dropDataBase.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
             this.dropDataBase.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.SpAtDesignTime_Execute);
+            // 
+            // actionHint1
+            // 
+            this.actionHint1.Color = System.Drawing.Color.MediumBlue;
+            this.actionHint1.Feature = null;
+            this.actionHint1.OptionsPath = null;
+            this.actionHint1.ResetDisplayCountOnStartup = true;
+            this.actionHint1.Text = "DataBase Dropped !!!";
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dropDataBase)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.actionHint1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -98,5 +109,6 @@ namespace eXpandAddIns
         private DevExpress.CodeRush.Core.Action exploreXafErrors;
         private DevExpress.DXCore.PlugInCore.DXCoreEvents events;
         private DevExpress.CodeRush.Core.Action dropDataBase;
+        private DevExpress.CodeRush.PlugInCore.ActionHint actionHint1;
     }
 }

@@ -5,7 +5,7 @@ using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
     [DefaultClassOptions]
-    public class TaxonomyRule : eXpandLiteObject{
+    public class TaxonomyRule : eXpandCustomObject{
         private string _typeOfObject;
         private string propertyName;
         private Taxonomy taxonomy;

@@ -46,7 +46,7 @@ using eXpand.Xpo;
 
 namespace eXpand.Persistent.TaxonomyImpl{
     [DefaultProperty("Name")]
-    public class RoleBase : eXpandLiteObject
+    public class RoleBase : eXpandCustomObject
     {
         private readonly RoleImpl role = new RoleImpl();
         public RoleBase(Session session) : base(session) {}

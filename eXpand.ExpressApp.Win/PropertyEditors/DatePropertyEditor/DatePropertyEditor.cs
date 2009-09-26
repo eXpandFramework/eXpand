@@ -11,12 +11,9 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.DatePropertyEditor{
     {
         public DatePropertyEditor(Type objectType, DictionaryNode info) : base(objectType, info)
         {
-            ValueStoring += ValueStoringMethod;
+            
         }
 
-        private void ValueStoringMethod(object sender, EventArgs e)
-        {
-        }
 
         protected override void SetupRepositoryItem(RepositoryItem item)
         {

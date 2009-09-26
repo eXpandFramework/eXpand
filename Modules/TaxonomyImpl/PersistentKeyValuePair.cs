@@ -16,7 +16,7 @@ namespace eXpand.Persistent.TaxonomyImpl{
     }
 
     [Serializable]
-    public class PersistentKeyValuePair : eXpandLiteObject, IPersistentProperty{
+    public class PersistentKeyValuePair : eXpandCustomObject, IPersistentProperty{
         private string key;
 
         private PersistentKeyValuePairStatus status;
