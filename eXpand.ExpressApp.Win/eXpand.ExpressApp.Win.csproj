@@ -139,9 +139,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PropertyEditors\ObjectPropertyEditor\ObjectPropertyEditor.cs" />
-    <Compile Include="PropertyEditors\StringPropertyEditors\StringGroupValuePropertyEditor.cs" />
-    <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditorBase.cs" />
-    <Compile Include="PropertyEditors\StringPropertyEditors\StringReferenceObjectPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\StringLookupPropertyEditor\StringLookupPropertyEditor.cs" />
     <Compile Include="SystemModule\CustomSelectionListViewViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -189,12 +187,6 @@
     </Compile>
     <Compile Include="SystemModule\ListViewViewStyleController.Designer.cs">
       <DependentUpon>ListViewViewStyleController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SystemModule\LoadWithWindowsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\LoadWithWindowsController.Designer.cs">
-      <DependentUpon>LoadWithWindowsController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\MasterDetailViewController.cs">
       <SubType>Component</SubType>
