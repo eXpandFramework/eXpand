@@ -106,10 +106,15 @@ namespace eXpand.Tests{
             var listEditor = Isolate.Fake.Instance<ListEditor>();
             Isolate.WhenCalled(() => listEditor.RequiredProperties).WillReturn(new string[0]);
             var listView = new ListView(source, listEditor);
+            Isolate.WhenCalled(() => listView.ObjectTypeInfo).WillReturn(XafTypesInfo.CastTypeToTypeInfo(objectType));
+            Isolate.WhenCalled(() => listView.ObjectSpace).WillReturn(objectSpace);
             var controller = new T();
             Isolate.WhenCalled(() => controller.Application).WillReturn(Isolate.Fake.Instance<XafApplication>());
+            
             controller.Active[""] = false; 
             controller.SetView(listView);
+            View view = controller.View;
+            Isolate.WhenCalled(() => view.ObjectSpace).WillReturn(objectSpace);
             if (activate)
                 Activate(controller,handleInfo);
             

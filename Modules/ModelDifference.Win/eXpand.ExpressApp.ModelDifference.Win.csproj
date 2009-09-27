@@ -168,13 +168,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\DevExpress\Components\Sources\DevExpress.Xpo\DevExpress.Xpo.Linq\DevExpress.Xpo.Linq.csproj">
-      <Project>{8F1E5CE9-6C50-44D5-B453-002BDA559F55}</Project>
-      <Name>DevExpress.Xpo.Linq</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\eXpand.Persistent.Base\eXpand.Persistent.Base.csproj">
       <Project>{0E40CCB3-7904-4300-BCD6-E34D275E6370}</Project>
       <Name>eXpand.Persistent.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\eXpand.Xpo\eXpand.Xpo.csproj">
+      <Project>{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}</Project>
+      <Name>eXpand.Xpo</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -10,7 +10,6 @@ using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Editors;
-using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.SystemModule;
@@ -19,17 +18,21 @@ using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public partial class FilterByPropertyPathViewController : BaseViewController
+    public partial class FilterByCriteriaPathViewController : BaseViewController
     {
         private DictionaryNode filterByCollectionNode;
-        public const string PropertyPath = "PropertyPath";
-        public const string PropertyPathFilters = "PropertyPathFilters";
+        public const string CriteriaPath = "CriteriaPath";
+        public const string CriteriaPathFilters = "CriteriaPathFilters";
         public const string Filter = "Filter";
-        public const string PropertyPathFilter = "PropertyPathFilter";
-        public const string PropertyPathListViewId = "PropertyPathListViewId";
-        private Dictionary<string, FiltersByCollectionWrapper> filtersByCollectionWrappers;
+        public const string CriteriaPathFilter = "CriteriaPathFilter";
+        public const string CriteriaPathListViewId = "CriteriaPathListViewId";
+        private Dictionary<string, FiltersByCollectionWrapper> filtersByCriteriaWrappers;
 
-        public FilterByPropertyPathViewController()
+        public Dictionary<string, FiltersByCollectionWrapper> FiltersByCriteriaWrappers{
+            get { return filtersByCriteriaWrappers; }
+        }
+
+        public FilterByCriteriaPathViewController()
         {
             InitializeComponent();
             RegisterActions(components);
@@ -38,41 +41,53 @@ namespace eXpand.ExpressApp.Win.SystemModule
             
         }
 
+        public SingleChoiceAction FilterSingleChoiceAction{
+            get { return _filterSingleChoiceAction; }
+        }
+
         protected override void OnActivated()
         {
-            if (View.Info.FindChildNode(PropertyPathFilters) == null)
+            if (View.Info.FindChildNode(CriteriaPathFilters) == null)
                 return;
 
             getFilterWrappers();
-            createFilterSingleChoiceAction.Items.Clear();
-            bool active = filtersByCollectionWrappers.Count()>0;
-            checkIfAdditionalViewControlsModuleIsRegister(active);
-            setUpFilterAction(active);
+            _filterSingleChoiceAction.Items.Clear();
+            if (HasFilters)
+                checkIfAdditionalViewControlsModuleIsRegister();
+            setUpFilterAction(HasFilters);
             ApplyFilterString();
         }
 
-        private void setUpFilterAction(bool active){
-            createFilterSingleChoiceAction.Active[PropertyPath+" is valid"] = active;
-            foreach (var pair in filtersByCollectionWrappers)
-            {
-                var caption = CaptionHelper.GetClassCaption(
-                    pair.Value.BinaryOperatorLastMemberClassType.FullName);
-                createFilterSingleChoiceAction.Items.Add(new ChoiceActionItem(caption,pair.Value));
+        public bool HasFilters{
+            get{
+                return FiltersByCriteriaWrappers.Count() > 0;
             }
         }
 
-        private void checkIfAdditionalViewControlsModuleIsRegister(bool active){
-            if (active && GetClassInfoNodeWrapper().Node.FindChildNode("AdditionalViewControls")== null){
+        private void setUpFilterAction(bool active){
+            _filterSingleChoiceAction.Active[CriteriaPath+" is valid"] = active;
+            foreach (var pair in filtersByCriteriaWrappers)
+            {
+                var caption = CaptionHelper.GetClassCaption(
+                    pair.Value.BinaryOperatorLastMemberClassType.FullName);
+                _filterSingleChoiceAction.Items.Add(new ChoiceActionItem(caption,pair.Value));
+            }
+        }
+
+        private void checkIfAdditionalViewControlsModuleIsRegister(){
+            ClassInfoNodeWrapper wrapper = GetClassInfoNodeWrapper();
+            DictionaryNode node = wrapper.Node.FindChildNode("AdditionalViewControls");
+            if (node== null){
                 throw new UserFriendlyException(new Exception("AdditionalViewControlsProvider module not found"));
             }
         }
 
         private void getFilterWrappers(){
-            filterByCollectionNode = View.Info.GetChildNode(PropertyPathFilters);
-            filtersByCollectionWrappers = new Dictionary<string, FiltersByCollectionWrapper>();
+            filterByCollectionNode = View.Info.GetChildNode(CriteriaPathFilters);
+            filtersByCriteriaWrappers = new Dictionary<string, FiltersByCollectionWrapper>();
 
             foreach (DictionaryNode childNode in filterByCollectionNode.ChildNodes)
-                filtersByCollectionWrappers.Add(childNode.GetAttributeValue("ID"),
+                filtersByCriteriaWrappers.Add(childNode.GetAttributeValue("ID"),
                                                 new FiltersByCollectionWrapper(View.ObjectTypeInfo, childNode,
                                                                                ObjectSpace.Session.GetClassInfo(
                                                                                    View.ObjectTypeInfo.Type)));
@@ -84,12 +99,12 @@ namespace eXpand.ExpressApp.Win.SystemModule
             string CommonTypeInfos = @"<Element Name=""Application"">
                     <Element Name=""Views"" >
                         <Element Name=""ListView"" >
-                            <Element Name=""" + PropertyPathFilters + @""">
+                            <Element Name=""" + CriteriaPathFilters + @""">
                                 <Element Name=""" + Filter + @""" Multiple=""True"" KeyAttribute=""ID"">
                                     <Attribute Name=""ID"" Required=""True"" />
-                                    <Attribute Name=""" + PropertyPath + @"""  Required=""True""/>
-                                    <Attribute IsInvisible=""True"" Name=""" + PropertyPathFilter + @"""/>
-                                    <Attribute Name=""" + PropertyPathListViewId + @"""  Required=""True"" RefNodeName=""{" + typeof(ViewIdRefNodeProvider).FullName + @"};ViewType=All|ListView"" />
+                                    <Attribute Name=""" + CriteriaPath + @"""  Required=""True""/>
+                                    <Attribute IsInvisible=""True"" Name=""" + CriteriaPathFilter + @"""/>
+                                    <Attribute Name=""" + CriteriaPathListViewId + @"""  Required=""True"" RefNodeName=""{" + typeof(ViewIdRefNodeProvider).FullName + @"};ViewType=All|ListView"" />
                                 </Element>
                             </Element>
                         </Element>
@@ -103,7 +118,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             
 
             string text = null;
-            foreach (var pair in filtersByCollectionWrappers)
+            foreach (var pair in filtersByCriteriaWrappers)
             {
                 var filterString = ApplyFilterString(pair.Value);
                 if (!string.IsNullOrEmpty(filterString))
@@ -147,7 +162,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
             if (criteriaOperator!= null)
             {
                 new FilterWithObjectsProcessor(View.ObjectSpace).Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
-//                var condition = GetCondition(filtersByCollectionWrapper, criteriaOperator);
                 ((ListView) View).CollectionSource.Criteria[filtersByCollectionWrapper.ID] =
                     new ContainsOperator(filtersByCollectionWrapper.ContainsOperatorXpMemberInfoName,criteriaOperator);
                 return criteriaOperator;
@@ -155,20 +169,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
             return criteriaOperator;
         }
 
-/*
-        private CriteriaOperator GetCondition(FiltersByCollectionWrapper filtersByCollectionWrapper, CriteriaOperator criteriaOperator)
-        {
-            if (filtersByCollectionWrapper.FilteredObjectPath.IndexOf(".")>-1)
-            {
-                var memberProperties = new XPCollection(ObjectSpace.Session, filtersByCollectionWrapper.BinaryOperatorLastMemberClassType, criteriaOperator);
-                return new InOperator(
-                    filtersByCollectionWrapper.FilteredObjectPath.Replace(
-                        filtersByCollectionWrapper.ContainsOperatorXpMemberInfoName + ".", ""),
-                    memberProperties);
-            }
-            return criteriaOperator;
-        }
-*/
 
 
         private void DialogControllerOnAccepting(object sender, DialogControllerAcceptingEventArgs args)
@@ -197,10 +197,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
             var nodeWrapper =
                 (ListViewInfoNodeWrapper)
                 (new ApplicationNodeWrapper(Application.Info).Views.Items.Where(
-                    wrapper => wrapper.Id == filtersByCollectionWrapper.PropertyPathListViewId)).
+                    wrapper => wrapper.Id == filtersByCollectionWrapper.CriteriaPathListViewId)).
                     FirstOrDefault();
             if (nodeWrapper== null)
-                throw new ArgumentNullException(filtersByCollectionWrapper.PropertyPathListViewId+" not found");
+                throw new ArgumentNullException(filtersByCollectionWrapper.CriteriaPathListViewId+" not found");
             return nodeWrapper;
         }
 
@@ -247,8 +247,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
             public string PropertyPath
             {
-                get { return childNode.GetAttributeValue(FilterByPropertyPathViewController.PropertyPath); }
-                set { childNode.SetAttribute(FilterByPropertyPathViewController.PropertyPath, value); }
+                get { return childNode.GetAttributeValue(CriteriaPath); }
+                set { childNode.SetAttribute(CriteriaPath, value); }
             }
 
             public string ID
@@ -257,15 +257,15 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
             public string PropertyPathFilter
             {
-                get { return childNode.GetAttributeValue(FilterByPropertyPathViewController.PropertyPathFilter); }
-                set { childNode.SetAttribute(FilterByPropertyPathViewController.PropertyPathFilter, value); }
+                get { return childNode.GetAttributeValue(CriteriaPathFilter); }
+                set { childNode.SetAttribute(CriteriaPathFilter, value); }
             }
 
 
-            public string PropertyPathListViewId
+            public string CriteriaPathListViewId
             {
-                get { return childNode.GetAttributeValue(FilterByPropertyPathViewController.PropertyPathListViewId); }
-                set { childNode.SetAttribute(FilterByPropertyPathViewController.PropertyPathListViewId, value); }
+                get { return childNode.GetAttributeValue(FilterByCriteriaPathViewController.CriteriaPathListViewId); }
+                set { childNode.SetAttribute(FilterByCriteriaPathViewController.CriteriaPathListViewId, value); }
             }
 
             
@@ -288,12 +288,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
             {
                 get
                 {
-                    if (containsOperatorXpMemberInfoName== null&&BinaryOperatorLastMemberClassType != null)
-
-                    {
-                        containsOperatorXpMemberInfoName =PropertyPath.IndexOf(".")>-1?
-                                                                                                objectTypeInfo.FindMember(PropertyPath.Substring(0, PropertyPath.IndexOf("."))).
-                                                                                                    Name : PropertyPath;
+                    if (containsOperatorXpMemberInfoName == null && BinaryOperatorLastMemberClassType != null){
+                        containsOperatorXpMemberInfoName = PropertyPath.IndexOf(".") > -1
+                                                               ?objectTypeInfo.FindMember(PropertyPath.Substring(0,PropertyPath.IndexOf("."))).Name
+                                                               : PropertyPath;
                     }
                     return containsOperatorXpMemberInfoName;
                 }

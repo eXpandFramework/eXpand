@@ -166,7 +166,9 @@
     <Compile Include="Controllers\CreateNewDifferenceObjectViewController.Designer.cs">
       <DependentUpon>CreateNewDifferenceObjectViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\DifferenceTypeObject.cs" />
+    <Compile Include="Controllers\DifferenceTypeObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\RunTimeMembersController.cs">
       <SubType>Component</SubType>
     </Compile>

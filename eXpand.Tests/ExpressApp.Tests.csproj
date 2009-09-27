@@ -89,6 +89,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\eXpand.DLL\eXpand.ExpressApp.Security.dll</HintPath>
     </Reference>
+    <Reference Include="eXpand.ExpressApp.Win, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.Win.dll</HintPath>
+    </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\eXpand.DLL\eXpand.Persistent.Base.dll</HintPath>
@@ -161,9 +165,6 @@
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\ClonningModelDifferencesObjects\OnDemand_At_All_Views.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\Automatic_For_All_Views.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\Automatic_For_DetailView.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\DictionaryCombiner_Tests.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\OnDemand_At_All_Views.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -230,6 +231,7 @@
     <Compile Include="eXpand.ExpressApp\SchemaHelperFixture.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="eXpand.ExpressApp\TestFixture1.cs" />
     <Compile Include="eXpand.ExpressApp\TypesInfoFixture.cs">
       <SubType>Code</SubType>
     </Compile>

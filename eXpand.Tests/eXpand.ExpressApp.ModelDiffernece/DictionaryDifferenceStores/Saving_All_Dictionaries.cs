@@ -25,7 +25,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             Isolate.WhenCalled(() => dictionary.Aspects).WillReturn(new List<string> { "aspect" });
             Isolate.WhenCalled(() => application.Model).WillReturn(dictionary);
             var store = Isolate.Fake.Instance<XpoDictionaryDifferenceStore>(Members.CallOriginal, ConstructorWillBe.Called, new object[] { Session.DefaultSession, application });
-            Isolate.WhenCalled(() => store.GetNewDifferenceObject(Session.DefaultSession)).WillReturn(modelAspectObject);
+            Isolate.WhenCalled(() => store.GetNewDifferenceObject(null)).WillReturn(modelAspectObject);
             Isolate.WhenCalled(() => store.GetActiveDifferenceObject()).WillReturn(null);
 
 
@@ -38,15 +38,14 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         public void CauseOf_Application_Is_Unique_It_Should_Check_DataStore_Before_Creating_New()
         {
 
-            var modelDictionaryDifferenceStore = new XpoUserModelDictionaryDifferenceStore(Session.DefaultSession,
-                                                                                                                   Isolate.Fake.Instance<XafApplication>());
+            var modelDictionaryDifferenceStore = new XpoUserModelDictionaryDifferenceStore(Isolate.Fake.Instance<XafApplication>());
             new PersistentApplication(Session.DefaultSession) { Name = "appName" }.Save();
             var application = Isolate.Fake.InstanceAndSwapAll<QueryPersistentApplication>();
             var persistentApplication = new PersistentApplication(Session.DefaultSession);
             Isolate.WhenCalled(() => application.Find("")).WillReturn(persistentApplication);
             Isolate.WhenCalled(() => modelDictionaryDifferenceStore.OnDifferenceObjectSaving(null, new Dictionary())).IgnoreCall();
             Isolate.WhenCalled(() => modelDictionaryDifferenceStore.GetActiveDifferenceObject()).WillReturn(null);
-            Isolate.WhenCalled(() => modelDictionaryDifferenceStore.GetNewDifferenceObject(Session.DefaultSession)).WillReturn(new ModelDifferenceObject(Session.DefaultSession));
+            Isolate.WhenCalled(() => modelDictionaryDifferenceStore.GetNewDifferenceObject(null)).WillReturn(new ModelDifferenceObject(Session.DefaultSession));
 
             modelDictionaryDifferenceStore.SaveDifference(new Dictionary(Schema.GetCommonSchema()));
 

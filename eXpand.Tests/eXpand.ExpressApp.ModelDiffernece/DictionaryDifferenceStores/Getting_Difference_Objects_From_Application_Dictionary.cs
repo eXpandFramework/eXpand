@@ -25,7 +25,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
                                                                          Session.DefaultSession,
                                                                          Isolate.Fake.Instance<XafApplication>(), false);
 
-            ModelDifferenceObject modelDifferenceObject = store.GetNewDifferenceObject(Session.DefaultSession);
+            ModelDifferenceObject modelDifferenceObject = store.GetNewDifferenceObject(null);
 
             Assert.AreEqual(modelDifferenceObject, instances.LastInstance);
         }

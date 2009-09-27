@@ -19,7 +19,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         {
             var application = Isolate.Fake.Instance<XafApplication>();
             application.ApplicationName = "appName";
-            var store = new XpoUserModelDictionaryDifferenceStore(Session.DefaultSession, application);
+            var store = new XpoUserModelDictionaryDifferenceStore(application);
             Isolate.WhenCalled(() => store.GetActiveDifferenceObjects()).WillReturn(new List<ModelDifferenceObject>().AsQueryable());
             Isolate.WhenCalled(() => store.GetActiveDifferenceObjects()).CallOriginal();
             bool saved = false;
@@ -35,7 +35,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         public void When_A_New_UserDifferenceObject_Is_Saved_it_Should_Contain_Same_NUmber_Of_Aspect_As_The_Application(){
             var application = Isolate.Fake.Instance<XafApplication>();
             Isolate.WhenCalled(() => application.Model.Aspects).WillReturn(new List<string>{DictionaryAttribute.DefaultLanguage,"el"});
-            var store = new XpoUserModelDictionaryDifferenceStore(Session.DefaultSession, application);
+            var store = new XpoUserModelDictionaryDifferenceStore( application);
             Isolate.WhenCalled(() => store.GetActiveDifferenceObjects()).WillReturn(new List<ModelDifferenceObject>().AsQueryable());
             Dictionary dictionary = null;
             Isolate.WhenCalled(() => store.SaveDifference(null)).DoInstead(context => dictionary=(Dictionary) context.Parameters[0]);
@@ -50,7 +50,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         [Isolated]
         public void Is_A_Combination_Of_All_Models_Assign_to_Current_User_For_Current_Aspect_And_Application()
         {
-            var store = new XpoUserModelDictionaryDifferenceStore(Session.DefaultSession, Isolate.Fake.Instance<XafApplication>());
+            var store = new XpoUserModelDictionaryDifferenceStore( Isolate.Fake.Instance<XafApplication>());
 
 
 

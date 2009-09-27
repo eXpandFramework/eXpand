@@ -1,6 +1,6 @@
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    partial class FilterByPropertyPathViewController
+    partial class FilterByCriteriaPathViewController
     {
         /// <summary>
         /// Required designer variable.
@@ -29,20 +29,20 @@ namespace eXpand.ExpressApp.Win.SystemModule
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.createFilterSingleChoiceAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
+            this._filterSingleChoiceAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             // 
-            // createFilterSingleChoiceAction
+            // _filterSingleChoiceAction
             // 
-            this.createFilterSingleChoiceAction.Caption = "Search By";
-            this.createFilterSingleChoiceAction.Category = "";
-            this.createFilterSingleChoiceAction.Id = "createFilterSingleChoiceAction";
-            this.createFilterSingleChoiceAction.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
-            this.createFilterSingleChoiceAction.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.createFilterSingleChoiceAction_Execute);
+            this._filterSingleChoiceAction.Caption = "Search By";
+            this._filterSingleChoiceAction.Category = "";
+            this._filterSingleChoiceAction.Id = "_filterSingleChoiceAction";
+            this._filterSingleChoiceAction.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
+            this._filterSingleChoiceAction.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.createFilterSingleChoiceAction_Execute);
 
         }
 
         #endregion
 
-        private DevExpress.ExpressApp.Actions.SingleChoiceAction createFilterSingleChoiceAction;
+        private DevExpress.ExpressApp.Actions.SingleChoiceAction _filterSingleChoiceAction;
     }
 }

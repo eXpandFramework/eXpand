@@ -23,7 +23,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         [Row(false, ExpectedException = typeof(NotImplementedException))]
         public void if_AspectObject_Is_Not_Persistent_WillNot_be_saved(bool nonPersistent)
         {
-            var store = new XpoUserModelDictionaryDifferenceStore(Session.DefaultSession, Isolate.Fake.Instance<XafApplication>());
+            var store = new XpoUserModelDictionaryDifferenceStore(Isolate.Fake.Instance<XafApplication>());
 
             var modelStoreObject = new UserModelDifferenceObject(Session.DefaultSession){
                                                                                             PersistentApplication = new PersistentApplication(Session.DefaultSession),
@@ -50,7 +50,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             var modelAspectObject = new ModelDifferenceObject(Session.DefaultSession){Model =DefaultDictionary,PersistentApplication = new PersistentApplication(Session.DefaultSession)};
             var queryModelAspectObject = Isolate.Fake.InstanceAndSwapAll<QueryModelDifferenceObject>();
             Isolate.WhenCalled(() => queryModelAspectObject.GetActiveModelDifference(  "")).WillReturn(modelAspectObject);
-            var store = new XpoUserModelDictionaryDifferenceStore(Session.DefaultSession, Isolate.Fake.Instance<XafApplication>());
+            var store = new XpoUserModelDictionaryDifferenceStore( Isolate.Fake.Instance<XafApplication>());
             var aspectObject = new UserModelDifferenceObject(Session.DefaultSession){
                                                                                         PersistentApplication = new PersistentApplication(Session.DefaultSession),
                                                                                         NonPersistent = true,
@@ -71,7 +71,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         [Isolated]
         public void When_Saving_It_Should_Combined_With_Application_Diffs(){
             Isolate.WhenCalled(() => Validator.RuleSet.ValidateAll(null, null)).ReturnRecursiveFake();
-            var modelDictionaryDifferenceStore = new XpoUserModelDictionaryDifferenceStore(Session.DefaultSession, Isolate.Fake.Instance<XafApplication>());
+            var modelDictionaryDifferenceStore = new XpoUserModelDictionaryDifferenceStore( Isolate.Fake.Instance<XafApplication>());
             var modelDifferenceObject = new UserModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession),Model = DefaultDictionary};
 
             modelDictionaryDifferenceStore.OnDifferenceObjectSaving(modelDifferenceObject, elDictionary);

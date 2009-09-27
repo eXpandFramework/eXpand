@@ -152,11 +152,11 @@
     <Compile Include="SystemModule\EditModeViewController.Designer.cs">
       <DependentUpon>EditModeViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
+    <Compile Include="SystemModule\FilterByCriteriaPathViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\FilterByPropertyPathViewController.designer.cs">
-      <DependentUpon>FilterByPropertyPathViewController.cs</DependentUpon>
+    <Compile Include="SystemModule\FilterByCriteriaPathViewController.designer.cs">
+      <DependentUpon>FilterByCriteriaPathViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\FilterControlListViewController.cs">
       <SubType>Component</SubType>
@@ -266,8 +266,8 @@
       <DependentUpon>EditModeViewController.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SystemModule\FilterByPropertyPathViewController.resx">
-      <DependentUpon>FilterByPropertyPathViewController.cs</DependentUpon>
+    <EmbeddedResource Include="SystemModule\FilterByCriteriaPathViewController.resx">
+      <DependentUpon>FilterByCriteriaPathViewController.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SystemModule\FilterControlListViewController.resx">

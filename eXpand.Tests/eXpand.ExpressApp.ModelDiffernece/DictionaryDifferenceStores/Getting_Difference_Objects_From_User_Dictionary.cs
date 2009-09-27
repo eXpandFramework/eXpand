@@ -21,7 +21,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         public void As_Active_UserDifference_Will_Return_Active_UserDifferenceObject()
         {
 
-            var store = new XpoUserModelDictionaryDifferenceStore(Session.DefaultSession, Isolate.Fake.Instance<XafApplication>());
+            var store = new XpoUserModelDictionaryDifferenceStore( Isolate.Fake.Instance<XafApplication>());
             Isolate.Fake.StaticMethods(typeof(UserDifferenceObjectBuilder));
             var userStoreObject = new UserModelDifferenceObject(Session.DefaultSession);
 
@@ -37,7 +37,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         [Isolated][MultipleAsserts]
         public void As_ActiveUserDifferences_Will_Return_A_Concat_Of_Active_UserDifferenceObjects_And_RoleDifferenceObjects()
         {
-            var store = new XpoUserModelDictionaryDifferenceStore(Session.DefaultSession, Isolate.Fake.Instance<XafApplication>());
+            var store = new XpoUserModelDictionaryDifferenceStore( Isolate.Fake.Instance<XafApplication>());
             var userDifferenceObject1 = new UserModelDifferenceObject(Session.DefaultSession);
 
             var queryUserDifferenceObject = Isolate.Fake.InstanceAndSwapAll<QueryUserModelDifferenceObject>();
@@ -63,10 +63,11 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
             UserDifferenceObjectBuilder.CreateDynamicMembers();
             
             
-            var store = new XpoUserModelDictionaryDifferenceStore(Session.DefaultSession, Isolate.Fake.Instance<XafApplication>());
+            var store = new XpoUserModelDictionaryDifferenceStore( Isolate.Fake.Instance<XafApplication>());
 
             
-            ModelDifferenceObject modelDifferenceObject = store.GetNewDifferenceObject(Session.DefaultSession);
+            ModelDifferenceObject modelDifferenceObject = store.GetNewDifferenceObject(
+                                                                                       Isolate.Fake.Instance<ObjectSpace>());
 
             Assert.IsTrue(modelDifferenceObject.IsNewObject);
             var collection = (XPCollection)modelDifferenceObject.GetMemberValue("Users");
