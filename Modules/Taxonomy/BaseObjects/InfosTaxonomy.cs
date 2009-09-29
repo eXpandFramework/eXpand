@@ -16,13 +16,12 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             return result;
         }
 
-        public void RegisterInfoType(Type infoType, string infoTypeGroup){
-            Term term = GetTerm<Term>(string.Format("/{0}/{1}", infoTypeGroup, infoType.Name), string.Empty);
-            term.Save();
+        public Term RegisterInfoType(Type infoType, string infoTypeGroup) {
+            return AddTerm(Session, string.Format("/{0}/{1}", infoTypeGroup, infoType.Name), string.Empty);
         }
 
-        public Term FindInfoTerm(Type infoType){
-            return (Term) Terms.Where(t => t.Key == infoType.Name).SingleOrDefault();            
+        public Term FindInfoTerm(Type infoType) {
+            return Terms.Where(t => t.Key == infoType.Name).SingleOrDefault();
         }
     }
 }

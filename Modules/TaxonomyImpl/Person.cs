@@ -43,7 +43,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.ExpressApp.Filtering;
 namespace eXpand.Persistent.TaxonomyImpl {
-	[DefaultProperty("FullName")]
+	[DefaultProperty("Caption")]
 	[ImageName("BO_Person")]
 	[CalculatedPersistentAliasAttribute("FullName", "FullNamePersistentAlias")]
 	public class Person : Party, IPerson {
@@ -59,7 +59,8 @@ namespace eXpand.Persistent.TaxonomyImpl {
 			PersonImpl.FullNameFormat = defaultFullNameFormat;
 		}
 		private static string fullNamePersistentAlias = defaultFullNamePersistentAlias;
-		[Obsolete("Use SetFullNameFormat instead")]
+
+        [Obsolete("Use SetFullNameFormat instead")]
 		public static string FullNameFormat {
 			get { return PersonImpl.FullNameFormat; }
 			set {
@@ -105,15 +106,12 @@ namespace eXpand.Persistent.TaxonomyImpl {
 				OnChanged("Birthday");
 			}
 		}
-		[SearchMemberOptions(SearchMemberMode.Include)]
+		
+        [SearchMemberOptions(SearchMemberMode.Include)]
 		public string FullName {
 			get { return person.FullName; }
 		}
-		[Obsolete("Use FullName instead.")]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public override string DisplayName {
-			get { return FullName; }
-		}
+		
 		[Size(255)]
 		public string Email {
 			get { return person.Email; }

@@ -1,2 +1,13 @@
-<?xml version="1.0" ?>
-<Application />
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+	<SchemaModules IsNewNode="True">
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.AutoFilterRowListViewController" Version="9.2.5.0" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.2.5.0" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.2.5.0" IsNewNode="True" />
+		<SchemaModule Name="SystemModule" Version="9.2.5.0" IsNewNode="True" />
+		<SchemaModule Name="ViewVariantsModule" Version="9.2.5.0" IsNewNode="True" />
+	</SchemaModules>
+	<Views>
+		<ListView ID="TaxonomizedInfo_ListView" ExpandAllRows="True" HidePopupMenu="False" MasterDetailMode="ListViewAndDetailView" />
+	</Views>
+</Application>

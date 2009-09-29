@@ -5,6 +5,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects
     internal class Associations
     {
         public const string TaxonomyTerms = "TaxonomyTerms";
+        public const string TaxonomyStructure = "TaxonomyStructure";
         public const string StructuralTermDerivedTerms = "StructuralTermDerivedTerms";
         public const string TermTaxonomizedInfos = "TermTaxonomizedInfos";
         public const string TermTerms = "TermTerms";

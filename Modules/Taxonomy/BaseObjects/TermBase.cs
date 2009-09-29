@@ -10,7 +10,7 @@ using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
     [Serializable]
-    public abstract class TermBase : eXpandLiteObject, ITreeNode{
+    public abstract class TermBase : eXpandLiteObject, ITreeNode {
         [Persistent, Size(SizeAttribute.Unlimited)] protected string fullPath;
         private string key;
 
@@ -18,7 +18,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
         [XmlAttribute] private string name;
         private TermBase parentTerm;
         private AssociationXmlSerializationHelper persistentPropertiesSerializationHelper;
-        private Taxonomy taxonomy;
+        protected Taxonomy taxonomy;
 
         protected TermBase(Session session) : base(session) {}
         protected TermBase() {}
@@ -47,22 +47,15 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             set { SetPropertyValue("Term", ref key, value); }
         }
 
-        [Association(Associations.TaxonomyTerms)]
-        [XmlIgnore]
-        public Taxonomy Taxonomy{
-            get { return taxonomy; }
-            set { SetPropertyValue("Taxonomy", ref taxonomy, value); }
-        }
-
         [ProvidedAssociation(Associations.TermAdditionalValues)]
-        [Association(Associations.TermAdditionalValues, typeof(BasicInfo)), Aggregated]
+        [Association(Associations.TermAdditionalValues, typeof(BaseInfo)), Aggregated]
         [XmlIgnore]
         public XPCollection AdditionalValues {
             get { return GetCollection("AdditionalValues"); }
         }
 
         [XmlArray("TermValuePairs")]
-        [XmlArrayItem(typeof(BasicInfo))]
+        [XmlArrayItem(typeof(BaseInfo))]
         [Browsable(false)]
         public AssociationXmlSerializationHelper PersistentPropertiesSerializationHelper {
             get {
@@ -127,13 +120,13 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
 
             if (!IsDeleted){
                 level = (ParentTerm == null ? 0 : ParentTerm.Level + 1);
-                if (parentTerm != null) Taxonomy = parentTerm.Taxonomy;
+                if (parentTerm != null) taxonomy = parentTerm.taxonomy;
 
                 UpdateFullPath(true);
             }
         }
 
-        public virtual void UpdateFullPath(bool updateChildren){
+        public virtual void UpdateFullPath (bool updateChildren){
             fullPath = string.Format("{0}{1}{2}"
                                      , parentTerm == null ? taxonomy.Key : parentTerm.FullPath
                                      , "/"

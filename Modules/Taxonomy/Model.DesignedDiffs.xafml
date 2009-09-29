@@ -1,23 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application>
-	<NavigationItems NavigationStyle="" Current="">
+	<NavigationItems>
 		<Item ID="Default">
+			<Item ID="TaxonomizedInfo_ListView" Removed="True" />
 			<Item ID="Taxonomy_ListView" Removed="True" />
 			<Item ID="Term_ListView" Removed="True" />
 		</Item>
-		<Item ID="System" IsNewNode="True">
-			<Item ID="BrowseTaxonomizedInfos" Caption="Browse Taxonomized Infos" ViewID="TaxonomizedInfo_ListView" IsNewNode="True" />
-			<Item ID="Taxonomies" Caption="Taxonomies" IsNewNode="True">
-				<Item ID="AllTerms" Caption="All Terms" IsNewNode="True">
-					<Item ID="StructureTerms" ViewID="StructuralTerm_ListView_Flat" IsNewNode="True" />
-					<Item ID="ValueTerms" Caption="All Value Terms" ViewID="Term_ListView_Flat" IsNewNode="True" />
-				</Item>
-				<Item ID="BrowseTrees" ViewID="" Caption="Browse Trees" ChildItemsDisplayStyle="List" IsNewNode="True">
-					<Item ID="StructureTrees" Caption="Structure Trees" ViewID="StructuralTerm_ListView" IsNewNode="True" />
-					<Item ID="ValueTrees" Caption="Value Trees" ViewID="Term_ListView" IsNewNode="True" />
-				</Item>
-				<Item ID="Taxonomy_ListView" ViewID="Taxonomy_ListView" ObjectKey="" Caption="All Taxonomies" IsNewNode="True" />
-			</Item>
+		<Item ID="Taxonomies" IsNewNode="True">
+			<Item ID="TaxonomizedInfo_ListView" ViewID="TaxonomizedInfo_ListView" ObjectKey="" Caption="Taxonomized Data" IsNewNode="True" />
+			<Item ID="Taxonomy_ListView" ViewID="Taxonomy_ListView" ObjectKey="" Caption="All Taxonomies" IsNewNode="True" />
+			<Item ID="Term_ListView" ViewID="Term_ListView" ObjectKey="" Caption="Browse Trees" IsNewNode="True" />
 		</Item>
 	</NavigationItems>
 	<SchemaModules IsNewNode="True">
@@ -27,79 +19,4 @@
 		<SchemaModule Name="SystemModule" Version="9.2.5.0" IsNewNode="True" />
 		<SchemaModule Name="ViewVariantsModule" Version="9.2.5.0" IsNewNode="True" />
 	</SchemaModules>
-	<Views>
-		<ListView ID="StructuralTerm_ListView_Flat" ClassName="eXpand.ExpressApp.Taxonomy.BaseObjects.StructuralTerm" IsGroupPanelVisible="False" AutoExpandAllGroups="False" IsFooterVisible="True" IsNewNode="True">
-			<Columns IsNewNode="True">
-				<ColumnInfo PropertyName="FullPath" Width="70" Index="-1" IsNewNode="True" />
-				<ColumnInfo PropertyName="Key" Width="70" Index="-1" IsNewNode="True" />
-				<ColumnInfo PropertyName="Level" Width="50" Index="-1" IsNewNode="True" />
-				<ColumnInfo PropertyName="Name" Width="400" Index="0" SortIndex="0" SortOrder="Ascending" IsNewNode="True" />
-				<ColumnInfo PropertyName="Oid" Width="70" Index="-1" IsNewNode="True" />
-				<ColumnInfo PropertyName="ParentTerm" Width="70" Index="-1" IsNewNode="True" />
-				<ColumnInfo PropertyName="RelativePath" Width="70" Index="-1" IsNewNode="True" />
-				<ColumnInfo PropertyName="Taxonomy" Width="70" Index="-1" IsNewNode="True" />
-				<ColumnInfo PropertyName="TypeOfObject" Width="70" Index="1" IsNewNode="True" />
-			</Columns>
-			<SplitLayout Direction="Horizontal" IsNewNode="True" />
-			<Variants Current="Default" IsNewNode="True">
-				<Variant ID="Default" Caption="Default" ViewID="StructuralTerm_ListView" IsNewNode="True" />
-			</Variants>
-		</ListView>
-		<DetailView ID="TaxonomizedInfo_DetailView">
-			<Items>
-				<PropertyEditor PropertyName="Category" Removed="True" />
-				<PropertyEditor PropertyName="Oid" Removed="True" />
-				<PropertyEditor PropertyName="Term" Removed="True" />
-				<PropertyEditor PropertyName="TermAdditionalValues" Caption="Additional Values" IsNewNode="True" />
-				<PropertyEditor PropertyName="Value" Removed="True" />
-			</Items>
-			<Layout Width="937" Height="778">
-				<LayoutGroup ID="Main" CaptionLocation="Default" RelativeSize="100">
-					<LayoutGroup ID="SimpleEditors" CaptionLocation="Default" RelativeSize="100">
-						<LayoutGroup ID="BasicInfo" Index="0" Direction="Horizontal" CaptionLocation="Default" RelativeSize="4">
-							<LayoutItem ID="Key" Index="0" RelativeSize="48" SizeConstraintsType="Default" />
-							<LayoutItem ID="Validity" Index="1" RelativeSize="51" SizeConstraintsType="Default" />
-							<LayoutItem ID="Value" Removed="True" />
-						</LayoutGroup>
-						<LayoutGroup ID="eXpandLiteObject" Index="1" CaptionLocation="Default" RelativeSize="95">
-							<LayoutGroup ID="Item1" ShowCaption="True" Caption="Additional Values" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" IsNewNode="True">
-								<LayoutItem ID="TermAdditionalValues" ShowCaption="False" CaptionLocation="Default" Index="0" RelativeSize="95" SizeConstraintsType="Default" IsNewNode="True" />
-							</LayoutGroup>
-							<LayoutItem ID="Oid" Removed="True" />
-						</LayoutGroup>
-						<LayoutGroup ID="TaxonomizedInfo" Removed="True" />
-					</LayoutGroup>
-				</LayoutGroup>
-			</Layout>
-		</DetailView>
-		<ListView ID="TaxonomizedInfo_ListView">
-			<Columns>
-				<ColumnInfo PropertyName="Category" Removed="True" />
-				<ColumnInfo PropertyName="Oid" Removed="True" />
-				<ColumnInfo PropertyName="Owner" Removed="True" />
-				<ColumnInfo PropertyName="Term" Removed="True" />
-				<ColumnInfo PropertyName="TermAdditionalValues" Removed="True" />
-				<ColumnInfo PropertyName="Validity" IsNewNode="True" />
-				<ColumnInfo PropertyName="Validity" Removed="True" />
-				<ColumnInfo PropertyName="Value" Removed="True" />
-			</Columns>
-		</ListView>
-		<ListView ID="Term_ListView_Flat" ClassName="eXpand.ExpressApp.Taxonomy.BaseObjects.Term" IsGroupPanelVisible="False" AutoExpandAllGroups="False" IsFooterVisible="True" IsNewNode="True">
-			<Columns IsNewNode="True">
-				<ColumnInfo PropertyName="FullPath" Width="70" Index="-1" IsNewNode="True" />
-				<ColumnInfo PropertyName="Key" Width="70" Index="-1" IsNewNode="True" />
-				<ColumnInfo PropertyName="Level" Width="50" Index="-1" IsNewNode="True" />
-				<ColumnInfo PropertyName="Name" Width="400" Index="0" SortIndex="0" SortOrder="Ascending" IsNewNode="True" />
-				<ColumnInfo PropertyName="Oid" Width="70" Index="-1" IsNewNode="True" />
-				<ColumnInfo PropertyName="ParentTerm" Width="70" Index="-1" IsNewNode="True" />
-				<ColumnInfo PropertyName="RelativePath" Width="70" Index="-1" IsNewNode="True" />
-				<ColumnInfo PropertyName="StructuralTerm" Width="70" Index="1" IsNewNode="True" />
-				<ColumnInfo PropertyName="Taxonomy" Width="70" Index="-1" IsNewNode="True" />
-			</Columns>
-			<SplitLayout Direction="Horizontal" IsNewNode="True" />
-			<Variants Current="Default" IsNewNode="True">
-				<Variant ID="Default" Caption="Default" ViewID="Term_ListView" IsNewNode="True" />
-			</Variants>
-		</ListView>
-	</Views>
 </Application>

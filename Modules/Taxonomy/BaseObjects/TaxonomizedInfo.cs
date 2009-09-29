@@ -1,12 +1,14 @@
 using System;
 using System.Xml.Serialization;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
 using eXpand.Persistent.TaxonomyImpl;
 
 namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
     [Serializable]
-    public class TaxonomizedInfo : BasicInfo, ICategorizedItem{
+    [DefaultClassOptions]
+    public class TaxonomizedInfo : BaseInfo, ICategorizedItem{
         private Term term;
         public TaxonomizedInfo() {}
 
@@ -41,8 +43,11 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             base.OnSaving();
         }
 
-        public override void AfterConstruction(){
-            Term = InfosTaxonomy.GetInstance(Session).FindInfoTerm(this.ClassInfo.ClassType);
+        public static TaxonomizedInfo TaxonomizeObject(Term term, BaseObject objectToTaxonomize) {
+            var info = new TaxonomizedInfo(term.Session);
+            info.BaseObjects.Add(objectToTaxonomize);
+            info.Term = term;
+            return info;
         }
     }
 }

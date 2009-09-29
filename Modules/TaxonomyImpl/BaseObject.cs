@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml;
@@ -59,7 +60,7 @@ namespace eXpand.Persistent.TaxonomyImpl{
         //    if (collection.Count>0){
         //        foreach (var xpCollection in collection){
         //            string path = xpCollection.FullPath + "/" + GetMemberValue(taxonomyRule.PropertyName);
-        //            ObjectInfos.Add(new BasicInfo(Session) { Key = taxonomyRule.Taxonomy.GetTerm<Term>(path, String.Empty)});
+        //            ObjectInfos.Add(new BaseInfo(Session) { Key = taxonomyRule.Taxonomy.GetTerm<Term>(path, String.Empty)});
         //        }
         //    }
         //    else{
@@ -68,7 +69,7 @@ namespace eXpand.Persistent.TaxonomyImpl{
         //                          GetMemberValue(
         //                              taxonomyRule.PropertyName)),
         //            String.Empty);
-        //        ObjectInfos.Add(new BasicInfo(Session){
+        //        ObjectInfos.Add(new BaseInfo(Session){
         //                                                       Key =(Term) Session.GetObject(term)
         //                                                   });
         //    }
@@ -104,10 +105,10 @@ namespace eXpand.Persistent.TaxonomyImpl{
             set { SetPropertyValue("Caption", ref caption, value); }
         }
 
-        [Association(Associations.BaseObjectsBasicInfos), Aggregated]
+        [Association(Associations.BaseObjectsBaseInfos)]
         [XmlIgnore]
-        public XPCollection<BasicInfo> Infos {
-            get { return GetCollection<BasicInfo>("Infos"); }
+        public XPCollection<BaseInfo> Infos {
+            get { return GetCollection<BaseInfo>("Infos"); }
         }
 
         private AssociationXmlSerializationHelper infosSerializationHelper;
@@ -132,6 +133,20 @@ namespace eXpand.Persistent.TaxonomyImpl{
             var doc = new XmlDocument();
             doc.LoadXml(SerializeToString());
             return doc;
+        }
+
+        private string key;
+        public string Key {
+            get {
+                return key;
+            }
+            set {
+                SetPropertyValue("Key", ref key, value);
+            }
+        }
+
+        public IEnumerable<TInfo> GetInfosOfType<TInfo>() where TInfo:BaseInfo{
+            return Infos.OfType<TInfo>();    
         }
     }
 }

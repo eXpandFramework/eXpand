@@ -3,6 +3,6 @@
 namespace eXpand.Persistent.TaxonomyImpl{
     internal class Associations
     {
-        public const string BaseObjectsBasicInfos = "BaseObjectsBasicInfos";
+        public const string BaseObjectsBaseInfos = "BaseObjectsBaseInfos";
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -7,10 +8,12 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.Taxonomy.BaseObjects;
 using eXpand.Persistent.TaxonomyImpl;
+using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.Taxonomy.Controllers{
     public abstract partial class TermViewController : ViewController{
         protected SingleChoiceAction newObjectAction;
+        private StructuralTerm selectedStrusturalTerm;
 
         protected TermViewController(){
             InitializeComponent();
@@ -19,39 +22,64 @@ namespace eXpand.ExpressApp.Taxonomy.Controllers{
 
         protected override void OnActivated(){
             base.OnActivated();
+            
             View.CurrentObjectChanged += ViewOnCurrentObjectChanged;
         }
-
+        protected override void OnViewControlsCreated() {
+            base.OnViewControlsCreated();
+            PopulateValidNewActionItems(null);
+        }
         protected override void OnDeactivating(){
             base.OnDeactivating();
             View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
         }
 
-        protected void ViewOnCurrentObjectChanged(object sender, EventArgs args){
-            var term = ((Term) View.CurrentObject);
+        protected void ViewOnCurrentObjectChanged(object sender, EventArgs args) {
+            PopulateValidNewActionItems(((Term) View.CurrentObject));
+        }
 
-            if (term != null){
-                IQueryable<StructuralTerm> structuralTerms = new XPQuery<StructuralTerm>(View.ObjectSpace.Session).Where(structuralTerm => structuralTerm.Level == term.Level + 1 && structuralTerm.Taxonomy.Key == term.Taxonomy.Key);
-                if (newObjectAction != null){
-                    newObjectAction.Items.Clear();
-                    foreach (StructuralTerm structuralTerm in structuralTerms){
-                        if (structuralTerm.TypeOfObject != null){
-                            Type type = ReflectionHelper.GetType(structuralTerm.TypeOfObject);
-                            var choiceActionItem = new ChoiceActionItem(type.Name, type);
-                            newObjectAction.Items.Add(choiceActionItem);
-                        }
-                    }
-                    newObjectAction.Items.Add(new ChoiceActionItem(){BeginGroup = true});
-                    newObjectAction.Items.Add(new ChoiceActionItem("Term", typeof (Term)));
-                }
+        private void PopulateValidNewActionItems(Term term){
+            IQueryable<StructuralTerm> structuralTerms =
+                term != null
+                    ? new XPQuery<StructuralTerm>(View.ObjectSpace.Session).Where(structuralTerm => structuralTerm.Level == term.Level + 1 && structuralTerm.Taxonomy.Key == term.Taxonomy.Key)
+                    : new XPQuery<StructuralTerm>(View.ObjectSpace.Session).Where(structuralTerm => structuralTerm.ParentTerm == null);
+            
+
+            if (newObjectAction != null) {
+                PopulateChoiceAction(structuralTerms);
             }
         }
 
+        private class ChoiceActionItem:DevExpress.ExpressApp.Actions.ChoiceActionItem{
+            private readonly StructuralTerm structuralTerm;
+
+            public ChoiceActionItem(string caption, object data,StructuralTerm structuralTerm) : base(caption, data){
+                this.structuralTerm = structuralTerm;
+            }
+
+            public StructuralTerm StructuralTerm{
+                get { return structuralTerm; }
+            }
+        }
+        private void PopulateChoiceAction(IQueryable<StructuralTerm> structuralTerms) {
+            newObjectAction.Items.Clear();
+            foreach (StructuralTerm structuralTerm in structuralTerms){
+                if (structuralTerm.TypeOfObject != null){
+                    var choiceActionItem = new ChoiceActionItem(structuralTerm.TypeOfObject.Name, structuralTerm.TypeOfObject,structuralTerm);
+                    newObjectAction.Items.Add(choiceActionItem);
+                }
+            }
+            newObjectAction.Items.Add(new ChoiceActionItem("Term", typeof (Term), null));
+        }
+
         protected void NewObjectActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs args){
+            
             ObjectSpace objectSpace = Application.CreateObjectSpace();
             ShowViewParameters parameters = args.ShowViewParameters;
+            selectedStrusturalTerm = ((ChoiceActionItem) args.SelectedChoiceActionItem).StructuralTerm;
             parameters.CreatedView = Application.CreateDetailView(objectSpace,
-                                                                  objectSpace.CreateObject((Type) args.SelectedChoiceActionItem.Data));
+                                                                  objectSpace.CreateObject(selectedStrusturalTerm.TypeOfObject));
+
             parameters.TargetWindow = TargetWindow.NewModalWindow;
             var controller = new DialogController();
             parameters.Controllers.Add(controller);
@@ -61,13 +89,35 @@ namespace eXpand.ExpressApp.Taxonomy.Controllers{
         private void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs args){
             var taxonomyBaseObject = ((BaseObject) args.CurrentObject);
             ObjectSpace objectSpace = ObjectSpace.FindObjectSpace(taxonomyBaseObject);
-            var newTerm = new Term(taxonomyBaseObject.Session){
-                                                                  Key = taxonomyBaseObject.ToString(),
-                                                                  Name = taxonomyBaseObject.ToString(),
-                                                                  ParentTerm = objectSpace.GetObject(((TermBase) View.CurrentObject))
-                                                              };
+            Term newTerm = GetTermForNewObject(taxonomyBaseObject, objectSpace, objectSpace.GetObject(selectedStrusturalTerm));
+            createDefault(newTerm.StructuralTerm.Terms.Cast<StructuralTerm>(), newTerm);
+            RelateNewObjectWithTaxonomyTree(taxonomyBaseObject, newTerm);
 
             objectSpace.CommitChanges();
         }
+
+        private void createDefault(IEnumerable<StructuralTerm> collection, Term newTerm){
+            IEnumerable<StructuralTerm> structuralTerms = collection.Where(term => term.TypeOfObject==null);
+            foreach (var structuralTerm in structuralTerms){
+                var term = new Term(newTerm.Session){Key = structuralTerm.Key, Name = structuralTerm.Name, ParentTerm = newTerm, StructuralTerm = structuralTerm, Taxonomy = structuralTerm.Taxonomy};
+                createDefault(structuralTerm.Terms.Cast<StructuralTerm>(),term);
+            }
+        }
+
+        private void RelateNewObjectWithTaxonomyTree(BaseObject taxonomyBaseObject, Term newTerm) {
+           
+        }
+
+        private Term GetTermForNewObject(BaseObject taxonomyBaseObject, ObjectSpace objectSpace, StructuralTerm structuralTerm) {
+            return new Term(taxonomyBaseObject.Session){
+                                                           Key = taxonomyBaseObject.ToString(),
+                                                           Name = taxonomyBaseObject.ToString(),
+                                                           ParentTerm = View.CurrentObject != null ? (TermBase) objectSpace.GetObject(View.CurrentObject) : null,
+                                                           Taxonomy = objectSpace.GetObject(structuralTerm.Taxonomy),
+                                                           StructuralTerm = structuralTerm
+                                                       };
+        }
+
+        
     }
 }

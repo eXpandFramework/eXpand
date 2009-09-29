@@ -9,14 +9,14 @@ using eXpand.Xpo;
 
 namespace eXpand.Persistent.TaxonomyImpl {
 	[MapInheritance(MapInheritanceType.OwnTable)]
-	[DefaultProperty("DisplayName")]
+	[DefaultProperty("Caption")]
     public abstract class Party : BaseObject
     {
 		private Address address1;
 		private Address address2;
 		protected Party(Session session) : base(session) { }
 		public override string ToString() {
-			return DisplayName;
+			return Caption;
 		}
 		[Size(SizeAttribute.Unlimited), Delayed, ValueConverter(typeof(ImageValueConverter))]
 		public Image Photo {
@@ -39,16 +39,8 @@ namespace eXpand.Persistent.TaxonomyImpl {
 				OnChanged("Address2");
 			}
 		}
-        [Persistent]
-		public virtual string DisplayName{
-		    get { throw new NotImplementedException(); }
-		    internal set{
-                
-            }
-
-		}
-
-	    [Aggregated, Association("Party-PhoneNumbers")]
+        
+        [Aggregated, Association("Party-PhoneNumbers")]
 		public XPCollection<PhoneNumber> PhoneNumbers {
 			get { return GetCollection<PhoneNumber>("PhoneNumbers"); }
 		}

@@ -52,9 +52,17 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
         [Association(Associations.TaxonomyTerms), Aggregated]
         [XmlIgnore]
         [Browsable(false)]
-        public XPCollection<TermBase> Terms{
-            get { return GetCollection<TermBase>("Terms"); }
+        public XPCollection<Term> Terms {
+            get { return GetCollection<Term>("Terms"); }
         }
+
+        [Association(Associations.TaxonomyStructure), Aggregated]
+        public XPCollection<StructuralTerm> Structure {
+            get {
+                return GetCollection<StructuralTerm>("Structure");
+            }
+        }
+
         #region Queries and Rules
         //[Association(Associations.TaxonomyTaxonomyCreateObjectRules)]
         //[XmlIgnore]
@@ -86,47 +94,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
         //    }
         //}
         #endregion
-        //[XmlIgnore]
-        //public XPCollection<StructuralTerm> Structure {
-        //    get{
-        //        if (!IsLoading && !IsSaving){
-        //            return new XPCollection<StructuralTerm>(Session, Terms.OfType<StructuralTerm>());
-        //        }
-        //        return null;
-        //    }
-        //}
-
-        //[XmlIgnore]
-        //public XPCollection<Term> ValueTrees{
-        //    get{
-        //        if (!IsLoading && !IsSaving) {
-        //            return new XPCollection<Term>(Session, Terms.OfType<Term>());
-        //        }
-        //        return null;
-        //    }
-        //}
-
-        //[XmlArray("ValueTrees")]
-        //[XmlArrayItem(typeof (Term))]
-        //[Browsable(false)]
-        //public AssociationXmlSerializationHelper ValueTreesSerializationHelper{
-        //    get{
-        //        if (valueTreesSerializationHelper == null)
-        //            valueTreesSerializationHelper = new AssociationXmlSerializationHelper(ValueTrees);
-        //        return valueTreesSerializationHelper;
-        //    }
-        //}
-
-        //[XmlArray("Structure")]
-        //[XmlArrayItem(typeof(StructuralTerm))]
-        //[Browsable(false)]
-        //public AssociationXmlSerializationHelper StructureSerializationHelper {
-        //    get {
-        //        if (structureSerializationHelper == null)
-        //            structureSerializationHelper = new AssociationXmlSerializationHelper(Structure);
-        //        return structureSerializationHelper;
-        //    }
-        //}
+        
 
         protected override void OnChanged(string propertyName, object oldValue, object newValue){
             base.OnChanged(propertyName, oldValue, newValue);
@@ -141,35 +109,14 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             }
         }
 
-        public TTerm GetTerm<TTerm>(string termPath, string termName) where TTerm : TermBase{
-            termPath = termPath.StartsWith("/") ? string.Format("{0}{1}", key, termPath) : termPath;
-            var term = AddTerm<TTerm>(Session, termPath, termName);
-            return term; 
+        public Term AddTerm(Session unitOfWork, string termPath, string termName){
+            return AddTerm<Term>(unitOfWork, StructurePath(termPath), termName);
         }
 
-        public TTerm GetTerm<TTerm>(string termPath) where TTerm : TermBase{
-            return GetTerm<TTerm>(termPath);
-        }
-
-        //public StructuralTerm GetStructure(string termPath, Type[] types) {
-        //    
-        //    var term = AddTerm<StructuralTerm>(Session, string.Format("{0}/{1}{2}", key, DefaultStructuralRootNodeKey, termPath));
-        //    term.UpdateTypes(types);
-        //    return term;
-        //}
-
-        //public Term GetBrowsableTerm(string termPath) {
-        //    return GetBrowsableTerm(termPath, string.Empty);
-        //}
-
-        //public Term GetBrowsableTerm(string termPath, string termName) {
-        //    termPath = !termPath.StartsWith("/") ? string.Format("/{0}", termPath) : termPath;
-        //    var term = AddTerm<Term>(Session, string.Format("{0}/{1}{2}", key, DefaultBrowsableViewRootNodeKey, termPath), termName);
-        //    return term;
-        //}
-
-        protected virtual TTerm AddTerm<TTerm>(Session unitOfWork, string termPath) where TTerm : TermBase{
-            return AddTerm<TTerm>(unitOfWork, termPath, string.Empty);
+        public StructuralTerm AddStructure(Session unitOfWork, string termPath, string termName, Type[] types){
+            var term = AddTerm<StructuralTerm>(unitOfWork, StructurePath(termPath), termName);
+            term.UpdateTypes(types);
+            return term;
         }
 
         protected virtual TTerm AddTerm<TTerm>(Session unitOfWork, string termPath, string termName) where TTerm : TermBase{
@@ -187,16 +134,23 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
                 term = (TTerm) Activator.CreateInstance(typeof (TTerm), unitOfWork);
                 term.Key = pathSegments.Last();
                 term.Name = string.IsNullOrEmpty(termName) ? pathSegments.Last() : termName;
-
-                string format = string.Format("/{0}", pathSegments.Last());
-                term.ParentTerm = AddTerm<TTerm>(unitOfWork, termPath.Replace(format, string.Empty), string.Empty);
-                term.Taxonomy = (Taxonomy) unitOfWork.GetObject(this);
-                if (term.Taxonomy == null){
-                    term.Taxonomy = this;
+                string parentPath = termPath.Substring(0, termPath.LastIndexOf("/"));
+                term.ParentTerm = AddTerm<TTerm>(unitOfWork, parentPath, string.Empty);
+                ((ITerm) term).Taxonomy = (Taxonomy) unitOfWork.GetObject(this);
+                if (((ITerm)term).Taxonomy == null) {
+                    ((ITerm)term).Taxonomy = this;
                 }
                 term.UpdateFullPath(false);
             }
             return term;
+        }
+
+        private string StructurePath(string termPath){
+            return string.Format("{0}{1}"
+                                 , key
+                                 , !termPath.StartsWith("/")
+                                       ? string.Format("/{0}", termPath)
+                                       : termPath);
         }
 
         public static Taxonomy GetTaxonomy(Session unitOfWork, string taxonomyKey){
