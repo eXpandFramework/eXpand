@@ -1,5 +1,0 @@
-C:\Projects\newexpand\eXpand\eXpand.DLL\TypeMock.Extensions.dll
-C:\Projects\newexpand\eXpand\eXpand.DLL\TypeMock.Extensions.pdb
-C:\Projects\newexpand\eXpand\eXpand.Tests\TypeMock.Extensions\obj\Debug\ResolveAssemblyReference.cache
-C:\Projects\newexpand\eXpand\eXpand.Tests\TypeMock.Extensions\obj\Debug\TypeMock.Extensions.dll
-C:\Projects\newexpand\eXpand\eXpand.Tests\TypeMock.Extensions\obj\Debug\TypeMock.Extensions.pdb
