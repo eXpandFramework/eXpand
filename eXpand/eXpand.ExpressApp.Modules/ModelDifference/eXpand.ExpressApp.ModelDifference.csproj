@@ -200,6 +200,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Controllers\PopuLateDifferenceObjectsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Security\Controllers\PopuLateDifferenceObjectsController.Designer.cs">
       <DependentUpon>PopuLateDifferenceObjectsController.cs</DependentUpon>
@@ -207,6 +208,7 @@
     <Compile Include="Security\ModelCombinePermission.cs" />
     <Compile Include="Security\ApplicationModelCombineModifier.cs" />
     <Compile Include="Security\Controllers\NavigationItemsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Security\Controllers\NavigationItemsController.Designer.cs">
       <DependentUpon>NavigationItemsController.cs</DependentUpon>
