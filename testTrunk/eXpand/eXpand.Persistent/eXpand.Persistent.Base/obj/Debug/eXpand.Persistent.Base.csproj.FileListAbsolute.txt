@@ -1,0 +1,5 @@
+C:\Projects\newexpand\eXpand.DLL\eXpand.Persistent.Base.dll
+C:\Projects\newexpand\eXpand.DLL\eXpand.Persistent.Base.pdb
+C:\Projects\newexpand\eXpand\eXpand.Persistent\eXpand.Persistent.Base\obj\Debug\ResolveAssemblyReference.cache
+C:\Projects\newexpand\eXpand\eXpand.Persistent\eXpand.Persistent.Base\obj\Debug\eXpand.Persistent.Base.dll
+C:\Projects\newexpand\eXpand\eXpand.Persistent\eXpand.Persistent.Base\obj\Debug\eXpand.Persistent.Base.pdb
