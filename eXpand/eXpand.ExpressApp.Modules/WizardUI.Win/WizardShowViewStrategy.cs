@@ -52,6 +52,7 @@ namespace eXpand.ExpressApp.WizardUI.Win{
                 if (_ShowInWizard){
                     parameters.TargetWindow = TargetWindow.NewModalWindow;
                 }
+
             }
 
             base.ShowViewCore(parameters, showViewSource);
