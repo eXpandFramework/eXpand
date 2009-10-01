@@ -1,7 +1,0 @@
-C:\Projects\newexpand\eXpand\eXpand.DLL\eXpand.Utils.dll
-C:\Projects\newexpand\eXpand\eXpand.DLL\eXpand.Utils.pdb
-C:\Projects\newexpand\eXpand\eXpand.Utils\obj\Debug\ResolveAssemblyReference.cache
-C:\Projects\newexpand\eXpand.DLL\eXpand.Utils.dll
-C:\Projects\newexpand\eXpand.DLL\eXpand.Utils.pdb
-C:\Projects\newexpand\eXpand\eXpand.Utils\obj\Debug\eXpand.Utils.dll
-C:\Projects\newexpand\eXpand\eXpand.Utils\obj\Debug\eXpand.Utils.pdb

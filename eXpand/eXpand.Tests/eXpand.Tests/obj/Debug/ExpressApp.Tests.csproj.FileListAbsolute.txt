@@ -1,5 +1,0 @@
-C:\Projects\newexpand\eXpand\eXpand.Tests\eXpand.Tests\obj\Debug\ResolveAssemblyReference.cache
-C:\Projects\newexpand\eXpand\eXpand.DLL\eXpand.Tests.dll
-C:\Projects\newexpand\eXpand\eXpand.DLL\eXpand.Tests.pdb
-C:\Projects\newexpand\eXpand\eXpand.Tests\eXpand.Tests\obj\Debug\eXpand.Tests.dll
-C:\Projects\newexpand\eXpand\eXpand.Tests\eXpand.Tests\obj\Debug\eXpand.Tests.pdb

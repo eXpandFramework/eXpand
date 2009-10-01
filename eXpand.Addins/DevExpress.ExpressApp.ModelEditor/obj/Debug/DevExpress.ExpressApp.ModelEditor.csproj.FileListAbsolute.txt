@@ -1,7 +1,0 @@
-C:\Projects\newexpand\eXpand.DLL\DevExpress.ExpressApp.ModelEditor.v9.1.exe
-C:\Projects\newexpand\eXpand.DLL\DevExpress.ExpressApp.ModelEditor.v9.1.pdb
-C:\Projects\newexpand\eXpand.Addins\DevExpress.ExpressApp.ModelEditor\obj\Debug\ResolveAssemblyReference.cache
-C:\Projects\newexpand\eXpand.Addins\DevExpress.ExpressApp.ModelEditor\obj\Debug\DevExpress.ExpressApp.ModelEditor.v9.1.exe
-C:\Projects\newexpand\eXpand.Addins\DevExpress.ExpressApp.ModelEditor\obj\Debug\DevExpress.ExpressApp.ModelEditor.v9.1.pdb
-C:\DxCore\PlugIns\DevExpress.ExpressApp.ModelEditor.v9.1.exe
-C:\DxCore\PlugIns\DevExpress.ExpressApp.ModelEditor.v9.1.pdb
