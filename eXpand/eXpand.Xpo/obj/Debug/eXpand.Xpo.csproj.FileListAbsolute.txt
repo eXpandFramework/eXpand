@@ -1,0 +1,9 @@
+C:\Projects\eXpand.DLL\eXpand.Xpo.dll
+C:\Projects\eXpand.DLL\eXpand.Xpo.pdb
+C:\Projects\newexpand\eXpand\eXpand.Xpo\obj\Debug\ResolveAssemblyReference.cache
+C:\Projects\newexpand\eXpand\eXpand.Xpo\obj\Debug\eXpand.Xpo.Collections.DBCollection.resources
+C:\Projects\newexpand\eXpand\eXpand.Xpo\obj\Debug\eXpand.Xpo.csproj.GenerateResource.Cache
+C:\Projects\newexpand\eXpand.Dll\eXpand.Xpo.dll
+C:\Projects\newexpand\eXpand.Dll\eXpand.Xpo.pdb
+C:\Projects\newexpand\eXpand\eXpand.Xpo\obj\Debug\eXpand.Xpo.dll
+C:\Projects\newexpand\eXpand\eXpand.Xpo\obj\Debug\eXpand.Xpo.pdb
