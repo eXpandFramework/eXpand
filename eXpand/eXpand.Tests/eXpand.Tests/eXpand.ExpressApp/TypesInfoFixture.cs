@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using MbUnit.Framework;
 using eXpand.ExpressApp.Core;
 using TypeMock.ArrangeActAssert;
 
-namespace Fixtures.eXpand.ExpressApp
+namespace eXpand.Tests.eXpand.ExpressApp
 {
     /// <summary>
     /// AN_Association_Collection_Can_Be_Created_To_Any_Persistent_Type
@@ -30,16 +32,16 @@ namespace Fixtures.eXpand.ExpressApp
             info.RegisterEntity(typeToCreateOn);
             Type typeOfCollection = typeof(Analysis);
 
-            bool collection = info.CreateCollection(typeToCreateOn, typeOfCollection, "association",
-                                                    XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+            XPCustomMemberInfo collection = info.CreateCollection(typeToCreateOn, typeOfCollection, "association",
+                                                                  XafTypesInfo.XpoTypeInfoSource.XPDictionary);
 
             AssociationAttribute attribute = assertMemberCreation(collection, typeOfCollection.Name + "s", typeToCreateOn);
             Assert.AreEqual(typeOfCollection.FullName, attribute.ElementTypeName);
 
         }
 
-        private AssociationAttribute assertMemberCreation(bool collection, string name, Type type){
-            Assert.AreEqual(true, collection);
+        private AssociationAttribute assertMemberCreation(object collection, string name, Type type){
+            Assert.IsNotNull(collection);
             ITypeInfo typeInfo = XafTypesInfo.CastTypeToTypeInfo(type);
             IMemberInfo memberInfo = typeInfo.FindMember(name);
             Assert.IsNotNull(memberInfo);
@@ -58,7 +60,7 @@ namespace Fixtures.eXpand.ExpressApp
             info.RegisterEntity(typeToCreateOn);
             Type typeOfMember = typeof (Analysis);
 
-            bool member = info.CreateMember(typeToCreateOn, typeOfMember, "association",XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+            XPCustomMemberInfo member = info.CreateMember(typeToCreateOn, typeOfMember, "association",XafTypesInfo.XpoTypeInfoSource.XPDictionary);
 
             assertMemberCreation(member, typeOfMember.Name, typeToCreateOn);
         }
@@ -73,8 +75,8 @@ namespace Fixtures.eXpand.ExpressApp
             Type typeOfMember = typeof (Analysis);
             info.RegisterEntity(typeOfMember);
 
-            bool members = info.CreateBothPartMembers(typeToCreateOn, typeOfMember, "association",
-                                                      XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+            List<XPCustomMemberInfo> members = info.CreateBothPartMembers(typeToCreateOn, typeOfMember, "association",
+                                                                          XafTypesInfo.XpoTypeInfoSource.XPDictionary);
 
             assertMemberCreation(members, typeOfMember.Name, typeToCreateOn);
             assertMemberCreation(members, typeToCreateOn.Name+"s", typeOfMember);
@@ -90,7 +92,7 @@ namespace Fixtures.eXpand.ExpressApp
             Type typeOfMember = typeof(Analysis);
             info.RegisterEntity(typeOfMember);
 
-            bool members = info.CreateBothPartMembers(typeToCreateOn, typeOfMember, XafTypesInfo.XpoTypeInfoSource.XPDictionary,true,"association");
+            List<XPCustomMemberInfo> members = info.CreateBothPartMembers(typeToCreateOn, typeOfMember, XafTypesInfo.XpoTypeInfoSource.XPDictionary,true,"association");
 
             assertMemberCreation(members, typeToCreateOn.Name + "s", typeOfMember);
             assertMemberCreation(members, typeOfMember.Name + "s", typeToCreateOn);

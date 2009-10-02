@@ -11,7 +11,7 @@ using MbUnit.Framework;
 using TypeMock;
 using TypeMock.ArrangeActAssert;
 
-namespace Fixtures.eXpand.ExpressApp.SkinToDataStore
+namespace eXpand.Tests.eXpand.ExpressApp.FilterDataStore
 {
     [TestFixture]
     public class FilterDataStoreModuleFixture

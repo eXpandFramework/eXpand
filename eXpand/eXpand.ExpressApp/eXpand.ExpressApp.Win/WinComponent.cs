@@ -8,7 +8,6 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Core;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.Win.Interfaces;
 
 namespace eXpand.ExpressApp.Win

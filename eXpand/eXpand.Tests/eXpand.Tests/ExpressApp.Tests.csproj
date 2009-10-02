@@ -75,7 +75,7 @@
     </Reference>
     <Reference Include="eXpand.ExpressApp.FilterDataStore, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.FilterDataStore.dll</HintPath>
+      <HintPath>..\..\..\eXpand.DLL\eXpand.ExpressApp.FilterDataStore.dll</HintPath>
     </Reference>
     <Reference Include="eXpand.ExpressApp.ModelArtifactState, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -113,8 +113,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.Dll\eXpand.Xpo.dll</HintPath>
     </Reference>
-    <Reference Include="Gallio, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL" />
-    <Reference Include="MbUnit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL" />
+    <Reference Include="Gallio, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="MbUnit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
