@@ -27,7 +27,8 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.BuildingModelDifference
                                                                                                                                                     passed = true;
                                                                                                                                                     Assert.IsInstanceOfType(typeof(bool), context.Parameters[4]);
                                                                                                                                                     Assert.IsTrue((bool)context.Parameters[4]);
-                                                                                                                                                    return passed;
+                                                                                                                                                    return
+                                                                                                                                                        null;
                                                                                                                                                 });
 
             RoleDifferenceObjectBuilder.CreateDynamicMembers();

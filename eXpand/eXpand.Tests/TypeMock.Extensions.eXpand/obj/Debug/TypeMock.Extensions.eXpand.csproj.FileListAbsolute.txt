@@ -5,3 +5,6 @@ C:\Projects\newexpand\eXpand\eXpand.Tests\TypeMock.Extensions.eXpand\obj\Debug\T
 C:\Projects\newexpand\eXpand\eXpand.Tests\TypeMock.Extensions.eXpand\obj\Debug\TypeMock.Extensions.eXpand.pdb
 C:\Projects\eXpand - Copy\eXpand\eXpand.Tests\TypeMock.Extensions.eXpand\obj\Debug\ResolveAssemblyReference.cache
 C:\Projects\eXpand - Copy\eXpand\eXpand.Tests\TypeMock.Extensions.eXpand\obj\Debug\TypeMock.Extensions.eXpand.dll
+C:\Projects\eXpand - Copy\eXpand\eXpand.DLL\TypeMock.Extensions.eXpand.dll
+C:\Projects\eXpand - Copy\eXpand\eXpand.DLL\TypeMock.Extensions.eXpand.pdb
+C:\Projects\eXpand - Copy\eXpand\eXpand.Tests\TypeMock.Extensions.eXpand\obj\Debug\TypeMock.Extensions.eXpand.pdb
