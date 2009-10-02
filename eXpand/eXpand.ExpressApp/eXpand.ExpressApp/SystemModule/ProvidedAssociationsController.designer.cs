@@ -1,5 +1,5 @@
 namespace eXpand.ExpressApp.SystemModule{
-    partial class ProvideAssociationsController {
+    partial class ProvidedAssociationsController {
         /// <summary>
         /// Required designer variable.
         /// </summary>

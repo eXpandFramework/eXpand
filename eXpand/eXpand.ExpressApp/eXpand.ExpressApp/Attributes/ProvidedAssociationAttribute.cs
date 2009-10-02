@@ -1,24 +1,52 @@
 using System;
-using eXpand.ExpressApp.Enums;
 
 namespace eXpand.ExpressApp.Attributes{
     [AttributeUsage(AttributeTargets.Property)]
     public class ProvidedAssociationAttribute : Attribute {
-        public ProvidedAssociationAttribute(string providedPropertyName, Type providedAssociationMemberType)
-            : this(providedPropertyName, providedAssociationMemberType, ManyToManyInfoType.Undefined) {}
+        private readonly RelationType _relationType;
+        private readonly string _attributesFactoryProperty;
 
-        public ProvidedAssociationAttribute(string providedPropertyName) : 
-            this(providedPropertyName, null, ManyToManyInfoType.Undefined) {}
 
-        public ProvidedAssociationAttribute(string providedPropertyName, Type providedAssociationMemberType, ManyToManyInfoType manyToManyInfoType) {
-            ProvidedPropertyName = providedPropertyName;
-            ManyToManyInfoType = manyToManyInfoType;
-            ProvidedAssociationMemberType = providedAssociationMemberType;
+        public ProvidedAssociationAttribute():this(null)
+        {
+        }
+
+        public ProvidedAssociationAttribute(string providedPropertyName):this(providedPropertyName, RelationType.Undefined,null)
+        {
+        }
+        public ProvidedAssociationAttribute(RelationType relationType):this(null, relationType, null)
+        {
         }
 
 
-        public string ProvidedPropertyName { get; set; }
-        public ManyToManyInfoType ManyToManyInfoType { get; set; }
-        public Type ProvidedAssociationMemberType { get; set; }
+        public ProvidedAssociationAttribute(string providedPropertyName, RelationType relationType, string attributesFactory)
+        {
+            _relationType = relationType;
+            _attributesFactoryProperty = attributesFactory;
+            _providedPropertyName = providedPropertyName;
+        }
+
+        public string AttributesFactoryProperty
+        {
+            get { return _attributesFactoryProperty; }
+        }
+
+        private readonly string _providedPropertyName;
+        public string ProvidedPropertyName
+        {
+            get { return _providedPropertyName; }
+        }
+
+        
+
+        public RelationType RelationType
+        {
+            get { return _relationType; }
+        }
+    }
+    public enum RelationType
+    {
+        Undefined,
+        ManyToMany
     }
 }

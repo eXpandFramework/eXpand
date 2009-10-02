@@ -44,7 +44,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\..\..\DxCore\PlugIns\</OutputPath>
+    <OutputPath>..\..\eXpand.DLL\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>

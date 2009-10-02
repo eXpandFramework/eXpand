@@ -16,7 +16,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Builders{
         public static bool CreateDynamicMembers(){
             if (SecuritySystem.Instance is ISecurityComplex){
                 return XafTypesInfo.Instance.CreateBothPartMembers(typeof(RoleModelDifferenceObject), GetRoleTypeInfo().Type,
-                                                            XafTypesInfo.XpoTypeInfoSource.XPDictionary, true);
+                                                            XafTypesInfo.XpoTypeInfoSource.XPDictionary, true)!=null;
             }
             return false;
         }

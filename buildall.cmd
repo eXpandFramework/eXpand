@@ -28,6 +28,8 @@ call buildproject.cmd eXpand.ExpressApp.ModelArtifactState.Win ".\eXpand\eXpand.
 call buildproject.cmd eXpand.ExpressApp.WizardUI.Win ".\eXpand\eXpand.ExpressApp.Modules\WizardUI.Win\eXpand.ExpressApp.WizardUI.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.WizardUI.Win ".\eXpand\eXpand.ExpressApp.Modules\WizardUI.Win\eXpand.ExpressApp.WizardUI.Win.csproj"
 
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.AddIns\eXpandAddIns.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.AddIns\DevExpress.ExpressApp.ModelEditor\DevExpress.ExpressApp.ModelEditor.csproj"
 
 %sn% -q -T eXpand.Dll\eXpand.Utils.dll > PublicKeyToken.txt
 
