@@ -1,9 +1,10 @@
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.General;
+using eXpand.Xpo;
 
 namespace eXpand.Persistent.BaseImpl{
     [NonPersistent]
-    public abstract class EnumXPObject : eXpandBaseObject, IEnumObject
+    public abstract class EnumXPObject : eXpandCustomObject, IEnumObject
     {
         protected EnumXPObject(Session session) : base(session){
         }
