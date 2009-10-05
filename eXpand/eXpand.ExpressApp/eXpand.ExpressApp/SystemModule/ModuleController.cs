@@ -29,8 +29,7 @@ namespace eXpand.ExpressApp.SystemModule
                             node.AddChildNode("Module").SetAttribute("Name", type.FullName);
                     }
                 }
-                catch (ReflectionTypeLoadException)
-                {
+                catch (ReflectionTypeLoadException){
                     Tracing.Tracer.LogError(string.Format("ReflectionTypeLoadException for {0}", assembly.FullName));
                 }
             }
