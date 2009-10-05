@@ -4,7 +4,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 
 namespace eXpand.Xpo{
-    [Serializable]
+    [Serializable][NonPersistent]
     public abstract class eXpandCustomObject : XPCustomObject{
         #if MediumTrust
 		private Guid oid = Guid.Empty;
