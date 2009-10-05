@@ -61,7 +61,7 @@
   </ItemGroup>
   
   <!-- Import the task -->
-  <UsingTask AssemblyFile="$(APPDATA)\Microsoft\MSBuild\AssemblyInfoTask\assemblyinfotask.dll" TaskName="AssemblyInfo"/>
+  <UsingTask AssemblyFile="$(MSBuildProjectDirectory)\_third_party_assemblies\AssemblyInfoTask\assemblyinfotask.dll" TaskName="AssemblyInfo"/>
 
   <!-- Re-define CoreCompileDependsOn to ensure the assemblyinfo files are updated before compilation. -->
   <PropertyGroup>
