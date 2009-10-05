@@ -13,6 +13,7 @@ namespace eXpand.ExpressApp.SystemModule
             InitializeComponent();
             RegisterActions(components);
             TargetViewType=ViewType.DetailView;
+            TargetObjectType = typeof (PersistentBase);
         }
         protected override void OnActivated()
         {
