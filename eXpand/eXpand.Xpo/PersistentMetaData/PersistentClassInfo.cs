@@ -54,38 +54,38 @@ namespace eXpand.Xpo.PersistentMetaData
         [Association]
         public XPCollection<PersistentMemberInfo> OwnMembers { get { return GetCollection<PersistentMemberInfo>("OwnMembers"); } }
 
-        public static PersistentClassInfo CreateOneToMany(PersistentClassInfo onePart, string manyPart)
-        {
-            
-            var persistentAssociationAttribute = new PersistentAssociationAttribute { ElementTypeName = manyPart };
-            var persistentCollectionMemberInfo = new PersistentCollectionMemberInfo(persistentAssociationAttribute) { Name = manyPart + "s" };
-            persistentCollectionMemberInfo.TypeAttributes.Add(persistentAssociationAttribute);
-            onePart.OwnMembers.Add(persistentCollectionMemberInfo);
-            
+//        public static PersistentClassInfo CreateOneToMany(PersistentClassInfo onePart, string manyPart)
+//        {
+//            
+//            var persistentAssociationAttribute = new PersistentAssociationAttribute { ElementTypeName = manyPart };
+//            var persistentCollectionMemberInfo = new PersistentCollectionMemberInfo(persistentAssociationAttribute) { Name = manyPart + "s" };
+//            persistentCollectionMemberInfo.TypeAttributes.Add(persistentAssociationAttribute);
+//            onePart.OwnMembers.Add(persistentCollectionMemberInfo);
+//            
+//
+//            PersistentClassInfo manyPartInfo = CreateMany(onePart, manyPart);
+//
+//            
+//            return manyPartInfo;
+//        }
+//        public static List<PersistentClassInfo> CreateOneToMany(string onePart, string manyPart)
+//        {
+//            var classInfos = new List<PersistentClassInfo>();
+//            var customerClass = new PersistentClassInfo(Session.DefaultSession) { Name = onePart };
+//            classInfos.Add(customerClass);
+//            classInfos.Add(CreateOneToMany(customerClass, manyPart));
+//            return classInfos;
+//        }
 
-            PersistentClassInfo manyPartInfo = CreateMany(onePart, manyPart);
-
-            
-            return manyPartInfo;
-        }
-        public static List<PersistentClassInfo> CreateOneToMany(string onePart, string manyPart)
-        {
-            var classInfos = new List<PersistentClassInfo>();
-            var customerClass = new PersistentClassInfo(Session.DefaultSession) { Name = onePart };
-            classInfos.Add(customerClass);
-            classInfos.Add(CreateOneToMany(customerClass, manyPart));
-            return classInfos;
-        }
-
-        private static PersistentClassInfo CreateMany(PersistentClassInfo persistentClassInfo, string manyPart)
-        {
-            var manyPartClassInfo = new PersistentClassInfo { Name = manyPart };
-            var orderPersistentAssociationAttribute = new PersistentAssociationAttribute();
-            var customerReferenceMemberInfo = new PersistentReferenceMemberInfo { Name = persistentClassInfo.Name, ReferenceType = persistentClassInfo };
-            customerReferenceMemberInfo.TypeAttributes.Add(orderPersistentAssociationAttribute);
-            manyPartClassInfo.OwnMembers.Add(customerReferenceMemberInfo);
-            return manyPartClassInfo;
-        }
+//        private static PersistentClassInfo CreateMany(PersistentClassInfo persistentClassInfo, string manyPart)
+//        {
+//            var manyPartClassInfo = new PersistentClassInfo { Name = manyPart };
+//            var orderPersistentAssociationAttribute = new PersistentAssociationAttribute();
+//            var customerReferenceMemberInfo = new PersistentReferenceMemberInfo { Name = persistentClassInfo.Name, ReferenceType = persistentClassInfo };
+//            customerReferenceMemberInfo.TypeAttributes.Add(orderPersistentAssociationAttribute);
+//            manyPartClassInfo.OwnMembers.Add(customerReferenceMemberInfo);
+//            return manyPartClassInfo;
+//        }
 
         public PersistentReferenceMemberInfo AddReferenceMemberInfo(PersistentClassInfo referenceType)
         {
@@ -97,17 +97,17 @@ namespace eXpand.Xpo.PersistentMetaData
         }
         public PersistentReferenceMemberInfo AddReferenceMemberInfo(string associationName, string memberName, PersistentClassInfo referenceType)
         {
-            var persistentReferenceMemberInfo = new PersistentReferenceMemberInfo(Session.DefaultSession,
+            var persistentReferenceMemberInfo = new PersistentReferenceMemberInfo(Session,
                                                          new PersistentAssociationAttribute(
-                                                             Session.DefaultSession) { AssociationName = associationName }) { Name = memberName, ReferenceType = referenceType };
+                                                             Session) { AssociationName = associationName }) { Name = memberName, ReferenceType = referenceType };
             OwnMembers.Add(persistentReferenceMemberInfo);
             return persistentReferenceMemberInfo;
         }
 
         public PersistentCollectionMemberInfo AddCollectionMemberInfo(string elementTypeName, string memberName)
         {
-            var info = new PersistentCollectionMemberInfo(Session.DefaultSession,
-                                                          new PersistentAssociationAttribute(Session.DefaultSession) { ElementTypeName = elementTypeName }) { Name = memberName };
+            var info = new PersistentCollectionMemberInfo(Session,
+                                                          new PersistentAssociationAttribute(Session) { ElementTypeName = elementTypeName }) { Name = memberName };
             OwnMembers.Add(info);
             return info;
         }

@@ -63,7 +63,7 @@ namespace eXpand.Tests.eXpand.Xpo
             Session.DefaultSession.Dictionary.AddClasses(new List<PersistentClassInfo> { customer, order});
             var parser = new PropertyPathParser(customer.ClassInfo);
 
-            CriteriaOperator criteriaOperator= parser.Parse("Order.OrderLines", "Amount=50");
+            CriteriaOperator criteriaOperator= parser.Parse("Order.OrderLines", "Ammount=50");
 
             Assert.AreEqual("[Order.OrderLines][[Ammount] = 50]", criteriaOperator.ToString());
         }
@@ -74,10 +74,8 @@ namespace eXpand.Tests.eXpand.Xpo
             var order = new PersistentClassInfo(Session.DefaultSession) { Name = "Order" };
             customer.AddCollectionMemberInfo(order, "Orders");
             var orderLine = new PersistentClassInfo(Session.DefaultSession) { Name = "OrderLine" };
-            var referenceOrderMemberInfo = new PersistentReferenceMemberInfo(Session.DefaultSession,
-                                                                        new PersistentAssociationAttribute(
-                                                                            Session.DefaultSession) { AssociationName = "OrderLine" }) { Name = "OrderLine", ReferenceType = orderLine };
-            order.OwnMembers.Add(referenceOrderMemberInfo);
+            order.AddReferenceMemberInfo(orderLine);
+            
             Session.DefaultSession.Dictionary.AddClasses(new List<PersistentClassInfo> { customer, order, orderLine });
 
             var parser = new PropertyPathParser(Session.DefaultSession.Dictionary.GetClassInfo("", customer.Name));

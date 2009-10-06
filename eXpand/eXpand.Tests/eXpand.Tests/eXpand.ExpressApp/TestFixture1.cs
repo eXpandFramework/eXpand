@@ -8,6 +8,7 @@ using MbUnit.Framework;
 using TypeMock;
 using TypeMock.ArrangeActAssert;
 using TypeMock.Extensions;
+using eXpand.Utils.Helpers;
 
 namespace eXpand.Tests.eXpand.ExpressApp
 {
@@ -68,6 +69,8 @@ namespace eXpand.Tests.eXpand.ExpressApp
 
                 Assert.IsNull(controller.FilterSingleChoiceAction.Items.Find(caption));
             }
+            
+
             [Test]
             [Isolated]
             public void If_Wrappers_Exists_Should_Check_If_AdditionalViewControls_Provider_Module_Is_INstalled(){
