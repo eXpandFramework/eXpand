@@ -42,6 +42,5 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyDescription("eXpressApp Framework Model Editor")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("Model Editor")]
-[assembly: AssemblyVersion("0.0.0.0")]
-[assembly: AssemblyFileVersion("0.0.0.0")]
+
 
