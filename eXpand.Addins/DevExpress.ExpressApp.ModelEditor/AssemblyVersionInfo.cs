@@ -40,8 +40,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Resources;
-[assembly: AssemblyVersion("0.0.0.0")]
-[assembly: AssemblyFileVersion("0.0.0.0")]
+
 //[assembly: AssemblyVersion(DevExpress.ExpressApp.Utils.AssemblyInfo.Version)]
 //[assembly: AssemblyFileVersion(DevExpress.ExpressApp.Utils.AssemblyInfo.FileVersion)]
 [assembly: SatelliteContractVersion(AssemblyInfo.VersionShort + ".0.0")]
