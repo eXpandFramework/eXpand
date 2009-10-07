@@ -1,8 +1,11 @@
 ﻿using System;
+using DevExpress.Data.Filtering;
+using DevExpress.Data.Filtering.Helpers;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.Xpo;
 using eXpand.ExpressApp.Win.SystemModule;
 using MbUnit.Framework;
 using TypeMock;
@@ -69,7 +72,6 @@ namespace eXpand.Tests.eXpand.ExpressApp
 
                 Assert.IsNull(controller.FilterSingleChoiceAction.Items.Find(caption));
             }
-            
 
             [Test]
             [Isolated]

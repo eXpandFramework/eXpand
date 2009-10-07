@@ -75,15 +75,13 @@ namespace eXpand.Tests.eXpand.Xpo
             customer.AddCollectionMemberInfo(order, "Orders");
             var orderLine = new PersistentClassInfo(Session.DefaultSession) { Name = "OrderLine" };
             order.AddReferenceMemberInfo(orderLine);
-            
             Session.DefaultSession.Dictionary.AddClasses(new List<PersistentClassInfo> { customer, order, orderLine });
-
             var parser = new PropertyPathParser(Session.DefaultSession.Dictionary.GetClassInfo("", customer.Name));
 
-            CriteriaOperator criteriaOperator = parser.Parse("Order.OrderLine", "Ampunt=50");
+            CriteriaOperator criteriaOperator = parser.Parse("Orders.OrderLine", "Ampunt=50");
 
-            //            Assert.AreEqual("[Orders][[OrderLines][[Amount] = 50]]", criteriaOperator.ToString());
-            Assert.AreEqual("[Order.OrderLine] = \'Ampunt=50\'", criteriaOperator.ToString());
+
+            Assert.AreEqual("[Orders.OrderLine] = \'Ampunt=50\'", criteriaOperator.ToString());
         }
         [Test]
         public void When_PropertyPath_Is_A_Collection_With_A_Reference_Object_Chain_In_Chain()
