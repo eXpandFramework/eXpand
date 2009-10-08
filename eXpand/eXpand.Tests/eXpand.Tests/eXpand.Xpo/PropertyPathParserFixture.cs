@@ -50,7 +50,6 @@ namespace eXpand.Tests.eXpand.Xpo
 
             CriteriaOperator criteriaOperator = parser.Parse("Order.OrderLine", "Amount=50");
 
-//            Assert.AreEqual("[Orders][[OrderLines][[Amount] = 50]]", criteriaOperator.ToString());
             Assert.AreEqual("[Order.OrderLine] = \'Amount=50\'", criteriaOperator.ToString());
         }
         [Test]
@@ -64,6 +63,23 @@ namespace eXpand.Tests.eXpand.Xpo
             var parser = new PropertyPathParser(customer.ClassInfo);
 
             CriteriaOperator criteriaOperator= parser.Parse("Order.OrderLines", "Ammount=50");
+
+            Assert.AreEqual("[Order.OrderLines][[Ammount] = 50]", criteriaOperator.ToString());
+        }
+        [Test]
+        public void When_PropertyPath_Is_A_Reference_Object_With_A_Collection_And_A_Reference_In_Chain()
+        {
+            var company = new PersistentClassInfo(Session.DefaultSession) { Name = "Company" };
+            var customer = new PersistentClassInfo(Session.DefaultSession) { Name = "Customer" };
+            company.AddReferenceMemberInfo(customer);
+            var order = new PersistentClassInfo(Session.DefaultSession) {Name = "Order"};
+            customer.AddCollectionMemberInfo(order);
+            var orderLine = new PersistentClassInfo(Session.DefaultSession) { Name = "OrderLine" };
+            order.AddReferenceMemberInfo(orderLine);
+            Session.DefaultSession.Dictionary.AddClasses(new List<PersistentClassInfo> {company, customer, order,orderLine});
+            var parser = new PropertyPathParser(company.ClassInfo);
+
+            CriteriaOperator criteriaOperator= parser.Parse("Customer.Orders.OrderLine", "Ammount=50");
 
             Assert.AreEqual("[Order.OrderLines][[Ammount] = 50]", criteriaOperator.ToString());
         }

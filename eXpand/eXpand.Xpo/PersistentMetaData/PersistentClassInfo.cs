@@ -112,6 +112,10 @@ namespace eXpand.Xpo.PersistentMetaData
             return info;
         }
 
+        public PersistentCollectionMemberInfo AddCollectionMemberInfo(PersistentClassInfo persistentClassInfo)
+        {
+            return AddCollectionMemberInfo(persistentClassInfo, persistentClassInfo.Name + "s");
+        }
         public PersistentCollectionMemberInfo AddCollectionMemberInfo(PersistentClassInfo persistentClassInfo, string elementName)
         {
             return AddCollectionMemberInfo(persistentClassInfo.Name,elementName);

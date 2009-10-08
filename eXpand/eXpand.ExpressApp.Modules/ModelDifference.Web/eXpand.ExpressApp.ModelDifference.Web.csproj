@@ -119,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CombineActiveUserDifferenceWithActiveModelDictionaryController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\CombineActiveUserDifferenceWithActiveModelDictionaryController.Designer.cs">
       <DependentUpon>CombineActiveUserDifferenceWithActiveModelDictionaryController.cs</DependentUpon>
@@ -133,6 +134,7 @@
       <DependentUpon>WebListEditorSettingsStoreViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ModelDifferenceAspNetModule.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
