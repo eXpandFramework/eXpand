@@ -40,10 +40,8 @@ namespace eXpand.ExpressApp.ModelDifference.Web.Controllers{
         {
             _session = session;
             _applicationName = applicationName;
-            lock (_keysToBeStoredInDataStore)
-            {
-                if (!_keysToBeStoredInDataStore.Contains(key))
-                {
+            lock (_keysToBeStoredInDataStore){
+                if (!_keysToBeStoredInDataStore.Contains(key)){
                     _keysToBeStoredInDataStore.Add(key);
                 }
             }
@@ -71,7 +69,7 @@ namespace eXpand.ExpressApp.ModelDifference.Web.Controllers{
             dictionary1.RootNode.AddChildNode("Views").AddChildNode(dictionaryNode);
             dictionary.CombineWith(dictionary1);
             userModelDifferenceObject.Model = dictionary.GetDiffs();
-            userModelDifferenceObject.Save();
+            ObjectSpace.FindObjectSpace(userModelDifferenceObject).CommitChanges();
         }
     }
 }

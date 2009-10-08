@@ -55,7 +55,6 @@ namespace eXpand.ExpressApp.ModelDifference{
                 createDesignTimeCollection(typesInfo, typeof(UserModelDifferenceObject), "Users");
                 createDesignTimeCollection(typesInfo, typeof(RoleModelDifferenceObject), "Roles");
             }
-            
         }
 
         private void createDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName){
