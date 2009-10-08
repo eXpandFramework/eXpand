@@ -73,9 +73,7 @@ namespace eXpandAddIns
             // 
             // events
             // 
-            this.events.DebuggerEnterDesignMode += new DevExpress.CodeRush.Core.DebuggerEnterDesignModeHandler(this.events_DebuggerEnterDesignMode);
-            this.events.DebuggerEnterRunMode += new DevExpress.CodeRush.Core.DebuggerEnterRunModeHandler(this.events_DebuggerEnterRunMode);
-            this.events.DebuggerContextChanged += new DevExpress.CodeRush.Core.DebuggerContextChangedHandler(this.events_DebuggerContextChanged);
+            
             // 
             // dropDataBase
             // 
