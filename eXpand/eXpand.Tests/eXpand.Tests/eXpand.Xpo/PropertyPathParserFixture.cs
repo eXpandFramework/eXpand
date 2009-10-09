@@ -15,7 +15,7 @@ namespace eXpand.Tests.eXpand.Xpo
         [Test]
         public void When_PropertyPath_Is_A_Reference_Object_Without_Chain()
         {
-
+//test
             var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "Customer" };
             persistentClassInfo.AddReferenceMemberInfo(new PersistentClassInfo { Name = "Category" });
             Session.DefaultSession.Dictionary.AddClasses(new List<PersistentClassInfo> { persistentClassInfo});
