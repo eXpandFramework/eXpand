@@ -9,6 +9,8 @@ using System.Text;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
+using DevExpress.DXCore.Controls.Xpo;
+using DevExpress.DXCore.Controls.Xpo.DB;
 using EnvDTE;
 using eXpandAddIns.Enums;
 using eXpandAddIns.Extensioons;
@@ -59,26 +61,20 @@ namespace eXpandAddIns
             string path = Path.Combine(fullPath.Value.ToString(),outPut.Value.ToString());
             var reader = new InverseReader(Path.Combine(path,"expressAppFrameWork.log"));
             var stackTrace = new List<string>();
-            while (!reader.SOF)
-            {
-                
+            while (!reader.SOF) {
                 string readline = reader.Readline();
                 stackTrace.Add(readline);
-                if (readline.Trim().StartsWith("The error occured:"))
-                {
+                if (readline.Trim().StartsWith("The error occured:")) {
                     stackTrace.Reverse();
                     string errorMessage = "";
-                    foreach (var trace in stackTrace)
-                    {
-                        errorMessage += trace+Environment.NewLine;
+                    foreach (string trace in stackTrace) {
+                        errorMessage += trace + Environment.NewLine;
                         if (trace.Trim().StartsWith("----------------------------------------------------"))
                             break;
                     }
                     Clipboard.SetText(errorMessage);
                     break;
                 }
-                    
-                
             }
             reader.Close();
 
@@ -98,18 +94,17 @@ namespace eXpandAddIns
         {
             IEnumerable<ProjectItem> enumerable = CodeRush.ApplicationObject.Solution.FindStartUpProject().ProjectItems.Cast<ProjectItem>();
             Trace.Listeners.Add(new DefaultTraceListener { LogFileName = "log.txt" });
-            foreach (var item in enumerable){
-                if (item.Name.ToLower() == "app.config" || item.Name.ToLower() == "web.config"){
+            foreach (ProjectItem item in enumerable) {
+                if (item.Name.ToLower() == "app.config" || item.Name.ToLower() == "web.config") {
                     Trace.Write("config found");
-                    using (var storage = new DecoupledStorage(typeof(Options))){
+                    using (var storage = new DecoupledStorage(typeof (Options))) {
                         string connectionStringName = storage.ReadString(Options.GetPageName(), "connectionStringName");
-                        if (!string.IsNullOrEmpty(connectionStringName) )
-                        {
+                        if (!string.IsNullOrEmpty(connectionStringName)) {
                             Trace.Write("conneection string found");
                             ConnectionStringSettings connectionStringSettings = GetConnectionStringSettings(item);
-                            dropDatabase( connectionStringSettings.ConnectionString);
+                            dropDatabase(connectionStringSettings.ConnectionString);
                         }
-                    }                    
+                    }
                 }
             }            
         }
@@ -125,6 +120,20 @@ namespace eXpandAddIns
 
         private void dropDatabase(  string connectionString)
         {
+            var provider = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None);
+            if (provider is MSSqlConnectionProvider)
+                dropSqlServerDatabase(connectionString);
+            else if (provider is AccessConnectionProvider) {
+                File.Delete(((AccessConnectionProvider) provider).Connection.Database);
+            }
+            else {
+                throw new NotImplementedException(provider.GetType().FullName);
+            }
+            Rectangle rectangle = Screen.PrimaryScreen.Bounds;
+            actionHint1.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
+        }
+
+        private void dropSqlServerDatabase(string connectionString) {
             using (var connection = new SqlConnection(connectionString)){
                 using (var sqlConnection = new SqlConnection(connectionString.Replace(connection.Database, "master")+";Pooling=false")){
                     sqlConnection.Open();
@@ -134,8 +143,7 @@ namespace eXpandAddIns
                     sqlCommand.ExecuteNonQuery();
                     sqlCommand.CommandText = "DROP DATABASE $TargetDataBase$".Replace("$TargetDataBase$", connection.Database);
                     sqlCommand.ExecuteNonQuery();
-                    Rectangle rectangle = Screen.PrimaryScreen.Bounds;
-                    actionHint1.PointTo(new Point(rectangle.Width/2,rectangle.Height/2));
+                    
                 }
             }
         }

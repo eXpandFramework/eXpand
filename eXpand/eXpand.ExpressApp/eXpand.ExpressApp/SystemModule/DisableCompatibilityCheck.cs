@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using DevExpress.ExpressApp;
 
 namespace eXpand.ExpressApp.SystemModule

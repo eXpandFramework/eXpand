@@ -30,10 +30,6 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         public ModelDifferenceObject(Session session) : base(session)
         {
         }
-        protected override void OnChanged(string propertyName, object oldValue, object newValue)
-        {
-            base.OnChanged(propertyName, oldValue, newValue);
-        }
 
         private int combineOrder;
         public int CombineOrder

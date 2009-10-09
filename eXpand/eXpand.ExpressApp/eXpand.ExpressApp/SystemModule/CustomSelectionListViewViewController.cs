@@ -1,4 +1,5 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
 
 namespace eXpand.ExpressApp.SystemModule
@@ -23,12 +24,9 @@ namespace eXpand.ExpressApp.SystemModule
         {
             base.OnActivated();
             hasCustomSelection = Application.FindClassInfo(View.ObjectTypeInfo.Type).GetAttributeBoolValue(CustomSelection);
-            if (hasCustomSelection)
-            {
-                
-                if (View.ObjectTypeInfo.FindMember(CustomSelection) == null)
-                {
-                    var member = View.ObjectTypeInfo.CreateMember(CustomSelection, typeof (bool));
+            if (hasCustomSelection) {
+                if (View.ObjectTypeInfo.FindMember(CustomSelection) == null) {
+                    IMemberInfo member = View.ObjectTypeInfo.CreateMember(CustomSelection, typeof (bool));
                     member.AddAttribute(new NonPersistentAttribute());
                     XafTypesInfo.Instance.RefreshInfo(View.ObjectTypeInfo);
                 }

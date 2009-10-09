@@ -23,9 +23,7 @@ namespace eXpand.ExpressApp.SystemModule
                 @"<Element Name=""Application"">;
                             <Element Name=""Views"">
                                 <Element Name=""ListView"">;
-                                    <Attribute Name=""" +
-                DisableFullTextForMemoFields +
-                @""" Choice=""False,True""/>
+                                    <Attribute Name=""" +DisableFullTextForMemoFields +@""" Choice=""False,True""/>
                                 </Element>
                             </Element>
                     </Element>";

@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.Persistent.Base;
