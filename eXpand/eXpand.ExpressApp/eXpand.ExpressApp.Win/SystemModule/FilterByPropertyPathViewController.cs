@@ -162,9 +162,9 @@ namespace eXpand.ExpressApp.Win.SystemModule
             CriteriaOperator criteriaOperator = CriteriaOperator.Parse(filtersByCollectionWrapper.PropertyPathFilter);
             if (criteriaOperator!= null)
             {
-//                new FilterWithObjectsProcessor(View.ObjectSpace).Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
-//                ((ListView) View).CollectionSource.Criteria[filtersByCollectionWrapper.ID] =new PropertyPathParser(xaf).Parse(filtersByCollectionWrapper.PropertyPath, TODO);
-//                    new ContainsOperator(filtersByCollectionWrapper.ContainsOperatorXpMemberInfoName,criteriaOperator);
+                new FilterWithObjectsProcessor(View.ObjectSpace).Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
+                ((ListView) View).CollectionSource.Criteria[filtersByCollectionWrapper.ID] =new PropertyPathParser(View.ObjectSpace.Session.GetClassInfo(View.ObjectTypeInfo.Type)).Parse(filtersByCollectionWrapper.PropertyPath, criteriaOperator.ToString());
+                    new ContainsOperator(filtersByCollectionWrapper.ContainsOperatorXpMemberInfoName,criteriaOperator);
                 return criteriaOperator;
             }
             return criteriaOperator;
@@ -266,8 +266,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
             public string CriteriaPathListViewId
             {
-                get { return childNode.GetAttributeValue(FilterByPropertyPathViewController.PropertyPathListViewId); }
-                set { childNode.SetAttribute(FilterByPropertyPathViewController.PropertyPathListViewId, value); }
+                get { return childNode.GetAttributeValue(PropertyPathListViewId); }
+                set { childNode.SetAttribute(PropertyPathListViewId, value); }
             }
 
             

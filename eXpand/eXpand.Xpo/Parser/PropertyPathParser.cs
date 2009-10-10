@@ -1,6 +1,7 @@
 using System;
 using DevExpress.Data.Filtering;
 using DevExpress.Xpo.Metadata;
+using System.Linq;
 
 namespace eXpand.Xpo.Parser
 {
@@ -15,16 +16,27 @@ namespace eXpand.Xpo.Parser
 
         public CriteriaOperator Parse(string propertyPath, string parameters)
         {
-            
-            XPMemberInfo memberInfo = ReflectorHelper.GetXpMemberInfo(_xpClassInfo, propertyPath);
-            string provider = "{0}=?";
-            if (memberInfo.IsCollection)
-            {
-                propertyPath="["+propertyPath+"]["+parameters+"]";
-                provider = propertyPath;
+            string path = null;
+            string criteria = "";
+            foreach (string split in propertyPath.Split('.')) {
+                path += split;
+                criteria += split;
+                XPMemberInfo memberInfo = ReflectorHelper.GetXpMemberInfo(_xpClassInfo, path);
+                if (memberInfo.IsCollection) {
+                    criteria = criteria.TrimEnd('.');
+                    criteria += "[";
+                }
+                if (!(criteria.LastIndexOf('[') == criteria.Length - 1))
+                    criteria += ".";
+                path += ".";
             }
-            
-            return CriteriaOperator.Parse(string.Format(provider, propertyPath), parameters);
+            criteria += parameters;
+            var count = criteria.Where(c => c == '[').Count();
+            for (int i = 0; i < count; i++) {
+                criteria = criteria + "]";
+            }
+            return CriteriaOperator.Parse(criteria);
         }
+
     }
 }
