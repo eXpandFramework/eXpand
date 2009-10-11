@@ -1,5 +1,4 @@
-namespace eXpand.ExpressApp.Win.SystemModule
-{
+namespace eXpand.ExpressApp.SystemModule {
     partial class FilterByPropertyPathViewController
     {
         /// <summary>

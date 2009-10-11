@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.Win.SystemModule;
+using eXpand.ExpressApp.SystemModule;
 using MbUnit.Framework;
 using TypeMock;
 using TypeMock.ArrangeActAssert;

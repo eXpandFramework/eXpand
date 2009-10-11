@@ -30,11 +30,13 @@ namespace eXpand.Xpo.Parser
                     criteria += ".";
                 path += ".";
             }
-            criteria += parameters;
+            
             var count = criteria.Where(c => c == '[').Count();
+            criteria += parameters;
             for (int i = 0; i < count; i++) {
                 criteria = criteria + "]";
             }
+            
             return CriteriaOperator.Parse(criteria);
         }
 

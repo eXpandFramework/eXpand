@@ -173,6 +173,12 @@
     <Compile Include="SystemModule\ExpandAbleMembersViewController.Designer.cs">
       <DependentUpon>ExpandAbleMembersViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\FilterByPropertyPathViewController.designer.cs">
+      <DependentUpon>FilterByPropertyPathViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="SystemModule\FilterController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -307,6 +313,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ExpressApp.ico" />
+    <EmbeddedResource Include="SystemModule\FilterByPropertyPathViewController.resx">
+      <DependentUpon>FilterByPropertyPathViewController.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
