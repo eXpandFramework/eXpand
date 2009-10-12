@@ -8,9 +8,9 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using eXpand.ExpressApp.SystemModule;
-using GridListEditor=DevExpress.ExpressApp.Win.Editors.GridListEditor;
+using GridListEditor = DevExpress.ExpressApp.Win.Editors.GridListEditor;
 using System.Linq;
-using NewItemRowPosition=DevExpress.XtraGrid.Views.Grid.NewItemRowPosition;
+using NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
@@ -22,23 +22,24 @@ namespace eXpand.ExpressApp.Win.SystemModule
         public const string DoNotLoadWhenNoFilterExists = "DoNotLoadWhenNoFilterExists";
         public const string EditorShowModeAttributeName = "EditorShowMode";
         public const string EnterMoveNextColumn = "EnterMoveNextColumn";
-        
+
         public const string ExtraSerializationProperties = "ExtraSerializationProperties";
         public const string GroupLevelExpandIndex = "GroupLevelExpandIndex";
         public const string HideFieldCaptionOnGroup = "HideFieldCaptionOnGroup";
         public const string IsColumnHeadersVisible = "IsColumnHeadersVisible";
-//        public const string NewItemRowPositionAttributeName = "NewItemRowPosition";
+        //        public const string NewItemRowPositionAttributeName = "NewItemRowPosition";
         public const string SerializeFilterAttributeName = "SerializeFilter";
         public const string UseTabKey = "UseTabKey";
 
-        
+
         private GridControl gridControl;
         private GridView mainView;
         private ListViewInfoNodeWrapper model;
         private bool newRowAdded;
-        
-//        private XPDictionary xpDictionary;
-        
+        private DevExpress.ExpressApp.SystemModule.FilterController filterController;
+
+        //        private XPDictionary xpDictionary;
+
 
         public GridViewViewController()
         {
@@ -50,14 +51,14 @@ namespace eXpand.ExpressApp.Win.SystemModule
         protected override void OnActivated()
         {
             base.OnActivated();
-            
+
 
 
 
             View.ControlsCreated += View_OnControlsCreated;
-            
-            
-            
+
+
+
             model = new ListViewInfoNodeWrapper(View.Info);
         }
 
@@ -83,112 +84,112 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 wrapper.Node.SetAttribute(IsColumnHeadersVisible, true.ToString());
                 wrapper.Node.SetAttribute(UseTabKey, true.ToString());
             }
-            
-//            setFromXpDictionary(dictionary);
+
+            //            setFromXpDictionary(dictionary);
         }
 
-//        private void setShowNewItemRowInListView(XPClassInfo xpClassInfo, Dictionary dictionary,
-//                                                 XPMemberInfo xpMemberInfo)
-//        {
-//            Attribute attribute = xpMemberInfo.FindAttributeInfo(typeof (ShowNewItemRowInListView));
-//            if (attribute != null)
-//            {
-//                string attributeValue = xpClassInfo.ClassType.Name + "_" + xpMemberInfo.Name +
-//                                        "_ListView";
-//                setNewItemRowPositionValue(dictionary, attributeValue);
-//            }
-//        }
+        //        private void setShowNewItemRowInListView(XPClassInfo xpClassInfo, Dictionary dictionary,
+        //                                                 XPMemberInfo xpMemberInfo)
+        //        {
+        //            Attribute attribute = xpMemberInfo.FindAttributeInfo(typeof (ShowNewItemRowInListView));
+        //            if (attribute != null)
+        //            {
+        //                string attributeValue = xpClassInfo.ClassType.Name + "_" + xpMemberInfo.Name +
+        //                                        "_ListView";
+        //                setNewItemRowPositionValue(dictionary, attributeValue);
+        //            }
+        //        }
 
-//        private void setShowNewItemRowInListView(XPClassInfo xpClassInfo,
-//                                                 ShowNewItemRowInListView showNewItemRowInListView,
-//                                                 Dictionary dictionary)
-//        {
-//            if (showNewItemRowInListView != null)
-//            {
-//                string attributeValue = xpClassInfo.ClassType.Name +
-//                                        "_ListView";
-//                setNewItemRowPositionValue(dictionary, attributeValue);
-//            }
-//        }
+        //        private void setShowNewItemRowInListView(XPClassInfo xpClassInfo,
+        //                                                 ShowNewItemRowInListView showNewItemRowInListView,
+        //                                                 Dictionary dictionary)
+        //        {
+        //            if (showNewItemRowInListView != null)
+        //            {
+        //                string attributeValue = xpClassInfo.ClassType.Name +
+        //                                        "_ListView";
+        //                setNewItemRowPositionValue(dictionary, attributeValue);
+        //            }
+        //        }
 
-/*
-        private void setNewItemRowPositionValue(Dictionary dictionary, string attributeValue)
-        {
-//            DictionaryNode dictionaryNode =
-//                dictionary.RootNode.GetChildNode(ViewsNodeWrapper.NodeName).GetChildNode(ListView.InfoNodeName,
-//                                                                                         "ID",
-//                                                                                         attributeValue);
-//            dictionaryNode.SetAttribute(NewItemRowPositionAttributeName,
-//                                        NewItemRowPosition.Top.ToString());
-        }
-*/
+        /*
+                private void setNewItemRowPositionValue(Dictionary dictionary, string attributeValue)
+                {
+        //            DictionaryNode dictionaryNode =
+        //                dictionary.RootNode.GetChildNode(ViewsNodeWrapper.NodeName).GetChildNode(ListView.InfoNodeName,
+        //                                                                                         "ID",
+        //                                                                                         attributeValue);
+        //            dictionaryNode.SetAttribute(NewItemRowPositionAttributeName,
+        //                                        NewItemRowPosition.Top.ToString());
+                }
+        */
 
-/*
-        private void setFromXpDictionary(Dictionary dictionary)
-        {
-            ICollection collectClassInfos = xpDictionary.Classes;
-            foreach (XPClassInfo xpClassInfo in collectClassInfos)
-            {
-                var showNewItemRowInListView =
-                    xpClassInfo.FindAttributeInfo(typeof (ShowNewItemRowInListView)) as ShowNewItemRowInListView;
-                setShowNewItemRowInListView(xpClassInfo, showNewItemRowInListView, dictionary);
-                foreach (XPMemberInfo xpMemberInfo in xpClassInfo.CollectionProperties)
-                    setShowNewItemRowInListView(xpClassInfo, dictionary, xpMemberInfo);
-            }
-        }
-*/
+        /*
+                private void setFromXpDictionary(Dictionary dictionary)
+                {
+                    ICollection collectClassInfos = xpDictionary.Classes;
+                    foreach (XPClassInfo xpClassInfo in collectClassInfos)
+                    {
+                        var showNewItemRowInListView =
+                            xpClassInfo.FindAttributeInfo(typeof (ShowNewItemRowInListView)) as ShowNewItemRowInListView;
+                        setShowNewItemRowInListView(xpClassInfo, showNewItemRowInListView, dictionary);
+                        foreach (XPMemberInfo xpMemberInfo in xpClassInfo.CollectionProperties)
+                            setShowNewItemRowInListView(xpClassInfo, dictionary, xpMemberInfo);
+                    }
+                }
+        */
 
-//        private void View_OnInfoSynchronized(object sender, EventArgs e)
-//        {
-//            var gridcontrol = View.Control as GridControl;
-//            if (gridcontrol != null)
-//            {
-//                var gridView = (GridView) gridcontrol.FocusedView;
-//                string[] strings = GetExtraSerializationProperties();
-//                if (strings.Length > 0 && strings[0] != "" &&
-//                    File.Exists(View.Id + typeof (MoreSerializer).Name + ".xml"))
-//                {
-//                    MoreSerializer.LoadFilter(gridView, View.Id + typeof (MoreSerializer).Name + ".xml",
-//                                              strings);
-//                }
-//            }
-//        }
+        //        private void View_OnInfoSynchronized(object sender, EventArgs e)
+        //        {
+        //            var gridcontrol = View.Control as GridControl;
+        //            if (gridcontrol != null)
+        //            {
+        //                var gridView = (GridView) gridcontrol.FocusedView;
+        //                string[] strings = GetExtraSerializationProperties();
+        //                if (strings.Length > 0 && strings[0] != "" &&
+        //                    File.Exists(View.Id + typeof (MoreSerializer).Name + ".xml"))
+        //                {
+        //                    MoreSerializer.LoadFilter(gridView, View.Id + typeof (MoreSerializer).Name + ".xml",
+        //                                              strings);
+        //                }
+        //            }
+        //        }
 
-//        protected override void OnDeactivating()
-//        {
-//            base.OnDeactivating();
-//
-//
-//            var gridcontrol = View.Control as GridControl;
-//            if (gridcontrol != null)
-//            {
-//                string[] strings = GetExtraSerializationProperties();
-//                if (strings.Length > 0 && strings[0] != "")
-//                {
-//                    string path = View.Id + typeof (MoreSerializer).Name + ".xml";
-//                    if (File.Exists(path))
-//                        File.Delete(path);
-//                    using (
-//                        var stream =
-//                            new FileStream(path, FileMode.CreateNew))
-//                        MoreSerializer.SaveFilter(mainView, stream, strings);
-//                }
-//            }
-//        }
+        //        protected override void OnDeactivating()
+        //        {
+        //            base.OnDeactivating();
+        //
+        //
+        //            var gridcontrol = View.Control as GridControl;
+        //            if (gridcontrol != null)
+        //            {
+        //                string[] strings = GetExtraSerializationProperties();
+        //                if (strings.Length > 0 && strings[0] != "")
+        //                {
+        //                    string path = View.Id + typeof (MoreSerializer).Name + ".xml";
+        //                    if (File.Exists(path))
+        //                        File.Delete(path);
+        //                    using (
+        //                        var stream =
+        //                            new FileStream(path, FileMode.CreateNew))
+        //                        MoreSerializer.SaveFilter(mainView, stream, strings);
+        //                }
+        //            }
+        //        }
 
-//        private string[] GetExtraSerializationProperties()
-//        {
-//            string attributeValue = View.Info.GetAttributeValue(ExtraSerializationProperties, "");
-//            if (attributeValue == "")
-//                attributeValue = null;
-//            if (View.Info.GetAttributeBoolValue(SerializeFilterAttributeName, true))
-//                attributeValue += "ActiveFilterEnabled,ActiveFilterString,MRUFilters,ActiveFilter";
-//            return (attributeValue + "").Split(',');
-//        }
+        //        private string[] GetExtraSerializationProperties()
+        //        {
+        //            string attributeValue = View.Info.GetAttributeValue(ExtraSerializationProperties, "");
+        //            if (attributeValue == "")
+        //                attributeValue = null;
+        //            if (View.Info.GetAttributeBoolValue(SerializeFilterAttributeName, true))
+        //                attributeValue += "ActiveFilterEnabled,ActiveFilterString,MRUFilters,ActiveFilter";
+        //            return (attributeValue + "").Split(',');
+        //        }
 
- 
 
- 
+
+
 
 
 
@@ -197,8 +198,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
             gridControl = View.Control as GridControl;
             if (gridControl == null)
                 return;
-//            ((GridControl) View.Control).ServerMode =
-//                Application.Info.GetChildNode("Options").GetAttributeBoolValue("UseServerMode");
+            //            ((GridControl) View.Control).ServerMode =
+            //                Application.Info.GetChildNode("Options").GetAttributeBoolValue("UseServerMode");
             gridControl.HandleCreated += GridControl_OnHandleCreated;
 
 
@@ -213,18 +214,25 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
 
             if (View.Info.GetAttributeBoolValue(DoNotLoadWhenNoFilterExists, false) &&
-                ((GridView) gridControl.MainView).FilterPanelText ==
+                ((GridView)gridControl.MainView).FilterPanelText ==
                 string.Empty)
             {
                 if (mainView != null) mainView.ActiveFilter.Changed += ActiveFilter_OnChanged;
 
+                filterController = Frame.GetController<DevExpress.ExpressApp.SystemModule.FilterController>();
+                filterController.FullTextFilterAction.Execute += FullTextFilterAction_Execute;
                 SetDoNotLoadWhenFilterExistsCriteria();
             }
         }
 
+        private void FullTextFilterAction_Execute(object sender, DevExpress.ExpressApp.Actions.ParametrizedActionExecuteEventArgs e)
+        {
+            ClearDoNotLoadWhenFilterExistsCriteria();
+        }
+
         private void MainViewOnShownEditor(object sender, EventArgs args)
         {
-            var view = (GridView) sender;
+            var view = (GridView)sender;
             if (view.IsFilterRow(view.FocusedRowHandle))
                 view.ActiveEditor.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Buffered;
         }
@@ -232,58 +240,63 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private void SetDoNotLoadWhenFilterExistsCriteria()
         {
-            ((ListView) View).CollectionSource.Criteria[DoNotLoadWhenNoFilterExists] = new BinaryOperator("Oid",Guid.NewGuid());
+            ((ListView)View).CollectionSource.Criteria[DoNotLoadWhenNoFilterExists] = new BinaryOperator("Oid", Guid.NewGuid());
+        }
+
+        private void ClearDoNotLoadWhenFilterExistsCriteria()
+        {
+            ((ListView)View).CollectionSource.Criteria[DoNotLoadWhenNoFilterExists] = null;
         }
 
         private void ActiveFilter_OnChanged(object sender, EventArgs e)
         {
-            if (((GridView) gridControl.MainView).FilterPanelText !=
+            if (((GridView)gridControl.MainView).FilterPanelText !=
                 string.Empty)
-                ((ListView) View).CollectionSource.Criteria[DoNotLoadWhenNoFilterExists] = null;
+                ClearDoNotLoadWhenFilterExistsCriteria();
             else
                 SetDoNotLoadWhenFilterExistsCriteria();
         }
 
 
-/*
-        [Obsolete("only for 8.1")]
-        private void MainView_OnCustomDrawGroupRow(object sender, CustomDrawObjectEventArgs e)
-        {
-            var gridGroupRowInfo = (GridGroupRowInfo) e.Info;
-
-            DictionaryNode childNodeByPath = Application.Info.GetChildNodeByPath(
-                "Views\\ListView[@ID='" + View.Id + "']\\Columns\\ColumnInfo[@PropertyName='" +
-                gridGroupRowInfo.Column.FieldName.Replace("!", "") + "']");
-            string text = null;
-            var regexObj = new Regex(@"\(Count=([\d]*)");
-            string value = regexObj.Match(gridGroupRowInfo.GroupText).Groups[1].Value;
-            if (value == "")
-                return;
-            if (gridGroupRowInfo.EditValue is DateTime)
-            {
-                if (
-                    !string.IsNullOrEmpty(
-                         childNodeByPath.GetAttributeValue(ColumnInfoNodeWrapper.DisplayFormatAttribute)))
+        /*
+                [Obsolete("only for 8.1")]
+                private void MainView_OnCustomDrawGroupRow(object sender, CustomDrawObjectEventArgs e)
                 {
-                    regexObj = new Regex(@"\{0:([^}]*)");
+                    var gridGroupRowInfo = (GridGroupRowInfo) e.Info;
 
-                    string toString = ((DateTime) gridGroupRowInfo.EditValue).ToString(
-                        regexObj.Match(childNodeByPath.GetAttributeValue(
-                                           ColumnInfoNodeWrapper.DisplayFormatAttribute)).Groups[1].Value);
+                    DictionaryNode childNodeByPath = Application.Info.GetChildNodeByPath(
+                        "Views\\ListView[@ID='" + View.Id + "']\\Columns\\ColumnInfo[@PropertyName='" +
+                        gridGroupRowInfo.Column.FieldName.Replace("!", "") + "']");
+                    string text = null;
+                    var regexObj = new Regex(@"\(Count=([\d]*)");
+                    string value = regexObj.Match(gridGroupRowInfo.GroupText).Groups[1].Value;
+                    if (value == "")
+                        return;
+                    if (gridGroupRowInfo.EditValue is DateTime)
+                    {
+                        if (
+                            !string.IsNullOrEmpty(
+                                 childNodeByPath.GetAttributeValue(ColumnInfoNodeWrapper.DisplayFormatAttribute)))
+                        {
+                            regexObj = new Regex(@"\{0:([^}]*)");
 
-                    text = gridGroupRowInfo.Column.Caption + ":[#image]" +
-                           toString + " (Count=" + value + ")";
+                            string toString = ((DateTime) gridGroupRowInfo.EditValue).ToString(
+                                regexObj.Match(childNodeByPath.GetAttributeValue(
+                                                   ColumnInfoNodeWrapper.DisplayFormatAttribute)).Groups[1].Value);
+
+                            text = gridGroupRowInfo.Column.Caption + ":[#image]" +
+                                   toString + " (Count=" + value + ")";
+                        }
+                    }
+                    if (childNodeByPath.GetAttributeBoolValue(HideFieldCaptionOnGroup))
+                    {
+                        if (text == null)
+                            text = gridGroupRowInfo.GroupText;
+                        gridGroupRowInfo.GroupText =
+                            text.Replace(gridGroupRowInfo.Column.Caption + ":", "").Replace("Count=", "");
+                    }
                 }
-            }
-            if (childNodeByPath.GetAttributeBoolValue(HideFieldCaptionOnGroup))
-            {
-                if (text == null)
-                    text = gridGroupRowInfo.GroupText;
-                gridGroupRowInfo.GroupText =
-                    text.Replace(gridGroupRowInfo.Column.Caption + ":", "").Replace("Count=", "");
-            }
-        }
-*/
+        */
 
         private void GridView_OnFocusedRowChanged(object sender, FocusedRowChangedEventArgs e)
         {
@@ -356,7 +369,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 @""" Choice=""False,True""/>
                             <Attribute Name=""" +
                 EditorShowModeAttributeName +
-                @""" Choice=""{" + typeof (EditorShowMode).FullName +
+                @""" Choice=""{" + typeof(EditorShowMode).FullName +
                 @"}""/>
                         </Element>
                     </Element>
@@ -373,7 +386,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         public static void SetOptions(GridView gridView, ListViewInfoNodeWrapper listViewInfoNodeWrapper)
         {
-            gridView.OptionsView.NewItemRowPosition = (NewItemRowPosition) Enum.Parse(typeof(NewItemRowPosition), new SupportNewItemRowNodeWrapper(listViewInfoNodeWrapper.Node).NewItemRowPosition.ToString());
+            gridView.OptionsView.NewItemRowPosition = (NewItemRowPosition)Enum.Parse(typeof(NewItemRowPosition), new SupportNewItemRowNodeWrapper(listViewInfoNodeWrapper.Node).NewItemRowPosition.ToString());
             gridView.OptionsBehavior.EditorShowMode = EditorShowMode.Click;
             gridView.OptionsBehavior.Editable = true;
             gridView.OptionsBehavior.AllowIncrementalSearch = true;
@@ -406,14 +419,14 @@ namespace eXpand.ExpressApp.Win.SystemModule
             gridView.OptionsNavigation.UseTabKey = listViewInfoNodeWrapper.Node.GetAttributeBoolValue(UseTabKey,
                                                                                                       false);
 
-            
+
             gridView.OptionsView.ShowColumnHeaders =
                 listViewInfoNodeWrapper.Node.GetAttributeBoolValue(IsColumnHeadersVisible, true);
-//            DevExpress.XtraGrid.Views.Grid.NewItemRowPosition newItemRowPosition =
-//                listViewInfoNodeWrapper.Node.GetAttributeEnumValue(NewItemRowPositionAttributeName,
-//                                                                   DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.
-//                                                                       None);
-//            gridView.OptionsView.NewItemRowPosition = newItemRowPosition;
+            //            DevExpress.XtraGrid.Views.Grid.NewItemRowPosition newItemRowPosition =
+            //                listViewInfoNodeWrapper.Node.GetAttributeEnumValue(NewItemRowPositionAttributeName,
+            //                                                                   DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.
+            //                                                                       None);
+            //            gridView.OptionsView.NewItemRowPosition = newItemRowPosition;
             gridView.OptionsBehavior.AutoSelectAllInEditor =
                 listViewInfoNodeWrapper.Node.GetAttributeBoolValue(AutoSelectAllInEditorAttributeName,
                                                                    true);
@@ -427,13 +440,13 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             mainView.GridControl.ForceInitialize();
 
-            
+
             string value = View.Info.GetAttributeValue(GroupLevelExpandIndex);
             if (!string.IsNullOrEmpty(value))
             {
                 int int32 = Convert.ToInt32(value);
                 if (mainView.GroupCount == int32)
-                    for (int i = -1;; i--)
+                    for (int i = -1; ; i--)
                     {
                         if (!mainView.IsValidRowHandle(i)) return;
                         if (mainView.GetRowLevel(i) < int32 - 1)
