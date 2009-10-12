@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.Persistent.BaseImpl;
@@ -33,6 +34,7 @@ namespace eXpand.ExpressApp.SystemModule {
         protected FilterByPropertyPathViewController()
         {
             InitializeComponent();
+            _filterSingleChoiceAction.Category = PredefinedCategory.Search.ToString();
             RegisterActions(components);
             TargetViewType = ViewType.ListView;
             TargetViewNesting = Nesting.Root;
@@ -45,11 +47,13 @@ namespace eXpand.ExpressApp.SystemModule {
 
         protected override void OnActivated()
         {
+            _filterSingleChoiceAction.Items.Clear();
             if (View.Info.FindChildNode(PropertyPathFilters) == null)
                 return;
 
             getFilterWrappers();
-            _filterSingleChoiceAction.Items.Clear();
+
+            
             if (HasFilters)
                 checkIfAdditionalViewControlsModuleIsRegister();
             setUpFilterAction(HasFilters);
@@ -66,9 +70,10 @@ namespace eXpand.ExpressApp.SystemModule {
             _filterSingleChoiceAction.Active[PropertyPath+" is valid"] = active;
             foreach (var pair in _filtersByPropertyPathWrappers)
             {
-                var caption = CaptionHelper.GetClassCaption(
-                    pair.Value.BinaryOperatorLastMemberClassType.FullName);
-                _filterSingleChoiceAction.Items.Add(new ChoiceActionItem(caption,pair.Value));
+                if (pair.Value.BinaryOperatorLastMemberClassType != null) {
+                    var caption = CaptionHelper.GetClassCaption(pair.Value.BinaryOperatorLastMemberClassType.FullName);
+                    _filterSingleChoiceAction.Items.Add(new ChoiceActionItem(caption,pair.Value));
+                }
             }
         }
 
@@ -268,11 +273,10 @@ namespace eXpand.ExpressApp.SystemModule {
             {
                 get
                 {
-                    if (binaryOperatorLastMemberClassType== null)
-                    {
-                        var xpMemberInfo = ReflectorHelper.GetXpMemberInfo(xpClassInfo,
-                                                                           PropertyPath);
-                        binaryOperatorLastMemberClassType =xpMemberInfo.IsCollection?xpMemberInfo.CollectionElementType.ClassType: xpMemberInfo.ReferenceType.ClassType;
+                    if (binaryOperatorLastMemberClassType== null) {
+                        var xpMemberInfo = ReflectorHelper.GetXpMemberInfo(xpClassInfo,PropertyPath);
+                        if (xpMemberInfo != null)
+                            return binaryOperatorLastMemberClassType =xpMemberInfo.IsCollection?xpMemberInfo.CollectionElementType.ClassType: xpMemberInfo.ReferenceType.ClassType;
                     }
                     return binaryOperatorLastMemberClassType;
                 }
