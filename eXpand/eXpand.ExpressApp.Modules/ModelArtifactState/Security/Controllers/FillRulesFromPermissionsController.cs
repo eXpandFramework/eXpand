@@ -23,8 +23,9 @@ namespace eXpand.ExpressApp.ModelArtifactState.Security.Controllers{
             ObjectSpace.ObjectDeleted -= ObjectSpaceOnObjectDeleted;
             ObjectSpace.ObjectSaved -= ObjectSpaceOnObjectSaved;
         }
-        private void ObjectSpaceOnObjectSaved(object sender, ObjectManipulatingEventArgs args){
-            if (((IPersistentPermission)args.Object).Permission is ArtifactStateRulePermission){
+        private void ObjectSpaceOnObjectSaved(object sender, ObjectManipulatingEventArgs args) {
+            var permission = (args.Object) as IPersistentPermission;
+            if (permission != null && permission.Permission is ArtifactStateRulePermission) {
                 ModelArtifactStateModule.CollectRules(Application);
             }
         }

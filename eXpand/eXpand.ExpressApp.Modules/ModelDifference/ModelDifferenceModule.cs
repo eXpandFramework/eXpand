@@ -59,8 +59,10 @@ namespace eXpand.ExpressApp.ModelDifference{
 
         private void createDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName){
             XPClassInfo info = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(classType);
-            info.CreateMember(propertyName,typeof (XPCollection),true);
-            typesInfo.RefreshInfo(classType);
+            if (info.FindMember(propertyName)== null) {
+                info.CreateMember(propertyName,typeof (XPCollection),true);
+                typesInfo.RefreshInfo(classType);
+            }
         }
 
 

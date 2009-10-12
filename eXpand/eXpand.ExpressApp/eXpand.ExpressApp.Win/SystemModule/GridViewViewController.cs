@@ -232,10 +232,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private void SetDoNotLoadWhenFilterExistsCriteria()
         {
-            ((ListView) View).CollectionSource.Criteria[DoNotLoadWhenNoFilterExists] = new BinaryOperator("Oid",
-                                                                                                          Guid.
-                                                                                                              NewGuid
-                                                                                                              ());
+            ((ListView) View).CollectionSource.Criteria[DoNotLoadWhenNoFilterExists] = new BinaryOperator("Oid",Guid.NewGuid());
         }
 
         private void ActiveFilter_OnChanged(object sender, EventArgs e)

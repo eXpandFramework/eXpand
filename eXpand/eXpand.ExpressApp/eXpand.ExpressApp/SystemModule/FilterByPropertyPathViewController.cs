@@ -34,7 +34,7 @@ namespace eXpand.ExpressApp.SystemModule {
         protected FilterByPropertyPathViewController()
         {
             InitializeComponent();
-            _filterSingleChoiceAction.Category = PredefinedCategory.Search.ToString();
+            _filterSingleChoiceAction.Category = "Filter";
             RegisterActions(components);
             TargetViewType = ViewType.ListView;
             TargetViewNesting = Nesting.Root;
