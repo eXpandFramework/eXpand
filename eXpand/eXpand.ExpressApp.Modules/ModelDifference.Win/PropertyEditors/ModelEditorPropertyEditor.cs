@@ -12,8 +12,6 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
     public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexPropertyEditor
     {
         private XafApplication _application;
-        
-        private bool isModifying;
 
 
         public ModelEditorPropertyEditor(Type objectType, DictionaryNode info) : base(objectType, info)
@@ -23,8 +21,12 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         protected override void ReadValueCore(){
             base.ReadValueCore();
-            if (!isModifying)
+
+            if (Control.Controller== null)
                 Control.Controller = GetModelEditorController(_application);
+
+            Control.Controller.Dictionary.AddAspect(CurrentObject.CurrentLanguage,new DictionaryNode("Application"));
+            Control.Controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);
             
         }
 
@@ -35,9 +37,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
                 var model = CurrentObject.PersistentApplication.Model.Clone();
                 model.ResetIsModified();
                 model.CombineWith(diffs);
-                isModifying = true;
                 CurrentObject.Model = model.GetDiffs();
-                isModifying = false;
             }
         }
 
