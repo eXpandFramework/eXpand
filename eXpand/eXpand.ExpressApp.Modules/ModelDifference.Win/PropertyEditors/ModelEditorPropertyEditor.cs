@@ -27,7 +27,6 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
             Control.Controller.Dictionary.AddAspect(CurrentObject.CurrentLanguage,new DictionaryNode("Application"));
             Control.Controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);
-            
         }
 
 
@@ -41,12 +40,6 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             }
         }
 
-
-
-        private void ControllerModifiedChanged(object sender, EventArgs args)
-        {
-            ModifyCurrentObjectModel();
-        }
 
         public new ModelDifferenceObject CurrentObject{
             get { return base.CurrentObject as ModelDifferenceObject; }
@@ -77,7 +70,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         internal ModelEditorController GetModelEditorController(XafApplication application){
             var controller = new ModelEditorController(CurrentObject.GetCombinedModel(), null, application.Modules);
-            controller.ModifiedChanged += ControllerModifiedChanged;
+            controller.ModifiedChanged += (sender, args) => CurrentObject.SetModelDirty();
             controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);
             return controller;
         }
