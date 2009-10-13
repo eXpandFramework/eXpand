@@ -47,22 +47,26 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             var dictionary = new Dictionary(new DictionaryNode("Application"), schema);
             
             if ((UseModelFromPath())){
-                foreach (var s in GetModelPaths().Where(s => Path.GetFileName(s).ToLower().StartsWith("model") && s.IndexOf(".User") == -1))
-                {
-                    var dictionaryNode = new DictionaryXmlReader().ReadFromFile(s);
-                    string replace = s.Replace(".xafml", "");
-                    string aspect = DictionaryAttribute.DefaultLanguage;
-                    if (replace.IndexOf("_") > -1)
-                        aspect = replace.Substring(replace.IndexOf("_") + 1);
-                    dictionary.AddAspect(aspect, dictionaryNode);
-                }    
-                SaveDifference(dictionary);
-                return dictionary;
+                return loadFromPath(dictionary);
             }
             var activeDifferenceObject = GetActiveDifferenceObject();
             if (activeDifferenceObject!= null)
-                dictionary = new Dictionary(activeDifferenceObject.Model.RootNode, schema);
-            
+                dictionary = activeDifferenceObject.Model;
+            else 
+                SaveDifference(dictionary);
+            return dictionary;
+        }
+
+        private Dictionary loadFromPath(Dictionary dictionary) {
+            foreach (var s in GetModelPaths().Where(s => Path.GetFileName(s).ToLower().StartsWith("model") && s.IndexOf(".User") == -1))
+            {
+                var dictionaryNode = new DictionaryXmlReader().ReadFromFile(s);
+                string replace = s.Replace(".xafml", "");
+                string aspect = DictionaryAttribute.DefaultLanguage;
+                if (replace.IndexOf("_") > -1)
+                    aspect = replace.Substring(replace.IndexOf("_") + 1);
+                dictionary.AddAspect(aspect, dictionaryNode);
+            }    
             SaveDifference(dictionary);
             return dictionary;
         }

@@ -37,10 +37,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
         protected override Dictionary LoadDifferenceCore(Schema schema)
         {
-            
-                
-            var dictionary = new Dictionary(schema);
-            
+            var dictionary = new Dictionary(schema);   
             foreach (var aspect in Application.Model.Aspects){
                 dictionary.AddAspect(aspect, new DictionaryNode("Application"));
             }
