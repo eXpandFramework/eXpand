@@ -176,6 +176,10 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             clone.CombineWith(Model);
             return clone;
         }
+
+        public void SetModelDirty() {
+            OnChanged(this.GetPropertyInfo(x=>x.Model).Name);
+        }
     }
 
 }
