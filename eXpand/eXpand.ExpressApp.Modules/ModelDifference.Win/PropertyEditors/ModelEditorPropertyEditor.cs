@@ -41,6 +41,12 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         }
 
 
+
+        private void ControllerModifiedChanged(object sender, EventArgs args)
+        {
+            ModifyCurrentObjectModel();
+        }
+
         public new ModelDifferenceObject CurrentObject{
             get { return base.CurrentObject as ModelDifferenceObject; }
             set { base.CurrentObject = value; }
@@ -69,13 +75,25 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
 
         internal ModelEditorController GetModelEditorController(XafApplication application){
-            var controller = new ModelEditorController(CurrentObject.GetCombinedModel(), null, application.Modules);
-            controller.ModifiedChanged += (sender, args) => CurrentObject.SetModelDirty();
+            var controller = new ModelEditorController(CurrentObject.GetCombinedModel(), new DummyStore(), application.Modules);
+            controller.ModifiedChanged += ControllerModifiedChanged;
             controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);
             return controller;
         }
 
-        
+        private class DummyStore:DictionaryDifferenceStore {
+            protected override Dictionary LoadDifferenceCore(Schema schema) {
+                throw new NotImplementedException();
+            }
+
+            public override string Name {
+                get { throw new NotImplementedException(); }
+            }
+
+            public override void SaveDifference(Dictionary diffDictionary) {
+                
+            }
+        }
         
 
         public void Setup(ObjectSpace space, XafApplication app)
@@ -88,6 +106,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             if (ReferenceEquals(args.Object, CurrentObject)){
                 Control.Controller.Dictionary.Validate();
                 ModifyCurrentObjectModel();
+                Control.Controller.Save();
             }
 
         }
