@@ -9,5 +9,6 @@ namespace eXpand.Persistent.Base
         bool Disabled { get; set; }
         DateTime DateCreated { get; set; }
         string XmlContent { get; set; }
+        string PreferredAspect { get; set; }
     }
 }

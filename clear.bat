@@ -23,5 +23,7 @@ call clearProject.bat eXpand.ExpressApp.FilterDataStore.Win
 call clearProject.bat eXpand.ExpressApp.ModelArtifactState
 call clearProject.bat eXpand.ExpressApp.ModelArtifactState.Win
 call clearProject.bat eXpand.ExpressApp.WizardUI.Win
+call clearProject.bat eXpand.ExpressApp.ViewVariants
+call clearProject.bat eXpand.ExpressApp.ViewVariants.Win
 
 pause

@@ -24,7 +24,7 @@ namespace eXpand.ExpressApp.ModelDifference{
         {
             InitializeComponent();
         }
-
+        
         public override void UpdateModel(Dictionary model)
         {
             base.UpdateModel(model);

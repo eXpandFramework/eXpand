@@ -30,7 +30,6 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         public ModelDifferenceObject(Session session) : base(session)
         {
         }
-
         private int combineOrder;
         public int CombineOrder
         {

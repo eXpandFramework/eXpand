@@ -139,6 +139,10 @@
     </Compile>
     <Compile Include="PropertyEditors\ObjectPropertyEditor\ObjectPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringLookupPropertyEditor\StringLookupPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\StringPropertyEditors\StringGroupValuePropertyEditor.cs" />
+    <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditorBase.cs" />
+    <Compile Include="PropertyEditors\StringPropertyEditors\StringReferenceObjectPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\StringPropertyEditors\StringDisableTextEditorPropertyEditor.cs" />
     <Compile Include="SystemModule\CustomSelectionListViewViewController.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -34,13 +34,15 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
         private void OnCustomShowNavigationItem(object sender, CustomShowNavigationItemEventArgs args)
         {
             string viewId = args.ActionArguments.SelectedChoiceActionItem.Info.GetAttributeValue("ViewID");
-            var viewInfoNodeWrapper = (ListViewInfoNodeWrapper) new ApplicationNodeWrapper(Application.Info).Views.FindViewById(viewId);
-            var node = viewInfoNodeWrapper.Node.FindChildNode("Variants");
-            if (node != null)
-            {
-                var cuurentViewId = node.GetAttribute("Current").Value;
-                if (!string.IsNullOrEmpty(cuurentViewId)&&cuurentViewId!="Default")
-                    ((ViewShortcut)args.ActionArguments.SelectedChoiceActionItem.Data).ViewId = cuurentViewId;
+            var viewInfoNodeWrapper = new ApplicationNodeWrapper(Application.Info).Views.FindViewById(viewId) as ListViewInfoNodeWrapper;
+            if (viewInfoNodeWrapper != null) {
+                var node = viewInfoNodeWrapper.Node.FindChildNode("Variants");
+                if (node != null)
+                {
+                    var cuurentViewId = node.GetAttribute("Current").Value;
+                    if (!string.IsNullOrEmpty(cuurentViewId)&&cuurentViewId!="Default")
+                        ((ViewShortcut)args.ActionArguments.SelectedChoiceActionItem.Data).ViewId = cuurentViewId;
+                }
             }
         }
     }
