@@ -41,6 +41,11 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         }
 
 
+        protected override void OnCurrentObjectChanged() {
+            if (Control != null) Control.Controller = null;
+            base.OnCurrentObjectChanged();
+            
+        }
 
         private void ControllerModifiedChanged(object sender, EventArgs args)
         {
