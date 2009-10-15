@@ -39,9 +39,9 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
                 var node = viewInfoNodeWrapper.Node.FindChildNode("Variants");
                 if (node != null)
                 {
-                    var cuurentViewId = node.GetAttribute("Current").Value;
-                    if (!string.IsNullOrEmpty(cuurentViewId)&&cuurentViewId!="Default")
-                        ((ViewShortcut)args.ActionArguments.SelectedChoiceActionItem.Data).ViewId = cuurentViewId;
+                    var variantName = node.GetAttribute("Current").Value;
+                    if (!string.IsNullOrEmpty(variantName)&&variantName!="Default")
+                        ((ViewShortcut)args.ActionArguments.SelectedChoiceActionItem.Data).ViewId = node.GetChildNode("Variant", "ID", variantName).GetAttributeValue("ViewID");
                 }
             }
         }
