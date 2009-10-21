@@ -49,8 +49,9 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
             };
 
             foreach (var enumerable in structuralTerm.Terms.Cast<StructuralTerm>().Where(sterm => sterm.TypeOfObject == null)) {
-                var childTerm = new Term(enumerable.Session) { Key = enumerable.Key, Name = enumerable.Name, ParentTerm = term, StructuralTerm = enumerable, Taxonomy = enumerable.Taxonomy };
-                CreateTermFromStructure(enumerable, childTerm);
+                var childTerm = CreateTermFromStructure(enumerable, term);
+                childTerm.Key = enumerable.Key;
+                childTerm.Name = enumerable.Name;
             }
             return term;
         }

@@ -4,6 +4,7 @@ using DevExpress.Xpo;
 
 namespace eXpand.Xpo{
     [Serializable]
+    [NonPersistent]
     public abstract class eXpandLiteObject : XPCustomObject{
         private Guid oid;
 

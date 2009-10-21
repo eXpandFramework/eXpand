@@ -117,25 +117,24 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
 
         protected override void OnSaving(){
             base.OnSaving();
+            UpdateFullPath(true);
+        }
 
+        public virtual void UpdateFullPath (bool updateChildren){
             if (!IsDeleted){
                 level = (ParentTerm == null ? 0 : ParentTerm.Level + 1);
                 if (parentTerm != null) taxonomy = parentTerm.taxonomy;
 
-                UpdateFullPath(true);
-            }
-        }
+                fullPath = string.Format("{0}{1}{2}"
+                                         , parentTerm == null ? taxonomy.Key : parentTerm.FullPath
+                                         , "/"
+                                         , key);
 
-        public virtual void UpdateFullPath (bool updateChildren){
-            fullPath = string.Format("{0}{1}{2}"
-                                     , parentTerm == null ? taxonomy.Key : parentTerm.FullPath
-                                     , "/"
-                                     , key);
-
-            OnChanged("fullPath");
-            if (updateChildren){
-                foreach (TermBase term in Terms){
-                    term.UpdateFullPath(true);
+                OnChanged("fullPath");
+                if (updateChildren){
+                    foreach (TermBase term in Terms){
+                        term.UpdateFullPath(true);
+                    }
                 }
             }
         }

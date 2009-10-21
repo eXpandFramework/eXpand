@@ -4,24 +4,25 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2F1A2032-5042-46A5-BDBD-30608B79F919}</ProjectGuid>
+    <ProjectGuid>{5FA0A680-59BF-4050-B67A-B1340182CC7F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>eXpand.Persistent.TaxonomyImpl</RootNamespace>
-    <AssemblyName>eXpand.Persistent.TaxonomyImpl</AssemblyName>
+    <RootNamespace>eXpand.ExressApp.Import</RootNamespace>
+    <AssemblyName>eXpand.ExressApp.Import</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\eXpand.Key\eXpand.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <AssemblyOriginatorKeyFile>..\..\eXpand.Key\eXpand.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <PublishUrl>publish\</PublishUrl>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
+    <PublishUrl>http://localhost/eXpand.ExressApp.Import/</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
@@ -30,6 +31,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -45,18 +47,10 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\eXpand.DLL\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugGAC|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DebugGAC\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v9.2">
@@ -74,18 +68,25 @@
     <Reference Include="DevExpress.Persistent.Base.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Xpo.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.2.Linq, Version=9.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="eXpand.ExpressApp, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Taxonomy, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="eXpand.Persistent.TaxonomyImpl, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="eXpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\eXpand.DLL\eXpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="eXpand.Xpo, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Foxhound.Xpo, Version=0.9.0.0, Culture=neutral, PublicKeyToken=7e2d5b191f45cc25, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System">
@@ -99,7 +100,6 @@
       <Name>System.Data</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
       <Private>False</Private>
@@ -110,79 +110,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address.cs">
-      <SubType>Code</SubType>
+    <Compile Include="BaseObjects\ImportConfiguration.cs" />
+    <Compile Include="eXpandImportModule.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Analysis.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Associations.cs" />
-    <Compile Include="AuditDataItemPersistent.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BaseObject.cs" />
-    <Compile Include="BaseInfo.cs" />
-    <Compile Include="Country.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Event.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FileAttachment.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FileData.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HCategory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IDGenerator.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Note.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Organization.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Party.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BaseInfoValidity.cs" />
-    <Compile Include="PersistentPermission.cs" />
-    <Compile Include="Person.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PhoneNumber.cs">
-      <SubType>Code</SubType>
+    <Compile Include="eXpandImportModule.Designer.cs">
+      <DependentUpon>eXpandImportModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyBag.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PropertyBagDescriptor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PropertyDescriptor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PropertyValue.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RecurrenceInfo.cs" />
-    <Compile Include="Reminder.cs" />
-    <Compile Include="Resource.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Role.cs" />
-    <Compile Include="SimpleUser.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Task.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="User.cs" />
+    <Compile Include="Updater.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="eXpandImportModule.resx">
+      <DependentUpon>eXpandImportModule.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -219,8 +167,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <PropertyGroup>
-    <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
-if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
-  </PropertyGroup>
 </Project>

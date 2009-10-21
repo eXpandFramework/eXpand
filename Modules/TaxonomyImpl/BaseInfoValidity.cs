@@ -1,7 +1,8 @@
 namespace eXpand.Persistent.TaxonomyImpl{
-    public enum InfoValidity{
+    public enum BaseInfoValidity{
         Unknown=0,
         Valid = 1,
-        Invalid=2
+        Invalid=2,
+        Derived=3
     }
 }

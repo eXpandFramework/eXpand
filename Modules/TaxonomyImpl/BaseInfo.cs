@@ -1,34 +1,25 @@
 using System;
-using System.Linq;
+using System.ComponentModel;
 using System.Xml.Serialization;
 using DevExpress.Xpo;
 using eXpand.Xpo;
-using System.Drawing;
-using System.Security.Permissions;
-using System.Runtime.Serialization;
-using System.Globalization;
 
 namespace eXpand.Persistent.TaxonomyImpl{
     [Serializable]
-    public abstract class BaseInfo : eXpandLiteObject {
-        private BaseObject owner;
-        private InfoValidity validity;
+    [DefaultProperty("Value")]
+    public class BaseInfo : eXpandLiteObject{
+        private string _value;
+        private string key;
+        private BaseInfoValidity validity;
         public BaseInfo() {}
 
-        // ReSharper disable InconsistentNaming
-        private string _value;
-        // ReSharper restore InconsistentNaming
-        private string key;
-
-        protected BaseInfo(Session session) : base(session) {}
+        public BaseInfo(Session session) : base(session) {}
 
         [Association(Associations.BaseObjectsBaseInfos)]
         [XmlIgnore]
         public XPCollection<BaseObject> BaseObjects {
-            get {
-                return GetCollection<BaseObject>("BaseObjects");
-            }
-        } 
+            get { return GetCollection<BaseObject>("BaseObjects"); }
+        }
 
         [XmlAttribute]
         public string Key {
@@ -40,9 +31,9 @@ namespace eXpand.Persistent.TaxonomyImpl{
             get { return _value; }
             set { SetPropertyValue("Value", ref _value, value); }
         }
- 
+
         [XmlAttribute]
-        public InfoValidity Validity {
+        public BaseInfoValidity Validity {
             get { return validity; }
             set { SetPropertyValue("Validity", ref validity, value); }
         }

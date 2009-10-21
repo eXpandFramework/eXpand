@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -160,6 +161,11 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
         private static TTerm GetTerm<TTerm>(Session unitOfWork, string termPath) where TTerm : TermBase{
             return unitOfWork.FindObject<TTerm>(PersistentCriteriaEvaluationBehavior.InTransaction, t => t.FullPath == termPath);
         }
+
+        public static Term GetTerm(Session unitOfWork, string termPath){
+            return GetTerm<Term>(unitOfWork, termPath);
+        }
+    
 
         public string[] GetPathSegments(string termPath){
             return termPath.Split(new[]{"/"}, StringSplitOptions.RemoveEmptyEntries);
