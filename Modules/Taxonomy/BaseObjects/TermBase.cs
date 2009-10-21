@@ -48,7 +48,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
         }
 
         [ProvidedAssociation(Associations.TermAdditionalValues)]
-        [Association(Associations.TermAdditionalValues, typeof(BaseInfo)), Aggregated]
+        [Association(Associations.TermAdditionalValues, typeof(BaseInfo))]
         [XmlIgnore]
         public XPCollection AdditionalValues {
             get { return GetCollection("AdditionalValues"); }
