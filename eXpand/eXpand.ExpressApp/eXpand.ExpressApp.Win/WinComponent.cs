@@ -65,9 +65,7 @@ namespace eXpand.ExpressApp.Win
 
         public WinComponent()
         {
-            InitializeComponent();
-            DatabaseVersionMismatch += (sender, args) => this.DatabaseVersionMismatchEvent(sender, args);
-            
+            InitializeComponent(); 
         }
 
         protected override void OnCustomCheckCompatibility(CustomCheckCompatibilityEventArgs args)

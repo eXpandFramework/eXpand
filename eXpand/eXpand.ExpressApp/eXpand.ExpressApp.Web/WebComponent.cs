@@ -11,9 +11,8 @@ namespace eXpand.ExpressApp.Web
         public WebComponent()
         {
             InitializeComponent();
-            DatabaseVersionMismatch += (sender, args) => this.DatabaseVersionMismatchEvent(sender, args);
-
         }
+
         public string UniqueName
         {
             get { return "A2ABD988-3361-4f75-8790-E2E08E496AB5"; }
