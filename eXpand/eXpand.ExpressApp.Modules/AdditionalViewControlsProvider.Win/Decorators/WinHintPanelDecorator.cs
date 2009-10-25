@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using DevExpress.Utils.Frames;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
 using View=DevExpress.ExpressApp.View;
@@ -27,7 +26,6 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Decorators
 
         private void hintPanel_Disposed(object sender, EventArgs e)
         {
-            Trace.WriteLine("WinHintManager reference counter:" + (--count));
             Dispose();
         }
 

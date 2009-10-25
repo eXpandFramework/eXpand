@@ -10,7 +10,6 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Web.Decorators
         static int count;
         private void hintPanel_Unload(object sender, EventArgs e)
         {
-            System.Diagnostics.Trace.WriteLine("WebHintManager reference counter:" + (--count));
             hintPanel = null;
             Dispose();
         }
