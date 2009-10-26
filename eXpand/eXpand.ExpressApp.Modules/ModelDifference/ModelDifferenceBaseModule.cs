@@ -9,8 +9,15 @@ using DevExpress.ExpressApp.Updating;
 namespace eXpand.ExpressApp.ModelDifference{
     public abstract class ModelDifferenceBaseModule<T> : ModuleBase where T : XpoModelDictionaryDifferenceStore
     {
+        public event EventHandler<CreateCustomModelDifferenceStoreEventArgs> CreateCustomModelDifferenceStore;
+
+        protected virtual void InvokeCreateCustomModelDifferenceStore(CreateCustomModelDifferenceStoreEventArgs e) {
+            EventHandler<CreateCustomModelDifferenceStoreEventArgs> handler = CreateCustomModelDifferenceStore;
+            if (handler != null) handler(this, e);
+        }
+
         private string _connectionString;
-        private XPCollection<ModuleInfo> versionInfoList;
+        
 
         public override void Setup(XafApplication application)
         {
@@ -24,17 +31,16 @@ namespace eXpand.ExpressApp.ModelDifference{
         {
             var work = new UnitOfWork{ConnectionString = _connectionString};
             PersistentApplication persistentApplication = new QueryPersistentApplication(work).Find(application.GetType().FullName) ?? new PersistentApplication(work);
-
             return persistentApplication;
         }
 
         private void OnSetupComplete(object sender, EventArgs args)
         {
-            DatabaseUpdater dbUpdater = new DatabaseUpdater(Application.ObjectSpaceProvider, Application.Modules, Application.ApplicationName);
+            
+            var dbUpdater = new DatabaseUpdater(Application.ObjectSpaceProvider, Application.Modules, Application.ApplicationName);
             CompatibilityError compatibilityError = dbUpdater.CheckCompatibility();
             if ((bool)(!PersistentApplicationModelUpdated) && compatibilityError != null && compatibilityError is CompatibilityDatabaseIsOldError)
             {
-
                 PersistentApplication persistentApplication = UpdatePersistentApplication(Application);
                 ((UnitOfWork)persistentApplication.Session).CommitChanges();
                 PersistentApplicationModelUpdated = true;
@@ -66,11 +72,16 @@ namespace eXpand.ExpressApp.ModelDifference{
 
         private DictionaryNode getModelDiffs()
         {
-            using (var provider =new DevExpress.ExpressApp.ObjectSpaceProvider(new ConnectionStringDataStoreProvider(_connectionString))){
-                using (Session session = provider.CreateUpdatingSession()){
-                    return new XpoModelDictionaryDifferenceStoreFactory<T>().Create(session,Application, true).LoadDifference(Application.Model.Schema).RootNode;
+            var args = new CreateCustomModelDifferenceStoreEventArgs();
+            InvokeCreateCustomModelDifferenceStore(args);
+            if (!args.Handled) {
+                using (var provider =new DevExpress.ExpressApp.ObjectSpaceProvider(new ConnectionStringDataStoreProvider(_connectionString))){
+                    using (Session session = provider.CreateUpdatingSession()){
+                        return new XpoModelDictionaryDifferenceStoreFactory<T>().Create(session,Application, true).LoadDifference(Application.Model.Schema).RootNode;
+                    }
                 }
             }
+            return args.Store.LoadDifference(Application.Model.Schema).RootNode;
         }
 
 
