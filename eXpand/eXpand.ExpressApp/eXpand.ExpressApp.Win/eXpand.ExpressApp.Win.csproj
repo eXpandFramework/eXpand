@@ -115,6 +115,7 @@
     <Compile Include="Editors\FilterControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PropertyEditors\BooleanPropertyEditor\BooleanHAlignFarPropertyEditor.cs" />
     <Compile Include="PropertyEditors\LookupPropertyEditor\LookupPropertyEditor.cs" />
     <Compile Include="PropertyEditors\LookupPropertyEditor\RepositoryItemLookupEdit.cs">
       <SubType>Component</SubType>
