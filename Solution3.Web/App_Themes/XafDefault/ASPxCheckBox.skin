@@ -1,0 +1,3 @@
+<%@ Register TagPrefix="dxe" Namespace="DevExpress.Web.ASPxEditors" Assembly="DevExpress.Web.ASPxEditors.v9.2" %>
+<dxe:ASPxCheckBox runat="server" CssPostfix="xaf" CssFilePath="~/App_Themes/XafDefault/{0}/styles.css">
+</dxe:ASPxCheckBox>

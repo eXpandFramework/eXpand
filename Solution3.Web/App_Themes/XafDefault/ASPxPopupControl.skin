@@ -1,0 +1,11 @@
+<%@ Register TagPrefix="dxpc" Namespace="DevExpress.Web.ASPxPopupControl" Assembly="DevExpress.Web.v9.2" %>
+<dxpc:ASPxPopupControl runat="server" CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf" ImageFolder="~/App_Themes/XafDefault/{0}/" EnableHotTrack="False">
+	
+	<SizeGripImage Height="16px" Width="16px" />
+	<CloseButtonImage Height="12px" Width="13px" />
+	
+	<HeaderStyle>
+		<Paddings PaddingRight="6px" />
+	</HeaderStyle>
+	
+</dxpc:ASPxPopupControl>

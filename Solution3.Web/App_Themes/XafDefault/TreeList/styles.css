@@ -1,0 +1,252 @@
+.dxtlControl_xaf
+{
+	cursor: default;
+	font: 9pt Tahoma;
+	color: black;
+	border: none 1px #A3C0E8;
+}
+.dxtlControl_xaf caption
+{
+    background: #F7FAFF;
+    color: #000000;
+	border: solid 1px #A3C0E8;
+    border-bottom: 0;
+	font-weight: normal;
+    text-align: center;		
+	padding: 5px 5px 6px;
+}
+
+/* Indent cells */
+.dxtlIndent_xaf, .dxtlIndentWithButton_xaf
+{			
+	background: white;
+	vertical-align: top;
+	background-position: center top;
+	background-repeat: no-repeat;
+}
+.dxtlIndent_xaf
+{
+	padding: 0 11px;
+}
+.dxtlIndentWithButton_xaf
+{
+	padding: 4px;
+}
+.dxtlSelectionCell_xaf
+{
+	padding: 0 2px;
+	border: solid 1px #C9D6E9;
+}
+
+/* Tree-lines cells */
+.dxtlLineFirst_xaf
+{
+	background-image: url(CssImages/TreeLineFirst.gif);	
+}
+.dxtlLineMiddle_xaf
+{
+	background-image: url(CssImages/TreeLineMiddle.gif);
+	
+}
+.dxtlLineLast_xaf
+{
+	background-image: url(CssImages/TreeLineLast.gif);
+	
+}
+.dxtlLineRoot_xaf
+{
+	background-image: url(CssImages/TreeLineRoot.gif);
+	background-repeat: repeat-y;	
+}
+
+/* Headers */
+.dxtlHeader_xaf 
+{
+	background: url(CssImages/HeaderBack.gif) repeat-x #E2F0FF;	
+	border: solid 1px #A3C0E8;
+	padding: 5px;
+	font-weight: normal;		
+}
+.dxtlHeader_xaf table.dxtl 
+{
+	border-collapse: collapse;
+	width: 100%;
+}
+.dxtlHeader_xaf td.dxtl
+{
+	padding: 0;
+}
+.dxtlHeader_xaf, .dxtlHeader_xaf td.dxtl 
+{	
+    color: #283B56;
+	font: 9pt Tahoma;
+	white-space: nowrap;
+	text-align: left;
+}
+
+/* Nodes */
+.dxtlNode_xaf
+{
+	background: white;	
+}
+.dxtlAltNode_xaf
+{
+	background: #F7FAFF;	
+}
+.dxtlSelectedNode_xaf
+{
+	background: #FFBD69;
+}
+.dxtlFocusedNode_xaf
+{
+	background: #FFBD69;
+}
+.dxtlInlineEditNode_xaf
+{
+	background: white;
+}
+.dxtlEditFormDisplayNode_xaf
+{
+	background: #ECF4FE;
+}
+.dxtlNode_xaf td.dxtl, 
+.dxtlAltNode_xaf  td.dxtl, 
+.dxtlSelectedNode_xaf td.dxtl, 
+.dxtlFocusedNode_xaf td.dxtl,
+.dxtlEditFormDisplayNode_xaf td.dxtl,
+.dxtlCommandCell_xaf
+{
+	padding: 4px 5px 5px;
+	border: solid 1px #C9D6E9;
+	white-space: nowrap;
+	font-size: 9pt;
+    font-family: Tahoma;
+}
+.dxtlInlineEditNode_xaf td.dxtl
+{
+	border: solid 1px #C9D6E9;
+	padding: 1px;
+}
+
+/* Preview */
+.dxtlPreview_xaf
+{
+	background-color: #F7FAFF;
+	color: #000000;	
+	padding: 15px 15px 20px;
+	border: solid 1px #C9D6E9;
+	font: 9pt Tahoma;	
+}
+
+/* Footers */
+.dxtlGroupFooter_xaf
+{
+	background-color: #EEF3FF;	
+}
+.dxtlFooter_xaf
+{
+	background-color: #EEF3FF;	
+}
+.dxtlGroupFooter_xaf td.dxtl,
+.dxtlFooter_xaf td.dxtl
+{
+	padding: 5px 6px 7px;
+	white-space: nowrap;
+	text-align: left;
+	border: solid 1px #C9D6E9;
+	font: 9pt Tahoma;
+}
+
+/* Pagers */
+.dxtlPagerTopPanel_xaf 
+{
+	border-bottom: none 1px #A3C0E8;
+	background-color: #C7DFFF;	
+}
+.dxtlPagerBottomPanel_xaf 
+{	
+	border-top: none 1px #A3C0E8;
+	background-color: #C7DFFF;	
+}
+.dxtlPagerTopPanel_xaf,
+.dxtlPagerBottomPanel_xaf 
+{
+	padding: 2px 0;
+}
+
+/* Editing */
+.dxtlEditForm_xaf 
+{
+	background: #F7FAFF;
+	border: solid 1px #C9D6E9;
+	padding: 8px 10px 10px;
+}
+.dxtlEditFormCaption_xaf,
+.dxtlEditFormEditCell_xaf
+{
+	padding: 4px;
+}
+.dxtlEditFormCaption_xaf
+{
+	padding-left: 10px;
+	white-space: nowrap;
+}
+.dxtlError_xaf
+{
+	background: #DBEBFF;
+	color: #FF0000;
+	padding: 6px 10px;
+	border: solid 1px #C9D6E9;
+	font: 9pt Tahoma;		
+}
+
+/* Links */
+.dxtlControl_xaf a,
+.dxtlCommandCell_xaf a 
+{
+	color: #5689C5;
+	text-decoration: underline;
+}
+.dxtlControl_xaf a:hover 
+{
+	color:  #F39128;
+	text-decoration: underline;
+}
+.dxtlHeader_xaf a,
+.dxtlFocusedNode_xaf a,
+.dxtlSelectedNode_xaf a 
+{
+	color: #5689C5;
+}
+.dxtlHeader_xaf a:hover,
+.dxtlFocusedNode_xaf a:hover,
+.dxtlSelectedNode_xaf a:hover 
+{
+	color: #F39128;
+}
+.dxtlCommandCell_xaf a 
+{
+    margin-right: 3px;
+}
+
+/* Loading panel */
+.dxtlLoadingPanel_xaf
+{
+}
+.dxtlLoadingPanel_xaf td.dx
+{
+}
+.dxtlLoadingDiv_xaf
+{
+	background: white;
+	opacity: 0.01;
+	filter: alpha(opacity=1);
+}
+
+/* Disabled */
+.dxtlDisabled_xaf,
+.dxtlDisabled_xaf .dxtl_xaf
+{
+	color: #A1A1A1;
+	cursor: default;
+}

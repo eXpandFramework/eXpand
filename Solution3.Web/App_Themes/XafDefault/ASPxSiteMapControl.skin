@@ -1,0 +1,15 @@
+<%@ Register TagPrefix="dxsm" Namespace="DevExpress.Web.ASPxSiteMapControl" Assembly="DevExpress.Web.v9.2" %>
+<dxsm:ASPxSiteMapControl runat="server" CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf" ImageFolder="~/App_Themes/XafDefault/{0}/">
+	
+	<LevelProperties>
+		<dxsm:LevelProperties NodeSpacing="5px" />
+		<dxsm:LevelProperties BulletStyle="None" Image-Url="~/App_Themes/XafDefault/Web/smSecondLevelBullet.gif" />
+	</LevelProperties>
+	
+	<Paddings PaddingTop="5px" PaddingRight="2px" PaddingBottom="1px" PaddingLeft="2px"></Paddings>
+	
+	<ColumnSeparatorStyle>
+		<Paddings PaddingRight="1px" PaddingLeft="0px" />
+	</ColumnSeparatorStyle>	
+	
+</dxsm:ASPxSiteMapControl>

@@ -1,0 +1,4 @@
+<%@ Register TagPrefix="dxcc" Namespace="DevExpress.Web.ASPxCloudControl" Assembly="DevExpress.Web.v9.2" %>
+<dxcc:ASPxCloudControl runat="server" CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf" ItemBeginEndTextColor="#629DB6" MaxColor="#DBCE99" MinColor="#7BA4E0">
+<DisabledStyle ForeColor="#aaaaaa"></DisabledStyle>
+</dxcc:ASPxCloudControl>

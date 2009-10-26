@@ -1,0 +1,6 @@
+<%@ Register TagPrefix="dxe" Namespace="DevExpress.Web.ASPxEditors" Assembly="DevExpress.Web.ASPxEditors.v9.2" %>
+<dxe:ASPxFilterControl runat="server">
+	<Images ImageFolder="~/App_Themes/XafDefault/{0}/" />
+	<Styles CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf"></Styles>
+	<SettingsLoadingPanel Text="" />
+</dxe:ASPxFilterControl>

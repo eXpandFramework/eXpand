@@ -1,0 +1,275 @@
+/* Common */
+body {
+    background-color: #BFDBFF;
+    color: #1641A0;
+
+    background-image: url('BackgroundRepeat.gif'); 
+    background-position: top; 
+    background-repeat: repeat-x;
+
+    font-size: 80%;
+	padding: 0px; 
+	margin: 0px;
+}
+span, label, a { 
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 100%;
+}
+div.PageContent {
+    background-image: url('Background.jpg'); 
+    background-position: top right; 
+    background-repeat: no-repeat;
+    padding: 0px 5px 0px 5px;
+}
+a, a:visited, a:hover {
+	color: #1641A0;
+	text-decoration: none;
+}
+/* Top */
+table.Top td.Logo {
+	padding: 10px 20px 10px 20px;
+}
+table.Top td.Security {
+	padding: 10px 20px 0px 20px;
+	text-align: right;
+	vertical-align: top;
+}
+table.Top td.Security div.Security {
+	display: inline;
+	float: right;
+}
+
+/* Search panel */
+table.Search {
+	margin: 0px 0px 0px 0px;
+}
+table.Search td.Left {
+	padding: 0px 20px 0px 0px;
+}
+table.Search td.Right {
+	padding: 0px 0px 0px 20px;
+}
+/* Main table */
+.Main td.Right, .Main td.Left {
+	vertical-align: top;
+}
+.Main td.Right, .Main td.Left .dxrp .VContainer {
+	padding: 0px;
+}
+.Main td.Left {
+	vertical-align: top;
+	padding: 0px 3px 0px 0px;
+}
+.VerticalTemplate .Main td.Left {
+	width: 200px;
+}
+.Main td.Grip {
+	vertical-align: middle;
+	width: 14px;
+}
+
+.Main td.GripRight {
+	background: url('GripRight.gif') top left repeat-y;
+}
+.Main td.GripLeft {
+	background: url('GripLeft.gif') top left repeat-y;
+}
+
+/* Main round panel*/
+.Empty {
+	font-size: 0px;
+}
+table.MainContent div.TL, table.MainContent div.TR, table.MainContent div.BL, table.MainContent div.BR {
+	width: 6px;
+	height: 6px;
+	background-repeat: no-repeat;
+}
+table.MainContent div.TL {
+	background-image: url('CornerTL.png');
+}
+table.MainContent div.TR {
+	background-image: url('CornerTR.png');
+}
+table.MainContent div.BL {
+	background-image: url('CornerBLW.png');
+}
+table.MainContent div.BR {
+	background-image: url('CornerBRW.png');
+}
+table.MainContent tr.Top td.TopBorder {
+	background-color: #EDF4FA;
+	border: none;
+	border-top: solid 1px #9EBFDB;
+	width: 100%;
+}
+table.MainContent tr.Header td {
+	background-color: #EDF4FA;
+	background-image: url('MainHeaderBG.gif');
+	background-repeat: repeat-x;
+	background-position: bottom;
+}
+table.MainContent tr.Header td.Header {
+	padding: 3px 10px 10px 10px;
+}
+table.MainContent td.LeftBorder {
+	border: none;
+	border-left: solid 1px #9EBFDB;
+}
+table.MainContent td.RightBorder {
+	border: none;
+	border-right: solid 1px #9EBFDB;
+}
+table.MainContent td.BottomBorder {
+	border: none;
+	border-bottom: solid 1px #9EBFDB;
+	background-color: white;
+	width: 100%;
+}
+table.MainContent tr.Content {
+	background-color: white;
+}
+table.MainContent tr.Content td.Content {
+	padding: 5px 10px 2px 10px;
+}
+table.MainContent tr.Content td.Content td.ViewImage,
+table.MainContent tr.Content td.Content td.ViewCaption {
+	vertical-align: top;
+}
+h1 {
+	color: Black;
+	font-size: 200%;
+	font-family: Tahoma;
+	font-weight: normal;
+	margin: 0px 0px 11px 5px;
+	padding: 0px;
+}
+/* Dark round panel*/
+table.DarkPanel {
+	margin-bottom: 10px;
+}
+table.DarkPanel div.TL, table.DarkPanel div.TR, table.DarkPanel div.BL, table.DarkPanel div.BR {
+	width: 6px;
+	height: 6px;
+	background-repeat: no-repeat;
+}
+table.DarkPanel div.TL {
+	background-image: url('DarkTopLeftCorner.png');
+}
+table.DarkPanel div.TR {
+	background-image: url('DarkTopRightCorner.png');
+}
+table.DarkPanel div.BL {
+	background-image: url('DarkBottomLeftCorner.png');
+}
+table.DarkPanel div.BR {
+	background-image: url('DarkBottomRightCorner.png');
+}
+table.DarkPanel tr.Top td.TopBorder {
+	background-color: #CBE2FF;
+	border: none;
+	border-top: solid 1px #9EBFDB;
+	width: 100%;
+}
+table.DarkPanel td.LeftBorder {
+	border: none;
+	border-left: solid 1px #9EBFDB;
+}
+table.DarkPanel td.RightBorder {
+	border: none;
+	border-right: solid 1px #9EBFDB;
+}
+table.DarkPanel td.BottomBorder {
+	border: none;
+	border-bottom: solid 1px #9EBFDB;
+	background-color: #CBE2FF;
+	width: 100%;
+}
+table.DarkPanel tr.Content {
+	background-color: #CBE2FF;
+}
+table.DarkPanel tr.Content td.Content {
+	padding: 0px;
+	border-left: solid 1px #9EBFDB;
+	border-right: solid 1px #9EBFDB;
+}
+table.DarkPanel tr.Content td.WithPaddings {
+	padding: 3px 0px;
+}
+/* TopToolBar */
+.ToolBar {
+	margin: 0px 0px 5px 0px;
+	padding: 2px;
+	border: solid 1px #D0D7E5;
+	background-color: #E1EAF6;
+	width: inherit;
+}
+/* Navigation Links*/
+.Links {
+	padding: 35px 40px 15px 40px !important;
+	line-height: 24px;
+}
+/* Footer */
+tr.Footer td.Right {
+	padding: 20px 10px 30px 0px;
+	
+}
+div.Footer {
+	padding: 20px 10px 30px;
+	
+}
+.FooterCopyright {
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 85%;
+	color: #788CA5;
+}
+/* Dialog */
+body.Dialog {
+	background-color: White !important;
+}
+div.DialogPageContent {
+	margin: 0px;
+	padding: 0px;
+	background: url(DialogBackRepeat.gif) repeat-x center top white;
+}
+div.Header {
+	width: 100%;
+	height: 87px;
+	margin: 0px;
+	background: url(DialogBackImage.jpg) top right no-repeat;
+	height: 87px;
+}
+div.Header table {
+	margin: 0px 15px 0px 15px;
+}
+div.Header table td {
+	padding: 24px 0px 0px 0px;
+}
+.DialogContent {
+	background-color: White;
+	height: 300px;
+}
+.DialogContent .ContentCell {
+	vertical-align: top;
+	padding: 20px 10px;
+}
+.Dialog .ViewImage img {
+	margin: 0px 0px 15px 0px;
+}
+/* Logon */
+.Logon {
+	width: 500px;
+	text-align: left;
+}
+.LogonContentCell {
+}
+.LogonContentCell .Layout .NextColumn div.Item {
+	padding-left: 10px;
+}
+/* Error */
+.Error {
+	color: Black;
+}
+.ErrorDetails {
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 90%;
+}

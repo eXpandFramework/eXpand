@@ -1,0 +1,25 @@
+<%@ Register TagPrefix="xaf" Namespace="DevExpress.ExpressApp.Web.Templates.ActionContainers" Assembly="DevExpress.ExpressApp.Web.v9.2" %>
+<%@ Register TagPrefix="dxnb" Namespace="DevExpress.Web.ASPxNavBar" Assembly="DevExpress.Web.v9.2" %>
+<dxnb:ASPxNavBar runat="server" CssPostfix="xaf" CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" ImageFolder="~/App_Themes/XafDefault/{0}/" GroupSpacing="0px" Width="100%">
+	<CollapseImage Height="9px" Width="13px" />
+	<ExpandImage Height="9px" Width="13px" />
+	<GroupContentStyle ItemSpacing="0px" />
+	<LoadingPanelStyle ImageSpacing="6px" />
+    <CollapseImage Url="~/App_Themes/XafDefault/Web/nbCollapse.png" />
+    <ExpandImage Url="~/App_Themes/XafDefault/Web/nbExpand.png" />
+    <GroupHeaderStyle>
+        <BorderTop BorderStyle="None" />
+    </GroupHeaderStyle>
+</dxnb:ASPxNavBar>
+
+<xaf:NavigationBarActionContainer runat="server" CssPostfix="xaf" CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" ImageFolder="~/App_Themes/XafDefault/{0}/" GroupSpacing="0px" Width="100%">
+	<CollapseImage Height="9px" Width="13px" />
+	<ExpandImage Height="9px" Width="13px" />
+	<GroupContentStyle ItemSpacing="0px" />
+	<LoadingPanelStyle ImageSpacing="6px" />
+    <CollapseImage Url="~/App_Themes/XafDefault/Web/nbCollapse.png" />
+    <ExpandImage Url="~/App_Themes/XafDefault/Web/nbExpand.png" />
+    <GroupHeaderStyle>
+        <BorderTop BorderStyle="None" />
+    </GroupHeaderStyle>
+</xaf:NavigationBarActionContainer>

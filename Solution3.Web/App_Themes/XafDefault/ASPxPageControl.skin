@@ -1,0 +1,8 @@
+<%@ Register TagPrefix="dxtc" Namespace="DevExpress.Web.ASPxTabControl" Assembly="DevExpress.Web.v9.2" %>
+<dxtc:ASPxPageControl runat="server" CssClass="LayoutTabs" EnableDefaultAppearance="False" EnableHotTrack="False" ShowLoadingPanelImage="False" Width="100%" TabSpacing="0px" ShowImages="True">
+    <ContentStyle BackColor="#E1EAF6">
+        <Border BorderColor="#D0D7E5" BorderStyle="Solid" BorderWidth="1px" />
+        <Paddings Padding="2px" />
+    </ContentStyle>
+    <Paddings PaddingLeft="10px" />
+</dxtc:ASPxPageControl>

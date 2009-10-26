@@ -1,0 +1,506 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AACFF5EE-6CDE-445E-8323-88DBAA121113}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Solution3.Web</RootNamespace>
+    <AssemblyName>Solution3.Web</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Images.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Objects.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Web.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxEditors.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxGridView.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxSpellChecker.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.WorldCreator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.WorldCreator.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Mobile">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.XML">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.asp" />
+    <Content Include="Default.aspx" />
+    <Content Include="Dialog.aspx" />
+    <Content Include="Error.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\ButtonBkg.gif" />
+    <Content Include="Images\ExpressAppLogo.png" />
+    <Content Include="Images\FooterBkg.gif" />
+    <Content Include="Images\GridHeaderBkg.gif" />
+    <Content Include="Images\HeaderBkg.gif" />
+    <Content Include="Images\LayoutHeaderBkg.gif" />
+    <Content Include="Images\Progress.gif" />
+    <Content Include="Images\SelectedCenter.gif" />
+    <Content Include="Images\SelectedCenterWhite.gif" />
+    <Content Include="Images\SelectedLeft.gif" />
+    <Content Include="Images\SelectedLeftWhite.gif" />
+    <Content Include="Images\SelectedRight.gif" />
+    <Content Include="Images\SelectedRightWhite.gif" />
+    <Content Include="Images\SideBarRDCorner.gif" />
+    <Content Include="Images\SideBarRUCorner.gif" />
+    <Content Include="Images\TabContentBkg.gif" />
+    <Content Include="Images\UnSelectedCenter.gif" />
+    <Content Include="Images\UnSelectedLeft.gif" />
+    <Content Include="Images\UnSelectedRight.gif" />
+    <Content Include="Login.aspx" />
+    <Content Include="MoveFooter.js" />
+    <Content Include="NestedFrameControl.ascx" />
+    <Content Include="SessionKeepAliveReconnect.aspx" />
+    <Content Include="TemplateStyle.css" />
+    <Content Include="Web.config" />
+    <Content Include="XAFControlsStyle.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultVertical.aspx.cs">
+      <DependentUpon>DefaultVertical.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DefaultVertical.aspx.designer.cs">
+      <DependentUpon>DefaultVertical.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog.aspx.designer.cs">
+      <DependentUpon>Dialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NestedFrameControl.ascx.designer.cs">
+      <DependentUpon>NestedFrameControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ApplicationCode\WebApplication.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialog.aspx.cs">
+      <DependentUpon>Dialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NestedFrameControl.ascx.cs">
+      <DependentUpon>NestedFrameControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionKeepAliveReconnect.aspx.cs">
+      <DependentUpon>SessionKeepAliveReconnect.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SessionKeepAliveReconnect.aspx.designer.cs">
+      <DependentUpon>SessionKeepAliveReconnect.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ApplicationCode\WebApplication.resx">
+      <DependentUpon>WebApplication.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\XafDefault\ASPxButton.skin" />
+    <Content Include="App_Themes\XafDefault\Editors\edtButtonBack.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtButtonBackDis.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtButtonBackHover.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtButtonBackPressed.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtCalendarFNNextYear.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtCalendarFNPrevYear.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtCalendarHeadBack.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtCalendarNextMonth.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtCalendarNextMonthDisabled.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtCalendarNextYear.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtCalendarNextYearDisabled.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtCalendarPrevMonth.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtCalendarPrevMonthDisabled.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtCalendarPrevYear.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtCalendarPrevYearDisabled.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtDropDown.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtDropDownDisabled.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtEllipsis.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtEllipsisDisabled.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtError.png" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinDecBtnBack.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinEditDecrementImage.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinEditDecrementImageDisabled.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinEditIncrementImage.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinEditIncrementImageDisabled.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinEditLargeDecImage.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinEditLargeDecImageDisabled.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinEditLargeIncImage.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinEditLargeIncImageDisabled.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinIncBtnBack.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinIncBtnHBack.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinIncBtnPBack.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinLargeIncBtnBack.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinLargeIncBtnHBack.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\edtSpinLargeIncBtnPBack.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\Loading.gif" />
+    <Content Include="App_Themes\XafDefault\Editors\styles.css" />
+    <Content Include="App_Themes\XafDefault\GridView\gvCollapsedButton.png" />
+    <Content Include="App_Themes\XafDefault\GridView\gvDragAndDropArrowDown.gif" />
+    <Content Include="App_Themes\XafDefault\GridView\gvDragAndDropArrowUp.gif" />
+    <Content Include="App_Themes\XafDefault\GridView\gvDragAndDropHideColumn.gif" />
+    <Content Include="App_Themes\XafDefault\GridView\gvExpandedButton.png" />
+    <Content Include="App_Themes\XafDefault\GridView\gvFilterRowButton.png" />
+    <Content Include="App_Themes\XafDefault\GridView\gvFocusedBack.gif" />
+    <Content Include="App_Themes\XafDefault\GridView\gvGradient.gif" />
+    <Content Include="App_Themes\XafDefault\GridView\gvHeaderFilter.gif" />
+    <Content Include="App_Themes\XafDefault\GridView\gvHeaderFilterActive.gif" />
+    <Content Include="App_Themes\XafDefault\GridView\gvHeaderSortDown.gif" />
+    <Content Include="App_Themes\XafDefault\GridView\gvHeaderSortUp.gif" />
+    <Content Include="App_Themes\XafDefault\GridView\gvLoadingOnStatusBar.gif" />
+    <Content Include="App_Themes\XafDefault\GridView\gvParentGroupRows.gif" />
+    <Content Include="App_Themes\XafDefault\GridView\gvTitleBack.gif" />
+    <Content Include="App_Themes\XafDefault\GridView\Loading.gif" />
+    <Content Include="App_Themes\XafDefault\GridView\styles.css" />
+    <Content Include="App_Themes\XafDefault\GridView\WindowResizer.gif" />
+    <Content Include="App_Themes\XafDefault\Web\hlTail.gif" />
+    <Content Include="App_Themes\XafDefault\Web\Loading.gif" />
+    <Content Include="App_Themes\XafDefault\Web\MenuBg.gif" />
+    <Content Include="App_Themes\XafDefault\Web\mHorizontalPopOut.gif" />
+    <Content Include="App_Themes\XafDefault\Web\mItemBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\mItemHBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\mItemSBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\mItemSeparatorBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\mItemVerticalSeparatorBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\mPopupBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\mPopupHBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\mPopupSeparatorBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\mSubMenuItem.gif" />
+    <Content Include="App_Themes\XafDefault\Web\mSubMenuItemChecked.gif" />
+    <Content Include="App_Themes\XafDefault\Web\mVerticalPopOut.gif" />
+    <Content Include="App_Themes\XafDefault\Web\nbBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\nbCollapse.png" />
+    <Content Include="App_Themes\XafDefault\Web\nbExpand.png" />
+    <Content Include="App_Themes\XafDefault\Web\nbGroupBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\nbGroupHeaderBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\nbHBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\nbSBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\pAll.png" />
+    <Content Include="App_Themes\XafDefault\Web\pAllDisabled.png" />
+    <Content Include="App_Themes\XafDefault\Web\pcCloseButton.png" />
+    <Content Include="App_Themes\XafDefault\Web\pcHeaderBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\pcModalBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\pcSizeGrip.png" />
+    <Content Include="App_Themes\XafDefault\Web\pFirst.png" />
+    <Content Include="App_Themes\XafDefault\Web\pFirstDisabled.png" />
+    <Content Include="App_Themes\XafDefault\Web\pLast.png" />
+    <Content Include="App_Themes\XafDefault\Web\pLastDisabled.png" />
+    <Content Include="App_Themes\XafDefault\Web\pNext.png" />
+    <Content Include="App_Themes\XafDefault\Web\pNextDisabled.png" />
+    <Content Include="App_Themes\XafDefault\Web\pPrev.png" />
+    <Content Include="App_Themes\XafDefault\Web\pPrevDisabled.png" />
+    <Content Include="App_Themes\XafDefault\Web\rpBottomLeftCorner.png" />
+    <Content Include="App_Themes\XafDefault\Web\rpBottomRightCorner.png" />
+    <Content Include="App_Themes\XafDefault\Web\rpHeader.png" />
+    <Content Include="App_Themes\XafDefault\Web\rpNoHeaderTopLeftCorner.png" />
+    <Content Include="App_Themes\XafDefault\Web\rpNoHeaderTopRightCorner.png" />
+    <Content Include="App_Themes\XafDefault\Web\rpTopEdge.png" />
+    <Content Include="App_Themes\XafDefault\Web\rpTopLeftCorner.png" />
+    <Content Include="App_Themes\XafDefault\Web\rpTopRightCorner.png" />
+    <Content Include="App_Themes\XafDefault\Web\smBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\smFirstLevelBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\smSecondLevelBullet.gif" />
+    <Content Include="App_Themes\XafDefault\Web\styles.css" />
+    <Content Include="App_Themes\XafDefault\Web\tcBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\tcTabABack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\tcTabAHBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\tcTabBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\tcTabHBack.gif" />
+    <Content Include="App_Themes\XafDefault\Web\tiBackToTop.gif" />
+    <Content Include="App_Themes\XafDefault\Web\TreeAction_styles.css" />
+    <Content Include="App_Themes\XafDefault\Xaf\1x1.gif" />
+    <Content Include="App_Themes\XafDefault\Xaf\background.jpg" />
+    <Content Include="App_Themes\XafDefault\Xaf\BackgroundRepeat.gif" />
+    <Content Include="App_Themes\XafDefault\Xaf\CornerBL.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\CornerBLW.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\CornerBR.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\CornerBRW.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\CornerTL.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\CornerTR.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\Default.css" />
+    <Content Include="App_Themes\XafDefault\Xaf\DialogBackImage.jpg" />
+    <Content Include="App_Themes\XafDefault\Xaf\DialogBackRepeat.gif" />
+    <Content Include="App_Themes\XafDefault\Xaf\dropDownArrow.gif" />
+    <Content Include="App_Themes\XafDefault\Xaf\edtButtonBack.gif" />
+    <Content Include="App_Themes\XafDefault\Xaf\HeaderLeft.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\HeaderRight.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\LayoutTabSelectedLeft.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\LayoutTabSelectedMiddle.gif" />
+    <Content Include="App_Themes\XafDefault\Xaf\LayoutTabSelectedRight.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\Logo.gif" />
+    <Content Include="App_Themes\XafDefault\Xaf\Logo.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\LogoSmall.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\MainHeaderBG.gif" />
+    <Content Include="App_Themes\XafDefault\Xaf\NavtabSelectedLeft.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\NavtabSelectedMiddle.gif" />
+    <Content Include="App_Themes\XafDefault\Xaf\NavtabSelectedRight.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\styles_xaf.css" />
+    <Content Include="App_Themes\XafDefault\Xaf\template.css" />
+    <Content Include="App_Themes\XafDefault\Xaf\TreeAction_styles.css" />
+    <Content Include="Model.xafml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\XafDefault\ASPxButtonEdit.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxButtonEdit_Xaf.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxButton_Xaf.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxCalendar.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxCallbackPanel.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxCheckBox.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxCloudControl.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxComboBox.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxComboBox_Xaf.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxDataView.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxDateEdit.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxGridView.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxGridView_xaf.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxHeadline.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxHyperLink.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxLabel.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxListBox.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxLoadingPanel.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxMemo.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxMenu.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxNavBar.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxNewsControl.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxPageControl.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxPager.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxPopupControl.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxPopupMenu.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxRadioButton.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxRadioButtonList.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxRoundPanel.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxSiteMapControl.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxSpinEdit.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxTabControl.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxTabControl_Xaf.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxTextBox.skin" />
+    <Content Include="App_Themes\XafDefault\ASPxTitleIndex.skin" />
+    <Content Include="App_Themes\XafDefault\Xaf\DarkBottomLeftCorner.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\DarkBottomRightCorner.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\DarkTopLeftCorner.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\DarkTopRightCorner.png" />
+    <Content Include="App_Themes\XafDefault\Xaf\dropDownArrowDisabled.gif" />
+    <Content Include="App_Themes\XafDefault\Xaf\GripLeft.gif" />
+    <Content Include="App_Themes\XafDefault\Xaf\GripRight.gif" />
+    <Content Include="DefaultVertical.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\XafDefault\ASPxFilterControl.skin" />
+    <Content Include="App_Themes\XafDefault\Editors\fcadd.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcaddhot.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcgroupaddcondition.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcgroupaddgroup.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcgroupand.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcgroupnotand.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcgroupnotor.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcgroupor.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcgroupremove.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopany.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopbegin.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopbetween.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopblank.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopcontain.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopend.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopequal.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopgreater.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopgreaterorequal.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopless.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcoplessorequal.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcoplike.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopnotany.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopnotbetween.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopnotblank.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopnotcontain.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopnotequal.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcopnotlike.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcremove.png" />
+    <Content Include="App_Themes\XafDefault\Editors\fcremovehot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\XafDefault\ASPxFilterControl_xaf.skin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\XafDefault\ASPxTreeList.skin" />
+    <Content Include="App_Themes\XafDefault\TreeList\CollapsedButton.png" />
+    <Content Include="App_Themes\XafDefault\TreeList\CssImages\HeaderBack.gif" />
+    <Content Include="App_Themes\XafDefault\TreeList\CssImages\TreeLineFirst.gif" />
+    <Content Include="App_Themes\XafDefault\TreeList\CssImages\TreeLineLast.gif" />
+    <Content Include="App_Themes\XafDefault\TreeList\CssImages\TreeLineMiddle.gif" />
+    <Content Include="App_Themes\XafDefault\TreeList\CssImages\TreeLineRoot.gif" />
+    <Content Include="App_Themes\XafDefault\TreeList\DragAndDropArrowDown.gif" />
+    <Content Include="App_Themes\XafDefault\TreeList\DragAndDropArrowUp.gif" />
+    <Content Include="App_Themes\XafDefault\TreeList\DragAndDropHide.gif" />
+    <Content Include="App_Themes\XafDefault\TreeList\DragAndDropNode.gif" />
+    <Content Include="App_Themes\XafDefault\TreeList\ExpandedButton.png" />
+    <Content Include="App_Themes\XafDefault\TreeList\Loading.gif" />
+    <Content Include="App_Themes\XafDefault\TreeList\SortAsc.png" />
+    <Content Include="App_Themes\XafDefault\TreeList\SortDesc.png" />
+    <Content Include="App_Themes\XafDefault\TreeList\styles.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Solution3.Module.Web\Solution3.Module.Web.csproj">
+      <Project>{095241C0-8AEE-4AFB-9FEB-91B7BA8FE6B8}</Project>
+      <Name>Solution3.Module.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Solution3.Module\Solution3.Module.csproj">
+      <Project>{C1558764-C304-47F2-B1CE-D5EE7A9E625E}</Project>
+      <Name>Solution3.Module</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" Condition="" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2676</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

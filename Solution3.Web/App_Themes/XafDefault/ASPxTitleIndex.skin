@@ -1,0 +1,24 @@
+<%@ Register TagPrefix="dxti" Namespace="DevExpress.Web.ASPxTitleIndex" Assembly="DevExpress.Web.v9.2" %>
+<dxti:ASPxTitleIndex runat="server" ImageFolder="~/App_Themes/XafDefault/{0}/"
+    CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf"
+    FilterBoxSpacing="34px" GroupSpacing="35px" BackToTopText="Back to Top">
+    <filterbox caption="Filter:&amp;nbsp;&amp;nbsp;" horizontalposition="Left"></filterbox>
+    <IndexPanelItemStyle Font-Names="Tahoma" Font-Size="11pt"></IndexPanelItemStyle>
+    <IndexPanelSeparatorStyle Height="1px" BackColor="#D0D7E5"></IndexPanelSeparatorStyle>
+    <backtotopimage height="8px" url="~/App_Themes/XafDefault/Web/tiBackToTop.gif" width="7px" />
+    <backtotopstyle imagespacing="5px" />
+    <ColumnStyle>
+        <Paddings PaddingLeft="0px"></Paddings>
+    </ColumnStyle>
+    <itemstyle>
+        <Paddings PaddingLeft="8px"></Paddings>
+    </itemstyle>
+    <groupcontentstyle itemspacing="8px">
+        <Paddings PaddingTop="8px" PaddingBottom="12px"></Paddings>
+    </groupcontentstyle>
+    <Columns>
+        <dxti:Column></dxti:Column>
+        <dxti:Column></dxti:Column>
+    </Columns>
+    <DisabledStyle ForeColor="#aaaaaa"></DisabledStyle>
+</dxti:ASPxTitleIndex>

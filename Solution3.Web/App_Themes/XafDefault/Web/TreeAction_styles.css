@@ -1,0 +1,490 @@
+/* -- ASPxMenu -- */
+.dxmControl_button_xaf 
+{
+	font: 100% Tahoma;
+	color: black;
+}
+.dxmControl_button_xaf a, .dxmMenu_button_xaf a, .dxmVerticalMenu_button_xaf a, .dxmSubMenu_button_xaf a
+{
+	color: #1641A0;
+	text-decoration: none;
+}
+.dxmMenu_button_xaf, .dxmVerticalMenu_button_xaf
+{
+	font: 100% Tahoma;
+	color: black;	
+	background: none;
+	border: none;
+	padding: 0px;
+}
+.dxmMenu_button_xaf {
+	background: none;
+}
+.dxmMenuGutter_button_xaf
+{
+}
+.dxmMenuSeparator_button_xaf
+{
+	background: transparent url(mItemSeparatorBack.gif) left top repeat-y;
+}
+.dxmMenuVerticalSeparator_button_xaf
+{
+	background: transparent url(mItemVerticalSeparatorBack.gif) left top repeat-x;
+}
+.dxmMenuItem_button_xaf, .dxmMenuItemWithImage_button_xaf, .dxmMenuItemWithPopOutImage_button_xaf, .dxmMenuItemWithImageWithPopOutImage_button_xaf, 
+.dxmVerticalMenuItem_button_xaf, .dxmVerticalMenuItemWithImage_button_xaf, .dxmVerticalMenuItemWithPopOutImage_button_xaf, .dxmVerticalMenuItemWithImageWithPopOutImage_button_xaf, 
+.dxmMenuLargeItem_button_xaf, .dxmMenuLargeItemWithImage_button_xaf, .dxmMenuLargeItemWithPopOutImage_button_xaf, .dxmMenuLargeItemWithImageWithPopOutImage_button_xaf, 
+.dxmVerticalMenuLargeItem_button_xaf, .dxmVerticalMenuLargeItemWithImage_button_xaf, .dxmVerticalMenuLargeItemWithPopOutImage_button_xaf, .dxmVerticalMenuLargeItemWithImageWithPopOutImage_button_xaf
+{
+	background:#D7E8FD url(edtButtonBack.gif) repeat-x scroll center bottom;
+	border:1px solid #85A5D1;
+}
+.dxmMenuItem_button_xaf, .dxmMenuItemWithImage_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 7px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}
+.dxmMenuItemWithPopOutImage_button_xaf, .dxmMenuItemWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 5px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}	
+.dxmVerticalMenuItem_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 18px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}
+.dxmVerticalMenuItemWithImage_button_xaf
+{
+	padding-top: 3px;	
+	padding-right: 18px;	
+	padding-bottom: 4px;	
+	padding-left: 2px;	
+}
+.dxmVerticalMenuItemWithPopOutImage_button_xaf
+{
+	padding-top: 3px;	
+	padding-right: 5px;	
+	padding-bottom: 4px;	
+	padding-left: 7px;	
+}
+.dxmVerticalMenuItemWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 3px;	
+	padding-right: 5px;	
+	padding-bottom: 4px;	
+	padding-left: 2px;	
+}
+.dxmMenuLargeItem_button_xaf, .dxmMenuLargeItemWithImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 11px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmMenuLargeItemWithPopOutImage_button_xaf, .dxmMenuLargeItemWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 5px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmVerticalMenuLargeItem_button_xaf, .dxmVerticalMenuLargeItemWithImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 11px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmVerticalMenuLargeItemWithPopOutImage_button_xaf, .dxmVerticalMenuLargeItemWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 5px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmMenuItemSelected_button_xaf, .dxmMenuItemSelectedWithImage_button_xaf, .dxmMenuItemSelectedWithPopOutImage_button_xaf, .dxmMenuItemSelectedWithImageWithPopOutImage_button_xaf,
+.dxmVerticalMenuItemSelected_button_xaf, .dxmVerticalMenuItemSelectedWithImage_button_xaf, .dxmVerticalMenuItemSelectedWithPopOutImage_button_xaf, .dxmVerticalMenuItemSelectedWithImageWithPopOutImage_button_xaf,
+.dxmMenuLargeItemSelected_button_xaf, .dxmMenuLargeItemSelectedWithImage_button_xaf, .dxmMenuLargeItemSelectedWithPopOutImage_button_xaf, .dxmMenuLargeItemSelectedWithImageWithPopOutImage_button_xaf,
+.dxmVerticalMenuLargeItemSelected_button_xaf, .dxmVerticalMenuLargeItemWithImageSelected_button_xaf, .dxmVerticalMenuLargeItemSelectedWithPopOutImage_button_xaf, .dxmVerticalMenuLargeItemSelectedWithImageWithPopOutImage_button_xaf
+{
+	background: url(mItemSBack.gif) repeat-x center top #FFAD55;
+	border: solid 1px #DBCE99;
+}
+.dxmMenuItemSelected_button_xaf, .dxmMenuItemSelectedWithImage_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 7px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}
+.dxmMenuItemSelectedWithPopOutImage_button_xaf, .dxmMenuItemSelectedWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 5px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}	
+.dxmVerticalMenuItemSelected_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 18px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}
+.dxmVerticalMenuItemSelectedWithImage_button_xaf
+{
+	padding-top: 3px;	
+	padding-right: 18px;	
+	padding-bottom: 4px;	
+	padding-left: 2px;	
+}
+.dxmVerticalMenuItemSelectedWithPopOutImage_button_xaf
+{
+	padding-top: 3px;	
+	padding-right: 5px;	
+	padding-bottom: 4px;	
+	padding-left: 7px;	
+}
+.dxmVerticalMenuItemSelectedWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 3px;	
+	padding-right: 5px;	
+	padding-bottom: 4px;	
+	padding-left: 2px;	
+}
+.dxmMenuLargeItemSelected_button_xaf, .dxmMenuLargeItemSelectedWithImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 11px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmMenuLargeItemSelectedWithPopOutImage_button_xaf, .dxmMenuLargeItemSelectedWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 5px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmVerticalMenuLargeItemSelected_button_xaf, .dxmVerticalMenuLargeItemSelectedWithImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 11px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmVerticalMenuLargeItemSelectedWithPopOutImage_button_xaf, .dxmVerticalMenuLargeItemSelectedWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 5px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmMenuItemChecked_button_xaf, .dxmMenuItemCheckedWithImage_button_xaf, .dxmMenuItemCheckedWithPopOutImage_button_xaf, .dxmMenuItemCheckedWithImageWithPopOutImage_button_xaf,
+.dxmVerticalMenuItemChecked_button_xaf, .dxmVerticalMenuItemCheckedWithImage_button_xaf, .dxmVerticalMenuItemCheckedWithPopOutImage_button_xaf, .dxmVerticalMenuItemCheckedWithImageWithPopOutImage_button_xaf,
+.dxmMenuLargeItemChecked_button_xaf, .dxmMenuLargeItemCheckedWithImage_button_xaf, .dxmMenuLargeItemCheckedWithPopOutImage_button_xaf, .dxmMenuLargeItemCheckedWithImageWithPopOutImage_button_xaf,
+.dxmVerticalMenuLargeItemChecked_button_xaf, .dxmVerticalMenuLargeItemWithImageChecked_button_xaf, .dxmVerticalMenuLargeItemCheckedWithPopOutImage_button_xaf, .dxmVerticalMenuLargeItemCheckedWithImageWithPopOutImage_button_xaf
+{
+	background: url(mItemSBack.gif) repeat-x center top #FFAD55;
+	border: solid 1px #DBCE99;
+}
+.dxmMenuItemChecked_button_xaf, .dxmMenuItemCheckedWithImage_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 7px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}
+.dxmMenuItemCheckedWithPopOutImage_button_xaf, .dxmMenuItemCheckedWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 5px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}	
+.dxmVerticalMenuItemChecked_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 18px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}
+.dxmVerticalMenuItemCheckedWithImage_button_xaf
+{
+	padding-top: 3px;	
+	padding-right: 18px;	
+	padding-bottom: 4px;	
+	padding-left: 2px;	
+}
+.dxmVerticalMenuItemCheckedWithPopOutImage_button_xaf
+{
+	padding-top: 3px;	
+	padding-right: 5px;	
+	padding-bottom: 4px;	
+	padding-left: 7px;	
+}
+.dxmVerticalMenuItemCheckedWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 3px;	
+	padding-right: 5px;	
+	padding-bottom: 4px;	
+	padding-left: 2px;	
+}
+.dxmMenuLargeItemChecked_button_xaf, .dxmMenuLargeItemCheckedWithImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 11px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmMenuLargeItemCheckedWithPopOutImage_button_xaf, .dxmMenuLargeItemCheckedWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 5px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmVerticalMenuLargeItemChecked_button_xaf, .dxmVerticalMenuLargeItemCheckedWithImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 11px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmVerticalMenuLargeItemCheckedWithPopOutImage_button_xaf, .dxmVerticalMenuLargeItemCheckedWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 5px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmMenuItemHover_button_xaf, .dxmMenuItemHoverWithImage_button_xaf, .dxmMenuItemHoverWithPopOutImage_button_xaf, .dxmMenuItemHoverWithImageWithPopOutImage_button_xaf, 
+.dxmVerticalMenuItemHover_button_xaf, .dxmVerticalMenuItemHoverWithImage_button_xaf, .dxmVerticalMenuItemHoverWithPopOutImage_button_xaf, .dxmVerticalMenuItemHoverWithImageWithPopOutImage_button_xaf, 
+.dxmMenuLargeItemHover_button_xaf, .dxmMenuLargeItemHoverWithImage_button_xaf, .dxmMenuLargeItemHoverWithPopOutImage_button_xaf, .dxmMenuLargeItemHoverWithImageWithPopOutImage_button_xaf, 
+.dxmVerticalMenuLargeItemHover_button_xaf, .dxmVerticalMenuLargeItemHoverWithImage_button_xaf, .dxmVerticalMenuLargeItemHoverWithPopOutImage_button_xaf, .dxmVerticalMenuLargeItemHoverWithImageWithPopOutImage_button_xaf
+{
+	background: url(mItemHBack.gif) repeat-x center top #FFD69A;
+	border: solid 1px #DBCE99;
+}
+.dxmMenuItemHover_button_xaf, .dxmMenuItemHoverWithImage_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 7px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}
+.dxmMenuItemHoverWithPopOutImage_button_xaf, .dxmMenuItemHoverWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 5px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}	
+.dxmVerticalMenuItemHover_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 18px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}
+.dxmVerticalMenuItemHoverWithImage_button_xaf
+{
+	padding-top: 3px;	
+	padding-right: 18px;	
+	padding-bottom: 4px;	
+	padding-left: 2px;	
+}
+.dxmVerticalMenuItemHoverWithPopOutImage_button_xaf
+{
+	padding-top: 3px;	
+	padding-right: 5px;	
+	padding-bottom: 4px;	
+	padding-left: 7px;	
+}
+.dxmVerticalMenuItemHoverWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 3px;	
+	padding-right: 5px;	
+	padding-bottom: 4px;	
+	padding-left: 2px;	
+}
+.dxmMenuLargeItemHover_button_xaf, .dxmMenuLargeItemHoverWithImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 11px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmMenuLargeItemHoverWithPopOutImage_button_xaf, .dxmMenuLargeItemHoverWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 5px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmVerticalMenuLargeItemHover_button_xaf, .dxmVerticalMenuLargeItemHoverWithImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 11px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmVerticalMenuLargeItemHoverWithPopOutImage_button_xaf, .dxmVerticalMenuLargeItemHoverWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 5px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+}
+.dxmSubMenu_button_xaf
+{
+	font: 100% Tahoma;
+	color: black;
+	background-color: #F6F6F6;
+	border: solid 1px #BCCFE9;
+	padding: 1px 1px 1px 1px;
+}
+.dxmSubMenuGutter_button_xaf
+{
+	background: url(mPopupBack.gif) repeat-y left top;
+}
+.dxmSubMenuSeparator_button_xaf
+{
+	background-color: #85A5D1;
+}
+.dxmSubMenuItem_button_xaf, .dxmSubMenuItemWithImage_button_xaf, .dxmSubMenuItemWithPopOutImage_button_xaf, .dxmSubMenuItemWithImageWithPopOutImage_button_xaf
+{
+	font: 8pt Tahoma;
+	color: #1641A0;
+	white-space: nowrap;
+}
+.dxmSubMenuItem_button_xaf 
+{
+	padding-top: 4px;
+	padding-right: 9px;
+	padding-bottom: 5px;
+	padding-left: 3px;	
+}
+.dxmSubMenuItemWithImage_button_xaf 
+{
+	padding-top: 2px;
+	padding-right: 9px;
+	padding-bottom: 2px;
+	padding-left: 3px;
+	height: 19px;
+}
+.dxmSubMenuItemWithPopOutImage_button_xaf
+{
+	padding-top: 4px;
+	padding-right: 9px;
+	padding-bottom: 5px;
+	padding-left: 3px;
+}
+.dxmSubMenuItemWithImageWithPopOutImage_button_xaf 
+{
+	padding-top: 2px;
+	padding-right: 9px;
+	padding-bottom: 2px;
+	padding-left: 3px;
+	height: 19px;
+}
+.dxmSubMenuItemSelected_button_xaf, .dxmSubMenuItemSelectedWithImage_button_xaf, .dxmSubMenuItemSelectedWithPopOutImage_button_xaf, .dxmSubMenuItemSelectedWithImageWithPopOutImage_button_xaf
+{
+	background: url(mItemSBack.gif) repeat-x center top #FFAD55;
+	border: solid 1px #DBCE99;
+}
+.dxmSubMenuItemSelected_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 8px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+}
+.dxmSubMenuItemSelectedWithImage_button_xaf 
+{
+	padding-top: 1px;
+	padding-right: 8px;
+	padding-bottom: 1px;
+	padding-left: 2px;
+}
+.dxmSubMenuItemSelectedWithPopOutImage_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 8px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+}
+.dxmSubMenuItemSelectedWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 8px;
+	padding-bottom: 1px;
+	padding-left: 2px;
+}
+.dxmSubMenuItemChecked_button_xaf, .dxmSubMenuItemCheckedWithImage_button_xaf, .dxmSubMenuItemCheckedWithPopOutImage_button_xaf, .dxmSubMenuItemCheckedWithImageWithPopOutImage_button_xaf
+{
+}
+.dxmSubMenuItemChecked_button_xaf
+{
+}
+.dxmSubMenuItemCheckedWithImage_button_xaf 
+{
+}
+.dxmSubMenuItemCheckedWithPopOutImage_button_xaf
+{
+}
+.dxmSubMenuItemCheckedWithImageWithPopOutImage_button_xaf
+{
+}
+.dxmSubMenuItemHover_button_xaf, .dxmSubMenuItemHoverWithImage_button_xaf, .dxmSubMenuItemHoverWithPopOutImage_button_xaf, .dxmSubMenuItemHoverWithImageWithPopOutImage_button_xaf
+{
+	background: url(mPopupHBack.gif) repeat-x center top #FFEEC2;
+	border: solid 1px #DBCE99;
+}
+.dxmSubMenuItemHover_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 8px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+}
+.dxmSubMenuItemHoverWithImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 8px;
+	padding-bottom: 1px;
+	padding-left: 2px;
+}
+.dxmSubMenuItemHoverWithPopOutImage_button_xaf
+{
+	padding-top: 3px;
+	padding-right: 8px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+}
+.dxmSubMenuItemHoverWithImageWithPopOutImage_button_xaf
+{
+	padding-top: 1px;
+	padding-right: 8px;
+	padding-bottom: 1px;
+	padding-left: 2px;
+}
+.dxmSubMenuBorderCorrector_button_xaf
+{
+    position: absolute;
+    border: 0px;
+    padding: 0px;
+}
+/* Disabled */
+.dxmDisabled_button_xaf
+{
+	color: #aaaaaa;
+	cursor: default;
+}

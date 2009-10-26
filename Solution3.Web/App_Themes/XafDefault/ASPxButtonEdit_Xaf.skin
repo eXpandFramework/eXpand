@@ -1,0 +1,5 @@
+<%@ Register TagPrefix="xaf" Namespace="DevExpress.ExpressApp.Web.Editors.ASPx" Assembly="DevExpress.ExpressApp.Web.v9.2" %>
+<xaf:XafASPxButtonEdit runat="server"
+	CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf"
+	ImageFolder="~/App_Themes/XafDefault/{0}/">
+</xaf:XafASPxButtonEdit>

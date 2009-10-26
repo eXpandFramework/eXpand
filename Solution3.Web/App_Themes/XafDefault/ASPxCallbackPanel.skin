@@ -1,0 +1,5 @@
+<%@ Register TagPrefix="dxrp" Namespace="DevExpress.Web.ASPxRoundPanel" Assembly="DevExpress.Web.v9.2" %>
+<%@ Register TagPrefix="dxcp" Namespace="DevExpress.Web.ASPxCallbackPanel" Assembly="DevExpress.Web.v9.2" %>
+<dxcp:ASPxCallbackPanel runat="server" CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf"
+	ImageFolder="~/App_Themes/XafDefault/{0}/" >
+</dxcp:ASPxCallbackPanel>

@@ -1,0 +1,12 @@
+<%@ Register TagPrefix="dxm" Namespace="DevExpress.Web.ASPxMenu" Assembly="DevExpress.Web.v9.2" %>
+<dxm:ASPxPopupMenu runat="server" 
+	CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf"
+	ImageFolder="~/App_Themes/XafDefault/{0}/"
+	SeparatorColor="Transparent" SeparatorHeight="14px" SeparatorWidth="2px"
+	ShowPopOutImages="True">
+	
+	<SubMenuStyle GutterWidth="17px" />
+	
+	<ItemSubMenuOffset FirstItemX="2" LastItemX="2" X="2" />
+    <RootItemSubMenuOffset FirstItemX="2" LastItemX="2" X="2" />	
+</dxm:ASPxPopupMenu>

@@ -1,0 +1,1613 @@
+/* -- ASPxCallbackPanel -- */
+.dxcpLoadingPanel
+{
+	font: 100% Tahoma;
+	color: #303030;
+}
+.dxcpLoadingPanel td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 12px 12px 12px 12px;
+}
+.dxcpLoadingPanelWithContent
+{
+	font: 100% Tahoma;
+	color: #303030;
+	border: solid 1px #ABC1DE;
+	background-color: White;
+}
+.dxcpLoadingPanelWithContent td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 12px 12px 12px 12px;
+}
+.dxcpLoadingDiv
+{
+	background-color: Gray;
+	opacity: 0.01;
+	filter:progid:DXImageTransform.Microsoft.Alpha(Style=0, Opacity=1);
+}
+/* Disabled */
+.dxcpDisabled
+{
+	color: #acacac;
+	cursor: default;
+}
+
+/* -- ASPxCloudControl -- */
+.dxccControl a:hover
+{
+    text-decoration:underline!important;
+}
+.dxccControl a
+{
+	text-decoration:none!important;
+	color: #1E3695;	
+}
+.dxccControl
+{
+	font-family: Tahoma, Verdana, Arial;
+	text-decoration:none;
+	color: #1E3695;
+	background-color: #FFFFFF;
+}
+/* Disabled */
+.dxccDisabled
+{
+	color: #808080;
+	cursor: default;
+}
+
+/* -- ASPxDataView -- */
+.dxdvControl 
+{
+	font: 100% Tahoma;
+	color: black;
+	padding: 12px 40px 12px 40px;
+}
+.dxdvLoadingPanel
+{
+	border: solid 1px #ABC1DE;
+	background-color: white;
+	font: 100% Tahoma;
+	color: #303030;
+}
+.dxdvLoadingPanel td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 12px 12px 12px 12px;
+}
+.dxdvContent
+{
+}
+.dxdvItem
+{
+	font: 100% Tahoma;
+	color: #787878;
+	border: solid 1px #A8A8A8;
+	background-color: #F0F0F0;
+	padding: 12px 12px 12px 14px;
+	height: 180px;
+	/*if IE*/	
+	height:expression("154px");
+}
+.dxdvEmptyItem
+{
+	font: 100% Tahoma;
+	color: #787878;
+	text-align: left;
+	vertical-align: top;
+	padding: 12px 12px 12px 14px;
+	height: 180px;
+	/*if IE*/
+	height:expression("154px");
+}
+.dxdvPagerPanel
+{
+}
+/* Disabled */
+.dxdvDisabled
+{
+	color: #808080;
+	cursor: default;
+}
+
+/* -- ASPxHeadline -- */
+.dxhlControl 
+{
+	font: 10px Verdana;
+	color: black;
+}
+.dxhlContent
+{
+	font: 8pt Verdana;
+	color: black;
+} 
+.dxhlDate
+{
+	color: Gray;
+	white-space: nowrap;
+}
+.dxhlHeader
+{
+	font: 10pt Tahoma;
+	color: #464646;
+	font-weight: bold;
+	line-height: 17px;
+}
+.dxhlDateHeader
+{
+	font: 10pt Tahoma;
+	color: Gray;
+	font-weight: normal;
+}
+.dxhlLeftPanel
+{
+	font: 10px Verdana;
+	color: black;
+}
+.dxhlRightPanel
+{
+	font: 10px Verdana;
+	color: black;
+}
+.dxhlDateLeftPanel
+{
+	font: 10px Verdana;
+	color: Gray;
+	white-space: nowrap;
+}
+.dxhlDateRightPanel
+{
+	font: 10px Verdana;
+	color: Gray;
+	white-space: nowrap;
+}
+.dxhlTailDiv
+{
+	font: 10px Verdana;
+	color: Black;
+}
+.dxhlTailDiv a
+{
+	color: #1E3695;
+}
+.dxhlTailDiv a:hover
+{
+    text-decoration: none;
+}
+.dxhlTailDiv a:visited
+{
+    color: #996085;
+}
+.dxhlContent a.dxhl
+{
+	color: #1E3695;
+} 
+.dxhlContent a.dxhl:hover
+{
+    text-decoration: none;
+}
+.dxhlContent a.dxhl:visited
+{
+    color: #996085;
+}
+/* Disabled */
+.dxhlDisabled
+{
+	color: #acacac;
+	cursor: default;
+}
+
+/* -- ASPxLoadingPanel -- */
+.dxlpLoadingPanel
+{
+	font: 100% Tahoma;
+	color: #303030;
+	background-color: white;
+	border: solid 1px #ABC1DE;
+}
+.dxlpLoadingPanel td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 12px 12px 12px 12px;
+}
+.dxlpLoadingDiv
+{
+	background-color: #777777;
+	opacity: 0.7;
+	filter:progid:DXImageTransform.Microsoft.Alpha(Style=0, Opacity=70);
+}
+/* -- ASPxMenu -- */
+.dxmControl 
+{
+	font: 100% Tahoma;
+	color: black;
+}
+.dxmControl a, .dxmMenu a, .dxmVerticalMenu a, .dxmSubMenu a
+{
+	color: black;
+	text-decoration: none;
+}
+.dxmMenu, .dxmVerticalMenu
+{
+	font: 100% Tahoma;
+	color: black;
+	background-color: #F0F0F0;
+	border: solid 1px #A8A8A8;
+	padding: 2px 2px 2px 2px;
+}
+.dxmMenuGutter
+{
+}
+.dxmMenuSeparator, .dxmMenuVerticalSeparator
+{
+	background-color: #A8A8A8;
+}
+.dxmMenuItem, .dxmMenuItemWithImage, .dxmMenuItemWithPopOutImage, .dxmMenuItemWithImageWithPopOutImage,
+.dxmVerticalMenuItem, .dxmVerticalMenuItemWithImage, .dxmVerticalMenuItemWithPopOutImage, .dxmVerticalMenuItemWithImageWithPopOutImage, 
+.dxmMenuLargeItem, .dxmMenuLargeItemWithImage, .dxmMenuLargeItemWithPopOutImage, .dxmMenuLargeItemWithImageWithPopOutImage,
+.dxmVerticalMenuLargeItem, .dxmVerticalMenuLargeItemWithImage, .dxmVerticalMenuLargeItemWithPopOutImage, .dxmVerticalMenuLargeItemWithImageWithPopOutImage
+{
+	font: 100% Tahoma;
+	color: black;
+	white-space: nowrap;
+}
+.dxmMenuItem, .dxmMenuItemWithImage
+{
+	padding-top: 4px;
+	padding-right: 8px;
+	padding-bottom: 5px;
+	padding-left: 8px;
+}
+.dxmMenuItemWithPopOutImage, .dxmMenuItemWithImageWithPopOutImage
+{
+	padding-top: 4px;
+	padding-right: 6px;
+	padding-bottom: 5px;
+	padding-left: 8px;
+}	
+.dxmVerticalMenuItem
+{
+	padding-top: 4px;
+	padding-right: 19px;
+	padding-bottom: 5px;
+	padding-left: 8px;
+}
+.dxmVerticalMenuItemWithImage
+{
+	padding-top: 4px;	
+	padding-right: 19px;	
+	padding-bottom: 5px;	
+	padding-left: 3px;	
+}
+.dxmVerticalMenuItemWithPopOutImage
+{
+	padding-top: 4px;	
+	padding-right: 6px;	
+	padding-bottom: 5px;	
+	padding-left: 8px;	
+}
+.dxmVerticalMenuItemWithImageWithPopOutImage
+{
+	padding-top: 4px;	
+	padding-right: 6px;	
+	padding-bottom: 5px;	
+	padding-left: 3px;	
+}
+.dxmMenuLargeItem, .dxmMenuLargeItemWithImage
+{
+	padding-top: 4px;
+	padding-right: 12px;
+	padding-bottom: 5px;
+	padding-left: 11px;
+}
+.dxmMenuLargeItemWithPopOutImage, .dxmMenuLargeItemWithImageWithPopOutImage
+{
+	padding-top: 4px;
+	padding-right: 6px;
+	padding-bottom: 5px;
+	padding-left: 11px;
+}
+.dxmVerticalMenuLargeItem, .dxmVerticalMenuLargeItemWithImage
+{
+	padding-top: 6px;
+	padding-right: 12px;
+	padding-bottom: 7px;
+	padding-left: 11px;
+}
+.dxmVerticalMenuLargeItemWithPopOutImage, .dxmVerticalMenuLargeItemWithImageWithPopOutImage
+{
+	padding-top: 6px;
+	padding-right: 6px;
+	padding-bottom: 7px;
+	padding-left: 11px;
+}
+.dxmMenuItemSelected, .dxmMenuItemSelectedWithImage, .dxmMenuItemSelectedWithPopOutImage, .dxmMenuItemSelectedWithImageWithPopOutImage,
+.dxmVerticalMenuItemSelected, .dxmVerticalMenuItemSelectedWithImage, .dxmVerticalMenuItemSelectedWithPopOutImage, .dxmVerticalMenuItemSelectedWithImageWithPopOutImage,
+.dxmMenuLargeItemSelected, .dxmMenuLargeItemSelectedWithImage, .dxmMenuLargeItemSelectedWithPopOutImage, .dxmMenuLargeItemSelectedWithImageWithPopOutImage,
+.dxmVerticalMenuLargeItemSelected, .dxmVerticalMenuLargeItemWithImageSelected, .dxmVerticalMenuLargeItemSelectedWithPopOutImage, .dxmVerticalMenuLargeItemSelectedWithImageWithPopOutImage
+{
+	background-color: white;
+	border: solid 1px #888888;
+}
+.dxmMenuItemSelected, .dxmMenuItemSelectedWithImage
+{
+	padding-top: 3px;
+	padding-right: 7px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}
+.dxmMenuItemSelectedWithPopOutImage, .dxmMenuItemSelectedWithImageWithPopOutImage
+{
+	padding-top: 3px;
+	padding-right: 5px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}	
+.dxmVerticalMenuItemSelected
+{
+	padding-top: 3px;
+	padding-right: 18px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}
+.dxmVerticalMenuItemSelectedWithImage
+{
+	padding-top: 3px;	
+	padding-right: 18px;	
+	padding-bottom: 4px;	
+	padding-left: 2px;	
+}
+.dxmVerticalMenuItemSelectedWithPopOutImage
+{
+	padding-top: 3px;	
+	padding-right: 5px;	
+	padding-bottom: 4px;	
+	padding-left: 7px;	
+}
+.dxmVerticalMenuItemSelectedWithImageWithPopOutImage
+{
+	padding-top: 3px;	
+	padding-right: 5px;	
+	padding-bottom: 4px;	
+	padding-left: 2px;	
+}
+.dxmMenuLargeItemSelected, .dxmMenuLargeItemSelectedWithImage
+{
+	padding-top: 3px;
+	padding-right: 11px;
+	padding-bottom: 4px;
+	padding-left: 10px;
+}
+.dxmMenuLargeItemSelectedWithPopOutImage, .dxmMenuLargeItemSelectedWithImageWithPopOutImage
+{
+	padding-top: 3px;
+	padding-right: 5px;
+	padding-bottom: 4px;
+	padding-left: 10px;
+}
+.dxmVerticalMenuLargeSelectedItem, .dxmVerticalMenuLargeSelectedItemWithImage
+{
+	padding-top: 5px;
+	padding-right: 11px;
+	padding-bottom: 6px;
+	padding-left: 10px;
+}
+.dxmVerticalMenuLargeItemSelectedWithPopOutImage, .dxmVerticalMenuLargeItemSelectedWithImageWithPopOutImage
+{
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 6px;
+	padding-left: 10px;
+}
+.dxmMenuItemChecked, .dxmMenuItemCheckedWithImage, .dxmMenuItemCheckedWithPopOutImage, .dxmMenuItemCheckedWithImageWithPopOutImage,
+.dxmVerticalMenuItemChecked, .dxmVerticalMenuItemCheckedWithImage, .dxmVerticalMenuItemCheckedWithPopOutImage, .dxmVerticalMenuItemCheckedWithImageWithPopOutImage,
+.dxmMenuLargeItemChecked, .dxmMenuLargeItemCheckedWithImage, .dxmMenuLargeItemCheckedWithPopOutImage, .dxmMenuLargeItemCheckedWithImageWithPopOutImage,
+.dxmVerticalMenuLargeItemChecked, .dxmVerticalMenuLargeItemWithImageChecked, .dxmVerticalMenuLargeItemCheckedWithPopOutImage, .dxmVerticalMenuLargeItemCheckedWithImageWithPopOutImage
+{
+	background-color: white;
+	border: solid 1px #888888;
+}
+.dxmMenuItemChecked, .dxmMenuItemCheckedWithImage
+{
+	padding-top: 3px;
+	padding-right: 7px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}
+.dxmMenuItemCheckedWithPopOutImage, .dxmMenuItemCheckedWithImageWithPopOutImage
+{
+	padding-top: 3px;
+	padding-right: 5px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}	
+.dxmVerticalMenuItemChecked
+{
+	padding-top: 3px;
+	padding-right: 18px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}
+.dxmVerticalMenuItemCheckedWithImage
+{
+	padding-top: 3px;	
+	padding-right: 18px;	
+	padding-bottom: 4px;	
+	padding-left: 2px;	
+}
+.dxmVerticalMenuItemCheckedWithPopOutImage
+{
+	padding-top: 3px;	
+	padding-right: 5px;	
+	padding-bottom: 4px;	
+	padding-left: 7px;	
+}
+.dxmVerticalMenuItemCheckedWithImageWithPopOutImage
+{
+	padding-top: 3px;	
+	padding-right: 5px;	
+	padding-bottom: 4px;	
+	padding-left: 2px;	
+}
+.dxmMenuLargeItemChecked, .dxmMenuLargeItemCheckedWithImage
+{
+	padding-top: 3px;
+	padding-right: 11px;
+	padding-bottom: 4px;
+	padding-left: 10px;
+}
+.dxmMenuLargeItemCheckedWithPopOutImage, .dxmMenuLargeItemCheckedWithImageWithPopOutImage
+{
+	padding-top: 3px;
+	padding-right: 5px;
+	padding-bottom: 4px;
+	padding-left: 10px;
+}
+.dxmVerticalMenuLargeCheckedItem, .dxmVerticalMenuLargeCheckedItemWithImage
+{
+	padding-top: 5px;
+	padding-right: 11px;
+	padding-bottom: 6px;
+	padding-left: 10px;
+}
+.dxmVerticalMenuLargeItemCheckedWithPopOutImage, .dxmVerticalMenuLargeItemCheckedWithImageWithPopOutImage
+{
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 6px;
+	padding-left: 10px;
+}
+.dxmMenuItemHover, .dxmMenuItemHoverWithImage, .dxmMenuItemHoverWithPopOutImage, .dxmMenuItemHoverWithImageWithPopOutImage, 
+.dxmVerticalMenuItemHover, .dxmVerticalMenuItemHoverWithImage, .dxmVerticalMenuItemHoverWithPopOutImage, .dxmVerticalMenuItemHoverWithImageWithPopOutImage, 
+.dxmMenuLargeItemHover, .dxmMenuLargeItemHoverWithImage, .dxmMenuLargeItemHoverWithPopOutImage, .dxmMenuLargeItemHoverWithImageWithPopOutImage, 
+.dxmVerticalMenuLargeItemHover, .dxmVerticalMenuLargeItemHoverWithImage, .dxmVerticalMenuLargeItemHoverWithPopOutImage, .dxmVerticalMenuLargeItemHoverWithImageWithPopOutImage
+{
+	background-color: #CBCBCB;
+	border: solid 1px #888888;
+}
+.dxmMenuItemHover, .dxmMenuItemHoverWithImage
+{
+	padding-top: 3px;
+	padding-right: 7px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}
+.dxmMenuItemHoverWithPopOutImage, .dxmMenuItemHoverWithImageWithPopOutImage
+{
+	padding-top: 3px;
+	padding-right: 5px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}	
+.dxmVerticalMenuItemHover
+{
+	padding-top: 3px;
+	padding-right: 18px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+}
+.dxmVerticalMenuItemHoverWithImage
+{
+	padding-top: 3px;	
+	padding-right: 18px;	
+	padding-bottom: 4px;	
+	padding-left: 2px;	
+}
+.dxmVerticalMenuItemHoverWithPopOutImage
+{
+	padding-top: 3px;	
+	padding-right: 5px;	
+	padding-bottom: 4px;	
+	padding-left: 7px;	
+}
+.dxmVerticalMenuItemHoverWithImageWithPopOutImage
+{
+	padding-top: 3px;	
+	padding-right: 5px;	
+	padding-bottom: 4px;	
+	padding-left: 2px;	
+}
+.dxmMenuLargeItemHover, .dxmMenuLargeItemHoverWithImage
+{
+	padding-top: 3px;
+	padding-right: 11px;
+	padding-bottom: 4px;
+	padding-left: 10px;
+}
+.dxmMenuLargeItemHoverWithPopOutImage, .dxmMenuLargeItemHoverWithImageWithPopOutImage
+{
+	padding-top: 3px;
+	padding-right: 5px;
+	padding-bottom: 4px;
+	padding-left: 10px;
+}
+.dxmVerticalMenuLargeItemHover, .dxmVerticalMenuLargeItemHoverWithImage
+{
+	padding-top: 5px;
+	padding-right: 11px;
+	padding-bottom: 6px;
+	padding-left: 10px;
+}
+.dxmVerticalMenuLargeItemHoverWithPopOutImage, .dxmVerticalMenuLargeItemHoverWithImageWithPopOutImage
+{
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 6px;
+	padding-left: 10px;
+}
+.dxmSubMenu
+{
+	font: 100% Tahoma;
+	color: black;
+	background-color: white;
+	border: solid 1px #666666;
+	padding: 1px 1px 1px 1px;
+}
+.dxmSubMenuGutter
+{
+	background-color: #E0E0E0;
+}
+.dxmSubMenuSeparator
+{
+	background-color: #A8A8A8;
+}
+.dxmSubMenuItem, .dxmSubMenuItemWithImage, .dxmSubMenuItemWithPopOutImage, .dxmSubMenuItemWithImageWithPopOutImage
+{
+	font: 100% Tahoma;
+	color: black;
+	white-space: nowrap;
+}
+.dxmSubMenuItem, .dxmSubMenuItemWithImage
+{
+	padding-top: 4px;
+	padding-right: 19px;
+	padding-bottom: 5px;
+	padding-left: 3px;
+}
+.dxmSubMenuItemWithPopOutImage, .dxmSubMenuItemWithImageWithPopOutImage
+{
+	padding-top: 4px;
+	padding-right: 6px;
+	padding-bottom: 5px;
+	padding-left: 3px;
+}
+.dxmSubMenuItemSelected, .dxmSubMenuItemSelectedWithImage, .dxmSubMenuItemSelectedWithPopOutImage, .dxmSubMenuItemSelectedWithImageWithPopOutImage
+{
+	background-color: #D8D8D8;
+	border: solid 1px #888888;
+}
+.dxmSubMenuItemSelected, .dxmSubMenuItemSelectedWithImage
+{
+	padding-top: 3px;
+	padding-right: 18px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+}
+.dxmSubMenuItemSelectedWithPopOutImage, .dxmSubMenuItemSelectedWithImageWithPopOutImage
+{
+	padding-top: 3px;
+	padding-right: 5px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+}
+.dxmSubMenuItemChecked, .dxmSubMenuItemCheckedWithImage, .dxmSubMenuItemCheckedWithPopOutImage, .dxmSubMenuItemCheckedWithImageWithPopOutImage
+{
+}
+.dxmSubMenuItemChecked, .dxmSubMenuItemCheckedWithImage
+{
+}
+.dxmSubMenuItemCheckedWithPopOutImage, .dxmSubMenuItemCheckedWithImageWithPopOutImage
+{
+}
+.dxmSubMenuItemHover, .dxmSubMenuItemHoverWithImage, .dxmSubMenuItemHoverWithPopOutImage, .dxmSubMenuItemHoverWithImageWithPopOutImage
+{
+	background-color: #F2F2F2;
+	border: solid 1px #888888;
+}
+.dxmSubMenuItemHover, .dxmSubMenuItemHoverWithImage
+{
+	padding-top: 3px;
+	padding-right: 18px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+}
+.dxmSubMenuItemHoverWithPopOutImage, .dxmSubMenuItemHoverWithImageWithPopOutImage
+{
+	padding-top: 3px;
+	padding-right: 5px;
+	padding-bottom: 4px;
+	padding-left: 2px;
+}
+.dxmSubMenuBorderCorrector
+{
+    position: absolute;
+    border: 0px;
+    padding: 0px;
+}
+/* Disabled */
+.dxmDisabled
+{
+	color: #acacac;
+	cursor: default;
+}
+
+/* -- ASPxNavBar -- */
+.dxnbControl 
+{
+	font: 100% Tahoma;
+	color: black;
+	background-color: white;
+	padding: 11px 11px 11px 11px;
+}
+.dxnbControl a
+{
+	color: #1E3695;
+}
+.dxnbLoadingPanel
+{
+	font: 100% Tahoma;
+	color: #303030;
+}
+.dxnbLoadingPanel td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 12px 12px 12px 12px;
+}   
+.dxnbGroupHeader
+{
+	font: bold 100% Tahoma;
+	color: black;
+	background-color: #E0E0E0;
+	border: solid 1px #A8A8A8;
+	padding: 4px 10px 4px 10px;
+}
+.dxnbGroupHeader table.dxnb
+{
+	font: bold 100% Tahoma;
+	color: black;
+}
+.dxnbGroupHeader td.dxnb
+{
+	white-space: nowrap;
+}
+.dxnbGroupHeaderCollapsed
+{
+	font: bold 100% Tahoma;
+	color: black;
+	background-color: #E0E0E0;
+	border: solid 1px #A8A8A8;
+	padding: 4px 10px 4px 10px;
+}
+.dxnbGroupHeaderCollapsed table.dxnb
+{
+	font: bold 100% Tahoma;
+	color: black;
+}
+.dxnbGroupHeaderCollapsed td.dxnb
+{
+	white-space: nowrap;
+}
+.dxnbGroupContent
+{
+	font: 100% Tahoma;
+	color: #1E3695;
+	border: solid 1px #A8A8A8;
+	padding: 5px 5px 5px 5px;
+}
+.dxnbItem, .dxnbLargeItem, .dxnbBulletItem
+{
+	font: 100% Tahoma;
+	color: #1E3695;
+}
+.dxnbItem
+{
+	padding-top: 4px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+}
+.dxnbLargeItem
+{
+	padding-top: 6px;
+	padding-right: 12px;
+	padding-bottom: 7px;
+	padding-left: 12px;
+}
+.dxnbItemSelected, .dxnbLargeItemSelected, .dxnbBulletItemSelected
+{
+	background-color: #D8D8D8;
+	border: solid 1px #888888;
+}
+.dxnbItemSelected
+{
+	padding-top: 3px;
+	padding-right: 4px;
+	padding-bottom: 4px;
+	padding-left: 4px;
+}
+.dxnbLargeItemSelected
+{
+	padding-top: 5px;
+	padding-right: 11px;
+	padding-bottom: 6px;
+	padding-left: 11px;
+}
+.dxnbItemHover, .dxnbLargeItemHover, .dxnbBulletItemHover
+{
+	background-color: #F2F2F2;
+	border: solid 1px #888888;
+}
+.dxnbItemHover
+{
+	padding-top: 3px;
+	padding-right: 4px;
+	padding-bottom: 4px;
+	padding-left: 4px;
+}
+.dxnbLargeItemHover
+{
+	padding-top: 5px;
+	padding-right: 11px;
+	padding-bottom: 6px;
+	padding-left: 11px;
+}
+.dxnbGroupHeader, .dxnbGroupHeaderCollapsed
+{
+    text-align: left;
+}
+.dxnbItem, .dxnbItemHover, .dxnbItemSelected,
+.dxnbBulletItem, .dxnbBulletItemHover, .dxnbBulletItemSelected
+{
+    text-align: left;
+}
+.dxnbLargeItem, .dxnbLargeItemHover, .dxnbLargeItemSelected
+{
+    text-align: center;
+}
+.dxnbGroupHeaderHover
+{
+}
+.dxnbGroupHeaderCollapsedHover
+{
+}
+/* Disabled */
+.dxnbDisabled, .dxnbDisabled table.dxnb
+{
+	color: #acacac;
+	cursor: default;
+}
+
+/* -- ASPxNewsControl -- */
+.dxncControl 
+{
+	font: 10px Tahoma;
+	color: black;
+	padding: 18px 18px 18px 18px;
+	background-color: White;
+}
+.dxncLoadingPanel
+{
+	font: 100% Tahoma;
+	color: #303030;
+}
+.dxncLoadingPanel td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 12px 12px 12px 12px;
+}
+.dxncContent
+{
+}
+.dxncPagerPanel
+{
+	padding: 0px 3px 0px 3px;
+}
+.dxncItem
+{
+	font: 100% Tahoma;
+	vertical-align: top;
+	border-bottom: solid 1px #A8A8A8;
+	padding: 12px 8px 12px 8px;
+}
+.dxncEmptyItem
+{
+	font: 10px Tahoma;
+	vertical-align: top;
+	padding: 12px 12px 12px 14px;
+}
+.dxncBackToTop
+{
+	font: 10px Tahoma;
+	color: #404040;
+}
+.dxncBackToTop a
+{
+	font: 10px Tahoma;
+	color: #0d45b7;
+}
+.dxncBackToTop a:hover
+{
+	font: 10px Tahoma;
+	color: #5494ea;
+}
+.dxncBackToTop a:visited
+{
+	font: 10px Tahoma;
+	color: #ab59a6;
+}
+
+/* Headline */
+.dxncItemContent
+{
+	font: 8pt Verdana;
+	color: black;
+} 
+.dxncItemDate
+{
+	color: Gray;
+	white-space: nowrap;
+}
+.dxncItemHeader
+{
+	font: 10pt Tahoma;
+	color: #464646;
+	font-weight: bold;
+	line-height: 17px;
+}
+.dxncItemHeader .dxncItemDate
+{
+	font: 10pt Tahoma;
+	color: Gray;
+	font-weight: normal;
+}
+.dxncItemLeftPanel
+{
+	font: 10px Verdana;
+	color: black;
+}
+.dxncItemRightPanel
+{
+	font: 10px Verdana;
+	color: black;
+}
+.dxncItemDateLeftPanel
+{
+	font: 10px Verdana;
+	color: Gray;
+	white-space: nowrap;
+}
+.dxncItemDateRightPanel
+{
+	font: 10px Verdana;
+	color: Gray;
+	white-space: nowrap;
+}
+.dxncItemTailDiv
+{
+	font: 10px Verdana;
+	color: Black;
+}
+.dxncItemTailDiv a
+{
+	color: #1E3695;
+}
+.dxncItemTailDiv a:hover
+{
+    text-decoration: none;
+}
+.dxncItemTailDiv a:visited
+{
+    color: #996085;
+}
+.dxncItemContent a.dxhl
+{
+	color: #1E3695;
+} 
+.dxncItemContent a.dxhl:hover
+{
+    text-decoration: none;
+}
+.dxncItemContent a.dxhl:visited
+{
+    color: #996085;
+}
+/* Disabled */
+.dxncDisabled, .dxncDisabled a, .dxncDisabled a:hover
+{
+	color: #acacac;
+	cursor: default;
+}
+
+/* -- ASPxPager -- */
+.dxpControl
+{
+	font: 100% Tahoma;
+	color: black;
+	padding: 5px 2px 5px 2px;
+}
+.dxpButton
+{
+	font: 100% Tahoma;
+	color: #394EA2;
+	text-decoration: underline;
+	white-space: nowrap;
+	text-align: center;
+	vertical-align: middle;
+}
+.dxpButton a
+{
+	font: 100% Tahoma;
+	color: #394EA2;
+	text-decoration: underline;
+	white-space: nowrap;
+}
+.dxpDisabledButton
+{
+	font: 100% Tahoma;
+	color: black;
+	text-decoration: none;
+}
+.dxpPageNumber
+{
+	font: 100% Tahoma;
+	color: #394EA2;
+	text-decoration: underline;
+	text-align: center;
+	vertical-align: middle;
+	padding: 1px 5px 0px 5px;
+}
+.dxpPageNumber a
+{
+	font: 100% Tahoma;
+	color: #394EA2;
+	text-decoration: underline;
+}
+.dxpCurrentPageNumber
+{
+	font: 100% Tahoma;
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 1px 3px 0px 3px;
+}
+.dxpSummary
+{
+	font: 100% Tahoma;
+	color: black;
+	white-space: nowrap;
+	text-align: center;
+	vertical-align: middle;
+	padding: 1px 4px 0px 4px;
+}
+.dxpSeparator
+{
+	background-color: #CCCCCC;
+}
+/* Disabled */
+.dxpDisabled
+{
+	color: #acacac;
+	border-color: #808080;
+	cursor: default;
+}
+
+/* -- ASPxPopupControl -- */
+.dxpcControl
+{
+	font: 100% Tahoma;
+	color: black;
+	background-color: white;
+	border: solid 1px #8B8B8B;
+}
+.dxpcControl a
+{
+	color: #1E3695;
+}
+.dxpcCloseButton
+{
+	font: 100% Tahoma;
+	color: black;
+	padding: 1px 1px 1px 1px;
+}
+.dxpcCloseButtonHover
+{
+	font: 100% Tahoma;
+	color: black;
+}
+.dxpcContent
+{
+	font: 100% Tahoma;
+	color: #010000;
+	white-space: normal;
+	padding: 9px 12px 9px 12px;
+	vertical-align:top;
+}
+.dxpcFooter
+{
+	font: 100% Tahoma;
+	color: #858585;
+	background-color: #F3F3F3;
+	border-top: solid 1px #E0E0E0;
+}
+.dxpcFooter td.dxpc
+{
+	font: 100% Tahoma;
+	color: #858585;
+	white-space: nowrap;
+	padding: 6px 12px 8px 12px;
+}
+.dxpcHeader
+{
+	font: 100% Tahoma;
+	color: #404040;
+	background-color: #DCDCDC;
+	border-bottom: solid 1px #C9C9C9;	
+}
+.dxpcHeader td.dxpc
+{
+	font: 100% Tahoma;
+	color: #404040;
+	white-space: nowrap;
+}
+.dxpcModalBackground
+{
+	background-color: #777777;
+	opacity: 0.7;
+	filter:progid:DXImageTransform.Microsoft.Alpha(Style=0, Opacity=70);
+}
+/* Disabled */
+.dxpcDisabled
+{
+	color: #808080;
+	cursor: default;
+}
+
+/* -- ASPxRoundPanel -- */
+.dxrpControl td.dxrp
+{
+	font-size: 100%;
+	font-family: Tahoma, Verdana, Arial;
+	color: #000000;	
+}
+/* Header */
+.dxrpHeader, .dxrpHeader td.dxrp
+{
+    font-size: 100%;
+	font-family: Tahoma, Verdana, Arial;    
+	color: #313131;
+}
+/* Disabled */
+.dxrpDisabled, .dxrpDisabled td.dxrp
+{
+	color: #acacac;
+	cursor: default;
+}
+
+/* -- ASPxSiteMapControl -- */
+.dxsmControl a:hover
+{
+    text-decoration:none!important;
+}
+.dxsmControl a:visited
+{
+    color:#996085!important;
+}
+
+.dxsmControl 
+{	
+	color: #1E3695;
+	background-color: white;
+	font-family: Verdana, Tahoma, Arial;
+	font-size: 11px;
+	border: Solid 1px #A8A8A8;
+}
+/* - Category Level - */
+.dxsmCategoryLevel, .dxsmCategoryLevel a
+{
+    color: #1E3695;    
+    font-weight: bold;
+    font-size: 13.5pt;
+    font-family: Verdana;
+    text-decoration: none;
+}
+.dxsmCategoryLevel
+{
+    white-space: nowrap;
+    padding: 0px 0px 5px 0px;
+}
+.dxsmCategoryLevel
+{
+    border-bottom: solid 1px #B8B8B8;    
+}
+ /*flow layout*/
+.dxsmLevelCategoryFlow, .dxsmLevelCategoryFlow a
+{
+    color: #1E3695;    
+    font-weight: bold;
+    font-size: 13.5pt;
+    font-family: Tahoma, Verdana, Arial;	
+	text-decoration: underline;
+}
+/* - Level 0 - */
+.dxsmLevel0, .dxsmLevel0 a, .dxsmLevel0Categorized a, .dxsmLevel0Categorized
+{
+    color: #1E3695;    
+    font-weight: bold;
+    font-size: 100%;
+    font-family: Verdana;
+    text-decoration: none;
+}
+.dxsmLevel0, .dxsmLevel0Categorized
+{
+    white-space: nowrap;
+    padding: 0px 0px 2px 0px;
+}
+.dxsmLevel0
+{
+    border-bottom:solid 1px #B8B8B8;
+    padding: 0px 0px 5px 0px;
+}
+ /*flow layout*/
+.dxsmLevel0Flow, .dxsmLevel0Flow a, .dxsmLevel0CategorizedFlow a, .dxsmLevel0CategorizedFlow
+{
+    color: #1E3695;    
+    font-family: Tahoma, Verdana, Arial;	
+    font-weight: bold;
+    font-size: 100%;
+	text-decoration: underline;
+}
+.dxsmLevel0Flow
+{
+    padding: 0px 0px 0px 0px;    
+}
+.dxsmLevel0Flow
+{
+    text-decoration: none;    
+}
+
+/* - Level 1 - */
+.dxsmLevel1, .dxsmLevel1 a, .dxsmLevel1Categorized a, .dxsmLevel1Categorized
+{    
+    font-family: Tahoma;
+    color: #3C55B9;  
+    font-size: 100%;
+    text-decoration: none;    
+}
+.dxsmLevel1, .dxsmLevel1Categorized
+{
+    white-space: nowrap;  
+    padding: 0px 0px 0px 0px;
+}
+
+/*flow layout*/
+.dxsmLevel1Flow, .dxsmLevel1Flow a, .dxsmLevel1CategorizedFlow, .dxsmLevel1CategorizedFlow a
+{    
+    color: #3C55B9;    
+    font-family: Tahoma, Verdana, Arial;	
+    font-size: 100%;
+	text-decoration: underline;
+}
+.dxsmLevel1Flow
+{
+    text-decoration: none;
+    padding: 0px 0px 0px 0px;
+}
+
+/* - Level 2 - */
+.dxsmLevel2, .dxsmLevel2 a, .dxsmLevel2Categorized a, .dxsmLevel2Categorized
+{    
+    font-size: 8pt;
+    font-family: Tahoma;
+    color: #5078DC;
+    text-decoration: none;    
+}
+.dxsmLevel2, .dxsmLevel2Categorized
+{
+    white-space:nowrap;
+    padding: 0px 0px 0px 0px;    
+}
+/*flow layout*/
+.dxsmLevel2Flow, .dxsmLevel2Flow a
+{
+    color: #5078DC;
+    font-size: 8pt;    
+    font-family: Tahoma, Verdana, Arial;	
+	text-decoration:underline;    
+}
+.dxsmLevel2Flow
+{
+    padding: 0px 0px 0px 0px;
+}
+/* - Level 3 - */
+.dxsmLevel3, .dxsmLevel3 a
+{    
+    font-size: 7pt;
+    font-family: Tahoma;
+    color: #999999;
+    text-decoration: none;
+}
+.dxsmLevel3
+{
+    white-space: nowrap;        
+    padding: 0px 0px 0px 0px;    
+}
+/*flow layout*/
+.dxsmLevel3Flow, .dxsmLevel3Flow a
+{    
+    color: #999999;
+    font-size: 7pt;
+    font-family: Tahoma, Verdana, Arial;	
+	text-decoration: underline;    
+}
+/* - Level 4 - */
+.dxsmLevel4, .dxsmLevel4 a
+{    
+    font-size: 6pt;
+    font-family: Tahoma;
+    color: #A8A8A8;
+    text-decoration: none;
+}
+.dxsmLevel4
+{
+    white-space: nowrap;
+    padding: 0px 0px 0px 0px;    
+}
+/*flow layout*/
+.dxsmLevel4Flow, .dxsmLevel4Flow a
+{
+    color: #A8A8A8;
+    font-family: Tahoma, Verdana, Arial;	
+    font-size: 6pt;
+	text-decoration: underline;        
+}
+.dxsmLevel4Flow
+{
+    padding: 0px 0px 0px 0px;        
+}
+/* - Other Levels - */
+.dxsmLevelOther
+{    
+    font-size: 9px;
+    font-family: Tahoma;
+    color: #A8A8A8;
+    text-decoration: none;
+}
+.dxsmLevelOther
+{
+    white-space:nowrap;
+    padding: 0px 0px 0px 0px;            
+}
+/*flow layout*/
+.dxsmLevelOtherFlow, .dxsmLevelOtherFlow a
+{
+    color: #A8A8A8;
+    font-family: Tahoma, Verdana, Arial;	
+    font-size: 100%;
+	text-decoration: underline;            
+}
+/* Disabled */
+.dxsmDisabled
+{
+	color: #acacac;
+	cursor: default;
+}
+
+/* -- ASPxTabControl, ASPxPageControl -- */
+.dxtcControl 
+{
+	font: 100% Tahoma;
+	color: black;
+}
+.dxtcLoadingPanel
+{
+	font: 100% Tahoma;
+	color: #303030;
+}
+.dxtcLoadingPanel td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 12px 12px 12px 12px;
+}
+
+/* Tab Hyperlink*/
+.dxtcTab a, .dxtcTabWithTabPositionLeft a, .dxtcTabWithTabPositionBottom a, .dxtcTabWithTabPositionRight a,
+.dxtcActiveTab a, .dxtcActiveTabWithTabPositionBottom a, .dxtcActiveTabWithTabPositionLeft a, .dxtcActiveTabWithTabPositionRight a,
+.dxtcTabHover a, .dxtcTabHoverWithTabPositionBottom a, .dxtcTabHoverWithTabPositionLeft a, .dxtcTabHoverWithTabPositionRight a
+{
+	text-decoration: none;
+	color: black;    
+}
+
+.dxtcActiveTab, .dxtcActiveTabWithTabPositionBottom,
+.dxtcActiveTabWithTabPositionLeft, .dxtcActiveTabWithTabPositionRight
+{
+	font: 100% Tahoma;
+	color: black;
+	border: solid 1px #A8A8A8;
+	padding: 3px 12px 4px 12px;
+	background-color: #FFFFFF;
+}
+/* Active Tab */
+.dxtcActiveTab table.dxtc, .dxtcActiveTabWithTabPositionBottom table.dxtc,
+.dxtcActiveTabWithTabPositionLeft table.dxtc, .dxtcActiveTabWithTabPositionRight table.dxtc
+{
+	font: 100% Tahoma;
+	color: black;    
+}
+.dxtcActiveTab td.dxtc, .dxtcActiveTabWithTabPositionBottom td.dxtc,
+.dxtcActiveTabWithTabPositionLeft td.dxtc, .dxtcActiveTabWithTabPositionRight td.dxtc
+{
+	white-space: nowrap;
+    background-color: transparent!important;
+    background-image: url('')!important;
+    border-width: 0px!important;
+    padding: 0px!important;
+}
+.dxtcActiveTabHover
+{
+	background-color: white;
+}
+/* Tab */
+.dxtcTab, .dxtcTabWithTabPositionLeft, 
+.dxtcTabWithTabPositionBottom, .dxtcTabWithTabPositionRight
+{
+	font: 100% Tahoma;
+	color: black;
+	background-color: #E0E0E0;
+	border: solid 1px #A8A8A8;
+	padding: 3px 12px 4px 12px;
+}
+.dxtcTab table.dxtc, .dxtcTabWithTabPositionBottom table.dxtc, 
+.dxtcTabWithTabPositionLeft table.dxtc, .dxtcTabWithTabPositionRight table.dxtc
+{
+	font: 100% Tahoma;
+	color: black;    
+}
+.dxtcTab td.dxtc, .dxtcTabWithTabPositionBottom td.dxtc, 
+.dxtcTabWithTabPositionLeft td.dxtc, .dxtcTabWithTabPositionRight td.dxtc
+{
+	white-space: nowrap;
+    background-color: transparent!important;
+    background-image: url('')!important;
+    border-width: 0px!important;
+    padding: 0px!important;
+}
+.dxtcTabWithTabPositionBottom
+{
+}
+.dxtcTabWithTabPositionLeft
+{
+}
+.dxtcTabWithTabPositionRight
+{
+}
+/* Hover */
+.dxtcTabHover, .dxtcTabHoverWithTabPositionBottom,
+.dxtcTabHoverWithTabPositionLeft, .dxtcTabHoverWithTabPositionRight
+{
+	background-color: #F2F2F2;
+}
+.dxtcPageContent, .dxtcPageContentWithTabPositionBottom, 
+.dxtcPageContentWithTabPositionLeft, .dxtcPageContentWithTabPositionRight
+{
+	font: 100% Tahoma;
+	color: black;
+	background-color: white;
+	vertical-align: top;
+}
+.dxtcContent
+{
+	font: 100% Tahoma;
+	color: black;
+	border: solid 1px #A8A8A8;
+	background-color: white;
+	vertical-align: top;
+}
+.dxtcControl td.dxtcTabsCell, .dxtcControl td.dxtcTabsCellWithTabPositionBottom,
+.dxtcControl td.dxtcTabsCellWithTabPositionLeft, .dxtcControl td.dxtcTabsCellWithTabPositionRight 
+{
+}
+/* Disabled */
+.dxtcDisabled, .dxtcDisabled table.dxtc
+{
+	color: #acacac;
+	cursor: default;
+}
+
+/* -- ASPxTitleIndex -- */
+.dxtiControl a:hover
+{
+    text-decoration: none!important;
+}
+.dxtiControl a:visited
+{
+    color: #996085!important;
+}
+.dxtiControl 
+{
+	font: 8pt Tahoma;
+	color: #1E3695;
+	background-color: white;
+	font-family: Tahoma, Arial;
+	border: Solid 1px #A8A8A8;
+}
+.dxtiLoadingPanel
+{
+	border: solid 1px #ABC1DE;
+	background-color: white;
+	font: 100% Tahoma;
+	color: #303030;
+}
+.dxtiLoadingPanel td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 12px 12px 12px 12px;
+}
+.dxtiItem, .dxtiItem a
+{
+	font: 100% Tahoma; 
+	color: #0147A6;
+	text-decoration: none;	
+}
+.dxtiItem
+{
+	white-space: nowrap;
+}
+.dxtiGroupHeader, .dxtiGroupHeaderCategorized
+{
+	font: 16pt Verdana;
+	text-decoration: none;
+}
+.dxtiGroupHeader, .dxtiGroupHeaderCategorized
+{
+	white-space:nowrap;
+	padding: 0px 0px 3px 0px;
+}
+.dxtiGroupHeaderCategorized
+{
+    border-bottom: Solid 1px #C0C0C0;
+    padding-bottom: 2px;
+}
+/* - GroupHeaderText - */
+.dxtiGroupHeaderText
+{
+    background-color: #B4B4B4;
+    color: #FFFFFF;    
+}
+.dxtiGroupHeaderText
+{
+    padding: 2px 7px 2px 7px;
+}
+.dxtiGroupHeaderTextCategorized
+{
+    color: #666666;
+    font-size: 18pt;
+}
+.dxtiGroupHeaderTextCategorized
+{
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 2px;
+}
+/* - FilterBox - */
+.dxtiFilterBoxInfoText
+{
+    font: 7pt Verdana;
+    color: #999999;
+    font-weight: normal;
+    padding-top: 0px;
+    padding-bottom: 4px;    
+}
+.dxtiFilterBoxEdit
+{
+    font-size: 100%;
+    width: 158px;
+    border: Solid 1px #ABC1DE;
+    padding-left: 3px;
+}
+.dxtiFilterBox, .dxtiFilterBox table
+{
+    color: #898989;
+    font-size: 100%;
+    font-weight: bold;        
+}
+.dxtiFilterBox
+{
+    background-color: #E8E8E8;
+    padding: 15px;    
+}
+/* - IndexPanel - */
+.dxtiIndexPanel
+{
+    padding-bottom: 10px;
+    text-decoration: none;
+}
+.dxtiIndexPanelItem, .dxtiIndexPanelItem a, .dxtiCurrentIndexPanelItem
+{
+    color: #1153AD;
+    font-family: Verdana;
+    text-decoration: none;
+}
+.dxtiIndexPanelItem a:hover
+{
+    color: #5494ea;
+}
+
+.dxtiIndexPanelItem, .dxtiCurrentIndexPanelItem
+{
+    padding: 2px 6px 2px 6px;
+}
+.dxtiCurrentIndexPanelItem
+{
+    color: #000000;
+    background-color: #E0E0E0;
+}
+/* - BackToTop - */
+.dxtiBackToTop, .dxtiBackToTop a
+{
+    font-size: 7pt;
+    text-decoration: none;
+    color: #0d45b7;
+}
+.dxtiBackToTop a:hover 
+{
+    color: #5494ea;    
+}
+.dxtiBackToTop a:visited
+{
+    color: #ab59a6;
+}
+
+.dxtiBackToTop
+{
+    padding: 0px 0px 12px 98px;
+}
+/* Disabled */
+.dxtiDisabled
+{
+	color: #acacac;
+	cursor: default;
+}
+/* -- ASPxUploadControl -- */
+.dxucControl, .dxucEditArea
+{
+    font-size: 10pt;
+    font-family: Tahoma, Verdana, Arial;    
+}
+.dxucErrorCell
+{
+    font-size: 100%;
+    font-family: Tahoma, Verdana, Arial;
+    color: Red;
+    text-align: left;
+}

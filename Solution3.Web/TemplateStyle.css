@@ -1,0 +1,250 @@
+html, body, * {
+    font-family: Tahoma;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    background-color: white;
+}
+
+p 
+{
+	margin: 0px;
+}
+
+form
+{
+	padding: 0px;
+	margin: 0px;
+}
+
+a { color: #1E72C2; }
+a.Current { color: black; }
+
+.xafBreadCrumbs a 
+{
+
+}
+
+.FullWidth { width: 100%; }
+
+.ApplicationTitle {
+	font-weight: 500;
+	font-size: 150%;
+	color: #2D82CA;
+	text-align:left;
+	vertical-align:middle;
+	padding: 20px 20px 20px 20px;
+}
+.ApplicationTitle a, .ApplicationTitle a:hover, .ApplicationTitle a:visited {
+	color: #2D82CA;
+	text-decoration: none;
+}
+.InfoMessagesPanel 
+{
+	font-size: 80%;
+	color: #676767;
+	text-align:right;
+	vertical-align:middle;
+	padding: 25px;
+}
+.Header {
+	background-image: url(Images/HeaderBkg.gif);
+	background-repeat: repeat;    
+}
+.Footer
+{
+	vertical-align:middle;
+	margin-top: 20px;
+	width: 100%;
+	background-image: url(Images/FooterBkg.gif);
+	background-repeat: repeat-x;
+	background-color: #F3F3F3;
+}
+.Footer table td
+{
+	/*padding:31px;*/
+}
+.FooterCopyright
+{
+	color: #7B7B7B; 
+	font-size: 80%;
+	white-space:nowrap;
+	padding:31px;
+}
+.Spacer 
+{
+	padding: 0;
+	margin: 0;
+	width: 1px; 
+	height: 1px;
+}
+.TabNavigationContent 
+{
+	padding: 0 0 0 2px;
+}
+.TabNavigationContent a
+{
+	color: #02559B;
+	text-decoration: none;
+	padding: 2px;
+	line-height: 17px;
+	vertical-align: middle;
+}
+.TabNavigationContent a:hover
+{
+	text-decoration: underline;
+}
+.TabNavigationContent a img
+{
+	margin: 2px 3px 2px 3px;
+}
+.NavigationLinks
+{
+	color: #5CA0DA;
+	margin: 0 10px 0 10px;
+}
+
+.NavigationLinks a
+{
+	color: #02559B;
+	text-decoration: none;
+	padding: 2px;
+	line-height: 17px;
+	font-size: 80%;
+}
+
+.NavigationLinks a:hover
+{
+	text-decoration: underline;
+}
+
+.NavigationHistoryLinks 
+{
+
+	color: #5CA0DA;
+	margin: 0px 0 20px 0;
+}
+.NavigationHistoryLinks a
+{
+	font-size: 80%;
+	color: #02559B;
+	padding: 2px;
+	line-height: 17px;
+	text-decoration: none;
+}
+.NavigationHistoryLinks a:hover
+{
+	text-decoration: underline;
+}
+.NavigationHistoryLinks a.Current
+{
+	color: black;
+	padding: 2px;
+	line-height: 17px;
+}
+
+.VContainer
+{
+	width: 100%;
+}
+
+.VContainer .Item
+{
+	vertical-align: top;
+	padding-bottom: 10px;
+}
+
+.NullSize {
+	width: 0px; 
+	height: 0px;
+}
+.ViewImage
+{
+	padding: 4px 4px 4px 0px;
+}
+.ViewCaption
+{
+	vertical-align:middle;
+	color: #323232;
+
+	text-align:left;
+	padding-left: 4px;
+}
+.HContainer {
+	display:inline;
+}
+
+.SimpleActionContainer {
+	padding: 11px 6px 5px 11px;
+}
+#ViewSite
+{
+	padding: 0px;
+	margin: 0px;
+}
+.NestedViewCaption
+{
+	vertical-align:middle;
+	color: #7F7F7F;
+	font-size: 90%;
+	font-weight: bold;
+	width:100%;
+	text-align:left;
+	padding-left: 4px;
+}
+.NestedViewImage
+{
+	vertical-align: top;
+	padding: 5px 0px 0px 0px;
+}
+.HContainer .Item
+{
+	padding: 0px 5px 0px 5px;
+}
+.HContainer .First
+{
+	padding-left: 0px;
+}
+.HContainer .Last
+{
+	padding-right: 0px;
+}
+.HContainer .ActionLabel
+{
+	display:inline;
+	font-size: 80%;
+}
+.HContainer .ASPxButton
+{
+	height: 22px;
+}
+.HContainer .ASPxEditor
+{
+	width: 150px;
+	margin-right: 2px;
+	display:inline;
+}
+.HContainer .ASPxDropDownList
+{
+	width: 150px;
+}
+.VContainer .ActionLabel
+{
+	display:inline;
+	font-size: 80%;
+}
+.VContainer .ASPxEditor
+{
+	width: 100%;
+}
+.VContainer .ASPxDropDownList
+{
+	width: 100%;
+}
+
+table.HContainer > tbody > tr > td
+{
+	padding: 3px 1px 3px 1px;
+}

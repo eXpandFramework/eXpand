@@ -1,0 +1,420 @@
+/* Navigation Tabs */
+.Navigation {
+	width: 100%;
+	margin: 0px 0px 0px 0px;
+}
+.Navigation .TabLeftPart {
+	width: 4px;
+	height: 28px;
+}
+.Navigation .TabMiddlePart {
+	white-space: nowrap;
+	color: #3D3D3D;
+	height:28px;
+	padding: 0px 10px 0px 10px;
+	font-weight: bold;
+}
+.Navigation .TabMiddlePart span {
+	font-size: 100%;
+}
+.Navigation .TabRightPart {
+	width: 4px;
+	height: 28px;
+}
+.Navigation .TabLeftPartSelected {
+	background-image: url(NavtabSelectedLeft.png);
+	background-repeat:no-repeat;
+	width: 4px;
+	height: 30px;
+}
+.Navigation .TabMiddlePartSelected {
+	white-space: nowrap;
+	background-image: url(NavtabSelectedMiddle.gif);
+	background-repeat:repeat-x;
+	color: #3D3D3D;
+	height: 30px;
+	padding: 0px 10px 0px 10px;
+	font-weight: bold;
+}
+.Navigation .TabMiddlePartSelected span {
+	font-size: 100%;
+}
+.Navigation .TabRightPartSelected {
+	background-image: url(NavtabSelectedRight.png);
+	background-repeat:no-repeat;
+	width: 4px;
+	height: 30px;
+}
+.Navigation .TabMiddlePartSelected img, .Navigation .TabMiddlePart img, .NavItem img {
+	margin-right: 5px;
+	vertical-align: top;
+}
+.Navigation .ContentContainer {
+	width: 100%;
+	height: 36px;
+	background-color: #ECF4FF;
+}
+.Navigation .NavItem {
+	padding: 10px;
+	vertical-align: top;
+}
+.Navigation .NavItem a, .Navigation .NavItem a:hover, .Navigation .NavItem a:visited {
+	white-space: nowrap;
+	font-size: 85%;
+	line-height: 16px;
+	vertical-align: middle;
+}
+/* NavBar */
+.FirstHeader {
+	padding: 3px 15px 8px 15px !important;
+}
+.LastHeaderCollapsed {
+	padding: 8px 15px 3px 15px !important;
+	border-bottom: none;
+}
+/* NavigationHistory */
+.NavigationHistoryLinks {
+	color: Black;
+}
+.NavigationHistoryLinks a, .NavigationHistoryLinks a:hover, .NavigationHistoryLinks a:visited {
+	text-decoration: underline;
+	color: #1641A0;
+	font-size: 85%;
+}
+.NavigationHistoryLinks a.Current, .NavigationHistoryLinks a.Current:hover, .NavigationHistoryLinks a.Current:visited {
+	text-decoration: none;
+	color: Black;
+	font-size: 85%;
+}
+/* Navigation Links */
+.NavigationLinks a, .NavigationLinks a:hover, .NavigationLinks a:visited {
+	text-decoration: underline;
+	font-size: 85%;
+	margin: 0px 6px;
+}
+/* Button ActionContainer */
+.ActionContainer .Item {
+	padding: 0px 10px 0px 10px;
+}
+.ActionContainer .WrappedItem {
+	padding: 4px 10px 4px 10px;
+	float: left;
+}
+.Vertical .Item {
+	padding: 4px 0px 4px 0px;
+}
+/* ParametrizedActionControl */
+.ParametrizedActionControl .Label, .ParametrizedActionControl .Editor {
+	vertical-align: bottom;
+	padding: 0px;
+}
+.ParametrizedActionControl .dxeTextBox_xaf 
+{
+	width: 130px;
+}
+.ParametrizedActionControl .Editor {
+	padding-left: 1px;
+}
+/* LookupButton */
+.xafLookupButton {
+	margin-left: 1px;
+}
+/* Layout Tabs */
+.LayoutTabs {
+	width: 100%;
+	margin: 0px 0px 0px 0px;
+}
+.LayoutTabs .TabLeftPart {
+	width: 4px;
+	height: 21px;
+}
+.LayoutTabs .TabMiddlePart {
+	white-space: nowrap;
+	color: #1641A0;
+	height:21px;
+	padding: 0px 10px 0px 10px;
+}
+.LayoutTabs .TabMiddlePart span {
+	font-size: 100%;
+}
+.LayoutTabs .TabRightPart {
+	width: 4px;
+	height: 21px;
+}
+.LayoutTabs .TabLeftPartSelected {
+	background-image: url(LayoutTabSelectedLeft.png);
+	background-repeat:no-repeat;
+	width: 4px;
+	height: 23px;
+}
+.LayoutTabs .TabMiddlePartSelected {
+	white-space: nowrap;
+	background-image: url(LayoutTabSelectedMiddle.gif);
+	background-repeat:repeat-x;
+	color: #1641A0;
+	height: 23px;
+	padding: 0px 10px 0px 10px;
+}
+.LayoutTabs .TabMiddlePartSelected span {
+	font-size: 100%;
+}
+.LayoutTabs .TabRightPartSelected {
+	background-image: url(LayoutTabSelectedRight.png);
+	background-repeat:no-repeat;
+	width: 4px;
+	height: 23px;
+}
+.LayoutTabs .TabMiddlePartSelected img, .LayoutTabs .TabMiddlePart img {
+	vertical-align: middle;
+	margin-right: 5px;
+}
+.LayoutTabs .ContentContainer {
+	width: 100%;
+	height: 36px;
+	background-color: #E1EAF6;
+}
+/* Layout Group Header */
+.GroupHeader 
+{
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	width: 100%;
+	height: 27px;
+	margin: 20px 0px 10px 0px;
+}
+.GroupHeader td {
+}
+.GroupHeader td.M {
+	width: 100%;
+	color: black;
+	font-weight: bold;
+	padding: 0px 5px 0px 5px;
+	border-bottom: #B6BDCC solid 1px;
+}
+.GroupHeader td.L div {
+	width: 5px;
+	height: 27px;
+}
+.NextColumn .GroupHeader td.L div {
+	width: 35px;
+}
+.GroupHeader td.R div {
+	width: 5px;
+	height: 27px;
+}
+/* Layout Group Content */
+.Layout table.GroupContent {
+	/*margin: 13px 0px 22px 0px;*/
+	width: 100%;
+}
+.Layout td.GroupContent {
+	vertical-align: top;
+}
+.Layout .Caption {
+	/* width: 150px; */
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	color: Black;
+	vertical-align: top;
+	padding: 2px 0px 0px 0px;
+	white-space: nowrap;
+}
+.Layout .WebEditorCell {
+	padding: 0px 0px 0px 0px;
+}
+.LayoutViewMode .WebEditorCell {
+	padding: 2px 0px 0px 0px;
+}
+.Layout .WebEditorCell .ValueViewControlClass {
+	color: #888888;
+}
+.Layout .WebEditorCell a, .Layout .WebEditorCell a:hover, .Layout .WebEditorCell a:visited{
+	text-decoration: underline;
+}
+.Layout div.Item {
+	padding: 2px 10px 2px 10px;
+}
+.Layout .NextColumn div.Item {
+	padding: 2px 10px 2px 40px;
+}
+.Layout .LayoutTabs {
+	margin: 10px 0px 0px 0px;
+}
+.Layout .LayoutTabContainer {
+	margin: 0px !important;
+}
+.Layout .StaticText {
+	color: #888888;
+}
+.StaticText {
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+}
+/* Grid */
+td.ActionCell 
+{
+	text-align: center;
+	white-space: nowrap;
+}
+td.ActionCell *
+{
+	white-space: nowrap;
+}
+.xafGridColumnChooser
+{
+	text-align: right;
+	padding: 3px;
+}
+.xafGridPageSizeChooserLabel
+{
+	padding: 3px;
+	white-space: nowrap;
+}
+/* Chart */
+.xafChartPanel label {
+	font-size: 85%;
+}
+.xafChartPanel .dxeMemoEditArea_xaf label {
+	font-size: 100%;
+}
+/* Standard Grid*/
+.Grid
+{
+	width: 100%;
+	background-color: White;
+}
+.GridList a
+{
+	color: Black;
+	text-decoration: none;
+}
+.GridList a:hover
+{
+	color: black;
+	text-decoration: underline;
+}
+.GridList 
+{
+	width: 100%;
+	color: Black;
+	text-align: left;
+	font-weight: normal;
+}
+.EmptyGridList 
+{
+	font-weight: bold;
+	font-size: 85%;
+	color: #7F7F7F;
+	text-align: center;
+	padding: 4px;
+}
+.GridHeader 
+{
+	border: solid 1px #86BBEC;
+}
+.GridHeaderItem
+{
+	border: solid 1px #86BBEC;
+	background-color: #C4DFF8;
+	font-size: 85%;
+	font-weight: normal;
+	padding: 4px 7px 4px 7px;
+}
+.GridItem
+	{
+	padding: 3px 7px 3px 7px;
+	border: solid 1px #C2C2C2;
+	color: #1E72C2;
+	font-size: 85%;
+	font-family:Tahoma;
+	_word-wrap: break-word;
+	_word-break : break-word;
+}
+.ContextMenuItem a
+{
+	font-size: 85%;
+}
+.GridLastRow
+{
+}
+.GridHoverRow td
+{
+	cursor: hand;
+	cursor: pointer;
+	background-color: #F7F7F7;
+}
+.GridPager 
+{
+	padding: 5px;
+	color: Gray;
+}
+.GridPager A
+{
+	text-decoration: underline;
+	color: #1E72C2;
+}
+.ContextMenuHeader
+{
+	border: solid 1px #86BBEC;
+	background-color: #C4DFF8;
+	width: 0;
+}
+.ContextMenuItem 
+{
+	width: 0;
+	padding: 2px 5px 2px 5px;
+	border: solid 1px #C2C2C2;
+	text-align:center;
+	vertical-align:middle;
+	white-space: nowrap;
+}
+.ContextMenuItem *
+{
+	white-space: nowrap;
+}
+/* Error info */
+.ErrorMessage {
+	width: 100%;
+	background-color: #FEE2C4;
+	border: solid 1px #E3BFA5;
+	vertical-align: middle;
+}
+.ErrorLabel {
+	text-align: left;
+	color: black;
+}
+/* Progress Control */
+.ProgressHover 
+{
+	background-color: white;
+	filter:alpha(opacity=50);
+}
+.Progress 
+{
+	border:none;
+	background-color:transparent;
+	vertical-align:middle;
+	position:absolute;
+}
+.Progress td
+{
+	background-color:transparent;
+}
+/* Other */
+.ActionLabel {
+	font-size: 85%;
+	color: Black;
+}
+.TextCell
+{
+	padding-left: 5px;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+}
+/* TreeList Node Template */
+.XafTreeNode .ImageCell 
+{
+	width: 16px;
+	vertical-align: top;
+}
+.XafTreeNode .TextCell 
+{
+	padding: 0px 5px;
+	font-size: 90%;
+}

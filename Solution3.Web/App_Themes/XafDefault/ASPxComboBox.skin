@@ -1,0 +1,6 @@
+<%@ Register TagPrefix="dxe" Namespace="DevExpress.Web.ASPxEditors" Assembly="DevExpress.Web.ASPxEditors.v9.2" %>
+<dxe:ASPxComboBox runat="server"
+	CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf"
+	ImageFolder="~/App_Themes/XafDefault/{0}/" >
+    <ButtonStyle Width="13px"></ButtonStyle>		
+</dxe:ASPxComboBox>

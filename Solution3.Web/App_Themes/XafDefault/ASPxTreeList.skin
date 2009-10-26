@@ -1,0 +1,32 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v9.2" %>
+<%@ Register TagPrefix="dxwtl" Namespace="DevExpress.Web.ASPxTreeList" Assembly="DevExpress.Web.ASPxTreeList.v9.2" %>
+<dxwtl:ASPxTreeList runat="server">
+    <Styles CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf">
+		<CustomizationWindowContent VerticalAlign="Top" />
+    </Styles>
+    <Images ImageFolder="~/App_Themes/XafDefault/{0}/">
+        <ExpandedButton Url="~/App_Themes/XafDefault/TreeList/ExpandedButton.png" Width="15px" Height="15px" />
+        <CollapsedButton Url="~/App_Themes/XafDefault/TreeList/CollapsedButton.png" Width="15px" Height="15px" />
+        <SortAscending Url="~/App_Themes/XafDefault/TreeList/SortAsc.png" Width="7px" Height="5px" />
+        <SortDescending Url="~/App_Themes/XafDefault/TreeList/SortDesc.png" Width="7px" Height="5px" />
+        <CustomizationWindowClose Width="17px" Height="16px" />
+    </Images>    
+    <SettingsLoadingPanel Text="" />
+	<SettingsPager CurrentPageNumberFormat="{0}">
+		<AllButton>
+			<Image Height="19px" Width="27px" />
+		</AllButton>
+		<NextPageButton>
+			<Image Height="19px" Width="19px" />
+		</NextPageButton>
+		<PrevPageButton>
+			<Image Height="19px" Width="19px" />
+		</PrevPageButton>
+		<FirstPageButton>
+			<Image Height="19px" Width="23px" />
+		</FirstPageButton>
+		<LastPageButton>
+			<Image Height="19px" Width="23px" />
+		</LastPageButton>
+	</SettingsPager>        
+</dxwtl:ASPxTreeList>

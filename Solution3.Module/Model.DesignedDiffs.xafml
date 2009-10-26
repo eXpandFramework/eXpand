@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application Title="Solution3" Logo="ExpressAppLogo">
+	<SchemaModules>
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.AutoFilterRowListViewController" Version="9.2.6.0" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.2.6.0" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.2.6.0" />
+		<SchemaModule Name="SystemModule" Version="9.2.6.0" />
+		<SchemaModule Name="ValidationModule" Version="9.2.6.0" IsNewNode="True" />
+		<SchemaModule Name="ViewVariantsModule" Version="9.2.6.0" />
+	</SchemaModules>
+	
+</Application>

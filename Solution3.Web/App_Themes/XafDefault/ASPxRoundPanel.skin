@@ -1,0 +1,31 @@
+<%@ Register TagPrefix="dxrp" Namespace="DevExpress.Web.ASPxRoundPanel" Assembly="DevExpress.Web.v9.2" %>
+<dxrp:ASPxRoundPanel runat="server" BackColor="#e6f0ff" EnableDefaultAppearance="False" CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf" ImageFolder="~/App_Themes/XafDefault/{0}/">
+    <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#9EBFDB" />
+    <ContentPaddings Padding="2px" PaddingTop="3px" PaddingBottom="3px" PaddingLeft="10px" PaddingRight="2px" />
+    <HeaderStyle BackColor="#EEF5FE">
+        <BorderBottom BorderColor="#9EBFDB" BorderStyle="Solid" BorderWidth="1px" />
+        <Paddings Padding="0" PaddingLeft="10px" PaddingRight="2px" PaddingBottom="7px" />
+    </HeaderStyle>
+    <%-- Corners --%>
+    <TopLeftCorner Height="6px" Width="6px" Url="~/App_Themes/XafDefault/Web/rpTopLeftCorner.png" />
+    <TopRightCorner Height="6px" Width="6px" Url="~/App_Themes/XafDefault/Web/rpTopRightCorner.png" />
+    <NoHeaderTopLeftCorner Height="9px" Width="9px" Url="~/App_Themes/XafDefault/Web/rpNoHeaderTopLeftCorner.png" />
+    <NoHeaderTopRightCorner Height="9px" Width="9px" Url="~/App_Themes/XafDefault/Web/rpNoHeaderTopRightCorner.png" />
+    <BottomLeftCorner Height="6px" Width="6px" Url="~/App_Themes/XafDefault/Web/rpBottomLeftCorner.png" />
+    <BottomRightCorner Height="6px" Width="6px" Url="~/App_Themes/XafDefault/Web/rpBottomRightCorner.png" />
+    <%-- Middles --%>
+    <TopEdge>
+    </TopEdge>
+    <NoHeaderTopEdge BackColor="#e6f0ff" />
+    <%-- Header --%>
+    <HeaderLeftEdge>
+        <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" HorizontalPosition="left" ImageUrl="~/App_Themes/XafDefault/Web/rpHeader.png" />
+    </HeaderLeftEdge>
+    <HeaderContent>
+        <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" HorizontalPosition="left" ImageUrl="~/App_Themes/XafDefault/Web/rpHeader.png" />
+    </HeaderContent>
+    <HeaderRightEdge>
+        <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" HorizontalPosition="left" ImageUrl="~/App_Themes/XafDefault/Web/rpHeader.png" />
+    </HeaderRightEdge>
+    <DisabledStyle ForeColor="#808080"></DisabledStyle>
+</dxrp:ASPxRoundPanel>

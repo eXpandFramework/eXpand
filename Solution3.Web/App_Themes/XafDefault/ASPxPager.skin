@@ -1,0 +1,26 @@
+<%@ Register TagPrefix="dxpg" Namespace="DevExpress.Web.ASPxPager" Assembly="DevExpress.Web.v9.2" %>
+<dxpg:ASPxPager runat="server" 
+	CurrentPageNumberFormat="{0}" 
+	CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf" 
+	ImageFolder="~/App_Themes/XafDefault/{0}/">
+	
+	<AllButton>
+		<Image Height="19px" Width="30px" ></Image>
+	</AllButton>
+	
+	<NextPageButton>
+		<Image Height="19px" Width="20px"></Image>
+	</NextPageButton>
+
+	<PrevPageButton>
+		<Image Height="19px" Width="20px"></Image>
+	</PrevPageButton>
+
+	<FirstPageButton>
+		<Image Height="19px" Width="22px"></Image>
+	</FirstPageButton>
+
+	<LastPageButton>
+		<Image Height="19px" Width="22px"></Image>
+	</LastPageButton>
+</dxpg:ASPxPager>

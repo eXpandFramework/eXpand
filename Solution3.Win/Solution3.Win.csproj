@@ -1,0 +1,303 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E7FE9A55-6C62-4E0F-905B-F2EAC4876C3F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Solution3.Win</RootNamespace>
+    <AssemblyName>Solution3.Win</AssemblyName>
+    <ApplicationIcon>ExpressApp.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EasyTest\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.CloneObject.v9.2\9.2.6.0__c52ffed5d5ff0958\DevExpress.ExpressApp.CloneObject.v9.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.EasyTest.WinAdapter.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.PivotChart.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.ViewVariantsModule.v9.2\9.2.6.0__c52ffed5d5ff0958\DevExpress.ExpressApp.ViewVariantsModule.v9.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.BonusSkins.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Images.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Objects.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Win.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Reference Include="DevExpress.XtraCharts.v9.2.UI, Version=9.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Reference Include="DevExpress.XtraEditors.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v9.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Reference Include="DevExpress.XtraPivotGrid.v9.2.Core, Version=9.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Reference Include="eXpand.ExpressApp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.AdditionalViewControlsProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider.Win, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.AdditionalViewControlsProvider.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ModelArtifactState, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.ModelArtifactState.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ModelArtifactState.Win, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.ModelArtifactState.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ModelDifference, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.ModelDifference.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ModelDifference.Win, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.ModelDifference.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Security, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Validation, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ViewVariants, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.ViewVariants.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ViewVariants.Win, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.ViewVariants.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Win, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.WorldCreator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.WorldCreator.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.Persistent.Base, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.Persistent.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.Persistent.BaseImpl, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eXpand.DLL\eXpand.Persistent.BaseImpl.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.configuration">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinApplication.resx">
+      <DependentUpon>WinApplication.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="WinApplication.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WinApplication.Designer.cs">
+      <DependentUpon>WinApplication.cs</DependentUpon>
+    </Compile>
+    <None Include="App.config" />
+    <Content Include="Model.xafml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExpressApp.ico" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Solution3.Module.Win\Solution3.Module.Win.csproj">
+      <Project>{D8796F21-1BEF-4C3A-834A-F1B48DABA60E}</Project>
+      <Name>Solution3.Module.Win</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Solution3.Module\Solution3.Module.csproj">
+      <Project>{C1558764-C304-47F2-B1CE-D5EE7A9E625E}</Project>
+      <Name>Solution3.Module</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

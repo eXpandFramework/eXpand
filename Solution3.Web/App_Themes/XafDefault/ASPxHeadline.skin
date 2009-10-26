@@ -1,0 +1,10 @@
+<%@ Register TagPrefix="dxhl" Namespace="DevExpress.Web.ASPxHeadline" Assembly="DevExpress.Web.v9.2" %>
+<dxhl:ASPxHeadline runat="server" CssFilePath="~/App_Themes/XafDefault/{0}/styles.css"
+    CssPostfix="xaf">
+    <DateStyle Spacing="0px" />
+    <ContentStyle LineHeight="18px" />
+    <LeftPanelStyle Spacing="21px">
+        <Paddings PaddingTop="2px" />
+    </LeftPanelStyle>
+    <TailImage Height="9px" Url="~/App_Themes/XafDefault/Web/hlTail.gif" Width="13px" />
+</dxhl:ASPxHeadline>

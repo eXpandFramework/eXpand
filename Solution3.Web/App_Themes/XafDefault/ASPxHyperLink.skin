@@ -1,0 +1,4 @@
+<%@ Register TagPrefix="dxe" Namespace="DevExpress.Web.ASPxEditors" Assembly="DevExpress.Web.ASPxEditors.v9.2" %>
+<dxe:ASPxHyperLink runat="server"
+	CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf">
+</dxe:ASPxHyperLink>

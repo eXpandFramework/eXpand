@@ -1,0 +1,6 @@
+<%@ Register TagPrefix="xaf" Namespace="DevExpress.ExpressApp.Web.Editors.ASPx" Assembly="DevExpress.ExpressApp.Web.v9.2" %>
+<xaf:ASPxCriteriaEdit runat="server">
+	<Images ImageFolder="~/App_Themes/XafDefault/{0}/" />
+	<Styles CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf"></Styles>
+	<SettingsLoadingPanel Text="" />
+</xaf:ASPxCriteriaEdit>

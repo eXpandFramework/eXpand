@@ -1,0 +1,34 @@
+<%@ Register TagPrefix="dxnc" Namespace="DevExpress.Web.ASPxNewsControl" Assembly="DevExpress.Web.v9.2" %>
+<dxnc:ASPxNewsControl runat="server" ImageFolder="~/App_Themes/XafDefault/{0}/"
+    CssFilePath="~/App_Themes/XafDefault/{0}/styles.css" CssPostfix="xaf"
+    ItemSpacing="2px">
+    <ItemDateStyle Spacing="0px" />
+    <ItemContentStyle LineHeight="18px" />
+    <ItemLeftPanelStyle Spacing="21px">
+        <Paddings PaddingTop="2px" />
+    </ItemLeftPanelStyle>
+    <ItemSettings>
+        <TailImage Height="9px" Url="~/App_Themes/XafDefault/Web/hlTail.gif" Width="13px" />
+    </ItemSettings>
+    <PagerSettings CurrentPageNumberFormat="{0}">
+        <AllButton Text="">
+            <Image Url="~/App_Themes/XafDefault/Web/pAll.png" UrlDisabled="~/App_Themes/XafDefault/Web/pAllDisabled.png"></Image>
+        </AllButton>
+
+        <FirstPageButton Text="">
+            <Image Url="~/App_Themes/XafDefault/Web/pFirst.png" UrlDisabled="~/App_Themes/XafDefault/Web/pFirstDisabled.png"></Image>
+        </FirstPageButton>
+
+        <LastPageButton Text="">
+            <Image Url="~/App_Themes/XafDefault/Web/pLast.png" UrlDisabled="~/App_Themes/XafDefault/Web/pLastDisabled.png"></Image>
+        </LastPageButton>
+
+        <NextPageButton Text="">
+            <Image Url="~/App_Themes/XafDefault/Web/pNext.png" UrlDisabled="~/App_Themes/XafDefault/Web/pNextDisabled.png"></Image>
+        </NextPageButton>
+
+        <PrevPageButton Text="">
+            <Image Url="~/App_Themes/XafDefault/Web/pPrev.png" UrlDisabled="~/App_Themes/XafDefault/Web/pPrevDisabled.png"></Image>
+        </PrevPageButton>
+    </PagerSettings>
+</dxnc:ASPxNewsControl>
