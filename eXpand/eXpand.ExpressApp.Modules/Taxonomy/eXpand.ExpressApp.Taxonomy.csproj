@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>eXpand.ExpressApp.Taxonomy</RootNamespace>
     <AssemblyName>eXpand.ExpressApp.Taxonomy</AssemblyName>
-    <AssemblyOriginatorKeyFile>..\..\eXpand.Key\eXpand.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\..\eXpand.Key\eXpand.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -37,7 +37,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\eXpand.DLL\</OutputPath>
+    <OutputPath>..\..\..\eXpand.DLL\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -45,14 +45,14 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\eXpand.DLL\</OutputPath>
+    <OutputPath>..\..\..\eXpand.DLL\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugGAC|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DebugGAC\</OutputPath>
+    <OutputPath>..\..\..\eXpand.DLL\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -74,7 +74,6 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v9.2, Version=9.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v9.2">
       <SpecificVersion>False</SpecificVersion>

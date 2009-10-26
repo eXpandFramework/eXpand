@@ -123,17 +123,17 @@ namespace eXpand.Persistent.TaxonomyImpl{
             }
         }
 
-        public string SerializeToString() {
-            Type[] types = Infos.Select(info => info.ClassInfo.ClassType).Distinct().ToArray();
-            string serializedInstance = Foxhound.Xpo.Xml.Serialization.XpoXmlSerializer.SerializeInstance(this, types);
-            return serializedInstance;
-        }
+        //public string SerializeToString() {
+        //    Type[] types = Infos.Select(info => info.ClassInfo.ClassType).Distinct().ToArray();
+        //    string serializedInstance = Foxhound.Xpo.Xml.Serialization.XpoXmlSerializer.SerializeInstance(this, types);
+        //    return serializedInstance;
+        //}
 
-        public XmlDocument SerializeToXmlDocument() {
-            var doc = new XmlDocument();
-            doc.LoadXml(SerializeToString());
-            return doc;
-        }
+        //public XmlDocument SerializeToXmlDocument() {
+        //    var doc = new XmlDocument();
+        //    doc.LoadXml(SerializeToString());
+        //    return doc;
+        //}
 
         private string key;
         public string Key {

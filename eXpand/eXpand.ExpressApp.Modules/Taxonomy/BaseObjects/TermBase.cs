@@ -10,7 +10,7 @@ using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
     [Serializable]
-    public abstract class TermBase : eXpandLiteObject, ITreeNode {
+    public abstract class TermBase : eXpandCustomObject, ITreeNode {
         [Persistent, Size(SizeAttribute.Unlimited)] protected string fullPath;
         private string key;
 

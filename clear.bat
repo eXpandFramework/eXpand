@@ -7,6 +7,7 @@ echo Clear GAC...
 call clearProject.bat eXpand.Utils
 call clearProject.bat eXpand.Xpo
 call clearProject.bat eXpand.Persistent.Base
+call clearProject.bat eXpand.Persistent.TaxonomyImpl
 call clearProject.bat eXpand.ExpressApp
 call clearProject.bat eXpand.ExpressApp.Win
 call clearProject.bat eXpand.ExpressApp.Web
@@ -25,5 +26,8 @@ call clearProject.bat eXpand.ExpressApp.ModelArtifactState.Win
 call clearProject.bat eXpand.ExpressApp.WizardUI.Win
 call clearProject.bat eXpand.ExpressApp.ViewVariants
 call clearProject.bat eXpand.ExpressApp.ViewVariants.Win
+call clearProject.bat eXpand.ExpressApp.Taxonomy
+call clearProject.bat eXpand.ExpressApp.Taxonomy.Win
+call clearProject.bat eXpand.ExpressApp.Taxonomy.Web
 
 pause

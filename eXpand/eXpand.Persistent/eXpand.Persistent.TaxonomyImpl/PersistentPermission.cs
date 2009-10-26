@@ -43,7 +43,7 @@ using DevExpress.Xpo;
 using eXpand.Xpo;
 
 namespace eXpand.Persistent.TaxonomyImpl{
-    public class PersistentPermission : eXpandLiteObject, IPersistentPermission, IXpoCloneable{
+    public class PersistentPermission : eXpandCustomObject, IPersistentPermission, IXpoCloneable{
         private RoleBase role;
         private PersistentPermissionImpl persistentPermissionImpl = new PersistentPermissionImpl();
 #if MediumTrust

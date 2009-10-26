@@ -7,7 +7,7 @@ using eXpand.Xpo;
 namespace eXpand.Persistent.TaxonomyImpl{
     [Serializable]
     [DefaultProperty("Value")]
-    public class BaseInfo : eXpandLiteObject{
+    public class BaseInfo : eXpandCustomObject{
         private string _value;
         private string key;
         private BaseInfoValidity validity;

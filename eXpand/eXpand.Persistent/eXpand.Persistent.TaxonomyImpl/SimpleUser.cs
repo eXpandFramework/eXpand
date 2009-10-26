@@ -44,7 +44,7 @@ using eXpand.Xpo;
 namespace eXpand.Persistent.TaxonomyImpl{
     [DefaultProperty("UserName")]
     [ImageName("BO_User"), System.ComponentModel.DisplayName("User")]
-    public class SimpleUser : eXpandLiteObject, ISimpleUser, IAuthenticationActiveDirectoryUser, IAuthenticationStandardUser
+    public class SimpleUser : eXpandCustomObject, ISimpleUser, IAuthenticationActiveDirectoryUser, IAuthenticationStandardUser
     {
         private UserImpl user;
 
