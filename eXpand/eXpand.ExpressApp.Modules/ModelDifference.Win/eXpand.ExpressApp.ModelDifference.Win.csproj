@@ -133,12 +133,6 @@
     <Compile Include="Controllers\CombineActiveModelDictionaryWithActiveUserDifferenceController.Designer.cs">
       <DependentUpon>CombineActiveModelDictionaryWithActiveUserDifferenceController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\PredifenedAspectViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\PredifenedAspectViewController.Designer.cs">
-      <DependentUpon>PredifenedAspectViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="ModelDifferencewindowsFormsModule.cs">
       <SubType>Component</SubType>
     </Compile>
