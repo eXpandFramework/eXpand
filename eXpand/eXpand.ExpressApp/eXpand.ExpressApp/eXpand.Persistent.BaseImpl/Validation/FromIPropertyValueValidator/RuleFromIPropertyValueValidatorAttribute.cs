@@ -57,5 +57,6 @@ namespace eXpand.Persistent.BaseImpl.Validation.FromIPropertyValueValidator
             set { Properties.MessageTemplateInvalidPropertyValue = value; }
         }
         #endregion
+
     }
 }

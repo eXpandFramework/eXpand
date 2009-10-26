@@ -10,5 +10,6 @@ namespace eXpand.Persistent.BaseImpl.Validation.FromIPropertyValueValidator
         #region IRuleFromIPropertyValueValidatorProperties Members
         public string MessageTemplateInvalidPropertyValue { get; set; }
         #endregion
+        
     }
 }

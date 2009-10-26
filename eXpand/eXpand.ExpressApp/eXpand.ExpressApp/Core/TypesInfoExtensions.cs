@@ -7,14 +7,14 @@ using DevExpress.Xpo.Metadata;
 
 namespace eXpand.ExpressApp.Core{
     public static class TypesInfoExtensions{
-        public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string typeToCreateOnCollectionName)
+        public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string collectionName)
         {
             XPCustomMemberInfo member = null;
             if (typeIsRegister(typeInfo, typeToCreateOn))
             {
                 XPClassInfo xpClassInfo = dictionary.GetClassInfo(typeToCreateOn);
-                if (xpClassInfo.FindMember(typeToCreateOnCollectionName)== null){
-                    member = xpClassInfo.CreateMember(typeToCreateOnCollectionName, typeof(XPCollection), true);
+                if (xpClassInfo.FindMember(collectionName)== null){
+                    member = xpClassInfo.CreateMember(collectionName, typeof(XPCollection), true);
                     member.AddAttribute(new AssociationAttribute(associationName, typeOfCollection));
                     typeInfo.RefreshInfo(typeToCreateOn);
                 }
@@ -52,15 +52,20 @@ namespace eXpand.ExpressApp.Core{
         }
 
         public static XPCustomMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember,
-                                        string associationName,XPDictionary dictionary){
+                                        string associationName, XPDictionary dictionary, string propertyName) {
             XPCustomMemberInfo member = null;
-            if (typeIsRegister(typesInfo, typeToCreateOn)){
+            if (typeIsRegister(typesInfo, typeToCreateOn)) {
                 XPClassInfo xpClassInfo = dictionary.GetClassInfo(typeToCreateOn);
-                member = xpClassInfo.CreateMember(typeOfMember.Name, typeOfMember);
+                member = xpClassInfo.CreateMember(propertyName, typeOfMember);
                 member.AddAttribute(new AssociationAttribute(associationName));
                 typesInfo.RefreshInfo(typeToCreateOn);
             }
             return member;
+        }
+
+        public static XPCustomMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember,
+                                        string associationName,XPDictionary dictionary){
+            return CreateMember(typesInfo, typeToCreateOn, typeOfMember, associationName, dictionary,typeOfMember.Name);
         }
 
         public static List<XPCustomMemberInfo> CreateBothPartMembers(this ITypesInfo typesinfo, Type typeToCreateOn, Type otherPartMember, XPDictionary xpDictionary, bool isManyToMany, string association)

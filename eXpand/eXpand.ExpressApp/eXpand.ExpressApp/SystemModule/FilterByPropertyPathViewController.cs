@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
-using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.Persistent.BaseImpl;

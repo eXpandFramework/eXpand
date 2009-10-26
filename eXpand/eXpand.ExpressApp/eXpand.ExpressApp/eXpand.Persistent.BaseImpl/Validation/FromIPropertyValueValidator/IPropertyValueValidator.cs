@@ -2,7 +2,7 @@
 
 namespace eXpand.Persistent.BaseImpl.Validation.FromIPropertyValueValidator
 {
-    public interface IPropertyValueValidator
+    public interface IPropertyValueValidator 
     {
 
         bool IsPropertyValueValid(string propertyName, ref string errorMessageTemplate, ContextIdentifiers contextIdentifiers,string ruleId);

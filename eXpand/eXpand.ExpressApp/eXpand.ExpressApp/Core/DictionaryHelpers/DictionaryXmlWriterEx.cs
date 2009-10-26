@@ -84,9 +84,9 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers{
                     (IReadOnlyAttributeValuesDictionary)
                     attribute.GetType().GetProperty("Values", flag).GetValue(attribute, null);
                 foreach (string key in values.GetKeys()){
-                    attributeValueText += key + ":" + values[key] + "¥";
+                    attributeValueText += key + ":" + values[key] + "¤";
                 }
-                attributeValueText = attributeValueText.TrimEnd('¥');
+                attributeValueText = attributeValueText.TrimEnd('¤');
                 attributeValueText = shortByAspect(attributeValueText);
                 attributesText += string.Format("{0}=\"{1}\" ", attribute.Name,
                                                 HttpUtility.HtmlEncode(attributeValueText));
@@ -115,12 +115,11 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers{
         private string shortByAspect(string value){
             value = value.Replace(DictionaryAttribute.DefaultLanguage, "0" + DictionaryAttribute.DefaultLanguage);
             string ret = "";
-            string[] strings = value.Split('¥');
-            foreach (var aspect in strings.OrderBy(s => s))
-            {
-                ret += aspect + "¥";
+            string[] strings = value.Split('¤');
+            foreach (string aspect in strings.OrderBy(s => s)) {
+                ret += aspect + "¤";
             }
-            ret = ret.Replace("0" + DictionaryAttribute.DefaultLanguage, DictionaryAttribute.DefaultLanguage).TrimEnd('¥');
+            ret = ret.Replace("0" + DictionaryAttribute.DefaultLanguage, DictionaryAttribute.DefaultLanguage).TrimEnd('¤');
             return ret;
         }
 
