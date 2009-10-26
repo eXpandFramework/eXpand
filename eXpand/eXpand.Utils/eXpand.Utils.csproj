@@ -53,6 +53,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackingFieldResolver\BackingFieldResolver.cs" />
+    <Compile Include="BackingFieldResolver\ILPattern.cs" />
+    <Compile Include="BackingFieldResolver\MatchContext.cs" />
+    <Compile Include="ExpressionBuilder\Builder.cs" />
+    <Compile Include="BackingFieldResolver\MethodBaseRocks.cs" />
+    <Compile Include="ExpressionBuilder\IBuilder.cs" />
     <Compile Include="GeneralDataStructures\SerializableDictionary.cs" />
     <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="GeneralDataStructures\ExtensionMethods.cs" />
