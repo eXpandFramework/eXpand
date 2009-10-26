@@ -10,7 +10,7 @@ using TypeMock.Extensions;
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.ModelPropertyEditor
 {
     [TestFixture]
-    public class When_Creating_Control:eXpandBaseFixture
+    public class When_Creating_Control:XpandBaseFixture
     {
 
         [Test]

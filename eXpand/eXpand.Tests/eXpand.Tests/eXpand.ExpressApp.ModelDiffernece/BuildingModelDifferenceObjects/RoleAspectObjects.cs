@@ -10,7 +10,7 @@ using eXpand.ExpressApp.Core;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.BuildingModelDifferenceObjects{
     [TestFixture]
-    public class RoleAspectObjects:eXpandBaseFixture
+    public class RoleAspectObjects:XpandBaseFixture
     {
     
         [Test]

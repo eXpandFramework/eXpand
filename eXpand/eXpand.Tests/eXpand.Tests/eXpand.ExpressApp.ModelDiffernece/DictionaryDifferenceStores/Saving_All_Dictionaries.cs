@@ -10,7 +10,7 @@ using TypeMock.Extensions;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceStores{
     [TestFixture]
-    public class Saving_All_Dictionaries:eXpandBaseFixture
+    public class Saving_All_Dictionaries:XpandBaseFixture
     {
         [Test]
         [Isolated]

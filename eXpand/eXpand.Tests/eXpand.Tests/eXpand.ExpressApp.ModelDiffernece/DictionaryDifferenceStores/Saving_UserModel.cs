@@ -15,7 +15,7 @@ using TypeMock.Extensions;
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceStores
 {
     [TestFixture]
-    public class Saving_UserModel:eXpandBaseFixture
+    public class Saving_UserModel:XpandBaseFixture
     {
         [Test]
         [Isolated]

@@ -11,7 +11,7 @@ using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceStores{
     [TestFixture]
-    public class Loading_ApplicationModel_Dictionary:eXpandBaseFixture
+    public class Loading_ApplicationModel_Dictionary:XpandBaseFixture
     {
         public class From_Path{
             [Test]

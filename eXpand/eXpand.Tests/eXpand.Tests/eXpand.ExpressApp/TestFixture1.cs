@@ -1,22 +1,15 @@
 ﻿using System;
-using DevExpress.Data.Filtering;
-using DevExpress.Data.Filtering.Helpers;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Xpo;
 using eXpand.ExpressApp.SystemModule;
 using MbUnit.Framework;
-using TypeMock;
 using TypeMock.ArrangeActAssert;
-using TypeMock.Extensions;
-using eXpand.Utils.Helpers;
 
 namespace eXpand.Tests.eXpand.ExpressApp
 {
     [TestFixture]
-    public class TestFixture1:eXpandBaseFixture
+    public class TestFixture1:XpandBaseFixture
     {
         [Test][Isolated]
         public void When_COntroller_Activated_And_No_Wrappers_found_In_Model_FilterWrappers_Count_Should_Null(){
@@ -30,7 +23,7 @@ namespace eXpand.Tests.eXpand.ExpressApp
             Assert.IsNull(controller.FiltersByPropertyPathWrappers);
         }
 
-        public class When_COntroller_Activated_And_Wrappers_found_In_Model: eXpandBaseFixture
+        public class When_COntroller_Activated_And_Wrappers_found_In_Model: XpandBaseFixture
         {
             private FilterByPropertyPathViewController controller;
             private ViewControllerFactory controllerFactory;

@@ -14,7 +14,7 @@ using TypeMock.ArrangeActAssert;
 namespace eXpand.Tests.eXpand.ExpressApp
 {
     [TestFixture]
-    public class HidingFromNewMenu:eXpandBaseFixture
+    public class HidingFromNewMenu:XpandBaseFixture
     {
         [Test]
         [Isolated]

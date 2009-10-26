@@ -10,7 +10,7 @@ using TypeMock.Extensions.eXpand;
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Creating
 {
     [TestFixture]
-    public class UserAspectObjects:eXpandBaseFixture
+    public class UserAspectObjects:XpandBaseFixture
     {
         [Test]
         [Isolated]

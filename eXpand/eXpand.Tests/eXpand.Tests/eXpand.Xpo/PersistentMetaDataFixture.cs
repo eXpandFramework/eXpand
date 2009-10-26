@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Data;
 using System.IO;
-using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
-using eXpand.Xpo.PersistentMetaData;
+using eXpand.ExpressApp.WorldCreator;
+using eXpand.Persistent.BaseImpl.PersistentMetaData;
+using eXpand.Xpo;
 using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 
@@ -26,8 +26,7 @@ namespace eXpand.Tests.eXpand.Xpo
 
 //            XpoDefault.GetDataLayer(InMemoryDataStore.GetConnectionString(metadataFileName),
 //                                    AutoCreateOption.DatabaseAndSchema);
-            dataStorage = XpoDefault.GetDataLayer(AccessConnectionProvider.GetConnectionString(dataFileName),
-                                                  AutoCreateOption.DatabaseAndSchema);
+            dataStorage = new SimpleDataLayer(new InMemoryDataStore(new DataSet(),AutoCreateOption.DatabaseAndSchema ));
         }
 
         [SetUp]
@@ -35,30 +34,31 @@ namespace eXpand.Tests.eXpand.Xpo
         {
             InitDataLayers();
         }
+
         [Test]
         [Isolated]
         public void CreateClass()
         {
-
+            
             var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "TestClassName" };
 
-            dataStorage.Dictionary.AddClasses(new List<PersistentClassInfo> { persistentClassInfo });
-            
+            var xpClassInfo = dataStorage.Dictionary.AddClass(persistentClassInfo );
 
-            Assert.IsNotNull(dataStorage.Dictionary.GetClassInfo("", persistentClassInfo.Name));
-            throw new UserFriendlyException(new Exception("your message"));
+
+            Assert.IsNotNull(dataStorage.Dictionary.GetClassInfo(xpClassInfo.ClassType));
+            
         }
         [Test]
         [Isolated]
         public void CreateMember()
         {
             var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "TestClassName" };
-            var info = new PersistentCoreTypeMemberInfo(Session.DefaultSession){Name = "FullName",TypeName = typeof(string).FullName};
+            var info = new PersistentCoreTypeMemberInfo(Session.DefaultSession){Name = "FullName",DataType = XPODataType.String};
             persistentClassInfo.OwnMembers.Add(info);
 
-            dataStorage.Dictionary.AddClasses(new List<PersistentClassInfo> { persistentClassInfo });
+            var xpClassInfo = dataStorage.Dictionary.AddClass(persistentClassInfo );
 
-            XPMemberInfo member = dataStorage.Dictionary.GetClassInfo("",persistentClassInfo.Name).FindMember("FullName");
+            XPMemberInfo member = xpClassInfo.FindMember("FullName");
             Assert.IsNotNull(member);
             Assert.AreEqual(typeof(string), member.MemberType);
         }
@@ -67,14 +67,15 @@ namespace eXpand.Tests.eXpand.Xpo
         public void CreateCollection()
         {
             var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "TestClassName" };
+            var orderInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "Order" };
+            var orderClassInfo = Session.DefaultSession.Dictionary.AddClass(orderInfo);
             var info = new PersistentCollectionMemberInfo(Session.DefaultSession,
-                                                          new PersistentAssociationAttribute(Session.DefaultSession)
-                                                              {ElementTypeName = "Order"}) {Name = "Orders"};
+                                                          new PersistentAssociationAttribute(Session.DefaultSession){ElementType = orderClassInfo.ClassType}) {Name = "Orders"};
             persistentClassInfo.OwnMembers.Add(info);
 
-            dataStorage.Dictionary.AddClasses(new List<PersistentClassInfo> { persistentClassInfo });
+            var xpClassInfo = dataStorage.Dictionary.AddClass(persistentClassInfo );
 
-            XPMemberInfo member = dataStorage.Dictionary.GetClassInfo("",persistentClassInfo.Name).FindMember("Orders");
+            XPMemberInfo member = xpClassInfo.FindMember("Orders");
             Assert.IsNotNull(member);
             Assert.AreEqual(typeof(XPCollection), member.MemberType);
             var attribute = ((AssociationAttribute) member.FindAttributeInfo(typeof(AssociationAttribute)));
@@ -86,19 +87,20 @@ namespace eXpand.Tests.eXpand.Xpo
         public void CreateReferenceMember()
         {
             var classCustomer = new PersistentClassInfo(Session.DefaultSession) {Name = "Customer"};
+            var classInfo = dataStorage.Dictionary.AddClass(classCustomer);
             var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "TestClassName" };
             var referenceMemberInfo = new PersistentReferenceMemberInfo(Session.DefaultSession,
                                                                         new PersistentAssociationAttribute(
                                                                             Session.DefaultSession)
                                                                             {AssociationName = "Customer"})
-                                          {Name = "Customer", ReferenceType = classCustomer};
+                                          {Name = "Customer", ReferenceType = classInfo.ClassType};
             persistentClassInfo.OwnMembers.Add(referenceMemberInfo);
 
-            dataStorage.Dictionary.AddClasses(new List<PersistentClassInfo> { persistentClassInfo });
+            var xpClassInfo = dataStorage.Dictionary.AddClass(persistentClassInfo );
 
-            XPMemberInfo member = dataStorage.Dictionary.GetClassInfo("",persistentClassInfo.Name).FindMember("Customer");
+            XPMemberInfo member = xpClassInfo.FindMember("Customer");
             Assert.IsNotNull(member);
-            Assert.IsNull(member.MemberType);
+            Assert.IsNotNull(member.MemberType);
             var attribute = ((AssociationAttribute) member.FindAttributeInfo(typeof(AssociationAttribute)));
             Assert.IsNotNull(attribute);
             Assert.AreEqual("Customer", attribute.Name);

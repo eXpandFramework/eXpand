@@ -11,7 +11,7 @@ using TypeMock.Extensions.eXpand;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture]
-    public class Quering_RoleDifferenceObjectsObjects:eXpandBaseFixture
+    public class Quering_RoleDifferenceObjectsObjects:XpandBaseFixture
     {
         [Test]
         public void ActiveRoleDifferenceObjectss_For_User_That_Do_Not_Have_Roles_Should_Be_Zero(){

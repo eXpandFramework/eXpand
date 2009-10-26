@@ -7,7 +7,7 @@ using eXpand.Utils.Helpers;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture]
-    public class Saving_DifferenceObjects:eXpandBaseFixture
+    public class Saving_DifferenceObjects:XpandBaseFixture
     {
         [Test]
         [Isolated]

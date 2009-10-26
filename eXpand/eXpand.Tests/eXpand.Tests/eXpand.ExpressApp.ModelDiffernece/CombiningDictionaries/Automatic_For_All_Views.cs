@@ -14,9 +14,9 @@ using TypeMock.Extensions;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
     [TestFixture]
-    public class Automatic_For_All_Views:eXpandBaseFixture
+    public class Automatic_For_All_Views:XpandBaseFixture
     {
-        public class With_ActiveDifference:eXpandBaseFixture{
+        public class With_ActiveDifference:XpandBaseFixture{
             [Test]
             [Isolated]
             public void When_Saving_Combine_With_Application_InstanceModel()
@@ -64,7 +64,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                 }
 
             }
-            public class When_At_Win:eXpandBaseFixture
+            public class When_At_Win:XpandBaseFixture
             {
                 [Test]
                 [Isolated]

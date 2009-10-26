@@ -1,14 +1,30 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.Persistent.BaseImpl;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 using TypeMock.Extensions;
+using System.Linq;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture]
-    public class Changing_ModelDifferenceObjects:eXpandBaseFixture
+    public class Changing_ModelDifferenceObjects:XpandBaseFixture
     {
+        [Test]
+        public void Test()
+        {
+            var ruleSet = new RuleSet();
+            Session.DefaultSession.GetClassInfo(typeof(User)).CreateMember("Test",typeof(string)).AddAttribute(new RuleRequiredFieldAttribute(null, DefaultContexts.Save));
+
+            var target = ruleSet.ValidateTarget(new User(Session.DefaultSession), ContextIdentifier.Save);
+
+            
+            RuleSetValidationResultItem ruleRequiredField = target.Results.Where(item => item.Rule is RuleRequiredField&&item.Rule.UsedProperties.Contains("FirstName")).Single();
+            Assert.AreEqual(ValidationState.Invalid, ruleRequiredField.State);
+        }
+
         [Test]
         [Isolated]
         public void When_Changing_PrefferedLanguage_Then_Model_CurrentAspect_Should_Be_ModelDifference_CurrentLanguage(){

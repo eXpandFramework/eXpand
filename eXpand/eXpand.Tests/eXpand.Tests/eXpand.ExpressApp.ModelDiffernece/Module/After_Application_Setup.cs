@@ -13,7 +13,7 @@ using TypeMock.Extensions;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
     [TestFixture]
-    public class After_Application_Setup:eXpandBaseFixture{
+    public class After_Application_Setup:XpandBaseFixture{
         
         protected XafApplication application;
         protected ModelDifferenceBaseModule<XpoModelDictionaryDifferenceStore> modelDifferenceModule;

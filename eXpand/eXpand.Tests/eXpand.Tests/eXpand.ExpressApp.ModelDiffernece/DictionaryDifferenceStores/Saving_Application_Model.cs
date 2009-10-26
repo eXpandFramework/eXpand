@@ -6,7 +6,7 @@ using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceStores{
     [TestFixture]
-    public class Saving_Application_Model:eXpandBaseFixture{
+    public class Saving_Application_Model:XpandBaseFixture{
         [Test]
         [Isolated]
         public void When_Saving_Should_Combine_With_Diffs(){

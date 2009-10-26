@@ -7,7 +7,7 @@ using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture(Order = 1)]
-    public class Quering_ModelDifferenceObjects:eXpandBaseFixture
+    public class Quering_ModelDifferenceObjects:XpandBaseFixture
     {
         
         [Test]

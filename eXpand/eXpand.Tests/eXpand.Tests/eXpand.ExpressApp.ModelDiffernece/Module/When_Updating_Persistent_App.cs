@@ -10,7 +10,7 @@ using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
     [TestFixture]
-    public class When_Updating_Persistent_App : eXpandBaseFixture
+    public class When_Updating_Persistent_App : XpandBaseFixture
     {
         protected EventHandler<EventArgs> eventHandler;
         protected XafApplication application;

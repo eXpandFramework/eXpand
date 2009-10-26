@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.ClonningModelDifferencesObjects{
     [TestFixture]
-    public class OnDemand_At_All_Views:eXpandBaseFixture{
+    public class OnDemand_At_All_Views:XpandBaseFixture{
         [Test]
         [Isolated]
         public void Can_Be_Cloned(){

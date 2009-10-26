@@ -6,7 +6,7 @@ using DevExpress.Xpo.DB;
 using MbUnit.Framework;
 
 namespace eXpand.Tests{
-    public abstract class eXpandBaseFixture{
+    public abstract class XpandBaseFixture{
         
         protected const string DefaultClassXml = "<Application><BOModel><Class Name=\"MyClass\" Caption=\"Default\"></Class></BOModel></Application>";
         protected const string PersistentAppClassXml = "<Application><BOModel><Class Name=\"MyClass\"></Class></BOModel></Application>";

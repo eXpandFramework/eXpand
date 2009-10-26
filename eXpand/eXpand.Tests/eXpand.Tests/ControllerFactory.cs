@@ -99,7 +99,7 @@ namespace eXpand.Tests{
             return controller;
         }
 
-        private T createController<T>(Type objectType, bool activate, ObjectSpace objectSpace, HandleInfo handleInfo) where T : ViewController, new()
+        private T createController<T>(Type objectType, bool activate, ObjectSpace objectSpace, HandleInfo handleInfo) where T : ViewController
         {
             XafTypesInfo.Instance.RegisterEntity(objectType);
             var source = new CollectionSource(objectSpace, objectType);
@@ -108,7 +108,7 @@ namespace eXpand.Tests{
             var listView = new ListView(source, listEditor);
             Isolate.WhenCalled(() => listView.ObjectTypeInfo).WillReturn(XafTypesInfo.CastTypeToTypeInfo(objectType));
             Isolate.WhenCalled(() => listView.ObjectSpace).WillReturn(objectSpace);
-            var controller = new T();
+            var controller = Isolate.Fake.Instance<T>(Members.CallOriginal,ConstructorWillBe.Called);
             Isolate.WhenCalled(() => controller.Application).WillReturn(Isolate.Fake.Instance<XafApplication>());
             
             controller.Active[""] = false; 
@@ -121,7 +121,7 @@ namespace eXpand.Tests{
             return controller;
         }
 
-        public T CreateController<T>(Type objectType) where T : ViewController, new(){
+        public T CreateController<T>(Type objectType) where T : ViewController{
             return createController<T>(objectType, false, new ObjectSpace(new UnitOfWork(XpoDefault.DataLayer), XafTypesInfo.Instance),null);
         }
 

@@ -1,6 +1,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.Tests;
@@ -20,7 +21,6 @@ namespace Fixtures
             get { return firstName; }
             set { firstName = value; }
         }
-
         protected virtual void OnSettingUp(ExpressApplicationSetupParameters parameters)
         {
             

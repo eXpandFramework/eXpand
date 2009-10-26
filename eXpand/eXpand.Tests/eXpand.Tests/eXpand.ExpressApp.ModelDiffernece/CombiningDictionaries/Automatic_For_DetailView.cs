@@ -10,7 +10,7 @@ using TypeMock.Extensions;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
     [TestFixture]
-    public class Automatic_For_DetailView:eXpandBaseFixture
+    public class Automatic_For_DetailView:XpandBaseFixture
     {
         [Test]
         [Isolated]
@@ -20,7 +20,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
             Assert.AreEqual(typeof(UserModelDifferenceObject), controller.TargetObjectType);
             Assert.AreEqual(ViewType.DetailView, controller.TargetViewType);
         }
-        public class It_SHould_Be_Combined_With_APplication_User_Diffs : eXpandBaseFixture
+        public class It_SHould_Be_Combined_With_APplication_User_Diffs : XpandBaseFixture
         {
             [Test]
             [Isolated]

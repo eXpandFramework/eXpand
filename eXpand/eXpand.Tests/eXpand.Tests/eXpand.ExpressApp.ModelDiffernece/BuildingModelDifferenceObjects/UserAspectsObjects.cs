@@ -15,7 +15,7 @@ using TypeMock.Extensions;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.BuildingModelDifferenceObjects{
     [TestFixture]
-    public class UserAspectsObjects:eXpandBaseFixture
+    public class UserAspectsObjects:XpandBaseFixture
     {
         [Test]
         [Isolated]

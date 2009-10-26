@@ -11,7 +11,7 @@ using eXpand.Xpo;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Creating{
     [TestFixture]
-    public class OnDemand_AtDetail_View_For_All_ObjectTypes:eXpandBaseFixture
+    public class OnDemand_AtDetail_View_For_All_ObjectTypes:XpandBaseFixture
     {
 
         [Test]

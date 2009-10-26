@@ -5,7 +5,7 @@ using MbUnit.Framework;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture]
-    public class Quering_PersistentApplications:eXpandBaseFixture
+    public class Quering_PersistentApplications:XpandBaseFixture
     {
         [Test]
         public void Can_Be_Searched_By_Name(){

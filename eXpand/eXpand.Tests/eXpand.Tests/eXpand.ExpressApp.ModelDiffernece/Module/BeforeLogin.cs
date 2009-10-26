@@ -18,7 +18,7 @@ using eXpand.Utils.Helpers;
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
 
     [TestFixture]
-    public class BeforeLogin:eXpandBaseFixture
+    public class BeforeLogin:XpandBaseFixture
     {
         [Test]
         [Isolated]

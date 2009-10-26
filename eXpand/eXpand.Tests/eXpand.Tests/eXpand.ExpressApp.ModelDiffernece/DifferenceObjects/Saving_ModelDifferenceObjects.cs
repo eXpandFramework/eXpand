@@ -11,7 +11,7 @@ using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture]
-    public class Saving_ModelDifferenceObjects : eXpandBaseFixture
+    public class Saving_ModelDifferenceObjects : XpandBaseFixture
     {
         [Row(DifferenceType.Role, ValidationState.Skipped)]
         [Row(DifferenceType.User, ValidationState.Skipped)]

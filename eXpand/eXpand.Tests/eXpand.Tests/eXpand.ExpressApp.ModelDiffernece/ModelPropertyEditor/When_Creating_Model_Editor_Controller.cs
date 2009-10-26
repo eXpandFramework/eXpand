@@ -10,7 +10,7 @@ using TypeMock.Extensions;
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.ModelPropertyEditor
 {
     [TestFixture]
-    public class When_Creating_Model_Editor_Controller:eXpandBaseFixture
+    public class When_Creating_Model_Editor_Controller:XpandBaseFixture
     {
         [Test]
         public void Dictionry_Should_Be_Current_Objet_Dictionary(){

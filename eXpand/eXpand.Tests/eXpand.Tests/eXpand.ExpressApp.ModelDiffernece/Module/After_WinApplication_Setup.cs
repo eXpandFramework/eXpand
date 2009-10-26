@@ -11,7 +11,7 @@ using TypeMock.Extensions;
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module
 {
     [TestFixture]
-    public class After_WinApplication_Setup:eXpandBaseFixture
+    public class After_WinApplication_Setup:XpandBaseFixture
     {
         [Test]
         public void Combine_Application_Model_With_ModelDiffs()
