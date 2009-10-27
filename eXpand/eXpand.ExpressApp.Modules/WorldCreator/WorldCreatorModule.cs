@@ -115,8 +115,9 @@ namespace eXpand.ExpressApp.WorldCreator
             
 //            XafTypesInfo.XpoTypeInfoSource.XPDictionary.AddClasses(collection.Cast<IPersistentClassInfo>().ToList());
             var types = new List<Type>();
+            var builder = PersistentClassTypeBuilder.BuildClass();
             foreach (IPersistentClassInfo classInfo in collection) {
-                types.Add(PersistentClassTypeBuilder.BuildClass().WithAssemblyName(classInfo.AssemblyName).Define(classInfo));
+                types.Add(builder.WithAssemblyName(classInfo.AssemblyName).Define(classInfo));
             }
             objectSpace.Session.UpdateSchema(types.ToArray());
             foreach (IPersistentClassInfo classInfo in collection) {

@@ -10,9 +10,10 @@ namespace eXpand.Xpo.Converters.ValueConverters{
             if (value != null) return Type.GetType((string) value);
             return null;
         }
-
+        
         public override object ConvertToStorageType(object value) {
-            return ((Type) value).AssemblyQualifiedName;
+            if (value != null) return ((Type) value).AssemblyQualifiedName;
+            return value;
         }
     }
 }
