@@ -112,8 +112,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PersistentMetaData\ExtendedReferenceMemberInfo.cs" />
-    <Compile Include="PersistentMetaData\PersistentAssociationAttribute.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAssociationAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAttributeInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentCustomAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentClassInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentCollectionMemberInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentCoreTypeMemberInfo.cs" />

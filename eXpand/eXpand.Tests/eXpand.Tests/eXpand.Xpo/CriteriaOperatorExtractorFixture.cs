@@ -2,8 +2,7 @@ using DevExpress.Data.Filtering;
 using eXpand.Xpo;
 using MbUnit.Framework;
 
-namespace Fixtures.eXpand.Xpo
-{
+namespace eXpand.Tests.eXpand.Xpo {
     [TestFixture]
     public class CriteriaOperatorExtractorFixture
     {

@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.ExpressApp.Core;
 using System.Linq;
@@ -61,7 +62,7 @@ namespace eXpand.ExpressApp.WorldCreator
             var objectSpace = Application.CreateObjectSpace();
             _info = new Info(Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses));
             addDynamicTypes(objectSpace);
-            addExtendedTypes(objectSpace);
+//            addExtendedTypes(objectSpace);
         }
 
         private void addExtendedTypes(ObjectSpace objectSpace) {
@@ -72,8 +73,9 @@ namespace eXpand.ExpressApp.WorldCreator
         private void createReferenceMembers(ObjectSpace objectSpace) {
             var extendedReferenceMemberInfos = new XPCollection(objectSpace.Session, _info.ExtendedReferenceMemberInfoType).Cast<IExtendedReferenceMemberInfo>().Where(info => !memberExists(info)).ToList();
             foreach (IExtendedReferenceMemberInfo extendedMemberInfo in extendedReferenceMemberInfos) {
-                IPersistentAssociationAttribute associationAttribute =extendedMemberInfo.TypeAttributes.OfType<IPersistentAssociationAttribute>().ToList()[0];
-                createReferenceMember(extendedMemberInfo, associationAttribute);
+                throw new NotImplementedException();
+//                IPersistentAssociationAttribute associationAttribute =extendedMemberInfo.TypeAttributes.OfType<IPersistentAssociationAttribute>().ToList()[0];
+//                createReferenceMember(extendedMemberInfo, associationAttribute);
             }
             SyncModel(extendedReferenceMemberInfos.Cast<IExtendedMemberInfo>().ToList());
         }
@@ -81,8 +83,9 @@ namespace eXpand.ExpressApp.WorldCreator
         private void createCollections(ObjectSpace objectSpace) {
             var extendedCollectionMemberInfos = new XPCollection(objectSpace.Session, _info.ExtendedCollectionMemberInfoType).Cast<IExtendedCollectionMemberInfo>().Where(info => !memberExists(info)).ToList();
             foreach (IExtendedCollectionMemberInfo extendedMemberInfo in extendedCollectionMemberInfos) {
-                IPersistentAssociationAttribute associationAttribute =extendedMemberInfo.TypeAttributes.OfType<IPersistentAssociationAttribute>().ToList()[0];
-                createCollection((extendedMemberInfo), associationAttribute);
+                throw new NotImplementedException();
+//                IPersistentAssociationAttribute associationAttribute =extendedMemberInfo.TypeAttributes.OfType<IPersistentAssociationAttribute>().ToList()[0];
+//                createCollection((extendedMemberInfo), associationAttribute);
             }
             SyncModel(extendedCollectionMemberInfos.Cast<IExtendedMemberInfo>().ToList());
         }
@@ -109,24 +112,30 @@ namespace eXpand.ExpressApp.WorldCreator
 
         private void addDynamicTypes(ObjectSpace objectSpace) {
             var collection = new XPCollection(objectSpace.Session, _info.PersistentTypesInfoType);
-            XafTypesInfo.XpoTypeInfoSource.XPDictionary.AddClasses(collection.Cast<IPersistentClassInfo>().ToList());
+            
+//            XafTypesInfo.XpoTypeInfoSource.XPDictionary.AddClasses(collection.Cast<IPersistentClassInfo>().ToList());
+            var types = new List<Type>();
+            foreach (IPersistentClassInfo classInfo in collection) {
+                types.Add(PersistentClassTypeBuilder.BuildClass().WithAssemblyName(classInfo.AssemblyName).Define(classInfo));
+            }
+            objectSpace.Session.UpdateSchema(types.ToArray());
             foreach (IPersistentClassInfo classInfo in collection) {
                 SyncModel(classInfo, Application.Model);
             }
         }
 
-        private void createReferenceMember(IExtendedReferenceMemberInfo extendedReferenceMemberInfo, IPersistentAssociationAttribute attribute) {
-            XafTypesInfo.Instance.CreateMember(extendedReferenceMemberInfo.Owner,
-                                               extendedReferenceMemberInfo.ReferenceType, attribute.AssociationName,
-                                               XafTypesInfo.XpoTypeInfoSource.XPDictionary);
-        }
+//        private void createReferenceMember(IExtendedReferenceMemberInfo extendedReferenceMemberInfo, IPersistentAssociationAttribute attribute) {
+//            XafTypesInfo.Instance.CreateMember(extendedReferenceMemberInfo.Owner,
+//                                               extendedReferenceMemberInfo.ReferenceType, attribute.AssociationName,
+//                                               XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+//        }
 
-        private void createCollection(IExtendedCollectionMemberInfo extendedCollectionMemberInfo, IPersistentAssociationAttribute associationAttribute) {
-            
-            XafTypesInfo.Instance.CreateCollection(extendedCollectionMemberInfo.Owner, associationAttribute.ElementType,
-                                                   associationAttribute.AssociationName,
-                                                   XafTypesInfo.XpoTypeInfoSource.XPDictionary,extendedCollectionMemberInfo.Name);
-        }
+//        private void createCollection(IExtendedCollectionMemberInfo extendedCollectionMemberInfo, IPersistentAssociationAttribute associationAttribute) {
+//            
+//            XafTypesInfo.Instance.CreateCollection(extendedCollectionMemberInfo.Owner, associationAttribute.ElementType,
+//                                                   associationAttribute.AssociationName,
+//                                                   XafTypesInfo.XpoTypeInfoSource.XPDictionary,extendedCollectionMemberInfo.Name);
+//        }
 
 
         

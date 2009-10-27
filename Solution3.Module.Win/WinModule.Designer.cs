@@ -1,4 +1,5 @@
 using eXpand.ExpressApp.WorldCreator.Win;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Solution3.Module.Win
 {
@@ -33,7 +34,7 @@ namespace Solution3.Module.Win
             // 
             // Solution3WindowsFormsModule
             // 
-            this.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAssociationAttribute));
+            this.AdditionalBusinessClasses.Add(typeof(PersistentAssociationAttribute));
             this.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentClassInfo));
             this.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentReferenceMemberInfo));
             this.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentCoreTypeMemberInfo));

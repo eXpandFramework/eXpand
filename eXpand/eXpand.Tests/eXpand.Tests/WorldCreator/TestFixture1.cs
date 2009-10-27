@@ -1,35 +1,82 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
+using System.Reflection.Emit;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
-using MbUnit.Framework;
 using eXpand.Xpo;
-using eXpand.ExpressApp.WorldCreator;
+using MbUnit.Framework;
+using TypeMock.ArrangeActAssert;
+using System.Linq;
 
 namespace eXpand.Tests.WorldCreator
 {
     [TestFixture]
-    public class When_Saving_PersistentTypes:XpandBaseFixture
+    public class TestFixture1 : XpandBaseFixture
     {
-        [Test]
-        public void ReferenceMemberInfo_Reference_Type_Can_Persist() {
-            var info = new PersistentReferenceMemberInfo(Session.DefaultSession) {ReferenceType = GetType()};
-            info.Save();
-            
-            var o = (PersistentReferenceMemberInfo) new Session().GetObject(info);
+        private IClassAssemblyNameBuilder _builder;
 
-            Assert.AreEqual(GetType(), o.ReferenceType);
+        [SetUp]
+        public override void Setup() {
+            _builder = PersistentClassTypeBuilder.BuildClass();
         }
         [Test]
-        public void Test_That_No_Multi_Assemblies_With_Same_Name_Are_Created() {
-            var customerClassInfo = new PersistentClassInfo(Session.DefaultSession){Name = "Customer"};
-            var orderClassInfo = new PersistentClassInfo(Session.DefaultSession){Name = "Order"};
+        public void DynamicAssembly_Can_Create() {
 
-            Session.DefaultSession.Dictionary.AddClasses(new List<IPersistentClassInfo> { orderClassInfo,customerClassInfo });
 
-            Assert.IsNotNull(Type.GetType(customerClassInfo.PersistentTypeClassInfo.ClassType.AssemblyQualifiedName));
-            Assert.IsNotNull(Type.GetType(orderClassInfo.PersistentTypeClassInfo.ClassType.AssemblyQualifiedName));
+
+            _builder.WithAssemblyName("TestAssembly").Define(new PersistentClassInfo(Session.DefaultSession) { Name = MethodBase.GetCurrentMethod().Name });
+
+            var singleOrDefault = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => assembly.FullName == "TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null").FirstOrDefault();
+            Assert.IsNotNull(singleOrDefault);
+        }
+        [Test]
+        public void Type_Can_Be_Created()
+        {
+            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "TestClass" + MethodBase.GetCurrentMethod().Name };
+            var type = _builder.WithAssemblyName("TestAssembly").Define(persistentClassInfo);
+
+            Assert.AreEqual("TestAssembly.TestClass" + MethodBase.GetCurrentMethod().Name, type.FullName);
+        }
+        [Test]
+        public void Ctor_Creation()
+        {
+            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "TestClass" + MethodBase.GetCurrentMethod().Name };
+
+            var type = _builder.WithAssemblyName("TestAssembly").Define(persistentClassInfo);
+
+            Activator.CreateInstance(type, Session.DefaultSession);
+        }
+        
+        [Test]
+        public void Core_Property_Creation()
+        {
+            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "TestClass" + MethodBase.GetCurrentMethod().Name };
+            persistentClassInfo.OwnMembers.Add(new PersistentCoreTypeMemberInfo(Session.DefaultSession){Name = "TestProperty",DataType = XPODataType.Boolean});
+
+            var type = _builder.WithAssemblyName("TestAssembly").Define(persistentClassInfo);
+
+            var property = type.GetProperty("TestProperty");
+            Assert.IsNotNull(property);
+            Assert.AreEqual(typeof(bool), property.PropertyType);
+        }
+        
+        [Test]
+        public void Core_Property_Get_Invocation()
+        {
+            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "TestClass" + MethodBase.GetCurrentMethod().Name };
+            persistentClassInfo.OwnMembers.Add(new PersistentCoreTypeMemberInfo(Session.DefaultSession) { Name = "TestProperty", DataType = XPODataType.Boolean });
+
+            var type = _builder.WithAssemblyName("TestAssembly").Define(persistentClassInfo);
+
+            var instance = Activator.CreateInstance(type, Session.DefaultSession);
+            var property = instance.GetType().GetProperty("TestProperty");
+            property.SetValue(instance, true, null);
+            Assert.AreEqual(true, property.GetValue(instance, null));
         }
     }
+    
 }

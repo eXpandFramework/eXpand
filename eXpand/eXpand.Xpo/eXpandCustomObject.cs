@@ -52,7 +52,7 @@ namespace eXpand.Xpo{
 
         
         public const string CancelTriggerObjectChangedName = "CancelTriggerObjectChanged";
-        protected eXpandCustomObject() {}
+//        protected eXpandCustomObject() {}
         protected eXpandCustomObject(Session session) : base(session) {}
 
         [Browsable(false)]

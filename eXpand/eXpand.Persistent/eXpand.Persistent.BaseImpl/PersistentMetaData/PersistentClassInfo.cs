@@ -5,6 +5,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Xpo;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
@@ -70,8 +71,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                     new PersistentAssociationAttribute(Session) {
                                                                     AssociationName =associationName
                                                                 }) {
-                    Name = memberName,ReferenceType =Session.Dictionary.GetClassInfo("",string.Format("{0}.{1}",referenceType.AssemblyName,referenceType.Name)).ClassType
-                                                                                                  };
+                    Name = memberName,ReferenceType =referenceType.PersistentTypeClassInfo.ClassType};
             OwnMembers.Add(persistentReferenceMemberInfo);
             return persistentReferenceMemberInfo;
         }

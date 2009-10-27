@@ -1,4 +1,5 @@
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Solution3.Win
 {
@@ -67,7 +68,7 @@ namespace Solution3.Win
             // 
             // module4
             // 
-            this.module4.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAssociationAttribute));
+            this.module4.AdditionalBusinessClasses.Add(typeof(PersistentAssociationAttribute));
             this.module4.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentClassInfo));
             this.module4.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentReferenceMemberInfo));
             this.module4.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentCoreTypeMemberInfo));

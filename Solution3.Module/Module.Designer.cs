@@ -5,6 +5,7 @@ using eXpand.ExpressApp.ModelDifference;
 using eXpand.ExpressApp.SystemModule;
 using eXpand.ExpressApp.ViewVariants;
 using eXpand.ExpressApp.WorldCreator;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Solution3.Module {
     partial class Solution3Module
@@ -41,7 +42,7 @@ namespace Solution3.Module {
             this.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentClassInfo));
             this.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.ExtendedCollectionMemberInfo));
             this.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.ExtendedReferenceMemberInfo));
-            this.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAssociationAttribute));
+            this.AdditionalBusinessClasses.Add(typeof(PersistentAssociationAttribute));
             this.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentCollectionMemberInfo));
             this.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentCoreTypeMemberInfo));
             this.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentReferenceMemberInfo));

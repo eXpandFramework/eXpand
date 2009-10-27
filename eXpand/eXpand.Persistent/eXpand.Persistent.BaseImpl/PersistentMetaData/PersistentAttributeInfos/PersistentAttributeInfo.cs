@@ -3,23 +3,23 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
-namespace eXpand.Persistent.BaseImpl.PersistentMetaData
-{
+namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     public abstract class PersistentAttributeInfo : BaseObject, IPersistentAttributeInfo {
         protected PersistentAttributeInfo(Session session) : base(session) { }
 
         protected PersistentAttributeInfo()
         {
         }
-        [Persistent]
+        [Persistent][Size(255)]
         [VisibleInDetailView(false)]
         public string Name
         {
             get { return ToString(); }
         }
         
-        public abstract Attribute Create();
+        public abstract AttributeInfo Create();
 
         IPersistentTypeInfo IPersistentAttributeInfo.Owner {
             get { return Owner; }
@@ -27,7 +27,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
         }
         PersistentTypeInfo _owner;
 
-        [Association]
+        [Association("TypeAttributes")]
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]

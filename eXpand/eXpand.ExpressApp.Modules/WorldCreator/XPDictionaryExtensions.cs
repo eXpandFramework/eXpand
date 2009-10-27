@@ -4,6 +4,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.ExpressApp.WorldCreator {
     public static class XPDictionaryExtensions
@@ -14,23 +15,21 @@ namespace eXpand.ExpressApp.WorldCreator {
                 CreateClass(xpDictionary, persistentClassInfo,builder);
             }
             foreach (IPersistentClassInfo classInfo in persistentClassInfos) {
-                CreateMembers( classInfo);
+                CreateMembers( classInfo, classInfo.PersistentTypeClassInfo.ClassType);
             }
         }
 
         public static XPClassInfo AddClass(this XPDictionary xpDictionary, IPersistentClassInfo info) {
             var builder = PersistentClassTypeBuilder.BuildClass();
             XPClassInfo xpClassInfo = CreateClass(xpDictionary, info,builder);
-            CreateMembers(info);
+            CreateMembers(info,xpClassInfo.ClassType);
             return xpClassInfo;
         }
 
         private static XPClassInfo CreateClass(XPDictionary xpDictionary, IPersistentClassInfo info, IClassAssemblyNameBuilder builder)
         {
             XPClassInfo result = xpDictionary.QueryClassInfo(info.AssemblyName, info.Name);
-            if (result == null)
-            {
-                //                XPClassInfo baseClassInfo = info.BaseClass != null ? xpDictionary.AddClass(info.BaseClass) : xpDictionary.GetClassInfo(info.GetDefaultBaseClass());
+            if (result == null){
                 var type = builder.WithAssemblyName(info.AssemblyName).Define(info);
                 result = new ReflectionClassInfo(type, xpDictionary);
                 CreateAttributes(result, info);
@@ -42,20 +41,21 @@ namespace eXpand.ExpressApp.WorldCreator {
 
         private static void CreateAttributes(XPTypeInfo ti,IPersistentTypeInfo info)
         {
-            foreach (IPersistentAttributeInfo a in info.TypeAttributes) {
-                ti.AddAttribute(a.Create());
-            }
+            throw new NotImplementedException();
+//            foreach (IPersistentAttributeInfo a in info.TypeAttributes) {
+//                ti.AddAttribute(a.Create());
+//            }
         }
 
 
-        private static void CreateMembers(IPersistentClassInfo info)
+        private static void CreateMembers(IPersistentClassInfo info, Type type)
         {
             foreach (IPersistentMemberInfo mi in info.OwnMembers) {
-                CreateMember(mi);
+                CreateMember(mi, type);
             }
         }
 
-        private static void CreateMember(IPersistentMemberInfo info)
+        private static void CreateMember(IPersistentMemberInfo info, Type type)
         {
             XPMemberInfo result = info.Owner.PersistentTypeClassInfo.FindMember(info.Name) ?? CreateMemberCore( info);
             CreateAttributes(result,info);
