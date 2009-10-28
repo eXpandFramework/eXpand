@@ -60,10 +60,10 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
             OnArtifactStateStateCustomized(new ArtifactStateInfoCustomizedEventArgs(info));
         }
 
-        public void Register<ArtifactStateRule>(ISupportArtifactStateVisibilityCustomization supportArtifactStateVisibilityCustomization)
+        public void Register<ArtifactStateRule>(ISupportArtifactState supportArtifactState)
         {
-            if (!providers.Keys.Contains(supportArtifactStateVisibilityCustomization))
-                providers.Add(supportArtifactStateVisibilityCustomization, typeof(ArtifactStateRule));
+            if (!providers.Keys.Contains(supportArtifactState))
+                providers.Add(supportArtifactState, typeof(ArtifactStateRule));
         }
         public void UnRegister(ISupportArtifactStateVisibilityCustomization supportArtifactStateVisibilityCustomization)
         {
