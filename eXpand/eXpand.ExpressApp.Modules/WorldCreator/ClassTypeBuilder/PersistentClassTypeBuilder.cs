@@ -16,7 +16,6 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
     {
         
         private ModuleBuilder _moduleBuilder;
-//        readonly Dictionary<string,ModuleBuilder> assemblies=new Dictionary<string, ModuleBuilder>();
         private string _assemblyName;
         private AssemblyBuilder _assemblyBuilder;
 
@@ -30,13 +29,9 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
         IClassDefineBuilder IClassAssemblyNameBuilder.WithAssemblyName(string assemblyName)
         {
             _assemblyName = assemblyName;
-//            if (!assemblies.ContainsKey(assemblyName)) {
-                _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName(assemblyName), AssemblyBuilderAccess.RunAndSave,@"C:\");
-                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName, assemblyName + ".dll");
-//                assemblies[assemblyName] = _moduleBuilder;
-                
-//            }
-//            _moduleBuilder = assemblies[assemblyName];
+            _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName(assemblyName),
+                                                                             AssemblyBuilderAccess.RunAndSave, @"C:\");
+            _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName, assemblyName + ".dll");
             return this;
         }
 
@@ -50,36 +45,50 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
                 }
                 else
                 {
-                    var types = new Type[parameters.Length];
-                    for (int i = 0; i < parameters.Length; i++) {
-                        types[i] = parameters[i].ParameterType;
-                    }
+                    Type[] types = GetConstructorParameterTypes(parameters);
                     ConstructorBuilder cb = type.DefineConstructor(flags2, ci.CallingConvention, types);
                     for (int i = 0; i < parameters.Length; i++) {
                         cb.DefineParameter(i, parameters[i].Attributes, parameters[i].Name);
                     }
-                    
-                    ILGenerator generator = cb.GetILGenerator();
-                    generator.Emit(OpCodes.Ldarg_0);
-                    for (int i = 0; i < parameters.Length; i++) {
-                        if (i == 0)
-                            generator.Emit(OpCodes.Ldarg_1);
-                        else if (i == 1)
-                            generator.Emit(OpCodes.Ldarg_2);
-                        else if (i == 2)
-                            generator.Emit(OpCodes.Ldarg_3);
-                        else
-                            generator.Emit(OpCodes.Ldarg_S, i + 1);
-                    }
-                    generator.Emit(OpCodes.Call, ci);
-                    generator.Emit(OpCodes.Nop);
-                    generator.Emit(OpCodes.Ret);
+                    emitConstructor(ci, parameters, cb);
                 }
             }
         }
 
+        private void emitConstructor(ConstructorInfo ci, ParameterInfo[] parameters, ConstructorBuilder cb) {
+            ILGenerator generator = cb.GetILGenerator();
+            generator.Emit(OpCodes.Ldarg_0);
+            for (int i = 0; i < parameters.Length; i++) {
+                switch (i) {
+                    case 0:
+                        generator.Emit(OpCodes.Ldarg_1);
+                        break;
+                    case 1:
+                        generator.Emit(OpCodes.Ldarg_2);
+                        break;
+                    case 2:
+                        generator.Emit(OpCodes.Ldarg_3);
+                        break;
+                    default:
+                        generator.Emit(OpCodes.Ldarg_S, i + 1);
+                        break;
+                }
+            }
+            generator.Emit(OpCodes.Call, ci);
+            generator.Emit(OpCodes.Nop);
+            generator.Emit(OpCodes.Ret);
+        }
+
+        private Type[] GetConstructorParameterTypes(ParameterInfo[] parameters) {
+            var types = new Type[parameters.Length];
+            for (int i = 0; i < parameters.Length; i++) {
+                types[i] = parameters[i].ParameterType;
+            }
+            return types;
+        }
+
         private TypeBuilder GetTypeBuilder(IPersistentClassInfo classInfo) {
-            var parent = classInfo.GetDefaultBaseClass();
+            var parent =classInfo.BaseType?? classInfo.GetDefaultBaseClass();
             var typeBuilder = _moduleBuilder.DefineType(_assemblyName + "." + classInfo.Name, TypeAttributes.Class | TypeAttributes.Public | TypeAttributes.BeforeFieldInit, parent);
             defineAttributes(classInfo.TypeAttributes, builder => typeBuilder.SetCustomAttribute(builder));
             createConstructors(typeBuilder, parent);
@@ -93,19 +102,55 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
             return define;
         }
 
-        public List<Type> Define(IList<IPersistentClassInfo> classInfos) {
-            var builders = new Dictionary<IPersistentClassInfo, TypeBuilder>();
-            foreach (var classInfo in classInfos) {
-                builders[classInfo] = GetTypeBuilder(classInfo);
-            }
-            foreach (var builder in builders) {
-                createProperties(builder.Key, builder.Value);
-            }
-            var types = new List<Type>();
-            foreach (var builder in builders) {
-                types.Add(builder.Value.CreateType());
+        public List<TypeInfo> Define(IList<IPersistentClassInfo> classInfos) {
+            var builders = defineBuilders(classInfos);
+            defineInheritance(builders);
+            defineProperties(builders);
+            return createTypes(builders);
+        }
+
+        private List<TypeInfo> createTypes(List<TypeBuilderInfo> builders) {
+            var types = new List<TypeInfo>();
+            foreach (var builder in builders.OrderBy(info => info.Order)) {
+                types.Add(new TypeInfo(builder.TypeBuilder.CreateType(),builder.IPersistentClassInfo));
             }
             return types;
+        }
+
+        private void defineProperties(List<TypeBuilderInfo> builders) {
+            foreach (var builder in builders) {
+                createProperties(builder.IPersistentClassInfo, builder.TypeBuilder);
+            }
+        }
+
+        private void defineInheritance(List<TypeBuilderInfo> builders) {
+            foreach (var builder in builders.Where(pair => !string.IsNullOrEmpty(pair.IPersistentClassInfo.BaseTypeAssemblyQualifiedName))) {
+                TypeBuilderInfo pair = builder;
+                var parent = _moduleBuilder.GetTypes().Where(type => type.AssemblyQualifiedName==pair.IPersistentClassInfo.BaseTypeAssemblyQualifiedName).SingleOrDefault();
+                builder.TypeBuilder.SetParent(builder.IPersistentClassInfo.BaseType?? parent);
+                if (builder.TypeBuilder.BaseType == parent)
+                    builders.Where(info => info.TypeBuilder == parent).Single().Order = builder.Order - 1;
+            }
+        }
+
+        private class TypeBuilderInfo {
+            public TypeBuilderInfo(int order, TypeBuilder typeBuilder, IPersistentClassInfo persistentClassInfo) {
+                Order = order;
+                TypeBuilder = typeBuilder;
+                IPersistentClassInfo = persistentClassInfo;
+            }
+
+            public int Order { get; set; }
+            public TypeBuilder TypeBuilder { get; private set; }
+            public IPersistentClassInfo IPersistentClassInfo { get; private set; }
+        }
+        private List<TypeBuilderInfo> defineBuilders(IList<IPersistentClassInfo> classInfos)
+        {
+            var typeBuilders = new List<TypeBuilderInfo>();
+            foreach (var classInfo in classInfos) {
+                typeBuilders.Add(new TypeBuilderInfo(0, GetTypeBuilder(classInfo),classInfo));
+            }
+            return typeBuilders;
         }
 
         AssemblyBuilder IClassDefineBuilder.AssemblyBuilder {
@@ -125,7 +170,7 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
                 else if (ownMember is IPersistentReferenceMemberInfo) {
                     var persistentReferenceMemberInfo = ((IPersistentReferenceMemberInfo)ownMember);
                     memberInfoType = persistentReferenceMemberInfo.ReferenceType ??
-                                     _moduleBuilder.GetTypes().Where(type =>type.AssemblyQualifiedName ==persistentReferenceMemberInfo.AssemblyQualifiedName).Single();
+                                     _moduleBuilder.GetTypes().Where(type =>type.AssemblyQualifiedName ==persistentReferenceMemberInfo.ReferenceTypeAssemblyQualifiedName).Single();
                 }
                 else if (ownMember is IPersistentCollectionMemberInfo) {
                     memberInfoType= typeof(XPCollection);
@@ -190,121 +235,6 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
             currGetIL.Emit(OpCodes.Ret);
             property.SetGetMethod(currGetPropMthdBldr);
         }
-
-//        private static void createGetSetProperty(TypeBuilder type, IPersistentMemberInfo memberInfo, bool IsExtended)
-//        {
-//            
-//            ConstructorInfo sizeConstructorInfo = typeof(SizeAttribute).GetConstructor(new[] { typeof(int) });
-//            var sizectorArgs = new object[] { SizeAttribute.Unlimited };
-//
-//            ConstructorInfo associationctor;
-//            object[] associationctorArgs;
-//
-//            ConstructorInfo aggregatedctor = typeof(AggregatedAttribute).GetConstructor(Type.EmptyTypes);
-//
-//            const MethodAttributes flags2 = MethodAttributes.SpecialName | MethodAttributes.HideBySig |MethodAttributes.Public;
-//            //Se define la propiedad
-//            PropertyBuilder prop = type.DefineProperty(memberInfo.Name, PropertyAttributes.HasDefault, memberInfo.Type, null);
-//            FieldBuilder field = null;
-//            var memberInfoType = Type.GetType("System." + ((IPersistentCoreTypeMemberInfo)memberInfo).DataType, true);
-//            var isCollection = (memberInfo is IPersistentCollectionMemberInfo);
-//            if (!isCollection)
-//            {
-//                //Se define el campo que se usa para obtener y regresar valores a traves de la propiedad
-//                field = type.DefineField("_" + memberInfo.Name, memberInfoType, FieldAttributes.Private);
-//            }
-//            //Se define el metodo get de la propiedad
-//            MethodBuilder getmethod = type.DefineMethod("get_" + memberInfo.Name, flags2, memberInfoType, Type.EmptyTypes);
-//
-//            //Se generan las instrucciones para el metodo get
-//            ILGenerator generator = getmethod.GetILGenerator();
-//            generator.Emit(OpCodes.Ldarg_0);
-//            if (memberInfo.Type != typeof(XPCollection))
-//            {
-//                if (field != null) generator.Emit(OpCodes.Ldfld, field);
-//            }
-//            else
-//            {
-//                generator.Emit(OpCodes.Nop);
-//                generator.Emit(OpCodes.Ldstr, memberInfo.Name);
-//                generator.Emit(OpCodes.Call,
-//                               typeof(XPBaseObject).GetMethod("GetCollection",
-//                                                               BindingFlags.Instance | BindingFlags.NonPublic,
-//                                                               new MyBinder(), new[] { typeof(string) }, null));
-//            }
-//            generator.Emit(OpCodes.Ret);
-//
-//            if (memberInfo.Type != typeof(XPCollection))
-//            {
-//                //Se define el metodo set de la propiedad
-//                MethodBuilder setmethod = type.DefineMethod("set_" + memberInfo.Name, flags2, null, new[] { memberInfo.Type });
-//
-//                //Se generan las instrucciones para el metodo set
-//                generator = setmethod.GetILGenerator();
-//                if (memberInfo.SingleEdition)
-//                {
-//                    Label IsNotNull = generator.DefineLabel();
-//                    generator.Emit(OpCodes.Ldarg_0);
-//                    generator.Emit(OpCodes.Call,
-//                                   typeof(Functions).GetMethod("IsNewOrIsLoading",
-//                                                                BindingFlags.Static | BindingFlags.NonPublic));
-//                    generator.Emit(OpCodes.Brfalse_S, IsNotNull);
-//
-//                    generator.Emit(OpCodes.Ldarg_0);
-//                    generator.Emit(OpCodes.Ldarg_1);
-//                    if (field != null) generator.Emit(OpCodes.Stfld, field);
-//                    generator.Emit(OpCodes.Ret);
-//
-//                    generator.MarkLabel(IsNotNull);
-//                    ConstructorInfo NewException = typeof(Exception).GetConstructor(new[] { typeof(string) });
-//                    generator.Emit(OpCodes.Ldstr, memberInfo.Label + " no puede ser editado porque es de edicion unica.");
-//                    generator.Emit(OpCodes.Newobj, NewException);
-//                    generator.Emit(OpCodes.Throw);
-//                }
-//                else
-//                {
-//                    generator.Emit(OpCodes.Ldarg_0);
-//                    generator.Emit(OpCodes.Ldarg_1);
-//                    if (field != null) generator.Emit(OpCodes.Stfld, field);
-//                    generator.Emit(OpCodes.Ret);
-//                }
-//                prop.SetSetMethod(setmethod);
-//            }
-//            prop.SetGetMethod(getmethod);
-//
-//
-//            //Si la propiedad es string, se le genera un atributo personalizado con las mismas caracteristicas del
-//            //SizeAttribute
-//            if (memberInfo.Type == typeof(string))
-//            {
-//                prop.SetCustomAttribute(new CustomAttributeBuilder(sizeConstructorInfo, sizectorArgs));
-//            }
-//            if (IsExtended)
-//            {
-//                ConstructorInfo ctor = typeof(ExtendedPropertyAttribute).GetConstructor(Type.EmptyTypes);
-//                prop.SetCustomAttribute(new CustomAttributeBuilder(ctor, new object[] { }));
-//            }
-//            //Si la propiedad es una relacion se agrega el atributo association
-//            if (memberInfo.RelationType == Property.relationType.Muchos_a_Uno)
-//            {
-//                associationctor = typeof(AssociationAttribute).GetConstructor(new[] { typeof(string) });
-//                associationctorArgs = new object[] { memberInfo.RelationName };
-//                prop.SetCustomAttribute(new CustomAttributeBuilder(associationctor, associationctorArgs));
-//            }
-//            if ((memberInfo.RelationType == Property.relationType.Muchos_a_Muchos) ||
-//                (memberInfo.RelationType == Property.relationType.Uno_a_Muchos))
-//            {
-//                associationctor = typeof(AssociationAttribute).GetConstructor(new[] { typeof(string), typeof(Type) });
-//                associationctorArgs = new object[] { memberInfo.RelationName, memberInfo.XPCollectionType };
-//                prop.SetCustomAttribute(new CustomAttributeBuilder(associationctor, associationctorArgs));
-//                if (memberInfo.DataType == Property.dataType.Tabla)
-//                {
-//                    prop.SetCustomAttribute(new CustomAttributeBuilder(aggregatedctor, new object[] { }));
-//                }
-//            }
-//        }
-
-
     }
 
     internal class MyBinder : Binder

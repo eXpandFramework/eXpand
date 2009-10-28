@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
@@ -19,25 +20,23 @@ namespace eXpand.ExpressApp.WorldCreator
         {
             InitializeComponent();
         }
-        private void SyncModel(IPersistentClassInfo persistentClassInfo, Dictionary dictionary)
+
+        public void SyncModel(IPersistentClassInfo persistentClassInfo, Dictionary dictionary)
         {
             XPClassInfo xpClassInfo = persistentClassInfo.PersistentTypeClassInfo;
             Type type = xpClassInfo.ClassType;
             var wrapper = new ApplicationNodeWrapper(dictionary);
-            var applicationNodeWrapper =
-                new ApplicationNodeWrapper(new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName),
-                                                          dictionary.Schema));
+            var applicationNodeWrapper =new ApplicationNodeWrapper(dictionary.Clone());
             XafTypesInfo.Instance.RegisterEntity(type);
             applicationNodeWrapper.Load(type);
-            foreach (ClassInfoNodeWrapper classInfoNodeWrapper in applicationNodeWrapper.BOModel.Classes) {
-                if (wrapper.BOModel.Node.FindChildNode(classInfoNodeWrapper.Node) == null)
-                    wrapper.BOModel.Node.AddChildNode(classInfoNodeWrapper.Node);
-            }
-            foreach (BaseViewInfoNodeWrapper infoNodeWrapper in applicationNodeWrapper.Views.Items) {
+            var classInfoNodeWrapper = applicationNodeWrapper.BOModel.FindClassByType(persistentClassInfo.PersistentTypeClassInfo.ClassType);
+            wrapper.BOModel.Node.AddChildNode(classInfoNodeWrapper.Node);
+            var baseViewInfoNodeWrappers = applicationNodeWrapper.Views.GetDetailViews(classInfoNodeWrapper).Cast<BaseViewInfoNodeWrapper>().ToList();
+            baseViewInfoNodeWrappers.AddRange(applicationNodeWrapper.Views.GetListViews(classInfoNodeWrapper).Cast<BaseViewInfoNodeWrapper>());
+            foreach (BaseViewInfoNodeWrapper infoNodeWrapper in baseViewInfoNodeWrappers) {
                 if (wrapper.Views.Node.FindChildNode(infoNodeWrapper.Node) == null)
                     wrapper.Views.Node.AddChildNode(infoNodeWrapper.Node);
-            }
-            
+            }            
             
         }
 
@@ -114,7 +113,7 @@ namespace eXpand.ExpressApp.WorldCreator
             var collection = new XPCollection(objectSpace.Session, _info.PersistentTypesInfoType);
             
 //            XafTypesInfo.XpoTypeInfoSource.XPDictionary.AddClasses(collection.Cast<IPersistentClassInfo>().ToList());
-            var types = new List<Type>();
+            var types = new List<TypeInfo>();
             var builder = PersistentClassTypeBuilder.BuildClass();
             var persistentClassInfos = collection.Cast<IPersistentClassInfo>();
             var assemblies = persistentClassInfos.GroupBy(info => info.AssemblyName).Select(grouping => grouping.Key);
@@ -128,12 +127,23 @@ namespace eXpand.ExpressApp.WorldCreator
 #endif
             }
 
-            objectSpace.Session.UpdateSchema(types.ToArray());
-            foreach (IPersistentClassInfo classInfo in collection) {
+            objectSpace.Session.UpdateSchema(types.Select(info => info.Type).ToArray());
+            foreach (IPersistentClassInfo classInfo in types.Select(info => info.PersistentClassInfo)){
                 SyncModel(classInfo, Application.Model);
             }
         }
 
+
+        private class PersistentClassOrderInfo
+        {
+            public PersistentClassOrderInfo(IPersistentClassInfo persistentClassInfo, int order) {
+                IPersistentClassInfo = persistentClassInfo;
+                Order = order;
+            }
+
+            public IPersistentClassInfo IPersistentClassInfo { get; set; }
+            public int Order { get; set; }
+        }
 //        private void createReferenceMember(IExtendedReferenceMemberInfo extendedReferenceMemberInfo, IPersistentAssociationAttribute attribute) {
 //            XafTypesInfo.Instance.CreateMember(extendedReferenceMemberInfo.Owner,
 //                                               extendedReferenceMemberInfo.ReferenceType, attribute.AssociationName,

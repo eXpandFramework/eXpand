@@ -1,6 +1,5 @@
 ﻿using System;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Updating;
 
 namespace eXpand.ExpressApp.Core
 {

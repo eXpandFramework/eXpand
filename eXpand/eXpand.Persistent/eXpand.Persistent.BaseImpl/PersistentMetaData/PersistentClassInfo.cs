@@ -25,9 +25,25 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         public Type BaseType {
             get { return _baseType; }
-            set { SetPropertyValue("BaseType", ref _baseType, value); }
+            set {
+                SetPropertyValue("BaseType", ref _baseType, value);
+                if (value != null) _baseTypeAssemblyQualifiedName = value.AssemblyQualifiedName;
+            }
         }
-
+        private string _baseTypeAssemblyQualifiedName;
+        [Size(SizeAttribute.Unlimited)]
+        [Browsable(false)][MemberDesignTimeVisibility(false)]
+        public string BaseTypeAssemblyQualifiedName
+        {
+            get
+            {
+                return _baseTypeAssemblyQualifiedName;
+            }
+            set
+            {
+                SetPropertyValue("BaseTypeAssemblyQualifiedName", ref _baseTypeAssemblyQualifiedName, value);
+            }
+        }
         [Association]
         public XPCollection<PersistentMemberInfo> OwnMembers {
             get { return GetCollection<PersistentMemberInfo>("OwnMembers"); }

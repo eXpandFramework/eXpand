@@ -264,6 +264,7 @@
     <Compile Include="WorldCreator\PersistentClassTypeBuilderTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="WorldCreator\SynChronizing_Model.cs" />
     <Compile Include="XpandBaseFixture.cs">
       <SubType>Code</SubType>
     </Compile>

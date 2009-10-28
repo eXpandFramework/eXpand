@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using MbUnit.Framework;
@@ -20,17 +22,6 @@ namespace eXpand.Tests.WorldCreator
             var o = (PersistentReferenceMemberInfo) new Session().GetObject(info);
 
             Assert.AreEqual(GetType(), o.ReferenceType);
-        }
-        [Test]
-        public void Test_That_No_Multi_Assemblies_With_Same_Name_Are_Created() {
-            throw new NotImplementedException();
-//            var customerClassInfo = new PersistentClassInfo(Session.DefaultSession){Name = "Customer"};
-//            var orderClassInfo = new PersistentClassInfo(Session.DefaultSession){Name = "Order"};
-//
-//            Session.DefaultSession.Dictionary.AddClasses(new List<IPersistentClassInfo> { orderClassInfo,customerClassInfo });
-//
-//            Assert.IsNotNull(Type.GetType(customerClassInfo.PersistentTypeClassInfo.ClassType.AssemblyQualifiedName));
-//            Assert.IsNotNull(Type.GetType(orderClassInfo.PersistentTypeClassInfo.ClassType.AssemblyQualifiedName));
         }
     }
 }

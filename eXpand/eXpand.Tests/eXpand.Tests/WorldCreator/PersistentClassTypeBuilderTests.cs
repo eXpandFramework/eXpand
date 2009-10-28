@@ -77,7 +77,21 @@ namespace eXpand.Tests.WorldCreator
             Assert.AreEqual(true, property.GetValue(instance, null));
         }
         [Test]
-        public void Reference_Property_Creation()
+        public void DynamicType_Reference_Property_Creation()
+        {
+            var userClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "User" };
+            var name = "TestClass" + MethodBase.GetCurrentMethod().Name;
+            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = name };
+            persistentClassInfo.OwnMembers.Add(new PersistentReferenceMemberInfo(Session.DefaultSession) { Name = "TestProperty", ReferenceTypeAssemblyQualifiedName = "TestAssembly.User, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" });
+
+            var types = _builder.WithAssemblyName("TestAssembly").Define(new List<IPersistentClassInfo> {persistentClassInfo,userClassInfo});
+
+            var property = types.Where(type => type.Name == name).Single().GetProperty("TestProperty");
+            Assert.IsNotNull(property);
+            Assert.AreEqual("TestAssembly.User, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", property.PropertyType.AssemblyQualifiedName);
+        }
+        [Test]
+        public void ExistentType_Reference_Property_Creation()
         {
             var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "TestClass" + MethodBase.GetCurrentMethod().Name };
             persistentClassInfo.OwnMembers.Add(new PersistentReferenceMemberInfo(Session.DefaultSession) { Name = "TestProperty", ReferenceType =typeof(User) });
@@ -152,6 +166,7 @@ namespace eXpand.Tests.WorldCreator
 
             Assert.AreEqual(1, type.GetCustomAttributes(false).OfType<CustomAttribute>().Count());
         }
+
         [Test]
         public void Associate_2_DynamicTypes()
         {
@@ -161,7 +176,7 @@ namespace eXpand.Tests.WorldCreator
             customerClassInfo.OwnMembers.Add(ordersMemberInfo);
 
             var orderClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "Order" };
-            var customerMemberInfo = new PersistentReferenceMemberInfo(Session.DefaultSession) { Name = "Customer", AssemblyQualifiedName = "TestAssembly.Customer, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" };
+            var customerMemberInfo = new PersistentReferenceMemberInfo(Session.DefaultSession) { Name = "Customer", ReferenceTypeAssemblyQualifiedName = "TestAssembly.Customer, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" };
             customerMemberInfo.TypeAttributes.Add(new PersistentAssociationAttribute(Session.DefaultSession) { AssemblyQualifiedName = "TestAssembly.Order, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" });
             orderClassInfo.OwnMembers.Add(customerMemberInfo);
             var classDefineBuilder = _builder.WithAssemblyName("TestAssembly");
@@ -171,6 +186,41 @@ namespace eXpand.Tests.WorldCreator
             Assert.AreEqual(2, types.Count);
             Assert.AreEqual("TestAssembly.Customer, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", types[0].AssemblyQualifiedName);
             Assert.AreEqual("TestAssembly.Order, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", types[1].AssemblyQualifiedName);
+        }
+        [Test]
+        public void Associate_1_DynamicType_With_1_Existent()
+        {
+            var customerClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "Customer" };
+            customerClassInfo.TypeAttributes.Add(new PersistentAssociationAttribute(Session.DefaultSession) { ElementType = typeof(User) });
+            var classDefineBuilder = _builder.WithAssemblyName("TestAssembly");
+
+            var types = classDefineBuilder.Define(customerClassInfo);
+
+            Assert.AreEqual("TestAssembly.Customer, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", types.AssemblyQualifiedName);
+        }
+        [Test]
+        public void Associate_2_Existent_Types()
+        {
+            throw new NotImplementedException();
+        }
+        [Test]
+        public void DynamicType_Can_Inherit_An_Existent_Type() {
+            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) {Name = "Customer", BaseType = typeof (User)};
+
+            var type = _builder.WithAssemblyName("TestAssembly").Define(persistentClassInfo);
+
+            Assert.AreEqual(typeof(User), type.BaseType);
+        }
+        [Test]
+        public void DynamicType_Can_Inherit_A_Dynamic_Type()
+        {
+            var userClassInfo = new PersistentClassInfo(Session.DefaultSession) {Name = "User"};
+            var customerClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "Customer", BaseTypeAssemblyQualifiedName = "TestAssembly.User, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" };
+
+            var types = _builder.WithAssemblyName("TestAssembly").Define(new List<IPersistentClassInfo> {customerClassInfo,userClassInfo});
+
+            var custtomerAssemblyQualifiedName = types.Where(type => type.Name=="Customer").Single().BaseType.AssemblyQualifiedName;
+            Assert.AreEqual("TestAssembly.User, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", custtomerAssemblyQualifiedName);
         }
     }
 

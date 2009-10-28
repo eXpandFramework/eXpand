@@ -46,7 +46,9 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
         }
 
         private string _assemblyQualifiedName;
-        [Browsable(false)][MemberDesignTimeVisibility(false)]
+        [Browsable(false)]
+        [MemberDesignTimeVisibility(false)]
+        [Size(SizeAttribute.Unlimited)]
         public string AssemblyQualifiedName
         {
             get
