@@ -116,9 +116,18 @@ namespace eXpand.ExpressApp.WorldCreator
 //            XafTypesInfo.XpoTypeInfoSource.XPDictionary.AddClasses(collection.Cast<IPersistentClassInfo>().ToList());
             var types = new List<Type>();
             var builder = PersistentClassTypeBuilder.BuildClass();
-            foreach (IPersistentClassInfo classInfo in collection) {
-                types.Add(builder.WithAssemblyName(classInfo.AssemblyName).Define(classInfo));
+            var persistentClassInfos = collection.Cast<IPersistentClassInfo>();
+            var assemblies = persistentClassInfos.GroupBy(info => info.AssemblyName).Select(grouping => grouping.Key);
+            foreach (var assembly in assemblies) {
+                IClassDefineBuilder defineBuilder = builder.WithAssemblyName(assembly);
+                string s = assembly;
+                var classInfos = persistentClassInfos.Where(info => info.AssemblyName == s);
+                types.AddRange(defineBuilder.Define(classInfos.ToList()));
+#if DEBUG
+                defineBuilder.AssemblyBuilder.Save(assembly+".dll");
+#endif
             }
+
             objectSpace.Session.UpdateSchema(types.ToArray());
             foreach (IPersistentClassInfo classInfo in collection) {
                 SyncModel(classInfo, Application.Model);

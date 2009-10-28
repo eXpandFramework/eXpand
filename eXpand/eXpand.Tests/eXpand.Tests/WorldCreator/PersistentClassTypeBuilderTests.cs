@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
+using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Xpo;
@@ -108,7 +110,7 @@ namespace eXpand.Tests.WorldCreator
 
             var type = _builder.WithAssemblyName("TestAssembly").Define(persistentClassInfo);
 
-            var property = type.GetProperty("TestProperty");
+            PropertyInfo property = type.GetProperty("TestProperty");
             Assert.IsNotNull(property);
             Assert.IsNull(property.GetSetMethod());
             Assert.AreEqual(typeof(XPCollection), property.PropertyType);
@@ -150,8 +152,28 @@ namespace eXpand.Tests.WorldCreator
 
             Assert.AreEqual(1, type.GetCustomAttributes(false).OfType<CustomAttribute>().Count());
         }
+        [Test]
+        public void Associate_2_DynamicTypes()
+        {
+            var customerClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "Customer" };
+            var ordersMemberInfo = new PersistentCollectionMemberInfo(Session.DefaultSession) { Name = "Orders" };
+            ordersMemberInfo.TypeAttributes.Add(new PersistentAssociationAttribute(Session.DefaultSession) { AssemblyQualifiedName = "TestAssembly.Order, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" });
+            customerClassInfo.OwnMembers.Add(ordersMemberInfo);
 
+            var orderClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "Order" };
+            var customerMemberInfo = new PersistentReferenceMemberInfo(Session.DefaultSession) { Name = "Customer", AssemblyQualifiedName = "TestAssembly.Customer, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" };
+            customerMemberInfo.TypeAttributes.Add(new PersistentAssociationAttribute(Session.DefaultSession) { AssemblyQualifiedName = "TestAssembly.Order, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" });
+            orderClassInfo.OwnMembers.Add(customerMemberInfo);
+            var classDefineBuilder = _builder.WithAssemblyName("TestAssembly");
+
+            var types = classDefineBuilder.Define(new List<IPersistentClassInfo> {customerClassInfo,orderClassInfo});
+
+            Assert.AreEqual(2, types.Count);
+            Assert.AreEqual("TestAssembly.Customer, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", types[0].AssemblyQualifiedName);
+            Assert.AreEqual("TestAssembly.Order, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", types[1].AssemblyQualifiedName);
+        }
     }
 
-    
+
+
 }

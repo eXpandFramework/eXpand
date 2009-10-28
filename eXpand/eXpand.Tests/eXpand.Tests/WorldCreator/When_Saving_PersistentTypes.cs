@@ -23,13 +23,14 @@ namespace eXpand.Tests.WorldCreator
         }
         [Test]
         public void Test_That_No_Multi_Assemblies_With_Same_Name_Are_Created() {
-            var customerClassInfo = new PersistentClassInfo(Session.DefaultSession){Name = "Customer"};
-            var orderClassInfo = new PersistentClassInfo(Session.DefaultSession){Name = "Order"};
-
-            Session.DefaultSession.Dictionary.AddClasses(new List<IPersistentClassInfo> { orderClassInfo,customerClassInfo });
-
-            Assert.IsNotNull(Type.GetType(customerClassInfo.PersistentTypeClassInfo.ClassType.AssemblyQualifiedName));
-            Assert.IsNotNull(Type.GetType(orderClassInfo.PersistentTypeClassInfo.ClassType.AssemblyQualifiedName));
+            throw new NotImplementedException();
+//            var customerClassInfo = new PersistentClassInfo(Session.DefaultSession){Name = "Customer"};
+//            var orderClassInfo = new PersistentClassInfo(Session.DefaultSession){Name = "Order"};
+//
+//            Session.DefaultSession.Dictionary.AddClasses(new List<IPersistentClassInfo> { orderClassInfo,customerClassInfo });
+//
+//            Assert.IsNotNull(Type.GetType(customerClassInfo.PersistentTypeClassInfo.ClassType.AssemblyQualifiedName));
+//            Assert.IsNotNull(Type.GetType(orderClassInfo.PersistentTypeClassInfo.ClassType.AssemblyQualifiedName));
         }
     }
 }

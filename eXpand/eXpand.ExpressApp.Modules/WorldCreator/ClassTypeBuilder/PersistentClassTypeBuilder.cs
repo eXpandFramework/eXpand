@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -10,15 +9,17 @@ using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Utils.ExpressionBuilder;
 using PropertyAttributes=System.Reflection.PropertyAttributes;
+using System.Linq;
 
 namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
     public class PersistentClassTypeBuilder : Builder<Type>, IClassAssemblyNameBuilder, IClassDefineBuilder
     {
         
         private ModuleBuilder _moduleBuilder;
-        readonly Dictionary<string,ModuleBuilder> assemblies=new Dictionary<string, ModuleBuilder>();
+//        readonly Dictionary<string,ModuleBuilder> assemblies=new Dictionary<string, ModuleBuilder>();
         private string _assemblyName;
-        
+        private AssemblyBuilder _assemblyBuilder;
+
 
         public static IClassAssemblyNameBuilder BuildClass()
         {
@@ -29,13 +30,13 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
         IClassDefineBuilder IClassAssemblyNameBuilder.WithAssemblyName(string assemblyName)
         {
             _assemblyName = assemblyName;
-            if (!assemblies.ContainsKey(assemblyName)) {
-                var assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName(assemblyName), AssemblyBuilderAccess.RunAndSave);
-                _moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName, assemblyName + ".dll");
-                assemblies[assemblyName] = _moduleBuilder;
+//            if (!assemblies.ContainsKey(assemblyName)) {
+                _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName(assemblyName), AssemblyBuilderAccess.RunAndSave,@"C:\");
+                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName, assemblyName + ".dll");
+//                assemblies[assemblyName] = _moduleBuilder;
                 
-            }
-            _moduleBuilder = assemblies[assemblyName];
+//            }
+//            _moduleBuilder = assemblies[assemblyName];
             return this;
         }
 
@@ -77,17 +78,42 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
             }
         }
 
-        public Type Define(IPersistentClassInfo classInfo) {
-            foreach (var attributeInfo in classInfo.TypeAttributes) {
-                Debug.Print(attributeInfo.ToString());
-            }
+        private TypeBuilder GetTypeBuilder(IPersistentClassInfo classInfo) {
             var parent = classInfo.GetDefaultBaseClass();
             var typeBuilder = _moduleBuilder.DefineType(_assemblyName + "." + classInfo.Name, TypeAttributes.Class | TypeAttributes.Public | TypeAttributes.BeforeFieldInit, parent);
             defineAttributes(classInfo.TypeAttributes, builder => typeBuilder.SetCustomAttribute(builder));
             createConstructors(typeBuilder, parent);
+            return typeBuilder;
+        }
+
+        public Type Define(IPersistentClassInfo classInfo) {
+            TypeBuilder typeBuilder = GetTypeBuilder(classInfo);
             createProperties(classInfo, typeBuilder);
             var define = typeBuilder.CreateType();
             return define;
+        }
+
+        public List<Type> Define(IList<IPersistentClassInfo> classInfos) {
+            var builders = new Dictionary<IPersistentClassInfo, TypeBuilder>();
+            foreach (var classInfo in classInfos) {
+                builders[classInfo] = GetTypeBuilder(classInfo);
+            }
+            foreach (var builder in builders) {
+                createProperties(builder.Key, builder.Value);
+            }
+            var types = new List<Type>();
+            foreach (var builder in builders) {
+                types.Add(builder.Value.CreateType());
+            }
+            return types;
+        }
+
+        AssemblyBuilder IClassDefineBuilder.AssemblyBuilder {
+            get { return _assemblyBuilder; }
+        }
+
+        ModuleBuilder IClassDefineBuilder.ModuleBuilder {
+            get { return _moduleBuilder; }
         }
 
 
@@ -96,18 +122,21 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
                 var memberInfoType = typeof(XPCollection);
                 if (ownMember is IPersistentCoreTypeMemberInfo)
                     memberInfoType = Type.GetType("System." + ((IPersistentCoreTypeMemberInfo) ownMember).DataType, true);
-                else if (ownMember is IPersistentReferenceMemberInfo)
-                    memberInfoType= ((IPersistentReferenceMemberInfo) ownMember).ReferenceType;
+                else if (ownMember is IPersistentReferenceMemberInfo) {
+                    var persistentReferenceMemberInfo = ((IPersistentReferenceMemberInfo)ownMember);
+                    memberInfoType = persistentReferenceMemberInfo.ReferenceType ??
+                                     _moduleBuilder.GetTypes().Where(type =>type.AssemblyQualifiedName ==persistentReferenceMemberInfo.AssemblyQualifiedName).Single();
+                }
                 else if (ownMember is IPersistentCollectionMemberInfo) {
                     memberInfoType= typeof(XPCollection);
-                    createCollection(typeBuilder, ownMember, memberInfoType);
+                    createCollectionProperty(typeBuilder, ownMember, memberInfoType);
                     continue;
                 }
-                createProperty(typeBuilder, ownMember,memberInfoType);    
+                createGetSetProperty(typeBuilder, ownMember,memberInfoType);    
             }
         }
 
-        private void createCollection(TypeBuilder type, IPersistentMemberInfo memberInfo, Type memberInfoType) {
+        private void createCollectionProperty(TypeBuilder type, IPersistentMemberInfo memberInfo, Type memberInfoType) {
 
             PropertyBuilder property = type.DefineProperty(memberInfo.Name, PropertyAttributes.HasDefault, memberInfoType,
                                                            null);
@@ -123,13 +152,13 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
                                                           new MyBinder(), new[] { typeof(string) }, null));
             generator.Emit(OpCodes.Ret);
             property.SetGetMethod(getmethod);
+            defineAttributes(memberInfo.TypeAttributes, builder => property.SetCustomAttribute(builder));
         }
 
-        private static void createProperty(TypeBuilder type, IPersistentMemberInfo memberInfo, Type memberInfoType) {
+        private static void createGetSetProperty(TypeBuilder type, IPersistentMemberInfo memberInfo, Type memberInfoType) {
             
             FieldBuilder field = type.DefineField("_" + memberInfo.Name, memberInfoType, FieldAttributes.Private);
             PropertyBuilder property = type.DefineProperty(memberInfo.Name, PropertyAttributes.HasDefault, memberInfoType, null);
-
             const MethodAttributes GetSetAttr = MethodAttributes.Public |MethodAttributes.HideBySig;
             definePropertyGetMethod(type, memberInfoType, GetSetAttr, field, property);
             definePropertySetMethod(type, memberInfoType, GetSetAttr, field, property);
@@ -162,7 +191,7 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
             property.SetGetMethod(currGetPropMthdBldr);
         }
 
-//        private static void createProperty(TypeBuilder type, IPersistentMemberInfo memberInfo, bool IsExtended)
+//        private static void createGetSetProperty(TypeBuilder type, IPersistentMemberInfo memberInfo, bool IsExtended)
 //        {
 //            
 //            ConstructorInfo sizeConstructorInfo = typeof(SizeAttribute).GetConstructor(new[] { typeof(int) });

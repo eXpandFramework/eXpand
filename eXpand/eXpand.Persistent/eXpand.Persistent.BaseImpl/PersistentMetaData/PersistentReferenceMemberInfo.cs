@@ -28,7 +28,24 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
         public Type ReferenceType
         {
             get { return _referenceType; }
-            set { SetPropertyValue("ReferenceType", ref _referenceType, value); }
+            set {
+                SetPropertyValue("ReferenceType", ref _referenceType, value);
+                if (value != null) _assemblyQualifiedName = value.AssemblyQualifiedName;
+            }
+        }
+
+        private string _assemblyQualifiedName;
+        [Browsable(false)][MemberDesignTimeVisibility(false)]
+        public string AssemblyQualifiedName
+        {
+            get
+            {
+                return _assemblyQualifiedName;
+            }
+            set
+            {
+                SetPropertyValue("AssemblyQualifiedName", ref _assemblyQualifiedName, value);
+            }
         }
         Type IPersistentReferenceMemberInfo.ReferenceType
         {
