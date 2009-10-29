@@ -65,7 +65,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
             if (!providers.Keys.Contains(supportArtifactState))
                 providers.Add(supportArtifactState, typeof(ArtifactStateRule));
         }
-        public void UnRegister(ISupportArtifactStateVisibilityCustomization supportArtifactStateVisibilityCustomization)
+        public void UnRegister(ISupportArtifactState supportArtifactStateVisibilityCustomization)
         {
             if (!providers.Keys.Contains(supportArtifactStateVisibilityCustomization))
                 providers.Remove(supportArtifactStateVisibilityCustomization);
