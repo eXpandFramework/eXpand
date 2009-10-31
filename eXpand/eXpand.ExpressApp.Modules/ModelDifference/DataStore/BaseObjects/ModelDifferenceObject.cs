@@ -11,6 +11,7 @@ using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.Persistent.Base;
 using eXpand.Utils.Helpers;
+using System.Linq;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
     [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "PersistentApplication;DifferenceType", TargetCriteria = "DifferenceType=0 AND Disabled=false", SkipNullOrEmptyValues = false)]
@@ -167,6 +168,16 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             PersistentApplication =new QueryPersistentApplication(Session).Find(uniqueName)?? new PersistentApplication(Session){Name = applicationName,UniqueName = uniqueName};
             ModelDifferenceObjectBuilder.SetUp(this, applicationName);
             return this;
+        }
+
+        public Dictionary GetCombinedModel(params Dictionary[] args) {
+            var clone = PersistentApplication.Model.Clone();
+            foreach (var dictionary1 in args.Where(dictionary => dictionary!= null)) {
+                clone.CombineWith(dictionary1);
+            }
+            clone.ResetIsModified();
+            clone.CombineWith(Model);
+            return clone;
         }
 
         public Dictionary GetCombinedModel(Dictionary dictionary){
