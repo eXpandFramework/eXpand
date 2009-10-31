@@ -21,7 +21,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
         protected Taxonomy taxonomy;
 
         protected TermBase(Session session) : base(session) {}
-        protected TermBase() {}
+        
 
         [PersistentAlias("fullPath")]
         [Indexed(Unique = true, Name = "pathIndex")]

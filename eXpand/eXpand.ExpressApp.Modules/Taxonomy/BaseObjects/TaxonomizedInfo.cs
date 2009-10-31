@@ -11,7 +11,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
     [DefaultClassOptions]
     public class TaxonomizedInfo : BaseInfo, ICategorizedItem {
         private Term term;
-        public TaxonomizedInfo() {}
+        
 
         public TaxonomizedInfo(Session session) : base(session) {}
 
