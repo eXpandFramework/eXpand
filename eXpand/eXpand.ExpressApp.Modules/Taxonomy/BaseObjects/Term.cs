@@ -13,7 +13,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
     [Serializable]
     public class Term : TermBase, ITerm {
         public Term(Session session) : base(session) {}
-        public Term() {}
+        
 
         [XmlIgnore]
         [Association(Associations.TermTaxonomizedInfos)]

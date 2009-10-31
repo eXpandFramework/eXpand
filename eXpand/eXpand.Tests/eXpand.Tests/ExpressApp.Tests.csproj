@@ -261,12 +261,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eXpand.Xpo\PropertyPathParserFixture.cs" />
+    <Compile Include="WorldCreator\PersistentClassTypeBuilderTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.ExpressApp\RunTimeMembersTypeDescriptor_Tests.cs" />
     <Compile Include="XpandBaseFixture.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HandleInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WorldCreator\TestFixture1.cs" />
+    <Compile Include="WorldCreator\When_Saving_PersistentTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -11,7 +11,7 @@ namespace eXpand.ExpressApp.Taxonomy.BaseObjects{
         private Type typeOfObject;
         public StructuralTerm(Session session) : base(session) {}
 
-        public StructuralTerm() {}
+        
 
         [NonPersistent]
         [XmlIgnore]

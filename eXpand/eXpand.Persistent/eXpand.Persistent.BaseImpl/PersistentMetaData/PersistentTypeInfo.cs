@@ -4,6 +4,8 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData
 {
@@ -14,6 +16,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
         
         
         string _name;
+        
         [RuleRequiredField(null,DefaultContexts.Save)]
         public string Name {
             get { return _name; }
@@ -21,10 +24,12 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
         }
 
         IList<IPersistentAttributeInfo> IPersistentTypeInfo.TypeAttributes {
-            get { return new ListConverter<IPersistentAttributeInfo,PersistentAttributeInfo>(TypeAttributes); }
+            get {
+                return new ListConverter<IPersistentAttributeInfo, PersistentAttributeInfo>(TypeAttributes);
+            }
         }
-        
-        [Association]
+
+        [Association("TypeAttributes")][Aggregated]
         public XPCollection<PersistentAttributeInfo> TypeAttributes {
             get { return GetCollection<PersistentAttributeInfo>("TypeAttributes"); }
         }

@@ -11,7 +11,7 @@ namespace eXpand.Persistent.TaxonomyImpl{
         private string _value;
         private string key;
         private BaseInfoValidity validity;
-        public BaseInfo() {}
+        
 
         public BaseInfo(Session session) : base(session) {}
 

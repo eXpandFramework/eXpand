@@ -94,10 +94,11 @@
     <Compile Include="General\ILocalizable.cs" />
     <Compile Include="General\IEnumObject.cs" />
     <Compile Include="PersistentMetaData\IExtendedCollectionMemberInfo.cs" />
+    <Compile Include="PersistentMetaData\IExtendedCoreTypeMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IExtendedMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IExtendedReferenceMemberInfo.cs" />
-    <Compile Include="PersistentMetaData\IPersistentAssociationAttribute.cs" />
-    <Compile Include="PersistentMetaData\IPersistentAttributeInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\AttributeInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentClassInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentCollectionMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentCoreTypeMemberInfo.cs" />

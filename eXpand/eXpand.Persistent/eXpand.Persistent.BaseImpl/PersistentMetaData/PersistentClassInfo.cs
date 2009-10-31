@@ -5,25 +5,47 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Xpo;
+using eXpand.Xpo.Converters.ValueConverters;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
+    [DefaultClassOptions]
+    [NavigationItem("WorldCreator")]
     public class PersistentClassInfo : PersistentTypeInfo, IPersistentClassInfo {
         public const string DynamicAssemblyName = "WorldCreator";
 
         
-        private PersistentClassInfo _baseClass;
+        private Type _baseType;
 
         public PersistentClassInfo(Session session) : base(session) {
         }
 
-        [Browsable(false)]
-        [MemberDesignTimeVisibility(false)]
-        public PersistentClassInfo BaseClass {
-            get { return _baseClass; }
-            set { SetPropertyValue("BaseClass", ref _baseClass, value); }
-        }
 
+        [Size(SizeAttribute.Unlimited)]
+        [ValueConverter(typeof(TypeValueConverter))]
+        [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
+        public Type BaseType {
+            get { return _baseType; }
+            set {
+                SetPropertyValue("BaseType", ref _baseType, value);
+                if (value != null) _baseTypeAssemblyQualifiedName = value.AssemblyQualifiedName;
+            }
+        }
+        private string _baseTypeAssemblyQualifiedName;
+        [Size(SizeAttribute.Unlimited)]
+        [Browsable(false)][MemberDesignTimeVisibility(false)]
+        public string BaseTypeAssemblyQualifiedName
+        {
+            get
+            {
+                return _baseTypeAssemblyQualifiedName;
+            }
+            set
+            {
+                SetPropertyValue("BaseTypeAssemblyQualifiedName", ref _baseTypeAssemblyQualifiedName, value);
+            }
+        }
         [Association]
         public XPCollection<PersistentMemberInfo> OwnMembers {
             get { return GetCollection<PersistentMemberInfo>("OwnMembers"); }
@@ -50,9 +72,9 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return new ListConverter<IPersistentMemberInfo, PersistentMemberInfo>(OwnMembers); }
         }
 
-        IPersistentClassInfo IPersistentClassInfo.BaseClass {
-            get { return BaseClass; }
-            set { BaseClass = value as PersistentClassInfo; }
+        Type IPersistentClassInfo.BaseType {
+            get { return BaseType; }
+            set { BaseType = value ; }
         }
         #endregion
         public PersistentReferenceMemberInfo AddReferenceMemberInfo(PersistentClassInfo referenceType) {
@@ -70,8 +92,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                     new PersistentAssociationAttribute(Session) {
                                                                     AssociationName =associationName
                                                                 }) {
-                    Name = memberName,ReferenceType =Session.Dictionary.GetClassInfo("",string.Format("{0}.{1}",referenceType.AssemblyName,referenceType.Name)).ClassType
-                                                                                                  };
+                    Name = memberName,ReferenceType =referenceType.PersistentTypeClassInfo.ClassType};
             OwnMembers.Add(persistentReferenceMemberInfo);
             return persistentReferenceMemberInfo;
         }
