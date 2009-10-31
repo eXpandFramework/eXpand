@@ -66,7 +66,8 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
             string typeName= Regex.Match(AssemblyQualifiedName, "([^,]*).*").Groups[1].Value;
             string withOutTypeName=Regex.Replace(AssemblyQualifiedName, "([^,]*), (.*)", "$2");
             string assemblyName = Regex.Match(withOutTypeName, "([^,]*).*").Groups[1].Value;
-            return new AttributeInfo(typeof(AssociationAttribute).GetConstructor(new[] { typeof(string), typeof(string), typeof(string) }), AssociationName, assemblyName, typeName);
+            var constructorInfo = typeof(AssociationAttribute).GetConstructor(new[] { typeof(string), typeof(string), typeof(string) });
+            return new AttributeInfo(constructorInfo, AssociationName, assemblyName, typeName);
         }
         #endregion
     }

@@ -1,4 +1,3 @@
-using System;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -16,7 +15,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
         [VisibleInDetailView(false)]
         public string Name
         {
-            get { return ToString(); }
+            get { return GetType().Name+": "+ ToString(); }
         }
         
         public abstract AttributeInfo Create();

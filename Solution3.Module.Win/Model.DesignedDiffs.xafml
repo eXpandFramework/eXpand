@@ -1,10 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application>
-	<NavigationItems>
-		<Item ID="Default">
-			<Item ID="PersistentMetaData" ViewID="PersistentClassInfo_ListView" IsNewNode="True" />
-		</Item>
-	</NavigationItems>
 	<SchemaModules>
 		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.2.6.0" />
 		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.2.6.0" />

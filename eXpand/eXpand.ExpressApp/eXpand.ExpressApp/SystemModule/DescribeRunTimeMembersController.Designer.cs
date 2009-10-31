@@ -1,6 +1,6 @@
-namespace eXpand.ExpressApp.WorldCreator.Controllers
+namespace eXpand.ExpressApp.SystemModule
 {
-    partial class SaveClassInfoController
+    partial class DescribeRunTimeMembersController
     {
         /// <summary>
         /// Required designer variable.

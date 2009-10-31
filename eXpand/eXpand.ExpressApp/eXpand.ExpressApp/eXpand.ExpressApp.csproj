@@ -263,6 +263,14 @@
     <Compile Include="eXpand.Persistent.BaseImpl\Validation\FromIPropertyValueValidator\RuleFromIPropertyValueValidatorAttribute.cs" />
     <Compile Include="eXpand.Persistent.BaseImpl\Validation\FromIPropertyValueValidator\RuleFromIPropertyValueValidatorProperties.cs" />
     <Compile Include="eXpand.Persistent.BaseImpl\Validation\RuleMultiPropertiesValues.cs" />
+    <Compile Include="RuntimeMembersTypeDescriptionProvider.cs" />
+    <Compile Include="RunTimeMembersTypeDescriptor.cs" />
+    <Compile Include="SystemModule\DescribeRunTimeMembersController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\DescribeRunTimeMembersController.Designer.cs">
+      <DependentUpon>DescribeRunTimeMembersController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SystemModule\RecycleBinViewController.resx">

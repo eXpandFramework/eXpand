@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using DevExpress.ExpressApp;
 
 namespace eXpand.ExpressApp.ModelArtifactState.StateInfos
 {

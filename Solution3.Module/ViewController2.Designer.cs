@@ -1,6 +1,6 @@
-namespace eXpand.ExpressApp.WorldCreator.Controllers
+namespace Solution3.Module
 {
-    partial class ShowFormViewController
+    partial class ViewController2
     {
         /// <summary>
         /// Required designer variable.

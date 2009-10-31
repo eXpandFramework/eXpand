@@ -7,6 +7,8 @@ using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Xpo.Converters.ValueConverters;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
+    [DefaultClassOptions]
+    [NavigationItem("WorldCreator")]
     public class ExtendedReferenceMemberInfo:ExtendedMemberInfo,IExtendedReferenceMemberInfo {
         private Type _referenceType;
 

@@ -10,6 +10,8 @@ using eXpand.Xpo;
 using eXpand.Xpo.Converters.ValueConverters;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
+    [DefaultClassOptions]
+    [NavigationItem("WorldCreator")]
     public class PersistentClassInfo : PersistentTypeInfo, IPersistentClassInfo {
         public const string DynamicAssemblyName = "WorldCreator";
 

@@ -4,6 +4,7 @@ using System.Data;
 using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
+using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
@@ -29,9 +30,12 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
         IClassDefineBuilder IClassAssemblyNameBuilder.WithAssemblyName(string assemblyName)
         {
             _assemblyName = assemblyName;
-            _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName(assemblyName),
-                                                                             AssemblyBuilderAccess.RunAndSave, @"C:\");
+            _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName(assemblyName),AssemblyBuilderAccess.RunAndSave, @"C:\");
             _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName, assemblyName + ".dll");
+            var typeBuilder = _moduleBuilder.DefineType(_assemblyName + ".Module" ,
+                                                    TypeAttributes.Class | TypeAttributes.Public | TypeAttributes.BeforeFieldInit,
+                                                    typeof (ModuleBase));
+            typeBuilder.CreateType();
             return this;
         }
 
@@ -219,11 +223,20 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
 
         private static void definePropertySetMethod(TypeBuilder type, Type memberInfoType, MethodAttributes GetSetAttr, FieldBuilder field, PropertyBuilder property) {
             MethodBuilder currSetPropMthdBldr =type.DefineMethod("set_"+property.Name,GetSetAttr,null,new[] { memberInfoType });
-            ILGenerator currSetIL = currSetPropMthdBldr.GetILGenerator();
-            currSetIL.Emit(OpCodes.Ldarg_0);
-            currSetIL.Emit(OpCodes.Ldarg_1);
-            currSetIL.Emit(OpCodes.Stfld, field);
-            currSetIL.Emit(OpCodes.Ret);
+            ILGenerator generator = currSetPropMthdBldr.GetILGenerator();
+            generator.Emit(OpCodes.Ldarg_0);
+            generator.Emit(OpCodes.Ldarg_1);
+            generator.Emit(OpCodes.Stfld, field);
+
+            generator.Emit(OpCodes.Ldarg_0);
+            generator.Emit(OpCodes.Nop);
+            generator.Emit(OpCodes.Ldstr, property.Name);
+            var methodInfo = typeof(XPBaseObject).GetMethod("OnChanged",
+                                                           BindingFlags.Instance | BindingFlags.NonPublic,
+                                                           null, new[] { typeof(string) }, null);
+            generator.Emit(OpCodes.Call,methodInfo);
+
+            generator.Emit(OpCodes.Ret);
             property.SetSetMethod(currSetPropMthdBldr);
         }
 

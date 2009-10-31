@@ -29,7 +29,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
             }
         }
 
-        [Association("TypeAttributes")]
+        [Association("TypeAttributes")][Aggregated]
         public XPCollection<PersistentAttributeInfo> TypeAttributes {
             get { return GetCollection<PersistentAttributeInfo>("TypeAttributes"); }
         }

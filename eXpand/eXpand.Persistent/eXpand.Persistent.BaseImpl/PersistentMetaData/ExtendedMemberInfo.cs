@@ -4,9 +4,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Xpo.Converters.ValueConverters;
-using System.Linq;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "Owner,Name")]
@@ -29,12 +27,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             {
                 SetPropertyValue("Owner", ref _owner, value);
             }
-        }
-        [Browsable(false)][MemberDesignTimeVisibility(false)]
-        [RuleFromBoolProperty(null, DefaultContexts.Save)]
-        public bool AssociationFound
-        {
-            get { return TypeAttributes.OfType<PersistentAssociationAttribute>().Count()==1; }
         }
         
     }
