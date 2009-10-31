@@ -90,5 +90,6 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
 
             Assert.IsNotNull(new ApplicationNodeWrapper(currentModelDifferenceObject.Model).BOModel.FindClassByName("MyClass2"));
         }
+
     }
 }

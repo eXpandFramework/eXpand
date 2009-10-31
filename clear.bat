@@ -29,5 +29,9 @@ call clearProject.bat eXpand.ExpressApp.ViewVariants.Win
 call clearProject.bat eXpand.ExpressApp.Taxonomy
 call clearProject.bat eXpand.ExpressApp.Taxonomy.Win
 call clearProject.bat eXpand.ExpressApp.Taxonomy.Web
+call clearProject.bat eXpand.ExpressApp.ExceptionHandling
+call clearProject.bat eXpand.ExpressApp.ExceptionHandling.Win
+call clearProject.bat eXpand.ExpressApp.ExceptionHandling.Web
+call clearProject.bat eXpand.ExpressApp.WorldCreator
 
 pause

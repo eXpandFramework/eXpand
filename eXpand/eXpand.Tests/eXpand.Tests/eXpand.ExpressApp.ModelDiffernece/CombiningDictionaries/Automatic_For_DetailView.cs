@@ -30,7 +30,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                 var activateController = factory.CreateController<CombineActiveUserDifferenceWithUserModelController>(
                     typeof(UserModelDifferenceObject));
                 bool combined = false;
-                Isolate.WhenCalled(() => activateController.CombineWithApplicationUserDiffs()).DoInstead(context => combined = true);
+                Isolate.WhenCalled(() => activateController.CombineWithDiffs()).DoInstead(context => combined = true);
 
                 factory.Activate(activateController);
 
@@ -44,7 +44,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
                 var factory = new ViewControllerFactory();
                 var controller = factory.CreateController<CombineActiveUserDifferenceWithUserModelController>(typeof(UserModelDifferenceObject));
                 bool combined = false;
-                Isolate.WhenCalled(() => controller.CombineWithApplicationUserDiffs()).DoInstead(context => combined = true);
+                Isolate.WhenCalled(() => controller.CombineWithDiffs()).DoInstead(context => combined = true);
                 factory.Activate(controller, new HandleInfo { CurrentObjectChanged = true });
 
                 factory.CurrentObjectChangedHandler.Invoke(this, EventArgs.Empty);
@@ -56,7 +56,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
 
         [Test]
         [Isolated]
-        public void If_CurrentUserDIfferenceObject_Is_Active_One_Then_Combine_It_With_ApplicationUserDiffs(){
+        public void If_CurrentUserDIfferenceObject_Is_Active_One_Then_Combine_It_With_ApplicationDiffs_And_UserDiffs(){
             
             var queryUserModelDifferenceObject = Isolate.Fake.InstanceAndSwapAll<QueryUserModelDifferenceObject>();
 
@@ -68,7 +68,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
             Isolate.WhenCalled(() => model.GetDiffs()).WillReturn(DefaultDictionary2.Clone());
             Isolate.WhenCalled(() => queryUserModelDifferenceObject.GetActiveModelDifference("")).WillReturn((UserModelDifferenceObject) controller.View.CurrentObject);
 
-            controller.CombineWithApplicationUserDiffs();
+            controller.CombineWithDiffs();
 
             DefaultDictionary.CombineWith(DefaultDictionary2);
             Assert.AreEqual(DefaultDictionary2.RootNode.ToXml(), userModelDifferenceObject.Model.RootNode.ToXml());
