@@ -1,5 +1,6 @@
-namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
-    partial class ChangeViewVariantActionViewController
+﻿namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
+{
+    partial class HideICategorizedItemController
     {
         /// <summary>
         /// Required designer variable.

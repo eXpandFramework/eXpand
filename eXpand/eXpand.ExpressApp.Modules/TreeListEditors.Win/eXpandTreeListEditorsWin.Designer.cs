@@ -1,7 +1,8 @@
-namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
-    partial class ChangeViewVariantActionViewController
+namespace eXpand.ExpressApp.TreeListEditors.Win
+{
+    partial class eXpandTreeListEditorsWin
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
@@ -21,13 +22,13 @@ namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
 
         #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditorsWindowsFormsModule));
         }
 
         #endregion

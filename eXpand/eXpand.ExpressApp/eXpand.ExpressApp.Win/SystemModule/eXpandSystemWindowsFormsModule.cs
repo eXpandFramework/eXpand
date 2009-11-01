@@ -7,7 +7,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.Win;
 using eXpand.ExpressApp.Win.ListEditors;
-using eXpand.ExpressApp.Win.PropertyEditors.LookupPropertyEditor;
 
 namespace eXpand.ExpressApp.Win.SystemModule {
     [ToolboxItem(true)]
@@ -26,9 +25,6 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         public override void UpdateModel(Dictionary model)
         {
             base.UpdateModel(model);
-            model.RootNode.GetChildNodeByPath(
-                "\\DetailViewItems\\PropertyEditor\\DefaultEditor[@PropertyType='DevExpress.Xpo.IXPSimpleObject']").
-                SetAttribute("EditorType", typeof(LookupPropertyEditor).FullName);
             new ApplicationNodeWrapper(model).Views.Node.SetAttribute("DefaultListEditor", typeof(GridListEditor).FullName);
         }
 
