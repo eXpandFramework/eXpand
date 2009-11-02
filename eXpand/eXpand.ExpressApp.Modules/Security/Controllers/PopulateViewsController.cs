@@ -1,15 +1,17 @@
-﻿using DevExpress.ExpressApp.NodeWrappers;
+﻿using System;
+using System.Linq.Expressions;
+using DevExpress.ExpressApp.NodeWrappers;
 using eXpand.ExpressApp.Security.Permissions;
 
 namespace eXpand.ExpressApp.Security.Controllers
 {
-    public partial class PopulateViewsController : PopulateController
+    public partial class PopulateViewsController : PopulateController<StatePermission>
     {
         public PopulateViewsController()
         {
             InitializeComponent();
             RegisterActions(components);
-            TargetObjectType = typeof (StatePermission);
+//            TargetObjectType = typeof (StatePermission);
         }
 
 
@@ -22,9 +24,9 @@ namespace eXpand.ExpressApp.Security.Controllers
             return ret;
         }
 
-        protected override string GetPermissionPropertyName()
+        protected override Expression<Func<StatePermission, object>> GetPropertyName()
         {
-            return "ViewId";
+            return x=>x.ViewId;
         }
     }
 }

@@ -40,12 +40,16 @@ namespace eXpand.Utils.Helpers
             return info;
         }
 
-        public static MemberInfo GetMemberInfo<TTarget>(this TTarget target,Expression member)
-        {
+        public static MemberInfo GetMemberInfo<TTarget>(this TTarget target,Expression member) {
             if (member == null) throw new ArgumentNullException("member");
-
             var lambda = member as LambdaExpression;
-            if (lambda == null) throw new ArgumentException("Not a lambda expression", "member");
+            return GetExpression(lambda);
+        }
+
+        public static MemberInfo GetExpression(LambdaExpression lambda)
+        {
+            
+            if (lambda == null) throw new ArgumentException("Not a lambda expression", "lambda");
 
             MemberExpression memberExpr = null;
 
@@ -55,11 +59,11 @@ namespace eXpand.Utils.Helpers
             else if (lambda.Body.NodeType == ExpressionType.MemberAccess)
                 memberExpr = lambda.Body as MemberExpression;
 
-            if (memberExpr == null) throw new ArgumentException("Not a member access", "member");
+            if (memberExpr == null) throw new ArgumentException("Not a member access", "lambda");
 
             return memberExpr.Member;
         }
-        
+
         public static void SetProperty<T>(this INotifyPropertyChanged source,
                                           Expression<Func<T>> propExpr,
                                           ref T propertyValueHolder,

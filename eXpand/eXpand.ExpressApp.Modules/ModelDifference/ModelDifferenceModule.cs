@@ -70,10 +70,7 @@ namespace eXpand.ExpressApp.ModelDifference{
         {
             
             base.Setup(application);
-            
-
             application.CreateCustomUserModelDifferenceStore+=ApplicationOnCreateCustomUserModelDifferenceStore;
-            
         }
 
 

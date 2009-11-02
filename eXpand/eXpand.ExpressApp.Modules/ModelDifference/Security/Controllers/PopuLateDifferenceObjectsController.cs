@@ -1,13 +1,14 @@
+using System;
+using System.Linq.Expressions;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.Security.Controllers;
 using System.Linq;
-using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.ModelDifference.Security.Controllers
 {
-    public partial class PopuLateDifferenceObjectsController : PopulateController
+    public partial class PopuLateDifferenceObjectsController : PopulateController<ModelCombinePermission>
     {
         public PopuLateDifferenceObjectsController()
         {
@@ -24,8 +25,8 @@ namespace eXpand.ExpressApp.ModelDifference.Security.Controllers
             return ret.TrimEnd(';');
         }
 
-        protected override string GetPermissionPropertyName(){
-            return new ModelCombinePermission().GetPropertyInfo(x => x.Difference).Name;
+        protected override Expression<Func<ModelCombinePermission, object>> GetPropertyName(){
+            return x => x.Difference;
         }
     }
 }

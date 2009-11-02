@@ -1,10 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using DevExpress.ExpressApp.NodeWrappers;
 using eXpand.ExpressApp.SystemModule;
+using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.Security.Controllers
 {
-    public abstract partial class PopulateController : BaseViewController
+    public abstract partial class PopulateController<T> : BaseViewController
     {
         private PropertyInfoNodeWrapper propertyInfoNodeWrapper;
 
@@ -12,7 +16,7 @@ namespace eXpand.ExpressApp.Security.Controllers
         {
             InitializeComponent();
             RegisterActions(components);
-            
+            TargetObjectType = typeof (T);
         }
         protected override void OnActivated()
         {
@@ -30,10 +34,13 @@ namespace eXpand.ExpressApp.Security.Controllers
         {
             
             var classInfoNodeWrapper = GetClassInfoNodeWrapper();
-            propertyInfoNodeWrapper =
-                (classInfoNodeWrapper.AllProperties.Where(
-                    wrapper =>
-                    wrapper.Name == GetPermissionPropertyName())).FirstOrDefault();
+            LambdaExpression lambdaExpression = GetPropertyName();
+            var propertyInfo = ReflectionExtensions.GetExpression(lambdaExpression) as PropertyInfo;
+            if (propertyInfo != null)
+                propertyInfoNodeWrapper =
+                    (classInfoNodeWrapper.AllProperties.Where(
+                        wrapper =>
+                        wrapper.Name == propertyInfo.Name)).FirstOrDefault();
             if (propertyInfoNodeWrapper != null){
                 propertyInfoNodeWrapper.Node.SetAttribute("PredefinedValues",GetPredefinedValues(propertyInfoNodeWrapper));
             }
@@ -41,6 +48,6 @@ namespace eXpand.ExpressApp.Security.Controllers
 
         protected abstract string GetPredefinedValues(PropertyInfoNodeWrapper wrapper);
 
-        protected abstract string GetPermissionPropertyName();
+        protected abstract Expression<Func<T, object>> GetPropertyName();
     }
 }

@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using DevExpress.ExpressApp.NodeWrappers;
 using eXpand.ExpressApp.ModelArtifactState.Security.Permissions;
 using eXpand.ExpressApp.Security.Controllers;
@@ -5,7 +7,7 @@ using System.Linq;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Security.Controllers
 {
-    public partial class PopulateControllerTypesController : PopulateController
+    public partial class PopulateControllerTypesController : PopulateController<ControllerStateRulePermission>
     {
         public PopulateControllerTypesController()
         {
@@ -31,9 +33,9 @@ namespace eXpand.ExpressApp.ModelArtifactState.Security.Controllers
             return ret;
         }
 
-        protected override string GetPermissionPropertyName()
+        protected override Expression<Func<ControllerStateRulePermission, object>> GetPropertyName()
         {
-            return "ControllerType";
+            return x=>x.ControllerType;
         }
 
     }
