@@ -7,6 +7,7 @@ namespace eXpand.Persistent.Base.PersistentMetaData {
         Type BaseType { get; set; }
         string BaseTypeAssemblyQualifiedName { get; set; }
         IList<IPersistentMemberInfo> OwnMembers { get; }
+        IList<IInterfaceInfo> Interfaces { get; }
         Type GetDefaultBaseClass();
         XPClassInfo PersistentTypeClassInfo { get; }
         string AssemblyName { get; }

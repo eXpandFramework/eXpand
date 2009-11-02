@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
@@ -74,6 +75,9 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
                 string s = assembly;
                 var classInfos = persistentClassInfos.Where(info => info.AssemblyName == s);
                 types.AddRange(defineBuilder.Define(classInfos.ToList()));
+                if ((ConfigurationManager.AppSettings["SaveDynamicAssembly"]+"").ToLower()=="true")
+                    defineBuilder.AssemblyBuilder.Save(assembly);
+
             }
             return moduleType;
 

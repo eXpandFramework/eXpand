@@ -113,6 +113,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PersistentMetaData\ExtendedReferenceMemberInfo.cs" />
+    <Compile Include="PersistentMetaData\InterfaceInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAggregatedAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAssociationAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAttributeInfo.cs" />

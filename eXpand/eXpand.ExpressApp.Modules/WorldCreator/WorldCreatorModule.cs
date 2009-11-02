@@ -20,17 +20,17 @@ namespace eXpand.ExpressApp.WorldCreator
         public WorldCreatorModule(){
             InitializeComponent();
         }
-
+        
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
+            _typesInfo = new TypesInfo(GetAdditionalClasses());
             if (Application != null) {
                 var worldCreatorAsembly = AppDomain.CurrentDomain.GetAssemblies().Where(
                     assembly => assembly.FullName != null && assembly.FullName=="WorldCreator").FirstOrDefault();
                 if (worldCreatorAsembly != null)
                     _dynamicModuleType= worldCreatorAsembly.GetTypes().OfType<ModuleBase>().Single().GetType();
-
                 var unitOfWork = new UnitOfWork { ConnectionString = Application.ConnectionString };
-                _typesInfo = new TypesInfo(Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses));
+                
                 _typeCreator = new TypeCreator(_typesInfo, unitOfWork);
                 if (_dynamicModuleType== null)
                     _dynamicModuleType = _typeCreator.GetDynamicModule();
@@ -38,11 +38,25 @@ namespace eXpand.ExpressApp.WorldCreator
                 if (_dynamicModuleType != null) moduleManager.AddModule(_dynamicModuleType,false);
             }
         }
+
+        private IEnumerable<Type> GetAdditionalClasses() {
+            return Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses);
+        }
+
         public override void UpdateModel(Dictionary model) {
             base.UpdateModel(model);
-            if (_typesInfo!= null) {
+            if (!DesignMode){
+                
+                disableServerModeForInterfaceInfoListViews(model);
                 ShowOwnerForExtendedMembers(model);
                 removeDynamicAssemblyFromImageSources(model);
+            }
+        }
+
+        private void disableServerModeForInterfaceInfoListViews(Dictionary dictionary) {
+            var wrapper = new ApplicationNodeWrapper(dictionary);
+            foreach (var listView in wrapper.Views.GetListViews(_typesInfo.IntefaceInfoType)){
+                listView.Node.SetAttribute("UseServerMode",false);
             }
         }
 

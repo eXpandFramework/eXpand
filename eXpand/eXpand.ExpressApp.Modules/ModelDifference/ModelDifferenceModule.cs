@@ -17,8 +17,7 @@ namespace eXpand.ExpressApp.ModelDifference{
     
     public sealed partial class ModelDifferenceModule : ModuleBase
     {
-        public const string CreateCustomModelStore = "CreateCustomModelStore";
-        public const string CreateCustomUserModelStore = "CreateCustomUserModelStore";
+        
 
         public ModelDifferenceModule()
         {
@@ -75,17 +74,6 @@ namespace eXpand.ExpressApp.ModelDifference{
 
 
 
-        [CoverageExclude]
-        public override Schema GetSchema()
-        {
-            string s = @"<Element Name=""Application"">;
-                            <Element Name=""" +typeof(ModelDifferenceModule).Name+ @""">
-                                    <Attribute Name=""" + CreateCustomUserModelStore + @""" Choice=""False,True""/>
-                                    <Attribute Name=""" + CreateCustomModelStore + @""" Choice=""False,True""/>
-                            </Element>
-                    </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(s));
-        }
 
         private void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs args)
         {

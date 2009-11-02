@@ -21,7 +21,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         public PersistentClassInfo(Session session) : base(session) {
         }
 
-
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
@@ -50,7 +49,18 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         public XPCollection<PersistentMemberInfo> OwnMembers {
             get { return GetCollection<PersistentMemberInfo>("OwnMembers"); }
         }
+        [Association("PersistentClassInfos-Interfaces")]
+        public XPCollection<InterfaceInfo> Interfaces
+        {
+            get
+            {
+                return GetCollection<InterfaceInfo>("Interfaces");
+            }
+        }
 
+        IList<IInterfaceInfo> IPersistentClassInfo.Interfaces {
+            get { return new ListConverter<IInterfaceInfo,InterfaceInfo>(Interfaces); }
+        }
         #region IPersistentClassInfo Members
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]

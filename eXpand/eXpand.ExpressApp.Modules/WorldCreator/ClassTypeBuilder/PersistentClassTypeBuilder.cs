@@ -94,6 +94,7 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
         private TypeBuilder GetTypeBuilder(IPersistentClassInfo classInfo) {
             var parent =classInfo.BaseType?? classInfo.GetDefaultBaseClass();
             var typeBuilder = _moduleBuilder.DefineType(_assemblyName + "." + classInfo.Name, TypeAttributes.Class | TypeAttributes.Public | TypeAttributes.BeforeFieldInit, parent);
+            addInterFaces(classInfo, typeBuilder);
             defineAttributes(classInfo.TypeAttributes, builder => typeBuilder.SetCustomAttribute(builder));
             createConstructors(typeBuilder, parent);
             return typeBuilder;
@@ -102,8 +103,18 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
         public Type Define(IPersistentClassInfo classInfo) {
             TypeBuilder typeBuilder = GetTypeBuilder(classInfo);
             createProperties(classInfo, typeBuilder);
+            
             var define = typeBuilder.CreateType();
             return define;
+        }
+
+        private void addInterFaces(IPersistentClassInfo classInfo,TypeBuilder typeBuilder) {
+            foreach (var interfaceInfo in classInfo.Interfaces){
+                IInterfaceInfo info = interfaceInfo;
+                var assembly1 = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => new AssemblyName(assembly.FullName+"").Name == info.Assembly).SingleOrDefault();
+                var type = assembly1.GetType(info.Name);
+                typeBuilder.AddInterfaceImplementation(type);
+            }
         }
 
         public List<TypeInfo> Define(IList<IPersistentClassInfo> classInfos) {
@@ -208,7 +219,7 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
             
             FieldBuilder field = type.DefineField("_" + memberInfo.Name, memberInfoType, FieldAttributes.Private);
             PropertyBuilder property = type.DefineProperty(memberInfo.Name, PropertyAttributes.HasDefault, memberInfoType, null);
-            const MethodAttributes GetSetAttr = MethodAttributes.Public |MethodAttributes.HideBySig;
+            const MethodAttributes GetSetAttr = MethodAttributes.Public |MethodAttributes.HideBySig|MethodAttributes.Virtual;
             definePropertyGetMethod(type, memberInfoType, GetSetAttr, field, property);
             definePropertySetMethod(type, memberInfoType, GetSetAttr, field, property);
             defineAttributes(memberInfo.TypeAttributes,builder => property.SetCustomAttribute(builder));            
@@ -241,12 +252,12 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
         }
 
         private static void definePropertyGetMethod(TypeBuilder type, Type memberInfoType, MethodAttributes GetSetAttr, FieldBuilder field, PropertyBuilder property) {
-            MethodBuilder currGetPropMthdBldr =type.DefineMethod("get_"+property.Name,GetSetAttr,memberInfoType,Type.EmptyTypes);
-            ILGenerator currGetIL = currGetPropMthdBldr.GetILGenerator();
+            MethodBuilder defineMethod =type.DefineMethod("get_"+property.Name,GetSetAttr,memberInfoType,Type.EmptyTypes);
+            ILGenerator currGetIL = defineMethod.GetILGenerator();
             currGetIL.Emit(OpCodes.Ldarg_0);
             currGetIL.Emit(OpCodes.Ldfld, field);
             currGetIL.Emit(OpCodes.Ret);
-            property.SetGetMethod(currGetPropMthdBldr);
+            property.SetGetMethod(defineMethod);
         }
     }
 

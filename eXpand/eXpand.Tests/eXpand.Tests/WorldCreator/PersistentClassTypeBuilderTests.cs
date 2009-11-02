@@ -4,6 +4,7 @@ using System.Reflection;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
+using eXpand.Persistent.Base.General;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
@@ -234,6 +235,19 @@ namespace eXpand.Tests.WorldCreator
 
             var custtomerAssemblyQualifiedName = types.Where(type => type.Type.Name=="Customer").Single().Type.BaseType.AssemblyQualifiedName;
             Assert.AreEqual("TestAssembly.User, TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", custtomerAssemblyQualifiedName);
+        }
+        [Test]
+        public void DynamicType_Can_Implement_Interfaces()
+        {
+            var userClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "User" };
+            userClassInfo.OwnMembers.Add(new PersistentCoreTypeMemberInfo(Session.DefaultSession){Name="Hidden",DataType = XPODataType.Boolean});
+            userClassInfo.Interfaces.Add(new InterfaceInfo(Session.DefaultSession) { Name = typeof(IHidden).FullName, Assembly = new AssemblyName(typeof(IHidden).Assembly.FullName+"").Name });
+
+            var builder = _builder.WithAssemblyName("TestAssembly");
+            var type = builder.Define(userClassInfo);
+            builder.AssemblyBuilder.Save("tttt.dll");
+            var firstOrDefault = type.GetInterfaces().Where(type1 => type1 == typeof(IHidden)).FirstOrDefault();
+            Assert.IsNotNull(firstOrDefault);
         }
     }
 

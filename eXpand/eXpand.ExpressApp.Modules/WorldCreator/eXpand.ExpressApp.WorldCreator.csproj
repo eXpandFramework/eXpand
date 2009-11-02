@@ -70,12 +70,17 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="eXpand.ExpressApp.Security, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="eXpand.Xpo, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -105,6 +110,18 @@
     <Compile Include="ClassTypeBuilder\TypeInfo.cs" />
     <Compile Include="ClassTypeBuilder\TypesInfo.cs" />
     <Compile Include="ClassTypeBuilder\TypeCreator.cs" />
+    <Compile Include="Controllers\PopulateInterfacesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\PopulateInterfacesController.Designer.cs">
+      <DependentUpon>PopulateInterfacesController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ViewController1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ViewController1.Designer.cs">
+      <DependentUpon>ViewController1.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorldCreatorModule.cs">
       <SubType>Component</SubType>
     </Compile>
