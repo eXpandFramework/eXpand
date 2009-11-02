@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -75,13 +77,21 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
                 string s = assembly;
                 var classInfos = persistentClassInfos.Where(info => info.AssemblyName == s);
                 types.AddRange(defineBuilder.Define(classInfos.ToList()));
+                UpdateModuleInfo(_unitOfWork, moduleType.FullName,assembly,new Version(0,0,0,DateTime.Now.Second).ToString());
                 if ((ConfigurationManager.AppSettings["SaveDynamicAssembly"]+"").ToLower()=="true")
                     defineBuilder.AssemblyBuilder.Save(assembly);
 
             }
+            
             return moduleType;
 
         }
-            
+
+        private void UpdateModuleInfo(Session session,string moduleName, string assemblyName, string version) {
+            var moduleInfo = (ModuleInfo)session.FindObject(typeof(ModuleInfo), new BinaryOperator("Name", moduleName)) ??new ModuleInfo(session) {Name = moduleName};
+            moduleInfo.AssemblyFileName = assemblyName;
+            moduleInfo.Version = version;
+            _unitOfWork.CommitChanges();
+        }
     }
 }

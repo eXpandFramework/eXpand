@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
 using System.Linq;
@@ -35,7 +36,10 @@ namespace eXpand.ExpressApp.WorldCreator
                 if (_dynamicModuleType== null)
                     _dynamicModuleType = _typeCreator.GetDynamicModule();
                 _typeCreator.CreateExtendedTypes();
-                if (_dynamicModuleType != null) moduleManager.AddModule(_dynamicModuleType,false);
+                if (_dynamicModuleType != null) {
+                    moduleManager.AddModule(_dynamicModuleType, false);
+                    
+                }
             }
         }
 
