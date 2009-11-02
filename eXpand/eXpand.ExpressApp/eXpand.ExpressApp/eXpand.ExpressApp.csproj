@@ -111,6 +111,7 @@
     <Compile Include="Core\DictionaryHelpers\DictionaryHelper.cs" />
     <Compile Include="Core\DictionaryHelpers\DictionaryXmlWriterEx.cs" />
     <Compile Include="Core\DictionaryHelpers\ModuleRefNodeProvider.cs" />
+    <Compile Include="Core\DictionaryHelpers\RefNodeStringPropertyProvider .cs" />
     <Compile Include="Core\DictionaryHelpers\SchemaHelper.cs" />
     <Compile Include="Core\DictionaryHelpers\ViewIdRefNodeProvider.cs" />
     <Compile Include="Core\DictionaryHelpers\ViewVisibilityCalculator.cs" />
