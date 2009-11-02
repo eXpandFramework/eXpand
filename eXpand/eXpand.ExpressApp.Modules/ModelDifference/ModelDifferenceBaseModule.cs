@@ -39,8 +39,7 @@ namespace eXpand.ExpressApp.ModelDifference{
             
             var dbUpdater = new DatabaseUpdater(Application.ObjectSpaceProvider, Application.Modules, Application.ApplicationName);
             CompatibilityError compatibilityError = dbUpdater.CheckCompatibility();
-            if ((bool)(!PersistentApplicationModelUpdated) && compatibilityError != null && compatibilityError is CompatibilityDatabaseIsOldError)
-            {
+            if ((bool)(!PersistentApplicationModelUpdated) && compatibilityError != null && compatibilityError is CompatibilityDatabaseIsOldError){
                 PersistentApplication persistentApplication = UpdatePersistentApplication(Application);
                 ((UnitOfWork)persistentApplication.Session).CommitChanges();
                 PersistentApplicationModelUpdated = true;
