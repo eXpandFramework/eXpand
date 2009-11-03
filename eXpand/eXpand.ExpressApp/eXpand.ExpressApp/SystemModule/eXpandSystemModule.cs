@@ -10,7 +10,7 @@ namespace eXpand.ExpressApp.SystemModule
     [Description("Includes Controllers that represent basic features for XAF applications.")]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
-    [ToolboxBitmap(typeof (XafApplication), "Resources.SystemModule.ico")]
+    [ToolboxBitmap(typeof(XafApplication), "Resources.SystemModule.ico")]
     public sealed partial class eXpandSystemModule : ModuleBase
     {
 
@@ -29,8 +29,8 @@ namespace eXpand.ExpressApp.SystemModule
         {
             base.Setup(application);
             application.SetupComplete += (sender, args) => DictionaryHelper.AddFields(application.Info, application.ObjectSpaceProvider.XPDictionary);
-            application.LoggedOn +=(sender, args) =>DictionaryHelper.AddFields(application.Info, application.ObjectSpaceProvider.XPDictionary);
+            application.LoggedOn += (sender, args) => DictionaryHelper.AddFields(application.Info, application.ObjectSpaceProvider.XPDictionary);
         }
-        
+
     }
 }
