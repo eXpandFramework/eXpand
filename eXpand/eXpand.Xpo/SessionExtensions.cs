@@ -9,7 +9,6 @@ namespace eXpand.Xpo
     public static class SessionExtensions
     {
         public static int GetCount(this Session session,Type type) {
-            session.fi
             return (int) session.Evaluate(type, new AggregateOperand("", Aggregate.Count), null);
         }
 
