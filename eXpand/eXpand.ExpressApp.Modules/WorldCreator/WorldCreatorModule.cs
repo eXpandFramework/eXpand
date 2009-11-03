@@ -16,6 +16,7 @@ namespace eXpand.ExpressApp.WorldCreator
         private Type _dynamicModuleType;
         private TypesInfo _typesInfo;
         private TypeCreator _typeCreator;
+        private string _connectionString;
 
         public WorldCreatorModule(){
             InitializeComponent();
@@ -28,8 +29,7 @@ namespace eXpand.ExpressApp.WorldCreator
                     assembly => assembly.FullName != null && assembly.FullName=="WorldCreator").FirstOrDefault();
                 if (worldCreatorAsembly != null)
                     _dynamicModuleType= worldCreatorAsembly.GetTypes().OfType<ModuleBase>().Single().GetType();
-
-                var unitOfWork = new UnitOfWork { ConnectionString = Application.ConnectionString };
+                var unitOfWork = new UnitOfWork { ConnectionString = _connectionString };
                 _typesInfo = new TypesInfo(Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses));
                 _typeCreator = new TypeCreator(_typesInfo, unitOfWork);
                 if (_dynamicModuleType== null)
@@ -37,6 +37,11 @@ namespace eXpand.ExpressApp.WorldCreator
                 _typeCreator.CreateExtendedTypes();
                 if (_dynamicModuleType != null) moduleManager.AddModule(_dynamicModuleType,false);
             }
+        }
+        public override void Setup(XafApplication application)
+        {
+            base.Setup(application);
+            application.CreateCustomObjectSpaceProvider += (sender, args) => _connectionString = args.ConnectionString;
         }
         public override void UpdateModel(Dictionary model) {
             base.UpdateModel(model);
