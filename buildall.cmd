@@ -34,6 +34,8 @@ call buildproject.cmd eXpand.ExpressApp.Taxonomy.Win ".\eXpand\eXpand.ExpressApp
 call buildproject.cmd eXpand.ExpressApp.Taxonomy.Web ".\eXpand\eXpand.ExpressApp.Modules\Taxonomy.Web\eXpand.ExpressApp.Taxonomy.Web.csproj"
 call buildproject.cmd eXpand.ExpressApp.WorldCreator ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator\eXpand.ExpressApp.WorldCreator.csproj"
 
+call buildproject.cmd eXpand.Persistent.BaseImpl ".\eXpand\eXpand.Persistent\eXpand.Persistent.BaseImpl\eXpand.Persistent.BaseImpl.csproj"
+
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.AddIns\eXpandAddIns.csproj"
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.AddIns\DevExpress.ExpressApp.ModelEditor\DevExpress.ExpressApp.ModelEditor.csproj"
 
