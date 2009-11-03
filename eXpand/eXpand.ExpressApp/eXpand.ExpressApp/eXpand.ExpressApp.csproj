@@ -124,6 +124,8 @@
     <Compile Include="Enums\ManyToManyInfoType.cs" />
     <Compile Include="Enums\RecycleBinEnum.cs" />
     <Compile Include="Core\ModuleBaseExtensions.cs" />
+    <Compile Include="IObjectSpaceProvider.cs" />
+    <Compile Include="IXpoDataStoreProxy.cs" />
     <Compile Include="ObjectSpaceProvider.cs" />
     <Compile Include="Core\DetailViewExtensions.cs" />
     <Compile Include="Core\ILinqCollectionSource.cs" />

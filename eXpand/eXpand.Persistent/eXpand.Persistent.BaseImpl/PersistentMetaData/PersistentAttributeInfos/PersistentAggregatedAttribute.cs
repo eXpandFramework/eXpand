@@ -10,8 +10,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
         public PersistentAggregatedAttribute(Session session) : base(session) {
         }
 
-        public PersistentAggregatedAttribute() {
-        }
         [Browsable(false)][MemberDesignTimeVisibility(false)]
         public string AggregatedName
         {

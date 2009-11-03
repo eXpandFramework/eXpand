@@ -99,7 +99,11 @@ namespace eXpand.ExpressApp.FilterDataStore
         }
         void application_SetupComplete(object sender, EventArgs e)
         {
-            XpoDataStoreProxy proxy = ((ObjectSpaceProvider)(((XafApplication)(sender)).ObjectSpaceProvider)).DataStoreProvider.Proxy;
+            var objectSpaceProvider = (((XafApplication)(sender)).ObjectSpaceProvider);
+            if (objectSpaceProvider is IObjectSpaceProvider){
+                throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
+            }
+            XpoDataStoreProxy proxy = ((IObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
             if (Application.Info.GetChildNode(FilterDataStoreModuleAttributeName).GetAttributeBoolValue("Enabled"))
             {
                 proxy.DataStoreModifyData += (o,args) => ModifyData(args.ModificationStatements);
@@ -214,8 +218,7 @@ namespace eXpand.ExpressApp.FilterDataStore
         {
             bool ret = false;
             DictionaryNode dictionaryNode = Application.Info.GetChildNode(FilterDataStoreModuleAttributeName).GetChildNode("SystemTables");
-            foreach (DictionaryNode childNode in dictionaryNode.ChildNodes)
-            {
+            foreach (DictionaryNode childNode in dictionaryNode.ChildNodes){
                 if (childNode.GetAttributeValue("Name")==name)
                     ret= true;
             }

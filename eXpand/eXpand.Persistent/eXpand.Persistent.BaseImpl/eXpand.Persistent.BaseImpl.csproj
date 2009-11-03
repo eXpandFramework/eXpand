@@ -113,11 +113,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PersistentMetaData\ExtendedReferenceMemberInfo.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAggregatedAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PeristentMapInheritanceAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAggregatedAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAssociationAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentCustomAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentDefaultClassOptionsAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentSizeAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentClassInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentCollectionMemberInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentCoreTypeMemberInfo.cs" />

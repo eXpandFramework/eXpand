@@ -1,12 +1,11 @@
 ﻿using System;
-using DevExpress.ExpressApp;
 using DevExpress.Xpo.Metadata;
 using eXpand.Xpo.DB;
 
 namespace eXpand.ExpressApp
 {
 
-    public class DataStoreProvider : IXpoDataStoreProvider
+    public class DataStoreProvider :  IXpoDataStoreProxy
     {
         private readonly XpoDataStoreProxy proxyCore;
         private readonly string connectionStringCore;
