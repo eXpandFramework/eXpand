@@ -4,9 +4,12 @@ using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
 using System.Linq;
 using eXpand.ExpressApp.Core;
+using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.WorldCreator
 {
@@ -17,6 +20,7 @@ namespace eXpand.ExpressApp.WorldCreator
         private TypesInfo _typesInfo;
         private TypeCreator _typeCreator;
         private string _connectionString;
+        private UnitOfWork _unitOfWork;
 
         public WorldCreatorModule(){
             InitializeComponent();
@@ -24,20 +28,67 @@ namespace eXpand.ExpressApp.WorldCreator
 
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
+            Application.SetupComplete+=ApplicationOnSetupComplete;
             if (Application != null) {
                 var worldCreatorAsembly = AppDomain.CurrentDomain.GetAssemblies().Where(
                     assembly => assembly.FullName != null && assembly.FullName=="WorldCreator").FirstOrDefault();
                 if (worldCreatorAsembly != null)
                     _dynamicModuleType= worldCreatorAsembly.GetTypes().OfType<ModuleBase>().Single().GetType();
-                var unitOfWork = new UnitOfWork { ConnectionString = _connectionString };
+                _unitOfWork = new UnitOfWork { ConnectionString = _connectionString };
                 _typesInfo = new TypesInfo(Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses));
-                _typeCreator = new TypeCreator(_typesInfo, unitOfWork);
+                _typeCreator = new TypeCreator(_typesInfo, _unitOfWork);
                 if (_dynamicModuleType== null)
                     _dynamicModuleType = _typeCreator.GetDynamicModule();
                 _typeCreator.CreateExtendedTypes();
                 if (_dynamicModuleType != null) moduleManager.AddModule(_dynamicModuleType,false);
             }
         }
+
+        private void ApplicationOnSetupComplete(object sender, EventArgs args) {
+            mergeTypes(_unitOfWork);
+        }
+
+        private void mergeTypes(UnitOfWork unitOfWork) {
+            var collection = new XPCollection(unitOfWork, _typesInfo.PersistentTypesInfoType).Cast<IPersistentClassInfo>().Where(info => info.MergedObjectType!=
+                                                                                                                                         null).ToList();
+            foreach (IPersistentClassInfo classInfo in collection) {
+
+                XPClassInfo xpClassInfo = getClassInfo(classInfo.Session, classInfo.AssemblyName+"."+ classInfo.Name);
+                var mergedXPClassInfo = getClassInfo(classInfo.Session, classInfo.MergedObjectType.AssemblyQualifiedName) ?? classInfo.Session.GetClassInfo(classInfo.MergedObjectType);
+                if (unitOfWork.GetCount(xpClassInfo.ClassType) == 0)
+                    createObjectTypeColumn(xpClassInfo,_unitOfWork);
+                updateObjectType(unitOfWork, xpClassInfo,mergedXPClassInfo);
+                
+            }
+        }
+
+        private void createObjectTypeColumn(XPClassInfo xpClassInfo,UnitOfWork unitOfWork) {
+            unitOfWork.CreateObjectTypeRecords(xpClassInfo);
+            var newObject = xpClassInfo.CreateNewObject(unitOfWork);
+            unitOfWork.CommitChanges();
+            unitOfWork.Delete(newObject);
+            unitOfWork.CommitChanges();
+        }
+
+        private XPClassInfo getClassInfo(Session session, string assemblyQualifiedName) {
+            Type[] types = _dynamicModuleType.Assembly.GetTypes();
+            Type classType = types.Where(type => type.FullName == assemblyQualifiedName).SingleOrDefault();
+            if (classType != null) {
+                return session.GetClassInfo(classType);
+            }
+            return null;
+        }
+
+        private void updateObjectType(UnitOfWork unitOfWork, XPClassInfo xpClassInfo, XPClassInfo mergedXPClassInfo) {
+            var command = unitOfWork.Connection.CreateCommand();
+            var propertyName = XPObject.Fields.ObjectType.PropertyName;
+            command.CommandText = "UPDATE " + mergedXPClassInfo.TableName + " SET " + propertyName + "=" + unitOfWork.GetObjectType(xpClassInfo).Oid +
+                                  " WHERE " + propertyName + " IS NULL OR " + propertyName+"="+
+                                  unitOfWork.GetObjectType(mergedXPClassInfo).
+                                      Oid;
+            command.ExecuteNonQuery();
+        }
+
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
