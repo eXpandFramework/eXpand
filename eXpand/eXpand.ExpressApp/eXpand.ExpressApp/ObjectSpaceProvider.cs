@@ -2,12 +2,11 @@
 
 namespace eXpand.ExpressApp
 {
-    public class ObjectSpaceProvider : DevExpress.ExpressApp.ObjectSpaceProvider
-    {
-        public DataStoreProvider DataStoreProvider { get; set; }
+    public class ObjectSpaceProvider : DevExpress.ExpressApp.ObjectSpaceProvider, IObjectSpaceProvider {
+        public IXpoDataStoreProxy DataStoreProvider { get; set; }
 
 
-        public ObjectSpaceProvider(DataStoreProvider provider)
+        public ObjectSpaceProvider(IXpoDataStoreProxy provider)
             : base(provider)
         {
             DataStoreProvider = provider;
