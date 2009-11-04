@@ -41,22 +41,19 @@ namespace eXpand.Xpo.DB
         #endregion
         protected void RaiseDataStoreModifyData(DataStoreModifyDataEventArgs args)
         {
-            if (DataStoreModifyData != null)
-            {
+            if (DataStoreModifyData != null) {
                 DataStoreModifyData(this, args);
             }
         }
         protected void RaiseDataStoreSelectData(DataStoreSelectDataEventArgs args)
         {
-            if (DataStoreSelectData != null)
-            {
+            if (DataStoreSelectData != null) {
                 DataStoreSelectData(this, args);
             }
         }
         protected void RaiseDataStoreUpdateSchema(DataStoreUpdateSchemaEventArgs args)
         {
-            if (DataStoreUpdateSchema != null)
-            {
+            if (DataStoreUpdateSchema != null) {
                 DataStoreUpdateSchema(this, args);
             }
         }
