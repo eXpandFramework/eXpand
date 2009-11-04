@@ -1,0 +1,32 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="0E40CCB3-7904-4300-BCD6-E34D275E6370/d:Taxonomies/f:IObjectInfo.cs" caret="0" fromTop="0" />
+      <File id="0E40CCB3-7904-4300-BCD6-E34D275E6370/d:Taxonomies/f:IObjectWithInfo.cs" caret="0" fromTop="0" />
+      <File id="0E40CCB3-7904-4300-BCD6-E34D275E6370/d:Taxonomies/f:ITerm.cs" caret="0" fromTop="0" />
+      <File id="0E40CCB3-7904-4300-BCD6-E34D275E6370/d:Taxonomies/f:ObjectInfoValidity.cs" caret="0" fromTop="0" />
+      <File id="DE98AF71-1817-4E5F-BB07-D3BA9DB34822/d:AuditTrail/f:AuditDataStore.cs" caret="5806" fromTop="0" />
+      <File id="DE98AF71-1817-4E5F-BB07-D3BA9DB34822/d:AuditTrail/f:ObjectAuditProcessor.cs" caret="0" fromTop="0" />
+      <File id="DE98AF71-1817-4E5F-BB07-D3BA9DB34822/d:AuditTrail/f:AuditDataItem.cs" caret="3027" fromTop="15" />
+      <File id="DE98AF71-1817-4E5F-BB07-D3BA9DB34822/d:AuditTrail/f:AuditDataStoreItem.cs" caret="3958" fromTop="19" />
+      <File id="DE98AF71-1817-4E5F-BB07-D3BA9DB34822/d:Security/f:AuthenticationInterfaces.cs" caret="0" fromTop="0" />
+      <File id="DE98AF71-1817-4E5F-BB07-D3BA9DB34822/d:Validation/d:CollectionPropertyRules/f:RuleCollectionPropertyHelper.cs" caret="0" fromTop="0" />
+      <File id="DE98AF71-1817-4E5F-BB07-D3BA9DB34822/d:Validation/f:ContextIdentifiers.cs" caret="0" fromTop="0" />
+      <File id="DE98AF71-1817-4E5F-BB07-D3BA9DB34822/d:Validation/f:CodeRuleAttribute.cs" caret="0" fromTop="0" />
+    </RecentFiles>
+    <RecentEdits />
+  </RecentFiles>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+</Configuration>
