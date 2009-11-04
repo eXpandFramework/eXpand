@@ -111,6 +111,7 @@
     <Compile Include="Core\DictionaryHelpers\DictionaryHelper.cs" />
     <Compile Include="Core\DictionaryHelpers\DictionaryXmlWriterEx.cs" />
     <Compile Include="Core\DictionaryHelpers\ModuleRefNodeProvider.cs" />
+    <Compile Include="Core\DictionaryHelpers\RefNodeStringPropertyProvider .cs" />
     <Compile Include="Core\DictionaryHelpers\SchemaHelper.cs" />
     <Compile Include="Core\DictionaryHelpers\ViewIdRefNodeProvider.cs" />
     <Compile Include="Core\DictionaryHelpers\ViewVisibilityCalculator.cs" />
@@ -123,6 +124,8 @@
     <Compile Include="Enums\ManyToManyInfoType.cs" />
     <Compile Include="Enums\RecycleBinEnum.cs" />
     <Compile Include="Core\ModuleBaseExtensions.cs" />
+    <Compile Include="IObjectSpaceProvider.cs" />
+    <Compile Include="IXpoDataStoreProxy.cs" />
     <Compile Include="ObjectSpaceProvider.cs" />
     <Compile Include="Core\DetailViewExtensions.cs" />
     <Compile Include="Core\ILinqCollectionSource.cs" />
