@@ -58,7 +58,7 @@ namespace eXpand.ExpressApp.WorldCreator
                 if (unitOfWork.GetCount(xpClassInfo.ClassType) == 0)
                     createObjectTypeColumn(xpClassInfo,_unitOfWork);
                 updateObjectType(unitOfWork, xpClassInfo,mergedXPClassInfo);
-                
+
             }
         }
 
