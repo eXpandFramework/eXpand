@@ -51,12 +51,12 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Controllers
 					<Element Name=""BOModel"">
 						<Element Name=""Class"">
 						    <Element Name=""" + AdditionalViewControls + @""" Multiple=""False"">
-								    <Attribute Name=""Message""/>
+								    <Attribute Name=""Message"" IsLocalized=""True""/>
 								    <Attribute Name=""DecoratorType""/>
 								    <Attribute Name=""ControlType""/>
 								    <Attribute Name=""ViewType"" Choice=""{" + typeof(ViewType).FullName + @"}""/>
 								    <Attribute Name=""AdditionalViewControlsProviderPosition"" Choice=""{" + typeof(AdditionalViewControlsProviderPosition).FullName + @"}""/>
-								    <Attribute Name=""MessagePropertyName"" RefNodeName=""{DevExpress.ExpressApp.Core.DictionaryHelpers.PropertyEditorRefNodeProvider}""/>
+								    <Attribute Name=""MessagePropertyName"" RefNodeName=""{eXpand.ExpressApp.Core.DictionaryHelpers.RefNodeStringPropertyProvider}ClassName=..\@Name""/>
 						    </Element>
                         </Element>
 					</Element>
