@@ -33,10 +33,8 @@ call buildproject.cmd eXpand.ExpressApp.Taxonomy ".\eXpand\eXpand.ExpressApp.Mod
 call buildproject.cmd eXpand.ExpressApp.Taxonomy.Win ".\eXpand\eXpand.ExpressApp.Modules\Taxonomy.Win\eXpand.ExpressApp.Taxonomy.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.Taxonomy.Web ".\eXpand\eXpand.ExpressApp.Modules\Taxonomy.Web\eXpand.ExpressApp.Taxonomy.Web.csproj"
 call buildproject.cmd eXpand.ExpressApp.WorldCreator ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator\eXpand.ExpressApp.WorldCreator.csproj"
-call buildproject.cmd eXpand.ExpressApp.ExceptionHandling ".\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling\eXpand.ExpressApp.ExceptionHandling.csproj"
-call buildproject.cmd eXpand.ExpressApp.ExceptionHandling.Win ".\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling.Win\eXpand.ExpressApp.ExceptionHandling.Win.csproj"
-call buildproject.cmd eXpand.ExpressApp.ExceptionHandling.Web ".\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling.Web\eXpand.ExpressApp.ExceptionHandling.Web.csproj"
 
+call buildproject.cmd eXpand.Persistent.BaseImpl ".\eXpand\eXpand.Persistent\eXpand.Persistent.BaseImpl\eXpand.Persistent.BaseImpl.csproj"
 
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.AddIns\eXpandAddIns.csproj"
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.AddIns\DevExpress.ExpressApp.ModelEditor\DevExpress.ExpressApp.ModelEditor.csproj"

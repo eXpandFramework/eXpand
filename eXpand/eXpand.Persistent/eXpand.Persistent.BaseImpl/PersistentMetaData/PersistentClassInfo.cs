@@ -65,20 +65,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 if (value != null) _baseTypeAssemblyQualifiedName = value.AssemblyQualifiedName;
             }
         }
-        private string _baseTypeAssemblyQualifiedName;
-        [Size(SizeAttribute.Unlimited)]
-        [Browsable(false)][MemberDesignTimeVisibility(false)]
-        public string BaseTypeAssemblyQualifiedName
-        {
-            get
-            {
-                return _baseTypeAssemblyQualifiedName;
-            }
-            set
-            {
-                SetPropertyValue("BaseTypeAssemblyQualifiedName", ref _baseTypeAssemblyQualifiedName, value);
-            }
-        }
+        
         
         [Association]
         public XPCollection<PersistentMemberInfo> OwnMembers {

@@ -199,6 +199,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Controllers\PopuLateDifferenceObjectsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Security\Controllers\PopuLateDifferenceObjectsController.Designer.cs">
       <DependentUpon>PopuLateDifferenceObjectsController.cs</DependentUpon>

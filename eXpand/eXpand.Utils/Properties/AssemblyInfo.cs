@@ -38,6 +38,6 @@ namespace eXpand
 {
     public class AssemblyInfo
     {
-        public const string Version = "0.0.0.0";    
+        public const string Version = "0.0.0.11";    
     }
 }
