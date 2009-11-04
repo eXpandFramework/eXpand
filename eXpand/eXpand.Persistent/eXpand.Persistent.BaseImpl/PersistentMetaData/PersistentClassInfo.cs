@@ -2,17 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using DevExpress.Xpo.Metadata;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+using eXpand.Persistent.BaseImpl.Validation.FromIPropertyValueValidator;
 using eXpand.Xpo;
 using eXpand.Xpo.Converters.ValueConverters;
+using eXpand.Utils.Helpers;
+using System.Linq;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
+    
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
-    public class PersistentClassInfo : PersistentTypeInfo, IPersistentClassInfo {
+    public class PersistentClassInfo : PersistentTypeInfo, IPersistentClassInfo,IPropertyValueValidator {
         public const string DynamicAssemblyName = "WorldCreator";
 
         
@@ -21,6 +25,36 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         public PersistentClassInfo(Session session) : base(session) {
         }
 
+        private Type _mergedObject;
+        [RuleFromIPropertyValueValidatorAttribute(null,DefaultContexts.Save)]
+        [Size(SizeAttribute.Unlimited)]
+        [ValueConverter(typeof(TypeValueConverter))]
+        [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
+        public Type MergedObjectType
+        {
+            get
+            {
+                return _mergedObject;
+            }
+            set
+            {
+                SetPropertyValue("MergedObjectType", ref _mergedObject, value);
+            }
+        }
+        private string _baseTypeAssemblyQualifiedName;
+        [Size(SizeAttribute.Unlimited)]
+        [Browsable(false)][MemberDesignTimeVisibility(false)]
+        public string BaseTypeAssemblyQualifiedName
+        {
+            get
+            {
+                return _baseTypeAssemblyQualifiedName;
+            }
+            set
+            {
+                SetPropertyValue("BaseTypeAssemblyQualifiedName", ref _baseTypeAssemblyQualifiedName, value);
+            }
+        }
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
@@ -45,6 +79,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 SetPropertyValue("BaseTypeAssemblyQualifiedName", ref _baseTypeAssemblyQualifiedName, value);
             }
         }
+        
         [Association]
         public XPCollection<PersistentMemberInfo> OwnMembers {
             get { return GetCollection<PersistentMemberInfo>("OwnMembers"); }
@@ -68,11 +103,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return DynamicAssemblyName; }
         }
 
-        [MemberDesignTimeVisibility(false)]
-        [Browsable(false)]
-        public XPClassInfo PersistentTypeClassInfo {
-            get { return Session.Dictionary.GetClassInfo("", string.Format("{0}.{1}", AssemblyName, Name)); }
-        }
 
         public virtual Type GetDefaultBaseClass() {
             return typeof (eXpandCustomObject);
@@ -87,37 +117,22 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set { BaseType = value ; }
         }
         #endregion
-        public PersistentReferenceMemberInfo AddReferenceMemberInfo(PersistentClassInfo referenceType) {
-            return AddReferenceMemberInfo(referenceType.Name, referenceType);
-        }
 
-        public PersistentReferenceMemberInfo AddReferenceMemberInfo(string memberName, PersistentClassInfo referenceType) {
-            return AddReferenceMemberInfo(memberName, memberName, referenceType);
-        }
 
-        public PersistentReferenceMemberInfo AddReferenceMemberInfo(string associationName, string memberName,
-                                                                    PersistentClassInfo referenceType) {
-            var persistentReferenceMemberInfo = 
-                new PersistentReferenceMemberInfo(Session,
-                    new PersistentAssociationAttribute(Session) {
-                                                                    AssociationName =associationName
-                                                                }) {
-                    Name = memberName,ReferenceType =referenceType.PersistentTypeClassInfo.ClassType};
-            OwnMembers.Add(persistentReferenceMemberInfo);
-            return persistentReferenceMemberInfo;
-        }
 
-        public PersistentCollectionMemberInfo AddCollectionMemberInfo(Type elementType, string memberName) {
-            var info = new PersistentCollectionMemberInfo(Session,
-                                                          new PersistentAssociationAttribute(Session)
-                                                          {ElementType = elementType}) {Name = memberName};
-            OwnMembers.Add(info);
-            return info;
-        }
 
-        public PersistentCollectionMemberInfo AddCollectionMemberInfo(PersistentClassInfo persistentClassInfo,
-                                                                      Type elementType) {
-            return AddCollectionMemberInfo(elementType, persistentClassInfo.Name);
+        public bool IsPropertyValueValid(string propertyName, ref string errorMessageTemplate, ContextIdentifiers contextIdentifiers, string ruleId) {
+            if (propertyName==this.GetPropertyInfo(x=>x.MergedObjectType).Name&&MergedObjectType!= null) {
+                if (BaseType== null) {
+                    errorMessageTemplate = this.GetPropertyInfo(x => x.BaseType).Name + " cannot be null";
+                    return false;
+                }
+                if (TypeAttributes.Where(info => info is PeristentMapInheritanceAttribute).FirstOrDefault()== null) {
+                    errorMessageTemplate = typeof (PeristentMapInheritanceAttribute).Name + " is required";
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
