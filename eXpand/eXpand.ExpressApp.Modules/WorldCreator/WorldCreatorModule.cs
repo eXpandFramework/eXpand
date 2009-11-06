@@ -46,6 +46,52 @@ namespace eXpand.ExpressApp.WorldCreator
             return Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses);
         }
 
+        private void mergeTypes(UnitOfWork unitOfWork) {
+            var collection = new XPCollection(unitOfWork, _typesInfo.PersistentTypesInfoType).Cast<IPersistentClassInfo>().Where(info => info.MergedObjectType!=
+                                                                                                                                         null).ToList();
+            foreach (IPersistentClassInfo classInfo in collection) {
+
+                XPClassInfo xpClassInfo = getClassInfo(classInfo.Session, classInfo.AssemblyName+"."+ classInfo.Name);
+                var mergedXPClassInfo = getClassInfo(classInfo.Session, classInfo.MergedObjectType.AssemblyQualifiedName) ?? classInfo.Session.GetClassInfo(classInfo.MergedObjectType);
+                if (unitOfWork.GetCount(xpClassInfo.ClassType) == 0)
+                    createObjectTypeColumn(xpClassInfo,_unitOfWork);
+                updateObjectType(unitOfWork, xpClassInfo,mergedXPClassInfo);
+
+            }
+        }
+
+        private void createObjectTypeColumn(XPClassInfo xpClassInfo,UnitOfWork unitOfWork) {
+            unitOfWork.CreateObjectTypeRecords(xpClassInfo);
+            var newObject = xpClassInfo.CreateNewObject(unitOfWork);
+            unitOfWork.CommitChanges();
+            unitOfWork.Delete(newObject);
+            unitOfWork.CommitChanges();
+        }
+
+        private XPClassInfo getClassInfo(Session session, string assemblyQualifiedName) {
+            Type[] types = _dynamicModuleType.Assembly.GetTypes();
+            Type classType = types.Where(type => type.FullName == assemblyQualifiedName).SingleOrDefault();
+            if (classType != null) {
+                return session.GetClassInfo(classType);
+            }
+            return null;
+        }
+
+        private void updateObjectType(UnitOfWork unitOfWork, XPClassInfo xpClassInfo, XPClassInfo mergedXPClassInfo) {
+            var command = unitOfWork.Connection.CreateCommand();
+            var propertyName = XPObject.Fields.ObjectType.PropertyName;
+            command.CommandText = "UPDATE " + mergedXPClassInfo.TableName + " SET " + propertyName + "=" + unitOfWork.GetObjectType(xpClassInfo).Oid +
+                                  " WHERE " + propertyName + " IS NULL OR " + propertyName+"="+
+                                  unitOfWork.GetObjectType(mergedXPClassInfo).
+                                      Oid;
+            command.ExecuteNonQuery();
+        }
+
+        public override void Setup(XafApplication application)
+        {
+            base.Setup(application);
+            application.CreateCustomObjectSpaceProvider += (sender, args) => _connectionString = args.ConnectionString;
+        }
         public override void UpdateModel(Dictionary model) {
             base.UpdateModel(model);
             if (!DesignMode){
