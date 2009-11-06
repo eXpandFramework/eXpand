@@ -61,6 +61,7 @@
     <Reference Include="DevExpress.Xpo.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Xpo.v9.2.Linq, Version=9.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="eXpand.Utils, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -111,6 +112,20 @@
     <Compile Include="General\ResourceImpls.cs" />
     <Compile Include="General\TimePattern.cs" />
     <Compile Include="General\TimeRange.cs" />
+    <Compile Include="Taxonomies\BaseTaxonomy.cs" />
+    <Compile Include="Taxonomies\BaseTerm.cs" />
+    <Compile Include="Taxonomies\GenericWeakReference.cs" />
+    <Compile Include="Taxonomies\IBaseTaxonomy.cs" />
+    <Compile Include="Taxonomies\IBaseTerm.cs" />
+    <Compile Include="Taxonomies\ICategorizedKeyedObject.cs" />
+    <Compile Include="Taxonomies\IGenericWeakReference.cs" />
+    <Compile Include="Taxonomies\IKeyedObject.cs" />
+    <Compile Include="Taxonomies\IObjectWithAssignments.cs" />
+    <Compile Include="Taxonomies\IStructuralTerm.cs" />
+    <Compile Include="Taxonomies\ITaxonomyManager.cs" />
+    <Compile Include="Taxonomies\IValueTerm.cs" />
+    <Compile Include="Taxonomies\KeyedObjectValidity.cs" />
+    <Compile Include="Taxonomies\TaxonomyManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

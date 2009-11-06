@@ -79,7 +79,9 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.WorldCreator.Win, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="eXpand.ExpressApp.WorldCreator.Win, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -130,6 +132,10 @@
     <Compile Include="PersistentMetaData\PersistentReferenceMemberInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentTypeInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Taxonomies\CustomTaxonomy.cs" />
+    <Compile Include="Taxonomies\StructuralTerm.cs" />
+    <Compile Include="Taxonomies\ValueTerm.cs" />
+    <Compile Include="Taxonomies\ValueTermAssignment.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
