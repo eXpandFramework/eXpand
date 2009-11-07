@@ -43,8 +43,12 @@ namespace eXpand.ExpressApp.WorldCreator
                 if (_dynamicModuleType== null)
                     _dynamicModuleType = _typeCreator.GetDynamicModule();
                 _typeCreator.CreateExtendedTypes();
+
                 if (_dynamicModuleType != null) {
-                    moduleManager.AddModule(_dynamicModuleType, false);
+                    
+                    moduleManager.AddModule(_dynamicModuleType,false);
+                    var types = _dynamicModuleType.Assembly.GetTypes().Where(type => typeof (IXPSimpleObject).IsAssignableFrom(type));
+                    _unitOfWork.UpdateSchema(types.ToArray());
                 }
             }
         }
@@ -106,7 +110,7 @@ namespace eXpand.ExpressApp.WorldCreator
             base.UpdateModel(model);
             if (Application!= null){
                 
-                disableServerModeForInterfaceInfoListViews(model);
+//                disableServerModeForInterfaceInfoListViews(model);
                 ShowOwnerForExtendedMembers(model);
                 removeDynamicAssemblyFromImageSources(model);
             }

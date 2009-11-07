@@ -4,7 +4,7 @@ using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-    [DefaultClassOptions]
+//    [DefaultClassOptions]
     public class PersistentInterfaceInfo:BaseObject, IInterfaceInfo {
         public PersistentInterfaceInfo(Session session) : base(session) {
         }

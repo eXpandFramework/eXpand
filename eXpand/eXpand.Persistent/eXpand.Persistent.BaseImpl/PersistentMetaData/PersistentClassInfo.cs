@@ -71,6 +71,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         public XPCollection<PersistentMemberInfo> OwnMembers {
             get { return GetCollection<PersistentMemberInfo>("OwnMembers"); }
         }
+        [Browsable(false)][MemberDesignTimeVisibility(false)]
         [Association("PersistentClassInfos-Interfaces")]
         public XPCollection<PersistentInterfaceInfo> Interfaces
         {
