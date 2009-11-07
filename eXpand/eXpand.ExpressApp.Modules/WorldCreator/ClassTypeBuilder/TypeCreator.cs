@@ -66,13 +66,13 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
         {
             var collection = new XPCollection(_unitOfWork, _typesInfo.PersistentTypesInfoType);
             var types = new List<TypeInfo>();
-            var builder = PersistentClassTypeBuilder.BuildClass();
+            var builder = PersistentTypeBuilder.BuildClass();
             var persistentClassInfos = collection.Cast<IPersistentClassInfo>();
             var assemblyNames = persistentClassInfos.GroupBy(info => info.AssemblyName).Select(grouping => grouping.Key);
             Type moduleType = null;
             foreach (var assembly in assemblyNames)
             {
-                IClassDefineBuilder defineBuilder = builder.WithAssemblyName(assembly);
+                ITypeDefineBuilder defineBuilder = builder.WithAssemblyName(assembly);
                 moduleType = defineBuilder.ModuleBuilder.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
                 string s = assembly;
                 var classInfos = persistentClassInfos.Where(info => info.AssemblyName == s);

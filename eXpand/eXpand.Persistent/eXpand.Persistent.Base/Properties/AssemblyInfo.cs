@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -33,5 +33,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 //[assembly: AssemblyVersion(eXpand.AssemblyInfo.Version)]
-[assembly: AssemblyVersion(eXpand.AssemblyInfo.Version)]
-[assembly: AssemblyFileVersion(eXpand.AssemblyInfo.Version)]
+[assembly: AssemblyVersion("0.0.09311.09")]
+[assembly: AssemblyFileVersion("0.0.09311.09")]

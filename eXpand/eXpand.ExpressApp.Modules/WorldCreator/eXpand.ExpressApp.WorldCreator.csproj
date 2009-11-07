@@ -77,7 +77,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.Persistent.Base, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.Persistent.Base, Version=0.0.9311.9, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -111,13 +111,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassTypeBuilder\IClassAssemblyNameBuilder.cs">
+    <Compile Include="ClassTypeBuilder\IAssemblyNameBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ClassTypeBuilder\IClassDefineBuilder.cs">
+    <Compile Include="ClassTypeBuilder\ITypeDefineBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ClassTypeBuilder\PersistentClassTypeBuilder.cs">
+    <Compile Include="ClassTypeBuilder\PersistentTypeBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ClassTypeBuilder\TypeInfo.cs" />

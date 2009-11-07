@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("-")]
 [assembly: AssemblyProduct("eXpand.ExpressApp.WizardUI.Win")]
-[assembly: AssemblyCopyright("Copyright © - 2007")]
+[assembly: AssemblyCopyright("Copyright ï¿½ - 2007")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,6 +30,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 //[assembly: AssemblyVersion(eXpand.AssemblyInfo.Version)]
-[assembly: AssemblyVersion(eXpand.AssemblyInfo.Version)]
-[assembly: AssemblyFileVersion(eXpand.AssemblyInfo.Version)]
+[assembly: AssemblyVersion("0.0.09311.03")]
+[assembly: AssemblyFileVersion("0.0.09311.03")]
 

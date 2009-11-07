@@ -72,16 +72,16 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return GetCollection<PersistentMemberInfo>("OwnMembers"); }
         }
         [Association("PersistentClassInfos-Interfaces")]
-        public XPCollection<InterfaceInfo> Interfaces
+        public XPCollection<PersistentInterfaceInfo> Interfaces
         {
             get
             {
-                return GetCollection<InterfaceInfo>("Interfaces");
+                return GetCollection<PersistentInterfaceInfo>("Interfaces");
             }
         }
 
         IList<IInterfaceInfo> IPersistentClassInfo.Interfaces {
-            get { return new ListConverter<IInterfaceInfo,InterfaceInfo>(Interfaces); }
+            get { return new ListConverter<IInterfaceInfo,PersistentInterfaceInfo>(Interfaces); }
         }
         #region IPersistentClassInfo Members
         [Browsable(false)]

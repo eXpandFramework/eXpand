@@ -16,6 +16,7 @@ namespace eXpand.ExpressApp.WorldCreator.Controllers
             RegisterActions(components);
             TargetObjectType = typeof (IInterfaceInfo);
             TargetViewType=ViewType.ListView;
+            
         }
         protected override void OnViewControlsCreated()
         {
@@ -28,13 +29,13 @@ namespace eXpand.ExpressApp.WorldCreator.Controllers
         private void createInterfaces(CollectionSourceBase collectionSourceBase) {
             
             ObjectSpace.Session.Delete(collectionSourceBase.Collection);
-                foreach (Type type in getInterfaces()){
-                    var iface = ((IInterfaceInfo)ObjectSpace.CreateObject(View.ObjectTypeInfo.Type));
-                    iface.Name = type.FullName;
-                    var assemblyName = type.Assembly.FullName;
-                    iface.Assembly = new AssemblyName(assemblyName+"").Name;
-                    collectionSourceBase.Add(iface);   
-                }
+            foreach (Type type in getInterfaces()) {
+                var iface = ((IInterfaceInfo) ObjectSpace.CreateObject(View.ObjectTypeInfo.Type));
+                iface.Name = type.FullName;
+                string assemblyName = type.Assembly.FullName;
+                iface.Assembly = new AssemblyName(assemblyName + "").Name;
+                collectionSourceBase.Add(iface);
+            }
         }
 
 

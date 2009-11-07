@@ -261,7 +261,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eXpand.Xpo\PropertyPathParserFixture.cs" />
-    <Compile Include="WorldCreator\PersistentClassTypeBuilderTests.cs">
+    <Compile Include="WorldCreator\PersistentTypeBuilderTests.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eXpand.ExpressApp\RunTimeMembersTypeDescriptor_Tests.cs" />

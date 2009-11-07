@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
@@ -37,7 +36,6 @@ namespace eXpand.ExpressApp.ModelDifference{
 
         private void OnSetupComplete(object sender, EventArgs args)
         {
-            
             var dbUpdater = new DatabaseUpdater(Application.ObjectSpaceProvider, Application.Modules, Application.ApplicationName);
             CompatibilityError compatibilityError = dbUpdater.CheckCompatibility();
             if ((bool)(!PersistentApplicationModelUpdated) && compatibilityError != null && compatibilityError is CompatibilityDatabaseIsOldError){
@@ -45,7 +43,6 @@ namespace eXpand.ExpressApp.ModelDifference{
                 ((UnitOfWork)persistentApplication.Session).CommitChanges();
                 PersistentApplicationModelUpdated = true;
             }
-
         }
 
         private void OnLoggingOn(object sender, EventArgs args)

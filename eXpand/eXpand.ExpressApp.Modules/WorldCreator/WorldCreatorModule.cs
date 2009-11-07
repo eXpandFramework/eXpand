@@ -4,9 +4,12 @@ using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
 using System.Linq;
 using eXpand.ExpressApp.Core;
+using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.WorldCreator
 {
@@ -16,6 +19,8 @@ namespace eXpand.ExpressApp.WorldCreator
         private Type _dynamicModuleType;
         private TypesInfo _typesInfo;
         private TypeCreator _typeCreator;
+        private string _connectionString;
+        private UnitOfWork _unitOfWork;
 
         public WorldCreatorModule(){
             InitializeComponent();
@@ -23,28 +28,33 @@ namespace eXpand.ExpressApp.WorldCreator
         
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
-            _typesInfo = new TypesInfo(GetAdditionalClasses());
+            
+            
             if (Application != null) {
+                Application.SetupComplete += ApplicationOnSetupComplete;
+                _typesInfo = new TypesInfo(GetAdditionalClasses());
                 var worldCreatorAsembly = AppDomain.CurrentDomain.GetAssemblies().Where(
                     assembly => assembly.FullName != null && assembly.FullName=="WorldCreator").FirstOrDefault();
                 if (worldCreatorAsembly != null)
                     _dynamicModuleType= worldCreatorAsembly.GetTypes().OfType<ModuleBase>().Single().GetType();
-                var unitOfWork = new UnitOfWork { ConnectionString = Application.ConnectionString };
+                _unitOfWork = new UnitOfWork { ConnectionString = _connectionString };
                 
-                _typeCreator = new TypeCreator(_typesInfo, unitOfWork);
+                _typeCreator = new TypeCreator(_typesInfo, _unitOfWork);
                 if (_dynamicModuleType== null)
                     _dynamicModuleType = _typeCreator.GetDynamicModule();
                 _typeCreator.CreateExtendedTypes();
                 if (_dynamicModuleType != null) {
                     moduleManager.AddModule(_dynamicModuleType, false);
-                    
                 }
             }
+        }
+        private void ApplicationOnSetupComplete(object sender, EventArgs args){
+            mergeTypes(_unitOfWork);
         }
 
         private IEnumerable<Type> GetAdditionalClasses() {
             return Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses);
-        }
+        }   
 
         private void mergeTypes(UnitOfWork unitOfWork) {
             var collection = new XPCollection(unitOfWork, _typesInfo.PersistentTypesInfoType).Cast<IPersistentClassInfo>().Where(info => info.MergedObjectType!=
@@ -94,7 +104,7 @@ namespace eXpand.ExpressApp.WorldCreator
         }
         public override void UpdateModel(Dictionary model) {
             base.UpdateModel(model);
-            if (!DesignMode){
+            if (Application!= null){
                 
                 disableServerModeForInterfaceInfoListViews(model);
                 ShowOwnerForExtendedMembers(model);
