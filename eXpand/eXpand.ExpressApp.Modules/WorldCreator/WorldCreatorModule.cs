@@ -28,8 +28,9 @@ namespace eXpand.ExpressApp.WorldCreator
 
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
-            Application.SetupComplete+=ApplicationOnSetupComplete;
+            
             if (Application != null) {
+                Application.SetupComplete+=ApplicationOnSetupComplete;
                 var worldCreatorAsembly = AppDomain.CurrentDomain.GetAssemblies().Where(
                     assembly => assembly.FullName != null && assembly.FullName=="WorldCreator").FirstOrDefault();
                 if (worldCreatorAsembly != null)
