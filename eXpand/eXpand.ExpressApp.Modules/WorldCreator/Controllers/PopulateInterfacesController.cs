@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
+using DevExpress.Persistent.Base;
 using eXpand.Persistent.Base.PersistentMetaData;
 using System.Linq;
+using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.WorldCreator.Controllers
 {
@@ -13,29 +17,38 @@ namespace eXpand.ExpressApp.WorldCreator.Controllers
         public PopulateInterfacesController()
         {
             InitializeComponent();
-            RegisterActions(components);
+            
             TargetObjectType = typeof (IInterfaceInfo);
+            var populateInterfaces = new SimpleAction(components) {Caption = "Populate",Category = PredefinedCategory.Search.ToString(),Id = "populateInterfaces"};
+            populateInterfaces.Execute+=PopulateInterfacesOnExecute;
+            RegisterActions(components);
             TargetViewType=ViewType.ListView;
             
         }
-        protected override void OnViewControlsCreated()
-        {
-            base.OnViewControlsCreated();
-            if (!(Frame is NestedFrame)) {
-                createInterfaces(View.CollectionSource);
-            }
+
+        private void PopulateInterfacesOnExecute(object sender, SimpleActionExecuteEventArgs args) {
+            createInterfaces(View.CollectionSource);
         }
 
+
         private void createInterfaces(CollectionSourceBase collectionSourceBase) {
-            
-            ObjectSpace.Session.Delete(collectionSourceBase.Collection);
+            var iface = ((IInterfaceInfo) ObjectSpace.CreateObject(View.ObjectTypeInfo.Type));
+            ObjectSpace.Session.Delete(iface);
+            var assemblyName = iface.GetPropertyInfo(x=>x.Assembly).Name;
+            var name = iface.GetPropertyInfo(x=>x.Name).Name;
             foreach (Type type in getInterfaces()) {
-                var iface = ((IInterfaceInfo) ObjectSpace.CreateObject(View.ObjectTypeInfo.Type));
-                iface.Name = type.FullName;
-                string assemblyName = type.Assembly.FullName;
-                iface.Assembly = new AssemblyName(assemblyName + "").Name;
-                collectionSourceBase.Add(iface);
+                if (ObjectSpace.Session.FindObject(View.ObjectTypeInfo.Type, CriteriaOperator.Parse(string.Format("{0}=? AND {1}=?", assemblyName, name), new AssemblyName(type.Assembly.FullName + "").Name, type.FullName)) == null){
+                    createInterfaceInfo(type, collectionSourceBase);
+                }
             }
+            ObjectSpace.CommitChanges();
+        }
+
+        private void createInterfaceInfo(Type type, CollectionSourceBase collectionSourceBase) {
+            var info= (IInterfaceInfo) ObjectSpace.CreateObject(View.ObjectTypeInfo.Type);
+            info.Name = type.FullName;
+            info.Assembly = new AssemblyName(type.Assembly.FullName + "").Name;
+            collectionSourceBase.Add(info);
         }
 
 

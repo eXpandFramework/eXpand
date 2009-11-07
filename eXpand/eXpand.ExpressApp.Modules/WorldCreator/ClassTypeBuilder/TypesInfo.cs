@@ -11,7 +11,7 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
             ExtendedCollectionMemberInfoType = GetInfoType(types, typeof(IExtendedCollectionMemberInfo));
             ExtendedReferenceMemberInfoType = GetInfoType(types, typeof(IExtendedReferenceMemberInfo));
             ExtendedCoreMemberInfoType = GetInfoType(types, typeof(IExtendedCoreTypeMemberInfo));
-//            IntefaceInfoType = GetInfoType(types, typeof(IInterfaceInfo));
+            IntefaceInfoType = GetInfoType(types, typeof(IInterfaceInfo));
         }
 
         private Type GetInfoType(IEnumerable<Type> types, Type type1) {

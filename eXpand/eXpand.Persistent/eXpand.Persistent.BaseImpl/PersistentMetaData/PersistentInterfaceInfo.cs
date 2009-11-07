@@ -1,10 +1,13 @@
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-//    [DefaultClassOptions]
+    [RuleCombinationOfPropertiesIsUnique(null,DefaultContexts.Save, "Name,Assembly")]
+    [DefaultClassOptions]
+    [NavigationItem("WorldCreator")]
     public class PersistentInterfaceInfo:BaseObject, IInterfaceInfo {
         public PersistentInterfaceInfo(Session session) : base(session) {
         }

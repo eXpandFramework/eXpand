@@ -33,7 +33,6 @@ namespace eXpand.Xpo
         }
         public static ClassType FindObject<ClassType>(this Session session, Expression<Func<ClassType,bool>> expression)
         {
-            
             return (ClassType) session.FindObject(typeof(ClassType), new XPQuery<ClassType>(session).TransformExpression(expression), false);
         }
     }

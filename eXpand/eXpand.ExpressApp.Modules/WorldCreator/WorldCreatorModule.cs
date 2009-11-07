@@ -28,8 +28,6 @@ namespace eXpand.ExpressApp.WorldCreator
         
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
-            
-            
             if (Application != null) {
                 Application.SetupComplete += ApplicationOnSetupComplete;
                 _typesInfo = new TypesInfo(GetAdditionalClasses());
@@ -110,8 +108,7 @@ namespace eXpand.ExpressApp.WorldCreator
         public override void UpdateModel(Dictionary model) {
             base.UpdateModel(model);
             if (Application!= null){
-                
-//                disableServerModeForInterfaceInfoListViews(model);
+                disableServerModeForInterfaceInfoListViews(model);
                 ShowOwnerForExtendedMembers(model);
                 removeDynamicAssemblyFromImageSources(model);
             }

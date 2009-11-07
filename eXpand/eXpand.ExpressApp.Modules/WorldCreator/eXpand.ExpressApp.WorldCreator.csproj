@@ -129,12 +129,6 @@
     <Compile Include="Controllers\PopulateInterfacesController.Designer.cs">
       <DependentUpon>PopulateInterfacesController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\ViewController1.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\ViewController1.Designer.cs">
-      <DependentUpon>ViewController1.cs</DependentUpon>
-    </Compile>
     <Compile Include="WorldCreatorModule.cs">
       <SubType>Component</SubType>
     </Compile>
