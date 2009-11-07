@@ -104,7 +104,8 @@ namespace eXpand.ExpressApp.WorldCreator
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
-            application.CreateCustomObjectSpaceProvider += (sender, args) => _connectionString = args.ConnectionString;
+            application.CreateCustomObjectSpaceProvider += (sender, args) => _connectionString =args.Connection!=
+                                                                                                null?args.Connection.ConnectionString: args.ConnectionString;
         }
         public override void UpdateModel(Dictionary model) {
             base.UpdateModel(model);

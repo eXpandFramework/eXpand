@@ -86,7 +86,7 @@ namespace eXpand.ExpressApp.ModelDifference{
         private void ApplicationOnCreateCustomModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs args)
         {
             if (_connectionString== null)
-                _connectionString = Application.ConnectionString;
+                _connectionString =Application.Connection== null?Application.ConnectionString: Application.Connection.ConnectionString;
         }
     }
 }
