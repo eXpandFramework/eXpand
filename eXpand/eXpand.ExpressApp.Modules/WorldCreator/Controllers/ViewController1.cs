@@ -17,11 +17,12 @@ namespace eXpand.ExpressApp.WorldCreator.Controllers
         {
             InitializeComponent();
             RegisterActions(components);
-            TargetObjectType = typeof (IDummy);
+            TargetObjectType = typeof (IHidden);
         }
         protected override void OnActivated()
         {
             base.OnActivated();
+            
         }
     }
 }

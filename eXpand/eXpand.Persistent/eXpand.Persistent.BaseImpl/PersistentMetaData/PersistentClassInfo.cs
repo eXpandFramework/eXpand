@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -13,7 +14,6 @@ using eXpand.Utils.Helpers;
 using System.Linq;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-    
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
     public class PersistentClassInfo : PersistentTypeInfo, IPersistentClassInfo,IPropertyValueValidator {
@@ -73,16 +73,16 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
         
         [Association("PersistentClassInfos-Interfaces")]
-        public XPCollection<PersistentInterfaceInfo> Interfaces
+        public XPCollection<InterfaceInfo> Interfaces
         {
             get
             {
-                return GetCollection<PersistentInterfaceInfo>("Interfaces");
+                return GetCollection<InterfaceInfo>("Interfaces");
             }
         }
 
         IList<IInterfaceInfo> IPersistentClassInfo.Interfaces {
-            get { return new ListConverter<IInterfaceInfo,PersistentInterfaceInfo>(Interfaces); }
+            get { return new ListConverter<IInterfaceInfo,InterfaceInfo>(Interfaces); }
         }
         #region IPersistentClassInfo Members
         [Browsable(false)]

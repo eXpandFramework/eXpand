@@ -41,8 +41,7 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
 
         private void createConstructors(TypeBuilder type, Type parent){
             const MethodAttributes flags2 = MethodAttributes.SpecialName | MethodAttributes.HideBySig |MethodAttributes.Public;
-            foreach (ConstructorInfo ci in parent.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
-            {
+            foreach (ConstructorInfo ci in parent.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)){
                 ParameterInfo[] parameters = ci.GetParameters();
                 if (parameters.Length == 0) {
                     type.DefineDefaultConstructor(flags2);
@@ -110,10 +109,7 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
 
         private void addInterFaces(IPersistentClassInfo classInfo,TypeBuilder typeBuilder) {
             foreach (var interfaceInfo in classInfo.Interfaces){
-                IInterfaceInfo info = interfaceInfo;
-                var assembly1 = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => new AssemblyName(assembly.FullName+"").Name == info.Assembly).SingleOrDefault();
-                var type = assembly1.GetType(info.Name);
-                typeBuilder.AddInterfaceImplementation(type);
+                typeBuilder.AddInterfaceImplementation(interfaceInfo.Type);
             }
         }
 
@@ -177,8 +173,9 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
         }
 
 
-        private void createProperties(IPersistentClassInfo classInfo, TypeBuilder typeBuilder) {
-            foreach (var ownMember in classInfo.OwnMembers){
+        private void createProperties(IPersistentClassInfo persistentClassInfo, TypeBuilder typeBuilder)
+        {
+            foreach (IPersistentMemberInfo ownMember in persistentClassInfo.OwnMembers){
                 var memberInfoType = typeof(XPCollection);
                 if (ownMember is IPersistentCoreTypeMemberInfo)
                     memberInfoType = Type.GetType("System." + ((IPersistentCoreTypeMemberInfo) ownMember).DataType, true);
@@ -192,7 +189,18 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
                     createCollectionProperty(typeBuilder, ownMember, memberInfoType);
                     continue;
                 }
-                createGetSetProperty(typeBuilder, ownMember,memberInfoType);    
+                createGetSetProperty(typeBuilder, ownMember.Name,ownMember.TypeAttributes,memberInfoType);    
+            }
+            createMissingPropertiesFromInterfaces(persistentClassInfo,typeBuilder);
+        }
+
+        private void createMissingPropertiesFromInterfaces(IPersistentClassInfo info, TypeBuilder typeBuilder) {
+            foreach (var interfaceType in info.Interfaces){
+                foreach (var property in interfaceType.Type.GetProperties()) {
+                    PropertyInfo propertyInfo = property;
+                    if (info.OwnMembers.Where(memberInfo => memberInfo.Name==propertyInfo.Name).FirstOrDefault()== null)
+                        createGetSetProperty(typeBuilder,property.Name, null,property.PropertyType );
+                }
             }
         }
 
@@ -215,14 +223,15 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
             defineAttributes(memberInfo.TypeAttributes, builder => property.SetCustomAttribute(builder));
         }
 
-        private static void createGetSetProperty(TypeBuilder type, IPersistentMemberInfo memberInfo, Type memberInfoType) {
+        private static void createGetSetProperty(TypeBuilder type, string memberName,IList<IPersistentAttributeInfo> attributeInfos, Type memberInfoType) {
             
-            FieldBuilder field = type.DefineField("_" + memberInfo.Name, memberInfoType, FieldAttributes.Private);
-            PropertyBuilder property = type.DefineProperty(memberInfo.Name, PropertyAttributes.HasDefault, memberInfoType, null);
+            FieldBuilder field = type.DefineField("_" + memberName, memberInfoType, FieldAttributes.Private);
+            PropertyBuilder property = type.DefineProperty(memberName, PropertyAttributes.HasDefault, memberInfoType, null);
             const MethodAttributes GetSetAttr = MethodAttributes.Public |MethodAttributes.HideBySig|MethodAttributes.Virtual;
             definePropertyGetMethod(type, memberInfoType, GetSetAttr, field, property);
             definePropertySetMethod(type, memberInfoType, GetSetAttr, field, property);
-            defineAttributes(memberInfo.TypeAttributes,builder => property.SetCustomAttribute(builder));            
+            if (attributeInfos != null)
+                defineAttributes(attributeInfos, builder => property.SetCustomAttribute(builder));
         }
 
         private static void defineAttributes(IList<IPersistentAttributeInfo> persistentAttributeInfos,Action<CustomAttributeBuilder> afterCreated) {

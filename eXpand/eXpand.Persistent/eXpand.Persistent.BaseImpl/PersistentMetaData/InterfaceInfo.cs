@@ -1,3 +1,7 @@
+using System;
+using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -8,8 +12,8 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [RuleCombinationOfPropertiesIsUnique(null,DefaultContexts.Save, "Name,Assembly")]
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
-    public class PersistentInterfaceInfo:BaseObject, IInterfaceInfo {
-        public PersistentInterfaceInfo(Session session) : base(session) {
+    public class InterfaceInfo:BaseObject, IInterfaceInfo {
+        public InterfaceInfo(Session session) : base(session) {
         }
         [Association("PersistentClassInfos-Interfaces")]
         public XPCollection<PersistentClassInfo> PersistentClassInfos
@@ -42,6 +46,16 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set
             {
                 SetPropertyValue("Assembly", ref _assembly, value);
+            }
+        }
+        [Browsable(false)]
+        [MemberDesignTimeVisibility(false)]
+        public Type Type {
+            get {
+                var singleOrDefault = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => new AssemblyName(assembly.FullName + "").Name == Assembly).SingleOrDefault();
+                if (singleOrDefault!= null)
+                    return singleOrDefault.GetType(Name);
+                return null;
             }
         }
     }

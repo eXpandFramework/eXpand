@@ -241,7 +241,7 @@ namespace eXpand.Tests.WorldCreator
         {
             var userClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "User" };
             userClassInfo.OwnMembers.Add(new PersistentCoreTypeMemberInfo(Session.DefaultSession){Name="Hidden",DataType = XPODataType.Boolean});
-            userClassInfo.Interfaces.Add(new PersistentInterfaceInfo(Session.DefaultSession) { Name = typeof(IHidden).FullName, Assembly = new AssemblyName(typeof(IHidden).Assembly.FullName+"").Name });
+            userClassInfo.Interfaces.Add(new InterfaceInfo(Session.DefaultSession) { Name = typeof(IHidden).FullName, Assembly = new AssemblyName(typeof(IHidden).Assembly.FullName+"").Name });
 
             var builder = _builder.WithAssemblyName("TestAssembly");
             var type = builder.Define(userClassInfo);
@@ -254,7 +254,7 @@ namespace eXpand.Tests.WorldCreator
         public void Create_Properties_If_Not_Exist_For_All_Implemented_Interfaces()
         {
             var userClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "User" };
-            userClassInfo.Interfaces.Add(new PersistentInterfaceInfo(Session.DefaultSession) { Name = typeof(IHidden).FullName, Assembly = new AssemblyName(typeof(IHidden).Assembly.FullName + "").Name });
+            userClassInfo.Interfaces.Add(new InterfaceInfo(Session.DefaultSession) { Name = typeof(IHidden).FullName, Assembly = new AssemblyName(typeof(IHidden).Assembly.FullName + "").Name });
             var builder = _builder.WithAssemblyName("TestAssembly");
 
             var type = builder.Define(userClassInfo);
