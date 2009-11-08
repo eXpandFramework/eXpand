@@ -9,8 +9,6 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers
     public abstract partial class ExtendSchemaModelController : WindowController
     {
         protected const string STR_Name = "Name";
-        public const string NormalCriteria = "NormalCriteria";
-        public const string EmptyCriteria = "EmptyCriteria";
 
         protected ExtendSchemaModelController()
         {

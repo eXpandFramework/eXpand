@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -13,7 +14,6 @@ using eXpand.Utils.Helpers;
 using System.Linq;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-    
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
     public class PersistentClassInfo : PersistentTypeInfo, IPersistentClassInfo,IPropertyValueValidator {
@@ -41,17 +41,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 SetPropertyValue("MergedObjectType", ref _mergedObject, value);
             }
         }
-
-        [Size(SizeAttribute.Unlimited)]
-        [ValueConverter(typeof(TypeValueConverter))]
-        [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
-        public Type BaseType {
-            get { return _baseType; }
-            set {
-                SetPropertyValue("BaseType", ref _baseType, value);
-                if (value != null) _baseTypeAssemblyQualifiedName = value.AssemblyQualifiedName;
-            }
-        }
         private string _baseTypeAssemblyQualifiedName;
         [Size(SizeAttribute.Unlimited)]
         [Browsable(false)][MemberDesignTimeVisibility(false)]
@@ -66,12 +55,35 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 SetPropertyValue("BaseTypeAssemblyQualifiedName", ref _baseTypeAssemblyQualifiedName, value);
             }
         }
+        [Size(SizeAttribute.Unlimited)]
+        [ValueConverter(typeof(TypeValueConverter))]
+        [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
+        public Type BaseType {
+            get { return _baseType; }
+            set {
+                SetPropertyValue("BaseType", ref _baseType, value);
+                if (value != null) _baseTypeAssemblyQualifiedName = value.AssemblyQualifiedName;
+            }
+        }
+        
         
         [Association]
         public XPCollection<PersistentMemberInfo> OwnMembers {
             get { return GetCollection<PersistentMemberInfo>("OwnMembers"); }
         }
+        
+        [Association("PersistentClassInfos-Interfaces")]
+        public XPCollection<InterfaceInfo> Interfaces
+        {
+            get
+            {
+                return GetCollection<InterfaceInfo>("Interfaces");
+            }
+        }
 
+        IList<IInterfaceInfo> IPersistentClassInfo.Interfaces {
+            get { return new ListConverter<IInterfaceInfo,InterfaceInfo>(Interfaces); }
+        }
         #region IPersistentClassInfo Members
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]

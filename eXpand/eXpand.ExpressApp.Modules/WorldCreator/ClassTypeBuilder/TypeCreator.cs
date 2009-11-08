@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -63,21 +66,32 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
         {
             var collection = new XPCollection(_unitOfWork, _typesInfo.PersistentTypesInfoType);
             var types = new List<TypeInfo>();
-            var builder = PersistentClassTypeBuilder.BuildClass();
+            var builder = PersistentTypeBuilder.BuildClass();
             var persistentClassInfos = collection.Cast<IPersistentClassInfo>();
             var assemblyNames = persistentClassInfos.GroupBy(info => info.AssemblyName).Select(grouping => grouping.Key);
             Type moduleType = null;
             foreach (var assembly in assemblyNames)
             {
-                IClassDefineBuilder defineBuilder = builder.WithAssemblyName(assembly);
+                ITypeDefineBuilder defineBuilder = builder.WithAssemblyName(assembly);
                 moduleType = defineBuilder.ModuleBuilder.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
                 string s = assembly;
                 var classInfos = persistentClassInfos.Where(info => info.AssemblyName == s);
                 types.AddRange(defineBuilder.Define(classInfos.ToList()));
+                UpdateModuleInfo(_unitOfWork, moduleType.FullName,assembly,new Version(0,0,0,DateTime.Now.Second).ToString());
+                if ((ConfigurationManager.AppSettings["SaveDynamicAssembly"]+"").ToLower()=="true")
+                    defineBuilder.AssemblyBuilder.Save(assembly);
+
             }
+            
             return moduleType;
 
         }
-            
+
+        private void UpdateModuleInfo(Session session,string moduleName, string assemblyName, string version) {
+            var moduleInfo = (ModuleInfo)session.FindObject(typeof(ModuleInfo), new BinaryOperator("Name", moduleName)) ??new ModuleInfo(session) {Name = moduleName};
+            moduleInfo.AssemblyFileName = assemblyName;
+            moduleInfo.Version = version;
+            _unitOfWork.CommitChanges();
+        }
     }
 }

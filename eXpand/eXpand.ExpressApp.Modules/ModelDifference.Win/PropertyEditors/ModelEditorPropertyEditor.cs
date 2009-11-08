@@ -5,6 +5,8 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.Editors;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
+using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 {
@@ -80,10 +82,17 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
 
         internal ModelEditorController GetModelEditorController(XafApplication application){
-            var controller = new ModelEditorController(CurrentObject.GetCombinedModel(), new DummyStore(), application.Modules);
+            var controller = new ModelEditorController(getDictionary(), new DummyStore(), application.Modules);
             controller.ModifiedChanged += ControllerModifiedChanged;
             controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);
             return controller;
+        }
+
+        private Dictionary getDictionary() {
+            if (CurrentObject.DifferenceType==DifferenceType.Model)
+                return CurrentObject.GetCombinedModel();
+            var activeModelDifference = new QueryModelDifferenceObject(CurrentObject.Session).GetActiveModelDifference(Application.GetType().FullName);
+            return CurrentObject.GetCombinedModel(new []{activeModelDifference.Model});
         }
 
         private class DummyStore:DictionaryDifferenceStore {

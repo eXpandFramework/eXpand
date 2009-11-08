@@ -69,26 +69,31 @@
     <Reference Include="DevExpress.Xpo.v9.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="eXpand.ExpressApp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.ExpressApp, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.Persistent.Base, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.ExpressApp.Security, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.Utils, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.Persistent.Base, Version=0.0.9311.9, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.Xpo, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\eXpand.DLL\eXpand.Xpo.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="eXpand.Xpo, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -106,18 +111,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassTypeBuilder\IClassAssemblyNameBuilder.cs">
+    <Compile Include="ClassTypeBuilder\IAssemblyNameBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ClassTypeBuilder\IClassDefineBuilder.cs">
+    <Compile Include="ClassTypeBuilder\ITypeDefineBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ClassTypeBuilder\PersistentClassTypeBuilder.cs">
+    <Compile Include="ClassTypeBuilder\PersistentTypeBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ClassTypeBuilder\TypeInfo.cs" />
     <Compile Include="ClassTypeBuilder\TypesInfo.cs" />
     <Compile Include="ClassTypeBuilder\TypeCreator.cs" />
+    <Compile Include="Controllers\PopulateInterfacesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\PopulateInterfacesController.Designer.cs">
+      <DependentUpon>PopulateInterfacesController.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorldCreatorModule.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -56,7 +56,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.CombiningDictionaries{
 
         [Test]
         [Isolated]
-        public void If_CurrentUserDIfferenceObject_Is_Active_One_Then_Combine_It_With_ApplicationUserDiffs(){
+        public void If_CurrentUserDIfferenceObject_Is_Active_One_Then_Combine_It_With_ApplicationDiffs_And_UserDiffs(){
             
             var queryUserModelDifferenceObject = Isolate.Fake.InstanceAndSwapAll<QueryUserModelDifferenceObject>();
 

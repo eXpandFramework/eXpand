@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
@@ -147,5 +148,15 @@ namespace eXpandAddIns
                 }
             }
         }
+
+        private void events_ProjectBuildBegin(string project1, string projectConfiguration, string platform, string solutionConfiguration)
+        {
+            
+        }
+
+        private void events_BuildBegin(vsBuildScope scope, vsBuildAction action) {
+
+        }
+
     }
 }

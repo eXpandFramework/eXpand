@@ -8,6 +8,9 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
     public abstract class PersistentAttributeInfo : BaseObject, IPersistentAttributeInfo {
         protected PersistentAttributeInfo(Session session) : base(session) { }
 
+        protected PersistentAttributeInfo()
+        {
+        }
         [Persistent][Size(255)]
         [VisibleInDetailView(false)]
         public string Name

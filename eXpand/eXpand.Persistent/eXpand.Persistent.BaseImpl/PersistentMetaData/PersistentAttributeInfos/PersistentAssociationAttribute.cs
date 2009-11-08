@@ -16,6 +16,8 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
         public PersistentAssociationAttribute(Session session) : base(session) {
         }
 
+        public PersistentAssociationAttribute() {
+        }
         #region IPersistentAssociationAttribute Members
         [VisibleInListView(true)]
         [RuleRequiredField(null,DefaultContexts.Save)]

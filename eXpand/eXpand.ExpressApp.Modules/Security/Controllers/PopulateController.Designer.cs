@@ -1,6 +1,6 @@
 ﻿namespace eXpand.ExpressApp.Security.Controllers
 {
-    partial class PopulateController
+    partial class PopulateController<T>
     {
         /// <summary>
         /// Required designer variable.

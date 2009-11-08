@@ -73,7 +73,8 @@ namespace eXpandAddIns
             // 
             // events
             // 
-            
+            this.events.BuildBegin += new DevExpress.CodeRush.Core.BuildEventHandler(this.events_BuildBegin);
+            this.events.ProjectBuildBegin += new DevExpress.CodeRush.Core.BuildProjectBeginHandler(this.events_ProjectBuildBegin);
             // 
             // dropDataBase
             // 

@@ -1,5 +1,4 @@
-namespace eXpand.ExpressApp.ViewVariantsModule.Win.Controllers
-{
+namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
     partial class ChangeViewVariantActionViewController
     {
         /// <summary>

@@ -11,6 +11,8 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
 
         private string  _value;
 
+        public PersistentCustomAttribute() {
+        }
         private string _propertyName;
         public string PropertyName
         {

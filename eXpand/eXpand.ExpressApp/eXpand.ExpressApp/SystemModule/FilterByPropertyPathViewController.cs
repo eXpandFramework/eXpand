@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.Persistent.BaseImpl;
@@ -16,7 +17,7 @@ using eXpand.Xpo;
 using eXpand.Xpo.Parser;
 
 namespace eXpand.ExpressApp.SystemModule {
-    public abstract partial class FilterByPropertyPathViewController : BaseViewController
+    public partial class FilterByPropertyPathViewController : BaseViewController
     {
         private DictionaryNode filterByCollectionNode;
         public const string PropertyPath = "PropertyPath";
@@ -30,10 +31,10 @@ namespace eXpand.ExpressApp.SystemModule {
             get { return _filtersByPropertyPathWrappers; }
         }
 
-        protected FilterByPropertyPathViewController()
+        public FilterByPropertyPathViewController()
         {
             InitializeComponent();
-            _filterSingleChoiceAction.Category = "Filter";
+            _filterSingleChoiceAction.Category = PredefinedCategory.Search.ToString();
             RegisterActions(components);
             TargetViewType = ViewType.ListView;
             TargetViewNesting = Nesting.Root;
@@ -67,8 +68,7 @@ namespace eXpand.ExpressApp.SystemModule {
 
         private void setUpFilterAction(bool active){
             _filterSingleChoiceAction.Active[PropertyPath+" is valid"] = active;
-            foreach (var pair in _filtersByPropertyPathWrappers)
-            {
+            foreach (var pair in _filtersByPropertyPathWrappers){
                 if (pair.Value.BinaryOperatorLastMemberClassType != null) {
                     var caption = CaptionHelper.GetClassCaption(pair.Value.BinaryOperatorLastMemberClassType.FullName);
                     _filterSingleChoiceAction.Items.Add(new ChoiceActionItem(caption,pair.Value));
@@ -176,7 +176,9 @@ namespace eXpand.ExpressApp.SystemModule {
             SynchronizeInfo(view);
         }
 
-        protected abstract void SynchronizeInfo(View view);
+        protected virtual void SynchronizeInfo(View view) {
+            throw new NotImplementedException();
+        }
 
         private void AcceptFilter(FiltersByCollectionWrapper filtersByCollectionWrapper)
         {
@@ -189,7 +191,9 @@ namespace eXpand.ExpressApp.SystemModule {
             View.Refresh();
         }
 
-        protected abstract string FilterStringAttributeName { get; }
+        protected virtual string FilterStringAttributeName {
+            get { throw new NotImplementedException(); }
+        }
 
         private ListViewInfoNodeWrapper GetNodeMemberSearchWrapper(FiltersByCollectionWrapper filtersByCollectionWrapper)
         {

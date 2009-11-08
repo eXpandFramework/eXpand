@@ -123,7 +123,6 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>

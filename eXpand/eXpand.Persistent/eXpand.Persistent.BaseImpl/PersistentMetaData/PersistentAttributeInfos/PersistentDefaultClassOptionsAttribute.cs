@@ -11,6 +11,9 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
         public PersistentDefaultClassOptionsAttribute(Session session) : base(session) {
         }
 
+        public PersistentDefaultClassOptionsAttribute()
+        {
+        }
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]
         public string DefaultClassOptionsName

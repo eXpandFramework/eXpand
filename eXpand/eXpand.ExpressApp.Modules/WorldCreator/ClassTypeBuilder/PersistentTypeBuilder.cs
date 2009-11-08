@@ -13,7 +13,7 @@ using PropertyAttributes=System.Reflection.PropertyAttributes;
 using System.Linq;
 
 namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
-    public class PersistentClassTypeBuilder : Builder<Type>, IClassAssemblyNameBuilder, IClassDefineBuilder
+    public class PersistentTypeBuilder : Builder<Type>, IAssemblyNameBuilder, ITypeDefineBuilder
     {
         
         private ModuleBuilder _moduleBuilder;
@@ -21,13 +21,13 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
         private AssemblyBuilder _assemblyBuilder;
 
 
-        public static IClassAssemblyNameBuilder BuildClass()
+        public static IAssemblyNameBuilder BuildClass()
         {
-            return new PersistentClassTypeBuilder();
+            return new PersistentTypeBuilder();
         }
 
 
-        IClassDefineBuilder IClassAssemblyNameBuilder.WithAssemblyName(string assemblyName)
+        ITypeDefineBuilder IAssemblyNameBuilder.WithAssemblyName(string assemblyName)
         {
             _assemblyName = assemblyName;
             _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName(assemblyName),AssemblyBuilderAccess.RunAndSave, @"C:\");
@@ -41,8 +41,7 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
 
         private void createConstructors(TypeBuilder type, Type parent){
             const MethodAttributes flags2 = MethodAttributes.SpecialName | MethodAttributes.HideBySig |MethodAttributes.Public;
-            foreach (ConstructorInfo ci in parent.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
-            {
+            foreach (ConstructorInfo ci in parent.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)){
                 ParameterInfo[] parameters = ci.GetParameters();
                 if (parameters.Length == 0) {
                     type.DefineDefaultConstructor(flags2);
@@ -94,6 +93,7 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
         private TypeBuilder GetTypeBuilder(IPersistentClassInfo classInfo) {
             var parent =classInfo.BaseType?? classInfo.GetDefaultBaseClass();
             var typeBuilder = _moduleBuilder.DefineType(_assemblyName + "." + classInfo.Name, TypeAttributes.Class | TypeAttributes.Public | TypeAttributes.BeforeFieldInit, parent);
+            addInterFaces(classInfo, typeBuilder);
             defineAttributes(classInfo.TypeAttributes, builder => typeBuilder.SetCustomAttribute(builder));
             createConstructors(typeBuilder, parent);
             return typeBuilder;
@@ -102,8 +102,15 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
         public Type Define(IPersistentClassInfo classInfo) {
             TypeBuilder typeBuilder = GetTypeBuilder(classInfo);
             createProperties(classInfo, typeBuilder);
+            
             var define = typeBuilder.CreateType();
             return define;
+        }
+
+        private void addInterFaces(IPersistentClassInfo classInfo,TypeBuilder typeBuilder) {
+            foreach (var interfaceInfo in classInfo.Interfaces){
+                typeBuilder.AddInterfaceImplementation(interfaceInfo.Type);
+            }
         }
 
         public List<TypeInfo> Define(IList<IPersistentClassInfo> classInfos) {
@@ -157,17 +164,18 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
             return typeBuilders;
         }
 
-        AssemblyBuilder IClassDefineBuilder.AssemblyBuilder {
+        AssemblyBuilder ITypeDefineBuilder.AssemblyBuilder {
             get { return _assemblyBuilder; }
         }
 
-        ModuleBuilder IClassDefineBuilder.ModuleBuilder {
+        ModuleBuilder ITypeDefineBuilder.ModuleBuilder {
             get { return _moduleBuilder; }
         }
 
 
-        private void createProperties(IPersistentClassInfo classInfo, TypeBuilder typeBuilder) {
-            foreach (var ownMember in classInfo.OwnMembers){
+        private void createProperties(IPersistentClassInfo persistentClassInfo, TypeBuilder typeBuilder)
+        {
+            foreach (IPersistentMemberInfo ownMember in persistentClassInfo.OwnMembers){
                 var memberInfoType = typeof(XPCollection);
                 if (ownMember is IPersistentCoreTypeMemberInfo)
                     memberInfoType = Type.GetType("System." + ((IPersistentCoreTypeMemberInfo) ownMember).DataType, true);
@@ -181,7 +189,18 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
                     createCollectionProperty(typeBuilder, ownMember, memberInfoType);
                     continue;
                 }
-                createGetSetProperty(typeBuilder, ownMember,memberInfoType);    
+                createGetSetProperty(typeBuilder, ownMember.Name,ownMember.TypeAttributes,memberInfoType);    
+            }
+            createMissingPropertiesFromInterfaces(persistentClassInfo,typeBuilder);
+        }
+
+        private void createMissingPropertiesFromInterfaces(IPersistentClassInfo info, TypeBuilder typeBuilder) {
+            foreach (var interfaceType in info.Interfaces){
+                foreach (var property in interfaceType.Type.GetProperties()) {
+                    PropertyInfo propertyInfo = property;
+                    if (info.OwnMembers.Where(memberInfo => memberInfo.Name==propertyInfo.Name).FirstOrDefault()== null)
+                        createGetSetProperty(typeBuilder,property.Name, null,property.PropertyType );
+                }
             }
         }
 
@@ -204,14 +223,15 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
             defineAttributes(memberInfo.TypeAttributes, builder => property.SetCustomAttribute(builder));
         }
 
-        private static void createGetSetProperty(TypeBuilder type, IPersistentMemberInfo memberInfo, Type memberInfoType) {
+        private static void createGetSetProperty(TypeBuilder type, string memberName,IList<IPersistentAttributeInfo> attributeInfos, Type memberInfoType) {
             
-            FieldBuilder field = type.DefineField("_" + memberInfo.Name, memberInfoType, FieldAttributes.Private);
-            PropertyBuilder property = type.DefineProperty(memberInfo.Name, PropertyAttributes.HasDefault, memberInfoType, null);
-            const MethodAttributes GetSetAttr = MethodAttributes.Public |MethodAttributes.HideBySig;
+            FieldBuilder field = type.DefineField("_" + memberName, memberInfoType, FieldAttributes.Private);
+            PropertyBuilder property = type.DefineProperty(memberName, PropertyAttributes.HasDefault, memberInfoType, null);
+            const MethodAttributes GetSetAttr = MethodAttributes.Public |MethodAttributes.HideBySig|MethodAttributes.Virtual;
             definePropertyGetMethod(type, memberInfoType, GetSetAttr, field, property);
             definePropertySetMethod(type, memberInfoType, GetSetAttr, field, property);
-            defineAttributes(memberInfo.TypeAttributes,builder => property.SetCustomAttribute(builder));            
+            if (attributeInfos != null)
+                defineAttributes(attributeInfos, builder => property.SetCustomAttribute(builder));
         }
 
         private static void defineAttributes(IList<IPersistentAttributeInfo> persistentAttributeInfos,Action<CustomAttributeBuilder> afterCreated) {
@@ -241,12 +261,12 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
         }
 
         private static void definePropertyGetMethod(TypeBuilder type, Type memberInfoType, MethodAttributes GetSetAttr, FieldBuilder field, PropertyBuilder property) {
-            MethodBuilder currGetPropMthdBldr =type.DefineMethod("get_"+property.Name,GetSetAttr,memberInfoType,Type.EmptyTypes);
-            ILGenerator currGetIL = currGetPropMthdBldr.GetILGenerator();
+            MethodBuilder defineMethod =type.DefineMethod("get_"+property.Name,GetSetAttr,memberInfoType,Type.EmptyTypes);
+            ILGenerator currGetIL = defineMethod.GetILGenerator();
             currGetIL.Emit(OpCodes.Ldarg_0);
             currGetIL.Emit(OpCodes.Ldfld, field);
             currGetIL.Emit(OpCodes.Ret);
-            property.SetGetMethod(currGetPropMthdBldr);
+            property.SetGetMethod(defineMethod);
         }
     }
 
