@@ -31,6 +31,6 @@ call clearProject.bat eXpand.ExpressApp.WorldCreator
 call clearProject.bat eXpand.ExpressApp.ExceptionHandling
 call clearProject.bat eXpand.ExpressApp.ExceptionHandling.Win
 call clearProject.bat eXpand.ExpressApp.ExceptionHandling.Web
-call clearProject.bat eXpand.ExpressApp.WorldCreator
+call clearProject.bat eXpand.ExpressApp.TreeListEditors.Win
 
 pause
