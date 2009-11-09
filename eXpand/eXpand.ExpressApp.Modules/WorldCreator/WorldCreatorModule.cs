@@ -30,6 +30,7 @@ namespace eXpand.ExpressApp.WorldCreator
             base.Setup(moduleManager);
             
             if (Application != null) {
+                _typesInfo = new TypesInfo(GetAdditionalClasses());
                 Application.SetupComplete+=ApplicationOnSetupComplete;
                 var worldCreatorAsembly = AppDomain.CurrentDomain.GetAssemblies().Where(
                     assembly => assembly.FullName != null && assembly.FullName=="WorldCreator").FirstOrDefault();
