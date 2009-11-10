@@ -16,7 +16,7 @@ namespace eXpand.ExpressApp.ModelDifference{
             if (handler != null) handler(this, e);
         }
 
-        private string _connectionString;
+        private static string _connectionString;
         
 
         public override void Setup(XafApplication application)
