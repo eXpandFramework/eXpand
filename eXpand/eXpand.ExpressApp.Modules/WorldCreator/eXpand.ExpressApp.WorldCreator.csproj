@@ -117,6 +117,7 @@
     <Compile Include="ClassTypeBuilder\ITypeDefineBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ClassTypeBuilder\ITypesInfo.cs" />
     <Compile Include="ClassTypeBuilder\PersistentTypeBuilder.cs">
       <SubType>Code</SubType>
     </Compile>

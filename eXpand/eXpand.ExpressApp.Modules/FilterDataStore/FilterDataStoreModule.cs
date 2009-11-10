@@ -100,12 +100,11 @@ namespace eXpand.ExpressApp.FilterDataStore
         void application_SetupComplete(object sender, EventArgs e)
         {
             var objectSpaceProvider = (((XafApplication)(sender)).ObjectSpaceProvider);
-            if (objectSpaceProvider is IObjectSpaceProvider){
+            if (!(objectSpaceProvider is IObjectSpaceProvider)){
                 throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
             }
             XpoDataStoreProxy proxy = ((IObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
-            if (Application.Info.GetChildNode(FilterDataStoreModuleAttributeName).GetAttributeBoolValue("Enabled"))
-            {
+            if (Application.Info.GetChildNode(FilterDataStoreModuleAttributeName).GetAttributeBoolValue("Enabled")){
                 proxy.DataStoreModifyData += (o,args) => ModifyData(args.ModificationStatements);
                 proxy.DataStoreSelectData += Proxy_DataStoreSelectData;
             }

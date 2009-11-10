@@ -11,6 +11,7 @@ using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Xpo;
 using MbUnit.Framework;
 using System.Linq;
+using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.WorldCreator
 {
@@ -260,6 +261,24 @@ namespace eXpand.Tests.WorldCreator
             var type = builder.Define(userClassInfo);
 
             Assert.IsNotNull(type.GetProperty("Hidden"));
+        }
+        [Test]
+        public void Can_Create_Types_In_A_Non_Xaf_Context() {
+            new PersistentClassInfo(Session.DefaultSession){Name = "Test"}.Save();
+            var typeCreator =
+                new TypeCreator(
+                    new TypesInfo(new List<Type> {
+                                                     typeof (PersistentClassInfo),
+                                                     typeof (ExtendedCollectionMemberInfo),
+                                                     typeof (ExtendedReferenceMemberInfo),
+                                                     typeof (ExtendedCoreTypeMemberInfo),
+                                                     typeof (InterfaceInfo)
+                                                 }), new UnitOfWork(Session.DefaultSession.DataLayer));
+
+            Type dynamicModule = typeCreator.GetDynamicModule();
+
+            Assert.IsNotNull(dynamicModule);
+            Assert.IsNotNull(dynamicModule.Assembly.GetTypes().Where(type => type.Name=="Test").FirstOrDefault());
         }
     }
 

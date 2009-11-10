@@ -5,7 +5,7 @@ using System.Linq;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
-    public class TypesInfo {
+    public class TypesInfo : ITypesInfo {
         public TypesInfo(IEnumerable<Type> types) {
             PersistentTypesInfoType = GetInfoType(types, typeof(IPersistentClassInfo));
             ExtendedCollectionMemberInfoType = GetInfoType(types, typeof(IExtendedCollectionMemberInfo));

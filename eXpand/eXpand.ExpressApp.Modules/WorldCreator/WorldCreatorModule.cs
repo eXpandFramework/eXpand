@@ -17,7 +17,7 @@ namespace eXpand.ExpressApp.WorldCreator
     {
         
         private Type _dynamicModuleType;
-        private TypesInfo _typesInfo;
+        private ITypesInfo _typesInfo;
         private TypeCreator _typeCreator;
         private string _connectionString;
         private UnitOfWork _unitOfWork;
@@ -44,7 +44,6 @@ namespace eXpand.ExpressApp.WorldCreator
                 _typeCreator.CreateExtendedTypes();
 
                 if (_dynamicModuleType != null) {
-                    
                     moduleManager.AddModule(_dynamicModuleType,false);
                     var types = _dynamicModuleType.Assembly.GetTypes().Where(type => typeof (IXPSimpleObject).IsAssignableFrom(type));
                     _unitOfWork.UpdateSchema(types.ToArray());

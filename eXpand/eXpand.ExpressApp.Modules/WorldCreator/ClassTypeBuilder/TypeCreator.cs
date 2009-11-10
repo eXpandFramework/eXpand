@@ -12,10 +12,11 @@ using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
     public class TypeCreator {
-        private readonly TypesInfo _typesInfo;
+        private readonly ITypesInfo _typesInfo;
         private readonly UnitOfWork _unitOfWork;
 
-        public TypeCreator(TypesInfo typesInfo, UnitOfWork unitOfWork) {
+        public TypeCreator(ITypesInfo typesInfo, UnitOfWork unitOfWork)
+        {
             _typesInfo = typesInfo;
             _unitOfWork = unitOfWork;
         }
