@@ -32,8 +32,8 @@ using eXpand;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.0.09313.19")]
-[assembly: AssemblyFileVersion("0.0.09313.19")]
+[assembly: AssemblyVersion("0.0.09314.22")]
+[assembly: AssemblyFileVersion("0.0.09314.22")]
 namespace eXpand
 {
     public class AssemblyInfo
