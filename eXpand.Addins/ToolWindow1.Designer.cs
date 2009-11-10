@@ -45,10 +45,10 @@ namespace eXpandAddIns
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolWindow1));
             this.events = new DevExpress.DXCore.PlugInCore.DXCoreEvents(this.components);
-            this.gridControl1 = new GridControl();
-            this.gridView1 = new GridView();
-            this.gridColumnName = new GridColumn();
-            this.textEdit1 = new TextEdit();
+            this.gridControl1 = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
+            this.gridView1 = new DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView();
+            this.gridColumnName = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
+            this.textEdit1 = new DevExpress.DXCore.Controls.XtraEditors.TextEdit();
             this.openModelEditorAction = new DevExpress.CodeRush.Core.Action(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -61,21 +61,21 @@ namespace eXpandAddIns
             // gridControl1
             // 
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControl1.EmbeddedNavigator.Name = "";
             this.gridControl1.Location = new System.Drawing.Point(0, 0);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.Size = new System.Drawing.Size(709, 356);
             this.gridControl1.TabIndex = 0;
-            this.gridControl1.ViewCollection.AddRange(new BaseView[] {
+            this.gridControl1.ViewCollection.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
             // gridView1
             // 
-            this.gridView1.Columns.AddRange(new GridColumn[] {
+            this.gridView1.Columns.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn[] {
             this.gridColumnName});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsCustomization.AllowColumnMoving = false;
             this.gridView1.OptionsCustomization.AllowColumnResizing = false;
             this.gridView1.OptionsCustomization.AllowGroup = false;
@@ -83,6 +83,7 @@ namespace eXpandAddIns
             this.gridView1.OptionsMenu.EnableColumnMenu = false;
             this.gridView1.OptionsMenu.EnableFooterMenu = false;
             this.gridView1.OptionsMenu.EnableGroupPanelMenu = false;
+            this.gridView1.OptionsView.NewItemRowPosition = DevExpress.DXCore.Controls.XtraGrid.Views.Grid.NewItemRowPosition.Top;
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
@@ -93,7 +94,7 @@ namespace eXpandAddIns
             this.gridColumnName.Caption = "Models";
             this.gridColumnName.FieldName = "Name";
             this.gridColumnName.Name = "gridColumnName";
-            this.gridColumnName.OptionsFilter.AutoFilterCondition = AutoFilterCondition.Contains;
+            this.gridColumnName.OptionsFilter.AutoFilterCondition = DevExpress.DXCore.Controls.XtraGrid.Columns.AutoFilterCondition.Contains;
             this.gridColumnName.Visible = true;
             this.gridColumnName.VisibleIndex = 0;
             // 
@@ -101,7 +102,7 @@ namespace eXpandAddIns
             // 
             this.textEdit1.Location = new System.Drawing.Point(309, 282);
             this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Size = new System.Drawing.Size(100, 20);
+            this.textEdit1.Size = new System.Drawing.Size(100, 22);
             this.textEdit1.TabIndex = 1;
             // 
             // openModelEditorAction

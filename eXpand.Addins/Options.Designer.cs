@@ -44,10 +44,15 @@ namespace eXpandAddIns
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.labelControl5 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.connectionStringName = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
+            this.gridControl1 = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
+            this.gridView1 = new DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView();
+            this.gridColumnName = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.connectionStringName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -136,9 +141,48 @@ namespace eXpandAddIns
             this.connectionStringName.Size = new System.Drawing.Size(393, 22);
             this.connectionStringName.TabIndex = 10;
             // 
+            // gridControl1
+            // 
+            this.gridControl1.EmbeddedNavigator.Name = "";
+            this.gridControl1.Location = new System.Drawing.Point(9, 133);
+            this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.Name = "gridControl1";
+            this.gridControl1.Size = new System.Drawing.Size(507, 142);
+            this.gridControl1.TabIndex = 12;
+            this.gridControl1.ViewCollection.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Views.Base.BaseView[] {
+            this.gridView1});
+            // 
+            // gridView1
+            // 
+            this.gridView1.Columns.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn[] {
+            this.gridColumnName});
+            this.gridView1.GridControl = this.gridControl1;
+            this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsCustomization.AllowColumnMoving = false;
+            this.gridView1.OptionsCustomization.AllowColumnResizing = false;
+            this.gridView1.OptionsCustomization.AllowGroup = false;
+            this.gridView1.OptionsFilter.AllowColumnMRUFilterList = false;
+            this.gridView1.OptionsFilter.AllowFilterEditor = false;
+            this.gridView1.OptionsFilter.AllowMRUFilterList = false;
+            this.gridView1.OptionsMenu.EnableColumnMenu = false;
+            this.gridView1.OptionsMenu.EnableFooterMenu = false;
+            this.gridView1.OptionsMenu.EnableGroupPanelMenu = false;
+            this.gridView1.OptionsView.NewItemRowPosition = DevExpress.DXCore.Controls.XtraGrid.Views.Grid.NewItemRowPosition.Top;
+            this.gridView1.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumnName
+            // 
+            this.gridColumnName.Caption = "Visual Studio Assembly Folders";
+            this.gridColumnName.FieldName = "Name";
+            this.gridColumnName.Name = "gridColumnName";
+            this.gridColumnName.OptionsFilter.AutoFilterCondition = DevExpress.DXCore.Controls.XtraGrid.Columns.AutoFilterCondition.Contains;
+            this.gridColumnName.Visible = true;
+            this.gridColumnName.VisibleIndex = 0;
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.labelControl5);
             this.Controls.Add(this.connectionStringName);
             this.Controls.Add(this.buttonEdit1);
@@ -153,6 +197,8 @@ namespace eXpandAddIns
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.connectionStringName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -210,5 +256,8 @@ namespace eXpandAddIns
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private LabelControl labelControl5;
         private ButtonEdit connectionStringName;
+        private DevExpress.DXCore.Controls.XtraGrid.GridControl gridControl1;
+        private DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn gridColumnName;
     }
 }
