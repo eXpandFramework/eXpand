@@ -7,7 +7,6 @@ using eXpand.Persistent.Base.Taxonomies;
 using eXpand.Xpo;
 
 namespace eXpand.Persistent.BaseImpl.Taxonomies{
-    [DefaultClassOptions]
     public sealed class ValueTerm : BaseTerm, IValueTerm{
         private CustomTaxonomy _taxonomy;
         private ValueTerm parentValueTerm;

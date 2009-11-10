@@ -28,6 +28,8 @@ namespace eXpand.ExpressApp.Taxonomies{
             // 
             // TaxonomiesModule
             // 
+            this.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.Base.Taxonomies.BaseTaxonomy));
+            this.AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.Base.Taxonomies.BaseTerm));
             this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.SystemModule.eXpandSystemModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule));
 

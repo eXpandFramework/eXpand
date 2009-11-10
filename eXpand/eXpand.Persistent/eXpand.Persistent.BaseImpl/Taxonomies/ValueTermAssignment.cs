@@ -1,9 +1,13 @@
 using System.ComponentModel;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.Taxonomies;
 
 namespace eXpand.Persistent.BaseImpl.Taxonomies{
+    
     public class ValueTermAssignment : GenericWeakReference<ValueTerm>, IKeyedObject {
+        private const string defaultFullNameFormat = "{FirstName} {MiddleName} {LastName}";
+        private const string defaultFullNamePersistentAlias = "concat(FirstName, MiddleName, LastName)";
         private ValueTerm valueTerm;
 
         public ValueTermAssignment(Session session)

@@ -1,13 +1,14 @@
 using System.ComponentModel;
 using System.Linq;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 
 namespace eXpand.Persistent.Base.Taxonomies{
     [DefaultProperty("Caption"), NonPersistent]
     public abstract class GenericWeakReference<TObjectType> : XPWeakReference, IGenericWeakReference<TObjectType>, IGenericWeakReference where TObjectType : IXPObject {
-        protected const int DisplayNameSize = 250;
+        protected const int CaptionSize = 250;
         private string _associatedObjectName = "";
-        private string _caption = "";
+        
 
         protected GenericWeakReference(Session session)
             : base(session) {}
@@ -16,19 +17,19 @@ namespace eXpand.Persistent.Base.Taxonomies{
             : base(session, target) {}
         
         #region IGenericWeakReference<TObjectType> Members
-        [Size(DisplayNameSize)]
+        [Size(CaptionSize)]
         [Persistent]
         public string AssociatedObjectName {
-            get { return _associatedObjectName.Substring(0, _associatedObjectName.Length > DisplayNameSize ? DisplayNameSize : _associatedObjectName.Length); }
+            get { return _associatedObjectName.Substring(0, _associatedObjectName.Length > CaptionSize ? CaptionSize : _associatedObjectName.Length); }
             set { SetPropertyValue("AssociatedObjectName", ref _associatedObjectName, value); }
         }
 
-        [Size(DisplayNameSize)]
-        [Persistent]
-        public string Caption {
-            get { return _caption.Substring(0, _caption.Length > DisplayNameSize ? DisplayNameSize : _caption.Length); }
-            set { SetPropertyValue("Caption", ref _caption, value); }
-        }
+        //[Size(CaptionSize)]
+        //[Persistent]
+        //public string Caption {
+        //    get { return _caption.Substring(0, _caption.Length > CaptionSize ? CaptionSize : _caption.Length); }
+        //    set { SetPropertyValue("Caption", ref _caption, value); }
+        //}
 
         IXPObject IGenericWeakReference.Owner {
             get { return Owner; }
@@ -46,7 +47,6 @@ namespace eXpand.Persistent.Base.Taxonomies{
         public virtual void EvaluatePropertyValues(){
             if (Target != null) {
                 AssociatedObjectName = Target.ToString();
-                Caption = AssociatedObjectName;
             }
         }
         
@@ -62,6 +62,17 @@ namespace eXpand.Persistent.Base.Taxonomies{
         protected override void OnSaving() {
             EvaluatePropertyValues();
             base.OnSaving();
+        }
+
+        private const string DefaultCaptionFormat = "{AssociatedObjectName}";
+              
+        [Size(CaptionSize)]
+        [Persistent]
+        public string Caption {
+            get{
+                var caption = ObjectFormatter.Format(DefaultCaptionFormat, this, EmptyEntriesMode.RemoveDelimeterWhenEntryIsEmpty);
+                return caption.Substring(0, caption.Length > CaptionSize ? CaptionSize : caption.Length); 
+            }
         }
     }
 }

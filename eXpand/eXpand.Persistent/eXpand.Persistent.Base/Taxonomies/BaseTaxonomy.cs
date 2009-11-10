@@ -37,8 +37,9 @@ namespace eXpand.Persistent.Base.Taxonomies{
             get { return description; }
             set { SetPropertyValue("Description", ref description, value); }
         }
-
+        [Browsable(false), MemberDesignTimeVisibility(false)]
         public abstract IList<IValueTerm> Terms { get; }
+        [Browsable(false), MemberDesignTimeVisibility(false)]
         public abstract IList<IStructuralTerm> Structure { get; }
 
         protected override void OnChanged(string propertyName, object oldValue, object newValue){
@@ -74,6 +75,7 @@ namespace eXpand.Persistent.Base.Taxonomies{
 
         public abstract IStructuralTerm AddStructuralTerm(string termPath, string termName, Type[] types);
         public abstract IValueTerm AddValueTerm(string termPath, string termName);
+        public abstract IValueTerm AddValueTerm(string termPath, string termName, IStructuralTerm structuralTerm);
         #endregion
     }
 }

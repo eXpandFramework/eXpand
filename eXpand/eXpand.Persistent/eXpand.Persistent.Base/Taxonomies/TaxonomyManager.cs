@@ -35,6 +35,10 @@ namespace eXpand.Persistent.Base.Taxonomies{
             return AddValueTerm<TTerm>(_taxonomy, _session, termPath, termName);
         }
 
+        public TTerm AddValueTerm<TTerm>(string termPath, string termName, IStructuralTerm structuralTerm) where TTerm : BaseTerm, IValueTerm {
+            return AddValueTerm<TTerm>(_taxonomy, _session, termPath, termName, structuralTerm);
+        }
+
         public string[] GetPathSegments(string termPath) {
             return GetPathSegments(_taxonomy.Key, termPath);
         }
@@ -80,6 +84,12 @@ namespace eXpand.Persistent.Base.Taxonomies{
 
         public static TTerm AddValueTerm<TTerm>(BaseTaxonomy taxonomy, Session session, string termPath, string termName) where TTerm : BaseTerm, IValueTerm {
             return AddTerm<TTerm>(taxonomy, session, termPath, termName);
+        }
+
+        public static TTerm AddValueTerm<TTerm>(BaseTaxonomy taxonomy, Session session, string termPath, string termName, IStructuralTerm structuralTerm) where TTerm : BaseTerm, IValueTerm{
+            var term = AddValueTerm<TTerm>(taxonomy, session, termPath, termName);
+            term.StructuralTerm = structuralTerm;
+            return term;
         }
 
         public static TTerm AddStructuralTerm<TTerm>(BaseTaxonomy taxonomy, Session session, string termPath, string termName, Type[] types) where TTerm : BaseTerm, IStructuralTerm  {

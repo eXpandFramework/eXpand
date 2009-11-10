@@ -10,7 +10,6 @@ namespace eXpand.Persistent.BaseImpl.Taxonomies {
         public CustomTaxonomy(Session session) : base(session) {}
 
         [Association, Aggregated]
-        [Browsable(false)]
         public XPCollection<ValueTerm> TermsCollection {
             get { return GetCollection<ValueTerm>("TermsCollection"); }
         }
@@ -19,6 +18,7 @@ namespace eXpand.Persistent.BaseImpl.Taxonomies {
         public XPCollection<StructuralTerm> StructuralTermsCollection {
             get { return GetCollection<StructuralTerm>("StructuralTermsCollection"); }
         }
+
         #region Overrides of BaseTaxonomy
         [Browsable(false)]
         public override IList<IValueTerm> Terms{
@@ -36,6 +36,10 @@ namespace eXpand.Persistent.BaseImpl.Taxonomies {
 
         public override IValueTerm AddValueTerm(string termPath, string termName){
             return TaxonomyManager.AddValueTerm<ValueTerm>(this, Session, termPath, termName);
+        }
+
+        public override IValueTerm AddValueTerm(string termPath, string termName, IStructuralTerm structuralTerm) {
+            return TaxonomyManager.AddValueTerm<ValueTerm>(this, Session, termPath, termName, structuralTerm);
         }
         #endregion
     }
