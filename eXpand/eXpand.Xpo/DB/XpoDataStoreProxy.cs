@@ -1,19 +1,22 @@
 ﻿using System;
+using System.Data;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 
 namespace eXpand.Xpo.DB
 {
-    public class XpoDataStoreProxy : IDataStore
+    public class XpoDataStoreProxy : ISqlDataStore
     {
         private readonly IDataLayer dataLayerCore;
-        private readonly IDataStore dataStoreCore;
+        private readonly ISqlDataStore dataStoreCore;
         #region IDataStore Members
         public XpoDataStoreProxy(string connectionString)
         {
-            dataStoreCore = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
+            dataStoreCore = (ISqlDataStore) XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
             dataLayerCore = new SimpleDataLayer(dataStoreCore);
         }
+
+
         public AutoCreateOption AutoCreateOption
         {
             get { return AutoCreateOption.DatabaseAndSchema; }
@@ -60,5 +63,12 @@ namespace eXpand.Xpo.DB
         public event EventHandler<DataStoreModifyDataEventArgs> DataStoreModifyData;
         public event EventHandler<DataStoreSelectDataEventArgs> DataStoreSelectData;
         public event EventHandler<DataStoreUpdateSchemaEventArgs> DataStoreUpdateSchema;
+        public IDbConnection Connection {
+            get { return dataStoreCore.Connection; }
+        }
+
+        public IDbCommand CreateCommand() {
+            return dataStoreCore.CreateCommand();
+        }
     }
 }
