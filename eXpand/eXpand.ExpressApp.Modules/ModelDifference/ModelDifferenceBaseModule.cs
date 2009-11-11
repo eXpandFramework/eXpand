@@ -14,22 +14,18 @@ namespace eXpand.ExpressApp.ModelDifference{
         protected virtual void InvokeCreateCustomModelDifferenceStore(CreateCustomModelDifferenceStoreEventArgs e) {
             EventHandler<CreateCustomModelDifferenceStoreEventArgs> handler = CreateCustomModelDifferenceStore;
             if (handler != null) handler(this, e);
-        }
-
-        private static string _connectionString;
-        
+        }     
 
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
             application.LoggingOn += OnLoggingOn;
             application.SetupComplete += OnSetupComplete;
-            application.CreateCustomModelDifferenceStore += ApplicationOnCreateCustomModelDifferenceStore;
         }
 
         public PersistentApplication GetPersistentApplication(XafApplication application)
         {
-            var work = new UnitOfWork{ConnectionString = _connectionString};
+            var work = application.ObjectSpaceProvider.CreateObjectSpace().Session;
             PersistentApplication persistentApplication = new QueryPersistentApplication(work).Find(application.GetType().FullName) ?? new PersistentApplication(work);
             return persistentApplication;
         }
@@ -63,30 +59,17 @@ namespace eXpand.ExpressApp.ModelDifference{
             return persistentApplication;
         }
 
-        public string ConnectionString
-        {
-            get { return _connectionString; }
-        }
-
         private DictionaryNode getModelDiffs()
         {
             var args = new CreateCustomModelDifferenceStoreEventArgs();
             InvokeCreateCustomModelDifferenceStore(args);
             if (!args.Handled) {
-                using (var provider =new DevExpress.ExpressApp.ObjectSpaceProvider(new ConnectionStringDataStoreProvider(_connectionString))){
-                    using (Session session = provider.CreateUpdatingSession()){
-                        return new XpoModelDictionaryDifferenceStoreFactory<T>().Create(session,Application, true).LoadDifference(Application.Model.Schema).RootNode;
-                    }
-                }
+                return new XpoModelDictionaryDifferenceStoreFactory<T>().Create(Application, true).LoadDifference(
+                        Application.Model.Schema).RootNode;
             }
             return args.Store.LoadDifference(Application.Model.Schema).RootNode;
         }
 
 
-        private void ApplicationOnCreateCustomModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs args)
-        {
-            if (_connectionString== null)
-                _connectionString =Application.Connection== null?Application.ConnectionString: Application.Connection.ConnectionString;
-        }
     }
 }

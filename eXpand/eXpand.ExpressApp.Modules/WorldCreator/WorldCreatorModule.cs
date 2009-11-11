@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
+using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
 using System.Linq;
@@ -19,7 +22,6 @@ namespace eXpand.ExpressApp.WorldCreator
         private Type _dynamicModuleType;
         private ITypesInfo _typesInfo;
         private TypeCreator _typeCreator;
-        private string _connectionString;
         private UnitOfWork _unitOfWork;
 
         public WorldCreatorModule(){
@@ -31,12 +33,13 @@ namespace eXpand.ExpressApp.WorldCreator
             
             if (Application != null) {
                 _typesInfo = new TypesInfo(GetAdditionalClasses());
+                
                 Application.SetupComplete+=ApplicationOnSetupComplete;
                 var worldCreatorAsembly = AppDomain.CurrentDomain.GetAssemblies().Where(
                     assembly => assembly.FullName != null && assembly.FullName=="WorldCreator").FirstOrDefault();
                 if (worldCreatorAsembly != null)
                     _dynamicModuleType= worldCreatorAsembly.GetTypes().OfType<ModuleBase>().Single().GetType();
-                _unitOfWork = new UnitOfWork { ConnectionString = _connectionString };
+                _unitOfWork = (UnitOfWork) Application.ObjectSpaceProvider.CreateObjectSpace().Session;
                 
                 _typeCreator = new TypeCreator(_typesInfo, _unitOfWork);
                 if (_dynamicModuleType== null)
@@ -90,7 +93,7 @@ namespace eXpand.ExpressApp.WorldCreator
         }
 
         private void updateObjectType(UnitOfWork unitOfWork, XPClassInfo xpClassInfo, XPClassInfo mergedXPClassInfo) {
-            var command = unitOfWork.Connection.CreateCommand();
+            IDbCommand command = ((ISqlDataStore) (((BaseDataLayer)(unitOfWork.DataLayer)).ConnectionProvider)).Connection.CreateCommand();
             var propertyName = XPObject.Fields.ObjectType.PropertyName;
             command.CommandText = "UPDATE " + mergedXPClassInfo.TableName + " SET " + propertyName + "=" + unitOfWork.GetObjectType(xpClassInfo).Oid +
                                   " WHERE " + propertyName + " IS NULL OR " + propertyName+"="+
@@ -99,12 +102,6 @@ namespace eXpand.ExpressApp.WorldCreator
             command.ExecuteNonQuery();
         }
 
-        public override void Setup(XafApplication application)
-        {
-            base.Setup(application);
-            application.CreateCustomObjectSpaceProvider += (sender, args) => _connectionString =args.Connection!=
-                                                                                                null?args.Connection.ConnectionString: args.ConnectionString;
-        }
         public override void UpdateModel(Dictionary model) {
             base.UpdateModel(model);
             if (Application!= null){
