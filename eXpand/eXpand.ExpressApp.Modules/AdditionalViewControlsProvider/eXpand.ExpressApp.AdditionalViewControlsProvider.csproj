@@ -101,6 +101,7 @@
     <Compile Include="Controllers\AdditionalViewControlsProviderController.Designer.cs">
       <DependentUpon>AdditionalViewControlsProviderController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AdditionalViewControlsProviderNodeWrapper.cs" />
     <Compile Include="Controllers\IAdditionalViewControlsProvider.cs" />
     <Compile Include="AdditionalViewControlsAttribute.cs" />
     <Compile Include="AdditionalViewControlsProviderCalculator.cs" />

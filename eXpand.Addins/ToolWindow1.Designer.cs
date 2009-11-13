@@ -76,6 +76,7 @@ namespace eXpandAddIns
             this.gridColumnName});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsCustomization.AllowColumnMoving = false;
             this.gridView1.OptionsCustomization.AllowColumnResizing = false;
             this.gridView1.OptionsCustomization.AllowGroup = false;
@@ -83,7 +84,6 @@ namespace eXpandAddIns
             this.gridView1.OptionsMenu.EnableColumnMenu = false;
             this.gridView1.OptionsMenu.EnableFooterMenu = false;
             this.gridView1.OptionsMenu.EnableGroupPanelMenu = false;
-            this.gridView1.OptionsView.NewItemRowPosition = DevExpress.DXCore.Controls.XtraGrid.Views.Grid.NewItemRowPosition.Top;
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);

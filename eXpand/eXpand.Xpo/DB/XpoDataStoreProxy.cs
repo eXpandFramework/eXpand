@@ -16,6 +16,11 @@ namespace eXpand.Xpo.DB
             dataLayerCore = new SimpleDataLayer(dataStoreCore);
         }
 
+        public static implicit operator ConnectionProviderSql(XpoDataStoreProxy proxy)
+        {
+            return proxy.dataStoreCore as ConnectionProviderSql;
+
+        }
 
         public AutoCreateOption AutoCreateOption
         {

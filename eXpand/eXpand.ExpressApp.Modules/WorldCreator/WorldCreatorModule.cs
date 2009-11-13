@@ -23,11 +23,22 @@ namespace eXpand.ExpressApp.WorldCreator
         private ITypesInfo _typesInfo;
         private TypeCreator _typeCreator;
         private UnitOfWork _unitOfWork;
+        private string _connectionString;
 
         public WorldCreatorModule(){
             InitializeComponent();
         }
-        
+        public override void Setup(XafApplication application)
+        {
+            base.Setup(application);
+            application.CreateCustomObjectSpaceProvider += (sender, args) => _connectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
+        }
+
+        private string getConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args) {
+            return args.Connection !=
+                   null ? args.Connection.ConnectionString : args.ConnectionString;
+        }
+
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
             
@@ -39,7 +50,7 @@ namespace eXpand.ExpressApp.WorldCreator
                     assembly => assembly.FullName != null && assembly.FullName=="WorldCreator").FirstOrDefault();
                 if (worldCreatorAsembly != null)
                     _dynamicModuleType= worldCreatorAsembly.GetTypes().OfType<ModuleBase>().Single().GetType();
-                _unitOfWork = (UnitOfWork) Application.ObjectSpaceProvider.CreateObjectSpace().Session;
+                _unitOfWork = new UnitOfWork {ConnectionString = _connectionString};
                 
                 _typeCreator = new TypeCreator(_typesInfo, _unitOfWork);
                 if (_dynamicModuleType== null)

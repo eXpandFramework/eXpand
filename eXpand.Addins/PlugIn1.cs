@@ -45,6 +45,9 @@ namespace eXpandAddIns
                     
                     var userName = string.Format("/s /k:{0} \"{1}\"", token, directoryName);
                     Process.Start(path, userName);
+                    actionHint1.Text = "Project Converter Started !!!";
+                    Rectangle rectangle = Screen.PrimaryScreen.Bounds;
+                    actionHint1.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
                 }
             }   
         }
@@ -130,6 +133,7 @@ namespace eXpandAddIns
             else {
                 throw new NotImplementedException(provider.GetType().FullName);
             }
+            actionHint1.Text = "DataBase Dropped !!!";
             Rectangle rectangle = Screen.PrimaryScreen.Bounds;
             actionHint1.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
         }
@@ -157,6 +161,7 @@ namespace eXpandAddIns
         private void events_BuildBegin(vsBuildScope scope, vsBuildAction action) {
 
         }
+
 
     }
 }
