@@ -496,8 +496,8 @@ namespace eXpand.ExpressApp.Win.ListEditors{
         protected internal bool IsDataShownOnDropDownWindow(RepositoryItem repositoryItem) {
             return DXPropertyEditor.RepositoryItemsTypesWithMandatoryButtons.Contains(repositoryItem.GetType());
         }
-        protected override void AssignDataSourceToControl(IList dataSource) {
-            if (grid != null && grid.DataSource != dataSource) {
+        protected override void AssignDataSourceToControl(object o) {
+            if (grid != null && grid.DataSource != DataSource) {
                 if (grid.DataSource is IBindingList) {
                     ((IBindingList)grid.DataSource).ListChanged -= new ListChangedEventHandler(DataSource_ListChanged);
                 }
@@ -507,7 +507,7 @@ namespace eXpand.ExpressApp.Win.ListEditors{
                     OnGridDataSourceChanging();
                     grid.BeginUpdate();
                     try {
-                        grid.DataSource = dataSource;
+                        grid.DataSource = DataSource;
                     } finally {
                         grid.EndUpdate();
                     }
@@ -518,7 +518,7 @@ namespace eXpand.ExpressApp.Win.ListEditors{
                         OnFocusedObjectChanged();
                     }
                     if (grid.DataSource is IBindingList) {
-                        ((IBindingList)grid.DataSource).ListChanged += new ListChangedEventHandler(DataSource_ListChanged);
+                        ((IBindingList)grid.DataSource).ListChanged += DataSource_ListChanged;
                     }
                 }
             }
@@ -792,7 +792,7 @@ namespace eXpand.ExpressApp.Win.ListEditors{
             }
             set {
                 if ((value != null) && (layoutView != null) && (DataSource != null)) {
-                    layoutView.SelectRow(layoutView.GetRowHandle(DataSource.IndexOf(value)));
+                    layoutView.SelectRow(layoutView.GetRowHandle(List.IndexOf(value)));
                     if (layoutView.IsValidRowHandle(layoutView.FocusedRowHandle)) {
                         layoutView.ExpandCard(layoutView.FocusedRowHandle);
                     }
@@ -832,7 +832,7 @@ namespace eXpand.ExpressApp.Win.ListEditors{
         public int GetIndexByObject(Object obj) {
             int index = -1;
             if ((DataSource != null) && (layoutView != null)) {
-                int dataSourceIndex = DataSource.IndexOf(obj);
+                int dataSourceIndex = List.IndexOf(obj);
                 index = layoutView.GetRowHandle(dataSourceIndex);
                 if (index == GridControl.InvalidRowHandle) {
                     index = -1;

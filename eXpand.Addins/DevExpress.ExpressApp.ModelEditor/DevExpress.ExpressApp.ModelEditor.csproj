@@ -92,27 +92,27 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.2">
+    <Reference Include="DevExpress.Data.v9.3">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Utils.v9.2">
+    <Reference Include="DevExpress.Utils.v9.3">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.2">
+    <Reference Include="DevExpress.Xpo.v9.3">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v9.2">
+    <Reference Include="DevExpress.XtraBars.v9.3">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v9.2">
+    <Reference Include="DevExpress.XtraEditors.v9.3">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v9.2">
+    <Reference Include="DevExpress.XtraTreeList.v9.3">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -150,14 +150,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Win.v9.2">
-      <Name>DevExpress.ExpressApp.Win.v9.2</Name>
+    <Reference Include="DevExpress.ExpressApp.Win.v9.3">
+      <Name>DevExpress.ExpressApp.Win.v9.3</Name>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v9.2">
-      <Name>DevExpress.ExpressApp.v9.2</Name>
+    <Reference Include="DevExpress.ExpressApp.v9.3">
+      <Name>DevExpress.ExpressApp.v9.3</Name>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v9.2">
-      <Name>DevExpress.Persistent.Base.v9.2</Name>
+    <Reference Include="DevExpress.Persistent.Base.v9.3">
+      <Name>DevExpress.Persistent.Base.v9.3</Name>
     </Reference>
   </ItemGroup>
   <ItemGroup>

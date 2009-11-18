@@ -79,6 +79,7 @@
     <Compile Include="Linq\PredicateBuilder.cs" />
     <Compile Include="Linq\Dynamic\Res.cs" />
     <Compile Include="Linq\Dynamic\Signature.cs" />
+    <Compile Include="ObjectMerger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\ReflectionExtensions.cs" />

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Runtime.InteropServices.ComTypes;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 
@@ -81,27 +82,26 @@ namespace eXpand.Xpo{
 
         private void trucateStrings()
         {
-            foreach (XPMemberInfo xpMemberInfo in ClassInfo.PersistentProperties)
-            {
-                if (xpMemberInfo.MemberType == typeof(string))
-                {
+            foreach (XPMemberInfo xpMemberInfo in ClassInfo.PersistentProperties){
+                if (xpMemberInfo.MemberType == typeof(string)){
                     var value = xpMemberInfo.GetValue(this) as string;
-                    if (value != null)
-                    {
-                        //                            object[] attributes = xpMemberInfo.GetCustomAttributes(typeof (SizeAttribute),true);
-                        if (xpMemberInfo.HasAttribute(typeof(SizeAttribute)))
-                        {
-                            int size = ((SizeAttribute)xpMemberInfo.GetAttributeInfo(typeof(SizeAttribute))).Size;
-                            if (size > -1 && value.Length > size)
-                                value = value.Substring(0, size - 1);
-                        }
-                        else if (value.Length > 99)
-                            value = value.Substring(0, 99);
+                    if (value != null) {
+                        value = TruncateValue(xpMemberInfo, value);
                         xpMemberInfo.SetValue(this, value);
                     }
                 }
             }
         }
 
+        string TruncateValue(XPMemberInfo xpMemberInfo, string value) {
+            if (xpMemberInfo.HasAttribute(typeof(SizeAttribute))){
+                int size = ((SizeAttribute)xpMemberInfo.GetAttributeInfo(typeof(SizeAttribute))).Size;
+                if (size > -1 && value.Length > size)
+                    value = value.Substring(0, size - 1);
+            }
+            else if (value.Length > 99)
+                value = value.Substring(0, 99);
+            return value;
+        }
     }
 }

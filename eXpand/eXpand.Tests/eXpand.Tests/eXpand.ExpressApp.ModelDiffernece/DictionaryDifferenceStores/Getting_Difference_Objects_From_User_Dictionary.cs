@@ -60,7 +60,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DictionaryDifferenceSto
         {
             Isolate.Fake.ISecurityComplex();
             XafTypesInfo.Instance.RegisterEntity(typeof(UserModelDifferenceObject));
-            UserDifferenceObjectBuilder.CreateDynamicMembers();
+            UserDifferenceObjectBuilder.CreateDynamicMembers(null);
             
             
             var store = new XpoUserModelDictionaryDifferenceStore( Isolate.Fake.Instance<XafApplication>());

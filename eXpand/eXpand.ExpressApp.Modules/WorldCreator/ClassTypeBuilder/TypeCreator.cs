@@ -67,7 +67,7 @@ namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
         {
             var collection = new XPCollection(_unitOfWork, _typesInfo.PersistentTypesInfoType);
             var types = new List<TypeInfo>();
-            var builder = PersistentTypeBuilder.BuildClass();
+            var builder = PersistentClassInfoTypeBuilder.BuildClass();
             var persistentClassInfos = collection.Cast<IPersistentClassInfo>();
             var assemblyNames = persistentClassInfos.GroupBy(info => info.AssemblyName).Select(grouping => grouping.Key);
             Type moduleType = null;

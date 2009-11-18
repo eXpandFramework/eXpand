@@ -19,7 +19,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module
             Isolate.Fake.InstanceAndSwapAll<ObjectSpaceProvider>();
             var dictionaryDifferenceStoreFactory = Isolate.Fake.InstanceAndSwapAll<XpoModelDictionaryDifferenceStoreFactory<XpoWinModelDictionaryDifferenceStore>>();
             Isolate.Fake.InstanceAndSwapAll<ConnectionStringDataStoreProvider>();
-            Isolate.WhenCalled(() => dictionaryDifferenceStoreFactory.Create(null, null, false).LoadDifference(null)).WillReturn(elDictionary);
+            Isolate.WhenCalled(() => dictionaryDifferenceStoreFactory.Create(null, false).LoadDifference(null)).WillReturn(elDictionary);
             var module = new ModelDifferenceWindowsFormsModule();
             var application = Isolate.Fake.Instance<XafApplication>();
             Isolate.WhenCalled(() => application.Model).WillReturn(DefaultDictionary);

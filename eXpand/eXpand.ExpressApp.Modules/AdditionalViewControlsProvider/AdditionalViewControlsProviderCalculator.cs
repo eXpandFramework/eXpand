@@ -2,18 +2,19 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
+using eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider
 {
     public class AdditionalViewControlsProviderCalculator : IDisposable
     {
-        private AdditionalViewControlsWrapper additionalViewControlsWrapper;
+        private AdditionalViewControlsRuleWrapper _additionalViewControlsRuleWrapper;
         private ViewType currentViewType;
         private object currentObject;
         private string currentAdditionalText;
         private void supportNotifyPropertyChanged_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if ((additionalViewControlsWrapper != null) && (string.IsNullOrEmpty(e.PropertyName) || (e.PropertyName == additionalViewControlsWrapper.MessagePropertyName)))
+            if ((_additionalViewControlsRuleWrapper != null) && (string.IsNullOrEmpty(e.PropertyName) || (e.PropertyName == _additionalViewControlsRuleWrapper.MessagePropertyName)))
             {
                 UpdateAdditionalText();
             }
@@ -34,8 +35,8 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
         }
         private void UpdateAdditionalText()
         {
-            if (CurrentObject != null && additionalViewControlsWrapper != null && !string.IsNullOrEmpty(additionalViewControlsWrapper.MessagePropertyName))
-                AdditionalText = (string) ReflectionHelper.GetMemberValue(CurrentObject, additionalViewControlsWrapper.MessagePropertyName);
+            if (CurrentObject != null && _additionalViewControlsRuleWrapper != null && !string.IsNullOrEmpty(_additionalViewControlsRuleWrapper.MessagePropertyName))
+                AdditionalText = (string) ReflectionHelper.GetMemberValue(CurrentObject, _additionalViewControlsRuleWrapper.MessagePropertyName);
             else
                 AdditionalText = "";
         }
@@ -44,16 +45,16 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
             if (HintChanged != null)
                 HintChanged(this, EventArgs.Empty);
         }
-        public AdditionalViewControlsProviderCalculator(AdditionalViewControlsWrapper additionalViewControlsWrapper)
+        public AdditionalViewControlsProviderCalculator(AdditionalViewControlsRuleWrapper _additionalViewControlsRuleWrapper)
         {
-            this.additionalViewControlsWrapper = additionalViewControlsWrapper;
+            this._additionalViewControlsRuleWrapper = _additionalViewControlsRuleWrapper;
         }
-        public AdditionalViewControlsWrapper AdditionalViewControlsWrapper
+        public AdditionalViewControlsRuleWrapper AdditionalViewControlsRuleWrapper
         {
-            get { return additionalViewControlsWrapper; }
+            get { return _additionalViewControlsRuleWrapper; }
             set
             {
-                additionalViewControlsWrapper = value;
+                _additionalViewControlsRuleWrapper = value;
                 OnHintChanged();
             }
         }
@@ -90,13 +91,13 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
         {
             get
             {
-                if ((additionalViewControlsWrapper == null) ||
-                    ((additionalViewControlsWrapper.ViewType != ViewType.Any) &&
-                     (currentViewType != additionalViewControlsWrapper.ViewType)))
+                if ((_additionalViewControlsRuleWrapper == null) ||
+                    ((_additionalViewControlsRuleWrapper.ViewType != ViewType.Any) &&
+                     (currentViewType != _additionalViewControlsRuleWrapper.ViewType)))
                 {
                     return "";
                 }
-                string result = additionalViewControlsWrapper.Message;
+                string result = _additionalViewControlsRuleWrapper.Message;
                 if (!string.IsNullOrEmpty(AdditionalText))
                 {
                     if (!string.IsNullOrEmpty(result))
@@ -111,7 +112,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
         public void Dispose()
         {
             CurrentObject = null;
-            AdditionalViewControlsWrapper = null;
+            AdditionalViewControlsRuleWrapper = null;
         }
         public event EventHandler<EventArgs> HintChanged;
     }

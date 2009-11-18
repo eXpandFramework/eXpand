@@ -51,22 +51,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.2">
+    <Reference Include="DevExpress.Data.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v9.2">
+    <Reference Include="DevExpress.ExpressApp.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v9.2">
+    <Reference Include="DevExpress.ExpressApp.Objects.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v9.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v9.2">
+    <Reference Include="DevExpress.Persistent.Base.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.2">
+    <Reference Include="DevExpress.Xpo.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -111,6 +111,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassTypeBuilder\AssemblyRouter.cs" />
+    <Compile Include="ClassTypeBuilder\ExistentTypesMemberCreator.cs" />
     <Compile Include="ClassTypeBuilder\IAssemblyNameBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -118,12 +120,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ClassTypeBuilder\ITypesInfo.cs" />
-    <Compile Include="ClassTypeBuilder\PersistentTypeBuilder.cs">
+    <Compile Include="ModuleCreator.cs" />
+    <Compile Include="ClassTypeBuilder\PersistentClassInfoTypeBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ClassTypeBuilder\TypeInfo.cs" />
     <Compile Include="ClassTypeBuilder\TypesInfo.cs" />
-    <Compile Include="ClassTypeBuilder\TypeCreator.cs" />
     <Compile Include="Controllers\PopulateInterfacesController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -138,6 +140,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
+    <Compile Include="XpoObjectMerger.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="WorldCreatorModule.resx">

@@ -16,7 +16,7 @@ namespace eXpand.Tests{
         protected Dictionary DefaultDictionary2;
         protected Dictionary elDictionary;
         private SimpleDataLayer dataLayer;
-        private DataSet dataSet;
+//        private DataSet dataSet;
         protected Dictionary PersistentAppDictionary;
 
         [SetUp]
@@ -32,10 +32,10 @@ namespace eXpand.Tests{
                                                Schema.GetCommonSchema());
             Session.DefaultSession.Disconnect();
             
-            dataSet = new DataSet();
+//            dataSet = new DataSet();
             XafTypesInfo.Reset(true);
 
-            var dataStore = new InMemoryDataStore(dataSet, AutoCreateOption.DatabaseAndSchema);
+            var dataStore = new InMemoryDataStore( AutoCreateOption.DatabaseAndSchema);
             dataLayer = new SimpleDataLayer(XafTypesInfo.XpoTypeInfoSource.XPDictionary, dataStore);
             XpoDefault.DataLayer = dataLayer;
             
@@ -53,9 +53,9 @@ namespace eXpand.Tests{
             if (dataLayer != null) {
                 dataLayer.Dispose();
             }
-            if (dataSet != null) {
-                dataSet.Dispose();
-            }
+//            if (dataSet != null) {
+//                dataSet.Dispose();
+//            }
             ReflectionHelper.Reset();
 
         }

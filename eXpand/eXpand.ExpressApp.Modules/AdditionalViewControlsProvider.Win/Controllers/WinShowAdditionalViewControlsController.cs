@@ -18,8 +18,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controllers
         private void SubscribeToCustomizeClientSize()
         {
             var templateForm = Window.Template as PopupForm;
-            if (templateForm != null)
-            {
+            if (templateForm != null){
                 templateForm.CustomizeClientSize += templateForm_CustomizeClientSize;
             }
         }
@@ -32,8 +31,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controllers
         private void templateForm_CustomizeClientSize(object sender, CustomSizeEventArgs e)
         {
             int newHeight = e.CustomSize.Height;
-            foreach (Control control in infoControls)
-            {
+            foreach (Control control in infoControls){
                 newHeight += control.Size.Height;
             }
             e.CustomSize = new Size(e.CustomSize.Width, newHeight);
@@ -74,15 +72,13 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controllers
             base.OnActivated();
             Window.TemplateChanged += Window_TemplateChanged;
             Window.TemplateViewChanged += Window_TemplateViewChanged;
-            //SubscribeToCustomizeMinimunSize();
         }
 
         protected override void OnDeactivating()
         {
             Window.TemplateChanged -= Window_TemplateChanged;
             Window.TemplateViewChanged -= Window_TemplateViewChanged;
-            foreach (Control control in infoControls)
-            {
+            foreach (Control control in infoControls){
                 control.SizeChanged -= control_SizeChanged;
             }
             infoControls.Clear();

@@ -2,6 +2,7 @@ using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
+using eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Controllers
 {
@@ -36,7 +37,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Controllers
         {
             foreach (IAdditionalViewControlsProvider controlProvider in controlProviders.Keys){
                 var calculator =
-                    new AdditionalViewControlsProviderCalculator(new AdditionalViewControlsWrapper(controlProvider.View));
+                    new AdditionalViewControlsProviderCalculator(new AdditionalViewControlsRuleWrapper(controlProvider.View));
                 object control = createControl(controlProvider, calculator);
                 AdditionalViewControlsProviderPosition position = decorateControl(controlProvider, calculator, control);
                 if (control != null){
@@ -52,24 +53,24 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Controllers
                                                                            calculator, object control)
         {
             AdditionalViewControlsProviderPosition position;
-            if (calculator.AdditionalViewControlsWrapper.DecoratorType != null)
+            if (calculator.AdditionalViewControlsRuleWrapper.DecoratorType != null)
             {
                 var decorator =
                     (AdditionalViewControlsProviderDecorator)
-                    Activator.CreateInstance(calculator.AdditionalViewControlsWrapper.DecoratorType,
+                    Activator.CreateInstance(calculator.AdditionalViewControlsRuleWrapper.DecoratorType,
                                              new[] {controlProvider.View, control});
-                position = decorator.Calculator.AdditionalViewControlsWrapper.AdditionalViewControlsProviderPosition;
+                position = decorator.Calculator.AdditionalViewControlsRuleWrapper.AdditionalViewControlsProviderPosition;
             }
             else
-                position = controlProvider.DecorateControl(control).Calculator.AdditionalViewControlsWrapper.AdditionalViewControlsProviderPosition;
+                position = controlProvider.DecorateControl(control).Calculator.AdditionalViewControlsRuleWrapper.AdditionalViewControlsProviderPosition;
             return position;
         }
 
         private object createControl(IAdditionalViewControlsProvider controlProvider, AdditionalViewControlsProviderCalculator calculator)
         {
             object control = null;
-            if (calculator.AdditionalViewControlsWrapper.ControlType != null)
-                control=Activator.CreateInstance(calculator.AdditionalViewControlsWrapper.ControlType);
+            if (calculator.AdditionalViewControlsRuleWrapper.ControlType != null)
+                control=Activator.CreateInstance(calculator.AdditionalViewControlsRuleWrapper.ControlType);
             if (control== null)
                 control = controlProvider.CreateControl();
             return control;

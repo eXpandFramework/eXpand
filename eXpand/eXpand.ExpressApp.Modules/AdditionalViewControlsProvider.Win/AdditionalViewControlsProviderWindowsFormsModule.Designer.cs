@@ -1,3 +1,5 @@
+using eXpand.ExpressApp.Win.SystemModule;
+
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win
 {
     partial class AdditionalViewControlsProviderWindowsFormsModule
@@ -29,6 +31,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win
         private void InitializeComponent()
         {
             this.RequiredModuleTypes.Add(typeof(AdditionalViewControlsProviderModule));
+            this.RequiredModuleTypes.Add(typeof(eXpandSystemWindowsFormsModule));
         }
 
         #endregion

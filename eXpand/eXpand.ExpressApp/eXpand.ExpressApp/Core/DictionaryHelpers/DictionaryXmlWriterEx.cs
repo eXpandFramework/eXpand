@@ -81,10 +81,12 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers{
                 string attributeValueText = String.Empty;
                 const BindingFlags flag = BindingFlags.Instance | BindingFlags.NonPublic;
                 var values =
-                    (IReadOnlyAttributeValuesDictionary)
+                    (AttributeAspectValues)
                     attribute.GetType().GetProperty("Values", flag).GetValue(attribute, null);
-                foreach (string key in values.GetKeys()){
-                    attributeValueText += key + ":" + values[key] + "¥";
+                foreach (int aspectIndex in values.GetUsedAspectIndexes())
+                {
+                    string aspectName = node.Dictionary != null ? node.Dictionary.GetAspectByIndex(aspectIndex) : DictionaryAttribute.DefaultLanguage;
+                    attributeValueText += aspectName + ":" + values[aspectIndex] + "¥";
                 }
                 attributeValueText = attributeValueText.TrimEnd('¥');
                 attributeValueText = shortByAspect(attributeValueText);
@@ -96,9 +98,7 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers{
             IEnumerable<DictionaryNode> nodes = orderNodes
                                                     ? node.ChildNodes.GetOrderedByName()
                                                     : (IEnumerable<DictionaryNode>) node.ChildNodes;
-            foreach (DictionaryNode childNode in nodes){
-                childrenText += GetFullXml(indent + '\t', childNode);
-            }
+            childrenText = nodes.Aggregate(childrenText, (current, childNode) => current + GetFullXml(indent + '\t', childNode));
             string result = String.Empty;
             if (childrenText != String.Empty){
                 result += indent +
@@ -111,7 +111,6 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers{
             result = result.Replace(DictionaryAttribute.DefaultLanguage, null);
             return result;
         }
-
         private string shortByAspect(string value){
             value = value.Replace(DictionaryAttribute.DefaultLanguage, "0" + DictionaryAttribute.DefaultLanguage);
             string ret = "";

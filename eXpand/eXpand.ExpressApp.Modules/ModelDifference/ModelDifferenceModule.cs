@@ -50,7 +50,7 @@ namespace eXpand.ExpressApp.ModelDifference{
         {
             base.CustomizeTypesInfo(typesInfo);
             RoleDifferenceObjectBuilder.CreateDynamicMembers();
-            if (!UserDifferenceObjectBuilder.CreateDynamicMembers()){
+            if (!UserDifferenceObjectBuilder.CreateDynamicMembers(Application.Security.UserType)){
                 createDesignTimeCollection(typesInfo, typeof(UserModelDifferenceObject), "Users");
                 createDesignTimeCollection(typesInfo, typeof(RoleModelDifferenceObject), "Roles");
             }
@@ -85,10 +85,7 @@ namespace eXpand.ExpressApp.ModelDifference{
         {
             var list=new List<string>{DictionaryAttribute.DefaultLanguage};
             list.AddRange(CultureInfo.GetCultures(CultureTypes.AllCultures).Select(info => new CultureDescription(info).ToString()));
-            string s = "";
-            foreach (var list1 in list){
-                s += list1 + ";";
-            }
+            string s = list.Aggregate("", (current, list1) => current + (list1 + ";"));
             return s.TrimEnd(';');
         }
 

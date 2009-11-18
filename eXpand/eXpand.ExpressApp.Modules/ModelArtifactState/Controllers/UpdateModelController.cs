@@ -35,40 +35,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
             }
 
 
-//            var applicatioNodeWrapper = new ApplicationNodeWrapper(model);
-//            addRule<ConditionalControllerStateRuleNodeWrapper, ControllerStateRuleAttribute,ControllerStateRuleNodeWrapper>(
-//                ConditionalControllerStateRuleNodeWrapper.NodeNameAttribute, applicatioNodeWrapper);
-//            addRule<ConditionalActionStateRuleNodeWrapper, ActionStateRuleAttribute,ActionStateRuleNodeWrapper>(
-//                ConditionalActionStateRuleNodeWrapper.NodeNameAttribute, applicatioNodeWrapper);
         }
 
-//        private void addRule<TConditionalArtifactStateNodeWrapper, TArtifactStateRuleAttribute, TArtifactStateRuleNodeWrapper>(
-//            string nodeName, ApplicationNodeWrapper applicationNodeWrapper)
-//            where TConditionalArtifactStateNodeWrapper : ConditionalArtifactStateNodeWrapper
-//            where TArtifactStateRuleNodeWrapper : ArtifactStateRuleNodeWrapper
-//            where TArtifactStateRuleAttribute : ArtifactStateRuleAttribute
-//        {
-//            foreach (ClassInfoNodeWrapper clw in applicationNodeWrapper.BOModel.Classes)
-//            {
-//                DictionaryNode conditionalartifactStateNode = clw.Node.FindChildNode(nodeName);
-//                if (conditionalartifactStateNode == null)
-//                {
-//                    var attributes = clw.ClassTypeInfo.FindAttributes<TArtifactStateRuleAttribute>();
-//                    if (attributes.Count()>0)
-//                    {
-//                        conditionalartifactStateNode = clw.Node.AddChildNode(nodeName);
-//                        var conditionalArtifactStateNodeWrapper =
-//                            (TConditionalArtifactStateNodeWrapper)
-//                            Activator.CreateInstance(typeof (TConditionalArtifactStateNodeWrapper),
-//                                                     new object[] {conditionalartifactStateNode});
-//                    
-//                        foreach (
-//                            TArtifactStateRuleAttribute attribute in
-//                                attributes)
-//                            conditionalArtifactStateNodeWrapper.AddRule<TArtifactStateRuleNodeWrapper>(attribute);
-//                    }
-//                }
-//            }
-//        }
     }
 }

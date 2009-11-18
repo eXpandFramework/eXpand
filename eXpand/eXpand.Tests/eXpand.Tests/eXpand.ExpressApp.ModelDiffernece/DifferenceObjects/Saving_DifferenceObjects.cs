@@ -4,6 +4,7 @@ using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
 using eXpand.Utils.Helpers;
+using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
     [TestFixture]
@@ -59,8 +60,8 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
 
             application.Reload();
 
-            Assert.AreEqual(dictionary1.RootNode.ToXml(), new DictionaryXmlReader().ReadFromString(new DictionaryXmlWriter().GetAspectXml(DictionaryAttribute.DefaultLanguage, application.Model.RootNode)).ToXml());
-            Assert.AreEqual(elDict.RootNode.ToXml(), new DictionaryXmlReader().ReadFromString(new DictionaryXmlWriter().GetAspectXml("el", application.Model.RootNode)).ToXml());
+            Assert.AreEqual(dictionary1.RootNode.ToXml(), new DictionaryXmlReader().ReadFromString(new DictionaryXmlWriter().GetAspectXML(DictionaryAttribute.DefaultLanguage, application.Model.RootNode)).ToXml());
+            Assert.AreEqual(elDict.RootNode.ToXml(), new DictionaryXmlReader().ReadFromString(new DictionaryXmlWriter().GetAspectXML("el", application.Model.RootNode)).ToXml());
         }
         [Test]
         [Isolated]
@@ -78,8 +79,9 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
 
             application.Reload();
 
-            Assert.AreEqual(dictionary1.RootNode.ToXml(), new DictionaryXmlReader().ReadFromString(new DictionaryXmlWriter().GetAspectXml(DictionaryAttribute.DefaultLanguage, application.Model.RootNode)).ToXml());
-            Assert.AreEqual(elDict.RootNode.ToXml(), new DictionaryXmlReader().ReadFromString(new DictionaryXmlWriter().GetAspectXml("el", application.Model.RootNode)).ToXml());
+            var dictionaryXmlWriter = new DictionaryXmlWriter();
+            Assert.AreEqual(dictionary1.RootNode.ToXml(), new DictionaryXmlReader().ReadFromString(dictionaryXmlWriter.GetAspectXML(DictionaryAttribute.DefaultLanguage, application.Model.RootNode)).ToXml());
+            Assert.AreEqual(elDict.RootNode.ToXml(), new DictionaryXmlReader().ReadFromString(dictionaryXmlWriter.GetAspectXML("el", application.Model.RootNode)).ToXml());
         }
 
         [Test]
@@ -96,7 +98,8 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
             application.Reload();
 
 
-            Assert.AreEqual(dictionary.RootNode.ToXml(), new DictionaryXmlReader().ReadFromString(new DictionaryXmlWriter().GetAspectXml(DictionaryAttribute.DefaultLanguage, application.Model.RootNode)).ToXml());
+            var dictionaryXmlWriter = new DictionaryXmlWriter();
+            Assert.AreEqual(dictionary.RootNode.ToXml(), new DictionaryXmlReader().ReadFromString(dictionaryXmlWriter.GetAspectXML(DictionaryAttribute.DefaultLanguage, application.Model.RootNode)).ToXml());
         }
 
         [Test]
@@ -116,7 +119,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
             application.Reload();
 
             dictionary1.AddAspect(DictionaryAttribute.DefaultLanguage,defDict.RootNode);
-            Assert.AreEqual(dictionary1.RootNode.ToXml(), new DictionaryXmlReader().ReadFromString(new DictionaryXmlWriter().GetAspectXml(DictionaryAttribute.DefaultLanguage, application.Model.RootNode)).ToXml());
+            Assert.AreEqual(dictionary1.RootNode.ToXml(), new DictionaryXmlReader().ReadFromString(new DictionaryXmlWriter().GetAspectXML(DictionaryAttribute.DefaultLanguage, application.Model.RootNode)).ToXml());
 
         }
 

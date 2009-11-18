@@ -1,17 +1,12 @@
-﻿using System;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using MbUnit.Framework;
-using TypeMock;
 using TypeMock.ArrangeActAssert;
-using eXpand.ExpressApp.Core;
 using TypeMock.Extensions.eXpand;
-using TypeMock.Extensions;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.BuildingModelDifferenceObjects{
     [TestFixture]
@@ -26,7 +21,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.BuildingModelDifference
             instance.RegisterEntity(typeof(User));
 
 
-            bool members = UserDifferenceObjectBuilder.CreateDynamicMembers();
+            bool members = UserDifferenceObjectBuilder.CreateDynamicMembers(null);
 
             Assert.IsTrue(members);
 
@@ -38,7 +33,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.BuildingModelDifference
         {
             Isolate.Fake.ISecurityComplex();
             XafTypesInfo.Instance.RegisterEntity(typeof(UserModelDifferenceObject));
-            UserDifferenceObjectBuilder.CreateDynamicMembers();
+            UserDifferenceObjectBuilder.CreateDynamicMembers(null);
 
 
             var userAspectObject = new UserModelDifferenceObject(Session.DefaultSession);

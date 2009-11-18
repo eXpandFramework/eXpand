@@ -19,7 +19,7 @@ namespace eXpand.Tests.eXpand.Xpo
 
         private void InitDataLayers()
         {
-            dataStorage = new SimpleDataLayer(new InMemoryDataStore(new DataSet(),AutoCreateOption.DatabaseAndSchema ));
+            dataStorage = new SimpleDataLayer(new InMemoryDataStore(AutoCreateOption.DatabaseAndSchema ));
         }
 
         [SetUp]

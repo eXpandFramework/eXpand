@@ -1,5 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
+using eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider
 {
@@ -37,7 +38,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
         {
             this.view = view;
             this.control = control;
-            calculator = new AdditionalViewControlsProviderCalculator(new AdditionalViewControlsWrapper(view));
+            calculator = new AdditionalViewControlsProviderCalculator(new AdditionalViewControlsRuleWrapper(view));
             if (view is DetailView)
                 calculator.CurrentViewType = ViewType.DetailView;
             if (view is ListView)

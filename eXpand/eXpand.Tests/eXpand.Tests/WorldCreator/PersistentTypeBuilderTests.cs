@@ -9,12 +9,17 @@ using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Xpo;
+using Machine.Specifications;
 using MbUnit.Framework;
 using System.Linq;
 using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.WorldCreator
 {
+
+    
+
+
     [TestFixture]
     public class PersistentTypeBuilderTests : XpandBaseFixture
     {
@@ -23,7 +28,7 @@ namespace eXpand.Tests.WorldCreator
         [SetUp]
         public override void Setup() {
             base.Setup();
-            _builder = PersistentTypeBuilder.BuildClass();
+            _builder = PersistentClassInfoTypeBuilder.BuildClass();
         }
         [Test]
         public void DynamicAssembly_Can_Create() {

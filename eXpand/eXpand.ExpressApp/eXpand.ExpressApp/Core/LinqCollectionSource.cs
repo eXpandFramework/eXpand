@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -32,7 +31,7 @@ namespace eXpand.ExpressApp.Core
         }
 
 
-        protected override IList RecreateCollection(CriteriaOperator criteria, SortingCollection sortings)
+        protected override object RecreateCollection(CriteriaOperator criteria, SortingCollection sortings)
         {
             if (Query != null)
                 return linqCollectionHelper.ConvertQueryToCollection(Query);

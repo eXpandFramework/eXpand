@@ -149,7 +149,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         {
             get
             {
-                return new DictionaryXmlWriter().GetAspectXml(CurrentLanguage, Model.RootNode);
+                return new DictionaryXmlWriter().GetAspectXml(Model.GetAspectIndex(CurrentLanguage), Model.RootNode);
             }
             set{
                 Dictionary dictionary = GetCombinedModel();

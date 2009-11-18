@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using DevExpress.ExpressApp;
@@ -25,7 +24,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ValueConverter
                 serializableDictionary["aspects"] = "";
                 foreach (var aspect in dictionary.Aspects.Where(s1 => s1!=DictionaryAttribute.DefaultLanguage)){
                     serializableDictionary["aspects"] += aspect + ",";
-                    serializableDictionary[aspect] = new DictionaryXmlWriter().GetAspectXml(aspect, dictionary.RootNode);
+                    serializableDictionary[aspect] = new DictionaryXmlWriter().GetAspectXml(dictionary.GetAspectIndex(aspect), dictionary.RootNode);
                 }
                 serializableDictionary["aspects"] = serializableDictionary["aspects"].TrimEnd(',');
                 
@@ -47,10 +46,8 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ValueConverter
                 serializableDictionary.ReadXml(reader);
                 var schema = new Schema(new DictionaryXmlReader().ReadFromString(serializableDictionary["Schema"].Replace(":","")));
                 var helper = new DictionaryHelper();
-                var aspects = new List<string>();
-                foreach (var aspect in serializableDictionary["aspects"].Split(',')){
-                    aspects.Add(aspect);
-                }
+                var aspects = serializableDictionary["aspects"].Split(',').ToList();
+
                 string aspectFromXml = helper.GetAspectFromXml(aspects, serializableDictionary["DefaultAspect"]);
                 var dictionary = new Dictionary(new DictionaryXmlReader().ReadFromString(aspectFromXml), schema);
                 foreach (var aspectValue in aspects.Where(s => !string.IsNullOrEmpty(s))){

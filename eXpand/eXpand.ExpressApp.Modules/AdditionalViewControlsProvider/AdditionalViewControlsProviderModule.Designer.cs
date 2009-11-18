@@ -28,6 +28,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
         /// </summary>
         private void InitializeComponent()
         {
+            
         }
 
         #endregion

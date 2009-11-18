@@ -99,5 +99,12 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
             Func<int, int?> created = LogEntryCreated;
             if (created != null) created(arg);
         }
+
+        public event Action<object, object> Initialized;
+
+        public void InvokeInitialized(object arg2) {
+            Action<object, object> handler = Initialized;
+            if (handler != null) handler(this, arg2);
+        }
     }
 }
