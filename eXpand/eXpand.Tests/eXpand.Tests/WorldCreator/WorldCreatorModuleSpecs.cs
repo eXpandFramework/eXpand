@@ -16,7 +16,7 @@ using TypeMock.ArrangeActAssert;
 namespace eXpand.Tests.WorldCreator
 {
     [Subject(typeof(WorldCreatorModule))][Isolated]
-    public class When_SettingUp_Module:With_In_Memory_DataStore
+    public class When_Settingup_Module:With_In_Memory_DataStore
     {
         static bool existentCreated;
         static ApplicationModulesManager applicationModulesManager;

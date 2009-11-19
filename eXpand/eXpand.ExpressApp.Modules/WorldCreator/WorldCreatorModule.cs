@@ -58,8 +58,10 @@ namespace eXpand.ExpressApp.WorldCreator
             IEnumerable<Type> persistentTypes =
                 DefinedModules.Select(type => type.Assembly).SelectMany(
                     assembly => assembly.GetTypes().Where(type => typeof (IXPSimpleObject).IsAssignableFrom(type)));
-            IDbCommand command =((ISqlDataStore) (((BaseDataLayer) (unitOfWork.DataLayer)).ConnectionProvider)).Connection.CreateCommand();
-            new XpoObjectMerger().MergeTypes(unitOfWork, _typesInfo.PersistentTypesInfoType,persistentTypes.ToList(), command);
+            IDbCommand dbCommand =
+                ((ISqlDataStore) XpoDefault.GetConnectionProvider(_connectionString,AutoCreateOption.DatabaseAndSchema)).CreateCommand();
+//            IDbCommand command =((ISqlDataStore) (((BaseDataLayer) (unitOfWork.DataLayer)).ConnectionProvider)).Connection.CreateCommand();
+            new XpoObjectMerger().MergeTypes(unitOfWork, _typesInfo.PersistentTypesInfoType, persistentTypes.ToList(), dbCommand);
         }
 
 
