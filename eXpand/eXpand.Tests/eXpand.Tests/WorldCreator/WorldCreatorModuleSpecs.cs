@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Reflection.Emit;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
@@ -12,6 +14,8 @@ using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
+using MbUnit.Framework;
+using TypesInfo = eXpand.ExpressApp.WorldCreator.ClassTypeBuilder.TypesInfo;
 
 namespace eXpand.Tests.WorldCreator
 {
@@ -55,6 +59,7 @@ namespace eXpand.Tests.WorldCreator
 //            Type orDefault =applicationModulesManager.Modules[1].GetType().Assembly.GetTypes().Where(type => type.FullName.EndsWith("TestClass")).FirstOrDefault();
 //            Activator.CreateInstance(orDefault, Session.DefaultSession);
 //        };
+        
     }
 
 

@@ -101,6 +101,7 @@
     <Compile Include="PersistentMetaData\IExtendedMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IExtendedReferenceMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IInterfaceInfo.cs" />
+    <Compile Include="PersistentMetaData\IPersistentTypeNamePrefix.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\AttributeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentClassInfo.cs" />

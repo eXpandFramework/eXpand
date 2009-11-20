@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -9,13 +10,21 @@ using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData
 {
-    public abstract class PersistentTypeInfo : BaseObject, IPersistentTypeInfo {
+
+    public abstract class PersistentTypeInfo : BaseObject, IPersistentTypeInfo, IPersistentTypeNamePrefix {
         
         protected PersistentTypeInfo(Session session) : base(session) { }
 
         
         
         string _name;
+
+        [Browsable(false)]
+        [MemberDesignTimeVisibility(false)]
+        public string Prefix
+        {
+            get { return null; }
+        }
         
         [RuleRequiredField(null,DefaultContexts.Save)]
         public string Name {

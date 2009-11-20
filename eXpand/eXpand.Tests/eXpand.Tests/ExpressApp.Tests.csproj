@@ -281,6 +281,7 @@
     <Compile Include="eXpand.ExpressApp\RunTimeMembersTypeDescriptor_Tests.cs" />
     <Compile Include="WorldCreator\TypeBuilderSpecContexts.cs" />
     <Compile Include="WorldCreator\TypeBuilderSpecs.cs" />
+    <Compile Include="WorldCreator\TypesInfoSpecs.cs" />
     <Compile Include="WorldCreator\WorldCreatorModuleSpecs.cs">
     </Compile>
     <Compile Include="WorldCreator\WorldCreatorModuleSpecsContexts.cs" />

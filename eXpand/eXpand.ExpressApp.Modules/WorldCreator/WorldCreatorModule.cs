@@ -43,7 +43,7 @@ namespace eXpand.ExpressApp.WorldCreator
         public override void Setup(ApplicationModulesManager moduleManager)
         {
             base.Setup(moduleManager);
-
+            
             var moduleCreator = new ModuleCreator();
             _typesInfo = new TypesInfo(GetAdditionalClasses());
             var unitOfWork = new UnitOfWork { ConnectionString = _connectionString };

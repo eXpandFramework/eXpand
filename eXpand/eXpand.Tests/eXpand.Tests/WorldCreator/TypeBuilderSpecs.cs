@@ -11,6 +11,7 @@ using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Machine.Specifications;
 using System.Linq;
 using TypeMock.ArrangeActAssert;
+using TypeInfo = eXpand.ExpressApp.WorldCreator.ClassTypeBuilder.TypeInfo;
 
 namespace eXpand.Tests.WorldCreator
 {
@@ -19,8 +20,7 @@ namespace eXpand.Tests.WorldCreator
     public class When_Creating_An_Assembly : With_AssemblyNameBuilder
     {
         Because of = () => AssemblyNameBuilder.WithAssemblyName("TestAssembly"+new Random().Next(Int32.MinValue,Int32.MaxValue));
-        It should_Create_An_Assembly_In_Current_AppDomain = () => AppDomain.CurrentDomain.GetAssemblies().Where(assembly => assembly.FullName == "TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null").FirstOrDefault().ShouldNotBeNull();
-        
+        It should_Create_An_Assembly_In_Current_AppDomain = () => AppDomain.CurrentDomain.GetAssemblies().Where(assembly => assembly.FullName == "TestAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null").FirstOrDefault().ShouldNotBeNull();   
     }
     [Subject(typeof(PersistentClassInfoTypeBuilder), "specs")]
     [Isolated]
