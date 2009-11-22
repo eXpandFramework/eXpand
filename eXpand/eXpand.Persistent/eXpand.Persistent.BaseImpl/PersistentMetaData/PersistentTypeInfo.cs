@@ -11,7 +11,7 @@ using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData
 {
 
-    public abstract class PersistentTypeInfo : BaseObject, IPersistentTypeInfo, IPersistentTypeNamePrefix {
+    public abstract class PersistentTypeInfo : BaseObject, IPersistentTypeInfo, INamePrefix {
         
         protected PersistentTypeInfo(Session session) : base(session) { }
 
@@ -21,7 +21,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
 
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]
-        public string Prefix
+        public string NamePrefix
         {
             get { return null; }
         }

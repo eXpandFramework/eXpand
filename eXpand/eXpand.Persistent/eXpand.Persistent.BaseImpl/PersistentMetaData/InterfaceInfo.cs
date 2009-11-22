@@ -12,7 +12,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [RuleCombinationOfPropertiesIsUnique(null,DefaultContexts.Save, "Name,Assembly")]
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
-    public class InterfaceInfo:BaseObject, IInterfaceInfo {
+    public class InterfaceInfo:BaseObject, IInterfaceInfo,INamePrefix {
         public InterfaceInfo(Session session) : base(session) {
         }
         [Association("PersistentClassInfos-Interfaces")]
@@ -57,6 +57,10 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                     return singleOrDefault.GetType(Name);
                 return null;
             }
+        }
+        [Browsable(false)][MemberDesignTimeVisibility(false)]
+        public string NamePrefix {
+            get { return null; }
         }
     }
 }

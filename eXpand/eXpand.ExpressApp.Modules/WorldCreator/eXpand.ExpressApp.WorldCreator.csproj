@@ -111,25 +111,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassTypeBuilder\AssemblyRouter.cs" />
-    <Compile Include="ClassTypeBuilder\ExistentTypesMemberCreator.cs" />
-    <Compile Include="ClassTypeBuilder\IAssemblyNameBuilder.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ClassTypeBuilder\ITypeDefineBuilder.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ClassTypeBuilder\ITypesInfo.cs" />
+    <Compile Include="Core\AssemblyRouter.cs" />
+    <Compile Include="Core\AttributeBuilder.cs" />
+    <Compile Include="Core\Interfaces.cs" />
+    <Compile Include="Core\ExistentTypesMemberCreator.cs" />
+    <Compile Include="Core\GetCollectionBinder.cs" />
+    <Compile Include="Core\PropertyBuilder.cs" />
     <Compile Include="ModuleCreator.cs" />
-    <Compile Include="ClassTypeBuilder\PersistentClassInfoTypeBuilder.cs">
+    <Compile Include="Core\PersistentClassInfoTypeBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ClassTypeBuilder\TypeInfo.cs" />
-    <Compile Include="ClassTypeBuilder\TypesInfo.cs" />
-    <Compile Include="Controllers\PopulateInterfacesController.cs">
+    <Compile Include="Core\TypeInfo.cs" />
+    <Compile Include="Core\TypesInfo.cs" />
+    <Compile Include="PopulateInterfacesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\PopulateInterfacesController.Designer.cs">
+    <Compile Include="PopulateInterfacesController.Designer.cs">
       <DependentUpon>PopulateInterfacesController.cs</DependentUpon>
     </Compile>
     <Compile Include="WorldCreatorModule.cs">

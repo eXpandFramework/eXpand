@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Reflection;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
+using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.General;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+using eXpand.Xpo;
 using Machine.Specifications;
 using System.Linq;
 using TypeMock.ArrangeActAssert;
-using TypeInfo = eXpand.ExpressApp.WorldCreator.ClassTypeBuilder.TypeInfo;
+using TypeInfo = eXpand.ExpressApp.WorldCreator.Core.TypeInfo;
 
 namespace eXpand.Tests.WorldCreator
 {
@@ -35,6 +36,29 @@ namespace eXpand.Tests.WorldCreator
         It should_have_A_Constructor_with_Session_as_parameter = () => type.GetConstructor(new []{typeof(Session)}).ShouldNotBeNull();
     }
     [Subject(typeof(PersistentClassInfoTypeBuilder), "specs")]
+    public class When_defining_a_dynamicType_with_name_prefix:With_Type_Builder {
+        static PersistentClassInfo persistentClassInfo;
+
+        static Type type;
+
+        Establish context = () =>
+        {
+            persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "TestClass" };
+            Isolate.WhenCalled(() => persistentClassInfo.NamePrefix).WillReturn("Prefix");
+        };
+
+        Because of = () => {
+            type=TypeDefineBuilder.Define(persistentClassInfo);
+        };
+
+        It should_have_that_prefix_in_the_type_name = () => type.Name.StartsWith("Prefix").ShouldBeTrue();
+        It should_have_a_xaf_object_caption_without_that_prefix = () => {
+            var customAttribute = ((CustomAttribute) type.GetCustomAttributes(typeof(CustomAttribute),false)[0]);
+            customAttribute.Name.ShouldEqual("Caption");
+            customAttribute.Value.ShouldEqual("TestClass");
+        };
+    }
+    [Subject(typeof(PersistentClassInfoTypeBuilder), "specs")]
     [Isolated]
     public class When_Requesting_A_Property_With_Reflection : With_DynamicCore_Property{
         
@@ -46,6 +70,41 @@ namespace eXpand.Tests.WorldCreator
 
         It should_be_of_Correct_Type = () => PropertyInfo.PropertyType.FullName.ShouldEqual(typeof(bool).FullName);
     }
+    [Subject(typeof(PersistentClassInfoTypeBuilder), "specs")]
+    public class When_defining_a_dynamic_property_with_name_prefix : With_Type_Builder
+    {
+        static PersistentClassInfo persistentClassInfo;
+
+        static Type type;
+
+        static PropertyInfo propertyInfo;
+
+        Establish context = () =>
+        {
+            persistentClassInfo = new PersistentClassInfo(Session.DefaultSession);
+            var persistentCoreTypeMemberInfo = new PersistentCoreTypeMemberInfo(Session.DefaultSession) { Name = "Property",DataType = XPODataType.String};
+            Isolate.WhenCalled(() => persistentCoreTypeMemberInfo.NamePrefix).WillReturn("Prefix");
+            persistentClassInfo.OwnMembers.Add(persistentCoreTypeMemberInfo);
+        };
+
+        Because of = () => {
+            type = TypeDefineBuilder.Define(persistentClassInfo);
+            TypeDefineBuilder.AssemblyBuilder.Save("qqq.dll");
+        };
+
+        It should_have_that_prefix_in_the_type_name = () => {
+            propertyInfo = type.GetProperties().Where(info => info.Name.StartsWith("Prefix")).FirstOrDefault();
+            propertyInfo.ShouldNotBeNull();
+        };
+
+        It should_have_a_xaf_member_caption_without_that_prefix = () =>
+        {
+            var customAttribute = ((CustomAttribute)propertyInfo.GetCustomAttributes(typeof(CustomAttribute), false)[0]);
+            customAttribute.Name.ShouldEqual("Caption");
+            customAttribute.Value.ShouldEqual("Property");
+        };
+    }
+
     [Subject(typeof(PersistentClassInfoTypeBuilder), "specs")]
     [Isolated]
     public class When_Invoking_A_Property:With_DynamicCore_Property {
@@ -180,12 +239,12 @@ namespace eXpand.Tests.WorldCreator
 
         Establish context = () => {
             PersistentClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "TestClass" + MethodBase.GetCurrentMethod().Name };
-            PersistentClassInfo.TypeAttributes.Add(new PersistentCustomAttribute(Session.DefaultSession));
+            PersistentClassInfo.TypeAttributes.Add(new PersistentSizeAttribute(Session.DefaultSession));
         };
 
         Because of = () => {_type= TypeDefineBuilder.Define(PersistentClassInfo); };
 
-        It should_be_discoverable_through_reflection =() => _type.GetCustomAttributes(false).OfType<CustomAttribute>().Count().ShouldEqual(1);
+        It should_be_discoverable_through_reflection =() => _type.GetCustomAttributes(false).OfType<SizeAttribute>().Count().ShouldEqual(1);
     }
     [Subject(typeof(PersistentClassInfoTypeBuilder), "specs")]
     [Isolated]
@@ -272,11 +331,53 @@ namespace eXpand.Tests.WorldCreator
             userClassInfo.Interfaces.Add(new InterfaceInfo(Session.DefaultSession) { Name = typeof(IHidden).FullName, Assembly = new AssemblyName(typeof(IHidden).Assembly.FullName + "").Name });
         };
 
-        Because of = () => { _type = TypeDefineBuilder.Define(userClassInfo); };
+        Because of = () => {
+            _type = TypeDefineBuilder.Define(userClassInfo);
+            TypeDefineBuilder.AssemblyBuilder.Save("ttttt.dll");
+        };
 
         It should_be_Discoverable_thourgh_reflection =() => _type.GetInterfaces().Where(type => type == typeof (IHidden)).ShouldNotBeNull();
         It should_create_non_existent_properties = () => _type.GetProperty("Hidden").ShouldNotBeNull();
+
+        It should_create_an_explicit_implementation_of_the_properties_as_well =
+            () =>
+            _type.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).Where(
+                method => method.IsFinal && method.IsPrivate && method.Name.EndsWith("Hidden")).FirstOrDefault().
+                ShouldNotBeNull();
     }
+
+    [Subject(typeof(PersistentClassInfoTypeBuilder), "specs")]
+    [Isolated]
+    public class When_DynamicType_Implement_An_Interface_with_name_prefix:With_Type_Builder {
+        static PersistentClassInfo userClassInfo;
+
+        static PropertyInfo _propertyInfo;
+        static Type _type;
+
+        Establish context = () => {
+            userClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "User" };
+            var interfaceInfo = new InterfaceInfo(Session.DefaultSession) { Name = typeof(IHidden).FullName, Assembly = new AssemblyName(typeof(IHidden).Assembly.FullName + "").Name };
+            Isolate.WhenCalled(() => interfaceInfo.NamePrefix).WillReturn("Prefix");
+            userClassInfo.Interfaces.Add(interfaceInfo);
+        };
+
+        Because of = () => { _type = TypeDefineBuilder.Define(userClassInfo); };
+
+
+        It should_have_that_prefix_in_the_type_name = () =>
+        {
+            _propertyInfo = _type.GetProperties().Where(info => info.Name.StartsWith("Prefix")).FirstOrDefault();
+            _propertyInfo.ShouldNotBeNull();
+        };
+
+        It should_have_a_xaf_member_caption_without_that_prefix = () =>
+        {
+            var customAttribute = ((CustomAttribute)_propertyInfo.GetCustomAttributes(typeof(CustomAttribute), false)[0]);
+            customAttribute.Name.ShouldEqual("Caption");
+            customAttribute.Value.ShouldEqual("Hidden");
+        };
+    }
+
     [Isolated]
     [Subject(typeof(PersistentClassInfoTypeBuilder), "specs")]
     public class When_Creating_Types_In_A_Non_Xaf_Context : With_Type_Builder{

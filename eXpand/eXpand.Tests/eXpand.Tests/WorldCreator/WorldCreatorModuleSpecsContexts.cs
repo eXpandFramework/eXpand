@@ -2,7 +2,7 @@
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
 using TypeMock.Extensions;
-using TypesInfo = eXpand.ExpressApp.WorldCreator.ClassTypeBuilder.TypesInfo;
+using TypesInfo = eXpand.ExpressApp.WorldCreator.Core.TypesInfo;
 
 namespace eXpand.Tests.WorldCreator
 {

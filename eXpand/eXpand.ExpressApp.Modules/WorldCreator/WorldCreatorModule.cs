@@ -7,9 +7,9 @@ using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Helpers;
-using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
 using System.Linq;
 using eXpand.ExpressApp.Core;
+using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.ExpressApp.WorldCreator

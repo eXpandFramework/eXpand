@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using eXpand.Persistent.Base.PersistentMetaData;
 
-namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
+namespace eXpand.ExpressApp.WorldCreator.Core {
     internal static class AssemblyRouter
     {
         public static List<List<IPersistentClassInfo>> GetLists(List<IPersistentClassInfo> infos)

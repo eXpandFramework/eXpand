@@ -1,7 +1,7 @@
 using System;
 using eXpand.Persistent.Base.PersistentMetaData;
 
-namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
+namespace eXpand.ExpressApp.WorldCreator.Core {
     public class TypeInfo {
         private readonly Type _type;
         private readonly IPersistentClassInfo _persistentClassInfo;

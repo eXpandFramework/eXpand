@@ -9,13 +9,13 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator;
-using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
+using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
 using MbUnit.Framework;
-using TypesInfo = eXpand.ExpressApp.WorldCreator.ClassTypeBuilder.TypesInfo;
+using TypesInfo = eXpand.ExpressApp.WorldCreator.Core.TypesInfo;
 
 namespace eXpand.Tests.WorldCreator
 {

@@ -5,7 +5,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
-using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
+using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Xpo;
 using Machine.Specifications;

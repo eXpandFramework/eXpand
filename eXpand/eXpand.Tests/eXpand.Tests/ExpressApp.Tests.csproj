@@ -276,6 +276,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eXpand.Xpo\PropertyPathParserFixture.cs" />
+    <Compile Include="WorldCreator\ExistentTypeSpecsContexts.cs" />
     <Compile Include="WorldCreator\ExistentTypeSpecs.cs" />
     <Compile Include="WorldCreator\ModuleCreatorSpecs.cs" />
     <Compile Include="eXpand.ExpressApp\RunTimeMembersTypeDescriptor_Tests.cs" />

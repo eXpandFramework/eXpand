@@ -7,7 +7,7 @@ using DevExpress.Xpo.Metadata;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
-namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
+namespace eXpand.ExpressApp.WorldCreator.Core {
     public class ExistentTypesMemberCreator
     {
         public void CreateMembers(Session session, TypesInfo typesInfo)

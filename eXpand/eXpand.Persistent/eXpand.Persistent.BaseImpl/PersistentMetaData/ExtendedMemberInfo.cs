@@ -5,7 +5,6 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Xpo.Converters.ValueConverters;
-using eXpand.Utils.Helpers;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "Owner,Name")]
@@ -23,7 +22,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         {
             get
             {
-                this.GetMethodInfo()
                 return _owner;
             }
             set

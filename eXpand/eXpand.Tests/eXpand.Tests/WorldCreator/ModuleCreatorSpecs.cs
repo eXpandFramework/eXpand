@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.WorldCreator;
-using eXpand.ExpressApp.WorldCreator.ClassTypeBuilder;
+using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using Machine.Specifications;
