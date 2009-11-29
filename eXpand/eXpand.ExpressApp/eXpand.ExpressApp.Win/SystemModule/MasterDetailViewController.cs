@@ -195,44 +195,58 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
         }
 
-        protected override void OnActivated()
+        protected override void OnDeactivating()
         {
-            base.OnActivated();
+            base.OnDeactivating();
 
+            if (gridControl != null)
+            {
+                Frame.GetController<DeleteObjectsViewController>().DeleteAction.Executing -= DeleteAction_OnExecuting;
+            }
+        }
+
+        protected override void OnViewControlsCreated()
+        {
+            base.OnViewControlsCreated();
             string attributeValue = View.Info.GetAttributeValue(DetailListView);
             ExpandAllRowsSimpleAction.Active["key"] = false;
             CollapseAllRowsSimpleAction.Active["key"] = false;
-            if (View is ListView && !string.IsNullOrEmpty(attributeValue) &&
+
+            gridControl = View.Control as GridControl;
+            if (gridControl != null && View is ListView && !string.IsNullOrEmpty(attributeValue) && 
                 !string.IsNullOrEmpty(DetailListRelationName))
             {
-                Frame.GetController<DeleteObjectsViewController>().DeleteAction.Executing += DeleteAction_OnExecuting;
                 ExpandAllRowsSimpleAction.Active["key"] = true;
                 CollapseAllRowsSimpleAction.Active["key"] = true;
                 subModel =
                     new ListViewInfoNodeWrapper(
                         View.Info.GetRootNode().GetChildNode(ViewsNodeWrapper.NodeName).GetChildNode(
-                            ListViewInfoNodeWrapper.NodeName, "ID",
-                            attributeValue));
+                        ListViewInfoNodeWrapper.NodeName, "ID",
+                        attributeValue));
+
                 repositoryFactory = new RepositoryEditorsFactory(Application, ObjectSpace);
-                View.ControlsCreated += View_ControlsCreated;
+
+                gridControl.HandleCreated += GridControl_OnHandleCreated;
+                Frame.GetController<DeleteObjectsViewController>().DeleteAction.Executing += DeleteAction_OnExecuting;
             }
         }
 
         private void DeleteAction_OnExecuting(object sender, CancelEventArgs e)
         {
-
             if (!e.Cancel)
             {
                 e.Cancel = true;
 
-                var view = ((GridView) gridControl.FocusedView);
-                var list = new List<object>();
-                foreach (int selectedRow in view.GetSelectedRows())
-                    list.Add(view.GetRow(selectedRow));
-                ObjectSpace.Delete(list);
+                var view = gridControl.FocusedView as GridView;
+                if (view != null)
+                {
+                    var list = new List<object>();
+                    foreach (int selectedRow in view.GetSelectedRows())
+                        list.Add(view.GetRow(selectedRow));
+                    ObjectSpace.Delete(list);
+                }
             }
         }
-
 
         public override Schema GetSchema()
         {
@@ -249,30 +263,25 @@ namespace eXpand.ExpressApp.Win.SystemModule
             return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
         }
 
-        private void View_ControlsCreated(object sender, EventArgs e)
-        {
-            gridControl = (GridControl)View.Control;
-            gridControl.HandleCreated += GridControl_OnHandleCreated;
-        }
-
         private void GridControl_OnHandleCreated(object sender, EventArgs e)
         {
-            var view = (GridView) ((GridControl) sender).FocusedView;
-            view.OptionsDetail.ShowDetailTabs = false;
-            view.OptionsView.ShowDetailButtons = true;
-            view.OptionsDetail.EnableMasterViewMode = true;
-            gridControl.ShowOnlyPredefinedDetails = true;
-            gridView = new XafGridView();
-            GridViewViewController.SetOptions(gridView, subModel);
-            gridView.GridControl = gridControl;
-            RefreshColumns(subModel);
-            gridControl.LevelTree.Nodes.Add(View.Info.GetAttributeValue(DetailListRelationName), gridView);
+            var view = gridControl.FocusedView as GridView;
+            if (view != null)
+            {
+                view.OptionsDetail.ShowDetailTabs = false;
+                view.OptionsView.ShowDetailButtons = true;
+                view.OptionsDetail.EnableMasterViewMode = true;
+                gridControl.ShowOnlyPredefinedDetails = true;
+                gridView = new XafGridView();
+                GridViewViewController.SetOptions(gridView, subModel);
+                gridView.GridControl = gridControl;
+                RefreshColumns(subModel);
+                gridControl.LevelTree.Nodes.Add(View.Info.GetAttributeValue(DetailListRelationName), gridView);
 
-            if (View.Info.GetAttributeBoolValue(ExpandAllRows, false))
-                ExpandAllRowsSimpleAction.DoExecute();
+                if (View.Info.GetAttributeBoolValue(ExpandAllRows, false))
+                    ExpandAllRowsSimpleAction.DoExecute();
+            }
         }
-
-
 
         private void ExpandAllRowsSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
@@ -288,9 +297,11 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private void CollapseAllRowsSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            var view = (GridView) gridControl.MainView;
-
-            view.CollapseAllDetails();
+            var view = gridControl.MainView as GridView;
+            if (view != null)
+            {
+                view.CollapseAllDetails();
+            }
         }
     }
 }
