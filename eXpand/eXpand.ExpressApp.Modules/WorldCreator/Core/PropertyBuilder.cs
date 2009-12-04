@@ -49,7 +49,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core
                 PropertyBuilder property = createGetSetProperty(_typeBuilder, namePrefix + ownMember.Name, memberInfoType,null);
                 created.Invoke(property,ownMember as INamePrefix);
                 propertyBuilders.Add(property);
-
+               
             }
             createMissingPropertiesFromInterfaces(persistentClassInfo, _typeBuilder,created,propertyBuilders);
 //            InvokePropertiesDefined(new EventArgs());

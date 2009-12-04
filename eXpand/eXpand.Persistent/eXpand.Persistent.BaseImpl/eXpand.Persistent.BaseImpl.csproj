@@ -110,6 +110,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PersistentMetaData\CodeTemplate.cs" />
     <Compile Include="PersistentMetaData\ExtendedCollectionMemberInfo.cs" />
     <Compile Include="PersistentMetaData\ExtendedCoreTypeMemberInfo.cs" />
     <Compile Include="PersistentMetaData\ExtendedMemberInfo.cs">

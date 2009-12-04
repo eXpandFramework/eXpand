@@ -46,6 +46,7 @@ namespace eXpand.ExpressApp.WorldCreator
             
             var moduleCreator = new ModuleCreator();
             _typesInfo = new TypesInfo(GetAdditionalClasses());
+            return;
             var unitOfWork = new UnitOfWork { ConnectionString = _connectionString };
             
             Application.SetupComplete += (sender, args) => mergeTypes(unitOfWork);
@@ -81,6 +82,7 @@ namespace eXpand.ExpressApp.WorldCreator
         public override void UpdateModel(Dictionary model)
         {
             base.UpdateModel(model);
+            return;
             if (Application != null){
                 ShowOwnerForExtendedMembers(model);
                 removeDynamicAssemblyFromImageSources(model);

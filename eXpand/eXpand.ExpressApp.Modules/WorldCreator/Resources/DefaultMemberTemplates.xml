@@ -1,0 +1,18 @@
+﻿<% 
+// =====================================================================================
+//PROPERTY SECTION
+//Change the Value of the properties as required.
+string propertyName= "DemoProperty";
+// =====================================================================================
+%>
+public string <%=propertyName%>
+{
+  get
+  {
+    return _<%=propertyName%>;
+  }
+  set
+  {
+    SetPropertyValue("<%=propertyName%>", ref _<%=propertyName%>, value);
+  }
+}

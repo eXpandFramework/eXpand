@@ -96,6 +96,7 @@
     <Compile Include="General\IIndexedObject.cs" />
     <Compile Include="General\ILocalizable.cs" />
     <Compile Include="General\IEnumObject.cs" />
+    <Compile Include="PersistentMetaData\ICodeTemplate.cs" />
     <Compile Include="PersistentMetaData\IExtendedCollectionMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IExtendedCoreTypeMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IExtendedMemberInfo.cs" />

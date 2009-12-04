@@ -1,0 +1,15 @@
+﻿<% 
+// =====================================================================================
+//PROPERTY SECTION
+//Change the Value of the properties as required.
+string className= "DemoClass";
+// =====================================================================================
+%>
+
+public class <%=className%>
+{
+  public <%=className%>(Session session):base(session)
+  {
+
+  }
+}

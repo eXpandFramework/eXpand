@@ -278,8 +278,15 @@
     <Compile Include="eXpand.Xpo\PropertyPathParserFixture.cs" />
     <Compile Include="WorldCreator\ExistentTypeSpecsContexts.cs" />
     <Compile Include="WorldCreator\ExistentTypeSpecs.cs" />
+    <Compile Include="WorldCreator\InterfaceInfoSpecs.cs" />
     <Compile Include="WorldCreator\ModuleCreatorSpecs.cs" />
     <Compile Include="eXpand.ExpressApp\RunTimeMembersTypeDescriptor_Tests.cs" />
+    <Compile Include="WorldCreator\PersistentClassInfoSpecs.cs" />
+    <Compile Include="WorldCreator\PersistentMemberInfoSpecs.cs" />
+    <Compile Include="WorldCreator\PersistentTypeInfoSpecs.cs" />
+    <Compile Include="WorldCreator\CodeEngineSpecs.cs">
+    </Compile>
+    <Compile Include="WorldCreator\TemplateSpecs.cs" />
     <Compile Include="WorldCreator\TypeBuilderSpecContexts.cs" />
     <Compile Include="WorldCreator\TypeBuilderSpecs.cs" />
     <Compile Include="WorldCreator\TypesInfoSpecs.cs" />

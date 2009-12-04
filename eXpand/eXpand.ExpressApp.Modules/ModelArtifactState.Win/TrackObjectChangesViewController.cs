@@ -28,11 +28,9 @@ namespace eXpand.ExpressApp.ModelArtifactState.Win
 
         private void Application_ViewShown(object sender, ViewShownEventArgs e)
         {
-            if (e.TargetFrame != null && e.TargetFrame.View != null)
-            {
-                if (!(e.TargetFrame.View.ObjectSpace is NestedObjectSpace))
-                {
-                    e.TargetFrame.View.ObjectSpace.Committed += ObjectSpace_Committed;
+            if (e.TargetFrame != null && e.TargetFrame.View != null) {
+                if (!(e.TargetFrame.View.ObjectSpace is NestedObjectSpace)) {
+                    e.TargetFrame.View.ObjectSpace.o += ObjectSpace_Committed;
                 }
             }
         }

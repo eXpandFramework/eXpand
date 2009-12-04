@@ -7,12 +7,12 @@ namespace eXpand.Utils.Helpers
 {
     public static class ReflectionExtensions
     {
-        public static MethodInfo GetMethodInfo<TTarget>(this TTarget target, Expression<Action<TTarget>> method)
+        public static MethodInfo GetMemberInfo<TTarget>(this TTarget target, Expression<Action<TTarget>> method)
         {
-            return GetMethodInfo(method);
+            return GetMemberInfo(method);
         }
 
-        private static MethodInfo GetMethodInfo(Expression method)
+        public static MethodInfo GetMemberInfo(Expression method)
         {
             if (method == null) throw new ArgumentNullException("method");
 
@@ -23,6 +23,27 @@ namespace eXpand.Utils.Helpers
             return ((MethodCallExpression) lambda.Body).Method;
         }
 
+        public static MemberInfo GetExpression(LambdaExpression lambda)
+        {
+            
+            if (lambda == null) throw new ArgumentException("Not a lambda expression", "lambda");
+
+            MemberExpression memberExpr = null;
+
+
+            if (lambda.Body.NodeType == ExpressionType.Convert)
+                memberExpr = ((UnaryExpression) lambda.Body).Operand as MemberExpression;
+            else if (lambda.Body.NodeType == ExpressionType.MemberAccess)
+                memberExpr = lambda.Body as MemberExpression;
+
+            if (memberExpr == null) throw new ArgumentException("Not a member access", "lambda");
+
+            return memberExpr.Member;
+        }
+
+        public static string GetPropertyName<TTarget>(this TTarget target, Expression<Func<TTarget, object>> property) {
+            return GetPropertyInfo(target, property).Name;
+        }
         public static PropertyInfo GetPropertyInfo<TTarget>(this TTarget target, Expression<Func<TTarget, object>> property)
         {
             var info = target.GetMemberInfo(property) as PropertyInfo;
@@ -44,24 +65,6 @@ namespace eXpand.Utils.Helpers
             if (member == null) throw new ArgumentNullException("member");
             var lambda = member as LambdaExpression;
             return GetExpression(lambda);
-        }
-
-        public static MemberInfo GetExpression(LambdaExpression lambda)
-        {
-            
-            if (lambda == null) throw new ArgumentException("Not a lambda expression", "lambda");
-
-            MemberExpression memberExpr = null;
-
-
-            if (lambda.Body.NodeType == ExpressionType.Convert)
-                memberExpr = ((UnaryExpression) lambda.Body).Operand as MemberExpression;
-            else if (lambda.Body.NodeType == ExpressionType.MemberAccess)
-                memberExpr = lambda.Body as MemberExpression;
-
-            if (memberExpr == null) throw new ArgumentException("Not a member access", "lambda");
-
-            return memberExpr.Member;
         }
 
         public static void SetProperty<T>(this INotifyPropertyChanged source,

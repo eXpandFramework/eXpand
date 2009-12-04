@@ -54,12 +54,14 @@ namespace eXpand.Tests{
         {
             if (currentObject.Session.IsNewObject(currentObject))
                 currentObject.Session.Save(currentObject);
-            var objectSpace = new ObjectSpace(new UnitOfWork(XpoDefault.DataLayer), XafTypesInfo.Instance);
+            var objectSpace = new ObjectSpace(new UnitOfWork(currentObject.Session.DataLayer), XafTypesInfo.Instance);
             var persistentBase = objectSpace.GetObject(currentObject);
             T controller = viewType == ViewType.ListView
                                ? createListViewController<T>(persistentBase, activate, objectSpace,handleInfo)
                                : createDetailViewController<T>(objectSpace, persistentBase, activate, handleInfo);
-
+            var frame = new Frame(controller.Application,TemplateContext.View);
+            frame.SetView(controller.View);
+            Isolate.WhenCalled(() => controller.Frame).WillReturn(frame);
             if (activate)
                 controller.View.CurrentObject = persistentBase;
             

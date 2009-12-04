@@ -56,7 +56,7 @@ namespace eXpand.Tests.WorldCreator
 
         Because of = () => xpoObjectMerger.MergeTypes(unitOfWork,typeof(PersistentClassInfo),types ,dbCommand);
 
-        It should_updateXpdictionary_Schema_for_each_type = () => MockManager.CalledCounter<UnitOfWork>(unitOfWork.GetMethodInfo(x=>x.UpdateSchema()).Name).ShouldEqual(3);
+        It should_updateXpdictionary_Schema_for_each_type = () => MockManager.CalledCounter<UnitOfWork>(unitOfWork.GetMemberInfo(x=>x.UpdateSchema()).Name).ShouldEqual(3);
 
         It should_call_an_update_sql_statement = () => {
             execCommand.ShouldEqual(true);

@@ -8,12 +8,21 @@ namespace eXpand.Xpo
 {
     public static class SessionExtensions
     {
+        public static int GetCount(this Session session, Type type,CriteriaOperator criteriaOperator) {
+            return (int)session.Evaluate(type, new AggregateOperand("", Aggregate.Count), criteriaOperator);
+        }
+
         public static int GetCount(this Session session,Type type) {
-            return (int) session.Evaluate(type, new AggregateOperand("", Aggregate.Count), null);
+            return GetCount(session,type, null);
+        }
+
+        public static int GetCount<ClassType>(this Session session, CriteriaOperator criteriaOperator)
+        {
+            return (int)session.Evaluate<ClassType>(new AggregateOperand("", Aggregate.Count), criteriaOperator);
         }
 
         public static int GetCount<ClassType>(this Session session){
-            return (int) session.Evaluate<ClassType>(new AggregateOperand("", Aggregate.Count), null);
+            return GetCount<ClassType>(session, null);
         }
 
         public static object GetObject(this Session session,PersistentCriteriaEvaluationBehavior behavior, object o){

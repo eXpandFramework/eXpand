@@ -18,7 +18,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
         
         
         string _name;
-
+        
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]
         public string NamePrefix
@@ -38,6 +38,42 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
             }
         }
 
+        private CodeTemplate _codeTemplate;
+        [Association("CodeTemplate-PersistentTypeInfos")]
+        public CodeTemplate CodeTemplate
+        {
+            get
+            {
+                return _codeTemplate;
+            }
+            set
+            {
+                SetPropertyValue("CodeTemplate", ref _codeTemplate, value);
+            }
+        }
+
+        private string _generatedCode;
+        [Size(SizeAttribute.Unlimited)]
+        public string GeneratedCode
+        {
+            get
+            {
+                return _generatedCode;
+            }
+            set
+            {
+                SetPropertyValue("GeneratedCode", ref _generatedCode, value);
+            }
+        }
+
+        ICodeTemplate IPersistentTypeInfo.CodeTemplate
+        {
+            get { return CodeTemplate; }
+            set
+            {
+                CodeTemplate = value as CodeTemplate;
+            }
+        }
         [Association("TypeAttributes")][Aggregated]
         public XPCollection<PersistentAttributeInfo> TypeAttributes {
             get { return GetCollection<PersistentAttributeInfo>("TypeAttributes"); }
