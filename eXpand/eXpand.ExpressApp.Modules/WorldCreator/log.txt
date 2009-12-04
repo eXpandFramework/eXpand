@@ -1,0 +1,14 @@
+TestFinished: should have no compile errors
+TestFinished: should have no compile errors
+Progress: AmountCompleted=2, Total=0
+Progress: AmountCompleted=2, Total=0
+TestFinished: should generate class type
+TestFinished: should generate class type
+Progress: AmountCompleted=3, Total=0
+Progress: AmountCompleted=3, Total=0
+TestFinished: should have those members as proeprties
+TestFinished: should have those members as proeprties
+hideToolBars...
+hideToolBars...
+End hideToolBars
+End hideToolBars

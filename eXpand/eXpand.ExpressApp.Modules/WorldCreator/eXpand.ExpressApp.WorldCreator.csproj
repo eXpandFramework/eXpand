@@ -89,6 +89,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.JScript" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -111,44 +112,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeEngine.cs" />
-    <Compile Include="Core\AssemblyRouter.cs" />
-    <Compile Include="Core\AttributeBuilder.cs" />
-    <Compile Include="Core\Interfaces.cs" />
-    <Compile Include="Core\ExistentTypesMemberCreator.cs" />
-    <Compile Include="Core\GetCollectionBinder.cs" />
-    <Compile Include="Core\PropertyBuilder.cs" />
+    <Compile Include="CodeTemplateTypeModifierController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CreateMissingInterfaceMembersController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GenerateCodeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="InitPersistentTypeInfoViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ModuleCreator.cs" />
-    <Compile Include="Core\PersistentClassInfoTypeBuilder.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="PersistentTypesHelpers\CodeTemplateBuilder.cs" />
+    <Compile Include="PersistentTypesHelpers\CodeTemplateQuery.cs" />
+    <Compile Include="Core\CodeEngine.cs" />
+    <Compile Include="Core\CompileEngine.cs" />
+    <Compile Include="Core\ExistentTypesMemberCreator.cs" />
     <Compile Include="Core\TypeInfo.cs" />
     <Compile Include="Core\TypesInfo.cs" />
-    <Compile Include="PersistentClassInfoExtensions.cs" />
-    <Compile Include="TrackNewObjectSavedController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="TrackNewObjectSavedController.Designer.cs">
-      <DependentUpon>TrackNewObjectSavedController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TypeInfoExtensions.cs" />
+    <Compile Include="Core\PersistentClassInfo.cs" />
+    <Compile Include="Core\TypeInfoExtensions.cs" />
     <Compile Include="PopulateInterfacesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PopulateInterfacesController.Designer.cs">
-      <DependentUpon>PopulateInterfacesController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TrackObjectConstructionsViewController.cs">
+    <Compile Include="TypeInfoCodeTemplateModifierController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GenreratePersistentTypeInfoAttributeCodeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GenreratePersistentTypeInfoAttributeCodeController.Designer.cs">
-      <DependentUpon>GenreratePersistentTypeInfoAttributeCodeController.cs</DependentUpon>
     </Compile>
     <Compile Include="WorldCreatorModule.cs">
       <SubType>Component</SubType>
@@ -158,7 +147,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
-    <Compile Include="XpoObjectMerger.cs" />
+    <Compile Include="Core\XpoObjectMerger.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="WorldCreatorModule.resx">
@@ -202,15 +191,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\DefaultClassTemplates.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\DefaultClassReferences.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\DefaultMemberTemplates.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

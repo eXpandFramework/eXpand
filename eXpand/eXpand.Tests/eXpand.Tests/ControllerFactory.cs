@@ -6,6 +6,83 @@ using TypeMock;
 using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests{
+    public class ControllerFactory<TController,TObject> where TController:ViewController, new() {
+        private const string STR_ControllerFactory = "ControllerFactory";
+        TController _controller;
+
+        public TController Create(ViewType viewType)
+        {
+            XafTypesInfo.Instance.RegisterEntity(typeof(TObject));
+
+            _controller=new TController();
+            _controller.Active[STR_ControllerFactory] = false;
+
+            var unitOfWork = new UnitOfWork(Session.DefaultSession.DataLayer);
+            var objectSpace = new ObjectSpace(unitOfWork, XafTypesInfo.Instance);
+
+            var xafApplication = Isolate.Fake.Instance<XafApplication>();
+            Isolate.WhenCalled(() => _controller.Application).WillReturn(xafApplication);
+            Isolate.WhenCalled(() => xafApplication.CreateObjectSpace()).WillReturn(objectSpace);
+
+            var currentObject = (TObject) objectSpace.CreateObject(typeof (TObject));
+            View view = viewType == ViewType.DetailView ? (View) createDetailView(objectSpace,currentObject) : createListView(objectSpace);
+            view.CurrentObject = currentObject;
+            _controller.SetView(view);
+
+            var frame = new Frame(_controller.Application, TemplateContext.View);
+            frame.SetView(_controller.View);
+            Isolate.WhenCalled(() => _controller.Frame).WillReturn(frame);
+            return _controller;
+        }
+
+        public void Activate()
+        {
+            _controller.Active[STR_ControllerFactory] = true;
+        }
+        ListView createListView(ObjectSpace objectSpace) {
+            var source = new CollectionSource(objectSpace, typeof (TObject));
+            var listEditor = Isolate.Fake.Instance<ListEditor>();
+            Isolate.WhenCalled(() => listEditor.RequiredProperties).WillReturn(new string[0]);
+            return new ListView(source, listEditor);
+        }
+
+        DetailView createDetailView(ObjectSpace objectSpace, object currentObject) {
+            
+            return new DetailView(objectSpace, currentObject, _controller.Application,true);
+        }
+
+        public TController CreateAndActivate()
+        {
+            return CreateAndActivate(ViewType.DetailView);
+        }
+        public TController CreateAndActivate(ViewType viewType)
+        {
+            Create(viewType);
+            Activate();
+            return _controller;
+        }
+
+        public TController Controller
+        {
+            get { return _controller; }
+        }
+        public TObject CurrentObject
+        {
+            get { return (TObject) _controller.View.CurrentObject; }
+        }
+        public ObjectSpace ObjectSpace
+        {
+            get { return _controller.View.ObjectSpace; }
+        }
+
+        
+        public UnitOfWork UnitOfWork
+        {
+            get { return (UnitOfWork) ObjectSpace.Session; }
+        }
+        
+    }
+    [Obsolete("Use ControllerFactory")]
     public class ViewControllerFactory{
         private EventHandler controlsCreatedHandler;
         private EventHandler currentObjectChangedHandler;
@@ -79,7 +156,13 @@ namespace eXpand.Tests{
 
         private T createDetailViewController<T>(ObjectSpace objectSpace, PersistentBase currentObject, bool activate, HandleInfo handleInfo) where T : ViewController, new()
         {
+            XafTypesInfo.Instance.RegisterEntity(currentObject.GetType().BaseType);
             XafTypesInfo.Instance.RegisterEntity(currentObject.GetType());
+            objectSpace.Session.UpdateSchema(currentObject.GetType().BaseType);
+            objectSpace.Session.UpdateSchema(currentObject.GetType());
+            objectSpace.Session.DataLayer.UpdateSchema(true,
+                                                       objectSpace.Session.GetClassInfo(currentObject.GetType().BaseType));
+            objectSpace.Session.DataLayer.UpdateSchema(true, objectSpace.Session.GetClassInfo(currentObject.GetType()));
             var application = Isolate.Fake.Instance<XafApplication>();
             Isolate.WhenCalled(() => application.CreateObjectSpace()).WillReturn(objectSpace);
             var detailView = new DetailView(objectSpace, currentObject, application, true);
@@ -128,15 +211,17 @@ namespace eXpand.Tests{
         }
 
         public T CreateAndActivateController<T>(Type objectType) where T : ViewController, new(){
-
-            return createController<T>(objectType, true,new ObjectSpace(new UnitOfWork(XpoDefault.DataLayer),XafTypesInfo.Instance),null);
-
+            return createController<T>(ViewType.Any,(PersistentBase) Activator.CreateInstance(objectType, Session.DefaultSession),true,null);
         }
+
 
         public T CreateController<T>(ViewType viewType, PersistentBase currentObject) where T : ViewController, new(){
             return createController<T>(viewType, currentObject, false, null);
         }
 
+        public T CreateAndActivateController<T,T1>() where T : ViewController, new(){
+            return CreateAndActivateController<T>(typeof(T1)); 
+        }
     }
 
 }

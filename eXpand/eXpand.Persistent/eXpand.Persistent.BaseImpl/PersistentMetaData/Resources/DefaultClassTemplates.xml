@@ -1,0 +1,10 @@
+﻿namespace $ASSEMBLYNAME${
+  $USINGS$
+
+  $TYPEATTRIBUTES$
+  public class $CLASSNAME$:$BASECLASSNAME${
+    public $CLASSNAME$(Session session):base(session){
+  
+    }
+  }
+}

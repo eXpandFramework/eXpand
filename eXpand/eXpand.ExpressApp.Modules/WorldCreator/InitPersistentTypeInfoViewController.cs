@@ -1,15 +1,12 @@
 using DevExpress.ExpressApp;
+using eXpand.ExpressApp.SystemModule;
+using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.WorldCreator
 {
     public class InitPersistentTypeInfoViewController : ViewController 
     {
-        public InitPersistentTypeInfoViewController()
-        {
-            TargetObjectType = typeof (IPersistentTypeInfo);
-        }
         protected override void OnActivated()
         {
             base.OnActivated();
@@ -20,10 +17,7 @@ namespace eXpand.ExpressApp.WorldCreator
             if (objectCreatedEventArgs.Object as IPersistentTypeInfo != null){
                 var persistentClassInfo = ((IPersistentTypeInfo)objectCreatedEventArgs.Object);
                 var worldCreatorModule= ((WorldCreatorModule) Application.Modules.FindModule(typeof (WorldCreatorModule)));
-                var codeTemplateType = worldCreatorModule.TypesInfo.PersistentTypesInfoType.GetProperty(persistentClassInfo.GetPropertyName(x=>x.CodeTemplate)).PropertyType;
-                if (codeTemplateType.IsGenericType)
-                    codeTemplateType = codeTemplateType.GetGenericArguments()[0];
-                persistentClassInfo.Init(codeTemplateType);
+                persistentClassInfo.Init(worldCreatorModule.TypesInfo.CodeTemplateType);
             }
         }
 

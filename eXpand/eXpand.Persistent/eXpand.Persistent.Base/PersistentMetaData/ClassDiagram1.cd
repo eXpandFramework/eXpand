@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Interface Name="eXpand.Persistent.Base.PersistentMetaData.ITemplateInfo" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAACAAAAA=</HashCode>
+      <FileName>PersistentMetaData\ITemplateInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="eXpand.Persistent.Base.PersistentMetaData.IInterfaceInfo" Collapsed="true">
+    <Position X="14" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEQAAAAAAIAAAQAAAAAAAAA=</HashCode>
+      <FileName>PersistentMetaData\IInterfaceInfo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="PersistentClassInfos" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="eXpand.Persistent.Base.PersistentMetaData.IPersistentAssemblyInfo" Collapsed="true">
+    <Position X="14" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEQAAAACAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>PersistentMetaData\IPersistentAssemblyInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="eXpand.Persistent.Base.PersistentMetaData.IPersistentClassInfo" Collapsed="true">
+    <Position X="11.75" Y="2.5" Width="1.75" />
+    <AssociationLine Name="PersistentAssemblyInfo" Type="eXpand.Persistent.Base.PersistentMetaData.IPersistentAssemblyInfo" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.438" Y="3.13" />
+        <Point X="13.438" Y="3.5" />
+        <Point X="14.062" Y="3.5" />
+        <Point X="14.062" Y="3.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAACAAAAAAIAAABAAgAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>PersistentMetaData\IPersistentClassInfo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PersistentAssemblyInfo" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="eXpand.Persistent.Base.PersistentMetaData.IPersistentCollectionMemberInfo" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PersistentMetaData\IPersistentCollectionMemberInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="eXpand.Persistent.Base.PersistentMetaData.IPersistentCoreTypeMemberInfo" Collapsed="true">
+    <Position X="11" Y="4.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PersistentMetaData\IPersistentCoreTypeMemberInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="eXpand.Persistent.Base.PersistentMetaData.IPersistentMemberInfo" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="2" />
+    <InheritanceLine Type="eXpand.Persistent.Base.PersistentMetaData.IPersistentTypeInfo" ManuallyRouted="true">
+      <Path>
+        <Point X="11.125" Y="1.009" />
+        <Point X="11.125" Y="1.921" />
+        <Point X="10.25" Y="1.921" />
+        <Point X="10.25" Y="2.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PersistentMetaData\IPersistentMemberInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="eXpand.Persistent.Base.PersistentMetaData.IPersistentReferenceMemberInfo" Collapsed="true">
+    <Position X="9" Y="3.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>PersistentMetaData\IPersistentReferenceMemberInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="eXpand.Persistent.Base.PersistentMetaData.IPersistentTypeInfo" Collapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.75" />
+    <AssociationLine Name="TemplateInfo" Type="eXpand.Persistent.Base.PersistentMetaData.ITemplateInfo" ManuallyRouted="true">
+      <Path>
+        <Point X="10.656" Y="1.009" />
+        <Point X="10.656" Y="1.366" />
+        <Point X="10.049" Y="1.366" />
+        <Point X="10.049" Y="2.09" />
+        <Point X="8.75" Y="2.09" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AIAABAAAAAAAEQAAAAAAAAQAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>PersistentMetaData\IPersistentTypeInfo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CodeTemplate" />
+      <Property Name="TemplateInfo" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="eXpand.Persistent.Base.PersistentMetaData.ICodeTemplate" Collapsed="true">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAQAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>PersistentMetaData\ICodeTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

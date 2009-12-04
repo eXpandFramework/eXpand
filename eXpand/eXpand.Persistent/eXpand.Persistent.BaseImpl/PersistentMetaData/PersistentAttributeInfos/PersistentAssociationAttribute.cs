@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
@@ -31,7 +32,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
         private Type _elementType;
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
-        [RuleRequiredField(null, DefaultContexts.Save)]
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         public Type ElementType
         {
@@ -63,6 +63,13 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
         
 
         public override AttributeInfo Create() {
+            if (ElementType!= null)
+                return GetElementTypeDefinedAttributeInfo();
+            ConstructorInfo constructorInfo = typeof (AssociationAttribute).GetConstructor(new[] {typeof (string)});
+            return new AttributeInfo(constructorInfo,AssociationName);
+        }
+
+        AttributeInfo GetElementTypeDefinedAttributeInfo() {
             string typeName= Regex.Match(AssemblyQualifiedName, "([^,]*).*").Groups[1].Value;
             string withOutTypeName=Regex.Replace(AssemblyQualifiedName, "([^,]*), (.*)", "$2");
             string assemblyName = Regex.Match(withOutTypeName, "([^,]*).*").Groups[1].Value;

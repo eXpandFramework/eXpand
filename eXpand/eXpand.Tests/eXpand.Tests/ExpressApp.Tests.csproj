@@ -24,7 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <NoWarn>169</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -37,108 +37,134 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="adodb, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="DevExpress.Data.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Security.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Validation.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Win.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Web.ASPxEditors.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Web.ASPxGridView.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.ExpressApp.FilterDataStore, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.DLL\eXpand.ExpressApp.FilterDataStore.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.ExpressApp.ModelArtifactState, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.ModelArtifactState.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.ExpressApp.ModelDifference, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.ModelDifference.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.ExpressApp.ModelDifference.Web, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.ModelDifference.Web.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.ExpressApp.ModelDifference.Win, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.ModelDifference.Win.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.ExpressApp.Security, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.Security.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.ExpressApp.Win, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.Win.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.WorldCreator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.ExpressApp.WorldCreator, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\eXpand.DLL\eXpand.ExpressApp.WorldCreator.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.Dll\eXpand.Persistent.Base.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.Persistent.BaseImpl, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.DLL\eXpand.Persistent.BaseImpl.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.Dll\eXpand.Utils.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.Xpo, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.Dll\eXpand.Xpo.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Gallio, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Machine.Specifications, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\_third_party_assemblies\Machine.Specifications.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Machine.Specifications.NUnit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\_third_party_assemblies\Machine.Specifications.NUnit.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="MbUnit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=2.5.1.9189, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\_third_party_assemblies\nunit.framework.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -155,20 +181,22 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TypeMock, Version=5.4.1.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
+    <Reference Include="TypeMock, Version=5.4.5.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Typemock.ArrangeActAssert, Version=5.4.1.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
+    <Reference Include="Typemock.ArrangeActAssert, Version=5.4.5.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="TypeMock.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\eXpand.DLL\TypeMock.Extensions.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="TypeMock.Extensions.eXpand, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\eXpand.DLL\TypeMock.Extensions.eXpand.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -269,6 +297,7 @@
     <Compile Include="eXpand.Utils\ReflectionExtensionsFixture.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="eXpand.WorldCreator\PersistentAttributeInfoSpecs.cs" />
     <Compile Include="eXpand.Xpo\CriteriaOperatorExtractorFixture.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -276,30 +305,29 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eXpand.Xpo\PropertyPathParserFixture.cs" />
-    <Compile Include="WorldCreator\ExistentTypeSpecsContexts.cs" />
-    <Compile Include="WorldCreator\ExistentTypeSpecs.cs" />
-    <Compile Include="WorldCreator\InterfaceInfoSpecs.cs" />
-    <Compile Include="WorldCreator\ModuleCreatorSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\Contexts.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\ExistentTypeSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\InterfaceInfoSpecs.cs" />
     <Compile Include="eXpand.ExpressApp\RunTimeMembersTypeDescriptor_Tests.cs" />
-    <Compile Include="WorldCreator\PersistentClassInfoSpecs.cs" />
-    <Compile Include="WorldCreator\PersistentMemberInfoSpecs.cs" />
-    <Compile Include="WorldCreator\PersistentTypeInfoSpecs.cs" />
-    <Compile Include="WorldCreator\CodeEngineSpecs.cs">
+    <Compile Include="eXpand.WorldCreator\PersistentClassInfoSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\PersistentMemberInfoSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\PersistentTypeInfoSpecs.cs">
     </Compile>
-    <Compile Include="WorldCreator\TemplateSpecs.cs" />
-    <Compile Include="WorldCreator\TypeBuilderSpecContexts.cs" />
-    <Compile Include="WorldCreator\TypeBuilderSpecs.cs" />
-    <Compile Include="WorldCreator\TypesInfoSpecs.cs" />
-    <Compile Include="WorldCreator\WorldCreatorModuleSpecs.cs">
+    <Compile Include="eXpand.WorldCreator\CodeEngineSpecs.cs">
     </Compile>
-    <Compile Include="WorldCreator\WorldCreatorModuleSpecsContexts.cs" />
-    <Compile Include="WorldCreator\XpoObjectMergerSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\CodeTemplateSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\CompileEngineSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\TypesInfoSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\WorldCreatorModuleSpecs.cs">
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\XpoObjectMergerSpecs.cs" />
     <Compile Include="XpandBaseFixture.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HandleInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WorldCreator\When_Saving_PersistentTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

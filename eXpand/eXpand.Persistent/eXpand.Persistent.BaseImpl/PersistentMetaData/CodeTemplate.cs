@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.IO;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -8,12 +7,33 @@ using eXpand.Persistent.Base.PersistentMetaData;
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
-    public class CodeTemplate:BaseObject, ICodeTemplate {
+    public class CodeTemplate:TemplateInfo, ICodeTemplate {
         public CodeTemplate(Session session) : base(session) {
         }
 
         private TemplateType _templateType;
-
+        public void SetDefaults()
+        {
+            TemplateCode = GetFromResource(@"eXpand.Persistent.BaseImpl.PersistentMetaData.Resources.Default" + TemplateType + @"Templates.xml");
+            Usings = GetFromResource(@"eXpand.Persistent.BaseImpl.PersistentMetaData.Resources.Default" + TemplateType + @"Usings.xml");
+            Name = "Default";
+        }
+        
+        string GetFromResource(string name)
+        {
+            var manifestResourceStream = GetType().Assembly.GetManifestResourceStream(
+                name);
+            if (manifestResourceStream != null)
+            {
+                using (var streamReader = new StreamReader(manifestResourceStream))
+                {
+                    return streamReader.ReadToEnd();
+                }
+            }
+            return null;
+        }
+        
+        [RuleValueComparison(null,DefaultContexts.Save, ValueComparisonType.GreaterThan, 0)]
         public TemplateType TemplateType
         {
             get
@@ -37,52 +57,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set
             {
                 SetPropertyValue("IsDefault", ref _isDefault, value);
-            }
-        }
-
-        private string _templateCode;
-
-        [Size(SizeAttribute.Unlimited)]
-        [RuleRequiredField(null,DefaultContexts.Save)]
-        public string TemplateCode
-        {
-            get
-            {
-                return _templateCode;
-            }
-            set
-            {
-                SetPropertyValue("TemplateCode", ref _templateCode, value);
-            }
-        }
-
-        private string _references;
-
-        [Size(SizeAttribute.Unlimited)]
-        public string References
-        {
-            get
-            {
-                return _references;
-            }
-            set
-            {
-                SetPropertyValue("References", ref _references, value);
-            }
-        }
-
-        [Association("CodeTemplate-PersistentTypeInfos")]
-        public XPCollection<PersistentTypeInfo> TypeInfos
-        {
-            get
-            {
-                return GetCollection<PersistentTypeInfo>("TypeInfos");
-            }
-        }
-
-        IList<IPersistentTypeInfo> ICodeTemplate.TypeInfos {
-            get {
-                return new ListConverter<IPersistentTypeInfo,PersistentTypeInfo>(TypeInfos);
             }
         }
     }

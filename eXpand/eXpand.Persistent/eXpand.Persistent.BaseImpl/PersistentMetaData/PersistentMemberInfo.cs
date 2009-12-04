@@ -1,4 +1,3 @@
-using System;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -15,8 +14,8 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
         }
         PersistentClassInfo _owner;
 
-        [Association]
-        [VisibleInDetailView(false)]
+        [Association("PersistentClassInfo-OwnMembers")]
+//        [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
         public PersistentClassInfo Owner

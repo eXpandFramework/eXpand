@@ -5,9 +5,14 @@ using System.Linq;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.ExpressApp.WorldCreator.Core {
-    public class TypesInfo : ITypesInfo {
+    public class TypesInfo  {
         public TypesInfo(IEnumerable<Type> types) {
+            TemplateInfoType = GetInfoType(types, typeof(ITemplateInfo));
+            CodeTemplateType = GetInfoType(types, typeof(ICodeTemplate));
+            PersistentAssemblyInfoType = GetInfoType(types, typeof(IPersistentAssemblyInfo));
+            PersistentCoreTypeInfoType = GetInfoType(types, typeof(IPersistentCoreTypeMemberInfo));
             PersistentTypesInfoType = GetInfoType(types, typeof(IPersistentClassInfo));
+            PersistentReferenceInfoType = GetInfoType(types, typeof(IPersistentReferenceMemberInfo));
             ExtendedCollectionMemberInfoType = GetInfoType(types, typeof(IExtendedCollectionMemberInfo));
             ExtendedReferenceMemberInfoType = GetInfoType(types, typeof(IExtendedReferenceMemberInfo));
             ExtendedCoreMemberInfoType = GetInfoType(types, typeof(IExtendedCoreTypeMemberInfo));
@@ -22,9 +27,16 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         }
 
         public Type PersistentTypesInfoType { get; private set; }
+
+
+        public Type PersistentAssemblyInfoType { get; private set; }
+        public Type PersistentCoreTypeInfoType { get; private set; }
+        public Type PersistentReferenceInfoType { get; private set; }
         public Type ExtendedReferenceMemberInfoType { get; private set; }
         public Type ExtendedCollectionMemberInfoType { get; private set; }    
         public Type ExtendedCoreMemberInfoType { get; private set; }
-        public Type IntefaceInfoType { get; private set; }    
+        public Type IntefaceInfoType { get; private set; }
+        public Type CodeTemplateType { get; private set; }
+        public Type TemplateInfoType { get; private set; }
     }
 }

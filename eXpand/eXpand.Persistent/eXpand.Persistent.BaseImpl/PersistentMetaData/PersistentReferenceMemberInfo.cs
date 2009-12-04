@@ -9,7 +9,6 @@ using eXpand.Xpo.Converters.ValueConverters;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData
 {
-
     public class PersistentReferenceMemberInfo : PersistentMemberInfo, IPersistentReferenceMemberInfo {
         public PersistentReferenceMemberInfo(Session session) : base(session) { }
 
@@ -18,8 +17,8 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
         {
             TypeAttributes.Add(persistentAssociationAttribute);
         }
-        
-        
+
+
         Type _referenceType;
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
@@ -30,29 +29,22 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
             get { return _referenceType; }
             set {
                 SetPropertyValue("ReferenceType", ref _referenceType, value);
-                if (value != null) _referenceTypeAssemblyQualifiedName = value.AssemblyQualifiedName;
+                _referenceTypeFullName = _referenceType != null ? _referenceType.FullName : null;
             }
         }
-
-        private string _referenceTypeAssemblyQualifiedName;
+        private string _referenceTypeFullName;
         [Browsable(false)]
-        [MemberDesignTimeVisibility(false)]
-        [Size(SizeAttribute.Unlimited)]
-        public string ReferenceTypeAssemblyQualifiedName
+        public string ReferenceTypeFullName
         {
             get
             {
-                return _referenceTypeAssemblyQualifiedName;
+                return _referenceTypeFullName;
             }
             set
             {
-                SetPropertyValue("ReferenceTypeAssemblyQualifiedName", ref _referenceTypeAssemblyQualifiedName, value);
+                SetPropertyValue("ReferenceTypeFullName", ref _referenceTypeFullName, value);
             }
         }
-        Type IPersistentReferenceMemberInfo.ReferenceType
-        {
-            get { return ReferenceType; }
-            set { ReferenceType = value; }
-        }
+
     }
 }

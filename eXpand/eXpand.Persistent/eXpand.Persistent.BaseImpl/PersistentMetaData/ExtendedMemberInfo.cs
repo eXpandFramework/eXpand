@@ -27,6 +27,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set
             {
                 SetPropertyValue("Owner", ref _owner, value);
+        
             }
         }
         

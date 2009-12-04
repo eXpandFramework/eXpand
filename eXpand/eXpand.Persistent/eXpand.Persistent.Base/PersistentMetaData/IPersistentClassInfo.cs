@@ -3,12 +3,11 @@ using System;
 
 namespace eXpand.Persistent.Base.PersistentMetaData {
     public interface IPersistentClassInfo:IPersistentTypeInfo {
+        string BaseTypeFullName { get; }
         Type MergedObjectType { get; set; }
-        Type BaseType { get; set; }
-        string BaseTypeAssemblyQualifiedName { get; set; }
         IList<IPersistentMemberInfo> OwnMembers { get; }
         IList<IInterfaceInfo> Interfaces { get; }
         Type GetDefaultBaseClass();
-        string AssemblyName { get; }
+        IPersistentAssemblyInfo PersistentAssemblyInfo { get; set; }
     }
 }

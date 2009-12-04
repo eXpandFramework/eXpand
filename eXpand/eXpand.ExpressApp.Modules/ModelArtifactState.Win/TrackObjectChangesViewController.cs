@@ -30,7 +30,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Win
         {
             if (e.TargetFrame != null && e.TargetFrame.View != null) {
                 if (!(e.TargetFrame.View.ObjectSpace is NestedObjectSpace)) {
-                    e.TargetFrame.View.ObjectSpace.o += ObjectSpace_Committed;
+                    e.TargetFrame.View.ObjectSpace.Committed += ObjectSpace_Committed;
                 }
             }
         }
@@ -38,8 +38,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Win
         protected virtual void ObjectSpace_Committed(object sender, EventArgs e)
         {
             if (View != null && View.ObjectSpace != null && !View.ObjectSpace.IsDisposed){
-                if (ArtifactStateRuleManager.NeedsCustomization(View) && !View.ObjectSpace.IsModified &&
-                    (View.IsRoot || (!View.IsRoot && View is DetailView))){
+                if (ArtifactStateRuleManager.NeedsCustomization(View) && !View.ObjectSpace.IsModified &&(View.IsRoot || (!View.IsRoot && View is DetailView))){
                     View.ObjectSpace.Refresh();
                 }
             }

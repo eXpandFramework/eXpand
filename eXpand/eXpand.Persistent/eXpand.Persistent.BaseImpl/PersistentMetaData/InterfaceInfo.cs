@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -13,19 +14,11 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
     [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "Name,Assembly")]
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
-    public class InterfaceInfo : BaseObject, IInterfaceInfo, INamePrefix
+    public class InterfaceInfo : BaseObject, IInterfaceInfo
     {
         public InterfaceInfo(Session session)
             : base(session)
         {
-        }
-        [Association("PersistentClassInfos-Interfaces")]
-        public XPCollection<PersistentClassInfo> PersistentClassInfos
-        {
-            get
-            {
-                return GetCollection<PersistentClassInfo>("PersistentClassInfos");
-            }
         }
 
         private string _name;
@@ -64,11 +57,15 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
                 return null;
             }
         }
-        [Browsable(false)]
-        [MemberDesignTimeVisibility(false)]
-        public string NamePrefix
-        {
-            get { return null; }
+
+        [Association("PersistentClassInfos-Interfaces")]
+        public XPCollection<PersistentClassInfo> PersistentClassInfos {
+            get { return GetCollection<PersistentClassInfo>("PersistentClassInfos"); }
         }
+
+        IList<IPersistentClassInfo> IInterfaceInfo.PersistentClassInfos {
+            get { return new ListConverter<IPersistentClassInfo,PersistentClassInfo>(PersistentClassInfos); }
+        }
+
     }
 }

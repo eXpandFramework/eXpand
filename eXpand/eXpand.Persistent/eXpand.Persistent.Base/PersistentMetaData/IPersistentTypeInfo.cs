@@ -7,7 +7,8 @@ namespace eXpand.Persistent.Base.PersistentMetaData {
         string Name { get; set; }
         IList<IPersistentAttributeInfo> TypeAttributes { get; }
         Session Session { get; }
-        ICodeTemplate CodeTemplate { get; set; }
         string GeneratedCode { get; set; }
+        ICodeTemplate CodeTemplate { get; set; }
+        ITemplateInfo TemplateInfo { get; set; }
     }
 }
