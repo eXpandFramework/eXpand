@@ -11,7 +11,6 @@ namespace eXpand.Persistent.Base.PersistentMetaData {
     }
     public enum CodeDomProvider {
         CSharp,
-        VB,
-        JScript
+        VB
     }
 }

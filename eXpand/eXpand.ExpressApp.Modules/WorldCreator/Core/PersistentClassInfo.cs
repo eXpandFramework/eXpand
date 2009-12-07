@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Xpo;
 
@@ -26,10 +27,10 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             Type memberInfoType = GetMemberInfoType(propertyInfo.PropertyType, typesInfo);
             var persistentMemberInfo =
                 ((IPersistentMemberInfo) Activator.CreateInstance(memberInfoType, classInfo.Session));
-            var codeTemplate = (ICodeTemplate) Activator.CreateInstance(typesInfo.CodeTemplateType, classInfo.Session);
-            codeTemplate.TemplateType=TemplateType.ReadWriteMember;
-            codeTemplate.SetDefaults();
-            persistentMemberInfo.CodeTemplate =codeTemplate;
+            
+            persistentMemberInfo.CodeTemplateInfo.CodeTemplate= CodeTemplateBuilder.CreateDefaultTemplate(TemplateType.InterfaceReadWriteMember, persistentMemberInfo.Session,
+                                                      typesInfo.CodeTemplateType,
+                                                      classInfo.PersistentAssemblyInfo.CodeDomProvider);
             persistentMemberInfo.Name = propertyInfo.Name;
             if (persistentMemberInfo is IPersistentCoreTypeMemberInfo)
                 ((IPersistentCoreTypeMemberInfo) persistentMemberInfo).DataType =

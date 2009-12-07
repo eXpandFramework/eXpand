@@ -20,9 +20,9 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             _codeTemplate.Save();            
         };
 
-        Because of = () => _persistentMemberInfo.Init(typeof(CodeTemplate));
+        Because of = () => _persistentMemberInfo.Init(typeof(CodeTemplate), CodeDomProvider.CSharp);
 
-        It should_assign_that_template_to_classInfo = () => _persistentMemberInfo.CodeTemplate.ShouldEqual(_codeTemplate);
+        It should_assign_that_template_to_classInfo = () => _persistentMemberInfo.CodeTemplateInfo.CodeTemplate.ShouldEqual(_codeTemplate);
     }
     [Subject(typeof(PersistentMemberInfo), "Initialization")]
     public class When_initializing_a_read_write_PersistentMemberInfo:With_In_Memory_DataStore
@@ -33,10 +33,10 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         Establish context = () => { _persistentMemberInfo = Isolate.Fake.Instance<PersistentMemberInfo>(Members.CallOriginal, ConstructorWillBe.Called, Session.DefaultSession); };
 
-        Because of = () => _persistentMemberInfo.Init(typeof(CodeTemplate));
+        Because of = () => _persistentMemberInfo.Init(typeof(CodeTemplate), CodeDomProvider.CSharp);
         It should_create_a_default_classInfo_template_if_not_exists = () =>
         {
-            _codeTemplate = _persistentMemberInfo.CodeTemplate;
+            _codeTemplate = _persistentMemberInfo.CodeTemplateInfo.CodeTemplate;
             _codeTemplate.ShouldNotBeNull();
             _codeTemplate.IsDefault.ShouldBeTrue();    
             _codeTemplate.TemplateType.ShouldEqual(TemplateType.ReadWriteMember);
@@ -52,11 +52,11 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         Establish context = () => { _persistentMemberInfo = new PersistentCollectionMemberInfo(Session.DefaultSession); };
 
-        Because of = () => _persistentMemberInfo.Init(typeof(CodeTemplate));
+        Because of = () => _persistentMemberInfo.Init(typeof(CodeTemplate), CodeDomProvider.CSharp);
 
         It should_create_a_default_classInfo_template_if_not_exists = () =>
         {
-            _codeTemplate = _persistentMemberInfo.CodeTemplate;
+            _codeTemplate = _persistentMemberInfo.CodeTemplateInfo.CodeTemplate;
             _codeTemplate.ShouldNotBeNull();
             _codeTemplate.IsDefault.ShouldBeTrue();    
             _codeTemplate.TemplateType.ShouldEqual(TemplateType.ReadOnlyMember);
@@ -73,9 +73,9 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             _controllerFactory.CreateAndActivate();
             GenerateCodeController generateCodeController = _controllerFactory.Controller;
             var persistentCoreTypeMemberInfo = ((PersistentCoreTypeMemberInfo)generateCodeController.View.CurrentObject);
-            persistentCoreTypeMemberInfo.TemplateInfo.TemplateCode = "TemplateCode";
+            persistentCoreTypeMemberInfo.CodeTemplateInfo.TemplateInfo.TemplateCode = "TemplateCode";
             var persistentClassInfo = new PersistentClassInfo(_controllerFactory.UnitOfWork) {
-                                                                                                 TemplateInfo = {TemplateCode = "ClassTemplateCode"},
+                                                                                                 CodeTemplateInfo = {TemplateInfo = {TemplateCode = "ClassTemplateCode"}},
                                                                                                  PersistentAssemblyInfo =
                                                                                                      new PersistentAssemblyInfo(_controllerFactory.UnitOfWork)
                                                                                              };
@@ -85,8 +85,8 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         Because of = () => _controllerFactory.UnitOfWork.CommitChanges();
 
         It should_generate_code_for_the_memberInfo =
-            () => _controllerFactory.CurrentObject.GeneratedCode.ShouldStartWith("TemplateCode");
+            () => _controllerFactory.CurrentObject.CodeTemplateInfo.GeneratedCode.ShouldStartWith("TemplateCode");
         It should_generate_associate_classinfo_generatedcode =
-            () => _controllerFactory.CurrentObject.Owner.GeneratedCode.ShouldStartWith("ClassTemplateCode"); 
+            () => _controllerFactory.CurrentObject.Owner.CodeTemplateInfo.GeneratedCode.ShouldStartWith("ClassTemplateCode"); 
     }
 }

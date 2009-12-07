@@ -7,57 +7,47 @@ using eXpand.Persistent.Base.PersistentMetaData;
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
-    public class CodeTemplate:TemplateInfo, ICodeTemplate {
+    public class CodeTemplate : TemplateInfo, ICodeTemplate {
+        CodeDomProvider _codeDomProvider;
+        bool _isDefault;
+        TemplateType _templateType;
+
         public CodeTemplate(Session session) : base(session) {
         }
-
-        private TemplateType _templateType;
-        public void SetDefaults()
-        {
-            TemplateCode = GetFromResource(@"eXpand.Persistent.BaseImpl.PersistentMetaData.Resources.Default" + TemplateType + @"Templates.xml");
-            Usings = GetFromResource(@"eXpand.Persistent.BaseImpl.PersistentMetaData.Resources.Default" + TemplateType + @"Usings.xml");
+        #region ICodeTemplate Members
+        public void SetDefaults() {
+            TemplateCode =
+                GetFromResource(@"eXpand.Persistent.BaseImpl.PersistentMetaData.Resources.Default" +CodeDomProvider+ TemplateType +
+                                @"Templates.xml");
             Name = "Default";
         }
-        
-        string GetFromResource(string name)
-        {
-            var manifestResourceStream = GetType().Assembly.GetManifestResourceStream(
+        [VisibleInLookupListView(true)]
+        public CodeDomProvider CodeDomProvider {
+            get { return _codeDomProvider; }
+            set { SetPropertyValue("CodeDomProvider", ref _codeDomProvider, value); }
+        }
+
+        [VisibleInLookupListView(true)]
+        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThan, 0)]
+        public TemplateType TemplateType {
+            get { return _templateType; }
+            set { SetPropertyValue("TemplateType", ref _templateType, value); }
+        }
+
+        public bool IsDefault {
+            get { return _isDefault; }
+            set { SetPropertyValue("IsDefault", ref _isDefault, value); }
+        }
+        #endregion
+        string GetFromResource(string name) {
+            Stream manifestResourceStream = GetType().Assembly.GetManifestResourceStream(
                 name);
-            if (manifestResourceStream != null)
-            {
-                using (var streamReader = new StreamReader(manifestResourceStream))
-                {
+            if (manifestResourceStream != null) {
+                using (var streamReader = new StreamReader(manifestResourceStream)) {
                     return streamReader.ReadToEnd();
                 }
             }
             return null;
-        }
-        
-        [RuleValueComparison(null,DefaultContexts.Save, ValueComparisonType.GreaterThan, 0)]
-        public TemplateType TemplateType
-        {
-            get
-            {
-                return _templateType;
-            }
-            set
-            {
-                SetPropertyValue("TemplateType", ref _templateType, value);
-            }
-        }
-
-        private bool _isDefault;
-
-        public bool IsDefault
-        {
-            get
-            {
-                return _isDefault;
-            }
-            set
-            {
-                SetPropertyValue("IsDefault", ref _isDefault, value);
-            }
         }
     }
 }

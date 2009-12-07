@@ -27,8 +27,9 @@ namespace eXpand.ExpressApp.WorldCreator
                 GenerateCode(deletedPersistentTypeInfo);
             }
             _deletedPersistentTypeInfos.Clear();
-            if (ObjectSpace.IsModified)
-                ObjectSpace.CommitChanges();
+            var objectSpace = ((ObjectSpace) sender);
+            if (objectSpace.IsModified)
+                objectSpace.CommitChanges();
         }
 
         void ObjectSpaceOnObjectDeleted(object sender, ObjectsManipulatingEventArgs objectsManipulatingEventArgs) {
@@ -59,33 +60,38 @@ namespace eXpand.ExpressApp.WorldCreator
             }
             else if (o is IntermediateObject)
                 classGeneration(((IntermediateObject) o).RightIntermediateObjectField);
+            else if (o is ICodeTemplateInfo) {
+                var codeTemplateInfo = ((ICodeTemplateInfo) o);
+                if (codeTemplateInfo.PersistentAssemblyInfo!= null)
+                    codeTemplateInfo.GeneratedCode = CodeEngine.GenerateCode((ICodeTemplateInfo) o);
+            }
         }
 
         void classGeneration(object o)
         {
             var persistentClassInfo = (IPersistentClassInfo)o;
-            persistentClassInfo.GeneratedCode = CodeEngine.GenerateCode(persistentClassInfo);
+            persistentClassInfo.CodeTemplateInfo.GeneratedCode = CodeEngine.GenerateCode(persistentClassInfo);
         }
 
         void memberCodeGeneration(object o)
         {
             var persistentMemberInfo = (IPersistentMemberInfo)o;
-            persistentMemberInfo.GeneratedCode = CodeEngine.GenerateCode(persistentMemberInfo);
+            persistentMemberInfo.CodeTemplateInfo.GeneratedCode = CodeEngine.GenerateCode(persistentMemberInfo);
             if (persistentMemberInfo.Owner != null)
-                persistentMemberInfo.Owner.GeneratedCode = CodeEngine.GenerateCode(persistentMemberInfo.Owner);
+                persistentMemberInfo.Owner.CodeTemplateInfo.GeneratedCode = CodeEngine.GenerateCode(persistentMemberInfo.Owner);
         }
 
         void attributeCodeGeneration(object o)
         {
-            IPersistentTypeInfo owner = ((IPersistentAttributeInfo)o).Owner;
+            var owner = ((IPersistentAttributeInfo)o).Owner as IPersistentTemplatedTypeInfo;
             if (owner is IPersistentMemberInfo){
                 IPersistentClassInfo persistentClassInfo = ((IPersistentMemberInfo)owner).Owner;
                 if (persistentClassInfo != null)
-                    persistentClassInfo.GeneratedCode = CodeEngine.GenerateCode(persistentClassInfo);
-                owner.GeneratedCode = CodeEngine.GenerateCode((IPersistentMemberInfo)owner);
+                    persistentClassInfo.CodeTemplateInfo.GeneratedCode = CodeEngine.GenerateCode(persistentClassInfo);
+                owner.CodeTemplateInfo.GeneratedCode = CodeEngine.GenerateCode((IPersistentMemberInfo)owner);
             }
-            else 
-                owner.GeneratedCode = CodeEngine.GenerateCode((IPersistentClassInfo)owner);
+            else if (owner is IPersistentClassInfo)
+                owner.CodeTemplateInfo.GeneratedCode = CodeEngine.GenerateCode((IPersistentClassInfo)owner);
         }
     }
 }

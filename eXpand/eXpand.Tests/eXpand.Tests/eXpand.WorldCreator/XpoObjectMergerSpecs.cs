@@ -36,10 +36,10 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             Assembly.GetAssembly(typeof (ObjectMerger));
             var codeTemplate = new CodeTemplate(Session.DefaultSession) {TemplateType = TemplateType.Class};
             codeTemplate.SetDefaults();
-            persistentClassInfo.TemplateInfo = codeTemplate;
+            persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
             persistentClassInfo.PersistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession)
                                                          {Name = "MergingAssembly"};
-            persistentClassInfo.GeneratedCode = CodeEngine.GenerateCode(persistentClassInfo);
+            persistentClassInfo.CodeTemplateInfo.GeneratedCode = CodeEngine.GenerateCode(persistentClassInfo);
             persistentClassInfo.Save();
 
 

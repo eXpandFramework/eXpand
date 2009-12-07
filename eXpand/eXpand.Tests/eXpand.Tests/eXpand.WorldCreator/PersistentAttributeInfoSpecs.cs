@@ -22,14 +22,15 @@ namespace eXpand.Tests.eXpand.WorldCreator
             var persistentClassInfo = new PersistentClassInfo(_persistentAttributeInfo.Session){PersistentAssemblyInfo = new PersistentAssemblyInfo(_persistentAttributeInfo.Session)};
             var codeTemplate = new CodeTemplate(_persistentAttributeInfo.Session) { TemplateType = TemplateType.Class };
             codeTemplate.SetDefaults();
-            persistentClassInfo.TemplateInfo = codeTemplate;
+            persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
             _persistentAttributeInfo.Owner = persistentClassInfo;
 
         };
 
         Because of = () => ((UnitOfWork) _persistentAttributeInfo.Session).CommitChanges();
 
-        It should_generate_code_for_the_referenced_class_info=() => _persistentAttributeInfo.Owner.GeneratedCode.ShouldNotBeNull();
+        It should_generate_code_for_the_referenced_class_info=() =>
+                                                              ((IPersistentTemplatedTypeInfo) _persistentAttributeInfo.Owner).CodeTemplateInfo.GeneratedCode.ShouldNotBeNull();
     }
     [Subject(typeof(PersistentAttributeInfo))]
     public class When_saving_memberInfo_attribute : With_In_Memory_DataStore
@@ -46,12 +47,13 @@ namespace eXpand.Tests.eXpand.WorldCreator
             var persistentCoreTypeMemberInfo = new PersistentCoreTypeMemberInfo(_persistentAttributeInfo.Session);
             var codeTemplate = new CodeTemplate(_persistentAttributeInfo.Session) { TemplateType = TemplateType.ReadWriteMember };
             codeTemplate.SetDefaults();
-            persistentCoreTypeMemberInfo.TemplateInfo = codeTemplate;
+            persistentCoreTypeMemberInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
             _persistentAttributeInfo.Owner = persistentCoreTypeMemberInfo;
         };
 
         Because of = () => ((UnitOfWork)_persistentAttributeInfo.Session).CommitChanges();
 
-        It should_generate_code_for_the_referenced_class_info=() => _persistentAttributeInfo.Owner.GeneratedCode.ShouldNotBeNull();
+        It should_generate_code_for_the_referenced_class_info=() =>
+                                                              ((IPersistentTemplatedTypeInfo) _persistentAttributeInfo.Owner).CodeTemplateInfo.GeneratedCode.ShouldNotBeNull();
     }
 }

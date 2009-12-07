@@ -9,12 +9,12 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     public class TemplateInfo :BaseObject, ITemplateInfo {
         public TemplateInfo(Session session) : base(session) {
         }
-        [Association("TemplateInfo-PersistentTypeInfos")]
-        public XPCollection<PersistentTypeInfo> TypeInfos
+        [Association("TemplateInfo-CodeTemplateInfos")]
+        public XPCollection<CodeTemplateInfo> CodeTemplateInfos
         {
             get
             {
-                return GetCollection<PersistentTypeInfo>("TypeInfos");
+                return GetCollection<CodeTemplateInfo>("CodeTemplateInfos");
             }
         }
         private string _name;
@@ -48,19 +48,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
 
-        private string _usings;
-        [Size(SizeAttribute.Unlimited)]
-        public string Usings
-        {
-            get
-            {
-                return _usings;
-            }
-            set
-            {
-                SetPropertyValue("Usings", ref _usings, value);
-            }
-        }
+
         #endregion
     }
 }

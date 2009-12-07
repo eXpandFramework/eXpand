@@ -16,7 +16,7 @@ namespace eXpand.Tests.eXpand.WorldCreator{
 
         Because of = () => {_codeTemplate.TemplateType=TemplateType.Class; };
 
-        It should_find_all_default_template_usings_from_module_resources_and_display_them = () => _codeTemplate.Usings.ShouldNotBeNull();
+
         It should_find_all_default_template_from_module_resources_and_display_them = () => _codeTemplate.TemplateCode.ShouldNotBeNull();
     }
 }

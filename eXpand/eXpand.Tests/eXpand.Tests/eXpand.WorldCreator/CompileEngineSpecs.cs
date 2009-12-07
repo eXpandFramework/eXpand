@@ -10,7 +10,6 @@ using eXpand.Utils;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
 using System.Linq;
-using MbUnit.Framework;
 
 namespace eXpand.Tests.eXpand.WorldCreator
 {
@@ -35,7 +34,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
     [Subject(typeof(CompileEngine), "specs")]
     [Isolated]
-    public class When_compiling_a_dynamic_assembly
+    public class When_compiling_a_dynamic_assembly:With_In_Memory_DataStore
     {
         static Type type;
         static IPersistentAssemblyInfo _persistentAssemblyInfo;
@@ -67,13 +66,13 @@ namespace eXpand.Tests.eXpand.WorldCreator
             var classCodeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.Class};
             classCodeTemplate.SetDefaults();
             _persistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession){Name = "TestAssembly"};
-            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) {Name = "TestClass", TemplateInfo = classCodeTemplate,PersistentAssemblyInfo = _persistentAssemblyInfo};
+            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) {Name = "TestClass", CodeTemplateInfo = {TemplateInfo = classCodeTemplate},PersistentAssemblyInfo = _persistentAssemblyInfo};
 
             var memberCodeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.ReadWriteMember};
             memberCodeTemplate.SetDefaults();
-            new PersistentCoreTypeMemberInfo(Session.DefaultSession){Name = "Property",TemplateInfo = memberCodeTemplate,Owner = persistentClassInfo};
-            new PersistentReferenceMemberInfo(Session.DefaultSession){Name = "RefProperty",TemplateInfo = memberCodeTemplate,Owner = persistentClassInfo,ReferenceType = typeof(User)};
-            new PersistentCollectionMemberInfo(Session.DefaultSession){Name = "CollProperty",TemplateInfo = memberCodeTemplate,Owner = persistentClassInfo,CollectionType = typeof(User)};
+            new PersistentCoreTypeMemberInfo(Session.DefaultSession){Name = "Property",CodeTemplateInfo = {TemplateInfo = memberCodeTemplate},Owner = persistentClassInfo};
+            new PersistentReferenceMemberInfo(Session.DefaultSession){Name = "RefProperty",CodeTemplateInfo = {TemplateInfo = memberCodeTemplate},Owner = persistentClassInfo,ReferenceType = typeof(User)};
+            new PersistentCollectionMemberInfo(Session.DefaultSession) { Name = "CollProperty", CodeTemplateInfo = { TemplateInfo = memberCodeTemplate }, Owner = persistentClassInfo, CollectionType = typeof(User) };
         };
 
         Because of = () => { _compileModule = CompileEngine.CompileModule(_persistentAssemblyInfo); };
@@ -102,7 +101,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession){Name = "TestClass",BaseType = typeof(User)};
             var codeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.Class};
             codeTemplate.SetDefaults();
-            persistentClassInfo.TemplateInfo = codeTemplate;
+            persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
             _persistentAssemblyInfo.PersistentClassInfos.Add(persistentClassInfo);
             Assembly.GetAssembly(typeof (ObjectMerger));
         };
@@ -131,7 +130,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession){Name = "TestClass",BaseType = typeof(User)};
             var codeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.Class};
             codeTemplate.SetDefaults();
-            persistentClassInfo.TemplateInfo = codeTemplate;
+            persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
             _persistentAssemblyInfo.PersistentClassInfos.Add(persistentClassInfo);
             Assembly.GetAssembly(typeof (ObjectMerger));
         };
@@ -151,5 +150,5 @@ namespace eXpand.Tests.eXpand.WorldCreator
                 ShouldNotBeNull();
     }
 
-
+    
 }

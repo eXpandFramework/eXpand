@@ -112,6 +112,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PersistentMetaData\CodeTemplate.cs" />
+    <Compile Include="PersistentMetaData\CodeTemplateInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentTemplatedTypeInfo.cs" />
     <Compile Include="PersistentMetaData\TemplateInfo.cs" />
     <Compile Include="PersistentMetaData\ExtendedCollectionMemberInfo.cs" />
     <Compile Include="PersistentMetaData\ExtendedCoreTypeMemberInfo.cs" />
@@ -175,16 +177,28 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultClassTemplates.xml" />
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpClassTemplates.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultReadWriteMemberTemplates.xml" />
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpReadWriteMemberTemplates.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultClassUsings.xml" />
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpReadOnlyMemberTemplates.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultReadOnlyMemberTemplates.xml" />
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultVBClassTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultVBReadOnlyMemberTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultVBReadWriteMemberTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultVBInterfaceReadWriteMemberTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpInterfaceReadWriteMemberTemplates.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

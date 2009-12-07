@@ -1,0 +1,32 @@
+﻿Namespace $ASSEMBLYNAME$
+Imports System
+Imports System.Collections.Generic
+Imports System.ComponentModel
+Imports DevExpress.Persistent.Base
+Imports DevExpress.Persistent.Validation
+Imports DevExpress.Xpo
+Imports eXpand.Persistent.Base.PersistentMetaData
+Imports eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
+Imports eXpand.Xpo
+Imports System.Linq
+
+  $TYPEATTRIBUTES$ _
+  Public Class $CLASSNAME$
+      Inherits $BASECLASSNAME$
+      Public Sub New(ByVal session As Session)
+          MyBase.New(session)
+      End Sub
+      
+      Protected Overrides Sub OnSaving()
+        MyBase.OnSaving()
+      End Sub
+
+      Protected Overrides Sub OnChanged(ByVal propertyName As String, ByVal oldValue As Object, ByVal newValue As Object)
+          MyBase.OnChanged(propertyName,oldValue,newValue)
+      End Sub
+
+      Public Overrides Sub AfterConstruction()
+          MyBase.AfterConstruction()
+      End Sub
+  End Class
+End Namespace

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System;
 
 namespace eXpand.Persistent.Base.PersistentMetaData {
-    public interface IPersistentClassInfo:IPersistentTypeInfo {
+    public interface IPersistentClassInfo:IPersistentTemplatedTypeInfo {
         string BaseTypeFullName { get; }
         Type MergedObjectType { get; set; }
         IList<IPersistentMemberInfo> OwnMembers { get; }

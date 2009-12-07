@@ -5,6 +5,8 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.Attributes;
+using eXpand.ExpressApp.Enums;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
@@ -17,11 +19,13 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         public string GeneratedCode
         {
             get {
-                return PersistentClassInfos.Aggregate<PersistentClassInfo, string>(null, (current, persistentClassInfo) => current + persistentClassInfo.GeneratedCode);
+                return PersistentClassInfos.Aggregate<PersistentClassInfo, string>(null,
+                                                                                   (current, persistentClassInfo) =>current +persistentClassInfo.CodeTemplateInfo.GeneratedCode);
             }
         }
         
         private string _name;
+        [RuleRequiredField(null,DefaultContexts.Save)]
         [RuleUniqueValue(null,DefaultContexts.Save)]
         public string Name
         {
@@ -48,6 +52,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         private CodeDomProvider _codeDomProvider;
+        [AllowEdit(true,AllowEditEnum.NewObject)]
         public CodeDomProvider CodeDomProvider
         {
             get
@@ -67,7 +72,14 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 return GetCollection<PersistentClassInfo>("PersistentClassInfos");
             }
         }
-
+        [Association("PersistentAssemblyInfo-CodeTemplateInfos")][Aggregated]
+        public XPCollection<CodeTemplateInfo> CodeTemplateInfos
+        {
+            get
+            {
+                return GetCollection<CodeTemplateInfo>("CodeTemplateInfos");
+            }
+        }
         private string _compileErrors;
         [Custom(PropertyInfoNodeWrapper.AllowEditAttribute,"false")]
         [Size(SizeAttribute.Unlimited)]

@@ -21,7 +21,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
         Establish context = () =>
         {
-            _persistentClassInfo = new PersistentClassInfo(Session.DefaultSession);
+            _persistentClassInfo = new PersistentClassInfo(Session.DefaultSession){PersistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession)};
             var interfaceInfos = _persistentClassInfo.Interfaces;
             var interfaceInfo = new InterfaceInfo(Session.DefaultSession);
             Isolate.WhenCalled(() => interfaceInfo.Type).WillReturn(typeof(InterfaceType));

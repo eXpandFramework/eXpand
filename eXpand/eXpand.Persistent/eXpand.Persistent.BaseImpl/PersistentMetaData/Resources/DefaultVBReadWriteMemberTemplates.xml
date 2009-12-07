@@ -1,0 +1,12 @@
+﻿    Private _$PROPERTYNAME$ As $PROPERTYTYPE$
+    $TYPEATTRIBUTES$ _
+    Public Property $PROPERTYNAME$ As $PROPERTYTYPE$
+        Get
+            Return Me._$PROPERTYNAME$
+        End Get
+        Set(ByVal value As $PROPERTYTYPE$)
+            MyBase.SetPropertyValue(Of $PROPERTYTYPE$)("$PROPERTYNAME$", (Me._$PROPERTYNAME$), value)
+        End Set
+    End Property
+
+     

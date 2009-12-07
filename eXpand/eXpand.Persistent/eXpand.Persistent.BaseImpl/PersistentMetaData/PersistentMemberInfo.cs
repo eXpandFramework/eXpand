@@ -6,7 +6,7 @@ using eXpand.Persistent.Base.PersistentMetaData;
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData
 {
     [RuleCombinationOfPropertiesIsUnique(null,DefaultContexts.Save,"Owner,Name")]
-    public abstract class PersistentMemberInfo : PersistentTypeInfo, IPersistentMemberInfo {
+    public abstract class PersistentMemberInfo : PersistentTemplatedTypeInfo, IPersistentMemberInfo {
         protected PersistentMemberInfo(Session session) : base(session) { }
         IPersistentClassInfo IPersistentMemberInfo.Owner {
             get { return _owner; }
@@ -15,7 +15,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
         PersistentClassInfo _owner;
 
         [Association("PersistentClassInfo-OwnMembers")]
-//        [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
         public PersistentClassInfo Owner

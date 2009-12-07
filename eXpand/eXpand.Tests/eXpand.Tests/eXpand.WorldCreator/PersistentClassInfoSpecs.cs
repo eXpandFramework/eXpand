@@ -1,5 +1,4 @@
 ﻿using DevExpress.Xpo;
-using eXpand.ExpressApp.WorldCreator;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
@@ -18,11 +17,11 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             _codeTemplate.Save();            
         };
 
-        Because of = () => _persistentClassInfo.Init(typeof(CodeTemplate));
+        Because of = () => _persistentClassInfo.Init(typeof(CodeTemplate), CodeDomProvider.CSharp);
 
         It should_assign_that_template_to_classInfo =
             () =>
-            _persistentClassInfo.CodeTemplate.ShouldEqual(_codeTemplate).
+            _persistentClassInfo.CodeTemplateInfo.CodeTemplate.ShouldEqual(_codeTemplate).
                 ShouldNotBeNull();
     }
     [Subject(typeof(PersistentClassInfo), "Initialization")]
@@ -41,14 +40,14 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         Because of = () =>
         {
-            _persistentClassInfo.Init(typeof(CodeTemplate));
+            _persistentClassInfo.Init(typeof(CodeTemplate), CodeDomProvider.CSharp);
             _persistentClassInfo.Save();
         };
 
 
         It should_create_a_default_classInfo_template_if_not_exists = () =>
         {
-            _codeTemplate = _persistentClassInfo.CodeTemplate;
+            _codeTemplate = _persistentClassInfo.CodeTemplateInfo.CodeTemplate;
             _codeTemplate.Session.IsNewObject(_codeTemplate).ShouldBeFalse();
             _codeTemplate.TemplateType.ShouldEqual(TemplateType.Class);
         };

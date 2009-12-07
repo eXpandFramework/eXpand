@@ -90,7 +90,7 @@ namespace eXpand.ExpressApp.WorldCreator
         }
 
         void hideTemplateInfoNameFromTypeInfoDetailView(Dictionary model) {
-            throw new NotImplementedException();
+//            throw new NotImplementedException();
         }
 
         void ShowOwnerForExtendedMembers(Dictionary dictionary) {

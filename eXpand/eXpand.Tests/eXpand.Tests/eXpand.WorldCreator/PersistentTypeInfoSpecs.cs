@@ -13,27 +13,24 @@ using eXpand.Xpo;
 namespace eXpand.Tests.eXpand.WorldCreator {
     [Subject(typeof(PersistentTypeInfo))]
     public class When_peristent_type_code_template_change:With_In_Memory_DataStore {
-        static IPersistentTypeInfo _persistentTypeInfo;
+        static CodeTemplateInfo _codeTemplateInfo;
 
         static CodeTemplate _codeTemplate;
 
         Establish context = () => {
 
-            var factory = new ControllerFactory<TypeInfoCodeTemplateModifierController,PersistentClassInfo>();
+            var factory = new ControllerFactory<CodeInfoCodeTemplateModifierController,CodeTemplateInfo>();
             var typeInfoCodeTemplateModifierController = factory.CreateAndActivate();
             var worldCreatorModule = new WorldCreatorModule();
             Isolate.WhenCalled(() => worldCreatorModule.TypesInfo.TemplateInfoType).WillReturn(typeof(TemplateInfo));
             Isolate.WhenCalled(() => typeInfoCodeTemplateModifierController.Application.Modules.FindModule(typeof(void))).WillReturn(worldCreatorModule);
-            _persistentTypeInfo = (IPersistentTypeInfo) typeInfoCodeTemplateModifierController.View.CurrentObject;
-            _codeTemplate = new CodeTemplate(_persistentTypeInfo.Session){TemplateCode ="TemplateCode",Usings ="Usings" };
+            _codeTemplateInfo =  factory.CurrentObject;
+            _codeTemplate = new CodeTemplate(_codeTemplateInfo.Session){TemplateCode ="TemplateCode" };
         };
         
-        Because of = () => { _persistentTypeInfo.CodeTemplate=_codeTemplate;};
+        Because of = () => { _codeTemplateInfo.CodeTemplate=_codeTemplate;};
 
-        It should_delegate_all_props_from_code_template_to_persistent_type_templateinfo_object=() => {
-            _persistentTypeInfo.TemplateInfo.Usings.ShouldEqual("Usings");
-            _persistentTypeInfo.TemplateInfo.TemplateCode.ShouldEqual("TemplateCode");
-        };
+        It should_delegate_all_props_from_code_template_to_persistent_type_templateinfo_object=() => _codeTemplateInfo.TemplateInfo.TemplateCode.ShouldEqual("TemplateCode");
     }
     [Subject(typeof(PersistentTypeInfo),"Creation")]
     public class When_A_persistentTypeInfo_object_is_creating:With_In_Memory_DataStore {
@@ -72,7 +69,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             _referenceMemberInfo=(PersistentReferenceMemberInfo) _generateCodeController.View.CurrentObject;
             var codeTemplate = new CodeTemplate(_referenceMemberInfo.Session){TemplateType = TemplateType.ReadWriteMember};
             codeTemplate.SetDefaults();
-            _referenceMemberInfo.TemplateInfo=codeTemplate;
+            _referenceMemberInfo.CodeTemplateInfo.TemplateInfo=codeTemplate;
             _referenceMemberInfo.ReferenceType = typeof(User) ;
         };
 
@@ -83,7 +80,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             ((PersistentReferenceMemberInfo)new Session().GetObject(_referenceMemberInfo)).ReferenceType.ShouldEqual(
                 typeof(User));
 
-        It should_generate_the_class_code = () => _referenceMemberInfo.GeneratedCode.ShouldNotBeNull();
+        It should_generate_the_class_code = () => _referenceMemberInfo.CodeTemplateInfo.GeneratedCode.ShouldNotBeNull();
     }
 
     [Subject(typeof(PersistentTypeInfo))]
@@ -91,12 +88,35 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         static PersistentClassInfo _persistentClassInfo;
 
         Establish context = () => {
-            _persistentClassInfo = new PersistentClassInfo(Session.DefaultSession){TemplateInfo = new TemplateInfo(Session.DefaultSession)};
+            _persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) { CodeTemplateInfo = { TemplateInfo = new TemplateInfo(Session.DefaultSession) } };
             _persistentClassInfo.Save();
         };
         Because of = () => _persistentClassInfo.Delete();
-        It should_delete_TemplateInfo_as_well=() => _persistentClassInfo.TemplateInfo.ShouldBeNull();
+        It should_delete_CodeTemplateInfo_as_well=() => _persistentClassInfo.CodeTemplateInfo.IsDeleted.ShouldBeTrue();
+        It should_delete_TemplateInfo_as_well=() => _persistentClassInfo.CodeTemplateInfo.TemplateInfo.IsDeleted.ShouldBeTrue();
     }
 
-    
+    internal class MyClass {
+        
+    }
+    public class MyClass1:BaseObject {
+
+        private MyClass2 _myClass2;
+        [Aggregated]
+        public MyClass2 MyClass2
+        {
+            get
+            {
+                return _myClass2;
+            }
+            set
+            {
+                SetPropertyValue("MyClass2", ref _myClass2, value);
+            }
+        }
+    }
+
+    public class MyClass2:BaseObject {
+        
+    }
 }

@@ -1,6 +1,6 @@
-namespace eXpand.ExpressApp.WorldCreator
+namespace eXpand.ExpressApp.SystemModule
 {
-    partial class _InitCodeTemplatesController
+    partial class AllowEditDetailViewController
     {
         /// <summary>
         /// Required designer variable.

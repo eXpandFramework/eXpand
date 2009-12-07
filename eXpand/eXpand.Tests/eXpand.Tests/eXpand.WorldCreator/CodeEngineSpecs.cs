@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.WorldCreator.Core;
@@ -23,7 +22,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             _persistentMemberInfo = new PersistentCoreTypeMemberInfo(Session.DefaultSession);
             var codeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.ReadWriteMember};
             codeTemplate.SetDefaults();            
-            _persistentMemberInfo.TemplateInfo=codeTemplate;
+            _persistentMemberInfo.CodeTemplateInfo.TemplateInfo=codeTemplate;
 
         };
 
@@ -44,7 +43,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         Establish context = () => {
             var codeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.Class};
             codeTemplate.SetDefaults();
-            _persistentClassInfo = new PersistentClassInfo(Session.DefaultSession){Name ="TestClass",TemplateInfo = codeTemplate,PersistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession)};
+            _persistentClassInfo = new PersistentClassInfo(Session.DefaultSession){Name ="TestClass",CodeTemplateInfo = {TemplateInfo = codeTemplate},PersistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession)};
         };
 
         Because of = () => { _generateCode = CodeEngine.GenerateCode(_persistentClassInfo); };
@@ -63,18 +62,16 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         Establish context = () => {
             var classCodeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.Class};
             classCodeTemplate.SetDefaults();
-            classCodeTemplate.Usings = "classusings";
-            _persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) {Name ="TestClass",  BaseType = typeof(User) ,TemplateInfo = classCodeTemplate ,PersistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession)};
+            _persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) {Name ="TestClass",  BaseType = typeof(User) ,CodeTemplateInfo = {TemplateInfo = classCodeTemplate},PersistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession)};
             _persistentClassInfo.TypeAttributes.Add(new PersistentDefaultClassOptionsAttribute(Session.DefaultSession));
 
             var memberCodeTemplate = new CodeTemplate(Session.DefaultSession) { TemplateType = TemplateType.ReadWriteMember};
             memberCodeTemplate.SetDefaults();
-            memberCodeTemplate.Usings = "memberusings";
-            var persistentCoreTypeMemberInfo = new PersistentCoreTypeMemberInfo(Session.DefaultSession) { Name = "property1",TemplateInfo = memberCodeTemplate};
+            var persistentCoreTypeMemberInfo = new PersistentCoreTypeMemberInfo(Session.DefaultSession) { Name = "property1",CodeTemplateInfo = {TemplateInfo = memberCodeTemplate}};
             persistentCoreTypeMemberInfo.TypeAttributes.Add(new PersistentSizeAttribute(Session.DefaultSession));            
             _persistentClassInfo.OwnMembers.AddRange(new[] {
                                                                persistentCoreTypeMemberInfo,
-                                                               new PersistentCoreTypeMemberInfo(Session.DefaultSession){Name = "property2",TemplateInfo = memberCodeTemplate}
+                                                               new PersistentCoreTypeMemberInfo(Session.DefaultSession){Name = "property2",CodeTemplateInfo = {TemplateInfo = memberCodeTemplate}}
                                                            });
             var interfaceInfo = new InterfaceInfo(Session.DefaultSession){Assembly =new AssemblyName(typeof(IDummyString).Assembly.FullName+"").Name,Name = typeof(IDummyString).FullName};
             _persistentClassInfo.Interfaces.Add(interfaceInfo);
@@ -85,8 +82,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             _generateCode = CodeEngine.GenerateCode(_persistentClassInfo);
         };
 
-        It should_inject_usings_from_all_members_into_usings_section = () => new Regex("memberusings").Matches(_generateCode).Count.ShouldEqual(1);
-        It should_inject_usings_from_classinfo_templateinfo_into_template_usings_section = () => new Regex("classusings").Matches(_generateCode).Count.ShouldEqual(1);
+
         It should_inject_code_from_all_members_in_classinfo_generated_code = () => _generateCode.IndexOf("property1" + Environment.NewLine + "property2" + Environment.NewLine + "}");
         It should_have_class_type_typeattributes_generated=() => {
             _generateCode.IndexOf("$TYPEATTRIBUTES$").ShouldEqual(-1);
@@ -113,4 +109,54 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         It should_replace_PROPERTYTYPE_with_persistentClassInfo_type = () => _generateCode.IndexOf("PROPERTYTYPE").ShouldEqual(-1);
     }
 
+    public class When_generating_code_from_2_CSharp_classes:With_In_Memory_DataStore {
+        static PersistentAssemblyInfo _persistentAssemblyInfo;
+
+        static string _generateCode;
+
+        Establish context = () => {
+            _persistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession);
+            createClass();
+            createClass();
+        };
+
+        static void createClass() {
+            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession)
+                                      {PersistentAssemblyInfo = _persistentAssemblyInfo};
+            var codeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.Class};
+            codeTemplate.SetDefaults();
+            persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
+        }
+
+        Because of = () => {
+            _generateCode = CodeEngine.GenerateCode(_persistentAssemblyInfo);
+        };
+
+        It should_group_all_usings_together_at_the_top_of_generated_code=() => _generateCode.ShouldStartWith("using");
+    }
+    public class When_generating_code_from_2_VB_classes:With_In_Memory_DataStore {
+        static PersistentAssemblyInfo _persistentAssemblyInfo;
+
+        static string _generateCode;
+
+        Establish context = () => {
+            _persistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession){CodeDomProvider = CodeDomProvider.VB};
+            createClass();
+            createClass();
+        };
+
+        static void createClass() {
+            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession)
+                                      {PersistentAssemblyInfo = _persistentAssemblyInfo};
+            var codeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.Class,CodeDomProvider = CodeDomProvider.VB};
+            codeTemplate.SetDefaults();
+            persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
+        }
+
+        Because of = () => {
+            _generateCode = CodeEngine.GenerateCode(_persistentAssemblyInfo);
+        };
+
+        It should_group_all_usings_together_at_the_top_of_generated_code=() => _generateCode.ShouldStartWith("Imports");
+    }
 }
