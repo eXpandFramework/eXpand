@@ -136,6 +136,9 @@
     <Compile Include="Core\TypesInfo.cs" />
     <Compile Include="Core\PersistentClassInfo.cs" />
     <Compile Include="Core\TypeInfoExtensions.cs" />
+    <Compile Include="PopulateInterfacesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WorldCreatorModule.cs">
       <SubType>Component</SubType>
     </Compile>

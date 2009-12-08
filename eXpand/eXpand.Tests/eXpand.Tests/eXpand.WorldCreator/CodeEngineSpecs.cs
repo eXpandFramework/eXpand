@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.WorldCreator.Core;
@@ -158,5 +159,55 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         };
 
         It should_group_all_usings_together_at_the_top_of_generated_code=() => _generateCode.ShouldStartWith("Imports");
+    }
+
+    public class When_generating_code_from_Persistent_attribute_with_enum_parameter:With_In_Memory_DataStore {
+        static PeristentMapInheritanceAttribute _peristentMapInheritanceAttribute;
+
+        static string _generateCode;
+
+        Establish context = () => {
+            _peristentMapInheritanceAttribute = new PeristentMapInheritanceAttribute(Session.DefaultSession);
+        };
+
+        Because of = () => {
+            _generateCode = CodeEngine.GenerateCode(_peristentMapInheritanceAttribute);
+        };
+
+        It should_create_arg_with_enumTypename_dot_enumName = () => _generateCode.ShouldStartWith("["+typeof(MapInheritanceAttribute).FullName+"("+typeof(MapInheritanceType).FullName+"."+MapInheritanceType.ParentTable+")]");
+    }
+    public class When_generating_code_from_Persistent_attribute_with_string_parameter:With_In_Memory_DataStore {
+        static PersistentCustomAttribute _persistentCustomAttribute;
+
+        Establish context = () => {
+            _persistentCustomAttribute = new PersistentCustomAttribute(Session.DefaultSession){PropertyName = "PropertyName",Value = "Value"};
+        };
+
+        static string _generateCode;
+
+        Because of = () => {
+            _generateCode = CodeEngine.GenerateCode(_persistentCustomAttribute);
+        };
+
+        It should_create_arg_enclosed_with_quotes=() => _generateCode.ShouldStartWith("["+typeof(CustomAttribute).FullName+@"(""PropertyName"",""Value"")"+"]");
+    }
+    public class When_generating_code_from_Persistent_attribute_with_type_parameter:With_In_Memory_DataStore {
+        static PersistentValueConverter _persistentValueConverter;
+
+        static string _generateCode;
+
+        Establish context = () => {
+            _persistentValueConverter = new PersistentValueConverter(Session.DefaultSession){ConverterType = typeof(CompressionConverter)};
+        };
+
+        Because of = () => {
+            _generateCode = CodeEngine.GenerateCode(_persistentValueConverter);
+
+        };
+        
+        It should_create_arg_as_typeof_parameter=() => _generateCode.ShouldStartWith("["+typeof(ValueConverterAttribute).FullName+"(typeof("+typeof(CompressionConverter).FullName+"))]");
+    }
+    public class When_generating_code_from_Persistent_attribute_with_int_parameter {
+        It should_create_arg_the_same_as_parameter;
     }
 }

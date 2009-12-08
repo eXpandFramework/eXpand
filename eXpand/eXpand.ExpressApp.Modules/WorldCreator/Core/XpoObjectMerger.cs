@@ -5,6 +5,7 @@ using System.Linq;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.WorldCreator.Core {
     public class XpoObjectMerger {
@@ -14,16 +15,37 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             foreach (IPersistentClassInfo classInfo in collection){
                 XPClassInfo xpClassInfo = getClassInfo(classInfo.Session,classInfo.PersistentAssemblyInfo.Name+"."+ classInfo.Name,persistentTypes);
                 var mergedXPClassInfo = getClassInfo(classInfo.Session, classInfo.MergedObjectType.AssemblyQualifiedName,persistentTypes) ?? classInfo.Session.GetClassInfo(classInfo.MergedObjectType);
-                unitOfWork.UpdateSchema(xpClassInfo);
-                updateObjectType(unitOfWork, xpClassInfo, mergedXPClassInfo,command);
+                if (xpClassInfo != null) {
+                    unitOfWork.UpdateSchema(xpClassInfo.ClassType, mergedXPClassInfo.ClassType);
+//                    if (unitOfWork.GetCount(xpClassInfo.ClassType) == 0)
+//                        createObjectTypeColumn(xpClassInfo, unitOfWork);
+                    updateObjectType(unitOfWork, xpClassInfo, mergedXPClassInfo,command);
+                }
             }
+        }
+        private void createObjectTypeColumn(XPClassInfo xpClassInfo, UnitOfWork unitOfWork)
+        {
+            unitOfWork.CreateObjectTypeRecords(xpClassInfo);
+            var newObject = xpClassInfo.CreateNewObject(unitOfWork);
+            unitOfWork.CommitChanges();
+            unitOfWork.Delete(newObject);
+            unitOfWork.CommitChanges();
         }
         private void updateObjectType(UnitOfWork unitOfWork, XPClassInfo xpClassInfo, XPClassInfo mergedXPClassInfo, IDbCommand command)
         {
             var propertyName = XPObject.Fields.ObjectType.PropertyName;
-            command.CommandText = "UPDATE " + mergedXPClassInfo.TableName + " SET " + propertyName + "=" + unitOfWork.GetObjectType(xpClassInfo).Oid +
+            command.CommandText = "UPDATE [" + getTableName(mergedXPClassInfo) + "] SET " + propertyName + "=" + unitOfWork.GetObjectType(xpClassInfo).Oid +
                                   " WHERE " + propertyName + " IS NULL OR " + propertyName + "=" +unitOfWork.GetObjectType(mergedXPClassInfo).Oid;
             command.ExecuteNonQuery();
+        }
+
+        string getTableName(XPClassInfo mergedXPClassInfo) {
+            string tableName = mergedXPClassInfo.TableName;
+            while (mergedXPClassInfo.BaseClass!= null&&mergedXPClassInfo.BaseClass.IsPersistent) {
+                mergedXPClassInfo=mergedXPClassInfo.BaseClass;
+                tableName=mergedXPClassInfo.TableName;
+            }
+            return tableName;
         }
 
 

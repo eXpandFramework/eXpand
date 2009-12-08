@@ -113,6 +113,7 @@
   <ItemGroup>
     <Compile Include="PersistentMetaData\CodeTemplate.cs" />
     <Compile Include="PersistentMetaData\CodeTemplateInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentValueConverter.cs" />
     <Compile Include="PersistentMetaData\PersistentTemplatedTypeInfo.cs" />
     <Compile Include="PersistentMetaData\TemplateInfo.cs" />
     <Compile Include="PersistentMetaData\ExtendedCollectionMemberInfo.cs" />

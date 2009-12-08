@@ -31,6 +31,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
         It should_swallow_exception=() => _exception.ShouldBeNull();
         It should_delegate_any_errors_to_assembly_info_compile_errors_property=() => _persistentAssemblyInfo.CompileErrors.ShouldNotBeNull();
+        
     }
     [Subject(typeof(CompileEngine), "specs")]
     [Isolated]

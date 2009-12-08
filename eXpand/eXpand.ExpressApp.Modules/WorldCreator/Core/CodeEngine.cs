@@ -15,26 +15,30 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         }
 
         public static string GenerateCode(IPersistentMemberInfo persistentMemberInfo) {
-            string code = persistentMemberInfo.CodeTemplateInfo.TemplateInfo.TemplateCode;
-            if (code != null) {
-                code = code.Replace("$TYPEATTRIBUTES$", GetAttributesCode(persistentMemberInfo));
-                code = code.Replace("$PROPERTYNAME$", persistentMemberInfo.Name);
-                code = code.Replace("$PROPERTYTYPE$", GetPropertyType(persistentMemberInfo));
+            if (persistentMemberInfo.CodeTemplateInfo.TemplateInfo != null) {
+                string code = persistentMemberInfo.CodeTemplateInfo.TemplateInfo.TemplateCode;
+                if (code != null) {
+                    code = code.Replace("$TYPEATTRIBUTES$", GetAttributesCode(persistentMemberInfo));
+                    code = code.Replace("$PROPERTYNAME$", persistentMemberInfo.Name);
+                    code = code.Replace("$PROPERTYTYPE$", GetPropertyType(persistentMemberInfo));
+                }
+                return code;
             }
-            return code;
+            return null;
         }
 
         public static string GenerateCode(IPersistentClassInfo persistentClassInfo) {
-
-            string code = persistentClassInfo.CodeTemplateInfo.TemplateInfo.TemplateCode;
-            string attributesCode = GetAttributesCode(persistentClassInfo);
-            if (code != null) {
-                code = code.Replace("$ASSEMBLYNAME$", persistentClassInfo.PersistentAssemblyInfo.Name);
-                code = code.Replace("$TYPEATTRIBUTES$", attributesCode);
-                code = code.Replace("$CLASSNAME$", persistentClassInfo.Name);
-                code = code.Replace("$BASECLASSNAME$", getBaseType(persistentClassInfo) + getInterfacesCode(persistentClassInfo));
-                code = GetAllMembersCode(persistentClassInfo, code);
-                return code;
+            if (persistentClassInfo.CodeTemplateInfo.TemplateInfo != null) {
+                string code = persistentClassInfo.CodeTemplateInfo.TemplateInfo.TemplateCode;
+                string attributesCode = GetAttributesCode(persistentClassInfo);
+                if (code != null) {
+                    code = code.Replace("$ASSEMBLYNAME$", persistentClassInfo.PersistentAssemblyInfo.Name);
+                    code = code.Replace("$TYPEATTRIBUTES$", attributesCode);
+                    code = code.Replace("$CLASSNAME$", persistentClassInfo.Name);
+                    code = code.Replace("$BASECLASSNAME$", getBaseType(persistentClassInfo) + getInterfacesCode(persistentClassInfo));
+                    code = GetAllMembersCode(persistentClassInfo, code);
+                    return code;
+                }
             }
             return null;
         }
@@ -83,16 +87,25 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             throw new NotImplementedException(persistentMemberInfo.GetType().FullName);
         }
 
-        static string GenerateCode(IPersistentAttributeInfo persistentAttributeInfo) {
+        internal static string GenerateCode(IPersistentAttributeInfo persistentAttributeInfo) {
             AttributeInfo attributeInfo = persistentAttributeInfo.Create();
             var attribute = (Attribute)Activator.CreateInstance(attributeInfo.Constructor.DeclaringType, attributeInfo.InitializedArgumentValues);
+            Func<object, object> argSelector = argumentValue =>getArgumentCode(argumentValue);
             string args = attributeInfo.InitializedArgumentValues.Length>0
-                              ? attributeInfo.InitializedArgumentValues.Select(
-                                    argumentValue =>
-                                    argumentValue is string ? @"""" + argumentValue + @"""" : argumentValue).Aggregate
+                              ? attributeInfo.InitializedArgumentValues.Select(argSelector).Aggregate
                                     <object, string>(null, (current, o) => current + (o + ",")).TrimEnd(',')
                               : null;
             return string.Format("[{0}({1})]", attribute.GetType().FullName, args);
+        }
+
+        static object getArgumentCode(object argumentValue) {
+            if (argumentValue is string)
+                return @"""" + argumentValue + @"""";
+            if (argumentValue is Type)
+                return "typeof("+ ((Type) argumentValue).FullName+")";
+            if (argumentValue is Enum)
+                return argumentValue.GetType().FullName+"."+argumentValue;
+            return argumentValue;
         }
 
         public static string GenerateCode(IPersistentAssemblyInfo persistentAssemblyInfo) {

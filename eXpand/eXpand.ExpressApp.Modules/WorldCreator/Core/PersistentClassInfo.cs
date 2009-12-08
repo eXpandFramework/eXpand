@@ -15,7 +15,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                     bool propertyNotExists =
                         classInfo.OwnMembers.Where(info => info.Name == info1.Name).FirstOrDefault() == null;
                     if (propertyNotExists) {
-                        IPersistentMemberInfo persistentMemberInfo = GetPersistentMemberInfo(classInfo, propertyInfo,typesInfo);
+                        IPersistentMemberInfo persistentMemberInfo = GetPersistentMemberInfo(classInfo, propertyInfo,typesInfo,interfaceInfo);
                         classInfo.OwnMembers.Add(persistentMemberInfo);
                     }
                 }
@@ -23,14 +23,17 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         }
 
         static IPersistentMemberInfo GetPersistentMemberInfo(IPersistentClassInfo classInfo, PropertyInfo propertyInfo,
-                                                             TypesInfo typesInfo) {
+                                                             TypesInfo typesInfo,IInterfaceInfo interfaceInfo) {
             Type memberInfoType = GetMemberInfoType(propertyInfo.PropertyType, typesInfo);
             var persistentMemberInfo =
                 ((IPersistentMemberInfo) Activator.CreateInstance(memberInfoType, classInfo.Session));
+
+            ICodeTemplate defaultTemplate = CodeTemplateBuilder.CreateDefaultTemplate(TemplateType.InterfaceReadWriteMember, persistentMemberInfo.Session,
+                                                                                      typesInfo.CodeTemplateType,
+                                                                                      classInfo.PersistentAssemblyInfo.CodeDomProvider);
+            defaultTemplate.TemplateCode = defaultTemplate.TemplateCode.Replace("$INTERFACENAME$", interfaceInfo.Name);
+            persistentMemberInfo.CodeTemplateInfo.CodeTemplate= defaultTemplate;
             
-            persistentMemberInfo.CodeTemplateInfo.CodeTemplate= CodeTemplateBuilder.CreateDefaultTemplate(TemplateType.InterfaceReadWriteMember, persistentMemberInfo.Session,
-                                                      typesInfo.CodeTemplateType,
-                                                      classInfo.PersistentAssemblyInfo.CodeDomProvider);
             persistentMemberInfo.Name = propertyInfo.Name;
             if (persistentMemberInfo is IPersistentCoreTypeMemberInfo)
                 ((IPersistentCoreTypeMemberInfo) persistentMemberInfo).DataType =

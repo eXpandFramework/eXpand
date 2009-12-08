@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core.DictionaryHelpers;
@@ -45,6 +46,7 @@ namespace eXpand.ExpressApp.WorldCreator
             base.Setup(moduleManager);
             _typesInfo = new TypesInfo(GetAdditionalClasses());
             var unitOfWork = new UnitOfWork { ConnectionString = _connectionString };
+            
             Application.SetupComplete += (sender, args) => mergeTypes(unitOfWork);
             CreateDynamicTypes(moduleManager, unitOfWork, _typesInfo.PersistentAssemblyInfoType);
             var existentTypesMemberCreator = new ExistentTypesMemberCreator();
@@ -66,11 +68,23 @@ namespace eXpand.ExpressApp.WorldCreator
             List<IPersistentAssemblyInfo> collection =
                 new XPCollection(unitOfWork, persistentAssemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(info => !info.DoNotCompile).ToList();
             foreach (IPersistentAssemblyInfo persistentAssemblyInfo in collection) {
+                string path = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath),persistentAssemblyInfo.Name);
+                if (File.Exists(path+".dll"))
+                    File.Delete(path+".dll");
                 persistentAssemblyInfo.CompileErrors = null;
                 Type compileModule = CompileEngine.CompileModule(persistentAssemblyInfo);
                 if (compileModule != null) {
                     _definedModules.Add(compileModule);
                     moduleManager.AddModule(compileModule, false);
+                }
+                else if (File.Exists(path)) {
+                    
+                    var fileInfo=new FileInfo(path);
+                    fileInfo.CopyTo(path+".dll");
+                    Assembly assembly = Assembly.LoadFile(path+".dll");
+                    Type single = assembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
+                    _definedModules.Add(single);
+                    moduleManager.AddModule(single, false);
                 }
             }
             unitOfWork.CommitChanges();
@@ -85,13 +99,9 @@ namespace eXpand.ExpressApp.WorldCreator
             if (Application != null) {
                 ShowOwnerForExtendedMembers(model);
                 removeDynamicAssemblyFromImageSources(model);
-                hideTemplateInfoNameFromTypeInfoDetailView(model);
             }
         }
 
-        void hideTemplateInfoNameFromTypeInfoDetailView(Dictionary model) {
-//            throw new NotImplementedException();
-        }
 
         void ShowOwnerForExtendedMembers(Dictionary dictionary) {
             foreach (ListViewInfoNodeWrapper listViewInfoNodeWrapper in GetListViewInfoNodeWrappers(dictionary)) {
