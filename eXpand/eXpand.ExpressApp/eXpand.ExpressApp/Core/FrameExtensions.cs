@@ -8,7 +8,7 @@ namespace eXpand.ExpressApp.Core
     {
         public static Controller GetController(this Frame frame, Type controllerType)
         {
-            var name = frame.GetMethodInfo(x=>x.GetController<Controller>()).Name;
+            var name = frame.GetMemberInfo(x=>x.GetController<Controller>()).Name;
             var invoke = frame.GetType().GetMethod(name).MakeGenericMethod(new[] {controllerType}).Invoke(frame, null);
             return invoke as Controller;
         }

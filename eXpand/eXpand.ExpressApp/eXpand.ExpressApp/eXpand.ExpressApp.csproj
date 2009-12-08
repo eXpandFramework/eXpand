@@ -49,22 +49,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -98,6 +98,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\AllowEditAttribute.cs" />
     <Compile Include="Attributes\FilterRecordAttribute.cs" />
     <Compile Include="Attributes\HideFromNewMenuAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Core\TypesInfoExtensions.cs" />
     <Compile Include="Core\ViewsNodeWrapper.cs" />
     <Compile Include="DataStoreProvider.cs" />
+    <Compile Include="Enums\AllowEditEnum.cs" />
     <Compile Include="Enums\BooleanEnum.cs" />
     <Compile Include="Enums\ManyToManyInfoType.cs" />
     <Compile Include="Enums\RecycleBinEnum.cs" />
@@ -142,6 +144,12 @@
     </Compile>
     <Compile Include="SystemModule\AddRuntimeFieldsFromModelToXPDictionary.Designer.cs">
       <DependentUpon>AddRuntimeFieldsFromModelToXPDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\AllowEditDetailViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\AllowEditDetailViewController.Designer.cs">
+      <DependentUpon>AllowEditDetailViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\BaseViewController.cs">
       <SubType>Component</SubType>
@@ -240,6 +248,12 @@
       <DependentUpon>RecycleBinViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\ShowNonPersistentObjectDetailViewFromNavigationControllerBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\TrackNewObjectSavedController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\TrackObjectConstructionsViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ValidateRulesWindowController.cs">

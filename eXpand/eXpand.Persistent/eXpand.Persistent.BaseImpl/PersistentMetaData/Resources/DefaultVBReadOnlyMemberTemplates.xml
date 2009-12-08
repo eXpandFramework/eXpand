@@ -1,0 +1,6 @@
+﻿    $TYPEATTRIBUTES$ _
+    Public ReadOnly Property $PROPERTYNAME$ As XPCollection(Of $PROPERTYTYPE$)
+        Get
+            Return MyBase.GetCollection(Of $PROPERTYTYPE$)("$PROPERTYNAME$")
+        End Get
+    End Property

@@ -11,6 +11,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             
         }
 
+<<<<<<< HEAD
 //        private Dictionary _model = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema());
         //        [Delayed]
 //        [Size(SizeAttribute.Unlimited)]
@@ -26,6 +27,8 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
 //                SetDelayedPropertyValue("Model",value);
 //            }
 //        }
+=======
+>>>>>>> CodeDomApproachForWorldCreator
 
         [DevExpress.Xpo.DisplayName("Application Name")]
         [RuleRequiredField(null,DefaultContexts.Save)]

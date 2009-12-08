@@ -57,22 +57,23 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -110,6 +111,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PersistentMetaData\CodeTemplate.cs" />
+    <Compile Include="PersistentMetaData\CodeTemplateInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentValueConverter.cs" />
+    <Compile Include="PersistentMetaData\PersistentTemplatedTypeInfo.cs" />
+    <Compile Include="PersistentMetaData\TemplateInfo.cs" />
     <Compile Include="PersistentMetaData\ExtendedCollectionMemberInfo.cs" />
     <Compile Include="PersistentMetaData\ExtendedCoreTypeMemberInfo.cs" />
     <Compile Include="PersistentMetaData\ExtendedMemberInfo.cs">
@@ -117,6 +123,7 @@
     </Compile>
     <Compile Include="PersistentMetaData\ExtendedReferenceMemberInfo.cs" />
     <Compile Include="PersistentMetaData\InterfaceInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAssemblyInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PeristentMapInheritanceAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAggregatedAttribute.cs">
       <SubType>Code</SubType>
@@ -169,6 +176,30 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpClassTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpReadWriteMemberTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpReadOnlyMemberTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultVBClassTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultVBReadOnlyMemberTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultVBReadWriteMemberTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultVBInterfaceReadWriteMemberTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpInterfaceReadWriteMemberTemplates.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
