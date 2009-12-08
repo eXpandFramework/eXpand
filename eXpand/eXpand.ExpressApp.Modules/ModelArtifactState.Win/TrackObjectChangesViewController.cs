@@ -28,15 +28,8 @@ namespace eXpand.ExpressApp.ModelArtifactState.Win
 
         private void Application_ViewShown(object sender, ViewShownEventArgs e)
         {
-<<<<<<< HEAD
-            if (e.TargetFrame != null && e.TargetFrame.View != null)
-            {
-                if (!(e.TargetFrame.View.ObjectSpace is NestedObjectSpace))
-                {
-=======
             if (e.TargetFrame != null && e.TargetFrame.View != null) {
                 if (!(e.TargetFrame.View.ObjectSpace is NestedObjectSpace)) {
->>>>>>> CodeDomApproachForWorldCreator
                     e.TargetFrame.View.ObjectSpace.Committed += ObjectSpace_Committed;
                 }
             }
@@ -45,12 +38,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Win
         protected virtual void ObjectSpace_Committed(object sender, EventArgs e)
         {
             if (View != null && View.ObjectSpace != null && !View.ObjectSpace.IsDisposed){
-<<<<<<< HEAD
-                if (ArtifactStateRuleManager.NeedsCustomization(View) && !View.ObjectSpace.IsModified &&
-                    (View.IsRoot || (!View.IsRoot && View is DetailView))){
-=======
                 if (ArtifactStateRuleManager.NeedsCustomization(View) && !View.ObjectSpace.IsModified &&(View.IsRoot || (!View.IsRoot && View is DetailView))){
->>>>>>> CodeDomApproachForWorldCreator
                     View.ObjectSpace.Refresh();
                 }
             }

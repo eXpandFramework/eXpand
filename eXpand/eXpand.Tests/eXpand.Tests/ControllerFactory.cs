@@ -6,8 +6,6 @@ using TypeMock;
 using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests{
-<<<<<<< HEAD
-=======
     public class ControllerFactory<TController,TObject> where TController:ViewController, new() {
         private const string STR_ControllerFactory = "ControllerFactory";
         TController _controller;
@@ -85,7 +83,6 @@ namespace eXpand.Tests{
         
     }
     [Obsolete("Use ControllerFactory")]
->>>>>>> CodeDomApproachForWorldCreator
     public class ViewControllerFactory{
         private EventHandler controlsCreatedHandler;
         private EventHandler currentObjectChangedHandler;
@@ -134,22 +131,14 @@ namespace eXpand.Tests{
         {
             if (currentObject.Session.IsNewObject(currentObject))
                 currentObject.Session.Save(currentObject);
-<<<<<<< HEAD
-            var objectSpace = new ObjectSpace(new UnitOfWork(XpoDefault.DataLayer), XafTypesInfo.Instance);
-=======
             var objectSpace = new ObjectSpace(new UnitOfWork(currentObject.Session.DataLayer), XafTypesInfo.Instance);
->>>>>>> CodeDomApproachForWorldCreator
             var persistentBase = objectSpace.GetObject(currentObject);
             T controller = viewType == ViewType.ListView
                                ? createListViewController<T>(persistentBase, activate, objectSpace,handleInfo)
                                : createDetailViewController<T>(objectSpace, persistentBase, activate, handleInfo);
-<<<<<<< HEAD
-
-=======
             var frame = new Frame(controller.Application,TemplateContext.View);
             frame.SetView(controller.View);
             Isolate.WhenCalled(() => controller.Frame).WillReturn(frame);
->>>>>>> CodeDomApproachForWorldCreator
             if (activate)
                 controller.View.CurrentObject = persistentBase;
             
@@ -167,9 +156,6 @@ namespace eXpand.Tests{
 
         private T createDetailViewController<T>(ObjectSpace objectSpace, PersistentBase currentObject, bool activate, HandleInfo handleInfo) where T : ViewController, new()
         {
-<<<<<<< HEAD
-            XafTypesInfo.Instance.RegisterEntity(currentObject.GetType());
-=======
             XafTypesInfo.Instance.RegisterEntity(currentObject.GetType().BaseType);
             XafTypesInfo.Instance.RegisterEntity(currentObject.GetType());
             objectSpace.Session.UpdateSchema(currentObject.GetType().BaseType);
@@ -177,7 +163,6 @@ namespace eXpand.Tests{
             objectSpace.Session.DataLayer.UpdateSchema(true,
                                                        objectSpace.Session.GetClassInfo(currentObject.GetType().BaseType));
             objectSpace.Session.DataLayer.UpdateSchema(true, objectSpace.Session.GetClassInfo(currentObject.GetType()));
->>>>>>> CodeDomApproachForWorldCreator
             var application = Isolate.Fake.Instance<XafApplication>();
             Isolate.WhenCalled(() => application.CreateObjectSpace()).WillReturn(objectSpace);
             var detailView = new DetailView(objectSpace, currentObject, application, true);
@@ -226,28 +211,17 @@ namespace eXpand.Tests{
         }
 
         public T CreateAndActivateController<T>(Type objectType) where T : ViewController, new(){
-<<<<<<< HEAD
-
-            return createController<T>(objectType, true,new ObjectSpace(new UnitOfWork(XpoDefault.DataLayer),XafTypesInfo.Instance),null);
-
-        }
-
-=======
             return createController<T>(ViewType.Any,(PersistentBase) Activator.CreateInstance(objectType, Session.DefaultSession),true,null);
         }
 
 
->>>>>>> CodeDomApproachForWorldCreator
         public T CreateController<T>(ViewType viewType, PersistentBase currentObject) where T : ViewController, new(){
             return createController<T>(viewType, currentObject, false, null);
         }
 
-<<<<<<< HEAD
-=======
         public T CreateAndActivateController<T,T1>() where T : ViewController, new(){
             return CreateAndActivateController<T>(typeof(T1)); 
         }
->>>>>>> CodeDomApproachForWorldCreator
     }
 
 }

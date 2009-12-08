@@ -49,7 +49,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             _persistentAssemblyInfo.Reload();
             _persistentAssemblyInfo.CompileErrors.IndexOf("test").ShouldBeGreaterThan(-1); };
 
-        It should_load_previous__assembly_version_if_exists = () => ;
+        It should_load_previous__assembly_version_if_exists;
     }
     [Subject(typeof(WorldCreatorModule))][Isolated]
     public class When_Settingup_Module:With_In_Memory_DataStore

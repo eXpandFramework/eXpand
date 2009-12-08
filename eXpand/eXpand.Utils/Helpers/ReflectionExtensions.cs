@@ -7,21 +7,12 @@ namespace eXpand.Utils.Helpers
 {
     public static class ReflectionExtensions
     {
-<<<<<<< HEAD
-        public static MethodInfo GetMethodInfo<TTarget>(this TTarget target, Expression<Action<TTarget>> method)
-        {
-            return GetMethodInfo(method);
-        }
-
-        private static MethodInfo GetMethodInfo(Expression method)
-=======
         public static MethodInfo GetMemberInfo<TTarget>(this TTarget target, Expression<Action<TTarget>> method)
         {
             return GetMemberInfo(method);
         }
 
         public static MethodInfo GetMemberInfo(Expression method)
->>>>>>> CodeDomApproachForWorldCreator
         {
             if (method == null) throw new ArgumentNullException("method");
 
@@ -29,21 +20,19 @@ namespace eXpand.Utils.Helpers
             if (lambda == null) throw new ArgumentException("Not a lambda expression", "method");
             if (lambda.Body.NodeType != ExpressionType.Call) throw new ArgumentException("Not a method call", "method");
 
-            return ((MethodCallExpression) lambda.Body).Method;
+            return ((MethodCallExpression)lambda.Body).Method;
         }
 
-<<<<<<< HEAD
-=======
         public static MemberInfo GetExpression(LambdaExpression lambda)
         {
-            
+
             if (lambda == null) throw new ArgumentException("Not a lambda expression", "lambda");
 
             MemberExpression memberExpr = null;
 
 
             if (lambda.Body.NodeType == ExpressionType.Convert)
-                memberExpr = ((UnaryExpression) lambda.Body).Operand as MemberExpression;
+                memberExpr = ((UnaryExpression)lambda.Body).Operand as MemberExpression;
             else if (lambda.Body.NodeType == ExpressionType.MemberAccess)
                 memberExpr = lambda.Body as MemberExpression;
 
@@ -52,10 +41,10 @@ namespace eXpand.Utils.Helpers
             return memberExpr.Member;
         }
 
-        public static string GetPropertyName<TTarget>(this TTarget target, Expression<Func<TTarget, object>> property) {
+        public static string GetPropertyName<TTarget>(this TTarget target, Expression<Func<TTarget, object>> property)
+        {
             return GetPropertyInfo(target, property).Name;
         }
->>>>>>> CodeDomApproachForWorldCreator
         public static PropertyInfo GetPropertyInfo<TTarget>(this TTarget target, Expression<Func<TTarget, object>> property)
         {
             var info = target.GetMemberInfo(property) as PropertyInfo;
@@ -73,33 +62,13 @@ namespace eXpand.Utils.Helpers
             return info;
         }
 
-        public static MemberInfo GetMemberInfo<TTarget>(this TTarget target,Expression member) {
+        public static MemberInfo GetMemberInfo<TTarget>(this TTarget target, Expression member)
+        {
             if (member == null) throw new ArgumentNullException("member");
             var lambda = member as LambdaExpression;
             return GetExpression(lambda);
         }
 
-<<<<<<< HEAD
-        public static MemberInfo GetExpression(LambdaExpression lambda)
-        {
-            
-            if (lambda == null) throw new ArgumentException("Not a lambda expression", "lambda");
-
-            MemberExpression memberExpr = null;
-
-
-            if (lambda.Body.NodeType == ExpressionType.Convert)
-                memberExpr = ((UnaryExpression) lambda.Body).Operand as MemberExpression;
-            else if (lambda.Body.NodeType == ExpressionType.MemberAccess)
-                memberExpr = lambda.Body as MemberExpression;
-
-            if (memberExpr == null) throw new ArgumentException("Not a member access", "lambda");
-
-            return memberExpr.Member;
-        }
-
-=======
->>>>>>> CodeDomApproachForWorldCreator
         public static void SetProperty<T>(this INotifyPropertyChanged source,
                                           Expression<Func<T>> propExpr,
                                           ref T propertyValueHolder,

@@ -1,9 +1,6 @@
 using System;
 using System.ComponentModel;
-<<<<<<< HEAD
-=======
 using System.Reflection;
->>>>>>> CodeDomApproachForWorldCreator
 using System.Text.RegularExpressions;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
@@ -35,10 +32,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
         private Type _elementType;
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
-<<<<<<< HEAD
-        [RuleRequiredField(null, DefaultContexts.Save)]
-=======
->>>>>>> CodeDomApproachForWorldCreator
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         public Type ElementType
         {
@@ -70,8 +63,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
         
 
         public override AttributeInfo Create() {
-<<<<<<< HEAD
-=======
             if (ElementType!= null)
                 return GetElementTypeDefinedAttributeInfo();
             ConstructorInfo constructorInfo = typeof (AssociationAttribute).GetConstructor(new[] {typeof (string)});
@@ -79,7 +70,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
         }
 
         AttributeInfo GetElementTypeDefinedAttributeInfo() {
->>>>>>> CodeDomApproachForWorldCreator
             string typeName= Regex.Match(AssemblyQualifiedName, "([^,]*).*").Groups[1].Value;
             string withOutTypeName=Regex.Replace(AssemblyQualifiedName, "([^,]*), (.*)", "$2");
             string assemblyName = Regex.Match(withOutTypeName, "([^,]*).*").Groups[1].Value;

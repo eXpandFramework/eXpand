@@ -1,12 +1,6 @@
-<<<<<<< HEAD:eXpand/eXpand.ExpressApp.Modules/WorldCreator/Controllers/ViewController1.Designer.cs
-namespace eXpand.ExpressApp.WorldCreator.Controllers
-{
-    partial class ViewController1
-=======
 namespace eXpand.ExpressApp.SystemModule
 {
     partial class AllowEditDetailViewController
->>>>>>> CodeDomApproachForWorldCreator:eXpand/eXpand.ExpressApp/eXpand.ExpressApp/SystemModule/AllowEditDetailViewController.Designer.cs
     {
         /// <summary>
         /// Required designer variable.

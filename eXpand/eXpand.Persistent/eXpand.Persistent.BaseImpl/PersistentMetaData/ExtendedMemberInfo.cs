@@ -11,10 +11,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     public abstract class ExtendedMemberInfo : PersistentTypeInfo, IExtendedMemberInfo
     {
         protected ExtendedMemberInfo(Session session) : base(session) {
-<<<<<<< HEAD
-=======
             
->>>>>>> CodeDomApproachForWorldCreator
         }
         private Type _owner;
         [Size(SizeAttribute.Unlimited)]
@@ -30,10 +27,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set
             {
                 SetPropertyValue("Owner", ref _owner, value);
-<<<<<<< HEAD
-=======
         
->>>>>>> CodeDomApproachForWorldCreator
             }
         }
         

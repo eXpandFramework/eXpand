@@ -87,7 +87,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             throw new NotImplementedException(persistentMemberInfo.GetType().FullName);
         }
 
-        internal static string GenerateCode(IPersistentAttributeInfo persistentAttributeInfo) {
+        public static string GenerateCode(IPersistentAttributeInfo persistentAttributeInfo) {
             AttributeInfo attributeInfo = persistentAttributeInfo.Create();
             var attribute = (Attribute)Activator.CreateInstance(attributeInfo.Constructor.DeclaringType, attributeInfo.InitializedArgumentValues);
             Func<object, object> argSelector = argumentValue =>getArgumentCode(argumentValue);

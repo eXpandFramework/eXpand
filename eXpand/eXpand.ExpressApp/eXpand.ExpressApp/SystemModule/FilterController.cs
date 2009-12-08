@@ -46,11 +46,7 @@ namespace eXpand.ExpressApp.SystemModule
                 ICollection<string> properties = removeUnlimitedSizeMembers(FullTextSearchCriteriaBuilder.GetProperties(
                                                                                 args.TypeInfo, args.AdditionalProperties),
                                                                             args.TypeInfo);
-<<<<<<< HEAD
-                args.Criteria = new SearchCriteriaOnAllPropertiesEngine(args.TypeInfo,
-=======
                 args.Criteria = new SearchCriteriaBuilder(args.TypeInfo,
->>>>>>> CodeDomApproachForWorldCreator
                                                                         properties,
                                                                         args.ValueToSearch, args.GroupOperatorType,
                                                                         args.IncludeNonPersistentMembers).BuildCriteria();

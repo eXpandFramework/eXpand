@@ -23,11 +23,7 @@ namespace Fixtures.eXpand.Utils
         [Test]
         public void Method_Info_Can_Be_Found()
         {
-<<<<<<< HEAD
-            MethodInfo methodInfo = this.GetMethodInfo(p => p.PrivateMethod());
-=======
             MethodInfo methodInfo = this.GetMemberInfo(p => p.PrivateMethod());
->>>>>>> CodeDomApproachForWorldCreator
 
             Assert.AreEqual("PrivateMethod", methodInfo.Name);
         }

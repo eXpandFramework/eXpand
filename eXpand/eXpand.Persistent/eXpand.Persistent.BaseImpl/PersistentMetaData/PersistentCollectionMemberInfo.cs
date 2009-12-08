@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-=======
 using System;
 using System.ComponentModel;
 using DevExpress.Persistent.Base;
@@ -11,7 +6,6 @@ using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Xpo.Converters.ValueConverters;
->>>>>>> CodeDomApproachForWorldCreator
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData
 {
@@ -27,8 +21,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
         {
             TypeAttributes.Add(persistentAssociationAttribute);
         }
-<<<<<<< HEAD
-=======
         Type _collectionType;
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
@@ -55,7 +47,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
                 SetPropertyValue("CollectionTypeFullName", ref _collectionTypeFullName, value);
             }
         }
->>>>>>> CodeDomApproachForWorldCreator
 
     }
 }

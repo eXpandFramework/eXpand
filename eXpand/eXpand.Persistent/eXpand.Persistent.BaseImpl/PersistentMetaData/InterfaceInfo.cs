@@ -1,8 +1,5 @@
 using System;
-<<<<<<< HEAD
-=======
 using System.Collections.Generic;
->>>>>>> CodeDomApproachForWorldCreator
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -12,24 +9,6 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 
-<<<<<<< HEAD
-namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-    [RuleCombinationOfPropertiesIsUnique(null,DefaultContexts.Save, "Name,Assembly")]
-    [DefaultClassOptions]
-    [NavigationItem("WorldCreator")]
-    public class InterfaceInfo:BaseObject, IInterfaceInfo {
-        public InterfaceInfo(Session session) : base(session) {
-        }
-        [Association("PersistentClassInfos-Interfaces")]
-        public XPCollection<PersistentClassInfo> PersistentClassInfos
-        {
-            get
-            {
-                return GetCollection<PersistentClassInfo>("PersistentClassInfos");
-            }
-        }
-        
-=======
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData
 {
     [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "Name,Assembly")]
@@ -42,7 +21,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
         {
         }
 
->>>>>>> CodeDomApproachForWorldCreator
         private string _name;
         public string Name
         {
@@ -69,25 +47,16 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
         }
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]
-<<<<<<< HEAD
-        public Type Type {
-            get {
-                var singleOrDefault = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => new AssemblyName(assembly.FullName + "").Name == Assembly).SingleOrDefault();
-                if (singleOrDefault!= null)
-=======
         public Type Type
         {
             get
             {
                 var singleOrDefault = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => new AssemblyName(assembly.FullName + "").Name == Assembly).SingleOrDefault();
                 if (singleOrDefault != null)
->>>>>>> CodeDomApproachForWorldCreator
                     return singleOrDefault.GetType(Name);
                 return null;
             }
         }
-<<<<<<< HEAD
-=======
 
         [Association("PersistentClassInfos-Interfaces")]
         public XPCollection<PersistentClassInfo> PersistentClassInfos {
@@ -98,6 +67,5 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
             get { return new ListConverter<IPersistentClassInfo,PersistentClassInfo>(PersistentClassInfos); }
         }
 
->>>>>>> CodeDomApproachForWorldCreator
     }
 }

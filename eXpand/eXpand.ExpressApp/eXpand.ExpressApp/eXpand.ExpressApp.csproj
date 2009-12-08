@@ -306,6 +306,9 @@
     <None Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="SystemModule\AllowEditDetailViewController.Designer.cs.orig" />
+    <None Include="SystemModule\BaseViewController.cs.orig" />
+    <None Include="SystemModule\FilterController.cs.orig" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -4,12 +4,6 @@ using System.Data;
 using System.Linq;
 using eXpand.Persistent.Base.PersistentMetaData;
 
-<<<<<<< HEAD:eXpand/eXpand.ExpressApp.Modules/WorldCreator/ClassTypeBuilder/TypesInfo.cs
-namespace eXpand.ExpressApp.WorldCreator.ClassTypeBuilder {
-    public class TypesInfo : ITypesInfo {
-        public TypesInfo(IEnumerable<Type> types) {
-            PersistentTypesInfoType = GetInfoType(types, typeof(IPersistentClassInfo));
-=======
 namespace eXpand.ExpressApp.WorldCreator.Core {
     public class TypesInfo  {
         public TypesInfo(IEnumerable<Type> types) {
@@ -19,7 +13,6 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             PersistentCoreTypeInfoType = GetInfoType(types, typeof(IPersistentCoreTypeMemberInfo));
             PersistentTypesInfoType = GetInfoType(types, typeof(IPersistentClassInfo));
             PersistentReferenceInfoType = GetInfoType(types, typeof(IPersistentReferenceMemberInfo));
->>>>>>> CodeDomApproachForWorldCreator:eXpand/eXpand.ExpressApp.Modules/WorldCreator/Core/TypesInfo.cs
             ExtendedCollectionMemberInfoType = GetInfoType(types, typeof(IExtendedCollectionMemberInfo));
             ExtendedReferenceMemberInfoType = GetInfoType(types, typeof(IExtendedReferenceMemberInfo));
             ExtendedCoreMemberInfoType = GetInfoType(types, typeof(IExtendedCoreTypeMemberInfo));
@@ -34,12 +27,6 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         }
 
         public Type PersistentTypesInfoType { get; private set; }
-<<<<<<< HEAD:eXpand/eXpand.ExpressApp.Modules/WorldCreator/ClassTypeBuilder/TypesInfo.cs
-        public Type ExtendedReferenceMemberInfoType { get; private set; }
-        public Type ExtendedCollectionMemberInfoType { get; private set; }    
-        public Type ExtendedCoreMemberInfoType { get; private set; }
-        public Type IntefaceInfoType { get; private set; }    
-=======
 
 
         public Type PersistentAssemblyInfoType { get; private set; }
@@ -51,6 +38,5 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public Type IntefaceInfoType { get; private set; }
         public Type CodeTemplateType { get; private set; }
         public Type TemplateInfoType { get; private set; }
->>>>>>> CodeDomApproachForWorldCreator:eXpand/eXpand.ExpressApp.Modules/WorldCreator/Core/TypesInfo.cs
     }
 }
