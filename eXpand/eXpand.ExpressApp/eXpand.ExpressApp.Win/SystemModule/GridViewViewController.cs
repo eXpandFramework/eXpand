@@ -11,6 +11,7 @@ using eXpand.ExpressApp.SystemModule;
 using GridListEditor = DevExpress.ExpressApp.Win.Editors.GridListEditor;
 using System.Linq;
 using NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition;
+using DevExpress.XtraGrid.Columns;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
@@ -22,7 +23,9 @@ namespace eXpand.ExpressApp.Win.SystemModule
         public const string DoNotLoadWhenNoFilterExists = "DoNotLoadWhenNoFilterExists";
         public const string EditorShowModeAttributeName = "EditorShowMode";
         public const string EnterMoveNextColumn = "EnterMoveNextColumn";
-
+        public const string AutoFilterCondition = "AutoFilterCondition";
+        public const string GuessAutoFilterRowValuesFromFilter = "GuessAutoFilterRowValuesFromFilter";
+        public const string ImmediateUpdateAutoFilter = "ImmediateUpdateAutoFilter";
         public const string ExtraSerializationProperties = "ExtraSerializationProperties";
         public const string GroupLevelExpandIndex = "GroupLevelExpandIndex";
         public const string HideFieldCaptionOnGroup = "HideFieldCaptionOnGroup";
@@ -52,12 +55,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             base.OnActivated();
 
-
-
-
             View.ControlsCreated += View_OnControlsCreated;
-
-
 
             model = new ListViewInfoNodeWrapper(View.Info);
         }
@@ -83,6 +81,13 @@ namespace eXpand.ExpressApp.Win.SystemModule
             {
                 wrapper.Node.SetAttribute(IsColumnHeadersVisible, true.ToString());
                 wrapper.Node.SetAttribute(UseTabKey, true.ToString());
+                wrapper.Node.SetAttribute(GuessAutoFilterRowValuesFromFilter, true.ToString());
+
+                foreach (ColumnInfoNodeWrapper column in wrapper.Columns.Items.Where(wrapper2 => wrapper2.PropertyTypeInfo.Type == typeof(string)))
+                {
+                    column.Node.SetAttribute(AutoFilterCondition, DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains.ToString());
+                    column.Node.SetAttribute(ImmediateUpdateAutoFilter, false.ToString());
+                }
             }
 
             //            setFromXpDictionary(dictionary);
@@ -329,48 +334,24 @@ namespace eXpand.ExpressApp.Win.SystemModule
                     <Element Name=""Views"">
                         <Element Name=""ListView"" >
                             <Element Name=""Columns"">
-                                    <Element Name=""ColumnInfo"">
-                                        <Attribute Name=""" +
-                HideFieldCaptionOnGroup +
-                @""" Choice=""True,False""/>
-                                    </Element>  
-                                </Element>
-                            <Attribute Name=""" +
-                IsColumnHeadersVisible +
-                @""" Choice=""True,False""/>
-                            <Attribute Name=""" +
-                AllowExpandEmptyDetails +
-                @""" Choice=""False,True""/>
-                            <Attribute Name=""" +
-                AutoExpandNewRow +
-                @""" Choice=""False,True""/>
-                            <Attribute Name=""" +
-                EnterMoveNextColumn +
-                @""" Choice=""False,True""/>
-                
-                            
-                            <Attribute Name=""" +
-                ExtraSerializationProperties +
-                @""" />
-                            <Attribute Name=""" +
-                GroupLevelExpandIndex +
-                @""" Choice=""False,True""/>
-                            <Attribute Name=""" +
-                UseTabKey +
-                @""" Choice=""False,True""/>
-                            <Attribute Name=""" +
-                AutoSelectAllInEditorAttributeName +
-                @""" Choice=""False,True""/>
-                            <Attribute Name=""" +
-                SerializeFilterAttributeName +
-                @""" Choice=""False,True""/>
-                            <Attribute Name=""" +
-                DoNotLoadWhenNoFilterExists +
-                @""" Choice=""False,True""/>
-                            <Attribute Name=""" +
-                EditorShowModeAttributeName +
-                @""" Choice=""{" + typeof(EditorShowMode).FullName +
-                @"}""/>
+                                <Element Name=""ColumnInfo"">
+                                    <Attribute Name=""" + HideFieldCaptionOnGroup + @""" Choice=""True,False""/>
+                                    <Attribute Name=""" + AutoFilterCondition + @""" Choice=""{" + typeof(AutoFilterCondition).FullName + @"}""/>
+                                    <Attribute Name=""" + ImmediateUpdateAutoFilter + @""" Choice=""True,False""/>
+                                </Element>  
+                            </Element>
+                            <Attribute Name=""" + IsColumnHeadersVisible + @""" Choice=""True,False""/>
+                            <Attribute Name=""" + AllowExpandEmptyDetails + @""" Choice=""False,True""/>
+                            <Attribute Name=""" + AutoExpandNewRow + @""" Choice=""False,True""/>
+                            <Attribute Name=""" + EnterMoveNextColumn + @""" Choice=""False,True""/>
+                            <Attribute Name=""" + ExtraSerializationProperties + @""" />
+                            <Attribute Name=""" + GroupLevelExpandIndex + @""" Choice=""False,True""/>
+                            <Attribute Name=""" + UseTabKey + @""" Choice=""False,True""/>
+                            <Attribute Name=""" + AutoSelectAllInEditorAttributeName + @""" Choice=""False,True""/>
+                            <Attribute Name=""" + SerializeFilterAttributeName + @""" Choice=""False,True""/>
+                            <Attribute Name=""" + DoNotLoadWhenNoFilterExists + @""" Choice=""False,True""/>
+                            <Attribute Name=""" + EditorShowModeAttributeName + @""" Choice=""{" + typeof(EditorShowMode).FullName + @"}""/>
+                            <Attribute Name=""" + GuessAutoFilterRowValuesFromFilter + @""" Choice=""False,True""/>
                         </Element>
                     </Element>
                     </Element>";
@@ -434,12 +415,31 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 listViewInfoNodeWrapper.Node.GetAttributeEnumValue(EditorShowModeAttributeName,
                                                                    EditorShowMode.MouseUp);
             gridView.OptionsView.ShowFooter = listViewInfoNodeWrapper.Node.GetAttributeBoolValue(GridListEditor.IsFooterVisible, true);
+
+            SetColumnOptions(gridView, listViewInfoNodeWrapper);
+
+            if (listViewInfoNodeWrapper.ShowAutoFilterRow && listViewInfoNodeWrapper.Node.GetAttributeBoolValue(GuessAutoFilterRowValuesFromFilter))
+            {
+                gridView.GuessAutoFilterRowValuesFromFilter();
+            }
+        }
+
+        public static void SetColumnOptions(GridView gridView, ListViewInfoNodeWrapper listViewInfoNodeWrapper)
+        {
+            foreach (GridColumn column in gridView.Columns)
+            {
+                ColumnInfoNodeWrapper columnInfo = listViewInfoNodeWrapper.Columns.FindColumnInfo(column.FieldName.Replace("!", string.Empty));
+                if (columnInfo != null)
+                {
+                    column.OptionsFilter.AutoFilterCondition = columnInfo.GetEnumValue<AutoFilterCondition>(AutoFilterCondition, column.OptionsFilter.AutoFilterCondition);
+                    column.OptionsFilter.ImmediateUpdateAutoFilter = columnInfo.Node.GetAttributeBoolValue(ImmediateUpdateAutoFilter);
+                }
+            }
         }
 
         private void GridControl_OnHandleCreated(object sender, EventArgs e)
         {
             mainView.GridControl.ForceInitialize();
-
 
             string value = View.Info.GetAttributeValue(GroupLevelExpandIndex);
             if (!string.IsNullOrEmpty(value))
