@@ -1,3 +1,4 @@
+using DevExpress.ExpressApp.CloneObject;
 using DevExpress.ExpressApp.ConditionalEditorState;
 
 namespace eXpand.ExpressApp.WorldCreator
@@ -30,6 +31,7 @@ namespace eXpand.ExpressApp.WorldCreator
         /// </summary>
         private void InitializeComponent()
         {
+            this.RequiredModuleTypes.Add(typeof(CloneObjectModule));
             this.RequiredModuleTypes.Add(typeof(ConditionalEditorStateModuleBase));
         }
 

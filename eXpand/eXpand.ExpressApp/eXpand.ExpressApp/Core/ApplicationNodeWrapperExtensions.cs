@@ -18,6 +18,8 @@ namespace eXpand.ExpressApp.Core
         }
 
         static List<Type> GetHierarchryList(Type type) {
+            if (type== null)
+                return new List<Type>();
             var list = new List<Type> {type};
             Type baseType = type.BaseType;
             while (typeof (IXPSimpleObject).IsAssignableFrom(baseType) &&baseType.GetCustomAttributes(typeof (NonPersistentAttribute), false).Count() == 0) {

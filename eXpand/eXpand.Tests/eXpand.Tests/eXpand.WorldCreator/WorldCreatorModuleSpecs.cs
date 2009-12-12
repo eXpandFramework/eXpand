@@ -13,6 +13,7 @@ using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
+using System.Linq;
 
 namespace eXpand.Tests.eXpand.WorldCreator
 {
@@ -86,7 +87,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         It should_contain_dynamic_modules_within_Application_Modules_collection =
             () => _modulesAdded.ShouldBeTrue();
 
-        It should_not_load_modelDiffs_from_dynamic_assemblies; //= () => loadDiffs.ShouldBeTrue();
+        
 
         It should_create_Existent_Classes_Member = () => existentCreated.ShouldBeTrue();
     }
@@ -107,11 +108,9 @@ namespace eXpand.Tests.eXpand.WorldCreator
                                         Application = Isolate.Fake.Instance<XafApplication>(Members.CallOriginal)
                                     };
             Isolate.WhenCalled(() => wcModule.DefinedModules).WillReturn(new List<Type> { typeof(ExtendedCoreTypeMemberInfo) });
-            dictionary =ApplicationNodeWrapperExtensions.Create(new[] {
-                                                                  typeof (ExtendedCoreTypeMemberInfo),
-                                                                  typeof (ExtendedReferenceMemberInfo),
-                                                                  typeof (ExtendedCollectionMemberInfo)
-                                                              }).Dictionary;
+
+            var types = TypesInfo.Instance.GetType().GetProperties().Where(propertyInfo => propertyInfo.PropertyType==typeof(Type)).Select(info =>((Type)info.GetValue(TypesInfo.Instance,null)));
+            dictionary = ApplicationNodeWrapperExtensions.Create(types.ToArray()).Dictionary;
 
             AssemblyResourceImageSource.CreateAssemblyResourceImageSourceNode(dictionary.RootNode.GetChildNode("ImageSources"), new AssemblyName(typeof(ExtendedCoreTypeMemberInfo).Assembly.FullName+"").Name);
         };
@@ -125,6 +124,11 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
         It should_remove_dynamic_assemblies_from_Assemblies_image_Node =
             () => dictionary.RootNode.GetChildNode("ImageSources").ChildNodes.Count.ShouldEqual(0);
+
+        It should_enable_cloning_for_all_persistent_classes =
+            () =>
+            new ApplicationNodeWrapper(dictionary).BOModel.FindClassByType(typeof (PersistentClassInfo)).Node.
+                GetAttributeBoolValue("IsClonable").ShouldBeTrue(); 
     }
     [Subject(typeof(WorldCreatorModule))]
     [Isolated]

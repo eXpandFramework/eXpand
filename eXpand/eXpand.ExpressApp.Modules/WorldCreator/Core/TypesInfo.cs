@@ -6,7 +6,21 @@ using DevExpress.Persistent.Base;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.ExpressApp.WorldCreator.Core {
-    public class TypesInfo  {
+    public interface ITypesInfo {
+        Type PersistentTypesInfoType { get; }
+        Type PersistentAssemblyInfoType { get; }
+        Type CodeTemplateInfoType { get; }
+        Type PersistentCoreTypeInfoType { get; }
+        Type PersistentReferenceInfoType { get; }
+        Type ExtendedReferenceMemberInfoType { get; }
+        Type ExtendedCollectionMemberInfoType { get; }
+        Type ExtendedCoreMemberInfoType { get; }
+        Type IntefaceInfoType { get; }
+        Type CodeTemplateType { get; }
+        Type TemplateInfoType { get; }
+    }
+
+    public class TypesInfo : ITypesInfo {
         internal TypesInfo() {
             
         }

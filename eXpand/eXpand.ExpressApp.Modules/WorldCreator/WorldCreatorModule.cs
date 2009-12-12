@@ -78,6 +78,16 @@ namespace eXpand.ExpressApp.WorldCreator
             if (Application != null) {
                 ShowOwnerForExtendedMembers(model);
                 removeDynamicAssemblyFromImageSources(model);
+                enableCloning(model);
+            }
+        }
+
+        void enableCloning(Dictionary model) {
+
+            foreach (var propertyInfo in typeof(ITypesInfo).GetProperties()){
+                var type = (Type) propertyInfo.GetValue(TypesInfo.Instance,null);
+                var classInfoNodeWrapper = new ApplicationNodeWrapper(model).BOModel.FindClassByType(type);
+                classInfoNodeWrapper.Node.SetAttribute("IsClonable", true);                
             }
         }
 
