@@ -31,7 +31,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Queries
 
         public override UserModelDifferenceObject GetActiveModelDifference(string applicationName)
         {
-            var queryable = this.GetActiveModelDifferences(applicationName).OfType<UserModelDifferenceObject>();
+            var queryable = GetActiveModelDifferences(applicationName).OfType<UserModelDifferenceObject>();
             return queryable.ToList().Where(o => o.Fit(UsersContainsOperator)).FirstOrDefault();
         }
     }

@@ -1,6 +1,6 @@
 namespace eXpand.ExpressApp.WorldCreator.Controllers
 {
-    partial class PopulateInterfacesController
+    partial class _PeristentTypeInfoController
     {
         /// <summary>
         /// Required designer variable.

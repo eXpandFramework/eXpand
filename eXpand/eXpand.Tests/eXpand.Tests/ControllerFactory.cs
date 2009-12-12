@@ -6,6 +6,7 @@ using TypeMock;
 using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests{
+
     public class ControllerFactory<TController,TObject> where TController:ViewController, new() {
         private const string STR_ControllerFactory = "ControllerFactory";
         TController _controller;

@@ -8,14 +8,14 @@ using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.WorldCreator.Core {
     public static class PersistentClassInfoExtensions {
-        public static void CreateMembersFromInterfaces(this IPersistentClassInfo classInfo, TypesInfo typesInfo) {
+        public static void CreateMembersFromInterfaces(this IPersistentClassInfo classInfo) {
             foreach (IInterfaceInfo interfaceInfo in classInfo.Interfaces) {
                 foreach (PropertyInfo propertyInfo in interfaceInfo.Type.GetProperties()) {
                     PropertyInfo info1 = propertyInfo;
                     bool propertyNotExists =
                         classInfo.OwnMembers.Where(info => info.Name == info1.Name).FirstOrDefault() == null;
                     if (propertyNotExists) {
-                        IPersistentMemberInfo persistentMemberInfo = GetPersistentMemberInfo(classInfo, propertyInfo,typesInfo,interfaceInfo);
+                        IPersistentMemberInfo persistentMemberInfo = GetPersistentMemberInfo(classInfo, propertyInfo,TypesInfo.Instance,interfaceInfo);
                         classInfo.OwnMembers.Add(persistentMemberInfo);
                     }
                 }
@@ -27,7 +27,8 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             Type memberInfoType = GetMemberInfoType(propertyInfo.PropertyType, typesInfo);
             var persistentMemberInfo =
                 ((IPersistentMemberInfo) Activator.CreateInstance(memberInfoType, classInfo.Session));
-
+            persistentMemberInfo.CodeTemplateInfo =
+                (ICodeTemplateInfo) Activator.CreateInstance(TypesInfo.Instance.CodeTemplateInfoType, classInfo.Session);
             ICodeTemplate defaultTemplate = CodeTemplateBuilder.CreateDefaultTemplate(TemplateType.InterfaceReadWriteMember, persistentMemberInfo.Session,
                                                                                       typesInfo.CodeTemplateType,
                                                                                       classInfo.PersistentAssemblyInfo.CodeDomProvider);

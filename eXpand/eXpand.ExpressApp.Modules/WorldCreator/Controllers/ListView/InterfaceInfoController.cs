@@ -9,11 +9,11 @@ using DevExpress.Persistent.Base;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Utils.Helpers;
 
-namespace eXpand.ExpressApp.WorldCreator {
-    public class PopulateInterfacesController : ViewController<ListView> {
+namespace eXpand.ExpressApp.WorldCreator.Controllers.ListView {
+    public class InterfaceInfoController : ViewController<DevExpress.ExpressApp.ListView> {
         public const string InterfaceSourcesAttributeName = "InterfaceSources";
 
-        public PopulateInterfacesController() {
+        public InterfaceInfoController() {
             TargetObjectType = typeof (IInterfaceInfo);
             var populateInterfaces = new SimpleAction(Container) {
                                                                      Caption = "Populate",
@@ -22,7 +22,6 @@ namespace eXpand.ExpressApp.WorldCreator {
                                                                  };
             populateInterfaces.Execute += PopulateInterfacesOnExecute;
             Actions.Add(populateInterfaces);
-            TargetViewType = ViewType.ListView;
         }
 
         void PopulateInterfacesOnExecute(object sender, SimpleActionExecuteEventArgs args) {

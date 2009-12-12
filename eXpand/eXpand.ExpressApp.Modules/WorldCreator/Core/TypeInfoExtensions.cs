@@ -4,13 +4,15 @@ using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.ExpressApp.WorldCreator.Core {
     public static class TypeInfoExtensions {
-        public static void Init(this IPersistentTypeInfo persistentTypeInfo, Type codeTemplateType) {
-            if (persistentTypeInfo is IPersistentMemberInfo) {
-                var persistentMemberInfo = ((IPersistentMemberInfo) persistentTypeInfo);
+        public static void Init(this IPersistentTemplatedTypeInfo persistentTemplatedTypeInfo, Type codeTemplateType) {
+            persistentTemplatedTypeInfo.CodeTemplateInfo = (ICodeTemplateInfo)Activator.CreateInstance(TypesInfo.Instance.CodeTemplateInfoType,
+                                                                                                persistentTemplatedTypeInfo.Session);
+            if (persistentTemplatedTypeInfo is IPersistentMemberInfo) {
+                var persistentMemberInfo = ((IPersistentMemberInfo) persistentTemplatedTypeInfo);
                 persistentMemberInfo.Init(codeTemplateType,persistentMemberInfo.Owner.PersistentAssemblyInfo.CodeDomProvider);
             }
-            else if (persistentTypeInfo is IPersistentClassInfo) {
-                var persistentClassInfo = ((IPersistentClassInfo) persistentTypeInfo);
+            else if (persistentTemplatedTypeInfo is IPersistentClassInfo) {
+                var persistentClassInfo = ((IPersistentClassInfo) persistentTemplatedTypeInfo);
                 persistentClassInfo.Init(codeTemplateType,persistentClassInfo.PersistentAssemblyInfo.CodeDomProvider);
             }
         }
@@ -23,6 +25,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         }
 
         public static void Init(this IPersistentClassInfo persistentClassInfo, Type codeTemplateType, CodeDomProvider codeDomProvider) {
+            
             persistentClassInfo.CodeTemplateInfo.CodeTemplate = CodeTemplateBuilder.CreateDefaultTemplate(TemplateType.Class, persistentClassInfo.Session, codeTemplateType, codeDomProvider);
         }
     }

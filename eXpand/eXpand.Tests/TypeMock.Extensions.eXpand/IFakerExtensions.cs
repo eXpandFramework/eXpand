@@ -1,4 +1,5 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -24,12 +25,6 @@ namespace TypeMock.Extensions.eXpand{
             XafTypesInfo.Instance.RegisterEntity(securityComplex.RoleType);
             XafTypesInfo.Instance.RegisterEntity(securityComplex.UserType);
             return securityComplex;
-        }
-        public static T InstanceWithNonPublicNonIsolated<T>(this IFaker faker,ObjectSpace objectSpace) where T:ViewController
-        {
-            var instanceWithNonPublicNonIsolated = faker.InstanceWithNonPublicNonIsolated<T>();
-            Isolate.WhenCalled(() => instanceWithNonPublicNonIsolated.View.ObjectSpace).WillReturn(objectSpace);
-            return instanceWithNonPublicNonIsolated;
         }
     }
 }

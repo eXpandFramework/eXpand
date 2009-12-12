@@ -14,11 +14,12 @@ using Microsoft.VisualBasic;
 using CodeDomProvider = eXpand.Persistent.Base.PersistentMetaData.CodeDomProvider;
 
 namespace eXpand.ExpressApp.WorldCreator.Core {
-    public static class CompileEngine
+    public class CompileEngine
     {
         static readonly List<Assembly> CompiledAssemblies=new List<Assembly>();
+        
 
-        public static Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo)
+        public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo)
         {
             var generateCode = CodeEngine.GenerateCode(persistentAssemblyInfo) ;
             generateCode += getModuleCode(persistentAssemblyInfo.Name) + Environment.NewLine;
@@ -90,6 +91,31 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         internal static string getModuleCode(string assemblyName)
         {
             return "namespace " +assemblyName+ "{public class Dynamic" + assemblyName + "Module:DevExpress.ExpressApp.ModuleBase{}}";
+        }
+
+        public List<Type> CompileModules(IList<IPersistentAssemblyInfo> persistentAssemblyInfos) {
+
+            var definedModules = new List<Type>();
+            
+            foreach (IPersistentAssemblyInfo persistentAssemblyInfo in persistentAssemblyInfos) {
+                string path = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath),persistentAssemblyInfo.Name);
+                if (File.Exists(path+".dll"))
+                    File.Delete(path+".dll");
+                persistentAssemblyInfo.CompileErrors = null;
+                Type compileModule = CompileModule(persistentAssemblyInfo);    
+                
+                if (compileModule != null) {
+                    definedModules.Add(compileModule);
+                }
+                else if (File.Exists(path)) {
+                    var fileInfo=new FileInfo(path);
+                    fileInfo.CopyTo(path+".dll");
+                    Assembly assembly = Assembly.LoadFile(path+".dll");
+                    Type single = assembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
+                    definedModules.Add(single);
+                }
+            }
+            return definedModules;
         }
     }
 }

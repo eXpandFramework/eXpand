@@ -15,18 +15,18 @@ namespace eXpand.Tests.eXpand.WorldCreator
 {
 
     [Subject(typeof(CompileEngine))][Isolated]
-    public class When_cannot_compile_a_dynamic_module:With_In_Memory_DataStore {
+    public class When_cannot_compile_a_dynamic_module {
         static IPersistentAssemblyInfo _persistentAssemblyInfo;
 
         Establish context = () => {
-            _persistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession);
+            new TestAppLication<PersistentAssemblyInfo>().Setup(null,info => _persistentAssemblyInfo=info);
             Isolate.WhenCalled(() => CodeEngine.GenerateCode(_persistentAssemblyInfo)).WillReturn("1111");
         };
 
         static Exception _exception;
 
         Because of = () => {
-            _exception = Catch.Exception(() => CompileEngine.CompileModule(_persistentAssemblyInfo));
+            _exception = Catch.Exception(() => new CompileEngine().CompileModule(_persistentAssemblyInfo));
         };
 
         It should_swallow_exception=() => _exception.ShouldBeNull();
@@ -35,7 +35,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
     [Subject(typeof(CompileEngine), "specs")]
     [Isolated]
-    public class When_compiling_a_dynamic_assembly:With_In_Memory_DataStore
+    public class When_compiling_a_dynamic_assembly
     {
         static Type type;
         static IPersistentAssemblyInfo _persistentAssemblyInfo;
@@ -47,7 +47,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             Isolate.WhenCalled(() => CodeEngine.GenerateCode(Isolate.Fake.Instance<IPersistentClassInfo>())).WillReturn(@"public class TestClass:" +typeof(XPBaseObject).FullName+ @"{}");
         };
 
-        Because of = () => {type=CompileEngine.CompileModule(_persistentAssemblyInfo);};
+        Because of = () => {type=new CompileEngine().CompileModule(_persistentAssemblyInfo);};
 
         It should_not_contain_any_compilation_error = () => _persistentAssemblyInfo.CompileErrors.ShouldEqual("");
 
@@ -58,25 +58,27 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
 
     [Subject(typeof(CompileEngine), "specs")]
-    public class When_compiling_class_with_members:With_In_Memory_DataStore {
+    public class When_compiling_class_with_members {
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         static Type _compileModule;
 
         Establish context = () => {
-            var classCodeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.Class};
+            new TestAppLication<PersistentAssemblyInfo>().Setup(null,info => _persistentAssemblyInfo=info);
+            var persistentAssociationAttribute = _persistentAssemblyInfo.Session;
+            var classCodeTemplate = new CodeTemplate(persistentAssociationAttribute){TemplateType = TemplateType.Class};
             classCodeTemplate.SetDefaults();
-            _persistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession){Name = "TestAssembly"};
-            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) {Name = "TestClass", CodeTemplateInfo = {TemplateInfo = classCodeTemplate},PersistentAssemblyInfo = _persistentAssemblyInfo};
+            _persistentAssemblyInfo = new PersistentAssemblyInfo(persistentAssociationAttribute){Name = "TestAssembly"};
+            var persistentClassInfo = new PersistentClassInfo(persistentAssociationAttribute) {Name = "TestClass", CodeTemplateInfo =new CodeTemplateInfo(persistentAssociationAttribute) {TemplateInfo = classCodeTemplate},PersistentAssemblyInfo = _persistentAssemblyInfo};
 
-            var memberCodeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.ReadWriteMember};
+            var memberCodeTemplate = new CodeTemplate(persistentAssociationAttribute){TemplateType = TemplateType.ReadWriteMember};
             memberCodeTemplate.SetDefaults();
-            new PersistentCoreTypeMemberInfo(Session.DefaultSession){Name = "Property",CodeTemplateInfo = {TemplateInfo = memberCodeTemplate},Owner = persistentClassInfo};
-            new PersistentReferenceMemberInfo(Session.DefaultSession){Name = "RefProperty",CodeTemplateInfo = {TemplateInfo = memberCodeTemplate},Owner = persistentClassInfo,ReferenceType = typeof(User)};
-            new PersistentCollectionMemberInfo(Session.DefaultSession) { Name = "CollProperty", CodeTemplateInfo = { TemplateInfo = memberCodeTemplate }, Owner = persistentClassInfo, CollectionType = typeof(User) };
+            new PersistentCoreTypeMemberInfo(persistentAssociationAttribute){Name = "Property",CodeTemplateInfo =new CodeTemplateInfo(persistentAssociationAttribute) {TemplateInfo = memberCodeTemplate},Owner = persistentClassInfo};
+            new PersistentReferenceMemberInfo(persistentAssociationAttribute){Name = "RefProperty",CodeTemplateInfo=new CodeTemplateInfo(persistentAssociationAttribute)  {TemplateInfo = memberCodeTemplate},Owner = persistentClassInfo,ReferenceType = typeof(User)};
+            new PersistentCollectionMemberInfo(persistentAssociationAttribute) { Name = "CollProperty", CodeTemplateInfo =new CodeTemplateInfo(persistentAssociationAttribute) { TemplateInfo = memberCodeTemplate }, Owner = persistentClassInfo, CollectionType = typeof(User) };
         };
 
-        Because of = () => { _compileModule = CompileEngine.CompileModule(_persistentAssemblyInfo); };
+        Because of = () => { _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo); };
 
         It should_have_no_compile_errors = () => _persistentAssemblyInfo.CompileErrors.ShouldBeNull();
         It should_generate_class_type = () => _compileModule.Assembly.GetTypes().Count().ShouldEqual(2);
@@ -92,15 +94,17 @@ namespace eXpand.Tests.eXpand.WorldCreator
             };
     }
     [Subject(typeof(CompileEngine), "specs")]
-    public class When_PersistentClassInfo_BaseType_Belongs_to_different_assemmbly:With_In_Memory_DataStore {
-        static IPersistentAssemblyInfo _persistentAssemblyInfo;
+    public class When_PersistentClassInfo_BaseType_Belongs_to_different_assemmbly {
+        static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         static Type _compileModule;
 
         Establish context = () => {
-            _persistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession){Name = "TestAssembly"};
-            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession){Name = "TestClass",BaseType = typeof(User)};
-            var codeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.Class};
+            new TestAppLication<PersistentAssemblyInfo>().Setup(null, info => _persistentAssemblyInfo = info);
+            _persistentAssemblyInfo.Name = "TestAssembly";
+            var unitOfWork = _persistentAssemblyInfo.Session;
+            var persistentClassInfo = new PersistentClassInfo(unitOfWork){Name = "TestClass",BaseType = typeof(User),CodeTemplateInfo = new CodeTemplateInfo(unitOfWork)};
+            var codeTemplate = new CodeTemplate(unitOfWork){TemplateType = TemplateType.Class};
             codeTemplate.SetDefaults();
             persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
             _persistentAssemblyInfo.PersistentClassInfos.Add(persistentClassInfo);
@@ -108,7 +112,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         };
 
         Because of = () => {
-            _compileModule = CompileEngine.CompileModule(_persistentAssemblyInfo);
+            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo);
         };
 
         It should_compile_with_no_errors = () => {
@@ -122,14 +126,16 @@ namespace eXpand.Tests.eXpand.WorldCreator
                 ShouldNotBeNull();
     }
     [Subject(typeof(CompileEngine), "specs")]
-    public class When_PersistentClassInfo_BaseType_Belongs_to_same_assemmbly:With_In_Memory_DataStore {
-        static IPersistentAssemblyInfo _persistentAssemblyInfo;
+    public class When_PersistentClassInfo_BaseType_Belongs_to_same_assemmbly {
+        static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         static Type _compileModule;
         Establish context = () => {
-            _persistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession){Name = "TestAssembly"};
-            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession){Name = "TestClass",BaseType = typeof(User)};
-            var codeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.Class};
+            new TestAppLication<PersistentAssemblyInfo>().Setup(null, info => _persistentAssemblyInfo = info);
+            var unitOfWork = _persistentAssemblyInfo.Session;
+            _persistentAssemblyInfo = new PersistentAssemblyInfo(unitOfWork){Name = "TestAssembly"};
+            var persistentClassInfo = new PersistentClassInfo(unitOfWork){Name = "TestClass",BaseType = typeof(User),CodeTemplateInfo = new CodeTemplateInfo(unitOfWork)};
+            var codeTemplate = new CodeTemplate(unitOfWork){TemplateType = TemplateType.Class};
             codeTemplate.SetDefaults();
             persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
             _persistentAssemblyInfo.PersistentClassInfos.Add(persistentClassInfo);
@@ -137,7 +143,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         };
 
         Because of = () => {
-            _compileModule = CompileEngine.CompileModule(_persistentAssemblyInfo);
+            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo);
         };
 
         It should_compile_with_no_errors = () => {
@@ -151,5 +157,4 @@ namespace eXpand.Tests.eXpand.WorldCreator
                 ShouldNotBeNull();
     }
 
-    
 }

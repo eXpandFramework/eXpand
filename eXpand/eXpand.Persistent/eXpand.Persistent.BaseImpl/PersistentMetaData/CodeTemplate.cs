@@ -28,7 +28,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         [VisibleInLookupListView(true)]
-        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThan, 0)]
+        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.NotEquals, TemplateType.None)]
         public TemplateType TemplateType {
             get { return _templateType; }
             set { SetPropertyValue("TemplateType", ref _templateType, value); }

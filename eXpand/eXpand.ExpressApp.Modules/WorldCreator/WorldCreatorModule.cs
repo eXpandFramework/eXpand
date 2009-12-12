@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core.DictionaryHelpers;
@@ -18,77 +17,57 @@ namespace eXpand.ExpressApp.WorldCreator
     public sealed partial class WorldCreatorModule : ModuleBase
     {
         
-//        private Type _dynamicModuleType;
-//        private ITypesInfo _typesInfo;
-//        private TypeCreator _typeCreator;
-//        private UnitOfWork _unitOfWork;
-//        private string _connectionString;
-
         public WorldCreatorModule(){
             InitializeComponent();
         }
         string _connectionString;
-        TypesInfo _typesInfo;
-        readonly List<Type> _definedModules=new List<Type>();
+//        TypesInfo _typesInfo;
+        List<Type> _definedModules;
 
-        public List<Type> DefinedModules
-        {
+        public List<Type> DefinedModules {
             get { return _definedModules; }
         }
 
-        public TypesInfo TypesInfo
-        {
-            get { return _typesInfo; }
-        }
+
+//        public TypesInfo TypesInfo
+//        {
+//            get { return _typesInfo; }
+//        }
 
         public override void Setup(ApplicationModulesManager moduleManager)
         {
             base.Setup(moduleManager);
-            _typesInfo = new TypesInfo(GetAdditionalClasses());
+            TypesInfo.Instance.AddTypes(GetAdditionalClasses());            
+
+
             var unitOfWork = new UnitOfWork { ConnectionString = _connectionString };
-            
+            AddDynamicModules(moduleManager, unitOfWork, TypesInfo.Instance.PersistentAssemblyInfoType);
             Application.SetupComplete += (sender, args) => mergeTypes(unitOfWork);
-            CreateDynamicTypes(moduleManager, unitOfWork, _typesInfo.PersistentAssemblyInfoType);
             var existentTypesMemberCreator = new ExistentTypesMemberCreator();
-            existentTypesMemberCreator.CreateMembers(unitOfWork, _typesInfo);
+            existentTypesMemberCreator.CreateMembers(unitOfWork, TypesInfo.Instance);
+        }
+
+        public void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork, Type persistentAssemblyInfoType) {
+            
+            List<IPersistentAssemblyInfo> persistentAssemblyInfos =
+                new XPCollection(unitOfWork, persistentAssemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(info => !info.DoNotCompile).ToList();
+            _definedModules = new CompileEngine().CompileModules(persistentAssemblyInfos);
+            foreach (var definedModule in _definedModules){
+                moduleManager.AddModule(definedModule);
+            }
+            unitOfWork.CommitChanges();
         }
 
         void mergeTypes(UnitOfWork unitOfWork) {
             IEnumerable<Type> persistentTypes =
-                DefinedModules.Select(type => type.Assembly).SelectMany(
+                _definedModules.Select(type => type.Assembly).SelectMany(
                     assembly => assembly.GetTypes().Where(type => typeof (IXPSimpleObject).IsAssignableFrom(type)));
             IDbCommand dbCommand =
                 ((ISqlDataStore) XpoDefault.GetConnectionProvider(_connectionString,AutoCreateOption.DatabaseAndSchema)).CreateCommand();
-            new XpoObjectMerger().MergeTypes(unitOfWork, _typesInfo.PersistentTypesInfoType, persistentTypes.ToList(), dbCommand);
+            new XpoObjectMerger().MergeTypes(unitOfWork, persistentTypes.ToList(), dbCommand);
         }
 
 
-        public void CreateDynamicTypes(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork, Type persistentAssemblyInfoType) {
-            
-            List<IPersistentAssemblyInfo> collection =
-                new XPCollection(unitOfWork, persistentAssemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(info => !info.DoNotCompile).ToList();
-            foreach (IPersistentAssemblyInfo persistentAssemblyInfo in collection) {
-                string path = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath),persistentAssemblyInfo.Name);
-                if (File.Exists(path+".dll"))
-                    File.Delete(path+".dll");
-                persistentAssemblyInfo.CompileErrors = null;
-                Type compileModule = CompileEngine.CompileModule(persistentAssemblyInfo);
-                if (compileModule != null) {
-                    _definedModules.Add(compileModule);
-                    moduleManager.AddModule(compileModule, false);
-                }
-                else if (File.Exists(path)) {
-                    
-                    var fileInfo=new FileInfo(path);
-                    fileInfo.CopyTo(path+".dll");
-                    Assembly assembly = Assembly.LoadFile(path+".dll");
-                    Type single = assembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
-                    _definedModules.Add(single);
-                    moduleManager.AddModule(single, false);
-                }
-            }
-            unitOfWork.CommitChanges();
-        }
 
         public IEnumerable<Type> GetAdditionalClasses() {
             return Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses);
@@ -113,9 +92,9 @@ namespace eXpand.ExpressApp.WorldCreator
         IEnumerable<ListViewInfoNodeWrapper> GetListViewInfoNodeWrappers(Dictionary dictionary) {
             var wrapper = new ApplicationNodeWrapper(dictionary);
             List<ListViewInfoNodeWrapper> wrappers =
-                wrapper.Views.GetListViews(TypesInfo.ExtendedReferenceMemberInfoType);
-            wrappers.AddRange(wrapper.Views.GetListViews(TypesInfo.ExtendedCollectionMemberInfoType));
-            wrappers.AddRange(wrapper.Views.GetListViews(TypesInfo.ExtendedCoreMemberInfoType));
+                wrapper.Views.GetListViews(TypesInfo.Instance.ExtendedReferenceMemberInfoType);
+            wrappers.AddRange(wrapper.Views.GetListViews(TypesInfo.Instance.ExtendedCollectionMemberInfoType));
+            wrappers.AddRange(wrapper.Views.GetListViews(TypesInfo.Instance.ExtendedCoreMemberInfoType));
             return wrappers;
         }
 

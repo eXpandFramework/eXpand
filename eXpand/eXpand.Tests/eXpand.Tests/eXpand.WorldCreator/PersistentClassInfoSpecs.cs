@@ -1,23 +1,30 @@
 ﻿using DevExpress.Xpo;
-using eXpand.ExpressApp.WorldCreator.Core;
+using eXpand.ExpressApp.WorldCreator;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using Machine.Specifications;
+using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.eXpand.WorldCreator {
+
     [Subject(typeof(PersistentClassInfo), "Initialization")]
-    public class When_initializing_a_PersistentClassInfo_and_default_template_exists:With_In_Memory_DataStore {
+    public class When_creating_PersistentClassInfo_and_default_template_exists : With_Isolations{
+        static IFrameCreationHandler frameCreationHandler;
         static PersistentClassInfo _persistentClassInfo;
 
         static CodeTemplate _codeTemplate;
 
         Establish context = () => {
-            _persistentClassInfo = new PersistentClassInfo(Session.DefaultSession);
-            _codeTemplate = new CodeTemplate(Session.DefaultSession){IsDefault = true,TemplateType = TemplateType.Class};
-            _codeTemplate.Save();            
+            var artifactHandler = new TestAppLication<PersistentClassInfo>().Setup(null, info => {
+                _persistentClassInfo=info;
+                info.PersistentAssemblyInfo=new PersistentAssemblyInfo(info.Session);
+            });
+            _codeTemplate = new CodeTemplate(new Session(artifactHandler.UnitOfWork.DataLayer)) { IsDefault = true, TemplateType = TemplateType.Class };
+            _codeTemplate.Save();
+            frameCreationHandler = artifactHandler.WithArtiFacts(() => new[]{typeof(WorldCreatorModule)}).CreateDetailView();
         };
 
-        Because of = () => _persistentClassInfo.Init(typeof(CodeTemplate), CodeDomProvider.CSharp);
+        Because of = () => frameCreationHandler.CreateFrame();
 
         It should_assign_that_template_to_classInfo =
             () =>
@@ -25,36 +32,40 @@ namespace eXpand.Tests.eXpand.WorldCreator {
                 ShouldNotBeNull();
     }
     [Subject(typeof(PersistentClassInfo), "Initialization")]
-    public class When_initializing_a_PersistentClassInfo : With_In_Memory_DataStore
+    public class When_creating_a_PersistentClassInfo :With_Isolations
     {
 
 
         static PersistentClassInfo _persistentClassInfo;
 
+        static IFrameCreationHandler _frameCreationHandler;
         static CodeTemplate _codeTemplate;
 
         Establish context = () =>
         {
-            _persistentClassInfo = new PersistentClassInfo(Session.DefaultSession);
+
+            var artifactHandler = new TestAppLication<PersistentClassInfo>().Setup(null, info => {
+                _persistentClassInfo = info;
+                info.PersistentAssemblyInfo = new PersistentAssemblyInfo(info.Session);
+            });
+            _frameCreationHandler = artifactHandler.WithArtiFacts(() => new[]{typeof(WorldCreatorModule)})            .CreateDetailView();
         };
 
-        Because of = () =>
-        {
-            _persistentClassInfo.Init(typeof(CodeTemplate), CodeDomProvider.CSharp);
-            _persistentClassInfo.Save();
-        };
+        Because of = () => _frameCreationHandler.CreateFrame();
 
 
         It should_create_a_default_classInfo_template_if_not_exists = () =>
         {
             _codeTemplate = _persistentClassInfo.CodeTemplateInfo.CodeTemplate;
-            _codeTemplate.Session.IsNewObject(_codeTemplate).ShouldBeFalse();
+            _codeTemplate.ShouldNotBeNull();
+            _codeTemplate.Session.IsNewObject(_codeTemplate).ShouldBeTrue();
             _codeTemplate.TemplateType.ShouldEqual(TemplateType.Class);
         };
 
         It should_set_template_as_default = () => _codeTemplate.IsDefault.ShouldBeTrue();
     }
 
-
-
+    public class With_Isolations {
+        Establish context = () => Isolate.Fake.WCTypesInfo();
+    }
 }

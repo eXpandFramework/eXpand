@@ -121,6 +121,7 @@
     <Compile Include="Core\DictionaryHelpers\ViewVisibilityCalculator.cs" />
     <Compile Include="Core\DictionaryNodeExtensions.cs" />
     <Compile Include="Core\FrameExtensions.cs" />
+    <Compile Include="Core\ObjectObserver.cs" />
     <Compile Include="Core\TypesInfoExtensions.cs" />
     <Compile Include="Core\ViewsNodeWrapper.cs" />
     <Compile Include="DataStoreProvider.cs" />
@@ -223,6 +224,9 @@
     <Compile Include="SystemModule\LookUpListSearchAlwaysEnableController.designer.cs">
       <DependentUpon>LookUpListSearchAlwaysEnableController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\MasterObjectViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\ModelInfoWindowController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -251,9 +255,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\TrackNewObjectSavedController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\TrackObjectConstructionsViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ValidateRulesWindowController.cs">

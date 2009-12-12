@@ -1,3 +1,5 @@
+using DevExpress.ExpressApp.ConditionalEditorState;
+
 namespace eXpand.ExpressApp.WorldCreator
 {
     partial class WorldCreatorModule
@@ -28,6 +30,7 @@ namespace eXpand.ExpressApp.WorldCreator
         /// </summary>
         private void InitializeComponent()
         {
+            this.RequiredModuleTypes.Add(typeof(ConditionalEditorStateModuleBase));
         }
 
         #endregion

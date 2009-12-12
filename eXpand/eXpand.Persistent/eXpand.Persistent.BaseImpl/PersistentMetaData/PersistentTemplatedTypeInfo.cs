@@ -1,7 +1,8 @@
-﻿using System;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalEditorState;
+using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
@@ -10,13 +11,10 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
         public PersistentTemplatedTypeInfo(Session session) : base(session) {
         }
-        public override void AfterConstruction()
-        {
-            base.AfterConstruction();
-            _codeTemplateInfo = new CodeTemplateInfo(Session) { TemplateInfo = { Name = Guid.NewGuid().ToString() } };
-        }
 
         private CodeTemplateInfo _codeTemplateInfo;
+
+
         [Aggregated]
         public CodeTemplateInfo CodeTemplateInfo
         {

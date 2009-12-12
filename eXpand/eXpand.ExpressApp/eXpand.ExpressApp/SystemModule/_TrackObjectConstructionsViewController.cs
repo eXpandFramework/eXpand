@@ -1,17 +1,22 @@
 ﻿using System;
 using DevExpress.ExpressApp;
+using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.ExpressApp.SystemModule {
     public class ObjectCreatedEventArgs:ObjectManipulatingEventArgs {
         public ObjectCreatedEventArgs(object theObject) : base(theObject) {
         }
     }
-    public class TrackObjectConstructionsViewController:ViewController {
-        public event EventHandler<ObjectCreatedEventArgs> ObjectCreated;
+    public class _TrackObjectConstructionsViewController:ViewController {
+        public event EventHandler<ObjectCreatedEventArgs> ObjectConstructed;
 
-        protected void InvokeObjectCreated(ObjectCreatedEventArgs e)
+        public _TrackObjectConstructionsViewController() {
+            TargetObjectType = typeof (IAfterConstructed);
+        }
+
+        protected virtual void OnObjectCreated(ObjectCreatedEventArgs e)
         {
-            EventHandler<ObjectCreatedEventArgs> handler = ObjectCreated;
+            EventHandler<ObjectCreatedEventArgs> handler = ObjectConstructed;
             if (handler != null) handler(this, e);
         }
 
@@ -22,12 +27,15 @@ namespace eXpand.ExpressApp.SystemModule {
             Application.ViewShown += Application_ViewShown;
         }
 
+
+
+
         private void Application_ViewShown(object sender, ViewShownEventArgs e)
         {
             if (e.TargetFrame != null && e.TargetFrame.View != null) {
                 var currentObject = e.TargetFrame.View.CurrentObject;
                 if (currentObject != null && e.TargetFrame.View.ObjectSpace.Session.IsNewObject(currentObject)) {
-                    InvokeObjectCreated(new ObjectCreatedEventArgs(currentObject));
+                    OnObjectCreated(new ObjectCreatedEventArgs(currentObject));
                 }
             }
         }

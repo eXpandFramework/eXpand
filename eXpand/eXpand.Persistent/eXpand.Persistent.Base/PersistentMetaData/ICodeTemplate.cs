@@ -7,6 +7,7 @@
     }
 
     public enum TemplateType {
+        None=0,
         Class=1,
         ReadWriteMember=2,
         ReadOnlyMember=3,

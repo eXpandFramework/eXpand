@@ -5,13 +5,12 @@ using System.Linq;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.WorldCreator.Core {
     public class XpoObjectMerger {
-        public void MergeTypes(UnitOfWork unitOfWork, Type persistentTypesInfoType, List<Type> persistentTypes, IDbCommand command)
+        public void MergeTypes(UnitOfWork unitOfWork, List<Type> persistentTypes, IDbCommand command)
         {
-            var collection = new XPCollection(unitOfWork, persistentTypesInfoType).Cast<IPersistentClassInfo>().Where(info => info.MergedObjectType !=null).ToList();
+            var collection = new XPCollection(unitOfWork, TypesInfo.Instance.PersistentTypesInfoType).Cast<IPersistentClassInfo>().Where(info => info.MergedObjectType !=null).ToList();
             foreach (IPersistentClassInfo classInfo in collection){
                 XPClassInfo xpClassInfo = getClassInfo(classInfo.Session,classInfo.PersistentAssemblyInfo.Name+"."+ classInfo.Name,persistentTypes);
                 var mergedXPClassInfo = getClassInfo(classInfo.Session, classInfo.MergedObjectType.AssemblyQualifiedName,persistentTypes) ?? classInfo.Session.GetClassInfo(classInfo.MergedObjectType);
@@ -23,14 +22,14 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 }
             }
         }
-        private void createObjectTypeColumn(XPClassInfo xpClassInfo, UnitOfWork unitOfWork)
-        {
-            unitOfWork.CreateObjectTypeRecords(xpClassInfo);
-            var newObject = xpClassInfo.CreateNewObject(unitOfWork);
-            unitOfWork.CommitChanges();
-            unitOfWork.Delete(newObject);
-            unitOfWork.CommitChanges();
-        }
+//        private void createObjectTypeColumn(XPClassInfo xpClassInfo, UnitOfWork unitOfWork)
+//        {
+//            unitOfWork.CreateObjectTypeRecords(xpClassInfo);
+//            var newObject = xpClassInfo.CreateNewObject(unitOfWork);
+//            unitOfWork.CommitChanges();
+//            unitOfWork.Delete(newObject);
+//            unitOfWork.CommitChanges();
+//        }
         private void updateObjectType(UnitOfWork unitOfWork, XPClassInfo xpClassInfo, XPClassInfo mergedXPClassInfo, IDbCommand command)
         {
             var propertyName = XPObject.Fields.ObjectType.PropertyName;

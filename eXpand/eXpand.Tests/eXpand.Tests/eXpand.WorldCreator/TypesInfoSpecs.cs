@@ -8,7 +8,7 @@ using TypesInfo = DevExpress.ExpressApp.DC.TypesInfo;
 
 namespace eXpand.Tests.eXpand.WorldCreator {
     [Subject("Xaf TypesInfo")]
-    public class When_loading_types_from_Dynamic_Assemblies : With_In_Memory_DataStore
+    public class When_loading_types_from_Dynamic_Assemblies 
     {
         static DcAssemblyInfo findAssemblyInfo;
         static TypesInfo typesInfo;

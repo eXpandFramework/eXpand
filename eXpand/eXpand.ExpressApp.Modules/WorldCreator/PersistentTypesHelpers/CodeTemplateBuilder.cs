@@ -12,6 +12,7 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
                 defaultTemplate.IsDefault = true;
                 defaultTemplate.TemplateType=templateType;
                 defaultTemplate.CodeDomProvider=codeDomProvider;
+                defaultTemplate.SetDefaults();
             }
             return defaultTemplate;
             

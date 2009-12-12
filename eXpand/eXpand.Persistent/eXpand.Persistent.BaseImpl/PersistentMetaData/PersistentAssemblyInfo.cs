@@ -7,6 +7,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.Attributes;
 using eXpand.ExpressApp.Enums;
+using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
@@ -15,13 +16,11 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     public class PersistentAssemblyInfo:BaseObject, IPersistentAssemblyInfo {
         public PersistentAssemblyInfo(Session session) : base(session) {
         }
+        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
         [Size(SizeAttribute.Unlimited)]
         public string GeneratedCode
         {
-            get {
-                return PersistentClassInfos.Aggregate<PersistentClassInfo, string>(null,
-                                                                                   (current, persistentClassInfo) =>current +persistentClassInfo.CodeTemplateInfo.GeneratedCode);
-            }
+            get { return CodeEngine.GenerateCode(this); }
         }
         
         private string _name;

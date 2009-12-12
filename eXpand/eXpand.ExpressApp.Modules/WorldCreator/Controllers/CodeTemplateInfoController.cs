@@ -1,21 +1,24 @@
 using DevExpress.ExpressApp;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Utils.Helpers;
-using System.Linq;
+using eXpand.ExpressApp.WorldCreator.Observers;
 
-namespace eXpand.ExpressApp.WorldCreator
-{
-    public class CodeInfoCodeTemplateModifierController : ViewController
+namespace eXpand.ExpressApp.WorldCreator.Controllers {
+    public class CodeTemplateInfoController : ViewController
     {
-        protected override void OnActivated()
+        protected override void OnViewChanging(View view)
         {
-            base.OnActivated();
-            ObjectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
+            base.OnViewChanging(view);
+            new CodeTemplateInfoObserver(view.ObjectSpace);
         }
+//        protected override void OnActivated()
+//        {
+//            base.OnActivated();
+//            ObjectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
+//        }
 
+/*
         void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs)
         {
-            if (View!= null&& objectChangedEventArgs.Object is ICodeTemplateInfo && objectChangedEventArgs.NewValue != null &&
+            if (objectChangedEventArgs.Object is ICodeTemplateInfo && objectChangedEventArgs.NewValue != null &&
                 ((ICodeTemplateInfo)objectChangedEventArgs.Object).GetPropertyName(x => x.CodeTemplate) ==
                 objectChangedEventArgs.PropertyName) {
                 var persistentTypeInfo = ((ICodeTemplateInfo)objectChangedEventArgs.Object);
@@ -28,7 +31,6 @@ namespace eXpand.ExpressApp.WorldCreator
                 }
             }
         }
+*/
     }
-
 }
-

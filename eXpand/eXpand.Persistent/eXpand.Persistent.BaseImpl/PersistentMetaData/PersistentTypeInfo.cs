@@ -1,5 +1,6 @@
+using System;
 using System.Collections.Generic;
-using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -11,9 +12,19 @@ using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
     public abstract class PersistentTypeInfo : BaseObject, IPersistentTypeInfo {
-        
-        string _name;
+        public event EventHandler<ObjectCreatedEventArgs> AfterConstructed;
 
+        public void InvokeAfterConstructed(ObjectCreatedEventArgs e) {
+            EventHandler<ObjectCreatedEventArgs> handler = AfterConstructed;
+            if (handler != null) handler(this, e);
+        }
+
+        string _name;
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
+            InvokeAfterConstructed(new ObjectCreatedEventArgs(this, null));
+        }
         protected PersistentTypeInfo(Session session) : base(session) {
         }
         

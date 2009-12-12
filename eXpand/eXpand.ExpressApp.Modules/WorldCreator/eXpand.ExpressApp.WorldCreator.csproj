@@ -54,6 +54,12 @@
     <Reference Include="DevExpress.Data.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -112,19 +118,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeInfoCodeTemplateModifierController.cs">
+    <Compile Include="Controllers\CodeTemplateInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CodeTemplateTypeModifierController.cs">
+    <Compile Include="Observers\CodeTemplateInfoObserver.cs" />
+    <Compile Include="Observers\CodeTemplateObserver.cs" />
+    <Compile Include="Controllers\CodeTemplateController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CreateMissingInterfaceMembersController.cs">
+    <Compile Include="Controllers\ListView\InterfaceInfoNestedController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GenerateCodeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="InitPersistentTypeInfoViewController.cs">
+    <Compile Include="Controllers\DetailView\PersistentTemplatedTypeInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PersistentTypesHelpers\CodeTemplateBuilder.cs" />
@@ -136,7 +141,7 @@
     <Compile Include="Core\TypesInfo.cs" />
     <Compile Include="Core\PersistentClassInfo.cs" />
     <Compile Include="Core\TypeInfoExtensions.cs" />
-    <Compile Include="PopulateInterfacesController.cs">
+    <Compile Include="Controllers\ListView\InterfaceInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WorldCreatorModule.cs">

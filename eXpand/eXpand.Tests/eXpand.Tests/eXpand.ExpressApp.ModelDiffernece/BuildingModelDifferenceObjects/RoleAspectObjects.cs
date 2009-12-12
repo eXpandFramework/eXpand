@@ -5,7 +5,6 @@ using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
-using TypeMock.Extensions.eXpand;
 using eXpand.ExpressApp.Core;
 
 namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.BuildingModelDifferenceObjects{

@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Persistent.BaseImpl.Validation.FromIPropertyValueValidator;
@@ -17,6 +19,13 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     public class PersistentClassInfo : PersistentTemplatedTypeInfo, IPersistentClassInfo, IPropertyValueValidator {
         Type _baseType;
         string _baseTypeFullName;
+        [VisibleInListView(false)]
+        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
+        [Size(SizeAttribute.Unlimited)]
+        public string GeneratedCode
+        {
+            get { return CodeEngine.GenerateCode(this); }
+        }
 
 
         Type _mergedObject;
@@ -59,8 +68,8 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         public XPCollection<InterfaceInfo> Interfaces {
             get { return GetCollection<InterfaceInfo>("Interfaces"); }
         }
-
-        [RuleRequiredField(null, DefaultContexts.Save)]
+//        [NonCloneable]
+//        [RuleRequiredField(null, DefaultContexts.Save)]
         [Association("PersistentAssemblyInfo-PersistentClassInfos")]
         public PersistentAssemblyInfo PersistentAssemblyInfo {
             get { return _persistentAssemblyInfo; }

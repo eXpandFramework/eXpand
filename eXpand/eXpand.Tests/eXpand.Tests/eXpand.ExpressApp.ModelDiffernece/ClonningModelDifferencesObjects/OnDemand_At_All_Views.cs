@@ -82,7 +82,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.ClonningModelDifference
 //            
 //            controller.CreateDifferenceTypeDetailView(singleChoiceActionExecuteEventArgs);
 //
-//            Assert.AreEqual(1, singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Count);
+//            Assert.AreEqual(1, singleChoiceActionExecuteEventArgs.ShowViewParameters.ActivatingControllers.Count);
 //        }
 
 //        [Test]

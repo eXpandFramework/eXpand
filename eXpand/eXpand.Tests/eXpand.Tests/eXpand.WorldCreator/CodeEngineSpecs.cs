@@ -9,19 +9,20 @@ using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Xpo;
 using Machine.Specifications;
-using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.eXpand.WorldCreator {
     [Subject(typeof(CodeEngine))]
-    [Isolated]
-    public class When_generating_code_from_persistentMemberInfo:With_In_Memory_DataStore {
+    public class When_generating_code_from_persistentMemberInfo {
         static string _generateCode;
 
         static PersistentMemberInfo _persistentMemberInfo;
 
         Establish context = () => {
-            _persistentMemberInfo = new PersistentCoreTypeMemberInfo(Session.DefaultSession);
-            var codeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.ReadWriteMember};
+            var artifactHandler = new TestAppLication<PersistentCoreTypeMemberInfo>().Setup();
+            _persistentMemberInfo=artifactHandler.CurrentObject;
+
+            _persistentMemberInfo = new PersistentCoreTypeMemberInfo(artifactHandler.UnitOfWork) { CodeTemplateInfo = new CodeTemplateInfo(artifactHandler.UnitOfWork) };
+            var codeTemplate = new CodeTemplate(artifactHandler.UnitOfWork) { TemplateType = TemplateType.ReadWriteMember };
             codeTemplate.SetDefaults();            
             _persistentMemberInfo.CodeTemplateInfo.TemplateInfo=codeTemplate;
 
@@ -35,16 +36,22 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         };
     }
     [Subject(typeof(CodeEngine))]
-    [Isolated]
-    public class When_generating_code_from_persistentClassinfo_with_no_base_type_defined:With_In_Memory_DataStore {
+    public class When_generating_code_from_persistentClassinfo_with_no_base_type_defined {
         static PersistentClassInfo _persistentClassInfo;
 
         static string _generateCode;
 
         Establish context = () => {
-            var codeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.Class};
+            var artifactHandler = new TestAppLication<CodeTemplate>().Setup();
+            var codeTemplate = artifactHandler.CurrentObject;
+            codeTemplate.TemplateType = TemplateType.Class ;
             codeTemplate.SetDefaults();
-            _persistentClassInfo = new PersistentClassInfo(Session.DefaultSession){Name ="TestClass",CodeTemplateInfo = {TemplateInfo = codeTemplate},PersistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession)};
+            _persistentClassInfo = new PersistentClassInfo(artifactHandler.UnitOfWork)
+            {
+                                                                           Name = "TestClass",
+                                                                           CodeTemplateInfo = new CodeTemplateInfo(artifactHandler.UnitOfWork) { TemplateInfo = codeTemplate },
+                                                                           PersistentAssemblyInfo = new PersistentAssemblyInfo(artifactHandler.UnitOfWork)
+                                                                       };
         };
 
         Because of = () => { _generateCode = CodeEngine.GenerateCode(_persistentClassInfo); };
@@ -54,27 +61,28 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
 
     [Subject(typeof(CodeEngine))]
-    [Isolated]
-    public class When_generating_code_from_persistentClassinfo:With_In_Memory_DataStore {
+    public class When_generating_code_from_persistentClassinfo {
         static PersistentClassInfo _persistentClassInfo;
 
         static string _generateCode;
 
         Establish context = () => {
-            var classCodeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.Class};
+            var artifactHandler = new TestAppLication<PersistentClassInfo>().Setup();
+            _persistentClassInfo = artifactHandler.CurrentObject;
+            var classCodeTemplate = new CodeTemplate(artifactHandler.UnitOfWork) { TemplateType = TemplateType.Class };
             classCodeTemplate.SetDefaults();
-            _persistentClassInfo = new PersistentClassInfo(Session.DefaultSession) {Name ="TestClass",  BaseType = typeof(User) ,CodeTemplateInfo = {TemplateInfo = classCodeTemplate},PersistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession)};
-            _persistentClassInfo.TypeAttributes.Add(new PersistentDefaultClassOptionsAttribute(Session.DefaultSession));
+            _persistentClassInfo = new PersistentClassInfo(artifactHandler.UnitOfWork) { Name = "TestClass", BaseType = typeof(User), CodeTemplateInfo = new CodeTemplateInfo(artifactHandler.UnitOfWork) { TemplateInfo = classCodeTemplate }, PersistentAssemblyInfo = new PersistentAssemblyInfo(artifactHandler.UnitOfWork) };
+            _persistentClassInfo.TypeAttributes.Add(new PersistentDefaultClassOptionsAttribute(artifactHandler.UnitOfWork));
 
-            var memberCodeTemplate = new CodeTemplate(Session.DefaultSession) { TemplateType = TemplateType.ReadWriteMember};
+            var memberCodeTemplate = new CodeTemplate(artifactHandler.UnitOfWork) { TemplateType = TemplateType.ReadWriteMember };
             memberCodeTemplate.SetDefaults();
-            var persistentCoreTypeMemberInfo = new PersistentCoreTypeMemberInfo(Session.DefaultSession) { Name = "property1",CodeTemplateInfo = {TemplateInfo = memberCodeTemplate}};
-            persistentCoreTypeMemberInfo.TypeAttributes.Add(new PersistentSizeAttribute(Session.DefaultSession));            
+            var persistentCoreTypeMemberInfo = new PersistentCoreTypeMemberInfo(artifactHandler.UnitOfWork) { Name = "property1", CodeTemplateInfo = new CodeTemplateInfo(artifactHandler.UnitOfWork) { TemplateInfo = memberCodeTemplate } };
+            persistentCoreTypeMemberInfo.TypeAttributes.Add(new PersistentSizeAttribute(artifactHandler.UnitOfWork));            
             _persistentClassInfo.OwnMembers.AddRange(new[] {
                                                                persistentCoreTypeMemberInfo,
-                                                               new PersistentCoreTypeMemberInfo(Session.DefaultSession){Name = "property2",CodeTemplateInfo = {TemplateInfo = memberCodeTemplate}}
+                                                               new PersistentCoreTypeMemberInfo(artifactHandler.UnitOfWork){Name = "property2",CodeTemplateInfo =new CodeTemplateInfo(artifactHandler.UnitOfWork) {TemplateInfo = memberCodeTemplate}}
                                                            });
-            var interfaceInfo = new InterfaceInfo(Session.DefaultSession){Assembly =new AssemblyName(typeof(IDummyString).Assembly.FullName+"").Name,Name = typeof(IDummyString).FullName};
+            var interfaceInfo = new InterfaceInfo(artifactHandler.UnitOfWork) { Assembly = new AssemblyName(typeof(IDummyString).Assembly.FullName + "").Name, Name = typeof(IDummyString).FullName };
             _persistentClassInfo.Interfaces.Add(interfaceInfo);
             _persistentClassInfo.Save();
         };
@@ -109,22 +117,22 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         It should_replace_PROPERTYNAME_with_persistentClassInfo_name = () => _generateCode.IndexOf("PROPERTYNAME").ShouldEqual(-1);
         It should_replace_PROPERTYTYPE_with_persistentClassInfo_type = () => _generateCode.IndexOf("PROPERTYTYPE").ShouldEqual(-1);
     }
-
-    public class When_generating_code_from_2_CSharp_classes:With_In_Memory_DataStore {
+    [Subject(typeof(CodeEngine))]
+    public class When_generating_code_from_2_CSharp_classes {
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         static string _generateCode;
 
         Establish context = () => {
-            _persistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession);
-            createClass();
-            createClass();
+            var artifactHandler = new TestAppLication<PersistentAssemblyInfo>().Setup();
+            _persistentAssemblyInfo = artifactHandler.CurrentObject;
+            createClass(artifactHandler);
+            createClass(artifactHandler);
         };
 
-        static void createClass() {
-            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession)
-                                      {PersistentAssemblyInfo = _persistentAssemblyInfo};
-            var codeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.Class};
+        static void createClass(IArtifactHandler<PersistentAssemblyInfo> artifactHandler) {
+            var persistentClassInfo = new PersistentClassInfo(artifactHandler.UnitOfWork) { PersistentAssemblyInfo = _persistentAssemblyInfo, CodeTemplateInfo = new CodeTemplateInfo(artifactHandler.UnitOfWork) };
+            var codeTemplate = new CodeTemplate(artifactHandler.UnitOfWork) { TemplateType = TemplateType.Class };
             codeTemplate.SetDefaults();
             persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
         }
@@ -135,21 +143,23 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         It should_group_all_usings_together_at_the_top_of_generated_code=() => _generateCode.ShouldStartWith("using");
     }
-    public class When_generating_code_from_2_VB_classes:With_In_Memory_DataStore {
+    [Subject(typeof(CodeEngine))]
+    public class When_generating_code_from_2_VB_classes {
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         static string _generateCode;
 
         Establish context = () => {
-            _persistentAssemblyInfo = new PersistentAssemblyInfo(Session.DefaultSession){CodeDomProvider = CodeDomProvider.VB};
-            createClass();
-            createClass();
+            var artifactHandler = new TestAppLication<PersistentAssemblyInfo>().Setup();
+            _persistentAssemblyInfo = artifactHandler.CurrentObject;
+            _persistentAssemblyInfo.CodeDomProvider = CodeDomProvider.VB;
+            createClass(artifactHandler);
+            createClass(artifactHandler);
         };
 
-        static void createClass() {
-            var persistentClassInfo = new PersistentClassInfo(Session.DefaultSession)
-                                      {PersistentAssemblyInfo = _persistentAssemblyInfo};
-            var codeTemplate = new CodeTemplate(Session.DefaultSession){TemplateType = TemplateType.Class,CodeDomProvider = CodeDomProvider.VB};
+        static void createClass(IArtifactHandler<PersistentAssemblyInfo> artifactHandler) {
+            var persistentClassInfo = new PersistentClassInfo(artifactHandler.UnitOfWork) { PersistentAssemblyInfo = _persistentAssemblyInfo, CodeTemplateInfo = new CodeTemplateInfo(artifactHandler.UnitOfWork) };
+            var codeTemplate = new CodeTemplate(artifactHandler.UnitOfWork) { TemplateType = TemplateType.Class, CodeDomProvider = CodeDomProvider.VB };
             codeTemplate.SetDefaults();
             persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
         }
@@ -160,14 +170,15 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         It should_group_all_usings_together_at_the_top_of_generated_code=() => _generateCode.ShouldStartWith("Imports");
     }
-
-    public class When_generating_code_from_Persistent_attribute_with_enum_parameter:With_In_Memory_DataStore {
+    [Subject(typeof(CodeEngine))]
+    public class When_generating_code_from_Persistent_attribute_with_enum_parameter {
         static PeristentMapInheritanceAttribute _peristentMapInheritanceAttribute;
 
         static string _generateCode;
 
         Establish context = () => {
-            _peristentMapInheritanceAttribute = new PeristentMapInheritanceAttribute(Session.DefaultSession);
+            var artifactHandler = new TestAppLication<PeristentMapInheritanceAttribute>().Setup();
+            _peristentMapInheritanceAttribute = new PeristentMapInheritanceAttribute(artifactHandler.UnitOfWork);
         };
 
         Because of = () => {
@@ -176,11 +187,13 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         It should_create_arg_with_enumTypename_dot_enumName = () => _generateCode.ShouldStartWith("["+typeof(MapInheritanceAttribute).FullName+"("+typeof(MapInheritanceType).FullName+"."+MapInheritanceType.ParentTable+")]");
     }
-    public class When_generating_code_from_Persistent_attribute_with_string_parameter:With_In_Memory_DataStore {
+    [Subject(typeof(CodeEngine))]
+    public class When_generating_code_from_Persistent_attribute_with_string_parameter {
         static PersistentCustomAttribute _persistentCustomAttribute;
 
         Establish context = () => {
-            _persistentCustomAttribute = new PersistentCustomAttribute(Session.DefaultSession){PropertyName = "PropertyName",Value = "Value"};
+            var artifactHandler = new TestAppLication<PersistentCustomAttribute>().Setup();
+            _persistentCustomAttribute = new PersistentCustomAttribute(artifactHandler.UnitOfWork) { PropertyName = "PropertyName", Value = "Value" };
         };
 
         static string _generateCode;
@@ -191,13 +204,15 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         It should_create_arg_enclosed_with_quotes=() => _generateCode.ShouldStartWith("["+typeof(CustomAttribute).FullName+@"(""PropertyName"",""Value"")"+"]");
     }
-    public class When_generating_code_from_Persistent_attribute_with_type_parameter:With_In_Memory_DataStore {
+    [Subject(typeof(CodeEngine))]
+    public class When_generating_code_from_Persistent_attribute_with_type_parameter {
         static PersistentValueConverter _persistentValueConverter;
 
         static string _generateCode;
 
         Establish context = () => {
-            _persistentValueConverter = new PersistentValueConverter(Session.DefaultSession){ConverterType = typeof(CompressionConverter)};
+            var artifactHandler = new TestAppLication<PersistentValueConverter>().Setup();
+            _persistentValueConverter = new PersistentValueConverter(artifactHandler.UnitOfWork) { ConverterType = typeof(CompressionConverter) };
         };
 
         Because of = () => {
@@ -207,6 +222,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         
         It should_create_arg_as_typeof_parameter=() => _generateCode.ShouldStartWith("["+typeof(ValueConverterAttribute).FullName+"(typeof("+typeof(CompressionConverter).FullName+"))]");
     }
+    [Subject(typeof(CodeEngine))]
     public class When_generating_code_from_Persistent_attribute_with_int_parameter {
         It should_create_arg_the_same_as_parameter;
     }
