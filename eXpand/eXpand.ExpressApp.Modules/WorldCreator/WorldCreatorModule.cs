@@ -28,12 +28,6 @@ namespace eXpand.ExpressApp.WorldCreator
             get { return _definedModules; }
         }
 
-
-//        public TypesInfo TypesInfo
-//        {
-//            get { return _typesInfo; }
-//        }
-
         public override void Setup(ApplicationModulesManager moduleManager)
         {
             base.Setup(moduleManager);
