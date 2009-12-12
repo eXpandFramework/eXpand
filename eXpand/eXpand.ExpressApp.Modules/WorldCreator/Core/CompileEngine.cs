@@ -16,6 +16,7 @@ using CodeDomProvider = eXpand.Persistent.Base.PersistentMetaData.CodeDomProvide
 namespace eXpand.ExpressApp.WorldCreator.Core {
     public class CompileEngine
     {
+        private const string STR_StrongKeys = "StrongKeys";
         static readonly List<Assembly> CompiledAssemblies=new List<Assembly>();
         
 
@@ -26,15 +27,26 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             var codeProvider = getCodeDomProvider(persistentAssemblyInfo.CodeDomProvider);
             var compilerParams = new CompilerParameters
                                  {
-                                     CompilerOptions = @"/target:library /lib:" + GetReferenceLocations(),
+                                     CompilerOptions = @"/target:library /lib:" + GetReferenceLocations()+GetStorngKeyParams(persistentAssemblyInfo),
                                      GenerateExecutable = false,
                                      GenerateInMemory = true,                                     
                                      IncludeDebugInformation = false,
                                      OutputAssembly = persistentAssemblyInfo.Name
                                  };
-
+            
             addReferences(compilerParams);
             return compile(persistentAssemblyInfo, generateCode, compilerParams, codeProvider);
+        }
+
+        string GetStorngKeyParams(IPersistentAssemblyInfo persistentAssemblyInfo) {
+            if (!Directory.Exists(STR_StrongKeys))
+                Directory.CreateDirectory(STR_StrongKeys);
+
+            var newGuid = Guid.NewGuid();
+            using (var fileStream = new FileStream(@"StrongKeys\" + newGuid + ".snk", FileMode.Create)) {
+                persistentAssemblyInfo.FileData.SaveToStream(fileStream);
+            }
+            return @" /keyfile:StrongKeys\"+newGuid+".snk";
         }
 
         static System.CodeDom.Compiler.CodeDomProvider getCodeDomProvider(CodeDomProvider codeDomProvider)
@@ -49,6 +61,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         static Type compile(IPersistentAssemblyInfo persistentAssemblyInfo, string generateCode, CompilerParameters compilerParams, System.CodeDom.Compiler.CodeDomProvider codeProvider) {
             CompilerResults compileAssemblyFromSource = null;
             try{
+                
                 compileAssemblyFromSource = codeProvider.CompileAssemblyFromSource(compilerParams, generateCode);
                 Assembly compiledAssembly = compileAssemblyFromSource.CompiledAssembly;
                 CompiledAssemblies.Add(compiledAssembly);
@@ -60,6 +73,10 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                         compileAssemblyFromSource.Errors.Cast<CompilerError>().Aggregate(
                             persistentAssemblyInfo.CompileErrors, (current, error) => current +Environment.NewLine+ error.ToString());
                 }
+            }
+            finally {
+                if (Directory.Exists(STR_StrongKeys))
+                    Directory.Delete(STR_StrongKeys,true);
             }
             return null;
         }
@@ -118,4 +135,5 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return definedModules;
         }
     }
+
 }

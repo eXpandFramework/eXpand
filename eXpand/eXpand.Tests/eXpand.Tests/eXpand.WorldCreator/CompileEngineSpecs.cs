@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
@@ -156,5 +157,26 @@ namespace eXpand.Tests.eXpand.WorldCreator
             _compileModule.Assembly.GetTypes().Where(type => typeof (User).IsAssignableFrom(type)).FirstOrDefault().
                 ShouldNotBeNull();
     }
+    [Subject(typeof(CompileEngine))]
+    public class When_compiling_assembly_with_strong_key:With_Isolations {
+        static Type _compileModule;
+        static PersistentAssemblyInfo _info;
 
+        Establish context = () => new TestAppLication<PersistentAssemblyInfo>().Setup(null, info => {
+            var strongKeyFile = new FileData(info.Session);
+            strongKeyFile.LoadFromStream("test", new FileStream(@"../eXpand.Key/eXpand.snk", FileMode.Open));
+            info.StrongKeyFile = strongKeyFile;
+            info.Name = "TestAssembly";
+            _info = info;
+        });
+
+        Because of = () => {
+             _compileModule = new CompileEngine().CompileModule(_info);
+         };
+
+        It should_compile_with_no_error = () => _info.CompileErrors.ShouldBeNull();
+
+        It should_have_public_token_set =
+            () => (_compileModule.Assembly.FullName + "").IndexOf("c52ffed5d5ff0958").ShouldBeGreaterThan(-1);
+    }
 }

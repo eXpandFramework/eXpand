@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
@@ -63,6 +62,24 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 SetPropertyValue("CodeDomProvider", ref _codeDomProvider, value);
             }
         }
+        private FileData _strongKeyFile;
+        [Aggregated, ExpandObjectMembers(ExpandObjectMembers.Never)]
+        public FileData StrongKeyFile
+        {
+            get
+            {
+                return _strongKeyFile;
+            }
+            set
+            {
+                SetPropertyValue("StrongKeyFile", ref _strongKeyFile, value);
+            }
+        }
+        IFileData IPersistentAssemblyInfo.FileData {
+            get { return StrongKeyFile; }
+            set { StrongKeyFile=value as FileData; }
+        }
+
         [Association("PersistentAssemblyInfo-PersistentClassInfos")][Aggregated]
         public XPCollection<PersistentClassInfo> PersistentClassInfos
         {

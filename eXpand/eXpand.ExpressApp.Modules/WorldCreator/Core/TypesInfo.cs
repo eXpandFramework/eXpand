@@ -69,5 +69,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public Type IntefaceInfoType { get; private set; }
         public Type CodeTemplateType { get; private set; }
         public Type TemplateInfoType { get; private set; }
+
+
     }
 }

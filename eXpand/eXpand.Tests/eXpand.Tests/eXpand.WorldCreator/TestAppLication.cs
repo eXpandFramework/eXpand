@@ -14,8 +14,7 @@ using System.Linq;
 
 namespace eXpand.Tests.eXpand.WorldCreator
 {
-
-    internal class TestAppLication<TObject> : IApplicationHandler<TObject>, IArtifactHandler<TObject>, IViewCreationHandler, IFrameCreationHandler where TObject:BaseObject
+    public class TestAppLication<TObject> : IApplicationHandler<TObject>, IArtifactHandler<TObject>, IViewCreationHandler, IFrameCreationHandler where TObject:BaseObject
     {
         ObjectSpace _objectSpace;
         ApplicationNodeWrapper _applicationNodeWrapper;
@@ -145,7 +144,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         IArtifactHandler<TObject> Setup();
     }
 
-    internal interface IArtifactHandler<TObject>
+    public interface IArtifactHandler<TObject>
     {
         TObject CurrentObject { get; }
         UnitOfWork UnitOfWork { get; }
@@ -153,11 +152,12 @@ namespace eXpand.Tests.eXpand.WorldCreator
         IViewCreationHandler WithArtiFacts();
     }
 
-    internal interface IFrameCreationHandler {
+    public interface IFrameCreationHandler {
         void CreateFrame(Action<Frame> created);
         void CreateFrame();
     }
-    internal interface IViewCreationHandler {
+
+    public interface IViewCreationHandler {
         IFrameCreationHandler CreateListView();
         IFrameCreationHandler CreateListView(bool isRoot, Action<ListView> created);
         IFrameCreationHandler CreateDetailView();
@@ -165,65 +165,4 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
 
 
-    internal interface IControllerActivateHandler {
-        void ActivateControllers(Action<Controller> action);
-        void ActivateControllers();
-    }
-//    public class RunControllers : IInitializationHandler
-//    {
-//        static RunControllers _instance;
-//
-//        public static IInitializationHandler ForDetailView(Nesting nested) {
-//            return _instance;
-//        }
-//
-//        public static IInitializationHandler ForListView(Nesting nested) {
-//            
-//        }
-//        public static IInitializationHandler ForListView(Nesting nested,Action<ListView> created)
-//        {
-//            return _instance;
-//        }
-//
-//        IInitializationObjectSpaceproviderHandler IInitializationArtifactsHandler.WithArtifacts(Action<Assembly[]>  action) {
-//        }
-//
-//        IInitializationObjectSpaceproviderHandler IInitializationArtifactsHandler.WithArtifacts() {
-//            
-//        }
-//
-//        IActivationHandler IInitializationObjectSpaceproviderHandler.WithObjectSpaceProvider() {
-//            
-//        }
-//
-//        void IActivationHandler.WhenActivating(Func<ViewController, bool> action) {
-//            
-//        }
-//
-//        public static RunControllers Instance {
-//            get {
-//                if (_instance == null)
-//                    _instance = new RunControllers();
-//                return _instance;
-//            }
-//        }
-//
-//        public void ForObject<T>() {
-//            
-//        }
-//    }
-//
-//    public interface IInitializationHandler : IInitializationObjectSpaceproviderHandler, IInitializationArtifactsHandler,IActivationHandler
-//    {
-//        
-//    }
-//    public interface IActivationHandler {
-//        void WhenActivating(Func<ViewController, bool> action);
-//    }
-//    public interface IInitializationObjectSpaceproviderHandler {
-//        IActivationHandler WithObjectSpaceProvider();
-//    }
-//    public interface IInitializationArtifactsHandler {
-//        IInitializationObjectSpaceproviderHandler WithArtifacts();
-//    }
 }

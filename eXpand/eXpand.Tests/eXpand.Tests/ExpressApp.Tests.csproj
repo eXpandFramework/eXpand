@@ -148,7 +148,7 @@
     </Reference>
     <Reference Include="Gallio, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+      <HintPath>..\..\..\_third_party_assemblies\Gallio.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications, Version=0.3.0.0, Culture=neutral, PublicKeyToken=5c474de7a495cff1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -156,7 +156,7 @@
     </Reference>
     <Reference Include="MbUnit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+      <HintPath>..\..\..\_third_party_assemblies\MbUnit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -285,7 +285,7 @@
     <Compile Include="eXpand.Utils\ReflectionExtensionsFixture.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eXpand.WorldCreator\Class1.cs" />
+    <Compile Include="eXpand.WorldCreator\TestAppLication.cs" />
     <Compile Include="eXpand.WorldCreator\CleanupAfterEveryContextInAssembly.cs" />
     <Compile Include="eXpand.WorldCreator\Interfaces.cs" />
     <Compile Include="eXpand.Xpo\CriteriaOperatorExtractorFixture.cs">

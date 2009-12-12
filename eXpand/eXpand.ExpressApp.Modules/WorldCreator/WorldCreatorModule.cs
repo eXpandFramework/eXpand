@@ -21,7 +21,7 @@ namespace eXpand.ExpressApp.WorldCreator
             InitializeComponent();
         }
         string _connectionString;
-//        TypesInfo _typesInfo;
+
         List<Type> _definedModules;
 
         public List<Type> DefinedModules {
