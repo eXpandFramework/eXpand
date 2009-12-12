@@ -4,7 +4,7 @@ call defines.bat
 
 if exist eXpand.Key\eXpand.snk goto build
 echo Generating strong key
-+mkdir eXpand.Key
+mkdir eXpand.Key
 %sn% -k eXpand.Key\eXpand.snk
 
 :build
