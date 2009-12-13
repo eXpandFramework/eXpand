@@ -22,7 +22,8 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
         public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo)
         {
-            var generateCode = CodeEngine.GenerateCode(persistentAssemblyInfo) ;
+            var generateCode = GetVersionCode(persistentAssemblyInfo);
+            generateCode += CodeEngine.GenerateCode(persistentAssemblyInfo) ;
             generateCode += getModuleCode(persistentAssemblyInfo.Name) + Environment.NewLine;
             var codeProvider = getCodeDomProvider(persistentAssemblyInfo.CodeDomProvider);
             var compilerParams = new CompilerParameters
@@ -38,15 +39,38 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return compile(persistentAssemblyInfo, generateCode, compilerParams, codeProvider);
         }
 
-        string GetStorngKeyParams(IPersistentAssemblyInfo persistentAssemblyInfo) {
-            if (!Directory.Exists(STR_StrongKeys))
-                Directory.CreateDirectory(STR_StrongKeys);
+        string GetVersionCode(IPersistentAssemblyInfo persistentAssemblyInfo) {
+            var version = persistentAssemblyInfo.Version;
+            if (!string.IsNullOrEmpty(version))
+                return string.Format(@"[assembly: System.Reflection.AssemblyVersionAttribute(""{0}"")]", version)+Environment.NewLine;
+            return null;
+        }
 
-            var newGuid = Guid.NewGuid();
-            using (var fileStream = new FileStream(@"StrongKeys\" + newGuid + ".snk", FileMode.Create)) {
-                persistentAssemblyInfo.FileData.SaveToStream(fileStream);
+//        void setAssemblyVersion(System.CodeDom.Compiler.CodeDomProvider codeProvider, string version) {
+//            var unit = new CodeCompileUnit();
+//            var attr = new CodeTypeReference(typeof(AssemblyVersionAttribute));
+//            var decl = new CodeAttributeDeclaration(attr,
+//              new CodeAttributeArgument(new CodePrimitiveExpression(version)));
+//            unit.AssemblyCustomAttributes.Add(decl);
+//            using (var sw = new StringWriter()) {
+//                codeProvider.GenerateCodeFromCompileUnit(unit, sw, new CodeGeneratorOptions());
+//                var s = sw.ToString();
+//                Debug.Print("");
+//            }
+//        }
+
+        string GetStorngKeyParams(IPersistentAssemblyInfo persistentAssemblyInfo) {
+            if (persistentAssemblyInfo.FileData!= null) {
+                if (!Directory.Exists(STR_StrongKeys))
+                    Directory.CreateDirectory(STR_StrongKeys);
+
+                var newGuid = Guid.NewGuid();
+                using (var fileStream = new FileStream(@"StrongKeys\" + newGuid + ".snk", FileMode.Create)) {
+                    persistentAssemblyInfo.FileData.SaveToStream(fileStream);
+                }
+                return @" /keyfile:StrongKeys\"+newGuid+".snk";
             }
-            return @" /keyfile:StrongKeys\"+newGuid+".snk";
+            return null;
         }
 
         static System.CodeDom.Compiler.CodeDomProvider getCodeDomProvider(CodeDomProvider codeDomProvider)
@@ -61,7 +85,6 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         static Type compile(IPersistentAssemblyInfo persistentAssemblyInfo, string generateCode, CompilerParameters compilerParams, System.CodeDom.Compiler.CodeDomProvider codeProvider) {
             CompilerResults compileAssemblyFromSource = null;
             try{
-                
                 compileAssemblyFromSource = codeProvider.CompileAssemblyFromSource(compilerParams, generateCode);
                 Assembly compiledAssembly = compileAssemblyFromSource.CompiledAssembly;
                 CompiledAssemblies.Add(compiledAssembly);

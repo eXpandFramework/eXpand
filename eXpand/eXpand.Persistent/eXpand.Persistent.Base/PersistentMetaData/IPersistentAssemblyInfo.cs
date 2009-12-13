@@ -12,6 +12,7 @@ namespace eXpand.Persistent.Base.PersistentMetaData {
         CodeDomProvider CodeDomProvider { get; }
         Session Session { get; }
         IFileData FileData { get; set; }
+        string Version { get; set; }
     }
     public enum CodeDomProvider {
         CSharp,

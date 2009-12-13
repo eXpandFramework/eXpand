@@ -80,6 +80,18 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set { StrongKeyFile=value as FileData; }
         }
 
+        private string _version;
+        public string Version
+        {
+            get
+            {
+                return _version;
+            }
+            set
+            {
+                SetPropertyValue("Version", ref _version, value);
+            }
+        }
         [Association("PersistentAssemblyInfo-PersistentClassInfos")][Aggregated]
         public XPCollection<PersistentClassInfo> PersistentClassInfos
         {

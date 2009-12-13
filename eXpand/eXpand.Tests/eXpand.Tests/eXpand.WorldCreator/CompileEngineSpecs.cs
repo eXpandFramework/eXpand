@@ -43,6 +43,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
         Establish context = () => {
             _persistentAssemblyInfo = Isolate.Fake.Instance<IPersistentAssemblyInfo>();
+            Isolate.WhenCalled(() => _persistentAssemblyInfo.FileData).WillReturn(null);
             _persistentAssemblyInfo.Name = "TestAssembly222";
             Isolate.Fake.StaticMethods(typeof (CodeEngine));
             Isolate.WhenCalled(() => CodeEngine.GenerateCode(Isolate.Fake.Instance<IPersistentClassInfo>())).WillReturn(@"public class TestClass:" +typeof(XPBaseObject).FullName+ @"{}");
@@ -178,5 +179,26 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
         It should_have_public_token_set =
             () => (_compileModule.Assembly.FullName + "").IndexOf("c52ffed5d5ff0958").ShouldBeGreaterThan(-1);
+    }
+    [Subject(typeof(CompileEngine))]
+    public class When_compiling_assembly_with_version:With_Isolations {
+        static Type _compileModule;
+        static PersistentAssemblyInfo _info;
+
+        Establish context = () => new TestAppLication<
+            PersistentAssemblyInfo>().Setup(null, info => {
+                info.Name = "TestAssembly";
+                info.Version = new Version(2, 2, 2, 2).ToString();
+                _info = info;
+        });
+
+        Because of = () => {
+             _compileModule = new CompileEngine().CompileModule(_info);
+         };
+
+        It should_compile_with_no_error = () => _info.CompileErrors.ShouldBeNull();
+
+        It should_have_version_set =
+            () => (_compileModule.Assembly.FullName + "").IndexOf("2.2.2.2").ShouldBeGreaterThan(-1);
     }
 }
