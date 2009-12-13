@@ -1,7 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -20,23 +19,30 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         static readonly List<Assembly> CompiledAssemblies=new List<Assembly>();
         
 
-        public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo)
-        {
+        public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo,Action<CompilerParameters> action) {
             var generateCode = GetVersionCode(persistentAssemblyInfo);
-            generateCode += CodeEngine.GenerateCode(persistentAssemblyInfo) ;
+            generateCode += CodeEngine.GenerateCode(persistentAssemblyInfo);
             generateCode += getModuleCode(persistentAssemblyInfo.Name) + Environment.NewLine;
             var codeProvider = getCodeDomProvider(persistentAssemblyInfo.CodeDomProvider);
             var compilerParams = new CompilerParameters
-                                 {
-                                     CompilerOptions = @"/target:library /lib:" + GetReferenceLocations()+GetStorngKeyParams(persistentAssemblyInfo),
-                                     GenerateExecutable = false,
-                                     GenerateInMemory = true,                                     
-                                     IncludeDebugInformation = false,
-                                     OutputAssembly = persistentAssemblyInfo.Name
-                                 };
-            
+            {
+                CompilerOptions = @"/target:library /lib:" + GetReferenceLocations() + GetStorngKeyParams(persistentAssemblyInfo),
+                GenerateExecutable = false,
+                GenerateInMemory = true,
+                IncludeDebugInformation = false,
+                OutputAssembly = persistentAssemblyInfo.Name
+            };
+            if (action!= null)
+                action.Invoke(compilerParams);                
             addReferences(compilerParams);
+            if (File.Exists(compilerParams.OutputAssembly))
+                File.Delete(compilerParams.OutputAssembly);
             return compile(persistentAssemblyInfo, generateCode, compilerParams, codeProvider);
+
+        }
+        public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo)
+        {
+            return CompileModule(persistentAssemblyInfo, null);
         }
 
         string GetVersionCode(IPersistentAssemblyInfo persistentAssemblyInfo) {
@@ -86,30 +92,34 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             CompilerResults compileAssemblyFromSource = null;
             try{
                 compileAssemblyFromSource = codeProvider.CompileAssemblyFromSource(compilerParams, generateCode);
-                Assembly compiledAssembly = compileAssemblyFromSource.CompiledAssembly;
-                CompiledAssemblies.Add(compiledAssembly);
-                return compiledAssembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
+                if (compilerParams.GenerateInMemory) {
+                    Assembly compiledAssembly = compileAssemblyFromSource.CompiledAssembly;
+                    CompiledAssemblies.Add(compiledAssembly);
+                    return compiledAssembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
+                }
+                return null;
             }
             catch (Exception){
-                if (compileAssemblyFromSource != null){
-                    persistentAssemblyInfo.CompileErrors =
-                        compileAssemblyFromSource.Errors.Cast<CompilerError>().Aggregate(
-                            persistentAssemblyInfo.CompileErrors, (current, error) => current +Environment.NewLine+ error.ToString());
-                }
             }
             finally {
+                if (compileAssemblyFromSource != null){
+                    SetErrors(compileAssemblyFromSource, persistentAssemblyInfo);
+                }
                 if (Directory.Exists(STR_StrongKeys))
                     Directory.Delete(STR_StrongKeys,true);
             }
             return null;
         }
 
+        static void SetErrors(CompilerResults compileAssemblyFromSource, IPersistentAssemblyInfo persistentAssemblyInfo) {
+            persistentAssemblyInfo.CompileErrors = null;
+            persistentAssemblyInfo.CompileErrors =
+                compileAssemblyFromSource.Errors.Cast<CompilerError>().Aggregate(
+                    persistentAssemblyInfo.CompileErrors, (current, error) => current +Environment.NewLine+ error.ToString());
+        }
+
         static void addReferences(CompilerParameters compilerParams) {
-            Func<Assembly, bool> isNotDynamic = assembly1 => {
-                if ((assembly1.FullName+"").IndexOf("Solution3.Win") > -1)
-                    Debug.Print("");
-                return !(assembly1 is AssemblyBuilder) && !CompiledAssemblies.Contains(assembly1)&&assembly1.EntryPoint==null;
-            };
+            Func<Assembly, bool> isNotDynamic = assembly1 => !(assembly1 is AssemblyBuilder) && !CompiledAssemblies.Contains(assembly1)&&assembly1.EntryPoint==null;
             Func<Assembly, string> assemblyNameSelector = assembly => new AssemblyName(assembly.FullName + "").Name + ".dll";
             compilerParams.ReferencedAssemblies.AddRange(AppDomain.CurrentDomain.GetAssemblies().Where(isNotDynamic).Select(assemblyNameSelector).ToArray());
             

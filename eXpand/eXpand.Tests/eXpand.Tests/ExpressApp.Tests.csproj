@@ -285,6 +285,7 @@
     <Compile Include="eXpand.Utils\ReflectionExtensionsFixture.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="eXpand.WorldCreator\ScriptValidatorSpecs.cs" />
     <Compile Include="eXpand.WorldCreator\TestAppLication.cs" />
     <Compile Include="eXpand.WorldCreator\CleanupAfterEveryContextInAssembly.cs" />
     <Compile Include="eXpand.WorldCreator\Interfaces.cs" />

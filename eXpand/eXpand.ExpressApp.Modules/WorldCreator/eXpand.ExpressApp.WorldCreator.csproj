@@ -121,6 +121,10 @@
     <Compile Include="Controllers\CodeTemplateInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\DetailView\PersistentAssemblyController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Core\AssemblyInfoExtensions.cs" />
     <Compile Include="Observers\CodeTemplateInfoObserver.cs" />
     <Compile Include="Observers\CodeTemplateObserver.cs" />
     <Compile Include="Controllers\CodeTemplateController.cs">
