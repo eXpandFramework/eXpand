@@ -1,4 +1,5 @@
 using DevExpress.ExpressApp.ConditionalEditorState.Web;
+using DevExpress.ExpressApp.FileAttachments.Web;
 
 namespace eXpand.ExpressApp.WorldCreator.Web {
     partial class WorldCreatorWebModule
@@ -29,6 +30,7 @@ namespace eXpand.ExpressApp.WorldCreator.Web {
         /// </summary>
         private void InitializeComponent()
         {
+            this.RequiredModuleTypes.Add(typeof(FileAttachmentsAspNetModule));
             this.RequiredModuleTypes.Add(typeof(WorldCreatorModule));
             this.RequiredModuleTypes.Add(typeof(ConditionalEditorStateAspNetModule));
         }

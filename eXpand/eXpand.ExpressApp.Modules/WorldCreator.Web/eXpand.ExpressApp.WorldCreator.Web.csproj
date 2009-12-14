@@ -42,6 +42,7 @@
     <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.Web.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

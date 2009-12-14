@@ -75,6 +75,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             }
         }
         private FileData _strongKeyFile;
+        [FileTypeFilter("Strong Keys", 1, "*.snk")]
         [Aggregated, ExpandObjectMembers(ExpandObjectMembers.Never)]
         public FileData StrongKeyFile
         {

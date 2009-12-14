@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -22,7 +23,6 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo,Action<CompilerParameters> action) {
 
             var generateCode = CodeEngine.GenerateCode(persistentAssemblyInfo);
-//            generateCode += getModuleCode(persistentAssemblyInfo.Name) + Environment.NewLine;
             var codeProvider = getCodeDomProvider(persistentAssemblyInfo.CodeDomProvider);
             var compilerParams = new CompilerParameters
             {
@@ -46,18 +46,6 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         }
 
 
-//        void setAssemblyVersion(System.CodeDom.Compiler.CodeDomProvider codeProvider, string version) {
-//            var unit = new CodeCompileUnit();
-//            var attr = new CodeTypeReference(typeof(AssemblyVersionAttribute));
-//            var decl = new CodeAttributeDeclaration(attr,
-//              new CodeAttributeArgument(new CodePrimitiveExpression(version)));
-//            unit.AssemblyCustomAttributes.Add(decl);
-//            using (var sw = new StringWriter()) {
-//                codeProvider.GenerateCodeFromCompileUnit(unit, sw, new CodeGeneratorOptions());
-//                var s = sw.ToString();
-//                Debug.Print("");
-//            }
-//        }
 
         string GetStorngKeyParams(IPersistentAssemblyInfo persistentAssemblyInfo) {
             if (persistentAssemblyInfo.FileData!= null) {
@@ -93,7 +81,8 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 }
                 return null;
             }
-            catch (Exception){
+            catch (Exception e){
+                Debug.Print("");
             }
             finally {
                 if (compileAssemblyFromSource != null){
