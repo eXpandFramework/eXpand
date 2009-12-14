@@ -28,6 +28,8 @@ call clearProject.bat eXpand.ExpressApp.ViewVariants.Win
 call clearProject.bat eXpand.ExpressApp.Taxonomies
 call clearProject.bat eXpand.Persistent.BaseImpl
 call clearProject.bat eXpand.ExpressApp.WorldCreator
+call clearProject.bat eXpand.ExpressApp.WorldCreator.Win
+call clearProject.bat eXpand.ExpressApp.WorldCreator.Web
 call clearProject.bat eXpand.ExpressApp.ExceptionHandling
 call clearProject.bat eXpand.ExpressApp.ExceptionHandling.Win
 call clearProject.bat eXpand.ExpressApp.ExceptionHandling.Web
