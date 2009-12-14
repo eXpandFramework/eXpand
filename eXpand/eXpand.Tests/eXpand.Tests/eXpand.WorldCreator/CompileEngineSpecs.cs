@@ -4,7 +4,6 @@ using System.IO;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Xpo;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
@@ -46,13 +45,11 @@ namespace eXpand.Tests.eXpand.WorldCreator
             _persistentAssemblyInfo = Isolate.Fake.Instance<IPersistentAssemblyInfo>();
             Isolate.WhenCalled(() => _persistentAssemblyInfo.FileData).WillReturn(null);
             _persistentAssemblyInfo.Name = "TestAssembly222";
-            Isolate.Fake.StaticMethods(typeof (CodeEngine));
-            Isolate.WhenCalled(() => CodeEngine.GenerateCode(Isolate.Fake.Instance<IPersistentClassInfo>())).WillReturn(@"public class TestClass:" +typeof(XPBaseObject).FullName+ @"{}");
         };
 
         Because of = () => {type=new CompileEngine().CompileModule(_persistentAssemblyInfo);};
 
-        It should_not_contain_any_compilation_error = () => _persistentAssemblyInfo.CompileErrors.ShouldEqual("");
+        It should_not_contain_any_compilation_error = () => _persistentAssemblyInfo.CompileErrors.ShouldBeNull();
 
         It should_Create_A_Dynamic_module = () => {
             type.ShouldNotBeNull();
@@ -202,8 +199,8 @@ namespace eXpand.Tests.eXpand.WorldCreator
         It should_have_version_set =
             () => (_compileModule.Assembly.FullName + "").IndexOf("2.2.2.2").ShouldBeGreaterThan(-1);
     }
-
-    internal class When_compiling_a_list_of_assemblies {
+    [Subject(typeof(CompileEngine))]
+    public class When_compiling_a_list_of_assemblies {
         static IList<IPersistentAssemblyInfo> _persistentAssemblyInfos;
 
         static CompileEngine _compileEngine;

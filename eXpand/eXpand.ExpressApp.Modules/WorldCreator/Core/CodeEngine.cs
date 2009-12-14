@@ -108,10 +108,22 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return argumentValue;
         }
 
+        static string GetVersionCode(IPersistentAssemblyInfo persistentAssemblyInfo)
+        {
+            var version = persistentAssemblyInfo.Version;
+            if (!string.IsNullOrEmpty(version))
+                return string.Format(@"[assembly: System.Reflection.AssemblyVersionAttribute(""{0}"")]", version) + Environment.NewLine;
+            return null;
+        }
+
         public static string GenerateCode(IPersistentAssemblyInfo persistentAssemblyInfo) {
-            string generateCode = persistentAssemblyInfo.PersistentClassInfos.
+            string generateCode =GetVersionCode(persistentAssemblyInfo)+Environment.NewLine+getModuleCode(persistentAssemblyInfo.Name)+Environment.NewLine+ persistentAssemblyInfo.PersistentClassInfos.
                 Aggregate<IPersistentClassInfo, string>(null, (current, persistentClassInfo) => current + (GenerateCode(persistentClassInfo) + Environment.NewLine));
             return groupUsings(generateCode,persistentAssemblyInfo.CodeDomProvider);
+        }
+        internal static string getModuleCode(string assemblyName)
+        {
+            return "namespace " + assemblyName + "{public class Dynamic" + assemblyName + "Module:DevExpress.ExpressApp.ModuleBase{}}";
         }
 
         static string groupUsings(string generateCode,CodeDomProvider codeDomProvider) {

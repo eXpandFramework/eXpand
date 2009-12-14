@@ -20,9 +20,9 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         
 
         public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo,Action<CompilerParameters> action) {
-            var generateCode = GetVersionCode(persistentAssemblyInfo);
-            generateCode += CodeEngine.GenerateCode(persistentAssemblyInfo);
-            generateCode += getModuleCode(persistentAssemblyInfo.Name) + Environment.NewLine;
+
+            var generateCode = CodeEngine.GenerateCode(persistentAssemblyInfo);
+//            generateCode += getModuleCode(persistentAssemblyInfo.Name) + Environment.NewLine;
             var codeProvider = getCodeDomProvider(persistentAssemblyInfo.CodeDomProvider);
             var compilerParams = new CompilerParameters
             {
@@ -45,12 +45,6 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return CompileModule(persistentAssemblyInfo, null);
         }
 
-        string GetVersionCode(IPersistentAssemblyInfo persistentAssemblyInfo) {
-            var version = persistentAssemblyInfo.Version;
-            if (!string.IsNullOrEmpty(version))
-                return string.Format(@"[assembly: System.Reflection.AssemblyVersionAttribute(""{0}"")]", version)+Environment.NewLine;
-            return null;
-        }
 
 //        void setAssemblyVersion(System.CodeDom.Compiler.CodeDomProvider codeProvider, string version) {
 //            var unit = new CodeCompileUnit();
@@ -138,10 +132,6 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return @"""" +((assembly is AssemblyBuilder)? null: (!string.IsNullOrEmpty(assembly.Location) ? Path.GetDirectoryName(assembly.Location) : null)) +@"""";
         }
 
-        internal static string getModuleCode(string assemblyName)
-        {
-            return "namespace " +assemblyName+ "{public class Dynamic" + assemblyName + "Module:DevExpress.ExpressApp.ModuleBase{}}";
-        }
 
         public List<Type> CompileModules(IList<IPersistentAssemblyInfo> persistentAssemblyInfos) {
 
