@@ -34,6 +34,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         It should_delegate_any_errors_to_assembly_info_compile_errors_property=() => _persistentAssemblyInfo.CompileErrors.ShouldNotBeNull();
         
     }
+
     [Subject(typeof(CompileEngine), "specs")]
     [Isolated]
     public class When_compiling_a_dynamic_assembly
@@ -93,6 +94,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
                 propertyInfos.Where(info => info.Name == "CollProperty").FirstOrDefault().ShouldNotBeNull();
             };
     }
+
     [Subject(typeof(CompileEngine), "specs")]
     public class When_PersistentClassInfo_BaseType_Belongs_to_different_assemmbly {
         static PersistentAssemblyInfo _persistentAssemblyInfo;
@@ -125,6 +127,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             _compileModule.Assembly.GetTypes().Where(type => typeof (User).IsAssignableFrom(type)).FirstOrDefault().
                 ShouldNotBeNull();
     }
+
     [Subject(typeof(CompileEngine), "specs")]
     public class When_PersistentClassInfo_BaseType_Belongs_to_same_assemmbly {
         static PersistentAssemblyInfo _persistentAssemblyInfo;
@@ -156,6 +159,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             _compileModule.Assembly.GetTypes().Where(type => typeof (User).IsAssignableFrom(type)).FirstOrDefault().
                 ShouldNotBeNull();
     }
+
     [Subject(typeof(CompileEngine))]
     public class When_compiling_assembly_with_strong_key:With_Isolations {
         static Type _compileModule;
@@ -178,6 +182,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         It should_have_public_token_set =
             () => (_compileModule.Assembly.FullName + "").IndexOf("c52ffed5d5ff0958").ShouldBeGreaterThan(-1);
     }
+
     [Subject(typeof(CompileEngine))]
     public class When_compiling_assembly_with_version:With_Isolations {
         static Type _compileModule;
@@ -199,6 +204,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         It should_have_version_set =
             () => (_compileModule.Assembly.FullName + "").IndexOf("2.2.2.2").ShouldBeGreaterThan(-1);
     }
+
     [Subject(typeof(CompileEngine))]
     public class When_compiling_a_list_of_assemblies {
         static IList<IPersistentAssemblyInfo> _persistentAssemblyInfos;
@@ -227,4 +233,27 @@ namespace eXpand.Tests.eXpand.WorldCreator
         It should_compile_the_one_with_lowest_compile_order_firt =
             () => _persistnetAssembly.Name.ShouldEqual("FirstAssembly");
     }
+
+    [Subject(typeof(CompileEngine))]
+    public class When_compiling_an_assembly_with_dots_in_its_name:With_Isolations {
+        static Type _compileModule;
+        static IPersistentAssemblyInfo _persistentAssemblyInfo;
+
+        Establish context = () => {
+            _persistentAssemblyInfo = Isolate.Fake.Instance<IPersistentAssemblyInfo>(Members.CallOriginal);
+            new TestAppLication<PersistentAssemblyInfo>().Setup(null, info => {
+                _persistentAssemblyInfo = info;
+            });
+            _persistentAssemblyInfo.Name = "TestAssembly.Win";
+        };
+
+        Because of = () => {
+             _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo);
+         };
+
+        It should_compile_with_no_erros = () => _persistentAssemblyInfo.CompileErrors.ShouldBeNull();
+        It should_an_assembly_with_dots_in_its_name =
+            () => (_compileModule.Assembly.FullName + "").IndexOf("TestAssembly.Win").ShouldBeGreaterThan(-1);
+    }
+
 }

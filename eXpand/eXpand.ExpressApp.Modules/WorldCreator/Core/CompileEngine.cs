@@ -30,7 +30,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 GenerateExecutable = false,
                 GenerateInMemory = true,
                 IncludeDebugInformation = false,
-                OutputAssembly = persistentAssemblyInfo.Name
+                OutputAssembly = persistentAssemblyInfo.Name+".dll"
             };
             if (action!= null)
                 action.Invoke(compilerParams);                

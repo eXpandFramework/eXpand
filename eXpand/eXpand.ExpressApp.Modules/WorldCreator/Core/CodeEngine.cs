@@ -123,7 +123,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         }
         internal static string getModuleCode(string assemblyName)
         {
-            return "namespace " + assemblyName + "{public class Dynamic" + assemblyName + "Module:DevExpress.ExpressApp.ModuleBase{}}";
+            return "namespace " + assemblyName + "{public class Dynamic" + assemblyName.Replace(".","") + "Module:DevExpress.ExpressApp.ModuleBase{}}";
         }
 
         static string groupUsings(string generateCode,CodeDomProvider codeDomProvider) {
