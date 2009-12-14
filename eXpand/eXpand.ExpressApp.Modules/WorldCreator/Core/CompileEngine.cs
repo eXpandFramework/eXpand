@@ -147,7 +147,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
             var definedModules = new List<Type>();
             
-            foreach (IPersistentAssemblyInfo persistentAssemblyInfo in persistentAssemblyInfos) {
+            foreach (IPersistentAssemblyInfo persistentAssemblyInfo in persistentAssemblyInfos.OrderByDescending(info => info.CompileOrder)) {
                 string path = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath),persistentAssemblyInfo.Name);
                 if (File.Exists(path+".dll"))
                     File.Delete(path+".dll");

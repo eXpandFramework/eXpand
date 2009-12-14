@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using DevExpress.ExpressApp;
@@ -200,5 +201,33 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
         It should_have_version_set =
             () => (_compileModule.Assembly.FullName + "").IndexOf("2.2.2.2").ShouldBeGreaterThan(-1);
+    }
+
+    internal class When_compiling_a_list_of_assemblies {
+        static IList<IPersistentAssemblyInfo> _persistentAssemblyInfos;
+
+        static CompileEngine _compileEngine;
+
+        static IPersistentAssemblyInfo _persistnetAssembly;
+
+        Establish context = () => {
+            new TestAppLication<PersistentAssemblyInfo>().Setup(null,info => {
+                info.Name = "SecondAssembly";
+                info.CompileOrder = 1;
+                var persistentAssemblyInfo = new PersistentAssemblyInfo(info.Session){Name = "FirstAssembly"};
+                _persistentAssemblyInfos = new List<PersistentAssemblyInfo>{persistentAssemblyInfo,info}.Cast<IPersistentAssemblyInfo>().ToList();
+            });
+            _compileEngine = new CompileEngine();
+            Isolate.WhenCalled(() => _compileEngine.CompileModule(null)).DoInstead(callContext => {
+                _persistnetAssembly = (IPersistentAssemblyInfo) callContext.Parameters[0];
+                return null;
+            });
+            
+        };
+
+        Because of = () => _compileEngine.CompileModules(_persistentAssemblyInfos);
+
+        It should_compile_the_one_with_lowest_compile_order_firt =
+            () => _persistnetAssembly.Name.ShouldEqual("FirstAssembly");
     }
 }

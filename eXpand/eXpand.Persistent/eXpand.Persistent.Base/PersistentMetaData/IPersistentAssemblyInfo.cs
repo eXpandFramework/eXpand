@@ -13,6 +13,7 @@ namespace eXpand.Persistent.Base.PersistentMetaData {
         Session Session { get; }
         IFileData FileData { get; set; }
         string Version { get; set; }
+        int CompileOrder { get; set; }
     }
     public enum CodeDomProvider {
         CSharp,

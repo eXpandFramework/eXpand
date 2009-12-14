@@ -36,6 +36,18 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 SetPropertyValue("Name", ref _name, value);
             }
         }
+        private int _compileOrder;
+        public int CompileOrder
+        {
+            get
+            {
+                return _compileOrder;
+            }
+            set
+            {
+                SetPropertyValue("CompileOrder", ref _compileOrder, value);
+            }
+        }
         private bool _doNotCompile;
         public bool DoNotCompile
         {
