@@ -19,21 +19,16 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     public class PersistentClassInfo : PersistentTemplatedTypeInfo, IPersistentClassInfo, IPropertyValueValidator {
         Type _baseType;
         string _baseTypeFullName;
-        [VisibleInListView(false)]
-        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
-        [Size(SizeAttribute.Unlimited)]
-        public string GeneratedCode
-        {
-            get { return CodeEngine.GenerateCode(this); }
-        }
 
 
         Type _mergedObject;
+
         PersistentAssemblyInfo _persistentAssemblyInfo;
 
         public PersistentClassInfo(Session session) : base(session) {
         }
 
+        [Index(0)]
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof (TypeValueConverter))]
         [TypeConverter(typeof (LocalizedClassInfoTypeConverter))]
@@ -44,7 +39,22 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 _baseTypeFullName = _baseType != null ? _baseType.FullName : null;
             }
         }
-
+        private PersistentClassInfo _baseClassInfo;
+        [Index(1)]
+        public PersistentClassInfo BaseClassInfo
+        {
+            get
+            {
+                return _baseClassInfo;
+            }
+            set
+            {
+                SetPropertyValue("BaseClassInfo", ref _baseClassInfo, value);
+                _baseTypeFullName = _baseClassInfo != null
+                                        ? _baseClassInfo.PersistentAssemblyInfo.Name + "." + _baseClassInfo.Name
+                                        : null;
+            }
+        }
         [Browsable(false)]
         public string BaseTypeFullName
         {
@@ -57,6 +67,36 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 SetPropertyValue("BaseTypeFullName", ref _baseTypeFullName, value);
             }
         }
+        [Index(2)]
+        [RuleFromIPropertyValueValidatorAttribute(null, DefaultContexts.Save)]
+        [Size(SizeAttribute.Unlimited)]
+        [ValueConverter(typeof (TypeValueConverter))]
+        [TypeConverter(typeof (LocalizedClassInfoTypeConverter))]
+        public Type MergedObjectType {
+            get { return _mergedObject; }
+            set { SetPropertyValue("MergedObjectType", ref _mergedObject, value); }
+        }
+        private PersistentClassInfo _mergedClassInfo;
+        [Index(3)]
+        public PersistentClassInfo MergedClassInfo
+        {
+            get
+            {
+                return _mergedClassInfo;
+            }
+            set
+            {
+                SetPropertyValue("MergedClassInfo", ref _mergedClassInfo, value);
+            }
+        }
+        [Index(4)]
+        [VisibleInListView(false)]
+        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
+        [Size(SizeAttribute.Unlimited)]
+        public string GeneratedCode
+        {
+            get { return CodeEngine.GenerateCode(this); }
+        }
 
         [Association("PersistentClassInfo-OwnMembers")]
         [Aggregated]
@@ -68,24 +108,13 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         public XPCollection<InterfaceInfo> Interfaces {
             get { return GetCollection<InterfaceInfo>("Interfaces"); }
         }
-//        [NonCloneable]
-//        [RuleRequiredField(null, DefaultContexts.Save)]
+
         [Association("PersistentAssemblyInfo-PersistentClassInfos")]
         public PersistentAssemblyInfo PersistentAssemblyInfo {
             get { return _persistentAssemblyInfo; }
             set { SetPropertyValue("PersistentAssemblyInfo", ref _persistentAssemblyInfo, value); }
         }
         #region IPersistentClassInfo Members
-        [RuleFromIPropertyValueValidatorAttribute(null, DefaultContexts.Save)]
-        [Size(SizeAttribute.Unlimited)]
-        [ValueConverter(typeof (TypeValueConverter))]
-        [TypeConverter(typeof (LocalizedClassInfoTypeConverter))]
-        public Type MergedObjectType {
-            get { return _mergedObject; }
-            set { SetPropertyValue("MergedObjectType", ref _mergedObject, value); }
-        }
-
-
         IList<IInterfaceInfo> IPersistentClassInfo.Interfaces {
             get { return new ListConverter<IInterfaceInfo, InterfaceInfo>(Interfaces); }
         }

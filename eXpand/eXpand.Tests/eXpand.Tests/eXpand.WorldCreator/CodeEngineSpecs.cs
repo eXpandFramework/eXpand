@@ -3,6 +3,7 @@ using System.Reflection;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.WorldCreator;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
@@ -35,7 +36,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             _generateCode.IndexOf("$TYPEATTRIBUTES$").ShouldEqual(-1);
         };
     }
-    [Subject(typeof(CodeEngine))]
+        [Subject(typeof(CodeEngine))]
     public class When_generating_code_from_persistentClassinfo_with_no_base_type_defined {
         static PersistentClassInfo _persistentClassInfo;
 
@@ -58,10 +59,29 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         It should_use_default_Base_type =() => _generateCode.IndexOf(typeof (eXpandCustomObject).FullName).ShouldBeGreaterThan(-1);
     }
+        [Subject(typeof(CodeEngine))]
+    public class When_generating_code_from_persistentClassinfo_with_baseclassinfo_defined:With_Isolations {
+        static string _generateCode;
+        static PersistentClassInfo _info;
 
+        Establish context = () => new TestAppLication<PersistentClassInfo>().Setup(null, info => {
+            info.Name = "TestAssemblye";
+            var persistentAssemblyInfo = new PersistentAssemblyInfo(info.Session);
+            var parentPersistentClassInfo = new PersistentClassInfo(info.Session) { Name = "ParentClass", PersistentAssemblyInfo = persistentAssemblyInfo };
 
+            info.Name = "ChildClass";
+            info.BaseClassInfo = parentPersistentClassInfo;
+            info.PersistentAssemblyInfo = persistentAssemblyInfo;
+            _info=info;
+        }).WithArtiFacts(() => new[]{typeof (WorldCreatorModule)}).CreateDetailView().CreateFrame();
+
+        Because of = () => { _generateCode = CodeEngine.GenerateCode(_info); };
+
+        It should_derive_child_from_parent_classInfo =
+            () => _generateCode.IndexOf("ChildClass:TestAssembly.ParentClass").ShouldBeGreaterThan(-1);
+    }
     [Subject(typeof(CodeEngine))]
-    public class When_generating_code_from_persistentClassinfo {
+    public class When_generating_code_from_persistentClassinfo_with_baseType_defined {
         static PersistentClassInfo _persistentClassInfo;
 
         static string _generateCode;
