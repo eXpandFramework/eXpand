@@ -4,12 +4,11 @@ using eXpand.ExpressApp.WorldCreator.Observers;
 namespace eXpand.ExpressApp.WorldCreator.Controllers {
     public class CodeTemplateController : ViewController
     {
-        protected override void OnViewChanging(View view)
+        protected override void OnActivated()
         {
-            base.OnViewChanging(view);
-            new CodeTemplateObserver(view.ObjectSpace);
+            base.OnActivated();
+            new CodeTemplateObserver(ObjectSpace);
         }
-
 
     }
 }

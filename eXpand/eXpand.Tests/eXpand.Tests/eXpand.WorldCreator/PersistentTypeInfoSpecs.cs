@@ -14,7 +14,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             new TestAppLication<PersistentClassInfo>().Setup(null,info => {
                 info.PersistentAssemblyInfo=new PersistentAssemblyInfo(info.Session);
                 _persistentClassInfo = info;
-            }).WithArtiFacts(() => new[]{typeof (WorldCreatorModule)}).CreateDetailView().CreateFrame();
+            }).WithArtiFacts(() => new[]{typeof (WorldCreatorModule)}).CreateDetailView().CreateFrame().RaiseControlsCreated();
             _codeTemplate = new CodeTemplate(_persistentClassInfo.Session){TemplateCode ="TemplateCode" };
         };
 
@@ -33,7 +33,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
                 info.PersistentAssemblyInfo = new PersistentAssemblyInfo(info.Session);
                 _persistentClassInfo = info;
             });
-            artifactHandler.WithArtiFacts(() => new[]{typeof(WorldCreatorModule)}).CreateDetailView().CreateFrame();
+            artifactHandler.WithArtiFacts(() => new[]{typeof(WorldCreatorModule)}).CreateDetailView().CreateFrame().RaiseControlsCreated();
             artifactHandler.UnitOfWork.CommitChanges();
         };
 

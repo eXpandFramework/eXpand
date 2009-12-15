@@ -21,7 +21,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         string _baseTypeFullName;
 
 
-        Type _mergedObject;
+        Type _mergedObjectType;
 
         PersistentAssemblyInfo _persistentAssemblyInfo;
 
@@ -37,6 +37,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set {
                 SetPropertyValue("BaseType", ref _baseType, value);
                 _baseTypeFullName = _baseType != null ? _baseType.FullName : null;
+                _baseClassInfo = null;
             }
         }
         private PersistentClassInfo _baseClassInfo;
@@ -53,10 +54,11 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 _baseTypeFullName = _baseClassInfo != null
                                         ? _baseClassInfo.PersistentAssemblyInfo.Name + "." + _baseClassInfo.Name
                                         : null;
+                _baseType = null;
             }
         }
         [Browsable(false)]
-        public string BaseTypeFullName
+        string IPersistentClassInfo.BaseTypeFullName
         {
             get
             {
@@ -67,14 +69,34 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 SetPropertyValue("BaseTypeFullName", ref _baseTypeFullName, value);
             }
         }
+        private string _mergedObjectFullName;
+        [Browsable(false)]
+        [Size(SizeAttribute.Unlimited)]
+        string IPersistentClassInfo.MergedObjectFullName
+        {
+            get
+            {
+                return _mergedObjectFullName;
+            }
+            set
+            {
+                SetPropertyValue("MergedObjectFullName", ref _mergedObjectFullName, value);
+
+            }
+        }
+
         [Index(2)]
         [RuleFromIPropertyValueValidatorAttribute(null, DefaultContexts.Save)]
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof (TypeValueConverter))]
         [TypeConverter(typeof (LocalizedClassInfoTypeConverter))]
         public Type MergedObjectType {
-            get { return _mergedObject; }
-            set { SetPropertyValue("MergedObjectType", ref _mergedObject, value); }
+            get { return _mergedObjectType; }
+            set {
+                SetPropertyValue("MergedObjectType", ref _mergedObjectType, value);
+                _mergedObjectFullName = _mergedObjectType != null ? _mergedObjectType.FullName : null;
+                _mergedClassInfo = null;
+            }
         }
         private PersistentClassInfo _mergedClassInfo;
         [Index(3)]
@@ -87,6 +109,10 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set
             {
                 SetPropertyValue("MergedClassInfo", ref _mergedClassInfo, value);
+                _mergedObjectFullName = _mergedClassInfo != null
+                                        ? _mergedClassInfo.PersistentAssemblyInfo.Name + "." + _mergedClassInfo.Name
+                                        : null;
+                _baseType = null;
             }
         }
         [Index(4)]
@@ -137,8 +163,8 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         public bool IsPropertyValueValid(string propertyName, ref string errorMessageTemplate,
                                          ContextIdentifiers contextIdentifiers, string ruleId) {
             if (propertyName == this.GetPropertyInfo(x => x.MergedObjectType).Name && MergedObjectType != null) {
-                if (BaseType == null) {
-                    errorMessageTemplate = this.GetPropertyInfo(x => x.BaseType).Name + " cannot be null";
+                if (BaseType == null&&BaseClassInfo== null) {
+                    errorMessageTemplate = "One of " + this.GetPropertyInfo(x => x.BaseType).Name + ", " + this.GetPropertyInfo(x => x.BaseClassInfo).Name + " should not be null";
                     return false;
                 }
                 if (TypeAttributes.Where(info => info is PeristentMapInheritanceAttribute).FirstOrDefault() == null) {

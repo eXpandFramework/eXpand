@@ -8,12 +8,12 @@ namespace eXpand.ExpressApp.WorldCreator.Controllers.DetailView {
         public PersistentTemplatedTypeInfoController() {
             TargetObjectType = typeof(IPersistentTemplatedTypeInfo);
         }
-
-        protected override void OnActivated()
+        protected override void OnViewControlsCreated()
         {
-            base.OnActivated();
+            base.OnViewControlsCreated();
             if (ObjectSpace.Session.IsNewObject(View.CurrentObject))
                 ((IPersistentTemplatedTypeInfo)View.CurrentObject).Init(TypesInfo.Instance.CodeTemplateType);
+
         }
     }
 }

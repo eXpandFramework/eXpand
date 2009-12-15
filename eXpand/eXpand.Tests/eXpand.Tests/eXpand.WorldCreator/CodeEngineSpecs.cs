@@ -65,15 +65,14 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         static PersistentClassInfo _info;
 
         Establish context = () => new TestAppLication<PersistentClassInfo>().Setup(null, info => {
-            info.Name = "TestAssemblye";
-            var persistentAssemblyInfo = new PersistentAssemblyInfo(info.Session);
+            info.Name = "ParentClass";
+            var persistentAssemblyInfo = new PersistentAssemblyInfo(info.Session){Name = "TestAssembly"};
             var parentPersistentClassInfo = new PersistentClassInfo(info.Session) { Name = "ParentClass", PersistentAssemblyInfo = persistentAssemblyInfo };
-
             info.Name = "ChildClass";
             info.BaseClassInfo = parentPersistentClassInfo;
             info.PersistentAssemblyInfo = persistentAssemblyInfo;
             _info=info;
-        }).WithArtiFacts(() => new[]{typeof (WorldCreatorModule)}).CreateDetailView().CreateFrame();
+        }).WithArtiFacts(() => new[]{typeof (WorldCreatorModule)}).CreateDetailView().CreateFrame().RaiseControlsCreated();
 
         Because of = () => { _generateCode = CodeEngine.GenerateCode(_info); };
 

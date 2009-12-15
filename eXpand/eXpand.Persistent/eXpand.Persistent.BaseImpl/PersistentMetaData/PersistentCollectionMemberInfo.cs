@@ -32,6 +32,21 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
             set {
                 SetPropertyValue("CollectionType", ref _collectionType, value);
                 _collectionTypeFullName = _collectionType != null ? _collectionType.FullName : null;
+                _collectionClassInfo = null;
+            }
+        }
+        private PersistentClassInfo _collectionClassInfo;
+        public PersistentClassInfo CollectionClassInfo
+        {
+            get
+            {
+                return _collectionClassInfo;
+            }
+            set
+            {
+                SetPropertyValue("CollectionClassInfo", ref _collectionClassInfo, value);
+                _collectionTypeFullName = _collectionClassInfo != null ? _collectionClassInfo.PersistentAssemblyInfo.Name+"."+_collectionClassInfo.Name : null;
+                _collectionType = null;
             }
         }
         private string _collectionTypeFullName;

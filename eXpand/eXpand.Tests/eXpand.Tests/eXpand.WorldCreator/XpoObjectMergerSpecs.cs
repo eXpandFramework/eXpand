@@ -17,11 +17,8 @@ namespace eXpand.Tests.eXpand.WorldCreator {
     [Isolated]
     public class When_Merging_Dynamic_Types : With_In_Memory_DataStore {
         static readonly List<Type> types = new List<Type>();
-
         static IDbCommand _dbCommand;
-
         static bool execCommand;
-//        static UnitOfWork unitOfWork;
 
         static int updateSchemaCalls;
         static XpoObjectMerger xpoObjectMerger;
@@ -35,18 +32,16 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             Assembly.GetAssembly(typeof (ObjectMerger));
             var codeTemplate = new CodeTemplate(UnitOfWork) {TemplateType = TemplateType.Class};
             codeTemplate.SetDefaults();
-            persistentClassInfo.CodeTemplateInfo=new CodeTemplateInfo(UnitOfWork);
-            persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
+            persistentClassInfo.CodeTemplateInfo=new CodeTemplateInfo(UnitOfWork) {TemplateInfo = codeTemplate};
             persistentClassInfo.PersistentAssemblyInfo = new PersistentAssemblyInfo(UnitOfWork)
                                                          {Name = "MergingAssembly"};
-//            persistentClassInfo.CodeTemplateInfo.GeneratedCode = CodeEngine.GenerateCode(persistentClassInfo);
             persistentClassInfo.Save();
 
             UnitOfWork.CommitChanges();
             Type compileModule = new CompileEngine().CompileModule(persistentClassInfo.PersistentAssemblyInfo);
             types.AddRange(compileModule.Assembly.GetTypes().Where(type => !typeof (ModuleBase).IsAssignableFrom(type)));
+            types.Add(typeof (User));
 
-//            unitOfWork = new UnitOfWork(Session.DefaultSession.DataLayer);
             _dbCommand = Isolate.Fake.Instance<IDbCommand>();
             Isolate.WhenCalled(() => _dbCommand.ExecuteNonQuery()).DoInstead(callContext => {
                 execCommand = true;

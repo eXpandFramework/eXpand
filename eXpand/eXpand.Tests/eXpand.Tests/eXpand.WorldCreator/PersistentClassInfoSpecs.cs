@@ -3,7 +3,6 @@ using eXpand.ExpressApp.WorldCreator;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using Machine.Specifications;
-using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.eXpand.WorldCreator {
 
@@ -24,7 +23,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             frameCreationHandler = artifactHandler.WithArtiFacts(() => new[]{typeof(WorldCreatorModule)}).CreateDetailView();
         };
 
-        Because of = () => frameCreationHandler.CreateFrame();
+        Because of = () => frameCreationHandler.CreateFrame().RaiseControlsCreated();
 
         It should_assign_that_template_to_classInfo =
             () =>
@@ -51,7 +50,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             _frameCreationHandler = artifactHandler.WithArtiFacts(() => new[]{typeof(WorldCreatorModule)})            .CreateDetailView();
         };
 
-        Because of = () => _frameCreationHandler.CreateFrame();
+        Because of = () => _frameCreationHandler.CreateFrame().RaiseControlsCreated();
 
 
         It should_create_a_default_classInfo_template_if_not_exists = () =>
@@ -65,7 +64,4 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         It should_set_template_as_default = () => _codeTemplate.IsDefault.ShouldBeTrue();
     }
 
-    public class With_Isolations {
-        Establish context = () => Isolate.Fake.WCTypesInfo();
-    }
 }

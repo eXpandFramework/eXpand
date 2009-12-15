@@ -30,6 +30,21 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
             set {
                 SetPropertyValue("ReferenceType", ref _referenceType, value);
                 _referenceTypeFullName = _referenceType != null ? _referenceType.FullName : null;
+                _referenceClassInfo = null;
+            }
+        }
+        private PersistentClassInfo _referenceClassInfo;
+        public PersistentClassInfo ReferenceClassInfo
+        {
+            get
+            {
+                return _referenceClassInfo;
+            }
+            set
+            {
+                SetPropertyValue("ReferenceClassInfo", ref _referenceClassInfo, value);
+                _referenceTypeFullName = _referenceClassInfo != null ? _referenceClassInfo.PersistentAssemblyInfo.Name + "." + _referenceClassInfo.Name : null;
+                _referenceType = null;
             }
         }
         private string _referenceTypeFullName;

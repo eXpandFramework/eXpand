@@ -118,11 +118,7 @@ namespace eXpand.ExpressApp.Win
                     }
                 }
             }
-            if(result == null) {
-                result = new LinqCollectionSource(objectSpace, objectType);
-            }
-            return result;
-
+            return result ?? (new LinqCollectionSource(objectSpace, objectType));
         }
 
     }

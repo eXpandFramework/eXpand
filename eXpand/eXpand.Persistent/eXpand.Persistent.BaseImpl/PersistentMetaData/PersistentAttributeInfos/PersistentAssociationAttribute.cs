@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -11,71 +10,70 @@ using eXpand.Xpo.Converters.ValueConverters;
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("AssociationName")]
     public class PersistentAssociationAttribute : PersistentAttributeInfo {
-        private string _associationName;
-        
+        string _associationName;
+        PersistentClassInfo _elementClassInfo;
+        Type _elementType;
+        string _elementTypeFullName;
+
 
         public PersistentAssociationAttribute(Session session) : base(session) {
         }
 
         public PersistentAssociationAttribute() {
         }
-        #region IPersistentAssociationAttribute Members
+
         [VisibleInListView(true)]
-        [RuleRequiredField(null,DefaultContexts.Save)]
+        [RuleRequiredField(null, DefaultContexts.Save)]
         public string AssociationName {
             get { return _associationName; }
             set { SetPropertyValue("AssociationName", ref _associationName, value); }
         }
-        
-        
 
-        private Type _elementType;
+
         [Size(SizeAttribute.Unlimited)]
-        [ValueConverter(typeof(TypeValueConverter))]
-        [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
-        public Type ElementType
-        {
-            get
-            {
-                return _elementType;
-            }
+        [ValueConverter(typeof (TypeValueConverter))]
+        [TypeConverter(typeof (LocalizedClassInfoTypeConverter))]
+        public Type ElementType {
+            get { return _elementType; }
             set {
                 SetPropertyValue("ElementType", ref _elementType, value);
-                if (value != null) _assemblyQualifiedName = value.AssemblyQualifiedName;
+                _elementTypeFullName = _elementType != null ? _elementType.FullName : null;
+                _elementClassInfo = null;
             }
         }
 
-        private string _assemblyQualifiedName;
-        [Browsable(false)]
-        [MemberDesignTimeVisibility(false)]
-        [Size(SizeAttribute.Unlimited)]
-        public string AssemblyQualifiedName
-        {
-            get
-            {
-                return _assemblyQualifiedName;
-            }
-            set
-            {
-                SetPropertyValue("AssemblyQualifiedName", ref _assemblyQualifiedName, value);
+        public PersistentClassInfo ElementClassInfo {
+            get { return _elementClassInfo; }
+            set {
+                SetPropertyValue("ElementClassInfo", ref _elementClassInfo, value);
+                _elementTypeFullName = _elementClassInfo != null
+                                           ? _elementClassInfo.PersistentAssemblyInfo.Name + "." +
+                                             _elementClassInfo.Name
+                                           : null;
+                _elementType = null;
             }
         }
-        
+
+        [Size(SizeAttribute.Unlimited)]
+        [Browsable(false)]
+        public string ElementTypeFullName {
+            get { return _elementTypeFullName; }
+            set { SetPropertyValue("ElementTypeFullName", ref _elementTypeFullName, value); }
+        }
+
 
         public override AttributeInfo Create() {
-            if (ElementType!= null)
+            if (!string.IsNullOrEmpty(ElementTypeFullName))
                 return GetElementTypeDefinedAttributeInfo();
             ConstructorInfo constructorInfo = typeof (AssociationAttribute).GetConstructor(new[] {typeof (string)});
-            return new AttributeInfo(constructorInfo,AssociationName);
+            return new AttributeInfo(constructorInfo, AssociationName);
         }
 
         AttributeInfo GetElementTypeDefinedAttributeInfo() {
-            string typeName= Regex.Match(AssemblyQualifiedName, "([^,]*).*").Groups[1].Value;
-            string withOutTypeName=Regex.Replace(AssemblyQualifiedName, "([^,]*), (.*)", "$2");
-            string assemblyName = Regex.Match(withOutTypeName, "([^,]*).*").Groups[1].Value;
-            var constructorInfo = typeof(AssociationAttribute).GetConstructor(new[] { typeof(string), typeof(string), typeof(string) });
-            return new AttributeInfo(constructorInfo, AssociationName, assemblyName, typeName);
+            var type = ReflectionHelper.GetType(ElementTypeFullName);
+            ConstructorInfo constructorInfo =
+                typeof (AssociationAttribute).GetConstructor(new[] {typeof (string), typeof (string), typeof (string)});
+            return new AttributeInfo(constructorInfo, AssociationName, new AssemblyName(type.Assembly.FullName+""), type.FullName);
         }
-        #endregion
     }
 }

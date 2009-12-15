@@ -1,12 +1,10 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalEditorState;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-    [EditorStateRule("Hide templateInfo name", "CodeTemplateInfo.TemplateInfo.Name", EditorState.Hidden, "CodeTemplateInfo.PersistentAssemblyInfo is NULL", ViewType.DetailView)]
+    [EditorStateRule("Hide templateInfo name", "CodeTemplateInfo.TemplateInfo.Name", EditorState.Hidden, null , ViewType.DetailView)]
     public class PersistentTemplatedTypeInfo:PersistentTypeInfo, IPersistentTemplatedTypeInfo {
 
         public PersistentTemplatedTypeInfo(Session session) : base(session) {

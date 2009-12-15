@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Editors;
@@ -14,7 +15,7 @@ using System.Linq;
 
 namespace eXpand.Tests.eXpand.WorldCreator
 {
-    public class TestAppLication<TObject> : IApplicationHandler<TObject>, IArtifactHandler<TObject>, IViewCreationHandler, IFrameCreationHandler where TObject:BaseObject
+    public class TestAppLication<TObject> : IApplicationHandler<TObject>, IArtifactHandler<TObject>, IViewCreationHandler, IFrameCreationHandler, IControlsCreatedHandler where TObject:BaseObject
     {
         ObjectSpace _objectSpace;
         ApplicationNodeWrapper _applicationNodeWrapper;
@@ -22,6 +23,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         View _view;
         Frame _frame;
         TObject _currentObject;
+        List<Controller> _collectedControllers;
 
         public IArtifactHandler<TObject> Setup(Action<XafApplication> created,Action<TObject> action)
         {
@@ -104,19 +106,20 @@ namespace eXpand.Tests.eXpand.WorldCreator
             return this;
         }
 
-        void IFrameCreationHandler.CreateFrame(Action<Frame> created) {
+        IControlsCreatedHandler IFrameCreationHandler.CreateFrame(Action<Frame> created) {
             var controllersManager = new ControllersManager();
             controllersManager.CollectControllers(info => true);
-            IList<Controller> collectControllers = controllersManager.CreateControllers(typeof (Controller));
-            _frame = new Frame(_xafApplication, TemplateContext.View, collectControllers);
+            _collectedControllers = controllersManager.CreateControllers(typeof (Controller));
+            _frame = new Frame(_xafApplication, TemplateContext.View, _collectedControllers);
             if (_view == null)
                 ((IViewCreationHandler) this).CreateDetailView();
             _frame.SetView(_view);
             if (created != null) created.Invoke(_frame);
+            return this;
         }
 
-        void IFrameCreationHandler.CreateFrame() {
-            ((IFrameCreationHandler) this).CreateFrame(null);
+        IControlsCreatedHandler IFrameCreationHandler.CreateFrame() {
+            return ((IFrameCreationHandler)this).CreateFrame(null);
         }
 
 //        void IControllerActivateHandler.ActivateControllers(Action<Controller> action) {
@@ -136,6 +139,12 @@ namespace eXpand.Tests.eXpand.WorldCreator
         //void IControllerActivateHandler.ActivateControllers() {
         //    ((IControllerActivateHandler) this).ActivateControllers(null);
         //}
+        void IControlsCreatedHandler.RaiseControlsCreated() {
+            foreach (var controller in _collectedControllers.OfType<ViewController>()) {
+                var view = controller.View;
+                Isolate.Invoke.Event(() => view.ControlsCreated+= null, null,EventArgs.Empty);
+            }
+        }
     }
 
     internal interface IApplicationHandler<TObject>
@@ -153,10 +162,13 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
 
     public interface IFrameCreationHandler {
-        void CreateFrame(Action<Frame> created);
-        void CreateFrame();
+        IControlsCreatedHandler CreateFrame(Action<Frame> created);
+        IControlsCreatedHandler CreateFrame();
     }
 
+    public interface IControlsCreatedHandler {
+        void RaiseControlsCreated();
+    }
     public interface IViewCreationHandler {
         IFrameCreationHandler CreateListView();
         IFrameCreationHandler CreateListView(bool isRoot, Action<ListView> created);

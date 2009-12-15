@@ -21,6 +21,11 @@ using System.Linq;
 
 namespace eXpand.Tests.eXpand.WorldCreator
 {
+    public class With_Isolations
+    {
+        Establish context = () => Isolate.Fake.WCTypesInfo();
+    }
+
     public abstract class with_classInfo_with_interfaceInfos<InterfaceType> : With_In_Memory_DataStore
     {
         protected static PersistentClassInfo _persistentClassInfo;

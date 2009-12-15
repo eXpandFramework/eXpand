@@ -5,7 +5,7 @@ using eXpand.ExpressApp.WorldCreator.Core;
 
 namespace eXpand.ExpressApp.WorldCreator.Controllers.DetailView
 {
-    public partial class PersistentAssemblyController : ViewController<DevExpress.ExpressApp.DetailView>
+    public class PersistentAssemblyController : ViewController<DevExpress.ExpressApp.DetailView>
     {
         public PersistentAssemblyController()
         {

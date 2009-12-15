@@ -23,7 +23,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             _codeTemplate.Save();            
         };
 
-        Because of = () => _frameCreationHandler.CreateFrame();
+        Because of = () => _frameCreationHandler.CreateFrame().RaiseControlsCreated();
 
         It should_assign_that_template_to_classInfo = () => _persistentCoreTypeMemberInfo.CodeTemplateInfo.CodeTemplate.ShouldEqual(_codeTemplate);
     }
@@ -42,7 +42,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             }).WithArtiFacts(() => new[]{typeof(WorldCreatorModule)}).CreateDetailView();
         };
 
-        Because of = () => _frameCreationHandler.CreateFrame();
+        Because of = () => _frameCreationHandler.CreateFrame().RaiseControlsCreated();
 
         It should_create_a_default_classInfo_template_if_not_exists = () =>
         {
@@ -69,7 +69,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         };
 
 
-        Because of = () => _frameCreationHandler.CreateFrame();
+        Because of = () => _frameCreationHandler.CreateFrame().RaiseControlsCreated();
 
         It should_create_a_default_classInfo_template_if_not_exists = () =>
         {

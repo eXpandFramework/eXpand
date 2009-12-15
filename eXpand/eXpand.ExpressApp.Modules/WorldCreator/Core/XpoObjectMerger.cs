@@ -10,10 +10,10 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
     public class XpoObjectMerger {
         public void MergeTypes(UnitOfWork unitOfWork, List<Type> persistentTypes, IDbCommand command)
         {
-            var collection = new XPCollection(unitOfWork, TypesInfo.Instance.PersistentTypesInfoType).Cast<IPersistentClassInfo>().Where(info => info.MergedObjectType !=null).ToList();
+            var collection = new XPCollection(unitOfWork, TypesInfo.Instance.PersistentTypesInfoType).Cast<IPersistentClassInfo>().Where(info => info.MergedObjectFullName !=null).ToList();
             foreach (IPersistentClassInfo classInfo in collection){
                 XPClassInfo xpClassInfo = getClassInfo(classInfo.Session,classInfo.PersistentAssemblyInfo.Name+"."+ classInfo.Name,persistentTypes);
-                var mergedXPClassInfo = getClassInfo(classInfo.Session, classInfo.MergedObjectType.AssemblyQualifiedName,persistentTypes) ?? classInfo.Session.GetClassInfo(classInfo.MergedObjectType);
+                var mergedXPClassInfo = getClassInfo(classInfo.Session, classInfo.MergedObjectFullName,persistentTypes) ?? classInfo.Session.GetClassInfo(classInfo.MergedObjectFullName);
                 if (xpClassInfo != null) {
                     unitOfWork.UpdateSchema(xpClassInfo.ClassType, mergedXPClassInfo.ClassType);
 //                    if (unitOfWork.GetCount(xpClassInfo.ClassType) == 0)

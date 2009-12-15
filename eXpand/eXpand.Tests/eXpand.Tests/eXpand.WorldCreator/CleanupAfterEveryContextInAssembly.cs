@@ -1,7 +1,5 @@
-﻿using System;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
-using eXpand.ExpressApp.WorldCreator.Core;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
 
@@ -16,14 +14,4 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         }
     }
 
-    public class AssemblyContext:IAssemblyContext {
-        public void OnAssemblyStart() {
-//            Isolate.Fake.WCTypesInfo();
-            
-        }
-
-        public void OnAssemblyComplete() {
-            
-        }
-    }
 }
