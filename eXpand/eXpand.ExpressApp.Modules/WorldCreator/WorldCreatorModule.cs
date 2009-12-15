@@ -37,6 +37,7 @@ namespace eXpand.ExpressApp.WorldCreator
 
 
             var unitOfWork = new UnitOfWork { ConnectionString = _connectionString };
+            unitOfWork.UpdateSchema();
             AddDynamicModules(moduleManager, unitOfWork, TypesInfo.Instance.PersistentAssemblyInfoType);
             Application.SetupComplete += (sender, args) => mergeTypes(unitOfWork);
             var existentTypesMemberCreator = new ExistentTypesMemberCreator();

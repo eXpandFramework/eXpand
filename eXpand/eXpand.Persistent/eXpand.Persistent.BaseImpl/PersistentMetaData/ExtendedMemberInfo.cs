@@ -30,6 +30,17 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         
             }
         }
-        
+        private PersistentClassInfo _ownerClassInfo;
+        public PersistentClassInfo OwnerClassInfo
+        {
+            get
+            {
+                return _ownerClassInfo;
+            }
+            set
+            {
+                SetPropertyValue("OwnerClassInfo", ref _ownerClassInfo, value);
+            }
+        }
     }
 }
