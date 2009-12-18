@@ -1,7 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -81,8 +80,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 }
                 return null;
             }
-            catch (Exception e){
-                Debug.Print("");
+            catch (Exception){
             }
             finally {
                 if (compileAssemblyFromSource != null){

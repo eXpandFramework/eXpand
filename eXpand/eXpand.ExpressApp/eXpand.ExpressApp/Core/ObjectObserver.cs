@@ -15,7 +15,7 @@ namespace eXpand.ExpressApp.Core {
 
         public event EventHandler<ObjectsManipulatingEventArgs<TObject>> ObjectDeleted;
 
-        protected virtual void InvokeObjectDeleted(ObjectsManipulatingEventArgs<TObject> e)
+        protected virtual void OnDeleted(ObjectsManipulatingEventArgs<TObject> e)
         {
             EventHandler<ObjectsManipulatingEventArgs<TObject>> handler = ObjectDeleted;
             if (handler != null) handler(this, e);
@@ -23,7 +23,7 @@ namespace eXpand.ExpressApp.Core {
 
         public event EventHandler<ObjectsManipulatingEventArgs<TObject>> ObjectDeleting;
 
-        protected virtual void InvokeObjectDeleting(ObjectsManipulatingEventArgs<TObject> e)
+        protected virtual void OnDeleting(ObjectsManipulatingEventArgs<TObject> e)
         {
             EventHandler<ObjectsManipulatingEventArgs<TObject>> handler = ObjectDeleting;
             if (handler != null) handler(this, e);
@@ -31,7 +31,7 @@ namespace eXpand.ExpressApp.Core {
 
         public event EventHandler<ObjectManipulatingEventArgs<TObject>> ObjectSaved;
 
-        protected virtual void InvokeObjectSaved(ObjectManipulatingEventArgs<TObject> e)
+        protected virtual void OnSaved(ObjectManipulatingEventArgs<TObject> e)
         {
             EventHandler<ObjectManipulatingEventArgs<TObject>> handler = ObjectSaved;
             if (handler != null) handler(this, e);
@@ -39,7 +39,7 @@ namespace eXpand.ExpressApp.Core {
 
         public event EventHandler<ObjectManipulatingEventArgs<TObject>> ObjectSaving;
 
-        protected virtual void InvokeObjectSaving(ObjectManipulatingEventArgs<TObject> e)
+        protected virtual void OnSaving(ObjectManipulatingEventArgs<TObject> e)
         {
             EventHandler<ObjectManipulatingEventArgs<TObject>> handler = ObjectSaving;
             if (handler != null) handler(this, e);
@@ -64,27 +64,27 @@ namespace eXpand.ExpressApp.Core {
         void ObjectSpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs objectManipulatingEventArgs)
         {
             if (objectManipulatingEventArgs.Object is TObject)
-                InvokeObjectSaving(new ObjectManipulatingEventArgs<TObject>(objectManipulatingEventArgs.Object as TObject));
+                OnSaving(new ObjectManipulatingEventArgs<TObject>(objectManipulatingEventArgs.Object as TObject));
         }
 
         void ObjectSpaceOnObjectSaved(object sender, ObjectManipulatingEventArgs objectManipulatingEventArgs)
         {
             if (objectManipulatingEventArgs.Object is TObject)
-                InvokeObjectSaved(new ObjectManipulatingEventArgs<TObject>(objectManipulatingEventArgs.Object as TObject));
+                OnSaved(new ObjectManipulatingEventArgs<TObject>(objectManipulatingEventArgs.Object as TObject));
         }
 
         void ObjectSpaceOnObjectDeleting(object sender, ObjectsManipulatingEventArgs objectsManipulatingEventArgs)
         {
             IEnumerable<TObject> objects = objectsManipulatingEventArgs.Objects.OfType<TObject>();
             if (objects.Count() > 0)
-                InvokeObjectDeleting(new ObjectsManipulatingEventArgs<TObject>(objects));
+                OnDeleting(new ObjectsManipulatingEventArgs<TObject>(objects));
         }
 
         void ObjectSpaceOnObjectDeleted(object sender, ObjectsManipulatingEventArgs objectsManipulatingEventArgs)
         {
             IEnumerable<TObject> objects = objectsManipulatingEventArgs.Objects.OfType<TObject>();
             if (objects.Count() > 0)
-                InvokeObjectDeleted(new ObjectsManipulatingEventArgs<TObject>(objects));
+                OnDeleted(new ObjectsManipulatingEventArgs<TObject>(objects));
         }
 
         void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs)

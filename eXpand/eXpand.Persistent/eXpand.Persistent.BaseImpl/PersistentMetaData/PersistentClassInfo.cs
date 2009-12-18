@@ -15,7 +15,7 @@ using eXpand.Xpo;
 using eXpand.Xpo.Converters.ValueConverters;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-    
+    [DefaultClassOptions]
     public class PersistentClassInfo : PersistentTemplatedTypeInfo, IPersistentClassInfo, IPropertyValueValidator {
         Type _baseType;
         string _baseTypeFullName;

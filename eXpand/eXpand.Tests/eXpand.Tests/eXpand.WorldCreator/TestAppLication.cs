@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Editors;
@@ -24,6 +23,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         Frame _frame;
         TObject _currentObject;
         List<Controller> _collectedControllers;
+        
 
         public IArtifactHandler<TObject> Setup(Action<XafApplication> created,Action<TObject> action)
         {
@@ -37,6 +37,13 @@ namespace eXpand.Tests.eXpand.WorldCreator
             if (action != null) action.Invoke(_currentObject);
 
             _xafApplication = Isolate.Fake.Instance<XafApplication>();
+//            CollectionSourceBase _collectionSource = null;
+//            var collectionSourceBase = Isolate.Fake.Instance<CollectionSourceBase>();
+//            Isolate.WhenCalled((String listViewId, CollectionSourceBase collectionSource, bool isRoot) => _xafApplication.CreateListView("", collectionSourceBase,
+//                                                                    false)).AndArgumentsMatch((s, @base, arg3) => {
+//                                                                        _collectionSource = @base;
+//                                                                        return true;
+//                                                                    }).WillReturn(new ListView(_collectionSource, _xafApplication, false));
             if (created != null) created.Invoke(_xafApplication);
             return this;
         }
@@ -55,6 +62,10 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
         UnitOfWork IArtifactHandler<TObject>.UnitOfWork {
             get { return (UnitOfWork) _objectSpace.Session; }
+        }
+
+        ObjectSpace IArtifactHandler<TObject>.ObjectSpace {
+            get { return _objectSpace; }
         }
 
         IViewCreationHandler IArtifactHandler<TObject>.WithArtiFacts(Func<Type[]> func){
@@ -102,7 +113,6 @@ namespace eXpand.Tests.eXpand.WorldCreator
             _view = new DetailView(_objectSpace, _currentObject, _xafApplication, true);
             Isolate.WhenCalled(() => _view.SynchronizeWithInfo()).IgnoreCall();
             _view.SetInfo(_applicationNodeWrapper.Views.GetDetailViews(typeof(TObject))[0].Node);
-            
             return this;
         }
 
@@ -157,6 +167,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
     {
         TObject CurrentObject { get; }
         UnitOfWork UnitOfWork { get; }
+        ObjectSpace ObjectSpace{ get; }
         IViewCreationHandler WithArtiFacts(Func<Type[]> func);
         IViewCreationHandler WithArtiFacts();
     }
