@@ -114,6 +114,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImportExport\ClassInfoGraphNode.cs" />
+    <Compile Include="ImportExport\SerializationConfiguration.cs" />
     <Compile Include="PersistentMetaData\CodeTemplate.cs" />
     <Compile Include="PersistentMetaData\CodeTemplateInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentValueConverter.cs" />

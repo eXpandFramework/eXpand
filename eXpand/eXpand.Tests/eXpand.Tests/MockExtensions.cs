@@ -2,7 +2,9 @@
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.ImportExport.PersistentTypesHelpers;
 using eXpand.ExpressApp.WorldCreator.Core;
+using eXpand.Persistent.BaseImpl.ImportExport;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using TypeMock.ArrangeActAssert;
 
@@ -26,6 +28,14 @@ namespace eXpand.Tests {
             Isolate.WhenCalled(() => typesInfo.IntefaceInfoType).WillReturn(typeof (InterfaceInfo));
 
             
+            return typesInfo;
+        }
+        public static ExpressApp.ImportExport.Core.TypesInfo ImportExportTypesInfo(this IFaker faker)
+        {
+            Isolate.WhenCalled(() => ExpressApp.ImportExport.Core.TypesInfo.Instance).WillReturn(Isolate.Fake.Instance<ExpressApp.ImportExport.Core.TypesInfo>());
+            var typesInfo = ExpressApp.ImportExport.Core.TypesInfo.Instance;
+            Isolate.WhenCalled(() => typesInfo.SerializationConfigurationType).WillReturn(typeof (SerializationConfiguration));
+            Isolate.WhenCalled(() => typesInfo.ClassInfoGraphNodeType).WillReturn(typeof (ClassInfoGraphNode));
             return typesInfo;
         }
 
