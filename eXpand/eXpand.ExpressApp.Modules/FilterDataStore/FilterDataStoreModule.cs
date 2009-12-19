@@ -98,38 +98,13 @@ namespace eXpand.ExpressApp.FilterDataStore
         }
         void ApplicationOnLoggingOn(object sender, EventArgs e)
         {
-//            IEnumerable<ClassInfoNodeWrapper> classInfoNodeWrappers =
-//                     new ApplicationNodeWrapper(Application.Model).BOModel.Classes.Where(
-//                        wrapper => wrapper.ClassTypeInfo.IsPersistent);
-//            Session updatingSession = Application.ObjectSpaceProvider.CreateUpdatingSession();
-//            ITypeInfo findTypeInfo = XafTypesInfo.Instance.FindTypeInfo(typeof(PersistentBase));
-//            CreateMember(findTypeInfo, FilterProviderManager.Provider);
-//            foreach (ClassInfoNodeWrapper classInfo in classInfoNodeWrappers)
-//            {
-//
-//
-//                foreach (FilterProviderBase provider in FilterProviderManager.Providers)
-//                {
-//                    if (classInfo.ClassTypeInfo.FindMember(provider.FilterMemberName) == null)
-//                        CreateMember(classInfo.ClassTypeInfo, provider);
-//                    
-//                    updatingSession.UpdateSchema(new[]
-//                                                                                         {classInfo.ClassTypeInfo.Type});
-//                    XafTypesInfo.Instance.RefreshInfo(classInfo.ClassTypeInfo.Type);
-//                }
-//
-//            }
-
             var objectSpaceProvider = (((XafApplication)(sender)).ObjectSpaceProvider);
             if (!(objectSpaceProvider is IObjectSpaceProvider)){
                 throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
             }
             XpoDataStoreProxy proxy = ((IObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
-//            if (Application.Info.GetChildNode(FilterDataStoreModuleAttributeName).GetAttributeBoolValue("Enabled")){
-                proxy.DataStoreModifyData += (o,args) => ModifyData(args.ModificationStatements);
-                proxy.DataStoreSelectData += Proxy_DataStoreSelectData;
-            
-//            }
+            proxy.DataStoreModifyData += (o, args) => ModifyData(args.ModificationStatements);
+            proxy.DataStoreSelectData += Proxy_DataStoreSelectData;
         }
 
         private void Proxy_DataStoreSelectData(object sender, DataStoreSelectDataEventArgs e)
