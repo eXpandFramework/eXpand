@@ -35,7 +35,6 @@ namespace eXpand.ExpressApp.WorldCreator
                 return;
             TypesInfo.Instance.AddTypes(GetAdditionalClasses());            
 
-
             var unitOfWork = new UnitOfWork { ConnectionString = _connectionString };
             unitOfWork.UpdateSchema();
             AddDynamicModules(moduleManager, unitOfWork, TypesInfo.Instance.PersistentAssemblyInfoType);
@@ -47,7 +46,8 @@ namespace eXpand.ExpressApp.WorldCreator
         public void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork, Type persistentAssemblyInfoType) {
             
             List<IPersistentAssemblyInfo> persistentAssemblyInfos =
-                new XPCollection(unitOfWork, persistentAssemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(info => !info.DoNotCompile).ToList();
+                new XPCollection(unitOfWork, persistentAssemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(info => !info.DoNotCompile && moduleManager.Modules.Where(@base => @base.Name == "Dynamic" + info.Name+"Module").FirstOrDefault()==
+                                                                                                                       null).ToList();
             _definedModules = new CompileEngine().CompileModules(persistentAssemblyInfos);
             foreach (var definedModule in _definedModules){
                 moduleManager.AddModule(definedModule);

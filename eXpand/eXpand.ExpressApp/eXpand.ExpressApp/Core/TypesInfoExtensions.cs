@@ -72,8 +72,7 @@ namespace eXpand.ExpressApp.Core{
         {
             var infos = new List<XPCustomMemberInfo>();
             XPCustomMemberInfo collection = CreateCollection(typesinfo, typeToCreateOn, otherPartMember, association, xpDictionary);
-            if (collection!= null)
-            {
+            if (collection!= null){
                 infos.Add(collection);
                 collection = CreateCollection(typesinfo, otherPartMember, typeToCreateOn, association, xpDictionary);
                 if (collection!= null)

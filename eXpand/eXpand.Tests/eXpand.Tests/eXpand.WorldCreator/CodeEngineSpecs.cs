@@ -72,7 +72,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             info.BaseClassInfo = parentPersistentClassInfo;
             info.PersistentAssemblyInfo = persistentAssemblyInfo;
             _info=info;
-        }).WithArtiFacts(() => new[]{typeof (WorldCreatorModule)}).CreateDetailView().CreateFrame().RaiseControlsCreated();
+        }).WithArtiFacts(WCArtifacts).CreateDetailView().CreateFrame().RaiseControlsCreated();
 
         Because of = () => { _generateCode = CodeEngine.GenerateCode(_info); };
 

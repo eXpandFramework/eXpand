@@ -4,6 +4,9 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Validation;
+using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -70,8 +73,9 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
         IViewCreationHandler IArtifactHandler<TObject>.WithArtiFacts(Func<Type[]> func){
             XafTypesInfo.Instance.RegisterEntity(typeof(TObject));
-//            XafTypesInfo.Instance.LoadTypes(typeof(SystemModule).Assembly);
-//            XafTypesInfo.Instance.LoadTypes(typeof (SystemWindowsFormsModule).Assembly);
+            XafTypesInfo.Instance.LoadTypes(typeof(SystemModule).Assembly);
+            XafTypesInfo.Instance.LoadTypes(typeof(ValidationModule).Assembly);
+            XafTypesInfo.Instance.LoadTypes(typeof(SystemWindowsFormsModule).Assembly);
             XafTypesInfo.Instance.LoadTypes(typeof(eXpandSystemModule).Assembly);
             if (func != null)
                 foreach (var type in func.Invoke()){

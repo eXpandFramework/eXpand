@@ -47,7 +47,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
             bool user = false;
             Isolate.WhenCalled(() => UserDifferenceObjectBuilder.CreateDynamicMembers(null)).DoInstead(context => user = true);
             bool role = false;
-            Isolate.WhenCalled(() => RoleDifferenceObjectBuilder.CreateDynamicMembers()).DoInstead(context => role = true);
+            Isolate.WhenCalled(() => RoleDifferenceObjectBuilder.CreateDynamicMembers(TODO)).DoInstead(context => role = true);
 
             module.CustomizeTypesInfo(XafTypesInfo.Instance);
 

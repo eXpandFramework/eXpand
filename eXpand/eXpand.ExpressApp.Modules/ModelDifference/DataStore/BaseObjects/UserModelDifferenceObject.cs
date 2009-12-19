@@ -7,7 +7,6 @@ using DevExpress.Xpo;
 using eXpand.ExpressApp.Attributes;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.Persistent.Base;
-using System;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
     [VisibleInReports(false)]
@@ -32,7 +31,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            differenceType = DifferenceType.User;
+            DifferenceType = DifferenceType.User;
         }
 
         public override ModelDifferenceObject InitializeMembers(string applicationName, string uniqueName){

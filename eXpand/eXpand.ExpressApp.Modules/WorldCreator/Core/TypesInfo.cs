@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using DevExpress.Persistent.Base;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.ExpressApp.WorldCreator.Core {
     public interface ITypesInfo {
@@ -39,11 +40,13 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         {
             CodeTemplateInfoType = GetInfoType(types, typeof(ICodeTemplateInfo));
             TemplateInfoType = GetInfoType(types, typeof(ITemplateInfo));
+            PersistentAssociationAttributeType = GetInfoType(types, typeof(IPersistentAssociationAttribute));
             CodeTemplateType = GetInfoType(types, typeof(ICodeTemplate));
             PersistentAssemblyInfoType = GetInfoType(types, typeof(IPersistentAssemblyInfo));
             PersistentCoreTypeInfoType = GetInfoType(types, typeof(IPersistentCoreTypeMemberInfo));
             PersistentTypesInfoType = GetInfoType(types, typeof(IPersistentClassInfo));
             PersistentReferenceInfoType = GetInfoType(types, typeof(IPersistentReferenceMemberInfo));
+            PersistentCollectionInfoType = GetInfoType(types, typeof(IPersistentCollectionMemberInfo));
             ExtendedCollectionMemberInfoType = GetInfoType(types, typeof(IExtendedCollectionMemberInfo));
             ExtendedReferenceMemberInfoType = GetInfoType(types, typeof(IExtendedReferenceMemberInfo));
             ExtendedCoreMemberInfoType = GetInfoType(types, typeof(IExtendedCoreTypeMemberInfo));
@@ -62,6 +65,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public Type PersistentAssemblyInfoType { get; private set; }
         public Type CodeTemplateInfoType { get; private set; }
         public Type PersistentCoreTypeInfoType { get; private set; }
+        public Type PersistentCollectionInfoType { get; private set; }
         public Type PersistentReferenceInfoType { get; private set; }
         public Type ExtendedReferenceMemberInfoType { get; private set; }
         public Type ExtendedCollectionMemberInfoType { get; private set; }    
@@ -69,7 +73,8 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public Type IntefaceInfoType { get; private set; }
         public Type CodeTemplateType { get; private set; }
         public Type TemplateInfoType { get; private set; }
+        public Type PersistentAssociationAttributeType { get; private set; }
 
-
+        
     }
 }

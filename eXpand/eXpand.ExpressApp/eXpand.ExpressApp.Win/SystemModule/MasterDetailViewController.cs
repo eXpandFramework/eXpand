@@ -227,8 +227,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
                 var view = ((GridView) gridControl.FocusedView);
                 var list = new List<object>();
-                foreach (int selectedRow in view.GetSelectedRows())
-                    list.Add(view.GetRow(selectedRow));
+                if (view != null)
+                    list.AddRange(view.GetSelectedRows().Select(selectedRow => view.GetRow(selectedRow)));
                 ObjectSpace.Delete(list);
             }
         }

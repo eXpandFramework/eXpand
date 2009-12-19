@@ -36,8 +36,10 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _baseType; }
             set {
                 SetPropertyValue("BaseType", ref _baseType, value);
-                _baseTypeFullName = _baseType != null ? _baseType.FullName : null;
-                _baseClassInfo = null;
+                if (!IsLoading && !IsSaving) {
+                    _baseTypeFullName = _baseType != null ? _baseType.FullName : null;
+                    _baseClassInfo = null;
+                }
             }
         }
         private PersistentClassInfo _baseClassInfo;
@@ -51,10 +53,12 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set
             {
                 SetPropertyValue("BaseClassInfo", ref _baseClassInfo, value);
-                _baseTypeFullName = _baseClassInfo != null
-                                        ? _baseClassInfo.PersistentAssemblyInfo.Name + "." + _baseClassInfo.Name
-                                        : null;
-                _baseType = null;
+                if (!IsLoading && !IsSaving){
+                    _baseTypeFullName = _baseClassInfo != null
+                                            ? _baseClassInfo.PersistentAssemblyInfo.Name + "." + _baseClassInfo.Name
+                                            : null;
+                    _baseType = null;
+                }
             }
         }
         [Browsable(false)]
@@ -94,8 +98,10 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _mergedObjectType; }
             set {
                 SetPropertyValue("MergedObjectType", ref _mergedObjectType, value);
-                _mergedObjectFullName = _mergedObjectType != null ? _mergedObjectType.FullName : null;
-                _mergedClassInfo = null;
+                if (!IsLoading && !IsSaving){
+                    _mergedObjectFullName = _mergedObjectType != null ? _mergedObjectType.FullName : null;
+                    _mergedClassInfo = null;
+                }
             }
         }
         private PersistentClassInfo _mergedClassInfo;
@@ -109,10 +115,12 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set
             {
                 SetPropertyValue("MergedClassInfo", ref _mergedClassInfo, value);
-                _mergedObjectFullName = _mergedClassInfo != null
-                                        ? _mergedClassInfo.PersistentAssemblyInfo.Name + "." + _mergedClassInfo.Name
-                                        : null;
-                _baseType = null;
+                if (!IsLoading && !IsSaving){
+                    _mergedObjectFullName = _mergedClassInfo != null
+                                                ? _mergedClassInfo.PersistentAssemblyInfo.Name + "." + _mergedClassInfo.Name
+                                                : null;
+                    _baseType = null;
+                }
             }
         }
         [Index(4)]

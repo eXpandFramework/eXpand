@@ -50,19 +50,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.Utils, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -92,6 +92,7 @@
     <Compile Include="General\DateRange.cs" />
     <Compile Include="DifferenceType.cs" />
     <Compile Include="General\IDateRange.cs" />
+    <Compile Include="General\RelationType.cs" />
     <Compile Include="IXpoModelDifference.cs" />
     <Compile Include="General\IHidden.cs" />
     <Compile Include="General\IIndexedObject.cs" />
@@ -105,9 +106,11 @@
     <Compile Include="PersistentMetaData\IExtendedReferenceMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IInterfaceInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentAssemblyInfo.cs" />
+    <Compile Include="PersistentMetaData\IPersistentAssociatedMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentTemplatedTypeInfo.cs" />
     <Compile Include="PersistentMetaData\ITemplateInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\AttributeInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssociationAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentClassInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentCollectionMemberInfo.cs" />

@@ -9,7 +9,7 @@ using eXpand.Xpo.Converters.ValueConverters;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("AssociationName")]
-    public class PersistentAssociationAttribute : PersistentAttributeInfo {
+    public class PersistentAssociationAttribute : PersistentAttributeInfo, IPersistentAssociationAttribute {
         string _associationName;
         PersistentClassInfo _elementClassInfo;
         Type _elementType;
@@ -37,8 +37,10 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
             get { return _elementType; }
             set {
                 SetPropertyValue("ElementType", ref _elementType, value);
-                _elementTypeFullName = _elementType != null ? _elementType.FullName : null;
-                _elementClassInfo = null;
+                if (!IsLoading && !IsSaving){
+                    _elementTypeFullName = _elementType != null ? _elementType.FullName : null;
+                    _elementClassInfo = null;
+                }
             }
         }
 
@@ -46,11 +48,13 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
             get { return _elementClassInfo; }
             set {
                 SetPropertyValue("ElementClassInfo", ref _elementClassInfo, value);
-                _elementTypeFullName = _elementClassInfo != null
-                                           ? _elementClassInfo.PersistentAssemblyInfo.Name + "." +
-                                             _elementClassInfo.Name
-                                           : null;
-                _elementType = null;
+                if (!IsLoading && !IsSaving){
+                    _elementTypeFullName = _elementClassInfo != null
+                                               ? _elementClassInfo.PersistentAssemblyInfo.Name + "." +
+                                                 _elementClassInfo.Name
+                                               : null;
+                    _elementType = null;
+                }
             }
         }
 

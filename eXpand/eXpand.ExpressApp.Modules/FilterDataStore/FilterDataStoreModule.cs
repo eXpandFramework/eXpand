@@ -38,7 +38,6 @@ namespace eXpand.ExpressApp.FilterDataStore
                             </Element>
                             
                             <Element Name=""" + FilterDataStoreModuleAttributeName + @""">
-                                    <Attribute  Name=""Enabled"" Choice=""False,True""/>
                                     <Element Name=""SystemTables"">
                                         <Element Name=""Item"" KeyAttribute=""Name"" DisplayAttribute=""Name"" Multiple=""True"">
                                             <Attribute  Name=""Name"" />
@@ -95,19 +94,42 @@ namespace eXpand.ExpressApp.FilterDataStore
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
-            application.SetupComplete += application_SetupComplete;
+            application.SetupComplete += ApplicationOnLoggingOn;
         }
-        void application_SetupComplete(object sender, EventArgs e)
+        void ApplicationOnLoggingOn(object sender, EventArgs e)
         {
+//            IEnumerable<ClassInfoNodeWrapper> classInfoNodeWrappers =
+//                     new ApplicationNodeWrapper(Application.Model).BOModel.Classes.Where(
+//                        wrapper => wrapper.ClassTypeInfo.IsPersistent);
+//            Session updatingSession = Application.ObjectSpaceProvider.CreateUpdatingSession();
+//            ITypeInfo findTypeInfo = XafTypesInfo.Instance.FindTypeInfo(typeof(PersistentBase));
+//            CreateMember(findTypeInfo, FilterProviderManager.Provider);
+//            foreach (ClassInfoNodeWrapper classInfo in classInfoNodeWrappers)
+//            {
+//
+//
+//                foreach (FilterProviderBase provider in FilterProviderManager.Providers)
+//                {
+//                    if (classInfo.ClassTypeInfo.FindMember(provider.FilterMemberName) == null)
+//                        CreateMember(classInfo.ClassTypeInfo, provider);
+//                    
+//                    updatingSession.UpdateSchema(new[]
+//                                                                                         {classInfo.ClassTypeInfo.Type});
+//                    XafTypesInfo.Instance.RefreshInfo(classInfo.ClassTypeInfo.Type);
+//                }
+//
+//            }
+
             var objectSpaceProvider = (((XafApplication)(sender)).ObjectSpaceProvider);
             if (!(objectSpaceProvider is IObjectSpaceProvider)){
                 throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
             }
             XpoDataStoreProxy proxy = ((IObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
-            if (Application.Info.GetChildNode(FilterDataStoreModuleAttributeName).GetAttributeBoolValue("Enabled")){
+//            if (Application.Info.GetChildNode(FilterDataStoreModuleAttributeName).GetAttributeBoolValue("Enabled")){
                 proxy.DataStoreModifyData += (o,args) => ModifyData(args.ModificationStatements);
                 proxy.DataStoreSelectData += Proxy_DataStoreSelectData;
-            }
+            
+//            }
         }
 
         private void Proxy_DataStoreSelectData(object sender, DataStoreSelectDataEventArgs e)
@@ -165,10 +187,7 @@ namespace eXpand.ExpressApp.FilterDataStore
 
         public BaseStatement[] filterData(SelectStatement[] statements)
         {
-            var baseStatements = new List<SelectStatement>();
-            foreach (SelectStatement statement in statements)
-                baseStatements.Add(ApplyCondition(statement));
-            return baseStatements.ToArray();
+            return statements.Select(statement => ApplyCondition(statement)).ToArray();
         }
 
         public SelectStatement ApplyCondition(SelectStatement statement)

@@ -1,4 +1,6 @@
 using System;
+using eXpand.ExpressApp.Enums;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.Attributes{
     [AttributeUsage(AttributeTargets.Property)]
@@ -43,10 +45,5 @@ namespace eXpand.ExpressApp.Attributes{
         {
             get { return _relationType; }
         }
-    }
-    public enum RelationType
-    {
-        Undefined,
-        ManyToMany
     }
 }
