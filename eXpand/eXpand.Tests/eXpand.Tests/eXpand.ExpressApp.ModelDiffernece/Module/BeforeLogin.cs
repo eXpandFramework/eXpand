@@ -2,6 +2,7 @@
 using System.Globalization;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference;
@@ -47,7 +48,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.Module{
             bool user = false;
             Isolate.WhenCalled(() => UserDifferenceObjectBuilder.CreateDynamicMembers(null)).DoInstead(context => user = true);
             bool role = false;
-            Isolate.WhenCalled(() => RoleDifferenceObjectBuilder.CreateDynamicMembers(TODO)).DoInstead(context => role = true);
+            Isolate.WhenCalled(() => RoleDifferenceObjectBuilder.CreateDynamicMembers(Isolate.Fake.Instance<ISecurityComplex>())).DoInstead(context => role = true);
 
             module.CustomizeTypesInfo(XafTypesInfo.Instance);
 

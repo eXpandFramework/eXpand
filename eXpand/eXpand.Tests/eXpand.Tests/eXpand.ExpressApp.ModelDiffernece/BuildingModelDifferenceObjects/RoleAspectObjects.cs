@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.BaseImpl;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
@@ -30,7 +31,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.BuildingModelDifference
                                                                                                                                                         null;
                                                                                                                                                 });
 
-            RoleDifferenceObjectBuilder.CreateDynamicMembers(TODO);
+            RoleDifferenceObjectBuilder.CreateDynamicMembers(Isolate.Fake.Instance<ISecurityComplex>());
 
             Assert.IsTrue(passed);
 

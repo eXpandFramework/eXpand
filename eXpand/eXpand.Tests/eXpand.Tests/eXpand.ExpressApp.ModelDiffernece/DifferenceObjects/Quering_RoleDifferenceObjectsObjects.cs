@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
@@ -30,7 +31,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.DifferenceObjects{
             role.Save();
             ((User)SecuritySystem.CurrentUser).Roles.Add(role);
             XafTypesInfo.Instance.RegisterEntity(typeof(RoleModelDifferenceObject));
-            RoleDifferenceObjectBuilder.CreateDynamicMembers(TODO);
+            RoleDifferenceObjectBuilder.CreateDynamicMembers(Isolate.Fake.Instance<ISecurityComplex>());
             new ModelDifferenceObject(Session.DefaultSession){PersistentApplication = new PersistentApplication(Session.DefaultSession)}.Save();
             var roleDifferenceObjectsObject1 = new RoleModelDifferenceObject(Session.DefaultSession) { PersistentApplication =new PersistentApplication(Session.DefaultSession) { UniqueName = "AppName" } };
             ((XPCollection)roleDifferenceObjectsObject1.GetMemberValue("Roles")).Add(role);
