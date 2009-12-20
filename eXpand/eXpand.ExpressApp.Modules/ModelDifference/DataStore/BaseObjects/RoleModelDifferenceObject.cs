@@ -1,4 +1,3 @@
-using System;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -21,7 +20,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            differenceType = DifferenceType.Role;
+            DifferenceType = DifferenceType.Role;
         }
     }
 }

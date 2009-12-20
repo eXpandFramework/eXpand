@@ -18,7 +18,7 @@ namespace eXpand.ExpressApp.FilterDataStore.Providers
 
         public override string FilterMemberName
         {
-            get { return "User"; }
+            get { return "UserFilter"; }
         }
 
         public override int FilterMemberSize

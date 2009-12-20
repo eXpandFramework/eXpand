@@ -21,6 +21,9 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
 
 
 
+
+
+
         private void cloneViewPopupWindowShowAction_CustomizePopupWindowParams(object sender,
                                                                                CustomizePopupWindowParamsEventArgs e)
         {

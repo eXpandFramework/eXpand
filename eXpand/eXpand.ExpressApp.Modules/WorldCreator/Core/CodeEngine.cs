@@ -71,13 +71,13 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return persistentClassInfo.BaseTypeFullName??persistentClassInfo.GetDefaultBaseClass().FullName;
         }
 
-        static string GetMembersCode(IEnumerable<IPersistentMemberInfo> persistentMemberInfos) {
+        static string GetMembersCode(IEnumerable<IPersistentMemberInfo> persistentMemberInfos){
             Func<IPersistentMemberInfo, string> codeSelector = persistentMemberInfo => GenerateCode(persistentMemberInfo);
             Func<string, string, string> aggrecator = (current, code) => current + (code + Environment.NewLine);
             return persistentMemberInfos.Select(codeSelector).Aggregate(null, aggrecator);
         }
 
-        static string GetPropertyType(IPersistentMemberInfo persistentMemberInfo) {
+        static string GetPropertyType(IPersistentMemberInfo persistentMemberInfo){
             if (persistentMemberInfo is IPersistentCoreTypeMemberInfo)
                 return Type.GetType("System."+((IPersistentCoreTypeMemberInfo)persistentMemberInfo).DataType).FullName;
             if (persistentMemberInfo is IPersistentReferenceMemberInfo)

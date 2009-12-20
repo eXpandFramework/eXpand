@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -14,25 +13,10 @@ namespace eXpand.ExpressApp.WorldCreator.Observers {
         {
             base.OnChanged(objectChangedEventArgs);
             if (objectChangedEventArgs.NewValue != null && objectChangedEventArgs.Object.GetPropertyName(x => x.CodeTemplate) == objectChangedEventArgs.PropertyName){
-                CloneProperties(objectChangedEventArgs.Object, objectChangedEventArgs.NewValue);
+                objectChangedEventArgs.Object.CloneProperties();
             }
 
         }
 
-        void CloneProperties(ICodeTemplateInfo codeTemplateInfo, object newValue)
-        {
-            var templateInfo = (ITemplateInfo) (codeTemplateInfo.TemplateInfo ?? ObjectSpace.CreateObject(TypesInfo.Instance.TemplateInfoType));
-            codeTemplateInfo.TemplateInfo=templateInfo;
-            var type = templateInfo.GetType();
-            var infos = typeof(ITemplateInfo).GetProperties().Select(propertyInfo =>
-                                                                     new
-                                                                     {
-                                                                         Value = propertyInfo.GetValue(newValue, null),
-                                                                         TypeInfoPropertyInfo = type.GetProperty(propertyInfo.Name)
-                                                                     });
-            foreach (var info in infos){
-                info.TypeInfoPropertyInfo.SetValue(templateInfo, info.Value, null);
-            }
-        }
     }
 }

@@ -30,7 +30,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.BuildingModelDifference
                                                                                                                                                         null;
                                                                                                                                                 });
 
-            RoleDifferenceObjectBuilder.CreateDynamicMembers();
+            RoleDifferenceObjectBuilder.CreateDynamicMembers(TODO);
 
             Assert.IsTrue(passed);
 

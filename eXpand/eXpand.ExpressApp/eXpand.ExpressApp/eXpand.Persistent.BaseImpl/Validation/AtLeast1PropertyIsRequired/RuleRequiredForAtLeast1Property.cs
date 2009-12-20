@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
@@ -31,14 +32,12 @@ namespace eXpand.Persistent.BaseImpl.Validation.RuleRequiredForAtLeast1Property
 
         public static string DefaultMessageTemplateMustNotBeEmpty
         {
-            get
-            {
+            get {
                 if (defaultMessageTemplateMustNotBeEmpty == null)
                     defaultMessageTemplateMustNotBeEmpty = new SimpleValueManager<string>();
-                if (defaultMessageTemplateMustNotBeEmpty.Value == null)
-                    defaultMessageTemplateMustNotBeEmpty.Value =
-                        @"""At least one of {TargetProperties}"" must not be empty.";
-                return defaultMessageTemplateMustNotBeEmpty.Value;
+                return defaultMessageTemplateMustNotBeEmpty.Value ??
+                       (defaultMessageTemplateMustNotBeEmpty.Value =
+                        @"""At least one of {TargetProperties}"" must not be empty.");
             }
             set { defaultMessageTemplateMustNotBeEmpty.Value = value; }
         }
@@ -65,25 +64,17 @@ namespace eXpand.Persistent.BaseImpl.Validation.RuleRequiredForAtLeast1Property
         protected override bool IsValidInternal(object target, out string errorMessageTemplate)
         {
             Dictionary<string, object> values = GetValues(target);
-            int emptyFound = 0;
-            foreach (var value in values)
-            {
-                if (Validator.RuleSet.IsEmptyValue(TargetObject, value.Key, value.Value))
-                    emptyFound++;
-            }
+            int emptyFound = values.Count(value => Validator.RuleSet.IsEmptyValue(TargetObject, value.Key, value.Value));
             errorMessageTemplate = Properties.MessageTemplateMustNotBeEmpty;
-            return !(emptyFound == values.Count);
+            return (emptyFound != values.Count);
         }
 
         private Dictionary<string, object> GetValues(object target)
         {
-            var objects = new Dictionary<string, object>();
             properties.Clear();
             properties.AddRange(Properties.TargetProperties.Split(Properties.Delimiters.ToCharArray()));
             ITypeInfo targetTypeInfo = XafTypesInfo.Instance.FindTypeInfo(Properties.TargetType);
-            foreach (string property in properties)
-                objects.Add(property, targetTypeInfo.FindMember(property).GetValue(target));
-            return objects;
+            return properties.ToDictionary(property => property, property => targetTypeInfo.FindMember(property).GetValue(target));
         }
     }
 }

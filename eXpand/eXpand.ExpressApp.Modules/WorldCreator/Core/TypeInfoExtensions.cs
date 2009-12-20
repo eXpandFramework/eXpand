@@ -7,8 +7,9 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public static void Init(this IPersistentTemplatedTypeInfo persistentTemplatedTypeInfo, Type codeTemplateType) {
             persistentTemplatedTypeInfo.CodeTemplateInfo = (ICodeTemplateInfo)Activator.CreateInstance(TypesInfo.Instance.CodeTemplateInfoType,
                                                                                                 persistentTemplatedTypeInfo.Session);
-            if (persistentTemplatedTypeInfo is IPersistentMemberInfo) {
-                var persistentMemberInfo = ((IPersistentMemberInfo) persistentTemplatedTypeInfo);
+            if (persistentTemplatedTypeInfo is IPersistentMemberInfo)
+            {
+                var persistentMemberInfo = ((IPersistentMemberInfo)persistentTemplatedTypeInfo);
                 persistentMemberInfo.Init(codeTemplateType,persistentMemberInfo.Owner.PersistentAssemblyInfo.CodeDomProvider);
             }
             else if (persistentTemplatedTypeInfo is IPersistentClassInfo) {
@@ -17,7 +18,8 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             }
         }
 
-        public static void Init(this IPersistentMemberInfo persistentMemberInfo, Type codeTemplateType, CodeDomProvider codeDomProvider) {
+        public static void Init(this IPersistentMemberInfo persistentMemberInfo, Type codeTemplateType, CodeDomProvider codeDomProvider)
+        {
             persistentMemberInfo.CodeTemplateInfo.CodeTemplate =CodeTemplateBuilder.CreateDefaultTemplate(
                 persistentMemberInfo is IPersistentCollectionMemberInfo
                     ? TemplateType.ReadOnlyMember

@@ -1,8 +1,6 @@
-﻿using System;
-namespace eXpand.Persistent.Base.PersistentMetaData
+﻿namespace eXpand.Persistent.Base.PersistentMetaData
 {
-    public interface IPersistentCollectionMemberInfo:IPersistentMemberInfo
-    {
-        string CollectionTypeFullName { get; }
+    public interface IPersistentCollectionMemberInfo: IPersistentAssociatedMemberInfo {
+        string CollectionTypeFullName { get; set; }
     }
 }

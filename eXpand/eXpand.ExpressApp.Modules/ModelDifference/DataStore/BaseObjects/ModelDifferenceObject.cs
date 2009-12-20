@@ -24,7 +24,8 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         public const string Caption = "Application Difference";
         private string _preferredAspect=DictionaryAttribute.DefaultLanguage;
         private DateTime dateCreated;
-        [Persistent("DifferenceType")] protected DifferenceType differenceType;
+//        [Persistent("DifferenceType")] 
+//        DifferenceType differenceType;
         private bool _disabled;
         private string name;
 
@@ -78,14 +79,28 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         }
         public override void AfterConstruction(){
             base.AfterConstruction();
-            differenceType=DifferenceType.Model;
+            _differenceType=DifferenceType.Model;
         }
+        
+//        public DifferenceType DifferenceType
+//        {
+//            get { return differenceType; }
+//        }
+        
+        private DifferenceType _differenceType;
         [VisibleInDetailView(false)]
         [Custom(ColumnInfoNodeWrapper.GroupIndexAttribute, "0")]
-        [PersistentAlias("differenceType")]
+        [NonCloneable]
         public DifferenceType DifferenceType
         {
-            get { return differenceType; }
+            get
+            {
+                return _differenceType;
+            }
+            set
+            {
+                SetPropertyValue("DifferenceType", ref _differenceType, value);
+            }
         }
         [RuleUniqueValue("ModelDiffsObject_Uniq_Name", DefaultContexts.Save)]
         [RuleRequiredField("ModelDiffsObject_Req_Name", DefaultContexts.Save)]

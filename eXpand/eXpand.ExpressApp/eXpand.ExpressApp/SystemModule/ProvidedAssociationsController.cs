@@ -8,6 +8,8 @@ using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Attributes;
 using System.Linq;
 using eXpand.ExpressApp.Core;
+using eXpand.ExpressApp.Enums;
+using eXpand.Persistent.Base.General;
 using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.SystemModule{

@@ -23,18 +23,23 @@ namespace eXpand.Tests.eXpand.WorldCreator
 {
     public class With_Isolations
     {
-        Establish context = () => Isolate.Fake.WCTypesInfo();
+        protected static Func<Type[]> WCArtifacts;
+
+        Establish context = () => {
+            WCArtifacts = () => new[] {typeof (WorldCreatorModule)};
+            Isolate.Fake.WCTypesInfo();
+        };
     }
 
     public abstract class with_classInfo_with_interfaceInfos<InterfaceType> : With_In_Memory_DataStore
     {
         protected static PersistentClassInfo _persistentClassInfo;
 
-//        protected static TypesInfo _typesInfo;
+
 
         Establish context = () =>
         {
-//            _typesInfo = Isolate.Fake.WCTypesInfo();
+
             var testAppLication = new TestAppLication<PersistentClassInfo>();
             var viewCreationHandler = testAppLication.Setup(null, info => {
                 _persistentClassInfo=info;
@@ -43,7 +48,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
                 var interfaceInfo = new InterfaceInfo(_persistentClassInfo.Session);
                 Isolate.WhenCalled(() => interfaceInfo.Type).WillReturn(typeof(InterfaceType));
                 interfaceInfos.Add(interfaceInfo);
-            }).WithArtiFacts(() => new[]{typeof(WorldCreatorModule)});
+            }).WithArtiFacts(WCArtifacts);
             viewCreationHandler.CreateDetailView().CreateFrame();
         };
 

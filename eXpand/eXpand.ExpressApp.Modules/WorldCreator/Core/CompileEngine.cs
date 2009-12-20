@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using eXpand.Persistent.Base.PersistentMetaData;
 using Microsoft.CSharp;
@@ -16,7 +17,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
     public class CompileEngine
     {
         private const string STR_StrongKeys = "StrongKeys";
-        static readonly List<Assembly> CompiledAssemblies=new List<Assembly>();
+        readonly List<Assembly> CompiledAssemblies=new List<Assembly>();
         
 
         public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo,Action<CompilerParameters> action) {
@@ -29,7 +30,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 GenerateExecutable = false,
                 GenerateInMemory = true,
                 IncludeDebugInformation = false,
-                OutputAssembly = persistentAssemblyInfo.Name+".dll"
+                OutputAssembly = persistentAssemblyInfo.Name
             };
             if (action!= null)
                 action.Invoke(compilerParams);                
@@ -69,7 +70,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return new JScriptCodeProvider();
         }
 
-        static Type compile(IPersistentAssemblyInfo persistentAssemblyInfo, string generateCode, CompilerParameters compilerParams, System.CodeDom.Compiler.CodeDomProvider codeProvider) {
+        Type compile(IPersistentAssemblyInfo persistentAssemblyInfo, string generateCode, CompilerParameters compilerParams, System.CodeDom.Compiler.CodeDomProvider codeProvider) {
             CompilerResults compileAssemblyFromSource = null;
             try{
                 compileAssemblyFromSource = codeProvider.CompileAssemblyFromSource(compilerParams, generateCode);
@@ -99,11 +100,11 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                     persistentAssemblyInfo.CompileErrors, (current, error) => current +Environment.NewLine+ error.ToString());
         }
 
-        static void addReferences(CompilerParameters compilerParams) {
+        void addReferences(CompilerParameters compilerParams) {
             Func<Assembly, bool> isNotDynamic = assembly1 => !(assembly1 is AssemblyBuilder) && !CompiledAssemblies.Contains(assembly1)&&assembly1.EntryPoint==null;
             Func<Assembly, string> assemblyNameSelector = assembly => new AssemblyName(assembly.FullName + "").Name + ".dll";
             compilerParams.ReferencedAssemblies.AddRange(AppDomain.CurrentDomain.GetAssemblies().Where(isNotDynamic).Select(assemblyNameSelector).ToArray());
-            
+            compilerParams.ReferencedAssemblies.Remove("Microsoft.VisualStudio.Debugger.Runtime.dll");
         }
 
 
@@ -125,12 +126,12 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             var definedModules = new List<Type>();
             
             foreach (IPersistentAssemblyInfo persistentAssemblyInfo in persistentAssemblyInfos.OrderByDescending(info => info.CompileOrder)) {
-                string path = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath),persistentAssemblyInfo.Name);
+                string path = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),persistentAssemblyInfo.Name);
                 if (File.Exists(path+".dll"))
                     File.Delete(path+".dll");
                 persistentAssemblyInfo.CompileErrors = null;
                 Type compileModule = CompileModule(persistentAssemblyInfo);    
-                
+            
                 if (compileModule != null) {
                     definedModules.Add(compileModule);
                 }

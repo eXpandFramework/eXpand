@@ -1,16 +1,16 @@
-﻿using eXpand.ExpressApp.WorldCreator;
-using eXpand.Persistent.Base.PersistentMetaData;
+﻿using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using Machine.Specifications;
 
 namespace eXpand.Tests.eXpand.WorldCreator{
     [Subject(typeof(CodeTemplate))]
-    public class When_changing_template_type_of_a_CodeTemplate {
+    public class When_changing_template_type_of_a_CodeTemplate:With_Isolations {
         static CodeTemplate _currentObject;
 
         Establish context = () => {
             var artifactHandler = new TestAppLication<CodeTemplate>().Setup(null,template => _currentObject=template);
-            artifactHandler.WithArtiFacts(() => new[] {typeof (WorldCreatorModule)}).CreateDetailView().
+            
+            artifactHandler.WithArtiFacts(WCArtifacts).CreateDetailView().
                 CreateFrame();
         };
 

@@ -55,10 +55,10 @@
     <Reference Include="DevExpress.Data.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v9.3, Version=9.3.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v9.3">
@@ -119,6 +119,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\PersistentReferenceMemberInfoController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\CodeTemplateInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -126,6 +129,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\AssemblyInfoExtensions.cs" />
+    <Compile Include="Core\ICodeTemplateInfoExtensions.cs" />
+    <Compile Include="Core\IPersistentMemberInfoExtensions.cs" />
     <Compile Include="Observers\CodeTemplateInfoObserver.cs" />
     <Compile Include="Observers\CodeTemplateObserver.cs" />
     <Compile Include="Controllers\CodeTemplateController.cs">
@@ -137,6 +142,7 @@
     <Compile Include="Controllers\DetailView\PersistentTemplatedTypeInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Observers\PersistentReferenceMemberInfoObserver.cs" />
     <Compile Include="PersistentTypesHelpers\CodeTemplateBuilder.cs" />
     <Compile Include="PersistentTypesHelpers\CodeTemplateQuery.cs" />
     <Compile Include="Core\CodeEngine.cs" />
@@ -144,11 +150,13 @@
     <Compile Include="Core\ExistentTypesMemberCreator.cs" />
     <Compile Include="Core\TypeInfo.cs" />
     <Compile Include="Core\TypesInfo.cs" />
-    <Compile Include="Core\PersistentClassInfo.cs" />
+    <Compile Include="Core\PersistentClassInfoExtensions.cs" />
     <Compile Include="Core\TypeInfoExtensions.cs" />
     <Compile Include="Controllers\ListView\InterfaceInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PersistentTypesHelpers\PersistentClassInfoQuery.cs" />
+    <Compile Include="PersistentTypesHelpers\PersistentAttributeInfoQuery.cs" />
     <Compile Include="WorldCreatorModule.cs">
       <SubType>Component</SubType>
     </Compile>

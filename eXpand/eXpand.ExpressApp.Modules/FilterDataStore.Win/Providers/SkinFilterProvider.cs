@@ -1,5 +1,4 @@
 using System;
-using DevExpress.LookAndFeel;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.FilterDataStore.Core;
 
@@ -9,7 +8,7 @@ namespace eXpand.ExpressApp.FilterDataStore.Win.Providers
     {
         public override object FilterValue
         {
-            get { return UserLookAndFeel.Default.ActiveSkinName; }
+            get { return Skin; }
         }
 
         public override string FilterMemberName
@@ -36,5 +35,7 @@ namespace eXpand.ExpressApp.FilterDataStore.Win.Providers
         {
             get { return typeof(string); }
         }
+
+        public static string Skin { get; set; }
     }
 }

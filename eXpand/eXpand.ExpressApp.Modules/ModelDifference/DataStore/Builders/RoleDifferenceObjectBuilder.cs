@@ -9,16 +9,13 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Builders{
     public class RoleDifferenceObjectBuilder
     {
 
-        private static ITypeInfo GetRoleTypeInfo(){
-            return XafTypesInfo.Instance.PersistentTypes.Where(info => info.Type== ((ISecurityComplex) SecuritySystem.Instance).RoleType).Single();
+        private static ITypeInfo GetRoleTypeInfo(ISecurityComplex security){
+            return XafTypesInfo.Instance.PersistentTypes.Where(info => info.Type== security.RoleType).Single();
         }
     
-        public static bool CreateDynamicMembers(){
-            if (SecuritySystem.Instance is ISecurityComplex){
-                return XafTypesInfo.Instance.CreateBothPartMembers(typeof(RoleModelDifferenceObject), GetRoleTypeInfo().Type,
+        public static bool CreateDynamicMembers(ISecurity security){
+            return XafTypesInfo.Instance.CreateBothPartMembers(typeof(RoleModelDifferenceObject), GetRoleTypeInfo((ISecurityComplex) security).Type,
                                                             XafTypesInfo.XpoTypeInfoSource.XPDictionary, true)!=null;
-            }
-            return false;
         }
     }
 }

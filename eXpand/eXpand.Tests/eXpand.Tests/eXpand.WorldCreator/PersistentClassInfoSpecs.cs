@@ -20,7 +20,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             });
             _codeTemplate = new CodeTemplate(new Session(artifactHandler.UnitOfWork.DataLayer)) { IsDefault = true, TemplateType = TemplateType.Class };
             _codeTemplate.Save();
-            frameCreationHandler = artifactHandler.WithArtiFacts(() => new[]{typeof(WorldCreatorModule)}).CreateDetailView();
+            frameCreationHandler = artifactHandler.WithArtiFacts(WCArtifacts).CreateDetailView();
         };
 
         Because of = () => frameCreationHandler.CreateFrame().RaiseControlsCreated();
@@ -47,7 +47,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
                 _persistentClassInfo = info;
                 info.PersistentAssemblyInfo = new PersistentAssemblyInfo(info.Session);
             });
-            _frameCreationHandler = artifactHandler.WithArtiFacts(() => new[]{typeof(WorldCreatorModule)})            .CreateDetailView();
+            _frameCreationHandler = artifactHandler.WithArtiFacts(WCArtifacts).CreateDetailView();
         };
 
         Because of = () => _frameCreationHandler.CreateFrame().RaiseControlsCreated();

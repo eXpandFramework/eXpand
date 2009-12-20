@@ -103,12 +103,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\CreateMemberController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\CreateMemberController.Designer.cs">
-      <DependentUpon>CreateMemberController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Core\FilterProviderCollection.cs" />
     <Compile Include="Core\FilterProviderManager.cs" />
     <Compile Include="Core\FilterProviderBase.cs" />
@@ -160,6 +154,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

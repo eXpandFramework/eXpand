@@ -18,7 +18,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
                 _persistentCoreTypeMemberInfo=info;
                 info.Owner=new PersistentClassInfo(info.Session){PersistentAssemblyInfo = new PersistentAssemblyInfo(info.Session)};
             });
-            _frameCreationHandler = artifactHandler.WithArtiFacts(() => new[]{typeof(WorldCreatorModule)}).CreateDetailView();
+            _frameCreationHandler = artifactHandler.WithArtiFacts(WCArtifacts).CreateDetailView();
             _codeTemplate = new CodeTemplate(new Session(artifactHandler.UnitOfWork.DataLayer)) { IsDefault = true, TemplateType = TemplateType.ReadWriteMember };
             _codeTemplate.Save();            
         };
@@ -39,7 +39,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             _frameCreationHandler = new TestAppLication<PersistentCoreTypeMemberInfo>().Setup(null,info => {
                 _persistentMemberInfo = info;
                 info.Owner = new PersistentClassInfo(info.Session) { PersistentAssemblyInfo = new PersistentAssemblyInfo(info.Session) };
-            }).WithArtiFacts(() => new[]{typeof(WorldCreatorModule)}).CreateDetailView();
+            }).WithArtiFacts(WCArtifacts).CreateDetailView();
         };
 
         Because of = () => _frameCreationHandler.CreateFrame().RaiseControlsCreated();
@@ -65,7 +65,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             {
                 _persistentMemberInfo = info;
                 info.Owner = new PersistentClassInfo(info.Session) { PersistentAssemblyInfo = new PersistentAssemblyInfo(info.Session) };
-            }).WithArtiFacts(() => new[] { typeof(WorldCreatorModule) }).CreateDetailView();
+            }).WithArtiFacts(WCArtifacts).CreateDetailView();
         };
 
 
