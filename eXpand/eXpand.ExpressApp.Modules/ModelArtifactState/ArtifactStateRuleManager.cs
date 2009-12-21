@@ -37,10 +37,7 @@ namespace eXpand.ExpressApp.ModelArtifactState{
                 if (instanceManager == null) {
                     instanceManager = ValueManager.CreateValueManager<ArtifactStateRuleManager>();
                 }
-                if (instanceManager.Value == null) {
-                    instanceManager.Value = new ArtifactStateRuleManager();
-                }
-                return instanceManager.Value;
+                return instanceManager.Value ?? (instanceManager.Value = new ArtifactStateRuleManager());
             }
         }
         private ArtifactStateRuleManager() {
@@ -64,7 +61,7 @@ namespace eXpand.ExpressApp.ModelArtifactState{
                 }
             }
         }
-        private List<ArtifactStateRule> GetTypeRules(ITypeInfo typeInfo)
+        private IEnumerable<ArtifactStateRule> GetTypeRules(ITypeInfo typeInfo)
         {
             List<ArtifactStateRule> result;
             if (!rules.TryGetValue(typeInfo, out result)) {

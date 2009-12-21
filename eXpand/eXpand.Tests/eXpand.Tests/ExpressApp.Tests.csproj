@@ -324,6 +324,7 @@
     </Compile>
     <Compile Include="eXpand.WorldCreator\XpoObjectMergerSpecs.cs" />
     <Compile Include="MockExtensions.cs" />
+    <Compile Include="ModelArtifactSpecs\RuleBuilderSpecs.cs" />
     <Compile Include="XpandBaseFixture.cs">
       <SubType>Code</SubType>
     </Compile>

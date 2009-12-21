@@ -37,8 +37,7 @@ namespace eXpand.ExpressApp.ModelArtifactState{
             lock (ArtifactStateRuleManager.Instance)
             {
                 ModelArtifactStateNodeWrapper wrapper = CreateModelWrapper(xafApplication.Model);
-                foreach (ITypeInfo typeInfo in XafTypesInfo.Instance.PersistentTypes)
-                {
+                foreach (ITypeInfo typeInfo in XafTypesInfo.Instance.PersistentTypes){
                     ArtifactStateRuleManager.Instance[typeInfo] = null;
                     List<ArtifactStateRule> enumerable = CollectRulesFromModelCore(wrapper, typeInfo, xafApplication).ToList();
                     List<ArtifactStateRule> permissions = ArtifactStateRuleManager.FillRulesFromPermissions(xafApplication, typeInfo).ToList();
