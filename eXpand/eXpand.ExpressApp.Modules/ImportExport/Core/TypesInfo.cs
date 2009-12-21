@@ -5,7 +5,7 @@ using System.Linq;
 using DevExpress.Persistent.Base;
 using eXpand.Persistent.Base.ImportExport;
 
-namespace eXpand.ExpressApp.ImportExport.Core {
+namespace eXpand.ExpressApp.IO.Core {
     public class TypesInfo {
         static IValueManager<TypesInfo> instanceManager;
 

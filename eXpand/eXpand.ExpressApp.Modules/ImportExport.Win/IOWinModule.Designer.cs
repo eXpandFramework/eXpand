@@ -1,7 +1,8 @@
 using DevExpress.ExpressApp.TreeListEditors.Win;
+using eXpand.ExpressApp.ImportExport;
 
-namespace eXpand.ExpressApp.ImportExport.Win {
-    partial class ImportExportWinModule
+namespace eXpand.ExpressApp.IO.Win {
+    partial class IOWinModule
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +30,7 @@ namespace eXpand.ExpressApp.ImportExport.Win {
         /// </summary>
         private void InitializeComponent()
         {
-            this.RequiredModuleTypes.Add(typeof(ImportExportModule));
+            this.RequiredModuleTypes.Add(typeof(IOModule));
             this.RequiredModuleTypes.Add(typeof(TreeListEditorsWindowsFormsModule));
         }
 

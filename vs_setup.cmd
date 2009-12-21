@@ -9,14 +9,18 @@ echo @="%LOCALDIR%\\eXpand.DLL" >> expand_vs.reg
 regedit expand_vs.reg
 del expand_vs.reg
 
+
 rem x86
-set templates="%ProgramFiles%\Microsoft Visual Studio 9.0\Common7\IDE\ProjectTemplates\CSharp\eXpand\"
-set devenv="%ProgramFiles%\Microsoft Visual Studio 9.0\Common7\IDE\devenv.exe"
+rem set templates="%ProgramFiles%\Microsoft Visual Studio 9.0\Common7\IDE\ProjectTemplates\CSharp\eXpand\"
+rem set devenv="%ProgramFiles%\Microsoft Visual Studio 9.0\Common7\IDE\"
 rem x64
-rem set templates = "C:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\ProjectTemplates\CSharp\eXpand"
-rem set devenv = "C:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\devenv.exe"
+set templates="%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\Common7\IDE\ProjectTemplates\CSharp\eXpand\"
+set devenv="%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\Common7\IDE\"
 
 echo Installing and refreshing visual studio templates
 xcopy "eXpand.DesignExperience\vs_templates\*.*" %templates% /Y /R /I
-%devenv% /InstallVSTemplates
+
+cd\
+cd %devenv%
+devenv.exe /InstallVSTemplates
 pause

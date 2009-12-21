@@ -3,9 +3,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.WorldCreator.Core;
-using eXpand.Persistent.BaseImpl.ImportExport;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests {
@@ -21,25 +19,11 @@ namespace eXpand.Tests {
             Isolate.WhenCalled(() => typesInfo.PersistentAssemblyInfoType).WillReturn(typeof (PersistentAssemblyInfo));
             Isolate.WhenCalled(() => typesInfo.PersistentCoreTypeInfoType).WillReturn(typeof (PersistentCoreTypeMemberInfo));
             Isolate.WhenCalled(() => typesInfo.PersistentTypesInfoType).WillReturn(typeof (PersistentClassInfo));
-            Isolate.WhenCalled(() => typesInfo.PersistentCollectionInfoType).WillReturn(typeof(PersistentCollectionMemberInfo));
             Isolate.WhenCalled(() => typesInfo.CodeTemplateInfoType).WillReturn(typeof (CodeTemplateInfo));
             Isolate.WhenCalled(() => typesInfo.PersistentReferenceInfoType).WillReturn(typeof (PersistentReferenceMemberInfo));
             Isolate.WhenCalled(() => typesInfo.CodeTemplateType).WillReturn(typeof (CodeTemplate));
             Isolate.WhenCalled(() => typesInfo.TemplateInfoType).WillReturn(typeof (TemplateInfo));
             Isolate.WhenCalled(() => typesInfo.IntefaceInfoType).WillReturn(typeof (InterfaceInfo));
-            Isolate.WhenCalled(() => typesInfo.PersistentAssociationAttributeType).WillReturn(typeof (PersistentAssociationAttribute));
-
-            
-            return typesInfo;
-        }
-        public static ExpressApp.IO.Core.TypesInfo IOTypesInfo(this IFaker faker)
-        {
-            Isolate.WhenCalled(() => ExpressApp.IO.Core.TypesInfo.Instance).WillReturn(Isolate.Fake.Instance<ExpressApp.IO.Core.TypesInfo>());
-            var typesInfo = ExpressApp.IO.Core.TypesInfo.Instance;
-
-            Isolate.WhenCalled(() => typesInfo.SerializationConfigurationType).WillReturn(typeof (SerializationConfiguration));
-            Isolate.WhenCalled(() => typesInfo.ClassInfoGraphNodeType).WillReturn(typeof (ClassInfoGraphNode));
-            
 
             
             return typesInfo;

@@ -1,11 +1,11 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
-using eXpand.ExpressApp.ImportExport.Core;
 using eXpand.ExpressApp.ImportExport.PersistentTypesHelpers;
+using eXpand.ExpressApp.IO.Core;
 using eXpand.Xpo;
 
-namespace eXpand.ExpressApp.ImportExport.Controllers.ListView {
+namespace eXpand.ExpressApp.IO.Controllers.ListView {
     public partial class ViewController : ViewController<DevExpress.ExpressApp.ListView>
     {
         readonly SimpleAction _exportToXmlAction;
@@ -24,7 +24,7 @@ namespace eXpand.ExpressApp.ImportExport.Controllers.ListView {
             base.OnActivated();
             var serializationConfigurationType = View.ObjectTypeInfo.Type;
             _exportToXmlAction.Active["objectType"] = ObjectSpace.Session.GetCount(TypesInfo.Instance.SerializationConfigurationType,
-                                         SerializationConfigurationQuery.GetCriteria(serializationConfigurationType))>0;
+                                                                                   SerializationConfigurationQuery.GetCriteria(serializationConfigurationType))>0;
         }
         public SimpleAction ExportToXmlAction {
             get { return _exportToXmlAction; }
@@ -49,7 +49,6 @@ namespace eXpand.ExpressApp.ImportExport.Controllers.ListView {
             foreach (var selectedObject in simpleActionExecuteEventArgs.SelectedObjects) {
                 ExportingObject(selectedObject);
             }
-            
         }
 
         protected virtual void ExportingObject(object selectedObject) {

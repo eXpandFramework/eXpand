@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SerializedObjects>
+  <SerializedObject type="Customer">
+    <Property type="simple" name="Oid" isKey="true">1</Property>
+    <Property type="simple" name="Name">Apostolis</Property>
+    <Property type="object" name="User">
+      <SerializedObjectRef type="User" strategy="DoNotSerialize">1</SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="Orders">
+      <SerializedObjectRef type="Order" strategy="Serialize">1</SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="Order">
+    <Property type="simple" name="Oid" key="true">1</Property>
+    <Property type="simple" name="Ammount">100</Property>
+  </SerializedObject>
+</SerializedObjects>

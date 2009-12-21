@@ -14,6 +14,7 @@ namespace eXpand.Persistent.BaseImpl.ImportExport {
         private Type _typeToSerialize;
         public SerializationConfiguration(Session session) : base(session) { }
 
+
         [Index(0)]
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]

@@ -93,8 +93,8 @@
       <HintPath>..\..\..\eXpand.DLL\eXpand.ExpressApp.FilterDataStore.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.ImportExport, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="eXpand.ExpressApp.ImportExport.Win, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="eXpand.ExpressApp.IO, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="eXpand.ExpressApp.IO.Win, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="eXpand.ExpressApp.ModelArtifactState, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.ModelArtifactState.dll</HintPath>
@@ -279,6 +279,11 @@
     <Compile Include="eXpand.ExpressApp\TypesInfoFixture.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="eXpand.IO\AllObjectsSpecs.cs" />
+    <Compile Include="eXpand.IO\ClassInfoGraphNodeSpecs.cs" />
+    <Compile Include="eXpand.IO\ExportingEngineSpecs.cs" />
+    <Compile Include="eXpand.IO\SerializationConfigurationGraphSpecs.cs" />
+    <Compile Include="eXpand.IO\Contexts.cs" />
     <Compile Include="eXpand.Utils\NotificationExtensionsFixture.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -356,6 +361,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="eXpand.IO\XMLFile1.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

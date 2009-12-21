@@ -1,7 +1,7 @@
 using DevExpress.ExpressApp.TreeListEditors;
 
-namespace eXpand.ExpressApp.ImportExport {
-    partial class ImportExportModule
+namespace eXpand.ExpressApp.IO {
+    partial class IOModule
     {
         /// <summary> 
         /// Required designer variable.

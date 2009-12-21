@@ -40,6 +40,15 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return compile(persistentAssemblyInfo, generateCode, compilerParams, codeProvider);
 
         }
+        public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo, bool registerPersistentTypes) {
+            Type compileModule = CompileModule(persistentAssemblyInfo);
+            if (registerPersistentTypes&&compileModule!= null)
+                foreach (var type in compileModule.Assembly.GetTypes()) {
+                    XafTypesInfo.Instance.RegisterEntity(type);    
+                }
+            return compileModule;
+        }
+
         public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo)
         {
             return CompileModule(persistentAssemblyInfo, null);

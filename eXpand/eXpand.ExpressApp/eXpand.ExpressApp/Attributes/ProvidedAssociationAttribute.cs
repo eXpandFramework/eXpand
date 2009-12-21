@@ -1,5 +1,4 @@
 using System;
-using eXpand.ExpressApp.Enums;
 using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.Attributes{

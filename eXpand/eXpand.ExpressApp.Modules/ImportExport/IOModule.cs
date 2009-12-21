@@ -1,12 +1,12 @@
 using System.Linq;
 using DevExpress.ExpressApp;
-using TypesInfo = eXpand.ExpressApp.ImportExport.Core.TypesInfo;
+using eXpand.ExpressApp.IO.Core;
 
-namespace eXpand.ExpressApp.ImportExport {
-    public sealed partial class ImportExportModule : ModuleBase
+namespace eXpand.ExpressApp.IO {
+    public sealed partial class IOModule : ModuleBase
     {
         
-        public ImportExportModule(){
+        public IOModule(){
             InitializeComponent();
         }
         public override void Setup(XafApplication application)
