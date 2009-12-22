@@ -324,7 +324,6 @@
     </Compile>
     <Compile Include="eXpand.WorldCreator\XpoObjectMergerSpecs.cs" />
     <Compile Include="MockExtensions.cs" />
-    <Compile Include="ModelArtifactSpecs\RuleBuilderSpecs.cs" />
     <Compile Include="XpandBaseFixture.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -365,6 +364,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="eXpand.IO\XMLFile1.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ModelArtifactSpecs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
