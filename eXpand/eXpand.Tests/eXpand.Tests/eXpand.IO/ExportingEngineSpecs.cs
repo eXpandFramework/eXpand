@@ -50,14 +50,14 @@ namespace eXpand.Tests.eXpand.IO
         It should_have_serializedObjects_as_root_element=() => _root.Name.ShouldEqual("SerializedObjects");
 
         It should_have_2_Orders_an_1_Customer_serialized_elements_as_childs = () => {
-            _root.Descendants("SerializedObject").Where(element => element.GetAttributeValue("type") == "Customer").Count().ShouldEqual(1);
-            _root.Descendants("SerializedObject").Where(element => element.GetAttributeValue("type") == "Order").Count().ShouldEqual(2);
+            _root.Descendants("SerializedObject").Where(element => hasAsttributes(element, "type", "Customer")).Count().ShouldEqual(1);
+            _root.Descendants("SerializedObject").Where(element => hasAsttributes(element, "type", "Order")).Count().ShouldEqual(2);
         };
 
         It should_not_have_User_child_Serialized_element=() => _root.Descendants("SerializedObject").Count().ShouldEqual(3);
 
         It should_have_2_simple_property_elements_as_customer_Serialized_element_childs=() => {
-            _customerElement = _root.Descendants("SerializedObject").Where(element => element.GetAttributeValue("type") == "Customer").Single();
+            _customerElement = _root.Descendants("SerializedObject").Where(element => hasAsttributes(element, "type","Customer")).Single();
             _customerElement.Descendants("Property").
                 Where(xElement => hasAsttributes(xElement, "type", "simple")).Count().ShouldEqual(2);
         };

@@ -61,6 +61,7 @@
     <Compile Include="BackingFieldResolver\MethodBaseRocks.cs" />
     <Compile Include="ExpressionBuilder\IBuilder.cs" />
     <Compile Include="GeneralDataStructures\SerializableDictionary.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="GeneralDataStructures\ExtensionMethods.cs" />
     <Compile Include="GeneralDataStructures\Grouping.cs" />
@@ -82,7 +83,6 @@
     <Compile Include="Linq\Dynamic\Signature.cs" />
     <Compile Include="ObjectMerger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Helpers\ReflectionExtensions.cs" />
     <Compile Include="Testing\CoverageExcludeAttribute.cs" />
     <Compile Include="Threading\AsyncEnumeratorSyncHelper.cs" />

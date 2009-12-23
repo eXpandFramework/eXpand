@@ -163,9 +163,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="Core\XpoObjectMerger.cs" />
-    <Compile Include="WorldCreatorModuleBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="WorldCreatorModule.resx">

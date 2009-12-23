@@ -286,6 +286,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eXpand.IO\Contexts.cs" />
+    <Compile Include="eXpand.IO\ExportingEngineSpecs.cs" />
+    <Compile Include="eXpand.IO\SerializationConfigurationGraphSpecs.cs" />
     <Compile Include="eXpand.Utils\NotificationExtensionsFixture.cs">
       <SubType>Code</SubType>
     </Compile>
