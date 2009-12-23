@@ -1,6 +1,4 @@
-﻿using System;
-using DevExpress.Persistent.Validation;
-using eXpand.Persistent.BaseImpl.PersistentMetaData;
+﻿using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Machine.Specifications;
 using eXpand.Xpo;

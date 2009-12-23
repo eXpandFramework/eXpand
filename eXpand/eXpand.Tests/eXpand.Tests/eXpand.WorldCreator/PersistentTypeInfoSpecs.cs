@@ -1,5 +1,4 @@
-﻿using eXpand.ExpressApp.WorldCreator;
-using eXpand.Persistent.BaseImpl.PersistentMetaData;
+﻿using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using Machine.Specifications;
 
 namespace eXpand.Tests.eXpand.WorldCreator {

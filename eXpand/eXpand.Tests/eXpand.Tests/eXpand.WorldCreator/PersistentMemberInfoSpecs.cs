@@ -1,5 +1,4 @@
 ﻿using DevExpress.Xpo;
-using eXpand.ExpressApp.WorldCreator;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using Machine.Specifications;

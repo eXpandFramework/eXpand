@@ -3,7 +3,6 @@ using System.Reflection;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.WorldCreator;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
@@ -59,7 +58,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         It should_use_default_Base_type =() => _generateCode.IndexOf(typeof (eXpandCustomObject).FullName).ShouldBeGreaterThan(-1);
     }
-        [Subject(typeof(CodeEngine))]
+    [Subject(typeof(CodeEngine))]
     public class When_generating_code_from_persistentClassinfo_with_baseclassinfo_defined:With_Isolations {
         static string _generateCode;
         static PersistentClassInfo _info;

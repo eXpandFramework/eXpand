@@ -92,7 +92,6 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.JScript" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -105,18 +104,23 @@
       <Name>System.Data</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Windows.Forms">
-      <Name>System.Windows.Forms</Name>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DetailView\SerializationConfigurationController.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ListView\ViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ListView\ViewController.Designer.cs">
+      <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Observers\SerializationConfigurationObserver.cs" />
     <Compile Include="Core\ExportEngine.cs" />
@@ -131,12 +135,6 @@
     <Compile Include="PersistentTypesHelpers\ClassInfoGraphNodeBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
-    <Compile Include="Controllers\ListView\ViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\ListView\ViewController.Designer.cs">
-      <DependentUpon>ViewController.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IOModule.resx">

@@ -1,18 +1,28 @@
 ﻿using System.ComponentModel;
+using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.ImportExport;
 
-namespace eXpand.Persistent.BaseImpl.ImportExport {
+namespace eXpand.Persistent.BaseImpl.ImportExport
+{
 
-    public class ClassInfoGraphNode : BaseObject, IClassInfoGraphNode {
+    public class ClassInfoGraphNode : BaseObject, IClassInfoGraphNode
+    {
         private ClassInfoGraphNode _parent;
         private string name;
         private SerializationConfiguration serializationConfiguration;
         private SerializationStrategy serializationStrategy;
         public ClassInfoGraphNode(Session session) : base(session) { }
 
+        private NodeType _nodeType;
+        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute,"false")]
+        public NodeType NodeType {
+            get { return _nodeType; }
+            set { SetPropertyValue("NodeType", ref _nodeType, value); }
+        }
+        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
         public string Name
         {
             get { return name; }
@@ -26,15 +36,22 @@ namespace eXpand.Persistent.BaseImpl.ImportExport {
             set { SetPropertyValue("SerializationConfiguration", ref serializationConfiguration, value); }
         }
 
-        ISerializationConfiguration IClassInfoGraphNode.SerializationConfiguration {
+        ISerializationConfiguration IClassInfoGraphNode.SerializationConfiguration
+        {
             get { return SerializationConfiguration; }
-            set { SerializationConfiguration=value as SerializationConfiguration; }
+            set { SerializationConfiguration = value as SerializationConfiguration; }
         }
 
         public SerializationStrategy SerializationStrategy
         {
             get { return serializationStrategy; }
             set { SetPropertyValue("SerializationStrategy", ref serializationStrategy, value); }
+        }
+
+        private bool _key;
+        public bool Key {
+            get { return _key; }
+            set { SetPropertyValue("Key", ref _key, value); }
         }
 
         [Association]

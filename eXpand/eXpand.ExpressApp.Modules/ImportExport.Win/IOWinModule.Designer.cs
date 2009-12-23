@@ -1,5 +1,5 @@
 using DevExpress.ExpressApp.TreeListEditors.Win;
-using eXpand.ExpressApp.ImportExport;
+using eXpand.ExpressApp.TreeListEditors.Win;
 
 namespace eXpand.ExpressApp.IO.Win {
     partial class IOWinModule
@@ -32,6 +32,7 @@ namespace eXpand.ExpressApp.IO.Win {
         {
             this.RequiredModuleTypes.Add(typeof(IOModule));
             this.RequiredModuleTypes.Add(typeof(TreeListEditorsWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(eXpandTreeListEditorsWin));
         }
 
         #endregion

@@ -1,4 +1,5 @@
-namespace eXpand.ExpressApp.IO.Controllers.ListView {
+namespace eXpand.ExpressApp.IO.Controllers.ListView
+{
     partial class ViewController
     {
         /// <summary>

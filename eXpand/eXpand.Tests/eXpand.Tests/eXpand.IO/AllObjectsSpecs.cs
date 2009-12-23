@@ -28,7 +28,8 @@ namespace eXpand.Tests.eXpand.IO {
 
         It should_enable_export_action_if_there_is_an_associated_serialization_configuration=() => _frame.GetController<ViewController>().ExportToXmlAction.Active.ResultValue.ShouldBeTrue();
     }
-    [Subject("All Objects")]
+
+    [Subject("All Objects")][Ignore]
     public class When_exporting_a_list_of_objects:With_Isolations {
         static SimpleActionExecuteEventArgs _simpleActionExecuteEventArgs;
         static ISelectionContext _selectionContext;

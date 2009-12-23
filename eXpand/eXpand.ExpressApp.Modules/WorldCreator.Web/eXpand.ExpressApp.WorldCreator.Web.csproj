@@ -76,6 +76,7 @@
       <Name>System.Data</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
       <Private>False</Private>

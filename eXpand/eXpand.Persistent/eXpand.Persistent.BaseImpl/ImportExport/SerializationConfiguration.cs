@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
 using eXpand.Persistent.Base.ImportExport;
 using eXpand.Xpo.Converters.ValueConverters;
 using System.ComponentModel;
@@ -14,7 +15,14 @@ namespace eXpand.Persistent.BaseImpl.ImportExport {
         private Type _typeToSerialize;
         public SerializationConfiguration(Session session) : base(session) { }
 
-
+        private string _name;
+        [RuleUniqueValue(null,DefaultContexts.Save)]
+        [RuleRequiredField(null,DefaultContexts.Save)]
+        public string Name {
+            get { return _name; }
+            set { SetPropertyValue("Name", ref _name, value); }
+        }
+        [RuleRequiredField(null, DefaultContexts.Save)]
         [Index(0)]
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]

@@ -11,15 +11,19 @@ using eXpand.Utils.ExpressionBuilder;
 using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
-    public interface IMemberHandler
+    public interface IClassHandler
     {
         void CreateRefenceMembers(Func<IPersistentClassInfo, IEnumerable<IPersistentClassInfo>> referenceClassInfoFunc);
         void CreateRefenceMembers(Func<IPersistentClassInfo, IEnumerable<Type>> referenceTypeFunc);
         void CreateSimpleMembers<T>(Func<IPersistentClassInfo, IEnumerable<string>> func);
     }
 
-    public class PersistentAssemblyBuilder : Builder<IPersistentAssemblyInfo>, IMemberHandler
-    {
+    public interface IPersistentAssemblyBuilder : IClassHandler {
+        IPersistentAssemblyInfo PersistentAssemblyInfo { get; }
+        IClassHandler CreateClasses(IEnumerable<string> classNames);
+    }
+
+    public class PersistentAssemblyBuilder : Builder<IPersistentAssemblyInfo>, IPersistentAssemblyBuilder {
         readonly IPersistentAssemblyInfo _persistentAssemblyInfo;
         IEnumerable<IPersistentClassInfo> _persistentClassInfos;
         readonly ObjectSpace _objectSpace;
@@ -46,7 +50,7 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
             return new PersistentAssemblyBuilder(assemblyInfo);
         }
 
-        public IMemberHandler CreateClasses(IEnumerable<string> classNames)
+        public IClassHandler CreateClasses(IEnumerable<string> classNames)
         {
             _persistentClassInfos = classNames.Select(s =>
             {
@@ -60,7 +64,7 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
             return this;
         }
 
-        void IMemberHandler.CreateRefenceMembers(Func<IPersistentClassInfo, IEnumerable<IPersistentClassInfo>> referenceClassInfoFunc)
+        void IClassHandler.CreateRefenceMembers(Func<IPersistentClassInfo, IEnumerable<IPersistentClassInfo>> referenceClassInfoFunc)
         {
             foreach (IPersistentClassInfo info in _persistentClassInfos) {
                 IEnumerable<IPersistentClassInfo> persistentClassInfos = referenceClassInfoFunc.Invoke(info);
@@ -74,7 +78,7 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
             }
         }
 
-        void IMemberHandler.CreateRefenceMembers(Func<IPersistentClassInfo, IEnumerable<Type>> referenceTypeFunc)
+        void IClassHandler.CreateRefenceMembers(Func<IPersistentClassInfo, IEnumerable<Type>> referenceTypeFunc)
         {
             foreach (var info in _persistentClassInfos){
                 IEnumerable<Type> types = referenceTypeFunc.Invoke(info);
@@ -87,7 +91,7 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
             }
         }
 
-        public void CreateSimpleMembers<T>(Func<IPersistentClassInfo, IEnumerable<string>> func) {
+        void IClassHandler.CreateSimpleMembers<T>(Func<IPersistentClassInfo, IEnumerable<string>> func) {
             foreach (var persistentClassInfo in _persistentClassInfos){
                 IEnumerable<string> invoke = func.Invoke(persistentClassInfo);
                 if (invoke!= null) {

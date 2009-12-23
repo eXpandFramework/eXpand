@@ -38,8 +38,10 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
                 else if (memberInfo.IsList){
                     addListNodes(typeToSerialize, memberInfo, excludeSerialize, objectSpace, classInfoGraphNodes);
                 }
-                else
-                    AddClassInfoGraphNode(objectSpace, memberInfo, classInfoGraphNodes);
+                else {
+                    IClassInfoGraphNode addClassInfoGraphNode = AddClassInfoGraphNode(objectSpace, memberInfo, classInfoGraphNodes,NodeType.Simple);
+                    addClassInfoGraphNode.Key = memberInfo.IsKey;
+                }
             }
 
             return classInfoGraphNodes;
@@ -47,7 +49,8 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
 
         void addListNodes(ITypeInfo typeToSerialize, IMemberInfo memberInfo, ITypeInfo excludeSerialize, ObjectSpace objectSpace, List<IClassInfoGraphNode> classInfoGraphNodes) {
             if (isNotSerialized(memberInfo.ListElementTypeInfo, excludeSerialize)){
-                IClassInfoGraphNode classInfoGraphNode = AddClassInfoGraphNode(objectSpace, memberInfo, classInfoGraphNodes);
+                IClassInfoGraphNode classInfoGraphNode = AddClassInfoGraphNode(objectSpace, memberInfo, classInfoGraphNodes,NodeType.Collection);
+                classInfoGraphNode.SerializationStrategy=SerializationStrategy.SerializeAsObject;
                 IEnumerable<IClassInfoGraphNode> infoGraphNodes = GetGraph(objectSpace, memberInfo.ListElementTypeInfo, typeToSerialize);
                 foreach (var infoGraphNode in infoGraphNodes){
                     classInfoGraphNode.Children.Add(infoGraphNode);
@@ -57,7 +60,7 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
 
         void addRefNodes(IMemberInfo memberInfo, ITypeInfo excludeSerialize, ObjectSpace objectSpace, List<IClassInfoGraphNode> classInfoGraphNodes) {
             if (isNotSerialized(memberInfo.MemberTypeInfo, excludeSerialize)){
-                IClassInfoGraphNode classInfoGraphNode = AddClassInfoGraphNode(objectSpace, memberInfo, classInfoGraphNodes);
+                IClassInfoGraphNode classInfoGraphNode = AddClassInfoGraphNode(objectSpace, memberInfo, classInfoGraphNodes,NodeType.Object);
                 classInfoGraphNode.SerializationStrategy=SerializationStrategy.SerializeAsObject;
                 IEnumerable<IClassInfoGraphNode> infoGraphNodes = GetGraph(objectSpace, memberInfo.MemberTypeInfo, excludeSerialize);
                 foreach (var infoGraphNode in infoGraphNodes){
@@ -66,10 +69,11 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
             }
         }
 
-        IClassInfoGraphNode AddClassInfoGraphNode(ObjectSpace objectSpace, IMemberInfo memberInfo, List<IClassInfoGraphNode> classInfoGraphNodes) {
+        IClassInfoGraphNode AddClassInfoGraphNode(ObjectSpace objectSpace, IMemberInfo memberInfo, List<IClassInfoGraphNode> classInfoGraphNodes, NodeType nodeType) {
             var classInfoGraphNode =
                 (IClassInfoGraphNode)objectSpace.CreateObject(TypesInfo.Instance.ClassInfoGraphNodeType);
             classInfoGraphNode.Name = memberInfo.Name;
+            classInfoGraphNode.NodeType=nodeType;            
             classInfoGraphNodes.Add(classInfoGraphNode);
             return classInfoGraphNode;
         }
@@ -80,7 +84,7 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
 
 
         IEnumerable<IMemberInfo> GetMemberInfos(ITypeInfo typeInfo){
-            _excludedMembers = new[] { XPObject.Fields.GCRecord.PropertyName, XPObject.Fields.OptimisticLockField.PropertyName };
+            _excludedMembers = new[] { XPObject.Fields.GCRecord.PropertyName, XPObject.Fields.OptimisticLockField.PropertyName, XPObject.Fields.ObjectType.PropertyName};
             return typeInfo.Members.Where(info => isPersistent(info) && !(_excludedMembers.Contains(info.Name)));
         }
 

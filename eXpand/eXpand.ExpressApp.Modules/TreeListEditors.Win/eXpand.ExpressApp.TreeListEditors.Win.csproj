@@ -86,6 +86,9 @@
     <Reference Include="DevExpress.XtraGrid.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="eXpand.ExpressApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -135,7 +138,11 @@
     <Compile Include="Controllers\ResursiveFilteringViewController.Designer.cs">
       <DependentUpon>ResursiveFilteringViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\TreeNodeExtensions.cs" />
+    <Compile Include="Controllers\TreeListInplaceEditViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\TreeNodeExtensions.cs">
+    </Compile>
     <Compile Include="eXpandTreeListEditorsWin.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -5,11 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.PersistentMetaData;
 using Microsoft.CSharp;
-using Microsoft.JScript;
 using Microsoft.VisualBasic;
 using CodeDomProvider = eXpand.Persistent.Base.PersistentMetaData.CodeDomProvider;
 
@@ -18,10 +17,17 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
     {
         private const string STR_StrongKeys = "StrongKeys";
         readonly List<Assembly> CompiledAssemblies=new List<Assembly>();
-        
 
-        public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo,Action<CompilerParameters> action) {
 
+        public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo, Action<CompilerParameters> action) {
+            return CompileModule(persistentAssemblyInfo, action, null);
+        }
+
+
+        public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo,Action<CompilerParameters> action,string path) {
+            Assembly loadedAssembly = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => new AssemblyName(assembly.FullName+"").Name==persistentAssemblyInfo.Name).FirstOrDefault();
+            if (loadedAssembly!= null)
+                return loadedAssembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
             var generateCode = CodeEngine.GenerateCode(persistentAssemblyInfo);
             var codeProvider = getCodeDomProvider(persistentAssemblyInfo.CodeDomProvider);
             var compilerParams = new CompilerParameters
@@ -30,7 +36,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 GenerateExecutable = false,
                 GenerateInMemory = true,
                 IncludeDebugInformation = false,
-                OutputAssembly = persistentAssemblyInfo.Name
+                OutputAssembly = persistentAssemblyInfo.Name+".wc"
             };
             if (action!= null)
                 action.Invoke(compilerParams);                
@@ -40,8 +46,12 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return compile(persistentAssemblyInfo, generateCode, compilerParams, codeProvider);
 
         }
-        public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo, bool registerPersistentTypes) {
-            Type compileModule = CompileModule(persistentAssemblyInfo);
+        public Type CompileModule(IPersistentAssemblyBuilder persistentAssemblyBuilder, string path) {
+            return CompileModule(persistentAssemblyBuilder.PersistentAssemblyInfo, true,path);
+        }
+
+        public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo, bool registerPersistentTypes, string path) {
+            Type compileModule = CompileModule(persistentAssemblyInfo,path);
             if (registerPersistentTypes&&compileModule!= null)
                 foreach (var type in compileModule.Assembly.GetTypes()) {
                     XafTypesInfo.Instance.RegisterEntity(type);    
@@ -49,18 +59,15 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return compileModule;
         }
 
-        public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo)
+        public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo, string path)
         {
-            return CompileModule(persistentAssemblyInfo, null);
+            return CompileModule(persistentAssemblyInfo, parameters => {});
         }
-
-
 
         string GetStorngKeyParams(IPersistentAssemblyInfo persistentAssemblyInfo) {
             if (persistentAssemblyInfo.FileData!= null) {
                 if (!Directory.Exists(STR_StrongKeys))
                     Directory.CreateDirectory(STR_StrongKeys);
-
                 var newGuid = Guid.NewGuid();
                 using (var fileStream = new FileStream(@"StrongKeys\" + newGuid + ".snk", FileMode.Create)) {
                     persistentAssemblyInfo.FileData.SaveToStream(fileStream);
@@ -70,13 +77,10 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return null;
         }
 
-        static System.CodeDom.Compiler.CodeDomProvider getCodeDomProvider(CodeDomProvider codeDomProvider)
-        {
+        static System.CodeDom.Compiler.CodeDomProvider getCodeDomProvider(CodeDomProvider codeDomProvider){
             if (codeDomProvider==CodeDomProvider.CSharp)
                 return new CSharpCodeProvider();
-            if (codeDomProvider==CodeDomProvider.VB)
-                return new VBCodeProvider();
-            return new JScriptCodeProvider();
+            return new VBCodeProvider();
         }
 
         Type compile(IPersistentAssemblyInfo persistentAssemblyInfo, string generateCode, CompilerParameters compilerParams, System.CodeDom.Compiler.CodeDomProvider codeProvider) {
@@ -130,30 +134,31 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         }
 
 
-        public List<Type> CompileModules(IList<IPersistentAssemblyInfo> persistentAssemblyInfos) {
+        public List<Type> CompileModules(IList<IPersistentAssemblyInfo> persistentAssemblyInfos, string path) {
 
             var definedModules = new List<Type>();
             
             foreach (IPersistentAssemblyInfo persistentAssemblyInfo in persistentAssemblyInfos.OrderByDescending(info => info.CompileOrder)) {
-                string path = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),persistentAssemblyInfo.Name);
-                if (File.Exists(path+".dll"))
-                    File.Delete(path+".dll");
+                string fileName = Path.Combine(Path.GetDirectoryName(path),persistentAssemblyInfo.Name);
+                if (File.Exists(fileName+".wc"))
+                    File.Delete(fileName+".wc");
                 persistentAssemblyInfo.CompileErrors = null;
-                Type compileModule = CompileModule(persistentAssemblyInfo);    
+                Type compileModule = CompileModule(persistentAssemblyInfo,path);    
             
                 if (compileModule != null) {
                     definedModules.Add(compileModule);
                 }
-                else if (File.Exists(path)) {
-                    var fileInfo=new FileInfo(path);
-                    fileInfo.CopyTo(path+".dll");
-                    Assembly assembly = Assembly.LoadFile(path+".dll");
+                else if (File.Exists(fileName)) {
+                    var fileInfo=new FileInfo(fileName);
+                    fileInfo.CopyTo(fileName+".wc");
+                    Assembly assembly = Assembly.LoadFile(fileName+".wc");
                     Type single = assembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
                     definedModules.Add(single);
                 }
             }
             return definedModules;
         }
+
     }
 
 }

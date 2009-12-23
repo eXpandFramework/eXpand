@@ -1,6 +1,5 @@
 ﻿using System;
 using eXpand.ExpressApp.WorldCreator.Core;
-using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using Machine.Specifications;
 using System.Linq;
@@ -24,7 +23,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             AppDomain.CurrentDomain.GetAssemblies().Where(
                 assembly => (assembly.FullName + "").StartsWith("TestAssemlby")).FirstOrDefault().ShouldBeNull();
 
-//        It should_save_errors_at_persistentAssemblyInfo_compile_errors = () => _info.CompileErrors.ShouldBeNull();
+        It should_save_errors_at_persistentAssemblyInfo_compile_errors = () => _info.CompileErrors.ShouldBeNull();
 
     }
 

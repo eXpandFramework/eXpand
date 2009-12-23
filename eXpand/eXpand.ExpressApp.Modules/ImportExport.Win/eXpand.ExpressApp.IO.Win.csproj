@@ -56,7 +56,9 @@
     <Reference Include="DevExpress.Data.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -76,8 +78,18 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.ImportExport, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="eXpand.ExpressApp.ImportExport, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.IO, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="eXpand.ExpressApp.Security, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.TreeListEditors.Win, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -93,7 +105,6 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.JScript" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>

@@ -360,7 +360,7 @@ namespace eXpand.Xpo
                     throw new NotImplementedException(conversionType.Name);
             } else if (typeof(Enum).IsAssignableFrom(conversionType))
                 return Enum.Parse(conversionType, (string)value);
-            else if (StringHelper.IsGuid(value + "") && conversionType == typeof (Guid))
+            else if (StringExtensions.IsGuid(value + "") && conversionType == typeof (Guid))
                 return new Guid(value.ToString());
             else if (value.GetType().Equals(conversionType))
                 return value;

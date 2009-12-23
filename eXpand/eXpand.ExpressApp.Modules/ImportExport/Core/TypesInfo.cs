@@ -21,6 +21,7 @@ namespace eXpand.ExpressApp.IO.Core {
             }
         }
 
+
         public Type ClassInfoGraphNodeType { get; private set; }
         public Type SerializationConfigurationType { get; private set; }
 

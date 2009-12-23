@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using eXpand.ExpressApp.WorldCreator.Core;
@@ -38,7 +39,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             persistentClassInfo.Save();
 
             UnitOfWork.CommitChanges();
-            Type compileModule = new CompileEngine().CompileModule(persistentClassInfo.PersistentAssemblyInfo);
+            Type compileModule = new CompileEngine().CompileModule(persistentClassInfo.PersistentAssemblyInfo,Application.ExecutablePath);
             types.AddRange(compileModule.Assembly.GetTypes().Where(type => !typeof (ModuleBase).IsAssignableFrom(type)));
             types.Add(typeof (User));
 

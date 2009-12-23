@@ -2,6 +2,7 @@
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.Utils;
@@ -20,14 +21,15 @@ namespace eXpand.Tests.eXpand.WorldCreator
     [Subject(typeof(WorldCreatorModule))]
     [Isolated]
     public class When_dynamic_module_cannot_be_created:With_In_Memory_DataStore {
-        static WorldCreatorModule _worldCreatorModule;
+        static WorldCreatorModuleBase _worldCreatorModule;
 
         static ApplicationModulesManager _applicationModulesManager;
 
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         Establish context = () => {
-            _worldCreatorModule = new WorldCreatorModule();
+            _worldCreatorModule = Isolate.Fake.Instance<WorldCreatorModuleBase>(Members.CallOriginal);
+            Isolate.WhenCalled(() => _worldCreatorModule.GetPath()).WillReturn(Application.ExecutablePath);
             _applicationModulesManager = new ApplicationModulesManager();
             _persistentAssemblyInfo = new PersistentAssemblyInfo(UnitOfWork){Name = "TestAssembly"};
             new PersistentClassInfo(UnitOfWork){
@@ -56,7 +58,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
     {
         static bool _modulesAdded;
         static bool existentCreated;
-        static WorldCreatorModule _worldCreatorModule;
+        static WorldCreatorModuleBase _worldCreatorModule;
         static ApplicationModulesManager applicationModulesManager;
 
 
@@ -75,7 +77,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             UnitOfWork.CommitChanges();
 
             Isolate.WhenCalled(() => CodeEngine.GenerateCode(persistentAssemblyInfo)).WillReturn(null);
-            _worldCreatorModule = new WorldCreatorModule();
+            _worldCreatorModule = Isolate.Fake.Instance<WorldCreatorModuleBase>(Members.CallOriginal);
             Isolate.WhenCalled(() => _worldCreatorModule.AddDynamicModules(null, null, null)).DoInstead(methodCallContext => _modulesAdded=true);
             Isolate.WhenCalled(() => _worldCreatorModule.GetAdditionalClasses()).WillReturn(new List<Type>{typeof(IPersistentClassInfo)});
             applicationModulesManager = new ApplicationModulesManager();
@@ -97,16 +99,14 @@ namespace eXpand.Tests.eXpand.WorldCreator
     [Isolated]
     public class When_Updating_Model : With_Isolations
     {
-        static WorldCreatorModule wcModule;
+        static WorldCreatorModuleBase wcModule;
 
         static Dictionary dictionary;
 
         Establish context = () => {
 
-            wcModule = new WorldCreatorModule
-            {
-                                        Application = Isolate.Fake.Instance<XafApplication>(Members.CallOriginal)
-                                    };
+            wcModule = Isolate.Fake.Instance<WorldCreatorModuleBase>(Members.CallOriginal);
+            wcModule.Application = Isolate.Fake.Instance<XafApplication>(Members.CallOriginal);
             Isolate.WhenCalled(() => wcModule.DefinedModules).WillReturn(new List<Type> { typeof(ExtendedCoreTypeMemberInfo) });
 
             var types = TypesInfo.Instance.GetType().GetProperties().Where(propertyInfo => propertyInfo.PropertyType==typeof(Type)).Select(info =>((Type)info.GetValue(TypesInfo.Instance,null)));
@@ -139,7 +139,8 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
         Establish context = () => {
             xafApplication = Isolate.Fake.Instance<XafApplication>(Members.CallOriginal);
-            var wcModule = new WorldCreatorModule { Application = xafApplication };
+            var wcModule = Isolate.Fake.Instance<WorldCreatorModuleBase>(Members.CallOriginal);
+            wcModule.Application = xafApplication;
             Isolate.WhenCalled(() => CodeEngine.GenerateCode(Isolate.Fake.Instance<IPersistentAssemblyInfo>())).WillReturn(null);
             wcModule.Setup(new ApplicationModulesManager());
             var xpoObjectMerger = Isolate.Fake.Instance<XpoObjectMerger>();

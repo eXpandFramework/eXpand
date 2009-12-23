@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using eXpand.ExpressApp.WorldCreator.Core;
@@ -27,7 +28,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         static Exception _exception;
 
         Because of = () => {
-            _exception = Catch.Exception(() => new CompileEngine().CompileModule(_persistentAssemblyInfo));
+            _exception = Catch.Exception(() => new CompileEngine().CompileModule(_persistentAssemblyInfo, Application.ExecutablePath));
         };
 
         It should_swallow_exception=() => _exception.ShouldBeNull();
@@ -48,7 +49,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             _persistentAssemblyInfo.Name = "TestAssembly222";
         };
 
-        Because of = () => {type=new CompileEngine().CompileModule(_persistentAssemblyInfo);};
+        Because of = () => { type = new CompileEngine().CompileModule(_persistentAssemblyInfo, Application.ExecutablePath); };
 
         It should_not_contain_any_compilation_error = () => _persistentAssemblyInfo.CompileErrors.ShouldBeNull();
 
@@ -79,7 +80,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             new PersistentCollectionMemberInfo(persistentAssociationAttribute) { Name = "CollProperty", CodeTemplateInfo =new CodeTemplateInfo(persistentAssociationAttribute) { TemplateInfo = memberCodeTemplate }, Owner = persistentClassInfo, CollectionType = typeof(User) };
         };
 
-        Because of = () => { _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo); };
+        Because of = () => { _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo,Application.ExecutablePath); };
 
         It should_have_no_compile_errors = () => _persistentAssemblyInfo.CompileErrors.ShouldBeNull();
         It should_generate_class_type = () => _compileModule.Assembly.GetTypes().Count().ShouldEqual(2);
@@ -114,7 +115,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         };
 
         Because of = () => {
-            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo);
+            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo, Application.ExecutablePath);
         };
 
         It should_compile_with_no_errors = () => {
@@ -146,7 +147,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         };
 
         Because of = () => {
-            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo);
+            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo, Application.ExecutablePath);
         };
 
         It should_compile_with_no_errors = () => {
@@ -174,7 +175,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         });
 
         Because of = () => {
-             _compileModule = new CompileEngine().CompileModule(_info);
+            _compileModule = new CompileEngine().CompileModule(_info, Application.ExecutablePath);
          };
 
         It should_compile_with_no_error = () => _info.CompileErrors.ShouldBeNull();
@@ -196,7 +197,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         });
 
         Because of = () => {
-             _compileModule = new CompileEngine().CompileModule(_info);
+            _compileModule = new CompileEngine().CompileModule(_info, Application.ExecutablePath);
          };
 
         It should_compile_with_no_error = () => _info.CompileErrors.ShouldBeNull();
@@ -221,14 +222,16 @@ namespace eXpand.Tests.eXpand.WorldCreator
                 _persistentAssemblyInfos = new List<PersistentAssemblyInfo>{persistentAssemblyInfo,info}.Cast<IPersistentAssemblyInfo>().ToList();
             });
             _compileEngine = new CompileEngine();
-            Isolate.WhenCalled(() => _compileEngine.CompileModule(null)).DoInstead(callContext => {
+            string executablePath = Application.ExecutablePath;
+            Isolate.WhenCalled(() => _compileEngine.CompileModule(Isolate.Fake.Instance<IPersistentAssemblyInfo>(), executablePath)).DoInstead(callContext =>
+            {
                 _persistnetAssembly = (IPersistentAssemblyInfo) callContext.Parameters[0];
                 return null;
             });
             
         };
 
-        Because of = () => _compileEngine.CompileModules(_persistentAssemblyInfos);
+        Because of = () => _compileEngine.CompileModules(_persistentAssemblyInfos, Application.ExecutablePath);
 
         It should_compile_the_one_with_lowest_compile_order_firt =
             () => _persistnetAssembly.Name.ShouldEqual("FirstAssembly");
@@ -248,12 +251,35 @@ namespace eXpand.Tests.eXpand.WorldCreator
         };
 
         Because of = () => {
-             _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo);
+            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo, Application.ExecutablePath);
          };
 
         It should_compile_with_no_erros = () => _persistentAssemblyInfo.CompileErrors.ShouldBeNull();
         It should_an_assembly_with_dots_in_its_name =
             () => (_compileModule.Assembly.FullName + "").IndexOf("TestAssembly.Win").ShouldBeGreaterThan(-1);
+    }
+    [Subject(typeof(CompileEngine))]
+    public class When_compiling_an_assembly_that_is_loaded
+    {
+        static Type _compileModule;
+        static Type _type;
+        static PersistentAssemblyInfo _persistentAssemblyInfo;
+
+        Establish context = () =>
+        {
+            _persistentAssemblyInfo = new TestAppLication<PersistentAssemblyInfo>().Setup().CurrentObject;
+            _persistentAssemblyInfo.Name = "T";
+            _type = new CompileEngine().CompileModule(_persistentAssemblyInfo, Application.ExecutablePath);
+            _persistentAssemblyInfo = new TestAppLication<PersistentAssemblyInfo>().Setup().CurrentObject;
+            _persistentAssemblyInfo.Name = "T";
+        };
+
+        Because of = () =>
+        {
+            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo, Application.ExecutablePath);
+        };
+
+        It should_return_the_loaded_module_type = () => _compileModule.ShouldEqual(_type);
     }
 
 }
