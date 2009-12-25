@@ -22,7 +22,8 @@ namespace eXpand.Tests.eXpand.IO {
         protected static SerializationConfiguration SerializationConfiguration;
 
         Establish context = () => {
-            Isolate.Fake.WCTypesInfo();
+//            Isolate.Fake.WCTypesInfo();
+//            var persistentAssemblyInfoType = TypesInfo.Instance.PersistentAssemblyInfoType;
             var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
             ObjectSpace = artifactHandler.ObjectSpace;
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(ObjectSpace,"a"+ Guid.NewGuid().ToString().Replace("-",""));
@@ -40,7 +41,7 @@ namespace eXpand.Tests.eXpand.IO {
             SerializationConfiguration = new SerializationConfiguration(artifactHandler.UnitOfWork) { TypeToSerialize = CustomerType };
         };
     }
-    public abstract class With_Isolations
+    public abstract class With_Isolations:WorldCreator.With_Isolations
     {
         protected static Func<Type[]> IOArtifacts;
 

@@ -13,9 +13,12 @@ using eXpand.Xpo;
 namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
     public interface IClassHandler
     {
+        IPersistentReferenceMemberInfo CreateRefenenceMember(IPersistentClassInfo persistentClassInfo, string name,IPersistentClassInfo referenceClassInfo);
+        IPersistentReferenceMemberInfo CreateRefenenceMember(IPersistentClassInfo persistentClassInfo, string name, Type referenceType);
         void CreateRefenceMembers(Func<IPersistentClassInfo, IEnumerable<IPersistentClassInfo>> referenceClassInfoFunc);
         void CreateRefenceMembers(Func<IPersistentClassInfo, IEnumerable<Type>> referenceTypeFunc);
         void CreateSimpleMembers<T>(Func<IPersistentClassInfo, IEnumerable<string>> func);
+        void CreateCollectionMember(IPersistentClassInfo persistentClassInfo, string name, IPersistentClassInfo refenceClassInfo);
     }
 
     public interface IPersistentAssemblyBuilder : IClassHandler {
@@ -64,15 +67,14 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
             return this;
         }
 
+
         void IClassHandler.CreateRefenceMembers(Func<IPersistentClassInfo, IEnumerable<IPersistentClassInfo>> referenceClassInfoFunc)
         {
             foreach (IPersistentClassInfo info in _persistentClassInfos) {
                 IEnumerable<IPersistentClassInfo> persistentClassInfos = referenceClassInfoFunc.Invoke(info);
                 if (persistentClassInfos != null) {
                     foreach (IPersistentClassInfo persistentClassInfo in persistentClassInfos) {
-                        IPersistentReferenceMemberInfo persistentReferenceMemberInfo = createMember(info,persistentClassInfo.Name);
-                        persistentReferenceMemberInfo.ReferenceTypeFullName =
-                            persistentClassInfo.PersistentAssemblyInfo.Name + "." + persistentClassInfo.Name;
+                        ((IClassHandler)this).CreateRefenenceMember(info, persistentClassInfo.Name, persistentClassInfo);
                     }
                 }
             }
@@ -84,7 +86,7 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
                 IEnumerable<Type> types = referenceTypeFunc.Invoke(info);
                 if (types != null){
                     foreach (var type in types) {
-                        IPersistentReferenceMemberInfo persistentReferenceMemberInfo = createMember(info, type.Name);
+                        IPersistentReferenceMemberInfo persistentReferenceMemberInfo = ((IClassHandler) this).CreateRefenenceMember(info, type.Name,type);
                         persistentReferenceMemberInfo.ReferenceTypeFullName = type.FullName;
                     }
                 }
@@ -107,10 +109,29 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
 
         }
 
+        void IClassHandler.CreateCollectionMember(IPersistentClassInfo persistentClassInfo, string name,IPersistentClassInfo refenceClassInfo) {
+            var persistentCollectionMemberInfo = createPersistentAssociatedMemberInfo<IPersistentCollectionMemberInfo>(name, persistentClassInfo,TypesInfo.Instance.PersistentCollectionInfoType);
+            persistentCollectionMemberInfo.CollectionTypeFullName = refenceClassInfo.PersistentAssemblyInfo.Name + "." +refenceClassInfo.Name;
+        }
 
-        IPersistentReferenceMemberInfo createMember(IPersistentClassInfo info, string name)
+
+        IPersistentReferenceMemberInfo IClassHandler.CreateRefenenceMember(IPersistentClassInfo info, string name,IPersistentClassInfo referenceClassInfo)
         {
-            var persistentReferenceMemberInfo =(IPersistentReferenceMemberInfo)_objectSpace.CreateObject(TypesInfo.Instance.PersistentReferenceInfoType);
+            var persistentReferenceMemberInfo = createPersistentAssociatedMemberInfo<IPersistentReferenceMemberInfo>(name, info,TypesInfo.Instance.PersistentReferenceInfoType);
+            persistentReferenceMemberInfo.ReferenceTypeFullName = info.PersistentAssemblyInfo.Name + "." + referenceClassInfo.Name;
+            return persistentReferenceMemberInfo;
+        }
+
+        IPersistentReferenceMemberInfo IClassHandler.CreateRefenenceMember(IPersistentClassInfo persistentClassInfo, string name, Type referenceType) {
+            var persistentReferenceMemberInfo = createPersistentAssociatedMemberInfo<IPersistentReferenceMemberInfo>(name, persistentClassInfo, TypesInfo.Instance.PersistentReferenceInfoType);
+            persistentReferenceMemberInfo.ReferenceTypeFullName = referenceType.FullName;
+            return persistentReferenceMemberInfo;
+        }
+
+        TPersistentAssociatedMemberInfo createPersistentAssociatedMemberInfo<TPersistentAssociatedMemberInfo>(string name, IPersistentClassInfo info, Type infoType) where TPersistentAssociatedMemberInfo : IPersistentAssociatedMemberInfo
+        {
+            
+            var persistentReferenceMemberInfo = (TPersistentAssociatedMemberInfo)_objectSpace.CreateObject(infoType);
             persistentReferenceMemberInfo.Name = name;
             persistentReferenceMemberInfo.RelationType=RelationType.OneToMany;
             info.OwnMembers.Add(persistentReferenceMemberInfo);

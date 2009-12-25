@@ -51,22 +51,35 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
             if (isNotSerialized(memberInfo.ListElementTypeInfo, excludeSerialize)){
                 IClassInfoGraphNode classInfoGraphNode = AddClassInfoGraphNode(objectSpace, memberInfo, classInfoGraphNodes,NodeType.Collection);
                 classInfoGraphNode.SerializationStrategy=SerializationStrategy.SerializeAsObject;
-                IEnumerable<IClassInfoGraphNode> infoGraphNodes = GetGraph(objectSpace, memberInfo.ListElementTypeInfo, typeToSerialize);
-                foreach (var infoGraphNode in infoGraphNodes){
-                    classInfoGraphNode.Children.Add(infoGraphNode);
+                if (!isSelfReference(memberInfo,memberInfo.ListElementTypeInfo)){
+                    IEnumerable<IClassInfoGraphNode> infoGraphNodes = GetGraph(objectSpace, memberInfo.ListElementTypeInfo, typeToSerialize);
+                    foreach (var infoGraphNode in infoGraphNodes){
+                        classInfoGraphNode.Children.Add(infoGraphNode);
+                    }
                 }
+                else
+                    classInfoGraphNode.SerializationStrategy=SerializationStrategy.DoNotSerialize;
             }
         }
 
         void addRefNodes(IMemberInfo memberInfo, ITypeInfo excludeSerialize, ObjectSpace objectSpace, List<IClassInfoGraphNode> classInfoGraphNodes) {
-            if (isNotSerialized(memberInfo.MemberTypeInfo, excludeSerialize)){
+            if (isNotSerialized(memberInfo.MemberTypeInfo, excludeSerialize))
+            {
                 IClassInfoGraphNode classInfoGraphNode = AddClassInfoGraphNode(objectSpace, memberInfo, classInfoGraphNodes,NodeType.Object);
                 classInfoGraphNode.SerializationStrategy=SerializationStrategy.SerializeAsObject;
-                IEnumerable<IClassInfoGraphNode> infoGraphNodes = GetGraph(objectSpace, memberInfo.MemberTypeInfo, excludeSerialize);
-                foreach (var infoGraphNode in infoGraphNodes){
-                    classInfoGraphNode.Children.Add(infoGraphNode);
+                if (!isSelfReference(memberInfo, memberInfo.MemberTypeInfo)){
+                    IEnumerable<IClassInfoGraphNode> infoGraphNodes = GetGraph(objectSpace, memberInfo.MemberTypeInfo, excludeSerialize);
+                    foreach (var infoGraphNode in infoGraphNodes){
+                        classInfoGraphNode.Children.Add(infoGraphNode);
+                    }
                 }
+                else
+                    classInfoGraphNode.SerializationStrategy=SerializationStrategy.DoNotSerialize;
             }
+        }
+
+        bool isSelfReference(IMemberInfo memberInfo, ITypeInfo typeInfo) {
+            return memberInfo.Owner == typeInfo;
         }
 
         IClassInfoGraphNode AddClassInfoGraphNode(ObjectSpace objectSpace, IMemberInfo memberInfo, List<IClassInfoGraphNode> classInfoGraphNodes, NodeType nodeType) {

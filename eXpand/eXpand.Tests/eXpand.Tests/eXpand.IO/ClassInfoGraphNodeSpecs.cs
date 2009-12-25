@@ -1,7 +1,12 @@
+using System.IO;
+using System.Windows.Forms;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.IO.PersistentTypesHelpers;
+using eXpand.ExpressApp.WorldCreator.Core;
+using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.ImportExport;
 using eXpand.Persistent.BaseImpl.ImportExport;
+using eXpand.Tests.eXpand.WorldCreator;
 using Machine.Specifications;
 using System.Linq;
 
@@ -52,5 +57,39 @@ namespace eXpand.Tests.eXpand.IO {
             const int user = 1;
             _memberCategories.Where(node => node.NodeType == NodeType.Object).Count().ShouldEqual(user);
         };
+    }
+    [Subject(typeof(ClassInfoGraphNode))]
+    public class When_generating_graph_for_self_reference_object:With_Isolations {
+        static SerializationConfiguration _serializationConfiguration;
+
+        Establish context = () =>
+        {
+            var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
+            var objectSpace = artifactHandler.ObjectSpace;
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(objectSpace, GetUniqueAssemblyName());
+            var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "CustomerSelfRef" });
+            var persistentClassInfo = persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0];
+            classHandler.CreateRefenenceMember(persistentClassInfo, "Parent",persistentClassInfo);
+            classHandler.CreateCollectionMember(persistentClassInfo, "Collection",persistentClassInfo);
+            
+            artifactHandler.ObjectSpace.CommitChanges();
+            var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder,Path.GetDirectoryName(Application.ExecutablePath));
+            var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "CustomerSelfRef").Single();
+            _serializationConfiguration = new SerializationConfiguration(artifactHandler.UnitOfWork) { TypeToSerialize = customerType };
+        };
+
+        Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+
+        It should_create_an_object_node_with_DoNotSerialize_strategy =
+            () =>
+            _serializationConfiguration.SerializationGraph[0].Children.Where(
+                node =>
+                node.NodeType == NodeType.Object && node.SerializationStrategy == SerializationStrategy.DoNotSerialize).
+                FirstOrDefault().ShouldNotBeNull();
+
+        It should_create_an_collection_node_with_DoNotSerialize_strategy = () => _serializationConfiguration.SerializationGraph[0].Children.Where(
+                                                                                     node =>
+                                                                                     node.NodeType == NodeType.Collection && node.SerializationStrategy == SerializationStrategy.DoNotSerialize).
+                                                                                     FirstOrDefault().ShouldNotBeNull();
     }
 }
