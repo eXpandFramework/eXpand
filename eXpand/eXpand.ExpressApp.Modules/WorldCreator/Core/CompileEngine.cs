@@ -16,12 +16,11 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
     public class CompileEngine
     {
         private const string STR_StrongKeys = "StrongKeys";
+        public const string XpandExtension = ".eXpand";
         readonly List<Assembly> CompiledAssemblies=new List<Assembly>();
 
 
-        public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo, Action<CompilerParameters> action) {
-            return CompileModule(persistentAssemblyInfo, action, null);
-        }
+        
 
 
         public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo,Action<CompilerParameters> action,string path) {
@@ -36,11 +35,11 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 GenerateExecutable = false,
                 GenerateInMemory = true,
                 IncludeDebugInformation = false,
-                OutputAssembly = persistentAssemblyInfo.Name+".wc"
+                OutputAssembly = Path.Combine(path, persistentAssemblyInfo.Name + XpandExtension)
             };
             if (action!= null)
                 action.Invoke(compilerParams);                
-            addReferences(compilerParams);
+            addReferences(compilerParams,path);
             if (File.Exists(compilerParams.OutputAssembly))
                 File.Delete(compilerParams.OutputAssembly);
             return compile(persistentAssemblyInfo, generateCode, compilerParams, codeProvider);
@@ -61,7 +60,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
         public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo, string path)
         {
-            return CompileModule(persistentAssemblyInfo, parameters => {});
+            return CompileModule(persistentAssemblyInfo, parameters => {},path);
         }
 
         string GetStorngKeyParams(IPersistentAssemblyInfo persistentAssemblyInfo) {
@@ -113,11 +112,23 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                     persistentAssemblyInfo.CompileErrors, (current, error) => current +Environment.NewLine+ error.ToString());
         }
 
-        void addReferences(CompilerParameters compilerParams) {
-            Func<Assembly, bool> isNotDynamic = assembly1 => !(assembly1 is AssemblyBuilder) && !CompiledAssemblies.Contains(assembly1)&&assembly1.EntryPoint==null;
+        void addReferences(CompilerParameters compilerParams, string path) {
+            Func<Assembly, bool> isNotDynamic =assembly1 =>!(assembly1 is AssemblyBuilder) && !CompiledAssemblies.Contains(assembly1) &&
+                assembly1.EntryPoint == null && !isCodeDomCompiled(assembly1);
             Func<Assembly, string> assemblyNameSelector = assembly => new AssemblyName(assembly.FullName + "").Name + ".dll";
-            compilerParams.ReferencedAssemblies.AddRange(AppDomain.CurrentDomain.GetAssemblies().Where(isNotDynamic).Select(assemblyNameSelector).ToArray());
+            compilerParams.ReferencedAssemblies.AddRange(
+                AppDomain.CurrentDomain.GetAssemblies().Where(isNotDynamic).Select(assemblyNameSelector).ToArray());
+
             compilerParams.ReferencedAssemblies.Remove("Microsoft.VisualStudio.Debugger.Runtime.dll");
+
+            Func<Assembly, string> dynamicAssemblyNameSelector = assembly4 => Path.Combine(path, new AssemblyName(assembly4.FullName + "").Name + XpandExtension);
+            compilerParams.ReferencedAssemblies.AddRange(
+                AppDomain.CurrentDomain.GetAssemblies().Where(assembly3 => isCodeDomCompiled(assembly3)).Select(
+                    dynamicAssemblyNameSelector).ToArray());
+        }
+
+        bool isCodeDomCompiled(Assembly assembly1) {
+            return assembly1.ManifestModule.Name == "<Unknown>";
         }
 
 

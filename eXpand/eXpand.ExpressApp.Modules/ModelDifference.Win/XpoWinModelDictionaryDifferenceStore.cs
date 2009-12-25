@@ -1,3 +1,4 @@
+using System.IO;
 using DevExpress.ExpressApp;
 
 namespace eXpand.ExpressApp.ModelDifference.Win{
@@ -8,7 +9,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win{
         }
 
         protected override string GetPath(){
-            return System.Windows.Forms.Application.ExecutablePath;
+            return Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
         }
     }
 }

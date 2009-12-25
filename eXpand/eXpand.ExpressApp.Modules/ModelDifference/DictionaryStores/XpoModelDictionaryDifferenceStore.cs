@@ -33,7 +33,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         }
         
         protected internal List<string> GetModelPaths(){
-            List<string> paths = Directory.GetFiles(Path.GetDirectoryName(GetPath())).Where(
+            List<string> paths = Directory.GetFiles(GetPath()).Where(
                 s => s.EndsWith(".xafml")).ToList();
             return paths;
         }

@@ -15,20 +15,20 @@ using System.Linq;
 
 namespace eXpand.Tests.eXpand.WorldCreator
 {
-
     [Subject(typeof(CompileEngine))][Isolated]
-    public class When_cannot_compile_a_dynamic_module {
+    public class When_cannot_compile_a_dynamic_module:With_Isolations {
         static IPersistentAssemblyInfo _persistentAssemblyInfo;
 
         Establish context = () => {
             new TestAppLication<PersistentAssemblyInfo>().Setup(null,info => _persistentAssemblyInfo=info);
+            _persistentAssemblyInfo.Name="a0";
             Isolate.WhenCalled(() => CodeEngine.GenerateCode(_persistentAssemblyInfo)).WillReturn("1111");
         };
 
         static Exception _exception;
 
         Because of = () => {
-            _exception = Catch.Exception(() => new CompileEngine().CompileModule(_persistentAssemblyInfo, Application.ExecutablePath));
+            _exception = Catch.Exception(() => new CompileEngine().CompileModule(_persistentAssemblyInfo, Path.GetDirectoryName(Application.ExecutablePath)));
         };
 
         It should_swallow_exception=() => _exception.ShouldBeNull();
@@ -38,7 +38,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
     [Subject(typeof(CompileEngine), "specs")]
     [Isolated]
-    public class When_compiling_a_dynamic_assembly
+    public class When_compiling_a_dynamic_assembly:With_Isolations
     {
         static Type type;
         static IPersistentAssemblyInfo _persistentAssemblyInfo;
@@ -46,10 +46,10 @@ namespace eXpand.Tests.eXpand.WorldCreator
         Establish context = () => {
             _persistentAssemblyInfo = Isolate.Fake.Instance<IPersistentAssemblyInfo>();
             Isolate.WhenCalled(() => _persistentAssemblyInfo.FileData).WillReturn(null);
-            _persistentAssemblyInfo.Name = "TestAssembly222";
+            _persistentAssemblyInfo.Name = "a1";
         };
 
-        Because of = () => { type = new CompileEngine().CompileModule(_persistentAssemblyInfo, Application.ExecutablePath); };
+        Because of = () => { type = new CompileEngine().CompileModule(_persistentAssemblyInfo, Path.GetDirectoryName(Application.ExecutablePath)); };
 
         It should_not_contain_any_compilation_error = () => _persistentAssemblyInfo.CompileErrors.ShouldBeNull();
 
@@ -60,7 +60,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
 
     [Subject(typeof(CompileEngine), "specs")]
-    public class When_compiling_class_with_members {
+    public class When_compiling_class_with_members:With_Isolations {
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         static Type _compileModule;
@@ -70,8 +70,8 @@ namespace eXpand.Tests.eXpand.WorldCreator
             var persistentAssociationAttribute = _persistentAssemblyInfo.Session;
             var classCodeTemplate = new CodeTemplate(persistentAssociationAttribute){TemplateType = TemplateType.Class};
             classCodeTemplate.SetDefaults();
-            _persistentAssemblyInfo = new PersistentAssemblyInfo(persistentAssociationAttribute){Name = "TestAssembly"};
-            var persistentClassInfo = new PersistentClassInfo(persistentAssociationAttribute) {Name = "TestClass", CodeTemplateInfo =new CodeTemplateInfo(persistentAssociationAttribute) {TemplateInfo = classCodeTemplate},PersistentAssemblyInfo = _persistentAssemblyInfo};
+            _persistentAssemblyInfo = new PersistentAssemblyInfo(persistentAssociationAttribute) { Name = "a2" };
+            var persistentClassInfo = new PersistentClassInfo(persistentAssociationAttribute) {Name = "ClassWithMembers", CodeTemplateInfo =new CodeTemplateInfo(persistentAssociationAttribute) {TemplateInfo = classCodeTemplate},PersistentAssemblyInfo = _persistentAssemblyInfo};
 
             var memberCodeTemplate = new CodeTemplate(persistentAssociationAttribute){TemplateType = TemplateType.ReadWriteMember};
             memberCodeTemplate.SetDefaults();
@@ -80,7 +80,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             new PersistentCollectionMemberInfo(persistentAssociationAttribute) { Name = "CollProperty", CodeTemplateInfo =new CodeTemplateInfo(persistentAssociationAttribute) { TemplateInfo = memberCodeTemplate }, Owner = persistentClassInfo, CollectionType = typeof(User) };
         };
 
-        Because of = () => { _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo,Application.ExecutablePath); };
+        Because of = () => { _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo, Path.GetDirectoryName(Application.ExecutablePath)); };
 
         It should_have_no_compile_errors = () => _persistentAssemblyInfo.CompileErrors.ShouldBeNull();
         It should_generate_class_type = () => _compileModule.Assembly.GetTypes().Count().ShouldEqual(2);
@@ -88,7 +88,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         It should_have_those_members_as_proeprties =
             () => {
                 PropertyInfo[] propertyInfos =
-                    _compileModule.Assembly.GetTypes().Where(type => type.FullName.IndexOf("TestClass") > -1).Single().
+                    _compileModule.Assembly.GetTypes().Where(type => type.FullName.IndexOf("ClassWithMembers") > -1).Single().
                         GetProperties();
                 propertyInfos.Where(info => info.Name == "Property").FirstOrDefault().ShouldNotBeNull();
                 propertyInfos.Where(info => info.Name == "RefProperty").FirstOrDefault().ShouldNotBeNull();
@@ -97,16 +97,16 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
 
     [Subject(typeof(CompileEngine), "specs")]
-    public class When_PersistentClassInfo_BaseType_Belongs_to_different_assemmbly {
+    public class When_PersistentClassInfo_BaseType_Belongs_to_different_assemmbly:With_Isolations {
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         static Type _compileModule;
 
         Establish context = () => {
             new TestAppLication<PersistentAssemblyInfo>().Setup(null, info => _persistentAssemblyInfo = info);
-            _persistentAssemblyInfo.Name = "TestAssembly";
+            _persistentAssemblyInfo.Name = "a3";
             var unitOfWork = _persistentAssemblyInfo.Session;
-            var persistentClassInfo = new PersistentClassInfo(unitOfWork){Name = "TestClass",BaseType = typeof(User),CodeTemplateInfo = new CodeTemplateInfo(unitOfWork)};
+            var persistentClassInfo = new PersistentClassInfo(unitOfWork){Name = "ClassWithBaseType",BaseType = typeof(User),CodeTemplateInfo = new CodeTemplateInfo(unitOfWork)};
             var codeTemplate = new CodeTemplate(unitOfWork){TemplateType = TemplateType.Class};
             codeTemplate.SetDefaults();
             persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
@@ -115,7 +115,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         };
 
         Because of = () => {
-            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo, Application.ExecutablePath);
+            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo, Path.GetDirectoryName(Application.ExecutablePath));
         };
 
         It should_compile_with_no_errors = () => {
@@ -130,14 +130,14 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
 
     [Subject(typeof(CompileEngine), "specs")]
-    public class When_PersistentClassInfo_BaseType_Belongs_to_same_assemmbly {
+    public class When_PersistentClassInfo_BaseType_Belongs_to_same_assemmbly:With_Isolations {
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         static Type _compileModule;
         Establish context = () => {
             new TestAppLication<PersistentAssemblyInfo>().Setup(null, info => _persistentAssemblyInfo = info);
             var unitOfWork = _persistentAssemblyInfo.Session;
-            _persistentAssemblyInfo = new PersistentAssemblyInfo(unitOfWork){Name = "TestAssembly"};
+            _persistentAssemblyInfo = new PersistentAssemblyInfo(unitOfWork) { Name = "a4" };
             var persistentClassInfo = new PersistentClassInfo(unitOfWork){Name = "TestClass",BaseType = typeof(User),CodeTemplateInfo = new CodeTemplateInfo(unitOfWork)};
             var codeTemplate = new CodeTemplate(unitOfWork){TemplateType = TemplateType.Class};
             codeTemplate.SetDefaults();
@@ -147,7 +147,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         };
 
         Because of = () => {
-            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo, Application.ExecutablePath);
+            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo, Path.GetDirectoryName(Application.ExecutablePath));
         };
 
         It should_compile_with_no_errors = () => {
@@ -170,12 +170,12 @@ namespace eXpand.Tests.eXpand.WorldCreator
             var strongKeyFile = new FileData(info.Session);
             strongKeyFile.LoadFromStream("test", new FileStream(@"../eXpand.Key/eXpand.snk", FileMode.Open));
             info.StrongKeyFile = strongKeyFile;
-            info.Name = "TestAssembly";
+            info.Name = "a5";
             _info = info;
         });
 
         Because of = () => {
-            _compileModule = new CompileEngine().CompileModule(_info, Application.ExecutablePath);
+            _compileModule = new CompileEngine().CompileModule(_info, Path.GetDirectoryName(Application.ExecutablePath));
          };
 
         It should_compile_with_no_error = () => _info.CompileErrors.ShouldBeNull();
@@ -191,13 +191,13 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
         Establish context = () => new TestAppLication<
             PersistentAssemblyInfo>().Setup(null, info => {
-                info.Name = "TestAssembly";
+                info.Name = "a6";
                 info.Version = new Version(2, 2, 2, 2).ToString();
                 _info = info;
         });
 
         Because of = () => {
-            _compileModule = new CompileEngine().CompileModule(_info, Application.ExecutablePath);
+            _compileModule = new CompileEngine().CompileModule(_info, Path.GetDirectoryName(Application.ExecutablePath));
          };
 
         It should_compile_with_no_error = () => _info.CompileErrors.ShouldBeNull();
@@ -207,7 +207,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
 
     [Subject(typeof(CompileEngine))]
-    public class When_compiling_a_list_of_assemblies {
+    public class When_compiling_a_list_of_assemblies:With_Isolations {
         static IList<IPersistentAssemblyInfo> _persistentAssemblyInfos;
 
         static CompileEngine _compileEngine;
@@ -222,7 +222,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
                 _persistentAssemblyInfos = new List<PersistentAssemblyInfo>{persistentAssemblyInfo,info}.Cast<IPersistentAssemblyInfo>().ToList();
             });
             _compileEngine = new CompileEngine();
-            string executablePath = Application.ExecutablePath;
+            string executablePath = Path.GetDirectoryName(Application.ExecutablePath);
             Isolate.WhenCalled(() => _compileEngine.CompileModule(Isolate.Fake.Instance<IPersistentAssemblyInfo>(), executablePath)).DoInstead(callContext =>
             {
                 _persistnetAssembly = (IPersistentAssemblyInfo) callContext.Parameters[0];
@@ -231,7 +231,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             
         };
 
-        Because of = () => _compileEngine.CompileModules(_persistentAssemblyInfos, Application.ExecutablePath);
+        Because of = () => _compileEngine.CompileModules(_persistentAssemblyInfos, Path.GetDirectoryName(Application.ExecutablePath));
 
         It should_compile_the_one_with_lowest_compile_order_firt =
             () => _persistnetAssembly.Name.ShouldEqual("FirstAssembly");
@@ -251,7 +251,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         };
 
         Because of = () => {
-            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo, Application.ExecutablePath);
+            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo, Path.GetDirectoryName(Application.ExecutablePath));
          };
 
         It should_compile_with_no_erros = () => _persistentAssemblyInfo.CompileErrors.ShouldBeNull();
@@ -259,7 +259,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             () => (_compileModule.Assembly.FullName + "").IndexOf("TestAssembly.Win").ShouldBeGreaterThan(-1);
     }
     [Subject(typeof(CompileEngine))]
-    public class When_compiling_an_assembly_that_is_loaded
+    public class When_compiling_an_assembly_that_is_loaded:With_Isolations
     {
         static Type _compileModule;
         static Type _type;
@@ -269,14 +269,14 @@ namespace eXpand.Tests.eXpand.WorldCreator
         {
             _persistentAssemblyInfo = new TestAppLication<PersistentAssemblyInfo>().Setup().CurrentObject;
             _persistentAssemblyInfo.Name = "T";
-            _type = new CompileEngine().CompileModule(_persistentAssemblyInfo, Application.ExecutablePath);
+            _type = new CompileEngine().CompileModule(_persistentAssemblyInfo, Path.GetDirectoryName(Application.ExecutablePath));
             _persistentAssemblyInfo = new TestAppLication<PersistentAssemblyInfo>().Setup().CurrentObject;
             _persistentAssemblyInfo.Name = "T";
         };
 
         Because of = () =>
         {
-            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo, Application.ExecutablePath);
+            _compileModule = new CompileEngine().CompileModule(_persistentAssemblyInfo, Path.GetDirectoryName(Application.ExecutablePath));
         };
 
         It should_return_the_loaded_module_type = () => _compileModule.ShouldEqual(_type);

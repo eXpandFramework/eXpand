@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Windows.Forms;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using Machine.Specifications;
@@ -15,7 +17,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             _info=info;
         });
 
-         Because of = () => _info.Validate();
+         Because of = () => _info.Validate(Path.GetDirectoryName(Application.ExecutablePath));
 
         
         It should_not_generate_assembly_in_memory =

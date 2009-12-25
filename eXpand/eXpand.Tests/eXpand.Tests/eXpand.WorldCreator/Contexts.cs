@@ -25,6 +25,10 @@ namespace eXpand.Tests.eXpand.WorldCreator
     {
         protected static Func<Type[]> WCArtifacts;
 
+        public static string GetUniqueAssemblyName()
+        {
+            return "a"+Guid.NewGuid().ToString().Replace("-", "");
+        }
         Establish context = () => {
             WCArtifacts = () => new[] {typeof (WorldCreatorModule)};
             Isolate.Fake.WCTypesInfo();
@@ -106,6 +110,9 @@ namespace eXpand.Tests.eXpand.WorldCreator
         protected static UnitOfWork UnitOfWork;
         Establish context = () =>
         {
+            ReflectionHelper.Reset();
+            XafTypesInfo.Reset();
+            XafTypesInfo.XpoTypeInfoSource.ResetDictionary();
             var objectSpaceProvider = new ObjectSpaceProvider(new MemoryDataStoreProvider());
             ObjectSpace = objectSpaceProvider.CreateObjectSpace();
             UnitOfWork = (UnitOfWork) ObjectSpace.Session;

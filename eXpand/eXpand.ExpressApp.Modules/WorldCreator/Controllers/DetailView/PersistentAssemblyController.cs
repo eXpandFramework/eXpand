@@ -2,6 +2,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.ExpressApp.WorldCreator.Core;
+using System.Linq;
 
 namespace eXpand.ExpressApp.WorldCreator.Controllers.DetailView
 {
@@ -17,7 +18,8 @@ namespace eXpand.ExpressApp.WorldCreator.Controllers.DetailView
         }
 
         void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
-            ((IPersistentAssemblyInfo) simpleActionExecuteEventArgs.CurrentObject).Validate();
+            var worldCreatorModuleBase = Application.Modules.OfType<WorldCreatorModuleBase>().Single();
+            ((IPersistentAssemblyInfo)simpleActionExecuteEventArgs.CurrentObject).Validate(worldCreatorModuleBase.GetPath());
         }
     }
 }

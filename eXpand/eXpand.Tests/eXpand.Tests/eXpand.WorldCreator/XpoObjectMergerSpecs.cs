@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -39,7 +40,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             persistentClassInfo.Save();
 
             UnitOfWork.CommitChanges();
-            Type compileModule = new CompileEngine().CompileModule(persistentClassInfo.PersistentAssemblyInfo,Application.ExecutablePath);
+            Type compileModule = new CompileEngine().CompileModule(persistentClassInfo.PersistentAssemblyInfo, Path.GetDirectoryName(Application.ExecutablePath));
             types.AddRange(compileModule.Assembly.GetTypes().Where(type => !typeof (ModuleBase).IsAssignableFrom(type)));
             types.Add(typeof (User));
 

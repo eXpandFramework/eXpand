@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
@@ -30,7 +31,7 @@ namespace eXpand.Tests.eXpand.IO {
             classHandler.CreateRefenceMembers(info => info.Name == "Order" ? info.PersistentAssemblyInfo.PersistentClassInfos.Where(classInfo => classInfo.Name == "Customer") : null);
             classHandler.CreateSimpleMembers<string>(persistentClassInfo => persistentClassInfo.Name == "Customer" ? new[] { "Name" } : null);
             ObjectSpace.CommitChanges();
-            Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder,Application.ExecutablePath);
+            Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             if (persistentAssemblyBuilder.PersistentAssemblyInfo.CompileErrors!= null)
                 Debug.Print("");
             CustomerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
