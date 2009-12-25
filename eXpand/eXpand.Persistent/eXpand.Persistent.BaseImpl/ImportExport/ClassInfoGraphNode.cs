@@ -1,13 +1,17 @@
 ﻿using System.ComponentModel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.ModelArtifactState.Attributes;
 using eXpand.Persistent.Base.ImportExport;
+using State = eXpand.ExpressApp.Security.Permissions.State;
 
 namespace eXpand.Persistent.BaseImpl.ImportExport
 {
-
+    [ControllerStateRule("ClassInfoGraphNode+NewObjectViewController", typeof(NewObjectViewController), Nesting.Any, "1=0", "1=0", ViewType.Any, null, State.Disabled, null)]
     public class ClassInfoGraphNode : BaseObject, IClassInfoGraphNode
     {
         private ClassInfoGraphNode _parent;
