@@ -122,6 +122,13 @@
     <Compile Include="Controllers\ListView\ViewController.Designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ViewController.Designer.cs">
+      <DependentUpon>ViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\ImportEngine.cs" />
     <Compile Include="Observers\SerializationConfigurationObserver.cs" />
     <Compile Include="Core\ExportEngine.cs" />
     <Compile Include="Core\TypesInfo.cs" />

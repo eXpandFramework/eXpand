@@ -30,6 +30,8 @@ namespace eXpand.Tests.eXpand.WorldCreator
             return "a"+Guid.NewGuid().ToString().Replace("-", "");
         }
         Establish context = () => {
+            XafTypesInfo.Reset();
+            XafTypesInfo.HardReset();
             WCArtifacts = () => new[] {typeof (WorldCreatorModule)};
             Isolate.Fake.WCTypesInfo();
         };

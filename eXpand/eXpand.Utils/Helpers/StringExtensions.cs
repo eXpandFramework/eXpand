@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace eXpand.Utils.Helpers
 {
@@ -29,19 +30,31 @@ namespace eXpand.Utils.Helpers
             String normalizedString = s.Normalize(NormalizationForm.FormD);
             var stringBuilder = new StringBuilder();
 
-            for (int i = 0; i < normalizedString.Length; i++)
-            {
-                Char c = normalizedString[i];
+            foreach (char c in normalizedString) {
                 if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
                     stringBuilder.Append(c);
             }
 
             return stringBuilder.ToString();
         }
+        
+        public static string GetAttributeValue(this XElement element, XName name)
+        {
+            XAttribute xAttribute = element.Attribute(name);
+            if (xAttribute != null)
+            {
+                return xAttribute.Value;
+            }
+            return null;
+        }
+
+ 
+
+ 
 
         public static string MakeFirstCharUpper(this string s)
         {
-            if (s.Length > 0)
+            if ((s+"").Length > 0)
             {
                 string substring1 = s.Substring(0, 1).ToUpper();
                 string substring2 = s.Substring(1);
@@ -51,8 +64,7 @@ namespace eXpand.Utils.Helpers
         }
         public static string MakeFirstCharLower(this string s)
         {
-            if (s.Length > 0)
-            {
+            if ((s + "").Length > 0){
                 string substring1 = s.Substring(0, 1).ToLower();
                 string substring2 = s.Substring(1);
                 return substring1 + substring2;

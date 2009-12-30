@@ -24,10 +24,12 @@ namespace eXpand.ExpressApp.IO.Core {
 
         public Type ClassInfoGraphNodeType { get; private set; }
         public Type SerializationConfigurationType { get; private set; }
+        public Type XmlFileChooserType { get; private set; }
 
         public void AddTypes(IEnumerable<Type> types) {
             SerializationConfigurationType = GetInfoType(types, typeof (ISerializationConfiguration));
             ClassInfoGraphNodeType = GetInfoType(types, typeof(IClassInfoGraphNode));
+            XmlFileChooserType = GetInfoType(types, typeof(IXmlFileChooser));
         }
 
         Type GetInfoType(IEnumerable<Type> types, Type type1) {

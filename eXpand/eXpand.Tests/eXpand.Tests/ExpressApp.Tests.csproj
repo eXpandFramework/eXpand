@@ -287,6 +287,9 @@
     </Compile>
     <Compile Include="eXpand.IO\Contexts.cs" />
     <Compile Include="eXpand.IO\ExportingEngineSpecs.cs" />
+    <Compile Include="eXpand.IO\ImportEngineSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="eXpand.IO\SerializationConfigurationGraphSpecs.cs" />
     <Compile Include="eXpand.Utils\NotificationExtensionsFixture.cs">
       <SubType>Code</SubType>
@@ -367,7 +370,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="eXpand.IO\XMLFile1.xml" />
+    <EmbeddedResource Include="eXpand.IO\XMLFile1.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="eXpand.IO\tt.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ModelArtifactSpecs\" />

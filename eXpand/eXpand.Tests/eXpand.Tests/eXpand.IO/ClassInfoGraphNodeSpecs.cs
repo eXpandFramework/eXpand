@@ -12,31 +12,34 @@ using System.Linq;
 
 namespace eXpand.Tests.eXpand.IO {
     [Subject(typeof(ClassInfoGraphNode))]
-    public class When_creating_a_graph : With_Customer_Orders_Serialization_Config
+    public class When_creating_a_graph : With_Customer_Orders
     {
+        static SerializationConfiguration _serializationConfiguration;
         static XPCollection<ClassInfoGraphNode> _memberCategories;
-        Because of = () => new ClassInfoGraphNodeBuilder().Generate(SerializationConfiguration);
+        Establish context = () => { _serializationConfiguration = new SerializationConfiguration(ObjectSpace.Session) { TypeToSerialize = CustomerType }; };
+        Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
 
         It should_add_all_properties_of_master_object_as_graph_nodes=() => {
             const int oid_and_User_and_orders_and_name_property_count = 4;
-            SerializationConfiguration.SerializationGraph[0].Children.Count.ShouldEqual(oid_and_User_and_orders_and_name_property_count);
+            _serializationConfiguration.SerializationGraph[0].Children.Count.ShouldEqual(oid_and_User_and_orders_and_name_property_count);
         };
 
         It should_exclude_refenced_Master_object_of_associated_collection=() => {
             const int oid_Property_count = 1;
-            ClassInfoGraphNode memberCategory = SerializationConfiguration.SerializationGraph[0].Children.Where(node => node.Name == "Orders").Single();
+            ClassInfoGraphNode memberCategory = _serializationConfiguration.SerializationGraph[0].Children.Where(node => node.Name == "Orders").Single();
             memberCategory.Children.Count.ShouldEqual(oid_Property_count);
         };
 
         It should_set_a_SerializeAsObject_strategy_for_all_associated_reference_members =
             () => {
-                _memberCategories = SerializationConfiguration.SerializationGraph[0].Children;
+                _memberCategories = _serializationConfiguration.SerializationGraph[0].Children;
                 _memberCategories.Where(node => node.Name == "User").Single().
                     SerializationStrategy.ShouldEqual(SerializationStrategy.SerializeAsObject);
             };
+
         It should_set_a_SerializeAsObject_strategy_for_all_associated_collection_members =
             () => {
-                _memberCategories = SerializationConfiguration.SerializationGraph[0].Children;
+                _memberCategories = _serializationConfiguration.SerializationGraph[0].Children;
                 _memberCategories.Where(node => node.Name == "Orders").Single().
                     SerializationStrategy.ShouldEqual(SerializationStrategy.SerializeAsObject);
             };
@@ -53,6 +56,7 @@ namespace eXpand.Tests.eXpand.IO {
             const int Orders = 1;
             _memberCategories.Where(node => node.NodeType == NodeType.Collection).Count().ShouldEqual(Orders);
         };
+
         It should_mark_as_object_all_properties_that_their_type_is_persistent=() => {
             const int user = 1;
             _memberCategories.Where(node => node.NodeType == NodeType.Object).Count().ShouldEqual(user);

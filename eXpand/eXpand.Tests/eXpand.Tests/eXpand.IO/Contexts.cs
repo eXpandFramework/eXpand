@@ -15,11 +15,11 @@ using TypeMock.ArrangeActAssert;
 using eXpand.ExpressApp.Core;
 
 namespace eXpand.Tests.eXpand.IO {
-    public abstract class With_Customer_Orders_Serialization_Config:With_Isolations {
+    public abstract class With_Customer_Orders:With_Isolations {
         protected static Type OrderType;
         protected static ObjectSpace ObjectSpace;
         protected static Type CustomerType;
-        protected static SerializationConfiguration SerializationConfiguration;
+//        protected static SerializationConfiguration SerializationConfiguration;
 
         Establish context = () => {
 //            Isolate.Fake.WCTypesInfo();
@@ -38,7 +38,7 @@ namespace eXpand.Tests.eXpand.IO {
             CustomerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
             OrderType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Order").Single();
             XafTypesInfo.Instance.CreateCollection(typeof (User), CustomerType, "User",XafTypesInfo.XpoTypeInfoSource.XPDictionary);
-            SerializationConfiguration = new SerializationConfiguration(artifactHandler.UnitOfWork) { TypeToSerialize = CustomerType };
+//            SerializationConfiguration = new SerializationConfiguration(artifactHandler.UnitOfWork) { TypeToSerialize = CustomerType };
         };
     }
     public abstract class With_Isolations:WorldCreator.With_Isolations

@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Runtime.InteropServices.ComTypes;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 
@@ -28,7 +27,7 @@ namespace eXpand.Xpo{
 			base.OnSaving();
             if (TrucateStrings)
                 trucateStrings();
-			if(!(Session is NestedUnitOfWork) && Session.IsNewObject(this)) {
+			if(!(Session is NestedUnitOfWork) && Session.IsNewObject(this)&&oid==Guid.Empty) {
 				oid = XpoDefault.NewGuid();
 			}
 		}

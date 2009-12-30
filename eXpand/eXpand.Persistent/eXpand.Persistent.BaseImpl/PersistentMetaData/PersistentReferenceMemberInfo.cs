@@ -3,6 +3,7 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.General;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
@@ -55,7 +56,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 }
             }
         }
-
+        
         public bool AutoGenerateOtherPartMember {
             get { return _autoGenerateOtherPartMember; }
             set { SetPropertyValue("AutoGenerateOtherPartMember", ref _autoGenerateOtherPartMember, value); }
@@ -64,7 +65,16 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         [Browsable(false)]
         public string ReferenceTypeFullName {
             get { return _referenceTypeFullName; }
-            set { SetPropertyValue("ReferenceTypeFullName", ref _referenceTypeFullName, value); }
+            set {
+                SetPropertyValue("ReferenceTypeFullName", ref _referenceTypeFullName, value);
+                if (!IsLoading&&!IsSaving) {
+                    IPersistentClassInfo persistentClassInfo = PersistentClassInfoQuery.Find(Session, value);
+                    if (persistentClassInfo != null)
+                        _referenceClassInfo = (PersistentClassInfo) persistentClassInfo;
+                    else
+                        _referenceType = ReflectionHelper.GetType(value.Substring(value.LastIndexOf(".")+1)); 
+                }
+            }
         }
 
         RelationType IPersistentAssociatedMemberInfo.RelationType {

@@ -5,6 +5,7 @@ using DevExpress.Xpo;
 using eXpand.ExpressApp.IO.Core;
 using eXpand.ExpressApp.IO.PersistentTypesHelpers;
 using eXpand.Persistent.Base.ImportExport;
+using eXpand.Persistent.BaseImpl.ImportExport;
 using Machine.Specifications;
 using System.Linq;
 using eXpand.Utils.Helpers;
@@ -12,8 +13,9 @@ using eXpand.Utils.Helpers;
 namespace eXpand.Tests.eXpand.IO
 {
     [Subject(typeof(ExportEngine))]
-    public class When_Exporting_1_Customer_with_1_ref_User_2_Orders_add_user_not_serializable:With_Customer_Orders_Serialization_Config
+    public class When_Exporting_1_Customer_with_1_ref_User_2_Orders_add_user_not_serializable:With_Customer_Orders
     {
+        static SerializationConfiguration _serializationConfiguration;
         static XPBaseObject _order2;
         static XPBaseObject _order1;
         static XElement _ordersElement;
@@ -32,14 +34,14 @@ namespace eXpand.Tests.eXpand.IO
             _order1.SetMemberValue("Customer",_customer);
             _order2 = (XPBaseObject) ObjectSpace.CreateObject(OrderType);
             _order2.SetMemberValue("Customer",_customer);
-            
-            new ClassInfoGraphNodeBuilder().Generate(SerializationConfiguration);
-            SerializationConfiguration.SerializationGraph[0].Children.Where(node => node.Name=="User").Single().SerializationStrategy=SerializationStrategy.DoNotSerialize;
+            _serializationConfiguration = new SerializationConfiguration(ObjectSpace.Session) { TypeToSerialize = CustomerType };
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+            _serializationConfiguration.SerializationGraph[0].Children.Where(node => node.Name == "User").Single().SerializationStrategy = SerializationStrategy.DoNotSerialize;
             ObjectSpace.CommitChanges();
         };
 
         Because of = () => {
-            _xDocument = ExportEngine.Export(_customer,SerializationConfiguration);
+            _xDocument = new ExportEngine().Export(new List<object> { _customer }, _serializationConfiguration);
         };
 
         It should_create_an_xml_document=() => {
@@ -49,12 +51,12 @@ namespace eXpand.Tests.eXpand.IO
 
         It should_have_serializedObjects_as_root_element=() => _root.Name.ShouldEqual("SerializedObjects");
 
-        It should_have_2_Orders_an_1_Customer_serialized_elements_as_childs = () => {
+        It should_have_2_Orders_an_1_Customer_serialized_elements_as_childs_under_root = () => {
             _root.Descendants("SerializedObject").Where(element => hasAsttributes(element, "type", "Customer")).Count().ShouldEqual(1);
             _root.Descendants("SerializedObject").Where(element => hasAsttributes(element, "type", "Order")).Count().ShouldEqual(2);
         };
 
-        It should_not_have_User_child_Serialized_element=() => _root.Descendants("SerializedObject").Count().ShouldEqual(3);
+        It should_not_have_User_child_Serialized_element_under_root=() => _root.Descendants("SerializedObject").Count().ShouldEqual(3);
 
         It should_have_2_simple_property_elements_as_customer_Serialized_element_childs=() => {
             _customerElement = _root.Descendants("SerializedObject").Where(element => hasAsttributes(element, "type","Customer")).Single();
@@ -74,7 +76,8 @@ namespace eXpand.Tests.eXpand.IO
         It should_have_1_object_property_with_value_the_oid_of_user=() => {
             IEnumerable<XElement> xElements = _customerElement.Descendants("Property").Where(element => hasAsttributes(element, "type", "object"));
             xElements.Count().ShouldEqual(1);
-            xElements.Single().Value.ShouldEqual(_user.GetMemberValue("Oid").ToString());
+            XElement single = xElements.Descendants("Key").Where(xElement => xElement.GetAttributeValue("name")=="oid").Single();
+            single.Value.ShouldEqual(_user.GetMemberValue("Oid").ToString());
         };
 
         It should_have_1_collection_property__with_name_Orders_as_Serialized_element_child=() => {
@@ -92,4 +95,5 @@ namespace eXpand.Tests.eXpand.IO
             xElements.Where(xElement => xElement.Value==_order1.GetMemberValue("Oid").ToString()).FirstOrDefault().ShouldNotBeNull();
         };
     }
+
 }

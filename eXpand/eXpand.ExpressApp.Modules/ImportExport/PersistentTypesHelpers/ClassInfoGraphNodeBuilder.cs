@@ -5,11 +5,10 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.ImportExport;
 using System.Linq;
+using eXpand.Xpo;
 using TypesInfo = eXpand.ExpressApp.IO.Core.TypesInfo;
 
 namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
-
-
     public class ClassInfoGraphNodeBuilder{
         string[] _excludedMembers;
 

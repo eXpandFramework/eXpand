@@ -18,6 +18,8 @@ namespace eXpand.ExpressApp.IO {
         }
         public override void UpdateModel(Dictionary model) {
             base.UpdateModel(model);
+            if (Application == null)
+                return;
             allowEditForClassInfoNodeListViews(model);
         }
 

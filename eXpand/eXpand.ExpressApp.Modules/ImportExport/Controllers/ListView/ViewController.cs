@@ -1,14 +1,13 @@
+using System.Collections;
 using System.Xml.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
-using DevExpress.Xpo;
 using eXpand.ExpressApp.ImportExport.PersistentTypesHelpers;
 using eXpand.ExpressApp.IO.Core;
 using eXpand.Persistent.Base.ImportExport;
 using eXpand.Xpo;
-using System.Linq;
 
 namespace eXpand.ExpressApp.IO.Controllers.ListView
 {
@@ -56,15 +55,13 @@ namespace eXpand.ExpressApp.IO.Controllers.ListView
         }
 
         void ExportActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){
-            foreach (var viewSelectedObject in View.SelectedObjects.OfType<XPBaseObject>()) {
-                foreach (var selectedObject in simpleActionExecuteEventArgs.SelectedObjects){
-                    ExportingObject(viewSelectedObject,(ISerializationConfiguration) selectedObject);
-                }                
-            }
+            foreach (object selectedObject in simpleActionExecuteEventArgs.SelectedObjects) {
+                ExportObjects(View.CollectionSource.Collection,(ISerializationConfiguration) selectedObject);
+            }                
         }
 
-        protected virtual void ExportingObject(XPBaseObject viewSelectedObject, ISerializationConfiguration serializationConfiguration) {
-            XDocument xDocument = ExportEngine.Export(viewSelectedObject,serializationConfiguration);
+        protected virtual void ExportObjects(IList viewSelectedObject, ISerializationConfiguration serializationConfiguration) {
+            XDocument xDocument = new ExportEngine().Export(viewSelectedObject,serializationConfiguration);
             xDocument.Save(serializationConfiguration.Name+".xml");
         }
     }

@@ -68,8 +68,7 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
         }
 
 
-        void IClassHandler.CreateRefenceMembers(Func<IPersistentClassInfo, IEnumerable<IPersistentClassInfo>> referenceClassInfoFunc)
-        {
+        void IClassHandler.CreateRefenceMembers(Func<IPersistentClassInfo, IEnumerable<IPersistentClassInfo>> referenceClassInfoFunc){
             foreach (IPersistentClassInfo info in _persistentClassInfos) {
                 IEnumerable<IPersistentClassInfo> persistentClassInfos = referenceClassInfoFunc.Invoke(info);
                 if (persistentClassInfos != null) {
@@ -128,9 +127,7 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
             return persistentReferenceMemberInfo;
         }
 
-        TPersistentAssociatedMemberInfo createPersistentAssociatedMemberInfo<TPersistentAssociatedMemberInfo>(string name, IPersistentClassInfo info, Type infoType) where TPersistentAssociatedMemberInfo : IPersistentAssociatedMemberInfo
-        {
-            
+        TPersistentAssociatedMemberInfo createPersistentAssociatedMemberInfo<TPersistentAssociatedMemberInfo>(string name, IPersistentClassInfo info, Type infoType) where TPersistentAssociatedMemberInfo : IPersistentAssociatedMemberInfo{
             var persistentReferenceMemberInfo = (TPersistentAssociatedMemberInfo)_objectSpace.CreateObject(infoType);
             persistentReferenceMemberInfo.Name = name;
             persistentReferenceMemberInfo.RelationType=RelationType.OneToMany;
