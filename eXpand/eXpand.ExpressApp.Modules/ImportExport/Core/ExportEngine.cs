@@ -9,14 +9,14 @@ using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.IO.Core {
     public class ExportEngine {
-        public XDocument Export( IList baseCollection, ISerializationConfiguration serializationConfiguration){
+        public XDocument Export( IEnumerable baseCollection, ISerializationConfiguration serializationConfiguration){
             var xDocument = new XDocument();
             var root = new XElement("SerializedObjects");
             IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes = GetSerializedClassInfoGraphNodes(serializationConfiguration);
+            xDocument.Add(root);
             foreach (var baseObject in baseCollection) {
                 ExportCore((XPBaseObject) baseObject, serializedClassInfoGraphNodes, root);    
             }
-            xDocument.Add(root);
             return xDocument;
 
         }
@@ -24,10 +24,9 @@ namespace eXpand.ExpressApp.IO.Core {
         void ExportCore(XPBaseObject selectedObject, IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes, XElement root) {
             var serializedObjectElement = new XElement("SerializedObject");
             serializedObjectElement.Add(new XAttribute("type", selectedObject.GetType().Name));
-            foreach (var classInfoGraphNode in serializedClassInfoGraphNodes){
-                var propertyElement = new XElement("Property");
-                serializedObjectElement.Add(propertyElement);
-                addCommonAttributes(propertyElement, classInfoGraphNode);
+            root.Add(serializedObjectElement);
+            foreach (var classInfoGraphNode in serializedClassInfoGraphNodes) {
+                XElement propertyElement = GetPropertyElement(serializedObjectElement, classInfoGraphNode);
                 switch (classInfoGraphNode.NodeType) {
                     case NodeType.Simple:
                         propertyElement.Value = selectedObject.GetMemberValue(classInfoGraphNode.Name) + "";
@@ -40,7 +39,16 @@ namespace eXpand.ExpressApp.IO.Core {
                         break;
                 }
             }
-            root.Add(serializedObjectElement);
+        }
+
+        XElement GetPropertyElement(XElement serializedObjectElement, IClassInfoGraphNode classInfoGraphNode) {
+            var propertyElement = new XElement("Property");
+            serializedObjectElement.Add(propertyElement);
+            propertyElement.Add(new XAttribute("type", classInfoGraphNode.NodeType.ToString().MakeFirstCharLower()));
+            propertyElement.Add(new XAttribute("name", classInfoGraphNode.Name));
+            propertyElement.Add(new XAttribute("isKey", classInfoGraphNode.Key));
+            propertyElement.Add(new XAttribute("isNaturalKey", classInfoGraphNode.NaturalKey));
+            return propertyElement;
         }
 
         void createCollectionProperty(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode, XElement root,
@@ -48,21 +56,22 @@ namespace eXpand.ExpressApp.IO.Core {
             XPMemberInfo memberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
             var theObjects = (XPBaseCollection)memberInfo.GetValue(selectedObject);
             foreach (XPBaseObject theObject in theObjects) {
-                XElement refElelement = CreateRefElelement(classInfoGraphNode, root, theObject.GetType().Name, theObject);
-                propertyElement.Add(refElelement);                
+                CreateRefElelement(classInfoGraphNode, root, theObject.GetType().Name, theObject, propertyElement);
             }
         }
 
-        XElement CreateRefElelement(IClassInfoGraphNode classInfoGraphNode, XElement root, string typeName, XPBaseObject theObject) {
+        void CreateRefElelement(IClassInfoGraphNode classInfoGraphNode, XElement root, string typeName, XPBaseObject theObject, XElement propertyElement) {
             var serializedObjectRefElement = new XElement("SerializedObjectRef");
+            propertyElement.Add(serializedObjectRefElement);
             serializedObjectRefElement.Add(new XAttribute("type",typeName));
             serializedObjectRefElement.Add(new XAttribute("strategy", classInfoGraphNode.SerializationStrategy));
-            IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes = classInfoGraphNode.Children.OfType<IClassInfoGraphNode>();
-            if (classInfoGraphNode.SerializationStrategy == SerializationStrategy.SerializeAsObject) {
-                ExportCore(theObject, serializedClassInfoGraphNodes, root);
+            IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes = classInfoGraphNode.Children.OfType<IClassInfoGraphNode>().OrderBy(node => node.NodeType);
+            if (theObject != null){
+                createRefKeyElements(serializedClassInfoGraphNodes, theObject, serializedObjectRefElement);
+                if (serializedObjectRefElement.FindObjectFromRefenceElement(true) == null &&
+                    classInfoGraphNode.SerializationStrategy == SerializationStrategy.SerializeAsObject)
+                    ExportCore(theObject, serializedClassInfoGraphNodes, root);
             }
-            createRefKeyElements(serializedClassInfoGraphNodes, theObject, serializedObjectRefElement);
-            return serializedObjectRefElement;
         }
 
         void createRefKeyElements(IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes, XPBaseObject theObject, XElement serializedObjectRefElement) {
@@ -78,20 +87,14 @@ namespace eXpand.ExpressApp.IO.Core {
             XPMemberInfo memberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
             var theObject = (XPBaseObject) memberInfo.GetValue(selectedObject);
             string typeName = memberInfo.MemberType.Name;
-            XElement refElelement = CreateRefElelement(classInfoGraphNode, root,typeName,theObject);
-            propertyElement.Add(refElelement);
+            CreateRefElelement(classInfoGraphNode, root,typeName,theObject,propertyElement);
         }
 
-        void addCommonAttributes(XElement propertyElement, IClassInfoGraphNode classInfoGraphNode) {
-            propertyElement.Add(new XAttribute("type", classInfoGraphNode.NodeType.ToString().MakeFirstCharLower()));
-            propertyElement.Add(new XAttribute("name", classInfoGraphNode.Name));
-            propertyElement.Add(new XAttribute("isKey", classInfoGraphNode.Key));
-        }
 
 
         IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(ISerializationConfiguration serializationConfiguration) {
             return serializationConfiguration.SerializationGraph[0].Children.OfType<IClassInfoGraphNode>().Where(
-                node => (node.NodeType == NodeType.Simple && node.SerializationStrategy != SerializationStrategy.DoNotSerialize)||node.NodeType!=NodeType.Simple);
+                node => (node.NodeType == NodeType.Simple && node.SerializationStrategy != SerializationStrategy.DoNotSerialize)||node.NodeType!=NodeType.Simple).OrderBy(graphNode => graphNode.NodeType);
         }
     }
 }

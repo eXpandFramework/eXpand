@@ -61,7 +61,7 @@ namespace eXpand.ExpressApp.IO.Core {
                 ITypeInfo typeInfo = GetTypeInfo(objectElement);
                 var refObjectKeyCriteria = getObjectKeyCriteria(typeInfo,objectElement.Descendants("Key"));
                 XPBaseObject xpBaseObject = objectElement.GetAttributeValue("strategy") ==SerializationStrategy.SerializeAsObject.ToString()
-                                                ? createObject(findObjectFromRef(objectElement), nestedUnitOfWork, typeInfo, refObjectKeyCriteria)
+                                                ? createObject(objectElement.FindObjectFromRefenceElement(false), nestedUnitOfWork, typeInfo, refObjectKeyCriteria)
                                                 : findObject(nestedUnitOfWork, typeInfo,refObjectKeyCriteria);
                 instance.Invoke(xpBaseObject, objectElement);
                 
@@ -69,20 +69,6 @@ namespace eXpand.ExpressApp.IO.Core {
         }
 
 
-        XElement findObjectFromRef(XElement xElement) {
-            var typeValue = xElement.GetAttributeValue("type");
-            var enumerable = xElement.Descendants("Key").Select(
-                element1 => new {Element=element1, Name = element1.GetAttributeValue("name"), element1.Value});
-            if (xElement.Document != null && xElement.Document.Root != null) {
-                var @select =
-                    xElement.Document.Root.Descendants("SerializedObject").Where(
-                        element => element.GetAttributeValue("type") == typeValue).Descendants("Property").Where(xElement1 => xElement1.GetAttributeValue("isKey")=="true").Select(
-                        element1 =>
-                        new {Element = element1.Parent, Name = element1.GetAttributeValue("name"), element1.Value});
-                return @select.Where(arg => enumerable.Where(arg1 => arg.Name==arg1.Name&&arg.Value==arg1.Value).Count()>0).Select(arg2 => arg2.Element).FirstOrDefault();
-            }
-            return null;
-        }
 
 
         IEnumerable<XElement> GetObjectRefElements(XElement element, NodeType nodeType) {

@@ -85,6 +85,13 @@ namespace eXpand.Persistent.BaseImpl.ImportExport
         {
             get { return Parent; }
         }
+        private bool _naturalKey;
+
+        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute,"false")]
+        public bool NaturalKey {
+            get { return _naturalKey; }
+            set { SetPropertyValue("NaturalKey", ref _naturalKey, value); }
+        }
         #endregion
     }
 }

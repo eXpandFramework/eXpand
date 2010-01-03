@@ -181,7 +181,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         {
             _currentObject = (TObject)_objectSpace.CreateObject(typeof(TObject));
             var detailView = new DetailView(_objectSpace, CurrentObject, _xafApplication, true);
-            Isolate.WhenCalled(() => detailView.SynchronizeWithInfo()).IgnoreCall();
+            Isolate.WhenCalled(detailView.SynchronizeWithInfo).IgnoreCall();
             detailView.SetInfo(_applicationNodeWrapper.Views.GetDetailViews(typeof(TObject))[0].Node);
 
             return this;

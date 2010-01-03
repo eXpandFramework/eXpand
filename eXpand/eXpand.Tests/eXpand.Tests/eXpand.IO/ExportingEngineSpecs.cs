@@ -1,19 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Windows.Forms;
 using System.Xml.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.IO.Core;
 using eXpand.ExpressApp.IO.PersistentTypesHelpers;
+using eXpand.ExpressApp.WorldCreator.Core;
+using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.ImportExport;
+using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.ImportExport;
+using eXpand.Tests.eXpand.WorldCreator;
 using Machine.Specifications;
 using System.Linq;
-using eXpand.Utils.Helpers;
 
 namespace eXpand.Tests.eXpand.IO
 {
     [Subject(typeof(ExportEngine))]
-    public class When_Exporting_1_Customer_with_1_ref_User_2_Orders_add_user_not_serializable:With_Customer_Orders
+    public class When_Exporting_1_Customer_with_1_ref_User_2_Orders_and_user_not_serialized:With_Customer_Orders
     {
         static SerializationConfiguration _serializationConfiguration;
         static XPBaseObject _order2;
@@ -42,6 +51,7 @@ namespace eXpand.Tests.eXpand.IO
 
         Because of = () => {
             _xDocument = new ExportEngine().Export(new List<object> { _customer }, _serializationConfiguration);
+            Debug.Print("");
         };
 
         It should_create_an_xml_document=() => {
@@ -52,48 +62,145 @@ namespace eXpand.Tests.eXpand.IO
         It should_have_serializedObjects_as_root_element=() => _root.Name.ShouldEqual("SerializedObjects");
 
         It should_have_2_Orders_an_1_Customer_serialized_elements_as_childs_under_root = () => {
-            _root.Descendants("SerializedObject").Where(element => hasAsttributes(element, "type", "Customer")).Count().ShouldEqual(1);
-            _root.Descendants("SerializedObject").Where(element => hasAsttributes(element, "type", "Order")).Count().ShouldEqual(2);
+            _root.SerializedObjects(_customer.GetType()).Count().ShouldEqual(1);
+            _root.SerializedObjects(_order1.GetType()).Count().ShouldEqual(2);
         };
 
-        It should_not_have_User_child_Serialized_element_under_root=() => _root.Descendants("SerializedObject").Count().ShouldEqual(3);
+        It should_not_have_User_child_Serialized_element_under_root=() => _root.SerializedObjects().Count().ShouldEqual(3);
 
         It should_have_2_simple_property_elements_as_customer_Serialized_element_childs=() => {
-            _customerElement = _root.Descendants("SerializedObject").Where(element => hasAsttributes(element, "type","Customer")).Single();
-            _customerElement.Descendants("Property").
-                Where(xElement => hasAsttributes(xElement, "type", "simple")).Count().ShouldEqual(2);
+
+            _customerElement = _root.SerializedObjects(_customer.GetType()).Single();
+            _customerElement.Properties(NodeType.Simple).Count().ShouldEqual(2);
         };
 
-        static bool hasAsttributes (XElement element,string name, string value) {
-            XAttribute xAttribute = element.Attribute(name);
-            if (xAttribute != null) return xAttribute.Value == value;
-            return false; 
-        }
 
         It should_have_1_key_property_element_as_customer_Serialized_element_child =
-            () =>_customerElement.Descendants("Property").Where(element => hasAsttributes(element, "isKey", "true")).Count().ShouldEqual(1);
+            () => {
+                _customerElement.ObjectKeyProperties().Count().ShouldEqual(1);
+                _customerElement.ObjectNaturalKeyProperty().ShouldNotBeNull();
+            };
 
         It should_have_1_object_property_with_value_the_oid_of_user=() => {
-            IEnumerable<XElement> xElements = _customerElement.Descendants("Property").Where(element => hasAsttributes(element, "type", "object"));
-            xElements.Count().ShouldEqual(1);
-            XElement single = xElements.Descendants("Key").Where(xElement => xElement.GetAttributeValue("name")=="oid").Single();
-            single.Value.ShouldEqual(_user.GetMemberValue("Oid").ToString());
+            var objectProperties = _customerElement.Properties(NodeType.Object);
+            objectProperties.Count().ShouldEqual(1);
+            objectProperties.KeyElements("oid").Single().Value.ShouldEqual(_user.GetMemberValue("Oid").ToString());
         };
 
         It should_have_1_collection_property__with_name_Orders_as_Serialized_element_child=() => {
-            IEnumerable<XElement> xElements =_customerElement.Descendants("Property").Where(
-                    element =>hasAsttributes(element, "type", "collection") && hasAsttributes(element, "name", "Orders"));
-            xElements.Count().ShouldEqual(1);
-            _ordersElement = xElements.Single();
+            _ordersElement = _customerElement.Properties(NodeType.Collection).Property("Orders");
+            _ordersElement.ShouldNotBeNull();
         };
 
         It should_have_2_ref_properties_with_serialized_strategy_and_value_under_orders_property_collection_element=() => {
-            IEnumerable<XElement> xElements =
-                _ordersElement.Descendants("SerializedObjectRef").Where(
-                    element => hasAsttributes(element, "type", "Order") && hasAsttributes(element, "strategy", "SerializeAsObject"));
-            xElements.Count().ShouldEqual(2);
-            xElements.Where(xElement => xElement.Value==_order1.GetMemberValue("Oid").ToString()).FirstOrDefault().ShouldNotBeNull();
+            var serializedObjectRefs = _ordersElement.SerializedObjectRefs(_order1.GetType());
+            var objectRefs = serializedObjectRefs.SerializedObjectRefs(SerializationStrategy.SerializeAsObject);
+            var count = objectRefs.Count();
+            count.ShouldEqual(2);
+            objectRefs.Where(xElement => xElement.Value == _order1.GetMemberValue("Oid").ToString()).FirstOrDefault().ShouldNotBeNull();
         };
+    }
+    [Subject(typeof(ExportEngine))]
+    public class When_exporting_object_with_Null_referenced_object:With_Isolations {
+        static XElement _property;
+        static XElement _root;
+        static SerializationConfiguration _serializationConfiguration;
+        static object _customer;
+
+        Establish context = () => {
+            var objectSpace = new TestAppLication<ClassInfoGraphNode>().Setup().ObjectSpace;
+
+            PersistentAssemblyBuilder persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(objectSpace, GetUniqueAssemblyName());
+            IClassHandler classHandler = persistentAssemblyBuilder.CreateClasses(new[]{"Customer"});
+            classHandler.CreateRefenceMembers(info => new[]{typeof(User)});            
+            objectSpace.CommitChanges();
+            Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
+            var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
+            _customer = objectSpace.CreateObject(customerType);
+            objectSpace.CommitChanges();
+            _serializationConfiguration = new SerializationConfiguration(objectSpace.Session) { TypeToSerialize = customerType };
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+        };
+
+        Because of = () => {
+            XDocument document = new ExportEngine().Export(new[]{_customer},_serializationConfiguration);
+            _root = document.Root;
+        };
+
+        It should_create_a_property_with_name_same_as_referenced_object_type =
+            () => {
+                _property = _root.SerializedObjects(_customer.GetType()).ObjectProperty(typeof (User));
+                _property.ShouldNotBeNull();
+            };
+        It should_set_null_value_to_that_property=() => _property.Value.ShouldEqual(String.Empty);
+    }
+    
+    [Subject(typeof(ExportEngine))]
+    public class When_exporting_Customers_Orders_many_to_many:With_Isolations {
+        static XElement _customersElement;
+        static XElement _orderElement;
+        static XElement _ordersElement;
+        static XPBaseObject _order;
+        static XElement _customerElement;
+        static XElement _root;
+        static SerializationConfiguration _serializationConfiguration;
+        static XPBaseObject _customer;
+        static ObjectSpace _objectSpace;
+
+        Establish context = () => {
+            var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
+            _objectSpace = artifactHandler.ObjectSpace;
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, "a" + Guid.NewGuid().ToString().Replace("-", ""));
+            var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer", "Order" });
+            IPersistentAssemblyInfo persistentAssemblyInfo = persistentAssemblyBuilder.PersistentAssemblyInfo;
+            classHandler.CreateCollectionMember(persistentAssemblyInfo.PersistentClassInfos[0], "Orders", persistentAssemblyInfo.PersistentClassInfos[1]);
+            classHandler.CreateCollectionMember(persistentAssemblyInfo.PersistentClassInfos[1], "Customers", persistentAssemblyInfo.PersistentClassInfos[0],"Orders");
+
+            artifactHandler.ObjectSpace.CommitChanges();
+            var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
+            var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
+            var orderType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Order").Single();
+
+            _customer = (XPBaseObject) _objectSpace.CreateObject(customerType);
+            _order = (XPBaseObject) _objectSpace.CreateObject(orderType);
+            ((IList) _customer.GetMemberValue("Orders")).Add(_order);
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session){TypeToSerialize = _customer.GetType()};
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+            _objectSpace.CommitChanges();
+        };
+
+        Because of = () => {
+            var xDocument = new ExportEngine().Export(new[] {_customer}, _serializationConfiguration);
+            _root = xDocument.Root;
+        };
+
+        It should_create_2_serialized_elements = () => _root.SerializedObjects().Count().ShouldEqual(2);
+
+        It should_create_a_customer_root_element=() => {
+            _customerElement = _root.SerializedObjects(_customer.GetType()).FirstOrDefault();
+            _customerElement.ShouldNotBeNull();
+        };
+
+        It should_create_a_collection_property_with_order_type_and_name_orders_under_customer_element=() => {
+            _ordersElement = _customerElement.Properties(NodeType.Collection).Property("Orders");
+            _ordersElement.ShouldNotBeNull();            
+        };
+
+        It should_create_a_ref_object_of_type_order_under_orders_collection_property =
+            () => _ordersElement.SerializedObjectRefs(_order.GetType()).FirstOrDefault().ShouldNotBeNull();
+
+        It should_create_a_order_root_element=() => {
+            _orderElement = _root.SerializedObjects(_order.GetType()).FirstOrDefault();
+            _orderElement.ShouldNotBeNull();
+        };
+
+        It should_not_create_a_collection_property_with_customer_type_and_name_customers_under_order_element=() => {
+            _customersElement = _ordersElement.Properties(NodeType.Collection).Property("Customers");
+            _customersElement.ShouldBeNull();
+        };
+
+//        It should_create_a_ref_object_of_type_customer_under_customers_collection_property =
+//            () => _customersElement.SerializedObjectRefs(_customer.GetType()).FirstOrDefault().ShouldNotBeNull();
     }
 
 }

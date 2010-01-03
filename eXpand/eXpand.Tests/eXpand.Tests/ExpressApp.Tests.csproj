@@ -373,9 +373,6 @@
     <EmbeddedResource Include="eXpand.IO\XMLFile1.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="eXpand.IO\tt.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="ModelArtifactSpecs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

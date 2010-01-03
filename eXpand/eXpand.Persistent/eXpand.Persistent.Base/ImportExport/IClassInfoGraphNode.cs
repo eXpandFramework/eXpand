@@ -1,5 +1,4 @@
 ﻿using DevExpress.Persistent.Base.General;
-using System;
 
 namespace eXpand.Persistent.Base.ImportExport {
     public enum NodeType {
@@ -14,5 +13,6 @@ namespace eXpand.Persistent.Base.ImportExport {
         ISerializationConfiguration SerializationConfiguration { get; set; }
         SerializationStrategy SerializationStrategy { get; set; }
         bool Key { get; set; }
+        bool NaturalKey { get; set; }
     }
 }

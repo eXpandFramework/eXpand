@@ -19,11 +19,8 @@ namespace eXpand.Tests.eXpand.IO {
         protected static Type OrderType;
         protected static ObjectSpace ObjectSpace;
         protected static Type CustomerType;
-//        protected static SerializationConfiguration SerializationConfiguration;
 
         Establish context = () => {
-//            Isolate.Fake.WCTypesInfo();
-//            var persistentAssemblyInfoType = TypesInfo.Instance.PersistentAssemblyInfoType;
             var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
             ObjectSpace = artifactHandler.ObjectSpace;
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(ObjectSpace,"a"+ Guid.NewGuid().ToString().Replace("-",""));
@@ -33,16 +30,14 @@ namespace eXpand.Tests.eXpand.IO {
             classHandler.CreateSimpleMembers<string>(persistentClassInfo => persistentClassInfo.Name == "Customer" ? new[] { "Name" } : null);
             ObjectSpace.CommitChanges();
             Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
-            if (persistentAssemblyBuilder.PersistentAssemblyInfo.CompileErrors!= null)
-                Debug.Print("");
             CustomerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
             OrderType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Order").Single();
             XafTypesInfo.Instance.CreateCollection(typeof (User), CustomerType, "User",XafTypesInfo.XpoTypeInfoSource.XPDictionary);
-//            SerializationConfiguration = new SerializationConfiguration(artifactHandler.UnitOfWork) { TypeToSerialize = CustomerType };
         };
     }
     public abstract class With_Isolations:WorldCreator.With_Isolations
     {
+        
         protected static Func<Type[]> IOArtifacts;
 
         Establish context = () =>

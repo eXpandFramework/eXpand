@@ -47,6 +47,7 @@ namespace eXpand.Tests.eXpand.IO {
         It should_mark_as_key_the_key_property =
             () => _memberCategories.Where(node => node.Name == "oid").Single().Key.ShouldBeTrue();
 
+        It should_mark_as_natural_key_the_key_property = () => _memberCategories.Where(node => node.Name == "oid").Single().NaturalKey.ShouldBeTrue();
         It should_mark_as_simple_all_properties_that_their_type_is_not_persistent=() => {
             const int oid_and_name = 2;
             _memberCategories.Where(node => node.NodeType == NodeType.Simple).Count().ShouldEqual(oid_and_name);

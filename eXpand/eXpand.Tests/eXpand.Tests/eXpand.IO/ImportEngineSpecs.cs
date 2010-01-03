@@ -22,9 +22,9 @@ namespace eXpand.Tests.eXpand.IO {
         Establish context = () => {
             _user = (User) ObjectSpace.CreateObject(typeof (User));
             _user.SetMemberValue("oid", new Guid("{B11AFD0E-6B2B-44cf-A986-96909A93291A}"));
-            XafTypesInfo.CastTypeToTypeInfo(OrderType).CreateMember("Ammount", typeof (int));
+            ObjectSpace.Session.GetClassInfo(OrderType).CreateMember("Ammount", typeof (int));
             ObjectSpace.CommitChanges();
-            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.tt.xml");
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.XMLFile1.xml");
             if (_manifestResourceStream != null)
                 _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
         };
@@ -72,7 +72,13 @@ namespace eXpand.Tests.eXpand.IO {
         It should_return_1_unimported_object;
     }
 
-    public class When_importing_a_customers_orders_many_to_many {
+    public class When_importing_a_customers_orders_many_to_many:With_Isolations {
+        static ObjectSpace _objectSpace;
+
+        Establish context = () => {
+            
+        };
+
         It should_should;
     }
 }

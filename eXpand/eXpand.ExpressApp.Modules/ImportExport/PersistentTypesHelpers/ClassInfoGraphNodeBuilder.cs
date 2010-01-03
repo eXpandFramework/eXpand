@@ -5,7 +5,6 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.ImportExport;
 using System.Linq;
-using eXpand.Xpo;
 using TypesInfo = eXpand.ExpressApp.IO.Core.TypesInfo;
 
 namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
@@ -40,6 +39,7 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
                 else {
                     IClassInfoGraphNode addClassInfoGraphNode = AddClassInfoGraphNode(objectSpace, memberInfo, classInfoGraphNodes,NodeType.Simple);
                     addClassInfoGraphNode.Key = memberInfo.IsKey;
+                    addClassInfoGraphNode.NaturalKey = memberInfo.IsKey;
                 }
             }
 

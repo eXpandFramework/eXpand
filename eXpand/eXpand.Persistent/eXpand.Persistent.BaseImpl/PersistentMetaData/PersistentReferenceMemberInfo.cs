@@ -57,6 +57,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             }
         }
         
+
         public bool AutoGenerateOtherPartMember {
             get { return _autoGenerateOtherPartMember; }
             set { SetPropertyValue("AutoGenerateOtherPartMember", ref _autoGenerateOtherPartMember, value); }
