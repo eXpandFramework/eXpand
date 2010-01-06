@@ -15,10 +15,12 @@ using eXpand.Xpo;
 using eXpand.Xpo.Converters.ValueConverters;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-    
     public class PersistentClassInfo : PersistentTemplatedTypeInfo, IPersistentClassInfo, IPropertyValueValidator {
+        PersistentClassInfo _baseClassInfo;
         Type _baseType;
         string _baseTypeFullName;
+        PersistentClassInfo _mergedClassInfo;
+        string _mergedObjectFullName;
 
 
         Type _mergedObjectType;
@@ -42,50 +44,18 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 }
             }
         }
-        private PersistentClassInfo _baseClassInfo;
+
         [Index(1)]
-        public PersistentClassInfo BaseClassInfo
-        {
-            get
-            {
-                return _baseClassInfo;
-            }
-            set
-            {
+        public PersistentClassInfo BaseClassInfo {
+            get { return _baseClassInfo; }
+            set {
                 SetPropertyValue("BaseClassInfo", ref _baseClassInfo, value);
-                if (!IsLoading && !IsSaving){
+                if (!IsLoading && !IsSaving) {
                     _baseTypeFullName = _baseClassInfo != null
                                             ? _baseClassInfo.PersistentAssemblyInfo.Name + "." + _baseClassInfo.Name
                                             : null;
                     _baseType = null;
                 }
-            }
-        }
-        [Browsable(false)]
-        string IPersistentClassInfo.BaseTypeFullName
-        {
-            get
-            {
-                return _baseTypeFullName;
-            }
-            set
-            {
-                SetPropertyValue("BaseTypeFullName", ref _baseTypeFullName, value);
-            }
-        }
-        private string _mergedObjectFullName;
-        [Browsable(false)]
-        [Size(SizeAttribute.Unlimited)]
-        string IPersistentClassInfo.MergedObjectFullName
-        {
-            get
-            {
-                return _mergedObjectFullName;
-            }
-            set
-            {
-                SetPropertyValue("MergedObjectFullName", ref _mergedObjectFullName, value);
-
             }
         }
 
@@ -98,37 +68,34 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _mergedObjectType; }
             set {
                 SetPropertyValue("MergedObjectType", ref _mergedObjectType, value);
-                if (!IsLoading && !IsSaving){
+                if (!IsLoading && !IsSaving) {
                     _mergedObjectFullName = _mergedObjectType != null ? _mergedObjectType.FullName : null;
                     _mergedClassInfo = null;
                 }
             }
         }
-        private PersistentClassInfo _mergedClassInfo;
+
         [Index(3)]
-        public PersistentClassInfo MergedClassInfo
-        {
-            get
-            {
-                return _mergedClassInfo;
-            }
-            set
-            {
+        public PersistentClassInfo MergedClassInfo {
+            get { return _mergedClassInfo; }
+            set {
                 SetPropertyValue("MergedClassInfo", ref _mergedClassInfo, value);
-                if (!IsLoading && !IsSaving){
+                if (!IsLoading && !IsSaving && _mergedClassInfo != null &&
+                    _mergedClassInfo.PersistentAssemblyInfo != null) {
                     _mergedObjectFullName = _mergedClassInfo != null
-                                                ? _mergedClassInfo.PersistentAssemblyInfo.Name + "." + _mergedClassInfo.Name
+                                                ? _mergedClassInfo.PersistentAssemblyInfo.Name + "." +
+                                                  _mergedClassInfo.Name
                                                 : null;
                     _baseType = null;
                 }
             }
         }
+
         [Index(4)]
         [VisibleInListView(false)]
         [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
         [Size(SizeAttribute.Unlimited)]
-        public string GeneratedCode
-        {
+        public string GeneratedCode {
             get { return CodeEngine.GenerateCode(this); }
         }
 
@@ -149,6 +116,19 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set { SetPropertyValue("PersistentAssemblyInfo", ref _persistentAssemblyInfo, value); }
         }
         #region IPersistentClassInfo Members
+        [Browsable(false)]
+        string IPersistentClassInfo.BaseTypeFullName {
+            get { return _baseTypeFullName; }
+            set { SetPropertyValue("BaseTypeFullName", ref _baseTypeFullName, value); }
+        }
+
+        [Browsable(false)]
+        [Size(SizeAttribute.Unlimited)]
+        string IPersistentClassInfo.MergedObjectFullName {
+            get { return _mergedObjectFullName; }
+            set { SetPropertyValue("MergedObjectFullName", ref _mergedObjectFullName, value); }
+        }
+
         IList<IInterfaceInfo> IPersistentClassInfo.Interfaces {
             get { return new ListConverter<IInterfaceInfo, InterfaceInfo>(Interfaces); }
         }
@@ -165,14 +145,14 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         IList<IPersistentMemberInfo> IPersistentClassInfo.OwnMembers {
             get { return new ListConverter<IPersistentMemberInfo, PersistentMemberInfo>(OwnMembers); }
         }
-
         #endregion
         #region IPropertyValueValidator Members
         public bool IsPropertyValueValid(string propertyName, ref string errorMessageTemplate,
                                          ContextIdentifiers contextIdentifiers, string ruleId) {
             if (propertyName == this.GetPropertyInfo(x => x.MergedObjectType).Name && MergedObjectType != null) {
-                if (BaseType == null&&BaseClassInfo== null) {
-                    errorMessageTemplate = "One of " + this.GetPropertyInfo(x => x.BaseType).Name + ", " + this.GetPropertyInfo(x => x.BaseClassInfo).Name + " should not be null";
+                if (BaseType == null && BaseClassInfo == null) {
+                    errorMessageTemplate = "One of " + this.GetPropertyInfo(x => x.BaseType).Name + ", " +
+                                           this.GetPropertyInfo(x => x.BaseClassInfo).Name + " should not be null";
                     return false;
                 }
                 if (TypeAttributes.Where(info => info is PeristentMapInheritanceAttribute).FirstOrDefault() == null) {

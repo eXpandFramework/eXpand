@@ -290,6 +290,7 @@
     <Compile Include="eXpand.IO\ImportEngineSpecs.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="eXpand.IO\ModelBuilder.cs" />
     <Compile Include="eXpand.IO\SerializationConfigurationGraphSpecs.cs" />
     <Compile Include="eXpand.Utils\NotificationExtensionsFixture.cs">
       <SubType>Code</SubType>
@@ -370,7 +371,22 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="eXpand.IO\XMLFile1.xml" />
+    <EmbeddedResource Include="eXpand.IO\Resources\1toMany.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="eXpand.IO\Resources\ManyToMany.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="eXpand.IO\Resources\NullRefProperty.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="eXpand.IO\Resources\WithValueConverter.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="eXpand.IO\Resources\ExistentNaturalKeyObject.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="eXpand.IO\Resources\ExistentKeyObject.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ModelArtifactSpecs\" />

@@ -29,7 +29,7 @@ namespace eXpand.ExpressApp.IO.Core {
                 XElement propertyElement = GetPropertyElement(serializedObjectElement, classInfoGraphNode);
                 switch (classInfoGraphNode.NodeType) {
                     case NodeType.Simple:
-                        propertyElement.Value = selectedObject.GetMemberValue(classInfoGraphNode.Name) + "";
+                        propertyElement.Value = GetMemberValue(selectedObject, classInfoGraphNode) + "";
                         break;
                     case NodeType.Object:
                         createObjectProperty(selectedObject, propertyElement, classInfoGraphNode, root);
@@ -39,6 +39,15 @@ namespace eXpand.ExpressApp.IO.Core {
                         break;
                 }
             }
+        }
+
+        object GetMemberValue(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode) {
+            var memberValue = selectedObject.GetMemberValue(classInfoGraphNode.Name);
+            var xpMemberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
+            if (xpMemberInfo.Converter!= null){
+                return xpMemberInfo.Converter.ConvertToStorageType(memberValue);
+            }
+            return memberValue;
         }
 
         XElement GetPropertyElement(XElement serializedObjectElement, IClassInfoGraphNode classInfoGraphNode) {

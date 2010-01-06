@@ -22,13 +22,18 @@ namespace eXpand.ExpressApp.IO.Core {
             return element.Descendants("Property").Where(xElement => xElement.GetAttributeValue("isKey") == "true");
         }
 
+        public static IEnumerable<XElement> Properties(this IEnumerable<XElement> elements, NodeType nodeType)
+        {
+            return elements.Descendants("Property").Where(xElement => xElement.GetAttributeValue("type") == nodeType.ToString().MakeFirstCharLower());
+        }
+
         public static IEnumerable<XElement> Properties(this XElement element, NodeType nodeType) {
             return element.Descendants("Property").Where(xElement => xElement.GetAttributeValue("type") == nodeType.ToString().MakeFirstCharLower());
         }
 
 
-        public static XElement Property(this IEnumerable<XElement> elements, string name) {
-            return elements.Where(element => element.GetAttributeValue("name") == name).FirstOrDefault();
+        public static XElement Property(this IEnumerable<XElement> properties, string name) {
+            return properties.Where(element => element.GetAttributeValue("name") == name).FirstOrDefault();
         }
 
         public static XElement ObjectProperty(this XElement element, Type type) {

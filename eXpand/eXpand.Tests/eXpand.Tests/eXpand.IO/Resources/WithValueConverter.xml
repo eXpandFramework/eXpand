@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SerializedObjects>
+  <SerializedObject type="PersistentApplication">
+    <Property type="simple" name="Model" isKey="false" isNaturalKey="false">
+      &lt;item&gt;&lt;key&gt;&lt;string&gt;Schema&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string&gt;&amp;lt;shemaNode /&amp;gt;
+      &lt;/string&gt;&lt;/value&gt;&lt;/item&gt;&lt;item&gt;&lt;key&gt;&lt;string&gt;DefaultAspect&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string&gt;&amp;lt;dictionaryXmlValue /&amp;gt;
+      &lt;/string&gt;&lt;/value&gt;&lt;/item&gt;&lt;item&gt;&lt;key&gt;&lt;string&gt;aspects&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string /&gt;&lt;/value&gt;&lt;/item&gt;
+    </Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">B11AFD0E-6B2B-44cf-A986-96909A93291D</Property>
+  </SerializedObject>
+</SerializedObjects>

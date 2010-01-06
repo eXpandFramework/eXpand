@@ -22,7 +22,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
         FileData _strongKeyFile;
 
-        string _version;
+        string _version="1.0.0.*";
 
         public PersistentAssemblyInfo(Session session) : base(session) {
         }

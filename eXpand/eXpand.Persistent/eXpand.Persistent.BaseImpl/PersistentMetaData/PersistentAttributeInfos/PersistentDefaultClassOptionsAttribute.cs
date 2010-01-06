@@ -6,7 +6,7 @@ using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("DefaultClassOptionsName")]
-    public class PersistentDefaultClassOptionsAttribute :PersistentAttributeInfo
+    public class PersistentDefaultClassOptionsAttribute : PersistentAttributeInfo, IPersistentDefaulClassOptionsAttribute
     {
         public PersistentDefaultClassOptionsAttribute(Session session) : base(session) {
         }

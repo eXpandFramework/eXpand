@@ -1,5 +1,4 @@
-﻿using DevExpress.ExpressApp.NodeWrappers;
-using DevExpress.Persistent.Base;
+﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -14,7 +13,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
         public CodeTemplateInfo(Session session) : base(session) {
         }
-
+        [NonPersistent]
         [RuleRequiredField(null, DefaultContexts.Save)]
         public CodeTemplate CodeTemplate {
             get { return _codeTemplate; }

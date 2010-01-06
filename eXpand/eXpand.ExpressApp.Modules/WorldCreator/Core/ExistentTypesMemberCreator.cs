@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -10,9 +11,7 @@ using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 namespace eXpand.ExpressApp.WorldCreator.Core {
     public class ExistentTypesMemberCreator
     {
-        public void CreateMembers(Session session, TypesInfo typesInfo)
-        {
-            
+        public void CreateMembers(Session session, TypesInfo typesInfo){
             createCollectionMembers(getMembers(session, typesInfo.ExtendedCollectionMemberInfoType));
             createReferenceMembers(getMembers(session, typesInfo.ExtendedReferenceMemberInfoType));
             createCoreMembers(getMembers(session, typesInfo.ExtendedCoreMemberInfoType));
@@ -23,13 +22,11 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return extendedMemberInfos.Where(info => !memberExists(info));
         }
 
-        private bool memberExists(IExtendedMemberInfo info)
-        {
+        private bool memberExists(IExtendedMemberInfo info){
             return XafTypesInfo.Instance.FindTypeInfo(info.Owner).FindMember(info.Name) != null;
         }
 
-        void createCollectionMembers(IEnumerable<IExtendedMemberInfo> xpCollection)
-        {
+        void createCollectionMembers(IEnumerable<IExtendedMemberInfo> xpCollection){
             XPDictionary xpDictionary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
             var collection = xpCollection.Cast<IExtendedCollectionMemberInfo>();
             foreach (var info in collection){
@@ -38,8 +35,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             }
         }
 
-        void createReferenceMembers(IEnumerable<IExtendedMemberInfo> xpCollection)
-        {
+        void createReferenceMembers(IEnumerable<IExtendedMemberInfo> xpCollection){
             XPDictionary xpDictionary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
             foreach (var info in xpCollection.Cast<IExtendedReferenceMemberInfo>()){
                 XPCustomMemberInfo member = xpDictionary.GetClassInfo(info.Owner).CreateMember(info.Name, info.ReferenceType);
@@ -47,8 +43,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             }
         }
 
-        void createCoreMembers(IEnumerable<IExtendedMemberInfo> collection)
-        {
+        void createCoreMembers(IEnumerable<IExtendedMemberInfo> collection){
             XPDictionary xpDictionary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
             foreach (var info in collection.Cast<IExtendedCoreTypeMemberInfo>()){
                 XPCustomMemberInfo member = xpDictionary.GetClassInfo(info.Owner).CreateMember(info.Name, Type.GetType("System." + info.DataType, true));
@@ -59,7 +54,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         {
             foreach (IPersistentAttributeInfo typeAttribute in extendedMemberInfo.TypeAttributes){
                 AttributeInfo attributeInfo = typeAttribute.Create();
-                customMemberInfo.AddAttribute((Attribute)Activator.CreateInstance(attributeInfo.Constructor.DeclaringType, attributeInfo.InitializedArgumentValues));
+                customMemberInfo.AddAttribute((Attribute)Activator.CreateInstance(attributeInfo.Constructor.DeclaringType, attributeInfo.InitializedArgumentValues[0], ReflectionHelper.GetType(attributeInfo.InitializedArgumentValues[2] as string)));
             }
         }
 

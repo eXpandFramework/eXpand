@@ -16,6 +16,8 @@ using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.IO.Core {
     public class ImportEngine {
+        readonly List<object> importingObjecs=new List<object>();
+
         public int ImportObjects(Stream stream, ObjectSpace objectSpace)
         {
             var unitOfWork = ((UnitOfWork) objectSpace.Session);
@@ -43,16 +45,24 @@ namespace eXpand.ExpressApp.IO.Core {
         {
             XPBaseObject xpBaseObject = findObject(nestedUnitOfWork, typeInfo,objectKeyCriteria) ??
                                         (XPBaseObject) Activator.CreateInstance(typeInfo.Type, nestedUnitOfWork);
-            importComplexProperties(element, nestedUnitOfWork,
-                                   (o, xElement) =>
-                                   xpBaseObject.SetMemberValue(xElement.Parent.GetAttributeValue("name"), o),
-                                   NodeType.Object);
-            importComplexProperties(element, nestedUnitOfWork,
-                                   (baseObject, element1) =>
-                                   ((IList) xpBaseObject.GetMemberValue(element1.Parent.GetAttributeValue("name"))).Add(
-                                       baseObject), NodeType.Collection);
-            importSimpleProperties(element, xpBaseObject);
+            if (!importingObjecs.Contains(xpBaseObject)) {
+                importingObjecs.Add(xpBaseObject);
+                importProperties(nestedUnitOfWork, xpBaseObject, element);
+                importingObjecs.Remove(xpBaseObject);
+            }
             return xpBaseObject;
+        }
+
+        void importProperties(UnitOfWork nestedUnitOfWork, XPBaseObject xpBaseObject, XElement element) {
+            importSimpleProperties(element, xpBaseObject);
+            importComplexProperties(element, nestedUnitOfWork,
+                                    (o, xElement) =>
+                                    xpBaseObject.SetMemberValue(xElement.Parent.GetAttributeValue("name"), o),
+                                    NodeType.Object);
+            importComplexProperties(element, nestedUnitOfWork,
+                                    (baseObject, element1) =>
+                                    ((IList) xpBaseObject.GetMemberValue(element1.Parent.GetAttributeValue("name"))).Add(
+                                        baseObject), NodeType.Collection);
         }
 
         void importComplexProperties(XElement element, UnitOfWork nestedUnitOfWork, Action<XPBaseObject,XElement> instance, NodeType nodeType) {
@@ -60,10 +70,19 @@ namespace eXpand.ExpressApp.IO.Core {
             foreach (var objectElement in objectElements) {
                 ITypeInfo typeInfo = GetTypeInfo(objectElement);
                 var refObjectKeyCriteria = getObjectKeyCriteria(typeInfo,objectElement.Descendants("Key"));
-                XPBaseObject xpBaseObject = objectElement.GetAttributeValue("strategy") ==SerializationStrategy.SerializeAsObject.ToString()
-                                                ? createObject(objectElement.FindObjectFromRefenceElement(false), nestedUnitOfWork, typeInfo, refObjectKeyCriteria)
-                                                : findObject(nestedUnitOfWork, typeInfo,refObjectKeyCriteria);
-                instance.Invoke(xpBaseObject, objectElement);
+                XPBaseObject xpBaseObject;
+                if (objectElement.GetAttributeValue("strategy") == SerializationStrategy.SerializeAsObject.ToString()) {
+                    var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement(false);
+                    if (findObjectFromRefenceElement != null) {
+                        xpBaseObject = createObject(findObjectFromRefenceElement, nestedUnitOfWork,
+                                                    typeInfo, refObjectKeyCriteria);
+                        instance.Invoke(xpBaseObject, objectElement);
+                    }
+                }
+                else {
+                    xpBaseObject = findObject(nestedUnitOfWork, typeInfo, refObjectKeyCriteria);
+                    instance.Invoke(xpBaseObject, objectElement);
+                }
                 
             }
         }
@@ -84,8 +103,18 @@ namespace eXpand.ExpressApp.IO.Core {
             foreach (var simpleElement in simpleElements) {
                 string propertyName = simpleElement.GetAttributeValue("name");
                 XPMemberInfo xpMemberInfo = xpBaseObject.ClassInfo.GetMember(propertyName);
-                xpBaseObject.SetMemberValue(propertyName, ReflectionHelper.Convert(simpleElement.Value,xpMemberInfo.MemberType));
+                object value = GetValue(simpleElement, xpMemberInfo);
+                if (simpleElement.GetAttributeValue("isNaturalKey")=="true"&&!xpBaseObject.IsNewObject())
+                    continue;
+                xpBaseObject.SetMemberValue(propertyName, value);
             }
+        }
+
+        object GetValue(XElement simpleElement, XPMemberInfo xpMemberInfo) {
+            var valueConverter = xpMemberInfo.Converter;
+            return valueConverter != null
+                       ? valueConverter.ConvertFromStorageType(ReflectionHelper.Convert(simpleElement.Value, valueConverter.StorageType))
+                       : ReflectionHelper.Convert(simpleElement.Value, xpMemberInfo.MemberType);
         }
 
         ITypeInfo GetTypeInfo(XElement element) {
@@ -93,9 +122,15 @@ namespace eXpand.ExpressApp.IO.Core {
         }
 
         XPBaseObject findObject(UnitOfWork unitOfWork, ITypeInfo typeInfo, CriteriaOperator criteriaOperator) {
-            
-            return unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, typeInfo.Type,
-                                         criteriaOperator) as XPBaseObject;
+            var xpBaseObject = unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, typeInfo.Type,
+                                                     criteriaOperator) as XPBaseObject;
+            if (xpBaseObject == null) {
+                xpBaseObject = unitOfWork.FindObject(typeInfo.Type, criteriaOperator, true) as XPBaseObject;
+                if (xpBaseObject != null && xpBaseObject.IsDeleted) {
+                    xpBaseObject.UnDelete();
+                }
+            }
+            return xpBaseObject;
         }
 
         CriteriaOperator getObjectKeyCriteria(ITypeInfo typeInfo, IEnumerable<XElement> xElements)

@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SerializedObjects>
+  <SerializedObject type="Customer">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">b7d25a42-981b-42fa-b264-fe3774b710ab</Property>
+    <Property type="object" name="User" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="User" strategy="SerializeAsObject">
+        <Key name="oid">2f1a3aab-5a0b-4193-b2fe-09802335e9f1</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="User">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">2f1a3aab-5a0b-4193-b2fe-09802335e9f1</Property>
+    <Property type="object" name="Address2" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="Address" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="Address1" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="Address" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="Roles" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="Role" strategy="SerializeAsObject">
+        <Key name="oid">7247b996-989c-4eb0-a11e-969534a34508</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="PhoneNumbers" isKey="false" isNaturalKey="false" />
+    
+  </SerializedObject>
+  <SerializedObject type="Role">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">7247b996-989c-4eb0-a11e-969534a34508</Property>
+    <Property type="collection" name="PersistentPermissions" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentPermission" strategy="SerializeAsObject">
+        <Key name="oid">c602d528-3243-444f-8683-407c2c831d7e</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="PersistentPermission" strategy="SerializeAsObject">
+        <Key name="oid">fe3f17d2-284b-4080-90ba-9cbe8b0cbe87</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="PersistentPermission" strategy="SerializeAsObject">
+        <Key name="oid">8ccceb10-9b44-428b-af36-ec42814f623f</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="RoleModelDifferenceObjects" isKey="false" isNaturalKey="false" />
+  </SerializedObject>
+  <SerializedObject type="PersistentPermission">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">c602d528-3243-444f-8683-407c2c831d7e</Property>
+    <Property type="simple" name="SerializedPermission" isKey="false" isNaturalKey="false">
+      &lt;IPermission class="DevExpress.ExpressApp.Security.ObjectAccessPermission"
+      assembly="DevExpress.ExpressApp.v9.3"
+      version="9.3.2.0"&gt;
+      &lt;ParticularAccessItem access="Write"
+      objectType="DevExpress.Persistent.BaseImpl.AuditDataItemPersistent"
+      modifier="Deny"/&gt;
+      &lt;ParticularAccessItem access="Create"
+      objectType="DevExpress.Persistent.BaseImpl.AuditDataItemPersistent"
+      modifier="Deny"/&gt;
+      &lt;ParticularAccessItem access="Delete"
+      objectType="DevExpress.Persistent.BaseImpl.AuditDataItemPersistent"
+      modifier="Deny"/&gt;
+      &lt;/IPermission&gt;
+    </Property>
+    <Property type="object" name="Role" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="RoleBase" strategy="SerializeAsObject">
+        <Key name="oid">7247b996-989c-4eb0-a11e-969534a34508</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="Role">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">7247b996-989c-4eb0-a11e-969534a34508</Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Administrators</Property>
+    <Property type="collection" name="PersistentPermissions" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentPermission" strategy="SerializeAsObject">
+        <Key name="oid">c602d528-3243-444f-8683-407c2c831d7e</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="PersistentPermission" strategy="SerializeAsObject">
+        <Key name="oid">fe3f17d2-284b-4080-90ba-9cbe8b0cbe87</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="PersistentPermission" strategy="SerializeAsObject">
+        <Key name="oid">8ccceb10-9b44-428b-af36-ec42814f623f</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentPermission">
+    <Property type="simple" name="SerializedPermission" isKey="false" isNaturalKey="false">
+      &lt;IPermission class="DevExpress.ExpressApp.Security.EditModelPermission"
+      assembly="DevExpress.ExpressApp.v9.3"
+      version="9.3.2.0"
+      modifier="Allow"/&gt;
+    </Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">fe3f17d2-284b-4080-90ba-9cbe8b0cbe87</Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentPermission">
+    <Property type="simple" name="SerializedPermission" isKey="false" isNaturalKey="false">
+      &lt;IPermission class="DevExpress.ExpressApp.Security.ObjectAccessPermission"
+      assembly="DevExpress.ExpressApp.v9.3"
+      version="9.3.2.0"&gt;
+      &lt;ParticularAccessItem access="Read"
+      objectType="System.Object"
+      modifier="Allow"/&gt;
+      &lt;ParticularAccessItem access="Write"
+      objectType="System.Object"
+      modifier="Allow"/&gt;
+      &lt;ParticularAccessItem access="Create"
+      objectType="System.Object"
+      modifier="Allow"/&gt;
+      &lt;ParticularAccessItem access="Delete"
+      objectType="System.Object"
+      modifier="Allow"/&gt;
+      &lt;ParticularAccessItem access="Navigate"
+      objectType="System.Object"
+      modifier="Allow"/&gt;
+      &lt;/IPermission&gt;
+    </Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">8ccceb10-9b44-428b-af36-ec42814f623f</Property>
+  </SerializedObject>
+  <SerializedObject type="UserModelDifferenceObject">
+    <Property type="simple" name="NonPersistent" isKey="false" isNaturalKey="false">False</Property>
+    <Property type="simple" name="Disabled" isKey="false" isNaturalKey="false">False</Property>
+    <Property type="simple" name="Model" isKey="false" isNaturalKey="false">
+      &lt;item&gt;&lt;key&gt;&lt;string&gt;Schema&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string&gt;&amp;lt;shemaNode /&amp;gt;
+      &lt;/string&gt;&lt;/value&gt;&lt;/item&gt;&lt;item&gt;&lt;key&gt;&lt;string&gt;DefaultAspect&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string&gt;&amp;lt;dictionaryXmlValue /&amp;gt;
+      &lt;/string&gt;&lt;/value&gt;&lt;/item&gt;&lt;item&gt;&lt;key&gt;&lt;string&gt;aspects&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string /&gt;&lt;/value&gt;&lt;/item&gt;
+    </Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">d0888e21-6848-4f38-8262-17f5a16925fd</Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">AutoCreated for Sam 4/1/2010 5:12:50 μμ</Property>
+    <Property type="simple" name="DateCreated" isKey="false" isNaturalKey="false">4/1/2010 5:12:50 μμ</Property>
+    <Property type="simple" name="CombineOrder" isKey="false" isNaturalKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false" isNaturalKey="false">1</Property>
+    <Property type="object" name="PersistentApplication" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">cc794272-c16c-4578-aeb7-aa992a1279b2</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentApplication">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">cc794272-c16c-4578-aeb7-aa992a1279b2</Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Solution3</Property>
+    <Property type="simple" name="UniqueName" isKey="false" isNaturalKey="false">Solution3.Win.Solution3WindowsFormsApplication</Property>
+    <Property type="collection" name="ModelDifferenceObjects" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="UserModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">d0888e21-6848-4f38-8262-17f5a16925fd</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">07f97287-b5c1-43f9-89b6-e440c7eb13b8</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">AutoCreated 4/1/2010 5:12:49 μμ</Property>
+    <Property type="simple" name="DateCreated" isKey="false" isNaturalKey="false">4/1/2010 5:12:49 μμ</Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">07f97287-b5c1-43f9-89b6-e440c7eb13b8</Property>
+    <Property type="simple" name="CombineOrder" isKey="false" isNaturalKey="false">0</Property>
+    <Property type="simple" name="Disabled" isKey="false" isNaturalKey="false">False</Property>
+    <Property type="simple" name="DifferenceType" isKey="false" isNaturalKey="false">0</Property>
+    <Property type="simple" name="Model" isKey="false" isNaturalKey="false">
+      &lt;item&gt;&lt;key&gt;&lt;string&gt;Schema&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string&gt;&amp;lt;shemaNode /&amp;gt;
+      &lt;/string&gt;&lt;/value&gt;&lt;/item&gt;&lt;item&gt;&lt;key&gt;&lt;string&gt;DefaultAspect&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string&gt;&amp;lt;dictionaryXmlValue /&amp;gt;
+      &lt;/string&gt;&lt;/value&gt;&lt;/item&gt;&lt;item&gt;&lt;key&gt;&lt;string&gt;aspects&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string /&gt;&lt;/value&gt;&lt;/item&gt;
+    </Property>
+  </SerializedObject>
+
+</SerializedObjects>

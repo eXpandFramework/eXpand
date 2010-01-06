@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SerializedObjects>
+  <SerializedObject type="Customer">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">B11AFD0E-6B2B-44cf-A986-96909A93291D</Property>
+    <Property type="simple" name="Name" >newName</Property>
+  </SerializedObject>
+</SerializedObjects>

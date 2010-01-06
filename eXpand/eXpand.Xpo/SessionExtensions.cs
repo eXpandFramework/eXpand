@@ -3,11 +3,26 @@ using System.Linq.Expressions;
 using DevExpress.Data.Filtering;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using System.Linq;
 
 namespace eXpand.Xpo
 {
     public static class SessionExtensions
     {
+        public static void UnDelete(this XPBaseObject simpleObject) {
+            simpleObject.SetMemberValue(XPObject.Fields.GCRecord.PropertyName, null);
+            var persistentProperties = simpleObject.ClassInfo.PersistentProperties;
+            foreach (XPMemberInfo persistentProperty in (persistentProperties).OfType<XPMemberInfo>().Where(
+                        info => info.Name != XPObject.Fields.GCRecord.PropertyName)){
+                var memberType = persistentProperty.MemberType;
+                object obj = memberType.IsValueType ? Activator.CreateInstance(memberType) : null;
+                simpleObject.SetMemberValue(persistentProperty.Name, obj);
+            }
+        }
+        public static bool IsNewObject(this IXPSimpleObject simpleObject)
+        {
+            return simpleObject.Session.IsNewObject(simpleObject);
+        }
         public static int GetCount(this Session session, Type type,CriteriaOperator criteriaOperator) {
             return (int)session.Evaluate(type, new AggregateOperand("", Aggregate.Count), criteriaOperator);
         }

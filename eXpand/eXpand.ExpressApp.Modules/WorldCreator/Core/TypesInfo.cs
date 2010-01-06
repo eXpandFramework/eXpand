@@ -41,6 +41,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             CodeTemplateInfoType = GetInfoType(types, typeof(ICodeTemplateInfo));
             TemplateInfoType = GetInfoType(types, typeof(ITemplateInfo));
             PersistentAssociationAttributeType = GetInfoType(types, typeof(IPersistentAssociationAttribute));
+            PersistentDefaultClassOptionsAttributeType = GetInfoType(types, typeof(IPersistentDefaulClassOptionsAttribute));
             CodeTemplateType = GetInfoType(types, typeof(ICodeTemplate));
             PersistentAssemblyInfoType = GetInfoType(types, typeof(IPersistentAssemblyInfo));
             PersistentCoreTypeInfoType = GetInfoType(types, typeof(IPersistentCoreTypeMemberInfo));
@@ -53,7 +54,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             IntefaceInfoType = GetInfoType(types, typeof(IInterfaceInfo));
         }
         private Type GetInfoType(IEnumerable<Type> types, Type type1) {
-            var infoType = types.Where(type => type1.IsAssignableFrom(type)).GroupBy(type => type).Select(grouping => grouping.Key).FirstOrDefault();
+            var infoType = types.Where(type1.IsAssignableFrom).GroupBy(type => type).Select(grouping => grouping.Key).FirstOrDefault();
             if (infoType== null)
                 throw new NoNullAllowedException("No Class that implemenets " + type1.AssemblyQualifiedName + " found at AdditionalBusinessClasses list");
             return infoType;
@@ -74,6 +75,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public Type CodeTemplateType { get; private set; }
         public Type TemplateInfoType { get; private set; }
         public Type PersistentAssociationAttributeType { get; private set; }
+        public Type PersistentDefaultClassOptionsAttributeType { get; private set; }
 
         
     }

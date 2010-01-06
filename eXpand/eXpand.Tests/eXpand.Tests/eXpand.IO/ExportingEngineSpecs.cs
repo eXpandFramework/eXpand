@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -10,14 +8,16 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.IO.Core;
 using eXpand.ExpressApp.IO.PersistentTypesHelpers;
+using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.ImportExport;
-using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.ImportExport;
 using eXpand.Tests.eXpand.WorldCreator;
 using Machine.Specifications;
 using System.Linq;
+using eXpand.Utils.Helpers;
+using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.eXpand.IO
 {
@@ -51,7 +51,6 @@ namespace eXpand.Tests.eXpand.IO
 
         Because of = () => {
             _xDocument = new ExportEngine().Export(new List<object> { _customer }, _serializationConfiguration);
-            Debug.Print("");
         };
 
         It should_create_an_xml_document=() => {
@@ -100,6 +99,7 @@ namespace eXpand.Tests.eXpand.IO
             objectRefs.Where(xElement => xElement.Value == _order1.GetMemberValue("Oid").ToString()).FirstOrDefault().ShouldNotBeNull();
         };
     }
+
     [Subject(typeof(ExportEngine))]
     public class When_exporting_object_with_Null_referenced_object:With_Isolations {
         static XElement _property;
@@ -112,7 +112,7 @@ namespace eXpand.Tests.eXpand.IO
 
             PersistentAssemblyBuilder persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(objectSpace, GetUniqueAssemblyName());
             IClassHandler classHandler = persistentAssemblyBuilder.CreateClasses(new[]{"Customer"});
-            classHandler.CreateRefenceMembers(info => new[]{typeof(User)});            
+            classHandler.CreateReferenceMembers(info => new[]{typeof(User)});            
             objectSpace.CommitChanges();
             Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
@@ -134,7 +134,14 @@ namespace eXpand.Tests.eXpand.IO
             };
         It should_set_null_value_to_that_property=() => _property.Value.ShouldEqual(String.Empty);
     }
-    
+
+    public interface ICustomer
+    {
+    }
+
+    public interface IOrder
+    {
+    }
     [Subject(typeof(ExportEngine))]
     public class When_exporting_Customers_Orders_many_to_many:With_Isolations {
         static XElement _customersElement;
@@ -148,22 +155,11 @@ namespace eXpand.Tests.eXpand.IO
         static ObjectSpace _objectSpace;
 
         Establish context = () => {
-            var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
-            _objectSpace = artifactHandler.ObjectSpace;
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, "a" + Guid.NewGuid().ToString().Replace("-", ""));
-            var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer", "Order" });
-            IPersistentAssemblyInfo persistentAssemblyInfo = persistentAssemblyBuilder.PersistentAssemblyInfo;
-            classHandler.CreateCollectionMember(persistentAssemblyInfo.PersistentClassInfos[0], "Orders", persistentAssemblyInfo.PersistentClassInfos[1]);
-            classHandler.CreateCollectionMember(persistentAssemblyInfo.PersistentClassInfos[1], "Customers", persistentAssemblyInfo.PersistentClassInfos[0],"Orders");
-
-            artifactHandler.ObjectSpace.CommitChanges();
-            var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
-            var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
-            var orderType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Order").Single();
-
-            _customer = (XPBaseObject) _objectSpace.CreateObject(customerType);
-            _order = (XPBaseObject) _objectSpace.CreateObject(orderType);
-            ((IList) _customer.GetMemberValue("Orders")).Add(_order);
+            var typeHandler = ModelBuilder<ICustomer,IOrder>.Build().ManyToMany();
+            var modelInstancesHandler = typeHandler.CreateInstances();
+            _customer = (XPBaseObject) modelInstancesHandler.T1instance;
+            _order = (XPBaseObject) modelInstancesHandler.T2Instance;
+            _objectSpace=typeHandler.ObjectSpace;
             _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session){TypeToSerialize = _customer.GetType()};
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
             _objectSpace.CommitChanges();
@@ -198,9 +194,33 @@ namespace eXpand.Tests.eXpand.IO
             _customersElement = _ordersElement.Properties(NodeType.Collection).Property("Customers");
             _customersElement.ShouldBeNull();
         };
+    }
+    [Subject(typeof(ExportEngine))]
+    public class When_exporting_an_object_with_value_converter:With_Isolations {
+        static DifferenceObject _differenceObject;
+        static XElement _root;
+        static SerializationConfiguration _serializationConfiguration;
 
-//        It should_create_a_ref_object_of_type_customer_under_customers_collection_property =
-//            () => _customersElement.SerializedObjectRefs(_customer.GetType()).FirstOrDefault().ShouldNotBeNull();
+
+        Establish context = () => {
+            var objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            _differenceObject = Isolate.Fake.Instance<DifferenceObject>(Members.CallOriginal,ConstructorWillBe.Called,objectSpace.Session);
+            _differenceObject.Model=new Dictionary(new DictionaryNode("dictionaryXmlValue"),new Schema(new DictionaryNode("shemaNode")));
+            _serializationConfiguration = new SerializationConfiguration(objectSpace.Session) { TypeToSerialize = _differenceObject.GetType() };
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+        };
+
+        Because of = () => {
+            _root = new ExportEngine().Export(new[] {_differenceObject}, _serializationConfiguration).Root;
+        };
+
+        It should_export_the_storage_converter_value =
+            () => {
+                var serializedObjects = _root.SerializedObjects(_differenceObject.GetType());
+                var value = serializedObjects.Properties(NodeType.Simple).Property(_differenceObject.GetPropertyName(x => x.Model)).Value;
+                value.ShouldContain("dictionaryXmlValue");
+
+            };    
     }
 
 }

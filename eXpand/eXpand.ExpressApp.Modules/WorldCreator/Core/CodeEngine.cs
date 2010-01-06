@@ -90,7 +90,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public static string GenerateCode(IPersistentAttributeInfo persistentAttributeInfo) {
             AttributeInfo attributeInfo = persistentAttributeInfo.Create();
             var attribute = (Attribute)Activator.CreateInstance(attributeInfo.Constructor.DeclaringType, attributeInfo.InitializedArgumentValues);
-            Func<object, object> argSelector = argumentValue =>getArgumentCode(argumentValue);
+            Func<object, object> argSelector = getArgumentCode;
             string args = attributeInfo.InitializedArgumentValues.Length>0
                               ? attributeInfo.InitializedArgumentValues.Select(argSelector).Aggregate
                                     <object, string>(null, (current, o) => current + (o + ",")).TrimEnd(',')

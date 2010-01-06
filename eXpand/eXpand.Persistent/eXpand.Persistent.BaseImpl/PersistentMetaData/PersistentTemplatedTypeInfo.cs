@@ -4,32 +4,25 @@ using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-    [EditorStateRule("Hide templateInfo name", "CodeTemplateInfo.TemplateInfo.Name", EditorState.Hidden, null , ViewType.DetailView)]
-    public class PersistentTemplatedTypeInfo:PersistentTypeInfo, IPersistentTemplatedTypeInfo {
+    [EditorStateRule("Hide templateInfo name", "CodeTemplateInfo.TemplateInfo.Name", EditorState.Hidden, null,
+        ViewType.DetailView)]
+    public class PersistentTemplatedTypeInfo : PersistentTypeInfo, IPersistentTemplatedTypeInfo {
+        CodeTemplateInfo _codeTemplateInfo;
 
         public PersistentTemplatedTypeInfo(Session session) : base(session) {
         }
 
-        private CodeTemplateInfo _codeTemplateInfo;
-
 
         [Aggregated]
-        public CodeTemplateInfo CodeTemplateInfo
-        {
-            get
-            {
-                return _codeTemplateInfo;
-            }
-            set
-            {
-                SetPropertyValue("CodeTemplateInfo", ref _codeTemplateInfo, value);
-            }
+        public CodeTemplateInfo CodeTemplateInfo {
+            get { return _codeTemplateInfo; }
+            set { SetPropertyValue("CodeTemplateInfo", ref _codeTemplateInfo, value); }
         }
-        ICodeTemplateInfo IPersistentTemplatedTypeInfo.CodeTemplateInfo
-        {
+        #region IPersistentTemplatedTypeInfo Members
+        ICodeTemplateInfo IPersistentTemplatedTypeInfo.CodeTemplateInfo {
             get { return CodeTemplateInfo; }
             set { CodeTemplateInfo = value as CodeTemplateInfo; }
         }
-
+        #endregion
     }
 }

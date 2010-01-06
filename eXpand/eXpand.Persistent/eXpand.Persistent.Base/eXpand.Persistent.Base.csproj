@@ -96,6 +96,7 @@
     <Compile Include="ImportExport\IClassInfoGraphNode.cs" />
     <Compile Include="ImportExport\ISerializationConfiguration.cs" />
     <Compile Include="ImportExport\IXmlFileChooser.cs" />
+    <Compile Include="ImportExport\NodeType.cs" />
     <Compile Include="ImportExport\SerializationStrategy.cs" />
     <Compile Include="IXpoModelDifference.cs" />
     <Compile Include="General\IHidden.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="PersistentMetaData\IPersistentMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentReferenceMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentTypeInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentDefaulClassOptionsAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="General\ResourceImpl.cs" />
     <Compile Include="General\ResourceImpls.cs" />
