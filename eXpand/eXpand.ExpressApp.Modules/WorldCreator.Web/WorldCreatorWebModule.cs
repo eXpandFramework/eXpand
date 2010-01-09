@@ -9,7 +9,7 @@ namespace eXpand.ExpressApp.WorldCreator.Web {
         }
 
 
-        protected override string GetPath() {
+        public override string GetPath() {
             HttpRequest request = HttpContext.Current.Request;
             return request.MapPath(request.ApplicationPath);
         }
