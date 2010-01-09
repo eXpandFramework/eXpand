@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HideICategorizedItemController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\HideICategorizedItemController.Designer.cs">
       <DependentUpon>HideICategorizedItemController.cs</DependentUpon>
