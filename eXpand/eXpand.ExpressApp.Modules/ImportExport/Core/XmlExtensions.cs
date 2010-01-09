@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -27,8 +26,12 @@ namespace eXpand.ExpressApp.IO.Core {
             return elements.Descendants("Property").Where(xElement => xElement.GetAttributeValue("type") == nodeType.ToString().MakeFirstCharLower());
         }
 
+        public static IEnumerable<XElement> Properties(this XElement element) {
+            return element.Descendants("Property");
+        }
+
         public static IEnumerable<XElement> Properties(this XElement element, NodeType nodeType) {
-            return element.Descendants("Property").Where(xElement => xElement.GetAttributeValue("type") == nodeType.ToString().MakeFirstCharLower());
+            return element.Properties().Where(xElement => xElement.GetAttributeValue("type") == nodeType.ToString().MakeFirstCharLower());
         }
 
 
@@ -42,13 +45,8 @@ namespace eXpand.ExpressApp.IO.Core {
                                                           NodeType.Object.ToString().MakeFirstCharLower()).FirstOrDefault();
         }
 
-        public static XElement ObjectProperty(this IEnumerable<XElement> elements, Type type)
-        {
+        public static XElement ObjectProperty(this IEnumerable<XElement> elements, Type type) {
             return elements.Select(element => element.ObjectProperty(type)).FirstOrDefault();
-            return elements.Descendants("Property").Where(xElement =>
-                                                          xElement.GetAttributeValue("type") ==
-                                                          NodeType.Object.ToString().MakeFirstCharLower() &
-                                                          xElement.GetAttributeValue("name") == type.Name).FirstOrDefault();
         }
 
         public static IEnumerable<XElement> SerializedObjects(this XElement element, Type type)

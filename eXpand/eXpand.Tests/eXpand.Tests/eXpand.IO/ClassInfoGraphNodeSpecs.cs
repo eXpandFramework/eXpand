@@ -1,7 +1,10 @@
+using System;
 using System.IO;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.IO.PersistentTypesHelpers;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
@@ -11,74 +14,208 @@ using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Tests.eXpand.WorldCreator;
 using Machine.Specifications;
 using System.Linq;
+using eXpand.Xpo;
 
 namespace eXpand.Tests.eXpand.IO {
     [Subject(typeof(ClassInfoGraphNode))]
-    public class When_creating_a_graph : With_Customer_Orders
+    public class When_creating_a_graph_for_type_with_associated_collection_and_associated_type_derived_types_exist_in_the_domain:With_Isolations
     {
-        const int oid_and_User_and_orders_and_name_property_count = 4;
+        static Type _derivedOrderType;
         static SerializationConfiguration _serializationConfiguration;
-        static XPCollection<ClassInfoGraphNode> _memberCategories;
-        Establish context = () => { _serializationConfiguration = new SerializationConfiguration(ObjectSpace.Session) { TypeToSerialize = CustomerType }; };
+        static ObjectSpace _objectSpace;
+
+        Establish context = () =>
+        {
+            ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
+            _objectSpace = oneToMany.ObjectSpace;
+            
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type };
+
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace);
+            var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "DerivedOrder" });
+            classHandler.SetInheritance(info => oneToMany.T2Type);
+
+            _objectSpace.CommitChanges();
+
+            var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
+            _derivedOrderType = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedOrder").Single();
+            var existentConfiguration =
+                (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
+            existentConfiguration.TypeToSerialize = _derivedOrderType;
+        };
+
+        Because of = () =>
+        {
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+            _objectSpace.CommitChanges();
+        };
+
+        It should_create_graph_for_derived_types =
+            () =>
+            new XPQuery<SerializationConfiguration>(_objectSpace.Session).Where(
+                configuration => configuration.TypeToSerialize == _derivedOrderType).Count().ShouldEqual(1);
+    }
+    [Subject(typeof(ClassInfoGraphNode))]
+    public class When_creating_a_graph_for_type_with_associated_object_and_associated_type_derived_types_exist_in_the_domain:With_Isolations
+    {
+        static Type _derivedCustomerType;
+        static SerializationConfiguration _serializationConfiguration;
+        static ObjectSpace _objectSpace;
+
+        Establish context = () => {
+            ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
+            _objectSpace = oneToMany.ObjectSpace;
+            var existentConfiguration =
+                (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
+            existentConfiguration.TypeToSerialize = oneToMany.T2Type;
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T2Type };
+
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace);
+            var classHandler = persistentAssemblyBuilder.CreateClasses(new[]{"DerivedCustomer"});
+            classHandler.SetInheritance(info =>oneToMany.T1Type );
+
+            _objectSpace.CommitChanges();
+
+            var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
+            _derivedCustomerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedCustomer").Single();
+        };
+        Because of = () =>
+        {
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+            _objectSpace.CommitChanges();
+        };
+
+        It should_create_graph_for_derived_types = () => new XPQuery<SerializationConfiguration>(_objectSpace.Session).Where(configuration => configuration.TypeToSerialize==_derivedCustomerType).Count().ShouldEqual(1);
+    }
+    [Subject(typeof(ClassInfoGraphNode))]
+    public class When_creating_a_graph_for_type_and_type_derived_types_exist_in_the_domain:With_Isolations
+    {
+        static SerializationConfiguration _serializationConfiguration;
+        static Type _t1Type;
+        static Type _t2Type;
+        static ObjectSpace _objectSpace;
+
+        Establish context = () => {
+            _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(GetUniqueAssemblyName());
+            var classHandler = persistentAssemblyBuilder.CreateClasses(new[] {"Customer", "DerivedCustomer"});
+            classHandler.SetInheritance(info=>info.Name=="DerivedCustomer"?persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0]:null);
+
+            _objectSpace.CommitChanges();
+
+            var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
+            _t1Type = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
+            _t2Type = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedCustomer").Single();
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = _t1Type };
+        };
+
+        Because of = () => {
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+            _objectSpace.CommitChanges();
+        };
+        It should_create_graph_for_derived_types=() => new XPQuery<SerializationConfiguration>(_objectSpace.Session).Where(
+                                                           configuration => configuration.TypeToSerialize == _t2Type).Count().ShouldEqual(1);
+    }
+    [Subject(typeof(ClassInfoGraphNode))]
+    public class When_creating_a_graph__for_type_with_associated_collection_and_associated_type_graph_exists : With_Isolations
+    {
+        static SerializationConfiguration _serializationConfiguration;
+        static ObjectSpace _objectSpace;
+
+        Establish context = () =>
+        {
+            ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
+            _objectSpace = oneToMany.ObjectSpace;
+            var existentConfiguration =
+                (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
+            existentConfiguration.TypeToSerialize = oneToMany.T2Type;
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type };
+        };
+
+        Because of = () =>
+        {
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+            _objectSpace.CommitChanges();
+        };
+
+        It should_not_create_any_more_graphs_for_associated_type=() => {
+            const int customer_order = 2;
+            _objectSpace.Session.GetCount(typeof(SerializationConfiguration)).ShouldEqual(customer_order);
+        };
+    }
+    [Subject(typeof(ClassInfoGraphNode))]
+    public class When_creating_a_graph__for_type_with_associated_object_and_associated_type_graph_exists:With_Isolations {
+        static ObjectSpace _objectSpace;
+        static SerializationConfiguration _serializationConfiguration;
+
+        Establish context = () => {
+            ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
+            _objectSpace = oneToMany.ObjectSpace;
+            var existentConfiguration =
+                (SerializationConfiguration) _objectSpace.CreateObject(typeof (SerializationConfiguration));
+            existentConfiguration.TypeToSerialize=oneToMany.T1Type;            
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T2Type };
+        };
+
+        Because of = () => {
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+            _objectSpace.CommitChanges();
+        };
+
+        It should_not_create_any_more_graphs_for_associated_type=() => {
+            const int customer_order = 2;
+            _objectSpace.Session.GetCount(typeof (SerializationConfiguration)).ShouldEqual(customer_order);
+        };
+    }
+
+    [Subject(typeof(ClassInfoGraphNode))]
+    public class When_creating_a_graph_for_type_with_associated_collection:With_Isolations {
+        static ObjectSpace _objectSpace;
+        static SerializationConfiguration _serializationConfiguration2;
+        static Type _t2Type;
+        static ISerializationConfiguration _serializationConfiguration;
+
+        Establish context = () => {
+            ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer,IOrder>.Build().OneToMany();
+            _objectSpace = oneToMany.ObjectSpace;
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type };
+            _t2Type = oneToMany.T2Type;
+        };
+
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
 
-        It should_add_all_properties_of_master_object_as_graph_nodes =
+        It should_create_nodes_for_all_properties=() => {
+            const int oid_and_orders = 2;
+            _serializationConfiguration.SerializationGraph.Count().ShouldEqual(oid_and_orders);
+        };
+
+        It should_create_graph_for_the_associated_collection_type=() => {
+            _serializationConfiguration2 =
+                _serializationConfiguration.Session.FindObject<SerializationConfiguration>(PersistentCriteriaEvaluationBehavior.InTransaction, 
+                    configuration => configuration.TypeToSerialize == _t2Type);
+            _serializationConfiguration2.ShouldNotBeNull();
+        };
+
+
+        It should_be_able_to_validate_graph_for_the_associated_collection_type =
             () =>
-            _serializationConfiguration.SerializationGraph[0].Children.Count.ShouldEqual(
-                oid_and_User_and_orders_and_name_property_count);
-
-        It should_not_create_children_for_refenced_Master_object_of_associated_collection = () => {
-            var classInfoGraphNode = _serializationConfiguration.SerializationGraph[0].Children.Where(node => node.Name == "Orders").Single();
-            classInfoGraphNode.Children.Where(graphNode => graphNode.Name == "Customer").Single().Children.Count.ShouldEqual(0);
-        };
-
-        It should_set_a_SerializeAsValue_strategy_for_reference_Master_object_of_associated_collection = () => {
-            var classInfoGraphNode = _serializationConfiguration.SerializationGraph[0].Children.Where(node => node.Name == "Orders").Single();
-            classInfoGraphNode.Children.Where(graphNode => graphNode.Name == "Customer").Single().SerializationStrategy.ShouldEqual(SerializationStrategy.SerializeAsValue);
-        };
-        It should_set_a_SerializeAsObject_strategy_for_all_associated_reference_members =
-            () => {
-                _memberCategories = _serializationConfiguration.SerializationGraph[0].Children;
-                _memberCategories.Where(node => node.Name == "User").Single().
-                    SerializationStrategy.ShouldEqual(SerializationStrategy.SerializeAsObject);
-            };
-
-        It should_set_a_SerializeAsObject_strategy_for_all_associated_collection_members =
-            () => {
-                _memberCategories = _serializationConfiguration.SerializationGraph[0].Children;
-                _memberCategories.Where(node => node.Name == "Orders").Single().
-                    SerializationStrategy.ShouldEqual(SerializationStrategy.SerializeAsObject);
-            };
-
-        It should_mark_as_key_the_key_property =
-            () => _memberCategories.Where(node => node.Name == "oid").Single().Key.ShouldBeTrue();
-
-        It should_mark_as_natural_key_the_key_property = () => _memberCategories.Where(node => node.Name == "oid").Single().NaturalKey.ShouldBeTrue();
-
-        It should_mark_as_simple_all_properties_that_their_type_is_not_persistent=() => {
-            const int oid_and_name = 2;
-            _memberCategories.Where(node => node.NodeType == NodeType.Simple).Count().ShouldEqual(oid_and_name);
-        };
-
-        It should_mark_as_collection_all_associated_collections=() => {
-            const int Orders = 1;
-            _memberCategories.Where(node => node.NodeType == NodeType.Collection).Count().ShouldEqual(Orders);
-        };
-
-        It should_mark_as_object_all_properties_that_their_type_is_persistent=() => {
-            const int user = 1;
-            _memberCategories.Where(node => node.NodeType == NodeType.Object).Count().ShouldEqual(user);
+            Validator.RuleSet.ValidateTarget(_serializationConfiguration2, ContextIdentifier.Save).State.ShouldEqual(
+                ValidationState.Valid);
+        It should_create_nodes_for_all_properties_of_associated_collection_type =() => {
+            const int customer_and_oid = 2;
+            _serializationConfiguration2.SerializationGraph.Count.ShouldEqual(customer_and_oid);
         };
     }
     [Subject(typeof(ClassInfoGraphNode))]
     public class When_generating_graph_for_self_reference_object:With_Isolations {
+        static ObjectSpace _objectSpace;
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () =>
         {
             var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
-            var objectSpace = artifactHandler.ObjectSpace;
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(objectSpace, GetUniqueAssemblyName());
+            _objectSpace = artifactHandler.ObjectSpace;            
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "CustomerSelfRef" });
             var persistentClassInfo = persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0];
             classHandler.CreateRefenenceMember(persistentClassInfo, "Parent",persistentClassInfo);
@@ -92,31 +229,26 @@ namespace eXpand.Tests.eXpand.IO {
 
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
 
-        It should_create_an_object_node_with_Serialize_strategy =
-            () =>
-            _serializationConfiguration.SerializationGraph[0].Children.Where(
-                node =>
-                node.NodeType == NodeType.Object && node.SerializationStrategy == SerializationStrategy.SerializeAsValue).
-                FirstOrDefault().ShouldNotBeNull();
-
-        It should_create_an_collection_node_with_Serialize_strategy = () => _serializationConfiguration.SerializationGraph[0].Children.Where(
-                                                                                     node =>
-                                                                                     node.NodeType == NodeType.Collection && node.SerializationStrategy == SerializationStrategy.SerializeAsValue).
-                                                                                     FirstOrDefault().ShouldNotBeNull();
+        It should_not_create_graph_for_property_of_the_same_type =
+            () => {
+                _objectSpace.CommitChanges();
+                _serializationConfiguration.Session.GetCount(typeof (SerializationConfiguration)).ShouldEqual(1);
+            };
     }
     [Subject(typeof(ClassInfoGraphNode))]
     public class When_creating_a_graph_for_a_persistent_assembly:With_Isolations {
+        static ObjectSpace _objectSpace;
         static SerializationConfiguration _serializationConfiguration;
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         Establish context = () => {
-            var objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
-            _persistentAssemblyInfo = (PersistentAssemblyInfo)objectSpace.CreateObject(typeof(PersistentAssemblyInfo));
-            _serializationConfiguration = new SerializationConfiguration(objectSpace.Session) { TypeToSerialize = _persistentAssemblyInfo.GetType() };
+            _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            _persistentAssemblyInfo = (PersistentAssemblyInfo)_objectSpace.CreateObject(typeof(PersistentAssemblyInfo));
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = _persistentAssemblyInfo.GetType() };
             
         };
 
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
-        It should_generate_it = () => _serializationConfiguration.SerializationGraph.Count().ShouldEqual(1);
+        It should_generate_it = () => _serializationConfiguration.SerializationGraph.Count().ShouldEqual(_persistentAssemblyInfo.ClassInfo.PersistentProperties.OfType<XPMemberInfo>().Count());
     }
 }

@@ -6,6 +6,8 @@ using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.IO.Observers {
     public class SerializationConfigurationObserver:ObjectObserver<ISerializationConfiguration> {
+        bool _serializing;
+
         public SerializationConfigurationObserver(ObjectSpace objectSpace) : base(objectSpace) {
         }
         protected override void OnChanged(ObjectChangedEventArgs<ISerializationConfiguration> e)
@@ -13,8 +15,11 @@ namespace eXpand.ExpressApp.IO.Observers {
             base.OnChanged(e);
             ISerializationConfiguration serializationConfiguration = e.Object;
             if (e.PropertyName==serializationConfiguration.GetPropertyName(x=>x.TypeToSerialize)&&e.NewValue!= null) {
-                serializationConfiguration.Session.Delete(serializationConfiguration.SerializationGraph);
-                new ClassInfoGraphNodeBuilder().Generate(serializationConfiguration);
+                if (!_serializing) {
+                    _serializing = true;
+                    new ClassInfoGraphNodeBuilder().Generate(serializationConfiguration);
+                    _serializing = false;
+                }
             }
         }
     }

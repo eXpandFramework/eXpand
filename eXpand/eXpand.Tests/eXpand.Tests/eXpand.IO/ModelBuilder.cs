@@ -16,6 +16,7 @@ using eXpand.Tests.eXpand.WorldCreator;
 namespace eXpand.Tests.eXpand.IO {
     public interface IModelTypeHandler<T1, T2>
     {
+        ITypeHandler<T1, T2> OneToMany();
         ITypeHandler<T1, T2> ManyToMany();
     }
     public interface ITypeHandler<T1, T2>
@@ -35,10 +36,15 @@ namespace eXpand.Tests.eXpand.IO {
     public class ModelBuilder<T1, T2> : IModelTypeHandler<T1, T2>, ITypeHandler<T1, T2>, IModelInstancesHandler<T1,T2>
     {
         Type _t1Type;
+
         Type _t2Type;
+
         ObjectSpace _objectSpace;
+
         object _t2;
+
         object _t1;
+        PersistentAssemblyBuilder _persistentAssemblyBuilder;
 
         ModelBuilder() {
         }
@@ -48,11 +54,26 @@ namespace eXpand.Tests.eXpand.IO {
             return new ModelBuilder<T1, T2>();
         }
 
+        public PersistentAssemblyBuilder PersistentAssemblyBuilder {
+            get { return _persistentAssemblyBuilder; }
+        }
+
+        public ITypeHandler<T1, T2> OneToMany()
+        {
+            _persistentAssemblyBuilder = GetPersistentAssemblyBuilder();
+            var type1 = typeof(T1);
+            var type2 = typeof(T2);
+            var type1Name = getName(type1);
+            var type2Name = getName(type2);
+            var classHandler = _persistentAssemblyBuilder.CreateClasses(new[] { type1Name, type2Name });
+            classHandler.CreateReferenceMembers(info => info.Name == type2Name ? new[] { info.PersistentAssemblyInfo.PersistentClassInfos[0] } : null,true);
+            createTypes(type1, type2, _persistentAssemblyBuilder, type1Name, type2Name);
+            return this;
+        }
+
         public ITypeHandler<T1, T2> ManyToMany()
         {
-            var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
-            _objectSpace = artifactHandler.ObjectSpace;
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, "a" + Guid.NewGuid().ToString().Replace("-", ""));
+            PersistentAssemblyBuilder persistentAssemblyBuilder = GetPersistentAssemblyBuilder();
             var type1 = typeof (T1);
             var type2 = typeof(T2);
             var type1Name = getName(type1);
@@ -63,14 +84,26 @@ namespace eXpand.Tests.eXpand.IO {
             var persistentClassInfo2 = persistentAssemblyInfo.PersistentClassInfos[1];
             classHandler.CreateCollectionMember(persistentClassInfo1, type2Name+"s", persistentClassInfo2);
             classHandler.CreateCollectionMember(persistentClassInfo2, type1Name + "s", persistentClassInfo1, type2Name+"s");
+            createTypes(type1, type2, persistentAssemblyBuilder, type1Name, type2Name);
+            return this;
+        }
+
+        void createTypes(Type type1, Type type2, PersistentAssemblyBuilder persistentAssemblyBuilder, string type1Name, string type2Name) {
+            var persistentClassInfo1 = persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0];
+            var persistentClassInfo2 = persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[1];
             addInterface(type1, persistentClassInfo1);
             addInterface(type2, persistentClassInfo2);
-            artifactHandler.ObjectSpace.CommitChanges();
+            _objectSpace.CommitChanges();
 
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             _t1Type = compileModule.Assembly.GetTypes().Where(type => type.Name == type1Name).Single();
             _t2Type = compileModule.Assembly.GetTypes().Where(type => type.Name == type2Name).Single();
-            return this;
+        }
+
+        PersistentAssemblyBuilder GetPersistentAssemblyBuilder() {
+            var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
+            _objectSpace = artifactHandler.ObjectSpace;
+            return PersistentAssemblyBuilder.BuildAssembly(_objectSpace, "a" + Guid.NewGuid().ToString().Replace("-", ""));
         }
 
         string getName(Type type) {
@@ -113,6 +146,5 @@ namespace eXpand.Tests.eXpand.IO {
         T2 IModelInstancesHandler<T1, T2>.T2Instance {
             get { return (T2)_t2; }
         }
-
     }
 }

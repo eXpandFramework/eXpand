@@ -1,7 +1,7 @@
 ﻿using DevExpress.Persistent.Base.General;
 
 namespace eXpand.Persistent.Base.ImportExport {
-    public interface IClassInfoGraphNode :ITreeNode
+    public interface IClassInfoGraphNode 
     {
         NodeType NodeType { get; set; }
         new string Name { get; set; }

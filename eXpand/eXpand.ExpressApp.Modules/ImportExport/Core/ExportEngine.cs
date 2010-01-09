@@ -1,24 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using eXpand.ExpressApp.IO.PersistentTypesHelpers;
 using eXpand.Persistent.Base.ImportExport;
 using System.Linq;
 using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.IO.Core {
     public class ExportEngine {
-        public XDocument Export( IEnumerable baseCollection, ISerializationConfiguration serializationConfiguration){
+        public XDocument Export( IEnumerable<XPBaseObject> baseCollection, ISerializationConfiguration serializationConfiguration){
             var xDocument = new XDocument();
             var root = new XElement("SerializedObjects");
-            IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes = GetSerializedClassInfoGraphNodes(serializationConfiguration);
+            
             xDocument.Add(root);
             foreach (var baseObject in baseCollection) {
-                ExportCore((XPBaseObject) baseObject, serializedClassInfoGraphNodes, root);    
+                var serializedClassInfoGraphNodes = GetSerializedClassInfoGraphNodes(baseObject, serializationConfiguration);
+                ExportCore(baseObject, serializedClassInfoGraphNodes, root);
             }
             return xDocument;
 
+        }
+
+        IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(XPBaseObject baseObject, ISerializationConfiguration serializationConfiguration) {
+            ISerializationConfiguration configuration = baseObject.GetType() ==serializationConfiguration.TypeToSerialize? serializationConfiguration
+                                                            : SerializationConfigurationQuery.Find(baseObject.Session, baseObject.GetType());
+            return GetSerializedClassInfoGraphNodes(configuration);
         }
 
         void ExportCore(XPBaseObject selectedObject, IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes, XElement root) {
@@ -65,22 +74,29 @@ namespace eXpand.ExpressApp.IO.Core {
             XPMemberInfo memberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
             var theObjects = (XPBaseCollection)memberInfo.GetValue(selectedObject);
             foreach (XPBaseObject theObject in theObjects) {
-                CreateRefElelement(classInfoGraphNode, root, theObject.GetType().Name, theObject, propertyElement);
+                CreateRefElelement(classInfoGraphNode,theObject.GetType().Name, root,  theObject, propertyElement);
             }
         }
 
-        void CreateRefElelement(IClassInfoGraphNode classInfoGraphNode, XElement root, string typeName, XPBaseObject theObject, XElement propertyElement) {
+        void CreateRefElelement(IClassInfoGraphNode classInfoGraphNode, string typeName, XElement root,  XPBaseObject theObject, XElement propertyElement) {
             var serializedObjectRefElement = new XElement("SerializedObjectRef");
             propertyElement.Add(serializedObjectRefElement);
-            serializedObjectRefElement.Add(new XAttribute("type",typeName));
+            serializedObjectRefElement.Add(new XAttribute("type", typeName));
             serializedObjectRefElement.Add(new XAttribute("strategy", classInfoGraphNode.SerializationStrategy));
-            IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes = classInfoGraphNode.Children.OfType<IClassInfoGraphNode>().OrderBy(node => node.NodeType);
-            if (theObject != null){
-                createRefKeyElements(serializedClassInfoGraphNodes, theObject, serializedObjectRefElement);
-                if (serializedObjectRefElement.FindObjectFromRefenceElement(true) == null &&
-                    classInfoGraphNode.SerializationStrategy == SerializationStrategy.SerializeAsObject)
-                    ExportCore(theObject, serializedClassInfoGraphNodes, root);
+
+            if (theObject != null) {
+                IEnumerable<IClassInfoGraphNode> classInfoGraphNodes = GetClassInfoGraphNodes(theObject, typeName);
+
+                createRefKeyElements(classInfoGraphNodes, theObject, serializedObjectRefElement);
+                if (serializedObjectRefElement.FindObjectFromRefenceElement(true) == null &&classInfoGraphNode.SerializationStrategy == SerializationStrategy.SerializeAsObject)
+                    ExportCore(theObject, classInfoGraphNodes, root);
             }
+        }
+
+        IEnumerable<IClassInfoGraphNode> GetClassInfoGraphNodes(XPBaseObject theObject, string typeName) {
+            var configuration =(ISerializationConfiguration)theObject.Session.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction,
+                                                                                         TypesInfo.Instance.SerializationConfigurationType, SerializationConfigurationQuery.GetCriteria(ReflectionHelper.GetType(typeName)));
+            return GetSerializedClassInfoGraphNodes(configuration);
         }
 
         void createRefKeyElements(IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes, XPBaseObject theObject, XElement serializedObjectRefElement) {
@@ -95,15 +111,16 @@ namespace eXpand.ExpressApp.IO.Core {
         void createObjectProperty(XPBaseObject selectedObject, XElement propertyElement, IClassInfoGraphNode classInfoGraphNode, XElement root) {
             XPMemberInfo memberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
             var theObject = (XPBaseObject) memberInfo.GetValue(selectedObject);
-            string typeName = memberInfo.MemberType.Name;
-            CreateRefElelement(classInfoGraphNode, root,typeName,theObject,propertyElement);
+            CreateRefElelement(classInfoGraphNode,theObject!= null?theObject.GetType().Name:memberInfo.MemberType.Name, root,  theObject, propertyElement);
         }
 
 
 
         IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(ISerializationConfiguration serializationConfiguration) {
-            return serializationConfiguration.SerializationGraph[0].Children.OfType<IClassInfoGraphNode>().Where(
-                node => (node.NodeType == NodeType.Simple && node.SerializationStrategy != SerializationStrategy.DoNotSerialize)||node.NodeType!=NodeType.Simple).OrderBy(graphNode => graphNode.NodeType);
+            return ((IEnumerable)((XPBaseObject)serializationConfiguration).GetMemberValue(serializationConfiguration.GetPropertyName(x => x.SerializationGraph))).
+                OfType<IClassInfoGraphNode>().Where(
+                node =>(node.NodeType == NodeType.Simple && node.SerializationStrategy != SerializationStrategy.DoNotSerialize) ||
+                node.NodeType != NodeType.Simple).OrderBy(graphNode => graphNode.NodeType);
         }
     }
 }

@@ -34,6 +34,13 @@ namespace eXpand.Tests.eXpand.IO {
             XafTypesInfo.Instance.CreateCollection(typeof (User), CustomerType, "User",XafTypesInfo.XpoTypeInfoSource.XPDictionary);
         };
     }
+    public interface IOrder
+    {
+    }
+    public interface ICustomer
+    {
+    }
+
     public abstract class With_Isolations:WorldCreator.With_Isolations
     {
         

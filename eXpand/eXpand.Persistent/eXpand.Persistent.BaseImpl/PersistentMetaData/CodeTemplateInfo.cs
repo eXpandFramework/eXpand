@@ -51,5 +51,13 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set { CodeTemplate = value as CodeTemplate; }
         }
         #endregion
+        [Association("CodeTemplateInfo-PersistentTemplatedTypeInfos")]
+        public XPCollection<PersistentTemplatedTypeInfo> PersistentTemplatedTypeInfos
+        {
+            get
+            {
+                return GetCollection<PersistentTemplatedTypeInfo>("PersistentTemplatedTypeInfos");
+            }
+        }
     }
 }

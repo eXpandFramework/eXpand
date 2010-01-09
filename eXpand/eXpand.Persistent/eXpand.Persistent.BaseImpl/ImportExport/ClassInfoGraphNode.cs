@@ -3,7 +3,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelArtifactState.Attributes;
@@ -13,10 +12,11 @@ using State = eXpand.ExpressApp.Security.Permissions.State;
 namespace eXpand.Persistent.BaseImpl.ImportExport
 {
     [Custom("DefaultListViewMasterDetailMode", "ListViewAndDetailView")]
-    [ControllerStateRule("ClassInfoGraphNode+NewObjectViewController", typeof(NewObjectViewController), Nesting.Any, "1=0", "1=0", ViewType.Any, null, State.Disabled, null)]
+    [ControllerStateRule("ClassInfoGraphNode+NewObjectViewController", typeof(NewObjectViewController), Nesting.Any, "1=1", "1=1", ViewType.Any, null, State.Disabled, null)]
+    [ControllerStateRule("ClassInfoGraphNode+DeleteObjectsViewController", typeof(DeleteObjectsViewController), Nesting.Any, "1=1", "1=1", ViewType.Any, null, State.Disabled, null)]
     public class ClassInfoGraphNode : BaseObject, IClassInfoGraphNode
     {
-        private ClassInfoGraphNode _parent;
+        
         private string name;
         private SerializationConfiguration serializationConfiguration;
         private SerializationStrategy serializationStrategy;
@@ -62,34 +62,8 @@ namespace eXpand.Persistent.BaseImpl.ImportExport
             get { return _key; }
             set { SetPropertyValue("Key", ref _key, value); }
         }
-        [VisibleInDetailView(false)]
-        [Association]
-        public ClassInfoGraphNode Parent
-        {
-            get { return _parent; }
-            set { SetPropertyValue("Parent", ref _parent, value); }
-        }
 
-        [Association][Browsable(false)][Aggregated]
-        public XPCollection<ClassInfoGraphNode> Children
-        {
-            get { return GetCollection<ClassInfoGraphNode>("Children"); }
-        }
         #region ITreeNode Members
-        IBindingList ITreeNode.Children
-        {
-            get { return Children; }
-        }
-
-        string ITreeNode.Name
-        {
-            get { return Name; }
-        }
-
-        ITreeNode ITreeNode.Parent
-        {
-            get { return Parent; }
-        }
         private bool _naturalKey;
         [VisibleInListView(false)]
         [Custom(PropertyInfoNodeWrapper.AllowEditAttribute,"false")]
@@ -98,17 +72,11 @@ namespace eXpand.Persistent.BaseImpl.ImportExport
             set { SetPropertyValue("NaturalKey", ref _naturalKey, value); }
         }
         private string _typeName;
+
         [Browsable(false)]
-        public string TypeName
-        {
-            get
-            {
-                return _typeName;
-            }
-            set
-            {
-                SetPropertyValue("TypeName", ref _typeName, value);
-            }
+        public string TypeName {
+            get { return _typeName; }
+            set { SetPropertyValue("TypeName", ref _typeName, value); }
         }
         #endregion
     }

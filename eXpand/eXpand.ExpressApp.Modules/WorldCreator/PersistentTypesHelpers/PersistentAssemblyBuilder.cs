@@ -27,6 +27,9 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
 
         void CreateCollectionMember(IPersistentClassInfo persistentClassInfo, string name, IPersistentClassInfo refenceClassInfo,
                                     string associationName);
+
+        void SetInheritance(Func<IPersistentClassInfo, Type> func);
+        void SetInheritance(Func<IPersistentClassInfo, IPersistentClassInfo> func);
     }
 
     public interface IPersistentAssemblyBuilder : IClassHandler {
@@ -50,6 +53,27 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
             get { return _persistentAssemblyInfo; }
         }
 
+        internal static PersistentAssemblyBuilder BuildAssembly() {
+            return BuildAssembly(GetUniqueAssemblyName());
+        }
+
+        static string GetUniqueAssemblyName()
+        {
+            return "a" + Guid.NewGuid().ToString().Replace("-", "");
+        }
+
+        internal static PersistentAssemblyBuilder BuildAssembly(ObjectSpace objectSpace) {
+            return BuildAssembly(objectSpace,GetUniqueAssemblyName());
+        }
+        public ObjectSpace ObjectSpace
+        {
+            get { return _objectSpace; }
+        }
+        
+        internal static PersistentAssemblyBuilder BuildAssembly( string name) {
+            var objectSpace = new DevExpress.ExpressApp.ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            return BuildAssembly(objectSpace, name);
+        }
         public static PersistentAssemblyBuilder BuildAssembly(ObjectSpace objectSpace, string name)
         {
             new PersistentReferenceMemberInfoObserver(objectSpace);
@@ -145,6 +169,21 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
                                                                                       associationName,TemplateType.ReadOnlyMember,true);
             persistentCollectionMemberInfo.CollectionTypeFullName = refenceClassInfo.PersistentAssemblyInfo.Name + "." +
                                                                     refenceClassInfo.Name;
+        }
+
+        void IClassHandler.SetInheritance(Func<IPersistentClassInfo, Type> func) {
+            foreach (var persistentClassInfo in _persistentClassInfos) {
+                var invoke = func.Invoke(persistentClassInfo);
+                if (invoke != null) persistentClassInfo.BaseTypeFullName = invoke.FullName;
+            }
+        }
+
+        void IClassHandler.SetInheritance(Func<IPersistentClassInfo, IPersistentClassInfo> func) {
+            foreach (var persistentClassInfo in _persistentClassInfos) {
+                var classInfo = func.Invoke(persistentClassInfo);
+                if (classInfo != null)
+                    persistentClassInfo.BaseTypeFullName = classInfo.PersistentAssemblyInfo.Name + "." + classInfo.Name;
+            }
         }
 
 

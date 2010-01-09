@@ -27,6 +27,7 @@ namespace eXpand.Persistent.BaseImpl.ImportExport {
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
+        [VisibleInListView(true)]
         public Type TypeToSerialize
         {
             get { return _typeToSerialize; }
@@ -41,6 +42,7 @@ namespace eXpand.Persistent.BaseImpl.ImportExport {
         IList<IClassInfoGraphNode> ISerializationConfiguration.SerializationGraph {
             get {
                 return new ListConverter<IClassInfoGraphNode,ClassInfoGraphNode>(SerializationGraph);
+            
             }
         }
     }

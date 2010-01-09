@@ -28,7 +28,7 @@ namespace eXpand.Tests {
             Isolate.WhenCalled(() => typesInfo.TemplateInfoType).WillReturn(typeof (TemplateInfo));
             Isolate.WhenCalled(() => typesInfo.IntefaceInfoType).WillReturn(typeof (InterfaceInfo));
             Isolate.WhenCalled(() => typesInfo.PersistentAssociationAttributeType).WillReturn(typeof (PersistentAssociationAttribute));
-            var persistentAssemblyInfoType = TypesInfo.Instance.PersistentAssemblyInfoType;
+            Isolate.WhenCalled(() => typesInfo.PersistentDefaultClassOptionsAttributeType).WillReturn(typeof (PersistentDefaultClassOptionsAttribute));
             
             return typesInfo;
         }

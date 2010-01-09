@@ -1,4 +1,5 @@
-﻿using eXpand.Persistent.BaseImpl.PersistentMetaData;
+﻿using DevExpress.ExpressApp;
+using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Machine.Specifications;
 using eXpand.Xpo;
@@ -43,5 +44,18 @@ namespace eXpand.Tests.eXpand.WorldCreator
     [Subject(typeof(PersistentCollectionMemberInfo))]
     public class When_is_saving_with_association_attribute_and_relation_type_set_to_OneToMany {
         It should_create_a_reference_member_with_association_attribute_to_the_other_part_class;
+    }
+    
+    [Subject(typeof(PersistentReferenceMemberInfo))]
+    public class When_is_undeleting:With_Isolations {
+        static PersistentReferenceMemberInfo _persistentReferenceMemberInfo;
+
+        Establish context = () => {
+            var objectSpaceProvider = new ObjectSpaceProvider(new MemoryDataStoreProvider());
+            var session = objectSpaceProvider.CreateObjectSpace().Session;
+            _persistentReferenceMemberInfo = new PersistentReferenceMemberInfo(session);
+        };
+         Because of = () => _persistentReferenceMemberInfo.UnDelete();
+        It should_undelete = () => _persistentReferenceMemberInfo.IsDeleted.ShouldBeFalse();
     }
 }

@@ -14,6 +14,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
 
         [Aggregated]
+        [Association("CodeTemplateInfo-PersistentTemplatedTypeInfos")]
         public CodeTemplateInfo CodeTemplateInfo {
             get { return _codeTemplateInfo; }
             set { SetPropertyValue("CodeTemplateInfo", ref _codeTemplateInfo, value); }

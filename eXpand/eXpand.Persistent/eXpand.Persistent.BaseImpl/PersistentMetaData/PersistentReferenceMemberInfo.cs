@@ -68,12 +68,12 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _referenceTypeFullName; }
             set {
                 SetPropertyValue("ReferenceTypeFullName", ref _referenceTypeFullName, value);
-                if (!IsLoading&&!IsSaving) {
+                if (!IsLoading && !IsSaving && value != null) {
                     IPersistentClassInfo persistentClassInfo = PersistentClassInfoQuery.Find(Session, value);
                     if (persistentClassInfo != null)
                         _referenceClassInfo = (PersistentClassInfo) persistentClassInfo;
                     else
-                        _referenceType = ReflectionHelper.GetType(value.Substring(value.LastIndexOf(".")+1)); 
+                        _referenceType = ReflectionHelper.GetType(value.Substring(value.LastIndexOf(".") + 1));
                 }
             }
         }

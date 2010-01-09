@@ -13,6 +13,8 @@ using eXpand.ExpressApp.IO.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
+using eXpand.Persistent.BaseImpl.PersistentMetaData;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Machine.Specifications;
 using eXpand.Xpo;
 
@@ -245,5 +247,56 @@ namespace eXpand.Tests.eXpand.IO {
                                             ((XPBaseObject) new XPCollection(_objectSpace.Session,_orderType)[0]).GetMemberValue("Customers")).Count.ShouldEqual(1);
         It should_create_1_order2_customer = () => ((IList)
                                             ((XPBaseObject)new XPCollection(_objectSpace.Session, _orderType)[1]).GetMemberValue("Customers")).Count.ShouldEqual(1);
+    }
+    [Subject(typeof(ImportEngine))]
+    public class When_importing_customer_user_orders_persistentAssemblyInfo:With_Isolations {
+        static PersistentAssemblyInfo _persistentAssemblyInfo;
+        static ObjectSpace _objectSpace;
+        static Stream _manifestResourceStream;
+
+        Establish context = () => {
+            _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, "TestAssembly");
+
+            var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer", "Order" });
+            PersistentClassInfo cystomerClassInfo = null;
+            classHandler.CreateReferenceMembers(info => {
+                Type[] types;
+                if (info.Name == "Customer") {
+                    types = new[] {typeof (User)};
+                    cystomerClassInfo = (PersistentClassInfo)info;
+                }
+                else types = null;
+                return types;
+            },true);
+            classHandler.CreateDefaultClassOptions(info1 => info1.Name=="Customer");
+            classHandler.CreateReferenceMembers(info => info.Name == "Order" ? info.PersistentAssemblyInfo.PersistentClassInfos.Where(classInfo => classInfo.Name == "Customer") : null,true);
+            classHandler.CreateSimpleMembers<string>(persistentClassInfo => persistentClassInfo.Name == "Customer" ? new[] { "Name" } :null);
+            classHandler.CreateSimpleMembers<int>(persistentClassInfo => persistentClassInfo.Name == "Order" ? new[] { "Ammount" } :null);
+
+
+            var extendedCollectionMemberInfo = new ExtendedCollectionMemberInfo(_objectSpace.Session) { Owner = typeof(User), Name = "Customers" };
+            extendedCollectionMemberInfo.TypeAttributes.Add(new PersistentAssociationAttribute(_objectSpace.Session)
+                                                            {AssociationName = "User",ElementClassInfo =cystomerClassInfo });
+            _objectSpace.CommitChanges();
+
+            new CompileEngine().CompileModule(persistentAssemblyBuilder,Path.GetDirectoryName(Application.ExecutablePath));
+            _objectSpace.CommitChanges();
+            _persistentAssemblyInfo = (PersistentAssemblyInfo) persistentAssemblyBuilder.PersistentAssemblyInfo;
+            _persistentAssemblyInfo.Delete();
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.PersistentAssmeblyInfo.xml");
+
+        };
+
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _objectSpace);
+
+        It should_create_a_persistent_assemblyInfo = () => {
+            _persistentAssemblyInfo = _objectSpace.FindObject<PersistentAssemblyInfo>(null);
+            _persistentAssemblyInfo.ShouldNotBeNull();
+        };
+
+        It should_set_codetemplateinfo_property_for_classinfos =
+            () => _persistentAssemblyInfo.PersistentClassInfos[0].CodeTemplateInfo.ShouldNotBeNull();
+    
     }
 }

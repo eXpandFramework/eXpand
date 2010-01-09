@@ -22,7 +22,7 @@ namespace eXpand.Tests.eXpand.IO {
             }).WithArtiFacts(IOArtifacts).CreateDetailView().CreateFrame();
             _classInfoGraphNodeBuilder = Isolate.Fake.Instance<ClassInfoGraphNodeBuilder>();
             Isolate.Swap.NextInstance<ClassInfoGraphNodeBuilder>().With(_classInfoGraphNodeBuilder);
-            Isolate.WhenCalled(() => _classInfoGraphNodeBuilder.Generate(_configuration)).DoInstead(callContext => _generated=true);
+            Isolate.WhenCalled(() => _classInfoGraphNodeBuilder.Generate(_configuration)).DoInstead(callContext => _generated = true);
         };
         
         Because of = () => { _configuration.TypeToSerialize = typeof (User); };
