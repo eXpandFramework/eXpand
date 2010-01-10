@@ -77,7 +77,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
             var type = ReflectionHelper.GetType(ElementTypeFullName);
             ConstructorInfo constructorInfo =
                 typeof (AssociationAttribute).GetConstructor(new[] {typeof (string), typeof (string), typeof (string)});
-            return new AttributeInfo(constructorInfo, AssociationName, new AssemblyName(type.Assembly.FullName+""), type.FullName);
+            return new AttributeInfo(constructorInfo, AssociationName,  type);
         }
     }
 }

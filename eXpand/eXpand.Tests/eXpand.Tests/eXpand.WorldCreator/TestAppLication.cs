@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
+using DevExpress.ExpressApp.EasyTest.ScriptRecorder;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
@@ -123,7 +124,9 @@ namespace eXpand.Tests.eXpand.WorldCreator
             var controllersManager = new ControllersManager();
             controllersManager.CollectControllers(info => true);
             _collectedControllers = controllersManager.CreateControllers(typeof (Controller));
-            _frame = new Frame(_xafApplication, TemplateContext.View, _collectedControllers);
+            _frame = new Frame(_xafApplication, TemplateContext.View,
+                               _collectedControllers.Where(
+                                   controller => controller.GetType() != typeof (ScriptRecorderControllerBase)).ToList());
             if (_view == null)
                 ((IViewCreationHandler) this).CreateDetailView();
             _frame.SetView(_view);

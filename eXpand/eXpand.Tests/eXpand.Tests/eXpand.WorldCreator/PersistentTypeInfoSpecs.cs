@@ -38,7 +38,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         Because of = () => _persistentClassInfo.Delete();
 
-        It should_delete_CodeTemplateInfo_as_well=() => _persistentClassInfo.CodeTemplateInfo.IsDeleted.ShouldBeTrue();
-        It should_delete_TemplateInfo_as_well=() => _persistentClassInfo.CodeTemplateInfo.TemplateInfo.ShouldBeNull();
+        It should_delete_CodeTemplateInfo_as_well = () => _persistentClassInfo.CodeTemplateInfo.ShouldBeNull();
+
     }
 }

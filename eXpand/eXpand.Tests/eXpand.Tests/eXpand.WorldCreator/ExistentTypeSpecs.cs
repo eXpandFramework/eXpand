@@ -11,8 +11,6 @@ using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.eXpand.WorldCreator
 {
-
-
     [Subject(typeof(ExistentTypesMemberCreator))]
     [Isolated]
     public class When_Creating_ExistentTypes_CoreMembers_that_exist_already:With_Isolations {
@@ -82,7 +80,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
                 referenceMemberInfo.Name = "Test";
                 referenceMemberInfo.Owner = typeof (User);
                 referenceMemberInfo.ReferenceType = typeof (Role);
-                referenceMemberInfo.TypeAttributes.Add(new PersistentSizeAttribute(referenceMemberInfo.Session));
+                referenceMemberInfo.TypeAttributes.Add(new PersistentAssociationAttribute(referenceMemberInfo.Session){AssociationName = "ANAME",ElementType = typeof(User)});
             });
             _unitOfWork = artifactHandler.UnitOfWork;
             _unitOfWork.CommitChanges();            
@@ -97,7 +95,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             };
 
         It should_create_typedattributes =
-            () => memberInfo.FindAttributeInfo(typeof (SizeAttribute)).ShouldNotBeNull();
+            () => memberInfo.FindAttributeInfo(typeof (AssociationAttribute)).ShouldNotBeNull();
     }
     [Subject(typeof(ExistentTypesMemberCreator))]
     [Isolated]
