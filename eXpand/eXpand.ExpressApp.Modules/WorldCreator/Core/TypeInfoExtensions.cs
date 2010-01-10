@@ -1,9 +1,21 @@
 ﻿using System;
+using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.ExpressApp.WorldCreator.Core {
     public static class TypeInfoExtensions {
+        public static void SetTypeValue(this IPersistentTypeInfo persistentTypeInfo, ref IPersistentClassInfo persistentClassInfo, ref Type type, string typeFullName) {
+            var session = persistentTypeInfo.Session;
+            if (!string.IsNullOrEmpty(typeFullName)){
+                IPersistentClassInfo classInfo = PersistentClassInfoQuery.Find(session, typeFullName);
+                if (classInfo != null)
+                    persistentClassInfo = classInfo;
+                else
+                    type = ReflectionHelper.GetType(typeFullName.Substring(typeFullName.LastIndexOf(".") + 1));
+            }
+        }
+
         public static void Init(this IPersistentTemplatedTypeInfo persistentTemplatedTypeInfo, Type codeTemplateType) {
             persistentTemplatedTypeInfo.CodeTemplateInfo = (ICodeTemplateInfo)Activator.CreateInstance(TypesInfo.Instance.CodeTemplateInfoType,
                                                                                                 persistentTemplatedTypeInfo.Session);

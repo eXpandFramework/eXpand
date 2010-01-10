@@ -127,7 +127,7 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
                     foreach (Type type in types) {
                         IPersistentReferenceMemberInfo persistentReferenceMemberInfo =
                             ((IClassHandler) this).CreateRefenenceMember(info, type.Name, type,createAssociation);
-                        persistentReferenceMemberInfo.ReferenceTypeFullName = type.FullName;
+                        persistentReferenceMemberInfo.SetReferenceTypeFullName(type.FullName);
                     }
                 }
             }
@@ -163,12 +163,10 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
         }
 
         void IClassHandler.CreateCollectionMember(IPersistentClassInfo persistentClassInfo, string name, IPersistentClassInfo refenceClassInfo, string associationName) {
-            var persistentCollectionMemberInfo =
-                createPersistentAssociatedMemberInfo<IPersistentCollectionMemberInfo>(name, persistentClassInfo,
+            var persistentCollectionMemberInfo =createPersistentAssociatedMemberInfo<IPersistentCollectionMemberInfo>(name, persistentClassInfo,
                                                                                       TypesInfo.Instance.PersistentCollectionInfoType,
                                                                                       associationName,TemplateType.ReadOnlyMember,true);
-            persistentCollectionMemberInfo.CollectionTypeFullName = refenceClassInfo.PersistentAssemblyInfo.Name + "." +
-                                                                    refenceClassInfo.Name;
+            persistentCollectionMemberInfo.SetCollectionTypeFullName(refenceClassInfo.PersistentAssemblyInfo.Name + "." +refenceClassInfo.Name);
         }
 
         void IClassHandler.SetInheritance(Func<IPersistentClassInfo, Type> func) {
@@ -191,7 +189,7 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
             var persistentReferenceMemberInfo =
                     createPersistentAssociatedMemberInfo<IPersistentReferenceMemberInfo>(name, persistentClassInfo, 
                                     TypesInfo.Instance.PersistentReferenceInfoType, TemplateType.ReadWriteMember, createAssociation);
-            persistentReferenceMemberInfo.ReferenceTypeFullName = persistentClassInfo.PersistentAssemblyInfo.Name + "." + referenceClassInfo.Name;
+            persistentReferenceMemberInfo.SetReferenceTypeFullName(persistentClassInfo.PersistentAssemblyInfo.Name + "." + referenceClassInfo.Name);
             return persistentReferenceMemberInfo;    
         }
 
@@ -205,7 +203,7 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
                 createPersistentAssociatedMemberInfo<IPersistentReferenceMemberInfo>(name, persistentClassInfo,
                                                                                      TypesInfo.Instance.PersistentReferenceInfoType,
                                                                                      TemplateType.ReadWriteMember,createAssociation);
-            persistentReferenceMemberInfo.ReferenceTypeFullName = referenceType.FullName;
+            persistentReferenceMemberInfo.SetReferenceTypeFullName(referenceType.FullName);
             return persistentReferenceMemberInfo;
         }
 

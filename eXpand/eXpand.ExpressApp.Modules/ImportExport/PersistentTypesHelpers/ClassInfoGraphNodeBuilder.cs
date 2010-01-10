@@ -17,7 +17,6 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
         }
 
         public void Generate(ISerializationConfiguration serializationConfiguration){
-            serializationConfiguration.Session.Delete(serializationConfiguration.SerializationGraph);
             var typeToSerialize = serializationConfiguration.TypeToSerialize;
             var castTypeToTypeInfo = XafTypesInfo.CastTypeToTypeInfo(typeToSerialize);
             var objectSpace = ObjectSpace.FindObjectSpace(serializationConfiguration);

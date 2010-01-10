@@ -29,7 +29,7 @@ namespace eXpand.ExpressApp.IO.Controllers
             dialogController.AcceptAction.Execute+=(sender1, args) => {
                 var memoryStream = new MemoryStream();
                 ((IXmlFileChooser) args.CurrentObject).FileData.SaveToStream(memoryStream);
-                new ImportEngine().ImportObjects(memoryStream,  objectSpace);
+                new ImportEngine().ImportObjects(memoryStream,  new UnitOfWork(objectSpace.Session.DataLayer));
             };            
             simpleActionExecuteEventArgs.ShowViewParameters.TargetWindow=TargetWindow.NewModalWindow;
             simpleActionExecuteEventArgs.ShowViewParameters.Controllers.Add(dialogController);

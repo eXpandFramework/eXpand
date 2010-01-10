@@ -56,7 +56,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 }
             }
         }
-        
+
 
         public bool AutoGenerateOtherPartMember {
             get { return _autoGenerateOtherPartMember; }
@@ -68,15 +68,21 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _referenceTypeFullName; }
             set {
                 SetPropertyValue("ReferenceTypeFullName", ref _referenceTypeFullName, value);
-                if (!IsLoading && !IsSaving && value != null) {
-                    IPersistentClassInfo persistentClassInfo = PersistentClassInfoQuery.Find(Session, value);
-                    if (persistentClassInfo != null)
-                        _referenceClassInfo = (PersistentClassInfo) persistentClassInfo;
-                    else
-                        _referenceType = ReflectionHelper.GetType(value.Substring(value.LastIndexOf(".") + 1));
-                }
             }
         }
+
+        void IPersistentReferenceMemberInfo.SetReferenceTypeFullName(string value) {
+            ReferenceTypeFullName = value;
+            if (_referenceType == null && _referenceClassInfo == null && value != null)
+            {
+                IPersistentClassInfo classInfo = PersistentClassInfoQuery.Find(Session, value);
+                if (classInfo != null)
+                    _referenceClassInfo = (PersistentClassInfo)classInfo;
+                else
+                    _referenceType = ReflectionHelper.GetType(value.Substring(value.LastIndexOf(".") + 1));
+            }
+        }
+
 
         RelationType IPersistentAssociatedMemberInfo.RelationType {
             get { return _autoGenerateOtherPartMember ? RelationType.OneToMany : RelationType.Undefined; }

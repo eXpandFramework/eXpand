@@ -15,7 +15,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
             collectionMemberInfo.Owner=classInfo;
             collectionMemberInfo.Name = classInfoName+"s";
-            collectionMemberInfo.CollectionTypeFullName =assemblyName+"."+ classInfoName;
+            collectionMemberInfo.SetCollectionTypeFullName(assemblyName + "." + classInfoName);
             collectionMemberInfo.Init(TypesInfo.Instance.CodeTemplateType);
             collectionMemberInfo.CodeTemplateInfo.CloneProperties();
             classInfo.OwnMembers.Add(collectionMemberInfo);
@@ -50,7 +50,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 ((IPersistentCoreTypeMemberInfo) persistentMemberInfo).DataType =
                     (XPODataType) Enum.Parse(typeof (XPODataType), propertyInfo.PropertyType.Name);
             else if (persistentMemberInfo is IPersistentReferenceMemberInfo)
-                ((IPersistentReferenceMemberInfo) persistentMemberInfo).ReferenceTypeFullName = propertyInfo.PropertyType.FullName;
+                ((IPersistentReferenceMemberInfo)persistentMemberInfo).SetReferenceTypeFullName(propertyInfo.PropertyType.FullName);
             
         }
 

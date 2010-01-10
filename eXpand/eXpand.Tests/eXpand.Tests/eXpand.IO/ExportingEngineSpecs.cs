@@ -331,8 +331,7 @@ namespace eXpand.Tests.eXpand.IO
             var existentConfiguration =
                 (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
             existentConfiguration.TypeToSerialize = oneToMany.T2Type;
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T2Type };
-            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+            
 
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace);
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "DerivedCustomer" });
@@ -344,6 +343,10 @@ namespace eXpand.Tests.eXpand.IO
             _derivedCustomerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedCustomer").Single();
             _order = (XPBaseObject) _objectSpace.CreateObject(oneToMany.T2Type);
             _order.SetMemberValue("Customer", _objectSpace.CreateObject(_derivedCustomerType));
+
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T2Type };
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+
             _objectSpace.CommitChanges();
 
         };
@@ -369,8 +372,7 @@ namespace eXpand.Tests.eXpand.IO
             _objectSpace = oneToMany.ObjectSpace;
             var existentConfiguration =(SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
             existentConfiguration.TypeToSerialize = oneToMany.T1Type;
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type };
-            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+            
 
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace);
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "DerivedOrder" });
@@ -383,6 +385,9 @@ namespace eXpand.Tests.eXpand.IO
             _derivedOrder = (XPBaseObject)_objectSpace.CreateObject(_derivedOrderType);
             _customer = (XPBaseObject) _objectSpace.CreateObject(oneToMany.T1Type);
             _derivedOrder.SetMemberValue("Customer", _customer);
+
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type };
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
             _objectSpace.CommitChanges();
 
         };

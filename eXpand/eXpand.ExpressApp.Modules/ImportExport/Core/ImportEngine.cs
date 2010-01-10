@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -16,11 +15,10 @@ using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.IO.Core {
     public class ImportEngine {
-        readonly List<object> importingObjecs=new List<object>();
+        readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, XPBaseObject> importedObjecs = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, XPBaseObject>();
 
-        public int ImportObjects(Stream stream, ObjectSpace objectSpace)
+        public int ImportObjects(Stream stream, UnitOfWork unitOfWork)
         {
-            var unitOfWork = ((UnitOfWork) objectSpace.Session);
             stream.Position = 0;
             using (var streamReader = new StreamReader(stream)) {
                 var xDocument = XDocument.Load(streamReader);
@@ -43,12 +41,11 @@ namespace eXpand.ExpressApp.IO.Core {
 
         XPBaseObject createObject(XElement element, UnitOfWork nestedUnitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria)
         {
-            XPBaseObject xpBaseObject = findObject(nestedUnitOfWork, typeInfo,objectKeyCriteria) ??
-                                        (XPBaseObject) Activator.CreateInstance(typeInfo.Type, nestedUnitOfWork);
-            if (!importingObjecs.Contains(xpBaseObject)) {
-                importingObjecs.Add(xpBaseObject);
+            XPBaseObject xpBaseObject = getObject(nestedUnitOfWork, typeInfo,objectKeyCriteria) ;
+            var keyValuePair = new KeyValuePair<ITypeInfo, CriteriaOperator>(typeInfo, objectKeyCriteria);
+            if (!importedObjecs.ContainsKey(keyValuePair)) {
+                importedObjecs.Add(keyValuePair, xpBaseObject);
                 importProperties(nestedUnitOfWork, xpBaseObject, element);
-                importingObjecs.Remove(xpBaseObject);
             }
             return xpBaseObject;
         }
@@ -80,7 +77,7 @@ namespace eXpand.ExpressApp.IO.Core {
                     }
                 }
                 else {
-                    xpBaseObject = findObject(nestedUnitOfWork, typeInfo, refObjectKeyCriteria);
+                    xpBaseObject = getObject(nestedUnitOfWork, typeInfo, refObjectKeyCriteria);
                     instance.Invoke(xpBaseObject, objectElement);
                 }
                 
@@ -121,7 +118,7 @@ namespace eXpand.ExpressApp.IO.Core {
             return ReflectionHelper.FindTypeInfoByName(element.GetAttributeValue("type"));
         }
 
-        XPBaseObject findObject(UnitOfWork unitOfWork, ITypeInfo typeInfo, CriteriaOperator criteriaOperator) {
+        XPBaseObject getObject(UnitOfWork unitOfWork, ITypeInfo typeInfo, CriteriaOperator criteriaOperator) {
             var xpBaseObject = unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, typeInfo.Type,
                                                      criteriaOperator) as XPBaseObject;
             if (xpBaseObject == null) {
@@ -130,7 +127,7 @@ namespace eXpand.ExpressApp.IO.Core {
                     xpBaseObject.UnDelete();
                 }
             }
-            return xpBaseObject;
+            return xpBaseObject ?? (XPBaseObject) Activator.CreateInstance(typeInfo.Type, unitOfWork);
         }
 
         CriteriaOperator getObjectKeyCriteria(ITypeInfo typeInfo, IEnumerable<XElement> xElements)

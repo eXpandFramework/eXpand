@@ -17,6 +17,7 @@ namespace eXpand.ExpressApp.IO.Observers {
             if (e.PropertyName==serializationConfiguration.GetPropertyName(x=>x.TypeToSerialize)&&e.NewValue!= null) {
                 if (!_serializing) {
                     _serializing = true;
+                    serializationConfiguration.Session.Delete(serializationConfiguration.SerializationGraph);
                     new ClassInfoGraphNodeBuilder().Generate(serializationConfiguration);
                     _serializing = false;
                 }

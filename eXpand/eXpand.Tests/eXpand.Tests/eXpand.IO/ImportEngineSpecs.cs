@@ -38,7 +38,7 @@ namespace eXpand.Tests.eXpand.IO {
                 _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
         };
 
-        Because of = () => {_count= new ImportEngine().ImportObjects(_manifestResourceStream,ObjectSpace); };
+        Because of = () => { _count = new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork)ObjectSpace.Session); };
 
         It should_create_1_new_customer_object=() => {
             _customer = ObjectSpace.FindObject(CustomerType, null) as XPBaseObject;
@@ -102,7 +102,7 @@ namespace eXpand.Tests.eXpand.IO {
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.NullRefProperty.xml");
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _objectSpace);
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork) _objectSpace.Session);
         It should_import_parent_object=() => _objectSpace.GetObjectsCount(_customerType, null).ShouldEqual(1);
         It should_not_import_it = () => _objectSpace.GetObjectsCount(typeof(Address), null).ShouldEqual(0);
     }
@@ -119,7 +119,7 @@ namespace eXpand.Tests.eXpand.IO {
             _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _objectSpace);
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork) _objectSpace.Session);
 
         It should_iumport_the_converter_from_storage_value=() => {
             var persistentApplication = _objectSpace.FindObject<PersistentApplication>(null);
@@ -148,7 +148,7 @@ namespace eXpand.Tests.eXpand.IO {
             _objectSpace.CommitChanges();
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _objectSpace);
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork) _objectSpace.Session);
 
         It should_not_create_it = () => _objectSpace.GetObjectsCount(_customerType, null).ShouldEqual(1);
         It should_overide_its_values=() => _customer.GetMemberValue("Age").ShouldEqual("2");
@@ -176,7 +176,7 @@ namespace eXpand.Tests.eXpand.IO {
             _objectSpace.CommitChanges();
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _objectSpace);
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork) _objectSpace.Session);
 
         It should_not_create_it = () => _objectSpace.GetObjectsCount(_customerType, null).ShouldEqual(1);
         It should_overide_its_values = () => _customer.GetMemberValue("Name").ShouldEqual("newName");
@@ -209,7 +209,7 @@ namespace eXpand.Tests.eXpand.IO {
             _objectSpace.CommitChanges();
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _objectSpace);
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork) _objectSpace.Session);
 
         It should_create_it=() => {
             var session = new Session(_objectSpace.Session.DataLayer);
@@ -235,7 +235,7 @@ namespace eXpand.Tests.eXpand.IO {
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.ManyToMany.xml");
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _objectSpace);
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork) _objectSpace.Session);
 
         It should_create_1_customer=() => _objectSpace.GetObjectsCount(_customerType, null).ShouldEqual(1);
         It should_create_2_orders = () => _objectSpace.GetObjectsCount(_orderType, null).ShouldEqual(2);
@@ -285,10 +285,11 @@ namespace eXpand.Tests.eXpand.IO {
             _persistentAssemblyInfo = (PersistentAssemblyInfo) persistentAssemblyBuilder.PersistentAssemblyInfo;
             _persistentAssemblyInfo.Delete();
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.PersistentAssmeblyInfo.xml");
+            _objectSpace.CommitChanges();
 
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _objectSpace);
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork) _objectSpace.Session);
 
         It should_create_a_persistent_assemblyInfo = () => {
             _persistentAssemblyInfo = _objectSpace.FindObject<PersistentAssemblyInfo>(null);
@@ -296,7 +297,7 @@ namespace eXpand.Tests.eXpand.IO {
         };
 
         It should_set_codetemplateinfo_property_for_classinfos =
-            () => _persistentAssemblyInfo.PersistentClassInfos[0].CodeTemplateInfo.ShouldNotBeNull();
+            () => _persistentAssemblyInfo.PersistentClassInfos[1].CodeTemplateInfo.ShouldNotBeNull();
     
     }
 }
