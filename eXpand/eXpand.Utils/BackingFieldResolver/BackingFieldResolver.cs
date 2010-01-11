@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 
 namespace eXpand.Utils.BackingFieldResolver {
-    internal static class BackingFieldResolver {
+    public static class BackingFieldResolver {
         private static readonly ILPattern GetterPattern =
             ILPattern.Sequence(
                 ILPattern.Optional(OpCodes.Nop),
