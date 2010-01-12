@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
+using eXpand.ExpressApp.ModelArtifactState.Attributes;
 using eXpand.Persistent.Base.ImportExport;
 using eXpand.Xpo.Converters.ValueConverters;
 using System.ComponentModel;
@@ -10,7 +11,8 @@ using DevExpress.Xpo;
 
 namespace eXpand.Persistent.BaseImpl.ImportExport {
 
-    [DefaultClassOptions][NavigationItem("ImportExport")]
+    [NotAllowObjectInstanciationRule]
+    [NavigationItem("ImportExport")]
     public class SerializationConfiguration : BaseObject, ISerializationConfiguration {
         private Type _typeToSerialize;
         public SerializationConfiguration(Session session) : base(session) { }
