@@ -3,8 +3,8 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Xpo.Converters.ValueConverters;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [DefaultClassOptions]
@@ -22,6 +22,5 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _referenceType; }
             set { SetPropertyValue("ReferenceType", ref _referenceType, value); }
         }
-
     }
 }

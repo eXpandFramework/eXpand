@@ -6,7 +6,6 @@ using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core.DictionaryHelpers;
 using DevExpress.ExpressApp.NodeWrappers;
-using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using eXpand.ExpressApp.Core;
@@ -34,13 +33,11 @@ namespace eXpand.ExpressApp.WorldCreator {
             var unitOfWork = new UnitOfWork { ConnectionString = _connectionString };
             unitOfWork.UpdateSchema();
             AddDynamicModules(moduleManager, unitOfWork, TypesInfo.Instance.PersistentAssemblyInfoType);
-            Application.SetupComplete += (sender, args) => {
-                mergeTypes(unitOfWork);
-            };
+            Application.SetupComplete += (sender, args) => mergeTypes(unitOfWork);
             var existentTypesMemberCreator = new ExistentTypesMemberCreator();
             existentTypesMemberCreator.CreateMembers(unitOfWork, TypesInfo.Instance);
             Application.ObjectSpaceProvider.CreateUpdatingSession().UpdateSchema();
-            var memberInfo = XafTypesInfo.Instance.FindTypeInfo(ReflectionHelper.GetType("Customer")).FindMember("bbb");
+
         }
 
         public void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork, Type persistentAssemblyInfoType)

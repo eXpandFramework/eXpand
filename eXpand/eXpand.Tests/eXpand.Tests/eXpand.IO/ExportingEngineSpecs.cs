@@ -21,6 +21,7 @@ using Machine.Specifications;
 using System.Linq;
 using eXpand.Utils.Helpers;
 using TypeMock.ArrangeActAssert;
+using eXpand.Xpo;
 
 namespace eXpand.Tests.eXpand.IO
 {
@@ -102,7 +103,41 @@ namespace eXpand.Tests.eXpand.IO
             objectRefs.Where(xElement => xElement.Value == _order1.GetMemberValue("Oid").ToString()).FirstOrDefault().ShouldNotBeNull();
         };
     }
+    [Subject(typeof(ExportEngine))]
+    public class When_exporting_with_reference_object_with_no_existent_configuration:With_Isolations {
+        static Type _customerType;
+        static ObjectSpace _objectSpace;
+        static XPBaseObject _order;
+        static XElement _root;
+        static SerializationConfiguration _serializationConfiguration;
 
+        Establish context = () => {
+            var modelBuilder = ModelBuilder<ICustomer,IOrder>.Build();
+            var oneToMany = modelBuilder.OneToMany();
+            _customerType = oneToMany.T1Type;
+            var modelInstancesHandler = oneToMany.CreateInstances();
+            _order = (XPBaseObject) modelInstancesHandler.T2Instance;
+            _objectSpace = oneToMany.ObjectSpace;
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = _order.GetType() };
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+            _objectSpace.CommitChanges();
+            _objectSpace.Session.FindObject<SerializationConfiguration>(configuration => configuration.TypeToSerialize==_customerType).Delete();
+            _objectSpace.Session.FindObject<SerializationConfiguration>(configuration => configuration.TypeToSerialize==_order.GetType()).Delete();
+            _objectSpace.CommitChanges();
+        };
+
+        Because of = () => new ExportEngine().Export(new []{_order});
+
+        It should_create_the_non_existent_configuration =
+            () => {
+                _objectSpace.Session.FindObject<SerializationConfiguration>(
+                    PersistentCriteriaEvaluationBehavior.InTransaction,
+                    configuration => configuration.TypeToSerialize == _customerType).IsDeleted.ShouldBeFalse();
+                _objectSpace.Session.FindObject<SerializationConfiguration>(
+                    PersistentCriteriaEvaluationBehavior.InTransaction,
+                    configuration => configuration.TypeToSerialize == _order.GetType()).IsDeleted.ShouldBeFalse();
+            };
+    }
     [Subject(typeof(ExportEngine))]
     public class When_exporting_object_with_Null_referenced_object:With_Isolations {
         static XElement _property;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using DevExpress.Persistent.Base;
@@ -11,6 +12,10 @@ using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.IO.Core {
     public class ExportEngine {
+        public XDocument Export(IEnumerable<XPBaseObject> baseCollection) {
+            return Export(baseCollection, null);
+        }
+
         public XDocument Export( IEnumerable<XPBaseObject> baseCollection, ISerializationConfiguration serializationConfiguration){
             var xDocument = new XDocument();
             var root = new XElement("SerializedObjects");
@@ -25,8 +30,8 @@ namespace eXpand.ExpressApp.IO.Core {
         }
 
         IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(XPBaseObject baseObject, ISerializationConfiguration serializationConfiguration) {
-            ISerializationConfiguration configuration = baseObject.GetType() ==serializationConfiguration.TypeToSerialize? serializationConfiguration
-                                                            : SerializationConfigurationQuery.Find(baseObject.Session, baseObject.GetType());
+            ISerializationConfiguration configuration = serializationConfiguration != null?baseObject.GetType() ==serializationConfiguration.TypeToSerialize? serializationConfiguration
+                : SerializationConfigurationQuery.Find(baseObject.Session, baseObject.GetType()):GetConfiguration(baseObject.Session,baseObject.GetType());
             return GetSerializedClassInfoGraphNodes(configuration);
         }
 
@@ -94,9 +99,26 @@ namespace eXpand.ExpressApp.IO.Core {
         }
 
         IEnumerable<IClassInfoGraphNode> GetClassInfoGraphNodes(XPBaseObject theObject, string typeName) {
-            var configuration =(ISerializationConfiguration)theObject.Session.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction,
-                                                                                         TypesInfo.Instance.SerializationConfigurationType, SerializationConfigurationQuery.GetCriteria(ReflectionHelper.GetType(typeName)));
+            var type = ReflectionHelper.GetType(typeName);
+            ISerializationConfiguration configuration = GetConfiguration(theObject.Session, type);
             return GetSerializedClassInfoGraphNodes(configuration);
+        }
+
+        ISerializationConfiguration GetConfiguration(Session session,  Type type) {
+            var serializationConfigurationType = TypesInfo.Instance.SerializationConfigurationType;
+            ISerializationConfiguration configuration;
+            var findObject = session.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, serializationConfigurationType,
+                                                SerializationConfigurationQuery.GetCriteria(
+                                                    type));
+            if (findObject != null)
+                configuration =(ISerializationConfiguration)findObject;
+            else {
+                configuration =
+                    (ISerializationConfiguration) Activator.CreateInstance(serializationConfigurationType, session);
+                configuration.TypeToSerialize = type;
+                new ClassInfoGraphNodeBuilder().Generate(configuration);
+            }
+            return configuration;
         }
 
         void createRefKeyElements(IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes, XPBaseObject theObject, XElement serializedObjectRefElement) {

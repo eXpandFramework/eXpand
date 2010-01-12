@@ -86,7 +86,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Collections\XPCollectionExtensions.cs" />
-    <Compile Include="Converters\ValueConverters\TypeValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\UriValueConverter.cs" />
     <Compile Include="CriteriaOperatorExtensions.cs" />
     <Compile Include="CriteriaOperatorExtractor.cs" />
