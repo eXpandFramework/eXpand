@@ -12,6 +12,7 @@ using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.IO.Core {
     public class ExportEngine {
+        readonly Dictionary<XPBaseObject, object> exportedObjecs = new Dictionary<XPBaseObject, object>();
         public XDocument Export(IEnumerable<XPBaseObject> baseCollection) {
             return Export(baseCollection, null);
         }
@@ -36,21 +37,24 @@ namespace eXpand.ExpressApp.IO.Core {
         }
 
         void ExportCore(XPBaseObject selectedObject, IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes, XElement root) {
-            var serializedObjectElement = new XElement("SerializedObject");
-            serializedObjectElement.Add(new XAttribute("type", selectedObject.GetType().Name));
-            root.Add(serializedObjectElement);
-            foreach (var classInfoGraphNode in serializedClassInfoGraphNodes) {
-                XElement propertyElement = GetPropertyElement(serializedObjectElement, classInfoGraphNode);
-                switch (classInfoGraphNode.NodeType) {
-                    case NodeType.Simple:
-                        propertyElement.Value = GetMemberValue(selectedObject, classInfoGraphNode) + "";
-                        break;
-                    case NodeType.Object:
-                        createObjectProperty(selectedObject, propertyElement, classInfoGraphNode, root);
-                        break;
-                    case NodeType.Collection:
-                        createCollectionProperty(selectedObject, classInfoGraphNode, root, propertyElement);
-                        break;
+            if (!(exportedObjecs.ContainsKey(selectedObject))){
+                exportedObjecs.Add(selectedObject, null);
+                var serializedObjectElement = new XElement("SerializedObject");
+                serializedObjectElement.Add(new XAttribute("type", selectedObject.GetType().Name));
+                root.Add(serializedObjectElement);
+                foreach (var classInfoGraphNode in serializedClassInfoGraphNodes) {
+                    XElement propertyElement = GetPropertyElement(serializedObjectElement, classInfoGraphNode);
+                    switch (classInfoGraphNode.NodeType) {
+                        case NodeType.Simple:
+                            propertyElement.Value = GetMemberValue(selectedObject, classInfoGraphNode) + "";
+                            break;
+                        case NodeType.Object:
+                            createObjectProperty(selectedObject, propertyElement, classInfoGraphNode, root);
+                            break;
+                        case NodeType.Collection:
+                            createCollectionProperty(selectedObject, classInfoGraphNode, root, propertyElement);
+                            break;
+                    }
                 }
             }
         }
@@ -70,7 +74,7 @@ namespace eXpand.ExpressApp.IO.Core {
             propertyElement.Add(new XAttribute("type", classInfoGraphNode.NodeType.ToString().MakeFirstCharLower()));
             propertyElement.Add(new XAttribute("name", classInfoGraphNode.Name));
             propertyElement.Add(new XAttribute("isKey", classInfoGraphNode.Key));
-            propertyElement.Add(new XAttribute("isNaturalKey", classInfoGraphNode.NaturalKey));
+//            propertyElement.Add(new XAttribute("isNaturalKey", classInfoGraphNode.NaturalKey));
             return propertyElement;
         }
 
@@ -88,12 +92,10 @@ namespace eXpand.ExpressApp.IO.Core {
             propertyElement.Add(serializedObjectRefElement);
             serializedObjectRefElement.Add(new XAttribute("type", typeName));
             serializedObjectRefElement.Add(new XAttribute("strategy", classInfoGraphNode.SerializationStrategy));
-
             if (theObject != null) {
                 IEnumerable<IClassInfoGraphNode> classInfoGraphNodes = GetClassInfoGraphNodes(theObject, typeName);
-
                 createRefKeyElements(classInfoGraphNodes, theObject, serializedObjectRefElement);
-                if (serializedObjectRefElement.FindObjectFromRefenceElement(true) == null &&classInfoGraphNode.SerializationStrategy == SerializationStrategy.SerializeAsObject)
+                if (classInfoGraphNode.SerializationStrategy == SerializationStrategy.SerializeAsObject)
                     ExportCore(theObject, classInfoGraphNodes, root);
             }
         }

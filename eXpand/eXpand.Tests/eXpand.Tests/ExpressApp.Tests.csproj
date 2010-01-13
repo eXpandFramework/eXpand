@@ -319,12 +319,58 @@
     <Compile Include="eXpand.Utils\ReflectionExtensionsFixture.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eXpand.WorldCreator\ExistentMembersSpecs.cs" />
-    <Compile Include="eXpand.WorldCreator\PersistentReferenceSpecs.cs" />
-    <Compile Include="eXpand.WorldCreator\ScriptValidatorSpecs.cs" />
-    <Compile Include="eXpand.WorldCreator\TestAppLication.cs" />
-    <Compile Include="eXpand.WorldCreator\CleanupAfterEveryContextInAssembly.cs" />
-    <Compile Include="eXpand.WorldCreator\Interfaces.cs" />
+    <Compile Include="CleanupAfterEveryContextInAssembly.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\CodeEngineSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\CodeTemplateSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\CompileEngineSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\Contexts.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\ExistentMembersSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\ExistentTypeSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\InterfaceInfoSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\Interfaces.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\PersistentClassInfoSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\PersistentMemberInfoSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\PersistentReferenceSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\PersistentTypeInfoSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\ScriptValidatorSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\TypesInfoSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\WorldCreatorModuleSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\XpoObjectMergerSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestAppLication.cs" />
     <Compile Include="eXpand.Xpo\CriteriaOperatorExtractorFixture.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -332,24 +378,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eXpand.Xpo\PropertyPathParserFixture.cs" />
-    <Compile Include="eXpand.WorldCreator\Contexts.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.WorldCreator\ExistentTypeSpecs.cs" />
-    <Compile Include="eXpand.WorldCreator\InterfaceInfoSpecs.cs" />
     <Compile Include="eXpand.ExpressApp\RunTimeMembersTypeDescriptor_Tests.cs" />
-    <Compile Include="eXpand.WorldCreator\PersistentClassInfoSpecs.cs" />
-    <Compile Include="eXpand.WorldCreator\PersistentMemberInfoSpecs.cs" />
-    <Compile Include="eXpand.WorldCreator\PersistentTypeInfoSpecs.cs">
-    </Compile>
-    <Compile Include="eXpand.WorldCreator\CodeEngineSpecs.cs">
-    </Compile>
-    <Compile Include="eXpand.WorldCreator\CodeTemplateSpecs.cs" />
-    <Compile Include="eXpand.WorldCreator\CompileEngineSpecs.cs" />
-    <Compile Include="eXpand.WorldCreator\TypesInfoSpecs.cs" />
-    <Compile Include="eXpand.WorldCreator\WorldCreatorModuleSpecs.cs">
-    </Compile>
-    <Compile Include="eXpand.WorldCreator\XpoObjectMergerSpecs.cs" />
     <Compile Include="MockExtensions.cs" />
     <Compile Include="XpandBaseFixture.cs">
       <SubType>Code</SubType>

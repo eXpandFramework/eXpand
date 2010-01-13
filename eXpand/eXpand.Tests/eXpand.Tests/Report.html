@@ -1,0 +1,546 @@
+<html>
+  <head>
+    <title>Machine.Specifications Report</title>
+    <style type="text/css">
+      body {
+        font-family: Arial,Helvetica,sans-serif;
+        font-size: .9em;
+      }
+
+      .count {
+        color: LightGrey;
+      }
+
+      .behaves_like {
+        color: DarkGrey;
+        font-weight: bold;
+        margin-left: 20px;
+        margin-top: -10px;
+      }
+      
+      .failure {
+        color: red;
+        font-weight: bold;
+        display: inline;
+      }
+
+      .notimplemented {
+        color: orange;
+        font-weight: bold;
+        display: inline;
+      }
+
+      p.exception_type {
+        color: black;
+        font-weight: bold;
+        display: inline;
+      }
+
+      pre.exception_message {
+        border-style: dashed;
+        border-color: #FF828D;
+        border-width: thin;
+        background-color: #FFD2CF;
+        white-space: pre-wrap; /* CSS2.1 compliant */
+        white-space: -moz-pre-wrap; /* Mozilla-based browsers */
+        white-space: o-pre-wrap; /* Opera 7+ */
+        padding: 1em;
+      }
+      
+      hr {
+        color: LightGrey;
+        border: 1px solid LightGrey;
+        height: 1px;
+      }
+      
+      
+    </style>
+<script>
+function toggleVisibility(id, description) {
+          var section;
+          var link;
+ 
+          section = document.getElementById(id);
+          link = document.getElementById(id + "_link");
+ 
+          if (section.style.display == "block") {
+            section.style.display = "none"
+            link.innerHTML = "Show " + description
+          } else {
+            section.style.display = "block"
+            link.innerHTML = "Hide " + description
+          }
+        }</script>
+  </head>
+  <body>
+    <h1>eXpand.Tests&nbsp;&nbsp;&nbsp;&nbsp;</h1><span class="count"><h2>20 concerns, 77 contexts, 144 specifications, <span class="failure">4 failures</span>, <span class="notimplemented">5 not implemented specs</span> </h2><br></span><hr>
+<hr>
+<h2 class="concern">ClassInfoGraphNode specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">8 contexts, 11 specifications</span></h3>
+
+<h3 class="context">When creating a graph for type with associated collection and associated type derived types exist in the domain&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should create graph for derived types</li>
+</ul>
+
+
+<h3 class="context">When creating a graph for type with associated object and associated type derived types exist in the domain&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should create graph for derived types</li>
+</ul>
+
+
+<h3 class="context">When creating a graph for type and type derived types exist in the domain&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should create graph for derived types</li>
+</ul>
+
+
+<h3 class="context">When creating a graph  for type with associated collection and associated type graph exists&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should not create any more graphs for associated type</li>
+</ul>
+
+
+<h3 class="context">When creating a graph  for type with associated object and associated type graph exists&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should not create any more graphs for associated type</li>
+</ul>
+
+
+<h3 class="context">When creating a graph for type with associated collection&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">4 specifications</span></h4><ul>	<li>should create nodes for all properties</li>
+	<li>should create graph for the associated collection type</li>
+	<li>should be able to validate graph for the associated collection type</li>
+	<li>should create nodes for all properties of associated collection type</li>
+</ul>
+
+
+<h3 class="context">When generating graph for self reference object&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should not create graph for property of the same type</li>
+</ul>
+
+
+<h3 class="context">When creating a graph for a persistent assembly&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should generate it</li>
+</ul>
+
+<hr>
+<h2 class="concern">All Objects specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">2 contexts, 3 specifications</span></h3>
+
+<h3 class="context">When Displaying a list view&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should enable export action if there is an associated serialization configuration</li>
+</ul>
+
+
+<h3 class="context">When exporting a list of objects&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul></li>
+</li>
+</ul>
+
+<hr>
+<h2 class="concern">ExportEngine specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">11 contexts, 28 specifications</span></h3>
+
+<h3 class="context">When Exporting 1 Customer with 1 ref User 2 Orders and user not serialized&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">9 specifications</span></h4><ul>	<li>should create an xml document</li>
+	<li>should have serializedObjects as root element</li>
+	<li>should have 2 Orders an 1 Customer serialized elements as childs under root</li>
+	<li>should not have User child Serialized element under root</li>
+	<li>should have 2 simple property elements as customer Serialized element childs</li>
+	<li>should have 1 key property element as customer Serialized element child</li>
+	<li>should have 1 object property with value the oid of user</li>
+	<li>should have 1 collection property  with name Orders as Serialized element child</li>
+	<li>should have 2 ref properties with serialized strategy and value under orders property collection element</li>
+</ul>
+
+
+<h3 class="context">When exporting with reference object with no existent configuration&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should create the non existent configuration</li>
+</ul>
+
+
+<h3 class="context">When exporting object with Null referenced object&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should create a property with name same as referenced object type</li>
+	<li>should set null value to that property</li>
+</ul>
+
+
+<h3 class="context">When exporting Customers Orders many to many&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">6 specifications</span></h4><ul>	<li>should create 2 serialized elements</li>
+	<li>should create a customer root element</li>
+	<li>should create a collection property with order type and name orders under customer element</li>
+	<li>should create a ref object of type order under orders collection property</li>
+	<li>should create a order root element</li>
+	<li>should not create a collection property with customer type and name customers under order element</li>
+</ul>
+
+
+<h3 class="context">When exporting an object with value converter&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should export the storage converter value</li>
+</ul>
+
+
+<h3 class="context">When exporting a type with a simple property not serializable&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should not serialize that proparty</li>
+</ul>
+
+
+<h3 class="context">When exporting customer orders persistent assembly info&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">3 specifications</span></h4><ul>	<li>should contain serialized element of persistentAssemblyInfo type</li>
+	<li>should create 2 persistentassociation root serialized elements</li>
+	<li>should create all properties of persistentAssociation attribute</li>
+</ul>
+
+
+<h3 class="context">When exporting objects that derive from exporting type&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should export derived type instead</li>
+	<li>should export derived type properties</li>
+</ul>
+
+
+<h3 class="context">When exporting an object with associated property with value a derived property type object&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should export derived type instead</li>
+</ul>
+
+
+<h3 class="context">When exporting an object with associated collection with childs a derived collection type objects&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should export derived type instead</li>
+</ul>
+
+
+<h3 class="context">When importing an object with value converter&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should iumport the converter from storage value</li>
+</ul>
+
+<hr>
+<h2 class="concern">SerializationConfiguration specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">1 context, 2 specifications</span></h3>
+
+<h3 class="context">When SerializationConfigurationGraph ObjectToSerialize Change&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should delete old graph node</li>
+	<li>should generate the graph node for that type</li>
+</ul>
+
+<hr>
+<h2 class="concern">ImportEngine specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">8 contexts, 24 specifications, <span class="notimplemented">1 not implemented spec</span></span></h3>
+
+<h3 class="context">When importing 1 Customer with 1 ref User 2 Orders add user not serializable&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">8 specifications</span></h4><ul>	<li>should create 1 new customer object</li>
+	<li>should fill all customer simple properties with property element values</li>
+	<li>should set customer user property same as one found in datastore</li>
+	<li>should not import donotserialized strategy user object</li>
+	<li>should create 2 new order objects</li>
+	<li>should fill all order properties with property element values</li>
+	<li>should set customer property of order same as new created customer</li>
+	<li>should return 0 unimported objects</li>
+</ul>
+
+
+<h3 class="context">When importing an object that is invalid&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification, <span class="notimplemented">1 not implemented spec</span></span></h4><ul>	<li>should should <div class="notimplemented">&lt;--NOT IMPLEMENTED</div><br/></li>
+</ul>
+
+
+<h3 class="context">When importing a null reference property&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should import parent object</li>
+	<li>should not import it</li>
+</ul>
+
+
+<h3 class="context">When importing an object with key that exists and differs than natural key&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should not create it</li>
+	<li>should overide its values</li>
+</ul>
+
+
+<h3 class="context">When importing an object with key that exists&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should not create it</li>
+	<li>should overide its values</li>
+</ul>
+
+
+<h3 class="context">When importing an object with key that exists as deleted&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should create it</li>
+	<li>should purge deleted object</li>
+</ul>
+
+
+<h3 class="context">When importing a customers orders many to many&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">5 specifications</span></h4><ul>	<li>should create 1 customer</li>
+	<li>should create 2 orders</li>
+	<li>should create 2 customer orders</li>
+	<li>should create 1 order1 customer</li>
+	<li>should create 1 order2 customer</li>
+</ul>
+
+
+<h3 class="context">When importing customer user orders persistentAssemblyInfo&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should create a persistent assemblyInfo</li>
+	<li>should set codetemplateinfo property for classinfos</li>
+</ul>
+
+<hr>
+<h2 class="concern">XpoObjectMerger specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">1 context, 2 specifications</span></h3>
+
+<h3 class="context">When Merging Dynamic Types&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should call an update sql statement</li>
+	<li>should create an ObjectType Column to Parent if parent has no records</li>
+</ul>
+
+<hr>
+<h2 class="concern">WorldCreatorModule specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">4 contexts, 8 specifications, <span class="failure">4 failures</span>, <span class="notimplemented">1 not implemented spec</span></span></h3>
+
+<h3 class="context">When dynamic module cannot be created&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications, <span class="failure">1 failure</span>, <span class="notimplemented">1 not implemented spec</span></span></h4><ul>	<li>should save errors in persistent assembly info <div class="failure">&lt;--FAILED</div><br/><p class="exception_type">Machine.Specifications.ExceptionResult<pre class="exception_message">System.NullReferenceException: Object reference not set to an instance of an object.
+   at eXpand.Tests.eXpand.WorldCreator.When_dynamic_module_cannot_be_created.<.ctor>b__8() in C:\eXpand\eXpand\eXpand.Tests\eXpand.Tests\eXpand.WorldCreator\WorldCreatorModuleSpecs.cs:line 52
+   at Machine.Specifications.Model.Specification.InvokeSpecificationField()
+   at Machine.Specifications.Model.Specification.Verify()</pre></p></li>
+	<li>should load previous  assembly version if exists <div class="notimplemented">&lt;--NOT IMPLEMENTED</div><br/></li>
+</ul>
+
+
+<h3 class="context">When Settingup Module&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications, <span class="failure">2 failures</span></span></h4><ul>	<li>should contain dynamic modules within Application Modules collection <div class="failure">&lt;--FAILED</div><br/><p class="exception_type">Machine.Specifications.ExceptionResult<pre class="exception_message">DevExpress.Xpo.Exceptions.AssociationInvalidException: There is a malformed association 'Collection'. Cannot find the associated member for 'a7f9ca7ea4e3f444a9579d0e7a09357de.CustomerSelfRef.Collection' in the class 'a7f9ca7ea4e3f444a9579d0e7a09357de.CustomerSelfRef'
+   at DevExpress.Xpo.Metadata.XPMemberInfo.GetAssociatedMember()
+   at DevExpress.Xpo.Metadata.XPMemberInfo.get_IntermediateClass()
+   at DevExpress.Xpo.Metadata.XPMemberInfo.get_IsManyToMany()
+   at DevExpress.Xpo.Metadata.XPClassInfo.GetDirectlyRefTypes()
+   at DevExpress.Xpo.Metadata.XPClassInfo.FillRefTypes(Dictionary`2 filled)
+   at DevExpress.Xpo.Metadata.XPClassInfo.GetRefTypes()
+   at DevExpress.Xpo.Metadata.XPDictionary.ExpandTypesToEnsure(XPClassInfo[] inputTypesToEnsure, IDictionary`2 alreadyEnsuredTypes)
+   at DevExpress.Xpo.SimpleDataLayer.UpdateSchema(Boolean dontCreate, XPClassInfo[] types)
+   at DevExpress.Xpo.Session.UpdateSchema(Boolean dontCreateIfFirstTableNotExist, XPClassInfo[] types)
+   at DevExpress.Xpo.Session.UpdateSchema(XPClassInfo[] types)
+   at DevExpress.Xpo.Session.UpdateSchema(Assembly[] assemblies)
+   at DevExpress.Xpo.Session.UpdateSchema()
+   at eXpand.Tests.eXpand.WorldCreator.When_Settingup_Module.<.ctor>b__3() in C:\eXpand\eXpand\eXpand.Tests\eXpand.Tests\eXpand.WorldCreator\WorldCreatorModuleSpecs.cs:line 85
+   at Machine.Specifications.Utility.RandomExtensionMethods.InvokeAll(IEnumerable`1 contextActions)
+   at Machine.Specifications.Model.Context.EstablishContext()</pre></p></li>
+	<li>should create Existent Classes Member <div class="failure">&lt;--FAILED</div><br/><p class="exception_type">Machine.Specifications.ExceptionResult<pre class="exception_message">DevExpress.Xpo.Exceptions.AssociationInvalidException: There is a malformed association 'Collection'. Cannot find the associated member for 'a7f9ca7ea4e3f444a9579d0e7a09357de.CustomerSelfRef.Collection' in the class 'a7f9ca7ea4e3f444a9579d0e7a09357de.CustomerSelfRef'
+   at DevExpress.Xpo.Metadata.XPMemberInfo.GetAssociatedMember()
+   at DevExpress.Xpo.Metadata.XPMemberInfo.get_IntermediateClass()
+   at DevExpress.Xpo.Metadata.XPMemberInfo.get_IsManyToMany()
+   at DevExpress.Xpo.Metadata.XPClassInfo.GetDirectlyRefTypes()
+   at DevExpress.Xpo.Metadata.XPClassInfo.FillRefTypes(Dictionary`2 filled)
+   at DevExpress.Xpo.Metadata.XPClassInfo.GetRefTypes()
+   at DevExpress.Xpo.Metadata.XPDictionary.ExpandTypesToEnsure(XPClassInfo[] inputTypesToEnsure, IDictionary`2 alreadyEnsuredTypes)
+   at DevExpress.Xpo.SimpleDataLayer.UpdateSchema(Boolean dontCreate, XPClassInfo[] types)
+   at DevExpress.Xpo.Session.UpdateSchema(Boolean dontCreateIfFirstTableNotExist, XPClassInfo[] types)
+   at DevExpress.Xpo.Session.UpdateSchema(XPClassInfo[] types)
+   at DevExpress.Xpo.Session.UpdateSchema(Assembly[] assemblies)
+   at DevExpress.Xpo.Session.UpdateSchema()
+   at eXpand.Tests.eXpand.WorldCreator.When_Settingup_Module.<.ctor>b__3() in C:\eXpand\eXpand\eXpand.Tests\eXpand.Tests\eXpand.WorldCreator\WorldCreatorModuleSpecs.cs:line 85
+   at Machine.Specifications.Utility.RandomExtensionMethods.InvokeAll(IEnumerable`1 contextActions)
+   at Machine.Specifications.Model.Context.EstablishContext()</pre></p></li>
+</ul>
+
+
+<h3 class="context">When Updating Model&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">3 specifications</span></h4><ul>	<li>should display owner column to extended members list view</li>
+	<li>should remove dynamic assemblies from Assemblies image Node</li>
+	<li>should enable cloning for all persistent classes</li>
+</ul>
+
+
+<h3 class="context">When Application Setup Is Completed&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification, <span class="failure">1 failure</span></span></h4><ul>	<li>should merge any mergable dynamic type <div class="failure">&lt;--FAILED</div><br/><p class="exception_type">Machine.Specifications.ExceptionResult<pre class="exception_message">DevExpress.Xpo.Exceptions.AssociationInvalidException: There is a malformed association 'Collection'. Cannot find the associated member for 'a7f9ca7ea4e3f444a9579d0e7a09357de.CustomerSelfRef.Collection' in the class 'a7f9ca7ea4e3f444a9579d0e7a09357de.CustomerSelfRef'
+   at DevExpress.Xpo.Metadata.XPMemberInfo.GetAssociatedMember()
+   at DevExpress.Xpo.Metadata.XPMemberInfo.get_IntermediateClass()
+   at DevExpress.Xpo.Metadata.XPMemberInfo.get_IsManyToMany()
+   at DevExpress.Xpo.Metadata.XPClassInfo.GetDirectlyRefTypes()
+   at DevExpress.Xpo.Metadata.XPClassInfo.FillRefTypes(Dictionary`2 filled)
+   at DevExpress.Xpo.Metadata.XPClassInfo.GetRefTypes()
+   at DevExpress.Xpo.Metadata.XPDictionary.ExpandTypesToEnsure(XPClassInfo[] inputTypesToEnsure, IDictionary`2 alreadyEnsuredTypes)
+   at DevExpress.Xpo.SimpleDataLayer.UpdateSchema(Boolean dontCreate, XPClassInfo[] types)
+   at DevExpress.Xpo.Session.UpdateSchema(Boolean dontCreateIfFirstTableNotExist, XPClassInfo[] types)
+   at DevExpress.Xpo.Session.UpdateSchema(XPClassInfo[] types)
+   at DevExpress.Xpo.Session.UpdateSchema(Assembly[] assemblies)
+   at DevExpress.Xpo.Session.UpdateSchema()
+   at eXpand.ExpressApp.WorldCreator.WorldCreatorModuleBase.Setup(ApplicationModulesManager moduleManager) in C:\eXpand\eXpand\eXpand.ExpressApp.Modules\WorldCreator\WorldCreatorModuleBase.cs:line 34
+   at eXpand.Tests.eXpand.WorldCreator.When_Application_Setup_Is_Completed.<.ctor>b__0() in C:\eXpand\eXpand\eXpand.Tests\eXpand.Tests\eXpand.WorldCreator\WorldCreatorModuleSpecs.cs:line 146
+   at Machine.Specifications.Utility.RandomExtensionMethods.InvokeAll(IEnumerable`1 contextActions)
+   at Machine.Specifications.Model.Context.EstablishContext()</pre></p></li>
+</ul>
+
+<hr>
+<h2 class="concern">Xaf TypesInfo specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">1 context, 1 specification</span></h3>
+
+<h3 class="context">When loading types from Dynamic Assemblies&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should not load all types</li>
+</ul>
+
+<hr>
+<h2 class="concern"> specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">4 contexts, 6 specifications</span></h3>
+
+<h3 class="context">When validating script&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should not generate assembly in memory</li>
+	<li>should save errors at persistentAssemblyInfo compile errors</li>
+</ul>
+
+
+<h3 class="context">When creating members from interfaceinfo with collection members&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should throw exception</li>
+</ul>
+
+
+<h3 class="context">When creating members from interfaceinfo&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should create all missing core type persistent member infos</li>
+	<li>should create all missing reference member infos</li>
+</ul>
+
+
+<h3 class="context">When validating an invalid object with existentType member with validation rule&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should retun an invalid state</li>
+</ul>
+
+<hr>
+<h2 class="concern">PersistentTypeInfo specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">2 contexts, 2 specifications</span></h3>
+
+<h3 class="context">When peristent type code template change&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should delegate all props from code template to persistent type templateinfo object</li>
+</ul>
+
+
+<h3 class="context">When Deleting PersistentTypes&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should delete CodeTemplateInfo as well</li>
+</ul>
+
+<hr>
+<h2 class="concern">PersistentReferenceMemberInfo specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">2 contexts, 3 specifications</span></h3>
+
+<h3 class="context">When is saving with association attribute and auto generate other part set&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should create a collection member with association attribute to the other part class</li>
+	<li>should set collection collectionType same as RefClass</li>
+</ul>
+
+
+<h3 class="context">When is undeleting&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should undelete</li>
+</ul>
+
+<hr>
+<h2 class="concern">PersistentCollectionMemberInfo specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">2 contexts, 2 specifications, <span class="notimplemented">2 not implemented specs</span></span></h3>
+
+<h3 class="context">When is saving with association attribute and relation type set to ManyToMany&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification, <span class="notimplemented">1 not implemented spec</span></span></h4><ul>	<li>should create a collection member with association attribute to the other part class <div class="notimplemented">&lt;--NOT IMPLEMENTED</div><br/></li>
+</ul>
+
+
+<h3 class="context">When is saving with association attribute and relation type set to OneToMany&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification, <span class="notimplemented">1 not implemented spec</span></span></h4><ul>	<li>should create a reference member with association attribute to the other part class <div class="notimplemented">&lt;--NOT IMPLEMENTED</div><br/></li>
+</ul>
+
+<hr>
+<h2 class="concern">PersistentMemberInfo Initialization specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">3 contexts, 3 specifications</span></h3>
+
+<h3 class="context">When creating a PersistentMemberInfo and default template exists&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should assign that template to classInfo</li>
+</ul>
+
+
+<h3 class="context">When creating a read write PersistentMemberInfo&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should create a default classInfo template if not exists</li>
+</ul>
+
+
+<h3 class="context">When initializing a read only PersistentMemberInfo&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should create a default classInfo template if not exists</li>
+</ul>
+
+<hr>
+<h2 class="concern">PersistentClassInfo Initialization specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">2 contexts, 3 specifications</span></h3>
+
+<h3 class="context">When creating PersistentClassInfo and default template exists&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should assign that template to classInfo</li>
+</ul>
+
+
+<h3 class="context">When creating a PersistentClassInfo&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should create a default classInfo template if not exists</li>
+	<li>should set template as default</li>
+</ul>
+
+<hr>
+<h2 class="concern">InterfaceInfo specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">1 context, 1 specification</span></h3>
+
+<h3 class="context">When linking with a PersistentInterfaceInfo&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should create all missing persistent member infos</li>
+</ul>
+
+<hr>
+<h2 class="concern">ExistentTypesMemberCreator specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">4 contexts, 7 specifications</span></h3>
+
+<h3 class="context">When Creating ExistentTypes CoreMembers that exist already&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should not throw any exceptions</li>
+</ul>
+
+
+<h3 class="context">When Creating ExistentTypes CoreMembers&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should find that member through xpdictionary</li>
+	<li>should create typedattributes</li>
+</ul>
+
+
+<h3 class="context">When Creating ExistentTypes ReferenceMembers&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should find that member through xpdictionary</li>
+	<li>should create typedattributes</li>
+</ul>
+
+
+<h3 class="context">When Creating ExistentTypes CollectionMembers&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should find that member through xpdictionary</li>
+	<li>should create typedattributes</li>
+</ul>
+
+<hr>
+<h2 class="concern">CompileEngine specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">6 contexts, 10 specifications</span></h3>
+
+<h3 class="context">When cannot compile a dynamic module&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should swallow exception</li>
+	<li>should delegate any errors to assembly info compile errors property</li>
+</ul>
+
+
+<h3 class="context">When compiling assembly with strong key&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should compile with no error</li>
+	<li>should have public token set</li>
+</ul>
+
+
+<h3 class="context">When compiling assembly with version&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should compile with no error</li>
+	<li>should have version set</li>
+</ul>
+
+
+<h3 class="context">When compiling a list of assemblies&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should compile the one with lowest compile order firt</li>
+</ul>
+
+
+<h3 class="context">When compiling an assembly with dots in its name&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should compile with no erros</li>
+	<li>should an assembly with dots in its name</li>
+</ul>
+
+
+<h3 class="context">When compiling an assembly that is loaded&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should return the loaded module type</li>
+</ul>
+
+<hr>
+<h2 class="concern">CompileEngine specs specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">4 contexts, 9 specifications</span></h3>
+
+<h3 class="context">When compiling a dynamic assembly&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should not contain any compilation error</li>
+	<li>should Create A Dynamic module</li>
+</ul>
+
+
+<h3 class="context">When compiling class with members&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">3 specifications</span></h4><ul>	<li>should have no compile errors</li>
+	<li>should generate class type</li>
+	<li>should have those members as proeprties</li>
+</ul>
+
+
+<h3 class="context">When PersistentClassInfo BaseType Belongs to different assemmbly&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should compile with no errors</li>
+	<li>should create a baseType descenant class</li>
+</ul>
+
+
+<h3 class="context">When PersistentClassInfo BaseType Belongs to same assemmbly&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">2 specifications</span></h4><ul>	<li>should compile with no errors</li>
+	<li>should create a baseType descenant class</li>
+</ul>
+
+<hr>
+<h2 class="concern">CodeTemplate specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">1 context, 1 specification</span></h3>
+
+<h3 class="context">When changing template type of a CodeTemplate&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should find all default template from module resources and display them</li>
+</ul>
+
+<hr>
+<h2 class="concern">CodeEngine specifications&nbsp;&nbsp;&nbsp;&nbsp;</h2><h3><span class="count">10 contexts, 18 specifications, <span class="notimplemented">1 not implemented spec</span></span></h3>
+
+<h3 class="context">When generating code from persistentMemberInfo&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should have memberInfo attributes generated</li>
+</ul>
+
+
+<h3 class="context">When generating code from persistentClassinfo with no base type defined&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should use default Base type</li>
+</ul>
+
+
+<h3 class="context">When generating code from persistentClassinfo with baseclassinfo defined&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should derive child from parent classInfo</li>
+</ul>
+
+
+<h3 class="context">When generating code from persistentClassinfo with baseType defined&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">9 specifications</span></h4><ul>	<li>should inject code from all members in classinfo generated code</li>
+	<li>should have class type typeattributes generated</li>
+	<li>should have propertytype typeattributes generated</li>
+	<li>should replace CLASSNAME with persistentClassInfo name</li>
+	<li>should replace BASECLASSNAME with persistentClassInfo name</li>
+	<li>should replace ASEEMBLYNAME with persistentClassInfo name</li>
+	<li>should add all interfaces after baseclassName</li>
+	<li>should replace PROPERTYNAME with persistentClassInfo name</li>
+	<li>should replace PROPERTYTYPE with persistentClassInfo type</li>
+</ul>
+
+
+<h3 class="context">When generating code from 2 CSharp classes&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should group all usings together at the top of generated code</li>
+</ul>
+
+
+<h3 class="context">When generating code from 2 VB classes&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should group all usings together at the top of generated code</li>
+</ul>
+
+
+<h3 class="context">When generating code from Persistent attribute with enum parameter&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should create arg with enumTypename dot enumName</li>
+</ul>
+
+
+<h3 class="context">When generating code from Persistent attribute with string parameter&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should create arg enclosed with quotes</li>
+</ul>
+
+
+<h3 class="context">When generating code from Persistent attribute with type parameter&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification</span></h4><ul>	<li>should create arg as typeof parameter</li>
+</ul>
+
+
+<h3 class="context">When generating code from Persistent attribute with int parameter&nbsp;&nbsp;&nbsp;&nbsp;</h3><h4><span class="count">1 specification, <span class="notimplemented">1 not implemented spec</span></span></h4><ul>	<li>should create arg the same as parameter <div class="notimplemented">&lt;--NOT IMPLEMENTED</div><br/></li>
+</ul>
+
+<hr>
+<br><br>
+<hr>
+
+</body>
+</html>

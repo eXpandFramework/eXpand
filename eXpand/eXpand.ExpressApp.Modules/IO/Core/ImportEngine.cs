@@ -69,7 +69,7 @@ namespace eXpand.ExpressApp.IO.Core {
                 var refObjectKeyCriteria = getObjectKeyCriteria(typeInfo,objectElement.Descendants("Key"));
                 XPBaseObject xpBaseObject;
                 if (objectElement.GetAttributeValue("strategy") == SerializationStrategy.SerializeAsObject.ToString()) {
-                    var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement(false);
+                    var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement();
                     if (findObjectFromRefenceElement != null) {
                         xpBaseObject = createObject(findObjectFromRefenceElement, nestedUnitOfWork,
                                                     typeInfo, refObjectKeyCriteria);

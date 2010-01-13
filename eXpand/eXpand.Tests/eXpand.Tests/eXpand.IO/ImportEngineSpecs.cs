@@ -183,7 +183,7 @@ namespace eXpand.Tests.eXpand.IO {
     }
 
     [Subject(typeof(ImportEngine))]
-    public class When_importing_an_object_with_natural_key_that_exists_as_deleted:With_Isolations {
+    public class When_importing_an_object_with_key_that_exists_as_deleted:With_Isolations {
         static XPBaseObject _findObject;
         static Guid _guid;
         static Type _customerType;

@@ -79,10 +79,7 @@ namespace eXpand.Tests.eXpand.IO
 
 
         It should_have_1_key_property_element_as_customer_Serialized_element_child =
-            () => {
-                _customerElement.ObjectKeyProperties().Count().ShouldEqual(1);
-                _customerElement.ObjectNaturalKeyProperty().ShouldNotBeNull();
-            };
+            () => _customerElement.ObjectKeyProperties().Count().ShouldEqual(1);
 
         It should_have_1_object_property_with_value_the_oid_of_user=() => {
             var objectProperties = _customerElement.Properties(NodeType.Object);

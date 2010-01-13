@@ -11,10 +11,10 @@ namespace eXpand.ExpressApp.IO.Core {
         public static IEnumerable<XElement> KeyElements(this IEnumerable<XElement> element, string name) {
             return element.Descendants("Key").Where(xElement => xElement.GetAttributeValue("name") == name);
         }
-        public static XElement ObjectNaturalKeyProperty(this XElement element)
-        {
-            return element.Descendants("Property").Where(xElement => xElement.GetAttributeValue("isNaturalKey") == "true").FirstOrDefault();
-        }
+//        public static XElement ObjectNaturalKeyProperty(this XElement element)
+//        {
+//            return element.Descendants("Property").Where(xElement => xElement.GetAttributeValue("isNaturalKey") == "true").FirstOrDefault();
+//        }
 
         public static IEnumerable<XElement> ObjectKeyProperties(this XElement element)
         {
@@ -81,24 +81,25 @@ namespace eXpand.ExpressApp.IO.Core {
             return element.SerializedObjects().Where(xElement => xElement.GetAttributeValue("type") == typeName);
         }
 
-        public static XElement FindObjectFromRefenceElement(this XElement xElement, bool useNaturalKey)
-        {
+        public static XElement FindObjectFromRefenceElement(this XElement xElement) {
             var typeValue = xElement.GetAttributeValue("type");
-            var enumerable = xElement.Descendants("Key").Select(
+            var infos = xElement.Descendants("Key").Select(
                 element1 => new { Element = element1, Name = element1.GetAttributeValue("name"), element1.Value });
-            if (xElement.Document != null && xElement.Document.Root != null){
+            if (xElement.Document != null && xElement.Document.Root != null)
+            {
                 var @select =
-                    xElement.Document.Root.Descendants("SerializedObject").Where(
+                    xElement.Document.Root.SerializedObjects().Where(
                         element => element.GetAttributeValue("type") == typeValue).Descendants("Property").Where(
-                        xElement1 => xElement1.GetAttributeValue(useNaturalKey ? "isNaturalKey" : "isKey") == "true").
+                        xElement1 => xElement1.GetAttributeValue("isKey") == "true").
                         Select(element1 =>
                         new { Element = element1.Parent, Name = element1.GetAttributeValue("name"), element1.Value });
                 return
                     @select.Where(
-                        arg => enumerable.Where(arg1 => arg.Name == arg1.Name && arg.Value == arg1.Value).Count() > 0).
+                        arg => infos.Where(arg1 => arg.Name == arg1.Name && arg.Value == arg1.Value).Count() > 0).
                         Select(arg2 => arg2.Element).FirstOrDefault();
             }
             return null;
+
         }
     }
 }
