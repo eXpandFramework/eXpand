@@ -16,7 +16,7 @@ namespace eXpand.ExpressApp.WorldCreator.CThru
             if (Application != null) {
                 var module = (ValidationModule) Application.Modules.FindModule(typeof (ValidationModule));
                 if (module != null) {
-                    CThruEngine.AddAspect(new ExistentMembersEnableValidationAspect());
+//                    CThruEngine.AddAspect(new ExistentMembersEnableValidationAspect());
                     CThruEngine.StartListening();
                     module.RuleSetInitialized += (sender, args) => CThruEngine.StopListeningAndReset();
                     module.InitializeRuleSet();

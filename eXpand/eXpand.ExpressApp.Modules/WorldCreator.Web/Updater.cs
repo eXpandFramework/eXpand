@@ -11,7 +11,7 @@ namespace eXpand.ExpressApp.WorldCreator.Web {
         public Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) { }
         public override void UpdateDatabaseAfterUpdateSchema()
         {
-            var aspect = new TraceAspect(info => info.TargetInstance is IHttpHandler, @"C:\log.txt");
+            
             base.UpdateDatabaseAfterUpdateSchema();
         }
     }
