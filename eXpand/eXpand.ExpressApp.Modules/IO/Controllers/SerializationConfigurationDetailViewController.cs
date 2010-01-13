@@ -2,10 +2,10 @@
 using eXpand.ExpressApp.IO.Observers;
 using eXpand.Persistent.Base.ImportExport;
 
-namespace eXpand.ExpressApp.IO.Controllers.DetailView {
-    public class SerializationConfigurationController:ViewController<DevExpress.ExpressApp.DetailView>
+namespace eXpand.ExpressApp.IO.Controllers {
+    public class SerializationConfigurationDetailViewController:ViewController<DetailView>
     {
-        public SerializationConfigurationController() {
+        public SerializationConfigurationDetailViewController() {
             TargetObjectType = typeof (ISerializationConfiguration);
         }
         protected override void OnActivated()

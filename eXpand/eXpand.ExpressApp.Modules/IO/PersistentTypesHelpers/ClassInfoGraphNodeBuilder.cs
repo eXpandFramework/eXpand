@@ -65,7 +65,6 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
         IClassInfoGraphNode addSimpleNode(IMemberInfo memberInfo, ObjectSpace objectSpace) {
             IClassInfoGraphNode addClassInfoGraphNode = this.addClassInfoGraphNode(objectSpace, memberInfo, NodeType.Simple);
             addClassInfoGraphNode.Key = memberInfo.IsKey;
-            addClassInfoGraphNode.NaturalKey = memberInfo.IsKey;
             return addClassInfoGraphNode;
         }
 

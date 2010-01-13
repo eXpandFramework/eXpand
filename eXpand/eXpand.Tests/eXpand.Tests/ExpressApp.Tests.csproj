@@ -304,6 +304,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eXpand.IO\Contexts.cs" />
+    <Compile Include="eXpand.IO\ExportingSpecs_of_DerivedObjects.cs" />
     <Compile Include="eXpand.IO\ExportingEngineSpecs.cs" />
     <Compile Include="eXpand.IO\ImportEngineSpecs.cs">
       <SubType>Code</SubType>

@@ -10,6 +10,8 @@ namespace eXpand.Xpo
     public static class SessionExtensions
     {
         public static void UnDelete(this XPBaseObject simpleObject) {
+            simpleObject.Session.PurgeDeletedObjects();
+            return;
             simpleObject.SetMemberValue(XPObject.Fields.GCRecord.PropertyName, null);
             var persistentProperties = simpleObject.ClassInfo.PersistentProperties;
             foreach (XPMemberInfo persistentProperty in (persistentProperties).OfType<XPMemberInfo>().Where(

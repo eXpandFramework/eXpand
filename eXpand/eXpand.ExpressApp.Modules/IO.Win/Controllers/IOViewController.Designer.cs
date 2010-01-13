@@ -1,6 +1,6 @@
-namespace eXpand.ExpressApp.IO.Controllers
+namespace eXpand.ExpressApp.IO.Win.Controllers
 {
-    partial class ViewController
+    partial class IOViewController
     {
         /// <summary>
         /// Required designer variable.

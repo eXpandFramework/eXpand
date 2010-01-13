@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalEditorState;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
@@ -8,6 +9,7 @@ using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelArtifactState.Attributes;
 using eXpand.Persistent.Base.ImportExport;
 using State = eXpand.ExpressApp.Security.Permissions.State;
+using System.Linq;
 
 namespace eXpand.Persistent.BaseImpl.ImportExport
 {
@@ -21,6 +23,12 @@ namespace eXpand.Persistent.BaseImpl.ImportExport
         private SerializationConfiguration serializationConfiguration;
         private SerializationStrategy serializationStrategy;
         public ClassInfoGraphNode(Session session) : base(session) { }
+
+        [EditorStateRule("MyRuleTwo", "Key", ViewType.DetailView)]
+        public EditorState RuleObjectCanNotBeKey(out bool active) {
+            active = XafTypesInfo.Instance.PersistentTypes.Where(info => info.Name == TypeName).Count()>0;
+            return EditorState.Disabled ;
+        }
 
         private NodeType _nodeType;
         [VisibleInListView(false)]
@@ -64,13 +72,7 @@ namespace eXpand.Persistent.BaseImpl.ImportExport
         }
 
         #region ITreeNode Members
-        private bool _naturalKey;
-        [VisibleInListView(false)]
-        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute,"false")]
-        public bool NaturalKey {
-            get { return _naturalKey; }
-            set { SetPropertyValue("NaturalKey", ref _naturalKey, value); }
-        }
+
         private string _typeName;
 
         [Browsable(false)]

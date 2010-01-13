@@ -115,20 +115,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\DetailView\SerializationConfigurationController.cs">
+    <Compile Include="Controllers\SerializationConfigurationDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\ListView\ViewController.cs">
+    <Compile Include="Controllers\IOViewControllerBase.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\ListView\ViewController.Designer.cs">
-      <DependentUpon>ViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\ViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\ViewController.Designer.cs">
-      <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\ImportEngine.cs" />
     <Compile Include="Core\XmlExtensions.cs" />

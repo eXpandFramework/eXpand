@@ -19,6 +19,7 @@ namespace eXpand.ExpressApp.IO.Core {
 
         public int ImportObjects(Stream stream, UnitOfWork unitOfWork)
         {
+            unitOfWork.PurgeDeletedObjects();
             stream.Position = 0;
             using (var streamReader = new StreamReader(stream)) {
                 var xDocument = XDocument.Load(streamReader);
@@ -122,7 +123,7 @@ namespace eXpand.ExpressApp.IO.Core {
             var xpBaseObject = unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, typeInfo.Type,
                                                      criteriaOperator) as XPBaseObject;
             if (xpBaseObject == null) {
-                xpBaseObject = unitOfWork.FindObject(typeInfo.Type, criteriaOperator, true) as XPBaseObject;
+                xpBaseObject = unitOfWork.FindObject(typeInfo.Type, criteriaOperator) as XPBaseObject;
                 if (xpBaseObject != null && xpBaseObject.IsDeleted) {
                     xpBaseObject.UnDelete();
                 }
