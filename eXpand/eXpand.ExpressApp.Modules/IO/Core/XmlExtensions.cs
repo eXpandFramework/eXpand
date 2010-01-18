@@ -35,6 +35,10 @@ namespace eXpand.ExpressApp.IO.Core {
         }
 
 
+        public static XElement Property(this XElement element, string name) {
+            return element.Properties().Where(xElement => xElement.GetAttributeValue("name") == name).FirstOrDefault();
+        }
+
         public static XElement Property(this IEnumerable<XElement> properties, string name) {
             return properties.Where(element => element.GetAttributeValue("name") == name).FirstOrDefault();
         }

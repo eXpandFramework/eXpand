@@ -24,7 +24,7 @@ namespace eXpand.Persistent.BaseImpl.ImportExport
         private SerializationStrategy serializationStrategy;
         public ClassInfoGraphNode(Session session) : base(session) { }
 
-        [EditorStateRule("MyRuleTwo", "Key", ViewType.DetailView)]
+        [EditorStateRule("RuleObjectCanNotBeKey", "Key", ViewType.Any)]
         public EditorState RuleObjectCanNotBeKey(out bool active) {
             active = XafTypesInfo.Instance.PersistentTypes.Where(info => info.Name == TypeName).Count()>0;
             return EditorState.Disabled ;

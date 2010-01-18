@@ -17,25 +17,29 @@ namespace eXpand.ExpressApp.IO.Core {
     public class ImportEngine {
         readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, XPBaseObject> importedObjecs = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, XPBaseObject>();
 
+        public int ImportObjects(XDocument document, UnitOfWork unitOfWork) {
+            if (document.Root != null){
+                foreach (XElement element in document.Root.Nodes()){
+                    using (var nestedUnitOfWork = unitOfWork.BeginNestedUnitOfWork()){
+                        ITypeInfo typeInfo = GetTypeInfo(element);
+                        IEnumerable<XElement> elements = element.Descendants("Property");
+                        var xElements = elements.Where(xElement => xElement.GetAttributeValue("isKey").MakeFirstCharUpper() == true.ToString());
+                        CriteriaOperator objectKeyCriteria = getObjectKeyCriteria(typeInfo, xElements);
+                        createObject(element, nestedUnitOfWork, typeInfo, objectKeyCriteria);
+                        nestedUnitOfWork.CommitChanges();
+                    }
+                }
+                unitOfWork.CommitChanges();
+            }
+            return 0;
+        }
         public int ImportObjects(Stream stream, UnitOfWork unitOfWork)
         {
             unitOfWork.PurgeDeletedObjects();
             stream.Position = 0;
             using (var streamReader = new StreamReader(stream)) {
                 var xDocument = XDocument.Load(streamReader);
-                if (xDocument.Root != null) {
-                    foreach (XElement element in xDocument.Root.Nodes()) {
-                        using (var nestedUnitOfWork = unitOfWork.BeginNestedUnitOfWork()) {
-                            ITypeInfo typeInfo = GetTypeInfo(element);
-                            IEnumerable<XElement> elements = element.Descendants("Property");
-                            var xElements = elements.Where(xElement => xElement.GetAttributeValue("isKey").MakeFirstCharUpper() == true.ToString());
-                            CriteriaOperator objectKeyCriteria = getObjectKeyCriteria(typeInfo, xElements);
-                            createObject(element, nestedUnitOfWork,typeInfo, objectKeyCriteria);
-                            nestedUnitOfWork.CommitChanges();
-                        }
-                    }
-                    unitOfWork.CommitChanges();
-                }
+                ImportObjects(xDocument, unitOfWork);
             }
             return 0;
         }

@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
@@ -55,6 +59,14 @@ namespace eXpand.Tests.eXpand.IO
 
         Because of = () => {
             _xDocument = new ExportEngine().Export(new List<XPBaseObject> { _customer }, _serializationConfiguration);
+            _xDocument.Save("Customer.xml");
+//            var stream = new MemoryStream();
+//            _xDocument.Save(new XmlTextWriter(stream,Encoding.UTF8));
+//            var dataSet = new DataSet();
+//            stream.Position = 0;
+//            dataSet.ReadXml("Customer.xml");
+//            dataSet.wr
+//            Debug.Print("");
         };
 
         It should_create_an_xml_document=() => {
@@ -100,6 +112,7 @@ namespace eXpand.Tests.eXpand.IO
             objectRefs.Where(xElement => xElement.Value == _order1.GetMemberValue("Oid").ToString()).FirstOrDefault().ShouldNotBeNull();
         };
     }
+
     [Subject(typeof(ExportEngine))]
     public class When_exporting_with_reference_object_with_no_existent_configuration:With_Isolations {
         static Type _customerType;
