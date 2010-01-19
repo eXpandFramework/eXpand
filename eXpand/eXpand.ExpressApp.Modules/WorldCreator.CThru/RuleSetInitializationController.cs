@@ -17,10 +17,9 @@ namespace eXpand.ExpressApp.WorldCreator.CThru
             if (Application != null) {
                 var module = (ValidationModule) Application.Modules.FindModule(typeof (ValidationModule));
                 if (module != null) {
-                    MockManager.Init();
                     CThruEngine.AddAspect(new ExistentMembersEnableValidationAspect());
                     CThruEngine.StartListening();
-
+                    InternalMockManager.Locked = false;
                     module.RuleSetInitialized += (sender, args) => {
                         CThruEngine.StopListeningAndReset();
                         InternalMockManager.Locked = true;
@@ -28,8 +27,7 @@ namespace eXpand.ExpressApp.WorldCreator.CThru
                     module.InitializeRuleSet();
                 }
                 else {
-                    Tracing.Tracer.LogWarning("Cannot find Validation module in Module list: {0}",
-                                              typeof (ValidationModule).AssemblyQualifiedName);
+                    Tracing.Tracer.LogWarning("Cannot find Validation module in Module list: {0}",typeof (ValidationModule).AssemblyQualifiedName);
                 }
             }
         }

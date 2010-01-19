@@ -1,6 +1,7 @@
 using CThru;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Validation;
+using TypeMock;
 
 namespace eXpand.ExpressApp.WorldCreator.CThru
 {
@@ -9,11 +10,17 @@ namespace eXpand.ExpressApp.WorldCreator.CThru
         public override void Setup(ApplicationModulesManager moduleManager)
         {
             base.Setup(moduleManager);
+            
             var validationModule =                
                 (ValidationModule) moduleManager.Modules.FindModule(typeof (ValidationModule));
-            CThruEngine.AddAspect(new ExistentMembersEnableValidationAspect());
-            CThruEngine.StartListening();
-            validationModule.RuleSetInitialized += (sender, args) => CThruEngine.StopListeningAndReset();            
+            validationModule.CustomizeRegisteredRuleTypes += (o, eventArgs) => {
+                CThruEngine.AddAspect(new ExistentMembersEnableValidationAspect());
+                CThruEngine.StartListening();                
+            };
+            validationModule.RuleSetInitialized += (sender, args) => {
+                CThruEngine.StopListeningAndReset();
+                InternalMockManager.Locked = true;
+            };            
         }
     }
 
