@@ -4,40 +4,26 @@ using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("PropertyName")]
-    public class PersistentCustomAttribute : PersistentAttributeInfo
-    {
+    public class PersistentCustomAttribute : PersistentAttributeInfo {
+        string _propertyName;
+        string _value;
+
         public PersistentCustomAttribute(Session session) : base(session) {
         }
 
-        private string  _value;
+        public string PropertyName {
+            get { return _propertyName; }
+            set { SetPropertyValue("PropertyName", ref _propertyName, value); }
+        }
 
-        public PersistentCustomAttribute() {
+        public string Value {
+            get { return _value; }
+            set { SetPropertyValue("Value", ref _value, value); }
         }
-        private string _propertyName;
-        public string PropertyName
-        {
-            get
-            {
-                return _propertyName;
-            }
-            set
-            {
-                SetPropertyValue("PropertyName", ref _propertyName, value);
-            }
-        }
-        public string Value
-        {
-            get
-            {
-                return _value;
-            }
-            set
-            {
-                SetPropertyValue("Value", ref _value, value);
-            }
-        }
+
         public override AttributeInfo Create() {
-            return new AttributeInfo(typeof(CustomAttribute).GetConstructor(new[] { typeof(string), typeof(string) }), PropertyName,Value);
+            return new AttributeInfo(typeof (CustomAttribute).GetConstructor(new[] {typeof (string), typeof (string)}),
+                                     PropertyName, Value);
         }
     }
 }

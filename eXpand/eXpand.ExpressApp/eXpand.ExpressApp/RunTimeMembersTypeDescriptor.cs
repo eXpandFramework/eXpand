@@ -19,17 +19,13 @@ namespace eXpand.ExpressApp {
         public override PropertyDescriptorCollection GetProperties()
         {
             PropertyDescriptorCollection originalProperties = base.GetProperties();
-            var newProperties = new List<PropertyDescriptor>();
-            foreach (PropertyDescriptor pd in originalProperties)
-                newProperties.Add(pd);
+            var newProperties = originalProperties.Cast<PropertyDescriptor>().ToList();
 
+            var classInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(_objectType);
             List<XPMemberInfo> runtimeMemberInfos =
-                XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(_objectType).OwnMembers.Where(
+                classInfo.OwnMembers.Where(
                     info => !newProperties.Select(descriptor => descriptor.Name).Contains(info.Name)&&!info.IsCollection&&info.IsPublic).ToList();
-            foreach (var memberInfo in runtimeMemberInfos) {
-                var descriptor = TypeDescriptor.CreateProperty(_objectType, memberInfo.Name, memberInfo.MemberType,memberInfo.Attributes);
-                newProperties.Add(descriptor);
-            }
+            newProperties.AddRange(runtimeMemberInfos.Select(memberInfo => TypeDescriptor.CreateProperty(_objectType, memberInfo.Name, memberInfo.MemberType, memberInfo.Attributes)));
             return new PropertyDescriptorCollection(newProperties.ToArray(), true);
         }
     }

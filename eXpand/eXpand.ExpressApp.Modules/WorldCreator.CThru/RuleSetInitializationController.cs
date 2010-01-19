@@ -2,7 +2,6 @@ using CThru;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 using TypeMock;
-using TypeMock.Internal.Hooks;
 
 namespace eXpand.ExpressApp.WorldCreator.CThru
 {
@@ -18,14 +17,14 @@ namespace eXpand.ExpressApp.WorldCreator.CThru
             if (Application != null) {
                 var module = (ValidationModule) Application.Modules.FindModule(typeof (ValidationModule));
                 if (module != null) {
-//                    MockManager.Init();
-//                    EventTunnel.ShouldInterceptDecision = e => e.Returns(InterceptBehavior.DoNotIntercept);
-                    
-                    
-//                    CThruEngine.AddAspect(new ExistentMembersEnableValidationAspect());
-//                    CThruEngine.StartListening();
+                    MockManager.Init();
+                    CThruEngine.AddAspect(new ExistentMembersEnableValidationAspect());
+                    CThruEngine.StartListening();
 
-                    module.RuleSetInitialized += (sender, args) => CThruEngine.StopListeningAndReset();
+                    module.RuleSetInitialized += (sender, args) => {
+                        CThruEngine.StopListeningAndReset();
+                        InternalMockManager.Locked = true;
+                    };
                     module.InitializeRuleSet();
                 }
                 else {
