@@ -22,9 +22,12 @@ namespace eXpand.ExpressApp.Core{
             return member;
         }
 
+        public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName,
+                                                          string propertyName, XPDictionary dictionary) {
+            return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary,propertyName);
+        }
         public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary)
         {
-
             return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, typeOfCollection.Name + "s");
         }
 
@@ -64,6 +67,10 @@ namespace eXpand.ExpressApp.Core{
         }
 
         public static XPCustomMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember,
+                                        string associationName, string propertyName,XPDictionary dictionary) {
+            return CreateMember(typesInfo, typeToCreateOn, typeOfMember, associationName, dictionary, propertyName);
+        }
+            public static XPCustomMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember,
                                         string associationName,XPDictionary dictionary){
             return CreateMember(typesInfo, typeToCreateOn, typeOfMember, associationName, dictionary,typeOfMember.Name);
         }

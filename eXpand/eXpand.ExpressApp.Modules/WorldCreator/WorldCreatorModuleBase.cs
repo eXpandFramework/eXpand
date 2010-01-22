@@ -31,12 +31,14 @@ namespace eXpand.ExpressApp.WorldCreator {
             TypesInfo.Instance.AddTypes(GetAdditionalClasses());
 
             var unitOfWork = new UnitOfWork { ConnectionString = _connectionString };
-            unitOfWork.UpdateSchema();
             AddDynamicModules(moduleManager, unitOfWork, TypesInfo.Instance.PersistentAssemblyInfoType);
-            Application.SetupComplete += (sender, args) => mergeTypes(unitOfWork);
+            Application.SetupComplete += (sender, args) => {
+                mergeTypes(unitOfWork);
+                Application.ObjectSpaceProvider.CreateUpdatingSession().UpdateSchema();
+            };
             var existentTypesMemberCreator = new ExistentTypesMemberCreator();
             existentTypesMemberCreator.CreateMembers(unitOfWork, TypesInfo.Instance);
-            Application.ObjectSpaceProvider.CreateUpdatingSession().UpdateSchema();
+            
 
         }
 
