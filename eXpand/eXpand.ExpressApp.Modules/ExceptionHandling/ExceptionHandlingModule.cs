@@ -1,31 +1,26 @@
 using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 
-namespace eXpand.ExpressApp.ExceptionHandling
-{
-    public abstract  partial class ExceptionHandlingModule : ModuleBase
-    {
+namespace eXpand.ExpressApp.ExceptionHandling {
+    public abstract partial class ExceptionHandlingModule : ModuleBase {
         public const string ExceptionHandling = "ExceptionHandling";
-        protected ExceptionHandlingModule()
-        {
+
+        protected ExceptionHandlingModule() {
             InitializeComponent();
         }
 
-        
-        protected void Log(Exception exception)
-        {
-            if ((ConfigurationManager.AppSettings[ExceptionHandling]+"").ToLower() == "true")
-            {
 
-                if (!(exception is ValidationException) && !(exception.InnerException != null && exception.InnerException is ValidationException))
-                {
-                    if (!System.Diagnostics.Debugger.IsAttached)
-                    {
+        protected void Log(Exception exception) {
+            if ((ConfigurationManager.AppSettings[ExceptionHandling] + "").ToLower() == "true") {
+                if (!(exception is ValidationException) &&
+                    !(exception.InnerException != null && exception.InnerException is ValidationException)) {
+                    if (!Debugger.IsAttached) {
                         string asString = Tracing.Tracer.GetLastEntriesAsString();
                         asString = Regex.Replace(asString, @"\n", "<br>");
                         Logger.Write(asString);
@@ -33,6 +28,5 @@ namespace eXpand.ExpressApp.ExceptionHandling
                 }
             }
         }
-
     }
 }

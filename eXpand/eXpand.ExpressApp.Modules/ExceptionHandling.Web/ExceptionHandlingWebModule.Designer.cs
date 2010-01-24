@@ -28,6 +28,7 @@ namespace eXpand.ExpressApp.ExceptionHandling.Web
         /// </summary>
         private void InitializeComponent()
         {
+
         }
 
         #endregion
