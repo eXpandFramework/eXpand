@@ -5,64 +5,51 @@ using System.Linq;
 using System.Web.Configuration;
 using DevExpress.Persistent.Base;
 
-namespace eXpand.ExpressApp.FilterDataStore.Core
-{
-    public static class FilterProviderManager
-    {
-        private static FilterProviderBase defaultProvider;
+namespace eXpand.ExpressApp.FilterDataStore.Core {
+    public static class FilterProviderManager {
+        static FilterProviderBase defaultProvider;
 
-        private static bool isInitialized;
+        static bool isInitialized;
 
-        private static FilterProviderCollection providerCollection;
+        static FilterProviderCollection providerCollection = new FilterProviderCollection();
 
-        static FilterProviderManager()
-        {
+        static FilterProviderManager() {
             Initialize();
         }
 
-        public static FilterProviderBase Provider
-        {
-            get
-            {
-                if (!isInitialized)
-                {
+        public static FilterProviderBase Provider {
+            get {
+                if (!isInitialized) {
                     Initialize();
                 }
                 return defaultProvider;
             }
         }
 
-        public static FilterProviderBase GetFilterProvider(string filterMemberName)
-        {
-
-            FilterProviderBase provider = Providers.Cast<FilterProviderBase>().Where(
-                probase => probase.FilterMemberName == filterMemberName).FirstOrDefault();
-            if (provider!= null&&provider.FilterValue == null && !provider.UseFilterValueWhenNull)
-                return null;
-            return provider;
-        }
-
-        public static FilterProviderCollection Providers
-        {
-            get
-            {
-                if (!isInitialized)
-                {
+        public static FilterProviderCollection Providers {
+            get {
+                if (!isInitialized) {
                     Initialize();
                 }
                 return providerCollection;
             }
         }
 
-        private static void Initialize()
-        {
-            try
-            {
+        public static FilterProviderBase GetFilterProvider(string filterMemberName) {
+            FilterProviderBase provider = Providers.Cast<FilterProviderBase>().Where(
+                probase => probase.FilterMemberName == filterMemberName).FirstOrDefault();
+            if (provider != null && provider.FilterValue == null && !provider.UseFilterValueWhenNull)
+                return null;
+            return provider;
+        }
+
+        static void Initialize() {
+            try {
                 //Get the feature's configuration info
                 var qc =
                     ConfigurationManager.GetSection("FilterProvider") as FilterProviderConfiguration;
 
-                if (qc== null)
+                if (qc == null)
                     return;
                 if (qc.DefaultProvider == null)
                     throw new ProviderException("You must specify a valid default provider.");
@@ -72,8 +59,7 @@ namespace eXpand.ExpressApp.FilterDataStore.Core
                 ProvidersHelper.InstantiateProviders(qc.Providers, providerCollection, typeof (FilterProviderBase));
                 providerCollection.SetReadOnly();
                 defaultProvider = providerCollection[qc.DefaultProvider];
-                if (defaultProvider == null)
-                {
+                if (defaultProvider == null) {
                     PropertyInformation information = qc.ElementInformation.Properties["defaultProvider"];
                     if (information != null)
                         throw new ConfigurationErrorsException(
@@ -82,8 +68,7 @@ namespace eXpand.ExpressApp.FilterDataStore.Core
                             information.LineNumber);
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 isInitialized = true;
 
                 Tracing.Tracer.LogError(ex);
