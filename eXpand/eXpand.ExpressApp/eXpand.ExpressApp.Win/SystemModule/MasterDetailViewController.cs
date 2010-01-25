@@ -218,6 +218,17 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
         }
 
+        protected override void OnDeactivating()
+        {
+            if (View is ListView && !string.IsNullOrEmpty(View.Info.GetAttributeValue(DetailListView)) &&
+               !string.IsNullOrEmpty(DetailListRelationName))
+            {
+                Frame.GetController<DeleteObjectsViewController>().DeleteAction.Executing -= DeleteAction_OnExecuting;
+            }
+
+            base.OnDeactivating();
+        }
+
         private void DeleteAction_OnExecuting(object sender, CancelEventArgs e)
         {
 

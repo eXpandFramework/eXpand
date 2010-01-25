@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
@@ -7,6 +8,8 @@ using DevExpress.Xpo;
 using eXpand.ExpressApp.Attributes;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.Persistent.Base;
+using System.Collections.Generic;
+using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
     [VisibleInReports(false)]
@@ -50,5 +53,18 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
 
         }
 
+        public override Dictionary GetCombinedModel()
+        {
+            List<RoleModelDifferenceObject> roleModelDifferenceObjects = new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(
+                PersistentApplication.UniqueName).ToList();
+
+            List<ModelDifferenceObject> modelDifferenceObjects = new List<ModelDifferenceObject>();
+            modelDifferenceObjects.Add(new QueryModelDifferenceObject(Session).GetActiveModelDifference(
+                PersistentApplication.UniqueName));
+
+            IEnumerable<ModelDifferenceObject> differenceObjects = roleModelDifferenceObjects.Cast<ModelDifferenceObject>().Concat(modelDifferenceObjects.Cast<ModelDifferenceObject>());
+
+            return base.GetCombinedModel(differenceObjects);
+        }
     }
 }
