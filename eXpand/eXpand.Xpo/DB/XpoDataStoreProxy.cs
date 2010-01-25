@@ -5,10 +5,12 @@ using DevExpress.Xpo.DB;
 
 namespace eXpand.Xpo.DB
 {
-    public class XpoDataStoreProxy : ISqlDataStore
-    {
+    public class XpoDataStoreProxy :ISqlDataStore {
         private readonly IDataLayer dataLayerCore;
         private readonly ISqlDataStore dataStoreCore;
+
+        protected XpoDataStoreProxy() {
+        }
         #region IDataStore Members
         public XpoDataStoreProxy(string connectionString)
         {

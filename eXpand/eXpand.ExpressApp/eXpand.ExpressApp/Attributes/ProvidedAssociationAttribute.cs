@@ -1,47 +1,42 @@
 using System;
 using eXpand.Persistent.Base.General;
 
-namespace eXpand.ExpressApp.Attributes{
+namespace eXpand.ExpressApp.Attributes {
     [AttributeUsage(AttributeTargets.Property)]
     public class ProvidedAssociationAttribute : Attribute {
-        private readonly RelationType _relationType;
-        private readonly string _attributesFactoryProperty;
+        readonly string _attributesFactoryProperty;
+        readonly string _providedPropertyName;
+        readonly RelationType _relationType;
 
 
-        public ProvidedAssociationAttribute():this(null)
-        {
+        public ProvidedAssociationAttribute() : this(null) {
         }
 
-        public ProvidedAssociationAttribute(string providedPropertyName):this(providedPropertyName, RelationType.Undefined,null)
-        {
+        public ProvidedAssociationAttribute(string providedPropertyName)
+            : this(providedPropertyName, RelationType.Undefined, null) {
         }
-        public ProvidedAssociationAttribute(RelationType relationType):this(null, relationType, null)
-        {
+
+        public ProvidedAssociationAttribute(RelationType relationType) : this(null, relationType, null) {
         }
 
 
-        public ProvidedAssociationAttribute(string providedPropertyName, RelationType relationType, string attributesFactory)
-        {
+        public ProvidedAssociationAttribute(string providedPropertyName, RelationType relationType,
+                                            string attributesFactory) {
             _relationType = relationType;
             _attributesFactoryProperty = attributesFactory;
             _providedPropertyName = providedPropertyName;
         }
 
-        public string AttributesFactoryProperty
-        {
+        public string AttributesFactoryProperty {
             get { return _attributesFactoryProperty; }
         }
 
-        private readonly string _providedPropertyName;
-        public string ProvidedPropertyName
-        {
+        public string ProvidedPropertyName {
             get { return _providedPropertyName; }
         }
 
-        
 
-        public RelationType RelationType
-        {
+        public RelationType RelationType {
             get { return _relationType; }
         }
     }

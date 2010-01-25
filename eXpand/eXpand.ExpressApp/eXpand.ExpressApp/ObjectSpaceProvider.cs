@@ -1,6 +1,4 @@
-﻿using DevExpress.ExpressApp;
-
-namespace eXpand.ExpressApp
+﻿namespace eXpand.ExpressApp
 {
     public class ObjectSpaceProvider : DevExpress.ExpressApp.ObjectSpaceProvider, IObjectSpaceProvider {
         public IXpoDataStoreProxy DataStoreProvider { get; set; }

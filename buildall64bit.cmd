@@ -8,6 +8,8 @@ mkdir eXpand.Key
 %sn% -k eXpand.Key\eXpand.snk
 
 :build
+call RegisterAssemblyFolders64bit.bat
+
 call buildproject.cmd eXpand.Utils ".\eXpand\eXpand.Utils\eXpand.Utils.csproj"
 call buildproject.cmd eXpand.Xpo ".\eXpand\eXpand.Xpo\eXpand.Xpo.csproj"
 call buildproject.cmd eXpand.Persistent.Base ".\eXpand\eXpand.Persistent\eXpand.Persistent.Base\eXpand.Persistent.Base.csproj"
@@ -45,5 +47,16 @@ call buildproject.cmd eXpand.Persistent.BaseImpl ".\eXpand\eXpand.Persistent\eXp
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.AddIns\DevExpress.ExpressApp.ModelEditor\DevExpress.ExpressApp.ModelEditor.csproj"
 
 %sn% -q -T eXpand.Dll\eXpand.Utils.dll > PublicKeyToken.txt
+
+rem Install VS Template
+set templates="%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\Common7\IDE\ProjectTemplates\CSharp\eXpand\"
+set devenv="%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\Common7\IDE\"
+
+echo Installing and refreshing visual studio templates
+xcopy "eXpand.DesignExperience\vs_templates\*.*" %templates% /Y /R /I
+
+cd\
+cd %devenv%
+devenv.exe /InstallVSTemplates
 
 pause

@@ -1,6 +1,5 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
-using eXpand.ExpressApp.ExceptionHandling;
 
 namespace eXpand.ExpressApp.ExceptionHandling.Win
 {

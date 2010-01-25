@@ -127,6 +127,7 @@
     <Compile Include="Core\ICodeTemplateInfoExtensions.cs" />
     <Compile Include="Core\IPersistentMemberInfoExtensions.cs" />
     <Compile Include="Core\IPersistentTemplatedTypeInfoExtensions.cs" />
+    <Compile Include="MyXpoDataStoreProvider.cs" />
     <Compile Include="Observers\CodeTemplateInfoObserver.cs" />
     <Compile Include="Observers\CodeTemplateObserver.cs" />
     <Compile Include="Controllers\CodeTemplateController.cs">
@@ -163,6 +164,7 @@
     <Compile Include="WorldCreatorModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WorldCretorDataStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

@@ -10,5 +10,9 @@ namespace eXpand.Xpo.DB
             SelectStatements = selects;
         }
         public SelectStatement[] SelectStatements { get; set; }
+
+        public bool Handled { get; set; }
+
+        public SelectedData SelectData { get; set; }
     }
 }

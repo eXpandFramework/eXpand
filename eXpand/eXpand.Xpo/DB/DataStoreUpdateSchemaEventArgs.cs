@@ -12,5 +12,9 @@ namespace eXpand.Xpo.DB
         }
         public DBTable[] Tables { get; set; }
         public bool DontCreateIfFirstTableNotExist { get; set; }
+
+        public UpdateSchemaResult UpdateSchemaResult { get; set; }
+
+        public bool Handled { get; set; }
     }
 }
