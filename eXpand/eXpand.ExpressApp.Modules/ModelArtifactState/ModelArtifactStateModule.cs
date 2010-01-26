@@ -45,7 +45,6 @@ namespace eXpand.ExpressApp.ModelArtifactState{
                     enumerable.AddRange(permissions);
                     ArtifactStateRuleManager.Instance[typeInfo] = new List<ArtifactStateRule>(enumerable);
                 }
-
             }
         }
         private static IEnumerable<ArtifactStateRule> CollectRulesFromModelCore(ModelArtifactStateNodeWrapper wrapper, ITypeInfo typeInfo, XafApplication application)

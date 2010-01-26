@@ -4,7 +4,7 @@ using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.Queries{
-    public abstract class QueryDifferenceObject<DifferenceObject> : IQueryDifferenceObject<DifferenceObject> where DifferenceObject:ModelDifferenceObject{
+    public abstract class QueryDifferenceObject<TDifferenceObject> : IQueryDifferenceObject<TDifferenceObject> where TDifferenceObject:ModelDifferenceObject{
         private readonly Session _session;
 
         protected QueryDifferenceObject(Session session){
@@ -15,12 +15,18 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Queries{
             get { return _session; }
         }
 
-        public virtual IQueryable<DifferenceObject> GetActiveModelDifferences(string uniqueApplicationName){
-            IQueryable<DifferenceObject> differences = new XPQuery<DifferenceObject>(_session).Where(o => o.PersistentApplication.UniqueName == uniqueApplicationName && o.Disabled == false).OrderBy(o => o.CombineOrder);
+        public virtual IQueryable<TDifferenceObject> GetActiveModelDifferences(string uniqueApplicationName){
+            var differenceObjects = new XPQuery<TDifferenceObject>(_session);
+            IQueryable<TDifferenceObject> differences = GetDifferences(differenceObjects, uniqueApplicationName);
             return differences;
         }
 
-        public virtual DifferenceObject GetActiveModelDifference(string applicationName)
+        protected IQueryable<TDifferenceObject> GetDifferences(IOrderedQueryable<TDifferenceObject> differenceObjects, string uniqueApplicationName)
+        {
+            return differenceObjects.Where(o => o.PersistentApplication.UniqueName == uniqueApplicationName && o.Disabled == false).OrderBy(o => o.CombineOrder);
+        }
+
+        public virtual TDifferenceObject GetActiveModelDifference(string applicationName)
         {
             return GetActiveModelDifferences(applicationName).Where(o => o.DifferenceType==DifferenceType.Model).FirstOrDefault();
         }

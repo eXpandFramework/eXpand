@@ -2,6 +2,7 @@ using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 
@@ -25,14 +26,14 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Queries
 
         public override IQueryable<UserModelDifferenceObject> GetActiveModelDifferences(string applicationName)
         {
-            var queryable = base.GetActiveModelDifferences(applicationName).OfType<UserModelDifferenceObject>();
-            return queryable.ToList().Where(o => o.Fit(UsersContainsOperator)).AsQueryable();
+            return new XPCollection<UserModelDifferenceObject>(Session,new GroupOperator(UsersContainsOperator,
+                new GroupOperator(new BinaryOperator("PersistentApplication.UniqueName",applicationName),new BinaryOperator("Disabled", false))),
+                new[] {new SortProperty("CombineOrder",SortingDirection.Ascending)}).AsQueryable();
         }
 
         public override UserModelDifferenceObject GetActiveModelDifference(string applicationName)
         {
-            var queryable = GetActiveModelDifferences(applicationName).OfType<UserModelDifferenceObject>();
-            return queryable.ToList().Where(o => o.Fit(UsersContainsOperator)).FirstOrDefault();
+            return GetActiveModelDifferences(applicationName).FirstOrDefault();
         }
     }
 }
