@@ -61,7 +61,8 @@ namespace eXpand.ExpressApp.PivotChart.Win {
         }
 
         PivotGridControl GetPivotGridControl() {
-            return ((AnalysisEditorWin) View.FindItem("Self")).Control.PivotGrid;
+            var analysisEditor = View.GetItems<AnalysisEditorWin>()[0];
+            return analysisEditor.Control.PivotGrid;
         }
 
         void _pivotGridControl_EditValueChanged(object sender, EditValueChangedEventArgs e) {

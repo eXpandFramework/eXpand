@@ -11,15 +11,17 @@ namespace eXpand.ExpressApp.PivotChart {
         public PivotChartModule(){
             InitializeComponent();
         }
-        public override void Setup(XafApplication application)
-        {
+        public override void Setup(XafApplication application) {
             base.Setup(application);
-            TypesInfo.Instance.AddTypes(Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses));
+            if (Application != null)
+                TypesInfo.Instance.AddTypes(Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses));
         }
+
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
         {
             base.CustomizeTypesInfo(typesInfo);
-            typesInfo.FindTypeInfo(TypesInfo.Instance.AnalysisType).AddAttribute(new DefaultPropertyAttribute("Name"));
+            if (Application != null)
+                typesInfo.FindTypeInfo(TypesInfo.Instance.AnalysisType).AddAttribute(new DefaultPropertyAttribute("Name"));
         }
     }
 }

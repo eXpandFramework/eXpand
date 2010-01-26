@@ -131,6 +131,12 @@
     <Compile Include="PivotChartWinModule.Designer.cs">
       <DependentUpon>PivotChartWinModule.cs</DependentUpon>
     </Compile>
+    <Compile Include="PivotedPropertyController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PivotedPropertyController.Designer.cs">
+      <DependentUpon>PivotedPropertyController.cs</DependentUpon>
+    </Compile>
     <Compile Include="PivotGridInplaceEditorsController.cs">
       <SubType>Component</SubType>
     </Compile>
