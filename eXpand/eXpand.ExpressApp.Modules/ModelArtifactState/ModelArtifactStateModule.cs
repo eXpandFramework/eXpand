@@ -36,6 +36,7 @@ namespace eXpand.ExpressApp.ModelArtifactState{
         {
             lock (ArtifactStateRuleManager.Instance)
             {
+                SecuritySystem.ReloadPermissions();
                 ModelArtifactStateNodeWrapper wrapper = CreateModelWrapper(xafApplication.Model);
                 foreach (ITypeInfo typeInfo in XafTypesInfo.Instance.PersistentTypes){
                     ArtifactStateRuleManager.Instance[typeInfo] = null;

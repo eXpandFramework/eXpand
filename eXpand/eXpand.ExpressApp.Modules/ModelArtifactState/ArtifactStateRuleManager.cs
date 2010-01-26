@@ -112,7 +112,6 @@ namespace eXpand.ExpressApp.ModelArtifactState{
                 if (SecuritySystem.CurrentUser != null)
                 {
                     var permissions = ((IUser)SecuritySystem.CurrentUser).Permissions;
-                    SecuritySystem.ReloadPermissions();
                     foreach (ArtifactStateRulePermission permission in permissions.OfType<ArtifactStateRulePermission>().Where(permission => permission.ObjectType==info.Type))
                     {
                         var rule = (ArtifactStateRule)permission;
