@@ -139,6 +139,7 @@
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentDefaultClassOptionsAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentPivotedPropertyAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentRuleRequiredFieldAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentSizeAttribute.cs">
       <SubType>Code</SubType>
@@ -164,6 +165,18 @@
     <Compile Include="PersistentMetaData\PersistentMemberInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentReferenceMemberInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentTypeInfo.cs" />
+    <Compile Include="PivotChart\PivotOptionsBehavior.cs" />
+    <Compile Include="PivotChart\PivotOptionsChartDataSource.cs" />
+    <Compile Include="PivotChart\PivotOptionsCustomization.cs" />
+    <Compile Include="PivotChart\PivotOptionsData.cs" />
+    <Compile Include="PivotChart\PivotOptionsDataField.cs" />
+    <Compile Include="PivotChart\PivotOptionsFilterPopup.cs" />
+    <Compile Include="PivotChart\PivotOptionsHint.cs" />
+    <Compile Include="PivotChart\PivotOptionsMenu.cs" />
+    <Compile Include="PivotChart\PivotOptionsSelection.cs" />
+    <Compile Include="PivotChart\PivotOption.cs" />
+    <Compile Include="PivotChart\PivotOptionsView.cs" />
+    <Compile Include="PivotChart\PivotOptionView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Taxonomies\CustomTaxonomy.cs" />
     <Compile Include="Taxonomies\StructuralTerm.cs" />

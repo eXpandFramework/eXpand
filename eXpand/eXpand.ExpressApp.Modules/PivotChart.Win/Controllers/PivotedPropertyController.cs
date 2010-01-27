@@ -1,4 +1,4 @@
-namespace eXpand.ExpressApp.PivotChart.Win
+namespace eXpand.ExpressApp.PivotChart.Win.Controllers
 {
     public partial class PivotedPropertyController : PivotChart.PivotedPropertyController
     {
@@ -10,7 +10,10 @@ namespace eXpand.ExpressApp.PivotChart.Win
         protected override void AttachControllers(DevExpress.ExpressApp.DC.IMemberInfo memberInfo)
         {
             base.AttachControllers(memberInfo);
-            AttachController<PivotGridInplaceEditorsController>();
+            var pivotGridInplaceEditorsController = new PivotGridInplaceEditorsController {TargetObjectType = View.ObjectTypeInfo.Type};
+            Frame.RegisterController(pivotGridInplaceEditorsController);
         }
     }
 }
+
+

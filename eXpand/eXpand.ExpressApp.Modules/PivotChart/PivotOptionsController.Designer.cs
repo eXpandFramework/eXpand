@@ -1,6 +1,6 @@
-namespace eXpand.ExpressApp.PivotChart.Win
+namespace eXpand.ExpressApp.PivotChart
 {
-    partial class PivotedPropertyController
+    partial class PivotOptionsController
     {
         /// <summary>
         /// Required designer variable.

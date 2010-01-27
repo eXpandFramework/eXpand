@@ -2,6 +2,8 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.Persistent.Base;
+using eXpand.ExpressApp.PivotChart.Security;
 using TypesInfo = eXpand.ExpressApp.PivotChart.Core.TypesInfo;
 
 namespace eXpand.ExpressApp.PivotChart {
@@ -20,8 +22,11 @@ namespace eXpand.ExpressApp.PivotChart {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
         {
             base.CustomizeTypesInfo(typesInfo);
-            if (Application != null)
+            if (Application != null) {
                 typesInfo.FindTypeInfo(TypesInfo.Instance.AnalysisType).AddAttribute(new DefaultPropertyAttribute("Name"));
+                typesInfo.FindTypeInfo(typeof (ShowInAnalysisPermission)).FindMember("ControllerType").AddAttribute(new VisibleInDetailViewAttribute(false));
+                typesInfo.FindTypeInfo(typeof(PivotSettingsPermission)).FindMember("ControllerType").AddAttribute(new VisibleInDetailViewAttribute(false));
+            }
         }
     }
 }

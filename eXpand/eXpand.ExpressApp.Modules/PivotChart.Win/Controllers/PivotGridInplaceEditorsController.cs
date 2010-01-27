@@ -2,14 +2,17 @@
 using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.ExpressApp.PivotChart.Win;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraPivotGrid;
+using System.Linq;
 
-namespace eXpand.ExpressApp.PivotChart.Win {
-    public class PivotGridInplaceEditorsController : ViewController<DetailView> {
+namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
+    public class PivotGridInplaceEditorsController : ViewController<DetailView>
+    {
         PivotGridControl _pivotGridControl;
         RepositoryItemSpinEdit _repositoryItemSpinEdit;
 
@@ -19,8 +22,12 @@ namespace eXpand.ExpressApp.PivotChart.Win {
 
         protected override void OnActivated() {
             base.OnActivated();
-            View.ControlsCreated += View_ControlsCreated;
-            Frame.GetController<AnalysisDataBindController>().BindDataAction.Execute += BindDataAction_Execute;
+            var detailViewInfoNodeWrapper = new DetailViewInfoNodeWrapper(View.Info);
+            var itemInfoNodeWrapper= detailViewInfoNodeWrapper.Editors.Items.Where(wrapper => typeof(IAnalysisInfo).IsAssignableFrom(wrapper.PropertyType)).FirstOrDefault();
+            if (itemInfoNodeWrapper!= null&&itemInfoNodeWrapper.AllowEdit){
+                View.ControlsCreated += View_ControlsCreated;
+                Frame.GetController<AnalysisDataBindController>().BindDataAction.Execute += BindDataAction_Execute;
+            }
         }
 
         void View_ControlsCreated(object sender, EventArgs e) {
