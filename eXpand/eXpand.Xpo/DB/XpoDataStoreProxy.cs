@@ -32,20 +32,21 @@ namespace eXpand.Xpo.DB
         {
             var args = new DataStoreModifyDataEventArgs(dmlStatements);
             RaiseDataStoreModifyData(args);
-            return dataLayerCore.ModifyData(args.ModificationStatements);
+            return args.ModificationResult?? dataLayerCore.ModifyData(args.ModificationStatements);
         }
 
         public SelectedData SelectData(params SelectStatement[] selects)
         {
             var args = new DataStoreSelectDataEventArgs(selects);
             RaiseDataStoreSelectData(args);
-            return dataLayerCore.SelectData(args.SelectStatements);
+            return args.SelectData?? dataLayerCore.SelectData(args.SelectStatements);
         }
         public UpdateSchemaResult UpdateSchema(bool dontCreateIfFirstTableNotExist, params DBTable[] tables)
         {
             var args = new DataStoreUpdateSchemaEventArgs(dontCreateIfFirstTableNotExist, tables);
             RaiseDataStoreUpdateSchema(args);
-            dataStoreCore.UpdateSchema(false, args.Tables);
+            if (!args.Updated)
+                dataStoreCore.UpdateSchema(false, args.Tables);
             return UpdateSchemaResult.SchemaExists;
         }
         #endregion

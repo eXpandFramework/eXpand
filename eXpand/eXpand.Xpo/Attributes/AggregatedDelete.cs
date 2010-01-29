@@ -1,9 +1,6 @@
 using System;
 
-namespace eXpand.Xpo.Attributes
-{
-    public class AggregatedDelete:Attribute
-    {
-        
+namespace eXpand.Xpo.Attributes {
+    public class AggregatedDelete : Attribute {
     }
 }

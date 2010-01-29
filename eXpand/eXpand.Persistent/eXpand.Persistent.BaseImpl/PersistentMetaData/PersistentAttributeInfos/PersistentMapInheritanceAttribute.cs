@@ -4,10 +4,10 @@ using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("MapInheritanceType")]
-    public class PeristentMapInheritanceAttribute : PersistentAttributeInfo {
+    public class PersistentMapInheritanceAttribute : PersistentAttributeInfo {
         MapInheritanceType _mapInheritanceType;
 
-        public PeristentMapInheritanceAttribute(Session session) : base(session) {
+        public PersistentMapInheritanceAttribute(Session session) : base(session) {
         }
 
         public MapInheritanceType MapInheritanceType {

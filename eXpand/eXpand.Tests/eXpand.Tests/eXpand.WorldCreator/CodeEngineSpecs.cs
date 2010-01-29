@@ -190,17 +190,17 @@ namespace eXpand.Tests.eXpand.WorldCreator {
     }
     [Subject(typeof(CodeEngine))]
     public class When_generating_code_from_Persistent_attribute_with_enum_parameter {
-        static PeristentMapInheritanceAttribute _peristentMapInheritanceAttribute;
+        static PersistentMapInheritanceAttribute _persistentMapInheritanceAttribute;
 
         static string _generateCode;
 
         Establish context = () => {
-            var artifactHandler = new TestAppLication<PeristentMapInheritanceAttribute>().Setup();
-            _peristentMapInheritanceAttribute = new PeristentMapInheritanceAttribute(artifactHandler.UnitOfWork);
+            var artifactHandler = new TestAppLication<PersistentMapInheritanceAttribute>().Setup();
+            _persistentMapInheritanceAttribute = new PersistentMapInheritanceAttribute(artifactHandler.UnitOfWork);
         };
 
         Because of = () => {
-            _generateCode = CodeEngine.GenerateCode(_peristentMapInheritanceAttribute);
+            _generateCode = CodeEngine.GenerateCode(_persistentMapInheritanceAttribute);
         };
 
         It should_create_arg_with_enumTypename_dot_enumName = () => _generateCode.ShouldStartWith("["+typeof(MapInheritanceAttribute).FullName+"("+typeof(MapInheritanceType).FullName+"."+MapInheritanceType.ParentTable+")]");

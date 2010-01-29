@@ -20,7 +20,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         bool _doNotCompile;
         string _name;
 
-        FileData _strongKeyFile;
+        StrongKeyFile _strongKeyFile;
 
         string _version="1.0.0.*";
 
@@ -30,7 +30,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         [Index(4)]
         [FileTypeFilter("Strong Keys", 1, "*.snk")]
         [Aggregated, ExpandObjectMembers(ExpandObjectMembers.Never)]
-        public FileData StrongKeyFile {
+        public StrongKeyFile StrongKeyFile {
             get { return _strongKeyFile; }
             set { SetPropertyValue("StrongKeyFile", ref _strongKeyFile, value); }
         }
@@ -89,7 +89,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
         IFileData IPersistentAssemblyInfo.FileData {
             get { return StrongKeyFile; }
-            set { StrongKeyFile = value as FileData; }
+            set { StrongKeyFile = value as StrongKeyFile; }
         }
 
         [Index(7)]
@@ -105,4 +105,5 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
         #endregion
     }
+
 }

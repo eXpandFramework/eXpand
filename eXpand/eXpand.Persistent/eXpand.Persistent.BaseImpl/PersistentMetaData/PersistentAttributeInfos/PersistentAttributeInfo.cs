@@ -5,6 +5,7 @@ using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
+    
     public abstract class PersistentAttributeInfo : BaseObject, IPersistentAttributeInfo {
         protected PersistentAttributeInfo(Session session) : base(session) { }
 

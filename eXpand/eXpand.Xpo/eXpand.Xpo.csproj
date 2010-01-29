@@ -66,6 +66,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -81,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AggregatedDelete.cs" />
+    <Compile Include="Attributes\DataStoreAttribute.cs" />
     <Compile Include="Attributes\Encrypt.cs" />
     <Compile Include="Collections\XPCollection.cs">
       <SubType>Component</SubType>
@@ -104,9 +106,11 @@
     <Compile Include="Converters\ValueConverters\SerializableObjectConverter.cs" />
     <Compile Include="Converters\ValueConverters\StringValueConverter.cs" />
     <Compile Include="DBObject.cs" />
+    <Compile Include="DB\DataStoreManager.cs" />
     <Compile Include="DB\DataStoreModifyDataEventArgs.cs" />
     <Compile Include="DB\DataStoreSelectDataEventArgs.cs" />
     <Compile Include="DB\DataStoreUpdateSchemaEventArgs.cs" />
+    <Compile Include="DB\MultiDataStore.cs" />
     <Compile Include="eXpandCustomObject.cs" />
     <Compile Include="FunctionOperators\ContainsFunction.cs" />
     <Compile Include="Parser\PropertyPathParser.cs" />

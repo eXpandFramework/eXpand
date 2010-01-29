@@ -11,6 +11,7 @@ using DevExpress.Xpo.DB;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Xpo.DB;
 
 namespace eXpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase:ModuleBase {
@@ -29,9 +30,8 @@ namespace eXpand.ExpressApp.WorldCreator {
             if (Application == null)
                 return;
             TypesInfo.Instance.AddTypes(GetAdditionalClasses());
-//            Application.SettingUp+=ApplicationOnSettingUp;
-
-            var unitOfWork = new UnitOfWork { ConnectionString = _connectionString };
+            Application.SettingUp+=ApplicationOnSettingUp;
+            var unitOfWork = new UnitOfWork {ConnectionString = _connectionString};
             AddDynamicModules(moduleManager, unitOfWork, TypesInfo.Instance.PersistentAssemblyInfoType);
             Application.SetupComplete += (sender, args) => {
                 mergeTypes(unitOfWork);
@@ -41,27 +41,17 @@ namespace eXpand.ExpressApp.WorldCreator {
             existentTypesMemberCreator.CreateMembers(unitOfWork, TypesInfo.Instance);
         }
 
-//        void ApplicationOnSettingUp(object sender, SetupEventArgs setupEventArgs) {
-//            setupEventArgs.SetupParameters.ObjectSpaceProvider =
-//                new DevExpress.ExpressApp.ObjectSpaceProvider(
-//                    new MyXpoDataStoreProvider(
-//                        "Integrated Security=SSPI;Pooling=false;Data Source=TOLISSS;Initial Catalog=Shell;User Id=sa;password=l@nd",
-//                        Application.ObjectSpaceProvider.XPDictionary));
-//            setupEventArgs.SetupParameters.ObjectSpaceProvider =
-//                new ObjectSpaceProvider(
-//
-//                    new DataStoreProvider(
-//                        "Integrated Security=SSPI;Pooling=false;Data Source=TOLISSS;Initial Catalog=Shell;User Id=sa;password=l@nd"));
-//            var objectSpaceProvider = setupEventArgs.SetupParameters.ObjectSpaceProvider as IObjectSpaceProvider;
-//            if (objectSpaceProvider== null)
-//                throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
-//
-//            var connectionString = ((IObjectSpaceProvider) setupEventArgs.SetupParameters.ObjectSpaceProvider).DataStoreProvider.ConnectionString;
-//            var worldCretorDataStore = new WorldCretorDataStore(connectionString,setupEventArgs.SetupParameters.ObjectSpaceProvider.XPDictionary);
-//            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreModifyData +=(o, args) => worldCretorDataStore.ModifyData(args);
-//            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreSelectData +=(o, args) => worldCretorDataStore.SelectData(args);
-//            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreUpdateSchema += (o, args) => worldCretorDataStore.UpdateSchema(args);
-//        }
+        void ApplicationOnSettingUp(object sender, SetupEventArgs setupEventArgs) {
+            var objectSpaceProvider = setupEventArgs.SetupParameters.ObjectSpaceProvider as IObjectSpaceProvider;
+            if (objectSpaceProvider== null)
+                throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
+
+            var connectionString = ((IObjectSpaceProvider) setupEventArgs.SetupParameters.ObjectSpaceProvider).DataStoreProvider.ConnectionString;
+            var worldCretorDataStore = new MultiDataStore(connectionString,setupEventArgs.SetupParameters.ObjectSpaceProvider.XPDictionary);
+            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreModifyData +=(o, args) => worldCretorDataStore.ModifyData(args);
+            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreSelectData +=(o, args) => worldCretorDataStore.SelectData(args);
+            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreUpdateSchema += (o, args) => worldCretorDataStore.UpdateSchema(args);
+        }
 
         public void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork, Type persistentAssemblyInfoType){
             List<IPersistentAssemblyInfo> persistentAssemblyInfos =

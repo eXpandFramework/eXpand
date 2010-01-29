@@ -155,8 +155,8 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                                            this.GetPropertyInfo(x => x.BaseClassInfo).Name + " should not be null";
                     return false;
                 }
-                if (TypeAttributes.Where(info => info is PeristentMapInheritanceAttribute).FirstOrDefault() == null) {
-                    errorMessageTemplate = typeof (PeristentMapInheritanceAttribute).Name + " is required";
+                if (TypeAttributes.Where(info => info is PersistentMapInheritanceAttribute).FirstOrDefault() == null) {
+                    errorMessageTemplate = typeof (PersistentMapInheritanceAttribute).Name + " is required";
                     return false;
                 }
             }
