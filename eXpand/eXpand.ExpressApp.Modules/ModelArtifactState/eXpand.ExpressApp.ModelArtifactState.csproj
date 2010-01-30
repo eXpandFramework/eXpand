@@ -111,10 +111,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\NotAllowObjectInstanciationRule.cs" />
+    <Compile Include="Attributes\NotAllowObjectInstanciationRuleAttribute.cs" />
     <Compile Include="Attributes\StateModelArtifactRuleAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Attributes\SupressDetailViewRuleAttribute.cs" />
     <Compile Include="Exceptions\ConditionalArtifactStateExceptionId.cs" />
     <Compile Include="Exceptions\ConditionalArtifactStateExceptionLocalizer.cs" />
     <Compile Include="Exceptions\ConditionalArtifactStateExceptionResourceLocalizer.cs" />

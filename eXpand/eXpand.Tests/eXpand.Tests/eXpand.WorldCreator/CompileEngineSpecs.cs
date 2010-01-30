@@ -167,7 +167,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         static PersistentAssemblyInfo _info;
 
         Establish context = () => new TestAppLication<PersistentAssemblyInfo>().Setup(null, info => {
-            var strongKeyFile = new FileData(info.Session);
+            var strongKeyFile = new StrongKeyFile(info.Session);
             strongKeyFile.LoadFromStream("test", new FileStream(@"../eXpand.Key/eXpand.snk", FileMode.Open));
             info.StrongKeyFile = strongKeyFile;
             info.Name = "a5";

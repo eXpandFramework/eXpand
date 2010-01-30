@@ -18,19 +18,16 @@ namespace eXpand.ExpressApp.ModelArtifactState.NodeWrappers{
         }
 
         public ConditionalActionStateRuleNodeWrapper ConditionalActionStateRuleNodeWrapper{
-            get{
-                if (conditionalActionStateRuleNodeWrapper != null) return conditionalActionStateRuleNodeWrapper;
-                return new ConditionalActionStateRuleNodeWrapper(Node.GetChildNode(ConditionalActionStateRuleNodeWrapper.NodeNameAttribute));
+            get {
+                return conditionalActionStateRuleNodeWrapper ??new ConditionalActionStateRuleNodeWrapper(Node.GetChildNode(ConditionalActionStateRuleNodeWrapper.NodeNameAttribute));
             }
             set { conditionalActionStateRuleNodeWrapper = value; }
         }
 
         public ConditionalControllerStateRuleNodeWrapper ConditionalControllerStateRuleNodeWrapper{
-            get{
-                if (conditionalControllerStateRuleNodeWrapper != null) return conditionalControllerStateRuleNodeWrapper;
-                return
-                    new ConditionalControllerStateRuleNodeWrapper(
-                        Node.GetChildNode(ConditionalControllerStateRuleNodeWrapper.NodeNameAttribute));
+            get {
+                return conditionalControllerStateRuleNodeWrapper ?? new ConditionalControllerStateRuleNodeWrapper(
+                                                                        Node.GetChildNode(ConditionalControllerStateRuleNodeWrapper.NodeNameAttribute));
             }
             set { conditionalControllerStateRuleNodeWrapper = value; }
         }
@@ -48,39 +45,27 @@ namespace eXpand.ExpressApp.ModelArtifactState.NodeWrappers{
             ArtifactStateRuleAttribute artifactStateRuleAttribute, ITypeInfo typeInfo)
             where TArtifactStateRuleNodeWrapper : ArtifactStateRuleNodeWrapper{
             ArtifactStateRuleNodeWrapper wrapper;
-            if (artifactStateRuleAttribute is ActionStateRuleAttribute){
-                wrapper =
-                    ConditionalActionStateRuleNodeWrapper.AddRule<ActionStateRuleNodeWrapper>(
-                        artifactStateRuleAttribute, typeInfo);
-            }
-            else{
-                wrapper =
-                    ConditionalControllerStateRuleNodeWrapper.AddRule<ControllerStateRuleNodeWrapper>(
-                        artifactStateRuleAttribute, typeInfo);
-            }
+            wrapper = artifactStateRuleAttribute is ActionStateRuleAttribute
+                          ? ConditionalActionStateRuleNodeWrapper.AddRule<ActionStateRuleNodeWrapper>(
+                                artifactStateRuleAttribute, typeInfo)
+                          : ConditionalControllerStateRuleNodeWrapper.AddRule<ControllerStateRuleNodeWrapper>(
+                                artifactStateRuleAttribute, typeInfo);
 
-            
+
             return wrapper;
         }
 
         private void addRules(string controllerstaterule, List<ArtifactStateRuleNodeWrapper> rules){
             DictionaryNode rulesNode = Node.FindChildNode(controllerstaterule);
             if (rulesNode != null){
-                foreach (DictionaryNode node in rulesNode.ChildNodes.GetOrderedByIndex()){
-                    rules.Add(
-                        (ArtifactStateRuleNodeWrapper)
-                        Activator.CreateInstance(typeof (ArtifactStateRuleNodeWrapper), new[]{node}));
-                }
+                rules.AddRange(rulesNode.ChildNodes.GetOrderedByIndex().Select(
+                        node =>(ArtifactStateRuleNodeWrapper)Activator.CreateInstance(typeof (ArtifactStateRuleNodeWrapper), new[] {node})));
             }
             return;
         }
 
-        public IEnumerable<ArtifactStateRuleNodeWrapper> FindRules(ITypeInfo typeInfo)
-        {
-            if (typeInfo != null){
-                return ConditionalControllerStateRuleNodeWrapper.FindRules(typeInfo).Concat(ConditionalActionStateRuleNodeWrapper.FindRules(typeInfo));
-            }
-            return null;
+        public IEnumerable<ArtifactStateRuleNodeWrapper> FindRules(ITypeInfo typeInfo) {
+            return typeInfo != null ? ConditionalControllerStateRuleNodeWrapper.FindRules(typeInfo).Concat(ConditionalActionStateRuleNodeWrapper.FindRules(typeInfo)) : null;
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -250,5 +251,21 @@ namespace eXpand.Tests.eXpand.IO {
 
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
         It should_generate_it = () => _serializationConfiguration.SerializationGraph.Count().ShouldEqual(_persistentAssemblyInfo.ClassInfo.PersistentProperties.OfType<XPMemberInfo>().Count());
+    }
+    [Subject(typeof(ClassInfoGraphNode))]
+    public class When_creating_a_graph_with_a_byte_array_property:With_Isolations {
+        static SerializationConfiguration _serializationConfiguration;
+
+        Establish context = () => {
+            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            _serializationConfiguration.TypeToSerialize = typeof (Analysis);            
+        };
+        Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+
+        It should_mark_that_property_as_simple =
+            () =>
+            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "PivotGridSettingsContent").Single
+                ().NodeType.ShouldEqual(NodeType.Simple);
     }
 }

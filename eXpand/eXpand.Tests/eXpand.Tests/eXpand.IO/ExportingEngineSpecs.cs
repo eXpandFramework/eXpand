@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
-using System.Xml;
 using System.Xml.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
@@ -60,13 +56,6 @@ namespace eXpand.Tests.eXpand.IO
         Because of = () => {
             _xDocument = new ExportEngine().Export(new List<XPBaseObject> { _customer }, _serializationConfiguration);
             _xDocument.Save("Customer.xml");
-//            var stream = new MemoryStream();
-//            _xDocument.Save(new XmlTextWriter(stream,Encoding.UTF8));
-//            var dataSet = new DataSet();
-//            stream.Position = 0;
-//            dataSet.ReadXml("Customer.xml");
-//            dataSet.wr
-//            Debug.Print("");
         };
 
         It should_create_an_xml_document=() => {
@@ -326,5 +315,24 @@ namespace eXpand.Tests.eXpand.IO
     [Subject(typeof(ExportEngine),"Non Default Keys")]
     public class When_objects_has_a_reference_object_as_key_that_has_non_default_key {
         It should_set_the_value_of_ref_object_non_default_key_as_valye_of_SerializedObjectRef_Key_element;
+    }
+
+    public class When_object_has_a_byte_array_property:With_Isolations {
+        static XElement _root;
+        static Analysis _analysis;
+
+        Establish context = () => {
+            ObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew();
+            _analysis = objectSpace.CreateObject<Analysis>();
+            _analysis.PivotGridSettingsContent=new byte[]{0,1};            
+        };
+
+        Because of = () => {
+            _root = new ExportEngine().Export(new List<XPBaseObject>{_analysis}).Root;
+        };
+
+        It should_serialize_bytes_to_xml =
+            () =>
+            _root.SerializedObjects(typeof (Analysis)).Property("PivotGridSettingsContent").Value.ShouldEqual("0,1");
     }
 }

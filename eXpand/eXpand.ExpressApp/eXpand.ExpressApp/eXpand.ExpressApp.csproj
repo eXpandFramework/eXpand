@@ -130,6 +130,7 @@
     <Compile Include="DataStoreProvider.cs" />
     <Compile Include="Enums\AllowEditEnum.cs" />
     <Compile Include="Enums\BooleanEnum.cs" />
+    <Compile Include="Enums\DetailViewType.cs" />
     <Compile Include="Enums\RecycleBinEnum.cs" />
     <Compile Include="Core\ModuleBaseExtensions.cs" />
     <Compile Include="IObjectSpaceProvider.cs" />
@@ -166,6 +167,14 @@
     <Compile Include="SystemModule\BaseWindowController.designer.cs">
       <DependentUpon>BaseWindowController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\DictionaryHelpers\ClassRefNodeProvider.cs" />
+    <Compile Include="SystemModule\ConditionalDetailViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ConditionalDetailViewController.designer.cs">
+      <DependentUpon>ConditionalDetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\ConditionalDetailViewWrapper.cs" />
     <Compile Include="SystemModule\CustomAttibutesController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -309,9 +318,6 @@
     <None Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="SystemModule\AllowEditDetailViewController.Designer.cs.orig" />
-    <None Include="SystemModule\BaseViewController.cs.orig" />
-    <None Include="SystemModule\FilterController.cs.orig" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
