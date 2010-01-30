@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using DevExpress.ExpressApp;
@@ -22,6 +23,7 @@ using System.Linq;
 using eXpand.Utils.Helpers;
 using TypeMock.ArrangeActAssert;
 using eXpand.Xpo;
+using ObjectSpaceProvider = DevExpress.ExpressApp.ObjectSpaceProvider;
 
 namespace eXpand.Tests.eXpand.IO
 {
@@ -316,7 +318,8 @@ namespace eXpand.Tests.eXpand.IO
     public class When_objects_has_a_reference_object_as_key_that_has_non_default_key {
         It should_set_the_value_of_ref_object_non_default_key_as_valye_of_SerializedObjectRef_Key_element;
     }
-
+    
+    [Subject(typeof(ExportEngine))]
     public class When_object_has_a_byte_array_property:With_Isolations {
         static XElement _root;
         static Analysis _analysis;
@@ -324,15 +327,21 @@ namespace eXpand.Tests.eXpand.IO
         Establish context = () => {
             ObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew();
             _analysis = objectSpace.CreateObject<Analysis>();
-            _analysis.PivotGridSettingsContent=new byte[]{0,1};            
+            _analysis.PivotGridSettingsContent = Encoding.UTF8.GetBytes("?<XtraSerializer version=\"1.0\" application=\"PivotGrid\">          </XtraSerializer> ");            
         };
 
         Because of = () => {
-            _root = new ExportEngine().Export(new List<XPBaseObject>{_analysis}).Root;
+            var xDocument = new ExportEngine().Export(new List<XPBaseObject>{_analysis});
+            xDocument.Save("test.xml");
+            _root = xDocument.Root;
         };
 
         It should_serialize_bytes_to_xml =
-            () =>
-            _root.SerializedObjects(typeof (Analysis)).Property("PivotGridSettingsContent").Value.ShouldEqual("0,1");
+            () => {
+                string value =
+                    _root.SerializedObjects(typeof (Analysis)).FirstOrDefault().Property("PivotGridSettingsContent").
+                        Value;
+                value.ShouldEqual("?<XtraSerializer version=\"1.0\" application=\"PivotGrid\">          </XtraSerializer> ".XMLEncode());
+            };
     }
 }

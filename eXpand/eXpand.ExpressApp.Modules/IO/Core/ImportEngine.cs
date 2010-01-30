@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
@@ -19,7 +20,7 @@ namespace eXpand.ExpressApp.IO.Core {
 
         public int ImportObjects(XDocument document, UnitOfWork unitOfWork) {
             if (document.Root != null){
-                foreach (XElement element in document.Root.Nodes()){
+                foreach (XElement element in document.Root.Nodes().OfType<XElement>()){
                     using (var nestedUnitOfWork = unitOfWork.BeginNestedUnitOfWork()){
                         ITypeInfo typeInfo = GetTypeInfo(element);
                         IEnumerable<XElement> elements = element.Descendants("Property");
@@ -33,8 +34,7 @@ namespace eXpand.ExpressApp.IO.Core {
             }
             return 0;
         }
-        public int ImportObjects(Stream stream, UnitOfWork unitOfWork)
-        {
+        public int ImportObjects(Stream stream, UnitOfWork unitOfWork){
             unitOfWork.PurgeDeletedObjects();
             stream.Position = 0;
             using (var streamReader = new StreamReader(stream)) {
@@ -44,8 +44,7 @@ namespace eXpand.ExpressApp.IO.Core {
             return 0;
         }
 
-        XPBaseObject createObject(XElement element, UnitOfWork nestedUnitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria)
-        {
+        XPBaseObject createObject(XElement element, UnitOfWork nestedUnitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria){
             XPBaseObject xpBaseObject = getObject(nestedUnitOfWork, typeInfo,objectKeyCriteria) ;
             var keyValuePair = new KeyValuePair<ITypeInfo, CriteriaOperator>(typeInfo, objectKeyCriteria);
             if (!importedObjecs.ContainsKey(keyValuePair)) {
@@ -116,7 +115,13 @@ namespace eXpand.ExpressApp.IO.Core {
             var valueConverter = xpMemberInfo.Converter;
             return valueConverter != null
                        ? valueConverter.ConvertFromStorageType(ReflectionHelper.Convert(simpleElement.Value, valueConverter.StorageType))
-                       : ReflectionHelper.Convert(simpleElement.Value, xpMemberInfo.MemberType);
+                       : GetValue(xpMemberInfo, simpleElement);
+        }
+
+        object GetValue(XPMemberInfo xpMemberInfo, XElement simpleElement) {
+            if (xpMemberInfo.MemberType==typeof(byte[]))
+                return Encoding.UTF8.GetBytes(simpleElement.Value.XMLDecode());
+            return ReflectionHelper.Convert(simpleElement.Value, xpMemberInfo.MemberType);
         }
 
         ITypeInfo GetTypeInfo(XElement element) {

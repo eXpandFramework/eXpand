@@ -18,7 +18,7 @@ namespace eXpand.Utils.Helpers
 
         public static string XMLEncode(this string Value)
         {
-            return Value.Replace("&", "&amp;").Replace("'", "&apos;").Replace("\"", "&quot;").Replace("<", "&lt;").Replace(">", "&gt;");
+            return Value.TrimEnd((char)0).Replace("&", "&amp;").Replace("'", "&apos;").Replace("\"", "&quot;").Replace("<", "&lt;").Replace(">", "&gt;");
         }
 
         public static string XMLDecode(this string Value)

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
@@ -207,6 +210,7 @@ namespace eXpand.Tests.eXpand.IO {
             _objectSpace.CommitChanges();
             _customer.Delete();
             _objectSpace.CommitChanges();
+            _objectSpace.Session.DropIdentityMap();
         };
 
         Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork) _objectSpace.Session);
@@ -247,6 +251,28 @@ namespace eXpand.Tests.eXpand.IO {
                                             ((XPBaseObject) new XPCollection(_objectSpace.Session,_orderType)[0]).GetMemberValue("Customers")).Count.ShouldEqual(1);
         It should_create_1_order2_customer = () => ((IList)
                                             ((XPBaseObject)new XPCollection(_objectSpace.Session, _orderType)[1]).GetMemberValue("Customers")).Count.ShouldEqual(1);
+    }
+    [Subject(typeof(ImportEngine))]
+    public class When_importing_object_with_byte_array:With_Isolations {
+        static string _xml;
+        static Session _session;
+
+        Establish context = () => {
+            ObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew();
+            _session = objectSpace.Session;
+            var analysis = objectSpace.CreateObject<Analysis>();
+            analysis.PivotGridSettingsContent = new byte[] { 0, 1 };
+            var document = new ExportEngine().Export(new List<XPBaseObject> {analysis});
+            var root = document.Root;
+            if (root != null) _xml = root.ToString();
+        };
+
+        Because of = () => {
+            var document = XDocument.Load(new XmlTextReader(new StringReader(_xml)));
+            new ImportEngine().ImportObjects(document, (UnitOfWork)_session);
+        };
+
+        It should_import_correct_bytes = () => _session.FindObject<Analysis>(null).PivotGridSettingsContent.ShouldEqual(new byte[] {0, 1});
     }
     [Subject(typeof(ImportEngine))]
     public class When_importing_customer_user_orders_persistentAssemblyInfo:With_Isolations {

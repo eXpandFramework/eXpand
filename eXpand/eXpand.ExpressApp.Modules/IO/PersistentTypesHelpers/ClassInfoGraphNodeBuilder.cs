@@ -31,7 +31,7 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
 
         IEnumerable<IClassInfoGraphNode> createGraph(ObjectSpace objectSpace, ITypeInfo typeToSerialize){
             IEnumerable<IMemberInfo> memberInfos = getMemberInfos(typeToSerialize);
-            return memberInfos.Select(memberInfo => !memberInfo.MemberTypeInfo.IsPersistent && !memberInfo.IsList
+            return memberInfos.Select(memberInfo => (!memberInfo.MemberTypeInfo.IsPersistent && !memberInfo.IsList)||memberInfo.MemberType==typeof(byte[])
                                                         ? addSimpleNode(memberInfo, objectSpace)
                                                         : addComplexNode(memberInfo, objectSpace));
         }

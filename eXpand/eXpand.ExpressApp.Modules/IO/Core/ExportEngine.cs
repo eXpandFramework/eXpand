@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using System.Xml.Linq;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -20,7 +21,6 @@ namespace eXpand.ExpressApp.IO.Core {
         public XDocument Export( IEnumerable<XPBaseObject> baseCollection, ISerializationConfiguration serializationConfiguration){
             var xDocument = new XDocument();
             var root = new XElement("SerializedObjects");
-            
             xDocument.Add(root);
             foreach (var baseObject in baseCollection) {
                 var serializedClassInfoGraphNodes = GetSerializedClassInfoGraphNodes(baseObject, serializationConfiguration);
@@ -59,13 +59,13 @@ namespace eXpand.ExpressApp.IO.Core {
             }
         }
 
-        object GetMemberValue(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode) {
+        string GetMemberValue(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode) {
             var memberValue = selectedObject.GetMemberValue(classInfoGraphNode.Name);
             var xpMemberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
             if (xpMemberInfo.Converter!= null){
-                return xpMemberInfo.Converter.ConvertToStorageType(memberValue);
+                return (xpMemberInfo.Converter.ConvertToStorageType(memberValue) + "").XMLEncode();
             }
-            return memberValue;
+            return ((memberValue is byte[] ? Encoding.UTF8.GetString((byte[])memberValue) : memberValue) + "").XMLEncode();
         }
 
         XElement GetPropertyElement(XElement serializedObjectElement, IClassInfoGraphNode classInfoGraphNode) {
@@ -74,7 +74,6 @@ namespace eXpand.ExpressApp.IO.Core {
             propertyElement.Add(new XAttribute("type", classInfoGraphNode.NodeType.ToString().MakeFirstCharLower()));
             propertyElement.Add(new XAttribute("name", classInfoGraphNode.Name));
             propertyElement.Add(new XAttribute("isKey", classInfoGraphNode.Key));
-//            propertyElement.Add(new XAttribute("isNaturalKey", classInfoGraphNode.NaturalKey));
             return propertyElement;
         }
 
@@ -110,8 +109,7 @@ namespace eXpand.ExpressApp.IO.Core {
             var serializationConfigurationType = TypesInfo.Instance.SerializationConfigurationType;
             ISerializationConfiguration configuration;
             var findObject = session.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, serializationConfigurationType,
-                                                SerializationConfigurationQuery.GetCriteria(
-                                                    type));
+                                                SerializationConfigurationQuery.GetCriteria(type));
             if (findObject != null)
                 configuration =(ISerializationConfiguration)findObject;
             else {

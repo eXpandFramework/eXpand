@@ -29,8 +29,7 @@ namespace eXpand.ExpressApp.IO.Controllers {
             _ioAction.Execute += IoActionOnExecute;
         }
 
-        void IoActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs)
-        {
+        void IoActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs){
             if (ReferenceEquals(singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data, "export")){
                 export();
             }
