@@ -29,6 +29,7 @@ namespace eXpand.ExpressApp.WorldCreator {
             base.Setup(moduleManager);
             if (Application == null)
                 return;
+            
             TypesInfo.Instance.AddTypes(GetAdditionalClasses());
             Application.SettingUp+=ApplicationOnSettingUp;
             var unitOfWork = new UnitOfWork {ConnectionString = _connectionString};

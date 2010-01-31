@@ -3,7 +3,6 @@ using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.NodeWrappers;
-using DevExpress.ExpressApp.PivotChart;
 using DevExpress.ExpressApp.PivotChart.Win;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors.Repository;

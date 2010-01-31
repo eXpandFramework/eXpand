@@ -175,9 +175,7 @@
     <Compile Include="PivotChart\PivotOptionsHint.cs" />
     <Compile Include="PivotChart\PivotOptionsMenu.cs" />
     <Compile Include="PivotChart\PivotOptionsSelection.cs" />
-    <Compile Include="PivotChart\PivotOption.cs" />
     <Compile Include="PivotChart\PivotOptionsView.cs" />
-    <Compile Include="PivotChart\PivotOptionView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Taxonomies\CustomTaxonomy.cs" />
     <Compile Include="Taxonomies\StructuralTerm.cs" />

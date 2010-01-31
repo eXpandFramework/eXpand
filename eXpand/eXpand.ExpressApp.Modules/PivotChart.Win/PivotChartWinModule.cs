@@ -14,6 +14,8 @@ namespace eXpand.ExpressApp.PivotChart.Win {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
+            if (Application== null)
+                return;
             foreach (var keyValuePair in PivotGridOptionMapper.Instance.Dictionary){
                 CreateMembers(typesInfo,keyValuePair.Key,keyValuePair.Value);
             }

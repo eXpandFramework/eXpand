@@ -1,19 +1,18 @@
-namespace eXpand.ExpressApp.PivotChart.Win.Controllers
-{
-    public partial class PivotedPropertyController : PivotChart.PivotedPropertyController
-    {
-        public PivotedPropertyController()
-        {
+using System.Collections.Generic;
+using DevExpress.ExpressApp.DC;
+
+namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
+    public partial class PivotedPropertyController : PivotChart.PivotedPropertyController {
+        public PivotedPropertyController() {
             InitializeComponent();
             RegisterActions(components);
         }
-        protected override void AttachControllers(DevExpress.ExpressApp.DC.IMemberInfo memberInfo)
-        {
-            base.AttachControllers(memberInfo);
-            var pivotGridInplaceEditorsController = new PivotGridInplaceEditorsController {TargetObjectType = View.ObjectTypeInfo.Type};
-            Frame.RegisterController(pivotGridInplaceEditorsController);
+
+        protected override void AttachControllers(IEnumerable<IMemberInfo> memberInfos) {
+            base.AttachControllers(memberInfos);
+            Frame.RegisterController(new PivotGridInplaceEditorsController {TargetObjectType = View.ObjectTypeInfo.Type});
+            Frame.RegisterController(new AnalysisControlVisibilityController
+                                     {TargetObjectType = View.ObjectTypeInfo.Type});
         }
     }
 }
-
-

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.PivotChart.Win;
@@ -42,26 +43,31 @@ namespace eXpand.ExpressApp.PivotChart.Win.Controllers
         }
 
         void synchonize(XPClassInfo classInfo, Type optionType, object currentObject) {
-            object gridOptionInstance = GetGridOptionInstance(optionType);
-            var propertyInfos = gridOptionInstance.GetType().GetProperties().Where(propertyInfo => propertyInfo.GetSetMethod() != null);
-            foreach (var propertyInfo in propertyInfos) {
-                var value = classInfo.GetMember(propertyInfo.Name).GetValue(currentObject);
-                propertyInfo.SetValue(gridOptionInstance,value, null);
+            var gridOptionInstances = GetGridOptionInstance(optionType);
+            foreach (var gridOptionInstance in gridOptionInstances) {
+                var propertyInfos = gridOptionInstance.GetType().GetProperties().Where(propertyInfo => propertyInfo.GetSetMethod() != null);
+                foreach (var propertyInfo in propertyInfos){
+                    var value = classInfo.GetMember(propertyInfo.Name).GetValue(currentObject);
+                    propertyInfo.SetValue(gridOptionInstance, value, null);
+                }
             }
         }
 
         void synchonize(object persistentPivotOption, Type type, XPClassInfo classInfo) {
-            object gridOptionInstance = GetGridOptionInstance(type);
-            var propertyInfos = gridOptionInstance.GetType().GetProperties().Where(propertyInfo => propertyInfo.GetSetMethod()!=null);
-            foreach (var propertyInfo in propertyInfos) {
-                classInfo.GetMember(propertyInfo.Name).SetValue(persistentPivotOption,propertyInfo.GetValue(gridOptionInstance,null));
+            var gridOptionInstances = GetGridOptionInstance(type);
+            foreach (var gridOptionInstance in gridOptionInstances) {
+                var propertyInfos = gridOptionInstance.GetType().GetProperties().Where(propertyInfo => propertyInfo.GetSetMethod() != null);
+                foreach (var propertyInfo in propertyInfos){
+                    classInfo.GetMember(propertyInfo.Name).SetValue(persistentPivotOption, propertyInfo.GetValue(gridOptionInstance, null));
+                }
             }
         }
 
-        object GetGridOptionInstance(Type type) {
-            var pivotGridControl = ((AnalysisControlWin)analysisEditor.Control).PivotGrid;
-            return typeof (PivotGridControl).GetProperties().Where(propertyInfo => propertyInfo.PropertyType == type).
-                Select(info1 => info1.GetValue(pivotGridControl, null)).Single();
+        List<object> GetGridOptionInstance(Type type) {
+            return AnalysisEditors.Select(analysisEditor => ((AnalysisControlWin) analysisEditor.Control).PivotGrid).Select
+                    (pivotGridControl =>
+                     typeof (PivotGridControl).GetProperties().Where(propertyInfo => propertyInfo.PropertyType == type).
+                         Select(info1 => info1.GetValue(pivotGridControl, null)).Single()).ToList();
         }
 
         void AddItems(SingleChoiceAction singleChoiceAction) {

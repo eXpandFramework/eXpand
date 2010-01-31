@@ -1,10 +1,8 @@
-﻿using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
+﻿using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PivotChart;
 
 namespace eXpand.Persistent.BaseImpl.PivotChart {
-    [DefaultClassOptions]
     [NonPersistent]
     public class PivotOption : BaseObject, IPivotOption {
         string _name;

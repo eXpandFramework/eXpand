@@ -95,6 +95,30 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
                                   @"		</Element>" +
                                   @"	</Element>" +
                                   @"</Element>");
+            if (modelElement == ModelElement.DetailViewItems)
+                return new DictionaryXmlReader().ReadFromString(
+                                  @"<?xml version=""1.0""?>" +
+                                  @"<Element Name=""Application"">" +
+                                  @"	<Element Name=""Views"">" +
+                                  @"		<Element Name=""DetailView"">" +
+                                  @"		    <Element Name=""Items"">" +
+                                  @"		    </Element>" +
+                                  @"		</Element>" +
+                                  @"	</Element>" +
+                                  @"</Element>");
+            if (modelElement == ModelElement.DetailViewPropertyEditors)
+                return new DictionaryXmlReader().ReadFromString(
+                                  @"<?xml version=""1.0""?>" +
+                                  @"<Element Name=""Application"">" +
+                                  @"	<Element Name=""Views"">" +
+                                  @"		<Element Name=""DetailView"">" +
+                                  @"		    <Element Name=""Items"">" +
+                                  @"		        <Element Name=""PropertyEditor"">" +
+                                  @"		        </Element>" +
+                                  @"		    </Element>" +
+                                  @"		</Element>" +
+                                  @"	</Element>" +
+                                  @"</Element>");
             if (modelElement == ModelElement.Member)
                 return new DictionaryXmlReader().ReadFromString(
                                   @"<?xml version=""1.0""?>" +
@@ -111,31 +135,38 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
             throw new NotImplementedException(modelElement.ToString());
         }
 
+        public DictionaryNode InjectAttribute(string name, Type choiceEnumType,ModelElement element) {
+            return Inject(@"<Attribute Name=""" + name + @""" Choice=""{" + choiceEnumType.FullName + @"}""/>",element);
+        }
         public DictionaryNode Inject(string injectString, ModelElement element)
         {
             DictionaryNode node = CreateElement(element);
-            
-            DictionaryNode dictionaryElement =node;
-            if (element == ModelElement.Class || element == ModelElement.DetailView || element == ModelElement.ListView)
-                dictionaryElement =
-                    (DictionaryNode) node.FindChildElementByPath(@"Element\Element[@Name='" + element + @"']");
+
+            string path = null;
+            string name = element.ToString();
+            switch (element) {
+                case ModelElement.Application:
+                    return node;
+                case ModelElement.ListView:
+                case ModelElement.DetailView:
+                case ModelElement.Class:
+                    path = @"Element\Element";
+                    break;
+                case ModelElement.DetailViewItems:
+                    name = "Items";
+                    path = @"Element\Element\Element";
+                    break;
+                case ModelElement.DetailViewPropertyEditors:
+                    name = "PropertyEditor";
+                    path = @"Element\Element\Element\Element";
+                    break;
+            }
+            var dictionaryElement = (DictionaryNode) node.FindChildElementByPath(path+@"[@Name='" + name + @"']");
 
             dictionaryElement.AddChildNode(new DictionaryXmlReader().ReadFromString(injectString));
             return node;
         }
 
-        public int GetLevel(ModelElement modelElement)
-        {
-            if (modelElement==ModelElement.Application)
-                return 0;
-            if (modelElement==ModelElement.BOModel||modelElement==ModelElement.Views)
-                return 1;
-            if (modelElement == ModelElement.Class || modelElement == ModelElement.DetailView || modelElement == ModelElement.ListView)
-                return 2;
-            if (modelElement == ModelElement.Member )
-                return 3;
-            throw new NotImplementedException(modelElement.ToString());
-        }
     }
     [Flags]
     public enum ModelElement
@@ -146,9 +177,9 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
         Class,
         DetailView,
         Member,
-
-
-        ListView
+        ListView,
+        DetailViewItems,
+        DetailViewPropertyEditors
     }
     
 

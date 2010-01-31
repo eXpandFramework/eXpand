@@ -1,4 +1,4 @@
-using DevExpress.ExpressApp.PivotChart;
+using AnalysisViewControllerBase = eXpand.ExpressApp.PivotChart.AnalysisViewControllerBase;
 
 namespace eXpand.ExpressApp.PivotChart
 {
