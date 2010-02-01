@@ -5,8 +5,8 @@ namespace eXpand.ExpressApp.Security.Permissions
     /// </summary>
     public enum State
     {
-        Default,
-        Disabled,
-        Hidden,
+        Default=0,
+        Disabled=1,
+        Hidden=2,
     }
 }

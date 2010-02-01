@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
 using eXpand.ExpressApp.ModelArtifactState.Interfaces;
@@ -33,37 +34,25 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
             var args = new ArtifactStateInfoCustomizingEventArgs(info, false);
             OnArtifactStateCustomizing(args);
             if (!args.Cancel){
-
-                foreach (ISupportArtifactState supportArtifactState in providers.Keys){
-                    if (providers[supportArtifactState].IsAssignableFrom(info.Rule.GetType()))
-                    {
-                        switch (info.State)
-                        {
-                            case State.Default:
-                            case State.Hidden:{
-                                if (supportArtifactState is ISupportArtifactStateVisibilityCustomization)
-                                    ((ISupportArtifactStateVisibilityCustomization) supportArtifactState).CustomizeVisibility(info);
-                                break;
-                            }
-                            case State.Disabled:{
-                                if (supportArtifactState is ISupportArtifactStateAccessibilityCustomization)
-                                    ((ISupportArtifactStateAccessibilityCustomization)supportArtifactState).CustomizeAccessibility(info);
-                                break;
-                            }
-                            default:
-                                break;
-                        }
-
+                foreach (ISupportArtifactState supportArtifactState in providers.Keys.Where(supportArtifactState =>
+                            providers[supportArtifactState].IsAssignableFrom(info.Rule.GetType()))) {
+                    if (info.State == State.Default || info.State == State.Hidden) {
+                        if (supportArtifactState is ISupportArtifactStateVisibilityCustomization)
+                            ((ISupportArtifactStateVisibilityCustomization) supportArtifactState).CustomizeVisibility(info);
                     }
-                }
+                    else if (info.State == State.Disabled) {
+                        if (supportArtifactState is ISupportArtifactStateAccessibilityCustomization)
+                            ((ISupportArtifactStateAccessibilityCustomization) supportArtifactState).CustomizeAccessibility(info);
+                    }                }
             }
             OnArtifactStateStateCustomized(new ArtifactStateInfoCustomizedEventArgs(info));
         }
 
-        public void Register<ArtifactStateRule>(ISupportArtifactState supportArtifactState)
+
+        public void Register<TArtifactStateRule>(ISupportArtifactState supportArtifactState)
         {
             if (!providers.Keys.Contains(supportArtifactState))
-                providers.Add(supportArtifactState, typeof(ArtifactStateRule));
+                providers.Add(supportArtifactState, typeof(TArtifactStateRule));
         }
         public void UnRegister(ISupportArtifactState supportArtifactStateVisibilityCustomization)
         {

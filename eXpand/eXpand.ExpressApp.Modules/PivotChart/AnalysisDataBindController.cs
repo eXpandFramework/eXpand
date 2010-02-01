@@ -3,21 +3,24 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
-using AnalysisViewControllerBase = eXpand.ExpressApp.PivotChart.AnalysisViewControllerBase;
 
 namespace eXpand.ExpressApp.PivotChart {
     public class AnalysisDataBindController : AnalysisViewControllerBase {
+        public const string BindMultiAnalysisData = "BindMultiAnalysisData";
+        public const string Unbindmultianalysisdata = "UnbindMultiAnalysisData";
         readonly SimpleAction bindDataAction;
         readonly SimpleAction unbindDataAction;
 
         public AnalysisDataBindController() {
-            bindDataAction = new SimpleAction(this, "BindMultiAnalysisData",PredefinedCategory.RecordEdit);
+            
+            bindDataAction = new SimpleAction(this, BindMultiAnalysisData,PredefinedCategory.RecordEdit);
             bindDataAction.Execute += bindDataAction_Execute;
             bindDataAction.Caption = "Bind Analysis Data1";
             bindDataAction.SelectionDependencyType = SelectionDependencyType.RequireSingleObject;
             bindDataAction.ImageName = "MenuBar_BindAnalysisData";
             bindDataAction.PaintStyle = ActionItemPaintStyle.CaptionAndImage;
-            unbindDataAction = new SimpleAction(this, "UnbindMultiAnalysisData", PredefinedCategory.RecordEdit);
+            
+            unbindDataAction = new SimpleAction(this, Unbindmultianalysisdata, PredefinedCategory.RecordEdit);
             unbindDataAction.Execute += unbindDataAction_Execute;
             unbindDataAction.Caption = "Unbind Analysis Data";
             unbindDataAction.SelectionDependencyType = SelectionDependencyType.RequireSingleObject;
