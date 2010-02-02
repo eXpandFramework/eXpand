@@ -36,5 +36,7 @@ call clearProject.bat eXpand.ExpressApp.ExceptionHandling.Web
 call clearProject.bat eXpand.ExpressApp.TreeListEditors.Win
 call clearProject.bat eXpand.ExpressApp.IO
 call clearProject.bat eXpand.ExpressApp.IO.Win
+call clearProject.bat eXpand.ExpressApp.PivotChart
+call clearProject.bat eXpand.ExpressApp.PivotChart.Win
 
 pause
