@@ -151,5 +151,16 @@ namespace eXpand.ExpressApp.IO.Core {
             }
             return CriteriaOperator.Parse(criteria.TrimEnd("AND ".ToCharArray()),parameters.ToArray());
         }
+
+        public void ImportObjects(UnitOfWork unitOfWork,string fileName) {
+            using (var fileStream = new FileStream(fileName,FileMode.Open)) {
+                 ImportObjects(fileStream,unitOfWork);
+            }
+        }
+
+        public void ImportObjects(UnitOfWork unitOfWork, Type nameSpaceType, string resourceName) {
+            Stream manifestResourceStream = nameSpaceType.Assembly.GetManifestResourceStream(nameSpaceType,resourceName);
+            ImportObjects(manifestResourceStream, unitOfWork);
+        }
     }
 }
