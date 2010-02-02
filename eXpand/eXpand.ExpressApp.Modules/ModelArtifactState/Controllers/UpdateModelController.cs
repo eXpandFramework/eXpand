@@ -27,7 +27,6 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
 
         public override void UpdateModel(Dictionary model){
             base.UpdateModel(model);
-
             ModelArtifactStateNodeWrapper wrapper = ModelArtifactStateModule.CreateModelWrapper(model);
             foreach (ITypeInfo typeInfo in XafTypesInfo.Instance.PersistentTypes){
                 CreateModelRulesFromClassAttributes(wrapper, typeInfo);

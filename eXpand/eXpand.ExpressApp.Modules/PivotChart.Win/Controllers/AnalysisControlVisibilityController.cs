@@ -1,6 +1,6 @@
+using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
-using DevExpress.ExpressApp.PivotChart.Win;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using System.Linq;
@@ -46,7 +46,14 @@ namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
 
 
         AnalysisControlWin GetAnalysisControlWin(string propertyName) {
-            return AnalysisEditors.Where(@base => @base.PropertyName==propertyName).OfType<AnalysisEditorWin>().Single().Control;
+            try {
+                return AnalysisEditors.Where(@base => @base.PropertyName==propertyName).OfType<AnalysisEditorWin>().Single().Control;
+            }
+            catch (InvalidOperationException) {
+                throw new UserFriendlyException(
+                    new Exception("Use " + typeof (AnalysisEditorWin).FullName + " as your default property editor for " +
+                                  typeof (IAnalysisInfo).Name));
+            }
         }
 
         public override Schema GetSchema() {

@@ -148,6 +148,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalysisControlWin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AnalysisEditorWin.cs">
+    </Compile>
     <Compile Include="Controllers\AnalysisControlVisibilityController.cs">
       <SubType>Component</SubType>
     </Compile>

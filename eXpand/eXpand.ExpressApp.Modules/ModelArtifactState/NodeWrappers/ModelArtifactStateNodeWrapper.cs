@@ -43,16 +43,16 @@ namespace eXpand.ExpressApp.ModelArtifactState.NodeWrappers{
 
         public virtual ArtifactStateRuleNodeWrapper AddRule<TArtifactStateRuleNodeWrapper>(
             ArtifactStateRuleAttribute artifactStateRuleAttribute, ITypeInfo typeInfo)
-            where TArtifactStateRuleNodeWrapper : ArtifactStateRuleNodeWrapper{
-            ArtifactStateRuleNodeWrapper wrapper;
-            wrapper = artifactStateRuleAttribute is ActionStateRuleAttribute
-                          ? ConditionalActionStateRuleNodeWrapper.AddRule<ActionStateRuleNodeWrapper>(
-                                artifactStateRuleAttribute, typeInfo)
-                          : ConditionalControllerStateRuleNodeWrapper.AddRule<ControllerStateRuleNodeWrapper>(
-                                artifactStateRuleAttribute, typeInfo);
+            where TArtifactStateRuleNodeWrapper : ArtifactStateRuleNodeWrapper {
+            
+            return artifactStateRuleAttribute is ActionStateRuleAttribute
+                                                       ? ConditionalActionStateRuleNodeWrapper.AddRule<ActionStateRuleNodeWrapper>(
+                                                             artifactStateRuleAttribute, typeInfo)
+                                                       : ConditionalControllerStateRuleNodeWrapper.AddRule<ControllerStateRuleNodeWrapper>(
+                                                             artifactStateRuleAttribute, typeInfo);
 
 
-            return wrapper;
+            
         }
 
         private void addRules(string controllerstaterule, List<ArtifactStateRuleNodeWrapper> rules){

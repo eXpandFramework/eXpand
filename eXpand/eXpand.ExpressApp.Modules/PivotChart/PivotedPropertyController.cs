@@ -7,7 +7,6 @@ using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Attributes;
-using eXpand.ExpressApp.PivotChart.ShowInAnalysis;
 using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.PivotChart
@@ -65,7 +64,8 @@ namespace eXpand.ExpressApp.PivotChart
             dataBindController.TargetObjectType = View.ObjectTypeInfo.Type;
         }
 
-        AssignCustomAnalysisDataSourceDetailViewController AttachAssignCustomAnalysisDataSourceDetailViewController() {
+        protected virtual AssignCustomAnalysisDataSourceDetailViewController AttachAssignCustomAnalysisDataSourceDetailViewController() {
+
             var assignCustomAnalysisDataSourceDetailViewController = new AssignCustomAnalysisDataSourceDetailViewController {
                                                                          TargetObjectType =View.ObjectTypeInfo.Type
                                                                      };

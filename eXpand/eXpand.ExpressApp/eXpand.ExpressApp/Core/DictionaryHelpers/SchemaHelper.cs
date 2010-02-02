@@ -144,9 +144,11 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
 
             string path = null;
             string name = element.ToString();
-            switch (element) {
-                case ModelElement.Application:
+            switch (element){
+                case ModelElement.Application: {
+                    node.AddChildNode(new DictionaryXmlReader().ReadFromString(injectString));
                     return node;
+                }
                 case ModelElement.ListView:
                 case ModelElement.DetailView:
                 case ModelElement.Class:
@@ -161,7 +163,7 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
                     path = @"Element\Element\Element\Element";
                     break;
             }
-            var dictionaryElement = (DictionaryNode) node.FindChildElementByPath(path+@"[@Name='" + name + @"']");
+            var dictionaryElement = (DictionaryNode)node.FindChildElementByPath(path + @"[@Name='" + name + @"']");
 
             dictionaryElement.AddChildNode(new DictionaryXmlReader().ReadFromString(injectString));
             return node;

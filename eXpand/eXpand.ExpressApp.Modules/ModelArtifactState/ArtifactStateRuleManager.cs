@@ -202,7 +202,7 @@ namespace eXpand.ExpressApp.ModelArtifactState{
         public static IEnumerable<ArtifactStateRuleAttribute> FindAttributes(ITypeInfo typeInfo)
         {
             if (typeInfo != null) {
-                return typeInfo.FindAttributes<ArtifactStateRuleAttribute>(true);
+                return typeInfo.FindAttributes<ArtifactStateRuleAttribute>(false);
             }
             return null;
         }

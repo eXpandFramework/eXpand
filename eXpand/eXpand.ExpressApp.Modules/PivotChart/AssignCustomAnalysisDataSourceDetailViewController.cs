@@ -1,15 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
 using System.Linq;
-using AnalysisViewControllerBase = eXpand.ExpressApp.PivotChart.AnalysisViewControllerBase;
 
 namespace eXpand.ExpressApp.PivotChart {
     public class AssignCustomAnalysisDataSourceDetailViewController : AnalysisViewControllerBase {
         readonly CriteriaOperator _criteriaOperator;
         readonly Dictionary<AnalysisEditorBase, CriteriaOperator> operators = new Dictionary<AnalysisEditorBase, CriteriaOperator>();
+        public event EventHandler<DataSourceCreatingEventArgs> DataSourceAssigned;
+
+        protected virtual void InvokeDataSourceAssigned(DataSourceCreatingEventArgs e) {
+            EventHandler<DataSourceCreatingEventArgs> handler = DataSourceAssigned;
+            if (handler != null) handler(this, e);
+        }
+
 
         public AssignCustomAnalysisDataSourceDetailViewController() {
         }
@@ -38,11 +45,16 @@ namespace eXpand.ExpressApp.PivotChart {
                 }
                 e.DataSource = View.ObjectSpace.CreateCollection(e.AnalysisInfo.DataType,userCriteria & criteriaOperator&_criteriaOperator);
                 e.Handled = true;
+                InvokeDataSourceAssigned(e);
             }            
         }
+
 
         public void SetCriteria(IMemberInfo memberInfo, CriteriaOperator criteriaOperator) {
             operators.Add(AnalysisEditors.Where(@base => @base.MemberInfo.Name.StartsWith(memberInfo.Name)).Single(), criteriaOperator);
         }
     }
+
+    public delegate void DataSourceAssignedEventHandler(object sender, DataSourceCreatingEventArgs args);
+
 }
