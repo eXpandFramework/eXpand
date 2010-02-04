@@ -15,7 +15,7 @@ namespace eXpand.ExpressApp.PivotChart {
             
             bindDataAction = new SimpleAction(this, BindMultiAnalysisData,PredefinedCategory.RecordEdit);
             bindDataAction.Execute += bindDataAction_Execute;
-            bindDataAction.Caption = "Bind Analysis Data1";
+            bindDataAction.Caption = "Bind Analysis Data";
             bindDataAction.SelectionDependencyType = SelectionDependencyType.RequireSingleObject;
             bindDataAction.ImageName = "MenuBar_BindAnalysisData";
             bindDataAction.PaintStyle = ActionItemPaintStyle.CaptionAndImage;

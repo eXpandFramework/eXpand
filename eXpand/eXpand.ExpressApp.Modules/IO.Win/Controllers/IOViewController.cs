@@ -12,7 +12,7 @@ namespace eXpand.ExpressApp.IO.Win.Controllers
         }
 
         protected override string GetFilePath() {
-            var openFileDialog = new OpenFileDialog {CheckFileExists = false, AddExtension = true};
+            var openFileDialog = new SaveFileDialog {CheckFileExists = false, AddExtension = true};
             var dialogResult = openFileDialog.ShowDialog();
             if (dialogResult==DialogResult.OK)
                 return openFileDialog.FileName;
