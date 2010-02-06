@@ -11,8 +11,8 @@ namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
         protected override void AttachControllers(IEnumerable<IMemberInfo> memberInfos) {
             base.AttachControllers(memberInfos);
             Frame.RegisterController(new PivotGridInplaceEditorsController {TargetObjectType = View.ObjectTypeInfo.Type});
-            Frame.RegisterController(new AnalysisControlVisibilityController
-                                     {TargetObjectType = View.ObjectTypeInfo.Type});
+            Frame.RegisterController(new AnalysisControlVisibilityController{TargetObjectType = View.ObjectTypeInfo.Type});
+            Frame.RegisterController(new AnalysisDisplayDateTimeViewController { TargetObjectType = View.ObjectTypeInfo.Type });
         }
     }
 }

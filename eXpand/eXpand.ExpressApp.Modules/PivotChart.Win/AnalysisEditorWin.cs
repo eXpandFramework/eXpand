@@ -15,10 +15,6 @@ namespace eXpand.ExpressApp.PivotChart.Win {
             get { return (AnalysisControlWin) base.Control; }
         }
 
-        public new IAnalysisInfo CurrentObject {
-            get { return (IAnalysisInfo) base.CurrentObject; }
-            set { base.CurrentObject = value; }
-        }
 
         void analysisControl_HandleCreated(object sender, EventArgs e) {
             ReadValue();

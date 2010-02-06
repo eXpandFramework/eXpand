@@ -51,10 +51,12 @@ namespace eXpand.ExpressApp.PivotChart
 
         protected virtual void AttachControllers(IEnumerable<IMemberInfo> memberInfos) {
             var assignCustomAnalysisDataSourceDetailViewController = AttachAssignCustomAnalysisDataSourceDetailViewController();
-            foreach (var memberInfo in memberInfos) {
-                assignCustomAnalysisDataSourceDetailViewController.SetCriteria(memberInfo, GetCriteria(memberInfo));
-            }
+            assignCustomAnalysisDataSourceDetailViewController.ApplyingCollectionCriteria+=AssignCustomAnalysisDataSourceDetailViewControllerOnApplyingCollectionCriteria;
             ActivateController<AnalysisDataBindController>();
+        }
+
+        void AssignCustomAnalysisDataSourceDetailViewControllerOnApplyingCollectionCriteria(object sender, CriteriaOperatorArgs criteriaOperatorArgs) {
+            criteriaOperatorArgs.Criteria = GetCriteria(View.ObjectTypeInfo.FindMember(criteriaOperatorArgs.AnalysisEditorBase.MemberInfo.Name.Replace(".Self","")));
         }
 
         void  ActivateController<TController>() where TController:ViewController{
