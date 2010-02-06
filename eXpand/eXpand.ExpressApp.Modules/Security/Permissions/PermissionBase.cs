@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 using System.Security;
 using DevExpress.ExpressApp;
@@ -22,7 +21,7 @@ namespace eXpand.ExpressApp.Security.Permissions
 
         protected void AllFromXml(SecurityElement e)
         {
-            foreach (var propertyInfo in GetType().GetProperties().Cast<PropertyInfo>())
+            foreach (var propertyInfo in GetType().GetProperties())
                 propertyInfo.SetValue(this, ChangeType(propertyInfo, e), null);
         }
 
@@ -38,7 +37,7 @@ namespace eXpand.ExpressApp.Security.Permissions
         protected SecurityElement AllToXml()
         {
             SecurityElement result = base.ToXml();
-            foreach (var propertyInfo in GetType().GetProperties().Cast<PropertyInfo>())
+            foreach (var propertyInfo in GetType().GetProperties())
                 result.AddAttribute(propertyInfo.Name, (propertyInfo.GetValue(this, null) + "").XMLEncode());
             return result;
         }

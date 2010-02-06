@@ -159,6 +159,10 @@
     <Compile Include="Controllers\AnalysisControlVisibilityController.Designer.cs">
       <DependentUpon>AnalysisControlVisibilityController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AnalysisDisplayDateTimeViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\PivotGridFieldBuilder.cs" />
     <Compile Include="Core\PivotGridOptionMapper.cs" />
     <Compile Include="PivotChartWinModule.cs">
       <SubType>Component</SubType>

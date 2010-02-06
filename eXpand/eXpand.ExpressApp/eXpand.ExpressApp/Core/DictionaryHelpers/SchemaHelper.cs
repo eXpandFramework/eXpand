@@ -149,10 +149,16 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
                     node.AddChildNode(new DictionaryXmlReader().ReadFromString(injectString));
                     return node;
                 }
+                case ModelElement.BOModel:
+                    path = @"Element";
+                    break;
                 case ModelElement.ListView:
                 case ModelElement.DetailView:
                 case ModelElement.Class:
                     path = @"Element\Element";
+                    break;
+                case ModelElement.Member:
+                    path = @"Element\Element\Element";
                     break;
                 case ModelElement.DetailViewItems:
                     name = "Items";
@@ -170,7 +176,7 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
         }
 
     }
-    [Flags]
+    
     public enum ModelElement
     {
         Application,

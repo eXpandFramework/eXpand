@@ -6,14 +6,18 @@ using DevExpress.ExpressApp.PivotChart.Win;
 using DevExpress.Persistent.Base;
 
 namespace eXpand.ExpressApp.PivotChart.Win {
-    [PropertyEditor(typeof(IAnalysisInfo), true)]
-    public class AnalysisEditorWin : DevExpress.ExpressApp.PivotChart.Win.AnalysisEditorWin
-    {
+    [PropertyEditor(typeof (IAnalysisInfo), true)]
+    public class AnalysisEditorWin : DevExpress.ExpressApp.PivotChart.Win.AnalysisEditorWin {
         public AnalysisEditorWin(Type objectType, DictionaryNode info) : base(objectType, info) {
         }
 
         public new AnalysisControlWin Control {
             get { return (AnalysisControlWin) base.Control; }
+        }
+
+        public new IAnalysisInfo CurrentObject {
+            get { return (IAnalysisInfo) base.CurrentObject; }
+            set { base.CurrentObject = value; }
         }
 
         void analysisControl_HandleCreated(object sender, EventArgs e) {

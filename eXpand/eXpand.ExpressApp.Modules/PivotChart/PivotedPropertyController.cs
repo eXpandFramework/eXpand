@@ -85,6 +85,7 @@ namespace eXpand.ExpressApp.PivotChart
 
         CriteriaOperator GetOrphanCollectionCriteria(IMemberInfo collectionMemberInfo) {
             var groupOperator = new GroupOperator(GroupOperatorType.Or);
+            groupOperator.Operands.Add(CriteriaOperator.Parse(string.Format("{0}=?", collectionMemberInfo.ListElementTypeInfo.KeyMember.Name), Guid.NewGuid()));
             foreach (var obj in (IEnumerable) collectionMemberInfo.GetValue(View.CurrentObject)) {
                 var criteriaOperator = CriteriaOperator.Parse(string.Format("{0}=?", collectionMemberInfo.ListElementTypeInfo.KeyMember.Name),
                                                               (Guid)ObjectSpace.GetKeyValue(obj));
