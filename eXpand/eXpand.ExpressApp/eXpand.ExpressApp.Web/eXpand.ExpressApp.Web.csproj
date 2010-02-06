@@ -114,7 +114,6 @@
       <DependentUpon>eXpandSystemAspNetModule.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FilterByPropertyPathViewController.Designer.cs">
       <DependentUpon>FilterByPropertyPathViewController.cs</DependentUpon>
