@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\UpdateModelViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\UpdateModelViewController.Designer.cs">
       <DependentUpon>UpdateModelViewController.cs</DependentUpon>
@@ -129,6 +130,7 @@
       <DependentUpon>WinControlsController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\WinShowAdditionalViewControlsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\WinShowAdditionalViewControlsController.Designer.cs">
       <DependentUpon>WinShowAdditionalViewControlsController.cs</DependentUpon>

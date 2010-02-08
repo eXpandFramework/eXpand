@@ -129,11 +129,13 @@
       <DependentUpon>DefaultRolePermissionsController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\PopulateController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\PopulateController.Designer.cs">
       <DependentUpon>PopulateController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\PopulateViewsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\PopulateViewsController.Designer.cs">
       <DependentUpon>PopulateViewsController.cs</DependentUpon>

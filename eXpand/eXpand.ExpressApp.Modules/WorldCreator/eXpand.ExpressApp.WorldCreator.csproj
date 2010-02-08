@@ -133,6 +133,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\ListView\InterfaceInfoNestedController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\DetailView\PersistentTemplatedTypeInfoController.cs">
       <SubType>Component</SubType>
