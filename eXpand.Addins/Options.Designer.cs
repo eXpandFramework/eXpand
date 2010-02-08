@@ -43,14 +43,14 @@ namespace eXpandAddIns
             this.labelControl3 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.labelControl5 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            this.connectionStringName = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
+
             this.gridControl1 = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView();
             this.gridColumnName = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.connectionStringName.Properties)).BeginInit();
+
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -133,13 +133,6 @@ namespace eXpandAddIns
             // 
             // connectionStringName
             // 
-            this.connectionStringName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.connectionStringName.EditValue = "ConnectionString";
-            this.connectionStringName.Location = new System.Drawing.Point(122, 105);
-            this.connectionStringName.Name = "connectionStringName";
-            this.connectionStringName.Size = new System.Drawing.Size(393, 22);
-            this.connectionStringName.TabIndex = 10;
             // 
             // gridControl1
             // 
@@ -172,7 +165,7 @@ namespace eXpandAddIns
             // 
             // gridColumnName
             // 
-            this.gridColumnName.Caption = "Visual Studio Assembly Folders";
+            this.gridColumnName.Caption = "ConnectionStrings";
             this.gridColumnName.FieldName = "Name";
             this.gridColumnName.Name = "gridColumnName";
             this.gridColumnName.OptionsFilter.AutoFilterCondition = DevExpress.DXCore.Controls.XtraGrid.Columns.AutoFilterCondition.Contains;
@@ -184,7 +177,7 @@ namespace eXpandAddIns
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.labelControl5);
-            this.Controls.Add(this.connectionStringName);
+            
             this.Controls.Add(this.buttonEdit1);
             this.Controls.Add(this.labelControl3);
             this.Controls.Add(this.labelControl2);
@@ -196,7 +189,7 @@ namespace eXpandAddIns
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.connectionStringName.Properties)).EndInit();
+            
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
@@ -255,7 +248,7 @@ namespace eXpandAddIns
         private LabelControl labelControl3;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private LabelControl labelControl5;
-        private ButtonEdit connectionStringName;
+
         private DevExpress.DXCore.Controls.XtraGrid.GridControl gridControl1;
         private DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn gridColumnName;

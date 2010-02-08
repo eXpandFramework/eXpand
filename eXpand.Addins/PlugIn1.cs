@@ -6,12 +6,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.DXCore.Controls.Xpo;
 using DevExpress.DXCore.Controls.Xpo.DB;
+using DevExpress.DXCore.Controls.Xpo.DB.Exceptions;
 using EnvDTE;
 using eXpandAddIns.Enums;
 using eXpandAddIns.Extensioons;
@@ -100,49 +100,68 @@ namespace eXpandAddIns
             Trace.Listeners.Add(new DefaultTraceListener { LogFileName = "log.txt" });
             foreach (ProjectItem item in enumerable) {
                 if (item.Name.ToLower() == "app.config" || item.Name.ToLower() == "web.config") {
-                    Trace.Write("config found");
+                    Trace.WriteLine("config found");
                     using (var storage = new DecoupledStorage(typeof (Options))) {
-                        string connectionStringName = storage.ReadString(Options.GetPageName(), "connectionStringName");
-                        if (!string.IsNullOrEmpty(connectionStringName)) {
-                            Trace.Write("conneection string found");
-                            ConnectionStringSettings connectionStringSettings = GetConnectionStringSettings(item);
-                            dropDatabase(connectionStringSettings.ConnectionString);
+                        foreach (var connectionString in Options.GetConnectionStrings(storage)){
+                            if (!string.IsNullOrEmpty(connectionString.Name)){
+                                Trace.WriteLine("conneection string found in storage");
+                                ConnectionStringSettings connectionStringSettings = GetConnectionStringSettings(item,connectionString.Name);
+                                if (connectionStringSettings != null) {
+                                    Trace.WriteLine("conneection string found in config");
+                                    dropDatabase(connectionStringSettings.ConnectionString,connectionString.Name);
+                                }
+                            }    
                         }
                     }
                 }
             }            
         }
 
-        private ConnectionStringSettings GetConnectionStringSettings(ProjectItem item)
+        private ConnectionStringSettings GetConnectionStringSettings(ProjectItem item, string name)
         {
             Property property = item.FindProperty(ProjectItemProperty.FullPath);
             var exeConfigurationFileMap = new ExeConfigurationFileMap { ExeConfigFilename = property.Value.ToString() };
             Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(exeConfigurationFileMap, ConfigurationUserLevel.None);
             ConnectionStringsSection strings = configuration.ConnectionStrings;
-            return strings.ConnectionStrings["ConnectionString"];
+            return strings.ConnectionStrings[name];
         }
 
-        private void dropDatabase(  string connectionString)
+        private void dropDatabase(string connectionString, string name)
         {
-            var provider = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None);
-            if (provider is MSSqlConnectionProvider)
-                dropSqlServerDatabase(connectionString);
-            else if (provider is AccessConnectionProvider) {
-                File.Delete(((AccessConnectionProvider) provider).Connection.Database);
+            string error = null;
+            IDataStore provider;
+            string database = name;
+            try {
+                provider = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None);
+                if (provider is MSSqlConnectionProvider)
+                    database = dropSqlServerDatabase(connectionString);
+                else if (provider is AccessConnectionProvider)
+                {
+                    database = ((AccessConnectionProvider)provider).Connection.Database;
+                    File.Delete(database);
+                }
+                else
+                {
+                    throw new NotImplementedException(provider.GetType().FullName);
+                }
             }
-            else {
-                throw new NotImplementedException(provider.GetType().FullName);
+            catch (UnableToOpenDatabaseException) {
+                error = "UnableToOpenDatabase " + database;
             }
-            actionHint1.Text = "DataBase Dropped !!!";
+            catch (Exception e) {
+                Trace.WriteLine(e.ToString());
+                error = database+ " Error check log";
+            }
+            actionHint1.Text = error??database+" DataBase Dropped !!!";
             Rectangle rectangle = Screen.PrimaryScreen.Bounds;
             actionHint1.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
         }
 
-        private void dropSqlServerDatabase(string connectionString) {
+        private string dropSqlServerDatabase(string connectionString) {
             using (var connection = new SqlConnection(connectionString)){
                 using (var sqlConnection = new SqlConnection(connectionString.Replace(connection.Database, "master")+";Pooling=false")){
                     sqlConnection.Open();
-                    Trace.Write("master db opened");
+                    Trace.WriteLine("master db opened");
                     SqlCommand sqlCommand = sqlConnection.CreateCommand();
                     sqlCommand.CommandText = "ALTER DATABASE $TargetDataBase$ SET SINGLE_USER WITH ROLLBACK IMMEDIATE".Replace("$TargetDataBase$", connection.Database);
                     sqlCommand.ExecuteNonQuery();
@@ -150,17 +169,11 @@ namespace eXpandAddIns
                     sqlCommand.ExecuteNonQuery();
                     
                 }
+                return connection.Database;
             }
         }
 
-        private void events_ProjectBuildBegin(string project1, string projectConfiguration, string platform, string solutionConfiguration)
-        {
-            
-        }
 
-        private void events_BuildBegin(vsBuildScope scope, vsBuildAction action) {
-
-        }
 
 
     }
