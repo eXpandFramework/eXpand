@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Linq;
 using DevExpress.ExpressApp.Templates;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers;
 using eXpand.ExpressApp.RuleModeller;
@@ -9,24 +11,31 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Controllers {
             <AdditionalViewControlsAttribute, AdditionalViewControlsRuleNodeWrapper, AdditionalViewControlsRuleInfo,
             AdditionalViewControlsRule> {
         public override void ExecuteRule(AdditionalViewControlsRuleInfo info, ExecutionReason executionReason) {
-            if (info.Active && (executionReason == ExecutionReason.ViewControlAdding )){
+            if (info.Active ){
                 AdditionalViewControlsRule additionalViewControlsRule = info.Rule;
                 var calculator = new AdditionalViewControlsProviderCalculator(additionalViewControlsRule);
                 object control = Activator.CreateInstance(calculator.ControlsRule.ControlType);
-                AddControl(control,info,calculator);
+                AddControl(control,info,calculator,executionReason);
             }
         }
-        protected void AddControl(object control, AdditionalViewControlsRuleInfo additionalViewControlsRule,AdditionalViewControlsProviderCalculator calculator) {
+        protected object GetControl(IEnumerable collection, object control, AdditionalViewControlsProviderCalculator calculator, AdditionalViewControlsRuleInfo additionalViewControlsRule)
+        {
+            object o = collection.OfType<object>().Where(control1 => control1.GetType().Equals(control.GetType())).FirstOrDefault() ?? control;
+            Activator.CreateInstance(calculator.ControlsRule.DecoratorType, new[] { additionalViewControlsRule.View.CurrentObject, o, additionalViewControlsRule.Rule });
+            return o;
+        }
+
+        protected void AddControl(object control, AdditionalViewControlsRuleInfo additionalViewControlsRule,AdditionalViewControlsProviderCalculator calculator,ExecutionReason reason) {
             if (Frame != null) {
                 var viewSiteTemplate = Frame.Template as IViewSiteTemplate;
                 if (viewSiteTemplate == null)
                     return;
                 object viewSiteControl = viewSiteTemplate.ViewSiteControl;
                 if (viewSiteControl != null)
-                    AddControl(viewSiteControl, control, additionalViewControlsRule,calculator);
+                    AddControl(viewSiteControl, control, additionalViewControlsRule,calculator,reason);
             }
         }
 
-        protected abstract void AddControl(object viewSiteControl, object control, AdditionalViewControlsRuleInfo additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator);
+        protected abstract void AddControl(object viewSiteControl, object control, AdditionalViewControlsRuleInfo additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator, ExecutionReason reason);
     }
 }

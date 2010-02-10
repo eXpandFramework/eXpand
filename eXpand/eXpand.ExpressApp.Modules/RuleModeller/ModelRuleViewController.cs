@@ -47,6 +47,8 @@ namespace eXpand.ExpressApp.RuleModeller{
             base.OnViewChanging(view);
             Active[ActiveObjectTypeHasRules] = ModelRuleManager<TModelRuleAttribute, TModelRuleNodeWrapper, TModelRuleInfo, TModelRule>.HasRules(view);
             ForceExecution(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view,false,ExecutionReason.ViewChanging);
+            var supportViewControlAdding = Frame.Template as ISupportViewControlAdding;
+            if (supportViewControlAdding != null)supportViewControlAdding.ViewControlAdding +=(sender, args) => ForceExecution(ExecutionReason.ViewControlAdding);
         }
 
         private void FrameOnViewChanging(object sender, EventArgs args){
@@ -66,25 +68,14 @@ namespace eXpand.ExpressApp.RuleModeller{
         protected override void OnActivated(){
             base.OnActivated();
             if (IsReady){
+                Frame.TemplateViewChanged += FrameOnTemplateViewChanged;
                 ForceExecution(ExecutionReason.ViewActivated);
-                Frame.TemplateChanged+=FrameOnTemplateChanged;
                 View.ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
                 View.CurrentObjectChanged+=ViewOnCurrentObjectChanged;
                 View.ObjectSpace.Refreshing += ObjectSpace_Refreshing;
                 View.ObjectSpace.Reloaded += ObjectSpace_Reloaded;
             }
         }
-
-        void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
-            var supportViewControlAdding = Frame.Template as ISupportViewControlAdding;
-            if (supportViewControlAdding != null)
-                supportViewControlAdding.ViewControlAdding += SupportViewControlAddingOnViewControlAdding;
-        }
-
-        void SupportViewControlAddingOnViewControlAdding(object sender, EventArgs eventArgs) {
-            ForceExecution(ExecutionReason.ViewControlAdding);
-        }
-
 
         protected override void OnViewControlsCreated()
         {
@@ -94,12 +85,16 @@ namespace eXpand.ExpressApp.RuleModeller{
         protected override void OnDeactivating(){
             base.OnDeactivating();
             if (IsReady){
-                Frame.TemplateChanged -= FrameOnTemplateChanged;
+                Frame.TemplateViewChanged-=FrameOnTemplateViewChanged;
                 View.ObjectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
                 View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
                 View.ObjectSpace.Refreshing -= ObjectSpace_Refreshing;
                 View.ObjectSpace.Reloaded -= ObjectSpace_Reloaded;
             }
+        }
+
+        void FrameOnTemplateViewChanged(object sender, EventArgs eventArgs) {
+            ForceExecution(ExecutionReason.TemplateViewChanged);
         }
 
         private void ObjectSpace_Reloaded(object sender, EventArgs e){
@@ -117,8 +112,12 @@ namespace eXpand.ExpressApp.RuleModeller{
             }
         }
 
+        private void ForceExecution(ExecutionReason executionReason,View view) {
+            ForceExecution(IsReady, view, false, executionReason);
+        }
+
         private void ForceExecution(ExecutionReason executionReason){
-            ForceExecution(IsReady,View, false, executionReason);
+            ForceExecution(executionReason,View);
         }
 
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs args){

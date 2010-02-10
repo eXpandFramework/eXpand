@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Attributes;
 using System.Linq;
 using eXpand.ExpressApp.Core;
@@ -24,30 +26,38 @@ namespace eXpand.ExpressApp.SystemModule{
                 var associationAttribute = memberInfo.FindAttribute<AssociationAttribute>();
                 if (associationAttribute== null)
                     throw new NullReferenceException(memberInfo+" has no association attribute");
-                CreateMemberInfo(memberInfo, providedAssociationAttribute,associationAttribute);
+                XPCustomMemberInfo customMemberInfo = CreateMemberInfo(memberInfo, providedAssociationAttribute,associationAttribute);
+                if (!(string.IsNullOrEmpty(providedAssociationAttribute.AttributesFactoryProperty)))
+                    foreach (var attribute in GetAttributes(providedAssociationAttribute.AttributesFactoryProperty,memberInfo.Owner)) {
+                        customMemberInfo.AddAttribute(attribute);
+                    }
             }
         }
 
-        private void CreateMemberInfo(IMemberInfo memberInfo, ProvidedAssociationAttribute providedAssociationAttribute, AssociationAttribute associationAttribute)
+        IEnumerable<Attribute> GetAttributes(string attributesFactoryProperty, ITypeInfo owner) {
+            PropertyInfo memberInfo = owner.Type.GetProperty(attributesFactoryProperty);
+            return memberInfo != null ? (IEnumerable<Attribute>) memberInfo.GetValue(null, null) : new List<Attribute>();
+        }
+
+        private XPCustomMemberInfo CreateMemberInfo(IMemberInfo memberInfo, ProvidedAssociationAttribute providedAssociationAttribute, AssociationAttribute associationAttribute)
         {
             var typeToCreateOn = getTypeToCreateOn(memberInfo,associationAttribute);
             if (typeToCreateOn== null)
                 throw new NotImplementedException();
-            
-            if (memberInfo.IsAssociation || (memberInfo.IsList&&providedAssociationAttribute.RelationType==RelationType.ManyToMany)){
-                XafTypesInfo.Instance.CreateCollection(typeToCreateOn, memberInfo.Owner.Type, associationAttribute.Name,
-                                                       providedAssociationAttribute.ProvidedPropertyName ??
-                                                       memberInfo.Owner.Type.Name + "s",
-                                                       XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+            XPCustomMemberInfo xpCustomMemberInfo;
+            if (memberInfo.IsAssociation || (memberInfo.IsList&&providedAssociationAttribute.RelationType==RelationType.ManyToMany)) {
+                xpCustomMemberInfo = XafTypesInfo.Instance.CreateCollection(typeToCreateOn, memberInfo.Owner.Type, associationAttribute.Name,
+                                                                            providedAssociationAttribute.ProvidedPropertyName ??
+                                                                            memberInfo.Owner.Type.Name + "s",
+                                                                            XafTypesInfo.XpoTypeInfoSource.XPDictionary);
             }
             else {
-                XafTypesInfo.Instance.CreateMember(typeToCreateOn, memberInfo.Owner.Type, associationAttribute.Name,
-                                                   providedAssociationAttribute.ProvidedPropertyName ??
-                                                   memberInfo.Owner.Type.Name,
-                                                   XafTypesInfo.XpoTypeInfoSource.XPDictionary);
-                
+                xpCustomMemberInfo = XafTypesInfo.Instance.CreateMember(typeToCreateOn, memberInfo.Owner.Type, associationAttribute.Name,
+                                                                                         providedAssociationAttribute.ProvidedPropertyName ??
+                                                                                         memberInfo.Owner.Type.Name,
+                                                                                         XafTypesInfo.XpoTypeInfoSource.XPDictionary);
             }
-            return;
+            return xpCustomMemberInfo;
         }
 
         private Type getTypeToCreateOn(IMemberInfo memberInfo, AssociationAttribute associationAttribute)

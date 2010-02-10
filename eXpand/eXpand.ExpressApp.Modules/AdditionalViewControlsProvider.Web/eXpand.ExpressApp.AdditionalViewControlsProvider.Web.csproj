@@ -129,12 +129,6 @@
     <Compile Include="AdditionalViewControlsRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controller\WebShowAdditionalViewControlsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controller\WebShowAdditionalViewControlsController.Designer.cs">
-      <DependentUpon>WebShowAdditionalViewControlsController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\HintPanel.cs" />
     <Compile Include="AdditionalViewControlsProviderAspNetModule.cs">
       <SubType>Component</SubType>

@@ -7,6 +7,7 @@ namespace eXpand.ExpressApp.RuleModeller {
         CurrentObjectChanged,
         ViewControlsCreated,
         ViewActivated,
-        ViewControlAdding
+        ViewControlAdding,
+        TemplateViewChanged
     }
 }
