@@ -92,7 +92,10 @@
     <Compile Include="General\DateRange.cs" />
     <Compile Include="DifferenceType.cs" />
     <Compile Include="General\IDateRange.cs" />
+    <Compile Include="General\IModelRule.cs" />
+    <Compile Include="General\IModelRuleManager.cs" />
     <Compile Include="General\RelationType.cs" />
+    <Compile Include="General\State.cs" />
     <Compile Include="ImportExport\IClassInfoGraphNode.cs" />
     <Compile Include="ImportExport\ISerializationConfiguration.cs" />
     <Compile Include="ImportExport\IXmlFileChooser.cs" />

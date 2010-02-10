@@ -2,20 +2,20 @@ using System;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using eXpand.ExpressApp.ModelArtifactState.Attributes;
 using eXpand.ExpressApp.ModelArtifactState.Interfaces;
-using eXpand.ExpressApp.Security.Interfaces;
-using eXpand.ExpressApp.Security.Permissions;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.ModelArtifactState.StateRules
 {
-    public abstract class ArtifactStateRule : IArtifactStateRule
+    public abstract class ArtifactStateRule : IArtifactRule
     {
-        private readonly IArtifactStateRule artifactRule;
+        private readonly IArtifactRule artifactRule;
         
         protected Guid instanceGUID;
         protected MethodInfo methodInfo;
 
-        protected ArtifactStateRule(IArtifactStateRule artifactRule)
+        protected ArtifactStateRule(IArtifactRule artifactRule)
         {
             this.artifactRule = artifactRule;
         }
@@ -25,7 +25,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.StateRules
         {
             get { return artifactRule.TypeInfo; }
         }
-        public IArtifactStateRule ArtifactRule
+        public IArtifactRule ArtifactRule
         {
             get { return artifactRule; }
         }
@@ -36,7 +36,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.StateRules
         {
             get { return artifactRule.ViewId; }
         }
-        string IStateRule.ViewId{
+        string IModelRule.ViewId{
             get { return artifactRule.ViewId; }
             set { artifactRule.ViewId = value; }
         }
@@ -61,13 +61,13 @@ namespace eXpand.ExpressApp.ModelArtifactState.StateRules
         }
 
         
-        string IStateRule.Description{
+        string IModelRule.Description{
             get { return artifactRule.Description; }
             set { artifactRule.Description = value; }
         }
 
         
-        ITypeInfo IStateRule.TypeInfo{
+        ITypeInfo IModelRule.TypeInfo{
             get { return artifactRule.TypeInfo; }
             set { artifactRule.TypeInfo = value; }
         }
@@ -89,7 +89,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.StateRules
 
         #region IArtifactRule Members
         
-        string IStateRule.ID{
+        string IModelRule.ID{
             get { return artifactRule.ID; }
             set { artifactRule.ID = value; }
         }
@@ -102,20 +102,20 @@ namespace eXpand.ExpressApp.ModelArtifactState.StateRules
         }
 
         
-        Nesting IStateRule.Nesting{
+        Nesting IModelRule.Nesting{
             get { return artifactRule.Nesting; }
             set { artifactRule.Nesting = value; }
         }
 
         
-        string IStateRule.NormalCriteria{
+        string IModelRule.NormalCriteria{
             get { return artifactRule.NormalCriteria; }
             set { artifactRule.NormalCriteria = value; }
         }
 
 
         
-        string IStateRule.EmptyCriteria{
+        string IModelRule.EmptyCriteria{
             get { return artifactRule.EmptyCriteria; }
             set { artifactRule.EmptyCriteria = value; }
         }
@@ -128,7 +128,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.StateRules
         }
 
         
-        string IArtifactStateRule.Module{
+        string IArtifactRule.Module{
             get { return artifactRule.Module; }
             set { artifactRule.Module = value; }
         }

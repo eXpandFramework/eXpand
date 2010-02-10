@@ -10,7 +10,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controllers
         protected override void OnActivated()
         {
             base.OnActivated();
-            Frame.GetController<WinShowAdditionalViewControlsController>().Register(this, View, Frame);
+//            Frame.GetController<WinShowAdditionalViewControlsController>().Register(this, View, Frame);
             
         }
         protected override void OnDeactivating()
@@ -25,7 +25,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controllers
 
         public AdditionalViewControlsProviderDecorator DecorateControl(object control)
         {
-            return new WinHintPanelDecorator(View, (HintPanel)control);
+            return new WinHintPanelDecorator(View.CurrentObject, (HintPanel)control, null);
         }
     }
 }

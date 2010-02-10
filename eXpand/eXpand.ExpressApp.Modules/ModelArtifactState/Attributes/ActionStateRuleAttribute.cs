@@ -1,7 +1,7 @@
 using System;
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.ModelArtifactState.Interfaces;
-using eXpand.ExpressApp.Security.Permissions;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Attributes
 {
@@ -21,6 +21,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Attributes
             : base(id, targetViewNesting, normalCriteria, emptyCriteria, viewType, module, (State) state,viewId)
         {
             this.actionId = actionId;
+            State=state;
         }
 
         public new ActionState State

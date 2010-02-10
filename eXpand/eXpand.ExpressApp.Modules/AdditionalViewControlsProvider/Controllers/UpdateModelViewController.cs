@@ -18,8 +18,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Controllers
         {
             base.UpdateModel(dictionary);
 
-            foreach (ClassInfoNodeWrapper classInfoNodeWrapper in new ApplicationNodeWrapper(dictionary).BOModel.Classes)
-            {
+            foreach (ClassInfoNodeWrapper classInfoNodeWrapper in new ApplicationNodeWrapper(dictionary).BOModel.Classes){
                 DictionaryNode childNode = classInfoNodeWrapper.Node.AddChildNode(AdditionalViewControls);
                 var attribute = classInfoNodeWrapper.ClassTypeInfo.FindAttribute<AdditionalViewControlsAttribute>();
                 if (attribute!= null)
@@ -28,7 +27,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Controllers
                     childNode.SetAttribute("MessagePropertyName", attribute.MessagePropertyName);
                     childNode.SetAttribute("DecoratorType", attribute.DecoratorType!= null?attribute.DecoratorType.FullName:GetDefaultDecoratorType().AssemblyQualifiedName);
                     childNode.SetAttribute("ControlType", attribute.ControlType!= null? attribute.ControlType.FullName:GetDefaultControlType().AssemblyQualifiedName);
-                    childNode.SetAttribute("ViewType", attribute.TargetViewType.ToString());
+                    childNode.SetAttribute("ViewType", attribute.ViewType.ToString());
                     childNode.SetAttribute("AdditionalViewControlsProviderPosition", attribute.AdditionalViewControlsProviderPosition.ToString());
                 }
                 else

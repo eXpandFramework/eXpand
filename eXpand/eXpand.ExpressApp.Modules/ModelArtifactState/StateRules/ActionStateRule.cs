@@ -4,7 +4,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.StateRules
 {
     public class ActionStateRule:ArtifactStateRule,IActionStateRule
     {        
-        public ActionStateRule(IArtifactStateRule actionStateRule) : base(actionStateRule)
+        public ActionStateRule(IArtifactRule actionStateRule) : base(actionStateRule)
         {
             
 

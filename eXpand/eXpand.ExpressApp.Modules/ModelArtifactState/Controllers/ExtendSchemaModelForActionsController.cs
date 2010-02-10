@@ -1,3 +1,4 @@
+using eXpand.ExpressApp.ModelArtifactState.Attributes;
 using eXpand.ExpressApp.ModelArtifactState.NodeWrappers;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Controllers
@@ -19,12 +20,13 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers
         public override string GetMoreSchema()
         {
             return @"<Attribute Name=""" + ActionStateRuleNodeWrapper.ActionIdAttribute +
-                   @""" IsLocalized=""False"" RefNodeName=""/Application/ActionDesign/Actions/Action"" />";
+                   @""" IsLocalized=""False"" RefNodeName=""/Application/ActionDesign/Actions/Action"" />"+
+                   @"<Attribute Name=""State"" Choice=""{" + typeof(ActionState).FullName + @"}""/>";
         }
 
         public override string GetElementStateGroupNodeName()
         {
-            return ConditionalActionStateRuleNodeWrapper.NodeNameAttribute;
+            return ActionStateRulesNodeWrapper.NodeNameAttribute;
         }
     }
 }

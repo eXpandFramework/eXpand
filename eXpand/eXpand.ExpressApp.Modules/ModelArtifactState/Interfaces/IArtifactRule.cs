@@ -1,9 +1,9 @@
 ﻿using DevExpress.Xpo;
-using eXpand.ExpressApp.Security.Interfaces;
+using eXpand.ExpressApp.ModelArtifactState.Attributes;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Interfaces
 {
-    public interface IArtifactStateRule:IStateRule
+    public interface IArtifactRule:IStateRule
     {
         [DisplayName("Module (regex)")]
         string Module { get; set; }

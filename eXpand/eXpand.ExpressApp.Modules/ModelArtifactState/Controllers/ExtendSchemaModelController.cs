@@ -1,8 +1,9 @@
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
+using eXpand.ExpressApp.ModelArtifactState.Attributes;
 using eXpand.ExpressApp.ModelArtifactState.Interfaces;
 using eXpand.ExpressApp.ModelArtifactState.NodeWrappers;
-using eXpand.ExpressApp.Security.Interfaces;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Controllers
 {
@@ -23,8 +24,8 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers
             string CommonTypeInfos = @"<Element Name=""" + ModelArtifactStateNodeWrapper.NodeNameAttribute + @""">
                                             <Element Name=""" + GetElementStateGroupNodeName() + @""">
                                                 <Element Name=""" + GetElementStateNodeName() + @""" KeyAttribute=""ID"" Multiple=""True"">
-                                                    " + schemaHelper.Serialize<IStateRule>(true) + @"
-                                                    " + schemaHelper.Serialize<IArtifactStateRule>(true) + @"
+                                                    " + schemaHelper.Serialize<IModelRule>(true) + @"
+                                                    " + schemaHelper.Serialize<IArtifactRule>(true) + @"
                                                     " + GetMoreSchema() + @"
 				                                </Element>
                                             </Element>
@@ -34,8 +35,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers
 
         }
 
-        private void modifyAttributes(AttibuteCreatedEventArgs args)
-        {
+        private void modifyAttributes(AttibuteCreatedEventArgs args){
             if (args.Attribute.IndexOf("Nesting") > -1 || args.Attribute.IndexOf("ViewType") > -1)
                 args.AddTag(@" IsInvisible=""{" + typeof (ViewVisibilityCalculator).FullName +
                             @"}ID=..\..\@ID;ViewType=" + ViewType.Any+@"""");

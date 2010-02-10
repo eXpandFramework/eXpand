@@ -10,33 +10,33 @@ namespace eXpand.ExpressApp.ModelArtifactState.NodeWrappers{
     public class ModelArtifactStateNodeWrapper : NodeWrapper{
         public const string NodeNameAttribute = "ModelArtifact";
 
-        private ConditionalActionStateRuleNodeWrapper conditionalActionStateRuleNodeWrapper;
+        private ActionStateRulesNodeWrapper _actionStateRulesNodeWrapper;
 
-        private ConditionalControllerStateRuleNodeWrapper conditionalControllerStateRuleNodeWrapper;
+        private ControllerStateRulesNodeWrapper _controllerStateRulesNodeWrapper;
 
         public ModelArtifactStateNodeWrapper(DictionaryNode node) : base(node){
         }
 
-        public ConditionalActionStateRuleNodeWrapper ConditionalActionStateRuleNodeWrapper{
+        public ActionStateRulesNodeWrapper ActionStateRulesNodeWrapper{
             get {
-                return conditionalActionStateRuleNodeWrapper ??new ConditionalActionStateRuleNodeWrapper(Node.GetChildNode(ConditionalActionStateRuleNodeWrapper.NodeNameAttribute));
+                return _actionStateRulesNodeWrapper ??new ActionStateRulesNodeWrapper(Node.GetChildNode(ActionStateRulesNodeWrapper.NodeNameAttribute));
             }
-            set { conditionalActionStateRuleNodeWrapper = value; }
+            set { _actionStateRulesNodeWrapper = value; }
         }
 
-        public ConditionalControllerStateRuleNodeWrapper ConditionalControllerStateRuleNodeWrapper{
+        public ControllerStateRulesNodeWrapper ControllerStateRulesNodeWrapper{
             get {
-                return conditionalControllerStateRuleNodeWrapper ?? new ConditionalControllerStateRuleNodeWrapper(
-                                                                        Node.GetChildNode(ConditionalControllerStateRuleNodeWrapper.NodeNameAttribute));
+                return _controllerStateRulesNodeWrapper ?? new ControllerStateRulesNodeWrapper(
+                                                                        Node.GetChildNode(ControllerStateRulesNodeWrapper.NodeNameAttribute));
             }
-            set { conditionalControllerStateRuleNodeWrapper = value; }
+            set { _controllerStateRulesNodeWrapper = value; }
         }
 
         public List<ArtifactStateRuleNodeWrapper> Rules{
             get{
                 var rules = new List<ArtifactStateRuleNodeWrapper>();
-                addRules(ConditionalControllerStateRuleNodeWrapper.NodeNameAttribute, rules);
-                addRules(ConditionalActionStateRuleNodeWrapper.NodeNameAttribute, rules);
+                addRules(ControllerStateRulesNodeWrapper.NodeNameAttribute, rules);
+                addRules(ActionStateRulesNodeWrapper.NodeNameAttribute, rules);
                 return rules;
             }
         }
@@ -46,10 +46,10 @@ namespace eXpand.ExpressApp.ModelArtifactState.NodeWrappers{
             where TArtifactStateRuleNodeWrapper : ArtifactStateRuleNodeWrapper {
             
             return artifactStateRuleAttribute is ActionStateRuleAttribute
-                                                       ? ConditionalActionStateRuleNodeWrapper.AddRule<ActionStateRuleNodeWrapper>(
-                                                             artifactStateRuleAttribute, typeInfo)
-                                                       : ConditionalControllerStateRuleNodeWrapper.AddRule<ControllerStateRuleNodeWrapper>(
-                                                             artifactStateRuleAttribute, typeInfo);
+                                                       ? (ArtifactStateRuleNodeWrapper) ActionStateRulesNodeWrapper.AddRule(
+                                                                                            (ActionStateRuleAttribute) artifactStateRuleAttribute, typeInfo)
+                                                       : ControllerStateRulesNodeWrapper.AddRule(
+                                                             (ControllerStateRuleAttribute) artifactStateRuleAttribute, typeInfo);
 
 
             
@@ -65,7 +65,12 @@ namespace eXpand.ExpressApp.ModelArtifactState.NodeWrappers{
         }
 
         public IEnumerable<ArtifactStateRuleNodeWrapper> FindRules(ITypeInfo typeInfo) {
-            return typeInfo != null ? ConditionalControllerStateRuleNodeWrapper.FindRules(typeInfo).Concat(ConditionalActionStateRuleNodeWrapper.FindRules(typeInfo)) : null;
+            return typeInfo != null
+                       ? ControllerStateRulesNodeWrapper.FindRules(typeInfo).OfType
+                             <ArtifactStateRuleNodeWrapper>().Concat(
+                             ActionStateRulesNodeWrapper.FindRules(typeInfo).OfType
+                                 <ArtifactStateRuleNodeWrapper>())
+                       : null;
         }
     }
 }

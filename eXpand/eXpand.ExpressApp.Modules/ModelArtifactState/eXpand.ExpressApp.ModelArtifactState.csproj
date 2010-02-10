@@ -81,11 +81,19 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="eXpand.ExpressApp.RuleModeller, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="eXpand.ExpressApp.Security, Version=1.0.0.28011, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.ExpressApp.Validation, Version=1.0.0.27032, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="eXpand.Persistent.Base, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -111,10 +119,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\IStateRule.cs" />
     <Compile Include="Attributes\NotAllowObjectInstanciationRuleAttribute.cs" />
     <Compile Include="Attributes\StateModelArtifactRuleAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Attributes\StateRuleAttribute.cs" />
     <Compile Include="Attributes\SupressDetailViewRuleAttribute.cs" />
     <Compile Include="Exceptions\ConditionalArtifactStateExceptionId.cs" />
     <Compile Include="Exceptions\ConditionalArtifactStateExceptionLocalizer.cs" />
@@ -148,7 +158,7 @@
     <Compile Include="Interfaces\ISupportArtifactStateCustomization.cs" />
     <Compile Include="Interfaces\ISupportArtifactStateVisibilityCustomization.cs" />
     <Compile Include="Interfaces\IActionStateRule.cs" />
-    <Compile Include="Interfaces\IArtifactStateRule.cs" />
+    <Compile Include="Interfaces\IArtifactRule.cs" />
     <Compile Include="Security\Controllers\FillRulesFromPermissionsController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -156,7 +166,7 @@
       <DependentUpon>FillRulesFromPermissionsController.cs</DependentUpon>
     </Compile>
     <Compile Include="NodeWrappers\ActionStateRuleNodeWrapper.cs" />
-    <Compile Include="NodeWrappers\ConditionalActionStateRuleNodeWrapper.cs" />
+    <Compile Include="NodeWrappers\ActionStateRulesNodeWrapper.cs" />
     <Compile Include="NodeWrappers\ConditionalArtifactStateNodeWrapper.cs" />
     <Compile Include="NodeWrappers\ControllerStateRuleNodeWrapper.cs" />
     <Compile Include="Controllers\ExtendSchemaModelForActionsController.cs">
@@ -177,7 +187,7 @@
     <Compile Include="StateInfos\ArtifactStateInfo.cs" />
     <Compile Include="StateRules\ControllerStateRule.cs" />
     <Compile Include="Attributes\ArtifactStateRuleAttribute.cs" />
-    <Compile Include="NodeWrappers\ConditionalControllerStateRuleNodeWrapper.cs" />
+    <Compile Include="NodeWrappers\ControllerStateRulesNodeWrapper.cs" />
     <Compile Include="NodeWrappers\ArtifactStateRuleNodeWrapper.cs" />
     <Compile Include="StateInfos\ArtifactStateInfoCustomizedEventArgs.cs" />
     <Compile Include="StateInfos\ArtifactStateInfoCustomizingEventArgs.cs" />

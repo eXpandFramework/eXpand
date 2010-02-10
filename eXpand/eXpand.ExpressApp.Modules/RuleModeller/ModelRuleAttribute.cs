@@ -1,17 +1,15 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.Security.Interfaces;
-using eXpand.ExpressApp.Security.Permissions;
+using eXpand.Persistent.Base.General;
 
-namespace eXpand.ExpressApp.Security.Attributes
+namespace eXpand.ExpressApp.RuleModeller
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public abstract class StateRuleAttribute : Attribute, IStateRule
+    public abstract class ModelRuleAttribute : Attribute, IModelRule
     {
-        protected StateRuleAttribute(string id,Nesting targetViewNesting, string normalCriteria, string emptyCriteria, ViewType viewType,State state,string viewId)
+        protected ModelRuleAttribute(string id,Nesting targetViewNesting, string normalCriteria, string emptyCriteria, ViewType viewType,string viewId)
         {
-            this.state=state;
             ViewId = viewId;
             ID=id;
             ViewType = viewType;
@@ -40,14 +38,10 @@ namespace eXpand.ExpressApp.Security.Attributes
         /// </summary>
         public string EmptyCriteria { get; set; }
 
-        private State state;
-        public virtual State State{
-            get { return state; }
-            set { state = value; }
-        }
+        
 
         public string Description { get; set; }
-        ITypeInfo IStateRule.TypeInfo { get; set; }
+        ITypeInfo IModelRule.TypeInfo { get; set; }
         public string ViewId { get; set; }
     }
 }

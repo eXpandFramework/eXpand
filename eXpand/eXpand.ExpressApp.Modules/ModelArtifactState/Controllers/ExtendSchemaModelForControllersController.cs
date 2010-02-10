@@ -1,4 +1,5 @@
 using eXpand.ExpressApp.ModelArtifactState.NodeWrappers;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Controllers
 {
@@ -18,13 +19,15 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers
 
         public override string GetMoreSchema()
         {
+            
             return @"<Attribute Name=""" + ControllerStateRuleNodeWrapper.ControllerTypeAttribute +
-                   @""" IsLocalized=""False"" RefNodeName=""/Application/ActionDesign/Controllers/*"" />";
+                   @""" IsLocalized=""False"" RefNodeName=""/Application/ActionDesign/Controllers/*"" />"+
+                   @"<Attribute Name=""State"" Choice=""{" + typeof(State).FullName + @"}""/>";
         }
 
         public override string GetElementStateGroupNodeName()
         {
-            return ConditionalControllerStateRuleNodeWrapper.NodeNameAttribute;
+            return ControllerStateRulesNodeWrapper.NodeNameAttribute;
         }
     }
 }

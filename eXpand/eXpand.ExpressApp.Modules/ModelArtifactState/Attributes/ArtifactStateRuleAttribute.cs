@@ -1,5 +1,5 @@
 using DevExpress.ExpressApp;
-using eXpand.ExpressApp.Security.Permissions;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Attributes
 {

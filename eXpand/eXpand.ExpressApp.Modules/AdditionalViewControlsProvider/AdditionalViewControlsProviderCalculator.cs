@@ -8,13 +8,13 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
 {
     public class AdditionalViewControlsProviderCalculator : IDisposable
     {
-        private AdditionalViewControlsRuleWrapper _additionalViewControlsRuleWrapper;
+        private IAdditionalViewControlsRule _controlsRule;
         private ViewType currentViewType;
         private object currentObject;
         private string currentAdditionalText;
         private void supportNotifyPropertyChanged_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if ((_additionalViewControlsRuleWrapper != null) && (string.IsNullOrEmpty(e.PropertyName) || (e.PropertyName == _additionalViewControlsRuleWrapper.MessagePropertyName)))
+            if ((_controlsRule != null) && (string.IsNullOrEmpty(e.PropertyName) || (e.PropertyName == _controlsRule.MessagePropertyName)))
             {
                 UpdateAdditionalText();
             }
@@ -35,8 +35,8 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
         }
         private void UpdateAdditionalText()
         {
-            if (CurrentObject != null && _additionalViewControlsRuleWrapper != null && !string.IsNullOrEmpty(_additionalViewControlsRuleWrapper.MessagePropertyName))
-                AdditionalText = (string) ReflectionHelper.GetMemberValue(CurrentObject, _additionalViewControlsRuleWrapper.MessagePropertyName);
+            if (CurrentObject != null && _controlsRule != null && !string.IsNullOrEmpty(_controlsRule.MessagePropertyName))
+                AdditionalText = (string) ReflectionHelper.GetMemberValue(CurrentObject, _controlsRule.MessagePropertyName);
             else
                 AdditionalText = "";
         }
@@ -45,44 +45,40 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
             if (HintChanged != null)
                 HintChanged(this, EventArgs.Empty);
         }
-        public AdditionalViewControlsProviderCalculator(AdditionalViewControlsRuleWrapper _additionalViewControlsRuleWrapper)
+        public AdditionalViewControlsProviderCalculator(IAdditionalViewControlsRule controlsRule)
         {
-            this._additionalViewControlsRuleWrapper = _additionalViewControlsRuleWrapper;
+            _controlsRule = controlsRule;
         }
-        public AdditionalViewControlsRuleWrapper AdditionalViewControlsRuleWrapper
-        {
-            get { return _additionalViewControlsRuleWrapper; }
-            set
-            {
-                _additionalViewControlsRuleWrapper = value;
+
+        public IAdditionalViewControlsRule ControlsRule {
+            get { return _controlsRule; }
+            set {
+                _controlsRule = value;
                 OnHintChanged();
             }
         }
-        public ViewType CurrentViewType
-        {
-            get { return currentViewType; }
-            set
-            {
-                currentViewType = value;
-                OnHintChanged();
-            }
-        }
-        public object CurrentObject
-        {
+
+//        public ViewType CurrentViewType {
+//            get { return currentViewType; }
+//            set {
+//                currentViewType = value;
+//                OnHintChanged();
+//            }
+//        }
+
+        public object CurrentObject {
             get { return currentObject; }
-            set
-            {
+            set {
                 RemovePropertyChangedHandler(currentObject);
                 currentObject = value;
                 AddPropertyChangedHandler(currentObject);
                 UpdateAdditionalText();
             }
         }
-        public string AdditionalText
-        {
+
+        public string AdditionalText {
             get { return currentAdditionalText; }
-            set
-            {
+            set {
                 currentAdditionalText = value;
                 OnHintChanged();
             }
@@ -91,13 +87,13 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
         {
             get
             {
-                if ((_additionalViewControlsRuleWrapper == null) ||
-                    ((_additionalViewControlsRuleWrapper.ViewType != ViewType.Any) &&
-                     (currentViewType != _additionalViewControlsRuleWrapper.ViewType)))
+                if ((_controlsRule == null) ||
+                    ((_controlsRule.ViewType != ViewType.Any) &&
+                     (currentViewType != _controlsRule.ViewType)))
                 {
                     return "";
                 }
-                string result = _additionalViewControlsRuleWrapper.Message;
+                string result = _controlsRule.Message;
                 if (!string.IsNullOrEmpty(AdditionalText))
                 {
                     if (!string.IsNullOrEmpty(result))
@@ -112,7 +108,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
         public void Dispose()
         {
             CurrentObject = null;
-            AdditionalViewControlsRuleWrapper = null;
+            ControlsRule = null;
         }
         public event EventHandler<EventArgs> HintChanged;
     }

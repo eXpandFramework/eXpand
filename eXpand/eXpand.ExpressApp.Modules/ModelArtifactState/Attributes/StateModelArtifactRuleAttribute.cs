@@ -1,11 +1,10 @@
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.ModelArtifactState.Interfaces;
-using eXpand.ExpressApp.Security.Attributes;
-using eXpand.ExpressApp.Security.Permissions;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Attributes
 {
-    public class StateModelArtifactRuleAttribute:StateRuleAttribute,IArtifactStateRule
+    public class StateModelArtifactRuleAttribute : StateRuleAttribute, IArtifactRule
     {
         public StateModelArtifactRuleAttribute(string id, Nesting targetViewNesting, string normalCriteria, string emptyCriteria,
                                                ViewType viewType, string module,State state,string viewId)

@@ -17,6 +17,7 @@ using eXpand.ExpressApp.ModelArtifactState.Security.Permissions;
 using eXpand.ExpressApp.ModelArtifactState.StateInfos;
 using eXpand.ExpressApp.ModelArtifactState.StateRules;
 using eXpand.ExpressApp.Security.Permissions;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.ModelArtifactState{
     /// <summary>
@@ -191,21 +192,17 @@ namespace eXpand.ExpressApp.ModelArtifactState{
                     ) {
                     ParameterInfo parameter = parameters[0];
                     if (parameter.ParameterType == MethodRuleOutParameterType.MakeByRefType() && parameter.IsOut) {
-                        foreach (ArtifactStateRuleAttribute attribute in methodInfo.GetCustomAttributes(typeof(ArtifactStateRuleAttribute), true))
-                        {
+                        foreach (ArtifactStateRuleAttribute attribute in methodInfo.GetCustomAttributes(typeof(ArtifactStateRuleAttribute), true)){
                             yield return attribute;
                         }
                     }
                 }
             }
         }
-        public static IEnumerable<ArtifactStateRuleAttribute> FindAttributes(ITypeInfo typeInfo)
-        {
-            if (typeInfo != null) {
-                return typeInfo.FindAttributes<ArtifactStateRuleAttribute>(false);
-            }
-            return null;
+        public static IEnumerable<ArtifactStateRuleAttribute> FindAttributes(ITypeInfo typeInfo) {
+            return typeInfo != null ? typeInfo.FindAttributes<ArtifactStateRuleAttribute>(false) : null;
         }
+
         public static MethodInfo FindMethodRule(Type type, string methodName) {
             if (type != null && !string.IsNullOrEmpty(methodName)) {
                 var parameterModifier = new ParameterModifier(MethodRuleOutParametersCount);

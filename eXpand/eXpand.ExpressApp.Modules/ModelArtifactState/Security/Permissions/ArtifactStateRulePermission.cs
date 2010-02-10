@@ -5,7 +5,7 @@ using eXpand.ExpressApp.Security.Permissions;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Security.Permissions
 {
-    public abstract class ArtifactStateRulePermission:StatePermission,IArtifactStateRule
+    public abstract class ArtifactStateRulePermission:StatePermission,IArtifactRule
     {
         [DisplayName("Module (regex)")]
         public string Module { get; set; }

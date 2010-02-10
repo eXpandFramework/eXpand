@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers;
@@ -33,11 +35,12 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Controllers
             }
         }
 
-        public void AddControls(object viewSiteControl)
-        {
+        public void AddControls(object viewSiteControl){
             foreach (IAdditionalViewControlsProvider controlProvider in controlProviders.Keys){
+                DictionaryNode dictionaryNode = GetDictionaryNode(controlProvider.View);
+                var additionalViewControlsRuleNodeWrapper = new AdditionalViewControlsRuleNodeWrapper(dictionaryNode);
                 var calculator =
-                    new AdditionalViewControlsProviderCalculator(new AdditionalViewControlsRuleWrapper(controlProvider.View));
+                    new AdditionalViewControlsProviderCalculator(additionalViewControlsRuleNodeWrapper);
                 object control = createControl(controlProvider, calculator);
                 AdditionalViewControlsProviderPosition position = decorateControl(controlProvider, calculator, control);
                 if (control != null){
@@ -48,32 +51,33 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Controllers
             }
         }
 
+        public static DictionaryNode GetDictionaryNode(View view) {
+            ClassInfoNodeWrapper classInfoNodeWrappers =
+                new ApplicationNodeWrapper(view.Info.Dictionary.RootNode).BOModel.Classes.Where(
+                    wrapper => wrapper.ClassTypeInfo == view.ObjectTypeInfo).FirstOrDefault();
+            return classInfoNodeWrappers.Node.GetChildNode(AdditionalViewControlsRulesNodeWrapper.NodeNameAttribute);
+        }
+
         private AdditionalViewControlsProviderPosition decorateControl(IAdditionalViewControlsProvider controlProvider,
                                                                        AdditionalViewControlsProviderCalculator
-                                                                           calculator, object control)
-        {
+                                                                           calculator, object control){
             AdditionalViewControlsProviderPosition position;
-            if (calculator.AdditionalViewControlsRuleWrapper.DecoratorType != null)
-            {
-                var decorator =
-                    (AdditionalViewControlsProviderDecorator)
-                    Activator.CreateInstance(calculator.AdditionalViewControlsRuleWrapper.DecoratorType,
-                                             new[] {controlProvider.View, control});
-                position = decorator.Calculator.AdditionalViewControlsRuleWrapper.AdditionalViewControlsProviderPosition;
+            if (calculator.ControlsRule.DecoratorType != null){
+                var decorator =(AdditionalViewControlsProviderDecorator)
+                    Activator.CreateInstance(calculator.ControlsRule.DecoratorType,new[] {controlProvider.View, control});
+                position = decorator.Calculator.ControlsRule.AdditionalViewControlsProviderPosition;
             }
             else
-                position = controlProvider.DecorateControl(control).Calculator.AdditionalViewControlsRuleWrapper.AdditionalViewControlsProviderPosition;
+                position = controlProvider.DecorateControl(control).Calculator.ControlsRule.AdditionalViewControlsProviderPosition;
             return position;
         }
 
         private object createControl(IAdditionalViewControlsProvider controlProvider, AdditionalViewControlsProviderCalculator calculator)
         {
             object control = null;
-            if (calculator.AdditionalViewControlsRuleWrapper.ControlType != null)
-                control=Activator.CreateInstance(calculator.AdditionalViewControlsRuleWrapper.ControlType);
-            if (control== null)
-                control = controlProvider.CreateControl();
-            return control;
+            if (calculator.ControlsRule.ControlType != null)
+                control=Activator.CreateInstance(calculator.ControlsRule.ControlType);
+            return control ?? (controlProvider.CreateControl());
         }
 
 

@@ -1,11 +1,11 @@
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.ModelArtifactState.Interfaces;
 using eXpand.ExpressApp.ModelArtifactState.StateRules;
-using eXpand.ExpressApp.Security.NodeWrappers;
+using eXpand.ExpressApp.RuleModeller;
 
 namespace eXpand.ExpressApp.ModelArtifactState.NodeWrappers
 {
-    public abstract class ArtifactStateRuleNodeWrapper : DictionaryStateNodeWrapperBase,IArtifactStateRule
+    public abstract class ArtifactStateRuleNodeWrapper : ModelRuleNodeWrapper,IArtifactRule
     {
         
         public const string ModuleAttribute = "Module";

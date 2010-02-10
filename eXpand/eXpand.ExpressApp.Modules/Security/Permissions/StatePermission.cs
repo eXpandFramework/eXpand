@@ -2,11 +2,11 @@ using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Validation;
-using eXpand.ExpressApp.Security.Interfaces;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.Security.Permissions
 {
-    public abstract class StatePermission : PermissionBase,IStateRule
+    public abstract class StatePermission : PermissionBase,IModelRule
     {
         public string ViewId { get; set; }
         [RuleRequiredField(null, DefaultContexts.Save)]
@@ -20,7 +20,7 @@ namespace eXpand.ExpressApp.Security.Permissions
         public State State { get; set; }
         public string Description { get; set; }
 
-        ITypeInfo IStateRule.TypeInfo{
+        ITypeInfo IModelRule.TypeInfo{
             get { return XafTypesInfo.Instance.FindTypeInfo(ObjectType); }
             set { }
         }

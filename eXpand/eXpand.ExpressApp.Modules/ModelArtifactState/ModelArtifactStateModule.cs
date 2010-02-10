@@ -34,8 +34,7 @@ namespace eXpand.ExpressApp.ModelArtifactState{
 
         public static void CollectRules(XafApplication xafApplication)
         {
-            lock (ArtifactStateRuleManager.Instance)
-            {
+            lock (ArtifactStateRuleManager.Instance){
                 SecuritySystem.ReloadPermissions();
                 ModelArtifactStateNodeWrapper wrapper = CreateModelWrapper(xafApplication.Model);
                 foreach (ITypeInfo typeInfo in XafTypesInfo.Instance.PersistentTypes){
@@ -77,41 +76,41 @@ namespace eXpand.ExpressApp.ModelArtifactState{
             var nodeWrappers = new List<NodeWrapper>();
             nodeWrappers.AddRange(wrapper.BOModel.Classes.Cast<NodeWrapper>());
             nodeWrappers.AddRange(wrapper.Views.Items.Cast<NodeWrapper>());
-            foreach (NodeWrapper nodeWrapper in nodeWrappers)
-            {
-                validate(getWrappers<ConditionalActionStateRuleNodeWrapper>(nodeWrapper, ConditionalActionStateRuleNodeWrapper.NodeNameAttribute));
-                validate(getWrappers<ConditionalControllerStateRuleNodeWrapper>(nodeWrapper, ConditionalControllerStateRuleNodeWrapper.NodeNameAttribute));
-            }
+//            foreach (NodeWrapper nodeWrapper in nodeWrappers)
+//            {
+//                validate(getWrappers<ActionStateRulesNodeWrapper>(nodeWrapper, ActionStateRulesNodeWrapper.NodeNameAttribute));
+//                validate(getWrappers<ControllerStateRulesNodeWrapper>(nodeWrapper, ControllerStateRulesNodeWrapper.NodeNameAttribute));
+//            }
 
 
         }
 
-        private void validate(ConditionalArtifactStateNodeWrapper conditionalArtifactStateNodeWrapper)
-        {
-            if (conditionalArtifactStateNodeWrapper is ConditionalActionStateRuleNodeWrapper)
-                foreach (ActionStateRuleNodeWrapper actionStateRuleNodeWrapper in conditionalArtifactStateNodeWrapper.Rules)
-                {
-                    if (string.IsNullOrEmpty(actionStateRuleNodeWrapper.ActionId) && string.IsNullOrEmpty(actionStateRuleNodeWrapper.Module))
-                        throw new DictionaryValidationException("At least one of ActionId,Module attributes should have values ");
-                }
-            if (conditionalArtifactStateNodeWrapper is ConditionalControllerStateRuleNodeWrapper)
-                foreach (ControllerStateRuleNodeWrapper actionStateRuleNodeWrapper in conditionalArtifactStateNodeWrapper.Rules)
-                {
-                    if (string.IsNullOrEmpty(actionStateRuleNodeWrapper.ControllerType) && string.IsNullOrEmpty(actionStateRuleNodeWrapper.Module))
-                        throw new DictionaryValidationException("At least one of ControllerType,Module attributes should have values ");
-                }
-        }
+//        private void validate(RulesNodeWrapper<ArtifactStateRuleNodeWrapper> conditionalArtifactStateNodeWrapper)
+//        {
+//            if (conditionalArtifactStateNodeWrapper is ActionStateRulesNodeWrapper)
+//                foreach (ActionStateRuleNodeWrapper actionStateRuleNodeWrapper in conditionalArtifactStateNodeWrapper.Rules)
+//                {
+//                    if (string.IsNullOrEmpty(actionStateRuleNodeWrapper.ActionId) && string.IsNullOrEmpty(actionStateRuleNodeWrapper.Module))
+//                        throw new DictionaryValidationException("At least one of ActionId,Module attributes should have values ");
+//                }
+//            if (conditionalArtifactStateNodeWrapper is ControllerStateRulesNodeWrapper)
+//                foreach (ControllerStateRuleNodeWrapper actionStateRuleNodeWrapper in conditionalArtifactStateNodeWrapper.Rules)
+//                {
+//                    if (string.IsNullOrEmpty(actionStateRuleNodeWrapper.ControllerType) && string.IsNullOrEmpty(actionStateRuleNodeWrapper.Module))
+//                        throw new DictionaryValidationException("At least one of ControllerType,Module attributes should have values ");
+//                }
+//        }
 
-        private TConditionalArtifactStateNodeWrapper getWrappers<TConditionalArtifactStateNodeWrapper>(NodeWrapper nodeWrapper, string nodeName)
-            where TConditionalArtifactStateNodeWrapper : ConditionalArtifactStateNodeWrapper
-        {
-            DictionaryNode node = nodeWrapper.Node.FindChildNode(nodeName);
-            if (node != null)
-                return
-                    (TConditionalArtifactStateNodeWrapper)
-                    Activator.CreateInstance(typeof(TConditionalArtifactStateNodeWrapper), new[] { node });
-            return null;
-        }
+//        private TConditionalArtifactStateNodeWrapper getWrappers<TConditionalArtifactStateNodeWrapper>(NodeWrapper nodeWrapper, string nodeName)
+//            where TConditionalArtifactStateNodeWrapper : ConditionalArtifactStateNodeWrapper
+//        {
+//            DictionaryNode node = nodeWrapper.Node.FindChildNode(nodeName);
+//            if (node != null)
+//                return
+//                    (TConditionalArtifactStateNodeWrapper)
+//                    Activator.CreateInstance(typeof(TConditionalArtifactStateNodeWrapper), new[] { node });
+//            return null;
+//        }
 
 
     }

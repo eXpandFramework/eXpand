@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Utils;
 using eXpand.ExpressApp.ModelArtifactState.Interfaces;
 using eXpand.ExpressApp.ModelArtifactState.StateInfos;
 using eXpand.ExpressApp.ModelArtifactState.StateRules;
-using eXpand.ExpressApp.Security.Permissions;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
     public class ArtifactStateCustomizationViewController : ViewController, ISupportArtifactStateCustomization,

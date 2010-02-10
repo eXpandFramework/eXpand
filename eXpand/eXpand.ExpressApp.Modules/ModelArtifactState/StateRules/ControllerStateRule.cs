@@ -8,7 +8,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.StateRules
         
 
 
-        public ControllerStateRule(IArtifactStateRule controllerStateRule) : base(controllerStateRule)
+        public ControllerStateRule(IArtifactRule controllerStateRule) : base(controllerStateRule)
         {
         }
         

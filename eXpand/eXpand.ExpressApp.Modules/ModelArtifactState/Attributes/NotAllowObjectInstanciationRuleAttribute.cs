@@ -1,6 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
-using eXpand.ExpressApp.Security.Permissions;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Attributes {
     public class NotAllowObjectInstanciationRuleAttribute : ControllerStateRuleAttribute {

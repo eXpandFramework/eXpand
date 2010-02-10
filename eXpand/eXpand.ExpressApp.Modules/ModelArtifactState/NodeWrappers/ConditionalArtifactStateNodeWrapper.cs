@@ -49,7 +49,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.NodeWrappers {
 
         public override string ToString() {
             return Class != null
-                       ? string.Format("{0}[{1}]", ConditionalControllerStateRuleNodeWrapper.NodeNameAttribute,
+                       ? string.Format("{0}[{1}]", ControllerStateRulesNodeWrapper.NodeNameAttribute,
                                        Class.ClassTypeInfo.FullName)
                        : base.ToString();
         }

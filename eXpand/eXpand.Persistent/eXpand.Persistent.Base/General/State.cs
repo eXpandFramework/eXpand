@@ -1,4 +1,4 @@
-namespace eXpand.ExpressApp.Security.Permissions
+namespace eXpand.Persistent.Base.General
 {
     /// <summary>
     /// Determines the state of editors.

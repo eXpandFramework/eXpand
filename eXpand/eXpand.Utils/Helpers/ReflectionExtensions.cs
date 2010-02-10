@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -7,6 +9,18 @@ namespace eXpand.Utils.Helpers
 {
     public static class ReflectionExtensions
     {
+        public static IEnumerable<Type> GetTypes(this AppDomain appDomain, Type typeToFind) {
+            var types = new List<Type>();
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {
+                try {
+                    types.AddRange(assembly.GetTypes().Where(typeToFind.IsAssignableFrom));
+                }
+                catch (ReflectionTypeLoadException) {
+                }
+            }
+            return types;
+        }
+
         public static MethodInfo GetMemberInfo<TTarget>(this TTarget target, Expression<Action<TTarget>> method)
         {
             return GetMemberInfo(method);

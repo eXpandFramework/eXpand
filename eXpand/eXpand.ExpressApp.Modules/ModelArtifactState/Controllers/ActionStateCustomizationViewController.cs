@@ -9,7 +9,7 @@ using eXpand.ExpressApp.ModelArtifactState.Attributes;
 using eXpand.ExpressApp.ModelArtifactState.Interfaces;
 using eXpand.ExpressApp.ModelArtifactState.StateInfos;
 using eXpand.ExpressApp.ModelArtifactState.StateRules;
-using eXpand.ExpressApp.Security.Permissions;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
     public partial class ActionStateCustomizationViewController : ViewController, ISupportArtifactStateVisibilityCustomization, ISupportArtifactStateAccessibilityCustomization{

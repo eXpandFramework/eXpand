@@ -1,10 +1,9 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.Security.Permissions;
 
-namespace eXpand.ExpressApp.Security.Interfaces
+namespace eXpand.Persistent.Base.General
 {
-    public interface IStateRule
+    public interface IModelRule
     {
         string ID { get; set; }
 
@@ -25,7 +24,7 @@ namespace eXpand.ExpressApp.Security.Interfaces
         /// </summary>
         string EmptyCriteria { get; set; }
 
-        State State { get; set; }
+        
 
         string Description { get; set; }
 

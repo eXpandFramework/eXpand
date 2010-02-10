@@ -1,3 +1,4 @@
+using eXpand.ExpressApp.RuleModeller;
 using eXpand.ExpressApp.Win.SystemModule;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win
@@ -30,8 +31,9 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win
         /// </summary>
         private void InitializeComponent()
         {
-            this.RequiredModuleTypes.Add(typeof(AdditionalViewControlsProviderModule));
+            
             this.RequiredModuleTypes.Add(typeof(eXpandSystemWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(AdditionalViewControlsProviderModule));
         }
 
         #endregion

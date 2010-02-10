@@ -1,7 +1,7 @@
 namespace eXpand.ExpressApp.ModelArtifactState.Interfaces
 {
     
-    public interface IControllerStateRule:IArtifactStateRule
+    public interface IControllerStateRule:IArtifactRule
     {
 
         /// <summary>

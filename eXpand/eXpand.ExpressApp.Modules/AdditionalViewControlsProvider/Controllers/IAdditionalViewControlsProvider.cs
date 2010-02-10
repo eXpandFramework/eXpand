@@ -1,5 +1,4 @@
 using DevExpress.ExpressApp;
-using System;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Controllers
 {
