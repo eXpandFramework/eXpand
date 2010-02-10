@@ -12,6 +12,7 @@ call clearProject.bat eXpand.ExpressApp.Win
 call clearProject.bat eXpand.ExpressApp.Web
 call clearProject.bat eXpand.ExpressApp.Security
 call clearProject.bat eXpand.ExpressApp.Validation
+call clearProject.bat eXpand.ExpressApp.RuleModeller
 call clearProject.bat eXpand.ExpressApp.AdditionalViewControlsProvider
 call clearProject.bat eXpand.ExpressApp.AdditionalViewControlsProvider.Win
 call clearProject.bat eXpand.ExpressApp.AdditionalViewControlsProvider.Web

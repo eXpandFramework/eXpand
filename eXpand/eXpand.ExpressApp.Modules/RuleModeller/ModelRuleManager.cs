@@ -91,13 +91,9 @@ namespace eXpand.ExpressApp.RuleModeller {
         /// </summary>
         public static bool Fit(object targetObject, TModelRule modelRule) {
             string criteria = modelRule.NormalCriteria;
-            if (targetObject == null) {
-                if (string.IsNullOrEmpty(modelRule.EmptyCriteria)) {
-                    return true;
-                }
-                return !fit(new object(), modelRule.EmptyCriteria);
-            }
-            return fit(targetObject, criteria);
+            return targetObject == null
+                       ? string.IsNullOrEmpty(modelRule.EmptyCriteria) || fit(new object(), modelRule.EmptyCriteria)
+                       : fit(targetObject, criteria);
         }
 
         static bool fit(object targetObject, string criteria) {
