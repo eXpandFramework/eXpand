@@ -1,6 +1,6 @@
 namespace eXpand.ExpressApp.Web.SystemModule
 {
-    partial class FixWebRecordsNavigationController
+    partial class HideListViewToolBarController
     {
         /// <summary>
         /// Required designer variable.

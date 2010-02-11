@@ -135,9 +135,14 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
             throw new NotImplementedException(modelElement.ToString());
         }
 
+        public DictionaryNode InjectAttribute(string name, ModelElement modelElement) {
+            return Inject(@"<Attribute Name=""" + name + @""" Choice=""True,False""/>", modelElement);
+        }
+
         public DictionaryNode InjectAttribute(string name, Type choiceEnumType,ModelElement element) {
             return Inject(@"<Attribute Name=""" + name + @""" Choice=""{" + choiceEnumType.FullName + @"}""/>",element);
         }
+
         public DictionaryNode Inject(string injectString, ModelElement element)
         {
             DictionaryNode node = CreateElement(element);
@@ -174,7 +179,6 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
             dictionaryElement.AddChildNode(new DictionaryXmlReader().ReadFromString(injectString));
             return node;
         }
-
     }
     
     public enum ModelElement
