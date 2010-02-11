@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using DevExpress.Data.Filtering;
+using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using DevExpress.Xpo.Metadata.Helpers;
@@ -11,6 +14,10 @@ namespace eXpand.Xpo.DB {
         public MultiDataStore(string connectionString, XPDictionary xpDictionary) {
             _dataStoreManager = new DataStoreManager(connectionString);
             FillDictionaries(xpDictionary);
+        }
+
+        public DataStoreManager DataStoreManager {
+            get { return _dataStoreManager; }
         }
 
         void FillDictionaries(XPDictionary xpDictionary){
@@ -32,8 +39,9 @@ namespace eXpand.Xpo.DB {
 
         public void SelectData(DataStoreSelectDataEventArgs args) {
             var resultSet = new List<SelectStatementResult>();
-            foreach (SelectedData selectedData in args.SelectStatements.Select(
-                stm => _dataStoreManager.SimpleDataLayers[_dataStoreManager.GetKey(stm.TableName)].SelectData(stm)).Where(
+            List<SelectedData> selectedDatas =args.SelectStatements.Select(stm =>
+                    _dataStoreManager.SimpleDataLayers[_dataStoreManager.GetKey(stm.TableName)].SelectData(stm)).ToList();
+            foreach (SelectedData selectedData in selectedDatas.Where(
                 selectedData => selectedData != null)) {
                 resultSet.AddRange(selectedData.ResultSet);
             }
@@ -44,6 +52,12 @@ namespace eXpand.Xpo.DB {
             var modificationResultIdentities = new List<ParameterValue>();
             foreach (ModificationStatement stm in args.ModificationStatements) {
                 if (stm.TableName == "XPObjectType") {
+//                    string s = ((InsertStatement) stm).Parameters[0].ToString();
+//                    string substring = s.Substring(s.LastIndexOf(".")+1).TrimEnd(Char.Parse("'"));
+//                    Type type = _dataStoreManager.GetType(substring);
+//                    string key =type!= null? _dataStoreManager.GetKey(type):_dataStoreManager.GetKey(substring);
+//                    SimpleDataLayer simpleDataLayer = _dataStoreManager.SimpleDataLayers[key];
+//                    modificationResultIdentities.AddRange(simpleDataLayer.ModifyData(stm).Identities);
                     foreach (var dataLayer in _dataStoreManager.SimpleDataLayers.Select(pair => pair.Value)){
                         modificationResultIdentities.AddRange(dataLayer.ModifyData(stm).Identities);    
                     }
@@ -57,6 +71,39 @@ namespace eXpand.Xpo.DB {
                 }
             }
             args.ModificationResult = new ModificationResult(modificationResultIdentities);
+        }
+
+        public SimpleDataLayer GetDataLayer(XPDictionary xpDictionary, MultiDataStore multiDataStore,Type type) {
+                    
+            string connectionString = multiDataStore.DataStoreManager.GetConnectionString(type);
+            var xpoDataStoreProxy = new XpoDataStoreProxy(connectionString);
+            xpoDataStoreProxy.DataStoreModifyData+=(o, eventArgs) => multiDataStore.ModifyData(eventArgs);            
+            xpoDataStoreProxy.DataStoreSelectData+=(sender1, dataEventArgs) => {
+                if (multiDataStore.DataStoreManager.SimpleDataLayers.Count>1&&IsQueryingXPObjectType(dataEventArgs)) {
+                    createExcludeXPObjectTypeArgs(dataEventArgs.SelectStatements,xpDictionary);
+                }
+                multiDataStore.SelectData(dataEventArgs);
+            };
+            xpoDataStoreProxy.DataStoreUpdateSchema +=(o1, schemaEventArgs) => multiDataStore.UpdateSchema(schemaEventArgs);
+            return new SimpleDataLayer(xpDictionary, xpoDataStoreProxy);
+
+        }
+        void createExcludeXPObjectTypeArgs(IEnumerable<SelectStatement> selectStatements, XPDictionary xpDictionary)
+        {
+            var typeNames = xpDictionary.Classes.OfType<XPClassInfo>().Where(classInfo => classInfo.ClassType != null).Select(info => info.ClassType.FullName);
+            foreach (var selectStatement in selectStatements.Where(statement => statement.TableName == "XPObjectType")){
+                List<string> values = typeNames.ToList();
+                var criteriaOperator = new GroupOperator(GroupOperatorType.Or);
+                foreach (var value in values){
+                    criteriaOperator.Operands.Add(new QueryOperand("TypeName", selectStatement.Alias) == value);
+                }
+                selectStatement.Condition = criteriaOperator;
+            }
+        }
+
+        bool IsQueryingXPObjectType(DataStoreSelectDataEventArgs dataEventArgs)
+        {
+            return dataEventArgs.SelectStatements.Select(statement => statement.TableName).Where(s => s == "XPObjectType").FirstOrDefault() != null;
         }
     }
 }

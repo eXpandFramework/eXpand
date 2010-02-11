@@ -22,18 +22,14 @@ namespace eXpand.Xpo.DB {
             _dataStoreAttributes = getDataStoreAttributes();
         }
 
-        public ReflectionDictionary GetDictionary(XPClassInfo xpClassInfo){
 
-            string key = GetKey(xpClassInfo);
-            var reflectionDictionary = GetDictionary(key);
-            if (xpClassInfo.IsPersistent)
-                AddTableNames(xpClassInfo, key);
-            return reflectionDictionary;
+        public string GetKey(Type type){
+            var dataStoreAttribute = _dataStoreAttributes.Where(attribute => type.Namespace.StartsWith(attribute.NameSpace)).SingleOrDefault();
+            return dataStoreAttribute == null ? STR_Default : dataStoreAttribute.DataStoreNameSuffix;
         }
 
         string GetKey(XPClassInfo xpClassInfo) {
-            var dataStoreAttribute =_dataStoreAttributes.Where(attribute => xpClassInfo.ClassType.Namespace.StartsWith(attribute.NameSpace)).SingleOrDefault();
-            return dataStoreAttribute == null ? STR_Default : dataStoreAttribute.DataStoreNameSuffix;
+            return GetKey(xpClassInfo.ClassType);
         }
 
         void AddTableNames(XPClassInfo xpClassInfo, string key) {
@@ -47,6 +43,24 @@ namespace eXpand.Xpo.DB {
         IEnumerable<string> GetIntermediateTableNames(XPClassInfo classInfo){
             return classInfo.CollectionProperties.OfType<XPMemberInfo>().Where(info => info.IntermediateClass != null).Select(memberInfo => memberInfo.IntermediateClass.TableName);
         }
+        public ReflectionDictionary GetDictionary(Type type) {
+            XPClassInfo xpClassInfo = GetXPClassInfo(type);
+            return GetDictionary(xpClassInfo);
+        }
+
+        XPClassInfo GetXPClassInfo(Type type) {
+            var xpClassInfos = _reflectionDictionaries.Select(pair => pair.Value).SelectMany(dictionary => dictionary.Classes.OfType<XPClassInfo>());
+            return xpClassInfos.Where(info => info.ClassType==type).Single();
+        }
+
+        public ReflectionDictionary GetDictionary(XPClassInfo xpClassInfo)
+        {
+            string key = GetKey(xpClassInfo);
+            var reflectionDictionary = GetDictionary(key);
+            if (xpClassInfo.IsPersistent)
+                AddTableNames(xpClassInfo, key);
+            return reflectionDictionary;
+        }
 
         ReflectionDictionary GetDictionary(string key) {
             if (!_reflectionDictionaries.ContainsKey(key)) {
@@ -59,24 +73,38 @@ namespace eXpand.Xpo.DB {
             return _reflectionDictionaries[key];
         }
 
-        IDataStore GetConnectionProvider(string key){
-            IDataStore connectionProvider = XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.DatabaseAndSchema);
+        public IDataStore GetConnectionProvider(Type type) {
+            return GetConnectionProvider(GetKey(type));
+        }
+
+        public string GetConnectionString(Type type) {
+            string key = GetKey(type);
+            return GetConnectionString(key);
+        }
+
+        public string GetConnectionString(string key )
+        {
             if (key==STR_Default)
-                return connectionProvider;
+                return _connectionString;
             ConnectionStringSettings connectionStringSettings =
                 ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", key)];
             if (connectionStringSettings != null){
-                return XpoDefault.GetConnectionProvider(connectionStringSettings.ConnectionString,AutoCreateOption.DatabaseAndSchema);
+                return connectionStringSettings.ConnectionString;
             }
-            
-            if (connectionProvider is ConnectionProviderSql){
+            IDataStore connectionProvider = XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.DatabaseAndSchema);
+            if (connectionProvider is ConnectionProviderSql)
+            {
                 IDbConnection dbConnection = ((ConnectionProviderSql)connectionProvider).Connection;
-                string connectionString = _connectionString == null? AccessConnectionProvider.GetConnectionString("WorldCreator")
-                                              : _connectionString.Replace(dbConnection.Database,dbConnection.Database + "WorldCreator");
+                return _connectionString == null ? AccessConnectionProvider.GetConnectionString(key)
+                                              : _connectionString.Replace(dbConnection.Database, dbConnection.Database + key+".mdb");
 
-                return XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
             }
-            throw new NoNullAllowedException(string.Format("{0}ConnectionString not found in config file", key));
+            throw new NoNullAllowedException(string.Format("{0}ConnectionString not found ", key));
+        }
+
+        public IDataStore GetConnectionProvider(string key){
+            string connectionString = GetConnectionString(key);
+            return XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
         }
 
         IEnumerable<DataStoreAttribute> getDataStoreAttributes() {
@@ -107,6 +135,11 @@ namespace eXpand.Xpo.DB {
             if (keyValuePairs.Count() > 0)
                 key=keyValuePairs.ToList()[0].Key;
             return key;
+        }
+
+        public Type GetType(string typeName) {
+            var types = _reflectionDictionaries.Select(pair => pair.Value).SelectMany(dictionary => dictionary.Classes.OfType<XPClassInfo>()).Select(classInfo => classInfo.ClassType);
+            return types.Where(type => type.Name==typeName).SingleOrDefault();
         }
     }
 }
