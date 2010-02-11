@@ -74,15 +74,18 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
         }
         #endregion
 
-        protected override void OnViewChanging(View view){
-            
-            base.OnViewChanging(view);
-            Active[ActiveObjectTypeHasRules] = ArtifactStateRuleManager.NeedsCustomization(view);
-            ForceCustomization(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view,false);
-        }
+//        protected override void OnViewChanging(View view){
+//            
+//            base.OnViewChanging(view);
+//            Active[ActiveObjectTypeHasRules] = ArtifactStateRuleManager.NeedsCustomization(view);
+//            ForceCustomization(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view,false);
+//        }
 
         private void FrameOnViewChanging(object sender, EventArgs args){
             if (View != null) ResetCustomization(View);
+            var view = ((ViewChangingEventArgs) args).View;
+            Active[ActiveObjectTypeHasRules] = ArtifactStateRuleManager.NeedsCustomization(view);
+            ForceCustomization(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view, false);
         }
 
         private void ResetCustomization(View view){

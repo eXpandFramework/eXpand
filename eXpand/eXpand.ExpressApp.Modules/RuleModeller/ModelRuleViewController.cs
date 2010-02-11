@@ -42,17 +42,14 @@ namespace eXpand.ExpressApp.RuleModeller{
         public event EventHandler<ModelRuleExecutedEventArgs<TModelRuleInfo, TModelRule>> ModelRuleExecuted;
         
 
-        protected override void OnViewChanging(View view){
-            
-            base.OnViewChanging(view);
-            Active[ActiveObjectTypeHasRules] = ModelRuleManager<TModelRuleAttribute, TModelRuleNodeWrapper, TModelRuleInfo, TModelRule>.HasRules(view);
-            ForceExecution(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view,false,ExecutionReason.ViewChanging);
-            var supportViewControlAdding = Frame.Template as ISupportViewControlAdding;
-            if (supportViewControlAdding != null)supportViewControlAdding.ViewControlAdding +=(sender, args) => ForceExecution(ExecutionReason.ViewControlAdding);
-        }
-
         private void FrameOnViewChanging(object sender, EventArgs args){
             if (View != null) InvertExecution(View);
+            var view = ((ViewChangingEventArgs)args).View;
+            Active[ActiveObjectTypeHasRules] = ModelRuleManager<TModelRuleAttribute, TModelRuleNodeWrapper, TModelRuleInfo, TModelRule>.HasRules(view);
+            ForceExecution(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view, false, ExecutionReason.ViewChanging);
+            var supportViewControlAdding = Frame.Template as ISupportViewControlAdding;
+            if (supportViewControlAdding != null) 
+                supportViewControlAdding.ViewControlAdding += (o, eventArgs) => ForceExecution(ExecutionReason.ViewControlAdding);
         }
 
         private void InvertExecution(View view){

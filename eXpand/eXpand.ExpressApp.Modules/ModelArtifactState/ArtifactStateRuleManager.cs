@@ -16,7 +16,6 @@ using eXpand.ExpressApp.ModelArtifactState.Exceptions;
 using eXpand.ExpressApp.ModelArtifactState.Security.Permissions;
 using eXpand.ExpressApp.ModelArtifactState.StateInfos;
 using eXpand.ExpressApp.ModelArtifactState.StateRules;
-using eXpand.ExpressApp.Security.Permissions;
 using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.ModelArtifactState{
@@ -89,13 +88,10 @@ namespace eXpand.ExpressApp.ModelArtifactState{
         /// </summary>
         public static bool Fit(object targetObject, ArtifactStateRule artifactStateRule) {
             string criteria = artifactStateRule.NormalCriteria;
-            if (targetObject == null){
-                if (string.IsNullOrEmpty(artifactStateRule.EmptyCriteria)){
-                    return true;
-                }
-                return !fit(new object(), artifactStateRule.EmptyCriteria);
-            }
-            return fit(targetObject, criteria);
+            return targetObject == null
+                       ? string.IsNullOrEmpty(artifactStateRule.EmptyCriteria) ||
+                         fit(new object(), artifactStateRule.EmptyCriteria)
+                       : fit(targetObject, criteria);
         }
 
         private static bool fit(object targetObject, string criteria){
