@@ -256,6 +256,9 @@
     <Compile Include="SystemModule\RecycleBinViewController.designer.cs">
       <DependentUpon>RecycleBinViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\SessionStateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\ShowNonPersistentObjectDetailViewFromNavigationControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>
