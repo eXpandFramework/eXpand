@@ -46,7 +46,7 @@ namespace eXpand.ExpressApp.IO.Core {
                     XElement propertyElement = GetPropertyElement(serializedObjectElement, classInfoGraphNode);
                     switch (classInfoGraphNode.NodeType) {
                         case NodeType.Simple:
-                            propertyElement.Value = GetMemberValue(selectedObject, classInfoGraphNode) + "";
+                            SetMemberValue(selectedObject, classInfoGraphNode, propertyElement);
                             break;
                         case NodeType.Object:
                             createObjectProperty(selectedObject, propertyElement, classInfoGraphNode, root);
@@ -59,13 +59,20 @@ namespace eXpand.ExpressApp.IO.Core {
             }
         }
 
-        string GetMemberValue(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode) {
+        void SetMemberValue(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode, XElement propertyElement) {
             var memberValue = selectedObject.GetMemberValue(classInfoGraphNode.Name);
             var xpMemberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
-            if (xpMemberInfo.Converter!= null){
-                return (xpMemberInfo.Converter.ConvertToStorageType(memberValue) + "").XMLEncode();
+            if (xpMemberInfo.Converter!= null) {
+                memberValue = (xpMemberInfo.Converter.ConvertToStorageType(memberValue) + "");
             }
-            return ((memberValue is byte[] ? Encoding.UTF8.GetString((byte[])memberValue) : memberValue) + "").XMLEncode();
+
+            if (memberValue is byte[])
+                memberValue = Encoding.UTF8.GetString((byte[]) memberValue).Trim(Environment.NewLine.ToCharArray()).Trim(' ').Trim((char)0);
+            if (memberValue is string)
+                propertyElement.Add(new XCData(memberValue.ToString()));
+            else {
+                propertyElement.Value = memberValue+"";
+            }
         }
 
         XElement GetPropertyElement(XElement serializedObjectElement, IClassInfoGraphNode classInfoGraphNode) {

@@ -7,7 +7,7 @@ namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            foreach (AnalysisEditorWin analysisEditor in AnalysisEditors){
+            foreach (DevExpress.ExpressApp.PivotChart.Win.AnalysisEditorWin analysisEditor in AnalysisEditors){
                 analysisEditor.Control.FieldBuilder = new PivotGridFieldBuilder(analysisEditor);
             }
         }

@@ -92,36 +92,36 @@ namespace eXpand.ExpressApp.IO.Core {
 
 
         IEnumerable<XElement> GetObjectRefElements(XElement element, NodeType nodeType) {
-            return element.Descendants("Property").Where(
-                xElement => xElement.GetAttributeValue("type") == nodeType.ToString().MakeFirstCharLower()).SelectMany(
+            return element.Properties(nodeType).SelectMany(
                 element1 => element1.Descendants("SerializedObjectRef"));
         }
 
-        void importSimpleProperties(XElement element, XPBaseObject xpBaseObject) {
-            IEnumerable<XElement> simpleElements =
-                element.Descendants("Property").Where(
-                    xElement => xElement.GetAttributeValue("type") == NodeType.Simple.ToString().MakeFirstCharLower());
-            foreach (var simpleElement in simpleElements) {
+        void importSimpleProperties(XElement element, XPBaseObject xpBaseObject) {            
+            foreach (var simpleElement in element.Properties(NodeType.Simple)){
                 string propertyName = simpleElement.GetAttributeValue("name");
                 XPMemberInfo xpMemberInfo = xpBaseObject.ClassInfo.GetMember(propertyName);
                 object value = GetValue(simpleElement, xpMemberInfo);
-                if (simpleElement.GetAttributeValue("isNaturalKey")=="true"&&!xpBaseObject.IsNewObject())
-                    continue;
                 xpBaseObject.SetMemberValue(propertyName, value);
             }
         }
 
         object GetValue(XElement simpleElement, XPMemberInfo xpMemberInfo) {
             var valueConverter = xpMemberInfo.Converter;
-            return valueConverter != null
-                       ? valueConverter.ConvertFromStorageType(ReflectionHelper.Convert(simpleElement.Value, valueConverter.StorageType))
-                       : GetValue(xpMemberInfo, simpleElement);
+            if (valueConverter != null) {
+                object changeType = ReflectorHelper.ChangeType(simpleElement.Value,
+                                                               valueConverter.StorageType);
+                return valueConverter.ConvertFromStorageType(changeType);
+            }
+            else return 
+                GetValue(xpMemberInfo, simpleElement);
         }
 
         object GetValue(XPMemberInfo xpMemberInfo, XElement simpleElement) {
-            if (xpMemberInfo.MemberType==typeof(byte[]))
-                return Encoding.UTF8.GetBytes(simpleElement.Value.XMLDecode());
-            return ReflectionHelper.Convert(simpleElement.Value, xpMemberInfo.MemberType);
+            if (xpMemberInfo.MemberType==typeof(byte[])) {
+                string trimStart = simpleElement.Value.TrimStart(Environment.NewLine.ToCharArray()).TrimStart(' ');
+                return Encoding.UTF8.GetBytes(trimStart);
+            }
+            return ReflectorHelper.ChangeType(simpleElement.Value, xpMemberInfo.MemberType);
         }
 
         ITypeInfo GetTypeInfo(XElement element) {

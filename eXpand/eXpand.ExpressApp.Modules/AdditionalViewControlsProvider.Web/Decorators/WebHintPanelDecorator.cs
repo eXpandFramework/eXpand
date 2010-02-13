@@ -1,4 +1,5 @@
 ﻿using System;
+using DevExpress.ExpressApp;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Web.Controls;
 
@@ -26,8 +27,8 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Web.Decorators
                 hintPanel.Visible = !string.IsNullOrEmpty(hintPanel.Label.Text);
             }
         }
-        public WebHintPanelDecorator(object currentObject, HintPanel hintPanel, IAdditionalViewControlsRule controlsRule)
-            : base(currentObject,hintPanel,controlsRule)
+        public WebHintPanelDecorator(View view, HintPanel hintPanel, IAdditionalViewControlsRule controlsRule)
+            : base(view,hintPanel,controlsRule)
         {
             this.hintPanel = hintPanel;
             hintPanel.Unload += hintPanel_Unload;

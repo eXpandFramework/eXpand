@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using DevExpress.Xpo;
@@ -124,12 +126,8 @@ namespace eXpand.Xpo
             return getAttribute(attributes, attributeType);
         }
 
-        private static Attribute getAttribute(object[] attributes, Type attributeType) {
-            foreach (Attribute attribute in attributes) {
-                if (attributeType.IsAssignableFrom(attribute.GetType()))
-                    return attribute;
-            }
-            return null;
+        private static Attribute getAttribute(IEnumerable<object> attributes, Type attributeType) {
+            return attributes.Cast<Attribute>().FirstOrDefault(attribute => attributeType.IsAssignableFrom(attribute.GetType()));
         }
 
         /// <summary>
@@ -140,12 +138,10 @@ namespace eXpand.Xpo
         /// <param name="attributeType"></param>
         public static Type FindDecoratedInterface(Type objectType, Type attributeType) {
             Type[] interfaces = objectType.GetInterfaces();
-            foreach (Type type in interfaces) {
-                object[] attributes = type.GetCustomAttributes(attributeType, true);
-                if (attributes.Length > 0)
-                    return type;
-            }
-            return null;
+            return (from type in interfaces
+                    let attributes = type.GetCustomAttributes(attributeType, true)
+                    where attributes.Length > 0
+                    select type).FirstOrDefault();
         }
 
         public static Type[] GetTypes(Type assignAbleFrom, Assembly assembly, Type decoratedAttributeType) {
@@ -206,11 +202,7 @@ namespace eXpand.Xpo
 
         public static bool FindInterface(Type interfaceType, Type typeToSearch) {
             Type[] interfaces = typeToSearch.GetInterfaces();
-            foreach (Type type in interfaces) {
-                if (interfaces.Equals(type))
-                    return true;
-            }
-            return false;
+            return interfaces.Any(interfaces.Equals);
         }
 
         public static void SetPropertyValue(PropertyInfo propertyInfo, object obj, object value) {
@@ -333,11 +325,10 @@ namespace eXpand.Xpo
 
         public static FieldInfo GetFieldByValue(object value, object containerControl) {
             FieldInfo[] fieldInfos = containerControl.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
-            foreach (FieldInfo fieldInfo in fieldInfos) {
-                object fieldValue = fieldInfo.GetValue(containerControl);
-                if (fieldValue != null && fieldValue.Equals(value)) return fieldInfo;
-            }
-            return null;
+            return (from fieldInfo in fieldInfos
+                    let fieldValue = fieldInfo.GetValue(containerControl)
+                    where fieldValue != null && fieldValue.Equals(value)
+                    select fieldInfo).FirstOrDefault();
         }
 
         /// <summary>
@@ -356,11 +347,13 @@ namespace eXpand.Xpo
                     return typeof(Nullable).IsAssignableFrom(conversionType) ? (object)null : 0;
                 if (conversionType == typeof(bool))
                     return typeof(Nullable).IsAssignableFrom(conversionType) ? (object)null : false;
+                if (typeof(IEnumerable).IsAssignableFrom(conversionType) && string.IsNullOrEmpty(value + ""))
+                    return null;
                 if (conversionType.IsValueType)
                     throw new NotImplementedException(conversionType.Name);
             } else if (typeof(Enum).IsAssignableFrom(conversionType))
                 return Enum.Parse(conversionType, (string)value);
-            else if (StringExtensions.IsGuid(value + "") && conversionType == typeof (Guid))
+            else if ((value + "").IsGuid() && conversionType == typeof (Guid))
                 return new Guid(value.ToString());
             else if (value.GetType().Equals(conversionType))
                 return value;
@@ -382,6 +375,7 @@ namespace eXpand.Xpo
                     //                    conversionType.GetProperty("Value").SetValue(nullValue, value, null);
                 }
             }
+            
             return Convert.ChangeType(value, conversionType);
         }
 
@@ -525,11 +519,7 @@ namespace eXpand.Xpo
 
         public static PropertyDescriptor GetPropertyDescriptorByValue(object value, object containedControl) {
             PropertyDescriptorCollection propertyDescriptorCollection = TypeDescriptor.GetProperties(containedControl);
-            foreach (PropertyDescriptor descriptor in propertyDescriptorCollection) {
-                if (value.Equals(descriptor.GetValue(containedControl)))
-                    return descriptor;
-            }
-            return null;
+            return propertyDescriptorCollection.Cast<PropertyDescriptor>().FirstOrDefault(descriptor => value.Equals(descriptor.GetValue(containedControl)));
         }
 
         public static MethodInfo[] GetDecoratedMethods(Type classType, Type attributeType) {

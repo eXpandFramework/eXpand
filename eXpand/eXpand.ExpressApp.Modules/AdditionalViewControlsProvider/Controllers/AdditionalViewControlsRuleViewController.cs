@@ -13,15 +13,23 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Controllers {
         public override void ExecuteRule(AdditionalViewControlsRuleInfo info, ExecutionReason executionReason) {
             if (info.Active ){
                 AdditionalViewControlsRule additionalViewControlsRule = info.Rule;
-                var calculator = new AdditionalViewControlsProviderCalculator(additionalViewControlsRule);
+                var calculator = new AdditionalViewControlsProviderCalculator(additionalViewControlsRule,info.View.ObjectTypeInfo.Type);
                 object control = Activator.CreateInstance(calculator.ControlsRule.ControlType);
                 AddControl(control,info,calculator,executionReason);
             }
         }
-        protected object GetControl(IEnumerable collection, object control, AdditionalViewControlsProviderCalculator calculator, AdditionalViewControlsRuleInfo additionalViewControlsRule)
+
+        protected object GetControl(IEnumerable collection, object control,
+                                    AdditionalViewControlsProviderCalculator calculator,
+                                    AdditionalViewControlsRuleInfo additionalViewControlsRule)
         {
-            object o = collection.OfType<object>().Where(control1 => control1.GetType().Equals(control.GetType())).FirstOrDefault() ?? control;
-            Activator.CreateInstance(calculator.ControlsRule.DecoratorType, new[] { additionalViewControlsRule.View.CurrentObject, o, additionalViewControlsRule.Rule });
+
+            object o;
+            if (additionalViewControlsRule.Rule.UseSameIfFound)
+                o = collection.OfType<object>().Where(control1 => control1.GetType().Equals(control.GetType())).FirstOrDefault() ?? control;
+            else
+                o = control;
+            Activator.CreateInstance(calculator.ControlsRule.DecoratorType, new[] { additionalViewControlsRule.View, o, additionalViewControlsRule.Rule });
             return o;
         }
 

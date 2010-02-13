@@ -48,5 +48,10 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers {
             }
             set { Node.SetAttribute("AdditionalViewControlsProviderPosition", value.ToString()); }
         }
+
+        public bool UseSameIfFound {
+            get { return Node.GetAttributeBoolValue("UseSameIfFound"); }
+            set { Node.SetAttribute("UseSameIfFound",value); }
+        }
     }
 }

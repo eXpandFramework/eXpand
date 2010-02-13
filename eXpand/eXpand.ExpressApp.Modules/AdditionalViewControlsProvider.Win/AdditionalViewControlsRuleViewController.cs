@@ -1,6 +1,5 @@
 using System.Windows.Forms;
 using eXpand.ExpressApp.RuleModeller;
-using ListView = DevExpress.ExpressApp.ListView;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win
 {

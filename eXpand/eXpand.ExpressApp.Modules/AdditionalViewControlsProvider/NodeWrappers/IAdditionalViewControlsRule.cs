@@ -8,5 +8,6 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers {
         Type DecoratorType { get; set; }
         Type ControlType { get; set; }
         AdditionalViewControlsProviderPosition AdditionalViewControlsProviderPosition { get; set; }
+        bool UseSameIfFound { get; set; }
     }
 }

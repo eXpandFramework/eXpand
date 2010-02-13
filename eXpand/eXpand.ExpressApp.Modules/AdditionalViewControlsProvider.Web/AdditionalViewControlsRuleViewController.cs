@@ -7,6 +7,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Web {
             if (reason==ExecutionReason.TemplateViewChanged) {
                 ControlCollection collection = ((Control)viewSiteControl).Controls;
                 object o = GetControl(collection, control, calculator, additionalViewControlsRule);
+                ((Control) o).Visible = true;
                 if (additionalViewControlsRule.Rule.AdditionalViewControlsProviderPosition == AdditionalViewControlsProviderPosition.Top)
                     collection.AddAt(0, (Control)o);
                 else

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -321,18 +322,29 @@ namespace eXpand.Tests.eXpand.IO
     
     [Subject(typeof(ExportEngine))]
     public class When_object_has_a_byte_array_property:With_Isolations {
+        static string _xml;
         static XElement _root;
         static Analysis _analysis;
 
         Establish context = () => {
             ObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew();
             _analysis = objectSpace.CreateObject<Analysis>();
-            _analysis.PivotGridSettingsContent = Encoding.UTF8.GetBytes("?<XtraSerializer version=\"1.0\" application=\"PivotGrid\">          </XtraSerializer> ");            
+            Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.PivotContent.xml");
+            if (manifestResourceStream != null) {
+                _xml = new StreamReader(manifestResourceStream).ReadToEnd();
+                _analysis.PivotGridSettingsContent = Encoding.UTF8.GetBytes(_xml);
+            }
         };
 
         Because of = () => {
-            var xDocument = new ExportEngine().Export(new List<XPBaseObject>{_analysis});
-            xDocument.Save("test.xml");
+//            UnitOfWork unitOfWork = new UnitOfWork(){};
+//            unitOfWork.ConnectionString =
+//            "Integrated Security=SSPI;Pooling=false;Data Source=TOLISSS;Initial Catalog=Shell;Application Name=legacy";
+//            ObjectSpace objectSpace = new ObjectSpace(unitOfWork,XafTypesInfo.Instance);
+            
+//            Analysis analysis = unitOfWork.FindObject<Analysis>(CriteriaOperator.Parse("Name=?","dd"));
+            var xDocument = new ExportEngine().Export(new List<XPBaseObject> { _analysis });
+            xDocument.Save(@"c:\my.xml");
             _root = xDocument.Root;
         };
 
@@ -341,7 +353,7 @@ namespace eXpand.Tests.eXpand.IO
                 string value =
                     _root.SerializedObjects(typeof (Analysis)).FirstOrDefault().Property("PivotGridSettingsContent").
                         Value;
-                value.ShouldEqual("?<XtraSerializer version=\"1.0\" application=\"PivotGrid\">          </XtraSerializer> ".XMLEncode());
+                value.ShouldEqual(_xml);
             };
     }
 }

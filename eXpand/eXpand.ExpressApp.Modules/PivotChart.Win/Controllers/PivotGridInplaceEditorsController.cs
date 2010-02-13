@@ -1,19 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.NodeWrappers;
-using DevExpress.ExpressApp.PivotChart.Win;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraPivotGrid;
 using System.Linq;
 
 namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
-    public class PivotGridInplaceEditorsController : ViewController<DetailView>
+    public class PivotGridInplaceEditorsController : AnalysisViewControllerBase
     {
-        PivotGridControl _pivotGridControl;
-        RepositoryItemSpinEdit _repositoryItemSpinEdit;
+        readonly Dictionary<PivotGridControl, RepositoryItemSpinEdit>  _repositoryItemSpinEdits = new Dictionary<PivotGridControl, RepositoryItemSpinEdit>();
+//        PivotGridControl _pivotGridControl;
+//        RepositoryItemSpinEdit _repositoryItemSpinEdit;
 
         public PivotGridInplaceEditorsController() {
             TargetObjectType = typeof (IAnalysisInfo);
@@ -30,27 +30,36 @@ namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
         }
 
         void View_ControlsCreated(object sender, EventArgs e) {
-            _pivotGridControl = GetPivotGridControl();
-            _repositoryItemSpinEdit = new RepositoryItemSpinEdit();
-            _pivotGridControl.RepositoryItems.Add(_repositoryItemSpinEdit);
-            _pivotGridControl.FieldAreaChanged += _pivotGridControl_FieldAreaChanged;
-            _pivotGridControl.ShowingEditor += _pivotGridControl_ShowingEditor;
-            _pivotGridControl.EditValueChanged += _pivotGridControl_EditValueChanged;
+            
+            
+            foreach (var pivotGridControl in GetPivotGridControl()) {
+                var repositoryItemSpinEdit = new RepositoryItemSpinEdit();
+                _repositoryItemSpinEdits.Add(pivotGridControl, repositoryItemSpinEdit);
+                pivotGridControl.RepositoryItems.Add(repositoryItemSpinEdit);
+                pivotGridControl.FieldAreaChanged += _pivotGridControl_FieldAreaChanged;
+                pivotGridControl.ShowingEditor += _pivotGridControl_ShowingEditor;
+                pivotGridControl.EditValueChanged += _pivotGridControl_EditValueChanged;
+            }
+            
+            
         }
 
         void BindDataAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            foreach (PivotGridField field in _pivotGridControl.Fields) {
-                SetEditor(field);
+            foreach (var pivotGridControl in _repositoryItemSpinEdits.Select(pair => pair.Key)) {
+                foreach (PivotGridField field in pivotGridControl.Fields){
+                    SetEditor(field, pivotGridControl);
+                }    
             }
+            
         }
 
         void _pivotGridControl_FieldAreaChanged(object sender, PivotFieldEventArgs e) {
-            SetEditor(e.Field);
+            SetEditor(e.Field,(PivotGridControl) sender);
         }
 
-        void SetEditor(PivotGridField field) {
+        void SetEditor(PivotGridField field, PivotGridControl sender) {
             if (field.Area == PivotArea.DataArea && field.DataType.IsPrimitive) {
-                field.FieldEdit = _repositoryItemSpinEdit;
+                field.FieldEdit = _repositoryItemSpinEdits[sender];
             }
         }
 
@@ -66,9 +75,8 @@ namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
             return pivot.Cells.GetCellInfo(focused.X, focused.Y);
         }
 
-        PivotGridControl GetPivotGridControl() {
-            var analysisEditor = View.GetItems<AnalysisEditorWin>()[0];
-            return analysisEditor.Control.PivotGrid;
+        IEnumerable<PivotGridControl> GetPivotGridControl() {
+            return View.GetItems<AnalysisEditorWin>().Select(win => win.Control.PivotGrid).ToArray();
         }
 
         void _pivotGridControl_EditValueChanged(object sender, EditValueChangedEventArgs e) {

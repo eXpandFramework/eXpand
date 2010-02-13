@@ -35,6 +35,11 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
             get { return _additionalViewControlsRule.AdditionalViewControlsProviderPosition; }
             set { _additionalViewControlsRule.AdditionalViewControlsProviderPosition = value; }
         }
+
+        public bool UseSameIfFound {
+            get { return _additionalViewControlsRule.UseSameIfFound; }
+            set { _additionalViewControlsRule.UseSameIfFound=value; }
+        }
         #endregion
     }
 }

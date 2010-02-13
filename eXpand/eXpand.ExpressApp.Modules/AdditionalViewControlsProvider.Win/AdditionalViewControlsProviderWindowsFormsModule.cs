@@ -1,4 +1,4 @@
-using eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers;
+using System;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Decorators;
 
@@ -10,10 +10,14 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win
         {
             InitializeComponent();
         }
-        protected override void OnRuleAdded(AdditionalViewControlsRuleNodeWrapper additionalViewControlsRuleNodeWrapper, AdditionalViewControlsAttribute additionalViewControlsAttribute){
-            base.OnRuleAdded(additionalViewControlsRuleNodeWrapper, additionalViewControlsAttribute);
-            additionalViewControlsRuleNodeWrapper.ControlType = additionalViewControlsAttribute.ControlType ?? typeof(HintPanel);
-            additionalViewControlsRuleNodeWrapper.DecoratorType = additionalViewControlsAttribute.DecoratorType ?? typeof(WinHintPanelDecorator);
+
+
+        protected override Type GetDecoratorType() {
+            return typeof(WinHintPanelDecorator);
+        }
+
+        protected override Type GetControlType() {
+            return typeof(HintPanel);
         }
     }
 }

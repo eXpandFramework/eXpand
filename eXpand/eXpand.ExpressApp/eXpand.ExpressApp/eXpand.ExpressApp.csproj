@@ -187,12 +187,6 @@
     <Compile Include="SystemModule\CustomSelectionListViewViewController.designer.cs">
       <DependentUpon>CustomSelectionListViewViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SystemModule\DisableCompatibilityCheck.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\DisableCompatibilityCheck.Designer.cs">
-      <DependentUpon>DisableCompatibilityCheck.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\ExpandAbleMembersViewController.cs">
       <SubType>Component</SubType>
     </Compile>

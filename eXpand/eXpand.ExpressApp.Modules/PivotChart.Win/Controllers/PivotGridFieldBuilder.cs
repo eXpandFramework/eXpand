@@ -7,10 +7,11 @@ using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
     public class PivotGridFieldBuilder : DevExpress.ExpressApp.PivotChart.PivotGridFieldBuilder {
-        readonly AnalysisEditorWin _analysisEditor;
+        readonly DevExpress.ExpressApp.PivotChart.Win.AnalysisEditorWin _analysisEditor;
 
 
-        public PivotGridFieldBuilder(AnalysisEditorWin analysisEditor) : base(analysisEditor.Control) {
+        public PivotGridFieldBuilder(DevExpress.ExpressApp.PivotChart.Win.AnalysisEditorWin analysisEditor)
+            : base(analysisEditor.Control) {
             _analysisEditor = analysisEditor;
         }
 
@@ -19,9 +20,12 @@ namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
             if (memberType == typeof (DateTime)) {
                 DictionaryNode info = _analysisEditor.View.Info;
                 var analysisInfo = (IAnalysisInfo) _analysisEditor.MemberInfo.GetValue(_analysisEditor.CurrentObject);
-                field.GroupInterval =new ApplicationNodeWrapper(info.Dictionary.RootNode).BOModel.FindClassByType(
-                        analysisInfo.DataType).FindMemberByName(field.FieldName).Node.GetAttributeEnumValue("PivotGroupInterval",
-                                                                                     PivotGroupInterval.Date);
+                field.GroupInterval = new ApplicationNodeWrapper(info.Dictionary.RootNode).BOModel.FindClassByType(
+                                                                                                                      analysisInfo
+                                                                                                                          .
+                                                                                                                          DataType)
+                    .FindMemberByName(field.FieldName).Node.GetAttributeEnumValue("PivotGroupInterval",
+                                                                                  PivotGroupInterval.Date);
             }
         }
     }
