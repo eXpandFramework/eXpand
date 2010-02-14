@@ -3,9 +3,9 @@ using DevExpress.ExpressApp;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.Web.SystemModule {
-    public partial class HideListViewToolBarController : ViewController<ListView> {
+    public partial class HideToolBarController : ViewController {
         public const string HideToolBarAttributeName = "HideToolBar";
-        public HideListViewToolBarController() {
+        public HideToolBarController() {
             InitializeComponent();
             RegisterActions(components);
         }
@@ -21,6 +21,7 @@ namespace eXpand.ExpressApp.Web.SystemModule {
         public override Schema GetSchema()
         {
             DictionaryNode injectAttribute = new SchemaHelper().InjectAttribute(HideToolBarAttributeName, ModelElement.ListView);
+            injectAttribute.CombineWith(new SchemaHelper().InjectAttribute(HideToolBarAttributeName, ModelElement.DetailView));
             return new Schema(injectAttribute);
         }
     }

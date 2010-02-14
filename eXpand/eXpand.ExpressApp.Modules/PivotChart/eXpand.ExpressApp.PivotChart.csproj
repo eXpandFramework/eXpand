@@ -119,6 +119,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalysisControlVisibility.cs" />
+    <Compile Include="AnalysisControlVisibilityControllerBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="AnalysisDataBindController.cs">
       <SubType>Component</SubType>
     </Compile>

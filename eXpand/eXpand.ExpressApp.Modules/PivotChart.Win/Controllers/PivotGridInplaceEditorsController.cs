@@ -12,8 +12,6 @@ namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
     public class PivotGridInplaceEditorsController : AnalysisViewControllerBase
     {
         readonly Dictionary<PivotGridControl, RepositoryItemSpinEdit>  _repositoryItemSpinEdits = new Dictionary<PivotGridControl, RepositoryItemSpinEdit>();
-//        PivotGridControl _pivotGridControl;
-//        RepositoryItemSpinEdit _repositoryItemSpinEdit;
 
         public PivotGridInplaceEditorsController() {
             TargetObjectType = typeof (IAnalysisInfo);
@@ -21,6 +19,7 @@ namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
+            Frame.GetController<AnalysisReadOnlyController>().Active[GetType().Name] = false;
             var detailViewInfoNodeWrapper = new DetailViewInfoNodeWrapper(View.Info);
             var itemInfoNodeWrapper= detailViewInfoNodeWrapper.Editors.Items.Where(wrapper => typeof(IAnalysisInfo).IsAssignableFrom(wrapper.PropertyType)).FirstOrDefault();
             if (itemInfoNodeWrapper!= null&&itemInfoNodeWrapper.AllowEdit){
@@ -30,8 +29,6 @@ namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
         }
 
         void View_ControlsCreated(object sender, EventArgs e) {
-            
-            
             foreach (var pivotGridControl in GetPivotGridControl()) {
                 var repositoryItemSpinEdit = new RepositoryItemSpinEdit();
                 _repositoryItemSpinEdits.Add(pivotGridControl, repositoryItemSpinEdit);
@@ -40,8 +37,6 @@ namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
                 pivotGridControl.ShowingEditor += _pivotGridControl_ShowingEditor;
                 pivotGridControl.EditValueChanged += _pivotGridControl_EditValueChanged;
             }
-            
-            
         }
 
         void BindDataAction_Execute(object sender, SimpleActionExecuteEventArgs e) {

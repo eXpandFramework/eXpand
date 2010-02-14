@@ -10,6 +10,7 @@ namespace eXpand.ExpressApp.IO.Observers {
 
         public SerializationConfigurationObserver(ObjectSpace objectSpace) : base(objectSpace) {
         }
+        
         protected override void OnChanged(ObjectChangedEventArgs<ISerializationConfiguration> e)
         {
             base.OnChanged(e);

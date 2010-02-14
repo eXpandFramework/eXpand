@@ -35,9 +35,7 @@ namespace eXpand.ExpressApp.PivotChart.Win.Controllers
             showViewParameters.CreatedView = Application.CreateDetailView(objectSpace, pivotOption, true);
             showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             var dialogController = new DialogController();
-            dialogController.AcceptAction.Execute +=
-                (o, args) =>
-                synchonize(classInfo, type, args.CurrentObject);
+            dialogController.AcceptAction.Execute +=(o, args) =>synchonize(classInfo, type, args.CurrentObject);
             showViewParameters.Controllers.Add(dialogController);            
         }
 

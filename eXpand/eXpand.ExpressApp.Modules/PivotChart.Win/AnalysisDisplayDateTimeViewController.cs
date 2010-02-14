@@ -1,8 +1,9 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.XtraPivotGrid;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
+using eXpand.ExpressApp.PivotChart.Win.Controllers;
 
-namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
+namespace eXpand.ExpressApp.PivotChart.Win {
     public class AnalysisDisplayDateTimeViewController : AnalysisViewControllerBase {
         protected override void OnViewControlsCreated()
         {

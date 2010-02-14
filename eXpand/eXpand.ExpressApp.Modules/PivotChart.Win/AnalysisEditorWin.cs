@@ -15,7 +15,6 @@ namespace eXpand.ExpressApp.PivotChart.Win {
             get { return (AnalysisControlWin) base.Control; }
         }
 
-
         void analysisControl_HandleCreated(object sender, EventArgs e) {
             ReadValue();
         }

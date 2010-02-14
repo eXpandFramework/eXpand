@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Utils;
 using eXpand.ExpressApp.ModelArtifactState.Attributes;
 using eXpand.ExpressApp.ModelArtifactState.Interfaces;
 using eXpand.ExpressApp.ModelArtifactState.StateInfos;
@@ -42,13 +40,12 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers{
         }
 
         void ExecuteAction(SimpleAction action, bool executedAndDisable) {
-            EventHandler<BoolValueChangedEventArgs> activeOnResultValueChanged = (o, args) => ((BoolList)o).Clear();
             action.Active[ArtifactStateCustomizationViewController.ActiveObjectTypeHasRules] = true;
-            action.Active.ResultValueChanged += activeOnResultValueChanged;
-            action.DoExecute();
-            action.Active.ResultValueChanged -= activeOnResultValueChanged;
+            if (action.Active){
+                action.DoExecute();    
+            }
             if (executedAndDisable)
-                action.Active[executedAndDisable.ToString()] = false;
+                action.Active[ArtifactStateCustomizationViewController.ActiveObjectTypeHasRules] = false;
         }
 
 

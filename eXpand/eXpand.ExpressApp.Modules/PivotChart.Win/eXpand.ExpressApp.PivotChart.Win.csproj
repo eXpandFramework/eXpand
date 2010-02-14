@@ -151,7 +151,11 @@
     <Compile Include="AnalysisControlWin.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="AnalysisDisplayDateTimeViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="AnalysisEditorWin.cs">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\AnalysisControlVisibilityController.cs">
       <SubType>Component</SubType>
@@ -159,10 +163,9 @@
     <Compile Include="Controllers\AnalysisControlVisibilityController.Designer.cs">
       <DependentUpon>AnalysisControlVisibilityController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\AnalysisDisplayDateTimeViewController.cs">
+    <Compile Include="Controllers\AnalysisReadOnlyController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\PivotGridFieldBuilder.cs" />
     <Compile Include="Core\PivotGridOptionMapper.cs" />
     <Compile Include="PivotChartWinModule.cs">
       <SubType>Component</SubType>
@@ -179,6 +182,7 @@
     <Compile Include="Controllers\PivotGridInplaceEditorsController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PivotGridFieldBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs">
     </Compile>

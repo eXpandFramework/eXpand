@@ -1,6 +1,6 @@
 namespace eXpand.ExpressApp.Web.SystemModule
 {
-    partial class HideListViewToolBarController
+    partial class HideToolBarController
     {
         /// <summary>
         /// Required designer variable.
