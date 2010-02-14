@@ -19,6 +19,8 @@ call buildproject.cmd eXpand.ExpressApp.Web ".\eXpand\eXpand.ExpressApp\eXpand.E
 call buildproject.cmd eXpand.ExpressApp.Security ".\eXpand\eXpand.ExpressApp.Modules\Security\eXpand.ExpressApp.Security.csproj"
 call buildproject.cmd eXpand.ExpressApp.Validation ".\eXpand\eXpand.ExpressApp.Modules\Validation\eXpand.ExpressApp.Validation.csproj"
 call buildproject.cmd eXpand.ExpressApp.RuleModeller ".\eXpand\eXpand.ExpressApp.Modules\RuleModeller\eXpand.ExpressApp.RuleModeller.csproj"
+call buildproject.cmd eXpand.ExpressApp.RuleModeller ".\eXpand\eXpand.ExpressApp.Modules\RuleModeller\eXpand.ExpressApp.MemberLevelSecurity.csproj"
+call buildproject.cmd eXpand.ExpressApp.RuleModeller ".\eXpand\eXpand.ExpressApp.Modules\RuleModeller\eXpand.ExpressApp.MemberLevelSecurity.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.AdditionalViewControlsProvider ".\eXpand\eXpand.ExpressApp.Modules\AdditionalViewControlsProvider\eXpand.ExpressApp.AdditionalViewControlsProvider.csproj"
 call buildproject.cmd eXpand.ExpressApp.AdditionalViewControlsProvider.Win ".\eXpand\eXpand.ExpressApp.Modules\AdditionalViewControlsProvider.Win\eXpand.ExpressApp.AdditionalViewControlsProvider.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.AdditionalViewControlsProvider.Web ".\eXpand\eXpand.ExpressApp.Modules\AdditionalViewControlsProvider.Web\eXpand.ExpressApp.AdditionalViewControlsProvider.Web.csproj"
