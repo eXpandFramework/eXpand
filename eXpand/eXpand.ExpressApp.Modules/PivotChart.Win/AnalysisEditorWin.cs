@@ -2,7 +2,6 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.PivotChart;
-using DevExpress.ExpressApp.PivotChart.Win;
 using DevExpress.Persistent.Base;
 
 namespace eXpand.ExpressApp.PivotChart.Win {
@@ -17,15 +16,6 @@ namespace eXpand.ExpressApp.PivotChart.Win {
 
         void analysisControl_HandleCreated(object sender, EventArgs e) {
             ReadValue();
-        }
-
-        protected override void UpdatePivotGridSettings() {
-            base.UpdatePivotGridSettings();
-            Control.PivotGrid.OptionsChartDataSource.SelectionOnly = false;
-        }
-
-        protected override IPivotGridSettingsStore CreatePivotGridSettingsStore() {
-            return new PivotGridControlSettingsStore(Control.PivotGrid);
         }
 
         protected override IAnalysisControl CreateAnalysisControl() {

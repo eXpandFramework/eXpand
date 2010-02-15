@@ -2,8 +2,7 @@ using DevExpress.ExpressApp.PivotChart;
 using DevExpress.ExpressApp.PivotChart.Web;
 
 namespace eXpand.ExpressApp.PivotChart.Web {
-    partial class PivotChartXpandAspNetModule
-    {
+    partial class PivotChartXpandAspNetModule  {
         /// <summary> 
         /// Required designer variable.
         /// </summary>

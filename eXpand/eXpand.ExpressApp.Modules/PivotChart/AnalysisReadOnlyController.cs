@@ -1,4 +1,4 @@
-﻿namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
+﻿namespace eXpand.ExpressApp.PivotChart {
     public class AnalysisReadOnlyController:DevExpress.ExpressApp.PivotChart.AnalysisReadOnlyController {
         protected override void OnActivated()
         {

@@ -8,7 +8,7 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraPivotGrid;
 using System.Linq;
 
-namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
+namespace eXpand.ExpressApp.PivotChart.Win {
     public class PivotGridInplaceEditorsController : AnalysisViewControllerBase
     {
         readonly Dictionary<PivotGridControl, RepositoryItemSpinEdit>  _repositoryItemSpinEdits = new Dictionary<PivotGridControl, RepositoryItemSpinEdit>();

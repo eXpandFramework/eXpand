@@ -157,13 +157,7 @@
     <Compile Include="AnalysisEditorWin.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controllers\AnalysisControlVisibilityController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\AnalysisControlVisibilityController.Designer.cs">
-      <DependentUpon>AnalysisControlVisibilityController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\AnalysisReadOnlyController.cs">
+    <Compile Include="AnalysisControlVisibilityController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\PivotGridOptionMapper.cs" />
@@ -173,20 +167,17 @@
     <Compile Include="PivotChartWinModule.Designer.cs">
       <DependentUpon>PivotChartWinModule.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\PivotedPropertyController.cs">
+    <Compile Include="PivotedPropertyController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\PivotedPropertyController.Designer.cs">
-      <DependentUpon>PivotedPropertyController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\PivotGridInplaceEditorsController.cs">
+    <Compile Include="PivotGridInplaceEditorsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PivotGridFieldBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs">
     </Compile>
-    <Compile Include="Controllers\PivotOptionsController.cs">
+    <Compile Include="PivotOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

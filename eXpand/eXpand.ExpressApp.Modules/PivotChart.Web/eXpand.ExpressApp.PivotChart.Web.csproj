@@ -80,6 +80,9 @@
     <Reference Include="DevExpress.Utils.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Web.ASPxEditors.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Web.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -142,9 +145,8 @@
     <Compile Include="AnalysisControlVisibilityController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AnalysisControlVisibilityController.Designer.cs">
-      <DependentUpon>AnalysisControlVisibilityController.cs</DependentUpon>
-    </Compile>
+    <Compile Include="AnalysisControlWeb.cs" />
+    <Compile Include="AnalysisEditorWeb.cs" />
     <Compile Include="PivotChartXpandAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>

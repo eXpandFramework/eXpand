@@ -2,7 +2,7 @@ using DevExpress.ExpressApp.PivotChart.Web;
 using DevExpress.Web.ASPxTabControl;
 
 namespace eXpand.ExpressApp.PivotChart.Web {
-    public partial class AnalysisControlVisibilityController :
+    public class AnalysisControlVisibilityController :
         AnalysisControlVisibilityControllerBase<AnalysisEditorWeb, AnalysisControlWeb> {
         protected override void HidePivot(AnalysisControlWeb analysisControl) {
             Hide(analysisControl, 0);

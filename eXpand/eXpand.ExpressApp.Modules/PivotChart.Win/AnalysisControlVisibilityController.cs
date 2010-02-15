@@ -1,12 +1,6 @@
-namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
-    public partial class AnalysisControlVisibilityController :
+namespace eXpand.ExpressApp.PivotChart.Win {
+    public class AnalysisControlVisibilityController :
         AnalysisControlVisibilityControllerBase<AnalysisEditorWin, AnalysisControlWin> {
-        public AnalysisControlVisibilityController() {
-            InitializeComponent();
-            RegisterActions(components);
-        }
-
-
         protected override void HidePivot(AnalysisControlWin analysisControl) {
             analysisControl.ChartControl.Parent = analysisControl;
             analysisControl.TabControl.Visible = false;
@@ -16,5 +10,5 @@ namespace eXpand.ExpressApp.PivotChart.Win.Controllers {
             analysisControl.PivotGrid.Parent = analysisControl;
             analysisControl.TabControl.Visible = false;
         }
-    }
+        }
 }

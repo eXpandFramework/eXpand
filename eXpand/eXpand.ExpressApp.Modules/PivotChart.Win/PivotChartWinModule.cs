@@ -1,13 +1,13 @@
 using System;
 using System.Reflection;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.PivotChart.Win.Core;
 using System.Linq;
 
 namespace eXpand.ExpressApp.PivotChart.Win {
-    public sealed partial class PivotChartWinModule : ModuleBase {
+    public sealed partial class PivotChartWinModule : PivotChartXpandModuleBase
+    {
         public PivotChartWinModule() {
             InitializeComponent();
         }
@@ -26,6 +26,10 @@ namespace eXpand.ExpressApp.PivotChart.Win {
             foreach (PropertyInfo propertyInfo in optionsType.GetProperties().Where(info => info.GetSetMethod()!=null)) {
                 typeInfo.CreateMember(propertyInfo.Name, propertyInfo.PropertyType);
             }
+        }
+
+        protected override Type GetPropertyEditorType() {
+            return typeof(AnalysisEditorWin);
         }
     }
 }

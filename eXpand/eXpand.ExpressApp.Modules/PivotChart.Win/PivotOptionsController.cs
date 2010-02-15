@@ -9,7 +9,7 @@ using DevExpress.XtraPivotGrid;
 using eXpand.ExpressApp.PivotChart.Win.Core;
 using System.Linq;
 
-namespace eXpand.ExpressApp.PivotChart.Win.Controllers
+namespace eXpand.ExpressApp.PivotChart.Win
 {
     public class PivotOptionsController : PivotChart.PivotOptionsController
     {
@@ -62,9 +62,9 @@ namespace eXpand.ExpressApp.PivotChart.Win.Controllers
 
         List<object> GetGridOptionInstance(Type type) {
             return AnalysisEditors.Select(analysisEditor => ((AnalysisControlWin) analysisEditor.Control).PivotGrid).Select
-                    (pivotGridControl =>
-                     typeof (PivotGridControl).GetProperties().Where(propertyInfo => propertyInfo.PropertyType == type).
-                         Select(info1 => info1.GetValue(pivotGridControl, null)).Single()).ToList();
+                (pivotGridControl =>
+                 typeof (PivotGridControl).GetProperties().Where(propertyInfo => propertyInfo.PropertyType == type).
+                     Select(info1 => info1.GetValue(pivotGridControl, null)).Single()).ToList();
         }
 
         void AddItems(SingleChoiceAction singleChoiceAction) {

@@ -11,13 +11,8 @@ using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.PivotChart
 {
-    public partial class PivotedPropertyController : ViewController<DetailView>
+    public class PivotedPropertyController : ViewController<DetailView>
     {
-        public PivotedPropertyController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
         protected override void OnActivated()
         {
             base.OnActivated();
