@@ -45,6 +45,8 @@ namespace eXpand.ExpressApp.ModelArtifactState.Controllers
                 args.AddTag(@" Required=""True""");
             else if (args.Attribute.IndexOf("TypeInfo") > -1)
                 args.AddTag(@"Required=""True"" RefNodeName=""/Application/BOModel/Class""");
+            else if (args.Attribute.IndexOf("ViewId")>-1)
+                args.AddTag(@"RefNodeName=""/Application/Views/*""");
         }
 
         protected abstract string GetElementStateNodeName();

@@ -113,13 +113,14 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             get { return new DictionaryXmlWriter().GetAspectXml(Model.GetAspectIndex(CurrentLanguage), Model.RootNode); }
             set {
                 var newDictionary = new Dictionary(new DictionaryXmlReader().ReadFromString(value),Model.Schema);
-                newDictionary.Validate();
+//                newDictionary.Validate();
                 string xmlContent = XmlContent;
-                Model=newDictionary;
+//                Model=newDictionary;
 //                string xmlContent = XmlContent;
-//                Dictionary dictionary = GetCombinedModel();
-//                dictionary.CombineWith(newDictionary);
-//                Model = dictionary.GetDiffs();
+                Dictionary dictionary = GetCombinedModel();
+                dictionary.CombineWith(newDictionary);
+                dictionary.Validate();
+                Model = dictionary.GetDiffs();
                 OnChanged("XmlContent",xmlContent,value);
             }
         }
