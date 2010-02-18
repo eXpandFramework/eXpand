@@ -1,4 +1,3 @@
-using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using eXpand.ExpressApp.Security.Permissions;
@@ -12,7 +11,7 @@ namespace eXpand.ExpressApp.Security.Controllers
         {
             InitializeComponent();
             RegisterActions(components);
-            TargetObjectType = typeof (StatePermission);
+            TargetObjectType = typeof(RulePermission);
         }
         protected override void OnActivated()
         {
@@ -21,7 +20,7 @@ namespace eXpand.ExpressApp.Security.Controllers
         }
 
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs args){
-            var statePermission = View.CurrentObject as StatePermission;
+            var statePermission = View.CurrentObject as RulePermission;
             if (statePermission != null)
                 if (string.IsNullOrEmpty(statePermission.ViewId) &&args.PropertyName == statePermission.GetPropertyInfo(x => x.ObjectType).Name &&args.NewValue != null){
                     if (new ApplicationNodeWrapper(Application.Model).Views.FindViewById(statePermission.ViewId).BusinessObjectType != args.NewValue)

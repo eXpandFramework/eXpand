@@ -299,6 +299,9 @@
     <Compile Include="SystemModule\DescribeRunTimeMembersController.Designer.cs">
       <DependentUpon>DescribeRunTimeMembersController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\ViewEditModeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SystemModule\RecycleBinViewController.resx">

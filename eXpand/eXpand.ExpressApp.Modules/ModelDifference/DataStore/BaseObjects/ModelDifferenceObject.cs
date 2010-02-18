@@ -117,7 +117,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
                 string xmlContent = XmlContent;
 //                Model=newDictionary;
 //                string xmlContent = XmlContent;
-                Dictionary dictionary = GetCombinedModel();
+                Dictionary dictionary = PersistentApplication.Model.Clone();
                 dictionary.CombineWith(newDictionary);
                 dictionary.Validate();
                 Model = dictionary.GetDiffs();

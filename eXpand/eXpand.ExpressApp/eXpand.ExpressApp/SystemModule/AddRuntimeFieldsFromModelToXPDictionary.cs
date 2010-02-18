@@ -5,9 +5,6 @@ using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    
-
-
     public partial class AddRuntimeFieldsFromModelToXPDictionary :ViewController
     {
         public AddRuntimeFieldsFromModelToXPDictionary()

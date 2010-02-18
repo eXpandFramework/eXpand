@@ -1,8 +1,8 @@
 ﻿using System.Web.UI;
-using eXpand.ExpressApp.RuleModeller;
+using eXpand.ExpressApp.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Web {
-    public class AdditionalViewControlsRuleViewController : Controllers.AdditionalViewControlsRuleViewController{
+    public class AdditionalViewControlsRuleViewController : AdditionalViewControlsProvider.AdditionalViewControlsRuleViewController{
         protected override void AddControl(object viewSiteControl, object control, AdditionalViewControlsRuleInfo additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator, ExecutionReason reason) {
             if (reason==ExecutionReason.TemplateViewChanged) {
                 ControlCollection collection = ((Control)viewSiteControl).Controls;

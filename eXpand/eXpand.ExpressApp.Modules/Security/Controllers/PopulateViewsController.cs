@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.ExpressApp.NodeWrappers;
 using eXpand.ExpressApp.Security.Permissions;
 
 namespace eXpand.ExpressApp.Security.Controllers
 {
-    public partial class PopulateViewsController : PopulateController<StatePermission>
+    public partial class PopulateViewsController : PopulateController<RulePermission>
     {
         public PopulateViewsController()
         {
@@ -17,14 +18,12 @@ namespace eXpand.ExpressApp.Security.Controllers
 
         protected override string GetPredefinedValues(PropertyInfoNodeWrapper wrapper)
         {
-            string ret = "";
-            foreach (var view in new ApplicationNodeWrapper(Application.Info).Views.Items)
-                ret += view.Id + ";";
+            string ret = new ApplicationNodeWrapper(Application.Info).Views.Items.Aggregate("", (current, view) => current + (view.Id + ";"));
             ret = ret.TrimEnd(';');
             return ret;
         }
 
-        protected override Expression<Func<StatePermission, object>> GetPropertyName()
+        protected override Expression<Func<RulePermission, object>> GetPropertyName()
         {
             return x=>x.ViewId;
         }

@@ -190,7 +190,7 @@ namespace eXpand.Xpo.Collections
                     {
                         operatorCollection.Add(CriteriaOperator.Parse(property, new object[0]));
                         var dataColumn = new DataColumn(property) {DataType = xpMemberInfo.MemberType};
-                        if (typeof (DBObject).IsAssignableFrom(dataColumn.DataType))
+                        if (typeof (XPBaseObject).IsAssignableFrom(dataColumn.DataType))
                             dataColumn.DataType = Session.GetClassInfo(dataColumn.DataType).KeyProperty.MemberType;
                         dataTable.Columns.Add(dataColumn);
                         if (property == ObjectClassInfo.KeyProperty.Name)
@@ -221,7 +221,7 @@ namespace eXpand.Xpo.Collections
 
         public void GetErrors()
         {
-            foreach (DBObject dbObject in this)
+            foreach (XPBaseObject dbObject in this)
                 dbObject.HasErrors();
         }
 

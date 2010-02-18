@@ -6,7 +6,7 @@ using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.Security.Permissions
 {
-    public abstract class StatePermission : PermissionBase,IModelRule
+    public abstract class RulePermission : PermissionBase,IModelRule
     {
         public string ViewId { get; set; }
         [RuleRequiredField(null, DefaultContexts.Save)]
@@ -17,7 +17,7 @@ namespace eXpand.ExpressApp.Security.Permissions
         public Nesting Nesting { get; set; }
         public string NormalCriteria { get; set; }
         public string EmptyCriteria { get; set; }
-        public State State { get; set; }
+        
         public string Description { get; set; }
 
         ITypeInfo IModelRule.TypeInfo{

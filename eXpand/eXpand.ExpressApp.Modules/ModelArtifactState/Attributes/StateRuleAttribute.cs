@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp;
-using eXpand.ExpressApp.RuleModeller;
+using eXpand.ExpressApp.ModelArtifactState.Interfaces;
+using eXpand.ExpressApp.Ruling;
 using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.ModelArtifactState.Attributes {

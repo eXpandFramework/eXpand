@@ -13,11 +13,16 @@ namespace eXpand.ExpressApp.PivotChart
 {
     public class PivotedPropertyController : ViewController<DetailView>
     {
+        public PivotedPropertyController() {
+            TargetObjectType = null;
+        }
+
         protected override void OnActivated()
         {
             base.OnActivated();
             IEnumerable<IMemberInfo> memberInfos =View.ObjectTypeInfo.Members.OfType<IMemberInfo>().Where(
                     memberInfo => memberInfo.FindAttribute<PivotedPropertyAttribute>() != null).Select(info1 => info1);
+            
             Active["HasPivotProperty"] = memberInfos.Count() > 0;
             if (Active) {
                 AttachControllers(memberInfos);
@@ -46,12 +51,22 @@ namespace eXpand.ExpressApp.PivotChart
 
         protected virtual void AttachControllers(IEnumerable<IMemberInfo> memberInfos) {
             var assignCustomAnalysisDataSourceDetailViewController = AttachAssignCustomAnalysisDataSourceDetailViewController();
-            assignCustomAnalysisDataSourceDetailViewController.ApplyingCollectionCriteria+=AssignCustomAnalysisDataSourceDetailViewControllerOnApplyingCollectionCriteria;
+            assignCustomAnalysisDataSourceDetailViewController.ApplyingCollectionCriteria+=ApplyingCollectionCriteria;
+            assignCustomAnalysisDataSourceDetailViewController.DatasourceCreating+=DatasourceCreating;
             ActivateController<AnalysisDataBindController>();
         }
 
-        void AssignCustomAnalysisDataSourceDetailViewControllerOnApplyingCollectionCriteria(object sender, CriteriaOperatorArgs criteriaOperatorArgs) {
-            criteriaOperatorArgs.Criteria = GetCriteria(View.ObjectTypeInfo.FindMember(criteriaOperatorArgs.AnalysisEditorBase.MemberInfo.Name.Replace(".Self","")));
+        void DatasourceCreating(object sender, AnalysisEditorArgs analysisEditorArgs) {
+            analysisEditorArgs.DataSource = GetOrphanCollection(GetMemberInfo(analysisEditorArgs));
+            analysisEditorArgs.Handled = analysisEditorArgs.DataSource != null;
+        }
+
+        void ApplyingCollectionCriteria(object sender, CriteriaOperatorArgs criteriaOperatorArgs) {
+            criteriaOperatorArgs.Criteria = GetCriteria(GetMemberInfo(criteriaOperatorArgs));
+        }
+
+        IMemberInfo GetMemberInfo(AnalysisEditorArgs criteriaOperatorArgs) {
+            return View.ObjectTypeInfo.FindMember(criteriaOperatorArgs.AnalysisEditorBase.MemberInfo.Name.Replace(".Self",""));
         }
 
         void  ActivateController<TController>() where TController:ViewController{
@@ -71,24 +86,24 @@ namespace eXpand.ExpressApp.PivotChart
         }
 
         CriteriaOperator GetCriteria(IMemberInfo memberInfo) {
-            var pivotedPropertyAttribute = memberInfo.FindAttribute<PivotedPropertyAttribute>();
-            IMemberInfo collectionMemberInfo = View.ObjectTypeInfo.FindMember(pivotedPropertyAttribute.CollectionName);
+            IMemberInfo collectionMemberInfo = GetCollectionMemberInfo(memberInfo);
             if (collectionMemberInfo.AssociatedMemberInfo!= null)
                 return CriteriaOperator.Parse(string.Format("{0}.{1}=?", memberInfo.Owner.Name,
                                                             collectionMemberInfo.ListElementTypeInfo.KeyMember.Name),
                                               (Guid) ObjectSpace.GetKeyValue(View.CurrentObject));
-            return GetOrphanCollectionCriteria(collectionMemberInfo);
+            return null;
         }
 
-        CriteriaOperator GetOrphanCollectionCriteria(IMemberInfo collectionMemberInfo) {
-            var groupOperator = new GroupOperator(GroupOperatorType.Or);
-            groupOperator.Operands.Add(CriteriaOperator.Parse(string.Format("{0}=?", collectionMemberInfo.ListElementTypeInfo.KeyMember.Name), Guid.NewGuid()));
-            foreach (var obj in (IEnumerable) collectionMemberInfo.GetValue(View.CurrentObject)) {
-                var criteriaOperator = CriteriaOperator.Parse(string.Format("{0}=?", collectionMemberInfo.ListElementTypeInfo.KeyMember.Name),
-                                                              (Guid)ObjectSpace.GetKeyValue(obj));
-                groupOperator.Operands.Add(criteriaOperator);
-            }
-            return groupOperator;
+        IMemberInfo GetCollectionMemberInfo(IMemberInfo memberInfo) {
+            var pivotedPropertyAttribute = memberInfo.FindAttribute<PivotedPropertyAttribute>();
+            return View.ObjectTypeInfo.FindMember(pivotedPropertyAttribute.CollectionName);
+        }
+
+        IEnumerable GetOrphanCollection(IMemberInfo memberInfo) {
+            var collectionMemberInfo = GetCollectionMemberInfo(memberInfo);
+            if (collectionMemberInfo.AssociatedMemberInfo== null)
+                return (IEnumerable)collectionMemberInfo.GetValue(View.CurrentObject);
+            return null;
         }
     }
 }

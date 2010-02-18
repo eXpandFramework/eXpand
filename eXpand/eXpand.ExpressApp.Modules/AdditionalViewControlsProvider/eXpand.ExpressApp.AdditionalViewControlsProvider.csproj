@@ -74,10 +74,11 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.RuleModeller, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.ExpressApp.Logic, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="eXpand.ExpressApp.Security, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="eXpand.Persistent.Base, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -107,17 +108,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdditionalViewControlsPermission.cs" />
     <Compile Include="AdditionalViewControlsProviderModule.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AdditionalViewControlsProviderModule.Designer.cs">
+      <DependentUpon>AdditionalViewControlsProviderModule.cs</DependentUpon>
     </Compile>
     <Compile Include="AdditionalViewControlsProviderPosition.cs" />
     <Compile Include="AdditionalViewControlsRule.cs" />
     <Compile Include="AdditionalViewControlsRuleInfo.cs" />
-    <Compile Include="Controllers\AdditionalViewControlsRuleViewController.cs">
+    <Compile Include="AdditionalViewControlsRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="NodeWrappers\AdditionalViewControlsRuleNodeWrapper.cs" />
-    <Compile Include="Controllers\IAdditionalViewControlsProvider.cs" />
+    <Compile Include="IAdditionalViewControlsProvider.cs" />
     <Compile Include="AdditionalViewControlsAttribute.cs" />
     <Compile Include="AdditionalViewControlsProviderCalculator.cs" />
     <Compile Include="AdditionalViewControlsProviderDecorator.cs" />
@@ -130,6 +135,10 @@
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AdditionalViewControlsProviderModule.resx">
+      <DependentUpon>AdditionalViewControlsProviderModule.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
   </ItemGroup>
   <ItemGroup>

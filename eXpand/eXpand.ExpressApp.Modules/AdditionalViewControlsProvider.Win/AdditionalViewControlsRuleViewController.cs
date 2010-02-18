@@ -1,9 +1,9 @@
 using System.Windows.Forms;
-using eXpand.ExpressApp.RuleModeller;
+using eXpand.ExpressApp.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win
 {
-    public class AdditionalViewControlsRuleViewController : Controllers.AdditionalViewControlsRuleViewController
+    public class AdditionalViewControlsRuleViewController : AdditionalViewControlsProvider.AdditionalViewControlsRuleViewController
     {
         protected override void AddControl(object viewSiteControl, object control, AdditionalViewControlsRuleInfo info, AdditionalViewControlsProviderCalculator calculator, ExecutionReason reason) {
             if (reason == ExecutionReason.TemplateViewChanged || reason == ExecutionReason.CurrentObjectChanged || reason == ExecutionReason.ObjectChanged)

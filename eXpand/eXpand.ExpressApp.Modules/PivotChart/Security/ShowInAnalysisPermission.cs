@@ -1,5 +1,5 @@
 ﻿using DevExpress.Xpo;
-using eXpand.ExpressApp.ModelArtifactState.Security.Permissions;
+using eXpand.ExpressApp.ModelArtifactState.ControllerState;
 using eXpand.ExpressApp.PivotChart.ShowInAnalysis;
 
 namespace eXpand.ExpressApp.PivotChart.Security {

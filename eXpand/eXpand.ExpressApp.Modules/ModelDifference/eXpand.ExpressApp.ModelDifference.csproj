@@ -174,12 +174,12 @@
     </Compile>
     <Compile Include="CultureDescription.cs" />
     <Compile Include="DataStore\BaseObjects\DifferenceObject.cs" />
+    <Compile Include="DataStore\BaseObjects\ModelDifferenceObject.cs" />
     <Compile Include="DataStore\Queries\IQueryDifferenceObject.cs" />
     <Compile Include="DataStore\Queries\QueryDifferenceObject.cs" />
     <Compile Include="DataStore\Queries\QueryPersistentApplication.cs" />
     <Compile Include="DataStore\BaseObjects\Associations.cs" />
     <Compile Include="DataStore\BaseObjects\ValueConverters\DictionaryValueConverter.cs" />
-    <Compile Include="DataStore\BaseObjects\ModelDifferenceObject.cs" />
     <Compile Include="DataStore\BaseObjects\PersistentApplication.cs" />
     <Compile Include="DataStore\BaseObjects\ValueConverters\SchemaValueConverter.cs" />
     <Compile Include="DataStore\Builders\UserDifferenceObjectBuilder.cs" />

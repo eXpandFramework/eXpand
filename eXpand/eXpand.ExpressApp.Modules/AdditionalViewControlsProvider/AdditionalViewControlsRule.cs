@@ -1,6 +1,6 @@
 ﻿using System;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers;
-using eXpand.ExpressApp.RuleModeller;
+using eXpand.ExpressApp.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
     public class AdditionalViewControlsRule : ModelRule, IAdditionalViewControlsRule {

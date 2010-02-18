@@ -91,9 +91,6 @@
     <Compile Include="Converters\ValueConverters\UriValueConverter.cs" />
     <Compile Include="CriteriaOperatorExtensions.cs" />
     <Compile Include="CriteriaOperatorExtractor.cs" />
-    <Compile Include="Collections\DBCollection.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Collections\XPBaseCollectionExtensions.cs">
     </Compile>
     <Compile Include="ConnectionProviders\CustomContainsProvider.cs" />
@@ -105,7 +102,6 @@
     <Compile Include="Converters\ValueConverters\PictureValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\SerializableObjectConverter.cs" />
     <Compile Include="Converters\ValueConverters\StringValueConverter.cs" />
-    <Compile Include="DBObject.cs" />
     <Compile Include="DB\DataStoreManager.cs" />
     <Compile Include="DB\DataStoreModifyDataEventArgs.cs" />
     <Compile Include="DB\DataStoreSelectDataEventArgs.cs" />
@@ -119,12 +115,6 @@
     <Compile Include="DB\XpoDataStoreProxy.cs" />
     <Compile Include="SessionExtensions.cs" />
     <Compile Include="XPODataType.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Collections\DBCollection.resx">
-      <DependentUpon>DBCollection.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

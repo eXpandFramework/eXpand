@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Reflection;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
+using System.Linq;
 
 namespace eXpand.ExpressApp.Core.DictionaryHelpers
 {
@@ -20,11 +22,10 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
         #endregion
         public string Serialize<T>(bool includeBaseTypes)
         {
+            var infos = ReflectionHelper.GetInterfaceHierarchy(typeof(T)).SelectMany(type => type.GetProperties(BindingFlags.Public | BindingFlags.Instance));
             string schema = null;
-            foreach (var property in typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance))
-            {
-                if (!includeBaseTypes&&typeof(T)!=property.DeclaringType)
-                    continue;
+            var propertyInfos =includeBaseTypes?infos: typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var property in propertyInfos){
                 if (property.PropertyType == typeof (bool))
                     schema += GetAttribute("<Attribute Name=\"" + property.Name + "\" Choice=\"True,False\"/>");
                 else if (typeof (Enum).IsAssignableFrom(property.PropertyType))

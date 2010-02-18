@@ -142,6 +142,9 @@
     <Compile Include="PivotedPropertyController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PivotGridInplaceEditorsControllerBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PivotOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>

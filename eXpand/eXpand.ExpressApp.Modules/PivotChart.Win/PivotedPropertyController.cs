@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.PivotChart.Win.Controllers;
 
 namespace eXpand.ExpressApp.PivotChart.Win {
     public class PivotedPropertyController : PivotChart.PivotedPropertyController {

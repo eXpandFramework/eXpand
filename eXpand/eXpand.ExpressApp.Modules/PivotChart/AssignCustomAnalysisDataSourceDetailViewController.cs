@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
@@ -6,16 +7,23 @@ using DevExpress.Persistent.Base;
 namespace eXpand.ExpressApp.PivotChart {
     public class AssignCustomAnalysisDataSourceDetailViewController : AnalysisViewControllerBase {
         readonly CriteriaOperator _criteriaOperator;
-        public event EventHandler<DataSourceCreatingEventArgs> DataSourceAssigned;
+        public event EventHandler<AnalysisEditorArgs> DataSourceCreated;
         public event EventHandler<CriteriaOperatorArgs> ApplyingCollectionCriteria;
+        public event EventHandler<AnalysisEditorArgs> DatasourceCreating;
+
+        public void InvokeDatasourceCreating(AnalysisEditorArgs e){
+            EventHandler<AnalysisEditorArgs> handler = DatasourceCreating;
+            if (handler != null) handler(this, e);
+        }
+
 
         protected virtual void InvokeApplyingCollectionCriteria(CriteriaOperatorArgs e) {
             EventHandler<CriteriaOperatorArgs> handler = ApplyingCollectionCriteria;
             if (handler != null) handler(this, e);
         }
 
-        protected virtual void InvokeDataSourceAssigned(DataSourceCreatingEventArgs e) {
-            EventHandler<DataSourceCreatingEventArgs> handler = DataSourceAssigned;
+        protected virtual void InvokeDataSourceCreated(AnalysisEditorArgs e){
+            EventHandler<AnalysisEditorArgs> handler = DataSourceCreated;
             if (handler != null) handler(this, e);
         }
 
@@ -42,31 +50,51 @@ namespace eXpand.ExpressApp.PivotChart {
                     userCriteria = CriteriaWrapper.ParseCriteriaWithReadOnlyParameters(e.AnalysisInfo.Criteria,e.AnalysisInfo.DataType);
                 }
 
-                var criteriaOperatorArgs = new CriteriaOperatorArgs((AnalysisEditorBase)sender);
+                var analysisEditorBase = (AnalysisEditorBase)sender;
+                var criteriaOperatorArgs = new CriteriaOperatorArgs(analysisEditorBase,e.AnalysisInfo);
+                var analysisEditorArgs = new AnalysisEditorArgs(analysisEditorBase, e.AnalysisInfo);
+                InvokeDatasourceCreating(analysisEditorArgs);
                 InvokeApplyingCollectionCriteria(criteriaOperatorArgs);
-                e.DataSource = View.ObjectSpace.CreateCollection(e.AnalysisInfo.DataType, userCriteria & criteriaOperatorArgs.Criteria & _criteriaOperator);
+                e.DataSource = analysisEditorArgs.Handled
+                                   ? analysisEditorArgs.DataSource
+                                   : View.ObjectSpace.CreateCollection(e.AnalysisInfo.DataType,
+                                                                       userCriteria & criteriaOperatorArgs.Criteria &_criteriaOperator);
                 e.Handled = true;
-                InvokeDataSourceAssigned(e);
+                InvokeDataSourceCreated(analysisEditorArgs);
             }            
         }
 
 
     }
 
-    public class CriteriaOperatorArgs : EventArgs {
+    public class AnalysisEditorArgs : HandledEventArgs
+    {
         readonly AnalysisEditorBase _analysisEditorBase;
+        readonly IAnalysisInfo _analysisInfo;
 
-        public CriteriaOperatorArgs(AnalysisEditorBase analysisEditorBase) {
+        public AnalysisEditorArgs(AnalysisEditorBase analysisEditorBase, IAnalysisInfo analysisInfo) {
             _analysisEditorBase = analysisEditorBase;
+            _analysisInfo = analysisInfo;
         }
 
         public AnalysisEditorBase AnalysisEditorBase {
             get { return _analysisEditorBase; }
         }
+        public IAnalysisInfo AnalysisInfo
+        {
+            get { return _analysisInfo; }
+        }
+
+        public object DataSource { get; set; }
+    }
+
+    public class CriteriaOperatorArgs : AnalysisEditorArgs {
+        public CriteriaOperatorArgs(AnalysisEditorBase analysisEditorBase,IAnalysisInfo analysisInfo) : base(analysisEditorBase,analysisInfo) {
+        }
 
         public CriteriaOperator Criteria { get; set; }
     }
 
-    public delegate void DataSourceAssignedEventHandler(object sender, DataSourceCreatingEventArgs args);
+
 
 }

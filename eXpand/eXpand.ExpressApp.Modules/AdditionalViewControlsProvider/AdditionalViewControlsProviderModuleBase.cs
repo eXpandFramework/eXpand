@@ -4,13 +4,14 @@ using System.Linq;
 using DevExpress.ExpressApp.DC;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
-using eXpand.ExpressApp.RuleModeller;
+using eXpand.ExpressApp.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
     public abstract class AdditionalViewControlsProviderModuleBase :
         ModelRuleProviderModuleBase<AdditionalViewControlsAttribute, AdditionalViewControlsRulesNodeWrapper,
-            AdditionalViewControlsRuleNodeWrapper, AdditionalViewControlsRuleInfo, AdditionalViewControlsRule> {
-        protected override string ModelRulesNodeAttributeName {
+            AdditionalViewControlsRuleNodeWrapper, AdditionalViewControlsRuleInfo, AdditionalViewControlsRule, AdditionalViewControlsPermission>
+    {
+        public override string ModelRulesNodeAttributeName {
             get { return AdditionalViewControlsRulesNodeWrapper.NodeNameAttribute; }
         }
 
@@ -49,8 +50,10 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
             return new SchemaHelper().Serialize<IAdditionalViewControlsRule>(false);
         }
 
-        protected override string GetElementNodeName() {
+        public override string GetElementNodeName() {
             return AdditionalViewControlsRuleNodeWrapper.NodeNameAttribute;
         }
-            }
+    }
+
+
 }

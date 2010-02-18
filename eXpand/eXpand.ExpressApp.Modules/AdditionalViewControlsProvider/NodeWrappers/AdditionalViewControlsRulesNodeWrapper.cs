@@ -1,5 +1,5 @@
 using DevExpress.ExpressApp;
-using eXpand.ExpressApp.RuleModeller;
+using eXpand.ExpressApp.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers {
     public class AdditionalViewControlsRulesNodeWrapper : ModelRulesNodeWrapper<AdditionalViewControlsRuleNodeWrapper, AdditionalViewControlsAttribute>
@@ -16,7 +16,9 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers {
             AdditionalViewControlsRuleNodeWrapper additionalViewControlsRuleNodeWrapper = base.AddRule(additionalViewControlsAttribute, typeInfo);
             additionalViewControlsRuleNodeWrapper.AdditionalViewControlsProviderPosition =additionalViewControlsAttribute.AdditionalViewControlsProviderPosition;
             additionalViewControlsRuleNodeWrapper.Message=additionalViewControlsAttribute.Message;
-            additionalViewControlsRuleNodeWrapper.MessagePropertyName =additionalViewControlsRuleNodeWrapper.MessagePropertyName;            
+            additionalViewControlsRuleNodeWrapper.MessagePropertyName = additionalViewControlsAttribute.MessagePropertyName;
+            additionalViewControlsRuleNodeWrapper.ControlType = additionalViewControlsAttribute.ControlType;
+            additionalViewControlsRuleNodeWrapper.DecoratorType = additionalViewControlsAttribute.DecoratorType;            
             return additionalViewControlsRuleNodeWrapper;
         }
     }

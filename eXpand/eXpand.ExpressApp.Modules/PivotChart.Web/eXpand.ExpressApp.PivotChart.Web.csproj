@@ -83,6 +83,9 @@
     <Reference Include="DevExpress.Web.ASPxEditors.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Web.ASPxPivotGrid.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Web.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -93,6 +96,9 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v9.3.Web, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v9.3.Core, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -145,13 +151,20 @@
     <Compile Include="AnalysisControlVisibilityController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AnalysisControlWeb.cs" />
+    <Compile Include="AnalysisControlWeb.cs">
+    </Compile>
     <Compile Include="AnalysisEditorWeb.cs" />
     <Compile Include="PivotChartXpandAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PivotChartXpandAspNetModule.Designer.cs">
       <DependentUpon>PivotChartXpandAspNetModule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PivotedPropertyController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PivotGridInplaceEditorsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs">

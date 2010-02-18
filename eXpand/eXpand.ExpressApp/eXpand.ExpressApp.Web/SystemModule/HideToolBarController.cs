@@ -1,6 +1,5 @@
 using System.Web.UI;
 using DevExpress.ExpressApp;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.Web.SystemModule {
     public partial class HideToolBarController : ViewController {
@@ -14,15 +13,25 @@ namespace eXpand.ExpressApp.Web.SystemModule {
             base.OnViewControlsCreated();
             if (Frame.Template != null) {
                 Control control = ((Control)Frame.Template).FindControl("ToolBar");
-                control.Visible = !View.Info.GetAttributeBoolValue(HideToolBarAttributeName);
+                if (control != null) control.Visible = !View.Info.GetAttributeBoolValue(HideToolBarAttributeName);
             }
         }
 
         public override Schema GetSchema()
         {
-            DictionaryNode injectAttribute = new SchemaHelper().InjectAttribute(HideToolBarAttributeName, ModelElement.ListView);
-            injectAttribute.CombineWith(new SchemaHelper().InjectAttribute(HideToolBarAttributeName, ModelElement.DetailView));
-            return new Schema(injectAttribute);
+            const string CommonTypeInfos =
+                @"<Element Name=""Application"">
+                    <Element Name=""Views"" >
+                        <Element Name=""ListView"" >
+                            <Attribute Name=""" +HideToolBarAttributeName +@""" Choice=""Default,AlwaysEnable""/>
+                        </Element>
+                        <Element Name=""DetailView"" >
+                            <Attribute Name=""" +HideToolBarAttributeName +@""" Choice=""Default,AlwaysEnable""/>
+                        </Element>
+                    </Element>
+                </Element>";
+
+            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
         }
     }
 }

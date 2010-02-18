@@ -1,6 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
-using eXpand.ExpressApp.RuleModeller;
+using eXpand.ExpressApp.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider
 {
