@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.ExpressApp.NodeWrappers;
+using eXpand.ExpressApp.ModelArtifactState.ArtifactState.Logic;
 using eXpand.ExpressApp.Security.Controllers;
 using eXpand.ExpressApp.SystemModule;
 

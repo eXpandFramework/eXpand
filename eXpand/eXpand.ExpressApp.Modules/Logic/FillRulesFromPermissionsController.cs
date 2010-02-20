@@ -23,7 +23,7 @@ namespace eXpand.ExpressApp.Logic{
         }
         private void ObjectSpaceOnObjectSaved(object sender, ObjectManipulatingEventArgs args) {
             var permission = (args.Object) as IPersistentPermission;
-            if (permission != null && permission.Permission is RulePermission) {
+            if (permission != null && permission.Permission is LogicRulePermission) {
                 CollectRules();
             }
         }

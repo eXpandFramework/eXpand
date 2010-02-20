@@ -8,6 +8,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelArtifactState.Attributes;
 using eXpand.ExpressApp.ModelArtifactState.ControllerState;
+using eXpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
 using eXpand.Persistent.Base.ImportExport;
 using State = eXpand.Persistent.Base.General.State;
 using System.Linq;

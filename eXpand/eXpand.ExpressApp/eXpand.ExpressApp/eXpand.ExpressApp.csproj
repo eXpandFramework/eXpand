@@ -173,7 +173,8 @@
     <Compile Include="SystemModule\ConditionalDetailViewController.designer.cs">
       <DependentUpon>ConditionalDetailViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SystemModule\ConditionalDetailViewWrapper.cs" />
+    <Compile Include="SystemModule\ConditionalDetailViewWrapper.cs">
+    </Compile>
     <Compile Include="SystemModule\CustomAttibutesController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -255,10 +256,10 @@
     <Compile Include="SystemModule\RecycleBinViewController.designer.cs">
       <DependentUpon>RecycleBinViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SystemModule\SessionStateController.cs">
+    <Compile Include="SystemModule\ShowNonPersistentObjectDetailViewFromNavigationControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ShowNonPersistentObjectDetailViewFromNavigationControllerBase.cs">
+    <Compile Include="SystemModule\TopReturnedRecordsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\TrackNewObjectSavedController.cs">

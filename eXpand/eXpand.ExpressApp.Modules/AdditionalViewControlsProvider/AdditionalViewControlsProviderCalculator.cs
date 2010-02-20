@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using DevExpress.Persistent.Base;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers;
+using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
     public class AdditionalViewControlsProviderCalculator : IDisposable {

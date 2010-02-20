@@ -59,8 +59,8 @@ namespace eXpand.ExpressApp.PivotChart.Win {
             }
         }
 
-        protected override void CreateEditors(IAnalysisControl analysisControl) {
-            var pivotGridControl = ((AnalysisControlWin) analysisControl).PivotGrid;
+        protected override void CreateEditors(AnalysisEditorBase analysisEditorBase) {
+            var pivotGridControl = (((AnalysisControlWin) analysisEditorBase.Control)).PivotGrid;
             foreach (PivotGridField field in pivotGridControl.Fields) {
                 SetEditor(field, pivotGridControl);
             }

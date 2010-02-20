@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("eXpand.ExpressApp.ProtectRowMember")]
+[assembly: AssemblyTitle("eXpand.ExpressApp.MemberLevelSecurity")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("-")]
-[assembly: AssemblyProduct("eXpand.ExpressApp.ProtectRowMember")]
+[assembly: AssemblyProduct("eXpand.ExpressApp.MemberLevelSecurity")]
 [assembly: AssemblyCopyright("Copyright © - 2007")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

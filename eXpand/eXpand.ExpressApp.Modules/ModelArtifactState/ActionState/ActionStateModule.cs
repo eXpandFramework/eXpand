@@ -1,13 +1,12 @@
 ﻿using DevExpress.ExpressApp;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
-using eXpand.ExpressApp.Logic;
+using eXpand.ExpressApp.Logic.Conditional;
+using eXpand.ExpressApp.ModelArtifactState.ActionState.Logic;
 
 namespace eXpand.ExpressApp.ModelArtifactState.ActionState {
     public class ActionStateModule :
-        ModelRuleProviderModuleBase<ActionStateRuleAttribute, ActionStateRulesNodeWrapper,
-            ActionStateRuleNodeWrapper, ActionStateRuleInfo, ActionStateRule,ActionStateRulePermission>
+        ConditionalLogicRuleProviderModuleBase<IActionStateRule>
     {
-        public override string ModelRulesNodeAttributeName {
+        public override string LogicRulesNodeAttributeName {
             get { return ActionStateRulesNodeWrapper.NodeNameAttribute; }
         }
 
@@ -18,16 +17,12 @@ namespace eXpand.ExpressApp.ModelArtifactState.ActionState {
         public override Schema GetSchema() {
             var schema = base.GetSchema();
             var dictionaryNode = schema.RootNode.GetChildNode("Element", "Name", ModelArtifactStateModule.ModelArtifactStateAttributeName);
-            var findChildNode = schema.RootNode.FindChildNode("Element","Name",ModelRulesNodeAttributeName);
+            var findChildNode = schema.RootNode.FindChildNode("Element","Name",LogicRulesNodeAttributeName);
             schema.RootNode.RemoveChildNode(findChildNode);
             dictionaryNode.AddChildNode(findChildNode);
             return schema;
         }
 
-        protected override string GetMoreSchema()
-        {
-            return new SchemaHelper().Serialize<IActionStateRule>(true);
-        }
 
         public override string GetElementNodeName()
         {

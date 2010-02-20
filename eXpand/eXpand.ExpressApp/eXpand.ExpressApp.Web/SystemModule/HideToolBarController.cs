@@ -23,10 +23,10 @@ namespace eXpand.ExpressApp.Web.SystemModule {
                 @"<Element Name=""Application"">
                     <Element Name=""Views"" >
                         <Element Name=""ListView"" >
-                            <Attribute Name=""" +HideToolBarAttributeName +@""" Choice=""Default,AlwaysEnable""/>
+                            <Attribute Name=""" +HideToolBarAttributeName +@""" Choice=""True,False""/>
                         </Element>
                         <Element Name=""DetailView"" >
-                            <Attribute Name=""" +HideToolBarAttributeName +@""" Choice=""Default,AlwaysEnable""/>
+                            <Attribute Name=""" + HideToolBarAttributeName + @""" Choice=""True,False""/>
                         </Element>
                     </Element>
                 </Element>";

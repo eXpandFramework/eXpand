@@ -1,6 +1,7 @@
 using System;
 using System.Linq.Expressions;
 using DevExpress.ExpressApp.NodeWrappers;
+using eXpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
 using eXpand.ExpressApp.Security.Controllers;
 using System.Linq;
 

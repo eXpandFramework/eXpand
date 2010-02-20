@@ -1,6 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers;
+using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider
 {

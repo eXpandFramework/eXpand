@@ -1,7 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.Utils.Frames;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers;
+using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Decorators

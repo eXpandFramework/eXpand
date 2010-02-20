@@ -1,30 +1,49 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.PivotChart;
+using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 
 namespace eXpand.ExpressApp.PivotChart {
-    public abstract class PivotGridInplaceEditorsControllerBase : AnalysisViewControllerBase {
+    public abstract class PivotGridInplaceEditorsControllerBase : ViewController<DetailView>{
         protected PivotGridInplaceEditorsControllerBase() {
             TargetObjectType = typeof (IAnalysisInfo);
+        }
+        protected override void OnFrameAssigned()
+        {
+            base.OnFrameAssigned();
+            Frame.TemplateChanged += FrameOnTemplateChanged;
         }
         protected override void OnActivated()
         {
             base.OnActivated();
             Frame.GetController<AnalysisReadOnlyController>().Active[GetType().Name] = false;
-            var detailViewInfoNodeWrapper = new DetailViewInfoNodeWrapper(View.Info);
-            DetailViewItemInfoNodeWrapper detailViewItemInfoNodeWrapper = detailViewInfoNodeWrapper.Editors.Items.Where(wrapper => typeof(IAnalysisInfo).IsAssignableFrom(wrapper.PropertyType)).FirstOrDefault();
-            if (detailViewItemInfoNodeWrapper != null ){
-                Frame.GetController<AnalysisDataBindController>().BindDataAction.Execute += (sender, args) => {
-                    if (detailViewItemInfoNodeWrapper.AllowEdit) {
-                        var memberInfo = View.ObjectTypeInfo.FindMember(detailViewItemInfoNodeWrapper.PropertyName);
-                        IAnalysisControl analysisControl = AnalysisEditors.Where(@base => @base.MemberInfo == memberInfo).Select(@base => @base.Control).FirstOrDefault();
-                        if (analysisControl != null) CreateEditors(analysisControl);
-                    }
-                };
+        }
+        void FrameOnTemplateChanged(object sender, EventArgs eventArgs)
+        {
+            var supportViewControlAdding = (Frame.Template) as ISupportViewControlAdding;
+            if (supportViewControlAdding != null)
+                supportViewControlAdding.ViewControlAdding += (o, args) => CreateEditors();
+        }
+
+        void CreateEditors() {
+            if (Frame.View is DetailView) {
+                var detailViewInfoNodeWrapper = new DetailViewInfoNodeWrapper(View.Info);
+                IEnumerable<DetailViewItemInfoNodeWrapper> detailViewItemInfoNodeWrappers =
+                    detailViewInfoNodeWrapper.Editors.Items.Where(wrapper =>typeof (IAnalysisInfo).IsAssignableFrom(wrapper.PropertyType)&&wrapper.AllowEdit);
+                var analysisEditors = View.GetItems<AnalysisEditorBase>();
+                foreach (var viewItemInfoNodeWrapper in detailViewItemInfoNodeWrappers) {
+                    var memberInfo = View.ObjectTypeInfo.FindMember(viewItemInfoNodeWrapper.PropertyName);
+                    AnalysisEditorBase analysisControl = analysisEditors.Where(@base => @base.MemberInfo == memberInfo).FirstOrDefault();
+                    if (analysisControl != null) CreateEditors(analysisControl);
+                }
             }
         }
 
-        protected abstract void CreateEditors(IAnalysisControl analysisControl);
+
+        protected abstract void CreateEditors(AnalysisEditorBase analysisEditorBase);
     }
 }

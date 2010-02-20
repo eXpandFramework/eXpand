@@ -1,3 +1,4 @@
+using eXpand.ExpressApp.Logic.Win;
 using eXpand.ExpressApp.Win.SystemModule;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win
@@ -33,7 +34,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win
             
             this.RequiredModuleTypes.Add(typeof(eXpandSystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(AdditionalViewControlsProviderModule));
-            this.RequiredModuleTypes.Add(typeof(Logic.Win.LogicWindowsModule));
+            this.RequiredModuleTypes.Add(typeof(LogicWindowsModule));
         }
 
         #endregion

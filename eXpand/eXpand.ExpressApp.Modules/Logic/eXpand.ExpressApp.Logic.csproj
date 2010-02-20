@@ -118,6 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectedRuleFromModelEventArgs.cs" />
     <Compile Include="ExecutionReason.cs" />
     <Compile Include="IRuleHolder.cs" />
     <Compile Include="LogicModule.cs">
@@ -130,22 +131,23 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="IRuleCollector.cs" />
-    <Compile Include="ModelRuleViewController.cs">
+    <Compile Include="LogicRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ModelRuleExecutedEventArgs.cs" />
-    <Compile Include="ModelRuleExecutingEventArgs.cs" />
-    <Compile Include="IModelRuleInfo.cs" />
-    <Compile Include="ModelRule.cs" />
-    <Compile Include="ModelRuleAttribute.cs" />
-    <Compile Include="ModelRuleInfo.cs" />
-    <Compile Include="ModelRuleManager.cs" />
-    <Compile Include="ModelRuleNodeWrapper.cs" />
-    <Compile Include="ModelRuleProviderModuleBase.cs">
+    <Compile Include="LogicRuleExecutedEventArgs.cs" />
+    <Compile Include="LogicRuleExecutingEventArgs.cs" />
+    <Compile Include="ILogicRuleInfo.cs" />
+    <Compile Include="LogicRule.cs" />
+    <Compile Include="LogicAttribute.cs" />
+    <Compile Include="LogicRuleInfo.cs" />
+    <Compile Include="LogicRuleManager.cs" />
+    <Compile Include="LogicRuleNodeWrapper.cs" />
+    <Compile Include="LogicRuleProviderModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ModelRulesNodeWrapper.cs" />
+    <Compile Include="LogicRulesNodeWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypesInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>

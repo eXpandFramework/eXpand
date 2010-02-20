@@ -78,7 +78,14 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.Security, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="eXpand.ExpressApp.Logic.Conditional, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Security, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -108,7 +115,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdditionalViewControlsPermission.cs" />
+    <Compile Include="Logic\AdditionalViewControlsPermission.cs" />
     <Compile Include="AdditionalViewControlsProviderModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -116,22 +123,20 @@
       <DependentUpon>AdditionalViewControlsProviderModule.cs</DependentUpon>
     </Compile>
     <Compile Include="AdditionalViewControlsProviderPosition.cs" />
-    <Compile Include="AdditionalViewControlsRule.cs" />
-    <Compile Include="AdditionalViewControlsRuleInfo.cs" />
-    <Compile Include="AdditionalViewControlsRuleViewController.cs">
+    <Compile Include="Logic\AdditionalViewControlsRule.cs" />
+    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="NodeWrappers\AdditionalViewControlsRuleNodeWrapper.cs" />
-    <Compile Include="IAdditionalViewControlsProvider.cs" />
-    <Compile Include="AdditionalViewControlsAttribute.cs" />
+    <Compile Include="Logic\AdditionalViewControlsRuleNodeWrapper.cs" />
+    <Compile Include="Logic\AdditionalViewControlsAttribute.cs" />
     <Compile Include="AdditionalViewControlsProviderCalculator.cs" />
     <Compile Include="AdditionalViewControlsProviderDecorator.cs" />
     <Compile Include="AdditionalViewControlsProviderModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="NodeWrappers\IAdditionalViewControlsRule.cs" />
+    <Compile Include="Logic\IAdditionalViewControlsRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="NodeWrappers\AdditionalViewControlsRulesNodeWrapper.cs" />
+    <Compile Include="Logic\AdditionalViewControlsRulesNodeWrapper.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>

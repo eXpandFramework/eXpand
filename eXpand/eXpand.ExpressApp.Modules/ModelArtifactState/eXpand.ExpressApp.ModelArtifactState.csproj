@@ -85,6 +85,10 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="eXpand.ExpressApp.Logic.Conditional, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="eXpand.ExpressApp.Security, Version=1.0.0.28011, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -124,43 +128,41 @@
     <Compile Include="ActionState\ActionStateModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ActionState\ActionStateRuleController.cs">
+    <Compile Include="ActionState\Logic\ActionStateRuleController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ActionState\ActionStateRuleInfo.cs" />
-    <Compile Include="ControllerState\ControllerStateRuleController.cs">
+    <Compile Include="ControllerState\Logic\ControllerStateRuleController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Attributes\NotAllowObjectInstanciationRuleAttribute.cs" />
-    <Compile Include="ArtifactState\ArtifactRuleAttribute.cs">
+    <Compile Include="ArtifactState\Logic\ArtifactRuleAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Attributes\SupressDetailViewRuleAttribute.cs" />
     <Compile Include="ControllerState\ControllerStateModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ControllerState\ControllerStateRuleInfo.cs" />
     <Compile Include="ModelArtifactStateModule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ModelArtifactStateModule.Designer.cs">
       <DependentUpon>ModelArtifactStateModule.cs</DependentUpon>
     </Compile>
-    <Compile Include="ActionState\IActionStateRule.cs" />
-    <Compile Include="ArtifactState\IArtifactRule.cs" />
-    <Compile Include="ActionState\ActionStateRuleNodeWrapper.cs" />
-    <Compile Include="ActionState\ActionStateRulesNodeWrapper.cs" />
-    <Compile Include="ControllerState\ControllerStateRuleNodeWrapper.cs" />
-    <Compile Include="ActionState\ActionStateRule.cs" />
-    <Compile Include="ActionState\ActionStateRuleAttribute.cs" />
-    <Compile Include="ControllerState\ControllerStateRule.cs" />
-    <Compile Include="ControllerState\ControllerStateRulesNodeWrapper.cs" />
-    <Compile Include="ArtifactState\ArtifactStateRuleNodeWrapper.cs" />
-    <Compile Include="ControllerState\ControllerStateRuleAttribute.cs">
+    <Compile Include="ActionState\Logic\IActionStateRule.cs" />
+    <Compile Include="ArtifactState\Logic\IArtifactRule.cs" />
+    <Compile Include="ActionState\Logic\ActionStateRuleNodeWrapper.cs" />
+    <Compile Include="ActionState\Logic\ActionStateRulesNodeWrapper.cs" />
+    <Compile Include="ControllerState\Logic\ControllerStateRuleNodeWrapper.cs" />
+    <Compile Include="ActionState\Logic\ActionStateRule.cs" />
+    <Compile Include="ActionState\Logic\ActionStateRuleAttribute.cs" />
+    <Compile Include="ControllerState\Logic\ControllerStateRule.cs" />
+    <Compile Include="ControllerState\Logic\ControllerStateRulesNodeWrapper.cs" />
+    <Compile Include="ArtifactState\Logic\ArtifactStateRuleNodeWrapper.cs" />
+    <Compile Include="ControllerState\Logic\ControllerStateRuleAttribute.cs">
     </Compile>
-    <Compile Include="ArtifactState\ArtifactStateRule.cs" />
+    <Compile Include="ArtifactState\Logic\ArtifactStateRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ControllerState\IControllerStateRule.cs" />
+    <Compile Include="ControllerState\Logic\IControllerStateRule.cs" />
     <Compile Include="ActionState\PopulateActionsController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -173,9 +175,9 @@
     <Compile Include="ControllerState\PopulateControllerTypesController.Designer.cs">
       <DependentUpon>PopulateControllerTypesController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ActionState\ActionStateRulePermission.cs" />
-    <Compile Include="ControllerState\ControllerStateRulePermission.cs" />
-    <Compile Include="ArtifactState\ArtifactStateRulePermission.cs" />
+    <Compile Include="ActionState\Logic\ActionStateRulePermission.cs" />
+    <Compile Include="ControllerState\Logic\ControllerStateRulePermission.cs" />
+    <Compile Include="ArtifactState\Logic\ArtifactStateRulePermission.cs" />
     <Compile Include="ArtifactState\PopulateModulesController.cs">
       <SubType>Component</SubType>
     </Compile>

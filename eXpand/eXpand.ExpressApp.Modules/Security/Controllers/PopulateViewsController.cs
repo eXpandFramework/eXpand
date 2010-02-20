@@ -6,7 +6,7 @@ using eXpand.ExpressApp.Security.Permissions;
 
 namespace eXpand.ExpressApp.Security.Controllers
 {
-    public partial class PopulateViewsController : PopulateController<RulePermission>
+    public partial class PopulateViewsController : PopulateController<LogicRulePermission>
     {
         public PopulateViewsController()
         {
@@ -23,7 +23,7 @@ namespace eXpand.ExpressApp.Security.Controllers
             return ret;
         }
 
-        protected override Expression<Func<RulePermission, object>> GetPropertyName()
+        protected override Expression<Func<LogicRulePermission, object>> GetPropertyName()
         {
             return x=>x.ViewId;
         }

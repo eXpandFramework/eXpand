@@ -1,3 +1,5 @@
+using eXpand.ExpressApp.Logic.Conditional;
+
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider
 {
     partial class AdditionalViewControlsProviderModule
@@ -28,7 +30,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
         /// </summary>
         private void InitializeComponent()
         {
-            this.RequiredModuleTypes.Add(typeof(Logic.LogicModule));
+            this.RequiredModuleTypes.Add(typeof(ConditionalLogicModule));
         }
 
         #endregion

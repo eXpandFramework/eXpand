@@ -136,8 +136,12 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
             throw new NotImplementedException(modelElement.ToString());
         }
 
-        public DictionaryNode InjectAttribute(string name, ModelElement modelElement) {
+        public DictionaryNode InjectBoolAttribute(string name, ModelElement modelElement ){
             return Inject(@"<Attribute Name=""" + name + @""" Choice=""True,False""/>", modelElement);
+        }
+
+        public DictionaryNode InjectAttribute(string name, ModelElement modelElement) {
+            return Inject(@"<Attribute Name=""" + name + @""" />", modelElement);
         }
 
         public DictionaryNode InjectAttribute(string name, Type choiceEnumType,ModelElement element) {
