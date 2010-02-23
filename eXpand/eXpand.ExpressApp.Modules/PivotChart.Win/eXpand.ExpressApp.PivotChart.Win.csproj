@@ -173,7 +173,6 @@
     <Compile Include="PivotGridInplaceEditorsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PivotGridFieldBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs">
     </Compile>

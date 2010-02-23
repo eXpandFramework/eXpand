@@ -109,11 +109,12 @@ namespace eXpand.ExpressApp.Logic {
         LogicRulesNodeWrapper<TLogicRule> CreateModelWrapper(Dictionary dictionary)
         {
             DictionaryNode dictionaryNode = GetRootNode(dictionary).GetChildNode(LogicRulesNodeAttributeName);
-            
-            return
-                (LogicRulesNodeWrapper<TLogicRule>)
-                Activator.CreateInstance(_typesInfo.LogicRulesNodeWrapperType,
-                                         dictionaryNode.GetChildNode(GetElementGroupNodeName()));
+
+            var logicRulesNodeWrapper = (LogicRulesNodeWrapper<TLogicRule>)
+                                                          Activator.CreateInstance(_typesInfo.LogicRulesNodeWrapperType,
+                                                                                   dictionaryNode.GetChildNode(GetElementGroupNodeName()));
+            logicRulesNodeWrapper.TypesInfo = _typesInfo;
+            return logicRulesNodeWrapper;
         }
 
         public virtual DictionaryNode GetRootNode(Dictionary dictionary) {

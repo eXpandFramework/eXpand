@@ -19,7 +19,8 @@ namespace eXpand.ExpressApp.SystemModule
             base.UpdateModel(dictionary);
             var wrapper = new ApplicationNodeWrapper(dictionary);
             DictionaryNode node = wrapper.Node.AddChildNode(Modules);
-            foreach (var type in AppDomain.CurrentDomain.GetTypes(typeof(ModuleBase))){
+            var types = AppDomain.CurrentDomain.GetTypes(typeof(ModuleBase));
+            foreach (var type in types){
                 if (node.FindChildNode("Module", "Name", type.FullName) == null)
                     node.AddChildNode("Module").SetAttribute("Name", type.FullName);
             }

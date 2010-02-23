@@ -29,6 +29,7 @@ namespace eXpand.Utils.Helpers
                 catch (ReflectionTypeLoadException) {
                 }
             }
+            
             return types;
         }
 

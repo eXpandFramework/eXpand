@@ -153,6 +153,9 @@
     </Compile>
     <Compile Include="AnalysisControlWeb.cs">
     </Compile>
+    <Compile Include="AnalysisDisplayDateTimeViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="AnalysisEditorWeb.cs" />
     <Compile Include="PivotChartXpandAspNetModule.cs">
       <SubType>Component</SubType>

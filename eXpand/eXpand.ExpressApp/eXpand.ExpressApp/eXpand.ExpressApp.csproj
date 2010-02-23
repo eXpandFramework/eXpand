@@ -127,6 +127,7 @@
     <Compile Include="Core\TypeValueConverter.cs" />
     <Compile Include="Core\ViewsNodeWrapper.cs" />
     <Compile Include="DataStoreProvider.cs" />
+    <Compile Include="Editors\ActionButtonDetailItem.cs" />
     <Compile Include="Enums\AllowEditEnum.cs" />
     <Compile Include="Enums\BooleanEnum.cs" />
     <Compile Include="Enums\DetailViewType.cs" />

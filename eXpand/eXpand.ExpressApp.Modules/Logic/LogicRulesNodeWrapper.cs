@@ -5,7 +5,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.NodeWrappers;
 using eXpand.Persistent.Base.General;
-using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.Logic {
     public abstract class LogicRulesNodeWrapper<TLogicRule> : NodeWrapper where TLogicRule:ILogicRule
@@ -19,6 +18,8 @@ namespace eXpand.ExpressApp.Logic {
         public List<TLogicRule> Rules{
             get { return GetRules(); }
         }
+
+        internal TypesInfo TypesInfo { get; set; }
 
 
         public virtual TLogicRule AddRule(TLogicRule logicRuleAttribute, ITypeInfo typeInfo, Type logicRuleNodeWrapperType)
@@ -49,12 +50,9 @@ namespace eXpand.ExpressApp.Logic {
 
         protected virtual List<TLogicRule> GetRules()
         {
-            var single = AppDomain.CurrentDomain.GetTypes(typeof(LogicRuleNodeWrapper)).Where(type => !(type.IsAbstract)&&typeof(TLogicRule).IsAssignableFrom(type)).Single();
+//            var single = AppDomain.CurrentDomain.GetTypes(typeof(LogicRuleNodeWrapper)).Where(type => !(type.IsAbstract)&&typeof(TLogicRule).IsAssignableFrom(type)).Single();
             return
-                Node.ChildNodes.GetOrderedByIndex().Select(
-                                                              node =>
-                                                              (TLogicRule)
-                                                              Activator.CreateInstance(single, new[] { node })).ToList();
+                Node.ChildNodes.GetOrderedByIndex().Select(node =>(TLogicRule)Activator.CreateInstance(TypesInfo.LogicRuleNodeWrapperType, new[] { node })).ToList();
         }
     }
 }
