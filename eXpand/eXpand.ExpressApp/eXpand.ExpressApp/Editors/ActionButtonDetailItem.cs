@@ -1,16 +1,9 @@
 ﻿using System;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
-using System.Linq;
 
-namespace eXpand.ExpressApp.Editors
-{
-    public abstract class ActionButtonDetailItem : DetailViewItem, IComplexPropertyEditor
-    {
-        XafApplication _application;
-        SimpleAction simpleAction;
-
+namespace eXpand.ExpressApp.Editors {
+    public abstract class ActionButtonDetailItem : DetailViewItem {
         protected ActionButtonDetailItem(string id) : base(id) {
         }
 
@@ -20,22 +13,16 @@ namespace eXpand.ExpressApp.Editors
         protected ActionButtonDetailItem(Type objectType, DictionaryNode info) : base(objectType, info) {
         }
 
-        public SimpleAction SimpleAction {
-            get { return simpleAction; }
+        public event EventHandler Executed;
+
+        public override string Caption {
+            get { return Info.GetAttributeValue("Caption"); }
+            set { throw new NotImplementedException(); }
         }
 
-        public void Setup(ObjectSpace objectSpace, XafApplication application) {
-            _application = application;
-            simpleAction = _application.Modules[0].ModuleManager.ControllersManager.CollectControllers(typeInfo
-                => true).SelectMany(controller => controller.Actions).OfType<SimpleAction>().Where(@base => @base.Id == Info.GetAttributeValue("ActionId")).Single();
-        }
-
-        public void ExecuteAction()
-        {
-            
-            simpleAction.DoExecute();
+        protected void InvokeExecuted(EventArgs e) {
+            EventHandler handler = Executed;
+            if (handler != null) handler(this, e);
         }
     }
 }
-
-

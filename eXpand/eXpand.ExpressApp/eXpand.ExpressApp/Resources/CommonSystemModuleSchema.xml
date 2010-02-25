@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Element Name="Application">
+	<Element Name="Views">
+		<Element Name="DetailView" >
+			<Element Name="Items" >
+				<Element Name="ActionButtonDetailItem" >
+					<Attribute Name="ActionId" Required="True" RefNodeName="/Application/ActionDesign/Actions/Action" IsNewNode="True" />
+				</Element>
+			</Element>
+		</Element>
+	</Element>  
+</Element>

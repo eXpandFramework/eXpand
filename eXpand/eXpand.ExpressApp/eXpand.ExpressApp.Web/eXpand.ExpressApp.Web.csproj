@@ -105,6 +105,7 @@
     <Compile Include="Core\ISharedApplicationParameters.cs" />
     <Compile Include="Core\ListViewExtensions.cs" />
     <Compile Include="Core\SharedApplicationParameters.cs" />
+    <Compile Include="Editors\ActionButtonDetailItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyEditors\UriEditor.cs" />
     <Compile Include="SystemModule\eXpandSystemAspNetModule.cs">

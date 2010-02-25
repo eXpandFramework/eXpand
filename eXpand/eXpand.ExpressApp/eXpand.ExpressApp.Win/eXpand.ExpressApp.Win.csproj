@@ -132,7 +132,7 @@
     <Compile Include="ListEditors\IPopupMenuHider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyEditors\BooleanPropertyEditor\BooleanPropertyEditor.cs" />
-    <Compile Include="PropertyEditors\ButtonDetailViewItem.cs" />
+    <Compile Include="Editors\ActionButtonDetailItem.cs" />
     <Compile Include="PropertyEditors\DatePropertyEditor\DatePropertyEditor.cs" />
     <Compile Include="PropertyEditors\DoublePropertyEditor\DoublePropertyEditor.cs" />
     <Compile Include="PropertyEditors\IntegerPropertyEditor\IntegerPropertyEditor.cs" />

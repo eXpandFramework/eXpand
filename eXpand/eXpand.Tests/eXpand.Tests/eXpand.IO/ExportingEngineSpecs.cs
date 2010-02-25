@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -8,6 +10,7 @@ using System.Xml.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.IO.Core;
 using eXpand.ExpressApp.IO.PersistentTypesHelpers;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
@@ -354,6 +357,60 @@ namespace eXpand.Tests.eXpand.IO
                     _root.SerializedObjects(typeof (Analysis)).FirstOrDefault().Property("PivotGridSettingsContent").
                         Value;
                 value.ShouldEqual(_xml);
+            };
+    }
+
+    public class DelayedImagePropertyObject : BaseObject {
+        public DelayedImagePropertyObject(Session session) : base(session) {
+        }
+        private XPDelayedProperty _Photo = new XPDelayedProperty();
+        [ValueConverter(typeof(ImageValueConverter))]
+        [Delayed("_Photo")]
+        public Image Photo
+        {
+            get
+            {
+                return (Image)_Photo.Value;
+            }
+            set
+            {
+                _Photo.Value = value;
+                OnChanged("_Photo");
+            }
+        }
+    }
+
+    public class When_object_has_An_image_delayed_property:With_Isolations {
+        static XElement _root;
+        static DelayedImagePropertyObject _delayedImagePropertyObject;
+
+        Establish context = () => {
+            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            _delayedImagePropertyObject = objectSpace.CreateObject<DelayedImagePropertyObject>();
+            var bitmap = new Bitmap(1,1);
+            bitmap.SetPixel(0,0,Color.Black);
+            MemoryStream memoryStream = new MemoryStream();
+            bitmap.Save(memoryStream,ImageFormat.Bmp);
+            
+            var buffer = memoryStream.ToArray();
+            _delayedImagePropertyObject.Photo = bitmap;
+            objectSpace.CommitChanges();
+            _delayedImagePropertyObject.Reload();
+        };
+
+        Because of = () => {
+            _root = new ExportEngine().Export(new[]{_delayedImagePropertyObject}).Root;
+            var importObjects = new ImportEngine().ImportObjects(_root.Document, new UnitOfWork(ObjectSpaceInMemory.CreateNew().Session.DataLayer));
+        };
+
+        It should_serialize_the_image_property =
+            () => {
+                var serializedObject = _root.SerializedObjects(typeof (DelayedImagePropertyObject)).FirstOrDefault();
+                var xElement = serializedObject.Property("Photo");
+                var bytes = Encoding.UTF8.GetBytes(xElement.Value);
+                var image = Bitmap.FromStream(new MemoryStream(bytes));
+                image.Width.ShouldEqual(1);
+                xElement.Value.ShouldEqual("Test");
             };
     }
 }

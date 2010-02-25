@@ -50,26 +50,7 @@ namespace eXpand.Xpo.Collections
             return GetColletion(topReturnedObjects, -1);
         }
 
-        public static CriteriaOperator GetClassTypeFilter(Type type, Session session, string path)
-        {
-            path = path.TrimEnd('.');
-            XPClassInfo xpClassInfo = session.GetClassInfo(type);
-            XPObjectType xpObjectType = session.GetObjectType(xpClassInfo);
-            string propertyName = path + "." + XPObject.Fields.ObjectType.PropertyName;
-            return
-                new GroupOperator(GroupOperatorType.Or, new NullOperator(propertyName),
-                                  new BinaryOperator(propertyName,
-                                                     xpObjectType.Oid));
-        }
-
-        public static CriteriaOperator GetClassTypeFilter(Type type, Session session)
-        {
-            XPClassInfo xpClassInfo = session.GetClassInfo(type);
-            XPObjectType xpObjectType = session.GetObjectType(xpClassInfo);
-
-            return XPObject.Fields.ObjectType.IsNull() |
-                   XPObject.Fields.ObjectType == new OperandValue(xpObjectType.Oid);
-        }
+        
 
 //        private void addDataRows(DataTable dataTable)
 //        {
