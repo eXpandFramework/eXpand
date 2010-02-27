@@ -157,6 +157,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="AnalysisEditorWeb.cs" />
+    <Compile Include="Core\TypesInfo.cs" />
     <Compile Include="PivotChartXpandAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -167,6 +168,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PivotGridInplaceEditorsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Core\PivotGridOptionMapper.cs" />
+    <Compile Include="PivotOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

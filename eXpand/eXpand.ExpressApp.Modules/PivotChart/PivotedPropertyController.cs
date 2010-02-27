@@ -31,7 +31,6 @@ namespace eXpand.ExpressApp.PivotChart
                 }
             }
         }
-
         void BindMembers(IMemberInfo memberInfo) {
             var pivotedPropertyAttribute = memberInfo.FindAttribute<PivotedPropertyAttribute>();
             IAnalysisInfo analysisInfo;

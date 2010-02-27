@@ -5,19 +5,18 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
-using eXpand.ExpressApp.PivotChart.Core;
 
-namespace eXpand.ExpressApp.PivotChart.ShowInAnalysis {
+namespace eXpand.ExpressApp.PivotChart {
     public class ShowInAnalysisViewController : ViewController {
         readonly SingleChoiceAction showInAnalysisActionCore;
 
         public ShowInAnalysisViewController() {
             showInAnalysisActionCore = new SingleChoiceAction(this, "ShowInAnalysis", PredefinedCategory.RecordEdit) 
-            {
-                Caption = "Show in Analysis",
-                ToolTip = "Show selected records in a analysis",
-                ImageName = "BO_Analysis"
-            };
+                                       {
+                                           Caption = "Show in Analysis",
+                                           ToolTip = "Show selected records in a analysis",
+                                           ImageName = "BO_Analysis"
+                                       };
             showInAnalysisActionCore.Execute += showInReportAction_Execute;
             showInAnalysisActionCore.ItemType = SingleChoiceActionItemType.ItemIsOperation;
             showInAnalysisActionCore.SelectionDependencyType = SelectionDependencyType.RequireMultipleObjects;
@@ -37,8 +36,9 @@ namespace eXpand.ExpressApp.PivotChart.ShowInAnalysis {
 
         protected void ShowInAnalysis(SingleChoiceActionExecuteEventArgs e) {
             ObjectSpace os = Application.CreateObjectSpace();
+            var typeInfoContainer = (ITypeInfoContainer)Application.Modules.Where(@base => typeof(ITypeInfoContainer).IsAssignableFrom(@base.GetType())).Single();
             var report =
-                os.GetObjectByKey(TypesInfo.Instance.AnalysisType, e.SelectedChoiceActionItem.Data) as IAnalysisInfo;
+                os.GetObjectByKey(typeInfoContainer.TypesInfo.AnalysisType, e.SelectedChoiceActionItem.Data) as IAnalysisInfo;
             e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, report);
             e.ShowViewParameters.TargetWindow = TargetWindow.Default;
             e.ShowViewParameters.Context = TemplateContext.View;
@@ -49,8 +49,8 @@ namespace eXpand.ExpressApp.PivotChart.ShowInAnalysis {
                 keys.Add(ObjectSpace.GetKeyValue(selectedObject));
             }
             e.ShowViewParameters.Controllers.Add(
-                new AssignCustomAnalysisDataSourceDetailViewController(
-                    new InOperator(ObjectSpace.GetKeyPropertyName(View.ObjectTypeInfo.Type), keys)));
+                                                    new AssignCustomAnalysisDataSourceDetailViewController(
+                                                        new InOperator(ObjectSpace.GetKeyPropertyName(View.ObjectTypeInfo.Type), keys)));
         }
 
         int SortByCaption(ChoiceActionItem left, ChoiceActionItem right) {
@@ -59,11 +59,11 @@ namespace eXpand.ExpressApp.PivotChart.ShowInAnalysis {
 
         protected override void OnActivated() {
             ObjectSpace os = Application.CreateObjectSpace();
-            List<object> reportList = InplaceAnalysisCacheController.GetAnalysisDataList(Application,
-                                                                                         View.ObjectTypeInfo.Type);
+            List<object> reportList = InplaceAnalysisCacheController.GetAnalysisDataList(Application,View.ObjectTypeInfo.Type);
+            var typeInfoContainer = (ITypeInfoContainer)Application.Modules.Where(@base => typeof(ITypeInfoContainer).IsAssignableFrom(@base.GetType())).Single();
             List<ChoiceActionItem> items = (from id in reportList
                                             let report =
-                                                os.GetObjectByKey(TypesInfo.Instance.AnalysisType, id) as IAnalysisInfo
+                                                os.GetObjectByKey(typeInfoContainer.TypesInfo.AnalysisType, id) as IAnalysisInfo
                                             where report != null
                                             select new ChoiceActionItem(report.ToString(), id)).ToList();
             items.Sort(SortByCaption);

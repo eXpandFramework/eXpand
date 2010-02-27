@@ -71,6 +71,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -88,6 +89,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Collections\XPCollectionExtensions.cs" />
+    <Compile Include="Converters\ValueConverters\UnitValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\UriValueConverter.cs" />
     <Compile Include="CriteriaOperatorExtensions.cs" />
     <Compile Include="CriteriaOperatorExtractor.cs" />

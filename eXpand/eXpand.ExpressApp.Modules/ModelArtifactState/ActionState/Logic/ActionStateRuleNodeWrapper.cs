@@ -1,11 +1,11 @@
 using DevExpress.ExpressApp;
-using eXpand.ExpressApp.ModelArtifactState.ArtifactState;
 using eXpand.ExpressApp.ModelArtifactState.ArtifactState.Logic;
 
 namespace eXpand.ExpressApp.ModelArtifactState.ActionState.Logic {
     public class ActionStateRuleNodeWrapper : ArtifactStateRuleNodeWrapper, IActionStateRule {
         public const string ActionIdAttribute = "ActionId";
         public const string ActionStateAttribute = "ActionState";
+        public const string CaptionAttribute = "Caption";
         public const string NodeNameAttribute = "ActionStateRule";
 
         public ActionStateRuleNodeWrapper() : this(new DictionaryNode(NodeNameAttribute)) {

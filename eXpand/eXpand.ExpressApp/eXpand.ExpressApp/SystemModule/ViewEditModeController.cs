@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 
@@ -8,7 +9,9 @@ namespace eXpand.ExpressApp.SystemModule {
 
         protected override void OnActivated() {
             base.OnActivated();
-            View.ViewEditMode= View.Info.GetAttributeEnumValue(ViewEditModeAttributeName, ViewEditMode.View);
+            var attributeValue = View.Info.GetAttributeValue(ViewEditModeAttributeName, null);
+            if (!string.IsNullOrEmpty(attributeValue))
+                View.ViewEditMode = (ViewEditMode) Enum.Parse(typeof (ViewEditMode), attributeValue);
         }
 
         public override Schema GetSchema() {

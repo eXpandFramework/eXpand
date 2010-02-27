@@ -1,4 +1,3 @@
-using eXpand.ExpressApp.ModelArtifactState.ArtifactState;
 using eXpand.ExpressApp.ModelArtifactState.ArtifactState.Logic;
 
 namespace eXpand.ExpressApp.ModelArtifactState.ActionState.Logic {

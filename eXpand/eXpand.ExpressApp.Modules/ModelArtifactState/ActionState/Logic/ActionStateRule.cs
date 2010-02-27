@@ -1,5 +1,4 @@
-﻿using eXpand.ExpressApp.ModelArtifactState.ArtifactState;
-using eXpand.ExpressApp.ModelArtifactState.ArtifactState.Logic;
+﻿using eXpand.ExpressApp.ModelArtifactState.ArtifactState.Logic;
 
 namespace eXpand.ExpressApp.ModelArtifactState.ActionState.Logic {
     public class ActionStateRule : ArtifactStateRule, IActionStateRule {
@@ -19,6 +18,8 @@ namespace eXpand.ExpressApp.ModelArtifactState.ActionState.Logic {
             get { return ArtifactRule.ActionState; }
             set { ArtifactRule.ActionState=value; }
         }
+
+
         #endregion
     }
 }

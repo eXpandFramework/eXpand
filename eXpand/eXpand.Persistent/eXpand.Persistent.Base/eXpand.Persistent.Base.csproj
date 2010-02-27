@@ -127,6 +127,12 @@
     <Compile Include="PersistentMetaData\IPersistentReferenceMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentTypeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentDefaulClassOptionsAttribute.cs" />
+    <Compile Include="PivotChart\Web\IPivotGridOptionsOLAP.cs" />
+    <Compile Include="PivotChart\Web\IPivotGridWebOptionsChartDataSource.cs" />
+    <Compile Include="PivotChart\Web\IPivotGridWebOptionsCustomization.cs" />
+    <Compile Include="PivotChart\Web\IPivotGridWebOptionsLoadingPanel.cs" />
+    <Compile Include="PivotChart\Web\IPivotGridWebOptionsPager.cs" />
+    <Compile Include="PivotChart\Web\IPivotGridWebOptionsView.cs" />
     <Compile Include="PivotChart\IPivotOptionsBehavior.cs" />
     <Compile Include="PivotChart\IPivotOptionsChartDataSource.cs" />
     <Compile Include="PivotChart\IPivotOptionsCustomization.cs" />

@@ -21,5 +21,6 @@ namespace eXpand.ExpressApp.ModelArtifactState.ActionState.Logic
         public virtual string ActionId { get; set; }
 
         public ActionState ActionState { get; set; }
+        
     }
 }

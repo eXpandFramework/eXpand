@@ -1,7 +1,6 @@
 using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web;
-using eXpand.ExpressApp.ExceptionHandling;
 
 namespace eXpand.ExpressApp.ExceptionHandling.Web
 {

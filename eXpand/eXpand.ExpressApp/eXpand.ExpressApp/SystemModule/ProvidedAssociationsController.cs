@@ -23,15 +23,24 @@ namespace eXpand.ExpressApp.SystemModule{
                 typesInfo.PersistentTypes.SelectMany(typeInfo => typeInfo.OwnMembers);
             foreach (var memberInfo in memberInfos.Where(memberInfo => memberInfo.FindAttribute<ProvidedAssociationAttribute>()!=null)){
                 var providedAssociationAttribute = memberInfo.FindAttribute<ProvidedAssociationAttribute>();
-                var associationAttribute = memberInfo.FindAttribute<AssociationAttribute>();
-                if (associationAttribute== null)
-                    throw new NullReferenceException(memberInfo+" has no association attribute");
+                AssociationAttribute associationAttribute = GetAssociationAttribute(memberInfo, providedAssociationAttribute);
                 XPCustomMemberInfo customMemberInfo = CreateMemberInfo(memberInfo, providedAssociationAttribute,associationAttribute);
                 if (!(string.IsNullOrEmpty(providedAssociationAttribute.AttributesFactoryProperty)))
                     foreach (var attribute in GetAttributes(providedAssociationAttribute.AttributesFactoryProperty,memberInfo.Owner)) {
                         customMemberInfo.AddAttribute(attribute);
                     }
+                if (!string.IsNullOrEmpty(providedAssociationAttribute.AssociationName)&&memberInfo.FindAttribute<AssociationAttribute>()==null)
+                    memberInfo.AddAttribute(new AssociationAttribute(providedAssociationAttribute.AssociationName));
             }
+        }
+
+        AssociationAttribute GetAssociationAttribute(IMemberInfo memberInfo, ProvidedAssociationAttribute providedAssociationAttribute) {
+            var associationAttribute = memberInfo.FindAttribute<AssociationAttribute>();
+            if (associationAttribute == null && !string.IsNullOrEmpty(providedAssociationAttribute.AssociationName))
+                associationAttribute=new AssociationAttribute(providedAssociationAttribute.AssociationName);
+            else
+                throw new NullReferenceException(memberInfo+" has no association attribute");
+            return associationAttribute;
         }
 
         IEnumerable<Attribute> GetAttributes(string attributesFactoryProperty, ITypeInfo owner) {
@@ -45,7 +54,7 @@ namespace eXpand.ExpressApp.SystemModule{
             if (typeToCreateOn== null)
                 throw new NotImplementedException();
             XPCustomMemberInfo xpCustomMemberInfo;
-            if (memberInfo.IsAssociation || (memberInfo.IsList&&providedAssociationAttribute.RelationType==RelationType.ManyToMany)) {
+            if (!(memberInfo.IsList) || (memberInfo.IsList && providedAssociationAttribute.RelationType == RelationType.ManyToMany)){
                 xpCustomMemberInfo = XafTypesInfo.Instance.CreateCollection(typeToCreateOn, memberInfo.Owner.Type, associationAttribute.Name,
                                                                             providedAssociationAttribute.ProvidedPropertyName ??
                                                                             memberInfo.Owner.Type.Name + "s",

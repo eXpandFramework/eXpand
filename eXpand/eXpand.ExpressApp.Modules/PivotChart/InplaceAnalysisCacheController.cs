@@ -5,11 +5,11 @@ using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
-using eXpand.ExpressApp.PivotChart.Core;
 
-namespace eXpand.ExpressApp.PivotChart.ShowInAnalysis {
+namespace eXpand.ExpressApp.PivotChart {
     public class InplaceAnalysisCacheController : WindowController {
         readonly LightDictionary<Type, List<object>> analysisCache = new LightDictionary<Type, List<object>>();
+        ITypeInfoContainer _typeInfoContainer;
 
         public InplaceAnalysisCacheController() {
             TargetWindowType = WindowType.Main;
@@ -26,6 +26,7 @@ namespace eXpand.ExpressApp.PivotChart.ShowInAnalysis {
         protected override void OnActivated() {
             base.OnActivated();
             Window.ViewChanging += Window_ViewChanging;
+            
         }
 
         public void ClearCache() {
@@ -37,12 +38,12 @@ namespace eXpand.ExpressApp.PivotChart.ShowInAnalysis {
             if (analysisCache.TryGetValue(targetObjectType, out cachedReports)) {
                 return cachedReports;
             }
-                        
+            _typeInfoContainer = (ITypeInfoContainer)Application.Modules.Where(@base => typeof(ITypeInfoContainer).IsAssignableFrom(@base.GetType())).Single();
             using (ObjectSpace objectSpace = Application.CreateObjectSpace()) {
                 List<string> targetObjectTypeNames = GetTargetObjectTypeNames(targetObjectType);
                 var result = new List<object>();
                 if (targetObjectTypeNames.Count > 0) {
-                    IList reports = objectSpace.CreateCollection(TypesInfo.Instance.AnalysisType,
+                    IList reports = objectSpace.CreateCollection(_typeInfoContainer.TypesInfo.AnalysisType,
                                                                  new InOperator("DataType", targetObjectTypeNames));
                     result.AddRange(reports.Cast<object>().Select(report => objectSpace.GetKeyValue(report)));
                 }

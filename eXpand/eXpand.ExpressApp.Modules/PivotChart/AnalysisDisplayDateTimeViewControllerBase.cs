@@ -20,7 +20,7 @@ namespace eXpand.ExpressApp.PivotChart {
             DictionaryNode info = analysisEditor.View.Info;
             var analysisInfo = (IAnalysisInfo)analysisEditor.MemberInfo.GetValue(analysisEditor.CurrentObject);
             return new ApplicationNodeWrapper(info.Dictionary.RootNode).BOModel.FindClassByType(analysisInfo.DataType)
-                .FindMemberByName(fieldName).Node.GetAttributeEnumValue("PivotGroupInterval", DevExpress.XtraPivotGrid.PivotGroupInterval.Date);
+                .FindMemberByName(fieldName).Node.GetAttributeEnumValue(PivotGroupInterval, DevExpress.XtraPivotGrid.PivotGroupInterval.Date);
         }
     }
 }
