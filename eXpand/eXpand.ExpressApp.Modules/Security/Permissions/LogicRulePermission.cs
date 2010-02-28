@@ -9,10 +9,15 @@ namespace eXpand.ExpressApp.Security.Permissions
     public abstract class LogicRulePermission : PermissionBase,ILogicRule
     {
         public string ViewId { get; set; }
+
+
         [RuleRequiredField(null, DefaultContexts.Save)]
         public Type ObjectType { get; set; }
         [RuleRequiredField(null, DefaultContexts.Save)]
         public string ID { get; set; }
+
+        public int Index { get; set; }
+
         public ViewType ViewType { get; set; }
         public Nesting Nesting { get; set; }
         

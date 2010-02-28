@@ -20,6 +20,7 @@ namespace eXpand.Persistent.Base.General
         ITypeInfo TypeInfo { get; set; }
 
         string ViewId { get; set; }
+        int Index { get; set; }
         
     }
 }

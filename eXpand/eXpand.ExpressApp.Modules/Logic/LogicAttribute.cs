@@ -35,5 +35,6 @@ namespace eXpand.ExpressApp.Logic
         public string Description { get; set; }
         ITypeInfo ILogicRule.TypeInfo { get; set; }
         public string ViewId { get; set; }
+        public int Index { get; set; }
     }
 }

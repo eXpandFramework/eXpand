@@ -43,6 +43,12 @@ namespace eXpand.ExpressApp.Logic
             get { return _logicRule.ViewId; }
             set { _logicRule.ViewId = value; }
         }
+        public int Index
+        {
+            get { return _logicRule.Index; }
+            set { _logicRule.Index = value; }
+        }
+
     }
 }
 

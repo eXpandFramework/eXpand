@@ -28,8 +28,6 @@ namespace eXpand.ExpressApp.Logic {
         public abstract string LogicRulesNodeAttributeName { get; }
         
         void CreateLogicRulesFromClassAttributes(LogicRulesNodeWrapper<TLogicRule> wrapper, ITypeInfo typeInfo) {
-            
-            
             var findAttributes = LogicRuleManager<TLogicRule>.FindAttributes(typeInfo).ToList();
             foreach (TLogicRule attribute in findAttributes) {
                 TLogicRule attribute1 = attribute;
@@ -56,7 +54,7 @@ namespace eXpand.ExpressApp.Logic {
                     InvokeCollectedRulesFromModel(new CollectedRuleFromModelEventArgs<TLogicRule>(enumerable));
                     List<TLogicRule> permissions =CollectRulesFromPermissions(typeInfo).ToList();
                     enumerable.AddRange(permissions);
-                    LogicRuleManager<TLogicRule>.Instance[typeInfo] = new List<TLogicRule>(enumerable);
+                    LogicRuleManager<TLogicRule>.Instance[typeInfo] = new List<TLogicRule>(enumerable.OrderByDescending(rule => rule.Index));
                 }
             }
         }

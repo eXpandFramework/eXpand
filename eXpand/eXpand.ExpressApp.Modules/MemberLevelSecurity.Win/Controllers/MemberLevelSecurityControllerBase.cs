@@ -8,7 +8,7 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
         protected bool HasProtectPermission() {
             if (!(SecuritySystem.Instance is ISecurityComplex))
                 return ((ISimpleUser) SecuritySystem.CurrentUser).IsAdministrator;
-            return SecuritySystem.IsGranted(new ProtectRowMemberPermission(ProtectRowMemberPermissionModifier.Allow));
+            return SecuritySystem.IsGranted(new MemberLevelSecurityPermission(MemberLevelSecurityPermissionModifier.Allow));
         }
     }
 }

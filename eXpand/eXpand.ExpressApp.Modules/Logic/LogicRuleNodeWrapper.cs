@@ -1,3 +1,4 @@
+using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.NodeWrappers;
@@ -10,6 +11,7 @@ namespace eXpand.ExpressApp.Logic {
         public const string TypeInfoAttribute = "TypeInfo";
         
         public const string ViewTypeAttribute = "ViewType";
+        public const string IndexAttribute = "Index";
         public const string NestingAttribute = "Nesting";
         public const string ViewIdAttribute = "ViewId";
         ITypeInfo _typeInfo;
@@ -24,6 +26,19 @@ namespace eXpand.ExpressApp.Logic {
         public string ViewId {
             get { return Node.GetAttributeValue(ViewIdAttribute); }
             set { Node.SetAttribute(ViewIdAttribute, value); }
+        }
+        public string Index
+        {
+            get { return Node.GetAttributeValue(IndexAttribute); }
+            set { Node.SetAttribute(IDAttribute, value); }
+        }
+
+        int ILogicRule.Index {
+            get { return string.IsNullOrEmpty(Index)?0: Convert.ToInt32(Index); }
+            set {
+                if (value>0)
+                    Index = value.ToString();
+            }
         }
 
         public string Description {

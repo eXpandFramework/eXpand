@@ -25,17 +25,18 @@ namespace eXpand.ExpressApp.Logic {
         public virtual TLogicRule AddRule(TLogicRule logicRuleAttribute, ITypeInfo typeInfo, Type logicRuleNodeWrapperType)
         {
             
-            var artifactStateRuleNodeWrapper =
+            var stateRuleNodeWrapper =
                 (TLogicRule)
                 Activator.CreateInstance(logicRuleNodeWrapperType, new[] { Node.AddChildNode(ChildNodeName) });
-            artifactStateRuleNodeWrapper.ViewType = logicRuleAttribute.ViewType;
-            artifactStateRuleNodeWrapper.Nesting = logicRuleAttribute.Nesting;
-            artifactStateRuleNodeWrapper.Nesting = logicRuleAttribute.Nesting;
-            artifactStateRuleNodeWrapper.ID = logicRuleAttribute.ID;
-            artifactStateRuleNodeWrapper.TypeInfo = typeInfo;
-            artifactStateRuleNodeWrapper.Description = logicRuleAttribute.Description;
-            artifactStateRuleNodeWrapper.ViewId = logicRuleAttribute.ViewId;
-            return artifactStateRuleNodeWrapper;
+            stateRuleNodeWrapper.ViewType = logicRuleAttribute.ViewType;
+            stateRuleNodeWrapper.Nesting = logicRuleAttribute.Nesting;
+            stateRuleNodeWrapper.Nesting = logicRuleAttribute.Nesting;
+            stateRuleNodeWrapper.ID = logicRuleAttribute.ID;
+            stateRuleNodeWrapper.TypeInfo = typeInfo;
+            stateRuleNodeWrapper.Description = logicRuleAttribute.Description;
+            stateRuleNodeWrapper.ViewId = logicRuleAttribute.ViewId;
+            stateRuleNodeWrapper.Index = logicRuleAttribute.Index;
+            return stateRuleNodeWrapper;
         }
 
 
