@@ -1,6 +1,6 @@
 ﻿namespace eXpand.ExpressApp.Win.SystemModule
 {
-    partial class WinDetailViewController
+    partial class SupressConfirmationController
     {
         /// <summary>
         /// Required designer variable.

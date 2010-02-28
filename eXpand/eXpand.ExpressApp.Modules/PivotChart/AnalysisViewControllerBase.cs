@@ -15,7 +15,6 @@ namespace eXpand.ExpressApp.PivotChart {
 
         protected AnalysisViewControllerBase() {
             TargetObjectType = typeof (IAnalysisInfo);
-            TargetViewType = ViewType.DetailView;
         }
 
         protected bool IsDataSourceReady {

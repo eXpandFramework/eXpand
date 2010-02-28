@@ -6,7 +6,7 @@ using DevExpress.Utils.Serializing;
 using DevExpress.Utils.Serializing.Helpers;
 using DevExpress.XtraGrid.Views.Base;
 
-namespace eXpand.ExpressApp.Win.SystemModule
+namespace eXpand.ExpressApp.Win.Core
 {
     public class MoreSerializer : XmlXtraSerializer
     {

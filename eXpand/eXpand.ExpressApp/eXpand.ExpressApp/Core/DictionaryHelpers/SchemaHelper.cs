@@ -185,11 +185,12 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
             return node;
         }
     }
+
     
     public enum ModelElement
     {
         Application,
-        BOModel   ,
+        BOModel  ,
         Views,
         Class,
         DetailView,
