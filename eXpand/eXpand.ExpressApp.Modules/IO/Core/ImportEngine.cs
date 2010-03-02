@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
@@ -34,14 +33,14 @@ namespace eXpand.ExpressApp.IO.Core {
             }
             return 0;
         }
-        public int ImportObjects(Stream stream, UnitOfWork unitOfWork){
+        public void ImportObjects(Stream stream, UnitOfWork unitOfWork){
             unitOfWork.PurgeDeletedObjects();
             stream.Position = 0;
             using (var streamReader = new StreamReader(stream)) {
                 var xDocument = XDocument.Load(streamReader);
                 ImportObjects(xDocument, unitOfWork);
             }
-            return 0;
+
         }
 
         XPBaseObject createObject(XElement element, UnitOfWork nestedUnitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria){
@@ -107,21 +106,19 @@ namespace eXpand.ExpressApp.IO.Core {
 
         object GetValue(XElement simpleElement, XPMemberInfo xpMemberInfo) {
             var valueConverter = xpMemberInfo.Converter;
+            
             if (valueConverter != null) {
-                object changeType = ReflectorHelper.ChangeType(simpleElement.Value,
-                                                               valueConverter.StorageType);
-                return valueConverter.ConvertFromStorageType(changeType);
+                var value = GetValue(valueConverter.StorageType, simpleElement);
+                return valueConverter.ConvertFromStorageType(value);
             }
-            else return 
-                GetValue(xpMemberInfo, simpleElement);
+            return GetValue(xpMemberInfo.MemberType, simpleElement);
         }
 
-        object GetValue(XPMemberInfo xpMemberInfo, XElement simpleElement) {
-            if (xpMemberInfo.MemberType==typeof(byte[])) {
-                string trimStart = simpleElement.Value.TrimStart(Environment.NewLine.ToCharArray()).TrimStart(' ');
-                return Encoding.UTF8.GetBytes(trimStart);
+        object GetValue(Type type, XElement simpleElement) {
+            if (type == typeof(byte[])){
+                return string.IsNullOrEmpty(simpleElement.Value)?null :Convert.FromBase64String(simpleElement.Value);
             }
-            return ReflectorHelper.ChangeType(simpleElement.Value, xpMemberInfo.MemberType);
+            return ReflectorHelper.ChangeType(simpleElement.Value, type);
         }
 
         ITypeInfo GetTypeInfo(XElement element) {

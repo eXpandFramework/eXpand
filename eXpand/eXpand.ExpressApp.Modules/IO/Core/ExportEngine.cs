@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using System.Xml.Linq;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -63,11 +62,11 @@ namespace eXpand.ExpressApp.IO.Core {
             var memberValue = selectedObject.GetMemberValue(classInfoGraphNode.Name);
             var xpMemberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
             if (xpMemberInfo.Converter!= null) {
-                memberValue = (xpMemberInfo.Converter.ConvertToStorageType(memberValue) + "");
+                memberValue = (xpMemberInfo.Converter.ConvertToStorageType(memberValue) );
             }
-
+            
             if (memberValue is byte[])
-                memberValue = Encoding.UTF8.GetString((byte[]) memberValue).Trim(Environment.NewLine.ToCharArray()).Trim(' ').Trim((char)0);
+                memberValue = Convert.ToBase64String((byte[]) memberValue);
             if (memberValue is string)
                 propertyElement.Add(new XCData(memberValue.ToString()));
             else {

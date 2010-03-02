@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -340,12 +339,6 @@ namespace eXpand.Tests.eXpand.IO
         };
 
         Because of = () => {
-//            UnitOfWork unitOfWork = new UnitOfWork(){};
-//            unitOfWork.ConnectionString =
-//            "Integrated Security=SSPI;Pooling=false;Data Source=TOLISSS;Initial Catalog=Shell;Application Name=legacy";
-//            ObjectSpace objectSpace = new ObjectSpace(unitOfWork,XafTypesInfo.Instance);
-            
-//            Analysis analysis = unitOfWork.FindObject<Analysis>(CriteriaOperator.Parse("Name=?","dd"));
             var xDocument = new ExportEngine().Export(new List<XPBaseObject> { _analysis });
             xDocument.Save(@"c:\my.xml");
             _root = xDocument.Root;
@@ -356,14 +349,14 @@ namespace eXpand.Tests.eXpand.IO
                 string value =
                     _root.SerializedObjects(typeof (Analysis)).FirstOrDefault().Property("PivotGridSettingsContent").
                         Value;
-                value.ShouldEqual(_xml);
+                Encoding.UTF8.GetString(Convert.FromBase64String(value)).ShouldEqual(_xml);
             };
     }
 
-    public class DelayedImagePropertyObject : BaseObject {
-        public DelayedImagePropertyObject(Session session) : base(session) {
+    public class ImagePropertyObject : BaseObject {
+        public ImagePropertyObject(Session session) : base(session) {
         }
-        private XPDelayedProperty _Photo = new XPDelayedProperty();
+        private readonly XPDelayedProperty _Photo = new XPDelayedProperty();
         [ValueConverter(typeof(ImageValueConverter))]
         [Delayed("_Photo")]
         public Image Photo
@@ -379,38 +372,38 @@ namespace eXpand.Tests.eXpand.IO
             }
         }
     }
-
-    public class When_object_has_An_image_delayed_property:With_Isolations {
+    [Subject(typeof(ExportEngine))]
+    public class When_object_has_An_image_property:With_Isolations {
+        static Color _color;
         static XElement _root;
-        static DelayedImagePropertyObject _delayedImagePropertyObject;
+        static ImagePropertyObject _imagePropertyObject;
 
         Establish context = () => {
             var objectSpace = ObjectSpaceInMemory.CreateNew();
-            _delayedImagePropertyObject = objectSpace.CreateObject<DelayedImagePropertyObject>();
+            _imagePropertyObject = objectSpace.CreateObject<ImagePropertyObject>();
             var bitmap = new Bitmap(1,1);
-            bitmap.SetPixel(0,0,Color.Black);
-            MemoryStream memoryStream = new MemoryStream();
-            bitmap.Save(memoryStream,ImageFormat.Bmp);
-            
-            var buffer = memoryStream.ToArray();
-            _delayedImagePropertyObject.Photo = bitmap;
+            bitmap.SetPixel(0,0,Color.Red);
+            _color = bitmap.GetPixel(0,0);
+
+            _imagePropertyObject.Photo = bitmap;
             objectSpace.CommitChanges();
-            _delayedImagePropertyObject.Reload();
+            _imagePropertyObject.Reload();
         };
 
         Because of = () => {
-            _root = new ExportEngine().Export(new[]{_delayedImagePropertyObject}).Root;
-            var importObjects = new ImportEngine().ImportObjects(_root.Document, new UnitOfWork(ObjectSpaceInMemory.CreateNew().Session.DataLayer));
+            _root = new ExportEngine().Export(new[]{_imagePropertyObject}).Root;
         };
 
         It should_serialize_the_image_property =
             () => {
-                var serializedObject = _root.SerializedObjects(typeof (DelayedImagePropertyObject)).FirstOrDefault();
+                var serializedObject = _root.SerializedObjects(typeof (ImagePropertyObject)).FirstOrDefault();
                 var xElement = serializedObject.Property("Photo");
-                var bytes = Encoding.UTF8.GetBytes(xElement.Value);
-                var image = Bitmap.FromStream(new MemoryStream(bytes));
+                var bytes = Convert.FromBase64String(xElement.Value);
+                var image = Image.FromStream(new MemoryStream(bytes));
                 image.Width.ShouldEqual(1);
-                xElement.Value.ShouldEqual("Test");
+                image.Height.ShouldEqual(1);
+                var bitmap = new Bitmap(image);
+                bitmap.GetPixel(0,0).ShouldEqual(_color);
             };
     }
 }

@@ -27,7 +27,7 @@ namespace eXpand.Tests.eXpand.IO {
         static XPBaseObject _order1;
         static User _user;
         static XPBaseObject _customer;
-        static int _count;
+        
         static Stream _manifestResourceStream;
 
         Establish context = () => {
@@ -40,7 +40,7 @@ namespace eXpand.Tests.eXpand.IO {
                 _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
         };
 
-        Because of = () => { _count = new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork)ObjectSpace.Session); };
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork)ObjectSpace.Session);
 
         It should_create_1_new_customer_object=() => {
             _customer = ObjectSpace.FindObject(CustomerType, null) as XPBaseObject;
@@ -70,7 +70,7 @@ namespace eXpand.Tests.eXpand.IO {
 
         It should_set_customer_property_of_order_same_as_new_created_customer=() => _order1.GetMemberValue("Customer").ShouldEqual(_customer);
 
-        It should_return_0_unimported_objects=() => _count.ShouldEqual(0);
+        
     }
     [Subject(typeof(ImportEngine))]
     public class When_importing_an_object_that_is_invalid:With_Isolations {
@@ -354,4 +354,26 @@ namespace eXpand.Tests.eXpand.IO {
 
         It should_raize_no_errors = () => _exception.ShouldBeNull();
     }
+    [Subject(typeof(ImportEngine))]
+    public class When_an_object_has_an_image_property : With_Isolations
+    {
+        static UnitOfWork _unitOfWork;
+        static Stream _manifestResourceStream;
+
+        Establish context = () =>
+        {
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.ObjectWithImageProperty.xml");
+            _unitOfWork = new UnitOfWork(ObjectSpaceInMemory.CreateNew().Session.DataLayer);
+        };
+
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _unitOfWork);
+
+        It should_create_the_serialized_image = () =>
+        {
+            var findObject = _unitOfWork.FindObject<ImagePropertyObject>(null);
+            findObject.Photo.Width.ShouldEqual(1);
+            findObject.Photo.Height.ShouldEqual(1);
+        };
+    }
+
 }
