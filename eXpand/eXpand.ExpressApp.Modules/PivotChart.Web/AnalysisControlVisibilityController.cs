@@ -1,5 +1,7 @@
 using DevExpress.ExpressApp.PivotChart.Web;
 using DevExpress.Web.ASPxTabControl;
+using eXpand.ExpressApp.PivotChart.AnalysisControlVisibility;
+using AnalysisControlWeb = eXpand.ExpressApp.PivotChart.Web.Editors.AnalysisControlWeb;
 
 namespace eXpand.ExpressApp.PivotChart.Web {
     public class AnalysisControlVisibilityController :

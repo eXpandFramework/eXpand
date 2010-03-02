@@ -6,8 +6,9 @@ using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
+using AnalysisViewControllerBase = eXpand.ExpressApp.PivotChart.Core.AnalysisViewControllerBase;
 
-namespace eXpand.ExpressApp.PivotChart {
+namespace eXpand.ExpressApp.PivotChart.AnalysisControlVisibility {
     public abstract class AnalysisControlVisibilityControllerBase<TAnalysisEditor,TAnalysisControl> : AnalysisViewControllerBase
         where TAnalysisEditor : AnalysisEditorBase where TAnalysisControl:IAnalysisControl{
         public const string AnalysisControlVisibilityAttributeName = "AnalysisControlVisibility";

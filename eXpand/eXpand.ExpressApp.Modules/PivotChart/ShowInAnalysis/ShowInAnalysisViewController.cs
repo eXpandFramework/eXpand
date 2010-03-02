@@ -5,8 +5,9 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
+using eXpand.ExpressApp.PivotChart.Core;
 
-namespace eXpand.ExpressApp.PivotChart {
+namespace eXpand.ExpressApp.PivotChart.ShowInAnalysis {
     public class ShowInAnalysisViewController : ViewController {
         readonly SingleChoiceAction showInAnalysisActionCore;
 

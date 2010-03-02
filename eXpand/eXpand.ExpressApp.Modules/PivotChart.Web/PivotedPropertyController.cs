@@ -1,4 +1,6 @@
-﻿namespace eXpand.ExpressApp.PivotChart.Web {
+﻿using eXpand.ExpressApp.PivotChart.Web.InPlaceEdit;
+
+namespace eXpand.ExpressApp.PivotChart.Web {
     public class PivotedPropertyController : PivotChart.PivotedPropertyController
     {
         protected override void AttachControllers(System.Collections.Generic.IEnumerable<DevExpress.ExpressApp.DC.IMemberInfo> memberInfos)

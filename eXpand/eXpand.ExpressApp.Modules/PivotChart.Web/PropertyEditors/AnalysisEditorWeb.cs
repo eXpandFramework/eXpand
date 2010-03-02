@@ -1,9 +1,19 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.PivotChart;
+using DevExpress.Web.ASPxEditors.FilterControl;
 using DevExpress.XtraCharts.Native;
+using eXpand.ExpressApp.Core.DictionaryHelpers;
+using eXpand.ExpressApp.PivotChart.Web.Editors;
 
 namespace eXpand.ExpressApp.PivotChart.Web {
+    public class LoadingPanelController:ViewController {
+        public const string LoadingPanel = "LoadingPanel";
+        public override Schema GetSchema()
+        {
+            return new Schema(new SchemaHelper().InjectBoolAttribute(LoadingPanel, ModelElement.DetailViewPropertyEditors));
+        }
+    }
     public class AnalysisEditorWeb : DevExpress.ExpressApp.PivotChart.Web.AnalysisEditorWeb {
         public AnalysisEditorWeb(Type objectType, DictionaryNode info) : base(objectType, info) {
         }
@@ -25,6 +35,7 @@ namespace eXpand.ExpressApp.PivotChart.Web {
         }
 
         void AnalysisControlOnLoad(object sender, EventArgs eventArgs) {
+            ((IPopupFilterControlOwner)Control.PivotGrid).SettingsLoadingPanel.Enabled = Info.GetAttributeBoolValue(LoadingPanelController.LoadingPanel,true);
             ReadValue();
             Control.DataBind();
         }

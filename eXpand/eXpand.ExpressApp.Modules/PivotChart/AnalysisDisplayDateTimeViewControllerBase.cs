@@ -5,6 +5,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.XtraPivotGrid;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.Core;
+using AnalysisViewControllerBase = eXpand.ExpressApp.PivotChart.Core.AnalysisViewControllerBase;
 
 namespace eXpand.ExpressApp.PivotChart {
     public class AnalysisDisplayDateTimeViewControllerBase : AnalysisViewControllerBase {

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.XtraPivotGrid;
 using eXpand.ExpressApp.PivotChart.Win.Core;
+using eXpand.ExpressApp.PivotChart.Win.Editors;
 
-namespace eXpand.ExpressApp.PivotChart.Win {
+namespace eXpand.ExpressApp.PivotChart.Win.Options {
     public class PivotOptionsController : PivotChart.PivotOptionsController {
         protected override Dictionary<Type, Type> GetActionChoiceItems() {
             return PivotGridOptionMapper.Instance.Dictionary;
@@ -16,9 +17,9 @@ namespace eXpand.ExpressApp.PivotChart.Win {
 
         protected override IEnumerable<object> GetGridOptionInstance(Type type) {
             return AnalysisEditors.Select(analysisEditor => ((AnalysisControlWin) analysisEditor.Control).PivotGrid).Select
-                    (pivotGridControl =>
-                     typeof (PivotGridControl).GetProperties().Where(propertyInfo => propertyInfo.PropertyType == type).
-                         Select(info1 => info1.GetValue(pivotGridControl, null)).Single()).ToList();
+                (pivotGridControl =>
+                 typeof (PivotGridControl).GetProperties().Where(propertyInfo => propertyInfo.PropertyType == type).
+                     Select(info1 => info1.GetValue(pivotGridControl, null)).Single()).ToList();
         }
     }
 }

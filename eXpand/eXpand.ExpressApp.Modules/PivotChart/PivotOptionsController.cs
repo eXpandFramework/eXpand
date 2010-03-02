@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
+using eXpand.ExpressApp.PivotChart.Core;
 
 namespace eXpand.ExpressApp.PivotChart
 {

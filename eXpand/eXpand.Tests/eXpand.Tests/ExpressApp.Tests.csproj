@@ -446,6 +446,9 @@
     <EmbeddedResource Include="eXpand.IO\Resources\PivotContent.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="eXpand.IO\Resources\ObjectWithImageProperty.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="ModelArtifactSpecs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

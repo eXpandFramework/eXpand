@@ -1,4 +1,4 @@
-﻿namespace eXpand.ExpressApp.PivotChart {
+﻿namespace eXpand.ExpressApp.PivotChart.AnalysisControlVisibility {
     public enum AnalysisControlVisibility
     {
         Default,

@@ -7,9 +7,8 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using eXpand.Utils.Helpers;
-using TypesInfo = eXpand.ExpressApp.PivotChart.Core.TypesInfo;
 
-namespace eXpand.ExpressApp.PivotChart {
+namespace eXpand.ExpressApp.PivotChart.Core {
     public abstract class PivotChartXpandModuleBase : ModuleBase,ITypeInfoContainer {
         public override void UpdateModel(Dictionary model)
         {

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Web.UI.WebControls;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.PivotChart.Web.Core;
+using eXpand.ExpressApp.PivotChart.Core;
+using eXpand.ExpressApp.PivotChart.Web.Options;
 using eXpand.Xpo.Converters.ValueConverters;
 using TypesInfo = eXpand.ExpressApp.PivotChart.Core.TypesInfo;
 

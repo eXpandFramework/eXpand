@@ -3,6 +3,7 @@ using System.ComponentModel;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
+using AnalysisViewControllerBase = eXpand.ExpressApp.PivotChart.Core.AnalysisViewControllerBase;
 
 namespace eXpand.ExpressApp.PivotChart {
     public class AssignCustomAnalysisDataSourceDetailViewController : AnalysisViewControllerBase {

@@ -1,6 +1,7 @@
 ﻿using DevExpress.Xpo;
 using eXpand.ExpressApp.ModelArtifactState.ControllerState;
 using eXpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
+using eXpand.ExpressApp.PivotChart.ShowInAnalysis;
 
 namespace eXpand.ExpressApp.PivotChart.Security {
     [NonPersistent]

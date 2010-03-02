@@ -126,8 +126,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalysisControlVisibility.cs" />
-    <Compile Include="AnalysisControlVisibilityControllerBase.cs">
+    <Compile Include="AnalysisControlVisibility\AnalysisControlVisibility.cs" />
+    <Compile Include="AnalysisControlVisibility\AnalysisControlVisibilityControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="AnalysisDataBindController.cs">
@@ -146,14 +146,14 @@
     <Compile Include="PivotChartModule.Designer.cs">
       <DependentUpon>PivotChartModule.cs</DependentUpon>
     </Compile>
-    <Compile Include="PivotChartXpandModuleBase.cs">
+    <Compile Include="Core\PivotChartXpandModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PivotedPropertyController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PivotGridFieldBuilder.cs" />
-    <Compile Include="PivotGridInplaceEditorsControllerBase.cs">
+    <Compile Include="InPlaceEdit\PivotGridFieldBuilder.cs" />
+    <Compile Include="InPlaceEdit\PivotGridInplaceEditorsControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PivotOptionsController.cs">
@@ -162,16 +162,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\PivotSettingsPermission.cs" />
     <Compile Include="Security\ShowInAnalysisPermission.cs" />
-    <Compile Include="AnalysisViewControllerBase.cs">
+    <Compile Include="Core\AnalysisViewControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="AssignCustomAnalysisDataSourceDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="InplaceAnalysisCacheController.cs">
+    <Compile Include="ShowInAnalysis\InplaceAnalysisCacheController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ShowInAnalysisViewController.cs">
+    <Compile Include="ShowInAnalysis\ShowInAnalysisViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Updater.cs">

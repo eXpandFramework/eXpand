@@ -1,4 +1,6 @@
-﻿namespace eXpand.ExpressApp.PivotChart.Web {
+﻿using eXpand.ExpressApp.PivotChart.InPlaceEdit;
+
+namespace eXpand.ExpressApp.PivotChart.Web {
     public class AnalysisDisplayDateTimeViewController : AnalysisDisplayDateTimeViewControllerBase {
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();

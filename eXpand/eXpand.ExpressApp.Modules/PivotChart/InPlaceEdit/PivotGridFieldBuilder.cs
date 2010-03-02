@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.XtraPivotGrid;
 
-namespace eXpand.ExpressApp.PivotChart {
+namespace eXpand.ExpressApp.PivotChart.InPlaceEdit {
     public class PivotGridFieldBuilder : DevExpress.ExpressApp.PivotChart.PivotGridFieldBuilder {
         readonly Func<string, PivotGroupInterval> _func;
 

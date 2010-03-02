@@ -5,8 +5,9 @@ using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
+using eXpand.ExpressApp.PivotChart.Core;
 
-namespace eXpand.ExpressApp.PivotChart {
+namespace eXpand.ExpressApp.PivotChart.ShowInAnalysis {
     public class InplaceAnalysisCacheController : WindowController {
         readonly LightDictionary<Type, List<object>> analysisCache = new LightDictionary<Type, List<object>>();
         ITypeInfoContainer _typeInfoContainer;

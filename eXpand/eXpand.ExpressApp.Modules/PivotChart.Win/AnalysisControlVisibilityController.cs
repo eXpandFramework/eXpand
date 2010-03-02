@@ -1,3 +1,7 @@
+using eXpand.ExpressApp.PivotChart.AnalysisControlVisibility;
+using eXpand.ExpressApp.PivotChart.Win.Editors;
+using eXpand.ExpressApp.PivotChart.Win.PropertyEditors;
+
 namespace eXpand.ExpressApp.PivotChart.Win {
     public class AnalysisControlVisibilityController :
         AnalysisControlVisibilityControllerBase<AnalysisEditorWin, AnalysisControlWin> {

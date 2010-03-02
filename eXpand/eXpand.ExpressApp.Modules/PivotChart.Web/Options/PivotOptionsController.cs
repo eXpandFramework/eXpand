@@ -4,8 +4,9 @@ using System.Linq;
 using System.Reflection;
 using DevExpress.Web.ASPxPivotGrid;
 using eXpand.ExpressApp.PivotChart.Web.Core;
+using eXpand.ExpressApp.PivotChart.Web.Editors;
 
-namespace eXpand.ExpressApp.PivotChart.Web
+namespace eXpand.ExpressApp.PivotChart.Web.Options
 {
     public class PivotOptionsController : PivotChart.PivotOptionsController
     {

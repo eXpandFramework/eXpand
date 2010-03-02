@@ -5,6 +5,9 @@ using DevExpress.ExpressApp.PivotChart;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraPivotGrid;
 using System.Linq;
+using eXpand.ExpressApp.PivotChart.InPlaceEdit;
+using eXpand.ExpressApp.PivotChart.Win.Editors;
+using eXpand.ExpressApp.PivotChart.Win.PropertyEditors;
 
 namespace eXpand.ExpressApp.PivotChart.Win {
     public class PivotGridInplaceEditorsController : PivotGridInplaceEditorsControllerBase
