@@ -98,14 +98,16 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
 
                 bool enabled = newControl.Enabled;
 
-                controlHelper.LayoutControlItem.Owner.BeginUpdate();
+                if (controlHelper.LayoutControlItem.Owner!=null)
+                    controlHelper.LayoutControlItem.Owner.BeginUpdate();
                 controlHelper.LayoutControlItem.BeginInit();
 
                 controlHelper.LayoutControlItem.Control = newControl;
-                oldControl.Parent = null;
+                if (oldControl != null) oldControl.Parent = null;
 
                 controlHelper.LayoutControlItem.EndInit();
-                controlHelper.LayoutControlItem.Owner.EndUpdate();
+                if (controlHelper.LayoutControlItem.Owner != null)
+                    controlHelper.LayoutControlItem.Owner.EndUpdate();
 
                 controlHelper.LayoutControlItem.Control.Enabled = enabled;
             }

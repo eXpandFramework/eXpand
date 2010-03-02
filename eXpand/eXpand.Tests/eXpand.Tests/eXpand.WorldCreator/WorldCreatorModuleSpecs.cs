@@ -53,7 +53,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
         It should_load_previous__assembly_version_if_exists;
     }
-    [Subject(typeof(WorldCreatorModule))][Isolated]
+    [Subject(typeof(WorldCreatorModule))]
     public class When_Settingup_Module:With_In_Memory_DataStore
     {
         static bool _modulesAdded;
