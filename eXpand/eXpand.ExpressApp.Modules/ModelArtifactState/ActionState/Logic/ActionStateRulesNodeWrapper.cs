@@ -1,10 +1,10 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.Logic;
+using eXpand.ExpressApp.ModelArtifactState.ArtifactState.Logic;
 
 namespace eXpand.ExpressApp.ModelArtifactState.ActionState.Logic {
-    public class ActionStateRulesNodeWrapper : LogicRulesNodeWrapper<IActionStateRule>
+    public class ActionStateRulesNodeWrapper : ArtifactStateRulesNodeWrapper<IActionStateRule>
     {
         public const string NodeNameAttribute = "ConditionalActionState";
 
@@ -19,15 +19,11 @@ namespace eXpand.ExpressApp.ModelArtifactState.ActionState.Logic {
         protected override string ChildNodeName {
             get { return ActionStateRuleNodeWrapper.NodeNameAttribute; }
         }
-
-
         public override IActionStateRule AddRule(IActionStateRule logicRuleAttribute, ITypeInfo typeInfo, Type logicRuleNodeWrapper) {
-            IActionStateRule wrapper = base.AddRule(logicRuleAttribute, typeInfo, logicRuleNodeWrapper);
-            var actionStateRuleAttribute = logicRuleAttribute;
-            wrapper.ActionId = actionStateRuleAttribute.ActionId;
-            wrapper.Module = actionStateRuleAttribute.Module;
-            wrapper.ActionState =  actionStateRuleAttribute.ActionState;
-            return wrapper;
+            IActionStateRule actionStateRule = base.AddRule(logicRuleAttribute, typeInfo, logicRuleNodeWrapper);
+            actionStateRule.ActionId = logicRuleAttribute.ActionId;
+            actionStateRule.ActionState = logicRuleAttribute.ActionState;
+            return actionStateRule;
         }
     }
 }

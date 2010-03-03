@@ -119,7 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CollectedRuleFromModelEventArgs.cs" />
-    <Compile Include="ExecutionReason.cs" />
+    <Compile Include="ExecutionContext.cs" />
     <Compile Include="IRuleHolder.cs" />
     <Compile Include="LogicModule.cs">
       <SubType>Component</SubType>

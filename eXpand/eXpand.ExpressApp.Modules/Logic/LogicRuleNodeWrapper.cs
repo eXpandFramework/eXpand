@@ -6,6 +6,7 @@ using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.Logic {
     public abstract class LogicRuleNodeWrapper : NodeWrapper, ILogicRule {
+        public const string ExecutionContextGroupAttribute = "ExecutionContextGroup";
         public const string IDAttribute = "ID";
         public const string DescriptionAttribute = "Description";
         public const string TypeInfoAttribute = "TypeInfo";
@@ -64,6 +65,13 @@ namespace eXpand.ExpressApp.Logic {
             get { return Node.GetAttributeValue(IDAttribute); }
             set { Node.SetAttribute(IDAttribute, value); }
         }
+
+        public string ExecutionContextGroup
+        {
+            get { return Node.GetAttributeValue(ExecutionContextGroupAttribute); }
+            set { Node.SetAttribute(ExecutionContextGroupAttribute, value); }
+        }
+
 
 
         public ViewType ViewType {

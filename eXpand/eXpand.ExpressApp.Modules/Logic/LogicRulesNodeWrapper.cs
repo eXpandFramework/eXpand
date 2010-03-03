@@ -19,24 +19,35 @@ namespace eXpand.ExpressApp.Logic {
             get { return GetRules(); }
         }
 
-        internal TypesInfo TypesInfo { get; set; }
+        TypesInfo _typesInfo;
+        internal TypesInfo TypesInfo {
+            get {
+                if (_typesInfo== null) {
+                    _typesInfo = new TypesInfo();
+                    _typesInfo.RegisterTypes<TLogicRule>();
+                }
+                return _typesInfo;
+            }
+            set { _typesInfo = value; }
+        }
 
 
         public virtual TLogicRule AddRule(TLogicRule logicRuleAttribute, ITypeInfo typeInfo, Type logicRuleNodeWrapperType)
         {
             
-            var stateRuleNodeWrapper =
+            var ruleNodeWrapper =
                 (TLogicRule)
                 Activator.CreateInstance(logicRuleNodeWrapperType, new[] { Node.AddChildNode(ChildNodeName) });
-            stateRuleNodeWrapper.ViewType = logicRuleAttribute.ViewType;
-            stateRuleNodeWrapper.Nesting = logicRuleAttribute.Nesting;
-            stateRuleNodeWrapper.Nesting = logicRuleAttribute.Nesting;
-            stateRuleNodeWrapper.ID = logicRuleAttribute.ID;
-            stateRuleNodeWrapper.TypeInfo = typeInfo;
-            stateRuleNodeWrapper.Description = logicRuleAttribute.Description;
-            stateRuleNodeWrapper.ViewId = logicRuleAttribute.ViewId;
-            stateRuleNodeWrapper.Index = logicRuleAttribute.Index;
-            return stateRuleNodeWrapper;
+            ruleNodeWrapper.ViewType = logicRuleAttribute.ViewType;
+            ruleNodeWrapper.Nesting = logicRuleAttribute.Nesting;
+            ruleNodeWrapper.Nesting = logicRuleAttribute.Nesting;
+            ruleNodeWrapper.ID = logicRuleAttribute.ID;
+            ruleNodeWrapper.TypeInfo = typeInfo;
+            ruleNodeWrapper.Description = logicRuleAttribute.Description;
+            ruleNodeWrapper.ViewId = logicRuleAttribute.ViewId;
+            ruleNodeWrapper.Index = logicRuleAttribute.Index;
+            ruleNodeWrapper.ExecutionContextGroup = logicRuleAttribute.ExecutionContextGroup;            
+            return ruleNodeWrapper;
         }
 
 

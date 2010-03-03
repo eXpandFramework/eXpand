@@ -131,6 +131,10 @@
     <Compile Include="ActionState\Logic\ActionStateRuleController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ArtifactState\Logic\ArtifactStateRulesNodeWrapper.cs" />
+    <Compile Include="ArtifactState\Logic\ArtifactStateModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ControllerState\Logic\ControllerStateRuleController.cs">
       <SubType>Component</SubType>
     </Compile>

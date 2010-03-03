@@ -6,7 +6,7 @@ namespace eXpand.Persistent.Base.General
     public interface ILogicRule
     {
         string ID { get; set; }
-
+        string ExecutionContextGroup { get; set; }
         ViewType ViewType { get; set; }
 
         /// <summary>

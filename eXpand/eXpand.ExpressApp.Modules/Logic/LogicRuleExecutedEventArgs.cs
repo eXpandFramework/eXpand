@@ -9,17 +9,17 @@ namespace eXpand.ExpressApp.Logic {
     public class LogicRuleExecutedEventArgs<TLogicRule> : EventArgs
         where TLogicRule:ILogicRule
     {
-        readonly ExecutionReason _executionReason;
+        readonly ExecutionContext _executionContext;
 
 
-        public LogicRuleExecutedEventArgs(LogicRuleInfo<TLogicRule> info, ExecutionReason executionReason)
+        public LogicRuleExecutedEventArgs(LogicRuleInfo<TLogicRule> info, ExecutionContext executionContext)
         {
-            _executionReason = executionReason;
+            _executionContext = executionContext;
             LogicRuleInfo = info;
         }
 
-        public ExecutionReason ExecutionReason {
-            get { return _executionReason; }
+        public ExecutionContext ExecutionContext {
+            get { return _executionContext; }
         }
 
         /// <summary>

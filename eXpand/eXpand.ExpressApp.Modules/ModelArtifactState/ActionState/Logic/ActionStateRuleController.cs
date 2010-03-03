@@ -4,10 +4,11 @@ using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using eXpand.ExpressApp.Logic;
+using eXpand.ExpressApp.Logic.Conditional;
 
 namespace eXpand.ExpressApp.ModelArtifactState.ActionState.Logic {
-    public class ActionStateRuleController : LogicRuleViewController<IActionStateRule> {
-        public override void ExecuteRule(LogicRuleInfo<IActionStateRule> logicRuleInfo, ExecutionReason executionReason) {
+    public class ActionStateRuleController : ConditionalLogicRuleViewController<IActionStateRule> {
+        public override void ExecuteRule(LogicRuleInfo<IActionStateRule> logicRuleInfo, ExecutionContext executionContext) {
             IActionStateRule rule = logicRuleInfo.Rule;
             foreach (ActionBase actionBase in GetActions(rule)) {
                 switch (rule.ActionState) {
@@ -18,10 +19,10 @@ namespace eXpand.ExpressApp.ModelArtifactState.ActionState.Logic {
                         EnableDisableAction(logicRuleInfo, actionBase);
                         break;
                     case ActionState.Executed:
-                        ExecuteAction(actionBase, executionReason);
+                        ExecuteAction(actionBase, executionContext);
                         break;
                     case ActionState.ExecutedAndDisable:
-                        ExecuteAndDisableAction(actionBase, executionReason);
+                        ExecuteAndDisableAction(actionBase, executionContext);
                         break;
                 }
             }            
@@ -35,8 +36,8 @@ namespace eXpand.ExpressApp.ModelArtifactState.ActionState.Logic {
             actionBase.Enabled[ActiveObjectTypeHasRules] = !info.Active;
         }
 
-        void ExecuteAction(ActionBase actionBase, ExecutionReason executionReason) {
-            if (executionReason==ExecutionReason.ViewControlsCreated) {
+        void ExecuteAction(ActionBase actionBase, ExecutionContext executionContext) {
+            if (executionContext==ExecutionContext.ViewControlsCreated) {
                 var simpleAction = ((SimpleAction)actionBase);
                 if (simpleAction.Active && simpleAction.Enabled){
                     simpleAction.DoExecute();
@@ -44,8 +45,8 @@ namespace eXpand.ExpressApp.ModelArtifactState.ActionState.Logic {
             }
         }
 
-        void ExecuteAndDisableAction(ActionBase actionBase, ExecutionReason executionReason) {
-            if (executionReason==ExecutionReason.ViewControlAdding) {
+        void ExecuteAndDisableAction(ActionBase actionBase, ExecutionContext executionContext) {
+            if (executionContext==ExecutionContext.ViewControlAdding) {
                 var simpleAction = ((SimpleAction)actionBase);
                 simpleAction.Active[ActiveObjectTypeHasRules] = true;
                 if (simpleAction.Active && simpleAction.Enabled)

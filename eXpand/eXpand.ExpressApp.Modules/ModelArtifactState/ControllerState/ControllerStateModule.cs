@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.Logic;
-using eXpand.ExpressApp.Logic.Conditional;
+using eXpand.ExpressApp.ModelArtifactState.ArtifactState.Logic;
 using eXpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
 
 namespace eXpand.ExpressApp.ModelArtifactState.ControllerState {
-    public class ControllerStateModule :ConditionalLogicRuleProviderModuleBase<IControllerStateRule> {
+    public class ControllerStateModule :ArtifactStateModule<IControllerStateRule> {
         public override string LogicRulesNodeAttributeName {
             get { return ControllerStateRulesNodeWrapper.NodeNameAttribute; }
         }
@@ -25,6 +25,9 @@ namespace eXpand.ExpressApp.ModelArtifactState.ControllerState {
             return collectRulesFromModelCore;
         }
 
+        protected override bool IsDefaultContext(ExecutionContext context) {
+            return true;
+        }
         public override Schema GetSchema() {
             Schema schema = base.GetSchema();
             DictionaryNode dictionaryNode = schema.RootNode.GetChildNode("Element", "Name",

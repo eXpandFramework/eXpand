@@ -14,26 +14,22 @@ namespace eXpand.ExpressApp.Logic{
             get { return Active.ResultValue && View != null && View.ObjectTypeInfo != null; }
         }
 
-        public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionReason executionReason){
+        public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext){
             if (isReady){
                 object currentObject = view.CurrentObject;
                 foreach (TLogicRule rule in LogicRuleManager<TLogicRule>.Instance[view.ObjectTypeInfo])
                     if (IsValidRule(rule, view))
-                        ForceExecutionCore(currentObject, rule, invertCustomization, view, executionReason);
+                        ForceExecutionCore(currentObject, rule, invertCustomization, view, executionContext);
             }
         }
 
-        public abstract void ExecuteRule(LogicRuleInfo<TLogicRule> info, ExecutionReason executionReason);
+        public abstract void ExecuteRule(LogicRuleInfo<TLogicRule> info, ExecutionContext executionContext);
 
 
-        /// <summary>
-        /// An event that can be used to be notified whenever artifact begin customizing.
-        /// </summary>
+        
         public event EventHandler<LogicRuleExecutingEventArgs<TLogicRule>> LogicRuleExecuting;
 
-        /// <summary>
-        /// An event that can be used to be notified whenever artifact state has been customized.
-        /// </summary>
+        
         public event EventHandler<LogicRuleExecutedEventArgs<TLogicRule>> LogicRuleExecuted;
         
 
@@ -41,12 +37,12 @@ namespace eXpand.ExpressApp.Logic{
             if (View != null) InvertExecution(View);
             var view = ((ViewChangingEventArgs)args).View;
             Active[ActiveObjectTypeHasRules] = LogicRuleManager<TLogicRule>.HasRules(view);
-            ForceExecution(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view, false, ExecutionReason.ViewChanging);
+            ForceExecution(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view, false, ExecutionContext.ViewChanging);
             
         }
 
         private void InvertExecution(View view){
-            ForceExecution(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view,true, ExecutionReason.ViewChanging);
+            ForceExecution(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view,true, ExecutionContext.ViewChanging);
         }
 
         protected override void OnFrameAssigned(){
@@ -58,13 +54,13 @@ namespace eXpand.ExpressApp.Logic{
         void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
             var supportViewControlAdding = (Frame.Template) as ISupportViewControlAdding;
             if (supportViewControlAdding != null)
-                supportViewControlAdding.ViewControlAdding += (o, args) => ForceExecution(ExecutionReason.ViewControlAdding); 
+                supportViewControlAdding.ViewControlAdding += (o, args) => ForceExecution(ExecutionContext.ViewControlAdding); 
         }
 
         protected override void OnActivated(){base.OnActivated();
             if (IsReady){
                 Frame.TemplateViewChanged += FrameOnTemplateViewChanged;
-                ForceExecution(ExecutionReason.ViewActivated);
+                ForceExecution(ExecutionContext.ViewActivated);
                 View.ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
                 View.CurrentObjectChanged+=ViewOnCurrentObjectChanged;
                 View.ObjectSpace.Refreshing += ObjectSpace_Refreshing;
@@ -74,7 +70,7 @@ namespace eXpand.ExpressApp.Logic{
 
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
-            ForceExecution(ExecutionReason.ViewControlsCreated);
+            ForceExecution(ExecutionContext.ViewControlsCreated);
         }
         protected override void OnDeactivating(){
             base.OnDeactivating();
@@ -88,12 +84,12 @@ namespace eXpand.ExpressApp.Logic{
         }
 
         void FrameOnTemplateViewChanged(object sender, EventArgs eventArgs) {
-            ForceExecution(ExecutionReason.TemplateViewChanged);
+            ForceExecution(ExecutionContext.TemplateViewChanged);
         }
 
         private void ObjectSpace_Reloaded(object sender, EventArgs e){
             isRefreshing = false;
-            ForceExecution(ExecutionReason.ObjectSpaceReloaded);
+            ForceExecution(ExecutionContext.ObjectSpaceReloaded);
         }
 
         private void ObjectSpace_Refreshing(object sender, CancelEventArgs e){
@@ -102,21 +98,21 @@ namespace eXpand.ExpressApp.Logic{
 
         private void ViewOnCurrentObjectChanged(object sender, EventArgs args){
             if (!isRefreshing){
-                ForceExecution(ExecutionReason.CurrentObjectChanged);
+                ForceExecution(ExecutionContext.CurrentObjectChanged);
             }
         }
 
-        private void ForceExecution(ExecutionReason executionReason,View view) {
-            ForceExecution(IsReady, view, false, executionReason);
+        private void ForceExecution(ExecutionContext executionContext,View view) {
+            ForceExecution(IsReady, view, false, executionContext);
         }
 
-        private void ForceExecution(ExecutionReason executionReason){
-            ForceExecution(executionReason,View);
+        private void ForceExecution(ExecutionContext executionContext){
+            ForceExecution(executionContext,View);
         }
 
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs args){
             if (!String.IsNullOrEmpty(args.PropertyName)){
-                ForceExecution(ExecutionReason.ObjectChanged);
+                ForceExecution(ExecutionContext.ObjectChanged);
             }
         }
 
@@ -150,26 +146,31 @@ namespace eXpand.ExpressApp.Logic{
             logicRuleInfo.Active = true;
             logicRuleInfo.Object = targetObject;
             logicRuleInfo.Rule = logicRule;
+            logicRuleInfo.ExecutionContext = LogicRuleManager<TLogicRule>.GetExecutionContext(logicRule.ExecutionContextGroup);
             return logicRuleInfo;
 
         }
 
-        protected virtual void ForceExecutionCore(object currentObject, TLogicRule rule, bool invertCustomization, View view, ExecutionReason executionReason){
+        
+
+        protected virtual void ForceExecutionCore(object currentObject, TLogicRule rule, bool invertCustomization, View view, ExecutionContext executionContext){
             LogicRuleInfo<TLogicRule> info = CalculateLogicRuleInfo(currentObject, rule);
-            if (info != null){
+            if (info != null&&ContextIsValid(executionContext,info)){
                 info.InvertingCustomization = invertCustomization;
                 info.View = view;
                 if (invertCustomization)
                     info.Active = !info.Active;
-                var args = new LogicRuleExecutingEventArgs<TLogicRule>(info, false, executionReason);
+                var args = new LogicRuleExecutingEventArgs<TLogicRule>(info, false, executionContext);
                 OnLogicRuleExecuting(args);
                 if (!args.Cancel){
-                    ExecuteRule(info, executionReason);
+                    ExecuteRule(info, executionContext);
                 }
-                OnLogicRuleExecuted(new LogicRuleExecutedEventArgs<TLogicRule>(info, executionReason));
+                OnLogicRuleExecuted(new LogicRuleExecutedEventArgs<TLogicRule>(info, executionContext));
             }
         }
 
-        
+        public virtual bool ContextIsValid(ExecutionContext executionContext, LogicRuleInfo<TLogicRule> logicRuleInfo) {
+            return (logicRuleInfo.ExecutionContext | executionContext) == executionContext;
+        }
     }
 }

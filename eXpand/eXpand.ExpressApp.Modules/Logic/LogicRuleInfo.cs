@@ -26,5 +26,7 @@ namespace eXpand.ExpressApp.Logic {
         public bool InvertingCustomization { get; set; }
 
         public View View { get; set; }
+
+        public ExecutionContext ExecutionContext { get; set; }
     }
 }

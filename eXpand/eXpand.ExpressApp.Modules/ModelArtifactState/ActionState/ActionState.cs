@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace eXpand.ExpressApp.ModelArtifactState.ActionState {
+﻿namespace eXpand.ExpressApp.ModelArtifactState.ActionState {
     public enum ActionState {
         Default=0,
         Disabled=1,

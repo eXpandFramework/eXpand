@@ -13,11 +13,14 @@ namespace eXpand.ExpressApp.Logic
             ViewId = viewId;
             ID=id;
             ViewType = viewType;
-            Nesting = targetViewNesting;
-            
-            
+            Nesting = targetViewNesting;   
         }
 
+
+        
+
+
+        string ILogicRule.ExecutionContextGroup { get; set; }
 
         public ViewType ViewType { get; set; }
 

@@ -5,12 +5,12 @@ namespace eXpand.ExpressApp.Logic {
     public class LogicRuleExecutingEventArgs<TLogicRule> : CancelEventArgs
         where TLogicRule:ILogicRule
     {
-        readonly ExecutionReason _executionReason;
+        readonly ExecutionContext _executionContext;
 
 
-        public LogicRuleExecutingEventArgs(LogicRuleInfo<TLogicRule> info, bool cancel, ExecutionReason executionReason)
+        public LogicRuleExecutingEventArgs(LogicRuleInfo<TLogicRule> info, bool cancel, ExecutionContext executionContext)
         {
-            _executionReason = executionReason;
+            _executionContext = executionContext;
             LogicRuleInfo = info;
             Cancel = cancel;
         }
@@ -21,8 +21,8 @@ namespace eXpand.ExpressApp.Logic {
         /// </summary>
         public LogicRuleInfo<TLogicRule> LogicRuleInfo { get; set; }
 
-        public ExecutionReason ExecutionReason {
-            get { return _executionReason; }
+        public ExecutionContext ExecutionContext {
+            get { return _executionContext; }
         }
     }
 }

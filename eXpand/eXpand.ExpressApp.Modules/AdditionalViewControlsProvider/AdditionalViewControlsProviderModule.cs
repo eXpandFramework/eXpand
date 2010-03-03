@@ -1,4 +1,6 @@
+using System;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using eXpand.ExpressApp.Logic;
 using eXpand.ExpressApp.Logic.Conditional;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
@@ -12,7 +14,11 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
         {
             get { return AdditionalViewControlsRulesNodeWrapper.NodeNameAttribute; }
         }
-        
+
+
+        protected override bool IsDefaultContext(ExecutionContext context) {
+            return true;
+        }
 
         public override string GetElementNodeName()
         {   

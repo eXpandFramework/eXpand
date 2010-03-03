@@ -17,6 +17,11 @@ namespace eXpand.ExpressApp.Logic
             set { _logicRule.ID = value; }
         }
 
+        public string ExecutionContextGroup {
+            get { return _logicRule.ExecutionContextGroup; }
+            set { _logicRule.ExecutionContextGroup = value; }
+        }
+
         public ViewType ViewType {
             get { return _logicRule.ViewType; }
             set { _logicRule.ViewType = value; }

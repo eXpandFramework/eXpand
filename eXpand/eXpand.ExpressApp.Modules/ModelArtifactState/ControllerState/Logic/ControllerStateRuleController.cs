@@ -4,9 +4,11 @@ using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.Logic;
+using eXpand.ExpressApp.Logic.Conditional;
 
 namespace eXpand.ExpressApp.ModelArtifactState.ControllerState.Logic{
-    public class ControllerStateRuleController : LogicRuleViewController<IControllerStateRule>{
+    public class ControllerStateRuleController : ConditionalLogicRuleViewController<IControllerStateRule>
+    {
 
         void ChangeState(LogicRuleInfo<IControllerStateRule> info) {
             var controllerType = ((ControllerStateRule)info.Rule).ControllerType;
@@ -30,7 +32,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.ControllerState.Logic{
             return Frame.Controllers.Cast<Controller>().Where(controller => assemblies.Contains(controller.GetType().Assembly.FullName));
         }
 
-        public override void ExecuteRule(LogicRuleInfo<IControllerStateRule> info, ExecutionReason executionReason) {
+        public override void ExecuteRule(LogicRuleInfo<IControllerStateRule> info, ExecutionContext executionContext) {
             if (!string.IsNullOrEmpty(info.Rule.Module))
             {
                 ChangeStateOnModules(info);

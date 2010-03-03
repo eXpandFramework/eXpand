@@ -16,6 +16,8 @@ namespace eXpand.ExpressApp.Security.Permissions
         [RuleRequiredField(null, DefaultContexts.Save)]
         public string ID { get; set; }
 
+        public string ExecutionContextGroup { get; set; }
+
         public int Index { get; set; }
 
         public ViewType ViewType { get; set; }
