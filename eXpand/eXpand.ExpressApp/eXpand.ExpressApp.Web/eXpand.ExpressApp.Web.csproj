@@ -120,6 +120,12 @@
     <Compile Include="SystemModule\FilterByPropertyPathViewController.Designer.cs">
       <DependentUpon>FilterByPropertyPathViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\GridOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\GridOptionsController.Designer.cs">
+      <DependentUpon>GridOptionsController.cs</DependentUpon>
+    </Compile>
     <Compile Include="SystemModule\HideToolBarController.cs">
       <SubType>Component</SubType>
     </Compile>

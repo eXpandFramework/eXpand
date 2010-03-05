@@ -212,6 +212,9 @@
     <Compile Include="SystemModule\FKViolationViewController.designer.cs">
       <DependentUpon>FKViolationViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\GridOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\HideFromNewMenuViewController.cs">
       <SubType>Component</SubType>
     </Compile>

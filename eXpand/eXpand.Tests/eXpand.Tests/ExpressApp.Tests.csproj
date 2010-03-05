@@ -130,6 +130,7 @@
       <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.Security.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="eXpand.ExpressApp.Web, Version=0.0.9314.13, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="eXpand.ExpressApp.Win, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.Win.dll</HintPath>
@@ -283,6 +284,7 @@
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\Module\BeforeLogin.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\Module\When_Updating_Persistent_App.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\Navigation\OnDemand_At_ListView.cs" />
+    <Compile Include="eXpand.ExpressApp.Web\When_AspxGridView_Settings_Schema_Created.cs" />
     <Compile Include="eXpand.ExpressApp\DictionaryHelperTests.cs" />
     <Compile Include="eXpand.ExpressApp\HidingFromNewMenu.cs" />
     <Compile Include="eXpand.ExpressApp\ISecurityFixture.cs">
