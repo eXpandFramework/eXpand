@@ -124,8 +124,5 @@ namespace eXpand.ExpressApp.Logic {
             return null;
         }
 
-        public static ExecutionContext GetExecutionContext(string executionContexts) {
-            return executionContexts.Split(',').Aggregate(ExecutionContext.All, (current, context) => current | (ExecutionContext)Enum.Parse(typeof(ExecutionContext), context));
-        }
     }
 }

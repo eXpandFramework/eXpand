@@ -33,8 +33,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.ControllerState.Logic{
         }
 
         public override void ExecuteRule(LogicRuleInfo<IControllerStateRule> info, ExecutionContext executionContext) {
-            if (!string.IsNullOrEmpty(info.Rule.Module))
-            {
+            if (!string.IsNullOrEmpty(info.Rule.Module)){
                 ChangeStateOnModules(info);
             }
             else

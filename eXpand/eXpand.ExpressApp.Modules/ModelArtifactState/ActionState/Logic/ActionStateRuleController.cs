@@ -13,7 +13,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.ActionState.Logic {
             foreach (ActionBase actionBase in GetActions(rule)) {
                 switch (rule.ActionState) {
                     case ActionState.Hidden:
-                        ActivateDeActivatection(logicRuleInfo, actionBase);
+                        ActivateDeActivateAction(logicRuleInfo, actionBase);
                         break;
                     case ActionState.Disabled:
                         EnableDisableAction(logicRuleInfo, actionBase);
@@ -28,7 +28,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.ActionState.Logic {
             }            
         }
 
-        void ActivateDeActivatection(LogicRuleInfo<IActionStateRule> info, ActionBase actionBase) {
+        void ActivateDeActivateAction(LogicRuleInfo<IActionStateRule> info, ActionBase actionBase) {
             actionBase.Active[ActiveObjectTypeHasRules] = !info.Active;
         }
 

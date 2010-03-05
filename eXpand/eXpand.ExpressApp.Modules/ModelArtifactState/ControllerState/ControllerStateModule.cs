@@ -10,8 +10,8 @@ namespace eXpand.ExpressApp.ModelArtifactState.ControllerState {
             get { return ControllerStateRulesNodeWrapper.NodeNameAttribute; }
         }
 
-        public override DictionaryNode GetRootNode(Dictionary dictionary) {
-            return dictionary.RootNode.GetChildNode(ModelArtifactStateModule.ModelArtifactStateAttributeName);
+        public override string RootNodePath {
+            get { return ModelArtifactStateModule.ModelArtifactStateAttributeName; }
         }
         protected override System.Collections.Generic.IEnumerable<IControllerStateRule> CollectRulesFromModelCore(LogicRulesNodeWrapper<IControllerStateRule> wrapper, DevExpress.ExpressApp.DC.ITypeInfo typeInfo) {
             var collectRulesFromModelCore = base.CollectRulesFromModelCore(wrapper, typeInfo).ToList();
@@ -37,7 +37,12 @@ namespace eXpand.ExpressApp.ModelArtifactState.ControllerState {
             dictionaryNode.AddChildNode(findChildNode);
             return schema;
         }
-
+        protected override void ModifySchemaAttributes(Core.DictionaryHelpers.AttibuteCreatedEventArgs args)
+        {
+            base.ModifySchemaAttributes(args);
+            if (args.Attribute.IndexOf("ControllerType") > -1)
+                args.AddTag(@"Required=""True"" RefNodeName=""/Application/ActionDesign/Controllers/*""");
+        }
 
         public override string GetElementNodeName() {
             return ControllerStateRuleNodeWrapper.NodeNameAttribute;

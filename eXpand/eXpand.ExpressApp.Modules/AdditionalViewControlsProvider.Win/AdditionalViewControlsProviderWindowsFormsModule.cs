@@ -1,6 +1,7 @@
 using System;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Decorators;
+using eXpand.ExpressApp.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win
 {
@@ -18,6 +19,10 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win
 
         protected override Type GetControlType() {
             return typeof(HintPanel);
+        }
+
+        protected override bool IsDefaultContext(ExecutionContext context) {
+            return context == ExecutionContext.TemplateViewChanged || context == ExecutionContext.CurrentObjectChanged || context == ExecutionContext.ObjectChanged;
         }
     }
 }

@@ -116,7 +116,7 @@ namespace eXpand.ExpressApp.IO.Core {
 
         object GetValue(Type type, XElement simpleElement) {
             if (type == typeof(byte[])){
-                return string.IsNullOrEmpty(simpleElement.Value)?null :Convert.FromBase64String(simpleElement.Value);
+                return string.IsNullOrEmpty(simpleElement.Value) ? null : Convert.FromBase64String(simpleElement.Value);
             }
             return ReflectorHelper.ChangeType(simpleElement.Value, type);
         }

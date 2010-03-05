@@ -20,13 +20,15 @@ namespace eXpand.ExpressApp.Logic {
             _typesInfo.RegisterTypes<TLogicRule>();
         }
 
-        protected virtual void InvokeCollectedRulesFromModel(CollectedRuleFromModelEventArgs<TLogicRule> e) {
+        protected virtual void OnCollectedRulesFromModel(CollectedRuleFromModelEventArgs<TLogicRule> e) {
+            
             EventHandler<CollectedRuleFromModelEventArgs<TLogicRule>> handler = CollectedRulesFromModel;
             if (handler != null) handler(this, e);
         }
 
+
         public abstract string LogicRulesNodeAttributeName { get; }
-        
+
         void CreateLogicRulesFromClassAttributes(LogicRulesNodeWrapper<TLogicRule> wrapper, ITypeInfo typeInfo) {
             var findAttributes = LogicRuleManager<TLogicRule>.FindAttributes(typeInfo).ToList();
             foreach (TLogicRule attribute in findAttributes) {
@@ -46,12 +48,12 @@ namespace eXpand.ExpressApp.Logic {
             lock (LogicRuleManager<TLogicRule>.Instance)
             {
                 SecuritySystem.ReloadPermissions();
-                LogicRulesNodeWrapper<TLogicRule> wrapper = CreateModelWrapper(xafApplication.Model);
+                LogicRulesNodeWrapper<TLogicRule> wrapper = CreateRulesNodeWrapper(xafApplication.Model);
                 
                 foreach (ITypeInfo typeInfo in XafTypesInfo.Instance.PersistentTypes) {
                     LogicRuleManager<TLogicRule>.Instance[typeInfo] = null;
                     List<TLogicRule> enumerable = CollectRulesFromModelCore(wrapper, typeInfo).ToList();
-                    InvokeCollectedRulesFromModel(new CollectedRuleFromModelEventArgs<TLogicRule>(enumerable));
+                    OnCollectedRulesFromModel(new CollectedRuleFromModelEventArgs<TLogicRule>(enumerable));
                     List<TLogicRule> permissions =CollectRulesFromPermissions(typeInfo).ToList();
                     enumerable.AddRange(permissions);
                     LogicRuleManager<TLogicRule>.Instance[typeInfo] = new List<TLogicRule>(enumerable.OrderByDescending(rule => rule.Index));
@@ -95,9 +97,9 @@ namespace eXpand.ExpressApp.Logic {
             }
         }
 
-        LogicRulesNodeWrapper<TLogicRule> CreateModelWrapper(Dictionary dictionary)
+        public LogicRulesNodeWrapper<TLogicRule> CreateRulesNodeWrapper(Dictionary dictionary)
         {
-            DictionaryNode dictionaryNode = GetRootNode(dictionary).GetChildNode(LogicRulesNodeAttributeName);
+            DictionaryNode dictionaryNode = GetRulesNode(dictionary);
 
             var logicRulesNodeWrapper = (LogicRulesNodeWrapper<TLogicRule>)
                                                           Activator.CreateInstance(_typesInfo.LogicRulesNodeWrapperType,
@@ -106,14 +108,35 @@ namespace eXpand.ExpressApp.Logic {
             return logicRulesNodeWrapper;
         }
 
-        public virtual DictionaryNode GetRootNode(Dictionary dictionary) {
-            return dictionary.RootNode;
+        DictionaryNode GetRulesNode(Dictionary dictionary) {
+            return GetRootNode(dictionary).GetChildNode(LogicRulesNodeAttributeName);
+        }
+
+        public LogicContextsNodeWrapper CreateContextsNodeWrapper() {
+            return CreateContextsNodeWrapper(Application.Model);
+        }
+        public LogicContextsNodeWrapper CreateContextsNodeWrapper(Dictionary dictionary)
+        {
+
+            DictionaryNode dictionaryNode = GetRulesNode(dictionary).GetChildNode(LogicContextsNodeWrapper.ContextsAttribute);
+            return new LogicContextsNodeWrapper(dictionaryNode);
+        }
+
+        public DictionaryNode GetRootNode(Dictionary dictionary) {
+            var getRootNodePath = RootNodePath;
+            if (getRootNodePath== null)
+                return dictionary.RootNode;
+            return dictionary.RootNode.GetChildNodeByPath(getRootNodePath);
+        }
+
+        public virtual string RootNodePath {
+            get { return null; }
         }
 
 
         public override void UpdateModel(Dictionary model) {
             base.UpdateModel(model);
-            LogicRulesNodeWrapper<TLogicRule> wrapper = CreateModelWrapper(model);
+            LogicRulesNodeWrapper<TLogicRule> wrapper = CreateRulesNodeWrapper(model);
             CreateDefaultExecutionContexts(wrapper);
             foreach (ITypeInfo typeInfo in XafTypesInfo.Instance.PersistentTypes) {
                 CreateLogicRulesFromClassAttributes(wrapper, typeInfo);
@@ -122,9 +145,9 @@ namespace eXpand.ExpressApp.Logic {
         }
 
         void CreateDefaultExecutionContexts(LogicRulesNodeWrapper<TLogicRule> logicRulesNodeWrapper) {
-            var contextsNode = logicRulesNodeWrapper.Node.Parent.GetChildNode("Contexts");
-            contextsNode.SetAttribute("CurrentGroup","Default");
-            DictionaryNode dictionaryNode = contextsNode.GetChildNode("ContextGroup");
+            var contextsNode = logicRulesNodeWrapper.Node.Parent.GetChildNode(LogicContextsNodeWrapper.ContextsAttribute);
+            contextsNode.SetAttribute(LogicContextsNodeWrapper.CurrentGroupAttribute, "Default");
+            DictionaryNode dictionaryNode = contextsNode.GetChildNode(LogicContextsNodeWrapper.ContextGroupAttribute);
             dictionaryNode.SetAttribute("ID","Default");
             var executionContexts = Enum.GetValues(typeof(ExecutionContext)).OfType<ExecutionContext>().Where(context 
                 => context!=ExecutionContext.All).Where(IsDefaultContext);
@@ -141,29 +164,49 @@ namespace eXpand.ExpressApp.Logic {
         public override Schema GetSchema() {
             var schemaHelper = new SchemaHelper();
             schemaHelper.AttibuteCreating += (sender, args) => ModifySchemaAttributes(args);
-            string CommonTypeInfos = @"<Element Name=""" + LogicRulesNodeAttributeName +@""">
-                                            <Element Name=""" +GetElementGroupNodeName() +@""">
-                                                <Element Name=""" +GetElementNodeName() + @""" KeyAttribute=""ID"" Multiple=""True"">
-                                                    <Attribute Name=""ExecutionContextGroup"" 
-                                                        DefaultValueExpr=""SourceNode=AdditionalViewControls\Contexts; SourceAttribute=@CurrentGroup""             
-                                                        RefNodeName=""/Application/" + LogicRulesNodeAttributeName + @"/Contexts/*"" />
-                                                    " + schemaHelper.Serialize<TLogicRule>(true) +@"
-				                                </Element>
-                                            </Element>
-                                            <Element Name=""Contexts"">
-                                                <Attribute Name=""CurrentGroup"" RefNodeName=""/Application/" + LogicRulesNodeAttributeName + @"/Contexts/*""/>
-                                                <Element Name=""ContextGroup"" Multiple=""True"" KeyAttribute=""ID"">
-                                                    <Attribute Name=""ID"" Required=""True"" IsReadOnly=""True""/>
-                                                    <Attribute Name=""Description"" IsLocalized=""True""/>
-                                                    " + GetContextSchema()+@"
-                                                </Element>
-                                            </Element>
+            string CommonTypeInfos = @"<Element Name=""" + LogicRulesNodeAttributeName + @""">
+                                            "+GetRulesSchema(schemaHelper) + @"
+                                            "+GetContextSchema() + @"
                                         </Element>";
             var schema = new Schema(schemaHelper.Inject(CommonTypeInfos, ModelElement.Application));
             return schema;
         }
 
         string GetContextSchema() {
+            return @"<Element Name=""" + LogicContextsNodeWrapper.ContextsAttribute + @""">
+                        <Attribute Name=""CurrentGroup"" RefNodeName=""/Application/" + LogicRulesNodeAttributeName + @"/" + LogicContextsNodeWrapper.ContextsAttribute + @"/*""/>
+                        <Element Name=""" + LogicContextsNodeWrapper.ContextGroupAttribute + @""" Multiple=""True"" KeyAttribute=""ID"">
+                            <Attribute Name=""ID"" Required=""True"" IsReadOnly=""True""/>
+                            <Attribute Name=""Description"" IsLocalized=""True""/>
+                            " + GetContextSchemaCore() + @"
+                        </Element>
+                    </Element>";
+        }
+
+        string GetRulesSchema(SchemaHelper schemaHelper) {
+            return @"<Element Name=""" + GetElementGroupNodeName() + @""">
+                        <Element Name=""" + GetElementNodeName() + @""" KeyAttribute=""ID"" Multiple=""True"">
+                            <Attribute Name=""ExecutionContextGroup"" 
+                                DefaultValueExpr=""SourceNode="+GetRootNodePath() + LogicRulesNodeAttributeName + @"\" + LogicContextsNodeWrapper.ContextsAttribute + @"; SourceAttribute=@CurrentGroup""             
+                                RefNodeName="""+GetExecutionContextGroupRefNodePath() + @""" />
+                            " + schemaHelper.Serialize<TLogicRule>(true) + @"
+                        </Element>
+                    </Element>";
+        }
+
+        string GetExecutionContextGroupRefNodePath() {
+            string rootNodePath = GetRootNodePath();
+            return rootNodePath + LogicRulesNodeAttributeName + @"/" + LogicContextsNodeWrapper.ContextsAttribute + @"/*";
+        }
+
+        string GetRootNodePath() {
+            var rootNodePath = RootNodePath;
+            if (rootNodePath!= null&&!rootNodePath.EndsWith("/"))
+                rootNodePath += "/";
+            return rootNodePath;
+        }
+
+        string GetContextSchemaCore() {
             return Enum.GetValues(typeof (ExecutionContext)).OfType<ExecutionContext>().Where(context 
                 => context != ExecutionContext.All).Aggregate<ExecutionContext, string>(null, 
                 (current, executionContext) => current + 
@@ -184,12 +227,10 @@ namespace eXpand.ExpressApp.Logic {
                 args.AddTag(@"Required=""True"" RefNodeName=""/Application/BOModel/Class""");
             else if (args.Attribute.IndexOf("ViewId") > -1)
                 args.AddTag(@"RefNodeName=""/Application/Views/*""");
+            else if (args.Attribute.IndexOf("ExecutionContextGroup") > -1 || args.Attribute.IndexOf(LogicContextsNodeWrapper.CurrentGroupAttribute) > -1)
+                args.AddTag(@"Required=""True""");
 
         }
-
-//        protected virtual string GetMoreSchema() {
-//            return new SchemaHelper().Serialize<TLogicRule>(true);
-//        }
 
         public abstract string GetElementNodeName();
 

@@ -10,11 +10,16 @@ namespace eXpand.ExpressApp.ModelArtifactState.ActionState {
             get { return ActionStateRulesNodeWrapper.NodeNameAttribute; }
         }
 
-        public override DictionaryNode GetRootNode(Dictionary dictionary)
-        {
-            return dictionary.RootNode.GetChildNode(ModelArtifactStateModule.ModelArtifactStateAttributeName);
-        }
 
+        public override string RootNodePath {
+            get { return ModelArtifactStateModule.ModelArtifactStateAttributeName; }
+        }
+        protected override void ModifySchemaAttributes(Core.DictionaryHelpers.AttibuteCreatedEventArgs args)
+        {
+            base.ModifySchemaAttributes(args);
+            if (args.Attribute.IndexOf("ActionId") > -1)
+                args.AddTag(@"Required=""True"" RefNodeName=""/Application/ActionDesign/Actions/*""");
+        }
 
         protected override bool IsDefaultContext(ExecutionContext context) {
             return true;

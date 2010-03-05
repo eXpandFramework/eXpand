@@ -9,5 +9,5 @@ namespace eXpand.ExpressApp.ModelArtifactState.ArtifactState.Logic {
             if (args.Attribute.IndexOf("Module") > -1)
                 args.AddTag(@"RefNodeName=""/Application/Modules/*""");
         }
-        }
+    }
 }

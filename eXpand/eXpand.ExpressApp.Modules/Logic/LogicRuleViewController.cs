@@ -3,13 +3,16 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Templates;
 using eXpand.Persistent.Base.General;
+using System.Linq;
 
 namespace eXpand.ExpressApp.Logic{
     public abstract class LogicRuleViewController<TLogicRule> : ViewController where TLogicRule : ILogicRule{
 
         private bool isRefreshing;
         public static readonly string ActiveObjectTypeHasRules = "ObjectTypeHas" + typeof(TLogicRule).Name;
-        
+        LogicContextsNodeWrapper _logicContextsNodeWrapper;
+
+
         public virtual bool IsReady{
             get { return Active.ResultValue && View != null && View.ObjectTypeInfo != null; }
         }
@@ -47,6 +50,8 @@ namespace eXpand.ExpressApp.Logic{
 
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
+            var module = (LogicRuleProviderModuleBase<TLogicRule>)Application.Modules.Where(modul => typeof(LogicRuleProviderModuleBase<TLogicRule>).IsAssignableFrom(modul.GetType())).Single();
+            _logicContextsNodeWrapper = module.CreateContextsNodeWrapper();
             Frame.ViewChanging += FrameOnViewChanging;
             Frame.TemplateChanged+=FrameOnTemplateChanged;
         }
@@ -129,8 +134,16 @@ namespace eXpand.ExpressApp.Logic{
         }
 
         protected virtual bool IsValidRule(TLogicRule rule, View view){
-            return view != null &&(string.IsNullOrEmpty(rule.ViewId)||view.Id==rule.ViewId)&& view.ObjectTypeInfo != null &&
-                   IsValidViewType(view, rule) && IsValidNestedType(rule,view)&&(rule.TypeInfo.IsAssignableFrom(view.ObjectTypeInfo));
+            return view != null &&(IsValidViewId(view, rule))&&
+                   IsValidViewType(view, rule) && IsValidNestedType(rule, view) && IsValidTypeInfo(view, rule);
+        }
+
+        bool IsValidViewId(View view, TLogicRule rule) {
+            return string.IsNullOrEmpty(rule.ViewId)||view.Id==rule.ViewId;
+        }
+
+        bool IsValidTypeInfo(View view, TLogicRule rule) {
+            return ((rule.TypeInfo != null && rule.TypeInfo.IsAssignableFrom(view.ObjectTypeInfo)) || rule.TypeInfo==null);
         }
 
         private bool IsValidNestedType(TLogicRule rule, View view) {
@@ -146,9 +159,8 @@ namespace eXpand.ExpressApp.Logic{
             logicRuleInfo.Active = true;
             logicRuleInfo.Object = targetObject;
             logicRuleInfo.Rule = logicRule;
-            logicRuleInfo.ExecutionContext = LogicRuleManager<TLogicRule>.GetExecutionContext(logicRule.ExecutionContextGroup);
+            logicRuleInfo.ExecutionContext = _logicContextsNodeWrapper.CurrentExecutionContext;
             return logicRuleInfo;
-
         }
 
         
@@ -170,7 +182,7 @@ namespace eXpand.ExpressApp.Logic{
         }
 
         public virtual bool ContextIsValid(ExecutionContext executionContext, LogicRuleInfo<TLogicRule> logicRuleInfo) {
-            return (logicRuleInfo.ExecutionContext | executionContext) == executionContext;
+            return (logicRuleInfo.ExecutionContext | executionContext) == logicRuleInfo.ExecutionContext;
         }
     }
 }

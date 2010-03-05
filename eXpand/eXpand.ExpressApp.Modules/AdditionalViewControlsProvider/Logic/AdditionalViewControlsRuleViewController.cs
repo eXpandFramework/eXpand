@@ -9,8 +9,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public abstract class AdditionalViewControlsRuleViewController :ConditionalLogicRuleViewController<IAdditionalViewControlsRule> {
         
         public override void ExecuteRule(LogicRuleInfo<IAdditionalViewControlsRule> logicRuleInfo, ExecutionContext executionContext) {
-            if (logicRuleInfo.Active)
-            {
+            if (logicRuleInfo.Active){
                 IAdditionalViewControlsRule additionalViewControlsRule = logicRuleInfo.Rule;
                 var calculator = new AdditionalViewControlsProviderCalculator(additionalViewControlsRule, logicRuleInfo.View.ObjectTypeInfo.Type);
                 object control = Activator.CreateInstance(calculator.ControlsRule.ControlType);

@@ -121,6 +121,7 @@
     <Compile Include="CollectedRuleFromModelEventArgs.cs" />
     <Compile Include="ExecutionContext.cs" />
     <Compile Include="IRuleHolder.cs" />
+    <Compile Include="LogicContextsNodeWrapper.cs" />
     <Compile Include="LogicModule.cs">
       <SubType>Component</SubType>
     </Compile>

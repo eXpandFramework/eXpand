@@ -5,50 +5,25 @@ using eXpand.ExpressApp.Logic.Conditional;
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
-    public class AdditionalViewControlsAttribute : ConditionalLogicRuleAttribute
+    public class AdditionalViewControlsAttribute : ConditionalLogicRuleAttribute,IAdditionalViewControlsRule
     {
-        private readonly string message;
-        private readonly string messagePropertyName;
-        private readonly AdditionalViewControlsProviderPosition additionalViewControlsProviderPosition;
-        private readonly Type controlType;
-        private readonly Type decoratorType;
-
-        public AdditionalViewControlsAttribute(string message, 
+        public AdditionalViewControlsAttribute(string id,string message, 
                                                AdditionalViewControlsProviderPosition
                                                    additionalViewControlsProviderPosition, Type controlType,
-                                               Type decoratorType, string id, Nesting nesting, string normalCriteria, string emptyCriteria, ViewType viewType, string viewId, string messagePropertyName) : base(id,nesting,normalCriteria,emptyCriteria,viewType,viewId) {
-            this.message = message;
-            this.messagePropertyName = messagePropertyName;
-            this.additionalViewControlsProviderPosition = additionalViewControlsProviderPosition;
-            this.controlType = controlType;
-            this.decoratorType = decoratorType;
+                                               Type decoratorType,  string messagePropertyName, string normalCriteria, string emptyCriteria) : base(id,Nesting.Any,normalCriteria,emptyCriteria,ViewType.Any,
+                                                                                                                                                              null) {
+            Message = message;
+            AdditionalViewControlsProviderPosition = additionalViewControlsProviderPosition;
+            ControlType = controlType;
+            DecoratorType = decoratorType;
+            MessagePropertyName = messagePropertyName;
         }
 
-        public Type DecoratorType
-        {
-            get { return decoratorType; }
-        }
-
-        public Type ControlType
-        {
-            get { return controlType; }
-        }
-
-        public AdditionalViewControlsProviderPosition AdditionalViewControlsProviderPosition
-        {
-            get { return additionalViewControlsProviderPosition; }
-        }
-
-        public string Message
-        {
-            get { return message; }
-        }
-
-
-        public string MessagePropertyName
-        {
-            get { return messagePropertyName; }
-        }
-
+        public string Message { get; set; }
+        public string MessagePropertyName { get; set; }
+        public Type DecoratorType { get; set; }
+        public Type ControlType { get; set; }
+        public AdditionalViewControlsProviderPosition AdditionalViewControlsProviderPosition { get; set; }
+        public bool UseSameIfFound { get; set; }
     }
 }

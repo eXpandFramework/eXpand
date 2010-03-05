@@ -4,9 +4,18 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using eXpand.ExpressApp.Logic;
+using eXpand.ExpressApp.Logic.Conditional;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
-    public abstract class AdditionalViewControlsProviderModuleBase :ModuleBase    {
+    public abstract class AdditionalViewControlsProviderModuleBase : ConditionalLogicRuleProviderModuleBase<IAdditionalViewControlsRule>
+    {
+        public override string LogicRulesNodeAttributeName {
+            get { return AdditionalViewControlsRulesNodeWrapper.NodeNameAttribute; }
+        }
+
+        public override string GetElementNodeName() {
+            return AdditionalViewControlsRuleNodeWrapper.NodeNameAttribute;
+        }
         void EnsureDecoratorTypeIsNotNull(IEnumerable<IAdditionalViewControlsRule> additionalViewControlsRules) {
             IEnumerable<IAdditionalViewControlsRule> additionalViewControlsRulesWithNoControlType =
                 additionalViewControlsRules.Where(rule => rule.DecoratorType == null);
@@ -25,18 +34,11 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
                 additionalViewControlsRule.ControlType = GetControlType();
             }
         }
-        public override void Setup(ApplicationModulesManager moduleManager)
+        protected override void OnCollectedRulesFromModel(CollectedRuleFromModelEventArgs<IAdditionalViewControlsRule> e)
         {
-            base.Setup(moduleManager);
-            var additionalViewControlsProviderModule =
-                (AdditionalViewControlsProviderModule)
-                moduleManager.Modules.FindModule(typeof (AdditionalViewControlsProviderModule));
-            additionalViewControlsProviderModule.CollectedRulesFromModel+=AdditionalViewControlsProviderModuleOnCollectedRulesFromModel;            
-        }
-
-        void AdditionalViewControlsProviderModuleOnCollectedRulesFromModel(object sender, CollectedRuleFromModelEventArgs<IAdditionalViewControlsRule> collectedRuleFromModelEventArgs) {
-            EnsureControlTypeIsNotNull(collectedRuleFromModelEventArgs.LogicRules);
-            EnsureDecoratorTypeIsNotNull(collectedRuleFromModelEventArgs.LogicRules);
+            base.OnCollectedRulesFromModel(e);
+            EnsureControlTypeIsNotNull(e.LogicRules);
+            EnsureDecoratorTypeIsNotNull(e.LogicRules);
         }
 
         protected abstract Type GetControlType();
