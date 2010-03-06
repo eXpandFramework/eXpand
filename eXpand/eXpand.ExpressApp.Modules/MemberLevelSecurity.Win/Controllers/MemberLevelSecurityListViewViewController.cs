@@ -7,7 +7,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using DevExpress.XtraEditors.Controls;
@@ -21,9 +20,9 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers
 {
     public partial class MemberLevelSecurityListViewViewController : MemberLevelSecurityControllerBase
     {
-        public const string STR_HideMemberModule = "HideMemberModule";
+        public const string MemberLevelSecuritySuffix = "MLS";
         private GridControl gridControl;
-//        private readonly EditorButton editorButton = new EditorButton(ButtonPredefines.Plus);
+
         public MemberLevelSecurityListViewViewController()
         {
             InitializeComponent();
@@ -76,7 +75,7 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers
 //                    criteriaSatisfyMember(propertyName, baseObject, xpClassInfo, attributeInfo))
 //                    return new MemberProtectedInfo(true, true);
                 var b = (bool?) ReflectorHelper.GetXpMemberInfoValue(propertyName +
-                                                                     STR_HideMemberModule, baseObject);
+                                                                     MemberLevelSecuritySuffix, baseObject);
                 return new MemberProtectedInfo(false, b.HasValue && b.Value);
             }
             
@@ -135,8 +134,8 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers
                 foreach (XPMemberInfo memberInfo in classInfo.PersistentProperties)
                     try
                     {
-                        if (classInfo.ClassType != null && classInfo.FindMember(memberInfo.Name + STR_HideMemberModule) == null &&
-                            !memberInfo.Name.EndsWith(STR_HideMemberModule))
+                        if (classInfo.ClassType != null && classInfo.FindMember(memberInfo.Name + MemberLevelSecuritySuffix) == null &&
+                            !memberInfo.Name.EndsWith(MemberLevelSecuritySuffix))
                         {
                             var attributes = new Attribute[]
                                              {
@@ -146,7 +145,7 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers
                                                  new NonCloneableAttribute()
 
                                              };
-                            classInfo.CreateMember(memberInfo.Name + STR_HideMemberModule, typeof(bool), attributes);
+                            classInfo.CreateMember(memberInfo.Name + MemberLevelSecuritySuffix, typeof(bool), attributes);
                         }
                     }
                     catch (Exception e)
@@ -186,17 +185,12 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers
 
         public static void ChangeLockStatus(ButtonPressedEventArgs e1, XPBaseObject baseObject, string propertyName)
         {
-            if (e1.Button.Kind == ButtonPredefines.Plus)
-            {        
-                ReflectorHelper.SetXpMemberProperty(propertyName + STR_HideMemberModule, true,baseObject, true);
-                //ReflectionHelper.SetMemberValue(baseObject, propertyName + STR_HideMemberModule, true);
-//                baseObject.Save();
+            if (e1.Button.Kind == ButtonPredefines.Plus){        
+                ReflectorHelper.SetXpMemberProperty(propertyName + MemberLevelSecuritySuffix, true,baseObject, true);
                 e1.Button.Kind = ButtonPredefines.Minus;
             }
-            else if (e1.Button.Kind == ButtonPredefines.Minus)
-            {
-                ReflectorHelper.SetXpMemberProperty(propertyName + STR_HideMemberModule, false, baseObject, false);
-//                baseObject.Save();
+            else if (e1.Button.Kind == ButtonPredefines.Minus){
+                ReflectorHelper.SetXpMemberProperty(propertyName + MemberLevelSecuritySuffix, false, baseObject, false);
                 e1.Button.Kind = ButtonPredefines.Plus;
             }
         }
