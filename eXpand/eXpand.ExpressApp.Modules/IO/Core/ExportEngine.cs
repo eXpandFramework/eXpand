@@ -86,7 +86,7 @@ namespace eXpand.ExpressApp.IO.Core {
         void createCollectionProperty(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode, XElement root,
                                       XElement propertyElement) {
             XPMemberInfo memberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
-            var theObjects = (XPBaseCollection)memberInfo.GetValue(selectedObject);
+            var theObjects = (IEnumerable)memberInfo.GetValue(selectedObject);
             foreach (XPBaseObject theObject in theObjects) {
                 CreateRefElelement(classInfoGraphNode,theObject.GetType().Name, root,  theObject, propertyElement);
             }
