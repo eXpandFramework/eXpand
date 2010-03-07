@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.UI.WebControls;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core.DictionaryHelpers;
+using DevExpress.ExpressApp.Win.Editors;
 using eXpand.ExpressApp.Web.SystemModule;
 using Machine.Specifications;
 
@@ -23,6 +25,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.Web
         };
 
         Because of = () => {
+            var propertyInfo = typeof(XafGridView).GetProperty("OptionsView");
             _schema = _gridOptionsController.GetSchema();
             _listView = _schema.RootNode.FindChildElementByPath("Views/ListView") as DictionaryNode;
         };

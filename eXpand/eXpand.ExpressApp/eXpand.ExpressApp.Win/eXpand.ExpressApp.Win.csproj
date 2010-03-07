@@ -163,6 +163,9 @@
     <Compile Include="SystemModule\FilterControlListViewController.Designer.cs">
       <DependentUpon>FilterControlListViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\GridOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\GridViewViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -180,6 +183,9 @@
     </Compile>
     <Compile Include="SystemModule\HideNestedListViewToolBarViewController.designer.cs">
       <DependentUpon>HideNestedListViewToolBarViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\HideToolBarController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ListViewViewStyleController.cs">
       <SubType>Component</SubType>

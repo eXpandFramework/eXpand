@@ -221,6 +221,9 @@
     <Compile Include="SystemModule\HideFromNewMenuViewController.Designer.cs">
       <DependentUpon>HideFromNewMenuViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\HideToolBarController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\IndexerController.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -123,14 +123,8 @@
     <Compile Include="SystemModule\GridOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\GridOptionsController.Designer.cs">
-      <DependentUpon>GridOptionsController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\HideToolBarController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\HideToolBarController.Designer.cs">
-      <DependentUpon>HideToolBarController.cs</DependentUpon>
     </Compile>
     <Compile Include="WebComponent.cs">
       <SubType>Component</SubType>
