@@ -97,6 +97,7 @@
       <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider, Version=0.0.9314.9, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="eXpand.ExpressApp.FilterDataStore, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.DLL\eXpand.ExpressApp.FilterDataStore.dll</HintPath>
@@ -231,6 +232,7 @@
     </Compile>
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\BuildingModelDifferenceObjects\RoleAspectObjects.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\BuildingModelDifferenceObjects\UserAspectsObjects.cs" />
+    <Compile Include="eXpand.ExpressApp.ModelDiffernece\When_serializing_schema_with_value_calculator.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\ClonningModelDifferencesObjects\OnDemand_At_All_Views.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\Automatic_For_All_Views.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\Automatic_For_DetailView.cs" />
@@ -454,6 +456,16 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="eXpand.IO\Resources\ObjectWithImageProperty.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\eXpand.ExpressApp.Modules\Logic.Conditional\eXpand.ExpressApp.Logic.Conditional.csproj">
+      <Project>{68239940-CDB3-4644-8FD4-74805FD73279}</Project>
+      <Name>eXpand.ExpressApp.Logic.Conditional</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\eXpand.ExpressApp.Modules\Logic\eXpand.ExpressApp.Logic.csproj">
+      <Project>{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}</Project>
+      <Name>eXpand.ExpressApp.Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ModelArtifactSpecs\" />

@@ -186,9 +186,6 @@ namespace eXpand.ExpressApp.Logic {
         string GetRulesSchema(SchemaHelper schemaHelper) {
             return @"<Element Name=""" + GetElementGroupNodeName() + @""">
                         <Element Name=""" + GetElementNodeName() + @""" KeyAttribute=""ID"" Multiple=""True"">
-                            <Attribute Name=""ExecutionContextGroup"" 
-                                DefaultValueExpr=""SourceNode="+GetRootNodePath() + LogicRulesNodeAttributeName + @"\" + LogicContextsNodeWrapper.ContextsAttribute + @"; SourceAttribute=@CurrentGroup""             
-                                RefNodeName="""+GetExecutionContextGroupRefNodePath() + @""" />
                             " + schemaHelper.Serialize<TLogicRule>(true) + @"
                         </Element>
                     </Element>";
@@ -228,7 +225,8 @@ namespace eXpand.ExpressApp.Logic {
             else if (args.Attribute.IndexOf("ViewId") > -1)
                 args.AddTag(@"RefNodeName=""/Application/Views/*""");
             else if (args.Attribute.IndexOf("ExecutionContextGroup") > -1 || args.Attribute.IndexOf(LogicContextsNodeWrapper.CurrentGroupAttribute) > -1)
-                args.AddTag(@"Required=""True""");
+                args.AddTag(@"Required=""True"" DefaultValueExpr=""SourceNode=" + (GetRootNodePath() + "").Replace(@"/", @"\") + LogicRulesNodeAttributeName + @"\" + LogicContextsNodeWrapper.ContextsAttribute + @"; SourceAttribute=@CurrentGroup""             
+                                RefNodeName=""" + GetExecutionContextGroupRefNodePath() + @"""");
 
         }
 

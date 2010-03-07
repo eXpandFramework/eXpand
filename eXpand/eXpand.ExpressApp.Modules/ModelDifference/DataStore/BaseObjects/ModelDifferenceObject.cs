@@ -138,6 +138,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         public virtual Dictionary GetCombinedModel() {
             return GetCombinedModel(PersistentApplication.Model.Clone());
         }
+        public Dictionary GetCombinedModel1() {
+            return GetCombinedModel(PersistentApplication.Model.Clone());
+        }
 
         public virtual ModelDifferenceObject InitializeMembers(string applicationName, string uniqueName) {
             PersistentApplication = new QueryPersistentApplication(Session).Find(uniqueName) ??
