@@ -46,4 +46,12 @@ call clearProject.bat eXpand.ExpressApp.PivotChart
 call clearProject.bat eXpand.ExpressApp.PivotChart.Win
 call clearProject.bat eXpand.ExpressApp.PivotChart.Web
 
+rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Common.dll
+rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Configuration.Design.DLL
+rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Configuration.Design.UI.DLL
+rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Design.DLL
+rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Logging.DLL
+rd /s /q %GACPATH%Microsoft.Practices.ObjectBuilder2.DLL
+rd /s /q %GACPATH%WM.EnterpriseLibraryExtensions.Logging.Configuration.Design.DLL
+rd /s /q %GACPATH%WM.EnterpriseLibraryExtensions.Logging.DLL
 pause

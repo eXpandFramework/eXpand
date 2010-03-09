@@ -39,3 +39,28 @@ call buildproject.cmd eXpand.ExpressApp.PivotChart ".\eXpand\eXpand.ExpressApp.M
 call buildproject.cmd eXpand.ExpressApp.PivotChart.Win ".\eXpand\eXpand.ExpressApp.Modules\PivotChart.Win\eXpand.ExpressApp.PivotChart.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.PivotChart.Web ".\eXpand\eXpand.ExpressApp.Modules\PivotChart.Web\eXpand.ExpressApp.PivotChart.Web.csproj"
 call buildproject.cmd eXpand.Persistent.BaseImpl ".\eXpand\eXpand.Persistent\eXpand.Persistent.BaseImpl\eXpand.Persistent.BaseImpl.csproj"
+
+
+%gacutil% -u Microsoft.Practices.EnterpriseLibrary.Common.dll,processorArchitecture=msil /silent
+%gacutil% -i _third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Common.dll /silent
+
+%gacutil% -u Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll,processorArchitecture=msil /silent
+%gacutil% -i _third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll /silent
+
+%gacutil% -u Microsoft.Practices.EnterpriseLibrary.Configuration.Design.UI.dll,processorArchitecture=msil /silent
+%gacutil% -i _third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.UI.dll /silent
+
+%gacutil% -u Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Design.dll,processorArchitecture=msil /silent
+%gacutil% -i _third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Design.dll /silent
+
+%gacutil% -u Microsoft.Practices.EnterpriseLibrary.Logging.dll,processorArchitecture=msil /silent
+%gacutil% -i _third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Logging.dll /silent
+
+%gacutil% -u Microsoft.Practices.ObjectBuilder2.dll,processorArchitecture=msil /silent
+%gacutil% -i _third_party_assemblies\Microsoft.Practices.ObjectBuilder2.dll /silent
+
+%gacutil% -u WM.EnterpriseLibraryExtensions.Logging.Configuration.Design.dll,processorArchitecture=msil /silent
+%gacutil% -i _third_party_assemblies\WM.EnterpriseLibraryExtensions.Logging.Configuration.Design.dll /silent
+
+%gacutil% -u WM.EnterpriseLibraryExtensions.Logging.dll,processorArchitecture=msil /silent
+%gacutil% -i _third_party_assemblies\WM.EnterpriseLibraryExtensions.Logging.dll /silent
