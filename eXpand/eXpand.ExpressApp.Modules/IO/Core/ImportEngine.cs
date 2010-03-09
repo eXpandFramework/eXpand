@@ -113,6 +113,13 @@ namespace eXpand.ExpressApp.IO.Core {
 
         object GetValue(XElement simpleElement, XPMemberInfo xpMemberInfo) {
             var valueConverter = xpMemberInfo.Converter;
+            if (valueConverter != null && valueConverter.StorageType == typeof(byte[]))
+            {
+                var bytes = Convert.FromBase64String(XmlConvert.DecodeName(simpleElement.Value));
+                return valueConverter.ConvertFromStorageType(
+                    ReflectionHelper.Convert(bytes, valueConverter.StorageType));
+                    
+            }
             return valueConverter != null
                        ? valueConverter.ConvertFromStorageType(ReflectionHelper.Convert(simpleElement.Value, valueConverter.StorageType))
                        : GetValue(xpMemberInfo, simpleElement);
@@ -121,6 +128,15 @@ namespace eXpand.ExpressApp.IO.Core {
         object GetValue(XPMemberInfo xpMemberInfo, XElement simpleElement) {
             if (xpMemberInfo.MemberType==typeof(byte[]))
                 return Encoding.UTF8.GetBytes(simpleElement.Value.XMLDecode());
+            if (xpMemberInfo.MemberType == typeof(DateTime))
+            {
+                DateTime dt;
+                var b = DateTime.TryParse(simpleElement.Value, out dt);
+                if (b) return dt;
+                else return null;
+
+
+            }
             return ReflectionHelper.Convert(simpleElement.Value, xpMemberInfo.MemberType);
         }
 

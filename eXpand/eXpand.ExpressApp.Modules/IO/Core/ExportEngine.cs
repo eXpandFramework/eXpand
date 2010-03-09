@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -62,8 +63,16 @@ namespace eXpand.ExpressApp.IO.Core {
         string GetMemberValue(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode) {
             var memberValue = selectedObject.GetMemberValue(classInfoGraphNode.Name);
             var xpMemberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
-            if (xpMemberInfo.Converter!= null){
-                return (xpMemberInfo.Converter.ConvertToStorageType(memberValue) + "").XMLEncode();
+            if (xpMemberInfo.Converter != null && !(memberValue is byte[]))
+            {
+                var convertedVal = xpMemberInfo.Converter.ConvertToStorageType(memberValue);
+                if (convertedVal is byte[])
+                {
+                    var s = Convert.ToBase64String((byte[])convertedVal); 
+                    return XmlConvert.EncodeName(s); 
+                }
+                    
+                return (convertedVal + "").XMLEncode();
             }
             return ((memberValue is byte[] ? Encoding.UTF8.GetString((byte[])memberValue) : memberValue) + "").XMLEncode();
         }
@@ -81,7 +90,7 @@ namespace eXpand.ExpressApp.IO.Core {
                                       XElement propertyElement) {
             XPMemberInfo memberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
             var theObjects = (XPBaseCollection)memberInfo.GetValue(selectedObject);
-            foreach (XPBaseObject theObject in theObjects) {
+            foreach (XPBaseObject theObject in theObjects.OfType<XPBaseObject>().ToList()) {
                 CreateRefElelement(classInfoGraphNode,theObject.GetType().Name, root,  theObject, propertyElement);
             }
         }
