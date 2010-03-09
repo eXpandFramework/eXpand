@@ -29,7 +29,7 @@ namespace eXpand.ExpressApp.WorldCreator {
         public override void Setup(ApplicationModulesManager moduleManager)
         {
             base.Setup(moduleManager);
-            if (Application == null)
+            if (Application == null||GetPath()== null)
                 return;
             
             TypesInfo.Instance.AddTypes(GetAdditionalClasses());

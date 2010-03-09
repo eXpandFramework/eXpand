@@ -2,7 +2,6 @@
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DevExpress.Web.ASPxEditors;
-using DevExpress.Web.ASPxHiddenField;
 using DevExpress.Web.ASPxPivotGrid;
 
 namespace eXpand.ExpressApp.PivotChart.Web.InPlaceEdit {
@@ -10,12 +9,11 @@ namespace eXpand.ExpressApp.PivotChart.Web.InPlaceEdit {
     {
         readonly string _memberName;
         readonly bool _useCallBack;
-        readonly ASPxSpinEdit _asPxHiddenField;
+        
 
-        public CellTemplate(string memberName, bool useCallBack,ASPxSpinEdit asPxHiddenField) {
+        public CellTemplate(string memberName, bool useCallBack) {
             _memberName = memberName;
             _useCallBack = useCallBack;
-            _asPxHiddenField = asPxHiddenField;
         }
         #region ITemplate Members
         public void InstantiateIn(Control container)
@@ -34,10 +32,6 @@ namespace eXpand.ExpressApp.PivotChart.Web.InPlaceEdit {
                     ".PerformCallback('" + c.DataField.FieldName + "|" + columnIndex + "|" + rowIndex +"|'+editorText)}";
             else {
                 string clientInstanceName = "hidden" + _memberName;
-                if (columnIndex == 0 && rowIndex == 0) {
-                    _asPxHiddenField.ClientInstanceName=clientInstanceName;
-                    _asPxHiddenField.ID = _asPxHiddenField.ClientInstanceName;
-                }
                 asPxSpinEdit.ClientSideEvents.ValueChanged = "function(s,e){" + clientInstanceName +
                                                                  ".SetValue(" +
                                                                  asPxSpinEdit.ClientInstanceName + ".GetValue()" + ")}";

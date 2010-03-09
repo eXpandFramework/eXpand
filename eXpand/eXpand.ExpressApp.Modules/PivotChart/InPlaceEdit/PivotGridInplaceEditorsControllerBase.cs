@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
@@ -16,52 +15,21 @@ namespace eXpand.ExpressApp.PivotChart.InPlaceEdit {
         protected override void OnFrameAssigned()
         {
             base.OnFrameAssigned();
-//            Frame.TemplateChanged+=FrameOnTemplateChanged;
+            Frame.TemplateChanged+=FrameOnTemplateChanged;
         }
-        protected override void OnActivated()
-        {
-            base.OnActivated();
-            Frame.GetController<AnalysisReadOnlyController>().Active[GetType().Name] = false;
-        }
-        protected override void OnViewChanging(View view)
-        {
-            base.OnViewChanging(view);
-            var supportViewControlAdding = (Frame.Template) as ISupportViewControlAdding;
-            if (supportViewControlAdding != null) {
-                supportViewControlAdding.ViewControlAdding += SupportViewControlAddingOnViewControlAdding;
-            }
-        }
-        protected override void OnViewChanged()
-        {
-            base.OnViewChanged();
-            var supportViewControlAdding = (Frame.Template) as ISupportViewControlAdding;
-            if (supportViewControlAdding != null)
-            {
-                supportViewControlAdding.ViewControlAdding -= SupportViewControlAddingOnViewControlAdding;
-            }
 
-        }
-        void FrameOnTemplateChanged(object sender, EventArgs eventArgs)
-        {
-            
+        void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
             var supportViewControlAdding = (Frame.Template) as ISupportViewControlAdding;
             if (supportViewControlAdding != null) {
+                supportViewControlAdding.ViewControlAdding -= SupportViewControlAddingOnViewControlAdding;
                 supportViewControlAdding.ViewControlAdding += SupportViewControlAddingOnViewControlAdding;
-                IComponent component = Frame.Template as IComponent;
-                if (component != null)
-                {
-                    component.Disposed +=
-                        (o, args) =>
-                        supportViewControlAdding.ViewControlAdding -= SupportViewControlAddingOnViewControlAdding;
-                }
             }
-            
         }
-        protected override void OnDeactivating()
-        {
+
+        protected override void OnDeactivating() {
             base.OnDeactivating();
             var supportViewControlAdding = (Frame.Template) as ISupportViewControlAdding;
-            if (supportViewControlAdding != null){
+            if (supportViewControlAdding != null) {
                 supportViewControlAdding.ViewControlAdding -= SupportViewControlAddingOnViewControlAdding;
             }
         }
