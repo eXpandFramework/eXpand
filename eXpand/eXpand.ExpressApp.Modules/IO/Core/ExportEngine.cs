@@ -61,8 +61,10 @@ namespace eXpand.ExpressApp.IO.Core {
         }
 
         string GetMemberValue(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode) {
+            
             var memberValue = selectedObject.GetMemberValue(classInfoGraphNode.Name);
             var xpMemberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
+            
             if (xpMemberInfo.Converter != null && !(memberValue is byte[]))
             {
                 var convertedVal = xpMemberInfo.Converter.ConvertToStorageType(memberValue);
@@ -71,10 +73,9 @@ namespace eXpand.ExpressApp.IO.Core {
                     var s = Convert.ToBase64String((byte[])convertedVal); 
                     return XmlConvert.EncodeName(s); 
                 }
-                    
                 return (convertedVal + "").XMLEncode();
             }
-            return ((memberValue is byte[] ? Encoding.UTF8.GetString((byte[])memberValue) : memberValue) + "").XMLEncode();
+            return ((memberValue is byte[] ?  Convert.ToBase64String((byte[])memberValue): memberValue) + "").XMLEncode();
         }
 
         XElement GetPropertyElement(XElement serializedObjectElement, IClassInfoGraphNode classInfoGraphNode) {

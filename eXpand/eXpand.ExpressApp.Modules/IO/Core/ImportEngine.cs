@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
@@ -111,17 +112,20 @@ namespace eXpand.ExpressApp.IO.Core {
             }
         }
 
-        object GetValue(XElement simpleElement, XPMemberInfo xpMemberInfo) {
+        object GetValue(XElement simpleElement, XPMemberInfo xpMemberInfo)
+        {
+            object value = simpleElement.Value;
+            
             var valueConverter = xpMemberInfo.Converter;
-            if (valueConverter != null && valueConverter.StorageType == typeof(byte[]))
-            {
-                var bytes = Convert.FromBase64String(XmlConvert.DecodeName(simpleElement.Value));
-                return valueConverter.ConvertFromStorageType(
-                    ReflectionHelper.Convert(bytes, valueConverter.StorageType));
-                    
-            }
+            if ((valueConverter != null && valueConverter.StorageType == typeof(byte[]))
+                || xpMemberInfo.StorageType == typeof(byte[]))
+                if (simpleElement.Value != string.Empty)
+                    value = Convert.FromBase64String(XmlConvert.DecodeName(simpleElement.Value));
+                else
+                    return null;
+            
             return valueConverter != null
-                       ? valueConverter.ConvertFromStorageType(ReflectionHelper.Convert(simpleElement.Value, valueConverter.StorageType))
+                       ? valueConverter.ConvertFromStorageType(ReflectionHelper.Convert(value, valueConverter.StorageType))
                        : GetValue(xpMemberInfo, simpleElement);
         }
 
