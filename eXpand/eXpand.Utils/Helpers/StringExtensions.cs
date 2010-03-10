@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -83,6 +84,15 @@ namespace eXpand.Utils.Helpers
             return builder.ToString();
         }
 
+        public static long Val(this string value) {
+            string returnVal = string.Empty;
+
+            MatchCollection collection = Regex.Matches(value, "\\d+");
+
+            returnVal = collection.Cast<Match>().Aggregate(returnVal, (current, match) => current + match.ToString());
+
+            return Convert.ToInt64(returnVal);
+        } 
         public static bool IsGuid(this string candidate)
         {
             if (candidate != null)

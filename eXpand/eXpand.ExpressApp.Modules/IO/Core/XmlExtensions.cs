@@ -48,6 +48,9 @@ namespace eXpand.ExpressApp.IO.Core {
                                                           xElement.GetAttributeValue("type") ==
                                                           NodeType.Object.ToString().MakeFirstCharLower()).FirstOrDefault();
         }
+        public static XElement ObjectProperty(this XElement element, string name) {
+            return element.Descendants("Property").Where(xElement =>xElement.GetAttributeValue("name") ==name).FirstOrDefault();
+        }
 
         public static XElement ObjectProperty(this IEnumerable<XElement> elements, Type type) {
             return elements.Select(element => element.ObjectProperty(type)).FirstOrDefault();

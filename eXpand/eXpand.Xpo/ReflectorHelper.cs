@@ -365,14 +365,16 @@ namespace eXpand.Xpo
                     return ((XPBaseObject) value).ClassInfo.KeyProperty.GetValue(value).ToString();
                 return value;
             }
-            else if (value.GetType() != conversionType)
-            {
-                if (conversionType.IsGenericType)
-                {
+            else if (conversionType == typeof(DateTime)){
+                if ((value + "").Length>0) {
+                    var val = (value + "").Val();
+                    if (val>0)
+                        return new DateTime(val);
+                }
+            }
+            else if (value.GetType() != conversionType){
+                if (conversionType.IsGenericType){
                     return value;
-                    //                    Type nullValue=typeof (Nullable<>).MakeGenericType(new Type[] {value.GetType()});
-                    //                    nullValue.GetProperty("Value").SetValue();
-                    //                    conversionType.GetProperty("Value").SetValue(nullValue, value, null);
                 }
             }
             

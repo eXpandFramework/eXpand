@@ -406,4 +406,40 @@ namespace eXpand.Tests.eXpand.IO
                 bitmap.GetPixel(0,0).ShouldEqual(_color);
             };
     }
+
+    public class DateTimePropertyObject : BaseObject {
+        public DateTimePropertyObject(Session session) : base(session) {
+        }
+
+        DateTime _date;
+
+        public DateTime Date {
+            get { return _date; }
+            set { SetPropertyValue("Date", ref _date, value); }
+        }
+    }
+
+    [Subject(typeof(ExportEngine))]
+    public class When_exporting_object_with_date_time_property:With_Isolations {
+        static XElement _root;
+        static DateTimePropertyObject _dateTimePropertyObject;
+        static DateTime _dateTime;
+
+        Establish context = () => {
+            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            _dateTime = DateTime.Now;
+            _dateTimePropertyObject = objectSpace.CreateObject<DateTimePropertyObject>();
+            _dateTimePropertyObject.Date = _dateTime;
+            objectSpace.CommitChanges();
+        };
+
+        Because of = () => {
+            _root = new ExportEngine().Export(new[]{_dateTimePropertyObject}).Root;
+        };
+
+        It should_export_the_full_date_time = () => {
+            var serializedObject = _root.SerializedObjects(typeof(DateTimePropertyObject)).ToList()[0];
+            _dateTime.Ticks.ToString().ShouldEqual(serializedObject.Property("Date").Value);
+        };
+    }
 }

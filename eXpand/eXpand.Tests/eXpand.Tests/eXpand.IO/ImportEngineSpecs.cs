@@ -376,4 +376,27 @@ namespace eXpand.Tests.eXpand.IO {
         };
     }
 
+    public class When_an_object_has_a_datetime_property:With_Isolations {
+        static ObjectSpace _objectSpace;
+        static UnitOfWork _unitOfWork;
+        static MemoryStream _memoryStream;
+
+        Establish context = () => {
+            string xml = @"<SerializedObjects>
+                  <SerializedObject type=""DateTimePropertyObject"">
+                    <Property type=""simple"" name=""Date"" isKey=""false"">634038486102582525</Property>
+                    <Property type=""simple"" name=""oid"" isKey=""true"">7b806eb9-e459-4117-b48f-fa98f8a1b9d2</Property>
+                  </SerializedObject>
+                </SerializedObjects>";
+            _memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xml));
+            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _unitOfWork = new UnitOfWork(_objectSpace.Session.DataLayer);
+        };
+
+        Because of = () => new ImportEngine().ImportObjects(_memoryStream, _unitOfWork);
+
+        It should_deserialize_full_date =
+            () =>
+            _objectSpace.FindObject<DateTimePropertyObject>(null).Date.Ticks.ShouldEqual(634038486102582525);
+    }
 }

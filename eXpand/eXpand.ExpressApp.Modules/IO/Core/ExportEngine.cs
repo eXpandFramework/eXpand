@@ -67,6 +67,8 @@ namespace eXpand.ExpressApp.IO.Core {
             
             if (memberValue is byte[])
                 memberValue = Convert.ToBase64String((byte[]) memberValue);
+            if (memberValue is DateTime)
+                memberValue = ((DateTime) memberValue).Ticks;
             if (memberValue is string)
                 propertyElement.Add(new XCData(memberValue.ToString()));
             else {
