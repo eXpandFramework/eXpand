@@ -44,7 +44,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             Isolate.WhenCalled(() => CodeEngine.GenerateCode(_persistentAssemblyInfo)).WillReturn(null);
         };
 
-        Because of = () => _worldCreatorModule.AddDynamicModules(_applicationModulesManager, UnitOfWork,typeof(PersistentAssemblyInfo) );
+        Because of = () => _worldCreatorModule.AddDynamicModules(_applicationModulesManager, UnitOfWork );
 
 
         It should_save_errors_in_persistent_assembly_info = () => {
@@ -53,7 +53,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
         It should_load_previous__assembly_version_if_exists;
     }
-    [Subject(typeof(WorldCreatorModule))][Isolated]
+    [Subject(typeof(WorldCreatorModule))]
     public class When_Settingup_Module:With_In_Memory_DataStore
     {
         static bool _modulesAdded;
@@ -78,7 +78,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
             Isolate.WhenCalled(() => CodeEngine.GenerateCode(persistentAssemblyInfo)).WillReturn(null);
             _worldCreatorModule = Isolate.Fake.Instance<WorldCreatorModuleBase>(Members.CallOriginal);
-            Isolate.WhenCalled(() => _worldCreatorModule.AddDynamicModules(null, null, null)).DoInstead(methodCallContext => _modulesAdded=true);
+            Isolate.WhenCalled(() => _worldCreatorModule.AddDynamicModules(null, null)).DoInstead(methodCallContext => _modulesAdded=true);
             Isolate.WhenCalled(() => _worldCreatorModule.GetAdditionalClasses()).WillReturn(new List<Type>{typeof(IPersistentClassInfo)});
             applicationModulesManager = new ApplicationModulesManager();
             _worldCreatorModule.Application = Isolate.Fake.Instance<XafApplication>(Members.CallOriginal);

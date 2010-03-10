@@ -1,5 +1,9 @@
-namespace eXpand.ExpressApp.ModelArtifactState.Win
-{
+using DevExpress.ExpressApp.Validation;
+using eXpand.ExpressApp.Security;
+using eXpand.ExpressApp.SystemModule;
+using eXpand.ExpressApp.Validation;
+
+namespace eXpand.ExpressApp.ModelArtifactState.Win{
     partial class ModelArtifactStateWindowsFormsModule
     {
         /// <summary> 
@@ -28,7 +32,13 @@ namespace eXpand.ExpressApp.ModelArtifactState.Win
         /// </summary>
         private void InitializeComponent()
         {
-            this.RequiredModuleTypes.Add(typeof(ModelArtifactStateModule));
+         
+            RequiredModuleTypes.Add(typeof(ValidationModule));
+            RequiredModuleTypes.Add(typeof(eXpandSecurityModule));
+            RequiredModuleTypes.Add(typeof(eXpandValidationModule));
+            RequiredModuleTypes.Add(typeof(eXpandSystemModule));
+            RequiredModuleTypes.Add(typeof(Logic.Win.LogicWindowsModule));
+            
         }
 
         #endregion

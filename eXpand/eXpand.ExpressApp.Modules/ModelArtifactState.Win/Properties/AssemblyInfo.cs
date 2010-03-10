@@ -31,3 +31,4 @@ using System.Runtime.InteropServices;
 //[assembly: AssemblyVersion(eXpand.AssemblyInfo.Version)]
 [assembly: AssemblyVersion("0.0.09314.08")]
 [assembly: AssemblyFileVersion("0.0.09314.08")]
+[assembly: InternalsVisibleTo("Fixtures,  PublicKey=0024000004800000940000000602000000240000525341310004000001000100df18f4f3de9ec490707183c78a72914070a526bfb1818e1687442b137c2bfa9bf5e8533859a8efaa62aa2ea28e03623fef5531f8dd29d74f781a9e50743172dbe8d74b0106ceddfcda17f8dd1034f2896a56e1026faa2cc0e2def8dc1f519ad13924c44f16339a57ed97981a8777c7fa6025a11e54cc694e504d462a400681c0")]

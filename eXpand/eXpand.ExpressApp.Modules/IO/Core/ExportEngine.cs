@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using DevExpress.Persistent.Base;
@@ -47,7 +46,7 @@ namespace eXpand.ExpressApp.IO.Core {
                     XElement propertyElement = GetPropertyElement(serializedObjectElement, classInfoGraphNode);
                     switch (classInfoGraphNode.NodeType) {
                         case NodeType.Simple:
-                            propertyElement.Value = GetMemberValue(selectedObject, classInfoGraphNode) + "";
+                            SetMemberValue(selectedObject, classInfoGraphNode, propertyElement);
                             break;
                         case NodeType.Object:
                             createObjectProperty(selectedObject, propertyElement, classInfoGraphNode, root);
@@ -60,7 +59,7 @@ namespace eXpand.ExpressApp.IO.Core {
             }
         }
 
-        string GetMemberValue(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode) {
+        void SetMemberValue(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode, XElement propertyElement) {
             
             var memberValue = selectedObject.GetMemberValue(classInfoGraphNode.Name);
             var xpMemberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);

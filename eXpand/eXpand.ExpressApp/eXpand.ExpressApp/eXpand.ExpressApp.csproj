@@ -50,22 +50,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -100,7 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AllowEditAttribute.cs" />
-    <Compile Include="Attributes\FilterRecordAttribute.cs" />
     <Compile Include="Attributes\HideFromNewMenuAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
@@ -128,6 +127,7 @@
     <Compile Include="Core\TypeValueConverter.cs" />
     <Compile Include="Core\ViewsNodeWrapper.cs" />
     <Compile Include="DataStoreProvider.cs" />
+    <Compile Include="Editors\ActionButtonDetailItem.cs" />
     <Compile Include="Enums\AllowEditEnum.cs" />
     <Compile Include="Enums\BooleanEnum.cs" />
     <Compile Include="Enums\DetailViewType.cs" />
@@ -143,11 +143,11 @@
     <Compile Include="Core\ServerCollectionSource.cs" />
     <Compile Include="Core\XafApplicationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SystemModule\AddRuntimeFieldsFromModelToXPDictionary.cs">
+    <Compile Include="SystemModule\ActionButtonDetailItemController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\AddRuntimeFieldsFromModelToXPDictionary.Designer.cs">
-      <DependentUpon>AddRuntimeFieldsFromModelToXPDictionary.cs</DependentUpon>
+    <Compile Include="SystemModule\AddRuntimeFieldsFromModelToXPDictionary.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\AllowEditDetailViewController.cs">
       <SubType>Component</SubType>
@@ -174,7 +174,8 @@
     <Compile Include="SystemModule\ConditionalDetailViewController.designer.cs">
       <DependentUpon>ConditionalDetailViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SystemModule\ConditionalDetailViewWrapper.cs" />
+    <Compile Include="SystemModule\ConditionalDetailViewWrapper.cs">
+    </Compile>
     <Compile Include="SystemModule\CustomAttibutesController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -186,12 +187,6 @@
     </Compile>
     <Compile Include="SystemModule\CustomSelectionListViewViewController.designer.cs">
       <DependentUpon>CustomSelectionListViewViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SystemModule\DisableCompatibilityCheck.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\DisableCompatibilityCheck.Designer.cs">
-      <DependentUpon>DisableCompatibilityCheck.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\ExpandAbleMembersViewController.cs">
       <SubType>Component</SubType>
@@ -265,6 +260,9 @@
     <Compile Include="SystemModule\ShowNonPersistentObjectDetailViewFromNavigationControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\TopReturnedRecordsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\TrackNewObjectSavedController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -302,6 +300,9 @@
     </Compile>
     <Compile Include="SystemModule\DescribeRunTimeMembersController.Designer.cs">
       <DependentUpon>DescribeRunTimeMembersController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\ViewEditModeController.cs">
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -359,7 +360,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ModelRule\" />
+    <EmbeddedResource Include="Resources\CommonSystemModuleSchema.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

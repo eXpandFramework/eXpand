@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using DevExpress.Data.Filtering;
@@ -35,14 +34,14 @@ namespace eXpand.ExpressApp.IO.Core {
             }
             return 0;
         }
-        public int ImportObjects(Stream stream, UnitOfWork unitOfWork){
+        public void ImportObjects(Stream stream, UnitOfWork unitOfWork){
             unitOfWork.PurgeDeletedObjects();
             stream.Position = 0;
             using (var streamReader = new StreamReader(stream)) {
                 var xDocument = XDocument.Load(streamReader);
                 ImportObjects(xDocument, unitOfWork);
             }
-            return 0;
+
         }
 
         XPBaseObject createObject(XElement element, UnitOfWork nestedUnitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria){
@@ -93,21 +92,15 @@ namespace eXpand.ExpressApp.IO.Core {
 
 
         IEnumerable<XElement> GetObjectRefElements(XElement element, NodeType nodeType) {
-            return element.Descendants("Property").Where(
-                xElement => xElement.GetAttributeValue("type") == nodeType.ToString().MakeFirstCharLower()).SelectMany(
+            return element.Properties(nodeType).SelectMany(
                 element1 => element1.Descendants("SerializedObjectRef"));
         }
 
-        void importSimpleProperties(XElement element, XPBaseObject xpBaseObject) {
-            IEnumerable<XElement> simpleElements =
-                element.Descendants("Property").Where(
-                    xElement => xElement.GetAttributeValue("type") == NodeType.Simple.ToString().MakeFirstCharLower());
-            foreach (var simpleElement in simpleElements) {
+        void importSimpleProperties(XElement element, XPBaseObject xpBaseObject) {            
+            foreach (var simpleElement in element.Properties(NodeType.Simple)){
                 string propertyName = simpleElement.GetAttributeValue("name");
                 XPMemberInfo xpMemberInfo = xpBaseObject.ClassInfo.GetMember(propertyName);
                 object value = GetValue(simpleElement, xpMemberInfo);
-                if (simpleElement.GetAttributeValue("isNaturalKey")=="true"&&!xpBaseObject.IsNewObject())
-                    continue;
                 xpBaseObject.SetMemberValue(propertyName, value);
             }
         }

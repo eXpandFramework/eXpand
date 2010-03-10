@@ -14,7 +14,13 @@ namespace eXpand.ExpressApp.Win
 {
     public partial class WinComponent : WinApplication, ILogOut
     {
- 
+
+        protected override void OnCustomProcessShortcut(CustomProcessShortcutEventArgs args)
+        {
+            base.OnCustomProcessShortcut(args);
+            if (args.Shortcut.ObjectKey.StartsWith("@"))
+                args.Shortcut.ObjectKey = ParametersFactory.CreateParameter(args.Shortcut.ObjectKey.Substring(1)).CurrentValue.ToString();
+        }
         public void Logout()
         {
             Tracing.Tracer.LogSeparator("Application is being restarted");

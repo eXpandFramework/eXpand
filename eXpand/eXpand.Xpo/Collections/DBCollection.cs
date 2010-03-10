@@ -50,26 +50,7 @@ namespace eXpand.Xpo.Collections
             return GetColletion(topReturnedObjects, -1);
         }
 
-        public static CriteriaOperator GetClassTypeFilter(Type type, Session session, string path)
-        {
-            path = path.TrimEnd('.');
-            XPClassInfo xpClassInfo = session.GetClassInfo(type);
-            XPObjectType xpObjectType = session.GetObjectType(xpClassInfo);
-            string propertyName = path + "." + XPObject.Fields.ObjectType.PropertyName;
-            return
-                new GroupOperator(GroupOperatorType.Or, new NullOperator(propertyName),
-                                  new BinaryOperator(propertyName,
-                                                     xpObjectType.Oid));
-        }
-
-        public static CriteriaOperator GetClassTypeFilter(Type type, Session session)
-        {
-            XPClassInfo xpClassInfo = session.GetClassInfo(type);
-            XPObjectType xpObjectType = session.GetObjectType(xpClassInfo);
-
-            return XPObject.Fields.ObjectType.IsNull() |
-                   XPObject.Fields.ObjectType == new OperandValue(xpObjectType.Oid);
-        }
+        
 
 //        private void addDataRows(DataTable dataTable)
 //        {
@@ -190,7 +171,7 @@ namespace eXpand.Xpo.Collections
                     {
                         operatorCollection.Add(CriteriaOperator.Parse(property, new object[0]));
                         var dataColumn = new DataColumn(property) {DataType = xpMemberInfo.MemberType};
-                        if (typeof (DBObject).IsAssignableFrom(dataColumn.DataType))
+                        if (typeof (XPBaseObject).IsAssignableFrom(dataColumn.DataType))
                             dataColumn.DataType = Session.GetClassInfo(dataColumn.DataType).KeyProperty.MemberType;
                         dataTable.Columns.Add(dataColumn);
                         if (property == ObjectClassInfo.KeyProperty.Name)
@@ -221,7 +202,7 @@ namespace eXpand.Xpo.Collections
 
         public void GetErrors()
         {
-            foreach (DBObject dbObject in this)
+            foreach (XPBaseObject dbObject in this)
                 dbObject.HasErrors();
         }
 

@@ -20,6 +20,18 @@ namespace eXpand.Utils.Helpers
             }
             return types;
         }
+        public static IEnumerable<Type> GetTypes(this AppDomain appDomain) {
+            var types = new List<Type>();
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {
+                try {
+                    types.AddRange(assembly.GetTypes());
+                }
+                catch (ReflectionTypeLoadException) {
+                }
+            }
+            
+            return types;
+        }
 
         public static MethodInfo GetMemberInfo<TTarget>(this TTarget target, Expression<Action<TTarget>> method)
         {

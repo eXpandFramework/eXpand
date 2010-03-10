@@ -30,7 +30,6 @@ namespace eXpand.ExpressApp.PivotChart {
         private void InitializeComponent()
         {
             this.RequiredModuleTypes.Add(typeof(PivotChartModuleBase));
-
             
         }
 

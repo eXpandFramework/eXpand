@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SerializedObjects>
+  <SerializedObject type="ImagePropertyObject">
+    <Property type="simple" name="Photo" isKey="false"><![CDATA[iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAA1JREFUGFdj+M/A8B8ABQAB/6Zcm10AAAAASUVORK5CYII=]]></Property>
+    <Property type="simple" name="oid" isKey="true">cf950092-33d1-41bf-9588-753c7647163b</Property>
+  </SerializedObject>
+</SerializedObjects>

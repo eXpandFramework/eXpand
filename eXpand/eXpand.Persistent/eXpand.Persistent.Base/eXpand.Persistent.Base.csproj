@@ -50,28 +50,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.Utils, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.Xpo, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.Xpo, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -92,8 +91,8 @@
     <Compile Include="General\DateRange.cs" />
     <Compile Include="DifferenceType.cs" />
     <Compile Include="General\IDateRange.cs" />
-    <Compile Include="General\IModelRule.cs" />
-    <Compile Include="General\IModelRuleManager.cs" />
+    <Compile Include="General\ILogicRule.cs" />
+    <Compile Include="General\ILogicRuleManager.cs" />
     <Compile Include="General\RelationType.cs" />
     <Compile Include="General\State.cs" />
     <Compile Include="ImportExport\IClassInfoGraphNode.cs" />
@@ -127,6 +126,12 @@
     <Compile Include="PersistentMetaData\IPersistentReferenceMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentTypeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentDefaulClassOptionsAttribute.cs" />
+    <Compile Include="PivotChart\Web\IPivotGridOptionsOLAP.cs" />
+    <Compile Include="PivotChart\Web\IPivotGridWebOptionsChartDataSource.cs" />
+    <Compile Include="PivotChart\Web\IPivotGridWebOptionsCustomization.cs" />
+    <Compile Include="PivotChart\Web\IPivotGridWebOptionsLoadingPanel.cs" />
+    <Compile Include="PivotChart\Web\IPivotGridWebOptionsPager.cs" />
+    <Compile Include="PivotChart\Web\IPivotGridWebOptionsView.cs" />
     <Compile Include="PivotChart\IPivotOptionsBehavior.cs" />
     <Compile Include="PivotChart\IPivotOptionsChartDataSource.cs" />
     <Compile Include="PivotChart\IPivotOptionsCustomization.cs" />

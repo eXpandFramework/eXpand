@@ -3,6 +3,8 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
+using System.Linq;
+using AnalysisViewControllerBase = eXpand.ExpressApp.PivotChart.Core.AnalysisViewControllerBase;
 
 namespace eXpand.ExpressApp.PivotChart {
     public class AnalysisDataBindController : AnalysisViewControllerBase {
@@ -60,8 +62,8 @@ namespace eXpand.ExpressApp.PivotChart {
             }
         }
 
-        protected virtual void BindDataToControl() {
-            foreach (AnalysisEditorBase analysisEditor in AnalysisEditors) {
+        public virtual void BindDataToControl() {
+            foreach (AnalysisEditorBase analysisEditor in AnalysisEditors.Where(@base => !@base.IsDataSourceReady)) {
                 analysisEditor.IsDataSourceReady = true;
             }
             UpdateBindUnbindActionsState();

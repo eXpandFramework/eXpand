@@ -1,14 +1,13 @@
 using System.Windows.Forms;
-using eXpand.ExpressApp.RuleModeller;
-using ListView = DevExpress.ExpressApp.ListView;
+using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using eXpand.ExpressApp.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win
 {
-    public class AdditionalViewControlsRuleViewController : Controllers.AdditionalViewControlsRuleViewController
+    public class AdditionalViewControlsRuleViewController : Logic.AdditionalViewControlsRuleViewController
     {
-        protected override void AddControl(object viewSiteControl, object control, AdditionalViewControlsRuleInfo info, AdditionalViewControlsProviderCalculator calculator, ExecutionReason reason) {
-            if (reason == ExecutionReason.TemplateViewChanged || reason == ExecutionReason.CurrentObjectChanged || reason == ExecutionReason.ObjectChanged)
-            {
+        protected override void AddControl(object viewSiteControl, object control, LogicRuleInfo<IAdditionalViewControlsRule> info, AdditionalViewControlsProviderCalculator calculator, ExecutionContext context) {
+            if (context == ExecutionContext.TemplateViewChanged || context == ExecutionContext.CurrentObjectChanged || context == ExecutionContext.ObjectChanged){
                 var value = (Control)control;
                 value.Dock = info.Rule.AdditionalViewControlsProviderPosition == AdditionalViewControlsProviderPosition.Bottom ? DockStyle.Bottom : DockStyle.Top;
                 Control.ControlCollection collection = ((Control)viewSiteControl).Controls;
