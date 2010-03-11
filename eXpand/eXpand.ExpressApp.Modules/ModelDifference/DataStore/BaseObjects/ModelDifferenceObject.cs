@@ -138,9 +138,6 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         public virtual Dictionary GetCombinedModel() {
             return GetCombinedModel(PersistentApplication.Model.Clone());
         }
-        public Dictionary GetCombinedModel1() {
-            return GetCombinedModel(PersistentApplication.Model.Clone());
-        }
 
         public virtual ModelDifferenceObject InitializeMembers(string applicationName, string uniqueName) {
             PersistentApplication = new QueryPersistentApplication(Session).Find(uniqueName) ??
@@ -149,7 +146,20 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             return this;
         }
 
-        public Dictionary GetCombinedModel(IEnumerable<ModelDifferenceObject> differenceObjects) {
+        public virtual Dictionary GetCombinedModel(bool isSaving)
+        {
+            return GetCombinedModel(persistentApplication.Model.Clone(),isSaving);
+        }
+
+        Dictionary GetCombinedModel(Dictionary dictionary, bool isSaving) {
+            Dictionary clone = dictionary.Clone();
+            clone.ResetIsModified();
+            if (!isSaving)
+                clone.CombineWith(Model);
+            return clone;
+        }
+
+        public Dictionary GetCombinedModel(IEnumerable<ModelDifferenceObject> differenceObjects, bool isSaving) {
             Dictionary clone = PersistentApplication.Model.Clone();
             foreach (
                 ModelDifferenceObject differenceObject in
@@ -158,15 +168,18 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             }
 
             clone.ResetIsModified();
-            clone.CombineWith(Model);
+            if (!isSaving)
+                clone.CombineWith(Model);
             return clone;
         }
 
+        public Dictionary GetCombinedModel(IEnumerable<ModelDifferenceObject> differenceObjects) {
+            return GetCombinedModel(differenceObjects, false);
+        }
+
+
         public Dictionary GetCombinedModel(Dictionary dictionary) {
-            Dictionary clone = dictionary.Clone();
-            clone.ResetIsModified();
-            clone.CombineWith(Model);
-            return clone;
+            return GetCombinedModel(dictionary, false);
         }
 
         public void SetModelDirty() {
