@@ -38,7 +38,7 @@ namespace eXpand.ExpressApp.SystemModule{
             var associationAttribute = memberInfo.FindAttribute<AssociationAttribute>();
             if (associationAttribute == null && !string.IsNullOrEmpty(providedAssociationAttribute.AssociationName))
                 associationAttribute=new AssociationAttribute(providedAssociationAttribute.AssociationName);
-            else
+            else if (associationAttribute== null)
                 throw new NullReferenceException(memberInfo+" has no association attribute");
             return associationAttribute;
         }
@@ -56,9 +56,9 @@ namespace eXpand.ExpressApp.SystemModule{
             XPCustomMemberInfo xpCustomMemberInfo;
             if (!(memberInfo.IsList) || (memberInfo.IsList && providedAssociationAttribute.RelationType == RelationType.ManyToMany)){
                 xpCustomMemberInfo = XafTypesInfo.Instance.CreateCollection(typeToCreateOn, memberInfo.Owner.Type, associationAttribute.Name,
-                                                                            providedAssociationAttribute.ProvidedPropertyName ??
-                                                                            memberInfo.Owner.Type.Name + "s",
-                                                                            XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+                                                                                providedAssociationAttribute.ProvidedPropertyName ??
+                                                                                memberInfo.Owner.Type.Name + "s",
+                                                                                XafTypesInfo.XpoTypeInfoSource.XPDictionary);
             }
             else {
                 xpCustomMemberInfo = XafTypesInfo.Instance.CreateMember(typeToCreateOn, memberInfo.Owner.Type, associationAttribute.Name,
