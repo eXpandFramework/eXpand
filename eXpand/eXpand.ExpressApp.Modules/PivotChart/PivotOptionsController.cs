@@ -30,6 +30,7 @@ namespace eXpand.ExpressApp.PivotChart
         protected override void OnActivated()
         {
             base.OnActivated();
+            View.ViewEditModeChanged += (sender, args) => PivotSettingsChoiceAction.Active["EditMode"] = View.ViewEditMode == ViewEditMode.Edit;
             PivotSettingsChoiceAction.Active["EditMode"] = View.ViewEditMode == ViewEditMode.Edit;
             PivotSettingsChoiceAction.Items.Clear();
             foreach (var keyValuePair in GetActionChoiceItems()){
@@ -37,6 +38,7 @@ namespace eXpand.ExpressApp.PivotChart
             }
 
         }
+
 
         protected abstract Dictionary<Type, Type> GetActionChoiceItems();
 
