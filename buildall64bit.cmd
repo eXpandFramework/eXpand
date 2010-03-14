@@ -8,7 +8,7 @@ mkdir eXpand.Key
 %sn% -k eXpand.Key\eXpand.snk
 
 :build
-rem call RegisterAssemblyFolders64bit.bat
+call RegisterAssemblyFolders64bit.bat
 
 call buildProjects.cmd
 

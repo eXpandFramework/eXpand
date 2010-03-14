@@ -17,6 +17,7 @@ call clearProject.bat eXpand.ExpressApp.Logic.Win
 call clearProject.bat eXpand.ExpressApp.Logic.Conditional
 call clearProject.bat eXpand.ExpressApp.MemberLevelSecurity
 call clearProject.bat eXpand.ExpressApp.MemberLevelSecurity.Win
+call clearProject.bat eXpand.ExpressApp.MemberLevelSecurity.Web
 call clearProject.bat eXpand.ExpressApp.AdditionalViewControlsProvider
 call clearProject.bat eXpand.ExpressApp.AdditionalViewControlsProvider.Win
 call clearProject.bat eXpand.ExpressApp.AdditionalViewControlsProvider.Web

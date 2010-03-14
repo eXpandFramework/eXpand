@@ -11,6 +11,7 @@ call buildproject.cmd eXpand.ExpressApp.Logic.Win ".\eXpand\eXpand.ExpressApp.Mo
 call buildproject.cmd eXpand.ExpressApp.Logic.Conditional ".\eXpand\eXpand.ExpressApp.Modules\Logic.Conditional\eXpand.ExpressApp.Logic.Conditional.csproj"
 call buildproject.cmd eXpand.ExpressApp.MemberLevelSecurity ".\eXpand\eXpand.ExpressApp.Modules\MemberLevelSecurity\eXpand.ExpressApp.MemberLevelSecurity.csproj"
 call buildproject.cmd eXpand.ExpressApp.MemberLevelSecurity.Win ".\eXpand\eXpand.ExpressApp.Modules\MemberLevelSecurity.Win\eXpand.ExpressApp.MemberLevelSecurity.Win.csproj"
+call buildproject.cmd eXpand.ExpressApp.MemberLevelSecurity.Web ".\eXpand\eXpand.ExpressApp.Modules\MemberLevelSecurity.Web\eXpand.ExpressApp.MemberLevelSecurity.Web.csproj"
 call buildproject.cmd eXpand.ExpressApp.AdditionalViewControlsProvider ".\eXpand\eXpand.ExpressApp.Modules\AdditionalViewControlsProvider\eXpand.ExpressApp.AdditionalViewControlsProvider.csproj"
 call buildproject.cmd eXpand.ExpressApp.AdditionalViewControlsProvider.Win ".\eXpand\eXpand.ExpressApp.Modules\AdditionalViewControlsProvider.Win\eXpand.ExpressApp.AdditionalViewControlsProvider.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.AdditionalViewControlsProvider.Web ".\eXpand\eXpand.ExpressApp.Modules\AdditionalViewControlsProvider.Web\eXpand.ExpressApp.AdditionalViewControlsProvider.Web.csproj"
@@ -41,26 +42,3 @@ call buildproject.cmd eXpand.ExpressApp.PivotChart.Web ".\eXpand\eXpand.ExpressA
 call buildproject.cmd eXpand.Persistent.BaseImpl ".\eXpand\eXpand.Persistent\eXpand.Persistent.BaseImpl\eXpand.Persistent.BaseImpl.csproj"
 
 
-%gacutil% -u Microsoft.Practices.EnterpriseLibrary.Common.dll,processorArchitecture=msil /silent
-%gacutil% -i _third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Common.dll /silent
-
-%gacutil% -u Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll,processorArchitecture=msil /silent
-%gacutil% -i _third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll /silent
-
-%gacutil% -u Microsoft.Practices.EnterpriseLibrary.Configuration.Design.UI.dll,processorArchitecture=msil /silent
-%gacutil% -i _third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.UI.dll /silent
-
-%gacutil% -u Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Design.dll,processorArchitecture=msil /silent
-%gacutil% -i _third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Design.dll /silent
-
-%gacutil% -u Microsoft.Practices.EnterpriseLibrary.Logging.dll,processorArchitecture=msil /silent
-%gacutil% -i _third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Logging.dll /silent
-
-%gacutil% -u Microsoft.Practices.ObjectBuilder2.dll,processorArchitecture=msil /silent
-%gacutil% -i _third_party_assemblies\Microsoft.Practices.ObjectBuilder2.dll /silent
-
-%gacutil% -u WM.EnterpriseLibraryExtensions.Logging.Configuration.Design.dll,processorArchitecture=msil /silent
-%gacutil% -i _third_party_assemblies\WM.EnterpriseLibraryExtensions.Logging.Configuration.Design.dll /silent
-
-%gacutil% -u WM.EnterpriseLibraryExtensions.Logging.dll,processorArchitecture=msil /silent
-%gacutil% -i _third_party_assemblies\WM.EnterpriseLibraryExtensions.Logging.dll /silent
