@@ -1,5 +1,4 @@
 ﻿using DevExpress.ExpressApp;
-using eXpand.ExpressApp.Logic;
 
 namespace eXpand.ExpressApp.Logic.Conditional {
     public abstract class ConditionalLogicRuleNodeWrapper : LogicRuleNodeWrapper, IConditionalLogicRule {

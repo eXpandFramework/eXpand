@@ -1,6 +1,5 @@
 ﻿using System;
 using DevExpress.ExpressApp;
-using eXpand.ExpressApp.Logic;
 
 namespace eXpand.ExpressApp.Logic.Conditional
 {

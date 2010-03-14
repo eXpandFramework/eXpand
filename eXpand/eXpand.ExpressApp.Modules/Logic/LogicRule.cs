@@ -32,8 +32,6 @@ namespace eXpand.ExpressApp.Logic
             set { _logicRule.Nesting = value; }
         }
 
-        
-
         public string Description {
             get { return _logicRule.Description; }
             set { _logicRule.Description = value; }

@@ -1,4 +1,3 @@
-using eXpand.ExpressApp.Logic;
 using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.Logic.Conditional {

@@ -12,6 +12,10 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win
             InitializeComponent();
         }
 
-        public override bool? ComparerIsSet { get; set; }
+        bool? _comparerIsSet=false;
+        public override bool? ComparerIsSet {
+            get { return _comparerIsSet; }
+            set { _comparerIsSet = value; }
+        }
     }
 }

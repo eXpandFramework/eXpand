@@ -18,8 +18,11 @@ namespace eXpand.ExpressApp.ModelArtifactState.ActionState.Logic {
                     case ActionState.Disabled:
                         EnableDisableAction(logicRuleInfo, actionBase);
                         break;
-                    case ActionState.Executed:
-                        ExecuteAction(actionBase, executionContext);
+                    case ActionState.Executed: {
+                        if (logicRuleInfo.Active) {
+                            ExecuteAction(actionBase, executionContext);
+                        }
+                    }
                         break;
                     case ActionState.ExecutedAndDisable:
                         ExecuteAndDisableAction(actionBase, executionContext);
