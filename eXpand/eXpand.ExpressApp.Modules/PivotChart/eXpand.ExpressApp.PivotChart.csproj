@@ -140,6 +140,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\TypesInfo.cs" />
+    <Compile Include="InPlaceEdit\EditorCreatedArgs.cs" />
     <Compile Include="PivotChartModule.cs">
       <SubType>Component</SubType>
     </Compile>

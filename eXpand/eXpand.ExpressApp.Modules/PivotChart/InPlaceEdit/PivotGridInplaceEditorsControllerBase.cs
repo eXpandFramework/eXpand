@@ -9,6 +9,13 @@ using DevExpress.Persistent.Base;
 
 namespace eXpand.ExpressApp.PivotChart.InPlaceEdit {
     public abstract class PivotGridInplaceEditorsControllerBase : ViewController<DetailView>{
+        public event EventHandler<EditorCreatedArgs> EditorCreated;
+
+        protected virtual void OnEditorCreated(EditorCreatedArgs e) {
+            EventHandler<EditorCreatedArgs> handler = EditorCreated;
+            if (handler != null) handler(this, e);
+        }
+
         protected PivotGridInplaceEditorsControllerBase() {
             TargetObjectType = typeof (IAnalysisInfo);
         }
@@ -46,7 +53,10 @@ namespace eXpand.ExpressApp.PivotChart.InPlaceEdit {
                 foreach (var viewItemInfoNodeWrapper in detailViewItemInfoNodeWrappers) {
                     var memberInfo = View.ObjectTypeInfo.FindMember(viewItemInfoNodeWrapper.PropertyName);
                     AnalysisEditorBase analysisEditorBase = analysisEditors.Where(@base => @base.MemberInfo == memberInfo).FirstOrDefault();
-                    if (analysisEditorBase != null) CreateEditors(analysisEditorBase);
+                    if (analysisEditorBase != null) {
+                        CreateEditors(analysisEditorBase);
+                        OnEditorCreated(new EditorCreatedArgs(analysisEditorBase));
+                    }
                 }
             }
         }
