@@ -15,6 +15,8 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Decorators
         {
         }
 
+        public WinHintPanelDecorator(View view, object hintPanel, IAdditionalViewControlsRule controlsRule): this(view, hintPanel as HintPanel, controlsRule) {
+        }
         public WinHintPanelDecorator(View view, HintPanel hintPanel, IAdditionalViewControlsRule controlsRule)
             : base(view, hintPanel, controlsRule)
         {
