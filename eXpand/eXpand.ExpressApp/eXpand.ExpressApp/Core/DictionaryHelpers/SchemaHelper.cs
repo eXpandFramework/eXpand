@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Reflection;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
+using System.Linq;
 
 namespace eXpand.ExpressApp.Core.DictionaryHelpers
 {
@@ -20,11 +22,10 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
         #endregion
         public string Serialize<T>(bool includeBaseTypes)
         {
+            var infos = ReflectionHelper.GetInterfaceHierarchy(typeof(T)).SelectMany(type => type.GetProperties(BindingFlags.Public | BindingFlags.Instance));
             string schema = null;
-            foreach (var property in typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance))
-            {
-                if (!includeBaseTypes&&typeof(T)!=property.DeclaringType)
-                    continue;
+            var propertyInfos =includeBaseTypes?infos: typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var property in propertyInfos){
                 if (property.PropertyType == typeof (bool))
                     schema += GetAttribute("<Attribute Name=\"" + property.Name + "\" Choice=\"True,False\"/>");
                 else if (typeof (Enum).IsAssignableFrom(property.PropertyType))
@@ -135,22 +136,39 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
             throw new NotImplementedException(modelElement.ToString());
         }
 
+        public DictionaryNode InjectBoolAttribute(string name, ModelElement modelElement ){
+            return Inject(@"<Attribute Name=""" + name + @""" Choice=""True,False""/>", modelElement);
+        }
+
+        public DictionaryNode InjectAttribute(string name, ModelElement modelElement) {
+            return Inject(@"<Attribute Name=""" + name + @""" />", modelElement);
+        }
+
         public DictionaryNode InjectAttribute(string name, Type choiceEnumType,ModelElement element) {
             return Inject(@"<Attribute Name=""" + name + @""" Choice=""{" + choiceEnumType.FullName + @"}""/>",element);
         }
+
         public DictionaryNode Inject(string injectString, ModelElement element)
         {
             DictionaryNode node = CreateElement(element);
 
             string path = null;
             string name = element.ToString();
-            switch (element) {
-                case ModelElement.Application:
+            switch (element){
+                case ModelElement.Application: {
+                    node.AddChildNode(new DictionaryXmlReader().ReadFromString(injectString));
                     return node;
+                }
+                case ModelElement.BOModel:
+                    path = @"Element";
+                    break;
                 case ModelElement.ListView:
                 case ModelElement.DetailView:
                 case ModelElement.Class:
                     path = @"Element\Element";
+                    break;
+                case ModelElement.Member:
+                    path = @"Element\Element\Element";
                     break;
                 case ModelElement.DetailViewItems:
                     name = "Items";
@@ -161,18 +179,18 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
                     path = @"Element\Element\Element\Element";
                     break;
             }
-            var dictionaryElement = (DictionaryNode) node.FindChildElementByPath(path+@"[@Name='" + name + @"']");
+            var dictionaryElement = (DictionaryNode)node.FindChildElementByPath(path + @"[@Name='" + name + @"']");
 
             dictionaryElement.AddChildNode(new DictionaryXmlReader().ReadFromString(injectString));
             return node;
         }
-
     }
-    [Flags]
+
+    
     public enum ModelElement
     {
         Application,
-        BOModel   ,
+        BOModel  ,
         Views,
         Class,
         DetailView,

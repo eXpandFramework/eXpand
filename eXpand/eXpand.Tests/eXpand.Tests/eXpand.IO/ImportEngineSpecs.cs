@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
-using System.Xml;
 using System.Xml.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -28,7 +27,7 @@ namespace eXpand.Tests.eXpand.IO {
         static XPBaseObject _order1;
         static User _user;
         static XPBaseObject _customer;
-        static int _count;
+        
         static Stream _manifestResourceStream;
 
         Establish context = () => {
@@ -41,7 +40,7 @@ namespace eXpand.Tests.eXpand.IO {
                 _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
         };
 
-        Because of = () => { _count = new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork)ObjectSpace.Session); };
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork)ObjectSpace.Session);
 
         It should_create_1_new_customer_object=() => {
             _customer = ObjectSpace.FindObject(CustomerType, null) as XPBaseObject;
@@ -71,7 +70,7 @@ namespace eXpand.Tests.eXpand.IO {
 
         It should_set_customer_property_of_order_same_as_new_created_customer=() => _order1.GetMemberValue("Customer").ShouldEqual(_customer);
 
-        It should_return_0_unimported_objects=() => _count.ShouldEqual(0);
+        
     }
     [Subject(typeof(ImportEngine))]
     public class When_importing_an_object_that_is_invalid:With_Isolations {
@@ -128,33 +127,6 @@ namespace eXpand.Tests.eXpand.IO {
             var persistentApplication = _objectSpace.FindObject<PersistentApplication>(null);
             persistentApplication.Model.RootNode.Name.ShouldEqual ("dictionaryXmlValue");            
         };
-    }
-    [Subject(typeof(ImportEngine))]
-    public class When_importing_an_object_with_key_that_exists_and_differs_than_natural_key:With_Isolations {
-        static Type _customerType;
-        static ObjectSpace _objectSpace;
-        static XPBaseObject _customer;
-        static Stream _manifestResourceStream;
-
-        Establish context = () =>
-        {
-            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.ExistentKeyObject.xml");
-            _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
-            persistentAssemblyBuilder.CreateClasses(new[] { "Customer" }).CreateSimpleMembers<string>(info => new[] { "Name","Age" });
-            _objectSpace.CommitChanges();
-            var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
-            _customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
-            _customer = (XPBaseObject)_objectSpace.CreateObject(_customerType);
-            _customer.SetMemberValue("Name", "test");
-            _customer.SetMemberValue("Age", "1");
-            _objectSpace.CommitChanges();
-        };
-
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork) _objectSpace.Session);
-
-        It should_not_create_it = () => _objectSpace.GetObjectsCount(_customerType, null).ShouldEqual(1);
-        It should_overide_its_values=() => _customer.GetMemberValue("Age").ShouldEqual("2");
     }
 
     [Subject(typeof(ImportEngine))]
@@ -254,6 +226,8 @@ namespace eXpand.Tests.eXpand.IO {
     }
     [Subject(typeof(ImportEngine))]
     public class When_importing_object_with_byte_array:With_Isolations {
+        static XDocument document;
+        static byte[] _pivotGridSettingsContent;
         static string _xml;
         static Session _session;
 
@@ -261,18 +235,19 @@ namespace eXpand.Tests.eXpand.IO {
             ObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew();
             _session = objectSpace.Session;
             var analysis = objectSpace.CreateObject<Analysis>();
-            analysis.PivotGridSettingsContent = new byte[] { 0, 1 };
-            var document = new ExportEngine().Export(new List<XPBaseObject> {analysis});
-            var root = document.Root;
-            if (root != null) _xml = root.ToString();
+            Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.PivotContent.xml");
+            if (manifestResourceStream != null)
+            {
+                _xml = new StreamReader(manifestResourceStream).ReadToEnd();
+                _pivotGridSettingsContent = Encoding.UTF8.GetBytes(_xml);
+                analysis.PivotGridSettingsContent = _pivotGridSettingsContent;
+            }
+            document = new ExportEngine().Export(new List<XPBaseObject> {analysis});
         };
 
-        Because of = () => {
-            var document = XDocument.Load(new XmlTextReader(new StringReader(_xml)));
-            new ImportEngine().ImportObjects(document, (UnitOfWork)_session);
-        };
+        Because of = () => new ImportEngine().ImportObjects(document, (UnitOfWork)_session);
 
-        It should_import_correct_bytes = () => _session.FindObject<Analysis>(null).PivotGridSettingsContent.ShouldEqual(new byte[] {0, 1});
+        It should_import_correct_bytes = () => _session.FindObject<Analysis>(null).PivotGridSettingsContent.ShouldEqual(_pivotGridSettingsContent);
     }
     [Subject(typeof(ImportEngine))]
     public class When_importing_customer_user_orders_persistentAssemblyInfo:With_Isolations {
@@ -325,5 +300,103 @@ namespace eXpand.Tests.eXpand.IO {
         It should_set_codetemplateinfo_property_for_classinfos =
             () => _persistentAssemblyInfo.PersistentClassInfos[1].CodeTemplateInfo.ShouldNotBeNull();
     
+    }
+    [Subject(typeof(ImportEngine))]
+    public class When_importing_from_xml_with_special_characters:With_Isolations {
+        static ObjectSpace _objectSpace;
+        static Type _testClassType;
+        static MemoryStream _memoryStream;
+
+        Establish context = () => {
+            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            PersistentAssemblyBuilder persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace);
+            persistentAssemblyBuilder.CreateClasses(new[] { "TestClass" }).CreateSimpleMembers<string>(info => new[] { "TestProperty" });
+            var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
+            _testClassType = compileModule.Assembly.GetTypes().Where(type => type.Name == "TestClass").Single();
+            var testClass = (XPBaseObject) _objectSpace.CreateObject(_testClassType);
+            testClass.SetMemberValue("TestProperty","<Application></Application>");
+
+            XDocument document = new ExportEngine().Export(new []{testClass});
+            testClass.Delete();
+            _memoryStream = new MemoryStream();
+            document.Save(new StreamWriter(_memoryStream));
+            _memoryStream.Position = 0;            
+            
+        };
+
+        Because of = () => {
+            var unitOfWork = new UnitOfWork(_objectSpace.Session.DataLayer);
+            new ImportEngine().ImportObjects(_memoryStream, unitOfWork);
+            unitOfWork.CommitChanges();
+        };
+
+        It should_decode_them =
+            () => {
+                var baseObject = (XPBaseObject) _objectSpace.FindObject(_testClassType,null);
+                baseObject.GetMemberValue("TestProperty").ShouldEqual("<Application></Application>");
+            };
+    }
+    [Subject(typeof(ImportEngine))]
+    public class When_importing_modeldifference_object {
+        static Exception _exception;
+        static UnitOfWork _unitOfWork;
+        static Stream _manifestResourceStream;
+
+        Establish context = () => {
+            _unitOfWork = new UnitOfWork(ObjectSpaceInMemory.CreateNew().Session.DataLayer);
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.ModelDifferenceObject.xml");
+            
+        };
+
+        Because of = () => {
+            _exception = Catch.Exception(() => new ImportEngine().ImportObjects(_manifestResourceStream, _unitOfWork));
+        };
+
+        It should_raize_no_errors = () => _exception.ShouldBeNull();
+    }
+    [Subject(typeof(ImportEngine))]
+    public class When_an_object_has_an_image_property : With_Isolations
+    {
+        static UnitOfWork _unitOfWork;
+        static Stream _manifestResourceStream;
+
+        Establish context = () =>
+        {
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.ObjectWithImageProperty.xml");
+            _unitOfWork = new UnitOfWork(ObjectSpaceInMemory.CreateNew().Session.DataLayer);
+        };
+
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _unitOfWork);
+
+        It should_create_the_serialized_image = () =>
+        {
+            var findObject = _unitOfWork.FindObject<ImagePropertyObject>(null);
+            findObject.Photo.Width.ShouldEqual(1);
+            findObject.Photo.Height.ShouldEqual(1);
+        };
+    }
+
+    public class When_an_object_has_a_datetime_property:With_Isolations {
+        static ObjectSpace _objectSpace;
+        static UnitOfWork _unitOfWork;
+        static MemoryStream _memoryStream;
+
+        Establish context = () => {
+            string xml = @"<SerializedObjects>
+                  <SerializedObject type=""DateTimePropertyObject"">
+                    <Property type=""simple"" name=""Date"" isKey=""false"">634038486102582525</Property>
+                    <Property type=""simple"" name=""oid"" isKey=""true"">7b806eb9-e459-4117-b48f-fa98f8a1b9d2</Property>
+                  </SerializedObject>
+                </SerializedObjects>";
+            _memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xml));
+            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _unitOfWork = new UnitOfWork(_objectSpace.Session.DataLayer);
+        };
+
+        Because of = () => new ImportEngine().ImportObjects(_memoryStream, _unitOfWork);
+
+        It should_deserialize_full_date =
+            () =>
+            _objectSpace.FindObject<DateTimePropertyObject>(null).Date.Ticks.ShouldEqual(634038486102582525);
     }
 }

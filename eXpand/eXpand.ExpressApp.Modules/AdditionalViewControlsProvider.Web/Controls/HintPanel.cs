@@ -12,11 +12,11 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Web.Controls
             Paddings.PaddingBottom = 8;
 
             var innerHintPanel = new ASPxPanel();
-            innerHintPanel.Paddings.Assign(new Paddings(8, 8, 8, 8));
-            innerHintPanel.BackColor = System.Drawing.Color.LightGoldenrodYellow;
+//            innerHintPanel.Paddings.Assign(new Paddings(8, 8, 8, 8));
+//            innerHintPanel.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             Controls.Add(innerHintPanel);
 
-            label = new ASPxLabel();
+            label = new ASPxLabel {EncodeHtml = false};
             innerHintPanel.Controls.Add(label);
         }
         public ASPxLabel Label

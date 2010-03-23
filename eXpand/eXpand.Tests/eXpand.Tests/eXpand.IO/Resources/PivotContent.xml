@@ -1,0 +1,289 @@
+﻿﻿<XtraSerializer version="1.0" application="PivotGrid">
+  <property name="#LayoutVersion" />
+  <property name="OptionsLayout" isnull="true" iskey="true">
+    <property name="Columns" isnull="true" iskey="true">
+      <property name="RemoveOldColumns">false</property>
+    </property>
+  </property>
+  <property name="OptionsPrint" isnull="true" iskey="true">
+    <property name="RowFieldValueSeparator">0</property>
+    <property name="ColumnFieldValueSeparator">0</property>
+    <property name="UsePrintAppearance">false</property>
+    <property name="MergeColumnFieldValues">true</property>
+    <property name="PageSettings" isnull="true" iskey="true">
+      <property name="Landscape">false</property>
+      <property name="Margins">100, 100, 100, 100</property>
+      <property name="PaperHeight">0</property>
+      <property name="PaperKind">Letter</property>
+      <property name="PaperWidth">0</property>
+    </property>
+    <property name="PrintUnusedFilterFields">true</property>
+    <property name="MergeRowFieldValues">true</property>
+    <property name="PrintHeadersOnEveryPage">false</property>
+    <property name="PrintVertLines">Default</property>
+    <property name="PrintHorzLines">Default</property>
+    <property name="VerticalContentSplitting">Smart</property>
+    <property name="PrintDataHeaders">Default</property>
+    <property name="PrintRowHeaders">Default</property>
+    <property name="PrintColumnHeaders">Default</property>
+    <property name="PrintFilterHeaders">Default</property>
+  </property>
+  <property name="BorderStyle">Default</property>
+  <property name="OptionsCustomization" isnull="true" iskey="true">
+    <property name="AllowPrefilter">false</property>
+  </property>
+  <property name="Prefilter" isnull="true" iskey="true">
+    <property name="Enabled">true</property>
+    <property name="Criteria" isnull="true" />
+  </property>
+  <property name="Fields" iskey="true" value="6">
+    <property name="Item1" isnull="true" iskey="true">
+      <property name="SummaryType">Count</property>
+      <property name="Index">0</property>
+      <property name="SortBySummaryInfo" isnull="true" iskey="true">
+        <property name="FieldComponentName" />
+        <property name="Conditions" iskey="true" value="0" />
+      </property>
+      <property name="FieldName">Product.Name</property>
+      <property name="ValueFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="GrandTotalCellFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="FilterValues" isnull="true" iskey="true">
+        <property name="Values">~Xtra#Array0, </property>
+        <property name="ShowBlanks">true</property>
+        <property name="FilterType">Excluded</property>
+      </property>
+      <property name="CellFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="Options" isnull="true" iskey="true">
+        <property name="AllowRunTimeSummaryChange">true</property>
+      </property>
+      <property name="CustomTotals" iskey="true" value="0" />
+      <property name="Area">RowArea</property>
+      <property name="Name">Field0</property>
+      <property name="ToolTips" isnull="true" iskey="true">
+        <property name="ValueText" />
+        <property name="HeaderText" />
+      </property>
+      <property name="AreaIndex">0</property>
+      <property name="ActualSortMode">Default</property>
+      <property name="SummaryVariation">None</property>
+    </property>
+    <property name="Item2" isnull="true" iskey="true">
+      <property name="Index">1</property>
+      <property name="SortBySummaryInfo" isnull="true" iskey="true">
+        <property name="FieldComponentName" />
+        <property name="Conditions" iskey="true" value="0" />
+      </property>
+      <property name="FieldName">Amount</property>
+      <property name="ValueFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="GrandTotalCellFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="FilterValues" isnull="true" iskey="true">
+        <property name="Values">~Xtra#Array0, </property>
+        <property name="ShowBlanks">true</property>
+        <property name="FilterType">Excluded</property>
+      </property>
+      <property name="CellFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="Options" isnull="true" iskey="true">
+        <property name="AllowRunTimeSummaryChange">true</property>
+      </property>
+      <property name="CustomTotals" iskey="true" value="0" />
+      <property name="Area">DataArea</property>
+      <property name="Name">Field1</property>
+      <property name="ToolTips" isnull="true" iskey="true">
+        <property name="ValueText" />
+        <property name="HeaderText" />
+      </property>
+      <property name="AreaIndex">0</property>
+      <property name="ActualSortMode">Default</property>
+      <property name="SummaryVariation">None</property>
+    </property>
+    <property name="Item3" isnull="true" iskey="true">
+      <property name="SummaryType">Count</property>
+      <property name="Index">2</property>
+      <property name="SortBySummaryInfo" isnull="true" iskey="true">
+        <property name="FieldComponentName" />
+        <property name="Conditions" iskey="true" value="0" />
+      </property>
+      <property name="FieldName">Currency.Name</property>
+      <property name="ValueFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="GrandTotalCellFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="FilterValues" isnull="true" iskey="true">
+        <property name="Values">~Xtra#Array0, </property>
+        <property name="ShowBlanks">true</property>
+        <property name="FilterType">Excluded</property>
+      </property>
+      <property name="CellFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="Options" isnull="true" iskey="true">
+        <property name="AllowRunTimeSummaryChange">true</property>
+      </property>
+      <property name="CustomTotals" iskey="true" value="0" />
+      <property name="Name">Field2</property>
+      <property name="ToolTips" isnull="true" iskey="true">
+        <property name="ValueText" />
+        <property name="HeaderText" />
+      </property>
+      <property name="AreaIndex">0</property>
+      <property name="ActualSortMode">Default</property>
+      <property name="SummaryVariation">None</property>
+    </property>
+    <property name="Item4" isnull="true" iskey="true">
+      <property name="SummaryType">Count</property>
+      <property name="Index">3</property>
+      <property name="SortBySummaryInfo" isnull="true" iskey="true">
+        <property name="FieldComponentName" />
+        <property name="Conditions" iskey="true" value="0" />
+      </property>
+      <property name="FieldName">User.FullName</property>
+      <property name="ValueFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="GrandTotalCellFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="FilterValues" isnull="true" iskey="true">
+        <property name="Values">~Xtra#Array0, </property>
+        <property name="ShowBlanks">true</property>
+        <property name="FilterType">Excluded</property>
+      </property>
+      <property name="CellFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="Options" isnull="true" iskey="true">
+        <property name="AllowRunTimeSummaryChange">true</property>
+      </property>
+      <property name="CustomTotals" iskey="true" value="0" />
+      <property name="Name">Field3</property>
+      <property name="ToolTips" isnull="true" iskey="true">
+        <property name="ValueText" />
+        <property name="HeaderText" />
+      </property>
+      <property name="AreaIndex">1</property>
+      <property name="ActualSortMode">Default</property>
+      <property name="SummaryVariation">None</property>
+    </property>
+    <property name="Item5" isnull="true" iskey="true">
+      <property name="SummaryType">Count</property>
+      <property name="Index">4</property>
+      <property name="SortBySummaryInfo" isnull="true" iskey="true">
+        <property name="FieldComponentName" />
+        <property name="Conditions" iskey="true" value="0" />
+      </property>
+      <property name="UnboundFieldName">Field4</property>
+      <property name="FieldName">ValidFrom</property>
+      <property name="ValueFormat" isnull="true" iskey="true">
+        <property name="FormatString">{0:dd/MM/yyyy hh:mm}</property>
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="GrandTotalCellFormat" isnull="true" iskey="true">
+        <property name="FormatString">{0:dd/MM/yyyy hh:mm}</property>
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="FilterValues" isnull="true" iskey="true">
+        <property name="Values">~Xtra#Array0, </property>
+        <property name="ShowBlanks">true</property>
+        <property name="FilterType">Excluded</property>
+      </property>
+      <property name="CellFormat" isnull="true" iskey="true">
+        <property name="FormatString">{0:dd/MM/yyyy hh:mm}</property>
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="Options" isnull="true" iskey="true">
+        <property name="AllowRunTimeSummaryChange">true</property>
+      </property>
+      <property name="GroupInterval">Custom</property>
+      <property name="CustomTotals" iskey="true" value="0" />
+      <property name="Name">Field4</property>
+      <property name="ToolTips" isnull="true" iskey="true">
+        <property name="ValueText" />
+        <property name="HeaderText" />
+      </property>
+      <property name="AreaIndex">2</property>
+      <property name="ActualSortMode">Default</property>
+      <property name="SummaryVariation">None</property>
+    </property>
+    <property name="Item6" isnull="true" iskey="true">
+      <property name="SummaryType">Count</property>
+      <property name="Index">5</property>
+      <property name="SortBySummaryInfo" isnull="true" iskey="true">
+        <property name="FieldComponentName" />
+        <property name="Conditions" iskey="true" value="0" />
+      </property>
+      <property name="FieldName">Site.Name</property>
+      <property name="ValueFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="GrandTotalCellFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="FilterValues" isnull="true" iskey="true">
+        <property name="Values">~Xtra#Array0, </property>
+        <property name="ShowBlanks">true</property>
+        <property name="FilterType">Excluded</property>
+      </property>
+      <property name="CellFormat" isnull="true" iskey="true">
+        <property name="FormatString" />
+        <property name="FormatType">Custom</property>
+      </property>
+      <property name="Options" isnull="true" iskey="true">
+        <property name="AllowRunTimeSummaryChange">true</property>
+      </property>
+      <property name="CustomTotals" iskey="true" value="0" />
+      <property name="Name">Field5</property>
+      <property name="ToolTips" isnull="true" iskey="true">
+        <property name="ValueText" />
+        <property name="HeaderText" />
+      </property>
+      <property name="AreaIndex">3</property>
+      <property name="ActualSortMode">Default</property>
+      <property name="SummaryVariation">None</property>
+    </property>
+  </property>
+  <property name="OptionsChartDataSource" isnull="true" iskey="true">
+    <property name="SelectionOnly">false</property>
+  </property>
+  <property name="OptionsBehavior" isnull="true" iskey="true">
+    <property name="HorizontalScrolling">Control</property>
+  </property>
+  <property name="OptionsDataField" isnull="true" iskey="true">
+    <property name="RowHeaderWidth">100</property>
+    <property name="RowValueLineCount">1</property>
+    <property name="Caption" />
+    <property name="ColumnValueLineCount">1</property>
+    <property name="FieldNaming">FieldName</property>
+    <property name="Area">None</property>
+    <property name="AreaIndex">-1</property>
+  </property>
+  <property name="Groups" iskey="true" value="0" />
+  <property name="FormatConditions" iskey="true" value="0" />
+</XtraSerializer>

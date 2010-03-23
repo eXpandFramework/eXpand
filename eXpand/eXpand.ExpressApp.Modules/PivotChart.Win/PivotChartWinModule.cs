@@ -1,31 +1,29 @@
 using System;
-using System.Reflection;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.Persistent.Base;
+using System.Collections.Generic;
+using eXpand.ExpressApp.PivotChart.Core;
 using eXpand.ExpressApp.PivotChart.Win.Core;
-using System.Linq;
+using eXpand.ExpressApp.PivotChart.Win.Options;
+using eXpand.ExpressApp.PivotChart.Win.PropertyEditors;
+using TypesInfo = eXpand.ExpressApp.PivotChart.Core.TypesInfo;
 
 namespace eXpand.ExpressApp.PivotChart.Win {
-    public sealed partial class PivotChartWinModule : ModuleBase {
+    public sealed partial class PivotChartWinModule : PivotChartXpandModuleBase {
         public PivotChartWinModule() {
             InitializeComponent();
         }
 
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
-            base.CustomizeTypesInfo(typesInfo);
-            if (Application== null)
-                return;
-            foreach (var keyValuePair in PivotGridOptionMapper.Instance.Dictionary){
-                CreateMembers(typesInfo,keyValuePair.Key,keyValuePair.Value);
-            }
+
+        protected override Dictionary<Type, Type> GetOptionsMapperDictionary() {
+            return PivotGridOptionMapper.Instance.Dictionary;
         }
 
-        void CreateMembers(ITypesInfo typesInfo, Type optionsType, Type persistentType) {
-            ITypeInfo typeInfo = typesInfo.FindTypeInfo(ReflectionHelper.GetType(persistentType.Name));
-            foreach (PropertyInfo propertyInfo in optionsType.GetProperties().Where(info => info.GetSetMethod()!=null)) {
-                typeInfo.CreateMember(propertyInfo.Name, propertyInfo.PropertyType);
-            }
+
+        public override TypesInfo TypesInfo {
+            get { return Core.TypesInfo.Instance; }
+        }
+
+        protected override Type GetPropertyEditorType() {
+            return typeof (AnalysisEditorWin);
         }
     }
 }

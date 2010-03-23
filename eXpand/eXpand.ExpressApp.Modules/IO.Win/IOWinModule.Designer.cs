@@ -32,7 +32,7 @@ namespace eXpand.ExpressApp.IO.Win {
         {
             this.RequiredModuleTypes.Add(typeof(IOModule));
             this.RequiredModuleTypes.Add(typeof(TreeListEditorsWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(eXpandTreeListEditorsWin));
+            this.RequiredModuleTypes.Add(typeof(eXpandTreeListEditorsWinModule));
         }
 
         #endregion

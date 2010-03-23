@@ -1,13 +1,13 @@
 ﻿using System;
 using DevExpress.ExpressApp;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers;
+using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider
 {
     public abstract class AdditionalViewControlsProviderDecorator : IDisposable
     {
         private AdditionalViewControlsProviderCalculator calculator;
-        private View view;
+        
         private readonly object control;
 
         protected AdditionalViewControlsProviderDecorator()
@@ -19,10 +19,10 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
             get { return control; }
         }
 
-        private void View_CurrentObjectChanged(object sender, EventArgs e)
-        {
-            if (view != null) calculator.CurrentObject = view.CurrentObject;
-        }
+//        private void View_CurrentObjectChanged(object sender, EventArgs e)
+//        {
+//            if (view != null) calculator.CurrentObject = view.CurrentObject;
+//        }
 
         private void calculator_HintChanged(object sender, EventArgs e)
         {
@@ -34,17 +34,16 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
         }
         protected abstract void SetText(string text);
 
-        protected AdditionalViewControlsProviderDecorator(View view,object control)
+        protected AdditionalViewControlsProviderDecorator(View view,object control, IAdditionalViewControlsRule controlsRule)
         {
-            this.view = view;
             this.control = control;
-            calculator = new AdditionalViewControlsProviderCalculator(new AdditionalViewControlsRuleWrapper(view));
-            if (view is DetailView)
-                calculator.CurrentViewType = ViewType.DetailView;
-            if (view is ListView)
-                calculator.CurrentViewType = ViewType.ListView;
+            calculator = new AdditionalViewControlsProviderCalculator(controlsRule,view.ObjectTypeInfo.Type);
+//            if (view is DetailView)
+//                calculator.CurrentViewType = ViewType.DetailView;
+//            if (view is ListView)
+//                calculator.CurrentViewType = ViewType.ListView;
             calculator.HintChanged += calculator_HintChanged;
-            view.CurrentObjectChanged += View_CurrentObjectChanged;
+//            view.CurrentObjectChanged += View_CurrentObjectChanged;
             calculator.CurrentObject = view.CurrentObject;
         }
 
@@ -55,11 +54,11 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
 
         public void Dispose()
         {
-            if (view != null)
-            {
-                view.CurrentObjectChanged -= View_CurrentObjectChanged;
-                view = null;
-            }
+//            if (view != null)
+//            {
+//                view.CurrentObjectChanged -= View_CurrentObjectChanged;
+//                view = null;
+//            }
             if (calculator != null)
             {
                 calculator.HintChanged -= calculator_HintChanged;

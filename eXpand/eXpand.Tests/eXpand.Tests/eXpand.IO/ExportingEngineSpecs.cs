@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.IO.Core;
 using eXpand.ExpressApp.IO.PersistentTypesHelpers;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
@@ -321,18 +324,23 @@ namespace eXpand.Tests.eXpand.IO
     
     [Subject(typeof(ExportEngine))]
     public class When_object_has_a_byte_array_property:With_Isolations {
+        static string _xml;
         static XElement _root;
         static Analysis _analysis;
 
         Establish context = () => {
             ObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew();
             _analysis = objectSpace.CreateObject<Analysis>();
-            _analysis.PivotGridSettingsContent = Encoding.UTF8.GetBytes("?<XtraSerializer version=\"1.0\" application=\"PivotGrid\">          </XtraSerializer> ");            
+            Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.PivotContent.xml");
+            if (manifestResourceStream != null) {
+                _xml = new StreamReader(manifestResourceStream).ReadToEnd();
+                _analysis.PivotGridSettingsContent = Encoding.UTF8.GetBytes(_xml);
+            }
         };
 
         Because of = () => {
-            var xDocument = new ExportEngine().Export(new List<XPBaseObject>{_analysis});
-            xDocument.Save("test.xml");
+            var xDocument = new ExportEngine().Export(new List<XPBaseObject> { _analysis });
+            xDocument.Save(@"c:\my.xml");
             _root = xDocument.Root;
         };
 
@@ -341,7 +349,97 @@ namespace eXpand.Tests.eXpand.IO
                 string value =
                     _root.SerializedObjects(typeof (Analysis)).FirstOrDefault().Property("PivotGridSettingsContent").
                         Value;
-                value.ShouldEqual("?<XtraSerializer version=\"1.0\" application=\"PivotGrid\">          </XtraSerializer> ".XMLEncode());
+                Encoding.UTF8.GetString(Convert.FromBase64String(value)).ShouldEqual(_xml);
             };
+    }
+
+    public class ImagePropertyObject : BaseObject {
+        public ImagePropertyObject(Session session) : base(session) {
+        }
+        private readonly XPDelayedProperty _Photo = new XPDelayedProperty();
+        [ValueConverter(typeof(ImageValueConverter))]
+        [Delayed("_Photo")]
+        public Image Photo
+        {
+            get
+            {
+                return (Image)_Photo.Value;
+            }
+            set
+            {
+                _Photo.Value = value;
+                OnChanged("_Photo");
+            }
+        }
+    }
+    [Subject(typeof(ExportEngine))]
+    public class When_object_has_An_image_property:With_Isolations {
+        static Color _color;
+        static XElement _root;
+        static ImagePropertyObject _imagePropertyObject;
+
+        Establish context = () => {
+            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            _imagePropertyObject = objectSpace.CreateObject<ImagePropertyObject>();
+            var bitmap = new Bitmap(1,1);
+            bitmap.SetPixel(0,0,Color.Red);
+            _color = bitmap.GetPixel(0,0);
+
+            _imagePropertyObject.Photo = bitmap;
+            objectSpace.CommitChanges();
+            _imagePropertyObject.Reload();
+        };
+
+        Because of = () => {
+            _root = new ExportEngine().Export(new[]{_imagePropertyObject}).Root;
+        };
+
+        It should_serialize_the_image_property =
+            () => {
+                var serializedObject = _root.SerializedObjects(typeof (ImagePropertyObject)).FirstOrDefault();
+                var xElement = serializedObject.Property("Photo");
+                var bytes = Convert.FromBase64String(xElement.Value);
+                var image = Image.FromStream(new MemoryStream(bytes));
+                image.Width.ShouldEqual(1);
+                image.Height.ShouldEqual(1);
+                var bitmap = new Bitmap(image);
+                bitmap.GetPixel(0,0).ShouldEqual(_color);
+            };
+    }
+
+    public class DateTimePropertyObject : BaseObject {
+        public DateTimePropertyObject(Session session) : base(session) {
+        }
+
+        DateTime _date;
+
+        public DateTime Date {
+            get { return _date; }
+            set { SetPropertyValue("Date", ref _date, value); }
+        }
+    }
+
+    [Subject(typeof(ExportEngine))]
+    public class When_exporting_object_with_date_time_property:With_Isolations {
+        static XElement _root;
+        static DateTimePropertyObject _dateTimePropertyObject;
+        static DateTime _dateTime;
+
+        Establish context = () => {
+            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            _dateTime = DateTime.Now;
+            _dateTimePropertyObject = objectSpace.CreateObject<DateTimePropertyObject>();
+            _dateTimePropertyObject.Date = _dateTime;
+            objectSpace.CommitChanges();
+        };
+
+        Because of = () => {
+            _root = new ExportEngine().Export(new[]{_dateTimePropertyObject}).Root;
+        };
+
+        It should_export_the_full_date_time = () => {
+            var serializedObject = _root.SerializedObjects(typeof(DateTimePropertyObject)).ToList()[0];
+            _dateTime.Ticks.ToString().ShouldEqual(serializedObject.Property("Date").Value);
+        };
     }
 }

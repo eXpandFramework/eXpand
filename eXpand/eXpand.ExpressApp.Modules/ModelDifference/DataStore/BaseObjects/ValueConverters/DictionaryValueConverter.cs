@@ -17,8 +17,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ValueConverter
             var dictionary = value as Dictionary;
             if (dictionary != null){
                 string fullXml = new DictionaryXmlWriterEx().GetFullXml(dictionary.RootNode);
+                var schemaXml = dictionary.Schema.RootNode.ToXml().Replace(@" IsNewNode="":True""","");
                 var serializableDictionary = new SerializableDictionary<string, string>{
-                                                                               {"Schema", dictionary.Schema.RootNode.ToXml()},
+                                                                               {"Schema", schemaXml},
                                                                                {"DefaultAspect", fullXml}
                                                                            };
                 serializableDictionary["aspects"] = "";
@@ -45,11 +46,13 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ValueConverter
                 var serializableDictionary = new SerializableDictionary<string, string>();
                 serializableDictionary.ReadXml(reader);
                 var schema = new Schema(new DictionaryXmlReader().ReadFromString(serializableDictionary["Schema"].Replace(":","")));
+                var commonSchema = Schema.GetCommonSchema();
+                commonSchema.CombineWith(schema);
                 var helper = new DictionaryHelper();
                 var aspects = serializableDictionary["aspects"].Split(',').ToList();
 
                 string aspectFromXml = helper.GetAspectFromXml(aspects, serializableDictionary["DefaultAspect"]);
-                var dictionary = new Dictionary(new DictionaryXmlReader().ReadFromString(aspectFromXml), schema);
+                var dictionary = new Dictionary(new DictionaryXmlReader().ReadFromString(aspectFromXml), commonSchema);
                 foreach (var aspectValue in aspects.Where(s => !string.IsNullOrEmpty(s))){
                     string xml = serializableDictionary[aspectValue];
                     if (!(string.IsNullOrEmpty(xml)))

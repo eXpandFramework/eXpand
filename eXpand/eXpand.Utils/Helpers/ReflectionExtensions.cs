@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -7,6 +9,45 @@ namespace eXpand.Utils.Helpers
 {
     public static class ReflectionExtensions
     {
+        public static IEnumerable<Type> GetTypes(this AppDomain appdomain, string typeToFind)
+        {
+            var types = new List<Type>();
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {
+                try {
+                    types.AddRange(assembly.GetTypes().Where(type => type.Name==typeToFind));
+                }
+                catch (ReflectionTypeLoadException) {
+                }
+            }
+            return types;
+
+        }
+
+        public static IEnumerable<Type> GetTypes(this AppDomain appDomain, Type typeToFind) {
+            var types = new List<Type>();
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {
+                try {
+                    types.AddRange(assembly.GetTypes().Where(typeToFind.IsAssignableFrom));
+                }
+                catch (ReflectionTypeLoadException) {
+                }
+            }
+            return types;
+        }
+
+        public static IEnumerable<Type> GetTypes(this AppDomain appDomain) {
+            var types = new List<Type>();
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {
+                try {
+                    types.AddRange(assembly.GetTypes());
+                }
+                catch (ReflectionTypeLoadException) {
+                }
+            }
+            
+            return types;
+        }
+
         public static MethodInfo GetMemberInfo<TTarget>(this TTarget target, Expression<Action<TTarget>> method)
         {
             return GetMemberInfo(method);
@@ -45,6 +86,7 @@ namespace eXpand.Utils.Helpers
         {
             return GetPropertyInfo(target, property).Name;
         }
+
         public static PropertyInfo GetPropertyInfo<TTarget>(this TTarget target, Expression<Func<TTarget, object>> property)
         {
             var info = target.GetMemberInfo(property) as PropertyInfo;
@@ -93,6 +135,7 @@ namespace eXpand.Utils.Helpers
                 doIfChanged();
             }
         }
+
         public static void SetProperty<T>(this INotifyPropertyChanged source,
                                           Expression<Func<T>> propExpr,
                                           ref T propertyValueHolder,
@@ -100,7 +143,5 @@ namespace eXpand.Utils.Helpers
         {
             source.SetProperty(propExpr, ref propertyValueHolder, value, () => { });
         }
-
-
     }
 }

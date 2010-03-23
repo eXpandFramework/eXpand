@@ -53,16 +53,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Charts.v9.3.Core, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Charts.v9.3.Core, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Data.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v9.3">
@@ -74,31 +74,31 @@
     <Reference Include="DevExpress.ExpressApp.Validation.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Win.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraCharts.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v9.3.UI, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraCharts.v9.3.UI, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraEditors.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPivotGrid.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraPivotGrid.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPivotGrid.v9.3.Core, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraPivotGrid.v9.3.Core, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -148,32 +148,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AnalysisControlVisibilityController.cs">
+    <Compile Include="Editors\AnalysisControlWin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AnalysisDisplayDateTimeViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\AnalysisControlVisibilityController.Designer.cs">
-      <DependentUpon>AnalysisControlVisibilityController.cs</DependentUpon>
+    <Compile Include="PropertyEditors\AnalysisEditorWin.cs">
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Core\PivotGridOptionMapper.cs" />
+    <Compile Include="AnalysisControlVisibilityController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Options\PivotGridOptionMapper.cs" />
+    <Compile Include="Core\TypesInfo.cs" />
     <Compile Include="PivotChartWinModule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PivotChartWinModule.Designer.cs">
       <DependentUpon>PivotChartWinModule.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\PivotedPropertyController.cs">
+    <Compile Include="PivotedPropertyController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\PivotedPropertyController.Designer.cs">
-      <DependentUpon>PivotedPropertyController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\PivotGridInplaceEditorsController.cs">
+    <Compile Include="PivotGridInplaceEditorsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs">
     </Compile>
-    <Compile Include="Controllers\PivotOptionsController.cs">
+    <Compile Include="Options\PivotOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

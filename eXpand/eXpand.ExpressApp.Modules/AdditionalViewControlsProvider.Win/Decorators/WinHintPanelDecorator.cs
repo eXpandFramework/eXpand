@@ -1,7 +1,8 @@
 ﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.Utils.Frames;
+using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
-using View=DevExpress.ExpressApp.View;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Decorators
 {
@@ -14,13 +15,8 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Decorators
         {
         }
 
-        public WinHintPanelDecorator(View view, object hintPanel)
-            : base(view, hintPanel as HintPanel)
-        {
-        }
-
-        public WinHintPanelDecorator(View view, HintPanel hintPanel)
-            : base(view,hintPanel)
+        public WinHintPanelDecorator(View view, HintPanel hintPanel, IAdditionalViewControlsRule controlsRule)
+            : base(view, hintPanel, controlsRule)
         {
             this.hintPanel = hintPanel;
             hintPanel.Disposed += hintPanel_Disposed;

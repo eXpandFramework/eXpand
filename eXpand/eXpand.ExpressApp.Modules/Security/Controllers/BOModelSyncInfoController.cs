@@ -1,6 +1,6 @@
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
-using eXpand.ExpressApp.Security.Interfaces;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.Security.Controllers
 {
@@ -24,7 +24,7 @@ namespace eXpand.ExpressApp.Security.Controllers
                             <Element Name=""" + GetElementStateActionName() + @""">
                                 <Element Name=""Item"" KeyAttribute=""" + STR_Name + @""" DisplayAttribute=""" + STR_Name + @""" Multiple=""True"">
                                     " +GetMoreSchema() + @"
-                                    " +schemaHelper.Serialize<IStateRule>(true) + @"
+                                    " +schemaHelper.Serialize<ILogicRule>(true) + @"
 				                </Element>
                             </Element>
                         </Element>

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
@@ -34,14 +33,14 @@ namespace eXpand.ExpressApp.IO.Core {
             }
             return 0;
         }
-        public int ImportObjects(Stream stream, UnitOfWork unitOfWork){
+        public void ImportObjects(Stream stream, UnitOfWork unitOfWork){
             unitOfWork.PurgeDeletedObjects();
             stream.Position = 0;
             using (var streamReader = new StreamReader(stream)) {
                 var xDocument = XDocument.Load(streamReader);
                 ImportObjects(xDocument, unitOfWork);
             }
-            return 0;
+
         }
 
         XPBaseObject createObject(XElement element, UnitOfWork nestedUnitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria){
@@ -92,36 +91,34 @@ namespace eXpand.ExpressApp.IO.Core {
 
 
         IEnumerable<XElement> GetObjectRefElements(XElement element, NodeType nodeType) {
-            return element.Descendants("Property").Where(
-                xElement => xElement.GetAttributeValue("type") == nodeType.ToString().MakeFirstCharLower()).SelectMany(
+            return element.Properties(nodeType).SelectMany(
                 element1 => element1.Descendants("SerializedObjectRef"));
         }
 
-        void importSimpleProperties(XElement element, XPBaseObject xpBaseObject) {
-            IEnumerable<XElement> simpleElements =
-                element.Descendants("Property").Where(
-                    xElement => xElement.GetAttributeValue("type") == NodeType.Simple.ToString().MakeFirstCharLower());
-            foreach (var simpleElement in simpleElements) {
+        void importSimpleProperties(XElement element, XPBaseObject xpBaseObject) {            
+            foreach (var simpleElement in element.Properties(NodeType.Simple)){
                 string propertyName = simpleElement.GetAttributeValue("name");
                 XPMemberInfo xpMemberInfo = xpBaseObject.ClassInfo.GetMember(propertyName);
                 object value = GetValue(simpleElement, xpMemberInfo);
-                if (simpleElement.GetAttributeValue("isNaturalKey")=="true"&&!xpBaseObject.IsNewObject())
-                    continue;
                 xpBaseObject.SetMemberValue(propertyName, value);
             }
         }
 
         object GetValue(XElement simpleElement, XPMemberInfo xpMemberInfo) {
             var valueConverter = xpMemberInfo.Converter;
-            return valueConverter != null
-                       ? valueConverter.ConvertFromStorageType(ReflectionHelper.Convert(simpleElement.Value, valueConverter.StorageType))
-                       : GetValue(xpMemberInfo, simpleElement);
+            
+            if (valueConverter != null) {
+                var value = GetValue(valueConverter.StorageType, simpleElement);
+                return valueConverter.ConvertFromStorageType(value);
+            }
+            return GetValue(xpMemberInfo.MemberType, simpleElement);
         }
 
-        object GetValue(XPMemberInfo xpMemberInfo, XElement simpleElement) {
-            if (xpMemberInfo.MemberType==typeof(byte[]))
-                return Encoding.UTF8.GetBytes(simpleElement.Value.XMLDecode());
-            return ReflectionHelper.Convert(simpleElement.Value, xpMemberInfo.MemberType);
+        object GetValue(Type type, XElement simpleElement) {
+            if (type == typeof(byte[])){
+                return string.IsNullOrEmpty(simpleElement.Value) ? null : Convert.FromBase64String(simpleElement.Value);
+            }
+            return ReflectorHelper.ChangeType(simpleElement.Value, type);
         }
 
         ITypeInfo GetTypeInfo(XElement element) {
@@ -150,6 +147,17 @@ namespace eXpand.ExpressApp.IO.Core {
                 criteria += name + "=? AND ";
             }
             return CriteriaOperator.Parse(criteria.TrimEnd("AND ".ToCharArray()),parameters.ToArray());
+        }
+
+        public void ImportObjects(UnitOfWork unitOfWork,string fileName) {
+            using (var fileStream = new FileStream(fileName,FileMode.Open)) {
+                 ImportObjects(fileStream,unitOfWork);
+            }
+        }
+
+        public void ImportObjects(UnitOfWork unitOfWork, Type nameSpaceType, string resourceName) {
+            Stream manifestResourceStream = nameSpaceType.Assembly.GetManifestResourceStream(nameSpaceType,resourceName);
+            ImportObjects(manifestResourceStream, unitOfWork);
         }
     }
 }

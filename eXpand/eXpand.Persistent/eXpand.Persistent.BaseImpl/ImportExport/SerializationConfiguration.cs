@@ -25,7 +25,9 @@ namespace eXpand.Persistent.BaseImpl.ImportExport {
         [VisibleInListView(true)]
         public Type TypeToSerialize
         {
-            get { return _typeToSerialize; }
+            get {
+                return _typeToSerialize;
+            }
             set { SetPropertyValue("TypeToSerialize", ref _typeToSerialize, value); }
         }
         [Association][Aggregated]
