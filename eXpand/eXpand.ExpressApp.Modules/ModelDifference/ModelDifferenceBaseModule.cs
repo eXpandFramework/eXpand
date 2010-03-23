@@ -30,8 +30,7 @@ namespace eXpand.ExpressApp.ModelDifference{
             return persistentApplication;
         }
 
-        private void OnSetupComplete(object sender, EventArgs args)
-        {
+        private void OnSetupComplete(object sender, EventArgs args){
             var dbUpdater = new DatabaseUpdater(Application.ObjectSpaceProvider, Application.Modules, Application.ApplicationName);
             CompatibilityError compatibilityError = dbUpdater.CheckCompatibility();
             if ((bool)(!PersistentApplicationModelUpdated) && compatibilityError != null && compatibilityError is CompatibilityDatabaseIsOldError){

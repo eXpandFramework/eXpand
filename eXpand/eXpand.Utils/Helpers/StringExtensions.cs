@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -16,9 +17,9 @@ namespace eXpand.Utils.Helpers
                 @"^(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}$",
                 RegexOptions.Compiled);
 
-        public static string XMLEncode(this string Value)
+        public static string XMLEncode(this string value)
         {
-            return Value.TrimEnd((char)0).Replace("&", "&amp;").Replace("'", "&apos;").Replace("\"", "&quot;").Replace("<", "&lt;").Replace(">", "&gt;");
+            return value.TrimEnd((char)1).Replace("&", "&amp;").Replace("'", "&apos;").Replace("\"", "&quot;").Replace("<", "&lt;").Replace(">", "&gt;");
         }
 
         public static string XMLDecode(this string Value)
@@ -83,6 +84,15 @@ namespace eXpand.Utils.Helpers
             return builder.ToString();
         }
 
+        public static long Val(this string value) {
+            string returnVal = string.Empty;
+
+            MatchCollection collection = Regex.Matches(value, "\\d+");
+
+            returnVal = collection.Cast<Match>().Aggregate(returnVal, (current, match) => current + match.ToString());
+
+            return Convert.ToInt64(returnVal);
+        } 
         public static bool IsGuid(this string candidate)
         {
             if (candidate != null)

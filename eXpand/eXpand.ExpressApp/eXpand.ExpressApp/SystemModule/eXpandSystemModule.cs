@@ -19,6 +19,11 @@ namespace eXpand.ExpressApp.SystemModule
             base.UpdateModel(model);
             new ApplicationNodeWrapper(model).Node.GetChildNode("Options").SetAttribute("UseServerMode", "True");
         }
+        public override Schema GetSchema()
+        {
+            return new Schema(new DictionaryXmlReader().ReadFromResource(
+                GetType().Assembly, "Resources.CommonSystemModuleSchema.xml"));
+        }
 
         public override void ValidateModel(Dictionary model)
         {

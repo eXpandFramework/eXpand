@@ -59,9 +59,11 @@ namespace eXpand.ExpressApp.Core{
             XPCustomMemberInfo member = null;
             if (typeIsRegister(typesInfo, typeToCreateOn)) {
                 XPClassInfo xpClassInfo = dictionary.GetClassInfo(typeToCreateOn);
-                member = xpClassInfo.CreateMember(propertyName, typeOfMember);
-                member.AddAttribute(new AssociationAttribute(associationName));
-                typesInfo.RefreshInfo(typeToCreateOn);
+                if (xpClassInfo.FindMember(propertyName)== null) {
+                    member = xpClassInfo.CreateMember(propertyName, typeOfMember);
+                    member.AddAttribute(new AssociationAttribute(associationName));
+                    typesInfo.RefreshInfo(typeToCreateOn);
+                }
             }
             return member;
         }

@@ -44,7 +44,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         protected internal abstract ModelDifferenceObject GetNewDifferenceObject(ObjectSpace objectSpace);
 
         protected internal virtual void OnDifferenceObjectSaving(ModelDifferenceObject modelDifferenceObject, Dictionary diffDictionary){
-            Dictionary dictionary = modelDifferenceObject.GetCombinedModel();
+            Dictionary dictionary = modelDifferenceObject.GetCombinedModel(modelDifferenceObject is UserModelDifferenceObject);
             dictionary.CombineWith(diffDictionary);
             modelDifferenceObject.Model = dictionary.GetDiffs();
             objectSpace.CommitChanges();

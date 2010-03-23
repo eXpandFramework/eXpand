@@ -30,11 +30,9 @@ namespace eXpand.ExpressApp.PivotChart.Win {
         /// </summary>
         private void InitializeComponent()
         {
+            this.RequiredModuleTypes.Add(typeof(PivotChartModule));
             this.RequiredModuleTypes.Add(typeof(PivotChartModuleBase));
             this.RequiredModuleTypes.Add(typeof(PivotChartWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(PivotChartModule));
-
-            
         }
 
         #endregion

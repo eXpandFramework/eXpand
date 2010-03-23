@@ -15,15 +15,9 @@ using ListView=DevExpress.ExpressApp.ListView;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public partial class CustomSelectionListViewViewController : ExpressApp.SystemModule.CustomSelectionListViewViewController
+    public class CustomSelectionListViewViewController : ExpressApp.SystemModule.CustomSelectionListViewViewController
     {
         private ArrayList checkedObjects=new ArrayList();
-
-        public CustomSelectionListViewViewController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
 
         protected override void OnActivated()
         {
@@ -47,7 +41,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 if (!(((ListView) View).Editor is GridListEditor))
                 {
                     var bottomHintPanel = Frame.GetController<WindowHintController>().BottomHintPanel;
-                    bottomHintPanel.Text = "Custom Selection Can only work with " + typeof (GridListEditor).FullName;
+                    bottomHintPanel.Text = @"Custom Selection Can only work with " + typeof (GridListEditor).FullName;
                     bottomHintPanel.Visible = true;
                 }
             }

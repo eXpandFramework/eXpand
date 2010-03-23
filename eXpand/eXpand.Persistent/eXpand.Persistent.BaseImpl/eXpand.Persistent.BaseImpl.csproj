@@ -58,32 +58,44 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="eXpand.ExpressApp.Logic, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Logic.Conditional, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="eXpand.ExpressApp.ModelArtifactState, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.RuleModeller, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -166,6 +178,7 @@
     <Compile Include="PersistentMetaData\PersistentMemberInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentReferenceMemberInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentTypeInfo.cs" />
+    <Compile Include="PivotChart\Web\PivotGridOptionsOLAP.cs" />
     <Compile Include="PivotChart\PivotOptionsBehavior.cs" />
     <Compile Include="PivotChart\PivotOptionsChartDataSource.cs" />
     <Compile Include="PivotChart\PivotOptionsCustomization.cs" />
@@ -176,6 +189,11 @@
     <Compile Include="PivotChart\PivotOptionsMenu.cs" />
     <Compile Include="PivotChart\PivotOptionsSelection.cs" />
     <Compile Include="PivotChart\PivotOptionsView.cs" />
+    <Compile Include="PivotChart\Web\PivotGridWebOptionsChartDataSource.cs" />
+    <Compile Include="PivotChart\Web\PivotGridWebOptionsCustomization.cs" />
+    <Compile Include="PivotChart\Web\PivotGridWebOptionsLoadingPanel.cs" />
+    <Compile Include="PivotChart\Web\PivotGridWebOptionsPager.cs" />
+    <Compile Include="PivotChart\Web\PivotGridWebOptionsView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Taxonomies\CustomTaxonomy.cs" />
     <Compile Include="Taxonomies\StructuralTerm.cs" />

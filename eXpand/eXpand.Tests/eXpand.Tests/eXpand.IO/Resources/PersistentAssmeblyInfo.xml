@@ -393,7 +393,7 @@
   <SerializedObject type="PersistentReferenceMemberInfo">
     <Property type="simple" name="ReferenceTypeFullName" isKey="false" isNaturalKey="false">DevExpress.Persistent.BaseImpl.User</Property>
     <Property type="simple" name="AutoGenerateOtherPartMember" isKey="false" isNaturalKey="false">True</Property>
-    <Property type="simple" name="ReferenceType" isKey="false" isNaturalKey="false">DevExpress.Persistent.BaseImpl.User, DevExpress.Persistent.BaseImpl.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958</Property>
+    
     <Property type="simple" name="oid" isKey="true" isNaturalKey="true">051a2555-dd52-4b98-8ee4-2babebc57823</Property>
     <Property type="simple" name="Name" isKey="false" isNaturalKey="false">User</Property>
     <Property type="object" name="CodeTemplateInfo" isKey="false" isNaturalKey="false">

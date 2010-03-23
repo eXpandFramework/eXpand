@@ -1,9 +1,32 @@
-﻿using DevExpress.Data.Filtering;
+﻿using System;
+using DevExpress.Data.Filtering;
+using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 
 namespace eXpand.Xpo
 {
     public static class CriteriaOperatorExtensions
     {
+        public static CriteriaOperator GetClassTypeFilter(this Type type, Session session, string path)
+        {
+            path = path.TrimEnd('.');
+            XPClassInfo xpClassInfo = session.GetClassInfo(type);
+            XPObjectType xpObjectType = session.GetObjectType(xpClassInfo);
+            string propertyName = path + "." + XPObject.Fields.ObjectType.PropertyName;
+            return
+                new GroupOperator(GroupOperatorType.Or, new NullOperator(propertyName),
+                                  new BinaryOperator(propertyName,
+                                                     xpObjectType));
+        }
+
+        public static CriteriaOperator GetClassTypeFilter(this Type type, Session session)
+        {
+            XPClassInfo xpClassInfo = session.GetClassInfo(type);
+            XPObjectType xpObjectType = session.GetObjectType(xpClassInfo);
+
+            return XPObject.Fields.ObjectType.IsNull() |
+                   XPObject.Fields.ObjectType == new OperandValue(xpObjectType.Oid);
+        }
         public static CriteriaOperator Parse(string propertyPath, CriteriaOperator criteriaOperator)
         {
             while (propertyPath.IndexOf(".")>-1)

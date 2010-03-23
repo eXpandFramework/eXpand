@@ -24,7 +24,6 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         {
         }
 
-        
         public bool NonPersistent
         {
             get { return nonPersistent; }
@@ -52,19 +51,20 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             list.Add(objectByKey);
 
         }
+        public override Dictionary GetCombinedModel(bool isSaving)
 
-        public override Dictionary GetCombinedModel()
         {
+
             List<RoleModelDifferenceObject> roleModelDifferenceObjects = new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(
                 PersistentApplication.UniqueName).ToList();
 
-            List<ModelDifferenceObject> modelDifferenceObjects = new List<ModelDifferenceObject>();
-            modelDifferenceObjects.Add(new QueryModelDifferenceObject(Session).GetActiveModelDifference(
-                PersistentApplication.UniqueName));
+            var modelDifferenceObjects = new List<ModelDifferenceObject>();
+            var modelDifferenceObject = new QueryModelDifferenceObject(Session).GetActiveModelDifference(PersistentApplication.UniqueName);
+            modelDifferenceObjects.Add(modelDifferenceObject);
+            IEnumerable<ModelDifferenceObject> differenceObjects = roleModelDifferenceObjects.Cast<ModelDifferenceObject>().Concat(modelDifferenceObjects);
 
-            IEnumerable<ModelDifferenceObject> differenceObjects = roleModelDifferenceObjects.Cast<ModelDifferenceObject>().Concat(modelDifferenceObjects.Cast<ModelDifferenceObject>());
-
-            return base.GetCombinedModel(differenceObjects);
+            return GetCombinedModel(differenceObjects,isSaving);
         }
+
     }
 }

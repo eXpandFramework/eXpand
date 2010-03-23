@@ -5,12 +5,11 @@ using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public partial class AddRuntimeFieldsFromModelToXPDictionary :ViewController
+    public class AddRuntimeFieldsFromModelToXPDictionary :ViewController
     {
         public AddRuntimeFieldsFromModelToXPDictionary()
         {
-            InitializeComponent();
-            RegisterActions(components);
+            
             TargetObjectType = typeof (IXpoModelDifference);
         }
 

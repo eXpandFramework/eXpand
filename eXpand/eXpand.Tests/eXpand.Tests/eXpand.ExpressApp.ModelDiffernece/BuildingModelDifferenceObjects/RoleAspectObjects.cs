@@ -30,7 +30,7 @@ namespace eXpand.Tests.eXpand.ExpressApp.ModelDiffernece.BuildingModelDifference
                                                                                                                                                     return
                                                                                                                                                         null;
                                                                                                                                                 });
-
+            XafTypesInfo.Instance.RegisterEntity(typeof(Role));
             RoleDifferenceObjectBuilder.CreateDynamicMembers(Isolate.Fake.Instance<ISecurityComplex>());
 
             Assert.IsTrue(passed);

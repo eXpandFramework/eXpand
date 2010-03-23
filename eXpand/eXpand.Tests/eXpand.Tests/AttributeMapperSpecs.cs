@@ -1,6 +1,4 @@
-﻿using DevExpress.Data.Filtering;
-using Machine.Specifications;
-using MbUnit.Framework;
+﻿using MbUnit.Framework;
 
 namespace eXpand.Tests
 {

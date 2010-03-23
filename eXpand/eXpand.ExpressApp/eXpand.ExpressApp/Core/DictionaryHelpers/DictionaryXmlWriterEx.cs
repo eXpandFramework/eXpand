@@ -90,7 +90,8 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers{
                 }
                 attributeValueText = attributeValueText.TrimEnd('¥');
                 attributeValueText = shortByAspect(attributeValueText);
-                attributesText += string.Format("{0}=\"{1}\" ", attribute.Name,
+                if (!(string.IsNullOrEmpty(attributeValueText)))
+                    attributesText += string.Format("{0}=\"{1}\" ", attribute.Name,
                                                 HttpUtility.HtmlEncode(attributeValueText));
             }
             attributesText = attributesText.TrimEnd(' ');

@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Core.DictionaryHelpers;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
+using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -18,6 +19,7 @@ namespace eXpand.ExpressApp.WorldCreator {
         string _connectionString;
 
         List<Type> _definedModules=new List<Type>();
+        MultiDataStore _worldCretorDataStore;
 
         public List<Type> DefinedModules
         {
@@ -27,13 +29,21 @@ namespace eXpand.ExpressApp.WorldCreator {
         public override void Setup(ApplicationModulesManager moduleManager)
         {
             base.Setup(moduleManager);
-            if (Application == null)
+            if (Application == null||GetPath()== null)
                 return;
             
             TypesInfo.Instance.AddTypes(GetAdditionalClasses());
             Application.SettingUp+=ApplicationOnSettingUp;
-            var unitOfWork = new UnitOfWork {ConnectionString = _connectionString};
-            AddDynamicModules(moduleManager, unitOfWork, TypesInfo.Instance.PersistentAssemblyInfoType);
+
+            ReflectionDictionary reflectionDictionary = GetReflectionDictionary();
+            
+            var multiDataStore = new MultiDataStore(_connectionString, reflectionDictionary);
+
+
+            SimpleDataLayer simpleDataLayer = multiDataStore.GetDataLayer(reflectionDictionary, multiDataStore,TypesInfo.Instance.PersistentAssemblyInfoType);
+            var unitOfWork = new UnitOfWork(simpleDataLayer);
+
+            AddDynamicModules(moduleManager, unitOfWork);
             Application.SetupComplete += (sender, args) => {
                 mergeTypes(unitOfWork);
                 Application.ObjectSpaceProvider.CreateUpdatingSession().UpdateSchema();
@@ -42,21 +52,36 @@ namespace eXpand.ExpressApp.WorldCreator {
             existentTypesMemberCreator.CreateMembers(unitOfWork, TypesInfo.Instance);
         }
 
+        ReflectionDictionary GetReflectionDictionary() {
+            Type persistentAssemblyInfoType = TypesInfo.Instance.PersistentAssemblyInfoType;
+            IEnumerable<Type> types = persistentAssemblyInfoType.Assembly.GetTypes().Where(type => type.Namespace.StartsWith(persistentAssemblyInfoType.Namespace));
+            var reflectionDictionary = new ReflectionDictionary();
+            foreach (var type in types) {
+                reflectionDictionary.QueryClassInfo(type);    
+            }
+            return reflectionDictionary;
+        }
+
         void ApplicationOnSettingUp(object sender, SetupEventArgs setupEventArgs) {
+            CreateDataStore(setupEventArgs);
+        }
+
+        void CreateDataStore(SetupEventArgs setupEventArgs) {
             var objectSpaceProvider = setupEventArgs.SetupParameters.ObjectSpaceProvider as IObjectSpaceProvider;
             if (objectSpaceProvider== null)
                 throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
 
             var connectionString = ((IObjectSpaceProvider) setupEventArgs.SetupParameters.ObjectSpaceProvider).DataStoreProvider.ConnectionString;
-            var worldCretorDataStore = new MultiDataStore(connectionString,setupEventArgs.SetupParameters.ObjectSpaceProvider.XPDictionary);
-            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreModifyData +=(o, args) => worldCretorDataStore.ModifyData(args);
-            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreSelectData +=(o, args) => worldCretorDataStore.SelectData(args);
-            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreUpdateSchema += (o, args) => worldCretorDataStore.UpdateSchema(args);
+            _worldCretorDataStore = new MultiDataStore(connectionString,setupEventArgs.SetupParameters.ObjectSpaceProvider.XPDictionary);
+            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreModifyData +=(o, args) => _worldCretorDataStore.ModifyData(args);
+            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreSelectData +=(o, args) => _worldCretorDataStore.SelectData(args);
+            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreUpdateSchema += (o, args) => _worldCretorDataStore.UpdateSchema(args);
         }
 
-        public void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork, Type persistentAssemblyInfoType){
+        public void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork){
+            Type assemblyInfoType = TypesInfo.Instance.PersistentAssemblyInfoType;
             List<IPersistentAssemblyInfo> persistentAssemblyInfos =
-                new XPCollection(unitOfWork, persistentAssemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(info =>!info.DoNotCompile &&
+                new XPCollection(unitOfWork, assemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(info => !info.DoNotCompile &&
                     moduleManager.Modules.Where(@base => @base.Name == "Dynamic" + info.Name + "Module").FirstOrDefault() ==null).ToList();
             _definedModules = new CompileEngine().CompileModules(persistentAssemblyInfos,GetPath());
             foreach (var definedModule in _definedModules){
@@ -67,8 +92,7 @@ namespace eXpand.ExpressApp.WorldCreator {
 
         public abstract string GetPath();
 
-        void mergeTypes(UnitOfWork unitOfWork)
-        {
+        void mergeTypes(UnitOfWork unitOfWork){
             IEnumerable<Type> persistentTypes =
                 _definedModules.Select(type => type.Assembly).SelectMany(
                     assembly => assembly.GetTypes().Where(type => typeof(IXPSimpleObject).IsAssignableFrom(type)));
@@ -76,8 +100,6 @@ namespace eXpand.ExpressApp.WorldCreator {
                 ((ISqlDataStore)XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.DatabaseAndSchema)).CreateCommand();
             new XpoObjectMerger().MergeTypes(unitOfWork, persistentTypes.ToList(), dbCommand);
         }
-
-
 
         public IEnumerable<Type> GetAdditionalClasses()
         {
