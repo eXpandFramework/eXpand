@@ -1,8 +1,9 @@
+using System;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
-using System.Linq;
+using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Controllers;
-using System;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers {
     public class AdditionalViewControlsRuleWrapper : NodeWrapper
@@ -33,7 +34,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers {
         }
         public Type DecoratorType
         {
-            get { return Type.GetType(dictionaryNode.GetAttributeValue("DecoratorType")); }
+            get { return ReflectionHelper.GetType(dictionaryNode.GetAttributeValue("DecoratorType")); }
             set
             {
                 dictionaryNode.SetAttribute("DecoratorType", value.AssemblyQualifiedName);
@@ -41,7 +42,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.NodeWrappers {
         }
         public Type ControlType
         {
-            get { return Type.GetType(dictionaryNode.GetAttributeValue("ControlType")); }
+            get { return ReflectionHelper.GetType(dictionaryNode.GetAttributeValue("ControlType")); }
             set
             {
                 dictionaryNode.SetAttribute("ControlType", value.AssemblyQualifiedName);

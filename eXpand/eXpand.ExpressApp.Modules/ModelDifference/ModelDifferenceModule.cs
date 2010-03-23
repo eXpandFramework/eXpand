@@ -49,13 +49,14 @@ namespace eXpand.ExpressApp.ModelDifference{
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
         {
             base.CustomizeTypesInfo(typesInfo);
-            if (Application != null){
+            if (Application != null && Application.Security != null){
                 if (Application.Security is ISecurityComplex)
                     RoleDifferenceObjectBuilder.CreateDynamicMembers((ISecurityComplex) Application.Security);
-                if (!UserDifferenceObjectBuilder.CreateDynamicMembers(Application.Security.UserType)) {
-                    createDesignTimeCollection(typesInfo, typeof (UserModelDifferenceObject), "Users");
-                    createDesignTimeCollection(typesInfo, typeof (RoleModelDifferenceObject), "Roles");
-                }
+                UserDifferenceObjectBuilder.CreateDynamicMembers(Application.Security.UserType);
+            }
+            else{
+                createDesignTimeCollection(typesInfo, typeof (UserModelDifferenceObject), "Users");
+                createDesignTimeCollection(typesInfo, typeof (RoleModelDifferenceObject), "Roles");
             }
         }
 

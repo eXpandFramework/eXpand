@@ -20,7 +20,6 @@ using DevExpress.XtraGrid.Views.Grid;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.SystemModule;
 
-
 namespace eXpand.ExpressApp.Win.SystemModule
 {
     public partial class MasterDetailViewController : BaseViewController
@@ -30,14 +29,15 @@ namespace eXpand.ExpressApp.Win.SystemModule
         public const string ExpandAllRows = "ExpandAllRows";
         
         private GridControl gridControl;
-
+        private XafGridView gridView;
+        private RepositoryEditorsFactory repositoryFactory;
+        private ListViewInfoNodeWrapper subModel;
 
         public MasterDetailViewController()
         {
             InitializeComponent();
             RegisterActions(components);
         }
-
 
         public object CurrentObject
         {
@@ -49,14 +49,11 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
         }
 
-        private XafGridView gridView;
-        private RepositoryEditorsFactory repositoryFactory;
-        private ListViewInfoNodeWrapper subModel;
-
         public XafGridView GridView
         {
             get { return gridView; }
         }
+
         private void RefreshColumn(ColumnInfoNodeWrapper frameColumn, GridColumn column)
         {
             column.Caption = frameColumn.Caption;
@@ -244,7 +241,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
         }
 
-
         public override Schema GetSchema()
         {
             string CommonTypeInfos = @"<Element Name=""Application"">
@@ -278,12 +274,19 @@ namespace eXpand.ExpressApp.Win.SystemModule
             gridView.GridControl = gridControl;
             RefreshColumns(subModel);
             gridControl.LevelTree.Nodes.Add(View.Info.GetAttributeValue(DetailListRelationName), gridView);
+            gridView.DoubleClick += gridView_DoubleClick;
 
             if (View.Info.GetAttributeBoolValue(ExpandAllRows, false))
                 ExpandAllRowsSimpleAction.DoExecute();
         }
 
-
+        private void gridView_DoubleClick(object sender, EventArgs e)
+        {
+            var parameter = new ShowViewParameters();
+            ListViewProcessCurrentObjectController.ShowObject((sender as GridView).GetFocusedRow(), parameter, Application, Frame, View);
+            parameter.CreatedView.AllowNew["MasterDetail"] = false;
+            Application.ShowViewStrategy.ShowView(parameter, new ShowViewSource(null, null));
+        }
 
         private void ExpandAllRowsSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)
         {

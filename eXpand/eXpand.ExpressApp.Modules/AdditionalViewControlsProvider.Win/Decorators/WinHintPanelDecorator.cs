@@ -14,6 +14,11 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Decorators
         {
         }
 
+        public WinHintPanelDecorator(View view, object hintPanel)
+            : base(view, hintPanel as HintPanel)
+        {
+        }
+
         public WinHintPanelDecorator(View view, HintPanel hintPanel)
             : base(view,hintPanel)
         {
