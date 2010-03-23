@@ -45,20 +45,19 @@ namespace eXpand.ExpressApp.ModelDifference{
             if (wrapper != null) 
                 boModelNodeWrapper.Node.RemoveChildNode(wrapper.Node);
         }
-        
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo)
-        {
+
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (Application != null){
+            if (Application != null && Application.Security != null) {
                 if (Application.Security is ISecurityComplex)
                     RoleDifferenceObjectBuilder.CreateDynamicMembers((ISecurityComplex) Application.Security);
-                if (!UserDifferenceObjectBuilder.CreateDynamicMembers(Application.Security.UserType)) {
-                    createDesignTimeCollection(typesInfo, typeof (UserModelDifferenceObject), "Users");
-                    createDesignTimeCollection(typesInfo, typeof (RoleModelDifferenceObject), "Roles");
-                }
+                UserDifferenceObjectBuilder.CreateDynamicMembers(Application.Security.UserType);
+            }
+            else {
+                createDesignTimeCollection(typesInfo, typeof (UserModelDifferenceObject), "Users");
+                createDesignTimeCollection(typesInfo, typeof (RoleModelDifferenceObject), "Roles");
             }
         }
-
         private void createDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName){
             XPClassInfo info = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(classType);
             if (info.FindMember(propertyName)== null) {
