@@ -1,5 +1,6 @@
 using System;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Logic.Conditional;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
@@ -23,21 +24,13 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         }
 
         public Type DecoratorType {
-            get { return Type.GetType(Node.GetAttributeValue("DecoratorType")); }
-            set {
-                string assemblyQualifiedName = null;
-                if (value != null) assemblyQualifiedName = value.AssemblyQualifiedName;
-                Node.SetAttribute("DecoratorType", assemblyQualifiedName);
-            }
+            get { return ReflectionHelper.GetType(Node.GetAttributeValue("DecoratorType")); }
+            set { Node.SetAttribute("DecoratorType", value.AssemblyQualifiedName); }
         }
 
         public Type ControlType {
-            get { return Type.GetType(Node.GetAttributeValue("ControlType")); }
-            set {
-                string assemblyQualifiedName = null;
-                if (value != null) assemblyQualifiedName = value.AssemblyQualifiedName;
-                Node.SetAttribute("ControlType", assemblyQualifiedName);
-            }
+            get { return ReflectionHelper.GetType(Node.GetAttributeValue("ControlType")); }
+            set { Node.SetAttribute("ControlType", value.AssemblyQualifiedName); }
         }
 
 

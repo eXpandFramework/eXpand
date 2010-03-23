@@ -11,7 +11,7 @@ namespace eXpand.ExpressApp.PivotChart.Web.InPlaceEdit {
             _clientInstanceName = clientInstanceName;
         }
         #region ITemplate Members
-        public void InstantiateIn(Control container) {
+        public virtual void InstantiateIn(Control container) {
             var c = (PivotGridCellTemplateContainer) container;
             var asPxSpinEdit = new ASPxSpinEdit {Text = c.Text, Width = Unit.Percentage(100)};
             int columnIndex = ((PivotGridCellTemplateItem) (c.DataItem)).ColumnIndex;

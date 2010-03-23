@@ -224,6 +224,9 @@
     <Compile Include="SystemModule\HideToolBarController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewControllerBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\IndexerController.cs">
       <SubType>Component</SubType>
     </Compile>
