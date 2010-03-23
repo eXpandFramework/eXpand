@@ -15,7 +15,7 @@ using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.IO.Core {
     public class ImportEngine {
-        readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, XPBaseObject> importedObjecs = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, XPBaseObject>();
+        readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object> importedObjecs = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object>();
 
         public int ImportObjects(XDocument document, UnitOfWork unitOfWork) {
             if (document.Root != null){
@@ -47,7 +47,7 @@ namespace eXpand.ExpressApp.IO.Core {
             XPBaseObject xpBaseObject = getObject(nestedUnitOfWork, typeInfo,objectKeyCriteria) ;
             var keyValuePair = new KeyValuePair<ITypeInfo, CriteriaOperator>(typeInfo, objectKeyCriteria);
             if (!importedObjecs.ContainsKey(keyValuePair)) {
-                importedObjecs.Add(keyValuePair, xpBaseObject);
+                importedObjecs.Add(keyValuePair, null);
                 importProperties(nestedUnitOfWork, xpBaseObject, element);
             }
             return xpBaseObject;

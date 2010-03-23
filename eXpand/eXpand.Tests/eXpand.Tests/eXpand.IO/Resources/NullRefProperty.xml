@@ -41,21 +41,7 @@
   </SerializedObject>
   <SerializedObject type="PersistentPermission">
     <Property type="simple" name="oid" isKey="true" isNaturalKey="true">c602d528-3243-444f-8683-407c2c831d7e</Property>
-    <Property type="simple" name="SerializedPermission" isKey="false" isNaturalKey="false">
-      &lt;IPermission class="DevExpress.ExpressApp.Security.ObjectAccessPermission"
-      assembly="DevExpress.ExpressApp.v9.3"
-      version="9.3.2.0"&gt;
-      &lt;ParticularAccessItem access="Write"
-      objectType="DevExpress.Persistent.BaseImpl.AuditDataItemPersistent"
-      modifier="Deny"/&gt;
-      &lt;ParticularAccessItem access="Create"
-      objectType="DevExpress.Persistent.BaseImpl.AuditDataItemPersistent"
-      modifier="Deny"/&gt;
-      &lt;ParticularAccessItem access="Delete"
-      objectType="DevExpress.Persistent.BaseImpl.AuditDataItemPersistent"
-      modifier="Deny"/&gt;
-      &lt;/IPermission&gt;
-    </Property>
+    
     <Property type="object" name="Role" isKey="false" isNaturalKey="false">
       <SerializedObjectRef type="RoleBase" strategy="SerializeAsObject">
         <Key name="oid">7247b996-989c-4eb0-a11e-969534a34508</Key>
@@ -78,46 +64,17 @@
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentPermission">
-    <Property type="simple" name="SerializedPermission" isKey="false" isNaturalKey="false">
-      &lt;IPermission class="DevExpress.ExpressApp.Security.EditModelPermission"
-      assembly="DevExpress.ExpressApp.v9.3"
-      version="9.3.2.0"
-      modifier="Allow"/&gt;
-    </Property>
+    
     <Property type="simple" name="oid" isKey="true" isNaturalKey="true">fe3f17d2-284b-4080-90ba-9cbe8b0cbe87</Property>
   </SerializedObject>
   <SerializedObject type="PersistentPermission">
-    <Property type="simple" name="SerializedPermission" isKey="false" isNaturalKey="false">
-      &lt;IPermission class="DevExpress.ExpressApp.Security.ObjectAccessPermission"
-      assembly="DevExpress.ExpressApp.v9.3"
-      version="9.3.2.0"&gt;
-      &lt;ParticularAccessItem access="Read"
-      objectType="System.Object"
-      modifier="Allow"/&gt;
-      &lt;ParticularAccessItem access="Write"
-      objectType="System.Object"
-      modifier="Allow"/&gt;
-      &lt;ParticularAccessItem access="Create"
-      objectType="System.Object"
-      modifier="Allow"/&gt;
-      &lt;ParticularAccessItem access="Delete"
-      objectType="System.Object"
-      modifier="Allow"/&gt;
-      &lt;ParticularAccessItem access="Navigate"
-      objectType="System.Object"
-      modifier="Allow"/&gt;
-      &lt;/IPermission&gt;
-    </Property>
+    
     <Property type="simple" name="oid" isKey="true" isNaturalKey="true">8ccceb10-9b44-428b-af36-ec42814f623f</Property>
   </SerializedObject>
   <SerializedObject type="UserModelDifferenceObject">
     <Property type="simple" name="NonPersistent" isKey="false" isNaturalKey="false">False</Property>
     <Property type="simple" name="Disabled" isKey="false" isNaturalKey="false">False</Property>
-    <Property type="simple" name="Model" isKey="false" isNaturalKey="false">
-      &lt;item&gt;&lt;key&gt;&lt;string&gt;Schema&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string&gt;&amp;lt;shemaNode /&amp;gt;
-      &lt;/string&gt;&lt;/value&gt;&lt;/item&gt;&lt;item&gt;&lt;key&gt;&lt;string&gt;DefaultAspect&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string&gt;&amp;lt;dictionaryXmlValue /&amp;gt;
-      &lt;/string&gt;&lt;/value&gt;&lt;/item&gt;&lt;item&gt;&lt;key&gt;&lt;string&gt;aspects&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string /&gt;&lt;/value&gt;&lt;/item&gt;
-    </Property>
+    
     <Property type="simple" name="oid" isKey="true" isNaturalKey="true">d0888e21-6848-4f38-8262-17f5a16925fd</Property>
     <Property type="simple" name="Name" isKey="false" isNaturalKey="false">AutoCreated for Sam 4/1/2010 5:12:50 μμ</Property>
     <Property type="simple" name="DateCreated" isKey="false" isNaturalKey="false">4/1/2010 5:12:50 μμ</Property>
@@ -149,11 +106,7 @@
     <Property type="simple" name="CombineOrder" isKey="false" isNaturalKey="false">0</Property>
     <Property type="simple" name="Disabled" isKey="false" isNaturalKey="false">False</Property>
     <Property type="simple" name="DifferenceType" isKey="false" isNaturalKey="false">0</Property>
-    <Property type="simple" name="Model" isKey="false" isNaturalKey="false">
-      &lt;item&gt;&lt;key&gt;&lt;string&gt;Schema&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string&gt;&amp;lt;shemaNode /&amp;gt;
-      &lt;/string&gt;&lt;/value&gt;&lt;/item&gt;&lt;item&gt;&lt;key&gt;&lt;string&gt;DefaultAspect&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string&gt;&amp;lt;dictionaryXmlValue /&amp;gt;
-      &lt;/string&gt;&lt;/value&gt;&lt;/item&gt;&lt;item&gt;&lt;key&gt;&lt;string&gt;aspects&lt;/string&gt;&lt;/key&gt;&lt;value&gt;&lt;string /&gt;&lt;/value&gt;&lt;/item&gt;
-    </Property>
+    
   </SerializedObject>
 
 </SerializedObjects>
