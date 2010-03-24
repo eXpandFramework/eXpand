@@ -9,8 +9,7 @@ using eXpand.ExpressApp.Logic.Conditional;
 namespace eXpand.ExpressApp.ModelArtifactState.ControllerState.Logic{
     public class ControllerStateRuleController : ConditionalLogicRuleViewController<IControllerStateRule>
     {
-
-        void ChangeState(LogicRuleInfo<IControllerStateRule> info) {
+        protected void ChangeState(LogicRuleInfo<IControllerStateRule> info) {
             var controllerType = ((ControllerStateRule)info.Rule).ControllerType;
             Frame.GetController(controllerType).Active[ActiveObjectTypeHasRules] = !info.Active;
         }

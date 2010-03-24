@@ -18,6 +18,14 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic
             DecoratorType = decoratorType;
             MessagePropertyName = messagePropertyName;
         }
+        public AdditionalViewControlsAttribute(string id,string message, 
+                                               string messagePropertyName, string normalCriteria, string emptyCriteria) : this(id, message, AdditionalViewControlsProviderPosition.Top,
+                                                                                                                               null,
+                                                                                                                               null,
+                                                                                                                               messagePropertyName, normalCriteria, emptyCriteria)
+        {
+            
+        }
 
         public string Message { get; set; }
         public string MessagePropertyName { get; set; }

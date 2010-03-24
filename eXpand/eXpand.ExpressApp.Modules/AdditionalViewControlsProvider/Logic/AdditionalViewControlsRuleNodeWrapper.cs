@@ -25,12 +25,12 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
 
         public Type DecoratorType {
             get { return ReflectionHelper.GetType(Node.GetAttributeValue("DecoratorType")); }
-            set { Node.SetAttribute("DecoratorType", value.AssemblyQualifiedName); }
+            set { if (value != null) Node.SetAttribute("DecoratorType", value.AssemblyQualifiedName); }
         }
 
         public Type ControlType {
             get { return ReflectionHelper.GetType(Node.GetAttributeValue("ControlType")); }
-            set { Node.SetAttribute("ControlType", value.AssemblyQualifiedName); }
+            set { if (value != null) Node.SetAttribute("ControlType", value.AssemblyQualifiedName); }
         }
 
 
