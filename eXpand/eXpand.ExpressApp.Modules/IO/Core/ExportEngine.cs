@@ -12,7 +12,7 @@ using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.IO.Core {
     public class ExportEngine {
-        readonly Dictionary<XPBaseObject, object> exportedObjecs = new Dictionary<XPBaseObject, object>();
+        readonly Dictionary<ObjectInfo, object> exportedObjecs = new Dictionary<ObjectInfo, object>();
         public XDocument Export(IEnumerable<XPBaseObject> baseCollection) {
             return Export(baseCollection, null);
         }
@@ -36,8 +36,9 @@ namespace eXpand.ExpressApp.IO.Core {
         }
 
         void ExportCore(XPBaseObject selectedObject, IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes, XElement root) {
-            if (!(exportedObjecs.ContainsKey(selectedObject))){
-                exportedObjecs.Add(selectedObject, null);
+            var objectInfo = new ObjectInfo(selectedObject.GetType(),selectedObject.ClassInfo.KeyProperty.GetValue(selectedObject));
+            if (!(exportedObjecs.ContainsKey(objectInfo))){
+                exportedObjecs.Add(objectInfo, null);
                 var serializedObjectElement = new XElement("SerializedObject");
                 serializedObjectElement.Add(new XAttribute("type", selectedObject.GetType().Name));
                 root.Add(serializedObjectElement);

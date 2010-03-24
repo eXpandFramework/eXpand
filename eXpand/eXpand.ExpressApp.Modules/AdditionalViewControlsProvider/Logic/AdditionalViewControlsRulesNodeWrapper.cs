@@ -21,6 +21,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             additionalViewControlsRuleNodeWrapper.MessagePropertyName = logicRuleAttribute.MessagePropertyName;
             additionalViewControlsRuleNodeWrapper.ControlType = logicRuleAttribute.ControlType;
             additionalViewControlsRuleNodeWrapper.DecoratorType = logicRuleAttribute.DecoratorType;            
+            additionalViewControlsRuleNodeWrapper.UseSameIfFound = logicRuleAttribute.UseSameIfFound;            
             return additionalViewControlsRuleNodeWrapper;
         }
     }

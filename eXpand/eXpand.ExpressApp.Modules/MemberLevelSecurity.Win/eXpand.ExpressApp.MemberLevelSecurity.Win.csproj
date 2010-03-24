@@ -86,6 +86,10 @@
     <Reference Include="DevExpress.XtraEditors.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraGrid.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="eXpand.ExpressApp, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -130,6 +134,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ChangePropertyEditorsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ChangePropertyEditorsController.Designer.cs">
+      <DependentUpon>ChangePropertyEditorsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\LogonController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\LogonController.Designer.cs">
+      <DependentUpon>LogonController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\MemberLevelSecurityControllerBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\MemberLevelSecurityDetailViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\MemberLevelSecurityDetailViewController.Designer.cs">
+      <DependentUpon>MemberLevelSecurityDetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\MemberLevelSecurityListViewViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\MemberLevelSecurityListViewViewController.Designer.cs">
+      <DependentUpon>MemberLevelSecurityListViewViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\MemberProtectedInfo.cs" />
     <Compile Include="MemberLevelSecurityModuleWin.cs">
       <SubType>Component</SubType>
     </Compile>

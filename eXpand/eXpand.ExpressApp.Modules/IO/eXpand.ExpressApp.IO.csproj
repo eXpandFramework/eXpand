@@ -122,6 +122,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\ImportEngine.cs" />
+    <Compile Include="Core\ObjectInfo.cs" />
     <Compile Include="Core\XmlExtensions.cs" />
     <Compile Include="Observers\SerializationConfigurationObserver.cs" />
     <Compile Include="Core\ExportEngine.cs" />

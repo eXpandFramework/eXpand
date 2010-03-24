@@ -125,7 +125,7 @@ namespace eXpand.Tests.eXpand.IO {
 
         It should_iumport_the_converter_from_storage_value=() => {
             var persistentApplication = _objectSpace.FindObject<PersistentApplication>(null);
-            persistentApplication.Model.RootNode.Name.ShouldEqual ("dictionaryXmlValue");            
+            persistentApplication.Model.RootNode.Name.ShouldEqual("Application");            
         };
     }
 
