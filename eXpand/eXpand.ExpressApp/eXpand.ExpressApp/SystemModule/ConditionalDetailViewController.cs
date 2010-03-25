@@ -139,6 +139,9 @@ namespace eXpand.ExpressApp.SystemModule {
         }
 
         void NewObjectAction_Executed(object sender, ActionBaseEventArgs e) {
+            if (e.ShowViewParameters.CreatedView == null)
+                return;
+
             string detailViewID = FindAppplicableDetailViewID(ObjectSpace, DetailViewType.New,
                                                               e.ShowViewParameters.CreatedView.CurrentObject,
                                                               e.ShowViewParameters.CreatedView.ObjectTypeInfo.Type, "");

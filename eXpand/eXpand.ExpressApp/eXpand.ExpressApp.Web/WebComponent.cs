@@ -1,23 +1,24 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Core;
 
 
 namespace eXpand.ExpressApp.Web
 {
-    public partial class WebComponent : DevExpress.ExpressApp.Web.WebApplication
+    public abstract partial class WebComponent : DevExpress.ExpressApp.Web.WebApplication
     {
-
-        public WebComponent()
+        protected WebComponent()
         {
             InitializeComponent();
         }
 
-        public string UniqueName
+        protected override void OnCustomProcessShortcut(CustomProcessShortcutEventArgs args)
         {
-            get { return "A2ABD988-3361-4f75-8790-E2E08E496AB5"; }
+            base.OnCustomProcessShortcut(args);
+            if (args.Shortcut.ObjectKey.StartsWith("@"))
+                args.Shortcut.ObjectKey = ParametersFactory.CreateParameter(args.Shortcut.ObjectKey.Substring(1)).CurrentValue.ToString();
         }
-
         protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)
         {
             this.CreateCustomObjectSpaceprovider(args);

@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.DXCore.Controls.XtraEditors.Controls;
-using Microsoft.Win32;
 using System.Linq;
 
 namespace eXpandAddIns
@@ -17,20 +15,24 @@ namespace eXpandAddIns
             base.Initialize();
 
             DecoupledStorage storage = GetStorage();
-            connectionStringName.Text = storage.ReadString(PageName, connectionStringName.Name, connectionStringName.Text);
+            
 
             buttonEdit2.Text = storage.ReadString(PageName, "modelEditorPath", buttonEdit2.Text);
             buttonEdit1.Text = storage.ReadString(PageName, "projectConverterPath", buttonEdit1.Text);
             textEdit1.Text = storage.ReadString(PageName, "token", textEdit1.Text);
             openFileDialog1.FileName = storage.ReadString(PageName, "modelEditorPath", buttonEdit2.Text);
             openFileDialog2.FileName = storage.ReadString(PageName, "projectConverterPath", buttonEdit1.Text);
-            string readString = storage.ReadString(PageName, "VsAssemblyPaths", "");
-            gridControl1.DataSource =
-                new BindingList<VsAssemblyPath>(
-                    readString.Split(';').Where(s => !(string.IsNullOrEmpty(s))).Select(
-                        s => new VsAssemblyPath {Name = s}).ToList());
+            
+            gridControl1.DataSource =GetConnectionStrings(storage);
             gridView1.KeyDown+=GridView1OnKeyDown;
             
+        }
+
+        public static BindingList<ConnectionString> GetConnectionStrings(DecoupledStorage storage) {
+            string readString = storage.ReadString(GetPageName(), "ConnectionStrings", "");
+            return new BindingList<ConnectionString>(
+                readString.Split(';').Where(s => !(string.IsNullOrEmpty(s))).Select(
+                    s => new ConnectionString {Name = s}).ToList());
         }
 
         private void GridView1OnKeyDown(object sender, KeyEventArgs args) {
@@ -40,7 +42,7 @@ namespace eXpandAddIns
         }
 
 
-        public class VsAssemblyPath {
+        public class ConnectionString {
             public string Name { get; set; }
         }
         #endregion
@@ -69,38 +71,12 @@ namespace eXpandAddIns
             ea.Storage.WriteString(PageName, "token", textEdit1.Text);
             ea.Storage.WriteString(PageName, "modelEditorPath", buttonEdit2.Text);
             ea.Storage.WriteString(PageName, "projectConverterPath", buttonEdit1.Text);
-            ea.Storage.WriteString(PageName, connectionStringName.Name, connectionStringName.Text);
-            string paths = getPaths();
-            ea.Storage.WriteString(PageName,"VsAssemblyPaths",paths);
-            createPaths(paths);
+            string connectionStrings = ((BindingList<ConnectionString>) gridControl1.DataSource).Aggregate<ConnectionString, string>(null, (current, connectionString) => current + (connectionString.Name + ";"));
+            ea.Storage.WriteString(PageName, "ConnectionStrings", connectionStrings);
         }
 
-        private void createPaths(string paths) {
-            RegistryKey localMachine = Registry.LocalMachine;
-            RegistryKey registryKey = localMachine.OpenSubKey("SOFTWARE\\Microsoft\\.NETFramework\\AssemblyFolders",true);
-            if (registryKey != null) {
-                foreach (var value in getExpandKeys(registryKey)) {
-                    registryKey.DeleteSubKey(value);    
-                }
-                string[] strings = paths.Split(';');
-                for (int i = 0; i < strings.Length; i++) {
-                    RegistryKey key = registryKey.CreateSubKey("eXpand" + i,RegistryKeyPermissionCheck.ReadWriteSubTree);
-                    if (key != null) key.SetValue("", strings[i]);
-                }
-            }
-        }
 
-        private IEnumerable<string> getExpandKeys(RegistryKey registryKey) {
-            return registryKey.GetSubKeyNames().Where(s => s.StartsWith("eXpand"));
-        }
 
-        private string getPaths() {
-            string ret = "";
-            for (int i = 0; i < gridControl1.MainView.RowCount; i++) {
-                ret+= ((VsAssemblyPath) gridControl1.MainView.GetRow(i)).Name+";" ;
-            }
-            return ret.TrimEnd(';');
-        }
 
         private void openFileDialog2_FileOk(object sender, CancelEventArgs e)
         {

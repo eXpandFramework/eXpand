@@ -9,7 +9,7 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
 
-namespace eXpand.ExpressApp.Win.PropertyEditors
+namespace eXpand.ExpressApp.Win.PropertyEditors.StringLookupPropertyEditor
 {
     [PropertyEditor(typeof (String))]
     public class StringLookupPropertyEditor : DXPropertyEditor ,IComplexPropertyEditor

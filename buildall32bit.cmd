@@ -10,7 +10,11 @@ mkdir eXpand.Key
 :build
 call RegisterAssemblyFolders32bit.bat
 
+<<<<<<< HEAD
 call buildprojects.cmd
+=======
+call buildProjects.cmd
+>>>>>>> 9d548f25d04494fd3e9262c880d809158847bc8b
 
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.AddIns\eXpandAddIns.csproj"
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.AddIns\DevExpress.ExpressApp.ModelEditor\DevExpress.ExpressApp.ModelEditor.csproj"

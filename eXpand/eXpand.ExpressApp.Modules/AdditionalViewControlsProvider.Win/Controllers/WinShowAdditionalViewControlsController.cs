@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
@@ -30,10 +31,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controllers
 
         private void templateForm_CustomizeClientSize(object sender, CustomSizeEventArgs e)
         {
-            int newHeight = e.CustomSize.Height;
-            foreach (Control control in infoControls){
-                newHeight += control.Size.Height;
-            }
+            int newHeight = e.CustomSize.Height + infoControls.Cast<Control>().Sum(control => control.Size.Height);
             e.CustomSize = new Size(e.CustomSize.Width, newHeight);
             e.Handled = true;
         }
@@ -62,7 +60,6 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controllers
             value.Dock = position==AdditionalViewControlsProviderPosition.Bottom ? DockStyle.Bottom : DockStyle.Top;
             Control.ControlCollection collection = ((Control) viewSiteControl).Controls;
             collection.Add(value);
-            
             infoControls.Add(control);
             value.SizeChanged += control_SizeChanged;
         }

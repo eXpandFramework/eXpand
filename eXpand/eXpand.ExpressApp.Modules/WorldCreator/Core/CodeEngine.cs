@@ -28,14 +28,16 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         }
 
         public static string GenerateCode(IPersistentClassInfo persistentClassInfo) {
-            if (persistentClassInfo.CodeTemplateInfo.TemplateInfo != null) {
+            if (persistentClassInfo.CodeTemplateInfo != null &&
+                persistentClassInfo.CodeTemplateInfo.TemplateInfo != null) {
                 string code = persistentClassInfo.CodeTemplateInfo.TemplateInfo.TemplateCode;
                 string attributesCode = GetAttributesCode(persistentClassInfo);
                 if (code != null) {
                     code = code.Replace("$ASSEMBLYNAME$", persistentClassInfo.PersistentAssemblyInfo.Name);
                     code = code.Replace("$TYPEATTRIBUTES$", attributesCode);
                     code = code.Replace("$CLASSNAME$", persistentClassInfo.Name);
-                    code = code.Replace("$BASECLASSNAME$", getBaseType(persistentClassInfo) + getInterfacesCode(persistentClassInfo));
+                    code = code.Replace("$BASECLASSNAME$",
+                                        getBaseType(persistentClassInfo) + getInterfacesCode(persistentClassInfo));
                     code = GetAllMembersCode(persistentClassInfo, code);
                     return code;
                 }

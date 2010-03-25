@@ -1,20 +1,32 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.Win.Interfaces;
+using eXpand.Utils.Helpers;
+using System.Linq;
 
 namespace eXpand.ExpressApp.Win
 {
     public partial class WinComponent : WinApplication, ILogOut
     {
- 
+
+        protected override void OnCustomProcessShortcut(CustomProcessShortcutEventArgs args)
+        {
+            base.OnCustomProcessShortcut(args);
+            if (args.Shortcut.ObjectKey.StartsWith("@"))
+                args.Shortcut.ObjectKey = ParametersFactory.CreateParameter(args.Shortcut.ObjectKey.Substring(1)).CurrentValue.ToString();
+        }
+        
         public void Logout()
         {
             Tracing.Tracer.LogSeparator("Application is being restarted");
@@ -80,6 +92,14 @@ namespace eXpand.ExpressApp.Win
 
         protected override Form CreateModelEditorForm()
         {
+//            var single = AppDomain.CurrentDomain.GetTypes("ModelDifferenceObject").FirstOrDefault();
+//            XPBaseObject baseObject = (XPBaseObject) ObjectSpaceProvider.CreateObjectSpace().FindObject(single,CriteriaOperator.Parse("PersistentApplication.Name=?","Fps"));
+//            Dictionary dictionary = (Dictionary)baseObject.GetType().GetMethod("GetCombinedModel1").Invoke(baseObject, null);
+//            
+//            dictionary=new Dictionary(Model.RootNode,Model.Schema);
+//            ModelEditorForm modelEditorForm = new ModelEditorForm(
+//                new ModelEditorController(dictionary.Clone(), new ModelDictionaryDifferenceStore(dictionary, LastDiffsStore), Modules),
+//                new SettingsStorageOnDictionary(dictionary.RootNode.GetChildNode("ModelEditor")));
             var modelEditorForm = (ModelEditorForm) base.CreateModelEditorForm();
             OnModelEditFormShowning(new ModelEditFormShowningEventArgs(modelEditorForm));
             return modelEditorForm;

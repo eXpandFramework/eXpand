@@ -6,6 +6,15 @@ call buildproject.cmd eXpand.ExpressApp.Win ".\eXpand\eXpand.ExpressApp\eXpand.E
 call buildproject.cmd eXpand.ExpressApp.Web ".\eXpand\eXpand.ExpressApp\eXpand.ExpressApp.Web\eXpand.ExpressApp.Web.csproj"
 call buildproject.cmd eXpand.ExpressApp.Security ".\eXpand\eXpand.ExpressApp.Modules\Security\eXpand.ExpressApp.Security.csproj"
 call buildproject.cmd eXpand.ExpressApp.Validation ".\eXpand\eXpand.ExpressApp.Modules\Validation\eXpand.ExpressApp.Validation.csproj"
+<<<<<<< HEAD
+=======
+call buildproject.cmd eXpand.ExpressApp.Logic ".\eXpand\eXpand.ExpressApp.Modules\Logic\eXpand.ExpressApp.Logic.csproj"
+call buildproject.cmd eXpand.ExpressApp.Logic.Win ".\eXpand\eXpand.ExpressApp.Modules\Logic.Win\eXpand.ExpressApp.Logic.Win.csproj"
+call buildproject.cmd eXpand.ExpressApp.Logic.Conditional ".\eXpand\eXpand.ExpressApp.Modules\Logic.Conditional\eXpand.ExpressApp.Logic.Conditional.csproj"
+call buildproject.cmd eXpand.ExpressApp.MemberLevelSecurity ".\eXpand\eXpand.ExpressApp.Modules\MemberLevelSecurity\eXpand.ExpressApp.MemberLevelSecurity.csproj"
+call buildproject.cmd eXpand.ExpressApp.MemberLevelSecurity.Win ".\eXpand\eXpand.ExpressApp.Modules\MemberLevelSecurity.Win\eXpand.ExpressApp.MemberLevelSecurity.Win.csproj"
+call buildproject.cmd eXpand.ExpressApp.MemberLevelSecurity.Web ".\eXpand\eXpand.ExpressApp.Modules\MemberLevelSecurity.Web\eXpand.ExpressApp.MemberLevelSecurity.Web.csproj"
+>>>>>>> 9d548f25d04494fd3e9262c880d809158847bc8b
 call buildproject.cmd eXpand.ExpressApp.AdditionalViewControlsProvider ".\eXpand\eXpand.ExpressApp.Modules\AdditionalViewControlsProvider\eXpand.ExpressApp.AdditionalViewControlsProvider.csproj"
 call buildproject.cmd eXpand.ExpressApp.AdditionalViewControlsProvider.Win ".\eXpand\eXpand.ExpressApp.Modules\AdditionalViewControlsProvider.Win\eXpand.ExpressApp.AdditionalViewControlsProvider.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.AdditionalViewControlsProvider.Web ".\eXpand\eXpand.ExpressApp.Modules\AdditionalViewControlsProvider.Web\eXpand.ExpressApp.AdditionalViewControlsProvider.Web.csproj"
@@ -27,6 +36,7 @@ call buildproject.cmd eXpand.ExpressApp.Taxonomies ".\eXpand\eXpand.ExpressApp.M
 call buildproject.cmd eXpand.ExpressApp.WorldCreator ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator\eXpand.ExpressApp.WorldCreator.csproj"
 call buildproject.cmd eXpand.ExpressApp.WorldCreator.Win ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator.Win\eXpand.ExpressApp.WorldCreator.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.WorldCreator.Web ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator.Web\eXpand.ExpressApp.WorldCreator.Web.csproj"
+<<<<<<< HEAD
 call buildproject.cmd eXpand.ExpressApp.WorldCreator.CThru ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator.Web\eXpand.ExpressApp.WorldCreator.CThru.csproj"
 call buildproject.cmd eXpand.ExpressApp.IO ".\eXpand\eXpand.ExpressApp.Modules\IO\eXpand.ExpressApp.IO.csproj"
 call buildproject.cmd eXpand.ExpressApp.IO.Win ".\eXpand\eXpand.ExpressApp.Modules\IO.Win\eXpand.ExpressApp.IO.Win.csproj"
@@ -34,3 +44,14 @@ call buildproject.cmd eXpand.ExpressApp.PivotChart ".\eXpand\eXpand.ExpressApp.M
 call buildproject.cmd eXpand.ExpressApp.PivotChart ".\eXpand\eXpand.ExpressApp.Modules\PivotChart.Win\eXpand.ExpressApp.PivotChart.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.PivotChart ".\eXpand\eXpand.ExpressApp.Modules\PivotChart.Web\eXpand.ExpressApp.PivotChart.Web.csproj"
 call buildproject.cmd eXpand.Persistent.BaseImpl ".\eXpand\eXpand.Persistent\eXpand.Persistent.BaseImpl\eXpand.Persistent.BaseImpl.csproj"
+=======
+call buildproject.cmd eXpand.ExpressApp.WorldCreator.CThru ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator.CThru\eXpand.ExpressApp.WorldCreator.CThru.csproj"
+call buildproject.cmd eXpand.ExpressApp.IO ".\eXpand\eXpand.ExpressApp.Modules\IO\eXpand.ExpressApp.IO.csproj"
+call buildproject.cmd eXpand.ExpressApp.IO.Win ".\eXpand\eXpand.ExpressApp.Modules\IO.Win\eXpand.ExpressApp.IO.Win.csproj"
+call buildproject.cmd eXpand.ExpressApp.PivotChart ".\eXpand\eXpand.ExpressApp.Modules\PivotChart\eXpand.ExpressApp.PivotChart.csproj"
+call buildproject.cmd eXpand.ExpressApp.PivotChart.Win ".\eXpand\eXpand.ExpressApp.Modules\PivotChart.Win\eXpand.ExpressApp.PivotChart.Win.csproj"
+call buildproject.cmd eXpand.ExpressApp.PivotChart.Web ".\eXpand\eXpand.ExpressApp.Modules\PivotChart.Web\eXpand.ExpressApp.PivotChart.Web.csproj"
+call buildproject.cmd eXpand.Persistent.BaseImpl ".\eXpand\eXpand.Persistent\eXpand.Persistent.BaseImpl\eXpand.Persistent.BaseImpl.csproj"
+
+
+>>>>>>> 9d548f25d04494fd3e9262c880d809158847bc8b

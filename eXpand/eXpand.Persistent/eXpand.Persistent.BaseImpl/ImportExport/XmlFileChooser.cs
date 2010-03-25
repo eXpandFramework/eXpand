@@ -6,26 +6,22 @@ using eXpand.Persistent.Base.ImportExport;
 namespace eXpand.Persistent.BaseImpl.ImportExport {
     [NonPersistent]
     public class XmlFileChooser : BaseObject, IXmlFileChooser {
+        FileData _fileData;
+
         public XmlFileChooser(Session session)
-            : base(session)
-        {
+            : base(session) {
         }
 
+        [FileTypeFilter("Strong Keys", 1, "*.xml")]
+        public FileData FileData {
+            get { return _fileData; }
+            set { SetPropertyValue("FileData", ref _fileData, value); }
+        }
+        #region IXmlFileChooser Members
         IFileData IXmlFileChooser.FileData {
             get { return _fileData; }
-            set { FileData=value as FileData      ; }
+            set { FileData = value as FileData; }
         }
-        private FileData _fileData;
-        public FileData FileData
-        {
-            get
-            {
-                return _fileData;
-            }
-            set
-            {
-                SetPropertyValue("FileData", ref _fileData, value);
-            }
-        }
+        #endregion
     }
 }

@@ -51,13 +51,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -71,6 +71,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -88,12 +89,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Collections\XPCollectionExtensions.cs" />
+    <Compile Include="Converters\ValueConverters\UnitValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\UriValueConverter.cs" />
     <Compile Include="CriteriaOperatorExtensions.cs" />
     <Compile Include="CriteriaOperatorExtractor.cs" />
-    <Compile Include="Collections\DBCollection.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Collections\XPBaseCollectionExtensions.cs">
     </Compile>
     <Compile Include="ConnectionProviders\CustomContainsProvider.cs" />
@@ -105,7 +104,6 @@
     <Compile Include="Converters\ValueConverters\PictureValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\SerializableObjectConverter.cs" />
     <Compile Include="Converters\ValueConverters\StringValueConverter.cs" />
-    <Compile Include="DBObject.cs" />
     <Compile Include="DB\DataStoreManager.cs" />
     <Compile Include="DB\DataStoreModifyDataEventArgs.cs" />
     <Compile Include="DB\DataStoreSelectDataEventArgs.cs" />
@@ -119,12 +117,6 @@
     <Compile Include="DB\XpoDataStoreProxy.cs" />
     <Compile Include="SessionExtensions.cs" />
     <Compile Include="XPODataType.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Collections\DBCollection.resx">
-      <DependentUpon>DBCollection.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

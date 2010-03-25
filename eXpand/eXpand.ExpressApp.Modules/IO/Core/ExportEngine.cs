@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using System.Xml.Linq;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -13,7 +12,7 @@ using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.IO.Core {
     public class ExportEngine {
-        readonly Dictionary<XPBaseObject, object> exportedObjecs = new Dictionary<XPBaseObject, object>();
+        readonly Dictionary<ObjectInfo, object> exportedObjecs = new Dictionary<ObjectInfo, object>();
         public XDocument Export(IEnumerable<XPBaseObject> baseCollection) {
             return Export(baseCollection, null);
         }
@@ -37,8 +36,9 @@ namespace eXpand.ExpressApp.IO.Core {
         }
 
         void ExportCore(XPBaseObject selectedObject, IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes, XElement root) {
-            if (!(exportedObjecs.ContainsKey(selectedObject))){
-                exportedObjecs.Add(selectedObject, null);
+            var objectInfo = new ObjectInfo(selectedObject.GetType(),selectedObject.ClassInfo.KeyProperty.GetValue(selectedObject));
+            if (!(exportedObjecs.ContainsKey(objectInfo))){
+                exportedObjecs.Add(objectInfo, null);
                 var serializedObjectElement = new XElement("SerializedObject");
                 serializedObjectElement.Add(new XAttribute("type", selectedObject.GetType().Name));
                 root.Add(serializedObjectElement);
@@ -46,7 +46,7 @@ namespace eXpand.ExpressApp.IO.Core {
                     XElement propertyElement = GetPropertyElement(serializedObjectElement, classInfoGraphNode);
                     switch (classInfoGraphNode.NodeType) {
                         case NodeType.Simple:
-                            propertyElement.Value = GetMemberValue(selectedObject, classInfoGraphNode) + "";
+                            SetMemberValue(selectedObject, classInfoGraphNode, propertyElement);
                             break;
                         case NodeType.Object:
                             createObjectProperty(selectedObject, propertyElement, classInfoGraphNode, root);
@@ -59,13 +59,22 @@ namespace eXpand.ExpressApp.IO.Core {
             }
         }
 
-        string GetMemberValue(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode) {
+        void SetMemberValue(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode, XElement propertyElement) {
             var memberValue = selectedObject.GetMemberValue(classInfoGraphNode.Name);
             var xpMemberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
-            if (xpMemberInfo.Converter!= null){
-                return (xpMemberInfo.Converter.ConvertToStorageType(memberValue) + "").XMLEncode();
+            if (xpMemberInfo.Converter!= null) {
+                memberValue = (xpMemberInfo.Converter.ConvertToStorageType(memberValue) );
             }
-            return ((memberValue is byte[] ? Encoding.UTF8.GetString((byte[])memberValue) : memberValue) + "").XMLEncode();
+            
+            if (memberValue is byte[])
+                memberValue = Convert.ToBase64String((byte[]) memberValue);
+            if (memberValue is DateTime)
+                memberValue = ((DateTime) memberValue).Ticks;
+            if (memberValue is string)
+                propertyElement.Add(new XCData(memberValue.ToString()));
+            else {
+                propertyElement.Value = memberValue+"";
+            }
         }
 
         XElement GetPropertyElement(XElement serializedObjectElement, IClassInfoGraphNode classInfoGraphNode) {
@@ -80,7 +89,7 @@ namespace eXpand.ExpressApp.IO.Core {
         void createCollectionProperty(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode, XElement root,
                                       XElement propertyElement) {
             XPMemberInfo memberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
-            var theObjects = (XPBaseCollection)memberInfo.GetValue(selectedObject);
+            var theObjects = (IEnumerable)memberInfo.GetValue(selectedObject);
             foreach (XPBaseObject theObject in theObjects) {
                 CreateRefElelement(classInfoGraphNode,theObject.GetType().Name, root,  theObject, propertyElement);
             }

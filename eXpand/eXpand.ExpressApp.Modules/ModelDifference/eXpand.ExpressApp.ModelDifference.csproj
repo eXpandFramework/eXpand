@@ -64,10 +64,10 @@
     <Reference Include="DevExpress.Data.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Security.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v9.3">
@@ -82,13 +82,13 @@
     <Reference Include="DevExpress.Persistent.Base.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v9.3, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v9.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
@@ -174,12 +174,12 @@
     </Compile>
     <Compile Include="CultureDescription.cs" />
     <Compile Include="DataStore\BaseObjects\DifferenceObject.cs" />
+    <Compile Include="DataStore\BaseObjects\ModelDifferenceObject.cs" />
     <Compile Include="DataStore\Queries\IQueryDifferenceObject.cs" />
     <Compile Include="DataStore\Queries\QueryDifferenceObject.cs" />
     <Compile Include="DataStore\Queries\QueryPersistentApplication.cs" />
     <Compile Include="DataStore\BaseObjects\Associations.cs" />
     <Compile Include="DataStore\BaseObjects\ValueConverters\DictionaryValueConverter.cs" />
-    <Compile Include="DataStore\BaseObjects\ModelDifferenceObject.cs" />
     <Compile Include="DataStore\BaseObjects\PersistentApplication.cs" />
     <Compile Include="DataStore\BaseObjects\ValueConverters\SchemaValueConverter.cs" />
     <Compile Include="DataStore\Builders\UserDifferenceObjectBuilder.cs" />
@@ -200,6 +200,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Controllers\PopuLateDifferenceObjectsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Security\Controllers\PopuLateDifferenceObjectsController.Designer.cs">
       <DependentUpon>PopuLateDifferenceObjectsController.cs</DependentUpon>
@@ -207,6 +208,7 @@
     <Compile Include="Security\ModelCombinePermission.cs" />
     <Compile Include="Security\ApplicationModelCombineModifier.cs" />
     <Compile Include="Security\Controllers\NavigationItemsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Security\Controllers\NavigationItemsController.Designer.cs">
       <DependentUpon>NavigationItemsController.cs</DependentUpon>

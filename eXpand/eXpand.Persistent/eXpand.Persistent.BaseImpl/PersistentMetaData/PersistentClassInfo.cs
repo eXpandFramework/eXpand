@@ -38,10 +38,10 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _baseType; }
             set {
                 SetPropertyValue("BaseType", ref _baseType, value);
-                if (!IsLoading && !IsSaving) {
-                    _baseTypeFullName = _baseType != null ? _baseType.FullName : null;
-                    _baseClassInfo = null;
-                }
+                if (_baseType != null)
+                    _baseTypeFullName = _baseType.FullName;
+                else if (_baseClassInfo == null && _baseType == null)
+                    _baseTypeFullName = null;
             }
         }
 
@@ -50,12 +50,11 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _baseClassInfo; }
             set {
                 SetPropertyValue("BaseClassInfo", ref _baseClassInfo, value);
-                if (!IsLoading && !IsSaving) {
-                    _baseTypeFullName = _baseClassInfo != null
-                                            ? _baseClassInfo.PersistentAssemblyInfo.Name + "." + _baseClassInfo.Name
-                                            : null;
-                    _baseType = null;
+                if (_baseClassInfo != null && _baseClassInfo.PersistentAssemblyInfo != null){
+                    _baseTypeFullName = _baseClassInfo.PersistentAssemblyInfo.Name + "." + _baseClassInfo.Name;
                 }
+                else if (_baseClassInfo == null && _baseType == null)
+                    _baseTypeFullName = null;
             }
         }
 
@@ -68,10 +67,10 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _mergedObjectType; }
             set {
                 SetPropertyValue("MergedObjectType", ref _mergedObjectType, value);
-                if (!IsLoading && !IsSaving) {
-                    _mergedObjectFullName = _mergedObjectType != null ? _mergedObjectType.FullName : null;
-                    _mergedClassInfo = null;
-                }
+                if (_mergedObjectType != null)
+                    _mergedObjectFullName = _mergedObjectType.FullName;
+                else if (_mergedClassInfo == null && _mergedObjectType == null)
+                    _mergedObjectFullName = null;
             }
         }
 
@@ -80,14 +79,11 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _mergedClassInfo; }
             set {
                 SetPropertyValue("MergedClassInfo", ref _mergedClassInfo, value);
-                if (!IsLoading && !IsSaving && _mergedClassInfo != null &&
-                    _mergedClassInfo.PersistentAssemblyInfo != null) {
-                    _mergedObjectFullName = _mergedClassInfo != null
-                                                ? _mergedClassInfo.PersistentAssemblyInfo.Name + "." +
-                                                  _mergedClassInfo.Name
-                                                : null;
-                    _baseType = null;
+                if (_mergedClassInfo != null && _mergedClassInfo.PersistentAssemblyInfo != null){
+                    _mergedObjectFullName = _mergedClassInfo.PersistentAssemblyInfo.Name + "." + _mergedClassInfo.Name;
                 }
+                else if (_mergedClassInfo == null && _mergedObjectType == null)
+                    _mergedObjectFullName = null;
             }
         }
 
@@ -117,14 +113,15 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
         #region IPersistentClassInfo Members
         [Browsable(false)]
-        string IPersistentClassInfo.BaseTypeFullName {
+        [Size(SizeAttribute.Unlimited)]
+        public string BaseTypeFullName {
             get { return _baseTypeFullName; }
             set { SetPropertyValue("BaseTypeFullName", ref _baseTypeFullName, value); }
         }
 
         [Browsable(false)]
         [Size(SizeAttribute.Unlimited)]
-        string IPersistentClassInfo.MergedObjectFullName {
+        public string MergedObjectFullName {
             get { return _mergedObjectFullName; }
             set { SetPropertyValue("MergedObjectFullName", ref _mergedObjectFullName, value); }
         }

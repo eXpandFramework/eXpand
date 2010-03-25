@@ -35,10 +35,10 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
             get { return _elementType; }
             set {
                 SetPropertyValue("ElementType", ref _elementType, value);
-                if (!IsLoading && !IsSaving){
-                    _elementTypeFullName = _elementType != null ? _elementType.FullName : null;
-                    _elementClassInfo = null;
-                }
+                if (_elementType != null)
+                    _elementTypeFullName = _elementType.FullName;
+                else if (_elementClassInfo == null && _elementType == null)
+                    _elementTypeFullName = null;
             }
         }
 
@@ -46,13 +46,11 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
             get { return _elementClassInfo; }
             set {
                 SetPropertyValue("ElementClassInfo", ref _elementClassInfo, value);
-                if (!IsLoading && !IsSaving){
-                    _elementTypeFullName = _elementClassInfo != null
-                                               ? _elementClassInfo.PersistentAssemblyInfo.Name + "." +
-                                                 _elementClassInfo.Name
-                                               : null;
-                    _elementType = null;
+                if (_elementClassInfo != null && _elementClassInfo.PersistentAssemblyInfo != null){
+                    _elementTypeFullName = _elementClassInfo.PersistentAssemblyInfo.Name + "." + _elementClassInfo.Name;
                 }
+                else if (_elementClassInfo == null && _elementType == null)
+                    _elementTypeFullName = null;
             }
         }
 
