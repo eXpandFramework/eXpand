@@ -25,7 +25,7 @@ namespace eXpand.ExpressApp.Web
             base.OnCreateCustomObjectSpaceProvider(args);
         }
 
-        public WebComponent(IContainer container)
+        protected WebComponent(IContainer container)
         {
             container.Add(this);
             InitializeComponent();

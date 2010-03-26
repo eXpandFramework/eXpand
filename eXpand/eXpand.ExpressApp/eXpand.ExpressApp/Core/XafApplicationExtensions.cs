@@ -7,7 +7,7 @@ namespace eXpand.ExpressApp.Core
 
         public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args)
         {
-            args.ObjectSpaceProvider = new ObjectSpaceProvider(new DataStoreProvider(args.ConnectionString));
+            args.ObjectSpaceProvider = new ObjectSpaceProvider(new MultiDataStoreProvider(args.ConnectionString));
         }
     }
 }

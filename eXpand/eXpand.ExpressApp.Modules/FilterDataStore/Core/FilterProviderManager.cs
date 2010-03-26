@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Configuration;
 using System.Configuration.Provider;
 using System.Linq;
@@ -35,12 +36,16 @@ namespace eXpand.ExpressApp.FilterDataStore.Core {
             }
         }
 
-        public static FilterProviderBase GetFilterProvider(string filterMemberName) {
+        public static FilterProviderBase GetFilterProvider(string filterMemberName, StatementContext modify) {
             FilterProviderBase provider = Providers.Cast<FilterProviderBase>().Where(
-                probase => probase.FilterMemberName == filterMemberName).FirstOrDefault();
-            if (provider != null && provider.FilterValue == null && !provider.UseFilterValueWhenNull)
+                probase => probase.FilterMemberName == filterMemberName && (probase.StatementContext == modify || probase.StatementContext == StatementContext.Both)).FirstOrDefault();
+            if (provider != null && HasFilterValue(provider) && !provider.UseFilterValueWhenNull)
                 return null;
             return provider;
+        }
+
+        static bool HasFilterValue(FilterProviderBase provider) {
+            return provider.FilterValue == null || (provider.FilterValue is ICollection && ((ICollection) provider.FilterValue).Count==0);
         }
 
         static void Initialize() {

@@ -10,10 +10,12 @@
 			<Item Name="User" IsNewNode="True" />
 			<Item Name="UserUsers_RoleRoles" IsNewNode="True" />
 			<Item Name="XPObjectType" IsNewNode="True" />
-			<Item Name="XpoModelDictionaryDifferenceStore" IsNewNode="True" />
-			<Item Name="XpoRoleModelDictionaryDifferenceStore" IsNewNode="True" />
-			<Item Name="XpoRoleModelDictionaryDifferenceStoreXpoRoleModelDictionaryDifferenceStores_RolesRole" IsNewNode="True" />
-			<Item Name="XpoUserModelDictionaryDifferenceStore" IsNewNode="True" />
+			<Item Name="ModelDifferenceObject" IsNewNode="True" />
+			<Item Name="PersistentApplication" IsNewNode="True" />
+			<Item Name="RoleModelDifferenceObject" IsNewNode="True" />
+			<Item Name="RoleRoles_RoleModelDifferenceObjectRoleModelDifferenceObjects" IsNewNode="True" />
+			<Item Name="UserModelDifferenceObject" IsNewNode="True" />
+			<Item Name="UserUsers_UserModelDifferenceObjectUserModelDifferenceObjects" IsNewNode="True" />
 			<Item Name="XPWeakReference" IsNewNode="True" />
 		</SystemTables>
 	</FilterDataStoreModule>

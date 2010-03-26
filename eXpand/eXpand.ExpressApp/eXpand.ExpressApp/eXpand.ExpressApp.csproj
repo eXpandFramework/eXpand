@@ -135,6 +135,7 @@
     <Compile Include="Core\ModuleBaseExtensions.cs" />
     <Compile Include="IObjectSpaceProvider.cs" />
     <Compile Include="IXpoDataStoreProxy.cs" />
+    <Compile Include="MultiDataStoreProvider.cs" />
     <Compile Include="ObjectSpaceProvider.cs" />
     <Compile Include="Core\DetailViewExtensions.cs" />
     <Compile Include="Core\ILinqCollectionSource.cs" />
@@ -313,6 +314,7 @@
     <Compile Include="SystemModule\ViewEditModeController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="XpoMultiDataStoreProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SystemModule\RecycleBinViewController.resx">

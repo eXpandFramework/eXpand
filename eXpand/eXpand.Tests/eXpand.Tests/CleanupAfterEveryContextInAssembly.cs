@@ -3,7 +3,7 @@ using DevExpress.Persistent.Base;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
 
-namespace eXpand.Tests.eXpand.WorldCreator {
+namespace eXpand.Tests {
     public class CleanupAfterEveryContextInAssembly : ICleanupAfterEveryContextInAssembly
     {
         public void AfterContextCleanup() {

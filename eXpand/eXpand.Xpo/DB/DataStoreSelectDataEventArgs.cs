@@ -13,6 +13,6 @@ namespace eXpand.Xpo.DB
 
         public bool Handled { get; set; }
 
-        public SelectedData SelectData { get; set; }
+        public SelectedData SelectedData { get; set; }
     }
 }

@@ -33,9 +33,23 @@ namespace eXpand.ExpressApp.SystemModule
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
+//            Application.SettingUp += ApplicationOnSettingUp;
             application.SetupComplete += (sender, args) => DictionaryHelper.AddFields(application.Info, application.ObjectSpaceProvider.XPDictionary);
             application.LoggedOn += (sender, args) => DictionaryHelper.AddFields(application.Info, application.ObjectSpaceProvider.XPDictionary);
         }
+//        void ApplicationOnSettingUp(object sender, SetupEventArgs setupEventArgs)
+//        {
+//            CreateDataStore(setupEventArgs);
+//        }
+//        void CreateDataStore(SetupEventArgs setupEventArgs)
+//        {
+//            var objectSpaceProvider = setupEventArgs.SetupParameters.ObjectSpaceProvider as IObjectSpaceProvider;
+//            if (objectSpaceProvider == null)
+//                throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
+//
+//            
+//            
+//        }
 
     }
 }

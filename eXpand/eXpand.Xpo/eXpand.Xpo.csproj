@@ -108,6 +108,7 @@
     <Compile Include="DB\DataStoreModifyDataEventArgs.cs" />
     <Compile Include="DB\DataStoreSelectDataEventArgs.cs" />
     <Compile Include="DB\DataStoreUpdateSchemaEventArgs.cs" />
+    <Compile Include="DB\IXpoDataStoreProxy.cs" />
     <Compile Include="DB\MultiDataStore.cs" />
     <Compile Include="eXpandCustomObject.cs" />
     <Compile Include="FunctionOperators\ContainsFunction.cs" />
