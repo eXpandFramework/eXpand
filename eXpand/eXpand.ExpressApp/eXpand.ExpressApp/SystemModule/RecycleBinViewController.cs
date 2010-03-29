@@ -1,13 +1,6 @@
-﻿using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.NodeWrappers;
-using DevExpress.Xpo;
-using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Enums;
 
 namespace eXpand.ExpressApp.SystemModule
@@ -37,22 +30,22 @@ namespace eXpand.ExpressApp.SystemModule
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
         {
-            return;
-            XPDictionary xpDictionary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
-            foreach (ReflectionClassInfo reflectionClassInfo in xpDictionary.Classes)
-            {
-                if (!reflectionClassInfo.ClassType.FullName.StartsWith("DevEx") && !reflectionClassInfo.IsAbstract &&
-                    !reflectionClassInfo.HasAttribute(NonPersistentAttribute.AttributeType))
-                {
-                    foreach (XPMemberInfo objectProperty in reflectionClassInfo.ObjectProperties)
-                    {
-                        if (reflectionClassInfo.GetMember("Deleted" + objectProperty.Name) == null)
-                            reflectionClassInfo.CreateMember("Deleted" + objectProperty.Name,
-                                                             objectProperty.ReferenceType.KeyProperty.MemberType,
-                                                             new BrowsableAttribute(false));
-                    }
-                }
-            }
+//            return;
+//            XPDictionary xpDictionary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
+//            foreach (ReflectionClassInfo reflectionClassInfo in xpDictionary.Classes)
+//            {
+//                if (!reflectionClassInfo.ClassType.FullName.StartsWith("DevEx") && !reflectionClassInfo.IsAbstract &&
+//                    !reflectionClassInfo.HasAttribute(NonPersistentAttribute.AttributeType))
+//                {
+//                    foreach (XPMemberInfo objectProperty in reflectionClassInfo.ObjectProperties)
+//                    {
+//                        if (reflectionClassInfo.GetMember("Deleted" + objectProperty.Name) == null)
+//                            reflectionClassInfo.CreateMember("Deleted" + objectProperty.Name,
+//                                                             objectProperty.ReferenceType.KeyProperty.MemberType,
+//                                                             new BrowsableAttribute(false));
+//                    }
+//                }
+//            }
         }
 
         protected override void OnActivated()
@@ -113,53 +106,53 @@ namespace eXpand.ExpressApp.SystemModule
         private void attachSessionEvents()
         {
             return;
-            View.ObjectSpace.Session.ObjectDeleting += Session_OnObjectDeleting;
+//            View.ObjectSpace.Session.ObjectDeleting += Session_OnObjectDeleting;
         }
 
 
-        private void Session_OnObjectDeleting(object sender, ObjectManipulationEventArgs e)
-        {
-            var xpBaseObject = (XPBaseObject) e.Object;
-            foreach (XPMemberInfo memberInfo in xpBaseObject.ClassInfo.ObjectProperties)
-            {
-                object value = memberInfo.GetValue(xpBaseObject);
-                if (value != null)
-                    xpBaseObject.SetMemberValue("Deleted" + memberInfo.Name,
-                                                memberInfo.ReferenceType.KeyProperty.GetValue(
-                                                    value));
-            }
-        }
+//        private void Session_OnObjectDeleting(object sender, ObjectManipulationEventArgs e)
+//        {
+//            var xpBaseObject = (XPBaseObject) e.Object;
+//            foreach (XPMemberInfo memberInfo in xpBaseObject.ClassInfo.ObjectProperties)
+//            {
+//                object value = memberInfo.GetValue(xpBaseObject);
+//                if (value != null)
+//                    xpBaseObject.SetMemberValue("Deleted" + memberInfo.Name,
+//                                                memberInfo.ReferenceType.KeyProperty.GetValue(
+//                                                    value));
+//            }
+//        }
 
 
-        ///<summary>
-        ///
-        ///<para>
-        ///Updates the Application Model.
-        ///
-        ///</para>
-        ///
-        ///</summary>
-        ///
-        ///<param name="dictionary">
-        ///		A <b>Dictionary</b> object that provides access to the Application Model's nodes.
-        ///
-        ///            </param>
-        public override void UpdateModel(Dictionary dictionary)
-        {
-            base.UpdateModel(dictionary);
-            return;
-            DictionaryNodeCollection dictionaryNodeCollection =
-                dictionary.RootNode.GetChildNode(ViewsNodeWrapper.NodeName).GetChildNodes(ListView.InfoNodeName, false);
-            foreach (DictionaryNode dictionaryNode in dictionaryNodeCollection)
-            {
-                DictionaryNode ruleChildNode = dictionaryNode.GetChildNode("ConditionalFormatting").GetChildNode("Rule");
-                ruleChildNode.SetAttribute("ID", "deleteRule");
-                ruleChildNode.SetAttribute("Criteria", "IsDeleted==true");
-                DictionaryNode targetChildNode = ruleChildNode.GetChildNode("Target");
-                targetChildNode.SetAttribute("Name", ColorHighlightingTarget.Foreground.ToString());
-                targetChildNode.SetAttribute("Color", KnownColor.Red.ToString());
-            }
-        }
+//        /<summary>
+//        /
+//        /<para>
+//        /Updates the Application Model.
+//        /
+//        /</para>
+//        /
+//        /</summary>
+//        /
+//        /<param name="dictionary">
+//        /		A <b>Dictionary</b> object that provides access to the Application Model's nodes.
+//        /
+//        /            </param>
+//        public override void UpdateModel(Dictionary dictionary)
+//        {
+//            base.UpdateModel(dictionary);
+//            return;
+//            DictionaryNodeCollection dictionaryNodeCollection =
+//                dictionary.RootNode.GetChildNode(ViewsNodeWrapper.NodeName).GetChildNodes(ListView.InfoNodeName, false);
+//            foreach (DictionaryNode dictionaryNode in dictionaryNodeCollection)
+//            {
+//                DictionaryNode ruleChildNode = dictionaryNode.GetChildNode("ConditionalFormatting").GetChildNode("Rule");
+//                ruleChildNode.SetAttribute("ID", "deleteRule");
+//                ruleChildNode.SetAttribute("Criteria", "IsDeleted==true");
+//                DictionaryNode targetChildNode = ruleChildNode.GetChildNode("Target");
+//                targetChildNode.SetAttribute("Name", ColorHighlightingTarget.Foreground.ToString());
+//                targetChildNode.SetAttribute("Color", KnownColor.Red.ToString());
+//            }
+//        }
 
 
         private void recylcleBinSingleChoiceAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e)
@@ -172,18 +165,18 @@ namespace eXpand.ExpressApp.SystemModule
             collectionSourceBase.ResetCollection();
         }
 
-        private void restoreFormRecycleBinsimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)
-        {
-            IList objects = e.SelectedObjects;
-            if (objects.Count > 0)
-            {
-                restore(objects);
-                View.ObjectSpace.CommitChanges();
-            }
-        }
+//        private void restoreFormRecycleBinsimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)
+//        {
+//            IList objects = e.SelectedObjects;
+//            if (objects.Count > 0)
+//            {
+//                restore(objects);
+//                View.ObjectSpace.CommitChanges();
+//            }
+//        }
 
-        private void restore(IList objects)
-        {
+//        private void restore(IList objects)
+//        {
 //            foreach (BaseObject baseObject in objects)
 //            {
 //                foreach (XPMemberInfo memberInfo in baseObject.ClassInfo.CollectionProperties)
@@ -225,6 +218,6 @@ namespace eXpand.ExpressApp.SystemModule
 //
 //                baseObject.SetMemberValue(GCRecordField.StaticName, null);
 //            }
-        }
+//        }
     }
 }

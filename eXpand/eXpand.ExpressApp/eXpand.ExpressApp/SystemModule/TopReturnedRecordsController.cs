@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.Xpo;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.SystemModule {
@@ -28,7 +24,7 @@ namespace eXpand.ExpressApp.SystemModule {
 
         public override Schema GetSchema()
         {
-            return new Schema(new SchemaHelper().InjectAttribute(TopReturnedRecords, ModelElement.ListView));
+            return new Schema(new SchemaBuilder().InjectAttribute(TopReturnedRecords, ModelElement.ListView));
         }
     }
 }
