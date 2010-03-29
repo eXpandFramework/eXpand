@@ -12,7 +12,6 @@ using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Xpo.DB;
 
 namespace eXpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase:ModuleBase {
@@ -33,11 +32,11 @@ namespace eXpand.ExpressApp.WorldCreator {
             Application.SettingUp+=ApplicationOnSettingUp;
 
             ReflectionDictionary reflectionDictionary = GetReflectionDictionary();
-            
-            var multiDataStore = new MultiDataStore(_connectionString, reflectionDictionary);
+
+            var multiDataStore = new XpoMultiDataStoreProxy(_connectionString);
 
 
-            SimpleDataLayer simpleDataLayer = multiDataStore.GetDataLayer(reflectionDictionary, multiDataStore,TypesInfo.Instance.PersistentAssemblyInfoType);
+            SimpleDataLayer simpleDataLayer = multiDataStore.GetDataLayer(reflectionDictionary, TypesInfo.Instance.PersistentAssemblyInfoType);
             var unitOfWork = new UnitOfWork(simpleDataLayer);
 
             AddDynamicModules(moduleManager, unitOfWork);

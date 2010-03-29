@@ -16,6 +16,7 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <DelaySign>false</DelaySign>
+    <OutputPath>..\..\eXpand.Dll\</OutputPath>
     <PublishUrl>http://localhost/eXpand.Xpo/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -30,7 +31,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <OutputPath>..\..\eXpand.Dll\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -109,7 +109,9 @@
     <Compile Include="DB\DataStoreSelectDataEventArgs.cs" />
     <Compile Include="DB\DataStoreUpdateSchemaEventArgs.cs" />
     <Compile Include="DB\IXpoDataStoreProxy.cs" />
-    <Compile Include="DB\MultiDataStore.cs" />
+    <Compile Include="DB\MultiDataStore.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="eXpandCustomObject.cs" />
     <Compile Include="FunctionOperators\ContainsFunction.cs" />
     <Compile Include="Parser\PropertyPathParser.cs" />

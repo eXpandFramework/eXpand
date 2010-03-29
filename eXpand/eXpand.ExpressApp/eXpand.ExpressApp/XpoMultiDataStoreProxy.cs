@@ -39,21 +39,30 @@ namespace eXpand.ExpressApp {
             OnDataStoreModifyData(dataStoreModifyDataEventArgs);
             foreach (ModificationStatement stm in dataStoreModifyDataEventArgs.ModificationStatements){
                 if (stm.TableName == typeof(XPObjectType).Name) {
-                    var stm1 = stm;
-                    foreach (var parameterValues in _dataStoreManager.SimpleDataLayers.Select(pair 
-                        => pair.Value).Select(dataLayer => dataLayer.ModifyData(stm1).Identities)) {
-                        modificationResultIdentities.AddRange(parameterValues);
-                    }
+                    ModifyXPObjectTypeData(stm,modificationResultIdentities);
                 }
                 else {
-                    string key = _dataStoreManager.GetKey(stm.TableName);
-                    ModificationResult modificationResult = _dataStoreManager.SimpleDataLayers[key].ModifyData(stm);
-                    if (modificationResult != null) {
-                        modificationResultIdentities.AddRange(modificationResult.Identities);
-                    }
+                    ModifyData(stm, modificationResultIdentities);
                 }
             }
             return new ModificationResult(modificationResultIdentities);
+        }
+
+        void ModifyData(ModificationStatement stm, List<ParameterValue> modificationResultIdentities) {
+            string key = _dataStoreManager.GetKey(stm.TableName);
+            ModificationResult modificationResult = _dataStoreManager.SimpleDataLayers[key].ModifyData(stm);
+            if (modificationResult != null) {
+                modificationResultIdentities.AddRange(modificationResult.Identities);
+            }
+        }
+
+        void ModifyXPObjectTypeData(ModificationStatement stm, List<ParameterValue> modificationResultIdentities) {
+            var stm1 = stm;
+            foreach (var parameterValues in _dataStoreManager.SimpleDataLayers.Select(pair
+                => pair.Value).Select(dataLayer => dataLayer.ModifyData(stm1).Identities))
+            {
+                modificationResultIdentities.AddRange(parameterValues);
+            }
         }
 
         public override SelectedData SelectData(params SelectStatement[] selects) {
@@ -77,18 +86,18 @@ namespace eXpand.ExpressApp {
             return UpdateSchemaResult.SchemaExists;
         }
 
-        public SimpleDataLayer GetDataLayer(XPDictionary xpDictionary, MultiDataStore multiDataStore, Type type) {
-            string connectionString = multiDataStore.DataStoreManager.GetConnectionString(type);
+        public SimpleDataLayer GetDataLayer(XPDictionary xpDictionary, Type type) {
+            string connectionString = DataStoreManager.GetConnectionString(type);
             var xpoDataStoreProxy = new XpoDataStoreProxy(connectionString);
-            xpoDataStoreProxy.DataStoreModifyData += (o, eventArgs) => multiDataStore.ModifyData(eventArgs);
+            xpoDataStoreProxy.DataStoreModifyData += (o, eventArgs) => ModifyData(eventArgs.ModificationStatements);
             xpoDataStoreProxy.DataStoreSelectData += (sender1, dataEventArgs) => {
-                if (multiDataStore.DataStoreManager.SimpleDataLayers.Count > 1 && IsQueryingXPObjectType(dataEventArgs)) {
+                if (DataStoreManager.SimpleDataLayers.Count > 1 && IsQueryingXPObjectType(dataEventArgs)) {
                     createExcludeXPObjectTypeArgs(dataEventArgs.SelectStatements, xpDictionary);
                 }
-                multiDataStore.SelectData(dataEventArgs);
+                SelectData(dataEventArgs.SelectStatements);
             };
             xpoDataStoreProxy.DataStoreUpdateSchema +=
-                (o1, schemaEventArgs) => multiDataStore.UpdateSchema(schemaEventArgs);
+                (o1, schemaEventArgs) => UpdateSchema(schemaEventArgs.DontCreateIfFirstTableNotExist,schemaEventArgs.Tables);
             return new SimpleDataLayer(xpDictionary, xpoDataStoreProxy);
         }
 
