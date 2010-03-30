@@ -5,12 +5,14 @@ using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 using System.Linq;
+using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.SystemModule {
-    public class SearchFromListViewController:ViewController<ListView> {
-        private const string SearchModeAttributeName = "SearchMode";
+    public class SearchFromListViewController : SearchFromViewController{
+        public SearchFromListViewController() {
+            TargetViewType=ViewType.ListView;
+        }
 
         protected override void OnActivated()
         {
@@ -35,10 +37,10 @@ namespace eXpand.ExpressApp.SystemModule {
         }
 
         string[] GetShownProperties() {
-            if (View.Editor != null) {
-                return View.Editor.ShownProperties;
+            if (((ListView) View).Editor != null) {
+                return ((ListView)View).Editor.ShownProperties;
             }
-            return (from column in View.Model.Columns.Items where column.VisibleIndex != -1 select column.PropertyName).ToArray();
+            return (from column in ((ListView)View).Model.Columns.Items where column.VisibleIndex != -1 select column.PropertyName).ToArray();
         }
 
         private IEnumerable<string> GetFullTextSearchProperties(FullTextSearchTargetPropertiesMode fullTextSearchTargetPropertiesMode)
@@ -75,11 +77,8 @@ namespace eXpand.ExpressApp.SystemModule {
             }
         }
 
-        public override Schema GetSchema()
-        {
-            var schemaHelper = new SchemaBuilder();
-            var injectAttribute = schemaHelper.InjectAttribute(SearchModeAttributeName, typeof(SearchMemberMode), ModelElement.ColumnInfos);
-            return new Schema(injectAttribute);
-        }    
+        protected override ModelElement GetModelElement() {
+            return ModelElement.ColumnInfos;
+        }
     }
 }

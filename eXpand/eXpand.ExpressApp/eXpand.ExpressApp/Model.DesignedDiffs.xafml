@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application>
+	<ActionDesign>
+		<Actions>
+			<Action ID="Search" ImageName="find" />
+		</Actions>
+	</ActionDesign>
 	<SchemaModules IsNewNode="True">
-		<SchemaModule Name="SystemModule" Version="8.3.4.5247" IsNewNode="True" />
-		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="8.3.4.5247" IsNewNode="True" />
-		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="8.3.4.5247" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.AutoFilterRowListViewController" Version="9.3.4.0" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.3.4.0" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.3.4.0" IsNewNode="True" />
+		<SchemaModule Name="SystemModule" Version="9.3.4.0" IsNewNode="True" />
 	</SchemaModules>
 </Application>

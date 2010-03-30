@@ -242,6 +242,9 @@
     <Compile Include="SystemModule\RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObjectController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\SearchFromDetailViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\TabStopViewController.cs">
       <SubType>Component</SubType>
     </Compile>

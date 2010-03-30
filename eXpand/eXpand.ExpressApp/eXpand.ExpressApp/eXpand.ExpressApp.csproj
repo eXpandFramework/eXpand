@@ -273,6 +273,9 @@
     <Compile Include="SystemModule\SearchFromListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\SearchFromViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\ShowNonPersistentObjectDetailViewFromNavigationControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>
