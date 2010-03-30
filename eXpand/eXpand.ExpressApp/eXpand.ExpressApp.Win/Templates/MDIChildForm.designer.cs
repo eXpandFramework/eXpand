@@ -1,5 +1,4 @@
-using DevExpress.ExpressApp.Utils;
-namespace MDIDemo.Win {
+namespace eXpand.ExpressApp.Win.Templates {
 	partial class MDIChildForm {
 		/// <summary>
 		/// Required designer variable.

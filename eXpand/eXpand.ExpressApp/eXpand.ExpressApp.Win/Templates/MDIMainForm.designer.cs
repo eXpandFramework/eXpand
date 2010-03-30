@@ -1,6 +1,6 @@
 using DevExpress.XtraBars;
-using DevExpress.ExpressApp.Utils;
-namespace MDIDemo.Win {
+
+namespace eXpand.ExpressApp.Win.Templates {
 	partial class MDIMainForm {		
 		/// <summary>
 		/// Required designer variable.

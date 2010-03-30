@@ -31,12 +31,7 @@ namespace eXpand.ExpressApp.WorldCreator {
             TypesInfo.Instance.AddTypes(GetAdditionalClasses());
             Application.SettingUp+=ApplicationOnSettingUp;
 
-            ReflectionDictionary reflectionDictionary = GetReflectionDictionary();
-
-            var multiDataStore = new XpoMultiDataStoreProxy(_connectionString);
-
-
-            SimpleDataLayer simpleDataLayer = multiDataStore.GetDataLayer(reflectionDictionary, TypesInfo.Instance.PersistentAssemblyInfoType);
+            SimpleDataLayer simpleDataLayer = XpoMultiDataStoreProxy.GetDataLayer(_connectionString, GetReflectionDictionary(), TypesInfo.Instance.PersistentAssemblyInfoType);
             var unitOfWork = new UnitOfWork(simpleDataLayer);
 
             AddDynamicModules(moduleManager, unitOfWork);

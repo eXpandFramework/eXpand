@@ -1,16 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Templates;
 using DevExpress.ExpressApp;
 
-namespace MDIDemo.Win {
+namespace eXpand.ExpressApp.Win.Templates {
 	public partial class MDIChildForm : XtraFormTemplateBase {
 		private const string FrameTemplatesDetailViewForm = @"FrameTemplates\DetailViewForm";
 		protected override DictionaryNode GetFormStateNode() {

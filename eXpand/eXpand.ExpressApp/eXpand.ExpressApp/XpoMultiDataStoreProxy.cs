@@ -16,10 +16,17 @@ namespace eXpand.ExpressApp {
         protected XpoMultiDataStoreProxy() {
         }
 
-        public XpoMultiDataStoreProxy(string connectionString) : base(connectionString) {
-            _dataStoreManager = new DataStoreManager(connectionString);
-            FillDictionaries(XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+        public XpoMultiDataStoreProxy(string connectionString)
+            : this(connectionString, XafTypesInfo.XpoTypeInfoSource.XPDictionary)
+        {
+            
         }
+
+        XpoMultiDataStoreProxy(string connectionString, XPDictionary xpDictionary):base(connectionString) {
+            _dataStoreManager = new DataStoreManager(connectionString);
+            FillDictionaries(xpDictionary);    
+        }
+
 
         public DataStoreManager DataStoreManager
         {
@@ -86,22 +93,23 @@ namespace eXpand.ExpressApp {
             return UpdateSchemaResult.SchemaExists;
         }
 
-        public SimpleDataLayer GetDataLayer(XPDictionary xpDictionary, Type type) {
-            string connectionString = DataStoreManager.GetConnectionString(type);
+        public static SimpleDataLayer GetDataLayer(string connectionString, XPDictionary xpDictionary, Type type) {
+            var dummyProxy = new XpoMultiDataStoreProxy(connectionString,xpDictionary);
+            connectionString = dummyProxy.DataStoreManager.GetConnectionString(type);
             var xpoDataStoreProxy = new XpoDataStoreProxy(connectionString);
-            xpoDataStoreProxy.DataStoreModifyData += (o, eventArgs) => ModifyData(eventArgs.ModificationStatements);
+            xpoDataStoreProxy.DataStoreModifyData += (o, eventArgs) => dummyProxy.ModifyData(eventArgs.ModificationStatements);
             xpoDataStoreProxy.DataStoreSelectData += (sender1, dataEventArgs) => {
-                if (DataStoreManager.SimpleDataLayers.Count > 1 && IsQueryingXPObjectType(dataEventArgs)) {
-                    createExcludeXPObjectTypeArgs(dataEventArgs.SelectStatements, xpDictionary);
+                if (dummyProxy.DataStoreManager.SimpleDataLayers.Count > 1 && dummyProxy.IsQueryingXPObjectType(dataEventArgs)){
+                    dummyProxy.CreateExcludeXPObjectTypeArgs(dataEventArgs.SelectStatements, xpDictionary);
                 }
-                SelectData(dataEventArgs.SelectStatements);
+                dummyProxy.SelectData(dataEventArgs.SelectStatements);
             };
             xpoDataStoreProxy.DataStoreUpdateSchema +=
-                (o1, schemaEventArgs) => UpdateSchema(schemaEventArgs.DontCreateIfFirstTableNotExist,schemaEventArgs.Tables);
+                (o1, schemaEventArgs) => dummyProxy.UpdateSchema(schemaEventArgs.DontCreateIfFirstTableNotExist, schemaEventArgs.Tables);
             return new SimpleDataLayer(xpDictionary, xpoDataStoreProxy);
         }
 
-        void createExcludeXPObjectTypeArgs(IEnumerable<SelectStatement> selectStatements, XPDictionary xpDictionary) {
+        void CreateExcludeXPObjectTypeArgs(IEnumerable<SelectStatement> selectStatements, XPDictionary xpDictionary) {
             IEnumerable<string> typeNames =
                 xpDictionary.Classes.OfType<XPClassInfo>().Where(classInfo => classInfo.ClassType != null).Select(
                     info => info.ClassType.FullName);

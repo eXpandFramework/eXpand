@@ -1,18 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.XtraBars.Docking;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.XtraBars;
 using DevExpress.ExpressApp.Win.Templates;
-using DevExpress.ExpressApp;
 
-namespace MDIDemo.Win {
+namespace eXpand.ExpressApp.Win.Templates {
 	public partial class MDIMainForm : XtraFormTemplateBase {
 		private const string NavigationVisibilityAttributeName = "NavigationVisibility";
 		private const string NavigationWidthAttributeName = "NavigationWidth";

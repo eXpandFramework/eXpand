@@ -7,7 +7,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.Win;
 using eXpand.ExpressApp.Win.ListEditors;
-using MDIDemo.Win;
+using eXpand.ExpressApp.Win.Templates;
 
 namespace eXpand.ExpressApp.Win.SystemModule {
     [ToolboxItem(true)]
@@ -28,18 +28,19 @@ namespace eXpand.ExpressApp.Win.SystemModule {
             base.Setup(application);
             application.CreateCustomTemplate+=ApplicationOnCreateCustomTemplate;
             application.SetupComplete += (sender, args) => {
-                var mdi = application.Model.RootNode.GetChildNode("Options").GetAttributeBoolValue("MDIStrategy");
-                if (mdi)
+                if (application.Model.RootNode.GetChildNode("Options").GetAttributeBoolValue("MDIStrategy"))
                     application.ShowViewStrategy = new MDIStrategy(application);
             };
         }
 
         void ApplicationOnCreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e) {
-            if (e.Context == TemplateContext.ApplicationWindow) {
-                e.Template = new MDIMainForm();
-            }
-            else {
-                e.Template = e.Context == TemplateContext.View ? new MDIChildForm() : null;
+            if (Application.Model.RootNode.GetChildNode("Options").GetAttributeBoolValue("MDIStrategy")) {
+                if (e.Context == TemplateContext.ApplicationWindow) {
+                    e.Template = new MDIMainForm();
+                }
+                else {
+                    e.Template = e.Context == TemplateContext.View ? new MDIChildForm() : null;
+                }
             }
         }
 
