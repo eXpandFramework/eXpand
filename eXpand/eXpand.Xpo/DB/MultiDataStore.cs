@@ -8,6 +8,7 @@ using DevExpress.Xpo.Metadata;
 using DevExpress.Xpo.Metadata.Helpers;
 
 namespace eXpand.Xpo.DB {
+    [Obsolete]
     public class MultiDataStore 
     {
         readonly DataStoreManager _dataStoreManager;

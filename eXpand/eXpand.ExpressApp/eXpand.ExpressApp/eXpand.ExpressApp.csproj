@@ -267,6 +267,15 @@
     <Compile Include="SystemModule\RecycleBinViewController.designer.cs">
       <DependentUpon>RecycleBinViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\SearchFromDetailViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\SearchFromListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\SearchFromViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\ShowNonPersistentObjectDetailViewFromNavigationControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>
