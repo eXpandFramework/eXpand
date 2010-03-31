@@ -324,6 +324,7 @@
     <Compile Include="SystemModule\ViewEditModeController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="XpandObjectSpace.cs" />
     <Compile Include="XpoMultiDataStoreProxy.cs" />
   </ItemGroup>
   <ItemGroup>
