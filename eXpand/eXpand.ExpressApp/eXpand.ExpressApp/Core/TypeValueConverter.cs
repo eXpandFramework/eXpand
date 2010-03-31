@@ -22,7 +22,7 @@ namespace eXpand.ExpressApp.Core {
         }
 
         public override object ConvertToStorageType(object value) {
-            if (value != null) return ((Type) value).Name;
+            if (value != null) return ((Type) value).FullName;
             return value;
         }
     }

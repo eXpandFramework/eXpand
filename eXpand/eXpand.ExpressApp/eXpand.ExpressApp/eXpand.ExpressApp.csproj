@@ -122,7 +122,9 @@
     <Compile Include="Core\DictionaryHelpers\ViewVisibilityCalculator.cs" />
     <Compile Include="Core\DictionaryNodeExtensions.cs" />
     <Compile Include="Core\FrameExtensions.cs" />
+    <Compile Include="Core\LinqServerCollectionSource.cs" />
     <Compile Include="Core\ObjectObserver.cs" />
+    <Compile Include="Core\ServerCollectionSource.cs" />
     <Compile Include="Core\TypesInfoExtensions.cs" />
     <Compile Include="Core\TypeValueConverter.cs" />
     <Compile Include="Core\ViewsNodeWrapper.cs" />
@@ -135,13 +137,12 @@
     <Compile Include="Core\ModuleBaseExtensions.cs" />
     <Compile Include="IObjectSpaceProvider.cs" />
     <Compile Include="IXpoDataStoreProxy.cs" />
-    <Compile Include="MultiDataStoreProvider.cs" />
+    <Compile Include="XpandObjectSpace.cs" />
     <Compile Include="ObjectSpaceProvider.cs" />
     <Compile Include="Core\DetailViewExtensions.cs" />
     <Compile Include="Core\ILinqCollectionSource.cs" />
     <Compile Include="Core\LinqCollectionHelper.cs" />
     <Compile Include="Core\LinqCollectionSource.cs" />
-    <Compile Include="Core\ServerCollectionSource.cs" />
     <Compile Include="Core\XafApplicationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemModule\ActionButtonDetailItemController.cs">
