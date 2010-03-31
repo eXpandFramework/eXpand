@@ -16,7 +16,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         }
         public override Schema GetSchema()
         {
-            var dictionaryNode = new SchemaHelper().InjectBoolAttribute(AutoCommit,ModelElement.ListView);
+            var dictionaryNode = new SchemaBuilder().InjectBoolAttribute(AutoCommit,ModelElement.ListView);
             return new Schema(dictionaryNode);
         }
     }

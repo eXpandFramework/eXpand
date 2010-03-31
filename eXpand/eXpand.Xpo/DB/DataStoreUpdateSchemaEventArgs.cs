@@ -15,7 +15,7 @@ namespace eXpand.Xpo.DB
 
         public UpdateSchemaResult UpdateSchemaResult { get; set; }
 
-        public bool Handled { get; set; }
+        
 
         public bool Updated { get; set; }
     }

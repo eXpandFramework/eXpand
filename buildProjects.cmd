@@ -37,8 +37,6 @@ call buildproject.cmd eXpand.ExpressApp.WorldCreator.CThru ".\eXpand\eXpand.Expr
 call buildproject.cmd eXpand.ExpressApp.IO ".\eXpand\eXpand.ExpressApp.Modules\IO\eXpand.ExpressApp.IO.csproj"
 call buildproject.cmd eXpand.ExpressApp.IO.Win ".\eXpand\eXpand.ExpressApp.Modules\IO.Win\eXpand.ExpressApp.IO.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.PivotChart ".\eXpand\eXpand.ExpressApp.Modules\PivotChart\eXpand.ExpressApp.PivotChart.csproj"
-call buildproject.cmd eXpand.ExpressApp.PivotChart.Win ".\eXpand\eXpand.ExpressApp.Modules\PivotChart.Win\eXpand.ExpressApp.PivotChart.Win.csproj"
-call buildproject.cmd eXpand.ExpressApp.PivotChart.Web ".\eXpand\eXpand.ExpressApp.Modules\PivotChart.Web\eXpand.ExpressApp.PivotChart.Web.csproj"
+call buildproject.cmd eXpand.ExpressApp.PivotChart ".\eXpand\eXpand.ExpressApp.Modules\PivotChart.Win\eXpand.ExpressApp.PivotChart.Win.csproj"
+call buildproject.cmd eXpand.ExpressApp.PivotChart ".\eXpand\eXpand.ExpressApp.Modules\PivotChart.Web\eXpand.ExpressApp.PivotChart.Web.csproj"
 call buildproject.cmd eXpand.Persistent.BaseImpl ".\eXpand\eXpand.Persistent\eXpand.Persistent.BaseImpl\eXpand.Persistent.BaseImpl.csproj"
-
-

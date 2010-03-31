@@ -1,7 +1,6 @@
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.NodeWrappers;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.SystemModule
@@ -14,11 +13,6 @@ namespace eXpand.ExpressApp.SystemModule
     public sealed partial class eXpandSystemModule : ModuleBase
     {
 
-        public override void UpdateModel(Dictionary model)
-        {
-            base.UpdateModel(model);
-            new ApplicationNodeWrapper(model).Node.GetChildNode("Options").SetAttribute("UseServerMode", "True");
-        }
         public override Schema GetSchema()
         {
             return new Schema(new DictionaryXmlReader().ReadFromResource(

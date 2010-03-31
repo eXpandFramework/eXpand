@@ -8,7 +8,9 @@ using DevExpress.Xpo.Metadata;
 using DevExpress.Xpo.Metadata.Helpers;
 
 namespace eXpand.Xpo.DB {
-    public class MultiDataStore {
+    [Obsolete]
+    public class MultiDataStore 
+    {
         readonly DataStoreManager _dataStoreManager;
 
         public MultiDataStore(string connectionString, XPDictionary xpDictionary) {
@@ -45,19 +47,13 @@ namespace eXpand.Xpo.DB {
                 selectedData => selectedData != null)) {
                 resultSet.AddRange(selectedData.ResultSet);
             }
-            args.SelectData = new SelectedData(resultSet.ToArray());
+            args.SelectedData = new SelectedData(resultSet.ToArray());
         }
 
         public void ModifyData(DataStoreModifyDataEventArgs args) {
             var modificationResultIdentities = new List<ParameterValue>();
             foreach (ModificationStatement stm in args.ModificationStatements) {
                 if (stm.TableName == "XPObjectType") {
-//                    string s = ((InsertStatement) stm).Parameters[0].ToString();
-//                    string substring = s.Substring(s.LastIndexOf(".")+1).TrimEnd(Char.Parse("'"));
-//                    Type type = _dataStoreManager.GetType(substring);
-//                    string key =type!= null? _dataStoreManager.GetKey(type):_dataStoreManager.GetKey(substring);
-//                    SimpleDataLayer simpleDataLayer = _dataStoreManager.SimpleDataLayers[key];
-//                    modificationResultIdentities.AddRange(simpleDataLayer.ModifyData(stm).Identities);
                     foreach (var dataLayer in _dataStoreManager.SimpleDataLayers.Select(pair => pair.Value)){
                         modificationResultIdentities.AddRange(dataLayer.ModifyData(stm).Identities);    
                     }
@@ -74,7 +70,6 @@ namespace eXpand.Xpo.DB {
         }
 
         public SimpleDataLayer GetDataLayer(XPDictionary xpDictionary, MultiDataStore multiDataStore,Type type) {
-                    
             string connectionString = multiDataStore.DataStoreManager.GetConnectionString(type);
             var xpoDataStoreProxy = new XpoDataStoreProxy(connectionString);
             xpoDataStoreProxy.DataStoreModifyData+=(o, eventArgs) => multiDataStore.ModifyData(eventArgs);            
@@ -88,8 +83,7 @@ namespace eXpand.Xpo.DB {
             return new SimpleDataLayer(xpDictionary, xpoDataStoreProxy);
 
         }
-        void createExcludeXPObjectTypeArgs(IEnumerable<SelectStatement> selectStatements, XPDictionary xpDictionary)
-        {
+        void createExcludeXPObjectTypeArgs(IEnumerable<SelectStatement> selectStatements, XPDictionary xpDictionary){
             var typeNames = xpDictionary.Classes.OfType<XPClassInfo>().Where(classInfo => classInfo.ClassType != null).Select(info => info.ClassType.FullName);
             foreach (var selectStatement in selectStatements.Where(statement => statement.TableName == "XPObjectType")){
                 List<string> values = typeNames.ToList();
@@ -101,8 +95,7 @@ namespace eXpand.Xpo.DB {
             }
         }
 
-        bool IsQueryingXPObjectType(DataStoreSelectDataEventArgs dataEventArgs)
-        {
+        bool IsQueryingXPObjectType(DataStoreSelectDataEventArgs dataEventArgs){
             return dataEventArgs.SelectStatements.Select(statement => statement.TableName).Where(s => s == "XPObjectType").FirstOrDefault() != null;
         }
     }

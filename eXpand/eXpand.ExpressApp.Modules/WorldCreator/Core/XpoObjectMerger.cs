@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -13,7 +14,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             var collection = new XPCollection(unitOfWork, TypesInfo.Instance.PersistentTypesInfoType).Cast<IPersistentClassInfo>().Where(info => info.MergedObjectFullName !=null).ToList();
             foreach (IPersistentClassInfo classInfo in collection){
                 XPClassInfo xpClassInfo = getClassInfo(classInfo.Session,classInfo.PersistentAssemblyInfo.Name+"."+ classInfo.Name,persistentTypes);
-                var mergedXPClassInfo = getClassInfo(classInfo.Session, classInfo.MergedObjectFullName,persistentTypes) ?? classInfo.Session.GetClassInfo(classInfo.MergedObjectFullName);
+                var mergedXPClassInfo = getClassInfo(classInfo.Session, classInfo.MergedObjectFullName, persistentTypes) ?? classInfo.Session.GetClassInfo(ReflectionHelper.GetType(classInfo.MergedObjectFullName));
                 if (xpClassInfo != null) {
                     unitOfWork.UpdateSchema(xpClassInfo.ClassType, mergedXPClassInfo.ClassType);
 //                    if (unitOfWork.GetCount(xpClassInfo.ClassType) == 0)

@@ -7,6 +7,11 @@ using System.Linq;
 
 namespace eXpand.ExpressApp.Core.DictionaryHelpers
 {
+    public class SchemaBuilder : SchemaHelper
+    {
+        
+    }
+    [Obsolete("Use ShemaBuilder")]
     public class SchemaHelper
     {
         public event EventHandler<AttibuteCreatedEventArgs> AttibuteCreating;
@@ -120,6 +125,30 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
                                   @"		</Element>" +
                                   @"	</Element>" +
                                   @"</Element>");
+            if (modelElement == ModelElement.Columns)
+                return new DictionaryXmlReader().ReadFromString(
+                                  @"<?xml version=""1.0""?>" +
+                                  @"<Element Name=""Application"">" +
+                                  @"	<Element Name=""Views"">" +
+                                  @"		<Element Name=""ListView"">" +
+                                  @"		    <Element Name=""Columns"">" +
+                                  @"		    </Element>" +
+                                  @"		</Element>" +
+                                  @"	</Element>" +
+                                  @"</Element>");
+            if (modelElement == ModelElement.ColumnInfos)
+                return new DictionaryXmlReader().ReadFromString(
+                                  @"<?xml version=""1.0""?>" +
+                                  @"<Element Name=""Application"">" +
+                                  @"	<Element Name=""Views"">" +
+                                  @"		<Element Name=""ListView"">" +
+                                  @"		    <Element Name=""Columns"">" +
+                                  @"		        <Element Name=""ColumnInfo"">" +
+                                  @"		        </Element>" +
+                                  @"		    </Element>" +
+                                  @"		</Element>" +
+                                  @"	</Element>" +
+                                  @"</Element>");
             if (modelElement == ModelElement.Member)
                 return new DictionaryXmlReader().ReadFromString(
                                   @"<?xml version=""1.0""?>" +
@@ -178,6 +207,14 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
                     name = "PropertyEditor";
                     path = @"Element\Element\Element\Element";
                     break;
+                case ModelElement.Columns:
+                    name = "Columns";
+                    path = @"Element\Element\Element";
+                    break;
+                case ModelElement.ColumnInfos:
+                    name = "ColumnInfo";
+                    path = @"Element\Element\Element\Element";
+                    break;
             }
             var dictionaryElement = (DictionaryNode)node.FindChildElementByPath(path + @"[@Name='" + name + @"']");
 
@@ -197,7 +234,9 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
         Member,
         ListView,
         DetailViewItems,
-        DetailViewPropertyEditors
+        DetailViewPropertyEditors,
+        Columns,
+        ColumnInfos
     }
     
 

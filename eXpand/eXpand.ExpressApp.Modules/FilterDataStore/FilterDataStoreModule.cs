@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace eXpand.ExpressApp.FilterDataStore
     {
         public const string FilterDataStoreModuleAttributeName = "FilterDataStoreModule";
         public const string DisabledDataStoreFiltersAttributeName = "DisabledDataStoreFilters";
-//        public const string FilterIsSharedAttributeName = "FilterIsShared";
+
         public override Schema GetSchema()
         {
             const string s = @"<Element Name=""Application"">;
@@ -64,13 +65,15 @@ namespace eXpand.ExpressApp.FilterDataStore
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
         {
             base.CustomizeTypesInfo(typesInfo);
-            ITypeInfo info = typesInfo.FindTypeInfo(typeof(PersistentBase));
-            if (FilterProviderManager.Providers != null)
-                foreach (FilterProviderBase provider in FilterProviderManager.Providers)
-                {
-                    if (info.FindMember(provider.FilterMemberName) == null)
-                        CreateMember(info, provider);
+            if (FilterProviderManager.Providers != null) {
+                foreach (FilterProviderBase provider in FilterProviderManager.Providers) {
+                    FilterProviderBase provider1 = provider;
+                    foreach (ITypeInfo typeInfo in typesInfo.PersistentTypes.Where(
+                                typeInfo =>!(typeInfo.IsAbstract) && typeInfo.FindMember(provider1.FilterMemberName) == null &&typeInfo.IsPersistent)) {
+                        CreateMember(typeInfo, provider);
+                    }
                 }
+            }
         }
 
         public static void CreateMember(ITypeInfo typeInfo, FilterProviderBase provider)
@@ -78,8 +81,7 @@ namespace eXpand.ExpressApp.FilterDataStore
             var attributes = new List<Attribute>
                                  {
                                      new BrowsableAttribute(false),
-                                     new MemberDesignTimeVisibilityAttribute(
-                                         false)
+                                     new MemberDesignTimeVisibilityAttribute(false)
                                  };
 
             IMemberInfo member = typeInfo.CreateMember(provider.FilterMemberName, provider.FilterMemberType);
@@ -129,7 +131,7 @@ namespace eXpand.ExpressApp.FilterDataStore
                     for (int i = 0; i < operands.Count(); i++)
                     {
                         int index = i;
-                        FilterProviderBase providerBase =FilterProviderManager.GetFilterProvider(operands[index].ColumnName);
+                        FilterProviderBase providerBase =FilterProviderManager.GetFilterProvider(operands[index].ColumnName, StatementContext.Update);
                         if (providerBase != null && !FilterIsShared(statement.TableName,providerBase.Name))
                             statement.Parameters[i].Value = providerBase.FilterValue;
                     }
@@ -150,7 +152,7 @@ namespace eXpand.ExpressApp.FilterDataStore
                     for (int i = 0; i < operands.Count(); i++)
                     {
                         FilterProviderBase providerBase =
-                            FilterProviderManager.GetFilterProvider(operands[i].ColumnName);
+                            FilterProviderManager.GetFilterProvider(operands[i].ColumnName, StatementContext.Insert);
                         if (providerBase != null && !FilterIsShared(statement.TableName,providerBase.Name)) 
                             statement.Parameters[i].Value = providerBase.FilterValue;
                     }
@@ -171,31 +173,43 @@ namespace eXpand.ExpressApp.FilterDataStore
             extractor.Extract(statement.Condition);
             traceStatement(statement, "ApplyCondition");
 
-            foreach (FilterProviderBase provider in FilterProviderManager.Providers)
-            {
-                FilterProviderBase providerBase = FilterProviderManager.GetFilterProvider(provider.FilterMemberName);
-                if (providerBase!= null)
-                {
+            foreach (FilterProviderBase provider in FilterProviderManager.Providers){
+                FilterProviderBase providerBase = FilterProviderManager.GetFilterProvider(provider.FilterMemberName, StatementContext.Select);
+                if (providerBase!= null){
                     Tracing.Tracer.LogVerboseValue("providerName", providerBase.Name);
-                    IEnumerable<BinaryOperator> binaryOperators =
-                        extractor.BinaryOperators.Where(
-                            @operator =>
-                            @operator.RightOperand is OperandValue &&
-                            ReferenceEquals(((OperandValue) @operator.RightOperand).Value, providerBase.FilterMemberName));
-                    if (!FilterIsShared(statement.TableName,providerBase.Name) && binaryOperators.Count() == 0&&!IsSystemTable(statement.TableName))
-                    {
-                        string s = providerBase.FilterValue== null? null:providerBase.FilterValue.ToString();
-
-
-                        string nodeAlias = statement.Operands.OfType<QueryOperand>().Where(
-                                               operand => operand.ColumnName == providerBase.FilterMemberName).Select(
-                                               operand => operand.NodeAlias).FirstOrDefault() ?? statement.Alias;
-                        statement.Condition &= new QueryOperand(providerBase.FilterMemberName, nodeAlias) ==s;
-                        Tracing.Tracer.LogVerboseValue("new_statement", statement);
+                    IEnumerable<BinaryOperator> binaryOperators = GetBinaryOperators(extractor, providerBase);
+                    if (!FilterIsShared(statement.TableName,providerBase.Name) && binaryOperators.Count() == 0&&!IsSystemTable(statement.TableName)){
+                        string nodeAlias = GetNodeAlias(statement, providerBase);
+                        ApplyCondition(statement, providerBase, nodeAlias);
                     }
                 }
             }
             return statement;
+        }
+
+        void ApplyCondition(SelectStatement statement, FilterProviderBase providerBase, string nodeAlias) {
+            if (providerBase.FilterValue is IEnumerable) {
+                CriteriaOperator criteriaOperator = ((IEnumerable) providerBase.FilterValue).Cast<object>().Aggregate<object, CriteriaOperator>(null, (current, value) 
+                    => current | new QueryOperand(providerBase.FilterMemberName, nodeAlias) == value.ToString());
+                criteriaOperator = new GroupOperator(criteriaOperator);
+                statement.Condition &= criteriaOperator;
+            }
+            else
+                statement.Condition &= new QueryOperand(providerBase.FilterMemberName, nodeAlias) == (providerBase.FilterValue == null ? null : providerBase.FilterValue.ToString());
+            Tracing.Tracer.LogVerboseValue("new_statement", statement);
+        }
+
+        IEnumerable<BinaryOperator> GetBinaryOperators(CriteriaOperatorExtractor extractor, FilterProviderBase providerBase) {
+            return extractor.BinaryOperators.Where(
+                                                      @operator =>
+                                                      @operator.RightOperand is OperandValue &&
+                                                      ReferenceEquals(((OperandValue) @operator.RightOperand).Value, providerBase.FilterMemberName));
+        }
+
+        string GetNodeAlias(SelectStatement statement, FilterProviderBase providerBase) {
+            return statement.Operands.OfType<QueryOperand>().Where(operand 
+                => operand.ColumnName == providerBase.FilterMemberName).Select(operand 
+                    => operand.NodeAlias).FirstOrDefault() ?? statement.Alias;
         }
 
         private void traceStatement(JoinNode statement, string methodName)
@@ -230,7 +244,7 @@ namespace eXpand.ExpressApp.FilterDataStore
         {
             bool ret = false;
             string classNameInDictionary = FindClassNameInDictionary(tableName);
-            if (classNameInDictionary != null)
+            if (!string.IsNullOrEmpty(classNameInDictionary))
             {
                 var classInfoNodeWrapper = new ApplicationNodeWrapper(Application.Info).BOModel.FindClassByName(classNameInDictionary);
                 if (classInfoNodeWrapper != null)

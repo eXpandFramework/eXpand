@@ -107,6 +107,7 @@
     <Compile Include="Core\FilterProviderManager.cs" />
     <Compile Include="Core\FilterProviderBase.cs" />
     <Compile Include="Core\FilterProviderConfiguration.cs" />
+    <Compile Include="Core\StatementContext.cs" />
     <Compile Include="Providers\UserFilterProvider.cs" />
     <Compile Include="FilterDataStoreModule.cs">
       <SubType>Component</SubType>
@@ -154,9 +155,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

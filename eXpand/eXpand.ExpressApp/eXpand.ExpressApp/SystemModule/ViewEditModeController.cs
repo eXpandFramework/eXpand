@@ -15,7 +15,7 @@ namespace eXpand.ExpressApp.SystemModule {
         }
 
         public override Schema GetSchema() {
-            DictionaryNode injectAttribute = new SchemaHelper().InjectAttribute(ViewEditModeAttributeName,
+            DictionaryNode injectAttribute = new SchemaBuilder().InjectAttribute(ViewEditModeAttributeName,
                                                                                 typeof (ViewEditMode),
                                                                                 ModelElement.DetailView);
             return new Schema(injectAttribute);

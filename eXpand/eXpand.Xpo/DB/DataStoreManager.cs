@@ -124,7 +124,12 @@ namespace eXpand.Xpo.DB {
                         dictionary[simpleDataLayer.Value.ConnectionProvider].Add(dbTable);
                     }
                 else
-                    dictionary[_simpleDataLayers[GetKey(dbTable.Name)].ConnectionProvider].Add(dbTable);
+                    try {
+                        dictionary[_simpleDataLayers[GetKey(dbTable.Name)].ConnectionProvider].Add(dbTable);
+                    }
+                    catch (Exception e) {
+                        Console.WriteLine(e);
+                    }
             }
             return dictionary;
         }

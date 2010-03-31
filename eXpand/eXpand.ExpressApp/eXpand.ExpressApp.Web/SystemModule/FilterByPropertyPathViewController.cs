@@ -7,8 +7,7 @@ using DevExpress.Web.ASPxPanel;
 
 namespace eXpand.ExpressApp.Web.SystemModule
 {
-    public partial class FilterByPropertyPathViewController : ExpressApp.SystemModule.FilterByPropertyPathViewController
-    {
+    public partial class FilterByPropertyPathViewController : ExpressApp.SystemModule.FilterByPropertyPathViewController{
         public FilterByPropertyPathViewController()
         {
             InitializeComponent();

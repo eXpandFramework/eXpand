@@ -32,7 +32,7 @@ namespace eXpand.ExpressApp.SystemModule
 
         public override Schema GetSchema()
         {
-            var helper = new SchemaHelper();
+            var helper = new SchemaBuilder();
             DictionaryNode dictionaryNode = helper.Inject(@"<Attribute Name=""" + DescribeRunTimeMembersAttributeName + @""" Choice=""True,False""/>", ModelElement.Class);
             return new Schema(dictionaryNode);
         }

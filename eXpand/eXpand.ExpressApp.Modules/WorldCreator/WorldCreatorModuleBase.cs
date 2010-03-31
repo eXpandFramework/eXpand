@@ -12,17 +12,13 @@ using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Xpo.DB;
 
 namespace eXpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase:ModuleBase {
         string _connectionString;
-
         List<Type> _definedModules=new List<Type>();
-        MultiDataStore _worldCretorDataStore;
 
-        public List<Type> DefinedModules
-        {
+        public List<Type> DefinedModules{
             get { return _definedModules; }
         }
 
@@ -35,12 +31,7 @@ namespace eXpand.ExpressApp.WorldCreator {
             TypesInfo.Instance.AddTypes(GetAdditionalClasses());
             Application.SettingUp+=ApplicationOnSettingUp;
 
-            ReflectionDictionary reflectionDictionary = GetReflectionDictionary();
-            
-            var multiDataStore = new MultiDataStore(_connectionString, reflectionDictionary);
-
-
-            SimpleDataLayer simpleDataLayer = multiDataStore.GetDataLayer(reflectionDictionary, multiDataStore,TypesInfo.Instance.PersistentAssemblyInfoType);
+            SimpleDataLayer simpleDataLayer = XpoMultiDataStoreProxy.GetDataLayer(_connectionString, GetReflectionDictionary(), TypesInfo.Instance.PersistentAssemblyInfoType);
             var unitOfWork = new UnitOfWork(simpleDataLayer);
 
             AddDynamicModules(moduleManager, unitOfWork);
@@ -70,12 +61,6 @@ namespace eXpand.ExpressApp.WorldCreator {
             var objectSpaceProvider = setupEventArgs.SetupParameters.ObjectSpaceProvider as IObjectSpaceProvider;
             if (objectSpaceProvider== null)
                 throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
-
-            var connectionString = ((IObjectSpaceProvider) setupEventArgs.SetupParameters.ObjectSpaceProvider).DataStoreProvider.ConnectionString;
-            _worldCretorDataStore = new MultiDataStore(connectionString,setupEventArgs.SetupParameters.ObjectSpaceProvider.XPDictionary);
-            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreModifyData +=(o, args) => _worldCretorDataStore.ModifyData(args);
-            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreSelectData +=(o, args) => _worldCretorDataStore.SelectData(args);
-            objectSpaceProvider.DataStoreProvider.Proxy.DataStoreUpdateSchema += (o, args) => _worldCretorDataStore.UpdateSchema(args);
         }
 
         public void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork){

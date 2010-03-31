@@ -1,10 +1,10 @@
 ﻿using System;
+using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using eXpand.Xpo.DB;
 
 namespace eXpand.ExpressApp
 {
-
     public class DataStoreProvider :  IXpoDataStoreProxy
     {
         private readonly XpoDataStoreProxy proxyCore;
@@ -18,21 +18,21 @@ namespace eXpand.ExpressApp
         {
             get { return connectionStringCore; }
         }
-        public DevExpress.Xpo.DB.IDataStore CreateUpdatingStore(out IDisposable[] disposableObjects)
+        public virtual IDataStore CreateUpdatingStore(out IDisposable[] disposableObjects)
         {
             disposableObjects = null;
-            return proxyCore;
+            return Proxy;
         }
-        public DevExpress.Xpo.DB.IDataStore CreateWorkingStore(out IDisposable[] disposableObjects)
+        public IDataStore CreateWorkingStore(out IDisposable[] disposableObjects)
         {
             disposableObjects = null;
-            return proxyCore;
+            return Proxy;
         }
         public XPDictionary XPDictionary
         {
             get { return null; }
         }
-        public XpoDataStoreProxy Proxy
+        public virtual XpoDataStoreProxy Proxy
         {
             get
             {

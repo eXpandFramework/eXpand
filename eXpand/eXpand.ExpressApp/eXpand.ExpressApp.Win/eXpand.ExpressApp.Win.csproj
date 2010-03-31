@@ -208,6 +208,7 @@
     <Compile Include="SystemModule\MasterDetailViewController.designer.cs">
       <DependentUpon>MasterDetailViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\MDIStrategy.cs" />
     <Compile Include="SystemModule\MinimizeOnCloseController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -239,6 +240,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObjectController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\SearchFromDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\TabStopViewController.cs">
@@ -273,6 +277,18 @@
     </Compile>
     <Compile Include="Templates\MainForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Templates\MDIChildForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Templates\MDIChildForm.designer.cs">
+      <DependentUpon>MDIChildForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\MDIMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Templates\MDIMainForm.designer.cs">
+      <DependentUpon>MDIMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WinComponent.cs">
       <SubType>Component</SubType>
@@ -309,6 +325,12 @@
     <EmbeddedResource Include="Templates\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\MDIChildForm.resx">
+      <DependentUpon>MDIChildForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\MDIMainForm.resx">
+      <DependentUpon>MDIMainForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

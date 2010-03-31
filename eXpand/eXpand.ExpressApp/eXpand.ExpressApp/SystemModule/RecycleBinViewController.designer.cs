@@ -44,7 +44,7 @@ namespace eXpand.ExpressApp.SystemModule
             // 
             this.restoreFormRecycleBinsimpleAction.Caption = "restore";
             this.restoreFormRecycleBinsimpleAction.Id = "restoreFormRecycleBinsimpleAction";
-            this.restoreFormRecycleBinsimpleAction.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.restoreFormRecycleBinsimpleAction_Execute);
+            
 
         }
 

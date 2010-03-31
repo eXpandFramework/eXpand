@@ -90,7 +90,6 @@
     <Reference Include="DevExpress.XtraEditors.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -230,6 +229,7 @@
     <Compile Include="eXpand.ExpressApp.FilterDataStore\ObjectSpaceProviderProxyFixture.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="eXpand.ExpressApp.FilterDataStore\Specs.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\BuildingModelDifferenceObjects\RoleAspectObjects.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\BuildingModelDifferenceObjects\UserAspectsObjects.cs" />
     <Compile Include="eXpand.ExpressApp.ModelDiffernece\When_serializing_schema_with_value_calculator.cs" />

@@ -12,3 +12,24 @@ hideToolBars...
 hideToolBars...
 End hideToolBars
 End hideToolBars
+config found
+conneection string found in storage
+conneection string found in config
+master db opened
+conneection string found in storage
+conneection string found in config
+master db opened
+config found
+config found
+conneection string found in storage
+conneection string found in storage
+conneection string found in config
+conneection string found in config
+master db opened
+master db opened
+conneection string found in storage
+conneection string found in storage
+conneection string found in config
+conneection string found in config
+master db opened
+master db opened
