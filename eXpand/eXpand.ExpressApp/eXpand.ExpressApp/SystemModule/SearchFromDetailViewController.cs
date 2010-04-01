@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using System.Linq;
@@ -35,6 +37,22 @@ namespace eXpand.ExpressApp.SystemModule {
             _searchAction.Active["HasSearchAbleMembers"] = _searchAbleMemberInfos.Count()>0;
         }
         void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
+            GroupOperator groupOperator = GetCriteria();
+            var count = (int)View.ObjectSpace.Session.Evaluate(View.ObjectTypeInfo.Type, CriteriaOperator.Parse("Count()"), groupOperator);
+            var objects = ObjectSpace.GetObjects(View.ObjectTypeInfo.Type, groupOperator);
+            CreateOrderProviderSource(objects);
+            if (count > 0) {
+                ChangeObject(objects[0]);
+            }
+        }
+
+        void CreateOrderProviderSource(IList objects) {
+            var standaloneOrderProvider = new StandaloneOrderProvider(ObjectSpace, objects);
+            var orderProviderSource = new OrderProviderSource {OrderProvider = standaloneOrderProvider};
+            Frame.GetController<RecordsNavigationController>().OrderProviderSource=orderProviderSource;
+        }
+
+        GroupOperator GetCriteria() {
             var memberInfos = new DetailViewInfoNodeWrapper(View.Info).Editors.Items.Where(wrapper => wrapper.Node.GetAttributeEnumValue(SearchModeAttributeName, SearchMemberMode.Unknown) == SearchMemberMode.Include).Select(nodeWrapper => View.ObjectTypeInfo.FindMember(nodeWrapper.PropertyName));
             var groupOperator = new GroupOperator(GroupOperatorType.Or);
             foreach (var memberInfo in memberInfos) {
@@ -43,9 +61,7 @@ namespace eXpand.ExpressApp.SystemModule {
                     value = "%" + value + "%";
                 groupOperator.Operands.Add(new BinaryOperator(memberInfo.Name,value,value is string?BinaryOperatorType.Like : BinaryOperatorType.Equal));
             }
-
-            var findObject = View.ObjectSpace.FindObject(View.ObjectTypeInfo.Type, groupOperator);
-            if (findObject != null) ChangeObject(findObject);
+            return groupOperator;
         }
 
         protected virtual void ChangeObject(object findObject) {
