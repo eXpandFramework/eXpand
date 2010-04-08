@@ -42,8 +42,8 @@ namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
         {
             var filterControlListViewController = Frame.GetController<FilterControlListViewController>();
             setRecursiveActionActiveState(filterControlListViewController.FilterControl);
-            if (((ListView)View).Editor is CategorizedListEditor)
-                filterControlListViewController.FilterControl.SourceControl = ((CategorizedListEditor)((ListView)View).Editor).Grid;
+            if (((ListView)View).Editor is DevExpress.ExpressApp.TreeListEditors.Win.CategorizedListEditor)
+                filterControlListViewController.FilterControl.SourceControl = ((DevExpress.ExpressApp.TreeListEditors.Win.CategorizedListEditor)((ListView)View).Editor).Grid;
             filterControlListViewController.FilterControl.FilterChanged += FilterOnFilterChanged;
 
         }

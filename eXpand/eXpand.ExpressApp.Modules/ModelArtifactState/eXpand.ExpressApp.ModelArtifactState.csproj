@@ -126,13 +126,17 @@
     <Compile Include="ActionState\ActionState.cs">
     </Compile>
     <Compile Include="ActionState\ActionStateModule.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ActionState\Logic\ActionStateRuleController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ArtifactState\Logic\ArtifactStateRulesNodeWrapper.cs" />
     <Compile Include="ArtifactState\Logic\ArtifactStateModule.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ControllerState\Logic\ControllerStateRuleController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Attributes\NotAllowObjectInstanciationRuleAttribute.cs" />
     <Compile Include="ArtifactState\Logic\ArtifactRuleAttribute.cs">
@@ -140,6 +144,7 @@
     </Compile>
     <Compile Include="Attributes\SupressDetailViewRuleAttribute.cs" />
     <Compile Include="ControllerState\ControllerStateModule.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ModelArtifactStateModule.cs">
       <SubType>Component</SubType>
