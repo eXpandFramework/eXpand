@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AllowEditAttribute.cs" />
+    <Compile Include="Attributes\AutoCreatableObjectAttribute.cs" />
     <Compile Include="Attributes\HideFromNewMenuAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
@@ -156,6 +157,9 @@
     </Compile>
     <Compile Include="SystemModule\AllowEditDetailViewController.Designer.cs">
       <DependentUpon>AllowEditDetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\AutoCreatableObjectController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\BaseViewController.cs">
       <SubType>Component</SubType>

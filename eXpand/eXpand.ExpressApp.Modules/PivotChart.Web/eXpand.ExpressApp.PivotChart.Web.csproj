@@ -152,10 +152,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalysisControlVisibilityController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Editors\AnalysisControlWeb.cs">
     </Compile>
     <Compile Include="AnalysisDisplayDateTimeViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="InPlaceEdit\CellTemplate.cs" />
     <Compile Include="PropertyEditors\AnalysisEditorWeb.cs">
@@ -163,16 +165,20 @@
     </Compile>
     <Compile Include="Core\TypesInfo.cs" />
     <Compile Include="PivotChartXpandAspNetModule.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="PivotChartXpandAspNetModule.Designer.cs">
       <DependentUpon>PivotChartXpandAspNetModule.cs</DependentUpon>
     </Compile>
     <Compile Include="PivotedPropertyController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="InPlaceEdit\PivotGridInplaceEditorsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Options\PivotGridOptionMapper.cs" />
     <Compile Include="Options\PivotOptionsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs">
