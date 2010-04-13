@@ -124,7 +124,6 @@
     <Compile Include="Core\FrameExtensions.cs" />
     <Compile Include="Core\LinqServerCollectionSource.cs" />
     <Compile Include="Core\ObjectObserver.cs" />
-    <Compile Include="Core\ServerCollectionSource.cs" />
     <Compile Include="Core\TypesInfoExtensions.cs" />
     <Compile Include="Core\TypeValueConverter.cs" />
     <Compile Include="Core\ViewsNodeWrapper.cs" />
