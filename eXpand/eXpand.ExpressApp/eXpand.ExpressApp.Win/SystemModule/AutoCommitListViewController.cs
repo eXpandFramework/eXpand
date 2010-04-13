@@ -11,8 +11,8 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         {
             base.OnActivated();
             var winDetailViewController = Frame.GetController<WinDetailViewController>();
-            if (winDetailViewController != null)
-                winDetailViewController.AutoCommitListView =View.Info.GetAttributeBoolValue(AutoCommit);
+            if (winDetailViewController != null && View.Info.GetAttributeBoolValue(AutoCommit))
+                winDetailViewController.AutoCommitListView = true;
         }
         public override Schema GetSchema()
         {
