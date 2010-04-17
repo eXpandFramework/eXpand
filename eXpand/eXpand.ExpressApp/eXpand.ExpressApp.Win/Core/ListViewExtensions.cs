@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Win.Editors;
+using DevExpress.ExpressApp.Win.SystemModule;
 
 namespace eXpand.ExpressApp.Win.Core
 {
@@ -11,7 +11,7 @@ namespace eXpand.ExpressApp.Win.Core
         {
             listView.SynchronizeInfo();
             List<CriteriaOperator> operators = listView.CollectionSource.Criteria.GetValues();
-            operators.Add(CriteriaOperator.Parse(listView.Info.GetAttributeValue(GridListEditor.ActiveFilterString)));
+            operators.Add(CriteriaOperator.Parse(((IModelListViewWin)listView.Model).ActiveFilterString));
             return ObjectSpace.CombineCriteria(operators.ToArray());
         }
 
@@ -19,7 +19,5 @@ namespace eXpand.ExpressApp.Win.Core
         {
             return (frame.Template == null);
         }
-
-
     }
 }

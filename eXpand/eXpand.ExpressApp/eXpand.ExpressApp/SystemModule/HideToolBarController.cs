@@ -1,23 +1,21 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.ComponentModel;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 
-namespace eXpand.ExpressApp.SystemModule {
-    public abstract class HideToolBarController : ViewController {
-        public const string HideToolBarAttributeName = "HideToolBar";
-        public override Schema GetSchema()
+namespace eXpand.ExpressApp.SystemModule
+{
+    public interface IModelHideViewToolBar : IModelNode
+    {
+        [DefaultValue(false)]
+        bool HideToolBar { get; set; }
+    }
+
+    public abstract class HideToolBarController : ViewController<ListView>
+    {
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            const string CommonTypeInfos =
-                @"<Element Name=""Application"">
-                    <Element Name=""Views"" >
-                        <Element Name=""ListView"" >
-                            <Attribute Name=""" +HideToolBarAttributeName +@""" Choice=""True,False""/>
-                        </Element>
-                        <Element Name=""DetailView"" >
-                            <Attribute Name=""" + HideToolBarAttributeName + @""" Choice=""True,False""/>
-                        </Element>
-                    </Element>
-                </Element>";
-
-            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelListView, IModelHideViewToolBar>();
         }
     }
 }

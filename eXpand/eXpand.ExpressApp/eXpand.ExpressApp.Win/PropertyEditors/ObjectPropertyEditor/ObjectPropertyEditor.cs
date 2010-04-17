@@ -1,10 +1,11 @@
 ﻿using System;
-using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.Win.PropertyEditors.ObjectPropertyEditor{
     public class ObjectPropertyEditor:DevExpress.ExpressApp.Win.Editors.ObjectPropertyEditor
     {
-        public ObjectPropertyEditor(Type objectType, DictionaryNode info) : base(objectType, info)
+        public ObjectPropertyEditor(Type objectType, IModelMemberViewItem model)
+            : base(objectType, model)
         {
         }
 

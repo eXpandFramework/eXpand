@@ -1,6 +1,6 @@
 ﻿using System;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Mask;
@@ -10,18 +10,13 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.PropertyEditors
 {
     public class MemberLevelSecurityStringPropertyEditor : StringPropertyEditor
     {
-        
-
-        public MemberLevelSecurityStringPropertyEditor(Type objectType, DictionaryNode info)
-            : base(objectType, info)
-        {
-        }
+        public MemberLevelSecurityStringPropertyEditor(Type objectType, IModelMemberViewItem model)
+            : base(objectType, model) { }
 
         protected override object CreateControlCore()
         {
             return new ButtonEdit();
         }
-
 
         protected override RepositoryItem CreateRepositoryItem()
         {
@@ -46,6 +41,7 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.PropertyEditors
                         break;
                 }
             }
+
             OnCustomSetupRepositoryItem(new CustomSetupRepositoryItemEventArgs(item));
         }
     }

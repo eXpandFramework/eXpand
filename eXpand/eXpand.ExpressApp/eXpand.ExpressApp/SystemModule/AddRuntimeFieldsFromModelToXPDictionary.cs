@@ -1,51 +1,44 @@
 using System;
 using DevExpress.ExpressApp;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.Persistent.Base;
+using DevExpress.ExpressApp.Model;
+using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.SystemModule
 {
+    public interface IModelBOModelRuntimeMember : IModelNode
+    {
+        bool IsRuntimeMember { get; set; }
+    }
+
     public class AddRuntimeFieldsFromModelToXPDictionary :ViewController
     {
         public AddRuntimeFieldsFromModelToXPDictionary()
         {
-            
             TargetObjectType = typeof (IXpoModelDifference);
         }
 
-        [CoverageExclude]
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            return new Schema(new DictionaryXmlReader().ReadFromString(
-                                  @"<?xml version=""1.0""?>" +
-                                  @"<Element Name=""Application"">" +
-                                  @"	<Element Name=""BOModel"">" +
-                                  @"		<Element Name=""Class"">" +
-                                  @"			<Element Name=""Member"">" +
-                                  @"			    <Attribute	IsNewNode=""True"" Name=""" + DictionaryHelper.IsRuntimeMember +
-                                  @"""" +
-                                  @"						Choice=""True,False""" + @"/>" +
-                                  @"			</Element>" +
-                                  @"		</Element>" +
-                                  @"	</Element>" +
-                                  @"</Element>"));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelBOModelClassMembers, IModelBOModelRuntimeMember>();
         }
-
 
         protected override void OnActivated()
         {
             base.OnActivated();
             View.ObjectSpace.Committed+=ObjectSpaceOnCommitted;
-            
         }
+
         protected override void OnDeactivating()
         {
             base.OnDeactivating();
             View.ObjectSpace.Committed -= ObjectSpaceOnCommitted;
         }
+
         private void ObjectSpaceOnCommitted(object sender, EventArgs args)
         {
-            DictionaryHelper.AddFields(Application.Info, XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+            DictionaryHelper.AddFields(Application.Model, XafTypesInfo.XpoTypeInfoSource.XPDictionary);
         }
     }
 }

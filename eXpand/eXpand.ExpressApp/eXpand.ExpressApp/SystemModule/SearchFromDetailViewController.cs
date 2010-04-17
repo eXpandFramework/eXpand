@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Filtering;
-using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
-using System.Linq;
 
 namespace eXpand.ExpressApp.SystemModule {
     public abstract class SearchFromDetailViewController:SearchFromViewController {
@@ -31,11 +30,13 @@ namespace eXpand.ExpressApp.SystemModule {
         protected override void OnActivated()
         {
             base.OnActivated();
-            _searchAbleMemberInfos = new DetailViewInfoNodeWrapper(View.Info).Editors.Items.Where(wrapper => wrapper.Node.GetAttributeEnumValue(SearchModeAttributeName, SearchMemberMode.Unknown) == SearchMemberMode.Include).Select(nodeWrapper => View.ObjectTypeInfo.FindMember(nodeWrapper.PropertyName));
+
+            _searchAbleMemberInfos = (this.View as DetailView).Model.Items.Cast<IModelViewPropertySearchMode>().Where(wrapper => wrapper.SearchMemberMode == SearchMemberMode.Include).Select(nodeWrapper => View.ObjectTypeInfo.FindMember(((IModelPropertyEditor)nodeWrapper).PropertyName));
             _searchAction.Active["HasSearchAbleMembers"] = _searchAbleMemberInfos.Count()>0;
         }
+
         void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
-            var memberInfos = new DetailViewInfoNodeWrapper(View.Info).Editors.Items.Where(wrapper => wrapper.Node.GetAttributeEnumValue(SearchModeAttributeName, SearchMemberMode.Unknown) == SearchMemberMode.Include).Select(nodeWrapper => View.ObjectTypeInfo.FindMember(nodeWrapper.PropertyName));
+            var memberInfos = (this.View as DetailView).Model.Items.Cast<IModelViewPropertySearchMode>().Where(wrapper => wrapper.SearchMemberMode == SearchMemberMode.Include).Select(nodeWrapper => View.ObjectTypeInfo.FindMember(((IModelPropertyEditor)nodeWrapper).PropertyName));
             var groupOperator = new GroupOperator(GroupOperatorType.Or);
             foreach (var memberInfo in memberInfos) {
                 var value = memberInfo.GetValue(View.CurrentObject);
@@ -52,8 +53,10 @@ namespace eXpand.ExpressApp.SystemModule {
             View.CurrentObject = findObject;
         }
 
-        protected override ModelElement GetModelElement() {
-            return ModelElement.DetailViewPropertyEditors;
+        public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders)
+        {
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelPropertyEditor, IModelViewPropertySearchMode>();
         }
     }
 }

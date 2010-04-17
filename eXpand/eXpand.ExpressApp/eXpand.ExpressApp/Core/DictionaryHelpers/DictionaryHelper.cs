@@ -7,73 +7,71 @@ using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using System.Linq;
+using DevExpress.ExpressApp.Model;
+using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Core.DictionaryHelpers
 {
     public class DictionaryHelper
     {
-        public const string IsRuntimeMember = "IsRuntimeMember";
-        
-
-        public string GetAspectFromXml(List<string> aspects, string xml)
-        {
-            aspects = aspects.OrderBy(s => s).ToList();
+        //public string GetAspectFromXml(List<string> aspects, string xml)
+        //{
+        //    aspects = aspects.OrderBy(s => s).ToList();
             
-            xml = xml.Replace("&#165;", "¥");
-            xml = removeSpaces(xml);
-            string defaultAspectValuesWhenNoOtherAspectExist = Regex.Replace(xml, "\":([^\"\xA5]*)\"", "\"$1\"");
-            string removedAspectsWithNoDefaultAspects = defaultAspectValuesWhenNoOtherAspectExist;
-            if (!string.IsNullOrEmpty(aspects[0])){
-                string defaultAspectWhenOtherAspectExists = Regex.Replace(defaultAspectValuesWhenNoOtherAspectExist, @""":([^""\xA5]*)\xA5" +aspects[0]+ @":([^""]*)""", "\"$1\"");
-                removedAspectsWithNoDefaultAspects = defaultAspectWhenOtherAspectExists;
-                foreach (var aspect in aspects){
-                    removedAspectsWithNoDefaultAspects = removeAttributesWithNoDefaultValue(aspect, removedAspectsWithNoDefaultAspects);
-                }
-            }
-            return removedAspectsWithNoDefaultAspects;
-        }
+        //    xml = xml.Replace("&#165;", "¥");
+        //    xml = removeSpaces(xml);
+        //    string defaultAspectValuesWhenNoOtherAspectExist = Regex.Replace(xml, "\":([^\"\xA5]*)\"", "\"$1\"");
+        //    string removedAspectsWithNoDefaultAspects = defaultAspectValuesWhenNoOtherAspectExist;
+        //    if (!string.IsNullOrEmpty(aspects[0])){
+        //        string defaultAspectWhenOtherAspectExists = Regex.Replace(defaultAspectValuesWhenNoOtherAspectExist, @""":([^""\xA5]*)\xA5" +aspects[0]+ @":([^""]*)""", "\"$1\"");
+        //        removedAspectsWithNoDefaultAspects = defaultAspectWhenOtherAspectExists;
+        //        foreach (var aspect in aspects){
+        //            removedAspectsWithNoDefaultAspects = removeAttributesWithNoDefaultValue(aspect, removedAspectsWithNoDefaultAspects);
+        //        }
+        //    }
+        //    return removedAspectsWithNoDefaultAspects;
+        //}
 
-        private string removeSpaces(string aspects){
-            return aspects.Replace(" >",">");
-        }
+        //private string removeSpaces(string aspects){
+        //    return aspects.Replace(" >",">");
+        //}
 
-        private string removeAttributesWithNoDefaultValue(string aspect,string value){
-            return Regex.Replace(value, "( [^=\"]*=\"" +aspect+ ":([^\"]*)\")", "");
-        }
+        //private string removeAttributesWithNoDefaultValue(string aspect,string value){
+        //    return Regex.Replace(value, "( [^=\"]*=\"" +aspect+ ":([^\"]*)\")", "");
+        //}
 
 
-        public string GetAspectFromXml(List<string> aspects, DictionaryNode dictionaryNode)
+        //public string GetAspectFromXml(List<string> aspects, DictionaryNode dictionaryNode)
+        //{
+        //    string xml1 = dictionaryNode.ToXml();
+        //    return GetAspectFromXml(aspects, xml1);
+
+        //}
+
+
+        private static ICollection<IModelMember> GetCustomFields(IModelApplication model)
         {
-            string xml1 = dictionaryNode.ToXml();
-            return GetAspectFromXml(aspects, xml1);
-
-        }
-
-
-        private static ICollection<PropertyInfoNodeWrapper> GetCustomFields(DictionaryNode applicationNode)
-        {
-            var result = new List<PropertyInfoNodeWrapper>();
-            foreach (DictionaryNode node in applicationNode.GetChildNode(BOModelNodeWrapper.NodeName).GetChildNodes(PropertyInfoNodeWrapper.NodeName, IsRuntimeMember, bool.TrueString, true))
+            var result = new List<IModelMember>();
+            foreach (IModelMember node in model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelBOModelRuntimeMember>().Where(member => member.IsRuntimeMember))
             {
-                result.Add(new PropertyInfoNodeWrapper(node));
+                result.Add(node);
             }
 
             return result;
         }
 
-        public static void AddFields(DictionaryNode rootNode, XPDictionary dictionary)
+        public static void AddFields(IModelApplication model, XPDictionary dictionary)
         {
-            foreach (PropertyInfoNodeWrapper customFieldInfo in GetCustomFields(rootNode))
+            foreach (IModelMember customFieldInfo in GetCustomFields(model))
                 try
                 {
-                    Type classType = ReflectionHelper.GetType(customFieldInfo.Class.Name);
+                    Type classType = ((IModelClass)customFieldInfo.Parent).TypeInfo.Type;
                     var typeInfo = dictionary.GetClassInfo(classType);
                     lock (typeInfo)
                     {
                         if (typeInfo.FindMember(customFieldInfo.Name) == null)
                         {
-                            Type memberType = ReflectionHelper.GetType(customFieldInfo.Type);
-                            XPCustomMemberInfo memberInfo = typeInfo.CreateMember(customFieldInfo.Name, memberType);
+                            XPCustomMemberInfo memberInfo = typeInfo.CreateMember(customFieldInfo.Name, customFieldInfo.MemberInfo.MemberType);
                             if (customFieldInfo.Size != 0)
                                 memberInfo.AddAttribute(new DevExpress.Xpo.SizeAttribute(customFieldInfo.Size));
 
@@ -86,8 +84,8 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
                     throw new Exception(
                         ExceptionLocalizerTemplate<SystemExceptionResourceLocalizer, ExceptionId>.GetExceptionMessage(
                             ExceptionId.ErrorOccursWhileAddingTheCustomProperty,
-                            customFieldInfo.Type,
-                            customFieldInfo.Class.Name,
+                            customFieldInfo.MemberInfo.MemberType,
+                            ((IModelClass)customFieldInfo.Parent).Name,
                             customFieldInfo.Name,
                             exception.Message));
                 }

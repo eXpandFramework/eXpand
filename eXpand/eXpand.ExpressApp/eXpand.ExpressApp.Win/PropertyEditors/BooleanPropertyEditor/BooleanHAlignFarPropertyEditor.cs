@@ -1,5 +1,5 @@
 using System;
-using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Repository;
@@ -7,8 +7,8 @@ using DevExpress.XtraEditors.Repository;
 namespace eXpand.ExpressApp.Win.PropertyEditors.BooleanPropertyEditor {
     public class BooleanHAlignFarPropertyEditor : DevExpress.ExpressApp.Win.Editors.BooleanPropertyEditor
     {
-        public BooleanHAlignFarPropertyEditor(Type objectType, DictionaryNode info)
-            : base(objectType, info)
+        public BooleanHAlignFarPropertyEditor(Type objectType, IModelMemberViewItem member)
+            : base(objectType, member)
         {
         }
 
@@ -19,7 +19,6 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.BooleanPropertyEditor {
             ri.GlyphAlignment = HorzAlignment.Far;
             ri.Appearance.TextOptions.HAlignment = HorzAlignment.Far;
             ri.Appearance.Options.UseTextOptions = true;
-            
         }
     }
 }

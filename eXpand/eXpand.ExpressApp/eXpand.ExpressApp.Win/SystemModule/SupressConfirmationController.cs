@@ -1,24 +1,26 @@
 ﻿using DevExpress.ExpressApp;
 using eXpand.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.SystemModule;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public partial class SupressConfirmationController : BaseViewController
+    public interface IModelViewSupressConfirmation : IModelNode
     {
-        public const string SupressConfirmationAttribute = "SupressConfirmation";
+        bool SupressConfirmation { get; set; }
+    }
+
+    public class SupressConfirmationController : BaseViewController
+    {
         private WinDetailViewController winDetailViewController;
-        public SupressConfirmationController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
+
+        public SupressConfirmationController(){}
 
         protected override void OnActivated()
         {
             base.OnActivated();
             winDetailViewController = Frame.GetController<WinDetailViewController>();
-            winDetailViewController.SuppressConfirmation = View.Info.GetAttributeBoolValue(SupressConfirmationAttribute);
+            winDetailViewController.SuppressConfirmation = ((IModelViewSupressConfirmation)View.Model).SupressConfirmation;
 
             if (View is DetailView && ObjectSpace.IsNewObject(View.CurrentObject))
             {
@@ -38,20 +40,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
             winDetailViewController.SuppressConfirmation = false;
         }
 
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            const string CommonTypeInfos = @"<Element Name=""Application"">
-                        <Element Name=""Views"" >
-                            <Element Name=""DetailView"">
-                                 <Attribute Name=""" + SupressConfirmationAttribute + @""" Choice=""False,True""/>
-                            </Element>
-                            <Element Name=""ListView"">
-                                 <Attribute Name=""" + SupressConfirmationAttribute + @""" Choice=""False,True""/>
-                            </Element>
-                        </Element>
-                    </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelView, IModelViewSupressConfirmation>();
         }
-
     }
 }

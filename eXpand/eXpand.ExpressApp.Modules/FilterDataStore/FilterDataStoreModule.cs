@@ -6,7 +6,7 @@ using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -15,46 +15,41 @@ using eXpand.ExpressApp.FilterDataStore.Core;
 using eXpand.Xpo;
 using eXpand.Xpo.DB;
 
-
 namespace eXpand.ExpressApp.FilterDataStore
 {
+    [DisplayProperty("Name"), KeyProperty("Name")]
+    public interface IModelDisabledDataStoreFilter
+    {
+        string Name { get; set; }
+    }
+
+    public interface IModelDisabledDataStoreFilters : IModelNode, IModelList<IModelDisabledDataStoreFilter>
+    {
+    }
+
+   
+    public interface IModelFilterDataStoreModule
+    {
+        IModelFilterDataStoreSystemTables SystemTables { get; set; }
+    }
+
+    [DisplayProperty("Name"), KeyProperty("Name")]
+    public interface IModelFilterDataStoreSystemTable
+    {
+        string Name { get; set; }
+    }
+
+    public interface IModelFilterDataStoreSystemTables : IModelNode, IModelList<IModelFilterDataStoreSystemTable>
+    {
+    }
+
     public sealed partial class FilterDataStoreModule : ModuleBase
     {
-        public const string FilterDataStoreModuleAttributeName = "FilterDataStoreModule";
-        public const string DisabledDataStoreFiltersAttributeName = "DisabledDataStoreFilters";
-
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            const string s = @"<Element Name=""Application"">;
-                            
-                            <Element Name=""BOModel"">
-                                <Element Name=""Class"">
-                                    <Element Name=""" + DisabledDataStoreFiltersAttributeName + @""">
-                                        <Element Name=""Item"" KeyAttribute=""Name"" DisplayAttribute=""Name"" Multiple=""True"">
-                                            <Attribute  Name=""Name"" />
-                                        </Element>
-                                    </Element>
-                                    
-                                </Element>
-                            </Element>
-                            
-                            <Element Name=""" + FilterDataStoreModuleAttributeName + @""">
-                                    <Element Name=""SystemTables"">
-                                        <Element Name=""Item"" KeyAttribute=""Name"" DisplayAttribute=""Name"" Multiple=""True"">
-                                            <Attribute  Name=""Name"" />
-                                        </Element>
-                                    </Element>
-                            </Element>
-                    </Element>";
-
-            return new Schema(new DictionaryXmlReader().ReadFromString(s));
-        }
-        public override void UpdateModel(Dictionary model)
-        {
-            base.UpdateModel(model);
-            var applicatioNodeWrapper = new ApplicationNodeWrapper(model);
-            foreach (ClassInfoNodeWrapper clw in applicatioNodeWrapper.BOModel.Classes)
-                clw.Node.AddChildNode(DisabledDataStoreFiltersAttributeName);
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelClass, IModelDisabledDataStoreFilters>();
+            extenders.Add<IModelApplication, IModelFilterDataStoreModule>();
         }
 
         public FilterDataStoreModule()
@@ -224,11 +219,13 @@ namespace eXpand.ExpressApp.FilterDataStore
         private bool IsSystemTable(string name)
         {
             bool ret = false;
-            DictionaryNode dictionaryNode = Application.Info.GetChildNode(FilterDataStoreModuleAttributeName).GetChildNode("SystemTables");
-            foreach (DictionaryNode childNode in dictionaryNode.ChildNodes){
-                if (childNode.GetAttributeValue("Name")==name)
+
+            foreach (IModelFilterDataStoreSystemTable systemTable in ((IModelFilterDataStoreModule)Application.Model).SystemTables)
+            {
+                if (systemTable.Name == name)
                     ret= true;
             }
+
             Tracing.Tracer.LogVerboseValue("IsSystemTable", ret);
             return ret;
         }
@@ -246,12 +243,11 @@ namespace eXpand.ExpressApp.FilterDataStore
             string classNameInDictionary = FindClassNameInDictionary(tableName);
             if (!string.IsNullOrEmpty(classNameInDictionary))
             {
-                var classInfoNodeWrapper = new ApplicationNodeWrapper(Application.Info).BOModel.FindClassByName(classNameInDictionary);
+                var classInfoNodeWrapper = Application.Model.BOModel[classNameInDictionary];
                 if (classInfoNodeWrapper != null)
                     foreach (
-                        DictionaryNode childNode in
-                            classInfoNodeWrapper.Node.GetChildNode(DisabledDataStoreFiltersAttributeName).ChildNodes)
-                        if (childNode.GetAttributeValue("Name") == providerName)
+                        var childNode in ((IModelDisabledDataStoreFilters)classInfoNodeWrapper))
+                        if (childNode.Name  == providerName)
                             ret =true;
             }
             Tracing.Tracer.LogVerboseValue("FilterIsShared", ret);

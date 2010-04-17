@@ -2,54 +2,50 @@ using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
 using eXpand.Utils.Helpers;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 
 namespace eXpand.ExpressApp.SystemModule
 {
     public partial class ModuleController : Controller
     {
-        public const string Modules = "Modules";
         public ModuleController()
         {
             InitializeComponent();
             RegisterActions(components);
         }
 
-        public override void UpdateModel(Dictionary dictionary)
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.UpdateModel(dictionary);
-            var wrapper = new ApplicationNodeWrapper(dictionary);
-            DictionaryNode node = wrapper.Node.AddChildNode(Modules);
-            var types = AppDomain.CurrentDomain.GetTypes(typeof(ModuleBase));
-            foreach (var type in types){
-                if (node.FindChildNode("Module", "Name", type.FullName) == null)
-                    node.AddChildNode("Module").SetAttribute("Name", type.FullName);
-            }
-//            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-//            {
-//                try{
-//                    foreach (var type in assembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type))){
-//                        if (node.FindChildNode("Module", "Name", type.FullName) == null)
-//                            node.AddChildNode("Module").SetAttribute("Name", type.FullName);
-//                    }
-//                }
-//                catch (ReflectionTypeLoadException){
-//                    Tracing.Tracer.LogError(string.Format("ReflectionTypeLoadException for {0}", assembly.FullName));
-//                }
-//            }
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelApplication, IModelModules>();
         }
+    }
 
-        [CoverageExclude]
-        public override Schema GetSchema()
+    [ModelNodesGenerator(typeof(ModuleNodesGenerator))]
+    public interface IModelModules : IModelNode, IModelList<IModelModule>
+    {
+    }
+
+    [KeyProperty("Name"), DisplayProperty("Name")]
+    public interface IModelModule
+    {
+        string Name { get; set; }
+    }
+
+    public class ModuleNodesGenerator : ModelNodesGeneratorBase
+    {
+        protected override void GenerateNodesCore(ModelNode node)
         {
-            return new Schema(new DictionaryXmlReader().ReadFromString(
-                                  @"<?xml version=""1.0""?>" +
-                                  @"<Element Name=""Application"">" +
-                                  @"	<Element Name=""Modules"">" +                                
-                                  @"	    <Element Name=""Module"" KeyAttribute=""Name"" DisplayAttribute=""Name"" Multiple=""True"">" +                                
-                                  @"	        <Attribute Name=""Name"" />" +                                
-                                  @"	    </Element>" +
-                                  @"	</Element>" +
-                                  @"</Element>"));
+            IModelModules modules = node as IModelModules;
+            foreach (var type in AppDomain.CurrentDomain.GetTypes(typeof(ModuleBase)))
+            {
+                if (node[type.FullName] == null)
+                {
+                    var module = node.AddNode<IModelModule>();
+                    module.Name = type.FullName;
+                }
+            }
         }
     }
 }

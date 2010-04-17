@@ -18,14 +18,12 @@ namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers {
 
         void TreeListOnShowingEditor(object sender, CancelEventArgs cancelEventArgs) {
             TreeListColumn treeListColumn = ((TreeList) sender).FocusedColumn;
-            var listViewInfoNodeWrapper = new ListViewInfoNodeWrapper(View.Info);
-            cancelEventArgs.Cancel = !listViewInfoNodeWrapper.Columns.FindColumnInfo(treeListColumn.FieldName).AllowEdit;
+            cancelEventArgs.Cancel = !View.Model.Columns[treeListColumn.FieldName].AllowEdit;
         }
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            var listViewInfoNodeWrapper = new ListViewInfoNodeWrapper(View.Info);
-            if ((View.Editor is TreeListEditor) && listViewInfoNodeWrapper.AllowEdit) {
+            if ((View.Editor is TreeListEditor) && View.Model.AllowEdit) {
                 TreeList treeList = ((TreeListEditor) View.Editor).TreeList;
                 foreach (RepositoryItem ri in treeList.RepositoryItems) {
                     ri.ReadOnly = false;

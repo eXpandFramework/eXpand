@@ -41,8 +41,9 @@ namespace eXpand.ExpressApp.SystemModule
         }
         void OnCustomShowNavigationItem(object sender, CustomShowNavigationItemEventArgs e)
         {
-            if (e.ActionArguments.SelectedChoiceActionItem.Info.GetAttributeValue("ViewID") == Application.FindListViewId(typeof(NonPersistentObjectType)))
-            {
+            // TODO: Model Upgrade
+            //if (e.ActionArguments.SelectedChoiceActionItem.Model.Info.GetAttributeValue("ViewID") == Application.FindListViewId(typeof(NonPersistentObjectType)))
+            //{
                 ObjectSpace os = ObjectSpaceInMemory.CreateNew();
                 NonPersistentObjectType obj = CreateNonPersistentObject(os);
                 CustomizeNonPersistentObject(obj);
@@ -50,7 +51,7 @@ namespace eXpand.ExpressApp.SystemModule
                 e.ActionArguments.ShowViewParameters.CreatedView = dv;
                 CustomizeShowViewParameters(e.ActionArguments.ShowViewParameters);
                 e.Handled = true;
-            }
+            //}
         }
 
 

@@ -25,8 +25,8 @@ namespace eXpand.ExpressApp.SystemModule
                 {
                     if (member.HasAttribute(typeof(NumericFormatAttribute)))
                     {
-                        member.AddAttribute(new CustomAttribute(PropertyInfoNodeWrapper.EditMaskAttribute, "f0"));
-                        member.AddAttribute(new CustomAttribute(PropertyInfoNodeWrapper.DisplayFormatAttribute, "#"));
+                        member.AddAttribute(new CustomAttribute("EditMaskAttribute", "f0"));
+                        member.AddAttribute(new CustomAttribute("DisplayFormatAttribute", "#"));
                         XafTypesInfo.Instance.RefreshInfo(xpClassInfo.ClassType);
                     }
                     

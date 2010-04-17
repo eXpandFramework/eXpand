@@ -12,6 +12,9 @@ using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.CloneObject;
+using eXpand.ExpressApp.WorldCreator.Controllers.ListView;
 
 namespace eXpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase:ModuleBase {
@@ -91,56 +94,51 @@ namespace eXpand.ExpressApp.WorldCreator {
             return Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses);
         }
 
-        public override void UpdateModel(Dictionary model)
+        public override void UpdateModel(IModelApplication applicationModel)
         {
-            base.UpdateModel(model);
+            base.UpdateModel(applicationModel);
             if (Application != null){
-                ShowOwnerForExtendedMembers(model);
-                removeDynamicAssemblyFromImageSources(model);
-                enableCloning(model);
+                ShowOwnerForExtendedMembers(applicationModel);
+                removeDynamicAssemblyFromImageSources(applicationModel);
+                enableCloning(applicationModel);
             }
         }
 
-        void enableCloning(Dictionary model)
+        void enableCloning(IModelApplication model)
         {
-
             foreach (var propertyInfo in typeof(ITypesInfo).GetProperties())
             {
                 var type = (Type)propertyInfo.GetValue(TypesInfo.Instance, null);
-                var classInfoNodeWrapper = new ApplicationNodeWrapper(model).BOModel.FindClassByType(type);
-                classInfoNodeWrapper.Node.SetAttribute("IsClonable", true);
+                ((IModelClassClonable)Application.Model.BOModel[type.FullName]).IsClonable = true;
             }
         }
 
 
-        void ShowOwnerForExtendedMembers(Dictionary dictionary)
+        void ShowOwnerForExtendedMembers(IModelApplication model)
         {
-            foreach (ListViewInfoNodeWrapper listViewInfoNodeWrapper in GetListViewInfoNodeWrappers(dictionary))
+            foreach (IModelListView listViewInfoNodeWrapper in GetListViewInfoNodeWrappers(model))
             {
-                ColumnInfoNodeWrapper columnInfoNodeWrapper = listViewInfoNodeWrapper.Columns.FindColumnInfo("Owner");
-                if (columnInfoNodeWrapper != null) columnInfoNodeWrapper.VisibleIndex = 2;
+                IModelColumn columnInfoNodeWrapper = listViewInfoNodeWrapper.Columns["Owner"];
+                if (columnInfoNodeWrapper != null) columnInfoNodeWrapper.Index = 2;
             }
         }
 
-        IEnumerable<ListViewInfoNodeWrapper> GetListViewInfoNodeWrappers(Dictionary dictionary)
+        IEnumerable<IModelListView> GetListViewInfoNodeWrappers(IModelApplication model)
         {
-            var wrapper = new ApplicationNodeWrapper(dictionary);
-            List<ListViewInfoNodeWrapper> wrappers =
-                wrapper.Views.GetListViews(TypesInfo.Instance.ExtendedReferenceMemberInfoType);
-            wrappers.AddRange(wrapper.Views.GetListViews(TypesInfo.Instance.ExtendedCollectionMemberInfoType));
-            wrappers.AddRange(wrapper.Views.GetListViews(TypesInfo.Instance.ExtendedCoreMemberInfoType));
-            return wrappers;
+            return
+                Application.Model.Views.OfType<IModelListView>().Where(
+                view => view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedReferenceMemberInfoType ||
+                view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedCollectionMemberInfoType ||
+                view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedCoreMemberInfoType);
         }
 
-        void removeDynamicAssemblyFromImageSources(Dictionary model)
+        void removeDynamicAssemblyFromImageSources(IModelApplication model)
         {
-            DictionaryNode imageSourcesNode = model.RootNode.FindChildNode("ImageSources");
             foreach (Type definedModule in DefinedModules)
             {
                 string name = new AssemblyName(definedModule.Assembly.FullName + "").Name;
-                DictionaryElement dictionaryElement =
-                    imageSourcesNode.FindChildElementByPath("AssemblyResourceImageSource[@AssemblyName='" + name + "']");
-                imageSourcesNode.RemoveChildNode((DictionaryNode)dictionaryElement);
+                var source = ((IModelImageSources)Application.Model).OfType<DevExpress.ExpressApp.Model.IModelAssemblyResourceImageSource>().First(s => s.AssemblyName == name);
+                ((IModelImageSources)Application.Model).Remove(source);
             }
         }
 

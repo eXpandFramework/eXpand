@@ -40,7 +40,7 @@ namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
 
             var ids = new ArrayList();
             XPMemberInfo keyProperty = null;
-            foreach (ITreeNode treeNode in categoriesListView.CollectionSource.Collection)
+            foreach (ITreeNode treeNode in categoriesListView.CollectionSource.List)
             {
                 var baseObject = (XPBaseObject) treeNode;
                 keyProperty = baseObject.ClassInfo.KeyProperty;

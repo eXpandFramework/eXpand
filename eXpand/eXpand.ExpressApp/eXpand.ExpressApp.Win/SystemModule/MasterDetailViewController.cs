@@ -19,19 +19,27 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public partial class MasterDetailViewController : BaseViewController
+    public interface IModelListViewMasterDetailOptions : IModelNode
     {
-        public const string DetailListRelationName = "DetailListRelationName";
-        public const string DetailListView = "DetailListView";
-        public const string ExpandAllRows = "ExpandAllRows";
+        [DataSourceProperty("Application.Views")]
+        [DataSourceCriteria("ModelClass Is Not Null And ModelClass.Name = '@This.Name'")]
+        IModelListView DetailListView { get; set; }
 
+        [DataSourceProperty("ModelClass.AllMembers")]
+        [DataSourceCriteria("MemberInfo.IsList")]
+        IModelMember DetailListRelationName { get; set; }
+        bool ExpandAllRows { get; set; }
+    }
+
+    public partial class MasterDetailViewController : BaseViewController<ListView>
+    {
         private GridControl gridControl;
         private XafGridView gridView;
         private RepositoryEditorsFactory repositoryFactory;
-        private ListViewInfoNodeWrapper subModel;
 
         public MasterDetailViewController()
         {
@@ -54,7 +62,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             get { return gridView; }
         }
 
-        private void RefreshColumn(ColumnInfoNodeWrapper frameColumn, GridColumn column)
+        private void RefreshColumn(IModelColumn frameColumn, GridColumn column)
         {
             column.Caption = frameColumn.Caption;
             if (string.IsNullOrEmpty(column.Caption))
@@ -72,8 +80,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
             column.SortIndex = frameColumn.SortIndex;
             column.SortOrder = frameColumn.SortOrder;
             column.Width = frameColumn.Width;
-            column.VisibleIndex = frameColumn.VisibleIndex;
-            column.SummaryItem.SummaryType = frameColumn.SummaryType;
+            column.VisibleIndex = frameColumn.Index;
+            column.SummaryItem.SummaryType = (DevExpress.Data.SummaryItemType)Enum.Parse(typeof(DevExpress.Data.SummaryItemType), frameColumn.SummaryType.ToString());
         }
         protected internal bool IsDataShownOnDropDownWindow(RepositoryItem repositoryItem)
         {
@@ -89,72 +97,63 @@ namespace eXpand.ExpressApp.Win.SystemModule
             return memberName;
         }
 
-        public GridColumn AddColumn(ColumnInfoNodeWrapper columnInfo, Type objectType, ListViewInfoNodeWrapper model)
+        public GridColumn AddColumn(IModelColumn columnInfo, Type objectType, IModelListView model)
         {
-            ColumnInfoNodeWrapper frameColumn = model.Columns.FindColumnInfo(columnInfo.PropertyName);
-            if (frameColumn == null)
-            {
-                model.Columns.Node.AddChildNode(columnInfo.Node);
-            }
             var column = new GridColumn();
 
             GridView.Columns.Add(column);
-            var customArgs = new CustomCreateColumnEventArgs(column, columnInfo, repositoryFactory);
-            if (!customArgs.Handled)
+            IMemberInfo memberInfo = XafTypesInfo.Instance.FindTypeInfo(objectType).FindMember(columnInfo.PropertyName);
+            if (memberInfo != null)
             {
-                IMemberInfo memberInfo = XafTypesInfo.Instance.FindTypeInfo(objectType).FindMember(columnInfo.PropertyName);
-                if (memberInfo != null)
+                column.FieldName = memberInfo.BindingName;
+                if (memberInfo.MemberType.IsEnum)
                 {
-                    column.FieldName = memberInfo.BindingName;
-                    if (memberInfo.MemberType.IsEnum)
-                    {
-                        column.SortMode = ColumnSortMode.Value;
-                    }
-                    else if (!SimpleTypes.IsSimpleType(memberInfo.MemberType))
-                    {
-                        column.SortMode = ColumnSortMode.DisplayText;
-                    }
-                    column.FilterMode = SimpleTypes.IsClass(memberInfo.MemberType) ? ColumnFilterMode.DisplayText : ColumnFilterMode.Value;
+                    column.SortMode = ColumnSortMode.Value;
                 }
-                else
+                else if (!SimpleTypes.IsSimpleType(memberInfo.MemberType))
                 {
-                    column.FieldName = columnInfo.PropertyName;
+                    column.SortMode = ColumnSortMode.DisplayText;
                 }
+                column.FilterMode = SimpleTypes.IsClass(memberInfo.MemberType) ? ColumnFilterMode.DisplayText : ColumnFilterMode.Value;
+            }
+            else
+            {
+                column.FieldName = columnInfo.PropertyName;
+            }
 
-                RefreshColumn(columnInfo, column);
-                if (memberInfo != null)
+            RefreshColumn(columnInfo, column);
+            if (memberInfo != null)
+            {
+                if (repositoryFactory != null)
                 {
-                    if (repositoryFactory != null)
+                    bool isGranted = DataManipulationRight.CanRead(objectType, columnInfo.PropertyName, null,
+                                                                   ((ListView)View).CollectionSource);
+                    RepositoryItem repositoryItem = repositoryFactory.CreateRepositoryItem(!isGranted, columnInfo, objectType);
+                    if (repositoryItem != null)
                     {
-                        bool isGranted = DataManipulationRight.CanRead(objectType, columnInfo.PropertyName, null,
-                                                                       ((ListView)View).CollectionSource);
-                        RepositoryItem repositoryItem = repositoryFactory.CreateRepositoryItem(!isGranted, new DetailViewItemInfoNodeWrapper(columnInfo.Node), objectType);
-                        if (repositoryItem != null)
+                        gridControl.RepositoryItems.Add(repositoryItem);
+                        column.ColumnEdit = repositoryItem;
+                        column.OptionsColumn.AllowEdit = IsDataShownOnDropDownWindow(repositoryItem) ? true : model.AllowEdit;
+                        column.AppearanceCell.Options.UseTextOptions = true;
+                        column.AppearanceCell.TextOptions.HAlignment = WinAlignmentProvider.GetAlignment(memberInfo.MemberType);
+                        repositoryItem.ReadOnly |= !model.AllowEdit;
+                        if ((repositoryItem is ILookupEditRepositoryItem) && ((ILookupEditRepositoryItem)repositoryItem).IsFilterByValueSupported)
                         {
-                            gridControl.RepositoryItems.Add(repositoryItem);
-                            column.ColumnEdit = repositoryItem;
-                            column.OptionsColumn.AllowEdit = IsDataShownOnDropDownWindow(repositoryItem) ? true : model.AllowEdit;
-                            column.AppearanceCell.Options.UseTextOptions = true;
-                            column.AppearanceCell.TextOptions.HAlignment = WinAlignmentProvider.GetAlignment(memberInfo.MemberType);
-                            repositoryItem.ReadOnly |= !model.AllowEdit;
-                            if ((repositoryItem is ILookupEditRepositoryItem) && ((ILookupEditRepositoryItem)repositoryItem).IsFilterByValueSupported)
-                            {
-                                column.FilterMode = ColumnFilterMode.Value;
-                            }
-                            if ((repositoryItem is RepositoryItemPictureEdit) && (((RepositoryItemPictureEdit)repositoryItem).CustomHeight > 0))
-                            {
-                                GridView.OptionsView.RowAutoHeight = true;
-                            }
+                            column.FilterMode = ColumnFilterMode.Value;
+                        }
+                        if ((repositoryItem is RepositoryItemPictureEdit) && (((RepositoryItemPictureEdit)repositoryItem).CustomHeight > 0))
+                        {
+                            GridView.OptionsView.RowAutoHeight = true;
                         }
                     }
-                    if ((column.ColumnEdit == null) && !typeof(IList).IsAssignableFrom(memberInfo.MemberType))
-                    {
-                        column.OptionsColumn.AllowEdit = false;
-                        column.FieldName = GetDisplayablePropertyName(columnInfo.PropertyName, XafTypesInfo.Instance.FindTypeInfo(objectType));
-                    }
                 }
-
+                if ((column.ColumnEdit == null) && !typeof(IList).IsAssignableFrom(memberInfo.MemberType))
+                {
+                    column.OptionsColumn.AllowEdit = false;
+                    column.FieldName = GetDisplayablePropertyName(columnInfo.PropertyName, XafTypesInfo.Instance.FindTypeInfo(objectType));
+                }
             }
+
             if (!gridControl.IsLoading && gridView.DataController.Columns.GetColumnIndex(column.FieldName) == -1)
             {
                 gridView.DataController.RePopulateColumns();
@@ -162,15 +161,14 @@ namespace eXpand.ExpressApp.Win.SystemModule
             return column;
         }
 
-        public void RefreshColumns(ListViewInfoNodeWrapper model)
+        public void RefreshColumns(IModelListView model)
         {
-            var objectType = View.ObjectTypeInfo.AssemblyInfo.Assembly.GetType(model.Node.GetAttributeValue(BaseViewInfoNodeWrapper.ClassNameAttribute));
             gridControl.BeginUpdate();
             try
             {
                 var presentedColumns = new Dictionary<string, GridColumn>();
 
-                foreach (ColumnInfoNodeWrapper column in from col in model.Columns.Items orderby col.SortIndex select col)
+                foreach (IModelColumn column in from col in model.Columns orderby col.SortIndex select col)
                 {
                     GridColumn gridColumn;
                     if (presentedColumns.TryGetValue(column.PropertyName, out gridColumn))
@@ -179,10 +177,9 @@ namespace eXpand.ExpressApp.Win.SystemModule
                     }
                     else
                     {
-                        gridColumn = AddColumn(column, objectType, model);
+                        gridColumn = AddColumn(column, model.ModelClass.TypeInfo.Type, model);
                         presentedColumns.Add(column.PropertyName, gridColumn);
                     }
-
                 }
             }
             finally
@@ -194,30 +191,53 @@ namespace eXpand.ExpressApp.Win.SystemModule
         protected override void OnActivated()
         {
             base.OnActivated();
-
-            string attributeValue = View.Info.GetAttributeValue(DetailListView);
+            
             ExpandAllRowsSimpleAction.Active["key"] = false;
             CollapseAllRowsSimpleAction.Active["key"] = false;
-            if (View is ListView && !string.IsNullOrEmpty(attributeValue) &&
-                !string.IsNullOrEmpty(DetailListRelationName))
+            if (this.IsActive)
             {
                 Frame.GetController<DeleteObjectsViewController>().DeleteAction.Executing += DeleteAction_OnExecuting;
                 ExpandAllRowsSimpleAction.Active["key"] = true;
                 CollapseAllRowsSimpleAction.Active["key"] = true;
-                subModel =
-                    new ListViewInfoNodeWrapper(
-                        View.Info.GetRootNode().GetChildNode(ViewsNodeWrapper.NodeName).GetChildNode(
-                            ListViewInfoNodeWrapper.NodeName, "ID",
-                            attributeValue));
                 repositoryFactory = new RepositoryEditorsFactory(Application, ObjectSpace);
-                View.ControlsCreated += View_ControlsCreated;
+            }
+        }
+
+        private bool IsActive
+        {
+            get
+            {
+                return this.DetailListView != null && this.DetailListRelationName != null;
+            }
+        }
+
+        private IModelListView DetailListView
+        {
+            get
+            {
+                return ((IModelListViewMasterDetailOptions)this.View.Model).DetailListView;
+            }
+        }
+
+        private IModelMember DetailListRelationName
+        {
+            get
+            {
+                return ((IModelListViewMasterDetailOptions)this.View.Model).DetailListRelationName;
+            }
+        }
+
+        private bool ExpandAllRows
+        {
+            get
+            {
+                return ((IModelListViewMasterDetailOptions)this.View.Model).ExpandAllRows;
             }
         }
 
         protected override void OnDeactivating()
         {
-            if (View is ListView && !string.IsNullOrEmpty(View.Info.GetAttributeValue(DetailListView)) &&
-               !string.IsNullOrEmpty(DetailListRelationName))
+            if (this.IsActive)
             {
                 Frame.GetController<DeleteObjectsViewController>().DeleteAction.Executing -= DeleteAction_OnExecuting;
             }
@@ -227,7 +247,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private void DeleteAction_OnExecuting(object sender, CancelEventArgs e)
         {
-
             if (!e.Cancel)
             {
                 e.Cancel = true;
@@ -240,25 +259,20 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
         }
 
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            string CommonTypeInfos = @"<Element Name=""Application"">
-
-                    <Element Name=""Views"" >
-                        <Element Name=""ListView"" >
-                            <Attribute Name=""" + DetailListView + @""" RefNodeName=""{" + typeof(ViewIdRefNodeProvider).FullName + @"};ViewType=All|ListView"" />
-                            <Attribute Name=""" + DetailListRelationName + @""" RefNodeName=""{" + typeof(ViewIdRefNodeProvider).FullName + @"};ClassName=@ClassName;Relations=All"" />
-                            <Attribute Name=""" + ExpandAllRows + @""" Choice=""False,True""/>
-                        </Element>
-                    </Element>
-                </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelListView, IModelListViewMasterDetailOptions>();
         }
 
-        private void View_ControlsCreated(object sender, EventArgs e)
+        protected override void OnViewControlsCreated()
         {
-            gridControl = (GridControl)View.Control;
-            gridControl.HandleCreated += GridControl_OnHandleCreated;
+            base.OnViewControlsCreated();
+            if (this.IsActive)
+            {
+                gridControl = (GridControl)View.Control;
+                gridControl.HandleCreated += GridControl_OnHandleCreated;
+            }
         }
 
         private void GridControl_OnHandleCreated(object sender, EventArgs e)
@@ -269,20 +283,20 @@ namespace eXpand.ExpressApp.Win.SystemModule
             view.OptionsDetail.EnableMasterViewMode = true;
             gridControl.ShowOnlyPredefinedDetails = true;
             gridView = new XafGridView();
-            GridViewViewController.SetOptions(gridView, subModel);
+            GridViewViewController.SetOptions(gridView, this.DetailListView);
             gridView.GridControl = gridControl;
-            RefreshColumns(subModel);
-            gridControl.LevelTree.Nodes.Add(View.Info.GetAttributeValue(DetailListRelationName), gridView);
+            RefreshColumns(this.DetailListView);
+            gridControl.LevelTree.Nodes.Add(this.DetailListRelationName.Name, gridView);
             gridView.DoubleClick += gridView_DoubleClick;
 
-            if (View.Info.GetAttributeBoolValue(ExpandAllRows, false))
+            if (this.ExpandAllRows)
                 ExpandAllRowsSimpleAction.DoExecute();
         }
 
         private void gridView_DoubleClick(object sender, EventArgs e)
         {
             var parameter = new ShowViewParameters();
-            ListViewProcessCurrentObjectController.ShowObject(((GridView) sender).GetFocusedRow(), parameter, Application, Frame, View);
+            ListViewProcessCurrentObjectController.ShowObject(((GridView)sender).GetFocusedRow(), parameter, Application, Frame, View);
             parameter.CreatedView.AllowNew["MasterDetail"] = false;
             Application.ShowViewStrategy.ShowView(parameter, new ShowViewSource(null, null));
         }
@@ -292,8 +306,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
             if (View.CurrentObject != null)
             {
                 ObjectSpace.Session.PreFetch(((PersistentBase)View.CurrentObject).ClassInfo,
-                                             ((ListView)View).CollectionSource.Collection,
-                                             View.Info.GetAttributeValue(DetailListRelationName));
+                                             View.CollectionSource.List,
+                                             this.DetailListRelationName.Name);
                 var view = (GridView)gridControl.MainView;
                 for (int i = 0; i < view.RowCount; i++)
                     view.ExpandMasterRow(i);

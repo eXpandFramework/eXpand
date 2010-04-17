@@ -1,6 +1,7 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Layout;
 using DevExpress.XtraEditors;
 using DevExpress.XtraLayout;
@@ -8,17 +9,16 @@ using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public partial class TabStopViewController : BaseViewController
+    public interface IModelDetailViewTabStopForReadOnly : IModelNode
+    {
+        bool TabStopForReadOnly { get; set; }
+    }
+
+    public class TabStopViewController : BaseViewController<DetailView>
     {
         public const string TabStopForReadOnly = "TabStopForReadOnly";
 
-        public TabStopViewController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-            TargetViewType=ViewType.DetailView;
-
-        }
+        public TabStopViewController() {}
 
         protected override void OnActivated()
         {
@@ -26,41 +26,29 @@ namespace eXpand.ExpressApp.Win.SystemModule
             View.ControlsCreated+=View_OnControlsCreated;
         }
 
-
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            const string CommonTypeInfos = @"<Element Name=""Application"">
-                    <Element Name=""Options"" >
-                            <Attribute Name=""" + TabStopForReadOnly + @""" Choice=""False,True""/>
-                    </Element>
-                </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
-
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelOptions, IModelDetailViewTabStopForReadOnly>();
         }
 
         private void View_OnControlsCreated(object sender, EventArgs e)
         {
-            if (!Application.Info.GetChildNodeByPath("Options").GetAttributeBoolValue(TabStopForReadOnly))
+            if (!((IModelDetailViewTabStopForReadOnly)Application.Model.Options).TabStopForReadOnly)
             {
-                var detailView = (DetailView) View;
-                LayoutControl layout = ((WinLayoutManager) (detailView.LayoutManager)).Container;
+                LayoutControl layout = ((WinLayoutManager) (View.LayoutManager)).Container;
                 layout.OptionsFocus.EnableAutoTabOrder = false;
-                foreach (DetailViewItem item in ((DetailView) View).GetItems<DetailViewItem>())
+                foreach (ViewItem item in View.GetItems<ViewItem>())
                 {
-                    if (item is PropertyEditor)
+                    if (item is PropertyEditor && !((PropertyEditor)item).AllowEdit)
                     {
-                        if (!(((PropertyEditor)item).AllowEdit))
-                        {
-                            if (item.Control is TextEdit)
-                                ((TextEdit) item.Control).TabStop = false;
-                            continue;
-                        }
+                        if (item.Control is TextEdit)
+                            ((TextEdit)item.Control).TabStop = false;
+
+                        continue;
                     }
                 }
             }
         }
-
-
-
     }
 }

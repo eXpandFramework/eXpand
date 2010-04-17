@@ -1,40 +1,48 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model.Core;
+using System.ComponentModel;
 
 namespace eXpand.ExpressApp.SystemModule {
+
+    public interface IModelDetailViewHighlightOptions : IModelNode
+    {
+        [DefaultValue(true)]
+        bool? HighlightFocusedLayoutItem { get; set; }
+    }
+
+    [DomainLogic(typeof(IModelDetailViewHighlightOptions))]
+    public static class ModelDetailViewHighlightOptionsDomainLogic
+    {
+        public static bool Get_ModelDetailViewHighlightOptions(IModelDetailViewHighlightOptions modelDetailViewHighlightOptions)
+        {
+            return (modelDetailViewHighlightOptions is IModelDetailView &&
+                !((IModelDetailViewHighlightOptions)modelDetailViewHighlightOptions).HighlightFocusedLayoutItem.HasValue) ?
+                ((IModelDetailViewHighlightOptions)modelDetailViewHighlightOptions.Application.Options).HighlightFocusedLayoutItem.Value :
+                modelDetailViewHighlightOptions.HighlightFocusedLayoutItem.Value;
+        }
+    }
+
     public abstract class HighlightFocusedLayoutItemDetailViewControllerBase : ViewController<DetailView>
     {
-        public const string HighlightFocusedLayoutItemAttributeName = "HighlightFocusedLayoutItem";
-        public const string EnableHighlightFocusedLayoutItemAttributeName = "EnableHighlightFocusedLayoutItem";
         public const string ActiveKeyHighlightFocusedEditor = "HighlightFocusedLayoutItem";
+        
         protected override void OnViewChanging(View view)
         {
             base.OnViewChanging(view);
             var dv = view as DetailView;
             if (dv != null)
-                Active[ActiveKeyHighlightFocusedEditor] = dv.Info.GetAttributeBoolValue(HighlightFocusedLayoutItemAttributeName);
+                Active[ActiveKeyHighlightFocusedEditor] = (dv.Model as IModelDetailViewHighlightOptions).HighlightFocusedLayoutItem.Value;
         }
-        public override Schema GetSchema()
+
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            return new Schema(new DictionaryXmlReader().ReadFromString(
-                 @"<Element Name=""Application"">
-                        <Element Name=""Options"">
-	                        <Attribute Name=""" + EnableHighlightFocusedLayoutItemAttributeName + @""" Choice=""True,False"" />
-                        </Element>
-                    	<Element Name=""Views"">
-                            <Element Name=""DetailView"">
-							    <Attribute Name=""" + HighlightFocusedLayoutItemAttributeName + @""" Required=""False"" Choice=""True,False"" DefaultValueExpr=""SourceNode=Options; SourceAttribute=@" + EnableHighlightFocusedLayoutItemAttributeName + @"""/>
-						    </Element>
-					    </Element>
-				</Element>")
-                );
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelOptions, IModelDetailViewHighlightOptions>();
+            extenders.Add<IModelDetailView, IModelDetailViewHighlightOptions>();
         }
-        public override void UpdateModel(Dictionary dictionary)
-        {
-            base.UpdateModel(dictionary);
-            var optionsNode = dictionary.RootNode.FindChildElementByPath(@"Options") as DictionaryNode;
-            if (optionsNode != null)
-                optionsNode.SetAttribute(EnableHighlightFocusedLayoutItemAttributeName, true);
-        }
+
         protected abstract void AssignStyle(object control);
     }
 }

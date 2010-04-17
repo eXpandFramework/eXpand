@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.Win.Interfaces;
+using eXpand.ExpressApp.Win.SystemModule;
 
 namespace eXpand.ExpressApp.Win.Templates
 {
@@ -29,16 +30,11 @@ namespace eXpand.ExpressApp.Win.Templates
             InitializeComponent();
         }
 
-        ///<summary>
-        ///Raises the <see cref="E:System.Windows.Forms.Form.Load"></see> event.
-        ///</summary>
-        ///
-        ///<param name="e">An <see cref="T:System.EventArgs"></see> that contains the event data. </param>
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             mainBarManager.ToolTipController=toolTipController1;
-            notifyIcon1.Visible = application.Model.RootNode.GetAttributeBoolValue("NotifyIcon");
+            notifyIcon1.Visible = ((IModelNotifyIconOptions)application.Model).NotifyIcon;
         }
 
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)

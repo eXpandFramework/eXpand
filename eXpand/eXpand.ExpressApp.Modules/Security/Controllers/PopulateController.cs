@@ -5,12 +5,13 @@ using System.Reflection;
 using DevExpress.ExpressApp.NodeWrappers;
 using eXpand.ExpressApp.SystemModule;
 using eXpand.Utils.Helpers;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.Security.Controllers
 {
     public abstract partial class PopulateController<T> : BaseViewController
     {
-        private PropertyInfoNodeWrapper propertyInfoNodeWrapper;
+        private IModelMember modelMember;
 
         protected PopulateController()
         {
@@ -26,27 +27,25 @@ namespace eXpand.ExpressApp.Security.Controllers
         protected override void OnDeactivating()
         {
             base.OnDeactivating();
-            if (propertyInfoNodeWrapper != null){
-                propertyInfoNodeWrapper.Node.SetAttribute("PredefinedValues","");
+            if (modelMember != null){
+                modelMember.PredefinedValues = string.Empty;
             }
         }
         protected virtual void populate()
         {
-            
-            var classInfoNodeWrapper = GetClassInfoNodeWrapper();
             LambdaExpression lambdaExpression = GetPropertyName();
             var propertyInfo = ReflectionExtensions.GetExpression(lambdaExpression) as PropertyInfo;
             if (propertyInfo != null)
-                propertyInfoNodeWrapper =
-                    (classInfoNodeWrapper.AllProperties.Where(
+                modelMember =
+                    (this.View.Model.ModelClass.AllMembers.Where(
                         wrapper =>
                         wrapper.Name == propertyInfo.Name)).FirstOrDefault();
-            if (propertyInfoNodeWrapper != null){
-                propertyInfoNodeWrapper.Node.SetAttribute("PredefinedValues",GetPredefinedValues(propertyInfoNodeWrapper));
+            if (modelMember != null){
+                modelMember.PredefinedValues = GetPredefinedValues(modelMember);
             }
         }
 
-        protected abstract string GetPredefinedValues(PropertyInfoNodeWrapper wrapper);
+        protected abstract string GetPredefinedValues(IModelMember wrapper);
 
         protected abstract Expression<Func<T, object>> GetPropertyName();
     }

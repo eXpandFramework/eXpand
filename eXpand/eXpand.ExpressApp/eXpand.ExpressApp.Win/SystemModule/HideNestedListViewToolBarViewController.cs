@@ -1,47 +1,30 @@
 ﻿using System;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Templates;
 using DevExpress.XtraBars;
 using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public partial class HideNestedListViewToolBarViewController : BaseViewController
+    public interface IModelListViewHideToolBar : IModelNode
     {
-        public const string HideToolBar = "HideToolBar";
+        bool HideToolBar { get; set; }
+    }
+
+    public partial class HideNestedListViewToolBarViewController : BaseViewController<ListView>
+    {
         public HideNestedListViewToolBarViewController()
         {
             InitializeComponent();
             RegisterActions(components);
             TargetViewNesting=Nesting.Nested;
         }
-        ///<summary>
-        ///
-        ///<para>
-        ///Returns the Schema extension which is combined with the entire Schema when loading the Application Model.
-        ///
-        ///</para>
-        ///
-        ///</summary>
-        ///
-        ///<returns>
-        ///The <b>Schema</b> object that represents the Schema extension to be added to the application's entire Schema.
-        ///
-        ///</returns>
-        ///
-        public override Schema GetSchema()
+
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            const string CommonTypeInfos = @"<Element Name=""Application"">
-                        
-                        <Element Name=""Views"" >
-                            <Element Name=""ListView"" >        
-                                <Attribute Name=""" +
-                                           HideToolBar +
-                                           @""" Choice=""False,True""/>
-                            </Element>
-                        </Element>
-                    </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelListView, IModelListViewHideToolBar>();
         }
 
         protected override void OnActivated()
@@ -55,7 +38,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             if (Frame.Template is NestedFrameTemplate)
             {
                 Bar bar = ((NestedFrameTemplate) Frame.Template).BarManager.Bars[0];
-                bar.Visible = !View.Info.GetAttributeBoolValue(HideToolBar);
+                bar.Visible = !((IModelListViewHideToolBar)View.Model).HideToolBar;
             }
         }
     }

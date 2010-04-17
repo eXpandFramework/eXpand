@@ -1,15 +1,19 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.NodeWrappers;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
-using System.Linq;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule
 {
+    public interface IModelClassDescribeRunTimeMembers : IModelNode
+    {
+        bool DescribeRunTimeMembers { get; set; }
+    }
+
     public partial class DescribeRunTimeMembersController : WindowController
     {
-        public const string DescribeRunTimeMembersAttributeName = "DescribeRunTimeMembers";
         public DescribeRunTimeMembersController()
         {
             InitializeComponent();
@@ -20,21 +24,19 @@ namespace eXpand.ExpressApp.SystemModule
         protected override void OnActivated()
         {
             base.OnActivated();
-            IEnumerable<ClassInfoNodeWrapper> classInfoNodeWrappers =
-                new ApplicationNodeWrapper(Application.Model).BOModel.Classes.Where(
-                    wrapper => wrapper.Node.GetAttributeBoolValue(DescribeRunTimeMembersAttributeName));
+            IEnumerable<IModelClass> classInfoNodeWrappers = Application.Model.BOModel.Cast<IModelClassDescribeRunTimeMembers>().Where(
+                    wrapper => wrapper.DescribeRunTimeMembers).Cast<IModelClass>();
             foreach (var classInfoNodeWrapper in classInfoNodeWrappers) {
-                TypeDescriptionProvider typeDescriptionProvider = TypeDescriptor.GetProvider(classInfoNodeWrapper.ClassTypeInfo.Type);
+                TypeDescriptionProvider typeDescriptionProvider = TypeDescriptor.GetProvider(classInfoNodeWrapper.TypeInfo.Type);
                 var membersTypeDescriptionProvider = new RuntimeMembersTypeDescriptionProvider(typeDescriptionProvider);
-                TypeDescriptor.AddProvider(membersTypeDescriptionProvider, classInfoNodeWrapper.ClassTypeInfo.Type);
+                TypeDescriptor.AddProvider(membersTypeDescriptionProvider, classInfoNodeWrapper.TypeInfo.Type);
             }
         }
 
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            var helper = new SchemaBuilder();
-            DictionaryNode dictionaryNode = helper.Inject(@"<Attribute Name=""" + DescribeRunTimeMembersAttributeName + @""" Choice=""True,False""/>", ModelElement.Class);
-            return new Schema(dictionaryNode);
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelClass, IModelClassDescribeRunTimeMembers>();
         }
     }
 }

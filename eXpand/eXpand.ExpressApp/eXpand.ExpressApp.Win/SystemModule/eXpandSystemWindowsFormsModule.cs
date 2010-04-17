@@ -4,10 +4,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win;
 using eXpand.ExpressApp.Win.ListEditors;
-using eXpand.ExpressApp.Win.Templates;
 
 namespace eXpand.ExpressApp.Win.SystemModule {
     [ToolboxItem(true)]
@@ -17,69 +16,46 @@ namespace eXpand.ExpressApp.Win.SystemModule {
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(WinApplication), "Resources.WinSystemModule.ico")]
     [ToolboxItemFilter("Xaf.Platform.Win")]
-    public sealed partial class eXpandSystemWindowsFormsModule : ModuleBase {
+    public sealed class eXpandSystemWindowsFormsModule : ModuleBase {
         public const string ApplicationOneInstanceAttributeName = "ApplicationOneInstance";
-        public const string MDIStrategy = "MDIStrategy";
+        
         public eXpandSystemWindowsFormsModule() {
-            InitializeComponent();
-        }
-        public override void Setup(XafApplication application)
-        {
-            base.Setup(application);
-            application.CreateCustomTemplate+=ApplicationOnCreateCustomTemplate;
-            application.SetupComplete += (sender, args) => {
-                if (application.Model.RootNode.GetChildNode("Options").GetAttributeBoolValue("MDIStrategy"))
-                    application.ShowViewStrategy = new MDIStrategy(application);
-            };
         }
 
-        void ApplicationOnCreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e) {
-            if (Application.Model.RootNode.GetChildNode("Options").GetAttributeBoolValue("MDIStrategy")) {
-                if (e.Context == TemplateContext.ApplicationWindow) {
-                    e.Template = new MDIMainForm();
-                }
-                else {
-                    e.Template = e.Context == TemplateContext.View ? new MDIChildForm() : null;
-                }
-            }
-        }
-
-        public override void UpdateModel(Dictionary model)
+        public override void UpdateModel(IModelApplication applicationModel)
         {
-            base.UpdateModel(model);
-            new ApplicationNodeWrapper(model).Views.Node.SetAttribute("DefaultListEditor", typeof(GridListEditor).FullName);
+            base.UpdateModel(applicationModel);
+            applicationModel.Views.DefaultListEditor = typeof(GridListEditor);
         }
         
-        public override void ValidateModel(Dictionary model){
-            if (model.RootNode.GetChildNode("Options").GetAttributeBoolValue(ApplicationOneInstanceAttributeName,
-                                                                               false))
-            {
-                string processName = Process.GetCurrentProcess().ProcessName;
-                Process[] processes = Process.GetProcessesByName(processName);
-                if (processes.Length > 1)
-                {
-                    foreach (Process process in processes)
-                    {
-                        if (!process.Equals(Process.GetCurrentProcess()))
-                        {
-                            MessageBox.Show("Application is already running");
-                            Environment.Exit(0);
-                        }
-                    }
-                }
-            }
+//        public override void ValidateModel(Dictionary model){
+//            if (model.RootNode.GetChildNode("Options").GetAttributeBoolValue(ApplicationOneInstanceAttributeName,
+//                                                                               false))
+//            {
+//                string processName = Process.GetCurrentProcess().ProcessName;
+//                Process[] processes = Process.GetProcessesByName(processName);
+//                if (processes.Length > 1)
+//                {
+//                    foreach (Process process in processes)
+//                    {
+//                        if (!process.Equals(Process.GetCurrentProcess()))
+//                        {
+//                            MessageBox.Show("Application is already running");
+//                            Environment.Exit(0);
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
-        }
-
-        public override Schema GetSchema()
-        {
-            const string CommonTypeInfos = @"<Element Name=""Application"">
-                                                <Element Name=""Options"">
-                                                    <Attribute Name=""" + ApplicationOneInstanceAttributeName + @""" Choice=""False,True""/>
-                                                    <Attribute Name=""" + MDIStrategy + @""" Choice=""False,True""/>
-                                                </Element>
-                                            </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
-        }
+//        public override Schema GetSchema()
+//        {
+//            const string CommonTypeInfos = @"<Element Name=""Application"">
+//                                                <Element Name=""Options"">
+//                                                    <Attribute Name=""" + ApplicationOneInstanceAttributeName + @""" Choice=""False,True""/>
+//                                                </Element>
+//                                            </Element>";
+//            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
+//        }
     }
 }

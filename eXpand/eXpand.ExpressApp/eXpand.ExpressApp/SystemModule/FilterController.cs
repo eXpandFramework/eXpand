@@ -4,30 +4,23 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.Xpo;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public partial class FilterController : ViewController
+    public interface IModelListViewDisableFullTextForMemoFields
     {
-        public const string DisableFullTextForMemoFields = "DisableFullTextForMemoFields";
+        bool DisableFullTextForMemoFields { get; set; }
+    }
 
-        public FilterController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
+    public partial class FilterController : ViewController<ListView>
+    {
+        public FilterController() { }
 
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders)
         {
-            const string s =
-                @"<Element Name=""Application"">;
-                            <Element Name=""Views"">
-                                <Element Name=""ListView"">;
-                                    <Attribute Name=""" +DisableFullTextForMemoFields +@""" Choice=""False,True""/>
-                                </Element>
-                            </Element>
-                    </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(s));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelListView, IModelListViewDisableFullTextForMemoFields>();
         }
 
         protected override void OnActivated()
@@ -37,19 +30,21 @@ namespace eXpand.ExpressApp.SystemModule
                 FullTextSearchCriteriaBuilderOnBuildCustomFullTextSearchCriteria;
         }
 
-        private void FullTextSearchCriteriaBuilderOnBuildCustomFullTextSearchCriteria(object sender,
-                                                                                      BuildCustomSearchCriteriaEventArgs
-                                                                                          args)
+        private void FullTextSearchCriteriaBuilderOnBuildCustomFullTextSearchCriteria(object sender, BuildCustomSearchCriteriaEventArgs args)
         {
-            if (View != null && View.Info.GetAttributeBoolValue(DisableFullTextForMemoFields))
+            if (View != null && ((IModelListViewDisableFullTextForMemoFields)View.Model).DisableFullTextForMemoFields)
             {
-                ICollection<string> properties = removeUnlimitedSizeMembers(FullTextSearchCriteriaBuilder.GetProperties(
-                                                                                args.TypeInfo, args.AdditionalProperties),
-                                                                            args.TypeInfo);
-                args.Criteria = new SearchCriteriaBuilder(args.TypeInfo,
-                                                                        properties,
-                                                                        args.ValueToSearch, args.GroupOperatorType,
-                                                                        args.IncludeNonPersistentMembers).BuildCriteria();
+                ICollection<string> properties = removeUnlimitedSizeMembers(
+                    FullTextSearchCriteriaBuilder.GetProperties(
+                    args.TypeInfo, args.AdditionalProperties),
+                    args.TypeInfo);
+
+                args.Criteria = new SearchCriteriaBuilder(
+                    args.TypeInfo,
+                    properties,
+                    args.ValueToSearch, 
+                    args.GroupOperatorType,
+                    args.IncludeNonPersistentMembers).BuildCriteria();
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Repository;
 
@@ -9,11 +10,10 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.DatePropertyEditor{
     [PropertyEditor(typeof (DateTime?))]
     public class DatePropertyEditor : DevExpress.ExpressApp.Win.Editors.DatePropertyEditor
     {
-        public DatePropertyEditor(Type objectType, DictionaryNode info) : base(objectType, info)
+        public DatePropertyEditor(Type objectType, IModelMemberViewItem model)
+            : base(objectType, model)
         {
-            
         }
-
 
         protected override void SetupRepositoryItem(RepositoryItem item)
         {

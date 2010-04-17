@@ -50,22 +50,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v10.1, Version=10.1.1.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v10.1, Version=10.1.1.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v10.1, Version=10.1.1.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v10.1, Version=10.1.1.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.1.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v9.3.Linq, Version=9.3.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v10.1.Linq, Version=10.1.1.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -105,30 +105,19 @@
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
     <Compile Include="Attributes\PivotedPropertyAttribute.cs" />
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
-    <Compile Include="Core\ApplicationNodeWrapperExtensions.cs" />
-    <Compile Include="Core\BOModelNodeWrapperExtensions.cs" />
-    <Compile Include="Core\ClassInfoNodeWrapperExtensions.cs" />
     <Compile Include="Core\CustomShowNavigationItemEventArgsExtensions.cs" />
-    <Compile Include="Core\DictionaryFactory.cs">
+    <Compile Include="Core\DictionaryHelpers\DictionaryHelper.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Core\DictionaryHelpers\DictionaryHelper.cs" />
-    <Compile Include="Core\DictionaryHelpers\DictionaryXmlWriterEx.cs" />
-    <Compile Include="Core\DictionaryHelpers\DictionaryXmlWriterExtensions.cs" />
-    <Compile Include="Core\DictionaryHelpers\ModuleRefNodeProvider.cs" />
-    <Compile Include="Core\DictionaryHelpers\RefNodeStringPropertyProvider .cs" />
-    <Compile Include="Core\DictionaryHelpers\SchemaHelper.cs" />
-    <Compile Include="Core\DictionaryHelpers\ViewIdRefNodeProvider.cs" />
-    <Compile Include="Core\DictionaryHelpers\ViewVisibilityCalculator.cs" />
-    <Compile Include="Core\DictionaryNodeExtensions.cs" />
     <Compile Include="Core\FrameExtensions.cs" />
     <Compile Include="Core\LinqServerCollectionSource.cs" />
     <Compile Include="Core\ObjectObserver.cs" />
     <Compile Include="Core\TypesInfoExtensions.cs" />
     <Compile Include="Core\TypeValueConverter.cs" />
-    <Compile Include="Core\ViewsNodeWrapper.cs" />
     <Compile Include="DataStoreProvider.cs" />
-    <Compile Include="Editors\ActionButtonDetailItem.cs" />
+    <Compile Include="Editors\ActionButtonDetailItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Enums\AllowEditEnum.cs" />
     <Compile Include="Enums\BooleanEnum.cs" />
     <Compile Include="Enums\DetailViewType.cs" />
@@ -168,14 +157,11 @@
     <Compile Include="SystemModule\BaseWindowController.designer.cs">
       <DependentUpon>BaseWindowController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\DictionaryHelpers\ClassRefNodeProvider.cs" />
     <Compile Include="SystemModule\ConditionalDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ConditionalDetailViewController.designer.cs">
       <DependentUpon>ConditionalDetailViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SystemModule\ConditionalDetailViewWrapper.cs">
     </Compile>
     <Compile Include="SystemModule\CustomAttibutesController.cs">
       <SubType>Component</SubType>
@@ -185,9 +171,6 @@
     </Compile>
     <Compile Include="SystemModule\CustomSelectionListViewViewController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\CustomSelectionListViewViewController.designer.cs">
-      <DependentUpon>CustomSelectionListViewViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\ExpandAbleMembersViewController.cs">
       <SubType>Component</SubType>
@@ -203,9 +186,6 @@
     </Compile>
     <Compile Include="SystemModule\FilterController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\FilterController.designer.cs">
-      <DependentUpon>FilterController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\FKViolationViewController.cs">
       <SubType>Component</SubType>
@@ -243,17 +223,14 @@
     <Compile Include="SystemModule\MasterObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ModelInfoWindowController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\ModelInfoWindowController.designer.cs">
-      <DependentUpon>ModelInfoWindowController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\ModuleController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ModuleController.designer.cs">
       <DependentUpon>ModuleController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\PartialLoadListViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ProvidedAssociationsController.cs">
       <SubType>Component</SubType>
@@ -379,9 +356,6 @@
       <DependentUpon>FilterByPropertyPathViewController.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\CommonSystemModuleSchema.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Xpo;
 using DevExpress.XtraEditors;
@@ -17,20 +17,15 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.StringLookupPropertyEditor
         private LookupEditorHelper helper;
         private List<ComboBoxItem> comboBoxItems;
 
-        public StringLookupPropertyEditor(Type objectType, DictionaryNode info)
-            : base(objectType, info)
+        public StringLookupPropertyEditor(Type objectType, IModelMemberViewItem model)
+            : base(objectType, model)
         {
-            if (string.IsNullOrEmpty(info.GetAttributeValue(DetailViewItemInfoNodeWrapper.ImmediatePostDataAttribute)))
-            {
-                ImmediatePostData = true;
-            }
         }
 
         protected override void SetupRepositoryItem(RepositoryItem item)
         {
             ((RepositoryItemComboBox) item).Items.AddRange(ComboBoxItems);
             base.SetupRepositoryItem(item);
-            
         }
 
         private List<ComboBoxItem> ComboBoxItems
@@ -64,20 +59,9 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.StringLookupPropertyEditor
         public void Setup(ObjectSpace objectSpace, XafApplication application)
         {
             if (helper == null)
-                helper = new LookupEditorHelper(application, objectSpace, ObjectTypeInfo, Info);
-            if (objectSpace == null)
-            {
-//                DestroyPopupForm();
-            }
+                helper = new LookupEditorHelper(application, objectSpace, ObjectTypeInfo, Model);
+            
             helper.SetObjectSpace(objectSpace);
         }
-//        private void DestroyPopupForm()
-//        {
-//            if (Control != null)
-//            {
-//                Control.DestroyPopupForm();
-//            }
-//        }
-
     }
 }

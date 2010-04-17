@@ -25,20 +25,17 @@ namespace eXpand.ExpressApp.Win.SystemModule
             checkedObjects=new ArrayList();
             if (HasCustomSelection)
             {
-                
                 View.ControlsCreated+=View_OnControlsCreated;
-                Frame.GetController<WindowHintController>().WarningHintPanelReady+=WarningHintPanelReady;
-                
+                Frame.GetController<WindowHintController>().WarningHintPanelReady+=WarningHintPanelReady;   
             }
         }
-
 
         private void WarningHintPanelReady(object sender, HintPanelReadyEventArgs e)
         {
             if (View.Control is GridControl && CustomSelectionColumnIsVisible((GridControl) View.Control) &&
                 ((GridView) ((GridControl) View.Control).MainView).Columns.ColumnByFieldName(CustomSelection) != null)
             {
-                if (!(((ListView) View).Editor is GridListEditor))
+                if (!(View.Editor is GridListEditor))
                 {
                     var bottomHintPanel = Frame.GetController<WindowHintController>().BottomHintPanel;
                     bottomHintPanel.Text = @"Custom Selection Can only work with " + typeof (GridListEditor).FullName;
@@ -54,7 +51,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             {
                 if (CustomSelectionColumnIsVisible(gridControl))
                 {
-                    var editor = ((ListView) View).Editor as GridListEditor;
+                    var editor = (View).Editor as GridListEditor;
                     if (editor!= null)
                     {
                         editor.DataSourceChanged += (sender1, e1) => checkedObjects = new ArrayList();
@@ -82,7 +79,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
             currentObjectAction.Enabled[ActionBase.RequireSingleObjectContext] = true;
             currentObjectAction.DoExecute();
             View.Refresh();
-                
         }
 
         private void CustomRowCellEdit(object sender, CustomRowCellEditEventArgs e)
@@ -96,7 +92,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
             var view = ((GridView) sender);
             GridHitInfo info = view.CalcHitInfo(e.Location);
             if (info.HitTest==GridHitTest.RowCell)
-//                if (info.Column != null && info.Column.FieldName == CustomSelection)
                 CheckObject(view.GetRow(info.RowHandle));
         }
 
@@ -104,8 +99,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             e.Handled = true;
             e.List = checkedObjects;
-//            Frame.GetController<FilterController>().FullTextFilterAction.Value = checkedObjects.Count;
-                
         }
 
         private bool CustomSelectionColumnIsVisible(GridControl gridControl)
@@ -118,7 +111,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
             return handle < 0;
         }
 
-        //custom listview
         private void GridControl_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Space)
@@ -169,6 +161,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
                         if (obj != null)
                             selectedObjects.Add(obj);
                     }
+
             return selectedObjects;
         }
     }

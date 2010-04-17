@@ -26,7 +26,7 @@ namespace eXpand.ExpressApp.Win
             if (args.Shortcut.ObjectKey.StartsWith("@"))
                 args.Shortcut.ObjectKey = ParametersFactory.CreateParameter(args.Shortcut.ObjectKey.Substring(1)).CurrentValue.ToString();
         }
-        
+
         public void Logout()
         {
             Tracing.Tracer.LogSeparator("Application is being restarted");
@@ -57,10 +57,11 @@ namespace eXpand.ExpressApp.Win
         }
 
 
-        void showLogonAction_Cancel(object sender, EventArgs e) {
+        void showLogonAction_Cancel(object sender, EventArgs e)
+        {
             Exit();
         }
-        
+
         #region OnModelEditFormShowning
         /// <summary>
         /// Triggers the ModelEditFormShowning event.
@@ -71,52 +72,27 @@ namespace eXpand.ExpressApp.Win
                 ModelEditFormShowning(null/*this*/, ea);
         }
         #endregion
-        public event EventHandler<ModelEditFormShowningEventArgs> ModelEditFormShowning;
-        
 
+        public event EventHandler<ModelEditFormShowningEventArgs> ModelEditFormShowning;
 
         public WinComponent()
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
-
-        protected override void OnCustomCheckCompatibility(CustomCheckCompatibilityEventArgs args)
-        {
-            if (Info.GetChildNode("Options").GetAttributeBoolValue("DisableCompatibilityCheck", false))
-                args.Handled = true;
-            base.OnCustomCheckCompatibility(args);
-        }
-
-
-
 
         protected override Form CreateModelEditorForm()
         {
-//            var single = AppDomain.CurrentDomain.GetTypes("ModelDifferenceObject").FirstOrDefault();
-//            XPBaseObject baseObject = (XPBaseObject) ObjectSpaceProvider.CreateObjectSpace().FindObject(single,CriteriaOperator.Parse("PersistentApplication.Name=?","Fps"));
-//            Dictionary dictionary = (Dictionary)baseObject.GetType().GetMethod("GetCombinedModel1").Invoke(baseObject, null);
-//            
-//            dictionary=new Dictionary(Model.RootNode,Model.Schema);
-//            ModelEditorForm modelEditorForm = new ModelEditorForm(
-//                new ModelEditorController(dictionary.Clone(), new ModelDictionaryDifferenceStore(dictionary, LastDiffsStore), Modules),
-//                new SettingsStorageOnDictionary(dictionary.RootNode.GetChildNode("ModelEditor")));
-            var modelEditorForm = (ModelEditorForm) base.CreateModelEditorForm();
+            var modelEditorForm = (ModelEditorForm)base.CreateModelEditorForm();
             OnModelEditFormShowning(new ModelEditFormShowningEventArgs(modelEditorForm));
+
             return modelEditorForm;
-            
         }
-
-
 
         public WinComponent(IContainer container)
         {
             container.Add(this);
-
             InitializeComponent();
         }
-
-
-
 
         protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)
         {
@@ -124,23 +100,15 @@ namespace eXpand.ExpressApp.Win
             base.OnCreateCustomObjectSpaceProvider(args);
         }
 
-        protected override CollectionSourceBase CreateCollectionSourceCore(ObjectSpace objectSpace, Type objectType, string listViewID)
+        protected override CollectionSourceBase CreateCollectionSourceCore(ObjectSpace objectSpace, Type objectType, bool isServerMode, CollectionSourceMode mode)
         {
-            CollectionSourceBase result = null;
-            if(Model != null) {
-                if(!String.IsNullOrEmpty(listViewID)) {
-                    DictionaryNode listViewNode = FindViewInfo(listViewID);
-                    if(listViewNode != null) {
-                        var listViewInfo = new ListViewInfoNodeWrapper(listViewNode);
-                        if(listViewInfo.UseServerMode && (!listViewInfo.AllowEdit)) {
-                            result = new LinqServerCollectionSource(objectSpace, objectType);
-                        }
-                    }
-                }
+            if (isServerMode)
+            {
+                return new LinqServerCollectionSource(objectSpace, objectType, isServerMode);
             }
-            return result ?? (new LinqCollectionSource(objectSpace, objectType));
-        }
 
+            return new LinqCollectionSource(objectSpace, objectType, isServerMode);
+        }
     }
 
     public class ModelEditFormShowningEventArgs : HandledEventArgs
@@ -149,7 +117,6 @@ namespace eXpand.ExpressApp.Win
         {
             ModelEditorForm = modelEditorForm;
         }
-
 
         public ModelEditorForm ModelEditorForm { get; set; }
     }

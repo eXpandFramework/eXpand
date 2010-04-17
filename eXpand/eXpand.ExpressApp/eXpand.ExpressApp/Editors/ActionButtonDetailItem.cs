@@ -1,22 +1,29 @@
 ﻿using System;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.Editors {
-    public abstract class ActionButtonDetailItem : DetailViewItem {
-        protected ActionButtonDetailItem(string id) : base(id) {
-        }
+    public abstract class ActionButtonDetailItem : ViewItem {
+        private IModelDetailViewItem _model;
 
-        protected ActionButtonDetailItem(DictionaryNode info) : base(info) {
-        }
-
-        protected ActionButtonDetailItem(Type objectType, DictionaryNode info) : base(objectType, info) {
+        protected ActionButtonDetailItem(Type objectType, IModelDetailViewItem model)
+            : base(objectType, model != null ? model.Id : string.Empty)
+        {
+            _model = model;
         }
 
         public event EventHandler Executed;
 
+        public IModelDetailViewItem Model
+        {
+            get
+            {
+                return _model;
+            }
+        }
+
         public override string Caption {
-            get { return Info.GetAttributeValue("Caption"); }
+            get { return _model.Caption; }
             set { throw new NotImplementedException(); }
         }
 
