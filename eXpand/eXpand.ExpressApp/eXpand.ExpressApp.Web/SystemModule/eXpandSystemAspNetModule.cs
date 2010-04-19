@@ -10,9 +10,8 @@ namespace eXpand.ExpressApp.Web.SystemModule {
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(WebComponent), "Resources.WebSystemModule.ico")]
     [ToolboxItemFilter("Xaf.Platform.Web")]
-    public sealed partial class eXpandSystemAspNetModule : ModuleBase {
+    public sealed class eXpandSystemAspNetModule : ModuleBase {
         public eXpandSystemAspNetModule() {
-            InitializeComponent();
         }
     }
 }

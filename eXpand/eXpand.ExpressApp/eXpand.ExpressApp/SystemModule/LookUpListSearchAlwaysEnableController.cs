@@ -1,76 +1,54 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base.General;
-using DevExpress.Xpo.Metadata;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public partial class LookUpListSearchAlwaysEnableController : BaseViewController
+    public enum LookUpListSearch
     {
-        public const string LookUpListSearch = "LookUpListSearch";
-        private XPDictionary xpDictionary;
+        Default,
+        AlwaysEnable
+    }
 
-        public LookUpListSearchAlwaysEnableController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-            
-        }
+    public interface IModelListViewLookUpListSearch
+    {
+        LookUpListSearch LookUpListSearch { get; set; }
+    }
+
+    public class LookUpListSearchAlwaysEnableController : BaseViewController
+    {
+        public LookUpListSearchAlwaysEnableController() { }
 
         protected override void OnActivated()
         {
             base.OnActivated();
             if (Frame.Template is ILookupPopupFrameTemplate)
             {
-                if (View.Info.GetAttributeValue(LookUpListSearch) == "AlwaysEnable")
+                if (((IModelListViewLookUpListSearch)View.Model).LookUpListSearch == LookUpListSearch.AlwaysEnable)
                     ((ILookupPopupFrameTemplate)Frame.Template).IsSearchEnabled = true;
             }
         }
-
-        public XPDictionary XpDictionary
-        {
-            get { return xpDictionary; }
-        }
-
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo)
-        {
-            XPDictionary dictionary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
-            xpDictionary = dictionary;
-        }
-
         
-        public override void UpdateModel(Dictionary model)
+        public override void UpdateModel(IModelApplication applicationModel)
         {
-            base.UpdateModel(model);
-            var applicationNodeWrapper = new ApplicationNodeWrapper(model);
-            IEnumerable<string> enumerable = applicationNodeWrapper.BOModel.Classes.Where(
-                wrapper => typeof (ICategorizedItem).IsAssignableFrom(wrapper.ClassTypeInfo.Type)).Select(wrapper => wrapper.ClassTypeInfo.FullName);
-            foreach (var nodeWrapper in applicationNodeWrapper.Views.Items.Where(
-                wrapper => wrapper.Id.EndsWith("_LookupListView") && enumerable.Contains(wrapper.ClassName)))
-                nodeWrapper.Node.SetAttribute(LookUpListSearch, "AlwaysEnable");
+            return;
+            base.UpdateModel(applicationModel);
+            IEnumerable<string> enumerable = applicationModel.BOModel
+                .Where(wrapper => typeof (ICategorizedItem).IsAssignableFrom(wrapper.TypeInfo.Type))
+                .Select(wrapper => wrapper.TypeInfo.FullName);
 
+            foreach (var nodeWrapper in applicationModel.Views.Where(
+                wrapper => wrapper.Id.EndsWith("_LookupListView") && enumerable.Contains(wrapper.ModelClass.Name)))
+                ((IModelListViewLookUpListSearch)View.Model).LookUpListSearch = LookUpListSearch.AlwaysEnable;
         }
 
-        [CoverageExclude]
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            const string CommonTypeInfos =
-                @"<Element Name=""Application"">
-                    <Element Name=""Views"" >
-                        <Element Name=""ListView"" >
-                            <Attribute Name=""" +
-                LookUpListSearch +
-                @""" Choice=""Default,AlwaysEnable""/>
-                        </Element>
-                    </Element>
-                </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelListView, IModelListViewLookUpListSearch>();
         }
-
     }
 }

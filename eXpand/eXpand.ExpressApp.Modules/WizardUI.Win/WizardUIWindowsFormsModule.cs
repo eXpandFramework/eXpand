@@ -7,10 +7,43 @@
 
 using System.ComponentModel;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.RibbonUI.Win;
-using eXpand.ExpressApp.WizardUI.Win.Templates;
+using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.Base;
 
 namespace eXpand.ExpressApp.WizardUI.Win{
+
+    public interface IModelDetailViewWizard : IModelNode
+    {
+        bool ShowInWizard { get; set; }
+        bool ShowCompletionWizardPage { get; set; }
+        IModelDetailViewWizardPages Pages { get; }
+    }
+
+    [DisplayProperty("Caption")]
+    public interface IModelDetailViewWizardPages : IModelNode, IModelList<IModelDetailViewWizardPage>
+    {
+    }
+
+    [KeyProperty("ID")]
+    public interface IModelDetailViewWizardPage : IModelNode
+    {
+        [Required()]
+        string ID { get; set; }
+
+        [Localizable(true)]
+        string Caption { get; set; }
+
+        [Required()]
+        [DataSourceProperty("Application.Views")]
+        [DataSourceCriteria("ModelClass Is Not Null And ModelClass.Name = '@This.Name'")]
+        IModelDetailView DetailView { get; set; }
+
+        int Index { get; set; }
+
+        [Localizable(true)]
+        string Description { get; set; }
+    }
+
     /// <summary>
     /// Contains an RibbonDetailView Template with an Wizard Control on it
     /// </summary>
@@ -32,30 +65,11 @@ namespace eXpand.ExpressApp.WizardUI.Win{
             application.CreateCustomTemplate += Application_CreateCustomTemplate;
         }
 
-        /// <summary>
-        /// Returns the Schema extension which is combined with the entire Schema when loading the Application Model
-        /// </summary>
-        /// <returns>The Schema object that represents the Schema extension to be added to the application's entire Schema</returns>
-        public override Schema GetSchema(){
-            const string WizardSchema =
-                @"<Element Name=""Application"">
-	                <Element Name=""Views"">
-		                <Element Name=""DetailView"">
-			                <Element Name=""Wizard"" IsNewNode=""True"">
-				                <Attribute Name=""ShowInWizard"" Choice=""True,False"" IsNewNode=""True""/>
-				                <Element Name=""WizardPage"" KeyAttribute=""ID"" DisplayAttribute=""Caption"" Multiple=""True""  IsNewNode=""True"">
-					                <Attribute Name=""ID"" Required=""True"" IsNewNode=""True""/>
-					                <Attribute Name=""Caption"" IsLocalized=""True"" IsNewNode=""True""/>
-					                <Attribute Name=""ViewID"" Required=""True"" RefNodeName=""{DevExpress.ExpressApp.Core.DictionaryHelpers.ViewIdRefNodeProvider}ClassName=..\..\@ClassName;ViewType=DetailView;IncludeBaseClasses=True"" IsNewNode=""True""/>
-                                    <Attribute Name=""Index"" IsNewNode=""True""/>
-                                    <Attribute Name=""Description"" IsLocalized=""True"" IsNewNode=""True""/>
-				                </Element>
-			                </Element>
-		                </Element>
-	                </Element>
-                </Element>";
+        public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders)
+        {
+            base.ExtendModelInterfaces(extenders);
 
-            return new Schema(new DictionaryXmlReader().ReadFromString(WizardSchema));
+            extenders.Add<IModelDetailView, IModelDetailViewWizard>();
         }
 
         /// <summary>
@@ -63,17 +77,14 @@ namespace eXpand.ExpressApp.WizardUI.Win{
         /// </summary>
         /// <param name="sender">XafApplication Object</param>
         /// <param name="e">CreateCustomTemplate EventArgs</param>
-        private void Application_CreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e){
-            if (((WizardShowViewStrategy) ((XafApplication) sender).ShowViewStrategy).ShowInWizard &&
-                e.Context == TemplateContext.View){
-                string infoPath = string.Format("{0}/{1}[@ID='{2}']", RibbonTemplatesInfoNodeWrapper.NodeName,
-                                                TemplateInfoNodeWrapper.NodeName, e.Context.Name);
-                e.Template =
-                    new WizardRibbonDetailViewForm(
-                        new TemplateInfoNodeWrapper(
-                            e.Application.Model.RootNode.GetChildNodeByPath(infoPath)));
+        private void Application_CreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e)
+        {
+            if (((WizardShowViewStrategy)((XafApplication)sender).ShowViewStrategy).ShowInWizard && e.Context == TemplateContext.View)
+            {
+                e.Template = new eXpand.ExpressApp.WizardUI.Win.Templates.WizardDetailViewForm();
             }
         }
+
         #endregion
     }
 }

@@ -24,8 +24,8 @@ namespace eXpand.ExpressApp.Win.SystemModule {
 
         public override void UpdateModel(IModelApplication applicationModel)
         {
-            base.UpdateModel(applicationModel);
-            applicationModel.Views.DefaultListEditor = typeof(GridListEditor);
+            //base.UpdateModel(applicationModel);
+            //applicationModel.Views.DefaultListEditor = typeof(GridListEditor);
         }
         
 //        public override void ValidateModel(Dictionary model){

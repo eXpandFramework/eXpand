@@ -18,11 +18,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
     public partial class FilterControlListViewController : BaseViewController<ListView>
     {
-        public FilterControlListViewController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
+        public FilterControlListViewController() { }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {

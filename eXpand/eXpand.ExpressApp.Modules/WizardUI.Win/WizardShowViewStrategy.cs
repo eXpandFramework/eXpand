@@ -43,16 +43,16 @@ namespace eXpand.ExpressApp.WizardUI.Win{
         /// <param name="parameters">ShowView Parameters</param>
         /// <param name="showViewSource">ShowView Source</param>
         protected override void ShowViewCore(ShowViewParameters parameters, ShowViewSource showViewSource){
-            _ShowInWizard = false;
-            if (parameters.CreatedView is DetailView){
-                DictionaryNode wizardNode = parameters.CreatedView.Info.FindChildNode("Wizard");
-                _ShowInWizard = wizardNode != null && wizardNode.ChildNodes.Count > 0 &&
-                                wizardNode.GetAttributeBoolValue("ShowInWizard", false);
+            this._ShowInWizard = false;
+            if (parameters.CreatedView is DetailView)
+            {
+                IModelDetailViewWizard modelWizard = (IModelDetailViewWizard)(parameters.CreatedView as DetailView).Model;
+                this._ShowInWizard = modelWizard != null && modelWizard.Pages.Count > 0 && modelWizard.ShowInWizard;
 
-                if (_ShowInWizard){
+                if (this._ShowInWizard)
+                {
                     parameters.TargetWindow = TargetWindow.NewModalWindow;
                 }
-
             }
 
             base.ShowViewCore(parameters, showViewSource);

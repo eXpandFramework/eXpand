@@ -160,9 +160,6 @@
     <Compile Include="SystemModule\ConditionalDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ConditionalDetailViewController.designer.cs">
-      <DependentUpon>ConditionalDetailViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\CustomAttibutesController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -190,9 +187,6 @@
     <Compile Include="SystemModule\FKViolationViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\FKViolationViewController.designer.cs">
-      <DependentUpon>FKViolationViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\GridOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -217,9 +211,6 @@
     <Compile Include="SystemModule\LookUpListSearchAlwaysEnableController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\LookUpListSearchAlwaysEnableController.designer.cs">
-      <DependentUpon>LookUpListSearchAlwaysEnableController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\MasterObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -229,20 +220,11 @@
     <Compile Include="SystemModule\ModuleController.designer.cs">
       <DependentUpon>ModuleController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SystemModule\PartialLoadListViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\ProvidedAssociationsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ProvidedAssociationsController.designer.cs">
       <DependentUpon>ProvidedAssociationsController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SystemModule\RecycleBinViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\RecycleBinViewController.designer.cs">
-      <DependentUpon>RecycleBinViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\SearchFromDetailViewController.cs">
       <SubType>Component</SubType>
@@ -254,9 +236,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ShowNonPersistentObjectDetailViewFromNavigationControllerBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\TopReturnedRecordsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\TrackNewObjectSavedController.cs">
@@ -304,10 +283,6 @@
     <Compile Include="XpoMultiDataStoreProxy.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SystemModule\RecycleBinViewController.resx">
-      <DependentUpon>RecycleBinViewController.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SystemModule\eXpandSystemModule.resx">
       <DependentUpon>eXpandSystemModule.cs</DependentUpon>
       <SubType>Designer</SubType>

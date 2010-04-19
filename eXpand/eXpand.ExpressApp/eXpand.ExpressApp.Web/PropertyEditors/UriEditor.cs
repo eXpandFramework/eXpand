@@ -5,12 +5,13 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxEditors;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.Web.PropertyEditors{
     [PropertyEditor(typeof(Uri), true)]
     public class UriPropertyEditor : ASPxPropertyEditor{
-        public UriPropertyEditor(Type objectType, DictionaryNode info)
-            : base(objectType, info) {}
+        public UriPropertyEditor(Type objectType, IModelMemberViewItem model)
+            : base(objectType, model) {}
 
         protected override WebControl CreateViewModeControlCore(){
             ASPxHyperLink hlink = RenderHelper.CreateASPxHyperLink();

@@ -52,6 +52,7 @@ using DevExpress.ExpressApp.Win.Core;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Model;
 namespace DevExpress.ExpressApp.ModelEditor {
 	public class MainClass {
 		private static ModelEditorForm modelEditorForm;
@@ -97,7 +98,10 @@ namespace DevExpress.ExpressApp.ModelEditor {
 					DesignerModelFactory dmf = new DesignerModelFactory();
 					ApplicationModulesManager mgr = dmf.CreateModelManager(targetPath, diffsPath);
 					mgr.Load();
-				    var controller = new ModelEditorController(mgr.Model, mgr.LastDiffsStore, mgr.Modules);
+                    ApplicationModelsManager modelManager = new ApplicationModelsManager(mgr.Modules, mgr.ControllersManager, mgr.DomainComponents);
+                    FileModelStore fileModelStore = dmf.CreateApplicationModelStore(diffsPath);
+                    IModelApplication modelApplication = modelManager.CreateModelApplication(null, fileModelStore, false);
+				    var controller = new ModelEditorViewController(modelApplication, fileModelStore, mgr.Modules);
 				    modelEditorForm = new ModelEditorForm(controller, new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor"));
 					modelEditorForm.SetCaption(Path.GetFileName(targetPath));
                     
