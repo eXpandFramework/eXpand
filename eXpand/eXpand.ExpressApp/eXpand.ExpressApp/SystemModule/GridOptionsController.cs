@@ -6,11 +6,6 @@ using eXpand.Xpo;
 using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule {
-    public interface IModelListViewGridOptions : IModelNode
-    {
-        bool GridOptions { get; set; }
-    }
-
     public abstract class GridOptionsController<ControlType,SettingsType>:ViewController<ListView>
     {
         object Getvalue(PropertyInfo propertyInfo, string attributeValue, object settings)
@@ -26,8 +21,9 @@ namespace eXpand.ExpressApp.SystemModule {
 
         protected override void OnViewControlsCreated()
         {
+            return;
             base.OnViewControlsCreated();
-            var dictionaryNode = ((IModelListViewGridOptions)View.Model).GridOptions;
+            var dictionaryNode = View.Model;
             if (dictionaryNode != null) {
                 var propertyInfos = typeof(ControlType).GetProperties().Where(info1 => typeof(SettingsType).IsAssignableFrom(info1.PropertyType));
                 //foreach (DictionaryNode childNode in dictionaryNode.ChildNodes) {
@@ -45,7 +41,7 @@ namespace eXpand.ExpressApp.SystemModule {
             return View.Editor.Control;
         }
 
-        void Delegate(string sourceChildNode, object settings, IModelListViewGridOptions optons)
+        void Delegate(string sourceChildNode, object settings, object optons)
         {
             //if (optons != null)
                 //foreach (var dictionaryAttribute in dictionaryNode.Attributes.OfType<DictionaryAttribute>()){

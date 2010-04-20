@@ -22,7 +22,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
             base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelList, IModelListViewAutoCommit>();
+            extenders.Add<IModelListView, IModelListViewAutoCommit>();
         }
     }
 }

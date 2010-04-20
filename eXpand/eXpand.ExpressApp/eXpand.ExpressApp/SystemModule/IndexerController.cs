@@ -93,7 +93,7 @@ namespace eXpand.ExpressApp.SystemModule
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelBOModel, IModelSkipIndex>();
             extenders.Add<IModelBOModelClassMembers, IModelSkipIndex>();
-            extenders.Add<IModelOptions, IModelSkipIndex>();
+            extenders.Add<IModelOptions, IModelIndexOptions>();
         }
     }
 }

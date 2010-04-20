@@ -43,7 +43,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
             base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelView, IModelViewSupressConfirmation>();
+            extenders.Add<IModelListView, IModelViewSupressConfirmation>();
+            extenders.Add<IModelDetailView, IModelViewSupressConfirmation>();
         }
     }
 }

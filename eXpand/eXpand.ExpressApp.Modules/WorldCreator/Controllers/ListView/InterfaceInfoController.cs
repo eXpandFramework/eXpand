@@ -5,10 +5,10 @@ using System.Reflection;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Utils.Helpers;
-using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.WorldCreator.Controllers.ListView
 {
@@ -16,17 +16,8 @@ namespace eXpand.ExpressApp.WorldCreator.Controllers.ListView
     {
     }
 
-    [KeyProperty("AssemblyName")]
-    public interface IModelAssemblyResourceImageSource
-    {
-        [Required()]
-        string AssemblyName { get; set; }
-    }
-
     public class InterfaceInfoController : ViewController<DevExpress.ExpressApp.ListView>
     {
-        public const string InterfaceSourcesAttributeName = "InterfaceSources";
-
         public InterfaceInfoController()
         {
             TargetObjectType = typeof(IInterfaceInfo);
@@ -55,11 +46,10 @@ namespace eXpand.ExpressApp.WorldCreator.Controllers.ListView
             foreach (Type type in getInterfaces())
             {
                 if (
-                    ObjectSpace.Session.FindObject(View.ObjectTypeInfo.Type,
-                                                   CriteriaOperator.Parse(
-                                                       string.Format("{0}=? AND {1}=?", assemblyName, name),
-                                                       new AssemblyName(type.Assembly.FullName + "").Name, type.FullName)) ==
-                    null)
+                    ObjectSpace.Session.FindObject(
+                    View.ObjectTypeInfo.Type,
+                    CriteriaOperator.Parse(string.Format("{0}=? AND {1}=?", assemblyName, name),
+                    new AssemblyName(type.Assembly.FullName + "").Name, type.FullName)) == null)
                 {
                     createInterfaceInfo(type, collectionSourceBase);
                 }

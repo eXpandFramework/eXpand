@@ -163,11 +163,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ControllerState\Logic\IControllerStateRule.cs" />
     <Compile Include="ActionState\PopulateActionsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ActionState\PopulateActionsController.Designer.cs">
       <DependentUpon>PopulateActionsController.cs</DependentUpon>
     </Compile>
     <Compile Include="ControllerState\PopulateControllerTypesController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ControllerState\PopulateControllerTypesController.Designer.cs">
       <DependentUpon>PopulateControllerTypesController.cs</DependentUpon>
@@ -176,6 +178,7 @@
     <Compile Include="ControllerState\Logic\ControllerStateRulePermission.cs" />
     <Compile Include="ArtifactState\Logic\ArtifactStateRulePermission.cs" />
     <Compile Include="ArtifactState\PopulateModulesController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ArtifactState\PopulateModulesController.Designer.cs">
       <DependentUpon>PopulateModulesController.cs</DependentUpon>

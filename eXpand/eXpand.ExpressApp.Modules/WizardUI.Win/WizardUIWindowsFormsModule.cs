@@ -37,9 +37,6 @@ namespace eXpand.ExpressApp.WizardUI.Win{
         [DataSourceProperty("Application.Views")]
         [DataSourceCriteria("ModelClass Is Not Null And ModelClass.Name = '@This.Name'")]
         IModelDetailView DetailView { get; set; }
-
-        int Index { get; set; }
-
         [Localizable(true)]
         string Description { get; set; }
     }
@@ -61,14 +58,12 @@ namespace eXpand.ExpressApp.WizardUI.Win{
         public override void Setup(XafApplication application){
             base.Setup(application);
 
-            application.ShowViewStrategy = new WizardShowViewStrategy(application);
             application.CreateCustomTemplate += Application_CreateCustomTemplate;
         }
 
         public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders)
         {
             base.ExtendModelInterfaces(extenders);
-
             extenders.Add<IModelDetailView, IModelDetailViewWizard>();
         }
 
@@ -79,7 +74,7 @@ namespace eXpand.ExpressApp.WizardUI.Win{
         /// <param name="e">CreateCustomTemplate EventArgs</param>
         private void Application_CreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e)
         {
-            if (((WizardShowViewStrategy)((XafApplication)sender).ShowViewStrategy).ShowInWizard && e.Context == TemplateContext.View)
+            if (e.Context == "WizardDetailViewForm")
             {
                 e.Template = new eXpand.ExpressApp.WizardUI.Win.Templates.WizardDetailViewForm();
             }

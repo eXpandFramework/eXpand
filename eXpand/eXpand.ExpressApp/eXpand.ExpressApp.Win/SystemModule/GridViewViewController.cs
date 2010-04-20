@@ -168,7 +168,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             foreach (GridColumn column in gridView.Columns)
             {
-                var columnInfo = listViewInfoNodeWrapper.Columns.Single(c => c.ModelMember.Name == column.FieldName.Replace("!", string.Empty));
+                var columnInfo = listViewInfoNodeWrapper.Columns.Single(c => c.PropertyName == column.FieldName.Replace("!", string.Empty));
                 if (columnInfo != null)
                 {
                     column.OptionsFilter.AutoFilterCondition = ((IModelColumnGridViewOptions)columnInfo).AutoFilterCondition;

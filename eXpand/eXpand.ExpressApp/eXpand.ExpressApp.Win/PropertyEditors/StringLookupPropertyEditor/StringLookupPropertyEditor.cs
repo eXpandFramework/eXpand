@@ -11,7 +11,6 @@ using DevExpress.XtraEditors.Repository;
 
 namespace eXpand.ExpressApp.Win.PropertyEditors.StringLookupPropertyEditor
 {
-    [PropertyEditor(typeof (String))]
     public class StringLookupPropertyEditor : DXPropertyEditor ,IComplexPropertyEditor
     {
         private LookupEditorHelper helper;

@@ -57,9 +57,6 @@
     <Reference Include="DevExpress.Data.v10.1, Version=10.1.1.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.RibbonUI.Win.v10.1, Version=10.1.1.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.ExpressApp.v10.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -113,6 +110,9 @@
     <Compile Include="Templates\WizardDetailViewForm.designer.cs">
       <DependentUpon>WizardDetailViewForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WizardTemplateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WizardUIWindowsFormsModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -120,7 +120,6 @@
     <Compile Include="WizardController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WizardShowViewStrategy.cs" />
     <Compile Include="XafWizardPage.cs">
       <SubType>Component</SubType>
     </Compile>
