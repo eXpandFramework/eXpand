@@ -165,7 +165,6 @@
     </Compile>
     <Compile Include="Controllers\MemberProtectedInfo.cs" />
     <Compile Include="MemberLevelSecurityModuleWin.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="MemberLevelSecurityModuleWin.Designer.cs">
       <DependentUpon>MemberLevelSecurityModuleWin.cs</DependentUpon>

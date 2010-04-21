@@ -118,7 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MemberLevelSecurityAspNetModule.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="MemberLevelSecurityAspNetModule.Designer.cs">
       <DependentUpon>MemberLevelSecurityAspNetModule.cs</DependentUpon>
