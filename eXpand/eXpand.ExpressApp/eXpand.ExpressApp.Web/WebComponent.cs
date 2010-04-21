@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.NodeWrappers;
-using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Core;
 
 
@@ -17,7 +15,7 @@ namespace eXpand.ExpressApp.Web
         protected override void OnCustomProcessShortcut(CustomProcessShortcutEventArgs args)
         {
             base.OnCustomProcessShortcut(args);
-            new ViewShortCutProccesor().Proccess(args.Shortcut);
+            new ViewShortCutProccesor(this).Proccess(args);
             
         }
 
