@@ -125,12 +125,14 @@
     <Compile Include="AdditionalViewControlsProviderPosition.cs" />
     <Compile Include="Logic\AdditionalViewControlsRule.cs" />
     <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Logic\AdditionalViewControlsRuleNodeWrapper.cs" />
     <Compile Include="Logic\AdditionalViewControlsAttribute.cs" />
     <Compile Include="AdditionalViewControlsProviderCalculator.cs" />
     <Compile Include="AdditionalViewControlsProviderDecorator.cs" />
     <Compile Include="AdditionalViewControlsProviderModuleBase.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Logic\IAdditionalViewControlsRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

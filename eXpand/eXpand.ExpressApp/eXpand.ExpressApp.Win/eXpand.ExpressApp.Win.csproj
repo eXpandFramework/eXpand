@@ -149,37 +149,46 @@
     <Compile Include="PropertyEditors\StringPropertyEditors\StringReferenceObjectPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringDisableTextEditorPropertyEditor.cs" />
     <Compile Include="SystemModule\CustomSelectionListViewViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FilterByPropertyPathViewController.Designer.cs">
       <DependentUpon>FilterByPropertyPathViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\FilterControlListViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FilterControlListViewController.Designer.cs">
       <DependentUpon>FilterControlListViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\GridOptionsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridViewViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridViewViewController.designer.cs">
       <DependentUpon>GridViewViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\HideGridPopUpMenuViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HideGridPopUpMenuViewController.designer.cs">
       <DependentUpon>HideGridPopUpMenuViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\HideNestedListViewToolBarViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HideNestedListViewToolBarViewController.designer.cs">
       <DependentUpon>HideNestedListViewToolBarViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\HideToolBarController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ListViewViewStyleController.cs">
       <SubType>Component</SubType>
@@ -194,6 +203,7 @@
       <DependentUpon>LoadWithWindowsController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\MasterDetailViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\MasterDetailViewController.designer.cs">
       <DependentUpon>MasterDetailViewController.cs</DependentUpon>
@@ -209,6 +219,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SystemModule\NewObjectLookUpViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\NewObjectLookUpViewController.designer.cs">
       <DependentUpon>NewObjectLookUpViewController.cs</DependentUpon>
@@ -220,6 +231,7 @@
       <DependentUpon>NotifyIconController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\RemoveNavigationItemsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\RemoveNavigationItemsController.designer.cs">
       <DependentUpon>RemoveNavigationItemsController.cs</DependentUpon>
@@ -231,23 +243,28 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\SearchFromDetailViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\TabStopViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\TabStopViewController.designer.cs">
       <DependentUpon>TabStopViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\SupressConfirmationController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\SupressConfirmationController.Designer.cs">
       <DependentUpon>SupressConfirmationController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\WindowHintController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\WindowHintController.designer.cs">
       <DependentUpon>WindowHintController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\WinLogoutWindowController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\WinLogoutWindowController.designer.cs">
       <DependentUpon>WinLogoutWindowController.cs</DependentUpon>
