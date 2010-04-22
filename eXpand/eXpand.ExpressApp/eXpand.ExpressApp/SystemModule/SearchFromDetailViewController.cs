@@ -8,22 +8,27 @@ using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 
-namespace eXpand.ExpressApp.SystemModule {
-    public abstract class SearchFromDetailViewController:SearchFromViewController {
+namespace eXpand.ExpressApp.SystemModule
+{
+    public abstract class SearchFromDetailViewController : SearchFromViewController
+    {
         IEnumerable<IMemberInfo> _searchAbleMemberInfos;
         readonly SimpleAction _searchAction;
 
-        public IEnumerable<IMemberInfo> SearchAbleMemberInfos {
+        public IEnumerable<IMemberInfo> SearchAbleMemberInfos
+        {
             get { return _searchAbleMemberInfos; }
         }
 
-        protected SearchFromDetailViewController() {
-            _searchAction = new SimpleAction(this,"Search",PredefinedCategory.Search);
-            _searchAction.Execute+=SimpleActionOnExecute;
-            TargetViewType=ViewType.DetailView;
+        protected SearchFromDetailViewController()
+        {
+            _searchAction = new SimpleAction(this, "Search", PredefinedCategory.Search);
+            _searchAction.Execute += SimpleActionOnExecute;
+            TargetViewType = ViewType.DetailView;
         }
 
-        public SimpleAction SearchAction {
+        public SimpleAction SearchAction
+        {
             get { return _searchAction; }
         }
 
@@ -31,25 +36,28 @@ namespace eXpand.ExpressApp.SystemModule {
         {
             base.OnActivated();
 
-            _searchAbleMemberInfos = (this.View as DetailView).Model.Items.Cast<IModelViewPropertySearchMode>().Where(wrapper => wrapper.SearchMemberMode == SearchMemberMode.Include).Select(nodeWrapper => View.ObjectTypeInfo.FindMember(((IModelPropertyEditor)nodeWrapper).PropertyName));
-            _searchAction.Active["HasSearchAbleMembers"] = _searchAbleMemberInfos.Count()>0;
+            _searchAbleMemberInfos = (this.View as DetailView).Model.Items.OfType<IModelViewPropertySearchMode>().Where(wrapper => wrapper.SearchMemberMode == SearchMemberMode.Include).Select(nodeWrapper => View.ObjectTypeInfo.FindMember(((IModelPropertyEditor)nodeWrapper).PropertyName));
+            _searchAction.Active["HasSearchAbleMembers"] = _searchAbleMemberInfos.Count() > 0;
         }
 
-        void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
-            var memberInfos = (this.View as DetailView).Model.Items.Cast<IModelViewPropertySearchMode>().Where(wrapper => wrapper.SearchMemberMode == SearchMemberMode.Include).Select(nodeWrapper => View.ObjectTypeInfo.FindMember(((IModelPropertyEditor)nodeWrapper).PropertyName));
+        void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs)
+        {
+            var memberInfos = (this.View as DetailView).Model.Items.OfType<IModelViewPropertySearchMode>().Where(wrapper => wrapper.SearchMemberMode == SearchMemberMode.Include).Select(nodeWrapper => View.ObjectTypeInfo.FindMember(((IModelPropertyEditor)nodeWrapper).PropertyName));
             var groupOperator = new GroupOperator(GroupOperatorType.Or);
-            foreach (var memberInfo in memberInfos) {
+            foreach (var memberInfo in memberInfos)
+            {
                 var value = memberInfo.GetValue(View.CurrentObject);
                 if (value is string)
                     value = "%" + value + "%";
-                groupOperator.Operands.Add(new BinaryOperator(memberInfo.Name,value,value is string?BinaryOperatorType.Like : BinaryOperatorType.Equal));
+                groupOperator.Operands.Add(new BinaryOperator(memberInfo.Name, value, value is string ? BinaryOperatorType.Like : BinaryOperatorType.Equal));
             }
 
             var findObject = View.ObjectSpace.FindObject(View.ObjectTypeInfo.Type, groupOperator);
             if (findObject != null) ChangeObject(findObject);
         }
 
-        protected virtual void ChangeObject(object findObject) {
+        protected virtual void ChangeObject(object findObject)
+        {
             View.CurrentObject = findObject;
         }
 

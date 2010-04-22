@@ -69,26 +69,26 @@ namespace eXpand.ExpressApp.SystemModule
         {
             base.OnActivated();
             model = View.Model as IModelListViewConditionalDetailViews;
-            _newObjectViewController = Frame.GetController<NewObjectViewController>();
-            _newObjectViewController.NewObjectAction.Executed += NewObjectAction_Executed;
-            if (model != null && model.ConditionalDetailViews.Count > 0)
+            if (model != null && model.ConditionalDetailViews != null && model.ConditionalDetailViews.Count > 0)
             {
                 isActive = true;
-                View.CreateCustomCurrentObjectDetailView += ConditionalDetailViewController_CreateCustomCurrentObjectDetailView;
+                _newObjectViewController = Frame.GetController<NewObjectViewController>();
+                _newObjectViewController.NewObjectAction.Executed += NewObjectAction_Executed;
                 _listViewProcessCurrentObjectController = Frame.GetController<ListViewProcessCurrentObjectController>();
                 _listViewProcessCurrentObjectController.CustomProcessSelectedItem += CustomProcessSelectedItem;
                 View.ProcessSelectedItem += ConditionalDetailViewController_ProcessSelectedItem;
+                View.CreateCustomCurrentObjectDetailView += ConditionalDetailViewController_CreateCustomCurrentObjectDetailView;
             }
         }
 
         protected override void OnDeactivating()
         {
-            _newObjectViewController.NewObjectAction.Executed -= NewObjectAction_Executed;
             if (isActive)
             {
-                View.CreateCustomCurrentObjectDetailView -= ConditionalDetailViewController_CreateCustomCurrentObjectDetailView;
+                _newObjectViewController.NewObjectAction.Executed -= NewObjectAction_Executed;
                 _listViewProcessCurrentObjectController.CustomProcessSelectedItem -= CustomProcessSelectedItem;
                 View.ProcessSelectedItem -= ConditionalDetailViewController_ProcessSelectedItem;
+                View.CreateCustomCurrentObjectDetailView -= ConditionalDetailViewController_CreateCustomCurrentObjectDetailView;
             }
 
             base.OnDeactivating();
@@ -196,19 +196,12 @@ namespace eXpand.ExpressApp.SystemModule
             }
 
             IModelDetailView result = null;
-            if (model != null)
+            foreach (IModelConditionalDetailView item in model.ConditionalDetailViews)
             {
-                var coll = model.ConditionalDetailViews;
-
-                int i = 0;
-                while (i < coll.Count)
+                if (NodeMatches(os, item, detailViewType, newObjType, obj))
                 {
-                    if (NodeMatches(os, coll[i], detailViewType, newObjType, obj))
-                    {
-                        result = coll[i].DetailView;
-                        break;
-                    }
-                    i++;
+                    result = item.DetailView;
+                    break;
                 }
             }
 
