@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Core;
 
 
@@ -15,10 +16,9 @@ namespace eXpand.ExpressApp.Web
         protected override void OnCustomProcessShortcut(CustomProcessShortcutEventArgs args)
         {
             base.OnCustomProcessShortcut(args);
-            new ViewShortCutProccesor(this).Proccess(args);
-            
+            if (args.Shortcut.ObjectKey.StartsWith("@"))
+                args.Shortcut.ObjectKey = ParametersFactory.CreateParameter(args.Shortcut.ObjectKey.Substring(1)).CurrentValue.ToString();
         }
-
         protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)
         {
             this.CreateCustomObjectSpaceprovider(args);

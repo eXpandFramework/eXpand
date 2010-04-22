@@ -1,3 +1,4 @@
+﻿
 ﻿using System;
 using DevExpress.Xpo.Metadata;
 
@@ -24,3 +25,4 @@ namespace eXpand.Xpo.Converters.ValueConverters {
         }
     }
 }
+
