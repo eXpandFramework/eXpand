@@ -113,10 +113,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.Persistent.Base, Version=0.0.9311.9, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="eXpand.Persistent.Base, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="eXpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
