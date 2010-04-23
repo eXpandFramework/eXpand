@@ -115,7 +115,6 @@
     </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -152,33 +151,27 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="AnalysisDisplayDateTimeViewController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="PropertyEditors\AnalysisEditorWin.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AnalysisControlVisibilityController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Options\PivotGridOptionMapper.cs" />
     <Compile Include="Core\TypesInfo.cs" />
     <Compile Include="PivotChartWinModule.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="PivotChartWinModule.Designer.cs">
       <DependentUpon>PivotChartWinModule.cs</DependentUpon>
     </Compile>
     <Compile Include="PivotedPropertyController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="PivotGridInplaceEditorsController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs">
     </Compile>
     <Compile Include="Options\PivotOptionsController.cs">
-      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
