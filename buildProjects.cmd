@@ -29,7 +29,6 @@ call buildproject.cmd eXpand.ExpressApp.TreeListEditors.Win ".\eXpand\eXpand.Exp
 call buildproject.cmd eXpand.ExpressApp.ExceptionHandling ".\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling\eXpand.ExpressApp.ExceptionHandling.csproj"
 call buildproject.cmd eXpand.ExpressApp.ExceptionHandling.Win ".\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling.Win\eXpand.ExpressApp.ExceptionHandling.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.ExceptionHandling.Web ".\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling.Web\eXpand.ExpressApp.ExceptionHandling.Web.csproj"
-call buildproject.cmd eXpand.ExpressApp.Taxonomies ".\eXpand\eXpand.ExpressApp.Modules\Taxonomies\eXpand.ExpressApp.Taxonomies.csproj"
 call buildproject.cmd eXpand.ExpressApp.WorldCreator ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator\eXpand.ExpressApp.WorldCreator.csproj"
 call buildproject.cmd eXpand.ExpressApp.WorldCreator.Win ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator.Win\eXpand.ExpressApp.WorldCreator.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.WorldCreator.Web ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator.Web\eXpand.ExpressApp.WorldCreator.Web.csproj"
