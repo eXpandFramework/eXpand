@@ -10,8 +10,10 @@ namespace eXpand.Xpo.Converters.ValueConverters {
         public override object ConvertToStorageType(object value) {
             if (value!= null) {
                 var dateTime = new DateTime(1753, 1, 1);
-                if (dateTime>(DateTime) value)
-                    return dateTime;
+                if (dateTime>(DateTime) value) {
+                    var time = ((DateTime) value).TimeOfDay;
+                    return dateTime.AddTicks(time.Ticks);
+                }
                 dateTime = new DateTime(9999, 12, 31);
                 if (dateTime<(DateTime) value)
                     return dateTime;
