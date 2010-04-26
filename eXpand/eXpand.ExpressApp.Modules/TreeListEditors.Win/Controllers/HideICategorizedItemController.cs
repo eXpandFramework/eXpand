@@ -11,6 +11,19 @@ using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
 {
+
+
+    using System;
+    using DevExpress.ExpressApp.TreeListEditors.Win;
+    using DevExpress.ExpressApp;
+    using DevExpress.Persistent.Base.General;
+    using DevExpress.Data.Filtering;
+
+    namespace WinSample.Module.Win
+    {
+    }
+
+
     public partial class HideICategorizedItemController : BaseViewController
     {
         public HideICategorizedItemController()
@@ -31,7 +44,7 @@ namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
         private void View_OnControlsCreated(object sender, EventArgs e)
         {
             var view = (ListView) View;
-            var listEditor = (CategorizedListEditor) view.Editor;
+            var listEditor = (DevExpress.ExpressApp.TreeListEditors.Win.CategorizedListEditor) view.Editor;
             ListView categoriesListView = listEditor.CategoriesListView;
 
 

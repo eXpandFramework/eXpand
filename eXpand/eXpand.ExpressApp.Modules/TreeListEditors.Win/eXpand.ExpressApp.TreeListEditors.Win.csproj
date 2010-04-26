@@ -132,6 +132,7 @@
     <Compile Include="Controllers\HideICategorizedItemController.Designer.cs">
       <DependentUpon>HideICategorizedItemController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CategorizedListEditor.cs" />
     <Compile Include="Controllers\ResursiveFilteringViewController.cs">
       <SubType>Component</SubType>
     </Compile>
