@@ -179,6 +179,9 @@
     </Compile>
     <Compile Include="SystemModule\ConditionalDetailViewWrapper.cs">
     </Compile>
+    <Compile Include="SystemModule\ConnectionInfoStatusMessageController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\CustomAttibutesController.cs">
       <SubType>Component</SubType>
     </Compile>

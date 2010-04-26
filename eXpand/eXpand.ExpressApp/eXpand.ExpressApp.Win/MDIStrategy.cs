@@ -7,7 +7,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win;
 
-namespace eXpand.ExpressApp.Win.SystemModule {
+namespace eXpand.ExpressApp.Win {
     public class MDIStrategy : WinShowViewStrategyBase {
         readonly List<WinWindow> childWindows = new List<WinWindow>();
         readonly List<WinWindow> delayedToShow = new List<WinWindow>();

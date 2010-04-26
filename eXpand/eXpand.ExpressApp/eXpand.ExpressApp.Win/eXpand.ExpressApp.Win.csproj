@@ -148,6 +148,9 @@
     <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditorBase.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringReferenceObjectPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringDisableTextEditorPropertyEditor.cs" />
+    <Compile Include="SystemModule\WindowCaptionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\WinNewObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -211,7 +214,7 @@
     <Compile Include="SystemModule\MasterDetailViewController.designer.cs">
       <DependentUpon>MasterDetailViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SystemModule\MDIStrategy.cs" />
+    <Compile Include="MDIStrategy.cs" />
     <Compile Include="SystemModule\MinimizeOnCloseController.cs">
       <SubType>Component</SubType>
     </Compile>
