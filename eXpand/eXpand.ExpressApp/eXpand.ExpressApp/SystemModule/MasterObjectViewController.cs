@@ -18,10 +18,13 @@ namespace eXpand.ExpressApp.SystemModule {
                 collectionSource.MasterObjectChanged += collectionSource_MasterObjectChanged;
             }
         }
-        void collectionSource_MasterObjectChanged(object sender, EventArgs e){
-            _masterObject = ((PropertyCollectionSource)sender).MasterObject as TObject;
+        void collectionSource_MasterObjectChanged(object sender, EventArgs e) {
+            if (((PropertyCollectionSource)sender).MasterObject is TObject)
+                OnMasterObjectChanged(sender);
         }
 
-        
+        protected virtual void OnMasterObjectChanged(object sender) {
+            _masterObject = ((PropertyCollectionSource)sender).MasterObject as TObject;
+        }
     }
 }
