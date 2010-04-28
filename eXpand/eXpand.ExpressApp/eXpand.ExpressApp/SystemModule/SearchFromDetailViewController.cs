@@ -12,15 +12,17 @@ using eXpand.ExpressApp.Core.DictionaryHelpers;
 using System.Linq;
 
 namespace eXpand.ExpressApp.SystemModule {
-    public abstract class SearchFromDetailViewController:SearchFromViewController {
+    public class SearchFromDetailViewController:SearchFromViewController {
         IEnumerable<IMemberInfo> _searchAbleMemberInfos;
         readonly SimpleAction _searchAction;
+
+        
 
         public IEnumerable<IMemberInfo> SearchAbleMemberInfos {
             get { return _searchAbleMemberInfos; }
         }
 
-        protected SearchFromDetailViewController() {
+        public SearchFromDetailViewController() {
             _searchAction = new SimpleAction(this,"Search",PredefinedCategory.Search);
             _searchAction.Execute+=SimpleActionOnExecute;
             TargetViewType=ViewType.DetailView;
