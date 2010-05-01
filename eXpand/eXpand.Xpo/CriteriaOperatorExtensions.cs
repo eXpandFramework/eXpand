@@ -7,6 +7,18 @@ namespace eXpand.Xpo
 {
     public static class CriteriaOperatorExtensions
     {
+    
+        /// <summary>
+        /// Defines an extension method to <see cref="String"/> that converts the string value into a <see cref="criteria"/> by calling its <see cref="CriteriaOperator.Parse(string,out DevExpress.Data.Filtering.OperandValue[])"/> method.
+        /// </summary>
+        /// <param name="criteria">A <see cref="String"/> value that represents the expression to convert</param>
+        /// <param name="args">The values that are substituted into the expression in place of question mark characters. These parameters can be omitted. </param>
+        /// <returns>A <see cref="CriteriaOperator"/> equivalent to the expression contained in criteria.</returns>
+        public static CriteriaOperator ToCriteria(this string criteria, params object[] args)
+        {
+            return CriteriaOperator.Parse(criteria, args);
+        }
+    
         public static CriteriaOperator GetClassTypeFilter(this Type type, Session session, string path)
         {
             path = path.TrimEnd('.');
