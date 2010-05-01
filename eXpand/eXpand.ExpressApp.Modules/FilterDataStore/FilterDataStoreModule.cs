@@ -14,6 +14,7 @@ using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.FilterDataStore.Core;
 using eXpand.Xpo;
 using eXpand.Xpo.DB;
+using eXpand.Xpo.Filtering;
 
 
 namespace eXpand.ExpressApp.FilterDataStore

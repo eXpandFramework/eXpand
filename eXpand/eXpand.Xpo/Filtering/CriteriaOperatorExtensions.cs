@@ -3,7 +3,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 
-namespace eXpand.Xpo
+namespace eXpand.Xpo.Filtering
 {
     public static class CriteriaOperatorExtensions
     {
@@ -27,8 +27,7 @@ namespace eXpand.Xpo
             string propertyName = path + "." + XPObject.Fields.ObjectType.PropertyName;
             return
                 new GroupOperator(GroupOperatorType.Or, new NullOperator(propertyName),
-                                  new BinaryOperator(propertyName,
-                                                     xpObjectType));
+                                  new BinaryOperator(propertyName,xpObjectType));
         }
 
         public static CriteriaOperator GetClassTypeFilter(this Type type, Session session)
@@ -46,7 +45,6 @@ namespace eXpand.Xpo
                 propertyPath = propertyPath.Substring(0, propertyPath.IndexOf(".")) + "[" +
                                propertyPath.Substring(propertyPath.IndexOf(".") + 1) + "]";
             }
-//            string replace = criteriaOperator.ToString().Replace("[","").Replace("]","").Replace(" ","");
             for (int i = propertyPath.Length-1; i > -1; i--)
                 if (propertyPath[i] != ']')
                 {

@@ -1,5 +1,6 @@
 using DevExpress.Data.Filtering;
 using eXpand.Xpo;
+using eXpand.Xpo.Filtering;
 using MbUnit.Framework;
 
 namespace eXpand.Tests.eXpand.Xpo {

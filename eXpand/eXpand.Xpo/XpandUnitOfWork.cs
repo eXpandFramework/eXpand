@@ -15,10 +15,11 @@ namespace eXpand.Xpo
             : base(dictionary)
         {
         }
-
+        
         public XpandUnitOfWork(IDataLayer layer, params IDisposable[] disposeOnDisconnect)
             : base(layer, disposeOnDisconnect)
         {
+            
         }
 
         protected override MemberInfoCollection GetPropertiesListForUpdateInsert(object theObject, bool isUpdate)
