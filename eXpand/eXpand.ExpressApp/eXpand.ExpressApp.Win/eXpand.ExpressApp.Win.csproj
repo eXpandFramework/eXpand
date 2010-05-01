@@ -157,29 +157,14 @@
     <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\FilterByPropertyPathViewController.Designer.cs">
-      <DependentUpon>FilterByPropertyPathViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SystemModule\FilterControlListViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\FilterControlListViewController.Designer.cs">
-      <DependentUpon>FilterControlListViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\GridOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridViewViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\GridViewViewController.designer.cs">
-      <DependentUpon>GridViewViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\HideGridPopUpMenuViewController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\HideGridPopUpMenuViewController.designer.cs">
-      <DependentUpon>HideGridPopUpMenuViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\HideNestedListViewToolBarViewController.cs">
       <SubType>Component</SubType>
@@ -196,14 +181,8 @@
     <Compile Include="SystemModule\ListViewViewStyleController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ListViewViewStyleController.Designer.cs">
-      <DependentUpon>ListViewViewStyleController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\LoadWithWindowsController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\LoadWithWindowsController.Designer.cs">
-      <DependentUpon>LoadWithWindowsController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\MasterDetailViewController.cs">
       <SubType>Component</SubType>
@@ -211,12 +190,8 @@
     <Compile Include="SystemModule\MasterDetailViewController.designer.cs">
       <DependentUpon>MasterDetailViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="MDIStrategy.cs" />
     <Compile Include="SystemModule\MinimizeOnCloseController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\MinimizeOnCloseController.Designer.cs">
-      <DependentUpon>MinimizeOnCloseController.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\MoreSerializer.cs">
       <SubType>Code</SubType>
@@ -229,9 +204,6 @@
     </Compile>
     <Compile Include="SystemModule\NotifyIconController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\NotifyIconController.Designer.cs">
-      <DependentUpon>NotifyIconController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\RemoveNavigationItemsController.cs">
       <SubType>Component</SubType>
@@ -251,14 +223,8 @@
     <Compile Include="SystemModule\TabStopViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\TabStopViewController.designer.cs">
-      <DependentUpon>TabStopViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\SupressConfirmationController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\SupressConfirmationController.Designer.cs">
-      <DependentUpon>SupressConfirmationController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\WindowHintController.cs">
       <SubType>Component</SubType>
@@ -275,23 +241,8 @@
     <Compile Include="SystemModule\eXpandSystemWindowsFormsModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\eXpandSystemWindowsFormsModule.designer.cs">
-      <DependentUpon>eXpandSystemWindowsFormsModule.cs</DependentUpon>
-    </Compile>
     <Compile Include="Templates\MainForm.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Templates\MDIChildForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Templates\MDIChildForm.designer.cs">
-      <DependentUpon>MDIChildForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Templates\MDIMainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Templates\MDIMainForm.designer.cs">
-      <DependentUpon>MDIMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WinComponent.cs">
       <SubType>Component</SubType>
@@ -301,39 +252,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SystemModule\FilterControlListViewController.resx">
-      <DependentUpon>FilterControlListViewController.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SystemModule\GridViewViewController.resx">
-      <DependentUpon>GridViewViewController.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SystemModule\MasterDetailViewController.resx">
       <DependentUpon>MasterDetailViewController.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SystemModule\TabStopViewController.resx">
-      <DependentUpon>TabStopViewController.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SystemModule\WinLogoutWindowController.resx">
       <DependentUpon>WinLogoutWindowController.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SystemModule\eXpandSystemWindowsFormsModule.resx">
-      <DependentUpon>eXpandSystemWindowsFormsModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Templates\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Templates\MDIChildForm.resx">
-      <DependentUpon>MDIChildForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Templates\MDIMainForm.resx">
-      <DependentUpon>MDIMainForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

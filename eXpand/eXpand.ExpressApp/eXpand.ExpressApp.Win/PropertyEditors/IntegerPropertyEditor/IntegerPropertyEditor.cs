@@ -1,6 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Repository;
@@ -10,7 +11,8 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.IntegerPropertyEditor{
     [PropertyEditor(typeof (int?))]
     public class IntegerPropertyEditor : DevExpress.ExpressApp.Win.Editors.IntegerPropertyEditor
     {
-        public IntegerPropertyEditor(Type objectType, DictionaryNode info) : base(objectType, info)
+        public IntegerPropertyEditor(Type objectType, IModelMemberViewItem model)
+            : base(objectType, model)
         {
         }
 

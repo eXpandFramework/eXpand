@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
@@ -11,7 +12,7 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.LookupPropertyEditor{
         private EditorButton editButton;
         private DevExpress.ExpressApp.Win.Editors.RepositoryItemLookupEdit repositoryItemLookupEdit;
 
-        public LookupPropertyEditor(Type objectType, DictionaryNode info) : base(objectType, info)
+        public LookupPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model)
         {
         }
 
@@ -19,7 +20,6 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.LookupPropertyEditor{
         {
             return new RepositoryItemLookupEdit();
         }
-
 
         protected override void SetupRepositoryItem(RepositoryItem item)
         {
@@ -48,7 +48,6 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.LookupPropertyEditor{
             }
         }
 
-
         private void View_OnControlsCreated(object sender, EventArgs e)
         {
             editButton.Visible = ControlValue != null;
@@ -59,15 +58,9 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.LookupPropertyEditor{
             editButton.Visible = ControlValue != null;
         }
 
-
-
         protected override object CreateControlCore()
         {
-            var edit = new LookupEdit();
-
-            return edit;
+            return new LookupEdit();
         }
-
-
     }
 }

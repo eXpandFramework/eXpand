@@ -106,31 +106,19 @@
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
     <Compile Include="Attributes\PivotedPropertyAttribute.cs" />
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
-    <Compile Include="Core\ApplicationNodeWrapperExtensions.cs" />
-    <Compile Include="Core\BOModelNodeWrapperExtensions.cs" />
-    <Compile Include="Core\ClassInfoNodeWrapperExtensions.cs" />
     <Compile Include="Core\CustomShowNavigationItemEventArgsExtensions.cs" />
-    <Compile Include="Core\DictionaryFactory.cs">
+    <Compile Include="Core\DictionaryHelpers\DictionaryHelper.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Core\DictionaryHelpers\DictionaryHelper.cs" />
-    <Compile Include="Core\DictionaryHelpers\DictionaryXmlWriterEx.cs" />
-    <Compile Include="Core\DictionaryHelpers\DictionaryXmlWriterExtensions.cs" />
-    <Compile Include="Core\DictionaryHelpers\ModuleRefNodeProvider.cs" />
-    <Compile Include="Core\DictionaryHelpers\RefNodeStringPropertyProvider .cs" />
-    <Compile Include="Core\DictionaryHelpers\SchemaHelper.cs" />
-    <Compile Include="Core\DictionaryHelpers\ViewIdRefNodeProvider.cs" />
-    <Compile Include="Core\DictionaryHelpers\ViewVisibilityCalculator.cs" />
-    <Compile Include="Core\DictionaryNodeExtensions.cs" />
     <Compile Include="Core\FrameExtensions.cs" />
     <Compile Include="Core\LinqServerCollectionSource.cs" />
     <Compile Include="Core\ObjectObserver.cs" />
-    <Compile Include="Core\ServerCollectionSource.cs" />
     <Compile Include="Core\TypesInfoExtensions.cs" />
     <Compile Include="Core\TypeValueConverter.cs" />
-    <Compile Include="Core\ViewsNodeWrapper.cs" />
     <Compile Include="DataStoreProvider.cs" />
-    <Compile Include="Editors\ActionButtonDetailItem.cs" />
+    <Compile Include="Editors\ActionButtonDetailItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Enums\AllowEditEnum.cs" />
     <Compile Include="Enums\BooleanEnum.cs" />
     <Compile Include="Enums\DetailViewType.cs" />
@@ -170,14 +158,8 @@
     <Compile Include="SystemModule\BaseWindowController.designer.cs">
       <DependentUpon>BaseWindowController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\DictionaryHelpers\ClassRefNodeProvider.cs" />
     <Compile Include="SystemModule\ConditionalDetailViewController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\ConditionalDetailViewController.designer.cs">
-      <DependentUpon>ConditionalDetailViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SystemModule\ConditionalDetailViewWrapper.cs">
     </Compile>
     <Compile Include="SystemModule\ConnectionInfoStatusMessageController.cs">
       <SubType>Component</SubType>
@@ -190,9 +172,6 @@
     </Compile>
     <Compile Include="SystemModule\CustomSelectionListViewViewController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\CustomSelectionListViewViewController.designer.cs">
-      <DependentUpon>CustomSelectionListViewViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\ExpandAbleMembersViewController.cs">
       <SubType>Component</SubType>
@@ -209,14 +188,8 @@
     <Compile Include="SystemModule\FilterController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\FilterController.designer.cs">
-      <DependentUpon>FilterController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\FKViolationViewController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\FKViolationViewController.designer.cs">
-      <DependentUpon>FKViolationViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\GridOptionsController.cs">
       <SubType>Component</SubType>
@@ -242,17 +215,8 @@
     <Compile Include="SystemModule\LookUpListSearchAlwaysEnableController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\LookUpListSearchAlwaysEnableController.designer.cs">
-      <DependentUpon>LookUpListSearchAlwaysEnableController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\MasterObjectViewController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\ModelInfoWindowController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\ModelInfoWindowController.designer.cs">
-      <DependentUpon>ModelInfoWindowController.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemModule\ModuleController.cs">
       <SubType>Component</SubType>
@@ -266,12 +230,6 @@
     <Compile Include="SystemModule\ProvidedAssociationsController.designer.cs">
       <DependentUpon>ProvidedAssociationsController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SystemModule\RecycleBinViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\RecycleBinViewController.designer.cs">
-      <DependentUpon>RecycleBinViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemModule\SearchFromDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -282,9 +240,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ShowNonPersistentObjectDetailViewFromNavigationControllerBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\TopReturnedRecordsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\TrackNewObjectSavedController.cs">
@@ -333,10 +288,6 @@
     <Compile Include="XpoMultiDataStoreProxy.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SystemModule\RecycleBinViewController.resx">
-      <DependentUpon>RecycleBinViewController.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SystemModule\eXpandSystemModule.resx">
       <DependentUpon>eXpandSystemModule.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -385,9 +336,6 @@
       <DependentUpon>FilterByPropertyPathViewController.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\CommonSystemModuleSchema.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

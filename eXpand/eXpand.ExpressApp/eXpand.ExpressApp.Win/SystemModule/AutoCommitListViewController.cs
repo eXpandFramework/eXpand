@@ -1,23 +1,28 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.SystemModule;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.Win.SystemModule {
+
+    public interface IModelListViewAutoCommit : IModelNode
+    {
+        bool AutoCommit { get; set; }
+    }
+
     public class AutoCommitListViewController : ViewController<ListView>
     {
-        private const string AutoCommit = "AutoCommit";
-        
         protected override void OnActivated()
         {
             base.OnActivated();
             var winDetailViewController = Frame.GetController<WinDetailViewController>();
-            if (winDetailViewController != null)
-                winDetailViewController.AutoCommitListView =View.Info.GetAttributeBoolValue(AutoCommit);
+            if (winDetailViewController != null && ((IModelListViewAutoCommit)View.Model).AutoCommit)
+                winDetailViewController.AutoCommitListView = true;
         }
-        public override Schema GetSchema()
+
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            var dictionaryNode = new SchemaBuilder().InjectBoolAttribute(AutoCommit,ModelElement.ListView);
-            return new Schema(dictionaryNode);
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelListView, IModelListViewAutoCommit>();
         }
     }
 }

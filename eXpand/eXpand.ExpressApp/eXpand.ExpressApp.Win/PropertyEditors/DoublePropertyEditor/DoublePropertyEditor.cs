@@ -1,6 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Repository;
@@ -10,7 +11,8 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.DoublePropertyEditor{
     [PropertyEditor(typeof (double?))]
     public class DoublePropertyEditor : DevExpress.ExpressApp.Win.Editors.DoublePropertyEditor
     {
-        public DoublePropertyEditor(Type objectType, DictionaryNode info) : base(objectType, info)
+        public DoublePropertyEditor(Type objectType, IModelMemberViewItem model)
+            : base(objectType, model)
         {
         }
 

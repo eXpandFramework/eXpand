@@ -128,20 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ExistentMembersEnableValidationAspect.cs" />
-    <Compile Include="RuleSetInitializationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="RuleSetInitializationController.Designer.cs">
-      <DependentUpon>RuleSetInitializationController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Updater.cs" />
-    <Compile Include="ViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ViewController.Designer.cs">
-      <DependentUpon>ViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="WorldCreatorCThruModule.cs">
       <SubType>Component</SubType>
     </Compile>

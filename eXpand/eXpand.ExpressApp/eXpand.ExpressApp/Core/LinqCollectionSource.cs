@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.Xpo;
 
 namespace eXpand.ExpressApp.Core
 {
@@ -11,12 +9,11 @@ namespace eXpand.ExpressApp.Core
         public const string DefaultSuffix = "_Linq";
 
         private readonly LinqCollectionHelper linqCollectionHelper = new LinqCollectionHelper();
-        public LinqCollectionSource(ObjectSpace objectSpace, Type objectType) : base(objectSpace, objectType)
-        {
-        }
+        public LinqCollectionSource(ObjectSpace objectSpace, Type objectType, bool isServerMode) 
+            : base(objectSpace, objectType, isServerMode) { }
 
-        public LinqCollectionSource(ObjectSpace objectSpace, Type objectType, IQueryable query)
-            : base(objectSpace, objectType)
+        public LinqCollectionSource(ObjectSpace objectSpace, Type objectType, bool isServerMode, IQueryable query)
+            : this(objectSpace, objectType, isServerMode)
         {
             Query = query;
         }
@@ -30,12 +27,12 @@ namespace eXpand.ExpressApp.Core
             }
         }
 
-
-        protected override object RecreateCollection(CriteriaOperator criteria, SortingCollection sortings)
+        protected override object CreateCollection()
         {
             if (Query != null)
                 return linqCollectionHelper.ConvertQueryToCollection(Query);
-            return base.RecreateCollection(criteria, sortings);
+
+            return base.CreateCollection();
         }
     }
 }

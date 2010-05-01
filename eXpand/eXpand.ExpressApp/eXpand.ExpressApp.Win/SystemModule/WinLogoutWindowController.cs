@@ -1,12 +1,18 @@
-using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using eXpand.ExpressApp.SystemModule;
 using eXpand.ExpressApp.Win.Interfaces;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
+    public interface IModelLogOutEnable : IModelNode
+    {
+        bool LogOutEnable { get; set; }
+    }
+
     public partial class WinLogoutWindowController : BaseWindowController
     {
         public const string LogOutEnable = "LogOutEnable";
+
         public WinLogoutWindowController()
         {
             InitializeComponent();
@@ -16,8 +22,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         protected override void OnActivated()
         {
             base.OnActivated();
-
-            Active[LogOutEnable] = Application.Info.GetChildNodeByPath("Options").GetAttributeBoolValue((LogOutEnable));
+            Active[LogOutEnable] = ((IModelLogOutEnable)Application.Model.Options).LogOutEnable;
         }
 
         private void logOutSimpleAction_Execute(object sender, DevExpress.ExpressApp.Actions.SimpleActionExecuteEventArgs e)
@@ -25,15 +30,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
             ((ILogOut)Application).Logout();
         }
 
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            const string CommonTypeInfos = @"<Element Name=""Application"">
-                    <Element Name=""Options"" >
-                            <Attribute Name=""" + LogOutEnable + @""" Choice=""False,True""/>
-                    </Element>
-                </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
-
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelOptions, IModelLogOutEnable>();
         }
     }
 }

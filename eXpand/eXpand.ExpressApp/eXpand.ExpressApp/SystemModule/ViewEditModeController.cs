@@ -1,24 +1,28 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule {
+
+    public interface IModelDetailViewEditMode : IModelNode
+    {
+        ViewEditMode? ViewEditMode { get; set; }
+    }
+
     public class ViewEditModeController : ViewController<DetailView> {
-        public const string ViewEditModeAttributeName = "ViewEditMode";
 
         protected override void OnActivated() {
             base.OnActivated();
-            var attributeValue = View.Info.GetAttributeValue(ViewEditModeAttributeName, null);
-            if (!string.IsNullOrEmpty(attributeValue))
-                View.ViewEditMode = (ViewEditMode) Enum.Parse(typeof (ViewEditMode), attributeValue);
+            var attributeValue = ((IModelDetailViewEditMode)View.Model).ViewEditMode;
+            if (attributeValue != null)
+                View.ViewEditMode = attributeValue.Value;
         }
 
-        public override Schema GetSchema() {
-            DictionaryNode injectAttribute = new SchemaBuilder().InjectAttribute(ViewEditModeAttributeName,
-                                                                                typeof (ViewEditMode),
-                                                                                ModelElement.DetailView);
-            return new Schema(injectAttribute);
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelDetailView, IModelDetailViewEditMode>();
         }
     }
 }

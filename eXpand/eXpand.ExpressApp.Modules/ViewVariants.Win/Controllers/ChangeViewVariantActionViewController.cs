@@ -1,5 +1,5 @@
 using System.Linq;
-using System.Windows.Forms;
+using Windows = System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.NodeWrappers;
@@ -14,24 +14,20 @@ using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
 using eXpand.ExpressApp.SystemModule;
 using eXpand.ExpressApp.ViewVariants.BasicObjects;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
-    public partial class ChangeViewVariantActionViewController : BaseViewController
+    public class ChangeViewVariantActionViewController : BaseViewController<ListView>
     {
-        public ChangeViewVariantActionViewController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
+        public ChangeViewVariantActionViewController() { }
 
         protected override void OnAfterConstruction()
         {
             base.OnAfterConstruction();
-            BarActionItemsFactory<ActionBase>.CustomizeActionControl += BarActionItemsFactoryOnCustomizeActionControl;
-            
+            BarActionItemsFactory.CustomizeActionControl += BarActionItemsFactoryOnCustomizeActionControl;
         }
 
-        private void BarActionItemsFactoryOnCustomizeActionControl(object sender, CustomizeActionControlEventArgs<ActionBase> args)
+        private void BarActionItemsFactoryOnCustomizeActionControl(object sender, CustomizeActionControlEventArgs args)
         {
             if (Frame != null && args.Action.Id == Frame.GetController<ChangeVariantController>().ChangeVariantAction.Id &&
                 Frame.Template is IBarManagerHolder) {
@@ -42,14 +38,13 @@ namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
 
         }
 
-
-
         private void RepositoryItem_OnButtonClick(object sender, ButtonPressedEventArgs e)
         {
             
             if (e.Button.Kind == ButtonPredefines.Delete)
             {
-                if (MessageBox.Show("Delete current view?", null,MessageBoxButtons.YesNo)==DialogResult.Yes) {
+                if (Windows.MessageBox.Show("Delete current view?", null, Windows.MessageBoxButtons.YesNo) == Windows.DialogResult.Yes)
+                {
                     deleteView(sender);
                     return;
                 }
@@ -68,31 +63,27 @@ namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
         }
 
         private void EditViewActionOnExecute(object sender, SimpleActionExecuteEventArgs args) {
-            var listViewInfoNodeWrapper = new ListViewInfoNodeWrapper(View.Info);
             var newCaption = ((ViewCloner)args.CurrentObject).Caption;
             var changeVariantController = Frame.GetController<ChangeVariantController>();
             var changeVariantAction = changeVariantController.ChangeVariantAction;
             setCurrentVariant(changeVariantAction.SelectedItem.Caption,newCaption);
-            listViewInfoNodeWrapper.Id=newCaption;
-            listViewInfoNodeWrapper.Caption = listViewInfoNodeWrapper.Id;
-            changeVariantAction.SelectedItem.Caption =listViewInfoNodeWrapper.Caption;
-            changeVariantAction.SelectedItem.Data = listViewInfoNodeWrapper.Id;
-            View.SetInfo(View.Info);
+            changeVariantAction.SelectedItem.Caption = newCaption;
+            changeVariantAction.SelectedItem.Data = newCaption;
+            View.SetInfo(View.Model);
             View.Refresh();
             var showNavigationItemController=Frame.GetController<ShowNavigationItemController>();
-            ((ViewShortcut) showNavigationItemController.ShowNavigationItemAction.SelectedItem.Data).ViewId =listViewInfoNodeWrapper.Id;
+            ((ViewShortcut)showNavigationItemController.ShowNavigationItemAction.SelectedItem.Data).ViewId = newCaption;
 
         }
 
         private void setCurrentVariant(string oldId, string newId) {
-            var wrapper = new ApplicationNodeWrapper(Application.Info);
-            var variantNodes = wrapper.Views.Items.OfType<ListViewInfoNodeWrapper>().Where(nodeWrapper => nodeWrapper.Node.FindChildNode("Variants") != null).Select(nodeWrapper => nodeWrapper.Node.FindChildNode("Variants")).SelectMany(node => node.ChildNodes).ToList();
-            foreach (DictionaryNode node in variantNodes) {
-                if (node.KeyAttribute.Value == oldId) {
-                    node.Parent.SetAttribute("Current", newId);
-                    node.SetAttribute("ID", newId);
-                    node.SetAttribute("ViewID", newId);
-                    node.SetAttribute("Caption", newId);
+            var variantNodes = Application.Model.Views.OfType<IModelListView>().Where(nodeWrapper => ((IModelViewVariants)nodeWrapper).Variants != null).Select(nodeWrapper => ((IModelViewVariants)nodeWrapper).Variants).SelectMany(node => node.ToList()).ToList();
+            foreach (var node in variantNodes) {
+                if (node.Id == oldId) {
+                    ((IModelVariants)node.Parent).Current = ((IModelVariants)node.Parent)[newId];
+                    node.Id = newId;
+                    node.ViewID = newId;
+                    node.Caption = newId;
                 }
             }
         }
@@ -100,35 +91,35 @@ namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
         private void deleteView(object sender) {
             var changeVariantController = Frame.GetController<ChangeVariantController>();
             if (changeVariantController.ChangeVariantAction.Items.Count == 1) {
-                MessageBox.Show("You cannot delete all views");
+                Windows.MessageBox.Show("You cannot delete all views");
                 return;
             }
-            var wrapper = new ApplicationNodeWrapper(Application.Info);
+            
             var choiceActionItem = ((ChoiceActionItem)((ComboBoxEdit)sender).EditValue);
             var id = choiceActionItem.Data.ToString();
-            var childNode = wrapper.Views.FindViewById(id).Node;
-            removeVariantNodeFromViews(choiceActionItem.Info.KeyAttribute.Value, wrapper);
-            wrapper.Views.Node.RemoveChildNode(childNode);
-            ListViewInfoNodeWrapper node1 = GetCurrentVariant(changeVariantController, wrapper);
-            View.SetInfo(node1.Node);
+            
+            removeVariantNodeFromViews(choiceActionItem.Id);
+            Application.Model.Views.Remove(Application.Model.Views[id]);
+            var view = GetCurrentVariant(changeVariantController);
+            View.SetInfo(view);
         }
 
-        private ListViewInfoNodeWrapper GetCurrentVariant(ChangeVariantController changeVariantController, ApplicationNodeWrapper wrapper) {
-            var node1 = new ListViewInfoNodeWrapper(wrapper.Views.FindViewById(Application.FindListViewId(View.ObjectTypeInfo.Type)).Node);
+        private IModelView GetCurrentVariant(ChangeVariantController changeVariantController) {
+            var view = Application.Model.Views[Application.FindListViewId(View.ObjectTypeInfo.Type)];
             changeVariantController.ChangeVariantAction.Items.Remove(
                 changeVariantController.ChangeVariantAction.SelectedItem);
             changeVariantController.ChangeVariantAction.SelectedItem = (from item in changeVariantController.ChangeVariantAction.Items
-                                                                        where item.Caption == node1.Node.FindChildNode("Variants").ChildNodes[0].KeyAttribute.Value
+                                                                        where item.Caption == ((IModelViewVariants)view).Variants[0].Id
                                                                         select item).Single();
-            return node1;
+            return view;
         }
 
-        private void removeVariantNodeFromViews(string id, ApplicationNodeWrapper wrapper) {
-            var variantNodes = wrapper.Views.Items.OfType<ListViewInfoNodeWrapper>().Where(nodeWrapper => nodeWrapper.Node.FindChildNode("Variants")!=null).Select(nodeWrapper => nodeWrapper.Node.FindChildNode("Variants")).SelectMany(node => node.ChildNodes).ToList();
+        private void removeVariantNodeFromViews(string id) {
+            var variantNodes = Application.Model.Views.OfType<IModelListView>().Where(nodeWrapper => ((IModelViewVariants)nodeWrapper).Variants != null).Select(nodeWrapper => ((IModelViewVariants)nodeWrapper).Variants).SelectMany(node => node.ToList()).ToList();
             foreach (var node in variantNodes) {
-                if (node.KeyAttribute.Value==id) {
-                    node.Parent.SetAttribute("Current",node.Parent.ChildNodes.Where(dictionaryNode => dictionaryNode.KeyAttribute.Value!=id).ToList()[0].KeyAttribute.Value);
-                    node.Parent.RemoveChildNode(node);    
+                if (node.Id == id) {
+                    ((IModelVariants)node.Parent).Current = ((IModelVariants)node.Parent).Where(dictionaryNode => dictionaryNode.Id != id).ToList()[0];
+                    ((IModelVariants)node.Parent).Remove(node);    
                 }
             }
         }

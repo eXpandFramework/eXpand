@@ -1,28 +1,28 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.ComponentModel;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.SystemModule;
 
 namespace eXpand.ExpressApp.Win.SystemModule {
+    public interface IModelViewRollBackObjectChangesOnDetailViewQueryCanChangeCurrentObject : IModelNode
+    {
+        [DefaultValue(true)]
+        bool RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObject { get; set; }
+    }
+
     public class RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObjectController : WinDetailViewController
     {
-        public const string RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObjectAttributeName = "RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObject";
         protected override void OnViewQueryCanChangeCurrentObject(System.ComponentModel.CancelEventArgs e)
         {
-            if (View.Info.GetAttributeBoolValue(RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObjectAttributeName, true))
+            if (((IModelViewRollBackObjectChangesOnDetailViewQueryCanChangeCurrentObject)View.Model)
+                .RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObject)
                 base.OnViewQueryCanChangeCurrentObject(e);
         }
-        public override Schema GetSchema()
+   
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            const string CommonTypeInfos = @"<Element Name=""Application"">
-                        <Element Name=""Views"" >
-                            <Element Name=""DetailView"">
-                                 <Attribute Name=""" + RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObjectAttributeName + @""" Choice=""False,True""/>
-                            </Element>
-                            <Element Name=""ListView"">
-                                 <Attribute Name=""" + RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObjectAttributeName + @""" Choice=""False,True""/>
-                            </Element>
-                        </Element>
-                    </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelView, IModelViewRollBackObjectChangesOnDetailViewQueryCanChangeCurrentObject>();
         }
     }
 }

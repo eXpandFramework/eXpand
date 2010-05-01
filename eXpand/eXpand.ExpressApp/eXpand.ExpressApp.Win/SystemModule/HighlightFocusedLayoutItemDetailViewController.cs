@@ -9,6 +9,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
             base.OnViewControlsCreated();
             AssignStyle(View.LayoutManager.Container);
         }
+
         protected override void AssignStyle(object control)
         {
             var layoutControl = control as LayoutControl;
@@ -17,6 +18,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
                 layoutControl.BeginUpdate();
                 layoutControl.OptionsView.HighlightFocusedItem = true;
                 layoutControl.OptionsView.AllowItemSkinning = true;
+                layoutControl.OptionsView.AllowHotTrack = true;
                 layoutControl.EndUpdate();
             }
         }

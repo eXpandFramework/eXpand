@@ -135,13 +135,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdditionalViewControlsRuleViewController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\HintPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="AdditionalViewControlsProviderWindowsFormsModule.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="AdditionalViewControlsProviderWindowsFormsModule.Designer.cs">
       <DependentUpon>AdditionalViewControlsProviderWindowsFormsModule.cs</DependentUpon>

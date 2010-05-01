@@ -128,9 +128,6 @@
     <Compile Include="Controllers\ChangeViewVariantActionViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\ChangeViewVariantActionViewController.Designer.cs">
-      <DependentUpon>ChangeViewVariantActionViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="eXpandViewVariantsWin.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -7,24 +7,21 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors{
     public abstract class StringPropertyEditorBase : DXPropertyEditor, IComplexPropertyEditor{
         protected LookupEditorHelper helper;
 
-        protected StringPropertyEditorBase(Type objectType, DictionaryNode info)
-            : base(objectType, info)
+        protected StringPropertyEditorBase(Type objectType, IModelMemberViewItem model)
+            : base(objectType, model)
         {
-            if (string.IsNullOrEmpty(info.GetAttributeValue(DetailViewItemInfoNodeWrapper.ImmediatePostDataAttribute))){
-                ImmediatePostData = true;
-            }
         }
 
         protected override void SetupRepositoryItem(RepositoryItem item)
         {
             ((RepositoryItemComboBox) item).Items.AddRange(ComboBoxItems);
             base.SetupRepositoryItem(item);
-            
         }
 
         protected abstract List<ComboBoxItem> ComboBoxItems { get;  }
@@ -44,7 +41,7 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors{
         public void Setup(ObjectSpace objectSpace, XafApplication application)
         {
             if (helper == null)
-                helper = new LookupEditorHelper(application, objectSpace, ObjectTypeInfo, Info);
+                helper = new LookupEditorHelper(application, objectSpace, ObjectTypeInfo, Model);
             helper.SetObjectSpace(objectSpace);
         }
     }

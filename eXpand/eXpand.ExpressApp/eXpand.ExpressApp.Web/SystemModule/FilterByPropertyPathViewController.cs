@@ -4,15 +4,13 @@ using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxEditors;
 using DevExpress.Web.ASPxPanel;
+using DevExpress.ExpressApp.Web.SystemModule;
 
 namespace eXpand.ExpressApp.Web.SystemModule
 {
-    public partial class FilterByPropertyPathViewController : ExpressApp.SystemModule.FilterByPropertyPathViewController{
-        public FilterByPropertyPathViewController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
+    public class FilterByPropertyPathViewController : ExpressApp.SystemModule.FilterByPropertyPathViewController{
+        public FilterByPropertyPathViewController() { }
+
         public class FilterPanel : ASPxPanel
         {
             private readonly ASPxLabel label;
@@ -40,17 +38,14 @@ namespace eXpand.ExpressApp.Web.SystemModule
             collection.Add(filterPanel);
         }
 
-        protected override void SynchronizeInfo(View view) {
-            var listEditor = ( ((ListView) view).Editor);
-            var editor = listEditor as ASPxGridListEditor;
-            if (editor != null) {
-                var dictionaryNode = editor.GetUserDiffs((Control)listEditor.Control);
-                view.Info.CombineWith(dictionaryNode);
-            }
+        protected override string GetActiveFilter(DevExpress.ExpressApp.Model.IModelListView modelListView)
+        {
+            return ((IModelListViewWeb)modelListView).FilterExpression;
         }
 
-        protected override string FilterStringAttributeName {
-            get { return ASPxGridViewSettingsInfoNodeWrapper.FilterExpressionAttribute; }
+        protected override void SetActiveFilter(DevExpress.ExpressApp.Model.IModelListView modelListView, string filter)
+        {
+            ((IModelListViewWeb)modelListView).FilterExpression = filter;
         }
     }
 }

@@ -4,29 +4,30 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.XtraEditors;
 using eXpand.ExpressApp.SystemModule;
 using eXpand.ExpressApp.Win.Interfaces;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public partial class NotifyIconController : WindowController
+    public interface IModelNotifyIconOptions : IModelNode
     {
-        public const string NotifyIconAttributeName = "NotifyIcon";
-        public NotifyIconController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
+        bool NotifyIcon { get; set; }
+    }
+
+    public class NotifyIconController : WindowController
+    {
+        public NotifyIconController() {}
+
         protected override void OnFrameAssigned()
         {
             base.OnFrameAssigned();
             Frame.TemplateChanged+=FrameOnTemplateChanged;
-            
         }
 
         private void FrameOnTemplateChanged(object sender, EventArgs args){
-            if (Frame.Context == TemplateContext.ApplicationWindow && Application.Info.GetChildNode("Options").GetAttributeBoolValue(NotifyIconAttributeName))
+            if (Frame.Context == TemplateContext.ApplicationWindow && ((IModelNotifyIconOptions)Application.Model.Options).NotifyIcon)
             {
                 var form = Frame.Template as XtraForm;
                 if (form != null)
@@ -71,16 +72,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
         }
 
-
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            const string CommonTypeInfos = @"<Element Name=""Application"">
-                                                <Element Name=""Options"">
-                                                    <Attribute Name=""" +NotifyIconAttributeName+ @""" Choice=""False,True""/>
-                                                </Element>
-                                            </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelOptions, IModelNotifyIconOptions>();
         }
-
     }
 }

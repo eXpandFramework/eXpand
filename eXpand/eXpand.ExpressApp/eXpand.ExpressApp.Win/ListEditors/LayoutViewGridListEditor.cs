@@ -32,6 +32,8 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraGrid.Views.Layout.ViewInfo;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.SystemModule;
 
 namespace eXpand.ExpressApp.Win.ListEditors{
     public class XafLayoutView : LayoutView {
@@ -86,8 +88,8 @@ namespace eXpand.ExpressApp.Win.ListEditors{
 
     public class ColumnCreatedEventArgs : EventArgs {
         private LayoutViewColumn column;
-        private ColumnInfoNodeWrapper columnInfo;
-        public ColumnCreatedEventArgs(LayoutViewColumn column, ColumnInfoNodeWrapper columnInfo) {
+        private IModelColumn columnInfo;
+        public ColumnCreatedEventArgs(LayoutViewColumn column, IModelColumn columnInfo) {
             this.column = column;
             this.columnInfo = columnInfo;
         }
@@ -95,32 +97,9 @@ namespace eXpand.ExpressApp.Win.ListEditors{
             get { return column; }
             set { column = value; }
         }
-        public ColumnInfoNodeWrapper ColumnInfo {
+        public IModelColumn ColumnInfo {
             get { return columnInfo; }
             set { columnInfo = value; }
-        }
-    }
-
-    public class CustomCreateColumnEventArgs : HandledEventArgs {
-        private LayoutViewColumn column;
-        private ColumnInfoNodeWrapper columnInfo;
-        private RepositoryEditorsFactory repositoryFactory;
-        public CustomCreateColumnEventArgs(LayoutViewColumn column, ColumnInfoNodeWrapper columnInfo, RepositoryEditorsFactory repositoryFactory) {
-            this.column = column;
-            this.columnInfo = columnInfo;
-            this.repositoryFactory = repositoryFactory;
-        }
-        public LayoutViewColumn Column {
-            get { return column; }
-            set { column = value; }
-        }
-        public ColumnInfoNodeWrapper ColumnInfo {
-            get { return columnInfo; }
-            set { columnInfo = value; }
-        }
-        public RepositoryEditorsFactory RepositoryFactory {
-            get { return repositoryFactory; }
-            set { repositoryFactory = value; }
         }
     }
 
@@ -173,7 +152,7 @@ namespace eXpand.ExpressApp.Win.ListEditors{
             layoutView.OptionsBehavior.FocusLeaveOnTab = true;
             layoutView.OptionsSelection.MultiSelect = true;
             layoutView.ShowButtonMode = ShowButtonModeEnum.ShowOnlyInEditor;
-            layoutView.ActiveFilterEnabled = Model.Node.GetAttributeBoolValue(IsActiveFilterEnabled, true);
+            layoutView.ActiveFilterEnabled = ((IModelListViewWin)Model).IsActiveFilterEnabled;
             return layoutView;
         }
         private void LayoutView_InitNewRow(object sender, InitNewRowEventArgs e) {
@@ -368,7 +347,7 @@ namespace eXpand.ExpressApp.Win.ListEditors{
                 grid.Tag = EasyTestTagHelper.FormatTestTable(Name);
             }
         }
-        private void RefreshColumn(ColumnInfoNodeWrapper frameColumn, LayoutViewColumn column) {
+        private void RefreshColumn(IModelColumn frameColumn, LayoutViewColumn column) {
             column.Caption = frameColumn.Caption;
             if (string.IsNullOrEmpty(column.Caption)) {
                 column.Caption = column.FieldName;
@@ -384,10 +363,11 @@ namespace eXpand.ExpressApp.Win.ListEditors{
             column.SortIndex = frameColumn.SortIndex;
             column.SortOrder = frameColumn.SortOrder;
             column.Width = frameColumn.Width;
-            if (column.VisibleIndex != frameColumn.VisibleIndex) {
-                column.VisibleIndex = frameColumn.VisibleIndex;
+            if (column.VisibleIndex != frameColumn.Index) {
+                column.VisibleIndex = frameColumn.Index;
             }
-            column.SummaryItem.SummaryType = frameColumn.SummaryType;
+            
+            column.SummaryItem.SummaryType = (SummaryItemType)Enum.Parse(typeof(SummaryItemType), frameColumn.SummaryType.ToString());
         }
         protected virtual void ProcessMouseClick(EventArgs e) {
             if (!selectedItemActionExecuting) {
@@ -401,12 +381,8 @@ namespace eXpand.ExpressApp.Win.ListEditors{
                 }
             }
         }
-        protected virtual void OnCustomCreateColumn(CustomCreateColumnEventArgs args) {
-            if (CustomCreateColumn != null) {
-                CustomCreateColumn(this, args);
-            }
-        }
-        protected virtual void OnColumnCreated(LayoutViewColumn column, ColumnInfoNodeWrapper columnInfo) {
+
+        protected virtual void OnColumnCreated(LayoutViewColumn column, IModelColumn columnInfo) {
             if (ColumnCreated != null) {
                 ColumnCreatedEventArgs args = new ColumnCreatedEventArgs(column, columnInfo);
                 ColumnCreated(this, args);
@@ -469,20 +445,19 @@ namespace eXpand.ExpressApp.Win.ListEditors{
         }
         private LayoutViewColumn GetDefaultColumn() {
             LayoutViewColumn result = null;
-            Type classType = Model.BusinessObjectType;
-            if (classType != null) {
-                IMemberInfo defaultMember = XafTypesInfo.Instance.FindTypeInfo(classType).DefaultMember;
+
+            IMemberInfo defaultMember = Model.ModelClass.TypeInfo.DefaultMember;
                 if (defaultMember != null) {
                     result = LayoutView.Columns[defaultMember.Name];
                 }
-            }
+
             return result == null || !result.Visible ? null : result;
         }
         private void RemoveColumnInfo(LayoutViewColumn column) {
             String originalPropertyName = columnsProperties[column];
-            ColumnInfoNodeWrapper columnInfo = Model.Columns.FindColumnInfo(originalPropertyName);
+            IModelColumn columnInfo = Model.Columns[originalPropertyName];
             if (columnInfo != null) {
-                Model.Node.ChildNodes[0].RemoveChildNode(columnInfo.Node);
+                Model.Columns.Remove(columnInfo);
             }
         }
         protected override void OnProcessSelectedItem() {
@@ -523,25 +498,20 @@ namespace eXpand.ExpressApp.Win.ListEditors{
                 }
             }
         }
-        public LayoutViewGridListEditor(DictionaryNode info)
-            : base(info) {
+        public LayoutViewGridListEditor(IModelListView model)
+            : base(model) {
             popupMenu = new ActionsDXPopupMenu();
         }
         public LayoutViewGridListEditor() : base() { }
-        public LayoutViewColumn AddColumn(ColumnInfoNodeWrapper columnInfo) {
+        public LayoutViewColumn AddColumn(IModelColumn columnInfo) {
             if (columnsProperties.ContainsValue(columnInfo.PropertyName)) {
                 throw new ArgumentException(string.Format(SystemExceptionLocalizer.GetExceptionMessage(ExceptionId.GridColumnExists), columnInfo.PropertyName), "ColumnInfo");
             }
-            ColumnInfoNodeWrapper frameColumn = Model.Columns.FindColumnInfo(columnInfo.PropertyName);
-            if (frameColumn == null) {
-                Model.Columns.Node.AddChildNode(columnInfo.Node);
-            }
+            
             LayoutViewColumn column = new LayoutViewColumn();
             columnsProperties.Add(column, columnInfo.PropertyName);
             LayoutView.Columns.Add(column);
-            CustomCreateColumnEventArgs customArgs = new CustomCreateColumnEventArgs(column, columnInfo, repositoryFactory);
-            OnCustomCreateColumn(customArgs);
-            if (!customArgs.Handled) {
+            
                 IMemberInfo memberDescriptor = XafTypesInfo.Instance.FindTypeInfo(ObjectType).FindMember(columnInfo.PropertyName);
                 if (memberDescriptor != null) {
                     column.FieldName = memberDescriptor.BindingName;
@@ -561,7 +531,7 @@ namespace eXpand.ExpressApp.Win.ListEditors{
                 RefreshColumn(columnInfo, column);
                 if (memberDescriptor != null) {
                     if (repositoryFactory != null) {
-                        RepositoryItem repositoryItem = repositoryFactory.CreateRepositoryItem(false, new DetailViewItemInfoNodeWrapper(columnInfo.Node), ObjectType);
+                        RepositoryItem repositoryItem = repositoryFactory.CreateRepositoryItem(false, columnInfo, ObjectType);
                         if (repositoryItem != null) {
                             grid.RepositoryItems.Add(repositoryItem);
                             column.ColumnEdit = repositoryItem;
@@ -577,8 +547,9 @@ namespace eXpand.ExpressApp.Win.ListEditors{
                         column.FieldName = GetDisplayablePropertyName(columnInfo.PropertyName);
                     }
                 }
-            }
+            
             OnColumnCreated(column, columnInfo);
+            
             return column;
         }
         public void RemoveColumn(string propertyName) {
@@ -607,7 +578,7 @@ namespace eXpand.ExpressApp.Win.ListEditors{
                     presentedColumns.Add(columnsProperties[column], column);
                     toDelete.Add(column);
                 }
-                foreach (ColumnInfoNodeWrapper column in Model.Columns.Items) {
+                foreach (IModelColumn column in Model.Columns) {
                     LayoutViewColumn LayoutViewColumn = null;
                     if (presentedColumns.TryGetValue(column.PropertyName, out LayoutViewColumn)) {
                         RefreshColumn(column, LayoutViewColumn);
@@ -688,12 +659,12 @@ namespace eXpand.ExpressApp.Win.ListEditors{
         }
         public override void SynchronizeInfo() {
             if (LayoutView != null) {
-                Model.Node.SetAttribute(IsGroupPanelVisible, layoutView.OptionsView.ShowHeaderPanel);
-                Model.Node.SetAttribute(IsFooterVisible, layoutView.OptionsView.ShowCardLines);
+                Model.IsGroupPanelVisible = layoutView.OptionsView.ShowHeaderPanel;
+                Model.IsFooterVisible = layoutView.OptionsView.ShowCardLines;
                 foreach (LayoutViewColumn column in LayoutView.Columns) {
                     string propertyName;
                     if (columnsProperties.TryGetValue(column, out propertyName)) {
-                        ColumnInfoNodeWrapper frameColumn = Model.Columns.FindColumnInfo(propertyName);
+                        IModelColumn frameColumn = Model.Columns[propertyName];
                         if (column.Caption != frameColumn.Caption) {
                             frameColumn.Caption = column.Caption;
                         }
@@ -709,11 +680,12 @@ namespace eXpand.ExpressApp.Win.ListEditors{
                         if (frameColumn.SortOrder != column.SortOrder) {
                             frameColumn.SortOrder = column.SortOrder;
                         }
-                        if (frameColumn.VisibleIndex != column.VisibleIndex) {
-                            frameColumn.VisibleIndex = column.VisibleIndex;
+                        if (frameColumn.Index != column.VisibleIndex) {
+                            frameColumn.Index = column.VisibleIndex;
                         }
-                        if (frameColumn.SummaryType != column.SummaryItem.SummaryType) {
-                            frameColumn.SummaryType = column.SummaryItem.SummaryType;
+                        var summaryType = (SummaryType)Enum.Parse(typeof(SummaryType), column.SummaryItem.SummaryType.ToString());
+                        if (frameColumn.SummaryType != summaryType) {
+                            frameColumn.SummaryType = summaryType;
                         }
                     }
                 }

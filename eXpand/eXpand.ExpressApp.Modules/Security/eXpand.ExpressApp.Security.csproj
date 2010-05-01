@@ -118,12 +118,6 @@
     <Compile Include="Controllers\StatePermissionSynchronizerController.Designer.cs">
       <DependentUpon>StatePermissionSynchronizerController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\BOModelSyncInfoController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\BOModelSyncInfoController.Designer.cs">
-      <DependentUpon>BOModelSyncInfoController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\DefaultRolePermissionsController.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -135,11 +135,9 @@
     </Compile>
     <Compile Include="ConditionalLogicRuleNodeWrapper.cs" />
     <Compile Include="ConditionalLogicRuleProviderModuleBase.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ConditionalLogicRulesNodeWrapper.cs" />
     <Compile Include="ConditionalLogicRuleViewController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="IConditionalLogicRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

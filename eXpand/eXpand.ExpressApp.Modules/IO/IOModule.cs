@@ -1,33 +1,39 @@
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Model;
 using eXpand.ExpressApp.IO.Core;
-using eXpand.ExpressApp.Core;
 
-namespace eXpand.ExpressApp.IO {
+namespace eXpand.ExpressApp.IO
+{
     public sealed partial class IOModule : ModuleBase
     {
-        
-        public IOModule(){
+
+        public IOModule()
+        {
             InitializeComponent();
         }
+
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
             TypesInfo.Instance.AddTypes(Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses));
         }
-        public override void UpdateModel(Dictionary model) {
-            base.UpdateModel(model);
+
+        public override void UpdateModel(IModelApplication applicationModel)
+        {
+            base.UpdateModel(applicationModel);
             if (Application == null)
                 return;
-            allowEditForClassInfoNodeListViews(model);
+
+            allowEditForClassInfoNodeListViews(applicationModel);
         }
 
-        void allowEditForClassInfoNodeListViews(Dictionary model) {
-            var applicationNodeWrapper = new ApplicationNodeWrapper(model);
-            ClassInfoNodeWrapper classInfoNodeWrapper = applicationNodeWrapper.BOModel.FindClassByType(TypesInfo.Instance.ClassInfoGraphNodeType);
-            foreach (var listViewInfoNodeWrapper in applicationNodeWrapper.Views.GetListViews(classInfoNodeWrapper)) {
-                listViewInfoNodeWrapper.AllowEdit = true;
+        private void allowEditForClassInfoNodeListViews(IModelApplication model)
+        {
+            foreach (var view in model.Views.OfType<IModelListView>()
+                .Where(view => view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ClassInfoGraphNodeType))
+            {
+                view.AllowEdit = true;
             }
         }
     }

@@ -43,15 +43,5 @@ namespace XAFPoint.ExpressApp.HideMemberModule.Controllers
         {
                         
         }
-
-        public override void UpdateModel(Dictionary dictionary)
-        {
-            base.UpdateModel(dictionary);
-        }
-
-        public override ControllerInfoNodeWrapper CreateInfo(ApplicationNodeWrapper applicationNode, Controller baseController)
-        {
-            return base.CreateInfo(applicationNode, baseController);
-        }
     }
 }

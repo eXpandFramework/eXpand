@@ -7,9 +7,20 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Attributes;
 using System.Linq;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule
 {
+    public interface IModelIndexOptions : IModelNode
+    {
+        bool CreateIndexForAllMembers { get; set; }
+    }
+
+    public interface IModelSkipIndex : IModelNode
+    {
+        bool SkipIndexing { get; set; }
+    }
+
     public partial class IndexerController : ViewController
     {
 
@@ -33,17 +44,18 @@ namespace eXpand.ExpressApp.SystemModule
         protected override void OnActivated()
         {
             base.OnActivated();
-            if (Application.Info.GetChildNode("Options").GetAttributeBoolValue(CreateIndexForAllMembers))
+            if (((IModelIndexOptions)Application.Model.Options).CreateIndexForAllMembers)
             {
                 Active["RunOnlyOnce"] = false;
                 var indexAdded = new List<ITypeInfo>();
-                foreach (var classInfoNodeWrapper in new ApplicationNodeWrapper(Application.Info).BOModel.Classes.Where(wrapper => wrapper.ClassTypeInfo.IsPersistent&&!wrapper.Node.GetAttributeBoolValue(SkipIndexing)))
+                foreach (var classInfoNodeWrapper in Application.Model.BOModel.Where
+                    (wrapper => wrapper.TypeInfo.IsPersistent && !((IModelSkipIndex)wrapper).SkipIndexing))
                 {
-                    foreach (var propertyInfoNodeWrapper in classInfoNodeWrapper.Properties)
+                    foreach (var propertyInfoNodeWrapper in classInfoNodeWrapper.AllMembers)
                     {
-                        var memberInfo = classInfoNodeWrapper.ClassTypeInfo.FindMember(propertyInfoNodeWrapper.Name);
+                        var memberInfo = classInfoNodeWrapper.TypeInfo.FindMember(propertyInfoNodeWrapper.Name);
                         if (memberInfo != null &&
-                            (!propertyInfoNodeWrapper.Node.GetAttributeBoolValue(SkipIndexing) &&
+                            (!((IModelSkipIndex)propertyInfoNodeWrapper).SkipIndexing &&
                              !Equals(memberInfo.MemberType, typeof (byte[])) && !memberInfo.IsAssociation))
                         {
                             var findAttribute = memberInfo.FindAttribute<SizeAttribute>();
@@ -57,40 +69,15 @@ namespace eXpand.ExpressApp.SystemModule
                                 InvokeIndexAdding(args);
                                 if (!args.Handled)
                                 {
-                                    if (!indexAdded.Contains(classInfoNodeWrapper.ClassTypeInfo))
-                                        indexAdded.Add(classInfoNodeWrapper.ClassTypeInfo);
+                                    if (!indexAdded.Contains(classInfoNodeWrapper.TypeInfo))
+                                        indexAdded.Add(classInfoNodeWrapper.TypeInfo);
                                     memberInfo.AddAttribute(new IndexedAttribute());
                                 }
                             }
                         }
                     }
                 }
-//                foreach (XPClassInfo typeInfo in dictionary.Classes)
-////                    if (typeInfo.ClassType != null && typeInfo.ClassType.FullName.EndsWith("Contact"))
-//                    if (typeInfo.IsPersistent)
-//                        foreach (XPMemberInfo memberInfo in typeInfo.PersistentProperties)
-//                        {
-//                            if (!Equals(memberInfo.MemberType, typeof(byte[])) && !memberInfo.IsAssociation)
-//                            {
-//                                if (memberInfo.HasAttribute(typeof(SizeAttribute)) &&
-//                                    ((SizeAttribute)memberInfo.FindAttributeInfo(typeof(SizeAttribute))).Size ==
-//                                    SizeAttribute.Unlimited)
-//                                    continue;
-//                                if (memberInfo.HasAttribute(typeof(NonIndexedAttribute)))
-//                                    continue;
-//                                if (!memberInfo.HasAttribute(typeof(IndexedAttribute)))
-//                                {
-//                                    var args = new MemberInfoEventArgs(memberInfo);
-//                                    InvokeIndexAdding(args);
-//                                    if (!args.Handled)
-//                                    {
-//                                        if (!indexAdded.Contains(typeInfo))
-//                                            indexAdded.Add(typeInfo);
-//                                        memberInfo.AddAttribute(new IndexedAttribute());
-//                                    }
-//                                }
-//                            }
-//                        }
+
                 if (indexAdded.Count>0)
                 {
                     var classInfos = new List<XPClassInfo>();
@@ -101,25 +88,12 @@ namespace eXpand.ExpressApp.SystemModule
             }
         }
 
-
-
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            const string s = @"<Element Name=""Application"">;
-                            <Element Name=""BOModel"">          
-                                <Element Name=""Class"">
-                                    <Attribute Name=""" + SkipIndexing + @""" Choice=""False,True""/>
-                                    <Element Name=""Member"">
-                                        <Attribute Name=""" + SkipIndexing + @""" Choice=""False,True""/>
-                                    </Element>
-                                </Element>
-                            </Element>
-                            <Element Name=""Options"">
-                                <Attribute Name=""" + CreateIndexForAllMembers + @""" Choice=""False,True""/>
-                            </Element>
-                    </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(s));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelBOModel, IModelSkipIndex>();
+            extenders.Add<IModelBOModelClassMembers, IModelSkipIndex>();
+            extenders.Add<IModelOptions, IModelIndexOptions>();
         }
-
     }
 }

@@ -5,27 +5,28 @@ using DevExpress.ExpressApp.ViewVariantsModule;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.SystemModule;
 using eXpand.ExpressApp.ViewVariants.BasicObjects;
+using DevExpress.ExpressApp.Model;
+using System.ComponentModel;
+using DevExpress.ExpressApp.Model.Core;
 
 namespace eXpand.ExpressApp.ViewVariants.Controllers
 {
-    public partial class CloneViewController : BaseViewController
+    public interface IModelListViewClonable
     {
-        public const string IsCloneAbleAttributeName = "IsCloneAble";
+        [Category("Behavior")]
+        bool IsClonable { get; set; }
+    }
+
+    public partial class CloneViewController : BaseViewController<ListView>
+    {
         public CloneViewController()
         {
             InitializeComponent();
             RegisterActions(components);
-            TargetViewType = ViewType.ListView;
             TargetViewNesting = Nesting.Root;
         }
 
-
-
-
-
-
-        private void cloneViewPopupWindowShowAction_CustomizePopupWindowParams(object sender,
-                                                                               CustomizePopupWindowParamsEventArgs e)
+        private void cloneViewPopupWindowShowAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
         {
             ObjectSpace objectSpace = Application.CreateObjectSpace();
             e.View = Application.CreateDetailView(objectSpace, new ViewCloner(objectSpace.Session));
@@ -33,20 +34,18 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
 
         private void cloneViewPopupWindowShowAction_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
         {
-            DictionaryNode variantsNode = GetDefaultVariantsNode();
             ViewCloner viewCloner;
-            DictionaryNode newVariantNode = GetNewVariantNode(variantsNode, e, out viewCloner);
-
-            DictionaryNode clonedNode = View.Info.Clone();
-            setAttributes(clonedNode, viewCloner);
-            Application.Model.RootNode.FindChildNode("Views").AddChildNode(clonedNode);
+            var variantsNode = GetDefaultVariantsNode();
+            var newVariantNode = GetNewVariantNode(variantsNode, e, out viewCloner);
+            var clonedNode = (IModelListView)((ModelApplicationBase)View.Model.Application).CloneNodeFrom((ModelNode)View.Model);
+            //setAttributes(clonedNode, viewCloner);
+            Application.Model.Views.Add(clonedNode);
 
             var changeVariantController = Frame.GetController<ChangeVariantController>();
             SingleChoiceAction changeVariantAction = changeVariantController.ChangeVariantAction;
             if (changeVariantController.Active.ResultValue)
             {
-                var choiceActionItem = new ChoiceActionItem(newVariantNode,
-                                                            newVariantNode.GetAttributeValue("ViewID"));
+                var choiceActionItem = new ChoiceActionItem(newVariantNode, newVariantNode.ViewID);
                 changeVariantAction.Items.Add(choiceActionItem);
                 changeVariantAction.SelectedItem=choiceActionItem;
             }
@@ -57,45 +56,49 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
                                                     where item.Caption == viewCloner.Caption
                                                     select item).Single();
             }
+
             View.SetInfo(clonedNode);
         }
+
         protected override void OnActivated()
         {
             base.OnActivated();
-            cloneViewPopupWindowShowAction.Active[IsCloneAbleAttributeName] =View.Info.GetAttributeBoolValue(IsCloneAbleAttributeName);
+            cloneViewPopupWindowShowAction.Active["IsClonable"] = ((IModelListViewClonable)View.Model).IsClonable;
         }
-        private DictionaryNode GetNewVariantNode(DictionaryNode variantsNode, PopupWindowShowActionExecuteEventArgs e, out ViewCloner viewCloner) {
-            DictionaryNode newVariantNode = variantsNode.AddChildNode("Variant");
+
+        private IModelVariant GetNewVariantNode(IModelVariants variantsNode, PopupWindowShowActionExecuteEventArgs e, out ViewCloner viewCloner) {
+            var newVariantNode = variantsNode.AddNode<IModelVariant>("Variant");
             viewCloner = ((ViewCloner) e.PopupWindow.View.CurrentObject);
-            newVariantNode.SetAttribute("ViewID", viewCloner.Caption);
+            newVariantNode.ViewID = viewCloner.Caption;
             setAttributes(newVariantNode, viewCloner);
             return newVariantNode;
         }
 
-        private DictionaryNode GetDefaultVariantsNode() {
-            DictionaryNode variantsNode = View.Info.FindChildNode("Variants");
+        private IModelVariants GetDefaultVariantsNode()
+        {
+            IModelVariants variantsNode = View.Model as IModelVariants;
             if (variantsNode == null)
             {
-                variantsNode = View.Info.AddChildNode("Variants");
-                variantsNode.AddAttribute("Current", "Default");
-                DictionaryNode childNode = variantsNode.AddChildNode("Default");
-                childNode.AddAttribute("Caption", "Default");
-                childNode.AddAttribute("ID", "Default");
-                childNode.AddAttribute("ViewID", View.Id);
+                variantsNode = View.Model.AddNode<IModelVariants>();
+                variantsNode.Current.Caption = "Default";
+                var childNode = variantsNode.AddNode<IModelVariant>("Default");
+                childNode.Caption = "Default";
+                childNode.ViewID = View.Id;
             }
+
             return variantsNode;
         }
-        public override Schema GetSchema()
+
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            const string s = @"<Attribute Name=""" + IsCloneAbleAttributeName + @""" Choice=""True,False""/>";
-            var helper=new SchemaHelper();
-            var schema = new Schema(helper.Inject(s, ModelElement.ListView));
-            return schema;
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelListView, IModelListViewClonable>();
         }
-        private void setAttributes(DictionaryNode dictionaryNode, ViewCloner viewCloner)
+
+        private void setAttributes(IModelVariant modelNode, ViewCloner viewCloner)
         {
-            dictionaryNode.SetAttribute("Caption", viewCloner.Caption);
-            dictionaryNode.SetAttribute("ID", viewCloner.Caption);
+            modelNode.Caption = viewCloner.Caption;
+            modelNode.Id = viewCloner.Caption;
         }
     }
 }

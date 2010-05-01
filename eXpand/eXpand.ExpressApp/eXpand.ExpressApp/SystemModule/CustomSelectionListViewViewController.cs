@@ -1,30 +1,33 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public partial class CustomSelectionListViewViewController : BaseViewController
+    public interface IModelClassCustomSelection : IModelNode
     {
-        public const string CustomSelection = "CustomSelection";
-        public CustomSelectionListViewViewController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-            TargetViewType=ViewType.ListView;
-            
+        bool CustomSelection { get; set; }
+    }
 
-        }
+    public class CustomSelectionListViewViewController : BaseViewController<ListView>
+    {
+        protected const string CustomSelection = "CustomSelection";
+
+        public CustomSelectionListViewViewController() { }
+
         private bool hasCustomSelection;
         public bool HasCustomSelection
         {
             get { return hasCustomSelection; }
         }
+
         protected override void OnActivated()
         {
             base.OnActivated();
-            hasCustomSelection = Application.FindClassInfo(View.ObjectTypeInfo.Type).GetAttributeBoolValue(CustomSelection);
-            if (hasCustomSelection) {
+
+            if (((IModelClassCustomSelection)View.Model.ModelClass).CustomSelection)
+            {
                 if (View.ObjectTypeInfo.FindMember(CustomSelection) == null) {
                     IMemberInfo member = View.ObjectTypeInfo.CreateMember(CustomSelection, typeof (bool));
                     member.AddAttribute(new NonPersistentAttribute());
@@ -33,18 +36,10 @@ namespace eXpand.ExpressApp.SystemModule
             }
         }
 
-
-
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            const string s = @"<Element Name=""Application"">;
-                            <Element Name=""BOModel"">
-                                <Element Name=""Class"">;
-                                    <Attribute Name=""" + CustomSelection + @""" Choice=""False,True""/>
-                                </Element>
-                            </Element>
-                    </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(s));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelClass, IModelClassCustomSelection>();
         }
     }
 }

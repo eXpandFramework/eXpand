@@ -1,21 +1,22 @@
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Validation;
 
 namespace eXpand.ExpressApp.SystemModule
 {
+    public interface IModelClassEnableFKViolations
+    {
+        bool EnableFKViolations { get; set; }
+    }
+
     public partial class FKViolationViewController : ViewController
     {
-        public const string EnableFKViolations = "EnableFKViolations";
-        public FKViolationViewController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
+        public FKViolationViewController() { }
 
         protected override void OnActivated()
         {
             base.OnActivated();
-            if (View.Info.GetAttributeBoolValue(EnableFKViolations))
+            if (((IModelClassEnableFKViolations)View.Model.ModelClass).EnableFKViolations)
                 ObjectSpace.ObjectDeleting+=ObjectSpace_OnObjectDeleting;
         }
 
@@ -34,20 +35,12 @@ namespace eXpand.ExpressApp.SystemModule
                     throw new ValidationException(messageTemplate, result);
                 }    
             }
-            
         }
 
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders)
         {
-            const string s = @"<Element Name=""Application"">;
-                            <Element Name=""BOModel"">
-                                <Element Name=""Class"">
-                                    <Attribute Name=""" + EnableFKViolations + @""" Choice=""False,True""/>
-                                </Element>
-                            </Element>
-                    </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(s));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelClass, IModelClassEnableFKViolations>();
         }
-
     }
 }

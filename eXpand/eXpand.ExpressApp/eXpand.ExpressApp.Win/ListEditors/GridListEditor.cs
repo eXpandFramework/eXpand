@@ -6,22 +6,21 @@ using System.Globalization;
 using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win.Controls;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.Win.ListEditors
 {
     public class GridListEditor : DevExpress.ExpressApp.Win.Editors.GridListEditor, IDXPopupMenuHolder, IPopupMenuHider
     {
-//        private readonly CultureInfo culture;
         private bool hidePopupMenu;
 
-        public GridListEditor(DictionaryNode info) : base(info)
+        public GridListEditor(IModelListView model)
+            : base(model)
         {
-//            culture = GetCulture(info);
         }
 
-        public GridListEditor()
-        {
-        }
+        public GridListEditor() : this(null) { }
+
         #region IDXPopupMenuHolder Members
         bool IDXPopupMenuHolder.CanShowPopupMenu(Point position)
         {
@@ -30,6 +29,7 @@ namespace eXpand.ExpressApp.Win.ListEditors
             return false;
         }
         #endregion
+
         public event EventHandler<CustomGetSelectedObjectsArgs> CustomGetSelectedObjects;
 
         private void InvokeCustomGetSelectedObjects(CustomGetSelectedObjectsArgs e)
@@ -54,21 +54,6 @@ namespace eXpand.ExpressApp.Win.ListEditors
             set { hidePopupMenu = value; }
         }
         #endregion
-//        public static CultureInfo GetCulture(DictionaryNode info)
-//        {
-//            var culture = (CultureInfo) Thread.CurrentThread.CurrentCulture.Clone();
-//            culture.NumberFormat.NumberDecimalSeparator = info.GetRootNode().GetAttributeValue("NumberDecimalSeparator");
-//            culture.NumberFormat.NumberGroupSeparator = info.GetRootNode().GetAttributeValue("NumberGroupSeparator");
-//            return culture;
-//        }
-
-//        protected override void OnColumnCreated(GridColumn column, ColumnInfoNodeWrapper columnInfo)
-//        {
-//            base.OnColumnCreated(column, columnInfo);
-//            var repositoryItemIntegerEdit = column.RealColumnEdit as RepositoryItemSpinEdit;
-//            if (repositoryItemIntegerEdit != null)
-//                repositoryItemIntegerEdit.Mask.Culture = culture;
-//        }
     }
 
     public class CustomGetSelectedObjectsArgs:HandledEventArgs

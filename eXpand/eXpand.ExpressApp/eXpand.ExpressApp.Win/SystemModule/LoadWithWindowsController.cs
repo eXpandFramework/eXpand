@@ -1,23 +1,24 @@
 using System;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.XtraEditors;
 using Microsoft.Win32;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
+    public interface IModelLoadWithWindowsOptions : IModelNode
+    {
+        bool LoadWithWindows { get; set; }
+    }
+
     public partial class LoadWithWindowsController : WindowController
     {
-        public const string LoadWithWindowsAttributeName = "LoadWithWindows";
-        public LoadWithWindowsController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
+        public LoadWithWindowsController() { }
+
         protected override void OnFrameAssigned()
         {
             base.OnFrameAssigned();
-            Frame.TemplateChanged+=FrameOnTemplateChanged;
-            
+            Frame.TemplateChanged+=FrameOnTemplateChanged;   
         }
 
         private void FrameOnTemplateChanged(object sender, EventArgs args){
@@ -28,7 +29,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
         private void writeRegistry(){
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
             if (key != null){
-                if (Application.Info.FindChildNode("Options").GetAttributeBoolValue(LoadWithWindowsAttributeName)){
+                if (((IModelLoadWithWindowsOptions)Application.Model.Options).LoadWithWindows)
+                {
                     key.SetValue(Application.Title, "\"" + System.Windows.Forms.Application.ExecutablePath + "\"");
                 }
                 else if (key.GetValue(Application.Title) != null){
@@ -37,15 +39,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
         }
 
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            return new Schema(new DictionaryXmlReader().ReadFromString(
-                                  @"<?xml version=""1.0""?>" +
-                                  @"<Element Name=""Application"">" +
-                                  @"	<Element Name=""Options"">" +
-                                  @"			<Attribute	IsNewNode=""True"" Name=""" + LoadWithWindowsAttributeName +@"""" +@" Choice=""True,False""" + @"/>" +
-                                  @"	</Element>" +
-                                  @"</Element>"));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelOptions, IModelLoadWithWindowsOptions>();
         }
     }
 }

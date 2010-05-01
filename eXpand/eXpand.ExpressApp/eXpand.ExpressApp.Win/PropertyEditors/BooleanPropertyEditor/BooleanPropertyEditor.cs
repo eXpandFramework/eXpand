@@ -1,6 +1,6 @@
 ﻿using System;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Repository;
 
@@ -8,7 +8,8 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.BooleanPropertyEditor{
     [PropertyEditor(typeof(bool?))]
     public class BooleanPropertyEditor : DevExpress.ExpressApp.Win.Editors.BooleanPropertyEditor
     {
-        public BooleanPropertyEditor(Type objectType, DictionaryNode info) : base(objectType, info)
+        public BooleanPropertyEditor(Type objectType, IModelMemberViewItem model)
+            : base(objectType, model)
         {
         }
 

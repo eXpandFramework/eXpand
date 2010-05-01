@@ -6,135 +6,151 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Filtering;
-using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.Persistent.BaseImpl;
 using eXpand.Xpo;
 using eXpand.Xpo.Parser;
+using System.ComponentModel;
 
-namespace eXpand.ExpressApp.SystemModule {
-    public abstract partial class FilterByPropertyPathViewController : BaseViewController
+namespace eXpand.ExpressApp.SystemModule
+{
+
+    public interface IModelListViewPropertyPathFilters
     {
-        private DictionaryNode filterByCollectionNode;
-        public const string PropertyPath = "PropertyPath";
-        public const string PropertyPathFilters = "PropertyPathFilters";
-        public const string Filter = "Filter";
-        public const string PropertyPathFilter = "PropertyPathFilter";
-        public const string PropertyPathListViewId = "PropertyPathListViewId";
+        IModelPropertyPathFilters PropertyPathFilters { get; set; }
+    }
+
+    public interface IModelPropertyPathFilters : IModelNode, IModelList<IModelPropertyPathFilter>
+    {
+    }
+
+    public interface IModelPropertyPathFilter : IModelNode
+    {
+        [Required, ModelPersistentName("ID")]
+        string Id { get; set; }
+        [Required]
+        string PropertyPath { get; set; }
+        string PropertyPathFilter { get; set; }
+        [DataSourceProperty("Application.Views")]
+        [Required, Category("Appearance")]
+        IModelListView PropertyPathListViewId { get; set; }
+    }
+
+    public abstract partial class FilterByPropertyPathViewController : BaseViewController<ListView>
+    {
         private Dictionary<string, FiltersByCollectionWrapper> _filtersByPropertyPathWrappers;
 
-        public Dictionary<string, FiltersByCollectionWrapper> FiltersByPropertyPathWrappers{
+        public Dictionary<string, FiltersByCollectionWrapper> FiltersByPropertyPathWrappers
+        {
             get { return _filtersByPropertyPathWrappers; }
         }
 
         protected FilterByPropertyPathViewController()
         {
             InitializeComponent();
-            _filterSingleChoiceAction.Category = PredefinedCategory.Search.ToString();
             RegisterActions(components);
-            TargetViewType = ViewType.ListView;
             TargetViewNesting = Nesting.Root;
-            
+            _filterSingleChoiceAction.Category = PredefinedCategory.Search.ToString();
         }
 
-        public SingleChoiceAction FilterSingleChoiceAction{
+        public SingleChoiceAction FilterSingleChoiceAction
+        {
             get { return _filterSingleChoiceAction; }
         }
 
         protected override void OnActivated()
         {
             _filterSingleChoiceAction.Items.Clear();
-            if (View.Info.FindChildNode(PropertyPathFilters) == null)
+            if (((IModelListViewPropertyPathFilters)View.Model).PropertyPathFilters == null)
                 return;
 
             getFilterWrappers();
 
-            
             if (HasFilters)
                 checkIfAdditionalViewControlsModuleIsRegister();
+
             setUpFilterAction(HasFilters);
             ApplyFilterString();
-            Frame.TemplateViewChanged+=FrameOnTemplateViewChanged;
-            
+            Frame.TemplateViewChanged += FrameOnTemplateViewChanged;
         }
 
-        void FrameOnTemplateViewChanged(object sender, EventArgs eventArgs) {
+        void FrameOnTemplateViewChanged(object sender, EventArgs eventArgs)
+        {
             ApplyFilterString();
         }
+
         protected override void OnDeactivating()
         {
             base.OnDeactivating();
             Frame.TemplateViewChanged -= FrameOnTemplateViewChanged;
         }
-        public bool HasFilters{
-            get{
+
+        public bool HasFilters
+        {
+            get
+            {
                 return FiltersByPropertyPathWrappers.Count() > 0;
             }
         }
 
-        private void setUpFilterAction(bool active){
-            _filterSingleChoiceAction.Active[PropertyPath+" is valid"] = active;
-            foreach (var pair in _filtersByPropertyPathWrappers){
-                if (pair.Value.BinaryOperatorLastMemberClassType != null) {
+        private void setUpFilterAction(bool active)
+        {
+            _filterSingleChoiceAction.Active["PropertyPath is valid"] = active;
+            foreach (var pair in _filtersByPropertyPathWrappers)
+            {
+                if (pair.Value.BinaryOperatorLastMemberClassType != null)
+                {
                     var caption = CaptionHelper.GetClassCaption(pair.Value.BinaryOperatorLastMemberClassType.FullName);
-                    _filterSingleChoiceAction.Items.Add(new ChoiceActionItem(caption,pair.Value));
+                    _filterSingleChoiceAction.Items.Add(new ChoiceActionItem(caption, pair.Value));
                 }
             }
         }
 
-        private void checkIfAdditionalViewControlsModuleIsRegister(){
-            DictionaryNode node = Info.Dictionary.RootNode.FindChildNode("AdditionalViewControls");
-            if (node== null){
+        private void checkIfAdditionalViewControlsModuleIsRegister()
+        {
+            //TODO: Model upgrade AdditionalViewControls
+            var node = View.Model as IModelListView;
+            if (node == null)
+            {
                 throw new UserFriendlyException(new Exception("AdditionalViewControlsProvider module not found"));
             }
         }
 
-        private void getFilterWrappers(){
-            filterByCollectionNode = View.Info.GetChildNode(PropertyPathFilters);
+        private void getFilterWrappers()
+        {
             _filtersByPropertyPathWrappers = new Dictionary<string, FiltersByCollectionWrapper>();
 
-            foreach (DictionaryNode childNode in filterByCollectionNode.ChildNodes)
-                _filtersByPropertyPathWrappers.Add(childNode.GetAttributeValue("ID"),
-                                                   new FiltersByCollectionWrapper(View.ObjectTypeInfo, childNode,
-                                                                                  ObjectSpace.Session.GetClassInfo(
-                                                                                      View.ObjectTypeInfo.Type)));
+            foreach (IModelPropertyPathFilter childNode in ((IModelListViewPropertyPathFilters)View.Model).PropertyPathFilters)
+                _filtersByPropertyPathWrappers.Add(
+                    childNode.Id,
+                    new FiltersByCollectionWrapper(
+                        View.ObjectTypeInfo, childNode,
+                        ObjectSpace.Session.GetClassInfo(View.ObjectTypeInfo.Type)));
         }
 
-
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            string CommonTypeInfos = @"<Element Name=""Application"">
-                    <Element Name=""Views"" >
-                        <Element Name=""ListView"" >
-                            <Element Name=""" + PropertyPathFilters + @""">
-                                <Element Name=""" + Filter + @""" Multiple=""True"" KeyAttribute=""ID"">
-                                    <Attribute Name=""ID"" Required=""True"" />
-                                    <Attribute Name=""" + PropertyPath + @"""  Required=""True""/>
-                                    <Attribute IsInvisible=""True"" Name=""" + PropertyPathFilter + @"""/>
-                                    <Attribute Name=""" + PropertyPathListViewId + @"""  Required=""True"" RefNodeName=""{" + typeof(ViewIdRefNodeProvider).FullName + @"};ViewType=All|ListView"" />
-                                </Element>
-                            </Element>
-                        </Element>
-                    </Element>
-                </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelListView, IModelListViewPropertyPathFilters>();
         }
 
-
-        private void ApplyFilterString(){
+        private void ApplyFilterString()
+        {
+            string text = _filtersByPropertyPathWrappers
+                .Select(pair => ApplyFilterString(pair.Value))
+                .Where(filterString => !string.IsNullOrEmpty(filterString))
+                .Aggregate<string, string>(null, (current, filterString) => current + (filterString + Environment.NewLine));
             
-
-            string text = _filtersByPropertyPathWrappers.Select(pair => ApplyFilterString(pair.Value)).Where(filterString => !string.IsNullOrEmpty(filterString)).Aggregate<string, string>(null, (current, filterString) => current + (filterString + Environment.NewLine));
             const string delimeter = ") AND (";
             text = (text + "").Replace(Environment.NewLine, delimeter);
             if (text.EndsWith(delimeter))
                 text = text.Substring(0, text.Length - delimeter.Length);
-            if (!string.IsNullOrEmpty(text) )
+            if (!string.IsNullOrEmpty(text))
                 text = "(" + text + ")";
 
             var frameTemplate = Frame.Template as IViewSiteTemplate;
@@ -145,7 +161,7 @@ namespace eXpand.ExpressApp.SystemModule {
 
         private string ApplyFilterString(FiltersByCollectionWrapper filtersByCollectionWrapper)
         {
-            ((ListView)View).CollectionSource.Criteria[filtersByCollectionWrapper.ID] = null;
+            View.CollectionSource.Criteria[filtersByCollectionWrapper.ID] = null;
             CriteriaOperator criteriaOperator = SetCollectionSourceCriteria(filtersByCollectionWrapper);
             return GetHintPanelText(filtersByCollectionWrapper, criteriaOperator);
         }
@@ -166,10 +182,11 @@ namespace eXpand.ExpressApp.SystemModule {
         private CriteriaOperator SetCollectionSourceCriteria(FiltersByCollectionWrapper filtersByCollectionWrapper)
         {
             CriteriaOperator criteriaOperator = CriteriaOperator.Parse(filtersByCollectionWrapper.PropertyPathFilter);
-            if (criteriaOperator != null) {
-                new FilterWithObjectsProcessor(View.ObjectSpace).Process(criteriaOperator,FilterWithObjectsProcessorMode.StringToObject);
+            if (criteriaOperator != null)
+            {
+                new FilterWithObjectsProcessor(View.ObjectSpace).Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
                 var criterion = new PropertyPathParser(View.ObjectSpace.Session.GetClassInfo(View.ObjectTypeInfo.Type)).Parse(filtersByCollectionWrapper.PropertyPath, criteriaOperator.ToString());
-                ((ListView) View).CollectionSource.Criteria[filtersByCollectionWrapper.ID] =criterion;
+                ((ListView)View).CollectionSource.Criteria[filtersByCollectionWrapper.ID] = criterion;
                 return criteriaOperator;
             }
             return criteriaOperator;
@@ -177,56 +194,51 @@ namespace eXpand.ExpressApp.SystemModule {
 
         private void DialogControllerOnAccepting(object sender, DialogControllerAcceptingEventArgs args)
         {
-            View view = ((DialogController) sender).Frame.View;
+            View view = ((DialogController)sender).Frame.View;
             SynchronizeInfo(view);
         }
 
-        protected virtual void SynchronizeInfo(View view) {
+        protected virtual void SynchronizeInfo(View view)
+        {
             throw new NotImplementedException();
         }
 
         private void AcceptFilter(FiltersByCollectionWrapper filtersByCollectionWrapper)
         {
-            ListViewInfoNodeWrapper nodeWrapper = GetNodeMemberSearchWrapper(filtersByCollectionWrapper);
-
-
-            string attributeValue = nodeWrapper.Node.GetAttributeValue(FilterStringAttributeName);
-            filtersByCollectionWrapper.PropertyPathFilter = attributeValue;
+            IModelListView nodeWrapper = GetNodeMemberSearchWrapper(filtersByCollectionWrapper);
+            filtersByCollectionWrapper.PropertyPathFilter = GetActiveFilter(nodeWrapper);
             ApplyFilterString();
             View.Refresh();
         }
 
-        protected virtual string FilterStringAttributeName {
-            get { throw new NotImplementedException(); }
-        }
+        protected abstract string GetActiveFilter(IModelListView modelListView);
 
-        private ListViewInfoNodeWrapper GetNodeMemberSearchWrapper(FiltersByCollectionWrapper filtersByCollectionWrapper)
+        protected abstract void SetActiveFilter(IModelListView modelListView, string filter);
+
+        private IModelListView GetNodeMemberSearchWrapper(FiltersByCollectionWrapper filtersByCollectionWrapper)
         {
-            var nodeWrapper =
-                (ListViewInfoNodeWrapper)
-                (new ApplicationNodeWrapper(Application.Info).Views.Items.Where(
-                    wrapper => wrapper.Id == filtersByCollectionWrapper.CriteriaPathListViewId)).
-                    FirstOrDefault();
-            if (nodeWrapper== null)
-                throw new ArgumentNullException(filtersByCollectionWrapper.CriteriaPathListViewId+" not found");
+            var nodeWrapper = Application.Model.Views.OfType<IModelListView>().Where(
+                wrapper => wrapper.Id == filtersByCollectionWrapper.CriteriaPathListViewId).FirstOrDefault();
+            if (nodeWrapper == null)
+                throw new ArgumentNullException(filtersByCollectionWrapper.CriteriaPathListViewId + " not found");
             return nodeWrapper;
         }
 
         private void createFilterSingleChoiceAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e)
         {
-            var filtersByCollectionWrapper = ((FiltersByCollectionWrapper) e.SelectedChoiceActionItem.Data);
-            
-            ListViewInfoNodeWrapper memberSearchWrapper = GetNodeMemberSearchWrapper(filtersByCollectionWrapper);
+            var filtersByCollectionWrapper = ((FiltersByCollectionWrapper)e.SelectedChoiceActionItem.Data);
+
+            IModelListView memberSearchWrapper = GetNodeMemberSearchWrapper(filtersByCollectionWrapper);
             var objectSpace = Application.CreateObjectSpace();
             var classType = filtersByCollectionWrapper.BinaryOperatorLastMemberClassType;
             CollectionSourceBase newCollectionSource = !memberSearchWrapper.UseServerMode
                                                            ? (CollectionSourceBase)
-                                                             new CollectionSource(objectSpace, classType)
-                                                           : new ServerCollectionSource(objectSpace, classType);
+                                                             new CollectionSource(objectSpace, classType, false)
+                                                           : new CollectionSource(objectSpace, classType, true);
 
-            memberSearchWrapper.Node.SetAttribute(FilterStringAttributeName, filtersByCollectionWrapper.PropertyPathFilter);
+            SetActiveFilter(memberSearchWrapper, filtersByCollectionWrapper.PropertyPathFilter);
 
-            ListView listView = Application.CreateListView(memberSearchWrapper.Id,newCollectionSource,false);
+            ListView listView = Application.CreateListView(memberSearchWrapper.Id, newCollectionSource, false);
 
             e.ShowViewParameters.CreatedView = listView;
             e.ShowViewParameters.Context = TemplateContext.PopupWindow;
@@ -242,65 +254,65 @@ namespace eXpand.ExpressApp.SystemModule {
     public class FiltersByCollectionWrapper
     {
         private readonly ITypeInfo objectTypeInfo;
-        private readonly DictionaryNode childNode;
-        private readonly XPClassInfo xpClassInfo;
+        private readonly IModelPropertyPathFilter propertyPathFilter;
+        private readonly XPClassInfo classInfo;
         private string containsOperatorXpMemberInfoName;
         private Type binaryOperatorLastMemberClassType;
 
-        public FiltersByCollectionWrapper(ITypeInfo objectTypeInfo, DictionaryNode childNode,XPClassInfo xpClassInfo)
+        public FiltersByCollectionWrapper(ITypeInfo objectTypeInfo, IModelPropertyPathFilter propertyPathFilter, XPClassInfo classInfo)
         {
             this.objectTypeInfo = objectTypeInfo;
-            this.childNode = childNode;
-            this.xpClassInfo = xpClassInfo;
+            this.propertyPathFilter = propertyPathFilter;
+            this.classInfo = classInfo;
         }
 
         public string PropertyPath
         {
-            get { return childNode.GetAttributeValue(FilterByPropertyPathViewController.PropertyPath); }
-            set { childNode.SetAttribute(FilterByPropertyPathViewController.PropertyPath, value); }
+            get { return propertyPathFilter.PropertyPath; }
         }
 
         public string ID
         {
-            get { return childNode.GetAttributeValue("ID"); }
+            get { return propertyPathFilter.Id; }
         }
         public string PropertyPathFilter
         {
-            get { return childNode.GetAttributeValue(FilterByPropertyPathViewController.PropertyPathFilter); }
-            set { childNode.SetAttribute(FilterByPropertyPathViewController.PropertyPathFilter, value); }
+            get { return propertyPathFilter.PropertyPathFilter; }
+            set { propertyPathFilter.PropertyPathFilter = value; }
         }
-
 
         public string CriteriaPathListViewId
         {
-            get { return childNode.GetAttributeValue(FilterByPropertyPathViewController.PropertyPathListViewId); }
-            set { childNode.SetAttribute(FilterByPropertyPathViewController.PropertyPathListViewId, value); }
+            get { return propertyPathFilter.PropertyPathListViewId.Id; }
         }
 
-            
         public Type BinaryOperatorLastMemberClassType
         {
             get
             {
-                if (binaryOperatorLastMemberClassType== null) {
-                    var xpMemberInfo = ReflectorHelper.GetXpMemberInfo(xpClassInfo,PropertyPath);
+                if (binaryOperatorLastMemberClassType == null)
+                {
+                    var xpMemberInfo = ReflectorHelper.GetXpMemberInfo(classInfo, PropertyPath);
                     if (xpMemberInfo != null)
-                        return binaryOperatorLastMemberClassType =xpMemberInfo.IsCollection?xpMemberInfo.CollectionElementType.ClassType: xpMemberInfo.ReferenceType.ClassType;
+                        return binaryOperatorLastMemberClassType = xpMemberInfo.IsCollection ? xpMemberInfo.CollectionElementType.ClassType : xpMemberInfo.ReferenceType.ClassType;
                 }
+
                 return binaryOperatorLastMemberClassType;
             }
-                
+
         }
 
         public string ContainsOperatorXpMemberInfoName
         {
             get
             {
-                if (containsOperatorXpMemberInfoName == null && BinaryOperatorLastMemberClassType != null){
+                if (containsOperatorXpMemberInfoName == null && BinaryOperatorLastMemberClassType != null)
+                {
                     containsOperatorXpMemberInfoName = PropertyPath.IndexOf(".") > -1
-                                                           ?objectTypeInfo.FindMember(PropertyPath.Substring(0,PropertyPath.IndexOf("."))).Name
+                                                           ? objectTypeInfo.FindMember(PropertyPath.Substring(0, PropertyPath.IndexOf("."))).Name
                                                            : PropertyPath;
                 }
+
                 return containsOperatorXpMemberInfoName;
             }
         }

@@ -23,7 +23,7 @@ namespace eXpand.ExpressApp.Security.Controllers
             var statePermission = View.CurrentObject as LogicRulePermission;
             if (statePermission != null)
                 if (string.IsNullOrEmpty(statePermission.ViewId) &&args.PropertyName == statePermission.GetPropertyInfo(x => x.ObjectType).Name &&args.NewValue != null){
-                    if (new ApplicationNodeWrapper(Application.Model).Views.FindViewById(statePermission.ViewId).BusinessObjectType != args.NewValue)
+                    if (Application.Model.Views[statePermission.ViewId].ModelClass.TypeInfo.Type != args.NewValue)
                         statePermission.ViewId = null;
                 }
         }

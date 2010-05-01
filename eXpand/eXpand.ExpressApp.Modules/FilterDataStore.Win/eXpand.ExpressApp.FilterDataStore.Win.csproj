@@ -106,9 +106,6 @@
     <Compile Include="Controllers\SkinViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\SkinViewController.Designer.cs">
-      <DependentUpon>SkinViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="FilterDataStoreWindowsFormsModule.cs">
       <SubType>Component</SubType>
     </Compile>

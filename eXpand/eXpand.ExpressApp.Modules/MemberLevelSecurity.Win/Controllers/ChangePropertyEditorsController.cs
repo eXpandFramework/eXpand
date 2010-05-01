@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.MemberLevelSecurity.Win.PropertyEditors;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers
 {
@@ -15,20 +16,21 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers
             InitializeComponent();
             RegisterActions(components);
         }
-        public override void UpdateModel(Dictionary dictionary)
+        
+        public override void UpdateModel(IModelApplication applicationModel)
         {
-            base.UpdateModel(dictionary);
-            var applicationNodeWrapper = new ApplicationNodeWrapper(dictionary);
-            IEnumerable<ClassInfoNodeWrapper> classInfoNodeWrappers =
-                applicationNodeWrapper.BOModel.Classes.Where(cls =>typeof (XPBaseObject).IsAssignableFrom(cls.ClassTypeInfo.Type));
-            foreach (ClassInfoNodeWrapper classInfoNodeWrapper in classInfoNodeWrappers){
-                foreach (PropertyInfoNodeWrapper propertyInfoNodeWrapper in from property in classInfoNodeWrapper.Properties
-                                                                       let detailViewItemInfoNodeWrapper =new DetailViewItemInfoNodeWrapper(property.Node)
-                                                                       let isSimpleStringEdit =(property.Type != typeof(string).FullName ||(detailViewItemInfoNodeWrapper.RowCount == 0))
-                                                                       let isComboStringEdit =(isSimpleStringEdit &&!string.IsNullOrEmpty(detailViewItemInfoNodeWrapper.PredefindedValues))
-                                                                       where property.PropertyEditorType ==typeof(StringPropertyEditor).FullName &&isSimpleStringEdit && !isComboStringEdit
+            base.UpdateModel(applicationModel);
+
+            IEnumerable<IModelClass> modelClasses =
+                applicationModel.BOModel.Where(cls => typeof(XPBaseObject).IsAssignableFrom(cls.TypeInfo.Type));
+
+            foreach (IModelClass modelClass in modelClasses){
+                foreach (IModelMember modelMember in from property in modelClass.AllMembers
+                                                                       let isSimpleStringEdit = (property.Type != typeof(string) || (property.RowCount == 0))
+                                                                       let isComboStringEdit = (isSimpleStringEdit && !string.IsNullOrEmpty(property.PredefinedValues))
+                                                                       where property.PropertyEditorType == typeof(StringPropertyEditor) && isSimpleStringEdit && !isComboStringEdit
                                                                        select property)
-                    propertyInfoNodeWrapper.PropertyEditorType = typeof(MemberLevelSecurityStringPropertyEditor).FullName;
+                    modelMember.PropertyEditorType = typeof(MemberLevelSecurityStringPropertyEditor);
             }
         }
 

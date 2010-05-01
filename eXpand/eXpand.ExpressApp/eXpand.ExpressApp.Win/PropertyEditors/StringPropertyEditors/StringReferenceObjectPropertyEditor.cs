@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
 using DevExpress.XtraEditors.Controls;
 using eXpand.Xpo;
@@ -10,9 +10,9 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors{
     public class StringReferenceObjectPropertyEditor : StringPropertyEditorBase
     {
         private List<ComboBoxItem> comboBoxItems;
-        public StringReferenceObjectPropertyEditor(Type objectType, DictionaryNode info) : base(objectType, info){
-        }
 
+        public StringReferenceObjectPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model){
+        }
 
         protected override List<ComboBoxItem> ComboBoxItems{
             get{

@@ -8,118 +8,140 @@ using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.Enums;
-using ViewIdRefNodeProvider = DevExpress.ExpressApp.Core.DictionaryHelpers.ViewIdRefNodeProvider;
+using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.Base;
 
-namespace eXpand.ExpressApp.SystemModule {
-    public partial class ConditionalDetailViewController : ViewController<ListView> {
+namespace eXpand.ExpressApp.SystemModule
+{
+    public enum ConditionalDetailViewNewMode
+    {
+        Strict,
+        IncludeSubclasses
+    }
+
+    public interface IModelListViewConditionalDetailViews
+    {
+        IModelConditionalDetailViews ConditionalDetailViews { get; set; }
+    }
+
+    public interface IModelListViewEnableOpenActionInMasterDetailMode
+    {
+        bool EnableOpenActionInMasterDetailMode { get; set; }
+    }
+
+    public interface IModelConditionalDetailViews : IModelNode, IModelList<IModelConditionalDetailView>, IModelListViewEnableOpenActionInMasterDetailMode
+    {
+    }
+
+    public interface IModelConditionalDetailView : IModelNode
+    {
+        [ModelPersistentName("ID"), Required]
+        string Id { get; set; }
+        [DataSourceProperty("Application.BOModel")]
+        IModelClass ClassName { get; set; }
+        string Criteria { get; set; }
+        DetailViewType Mode { get; set; }
+        ConditionalDetailViewNewMode NewModeBehavior { get; set; }
+        [ModelPersistentName("DetailViewID"), DataSourceProperty("Application.Views")]
+        IModelDetailView DetailView { get; set; }
+    }
+
+    public class ConditionalDetailViewController : ViewController<ListView>
+    {
         public const string ConditionalDetailViewsAttributeName = "ConditionalDetailViews";
-        
-        DictionaryNode _wrapper;
         bool isActive;
-
         NewObjectViewController _newObjectViewController;
         ListViewProcessCurrentObjectController _listViewProcessCurrentObjectController;
+        IModelListViewConditionalDetailViews model;
 
-        public ConditionalDetailViewController() {
-            InitializeComponent();
-            RegisterActions(components);
-        }
+        public ConditionalDetailViewController() { }
 
         public event ChooseCustomDetailViewEventHandler CustomChooseDetailView;
-        public class ConditionalDetailViewsWrapper : NodeWrapper
+
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            public const string ConditionalDetailViewAttributeName = "ConditionalDetailView";
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelListView, IModelListViewConditionalDetailViews>();
+            extenders.Add<IModelDetailView, IModelListViewEnableOpenActionInMasterDetailMode>();
         }
 
-        public override Schema GetSchema() {
-            string s1 = @"<Element Name=""Application"">
-                        <Element Name=""BOModel"" >
-                          <Element Name=""Class"" >
-                            <Attribute Name=""DefaultListView_EnableOpenActionInMasterDetailMode"" Choice=""True,False="" />     
-                          </Element>
-                        </Element>
-                        <Element Name=""Views"">
-                            <Element Name=""ListView"">
-                              <Element Name=""" +ConditionalDetailViewsAttributeName + @""" IsNewNode=""True"">
-                                <Attribute Name=""EnableOpenActionInMasterDetailMode"" DefaultValueExpr=""SourceNode=BOModel\Class\@Name=..\@ClassName; SourceAttribute=@DefaultListView_EnableOpenActionInMasterDetailMode"" Choice=""True,False="" />
-                                <Element Name=""" + ConditionalDetailViewsWrapper.ConditionalDetailViewAttributeName + @""" KeyAttribute=""ID"" DisplayAttribute=""ID"" Multiple=""True""  IsNewNode=""True"">
-                                  <Attribute Name=""" +ConditionalDetailViewWrapper.IDAttributeName+ @""" Required=""True"" IsNewNode=""True""/>
-                                  <Attribute Name="""+ConditionalDetailViewWrapper.ClassNameAttributeName + @""" RefNodeName=""{" +typeof(ClassRefNodeProvider).FullName + @"}ClassName=..\..\@ClassName"" IsNewNode=""True""/>
-                                  <Attribute Name=""" + ConditionalDetailViewWrapper.CriteriaAttributeName + @""" IsNewNode=""True""/>
-                                  <Attribute Name="""+ConditionalDetailViewWrapper.ModeAttributeName + @""" Choice=""{"+typeof(DetailViewType).FullName + @"}"" IsNewNode=""True"" />
-                                  <Attribute Name=""" + ConditionalDetailViewWrapper.NewModeBehaviorAttributeName + @""" Choice=""Strict,IncludeSubclasses"" IsNewNode=""True"" />
-                                  <Attribute Name=""" + ConditionalDetailViewWrapper.DetailViewIDAttributeName + @""" RefNodeName=""{" + typeof(ViewIdRefNodeProvider).FullName + @"}ClassName=@ClassName;ViewType=DetailView;IncludeBaseClasses=True"" IsNewNode=""True""/>
-                                  <Attribute Name=""" + ConditionalDetailViewWrapper.IndexAttributeName + @""" IsNewNode=""True"" />
-                                </Element>
-                              </Element>
-                            </Element>
-                      </Element>
-                    </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(s1));
-        }
-
-        protected override void OnActivated() {
+        protected override void OnActivated()
+        {
             base.OnActivated();
-            _wrapper = View.Info.GetChildNode("ConditionalDetailViews");
-            _newObjectViewController = Frame.GetController<NewObjectViewController>();
-            _newObjectViewController.NewObjectAction.Executed += NewObjectAction_Executed;
-            if (_wrapper != null && _wrapper.ChildNodeCount > 0) {
+            model = View.Model as IModelListViewConditionalDetailViews;
+            if (model != null && model.ConditionalDetailViews != null && model.ConditionalDetailViews.Count > 0)
+            {
                 isActive = true;
-                View.CreateCustomCurrentObjectDetailView +=ConditionalDetailViewController_CreateCustomCurrentObjectDetailView;
+                _newObjectViewController = Frame.GetController<NewObjectViewController>();
+                _newObjectViewController.NewObjectAction.Executed += NewObjectAction_Executed;
                 _listViewProcessCurrentObjectController = Frame.GetController<ListViewProcessCurrentObjectController>();
-                _listViewProcessCurrentObjectController.CustomProcessSelectedItem +=CustomProcessSelectedItem;
-                View.ProcessSelectedItem +=ConditionalDetailViewController_ProcessSelectedItem;
+                _listViewProcessCurrentObjectController.CustomProcessSelectedItem += CustomProcessSelectedItem;
+                View.ProcessSelectedItem += ConditionalDetailViewController_ProcessSelectedItem;
+                View.CreateCustomCurrentObjectDetailView += ConditionalDetailViewController_CreateCustomCurrentObjectDetailView;
             }
         }
 
-        protected override void OnDeactivating() {
-            _newObjectViewController.NewObjectAction.Executed -= NewObjectAction_Executed;
-            if (isActive) {
-                View.CreateCustomCurrentObjectDetailView -=ConditionalDetailViewController_CreateCustomCurrentObjectDetailView;
-                _listViewProcessCurrentObjectController.CustomProcessSelectedItem -=CustomProcessSelectedItem;
-                View.ProcessSelectedItem -=ConditionalDetailViewController_ProcessSelectedItem;
+        protected override void OnDeactivating()
+        {
+            if (isActive)
+            {
+                _newObjectViewController.NewObjectAction.Executed -= NewObjectAction_Executed;
+                _listViewProcessCurrentObjectController.CustomProcessSelectedItem -= CustomProcessSelectedItem;
+                View.ProcessSelectedItem -= ConditionalDetailViewController_ProcessSelectedItem;
+                View.CreateCustomCurrentObjectDetailView -= ConditionalDetailViewController_CreateCustomCurrentObjectDetailView;
             }
 
             base.OnDeactivating();
         }
 
-        void ConditionalDetailViewController_ProcessSelectedItem(object sender, EventArgs e) {
+        void ConditionalDetailViewController_ProcessSelectedItem(object sender, EventArgs e)
+        {
             //Show popup detailview even in ListViewAndDetailView-mode?
 
-            if (!View.IsRoot && View.Info.GetAttributeValue("MasterDetailMode") == "ListViewAndDetailView"
-                && _wrapper.GetAttributeBoolValue("EnableOpenActionInMasterDetailMode", false)) {
-                if (_listViewProcessCurrentObjectController.ProcessCurrentObjectAction.Enabled && _listViewProcessCurrentObjectController.ProcessCurrentObjectAction.Active) {
+            if (!View.IsRoot && View.Model.MasterDetailMode == MasterDetailMode.ListViewAndDetailView
+                && !model.ConditionalDetailViews.EnableOpenActionInMasterDetailMode)
+            {
+                if (_listViewProcessCurrentObjectController.ProcessCurrentObjectAction.Enabled && _listViewProcessCurrentObjectController.ProcessCurrentObjectAction.Active)
+                {
                     _listViewProcessCurrentObjectController.ProcessCurrentObjectAction.DoExecute();
                 }
             }
         }
 
-        void CustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs e) {
+        void CustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs e)
+        {
             //this is called when XAF wants to open a new root DetailView for the selected object in the ListView
 
-            string detailViewID = FindAppplicableDetailViewID(ObjectSpace, DetailViewType.Root,e.InnerArgs.CurrentObject, null, "");
-            if (string.IsNullOrEmpty(detailViewID)) {
+            var detailViewID = FindAppplicableDetailViewID(ObjectSpace, DetailViewType.Root, e.InnerArgs.CurrentObject, null, "");
+            if (detailViewID == null)
+            {
                 e.Handled = false;
             }
-            else {
+            else
+            {
                 ObjectSpace os = Application.GetObjectSpaceToShowViewFrom(Frame);
                 object objInTargetOS;
-                if (os != View.ObjectSpace) {
-                    if (!(os is NestedObjectSpace) && View.ObjectSpace.IsNewObject(e.InnerArgs.CurrentObject)) {
+                if (os != View.ObjectSpace)
+                {
+                    if (!(os is NestedObjectSpace) && View.ObjectSpace.IsNewObject(e.InnerArgs.CurrentObject))
+                    {
                         throw new InvalidOperationException(ExceptionLocalizerTemplate<SystemExceptionResourceLocalizer, ExceptionId>.GetExceptionMessage(ExceptionId.AnUnsavedObjectCannotBeShown));
                     }
                     objInTargetOS = os.GetObject(e.InnerArgs.CurrentObject);
                 }
-                else {
+                else
+                {
                     objInTargetOS = e.InnerArgs.CurrentObject;
                 }
 
-                e.InnerArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(os, detailViewID, true,
+                e.InnerArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(os, detailViewID.Id, true,
                                                                                           objInTargetOS);
 
                 var propertyCollectionSource = View.CollectionSource as PropertyCollectionSource;
-                if (propertyCollectionSource != null) {
-                    if (propertyCollectionSource.MemberInfo.IsAggregated && !View.AllowEdit) {
+                if (propertyCollectionSource != null)
+                {
+                    if (propertyCollectionSource.MemberInfo.IsAggregated && !View.AllowEdit)
+                    {
                         e.InnerArgs.ShowViewParameters.CreatedView.AllowEdit.SetItemValue(
                             "From ListView with aggregated read-only property collection", false);
                     }
@@ -132,27 +154,25 @@ namespace eXpand.ExpressApp.SystemModule {
 
         void ConditionalDetailViewController_CreateCustomCurrentObjectDetailView(object sender,
                                                                                  CreateCustomCurrentObjectDetailViewEventArgs
-                                                                                     e) {
+                                                                                     e)
+        {
             //is called by XAF to switch nested DetailViews(in MasterDetailMode == ListViewAndDetailView)
             e.DetailViewId = FindAppplicableDetailViewID(ObjectSpace, DetailViewType.Nested, e.ListViewCurrentObject,
-                                                         null, View.DetailViewId);
+                                                         null, View.DetailViewId).Id;
         }
 
-        void NewObjectAction_Executed(object sender, ActionBaseEventArgs e) {
+        void NewObjectAction_Executed(object sender, ActionBaseEventArgs e)
+        {
             if (e.ShowViewParameters.CreatedView == null)
                 return;
 
-            string detailViewID = FindAppplicableDetailViewID(ObjectSpace, DetailViewType.New,
+            var detailViewID = FindAppplicableDetailViewID(ObjectSpace, DetailViewType.New,
                                                               e.ShowViewParameters.CreatedView.CurrentObject,
                                                               e.ShowViewParameters.CreatedView.ObjectTypeInfo.Type, "");
 
-            if (detailViewID != "") {
-                var quickDetailView =
-                    Application.Model.RootNode.FindChildElementByPath(@"Views\DetailView[@ID='" + detailViewID + "']") as
-                    DictionaryNode;
-                if (quickDetailView != null) {
-                    e.ShowViewParameters.CreatedView.SetInfo(quickDetailView);
-                }
+            if (detailViewID != null)
+            {
+                e.ShowViewParameters.CreatedView.SetInfo(detailViewID);
             }
         }
 
@@ -165,82 +185,92 @@ namespace eXpand.ExpressApp.SystemModule {
         /// <param name="newObjType"></param>
         /// <param name="defaultDetailViewID"></param>
         /// <returns></returns>
-        protected virtual string FindAppplicableDetailViewID(ObjectSpace os, DetailViewType detailViewType, object obj,
-                                                             Type newObjType, string defaultDetailViewID) {
+        protected virtual IModelDetailView FindAppplicableDetailViewID(ObjectSpace os, DetailViewType detailViewType, object obj,
+                                                             Type newObjType, string defaultDetailViewID)
+        {
             var eventArgs = new ChooseCustomDetailViewEventArgs(View, DetailViewType.New, obj);
             OnCustomChooseDetailView(eventArgs);
-            if (eventArgs.Handled && !string.IsNullOrEmpty(eventArgs.DetailViewID)){
-                return eventArgs.DetailViewID;
+            if (eventArgs.Handled && !string.IsNullOrEmpty(eventArgs.DetailViewID))
+            {
+                return Application.Model.Views[eventArgs.DetailViewID] as IModelDetailView;
             }
 
-            string result = string.Empty;
-            if (_wrapper != null) {
-                DictionaryNodeCollection coll = _wrapper.GetChildNodes("ConditionalDetailView", false);
-
-                int i = 0;
-                while (i < coll.Count) {
-                    if (NodeMatches(os, coll[i], detailViewType, newObjType, obj)) {
-                        result = coll[i].GetAttributeValue("DetailViewID");
-                        break;
-                    }
-                    i++;
+            IModelDetailView result = null;
+            foreach (IModelConditionalDetailView item in model.ConditionalDetailViews)
+            {
+                if (NodeMatches(os, item, detailViewType, newObjType, obj))
+                {
+                    result = item.DetailView;
+                    break;
                 }
             }
 
-            if (string.IsNullOrEmpty(result))
-                result = defaultDetailViewID;
+            if (result == null)
+                result = Application.Model.Views[defaultDetailViewID] as IModelDetailView;
 
             return result;
         }
 
-        void OnCustomChooseDetailView(ChooseCustomDetailViewEventArgs eventArgs) {
-            if (CustomChooseDetailView != null) {
+        void OnCustomChooseDetailView(ChooseCustomDetailViewEventArgs eventArgs)
+        {
+            if (CustomChooseDetailView != null)
+            {
                 CustomChooseDetailView(this, eventArgs);
             }
         }
 
-        protected virtual bool NodeMatches(ObjectSpace os, DictionaryNode conditionalDetailViewNode,
+        protected virtual bool NodeMatches(ObjectSpace os, IModelConditionalDetailView conditionalDetailView,
                                            DetailViewType detailViewType,
-                                           Type newObjType, object obj) {
+                                           Type newObjType, object obj)
+        {
             bool result = false;
 
             //First check: Does the node match the requested DetailView-mode?
-            bool modeMatch = conditionalDetailViewNode.GetAttributeValue("Mode") == "All"
-                             ||(conditionalDetailViewNode.GetAttributeValue("Mode") == "NestedAndRoot" &&
+            bool modeMatch = conditionalDetailView.Mode == DetailViewType.All
+                             || (conditionalDetailView.Mode == DetailViewType.NestedAndRoot &&
                               (detailViewType == DetailViewType.Nested || detailViewType == DetailViewType.Root))
-                             ||(conditionalDetailViewNode.GetAttributeValue("Mode") == "Nested" &&detailViewType == DetailViewType.Nested)
-                             ||(conditionalDetailViewNode.GetAttributeValue("Mode") == "Root" &&detailViewType == DetailViewType.Root)
-                             ||(conditionalDetailViewNode.GetAttributeValue("Mode") == "New" &&detailViewType == DetailViewType.New);
+                             || (conditionalDetailView.Mode == DetailViewType.Nested && detailViewType == DetailViewType.Nested)
+                             || (conditionalDetailView.Mode == DetailViewType.Root && detailViewType == DetailViewType.Root)
+                             || (conditionalDetailView.Mode == DetailViewType.New && detailViewType == DetailViewType.New);
 
-            if (modeMatch) {
+            if (modeMatch)
+            {
                 //Second check: Does the type match?
-                try {
+                try
+                {
                     Type desiredClass = null;
-                    foreach (Assembly assembly in  AppDomain.CurrentDomain.GetAssemblies()) {
-                        desiredClass = assembly.GetType(conditionalDetailViewNode.GetAttributeValue("ClassName"));
+                    foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+                    {
+                        desiredClass = assembly.GetType(conditionalDetailView.ClassName.TypeInfo.FullName);
                         if (desiredClass != null)
                             break;
                     }
 
 
-                    if (detailViewType == DetailViewType.New) {
-                        if (conditionalDetailViewNode.GetAttributeValue("NewModeBehavior", "Strict") == "Strict") {
+                    if (detailViewType == DetailViewType.New)
+                    {
+                        if (conditionalDetailView.NewModeBehavior == ConditionalDetailViewNewMode.Strict)
+                        {
                             result = (desiredClass == newObjType);
                         }
-                        else {
+                        else
+                        {
                             result = newObjType.IsSubclassOf(desiredClass);
                         }
                     }
-                    else {
+                    else
+                    {
                         //The node's desired class must not be a subclass of the actual object's class:
-                        if (desiredClass != null && !desiredClass.IsSubclassOf(obj.GetType())) {
+                        if (desiredClass != null && !desiredClass.IsSubclassOf(obj.GetType()))
+                        {
                             //And final check: Does the object meet the specified criteria:
-                            string criteria = conditionalDetailViewNode.GetAttributeValue("Criteria").Trim();
+                            string criteria = conditionalDetailView.Criteria.Trim();
                             result = String.IsNullOrEmpty(criteria) || ObjectMeetsCriteria(os, obj, criteria);
                         }
                     }
                 }
-                catch {
+                catch
+                {
                     result = false;
                 }
             }
@@ -256,7 +286,8 @@ namespace eXpand.ExpressApp.SystemModule {
         /// <param name="obj">The object to check</param>
         /// <param name="criteria">The criteria string to be satisfied</param>
         /// <returns>true if object meets criteria</returns>
-        protected virtual bool ObjectMeetsCriteria(ObjectSpace os, object obj, string criteria) {
+        protected virtual bool ObjectMeetsCriteria(ObjectSpace os, object obj, string criteria)
+        {
             bool? isObjectFitForCriteria = os.IsObjectFitForCriteria(obj, CriteriaOperator.Parse(criteria));
             if (isObjectFitForCriteria != null) return isObjectFitForCriteria.Value;
             return false;
@@ -265,13 +296,15 @@ namespace eXpand.ExpressApp.SystemModule {
 
     public delegate void ChooseCustomDetailViewEventHandler(object sender, ChooseCustomDetailViewEventArgs e);
 
-    public class ChooseCustomDetailViewEventArgs : EventArgs {
+    public class ChooseCustomDetailViewEventArgs : EventArgs
+    {
         readonly View callingView;
         readonly object currentObject;
         readonly DetailViewType requestedDetailViewType;
 
         public ChooseCustomDetailViewEventArgs(View callingView, DetailViewType requestedDetailViewType,
-                                               object currentObject) {
+                                               object currentObject)
+        {
             this.callingView = callingView;
             this.requestedDetailViewType = requestedDetailViewType;
             this.currentObject = currentObject;
@@ -281,7 +314,8 @@ namespace eXpand.ExpressApp.SystemModule {
         /// <summary>
         /// The requested type of DetailView to be shown
         /// </summary>
-        public DetailViewType RequestedDetailViewType {
+        public DetailViewType RequestedDetailViewType
+        {
             get { return requestedDetailViewType; }
         }
 
@@ -289,7 +323,8 @@ namespace eXpand.ExpressApp.SystemModule {
         /// <summary>
         /// The view in which the request for a new DetailView was invoked
         /// </summary>
-        public View CallingView {
+        public View CallingView
+        {
             get { return callingView; }
         }
 
@@ -297,7 +332,8 @@ namespace eXpand.ExpressApp.SystemModule {
         /// The object to be displayed in the new DetailView (is null when 
         /// requesting to display a DetailView in New-mode!)
         /// </summary>
-        public object CurrentObject {
+        public object CurrentObject
+        {
             get { return currentObject; }
         }
 

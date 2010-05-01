@@ -2,19 +2,22 @@ using System;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Model;
 using DevExpress.XtraEditors;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public partial class MinimizeOnCloseController : WindowController
+    public interface IModelMinimizeOnCloseOptions : IModelNode
+    {
+        bool MinimizeOnClose { get; set; }
+    }
+
+    public class MinimizeOnCloseController : WindowController
     {
         private static bool editing;
-        public const string MinimizeOnCloseAttributeName = "MinimizeOnClose";
-        public MinimizeOnCloseController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
+        
+        public MinimizeOnCloseController() { }
+
         protected override void OnFrameAssigned()
         {
             base.OnFrameAssigned();
@@ -24,7 +27,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
         private void FrameOnTemplateChanged(object sender, EventArgs args)
         {
             if (Frame.Context == TemplateContext.ApplicationWindow &&
-                Application.Info.GetChildNode("Options").GetAttributeBoolValue(MinimizeOnCloseAttributeName)){
+                ((IModelMinimizeOnCloseOptions)Application.Model.Options).MinimizeOnClose)
+            {
                 var form = Frame.Template as XtraForm;
                 if (form != null){
                     form.FormClosing += FormOnFormClosing;
@@ -39,22 +43,18 @@ namespace eXpand.ExpressApp.Win.SystemModule
         private void FormOnFormClosing(object sender, FormClosingEventArgs e){
             if (!editing && e.CloseReason == CloseReason.UserClosing)
             {
-                if (Application != null) e.Cancel = Application.Model.RootNode.GetAttributeBoolValue(MinimizeOnCloseAttributeName, true);
+                if (Application != null)
+                    e.Cancel = ((IModelMinimizeOnCloseOptions)Application.Model.Options).MinimizeOnClose;
+                
                 if (e.Cancel)
                     ((XtraForm)sender).Hide();
             }
         }
 
-
-        public override Schema GetSchema()
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            const string CommonTypeInfos = @"<Element Name=""Application"">
-                                                <Element Name=""Options"">
-                                                    <Attribute Name=""" + MinimizeOnCloseAttributeName + @""" Choice=""False,True""/>
-                                                </Element>
-                                            </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelOptions, IModelMinimizeOnCloseOptions>();
         }
-
     }
 }

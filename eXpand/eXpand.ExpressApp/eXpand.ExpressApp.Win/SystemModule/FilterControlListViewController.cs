@@ -1,45 +1,36 @@
 ﻿using System;
-using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Filtering;
-using DevExpress.ExpressApp.Win.Editors;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid;
 using eXpand.ExpressApp.SystemModule;
+using Forms = System.Windows.Forms;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public partial class FilterControlListViewController : BaseViewController
+    public interface IModelListViewFilterControlSettings : IModelNode
     {
-//        private static bool recursive;
-//        private static bool lookUpQueryPopUp;
-        private const string FilterControlPosition = @"FilterControlPosition";
-        public FilterControlListViewController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-            TargetViewType = ViewType.ListView;
-            
-        }
+        System.Windows.Forms.DockStyle FilterControlPosition { get; set; }
+    }
 
-        public override Schema GetSchema()
+    public partial class FilterControlListViewController : BaseViewController<ListView>
+    {
+        public FilterControlListViewController() { }
+
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            string CommonTypeInfos = @"<Element Name=""Application"">
-                        <Element Name=""Views"">
-                            <Element Name=""ListView"" >
-                                <Attribute Name=""" + FilterControlPosition + @""" Choice=""{"+typeof(DockStyle).FullName + @"}""/>
-                            </Element>
-                        </Element>
-                  </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelListView, IModelListViewFilterControlSettings>();
         }
 
         protected override void OnActivated()
         {
-            if (View.Info.GetAttributeEnumValue(FilterControlPosition,DockStyle.None)!=DockStyle.None)
+            if (((IModelListViewFilterControlSettings)View.Model).FilterControlPosition != Forms.DockStyle.None)
                 View.ControlsCreated +=
-                    (sender, args) => ((Control) View.Control).HandleCreated += gridControl_HandleCreated;
+                    (sender, args) => ((Forms.Control)View.Control).HandleCreated += gridControl_HandleCreated;
         }
         
         private Editors.FilterControl filterControl;
@@ -51,7 +42,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         public event EventHandler FilterActivated;
         
-
         private void InvokeFilterActivated(EventArgs e)
         {
             EventHandler activated = FilterActivated;
@@ -64,7 +54,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             filterControl = new Editors.FilterControl
                                 {
                                     Height = 150,
-                                    Dock = View.Info.GetAttributeEnumValue(FilterControlPosition, DockStyle.None),
+                                    Dock = ((IModelListViewFilterControlSettings)View.Model).FilterControlPosition,
                                     SourceControl = gridControl
                                 };
             InvokeFilterActivated(e);
@@ -78,25 +68,18 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
             var accept = new SimpleButton {Text = "Accept filter"};
             accept.Click += ((o, args) => filterControl.ApplyFilter());
-            accept.Dock = DockStyle.Bottom;
+            accept.Dock = Forms.DockStyle.Bottom;
             filterControl.Controls.Add(accept);
 
-            ((Control) sender).Parent.Controls.Add(filterControl);
+            ((Forms.Control) sender).Parent.Controls.Add(filterControl);
         }
-
-
 
         private void setCriteriaFromView(FilterControl filter)
         {
-            var criteriaWrapper = new CriteriaWrapper(View.ObjectTypeInfo.Type, View.Info.GetAttributeValue(GridListEditor.ActiveFilterString), false);
+            var criteriaWrapper = new CriteriaWrapper(View.ObjectTypeInfo.Type, ((IModelListViewWin)View.Model).ActiveFilterString, false);
             new FilterWithObjectsProcessor(ObjectSpace).Process(criteriaWrapper.CriteriaOperator,
                                                                 FilterWithObjectsProcessorMode.StringToObject);
             filter.FilterCriteria =criteriaWrapper.CriteriaOperator;
         }
-
-
-
-
-
     }
 }
