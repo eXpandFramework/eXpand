@@ -85,6 +85,7 @@
     <Compile Include="Attributes\AggregatedDelete.cs" />
     <Compile Include="Attributes\DataStoreAttribute.cs" />
     <Compile Include="Attributes\Encrypt.cs" />
+    <Compile Include="Collections\ManyToManyCollectionHelper.cs" />
     <Compile Include="Collections\XPCollection.cs">
       <SubType>Component</SubType>
     </Compile>

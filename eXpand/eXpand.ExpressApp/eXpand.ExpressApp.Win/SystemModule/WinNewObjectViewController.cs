@@ -31,7 +31,8 @@ namespace eXpand.ExpressApp.Win.SystemModule {
                             "Item", "ClassName", type.FullName);
                 if (findChildNode != null)
                 {
-                    NewObjectAction.Items.RemoveAt(0);
+                    if (NewObjectAction.Items.Count>0)
+                        NewObjectAction.Items.RemoveAt(0);
                     NewObjectAction.Items.Insert(0, CreateItem(type, findChildNode));
                 }
             }
