@@ -7,6 +7,7 @@ using DevExpress.LookAndFeel;
 using DevExpress.Xpo.DB;
 using eXpand.ExpressApp.FilterDataStore;
 using eXpand.Xpo;
+using eXpand.Xpo.Filtering;
 using MbUnit.Framework;
 using TypeMock;
 using TypeMock.ArrangeActAssert;

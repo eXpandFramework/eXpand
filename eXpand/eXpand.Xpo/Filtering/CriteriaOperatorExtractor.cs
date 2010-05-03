@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using DevExpress.Data.Filtering;
 
-namespace eXpand.Xpo
+namespace eXpand.Xpo.Filtering
 {
     /// <summary>
     /// Extracts the binaryOperators out 

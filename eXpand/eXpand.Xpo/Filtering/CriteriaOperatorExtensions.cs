@@ -3,10 +3,22 @@ using DevExpress.Data.Filtering;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 
-namespace eXpand.Xpo
+namespace eXpand.Xpo.Filtering
 {
     public static class CriteriaOperatorExtensions
     {
+    
+        /// <summary>
+        /// Defines an extension method to <see cref="String"/> that converts the string value into a <see cref="criteria"/> by calling its <see cref="CriteriaOperator.Parse(string,out DevExpress.Data.Filtering.OperandValue[])"/> method.
+        /// </summary>
+        /// <param name="criteria">A <see cref="String"/> value that represents the expression to convert</param>
+        /// <param name="args">The values that are substituted into the expression in place of question mark characters. These parameters can be omitted. </param>
+        /// <returns>A <see cref="CriteriaOperator"/> equivalent to the expression contained in criteria.</returns>
+        public static CriteriaOperator ToCriteria(this string criteria, params object[] args)
+        {
+            return CriteriaOperator.Parse(criteria, args);
+        }
+    
         public static CriteriaOperator GetClassTypeFilter(this Type type, Session session, string path)
         {
             path = path.TrimEnd('.');
@@ -15,8 +27,7 @@ namespace eXpand.Xpo
             string propertyName = path + "." + XPObject.Fields.ObjectType.PropertyName;
             return
                 new GroupOperator(GroupOperatorType.Or, new NullOperator(propertyName),
-                                  new BinaryOperator(propertyName,
-                                                     xpObjectType));
+                                  new BinaryOperator(propertyName,xpObjectType));
         }
 
         public static CriteriaOperator GetClassTypeFilter(this Type type, Session session)
@@ -34,7 +45,6 @@ namespace eXpand.Xpo
                 propertyPath = propertyPath.Substring(0, propertyPath.IndexOf(".")) + "[" +
                                propertyPath.Substring(propertyPath.IndexOf(".") + 1) + "]";
             }
-//            string replace = criteriaOperator.ToString().Replace("[","").Replace("]","").Replace(" ","");
             for (int i = propertyPath.Length-1; i > -1; i--)
                 if (propertyPath[i] != ']')
                 {

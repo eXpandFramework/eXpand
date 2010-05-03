@@ -57,6 +57,12 @@ namespace eXpand.Xpo
             return (ClassType)
                 session.FindObject(persistentCriteriaEvaluationBehavior, typeof (ClassType), new XPQuery<ClassType>(session).TransformExpression(expression));
         }
+        
+        public static object FindObject<ClassType>(this Session session, Type classType, Expression<Func<ClassType,bool>> expression, bool selectDeleted)
+        {
+            return session.FindObject(classType, new XPQuery<ClassType>(session).TransformExpression(expression),
+                                      selectDeleted);
+        }
         public static ClassType FindObject<ClassType>(this Session session, Expression<Func<ClassType,bool>> expression)
         {
             return (ClassType) session.FindObject(typeof(ClassType), new XPQuery<ClassType>(session).TransformExpression(expression), false);
