@@ -6,6 +6,7 @@ using DevExpress.XtraBars.Docking;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.XtraBars;
 using DevExpress.ExpressApp.Win.Templates;
+using DevExpress.XtraTabbedMdi;
 
 namespace eXpand.ExpressApp.Win.Templates {
 	public partial class MDIMainForm : XtraFormTemplateBase {
@@ -92,7 +93,12 @@ namespace eXpand.ExpressApp.Win.Templates {
 				TemplateInfo.SetAttribute(NavigationVisibilityAttributeName, dockPanelNavigation.Visibility.ToString());
 			}
 		}
-		public MDIMainForm() {
+
+	    public XtraTabbedMdiManager XtraTabbedMdiManager {
+	        get { return xtraTabbedMdiManager1; }
+	    }
+
+	    public MDIMainForm() {
 			InitializeComponent();
 
 			MainMenuBar.Text = CaptionHelper.GetLocalizedText(FrameTemplatesMainFormLocalizationPath, "MainMenu", "MainMenu");
