@@ -105,6 +105,7 @@
     <Compile Include="General\IIndexedObject.cs" />
     <Compile Include="General\ILocalizable.cs" />
     <Compile Include="General\IEnumObject.cs" />
+    <Compile Include="NCarousel\INCarouselItem.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplate.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplateInfo.cs" />
     <Compile Include="PersistentMetaData\IExtendedCollectionMemberInfo.cs" />
