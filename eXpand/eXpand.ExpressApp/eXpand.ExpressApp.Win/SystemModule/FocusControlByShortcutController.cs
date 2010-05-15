@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -24,17 +26,16 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         }
 
         void CreateBarShortcuts(BarManager barManager, BarSubItem rootMenu) {
-            foreach (var shortCut in _shortCuts) {
-                var barSubItem = new BarSubItem
-                {
-                    Id = barManager.GetNewItemId(),
-                    Caption = shortCut.Value.Id,
-                    ItemShortcut = new BarShortcut(shortCut.Key)
-                };        
+            Func<KeyValuePair<Keys, DetailViewItem>, BarSubItem> selector = shortCut => new BarSubItem
+            {
+                Id = barManager.GetNewItemId(),
+                Caption = shortCut.Value.Id,
+                ItemShortcut = new BarShortcut(shortCut.Key)
+            };
+            foreach (var barSubItem in _shortCuts.Select(selector)) {
                 barSubItem.ItemClick += BarSubItemOnItemClick;
-                rootMenu.AddItem(barSubItem);    
+                rootMenu.AddItem(barSubItem);
             }
-            
         }
 
         BarSubItem GetRootMenu(BarManager barManager) {
