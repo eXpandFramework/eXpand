@@ -45,6 +45,8 @@ call clearProject.bat eXpand.ExpressApp.IO.Win
 call clearProject.bat eXpand.ExpressApp.PivotChart
 call clearProject.bat eXpand.ExpressApp.PivotChart.Win
 call clearProject.bat eXpand.ExpressApp.PivotChart.Web
+call clearProject.bat eXpand.ExpressApp.NCarousel.Web
+call clearProject.bat eXpand.NCarousel
 
 rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Common.dll
 rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Configuration.Design.DLL
