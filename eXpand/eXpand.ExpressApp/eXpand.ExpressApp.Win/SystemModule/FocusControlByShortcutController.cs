@@ -6,7 +6,9 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Controls;
+using DevExpress.ExpressApp.Win.Layout;
 using DevExpress.XtraBars;
+using DevExpress.XtraLayout;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using ListView = DevExpress.ExpressApp.ListView;
 
@@ -69,7 +71,11 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         }
 
         void BarSubItemOnItemClick(object sender, ItemClickEventArgs itemClickEventArgs) {
-            ((Control) _shortCuts[itemClickEventArgs.Item.ItemShortcut.Key].Control).Focus();
+            var control = ((Control)_shortCuts[itemClickEventArgs.Item.ItemShortcut.Key].Control);
+            var layout = (LayoutControl)((WinLayoutManager)(View.LayoutManager)).Container;
+            BaseLayoutItem layoutItem = layout.GetItemByControl(control);
+            layout.FocusHelper.PlaceItemIntoView(layoutItem);
+            control.Focus();
         }
 
         public override Schema GetSchema()
