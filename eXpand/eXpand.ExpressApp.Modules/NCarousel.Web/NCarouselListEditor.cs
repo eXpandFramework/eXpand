@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Web;
-using System.Web.UI.WebControls;
+using System.Web.UI;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Templates;
@@ -12,14 +13,16 @@ using System.Linq;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using eXpand.NCarousel;
-using eXpand.Persistent.Base.NCarousel;
-using Alignment = eXpand.NCarousel.Alignment;
-using Image = System.Drawing.Image;
+using eXpand.Persistent.Base.General;
+using eXpand.Utils.Web;
+using Alignment = DevExpress.ExpressApp.Editors.Alignment;
 
 namespace eXpand.ExpressApp.NCarousel.Web {
     public class NCarouselListEditor : ListEditor,IComplexListEditor {
+        public const string     SelectedId = "selectedId";
         eXpand.NCarousel.NCarousel control;
         Session _session;
+        XafApplication _application;
 
         public NCarouselListEditor(DictionaryNode info) : base(info) {
         }
@@ -51,25 +54,39 @@ namespace eXpand.ExpressApp.NCarousel.Web {
         protected override object CreateControlsCore() {
             control = new eXpand.NCarousel.NCarousel {ID = Model.Id};
             InitCarousel();
+            ((Page) HttpContext.Current.Handler).LoadComplete+=OnLoadComplete;
             return control;
+        }
+
+        void OnLoadComplete(object sender, EventArgs eventArgs) {
+            string id = HttpContext.Current.Request.QueryString[SelectedId];
+            if (id != null){
+                object objectKey = ReflectionHelper.Convert(id, typeof(Guid));
+                View view = _application.ProcessShortcut(new ViewShortcut(ObjectType, objectKey, Model.DetailViewId));
+                _application.ShowViewStrategy.ShowView(new ShowViewParameters(view), new ShowViewSource(null, null));
+            }
         }
 
         void InitCarousel() {
             DictionaryNode ncarouselNode = Model.Node.FindChildNode(NCarouselWebModule.NCarouselAttributeName);
             if (ncarouselNode!= null) {
-                control.Alignment = ncarouselNode.GetAttributeEnumValue(typeof (Alignment).Name, Alignment.Horizontal);
-                string widht = ncarouselNode.GetAttributeValue(NCarouselWebModule.WidthAttributeName);
-                if (!string.IsNullOrEmpty(widht))
-                    control.Width = Unit.Parse(widht);
-                string height = ncarouselNode.GetAttributeValue(NCarouselWebModule.HeightAttributeName);
-                if (!string.IsNullOrEmpty(height))
-                    control.Height = Unit.Parse(height);
-                string buttonTop = ncarouselNode.GetAttributeValue(NCarouselWebModule.ButtonPositionAttributeName);
-                if (!string.IsNullOrEmpty(buttonTop))
-                    control.ButtonPosition = Unit.Parse(buttonTop);
-                int visibleItemsCount = ncarouselNode.GetAttributeIntValue(NCarouselWebModule.VisibleItemsCountAttributeName);
-                if (visibleItemsCount>0)
-                    control.VisibleItemsCount = visibleItemsCount;
+                control.Css.AllowOverride = ncarouselNode.GetAttributeBoolValue(NCarouselWebModule.AllowOverrideAttributeName);
+                control.Alignment = ncarouselNode.GetAttributeEnumValue(typeof (Alignment).Name, eXpand.NCarousel.Alignment.Horizontal);
+                control.HideImages = ncarouselNode.GetAttributeBoolValue(NCarouselWebModule.HideImagesAttributeName, false);
+                string container = ncarouselNode.GetAttributeValue(NCarouselWebModule.ContainerStyleAttributeName);
+                if (!string.IsNullOrEmpty(container))
+                    control.Css.Container = container;
+                string clip = ncarouselNode.GetAttributeValue(NCarouselWebModule.ClipStyleAttributeName);
+                if (!string.IsNullOrEmpty(clip))
+                    control.Css.Clip = clip;
+                string item = ncarouselNode.GetAttributeValue(NCarouselWebModule.ItemStyleAttributeName);
+                if (!string.IsNullOrEmpty(item))
+                    control.Css.Iτem = item;
+                string button = ncarouselNode.GetAttributeValue(NCarouselWebModule.ButtonStyleAttributeName);
+                if (!string.IsNullOrEmpty(item)) {
+                    control.Css.Previous = button;
+                    control.Css.Next = button;
+                }
             }
         }
 
@@ -79,16 +96,31 @@ namespace eXpand.ExpressApp.NCarousel.Web {
                 if (dataSource != null)
                     foreach (INCarouselItem pictureItem in ListHelper.GetList(dataSource)){
                         var args = GetDisplayText(pictureItem);
-                        string text = string.Format("<a href='{0}&selectedId={1}'>{2}</a>",
-                                                    HttpContext.Current.Request.Url.AbsoluteUri, pictureItem.ID,args);            
+                        string text = string.Format("<a href='{0}&{3}={1}'>{2}</a>",
+                                                    HttpContext.Current.Request.Url.AbsoluteUri, pictureItem.ID, args, SelectedId);            
                         control.Items.Add(new NCarouselItem(
-                                              new Uri(HttpContext.Current.Request.Url.AbsoluteUri + "&imageid=" + pictureItem.ID),text,args));
+                                              GetUrl(pictureItem),text,args));
                     }
             }
         }
 
-        string GetDisplayText(INCarouselItem carouselItem) {
-            string text = ShownProperties.Aggregate("", (current, property) => current + (ObjectTypeInfo.FindMember(property).GetValue(carouselItem) + "<br>"));
+        Uri GetUrl(INCarouselItem pictureItem) {
+            var url = pictureItem.Image!= null? HttpContext.Current.Request.Url.AbsoluteUri + "&imageid=" + pictureItem.ID:pictureItem.ImagePath;
+            if (!(string.IsNullOrEmpty(url))) 
+                return new Uri(url);
+            DictionaryNode ncarouselNode = Model.Node.FindChildNode(NCarouselWebModule.NCarouselAttributeName);
+            if (ncarouselNode.GetAttributeBoolValue(NCarouselWebModule.UseNoImageAttributeName, true)){
+                var webResourceUrl = ClientScriptProxy.Current.GetWebResourceUrl(control, GetType(), "NCarousel.Web.Resources.noimage.jpg");
+                webResourceUrl =HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "") +webResourceUrl;
+                return new Uri(webResourceUrl);
+            }
+            return null;
+        }
+
+
+        string GetDisplayText(INCarouselItem pictureItem)
+        {
+            string text = ShownProperties.Aggregate("", (current, property) => current + (ObjectTypeInfo.FindMember(property).GetValue(pictureItem) + "<br>"));
             return text.TrimEnd("<br>".ToCharArray());
         }
 
@@ -105,12 +137,6 @@ namespace eXpand.ExpressApp.NCarousel.Web {
                     HttpContext.Current.Response.OutputStream.Write(buffer, 0, buffer.Length);
                     HttpContext.Current.Response.End();
                 }
-            }
-            id = HttpContext.Current.Request.QueryString["selectedId"];
-            if (id != null){
-                FocusedObject = GetPictureItem(id);
-                OnSelectionChanged();
-                OnProcessSelectedItem();       
             }
         }
 
@@ -148,6 +174,7 @@ namespace eXpand.ExpressApp.NCarousel.Web {
         }
 
         public void Setup(CollectionSourceBase collectionSource, XafApplication application) {
+            _application = application;
             _session = application.ObjectSpaceProvider.CreateUpdatingReadOnlySession();
         }
     }

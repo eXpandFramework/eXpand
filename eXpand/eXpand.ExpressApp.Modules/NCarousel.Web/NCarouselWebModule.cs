@@ -1,17 +1,20 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.InfoGenerators;
 using eXpand.NCarousel;
-using eXpand.Persistent.Base.NCarousel;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.NCarousel.Web
 {
     public sealed partial class NCarouselWebModule : ModuleBase
     {
+        public const string AllowOverrideAttributeName = "AllowOverride";
+        public const string HideImagesAttributeName = "HideImages";
         public const string NCarouselAttributeName = "NCarousel";
-        public const string WidthAttributeName = "Width";
-        public const string HeightAttributeName = "Height";
-        public const string VisibleItemsCountAttributeName = "VisibleItemsCount";
-        public const string ButtonPositionAttributeName = "ButtonPosition";
+        public const string ContainerStyleAttributeName = "ContainerStyle";
+        public const string ClipStyleAttributeName = "ClipStyle";
+        public const string ItemStyleAttributeName = "ItemStyle";
+        public const string ButtonStyleAttributeName = "ButtonStyle";
+        public const string UseNoImageAttributeName = "UseNoImage";
         public NCarouselWebModule()
         {
             InitializeComponent();
@@ -25,20 +28,26 @@ namespace eXpand.ExpressApp.NCarousel.Web
         }
         public override Schema GetSchema()
         {
+
             string s = @"<Element Name=""Application"">
                             <Element Name=""Views"">
                                 <Element Name=""ListView"">
                                     <Element Name=""" + NCarouselAttributeName + @""">
-                                        <Attribute Name="""+WidthAttributeName + @"""/>
-                                        <Attribute Name="""+HeightAttributeName + @"""/>
-                                        <Attribute Name="""+VisibleItemsCountAttributeName + @"""/>
-                                        <Attribute Name="""+ButtonPositionAttributeName + @"""/>
-                                        <Attribute Name="""+typeof(Alignment).Name + @""" Choice=""{"+typeof(Alignment).FullName + @"}""/>
+                                        <Attribute Name=""" + AllowOverrideAttributeName + @""" Choice=""True,False""/>
+                                        <Attribute Name=""" + UseNoImageAttributeName + @""" Choice=""True,False""/>
+                                        <Attribute Name=""" + ContainerStyleAttributeName + @"""/>
+                                        <Attribute Name=""" + ClipStyleAttributeName + @"""/>
+                                        <Attribute Name=""" + ItemStyleAttributeName + @"""/>
+                                        
+                                        <Attribute Name=""" + ButtonStyleAttributeName + @"""/>
+                                        <Attribute Name=""" + HideImagesAttributeName + @""" Choice=""True,False""/>
+                                        <Attribute Name=""" + typeof(Alignment).Name + @""" Choice=""{" + typeof(Alignment).FullName + @"}""/>
                                     </Element>
                                 </Element>; 
                             </Element>; 
-                        </Element>"; 
+                        </Element>";
             return new Schema(new DictionaryXmlReader().ReadFromString(s));
         }
+
     }
 }

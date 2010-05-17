@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="eXpand.Utils, Version=0.0.9314.22, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -49,8 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alignment.cs" />
-    <Compile Include="ClientScriptProxy.cs" />
     <Compile Include="NCarousel.cs" />
+    <Compile Include="NCarouselCss.cs" />
     <Compile Include="NCarouselItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

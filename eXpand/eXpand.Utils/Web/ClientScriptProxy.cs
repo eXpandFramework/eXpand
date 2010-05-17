@@ -44,7 +44,7 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace eXpand.NCarousel
+namespace eXpand.Utils.Web
 {
     /// <summary>
     /// This is a proxy object for the Page.ClientScript and MS Ajax ScriptManager 
