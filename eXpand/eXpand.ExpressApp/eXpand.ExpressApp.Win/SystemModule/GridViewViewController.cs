@@ -89,122 +89,13 @@ namespace eXpand.ExpressApp.Win.SystemModule
                     column.Node.SetAttribute(ImmediateUpdateAutoFilter, false.ToString());
                 }
             }
-
-            //            setFromXpDictionary(dictionary);
         }
-
-        //        private void setShowNewItemRowInListView(XPClassInfo xpClassInfo, Dictionary dictionary,
-        //                                                 XPMemberInfo xpMemberInfo)
-        //        {
-        //            Attribute attribute = xpMemberInfo.FindAttributeInfo(typeof (ShowNewItemRowInListView));
-        //            if (attribute != null)
-        //            {
-        //                string attributeValue = xpClassInfo.ClassType.Name + "_" + xpMemberInfo.Name +
-        //                                        "_ListView";
-        //                setNewItemRowPositionValue(dictionary, attributeValue);
-        //            }
-        //        }
-
-        //        private void setShowNewItemRowInListView(XPClassInfo xpClassInfo,
-        //                                                 ShowNewItemRowInListView showNewItemRowInListView,
-        //                                                 Dictionary dictionary)
-        //        {
-        //            if (showNewItemRowInListView != null)
-        //            {
-        //                string attributeValue = xpClassInfo.ClassType.Name +
-        //                                        "_ListView";
-        //                setNewItemRowPositionValue(dictionary, attributeValue);
-        //            }
-        //        }
-
-        /*
-                private void setNewItemRowPositionValue(Dictionary dictionary, string attributeValue)
-                {
-        //            DictionaryNode dictionaryNode =
-        //                dictionary.RootNode.GetChildNode(ViewsNodeWrapper.NodeName).GetChildNode(ListView.InfoNodeName,
-        //                                                                                         "ID",
-        //                                                                                         attributeValue);
-        //            dictionaryNode.SetAttribute(NewItemRowPositionAttributeName,
-        //                                        NewItemRowPosition.Top.ToString());
-                }
-        */
-
-        /*
-                private void setFromXpDictionary(Dictionary dictionary)
-                {
-                    ICollection collectClassInfos = xpDictionary.Classes;
-                    foreach (XPClassInfo xpClassInfo in collectClassInfos)
-                    {
-                        var showNewItemRowInListView =
-                            xpClassInfo.FindAttributeInfo(typeof (ShowNewItemRowInListView)) as ShowNewItemRowInListView;
-                        setShowNewItemRowInListView(xpClassInfo, showNewItemRowInListView, dictionary);
-                        foreach (XPMemberInfo xpMemberInfo in xpClassInfo.CollectionProperties)
-                            setShowNewItemRowInListView(xpClassInfo, dictionary, xpMemberInfo);
-                    }
-                }
-        */
-
-        //        private void View_OnInfoSynchronized(object sender, EventArgs e)
-        //        {
-        //            var gridcontrol = View.Control as GridControl;
-        //            if (gridcontrol != null)
-        //            {
-        //                var gridView = (GridView) gridcontrol.FocusedView;
-        //                string[] strings = GetExtraSerializationProperties();
-        //                if (strings.Length > 0 && strings[0] != "" &&
-        //                    File.Exists(View.Id + typeof (MoreSerializer).Name + ".xml"))
-        //                {
-        //                    MoreSerializer.LoadFilter(gridView, View.Id + typeof (MoreSerializer).Name + ".xml",
-        //                                              strings);
-        //                }
-        //            }
-        //        }
-
-        //        protected override void OnDeactivating()
-        //        {
-        //            base.OnDeactivating();
-        //
-        //
-        //            var gridcontrol = View.Control as GridControl;
-        //            if (gridcontrol != null)
-        //            {
-        //                string[] strings = GetExtraSerializationProperties();
-        //                if (strings.Length > 0 && strings[0] != "")
-        //                {
-        //                    string path = View.Id + typeof (MoreSerializer).Name + ".xml";
-        //                    if (File.Exists(path))
-        //                        File.Delete(path);
-        //                    using (
-        //                        var stream =
-        //                            new FileStream(path, FileMode.CreateNew))
-        //                        MoreSerializer.SaveFilter(mainView, stream, strings);
-        //                }
-        //            }
-        //        }
-
-        //        private string[] GetExtraSerializationProperties()
-        //        {
-        //            string attributeValue = View.Info.GetAttributeValue(ExtraSerializationProperties, "");
-        //            if (attributeValue == "")
-        //                attributeValue = null;
-        //            if (View.Info.GetAttributeBoolValue(SerializeFilterAttributeName, true))
-        //                attributeValue += "ActiveFilterEnabled,ActiveFilterString,MRUFilters,ActiveFilter";
-        //            return (attributeValue + "").Split(',');
-        //        }
-
-
-
-
-
-
 
         private void View_OnControlsCreated(object sender, EventArgs e)
         {
             gridControl = View.Control as GridControl;
             if (gridControl == null)
                 return;
-            //            ((GridControl) View.Control).ServerMode =
-            //                Application.Info.GetChildNode("Options").GetAttributeBoolValue("UseServerMode");
             gridControl.HandleCreated += GridControl_OnHandleCreated;
 
 
@@ -246,9 +137,11 @@ namespace eXpand.ExpressApp.Win.SystemModule
         }
 
 
-        private void SetDoNotLoadWhenFilterExistsCriteria()
-        {
-            ((ListView)View).CollectionSource.Criteria[DoNotLoadWhenNoFilterExists] = new BinaryOperator("Oid", Guid.NewGuid());
+        private void SetDoNotLoadWhenFilterExistsCriteria() {
+            var memberInfo = View.ObjectTypeInfo.KeyMember;
+            var memberType = memberInfo.MemberType;
+            var o = memberType.IsValueType ? Activator.CreateInstance(memberType) : null;
+            ((ListView) View).CollectionSource.Criteria[DoNotLoadWhenNoFilterExists] = new BinaryOperator(memberInfo.Name,o);
         }
 
         private void ClearDoNotLoadWhenFilterExistsCriteria()
