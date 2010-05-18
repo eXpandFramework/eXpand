@@ -46,6 +46,8 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         BarSubItem GetRootMenu(BarManager barManager) {
             var rootMenu = new BarSubItem { Caption = "FocusShortcuts", Id = barManager.GetNewItemId(),Visibility = BarItemVisibility.Never};
             barManager.ProcessShortcutsWhenInvisible = true;
+            if (barManager.MainMenu== null)
+                barManager.MainMenu=new Bar();
             barManager.MainMenu.AddItem(rootMenu);
             barManager.MainMenu.LinksPersistInfo.Add(new LinkPersistInfo(rootMenu));
             return rootMenu;

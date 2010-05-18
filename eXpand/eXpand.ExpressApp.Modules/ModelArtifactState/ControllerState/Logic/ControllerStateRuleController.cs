@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
+using DevExpress.Xpo;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.Logic;
 using eXpand.ExpressApp.Logic.Conditional;
@@ -15,6 +16,7 @@ namespace eXpand.ExpressApp.ModelArtifactState.ControllerState.Logic{
         }
 
         void ChangeStateOnModules(LogicRuleInfo<IControllerStateRule> info) {
+            
             var controllerStateRule = info.Rule;
             IEnumerable<string> assemblies =GetAssemblies(controllerStateRule);
             var controllers = GetControllers(assemblies);

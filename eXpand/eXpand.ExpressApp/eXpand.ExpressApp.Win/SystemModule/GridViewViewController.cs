@@ -232,7 +232,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private void FullTextFilterAction_Execute(object sender, DevExpress.ExpressApp.Actions.ParametrizedActionExecuteEventArgs e)
         {
-            ClearDoNotLoadWhenFilterExistsCriteria();
+            if (string.IsNullOrEmpty(e.ParameterCurrentValue as string))
+                SetDoNotLoadWhenFilterExistsCriteria();
+            else
+                ClearDoNotLoadWhenFilterExistsCriteria();
         }
 
         private void MainViewOnShownEditor(object sender, EventArgs args)
