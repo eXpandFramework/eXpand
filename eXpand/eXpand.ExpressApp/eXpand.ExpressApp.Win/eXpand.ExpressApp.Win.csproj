@@ -151,6 +151,9 @@
     <Compile Include="SystemModule\FocusControlByShortcutController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\CursorPositionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\WinNewObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>
