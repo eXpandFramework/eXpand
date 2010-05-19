@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Validation;
@@ -6,18 +7,17 @@ namespace eXpand.ExpressApp.SystemModule
 {
     public interface IModelClassEnableFKViolations
     {
+        [Category("eXpand")]
         bool EnableFKViolations { get; set; }
     }
 
-    public partial class FKViolationViewController : ViewController
+    public class FKViolationViewController : ViewController, IModelExtender
     {
-        public FKViolationViewController() { }
-
         protected override void OnActivated()
         {
             base.OnActivated();
             if (((IModelClassEnableFKViolations)View.Model.ModelClass).EnableFKViolations)
-                ObjectSpace.ObjectDeleting+=ObjectSpace_OnObjectDeleting;
+                ObjectSpace.ObjectDeleting += ObjectSpace_OnObjectDeleting;
         }
 
         private void ObjectSpace_OnObjectDeleting(object sender, ObjectsManipulatingEventArgs e)
@@ -33,13 +33,12 @@ namespace eXpand.ExpressApp.SystemModule
                                                                      new RuleValidationResult(null, this, false,
                                                                                               messageTemplate)));
                     throw new ValidationException(messageTemplate, result);
-                }    
+                }
             }
         }
 
-        public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelClass, IModelClassEnableFKViolations>();
         }
     }

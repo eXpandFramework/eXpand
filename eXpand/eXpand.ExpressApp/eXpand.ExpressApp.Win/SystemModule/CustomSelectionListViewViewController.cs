@@ -10,35 +10,34 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using eXpand.ExpressApp.Win.ListEditors;
-using GridListEditor=eXpand.ExpressApp.Win.ListEditors.GridListEditor;
-using ListView=DevExpress.ExpressApp.ListView;
+using GridListEditor = eXpand.ExpressApp.Win.ListEditors.GridListEditor;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
     public class CustomSelectionListViewViewController : ExpressApp.SystemModule.CustomSelectionListViewViewController
     {
-        private ArrayList checkedObjects=new ArrayList();
+        private ArrayList checkedObjects = new ArrayList();
 
         protected override void OnActivated()
         {
             base.OnActivated();
-            checkedObjects=new ArrayList();
+            checkedObjects = new ArrayList();
             if (HasCustomSelection)
             {
-                View.ControlsCreated+=View_OnControlsCreated;
-                Frame.GetController<WindowHintController>().WarningHintPanelReady+=WarningHintPanelReady;   
+                View.ControlsCreated += View_OnControlsCreated;
+                Frame.GetController<WindowHintController>().WarningHintPanelReady += WarningHintPanelReady;
             }
         }
 
         private void WarningHintPanelReady(object sender, HintPanelReadyEventArgs e)
         {
-            if (View.Control is GridControl && CustomSelectionColumnIsVisible((GridControl) View.Control) &&
-                ((GridView) ((GridControl) View.Control).MainView).Columns.ColumnByFieldName(CustomSelection) != null)
+            if (View.Control is GridControl && CustomSelectionColumnIsVisible((GridControl)View.Control) &&
+                ((GridView)((GridControl)View.Control).MainView).Columns.ColumnByFieldName(CustomSelection) != null)
             {
                 if (!(View.Editor is GridListEditor))
                 {
                     var bottomHintPanel = Frame.GetController<WindowHintController>().BottomHintPanel;
-                    bottomHintPanel.Text = @"Custom Selection Can only work with " + typeof (GridListEditor).FullName;
+                    bottomHintPanel.Text = @"Custom Selection Can only work with " + typeof(GridListEditor).FullName;
                     bottomHintPanel.Visible = true;
                 }
             }
@@ -52,14 +51,14 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 if (CustomSelectionColumnIsVisible(gridControl))
                 {
                     var editor = (View).Editor as GridListEditor;
-                    if (editor!= null)
+                    if (editor != null)
                     {
                         editor.DataSourceChanged += (sender1, e1) => checkedObjects = new ArrayList();
-                        editor.CustomGetSelectedObjects+=Editor_OnCustomGetSelectedObjects;
+                        editor.CustomGetSelectedObjects += Editor_OnCustomGetSelectedObjects;
                         gridControl.KeyDown += GridControl_OnKeyDown;
-                        gridControl.DoubleClick+=GridControl_OnDoubleClick;   
-                        gridControl.FocusedView.MouseDown+=MouseDown;
-                        ((GridView) gridControl.FocusedView).CustomRowCellEdit+=CustomRowCellEdit;
+                        gridControl.DoubleClick += GridControl_OnDoubleClick;
+                        gridControl.FocusedView.MouseDown += MouseDown;
+                        ((GridView)gridControl.FocusedView).CustomRowCellEdit += CustomRowCellEdit;
                     }
                 }
             }
@@ -67,8 +66,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private void GridControl_OnDoubleClick(object sender, EventArgs e)
         {
-            var control = ((GridControl) sender);
-            var focusedView = (GridView) control.FocusedView;
+            var control = ((GridControl)sender);
+            var focusedView = (GridView)control.FocusedView;
             object row = focusedView.GetRow(focusedView.FocusedRowHandle);
 
             CheckSelectedObjects(new ArrayList(checkedObjects));
@@ -83,15 +82,15 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private void CustomRowCellEdit(object sender, CustomRowCellEditEventArgs e)
         {
-            if (e.Column.FieldName==CustomSelection)
-                ((RepositoryItemBooleanEdit)e.RepositoryItem).NullStyle=StyleIndeterminate.Unchecked;
+            if (e.Column.FieldName == CustomSelection)
+                ((RepositoryItemBooleanEdit)e.RepositoryItem).NullStyle = StyleIndeterminate.Unchecked;
         }
 
         private void MouseDown(object sender, MouseEventArgs e)
         {
-            var view = ((GridView) sender);
+            var view = ((GridView)sender);
             GridHitInfo info = view.CalcHitInfo(e.Location);
-            if (info.HitTest==GridHitTest.RowCell)
+            if (info.HitTest == GridHitTest.RowCell)
                 CheckObject(view.GetRow(info.RowHandle));
         }
 
@@ -103,7 +102,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private bool CustomSelectionColumnIsVisible(GridControl gridControl)
         {
-            return ((GridView) gridControl.MainView).Columns.ColumnByFieldName(CustomSelection) != null;
+            return ((GridView)gridControl.MainView).Columns.ColumnByFieldName(CustomSelection) != null;
         }
 
         private bool IsGroupRowHandle(int handle)
@@ -114,7 +113,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         private void GridControl_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Space)
-                CheckObjects((GridControl) sender);
+                CheckObjects((GridControl)sender);
         }
 
         private void CheckObjects(GridControl sender)
@@ -131,15 +130,15 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private void CheckObject(object selectedObject)
         {
-            var xpBaseObject = ((XPBaseObject) selectedObject);
+            var xpBaseObject = ((XPBaseObject)selectedObject);
             if (xpBaseObject != null)
             {
-                var b = (bool?) xpBaseObject.GetMemberValue(CustomSelection);
+                var b = (bool?)xpBaseObject.GetMemberValue(CustomSelection);
                 if (!b.HasValue)
                     b = true;
                 else
                     b = !b;
-                xpBaseObject.SetMemberValue(CustomSelection,b);
+                xpBaseObject.SetMemberValue(CustomSelection, b);
                 if (b.Value)
                     checkedObjects.Add(xpBaseObject);
                 else
@@ -151,7 +150,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             var selectedObjects = new ArrayList();
 
-            var gridView = ((GridView) ((GridControl) sender).MainView);
+            var gridView = ((GridView)((GridControl)sender).MainView);
             int[] selectedRows = gridView.GetSelectedRows();
             if ((selectedRows != null) && (selectedRows.Length > 0))
                 foreach (int rowHandle in selectedRows)

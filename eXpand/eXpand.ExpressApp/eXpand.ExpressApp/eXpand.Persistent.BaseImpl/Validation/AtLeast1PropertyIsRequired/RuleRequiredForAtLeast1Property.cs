@@ -64,7 +64,7 @@ namespace eXpand.Persistent.BaseImpl.Validation.RuleRequiredForAtLeast1Property
         protected override bool IsValidInternal(object target, out string errorMessageTemplate)
         {
             Dictionary<string, object> values = GetValues(target);
-            int emptyFound = values.Count(value => Validator.RuleSet.IsEmptyValue(TargetObject, value.Key, value.Value));
+            int emptyFound = values.Count(value => RuleSet.IsEmptyValue(TargetObject, value.Key, value.Value));
             errorMessageTemplate = Properties.MessageTemplateMustNotBeEmpty;
             return (emptyFound != values.Count);
         }

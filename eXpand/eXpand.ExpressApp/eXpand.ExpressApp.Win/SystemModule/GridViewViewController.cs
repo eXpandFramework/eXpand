@@ -1,14 +1,12 @@
 ﻿using System;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Utils;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using eXpand.ExpressApp.SystemModule;
-using GridListEditor = DevExpress.ExpressApp.Win.Editors.GridListEditor;
 using System.Linq;
 using NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition;
 using DevExpress.XtraGrid.Columns;
@@ -20,25 +18,34 @@ namespace eXpand.ExpressApp.Win.SystemModule
 {
     public interface IModelColumnGridViewOptions : IModelNode
     {
+        [Category("eXpand")]
         AutoFilterCondition AutoFilterCondition { get; set; }
+        [Category("eXpand")]
         bool ImmediateUpdateAutoFilter { get; set; }
     }
 
     public interface IModelListViewGridViewOptions : IModelNode
     {
+        [Category("eXpand")]
         EditorShowMode EditorShowMode { get; set; }
+        [Category("eXpand")]
         bool AutoExpandNewRow { get; set; }
+        [Category("eXpand")]
         bool DoNotLoadWhenNoFilterExists { get; set; }
+        [Category("eXpand")]
         [DefaultValue(AutoFilterCondition.Contains)]
         AutoFilterCondition AutoFilterCondition { get; set; }
         [DefaultValue(true)]
+        [Category("eXpand")]
         bool GuessAutoFilterRowValuesFromFilter { get; set; }
         [DefaultValue(false)]
+        [Category("eXpand")]
         bool ImmediateUpdateAutoFilter { get; set; }
+        [Category("eXpand")]
         int GroupLevelExpandIndex { get; set; }
     }
 
-    public partial class GridViewViewController : BaseViewController<ListView>
+    public class GridViewViewController : BaseViewController<ListView>, IModelExtender
     {
         private const string DoNotLoadWhenNoFilterExists = "DoNotLoadWhenNoFilterExists";
         private GridControl gridControl;
@@ -46,11 +53,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
         private bool newRowAdded;
         private DevExpress.ExpressApp.SystemModule.FilterController filterController;
 
-        public GridViewViewController() { }
-
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewGridViewOptions>();
             extenders.Add<IModelColumn, IModelColumnGridViewOptions>();
         }
@@ -100,12 +104,13 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private void SetDoNotLoadWhenFilterExistsCriteria()
         {
-            ((ListView)View).CollectionSource.Criteria[DoNotLoadWhenNoFilterExists] = new BinaryOperator("Oid", Guid.NewGuid());
+
+            View.CollectionSource.Criteria[DoNotLoadWhenNoFilterExists] = new BinaryOperator("Oid", Guid.NewGuid());
         }
 
         private void ClearDoNotLoadWhenFilterExistsCriteria()
         {
-            ((ListView)View).CollectionSource.Criteria[DoNotLoadWhenNoFilterExists] = null;
+            View.CollectionSource.Criteria[DoNotLoadWhenNoFilterExists] = null;
         }
 
         private void ActiveFilter_OnChanged(object sender, EventArgs e)
@@ -157,7 +162,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
             SetColumnOptions(gridView, model);
 
-            if (((IModelListViewShowAutoFilterRow)model).ShowAutoFilterRow && 
+            if (((IModelListViewShowAutoFilterRow)model).ShowAutoFilterRow &&
                 ((IModelListViewGridViewOptions)model).GuessAutoFilterRowValuesFromFilter)
             {
                 gridView.GuessAutoFilterRowValuesFromFilter();
@@ -168,7 +173,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             foreach (GridColumn column in gridView.Columns)
             {
-                var columnInfo = listViewInfoNodeWrapper.Columns.Single(c => c.PropertyName == column.FieldName.Replace("!", string.Empty));
+                GridColumn column1 = column;
+                var columnInfo = listViewInfoNodeWrapper.Columns.Single(c => c.PropertyName == column1.FieldName.Replace("!", string.Empty));
                 if (columnInfo != null)
                 {
                     column.OptionsFilter.AutoFilterCondition = ((IModelColumnGridViewOptions)columnInfo).AutoFilterCondition;

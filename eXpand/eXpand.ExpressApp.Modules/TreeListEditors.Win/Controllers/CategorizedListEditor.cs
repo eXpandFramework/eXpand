@@ -7,12 +7,13 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers {
     public class CategorizedListEditor : DevExpress.ExpressApp.TreeListEditors.Win.CategorizedListEditor {
         readonly Locker locker = new Locker();
 
-        public CategorizedListEditor(DictionaryNode info) : base(info) {
+        public CategorizedListEditor(IModelListView model) : base(model) {
         }
 
         protected override object CreateControlsCore() {
@@ -57,7 +58,6 @@ namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers {
                 categories.Add(currentCategory.ClassInfo.KeyProperty.GetValue(currentCategory));
                 GetCategories((ITreeNode) CategoriesListView.CurrentObject, categories);
                 ItemsDataSource.Criteria[CategoryPropertyName] = new InOperator("Category.Oid", categories);
-                RefreshColumns();
             }
         }
 

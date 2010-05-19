@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -15,13 +16,12 @@ namespace eXpand.ExpressApp.SystemModule
 
     public interface IModelListViewLookUpListSearch
     {
+        [Category("eXpand")]
         LookUpListSearch LookUpListSearch { get; set; }
     }
 
-    public class LookUpListSearchAlwaysEnableController : BaseViewController
+    public class LookUpListSearchAlwaysEnableController : BaseViewController, IModelExtender
     {
-        public LookUpListSearchAlwaysEnableController() { }
-
         protected override void OnActivated()
         {
             base.OnActivated();
@@ -31,23 +31,23 @@ namespace eXpand.ExpressApp.SystemModule
                     ((ILookupPopupFrameTemplate)Frame.Template).IsSearchEnabled = true;
             }
         }
-        
+
         public override void UpdateModel(IModelApplication applicationModel)
         {
-            return;
+
             base.UpdateModel(applicationModel);
+            return;
             IEnumerable<string> enumerable = applicationModel.BOModel
-                .Where(wrapper => typeof (ICategorizedItem).IsAssignableFrom(wrapper.TypeInfo.Type))
+                .Where(wrapper => typeof(ICategorizedItem).IsAssignableFrom(wrapper.TypeInfo.Type))
                 .Select(wrapper => wrapper.TypeInfo.FullName);
 
-            foreach (var nodeWrapper in applicationModel.Views.Where(
+            foreach (IModelListView modelView in applicationModel.Views.Where(
                 wrapper => wrapper.Id.EndsWith("_LookupListView") && enumerable.Contains(wrapper.ModelClass.Name)))
-                ((IModelListViewLookUpListSearch)View.Model).LookUpListSearch = LookUpListSearch.AlwaysEnable;
+                ((IModelListViewLookUpListSearch)modelView).LookUpListSearch = LookUpListSearch.AlwaysEnable;
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewLookUpListSearch>();
         }
     }

@@ -1,3 +1,6 @@
+using System.ComponentModel;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using eXpand.ExpressApp.SystemModule;
 using eXpand.ExpressApp.Win.Interfaces;
@@ -6,17 +9,19 @@ namespace eXpand.ExpressApp.Win.SystemModule
 {
     public interface IModelLogOutEnable : IModelNode
     {
+        [Category("eXpand")]
         bool LogOutEnable { get; set; }
     }
 
-    public partial class WinLogoutWindowController : BaseWindowController
+    public class WinLogoutWindowController : BaseWindowController, IModelExtender
     {
         public const string LogOutEnable = "LogOutEnable";
 
         public WinLogoutWindowController()
         {
-            InitializeComponent();
-            RegisterActions(components);
+            var logOutAction = new SimpleAction(this, "logOutSimpleAction", "Export") { Caption = "Log Out" };
+            logOutAction.Execute+=logOutSimpleAction_Execute;            
+            
         }
 
         protected override void OnActivated()
@@ -25,14 +30,13 @@ namespace eXpand.ExpressApp.Win.SystemModule
             Active[LogOutEnable] = ((IModelLogOutEnable)Application.Model.Options).LogOutEnable;
         }
 
-        private void logOutSimpleAction_Execute(object sender, DevExpress.ExpressApp.Actions.SimpleActionExecuteEventArgs e)
+        private void logOutSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
             ((ILogOut)Application).Logout();
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions, IModelLogOutEnable>();
         }
     }

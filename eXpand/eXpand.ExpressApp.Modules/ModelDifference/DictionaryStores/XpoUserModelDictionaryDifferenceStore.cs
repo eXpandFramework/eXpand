@@ -7,11 +7,12 @@ using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.Security;
 using eXpand.Persistent.Base;
+using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     public class XpoUserModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore{
         
-
         public XpoUserModelDictionaryDifferenceStore(XafApplication application)
             : base(application){
         }
@@ -20,41 +21,42 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             get { return DifferenceType.User; }
         }
 
-
         protected internal override ModelDifferenceObject GetActiveDifferenceObject(){
             return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName);
         }
 
         protected internal IQueryable<ModelDifferenceObject> GetActiveDifferenceObjects(){
-            IQueryable<UserModelDifferenceObject> modelDifferenceObjects = new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(
-                Application.GetType().FullName);
-            List<RoleModelDifferenceObject> roleAspectObjects = new QueryRoleModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(
-                Application.GetType().FullName).ToList();
-            IEnumerable<ModelDifferenceObject> roleAspectObjectsConcat = roleAspectObjects.Cast<ModelDifferenceObject>().Concat(modelDifferenceObjects.Cast<ModelDifferenceObject>());
-            return roleAspectObjectsConcat.AsQueryable();
+            List<ModelDifferenceObject> allLayers =
+                new List<ModelDifferenceObject>(new QueryRoleModelDifferenceObject(ObjectSpace.Session)
+                    .GetActiveModelDifferences(Application.GetType().FullName).Cast<ModelDifferenceObject>());
+
+            allLayers.AddRange(new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName).Cast<ModelDifferenceObject>());
+            return allLayers.AsQueryable();
         }
 
-
-        protected override Dictionary LoadDifferenceCore(Schema schema)
+        public override void Load(ModelApplicationBase model)
         {
-            var dictionary = new Dictionary(schema);   
-            foreach (var aspect in Application.Model.Aspects){
-                dictionary.AddAspect(aspect, new DictionaryNode("Application"));
-            }
+            base.Load(model);
+            
             var modelDifferenceObjects = GetActiveDifferenceObjects().ToList();
-            if (modelDifferenceObjects.Count() == 0){
-                SaveDifference(dictionary);
-                return dictionary;
+            if (modelDifferenceObjects.Count() == 0)
+            {
+                SaveDifference(model);
+                return;
             }
-            return CombineWithActiveDifferenceObjects(modelDifferenceObjects);
+            
+            CombineWithActiveDifferenceObjects(model, modelDifferenceObjects);
         }
 
-        public Dictionary CombineWithActiveDifferenceObjects(List<ModelDifferenceObject> modelDifferenceObjects){
-            Dictionary combinedModel = modelDifferenceObjects[0].GetCombinedModel(Application.Model);
+        public void CombineWithActiveDifferenceObjects(ModelApplicationBase model, List<ModelDifferenceObject> modelDifferenceObjects)
+        {
+            ModelXmlReader reader = new ModelXmlReader();
+            ModelXmlWriter writer = new ModelXmlWriter();
             foreach (var modelDifferenceObject in modelDifferenceObjects){
-                combinedModel.CombineWith(modelDifferenceObject.Model);
+                for (int i = 0; i < modelDifferenceObject.Model.AspectCount; i++){
+                reader.ReadFromString(model, modelDifferenceObject.Model.GetAspect(i), writer.WriteToString(modelDifferenceObject.Model, i));
+                }
             }
-            return combinedModel.GetDiffs();
         }
 
         protected internal override ModelDifferenceObject GetNewDifferenceObject(ObjectSpace session){
@@ -63,27 +65,27 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             return aspectObject;
         }
 
-        protected internal override void OnDifferenceObjectSaving(ModelDifferenceObject userModelDifferenceObject, Dictionary diffDictionary){
+        protected internal override void OnDifferenceObjectSaving(ModelDifferenceObject userModelDifferenceObject, ModelApplicationBase model){
             var userStoreObject = ((UserModelDifferenceObject) userModelDifferenceObject);
             if (!userStoreObject.NonPersistent){
-                base.OnDifferenceObjectSaving(userModelDifferenceObject, diffDictionary);
+                base.OnDifferenceObjectSaving(userModelDifferenceObject, model);
             }
-            if (SecuritySystem.Instance is ISecurityComplex&& IsGranted()){
-                ObjectSpace space = Application.CreateObjectSpace();
+
+            if (SecuritySystem.Instance is ISecurityComplex && IsGranted()){
+                var reader = new ModelXmlReader();
+                var writer = new ModelXmlWriter();
+                var space = Application.CreateObjectSpace();
                 IQueryable<ModelDifferenceObject> differences = GetDifferences(space);
                 foreach (var difference in differences){
-                    combineDifference(userModelDifferenceObject, diffDictionary, difference);
+                    for (int i = 0; i < model.AspectCount; i++)
+                    {
+                        reader.ReadFromString(difference.Model, model.GetAspect(i), writer.WriteToString(model, i));
+                    }
+
+                    space.SetModified(difference);
                 }
                 space.CommitChanges();
             }
-            
-        }
-
-        private void combineDifference(ModelDifferenceObject userModelDifferenceObject, Dictionary diffDictionary, ModelDifferenceObject difference){
-            Dictionary combinedModel = difference.GetCombinedModel();
-            combinedModel.CombineWith(userModelDifferenceObject.Model);
-            combinedModel.CombineWith(diffDictionary);
-            difference.Model = combinedModel.GetDiffs();
         }
 
         private IQueryable<ModelDifferenceObject> GetDifferences(ObjectSpace space){

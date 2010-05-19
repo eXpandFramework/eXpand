@@ -6,7 +6,6 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.Core;
 using DevExpress.ExpressApp.Win.Editors;
@@ -17,7 +16,6 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model;
 
@@ -27,24 +25,31 @@ namespace eXpand.ExpressApp.Win.SystemModule
     {
         [DataSourceProperty("Application.Views")]
         [DataSourceCriteria("ModelClass Is Not Null And ModelClass.Name = '@This.Name'")]
+        [Category("eXpand")]
         IModelListView DetailListView { get; set; }
 
         [DataSourceProperty("ModelClass.AllMembers")]
         [DataSourceCriteria("MemberInfo.IsList")]
+        [Category("eXpand")]
         IModelMember DetailListRelationName { get; set; }
+        [Category("eXpand")]
         bool ExpandAllRows { get; set; }
     }
 
-    public partial class MasterDetailViewController : BaseViewController<ListView>
+    public class MasterDetailViewController : BaseViewController<ListView>, IModelExtender
     {
         private GridControl gridControl;
         private XafGridView gridView;
         private RepositoryEditorsFactory repositoryFactory;
+        readonly SimpleAction _expandAllRowsSimpleAction;
+        readonly SimpleAction _collapseAllRowsSimpleAction;
 
         public MasterDetailViewController()
         {
-            InitializeComponent();
-            RegisterActions(components);
+            _expandAllRowsSimpleAction = new SimpleAction(this, "ExpandAllRows", PredefinedCategory.Edit);
+            _expandAllRowsSimpleAction.Execute+=ExpandAllRowsSimpleAction_Execute;
+            _collapseAllRowsSimpleAction = new SimpleAction(this, "CollapseAllRows", PredefinedCategory.Edit);
+            _collapseAllRowsSimpleAction.Execute+=CollapseAllRowsSimpleAction_Execute;
         }
 
         public object CurrentObject
@@ -127,7 +132,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 if (repositoryFactory != null)
                 {
                     bool isGranted = DataManipulationRight.CanRead(objectType, columnInfo.PropertyName, null,
-                                                                   ((ListView)View).CollectionSource);
+                                                                   View.CollectionSource);
                     RepositoryItem repositoryItem = repositoryFactory.CreateRepositoryItem(!isGranted, columnInfo, objectType);
                     if (repositoryItem != null)
                     {
@@ -191,14 +196,14 @@ namespace eXpand.ExpressApp.Win.SystemModule
         protected override void OnActivated()
         {
             base.OnActivated();
-            
-            ExpandAllRowsSimpleAction.Active["key"] = false;
-            CollapseAllRowsSimpleAction.Active["key"] = false;
-            if (this.IsActive)
+
+            _expandAllRowsSimpleAction.Active["key"] = false;
+            _collapseAllRowsSimpleAction.Active["key"] = false;
+            if (IsActive)
             {
                 Frame.GetController<DeleteObjectsViewController>().DeleteAction.Executing += DeleteAction_OnExecuting;
-                ExpandAllRowsSimpleAction.Active["key"] = true;
-                CollapseAllRowsSimpleAction.Active["key"] = true;
+                _expandAllRowsSimpleAction.Active["key"] = true;
+                _collapseAllRowsSimpleAction.Active["key"] = true;
                 repositoryFactory = new RepositoryEditorsFactory(Application, ObjectSpace);
             }
         }
@@ -207,7 +212,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             get
             {
-                return this.DetailListView != null && this.DetailListRelationName != null;
+                return DetailListView != null && DetailListRelationName != null;
             }
         }
 
@@ -215,7 +220,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             get
             {
-                return ((IModelListViewMasterDetailOptions)this.View.Model).DetailListView;
+                return ((IModelListViewMasterDetailOptions)View.Model).DetailListView;
             }
         }
 
@@ -223,7 +228,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             get
             {
-                return ((IModelListViewMasterDetailOptions)this.View.Model).DetailListRelationName;
+                return ((IModelListViewMasterDetailOptions)View.Model).DetailListRelationName;
             }
         }
 
@@ -231,13 +236,13 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             get
             {
-                return ((IModelListViewMasterDetailOptions)this.View.Model).ExpandAllRows;
+                return ((IModelListViewMasterDetailOptions)View.Model).ExpandAllRows;
             }
         }
 
         protected override void OnDeactivating()
         {
-            if (this.IsActive)
+            if (IsActive)
             {
                 Frame.GetController<DeleteObjectsViewController>().DeleteAction.Executing -= DeleteAction_OnExecuting;
             }
@@ -259,16 +264,15 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewMasterDetailOptions>();
         }
 
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            if (this.IsActive)
+            if (IsActive)
             {
                 gridControl = (GridControl)View.Control;
                 gridControl.HandleCreated += GridControl_OnHandleCreated;
@@ -283,14 +287,14 @@ namespace eXpand.ExpressApp.Win.SystemModule
             view.OptionsDetail.EnableMasterViewMode = true;
             gridControl.ShowOnlyPredefinedDetails = true;
             gridView = new XafGridView();
-            GridViewViewController.SetOptions(gridView, this.DetailListView);
+            GridViewViewController.SetOptions(gridView, DetailListView);
             gridView.GridControl = gridControl;
-            RefreshColumns(this.DetailListView);
-            gridControl.LevelTree.Nodes.Add(this.DetailListRelationName.Name, gridView);
+            RefreshColumns(DetailListView);
+            gridControl.LevelTree.Nodes.Add(DetailListRelationName.Name, gridView);
             gridView.DoubleClick += gridView_DoubleClick;
 
-            if (this.ExpandAllRows)
-                ExpandAllRowsSimpleAction.DoExecute();
+            if (ExpandAllRows)
+                _expandAllRowsSimpleAction.DoExecute();
         }
 
         private void gridView_DoubleClick(object sender, EventArgs e)
@@ -307,7 +311,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             {
                 ObjectSpace.Session.PreFetch(((PersistentBase)View.CurrentObject).ClassInfo,
                                              View.CollectionSource.List,
-                                             this.DetailListRelationName.Name);
+                                             DetailListRelationName.Name);
                 var view = (GridView)gridControl.MainView;
                 for (int i = 0; i < view.RowCount; i++)
                     view.ExpandMasterRow(i);

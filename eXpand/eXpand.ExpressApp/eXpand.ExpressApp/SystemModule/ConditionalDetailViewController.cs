@@ -1,12 +1,11 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Localization;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.Enums;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
@@ -46,7 +45,7 @@ namespace eXpand.ExpressApp.SystemModule
         IModelDetailView DetailView { get; set; }
     }
 
-    public class ConditionalDetailViewController : ViewController<ListView>
+    public class ConditionalDetailViewController : ViewController<ListView>, IModelExtender
     {
         public const string ConditionalDetailViewsAttributeName = "ConditionalDetailViews";
         bool isActive;
@@ -54,15 +53,11 @@ namespace eXpand.ExpressApp.SystemModule
         ListViewProcessCurrentObjectController _listViewProcessCurrentObjectController;
         IModelListViewConditionalDetailViews model;
 
-        public ConditionalDetailViewController() { }
-
         public event ChooseCustomDetailViewEventHandler CustomChooseDetailView;
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewConditionalDetailViews>();
-            extenders.Add<IModelDetailView, IModelListViewEnableOpenActionInMasterDetailMode>();
         }
 
         protected override void OnActivated()
@@ -195,18 +190,10 @@ namespace eXpand.ExpressApp.SystemModule
                 return Application.Model.Views[eventArgs.DetailViewID] as IModelDetailView;
             }
 
-            IModelDetailView result = null;
-            foreach (IModelConditionalDetailView item in model.ConditionalDetailViews)
-            {
-                if (NodeMatches(os, item, detailViewType, newObjType, obj))
-                {
-                    result = item.DetailView;
-                    break;
-                }
-            }
-
-            if (result == null)
-                result = Application.Model.Views[defaultDetailViewID] as IModelDetailView;
+            IModelDetailView result = (from item in model.ConditionalDetailViews
+                                       where NodeMatches(os, item, detailViewType, newObjType, obj)
+                                       select item.DetailView).FirstOrDefault() ??
+                                      Application.Model.Views[defaultDetailViewID] as IModelDetailView;
 
             return result;
         }

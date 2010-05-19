@@ -7,13 +7,11 @@ using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public partial class NewObjectLookUpViewController : BaseViewController
+    public class NewObjectLookUpViewController : BaseViewController
     {
         public NewObjectLookUpViewController()
         {
-            InitializeComponent();
-            RegisterActions(components);
-            TargetViewType=ViewType.ListView;
+            TargetViewType = ViewType.ListView;
         }
 
         protected override void OnActivated()
@@ -21,8 +19,11 @@ namespace eXpand.ExpressApp.Win.SystemModule
             base.OnActivated();
 
             if (Frame.Template is ILookupPopupFrameTemplate)
-                View.ControlsCreated += (sender, e) => { if (View.Control is GridControl)
-                    ((GridControl) View.Control).KeyDown += grid_KeyDown; };
+                View.ControlsCreated += (sender, e) =>
+                {
+                    if (View.Control is GridControl)
+                        ((GridControl)View.Control).KeyDown += grid_KeyDown;
+                };
         }
 
 
@@ -36,7 +37,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             base.OnDeactivating();
             if (Frame.Template is ILookupPopupFrameTemplate && View.Control is GridControl)
-                ((GridControl) View.Control).KeyDown -= grid_KeyDown;
+                ((GridControl)View.Control).KeyDown -= grid_KeyDown;
         }
     }
 }

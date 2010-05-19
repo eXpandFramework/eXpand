@@ -1,49 +1,65 @@
 ﻿using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Attributes;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
+using System.Linq;
 
-namespace eXpand.ExpressApp.Win.SystemModule {
-    public class WinNewObjectViewController : DevExpress.ExpressApp.Win.SystemModule.WinNewObjectViewController {
-        public const string ClassTypeToInstantiate = "ClassTypeToInstantiate";
-        protected override void UpdateActionState() {
+namespace eXpand.ExpressApp.Win.SystemModule
+{
+    public interface IModelViewClassTypeToInstantiate : IModelNode
+    {
+        [Category("eXpand")]
+        [DataSourceProperty("Application.BOModel")]
+        string ClassTypeToInstantiate { get; set; }
+    }
+    public class WinNewObjectViewController : DevExpress.ExpressApp.Win.SystemModule.WinNewObjectViewController, IModelExtender
+    {
+
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            extenders.Add<IModelListView, IModelViewClassTypeToInstantiate>();
+            extenders.Add<IModelDetailView, IModelViewClassTypeToInstantiate>();
+        }
+        protected override void UpdateActionState()
+        {
             base.UpdateActionState();
-            foreach (ITypeInfo typeInfo in currentViewTypes) {
+            foreach (ITypeInfo typeInfo in currentViewTypes)
+            {
                 var b = typeInfo.FindAttribute<CanInstantiate>() != null;
-                if (b) {
+                if (b)
+                {
                     String diagnosticInfo;
-                    if (!CanCreateAndEdit(typeInfo.Type, out diagnosticInfo) ) {
+                    if (!CanCreateAndEdit(typeInfo.Type, out diagnosticInfo))
+                    {
                         if (NewObjectAction.Items.Count > 0)
                             NewObjectAction.Items[0].BeginGroup = true;
-                        DictionaryNode findChildNode = Application.Info.FindChildNode("CreatableItems").GetChildNode(
-                            "Item", "ClassName", typeInfo.FullName);
-                        if (findChildNode != null)
-                            NewObjectAction.Items.Insert(0, CreateItem(typeInfo.Type, findChildNode));
+                        IModelCreatableItem modelCreatableItem = GetModelCreatableItem(typeInfo);
+                        if (modelCreatableItem != null)
+                            NewObjectAction.Items.Insert(0, CreateItem(typeInfo.Type, modelCreatableItem));
                     }
                 }
             }
-            var type = ReflectionHelper.FindType(View.Info.GetAttributeValue(ClassTypeToInstantiate));
+
+            var type = ReflectionHelper.FindType(((IModelViewClassTypeToInstantiate)View.Model).ClassTypeToInstantiate);
             if (type != null)
             {
-                DictionaryNode findChildNode = Application.Info.FindChildNode("CreatableItems").GetChildNode(
-                            "Item", "ClassName", type.FullName);
-                if (findChildNode != null)
+                IModelCreatableItem modelCreatableItem = GetModelCreatableItem(XafTypesInfo.CastTypeToTypeInfo(type));
+                if (modelCreatableItem != null)
                 {
                     NewObjectAction.Items.RemoveAt(0);
-                    NewObjectAction.Items.Insert(0, CreateItem(type, findChildNode));
+                    NewObjectAction.Items.Insert(0, CreateItem(type, modelCreatableItem));
                 }
             }
         }
-        public override Schema GetSchema()
-        {
-            var schema = base.GetSchema();
-            var schemaBuilder = new SchemaBuilder();
-            schema.CombineWith(new Schema(schemaBuilder.Inject(@"<Attribute Name=""" + ClassTypeToInstantiate + @""" RefNodeName=""/Application/BOModel/Class""/>", ModelElement.ListView)));
-            schema.CombineWith(new Schema(schemaBuilder.Inject(@"<Attribute Name=""" + ClassTypeToInstantiate + @""" RefNodeName=""/Application/BOModel/Class""/>", ModelElement.DetailView)));
-            return schema;
-        }   
 
+        IModelCreatableItem GetModelCreatableItem(ITypeInfo typeInfo)
+        {
+            ITypeInfo info = typeInfo;
+            return ((IModelApplicationCreatableItems)Application.Model).CreatableItems.Where(item => item.ClassName == info.FullName).FirstOrDefault();
+        }
     }
 }

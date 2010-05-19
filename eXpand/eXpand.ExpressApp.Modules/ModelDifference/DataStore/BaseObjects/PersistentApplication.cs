@@ -7,10 +7,8 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
     public class PersistentApplication:DifferenceObject{
         private string _name;
 
-        public PersistentApplication(Session session) : base(session){
-            
+        public PersistentApplication(Session session) : base(session){   
         }
-
 
         [DevExpress.Xpo.DisplayName("Application Name")]
         [RuleRequiredField(null,DefaultContexts.Save)]
@@ -48,6 +46,29 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             {
                 SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref uniqueName, value);
             }
+        }
+
+        private string executableName;
+        [RuleUniqueValue(null, DefaultContexts.Save)]
+        [Browsable(false)]
+        [MemberDesignTimeVisibility(false)]
+        public string ExecutableName
+        {
+            get
+            {
+                return this.executableName;
+            }
+
+            set
+            {
+                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref executableName, value);
+            }
+        }
+
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
+            this.ExecutableName = Assembly.GetAssembly(ModelDifferenceModule.XafApplication.GetType()).ManifestModule.Name;
         }
     }
 }

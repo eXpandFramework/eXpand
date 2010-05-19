@@ -4,18 +4,14 @@ using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 
 namespace eXpand.ExpressApp.ModelDifference.Web.Controllers
 {
-    public partial class CombineActiveModelDictionaryWithActiveModelDifferenceController : CombineActiveModelDictionaryController<ModelDifferenceObject>
+    public class CombineActiveModelDictionaryWithActiveModelDifferenceController : CombineActiveModelDictionaryController<ModelDifferenceObject>
     {
-        public CombineActiveModelDictionaryWithActiveModelDifferenceController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
+        public CombineActiveModelDictionaryWithActiveModelDifferenceController() {
         }
 
-
-        protected override ModelDifferenceObject GetActiveDifference(PersistentApplication persistentApplication,
-                                                                     string applicationUniqueName){
-            return new QueryModelDifferenceObject(View.ObjectSpace.Session).GetActiveModelDifference(persistentApplication.UniqueName);
+        protected override ModelDifferenceObject GetActiveDifference(PersistentApplication persistentApplication, string applicationUniqueName){
+            return new QueryModelDifferenceObject(View.ObjectSpace.Session)
+                .GetActiveModelDifference(persistentApplication.UniqueName);
         }
     }
 }

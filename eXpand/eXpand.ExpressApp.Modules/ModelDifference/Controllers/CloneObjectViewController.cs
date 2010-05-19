@@ -4,15 +4,9 @@ using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.ModelDifference.Controllers{
-    public partial class CloneObjectViewController : DevExpress.ExpressApp.CloneObject.CloneObjectViewController
+    public class CloneObjectViewController : DevExpress.ExpressApp.CloneObject.CloneObjectViewController
     {
-
-
-        public CloneObjectViewController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-            
+        public CloneObjectViewController() {
         }
 
         protected override void CloneObject(SingleChoiceActionExecuteEventArgs args)
@@ -26,9 +20,5 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
                 modelDifferenceObject.PersistentApplication = (PersistentApplication) modelDifferenceObject.Session.GetObject(((ModelDifferenceObject)View.CurrentObject).PersistentApplication);
             }
         }
-
-
-
-
     }
 }

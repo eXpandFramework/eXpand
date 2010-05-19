@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.ComponentModel;
+using DevExpress.ExpressApp;
 using eXpand.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.ExpressApp.Model;
@@ -7,14 +8,13 @@ namespace eXpand.ExpressApp.Win.SystemModule
 {
     public interface IModelViewSupressConfirmation : IModelNode
     {
+        [Category("eXpand")]
         bool SupressConfirmation { get; set; }
     }
 
-    public class SupressConfirmationController : BaseViewController
+    public class SupressConfirmationController : BaseViewController, IModelExtender
     {
         private WinDetailViewController winDetailViewController;
-
-        public SupressConfirmationController(){}
 
         protected override void OnActivated()
         {
@@ -40,9 +40,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
             winDetailViewController.SuppressConfirmation = false;
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelViewSupressConfirmation>();
             extenders.Add<IModelDetailView, IModelViewSupressConfirmation>();
         }

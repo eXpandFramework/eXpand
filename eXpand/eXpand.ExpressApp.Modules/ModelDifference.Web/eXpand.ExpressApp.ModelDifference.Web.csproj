@@ -18,6 +18,7 @@
     <AssemblyOriginatorKeyFile>..\..\..\eXpand.Key\eXpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <OutputPath>..\..\..\eXpand.DLL\</OutputPath>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -32,7 +33,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <OutputPath>..\..\..\eXpand.DLL\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -121,33 +121,13 @@
   <ItemGroup>
     <Compile Include="Controllers\CombineActiveUserDifferenceWithActiveModelDictionaryController.cs">
     </Compile>
-    <Compile Include="Controllers\CombineActiveUserDifferenceWithActiveModelDictionaryController.Designer.cs">
-      <DependentUpon>CombineActiveUserDifferenceWithActiveModelDictionaryController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\DataStoreKeyValueStorage.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Controllers\WebListEditorSettingsStoreViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\WebListEditorSettingsStoreViewController.Designer.cs">
-      <DependentUpon>WebListEditorSettingsStoreViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="ModelDifferenceAspNetModule.cs">
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Updater.cs" />
-    <Compile Include="ModelDifferenceAspNetModule.Designer.cs">
-      <DependentUpon>ModelDifferenceAspNetModule.cs</DependentUpon>
-    </Compile>
     <Compile Include="XpoWebModelDictionaryDifferenceStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
-    <EmbeddedResource Include="ModelDifferenceAspNetModule.resx">
-      <DependentUpon>ModelDifferenceAspNetModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using eXpand.Persistent.Base;
 using DevExpress.ExpressApp.Model;
@@ -8,26 +9,26 @@ namespace eXpand.ExpressApp.SystemModule
 {
     public interface IModelBOModelRuntimeMember : IModelNode
     {
+        [Category("eXpand")]
         bool IsRuntimeMember { get; set; }
     }
 
-    public class AddRuntimeFieldsFromModelToXPDictionary :ViewController
+    public class AddRuntimeFieldsFromModelToXPDictionary : ViewController, IModelExtender
     {
         public AddRuntimeFieldsFromModelToXPDictionary()
         {
-            TargetObjectType = typeof (IXpoModelDifference);
+            TargetObjectType = typeof(IXpoModelDifference);
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelBOModelClassMembers, IModelBOModelRuntimeMember>();
+            extenders.Add<IModelMember, IModelBOModelRuntimeMember>();
         }
 
         protected override void OnActivated()
         {
             base.OnActivated();
-            View.ObjectSpace.Committed+=ObjectSpaceOnCommitted;
+            View.ObjectSpace.Committed += ObjectSpaceOnCommitted;
         }
 
         protected override void OnDeactivating()

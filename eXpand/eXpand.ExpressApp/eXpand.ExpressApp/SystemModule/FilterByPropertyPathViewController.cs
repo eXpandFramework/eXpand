@@ -41,9 +41,10 @@ namespace eXpand.ExpressApp.SystemModule
         IModelListView PropertyPathListViewId { get; set; }
     }
 
-    public abstract partial class FilterByPropertyPathViewController : BaseViewController<ListView>
+    public abstract class FilterByPropertyPathViewController : BaseViewController<ListView>, IModelExtender
     {
         private Dictionary<string, FiltersByCollectionWrapper> _filtersByPropertyPathWrappers;
+        readonly SingleChoiceAction _filterSingleChoiceAction;
 
         public Dictionary<string, FiltersByCollectionWrapper> FiltersByPropertyPathWrappers
         {
@@ -52,10 +53,10 @@ namespace eXpand.ExpressApp.SystemModule
 
         protected FilterByPropertyPathViewController()
         {
-            InitializeComponent();
-            RegisterActions(components);
+            _filterSingleChoiceAction = new SingleChoiceAction(this, "_filterSingleChoiceAction",
+                                                               PredefinedCategory.Search) {Caption = "Search By"};
+            _filterSingleChoiceAction.Execute+=createFilterSingleChoiceAction_Execute;
             TargetViewNesting = Nesting.Root;
-            _filterSingleChoiceAction.Category = PredefinedCategory.Search.ToString();
         }
 
         public SingleChoiceAction FilterSingleChoiceAction
@@ -113,8 +114,8 @@ namespace eXpand.ExpressApp.SystemModule
 
         private void checkIfAdditionalViewControlsModuleIsRegister()
         {
-            //TODO: Model upgrade AdditionalViewControls
-            var node = View.Model as IModelListView;
+            throw new NotImplementedException();
+            var node = View.Model;
             if (node == null)
             {
                 throw new UserFriendlyException(new Exception("AdditionalViewControlsProvider module not found"));
@@ -133,9 +134,8 @@ namespace eXpand.ExpressApp.SystemModule
                         ObjectSpace.Session.GetClassInfo(View.ObjectTypeInfo.Type)));
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewPropertyPathFilters>();
         }
 
@@ -145,7 +145,7 @@ namespace eXpand.ExpressApp.SystemModule
                 .Select(pair => ApplyFilterString(pair.Value))
                 .Where(filterString => !string.IsNullOrEmpty(filterString))
                 .Aggregate<string, string>(null, (current, filterString) => current + (filterString + Environment.NewLine));
-            
+
             const string delimeter = ") AND (";
             text = (text + "").Replace(Environment.NewLine, delimeter);
             if (text.EndsWith(delimeter))
@@ -186,7 +186,7 @@ namespace eXpand.ExpressApp.SystemModule
             {
                 new FilterWithObjectsProcessor(View.ObjectSpace).Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
                 var criterion = new PropertyPathParser(View.ObjectSpace.Session.GetClassInfo(View.ObjectTypeInfo.Type)).Parse(filtersByCollectionWrapper.PropertyPath, criteriaOperator.ToString());
-                ((ListView)View).CollectionSource.Criteria[filtersByCollectionWrapper.ID] = criterion;
+                View.CollectionSource.Criteria[filtersByCollectionWrapper.ID] = criterion;
                 return criteriaOperator;
             }
             return criteriaOperator;
@@ -232,8 +232,7 @@ namespace eXpand.ExpressApp.SystemModule
             var objectSpace = Application.CreateObjectSpace();
             var classType = filtersByCollectionWrapper.BinaryOperatorLastMemberClassType;
             CollectionSourceBase newCollectionSource = !memberSearchWrapper.UseServerMode
-                                                           ? (CollectionSourceBase)
-                                                             new CollectionSource(objectSpace, classType, false)
+                                                           ? new CollectionSource(objectSpace, classType, false)
                                                            : new CollectionSource(objectSpace, classType, true);
 
             SetActiveFilter(memberSearchWrapper, filtersByCollectionWrapper.PropertyPathFilter);

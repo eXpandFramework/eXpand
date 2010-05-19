@@ -1,23 +1,16 @@
 using System;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.NodeWrappers;
 using eXpand.Utils.Helpers;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public partial class ModuleController : Controller
+    public class ModuleController : Controller, IModelExtender
     {
-        public ModuleController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelApplication, IModelModules>();
         }
     }
@@ -37,7 +30,6 @@ namespace eXpand.ExpressApp.SystemModule
     {
         protected override void GenerateNodesCore(ModelNode node)
         {
-            IModelModules modules = node as IModelModules;
             foreach (var type in AppDomain.CurrentDomain.GetTypes(typeof(ModuleBase)))
             {
                 if (node[type.FullName] == null)

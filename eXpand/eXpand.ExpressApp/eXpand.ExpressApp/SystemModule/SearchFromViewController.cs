@@ -1,14 +1,13 @@
 ﻿using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 
-namespace eXpand.ExpressApp.SystemModule {
-
-    public interface IModelViewPropertySearchMode : IModelNode
+namespace eXpand.ExpressApp.SystemModule
+{
+    public class SearchFromViewController : ViewController, IModelExtender
     {
-        SearchMemberMode SearchMemberMode { get; set; }
-    }
-
-    public abstract class SearchFromViewController : ViewController {
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            extenders.Add<IModelCommonMemberViewItem, IModelViewPropertySearchMode>();
         }
+    }
 }

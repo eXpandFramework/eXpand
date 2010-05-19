@@ -7,11 +7,8 @@ namespace eXpand.ExpressApp.ModelDifference.Web
     public class XpoWebModelDictionaryDifferenceStore : XpoModelDictionaryDifferenceStore
     {
         public XpoWebModelDictionaryDifferenceStore(XafApplication xafApplication, bool enableLoading)
-            : base(xafApplication, enableLoading)
-        {
-            
+            : base(xafApplication, enableLoading) {
         }
-
 
         protected override string GetPath(){
             HttpRequest request = HttpContext.Current.Request;

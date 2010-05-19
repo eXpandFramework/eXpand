@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Filtering;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Xpo;
 using DevExpress.ExpressApp.Model;
 
@@ -10,43 +13,36 @@ namespace eXpand.ExpressApp.SystemModule
 {
     public interface IModelListViewDisableFullTextForMemoFields
     {
+        [Category("eXpand")]
         bool DisableFullTextForMemoFields { get; set; }
     }
 
-    public partial class FilterController : ViewController<ListView>
+    public class DisableFullTextForMemoFieldsController : ViewController<ListView>, IModelExtender
     {
-        public FilterController() { }
-
-        public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewDisableFullTextForMemoFields>();
         }
 
         protected override void OnActivated()
         {
             base.OnActivated();
-            FullTextSearchCriteriaBuilder.BuildCustomFullTextSearchCriteria +=
-                FullTextSearchCriteriaBuilderOnBuildCustomFullTextSearchCriteria;
+            Frame.GetController<FilterController>().CustomBuildCriteria += OnCustomBuildCriteria;
         }
 
-        private void FullTextSearchCriteriaBuilderOnBuildCustomFullTextSearchCriteria(object sender, BuildCustomSearchCriteriaEventArgs args)
+        void OnCustomBuildCriteria(object sender, CustomBuildCriteriaEventArgs customBuildCriteriaEventArgs)
         {
             if (View != null && ((IModelListViewDisableFullTextForMemoFields)View.Model).DisableFullTextForMemoFields)
             {
-                ICollection<string> properties = removeUnlimitedSizeMembers(
-                    FullTextSearchCriteriaBuilder.GetProperties(
-                    args.TypeInfo, args.AdditionalProperties),
-                    args.TypeInfo);
-
-                args.Criteria = new SearchCriteriaBuilder(
-                    args.TypeInfo,
-                    properties,
-                    args.ValueToSearch, 
-                    args.GroupOperatorType,
-                    args.IncludeNonPersistentMembers).BuildCriteria();
+                var filterController = Frame.GetController<FilterController>();
+                var members = removeUnlimitedSizeMembers(Frame.GetController<SearchFromListViewController>().GetFullTextSearchProperties(filterController.FullTextSearchTargetPropertiesMode), View.ObjectTypeInfo);
+                customBuildCriteriaEventArgs.Criteria = new SearchCriteriaBuilder(
+                    View.ObjectTypeInfo,
+                    members,
+                    customBuildCriteriaEventArgs.SearchText, GroupOperatorType.Or, false).BuildCriteria();
             }
         }
+
 
         private ICollection<string> removeUnlimitedSizeMembers(IEnumerable<string> properties, ITypeInfo typeInfo)
         {

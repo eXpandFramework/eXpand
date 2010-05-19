@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
-using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Attributes;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
@@ -13,15 +12,17 @@ namespace eXpand.ExpressApp.SystemModule
 {
     public interface IModelIndexOptions : IModelNode
     {
+        [Category("eXpand")]
         bool CreateIndexForAllMembers { get; set; }
     }
 
     public interface IModelSkipIndex : IModelNode
     {
+        [Category("eXpand")]
         bool SkipIndexing { get; set; }
     }
 
-    public partial class IndexerController : ViewController
+    public class IndexerController : ViewController, IModelExtender
     {
 
         public event EventHandler<MemberInfoEventArgs> IndexAdding;
@@ -33,13 +34,7 @@ namespace eXpand.ExpressApp.SystemModule
             if (adding != null) adding(this, e);
         }
 
-        public const string CreateIndexForAllMembers = "CreateIndexForAllMembers";
-        public const string SkipIndexing = "SkipIndexing";
-        public IndexerController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
+
 
         protected override void OnActivated()
         {
@@ -56,7 +51,7 @@ namespace eXpand.ExpressApp.SystemModule
                         var memberInfo = classInfoNodeWrapper.TypeInfo.FindMember(propertyInfoNodeWrapper.Name);
                         if (memberInfo != null &&
                             (!((IModelSkipIndex)propertyInfoNodeWrapper).SkipIndexing &&
-                             !Equals(memberInfo.MemberType, typeof (byte[])) && !memberInfo.IsAssociation))
+                             !Equals(memberInfo.MemberType, typeof(byte[])) && !memberInfo.IsAssociation))
                         {
                             var findAttribute = memberInfo.FindAttribute<SizeAttribute>();
                             if (findAttribute != null && findAttribute.Size == SizeAttribute.Unlimited)
@@ -78,21 +73,16 @@ namespace eXpand.ExpressApp.SystemModule
                     }
                 }
 
-                if (indexAdded.Count>0)
+                if (indexAdded.Count > 0)
                 {
-                    var classInfos = new List<XPClassInfo>();
-                    foreach (var typeInfo in indexAdded)
-                        classInfos.Add(ObjectSpace.Session.GetClassInfo(typeInfo.Type));
-                    ObjectSpace.Session.DataLayer.UpdateSchema(false, classInfos.ToArray());
+                    ObjectSpace.Session.DataLayer.UpdateSchema(false, indexAdded.Select(typeInfo => ObjectSpace.Session.GetClassInfo(typeInfo.Type)).ToArray());
                 }
             }
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelBOModel, IModelSkipIndex>();
-            extenders.Add<IModelBOModelClassMembers, IModelSkipIndex>();
+            extenders.Add<IModelMember, IModelSkipIndex>();
             extenders.Add<IModelOptions, IModelIndexOptions>();
         }
     }

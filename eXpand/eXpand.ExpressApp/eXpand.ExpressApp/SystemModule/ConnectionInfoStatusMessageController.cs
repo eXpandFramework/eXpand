@@ -1,39 +1,47 @@
-﻿using System.Data.SqlClient;
+﻿using System.ComponentModel;
+using System.Data.SqlClient;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 
-namespace eXpand.ExpressApp.SystemModule {
-    public class ConnectionInfoStatusMessageController:WindowController {
-        public const string ConnectionInfoMessage = "ConnectionInfoMessage";
-        public ConnectionInfoStatusMessageController() {
+namespace eXpand.ExpressApp.SystemModule
+{
+    public interface IConnectionInfoStatusMessage
+    {
+        [Category("eXpand")]
+        bool ConnectionInfoMessage { get; set; }
+
+    }
+    public class ConnectionInfoStatusMessageController : WindowController, IModelExtender
+    {
+
+        public ConnectionInfoStatusMessageController()
+        {
             TargetWindowType = WindowType.Main;
         }
         protected override void OnActivated()
         {
             base.OnActivated();
             var controller = Frame.GetController<WindowTemplateController>();
-            if (Application.Info.GetChildNode("Options").GetAttributeBoolValue(ConnectionInfoMessage))
+            if (((IConnectionInfoStatusMessage)Application.Model.Options).ConnectionInfoMessage)
                 controller.CustomizeWindowStatusMessages += controller_CustomizeWindowStatusMessages;
         }
-        public override Schema GetSchema() {
-            const string s =
-                @"<Element Name=""Application"">
-					<Element Name=""Options"">
-						<Attribute Name=""" +
-                ConnectionInfoMessage + @""" Choice=""True,False""/>
-					</Element>
-				</Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(s));
+
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            extenders.Add<IModelOptions, IConnectionInfoStatusMessage>();
         }
 
         protected override void OnDeactivating()
         {
             base.OnDeactivating();
             var controller = Frame.GetController<WindowTemplateController>();
-            controller.CustomizeWindowStatusMessages -= controller_CustomizeWindowStatusMessages;
+            if (((IConnectionInfoStatusMessage)Application.Model.Options).ConnectionInfoMessage)
+                controller.CustomizeWindowStatusMessages -= controller_CustomizeWindowStatusMessages;
         }
 
-        void controller_CustomizeWindowStatusMessages(object sender, CustomizeWindowStatusMessagesEventArgs e) {
+        void controller_CustomizeWindowStatusMessages(object sender, CustomizeWindowStatusMessagesEventArgs e)
+        {
             var dbConnection = Application.ObjectSpaceProvider.CreateUpdatingReadOnlySession().Connection;
             e.StatusMessages.Add(string.Format("({0} - {1})", ((SqlConnection)dbConnection).DataSource, dbConnection.Database));
         }

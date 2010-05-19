@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Filtering;
@@ -9,12 +10,13 @@ using DevExpress.Persistent.Base;
 
 namespace eXpand.ExpressApp.SystemModule
 {
+    public interface IModelViewPropertySearchMode : IModelNode
+    {
+        [Category("eXpand")]
+        SearchMemberMode SearchMemberMode { get; set; }
+    }
     public class SearchFromListViewController : SearchFromViewController
     {
-        public SearchFromListViewController()
-        {
-            TargetViewType = ViewType.ListView;
-        }
 
         protected override void OnActivated()
         {
@@ -42,14 +44,15 @@ namespace eXpand.ExpressApp.SystemModule
 
         string[] GetShownProperties()
         {
-            if (((ListView)View).Editor != null)
+            var listView = ((ListView)View);
+            if (listView.Editor != null)
             {
-                return ((ListView)View).Editor.ShownProperties;
+                return listView.Editor.ShownProperties;
             }
-            return (from column in ((ListView)View).Model.Columns.VisibleColumns where column.Index != -1 select column.PropertyName).ToArray();
+            return (from column in listView.Model.Columns.VisibleColumns where column.Index != -1 select column.PropertyName).ToArray();
         }
 
-        private IEnumerable<string> GetFullTextSearchProperties(FullTextSearchTargetPropertiesMode fullTextSearchTargetPropertiesMode)
+        public IEnumerable<string> GetFullTextSearchProperties(FullTextSearchTargetPropertiesMode fullTextSearchTargetPropertiesMode)
         {
             var criteriaBuilder = new SearchCriteriaBuilder(View.ObjectTypeInfo) { IncludeNonPersistentMembers = false };
             switch (fullTextSearchTargetPropertiesMode)
@@ -77,7 +80,8 @@ namespace eXpand.ExpressApp.SystemModule
 
         void GetProperties(SearchMemberMode searchMemberMode, Action<string> action)
         {
-            var enumerable = (this.View as ListView).Model.Columns.VisibleColumns.OfType<IModelViewPropertySearchMode>().Where(
+            var listView = ((ListView)View);
+            var enumerable = listView.Model.Columns.VisibleColumns.OfType<IModelViewPropertySearchMode>().Where(
                 wrapper => wrapper.SearchMemberMode == searchMemberMode).Select(nodeWrapper => ((IModelColumn)nodeWrapper).PropertyName);
             foreach (var s in enumerable)
             {
@@ -85,10 +89,5 @@ namespace eXpand.ExpressApp.SystemModule
             }
         }
 
-        public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders)
-        {
-            base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelColumn, IModelViewPropertySearchMode>();
-        }
     }
 }

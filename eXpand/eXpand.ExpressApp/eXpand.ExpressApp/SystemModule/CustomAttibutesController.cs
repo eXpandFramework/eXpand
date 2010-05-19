@@ -1,20 +1,14 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Attributes;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public partial class CustomAttibutesController : WindowController
+    public class CustomAttibutesController : WindowController
     {
-        public CustomAttibutesController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
-               
+
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
         {
@@ -29,7 +23,6 @@ namespace eXpand.ExpressApp.SystemModule
                         member.AddAttribute(new CustomAttribute("DisplayFormatAttribute", "#"));
                         XafTypesInfo.Instance.RefreshInfo(xpClassInfo.ClassType);
                     }
-                    
                 }
             }
         }

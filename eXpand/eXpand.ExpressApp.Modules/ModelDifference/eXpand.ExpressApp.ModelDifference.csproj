@@ -26,6 +26,7 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
+    <OutputPath>..\..\..\eXpand.DLL\</OutputPath>
     <PublishUrl>http://localhost/eXpressApp.Module.XpoDictionaryDifferenceModule/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -40,7 +41,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <OutputPath>..\..\..\eXpand.DLL\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -64,10 +64,10 @@
     <Reference Include="DevExpress.Data.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v10.1, Version=10.1.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v10.1, Version=10.1.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Security.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v10.1">
@@ -82,13 +82,13 @@
     <Reference Include="DevExpress.Persistent.Base.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v10.1, Version=10.1.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.1.Linq, Version=10.1.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v10.1.Linq, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
@@ -133,17 +133,11 @@
     <Compile Include="Controllers\CloneObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\CloneObjectViewController.Designer.cs">
-      <DependentUpon>CloneObjectViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\CombineActiveModelDictionaryController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\CombineActiveUserDifferenceWithUserModelController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\CombineActiveUserDifferenceWithUserModelController.Designer.cs">
-      <DependentUpon>CombineActiveUserDifferenceWithUserModelController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CombineDifferencesOnDemandDetailViewController.cs">
       <SubType>Component</SubType>
@@ -163,21 +157,12 @@
     <Compile Include="Controllers\CreateNewDifferenceObjectViewController.Designer.cs">
       <DependentUpon>CreateNewDifferenceObjectViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\DifferenceTypeObject.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Controllers\RunTimeMembersController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\RunTimeMembersController.Designer.cs">
-      <DependentUpon>RunTimeMembersController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CultureDescription.cs" />
     <Compile Include="DataStore\BaseObjects\DifferenceObject.cs" />
     <Compile Include="DataStore\BaseObjects\ModelDifferenceObject.cs" />
-    <Compile Include="DataStore\BaseObjects\ValueConverters\DictionaryValueConverter.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="DataStore\BaseObjects\ValueConverters\DictionaryValueConverter.cs" />
     <Compile Include="DataStore\Queries\IQueryDifferenceObject.cs" />
     <Compile Include="DataStore\Queries\QueryDifferenceObject.cs" />
     <Compile Include="DataStore\Queries\QueryPersistentApplication.cs" />
@@ -196,36 +181,19 @@
     <Compile Include="ModelDifferenceModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ModelDifferenceModule.Designer.cs">
-      <DependentUpon>ModelDifferenceModule.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\Controllers\PopuLateDifferenceObjectsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Security\Controllers\PopuLateDifferenceObjectsController.Designer.cs">
-      <DependentUpon>PopuLateDifferenceObjectsController.cs</DependentUpon>
+    <Compile Include="Security\Controllers\PopulateDifferenceObjectsController.cs">
     </Compile>
     <Compile Include="Security\ModelCombinePermission.cs" />
     <Compile Include="Security\ApplicationModelCombineModifier.cs" />
     <Compile Include="Security\Controllers\NavigationItemsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Security\Controllers\NavigationItemsController.Designer.cs">
-      <DependentUpon>NavigationItemsController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Updater.cs" />
     <Compile Include="DictionaryStores\XpoModelDictionaryDifferenceStore.cs" />
     <Compile Include="DictionaryStores\XpoDictionaryDifferenceStore.cs" />
     <Compile Include="DictionaryStores\XpoUserModelDictionaryDifferenceStore.cs" />
     <Compile Include="DataStore\Queries\QueryModelDifferenceObject.cs" />
     <Compile Include="DataStore\Queries\QueryUserModelDifferenceObject.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ModelDifferenceModule.resx">
-      <DependentUpon>ModelDifferenceModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controllers\CombineDifferencesOnDemandDetailViewController.resx">

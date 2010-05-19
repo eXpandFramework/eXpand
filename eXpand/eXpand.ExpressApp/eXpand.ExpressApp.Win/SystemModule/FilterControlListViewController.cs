@@ -11,18 +11,15 @@ using Forms = System.Windows.Forms;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public interface IModelListViewFilterControlSettings : IModelNode
+    public interface IModelListViewFilterControlSettings : IModelNode,IModelExtender
     {
-        System.Windows.Forms.DockStyle FilterControlPosition { get; set; }
+        Forms.DockStyle FilterControlPosition { get; set; }
     }
 
-    public partial class FilterControlListViewController : BaseViewController<ListView>
+    public class FilterControlListViewController : BaseViewController<ListView>,IModelExtender
     {
-        public FilterControlListViewController() { }
-
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewFilterControlSettings>();
         }
 

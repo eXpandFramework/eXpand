@@ -7,6 +7,11 @@ using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Editors;
 
 namespace eXpand.ExpressApp.SystemModule {
+    public interface IModelActionButtonDetailItem : IModelDetailViewItem
+    {
+        [DataSourceProperty("Application.Model.ActionDesign.Actions")]
+        IModelAction ActionId { get; set; }
+    }
     public class ActionButtonDetailItemController:ViewController<DetailView>
     {
         protected override void OnActivated() {

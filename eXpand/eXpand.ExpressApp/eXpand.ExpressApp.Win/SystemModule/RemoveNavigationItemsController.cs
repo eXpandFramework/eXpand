@@ -5,18 +5,13 @@ using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public partial class RemoveNavigationItemsController : BaseWindowController
+    public class RemoveNavigationItemsController : BaseWindowController
     {
-        public RemoveNavigationItemsController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-        }
         protected override void OnActivated()
         {
             base.OnActivated();
             var basicUser = SecuritySystem.CurrentUser as ISimpleUser;
-            if (basicUser!= null&&!basicUser.IsAdministrator)
+            if (basicUser != null && !basicUser.IsAdministrator)
             {
                 var controller = Frame.GetController<ShowNavigationItemController>();
                 for (int i = controller.ShowNavigationItemAction.Items.Count - 1; i >= 0; i--)
