@@ -7,7 +7,7 @@ using DevExpress.ExpressApp.Model.Core;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public partial class ModuleController : Controller
+    public partial class ModuleController : Controller, IModelExtender
     {
         public ModuleController()
         {
@@ -15,9 +15,8 @@ namespace eXpand.ExpressApp.SystemModule
             RegisterActions(components);
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelApplication, IModelModules>();
         }
     }

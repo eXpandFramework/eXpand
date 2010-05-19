@@ -41,7 +41,7 @@ namespace eXpand.ExpressApp.SystemModule
         IModelListView PropertyPathListViewId { get; set; }
     }
 
-    public abstract partial class FilterByPropertyPathViewController : BaseViewController<ListView>
+    public abstract partial class FilterByPropertyPathViewController : BaseViewController<ListView>, IModelExtender
     {
         private Dictionary<string, FiltersByCollectionWrapper> _filtersByPropertyPathWrappers;
 
@@ -133,9 +133,8 @@ namespace eXpand.ExpressApp.SystemModule
                         ObjectSpace.Session.GetClassInfo(View.ObjectTypeInfo.Type)));
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewPropertyPathFilters>();
         }
 

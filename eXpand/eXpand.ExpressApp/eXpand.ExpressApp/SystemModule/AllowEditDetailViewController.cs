@@ -31,6 +31,9 @@ namespace eXpand.ExpressApp.SystemModule
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
+            if (View == null)
+                return;
+
             foreach (var propertyEditor in View.GetItems<PropertyEditor>()) {
                 var allowEditAttribute = propertyEditor.ObjectTypeInfo.FindMember(propertyEditor.PropertyName).FindAttribute<AllowEditAttribute>();
                 if (allowEditAttribute!= null)

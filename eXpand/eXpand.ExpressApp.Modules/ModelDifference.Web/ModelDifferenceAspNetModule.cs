@@ -1,19 +1,18 @@
-using System;
 using System.ComponentModel;
 using System.Web;
 
 namespace eXpand.ExpressApp.ModelDifference.Web
 {
     [ToolboxItemFilter("Xaf.Platform.Web")]
-    public sealed partial class ModelDifferenceAspNetModule : ModelDifferenceBaseModule<XpoWebModelDictionaryDifferenceStore>
+    public sealed class ModelDifferenceAspNetModule : ModelDifferenceBaseModule<XpoWebModelDictionaryDifferenceStore>
     {
         private bool? persistentApplicationModelUpdated;
 
         public ModelDifferenceAspNetModule()
         {
-            InitializeComponent();
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
+            this.RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
         }
-
 
         protected override bool? PersistentApplicationModelUpdated{
             get{

@@ -9,7 +9,7 @@ namespace eXpand.ExpressApp.SystemModule
         bool EnableFKViolations { get; set; }
     }
 
-    public partial class FKViolationViewController : ViewController
+    public partial class FKViolationViewController : ViewController, IModelExtender
     {
         public FKViolationViewController() { }
 
@@ -37,9 +37,8 @@ namespace eXpand.ExpressApp.SystemModule
             }
         }
 
-        public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelClass, IModelClassEnableFKViolations>();
         }
     }

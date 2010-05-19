@@ -9,7 +9,7 @@ namespace eXpand.ExpressApp.SystemModule {
     public interface IModelDetailViewHighlightOptions : IModelNode
     {
         [DefaultValue(true)]
-        bool? HighlightFocusedLayoutItem { get; set; }
+        bool HighlightFocusedLayoutItem { get; set; }
     }
 
     [DomainLogic(typeof(IModelDetailViewHighlightOptions))]
@@ -18,13 +18,13 @@ namespace eXpand.ExpressApp.SystemModule {
         public static bool Get_ModelDetailViewHighlightOptions(IModelDetailViewHighlightOptions modelDetailViewHighlightOptions)
         {
             return (modelDetailViewHighlightOptions is IModelDetailView &&
-                !((IModelDetailViewHighlightOptions)modelDetailViewHighlightOptions).HighlightFocusedLayoutItem.HasValue) ?
-                ((IModelDetailViewHighlightOptions)modelDetailViewHighlightOptions.Application.Options).HighlightFocusedLayoutItem.Value :
-                modelDetailViewHighlightOptions.HighlightFocusedLayoutItem.Value;
+                !((IModelDetailViewHighlightOptions)modelDetailViewHighlightOptions).HighlightFocusedLayoutItem) ?
+                ((IModelDetailViewHighlightOptions)modelDetailViewHighlightOptions.Application.Options).HighlightFocusedLayoutItem :
+                modelDetailViewHighlightOptions.HighlightFocusedLayoutItem;
         }
     }
 
-    public abstract class HighlightFocusedLayoutItemDetailViewControllerBase : ViewController<DetailView>
+    public abstract class HighlightFocusedLayoutItemDetailViewControllerBase : ViewController<DetailView>, IModelExtender
     {
         public const string ActiveKeyHighlightFocusedEditor = "HighlightFocusedLayoutItem";
         
@@ -33,12 +33,11 @@ namespace eXpand.ExpressApp.SystemModule {
             base.OnViewChanging(view);
             var dv = view as DetailView;
             if (dv != null)
-                Active[ActiveKeyHighlightFocusedEditor] = (dv.Model as IModelDetailViewHighlightOptions).HighlightFocusedLayoutItem.Value;
+                Active[ActiveKeyHighlightFocusedEditor] = (dv.Model as IModelDetailViewHighlightOptions).HighlightFocusedLayoutItem;
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions, IModelDetailViewHighlightOptions>();
             extenders.Add<IModelDetailView, IModelDetailViewHighlightOptions>();
         }

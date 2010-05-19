@@ -14,7 +14,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         bool TabStopForReadOnly { get; set; }
     }
 
-    public class TabStopViewController : BaseViewController<DetailView>
+    public class TabStopViewController : BaseViewController<DetailView>, IModelExtender
     {
         public const string TabStopForReadOnly = "TabStopForReadOnly";
 
@@ -26,9 +26,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
             View.ControlsCreated+=View_OnControlsCreated;
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions, IModelDetailViewTabStopForReadOnly>();
         }
 

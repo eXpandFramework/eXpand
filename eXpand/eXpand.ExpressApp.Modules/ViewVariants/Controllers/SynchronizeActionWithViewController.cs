@@ -40,7 +40,7 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
             {
                 var variantName = variants.Variants.Current.Caption;
                 if (!string.IsNullOrEmpty(variantName) && variantName != "Default")
-                    ((ViewShortcut)args.ActionArguments.SelectedChoiceActionItem.Data).ViewId = variants.Variants[variantName].ViewID;
+                    ((ViewShortcut)args.ActionArguments.SelectedChoiceActionItem.Data).ViewId = variants.Variants[variantName].View.Id;
             }
         }
     }

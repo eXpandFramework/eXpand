@@ -12,7 +12,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         bool HideToolBar { get; set; }
     }
 
-    public partial class HideNestedListViewToolBarViewController : BaseViewController<ListView>
+    public partial class HideNestedListViewToolBarViewController : BaseViewController<ListView>, IModelExtender
     {
         public HideNestedListViewToolBarViewController()
         {
@@ -21,9 +21,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
             TargetViewNesting=Nesting.Nested;
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewHideToolBar>();
         }
 

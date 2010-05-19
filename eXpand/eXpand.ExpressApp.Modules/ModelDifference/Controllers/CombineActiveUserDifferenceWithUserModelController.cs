@@ -2,27 +2,24 @@ using System;
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
+using DevExpress.ExpressApp.Model.Core;
 
 namespace eXpand.ExpressApp.ModelDifference.Controllers
 {
     /// <summary>
     /// on load of ActiveUserAspect
     /// </summary>
-    public partial class CombineActiveUserDifferenceWithUserModelController : ViewController
+    public class CombineActiveUserDifferenceWithUserModelController : ViewController
     {
-        public CombineActiveUserDifferenceWithUserModelController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
+        public CombineActiveUserDifferenceWithUserModelController(){
             TargetViewType=ViewType.DetailView;
             TargetObjectType = typeof (UserModelDifferenceObject);
         }
 
-        
         protected override void OnActivated()
         {
             base.OnActivated();
-            View.CurrentObjectChanged+=ViewOnCurrentObjectChanged;
+            View.CurrentObjectChanged += ViewOnCurrentObjectChanged;
             CombineWithApplicationUserDiffs();
         }
 
@@ -41,10 +38,8 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
             ModelDifferenceObject differenceObject = userAspectObjectQuery.GetActiveModelDifference(Application.GetType().FullName);
             if (ReferenceEquals(differenceObject, View.CurrentObject))
             {
-                var o = ((UserModelDifferenceObject)View.CurrentObject);
-                Dictionary dict = o.GetCombinedModel();
-                dict.CombineWith(Application.Model.GetDiffs());
-                o.Model = dict.GetDiffs();
+                //((UserModelDifferenceObject)View.CurrentObject).Model.AddLayer(
+                    //((ModelApplicationBase)Application.Model).LastLayer);
             }
         }
     }

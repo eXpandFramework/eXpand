@@ -12,7 +12,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         bool MinimizeOnClose { get; set; }
     }
 
-    public class MinimizeOnCloseController : WindowController
+    public class MinimizeOnCloseController : WindowController, IModelExtender
     {
         private static bool editing;
         
@@ -51,9 +51,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions, IModelMinimizeOnCloseOptions>();
         }
     }

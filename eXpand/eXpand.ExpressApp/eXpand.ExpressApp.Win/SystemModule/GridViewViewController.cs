@@ -38,7 +38,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         int GroupLevelExpandIndex { get; set; }
     }
 
-    public partial class GridViewViewController : BaseViewController<ListView>
+    public partial class GridViewViewController : BaseViewController<ListView>, IModelExtender
     {
         private const string DoNotLoadWhenNoFilterExists = "DoNotLoadWhenNoFilterExists";
         private GridControl gridControl;
@@ -48,9 +48,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         public GridViewViewController() { }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewGridViewOptions>();
             extenders.Add<IModelColumn, IModelColumnGridViewOptions>();
         }

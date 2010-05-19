@@ -10,11 +10,10 @@ namespace eXpand.ExpressApp.SystemModule
         bool HideToolBar { get; set; }
     }
 
-    public abstract class HideToolBarController : ViewController<ListView>
+    public abstract class HideToolBarController : ViewController<ListView>, IModelExtender
     {
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelHideViewToolBar>();
         }
     }

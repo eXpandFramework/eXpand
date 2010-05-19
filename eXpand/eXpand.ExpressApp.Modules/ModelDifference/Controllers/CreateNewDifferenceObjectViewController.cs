@@ -11,25 +11,14 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
             InitializeComponent();
             RegisterActions(components);
             TargetObjectType = typeof (ModelDifferenceObject);
-
         }
 
-        
         protected override void OnActivated()
         {
             base.OnActivated();
             var controller = Frame.GetController<NewObjectViewController>();
             controller.ObjectCreating+=ControllerOnObjectCreating;
             controller.ObjectCreated+=OnObjectCreated;
-            
-                
-        }
-
-        private void ControllerOnObjectCreating(object sender, ObjectCreatingEventArgs args){
-            if (typeof(ModelDifferenceObject).IsAssignableFrom(args.ObjectType))
-            {
-                throw new UserFriendlyException(new Exception("Only cloned is allowed"));
-            }
         }
 
         [CoverageExclude]
@@ -37,9 +26,15 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
         {
             base.OnDeactivating();
             Frame.GetController<NewObjectViewController>().ObjectCreated -= OnObjectCreated;
+            Frame.GetController<NewObjectViewController>().ObjectCreating -= ControllerOnObjectCreating;
         }
 
-        protected virtual internal void OnObjectCreated(object sender, ObjectCreatedEventArgs args){
+        private void ControllerOnObjectCreating(object sender, ObjectCreatingEventArgs args){
+            if (typeof(ModelDifferenceObject).IsAssignableFrom(args.ObjectType))
+                throw new UserFriendlyException(new Exception("Only cloned is allowed"));
+        }
+
+        private void OnObjectCreated(object sender, ObjectCreatedEventArgs args){
             ((ModelDifferenceObject) args.CreatedObject).InitializeMembers(Application.Title, (Application).Title);
         }
     }

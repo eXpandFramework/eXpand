@@ -16,13 +16,12 @@ namespace eXpand.ExpressApp.Win.SystemModule
         System.Windows.Forms.DockStyle FilterControlPosition { get; set; }
     }
 
-    public partial class FilterControlListViewController : BaseViewController<ListView>
+    public partial class FilterControlListViewController : BaseViewController<ListView>, IModelExtender
     {
         public FilterControlListViewController() { }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewFilterControlSettings>();
         }
 

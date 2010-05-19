@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using System.Linq;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp {
     public class ViewShortCutProccesor {
@@ -18,13 +19,13 @@ namespace eXpand.ExpressApp {
                 shortcut.ObjectKey =
                     ParametersFactory.CreateParameter(shortcut.ObjectKey.Substring(1)).CurrentValue.ToString();
 
-            var baseViewInfoNodeWrapper = new ApplicationNodeWrapper(_application.Model).Views.FindViewById(shortcut.ViewId);
-            if (string.IsNullOrEmpty(shortcut.ObjectKey) && (baseViewInfoNodeWrapper is DetailViewInfoNodeWrapper)) {
+            var baseViewInfoNodeWrapper = _application.Model.Views.OfType<IModelDetailView>().Where(v => v.Id == shortcut.ViewId).FirstOrDefault();
+            if (string.IsNullOrEmpty(shortcut.ObjectKey) && (baseViewInfoNodeWrapper != null)) {
                 var objectSpace = _application.CreateObjectSpace();
                 shortcutEventArgs.Handled = true;
                 shortcutEventArgs.View = _application.CreateDetailView(objectSpace,
                                                                        objectSpace.CreateObject(
-                                                                           baseViewInfoNodeWrapper.BusinessObjectType));
+                                                                           baseViewInfoNodeWrapper.ModelClass.TypeInfo.Type));
             }
         }
     }

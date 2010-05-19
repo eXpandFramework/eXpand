@@ -16,7 +16,6 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Queries
         public QueryRoleModelDifferenceObject(Session session) : base(session){
         }
 
-
         public override IQueryable<RoleModelDifferenceObject> GetActiveModelDifferences(string applicationName){
             var userWithRoles = SecuritySystem.CurrentUser as IUserWithRoles;
             if (userWithRoles != null)
@@ -27,12 +26,11 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Queries
                 ITypeInfo roleTypeInfo = XafTypesInfo.Instance.PersistentTypes.Where(info => info.Type == roleType).Single();
                 var criteria = new ContainsOperator("Roles", new InOperator(roleTypeInfo.KeyMember.Name, collection.ToList()));
 
-                
                 var roleAspectObjects = base.GetActiveModelDifferences(applicationName).ToList();
                 return roleAspectObjects.OfType<RoleModelDifferenceObject>().Where(aspectObject => aspectObject.Fit(criteria.ToString())).AsQueryable();
             }
-            return new List<RoleModelDifferenceObject>().AsQueryable();
 
+            return new List<RoleModelDifferenceObject>().AsQueryable();
         }
     }
 }

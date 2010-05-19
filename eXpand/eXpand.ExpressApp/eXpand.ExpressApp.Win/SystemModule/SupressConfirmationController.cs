@@ -10,7 +10,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         bool SupressConfirmation { get; set; }
     }
 
-    public class SupressConfirmationController : BaseViewController
+    public class SupressConfirmationController : BaseViewController, IModelExtender
     {
         private WinDetailViewController winDetailViewController;
 
@@ -40,9 +40,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
             winDetailViewController.SuppressConfirmation = false;
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelViewSupressConfirmation>();
             extenders.Add<IModelDetailView, IModelViewSupressConfirmation>();
         }

@@ -11,7 +11,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         bool LoadWithWindows { get; set; }
     }
 
-    public partial class LoadWithWindowsController : WindowController
+    public partial class LoadWithWindowsController : WindowController, IModelExtender
     {
         public LoadWithWindowsController() { }
 
@@ -39,9 +39,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions, IModelLoadWithWindowsOptions>();
         }
     }

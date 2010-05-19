@@ -8,27 +8,18 @@ using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 
 namespace eXpand.ExpressApp.ModelDifference.Controllers{
     public partial class CombineDifferencesOnDemandListViewController : ViewController<ListView>{
-//        private DialogController _dialogController;
-
-//        public DialogController DialogController{
-//            get { return _dialogController; }
-//        }
 
         public CombineDifferencesOnDemandListViewController(){
             InitializeComponent();
             RegisterActions(components);
             TargetObjectType = typeof (ModelDifferenceObject);
             combineSimpleAction.SelectionDependencyType = SelectionDependencyType.RequireSingleObject;
+            combineSimpleAction.ConfirmationMessage =
+                "Do you want to combine the selected models with the active application model?";
         }
 
         public SimpleAction CombineSimpleAction{
             get { return combineSimpleAction; }
-        }
-
-        protected override void OnActivated(){
-            base.OnActivated();
-            combineSimpleAction.ConfirmationMessage =
-                "Do you want to combine the selected models with the active application model?";
         }
 
         private void combineSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e){
@@ -38,14 +29,12 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
             CombineAndSave(selectedModelAspectObjects);
         }
 
-
         internal void CheckObjectCompatibility(List<ModelDifferenceObject> selectedObjects){
             if (selectedObjects.GroupBy(o => o.PersistentApplication.UniqueName).Select(grouping => grouping.Key).Count() > 1)
                 throw new UserFriendlyException(
                     new Exception(
                         "Mixing applications is not supported. Select objects with the same application"));
         }
-
 
         public ModelDifferenceObject GetActiveApplicationModelDifference(
             List<ModelDifferenceObject> selectedModelAspectObjects){
@@ -54,13 +43,12 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
         }
 
         public void CombineAndSave(List<ModelDifferenceObject> selectedModelAspectObjects){
-            ModelDifferenceObject activeApplicatiionModelDifferenceObject =
+            ModelDifferenceObject activeApplicationModelDifferenceObject =
                 GetActiveApplicationModelDifference(selectedModelAspectObjects);
-            Dictionary combinedModel = activeApplicatiionModelDifferenceObject.GetCombinedModel();
-            foreach (ModelDifferenceObject selectedObject in selectedModelAspectObjects)
-                combinedModel.CombineWith(selectedObject.Model);
 
-            activeApplicatiionModelDifferenceObject.Model = combinedModel.GetDiffs();
+            foreach (ModelDifferenceObject selectedObject in selectedModelAspectObjects)
+                activeApplicationModelDifferenceObject.Model.AddLayer(selectedObject.Model);
+
             ObjectSpace.CommitChanges();
         }
     }

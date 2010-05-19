@@ -10,13 +10,12 @@ namespace eXpand.ExpressApp.Win.SystemModule
         bool HidePopupMenu { get; set; }
     }
 
-    public class HideGridPopUpMenuViewController : BaseViewController<ListView>
+    public class HideGridPopUpMenuViewController : BaseViewController<ListView>, IModelExtender
     {
         public HideGridPopUpMenuViewController() { }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewHidePopupMenu>();
         }
 

@@ -10,7 +10,7 @@ namespace eXpand.ExpressApp.SystemModule {
         ViewEditMode? ViewEditMode { get; set; }
     }
 
-    public class ViewEditModeController : ViewController<DetailView> {
+    public class ViewEditModeController : ViewController<DetailView>, IModelExtender {
 
         protected override void OnActivated() {
             base.OnActivated();
@@ -19,9 +19,8 @@ namespace eXpand.ExpressApp.SystemModule {
                 View.ViewEditMode = attributeValue.Value;
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelDetailView, IModelDetailViewEditMode>();
         }
     }

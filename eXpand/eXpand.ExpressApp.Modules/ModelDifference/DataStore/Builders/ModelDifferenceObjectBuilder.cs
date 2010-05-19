@@ -8,18 +8,13 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Builders{
     {
         private static void SetUp(ModelDifferenceObject modelDifferenceObject)
         {
-
             modelDifferenceObject.DateCreated = DateTime.Now;
             modelDifferenceObject.Name = "AutoCreated " + DateTime.Now;
-            var dictionary = new Dictionary(new DictionaryNode(ApplicationNodeWrapper.NodeName), Schema.GetCommonSchema());
-            modelDifferenceObject.Model=dictionary;
-            
         }
 
         public static void SetUp(ModelDifferenceObject modelDifferenceObject, string applicationTypeName)
         {
             SetUp(modelDifferenceObject);
-            
         }
     }
 }

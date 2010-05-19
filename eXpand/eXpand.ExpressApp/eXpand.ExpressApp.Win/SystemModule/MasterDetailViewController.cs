@@ -35,7 +35,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         bool ExpandAllRows { get; set; }
     }
 
-    public partial class MasterDetailViewController : BaseViewController<ListView>
+    public partial class MasterDetailViewController : BaseViewController<ListView>, IModelExtender
     {
         private GridControl gridControl;
         private XafGridView gridView;
@@ -259,9 +259,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewMasterDetailOptions>();
         }
 

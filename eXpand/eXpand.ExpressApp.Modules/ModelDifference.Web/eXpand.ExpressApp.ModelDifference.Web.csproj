@@ -120,34 +120,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CombineActiveUserDifferenceWithActiveModelDictionaryController.cs">
-    </Compile>
-    <Compile Include="Controllers\CombineActiveUserDifferenceWithActiveModelDictionaryController.Designer.cs">
-      <DependentUpon>CombineActiveUserDifferenceWithActiveModelDictionaryController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\DataStoreKeyValueStorage.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Controllers\WebListEditorSettingsStoreViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\WebListEditorSettingsStoreViewController.Designer.cs">
-      <DependentUpon>WebListEditorSettingsStoreViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="ModelDifferenceAspNetModule.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Updater.cs" />
-    <Compile Include="ModelDifferenceAspNetModule.Designer.cs">
-      <DependentUpon>ModelDifferenceAspNetModule.cs</DependentUpon>
-    </Compile>
     <Compile Include="XpoWebModelDictionaryDifferenceStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
-    <EmbeddedResource Include="ModelDifferenceAspNetModule.resx">
-      <DependentUpon>ModelDifferenceAspNetModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

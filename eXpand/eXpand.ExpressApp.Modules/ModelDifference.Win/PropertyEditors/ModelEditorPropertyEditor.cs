@@ -1,122 +1,187 @@
 ﻿using System;
+using System.Configuration;
+using System.IO;
+using System.Web.Configuration;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.Editors;
+using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
-using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 {
-    [PropertyEditor(typeof(Dictionary))]
+    [PropertyEditor(typeof(ModelApplicationBase))]
     public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexPropertyEditor
     {
+        #region Members
+
         private XafApplication _application;
+        private ModelEditorViewController controller;
 
+        #endregion
 
-        public ModelEditorPropertyEditor(Type objectType, DictionaryNode info) : base(objectType, info)
+        #region Constructor
+
+        public ModelEditorPropertyEditor(Type objectType, IModelMemberViewItem model)
+            : base(objectType, model)
         {
-            
         }
 
-        protected override void ReadValueCore(){
-            base.ReadValueCore();
+        #endregion
 
-            if (Control.Controller== null)
-                Control.Controller = GetModelEditorController(_application);
+        #region Properties
 
-            Control.Controller.Dictionary.AddAspect(CurrentObject.CurrentLanguage,new DictionaryNode("Application"));
-            Control.Controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);
-        }
-
-
-        internal void ModifyCurrentObjectModel(){
-            if (Control.Controller.IsModified){
-                Dictionary diffs = Control.Controller.Dictionary.GetDiffs();
-                var model = CurrentObject.PersistentApplication.Model.Clone();
-                model.ResetIsModified();
-                model.CombineWith(diffs);
-                CurrentObject.Model = model.GetDiffs();
-            }
-        }
-
-
-        protected override void OnCurrentObjectChanged() {
-            if (Control != null) Control.Controller = null;
-            base.OnCurrentObjectChanged();
-            
-        }
-
-        private void ControllerModifiedChanged(object sender, EventArgs args)
+        public new ModelDifferenceObject CurrentObject
         {
-            ModifyCurrentObjectModel();
-        }
-
-        public new ModelDifferenceObject CurrentObject{
             get { return base.CurrentObject as ModelDifferenceObject; }
             set { base.CurrentObject = value; }
         }
 
         public new ModelEditorControl Control
         {
-            get { return (ModelEditorControl) base.Control; }
+            get { return (ModelEditorControl)base.Control; }
         }
 
-        public XafApplication Application{
-            get {
+        public XafApplication Application
+        {
+            get
+            {
                 return _application;
             }
         }
 
+        #endregion
+
+        #region Overrides
+
+        protected override void ReadValueCore()
+        {
+            base.ReadValueCore();
+
+            if (controller == null)
+                controller = GetModelEditorController();
+        }
+
+        protected override void OnCurrentObjectChanged()
+        {
+            if (Control != null)
+            {
+                controller.Modifying -= this.Model_Modifying;
+                controller = null;
+            }
+
+            base.OnCurrentObjectChanged();
+        }
+
         protected override object CreateControlCore()
         {
-            return GetModelEditorControl();
+            return new ModelEditorControl(new SettingsStorageOnDictionary());
         }
 
-        internal ModelEditorControl GetModelEditorControl(){
-            var settingsStorageOnDictionary = new SettingsStorageOnDictionary(CurrentObject.GetCombinedModel().RootNode.GetChildNode("ModelEditor"));
-            return new ModelEditorControl(null, settingsStorageOnDictionary);
+        #endregion
+
+        #region Eventhandler
+
+        private void Model_Modifying(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.View.ObjectSpace.SetModified(CurrentObject);
         }
 
+        private void SpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args)
+        {
+            if (ReferenceEquals(args.Object, CurrentObject))
+            {
+                new ModelValidator().ValidateModel(CurrentObject.Model);
+                controller.SaveAction.Active["Not needed"] = true;
+                controller.Save();
+                controller.SaveAction.Active["Not needed"] = false;
+            }
+        }
 
-        internal ModelEditorController GetModelEditorController(XafApplication application){
-            var controller = new ModelEditorController(CurrentObject.GetCombinedModel(), new DummyStore(), application.Modules);
-            controller.ModifiedChanged += ControllerModifiedChanged;
-            controller.SetCurrentAspectByName(CurrentObject.CurrentLanguage);
+        #endregion
+
+        #region Methods
+
+        public void Setup(ObjectSpace objectSpace, XafApplication application)
+        {
+            _application = application;
+            objectSpace.ObjectSaving += SpaceOnObjectSaving;
+        }
+
+        private ModelEditorViewController GetModelEditorController()
+        {
+            var application = this.GetApplication(CurrentObject.PersistentApplication.ExecutableName);
+
+            var modulesManager = new DesignerModelFactory().CreateApplicationModelManager(
+                application,
+                string.Empty,
+                AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
+                string.Empty);
+
+            this.ReadModulesFromConfig(modulesManager, application);
+
+            modulesManager.Load();
+
+            var modelsManager = new ApplicationModelsManager(
+                modulesManager.Modules,
+                modulesManager.ControllersManager,
+                modulesManager.DomainComponents);
+
+            var masterModel = modelsManager.CreateModelApplication(null, null, false) as ModelApplicationBase;
+            masterModel.AddLayers(CurrentObject.GetAllLayers());
+
+            controller = new ModelEditorViewController((IModelApplication)masterModel, null, modulesManager.Modules);
+            controller.SetControl(this.Control);
+            controller.SetTemplate((this.View.Control as System.Windows.Forms.Control).Parent.Parent as IFrameTemplate);
+            controller.Modifying += this.Model_Modifying;
+            controller.SaveAction.Active["Not needed"] = false;
             return controller;
         }
 
-        private class DummyStore:DictionaryDifferenceStore {
-            protected override Dictionary LoadDifferenceCore(Schema schema) {
-                throw new NotImplementedException();
-            }
-
-            public override string Name {
-                get { throw new NotImplementedException(); }
-            }
-
-            public override void SaveDifference(Dictionary diffDictionary) {
-                
-            }
-        }
-        
-
-        public void Setup(ObjectSpace space, XafApplication app)
+        private XafApplication GetApplication(string executableName)
         {
-            _application = app;
-            space.ObjectSaving+=SpaceOnObjectSaving;
+            string assemblyPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+            try
+            {
+                ReflectionHelper.AddResolvePath(assemblyPath);
+                var assembly = ReflectionHelper.GetAssembly(Path.GetFileNameWithoutExtension(executableName), assemblyPath);
+                var assemblyInfo = XafTypesInfo.Instance.FindAssemblyInfo(assembly);
+                XafTypesInfo.Instance.LoadTypes(assembly);
+                return Enumerator.GetFirst<ITypeInfo>(ReflectionHelper.FindTypeDescendants(assemblyInfo, XafTypesInfo.Instance.FindTypeInfo(typeof(XafApplication)), false)).CreateInstance(new object[0]) as XafApplication;
+            }
+            finally
+            {
+                ReflectionHelper.RemoveResolvePath(assemblyPath);
+            }
         }
 
-        private void SpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args){
-            if (ReferenceEquals(args.Object, CurrentObject)){
-                Control.Controller.Dictionary.Validate();
-                ModifyCurrentObjectModel();
-                Control.Controller.Save();
+        private void ReadModulesFromConfig(ApplicationModulesManager manager, XafApplication application)
+        {
+            Configuration config = null;
+            if (application is WinApplication)
+            {
+                config = ConfigurationManager.OpenExeConfiguration(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + CurrentObject.PersistentApplication.ExecutableName);
+            }
+            else
+            {
+                var mapping = new WebConfigurationFileMap();
+                mapping.VirtualDirectories.Add("/Dummy", new VirtualDirectoryMapping(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, true));
+                config = WebConfigurationManager.OpenMappedWebConfiguration(mapping, "/Dummy");
             }
 
+            if (config.AppSettings.Settings["Modules"] != null)
+            {
+                manager.AddModuleFromAssemblies(config.AppSettings.Settings["Modules"].Value.Split(';'));
+            }
         }
 
+        #endregion
     }
 }

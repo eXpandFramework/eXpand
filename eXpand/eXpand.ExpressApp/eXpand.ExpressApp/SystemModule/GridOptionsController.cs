@@ -6,16 +6,15 @@ using eXpand.Xpo;
 using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule {
-    public abstract class GridOptionsController<ControlType,SettingsType>:ViewController<ListView>
+    public abstract class GridOptionsController<ControlType,SettingsType>:ViewController<ListView>, IModelExtender
     {
         object Getvalue(PropertyInfo propertyInfo, string attributeValue, object settings)
         {
             return string.IsNullOrEmpty(attributeValue) ? propertyInfo.GetValue(settings, null) : ReflectorHelper.ChangeType(attributeValue, propertyInfo.PropertyType);
         }
 
-        public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             //extenders.Add<IModelListView, IModelListViewGridOptions>();
         }
 

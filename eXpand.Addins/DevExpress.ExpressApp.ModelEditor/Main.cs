@@ -99,7 +99,8 @@ namespace DevExpress.ExpressApp.ModelEditor {
 					ApplicationModulesManager mgr = dmf.CreateModelManager(targetPath, diffsPath);
 					mgr.Load();
                     ApplicationModelsManager modelManager = new ApplicationModelsManager(mgr.Modules, mgr.ControllersManager, mgr.DomainComponents);
-                    FileModelStore fileModelStore = dmf.CreateApplicationModelStore(diffsPath);
+                    FileModelStore fileModelStore = dmf.CreateModuleModelStore(diffsPath);
+                    
                     IModelApplication modelApplication = modelManager.CreateModelApplication(null, fileModelStore, false);
 				    var controller = new ModelEditorViewController(modelApplication, fileModelStore, mgr.Modules);
 				    modelEditorForm = new ModelEditorForm(controller, new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor"));

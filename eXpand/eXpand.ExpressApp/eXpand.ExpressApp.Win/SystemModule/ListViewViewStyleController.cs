@@ -25,7 +25,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         string LayoutViewCustomization { get; set; }
     }
 
-    public partial class ListViewViewStyleController : ViewController<ListView>
+    public partial class ListViewViewStyleController : ViewController<ListView>, IModelExtender
     {
         public ListViewViewStyleController() {}
 
@@ -34,9 +34,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
             get { return string.Format("{0}.{1}", View.Id, "xml"); }
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewViewStyle>();
         }
 

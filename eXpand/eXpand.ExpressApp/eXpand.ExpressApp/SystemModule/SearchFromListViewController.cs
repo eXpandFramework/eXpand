@@ -9,7 +9,7 @@ using DevExpress.Persistent.Base;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public class SearchFromListViewController : SearchFromViewController
+    public class SearchFromListViewController : SearchFromViewController, IModelExtender
     {
         public SearchFromListViewController()
         {
@@ -85,9 +85,8 @@ namespace eXpand.ExpressApp.SystemModule
             }
         }
 
-        public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelColumn, IModelViewPropertySearchMode>();
         }
     }

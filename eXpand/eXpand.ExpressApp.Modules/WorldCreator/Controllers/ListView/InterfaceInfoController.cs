@@ -16,7 +16,7 @@ namespace eXpand.ExpressApp.WorldCreator.Controllers.ListView
     {
     }
 
-    public class InterfaceInfoController : ViewController<DevExpress.ExpressApp.ListView>
+    public class InterfaceInfoController : ViewController<DevExpress.ExpressApp.ListView>, IModelExtender
     {
         public InterfaceInfoController()
         {
@@ -81,9 +81,8 @@ namespace eXpand.ExpressApp.WorldCreator.Controllers.ListView
             return types;
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelApplication, IModelInterfaceSources>();
         }
     }

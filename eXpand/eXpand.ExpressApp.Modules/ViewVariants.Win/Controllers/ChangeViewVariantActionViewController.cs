@@ -82,7 +82,7 @@ namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
                 if (node.Id == oldId) {
                     ((IModelVariants)node.Parent).Current = ((IModelVariants)node.Parent)[newId];
                     node.Id = newId;
-                    node.ViewID = newId;
+                    node.View.Id = newId;
                     node.Caption = newId;
                 }
             }

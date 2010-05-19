@@ -4,8 +4,8 @@ using DevExpress.ExpressApp;
 namespace eXpand.ExpressApp.ModelDifference.Win{
     public class XpoWinModelDictionaryDifferenceStore:DictionaryStores.XpoModelDictionaryDifferenceStore
     {
-        public XpoWinModelDictionaryDifferenceStore( XafApplication application, bool enableLoading): base(application, enableLoading)
-        {
+        public XpoWinModelDictionaryDifferenceStore( XafApplication application, bool enableLoading)
+            : base(application, enableLoading) {
         }
 
         protected override string GetPath(){

@@ -18,7 +18,7 @@ namespace eXpand.ExpressApp.SystemModule
         LookUpListSearch LookUpListSearch { get; set; }
     }
 
-    public class LookUpListSearchAlwaysEnableController : BaseViewController
+    public class LookUpListSearchAlwaysEnableController : BaseViewController, IModelExtender
     {
         public LookUpListSearchAlwaysEnableController() { }
 
@@ -45,9 +45,8 @@ namespace eXpand.ExpressApp.SystemModule
                 ((IModelListViewLookUpListSearch)View.Model).LookUpListSearch = LookUpListSearch.AlwaysEnable;
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewLookUpListSearch>();
         }
     }

@@ -13,13 +13,12 @@ namespace eXpand.ExpressApp.SystemModule
         bool DisableFullTextForMemoFields { get; set; }
     }
 
-    public partial class FilterController : ViewController<ListView>
+    public partial class FilterController : ViewController<ListView>, IModelExtender
     {
         public FilterController() { }
 
-        public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewDisableFullTextForMemoFields>();
         }
 

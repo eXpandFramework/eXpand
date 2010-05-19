@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -15,19 +16,14 @@ using eXpand.Persistent.Base;
 using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
-    [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "PersistentApplication;DifferenceType",
-        TargetCriteria = "DifferenceType=0 AND Disabled=false", SkipNullOrEmptyValues = false)]
-    [CreatableItem(false)]
-    [NavigationItem("Default")]
-    [Custom(ClassInfoNodeWrapper.CaptionAttribute, Caption)]
-    [Custom("IsClonable", "True")]
-    [VisibleInReports(false)]
-    [HideFromNewMenu]
+
+    [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "PersistentApplication;DifferenceType", TargetCriteria = "DifferenceType=0 AND Disabled=false", SkipNullOrEmptyValues = false)]
+    [CreatableItem(false), NavigationItem("Default"), HideFromNewMenu]
+    [Custom("Caption", Caption), Custom("IsClonable", "True"), VisibleInReports(false)]
     public class ModelDifferenceObject : DifferenceObject, IXpoModelDifference {
         public const string Caption = "Application Difference";
         DifferenceType _differenceType;
         bool _disabled;
-        string _preferredAspect = DictionaryAttribute.DefaultLanguage;
         int combineOrder;
         DateTime dateCreated;
         string name;
@@ -41,8 +37,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref combineOrder, value); }
         }
 
-
-        [NonCloneable]
+        [NonCloneable, Browsable(false)]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [RuleRequiredField(null, DefaultContexts.Save)]
         [Association(Associations.PersistentApplicationModelDifferenceObjects)]
@@ -53,21 +48,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             }
         }
 
-        [Browsable(false)]
-        [MemberDesignTimeVisibility(false)]
-        public string CurrentLanguage {
-            get {
-                if (_preferredAspect == DictionaryAttribute.DefaultLanguage)
-                    return _preferredAspect;
-                return _preferredAspect.IndexOf(" ") > -1
-                           ? _preferredAspect.Substring(0, _preferredAspect.IndexOf(" "))
-                           : _preferredAspect;
-            }
-        }
         #region IXpoModelDifference Members
-        [VisibleInDetailView(false)]
-        [Custom(ColumnInfoNodeWrapper.GroupIndexAttribute, "0")]
-        [NonCloneable]
+
+        [Custom("GroupIndex", "0"), NonCloneable, VisibleInDetailView(false)]
         public DifferenceType DifferenceType {
             get { return _differenceType; }
             set { SetPropertyValue("DifferenceType", ref _differenceType, value); }
@@ -85,105 +68,54 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _disabled, value); }
         }
 
-        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
-        [RuleRequiredField(null, DefaultContexts.Save)]
+        [Custom("AllowEdit", "false"), RuleRequiredField(null, DefaultContexts.Save)]
         public DateTime DateCreated {
             get { return dateCreated; }
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref dateCreated, value); }
         }
 
-        [VisibleInListView(false)]
-        [NonPersistent]
-        [NonCloneable]
-        public string PreferredAspect {
-            get { return _preferredAspect; }
+        [Size(SizeAttribute.Unlimited), NonPersistent, NonCloneable, VisibleInListView(false), ImmediatePostData]
+        public string XmlContent {
+            get { return this.Model.Xml; }
             set {
-                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _preferredAspect, value);
-                setCurrentAspect(Model);
-                setCurrentAspect(PersistentApplication.Model);
-                OnChanged(this.GetPropertyInfo(x => x.Model).Name);
+                var oldValue = XmlContent;
+                new ModelXmlReader().ReadFromString(Model, (Model.Master as ModelApplicationBase).CurrentAspect, value);
+                OnChanged("XmlContent", oldValue, value);
             }
         }
 
-        [Size(-1)]
-        [NonPersistent]
-        [VisibleInListView(false)]
-        [NonCloneable]
-        public string XmlContent {
-            get { return new DictionaryXmlWriter().GetAspectXml(Model.GetAspectIndex(CurrentLanguage), Model.RootNode); }
-            set {
-                var newDictionary = new Dictionary(new DictionaryXmlReader().ReadFromString(value),Model.Schema);
-//                newDictionary.Validate();
-                string xmlContent = XmlContent;
-//                Model=newDictionary;
-//                string xmlContent = XmlContent;
-                Dictionary dictionary = PersistentApplication.Model.Clone();
-                dictionary.CombineWith(newDictionary);
-                dictionary.Validate();
-                Model = dictionary.GetDiffs();
-                OnChanged("XmlContent",xmlContent,value);
-            }
-        }
         #endregion
+
         public override void AfterConstruction() {
             base.AfterConstruction();
             _differenceType = DifferenceType.Model;
         }
 
-        void setCurrentAspect(Dictionary dictionary) {
-            dictionary.AddAspect(CurrentLanguage, new DictionaryNode(ApplicationNodeWrapper.NodeName));
-            dictionary.CurrentAspectProvider.CurrentAspect = CurrentLanguage;
-        }
-
-        public virtual Dictionary GetCombinedModel() {
-            return GetCombinedModel(PersistentApplication.Model.Clone());
-        }
-
-        public virtual ModelDifferenceObject InitializeMembers(string applicationName, string uniqueName) {
+        public virtual ModelDifferenceObject InitializeMembers(string applicationName, string uniqueName)
+        {
             PersistentApplication = new QueryPersistentApplication(Session).Find(uniqueName) ??
-                                    new PersistentApplication(Session) {Name = applicationName, UniqueName = uniqueName};
+                                    new PersistentApplication(Session) { Name = applicationName, UniqueName = uniqueName };
             ModelDifferenceObjectBuilder.SetUp(this, applicationName);
             return this;
         }
 
-        public virtual Dictionary GetCombinedModel(bool isSaving)
+        public virtual ModelApplicationBase[] GetAllLayers()
         {
-            return GetCombinedModel(persistentApplication.Model.Clone(),isSaving);
+            return this.GetAllLayers(new List<ModelDifferenceObject>().AsEnumerable());
         }
 
-        Dictionary GetCombinedModel(Dictionary dictionary, bool isSaving) {
-            Dictionary clone = dictionary.Clone();
-            clone.ResetIsModified();
-            if (!isSaving)
-                clone.CombineWith(Model);
-            return clone;
-        }
-
-        public Dictionary GetCombinedModel(IEnumerable<ModelDifferenceObject> differenceObjects, bool isSaving) {
-            Dictionary clone = PersistentApplication.Model.Clone();
-            foreach (
-                ModelDifferenceObject differenceObject in
-                    differenceObjects.Where(diffsObject => diffsObject.Model != null)) {
-                clone.CombineWith(differenceObject.Model);
+        public ModelApplicationBase[] GetAllLayers(IEnumerable<ModelDifferenceObject> differenceObjects)
+        {
+            var layers = new List<ModelApplicationBase>();
+            var master = ((ModelNode)ModelDifferenceModule.XafApplication.Model).CreatorInstance.CreateModelApplication();
+            foreach (ModelDifferenceObject differenceObject in differenceObjects)
+            {
+                layers.Add(differenceObject.Model);
             }
 
-            clone.ResetIsModified();
-            if (!isSaving)
-                clone.CombineWith(Model);
-            return clone;
-        }
+            layers.Add(this.Model);
 
-        public Dictionary GetCombinedModel(IEnumerable<ModelDifferenceObject> differenceObjects) {
-            return GetCombinedModel(differenceObjects, false);
-        }
-
-
-        public Dictionary GetCombinedModel(Dictionary dictionary) {
-            return GetCombinedModel(dictionary, false);
-        }
-
-        public void SetModelDirty() {
-            OnChanged(this.GetPropertyInfo(x => x.Model).Name);
+            return layers.ToArray();
         }
     }
 }

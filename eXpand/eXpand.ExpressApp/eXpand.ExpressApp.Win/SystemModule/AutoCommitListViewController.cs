@@ -9,7 +9,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         bool AutoCommit { get; set; }
     }
 
-    public class AutoCommitListViewController : ViewController<ListView>
+    public class AutoCommitListViewController : ViewController<ListView>, IModelExtender
     {
         protected override void OnActivated()
         {
@@ -19,9 +19,8 @@ namespace eXpand.ExpressApp.Win.SystemModule {
                 winDetailViewController.AutoCommitListView = true;
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewAutoCommit>();
         }
     }

@@ -10,7 +10,7 @@ namespace eXpand.ExpressApp.SystemModule
         bool CustomSelection { get; set; }
     }
 
-    public class CustomSelectionListViewViewController : BaseViewController<ListView>
+    public class CustomSelectionListViewViewController : BaseViewController<ListView>, IModelExtender
     {
         protected const string CustomSelection = "CustomSelection";
 
@@ -36,9 +36,8 @@ namespace eXpand.ExpressApp.SystemModule
             }
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelClass, IModelClassCustomSelection>();
         }
     }

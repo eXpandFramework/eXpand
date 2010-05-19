@@ -2,11 +2,14 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Utils;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.Persistent.Base;
-using System.Linq;
 
 namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     public abstract class XpoModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore
@@ -22,7 +25,6 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         {
             return IsDebuggerAttached && debuggerAttachedEnabled();
         }
-
 
         private bool debuggerAttachedEnabled()
         {
@@ -40,37 +42,58 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
         protected internal abstract string GetPath();
         
-        protected override Dictionary LoadDifferenceCore(Schema schema)
+        public override void Load(ModelApplicationBase model)
         {
             if (!_enableLoading)
-                return new Dictionary(schema);
-            var dictionary = new Dictionary(new DictionaryNode("Application"), schema);
-            
-            if ((UseModelFromPath())){
-                return loadFromPath(dictionary);
-            }
+                return;
+          
             var activeDifferenceObject = GetActiveDifferenceObject();
-            if (activeDifferenceObject!= null)
-                dictionary = activeDifferenceObject.Model;
+            ModelApplicationBase loadedModel = null;
+
+            if (UseModelFromPath())
+            {
+                loadedModel = loadFromPath();
+                loadedModel.Id = "Loaded From Path";
+            }
+            else if (activeDifferenceObject != null)
+            {
+                loadedModel = activeDifferenceObject.Model;
+                loadedModel.Id = activeDifferenceObject.Name;
+            }
+
+            if (loadedModel != null)
+            {
+                var language = model.Application.PreferredLanguage;
+                var userLayer = model.LastLayer;
+                model.RemoveLayer(userLayer);
+                model.AddLayer(loadedModel);
+                model.AddLayer(userLayer);
+                if (model.Application.PreferredLanguage != language)
+                {
+                    Application.SetLanguage(model.Application.PreferredLanguage);
+                }
+            }
             else 
-                SaveDifference(dictionary);
-            return dictionary;
+                SaveDifference(model.LastLayer);
         }
 
-        private Dictionary loadFromPath(Dictionary dictionary) {
+        private ModelApplicationBase loadFromPath()
+        {
+            var reader = new ModelXmlReader();
+            var model = ((ModelApplicationBase)Application.Model).CreatorInstance.CreateModelApplication();
+
             foreach (var s in GetModelPaths().Where(s => Path.GetFileName(s).ToLower().StartsWith("model") && s.IndexOf(".User") == -1))
             {
-                var dictionaryNode = new DictionaryXmlReader().ReadFromFile(s);
                 string replace = s.Replace(".xafml", "");
-                string aspect = DictionaryAttribute.DefaultLanguage;
+                string aspect = string.Empty;
                 if (replace.IndexOf("_") > -1)
                     aspect = replace.Substring(replace.IndexOf("_") + 1);
-                dictionary.AddAspect(aspect, dictionaryNode);
-            }    
-            SaveDifference(dictionary);
-            return dictionary;
-        }
 
+                reader.ReadFromFile(model, aspect, s);
+            }
+
+            return model;
+        }
 
         public override DifferenceType DifferenceType
         {

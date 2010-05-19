@@ -28,29 +28,27 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
         {
             get { return controller; }
         }
+
         protected override void OnActivated()
         {
             base.OnActivated();
             controller = new DialogController();
             controller.AcceptAction.Execute += AcceptActionOnExecute;
         }
+
         public void CreatePopupListView(ShowViewParameters parameters){
 
             parameters.Controllers.Add(controller);
             parameters.CreatedView = Application.CreateListView(Application.FindListViewId(typeof (ModelDifferenceObject)),GetCollectionSource(), true);
             parameters.TargetWindow = TargetWindow.NewModalWindow;
             parameters.Context = TemplateContext.PopupWindow;
-
-
         }
 
         private void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs args){
             var modelAspectObject = ((ModelDifferenceObject) View.CurrentObject);
-            Dictionary combinedModel = modelAspectObject.GetCombinedModel();
             foreach (var selectedObject in args.SelectedObjects.Cast<ModelDifferenceObject>()){
-                combinedModel.CombineWith(selectedObject.Model);
+                modelAspectObject.Model.AddLayer(selectedObject.Model);
             }
-            modelAspectObject.Model = combinedModel.GetDiffs();
         }
 
         internal CollectionSourceBase GetCollectionSource()

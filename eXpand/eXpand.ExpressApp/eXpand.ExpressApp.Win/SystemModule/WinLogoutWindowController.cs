@@ -1,6 +1,7 @@
 using DevExpress.ExpressApp.Model;
 using eXpand.ExpressApp.SystemModule;
 using eXpand.ExpressApp.Win.Interfaces;
+using DevExpress.ExpressApp;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
@@ -9,7 +10,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         bool LogOutEnable { get; set; }
     }
 
-    public partial class WinLogoutWindowController : BaseWindowController
+    public partial class WinLogoutWindowController : BaseWindowController, IModelExtender
     {
         public const string LogOutEnable = "LogOutEnable";
 
@@ -30,9 +31,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
             ((ILogOut)Application).Logout();
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions, IModelLogOutEnable>();
         }
     }

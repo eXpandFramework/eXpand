@@ -21,7 +21,7 @@ namespace eXpand.ExpressApp.SystemModule
         bool SkipIndexing { get; set; }
     }
 
-    public partial class IndexerController : ViewController
+    public partial class IndexerController : ViewController, IModelExtender
     {
 
         public event EventHandler<MemberInfoEventArgs> IndexAdding;
@@ -88,9 +88,8 @@ namespace eXpand.ExpressApp.SystemModule
             }
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelBOModel, IModelSkipIndex>();
             extenders.Add<IModelBOModelClassMembers, IModelSkipIndex>();
             extenders.Add<IModelOptions, IModelIndexOptions>();

@@ -10,7 +10,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         bool RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObject { get; set; }
     }
 
-    public class RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObjectController : WinDetailViewController
+    public class RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObjectController : WinDetailViewController, IModelExtender
     {
         protected override void OnViewQueryCanChangeCurrentObject(System.ComponentModel.CancelEventArgs e)
         {
@@ -18,10 +18,9 @@ namespace eXpand.ExpressApp.Win.SystemModule {
                 .RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObject)
                 base.OnViewQueryCanChangeCurrentObject(e);
         }
-   
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelView, IModelViewRollBackObjectChangesOnDetailViewQueryCanChangeCurrentObject>();
         }
     }

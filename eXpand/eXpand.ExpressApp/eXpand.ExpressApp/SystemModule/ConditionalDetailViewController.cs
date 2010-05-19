@@ -46,7 +46,7 @@ namespace eXpand.ExpressApp.SystemModule
         IModelDetailView DetailView { get; set; }
     }
 
-    public class ConditionalDetailViewController : ViewController<ListView>
+    public class ConditionalDetailViewController : ViewController<ListView>, IModelExtender
     {
         public const string ConditionalDetailViewsAttributeName = "ConditionalDetailViews";
         bool isActive;
@@ -58,9 +58,8 @@ namespace eXpand.ExpressApp.SystemModule
 
         public event ChooseCustomDetailViewEventHandler CustomChooseDetailView;
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewConditionalDetailViews>();
             extenders.Add<IModelDetailView, IModelListViewEnableOpenActionInMasterDetailMode>();
         }

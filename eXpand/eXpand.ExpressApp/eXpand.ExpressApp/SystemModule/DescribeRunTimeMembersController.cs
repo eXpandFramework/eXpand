@@ -12,7 +12,7 @@ namespace eXpand.ExpressApp.SystemModule
         bool DescribeRunTimeMembers { get; set; }
     }
 
-    public partial class DescribeRunTimeMembersController : WindowController
+    public partial class DescribeRunTimeMembersController : WindowController, IModelExtender
     {
         public DescribeRunTimeMembersController()
         {
@@ -33,9 +33,8 @@ namespace eXpand.ExpressApp.SystemModule
             }
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelClass, IModelClassDescribeRunTimeMembers>();
         }
     }

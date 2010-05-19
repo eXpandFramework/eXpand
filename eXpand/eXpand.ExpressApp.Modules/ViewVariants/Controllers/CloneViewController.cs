@@ -17,7 +17,7 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
         bool IsClonable { get; set; }
     }
 
-    public partial class CloneViewController : BaseViewController<ListView>
+    public partial class CloneViewController : BaseViewController<ListView>, IModelExtender
     {
         public CloneViewController()
         {
@@ -45,7 +45,7 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
             SingleChoiceAction changeVariantAction = changeVariantController.ChangeVariantAction;
             if (changeVariantController.Active.ResultValue)
             {
-                var choiceActionItem = new ChoiceActionItem(newVariantNode, newVariantNode.ViewID);
+                var choiceActionItem = new ChoiceActionItem(newVariantNode, newVariantNode.View);
                 changeVariantAction.Items.Add(choiceActionItem);
                 changeVariantAction.SelectedItem=choiceActionItem;
             }
@@ -69,7 +69,7 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
         private IModelVariant GetNewVariantNode(IModelVariants variantsNode, PopupWindowShowActionExecuteEventArgs e, out ViewCloner viewCloner) {
             var newVariantNode = variantsNode.AddNode<IModelVariant>("Variant");
             viewCloner = ((ViewCloner) e.PopupWindow.View.CurrentObject);
-            newVariantNode.ViewID = viewCloner.Caption;
+            newVariantNode.View.Id = viewCloner.Caption;
             setAttributes(newVariantNode, viewCloner);
             return newVariantNode;
         }
@@ -83,15 +83,14 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
                 variantsNode.Current.Caption = "Default";
                 var childNode = variantsNode.AddNode<IModelVariant>("Default");
                 childNode.Caption = "Default";
-                childNode.ViewID = View.Id;
+                childNode.View.Id = View.Id;
             }
 
             return variantsNode;
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewClonable>();
         }
 

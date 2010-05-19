@@ -11,16 +11,15 @@ namespace eXpand.ExpressApp.SystemModule
         bool IsRuntimeMember { get; set; }
     }
 
-    public class AddRuntimeFieldsFromModelToXPDictionary :ViewController
+    public class AddRuntimeFieldsFromModelToXPDictionary :ViewController, IModelExtender
     {
         public AddRuntimeFieldsFromModelToXPDictionary()
         {
             TargetObjectType = typeof (IXpoModelDifference);
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelBOModelClassMembers, IModelBOModelRuntimeMember>();
         }
 
