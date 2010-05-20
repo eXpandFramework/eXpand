@@ -50,8 +50,14 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 IModelCreatableItem modelCreatableItem = GetModelCreatableItem(XafTypesInfo.CastTypeToTypeInfo(type));
                 if (modelCreatableItem != null)
                 {
+<<<<<<< HEAD
                     NewObjectAction.Items.RemoveAt(0);
                     NewObjectAction.Items.Insert(0, CreateItem(type, modelCreatableItem));
+=======
+                    if (NewObjectAction.Items.Count>0)
+                        NewObjectAction.Items.RemoveAt(0);
+                    NewObjectAction.Items.Insert(0, CreateItem(type, findChildNode));
+>>>>>>> d27f4a0c813d40147ac64da73c0aa860f4e0a112
                 }
             }
         }

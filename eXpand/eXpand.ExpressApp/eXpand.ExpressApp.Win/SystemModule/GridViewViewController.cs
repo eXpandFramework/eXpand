@@ -63,6 +63,44 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             base.OnViewControlsCreated();
 
+            View.ControlsCreated += View_OnControlsCreated;
+
+            model = new ListViewInfoNodeWrapper(View.Info);
+        }
+
+        ///<summary>
+        ///
+        ///<para>
+        ///Updates the Application Model.
+        ///
+        ///</para>
+        ///
+        ///</summary>
+        ///
+        ///<param name="dictionary">
+        ///		A <b>Dictionary</b> object that provides access to the Application Model's nodes.
+        ///
+        ///            </param>
+        public override void UpdateModel(Dictionary dictionary)
+        {
+            base.UpdateModel(dictionary);
+            var wrappers = new ApplicationNodeWrapper(dictionary).Views.Items.Where(wrapper => wrapper is ListViewInfoNodeWrapper);
+            foreach (ListViewInfoNodeWrapper wrapper in wrappers)
+            {
+                wrapper.Node.SetAttribute(IsColumnHeadersVisible, true.ToString());
+                wrapper.Node.SetAttribute(UseTabKey, true.ToString());
+                wrapper.Node.SetAttribute(GuessAutoFilterRowValuesFromFilter, true.ToString());
+
+                foreach (ColumnInfoNodeWrapper column in wrapper.Columns.Items.Where(wrapper2 => wrapper2.PropertyTypeInfo.Type == typeof(string)))
+                {
+                    column.Node.SetAttribute(AutoFilterCondition, DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains.ToString());
+                    column.Node.SetAttribute(ImmediateUpdateAutoFilter, false.ToString());
+                }
+            }
+        }
+
+        private void View_OnControlsCreated(object sender, EventArgs e)
+        {
             gridControl = View.Control as GridControl;
             if (gridControl == null)
                 return;
@@ -91,7 +129,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private void FullTextFilterAction_Execute(object sender, DevExpress.ExpressApp.Actions.ParametrizedActionExecuteEventArgs e)
         {
-            ClearDoNotLoadWhenFilterExistsCriteria();
+            if (string.IsNullOrEmpty(e.ParameterCurrentValue as string))
+                SetDoNotLoadWhenFilterExistsCriteria();
+            else
+                ClearDoNotLoadWhenFilterExistsCriteria();
         }
 
         private void MainViewOnShownEditor(object sender, EventArgs args)
@@ -102,10 +143,11 @@ namespace eXpand.ExpressApp.Win.SystemModule
         }
 
 
-        private void SetDoNotLoadWhenFilterExistsCriteria()
-        {
-
-            View.CollectionSource.Criteria[DoNotLoadWhenNoFilterExists] = new BinaryOperator("Oid", Guid.NewGuid());
+        private void SetDoNotLoadWhenFilterExistsCriteria() {
+            var memberInfo = View.ObjectTypeInfo.KeyMember;
+            var memberType = memberInfo.MemberType;
+            var o = memberType.IsValueType ? Activator.CreateInstance(memberType) : null;
+            ((ListView) View).CollectionSource.Criteria[DoNotLoadWhenNoFilterExists] = new BinaryOperator(memberInfo.Name,o);
         }
 
         private void ClearDoNotLoadWhenFilterExistsCriteria()
