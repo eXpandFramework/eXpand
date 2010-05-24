@@ -10,10 +10,19 @@ using System.Linq;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
+    public interface IModelClassClassTypeToInstantiate : IModelNode
+    {
+        [Category("eXpand")]
+        [DataSourceProperty("Application.BOModel")]
+        [Description("Replace the default instantiation type under new action menu with this one")]
+        string ClassTypeToInstantiate { get; set; }
+    }
     public interface IModelViewClassTypeToInstantiate : IModelNode
     {
         [Category("eXpand")]
         [DataSourceProperty("Application.BOModel")]
+        [ModelValueCalculator("((IModelClassClassTypeToInstantiate)ModelClass)", "ClassTypeToInstantiate")]
+        [Description("Replace the default instantiation type under new action menu with this one")]
         string ClassTypeToInstantiate { get; set; }
     }
     public class WinNewObjectViewController : DevExpress.ExpressApp.Win.SystemModule.WinNewObjectViewController, IModelExtender
@@ -21,8 +30,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            extenders.Add<IModelListView, IModelViewClassTypeToInstantiate>();
-            extenders.Add<IModelDetailView, IModelViewClassTypeToInstantiate>();
+            extenders.Add<IModelClass, IModelClassClassTypeToInstantiate>();
+            extenders.Add<IModelView, IModelViewClassTypeToInstantiate>();
         }
         protected override void UpdateActionState()
         {
@@ -48,16 +57,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
             if (type != null)
             {
                 IModelCreatableItem modelCreatableItem = GetModelCreatableItem(XafTypesInfo.CastTypeToTypeInfo(type));
-                if (modelCreatableItem != null)
-                {
-<<<<<<< HEAD
+                if (modelCreatableItem != null){
                     NewObjectAction.Items.RemoveAt(0);
                     NewObjectAction.Items.Insert(0, CreateItem(type, modelCreatableItem));
-=======
-                    if (NewObjectAction.Items.Count>0)
-                        NewObjectAction.Items.RemoveAt(0);
-                    NewObjectAction.Items.Insert(0, CreateItem(type, findChildNode));
->>>>>>> d27f4a0c813d40147ac64da73c0aa860f4e0a112
+
                 }
             }
         }

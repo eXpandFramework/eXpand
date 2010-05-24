@@ -9,6 +9,7 @@ namespace eXpand.ExpressApp.SystemModule
     public interface IModelClassDescribeRunTimeMembers : IModelNode
     {
         [Category("eXpand")]
+        [Description("Adds a TypeDesriptionProvider to describe runtime members")]
         bool DescribeRunTimeMembers { get; set; }
     }
 

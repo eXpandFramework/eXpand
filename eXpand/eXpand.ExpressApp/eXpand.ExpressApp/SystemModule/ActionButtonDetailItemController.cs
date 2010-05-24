@@ -2,16 +2,9 @@
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Model;
-using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Editors;
 
 namespace eXpand.ExpressApp.SystemModule {
-    public interface IModelActionButtonDetailItem : IModelDetailViewItem
-    {
-        [DataSourceProperty("Application.Model.ActionDesign.Actions")]
-        IModelAction ActionId { get; set; }
-    }
     public class ActionButtonDetailItemController:ViewController<DetailView>
     {
         protected override void OnActivated() {
@@ -24,7 +17,7 @@ namespace eXpand.ExpressApp.SystemModule {
         private void ActionButtonDetailItemOnExecuted(object sender, EventArgs eventArgs) {
             var actionButtonDetailItem = ((ActionButtonDetailItem) sender);
             var simpleActions = Frame.Controllers.Cast<Controller>().SelectMany(controller1 => controller1.Actions).OfType<SimpleAction>();
-            var action = simpleActions.Where(@base => @base.Id == ((IModelActionButtonDetailItem)actionButtonDetailItem.Model).ActionId.Id).Single();
+            var action = simpleActions.Where(@base => @base.Id == ((IModelActionButton)actionButtonDetailItem.Model).ActionId.Id).Single();
             action.DoExecute();
         }
     }

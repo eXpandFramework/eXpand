@@ -7,7 +7,7 @@ namespace eXpand.ExpressApp.Web.SystemModule {
             base.OnViewControlsCreated();
             if (Frame.Template != null) {
                 Control control = ((Control) Frame.Template).FindControl("ToolBar");
-                if (control != null) control.Visible = !((IModelHideViewToolBar)View.Model).HideToolBar;
+                if (control != null) control.Visible = !((IModelListViewHideViewToolBar)View.Model).HideToolBar;
             }
         }
     }

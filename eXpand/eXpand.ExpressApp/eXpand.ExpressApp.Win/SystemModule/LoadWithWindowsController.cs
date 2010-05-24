@@ -7,9 +7,10 @@ using Microsoft.Win32;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public interface IModelLoadWithWindowsOptions : IModelNode
+    public interface IModelOptionsLoadWithWindowsOptions : IModelNode
     {
         [Category("eXpand")]
+        [Description("Modify windows registry in order your application to start along with windows")]
         bool LoadWithWindows { get; set; }
     }
 
@@ -32,7 +33,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
             if (key != null)
             {
-                if (((IModelLoadWithWindowsOptions)Application.Model.Options).LoadWithWindows)
+                if (((IModelOptionsLoadWithWindowsOptions)Application.Model.Options).LoadWithWindows)
                 {
                     key.SetValue(Application.Title, "\"" + System.Windows.Forms.Application.ExecutablePath + "\"");
                 }
@@ -45,7 +46,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            extenders.Add<IModelOptions, IModelLoadWithWindowsOptions>();
+            extenders.Add<IModelOptions, IModelOptionsLoadWithWindowsOptions>();
         }
     }
 }

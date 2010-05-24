@@ -3,11 +3,10 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.XtraGrid;
-using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public class NewObjectLookUpViewController : BaseViewController
+    public class NewObjectLookUpViewController : ViewController
     {
         public NewObjectLookUpViewController()
         {

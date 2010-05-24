@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections;
-using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.TreeListEditors.Win;
-using DevExpress.Persistent.Base.General;
+﻿using System.Collections;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-using eXpand.ExpressApp.SystemModule;
 using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
@@ -14,17 +8,12 @@ namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
 
 
     using System;
-    using DevExpress.ExpressApp.TreeListEditors.Win;
     using DevExpress.ExpressApp;
     using DevExpress.Persistent.Base.General;
     using DevExpress.Data.Filtering;
 
-    namespace WinSample.Module.Win
-    {
-    }
 
-
-    public partial class HideICategorizedItemController : BaseViewController
+    public partial class HideICategorizedItemController : ViewController
     {
         public HideICategorizedItemController()
         {

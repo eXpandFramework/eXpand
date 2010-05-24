@@ -5,15 +5,11 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.ModelDifference.Security.Controllers
 {
-    public partial class NavigationItemsController : BaseWindowController
+    public class NavigationItemsController : WindowController
     {
-        public NavigationItemsController() {
-        }
-
         [CoverageExclude]
         protected override void OnActivated()
         {

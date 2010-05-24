@@ -38,7 +38,7 @@ namespace eXpand.ExpressApp.SystemModule
         {
             base.OnActivated();
             var detailView = ((DetailView)View);
-            _searchAbleMemberInfos = detailView.Model.Items.OfType<IModelViewPropertySearchMode>().Where(
+            _searchAbleMemberInfos = detailView.Model.Items.OfType<IModelPropertyEditorSearchMode>().Where(
                 mode => mode.SearchMemberMode == SearchMemberMode.Include).Select(searchMode => View.ObjectTypeInfo.FindMember(((IModelPropertyEditor)searchMode).ModelMember.Name));
             _searchAction.Active["HasSearchAbleMembers"] = _searchAbleMemberInfos.Count() > 0;
         }

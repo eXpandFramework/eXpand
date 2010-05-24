@@ -2,8 +2,6 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.ViewVariantsModule;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
-using eXpand.ExpressApp.SystemModule;
 using eXpand.ExpressApp.ViewVariants.BasicObjects;
 using DevExpress.ExpressApp.Model;
 using System.ComponentModel;
@@ -17,7 +15,7 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
         bool IsClonable { get; set; }
     }
 
-    public partial class CloneViewController : BaseViewController<ListView>, IModelExtender
+    public partial class CloneViewController : ViewController<ListView>, IModelExtender
     {
         public CloneViewController()
         {
@@ -76,7 +74,7 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
 
         private IModelVariants GetDefaultVariantsNode()
         {
-            IModelVariants variantsNode = View.Model as IModelVariants;
+            var variantsNode = View.Model as IModelVariants;
             if (variantsNode == null)
             {
                 variantsNode = View.Model.AddNode<IModelVariants>();

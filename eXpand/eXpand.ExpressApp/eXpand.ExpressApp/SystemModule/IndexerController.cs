@@ -10,13 +10,14 @@ using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public interface IModelIndexOptions : IModelNode
+    public interface IModelOptionIndexMembers : IModelNode
     {
         [Category("eXpand")]
+        [Description("Automatically create database index for all members")]
         bool CreateIndexForAllMembers { get; set; }
     }
 
-    public interface IModelSkipIndex : IModelNode
+    public interface IModelMemberSkipIndex : IModelNode
     {
         [Category("eXpand")]
         bool SkipIndexing { get; set; }
@@ -39,18 +40,18 @@ namespace eXpand.ExpressApp.SystemModule
         protected override void OnActivated()
         {
             base.OnActivated();
-            if (((IModelIndexOptions)Application.Model.Options).CreateIndexForAllMembers)
+            if (((IModelOptionIndexMembers)Application.Model.Options).CreateIndexForAllMembers)
             {
                 Active["RunOnlyOnce"] = false;
                 var indexAdded = new List<ITypeInfo>();
                 foreach (var classInfoNodeWrapper in Application.Model.BOModel.Where
-                    (wrapper => wrapper.TypeInfo.IsPersistent && !((IModelSkipIndex)wrapper).SkipIndexing))
+                    (wrapper => wrapper.TypeInfo.IsPersistent && !((IModelMemberSkipIndex)wrapper).SkipIndexing))
                 {
                     foreach (var propertyInfoNodeWrapper in classInfoNodeWrapper.AllMembers)
                     {
                         var memberInfo = classInfoNodeWrapper.TypeInfo.FindMember(propertyInfoNodeWrapper.Name);
                         if (memberInfo != null &&
-                            (!((IModelSkipIndex)propertyInfoNodeWrapper).SkipIndexing &&
+                            (!((IModelMemberSkipIndex)propertyInfoNodeWrapper).SkipIndexing &&
                              !Equals(memberInfo.MemberType, typeof(byte[])) && !memberInfo.IsAssociation))
                         {
                             var findAttribute = memberInfo.FindAttribute<SizeAttribute>();
@@ -82,8 +83,8 @@ namespace eXpand.ExpressApp.SystemModule
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            extenders.Add<IModelMember, IModelSkipIndex>();
-            extenders.Add<IModelOptions, IModelIndexOptions>();
+            extenders.Add<IModelMember, IModelMemberSkipIndex>();
+            extenders.Add<IModelOptions, IModelOptionIndexMembers>();
         }
     }
 }

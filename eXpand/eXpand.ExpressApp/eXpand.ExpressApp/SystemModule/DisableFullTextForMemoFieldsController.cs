@@ -11,9 +11,17 @@ using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule
 {
+    public interface IModelClassDisableFullTextForMemoFields
+    {
+        [Category("eXpand")]
+        [Description("Remove all fields marked with unlimited size attribute from full text")]
+        bool DisableFullTextForMemoFields { get; set; }
+    }
+
     public interface IModelListViewDisableFullTextForMemoFields
     {
         [Category("eXpand")]
+        [ModelValueCalculator("((IModelClassDisableFullTextForMemoFields)ModelClass)", "DisableFullTextForMemoFields")]
         bool DisableFullTextForMemoFields { get; set; }
     }
 
@@ -21,6 +29,7 @@ namespace eXpand.ExpressApp.SystemModule
     {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
+            extenders.Add<IModelClass, IModelClassDisableFullTextForMemoFields>();
             extenders.Add<IModelListView, IModelListViewDisableFullTextForMemoFields>();
         }
 

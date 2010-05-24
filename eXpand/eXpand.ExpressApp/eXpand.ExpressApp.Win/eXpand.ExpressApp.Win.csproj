@@ -50,37 +50,37 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Validation.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Win.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraBars.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraEditors.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraGrid.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraLayout.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -148,25 +148,28 @@
     <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditorBase.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringReferenceObjectPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringDisableTextEditorPropertyEditor.cs" />
-    <Compile Include="SystemModule\FocusControlByShortcutController.cs">
+    <Compile Include="SystemModule\ApplicationMultiInstancesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\AutoCommitListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\CursorPositionController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\FilterControlListViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\ReadOnlyTabStopController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\WinNewObjectViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\CustomSelectionListViewViewController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\eXpandSystemWindowsFormsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\FilterControlListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\FocusControlByShortcutController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridOptionsController.cs">
@@ -176,9 +179,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HideGridPopUpMenuViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\HideNestedListViewToolBarViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HideToolBarController.cs">
@@ -199,19 +199,16 @@
     <Compile Include="SystemModule\MinimizeOnCloseController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\MoreSerializer.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="SystemModule\NewObjectLookUpViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\NotifyIconController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\RemoveNavigationItemsController.cs">
+    <Compile Include="SystemModule\ReadOnlyTabStopController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\AutoCommitListViewController.cs">
+    <Compile Include="SystemModule\RemoveNavigationItemsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObjectController.cs">
@@ -226,14 +223,14 @@
     <Compile Include="SystemModule\WindowHintController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\WinNewObjectViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Core\MoreSerializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SystemModule\WinLogoutWindowController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\eXpandSystemWindowsFormsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Templates\MainForm.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="WinComponent.cs">
       <SubType>Component</SubType>
@@ -241,12 +238,6 @@
     <Compile Include="WinComponent.Designer.cs">
       <DependentUpon>WinComponent.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Templates\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Model.DesignedDiffs.xafml">
@@ -284,6 +275,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Templates\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

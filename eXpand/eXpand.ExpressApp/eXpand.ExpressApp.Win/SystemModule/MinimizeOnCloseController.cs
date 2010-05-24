@@ -8,9 +8,10 @@ using DevExpress.XtraEditors;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public interface IModelMinimizeOnCloseOptions : IModelNode
+    public interface IModelOptionsMinimizeOnCloseOptions : IModelNode
     {
         [Category("eXpand")]
+        [Description("Minimize application on closing instead of closing")]
         bool MinimizeOnClose { get; set; }
     }
 
@@ -27,14 +28,14 @@ namespace eXpand.ExpressApp.Win.SystemModule
         private void FrameOnTemplateChanged(object sender, EventArgs args)
         {
             if (Frame.Context == TemplateContext.ApplicationWindow &&
-                ((IModelMinimizeOnCloseOptions)Application.Model.Options).MinimizeOnClose)
+                ((IModelOptionsMinimizeOnCloseOptions)Application.Model.Options).MinimizeOnClose)
             {
                 var form = Frame.Template as XtraForm;
                 if (form != null)
                 {
                     form.FormClosing += FormOnFormClosing;
                     SimpleAction action =
-                    Frame.GetController<DevExpress.ExpressApp.Win.SystemModule.EditModelController>().Action;
+                    Frame.GetController<DevExpress.ExpressApp.Win.SystemModule.EditModelController>().EditModelAction;
                     action.Executing += (o, eventArgs) => editing = true;
                     action.ExecuteCompleted += (o, eventArgs) => editing = false;
                 }
@@ -46,7 +47,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             if (!editing && e.CloseReason == CloseReason.UserClosing)
             {
                 if (Application != null)
-                    e.Cancel = ((IModelMinimizeOnCloseOptions)Application.Model.Options).MinimizeOnClose;
+                    e.Cancel = ((IModelOptionsMinimizeOnCloseOptions)Application.Model.Options).MinimizeOnClose;
 
                 if (e.Cancel)
                     ((XtraForm)sender).Hide();
@@ -55,7 +56,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            extenders.Add<IModelOptions, IModelMinimizeOnCloseOptions>();
+            extenders.Add<IModelOptions, IModelOptionsMinimizeOnCloseOptions>();
         }
     }
 }

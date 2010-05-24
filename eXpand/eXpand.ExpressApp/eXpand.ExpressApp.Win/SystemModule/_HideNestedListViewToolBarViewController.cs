@@ -4,7 +4,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Templates;
 using DevExpress.XtraBars;
-using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
@@ -14,7 +13,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         bool HideToolBar { get; set; }
     }
 
-    public class HideNestedListViewToolBarViewController : BaseViewController<ListView>, IModelExtender
+    public class HideNestedListViewToolBarViewController : ViewController<ListView>, IModelExtender
     {
         public HideNestedListViewToolBarViewController()
         {

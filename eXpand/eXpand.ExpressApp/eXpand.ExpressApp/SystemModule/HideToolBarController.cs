@@ -4,10 +4,18 @@ using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public interface IModelHideViewToolBar : IModelNode
+    public interface IModelClassHideViewToolBar : IModelNode
     {
         [Category("eXpand")]
-        [DefaultValue(false)]
+        [Description("Hides list view toolbar")]
+        bool HideToolBar { get; set; }
+    }
+
+    public interface IModelListViewHideViewToolBar : IModelNode
+    {
+        [Category("eXpand")]
+        [ModelValueCalculator("((IModelClassHideViewToolBar)ModelClass)", "HideToolBar")]
+        [Description("Hides list view toolbar")]
         bool HideToolBar { get; set; }
     }
 
@@ -15,7 +23,8 @@ namespace eXpand.ExpressApp.SystemModule
     {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            extenders.Add<IModelListView, IModelHideViewToolBar>();
+            extenders.Add<IModelClass, IModelClassHideViewToolBar>();
+            extenders.Add<IModelListView, IModelListViewHideViewToolBar>();
         }
     }
 }

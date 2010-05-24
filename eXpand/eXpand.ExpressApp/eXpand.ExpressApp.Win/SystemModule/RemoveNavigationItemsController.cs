@@ -1,11 +1,10 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base.Security;
-using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public class RemoveNavigationItemsController : BaseWindowController
+    public class RemoveNavigationItemsController : WindowController
     {
         protected override void OnActivated()
         {

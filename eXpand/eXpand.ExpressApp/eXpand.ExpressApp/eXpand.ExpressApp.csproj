@@ -50,22 +50,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.1.Linq, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v10.1.Linq, Version=10.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -110,6 +110,7 @@
     <Compile Include="Core\DictionaryHelpers\DictionaryHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\DynamicModel\IDynamicModelPropertiesSource.cs" />
     <Compile Include="Core\FrameExtensions.cs" />
     <Compile Include="Core\LinqServerCollectionSource.cs" />
     <Compile Include="Core\ObjectObserver.cs" />
@@ -143,12 +144,6 @@
     <Compile Include="SystemModule\AllowEditDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\BaseViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\BaseWindowController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\ConditionalDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -164,6 +159,7 @@
     <Compile Include="SystemModule\DisableFullTextForMemoFieldsController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Core\DynamicModel\DynamicModelType.cs" />
     <Compile Include="SystemModule\ExpandAbleMembersViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -212,6 +208,8 @@
     <Compile Include="SystemModule\ShowNonPersistentObjectDetailViewFromNavigationControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Core\DynamicModel\SimplePropertyInfo.cs" />
+    <Compile Include="Core\DynamicModel\DynamicModelPropertiesSource.cs" />
     <Compile Include="SystemModule\TrackNewObjectSavedController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -287,6 +285,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ExpressApp.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\DevExpress 2010.1\Components\Sources\DevExpress.XtraGrid\DevExpress.XtraGrid\DevExpress.XtraGrid.csproj">
+      <Project>{F355827D-3C33-425F-AB52-2C766611B44E}</Project>
+      <Name>DevExpress.XtraGrid</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

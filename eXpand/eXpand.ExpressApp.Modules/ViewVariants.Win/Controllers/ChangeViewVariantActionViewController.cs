@@ -2,7 +2,6 @@ using System.Linq;
 using Windows = System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.ExpressApp.Win.Controls;
@@ -12,15 +11,12 @@ using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
-using eXpand.ExpressApp.SystemModule;
 using eXpand.ExpressApp.ViewVariants.BasicObjects;
 using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
-    public class ChangeViewVariantActionViewController : BaseViewController<ListView>
+    public class ChangeViewVariantActionViewController : ViewController<ListView>
     {
-        public ChangeViewVariantActionViewController() { }
-
         protected override void OnAfterConstruction()
         {
             base.OnAfterConstruction();

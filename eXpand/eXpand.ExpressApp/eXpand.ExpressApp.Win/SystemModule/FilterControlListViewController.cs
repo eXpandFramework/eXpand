@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
@@ -6,20 +7,29 @@ using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid;
-using eXpand.ExpressApp.SystemModule;
 using Forms = System.Windows.Forms;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
+    public interface IModelClassFilterControlSettings : IModelNode,IModelExtender
+    {
+        [Category("eXpand")]
+        [Description("For listviews displays a filter expression editor control at the specified position")]
+        Forms.DockStyle FilterControlPosition { get; set; }
+    }
     public interface IModelListViewFilterControlSettings : IModelNode,IModelExtender
     {
+        [Category("eXpand")]
+        [ModelValueCalculator("((IModelClassFilterControlSettings)ModelClass)", "FilterControlPosition")]
+        [Description("For listviews displays a filter expression editor control at the specified position")]
         Forms.DockStyle FilterControlPosition { get; set; }
     }
 
-    public class FilterControlListViewController : BaseViewController<ListView>,IModelExtender
+    public class FilterControlListViewController : ViewController<ListView>,IModelExtender
     {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
+            extenders.Add<IModelClass, IModelClassFilterControlSettings>();
             extenders.Add<IModelListView, IModelListViewFilterControlSettings>();
         }
 
@@ -49,11 +59,11 @@ namespace eXpand.ExpressApp.Win.SystemModule
         {
             var gridControl = sender as GridControl;
             filterControl = new Editors.FilterControl
-                                {
-                                    Height = 150,
-                                    Dock = ((IModelListViewFilterControlSettings)View.Model).FilterControlPosition,
-                                    SourceControl = gridControl
-                                };
+                            {
+                                Height = 150,
+                                Dock = ((IModelListViewFilterControlSettings)View.Model).FilterControlPosition,
+                                SourceControl = gridControl
+                            };
             InvokeFilterActivated(e);
             gridControl = filterControl.SourceControl as GridControl;
             if (gridControl != null )

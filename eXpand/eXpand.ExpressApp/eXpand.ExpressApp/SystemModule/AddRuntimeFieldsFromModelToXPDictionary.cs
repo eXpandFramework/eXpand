@@ -10,6 +10,7 @@ namespace eXpand.ExpressApp.SystemModule
     public interface IModelBOModelRuntimeMember : IModelNode
     {
         [Category("eXpand")]
+        [Description("Create member at runtime")]
         bool IsRuntimeMember { get; set; }
     }
 

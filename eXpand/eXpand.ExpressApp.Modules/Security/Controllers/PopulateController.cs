@@ -2,14 +2,13 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using DevExpress.ExpressApp.NodeWrappers;
-using eXpand.ExpressApp.SystemModule;
+using DevExpress.ExpressApp;
 using eXpand.Utils.Helpers;
 using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.Security.Controllers
 {
-    public abstract partial class PopulateController<T> : BaseViewController
+    public abstract partial class PopulateController<T> : ViewController
     {
         private IModelMember modelMember;
 
@@ -37,7 +36,7 @@ namespace eXpand.ExpressApp.Security.Controllers
             var propertyInfo = ReflectionExtensions.GetExpression(lambdaExpression) as PropertyInfo;
             if (propertyInfo != null)
                 modelMember =
-                    (this.View.Model.ModelClass.AllMembers.Where(
+                    (View.Model.ModelClass.AllMembers.Where(
                         wrapper =>
                         wrapper.Name == propertyInfo.Name)).FirstOrDefault();
             if (modelMember != null){

@@ -11,9 +11,10 @@ using eXpand.ExpressApp.Win.Interfaces;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public interface IModelNotifyIconOptions : IModelNode
+    public interface IModelOptionsNotifyIconOptions : IModelNode
     {
         [Category("eXpand")]
+        [Description("Add a tray icon with a popup menu")]
         bool NotifyIcon { get; set; }
     }
 
@@ -27,7 +28,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         private void FrameOnTemplateChanged(object sender, EventArgs args)
         {
-            if (Frame.Context == TemplateContext.ApplicationWindow && ((IModelNotifyIconOptions)Application.Model.Options).NotifyIcon)
+            if (Frame.Context == TemplateContext.ApplicationWindow && ((IModelOptionsNotifyIconOptions)Application.Model.Options).NotifyIcon)
             {
                 var form = Frame.Template as XtraForm;
                 if (form != null)
@@ -78,7 +79,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            extenders.Add<IModelOptions, IModelNotifyIconOptions>();
+            extenders.Add<IModelOptions, IModelOptionsNotifyIconOptions>();
         }
     }
 }

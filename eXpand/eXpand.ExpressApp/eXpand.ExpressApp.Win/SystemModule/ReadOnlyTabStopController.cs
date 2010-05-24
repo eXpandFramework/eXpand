@@ -8,9 +8,17 @@ using DevExpress.XtraEditors;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
+    public interface IModelClassTabStopForReadOnly : IModelNode
+    {
+        [Category("eXpand")]
+        [Description("If a detailview editor is readonly then you can not navigate to it using the TAB key")]
+        bool TabOverReadOnlyEditors { get; set; }
+    }
     public interface IModelDetailViewTabStopForReadOnly : IModelNode
     {
         [Category("eXpand")]
+        [Description("If a detailview editor is readonly then you can not navigate to it using the TAB key")]
+        [ModelValueCalculator("((IModelClassTabStopForReadOnly)ModelClass)", "TabOverReadOnlyEditors")]
         bool TabOverReadOnlyEditors { get; set; }
     }
 

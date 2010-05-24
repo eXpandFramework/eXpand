@@ -9,6 +9,7 @@ namespace eXpand.ExpressApp.SystemModule
     public interface IConnectionInfoStatusMessage
     {
         [Category("eXpand")]
+        [Description("Display connection info (server/database) at status bar")]
         bool ConnectionInfoMessage { get; set; }
 
     }

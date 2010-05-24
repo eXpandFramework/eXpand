@@ -41,7 +41,7 @@ namespace eXpand.ExpressApp.SystemModule
         IModelListView PropertyPathListViewId { get; set; }
     }
 
-    public abstract class FilterByPropertyPathViewController : BaseViewController<ListView>, IModelExtender
+    public abstract class FilterByPropertyPathViewController : ViewController<ListView>, IModelExtender
     {
         private Dictionary<string, FiltersByCollectionWrapper> _filtersByPropertyPathWrappers;
         readonly SingleChoiceAction _filterSingleChoiceAction;

@@ -1,20 +1,39 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using System.Linq;
+using DevExpress.ExpressApp.Model;
 using DevExpress.XtraEditors;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public class CursorPositionController : ViewController<DetailView>{
+    public interface IModelMemberCursorPosition {
+        [Category("eXpand")]
+        [Description("Controls the position of the cursor after the control gets focused")]
+        CursorPosition CursorPosition { get; set; }    
+    }
+    public interface IModelPropertyEditorCursorPosition{
+        [Category("eXpand")]
+        [Description("Controls the position of the cursor after the control gets focused")]
+        [ModelValueCalculator("((IModelMemberCursorPosition)ModelMember)", "CursorPosition")]
+        CursorPosition CursorPosition { get; set; }    
+    }
+    public class CursorPositionController : ViewController<DetailView>,IModelExtender{
         public const string CursorPosition = "CursorPosition";
+
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            extenders.Add<IModelMember,IModelMemberCursorPosition>();
+            extenders.Add<IModelPropertyEditor,IModelPropertyEditorCursorPosition>();
+        }
+
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             IEnumerable<PropertyEditor> textEdits = GetTextEdits();
 
             foreach (var textEdit in textEdits){
-                CursorPosition cursorPosition = textEdit.Info.GetAttributeEnumValue(CursorPosition,SystemModule.CursorPosition.Default);
+                CursorPosition cursorPosition = ((IModelPropertyEditorCursorPosition) textEdit.Model).CursorPosition;
                 var edit = ((TextEdit) textEdit.Control);
                 edit.GotFocus+=(sender, args) => {
                     var length = cursorPosition == SystemModule.CursorPosition.End ? (edit.EditValue + "").Length : 0;
@@ -27,17 +46,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             return View.GetItems<PropertyEditor>().Where(
                 editor =>
                 editor.Control is TextEdit &&
-                editor.Info.GetAttributeEnumValue(CursorPosition, SystemModule.CursorPosition.Default) !=
-                SystemModule.CursorPosition.Default);
-        }
-
-
-        public override Schema GetSchema(){
-            var schemaBuilder = new SchemaBuilder();
-            string injectString = @"<Attribute Name=""" + CursorPosition + @""" Choice=""{" + typeof(CursorPosition).FullName + @"}""   DefaultValueExpr=""{DevExpress.ExpressApp.Core.DictionaryHelpers.BOPropertyCalculator}ClassName=..\..\@ClassName""/>";
-            var schema = new Schema(schemaBuilder.Inject(injectString, ModelElement.DetailViewPropertyEditors));
-            schema.CombineWith(new Schema(schemaBuilder.Inject(@"<Attribute Name=""" + CursorPosition + @""" Choice=""{"+typeof(CursorPosition).FullName + @"}"" />", ModelElement.Member)));
-            return schema;
+                ((IModelPropertyEditorCursorPosition) editor.Model).CursorPosition!=SystemModule.CursorPosition.Default);
         }
     }
 

@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using DevExpress.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.SystemModule
 {
@@ -14,13 +11,20 @@ namespace eXpand.ExpressApp.SystemModule
         AlwaysEnable
     }
 
-    public interface IModelListViewLookUpListSearch
+    public interface IModelClassLookUpListSearch
     {
         [Category("eXpand")]
         LookUpListSearch LookUpListSearch { get; set; }
     }
 
-    public class LookUpListSearchAlwaysEnableController : BaseViewController, IModelExtender
+    public interface IModelListViewLookUpListSearch
+    {
+        [Category("eXpand")]
+        [ModelValueCalculator("((IModelClassLookUpListSearch)ModelClass)", "LookUpListSearch")]
+        LookUpListSearch LookUpListSearch { get; set; }
+    }
+
+    public class LookUpListSearchAlwaysEnableController : ViewController, IModelExtender
     {
         protected override void OnActivated()
         {
@@ -32,22 +36,10 @@ namespace eXpand.ExpressApp.SystemModule
             }
         }
 
-        public override void UpdateModel(IModelApplication applicationModel)
-        {
-
-            base.UpdateModel(applicationModel);
-            return;
-            IEnumerable<string> enumerable = applicationModel.BOModel
-                .Where(wrapper => typeof(ICategorizedItem).IsAssignableFrom(wrapper.TypeInfo.Type))
-                .Select(wrapper => wrapper.TypeInfo.FullName);
-
-            foreach (IModelListView modelView in applicationModel.Views.Where(
-                wrapper => wrapper.Id.EndsWith("_LookupListView") && enumerable.Contains(wrapper.ModelClass.Name)))
-                ((IModelListViewLookUpListSearch)modelView).LookUpListSearch = LookUpListSearch.AlwaysEnable;
-        }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
+            extenders.Add<IModelClass, IModelClassLookUpListSearch>();
             extenders.Add<IModelListView, IModelListViewLookUpListSearch>();
         }
     }

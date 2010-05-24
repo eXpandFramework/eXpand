@@ -16,32 +16,66 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
-using eXpand.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public interface IModelListViewMasterDetailOptions : IModelNode
+    public interface IModelClassMasterDetailOptions : IModelNode
     {
         [DataSourceProperty("Application.Views")]
         [DataSourceCriteria("ModelClass Is Not Null And ModelClass.Name = '@This.Name'")]
         [Category("eXpand")]
+        [Description("The listview that is going to be used as child listview")]
         IModelListView DetailListView { get; set; }
 
         [DataSourceProperty("ModelClass.AllMembers")]
         [DataSourceCriteria("MemberInfo.IsList")]
         [Category("eXpand")]
+        [Description("The collection member that is going to be used as child collection")]
         IModelMember DetailListRelationName { get; set; }
+
         [Category("eXpand")]
+        [Description("Enables 2 actions one for expanding all child rows and one for collapsing")]
+        bool ExpandAllRows { get; set; }
+    }
+    public interface IModelListViewMasterDetailOptions : IModelNode
+    {
+        [DataSourceProperty("Application.Views")]
+        [DataSourceCriteria("ModelClass Is Not Null And ModelClass.Name = '@This.Name'")]
+        [Category("eXpand")]
+        [Description("The listview that is going to be used as child listview")]
+        [ModelValueCalculator("((IModelClassMasterDetailOptions)ModelClass)", "DetailListView")]
+        IModelListView DetailListView { get; set; }
+
+        [DataSourceProperty("ModelClass.AllMembers")]
+        [DataSourceCriteria("MemberInfo.IsList")]
+        [Category("eXpand")]
+        [ModelValueCalculator("((IModelClassMasterDetailOptions)ModelClass)", "DetailListRelationName")]
+        [Description("The collection member that is going to be used as child collection")]
+        IModelMember DetailListRelationName { get; set; }
+
+        [Category("eXpand")]
+        [ModelValueCalculator("((IModelClassMasterDetailOptions)ModelClass)", "ExpandAllRows")]
+        [Description("Enables 2 actions one for expanding all child rows and one for collapsing")]
         bool ExpandAllRows { get; set; }
     }
 
-    public class MasterDetailViewController : BaseViewController<ListView>, IModelExtender
+    public class MasterDetailViewController : ViewController<ListView>, IModelExtender
     {
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            extenders.Add<IModelClass, IModelClassMasterDetailOptions>();
+            extenders.Add<IModelListView, IModelListViewMasterDetailOptions>();
+        }
+
         private GridControl gridControl;
+
         private XafGridView gridView;
+
         private RepositoryEditorsFactory repositoryFactory;
+
         readonly SimpleAction _expandAllRowsSimpleAction;
+
         readonly SimpleAction _collapseAllRowsSimpleAction;
 
         public MasterDetailViewController()
@@ -88,10 +122,12 @@ namespace eXpand.ExpressApp.Win.SystemModule
             column.VisibleIndex = frameColumn.Index;
             column.SummaryItem.SummaryType = (DevExpress.Data.SummaryItemType)Enum.Parse(typeof(DevExpress.Data.SummaryItemType), frameColumn.SummaryType.ToString());
         }
+
         protected internal bool IsDataShownOnDropDownWindow(RepositoryItem repositoryItem)
         {
             return DXPropertyEditor.RepositoryItemsTypesWithMandatoryButtons.Contains(repositoryItem.GetType());
         }
+
         protected string GetDisplayablePropertyName(string memberName, ITypeInfo typeInfo)
         {
             IMemberInfo displayableMemberDescriptor = ReflectionHelper.FindDisplayableMemberDescriptor(typeInfo, memberName);
@@ -262,11 +298,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
                     list.AddRange(view.GetSelectedRows().Select(selectedRow => view.GetRow(selectedRow)));
                 ObjectSpace.Delete(list);
             }
-        }
-
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
-            extenders.Add<IModelListView, IModelListViewMasterDetailOptions>();
         }
 
         protected override void OnViewControlsCreated()

@@ -8,7 +8,6 @@ namespace eXpand.ExpressApp.SystemModule
 {
     public class ModuleController : Controller, IModelExtender
     {
-
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
             extenders.Add<IModelApplication, IModelModules>();

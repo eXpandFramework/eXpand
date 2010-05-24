@@ -1,8 +1,10 @@
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win;
+using eXpand.ExpressApp.Editors;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
@@ -15,11 +17,11 @@ namespace eXpand.ExpressApp.Win.SystemModule
     [ToolboxItemFilter("Xaf.Platform.Win")]
     public sealed class eXpandSystemWindowsFormsModule : ModuleBase
     {
+        
         public const string ApplicationOneInstanceAttributeName = "ApplicationOneInstance";
 
-        public eXpandSystemWindowsFormsModule()
-        {
-        }
+
+
 
         public override void UpdateModel(IModelApplication applicationModel)
         {
@@ -57,4 +59,19 @@ namespace eXpand.ExpressApp.Win.SystemModule
         //            return new Schema(new DictionaryXmlReader().ReadFromString(CommonTypeInfos));
         //        }
     }
+
+//    public interface IModelListViewGridOptions {
+//            
+//    }
+//    public class MyClass:ViewController<ListView>,IModelExtender {
+//
+//        #region IModelExtender Members
+//
+//        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+//        {
+//            extenders.Add<IModelListView,IModelListViewGridOptions>();
+//        }
+//
+//        #endregion
+//    }
 }

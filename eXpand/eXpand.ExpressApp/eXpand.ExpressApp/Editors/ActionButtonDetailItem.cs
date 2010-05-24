@@ -1,12 +1,23 @@
 ﻿using System;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.Base;
 
 namespace eXpand.ExpressApp.Editors {
+    public interface IModelActionButton : IModelDetailViewItem
+    {
+        [DataSourceProperty("Application.ActionDesign.Actions")]
+        [Required]
+        IModelAction ActionId { get; set; }
+    }
+    
     public abstract class ActionButtonDetailItem : ViewItem {
-        private IModelDetailViewItem _model;
+        private readonly IModelDetailViewItem _model;
 
-        protected ActionButtonDetailItem(Type objectType, IModelDetailViewItem model)
+        protected ActionButtonDetailItem(Type objectType, string id) : base(objectType, id) {
+        }
+
+        protected ActionButtonDetailItem(IModelDetailViewItem model, Type objectType)
             : base(objectType, model != null ? model.Id : string.Empty)
         {
             _model = model;

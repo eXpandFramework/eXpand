@@ -8,7 +8,7 @@ using DevExpress.Xpo;
 namespace eXpand.ExpressApp.SystemModule
 {
     [Obsolete("see autocreateableobject attribute")]
-    public abstract class ShowNonPersistentObjectDetailViewFromNavigationControllerBase<NonPersistentObjectType> : BaseViewController
+    public abstract class ShowNonPersistentObjectDetailViewFromNavigationControllerBase<NonPersistentObjectType> : ViewController
     {
         private const string DefaultReason = "ShowNonPersistentObjectDetailViewFromNavigationControllerBase is active";
 

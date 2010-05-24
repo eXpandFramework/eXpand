@@ -1,14 +1,14 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Utils.Frames;
-using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public class WindowHintController : BaseWindowController
+    public class WindowHintController : WindowController
     {
         private NotePanelEx bottomHintPanel;
         private NotePanelEx warningHintPanel;

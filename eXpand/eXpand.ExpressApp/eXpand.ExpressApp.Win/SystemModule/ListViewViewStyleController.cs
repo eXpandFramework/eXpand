@@ -15,11 +15,20 @@ namespace eXpand.ExpressApp.Win.SystemModule
         LayoutView
     }
 
-    public interface IModelListViewViewStyle : IModelNode
+    public interface IModelClassViewStyle : IModelNode
     {
         [Category("eXpand")]
         ListViewStyle ListViewStyle { get; set; }
         [Category("eXpand")]
+        string LayoutViewCustomization { get; set; }
+    }
+    public interface IModelListViewViewStyle : IModelNode
+    {
+        [Category("eXpand")]
+        [ModelValueCalculator("((IModelClassViewStyle)ModelClass)", "ListViewStyle")]
+        ListViewStyle ListViewStyle { get; set; }
+        [Category("eXpand")]
+        [ModelValueCalculator("((IModelClassViewStyle)ModelClass)", "LayoutViewCustomization")]
         string LayoutViewCustomization { get; set; }
     }
 
@@ -27,6 +36,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
     {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
+            extenders.Add<IModelClass, IModelClassViewStyle>();
             extenders.Add<IModelListView, IModelListViewViewStyle>();
         }
 

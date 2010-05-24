@@ -6,8 +6,6 @@ namespace eXpand.ExpressApp.FilterDataStore.Win.Controllers
 {
     public class SkinViewController : ViewController
     {
-        public SkinViewController() { }
-
         protected override void OnActivated()
         {
             base.OnActivated();

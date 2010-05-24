@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
@@ -57,31 +55,14 @@ namespace eXpand.ExpressApp.Win
             Exit();
         }
 
-        #region OnModelEditFormShowning
-        /// <summary>
-        /// Triggers the ModelEditFormShowning event.
-        /// </summary>
-        public virtual void OnModelEditFormShowning(ModelEditFormShowningEventArgs ea)
-        {
-            if (ModelEditFormShowning != null)
-                ModelEditFormShowning(null/*this*/, ea);
-        }
-        #endregion
 
-        public event EventHandler<ModelEditFormShowningEventArgs> ModelEditFormShowning;
+        
 
         public WinComponent()
         {
             InitializeComponent();
         }
 
-        protected override Form CreateModelEditorForm()
-        {
-            var modelEditorForm = (ModelEditorForm)base.CreateModelEditorForm();
-            OnModelEditFormShowning(new ModelEditFormShowningEventArgs(modelEditorForm));
-
-            return modelEditorForm;
-        }
 
         public WinComponent(IContainer container)
         {
@@ -95,14 +76,10 @@ namespace eXpand.ExpressApp.Win
             base.OnCreateCustomObjectSpaceProvider(args);
         }
 
-        protected override CollectionSourceBase CreateCollectionSourceCore(ObjectSpace objectSpace, Type objectType, bool isServerMode, CollectionSourceMode mode)
-        {
-            if (isServerMode)
-            {
-                return new LinqServerCollectionSource(objectSpace, objectType, isServerMode);
-            }
-
-            return new LinqCollectionSource(objectSpace, objectType, isServerMode);
+        protected override CollectionSourceBase CreateCollectionSourceCore(ObjectSpace objectSpace, Type objectType, bool isServerMode, CollectionSourceMode mode) {
+            return isServerMode
+                       ? (CollectionSourceBase) new LinqServerCollectionSource(objectSpace, objectType, true)
+                       : new LinqCollectionSource(objectSpace, objectType, false);
         }
     }
 

@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Validation;
 
@@ -8,11 +9,25 @@ namespace eXpand.ExpressApp.SystemModule
     public interface IModelClassEnableFKViolations
     {
         [Category("eXpand")]
+        [Description("Does not allow delete of an object that has referenced objects")]
+        bool EnableFKViolations { get; set; }
+    }
+    public interface IModelViewEnableFKViolations
+    {
+        [Category("eXpand")]
+        [ModelValueCalculator("((IModelClassEnableFKViolations)ModelClass)", "EnableFKViolations")]
+        [Description("Does not allow delete of an object that has referenced objects")]
         bool EnableFKViolations { get; set; }
     }
 
     public class FKViolationViewController : ViewController, IModelExtender
     {
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            extenders.Add<IModelClass, IModelClassEnableFKViolations>();
+            extenders.Add<IModelView, IModelViewEnableFKViolations>();
+        }
+
         protected override void OnActivated()
         {
             base.OnActivated();
@@ -35,11 +50,6 @@ namespace eXpand.ExpressApp.SystemModule
                     throw new ValidationException(messageTemplate, result);
                 }
             }
-        }
-
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
-            extenders.Add<IModelClass, IModelClassEnableFKViolations>();
         }
     }
 }
