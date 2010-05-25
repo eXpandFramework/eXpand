@@ -15,27 +15,46 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.SystemModule;
 using System.ComponentModel;
+using DevExpress.ExpressApp.DC;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
     public interface IModelColumnGridViewOptions : IModelNode
     {
+        [Category("eXpand")]
         AutoFilterCondition AutoFilterCondition { get; set; }
+        [Category("eXpand"), DefaultValue(false)]
         bool ImmediateUpdateAutoFilter { get; set; }
     }
 
     public interface IModelListViewGridViewOptions : IModelNode
     {
+        [Category("eXpand")]
         EditorShowMode EditorShowMode { get; set; }
+        [Category("eXpand")]
         bool AutoExpandNewRow { get; set; }
+        [Category("eXpand")]
         bool DoNotLoadWhenNoFilterExists { get; set; }
-        [DefaultValue(AutoFilterCondition.Contains)]
+        [Category("eXpand"), DefaultValue(AutoFilterCondition.Contains)]
         AutoFilterCondition AutoFilterCondition { get; set; }
-        [DefaultValue(true)]
+        [Category("eXpand"), DefaultValue(true)]
         bool GuessAutoFilterRowValuesFromFilter { get; set; }
-        [DefaultValue(false)]
-        bool ImmediateUpdateAutoFilter { get; set; }
+        [Category("eXpand")]
         int GroupLevelExpandIndex { get; set; }
+    }
+
+    [DomainLogic(typeof(IModelColumnGridViewOptions))]
+    public class ModelColumnGridViewOptionsLogic
+    {
+        public static AutoFilterCondition Get_AutoFilterCondition(IModelColumnGridViewOptions node)
+        {
+            if ((node as IModelColumn).ModelMember != null && (node as IModelColumn).ModelMember.Type == typeof(String))
+            {
+                return AutoFilterCondition.Contains;
+            }
+
+            return AutoFilterCondition.Default;
+        }
     }
 
     public partial class GridViewViewController : BaseViewController<ListView>, IModelExtender

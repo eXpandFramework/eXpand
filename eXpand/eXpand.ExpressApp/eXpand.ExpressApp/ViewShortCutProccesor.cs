@@ -19,13 +19,15 @@ namespace eXpand.ExpressApp {
                 shortcut.ObjectKey =
                     ParametersFactory.CreateParameter(shortcut.ObjectKey.Substring(1)).CurrentValue.ToString();
 
-            var baseViewInfoNodeWrapper = _application.Model.Views.OfType<IModelDetailView>().Where(v => v.Id == shortcut.ViewId).FirstOrDefault();
-            if (string.IsNullOrEmpty(shortcut.ObjectKey) && (baseViewInfoNodeWrapper != null)) {
+            var detailViewModel = _application.Model.Views.OfType<IModelDetailView>().Where(v => v.Id == shortcut.ViewId).FirstOrDefault();
+            if (string.IsNullOrEmpty(shortcut.ObjectKey) && (detailViewModel != null) && 
+                !detailViewModel.ModelClass.TypeInfo.IsPersistent) 
+            {
                 var objectSpace = _application.CreateObjectSpace();
                 shortcutEventArgs.Handled = true;
-                shortcutEventArgs.View = _application.CreateDetailView(objectSpace,
-                                                                       objectSpace.CreateObject(
-                                                                           baseViewInfoNodeWrapper.ModelClass.TypeInfo.Type));
+                shortcutEventArgs.View = _application.CreateDetailView(
+                    objectSpace,
+                    objectSpace.CreateObject(detailViewModel.ModelClass.TypeInfo.Type));
             }
         }
     }

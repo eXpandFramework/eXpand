@@ -7,6 +7,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win;
 using eXpand.ExpressApp.Win.ListEditors;
+using DevExpress.ExpressApp.Editors;
 
 namespace eXpand.ExpressApp.Win.SystemModule {
     [ToolboxItem(true)]
@@ -22,10 +23,10 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         public eXpandSystemWindowsFormsModule() {
         }
 
-        public override void UpdateModel(IModelApplication applicationModel)
+        protected override void RegisterEditorDescriptors(System.Collections.Generic.List<DevExpress.ExpressApp.Editors.EditorDescriptor> editorDescriptors)
         {
-            //base.UpdateModel(applicationModel);
-            //applicationModel.Views.DefaultListEditor = typeof(GridListEditor);
+            base.RegisterEditorDescriptors(editorDescriptors);
+            editorDescriptors.Add(new ListEditorDescriptor(new EditorTypeRegistration(EditorAliases.GridListEditor, typeof(object), typeof(GridListEditor), true)));
         }
         
 //        public override void ValidateModel(Dictionary model){
