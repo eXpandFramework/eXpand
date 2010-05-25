@@ -27,6 +27,10 @@ namespace eXpand.ExpressApp.WizardUI.Win
     /// </summary>
     public class WizardController : ViewController
     {
+        public static event EventHandler WizardPageDetailViewCreating;
+
+        public static event EventHandler WizardPageDetailViewCreated;
+
         #region Members
 
         /// <summary>
@@ -59,10 +63,6 @@ namespace eXpand.ExpressApp.WizardUI.Win
 
             if (this.Frame.Template != null && this.Frame.Template is WizardDetailViewForm)
             {
-                DetailView detailView;
-                XafWizardPage wizardPage;
-
-                // DictionaryNode wizardNode = this.View.Info.FindChildNode("Wizard");
                 IModelDetailViewWizard modelWizard = (IModelDetailViewWizard)(this.View as DetailView).Model;
                 this._WizardForm = this.Frame.Template as WizardDetailViewForm;
 
@@ -76,18 +76,20 @@ namespace eXpand.ExpressApp.WizardUI.Win
                 try
                 {
                     CompletionWizardPage finishPage = this._WizardForm.WizardControl.Pages[0] as CompletionWizardPage;
-                    foreach (IModelDetailViewWizardPage page in modelWizard.Pages)
+                    foreach (IModelDetailViewWizardPage page in modelWizard.Wizard)
                     {
-                        detailView = Application.CreateDetailView(this.ObjectSpace, page.DetailView, false);
+                        this.OnWizardPageDetailViewCreating();
+                        var detailView = Application.CreateDetailView(this.ObjectSpace, page.DetailView, false);
+                        this.OnWizardPageDetailViewCreated();
                         detailView.CurrentObject = this.View.CurrentObject;
 
-                        wizardPage = new XafWizardPage() { View = detailView };
+                        var wizardPage = new XafWizardPage() { View = detailView };
                         wizardPage.Text = page.Caption;
                         wizardPage.DescriptionText = page.Description;
                         this._WizardForm.WizardControl.Pages.Insert(finishPage, wizardPage);
                     }
 
-                    if (!modelWizard.ShowCompletionWizardPage)
+                    if (!modelWizard.Wizard.ShowCompletionWizardPage)
                     {
                         this._WizardForm.WizardControl.Pages.Remove(finishPage);
                     }
@@ -96,6 +98,22 @@ namespace eXpand.ExpressApp.WizardUI.Win
                 {
                     this._WizardForm.WizardControl.EndUpdate();
                 }
+            }
+        }
+
+        protected virtual void OnWizardPageDetailViewCreating()
+        {
+            if (WizardPageDetailViewCreating != null)
+            {
+                WizardPageDetailViewCreating(this, EventArgs.Empty);
+            }
+        }
+
+        protected virtual void OnWizardPageDetailViewCreated()
+        {
+            if (WizardPageDetailViewCreated != null)
+            {
+                WizardPageDetailViewCreated(this, EventArgs.Empty);
             }
         }
 
@@ -157,18 +175,21 @@ namespace eXpand.ExpressApp.WizardUI.Win
         {
             if (page is XafWizardPage)
             {
-                (page as XafWizardPage).View = Application.CreateDetailView(this.ObjectSpace, (page as XafWizardPage).View.Id, false);
-                (page as XafWizardPage).View.CurrentObject = this.View.CurrentObject;
+                var wizardPage = page as XafWizardPage;
+                this.OnWizardPageDetailViewCreating();
+                wizardPage.View = Application.CreateDetailView(this.ObjectSpace, wizardPage.View.Id, false);
+                this.OnWizardPageDetailViewCreated();
+                wizardPage.View.CurrentObject = this.View.CurrentObject;
 
-                ((XafWizardPage)page).View.ErrorMessages.Clear();
+                wizardPage.View.ErrorMessages.Clear();
                 ((Control)((IViewSiteTemplate)this.Frame.Template).ViewSiteControl).Parent = page;
 
-                this.UpdateControllers(((XafWizardPage)page).View);
+                this.UpdateControllers(wizardPage.View);
 
-                this.Frame.Template.SetView(((XafWizardPage)page).View);
+                this.Frame.Template.SetView(wizardPage.View);
                 if (!this.View.ErrorMessages.IsEmpty)
                 {
-                    ((XafWizardPage)page).View.ErrorMessages.LoadMessages(this.View.ErrorMessages);
+                    wizardPage.View.ErrorMessages.LoadMessages(this.View.ErrorMessages);
                 }
             }
         }

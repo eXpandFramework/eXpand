@@ -9,22 +9,26 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.SystemModule;
+using System;
+using System.Linq;
 
-namespace eXpand.ExpressApp.WizardUI.Win{
+namespace eXpand.ExpressApp.WizardUI.Win
+{
 
     public interface IModelDetailViewWizard : IModelNode
     {
-        bool ShowInWizard { get; set; }
-        bool ShowCompletionWizardPage { get; set; }
-        IModelDetailViewWizardPages Pages { get; }
+        IModelDetailViewWizardPages Wizard { get; }
     }
 
-    [DisplayProperty("Caption")]
     public interface IModelDetailViewWizardPages : IModelNode, IModelList<IModelDetailViewWizardPage>
     {
+        bool ShowInWizard { get; set; }
+        bool ShowCompletionWizardPage { get; set; }
     }
 
-    [KeyProperty("ID")]
+    [DisplayProperty("Caption"), KeyProperty("ID"), ModelDisplayName("WizardPage"), ModelPersistentName("WizardPage")]
     public interface IModelDetailViewWizardPage : IModelNode
     {
         [Required()]
@@ -33,12 +37,44 @@ namespace eXpand.ExpressApp.WizardUI.Win{
         [Localizable(true)]
         string Caption { get; set; }
 
-        [Required()]
-        [DataSourceProperty("Application.Views")]
-        [DataSourceCriteria("ModelClass Is Not Null And ModelClass.Name = '@This.Name'")]
+        [Browsable(false)]
+        CalculatedModelNodeList<IModelDetailView> DetailViews { get; }
+
+        [Required(), DataSourceProperty("DetailViews"), ModelPersistentName("ViewID")]
         IModelDetailView DetailView { get; set; }
+
         [Localizable(true)]
         string Description { get; set; }
+    }
+
+    [DomainLogic(typeof(IModelDetailViewWizardPage))]
+    public static class ModelDetailViewWizardPageLogic
+    {
+        public static CalculatedModelNodeList<IModelDetailView> Get_DetailViews(IModelDetailViewWizardPage wizardPage)
+        {
+            CalculatedModelNodeList<IModelDetailView> views = new CalculatedModelNodeList<IModelDetailView>();
+            if (wizardPage.Parent == null)
+            {
+                return views;
+            }
+
+            IModelDetailView parentView = wizardPage.Parent.Parent as IModelDetailView;
+            if (parentView == null || parentView.ModelClass == null)
+            {
+                return views;
+            }
+            
+            foreach (var modelView in wizardPage.Application.Views
+                .OfType<IModelDetailView>()
+                .Where(modelView => modelView.ModelClass != null &&
+                    modelView.ModelClass.TypeInfo.IsAssignableFrom(parentView.ModelClass.TypeInfo) &&
+                    !modelView.ModelClass.TypeInfo.IsAbstract))
+            {
+                views.Add(modelView);
+            }
+
+            return views;
+        }
     }
 
     /// <summary>
@@ -49,13 +85,15 @@ namespace eXpand.ExpressApp.WizardUI.Win{
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxItemFilter("Xaf.Platform.Win")]
     [Description("Contains an RibbonDetailView Template with an Wizard Control on it.")]
-    public sealed class WizardUIWindowsFormsModule : ModuleBase{
+    public sealed class WizardUIWindowsFormsModule : ModuleBase
+    {
         #region Methods
         /// <summary>
         /// Initializes the Module
         /// </summary>
         /// <param name="application">XafApplication Object</param>
-        public override void Setup(XafApplication application){
+        public override void Setup(XafApplication application)
+        {
             base.Setup(application);
 
             application.CreateCustomTemplate += Application_CreateCustomTemplate;

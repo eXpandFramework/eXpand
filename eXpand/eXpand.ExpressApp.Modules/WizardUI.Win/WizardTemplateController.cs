@@ -35,7 +35,7 @@ namespace eXpand.ExpressApp.WizardUI.Win
             if (e.ShowViewParameters.CreatedView is DetailView)
             {
                 IModelDetailViewWizard modelWizard = (IModelDetailViewWizard)(e.ShowViewParameters.CreatedView as DetailView).Model;
-                if (modelWizard != null && modelWizard.Pages.Count > 0 && modelWizard.ShowInWizard)
+                if (modelWizard != null && modelWizard.Wizard.Count > 0 && modelWizard.Wizard.ShowInWizard)
                 {
                     e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                     e.ShowViewParameters.Context = "WizardDetailViewForm";
