@@ -14,6 +14,7 @@ using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using DevExpress.ExpressApp.Win.Controls;
 
 namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 {
@@ -54,6 +55,17 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             get
             {
                 return _application;
+            }
+        }
+
+        public ModelEditorViewController ModelEditorViewController
+        {
+            get
+            {
+                if (controller == null)
+                    controller = GetModelEditorController();
+
+                return controller;
             }
         }
 
@@ -139,9 +151,9 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
             controller = new ModelEditorViewController((IModelApplication)masterModel, null, modulesManager.Modules);
             controller.SetControl(this.Control);
-            controller.SetTemplate((this.View.Control as System.Windows.Forms.Control).Parent.Parent as IFrameTemplate);
             controller.Modifying += this.Model_Modifying;
             controller.SaveAction.Active["Not needed"] = false;
+            
             return controller;
         }
 

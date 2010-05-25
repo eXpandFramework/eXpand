@@ -77,6 +77,7 @@
     <Reference Include="DevExpress.Xpo.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraBars.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -131,6 +132,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CombineActiveModelDictionaryWithActiveUserDifferenceController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ModelEditorTemplateViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ModelDifferencewindowsFormsModule.cs">
