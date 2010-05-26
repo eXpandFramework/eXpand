@@ -280,7 +280,11 @@ namespace eXpand.ExpressApp.WizardUI.Win
         {
             this.UpdateControllers(this.View);
             var currentObject = this.View.CurrentObject;
-            this.Frame.GetController<DetailViewController>().SaveAndCloseAction.DoExecute();
+            var controller = this.Frame.GetController<DetailViewController>();
+            if (controller.SaveAndCloseAction.Active && controller.SaveAndCloseAction.Enabled)
+            {
+                this.Frame.GetController<DetailViewController>().SaveAndCloseAction.DoExecute();   
+            }
 
             if (this._WizardForm.ShowRecordAfterCompletion)
             {
