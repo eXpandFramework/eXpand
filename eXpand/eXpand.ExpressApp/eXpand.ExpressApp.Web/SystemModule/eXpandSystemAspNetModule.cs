@@ -1,6 +1,9 @@
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Editors;
+using eXpand.ExpressApp.SystemModule;
+using eXpand.ExpressApp.Web.Editors;
 
 namespace eXpand.ExpressApp.Web.SystemModule {
     [ToolboxItem(true)]
@@ -12,6 +15,12 @@ namespace eXpand.ExpressApp.Web.SystemModule {
     [ToolboxItemFilter("Xaf.Platform.Web")]
     public sealed class eXpandSystemAspNetModule : ModuleBase {
         public eXpandSystemAspNetModule() {
+        }
+
+        protected override void RegisterEditorDescriptors(System.Collections.Generic.List<DevExpress.ExpressApp.Editors.EditorDescriptor> editorDescriptors)
+        {
+            base.RegisterEditorDescriptors(editorDescriptors);
+            editorDescriptors.Add(new DetailViewItemDescriptor(new DetailViewItemRegistration(typeof(IModelActionButtonDetailItem), typeof(ActionButtonDetailItem), true)));
         }
     }
 }

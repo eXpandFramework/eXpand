@@ -6,13 +6,13 @@ using DevExpress.ExpressApp.Model;
 namespace eXpand.ExpressApp.Win.Editors
 {
     public class ActionButtonDetailItem : ExpressApp.Editors.ActionButtonDetailItem
-    {    
-        public ActionButtonDetailItem(Type objectType, IModelDetailViewItem model) :
-            base(objectType, model) { }
+    {
+        public ActionButtonDetailItem(IModelDetailViewItem model, Type objectType) :
+            base(model, objectType) { }
 
         protected override object CreateControlCore()
         {
-            var button = new ButtonEdit {Text = Caption};
+            var button = new SimpleButton {Text = Caption};
             button.Click += (sender, args) => InvokeExecuted(args);
             return button;
         }

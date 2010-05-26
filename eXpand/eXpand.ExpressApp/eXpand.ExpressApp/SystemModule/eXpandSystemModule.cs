@@ -10,8 +10,8 @@ namespace eXpand.ExpressApp.SystemModule
 {
     public interface IModelActionButtonDetailItem : IModelDetailViewItem
     {
-        [DataSourceProperty("Application.Model.ActionDesign.Actions")]
-        IModelAction ActionId { get; set; }
+        [DataSourceProperty("Application.ActionDesign.Actions"), ModelPersistentName("ActionId")]
+        IModelAction Action { get; set; }
     }
 
     [ToolboxItem(true)]

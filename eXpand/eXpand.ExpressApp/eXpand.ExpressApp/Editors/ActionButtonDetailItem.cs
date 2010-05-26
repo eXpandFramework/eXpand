@@ -6,7 +6,7 @@ namespace eXpand.ExpressApp.Editors {
     public abstract class ActionButtonDetailItem : ViewItem {
         private IModelDetailViewItem _model;
 
-        protected ActionButtonDetailItem(Type objectType, IModelDetailViewItem model)
+        protected ActionButtonDetailItem(IModelDetailViewItem model, Type objectType)
             : base(objectType, model != null ? model.Id : string.Empty)
         {
             _model = model;

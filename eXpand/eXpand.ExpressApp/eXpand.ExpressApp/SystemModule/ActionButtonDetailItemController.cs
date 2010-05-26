@@ -19,7 +19,7 @@ namespace eXpand.ExpressApp.SystemModule {
         private void ActionButtonDetailItemOnExecuted(object sender, EventArgs eventArgs) {
             var actionButtonDetailItem = ((ActionButtonDetailItem) sender);
             var simpleActions = Frame.Controllers.Cast<Controller>().SelectMany(controller1 => controller1.Actions).OfType<SimpleAction>();
-            var action = simpleActions.Where(@base => @base.Id == ((IModelActionButtonDetailItem)actionButtonDetailItem.Model).ActionId.Id).Single();
+            var action = simpleActions.Where(@base => @base.Id == ((IModelActionButtonDetailItem)actionButtonDetailItem.Model).Action.Id).Single();
             action.DoExecute();
         }
     }

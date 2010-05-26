@@ -1,13 +1,11 @@
-using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
-using System.Windows.Forms;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Win;
-using eXpand.ExpressApp.Win.ListEditors;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Win;
+using eXpand.ExpressApp.SystemModule;
+using eXpand.ExpressApp.Win.Editors;
+using eXpand.ExpressApp.Win.ListEditors;
 
 namespace eXpand.ExpressApp.Win.SystemModule {
     [ToolboxItem(true)]
@@ -27,6 +25,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         {
             base.RegisterEditorDescriptors(editorDescriptors);
             editorDescriptors.Add(new ListEditorDescriptor(new EditorTypeRegistration(EditorAliases.GridListEditor, typeof(object), typeof(GridListEditor), true)));
+            editorDescriptors.Add(new DetailViewItemDescriptor(new DetailViewItemRegistration(typeof(IModelActionButtonDetailItem), typeof(ActionButtonDetailItem), true)));
         }
         
 //        public override void ValidateModel(Dictionary model){
