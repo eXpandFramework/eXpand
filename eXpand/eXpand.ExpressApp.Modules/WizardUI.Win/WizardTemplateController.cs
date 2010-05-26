@@ -8,7 +8,7 @@ using DevExpress.ExpressApp.Actions;
 
 namespace eXpand.ExpressApp.WizardUI.Win
 {
-    public class WizardTemplateController : WindowController
+    public class WizardTemplateController : ViewController
     {
         public WizardTemplateController()
         {
@@ -19,12 +19,14 @@ namespace eXpand.ExpressApp.WizardUI.Win
             base.OnActivated();
 
             Frame.GetController<NewObjectViewController>().NewObjectAction.Executed += Action_Executed;
+            Frame.GetController<NewObjectViewController>().ObjectCreating += NewObjectCreating;
             Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Executed += Action_Executed;
         }
 
         protected override void OnDeactivating()
         {
             Frame.GetController<NewObjectViewController>().NewObjectAction.Executed -= Action_Executed;
+            Frame.GetController<NewObjectViewController>().ObjectCreating -= NewObjectCreating;
             Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Executed -= Action_Executed;
 
             base.OnDeactivating();
@@ -41,6 +43,11 @@ namespace eXpand.ExpressApp.WizardUI.Win
                     e.ShowViewParameters.Context = "WizardDetailViewForm";
                 }
             }
+        }
+
+        private void NewObjectCreating(object sender, ObjectCreatingEventArgs e)
+        {
+            e.ShowDetailView = true;
         }
     }
 }
