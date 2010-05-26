@@ -14,40 +14,33 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
 {
     public class DictionaryHelper
     {
-        //public string GetAspectFromXml(List<string> aspects, string xml)
-        //{
-        //    aspects = aspects.OrderBy(s => s).ToList();
-            
-        //    xml = xml.Replace("&#165;", "¥");
-        //    xml = removeSpaces(xml);
-        //    string defaultAspectValuesWhenNoOtherAspectExist = Regex.Replace(xml, "\":([^\"\xA5]*)\"", "\"$1\"");
-        //    string removedAspectsWithNoDefaultAspects = defaultAspectValuesWhenNoOtherAspectExist;
-        //    if (!string.IsNullOrEmpty(aspects[0])){
-        //        string defaultAspectWhenOtherAspectExists = Regex.Replace(defaultAspectValuesWhenNoOtherAspectExist, @""":([^""\xA5]*)\xA5" +aspects[0]+ @":([^""]*)""", "\"$1\"");
-        //        removedAspectsWithNoDefaultAspects = defaultAspectWhenOtherAspectExists;
-        //        foreach (var aspect in aspects){
-        //            removedAspectsWithNoDefaultAspects = removeAttributesWithNoDefaultValue(aspect, removedAspectsWithNoDefaultAspects);
-        //        }
-        //    }
-        //    return removedAspectsWithNoDefaultAspects;
-        //}
+        public string GetAspectFromXml(List<string> aspects, string xml)
+        {
+            aspects = aspects.OrderBy(s => s).ToList();
 
-        //private string removeSpaces(string aspects){
-        //    return aspects.Replace(" >",">");
-        //}
+            xml = xml.Replace("&#165;", "¥");
+            xml = removeSpaces(xml);
+            string defaultAspectValuesWhenNoOtherAspectExist = Regex.Replace(xml, "\":([^\"\xA5]*)\"", "\"$1\"");
+            string removedAspectsWithNoDefaultAspects = defaultAspectValuesWhenNoOtherAspectExist;
+            if (!string.IsNullOrEmpty(aspects[0]))
+            {
+                string defaultAspectWhenOtherAspectExists = Regex.Replace(defaultAspectValuesWhenNoOtherAspectExist, @""":([^""\xA5]*)\xA5" + aspects[0] + @":([^""]*)""", "\"$1\"");
+                removedAspectsWithNoDefaultAspects = defaultAspectWhenOtherAspectExists;
+                foreach (var aspect in aspects)
+                {
+                    removedAspectsWithNoDefaultAspects = removeAttributesWithNoDefaultValue(aspect, removedAspectsWithNoDefaultAspects);
+                }
+            }
+            return removedAspectsWithNoDefaultAspects;
+        }
 
-        //private string removeAttributesWithNoDefaultValue(string aspect,string value){
-        //    return Regex.Replace(value, "( [^=\"]*=\"" +aspect+ ":([^\"]*)\")", "");
-        //}
+        private string removeSpaces(string aspects){
+            return aspects.Replace(" >",">");
+        }
 
-
-        //public string GetAspectFromXml(List<string> aspects, DictionaryNode dictionaryNode)
-        //{
-        //    string xml1 = dictionaryNode.ToXml();
-        //    return GetAspectFromXml(aspects, xml1);
-
-        //}
-
+        private string removeAttributesWithNoDefaultValue(string aspect,string value){
+            return Regex.Replace(value, "( [^=\"]*=\"" +aspect+ ":([^\"]*)\")", "");
+        }
 
         private static ICollection<IModelMember> GetCustomFields(IModelApplication model)
         {
