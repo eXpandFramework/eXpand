@@ -20,13 +20,10 @@ namespace eXpand.ExpressApp.ModelDifference.Win.Controllers
             var template = this.Frame.Template as XtraFormTemplateBase;
             if (template != null)
             {
+                this.SetTemplate();
                 if (template.FormStyle == RibbonFormStyle.Ribbon)
                 {
                     template.RibbonTransformer.Transformed += this.RibbonTransformer_Transformed;
-                }
-                else
-                {
-                    this.SetTemplate();
                 }
             }
         }
