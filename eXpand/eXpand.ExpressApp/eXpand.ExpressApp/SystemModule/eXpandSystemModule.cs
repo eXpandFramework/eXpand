@@ -8,6 +8,12 @@ using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.SystemModule
 {
+    public interface IModelBOModelRuntimeMember : IModelNode
+    {
+        [Category("eXpand")]
+        bool IsRuntimeMember { get; set; }
+    }
+
     public interface IModelActionButtonDetailItem : IModelDetailViewItem
     {
         [DataSourceProperty("Application.ActionDesign.Actions"), ModelPersistentName("ActionId")]
@@ -25,6 +31,12 @@ namespace eXpand.ExpressApp.SystemModule
         {
             base.RegisterEditorDescriptors(editorDescriptors);
             editorDescriptors.Add(new DetailViewItemDescriptor(new DetailViewItemRegistration(typeof(IModelActionButtonDetailItem))));
+        }
+
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelMember, IModelBOModelRuntimeMember>();
         }
 
         public override void Setup(XafApplication application)

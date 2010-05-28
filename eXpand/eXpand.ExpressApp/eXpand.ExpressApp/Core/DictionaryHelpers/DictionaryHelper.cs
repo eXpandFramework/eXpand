@@ -58,11 +58,11 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
             foreach (IModelMember customFieldInfo in GetCustomFields(model))
                 try
                 {
-                    Type classType = ((IModelClass)customFieldInfo.Parent).TypeInfo.Type;
+                    Type classType = customFieldInfo.ModelClass.TypeInfo.Type;
                     var typeInfo = dictionary.GetClassInfo(classType);
                     lock (typeInfo)
                     {
-                        if (typeInfo.FindMember(customFieldInfo.Name) == null)
+                        if (typeInfo.FindMember(customFieldInfo.MemberInfo.Name) == null)
                         {
                             XPCustomMemberInfo memberInfo = typeInfo.CreateMember(customFieldInfo.Name, customFieldInfo.MemberInfo.MemberType);
                             if (customFieldInfo.Size != 0)

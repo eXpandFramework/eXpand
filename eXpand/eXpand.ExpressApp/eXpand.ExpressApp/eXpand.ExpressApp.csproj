@@ -136,9 +136,6 @@
     <Compile Include="SystemModule\ActionButtonDetailItemController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\AddRuntimeFieldsFromModelToXPDictionary.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\AllowEditDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -1,31 +1,31 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Attributes;
-using System.Linq;
-using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule
 {
     public interface IModelIndexOptions : IModelNode
     {
+        [Category("eXpand")]
         bool CreateIndexForAllMembers { get; set; }
     }
 
     public interface IModelSkipIndex : IModelNode
     {
+        [Category("eXpand")]
         bool SkipIndexing { get; set; }
     }
 
     public partial class IndexerController : ViewController, IModelExtender
     {
-
         public event EventHandler<MemberInfoEventArgs> IndexAdding;
-
 
         protected virtual void InvokeIndexAdding(MemberInfoEventArgs e)
         {
@@ -90,8 +90,8 @@ namespace eXpand.ExpressApp.SystemModule
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            extenders.Add<IModelBOModel, IModelSkipIndex>();
-            extenders.Add<IModelBOModelClassMembers, IModelSkipIndex>();
+            extenders.Add<IModelClass, IModelSkipIndex>();
+            extenders.Add<IModelMember, IModelSkipIndex>();
             extenders.Add<IModelOptions, IModelIndexOptions>();
         }
     }
