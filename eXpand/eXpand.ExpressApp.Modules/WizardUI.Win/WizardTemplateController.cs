@@ -19,35 +19,56 @@ namespace eXpand.ExpressApp.WizardUI.Win
             base.OnActivated();
 
             Frame.GetController<NewObjectViewController>().NewObjectAction.Executed += Action_Executed;
-            Frame.GetController<NewObjectViewController>().ObjectCreating += NewObjectCreating;
+            Frame.GetController<NewObjectViewController>().ObjectCreated += ObjectCreated;
             Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Executed += Action_Executed;
         }
 
         protected override void OnDeactivating()
         {
             Frame.GetController<NewObjectViewController>().NewObjectAction.Executed -= Action_Executed;
-            Frame.GetController<NewObjectViewController>().ObjectCreating -= NewObjectCreating;
+            Frame.GetController<NewObjectViewController>().ObjectCreated -= ObjectCreated;
             Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Executed -= Action_Executed;
 
             base.OnDeactivating();
         }
 
-        private void Action_Executed(object sender, ActionBaseEventArgs e)
+        ObjectSpace objectSpace;
+        object newObject;
+
+        private void ObjectCreated(object sender, ObjectCreatedEventArgs e)
         {
-            if (e.ShowViewParameters.CreatedView is DetailView)
-            {
-                IModelDetailViewWizard modelWizard = (IModelDetailViewWizard)(e.ShowViewParameters.CreatedView as DetailView).Model;
-                if (modelWizard != null && modelWizard.Wizard.Count > 0 && modelWizard.Wizard.ShowInWizard)
-                {
-                    e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                    e.ShowViewParameters.Context = "WizardDetailViewForm";
-                }
-            }
+            objectSpace = e.ObjectSpace;
+            newObject = e.CreatedObject;
         }
 
-        private void NewObjectCreating(object sender, ObjectCreatingEventArgs e)
+        private void Action_Executed(object sender, ActionBaseEventArgs e)
         {
-            e.ShowDetailView = true;
+            IModelDetailViewWizard modelWizard = null;
+            NewObjectViewController controller = null;
+
+            if (e.ShowViewParameters.CreatedView != null)
+            {
+                modelWizard = e.ShowViewParameters.CreatedView.Model as IModelDetailViewWizard;
+            }
+            else if(e.ShowViewParameters.CreatedView == null && e.Action.Controller is NewObjectViewController)
+            {
+                controller = e.Action.Controller as NewObjectViewController;
+                var viewID = this.Application.GetDetailViewId(controller.NewObjectAction.SelectedItem.Data as Type);
+                modelWizard = this.Application.Model.Views[viewID] as IModelDetailViewWizard;
+            }
+
+            if (modelWizard != null && modelWizard.Wizard.Count > 0 && modelWizard.Wizard.ShowInWizard)
+            {
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                e.ShowViewParameters.Context = "WizardDetailViewForm";
+                if (e.ShowViewParameters.CreatedView == null)
+                {
+                    e.ShowViewParameters.CreatedView = this.Application.CreateDetailView(objectSpace, newObject, controller.View);
+                }
+            }
+
+            objectSpace = null;
+            newObject = null;
         }
     }
 }
