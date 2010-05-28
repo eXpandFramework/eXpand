@@ -79,7 +79,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             get { return this.Model.Xml; }
             set {
                 var oldValue = XmlContent;
-                new ModelXmlReader().ReadFromString(Model, (Model.Master as ModelApplicationBase).CurrentAspect, value);
+                if (!string.IsNullOrEmpty(value))
+                    new ModelXmlReader().ReadFromString(Model, (Model.Master as ModelApplicationBase).CurrentAspect, value);
+                
                 OnChanged("XmlContent", oldValue, value);
             }
         }

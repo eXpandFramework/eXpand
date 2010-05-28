@@ -68,11 +68,13 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ValueConverter
                     defaultAspect = helper.GetAspectFromXml(aspects, defaultAspect);
                 }
 
-                modelReader.ReadFromString(model, string.Empty, defaultAspect);
+                if (!string.IsNullOrEmpty(defaultAspect))
+                    modelReader.ReadFromString(model, string.Empty, defaultAspect);  
                 
                 foreach (var aspect in aspects.Where(aspect => !string.IsNullOrEmpty(aspect)))
                 {
-                    modelReader.ReadFromString(model, aspect, serializableDictionary[aspect]);
+                    if (!string.IsNullOrEmpty(serializableDictionary[aspect]))
+                        modelReader.ReadFromString(model, aspect, serializableDictionary[aspect]);
                 }
 
                 return model;
