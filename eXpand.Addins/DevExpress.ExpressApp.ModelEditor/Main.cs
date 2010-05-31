@@ -96,7 +96,7 @@ namespace DevExpress.ExpressApp.ModelEditor {
                         diffsPath = System.Environment.CurrentDirectory; 
                     } 
 					DesignerModelFactory dmf = new DesignerModelFactory();
-					ApplicationModulesManager mgr = dmf.CreateModelManager(targetPath, diffsPath);
+					ApplicationModulesManager mgr = dmf.CreateModelManager(targetPath, string.Empty);
 					mgr.Load();
                     ApplicationModelsManager modelManager = new ApplicationModelsManager(mgr.Modules, mgr.ControllersManager, mgr.DomainComponents);
                     FileModelStore fileModelStore = dmf.CreateModuleModelStore(diffsPath);
