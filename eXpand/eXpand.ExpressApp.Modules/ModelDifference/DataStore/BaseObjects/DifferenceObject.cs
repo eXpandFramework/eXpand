@@ -15,10 +15,5 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             get { return GetDelayedPropertyValue<ModelApplicationBase>("Model"); }
             set { SetDelayedPropertyValue("Model", value); }
         }
-
-        public override void AfterConstruction() {
-            base.AfterConstruction();
-            Model = ((ModelNode)ModelDifferenceModule.XafApplication.Model).CreatorInstance.CreateModelApplication();
-        }
     }
 }

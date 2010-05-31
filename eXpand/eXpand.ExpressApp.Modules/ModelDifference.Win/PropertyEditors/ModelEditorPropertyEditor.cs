@@ -25,6 +25,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         private XafApplication _application;
         private ModelEditorViewController controller;
+        private ModelApplicationBase masterModel;
 
         #endregion
 
@@ -69,6 +70,14 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             }
         }
 
+        public ModelApplicationBase MasterModel
+        {
+            get
+            {
+                return masterModel;
+            }
+        }
+
         #endregion
 
         #region Overrides
@@ -85,9 +94,13 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         {
             if (Control != null)
             {
+                this.Control.CurrentModelNode = null;
                 controller.Modifying -= this.Model_Modifying;
                 controller = null;
             }
+
+            masterModel = GetMasterModel();
+            ModelDifferenceModule.ModelApplicationCreator = masterModel.CreatorInstance;
 
             base.OnCurrentObjectChanged();
         }
@@ -129,6 +142,18 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         private ModelEditorViewController GetModelEditorController()
         {
+            masterModel.AddLayers(CurrentObject.GetAllLayers());
+
+            controller = new ModelEditorViewController((IModelApplication)masterModel, null, null);
+            controller.SetControl(this.Control);
+            controller.Modifying += this.Model_Modifying;
+            controller.SaveAction.Active["Not needed"] = false;
+            
+            return controller;
+        }
+
+        private ModelApplicationBase GetMasterModel()
+        {
             var application = this.GetApplication(CurrentObject.PersistentApplication.ExecutableName);
 
             var modulesManager = new DesignerModelFactory().CreateApplicationModelManager(
@@ -145,15 +170,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
                 modulesManager.ControllersManager,
                 modulesManager.DomainComponents);
 
-            var masterModel = modelsManager.CreateModelApplication(null, null, false) as ModelApplicationBase;
-            masterModel.AddLayers(CurrentObject.GetAllLayers());
-
-            controller = new ModelEditorViewController((IModelApplication)masterModel, null, modulesManager.Modules);
-            controller.SetControl(this.Control);
-            controller.Modifying += this.Model_Modifying;
-            controller.SaveAction.Active["Not needed"] = false;
-            
-            return controller;
+            return modelsManager.CreateModelApplication(null, null, false) as ModelApplicationBase;
         }
 
         private XafApplication GetApplication(string executableName)
