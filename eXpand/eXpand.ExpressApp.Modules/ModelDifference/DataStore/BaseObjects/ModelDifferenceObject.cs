@@ -37,7 +37,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref combineOrder, value); }
         }
 
-        [NonCloneable, Browsable(false)]
+        [NonCloneable]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [RuleRequiredField(null, DefaultContexts.Save)]
         [Association(Associations.PersistentApplicationModelDifferenceObjects)]
@@ -109,7 +109,6 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         public ModelApplicationBase[] GetAllLayers(IEnumerable<ModelDifferenceObject> differenceObjects)
         {
             var layers = new List<ModelApplicationBase>();
-            var master = ((ModelNode)ModelDifferenceModule.XafApplication.Model).CreatorInstance.CreateModelApplication();
             foreach (ModelDifferenceObject differenceObject in differenceObjects)
             {
                 layers.Add(differenceObject.Model);

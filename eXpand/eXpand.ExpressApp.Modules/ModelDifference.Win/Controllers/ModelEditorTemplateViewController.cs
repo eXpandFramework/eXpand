@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Win.Templates.ActionContainers;
 using DevExpress.XtraBars.Ribbon;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.Win.PropertyEditors;
+using DevExpress.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.ModelDifference.Win.Controllers
 {
@@ -12,6 +13,18 @@ namespace eXpand.ExpressApp.ModelDifference.Win.Controllers
         public ModelEditorTemplateViewController()
         {
             this.TargetObjectType = typeof(ModelDifferenceObject);
+        }
+
+        protected override void OnActivated()
+        {
+            base.OnActivated();
+            Frame.GetController<RefreshController>().Active.SetItemValue("Current not supported", false);
+        }
+
+        protected override void OnDeactivating()
+        {
+            Frame.GetController<RefreshController>().Active.RemoveItem("Current not supported");
+            base.OnDeactivating();
         }
 
         protected override void OnViewControlsCreated()

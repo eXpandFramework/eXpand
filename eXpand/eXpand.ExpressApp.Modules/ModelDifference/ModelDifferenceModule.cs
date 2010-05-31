@@ -15,12 +15,25 @@ namespace eXpand.ExpressApp.ModelDifference
 {
     public sealed partial class ModelDifferenceModule : ModuleBase
     {
-        private static XafApplication _XafApplication;
-        public static XafApplication XafApplication
+        private static ModelApplicationCreator _ModelApplicationCreator;
+        public static ModelApplicationCreator ModelApplicationCreator
         {
             get
             {
-                return _XafApplication;
+                return _ModelApplicationCreator;
+            }
+            set
+            {
+                _ModelApplicationCreator = value;
+            }
+        }
+
+        private static XafApplication _Application;
+        public static XafApplication Application
+        {
+            get
+            {
+                return _Application;
             }
         }
 
@@ -61,9 +74,8 @@ namespace eXpand.ExpressApp.ModelDifference
         {
             base.Setup(application);
             application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;
-
-            if (_XafApplication == null)
-                _XafApplication = application;
+            if (_Application == null)
+                _Application = application;
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters)

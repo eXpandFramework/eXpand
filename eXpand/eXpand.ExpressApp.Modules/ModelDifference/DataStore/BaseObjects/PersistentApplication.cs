@@ -68,7 +68,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            this.ExecutableName = Assembly.GetAssembly(ModelDifferenceModule.XafApplication.GetType()).ManifestModule.Name;
+            this.ExecutableName = Assembly.GetAssembly(ModelDifferenceModule.Application.GetType()).ManifestModule.Name;
         }
     }
 }
