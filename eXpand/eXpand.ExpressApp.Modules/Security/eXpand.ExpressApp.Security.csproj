@@ -112,12 +112,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\StatePermissionSynchronizerController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\StatePermissionSynchronizerController.Designer.cs">
-      <DependentUpon>StatePermissionSynchronizerController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\DefaultRolePermissionsController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -130,11 +124,6 @@
     <Compile Include="Controllers\PopulateController.Designer.cs">
       <DependentUpon>PopulateController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\PopulateViewsController.cs">
-    </Compile>
-    <Compile Include="Controllers\PopulateViewsController.Designer.cs">
-      <DependentUpon>PopulateViewsController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -142,7 +131,6 @@
       <DependentUpon>Module.cs</DependentUpon>
     </Compile>
     <Compile Include="Permissions\PermissionBase.cs" />
-    <Compile Include="Permissions\LogicRulePermission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>

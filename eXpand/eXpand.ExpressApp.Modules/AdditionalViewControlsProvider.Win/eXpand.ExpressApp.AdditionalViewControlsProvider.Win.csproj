@@ -76,10 +76,6 @@
     <Reference Include="DevExpress.Xpo.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="eXpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -97,18 +93,6 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.ExpressApp.Security, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="eXpand.ExpressApp.Win, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="eXpand.Persistent.Base, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="eXpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -134,25 +118,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdditionalViewControlsRuleViewController.cs">
+    <Compile Include="AdditionalViewControlsProviderWindowsFormsModule.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\HintPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AdditionalViewControlsProviderWindowsFormsModule.cs">
-    </Compile>
-    <Compile Include="AdditionalViewControlsProviderWindowsFormsModule.Designer.cs">
-      <DependentUpon>AdditionalViewControlsProviderWindowsFormsModule.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Updater.cs" />
     <Compile Include="Decorators\WinHintPanelDecorator.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="AdditionalViewControlsProviderWindowsFormsModule.resx">
-      <DependentUpon>AdditionalViewControlsProviderWindowsFormsModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <Compile Include="DomainLogic\AdditionalViewControlsControlsTypesDomainLogic.cs" />
+    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NodeUpdaters\AdditionalViewControlsDefaultContextNodeUpdater.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Updater.cs">
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />

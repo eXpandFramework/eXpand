@@ -114,10 +114,16 @@ namespace eXpand.ExpressApp.SystemModule
 
         private void checkIfAdditionalViewControlsModuleIsRegister()
         {
-            throw new NotImplementedException();
-            var node = View.Model;
-            if (node == null)
-            {
+            bool found = false;
+            for (int i = 0; i < View.Model.Application.NodeCount; i++) {
+                IModelNode modelNode = View.Model.Application.GetNode(i);
+                if (modelNode.GetValue<string>("Id") == "AdditionalViewControls") {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!(found)){
                 throw new UserFriendlyException(new Exception("AdditionalViewControlsProvider module not found"));
             }
         }
@@ -125,12 +131,8 @@ namespace eXpand.ExpressApp.SystemModule
         private void getFilterWrappers()
         {
             _filtersByPropertyPathWrappers = new Dictionary<string, FiltersByCollectionWrapper>();
-
             foreach (IModelPropertyPathFilter childNode in ((IModelListViewPropertyPathFilters)View.Model).PropertyPathFilters)
-                _filtersByPropertyPathWrappers.Add(
-                    childNode.Id,
-                    new FiltersByCollectionWrapper(
-                        View.ObjectTypeInfo, childNode,
+                _filtersByPropertyPathWrappers.Add(childNode.Id,new FiltersByCollectionWrapper(View.ObjectTypeInfo, childNode,
                         ObjectSpace.Session.GetClassInfo(View.ObjectTypeInfo.Type)));
         }
 

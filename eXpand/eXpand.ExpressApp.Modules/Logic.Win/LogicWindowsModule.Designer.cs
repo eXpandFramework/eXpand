@@ -28,7 +28,7 @@ namespace eXpand.ExpressApp.Logic.Win
         /// </summary>
         private void InitializeComponent()
         {
-            RequiredModuleTypes.Add(typeof(LogicModule));
+            
         }
 
         #endregion

@@ -1,28 +1,15 @@
-using System;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Decorators;
-using eXpand.ExpressApp.Logic;
+﻿using DevExpress.ExpressApp;
+using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.NodeUpdaters;
 
-namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win
-{
-    public sealed partial class AdditionalViewControlsProviderWindowsFormsModule : AdditionalViewControlsProviderModuleBase
-    {
-        public AdditionalViewControlsProviderWindowsFormsModule()
+namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win {
+    public class AdditionalViewControlsProviderWindowsFormsModule : ModuleBase {
+        public AdditionalViewControlsProviderWindowsFormsModule() {
+            RequiredModuleTypes.Add(typeof (AdditionalViewControlsModule));
+        }
+        public override void AddGeneratorUpdaters(DevExpress.ExpressApp.Model.Core.ModelNodesGeneratorUpdaters updaters)
         {
-            InitializeComponent();
-        }
-
-
-        protected override Type GetDecoratorType() {
-            return typeof(WinHintPanelDecorator);
-        }
-
-        protected override Type GetControlType() {
-            return typeof(HintPanel);
-        }
-
-        protected override bool IsDefaultContext(ExecutionContext context) {
-            return context == ExecutionContext.TemplateViewChanged || context == ExecutionContext.CurrentObjectChanged || context == ExecutionContext.ObjectChanged;
+            base.AddGeneratorUpdaters(updaters);
+            updaters.Add(new AdditionalViewControlsDefaultContextNodeUpdater());
         }
     }
 }

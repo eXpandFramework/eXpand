@@ -1,5 +1,5 @@
 ﻿using System;
-using eXpand.ExpressApp.Logic.Conditional;
+using eXpand.ExpressApp.Logic.Conditional.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public class AdditionalViewControlsRule : ConditionalLogicRule, IAdditionalViewControlsRule {
@@ -15,29 +15,32 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             set { _additionalViewControlsRule.Message = value; }
         }
 
-        public string MessagePropertyName {
-            get { return _additionalViewControlsRule.MessagePropertyName; }
-            set { _additionalViewControlsRule.MessagePropertyName = value; }
+        public Type ControlType {
+            get { return _additionalViewControlsRule.ControlType; }
+            set { _additionalViewControlsRule.ControlType = value; }
         }
+
 
         public Type DecoratorType {
             get { return _additionalViewControlsRule.DecoratorType; }
             set { _additionalViewControlsRule.DecoratorType = value; }
         }
 
-        public Type ControlType {
-            get { return _additionalViewControlsRule.ControlType; }
-            set { _additionalViewControlsRule.ControlType = value; }
+
+        public string MessageProperty {
+            get { return _additionalViewControlsRule.MessageProperty; }
+            set { _additionalViewControlsRule.MessageProperty = value; }
         }
 
-        public AdditionalViewControlsProviderPosition AdditionalViewControlsProviderPosition {
-            get { return _additionalViewControlsRule.AdditionalViewControlsProviderPosition; }
-            set { _additionalViewControlsRule.AdditionalViewControlsProviderPosition = value; }
+
+        public Position Position {
+            get { return _additionalViewControlsRule.Position; }
+            set { _additionalViewControlsRule.Position = value; }
         }
 
         public bool UseSameIfFound {
             get { return _additionalViewControlsRule.UseSameIfFound; }
-            set { _additionalViewControlsRule.UseSameIfFound=value; }
+            set { _additionalViewControlsRule.UseSameIfFound = value; }
         }
         #endregion
     }

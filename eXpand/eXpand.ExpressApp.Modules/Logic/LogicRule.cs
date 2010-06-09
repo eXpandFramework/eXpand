@@ -1,6 +1,7 @@
-﻿using DevExpress.ExpressApp;
+﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using eXpand.Persistent.Base.General;
+using eXpand.ExpressApp.Logic.Model;
 
 namespace eXpand.ExpressApp.Logic
 {
@@ -13,13 +14,19 @@ namespace eXpand.ExpressApp.Logic
         }
 
         public string ID {
-            get { return _logicRule.ID; }
-            set { _logicRule.ID = value; }
+            get { return _logicRule.Id; }
+            set { _logicRule.Id = value; }
         }
 
         public string ExecutionContextGroup {
             get { return _logicRule.ExecutionContextGroup; }
             set { _logicRule.ExecutionContextGroup = value; }
+        }
+
+        public IModelExecutionContext ContextGroup
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
         }
 
         public ViewType ViewType {
@@ -30,6 +37,12 @@ namespace eXpand.ExpressApp.Logic
         public Nesting Nesting {
             get { return _logicRule.Nesting; }
             set { _logicRule.Nesting = value; }
+        }
+
+
+        string IRule.Id {
+            get { return ID; }
+            set { ID=value; }
         }
 
         public string Description {
@@ -52,6 +65,7 @@ namespace eXpand.ExpressApp.Logic
             set { _logicRule.Index = value; }
         }
 
+//        public IModelClass ModelClass { get; set; }
     }
 }
 

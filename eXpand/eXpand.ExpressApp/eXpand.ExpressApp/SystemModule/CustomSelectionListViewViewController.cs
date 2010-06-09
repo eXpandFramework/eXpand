@@ -20,7 +20,7 @@ namespace eXpand.ExpressApp.SystemModule
         [Description("Overrides the default selection of the gridlisteditor by adding a checkbox column in order to select objects")]
         bool CustomSelection { get; set; }
     }
-    public class CustomSelectionListViewViewController : ViewController<ListView>, IModelExtender
+    public abstract class CustomSelectionListViewViewController : ViewController<ListView>, IModelExtender
     {
         protected const string CustomSelection = "CustomSelection";
 

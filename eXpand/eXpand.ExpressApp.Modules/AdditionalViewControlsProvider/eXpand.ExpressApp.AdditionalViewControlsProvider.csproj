@@ -70,31 +70,11 @@
     <Reference Include="DevExpress.Xpo.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="eXpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="eXpand.ExpressApp.Logic, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.ExpressApp.Logic.Conditional, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="eXpand.ExpressApp.Security, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="eXpand.Persistent.Base, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="eXpand.Utils, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="eXpand.Xpo, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -115,33 +95,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Logic\AdditionalViewControlsPermission.cs" />
-    <Compile Include="AdditionalViewControlsProviderModule.cs">
+    <Compile Include="AdditionalViewControlsModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AdditionalViewControlsProviderModule.Designer.cs">
-      <DependentUpon>AdditionalViewControlsProviderModule.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AdditionalViewControlsProviderPosition.cs" />
-    <Compile Include="Logic\AdditionalViewControlsRule.cs" />
-    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
-    </Compile>
-    <Compile Include="Logic\AdditionalViewControlsRuleNodeWrapper.cs" />
-    <Compile Include="Logic\AdditionalViewControlsAttribute.cs" />
     <Compile Include="AdditionalViewControlsProviderCalculator.cs" />
     <Compile Include="AdditionalViewControlsProviderDecorator.cs" />
-    <Compile Include="AdditionalViewControlsProviderModuleBase.cs">
+    <Compile Include="DomainLogic\AdditionalViewControlsControlsTypesDomainLogic.cs" />
+    <Compile Include="Logic\AdditionalViewControlsRule.cs" />
+    <Compile Include="Logic\AdditionalViewControlsRuleAttribute.cs" />
+    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Logic\IAdditionalViewControlsRule.cs" />
+    <Compile Include="Logic\Position.cs" />
+    <Compile Include="Model\IModelAdditionalViewControlsRule.cs" />
+    <Compile Include="Model\IModelApplicationAdditionalViewControls.cs" />
+    <Compile Include="NodeUpdaters\AdditionalViewControlsDefaultGroupContextNodeUpdater.cs" />
+    <Compile Include="NodeUpdaters\AdditionalViewControlsRulesNodeUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Logic\AdditionalViewControlsRulesNodeWrapper.cs" />
+    <Compile Include="Security\AdditionalViewControlsPermission.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AdditionalViewControlsProviderModule.resx">
-      <DependentUpon>AdditionalViewControlsProviderModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
   </ItemGroup>
   <ItemGroup>

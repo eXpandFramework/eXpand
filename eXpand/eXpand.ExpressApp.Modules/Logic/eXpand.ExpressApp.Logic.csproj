@@ -79,11 +79,6 @@
     <Reference Include="DevExpress.Xpo.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="eXpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\eXpand.DLL\eXpand.ExpressApp.dll</HintPath>
-    </Reference>
     <Reference Include="eXpand.ExpressApp.Security, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -92,14 +87,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="eXpand.Xpo, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="eXpand.Utils, Version=0.0.9314.22, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -119,37 +107,44 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CollectedRuleFromModelEventArgs.cs" />
+    <Compile Include="DomainLogic\LogicRuleExecutionContextGroupDomainLogic.cs" />
+    <Compile Include="DomainLogic\ModelGroupContextsDefaultContextDomainLogic.cs" />
     <Compile Include="ExecutionContext.cs" />
+    <Compile Include="ILogicModelClassRule.cs" />
+    <Compile Include="ILogicRule.cs" />
+    <Compile Include="ILogicRuleInfo.cs" />
+    <Compile Include="ILogicRuleManager.cs" />
+    <Compile Include="IRule.cs" />
     <Compile Include="IRuleHolder.cs" />
-    <Compile Include="LogicContextsNodeWrapper.cs" />
-    <Compile Include="LogicModule.cs">
+    <Compile Include="LogicModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LogicModule.Designer.cs">
-      <DependentUpon>LogicModule.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FillRulesFromPermissionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="IRuleCollector.cs" />
+    <Compile Include="LogicRule.cs" />
+    <Compile Include="LogicRuleAttribute.cs" />
+    <Compile Include="LogicRuleExecutedEventArgs.cs" />
+    <Compile Include="LogicRuleExecutingEventArgs.cs" />
+    <Compile Include="LogicRuleInfo.cs" />
+    <Compile Include="LogicRuleManager.cs" />
     <Compile Include="LogicRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LogicRuleExecutedEventArgs.cs" />
-    <Compile Include="LogicRuleExecutingEventArgs.cs" />
-    <Compile Include="ILogicRuleInfo.cs" />
-    <Compile Include="LogicRule.cs" />
-    <Compile Include="LogicAttribute.cs" />
-    <Compile Include="LogicRuleInfo.cs" />
-    <Compile Include="LogicRuleManager.cs" />
-    <Compile Include="LogicRuleNodeWrapper.cs" />
-    <Compile Include="LogicRuleProviderModuleBase.cs">
+    <Compile Include="Model\IModelExecutionContext.cs" />
+    <Compile Include="Model\IModelGroupContexts.cs" />
+    <Compile Include="Model\IModelIModelExecutionContexts.cs" />
+    <Compile Include="Model\IModelLogic.cs" />
+    <Compile Include="Model\IModelLogicRule.cs" />
+    <Compile Include="Model\IModelLogicRules.cs" />
+    <Compile Include="NodeGenerators\ExecutionContextNodeGenerator.cs" />
+    <Compile Include="NodeGenerators\GroupContextsNodeGenerator.cs" />
+    <Compile Include="NodeGenerators\LogicRulesNodesGenerator.cs" />
+    <Compile Include="NodeUpdaters\LogicDefaultContextNodeUpdater.cs" />
+    <Compile Include="NodeUpdaters\LogicDefaultGroupContextNodeUpdater.cs" />
+    <Compile Include="NodeUpdaters\LogicRulesNodeUpdater.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\LogicRulePermission.cs" />
+    <Compile Include="Security\PopulateViewsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LogicRulesNodeWrapper.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TypesInfo.cs" />
-    <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -182,17 +177,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="LogicModule.resx">
-      <DependentUpon>LogicModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

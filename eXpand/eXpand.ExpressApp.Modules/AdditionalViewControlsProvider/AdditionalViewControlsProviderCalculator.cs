@@ -23,14 +23,6 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
             }
         }
 
-//        public ViewType CurrentViewType {
-//            get { return currentViewType; }
-//            set {
-//                currentViewType = value;
-//                OnHintChanged();
-//            }
-//        }
-
         public object CurrentObject {
             get { return currentObject; }
             set {
@@ -72,7 +64,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
         #endregion
         void supportNotifyPropertyChanged_PropertyChanged(object sender, PropertyChangedEventArgs e) {
             if ((_controlsRule != null) &&
-                (string.IsNullOrEmpty(e.PropertyName) || (e.PropertyName == _controlsRule.MessagePropertyName))) {
+                (string.IsNullOrEmpty(e.PropertyName) || (e.PropertyName == _controlsRule.MessageProperty))) {
                 UpdateAdditionalText();
             }
         }
@@ -91,10 +83,10 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
         }
 
         void UpdateAdditionalText() {
-            if (_controlsRule != null &&!string.IsNullOrEmpty(_controlsRule.MessagePropertyName)){
+            if (_controlsRule != null &&!string.IsNullOrEmpty(_controlsRule.MessageProperty)){
                 AdditionalText = CurrentObject != null
-                                     ? (string)ReflectionHelper.GetMemberValue(CurrentObject, _controlsRule.MessagePropertyName)
-                                     : _objectType.GetProperty(_controlsRule.MessagePropertyName).GetValue(null, null)as string;
+                                     ? (string)ReflectionHelper.GetMemberValue(CurrentObject, _controlsRule.MessageProperty)
+                                     : _objectType.GetProperty(_controlsRule.MessageProperty).GetValue(null, null)as string;
             }
             else
                 AdditionalText = "";

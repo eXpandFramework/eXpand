@@ -1,13 +1,37 @@
-using System;
-using eXpand.ExpressApp.Logic.Conditional;
+﻿using System;
+using System.ComponentModel;
+using DevExpress.ExpressApp.Model.Core;
+using eXpand.ExpressApp.Logic.Conditional.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
-    public interface IAdditionalViewControlsRule:IConditionalLogicRule {
-        string Message { get; set; }
-        string MessagePropertyName { get; set; }
-        Type DecoratorType { get; set; }
+    public interface IAdditionalViewControlsRule : IConditionalLogicRule {
+        [Category("Data")]
+        [Description("The type of the control to be added to the view")]
+        [TypeConverter(typeof(StringToTypeConverter))]
         Type ControlType { get; set; }
-        AdditionalViewControlsProviderPosition AdditionalViewControlsProviderPosition { get; set; }
+
+
+        [Category("Data")]
+        [Description("The type of the control that will be used to decorate the inserted control")]
+        [TypeConverter(typeof(StringToTypeConverter))]
+        Type DecoratorType { get; set; }
+
+
+        [Category("Data")]
+        [Description("The type of the control that will be used to decorate the inserted control")]
+        string MessageProperty { get; set; }
+
+
+        [Category("Data")]
+        [Description("The type of the control that will be used to decorate the inserted control")]
+        string Message { get; set; }
+
+        [Category("Behavior")]
+        [Description("Specifies the position at which the control is to be inserted")]
+        Position Position { get; set; }
+
+        [Category("Behavior")]
+        [Description("If a control of the same type is found is going to use that one")]
         bool UseSameIfFound { get; set; }
     }
 }

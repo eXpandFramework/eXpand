@@ -31,7 +31,7 @@ namespace eXpand.ExpressApp.SystemModule
         protected override void OnActivated()
         {
             base.OnActivated();
-            if (((IModelClassEnableFKViolations)View.Model.ModelClass).EnableFKViolations)
+            if (((IModelViewEnableFKViolations)View.Model).EnableFKViolations)
                 ObjectSpace.ObjectDeleting += ObjectSpace_OnObjectDeleting;
         }
 

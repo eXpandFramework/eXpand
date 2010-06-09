@@ -222,11 +222,9 @@ namespace eXpand.ExpressApp.Core.DynamicModel {
             return false;
         }
 
-        public override object[] GetCustomAttributes(Type attributeType, bool inherit) {
-            return
-                attributesCore.FindAll(
-                    attribute => attribute != null && attribute.GetType() == attributeType)
-                    .ToArray();
+        public override object[] GetCustomAttributes(Type attributeType, bool inherit)
+        {
+            return attributesCore.Cast<object>().Where(attr => attributeType.IsAssignableFrom(attr.GetType())).ToArray();
         }
 
         public override object[] GetCustomAttributes(bool inherit) {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 
 namespace eXpand.ExpressApp.Core.DynamicModel {
@@ -81,7 +82,7 @@ namespace eXpand.ExpressApp.Core.DynamicModel {
         }
 
         public override object[] GetCustomAttributes(Type attributeType, bool inherit) {
-            return attributesCore.ToArray();
+            return attributesCore.Where(attr => attributeType.IsAssignableFrom(attr.GetType())).ToArray();
         }
 
         public override object[] GetCustomAttributes(bool inherit) {

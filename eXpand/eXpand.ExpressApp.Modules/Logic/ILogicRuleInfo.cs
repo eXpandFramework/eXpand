@@ -1,5 +1,4 @@
 using DevExpress.ExpressApp;
-using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.Logic {
     public interface ILogicRuleInfo<TLogicRule> where TLogicRule : ILogicRule

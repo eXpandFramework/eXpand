@@ -1,24 +1,16 @@
-using System;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Web.Controls;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Web.Decorators;
-using eXpand.ExpressApp.Logic;
+﻿using DevExpress.ExpressApp;
+using eXpand.ExpressApp.AdditionalViewControlsProvider.Web.NodeUpdaters;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Web {
-    public sealed partial class AdditionalViewControlsProviderAspNetModule : AdditionalViewControlsProviderModuleBase {
+    public class AdditionalViewControlsProviderAspNetModule : ModuleBase {
         public AdditionalViewControlsProviderAspNetModule() {
-            InitializeComponent();
+            RequiredModuleTypes.Add(typeof (AdditionalViewControlsModule));
+        }
+        public override void AddGeneratorUpdaters(DevExpress.ExpressApp.Model.Core.ModelNodesGeneratorUpdaters updaters)
+        {
+            base.AddGeneratorUpdaters(updaters);
+            updaters.Add(new AdditionalViewControlsDefaultContextNodeUpdater());
         }
 
-        protected override Type GetDecoratorType() {
-            return typeof(WebHintPanelDecorator);
-        }
-
-        protected override Type GetControlType() {
-            return typeof(HintPanel);
-        }
-
-        protected override bool IsDefaultContext(ExecutionContext context) {
-            return context == ExecutionContext.ViewControlAdding;
-        }
     }
 }

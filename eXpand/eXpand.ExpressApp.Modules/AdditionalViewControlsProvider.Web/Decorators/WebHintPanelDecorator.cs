@@ -3,8 +3,7 @@ using DevExpress.ExpressApp;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Web.Controls;
 
-namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Web.Decorators
-{
+namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Web.Decorators {
     public class WebHintPanelDecorator : AdditionalViewControlsProviderDecorator
     {
         HintPanel hintPanel;
@@ -28,7 +27,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Web.Decorators
             }
         }
         public WebHintPanelDecorator(View view, HintPanel hintPanel, IAdditionalViewControlsRule controlsRule)
-            : base(view,hintPanel,controlsRule)
+            : base(view, hintPanel, controlsRule)
         {
             this.hintPanel = hintPanel;
             hintPanel.Unload += hintPanel_Unload;
