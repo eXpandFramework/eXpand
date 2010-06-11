@@ -42,6 +42,15 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         bool ImmediateUpdateAutoFilter { get; set; }
     }
 
+    [DomainLogic(typeof (IModelColumnGridViewOptions))]
+    public class ModelColumnGridViewOptionsLogic {
+        public static AutoFilterCondition Get_AutoFilterCondition(IModelColumnGridViewOptions node) {
+            if (((IModelColumn) node).ModelMember != null && (node as IModelColumn).ModelMember.Type == typeof (String)) {
+                return AutoFilterCondition.Contains;
+            }
+            return AutoFilterCondition.Default;
+        }
+    }
     public interface IModelClassGridViewOptions : IModelNode {
         [Category("eXpand")]
         [Description("Control gridview property")]
