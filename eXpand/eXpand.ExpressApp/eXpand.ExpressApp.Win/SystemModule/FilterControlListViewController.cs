@@ -8,6 +8,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid;
 using Forms = System.Windows.Forms;
+using DevExpress.ExpressApp.Utils;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
@@ -73,7 +74,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 setCriteriaFromView(filterControl);
             }
 
-            var accept = new SimpleButton {Text = "Accept filter"};
+            var accept = new SimpleButton { Text = CaptionHelper.GetLocalizedText("eXpand", "AcceptFilter") };
             accept.Click += ((o, args) => filterControl.ApplyFilter());
             accept.Dock = Forms.DockStyle.Bottom;
             filterControl.Controls.Add(accept);

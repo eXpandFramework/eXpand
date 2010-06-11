@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-	<SchemaModules IsNewNode="True">
-		<SchemaModule Name="SystemModule" Version="8.3.4.5247" IsNewNode="True" />
-		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="8.3.4.5247" IsNewNode="True" />
-		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="8.3.4.5247" IsNewNode="True" />
-	</SchemaModules>
+  <Localization>
+    <LocalizationGroup Name="eXpand" IsNewNode="True">
+      <LocalizationItem Name="AcceptFilter" IsNewNode="True" Value="Accept Filter" />
+    </LocalizationGroup>
+  </Localization>
 </Application>
