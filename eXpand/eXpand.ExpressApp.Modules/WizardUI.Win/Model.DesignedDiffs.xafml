@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+	<Localization>
+		<LocalizationGroup Name="Texts">
+			<LocalizationItem Name="WizardShowRecordAfterFinish" Value="Show record after completing the wizard" IsNewNode="True" />
+		</LocalizationGroup>
+	</Localization>
+</Application>
