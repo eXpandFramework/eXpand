@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="Windows-1252" ?>
+<Application>
+	<Localization>
+		<LocalizationGroup Name="Texts">
+			<LocalizationItem Name="WizardShowRecordAfterFinish" Value="Datensatz nach fertigstellung &#246;ffnen" />
+		</LocalizationGroup>
+	</Localization>
+</Application>
