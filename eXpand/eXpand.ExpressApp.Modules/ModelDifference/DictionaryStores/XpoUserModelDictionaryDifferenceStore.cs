@@ -53,8 +53,11 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             ModelXmlReader reader = new ModelXmlReader();
             ModelXmlWriter writer = new ModelXmlWriter();
             foreach (var modelDifferenceObject in modelDifferenceObjects){
-                for (int i = 0; i < modelDifferenceObject.Model.AspectCount; i++){
-                reader.ReadFromString(model, modelDifferenceObject.Model.GetAspect(i), writer.WriteToString(modelDifferenceObject.Model, i));
+                for (int i = 0; i < modelDifferenceObject.Model.AspectCount; i++)
+                {
+                    var xml = writer.WriteToString(modelDifferenceObject.Model, i);
+                    if (!string.IsNullOrEmpty(xml))
+                        reader.ReadFromString(model, modelDifferenceObject.Model.GetAspect(i), xml);
                 }
             }
         }
@@ -79,7 +82,9 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 foreach (var difference in differences){
                     for (int i = 0; i < model.AspectCount; i++)
                     {
-                        reader.ReadFromString(difference.Model, model.GetAspect(i), writer.WriteToString(model, i));
+                        var xml = writer.WriteToString(model, i);
+                        if (!string.IsNullOrEmpty(xml))
+                            reader.ReadFromString(difference.Model, model.GetAspect(i), xml);
                     }
 
                     space.SetModified(difference);

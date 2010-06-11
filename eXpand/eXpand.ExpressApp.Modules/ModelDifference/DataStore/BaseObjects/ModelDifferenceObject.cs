@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -12,6 +13,7 @@ using eXpand.ExpressApp.Attributes;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.Persistent.Base;
+using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
@@ -74,10 +76,12 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
         [Size(SizeAttribute.Unlimited), NonPersistent, NonCloneable, VisibleInListView(false), ImmediatePostData]
         public string XmlContent {
-            get { return Model.Xml; }
+            get { return this.Model.Xml; }
             set {
                 var oldValue = XmlContent;
-                new ModelXmlReader().ReadFromString(Model, ((ModelApplicationBase) Model.Master).CurrentAspect, value);
+                if (!string.IsNullOrEmpty(value))
+                    new ModelXmlReader().ReadFromString(Model, (Model.Master as ModelApplicationBase).CurrentAspect, value);
+                
                 OnChanged("XmlContent", oldValue, value);
             }
         }
@@ -99,15 +103,19 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
         public virtual ModelApplicationBase[] GetAllLayers()
         {
-            return GetAllLayers(new List<ModelDifferenceObject>().AsEnumerable());
+            return this.GetAllLayers(new List<ModelDifferenceObject>().AsEnumerable());
         }
 
         public ModelApplicationBase[] GetAllLayers(IEnumerable<ModelDifferenceObject> differenceObjects)
         {
-            ((ModelNode)ModelDifferenceModule.XafApplication.Model).CreatorInstance.CreateModelApplication();
-            var layers = differenceObjects.Select(differenceObject => differenceObject.Model).ToList();
+            var layers = new List<ModelApplicationBase>();
+            var master = ((ModelNode)ModelDifferenceModule.XafApplication.Model).CreatorInstance.CreateModelApplication();
+            foreach (ModelDifferenceObject differenceObject in differenceObjects)
+            {
+                layers.Add(differenceObject.Model);
+            }
 
-            layers.Add(Model);
+            layers.Add(this.Model);
 
             return layers.ToArray();
         }
