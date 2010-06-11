@@ -1,4 +1,5 @@
 ﻿using DevExpress.Xpo;
+using eXpand.ExpressApp.ConditionalControllerState.Security;
 using eXpand.ExpressApp.ModelArtifactState.ControllerState;
 using eXpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
 using eXpand.ExpressApp.PivotChart.ShowInAnalysis;

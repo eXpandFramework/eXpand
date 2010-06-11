@@ -130,6 +130,7 @@
     <Compile Include="NodeUpdaters\ControllerStateDefaultGroupContextNodeUpdater.cs" />
     <Compile Include="NodeUpdaters\ControllerStateRulesNodeUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\ControllerStateRulePermission.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
