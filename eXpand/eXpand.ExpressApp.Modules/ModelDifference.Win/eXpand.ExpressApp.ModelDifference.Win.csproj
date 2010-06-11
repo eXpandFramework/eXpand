@@ -133,6 +133,9 @@
     <Compile Include="Controllers\CombineActiveModelDictionaryWithActiveUserDifferenceController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\ModelEditorTemplateViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ModelDifferencewindowsFormsModule.cs">
       <SubType>Component</SubType>
     </Compile>
