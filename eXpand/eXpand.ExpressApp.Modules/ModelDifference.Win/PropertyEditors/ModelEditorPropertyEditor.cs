@@ -159,7 +159,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             var modulesManager = new DesignerModelFactory().CreateApplicationModelManager(
                 application,
                 string.Empty,
-                AppDomain.CurrentDomain.SetupInformation.ApplicationBase);
+                AppDomain.CurrentDomain.SetupInformation.ApplicationBase, string.Empty);
 
             this.ReadModulesFromConfig(modulesManager, application);
 

@@ -12,7 +12,7 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
-using eXpand.Persistent.BaseImpl;
+using eXpand.ExpressApp.Filtering;
 using eXpand.Xpo;
 using eXpand.Xpo.Parser;
 using System.ComponentModel;

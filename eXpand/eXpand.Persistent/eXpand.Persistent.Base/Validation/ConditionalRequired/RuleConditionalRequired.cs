@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Linq;
 using eXpand.Utils.Linq.Dynamic;
 
-namespace eXpand.Persistent.BaseImpl.Validation.ConditionalRequired
+namespace eXpand.Persistent.Base.Validation.ConditionalRequired
 {
     public class RuleConditionalRequired : RuleBase
     {

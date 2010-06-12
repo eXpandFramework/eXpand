@@ -16,10 +16,6 @@ namespace eXpand.ExpressApp.Win.SystemModule {
     [ToolboxBitmap(typeof (WinApplication), "Resources.WinSystemModule.ico")]
     [ToolboxItemFilter("Xaf.Platform.Win")]
     public sealed class eXpandSystemWindowsFormsModule : ModuleBase {
-        public override void UpdateModel(IModelApplication applicationModel) {
-            base.UpdateModel(applicationModel);
-            applicationModel.Views.DefaultListEditor = typeof (GridListEditor);
-        }
         protected override void RegisterEditorDescriptors(System.Collections.Generic.List<EditorDescriptor> editorDescriptors)
         {
             base.RegisterEditorDescriptors(editorDescriptors);

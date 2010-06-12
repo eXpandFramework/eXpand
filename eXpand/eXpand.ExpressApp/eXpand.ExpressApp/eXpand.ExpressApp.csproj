@@ -220,20 +220,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\MemberInfoEventArgs.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\FilterWithObjectsUserFrendlyStringProcessor.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\AtLeast1PropertyIsRequired\IRuleRequiredForAtLeast1PropertyProperties.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\AtLeast1PropertyIsRequired\RuleRequiredForAtLeast1PropertyProperties.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\AtLeast1PropertyIsRequired\RuleRequiredForAtLeast1Property.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\AtLeast1PropertyIsRequired\RuleRequiredForAtLeast1PropertyAttribute.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\ConditionalRequired\ConditionalIsRequiredAttribute.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\ConditionalRequired\RuleConditionalRequired.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\IRuleMultiPropertiesValues.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\FromIPropertyValueValidator\IPropertyValueValidator.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\FromIPropertyValueValidator\IRuleFromIPropertyValueValidatorProperties.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\FromIPropertyValueValidator\RuleFromIPropertyValueValidator.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\FromIPropertyValueValidator\RuleFromIPropertyValueValidatorAttribute.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\FromIPropertyValueValidator\RuleFromIPropertyValueValidatorProperties.cs" />
-    <Compile Include="eXpand.Persistent.BaseImpl\Validation\RuleMultiPropertiesValues.cs" />
+    <Compile Include="Filtering\FilterWithObjectsUserFrendlyStringProcessor.cs" />
     <Compile Include="RuntimeMembersTypeDescriptionProvider.cs" />
     <Compile Include="RunTimeMembersTypeDescriptor.cs" />
     <Compile Include="SystemModule\DescribeRunTimeMembersController.cs">

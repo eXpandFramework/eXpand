@@ -1,19 +1,16 @@
 using System;
 using DevExpress.Persistent.Validation;
 
-namespace eXpand.Persistent.BaseImpl.Validation.ConditionalRequired
-{
+namespace eXpand.Persistent.Base.Validation.ConditionalRequired {
     /// <summary>
     /// Conditionally RequiredField
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple=true)]
-    public sealed class RuleConditionalIsRequiredAttribute : RuleBaseAttribute
-    {
+    [AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple = true)]
+    public sealed class RuleConditionalIsRequiredAttribute : RuleBaseAttribute {
         /// <summary>
         /// Initializes a new instance of the RuleConditionalIsRequiredAttribute class.
         /// </summary>
-        public RuleConditionalIsRequiredAttribute()
-        {
+        public RuleConditionalIsRequiredAttribute() {
         }
 
         /// <summary>
@@ -23,8 +20,8 @@ namespace eXpand.Persistent.BaseImpl.Validation.ConditionalRequired
         /// <param name="condition">The Condition to execute, must return bool</param>
         /// <param name="cstmErrorMessage">Custom Error Message to Display</param>
         /// <param name="id"></param>
-        public RuleConditionalIsRequiredAttribute(string id, DefaultContexts contextType, string condition, string cstmErrorMessage) : base(id, contextType)
-        {
+        public RuleConditionalIsRequiredAttribute(string id, DefaultContexts contextType, string condition,
+                                                  string cstmErrorMessage) : base(id, contextType) {
             Condition = condition;
             CustomErrorMessage = cstmErrorMessage;
         }
@@ -39,22 +36,14 @@ namespace eXpand.Persistent.BaseImpl.Validation.ConditionalRequired
         /// Gets or sets the custom error message.
         /// </summary>
         /// <value>The custom error message.</value>
-        public string CustomErrorMessage
-        {
-            get
-            {
-                return Properties.CustomMessageTemplate;
-            }
+        public string CustomErrorMessage {
+            get { return Properties.CustomMessageTemplate; }
 
-            set
-            {
-                Properties.CustomMessageTemplate = value;
-            }
+            set { Properties.CustomMessageTemplate = value; }
         }
 
-        protected override Type RuleType
-        {
-            get { return typeof(RuleConditionalRequired); }
+        protected override Type RuleType {
+            get { return typeof (RuleConditionalRequired); }
         }
     }
 }

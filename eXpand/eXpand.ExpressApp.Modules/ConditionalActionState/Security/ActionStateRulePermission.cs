@@ -3,7 +3,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ArtifactState.Security;
 using eXpand.ExpressApp.ConditionalActionState.Logic;
-using eXpand.Persistent.BaseImpl.Validation.RuleRequiredForAtLeast1Property;
+using eXpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 
 namespace eXpand.ExpressApp.ConditionalActionState.Security {
     [RuleRequiredForAtLeast1Property(null, DefaultContexts.Save, "Module,ActionId")]

@@ -5,7 +5,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.ArtifactState.Security;
 using eXpand.ExpressApp.ConditionalControllerState.Logic;
-using eXpand.Persistent.BaseImpl.Validation.RuleRequiredForAtLeast1Property;
+using eXpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 
 namespace eXpand.ExpressApp.ConditionalControllerState.Security {
     [RuleRequiredForAtLeast1Property(null, DefaultContexts.Save, "Module,ControllerType")]

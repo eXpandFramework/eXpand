@@ -1,7 +1,7 @@
 ﻿using System;
 using DevExpress.Persistent.Validation;
 
-namespace eXpand.Persistent.BaseImpl.Validation.FromIPropertyValueValidator
+namespace eXpand.Persistent.Base.Validation.FromIPropertyValueValidator
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class RuleFromIPropertyValueValidatorAttribute : RuleBaseAttribute,

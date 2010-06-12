@@ -7,10 +7,8 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 
-namespace eXpand.Persistent.BaseImpl.Validation.RuleRequiredForAtLeast1Property
+namespace eXpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired
 {
-    [RulePropertiesDefaultValue("Delimiters", ";,.:")]
-    [RulePropertiesDefaultValue("SkipNullOrEmptyValues", false)]
     public class RuleRequiredForAtLeast1Property : RuleBase
     {
         private static SimpleValueManager<string> defaultMessageTemplateMustNotBeEmpty;
@@ -20,7 +18,8 @@ namespace eXpand.Persistent.BaseImpl.Validation.RuleRequiredForAtLeast1Property
         {
         }
 
-        public RuleRequiredForAtLeast1Property(RuleSearchObjectProperties properties) : base(properties)
+        public RuleRequiredForAtLeast1Property(IRuleRequiredForAtLeast1PropertyProperties properties)
+            : base(properties)
         {
         }
 
@@ -30,17 +29,17 @@ namespace eXpand.Persistent.BaseImpl.Validation.RuleRequiredForAtLeast1Property
         {
         }
 
-        public static string DefaultMessageTemplateMustNotBeEmpty
-        {
-            get {
-                if (defaultMessageTemplateMustNotBeEmpty == null)
-                    defaultMessageTemplateMustNotBeEmpty = new SimpleValueManager<string>();
-                return defaultMessageTemplateMustNotBeEmpty.Value ??
-                       (defaultMessageTemplateMustNotBeEmpty.Value =
-                        @"""At least one of {TargetProperties}"" must not be empty.");
-            }
-            set { defaultMessageTemplateMustNotBeEmpty.Value = value; }
-        }
+//        public static string DefaultMessageTemplateMustNotBeEmpty
+//        {
+//            get {
+//                if (defaultMessageTemplateMustNotBeEmpty == null)
+//                    defaultMessageTemplateMustNotBeEmpty = new SimpleValueManager<string>();
+//                return defaultMessageTemplateMustNotBeEmpty.Value ??
+//                       (defaultMessageTemplateMustNotBeEmpty.Value =
+//                        @"""At least one of {TargetProperties}"" must not be empty.");
+//            }
+//            set { defaultMessageTemplateMustNotBeEmpty.Value = value; }
+//        }
 
         public override ReadOnlyCollection<string> UsedProperties
         {

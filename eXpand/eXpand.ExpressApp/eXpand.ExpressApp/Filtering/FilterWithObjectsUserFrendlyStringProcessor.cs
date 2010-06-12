@@ -1,11 +1,11 @@
 ﻿using System;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
-using ITypeInfo=DevExpress.ExpressApp.DC.ITypeInfo;
 
-namespace eXpand.Persistent.BaseImpl
+namespace eXpand.ExpressApp.Filtering
 {
     public class FilterWithObjectsUserFrendlyStringProcessor : CriteriaProcessorBase
     {
