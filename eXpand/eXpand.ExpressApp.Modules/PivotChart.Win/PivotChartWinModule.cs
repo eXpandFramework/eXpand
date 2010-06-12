@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using eXpand.ExpressApp.PivotChart.Core;
-using eXpand.ExpressApp.PivotChart.Win.Core;
 using eXpand.ExpressApp.PivotChart.Win.Options;
-using eXpand.ExpressApp.PivotChart.Win.PropertyEditors;
 using TypesInfo = eXpand.ExpressApp.PivotChart.Core.TypesInfo;
 
 namespace eXpand.ExpressApp.PivotChart.Win {
@@ -23,8 +21,5 @@ namespace eXpand.ExpressApp.PivotChart.Win {
             get { return Core.TypesInfo.Instance; }
         }
 
-        protected override Type GetPropertyEditorType() {
-            return typeof (AnalysisEditorWin);
-        }
     }
 }

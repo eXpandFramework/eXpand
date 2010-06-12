@@ -28,7 +28,7 @@ namespace eXpand.ExpressApp.PivotChart.Core {
 
         public abstract TypesInfo TypesInfo{ get;}
 
-        protected abstract Type GetPropertyEditorType();
+        
         void CreateMembers(ITypesInfo typesInfo, Type optionsType, Type persistentType)
         {
             ITypeInfo typeInfo = typesInfo.FindTypeInfo(ReflectionHelper.GetType(persistentType.Name));
