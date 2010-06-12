@@ -10,7 +10,6 @@ namespace eXpand.ExpressApp.PivotChart {
         public PivotChartModule(){
             InitializeComponent();
         }
-
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
         {
             base.CustomizeTypesInfo(typesInfo);

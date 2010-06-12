@@ -22,10 +22,6 @@ namespace eXpand.ExpressApp.PivotChart {
 
         protected PivotGroupInterval GetPivotGroupInterval(AnalysisEditorBase analysisEditor, string fieldName) {
             return ((IModelPropertyEditorAnalysisDisplayDateTime)analysisEditor.Model).PivotGroupInterval;
-//            DictionaryNode info = analysisEditor.View.Info;
-//            var analysisInfo = (IAnalysisInfo)analysisEditor.MemberInfo.GetValue(analysisEditor.CurrentObject);
-//            return new ApplicationNodeWrapper(info.Dictionary.RootNode).BOModel.FindClassByType(analysisInfo.DataType)
-//                .FindMemberByName(fieldName).Node.GetAttributeEnumValue(PivotGroupInterval, DevExpress.XtraPivotGrid.PivotGroupInterval.Date);
         }
 
         #region IModelExtender Members

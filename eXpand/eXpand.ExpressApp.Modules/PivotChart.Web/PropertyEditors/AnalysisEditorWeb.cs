@@ -1,23 +1,16 @@
 ﻿using System;
-using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Web.ASPxEditors.FilterControl;
 using DevExpress.XtraCharts.Native;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.PivotChart.Web.Editors;
 
-namespace eXpand.ExpressApp.PivotChart.Web {
-    public class LoadingPanelController:ViewController {
-        public const string LoadingPanel = "LoadingPanel";
-        public override Schema GetSchema()
-        {
-            return new Schema(new SchemaHelper().InjectBoolAttribute(LoadingPanel, ModelElement.DetailViewPropertyEditors));
-        }
-    }
+namespace eXpand.ExpressApp.PivotChart.Web.PropertyEditors {
     public class AnalysisEditorWeb : DevExpress.ExpressApp.PivotChart.Web.AnalysisEditorWeb {
-        public AnalysisEditorWeb(Type objectType, DictionaryNode info) : base(objectType, info) {
+        public AnalysisEditorWeb(Type objectType, IModelMemberViewItem info)
+            : base(objectType, info)
+        {
         }
-
         public new AnalysisControlWeb Control {
             get { return (AnalysisControlWeb) base.Control; }
         }
@@ -35,7 +28,7 @@ namespace eXpand.ExpressApp.PivotChart.Web {
         }
 
         void AnalysisControlOnLoad(object sender, EventArgs eventArgs) {
-            ((IPopupFilterControlOwner)Control.PivotGrid).SettingsLoadingPanel.Enabled = Info.GetAttributeBoolValue(LoadingPanelController.LoadingPanel,true);
+            ((IPopupFilterControlOwner) Control.PivotGrid).SettingsLoadingPanel.Enabled =((IModelPropertyEditorLoadingPanel) Model).LoadingPanel;
             ReadValue();
             Control.DataBind();
         }

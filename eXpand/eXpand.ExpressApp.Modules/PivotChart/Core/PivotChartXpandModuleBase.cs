@@ -4,21 +4,19 @@ using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 
 namespace eXpand.ExpressApp.PivotChart.Core {
     public abstract class PivotChartXpandModuleBase : ModuleBase,ITypeInfoContainer {
-//        public override void UpdateModel(Dictionary model)
-//        {
-//            base.UpdateModel(model);
-//            IAnalysisInfo analysisInfo = null;
-//            string propertyName = analysisInfo.GetPropertyName(x=>x.Self);
-//            var analysisInfoNodeWrappers = new ApplicationNodeWrapper(model).BOModel.Classes.Where(wrapper => typeof(IAnalysisInfo).IsAssignableFrom(wrapper.ClassTypeInfo.Type)).SelectMany(nodeWrapper => nodeWrapper.Properties).Where(infoNodeWrapper => infoNodeWrapper.Name == propertyName);
-//            foreach (var propertyInfoNodeWrapper in analysisInfoNodeWrappers) {
-//                propertyInfoNodeWrapper.PropertyEditorType = GetPropertyEditorType().FullName;
-//            }
-//            
-//        }
+        public override void AddGeneratorUpdaters(DevExpress.ExpressApp.Model.Core.ModelNodesGeneratorUpdaters updaters)
+        {
+            base.AddGeneratorUpdaters(updaters);
+            updaters.Add(GetAnalysisPropertyEditorNodeUpdater());
+        }
+
+        protected abstract IModelNodesGeneratorUpdater GetAnalysisPropertyEditorNodeUpdater();
+
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
