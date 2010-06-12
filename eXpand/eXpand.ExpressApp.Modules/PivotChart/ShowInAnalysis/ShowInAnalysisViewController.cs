@@ -4,6 +4,7 @@ using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.PivotChart.Core;
 
@@ -21,7 +22,7 @@ namespace eXpand.ExpressApp.PivotChart.ShowInAnalysis {
             showInAnalysisActionCore.Execute += showInReportAction_Execute;
             showInAnalysisActionCore.ItemType = SingleChoiceActionItemType.ItemIsOperation;
             showInAnalysisActionCore.SelectionDependencyType = SelectionDependencyType.RequireMultipleObjects;
-            showInAnalysisActionCore.ItemHierarchyType = ChoiceActionItemHierarchyType.Tree;
+
         }
 
         public SingleChoiceAction ShowInAnalysisAction {
@@ -76,8 +77,7 @@ namespace eXpand.ExpressApp.PivotChart.ShowInAnalysis {
 
         protected override void UpdateActionActivity(ActionBase action) {
             base.UpdateActionActivity(action);
-            action.Active["VisibleInReports"] =
-                Application.FindClassInfo(View.ObjectTypeInfo.Type).GetAttributeBoolValue("VisibleInReports");
+            action.Active["VisibleInReports"] =((IModelClassReportsVisibility) View.Model.ModelClass).IsVisibleInReports;
         }
 
         protected override void Dispose(bool disposing) {

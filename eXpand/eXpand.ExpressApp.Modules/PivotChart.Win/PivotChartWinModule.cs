@@ -7,6 +7,7 @@ using eXpand.ExpressApp.PivotChart.Win.PropertyEditors;
 using TypesInfo = eXpand.ExpressApp.PivotChart.Core.TypesInfo;
 
 namespace eXpand.ExpressApp.PivotChart.Win {
+
     public sealed partial class PivotChartWinModule : PivotChartXpandModuleBase {
         public PivotChartWinModule() {
             InitializeComponent();

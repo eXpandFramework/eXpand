@@ -1,22 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 using AnalysisViewControllerBase = eXpand.ExpressApp.PivotChart.Core.AnalysisViewControllerBase;
 
 namespace eXpand.ExpressApp.PivotChart.AnalysisControlVisibility {
-    public abstract class AnalysisControlVisibilityControllerBase<TAnalysisEditor,TAnalysisControl> : AnalysisViewControllerBase
+    public interface IModelMemberAnalysisControlVisibility:IModelNode {
+        [Category("eXpand")]
+        [Description("Controls the visibility of Analysis control")]
+        AnalysisControlVisibility AnalysisControlVisibility { get; set; }    
+    }
+    public interface IModelPropertyEditorAnalysisControlVisibility:IModelPropertyEditor {
+        [Category("eXpand")]
+        [Description("Controls the visibility of Analysis control")]
+        [ModelValueCalculator("((IModelMemberAnalysisControlVisibility)ModelMember)", "AnalysisControlVisibility")]
+        AnalysisControlVisibility AnalysisControlVisibility { get; set; }    
+    }
+
+    public abstract class AnalysisControlVisibilityControllerBase<TAnalysisEditor,TAnalysisControl> : AnalysisViewControllerBase,IModelExtender
         where TAnalysisEditor : AnalysisEditorBase where TAnalysisControl:IAnalysisControl{
         public const string AnalysisControlVisibilityAttributeName = "AnalysisControlVisibility";
 
         protected AnalysisControlVisibilityControllerBase() {
             TargetObjectType = typeof (IAnalysisInfo);
         }
-
+        
         IAnalysisControl GetAnalysisControl(string propertyName)
         {
             try {
@@ -29,27 +41,19 @@ namespace eXpand.ExpressApp.PivotChart.AnalysisControlVisibility {
             }
         }
 
-        public override Schema GetSchema() {
-            DictionaryNode dictionaryNode =
-                new SchemaHelper().InjectAttribute(AnalysisControlVisibilityAttributeName,
-                                                   typeof (AnalysisControlVisibility),ModelElement.DetailViewPropertyEditors);
-            return new Schema(dictionaryNode);
-        }
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            var detailViewInfoNodeWrapper = new DetailViewInfoNodeWrapper(View.Info);
-            IEnumerable<DetailViewItemInfoNodeWrapper> detailViewItemInfoNodeWrappers =
-                detailViewInfoNodeWrapper.Editors.Items.Where(wrapper =>typeof (IAnalysisInfo).IsAssignableFrom(wrapper.PropertyType));
-            foreach (DetailViewItemInfoNodeWrapper detailViewItemInfoNodeWrapper in detailViewItemInfoNodeWrappers) {
-                AnalysisControlVisibility analysisControlVisibility =
-                    detailViewItemInfoNodeWrapper.Node.GetAttributeEnumValue(AnalysisControlVisibilityAttributeName,AnalysisControlVisibility.Default);
-                var analysisControl = (TAnalysisControl) GetAnalysisControl(detailViewItemInfoNodeWrapper.PropertyName);
-                switch (analysisControlVisibility) {
+            IEnumerable<IModelPropertyEditorAnalysisControlVisibility> modelPropertyEditorAnalysisControlVisibilitys =
+                View.Model.Items.OfType<IModelPropertyEditorAnalysisControlVisibility>().Where(
+                    item => item.AnalysisControlVisibility != AnalysisControlVisibility.Default);
+            foreach (var controlVisibility in modelPropertyEditorAnalysisControlVisibilitys) {
+                var analysisControl = (TAnalysisControl)GetAnalysisControl(controlVisibility.PropertyName);
+                switch (controlVisibility.AnalysisControlVisibility) {
                     case AnalysisControlVisibility.Pivot:
                         HideChart(analysisControl);
                         break;
-                    case AnalysisControlVisibility.Chart:
+                    default:
                         HidePivot(analysisControl);
                         break;
                 }
@@ -59,5 +63,15 @@ namespace eXpand.ExpressApp.PivotChart.AnalysisControlVisibility {
         protected abstract void HidePivot(TAnalysisControl analysisControl);
 
         protected abstract void HideChart(TAnalysisControl analysisControl);
+
+        #region IModelExtender Members
+
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            extenders.Add<IModelMember,IModelMemberAnalysisControlVisibility>();
+            extenders.Add<IModelPropertyEditor,IModelPropertyEditorAnalysisControlVisibility>();
+        }
+
+        #endregion
         }
 }

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
@@ -46,20 +47,19 @@ namespace eXpand.ExpressApp.PivotChart.InPlaceEdit {
 
         void CreateEditors() {
             if (Frame.View is DetailView) {
-                var detailViewInfoNodeWrapper = new DetailViewInfoNodeWrapper(View.Info);
-                IEnumerable<DetailViewItemInfoNodeWrapper> detailViewItemInfoNodeWrappers =
-                    detailViewInfoNodeWrapper.Editors.Items.Where(wrapper =>typeof (IAnalysisInfo).IsAssignableFrom(wrapper.PropertyType)&&wrapper.AllowEdit);
+                IEnumerable<IModelPropertyEditor> modelPropertyEditors =View.Items.OfType<IModelPropertyEditor>().Where(
+                        editor =>editor.AllowEdit &&typeof (IAnalysisInfo).IsAssignableFrom(editor.ModelMember.MemberInfo.MemberType));
                 var analysisEditors = View.GetItems<AnalysisEditorBase>();
-                foreach (var viewItemInfoNodeWrapper in detailViewItemInfoNodeWrappers) {
-                    var memberInfo = View.ObjectTypeInfo.FindMember(viewItemInfoNodeWrapper.PropertyName);
-                    AnalysisEditorBase analysisEditorBase = analysisEditors.Where(@base => @base.MemberInfo == memberInfo).FirstOrDefault();
-                    if (analysisEditorBase != null) {
-                        CreateEditors(analysisEditorBase);
-                        OnEditorCreated(new EditorCreatedArgs(analysisEditorBase));
-                    }
+                IEnumerable<IMemberInfo> memberInfos = modelPropertyEditors.Select(modelPropertyEditor => View.ObjectTypeInfo.FindMember(modelPropertyEditor.PropertyName));
+                IEnumerable<AnalysisEditorBase> analysisEditorBases = memberInfos.Select(memberInfo => analysisEditors.Where(@base => @base.MemberInfo == memberInfo).FirstOrDefault());
+                foreach (AnalysisEditorBase analysisEditorBase in analysisEditorBases.Where(analysisEditorBase => analysisEditorBase != null)) {
+                    CreateEditors(analysisEditorBase);
+                    OnEditorCreated(new EditorCreatedArgs(analysisEditorBase));
                 }
             }
         }
+
+
 
 
         protected abstract void CreateEditors(AnalysisEditorBase analysisEditorBase);

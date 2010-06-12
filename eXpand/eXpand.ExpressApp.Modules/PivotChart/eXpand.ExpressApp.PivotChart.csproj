@@ -151,6 +151,7 @@
     <Compile Include="AnalysisReadOnlyController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Core\AnalysisPropertyEditorNodeUpdater.cs" />
     <Compile Include="Core\TypesInfo.cs" />
     <Compile Include="InPlaceEdit\EditorCreatedArgs.cs" />
     <Compile Include="PivotChartModule.cs">
