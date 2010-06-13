@@ -127,6 +127,9 @@
     <Compile Include="Core\ModuleBaseExtensions.cs" />
     <Compile Include="IObjectSpaceProvider.cs" />
     <Compile Include="IXpoDataStoreProxy.cs" />
+    <Compile Include="ModuleBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MultiDataStoreProvider.cs" />
     <Compile Include="ObjectSpaceProvider.cs" />
     <Compile Include="Core\DetailViewExtensions.cs" />

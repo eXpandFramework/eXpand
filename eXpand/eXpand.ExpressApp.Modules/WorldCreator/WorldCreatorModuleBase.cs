@@ -4,17 +4,13 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Core.DictionaryHelpers;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
-using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.CloneObject;
-using eXpand.ExpressApp.WorldCreator.Controllers.ListView;
 
 namespace eXpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase:ModuleBase {
@@ -98,13 +94,13 @@ namespace eXpand.ExpressApp.WorldCreator {
         {
             base.UpdateModel(applicationModel);
             if (Application != null){
-                ShowOwnerForExtendedMembers(applicationModel);
-                removeDynamicAssemblyFromImageSources(applicationModel);
-                enableCloning(applicationModel);
+                ShowOwnerForExtendedMembers();
+                removeDynamicAssemblyFromImageSources();
+                enableCloning();
             }
         }
 
-        void enableCloning(IModelApplication model)
+        void enableCloning()
         {
             foreach (var propertyInfo in typeof(ITypesInfo).GetProperties())
             {
@@ -114,16 +110,16 @@ namespace eXpand.ExpressApp.WorldCreator {
         }
 
 
-        void ShowOwnerForExtendedMembers(IModelApplication model)
-        {
-            foreach (IModelListView listViewInfoNodeWrapper in GetListViewInfoNodeWrappers(model))
-            {
-                IModelColumn columnInfoNodeWrapper = listViewInfoNodeWrapper.Columns["Owner"];
-                if (columnInfoNodeWrapper != null) columnInfoNodeWrapper.Index = 2;
+        void ShowOwnerForExtendedMembers() {
+            IEnumerable<IModelColumn> columnInfoNodeWrappers =
+                GetListViewInfoNodeWrappers().Select(listViewInfoNodeWrapper => listViewInfoNodeWrapper.Columns["Owner"])
+                    .Where(columnInfoNodeWrapper => columnInfoNodeWrapper != null);
+            foreach (IModelColumn columnInfoNodeWrapper in columnInfoNodeWrappers) {
+                columnInfoNodeWrapper.Index = 2;
             }
         }
 
-        IEnumerable<IModelListView> GetListViewInfoNodeWrappers(IModelApplication model)
+        IEnumerable<IModelListView> GetListViewInfoNodeWrappers()
         {
             return
                 Application.Model.Views.OfType<IModelListView>().Where(
@@ -132,12 +128,11 @@ namespace eXpand.ExpressApp.WorldCreator {
                 view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedCoreMemberInfoType);
         }
 
-        void removeDynamicAssemblyFromImageSources(IModelApplication model)
-        {
-            foreach (Type definedModule in DefinedModules)
-            {
-                string name = new AssemblyName(definedModule.Assembly.FullName + "").Name;
-                var source = ((IModelImageSources)Application.Model).OfType<DevExpress.ExpressApp.Model.IModelAssemblyResourceImageSource>().First(s => s.AssemblyName == name);
+        void removeDynamicAssemblyFromImageSources() {
+            IEnumerable<IModelAssemblyResourceImageSource> modelAssemblyResourceImageSources =
+                DefinedModules.Select(definedModule => new AssemblyName(definedModule.Assembly.FullName + "").Name).
+                    Select(name =>((IModelImageSources) Application.Model).OfType<IModelAssemblyResourceImageSource>().First(s => s.AssemblyName == name));
+            foreach (var source in modelAssemblyResourceImageSources) {
                 ((IModelImageSources)Application.Model).Remove(source);
             }
         }
