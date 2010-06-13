@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
@@ -36,14 +38,21 @@ namespace eXpand.ExpressApp.SystemModule {
         }
 
         string[] GetShownProperties() {
-            var listView = ((ListView) View);
-            if (listView.Editor != null) {
-                return listView.Editor.ShownProperties;
+            var visibleProperties = new List<string>();
+            foreach (IModelColumn column in ((ListView) View).Model.Columns.VisibleColumns) {
+                IMemberInfo memberInfo = null;
+                if (column.ModelMember != null) {
+                    memberInfo =
+                        new ObjectEditorHelperBase(column.ModelMember.MemberInfo.MemberTypeInfo, column).DisplayMember;
+                }
+                if (memberInfo != null) {
+                    visibleProperties.Add(column.PropertyName + "." + memberInfo.Name);
+                }
+                else {
+                    visibleProperties.Add(column.PropertyName);
+                }
             }
-            return
-                (from column in listView.Model.Columns.VisibleColumns
-                 where column.Index != -1
-                 select column.PropertyName).ToArray();
+            return visibleProperties.ToArray();
         }
 
         public IEnumerable<string> GetFullTextSearchProperties(
