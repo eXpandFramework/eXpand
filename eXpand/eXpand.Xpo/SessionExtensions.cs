@@ -3,7 +3,6 @@ using System.Linq.Expressions;
 using DevExpress.Data.Filtering;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-using System.Linq;
 
 namespace eXpand.Xpo
 {
@@ -11,15 +10,6 @@ namespace eXpand.Xpo
     {
         public static void UnDelete(this XPBaseObject simpleObject) {
             simpleObject.Session.PurgeDeletedObjects();
-            return;
-            simpleObject.SetMemberValue(XPObject.Fields.GCRecord.PropertyName, null);
-            var persistentProperties = simpleObject.ClassInfo.PersistentProperties;
-            foreach (XPMemberInfo persistentProperty in (persistentProperties).OfType<XPMemberInfo>().Where(
-                        info => info.Name != XPObject.Fields.GCRecord.PropertyName)){
-                var memberType = persistentProperty.MemberType;
-                object obj = memberType.IsValueType ? Activator.CreateInstance(memberType) : null;
-                simpleObject.SetMemberValue(persistentProperty.Name, obj);
-            }
         }
         public static bool IsNewObject(this IXPSimpleObject simpleObject)
         {

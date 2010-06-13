@@ -101,18 +101,15 @@ namespace eXpand.Xpo.Filtering
                 var groupOperator = (GroupOperator) criteriaOperator;
                 CriteriaOperatorCollection operands = groupOperator.Operands;
                 var indexesToremove = new List<int>();
-                for (int i = 0; i < operands.Count; i++)
-                {
+                for (int i = 0; i < operands.Count; i++){
                     CriteriaOperator operand = operands[i];
-                    if (operand.ToString() == matchString)
-                    {
-                        if (replaceOperator == null)
+                    if (operand.ToString() == matchString){
+                        if (ReferenceEquals(replaceOperator,null))
                             indexesToremove.Add(i);
                         else
                             operands[i] = replaceOperator;
                     }
-                    else
-                    {
+                    else{
                         CriteriaOperator extract = Extract(operand);
                         operands.RemoveAt(i);
                         operands.Insert(i, extract);
@@ -124,7 +121,6 @@ namespace eXpand.Xpo.Filtering
             else if (criteriaOperator is ContainsOperator)
             {
                 var containsOperator = (ContainsOperator) criteriaOperator;
-                //                containsOperator.Operand=Extract(containsOperator.Operand);
                 CriteriaOperator condition = containsOperator.Condition;
                 Extract(condition);
             }
