@@ -13,9 +13,9 @@ namespace eXpand.ExpressApp {
         public static ModelApplicationCreatorProperties ModelApplicationCreatorProperties{
             get { return _instanceModelApplicationCreatorPropertiesManager.Value; }
         }
-        public static ModelApplicationCreator ModelApplicationCreator
-        {
+        public static ModelApplicationCreator ModelApplicationCreator {
             get { return _instanceModelApplicationCreatorManager.Value; }
+            set { _instanceModelApplicationCreatorManager.Value = value; }
         }
 
         public new static XafApplication Application {

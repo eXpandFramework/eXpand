@@ -3,18 +3,15 @@ using System.Configuration;
 using System.IO;
 using System.Web.Configuration;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using DevExpress.ExpressApp.Win.Controls;
 
 namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 {
@@ -61,13 +58,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         public ModelEditorViewController ModelEditorViewController
         {
-            get
-            {
-                if (controller == null)
-                    controller = GetModelEditorController();
-
-                return controller;
-            }
+            get { return controller ?? (controller = GetModelEditorController()); }
         }
 
         public ModelApplicationBase MasterModel
@@ -94,13 +85,13 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         {
             if (Control != null)
             {
-                this.Control.CurrentModelNode = null;
-                controller.Modifying -= this.Model_Modifying;
+                Control.CurrentModelNode = null;
+                controller.Modifying -= Model_Modifying;
                 controller = null;
             }
 
             masterModel = GetMasterModel();
-            ModelDifferenceModule.ModelApplicationCreator = masterModel.CreatorInstance;
+            ModuleBase.ModelApplicationCreator = masterModel.CreatorInstance;
 
             base.OnCurrentObjectChanged();
         }
@@ -116,7 +107,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         private void Model_Modifying(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.View.ObjectSpace.SetModified(CurrentObject);
+            View.ObjectSpace.SetModified(CurrentObject);
         }
 
         private void SpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args)
@@ -145,8 +136,8 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             masterModel.AddLayers(CurrentObject.GetAllLayers());
 
             controller = new ModelEditorViewController((IModelApplication)masterModel, null, null);
-            controller.SetControl(this.Control);
-            controller.Modifying += this.Model_Modifying;
+            controller.SetControl(Control);
+            controller.Modifying += Model_Modifying;
             controller.SaveAction.Active["Not needed"] = false;
             
             return controller;
@@ -154,14 +145,14 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         private ModelApplicationBase GetMasterModel()
         {
-            var application = this.GetApplication(CurrentObject.PersistentApplication.ExecutableName);
+            var application = GetApplication(CurrentObject.PersistentApplication.ExecutableName);
 
             var modulesManager = new DesignerModelFactory().CreateApplicationModelManager(
                 application,
                 string.Empty,
                 AppDomain.CurrentDomain.SetupInformation.ApplicationBase, string.Empty);
 
-            this.ReadModulesFromConfig(modulesManager, application);
+            ReadModulesFromConfig(modulesManager, application);
 
             modulesManager.Load();
 
@@ -182,7 +173,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
                 var assembly = ReflectionHelper.GetAssembly(Path.GetFileNameWithoutExtension(executableName), assemblyPath);
                 var assemblyInfo = XafTypesInfo.Instance.FindAssemblyInfo(assembly);
                 XafTypesInfo.Instance.LoadTypes(assembly);
-                return Enumerator.GetFirst<ITypeInfo>(ReflectionHelper.FindTypeDescendants(assemblyInfo, XafTypesInfo.Instance.FindTypeInfo(typeof(XafApplication)), false)).CreateInstance(new object[0]) as XafApplication;
+                return Enumerator.GetFirst(ReflectionHelper.FindTypeDescendants(assemblyInfo, XafTypesInfo.Instance.FindTypeInfo(typeof(XafApplication)), false)).CreateInstance(new object[0]) as XafApplication;
             }
             finally
             {
@@ -192,7 +183,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         private void ReadModulesFromConfig(ApplicationModulesManager manager, XafApplication application)
         {
-            Configuration config = null;
+            Configuration config;
             if (application is WinApplication)
             {
                 config = ConfigurationManager.OpenExeConfiguration(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + CurrentObject.PersistentApplication.ExecutableName);
