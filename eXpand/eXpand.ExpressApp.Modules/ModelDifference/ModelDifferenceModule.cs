@@ -13,33 +13,10 @@ using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 
 namespace eXpand.ExpressApp.ModelDifference
 {
-    public sealed partial class ModelDifferenceModule : ModuleBase
-    {
-        private static ModelApplicationCreator _ModelApplicationCreator;
-        public static ModelApplicationCreator ModelApplicationCreator
-        {
-            get
-            {
-                return _ModelApplicationCreator;
-            }
-            set
-            {
-                _ModelApplicationCreator = value;
-            }
-        }
+    public sealed class ModelDifferenceModule : ModuleBase{    
 
-        private static XafApplication _Application;
-        public static XafApplication Application
-        {
-            get
-            {
-                return _Application;
-            }
-        }
-
-        public ModelDifferenceModule()
-        {
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
+        public ModelDifferenceModule(){
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
@@ -74,8 +51,6 @@ namespace eXpand.ExpressApp.ModelDifference
         {
             base.Setup(application);
             application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;
-            if (_Application == null)
-                _Application = application;
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters)

@@ -22,7 +22,6 @@ namespace eXpand.ExpressApp.ModelDifference{
 
         private void OnSetupComplete(object sender, EventArgs args)
         {
-            ModelDifferenceModule.ModelApplicationCreator = (Application.Model as ModelApplicationBase).CreatorInstance;
             var dbUpdater = new DatabaseUpdater(Application.ObjectSpaceProvider, Application.Modules, Application.ApplicationName);
             CompatibilityError compatibilityError = dbUpdater.CheckCompatibility();
             if ((bool)(!PersistentApplicationModelUpdated) && compatibilityError != null && compatibilityError is CompatibilityDatabaseIsOldError)

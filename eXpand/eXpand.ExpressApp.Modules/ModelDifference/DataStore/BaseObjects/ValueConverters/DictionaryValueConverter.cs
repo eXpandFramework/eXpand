@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Xml;
-using DevExpress.ExpressApp;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.Utils.GeneralDataStructures;
@@ -53,7 +52,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ValueConverter
         {
             if (!(string.IsNullOrEmpty(value as string)))
             {
-                var model = ModelDifferenceModule.ModelApplicationCreator.CreateModelApplication();
+                var model = ModuleBase.ModelApplicationCreator.CreateModelApplication();
                 var modelReader = new ModelXmlReader();
                 var xmlReader = XmlReader.Create(new StringReader((string)value), new XmlReaderSettings { ConformanceLevel = ConformanceLevel.Auto });
                 var serializableDictionary = new SerializableDictionary<string, string>();
