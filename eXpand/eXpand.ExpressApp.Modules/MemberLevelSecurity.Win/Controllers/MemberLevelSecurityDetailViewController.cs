@@ -123,7 +123,7 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
 
         void InitDefaultControl(string name) {
             if (controlHelpers[name].DefaultControl == null) {
-                DetailViewItem item = ((DetailView)View).FindItem(name);
+                var item = ((DetailView)View).FindItem(name);
                 if (item != null)
                     controlHelpers[name].DefaultControl = (Control) item.Control;
             }
@@ -135,7 +135,7 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
         }
 
         int FindControlHashByPropertyName(string name) {
-            DetailViewItem item = ((DetailView)View).FindItem(name);
+            var item = ((DetailView)View).FindItem(name);
             if (item != null)
                 return item.Control.GetHashCode();
             return 0;
