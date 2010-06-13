@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Validation;
 
@@ -45,7 +44,7 @@ namespace eXpand.ExpressApp.SystemModule
                     var result = new RuleSetValidationResult();
                     var messageTemplate = "Cannot be deleted " + count + " referemces found";
                     result.AddResult(new RuleSetValidationResultItem(o, ContextIdentifier.Delete, null,
-                                                                     new RuleValidationResult(null, this, false,
+                                                                     new RuleValidationResult(null, this, ValidationState.Invalid, 
                                                                                               messageTemplate)));
                     throw new ValidationException(messageTemplate, result);
                 }

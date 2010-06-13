@@ -170,8 +170,7 @@ namespace eXpand.ExpressApp.SystemModule
 
         private string GetHintPanelText(FiltersByCollectionWrapper filtersByCollectionWrapper, CriteriaOperator criteriaOperator)
         {
-            if (criteriaOperator != null)
-            {
+            if (!(ReferenceEquals(criteriaOperator, null))){
                 var wrapper = new LocalizedCriteriaWrapper(filtersByCollectionWrapper.BinaryOperatorLastMemberClassType, criteriaOperator);
                 wrapper.UpdateParametersValues();
                 CriteriaOperator userFriendlyFilter = CriteriaOperator.Clone(wrapper.CriteriaOperator);
@@ -184,8 +183,7 @@ namespace eXpand.ExpressApp.SystemModule
         private CriteriaOperator SetCollectionSourceCriteria(FiltersByCollectionWrapper filtersByCollectionWrapper)
         {
             CriteriaOperator criteriaOperator = CriteriaOperator.Parse(filtersByCollectionWrapper.PropertyPathFilter);
-            if (criteriaOperator != null)
-            {
+            if (!(ReferenceEquals(criteriaOperator, null))){
                 new FilterWithObjectsProcessor(View.ObjectSpace).Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
                 var criterion = new PropertyPathParser(View.ObjectSpace.Session.GetClassInfo(View.ObjectTypeInfo.Type)).Parse(filtersByCollectionWrapper.PropertyPath, criteriaOperator.ToString());
                 View.CollectionSource.Criteria[filtersByCollectionWrapper.ID] = criterion;
