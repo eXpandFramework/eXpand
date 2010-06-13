@@ -2,15 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.Base.Validation.FromIPropertyValueValidator;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Persistent.BaseImpl.Validation.FromIPropertyValueValidator;
 using eXpand.Utils.Helpers;
 using eXpand.Xpo;
 
@@ -59,7 +58,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         [Index(2)]
-        [RuleFromIPropertyValueValidatorAttribute(null, DefaultContexts.Save)]
+        [RuleFromIPropertyValueValidator(null, DefaultContexts.Save)]
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof (TypeValueConverter))]
         [TypeConverter(typeof (LocalizedClassInfoTypeConverter))]
@@ -89,7 +88,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
         [Index(4)]
         [VisibleInListView(false)]
-        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
+        [Custom("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
         public string GeneratedCode {
             get { return CodeEngine.GenerateCode(this); }

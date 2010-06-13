@@ -7,8 +7,8 @@ using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.General;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Persistent.BaseImpl.Validation.RuleRequiredForAtLeast1Property;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [RuleRequiredForAtLeast1Property(null, DefaultContexts.Save, "ReferenceType,ReferenceClassInfo")]

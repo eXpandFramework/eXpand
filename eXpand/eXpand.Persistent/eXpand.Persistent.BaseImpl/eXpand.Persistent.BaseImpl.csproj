@@ -83,6 +83,15 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="eXpand.ExpressApp.ArtifactState, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ConditionalActionState, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ConditionalControllerState, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="eXpand.ExpressApp.Logic, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -92,10 +101,6 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.ExpressApp.ModelArtifactState, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="eXpand.ExpressApp.RuleModeller, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -195,10 +200,6 @@
     <Compile Include="PivotChart\Web\PivotGridWebOptionsPager.cs" />
     <Compile Include="PivotChart\Web\PivotGridWebOptionsView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Taxonomies\CustomTaxonomy.cs" />
-    <Compile Include="Taxonomies\StructuralTerm.cs" />
-    <Compile Include="Taxonomies\ValueTerm.cs" />
-    <Compile Include="Taxonomies\ValueTermAssignment.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

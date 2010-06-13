@@ -36,7 +36,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         [Index(6)]
-        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
+        [Custom("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
         public string GeneratedCode {
             get { return CodeEngine.GenerateCode(this); }
@@ -93,7 +93,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         [Index(7)]
-        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
+        [Custom("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
         public string CompileErrors {
             get { return _compileErrors; }
