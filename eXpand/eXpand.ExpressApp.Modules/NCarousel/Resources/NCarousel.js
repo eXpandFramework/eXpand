@@ -11,8 +11,10 @@ function mycarousel_itemLoadCallback(carousel, state) {
             break;
         }
         var item = mycarousel_itemList[id][i - 1];
-        html = '<table border=0><tr><td style ="text-align:center"><img src="' + item.url + '" alt="' + item.alt + '" /><br>' + item.text ;
-        //html = '<table border=0><tr><td style ="text-align:center"><img src="' + item.url + '" alt="' + item.text + '" /></td></tr><tr><td style ="text-align:center">' + item.text + '</td></tr></table>';
+        html = '';
+        if (item.url+''!='')
+            html = '<img src="' + item.url + '" alt="' + item.alt + '" /><br>';
+        html +=  item.text;
         carousel.add(i, html);
     }
 };

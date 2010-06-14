@@ -46,22 +46,6 @@ using System.Collections.Generic;
 
 namespace eXpand.Utils.Web
 {
-    /// <summary>
-    /// This is a proxy object for the Page.ClientScript and MS Ajax ScriptManager 
-    /// object that can operate when MS Ajax when present otherwise falling back to
-    ///  Page.ClientScript. Because MS Ajax may not be available accessing the 
-    /// methods directly is not possible and we are required to indirectly 
-    /// reference client script methods through this class.
-    /// 
-    /// This class should be invoked at the Control's start up and be used to 
-    /// replace all calls Page.ClientScript. Scriptmanager calls are made through 
-    /// Reflection indirectly so there's no dependency on the script manager.
-    /// 
-    /// This class also provides a few additional page injection helpers like the 
-    /// abillity to load scripts in the page header (rather than in the body) and 
-    /// to use script compression using wwScriptCompressionModule without using MS 
-    /// Ajax.
-    /// </summary>
     public class ClientScriptProxy
     {
         private const string STR_CONTEXTID = "__ClientScriptProxy";
@@ -138,7 +122,8 @@ namespace eXpand.Utils.Web
                     HttpContext.Current.Items[STR_CONTEXTID] = proxy;
                 }
 
-                if (proxy != null) {
+                if (proxy != null)
+                {
                     if (!proxy.IsTransferred && HttpContext.Current.Handler != HttpContext.Current.CurrentHandler)
                     {
                         proxy.ClearContextItemsOnTransfer();
@@ -311,7 +296,7 @@ namespace eXpand.Utils.Web
                                                  string resourceName,
                                                  ScriptRenderModes renderMode)
         {
-            string resourceUrl = GetClientScriptResourceUrl(control, type, resourceName);
+            string resourceUrl = GetClientScriptResourceUrl(type, resourceName);
             RegisterClientScriptInclude(control, type, resourceUrl, renderMode);
         }
         public static string ResolveUrl(string originalUrl)
@@ -521,7 +506,7 @@ namespace eXpand.Utils.Web
         public void RegisterCssResource(Control control, Type type, string resourceName)
         {
             // Otherwise just embed a script reference into the page using standard page methods
-            string resourceUrl = GetClientScriptResourceUrl(control, type, resourceName);
+            string resourceUrl = GetClientScriptResourceUrl(type, resourceName);
 
             RegisterCssLink(control, type, resourceName, resourceUrl);
         }
@@ -555,8 +540,9 @@ namespace eXpand.Utils.Web
             cssLinks.Add(lowerUrl);
         }
 
-        Control GetHeader(Control control) {
-            Control container = control.Page.Header ?? (Control) control.Page.Form;
+        Control GetHeader(Control control)
+        {
+            Control container = control.Page.Header ?? (Control)control.Page.Form;
 
             if (container == null)
                 throw new InvalidOperationException("There's no header or form on the page.");
@@ -589,7 +575,7 @@ namespace eXpand.Utils.Web
             if (DuplicateExists(key))
                 return;
             Control header = GetHeader(control);
-            header.Controls.Add(new LiteralControl(@"<style type=""text/css"">"+script+"</style>"));
+            header.Controls.Add(new LiteralControl(@"<style type=""text/css"">" + script + "</style>"));
         }
 
         /// <summary>
@@ -621,7 +607,7 @@ namespace eXpand.Utils.Web
             // No dupes - ref script include only once
             if (DuplicateExists(key))
                 return;
-            
+
 
             var sb = new StringBuilder();
 
@@ -645,7 +631,8 @@ namespace eXpand.Utils.Web
             HttpContext.Current.Items[STR_ScriptResourceIndex] = index;
         }
 
-        bool DuplicateExists(string key) {
+        bool DuplicateExists(string key)
+        {
             const string identifier = "scriptblock_";
             if (HttpContext.Current.Items.Contains(identifier + key))
                 return true;
@@ -674,31 +661,31 @@ namespace eXpand.Utils.Web
                 control.Page.ClientScript.RegisterStartupScript(type, key, script, addStartupTags);
 
         }
+
         /// <summary>
         /// Returns a WebResource URL for non script resources
         /// </summary>
-        /// <param name="control"></param>
         /// <param name="type"></param>
         /// <param name="resourceName"></param>
         /// <returns></returns>
-        public string GetWebResourceUrl(Control control, Type type, string resourceName)
+        public string GetWebResourceUrl(Type type, string resourceName)
         {
-            return control.Page.ClientScript.GetWebResourceUrl(type, resourceName);
+            var page = ((Page)HttpContext.Current.Handler);
+            return page.ClientScript.GetWebResourceUrl(type, resourceName);
         }
 
         /// <summary>
         /// Works like GetWebResourceUrl but can be used with javascript resources
         /// to allow using of resource compression (if the module is loaded).
         /// </summary>
-        /// <param name="control"></param>
         /// <param name="type"></param>
         /// <param name="resourceName"></param>
         /// <returns></returns>
-        public string GetClientScriptResourceUrl(Control control, Type type, string resourceName)
+        public string GetClientScriptResourceUrl(Type type, string resourceName)
         {
 
-
-            return control.Page.ClientScript.GetWebResourceUrl(type, resourceName);
+            var page = ((Page)HttpContext.Current.Handler);
+            return page.ClientScript.GetWebResourceUrl(type, resourceName);
         }
 
 

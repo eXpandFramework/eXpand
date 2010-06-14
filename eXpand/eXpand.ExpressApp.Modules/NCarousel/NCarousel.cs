@@ -4,13 +4,13 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using eXpand.Utils.Web;
 
 namespace eXpand.NCarousel {
-    public class NCarousel : WebControl {
+    public class NCarousel : WebControl, INamingContainer
+    {
         public NCarousel() {
             Css=new NCarouselCss();
         }
@@ -54,20 +54,24 @@ namespace eXpand.NCarousel {
             if (string.IsNullOrEmpty(CssClass))
                 CssClass = Css.ClassName;
 
-            ClientScriptProxy.Current.RegisterCssResource(this, GetType(), "eXpand.NCarousel.Resources.Skins.skin.css");
-            ClientScriptProxy.Current.RegisterCssBlock(this, GetType(), ID+"css", GetCssScript());
-            ClientScriptProxy.Current.RegisterClientScriptResource(this, GetType(), "eXpand.NCarousel.Resources.jquery-1.4.2.min.js", ScriptRenderModes.HeaderTop);
-            ClientScriptProxy.Current.RegisterClientScriptResource(this, GetType(), "eXpand.NCarousel.Resources.jquery.jcarousel.min.js", ScriptRenderModes.HeaderTop);
-            ClientScriptProxy.Current.RegisterClientScriptResource(this, GetType(), "eXpand.NCarousel.Resources.NCarousel.js", ScriptRenderModes.HeaderTop);
-            ClientScriptProxy.Current.RegisterClientScriptBlock(this, GetType(), ID+"jscript", GetJScript(),true,ScriptRenderModes.Header);
+            ClientScriptProxy.Current.RegisterCssResource(this, typeof(NCarousel), "eXpand.NCarousel.Resources.Skins.skin.css");
+            ClientScriptProxy.Current.RegisterCssBlock(this, typeof(NCarousel), ClientID + "css", GetCssScript());
+            ClientScriptProxy.Current.RegisterClientScriptResource(this, typeof(NCarousel), "eXpand.NCarousel.Resources.jquery-1.4.2.min.js", ScriptRenderModes.HeaderTop);
+            ClientScriptProxy.Current.RegisterClientScriptResource(this, typeof(NCarousel), "eXpand.NCarousel.Resources.jquery.jcarousel.min.js", ScriptRenderModes.HeaderTop);
+            ClientScriptProxy.Current.RegisterClientScriptResource(this, typeof(NCarousel), "eXpand.NCarousel.Resources.NCarousel.js", ScriptRenderModes.HeaderTop);
+            
         }
-        
+        protected override void CreateChildControls()
+        {
+            base.CreateChildControls();
+            ClientScriptProxy.Current.RegisterClientScriptBlock(this, typeof(NCarousel), ClientID + "jscript", GetJScript(), true, ScriptRenderModes.Header);
+        }
         string GetCssScript() {
             if (Css.AllowOverride)
                 return null;
-            var container = "#" + ID + "div ." + CssClass + " .jcarousel-container{" + Css.Container + "}"+Environment.NewLine;
-            var item = "#" + ID + "div ." + CssClass + " .jcarousel-item{" + Css.Iτem + "}" + Environment.NewLine;
-            var clip = "#" + ID + "div ." + CssClass + " .jcarousel-clip{" + Css.Clip + "}" + Environment.NewLine;
+            var container = "#" + ClientID + "div ." + CssClass + " .jcarousel-container{" + Css.Container + "}" + Environment.NewLine;
+            var item = "#" + ClientID + "div ." + CssClass + " .jcarousel-item{" + Css.Iτem + "}" + Environment.NewLine;
+            var clip = "#" + ClientID + "div ." + CssClass + " .jcarousel-clip{" + Css.Clip + "}" + Environment.NewLine;
             var next = "#" + ID + "div ." + CssClass + " .jcarousel-next{" + Css.Next + "}" + Environment.NewLine;
             var previous = "#" + ID + "div ." + CssClass + " .jcarousel-prev{" + Css.Previous + "}" + Environment.NewLine;
 
@@ -75,10 +79,10 @@ namespace eXpand.NCarousel {
         }
 
         string GetJScript() {
-            string script = string.Format(@"mycarousel_itemList[""" +ID+ @"""]=[{0}];", GetItems());
+            string script = string.Format(@"mycarousel_itemList[""" + ClientID + @"""]=[{0}];", GetItems());
             string vertical = (Alignment == Alignment.Horizontal ? false : true).ToString().ToLower();
             return string.Format(
-                    "{0}{2}jQuery(document).ready(function() {{jQuery('#" + ID + "').jcarousel({{vertical:" + vertical +
+                    "{0}{2}jQuery(document).ready(function() {{jQuery('#" + ClientID + "').jcarousel({{vertical:" + vertical +
                     ",size: {1},itemLoadCallback: {{onBeforeAnimation: mycarousel_itemLoadCallback}}}});}});",
                     script,  Items.Count, Environment.NewLine);
         }
@@ -97,8 +101,7 @@ namespace eXpand.NCarousel {
             var sw = new StringWriter(sb);
             var htmlWriter = new HtmlTextWriter(sw);
             base.Render(htmlWriter);
-            string rendered = Regex.Replace(sb.ToString(), "id=\"([^\"]*)\"", "id=\"" +ID+ "\"");
-            rendered = @"<div id=""" + ID + @"div"">" + rendered + "</div>";
+            string rendered = @"<div id=""" + ClientID + @"div"">" + sb + "</div>";
             writer.Write(rendered);
 
         }
@@ -106,5 +109,6 @@ namespace eXpand.NCarousel {
             return Items.Aggregate<NCarouselItem, string>(null,(current, nCarouselItem) =>
                                                           current + (@"{url:""" + (HideImages?null:nCarouselItem.Url) + @""",alt:""" + nCarouselItem.Alt + @""", text:""" + nCarouselItem.Text + @"""},"));
         }
+
     }
 }

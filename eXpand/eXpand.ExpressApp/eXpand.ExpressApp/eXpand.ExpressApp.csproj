@@ -187,6 +187,9 @@
     <Compile Include="SystemModule\IndexerController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\LookUpListSearchAlwaysEnableController.cs">
       <SubType>Component</SubType>
     </Compile>

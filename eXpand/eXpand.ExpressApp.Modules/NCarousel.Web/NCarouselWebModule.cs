@@ -1,52 +1,46 @@
+using System.Collections.Generic;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.InfoGenerators;
-using eXpand.NCarousel;
+using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using eXpand.Persistent.Base.General;
+using Alignment = eXpand.NCarousel.Alignment;
 
 namespace eXpand.ExpressApp.NCarousel.Web
 {
+    public interface IModelListViewNCarousel:IModelNode {
+        IModelNCarousel NCarousel { get; set; }
+    }
+
+    public interface IModelNCarousel : IModelNode {
+        bool AllowOverride { get; set; }
+        bool HideImages { get; set; }
+        string ContainerStyle { get; set; }
+        string ClipStyle { get; set; }
+        string ItemStyle { get; set; }
+        string ButtonStyle { get; set; }
+        Alignment Alignment { get; set; }
+
+        [DefaultValue(true)]
+        bool UseNoImage { get; set; }
+    }
     public sealed partial class NCarouselWebModule : ModuleBase
     {
-        public const string AllowOverrideAttributeName = "AllowOverride";
-        public const string HideImagesAttributeName = "HideImages";
-        public const string NCarouselAttributeName = "NCarousel";
-        public const string ContainerStyleAttributeName = "ContainerStyle";
-        public const string ClipStyleAttributeName = "ClipStyle";
-        public const string ItemStyleAttributeName = "ItemStyle";
-        public const string ButtonStyleAttributeName = "ButtonStyle";
-        public const string UseNoImageAttributeName = "UseNoImage";
+        
         public NCarouselWebModule()
         {
             InitializeComponent();
         }
-        public override void UpdateModel(Dictionary model)
-        {
-            base.UpdateModel(model);
-            var listEditorForClassCustomizer =
-                            new ListEditorForClassCustomizer<NCarouselListEditor>(typeof(INCarouselItem));
-            listEditorForClassCustomizer.Customize(model);
-        }
-        public override Schema GetSchema()
-        {
 
-            string s = @"<Element Name=""Application"">
-                            <Element Name=""Views"">
-                                <Element Name=""ListView"">
-                                    <Element Name=""" + NCarouselAttributeName + @""">
-                                        <Attribute Name=""" + AllowOverrideAttributeName + @""" Choice=""True,False""/>
-                                        <Attribute Name=""" + UseNoImageAttributeName + @""" Choice=""True,False""/>
-                                        <Attribute Name=""" + ContainerStyleAttributeName + @"""/>
-                                        <Attribute Name=""" + ClipStyleAttributeName + @"""/>
-                                        <Attribute Name=""" + ItemStyleAttributeName + @"""/>
-                                        
-                                        <Attribute Name=""" + ButtonStyleAttributeName + @"""/>
-                                        <Attribute Name=""" + HideImagesAttributeName + @""" Choice=""True,False""/>
-                                        <Attribute Name=""" + typeof(Alignment).Name + @""" Choice=""{" + typeof(Alignment).FullName + @"}""/>
-                                    </Element>
-                                </Element>; 
-                            </Element>; 
-                        </Element>";
-            return new Schema(new DictionaryXmlReader().ReadFromString(s));
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelListView,IModelListViewNCarousel>();
+        }
+
+        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors){
+            editorDescriptors.Add(new ListEditorDescriptor(new AliasAndEditorTypeRegistration(typeof (NCarouselListEditor).Name,
+                                                                            typeof (IPictureItem), true,
+                                                                            typeof (NCarouselListEditor), true)));
         }
 
     }

@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Web.UI.WebControls;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxGridView;
 
 namespace eXpand.ExpressApp.Web.SystemModule {
@@ -58,7 +59,7 @@ namespace eXpand.ExpressApp.Web.SystemModule {
     public interface IModelSettings:IModelNode {
     }
 
-    public class GridOptionsController : ExpressApp.SystemModule.GridOptionsController<ASPxGridView, IModelGridViewOptions, IModelListViewMainViewOptions>
+    public class GridOptionsController : ExpressApp.SystemModule.GridOptionsController<ASPxGridView, IModelGridViewOptions, IModelListViewMainViewOptions, ASPxGridListEditor>
     {
         protected override Func<PropertyInfo, bool> ControlPropertiesFilterPredicate() {
             return info => info.PropertyType.Name.EndsWith("Settings");

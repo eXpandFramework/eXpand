@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Controls;
@@ -123,7 +124,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         bool UseTabKey { get; set; }
     }
 
-    public class GridViewViewController : ViewController<ListView>, IModelExtender {
+    public class GridViewViewController : ListViewController<GridListEditor>, IModelExtender {
         const string DoNotLoadWhenNoFilterExists = "DoNotLoadWhenNoFilterExists";
         FilterController filterController;
         GridControl gridControl;

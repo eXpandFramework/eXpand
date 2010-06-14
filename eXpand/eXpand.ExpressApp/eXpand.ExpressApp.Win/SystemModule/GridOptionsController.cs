@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using eXpand.ExpressApp.SystemModule;
@@ -64,8 +65,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
     public interface IModelGridOptionsHint:IModelNode {
     }
 
-    public class GridOptionsController : GridOptionsController<GridView, IModelGridViewOptions, IModelListViewMainViewOptions>
-    {
+    public class GridOptionsController : GridOptionsController<GridView, IModelGridViewOptions, IModelListViewMainViewOptions,GridListEditor>{
         protected override Func<PropertyInfo, bool> ControlPropertiesFilterPredicate() {
             return info => info.PropertyType.Name.StartsWith("GridOptions");
         }
@@ -74,8 +74,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             return info => info.PropertyType.Name!=typeof(NewItemRowPosition).Name;
         }
 
-        protected override object GetControl()
-        {
+        protected override object GetControl(){
             var control = (GridControl)base.GetControl();
             return control.MainView;
         }
