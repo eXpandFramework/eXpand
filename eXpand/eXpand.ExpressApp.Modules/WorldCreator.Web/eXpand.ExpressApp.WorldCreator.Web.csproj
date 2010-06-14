@@ -91,7 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="WorldCreatorWebModule.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="WorldCreatorWebModule.Designer.cs">
       <DependentUpon>WorldCreatorWebModule.cs</DependentUpon>

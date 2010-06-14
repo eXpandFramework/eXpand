@@ -158,13 +158,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\CustomSelectionListViewViewController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\eXpandSystemWindowsFormsModule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FilterControlListViewController.cs">
       <SubType>Component</SubType>
@@ -173,19 +171,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridOptionsController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridViewViewController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HideGridPopUpMenuViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HideToolBarController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ListViewViewStyleController.cs">
       <SubType>Component</SubType>
@@ -215,7 +209,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\SearchFromDetailViewController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\SupressConfirmationController.cs">
       <SubType>Component</SubType>
