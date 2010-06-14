@@ -127,6 +127,7 @@
     <Compile Include="Decorators\WinHintPanelDecorator.cs" />
     <Compile Include="DomainLogic\AdditionalViewControlsControlsTypesDomainLogic.cs" />
     <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="NodeUpdaters\AdditionalViewControlsDefaultContextNodeUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

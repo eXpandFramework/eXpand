@@ -34,7 +34,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
                 throw new UserFriendlyException(new Exception("Only cloned is allowed"));
         }
 
-        private void OnObjectCreated(object sender, ObjectCreatedEventArgs args){
+        protected virtual void OnObjectCreated(object sender, ObjectCreatedEventArgs args){
             ((ModelDifferenceObject) args.CreatedObject).InitializeMembers(Application.Title, (Application).Title);
         }
     }

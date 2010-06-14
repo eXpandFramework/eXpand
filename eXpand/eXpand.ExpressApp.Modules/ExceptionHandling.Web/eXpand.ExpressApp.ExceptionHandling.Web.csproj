@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExceptionHandlingWebModule.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ExceptionHandlingWebModule.Designer.cs">
       <DependentUpon>ExceptionHandlingWebModule.cs</DependentUpon>

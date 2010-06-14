@@ -122,6 +122,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Decorators\WebHintPanelDecorator.cs" />
     <Compile Include="DomainLogic\AdditionalViewControlsControlsTypesDomainLogic.cs" />
