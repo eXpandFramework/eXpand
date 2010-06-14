@@ -2,22 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
-using DevExpress.Persistent.Base;
 using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.Thumbnail.Web {
-    public class ThumbnailListEditor : ListEditor,IComplexListEditor {
+    public class ThumbnailListEditor : ListEditor {
         public const string SelectedId = "selectedId";
         ThumbnailControl control;
-        XafApplication _application;
+        
 
-        public ThumbnailListEditor(DictionaryNode info) : base(info) {
+        public ThumbnailListEditor(IModelListView modelListView) : base(modelListView) {
         }
 
         public override object FocusedObject { get; set; }
@@ -31,14 +29,10 @@ namespace eXpand.ExpressApp.Thumbnail.Web {
             set { }
         }
 
-        public override string[] ShownProperties
-        {
-            get { return Model.Columns.SortedItems.Where(nodeWrapper => nodeWrapper.VisibleIndex > -1 && !nodeWrapper.PropertyTypeInfo.IsListType).Select(wrapper => wrapper.PropertyName).ToArray(); }
-        }
 
         public override string[] RequiredProperties
         {
-            get { return Model.Columns.SortedItems.Select(wrapper => wrapper.PropertyName).ToArray(); }
+            get { return Model.Columns.VisibleColumns.Select(wrapper => wrapper.PropertyName).ToArray(); }
         }
 
 
@@ -48,31 +42,34 @@ namespace eXpand.ExpressApp.Thumbnail.Web {
 
 
         protected override object CreateControlsCore() {
-            control = new ThumbnailControl { ID = "thumbnail_control"};
-            ((Page) HttpContext.Current.Handler).LoadComplete+=OnLoadComplete;
+            IModelThumbnailWeb modelThumbnailWeb = ((IModelListViewThumbnailWeb) Model).ThumbnailWeb;
+            control = new ThumbnailControl {
+                                               ID = "thumbnail_control",
+                                               DisplayStyle =modelThumbnailWeb.DisplayStyle,
+                                               HideImages = modelThumbnailWeb.HideImages
+
+                                           };
+            control.Click+=ControlOnClick;
             control.RequestText+=ControlOnRequestText;
             return control;
         }
 
-        void OnLoadComplete(object sender, EventArgs eventArgs) {
-            string id = HttpContext.Current.Request.QueryString[SelectedId];
-            if (id != null){
-                object objectKey = ReflectionHelper.Convert(id, typeof(Guid));
-                View view = _application.ProcessShortcut(new ViewShortcut(ObjectType, objectKey, Model.DetailViewId));
-                _application.ShowViewStrategy.ShowView(new ShowViewParameters(view), new ShowViewSource(null, null));
-            }
-
+        void ControlOnClick(object sender, PictureItemEventArgs pictureItemEventArgs) {
+            FocusedObject = pictureItemEventArgs.ItemClicked;
+            OnSelectionChanged();
+            OnProcessSelectedItem();
         }
 
 
-        string GetDisplayText(IThumbNailItem pictureItem)
+
+        string GetDisplayText(IPictureItem pictureItem)
         {
-            string text = ShownProperties.Aggregate("", (current, property) => current + (ObjectTypeInfo.FindMember(property).GetValue(pictureItem) + "<br>"));
+            string text = Model.Columns.VisibleColumns.Aggregate("", (current, modelColumn) => current + (ObjectTypeInfo.FindMember(modelColumn.PropertyName).GetValue(pictureItem) + "<br>"));
             return text.TrimEnd("<br>".ToCharArray());
         }
 
-        void ControlOnRequestText(object sender, RequestTextThumbnailItemEventArgs requestTextThumbnailItemEventArgs) {
-            requestTextThumbnailItemEventArgs.Text = GetDisplayText(requestTextThumbnailItemEventArgs.ItemClicked);
+        void ControlOnRequestText(object sender, RequestTextPictureItemEventArgs requestTextPictureItemEventArgs) {
+            requestTextPictureItemEventArgs.Text = GetDisplayText(requestTextPictureItemEventArgs.ItemClicked);
         }
 
 
@@ -100,8 +97,5 @@ namespace eXpand.ExpressApp.Thumbnail.Web {
         public override void SynchronizeInfo() {
         }
 
-        public void Setup(CollectionSourceBase collectionSource, XafApplication application) {
-            _application = application;
-        }
     }
 }

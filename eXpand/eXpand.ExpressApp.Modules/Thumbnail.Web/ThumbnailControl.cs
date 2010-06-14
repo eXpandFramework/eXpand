@@ -6,27 +6,38 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using eXpand.Persistent.Base.General;
+using System.ComponentModel;
 using eXpand.Utils.Web;
 using Image = System.Drawing.Image;
 
 namespace eXpand.ExpressApp.Thumbnail.Web {
     public class ThumbnailControl : Panel, INamingContainer {
-        IList dataSource;
+        public IList DataSource { get; set; }
 
-        public IList DataSource {
-            get { return dataSource; }
-            set { dataSource = value; }
+
+        IPictureItem FindItemByID(string id) {
+            if (DataSource == null) return null;
+
+            return DataSource.Cast<IPictureItem>().FirstOrDefault(item => item.ID == id);
         }
 
-
-
-        IThumbNailItem FindItemByID(string id)
-        {
-            if (dataSource == null) return null;
-
-            return dataSource.Cast<IThumbNailItem>().FirstOrDefault(item => item.ID == id);
+        [DefaultValue(false)]
+        public bool HideImages {
+            get {
+                object hideImages = ViewState["HideImages"];
+                return hideImages != null && (bool) hideImages;
+            }
+            set { ViewState["HideImages"] = value; }
         }
-
+        
+        public string DisplayStyle {
+            get {
+                object displayStyle = ViewState["DisplayStyle"];
+                return displayStyle != null ? (string) displayStyle : String.Empty;
+            }
+            set { ViewState["DisplayStyle"] = value; }
+        }
+        
         byte[] ImageToByteArray(Image image) {
             if (image == null) {
                 throw new ArgumentNullException("image");
@@ -41,7 +52,7 @@ namespace eXpand.ExpressApp.Thumbnail.Web {
             base.OnInit(e);
             Width = Unit.Percentage(100);
             if (HttpContext.Current.Request.QueryString["loadimage"] != null) {
-                IThumbNailItem item = FindItemByID(HttpContext.Current.Request.QueryString["loadimage"]);
+                IPictureItem item = FindItemByID(HttpContext.Current.Request.QueryString["loadimage"]);
                 if (item != null && item.Image != null) {
                     byte[] buffer = ImageToByteArray(item.Image);
                     HttpContext.Current.Response.ClearHeaders();
@@ -64,36 +75,35 @@ namespace eXpand.ExpressApp.Thumbnail.Web {
             Controls.Clear();
             if (Page != null) {
                 int i = 0;
-                string noImageUrl = ClientScriptProxy.Current.GetWebResourceUrl(this, GetType(), "Thumbnail.Web.Resources.noimage.jpg");
-                foreach (IThumbNailItem item in dataSource)
-                {
-                    Table table = CreateTable();
-                    var img = new System.Web.UI.WebControls.Image { ID = ID + "_" + (i++) };
-                    var requestTextPictureItemEventArgs = new RequestTextThumbnailItemEventArgs(item);
-                    OnRequestText(requestTextPictureItemEventArgs);
-                    SetImageProperties(item, img, noImageUrl,requestTextPictureItemEventArgs.Text);
-                    CreateImageRow(img, table);
-                    CreateTextRow(item, requestTextPictureItemEventArgs, table);
-                }
+                string noImageUrl = ClientScriptProxy.Current.GetWebResourceUrl(GetType(), "eXpand.ExpressApp.Thumbnail.Web.Resources.noimage.jpg");
+                if (DataSource != null)
+                    foreach (IPictureItem item in DataSource) {
+                        Table table = CreateTable();
+                        var img = new System.Web.UI.WebControls.Image { ID = ID + "_" + (i++) };
+                        var requestTextPictureItemEventArgs = new RequestTextPictureItemEventArgs(item);
+                        OnRequestText(requestTextPictureItemEventArgs);
+                        SetImageProperties(item, img, noImageUrl,requestTextPictureItemEventArgs.Text);
+                        CreateImageRow(img, table);
+                        CreateTextRow(item, requestTextPictureItemEventArgs.Text, table);
+                    }
             }
         }
 
-        void CreateTextRow(IThumbNailItem item, RequestTextThumbnailItemEventArgs requestTextThumbnailItemEventArgs, Table table)
-        {
-            TableCell cell = CreateTextCell(item, requestTextThumbnailItemEventArgs);
+        void CreateTextRow(IPictureItem item, string text, Table table) {
+            TableCell cell = CreateTextCell(item, text);
             table.Rows.Add(new TableRow());
             table.Rows[1].Cells.Add(cell);
         }
 
         void CreateImageRow(System.Web.UI.WebControls.Image img, Table table) {
-            TableCell cell = CreateImageCell(img);
+            TableCell cell =HideImages?new TableCell() : CreateImageCell(img);
             table.Rows.Add(new TableRow());
             table.Rows[0].Cells.Add(cell);
         }
 
         Table CreateTable() {
             var table = new Table();
-            table.Style["display"] = "inline";
+            table.Style["display"] = DisplayStyle;
             Controls.Add(table);
             table.BorderWidth = 0;
             table.CellPadding = 5;
@@ -108,22 +118,22 @@ namespace eXpand.ExpressApp.Thumbnail.Web {
             return cell;
         }
 
-        TableCell CreateTextCell(IThumbNailItem item, RequestTextThumbnailItemEventArgs requestTextThumbnailItemEventArgs)
-        {
+        TableCell CreateTextCell(IPictureItem item, string text) {
             var cell = new TableCell();
             cell.Style["font-size"] = "80%";
             cell.Style["text-align"] = "center";
             cell.Style["word-wrap"] = "break-word";
             cell.Style["word-break"] = "break-word";
-            string text1 = string.Format("<a href='{0}&{3}={1}'>{2}</a>",
-                                         HttpContext.Current.Request.Url.AbsoluteUri, item.ID, requestTextThumbnailItemEventArgs.Text, ThumbnailListEditor.SelectedId);            
-            var text = new Literal { Text = text1 };
-            cell.Controls.Add(text);
+            var linkButton = new LinkButton {ID ="link" +ID+item.ID,Text = text};
+            
+            cell.Controls.Add(linkButton);
+            linkButton.Click +=(sender, args) => OnClick(new PictureItemEventArgs(item));
             return cell;
         }
 
-        void SetImageProperties(IThumbNailItem item, System.Web.UI.WebControls.Image img, string noImageUrl, string text)
-        {
+
+
+        void SetImageProperties(IPictureItem item, System.Web.UI.WebControls.Image img, string noImageUrl, string text) {
             img.AlternateText = text;
             if (item.Image != null) {
                 img.ImageUrl = HttpContext.Current.Request.Url.AbsoluteUri + "&loadimage=" + item.ID;
@@ -137,11 +147,18 @@ namespace eXpand.ExpressApp.Thumbnail.Web {
         }
 
 
-        public event EventHandler<RequestTextThumbnailItemEventArgs> RequestText;
+        public event EventHandler<PictureItemEventArgs> Click;
 
-        public void OnRequestText(RequestTextThumbnailItemEventArgs e)
+        public void OnClick(PictureItemEventArgs e) {
+            EventHandler<PictureItemEventArgs> handler = Click;
+            if (handler != null) handler(this, e);
+        }
+
+        public event EventHandler<RequestTextPictureItemEventArgs> RequestText;
+
+        public void OnRequestText(RequestTextPictureItemEventArgs e)
         {
-            EventHandler<RequestTextThumbnailItemEventArgs> handler = RequestText;
+            EventHandler<RequestTextPictureItemEventArgs> handler = RequestText;
             if (handler != null) handler(this, e);
         }
     }
