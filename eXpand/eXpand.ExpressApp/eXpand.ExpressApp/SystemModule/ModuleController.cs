@@ -1,3 +1,4 @@
+using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -29,14 +30,17 @@ namespace eXpand.ExpressApp.SystemModule {
 
     public class ModuleNodesGenerator : ModelNodesGeneratorBase {
         protected override void GenerateNodesCore(ModelNode node) {
-            var findTypeInfo = XafTypesInfo.Instance.FindTypeInfo(typeof(ModuleBase));
-            var findTypeDescendants = ReflectionHelper.FindTypeDescendants(findTypeInfo).Where(info => info.Type!=typeof(ModuleBase)&&!info.Type.IsAbstract&&!info.Type.IsGenericType);
+            var findTypeInfo = XafTypesInfo.Instance.FindTypeInfo(typeof(DevExpress.ExpressApp.ModuleBase));
+            var findTypeDescendants = ReflectionHelper.FindTypeDescendants(findTypeInfo).Where(ModulesFilterPredicate(node));
             foreach (ITypeInfo typeInfo in findTypeDescendants){
-                if (node[typeInfo.FullName] == null) {
-                    var module = node.AddNode<IModelModule>();
-                    module.Name = typeInfo.FullName;
-                }
+                var module = node.AddNode<IModelModule>();
+                module.Name = typeInfo.FullName;
             }
+        }
+
+        Func<ITypeInfo, bool> ModulesFilterPredicate(ModelNode node) {
+            return info => !info.Type.IsAbstract && !info.Type.IsGenericType && node[info.FullName]==
+                           null;
         }
     }
 }
