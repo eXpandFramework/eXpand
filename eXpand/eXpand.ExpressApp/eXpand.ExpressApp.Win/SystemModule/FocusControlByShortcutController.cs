@@ -56,9 +56,11 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         }
 
         Func<KeyValuePair<Keys, ViewItem>, BarSubItem> GetBarItem(BarManager barManager) {
+            int newItemId = barManager.GetNewItemId();
             return shortCut => new BarSubItem
                                {
-                                   Id = barManager.GetNewItemId(),
+                                   Id = newItemId,
+                                   Name = newItemId.ToString(),
                                    Caption = shortCut.Value.Id,
                                    ItemShortcut = new BarShortcut(shortCut.Key)
                                };

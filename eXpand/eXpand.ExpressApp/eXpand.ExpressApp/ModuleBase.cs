@@ -34,13 +34,21 @@ namespace eXpand.ExpressApp {
 
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            lock (_lockObject) {
+            InitializeInstanceXafApplicationManager();
+            application.SetupComplete+=ApplicationOnSetupComplete;
+        }
+        public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
+            base.CustomizeTypesInfo(typesInfo);
+            InitializeInstanceXafApplicationManager();
+        }
+
+        void InitializeInstanceXafApplicationManager() {
+            lock (_lockObject){
                 if (_instanceXafApplicationManager == null)
                     _instanceXafApplicationManager = ValueManager.CreateValueManager<XafApplication>();
                 if (_instanceXafApplicationManager.Value == null)
-                    _instanceXafApplicationManager.Value = application;
+                    _instanceXafApplicationManager.Value = base.Application;
             }
-            application.SetupComplete+=ApplicationOnSetupComplete;
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
