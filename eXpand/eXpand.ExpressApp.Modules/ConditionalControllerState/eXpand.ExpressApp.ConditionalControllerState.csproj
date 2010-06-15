@@ -123,12 +123,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConditionalControllerStateModule.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="DomainLogic\ControllerStateRuleDomainLogic.cs" />
     <Compile Include="Logic\ControllerState.cs" />
     <Compile Include="Logic\ControllerStateRule.cs" />
     <Compile Include="Logic\ControllerStateRuleAttribute.cs" />
     <Compile Include="Logic\ControllerStateRuleController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Logic\IControllerStateRule.cs" />
     <Compile Include="Model\IModelControllerStateRule.cs" />
