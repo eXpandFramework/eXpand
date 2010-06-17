@@ -141,7 +141,11 @@
     <Compile Include="NodeUpdaters\ActionStateDefaultGroupContextNodeUpdater.cs" />
     <Compile Include="NodeUpdaters\ActionStateRulesNodeUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\ActionStateRulePermission.cs" />
+    <Compile Include="Security\ActionStateRulePermission.cs">
+    </Compile>
+    <Compile Include="Security\PopulateActionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>

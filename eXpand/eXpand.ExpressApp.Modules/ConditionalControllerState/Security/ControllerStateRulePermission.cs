@@ -13,16 +13,7 @@ namespace eXpand.ExpressApp.ConditionalControllerState.Security {
     public class ControllerStateRulePermission : ArtifactStateRulePermission, IControllerStateRule
     {
         #region IControllerStateRule Members
-        Type _controllerType;
-        public string ControllerType {
-            get { return XafTypesInfo.Instance.FindTypeInfo(((IControllerStateRule) this).ControllerType).FullName; }
-            set { _controllerType = XafTypesInfo.Instance.FindTypeInfo(value).Type; }
-        }
-
-        Type IControllerStateRule.ControllerType {
-            get { return _controllerType; }
-            set { _controllerType=value; }
-        }
+        public Type ControllerType { get; set; }
 
         public ControllerState State { get; set; }
         #endregion

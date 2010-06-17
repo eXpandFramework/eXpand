@@ -5,11 +5,14 @@ using eXpand.ExpressApp.ConditionalControllerState.Logic;
 using eXpand.ExpressApp.ConditionalControllerState.NodeUpdaters;
 using eXpand.ExpressApp.Logic;
 using eXpand.ExpressApp.Logic.Model;
+using eXpand.ExpressApp.Validation;
 
 namespace eXpand.ExpressApp.ConditionalControllerState {
     public sealed class ConditionalControllerStateModule : LogicModuleBase<IControllerStateRule, ControllerStateRule>{
-        #region IModelExtender Members
-        #endregion
+        public ConditionalControllerStateModule() {
+            RequiredModuleTypes.Add(typeof (eXpandValidationModule));
+        }
+
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new ControllerStateDefaultGroupContextNodeUpdater());
@@ -21,9 +24,6 @@ namespace eXpand.ExpressApp.ConditionalControllerState {
             return ((IModelApplicationModelArtifactState)applicationModel).ModelArtifactState.ConditionalControllerState;
         }
 
-        #region IModelExtender Members
-
-
-        #endregion
+        
     }
 }

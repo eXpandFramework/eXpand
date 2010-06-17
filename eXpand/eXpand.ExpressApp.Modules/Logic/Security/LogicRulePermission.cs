@@ -1,20 +1,25 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Validation;
-using IRule = eXpand.ExpressApp.Logic.IRule;
+using DevExpress.Xpo;
+using eXpand.ExpressApp.Logic.NodeUpdaters;
+using PermissionBase = eXpand.ExpressApp.Security.Permissions.PermissionBase;
 
 namespace eXpand.ExpressApp.Logic.Security
 {
-    public abstract class LogicRulePermission : PermissionBase,ILogicRule
+    public abstract class LogicRulePermission : PermissionBase, ILogicRule
     {
+        protected LogicRulePermission() {
+            ExecutionContextGroup = LogicDefaultGroupContextNodeUpdater.Default;
+        }
+
         public string ViewId { get; set; }
 
 
-        [RuleRequiredField(null, DefaultContexts.Save)]
+        [RuleRequiredField]
         public Type ObjectType { get; set; }
-        [RuleRequiredField(null, DefaultContexts.Save)]
+        [RuleRequiredField]
         public string ID { get; set; }
 
         public string ExecutionContextGroup { get; set; }
@@ -35,13 +40,9 @@ namespace eXpand.ExpressApp.Logic.Security
             get { return XafTypesInfo.Instance.FindTypeInfo(ObjectType); }
             set { }
         }
-
+        [Size(SizeAttribute.Unlimited)]
         public string Description { get; set; }
 
 
-//        IModelClass ILogicModelClassRule.ModelClass {
-//            get { return (IModelClass) XafTypesInfo.Instance.FindTypeInfo(ObjectType); }
-//            set { throw new NotImplementedException(); }
-//        }
     }
 }

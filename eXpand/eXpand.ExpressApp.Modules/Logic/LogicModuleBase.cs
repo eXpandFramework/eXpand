@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Security;
+using DevExpress.Persistent.Base.Security;
 using eXpand.ExpressApp.Logic.Model;
 
 namespace eXpand.ExpressApp.Logic {
-    public abstract class LogicModuleBase<TLogicRule, TLogicRule2> : ModuleBase,IRuleHolder
+    public abstract class LogicModuleBase<TLogicRule, TLogicRule2> : ModuleBase,IRuleHolder,IRuleCollector
         where TLogicRule : ILogicRule
         where TLogicRule2 : ILogicRule{
+        protected LogicModuleBase() {
+            RequiredModuleTypes.Add(typeof(LogicModule));
+        }
 
         public override void Setup(XafApplication application) {
             base.Setup(application);
@@ -17,11 +23,32 @@ namespace eXpand.ExpressApp.Logic {
             application.LoggedOn += (o, eventArgs) => CollectRules(application);
         }
 
-        public void CollectRules(XafApplication xafApplication) {
-            CollectRulesFromModel(xafApplication.Model);
+        public virtual void CollectRules(XafApplication xafApplication) {
+            lock (LogicRuleManager<TLogicRule>.Instance){
+                IModelLogic modelLogic = GetModelLogic(xafApplication.Model);
+                foreach (ITypeInfo typeInfo in XafTypesInfo.Instance.PersistentTypes){
+                    LogicRuleManager<TLogicRule>.Instance[typeInfo] = null;
+                    List<TLogicRule> modelLogicRules = CollectRulesFromModel(modelLogic, typeInfo).ToList();
+                    List<TLogicRule> permissionsLogicRules = CollectRulesFromPermissions(modelLogic, typeInfo).ToList();
+                    modelLogicRules.AddRange(permissionsLogicRules);
+                    LogicRuleManager<TLogicRule>.Instance[typeInfo] = modelLogicRules;
+                }
+            }
+        }
+        
+        protected virtual IEnumerable<TLogicRule> CollectRulesFromPermissions(IModelLogic modelLogic, ITypeInfo typeInfo) {
+            if (SecuritySystem.Instance is ISecurityComplex)
+                if (SecuritySystem.CurrentUser != null){
+                    SecuritySystem.ReloadPermissions();
+                    IList<IPermission> permissions = ((IUser)SecuritySystem.CurrentUser).Permissions;
+                    var rulesFromPermissions = permissions.OfType<TLogicRule>().Where(permission 
+                        =>permission.TypeInfo != null &&permission.TypeInfo.Type == typeInfo.Type).OfType<TLogicRule>();
+                    return rulesFromPermissions.OrderBy(rule => rule.Index);
+                }
+            return new List<TLogicRule>();
         }
 
-        protected virtual IEnumerable<TLogicRule> GetRulesForType(IModelLogic modelConditionalEditorStates, ITypeInfo info) {
+        IEnumerable<TLogicRule> CollectRulesFromModel(IModelLogic modelConditionalEditorStates, ITypeInfo info) {
             return (modelConditionalEditorStates.Rules.Where(
                 ruleDefinition => info == ruleDefinition.ModelClass.TypeInfo).Select(rule => GetRuleObject(rule))).OfType<TLogicRule>();
         }
@@ -31,18 +58,6 @@ namespace eXpand.ExpressApp.Logic {
             var logicRule2 = ((TLogicRule2) Activator.CreateInstance(typeof (TLogicRule2), (TLogicRule) ruleDefinition));
             logicRule2.TypeInfo = ruleDefinition.ModelClass.TypeInfo;
             return logicRule2;
-        }
-
-        protected virtual void CollectRulesFromModel(IModelApplication applicationModel) {
-            lock (LogicRuleManager<TLogicRule>.Instance) {
-                IModelLogic additionalViewControls =GetModelLogic(applicationModel);
-                foreach (ITypeInfo typeInfo in XafTypesInfo.Instance.PersistentTypes){
-                    LogicRuleManager<TLogicRule>.Instance[typeInfo] = null;
-                    ITypeInfo info = typeInfo;
-                    List<TLogicRule> rulesForType = GetRulesForType(additionalViewControls, info).ToList();
-                    LogicRuleManager<TLogicRule>.Instance[typeInfo] = rulesForType;
-                }
-            }
         }
 
         protected abstract IModelLogic GetModelLogic(IModelApplication applicationModel);

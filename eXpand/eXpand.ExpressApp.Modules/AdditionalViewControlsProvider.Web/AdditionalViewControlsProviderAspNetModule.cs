@@ -1,5 +1,4 @@
-﻿using DevExpress.ExpressApp;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Web.NodeUpdaters;
+﻿using eXpand.ExpressApp.AdditionalViewControlsProvider.Web.NodeUpdaters;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Web {
     public class AdditionalViewControlsProviderAspNetModule : ModuleBase {

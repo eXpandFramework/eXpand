@@ -6,7 +6,7 @@ namespace eXpand.ExpressApp.PivotChart.Security {
     [NonPersistent]
     public class ShowInAnalysisPermission : ControllerStateRulePermission {
         public ShowInAnalysisPermission() {
-            ControllerType = typeof (ShowInAnalysisViewController).FullName;
+            ControllerType = typeof (ShowInAnalysisViewController);
             NormalCriteria = "1=1";
         }
 

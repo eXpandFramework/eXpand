@@ -5,7 +5,7 @@ namespace eXpand.ExpressApp.PivotChart.Security {
     [NonPersistent]
     public class PivotSettingsPermission : ControllerStateRulePermission {
         public PivotSettingsPermission() {
-            ControllerType = typeof (PivotOptionsController).FullName;
+            ControllerType = typeof (PivotOptionsController);
             NormalCriteria = "1=1";
         }
 

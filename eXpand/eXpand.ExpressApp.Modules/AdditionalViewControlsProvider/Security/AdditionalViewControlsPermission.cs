@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using eXpand.ExpressApp.Logic.Conditional.Security;
@@ -7,8 +8,13 @@ using eXpand.ExpressApp.Logic.Conditional.Security;
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Security {
     [NonPersistent]
     public class AdditionalViewControlsPermission : ConditionalLogicRulePermission, IAdditionalViewControlsRule {
+        public AdditionalViewControlsPermission() {
+            UseSameIfFound = true;
+        }
 
+        [RuleRequiredField]
         public Type ControlType { get; set; }
+        [RuleRequiredField]
         public Type DecoratorType { get; set; }
        
         #region IAdditionalViewControlsRule Members

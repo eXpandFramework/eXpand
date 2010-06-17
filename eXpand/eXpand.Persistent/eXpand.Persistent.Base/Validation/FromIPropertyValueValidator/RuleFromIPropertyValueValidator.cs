@@ -34,8 +34,8 @@ namespace eXpand.Persistent.Base.Validation.FromIPropertyValueValidator {
             }
         }
 
-        public new RuleFromIPropertyValueValidatorProperties Properties {
-            get { return (RuleFromIPropertyValueValidatorProperties) base.Properties; }
+        public new IRuleFromIPropertyValueValidatorProperties Properties {
+            get { return (IRuleFromIPropertyValueValidatorProperties) base.Properties; }
         }
 
         public override Type PropertiesType {

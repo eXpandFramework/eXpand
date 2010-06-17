@@ -79,6 +79,10 @@
     <Reference Include="DevExpress.Xpo.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="eXpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="eXpand.ExpressApp.Security, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -109,16 +113,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CollectedRuleFromModelEventArgs.cs" />
     <Compile Include="DomainLogic\LogicRuleExecutionContextGroupDomainLogic.cs" />
     <Compile Include="DomainLogic\ModelGroupContextsDefaultContextDomainLogic.cs" />
     <Compile Include="ExecutionContext.cs" />
+    <Compile Include="FillRulesFromPermissionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ILogicModelClassRule.cs" />
     <Compile Include="ILogicRule.cs" />
     <Compile Include="ILogicRuleInfo.cs" />
     <Compile Include="ILogicRuleManager.cs" />
     <Compile Include="IRule.cs" />
-    <Compile Include="IRuleHolder.cs" />
+    <Compile Include="IRuleCollector.cs" />
+    <Compile Include="IRuleHolder.cs">
+    </Compile>
+    <Compile Include="LogicModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="LogicModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>

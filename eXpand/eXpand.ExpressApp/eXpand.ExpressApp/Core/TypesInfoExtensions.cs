@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.Core{
     public static class TypesInfoExtensions{
@@ -68,6 +71,20 @@ namespace eXpand.ExpressApp.Core{
             return member;
         }
 
+        public static ITypeInfo FindTypeInfo<T>(this ITypesInfo typesInfo)
+        {
+            return typesInfo.FindTypeInfo(typeof(T));
+        }
+        public static void AddAttribute<T>(this ITypeInfo typeInfo, Expression<Func<T, object>> expression,Attribute attribute)
+        {
+            IMemberInfo controlTypeMemberInfo = typeInfo.FindMember(expression);
+            controlTypeMemberInfo.AddAttribute(attribute);
+        }
+        public static IMemberInfo FindMember<T>(this ITypeInfo typesInfo, Expression<Func<T, object>> expression)
+        {
+            MemberInfo memberInfo = ReflectionExtensions.GetExpression(expression);
+            return typesInfo.FindMember(memberInfo.Name);
+        }
         public static XPCustomMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember,
                                         string associationName, string propertyName,XPDictionary dictionary) {
             return CreateMember(typesInfo, typeToCreateOn, typeOfMember, associationName, dictionary, propertyName);

@@ -138,6 +138,7 @@
     <Compile Include="Core\LinqCollectionSource.cs" />
     <Compile Include="Core\XafApplicationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenceConverter.cs" />
     <Compile Include="SystemModule\ActionButtonDetailItemController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -233,6 +234,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ViewEditModeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\UpdateTypeConverterController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ViewShortCutProccesor.cs" />

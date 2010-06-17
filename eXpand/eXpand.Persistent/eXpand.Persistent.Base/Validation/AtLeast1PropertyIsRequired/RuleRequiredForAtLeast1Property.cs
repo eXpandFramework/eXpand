@@ -38,9 +38,9 @@ namespace eXpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired
             }
         }
 
-        public new RuleRequiredForAtLeast1PropertyProperties Properties
+        public new IRuleRequiredForAtLeast1PropertyProperties Properties
         {
-            get { return (RuleRequiredForAtLeast1PropertyProperties) base.Properties; }
+            get { return (IRuleRequiredForAtLeast1PropertyProperties) base.Properties; }
         }
 
         public override Type PropertiesType

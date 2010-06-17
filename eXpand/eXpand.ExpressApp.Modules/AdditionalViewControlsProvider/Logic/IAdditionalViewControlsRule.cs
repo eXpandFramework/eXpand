@@ -32,6 +32,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
 
         [Category("Behavior")]
         [Description("If a control of the same type is found is going to use that one")]
+        [DefaultValue(true)]
         bool UseSameIfFound { get; set; }
     }
 }

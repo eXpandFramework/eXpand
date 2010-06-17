@@ -1,5 +1,4 @@
-﻿using DevExpress.ExpressApp;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.NodeUpdaters;
+﻿using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.NodeUpdaters;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win {
     public class AdditionalViewControlsProviderWindowsFormsModule : ModuleBase {

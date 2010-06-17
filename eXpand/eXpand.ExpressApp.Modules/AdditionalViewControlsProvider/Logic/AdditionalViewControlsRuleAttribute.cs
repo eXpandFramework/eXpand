@@ -4,6 +4,7 @@ using eXpand.ExpressApp.Logic.Conditional.Logic;
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public class AdditionalViewControlsRuleAttribute:ConditionalLogicRuleAttribute,IAdditionalViewControlsRule {
         public AdditionalViewControlsRuleAttribute(string id, string normalCriteria, string emptyCriteria, Type controlType, Type decoratorType, string message, Position position, bool useSameIfFound) : base(id, normalCriteria, emptyCriteria) {
+            UseSameIfFound = true;
             ControlType = controlType;
             DecoratorType = decoratorType;
             Message = message;
@@ -11,6 +12,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             UseSameIfFound = useSameIfFound;
         }
         public AdditionalViewControlsRuleAttribute(string id, string normalCriteria, string emptyCriteria,  string message, Position position, bool useSameIfFound) : base(id, normalCriteria, emptyCriteria) {
+            UseSameIfFound = true;
             Message = message;
             Position = position;
             UseSameIfFound = useSameIfFound;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
@@ -13,8 +12,7 @@ namespace eXpand.ExpressApp.ConditionalControllerState.Logic
 {
     public class ControllerStateRuleController : ConditionalLogicRuleViewController<IControllerStateRule>{
         protected void ChangeState(LogicRuleInfo<IControllerStateRule> info){
-            Type controllerType = ((ControllerStateRule)info.Rule).ControllerType;
-            Frame.GetController(controllerType).Active[ActiveObjectTypeHasRules] = !info.Active;
+            Frame.GetController(info.Rule.ControllerType).Active[ActiveObjectTypeHasRules] = !info.Active;
         }
 
         void ChangeStateOnModules(LogicRuleInfo<IControllerStateRule> info){
