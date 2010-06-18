@@ -2,7 +2,7 @@
 
 namespace eXpand.ExpressApp.ConditionalActionState.Logic {
     public class ActionStateRuleAttribute : ArtifactStateRuleAttribute, IActionStateRule {
-        public ActionStateRuleAttribute(string id, string normalCriteria, string emptyCriteria, ActionState actionState, string actionId) : base(id, normalCriteria, emptyCriteria) {
+        public ActionStateRuleAttribute(string id, string actionId, string normalCriteria, string emptyCriteria, ActionState actionState) : base(id, normalCriteria, emptyCriteria) {
             ActionState = actionState;
             ActionId = actionId;
         }
