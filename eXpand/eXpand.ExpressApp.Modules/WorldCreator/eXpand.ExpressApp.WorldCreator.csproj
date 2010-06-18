@@ -127,6 +127,8 @@
     <Compile Include="Core\ICodeTemplateInfoExtensions.cs" />
     <Compile Include="Core\IPersistentMemberInfoExtensions.cs" />
     <Compile Include="Core\IPersistentTemplatedTypeInfoExtensions.cs" />
+    <Compile Include="NodeUpdaters\EnableCloningForAllWCPersistentTypesUpdater.cs" />
+    <Compile Include="NodeUpdaters\ImageSourcesUpdater.cs" />
     <Compile Include="Observers\CodeTemplateInfoObserver.cs" />
     <Compile Include="Observers\CodeTemplateObserver.cs" />
     <Compile Include="Controllers\CodeTemplateController.cs">
@@ -154,6 +156,7 @@
     <Compile Include="PersistentTypesHelpers\PersistentAssemblyBuilder.cs" />
     <Compile Include="PersistentTypesHelpers\PersistentClassInfoQuery.cs" />
     <Compile Include="PersistentTypesHelpers\PersistentAttributeInfoQuery.cs" />
+    <Compile Include="NodeUpdaters\ShowOwnerForExtendedMembersUpdater.cs" />
     <Compile Include="WorldCreatorModule.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Reflection;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.WorldCreator.Core;
+using eXpand.ExpressApp.WorldCreator.NodeUpdaters;
 using eXpand.Persistent.Base.PersistentMetaData;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.CloneObject;
 
 namespace eXpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase:ModuleBase {
@@ -90,52 +90,59 @@ namespace eXpand.ExpressApp.WorldCreator {
             return Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses);
         }
 
+        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
+            base.AddGeneratorUpdaters(updaters);
+            updaters.Add(new EnableCloningForAllWCPersistentTypesUpdater());
+            updaters.Add(new ShowOwnerForExtendedMembersUpdater());
+            updaters.Add(new ImageSourcesUpdater(DefinedModules));
+        }
+
         public override void UpdateModel(IModelApplication applicationModel)
         {
             base.UpdateModel(applicationModel);
-            if (Application != null){
-                ShowOwnerForExtendedMembers();
-                removeDynamicAssemblyFromImageSources();
-                enableCloning();
-            }
+//            if (Application != null){
+//                ShowOwnerForExtendedMembers();
+//                removeDynamicAssemblyFromImageSources();
+//                enableCloning();
+//            }
         }
 
-        void enableCloning()
-        {
-            foreach (var propertyInfo in typeof(ITypesInfo).GetProperties())
-            {
-                var type = (Type)propertyInfo.GetValue(TypesInfo.Instance, null);
-                ((IModelClassClonable)Application.Model.BOModel[type.FullName]).IsClonable = true;
-            }
-        }
+//        void enableCloning()
+//        {
+//            foreach (var propertyInfo in typeof(ITypesInfo).GetProperties())
+//            {
+//                var type = (Type)propertyInfo.GetValue(TypesInfo.Instance, null);
+//                ((IModelClassClonable)Application.Model.BOModel[type.FullName]).IsClonable = true;
+//            }
+//        }
 
 
-        void ShowOwnerForExtendedMembers() {
-            IEnumerable<IModelColumn> columnInfoNodeWrappers =
-                GetListViewInfoNodeWrappers().Select(listViewInfoNodeWrapper => listViewInfoNodeWrapper.Columns["Owner"])
-                    .Where(columnInfoNodeWrapper => columnInfoNodeWrapper != null);
-            foreach (IModelColumn columnInfoNodeWrapper in columnInfoNodeWrappers) {
-                columnInfoNodeWrapper.Index = 2;
-            }
-        }
+//        void ShowOwnerForExtendedMembers() {
+//            IEnumerable<IModelColumn> columnInfoNodeWrappers =
+//                GetListViewInfoNodeWrappers().Select(listViewInfoNodeWrapper => listViewInfoNodeWrapper.Columns["Owner"])
+//                    .Where(columnInfoNodeWrapper => columnInfoNodeWrapper != null);
+//            foreach (IModelColumn columnInfoNodeWrapper in columnInfoNodeWrappers) {
+//                columnInfoNodeWrapper.Index = 2;
+//            }
+//        }
 
-        IEnumerable<IModelListView> GetListViewInfoNodeWrappers()
-        {
-            return
-                Application.Model.Views.OfType<IModelListView>().Where(
-                view => view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedReferenceMemberInfoType ||
-                view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedCollectionMemberInfoType ||
-                view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedCoreMemberInfoType);
-        }
+//        IEnumerable<IModelListView> GetListViewInfoNodeWrappers()
+//        {
+//            return
+//                Application.Model.Views.OfType<IModelListView>().Where(
+//                view => view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedReferenceMemberInfoType ||
+//                view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedCollectionMemberInfoType ||
+//                view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedCoreMemberInfoType);
+//        }
 
-        void removeDynamicAssemblyFromImageSources() {
-            IEnumerable<IModelAssemblyResourceImageSource> modelAssemblyResourceImageSources =
-                DefinedModules.Select(definedModule => new AssemblyName(definedModule.Assembly.FullName + "").Name).
-                    Select(name =>((IModelImageSources) Application.Model).OfType<IModelAssemblyResourceImageSource>().First(s => s.AssemblyName == name));
-            foreach (var source in modelAssemblyResourceImageSources) {
-                ((IModelImageSources)Application.Model).Remove(source);
-            }
-        }
+//        void removeDynamicAssemblyFromImageSources() {
+//            IEnumerable<IModelAssemblyResourceImageSource> modelAssemblyResourceImageSources =
+//                DefinedModules.Select(definedModule => new AssemblyName(definedModule.Assembly.FullName + "").Name).
+//                    Select(name =>((IModelImageSources) Application.Model).OfType<IModelAssemblyResourceImageSource>().First(s => s.AssemblyName == name));
+//            foreach (var source in modelAssemblyResourceImageSources) {
+//                ((IModelImageSources)Application.Model).Remove(source);
+//            }
+//        }
 
         public override void Setup(XafApplication application)
         {
