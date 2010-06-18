@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -6,6 +7,8 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
+using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.PivotChart.Core {
     public abstract class PivotChartXpandModuleBase : ModuleBase,ITypeInfoContainer {
@@ -27,17 +30,19 @@ namespace eXpand.ExpressApp.PivotChart.Core {
         public abstract TypesInfo TypesInfo{ get;}
 
         
-        void CreateMembers(ITypesInfo typesInfo, Type optionsType, Type persistentType)
-        {
+        void CreateMembers(ITypesInfo typesInfo, Type optionsType, Type persistentType) {
             ITypeInfo typeInfo = typesInfo.FindTypeInfo(ReflectionHelper.GetType(persistentType.Name));
-            foreach (PropertyInfo propertyInfo in optionsType.GetProperties().Where(info => info.GetSetMethod() != null)){
-                if (typeInfo.FindMember(propertyInfo.Name)== null)
-                    OnCreateMember(typeInfo, propertyInfo.Name, propertyInfo.PropertyType);
+            IEnumerable<PropertyInfo> propertyInfos = optionsType.GetProperties().Where(info => info.GetSetMethod() != null).Where(propertyInfo => typeInfo.FindMember(propertyInfo.Name) == null);
+            foreach (PropertyInfo propertyInfo in propertyInfos) {
+                OnCreateMember(typeInfo, propertyInfo.Name, propertyInfo.PropertyType);
             }
         }
 
         protected virtual IMemberInfo OnCreateMember(ITypeInfo typeInfo, string name, Type propertyType) {
-            return typeInfo.CreateMember(name, propertyType);
+            IMemberInfo memberInfo = typeInfo.CreateMember(name, propertyType);
+            if (memberInfo.MemberType==typeof(Type))
+                memberInfo.AddAttribute(new ValueConverterAttribute(typeof(TypeValueConverter)));
+            return memberInfo;
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
@@ -51,7 +56,7 @@ namespace eXpand.ExpressApp.PivotChart.Core {
             }
         }
 
-        protected abstract System.Collections.Generic.Dictionary<Type,Type> GetOptionsMapperDictionary();
+        protected abstract Dictionary<Type,Type> GetOptionsMapperDictionary();
     }
 
     public interface ITypeInfoContainer {

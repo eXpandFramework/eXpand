@@ -174,7 +174,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\PivotSettingsPermission.cs" />
+    <Compile Include="Security\PivotSettingsPermission.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Security\ShowInAnalysisPermission.cs" />
     <Compile Include="Core\AnalysisViewControllerBase.cs">
       <SubType>Component</SubType>

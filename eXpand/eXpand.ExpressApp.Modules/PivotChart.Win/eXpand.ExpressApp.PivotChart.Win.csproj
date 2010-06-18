@@ -154,6 +154,12 @@
     <Compile Include="AnalysisDisplayDateTimeViewController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Options\PivotOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PivotedPropertyController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PropertyEditors\AnalysisEditorWin.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -168,17 +174,11 @@
     <Compile Include="PivotChartWinModule.Designer.cs">
       <DependentUpon>PivotChartWinModule.cs</DependentUpon>
     </Compile>
-    <Compile Include="PivotedPropertyController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="PivotGridInplaceEditorsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs">
-    </Compile>
-    <Compile Include="Options\PivotOptionsController.cs">
-      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
