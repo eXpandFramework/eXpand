@@ -20,7 +20,7 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers
         public override void UpdateModel(IModelApplication applicationModel)
         {
             base.UpdateModel(applicationModel);
-
+            return;
             IEnumerable<IModelClass> modelClasses =
                 applicationModel.BOModel.Where(cls => typeof(XPBaseObject).IsAssignableFrom(cls.TypeInfo.Type));
 
