@@ -104,7 +104,6 @@
     <Compile Include="Attributes\HideFromNewMenuAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
-    <Compile Include="Attributes\PivotedPropertyAttribute.cs" />
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
     <Compile Include="Core\CustomShowNavigationItemEventArgsExtensions.cs" />
     <Compile Include="Core\DictionaryHelpers\DictionaryHelper.cs">

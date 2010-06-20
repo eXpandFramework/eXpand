@@ -157,9 +157,6 @@
     <Compile Include="Core\AnalysisPropertyEditorNodeUpdater.cs" />
     <Compile Include="Editors\AnalysisControlWeb.cs">
     </Compile>
-    <Compile Include="AnalysisDisplayDateTimeViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="InPlaceEdit\CellTemplate.cs" />
     <Compile Include="PropertyEditors\AnalysisEditorWeb.cs">
     </Compile>
@@ -170,8 +167,7 @@
     <Compile Include="PivotChartXpandAspNetModule.Designer.cs">
       <DependentUpon>PivotChartXpandAspNetModule.cs</DependentUpon>
     </Compile>
-    <Compile Include="PivotedPropertyController.cs">
-      <SubType>Component</SubType>
+    <Compile Include="PivotedProperty\PivotedPropertyController.cs">
     </Compile>
     <Compile Include="InPlaceEdit\PivotGridInplaceEditorsController.cs">
       <SubType>Component</SubType>

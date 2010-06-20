@@ -9,7 +9,7 @@ using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Attributes;
 using eXpand.Utils.Helpers;
 
-namespace eXpand.ExpressApp.PivotChart
+namespace eXpand.ExpressApp.PivotChart.PivotedProperty
 {
     public class PivotedPropertyController : ViewController<DetailView>
     {

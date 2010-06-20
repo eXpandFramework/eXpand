@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
 using System.Linq;
+using PivotGridFieldBuilder = eXpand.ExpressApp.PivotChart.Core.PivotGridFieldBuilder;
 
 namespace eXpand.ExpressApp.PivotChart.Core {
     public abstract class AnalysisViewControllerBase : ViewController<DetailView> {
@@ -56,6 +57,9 @@ namespace eXpand.ExpressApp.PivotChart.Core {
         protected virtual void OnAnalysisControlCreated() {
             UpdateActionState();
             foreach (AnalysisEditorBase analysisEditor in analysisEditors){
+                IAnalysisControl analysisControl = analysisEditor.Control;
+                if (!(((ISupportPivotGridFieldBuilder)analysisControl).FieldBuilder is PivotGridFieldBuilder))
+                    ((ISupportPivotGridFieldBuilder)analysisControl).FieldBuilder = new PivotGridFieldBuilder(analysisControl);
                 analysisEditor.IsDataSourceReadyChanged +=analysisEditor_IsDataSourceReadyChanged;
             }
         }

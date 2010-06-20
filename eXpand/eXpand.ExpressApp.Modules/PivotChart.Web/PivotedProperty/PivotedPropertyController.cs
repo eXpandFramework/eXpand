@@ -1,7 +1,7 @@
 ﻿using eXpand.ExpressApp.PivotChart.Web.InPlaceEdit;
 
-namespace eXpand.ExpressApp.PivotChart.Web {
-    public class PivotedPropertyController : PivotChart.PivotedPropertyController
+namespace eXpand.ExpressApp.PivotChart.Web.PivotedProperty {
+    public class PivotedPropertyController : PivotChart.PivotedProperty.PivotedPropertyController
     {
         protected override void AttachControllers(System.Collections.Generic.IEnumerable<DevExpress.ExpressApp.DC.IMemberInfo> memberInfos)
         {

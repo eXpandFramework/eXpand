@@ -145,13 +145,14 @@
     <Compile Include="AnalysisDataBindController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AnalysisDisplayDateTimeViewControllerBase.cs">
+    <Compile Include="AnalysisDisplayDateTimeViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="AnalysisReadOnlyController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\AnalysisPropertyEditorNodeUpdater.cs" />
+    <Compile Include="Core\SetupGridFieldArgs.cs" />
     <Compile Include="Core\TypesInfo.cs" />
     <Compile Include="InPlaceEdit\EditorCreatedArgs.cs" />
     <Compile Include="PivotChartModule.cs">
@@ -163,13 +164,18 @@
     <Compile Include="Core\PivotChartXpandModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PivotedPropertyController.cs">
+    <Compile Include="PivotedProperty\PivotCustomSortController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="InPlaceEdit\PivotGridFieldBuilder.cs" />
+    <Compile Include="PivotedProperty\PivotedPropertyAttribute.cs" />
+    <Compile Include="PivotedProperty\PivotedPropertyController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Core\PivotGridFieldBuilder.cs" />
     <Compile Include="InPlaceEdit\PivotGridInplaceEditorsControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PivotedProperty\PivotedSortAttribute.cs" />
     <Compile Include="PivotOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>

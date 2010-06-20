@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
 
-namespace eXpand.ExpressApp.PivotChart.Win {
-    public class PivotedPropertyController : PivotChart.PivotedPropertyController {
+namespace eXpand.ExpressApp.PivotChart.Win.PivotedProperty {
+    public class PivotedPropertyController : PivotChart.PivotedProperty.PivotedPropertyController {
         protected override void AttachControllers(IEnumerable<IMemberInfo> memberInfos) {
             base.AttachControllers(memberInfos);
             Frame.RegisterController(new PivotGridInplaceEditorsController {TargetObjectType = View.ObjectTypeInfo.Type});

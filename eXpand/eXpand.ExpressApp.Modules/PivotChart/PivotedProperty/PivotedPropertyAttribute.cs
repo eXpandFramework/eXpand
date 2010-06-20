@@ -1,6 +1,6 @@
 ﻿using DevExpress.Persistent.Base;
 
-namespace eXpand.ExpressApp.Attributes {
+namespace eXpand.ExpressApp.PivotChart.PivotedProperty {
     public class PivotedPropertyAttribute : ExpandObjectMembersAttribute
     {
         readonly string _collectionName;
