@@ -74,9 +74,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
             return info => info.PropertyType.Name!=typeof(NewItemRowPosition).Name;
         }
 
-        protected override object GetControl(){
-            var control = (GridControl)base.GetControl();
-            return control.MainView;
+        protected override object GetControl() {
+            var control = base.GetControl() as GridControl;
+            if (control != null) return control.MainView;
+            return null;
         }
     }
 }
