@@ -158,6 +158,7 @@
     <Compile Include="Editors\AnalysisControlWeb.cs">
     </Compile>
     <Compile Include="InPlaceEdit\CellTemplate.cs" />
+    <Compile Include="PivotedProperty\PivotCustomSortController.cs" />
     <Compile Include="PropertyEditors\AnalysisEditorWeb.cs">
     </Compile>
     <Compile Include="Core\TypesInfo.cs" />

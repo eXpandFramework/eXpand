@@ -8,6 +8,7 @@ namespace eXpand.ExpressApp.PivotChart.Win.PivotedProperty {
             Frame.RegisterController(new PivotGridInplaceEditorsController {TargetObjectType = View.ObjectTypeInfo.Type});
             Frame.RegisterController(new AnalysisControlVisibilityController{TargetObjectType = View.ObjectTypeInfo.Type});
             Frame.RegisterController(new AnalysisDisplayDateTimeViewController { TargetObjectType = View.ObjectTypeInfo.Type });
+            Frame.RegisterController(new PivotCustomSortController { TargetObjectType = View.ObjectTypeInfo.Type });
         }
     }
 }
