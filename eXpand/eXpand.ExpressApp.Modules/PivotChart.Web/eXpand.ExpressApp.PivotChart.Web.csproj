@@ -158,7 +158,9 @@
     <Compile Include="Editors\AnalysisControlWeb.cs">
     </Compile>
     <Compile Include="InPlaceEdit\CellTemplate.cs" />
-    <Compile Include="PivotedProperty\PivotCustomSortController.cs" />
+    <Compile Include="PivotedProperty\PivotCustomSortController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PropertyEditors\AnalysisEditorWeb.cs">
     </Compile>
     <Compile Include="Core\TypesInfo.cs" />
@@ -169,6 +171,7 @@
       <DependentUpon>PivotChartXpandAspNetModule.cs</DependentUpon>
     </Compile>
     <Compile Include="PivotedProperty\PivotedPropertyController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="InPlaceEdit\PivotGridInplaceEditorsController.cs">
       <SubType>Component</SubType>

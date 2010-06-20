@@ -8,8 +8,8 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Web {
         {
             InitializeComponent();
         }
-
-        public override bool? ComparerIsSet {
+        
+        protected override bool? ComparerIsSet {
             get {
                 bool result;
                 bool.TryParse(HttpContext.Current.Application["ComparerIsSet"] + "", out result);

@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
@@ -15,10 +17,10 @@ namespace eXpand.ExpressApp.IO
             InitializeComponent();
         }
 
-        public override void Setup(XafApplication application)
-        {
+        public override void Setup(XafApplication application) {
             base.Setup(application);
-            TypesInfo.Instance.AddTypes(Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses));
+            IEnumerable<Type> selectMany = application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses);
+            TypesInfo.Instance.AddTypes(selectMany);
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {

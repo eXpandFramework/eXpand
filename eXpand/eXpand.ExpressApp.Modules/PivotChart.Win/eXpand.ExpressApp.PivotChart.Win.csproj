@@ -154,8 +154,11 @@
     <Compile Include="Options\PivotOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PivotedProperty\PivotCustomSortController.cs" />
+    <Compile Include="PivotedProperty\PivotCustomSortController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PivotedProperty\PivotedPropertyController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="PropertyEditors\AnalysisEditorWin.cs">
       <SubType>Code</SubType>

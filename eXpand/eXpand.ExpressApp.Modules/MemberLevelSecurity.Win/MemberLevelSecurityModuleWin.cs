@@ -15,7 +15,8 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win
         }
 
         bool? _comparerIsSet=false;
-        public override bool? ComparerIsSet {
+
+        protected override bool? ComparerIsSet {
             get { return _comparerIsSet; }
             set { _comparerIsSet = value; }
         }
