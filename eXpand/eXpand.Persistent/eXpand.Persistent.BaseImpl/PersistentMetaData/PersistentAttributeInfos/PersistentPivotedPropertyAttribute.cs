@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.Attributes;
+using eXpand.ExpressApp.PivotChart.PivotedProperty;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
