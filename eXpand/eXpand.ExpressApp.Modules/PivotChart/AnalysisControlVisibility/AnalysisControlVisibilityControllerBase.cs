@@ -22,7 +22,7 @@ namespace eXpand.ExpressApp.PivotChart.AnalysisControlVisibility {
     }
 
     public abstract class AnalysisControlVisibilityControllerBase<TAnalysisEditor,TAnalysisControl> : AnalysisViewControllerBase,IModelExtender
-        where TAnalysisEditor : AnalysisEditorBase where TAnalysisControl:IAnalysisControl{
+        where TAnalysisEditor : AnalysisEditorBase where TAnalysisControl: class, IAnalysisControl{
         public const string AnalysisControlVisibilityAttributeName = "AnalysisControlVisibility";
 
         protected AnalysisControlVisibilityControllerBase() {
@@ -48,7 +48,8 @@ namespace eXpand.ExpressApp.PivotChart.AnalysisControlVisibility {
                 View.Model.Items.OfType<IModelPropertyEditorAnalysisControlVisibility>().Where(
                     item => item.AnalysisControlVisibility != AnalysisControlVisibility.Default);
             foreach (var controlVisibility in modelPropertyEditorAnalysisControlVisibilitys) {
-                var analysisControl = (TAnalysisControl)GetAnalysisControl(controlVisibility.PropertyName);
+                var analysisControl = GetAnalysisControl(controlVisibility.PropertyName) as TAnalysisControl;
+                if (analysisControl == null) continue;
                 switch (controlVisibility.AnalysisControlVisibility) {
                     case AnalysisControlVisibility.Pivot:
                         HideChart(analysisControl);

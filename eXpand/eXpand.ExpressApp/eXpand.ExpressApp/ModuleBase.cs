@@ -31,7 +31,11 @@ namespace eXpand.ExpressApp {
                     _instanceModelApplicationCreatorPropertiesManager.Value = creatorProperties;
             }
         }
-
+        public override void Setup(ApplicationModulesManager moduleManager)
+        {
+            base.Setup(moduleManager);
+            InitializeInstanceXafApplicationManager();
+        }
         public override void Setup(XafApplication application) {
             base.Setup(application);
             InitializeInstanceXafApplicationManager();

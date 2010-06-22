@@ -4,7 +4,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
 using System.Linq;
-using PivotGridFieldBuilder = eXpand.ExpressApp.PivotChart.Core.PivotGridFieldBuilder;
 
 namespace eXpand.ExpressApp.PivotChart.Core {
     public abstract class AnalysisViewControllerBase : ViewController<DetailView> {

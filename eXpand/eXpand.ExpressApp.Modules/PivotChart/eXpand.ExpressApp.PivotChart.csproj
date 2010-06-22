@@ -138,7 +138,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalysisControlVisibility\AnalysisControlVisibility.cs" />
+    <Compile Include="AnalysisControlVisibility\AnalysisControlVisibility.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="AnalysisControlVisibility\AnalysisControlVisibilityControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>

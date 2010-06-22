@@ -92,7 +92,7 @@ namespace eXpand.ExpressApp.WorldCreator {
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
-            updaters.Add(new EnableCloningForAllWCPersistentTypesUpdater());
+//            updaters.Add(new EnableCloningForAllWCPersistentTypesUpdater());
             updaters.Add(new ShowOwnerForExtendedMembersUpdater());
             updaters.Add(new ImageSourcesUpdater(DefinedModules));
         }

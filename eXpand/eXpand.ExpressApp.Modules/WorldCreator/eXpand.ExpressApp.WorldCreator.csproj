@@ -127,7 +127,6 @@
     <Compile Include="Core\ICodeTemplateInfoExtensions.cs" />
     <Compile Include="Core\IPersistentMemberInfoExtensions.cs" />
     <Compile Include="Core\IPersistentTemplatedTypeInfoExtensions.cs" />
-    <Compile Include="NodeUpdaters\EnableCloningForAllWCPersistentTypesUpdater.cs" />
     <Compile Include="NodeUpdaters\ImageSourcesUpdater.cs" />
     <Compile Include="Observers\CodeTemplateInfoObserver.cs" />
     <Compile Include="Observers\CodeTemplateObserver.cs" />

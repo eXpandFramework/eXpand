@@ -1,4 +1,3 @@
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.PivotChart.Security;

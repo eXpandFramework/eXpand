@@ -1,6 +1,5 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.ViewVariantsModule;
 
@@ -33,14 +32,14 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
 
         private void OnCustomShowNavigationItem(object sender, CustomShowNavigationItemEventArgs args)
         {
-            string viewId = (args.ActionArguments.SelectedChoiceActionItem.Data as ViewShortcut).ViewId;
-
+            var viewId = ((ViewShortcut) args.ActionArguments.SelectedChoiceActionItem.Data).ViewId;
             var variants = Application.Model.Views[viewId] as IModelViewVariants;
-            if (variants != null)
-            {
-                var variantName = variants.Variants.Current.Caption;
-                if (!string.IsNullOrEmpty(variantName) && variantName != "Default")
-                    ((ViewShortcut)args.ActionArguments.SelectedChoiceActionItem.Data).ViewId = variants.Variants[variantName].View.Id;
+            if (variants != null){
+                if (variants.Variants.Current != null) {
+                    var variantName = variants.Variants.Current.Caption;
+                    if (!string.IsNullOrEmpty(variantName) && variantName != "Default")
+                        ((ViewShortcut)args.ActionArguments.SelectedChoiceActionItem.Data).ViewId = variants.Variants[variantName].View.Id;
+                }
             }
         }
     }
