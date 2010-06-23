@@ -11,20 +11,20 @@ namespace eXpand.ExpressApp.SystemModule
         bool HideToolBar { get; set; }
     }
 
-    public interface IModelListViewHideViewToolBar : IModelNode
+    public interface IModelViewHideViewToolBar : IModelNode
     {
         [Category("eXpand")]
         [ModelValueCalculator("((IModelClassHideViewToolBar)ModelClass)", "HideToolBar")]
-        [Description("Hides list view toolbar")]
+        [Description("Hides view toolbar")]
         bool HideToolBar { get; set; }
     }
 
-    public abstract class HideToolBarController : ViewController<ListView>, IModelExtender
+    public abstract class HideToolBarController : ViewController, IModelExtender
     {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
             extenders.Add<IModelClass, IModelClassHideViewToolBar>();
-            extenders.Add<IModelListView, IModelListViewHideViewToolBar>();
+            extenders.Add<IModelView, IModelViewHideViewToolBar>();
         }
     }
 }
