@@ -8,39 +8,39 @@ using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public interface IModelOptionsLayout : IModelNode
+    public interface IModelGridViewOptionsLayout : IModelNode
     {
     }
 
-    public interface IModelOptionsPrint : IModelNode
+    public interface IModelGridViewOptionsPrint : IModelNode
     {
     }
 
-    public interface IModelOptionsMenu : IModelNode
+    public interface IModelGridViewOptionsMenu : IModelNode
     {
     }
 
-    public interface IModelOptionsView : IModelNode
+    public interface IModelGridViewOptionsView : IModelNode
     {
     }
-    public interface IModelGridOptionsBehaviour : IModelNode
+    public interface IModelGridViewOptionsBehaviour : IModelNode
     {
 
     }
-    public interface IModelOptionsSelection : IModelNode
+    public interface IModelGridViewOptionsSelection : IModelNode
     {
     }
 
-    public interface IModelOptionsNavigation : IModelNode
+    public interface IModelGridViewOptionsNavigation : IModelNode
     {
     }
 
-    public interface IModelOptionsCustomization : IModelNode
+    public interface IModelGridViewOptionsCustomization : IModelNode
     {
     }
 
     
-    public interface IModelGridOptionsDetail : IModelNode
+    public interface IModelGridViewOptionsDetail : IModelNode
     {
     }
     public interface IModelListViewMainViewOptions : IModelNode
@@ -50,19 +50,19 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
     public interface IModelGridViewOptions : IModelNode
     {
-        IModelGridOptionsBehaviour OptionsBehavior { get; set; }
-//                IModelGridOptionsDetail OptionsDetail { get; set; }
-        IModelOptionsCustomization OptionsCustomization { get; set; }
-        IModelOptionsNavigation OptionsNavigation { get; set; }
-        IModelOptionsSelection OptionsSelection { get; set; }
-        IModelOptionsView OptionsView { get; set; }
-        IModelOptionsMenu OptionsMenu { get; set; }
-        IModelOptionsPrint OptionsPrint { get; set; }
-        IModelOptionsLayout OptionsLayout { get; set; }
-//        IModelGridOptionsHint OptionsHint { set; get; }
+        IModelGridViewOptionsBehaviour OptionsBehavior { get; set; }
+        IModelGridViewOptionsDetail OptionsDetail { get; set; }
+        IModelGridViewOptionsCustomization OptionsCustomization { get; set; }
+        IModelGridViewOptionsNavigation OptionsNavigation { get; set; }
+        IModelGridViewOptionsSelection OptionsSelection { get; set; }
+        IModelGridViewOptionsView OptionsView { get; set; }
+        IModelGridViewOptionsMenu OptionsMenu { get; set; }
+        IModelGridViewOptionsPrint OptionsPrint { get; set; }
+        IModelGridViewOptionsLayout OptionsLayout { get; set; }
+        IModelGridViewOptionsHint OptionsHint { set; get; }
     }
 
-    public interface IModelGridOptionsHint:IModelNode {
+    public interface IModelGridViewOptionsHint:IModelNode {
     }
 
     public class GridOptionsController : GridOptionsController<GridView, IModelGridViewOptions, IModelListViewMainViewOptions,GridListEditor>{

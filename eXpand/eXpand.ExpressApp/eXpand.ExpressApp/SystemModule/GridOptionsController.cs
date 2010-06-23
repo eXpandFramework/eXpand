@@ -65,8 +65,13 @@ namespace eXpand.ExpressApp.SystemModule
                     object value = propertyInfo.GetValue(_control, null);
                     var properties = propertyInfo.PropertyType.GetProperties().Where(info => info.GetSetMethod() != null);
                     foreach (PropertyInfo property in properties) {
-                        MethodInfo genericMethod = getValueMethodInfo.MakeGenericMethod(property.PropertyType);
-                        property.SetValue(value, genericMethod.Invoke(modelNode, new object[] {property.Name}), null);
+                        PropertyInfo info = modelNode.GetType().GetProperty(property.Name);
+                        if (info!= null) {
+                            MethodInfo genericMethod = getValueMethodInfo.MakeGenericMethod(info.PropertyType);
+                            object invoke = genericMethod.Invoke(modelNode, new object[] {property.Name});
+                            if (invoke!= null)
+                                property.SetValue(value, invoke, null);
+                        }
                     }
                 }    
             }

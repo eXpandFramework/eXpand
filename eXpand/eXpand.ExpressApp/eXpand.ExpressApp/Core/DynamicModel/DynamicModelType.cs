@@ -18,6 +18,7 @@ namespace eXpand.ExpressApp.Core.DynamicModel {
         readonly Func<PropertyInfo, bool> _filterPredicate;
         
 
+
         DynamicModelType(Type baseInterface) {
             baseTypeCore = baseInterface;
             guidCore = Guid.NewGuid();
@@ -100,8 +101,9 @@ namespace eXpand.ExpressApp.Core.DynamicModel {
                 var propertyInfos = _filterPredicate!=null?propertiesCore.Where(_filterPredicate):propertiesCore;
                 var simplePropertyInfos = propertyInfos.Select(info =>{
                     Type propertyType = info.PropertyType;
-//                    if (propertyType.IsValueType)
-//                        propertyType = typeof(Nullable<>).MakeGenericType(new[] { propertyType });
+                    if (propertyType.IsValueType) {
+                        propertyType = typeof(Nullable<>).MakeGenericType(new[] { propertyType });
+                    }
                     var simplePropertyInfo = new SimplePropertyInfo(info.Name, propertyType,info.DeclaringType, info.CanRead,info.CanWrite);
                     if (_category != null) simplePropertyInfo.AddAttribute(new CategoryAttribute(_category));
                     return simplePropertyInfo;

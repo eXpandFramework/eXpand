@@ -13,50 +13,50 @@ namespace eXpand.ExpressApp.Web.SystemModule {
     }
     public interface IModelGridViewOptions : IModelNode
     {
-        IModelSettings Settings { get; set; }
-        IModelSettingsBehavior SettingsBehavior { get; set; }
-        IModelSettingsPager SettingsPager { get; set; }
-        IModelSettingsEditing SettingsEditing { get; set; }
-        IModelSettingsText SettingsText { get; set; }
-        IModelSettingsCookies SettingsCookies { get; set; }
-        IModelSettingsCustomizationWindow SettingsCustomizationWindow { get; set; }
-        IModelSettingsDetail SettingsDetail { get; set; }
-        IModelSettingsLoadingPanel SettingsLoadingPanel { get; set; }
+        IModelGridViewSettings Settings { get; set; }
+        IModelGridViewSettingsBehavior SettingsBehavior { get; set; }
+        IModelGridViewSettingsPager SettingsPager { get; set; }
+        IModelGridViewSettingsEditing SettingsEditing { get; set; }
+        IModelGridViewSettingsText SettingsText { get; set; }
+        IModelGridViewSettingsCookies SettingsCookies { get; set; }
+        IModelGridViewSettingsCustomizationWindow SettingsCustomizationWindow { get; set; }
+        IModelGridViewSettingsDetail SettingsDetail { get; set; }
+        IModelGridViewSettingsLoadingPanel SettingsLoadingPanel { get; set; }
     }
 
-    public interface IModelSettingsLoadingPanel : IModelNode
+    public interface IModelGridViewSettingsLoadingPanel : IModelNode
     {
     }
 
-    public interface IModelSettingsDetail : IModelNode
+    public interface IModelGridViewSettingsDetail : IModelNode
     {
     }
 
-    public interface IModelSettingsCustomizationWindow : IModelNode
+    public interface IModelGridViewSettingsCustomizationWindow : IModelNode
     {
     }
 
-    public interface IModelSettingsCookies : IModelNode
+    public interface IModelGridViewSettingsCookies : IModelNode
     {
     }
 
-    public interface IModelSettingsText : IModelNode
+    public interface IModelGridViewSettingsText : IModelNode
     {
     }
 
-    public interface IModelSettingsEditing : IModelNode
+    public interface IModelGridViewSettingsEditing : IModelNode
     {
     }
 
-    public interface IModelSettingsPager : IModelNode
+    public interface IModelGridViewSettingsPager : IModelNode
     {
     }
 
-    public interface IModelSettingsBehavior : IModelNode
+    public interface IModelGridViewSettingsBehavior : IModelNode
     {
     }
 
-    public interface IModelSettings:IModelNode {
+    public interface IModelGridViewSettings:IModelNode {
     }
 
     public class GridOptionsController : ExpressApp.SystemModule.GridOptionsController<ASPxGridView, IModelGridViewOptions, IModelListViewMainViewOptions, ASPxGridListEditor>
