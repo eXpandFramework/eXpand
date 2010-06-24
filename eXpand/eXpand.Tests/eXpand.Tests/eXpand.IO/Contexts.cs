@@ -7,8 +7,6 @@ using DevExpress.Persistent.BaseImpl;
 using eXpand.ExpressApp.IO;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
-using eXpand.Persistent.BaseImpl.ImportExport;
-using eXpand.Tests.eXpand.WorldCreator;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
 using eXpand.ExpressApp.Core;
@@ -20,8 +18,8 @@ namespace eXpand.Tests.eXpand.IO {
         protected static Type CustomerType;
 
         Establish context = () => {
-            var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
-            ObjectSpace = artifactHandler.ObjectSpace;
+//            var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
+            ObjectSpace = ObjectSpaceInMemory.CreateNew();
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(ObjectSpace,"a"+ Guid.NewGuid().ToString().Replace("-",""));
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer", "Order" });
             classHandler.CreateReferenceMembers(info => info.Name == "Customer" ? new[] { typeof(User) } : null, true);
@@ -41,9 +39,13 @@ namespace eXpand.Tests.eXpand.IO {
     {
     }
 
-    public abstract class With_Isolations:WorldCreator.With_Isolations
+    public abstract class With_Isolations
     {
-        
+        public static string GetUniqueAssemblyName()
+        {
+            throw new NotImplementedException();
+        }
+
         protected static Func<Type[]> IOArtifacts;
 
         Establish context = () =>

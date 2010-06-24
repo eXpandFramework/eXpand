@@ -2,12 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using CThru;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.WorldCreator.Core;
-using eXpand.ExpressApp.WorldCreator.CThru;
 using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using Machine.Specifications;
@@ -35,8 +33,9 @@ namespace eXpand.Tests.eXpand.WorldCreator
             memberInfo.AddAttribute(new RuleRequiredFieldAttribute(null, DefaultContexts.Save));
             _customer = (XPBaseObject)persistentAssemblyBuilder.ObjectSpace.CreateObject(_customerType);
 
-            CThruEngine.AddAspect(new ExistentMembersEnableValidationAspect());
-            CThruEngine.StartListening();
+            throw new NotImplementedException();
+//            CThruEngine.AddAspect(new ExistentMembersEnableValidationAspect());
+//            CThruEngine.StartListening();
         };
 
         Because of = () => {

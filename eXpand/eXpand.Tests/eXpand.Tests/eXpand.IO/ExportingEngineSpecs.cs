@@ -20,7 +20,6 @@ using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.ImportExport;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Tests.eXpand.WorldCreator;
 using Machine.Specifications;
 using System.Linq;
 using eXpand.Utils.Helpers;
@@ -150,7 +149,7 @@ namespace eXpand.Tests.eXpand.IO
         static XPBaseObject _customer;
 
         Establish context = () => {
-            var objectSpace = new TestAppLication<ClassInfoGraphNode>().Setup().ObjectSpace;
+            var objectSpace = ObjectSpaceInMemory.CreateNew();
 
             PersistentAssemblyBuilder persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(objectSpace, GetUniqueAssemblyName());
             IClassHandler classHandler = persistentAssemblyBuilder.CreateClasses(new[]{"Customer"});
@@ -163,6 +162,10 @@ namespace eXpand.Tests.eXpand.IO
             _serializationConfiguration = new SerializationConfiguration(objectSpace.Session) { TypeToSerialize = customerType };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
         };
+
+        static string GetUniqueAssemblyName() {
+            throw new NotImplementedException();
+        }
 
         Because of = () => {
             XDocument document = new ExportEngine().Export(new[]{_customer},_serializationConfiguration);
@@ -240,7 +243,8 @@ namespace eXpand.Tests.eXpand.IO
         Establish context = () => {
             var objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
             _differenceObject = Isolate.Fake.Instance<DifferenceObject>(Members.CallOriginal,ConstructorWillBe.Called,objectSpace.Session);
-            _differenceObject.Model=new Dictionary(new DictionaryNode("dictionaryXmlValue"),new Schema(new DictionaryNode("shemaNode")));
+            throw new NotImplementedException();
+//            _differenceObject.Model=new Dictionary(new DictionaryNode("dictionaryXmlValue"),new Schema(new DictionaryNode("shemaNode")));
             _serializationConfiguration = new SerializationConfiguration(objectSpace.Session) { TypeToSerialize = _differenceObject.GetType() };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
         };

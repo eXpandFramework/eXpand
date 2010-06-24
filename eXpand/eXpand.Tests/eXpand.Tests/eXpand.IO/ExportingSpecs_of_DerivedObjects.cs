@@ -40,6 +40,10 @@ namespace eXpand.Tests.eXpand.IO {
             _derivedCustomer = _objectSpace.CreateObject(_derivedCustomerType);
         };
 
+        static string GetUniqueAssemblyName() {
+            throw new NotImplementedException();
+        }
+
         Because of = () => {
             _root = new ExportEngine().Export(new[]{_derivedCustomer}.OfType<XPBaseObject>(),_serializationConfiguration).Root;
         };

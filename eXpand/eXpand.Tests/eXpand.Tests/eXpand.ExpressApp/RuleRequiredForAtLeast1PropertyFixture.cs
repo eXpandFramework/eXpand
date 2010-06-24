@@ -2,10 +2,10 @@
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.BaseImpl.Validation.RuleRequiredForAtLeast1Property;
+using eXpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 using MbUnit.Framework;
 
-namespace Fixtures.eXpand.ExpressApp
+namespace eXpand.Tests.eXpand.ExpressApp
 {
     [TestFixture]
     public class RuleRequiredForAtLeast1PropertyFixture

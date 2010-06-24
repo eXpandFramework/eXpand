@@ -2,7 +2,7 @@
 using eXpand.Utils.Helpers;
 using MbUnit.Framework;
 
-namespace Fixtures.eXpand.Utils
+namespace eXpand.Tests.eXpand.Utils
 {
     [TestFixture]
     public class PropertyHelperFixture

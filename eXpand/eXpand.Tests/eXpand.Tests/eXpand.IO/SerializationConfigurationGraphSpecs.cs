@@ -1,7 +1,7 @@
-﻿using DevExpress.Persistent.BaseImpl;
+﻿using DevExpress.ExpressApp;
+using DevExpress.Persistent.BaseImpl;
 using eXpand.ExpressApp.IO.PersistentTypesHelpers;
 using eXpand.Persistent.BaseImpl.ImportExport;
-using eXpand.Tests.eXpand.WorldCreator;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
 
@@ -15,11 +15,16 @@ namespace eXpand.Tests.eXpand.IO {
         static ClassInfoGraphNode _classInfoGraphNode;
 
         Establish context = () => {
-            new TestAppLication<SerializationConfiguration>().Setup(null, configuration => {
-                _configuration = configuration;
-                _classInfoGraphNode = new ClassInfoGraphNode(configuration.Session);
-                configuration.SerializationGraph.Add(_classInfoGraphNode);
-            }).WithArtiFacts(IOArtifacts).CreateDetailView().CreateFrame();
+//            new TestAppLication<SerializationConfiguration>().Setup(null, configuration => {
+//                _configuration = configuration;
+//                _classInfoGraphNode = new ClassInfoGraphNode(configuration.Session);
+//                configuration.SerializationGraph.Add(_classInfoGraphNode);
+//            }).WithArtiFacts(IOArtifacts).CreateDetailView().CreateFrame();
+            ObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew();
+            _classInfoGraphNode = new ClassInfoGraphNode(objectSpace.Session);
+            _configuration = new SerializationConfiguration(objectSpace.Session);
+            _configuration.SerializationGraph.Add(_classInfoGraphNode);
+
             _classInfoGraphNodeBuilder = Isolate.Fake.Instance<ClassInfoGraphNodeBuilder>();
             Isolate.Swap.NextInstance<ClassInfoGraphNodeBuilder>().With(_classInfoGraphNodeBuilder);
             Isolate.WhenCalled(() => _classInfoGraphNodeBuilder.Generate(_configuration)).DoInstead(callContext => _generated = true);

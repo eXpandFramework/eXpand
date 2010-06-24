@@ -104,6 +104,7 @@ namespace eXpand.Tests.eXpand.IO {
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.NullRefProperty.xml");
         };
 
+
         Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork) _objectSpace.Session);
         It should_import_parent_object=() => _objectSpace.GetObjectsCount(_customerType, null).ShouldEqual(1);
         It should_not_import_it = () => _objectSpace.GetObjectsCount(typeof(Address), null).ShouldEqual(0);
@@ -125,7 +126,8 @@ namespace eXpand.Tests.eXpand.IO {
 
         It should_iumport_the_converter_from_storage_value=() => {
             var persistentApplication = _objectSpace.FindObject<PersistentApplication>(null);
-            persistentApplication.Model.RootNode.Name.ShouldEqual("Application");            
+            throw new NotImplementedException();
+//            persistentApplication.Model.RootNode.Name.ShouldEqual("Application");            
         };
     }
 

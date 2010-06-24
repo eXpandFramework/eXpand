@@ -1,14 +1,4 @@
-﻿using System.Collections.Generic;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Actions;
-using DevExpress.Persistent.BaseImpl;
-using eXpand.Persistent.BaseImpl.ImportExport;
-using eXpand.Tests.eXpand.WorldCreator;
-using Machine.Specifications;
-using TypeMock.ArrangeActAssert;
-
-
-namespace eXpand.Tests.eXpand.IO {
+﻿namespace eXpand.Tests.eXpand.IO {
 //    [Subject("All Objects")]
 //    public class When_Displaying_a_list_view:With_Isolations
 //    {

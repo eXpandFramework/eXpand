@@ -12,7 +12,6 @@ using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.ImportExport;
 using eXpand.Persistent.BaseImpl.ImportExport;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
-using eXpand.Tests.eXpand.WorldCreator;
 using Machine.Specifications;
 using System.Linq;
 using eXpand.Xpo;
@@ -109,6 +108,10 @@ namespace eXpand.Tests.eXpand.IO {
             _t2Type = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedCustomer").Single();
             _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = _t1Type };
         };
+
+        static string GetUniqueAssemblyName() {
+            throw new NotImplementedException();
+        }
 
         Because of = () => {
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
@@ -214,19 +217,23 @@ namespace eXpand.Tests.eXpand.IO {
 
         Establish context = () =>
         {
-            var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
-            _objectSpace = artifactHandler.ObjectSpace;            
+            
+            _objectSpace = ObjectSpaceInMemory.CreateNew();            
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "CustomerSelfRef" });
             var persistentClassInfo = persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0];
             classHandler.CreateRefenenceMember(persistentClassInfo, "Parent",persistentClassInfo);
             classHandler.CreateCollectionMember(persistentClassInfo, "Collection",persistentClassInfo);
-            
-            artifactHandler.ObjectSpace.CommitChanges();
+
+            _objectSpace.CommitChanges();
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder,Path.GetDirectoryName(Application.ExecutablePath));
             var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "CustomerSelfRef").Single();
-            _serializationConfiguration = new SerializationConfiguration(artifactHandler.UnitOfWork) { TypeToSerialize = customerType };
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = customerType };
         };
+
+        static string GetUniqueAssemblyName() {
+            throw new NotImplementedException();
+        }
 
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
 

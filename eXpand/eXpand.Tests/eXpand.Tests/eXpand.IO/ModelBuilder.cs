@@ -11,7 +11,6 @@ using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.ImportExport;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
-using eXpand.Tests.eXpand.WorldCreator;
 
 namespace eXpand.Tests.eXpand.IO {
     public interface IModelTypeHandler<T1, T2>
@@ -101,8 +100,7 @@ namespace eXpand.Tests.eXpand.IO {
         }
 
         PersistentAssemblyBuilder GetPersistentAssemblyBuilder() {
-            var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
-            _objectSpace = artifactHandler.ObjectSpace;
+            _objectSpace = ObjectSpaceInMemory.CreateNew();
             return PersistentAssemblyBuilder.BuildAssembly(_objectSpace, "a" + Guid.NewGuid().ToString().Replace("-", ""));
         }
 
