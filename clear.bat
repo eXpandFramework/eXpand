@@ -26,6 +26,9 @@ call clearProject.bat eXpand.ExpressApp.ModelDifference.Win
 call clearProject.bat eXpand.ExpressApp.ModelDifference.Web
 call clearProject.bat eXpand.ExpressApp.FilterDataStore
 call clearProject.bat eXpand.ExpressApp.FilterDataStore.Win
+call clearProject.bat eXpand.ExpressApp.ConditionalControllerState
+call clearProject.bat eXpand.ExpressApp.ConditionalActionState
+call clearProject.bat eXpand.ExpressApp.ArtifactState
 call clearProject.bat eXpand.ExpressApp.ModelArtifactState
 call clearProject.bat eXpand.ExpressApp.ModelArtifactState.Win
 call clearProject.bat eXpand.ExpressApp.WizardUI.Win
@@ -35,7 +38,6 @@ call clearProject.bat eXpand.Persistent.BaseImpl
 call clearProject.bat eXpand.ExpressApp.WorldCreator
 call clearProject.bat eXpand.ExpressApp.WorldCreator.Win
 call clearProject.bat eXpand.ExpressApp.WorldCreator.Web
-call clearProject.bat eXpand.ExpressApp.WorldCreator.CThru
 call clearProject.bat eXpand.ExpressApp.ExceptionHandling
 call clearProject.bat eXpand.ExpressApp.ExceptionHandling.Win
 call clearProject.bat eXpand.ExpressApp.ExceptionHandling.Web
