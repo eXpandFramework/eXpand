@@ -11,12 +11,12 @@ using PivotGridFieldBuilder = eXpand.ExpressApp.PivotChart.Core.PivotGridFieldBu
 namespace eXpand.ExpressApp.PivotChart {
     public interface IModelMemberAnalysisDisplayDateTime:IModelMember
     {
-        [Category("eXpand")]
+        [Category("eXpand.PivotChart")]
         PivotGroupInterval PivotGroupInterval { get; set; }
     }
     public interface IModelPropertyEditorAnalysisDisplayDateTime:IModelPropertyEditor
     {
-        [Category("eXpand")]
+        [Category("eXpand.PivotChart")]
         [ModelValueCalculator("((IModelMemberAnalysisDisplayDateTime)ModelMember)", "PivotGroupInterval")]
         PivotGroupInterval PivotGroupInterval { get; set; }
     }

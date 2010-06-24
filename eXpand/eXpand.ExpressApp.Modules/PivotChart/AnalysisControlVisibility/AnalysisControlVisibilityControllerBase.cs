@@ -10,12 +10,12 @@ using AnalysisViewControllerBase = eXpand.ExpressApp.PivotChart.Core.AnalysisVie
 
 namespace eXpand.ExpressApp.PivotChart.AnalysisControlVisibility {
     public interface IModelMemberAnalysisControlVisibility:IModelNode {
-        [Category("eXpand")]
+        [Category("eXpand.PivotChart")]
         [Description("Controls the visibility of Analysis control")]
         AnalysisControlVisibility AnalysisControlVisibility { get; set; }    
     }
     public interface IModelPropertyEditorAnalysisControlVisibility:IModelPropertyEditor {
-        [Category("eXpand")]
+        [Category("eXpand.PivotChart")]
         [Description("Controls the visibility of Analysis control")]
         [ModelValueCalculator("((IModelMemberAnalysisControlVisibility)ModelMember)", "AnalysisControlVisibility")]
         AnalysisControlVisibility AnalysisControlVisibility { get; set; }    

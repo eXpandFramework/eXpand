@@ -4,12 +4,12 @@ using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.PivotChart.Web {
     public interface IModelMemberLoadingPanel:IModelMember {
-        [Category("eXpand")]
+        [Category("eXpand.PivotChart")]
         [Description("It controls the visibility of the ajax loading panel for analysisproperty editors")]
         bool LoadingPanel { get; set; }    
     }
     public interface IModelPropertyEditorLoadingPanel : IModelPropertyEditor{
-        [Category("eXpand")]
+        [Category("eXpand.PivotChart")]
         [Description("It controls the visibility of the ajax loading panel for analysisproperty editors")]
         [ModelValueCalculator("((IModelMemberLoadingPanel)ModelMember)", "LoadingPanel")]
         [DefaultValue(true)]
