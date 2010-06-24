@@ -68,7 +68,8 @@ namespace eXpandAddIns
             while (!reader.SOF) {
                 string readline = reader.Readline();
                 stackTrace.Add(readline);
-                if (readline.Trim().StartsWith("The error occured:")) {
+                if (readline.Trim().StartsWith("The error occured:") || readline.Trim().StartsWith("The error occurred:"))
+                {
                     stackTrace.Reverse();
                     string errorMessage = "";
                     foreach (string trace in stackTrace) {
