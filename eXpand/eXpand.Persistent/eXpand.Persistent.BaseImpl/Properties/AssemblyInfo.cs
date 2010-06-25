@@ -34,7 +34,7 @@ using eXpand.Xpo.Attributes;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.0.09314.08")]
-[assembly: AssemblyFileVersion("0.0.09314.08")]
+[assembly: AssemblyVersion(AssemblyInfo.Version)]
+[assembly: AssemblyFileVersion(AssemblyInfo.Version)]
 [assembly: DataStore(typeof(PersistentAssemblyInfo),"WorldCreator")]
 

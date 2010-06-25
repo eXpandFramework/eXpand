@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -10,6 +11,7 @@ using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests {
     public static class MockExtensions {
+        
         public static TypesInfo WCTypesInfo(this IFaker faker) {
             Isolate.WhenCalled(() => TypesInfo.Instance).WillReturn(Isolate.Fake.Instance<TypesInfo>());
             var typesInfo = TypesInfo.Instance;

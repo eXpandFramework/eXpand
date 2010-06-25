@@ -14,8 +14,6 @@ namespace eXpand.ExpressApp.Logic.NodeUpdaters {
             if (modelNode != null) {
                 List<ExecutionContext> executionContexts = GetExecutionContexts();
                 var contexts = executionContexts.Where(executionContext => modelNode.GetNode<IModelExecutionContext>(executionContext.ToString()) == null);
-                Debug.Print("");
-
                 foreach (ExecutionContext executionContext in contexts) {
                     modelNode.AddNode<IModelExecutionContext>(executionContext.ToString());
                 }
