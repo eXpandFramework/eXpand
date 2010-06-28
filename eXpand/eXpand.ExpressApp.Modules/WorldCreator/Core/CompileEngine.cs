@@ -26,7 +26,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo,Action<CompilerParameters> action,string path) {
             Assembly loadedAssembly = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => new AssemblyName(assembly.FullName+"").Name==persistentAssemblyInfo.Name).FirstOrDefault();
             if (loadedAssembly!= null)
-                return loadedAssembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
+                return loadedAssembly.GetTypes().Where(type => typeof(DevExpress.ExpressApp.ModuleBase).IsAssignableFrom(type)).Single();
             var generateCode = CodeEngine.GenerateCode(persistentAssemblyInfo);
             var codeProvider = getCodeDomProvider(persistentAssemblyInfo.CodeDomProvider);
             var compilerParams = new CompilerParameters
@@ -89,7 +89,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 if (compilerParams.GenerateInMemory) {
                     Assembly compiledAssembly = compileAssemblyFromSource.CompiledAssembly;
                     CompiledAssemblies.Add(compiledAssembly);
-                    return compiledAssembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
+                    return compiledAssembly.GetTypes().Where(type => typeof(DevExpress.ExpressApp.ModuleBase).IsAssignableFrom(type)).Single();
                 }
                 return null;
             }
@@ -123,7 +123,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
             Func<Assembly, string> dynamicAssemblyNameSelector = assembly4 => Path.Combine(path, new AssemblyName(assembly4.FullName + "").Name + XpandExtension);
             compilerParams.ReferencedAssemblies.AddRange(
-                AppDomain.CurrentDomain.GetAssemblies().Where(assembly3 => isCodeDomCompiled(assembly3)).Select(
+                AppDomain.CurrentDomain.GetAssemblies().Where(isCodeDomCompiled).Select(
                     dynamicAssemblyNameSelector).ToArray());
         }
 
@@ -133,7 +133,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
 
         static string GetReferenceLocations() {
-            Func<Assembly, string> locationSelector =assembly =>getAssemblyLocation(assembly);
+            Func<Assembly, string> locationSelector =getAssemblyLocation;
             Func<string, bool> pathIsValid = s => s.Length > 2;
             string referenceLocations = AppDomain.CurrentDomain.GetAssemblies().Select(locationSelector).Distinct().
                 Where(pathIsValid).Aggregate<string, string>(null, (current, type) => current + (type + ",")).TrimEnd(',');
