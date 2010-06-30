@@ -170,7 +170,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
                 modulesManager.ControllersManager,
                 modulesManager.DomainComponents);
 
-            return modelsManager.CreateModelApplication(null, null, false) as ModelApplicationBase;
+            return modelsManager.CreateModelApplication() as ModelApplicationBase;
         }
 
         private XafApplication GetApplication(string executableName)
