@@ -184,10 +184,7 @@
     <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\IndexerController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ListViewController.cs">
+    <Compile Include="SystemModule\ListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\LookUpListSearchAlwaysEnableController.cs">
@@ -209,9 +206,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\SearchFromViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\ShowNonPersistentObjectDetailViewFromNavigationControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\DynamicModel\SimplePropertyInfo.cs" />

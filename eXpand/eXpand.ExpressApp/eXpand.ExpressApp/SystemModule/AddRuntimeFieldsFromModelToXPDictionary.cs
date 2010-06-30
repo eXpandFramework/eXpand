@@ -7,7 +7,7 @@ using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public interface IModelBOModelRuntimeMember : IModelNode
+    public interface IModelMemberIsRuntimeMember : IModelNode
     {
         [Category("eXpand")]
         [Description("Create member at runtime")]
@@ -23,7 +23,7 @@ namespace eXpand.ExpressApp.SystemModule
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            extenders.Add<IModelMember, IModelBOModelRuntimeMember>();
+            extenders.Add<IModelMember, IModelMemberIsRuntimeMember>();
         }
 
         protected override void OnActivated()

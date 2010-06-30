@@ -28,6 +28,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
+            extenders.Add<IModelClass, IModelClassTabStopForReadOnly>();
             extenders.Add<IModelDetailView, IModelDetailViewTabStopForReadOnly>();
         }
         protected override void OnViewControlsCreated()

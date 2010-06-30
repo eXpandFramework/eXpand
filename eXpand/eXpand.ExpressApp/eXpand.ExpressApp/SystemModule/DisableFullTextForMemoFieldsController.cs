@@ -22,6 +22,7 @@ namespace eXpand.ExpressApp.SystemModule
     {
         [Category("eXpand")]
         [ModelValueCalculator("((IModelClassDisableFullTextForMemoFields)ModelClass)", "DisableFullTextForMemoFields")]
+        [Description("Remove all fields marked with unlimited size attribute from full text")]
         bool DisableFullTextForMemoFields { get; set; }
     }
 

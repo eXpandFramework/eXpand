@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using System.ComponentModel;
 
@@ -20,7 +21,7 @@ namespace eXpand.ExpressApp.SystemModule
     }
 
 
-    public abstract class HighlightFocusedLayoutItemDetailViewControllerBase : ViewController<DetailView>, IModelExtender
+    public class HighlightFocusedLayoutItemDetailViewControllerBase : ViewController<DetailView>, IModelExtender
     {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
@@ -30,6 +31,8 @@ namespace eXpand.ExpressApp.SystemModule
 
         
 
-        protected abstract void AssignStyle(object control);
+        protected virtual void AssignStyle(object control) {
+            throw new NotImplementedException();
+        }
     }
 }

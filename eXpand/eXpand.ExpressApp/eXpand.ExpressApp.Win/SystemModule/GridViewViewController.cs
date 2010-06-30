@@ -15,6 +15,7 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
+using eXpand.ExpressApp.SystemModule;
 using NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition;
 
 namespace eXpand.ExpressApp.Win.SystemModule {

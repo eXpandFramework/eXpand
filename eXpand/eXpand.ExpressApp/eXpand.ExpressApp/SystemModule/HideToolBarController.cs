@@ -7,7 +7,7 @@ namespace eXpand.ExpressApp.SystemModule
     public interface IModelClassHideViewToolBar : IModelNode
     {
         [Category("eXpand")]
-        [Description("Hides list view toolbar")]
+        [Description("Hides view toolbar")]
         bool HideToolBar { get; set; }
     }
 
@@ -19,7 +19,7 @@ namespace eXpand.ExpressApp.SystemModule
         bool HideToolBar { get; set; }
     }
 
-    public abstract class HideToolBarController : ViewController, IModelExtender
+    public class HideToolBarController : ViewController, IModelExtender
     {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {

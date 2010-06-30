@@ -26,7 +26,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         protected override void OnActivated()
         {
             base.OnActivated();
-            Active[LogOutEnable] = ((IModelOptionsLogOutEnable)Application.Model.Options).LogOutEnable;
+            Active[LogOutEnable] = ((IModelOptionsLogOutEnable)Application.Model.Options).LogOutEnable&&Application is ILogOut;
         }
 
         private void logOutSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)

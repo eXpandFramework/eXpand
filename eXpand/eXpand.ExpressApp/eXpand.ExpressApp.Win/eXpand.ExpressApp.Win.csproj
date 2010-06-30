@@ -212,7 +212,7 @@
     <Compile Include="SystemModule\RemoveNavigationItemsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\RollBackObjectChangesOnDetailViewQueryCanChangeCurrentObjectController.cs">
+    <Compile Include="SystemModule\RollBackObjectChangesOnCurrentObjectChangeController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\SearchFromDetailViewController.cs">

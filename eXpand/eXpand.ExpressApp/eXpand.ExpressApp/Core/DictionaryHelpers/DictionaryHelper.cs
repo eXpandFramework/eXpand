@@ -45,7 +45,7 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
         private static ICollection<IModelMember> GetCustomFields(IModelApplication model)
         {
             var result = new List<IModelMember>();
-            foreach (IModelMember node in model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelBOModelRuntimeMember>().Where(member => member.IsRuntimeMember))
+            foreach (IModelMember node in model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelMemberIsRuntimeMember>().Where(member => member.IsRuntimeMember))
             {
                 result.Add(node);
             }

@@ -16,7 +16,7 @@ namespace eXpand.ExpressApp.SystemModule {
             ConstractExpandObjectMembers(View.ObjectSpace.Session, (PersistentBase) View.CurrentObject);
         }
 
-        public void ConstractExpandObjectMembers(Session session, PersistentBase persistentBase) {
+        public virtual void ConstractExpandObjectMembers(Session session, PersistentBase persistentBase) {
             if (persistentBase != null && session.IsNewObject(persistentBase)) {
                 foreach (XPMemberInfo memberInfo in persistentBase.ClassInfo.ObjectProperties) {
                     if (memberInfo.HasAttribute(typeof (ExpandObjectMembersAttribute))) {

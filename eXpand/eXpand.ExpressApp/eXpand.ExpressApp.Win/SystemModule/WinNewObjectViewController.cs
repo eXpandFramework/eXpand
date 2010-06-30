@@ -3,6 +3,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Attributes;
@@ -15,7 +16,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
         [Category("eXpand")]
         [DataSourceProperty("Application.BOModel")]
         [Description("Replace the default instantiation type under new action menu with this one")]
-        string ClassTypeToInstantiate { get; set; }
+        [TypeConverter(typeof(StringToTypeConverter))]
+        Type ClassTypeToInstantiate { get; set; }
     }
     public interface IModelViewClassTypeToInstantiate : IModelNode
     {
@@ -23,7 +25,8 @@ namespace eXpand.ExpressApp.Win.SystemModule
         [DataSourceProperty("Application.BOModel")]
         [ModelValueCalculator("((IModelClassClassTypeToInstantiate)ModelClass)", "ClassTypeToInstantiate")]
         [Description("Replace the default instantiation type under new action menu with this one")]
-        string ClassTypeToInstantiate { get; set; }
+        [TypeConverter(typeof(StringToTypeConverter))]
+        Type ClassTypeToInstantiate { get; set; }
     }
     public class WinNewObjectViewController : DevExpress.ExpressApp.Win.SystemModule.WinNewObjectViewController, IModelExtender
     {
@@ -53,7 +56,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 }
             }
 
-            var type = ReflectionHelper.FindType(((IModelViewClassTypeToInstantiate)View.Model).ClassTypeToInstantiate);
+            var type = ((IModelViewClassTypeToInstantiate)View.Model).ClassTypeToInstantiate;
             if (type != null)
             {
                 IModelCreatableItem modelCreatableItem = GetModelCreatableItem(XafTypesInfo.CastTypeToTypeInfo(type));
