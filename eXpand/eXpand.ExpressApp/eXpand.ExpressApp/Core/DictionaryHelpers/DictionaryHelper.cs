@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Localization;
-using DevExpress.ExpressApp.NodeWrappers;
-using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
@@ -25,11 +23,7 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
             if (!string.IsNullOrEmpty(aspects[0]))
             {
                 string defaultAspectWhenOtherAspectExists = Regex.Replace(defaultAspectValuesWhenNoOtherAspectExist, @""":([^""\xA5]*)\xA5" + aspects[0] + @":([^""]*)""", "\"$1\"");
-                removedAspectsWithNoDefaultAspects = defaultAspectWhenOtherAspectExists;
-                foreach (var aspect in aspects)
-                {
-                    removedAspectsWithNoDefaultAspects = removeAttributesWithNoDefaultValue(aspect, removedAspectsWithNoDefaultAspects);
-                }
+                removedAspectsWithNoDefaultAspects = aspects.Aggregate(defaultAspectWhenOtherAspectExists, (current, aspect) => removeAttributesWithNoDefaultValue(aspect, current));
             }
             return removedAspectsWithNoDefaultAspects;
         }
@@ -42,15 +36,9 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
             return Regex.Replace(value, "( [^=\"]*=\"" +aspect+ ":([^\"]*)\")", "");
         }
 
-        private static ICollection<IModelMember> GetCustomFields(IModelApplication model)
+        private static IEnumerable<IModelMember> GetCustomFields(IModelApplication model)
         {
-            var result = new List<IModelMember>();
-            foreach (IModelMember node in model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelMemberIsRuntimeMember>().Where(member => member.IsRuntimeMember))
-            {
-                result.Add(node);
-            }
-
-            return result;
+            return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelMemberIsRuntimeMember>().Where(member => member.IsRuntimeMember).Cast<IModelMember>().ToList();
         }
 
         public static void AddFields(IModelApplication model, XPDictionary dictionary)
