@@ -91,7 +91,6 @@
     <Compile Include="Extensioons\ElementExtensions.cs" />
     <Compile Include="Extensioons\ProjectItemExtensions.cs" />
     <Compile Include="Extensioons\PropertyExtensions.cs" />
-    <Compile Include="InverseReader.cs" />
     <Compile Include="Options.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -113,6 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ReverseLineReader.cs" />
     <Compile Include="ToolWindow1.cs">
       <SubType>UserControl</SubType>
     </Compile>

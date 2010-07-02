@@ -71,6 +71,7 @@
     <Compile Include="Helpers\NumericHelper.cs" />
     <Compile Include="Helpers\PropertyHelper.cs" />
     <Compile Include="IO\InverseReader.cs" />
+    <Compile Include="IO\ReverseLineReader.cs" />
     <Compile Include="Linq\Dynamic\ClassFactory.cs" />
     <Compile Include="Linq\Dynamic\DynamicClass.cs" />
     <Compile Include="Linq\Dynamic\DynamicExpression.cs" />

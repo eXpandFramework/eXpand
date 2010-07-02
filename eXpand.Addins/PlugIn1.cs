@@ -63,13 +63,11 @@ namespace eXpandAddIns
             Property outPut = startUpProject.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath);
             Property fullPath = startUpProject.FindProperty(ProjectProperty.FullPath);
             string path = Path.Combine(fullPath.Value.ToString(),outPut.Value.ToString());
-            var reader = new InverseReader(Path.Combine(path,"expressAppFrameWork.log"));
+            var reader = new ReverseLineReader(Path.Combine(path, "expressAppFrameWork.log"));
             var stackTrace = new List<string>();
-            while (!reader.SOF) {
-                string readline = reader.Readline();
+            foreach (var readline in reader) {
                 stackTrace.Add(readline);
-                if (readline.Trim().StartsWith("The error occured:") || readline.Trim().StartsWith("The error occurred:"))
-                {
+                if (readline.Trim().StartsWith("The error occured:") || readline.Trim().StartsWith("The error occurred:")){
                     stackTrace.Reverse();
                     string errorMessage = "";
                     foreach (string trace in stackTrace) {
@@ -81,8 +79,6 @@ namespace eXpandAddIns
                     break;
                 }
             }
-            reader.Close();
-
         }
         
         public static string Inject(string injectToString, int positionToInject, string stringToInject)
