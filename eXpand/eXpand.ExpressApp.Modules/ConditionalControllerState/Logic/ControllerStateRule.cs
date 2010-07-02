@@ -17,9 +17,9 @@ namespace eXpand.ExpressApp.ConditionalControllerState.Logic{
             set { _conditionalLogicRule.ControllerType = value; }
         }
         [Category("Behavior")]
-        public ControllerState State {
-            get { return _conditionalLogicRule.State; }
-            set { _conditionalLogicRule.State = value; }
+        public ControllerState ControllerState {
+            get { return _conditionalLogicRule.ControllerState; }
+            set { _conditionalLogicRule.ControllerState = value; }
         }
 
     }

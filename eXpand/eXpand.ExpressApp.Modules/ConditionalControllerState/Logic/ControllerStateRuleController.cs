@@ -23,9 +23,9 @@ namespace eXpand.ExpressApp.ConditionalControllerState.Logic
                 controller.Active[ActiveObjectTypeHasRules] = !info.Active;
         }
 
-        IEnumerable<string> GetAssemblies(IControllerStateRule controllerStateRule){
-            return Application.Modules.Where(@base => new Regex(controllerStateRule.Module).IsMatch(@base.GetType().FullName)).
-                Select(@base => @base.GetType().Assembly.FullName);
+        IEnumerable<string> GetAssemblies(IControllerStateRule controllerStateRule) {
+                return Application.Modules.Where(@base => new Regex(controllerStateRule.Module).IsMatch(@base.GetType().FullName+"")).
+                    Select(@base => @base.GetType().Assembly.FullName);
         }
 
         IEnumerable<Controller> GetControllers(IEnumerable<string> assemblies){

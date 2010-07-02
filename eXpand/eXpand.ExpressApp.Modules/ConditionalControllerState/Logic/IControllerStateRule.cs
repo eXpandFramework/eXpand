@@ -14,7 +14,8 @@ namespace eXpand.ExpressApp.ConditionalControllerState.Logic {
         Type ControllerType { get; set; }
 
         [Category("Behavior")]
-        ControllerState State { get; set; }
+        [ModelPersistentName("State")]
+        ControllerState ControllerState { get; set; }
 
         
     }

@@ -15,7 +15,7 @@ namespace eXpand.ExpressApp.ConditionalControllerState.Security {
         #region IControllerStateRule Members
         public Type ControllerType { get; set; }
 
-        public ControllerState State { get; set; }
+        public ControllerState ControllerState { get; set; }
         #endregion
         public override IPermission Copy()
         {
