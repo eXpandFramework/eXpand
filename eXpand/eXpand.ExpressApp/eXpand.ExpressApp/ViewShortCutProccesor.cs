@@ -1,8 +1,9 @@
-﻿using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.NodeWrappers;
+﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Xpo;
 
 namespace eXpand.ExpressApp {
     public class ViewShortCutProccesor {
@@ -23,9 +24,15 @@ namespace eXpand.ExpressApp {
             if (string.IsNullOrEmpty(shortcut.ObjectKey) && (baseViewInfoNodeWrapper != null)) {
                 var objectSpace = _application.CreateObjectSpace();
                 shortcutEventArgs.Handled = true;
-                shortcutEventArgs.View = _application.CreateDetailView(objectSpace,
-                                                                       objectSpace.CreateObject(
-                                                                           baseViewInfoNodeWrapper.ModelClass.TypeInfo.Type));
+                Type type = baseViewInfoNodeWrapper.ModelClass.TypeInfo.Type;
+                object obj;
+                if (typeof(IXPSimpleObject).IsAssignableFrom(type)){
+                    obj = objectSpace.FindObject(type, null) ?? objectSpace.CreateObject(type);
+                }
+                else{
+                    obj = Activator.CreateInstance(type);
+                }
+                shortcutEventArgs.View = _application.CreateDetailView(objectSpace,obj);
             }
         }
     }
