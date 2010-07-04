@@ -132,6 +132,7 @@
     <Compile Include="Security\UpdateDecoratorTypeTypeConverterController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="TypeDecorator.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>

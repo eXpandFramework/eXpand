@@ -6,6 +6,6 @@ using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Decorators;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.DomainLogic {
     [DomainLogic(typeof (IAdditionalViewControlsRule))]
-    public class AdditionalViewControlsControlsTypesDomainLogic :AdditionalViewControlsControlsTypesDomainLogic<HintPanel, WinHintPanelDecorator> {
+    public class AdditionalViewControlsControlsTypesDomainLogic :AdditionalViewControlsControlsTypesDomainLogic<HintPanel, WinFrameControlDecorator> {
     }
 }
