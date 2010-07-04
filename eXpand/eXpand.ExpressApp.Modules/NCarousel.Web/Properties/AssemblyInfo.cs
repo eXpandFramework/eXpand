@@ -27,6 +27,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion(AssemblyInfo.Version)]
-[assembly: AssemblyFileVersion(AssemblyInfo.Version)]
+[assembly: AssemblyVersion(eXpand.AssemblyInfo.Version)]
+[assembly: AssemblyFileVersion(eXpand.AssemblyInfo.Version)]
 [assembly: System.Web.UI.WebResource("eXpand.ExpressApp.NCarousel.Web.Resources.noimage.jpg", "image/jpg")]

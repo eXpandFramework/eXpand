@@ -1,5 +1,4 @@
-﻿using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model;
+﻿using DevExpress.ExpressApp.Model;
 using eXpand.ExpressApp.ArtifactState.Model;
 using eXpand.ExpressApp.ConditionalActionState;
 using eXpand.ExpressApp.ConditionalControllerState;

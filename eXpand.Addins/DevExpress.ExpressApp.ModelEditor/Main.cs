@@ -101,7 +101,7 @@ namespace DevExpress.ExpressApp.ModelEditor {
                     ApplicationModelsManager modelManager = new ApplicationModelsManager(mgr.Modules, mgr.ControllersManager, mgr.DomainComponents);
                     FileModelStore fileModelStore = dmf.CreateModuleModelStore(diffsPath);
                     
-                    IModelApplication modelApplication = modelManager.CreateModelApplication(null, fileModelStore, false);
+                    IModelApplication modelApplication = modelManager.CreateModelApplication(fileModelStore, false);
 				    var controller = new ModelEditorViewController(modelApplication, fileModelStore, mgr.Modules);
 				    modelEditorForm = new ModelEditorForm(controller, new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor"));
 					modelEditorForm.SetCaption(Path.GetFileName(targetPath));

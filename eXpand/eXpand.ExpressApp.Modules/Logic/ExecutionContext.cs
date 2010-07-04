@@ -10,7 +10,7 @@ namespace eXpand.ExpressApp.Logic {
         ObjectSpaceReloaded = 8,
         CurrentObjectChanged = 16,
         ViewControlsCreated = 32,
-        ViewActivated = 64,
+        ControllerActivated = 64,
         ViewControlAdding = 128,
         TemplateViewChanged = 256
     }
