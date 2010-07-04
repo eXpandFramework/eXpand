@@ -61,7 +61,7 @@ namespace eXpand.ExpressApp.Logic{
         protected override void OnActivated(){base.OnActivated();
             if (IsReady){
                 Frame.TemplateViewChanged += FrameOnTemplateViewChanged;
-                ForceExecution(ExecutionContext.ViewActivated);
+                ForceExecution(ExecutionContext.ControllerActivated);
                 View.ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
                 View.CurrentObjectChanged+=ViewOnCurrentObjectChanged;
                 View.ObjectSpace.Refreshing += ObjectSpace_Refreshing;
