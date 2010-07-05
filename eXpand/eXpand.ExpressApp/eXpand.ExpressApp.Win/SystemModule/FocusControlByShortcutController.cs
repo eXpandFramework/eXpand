@@ -20,12 +20,9 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         [Description("Focus associated editor when this keyboard shortcut is detected")]
         string FocusShortcut { get; set; }    
     }
-    public interface IModelPropertyEditorFocusControlByShortcut : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelMemberFocusControlByShortcut), "ModelMember")]
+    public interface IModelPropertyEditorFocusControlByShortcut : IModelMemberFocusControlByShortcut
     {
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelMemberFocusControlByShortcut)ModelMember)", "FocusShortcut")]
-        [Description("Focus associated editor when this keyboard shortcut is detected")]
-        string FocusShortcut { get; set; }    
     }
     public class FocusControlByShortcutController:ViewController<DetailView>,IModelExtender {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

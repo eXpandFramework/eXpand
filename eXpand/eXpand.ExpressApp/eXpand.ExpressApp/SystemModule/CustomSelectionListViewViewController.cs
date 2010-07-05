@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
@@ -7,18 +6,15 @@ using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public interface IModelClassCustomSelection : IModelNode
+    public interface IModelClassCustomSelection 
     {
         [Category("eXpand")]
         [Description("Overrides the default selection of the gridlisteditor by adding a checkbox column in order to select objects")]
         bool CustomSelection { get; set; }
     }
-    public interface IModelListViewCustomSelection : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelClassCustomSelection), "ModelClass")]
+    public interface IModelListViewCustomSelection : IModelClassCustomSelection
     {
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassCustomSelection)ModelClass)", "CustomSelection")]
-        [Description("Overrides the default selection of the gridlisteditor by adding a checkbox column in order to select objects")]
-        bool CustomSelection { get; set; }
     }
     public abstract class CustomSelectionListViewViewController : ViewController<ListView>, IModelExtender
     {

@@ -13,11 +13,9 @@ namespace eXpand.ExpressApp.Win.SystemModule
         [Description("Controls the position of the cursor after the control gets focused")]
         CursorPosition CursorPosition { get; set; }    
     }
-    public interface IModelPropertyEditorCursorPosition{
-        [Category("eXpand")]
-        [Description("Controls the position of the cursor after the control gets focused")]
-        [ModelValueCalculator("((IModelMemberCursorPosition)ModelMember)", "CursorPosition")]
-        CursorPosition CursorPosition { get; set; }    
+    [ModelInterfaceImplementor(typeof(IModelMemberCursorPosition), "ModelMember")]
+    public interface IModelPropertyEditorCursorPosition : IModelMemberCursorPosition
+    {
     }
     public class CursorPositionController : ViewController<DetailView>,IModelExtender{
         public const string CursorPosition = "CursorPosition";

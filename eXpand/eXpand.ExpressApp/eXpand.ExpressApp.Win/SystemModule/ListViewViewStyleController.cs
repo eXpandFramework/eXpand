@@ -22,14 +22,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
         [Category("eXpand")]
         string LayoutViewCustomization { get; set; }
     }
-    public interface IModelListViewViewStyle : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelClassViewStyle), "ModelClass")]
+    public interface IModelListViewViewStyle : IModelClassViewStyle
     {
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassViewStyle)ModelClass)", "ListViewStyle")]
-        ListViewStyle ListViewStyle { get; set; }
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassViewStyle)ModelClass)", "LayoutViewCustomization")]
-        string LayoutViewCustomization { get; set; }
+        
     }
 
     public class ListViewViewStyleController : ViewController<ListView>, IModelExtender

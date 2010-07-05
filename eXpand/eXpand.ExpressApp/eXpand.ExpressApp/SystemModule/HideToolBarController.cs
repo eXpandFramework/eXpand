@@ -4,19 +4,15 @@ using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public interface IModelClassHideViewToolBar : IModelNode
+    public interface IModelClassHideViewToolBar 
     {
         [Category("eXpand")]
         [Description("Hides view toolbar")]
         bool HideToolBar { get; set; }
     }
-
-    public interface IModelViewHideViewToolBar : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelClassHideViewToolBar), "ModelClass")]
+    public interface IModelViewHideViewToolBar : IModelClassHideViewToolBar
     {
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassHideViewToolBar)ModelClass)", "HideToolBar")]
-        [Description("Hides view toolbar")]
-        bool HideToolBar { get; set; }
     }
 
     public class HideToolBarController : ViewController, IModelExtender

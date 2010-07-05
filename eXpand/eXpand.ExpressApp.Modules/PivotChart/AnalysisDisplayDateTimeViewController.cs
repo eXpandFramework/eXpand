@@ -14,11 +14,10 @@ namespace eXpand.ExpressApp.PivotChart {
         [Category("eXpand.PivotChart")]
         PivotGroupInterval PivotGroupInterval { get; set; }
     }
-    public interface IModelPropertyEditorAnalysisDisplayDateTime:IModelPropertyEditor
+    [ModelInterfaceImplementor(typeof(IModelMemberAnalysisDisplayDateTime), "ModelMember")]
+    public interface IModelPropertyEditorAnalysisDisplayDateTime : IModelMemberAnalysisDisplayDateTime
     {
-        [Category("eXpand.PivotChart")]
-        [ModelValueCalculator("((IModelMemberAnalysisDisplayDateTime)ModelMember)", "PivotGroupInterval")]
-        PivotGroupInterval PivotGroupInterval { get; set; }
+
     }
     public class AnalysisDisplayDateTimeViewController : AnalysisViewControllerBase,IModelExtender {
         protected override void OnAnalysisControlCreated() {

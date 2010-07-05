@@ -11,12 +11,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
         [Description("Hides the popup menu of a gridview")]
         bool HidePopupMenu { get; set; }
     }
-    public interface IModelListViewHidePopupMenu : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelClassHidePopupMenu), "ModelClass")]
+    public interface IModelListViewHidePopupMenu : IModelClassHidePopupMenu
     {
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassHidePopupMenu)ModelClass)", "HidePopupMenu")]
-        [Description("Hides the popup menu of a gridview")]
-        bool HidePopupMenu { get; set; }
+        
     }
 
     public class HideGridPopUpMenuViewController : ViewController<ListView>, IModelExtender

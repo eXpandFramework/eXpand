@@ -19,14 +19,9 @@ namespace eXpand.ExpressApp.Win.SystemModule
         [TypeConverter(typeof(StringToTypeConverter))]
         Type ClassTypeToInstantiate { get; set; }
     }
-    public interface IModelViewClassTypeToInstantiate : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelClassClassTypeToInstantiate), "ModelClass")]
+    public interface IModelViewClassTypeToInstantiate : IModelClassClassTypeToInstantiate
     {
-        [Category("eXpand")]
-        [DataSourceProperty("Application.BOModel")]
-        [ModelValueCalculator("((IModelClassClassTypeToInstantiate)ModelClass)", "ClassTypeToInstantiate")]
-        [Description("Replace the default instantiation type under new action menu with this one")]
-        [TypeConverter(typeof(StringToTypeConverter))]
-        Type ClassTypeToInstantiate { get; set; }
     }
     public class WinNewObjectViewController : DevExpress.ExpressApp.Win.SystemModule.WinNewObjectViewController, IModelExtender
     {

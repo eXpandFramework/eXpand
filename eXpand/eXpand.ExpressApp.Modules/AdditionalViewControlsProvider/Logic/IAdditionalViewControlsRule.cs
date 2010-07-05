@@ -11,7 +11,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         [Description("The type of the control to be added to the view")]
         [TypeConverter(typeof(StringToTypeConverter))]
         [Required]
-//        [DataSourceProperty("ControlTypes")]
+        [DataSourceProperty("ControlTypes")]
         Type ControlType { get; set; }
 
 
@@ -19,7 +19,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         [Description("The type of the control that will be used to decorate the inserted control")]
         [TypeConverter(typeof(StringToTypeConverter))]
         [Required]
-//        [DataSourceProperty("DecoratorTypes")]
+        [DataSourceProperty("DecoratorTypes")]
         Type DecoratorType { get; set; }
 
 

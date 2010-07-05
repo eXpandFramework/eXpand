@@ -11,12 +11,9 @@ namespace eXpand.ExpressApp.SystemModule
         [Description("Does not allow delete of an object that has referenced objects")]
         bool EnableFKViolations { get; set; }
     }
-    public interface IModelViewEnableFKViolations
+    [ModelInterfaceImplementor(typeof(IModelClassEnableFKViolations), "ModelClass")]
+    public interface IModelViewEnableFKViolations : IModelClassEnableFKViolations
     {
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassEnableFKViolations)ModelClass)", "EnableFKViolations")]
-        [Description("Does not allow delete of an object that has referenced objects")]
-        bool EnableFKViolations { get; set; }
     }
 
     public class FKViolationViewController : ViewController, IModelExtender

@@ -11,12 +11,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
         [Description("Suppress confirmation message when an object has been change")]
         bool SupressConfirmation { get; set; }
     }
-    public interface IModelViewSupressConfirmation : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelClassSupressConfirmation), "ModelClass")]
+    public interface IModelViewSupressConfirmation : IModelClassSupressConfirmation
     {
-        [Category("eXpand")]
-        [Description("Suppress confirmation message when an object has been change")]
-        [ModelValueCalculator("((IModelClassSupressConfirmation)ModelClass)", "SupressConfirmation")]
-        bool SupressConfirmation { get; set; }
+        
     }
 
     public class SupressConfirmationController : ViewController, IModelExtender

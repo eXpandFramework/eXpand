@@ -12,13 +12,9 @@ namespace eXpand.ExpressApp.Win.SystemModule
         [Description("If set to false when the view queries if it can change current object all changes will remain in transaction, thus allowing to save them at a later time")]
         bool RollBackObjectChangesOnCurrentObjectChange { get; set; }
     }
-    public interface IModelViewRollBackChangesBeforeViewChanges : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelClassRollBackObjectChangesOnCurrentObjectChange), "ModelClass")]
+    public interface IModelViewRollBackChangesBeforeViewChanges : IModelClassRollBackObjectChangesOnCurrentObjectChange
     {
-        [Category("eXpand")]
-        [DefaultValue(true)]
-        [Description("If set to false when the view queries if it can change current object all changes will remain in transaction, thus allowing to save them at a later time")]
-        [ModelValueCalculator("((IModelClassRollBackObjectChangesOnCurrentObjectChange)ModelClass)", "RollBackObjectChangesOnCurrentObjectChange")]
-        bool RollBackObjectChangesOnCurrentObjectChange { get; set; }
     }
 
     public class RollBackObjectChangesOnCurrentObjectChangeController : WinDetailViewController, IModelExtender

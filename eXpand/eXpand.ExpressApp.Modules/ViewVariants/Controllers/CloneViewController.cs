@@ -9,17 +9,14 @@ using DevExpress.ExpressApp.Model.Core;
 
 namespace eXpand.ExpressApp.ViewVariants.Controllers
 {
-    public interface IModelClassViewClonable:IModelClass {
+    public interface IModelClassViewClonable{
         [Description("Determines if the clone action will be shown for the view")]
         [Category("eXpand.ViewVariants")]
         bool IsClonable { get; set; }
     }
-    public interface IModelListViewViewClonable:IModelListView
+    [ModelInterfaceImplementor(typeof(IModelClassViewClonable), "ModelClass")]
+    public interface IModelListViewViewClonable : IModelClassViewClonable
     {
-        [Category("eXpand.ViewVariants")]
-        [Description("Determines if the clone action will be shown for the view")]
-        [ModelValueCalculator("((IModelClassViewClonable)ModelClass)", "IsClonable")]
-        bool IsClonable { get; set; }
     }
 
     public partial class CloneViewController : ViewController<ListView>, IModelExtender
@@ -43,7 +40,7 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
             var variantsNode = GetDefaultVariantsNode();
             var newVariantNode = GetNewVariantNode(variantsNode, e, out viewCloner);
             var clonedNode = (IModelListView)((ModelApplicationBase)View.Model.Application).CloneNodeFrom((ModelNode)View.Model);
-            //setAttributes(clonedNode, viewCloner);
+     
             Application.Model.Views.Add(clonedNode);
 
             var changeVariantController = Frame.GetController<ChangeVariantController>();

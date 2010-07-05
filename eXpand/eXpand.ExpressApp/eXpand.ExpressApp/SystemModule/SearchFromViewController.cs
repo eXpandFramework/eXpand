@@ -5,25 +5,20 @@ using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public interface IModelMemberSearchMode : IModelNode
+    public interface IModelMemberSearchMode 
     {
         [Category("eXpand")]
         [Description("Control if member will be included on full text search")]
         SearchMemberMode SearchMemberMode { get; set; }
     }
-    public interface IModelPropertyEditorSearchMode : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelMemberSearchMode), "ModelMember")]
+    public interface IModelPropertyEditorSearchMode : IModelMemberSearchMode
     {
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelMemberSearchMode)ModelMember)", "SearchMemberMode")]
-        [Description("Control if member will be included on full text search")]
-        SearchMemberMode SearchMemberMode { get; set; }
     }
-    public interface IModelColumnSearchMode : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelMemberSearchMode), "ModelMember")]
+    public interface IModelColumnSearchMode : IModelMemberSearchMode
     {
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelMemberSearchMode)ModelMember)", "SearchMemberMode")]
-        [Description("Control if member will be included on full text search")]
-        SearchMemberMode SearchMemberMode { get; set; }
+
     }
 
     public class SearchFromViewController : ViewController, IModelExtender

@@ -5,19 +5,15 @@ using System.ComponentModel;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public interface IModelClassHighlightFocusedItem : IModelNode
+    public interface IModelClassHighlightFocusedItem 
     {
         [Category("eXpand")]
         [DefaultValue(true)]
         bool HighlightFocusedLayoutItem { get; set; }
     }
-
-    public interface IModelDetailViewHighlightFocusedItem : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelClassHighlightFocusedItem), "ModelClass")]
+    public interface IModelDetailViewHighlightFocusedItem : IModelClassHighlightFocusedItem
     {
-        [Category("eXpand")]
-        [DefaultValue(true)]
-        [ModelValueCalculator("((IModelClassHighlightFocusedItem)ModelClass)", "HighlightFocusedLayoutItem")]
-        bool HighlightFocusedLayoutItem { get; set; }
     }
 
 

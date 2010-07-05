@@ -14,12 +14,9 @@ namespace eXpand.ExpressApp.Win.SystemModule
         [Description("If a detailview editor is readonly then you can not navigate to it using the TAB key")]
         bool TabOverReadOnlyEditors { get; set; }
     }
-    public interface IModelDetailViewTabStopForReadOnly : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelClassTabStopForReadOnly), "ModelClass")]
+    public interface IModelDetailViewTabStopForReadOnly : IModelClassTabStopForReadOnly
     {
-        [Category("eXpand")]
-        [Description("If a detailview editor is readonly then you can not navigate to it using the TAB key")]
-        [ModelValueCalculator("((IModelClassTabStopForReadOnly)ModelClass)", "TabOverReadOnlyEditors")]
-        bool TabOverReadOnlyEditors { get; set; }
     }
 
     public class ReadOnlyTabStopController : ViewController<DetailView>,IModelExtender

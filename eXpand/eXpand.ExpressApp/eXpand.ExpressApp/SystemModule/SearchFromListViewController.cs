@@ -83,7 +83,7 @@ namespace eXpand.ExpressApp.SystemModule {
         void GetProperties(SearchMemberMode searchMemberMode, Action<string> action) {
             var listView = ((ListView) View);
             IEnumerable<string> enumerable = listView.Model.Columns.VisibleColumns.OfType
-                <IModelPropertyEditorSearchMode>().Where(
+                <IModelColumnSearchMode>().Where(
                     wrapper => wrapper.SearchMemberMode == searchMemberMode).Select(
                         nodeWrapper => ((IModelColumn) nodeWrapper).PropertyName);
             foreach (string s in enumerable) {

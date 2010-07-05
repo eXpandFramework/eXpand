@@ -17,13 +17,9 @@ namespace eXpand.ExpressApp.SystemModule
         [Description("Remove all fields marked with unlimited size attribute from full text")]
         bool DisableFullTextForMemoFields { get; set; }
     }
-
-    public interface IModelListViewDisableFullTextForMemoFields
+    [ModelInterfaceImplementor(typeof(IModelClassDisableFullTextForMemoFields), "ModelClass")]
+    public interface IModelListViewDisableFullTextForMemoFields : IModelClassDisableFullTextForMemoFields
     {
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassDisableFullTextForMemoFields)ModelClass)", "DisableFullTextForMemoFields")]
-        [Description("Remove all fields marked with unlimited size attribute from full text")]
-        bool DisableFullTextForMemoFields { get; set; }
     }
 
     public class DisableFullTextForMemoFieldsController : ViewController<ListView>, IModelExtender

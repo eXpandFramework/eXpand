@@ -30,18 +30,10 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         bool ImmediateUpdateAutoFilter { get; set; }
     }
 
+    [ModelInterfaceImplementor(typeof(IModelMemberGridViewOptions), "ModelMember")]
+    public interface IModelColumnGridViewOptions : IModelMemberGridViewOptions
+    {
     
-    public interface IModelColumnGridViewOptions : IModelNode {
-        [Category("eXpand")]
-        [DefaultValue(AutoFilterCondition.Contains)]
-        [ModelValueCalculator("((IModelMemberGridViewOptions)ModelMember)", "AutoFilterCondition")]
-        [Description("Control gridview property")]
-        AutoFilterCondition AutoFilterCondition { get; set; }
-
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelMemberGridViewOptions)ModelMember)", "ImmediateUpdateAutoFilter")]
-        [Description("Control gridview property")]
-        bool ImmediateUpdateAutoFilter { get; set; }
     }
 
     [DomainLogic(typeof (IModelColumnGridViewOptions))]
@@ -85,44 +77,9 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         [Description("Use TAB to navigate to the next column of a gridview else use ENTER")]
         bool UseTabKey { get; set; }
     }
-    public interface IModelListViewGridViewOptions : IModelNode {
-        [ModelValueCalculator("((IModelClassGridViewOptions)ModelClass)", "EditorShowMode")]
-        [Category("eXpand")]
-        [Description("Control gridview property")]
-        EditorShowMode EditorShowMode { get; set; }
-
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassGridViewOptions)ModelClass)", "AutoExpandNewRow")]
-        [Description("If gridview in master detail auto expand new inserter row")]
-        bool AutoExpandNewRow { get; set; }
-
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassGridViewOptions)ModelClass)", "DoNotLoadWhenNoFilterExists")]
-        [Description("Only loads listview records when a filter is present")]
-        bool DoNotLoadWhenNoFilterExists { get; set; }
-
-        [DefaultValue(true)]
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassGridViewOptions)ModelClass)", "GuessAutoFilterRowValuesFromFilter")]
-        [Description("Control gridview method")]
-        bool GuessAutoFilterRowValuesFromFilter { get; set; }
-
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassGridViewOptions)ModelClass)", "GroupLevelExpandIndex")]
-        [Description("Expand all groups of a gridview up to this level")]
-        int GroupLevelExpandIndex { get; set; }
-
-        [Category("eXpand")]
-        [DefaultValue(true)]
-        [ModelValueCalculator("((IModelClassGridViewOptions)ModelClass)", "IsColumnHeadersVisible")]
-        [Description("Control gridview column visibility")]
-        bool IsColumnHeadersVisible { get; set; }
-
-        [Category("eXpand")]
-        [DefaultValue(true)]
-        [ModelValueCalculator("((IModelClassGridViewOptions)ModelClass)", "UseTabKey")]
-        [Description("Use TAB to navigate to the next column of a gridview else use ENTER")]
-        bool UseTabKey { get; set; }
+    [ModelInterfaceImplementor(typeof(IModelClassGridViewOptions), "ModelClass")]
+    public interface IModelListViewGridViewOptions : IModelClassGridViewOptions
+    {
     }
 
     public class GridViewViewController : ListViewController<GridListEditor>, IModelExtender {

@@ -38,26 +38,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
         [Description("Enables 2 actions one for expanding all child rows and one for collapsing")]
         bool ExpandAllRows { get; set; }
     }
-    public interface IModelListViewMasterDetailOptions : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelClassMasterDetailOptions), "ModelClass")]
+    public interface IModelListViewMasterDetailOptions : IModelClassMasterDetailOptions
     {
-        [DataSourceProperty("Application.Views")]
-        [DataSourceCriteria("ModelClass Is Not Null And ModelClass.Name = '@This.Name'")]
-        [Category("eXpand")]
-        [Description("The listview that is going to be used as child listview")]
-        [ModelValueCalculator("((IModelClassMasterDetailOptions)ModelClass)", "DetailListView")]
-        IModelListView DetailListView { get; set; }
-
-        [DataSourceProperty("ModelClass.AllMembers")]
-        [DataSourceCriteria("MemberInfo.IsList")]
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassMasterDetailOptions)ModelClass)", "DetailListRelationName")]
-        [Description("The collection member that is going to be used as child collection")]
-        IModelMember DetailListRelationName { get; set; }
-
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassMasterDetailOptions)ModelClass)", "ExpandAllRows")]
-        [Description("Enables 2 actions one for expanding all child rows and one for collapsing")]
-        bool ExpandAllRows { get; set; }
+        
     }
 
     public class MasterDetailViewController : ViewController<ListView>, IModelExtender

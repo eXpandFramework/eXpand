@@ -14,11 +14,8 @@ namespace eXpand.ExpressApp.PivotChart.AnalysisControlVisibility {
         [Description("Controls the visibility of Analysis control")]
         AnalysisControlVisibility AnalysisControlVisibility { get; set; }    
     }
-    public interface IModelPropertyEditorAnalysisControlVisibility:IModelPropertyEditor {
-        [Category("eXpand.PivotChart")]
-        [Description("Controls the visibility of Analysis control")]
-        [ModelValueCalculator("((IModelMemberAnalysisControlVisibility)ModelMember)", "AnalysisControlVisibility")]
-        AnalysisControlVisibility AnalysisControlVisibility { get; set; }    
+    [ModelInterfaceImplementor(typeof(IModelMemberAnalysisControlVisibility), "ModelMember")]
+    public interface IModelPropertyEditorAnalysisControlVisibility : IModelMemberAnalysisControlVisibility{
     }
 
     public abstract class AnalysisControlVisibilityControllerBase<TAnalysisEditor,TAnalysisControl> : AnalysisViewControllerBase,IModelExtender
@@ -29,10 +26,10 @@ namespace eXpand.ExpressApp.PivotChart.AnalysisControlVisibility {
             TargetObjectType = typeof (IAnalysisInfo);
         }
         
-        IAnalysisControl GetAnalysisControl(string propertyName)
+        IAnalysisControl GetAnalysisControl(IModelPropertyEditor modelPropertyEditor)
         {
             try {
-                return AnalysisEditors.Where(@base => @base.PropertyName == propertyName).OfType<TAnalysisEditor>().Single().Control;
+                return AnalysisEditors.Where(@base => @base.PropertyName == modelPropertyEditor.PropertyName).OfType<TAnalysisEditor>().Single().Control;
             }
             catch (InvalidOperationException) {
                 throw new UserFriendlyException(
@@ -48,7 +45,7 @@ namespace eXpand.ExpressApp.PivotChart.AnalysisControlVisibility {
                 View.Model.Items.OfType<IModelPropertyEditorAnalysisControlVisibility>().Where(
                     item => item.AnalysisControlVisibility != AnalysisControlVisibility.Default);
             foreach (var controlVisibility in modelPropertyEditorAnalysisControlVisibilitys) {
-                var analysisControl = GetAnalysisControl(controlVisibility.PropertyName) as TAnalysisControl;
+                var analysisControl = GetAnalysisControl((IModelPropertyEditor) controlVisibility) as TAnalysisControl;
                 if (analysisControl == null) continue;
                 switch (controlVisibility.AnalysisControlVisibility) {
                     case AnalysisControlVisibility.Pivot:

@@ -12,12 +12,10 @@ namespace eXpand.ExpressApp.SystemModule
         [Description("Control detail view default edit mode")]
         ViewEditMode ViewEditMode { get; set; }
     }
-    public interface IModelDetailViewEditMode : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelClassEditMode), "ModelClass")]
+    public interface IModelDetailViewEditMode : IModelClassEditMode
     {
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassEditMode)ModelClass)", "ViewEditMode")]
-        [Description("Control detail view default edit mode")]
-        ViewEditMode ViewEditMode { get; set; }
+        
     }
     
     public class ViewEditModeController : ViewController<DetailView>, IModelExtender

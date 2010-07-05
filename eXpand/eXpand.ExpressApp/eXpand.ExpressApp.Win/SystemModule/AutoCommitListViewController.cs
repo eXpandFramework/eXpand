@@ -11,13 +11,9 @@ namespace eXpand.ExpressApp.Win.SystemModule
         [Description("Control if changes on editable listview will be autocommited")]
         bool AutoCommitListView { get; set; }
     }
-
-    public interface IModelListViewAutoCommitListView : IModelNode
+    [ModelInterfaceImplementor(typeof(IModelClassAutoCommitListView), "ModelClass")]
+    public interface IModelListViewAutoCommitListView : IModelClassAutoCommitListView
     {
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassAutoCommitListView)ModelClass)", "AutoCommitListView")]
-        [Description("Control if changes on editable listview will be autocommited")]
-        bool AutoCommitListView { get; set; }
     }
 
     public class AutoCommitListViewController : ViewController<ListView>, IModelExtender

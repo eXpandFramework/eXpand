@@ -16,12 +16,9 @@ namespace eXpand.ExpressApp.SystemModule
         [Category("eXpand")]
         LookUpListSearch LookUpListSearch { get; set; }
     }
-
-    public interface IModelListViewLookUpListSearch
+    [ModelInterfaceImplementor(typeof(IModelClassLookUpListSearch), "ModelClass")]
+    public interface IModelListViewLookUpListSearch : IModelClassLookUpListSearch
     {
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassLookUpListSearch)ModelClass)", "LookUpListSearch")]
-        LookUpListSearch LookUpListSearch { get; set; }
     }
 
     public class LookUpListSearchAlwaysEnableController : ViewController, IModelExtender

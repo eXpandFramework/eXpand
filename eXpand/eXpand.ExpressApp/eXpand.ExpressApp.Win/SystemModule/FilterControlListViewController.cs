@@ -12,18 +12,16 @@ using DevExpress.ExpressApp.Utils;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public interface IModelClassFilterControlSettings : IModelNode,IModelExtender
+    public interface IModelClassFilterControlSettings : IModelNode
     {
         [Category("eXpand")]
         [Description("For listviews displays a filter expression editor control at the specified position")]
         Forms.DockStyle FilterControlPosition { get; set; }
     }
-    public interface IModelListViewFilterControlSettings : IModelNode,IModelExtender
+    [ModelInterfaceImplementor(typeof(IModelClassFilterControlSettings), "ModelClass")]
+    public interface IModelListViewFilterControlSettings : IModelClassFilterControlSettings
     {
-        [Category("eXpand")]
-        [ModelValueCalculator("((IModelClassFilterControlSettings)ModelClass)", "FilterControlPosition")]
-        [Description("For listviews displays a filter expression editor control at the specified position")]
-        Forms.DockStyle FilterControlPosition { get; set; }
+        
     }
 
     public class FilterControlListViewController : ViewController<ListView>,IModelExtender

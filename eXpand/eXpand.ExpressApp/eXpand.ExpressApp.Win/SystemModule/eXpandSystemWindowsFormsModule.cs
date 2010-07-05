@@ -2,7 +2,6 @@ using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win;
 using DevExpress.Utils;
 using eXpand.ExpressApp.Win.ListEditors;
