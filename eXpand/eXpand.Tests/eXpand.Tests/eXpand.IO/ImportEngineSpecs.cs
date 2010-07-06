@@ -73,20 +73,6 @@ namespace eXpand.Tests.eXpand.IO {
         
     }
     [Subject(typeof(ImportEngine))]
-    public class When_importing_an_object_that_is_invalid:With_Isolations {
-//        static ObjectSpace _objectSpace;
-//        static Stream _manifestResourceStream;
-
-        Establish context = () => {
-//            
-        };
-
-        It should_should;
-//        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _objectSpace);
-
-//        It should_not_import_it=() => _objectSpace.GetObjectsCount(typeof(User), null).ShouldEqual(0);
-    }
-    [Subject(typeof(ImportEngine))]
     public class When_importing_a_null_reference_property:With_Isolations {
         static ObjectSpace _objectSpace;
         static Type _customerType;
@@ -384,7 +370,7 @@ namespace eXpand.Tests.eXpand.IO {
         static MemoryStream _memoryStream;
 
         Establish context = () => {
-            string xml = @"<SerializedObjects>
+            const string xml = @"<SerializedObjects>
                   <SerializedObject type=""DateTimePropertyObject"">
                     <Property type=""simple"" name=""Date"" isKey=""false"">634038486102582525</Property>
                     <Property type=""simple"" name=""oid"" isKey=""true"">7b806eb9-e459-4117-b48f-fa98f8a1b9d2</Property>

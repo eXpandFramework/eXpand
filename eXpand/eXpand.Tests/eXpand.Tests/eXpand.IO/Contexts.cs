@@ -43,7 +43,7 @@ namespace eXpand.Tests.eXpand.IO {
     {
         public static string GetUniqueAssemblyName()
         {
-            throw new NotImplementedException();
+            return "a" + Guid.NewGuid().ToString().Replace("-", "");
         }
 
         protected static Func<Type[]> IOArtifacts;
@@ -52,6 +52,7 @@ namespace eXpand.Tests.eXpand.IO {
         {
             IOArtifacts = () => new[] { typeof(IOModule) };
             Isolate.Fake.IOTypesInfo();
+            Isolate.Fake.WCTypesInfo();
         };
     }
 

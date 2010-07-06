@@ -24,8 +24,8 @@ namespace eXpand.Tests.eXpand.IO {
         static SerializationConfiguration _serializationConfiguration;
         static ObjectSpace _objectSpace;
 
-        Establish context = () =>
-        {
+        Establish context = () => {
+            
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
             _objectSpace = oneToMany.ObjectSpace;
             
@@ -63,6 +63,7 @@ namespace eXpand.Tests.eXpand.IO {
         static ObjectSpace _objectSpace;
 
         Establish context = () => {
+
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
             _objectSpace = oneToMany.ObjectSpace;
             var existentConfiguration =
@@ -109,9 +110,6 @@ namespace eXpand.Tests.eXpand.IO {
             _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = _t1Type };
         };
 
-        static string GetUniqueAssemblyName() {
-            throw new NotImplementedException();
-        }
 
         Because of = () => {
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
@@ -231,9 +229,6 @@ namespace eXpand.Tests.eXpand.IO {
             _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = customerType };
         };
 
-        static string GetUniqueAssemblyName() {
-            throw new NotImplementedException();
-        }
 
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
 
@@ -257,7 +252,11 @@ namespace eXpand.Tests.eXpand.IO {
         };
 
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
-        It should_generate_it = () => _serializationConfiguration.SerializationGraph.Count().ShouldEqual(_persistentAssemblyInfo.ClassInfo.PersistentProperties.OfType<XPMemberInfo>().Count());
+
+        It should_generate_it =
+            () =>
+            _serializationConfiguration.SerializationGraph.Count().ShouldEqual(
+                _persistentAssemblyInfo.ClassInfo.PersistentProperties.OfType<XPMemberInfo>().Count()-2);
     }
     [Subject(typeof(ClassInfoGraphNode))]
     public class When_creating_a_graph_with_a_byte_array_property:With_Isolations {

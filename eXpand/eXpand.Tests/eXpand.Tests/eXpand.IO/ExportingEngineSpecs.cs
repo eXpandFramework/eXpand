@@ -43,6 +43,7 @@ namespace eXpand.Tests.eXpand.IO
         static XPBaseObject _customer;
 
         Establish context = () => {
+            Isolate.Fake.WCTypesInfo();
             _user = (XPBaseObject)ObjectSpace.CreateObject(typeof(User));
             _customer = (XPBaseObject) ObjectSpace.CreateObject(CustomerType);
             _customer.SetMemberValue("Name","CustomerName");
@@ -163,9 +164,6 @@ namespace eXpand.Tests.eXpand.IO
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
         };
 
-        static string GetUniqueAssemblyName() {
-            throw new NotImplementedException();
-        }
 
         Because of = () => {
             XDocument document = new ExportEngine().Export(new[]{_customer},_serializationConfiguration);
@@ -243,9 +241,8 @@ namespace eXpand.Tests.eXpand.IO
         Establish context = () => {
             var objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
             _differenceObject = Isolate.Fake.Instance<DifferenceObject>(Members.CallOriginal,ConstructorWillBe.Called,objectSpace.Session);
-            throw new NotImplementedException();
 //            _differenceObject.Model=new Dictionary(new DictionaryNode("dictionaryXmlValue"),new Schema(new DictionaryNode("shemaNode")));
-            _serializationConfiguration = new SerializationConfiguration(objectSpace.Session) { TypeToSerialize = _differenceObject.GetType() };
+//            _serializationConfiguration = new SerializationConfiguration(objectSpace.Session) { TypeToSerialize = _differenceObject.GetType() };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
         };
 

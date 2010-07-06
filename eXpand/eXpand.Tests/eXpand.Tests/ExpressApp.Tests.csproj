@@ -86,10 +86,7 @@
     <Reference Include="DevExpress.XtraGrid.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="eXpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider, Version=0.0.9314.9, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="eXpand.ExpressApp.ConditionalActionState, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="eXpand.ExpressApp.ConditionalControllerState, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="eXpand.ExpressApp, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="eXpand.ExpressApp.FilterDataStore, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.DLL\eXpand.ExpressApp.FilterDataStore.dll</HintPath>
@@ -128,8 +125,6 @@
       <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.Security.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.Web, Version=0.0.9314.13, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="eXpand.ExpressApp.Win, Version=0.0.9314.13, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="eXpand.ExpressApp.WorldCreator, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -309,10 +304,6 @@
     <EmbeddedResource Include="eXpand.IO\Resources\ObjectWithImageProperty.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\eXpand.ExpressApp.Modules\Logic.Conditional\eXpand.ExpressApp.Logic.Conditional.csproj">
-      <Project>{68239940-CDB3-4644-8FD4-74805FD73279}</Project>
-      <Name>eXpand.ExpressApp.Logic.Conditional</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\eXpand.ExpressApp.Modules\Logic\eXpand.ExpressApp.Logic.csproj">
       <Project>{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}</Project>
       <Name>eXpand.ExpressApp.Logic</Name>
