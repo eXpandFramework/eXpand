@@ -4,6 +4,7 @@ using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Web.Controls;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Web.Decorators {
+    [TypeDecorator(typeof(HintPanel), typeof(HintPanel), true)]
     public class WebHintPanelDecorator : AdditionalViewControlsProviderDecorator
     {
         HintPanel hintPanel;

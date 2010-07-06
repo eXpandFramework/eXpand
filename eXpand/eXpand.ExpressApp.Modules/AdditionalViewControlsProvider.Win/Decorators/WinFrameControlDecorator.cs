@@ -2,10 +2,11 @@
 using DevExpress.ExpressApp;
 using DevExpress.Utils.Frames;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Decorators
 {
-    [TypeDecorator(typeof(FrameControl))]
+    [TypeDecorator(typeof(FrameControl), typeof(HintPanel),true)]
     public class WinFrameControlDecorator : AdditionalViewControlsProviderDecorator
     {
         private static int count;

@@ -83,7 +83,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -136,7 +136,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Decorators\WinFrameControlDecorator.cs" />
-    <Compile Include="DomainLogic\AdditionalViewControlsControlsTypesDomainLogic.cs" />
     <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
