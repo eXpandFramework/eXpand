@@ -153,9 +153,6 @@
     <Compile Include="SystemModule\CustomAttibutesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\CustomSelectionListViewViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\DisableFullTextForMemoFieldsController.cs">
       <SubType>Component</SubType>
     </Compile>

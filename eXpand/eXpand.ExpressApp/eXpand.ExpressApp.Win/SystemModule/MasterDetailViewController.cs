@@ -23,7 +23,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
     public interface IModelClassMasterDetailOptions : IModelNode
     {
         [DataSourceProperty("Application.Views")]
-        [DataSourceCriteria("ModelClass Is Not Null And ModelClass.Name = '@This.Name'")]
+//        [DataSourceCriteria("ModelClass Is Not Null And ModelClass.Name = '@This.Name'")]
         [Category("eXpand")]
         [Description("The listview that is going to be used as child listview")]
         IModelListView DetailListView { get; set; }
