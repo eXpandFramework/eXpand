@@ -9,8 +9,8 @@ namespace eXpand.ExpressApp.Logic.NodeUpdaters {
 
         public override void UpdateNode(ModelNode node) {
             IModelGroupContexts m = GetModelLogicNode(node).GroupContexts;
-            if (m.GetNode<IModelIModelExecutionContexts>(Default) != null) return;
-            m.AddNode<IModelIModelExecutionContexts>(Default);
+            if (m.GetNode<IModelExecutionContexts>(Default) != null) return;
+            m.AddNode<IModelExecutionContexts>(Default);
         }
 
         protected abstract IModelLogic GetModelLogicNode(ModelNode node);

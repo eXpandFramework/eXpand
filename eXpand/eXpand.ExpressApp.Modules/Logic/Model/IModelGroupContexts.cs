@@ -4,8 +4,8 @@ using eXpand.ExpressApp.Logic.NodeGenerators;
 
 namespace eXpand.ExpressApp.Logic.Model {
     [ModelNodesGenerator(typeof(GroupContextsNodeGenerator))]
-    public interface IModelGroupContexts : IModelNode, IModelList<IModelIModelExecutionContexts> {
+    public interface IModelGroupContexts : IModelNode, IModelList<IModelExecutionContexts> {
         [DataSourceProperty("this")][Required]
-        IModelIModelExecutionContexts DefaultContext { get; set; }
+        IModelExecutionContexts DefaultContext { get; set; }
     }
 }

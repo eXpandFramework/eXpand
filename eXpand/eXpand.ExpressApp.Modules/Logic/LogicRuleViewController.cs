@@ -162,8 +162,8 @@ namespace eXpand.ExpressApp.Logic{
 
         ExecutionContext CalculateCurrentExecutionContext(string executionContextGroup) {
             var modelGroupContexts = GetModelGroupContexts(executionContextGroup);
-            IModelIModelExecutionContexts iModelExecutionContexts = modelGroupContexts.Where(context => context.Id == executionContextGroup).Single();
-            return iModelExecutionContexts.Aggregate(ExecutionContext.None, (current, modelGroupContext) =>
+            IModelExecutionContexts executionContexts = modelGroupContexts.Where(context => context.Id == executionContextGroup).Single();
+            return executionContexts.Aggregate(ExecutionContext.None, (current, modelGroupContext) =>
                                                 current | (ExecutionContext)Enum.Parse(typeof(ExecutionContext), modelGroupContext.Id.ToString()));    
         }
 
