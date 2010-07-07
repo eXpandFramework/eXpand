@@ -22,28 +22,58 @@ namespace eXpand.ExpressApp.Win.SystemModule
 {
     public interface IModelClassMasterDetailOptions : IModelNode
     {
-        [DataSourceProperty("Application.Views")]
-//        [DataSourceCriteria("ModelClass Is Not Null And ModelClass.Name = '@This.Name'")]
+        [DataSourceProperty("ListViews")]
         [Category("eXpand")]
         [Description("The listview that is going to be used as child listview")]
         IModelListView DetailListView { get; set; }
 
-        [DataSourceProperty("ModelClass.AllMembers")]
-        [DataSourceCriteria("MemberInfo.IsList")]
+        [Browsable(false)]
+        IEnumerable<IModelListView> ListViews { get; }
+
+        [DataSourceProperty("CollectionMembers")]
         [Category("eXpand")]
         [Description("The collection member that is going to be used as child collection")]
         IModelMember DetailListRelationName { get; set; }
 
-        [Category("eXpand")]
-        [Description("Enables 2 actions one for expanding all child rows and one for collapsing")]
-        bool ExpandAllRows { get; set; }
+        [Browsable(false)]
+        IEnumerable<IModelMember> CollectionMembers { get; }
+
+        
     }
     [ModelInterfaceImplementor(typeof(IModelClassMasterDetailOptions), "ModelClass")]
     public interface IModelListViewMasterDetailOptions : IModelClassMasterDetailOptions
     {
         
     }
+    [DomainLogic(typeof(IModelClassMasterDetailOptions))]
+    public class MasterDetailOptionsDomainLogic{
+        public static IEnumerable<IModelMember> Get_CollectionMembers(IModelClassMasterDetailOptions classMasterDetailOptions) {
+            IModelClass modelClass = GetModelClass(classMasterDetailOptions);
+            var calculatedModelNodeList = new CalculatedModelNodeList<IModelMember>();
+            calculatedModelNodeList.AddRange(modelClass.AllMembers.Where(member => member.MemberInfo.IsList));
+            return calculatedModelNodeList;
+        }
 
+        static IModelClass GetModelClass(IModelClassMasterDetailOptions classMasterDetailOptions) {
+            return classMasterDetailOptions is IModelClass
+                       ? (IModelClass) classMasterDetailOptions
+                       : ((IModelListView) classMasterDetailOptions).ModelClass;
+        }
+
+        public static IModelList<IModelListView> Get_ListViews(IModelClassMasterDetailOptions classMasterDetailOptions) {
+            var detailListRelationName = classMasterDetailOptions.DetailListRelationName;
+            var modelListViews = new CalculatedModelNodeList<IModelListView>();
+            if (detailListRelationName== null) {    
+                return modelListViews;
+            }
+            IModelClass modelClass = GetModelClass(classMasterDetailOptions);
+            ITypeInfo listElementTypeInfo = modelClass.AllMembers.Where(member => member==detailListRelationName).Single().MemberInfo.ListElementTypeInfo;
+            modelClass = modelClass.Application.BOModel.GetClass(listElementTypeInfo.Type);
+            modelListViews.AddRange(classMasterDetailOptions.Application.Views.OfType<IModelListView>().Where(view => view.ModelClass == modelClass));
+            return modelListViews;
+        }
+    }
+    [Obsolete("")]
     public class MasterDetailViewController : ViewController<ListView>, IModelExtender
     {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
@@ -124,10 +154,11 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         public GridColumn AddColumn(IModelColumn columnInfo, Type objectType, IModelListView model)
         {
-            var column = new GridColumn();
+            ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(objectType);
+            var column = new XafGridColumn(typeInfo, (GridListEditor) View.Editor);
 
             GridView.Columns.Add(column);
-            IMemberInfo memberInfo = XafTypesInfo.Instance.FindTypeInfo(objectType).FindMember(columnInfo.PropertyName);
+            IMemberInfo memberInfo = typeInfo.FindMember(columnInfo.PropertyName);
             if (memberInfo != null)
             {
                 column.FieldName = memberInfo.BindingName;
@@ -175,7 +206,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 if ((column.ColumnEdit == null) && !typeof(IList).IsAssignableFrom(memberInfo.MemberType))
                 {
                     column.OptionsColumn.AllowEdit = false;
-                    column.FieldName = GetDisplayablePropertyName(columnInfo.PropertyName, XafTypesInfo.Instance.FindTypeInfo(objectType));
+                    column.FieldName = GetDisplayablePropertyName(columnInfo.PropertyName, typeInfo);
                 }
             }
 
@@ -252,13 +283,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
         }
 
-        private bool ExpandAllRows
-        {
-            get
-            {
-                return ((IModelListViewMasterDetailOptions)View.Model).ExpandAllRows;
-            }
-        }
 
         protected override void OnDeactivating()
         {
@@ -308,8 +332,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             gridControl.LevelTree.Nodes.Add(DetailListRelationName.Name, gridView);
             gridView.DoubleClick += gridView_DoubleClick;
 
-            if (ExpandAllRows)
-                _expandAllRowsSimpleAction.DoExecute();
+            
         }
 
         private void gridView_DoubleClick(object sender, EventArgs e)

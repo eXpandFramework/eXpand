@@ -129,9 +129,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Interfaces\ILogOut.cs" />
-    <Compile Include="ListEditors\LayoutViewGridListEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ListEditors\GridListEditor.cs" />
     <Compile Include="ListEditors\IPopupMenuHider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
