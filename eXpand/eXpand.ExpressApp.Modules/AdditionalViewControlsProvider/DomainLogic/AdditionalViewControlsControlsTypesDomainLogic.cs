@@ -22,7 +22,8 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.DomainLogic {
         }
         public static List<Type> Get_ControlTypes(IModelNode modelNode) {
             IEnumerable<TypeDecorator[]> typeDecoratorsAttr = GetTypeDecoratorsAttr();
-            return typeDecoratorsAttr.Single().SelectMany(typeDecorator => ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(typeDecorator.ControlType), true).Select(info => info.Type)).ToList();
+            TypeDecorator[] singleOrDefault = typeDecoratorsAttr.SingleOrDefault();
+            return singleOrDefault != null ? singleOrDefault.SelectMany(typeDecorator => ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(typeDecorator.ControlType), true).Select(info => info.Type)).ToList() : new List<Type>();
         }
 
         static IEnumerable<TypeDecorator[]> GetTypeDecoratorsAttr() {
@@ -32,14 +33,13 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.DomainLogic {
         public static Type Get_DecoratorType(IModelNode modelNode) {
             ITypeInfo decoratorType =
                 GetDecorators().Where(info =>info.Type.GetCustomAttributes(typeof (TypeDecorator), true).OfType<TypeDecorator>().Where(
-                        decorator => decorator.IsDefaultDecorator).Count() > 0).Single();
-            return decoratorType.Type;
+                        decorator => decorator.IsDefaultDecorator).Count() > 0).SingleOrDefault();
+            return decoratorType != null ? decoratorType.Type : null;
         }
 
-        public static Type Get_ControlType(IModelNode modelNode)
-        {
-            TypeDecorator typeDecorator = GetTypeDecoratorsAttr().Single()[0];
-            return typeDecorator.DefaultType;
+        public static Type Get_ControlType(IModelNode modelNode){
+            TypeDecorator[] typeDecorators = GetTypeDecoratorsAttr().SingleOrDefault();
+            return typeDecorators != null ? typeDecorators[0].DefaultType : null;
         }
 
     }
