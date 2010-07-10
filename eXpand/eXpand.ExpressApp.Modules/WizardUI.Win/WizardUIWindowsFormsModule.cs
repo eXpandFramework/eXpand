@@ -8,6 +8,7 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.SystemModule;
@@ -21,11 +22,17 @@ namespace eXpand.ExpressApp.WizardUI.Win
     {
         IModelDetailViewWizardPages Wizard { get; }
     }
-
+    [ModelNodesGenerator(typeof(DetailViewWizardPagesNodesGenerator))]
     public interface IModelDetailViewWizardPages : IModelNode, IModelList<IModelDetailViewWizardPage>
     {
         bool ShowInWizard { get; set; }
         bool ShowCompletionWizardPage { get; set; }
+    }
+
+    public class DetailViewWizardPagesNodesGenerator:ModelNodesGeneratorBase {
+        protected override void GenerateNodesCore(ModelNode node) {
+            
+        }
     }
 
     [DisplayProperty("Caption"), KeyProperty("ID"), ModelDisplayName("WizardPage"), ModelPersistentName("WizardPage")]
