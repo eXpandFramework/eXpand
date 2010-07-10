@@ -21,6 +21,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new AdditionalViewControlsDefaultGroupContextNodeUpdater());
             updaters.Add(new AdditionalViewControlsRulesNodeUpdater());
+            updaters.Add(new AdditionalViewControlsDefaultContextNodeUpdater());
         }
         #endregion
         protected override IModelLogic GetModelLogic(IModelApplication applicationModel) {

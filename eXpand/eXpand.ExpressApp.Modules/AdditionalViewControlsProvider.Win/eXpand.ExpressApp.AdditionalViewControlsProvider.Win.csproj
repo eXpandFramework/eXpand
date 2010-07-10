@@ -139,7 +139,6 @@
     <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="NodeUpdaters\AdditionalViewControlsDefaultContextNodeUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\ControlTypeConverter.cs" />
     <Compile Include="Security\DecoratorTypeConverter.cs" />
