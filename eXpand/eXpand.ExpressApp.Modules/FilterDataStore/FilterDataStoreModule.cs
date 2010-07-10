@@ -7,6 +7,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -22,12 +23,18 @@ namespace eXpand.ExpressApp.FilterDataStore
     {
         string Name { get; set; }
     }
-
+    [ModelNodesGenerator(typeof(DisabledDataStoreFiltersNodesGenerator))]
     public interface IModelDisabledDataStoreFilters : IModelNode, IModelList<IModelDisabledDataStoreFilter>
     {
     }
 
-   
+    public class DisabledDataStoreFiltersNodesGenerator:ModelNodesGeneratorBase {
+        protected override void GenerateNodesCore(ModelNode node) {
+            
+        }
+    }
+
+
     public interface IModelFilterDataStoreModule
     {
         IModelFilterDataStoreSystemTables SystemTables { get; set; }
@@ -38,9 +45,15 @@ namespace eXpand.ExpressApp.FilterDataStore
     {
         string Name { get; set; }
     }
-
+    [ModelNodesGenerator(typeof(FilterDataStoreSystemTablesNodesGenerator))]
     public interface IModelFilterDataStoreSystemTables : IModelNode, IModelList<IModelFilterDataStoreSystemTable>
     {
+    }
+
+    public class FilterDataStoreSystemTablesNodesGenerator:ModelNodesGeneratorBase {
+        protected override void GenerateNodesCore(ModelNode node) {
+            
+        }
     }
 
     public sealed partial class FilterDataStoreModule : ModuleBase
