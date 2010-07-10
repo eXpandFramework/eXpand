@@ -38,23 +38,27 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
 
         private static IEnumerable<IModelMember> GetCustomFields(IModelApplication model)
         {
-            return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelMemberIsRuntimeMember>().Where(member => member.IsRuntimeMember).Cast<IModelMember>().ToList();
+            return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).Where(member => member.MemberInfo!=null);
         }
 
         public static void AddFields(IModelApplication model, XPDictionary dictionary)
         {
-            foreach (IModelMember customFieldInfo in GetCustomFields(model))
+            model.BOModel.SelectMany(modelClass => modelClass.AllMembers).Where(member => member.MemberInfo != null).
+                ToList();
+            return;
+            foreach (IModelMember modelMember in GetCustomFields(model))
                 try
                 {
-                    Type classType = ((IModelClass)customFieldInfo.Parent).TypeInfo.Type;
-                    var typeInfo = dictionary.GetClassInfo(classType);
+                    continue;
+                    Type classType = ((IModelClass)modelMember.Parent.Parent).TypeInfo.Type;
+                    XPClassInfo typeInfo = dictionary.GetClassInfo(classType);
                     lock (typeInfo)
                     {
-                        if (typeInfo.FindMember(customFieldInfo.Name) == null)
+                        if (typeInfo.FindMember(modelMember.Name) == null)
                         {
-                            XPCustomMemberInfo memberInfo = typeInfo.CreateMember(customFieldInfo.Name, customFieldInfo.MemberInfo.MemberType);
-                            if (customFieldInfo.Size != 0)
-                                memberInfo.AddAttribute(new DevExpress.Xpo.SizeAttribute(customFieldInfo.Size));
+                            XPCustomMemberInfo memberInfo = typeInfo.CreateMember(modelMember.Name, modelMember.MemberInfo.MemberType);
+                            if (modelMember.Size != 0)
+                                memberInfo.AddAttribute(new DevExpress.Xpo.SizeAttribute(modelMember.Size));
 
                             XafTypesInfo.Instance.RefreshInfo(classType);
                         }
@@ -65,9 +69,9 @@ namespace eXpand.ExpressApp.Core.DictionaryHelpers
                     throw new Exception(
                         ExceptionLocalizerTemplate<SystemExceptionResourceLocalizer, ExceptionId>.GetExceptionMessage(
                             ExceptionId.ErrorOccursWhileAddingTheCustomProperty,
-                            customFieldInfo.MemberInfo.MemberType,
-                            ((IModelClass)customFieldInfo.Parent).Name,
-                            customFieldInfo.Name,
+                            modelMember.MemberInfo.MemberType,
+                            ((IModelClass)modelMember.Parent).Name,
+                            modelMember.Name,
                             exception.Message));
                 }
         }
