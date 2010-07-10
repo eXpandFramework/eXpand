@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.SystemModule {
@@ -22,7 +23,11 @@ namespace eXpand.ExpressApp.SystemModule {
         }
 
 
-    
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelListView, IModelListViewPropertyPathFilters>();
+        }
     }
 
 }
