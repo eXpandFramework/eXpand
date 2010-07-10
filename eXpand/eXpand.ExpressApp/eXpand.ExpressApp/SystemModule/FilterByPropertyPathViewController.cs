@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
@@ -20,15 +21,21 @@ using System.ComponentModel;
 namespace eXpand.ExpressApp.SystemModule
 {
 
-    public interface IModelListViewPropertyPathFilters
+    public interface IModelListViewPropertyPathFilters:IModelNode
     {
         IModelPropertyPathFilters PropertyPathFilters { get; set; }
     }
-
+    [ModelNodesGenerator(typeof(ModelPropertyPathFiltersNodesGenerator))]
     public interface IModelPropertyPathFilters : IModelNode, IModelList<IModelPropertyPathFilter>
     {
     }
 
+    public class ModelPropertyPathFiltersNodesGenerator : ModelNodesGeneratorBase
+    {
+        protected override void GenerateNodesCore(ModelNode node) {
+            
+        }
+    }
     public interface IModelPropertyPathFilter : IModelNode
     {
         [Required, ModelPersistentName("ID")]
@@ -41,7 +48,7 @@ namespace eXpand.ExpressApp.SystemModule
         IModelListView PropertyPathListViewId { get; set; }
     }
 
-    public abstract class FilterByPropertyPathViewController : ViewController<ListView>, IModelExtender
+    public abstract class FilterByPropertyPathViewController : ViewController<ListView>
     {
         private Dictionary<string, FiltersByCollectionWrapper> _filtersByPropertyPathWrappers;
         readonly SingleChoiceAction _filterSingleChoiceAction;
@@ -56,6 +63,7 @@ namespace eXpand.ExpressApp.SystemModule
             _filterSingleChoiceAction = new SingleChoiceAction(this, "_filterSingleChoiceAction",
                                                                PredefinedCategory.Search) {Caption = "Search By"};
             _filterSingleChoiceAction.Execute+=createFilterSingleChoiceAction_Execute;
+            _filterSingleChoiceAction.ItemType=SingleChoiceActionItemType.ItemIsOperation;
             TargetViewNesting = Nesting.Root;
         }
 
@@ -136,10 +144,6 @@ namespace eXpand.ExpressApp.SystemModule
                         ObjectSpace.Session.GetClassInfo(View.ObjectTypeInfo.Type)));
         }
 
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
-            extenders.Add<IModelListView, IModelListViewPropertyPathFilters>();
-        }
 
         private void ApplyFilterString()
         {
@@ -156,7 +160,7 @@ namespace eXpand.ExpressApp.SystemModule
                 text = "(" + text + ")";
 
             var frameTemplate = Frame.Template as IViewSiteTemplate;
-            if (frameTemplate != null && !string.IsNullOrEmpty(text)) AddFilterPanel(text, frameTemplate.ViewSiteControl);
+            if (frameTemplate != null) AddFilterPanel(text, frameTemplate.ViewSiteControl);
         }
 
         protected abstract void AddFilterPanel(string text, object viewSiteControl);
@@ -196,6 +200,7 @@ namespace eXpand.ExpressApp.SystemModule
         {
             View view = ((DialogController)sender).Frame.View;
             SynchronizeInfo(view);
+            
         }
 
         protected virtual void SynchronizeInfo(View view)
@@ -231,9 +236,7 @@ namespace eXpand.ExpressApp.SystemModule
             IModelListView memberSearchWrapper = GetNodeMemberSearchWrapper(filtersByCollectionWrapper);
             var objectSpace = Application.CreateObjectSpace();
             var classType = filtersByCollectionWrapper.BinaryOperatorLastMemberClassType;
-            CollectionSourceBase newCollectionSource = !memberSearchWrapper.UseServerMode
-                                                           ? new CollectionSource(objectSpace, classType, false)
-                                                           : new CollectionSource(objectSpace, classType, true);
+            CollectionSourceBase newCollectionSource = new CollectionSource(objectSpace, classType, memberSearchWrapper.UseServerMode);
 
             SetActiveFilter(memberSearchWrapper, filtersByCollectionWrapper.PropertyPathFilter);
 
