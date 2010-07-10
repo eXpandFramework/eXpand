@@ -5,7 +5,7 @@ using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.Web
 {
-    public abstract partial class WebComponent : DevExpress.ExpressApp.Web.WebApplication
+    public abstract partial class WebComponent : DevExpress.ExpressApp.Web.WebApplication,ISupportModelsManager
     {
         protected WebComponent()
         {
@@ -17,6 +17,10 @@ namespace eXpand.ExpressApp.Web
             base.OnCustomProcessShortcut(args);
             new ViewShortCutProccesor(this).Proccess(args);
             
+        }
+        public ApplicationModelsManager ModelsManager
+        {
+            get { return modelsManager; }
         }
 
         protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)

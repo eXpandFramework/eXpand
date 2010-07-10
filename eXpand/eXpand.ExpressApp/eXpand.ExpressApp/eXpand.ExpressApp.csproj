@@ -124,6 +124,7 @@
     <Compile Include="Enums\DetailViewType.cs" />
     <Compile Include="Enums\RecycleBinEnum.cs" />
     <Compile Include="Core\ModuleBaseExtensions.cs" />
+    <Compile Include="IModelsManager.cs" />
     <Compile Include="IObjectSpaceProvider.cs" />
     <Compile Include="IXpoDataStoreProxy.cs" />
     <Compile Include="ModuleBase.cs">

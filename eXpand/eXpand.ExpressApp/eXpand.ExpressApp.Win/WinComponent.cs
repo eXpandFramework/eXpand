@@ -10,7 +10,7 @@ using eXpand.ExpressApp.Win.Interfaces;
 
 namespace eXpand.ExpressApp.Win
 {
-    public partial class WinComponent : WinApplication, ILogOut
+    public partial class WinComponent : WinApplication, ILogOut, ISupportModelsManager
     {
 
         protected override void OnCustomProcessShortcut(CustomProcessShortcutEventArgs args)
@@ -18,6 +18,10 @@ namespace eXpand.ExpressApp.Win
             base.OnCustomProcessShortcut(args);
             new ViewShortCutProccesor(this).Proccess(args);
             
+        }
+
+        public ApplicationModelsManager ModelsManager {
+            get { return modelsManager; }
         }
 
         public void Logout()
