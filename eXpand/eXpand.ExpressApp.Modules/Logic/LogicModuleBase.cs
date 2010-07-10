@@ -56,7 +56,6 @@ namespace eXpand.ExpressApp.Logic {
 
         protected virtual TLogicRule2 GetRuleObject(IModelLogicRule ruleDefinition) {
             var logicRule2 = ((TLogicRule2) Activator.CreateInstance(typeof (TLogicRule2), (TLogicRule) ruleDefinition));
-            logicRule2.TypeInfo = ruleDefinition.ModelClass.TypeInfo;
             return logicRule2;
         }
 

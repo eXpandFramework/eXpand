@@ -20,6 +20,7 @@ namespace eXpand.ExpressApp.Logic.NodeUpdaters {
                 var rule = node.AddNode<TModelLogicRule>(attribute.Id);
                 ((IModelNode) rule).Index = attribute.Index;
                 rule.ModelClass = modelClass;
+                rule.TypeInfo = modelClass.TypeInfo;
                 SetAttribute(rule, attribute);
             }
         }
@@ -28,8 +29,8 @@ namespace eXpand.ExpressApp.Logic.NodeUpdaters {
 
 
         public override void UpdateNode(ModelNode node) {
-            TRootModelNode modelArtifactState = default(TRootModelNode);
-            var propertyName = modelArtifactState.GetPropertyName(ExecuteExpression());
+            TRootModelNode rootModelNode = default(TRootModelNode);
+            var propertyName = rootModelNode.GetPropertyName(ExecuteExpression());
             if (node.Parent.Id == propertyName) {
                 foreach (IModelClass modelClass in node.Application.BOModel) {
                     var findAttributes = LogicRuleManager<TLogicRule>.FindAttributes(modelClass.TypeInfo);
