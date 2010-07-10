@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Linq;
 using DevExpress.ExpressApp.Templates;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Model;
 using eXpand.ExpressApp.Logic;
@@ -22,10 +20,8 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                     Type controlType = calculator.ControlsRule.ControlType;
                     if (info.Active) {
                         object control = Activator.CreateInstance(controlType);
+                        Activator.CreateInstance(calculator.ControlsRule.DecoratorType,new[] {info.View, control, info.Rule});
                         AddControl(viewSiteControl, control, info, calculator, executionContext);
-                    }
-                    else {
-                        RemoveControl(viewSiteControl, controlType);
                     }
                 }
             }
@@ -35,20 +31,9 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             return ((IModelApplicationAdditionalViewControls)Application.Model).AdditionalViewControls.GroupContexts;
         }
 
-        protected abstract void RemoveControl(object viewSiteControl, Type controlType);
 
 
-        protected object GetControl(IEnumerable collection, object control,
-                                    AdditionalViewControlsProviderCalculator calculator,
-                                    LogicRuleInfo<IAdditionalViewControlsRule> additionalViewControlsRule){
-            object o = additionalViewControlsRule.Rule.UseSameIfFound
-                           ? (collection.OfType<object>().Where(control1 => control1.GetType().Equals(control.GetType())).
-                                  FirstOrDefault() ?? control): control;
-            Activator.CreateInstance(calculator.ControlsRule.DecoratorType, new[] { additionalViewControlsRule.View, o, additionalViewControlsRule.Rule });
-            return o;
-        }
 
-
-        protected abstract object AddControl(object viewSiteControl, object control, LogicRuleInfo<IAdditionalViewControlsRule> additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator, ExecutionContext context);
+        protected abstract void AddControl(object viewSiteControl, object control, LogicRuleInfo<IAdditionalViewControlsRule> additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator, ExecutionContext context);
     }
 }

@@ -8,7 +8,7 @@ using eXpand.ExpressApp.Logic.NodeUpdaters;
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.NodeUpdaters {
     public class AdditionalViewControlsDefaultContextNodeUpdater : LogicDefaultContextNodeUpdater {
         protected override List<ExecutionContext> GetExecutionContexts() {
-            return new List<ExecutionContext> { ExecutionContext.CurrentObjectChanged, ExecutionContext.ObjectChanged, ExecutionContext.TemplateViewChanged };
+            return new List<ExecutionContext> { ExecutionContext.ViewControlAdding};
         }
 
         protected override IModelLogic GetModelLogicNode(ModelNode node) {

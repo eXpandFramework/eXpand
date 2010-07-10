@@ -36,9 +36,6 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         [Description("Specifies the position at which the control is to be inserted")]
         Position Position { get; set; }
 
-        [Category("Behavior")]
-        [Description("If a control of the same type is found is going to use that one")]
-        [DefaultValue(true)]
-        bool UseSameIfFound { get; set; }
+        
     }
 }

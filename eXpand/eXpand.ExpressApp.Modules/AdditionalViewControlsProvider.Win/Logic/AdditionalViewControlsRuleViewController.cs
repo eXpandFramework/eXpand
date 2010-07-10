@@ -1,30 +1,40 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
+using DevExpress.ExpressApp;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using eXpand.ExpressApp.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
     public class AdditionalViewControlsRuleViewController : AdditionalViewControlsProvider.Logic.AdditionalViewControlsRuleViewController {
-        protected override void RemoveControl(object viewSiteControl, Type controlType) {
-            Control.ControlCollection collection = ((Control) viewSiteControl).Controls;
-            object getControl =
-                collection.OfType<object>().Where(control1 => control1.GetType().Equals(controlType)).FirstOrDefault();
-            collection.Remove((Control) getControl);
+        protected override void OnFrameAssigned() {
+            base.OnFrameAssigned();
+            Frame.ViewChanged+=FrameOnViewChanged;
         }
 
-        protected override object AddControl(object viewSiteControl, object control,
+        void FrameOnViewChanged(object sender, ViewChangedEventArgs viewChangedEventArgs) {
+            if (Frame.View != null) {
+                try {
+                    var control = Frame.View.Control as Control;
+                    if (control != null) {
+                        control.BringToFront();
+                    }
+                }
+                catch (Exception e) {
+                    Console.WriteLine(e);
+                }
+            }
+        }
+
+        protected override void AddControl(object viewSiteControl, object control,
                                              LogicRuleInfo<IAdditionalViewControlsRule> additionalViewControlsRule,
                                              AdditionalViewControlsProviderCalculator calculator,
                                              ExecutionContext context) {
             var value = (Control) control;
+            value.Visible = true;
             value.Dock = additionalViewControlsRule.Rule.Position == Position.Bottom ? DockStyle.Bottom : DockStyle.Top;
             Control.ControlCollection collection = ((Control) viewSiteControl).Controls;
-            var getControl = (Control) GetControl(collection, control, calculator, additionalViewControlsRule);
-            collection.Add(getControl);
-            return getControl;
+            collection.Add(value);
         }
-
 
     }
 }
