@@ -32,13 +32,15 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
 
         private void OnCustomShowNavigationItem(object sender, CustomShowNavigationItemEventArgs args)
         {
-            var viewId = ((ViewShortcut) args.ActionArguments.SelectedChoiceActionItem.Data).ViewId;
-            var variants = Application.Model.Views[viewId] as IModelViewVariants;
-            if (variants != null){
-                if (variants.Variants.Current != null) {
-                    var variantName = variants.Variants.Current.Caption;
-                    if (!string.IsNullOrEmpty(variantName) && variantName != "Default")
-                        ((ViewShortcut)args.ActionArguments.SelectedChoiceActionItem.Data).ViewId = variants.Variants[variantName].View.Id;
+            if (args.ActionArguments.SelectedChoiceActionItem.Data != null) {
+                var viewId = ((ViewShortcut) args.ActionArguments.SelectedChoiceActionItem.Data).ViewId;
+                var variants = Application.Model.Views[viewId] as IModelViewVariants;
+                if (variants != null){
+                    if (variants.Variants.Current != null) {
+                        var variantName = variants.Variants.Current.Caption;
+                        if (!string.IsNullOrEmpty(variantName) && variantName != "Default")
+                            ((ViewShortcut)args.ActionArguments.SelectedChoiceActionItem.Data).ViewId = variants.Variants[variantName].View.Id;
+                    }
                 }
             }
         }
