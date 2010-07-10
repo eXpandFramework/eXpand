@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Updating;
@@ -9,10 +10,16 @@ using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 using System.Reflection;
 
 namespace eXpand.ExpressApp.ModelDifference{
-    public abstract class ModelDifferenceBaseModule<T> : ModuleBase where T : XpoModelDictionaryDifferenceStore
+    public abstract class ModelDifferenceBaseModule : ModuleBase 
     {
         protected internal abstract bool? PersistentApplicationModelUpdated { get; set; }
+        public event EventHandler<CreateCustomModelDifferenceStoreEventArgs> CreateCustomModelDifferenceStore;
 
+        public void OnCreateCustomModelDifferenceStore(CreateCustomModelDifferenceStoreEventArgs e)
+        {
+            EventHandler<CreateCustomModelDifferenceStoreEventArgs> handler = CreateCustomModelDifferenceStore;
+            if (handler != null) handler(this, e);
+        }
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
@@ -20,6 +27,7 @@ namespace eXpand.ExpressApp.ModelDifference{
             application.SetupComplete += OnSetupComplete;
         }
 
+        public abstract string GetPath();
         private void OnSetupComplete(object sender, EventArgs args)
         {
             var dbUpdater = new DatabaseUpdater(Application.ObjectSpaceProvider, Application.Modules, Application.ApplicationName);
@@ -51,13 +59,16 @@ namespace eXpand.ExpressApp.ModelDifference{
 
         private void OnLoggingOn(object sender, EventArgs args)
         {
-            GetApplicationModelDiffs();
+            var createCustomModelDifferenceStoreEventArgs = new CreateCustomModelDifferenceStoreEventArgs();
+            OnCreateCustomModelDifferenceStore(createCustomModelDifferenceStoreEventArgs);
+            if (!createCustomModelDifferenceStoreEventArgs.Handled)
+                GetApplicationModelDiffs(createCustomModelDifferenceStoreEventArgs.ExtraDiffStores);
+
         }
 
-        private void GetApplicationModelDiffs()
+        private void GetApplicationModelDiffs(List<KeyValuePair<string, ModelStoreBase>> extraDiffStores)
         {
-            new XpoModelDictionaryDifferenceStoreFactory<T>().Create(Application, true)
-                .Load((ModelApplicationBase)Application.Model);
+            new XpoModelDictionaryDifferenceStore(Application, true, GetPath(), extraDiffStores).Load((ModelApplicationBase)Application.Model);
         }
     }
 }

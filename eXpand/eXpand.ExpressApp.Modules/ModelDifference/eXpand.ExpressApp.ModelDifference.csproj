@@ -157,6 +157,7 @@
     <Compile Include="Controllers\CreateNewDifferenceObjectViewController.Designer.cs">
       <DependentUpon>CreateNewDifferenceObjectViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreateCustomModelDifferenceStoreEventArgs.cs" />
     <Compile Include="DataStore\BaseObjects\DifferenceObject.cs" />
     <Compile Include="DataStore\BaseObjects\ModelDifferenceObject.cs" />
     <Compile Include="DataStore\BaseObjects\ValueConverters\DictionaryValueConverter.cs" />

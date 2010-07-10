@@ -50,7 +50,12 @@ namespace eXpand.ExpressApp.ModelDifference
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
-            application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;
+            application.CreateCustomUserModelDifferenceStore +=ApplicationOnCreateCustomUserModelDifferenceStore;
+        }
+
+        void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, DevExpress.ExpressApp.CreateCustomModelDifferenceStoreEventArgs args) {
+            args.Handled = true;
+            args.Store = new XpoUserModelDictionaryDifferenceStore(Application);
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters)
@@ -59,11 +64,6 @@ namespace eXpand.ExpressApp.ModelDifference
             updaters.Add(new BOModelNodesUpdater());
         }
 
-        private void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs args)
-        {
-            args.Handled = true;
-            args.Store = new XpoUserModelDictionaryDifferenceStore(Application);
-        }
     }
 
     public class BOModelNodesUpdater : ModelNodesGeneratorUpdater<ModelBOModelClassNodesGenerator>
