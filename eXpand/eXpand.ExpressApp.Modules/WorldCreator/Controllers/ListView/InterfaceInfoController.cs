@@ -6,14 +6,22 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.WorldCreator.Controllers.ListView
 {
+    [ModelNodesGenerator(typeof(ModelInterfaceSourcesNodesGenerator))]
     public interface IModelInterfaceSources : IModelNode, IModelList<IModelAssemblyResourceImageSource>
     {
+    }
+
+    public class ModelInterfaceSourcesNodesGenerator:ModelNodesGeneratorBase {
+        protected override void GenerateNodesCore(ModelNode node) {
+            
+        }
     }
 
     public class InterfaceInfoController : ViewController<DevExpress.ExpressApp.ListView>, IModelExtender
