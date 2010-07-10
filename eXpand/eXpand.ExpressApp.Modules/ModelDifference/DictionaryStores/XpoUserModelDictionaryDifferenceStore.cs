@@ -26,7 +26,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         }
 
         protected internal IQueryable<ModelDifferenceObject> GetActiveDifferenceObjects(){
-            List<ModelDifferenceObject> allLayers =
+            var allLayers =
                 new List<ModelDifferenceObject>(new QueryRoleModelDifferenceObject(ObjectSpace.Session)
                     .GetActiveModelDifferences(Application.GetType().FullName).Cast<ModelDifferenceObject>());
 
@@ -50,21 +50,21 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
         public void CombineWithActiveDifferenceObjects(ModelApplicationBase model, List<ModelDifferenceObject> modelDifferenceObjects)
         {
-            ModelXmlReader reader = new ModelXmlReader();
-            ModelXmlWriter writer = new ModelXmlWriter();
+            var reader = new ModelXmlReader();
+            var writer = new ModelXmlWriter();
 
             foreach (var modelDifferenceObject in modelDifferenceObjects)
             {
-                ((ModelApplicationBase)ModelDifferenceModule.Application.Model).AddLayer(modelDifferenceObject.Model);
+                ((ModelApplicationBase)ModuleBase.Application.Model).AddLayer(modelDifferenceObject.Model);
                 
-                for (int i = 0; i < ((ModelApplicationBase)ModelDifferenceModule.Application.Model).LastLayer.AspectCount; i++)
+                for (int i = 0; i < ((ModelApplicationBase)ModuleBase.Application.Model).LastLayer.AspectCount; i++)
                 {
-                    var xml = writer.WriteToString(((ModelApplicationBase)ModelDifferenceModule.Application.Model).LastLayer, i);
+                    var xml = writer.WriteToString(((ModelApplicationBase)ModuleBase.Application.Model).LastLayer, i);
                     if (!string.IsNullOrEmpty(xml))
-                        reader.ReadFromString(model, ((ModelApplicationBase)ModelDifferenceModule.Application.Model).GetAspect(i), xml);
+                        reader.ReadFromString(model, ((ModelApplicationBase)ModuleBase.Application.Model).GetAspect(i), xml);
                 }
 
-                ((ModelApplicationBase)ModelDifferenceModule.Application.Model).RemoveLayer(modelDifferenceObject.Model);
+                ((ModelApplicationBase)ModuleBase.Application.Model).RemoveLayer(modelDifferenceObject.Model);
             }
         }
 
@@ -84,7 +84,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 var reader = new ModelXmlReader();
                 var writer = new ModelXmlWriter();
                 var space = Application.CreateObjectSpace();
-                IQueryable<ModelDifferenceObject> differences = GetDifferences(space);
+                IEnumerable<ModelDifferenceObject> differences = GetDifferences(space);
                 foreach (var difference in differences){
                     for (int i = 0; i < model.AspectCount; i++)
                     {
@@ -99,7 +99,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             }
         }
 
-        private IQueryable<ModelDifferenceObject> GetDifferences(ObjectSpace space){
+        private IEnumerable<ModelDifferenceObject> GetDifferences(ObjectSpace space){
             return new QueryModelDifferenceObject(space.Session).GetModelDifferences(
                 ((IUser) SecuritySystem.CurrentUser).Permissions.OfType<ModelCombinePermission>().Select(
                     permission => permission.Difference));

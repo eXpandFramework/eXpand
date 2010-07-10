@@ -171,7 +171,6 @@
     <Compile Include="DataStore\BaseObjects\RoleModelDifferenceObject.cs" />
     <Compile Include="DataStore\BaseObjects\UserModelDifferenceObject.cs" />
     <Compile Include="DataStore\Queries\QueryRoleModelDifferenceObject.cs" />
-    <Compile Include="DictionaryStores\XpoModelDictionaryDifferenceStoreFactory.cs" />
     <Compile Include="ModelDifferenceBaseModule.cs">
       <SubType>Component</SubType>
     </Compile>

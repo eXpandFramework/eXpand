@@ -6,19 +6,22 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Utils;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.Persistent.Base;
 
 namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
-    public abstract class XpoModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore
+    public  class XpoModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore
     {
         private readonly bool _enableLoading;
+        readonly string _path;
+        readonly List<KeyValuePair<string, ModelStoreBase>> _extraDiffStores;
         public const string EnableDebuggerAttachedCheck = "EnableDebuggerAttachedCheck";
 
-        protected XpoModelDictionaryDifferenceStore( XafApplication application, bool enableLoading) : base(application){
+        public XpoModelDictionaryDifferenceStore(XafApplication application, bool enableLoading, string path, List<KeyValuePair<string, ModelStoreBase>> extraDiffStores) : base(application) {
             _enableLoading = enableLoading;
+            _path = path;
+            _extraDiffStores = extraDiffStores;
         }
 
         internal bool UseModelFromPath()
@@ -35,60 +38,73 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         }
         
         protected internal List<string> GetModelPaths(){
-            List<string> paths = Directory.GetFiles(GetPath()).Where(
+            List<string> paths = Directory.GetFiles(_path).Where(
                 s => s.EndsWith(".xafml")).ToList();
             return paths;
         }
 
-        protected internal abstract string GetPath();
+        
         
         public override void Load(ModelApplicationBase model)
         {
             if (!_enableLoading)
                 return;
           
-            var activeDifferenceObject = GetActiveDifferenceObject();
-            ModelApplicationBase loadedModel = null;
+            ModelApplicationBase loadedModel = GetLoadedModel();
 
-            if (UseModelFromPath())
-            {
-                loadedModel = loadFromPath();
-                loadedModel.Id = "Loaded From Path";
-            }
-            else if (activeDifferenceObject != null)
-            {
-                loadedModel = activeDifferenceObject.Model;
-                loadedModel.Id = activeDifferenceObject.Name;
-            }
-
-            if (loadedModel != null)
-            {
+            if (loadedModel != null){
                 var language = model.Application.PreferredLanguage;
                 var userLayer = model.LastLayer;
                 model.RemoveLayer(userLayer);
+                if (LoadModelsFromExtraDiffStores(loadedModel))
+                    SaveDifference(loadedModel);
                 model.AddLayer(loadedModel);
                 model.AddLayer(userLayer);
-                if (model.Application.PreferredLanguage != language)
-                {
+                if (model.Application.PreferredLanguage != language){
                     Application.SetLanguage(model.Application.PreferredLanguage);
                 }
             }
-            else 
+            else {
+                ModelApplicationBase modelApplicationBase = model.LastLayer;
+                LoadModelsFromExtraDiffStores(modelApplicationBase);
+                model.AddLayer(modelApplicationBase);
                 SaveDifference(model.LastLayer);
+            }
         }
 
-        private ModelApplicationBase loadFromPath()
+        bool LoadModelsFromExtraDiffStores(ModelApplicationBase modelApplicationBase) {
+            foreach (var extraDiffStore in _extraDiffStores) {
+                extraDiffStore.Value.Load(modelApplicationBase);
+                
+            }
+            return modelApplicationBase.HasModification;
+        }
+
+        ModelApplicationBase GetLoadedModel() {
+            var activeDifferenceObject = GetActiveDifferenceObject();
+            ModelApplicationBase loadedModel = null;
+
+            if (UseModelFromPath()){
+                loadedModel = LoadFromPath();
+                loadedModel.Id = "Loaded From Path";
+            }
+            else if (activeDifferenceObject != null){
+                loadedModel = activeDifferenceObject.Model;
+                loadedModel.Id = activeDifferenceObject.Name;
+            }
+            return loadedModel;
+        }
+
+        private ModelApplicationBase LoadFromPath()
         {
             var reader = new ModelXmlReader();
             var model = ((ModelApplicationBase)Application.Model).CreatorInstance.CreateModelApplication();
 
-            foreach (var s in GetModelPaths().Where(s => Path.GetFileName(s).ToLower().StartsWith("model") && s.IndexOf(".User") == -1))
-            {
+            foreach (var s in GetModelPaths().Where(s => Path.GetFileName(s).ToLower().StartsWith("model") && s.IndexOf(".User") == -1)){
                 string replace = s.Replace(".xafml", "");
                 string aspect = string.Empty;
                 if (replace.IndexOf("_") > -1)
                     aspect = replace.Substring(replace.IndexOf("_") + 1);
-
                 reader.ReadFromFile(model, aspect, s);
             }
 

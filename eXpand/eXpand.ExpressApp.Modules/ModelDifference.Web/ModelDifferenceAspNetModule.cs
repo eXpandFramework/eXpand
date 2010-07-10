@@ -4,14 +4,14 @@ using System.Web;
 namespace eXpand.ExpressApp.ModelDifference.Web
 {
     [ToolboxItemFilter("Xaf.Platform.Web")]
-    public sealed class ModelDifferenceAspNetModule : ModelDifferenceBaseModule<XpoWebModelDictionaryDifferenceStore>
+    public sealed class ModelDifferenceAspNetModule : ModelDifferenceBaseModule
     {
         private bool? persistentApplicationModelUpdated;
 
         public ModelDifferenceAspNetModule()
         {
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
-            this.RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
+            RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
         }
 
         protected override bool? PersistentApplicationModelUpdated{
@@ -22,6 +22,11 @@ namespace eXpand.ExpressApp.ModelDifference.Web
                 return persistentApplicationModelUpdated;
             }
             set { HttpContext.Current.Application["persistentApplicationModelUpdated"] = value; }
+        }
+
+        public override string GetPath() {
+            HttpRequest request = HttpContext.Current.Request;
+            return request.MapPath(request.ApplicationPath);
         }
     }
 }
