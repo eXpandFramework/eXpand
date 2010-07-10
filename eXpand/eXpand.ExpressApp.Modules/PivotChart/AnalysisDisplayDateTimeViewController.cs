@@ -9,7 +9,7 @@ using AnalysisViewControllerBase = eXpand.ExpressApp.PivotChart.Core.AnalysisVie
 using PivotGridFieldBuilder = eXpand.ExpressApp.PivotChart.Core.PivotGridFieldBuilder;
 
 namespace eXpand.ExpressApp.PivotChart {
-    public interface IModelMemberAnalysisDisplayDateTime:IModelMember
+    public interface IModelMemberAnalysisDisplayDateTime
     {
         [Category("eXpand.PivotChart")]
         PivotGroupInterval PivotGroupInterval { get; set; }
