@@ -46,6 +46,7 @@ namespace eXpand.ExpressApp.SystemModule
                     View.ObjectTypeInfo,
                     members,
                     customBuildCriteriaEventArgs.SearchText, GroupOperatorType.Or, false).BuildCriteria();
+                customBuildCriteriaEventArgs.Handled = true;
             }
         }
 
