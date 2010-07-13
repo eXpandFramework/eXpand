@@ -12,7 +12,7 @@ namespace eXpand.ExpressApp.Editors {
     }
     
     public abstract class ActionButtonDetailItem : ViewItem {
-        private readonly IModelDetailViewItem _model;
+        private readonly IModelActionButton _model;
 
         protected ActionButtonDetailItem(Type objectType, string id) : base(objectType, id) {
         }
@@ -20,7 +20,7 @@ namespace eXpand.ExpressApp.Editors {
         protected ActionButtonDetailItem(IModelDetailViewItem model, Type objectType)
             : base(objectType, model != null ? model.Id : string.Empty)
         {
-            _model = model;
+            _model = (IModelActionButton) model;
         }
 
         public event EventHandler Executed;
@@ -34,7 +34,9 @@ namespace eXpand.ExpressApp.Editors {
         }
 
         public override string Caption {
-            get { return _model.Caption; }
+            get {
+                return !(string.IsNullOrEmpty(_model.Caption)) ? _model.Caption : _model.ActionId.Caption;
+            }
             set { throw new NotImplementedException(); }
         }
 
