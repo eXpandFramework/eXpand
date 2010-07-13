@@ -19,7 +19,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         protected override void OnActivated()
         {
             base.OnActivated();
-            if (((IModelOptionsApplicationMultiInstances) Application.Model.Options).ApplicationMultiInstances) {
+            if (!((IModelOptionsApplicationMultiInstances) Application.Model.Options).ApplicationMultiInstances) {
                 string processName = Process.GetCurrentProcess().ProcessName;
                 Process[] processes = Process.GetProcessesByName(processName);
                 if (processes.Length > 1) {
