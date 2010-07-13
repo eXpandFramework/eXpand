@@ -2,14 +2,19 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
-using System.Globalization;
-using System.Threading;
-using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.ExpressApp.Model;
+using eXpand.ExpressApp.ListEditors;
 
 namespace eXpand.ExpressApp.Win.ListEditors
 {
+    public class GridListEditorSynchronizer : DevExpress.ExpressApp.Win.Editors.GridListEditorSynchronizer
+    {
+        public GridListEditorSynchronizer(DevExpress.ExpressApp.Win.Editors.GridListEditor gridListEditor, IModelListView model) : base(gridListEditor, model) {
+            Add(new GridViewOptionsModelSynchronizer(gridListEditor.GridView,model));
+        }
+    }
     public class GridListEditor : DevExpress.ExpressApp.Win.Editors.GridListEditor, IDXPopupMenuHolder, IPopupMenuHider
     {
         private bool hidePopupMenu;
@@ -31,7 +36,10 @@ namespace eXpand.ExpressApp.Win.ListEditors
         #endregion
 
         public event EventHandler<CustomGetSelectedObjectsArgs> CustomGetSelectedObjects;
-
+        protected override ModelSynchronizer CreateModelSynchronizer()
+        {
+            return new GridListEditorSynchronizer(this, Model);
+        }
         private void InvokeCustomGetSelectedObjects(CustomGetSelectedObjectsArgs e)
         {
             EventHandler<CustomGetSelectedObjectsArgs> customGetSelectedObjectsHandler = CustomGetSelectedObjects;

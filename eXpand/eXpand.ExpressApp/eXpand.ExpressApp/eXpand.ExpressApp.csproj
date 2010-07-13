@@ -127,6 +127,7 @@
     <Compile Include="IModelsManager.cs" />
     <Compile Include="IObjectSpaceProvider.cs" />
     <Compile Include="IXpoDataStoreProxy.cs" />
+    <Compile Include="ListEditors\GridViewOptionsModelSynchronizer.cs" />
     <Compile Include="ModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -158,7 +159,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\DynamicModel\DynamicModelType.cs" />
-    <Compile Include="SystemModule\ExpandAbleMembersViewController.cs">
+    <Compile Include="SystemModule\CreateExpandAbleMembersViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
@@ -205,6 +206,9 @@
     </Compile>
     <Compile Include="Core\DynamicModel\SimplePropertyInfo.cs" />
     <Compile Include="Core\DynamicModel\DynamicModelPropertiesSource.cs" />
+    <Compile Include="SystemModule\ShowNavigationItemController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\TrackNewObjectSavedController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -232,9 +236,9 @@
     <Compile Include="XpoMultiDataStoreProxy.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Model.DesignedDiffs.xafml">
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
-    </None>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

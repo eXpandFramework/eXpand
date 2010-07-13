@@ -2,12 +2,11 @@
 using System.Reflection;
 using System.Web.UI.WebControls;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxGridView;
 
 namespace eXpand.ExpressApp.Web.SystemModule {
 
-    public interface IModelListViewMainViewOptions : IModelNode
+    public interface IModelListViewMainViewOptionsBase : ExpressApp.SystemModule.IModelListViewMainViewOptionsBase
     {
         IModelGridViewOptions GridViewOptions { get; set; }
     }
@@ -59,16 +58,17 @@ namespace eXpand.ExpressApp.Web.SystemModule {
     public interface IModelGridViewSettings:IModelNode {
     }
 
-    public class GridOptionsController : ExpressApp.SystemModule.GridOptionsController<ASPxGridView, IModelGridViewOptions, IModelListViewMainViewOptions, ASPxGridListEditor>
+    public class GridOptionsController : ExpressApp.SystemModule.GridOptionsController<ASPxGridView, IModelGridViewOptions>
     {
         protected override Func<PropertyInfo, bool> ControlPropertiesFilterPredicate() {
             return info => info.PropertyType.Name.EndsWith("Settings");
         }
-        protected override Func<PropertyInfo, bool> DynamicPropertiesFilterPredicate() {
+
+        public override Func<PropertyInfo, bool> DynamicPropertiesFilterPredicate() {
             return info => info.PropertyType!=typeof(Unit);
         }
-        protected override object GetControl() {
-            return base.GetControl() as ASPxGridView;
-        }
+//        protected override object GetControl() {
+//            return base.GetControl() as ASPxGridView;
+//        }
     }
 }

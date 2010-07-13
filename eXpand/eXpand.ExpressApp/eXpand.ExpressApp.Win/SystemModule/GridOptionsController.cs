@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Reflection;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Win.Editors;
-using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public interface IModelGridViewOptionsLayout : IModelNode
-    {
-    }
 
     public interface IModelGridViewOptionsPrint : IModelNode
     {
@@ -43,7 +38,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
     public interface IModelGridViewOptionsDetail : IModelNode
     {
     }
-    public interface IModelListViewMainViewOptions : IModelNode
+    public interface IModelListViewMainViewOptions : IModelListViewMainViewOptionsBase
     {
         IModelGridViewOptions GridViewOptions { get; set; }
     }
@@ -58,26 +53,25 @@ namespace eXpand.ExpressApp.Win.SystemModule
         IModelGridViewOptionsView OptionsView { get; set; }
         IModelGridViewOptionsMenu OptionsMenu { get; set; }
         IModelGridViewOptionsPrint OptionsPrint { get; set; }
-        IModelGridViewOptionsLayout OptionsLayout { get; set; }
         IModelGridViewOptionsHint OptionsHint { set; get; }
     }
 
     public interface IModelGridViewOptionsHint:IModelNode {
     }
 
-    public class GridOptionsController : GridOptionsController<GridView, IModelGridViewOptions, IModelListViewMainViewOptions,GridListEditor>{
+    public class GridOptionsController : GridOptionsController<GridView, IModelGridViewOptions>{
         protected override Func<PropertyInfo, bool> ControlPropertiesFilterPredicate() {
             return info => info.PropertyType.Name.StartsWith("GridOptions");
         }
 
-        protected override Func<PropertyInfo, bool> DynamicPropertiesFilterPredicate() {
+        public override Func<PropertyInfo, bool> DynamicPropertiesFilterPredicate() {
             return info => info.PropertyType.Name!=typeof(NewItemRowPosition).Name;
         }
 
-        protected override object GetControl() {
-            var control = base.GetControl() as GridControl;
-            if (control != null) return control.MainView;
-            return null;
-        }
+//        protected override object GetControl() {
+//            var control = base.GetControl() as GridControl;
+//            if (control != null) return control.MainView;
+//            return null;
+//        }
     }
 }
