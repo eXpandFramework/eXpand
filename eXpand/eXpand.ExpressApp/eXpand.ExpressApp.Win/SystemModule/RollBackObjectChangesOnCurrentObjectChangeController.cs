@@ -8,7 +8,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
     public interface IModelClassRollBackObjectChangesOnCurrentObjectChange : IModelNode
     {
         [Category("eXpand")]
-        [DefaultValue(true)]
         [Description("If set to false when the view queries if it can change current object all changes will remain in transaction, thus allowing to save them at a later time")]
         bool RollBackObjectChangesOnCurrentObjectChange { get; set; }
     }
