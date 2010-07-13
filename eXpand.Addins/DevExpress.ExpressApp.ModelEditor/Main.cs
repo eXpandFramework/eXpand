@@ -5,7 +5,7 @@
 
 
 //#region Copyright (c) 2000-2008 Developer Express Inc.
-///*
+//*
 //{*******************************************************************}
 //{                                                                   }
 //{       Developer Express .NET Component Library                    }
@@ -46,7 +46,6 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 using System.IO;
-using DevExpress.Xpo.Metadata;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Win.Core;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
@@ -66,7 +65,7 @@ namespace DevExpress.ExpressApp.ModelEditor {
 		[STAThread]
 		static void Main(string[] args) {
 			Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-			Application.ThreadException += new ThreadExceptionEventHandler(OnException);
+			Application.ThreadException += OnException;
 		    
 
 			if (args.Length == 0 ||args.Length > 2) {
@@ -84,7 +83,7 @@ namespace DevExpress.ExpressApp.ModelEditor {
                     }
 
 					if(!File.Exists(targetPath)) {
-						targetPath = Path.Combine(System.Environment.CurrentDirectory, targetPath);
+						targetPath = Path.Combine(Environment.CurrentDirectory, targetPath);
 						if(!File.Exists(targetPath)) {
 							throw new Exception(String.Format("The config file '{0}' couldn't be found.", targetPath));
 						}
@@ -93,17 +92,18 @@ namespace DevExpress.ExpressApp.ModelEditor {
                         diffsPath = Path.GetDirectoryName(targetPath);
                     }
 					if(diffsPath == string.Empty) { 
-                        diffsPath = System.Environment.CurrentDirectory; 
+                        diffsPath = Environment.CurrentDirectory; 
                     } 
-					DesignerModelFactory dmf = new DesignerModelFactory();
+					var dmf = new DesignerModelFactory();
 					ApplicationModulesManager mgr = dmf.CreateModelManager(targetPath, string.Empty);
 					mgr.Load();
-                    ApplicationModelsManager modelManager = new ApplicationModelsManager(mgr.Modules, mgr.ControllersManager, mgr.DomainComponents);
+                    var modelManager = new ApplicationModelsManager(mgr.Modules, mgr.ControllersManager, mgr.DomainComponents);
                     FileModelStore fileModelStore = dmf.CreateModuleModelStore(diffsPath);
                     
                     IModelApplication modelApplication = modelManager.CreateModelApplication(fileModelStore);
 				    var controller = new ModelEditorViewController(modelApplication, fileModelStore, mgr.Modules);
 				    modelEditorForm = new ModelEditorForm(controller, new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor"));
+                    modelEditorForm.Disposed += (sender, eventArgs) => ((IModelEditorSettings)modelEditorForm).ModelEditorSaveSettings();
 					modelEditorForm.SetCaption(Path.GetFileName(targetPath));
                     
 					Application.Run(modelEditorForm);
@@ -112,5 +112,6 @@ namespace DevExpress.ExpressApp.ModelEditor {
 				}
 			}
 		}
+
 	}
 }
