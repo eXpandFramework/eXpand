@@ -6,11 +6,11 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
-using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
@@ -47,18 +47,31 @@ namespace eXpand.ExpressApp.Win.SystemModule
     [DisplayPropertyAttribute("CollectionMemberName")]
     public interface IModelDetailRelation : IModelNode
     {
-        [DataSourceProperty("Application.Views")]
+        [DataSourceProperty("ListViews")]
         IModelListView ListView { get; set; }
 
+        [Browsable(false)]
+        IModelList<IModelListView> ListViews { get; }
 
         [Category("eXpand")]
         [Description("The collection member that is going to be used as child collection")]
         [ReadOnly(true)]
         string CollectionMemberName { get; set; }
-
-
     }
-
+    [DomainLogic(typeof(IModelDetailRelation))]
+    public class MasterDetailOptionsDomainLogic
+    {
+        public static IModelList<IModelListView> Get_ListViews(IModelDetailRelation modelDetailRelation)
+        {
+            var modelListViews = new CalculatedModelNodeList<IModelListView>();
+            var modelListView = (IModelListView) modelDetailRelation.Parent.Parent;
+            Type listType = modelListView.ModelClass.FindMember(modelDetailRelation.CollectionMemberName).MemberInfo.ListElementTypeInfo.Type;
+            IModelClass modelClass = modelDetailRelation.Application.BOModel.GetClass(listType);
+            var listViews = modelListView.Application.Views.OfType<IModelListView>().Where(modelView => modelView.ModelClass==modelClass);
+            modelListViews.AddRange(listViews);
+            return modelListViews;
+        }
+    }
     public class GridViewBuilder {
         readonly XafApplication _xafApplication;
         readonly ObjectSpace _objectSpace;
@@ -168,10 +181,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
             XafGridView defaultXafGridView = gridViewBuilder.GetDefaultXafGridView(masterGridView, rowHandle, relationIndex,  childModelListView);
             gridViewBuilder.SetGridViewMasterProperties(childModelListView, defaultXafGridView);
             SubscribeToEvents(defaultXafGridView, childModelListView);
-
-//            var gridViewOptionsModelSynchronizer = new GridViewOptionsModelSynchronizer(defaultXafGridView, childModelListView);
-//            gridViewOptionsModelSynchronizer.ApplyModel();
-
             return defaultXafGridView;
         }
 
