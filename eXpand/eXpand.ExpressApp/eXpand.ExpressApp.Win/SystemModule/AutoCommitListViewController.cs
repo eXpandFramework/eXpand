@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.SystemModule;
@@ -21,10 +22,25 @@ namespace eXpand.ExpressApp.Win.SystemModule
         protected override void OnActivated()
         {
             base.OnActivated();
-
+            var winDetailViewController = Frame.GetController<WinDetailViewController>();
+            if (winDetailViewController != null && ((IModelListViewAutoCommitListView)View.Model).AutoCommitListView) {
+                winDetailViewController.AutoCommitListView = true;
+                View.QueryCanChangeCurrentObject += ViewOnQueryCanChangeCurrentObject;
+            }
+        }
+        protected override void OnDeactivating()
+        {
+            base.OnDeactivating();
             var winDetailViewController = Frame.GetController<WinDetailViewController>();
             if (winDetailViewController != null && ((IModelListViewAutoCommitListView)View.Model).AutoCommitListView)
+            {
                 winDetailViewController.AutoCommitListView = true;
+                View.QueryCanChangeCurrentObject -= ViewOnQueryCanChangeCurrentObject;
+            }
+        }
+        void ViewOnQueryCanChangeCurrentObject(object sender, CancelEventArgs cancelEventArgs) {
+            if (Frame.GetController<WinDetailViewController>().SuppressConfirmation)
+                ObjectSpace.CommitChanges();
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
