@@ -122,9 +122,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\CombineActiveUserDifferenceWithActiveModelDictionaryController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ModelDifferenceAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -166,6 +163,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
