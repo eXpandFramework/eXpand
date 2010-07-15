@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Win;
 using DevExpress.Utils;
+using eXpand.ExpressApp.SystemModule;
 using eXpand.ExpressApp.Win.ListEditors;
 
 namespace eXpand.ExpressApp.Win.SystemModule {
@@ -15,6 +16,10 @@ namespace eXpand.ExpressApp.Win.SystemModule {
     [ToolboxBitmap(typeof (WinApplication), "Resources.WinSystemModule.ico")]
     [ToolboxItemFilter("Xaf.Platform.Win")]
     public sealed class eXpandSystemWindowsFormsModule : ModuleBase {
+        public eXpandSystemWindowsFormsModule() {
+            RequiredModuleTypes.Add(typeof (eXpandSystemModule));
+        }
+
         protected override void RegisterEditorDescriptors(System.Collections.Generic.List<EditorDescriptor> editorDescriptors)
         {
             base.RegisterEditorDescriptors(editorDescriptors);

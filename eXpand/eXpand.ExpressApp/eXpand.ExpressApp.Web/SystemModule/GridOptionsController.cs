@@ -67,8 +67,5 @@ namespace eXpand.ExpressApp.Web.SystemModule {
         public override Func<PropertyInfo, bool> DynamicPropertiesFilterPredicate() {
             return info => info.PropertyType!=typeof(Unit);
         }
-//        protected override object GetControl() {
-//            return base.GetControl() as ASPxGridView;
-//        }
     }
 }

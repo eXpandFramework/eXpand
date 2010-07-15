@@ -33,8 +33,10 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            gridControl = (View.Control) as GridControl;
-            if (gridControl != null) ((GridView)gridControl.MainView).CustomRowCellEdit += CustomRowCellEdit;
+            if (View is ListView) {
+                gridControl = (View.Control) as GridControl;
+                if (gridControl != null) ((GridListEditor) ((ListView) View).Editor).GridView.CustomRowCellEdit += CustomRowCellEdit;
+            }
         }
 
 

@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
@@ -10,8 +12,17 @@ using eXpand.ExpressApp.Win.Interfaces;
 
 namespace eXpand.ExpressApp.Win
 {
-    public partial class WinComponent : WinApplication, ILogOut, ISupportModelsManager
-    {
+    public interface ISupportCustomListEditorCreation {
+        event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
+    }
+
+    public partial class WinComponent : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation {
+        public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
+
+        public void OnCustomCreateListEditor(CreatingListEditorEventArgs e) {
+            EventHandler<CreatingListEditorEventArgs> handler = CustomCreateListEditor;
+            if (handler != null) handler(this, e);
+        }
 
         protected override void OnCustomProcessShortcut(CustomProcessShortcutEventArgs args)
         {
@@ -22,6 +33,14 @@ namespace eXpand.ExpressApp.Win
 
         public ApplicationModelsManager ModelsManager {
             get { return modelsManager; }
+        }
+
+        protected override ListEditor CreateListEditorCore(IModelListView modelListView, CollectionSourceBase collectionSource) {
+            var creatingListEditorEventArgs = new CreatingListEditorEventArgs(modelListView,collectionSource);
+            OnCustomCreateListEditor(creatingListEditorEventArgs);
+            if (creatingListEditorEventArgs.Handled)
+                return creatingListEditorEventArgs.ListEditor;
+            return base.CreateListEditorCore(modelListView, collectionSource);
         }
 
         public void Logout()
@@ -85,6 +104,26 @@ namespace eXpand.ExpressApp.Win
                        ? (CollectionSourceBase) new LinqServerCollectionSource(objectSpace, objectType, true)
                        : new LinqCollectionSource(objectSpace, objectType, false);
         }
+    }
+
+    public class CreatingListEditorEventArgs : HandledEventArgs {
+        readonly IModelListView _modelListView;
+        readonly CollectionSourceBase _collectionSource;
+
+        public CreatingListEditorEventArgs(IModelListView modelListView, CollectionSourceBase collectionSource) {
+            _modelListView = modelListView;
+            _collectionSource = collectionSource;
+        }
+
+        public IModelListView ModelListView {
+            get { return _modelListView; }
+        }
+
+        public CollectionSourceBase CollectionSource {
+            get { return _collectionSource; }
+        }
+
+        public ListEditor ListEditor { get; set; }
     }
 
     public class ModelEditFormShowningEventArgs : HandledEventArgs
