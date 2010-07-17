@@ -63,7 +63,12 @@ namespace eXpandAddIns
             Property outPut = startUpProject.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath);
             Property fullPath = startUpProject.FindProperty(ProjectProperty.FullPath);
             string path = Path.Combine(fullPath.Value.ToString(),outPut.Value.ToString());
-            var reader = new ReverseLineReader(Path.Combine(path, "expressAppFrameWork.log"));
+//            var reader = new ReverseLineReader(Path.Combine(path, "expressAppFrameWork.log"));
+            Func<Stream> streamSource = () => {
+                File.Copy(Path.Combine(path, "expressAppFrameWork.log"), Path.Combine(path, "expressAppFrameWork.locked"),true);
+                return File.Open(Path.Combine(path, "expressAppFrameWork.locked"),FileMode.Open, FileAccess.Read, FileShare.Read);
+            };
+            var reader = new ReverseLineReader(streamSource);
             var stackTrace = new List<string>();
             foreach (var readline in reader) {
                 stackTrace.Add(readline);
