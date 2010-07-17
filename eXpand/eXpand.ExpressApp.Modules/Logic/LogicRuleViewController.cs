@@ -135,7 +135,7 @@ namespace eXpand.ExpressApp.Logic{
         }
 
         bool IsValidViewId(View view, TModelLogicRule rule) {
-            return string.IsNullOrEmpty(rule.ViewId)||view.Id==rule.ViewId;
+            return rule.View == null|| view.Id== rule.View.Id;
         }
 
         bool IsValidTypeInfo(View view, TModelLogicRule rule) {

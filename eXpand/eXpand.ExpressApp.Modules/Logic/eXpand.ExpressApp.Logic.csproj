@@ -160,6 +160,8 @@
     <Compile Include="Security\PopulateViewsController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="TypeConverters\StringToModelMemberConverter.cs" />
+    <Compile Include="TypeConverters\StringToModelViewConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

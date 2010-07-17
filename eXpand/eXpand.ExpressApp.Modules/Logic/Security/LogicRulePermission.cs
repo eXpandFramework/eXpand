@@ -1,6 +1,7 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.Logic.NodeUpdaters;
@@ -28,6 +29,9 @@ namespace eXpand.ExpressApp.Logic.Security
         public int Index { get; set; }
 
         public ViewType ViewType { get; set; }
+
+        IModelView ILogicRule.View { get; set; }
+
         public Nesting Nesting { get; set; }
 
 

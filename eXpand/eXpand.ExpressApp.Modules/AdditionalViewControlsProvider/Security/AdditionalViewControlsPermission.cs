@@ -8,10 +8,6 @@ using eXpand.ExpressApp.Logic.Conditional.Security;
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Security {
     [NonPersistent]
     public class AdditionalViewControlsPermission : ConditionalLogicRulePermission, IAdditionalViewControlsRule {
-        public AdditionalViewControlsPermission() {
-            UseSameIfFound = true;
-        }
-
         [RuleRequiredField]
         public Type ControlType { get; set; }
         [RuleRequiredField]
@@ -23,7 +19,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Security {
         public string MessageProperty { get; set; }
 
         public Position Position { get; set; }
-        public bool UseSameIfFound { get; set; }
+        
         #endregion
         public override IPermission Copy() {
             return new AdditionalViewControlsPermission();

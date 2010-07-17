@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using eXpand.ExpressApp.Logic.Model;
 using eXpand.ExpressApp.Logic.NodeGenerators;
+using eXpand.Utils;
 using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.Logic.NodeUpdaters {
@@ -14,6 +18,7 @@ namespace eXpand.ExpressApp.Logic.NodeUpdaters {
         where TModelLogicRule : IModelLogicRule
         where TRootModelNode : IModelNode
     {
+        IEnumerable<PropertyInfo> _explicitProperties;
 
         void AddRules(ModelNode node, IEnumerable<TLogicRule> attributes, IModelClass modelClass) {
             foreach (TLogicRule attribute in attributes) {
@@ -22,8 +27,28 @@ namespace eXpand.ExpressApp.Logic.NodeUpdaters {
                 rule.ModelClass = modelClass;
                 rule.TypeInfo = modelClass.TypeInfo;
                 SetAttribute(rule, attribute);
+//                ConvertModelNodes(attribute, rule);
             }
         }
+
+        void ConvertModelNodes(TLogicRule attribute, TModelLogicRule rule) {
+            if (_explicitProperties== null)
+                _explicitProperties = ReflectorHelper.GetExplicitProperties(attribute.GetType());
+            foreach (PropertyInfo explicitProperty in _explicitProperties){
+                object[] customAttributes = explicitProperty.GetCustomAttributes(typeof(TypeConverterAttribute), false);
+                if (customAttributes.Length > 0){
+                    var converter = (TypeConverter)Activator.CreateInstance(Type.GetType(((TypeConverterAttribute)customAttributes[0]).ConverterTypeName), new object[] { rule.Application });
+                    string name = explicitProperty.Name.Substring(explicitProperty.Name.LastIndexOf(".") + 1);
+                    PropertyInfo propertyInfo = attribute.GetType().GetProperty(name);
+                    object value = propertyInfo.GetValue(attribute, null);
+                    if (value != null) {
+                        object convertTo = converter.ConvertTo(value, rule.TypeInfo.Type);
+                        explicitProperty.SetValue(attribute, convertTo, null);
+                    }
+                }
+            }
+        }
+
 
         protected abstract void SetAttribute(TModelLogicRule rule, TLogicRule attribute);
 

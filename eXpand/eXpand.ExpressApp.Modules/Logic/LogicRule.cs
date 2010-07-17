@@ -1,6 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using eXpand.ExpressApp.Logic.Model;
 
 namespace eXpand.ExpressApp.Logic
@@ -34,6 +35,11 @@ namespace eXpand.ExpressApp.Logic
             set { _logicRule.ViewType = value; }
         }
 
+        public IModelView View {
+            get { return _logicRule.View; }
+            set { _logicRule.View=value; }
+        }
+
         public Nesting Nesting {
             get { return _logicRule.Nesting; }
             set { _logicRule.Nesting = value; }
@@ -55,17 +61,13 @@ namespace eXpand.ExpressApp.Logic
             set { _logicRule.TypeInfo = value; }
         }
 
-        public string ViewId {
-            get { return _logicRule.ViewId; }
-            set { _logicRule.ViewId = value; }
-        }
         public int Index
         {
             get { return _logicRule.Index; }
             set { _logicRule.Index = value; }
         }
 
-//        public IModelClass ModelClass { get; set; }
+
     }
 }
 
