@@ -46,9 +46,6 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         }
     }
     public interface IModelClassGridViewOptions : IModelNode {
-        [Category("eXpand")]
-        [Description("Control gridview property")]
-        EditorShowMode EditorShowMode { get; set; }
 
         [Category("eXpand")]
         [Description("If gridview in master detail auto expand new inserter row")]
@@ -67,15 +64,8 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         [Description("Expand all groups of a gridview up to this level")]
         int GroupLevelExpandIndex { get; set; }
 
-        [Category("eXpand")]
-        [DefaultValue(true)]
-        [Description("Control gridview column visibility")]
-        bool IsColumnHeadersVisible { get; set; }
 
-        [Category("eXpand")]
-        [DefaultValue(true)]
-        [Description("Use TAB to navigate to the next column of a gridview else use ENTER")]
-        bool UseTabKey { get; set; }
+        
     }
     [ModelInterfaceImplementor(typeof(IModelClassGridViewOptions), "ModelClass")]
     public interface IModelListViewGridViewOptions : IModelClassGridViewOptions
@@ -97,29 +87,20 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         }
         #endregion
         protected override void OnViewControlsCreated() {
-            base.OnViewControlsCreated();
-
-            View.ControlsCreated += View_OnControlsCreated;
-        }
-
-
-        void View_OnControlsCreated(object sender, EventArgs e) {
             gridControl = View.Control as GridControl;
             if (gridControl == null)
                 return;
 
-            gridControl.HandleCreated += GridControl_OnHandleCreated;
+//            gridControl.HandleCreated += GridControl_OnHandleCreated;
+            mainView = ((GridListEditor) ((ListView) View).Editor).GridView;
+            GroupLevelExpandIndex();
+            mainView.FocusedRowChanged += GridView_OnFocusedRowChanged;
+            mainView.InitNewRow += GridView_OnInitNewRow;
+            mainView.ShownEditor += MainViewOnShownEditor;
 
-            mainView = gridControl.MainView as GridView;
-            if (mainView != null) {
-                mainView.FocusedRowChanged += GridView_OnFocusedRowChanged;
-                mainView.InitNewRow += GridView_OnInitNewRow;
-                mainView.ShownEditor += MainViewOnShownEditor;
-                SetOptions(mainView, View.Model);
-            }
-
-            if (((IModelListViewGridViewOptions) View.Model).DoNotLoadWhenNoFilterExists &&
-                ((GridView) gridControl.MainView).FilterPanelText == string.Empty) {
+            if (((IModelListViewGridViewOptions)View.Model).DoNotLoadWhenNoFilterExists &&
+                ((GridView)gridControl.MainView).FilterPanelText == string.Empty)
+            {
                 if (mainView != null) mainView.ActiveFilter.Changed += ActiveFilter_OnChanged;
 
                 filterController = Frame.GetController<FilterController>();
@@ -127,6 +108,22 @@ namespace eXpand.ExpressApp.Win.SystemModule {
                 SetDoNotLoadWhenFilterExistsCriteria();
             }
         }
+
+        void GroupLevelExpandIndex() {
+            int groupLevel = ((IModelListViewGridViewOptions)View.Model).GroupLevelExpandIndex;
+            if (groupLevel > 0)
+            {
+                if (mainView.GroupCount == groupLevel)
+                    for (int i = -1; ; i--)
+                    {
+                        if (!mainView.IsValidRowHandle(i)) return;
+                        if (mainView.GetRowLevel(i) < groupLevel - 1)
+                            mainView.SetRowExpanded(i, true);
+                    }
+            }
+
+        }
+
 
         void FullTextFilterAction_Execute(object sender, ParametrizedActionExecuteEventArgs e) {
             if (string.IsNullOrEmpty(e.ParameterCurrentValue as string))
@@ -163,10 +160,15 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         void GridView_OnFocusedRowChanged(object sender, FocusedRowChangedEventArgs e) {
             if (newRowAdded && mainView.IsValidRowHandle(e.FocusedRowHandle)) {
                 newRowAdded = false;
-                if (((IModelListViewGridViewOptions) View.Model).AutoExpandNewRow)
+                if (((IModelListViewGridViewOptions) View.Model).AutoExpandNewRow) {
                     mainView.ExpandMasterRow(e.FocusedRowHandle);
+                    var gridView = ((GridView) mainView.GetDetailView(e.FocusedRowHandle,0));
+                    gridView.FocusedRowHandle = GridControl.NewItemRowHandle;
+                }
+
             }
         }
+
 
         void GridView_OnInitNewRow(object sender, InitNewRowEventArgs e) {
             newRowAdded = true;
@@ -206,8 +208,9 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         }
 
         public static void SetColumnOptions(GridView gridView, IModelListView listViewInfoNodeWrapper) {
-            foreach (GridColumn column in gridView.Columns) {
-                GridColumn column1 = column;
+            foreach (XafGridColumn column in gridView.Columns)
+            {
+                XafGridColumn column1 = column;
                 IModelColumn columnInfo =
                     listViewInfoNodeWrapper.Columns.Single(
                         c => c.PropertyName == column1.FieldName.Replace("!", string.Empty));
@@ -220,18 +223,18 @@ namespace eXpand.ExpressApp.Win.SystemModule {
             }
         }
 
-        void GridControl_OnHandleCreated(object sender, EventArgs e) {
-            mainView.GridControl.ForceInitialize();
-
-            int groupLevel = ((IModelListViewGridViewOptions) View.Model).GroupLevelExpandIndex;
-            if (groupLevel > 0) {
-                if (mainView.GroupCount == groupLevel)
-                    for (int i = -1;; i--) {
-                        if (!mainView.IsValidRowHandle(i)) return;
-                        if (mainView.GetRowLevel(i) < groupLevel - 1)
-                            mainView.SetRowExpanded(i, true);
-                    }
-            }
-        }
+//        void GridControl_OnHandleCreated(object sender, EventArgs e) {
+//            mainView.GridControl.ForceInitialize();
+//
+//            int groupLevel = ((IModelListViewGridViewOptions) View.Model).GroupLevelExpandIndex;
+//            if (groupLevel > 0) {
+//                if (mainView.GroupCount == groupLevel)
+//                    for (int i = -1;; i--) {
+//                        if (!mainView.IsValidRowHandle(i)) return;
+//                        if (mainView.GetRowLevel(i) < groupLevel - 1)
+//                            mainView.SetRowExpanded(i, true);
+//                    }
+//            }
+//        }
     }
 }
