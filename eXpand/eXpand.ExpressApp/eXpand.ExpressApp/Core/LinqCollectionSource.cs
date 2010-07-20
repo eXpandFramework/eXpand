@@ -1,38 +1,39 @@
 ﻿using System;
+using System.Collections;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.Xpo;
 
 namespace eXpand.ExpressApp.Core
 {
-    public class LinqCollectionSource : CollectionSource, ILinqCollectionSource
+    public class LinqCollectionSource : CollectionSource
     {
         public const string DefaultSuffix = "_Linq";
-
-        private readonly LinqCollectionHelper linqCollectionHelper = new LinqCollectionHelper();
-        public LinqCollectionSource(ObjectSpace objectSpace, Type objectType, bool isServerMode) 
-            : base(objectSpace, objectType, isServerMode) { }
-
-        public LinqCollectionSource(ObjectSpace objectSpace, Type objectType, bool isServerMode, IQueryable query)
-            : this(objectSpace, objectType, isServerMode)
+        private IBindingList collectionCore;
+        public IList ConvertQueryToCollection(IQueryable sourceQuery)
         {
-            Query = query;
+            collectionCore = new BindingList<object>();
+            foreach (var item in sourceQuery) { collectionCore.Add(item); }
+            return collectionCore;
         }
 
-        public IQueryable Query
-        {
-            get { return linqCollectionHelper.Query; }
-            set
-            {
-                linqCollectionHelper.Query = value;
-            }
-        }
+        public IQueryable Query { get; set; }
 
         protected override object CreateCollection()
         {
-            if (Query != null)
-                return linqCollectionHelper.ConvertQueryToCollection(Query);
-
-            return base.CreateCollection();
+            ((XPQueryBase)Query).Session = ObjectSpace.Session;
+            return ConvertQueryToCollection(Query);
+        }
+        public LinqCollectionSource(ObjectSpace objectSpace, Type objectType) : base(objectSpace, objectType) { }
+        public LinqCollectionSource(ObjectSpace objectSpace, Type objectType, IQueryable query)
+            : base(objectSpace, objectType)
+        {
+            Query = query;
+        }
+        public override bool? IsObjectFitForCollection(object obj)
+        {
+            return collectionCore.Contains(obj);
         }
     }
 }

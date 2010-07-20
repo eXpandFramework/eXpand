@@ -99,11 +99,6 @@ namespace eXpand.ExpressApp.Win
             base.OnCreateCustomObjectSpaceProvider(args);
         }
 
-        protected override CollectionSourceBase CreateCollectionSourceCore(ObjectSpace objectSpace, Type objectType, bool isServerMode, CollectionSourceMode mode) {
-            return isServerMode
-                       ? (CollectionSourceBase) new LinqServerCollectionSource(objectSpace, objectType, true)
-                       : new LinqCollectionSource(objectSpace, objectType, false);
-        }
     }
 
     public class CreatingListEditorEventArgs : HandledEventArgs {

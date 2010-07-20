@@ -2,9 +2,17 @@ using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
+using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
+using eXpand.ExpressApp.NodeUpdaters;
 
 namespace eXpand.ExpressApp.SystemModule {
+    public interface IModelListViewLinq : IModelNode
+    {
+        string XPQueryMethod { get; set; }
+    }
+
     [ToolboxItem(true)]
     [Description("Includes Controllers that represent basic features for XAF applications.")]
     [Browsable(true)]
@@ -14,6 +22,7 @@ namespace eXpand.ExpressApp.SystemModule {
         
         public override void Setup(XafApplication application) {
             base.Setup(application);
+            application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
             application.SetupComplete +=
                 (sender, args) =>
                 DictionaryHelper.AddFields(application.Model, application.ObjectSpaceProvider.XPDictionary);
@@ -22,11 +31,20 @@ namespace eXpand.ExpressApp.SystemModule {
                 DictionaryHelper.AddFields(application.Model, application.ObjectSpaceProvider.XPDictionary);
         }
 
+        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters)
+        {
+            base.AddGeneratorUpdaters(updaters);
+            updaters.Add(new ModelListViewLinqNodesGeneratorUpdater());
+            updaters.Add(new ModelListViewLinqColumnsNodesGeneratorUpdater());
+        }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewPropertyPathFilters>();
+            extenders.Add<IModelClass, IModelClassLoadWhenFiltered>();
+            extenders.Add<IModelListView, IModelListViewLoadWhenFiltered>();
+            extenders.Add<IModelListView, IModelListViewLinq>();
         }
     }
 

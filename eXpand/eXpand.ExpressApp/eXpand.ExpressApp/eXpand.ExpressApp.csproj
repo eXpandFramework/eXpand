@@ -105,13 +105,16 @@
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
+    <Compile Include="Attributes\CustomQueryPropertiesAttribute.cs" />
     <Compile Include="Core\CustomShowNavigationItemEventArgsExtensions.cs" />
     <Compile Include="Core\DictionaryHelpers\DictionaryHelper.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\DynamicModel\IDynamicModelPropertiesSource.cs" />
     <Compile Include="Core\FrameExtensions.cs" />
-    <Compile Include="Core\LinqServerCollectionSource.cs" />
+    <Compile Include="Core\ModelNodeExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Core\ObjectObserver.cs" />
     <Compile Include="Core\TypesInfoExtensions.cs" />
     <Compile Include="Core\TypeValueConverter.cs" />
@@ -128,6 +131,9 @@
     <Compile Include="IObjectSpaceProvider.cs" />
     <Compile Include="IXpoDataStoreProxy.cs" />
     <Compile Include="ListEditors\GridViewOptionsModelSynchronizer.cs" />
+    <Compile Include="ListEditors\OptionsModelSynchronizer.cs" />
+    <Compile Include="NodeUpdaters\ModelListViewLinqColumnsNodesGeneratorUpdater.cs" />
+    <Compile Include="NodeUpdaters\ModelListViewLinqNodesGeneratorUpdater.cs" />
     <Compile Include="ModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -135,7 +141,7 @@
     <Compile Include="ObjectSpaceProvider.cs" />
     <Compile Include="Core\DetailViewExtensions.cs" />
     <Compile Include="Core\ILinqCollectionSource.cs" />
-    <Compile Include="Core\LinqCollectionHelper.cs" />
+    <Compile Include="Core\LinqCollectionSourceHelper.cs" />
     <Compile Include="Core\LinqCollectionSource.cs" />
     <Compile Include="Core\XafApplicationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,6 +153,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\AllowEditDetailViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\Class1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ColumnOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ConnectionInfoStatusMessageController.cs">
@@ -162,6 +174,9 @@
     <Compile Include="SystemModule\CreateExpandAbleMembersViewController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\LoadWhenFilteredController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -169,6 +184,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\OptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HideFromNewMenuViewController.cs">
@@ -225,10 +243,10 @@
     <Compile Include="SystemModule\DescribeRunTimeMembersController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ViewEditModeController.cs">
+    <Compile Include="SystemModule\UpdateTypeConverterController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\UpdateTypeConverterController.cs">
+    <Compile Include="SystemModule\ViewEditModeController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ViewShortCutProccesor.cs" />
