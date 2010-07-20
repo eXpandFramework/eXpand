@@ -8,11 +8,12 @@ namespace eXpand.ExpressApp.Logic {
     public interface ILogicRule : IRule {
         [Category("Behavior")]
         [Description("Specifies the View type in which the current rule is in effect.")]
+        [RefreshProperties(RefreshProperties.All)]
         ViewType ViewType { get; set; }
 
         [Category("Behavior")]
         [Description("Specifies the View type in which the current rule is in effect.")]
-        [DataSourceProperty("Application.Views")]
+        [DataSourceProperty("Views")]
         IModelView View { get; set; }
 
         [Category("Behavior")]

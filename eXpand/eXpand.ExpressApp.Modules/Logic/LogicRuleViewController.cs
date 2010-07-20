@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -16,13 +17,42 @@ namespace eXpand.ExpressApp.Logic{
         }
 
         public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext){
-            if (isReady){
+            if (isReady) {
                 object currentObject = view.CurrentObject;
-                foreach (TModelLogicRule rule in LogicRuleManager<TModelLogicRule>.Instance[view.ObjectTypeInfo])
-                    if (IsValidRule(rule, view))
-                        ForceExecutionCore(currentObject, rule, invertCustomization, view, executionContext);
+                var modelLogicRules = LogicRuleManager<TModelLogicRule>.Instance[view.ObjectTypeInfo].Where(rule => IsValidRule(rule, view));
+                IEnumerable<LogicRuleInfo<TModelLogicRule>> logicRuleInfos = GetContextValidLogicRuleInfos(view, modelLogicRules, currentObject, executionContext, invertCustomization);
+                foreach (var logicRuleInfo in logicRuleInfos) {
+                    ForceExecutionCore(logicRuleInfo,executionContext);
+                }
             }
         }
+
+        protected virtual IEnumerable<LogicRuleInfo<TModelLogicRule>> GetContextValidLogicRuleInfos(View view, IEnumerable<TModelLogicRule> modelLogicRules, object currentObject, ExecutionContext executionContext, bool invertCustomization) {
+            return modelLogicRules.Select(rule => GetInfo(view, currentObject, rule, executionContext, invertCustomization)).Where(info => info!=null);
+        }
+
+        void ForceExecutionCore(LogicRuleInfo<TModelLogicRule> logicRuleInfo, ExecutionContext executionContext) {
+            var args = new LogicRuleExecutingEventArgs<TModelLogicRule>(logicRuleInfo, false, executionContext);
+            OnLogicRuleExecuting(args);
+            if (!args.Cancel){
+                ExecuteRule(logicRuleInfo, executionContext);
+            }
+            OnLogicRuleExecuted(new LogicRuleExecutedEventArgs<TModelLogicRule>(logicRuleInfo, executionContext));
+        }
+
+        LogicRuleInfo<TModelLogicRule> GetInfo(View view, object currentObject, TModelLogicRule rule, ExecutionContext executionContext, bool invertCustomization) {
+            LogicRuleInfo<TModelLogicRule> info = CalculateLogicRuleInfo(currentObject, rule);
+            if (info != null && ContextIsValid(executionContext, info)){
+                info.InvertingCustomization = invertCustomization;
+                info.View = view;
+                if (invertCustomization)
+                    info.Active = !info.Active;
+                return info;
+            }
+            return null;
+        }
+
+
 
         public abstract void ExecuteRule(LogicRuleInfo<TModelLogicRule> info, ExecutionContext executionContext);
 
@@ -60,6 +90,7 @@ namespace eXpand.ExpressApp.Logic{
 
         protected override void OnActivated(){base.OnActivated();
             if (IsReady){
+                ObjectSpace.Committed+=ObjectSpaceOnCommitted;
                 Frame.TemplateViewChanged += FrameOnTemplateViewChanged;
                 ForceExecution(ExecutionContext.ControllerActivated);
                 View.ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
@@ -69,6 +100,10 @@ namespace eXpand.ExpressApp.Logic{
             }
         }
 
+        void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs) {
+            ForceExecution(ExecutionContext.ObjectSpaceCommited);
+        }
+
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
             ForceExecution(ExecutionContext.ViewControlsCreated);
@@ -76,6 +111,7 @@ namespace eXpand.ExpressApp.Logic{
         protected override void OnDeactivating(){
             base.OnDeactivating();
             if (IsReady){
+                ObjectSpace.Committed -= ObjectSpaceOnCommitted;
                 Frame.TemplateViewChanged-=FrameOnTemplateViewChanged;
                 View.ObjectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
                 View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
@@ -164,28 +200,13 @@ namespace eXpand.ExpressApp.Logic{
             var modelGroupContexts = GetModelGroupContexts(executionContextGroup);
             IModelExecutionContexts executionContexts = modelGroupContexts.Where(context => context.Id == executionContextGroup).Single();
             return executionContexts.Aggregate(ExecutionContext.None, (current, modelGroupContext) =>
-                                                current | (ExecutionContext)Enum.Parse(typeof(ExecutionContext), modelGroupContext.Id.ToString()));    
+                                                current | (ExecutionContext)Enum.Parse(typeof(ExecutionContext), modelGroupContext.Name.ToString()));    
         }
 
         protected abstract IModelGroupContexts GetModelGroupContexts(string executionContextGroup);
         
 
 
-        protected virtual void ForceExecutionCore(object currentObject, TModelLogicRule rule, bool invertCustomization, View view, ExecutionContext executionContext){
-            LogicRuleInfo<TModelLogicRule> info = CalculateLogicRuleInfo(currentObject, rule);
-            if (info != null&&ContextIsValid(executionContext,info)){
-                info.InvertingCustomization = invertCustomization;
-                info.View = view;
-                if (invertCustomization)
-                    info.Active = !info.Active;
-                var args = new LogicRuleExecutingEventArgs<TModelLogicRule>(info, false, executionContext);
-                OnLogicRuleExecuting(args);
-                if (!args.Cancel){
-                    ExecuteRule(info, executionContext);
-                }
-                OnLogicRuleExecuted(new LogicRuleExecutedEventArgs<TModelLogicRule>(info, executionContext));
-            }
-        }
 
         public virtual bool ContextIsValid(ExecutionContext executionContext, LogicRuleInfo<TModelLogicRule> logicRuleInfo) {
             return (logicRuleInfo.ExecutionContext | executionContext) == logicRuleInfo.ExecutionContext;
