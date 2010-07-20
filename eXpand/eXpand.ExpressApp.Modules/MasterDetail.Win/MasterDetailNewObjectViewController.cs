@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Editors;
+using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 
@@ -13,6 +14,9 @@ namespace eXpand.ExpressApp.MasterDetail.Win {
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
+            return;
+            if (IsHiddenFrame())
+                Frame.GetController<WinDetailViewController>().SuppressConfirmation = true;
             XafGridView view = ((GridListEditor)View.Editor).GridView;
             view.MasterRowExpanded += view_MasterRowExpanded;
         }
@@ -29,15 +33,26 @@ namespace eXpand.ExpressApp.MasterDetail.Win {
         void CreateChildObject(XafGridView masterView, CustomMasterRowEventArgs e)
         {
             string relationName = masterView.GetRelationName(e.RowHandle, e.RelationIndex);
-            object masterObject = ObjectSpace.GetObject(masterView.GetRow(e.RowHandle));
+            object masterObject = masterView.GetRow(e.RowHandle);
             IMemberInfo memberInfo = XafTypesInfo.Instance.FindTypeInfo(masterObject.GetType()).FindMember(relationName);
             Type listElementType = memberInfo.ListElementType;
             IMemberInfo referenceToOwner = memberInfo.AssociatedMemberInfo;
-            object obj = ObjectSpace.CreateObject(listElementType);
+            object obj = GetObjectSpace().CreateObject(listElementType);
             referenceToOwner.SetValue(obj, masterObject);
-            if (IsHiddenFrame())
-                ObjectSpace.CommitChanges();
+            //if (IsHiddenFrame())
+                //((NestedObjectSpace)ObjectSpace).ParentObjectSpace.CommitChanges();
         }
+
+        ObjectSpace GetObjectSpace() {
+            if (!(ObjectSpace is NestedObjectSpace))
+                return ObjectSpace;
+            var nestedObjectSpace = (NestedObjectSpace) ObjectSpace;
+            while (nestedObjectSpace.ParentObjectSpace is NestedObjectSpace) {
+                nestedObjectSpace = nestedObjectSpace.ParentObjectSpace as NestedObjectSpace;
+            }
+            return nestedObjectSpace.ParentObjectSpace;
+        }
+
         bool IsHiddenFrame()
         {
             return !((WinWindow)Frame).Form.Visible;

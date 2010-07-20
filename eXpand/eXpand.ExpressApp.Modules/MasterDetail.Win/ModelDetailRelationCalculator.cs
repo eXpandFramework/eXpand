@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
@@ -17,6 +18,8 @@ namespace eXpand.ExpressApp.MasterDetail.Win {
             _xafGridView = xafGridView;
             _masterDetailRules = masterDetailRules;
         }
+
+        
 
         public  bool IsRelationSet( int rowHandle, int relationIndex)
         {
@@ -39,6 +42,12 @@ namespace eXpand.ExpressApp.MasterDetail.Win {
             IMemberInfo associatedMemberInfo = _modelListView.ModelClass.AllMembers.Where(member => member.MemberInfo.Name == rName).Single().MemberInfo.AssociatedMemberInfo;
             return associatedMemberInfo.Name;
 
+        }
+
+        public IModelMember GetRelationModelMember(int rowHandle, int relationIndex) {
+            
+            var relationName = _xafGridView.GetRelationName(rowHandle, relationIndex);
+            return _modelListView.ModelClass.AllMembers.Where(member => member.Name == relationName).Single();
         }
     }
 }

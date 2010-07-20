@@ -134,9 +134,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GridViewBuilder.cs" />
-    <Compile Include="IMasterDetailLogicRule1.cs">
-    </Compile>
     <Compile Include="LevelDefaultViewInfoCreation.cs" />
+    <Compile Include="ListView.cs" />
     <Compile Include="ListViewBuilder.cs" />
     <Compile Include="MasterDetailViewController.cs">
       <SubType>Component</SubType>

@@ -1,4 +1,4 @@
-﻿namespace eXpand.ExpressApp.MasterDetail.Win.Logic {
+﻿namespace eXpand.ExpressApp.MasterDetail.Win {
     struct LevelDefaultViewInfoCreation
     {
         public LevelDefaultViewInfoCreation(int rowHandle, int relationIndex)

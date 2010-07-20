@@ -9,5 +9,7 @@ namespace eXpand.ExpressApp.MasterDetail.Model {
     {
         [Browsable(false)]
         IModelList<IModelListView> ChildListViews { get; }
+        [Browsable(false)]
+        IModelList<IModelMember> CollectionMembers { get; }
     }
 }
