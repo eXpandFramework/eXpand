@@ -122,6 +122,7 @@
     <Compile Include="Logic\Position.cs" />
     <Compile Include="Model\IModelAdditionalViewControlsRule.cs" />
     <Compile Include="Model\IModelApplicationAdditionalViewControls.cs" />
+    <Compile Include="Model\IModelLogicAdditionalViewControls.cs" />
     <Compile Include="NodeUpdaters\AdditionalViewControlsDefaultContextNodeUpdater.cs" />
     <Compile Include="NodeUpdaters\AdditionalViewControlsDefaultGroupContextNodeUpdater.cs" />
     <Compile Include="NodeUpdaters\AdditionalViewControlsRulesNodeUpdater.cs" />
