@@ -18,7 +18,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
         public WinLogoutWindowController()
         {
-            var logOutAction = new SimpleAction(this, "logOutSimpleAction", "Export") { Caption = "Log Out" };
+            var logOutAction = new SimpleAction(this, "LogOut", "Export") { Caption = "Log Out" };
             logOutAction.Execute+=logOutSimpleAction_Execute;            
             
         }
