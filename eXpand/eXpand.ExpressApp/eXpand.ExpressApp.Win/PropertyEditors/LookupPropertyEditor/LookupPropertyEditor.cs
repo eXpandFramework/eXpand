@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Controls;

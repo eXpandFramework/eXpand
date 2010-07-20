@@ -1,5 +1,4 @@
 ﻿using System;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
