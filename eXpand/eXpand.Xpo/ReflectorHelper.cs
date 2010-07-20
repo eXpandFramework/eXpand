@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Exceptions;
 using DevExpress.Xpo.Metadata;
@@ -70,12 +66,11 @@ namespace eXpand.Xpo
 
             return Convert.ChangeType(value, conversionType);
         }
+
         /// <summary>
         /// uses <see cref="Convert.ChangeType(object,Type)"/>
         /// </summary>
-        /// <param name="value"></param>
         /// <returns></returns>
-        /// <param name="conversionType"></param>
         public static PropertyInfo GetPropertyInfo(Type type, string propertyName)
         {
             if (propertyName.IndexOf(".") > -1)

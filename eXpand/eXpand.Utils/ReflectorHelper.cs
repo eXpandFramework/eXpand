@@ -10,6 +10,11 @@ namespace eXpand.Utils
 {
     public class ReflectorHelper
     {
+        static readonly Random random = new Random();
+        public static void Shuffle<T>(IList<T> list)
+        {
+            list.OrderBy(arg => random.Next()).Take(list.Count());
+        }
         /// <summary>
         /// searches a type for all properties that included in another type
         /// </summary>
