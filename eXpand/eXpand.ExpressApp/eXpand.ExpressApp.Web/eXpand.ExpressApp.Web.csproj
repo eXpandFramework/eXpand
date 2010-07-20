@@ -107,8 +107,13 @@
     <Compile Include="Core\SharedApplicationParameters.cs" />
     <Compile Include="Editors\ActionButtonDetailItem.cs" />
     <Compile Include="ListEditors\ASPxGridListEditor.cs" />
+    <Compile Include="ListEditors\ASPxGridListEditorSynchronizer.cs" />
+    <Compile Include="ListEditors\ColumnOptionsModelSynchronizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyEditors\UriEditor.cs" />
+    <Compile Include="SystemModule\LoadWhenFilteredController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\eXpandSystemAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>

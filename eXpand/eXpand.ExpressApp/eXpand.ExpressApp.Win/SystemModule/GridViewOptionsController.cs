@@ -59,14 +59,18 @@ namespace eXpand.ExpressApp.Win.SystemModule
     public interface IModelGridViewOptionsHint:IModelNode {
     }
 
-    public class GridOptionsController : GridOptionsController<GridView, IModelGridViewOptions>{
-        protected override Func<PropertyInfo, bool> ControlPropertiesFilterPredicate() {
+    public class GridViewOptionsController : GridOptionsController<GridView, IModelGridViewOptions>
+    {
+        protected override Func<PropertyInfo, bool> ControlPropertiesFilterPredicate()
+        {
             return info => info.PropertyType.Name.StartsWith("GridOptions");
         }
 
-        public override Func<PropertyInfo, bool> DynamicPropertiesFilterPredicate() {
-            return info => info.PropertyType.Name!=typeof(NewItemRowPosition).Name;
+        public override Func<PropertyInfo, bool> DynamicPropertiesFilterPredicate()
+        {
+            return info => info.PropertyType.Name != typeof(NewItemRowPosition).Name;
         }
 
     }
+
 }

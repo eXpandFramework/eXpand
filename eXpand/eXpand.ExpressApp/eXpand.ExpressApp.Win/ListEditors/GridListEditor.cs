@@ -3,30 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Core;
-using DevExpress.Utils;
 using DevExpress.XtraGrid;
-using DevExpress.XtraGrid.Columns;
-using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
-using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using eXpand.ExpressApp.ListEditors;
-using System.Linq;
 
 namespace eXpand.ExpressApp.Win.ListEditors
 {
     public class GridListEditor : DevExpress.ExpressApp.Win.Editors.GridListEditor, IDXPopupMenuHolder, IPopupMenuHider
     {
-        private bool hidePopupMenu;
-        bool _selectedItemExecuting;
+//        private bool activatedByMouse;
+//        private RepositoryItem _activeEditor;
+//        private long _mouseUpTime;
+//        private long _mouseDownTime;
+        private bool _hidePopupMenu;
+//        bool _selectedItemExecuting;
         public event EventHandler<CustomGridViewCreateEventArgs> CustomGridViewCreate;
         public event EventHandler<CustomGridCreateEventArgs> CustomGridCreate;
+        public new void AssignDataSourceToControl(object dataSource) {
+            base.AssignDataSourceToControl(dataSource);
+        }
 
         public void OnCustomGridViewCreate(CustomGridViewCreateEventArgs e) {
             EventHandler<CustomGridViewCreateEventArgs> handler = CustomGridViewCreate;
@@ -34,19 +35,134 @@ namespace eXpand.ExpressApp.Win.ListEditors
         }
         public new XafGridView GridView
         {
-            get { return (XafGridView) GetGridView(base.GridView); }
+            get { return (XafGridView)base.GridView; }
         }
+//        private void gridView_MouseDown(object sender, MouseEventArgs e)
+//        {
+//            var view = (GridView)sender;
+//            GridHitInfo hi = view.CalcHitInfo(new Point(e.X, e.Y));
+//            _mouseDownTime = hi.RowHandle >= 0 ? Environment.TickCount : 0;
+//            activatedByMouse = true;
+//        }
+
+//        private void Editor_KeyDown(object sender, KeyEventArgs e)
+//        {
+//            if (e.KeyCode == Keys.Enter)
+//            {
+//                SubmitActiveEditorChanges();
+//            }
+//        }
+//        private void SubmitActiveEditorChanges()
+//        {
+//            if ((GridView.ActiveEditor != null) && GridView.ActiveEditor.IsModified)
+//            {
+//                GridView.PostEditor();
+//                GridView.UpdateCurrentRow();
+//            }
+//        }
+//        private void Editor_MouseDown(object sender, MouseEventArgs e)
+//        {
+//            if (e.Button == MouseButtons.Left)
+//            {
+//                Int32 currentTime = Environment.TickCount;
+//                if ((_mouseDownTime <= _mouseUpTime) && (_mouseUpTime <= currentTime) && (currentTime - _mouseDownTime < SystemInformation.DoubleClickTime))
+//                {
+//                    OnProcessSelectedItem();
+//                    _mouseDownTime = 0;
+//                }
+//            }
+//        }
+//        private void Editor_MouseUp(object sender, MouseEventArgs e)
+//        {
+//            _mouseUpTime = Environment.TickCount;
+//        }
+//        protected override object CreateControlsCore() {
+//            object controlsCore = base.CreateControlsCore();
+//            GridView.ShownEditor += gridView_ShownEditor;
+//            GridView.HiddenEditor += gridView_HiddenEditor;
+//            GridView.MouseDown+=gridView_MouseDown;
+//            GridView.ShowingEditor += gridView_EditorShowing;
+//            return controlsCore;
+//        }
+//        private void gridView_ShownEditor(object sender, EventArgs e)
+//        {
+//            var popupEdit = GridView.ActiveEditor as PopupBaseEdit;
+//            if (popupEdit != null && activatedByMouse && popupEdit.Properties.ShowDropDown != ShowDropDown.Never)
+//            {
+//                popupEdit.ShowPopup();
+//            }
+//            activatedByMouse = false;
+//        }
+
+//        private void gridView_HiddenEditor(object sender, EventArgs e)
+//        {
+//            if (_activeEditor != null)
+//            {
+//                _activeEditor.KeyDown -= Editor_KeyDown;
+//                _activeEditor.MouseDown -= Editor_MouseDown;
+//                _activeEditor.MouseUp -= Editor_MouseUp;
+//                var buttonEdit = _activeEditor as RepositoryItemButtonEdit;
+//                if (buttonEdit != null)
+//                {
+//                    buttonEdit.ButtonPressed -= ButtonEdit_ButtonPressed;
+//                }
+//                var spinEdit = _activeEditor as RepositoryItemBaseSpinEdit;
+//                if (spinEdit != null)
+//                {
+//                    spinEdit.Spin -= SpinEdit_Spin;
+//                }
+//                _activeEditor = null;
+//            }
+//        }
+//        private void SpinEdit_Spin(object sender, SpinEventArgs e)
+//        {
+//            _mouseDownTime = 0;
+//        }
+
+//        private void gridView_EditorShowing(object sender, CancelEventArgs e)
+//        {
+//            _activeEditor = null;
+//            RepositoryItem edit = GridView.FocusedColumn.ColumnEdit;
+//            if (!e.Cancel)
+//            {
+//                if (edit != null)
+//                {
+//                    edit.MouseDown += Editor_MouseDown;
+//                    edit.MouseUp += Editor_MouseUp;
+//                    var buttonEdit = edit as RepositoryItemButtonEdit;
+//                    if (buttonEdit != null)
+//                    {
+//                        buttonEdit.ButtonPressed += ButtonEdit_ButtonPressed;
+//                    }
+//                    var spinEdit = edit as RepositoryItemBaseSpinEdit;
+//                    if (spinEdit != null)
+//                    {
+//                        spinEdit.Spin += SpinEdit_Spin;
+//                    }
+//                    edit.KeyDown += Editor_KeyDown;
+//                    _activeEditor = edit;
+//                }
+//            }
+//        }
+//        private void ButtonEdit_ButtonPressed(object sender, ButtonPressedEventArgs e)
+//        {
+//            _mouseDownTime = 0;
+//        }
 
         public override object FocusedObject {
             get {
                 object result = null;
                 if (GridView!= null) {
-                    result = GetFocusedRowObject(GridView);
+                    var focusedGridView = GetFocusedGridView(GridView);
+                    result = GetFocusedRowObject(focusedGridView);
+                    Window window = GridView.Window;
+                    if (window != null)
+                        result = GridView.Window.View.ObjectSpace.GetObject(result);
                 }
                 return result;
             }
             set {
-                if ((value != null) && (GetGridView(GridView) != null) && (DataSource != null))
+                if ((value != null) && (GridView != null) && (DataSource != null))
                 {
                     var focusedView = GridView;
                     XtraGridUtils.SelectRowByHandle(focusedView, focusedView.GetRowHandle(List.IndexOf(value)));
@@ -57,8 +173,8 @@ namespace eXpand.ExpressApp.Win.ListEditors
             }
         }
 
-        object GetFocusedRowObject(XafGridView view) {
-            if (view.Window== null)
+        object GetFocusedRowObject(DevExpress.ExpressApp.Win.Editors.XafGridView view) {
+            if (view is XafGridView&& ((XafGridView) view).Window== null)
                 return XtraGridUtils.GetFocusedRowObject(view);
             int rowHandle = view.FocusedRowHandle;
             if (!((!view.IsDataRow(rowHandle) && !view.IsNewItemRow(rowHandle))))
@@ -66,50 +182,50 @@ namespace eXpand.ExpressApp.Win.ListEditors
             return XtraGridUtils.GetFocusedRowObject(view);
         }
 
-        GridView GetGridView(DevExpress.ExpressApp.Win.Editors.XafGridView view) {
+        DevExpress.ExpressApp.Win.Editors.XafGridView GetFocusedGridView(DevExpress.ExpressApp.Win.Editors.XafGridView view) {
             if (view != null) {
                 Window masterWindow = ((XafGridView)view).MasterWindow;
                 if (masterWindow != null) {
-                    return (GridView)((GridListEditor)((ListView)masterWindow.View).Editor).Grid.FocusedView;
+                    return (DevExpress.ExpressApp.Win.Editors.XafGridView)((GridListEditor)((ListView)masterWindow.View).Editor).Grid.FocusedView;
                 }
             }
-            if (base.GridView!= null)
-                return (GridView)base.GridView.GridControl.FocusedView;
-            return null;
+            if (GridView!= null)
+                return (DevExpress.ExpressApp.Win.Editors.XafGridView)GridView.GridControl.FocusedView??GridView;
+            return GridView;
         }
 
-        protected override void ProcessMouseClick(EventArgs e)
-        {
-            if (!_selectedItemExecuting) {
-                var view = GridView;
-                if (view.FocusedRowHandle >= 0)
-                {
-                    DXMouseEventArgs args = DXMouseEventArgs.GetMouseArgs(Grid, e);
-                    GridHitInfo hitInfo = GridView.CalcHitInfo(args.Location);
-                    if (hitInfo.InRow && ((hitInfo.HitTest == GridHitTest.RowCell || (view.Window != null)))){
-                        args.Handled = true;
-                        OnProcessSelectedItem();
-                    }
-                }
-            }
-        }
+//        protected override void ProcessMouseClick(EventArgs e)
+//        {
+//            if (!_selectedItemExecuting) {
+//                var view = GetFocusedGridView(GridView);
+//                if (view.FocusedRowHandle >= 0)
+//                {
+//                    DXMouseEventArgs args = DXMouseEventArgs.GetMouseArgs(Grid, e);
+//                    GridHitInfo hitInfo = GridView.CalcHitInfo(args.Location);
+//                    if (hitInfo.InRow && ((hitInfo.HitTest == GridHitTest.RowCell || (view is XafGridView&&((XafGridView) view).Window != null)))){
+//                        args.Handled = true;
+//                        OnProcessSelectedItem();
+//                    }
+//                }
+//            }
+//        }
 
-        protected override void OnProcessSelectedItem()
-        {
-            _selectedItemExecuting = true;
-            try
-            {
-                if ((GridView != null) && (GridView.ActiveEditor != null))
-                {
-                    BindingHelper.EndCurrentEdit(Grid);
-                }
-                base.OnProcessSelectedItem();
-            }
-            finally
-            {
-                _selectedItemExecuting = false;
-            }
-        }
+//        protected override void OnProcessSelectedItem()
+//        {
+//            _selectedItemExecuting = true;
+//            try
+//            {
+//                if ((GridView != null) && (GridView.ActiveEditor != null))
+//                {
+//                    BindingHelper.EndCurrentEdit(Grid);
+//                }
+//                base.OnProcessSelectedItem();
+//            }
+//            finally
+//            {
+//                _selectedItemExecuting = false;
+//            }
+//        }
 
         
         public void OnCustomGridCreate(CustomGridCreateEventArgs e) {
@@ -133,7 +249,7 @@ namespace eXpand.ExpressApp.Win.ListEditors
         bool IDXPopupMenuHolder.CanShowPopupMenu(Point position)
         {
             if (CanShowPopupMenu(position))
-                return !hidePopupMenu;
+                return !_hidePopupMenu;
             return false;
         }
         #endregion
@@ -151,7 +267,7 @@ namespace eXpand.ExpressApp.Win.ListEditors
         {
             return new GridListEditorSynchronizer(this, Model);
         }
-        private void InvokeCustomGetSelectedObjects(CustomGetSelectedObjectsArgs e)
+        private void OnCustomGetSelectedObjects(CustomGetSelectedObjectsArgs e)
         {
             EventHandler<CustomGetSelectedObjectsArgs> customGetSelectedObjectsHandler = CustomGetSelectedObjects;
             if (customGetSelectedObjectsHandler != null) customGetSelectedObjectsHandler(this, e);
@@ -161,14 +277,15 @@ namespace eXpand.ExpressApp.Win.ListEditors
         {
             if (Grid!=null&&GridView != null)
             {
-                var selectedObjects = GetSelectedObjects(GridView);
+                var selectedObjects = GetSelectedObjects(GetFocusedGridView(GridView));
+//                var selectedObjects = base.GetSelectedObjects();
                 var e = new CustomGetSelectedObjectsArgs(selectedObjects);
-                InvokeCustomGetSelectedObjects(e);
+                OnCustomGetSelectedObjects(e);
                 if (e.Handled)
                     return e.List;
                 return selectedObjects;
             }
-            return new List<object>();
+            return base.GetSelectedObjects();
         }
         IList GetSelectedObjects(GridView focusedView)
         {
@@ -185,8 +302,8 @@ namespace eXpand.ExpressApp.Win.ListEditors
         #region IPopupMenuHider Members
         public bool HidePopupMenu
         {
-            get { return hidePopupMenu; }
-            set { hidePopupMenu = value; }
+            get { return _hidePopupMenu; }
+            set { _hidePopupMenu = value; }
         }
 
         
@@ -200,67 +317,9 @@ namespace eXpand.ExpressApp.Win.ListEditors
     public class GridListEditorSynchronizer : DevExpress.ExpressApp.Win.Editors.GridListEditorSynchronizer
     {
         public GridListEditorSynchronizer(DevExpress.ExpressApp.Win.Editors.GridListEditor gridListEditor, IModelListView model) : base(gridListEditor, model) {
-            Add(new GridViewOptionsModelSynchronizer(gridListEditor.GridView,model));
-        }
-    }
-
-    public class XafGridView : DevExpress.ExpressApp.Win.Editors.XafGridView
-    {
-        readonly DevExpress.ExpressApp.Win.Editors.GridListEditor _gridListEditor;
-        private static readonly object instanceCreated = new object();
-
-        public XafGridView(DevExpress.ExpressApp.Win.Editors.GridListEditor gridListEditor) {
-            _gridListEditor = gridListEditor;
-        }
-        protected virtual void OnInstanceCreated(GridViewInstanceCreatedArgs e)
-        {
-            var handler = (EventHandler<GridViewInstanceCreatedArgs>)Events[instanceCreated];
-            if (handler != null) handler(this, e);
-        }
-
-        [Description("Provides the ability to customize cell merging behavior."), Category("Merge")]
-        public event EventHandler<GridViewInstanceCreatedArgs> GridViewInstanceCreated
-        {
-            add { Events.AddHandler(instanceCreated, value); }
-            remove { Events.RemoveHandler(instanceCreated, value); }
-        }
-
-
-        public Window Window { get; set; }
-
-        public Window MasterWindow { get; set; }
-
-//        internal string OwnerPropertyName { get; set; }
-
-
-        protected override BaseView CreateInstance()
-        {
-            var view = new XafGridView(_gridListEditor);
-            view.SetGridControl(GridControl);
-            OnInstanceCreated(new GridViewInstanceCreatedArgs(view));
-            return view;
-        }
-        public override void Assign(BaseView v, bool copyEvents)
-        {
-            var xafGridView = ((XafGridView) v);
-//            OwnerPropertyName= xafGridView.OwnerPropertyName;
-            Window = xafGridView.Window;
-            Events.AddHandler(instanceCreated, xafGridView.Events[instanceCreated]);
-            base.Assign(v, copyEvents);
-        }
-        protected override void AssignColumns(ColumnView cv, bool synchronize) {
-            if (synchronize) {
-                base.AssignColumns(cv, true);
-            }
-            else {
-                Columns.Clear();
-                var columnsListEditorModelSynchronizer = new ColumnsListEditorModelSynchronizer(_gridListEditor,_gridListEditor.Model);
-                columnsListEditorModelSynchronizer.ApplyModel();
-                var gridColumns = _gridListEditor.GridView.Columns.OfType<DevExpress.ExpressApp.Win.Editors.XafGridColumn>();
-                foreach (var column in gridColumns) {
-                    Columns.Add(column);
-                }
-                
+            Add(new GridViewOptionsModelSynchronizer(gridListEditor.GridView, model));
+            foreach (var modelColumn in model.Columns) {
+                Add(new ColumnOptionsModelSynchronizer(gridListEditor.GridView, modelColumn));
             }
         }
     }
@@ -277,37 +336,6 @@ namespace eXpand.ExpressApp.Win.ListEditors
         }
     }
 
-    public class XafGridColumn : DevExpress.ExpressApp.Win.Editors.XafGridColumn
-    {
-        readonly GridListEditor _gridListEditor;
-        public XafGridColumn(ITypeInfo typeInfo, DevExpress.ExpressApp.Win.Editors.GridListEditor gridListEditor) : base(typeInfo, gridListEditor) {
-            _gridListEditor = (GridListEditor) gridListEditor;
-        }
-        protected internal new virtual void Assign(GridColumn column) {
-            base.Assign(column);
-        }
-
-        public GridListEditor GridListEditor {
-            get { return _gridListEditor; }
-        }
-    }
-    public class CustomAssignColumnsArgs : HandledEventArgs {
-        readonly ColumnView _columnView;
-        readonly bool _synchronize;
-
-        public CustomAssignColumnsArgs(ColumnView columnView, bool synchronize) {
-            _columnView = columnView;
-            _synchronize = synchronize;
-        }
-
-        public ColumnView ColumnView {
-            get { return _columnView; }
-        }
-
-        public bool Synchronize {
-            get { return _synchronize; }
-        }
-    }
 
     public class CustomGridViewCreateEventArgs : HandledEventArgs
     {
@@ -315,17 +343,6 @@ namespace eXpand.ExpressApp.Win.ListEditors
     }
 
 
-    public class InstanceCreatedArgs : EventArgs {
-        readonly BaseView _baseView;
-
-        public InstanceCreatedArgs(BaseView baseView) {
-            _baseView = baseView;
-        }
-
-        public BaseView BaseView {
-            get { return _baseView; }
-        }
-    }
 
     public class CustomGetSelectedObjectsArgs:HandledEventArgs
     {
