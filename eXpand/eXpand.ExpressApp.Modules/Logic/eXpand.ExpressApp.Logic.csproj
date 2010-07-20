@@ -113,8 +113,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainLogic\LogicRuleExecutionContextGroupDomainLogic.cs" />
-    <Compile Include="DomainLogic\ModelGroupContextsDefaultContextDomainLogic.cs" />
+    <Compile Include="DomainLogic\LogicRuleExecutionContextGroupDomainLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DomainLogic\ModelExecutionContextDomainLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DomainLogic\ModelGroupContextsDefaultContextDomainLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DomainLogic\ModelLogicRuleDomainLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ExecutionContext.cs" />
     <Compile Include="FillRulesFromPermissionsController.cs">
       <SubType>Component</SubType>
@@ -126,6 +136,7 @@
     <Compile Include="IRule.cs" />
     <Compile Include="IRuleCollector.cs" />
     <Compile Include="IRuleHolder.cs">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="LogicModule.cs">
       <SubType>Component</SubType>
@@ -133,12 +144,24 @@
     <Compile Include="LogicModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LogicRule.cs" />
-    <Compile Include="LogicRuleAttribute.cs" />
-    <Compile Include="LogicRuleExecutedEventArgs.cs" />
-    <Compile Include="LogicRuleExecutingEventArgs.cs" />
-    <Compile Include="LogicRuleInfo.cs" />
-    <Compile Include="LogicRuleManager.cs" />
+    <Compile Include="LogicRule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LogicRuleAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LogicRuleExecutedEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LogicRuleExecutingEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LogicRuleInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LogicRuleManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LogicRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -148,20 +171,40 @@
     <Compile Include="Model\IModelLogic.cs" />
     <Compile Include="Model\IModelLogicRule.cs" />
     <Compile Include="Model\IModelLogicRules.cs" />
-    <Compile Include="NodeGenerators\ExecutionContextNodeGenerator.cs" />
-    <Compile Include="NodeGenerators\GroupContextsNodeGenerator.cs" />
-    <Compile Include="NodeGenerators\LogicRulesNodesGenerator.cs" />
-    <Compile Include="NodeGenerators\ModelLogicRulesNodesGenerator.cs" />
-    <Compile Include="NodeUpdaters\LogicDefaultContextNodeUpdater.cs" />
-    <Compile Include="NodeUpdaters\LogicDefaultGroupContextNodeUpdater.cs" />
-    <Compile Include="NodeUpdaters\LogicRulesNodeUpdater.cs" />
+    <Compile Include="NodeGenerators\ExecutionContextNodeGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NodeGenerators\GroupContextsNodeGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NodeGenerators\LogicRulesNodesGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NodeGenerators\ModelLogicRulesNodesGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NodeUpdaters\LogicDefaultContextNodeUpdater.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NodeUpdaters\LogicDefaultGroupContextNodeUpdater.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NodeUpdaters\LogicRulesNodeUpdater.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\LogicRulePermission.cs" />
+    <Compile Include="Security\LogicRulePermission.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Security\PopulateViewsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="TypeConverters\StringToModelMemberConverter.cs" />
-    <Compile Include="TypeConverters\StringToModelViewConverter.cs" />
+    <Compile Include="TypeConverters\StringToModelMemberConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TypeConverters\StringToModelViewConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

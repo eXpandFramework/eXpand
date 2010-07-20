@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using DevExpress.ExpressApp.Model;
@@ -27,7 +26,7 @@ namespace eXpand.ExpressApp.Logic.NodeUpdaters {
                 rule.ModelClass = modelClass;
                 rule.TypeInfo = modelClass.TypeInfo;
                 SetAttribute(rule, attribute);
-//                ConvertModelNodes(attribute, rule);
+                ConvertModelNodes(attribute, rule);
             }
         }
 
