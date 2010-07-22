@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 
 namespace eXpand.ExpressApp.Editors {
+    
     public interface IModelActionButton : IModelDetailViewItem
     {
         [DataSourceProperty("Application.ActionDesign.Actions")]

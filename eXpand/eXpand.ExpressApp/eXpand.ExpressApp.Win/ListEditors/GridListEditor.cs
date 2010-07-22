@@ -17,12 +17,7 @@ namespace eXpand.ExpressApp.Win.ListEditors
 {
     public class GridListEditor : DevExpress.ExpressApp.Win.Editors.GridListEditor, IDXPopupMenuHolder, IPopupMenuHider
     {
-//        private bool activatedByMouse;
-//        private RepositoryItem _activeEditor;
-//        private long _mouseUpTime;
-//        private long _mouseDownTime;
         private bool _hidePopupMenu;
-//        bool _selectedItemExecuting;
         public event EventHandler<CustomGridViewCreateEventArgs> CustomGridViewCreate;
         public event EventHandler<CustomGridCreateEventArgs> CustomGridCreate;
         public new void AssignDataSourceToControl(object dataSource) {
@@ -37,117 +32,7 @@ namespace eXpand.ExpressApp.Win.ListEditors
         {
             get { return (XafGridView)base.GridView; }
         }
-//        private void gridView_MouseDown(object sender, MouseEventArgs e)
-//        {
-//            var view = (GridView)sender;
-//            GridHitInfo hi = view.CalcHitInfo(new Point(e.X, e.Y));
-//            _mouseDownTime = hi.RowHandle >= 0 ? Environment.TickCount : 0;
-//            activatedByMouse = true;
-//        }
 
-//        private void Editor_KeyDown(object sender, KeyEventArgs e)
-//        {
-//            if (e.KeyCode == Keys.Enter)
-//            {
-//                SubmitActiveEditorChanges();
-//            }
-//        }
-//        private void SubmitActiveEditorChanges()
-//        {
-//            if ((GridView.ActiveEditor != null) && GridView.ActiveEditor.IsModified)
-//            {
-//                GridView.PostEditor();
-//                GridView.UpdateCurrentRow();
-//            }
-//        }
-//        private void Editor_MouseDown(object sender, MouseEventArgs e)
-//        {
-//            if (e.Button == MouseButtons.Left)
-//            {
-//                Int32 currentTime = Environment.TickCount;
-//                if ((_mouseDownTime <= _mouseUpTime) && (_mouseUpTime <= currentTime) && (currentTime - _mouseDownTime < SystemInformation.DoubleClickTime))
-//                {
-//                    OnProcessSelectedItem();
-//                    _mouseDownTime = 0;
-//                }
-//            }
-//        }
-//        private void Editor_MouseUp(object sender, MouseEventArgs e)
-//        {
-//            _mouseUpTime = Environment.TickCount;
-//        }
-//        protected override object CreateControlsCore() {
-//            object controlsCore = base.CreateControlsCore();
-//            GridView.ShownEditor += gridView_ShownEditor;
-//            GridView.HiddenEditor += gridView_HiddenEditor;
-//            GridView.MouseDown+=gridView_MouseDown;
-//            GridView.ShowingEditor += gridView_EditorShowing;
-//            return controlsCore;
-//        }
-//        private void gridView_ShownEditor(object sender, EventArgs e)
-//        {
-//            var popupEdit = GridView.ActiveEditor as PopupBaseEdit;
-//            if (popupEdit != null && activatedByMouse && popupEdit.Properties.ShowDropDown != ShowDropDown.Never)
-//            {
-//                popupEdit.ShowPopup();
-//            }
-//            activatedByMouse = false;
-//        }
-
-//        private void gridView_HiddenEditor(object sender, EventArgs e)
-//        {
-//            if (_activeEditor != null)
-//            {
-//                _activeEditor.KeyDown -= Editor_KeyDown;
-//                _activeEditor.MouseDown -= Editor_MouseDown;
-//                _activeEditor.MouseUp -= Editor_MouseUp;
-//                var buttonEdit = _activeEditor as RepositoryItemButtonEdit;
-//                if (buttonEdit != null)
-//                {
-//                    buttonEdit.ButtonPressed -= ButtonEdit_ButtonPressed;
-//                }
-//                var spinEdit = _activeEditor as RepositoryItemBaseSpinEdit;
-//                if (spinEdit != null)
-//                {
-//                    spinEdit.Spin -= SpinEdit_Spin;
-//                }
-//                _activeEditor = null;
-//            }
-//        }
-//        private void SpinEdit_Spin(object sender, SpinEventArgs e)
-//        {
-//            _mouseDownTime = 0;
-//        }
-
-//        private void gridView_EditorShowing(object sender, CancelEventArgs e)
-//        {
-//            _activeEditor = null;
-//            RepositoryItem edit = GridView.FocusedColumn.ColumnEdit;
-//            if (!e.Cancel)
-//            {
-//                if (edit != null)
-//                {
-//                    edit.MouseDown += Editor_MouseDown;
-//                    edit.MouseUp += Editor_MouseUp;
-//                    var buttonEdit = edit as RepositoryItemButtonEdit;
-//                    if (buttonEdit != null)
-//                    {
-//                        buttonEdit.ButtonPressed += ButtonEdit_ButtonPressed;
-//                    }
-//                    var spinEdit = edit as RepositoryItemBaseSpinEdit;
-//                    if (spinEdit != null)
-//                    {
-//                        spinEdit.Spin += SpinEdit_Spin;
-//                    }
-//                    edit.KeyDown += Editor_KeyDown;
-//                    _activeEditor = edit;
-//                }
-//            }
-//        }
-//        private void ButtonEdit_ButtonPressed(object sender, ButtonPressedEventArgs e)
-//        {
-//            _mouseDownTime = 0;
-//        }
 
         public override object FocusedObject {
             get {
@@ -194,38 +79,7 @@ namespace eXpand.ExpressApp.Win.ListEditors
             return GridView;
         }
 
-//        protected override void ProcessMouseClick(EventArgs e)
-//        {
-//            if (!_selectedItemExecuting) {
-//                var view = GetFocusedGridView(GridView);
-//                if (view.FocusedRowHandle >= 0)
-//                {
-//                    DXMouseEventArgs args = DXMouseEventArgs.GetMouseArgs(Grid, e);
-//                    GridHitInfo hitInfo = GridView.CalcHitInfo(args.Location);
-//                    if (hitInfo.InRow && ((hitInfo.HitTest == GridHitTest.RowCell || (view is XafGridView&&((XafGridView) view).Window != null)))){
-//                        args.Handled = true;
-//                        OnProcessSelectedItem();
-//                    }
-//                }
-//            }
-//        }
 
-//        protected override void OnProcessSelectedItem()
-//        {
-//            _selectedItemExecuting = true;
-//            try
-//            {
-//                if ((GridView != null) && (GridView.ActiveEditor != null))
-//                {
-//                    BindingHelper.EndCurrentEdit(Grid);
-//                }
-//                base.OnProcessSelectedItem();
-//            }
-//            finally
-//            {
-//                _selectedItemExecuting = false;
-//            }
-//        }
 
         
         public void OnCustomGridCreate(CustomGridCreateEventArgs e) {
@@ -233,11 +87,6 @@ namespace eXpand.ExpressApp.Win.ListEditors
             if (handler != null) handler(this, e);
         }
 
-        protected override GridControl CreateGridControl() {
-            var customGridCreateEventArgs = new CustomGridCreateEventArgs();
-            OnCustomGridCreate(customGridCreateEventArgs);
-            return customGridCreateEventArgs.Handled ? customGridCreateEventArgs.Grid : base.CreateGridControl();
-        }
 
         public GridListEditor(IModelListView model)
             : base(model)
@@ -278,7 +127,6 @@ namespace eXpand.ExpressApp.Win.ListEditors
             if (Grid!=null&&GridView != null)
             {
                 var selectedObjects = GetSelectedObjects(GetFocusedGridView(GridView));
-//                var selectedObjects = base.GetSelectedObjects();
                 var e = new CustomGetSelectedObjectsArgs(selectedObjects);
                 OnCustomGetSelectedObjects(e);
                 if (e.Handled)

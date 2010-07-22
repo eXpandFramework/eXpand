@@ -9,6 +9,7 @@ using DevExpress.Xpo.Metadata;
 namespace eXpand.ExpressApp.SystemModule {
     public interface IModelClassCreateExpandAbleMembers
     {
+        [Category("eXpand")]
         [DefaultValue(true)]
         [Description("Creates automatically any ref objects that are null when a detailview of a new persistent object is shown")]
         bool CreateExpandAbleMembers { get; set; }
@@ -38,7 +39,7 @@ namespace eXpand.ExpressApp.SystemModule {
                              memberInfo.GetAttributeInfo(typeof (ExpandObjectMembersAttribute))).ExpandingMode !=
                             ExpandObjectMembers.Never && memberInfo.GetValue(persistentBase) == null)
                             memberInfo.SetValue(persistentBase,
-                                                Activator.CreateInstance(memberInfo.MemberType,
+                                                ReflectionHelper.CreateObject(memberInfo.MemberType,
                                                                          new object[] {persistentBase.Session}));
                     }
                 }

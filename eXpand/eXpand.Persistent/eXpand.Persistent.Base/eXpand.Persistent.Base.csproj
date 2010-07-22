@@ -172,7 +172,6 @@
     <Compile Include="Taxonomies\ITaxonomyManager.cs" />
     <Compile Include="Taxonomies\IValueTerm.cs" />
     <Compile Include="Taxonomies\KeyedObjectValidity.cs" />
-    <Compile Include="Taxonomies\TaxonomyManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -134,7 +134,7 @@ namespace eXpand.ExpressApp.IO.Core {
                     xpBaseObject.UnDelete();
                 }
             }
-            return xpBaseObject ?? (XPBaseObject) Activator.CreateInstance(typeInfo.Type, unitOfWork);
+            return xpBaseObject ?? (XPBaseObject)ReflectionHelper.CreateObject(typeInfo.Type, unitOfWork);
         }
 
         CriteriaOperator getObjectKeyCriteria(ITypeInfo typeInfo, IEnumerable<XElement> xElements)

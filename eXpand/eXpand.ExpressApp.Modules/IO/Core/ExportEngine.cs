@@ -123,7 +123,7 @@ namespace eXpand.ExpressApp.IO.Core {
                 configuration =(ISerializationConfiguration)findObject;
             else {
                 configuration =
-                    (ISerializationConfiguration) Activator.CreateInstance(serializationConfigurationType, session);
+                    (ISerializationConfiguration)ReflectionHelper.CreateObject(serializationConfigurationType, session);
                 configuration.TypeToSerialize = type;
                 new ClassInfoGraphNodeBuilder().Generate(configuration);
             }

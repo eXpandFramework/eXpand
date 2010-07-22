@@ -30,7 +30,12 @@ namespace eXpand.ExpressApp.SystemModule
             if (((IModelViewEnableFKViolations)View.Model).EnableFKViolations)
                 ObjectSpace.ObjectDeleting += ObjectSpace_OnObjectDeleting;
         }
-
+        protected override void OnDeactivating()
+        {
+            base.OnDeactivating();
+            if (((IModelViewEnableFKViolations)View.Model).EnableFKViolations)
+                ObjectSpace.ObjectDeleting -= ObjectSpace_OnObjectDeleting;
+        }
         private void ObjectSpace_OnObjectDeleting(object sender, ObjectsManipulatingEventArgs e)
         {
             foreach (var o in e.Objects)

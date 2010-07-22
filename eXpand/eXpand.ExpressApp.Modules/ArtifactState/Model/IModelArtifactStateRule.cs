@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
-using eXpand.ExpressApp.Logic.Model;
+using eXpand.ExpressApp.Logic.Conditional.Model;
 
 namespace eXpand.ExpressApp.ArtifactState.Model
 {
     [ModelAbstractClass]
-    public interface IModelArtifactStateRule:IModelLogicRule
+    public interface IModelArtifactStateRule:IModelConditionalLogicRule
     {
         [Browsable(false)]
         IEnumerable<string> Modules { get; }

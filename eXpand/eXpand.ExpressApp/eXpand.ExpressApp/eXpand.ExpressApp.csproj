@@ -122,6 +122,7 @@
     <Compile Include="Editors\ActionButtonDetailItem.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Editors\EditorAliases.cs" />
     <Compile Include="Enums\AllowEditEnum.cs" />
     <Compile Include="Enums\BooleanEnum.cs" />
     <Compile Include="Enums\DetailViewType.cs" />
@@ -155,7 +156,7 @@
     <Compile Include="SystemModule\AllowEditDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\Class1.cs">
+    <Compile Include="SystemModule\DisableActionsLinqListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ColumnOptionsController.cs">

@@ -20,10 +20,9 @@ namespace eXpand.ExpressApp.Win.SystemModule {
     public class GroupLevelExpandIndexController:ListViewController<GridListEditor>,IModelExtender
     {
         XafGridView _xafGridView;
-
-        protected override void OnViewControllersActivated()
+        protected override void OnViewControlsCreated()
         {
-            base.OnViewControllersActivated();
+            base.OnViewControlsCreated();
             if (((IModelListViewGroupLevelExpandIndex)View.Model).GroupLevelExpandIndex>-1) {
                 _xafGridView = ((ListEditors.GridListEditor)View.Editor).GridView;
                 GroupLevelExpandIndex();

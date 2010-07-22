@@ -31,19 +31,13 @@ namespace eXpand.ExpressApp.Win.SystemModule
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            IModelNode viewsNode = View.Model.Parent;
-            if (viewsNode != null)
-            {
-                var modelViewsExt = viewsNode as IModelDetailViewTabStopForReadOnly;
-                if (modelViewsExt != null)
-                {
-                    if (modelViewsExt.TabOverReadOnlyEditors)
-                    {
-                        var detailView = View;
-                        CheckControlsVisibility(detailView);
-                    }
-                }
+            
+            
+
+            if (((IModelDetailViewTabStopForReadOnly)View.Model).TabOverReadOnlyEditors){
+                CheckControlsVisibility(View);
             }
+            
         }
         private void CheckControlsVisibility(DetailView detailView)
         {

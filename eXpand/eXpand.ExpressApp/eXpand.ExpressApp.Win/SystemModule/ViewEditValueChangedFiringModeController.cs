@@ -15,7 +15,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         [Category("eXpand")]
         EditValueChangedFiringMode EditValueChangedFiringMode { get; set; }
     }
-
+    [ModelInterfaceImplementor(typeof(IModelClassEditValueChangedFiringMode), "ModelClass")]
     public interface IModelListViewEditValueChangedFiringMode : IModelClassEditValueChangedFiringMode
     {
 
