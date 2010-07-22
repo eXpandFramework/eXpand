@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp.Model;
+﻿using System.ComponentModel;
+using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.Logic.Model {
     [ModelAbstractClass]
@@ -6,6 +7,7 @@ namespace eXpand.ExpressApp.Logic.Model {
     [DisplayProperty("Name")]
     public interface IModelExecutionContext : IModelNode {
         [Required]
+        [ReadOnly(true)]
         string Name { get; set; }
     }
 

@@ -6,6 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.Security;
 using eXpand.ExpressApp.Logic.Model;
 
@@ -55,7 +56,7 @@ namespace eXpand.ExpressApp.Logic {
 
 
         protected virtual TLogicRule2 GetRuleObject(IModelLogicRule ruleDefinition) {
-            var logicRule2 = ((TLogicRule2) Activator.CreateInstance(typeof (TLogicRule2), (TLogicRule) ruleDefinition));
+            var logicRule2 = ((TLogicRule2)ReflectionHelper.CreateObject(typeof(TLogicRule2), (TLogicRule)ruleDefinition));
             return logicRule2;
         }
 

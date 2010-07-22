@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.Logic.Model;
 using eXpand.ExpressApp.Logic.NodeGenerators;
 using eXpand.Utils;
 using eXpand.Utils.Helpers;
+using System.Linq;
 
 namespace eXpand.ExpressApp.Logic.NodeUpdaters {
     public abstract class LogicRulesNodeUpdater<TLogicRule, TModelLogicRule, TRootModelNode> :
@@ -22,13 +25,24 @@ namespace eXpand.ExpressApp.Logic.NodeUpdaters {
         void AddRules(ModelNode node, IEnumerable<TLogicRule> attributes, IModelClass modelClass) {
             foreach (TLogicRule attribute in attributes) {
                 var rule = node.AddNode<TModelLogicRule>(attribute.Id);
+                SetAttribute(rule, attribute);
                 ((IModelNode) rule).Index = attribute.Index;
                 rule.ModelClass = modelClass;
                 rule.TypeInfo = modelClass.TypeInfo;
-                SetAttribute(rule, attribute);
                 ConvertModelNodes(attribute, rule);
             }
         }
+
+//        void SetValues(TLogicRule attribute, TModelLogicRule rule) {
+//            Type ruleType = rule.GetType();
+//            foreach (var propertyInfo in attribute.GetType().GetProperties().Where(info => info.Name!="TypeId")) {
+//                PropertyInfo property = ruleType.GetProperty(propertyInfo.Name);
+//                if (property.PropertyType==propertyInfo.PropertyType) {
+//                    object value = propertyInfo.GetValue(attribute,null);
+//                    property.SetValue(rule,value, null);
+//                }
+//            }
+//        }
 
         void ConvertModelNodes(TLogicRule attribute, TModelLogicRule rule) {
             if (_explicitProperties== null)
@@ -36,7 +50,7 @@ namespace eXpand.ExpressApp.Logic.NodeUpdaters {
             foreach (PropertyInfo explicitProperty in _explicitProperties){
                 object[] customAttributes = explicitProperty.GetCustomAttributes(typeof(TypeConverterAttribute), false);
                 if (customAttributes.Length > 0){
-                    var converter = (TypeConverter)Activator.CreateInstance(Type.GetType(((TypeConverterAttribute)customAttributes[0]).ConverterTypeName), new object[] { rule.Application });
+                    var converter = (TypeConverter)ReflectionHelper.CreateObject(Type.GetType(((TypeConverterAttribute)customAttributes[0]).ConverterTypeName), new object[] { rule.Application });
                     string name = explicitProperty.Name.Substring(explicitProperty.Name.LastIndexOf(".") + 1);
                     PropertyInfo propertyInfo = attribute.GetType().GetProperty(name);
                     object value = propertyInfo.GetValue(attribute, null);

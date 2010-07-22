@@ -5,8 +5,14 @@ using eXpand.ExpressApp.Logic.Model;
 
 namespace eXpand.ExpressApp.Logic.Conditional.Model {
     [ModelAbstractClass]
-    public interface IModelConditionalLogicRule<T>:IModelLogicRule,IConditionalLogicRule where T:ILogicRule{
+    public interface IModelConditionalLogicRule<T> : IModelConditionalLogicRule where T : ILogicRule
+    {
         [Browsable(false)]
         T Attribute { get; set; }
+    }
+
+    public interface IModelConditionalLogicRule:IModelLogicRule,IConditionalLogicRule 
+    {
+        
     }
 }

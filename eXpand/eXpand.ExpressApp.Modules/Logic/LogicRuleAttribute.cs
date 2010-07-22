@@ -11,7 +11,6 @@ namespace eXpand.ExpressApp.Logic {
     public abstract class LogicRuleAttribute : Attribute, ILogicRule {
         protected LogicRuleAttribute(string id) {
             Id = id;
-            ExecutionContextGroup = LogicDefaultGroupContextNodeUpdater.Default;
         }
         #region ILogicRule Members
         public string Id { get; set; }
