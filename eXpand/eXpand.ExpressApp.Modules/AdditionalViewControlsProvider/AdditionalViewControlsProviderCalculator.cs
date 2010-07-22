@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
@@ -64,7 +65,8 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
         #endregion
         void supportNotifyPropertyChanged_PropertyChanged(object sender, PropertyChangedEventArgs e) {
             if ((_controlsRule != null) &&
-                (string.IsNullOrEmpty(e.PropertyName) || (e.PropertyName == _controlsRule.MessageProperty))) {
+                ((e.PropertyName == _controlsRule.MessageProperty) && e.PropertyName!=null))
+            {
                 UpdateAdditionalText();
             }
         }
@@ -84,9 +86,14 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
 
         void UpdateAdditionalText() {
             if (_controlsRule != null &&!string.IsNullOrEmpty(_controlsRule.MessageProperty)){
-                AdditionalText = CurrentObject != null
-                                     ? (string)ReflectionHelper.GetMemberValue(CurrentObject, _controlsRule.MessageProperty)
-                                     : _objectType.GetProperty(_controlsRule.MessageProperty).GetValue(null, null)as string;
+                if (CurrentObject != null)
+                    AdditionalText =
+                        (string) ReflectionHelper.GetMemberValue(CurrentObject, _controlsRule.MessageProperty);
+                else {
+                    PropertyInfo propertyInfo = _objectType.GetProperty(_controlsRule.MessageProperty,BindingFlags.Static);
+                    if (propertyInfo!= null)
+                        AdditionalText =propertyInfo.GetValue(null, null) as string;
+                }
             }
             else
                 AdditionalText = "";

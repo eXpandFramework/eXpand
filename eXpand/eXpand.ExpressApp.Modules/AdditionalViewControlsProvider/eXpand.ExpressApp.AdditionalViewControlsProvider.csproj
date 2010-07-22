@@ -112,7 +112,9 @@
     </Compile>
     <Compile Include="AdditionalViewControlsProviderCalculator.cs" />
     <Compile Include="AdditionalViewControlsProviderDecorator.cs" />
-    <Compile Include="DomainLogic\AdditionalViewControlsControlsTypesDomainLogic.cs" />
+    <Compile Include="DomainLogic\AdditionalViewControlsRuleDomainLogic.cs" />
+    <Compile Include="DomainLogic\ModelAdditionalViewControlsRuleDomainLogic.cs" />
+    <Compile Include="Editors\AdditionalViewControlsItem.cs" />
     <Compile Include="Logic\AdditionalViewControlsRule.cs" />
     <Compile Include="Logic\AdditionalViewControlsRuleAttribute.cs" />
     <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">

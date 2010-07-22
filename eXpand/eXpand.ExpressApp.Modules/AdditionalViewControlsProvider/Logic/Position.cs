@@ -2,6 +2,7 @@
     public enum Position
     {
         Top,
-        Bottom
+        Bottom,
+        DetailViewItem
     }
 }

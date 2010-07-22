@@ -79,6 +79,9 @@
     <Reference Include="DevExpress.XtraEditors.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraLayout.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="eXpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -135,7 +138,11 @@
     <Compile Include="Controls\HintPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\WarningPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Decorators\WinFrameControlDecorator.cs" />
+    <Compile Include="Editors\AdditionalViewControlsItem.cs" />
     <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>

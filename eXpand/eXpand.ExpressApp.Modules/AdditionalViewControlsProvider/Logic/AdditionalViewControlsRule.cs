@@ -38,6 +38,10 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             set { _additionalViewControlsRule.Position = value; }
         }
 
+        public bool UseSameType {
+            get { return _additionalViewControlsRule.UseSameType; }
+            set { _additionalViewControlsRule.UseSameType=value; }
+        }
         #endregion
     }
 }

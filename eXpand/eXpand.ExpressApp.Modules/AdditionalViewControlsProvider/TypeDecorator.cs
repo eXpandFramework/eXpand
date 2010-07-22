@@ -1,6 +1,8 @@
 ﻿using System;
+using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
+    [AttributeUsage(AttributeTargets.Class,AllowMultiple = true)]
     public class TypeDecorator : Attribute {
         readonly Type _controlType;
         readonly Type _defaultType;
@@ -27,5 +29,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
         public Type ControlType {
             get { return _controlType; }
         }
+
+        public Position Position { get; set; }
     }
 }

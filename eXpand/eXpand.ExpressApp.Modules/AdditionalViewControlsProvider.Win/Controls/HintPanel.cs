@@ -1,11 +1,10 @@
 ﻿using System.Drawing;
-using System.Reflection;
 using System.Windows.Forms;
 using DevExpress.Utils.Frames;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls
 {
-    public sealed class HintPanel:NotePanel8_1
+    public  class HintPanel:NotePanel8_1
     {
         public HintPanel()
         {

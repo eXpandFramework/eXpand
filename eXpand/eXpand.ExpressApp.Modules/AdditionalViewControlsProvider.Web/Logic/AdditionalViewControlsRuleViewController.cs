@@ -5,7 +5,7 @@ using eXpand.ExpressApp.Logic;
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Web.Logic {
     public class AdditionalViewControlsRuleViewController : AdditionalViewControlsProvider.Logic.AdditionalViewControlsRuleViewController{
 
-        protected override void AddControl(object viewSiteControl, object control, LogicRuleInfo<IAdditionalViewControlsRule> additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator, ExecutionContext context)
+        protected override void InitializeControl(object viewSiteControl, LogicRuleInfo<IAdditionalViewControlsRule> logicRuleInfo, AdditionalViewControlsProviderCalculator additionalViewControlsProviderCalculator, ExecutionContext executionContext)
         {
             ControlCollection collection = ((Control)viewSiteControl).Controls;
             ((Control)control).Visible = true;
