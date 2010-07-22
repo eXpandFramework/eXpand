@@ -5,12 +5,12 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Repository;
 
-namespace eXpand.ExpressApp.Win.PropertyEditors.IntegerPropertyEditor{
-    [PropertyEditor(typeof (int))]
-    [PropertyEditor(typeof (int?))]
-    public class IntegerPropertyEditor : DevExpress.ExpressApp.Win.Editors.IntegerPropertyEditor
+namespace eXpand.ExpressApp.Win.PropertyEditors.NullAble.DoublePropertyEditor{
+    [PropertyEditor(typeof (double))]
+    [PropertyEditor(typeof (double?))]
+    public class DoublePropertyEditor : DevExpress.ExpressApp.Win.Editors.DoublePropertyEditor
     {
-        public IntegerPropertyEditor(Type objectType, IModelMemberViewItem model)
+        public DoublePropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model)
         {
         }
@@ -18,14 +18,14 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.IntegerPropertyEditor{
         protected override void SetupRepositoryItem(RepositoryItem item)
         {
             base.SetupRepositoryItem(item);
-
-            var integerEdit = (RepositoryItemIntegerEdit) item;
+            
+            var integerEdit = (RepositoryItemDoubleEdit) item;
             integerEdit.Init(EditMask, DisplayFormat);
-            var repositoryItemIntegerEdit = (RepositoryItemIntegerEdit) item;
+            var repositoryItemIntegerEdit = (RepositoryItemDoubleEdit) item;
             if (View != null)
             {
                 Type type = View.ObjectTypeInfo.Type.GetProperty(PropertyName).PropertyType;
-                bool b = type == typeof (int?);
+                bool b = type == typeof (double?);
                 repositoryItemIntegerEdit.AllowNullInput =
                     b
                         ? DefaultBoolean.True

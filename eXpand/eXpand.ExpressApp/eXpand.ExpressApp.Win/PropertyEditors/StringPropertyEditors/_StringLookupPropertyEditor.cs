@@ -5,10 +5,10 @@ using DevExpress.Xpo;
 using DevExpress.XtraEditors.Controls;
 
 namespace eXpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors{
-    public class StringGroupValuePropertyEditor : StringPropertyEditorBase{
+    public class _StringLookupPropertyEditor : StringPropertyEditorBase{
         private List<ComboBoxItem> comboBoxItems;
 
-        public StringGroupValuePropertyEditor(Type objectType, IModelMemberViewItem model)
+        public _StringLookupPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model)
         {
         }

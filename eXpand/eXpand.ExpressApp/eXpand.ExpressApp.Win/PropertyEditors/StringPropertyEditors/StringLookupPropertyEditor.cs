@@ -7,11 +7,11 @@ using DevExpress.XtraEditors.Controls;
 using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors{
-    public class StringReferenceObjectPropertyEditor : StringPropertyEditorBase
+    public class StringLookupPropertyEditor : StringPropertyEditorBase
     {
         private List<ComboBoxItem> comboBoxItems;
 
-        public StringReferenceObjectPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model){
+        public StringLookupPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model){
         }
 
         protected override List<ComboBoxItem> ComboBoxItems{

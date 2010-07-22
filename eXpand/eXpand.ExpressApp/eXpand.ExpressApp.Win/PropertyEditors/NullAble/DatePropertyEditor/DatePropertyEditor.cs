@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Repository;
 
-namespace eXpand.ExpressApp.Win.PropertyEditors.DatePropertyEditor{
+namespace eXpand.ExpressApp.Win.PropertyEditors.NullAble.DatePropertyEditor{
     [PropertyEditor(typeof (DateTime))]
     [PropertyEditor(typeof (DateTime?))]
     public class DatePropertyEditor : DevExpress.ExpressApp.Win.Editors.DatePropertyEditor

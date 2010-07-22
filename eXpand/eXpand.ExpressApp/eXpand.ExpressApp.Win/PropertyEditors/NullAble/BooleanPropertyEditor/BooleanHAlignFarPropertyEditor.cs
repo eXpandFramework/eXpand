@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Repository;
 
-namespace eXpand.ExpressApp.Win.PropertyEditors.BooleanPropertyEditor {
+namespace eXpand.ExpressApp.Win.PropertyEditors.NullAble.BooleanPropertyEditor {
     public class BooleanHAlignFarPropertyEditor : DevExpress.ExpressApp.Win.Editors.BooleanPropertyEditor
     {
         public BooleanHAlignFarPropertyEditor(Type objectType, IModelMemberViewItem member)

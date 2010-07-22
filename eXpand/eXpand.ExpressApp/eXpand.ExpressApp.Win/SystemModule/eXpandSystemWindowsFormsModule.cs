@@ -24,6 +24,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         {
             base.RegisterEditorDescriptors(editorDescriptors);
             editorDescriptors.Add(new ListEditorDescriptor(new EditorTypeRegistration(EditorAliases.GridListEditor, typeof(object), typeof(GridListEditor), true)));
+            
         }
     }
 }

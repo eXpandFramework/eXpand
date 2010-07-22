@@ -15,16 +15,7 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.LookupPropertyEditor
         {
             RepositoryItemLookupEdit.Register();
         }
-        //        private readonly XafApplication application;
-        //        private readonly Type editValueType;
-        //        private readonly ObjectSpace objectSpace;
 
-        //        public LookupEdit(XafApplication application, ObjectSpace objectSpace, Type editValueType)
-        //        {
-        //            this.application = application;
-        //            this.objectSpace = objectSpace;
-        //            this.editValueType = editValueType;
-        //        }
 
 
         protected override void OnClickButton(EditorButtonObjectInfoArgs buttonInfo)
@@ -57,7 +48,6 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.LookupPropertyEditor
 
         private void showObjectAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs args)
         {
-            //            var objectEditorHelper = new ObjectEditorHelper();
             args.DialogController.Cancelling += DialogController_Cancelling;
 
             args.View =

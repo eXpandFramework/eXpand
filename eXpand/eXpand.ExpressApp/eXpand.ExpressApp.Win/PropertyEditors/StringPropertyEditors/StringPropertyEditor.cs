@@ -4,9 +4,9 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Controls;
 
 namespace eXpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
-    public class StringDisableTextEditorPropertyEditor:StringPropertyEditor
+    public class StringPropertyEditor:DevExpress.ExpressApp.Win.Editors.StringPropertyEditor
     {
-        public StringDisableTextEditorPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model) {
+        public StringPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model) {
         }
 
         protected override void SetupRepositoryItem(DevExpress.XtraEditors.Repository.RepositoryItem item)
