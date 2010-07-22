@@ -32,9 +32,9 @@ namespace eXpandAddIns
         {
             base.InitializePlugIn();
             SetGridDataSource();
-
+            events.SolutionOpened += SetGridDataSource;
             events.ProjectAdded += project => addProject(project);
-            events.ProjectRemoved += project => removeProject(project);
+            events.ProjectRemoved += removeProject;
         }
 
         private int addProject(Project project)
@@ -44,15 +44,24 @@ namespace eXpandAddIns
 
         private void SetGridDataSource()
         {
-            IEnumerable<Project> projects = CodeRush.Solution.AllProjects.Select(project => CodeRush.Solution.FindEnvDTEProject(project.Name));
-            IEnumerable<Project> enumerable =
-                projects.Where(
-                    project =>
-                    project.ProjectItems != null &&
-                    project.ProjectItems.Cast<ProjectItem>().Any(item => item.Name.EndsWith(".xafml")));
-            gridControl1.DataSource = new List<Project>(enumerable);
+            gridControl1.DataSource = GetProjectWrappers().ToList();
             var gridView = ((GridView)gridControl1.MainView);
             gridView.FocusedRowHandle = GridControl.AutoFilterRowHandle;
+        }
+
+        IEnumerable<ProjectWrapper> GetProjectWrappers() {
+            IEnumerable<Project> projects = CodeRush.Solution.AllProjects.Select(project => CodeRush.Solution.FindEnvDTEProject(project.Name));
+
+
+            projects =projects.Where(project =>project.ProjectItems != null &&
+                                               project.ProjectItems.Cast<ProjectItem>().Any(item => item.Name.EndsWith(".xafml")));
+            return projects.Select(project1 =>new ProjectWrapper {
+                                                                     Name = project1.Name,
+                                                                     OutputPath =project1.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath).Value.ToString(),
+                                                                     OutPutFileName =project1.FindProperty(ProjectProperty.OutputFileName).Value.ToString(),
+                                                                     FullPath = project1.FindProperty(ProjectProperty.FullPath).Value.ToString(),
+                                                                     UniqueName = project1.UniqueName
+                                                                 });
         }
 
         private void removeProject(Project project)
@@ -80,50 +89,62 @@ namespace eXpandAddIns
 
         // ReSharper restore RedundantOverridenMember
         #endregion
-        private ProjectItem getModelItem(Project project)
-        {
-            return project.ProjectItems.Cast<ProjectItem>().Where(item => item.Name.EndsWith(".xafml")).FirstOrDefault();
+//        private ProjectItem getModelItem(Project project)
+//        {
+//            return project.ProjectItems.Cast<ProjectItem>().Where(item => item.Name.EndsWith(".xafml")).FirstOrDefault();
+//        }
+
+        public class ProjectWrapper {
+            public string Name { get; set; }
+
+            public string OutputPath { get; set; }
+            public string OutPutFileName { get; set; }
+            public string FullPath { get; set; }
+
+            public string UniqueName { get; set; }
         }
-
-        private void openModelEditor(Project project)
+        private void openModelEditor(ProjectWrapper projectWrapper)
         {
 
-            Configuration configuration = project.ConfigurationManager.ActiveConfiguration;
-            Property outputPathProperty = configuration.FindProperty(ConfigurationProperty.OutputPath);
-            Property outputFileProperty = project.FindProperty(ProjectProperty.OutputFileName);
-            Property outputDiffsProperty = project.FindProperty(ProjectProperty.FullPath);
+//            Configuration configuration = projectWrapper.ConfigurationManager.ActiveConfiguration;
+//            Property outputPathProperty = configuration.FindProperty(ConfigurationProperty.OutputPath);
+//            Property outputFileProperty = projectWrapper.FindProperty(ProjectProperty.OutputFileName);
+//            Property outputDiffsProperty = projectWrapper.FindProperty(ProjectProperty.FullPath);
 
-            string outputFileName = outputFileProperty.Value.ToString();
+//            string outputFileName = outputFileProperty.Value.ToString();
+            string outputFileName = projectWrapper.OutPutFileName;
             if (outputFileName.ToLower().EndsWith(".exe"))
                 outputFileName += ".config";
 
 
-            ProjectItem modelItem = getModelItem(project);
+            
 
-            if (modelItem != null)
+            
                 using (var storage = new DecoupledStorage(typeof(Options)))
                 {
                     string path = storage.ReadString(Options.GetPageName(), "modelEditorPath");
                     if (!string.IsNullOrEmpty(path))
                     {
-                        string assemblyName = Path.Combine(outputDiffsProperty.Value.ToString(),
-                                                           Path.Combine(outputPathProperty.Value.ToString(),
+                        string assemblyName = Path.Combine(projectWrapper.FullPath,
+                                                           Path.Combine(projectWrapper.OutputPath,
                                                                         outputFileName));
                         if (!File.Exists(assemblyName))
                         {
-                            MessageBox.Show("Assembly " + assemblyName + " not found", null, MessageBoxButtons.OK);
+                            MessageBox.Show(string.Format(@"Assembly {0} not found", assemblyName), null, MessageBoxButtons.OK);
                             return;
                         }
                         string arguments = string.Format("\"{0}\" \"{1}\"",
                                                          assemblyName,
-                                                         outputDiffsProperty.Value);
+                                                         projectWrapper.FullPath);
                         if (File.Exists(path))
                             Process.Start(path, arguments);
                         else
-                            MessageBox.Show("Model editor not found at " + path);
+                            MessageBox.Show(string.Format("Model editor not found at {0}", path));
                     }
-                    else
-                        MessageBox.Show("ModelEditorPath path is empty");
+                    else {
+                        const string modeleditorpathPathIsEmpty = "ModelEditorPath path is empty";
+                        MessageBox.Show(modeleditorpathPathIsEmpty);
+                    }
                 }
         }
 
@@ -137,23 +158,23 @@ namespace eXpandAddIns
             {
                 if (GridControl.AutoFilterRowHandle != gridView.FocusedRowHandle)
                 {
-                    var project = (Project)gridView.GetRow(gridView.FocusedRowHandle);
+                    var projectWrapper = (ProjectWrapper)gridView.GetRow(gridView.FocusedRowHandle);
                     if (e.Control)
                     {
                         Solution solution = CodeRush.Solution.Active;
                         string solutionConfigurationName = solution.SolutionBuild.ActiveConfiguration.Name;
-                        solution.SolutionBuild.BuildProject(solutionConfigurationName, project.UniqueName, true);
+                        solution.SolutionBuild.BuildProject(solutionConfigurationName, projectWrapper.UniqueName, true);
                     }
-                    openModelEditor(project);
+                    openModelEditor(projectWrapper);
                 }
                 else if (gridView.RowCount > 0)
-                    openModelEditor((Project)gridView.GetRow(0));
+                    openModelEditor((ProjectWrapper)gridView.GetRow(0));
             }
         }
 
         private void openModelEditorAction_Execute(ExecuteEventArgs ea)
         {
-            SetGridDataSource();
+//            SetGridDataSource();
             Show();
         }
 
@@ -161,7 +182,7 @@ namespace eXpandAddIns
         private void gridView1_DoubleClick(object sender, EventArgs e)
         {
             var gridView = ((GridView)sender);
-            openModelEditor((Project)gridView.GetRow(gridView.FocusedRowHandle));
+            openModelEditor((ProjectWrapper)gridView.GetRow(gridView.FocusedRowHandle));
         }
 
     }
