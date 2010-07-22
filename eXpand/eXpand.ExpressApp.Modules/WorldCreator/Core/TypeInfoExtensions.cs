@@ -17,7 +17,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         }
 
         public static void Init(this IPersistentTemplatedTypeInfo persistentTemplatedTypeInfo, Type codeTemplateType) {
-            persistentTemplatedTypeInfo.CodeTemplateInfo = (ICodeTemplateInfo)Activator.CreateInstance(TypesInfo.Instance.CodeTemplateInfoType,
+            persistentTemplatedTypeInfo.CodeTemplateInfo = (ICodeTemplateInfo)ReflectionHelper.CreateObject(TypesInfo.Instance.CodeTemplateInfoType,
                                                                                                 persistentTemplatedTypeInfo.Session);
             if (persistentTemplatedTypeInfo is IPersistentMemberInfo)
             {

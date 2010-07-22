@@ -1,4 +1,5 @@
 ﻿using System;
+using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.PersistentMetaData;
 
@@ -7,7 +8,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public static void SetDefaultTemplate(this IPersistentTemplatedTypeInfo persistentMemberInfo, TemplateType templateType)
         {
             persistentMemberInfo.CodeTemplateInfo =
-                (ICodeTemplateInfo)Activator.CreateInstance(TypesInfo.Instance.CodeTemplateInfoType, persistentMemberInfo.Session);
+                (ICodeTemplateInfo)ReflectionHelper.CreateObject(TypesInfo.Instance.CodeTemplateInfoType, persistentMemberInfo.Session);
 
             ICodeTemplate defaultTemplate = CodeTemplateBuilder.CreateDefaultTemplate(templateType, persistentMemberInfo.Session,
                                                                                       TypesInfo.Instance.CodeTemplateType,

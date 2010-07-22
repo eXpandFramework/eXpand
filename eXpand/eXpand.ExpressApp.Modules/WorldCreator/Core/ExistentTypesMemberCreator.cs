@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -55,7 +56,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
         public void CreateAttributes(IExtendedMemberInfo extendedMemberInfo, XPCustomMemberInfo customMemberInfo) {
             foreach (AttributeInfo attributeInfo in extendedMemberInfo.TypeAttributes.Select(typeAttribute => typeAttribute.Create())) {
-                customMemberInfo.AddAttribute((Attribute)Activator.CreateInstance(attributeInfo.Constructor.DeclaringType,attributeInfo.InitializedArgumentValues));
+                customMemberInfo.AddAttribute((Attribute)ReflectionHelper.CreateObject(attributeInfo.Constructor.DeclaringType, attributeInfo.InitializedArgumentValues));
             }
         }
     }

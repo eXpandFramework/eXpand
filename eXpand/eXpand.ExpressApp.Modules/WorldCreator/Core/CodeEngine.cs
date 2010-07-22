@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using DevExpress.Persistent.Base;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
@@ -91,7 +92,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
         public static string GenerateCode(IPersistentAttributeInfo persistentAttributeInfo) {
             AttributeInfo attributeInfo = persistentAttributeInfo.Create();
-            var attribute = (Attribute)Activator.CreateInstance(attributeInfo.Constructor.DeclaringType, attributeInfo.InitializedArgumentValues);
+            var attribute = (Attribute)ReflectionHelper.CreateObject(attributeInfo.Constructor.DeclaringType, attributeInfo.InitializedArgumentValues);
             Func<object, object> argSelector = getArgumentCode;
             string args = attributeInfo.InitializedArgumentValues.Length>0
                               ? attributeInfo.InitializedArgumentValues.Select(argSelector).Aggregate

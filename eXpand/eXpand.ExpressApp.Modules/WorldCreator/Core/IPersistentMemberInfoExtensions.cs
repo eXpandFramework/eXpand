@@ -1,4 +1,5 @@
 ﻿using System;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -9,7 +10,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public static void CreateAssociation(this IPersistentMemberInfo persistentMemberInfo, string associationName) {
             var attribute =
                 (IPersistentAssociationAttribute)
-                Activator.CreateInstance(TypesInfo.Instance.PersistentAssociationAttributeType,
+                ReflectionHelper.CreateObject(TypesInfo.Instance.PersistentAssociationAttributeType,
                                          persistentMemberInfo.Session);
             attribute.AssociationName = associationName;
             persistentMemberInfo.TypeAttributes.Add(attribute);

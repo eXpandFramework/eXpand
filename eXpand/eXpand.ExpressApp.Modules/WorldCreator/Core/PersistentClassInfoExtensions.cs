@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Xpo;
@@ -11,7 +12,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public static IPersistentMemberInfo CreateCollection(this IPersistentClassInfo classInfo, string assemblyName, string classInfoName) {
             var collectionMemberInfo =
                 (IPersistentCollectionMemberInfo)
-                Activator.CreateInstance(TypesInfo.Instance.PersistentCollectionInfoType, classInfo.Session);
+                ReflectionHelper.CreateObject(TypesInfo.Instance.PersistentCollectionInfoType, classInfo.Session);
 
             collectionMemberInfo.Owner=classInfo;
             collectionMemberInfo.Name = classInfoName+"s";
@@ -39,7 +40,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             
             Type memberInfoType = GetMemberInfoType(propertyInfo.PropertyType);
             var persistentMemberInfo =
-                ((IPersistentMemberInfo)Activator.CreateInstance(memberInfoType, classInfo.Session));
+                ((IPersistentMemberInfo)ReflectionHelper.CreateObject(memberInfoType, classInfo.Session));
             classInfo.OwnMembers.Add(persistentMemberInfo);
             persistentMemberInfo.SetDefaultTemplate(TemplateType.InterfaceReadWriteMember);
             persistentMemberInfo.CodeTemplateInfo.TemplateInfo.TemplateCode =
