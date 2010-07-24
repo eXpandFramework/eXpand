@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.FilterDataStore.Core;
@@ -7,38 +8,27 @@ namespace eXpand.ExpressApp.FilterDataStore.Providers
 {
     public class UserFilterProvider:FilterProviderBase
     {
-        public override object FilterValue
-        {
+        public override object FilterValue {
             get {
                 if (SecuritySystem.CurrentUser != null)
-                    return ((XPBaseObject)SecuritySystem.CurrentUser).ClassInfo.KeyProperty.GetValue(SecuritySystem.CurrentUser);
-                return null;
+                    return ((XPBaseObject)SecuritySystem.CurrentUser).ClassInfo.KeyProperty.GetValue(
+                            SecuritySystem.CurrentUser);
+                return UpdaterUserKey;
             }
+            set { }
         }
 
-        public override string FilterMemberName
-        {
-            get { return "UserFilter"; }
-        }
+        [DefaultValue("UserFilter")]
+        public override string FilterMemberName { get; set; }
+        [DefaultValue(SizeAttribute.DefaultStringMappingFieldSize)]
+        public override int FilterMemberSize { get; set; }
+        [DefaultValue(true)]
+        public override bool FilterMemberIndexed { get; set; }
+        
+        public override bool UseFilterValueWhenNull { get; set; }
+        [DefaultValue(typeof(Guid))]
+        public override Type FilterMemberType { get; set; }
 
-        public override int FilterMemberSize
-        {
-            get { return SizeAttribute.DefaultStringMappingFieldSize; }
-        }
-
-        public override bool FilterMemberIndexed
-        {
-            get { return true; }
-        }
-
-        public override bool UseFilterValueWhenNull
-        {
-            get { return false; }
-        }
-
-        public override Type FilterMemberType
-        {
-            get { return typeof(Guid); }
-        }
+        public static object UpdaterUserKey { get; set; }
     }
 }
