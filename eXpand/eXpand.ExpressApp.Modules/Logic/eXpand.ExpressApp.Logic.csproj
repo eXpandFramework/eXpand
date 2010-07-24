@@ -165,6 +165,7 @@
     <Compile Include="LogicRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Model\IModelApplicationLogic.cs" />
     <Compile Include="Model\IModelExecutionContext.cs" />
     <Compile Include="Model\IModelGroupContexts.cs" />
     <Compile Include="Model\IModelExecutionContexts.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Security\PopulateViewsController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FrameTemplateContext.cs" />
     <Compile Include="TypeConverters\StringToModelMemberConverter.cs">
       <SubType>Code</SubType>
     </Compile>

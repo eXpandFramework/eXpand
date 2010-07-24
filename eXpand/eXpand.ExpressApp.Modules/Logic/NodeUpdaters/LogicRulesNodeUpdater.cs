@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
 using DevExpress.ExpressApp.Model;
@@ -11,7 +10,6 @@ using eXpand.ExpressApp.Logic.Model;
 using eXpand.ExpressApp.Logic.NodeGenerators;
 using eXpand.Utils;
 using eXpand.Utils.Helpers;
-using System.Linq;
 
 namespace eXpand.ExpressApp.Logic.NodeUpdaters {
     public abstract class LogicRulesNodeUpdater<TLogicRule, TModelLogicRule, TRootModelNode> :
@@ -33,16 +31,6 @@ namespace eXpand.ExpressApp.Logic.NodeUpdaters {
             }
         }
 
-//        void SetValues(TLogicRule attribute, TModelLogicRule rule) {
-//            Type ruleType = rule.GetType();
-//            foreach (var propertyInfo in attribute.GetType().GetProperties().Where(info => info.Name!="TypeId")) {
-//                PropertyInfo property = ruleType.GetProperty(propertyInfo.Name);
-//                if (property.PropertyType==propertyInfo.PropertyType) {
-//                    object value = propertyInfo.GetValue(attribute,null);
-//                    property.SetValue(rule,value, null);
-//                }
-//            }
-//        }
 
         void ConvertModelNodes(TLogicRule attribute, TModelLogicRule rule) {
             if (_explicitProperties== null)

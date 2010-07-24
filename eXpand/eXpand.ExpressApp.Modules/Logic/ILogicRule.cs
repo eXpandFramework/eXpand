@@ -7,6 +7,11 @@ using DevExpress.Persistent.Base;
 namespace eXpand.ExpressApp.Logic {
     public interface ILogicRule : IRule {
         [Category("Behavior")]
+        FrameTemplateContext FrameTemplateContext { get; set; }
+        [Category("Behavior")]
+        bool? IsRootView { get; set; }
+
+        [Category("Behavior")]
         [Description("Specifies the View type in which the current rule is in effect.")]
         [RefreshProperties(RefreshProperties.All)]
         ViewType ViewType { get; set; }

@@ -24,6 +24,9 @@ namespace eXpand.ExpressApp.Logic.Security
         public string ID { get; set; }
 
         public string ExecutionContextGroup { get; set; }
+        public FrameTemplateContext FrameTemplateContext { get; set; }
+
+        public bool? IsRootView { get; set; }
 
 
         public int Index { get; set; }

@@ -30,6 +30,16 @@ namespace eXpand.ExpressApp.Logic
             set { throw new NotImplementedException(); }
         }
 
+        public FrameTemplateContext FrameTemplateContext {
+            get { return _logicRule.FrameTemplateContext; }
+            set { _logicRule.FrameTemplateContext=value; }
+        }
+
+        public bool? IsRootView {
+            get { return _logicRule.IsRootView; }
+            set { _logicRule.IsRootView=value; }
+        }
+
         public ViewType ViewType {
             get { return _logicRule.ViewType; }
             set { _logicRule.ViewType = value; }

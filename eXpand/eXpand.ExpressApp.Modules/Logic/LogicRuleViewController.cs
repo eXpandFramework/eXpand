@@ -42,7 +42,7 @@ namespace eXpand.ExpressApp.Logic{
 
         LogicRuleInfo<TModelLogicRule> GetInfo(View view, object currentObject, TModelLogicRule rule, ExecutionContext executionContext, bool invertCustomization) {
             LogicRuleInfo<TModelLogicRule> info = CalculateLogicRuleInfo(currentObject, rule);
-            if (info != null && ContextIsValid(executionContext, info)){
+            if (info != null && ExecutionContextIsValid(executionContext, info)&&TemplateContextIsValid(info)&&ViewIsRoot(info)){
                 info.InvertingCustomization = invertCustomization;
                 info.View = view;
                 if (invertCustomization)
@@ -52,6 +52,18 @@ namespace eXpand.ExpressApp.Logic{
             return null;
         }
 
+        protected virtual bool ViewIsRoot(LogicRuleInfo<TModelLogicRule> info) {
+            if (!(info.Rule.IsRootView.HasValue))
+                return true;
+            return info.Rule.IsRootView==View.IsRoot;
+        }
+
+        protected virtual bool TemplateContextIsValid(LogicRuleInfo<TModelLogicRule> info) {
+            FrameTemplateContext frameTemplateContext = info.Rule.FrameTemplateContext;
+            if (frameTemplateContext==FrameTemplateContext.All)
+                return true;
+            return frameTemplateContext+"Context" == Frame.Context;
+        }
 
 
         public abstract void ExecuteRule(LogicRuleInfo<TModelLogicRule> info, ExecutionContext executionContext);
@@ -208,7 +220,7 @@ namespace eXpand.ExpressApp.Logic{
 
 
 
-        public virtual bool ContextIsValid(ExecutionContext executionContext, LogicRuleInfo<TModelLogicRule> logicRuleInfo) {
+        public virtual bool ExecutionContextIsValid(ExecutionContext executionContext, LogicRuleInfo<TModelLogicRule> logicRuleInfo) {
             return (logicRuleInfo.ExecutionContext | executionContext) == logicRuleInfo.ExecutionContext;
         }
     }
