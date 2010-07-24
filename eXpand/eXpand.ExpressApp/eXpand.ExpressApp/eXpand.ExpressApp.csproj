@@ -133,6 +133,7 @@
     <Compile Include="IXpoDataStoreProxy.cs" />
     <Compile Include="ListEditors\GridViewOptionsModelSynchronizer.cs" />
     <Compile Include="ListEditors\OptionsModelSynchronizer.cs" />
+    <Compile Include="ModelFromResourceStoreBase.cs" />
     <Compile Include="NodeUpdaters\ModelListViewLinqColumnsNodesGeneratorUpdater.cs" />
     <Compile Include="NodeUpdaters\ModelListViewLinqNodesGeneratorUpdater.cs" />
     <Compile Include="ModuleBase.cs">

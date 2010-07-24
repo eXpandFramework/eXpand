@@ -36,7 +36,7 @@ namespace eXpand.ExpressApp.ListEditors
 
         internal static Type GetModelOptionsType() {
             ITypeInfo findTypeInfo = XafTypesInfo.Instance.FindTypeInfo(typeof(TModelOptionsType));
-            return ReflectionHelper.FindTypeDescendants(findTypeInfo).Single().Type;
+            return ReflectionHelper.FindTypeDescendants(findTypeInfo).Where(info => info.Type.IsInterface).Single().Type;
         }
 
         void DelegateValuesFromModelToControl(IModelNode optionsNode, IEnumerable<PropertyInfo> propertyInfos, MethodInfo getValueMethodInfo, object control)
