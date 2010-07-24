@@ -32,15 +32,15 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             if (model != null){
                 objectSpace = application.CreateObjectSpace();
                 ModelDifferenceObject modelDifferenceObject = 
-                    GetActiveDifferenceObject() ?? 
+                    GetActiveDifferenceObject(model.Id) ?? 
                     GetNewDifferenceObject(objectSpace)
-                    .InitializeMembers(Application.Title, application.GetType().FullName);
+                    .InitializeMembers(model.Id);
                 
                 OnDifferenceObjectSaving(modelDifferenceObject, model);
             }
         }
         
-        protected internal abstract ModelDifferenceObject GetActiveDifferenceObject();
+        protected internal abstract ModelDifferenceObject GetActiveDifferenceObject(string modelId);
 
         protected internal abstract ModelDifferenceObject GetNewDifferenceObject(ObjectSpace objectSpace);
 

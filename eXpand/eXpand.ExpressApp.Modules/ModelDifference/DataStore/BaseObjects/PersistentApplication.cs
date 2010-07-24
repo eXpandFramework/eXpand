@@ -56,7 +56,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         {
             get
             {
-                return this.executableName;
+                return executableName;
             }
 
             set
@@ -68,7 +68,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            this.ExecutableName = Assembly.GetAssembly(ModelDifferenceModule.Application.GetType()).ManifestModule.Name;
+            ExecutableName = Assembly.GetAssembly(ModuleBase.Application.GetType()).ManifestModule.Name;
         }
     }
 }

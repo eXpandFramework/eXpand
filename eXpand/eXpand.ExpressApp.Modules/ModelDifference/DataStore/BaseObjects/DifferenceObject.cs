@@ -13,7 +13,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         [Persistent, Delayed, Size(SizeAttribute.Unlimited), ValueConverter(typeof(ModelValueConverter))]
         public ModelApplicationBase Model {
             get { return GetDelayedPropertyValue<ModelApplicationBase>("Model"); }
-            set { SetDelayedPropertyValue("Model", value); }
+            set {
+                SetDelayedPropertyValue("Model", value);
+            }
         }
     }
 }

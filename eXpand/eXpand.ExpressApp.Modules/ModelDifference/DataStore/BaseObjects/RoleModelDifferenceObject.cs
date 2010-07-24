@@ -1,4 +1,3 @@
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.Attributes;
@@ -22,12 +21,11 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
 
         public override ModelApplicationBase[] GetAllLayers()
         {
-            List<ModelDifferenceObject> modelDifferenceObjects = new List<ModelDifferenceObject>() 
-            {
-                new QueryModelDifferenceObject(Session).GetActiveModelDifference(PersistentApplication.UniqueName)
+            var modelDifferenceObjects = new List<ModelDifferenceObject> {
+                new QueryModelDifferenceObject(Session).GetActiveModelDifference(PersistentApplication.UniqueName,null)
             };
 
-            return base.GetAllLayers(modelDifferenceObjects);
+            return GetAllLayers(modelDifferenceObjects);
         }
     }
 }

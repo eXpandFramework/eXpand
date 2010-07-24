@@ -35,7 +35,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
         }
 
         protected virtual void OnObjectCreated(object sender, ObjectCreatedEventArgs args){
-            ((ModelDifferenceObject) args.CreatedObject).InitializeMembers(Application.Title, (Application).Title);
+            ((ModelDifferenceObject) args.CreatedObject).InitializeMembers(Guid.NewGuid().ToString());
         }
     }
 }

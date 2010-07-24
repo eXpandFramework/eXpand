@@ -6,9 +6,6 @@ using eXpand.Xpo;
 namespace eXpand.ExpressApp.ModelDifference.Controllers{
     public class CloneObjectViewController : DevExpress.ExpressApp.CloneObject.CloneObjectViewController
     {
-        public CloneObjectViewController() {
-        }
-
         protected override void CloneObject(SingleChoiceActionExecuteEventArgs args)
         {
             base.CloneObject(args);
@@ -17,6 +14,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
                 modelDifferenceObject.DateCreated = DateTime.Now;
                 modelDifferenceObject.Disabled = true;
                 modelDifferenceObject.Name = null;
+                modelDifferenceObject.ModelId = Guid.NewGuid().ToString();
                 modelDifferenceObject.PersistentApplication = (PersistentApplication) modelDifferenceObject.Session.GetObject(((ModelDifferenceObject)View.CurrentObject).PersistentApplication);
             }
         }

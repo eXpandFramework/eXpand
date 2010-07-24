@@ -5,19 +5,14 @@ using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.Attributes;
-using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.Persistent.Base;
-using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
-
-    [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "PersistentApplication;DifferenceType", TargetCriteria = "DifferenceType=0 AND Disabled=false", SkipNullOrEmptyValues = false)]
     [CreatableItem(false), NavigationItem("Default"), HideFromNewMenu]
     [Custom("Caption", Caption), Custom("IsClonable", "True"), VisibleInReports(false)]
     public class ModelDifferenceObject : DifferenceObject, IXpoModelDifference {
@@ -36,7 +31,6 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             get { return combineOrder; }
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref combineOrder, value); }
         }
-
         [NonCloneable]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [RuleRequiredField(null, DefaultContexts.Save)]
@@ -76,11 +70,11 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
         [Size(SizeAttribute.Unlimited), NonPersistent, NonCloneable, VisibleInListView(false), ImmediatePostData]
         public string XmlContent {
-            get { return this.Model.Xml; }
+            get { return Model.Xml; }
             set {
                 var oldValue = XmlContent;
                 if (!string.IsNullOrEmpty(value))
-                    new ModelXmlReader().ReadFromString(Model, (Model.Master as ModelApplicationBase).CurrentAspect, value);
+                    new ModelXmlReader().ReadFromString(Model, ((ModelApplicationBase) Model.Master).CurrentAspect, value);
                 
                 OnChanged("XmlContent", oldValue, value);
             }
@@ -92,31 +86,42 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             base.AfterConstruction();
             _differenceType = DifferenceType.Model;
         }
+        private string _modelId;
 
-        public virtual ModelDifferenceObject InitializeMembers(string applicationName, string uniqueName)
+        [Browsable(false)]
+        public string ModelId {
+            get { return _modelId; }
+            set { SetPropertyValue("ModelId", ref _modelId, value); }
+        }
+
+        private  ModelDifferenceObject InitializeMembers(string applicationName, string uniqueName, string modelId)
         {
             PersistentApplication = new QueryPersistentApplication(Session).Find(uniqueName) ??
                                     new PersistentApplication(Session) { Name = applicationName, UniqueName = uniqueName };
-            ModelDifferenceObjectBuilder.SetUp(this, applicationName);
+            DateCreated = DateTime.Now;
+            Name = "AutoCreated " + DateTime.Now;
+            ModelId = modelId;
+            Model = ModuleBase.ModelApplicationCreator.CreateModelApplication();
             return this;
         }
 
         public virtual ModelApplicationBase[] GetAllLayers()
         {
-            return this.GetAllLayers(new List<ModelDifferenceObject>().AsEnumerable());
+            return GetAllLayers(new List<ModelDifferenceObject>().AsEnumerable());
         }
 
         public ModelApplicationBase[] GetAllLayers(IEnumerable<ModelDifferenceObject> differenceObjects)
         {
-            var layers = new List<ModelApplicationBase>();
-            foreach (ModelDifferenceObject differenceObject in differenceObjects)
-            {
-                layers.Add(differenceObject.Model);
-            }
+            var layers = differenceObjects.Select(differenceObject => differenceObject.Model).ToList();
 
-            layers.Add(this.Model);
+            layers.Add(Model);
 
             return layers.ToArray();
+        }
+
+        public virtual ModelDifferenceObject InitializeMembers(string modelId)
+        {
+            return InitializeMembers(ModuleBase.Application.Title, ModuleBase.Application.GetType().FullName, modelId);
         }
     }
 }

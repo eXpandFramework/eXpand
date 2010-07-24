@@ -1,7 +1,7 @@
 using System.Diagnostics;
 
 namespace eXpand.ExpressApp.ModelDifference.Controllers{
-    partial class CombineDifferencesOnDemandListViewController
+    partial class CombineDifferencesController
     {
         /// <summary>
         /// Required designer variable.

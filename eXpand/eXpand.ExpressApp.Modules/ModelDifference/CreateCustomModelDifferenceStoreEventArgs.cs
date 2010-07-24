@@ -5,12 +5,12 @@ using DevExpress.ExpressApp;
 namespace eXpand.ExpressApp.ModelDifference {
     public class CreateCustomModelDifferenceStoreEventArgs : HandledEventArgs
     {
-        internal List<KeyValuePair<string, ModelStoreBase>> ExtraDiffStores = new List<KeyValuePair<string, ModelStoreBase>>();
+        internal List<ModelFromResourceStoreBase> ExtraDiffStores = new List<ModelFromResourceStoreBase>();
         public ModelDifferenceStore Store { get; set; }
 
-        public void AddExtraDiffStore(string id, ModelStoreBase store)
+        public void AddExtraDiffStore(ModelFromResourceStoreBase store)
         {
-            ExtraDiffStores.Add(new KeyValuePair<string, ModelStoreBase>(id, store));
+            ExtraDiffStores.Add(store);
         }
     }
 }

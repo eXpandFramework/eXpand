@@ -21,16 +21,16 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             get { return DifferenceType.User; }
         }
 
-        protected internal override ModelDifferenceObject GetActiveDifferenceObject(){
-            return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName);
+        protected internal override ModelDifferenceObject GetActiveDifferenceObject(string modelId){
+            return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName,null);
         }
 
         protected internal IQueryable<ModelDifferenceObject> GetActiveDifferenceObjects(){
             var allLayers =
                 new List<ModelDifferenceObject>(new QueryRoleModelDifferenceObject(ObjectSpace.Session)
-                    .GetActiveModelDifferences(Application.GetType().FullName).Cast<ModelDifferenceObject>());
+                    .GetActiveModelDifferences(Application.GetType().FullName, null).Cast<ModelDifferenceObject>());
 
-            allLayers.AddRange(new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName).Cast<ModelDifferenceObject>());
+            allLayers.AddRange(new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName,null).Cast<ModelDifferenceObject>());
             return allLayers.AsQueryable();
         }
 
@@ -86,13 +86,11 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 var space = Application.CreateObjectSpace();
                 IEnumerable<ModelDifferenceObject> differences = GetDifferences(space);
                 foreach (var difference in differences){
-                    for (int i = 0; i < model.AspectCount; i++)
-                    {
+                    for (int i = 0; i < model.AspectCount; i++){
                         var xml = writer.WriteToString(model, i);
                         if (!string.IsNullOrEmpty(xml))
                             reader.ReadFromString(difference.Model, model.GetAspect(i), xml);
                     }
-
                     space.SetModified(difference);
                 }
                 space.CommitChanges();

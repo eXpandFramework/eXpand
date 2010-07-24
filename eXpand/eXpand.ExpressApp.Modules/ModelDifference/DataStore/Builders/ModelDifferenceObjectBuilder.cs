@@ -1,6 +1,4 @@
 using System;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.NodeWrappers;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.Builders{

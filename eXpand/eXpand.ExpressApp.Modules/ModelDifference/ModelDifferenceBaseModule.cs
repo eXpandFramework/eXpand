@@ -66,7 +66,7 @@ namespace eXpand.ExpressApp.ModelDifference{
 
         }
 
-        private void GetApplicationModelDiffs(List<KeyValuePair<string, ModelStoreBase>> extraDiffStores)
+        private void GetApplicationModelDiffs(List<ModelFromResourceStoreBase> extraDiffStores)
         {
             new XpoModelDictionaryDifferenceStore(Application, true, GetPath(), extraDiffStores).Load((ModelApplicationBase)Application.Model);
         }
