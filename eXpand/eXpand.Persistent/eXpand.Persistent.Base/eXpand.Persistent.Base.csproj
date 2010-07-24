@@ -159,19 +159,6 @@
     <Compile Include="Validation\FromIPropertyValueValidator\RuleFromIPropertyValueValidatorProperties.cs" />
     <Compile Include="Validation\IRuleMultiPropertiesValues.cs" />
     <Compile Include="Validation\RuleMultiPropertiesValues.cs" />
-    <Compile Include="Taxonomies\BaseTaxonomy.cs" />
-    <Compile Include="Taxonomies\BaseTerm.cs" />
-    <Compile Include="Taxonomies\GenericWeakReference.cs" />
-    <Compile Include="Taxonomies\IBaseTaxonomy.cs" />
-    <Compile Include="Taxonomies\IBaseTerm.cs" />
-    <Compile Include="Taxonomies\ICategorizedKeyedObject.cs" />
-    <Compile Include="Taxonomies\IGenericWeakReference.cs" />
-    <Compile Include="Taxonomies\IKeyedObject.cs" />
-    <Compile Include="Taxonomies\IObjectWithAssignments.cs" />
-    <Compile Include="Taxonomies\IStructuralTerm.cs" />
-    <Compile Include="Taxonomies\ITaxonomyManager.cs" />
-    <Compile Include="Taxonomies\IValueTerm.cs" />
-    <Compile Include="Taxonomies\KeyedObjectValidity.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
