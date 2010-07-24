@@ -126,6 +126,8 @@
     <Compile Include="Model\IModelApplicationModelArtifactState.cs" />
     <Compile Include="Model\IModelArtifactState.cs" />
     <Compile Include="Model\IModelArtifactStateRule.cs" />
+    <Compile Include="Model\IModelLogicConditionalActionState.cs" />
+    <Compile Include="Model\IModelLogicConditionalControllerState.cs" />
     <Compile Include="NodeUpdaters\ArtifactStateDefaultContextNodeUpdater.cs" />
     <Compile Include="NodeUpdaters\ArtifactStateRulesNodeUpdater.cs" />
     <Compile Include="Security\ArtifactStateRulePermission.cs" />
