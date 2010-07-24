@@ -20,10 +20,16 @@ namespace eXpand.ExpressApp.Win.SystemModule
 
     public class NotifyIconController : WindowController, IModelExtender
     {
+        static bool iconVisible;
+        public NotifyIconController() {
+            TargetWindowType=WindowType.Main;
+        }
+
         protected override void OnFrameAssigned()
         {
             base.OnFrameAssigned();
-            Frame.TemplateChanged += FrameOnTemplateChanged;
+            if (!iconVisible)
+                Frame.TemplateChanged += FrameOnTemplateChanged;
         }
 
         private void FrameOnTemplateChanged(object sender, EventArgs args)
@@ -40,11 +46,12 @@ namespace eXpand.ExpressApp.Win.SystemModule
                     strip.Items.Add(GetMenuItem("Minimize", (o, eventArgs) => changeFormVisibility(form)));
                     if (Application is ILogOut)
                         strip.Items.Add(GetMenuItem("LogOut", (o, eventArgs) => ((ILogOut)Application).Logout()));
-                    strip.Items.Add(GetMenuItem("Exit", (o, eventArgs) => Application.Exit()));
+                    strip.Items.Add(GetMenuItem("Exit", (o, eventArgs) => ModuleBase.Application.Exit()));
 
                     var notifyIcon1 = new NotifyIcon(container) { Visible = true, ContextMenuStrip = strip };
                     setIcon(notifyIcon1);
                     notifyIcon1.DoubleClick += (o, eventArgs) => changeFormVisibility(form);
+                    iconVisible = true;
                 }
             }
         }

@@ -46,10 +46,11 @@ namespace eXpand.ExpressApp.Win
         public void Logout()
         {
             Tracing.Tracer.LogSeparator("Application is being restarted");
-            if (!ignoreUserModelDiffs)
-                SaveModelChanges();
+            
 
             ShowViewStrategy.CloseAllWindows();
+            if (!ignoreUserModelDiffs)
+                SaveModelChanges();
             Security.Logoff();
             Tracing.Tracer.LogSeparator("Application is now restarting");
             Setup();
