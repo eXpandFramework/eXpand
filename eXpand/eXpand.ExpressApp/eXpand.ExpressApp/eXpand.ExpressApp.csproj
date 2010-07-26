@@ -128,12 +128,11 @@
     <Compile Include="Enums\DetailViewType.cs" />
     <Compile Include="Enums\RecycleBinEnum.cs" />
     <Compile Include="Core\ModuleBaseExtensions.cs" />
-    <Compile Include="IModelsManager.cs" />
+    <Compile Include="ComponentInterfaces.cs" />
     <Compile Include="IObjectSpaceProvider.cs" />
     <Compile Include="IXpoDataStoreProxy.cs" />
     <Compile Include="ListEditors\GridViewOptionsModelSynchronizer.cs" />
     <Compile Include="ListEditors\OptionsModelSynchronizer.cs" />
-    <Compile Include="ModelFromResourceStoreBase.cs" />
     <Compile Include="NodeUpdaters\ModelListViewLinqColumnsNodesGeneratorUpdater.cs" />
     <Compile Include="NodeUpdaters\ModelListViewLinqNodesGeneratorUpdater.cs" />
     <Compile Include="ModuleBase.cs">

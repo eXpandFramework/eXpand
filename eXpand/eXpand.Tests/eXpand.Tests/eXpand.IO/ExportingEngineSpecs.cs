@@ -153,8 +153,8 @@ namespace eXpand.Tests.eXpand.IO
             var objectSpace = ObjectSpaceInMemory.CreateNew();
 
             PersistentAssemblyBuilder persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(objectSpace, GetUniqueAssemblyName());
-            IClassHandler classHandler = persistentAssemblyBuilder.CreateClasses(new[]{"Customer"});
-            classHandler.CreateReferenceMembers(info => new[]{typeof(User)});            
+            IClassInfoHandler classInfoHandler = persistentAssemblyBuilder.CreateClasses(new[]{"Customer"});
+            classInfoHandler.CreateReferenceMembers(info => new[]{typeof(User)});            
             objectSpace.CommitChanges();
             Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
@@ -253,7 +253,7 @@ namespace eXpand.Tests.eXpand.IO
         It should_export_the_storage_converter_value =
             () => {
                 var serializedObjects = _root.SerializedObjects(_differenceObject.GetType());
-                var value = serializedObjects.Properties(NodeType.Simple).Property(_differenceObject.GetPropertyName(x => x.Model)).Value;
+                var value = serializedObjects.Properties(NodeType.Simple).Property(_differenceObject.GetPropertyName(x => x.ModelApplication)).Value;
                 value.ShouldContain("dictionaryXmlValue");
 
             };    

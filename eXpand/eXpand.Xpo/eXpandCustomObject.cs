@@ -27,22 +27,7 @@ namespace eXpand.Xpo
 #endif
         private bool isDefaultPropertyAttributeInit;
         private XPMemberInfo defaultPropertyMemberInfo;
-        ChangedMemberCollector _changedMemberCollector;
-//        private MemberInfoCollection _changedMembers;
-
-//        protected override void OnChanged(string propertyName, object oldValue, object newValue)
-//        {
-//            base.OnChanged(propertyName, oldValue, newValue);
-//
-//            if (!IsLoading)
-//            {
-//                XPMemberInfo member = GetPersistentMember(propertyName);
-//                if (member != null && !ChangedMembers.Contains(member))
-//                {
-//                    _changedMembers.Add(ClassInfo.GetMember(member.Name));
-//                }
-//            }
-//        }
+        readonly ChangedMemberCollector _changedMemberCollector;
 
         protected override void OnSaving()
         {
@@ -55,24 +40,6 @@ namespace eXpand.Xpo
             }
         }
 
-//        protected override void OnSaved()
-//        {
-//            base.OnSaved();
-//
-//            if (Session is NestedUnitOfWork)
-//            {
-//                var parentitem = ((NestedUnitOfWork)Session).GetParentObject(this);
-//                foreach (XPMemberInfo changedProperty in ChangedMembers)
-//                {
-//                    if (!parentitem.ChangedMembers.Contains(changedProperty))
-//                    {
-//                        parentitem.ChangedMembers.Add(changedProperty);
-//                    }
-//                }
-//            }
-//
-//            ChangedMembers.Clear();
-//        }
 
         public override string ToString()
         {
@@ -118,7 +85,9 @@ namespace eXpand.Xpo
 
         public const string CancelTriggerObjectChangedName = "CancelTriggerObjectChanged";
         //        protected eXpandCustomObject() {}
-        protected eXpandCustomObject(Session session) : base(session) { }
+        protected eXpandCustomObject(Session session) : base(session) {
+            _changedMemberCollector=new ChangedMemberCollector(this);
+        }
 
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]
@@ -184,7 +153,7 @@ namespace eXpand.Xpo
         #endregion
         [Browsable(false)]
         public ChangedMemberCollector ChangedMemberCollector {
-            get { return _changedMemberCollector ?? (_changedMemberCollector = new ChangedMemberCollector(this)); }
+            get { return _changedMemberCollector; }
         }
     }
 }

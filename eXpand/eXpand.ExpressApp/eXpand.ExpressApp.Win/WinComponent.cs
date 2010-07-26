@@ -12,11 +12,8 @@ using eXpand.ExpressApp.Win.Interfaces;
 
 namespace eXpand.ExpressApp.Win
 {
-    public interface ISupportCustomListEditorCreation {
-        event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
-    }
 
-    public partial class WinComponent : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation {
+    public partial class WinComponent : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation,IWinApplication {
         public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
 
         public void OnCustomCreateListEditor(CreatingListEditorEventArgs e) {
@@ -102,25 +99,6 @@ namespace eXpand.ExpressApp.Win
 
     }
 
-    public class CreatingListEditorEventArgs : HandledEventArgs {
-        readonly IModelListView _modelListView;
-        readonly CollectionSourceBase _collectionSource;
-
-        public CreatingListEditorEventArgs(IModelListView modelListView, CollectionSourceBase collectionSource) {
-            _modelListView = modelListView;
-            _collectionSource = collectionSource;
-        }
-
-        public IModelListView ModelListView {
-            get { return _modelListView; }
-        }
-
-        public CollectionSourceBase CollectionSource {
-            get { return _collectionSource; }
-        }
-
-        public ListEditor ListEditor { get; set; }
-    }
 
     public class ModelEditFormShowningEventArgs : HandledEventArgs
     {
