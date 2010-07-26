@@ -13,8 +13,10 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
         [Category("eXpand.ModelDifference")]
         bool SynchronizeApplicationModelDiffs { get; set; }    
     }
-    public class SyncronizeApplicationModelDiffsController: ViewController 
+    public class SyncronizeApplicationModelDiffsController: ViewController ,IModelExtender
     {
+        bool _synchronizeApplicationModelDiffs;
+
         public SyncronizeApplicationModelDiffsController()
         {
             TargetObjectType = typeof(ModelDifferenceObject);
@@ -23,19 +25,22 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
         protected override void OnActivated()
         {
             base.OnActivated();
-            ObjectSpace.ObjectSaving += ObjectSpaceOnObjectSaving;
+            _synchronizeApplicationModelDiffs = ((IModelOptionsApplicationModelDiffs)Application.Model.Options).SynchronizeApplicationModelDiffs;
+            if (_synchronizeApplicationModelDiffs)
+                ObjectSpace.ObjectSaving += ObjectSpaceOnObjectSaving;
         }
 
         protected override void OnDeactivating()
         {
             base.OnDeactivating();
-            ObjectSpace.ObjectSaved -= ObjectSpaceOnObjectSaving;
+            if (_synchronizeApplicationModelDiffs)
+                ObjectSpace.ObjectSaved -= ObjectSpaceOnObjectSaving;
         }
 
         internal void ObjectSpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args){
 
             var store = (args.Object) as ModelDifferenceObject;
-            if (store != null && ReferenceEquals(GetDifference(Application.GetType().FullName, store.ModelId), store))
+            if (store != null && ReferenceEquals(GetDifference(Application.GetType().FullName, store.Name), store))
             {
                 var lastLayer = ((ModelApplicationBase)Application.Model).LastLayer;
                 var cloneLayer = lastLayer.Clone();
@@ -44,9 +49,18 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
                 ((ModelApplicationBase)Application.Model).AddLayer(cloneLayer);
             }
         }
-        protected virtual ModelDifferenceObject GetDifference(string applicationName, string modelId) {
-            return new QueryModelDifferenceObject(View.ObjectSpace.Session).GetActiveModelDifference(applicationName,modelId);
+        protected virtual ModelDifferenceObject GetDifference(string applicationName, string name) {
+            return new QueryModelDifferenceObject(View.ObjectSpace.Session).GetActiveModelDifference(applicationName,name);
 
         }
+
+        #region IModelExtender Members
+
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            extenders.Add<IModelOptions, IModelOptionsApplicationModelDiffs>();
+        }
+
+        #endregion
     }
 }

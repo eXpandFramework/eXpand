@@ -25,16 +25,16 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Queries
             }
         }
 
-        public override IQueryable<UserModelDifferenceObject> GetActiveModelDifferences(string applicationName, string modelId)
+        public override IQueryable<UserModelDifferenceObject> GetActiveModelDifferences(string applicationName, string name)
         {
             return new XPCollection<UserModelDifferenceObject>(Session,new GroupOperator(UsersContainsOperator,
                 new GroupOperator(new BinaryOperator("PersistentApplication.UniqueName",applicationName),new BinaryOperator("Disabled", false))),
                 new[] {new SortProperty("CombineOrder",SortingDirection.Ascending)}).AsQueryable();
         }
 
-        public override UserModelDifferenceObject GetActiveModelDifference(string applicationName, string modelId)
+        public override UserModelDifferenceObject GetActiveModelDifference(string applicationName, string name)
         {
-            return GetActiveModelDifferences(applicationName, modelId).FirstOrDefault();
+            return GetActiveModelDifferences(applicationName, name).FirstOrDefault();
         }
 
 }

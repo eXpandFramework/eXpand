@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.ModelDifference.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.DictionaryStores;
@@ -66,7 +67,7 @@ namespace eXpand.ExpressApp.ModelDifference{
 
         }
 
-        private void GetApplicationModelDiffs(List<ModelFromResourceStoreBase> extraDiffStores)
+        private void GetApplicationModelDiffs(List<ModelApplicationFromStreamStoreBase> extraDiffStores)
         {
             new XpoModelDictionaryDifferenceStore(Application, true, GetPath(), extraDiffStores).Load((ModelApplicationBase)Application.Model);
         }

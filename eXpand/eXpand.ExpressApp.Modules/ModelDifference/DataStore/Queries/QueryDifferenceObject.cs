@@ -18,24 +18,24 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Queries{
             get { return _session; }
         }
 
-        public virtual IQueryable<TDifferenceObject> GetActiveModelDifferences(string uniqueApplicationName, string modelId){
+        public virtual IQueryable<TDifferenceObject> GetActiveModelDifferences(string uniqueApplicationName, string name){
             var differenceObjects = new XPQuery<TDifferenceObject>(_session);
-            IQueryable<TDifferenceObject> differences = GetDifferences(differenceObjects, uniqueApplicationName, modelId).Where(o => o.DifferenceType == DifferenceType.Model);
+            IQueryable<TDifferenceObject> differences = GetDifferences(differenceObjects, uniqueApplicationName, name).Where(o => o.DifferenceType == DifferenceType.Model);
             return differences;
         }
 
-        protected IQueryable<TDifferenceObject> GetDifferences(IOrderedQueryable<TDifferenceObject> differenceObjects, string uniqueApplicationName, string modelId)
+        protected IQueryable<TDifferenceObject> GetDifferences(IOrderedQueryable<TDifferenceObject> differenceObjects, string uniqueApplicationName, string name)
         {
             IQueryable<TDifferenceObject> queryable = differenceObjects.Where(IsActiveExpressionCore(uniqueApplicationName));
-            if (!(string.IsNullOrEmpty(modelId))) {
-                queryable = queryable.Where(o => o.ModelId == modelId);
+            if (!(string.IsNullOrEmpty(name))) {
+                queryable = queryable.Where(o => o.Name == name);
             }
             return queryable.OrderBy(o => o.CombineOrder);
         }
 
         public static Expression<Func<TDifferenceObject, bool>> IsActiveExpression(string uniqueApplicationName) {
             Expression<Func<TDifferenceObject, bool>> isActiveExpressionCore = IsActiveExpressionCore(uniqueApplicationName);
-            return PredicateBuilder.And(isActiveExpressionCore, IsActiveExpressionCore());
+            return isActiveExpressionCore.And(IsActiveExpressionCore());
         }
 
         static Expression<Func<TDifferenceObject, bool>> IsActiveExpressionCore(string uniqueApplicationName) {
@@ -46,9 +46,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Queries{
             return GetActiveModelDifference(ModuleBase.Application.GetType().FullName,modelId);
         }
 
-        public virtual TDifferenceObject GetActiveModelDifference(string applicationName, string modelId)
+        public virtual TDifferenceObject GetActiveModelDifference(string applicationName, string name)
         {
-            return GetActiveModelDifferences(applicationName,modelId).Where(IsActiveExpressionCore()).FirstOrDefault();
+            return GetActiveModelDifferences(applicationName,name).Where(IsActiveExpressionCore()).FirstOrDefault();
         }
 
         static Expression<Func<TDifferenceObject, bool>> IsActiveExpressionCore() {

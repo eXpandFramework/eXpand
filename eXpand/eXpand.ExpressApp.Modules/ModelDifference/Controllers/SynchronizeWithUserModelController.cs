@@ -15,10 +15,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
         [DefaultValue(true)]
         bool SynchronizeActiveUserDifferenceWithUserModel { get; set; }
     }
-    /// <summary>
-    /// on load of ActiveUserAspect
-    /// </summary>
-    public class SynchronizeActiveUserDifferenceWithUserModelController : ViewController,IModelExtender
+    public class SynchronizeActiveUserDifferenceWithUserModelController : ViewController<DetailView>,IModelExtender
     {
         bool _synchronizeActiveUserDifferenceWithUserModel;
 
@@ -52,9 +49,10 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
             var userAspectObjectQuery = new QueryUserModelDifferenceObject(View.ObjectSpace.Session);
             ModelDifferenceObject differenceObject = userAspectObjectQuery.GetActiveModelDifference(Application.GetType().FullName,null);
             if (ReferenceEquals(differenceObject, View.CurrentObject)) {
-                var modelApplicationBase = ((UserModelDifferenceObject)View.CurrentObject).Model;
-                var modelReader = new ModelXmlReader();
-                modelReader.ReadFromString(modelApplicationBase, Application.CurrentAspectProvider.CurrentAspect, ((ModelApplicationBase)Application.Model).LastLayer.Xml);
+                var model = ((UserModelDifferenceObject)View.CurrentObject).Model;
+                new ModelXmlReader().ReadFromString(model, Application.CurrentAspectProvider.CurrentAspect, ((ModelApplicationBase)Application.Model).LastLayer.Xml);
+                differenceObject.Model = differenceObject.Model.Clone();
+                ObjectSpace.CommitChanges();
             }
         }
 

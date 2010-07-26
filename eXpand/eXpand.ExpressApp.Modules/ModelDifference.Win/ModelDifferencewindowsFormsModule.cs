@@ -1,4 +1,5 @@
 using System.IO;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Win.SystemModule;
 
 namespace eXpand.ExpressApp.ModelDifference.Win{
@@ -9,7 +10,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win{
             RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
             RequiredModuleTypes.Add(typeof(SystemWindowsFormsModule));
         }
-
+        public static ModelApplicationCreator ApplicationCreator { get; set; }
         private bool? _persistentApplicationModelUpdated=false;
 
         public override string GetPath() {

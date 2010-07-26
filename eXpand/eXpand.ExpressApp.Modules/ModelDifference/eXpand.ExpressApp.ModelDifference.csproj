@@ -124,6 +124,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>
@@ -133,37 +134,33 @@
     <Compile Include="Controllers\CloneObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\SyncronizeApplicationModelDiffsController.cs">
+    <Compile Include="Controllers\CombineDifferencesController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\SynchronizeWithUserModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\CombineDifferencesController.cs">
+    <Compile Include="Controllers\SyncronizeApplicationModelDiffsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\CombineDifferencesController.Designer.cs">
-      <DependentUpon>CombineDifferencesController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\CreateNewDifferenceObjectViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\CreateNewDifferenceObjectViewController.Designer.cs">
-      <DependentUpon>CreateNewDifferenceObjectViewController.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Core\ApplicationCreator.cs" />
+    <Compile Include="Core\ModelApplicationFromStreamStoreBase.cs" />
     <Compile Include="CreateCustomModelDifferenceStoreEventArgs.cs" />
-    <Compile Include="DataStore\BaseObjects\DifferenceObject.cs" />
     <Compile Include="DataStore\BaseObjects\ModelDifferenceObject.cs" />
+    <Compile Include="DataStore\BaseObjects\PersistentApplication.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataStore\BaseObjects\ValueConverters\ModelValueConverter.cs" />
     <Compile Include="DataStore\Queries\IQueryDifferenceObject.cs" />
     <Compile Include="DataStore\Queries\QueryDifferenceObject.cs" />
-    <Compile Include="DataStore\Queries\QueryPersistentApplication.cs" />
     <Compile Include="DataStore\BaseObjects\Associations.cs" />
-    <Compile Include="DataStore\BaseObjects\PersistentApplication.cs" />
     <Compile Include="DataStore\Builders\UserDifferenceObjectBuilder.cs" />
     <Compile Include="DataStore\Builders\RoleDifferenceObjectBuilder.cs" />
     <Compile Include="DataStore\BaseObjects\RoleModelDifferenceObject.cs" />
     <Compile Include="DataStore\BaseObjects\UserModelDifferenceObject.cs" />
+    <Compile Include="DataStore\Queries\QueryPersistentApplication.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataStore\Queries\QueryRoleModelDifferenceObject.cs" />
     <Compile Include="ModelDifferenceBaseModule.cs">
       <SubType>Component</SubType>
@@ -187,9 +184,6 @@
     <Compile Include="DataStore\Queries\QueryUserModelDifferenceObject.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\CombineDifferencesController.resx">
-      <DependentUpon>CombineDifferencesController.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -220,6 +214,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

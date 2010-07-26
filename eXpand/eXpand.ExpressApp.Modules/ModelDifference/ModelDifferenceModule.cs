@@ -19,6 +19,8 @@ namespace eXpand.ExpressApp.ModelDifference
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
         }
 
+        
+
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
         {
             base.CustomizeTypesInfo(typesInfo);
@@ -50,6 +52,8 @@ namespace eXpand.ExpressApp.ModelDifference
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
+            if (!(Application is ISupportModelsManager))
+                throw new NotImplementedException("Implement " + typeof(ISupportModelsManager).FullName + " at your " + Application.GetType().FullName);
             application.CreateCustomUserModelDifferenceStore +=ApplicationOnCreateCustomUserModelDifferenceStore;
         }
 

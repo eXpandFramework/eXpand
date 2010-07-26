@@ -4,20 +4,18 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 
 namespace eXpand.ExpressApp.ModelDifference.Controllers{
-    public partial class CombineDifferencesController : ViewController<ListView>{
+    public class CombineDifferencesController : ViewController<ListView>{
 
         public CombineDifferencesController(){
-            InitializeComponent();
-            RegisterActions(components);
+            var combineAction = new SimpleAction(this,"Combine",PredefinedCategory.ObjectsCreation);
+            combineAction.Execute+=combineSimpleAction_Execute;
             TargetObjectType = typeof (ModelDifferenceObject);
         }
 
-        public SimpleAction CombineSimpleAction{
-            get { return combineSimpleAction; }
-        }
 
 
         private void combineSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e){
@@ -39,13 +37,16 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
 
         public void CombineAndSave(List<ModelDifferenceObject> selectedModelAspectObjects){
             foreach (var modelDifferenceObject in View.SelectedObjects.OfType<ModelDifferenceObject>()) {
-                var modelApplicationBase = (modelDifferenceObject).Model;
-                modelApplicationBase = modelApplicationBase.Clone();
+                var modelApplication = (modelDifferenceObject).Model;
                 foreach (var selectedModelAspectObject in selectedModelAspectObjects) {
-                    var modelReader = new ModelXmlReader();
-                    modelReader.ReadFromString(modelApplicationBase, Application.CurrentAspectProvider.CurrentAspect, selectedModelAspectObject.Model.Xml);
-                    modelDifferenceObject.Model = modelApplicationBase;
+                    var selectedModel = selectedModelAspectObject.Model;
+                    for (int i = 0; i < selectedModelAspectObject.Model.AspectCount; i++) {
+                        var xml = new ModelXmlWriter().WriteToString(selectedModel, i);
+                        if (!(string.IsNullOrEmpty(xml)))
+                            new ModelXmlReader().ReadFromString(modelApplication, selectedModel.GetAspect(i),xml);
+                    }
                 }
+                modelDifferenceObject.Model = modelDifferenceObject.Model.Clone();
             }
             ObjectSpace.CommitChanges();
         }

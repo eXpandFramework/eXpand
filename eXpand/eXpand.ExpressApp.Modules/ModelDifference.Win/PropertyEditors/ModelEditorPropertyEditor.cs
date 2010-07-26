@@ -21,8 +21,8 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         #region Members
 
         private XafApplication _application;
-        private ModelEditorViewController controller;
-        private ModelApplicationBase masterModel;
+        private ModelEditorViewController _controller;
+        private ModelApplicationBase _masterModel;
 
         #endregion
 
@@ -58,14 +58,14 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         public ModelEditorViewController ModelEditorViewController
         {
-            get { return controller ?? (controller = GetModelEditorController()); }
+            get { return _controller ?? (_controller = GetModelEditorController()); }
         }
 
         public ModelApplicationBase MasterModel
         {
             get
             {
-                return masterModel;
+                return _masterModel;
             }
         }
 
@@ -77,8 +77,8 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         {
             base.ReadValueCore();
 
-            if (controller == null)
-                controller = GetModelEditorController();
+            if (_controller == null)
+                _controller = GetModelEditorController();
         }
 
         protected override void OnCurrentObjectChanged()
@@ -86,12 +86,11 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             if (Control != null)
             {
                 Control.CurrentModelNode = null;
-                controller.Modifying -= Model_Modifying;
-                controller = null;
+                _controller.Modifying -= Model_Modifying;
+                _controller = null;
             }
-
-            masterModel = GetMasterModel();
-            ModuleBase.ModelApplicationCreator = masterModel.CreatorInstance;
+            _masterModel = (ModelApplicationBase) ((ISupportModelsManager) ModuleBase.Application).ModelsManager.CreateModelApplication();
+//            ModuleBase.ModelApplicationCreator = masterModel.CreatorInstance;
 
             base.OnCurrentObjectChanged();
         }
@@ -112,12 +111,13 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         private void SpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args)
         {
+            if (Control == null) return;
             if (ReferenceEquals(args.Object, CurrentObject))
             {
                 new ModelValidator().ValidateModel(CurrentObject.Model);
-                controller.SaveAction.Active["Not needed"] = true;
-                controller.Save();
-                controller.SaveAction.Active["Not needed"] = false;
+                ModelEditorViewController.SaveAction.Active["Not needed"] = true;
+                ModelEditorViewController.Save();
+                ModelEditorViewController.SaveAction.Active["Not needed"] = false;
             }
         }
 
@@ -129,22 +129,32 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         {
             _application = application;
             objectSpace.ObjectSaving += SpaceOnObjectSaving;
+            objectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
+        }
+
+        void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
+            if (objectChangedEventArgs.PropertyName=="XmlContent") {
+                View.Refresh();
+                _controller = null;
+                ReadValueCore();
+            }
         }
 
         private ModelEditorViewController GetModelEditorController()
         {
-            masterModel.AddLayers(CurrentObject.GetAllLayers());
+            _masterModel.AddLayers(CurrentObject.GetAllLayers());
 
-            controller = new ModelEditorViewController((IModelApplication)masterModel, null, null);
-            controller.SetControl(Control);
-            controller.Modifying += Model_Modifying;
-            controller.SaveAction.Active["Not needed"] = false;
+            _controller = new ModelEditorViewController((IModelApplication)_masterModel, null, null);
+            _controller.SetControl(Control);
+            _controller.Modifying += Model_Modifying;
+            _controller.SaveAction.Active["Not needed"] = false;
             
-            return controller;
+            return _controller;
         }
 
         private ModelApplicationBase GetMasterModel()
         {
+         
             var application = GetApplication(CurrentObject.PersistentApplication.ExecutableName);
 
             var modulesManager = new DesignerModelFactory().CreateApplicationModelManager(

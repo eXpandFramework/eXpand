@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using eXpand.ExpressApp.ModelDifference.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.Persistent.Base;
@@ -15,10 +17,10 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     {
         private readonly bool _enableLoading;
         readonly string _path;
-        readonly List<ModelFromResourceStoreBase> _extraDiffStores;
+        readonly List<ModelApplicationFromStreamStoreBase> _extraDiffStores;
         public const string EnableDebuggerAttachedCheck = "EnableDebuggerAttachedCheck";
 
-        public XpoModelDictionaryDifferenceStore(XafApplication application, bool enableLoading, string path, List<ModelFromResourceStoreBase> extraDiffStores) : base(application) {
+        public XpoModelDictionaryDifferenceStore(XafApplication application, bool enableLoading, string path, List<ModelApplicationFromStreamStoreBase> extraDiffStores) : base(application) {
             _enableLoading = enableLoading;
             _path = path;
             _extraDiffStores = extraDiffStores;
@@ -55,10 +57,9 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 AddLAyers(new List<ModelApplicationBase> { loadedModel }, model);
                 return;
             }
-            List<ModelApplicationBase> loadedModels = GetLoadedModels();
+            List<ModelApplicationBase> loadedModels = GetLoadedModelApplications();
             if (loadedModels.Count() == 0){
-                ModelApplicationBase modelApplicationBase = model.LastLayer;
-                loadedModels = new List<ModelApplicationBase> {modelApplicationBase};
+                loadedModels = new List<ModelApplicationBase> { model.CreatorInstance.CreateModelApplication() };
             }
             AddLAyers(loadedModels, model);
         }
@@ -68,9 +69,9 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             var userLayer = model.LastLayer;
             model.RemoveLayer(userLayer);
             foreach (var loadedModel in loadedModels) {
-                LoadModelsFromExtraDiffStores(loadedModel);
+                LoadModelsFromExtraDiffStores(loadedModel,model);
                 SaveDifference(loadedModel);
-                model.AddLayer(loadedModel);    
+                loadedModel.AddLayer(loadedModel);    
             }
             model.AddLayer(userLayer);
             if (model.Application.PreferredLanguage != language){
@@ -78,30 +79,23 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             }
         }
 
-        void LoadModelsFromExtraDiffStores(ModelApplicationBase modelApplicationBase) {
-            var extraDiffStores = _extraDiffStores.Where(extraDiffStore => modelApplicationBase.Id == extraDiffStore.Name);
-            foreach (var extraDiffStore in extraDiffStores) {
-                extraDiffStore.Load(modelApplicationBase);
+        void LoadModelsFromExtraDiffStores(ModelApplicationBase loadedModel, ModelApplicationBase model) {
+            var extraDiffStores = _extraDiffStores.Where(extraDiffStore => loadedModel.Id == extraDiffStore.Name);
+            foreach (var extraDiffStore in extraDiffStores) {  
+                model.AddLayer(loadedModel);
+                extraDiffStore.Load(loadedModel);
             }
         }
 
-        List<ModelApplicationBase> GetLoadedModels() {
-            var modelApplicationBases = new List<ModelApplicationBase>();
-            IQueryable<ModelDifferenceObject> activeDifferenceObject = new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName,null);
-            ModelApplicationBase loadedModel;
-
+        List<ModelApplicationBase> GetLoadedModelApplications() {
             if (UseModelFromPath()){
-                loadedModel = LoadFromPath();
+                var loadedModel = LoadFromPath();
                 loadedModel.Id = "Loaded From Path";
+                return new List<ModelApplicationBase> {loadedModel};
             }
-            else {
-                foreach (var modelDifferenceObject in activeDifferenceObject) {
-                    ModelApplicationBase modelApplicationBase = modelDifferenceObject.Model;
-                    modelApplicationBase.Id = modelDifferenceObject.ModelId;
-                    modelApplicationBases.Add(modelApplicationBase);
-                }
-            }
-            return modelApplicationBases;
+            return new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(
+                    Application.GetType().FullName, null).ToList().Select(o => o.Model).ToList();
+            
         }
 
         private ModelApplicationBase LoadFromPath()

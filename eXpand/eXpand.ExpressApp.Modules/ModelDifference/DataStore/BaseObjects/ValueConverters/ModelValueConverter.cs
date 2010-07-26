@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.Utils.GeneralDataStructures;
 using System.Linq;
-using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 
@@ -48,38 +49,41 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ValueConverter
             return null;
         }
 
+
         public override object ConvertFromStorageType(object value)
         {
+            var masterModel = ((ModelApplicationBase)ModuleBase.Application.Model);
+            var layer = masterModel.CreatorInstance.CreateModelApplication();
+            masterModel.AddLayer(layer);
             if (!(string.IsNullOrEmpty(value as string)))
             {
-                var model = ModuleBase.ModelApplicationCreator.CreateModelApplication();
-                var modelReader = new ModelXmlReader();
-                var xmlReader = XmlReader.Create(new StringReader((string)value), new XmlReaderSettings { ConformanceLevel = ConformanceLevel.Auto });
                 var serializableDictionary = new SerializableDictionary<string, string>();
+                var xmlReader = XmlReader.Create(new StringReader((string)value), new XmlReaderSettings { ConformanceLevel = ConformanceLevel.Auto });
                 serializableDictionary.ReadXml(xmlReader);
                 var aspects = serializableDictionary["aspects"].Split(',').ToList();
                 var defaultAspect = serializableDictionary["DefaultAspect"];
-                
-                // convert 9. modeldiffs
-                if (serializableDictionary.ContainsKey("Schema"))
-                {
-                    var helper = new DictionaryHelper();
-                    defaultAspect = helper.GetAspectFromXml(aspects, defaultAspect);
-                }
+                defaultAspect = GetDefaultAspectFromVersion9(serializableDictionary, aspects, defaultAspect);
 
                 if (!string.IsNullOrEmpty(defaultAspect))
-                    modelReader.ReadFromString(model, string.Empty, defaultAspect);  
-                
-                foreach (var aspect in aspects.Where(aspect => !string.IsNullOrEmpty(aspect)))
-                {
-                    if (!string.IsNullOrEmpty(serializableDictionary[aspect]))
-                        modelReader.ReadFromString(model, aspect, serializableDictionary[aspect]);
+                    new ModelXmlReader().ReadFromString(layer, String.Empty, defaultAspect);
+
+                foreach (var aspect in aspects.Where(aspect => !string.IsNullOrEmpty(aspect) && !string.IsNullOrEmpty(serializableDictionary[aspect]))){
+                    new ModelXmlReader().ReadFromString(layer, aspect, serializableDictionary[aspect]);
                 }
 
-                return model;
             }
 
-            return null;
+            return layer;
         }
+
+        string GetDefaultAspectFromVersion9(SerializableDictionary<string, string> serializableDictionary, List<string> aspects, string defaultAspect) {
+            if (serializableDictionary.ContainsKey("Schema")){
+                var helper = new DictionaryHelper();
+                defaultAspect = helper.GetAspectFromXml(aspects, defaultAspect);
+            }
+            return defaultAspect;
+        }
+
+        
     }
 }

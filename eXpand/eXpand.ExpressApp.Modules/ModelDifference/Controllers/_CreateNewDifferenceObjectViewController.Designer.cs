@@ -1,7 +1,7 @@
 using System.Diagnostics;
 
 namespace eXpand.ExpressApp.ModelDifference.Controllers{
-    partial class CombineDifferencesController
+    partial class _CreateNewDifferenceObjectViewController
     {
         /// <summary>
         /// Required designer variable.
@@ -29,21 +29,9 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.combineSimpleAction = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
-            // 
-            // combineSimpleAction
-            // 
-            this.combineSimpleAction.Caption = "Combine";
-            this.combineSimpleAction.Id = "combineSimpleAction";
-            this.combineSimpleAction.SelectionDependencyType = DevExpress.ExpressApp.Actions.SelectionDependencyType.RequireMultipleObjects;
-            this.combineSimpleAction.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.combineSimpleAction_Execute);
-
+            components = new System.ComponentModel.Container();
         }
 
         #endregion
-
-        private DevExpress.ExpressApp.Actions.SimpleAction combineSimpleAction;
-
     }
 }

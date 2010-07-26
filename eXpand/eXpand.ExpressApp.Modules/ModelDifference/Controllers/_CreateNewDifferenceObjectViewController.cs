@@ -4,9 +4,9 @@ using DevExpress.ExpressApp.SystemModule;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 
 namespace eXpand.ExpressApp.ModelDifference.Controllers{
-    public partial class CreateNewDifferenceObjectViewController : ViewController
+    public partial class _CreateNewDifferenceObjectViewController : ViewController
     {
-        public CreateNewDifferenceObjectViewController()
+        public _CreateNewDifferenceObjectViewController()
         {
             InitializeComponent();
             RegisterActions(components);

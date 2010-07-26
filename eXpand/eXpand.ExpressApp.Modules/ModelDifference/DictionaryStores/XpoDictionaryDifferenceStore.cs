@@ -1,5 +1,6 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
+using eXpand.ExpressApp.ModelDifference.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.Persistent.Base;
 
