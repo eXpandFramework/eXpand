@@ -10,7 +10,13 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
         public TemplateInfo(Session session) : base(session) {
         }
+        private PersistentTypeInfo _persistentTypeInfo;
 
+        [Association("PersistentTypeInfo-TemplateInfos")]
+        public PersistentTypeInfo PersistentTypeInfo {
+            get { return _persistentTypeInfo; }
+            set { SetPropertyValue("PersistentTypeInfo", ref _persistentTypeInfo, value); }
+        }
         [Association("TemplateInfo-CodeTemplateInfos")]
         public XPCollection<CodeTemplateInfo> CodeTemplateInfos {
             get { return GetCollection<CodeTemplateInfo>("CodeTemplateInfos"); }

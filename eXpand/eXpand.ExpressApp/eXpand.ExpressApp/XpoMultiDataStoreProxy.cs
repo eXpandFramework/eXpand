@@ -22,7 +22,7 @@ namespace eXpand.ExpressApp {
             
         }
 
-        XpoMultiDataStoreProxy(string connectionString, XPDictionary xpDictionary):base(connectionString) {
+        public XpoMultiDataStoreProxy(string connectionString, XPDictionary xpDictionary):base(connectionString) {
             _dataStoreManager = new DataStoreManager(connectionString);
             FillDictionaries(xpDictionary);    
         }

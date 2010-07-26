@@ -21,7 +21,8 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 if (code != null) {
                     code = code.Replace("$TYPEATTRIBUTES$", GetAttributesCode(persistentMemberInfo));
                     code = code.Replace("$PROPERTYNAME$", persistentMemberInfo.Name);
-                    code = code.Replace("$PROPERTYTYPE$", GetPropertyType(persistentMemberInfo));
+                    code = code.Replace("$PROPERTYTYPE$", GetPropertyTypeCode(persistentMemberInfo));
+                    code = code.Replace("$INJECTCODE$", GetInjectCode(persistentMemberInfo));
                 }
                 return code;
             }
@@ -37,13 +38,17 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                     code = code.Replace("$ASSEMBLYNAME$", persistentClassInfo.PersistentAssemblyInfo.Name);
                     code = code.Replace("$TYPEATTRIBUTES$", attributesCode);
                     code = code.Replace("$CLASSNAME$", persistentClassInfo.Name);
-                    code = code.Replace("$BASECLASSNAME$",
-                                        getBaseType(persistentClassInfo) + getInterfacesCode(persistentClassInfo));
+                    code = code.Replace("$BASECLASSNAME$",getBaseType(persistentClassInfo) + getInterfacesCode(persistentClassInfo));
+                    code = code.Replace("$INJECTCODE$", GetInjectCode(persistentClassInfo));
                     code = GetAllMembersCode(persistentClassInfo, code);
                     return code;
                 }
             }
             return null;
+        }
+
+        static string GetInjectCode(IPersistentTypeInfo persistentTypeInfo) {
+            return persistentTypeInfo.TemplateInfos.Aggregate<ITemplateInfo, string>(null, (current, codeTemplate) => current + (codeTemplate.TemplateCode + Environment.NewLine));
         }
 
         static string GetAllMembersCode(IPersistentClassInfo persistentClassInfo, string code) {
@@ -80,7 +85,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return persistentMemberInfos.Select(codeSelector).Aggregate(null, aggrecator);
         }
 
-        static string GetPropertyType(IPersistentMemberInfo persistentMemberInfo){
+        static string GetPropertyTypeCode(IPersistentMemberInfo persistentMemberInfo){
             if (persistentMemberInfo is IPersistentCoreTypeMemberInfo)
                 return Type.GetType("System."+((IPersistentCoreTypeMemberInfo)persistentMemberInfo).DataType).FullName;
             if (persistentMemberInfo is IPersistentReferenceMemberInfo)

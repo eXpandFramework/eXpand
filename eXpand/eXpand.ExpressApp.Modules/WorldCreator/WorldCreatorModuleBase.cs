@@ -4,13 +4,14 @@ using System.Data;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.ExpressApp.WorldCreator.NodeUpdaters;
 using eXpand.Persistent.Base.PersistentMetaData;
-using DevExpress.ExpressApp.Model;
+using TypesInfo = eXpand.ExpressApp.WorldCreator.Core.TypesInfo;
 
 namespace eXpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase:ModuleBase {
@@ -30,16 +31,38 @@ namespace eXpand.ExpressApp.WorldCreator {
             TypesInfo.Instance.AddTypes(GetAdditionalClasses());
             Application.SettingUp+=ApplicationOnSettingUp;
 
-            SimpleDataLayer simpleDataLayer = XpoMultiDataStoreProxy.GetDataLayer(_connectionString, GetReflectionDictionary(), TypesInfo.Instance.PersistentAssemblyInfoType);
-            var unitOfWork = new UnitOfWork(simpleDataLayer);
 
-            AddDynamicModules(moduleManager, unitOfWork);
-            Application.SetupComplete += (sender, args) => {
-                mergeTypes(unitOfWork);
-                Application.ObjectSpaceProvider.CreateUpdatingSession().UpdateSchema();
-            };
-            var existentTypesMemberCreator = new ExistentTypesMemberCreator();
-            existentTypesMemberCreator.CreateMembers(unitOfWork, TypesInfo.Instance);
+            RunUpdaters();
+
+            using (SimpleDataLayer simpleDataLayer = XpoMultiDataStoreProxy.GetDataLayer(_connectionString, GetReflectionDictionary(), TypesInfo.Instance.PersistentAssemblyInfoType)) {
+                using (var session = new Session(simpleDataLayer)) {
+                    AddDynamicModules(moduleManager, session);
+//                Application.SetupComplete += (sender, args) => {
+//                    mergeTypes(unitOfWork);
+//                    Application.ObjectSpaceProvider.CreateUpdatingSession().UpdateSchema();
+//                };
+                    var existentTypesMemberCreator = new ExistentTypesMemberCreator();
+                    existentTypesMemberCreator.CreateMembers(session, TypesInfo.Instance);
+                }
+            }
+        }
+
+        void RunUpdaters() {
+            var xpoMultiDataStoreProxy = new XpoMultiDataStoreProxy(_connectionString,GetReflectionDictionary());
+
+            using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
+                using (var session = new Session(dataLayer)) {
+                    foreach (var worldCreatorUpdater in GetWorldCreatorUpdaters(session)){
+                        worldCreatorUpdater.CreatePersistentAssemblies();
+                    }
+                }
+            }
+            
+        }
+
+        IEnumerable<WorldCreatorUpdater> GetWorldCreatorUpdaters(Session session) {
+            return XafTypesInfo.Instance.FindTypeInfo(typeof (WorldCreatorUpdater)).Descendants.Select(
+                typeInfo => (WorldCreatorUpdater) ReflectionHelper.CreateObject(typeInfo.Type, session));
         }
 
         ReflectionDictionary GetReflectionDictionary() {
@@ -62,16 +85,15 @@ namespace eXpand.ExpressApp.WorldCreator {
                 throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
         }
 
-        public void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork){
+        public void AddDynamicModules(ApplicationModulesManager moduleManager, Session session){
             Type assemblyInfoType = TypesInfo.Instance.PersistentAssemblyInfoType;
             List<IPersistentAssemblyInfo> persistentAssemblyInfos =
-                new XPCollection(unitOfWork, assemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(info => !info.DoNotCompile &&
+                new XPCollection(session, assemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(info => !info.DoNotCompile &&
                     moduleManager.Modules.Where(@base => @base.Name == "Dynamic" + info.Name + "Module").FirstOrDefault() ==null).ToList();
             _definedModules = new CompileEngine().CompileModules(persistentAssemblyInfos,GetPath());
             foreach (var definedModule in _definedModules){
                 moduleManager.AddModule(definedModule);
             }
-            unitOfWork.CommitChanges();
         }
 
         public abstract string GetPath();
@@ -92,57 +114,9 @@ namespace eXpand.ExpressApp.WorldCreator {
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
-//            updaters.Add(new EnableCloningForAllWCPersistentTypesUpdater());
             updaters.Add(new ShowOwnerForExtendedMembersUpdater());
             updaters.Add(new ImageSourcesUpdater(DefinedModules));
         }
-
-        public override void UpdateModel(IModelApplication applicationModel)
-        {
-            base.UpdateModel(applicationModel);
-//            if (Application != null){
-//                ShowOwnerForExtendedMembers();
-//                removeDynamicAssemblyFromImageSources();
-//                enableCloning();
-//            }
-        }
-
-//        void enableCloning()
-//        {
-//            foreach (var propertyInfo in typeof(ITypesInfo).GetProperties())
-//            {
-//                var type = (Type)propertyInfo.GetValue(TypesInfo.Instance, null);
-//                ((IModelClassClonable)Application.Model.BOModel[type.FullName]).IsClonable = true;
-//            }
-//        }
-
-
-//        void ShowOwnerForExtendedMembers() {
-//            IEnumerable<IModelColumn> columnInfoNodeWrappers =
-//                GetListViewInfoNodeWrappers().Select(listViewInfoNodeWrapper => listViewInfoNodeWrapper.Columns["Owner"])
-//                    .Where(columnInfoNodeWrapper => columnInfoNodeWrapper != null);
-//            foreach (IModelColumn columnInfoNodeWrapper in columnInfoNodeWrappers) {
-//                columnInfoNodeWrapper.Index = 2;
-//            }
-//        }
-
-//        IEnumerable<IModelListView> GetListViewInfoNodeWrappers()
-//        {
-//            return
-//                Application.Model.Views.OfType<IModelListView>().Where(
-//                view => view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedReferenceMemberInfoType ||
-//                view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedCollectionMemberInfoType ||
-//                view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedCoreMemberInfoType);
-//        }
-
-//        void removeDynamicAssemblyFromImageSources() {
-//            IEnumerable<IModelAssemblyResourceImageSource> modelAssemblyResourceImageSources =
-//                DefinedModules.Select(definedModule => new AssemblyName(definedModule.Assembly.FullName + "").Name).
-//                    Select(name =>((IModelImageSources) Application.Model).OfType<IModelAssemblyResourceImageSource>().First(s => s.AssemblyName == name));
-//            foreach (var source in modelAssemblyResourceImageSources) {
-//                ((IModelImageSources)Application.Model).Remove(source);
-//            }
-//        }
 
         public override void Setup(XafApplication application)
         {

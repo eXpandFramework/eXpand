@@ -33,6 +33,15 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         public XPCollection<PersistentAttributeInfo> TypeAttributes {
             get { return GetCollection<PersistentAttributeInfo>("TypeAttributes"); }
         }
+
+        IList<ITemplateInfo> IPersistentTypeInfo.TemplateInfos {
+            get { return new ListConverter<ITemplateInfo,TemplateInfo>(TemplateInfos); }
+        }
+
+        [Association("PersistentTypeInfo-TemplateInfos")]
+        public XPCollection<TemplateInfo> TemplateInfos {
+            get { return GetCollection<TemplateInfo>("TemplateInfos"); }
+        }
         #region IPersistentTypeInfo Members
         
         [RuleRequiredField(null, DefaultContexts.Save)]

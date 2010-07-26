@@ -26,7 +26,10 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
         public PersistentAssemblyInfo(Session session) : base(session) {
         }
-
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+        }
         [Index(4)]
         [FileTypeFilter("Strong Keys", 1, "*.snk")]
         [Aggregated, ExpandObjectMembers(ExpandObjectMembers.Never)]
