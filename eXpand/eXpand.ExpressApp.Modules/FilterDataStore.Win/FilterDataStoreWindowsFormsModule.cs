@@ -2,8 +2,8 @@ using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win.SystemModule;
 using eXpand.ExpressApp.FilterDataStore.Core;
-using eXpand.ExpressApp.FilterDataStore.Win.Providers;
 using System.Linq;
+using eXpand.ExpressApp.FilterDataStore.Win.Providers;
 
 namespace eXpand.ExpressApp.FilterDataStore.Win
 {

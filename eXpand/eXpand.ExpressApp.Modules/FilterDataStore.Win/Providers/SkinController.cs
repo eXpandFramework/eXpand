@@ -4,9 +4,8 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.SystemModule;
 using eXpand.ExpressApp.FilterDataStore.Core;
-using eXpand.ExpressApp.FilterDataStore.Win.Providers;
 
-namespace eXpand.ExpressApp.FilterDataStore.Win
+namespace eXpand.ExpressApp.FilterDataStore.Win.Providers
 {
     public class SkinController:ViewController
     {

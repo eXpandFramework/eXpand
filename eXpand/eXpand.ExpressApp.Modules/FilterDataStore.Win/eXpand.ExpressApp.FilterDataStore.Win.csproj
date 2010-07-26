@@ -117,7 +117,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SkinFilterProvider.cs" />
-    <Compile Include="SkinController.cs">
+    <Compile Include="Providers\SkinController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Updater.cs" />
