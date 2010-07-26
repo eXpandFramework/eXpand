@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 using DevExpress.XtraGrid;
@@ -30,15 +29,7 @@ namespace eXpand.ExpressApp.MasterDetail.Win {
             base.OnDeactivating();
             _levelDefaultViewCreation = null;
         }
-        protected override void OnActivated()
-        {
-            base.OnActivated();
-            ObjectSpace.Disposed+=ObjectSpaceOnDisposed;
-        }
 
-        void ObjectSpaceOnDisposed(object sender, EventArgs eventArgs) {
-            
-        }
 
         protected override void OnViewControlsCreated()
         {
@@ -83,8 +74,10 @@ namespace eXpand.ExpressApp.MasterDetail.Win {
             GridControl gridControl = ((GridListEditor)View.Editor).Grid;
             var masterGridView = (XafGridView)gridControl.MainView;
             List<IMasterDetailRule> masterDetailRules = Frame.GetController<MasterDetailRuleController>().MasterDetailRules;
-            gridViewBuilder.ModifyInstanceGridView(masterGridView, e.RowHandle, e.RelationIndex,View.Model,masterDetailRules);            
+            gridViewBuilder.ModifyInstanceGridView(masterGridView, e.RowHandle, e.RelationIndex,View.Model,masterDetailRules);
         }
+
+        
 
 
         void ViewOnMasterRowEmpty(object sender, MasterRowEmptyEventArgs eventArgs) {
