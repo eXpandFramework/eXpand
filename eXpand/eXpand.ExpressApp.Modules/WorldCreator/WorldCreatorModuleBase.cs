@@ -65,7 +65,7 @@ namespace eXpand.ExpressApp.WorldCreator {
                 using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
                     using (var session = new Session(dataLayer)) {
                         foreach (var worldCreatorUpdater in GetWorldCreatorUpdaters(session)){
-                            worldCreatorUpdater.CreatePersistentAssemblies();
+                            worldCreatorUpdater.Update();
                         }
                     }
                 }
