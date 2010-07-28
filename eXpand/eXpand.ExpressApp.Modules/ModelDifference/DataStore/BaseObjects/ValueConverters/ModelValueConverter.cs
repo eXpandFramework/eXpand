@@ -50,13 +50,15 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ValueConverter
         }
 
 
+
         public override object ConvertFromStorageType(object value)
         {
-            var masterModel = ((ModelApplicationBase)ModuleBase.Application.Model);
+            var masterModel = ModelDifferenceModule.MasterModel;
             var layer = masterModel.CreatorInstance.CreateModelApplication();
-            masterModel.AddLayer(layer);
+            
             if (!(string.IsNullOrEmpty(value as string)))
             {
+                masterModel.AddLayer(layer);
                 var serializableDictionary = new SerializableDictionary<string, string>();
                 var xmlReader = XmlReader.Create(new StringReader((string)value), new XmlReaderSettings { ConformanceLevel = ConformanceLevel.Auto });
                 serializableDictionary.ReadXml(xmlReader);

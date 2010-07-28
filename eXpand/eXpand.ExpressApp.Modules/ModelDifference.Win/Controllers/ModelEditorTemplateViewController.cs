@@ -1,10 +1,13 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Win.Templates;
 using DevExpress.ExpressApp.Win.Templates.ActionContainers;
 using DevExpress.XtraBars.Ribbon;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.Win.PropertyEditors;
-using DevExpress.ExpressApp.SystemModule;
+using System.Linq;
 
 namespace eXpand.ExpressApp.ModelDifference.Win.Controllers
 {
@@ -15,16 +18,20 @@ namespace eXpand.ExpressApp.ModelDifference.Win.Controllers
             TargetObjectType = typeof(ModelDifferenceObject);
         }
 
-        protected override void OnActivated()
-        {
-            base.OnActivated();
-            Frame.GetController<RefreshController>().Active.SetItemValue("Current not supported", false);
+
+        protected override void OnDeactivating() {
+            HideMainBarActions();
+            base.OnDeactivating();
         }
 
-        protected override void OnDeactivating()
-        {
-            Frame.GetController<RefreshController>().Active.RemoveItem("Current not supported");
-            base.OnDeactivating();
+        void HideMainBarActions() {
+            var modelEditorViewController = View.GetItems<ModelEditorPropertyEditor>()[0].ModelEditorViewController;
+            var actions =(List<ActionBase>)modelEditorViewController.GetType().GetField("mainBarActions",
+                                                                                        BindingFlags.Instance | BindingFlags.NonPublic).GetValue(
+                                                                                            modelEditorViewController);
+            foreach (var actionBase in Frame.Template.DefaultContainer.Actions.Where(actions.Contains)) {
+                actionBase.Active["Is Not ModelDiffs view"] = false;
+            }
         }
 
         protected override void OnViewControlsCreated()
@@ -49,8 +56,8 @@ namespace eXpand.ExpressApp.ModelDifference.Win.Controllers
 
         private void SetTemplate()
         {
-            View.GetItems<ModelEditorPropertyEditor>()[0].ModelEditorViewController.SetTemplate(
-                Frame.Template);
+
+            View.GetItems<ModelEditorPropertyEditor>()[0].ModelEditorViewController.SetTemplate(Frame.Template);
         }
     }
 }

@@ -12,6 +12,12 @@ namespace eXpand.ExpressApp.WorldCreator {
             get { return _session; }
         }
 
-        public abstract void CreatePersistentAssemblies();
+        public  virtual void CreatePersistentAssemblies() {
+            
+        }
+        public  virtual void CreateDynamicMembers() {
+            
+        }
+
     }
 }

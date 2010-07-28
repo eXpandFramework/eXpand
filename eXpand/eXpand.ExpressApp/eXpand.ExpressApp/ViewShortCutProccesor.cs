@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
@@ -20,26 +19,45 @@ namespace eXpand.ExpressApp {
 
         public void Proccess(CustomProcessShortcutEventArgs shortcutEventArgs) {
             var shortcut = shortcutEventArgs.Shortcut;
-            if (shortcut.ObjectKey.StartsWith("@"))
-                shortcut.ObjectKey =
-                    ParametersFactory.CreateParameter(shortcut.ObjectKey.Substring(1)).CurrentValue.ToString();
-
-            var baseViewInfoNodeWrapper = _application.Model.Views.OfType<IModelDetailView>().Where(v => v.Id == shortcut.ViewId).FirstOrDefault();
-            if (string.IsNullOrEmpty(shortcut.ObjectKey) && (baseViewInfoNodeWrapper != null)) {
+            IModelDetailView modelDetailView = GetModelView(shortcut);
+            if ((modelDetailView != null)) {
+                object objectKey = GetObjectKey(shortcut);
                 var objectSpace = _application.CreateObjectSpace();
                 shortcutEventArgs.Handled = true;
-                Type type = baseViewInfoNodeWrapper.ModelClass.TypeInfo.Type;
-                object obj;
-                if (typeof(IXPSimpleObject).IsAssignableFrom(type)){
-                    obj = objectSpace.FindObject(type, null) ?? objectSpace.CreateObject(type);
-                }
-                else{
-                    obj = Activator.CreateInstance(type);
-                }
-                _detailView = _application.CreateDetailView(objectSpace,obj);
+                object obj = GetObject(modelDetailView, objectKey, objectSpace);
+                _detailView = _application.CreateDetailView(objectSpace, modelDetailView, true,obj);
                 shortcutEventArgs.View = _detailView;
-                _application.ViewShown+=ApplicationOnViewShown;
+                if (objectKey== null)
+                    _application.ViewShown+=ApplicationOnViewShown;
             }
+        }
+
+        object GetObjectKey(ViewShortcut shortcut) {
+            object objectKey = null;
+            if (shortcut.ObjectKey.StartsWith("@")) {
+                objectKey =
+                    ParametersFactory.CreateParameter(shortcut.ObjectKey.Substring(1)).CurrentValue;
+            }
+            return objectKey;
+        }
+
+        object GetObject(IModelDetailView modelView, object objectKey, ObjectSpace objectSpace) {
+            Type type = modelView.ModelClass.TypeInfo.Type;
+            object obj;
+            if (typeof(IXPSimpleObject).IsAssignableFrom(type)){
+                if (objectKey!= null)
+                    obj=objectSpace.GetObjectByKey(type,objectKey);
+                else
+                    obj = objectSpace.FindObject(type, null) ?? objectSpace.CreateObject(type);
+            }
+            else{
+                obj = Activator.CreateInstance(type);
+            }
+            return obj;
+        }
+
+        IModelDetailView GetModelView(ViewShortcut shortcut) {
+            return _application.Model.Views.OfType<IModelDetailView>().Where(v => v.Id == shortcut.ViewId).FirstOrDefault();
         }
 
         void ApplicationOnViewShown(object sender, ViewShownEventArgs e) {

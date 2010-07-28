@@ -14,7 +14,6 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
                 modelDifferenceObject.DateCreated = DateTime.Now;
                 modelDifferenceObject.Disabled = true;
                 modelDifferenceObject.Name = null;
-                modelDifferenceObject.Model = modelDifferenceObject.Model.Clone();
                 modelDifferenceObject.PersistentApplication = (PersistentApplication)modelDifferenceObject.Session.GetObject(((ModelDifferenceObject)View.CurrentObject).PersistentApplication);
 
             }

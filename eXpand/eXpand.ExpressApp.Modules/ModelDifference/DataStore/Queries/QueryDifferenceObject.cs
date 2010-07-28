@@ -41,9 +41,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Queries{
         static Expression<Func<TDifferenceObject, bool>> IsActiveExpressionCore(string uniqueApplicationName) {
             return o => o.PersistentApplication.UniqueName == uniqueApplicationName && o.Disabled == false;
         }
-        public virtual TDifferenceObject GetActiveModelDifference(string modelId)
+        public virtual TDifferenceObject GetActiveModelDifference(string name)
         {
-            return GetActiveModelDifference(ModuleBase.Application.GetType().FullName,modelId);
+            return GetActiveModelDifference(ModuleBase.Application.GetType().FullName,name);
         }
 
         public virtual TDifferenceObject GetActiveModelDifference(string applicationName, string name)

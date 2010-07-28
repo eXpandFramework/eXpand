@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
@@ -66,14 +65,10 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
         void AddLAyers(IEnumerable<ModelApplicationBase> loadedModels, ModelApplicationBase model) {
             var language = model.Application.PreferredLanguage;
-            var userLayer = model.LastLayer;
-            model.RemoveLayer(userLayer);
             foreach (var loadedModel in loadedModels) {
                 LoadModelsFromExtraDiffStores(loadedModel,model);
                 SaveDifference(loadedModel);
-                loadedModel.AddLayer(loadedModel);    
             }
-            model.AddLayer(userLayer);
             if (model.Application.PreferredLanguage != language){
                 Application.SetLanguage(model.Application.PreferredLanguage);
             }

@@ -33,8 +33,8 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects
             base.AfterConstruction();
             DifferenceType = DifferenceType.User;
         }
-        public override ModelDifferenceObject InitializeMembers(string name) {
-            ModelDifferenceObject modelDifferenceObject = base.InitializeMembers(name);
+        public override ModelDifferenceObject InitializeMembers(string name, string applicationTitle, string uniqueName) {
+            ModelDifferenceObject modelDifferenceObject = base.InitializeMembers(name, applicationTitle, uniqueName);
             UserDifferenceObjectBuilder.SetUp(this);
             return modelDifferenceObject;
         }

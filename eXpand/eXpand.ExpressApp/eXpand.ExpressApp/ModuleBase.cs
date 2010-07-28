@@ -19,7 +19,9 @@ namespace eXpand.ExpressApp {
         }
 
         public new static XafApplication Application {
-            get { return _instanceXafApplicationManager.Value; }
+            get {
+                return _instanceXafApplicationManager.Value;
+            }
         }
         protected override void CustomizeModelApplicationCreatorProperties(ModelApplicationCreatorProperties creatorProperties)
         {
@@ -27,7 +29,7 @@ namespace eXpand.ExpressApp {
             lock (_lockObject){
                 if (_instanceModelApplicationCreatorPropertiesManager == null)
                     _instanceModelApplicationCreatorPropertiesManager = ValueManager.CreateValueManager<ModelApplicationCreatorProperties>();
-                if (_instanceModelApplicationCreatorPropertiesManager.Value == null)
+                if (_instanceModelApplicationCreatorPropertiesManager.Value == null || _instanceModelApplicationCreatorPropertiesManager.Value!=creatorProperties)
                     _instanceModelApplicationCreatorPropertiesManager.Value = creatorProperties;
             }
         }

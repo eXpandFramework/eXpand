@@ -23,7 +23,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         [Persistent]
         public string Name {
             get { return _name; }
-            internal set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _name, value); }
+            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _name, value); }
         }
 
         [RuleUniqueValue(null, DefaultContexts.Save)]
@@ -43,9 +43,9 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref executableName, value); }
         }
         #endregion
-//        public override void AfterConstruction() {
-//            base.AfterConstruction();
-//            ExecutableName = Assembly.GetAssembly(ModuleBase.Application.GetType()).ManifestModule.Name;
-//        }
+        public override void AfterConstruction() {
+            base.AfterConstruction();
+            ExecutableName = Assembly.GetAssembly(ModuleBase.Application.GetType()).ManifestModule.Name;
+        }
     }
 }

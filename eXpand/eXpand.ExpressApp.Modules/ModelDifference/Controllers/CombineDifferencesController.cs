@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -19,6 +20,8 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
 
 
         private void combineSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e){
+            var modelDifferenceObjects = e.SelectedObjects.OfType<ModelDifferenceObject>();
+            CheckIfMixingApplications(modelDifferenceObjects);
             e.ShowViewParameters.CreatedView = Application.CreateListView(Application.CreateObjectSpace(),typeof (ModelDifferenceObject),true);
             e.ShowViewParameters.TargetWindow=TargetWindow.NewModalWindow;
             var dialogController = new DialogController();
@@ -27,26 +30,33 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
             
         }
 
+        void CheckIfMixingApplications(IEnumerable<ModelDifferenceObject> modelDifferenceObjects) {
+            if (modelDifferenceObjects.GroupBy(o => o.PersistentApplication.UniqueName).Count() > 1)
+                throw new NotSupportedException("Mixing applications is not supporrted");
+        }
+
         void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs e) {
-            List<ModelDifferenceObject> selectedModelAspectObjects =
-                e.SelectedObjects.Cast<ModelDifferenceObject>().ToList();
+            var modelDifferenceObjects = e.SelectedObjects.Cast<ModelDifferenceObject>();
+            List<ModelDifferenceObject> selectedModelAspectObjects =modelDifferenceObjects.ToList();
             CombineAndSave(selectedModelAspectObjects);
         }
 
 
 
         public void CombineAndSave(List<ModelDifferenceObject> selectedModelAspectObjects){
-            foreach (var modelDifferenceObject in View.SelectedObjects.OfType<ModelDifferenceObject>()) {
-                var modelApplication = (modelDifferenceObject).Model;
+            var selectedObjects = View.SelectedObjects.OfType<ModelDifferenceObject>();
+            CheckIfMixingApplications(selectedObjects);
+            foreach (var differenceObject in selectedObjects) {
                 foreach (var selectedModelAspectObject in selectedModelAspectObjects) {
                     var selectedModel = selectedModelAspectObject.Model;
                     for (int i = 0; i < selectedModelAspectObject.Model.AspectCount; i++) {
                         var xml = new ModelXmlWriter().WriteToString(selectedModel, i);
-                        if (!(string.IsNullOrEmpty(xml)))
-                            new ModelXmlReader().ReadFromString(modelApplication, selectedModel.GetAspect(i),xml);
+                        if (!(string.IsNullOrEmpty(xml))){
+                            new ModelXmlReader().ReadFromString(differenceObject.Model, selectedModel.GetAspect(i), xml);
+                            ObjectSpace.SetModified(differenceObject);
+                        }
                     }
                 }
-                modelDifferenceObject.Model = modelDifferenceObject.Model.Clone();
             }
             ObjectSpace.CommitChanges();
         }
