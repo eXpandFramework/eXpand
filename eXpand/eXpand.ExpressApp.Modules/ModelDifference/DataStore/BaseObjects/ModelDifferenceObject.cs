@@ -120,6 +120,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
                 if (!(string.IsNullOrEmpty(value)))
                     new ModelXmlReader().ReadFromString(modelApplicationBase,Model.CurrentAspect,value);
                 Model = modelApplicationBase;
+                OnChanged("XmlContent");
             }
         }
 

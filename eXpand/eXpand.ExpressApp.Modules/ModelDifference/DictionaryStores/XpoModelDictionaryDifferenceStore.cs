@@ -6,6 +6,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.ModelDifference.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
@@ -65,6 +66,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
         void AddLAyers(IEnumerable<ModelApplicationBase> loadedModels, ModelApplicationBase model) {
             var language = model.Application.PreferredLanguage;
+            Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Adding Layers to application model ");
             foreach (var loadedModel in loadedModels) {
                 LoadModelsFromExtraDiffStores(loadedModel,model);
                 SaveDifference(loadedModel);
@@ -79,6 +81,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             foreach (var extraDiffStore in extraDiffStores) {  
                 model.AddLayer(loadedModel);
                 extraDiffStore.Load(loadedModel);
+                Tracing.Tracer.LogVerboseValue("Name",extraDiffStore.Name);
             }
         }
 

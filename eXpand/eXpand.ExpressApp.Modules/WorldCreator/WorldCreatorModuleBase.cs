@@ -35,29 +35,41 @@ namespace eXpand.ExpressApp.WorldCreator {
             RunUpdaters();
 
             using (SimpleDataLayer simpleDataLayer = XpoMultiDataStoreProxy.GetDataLayer(_connectionString, GetReflectionDictionary(), TypesInfo.Instance.PersistentAssemblyInfoType)) {
-                using (var session = new Session(simpleDataLayer)) {
+                using (var session = new UnitOfWork(simpleDataLayer)) {
                     AddDynamicModules(moduleManager, session);
-//                Application.SetupComplete += (sender, args) => {
-//                    mergeTypes(unitOfWork);
-//                    Application.ObjectSpaceProvider.CreateUpdatingSession().UpdateSchema();
-//                };
-                    var existentTypesMemberCreator = new ExistentTypesMemberCreator();
-                    existentTypesMemberCreator.CreateMembers(session, TypesInfo.Instance);
                 }
+            }
+            Application.SetupComplete +=ApplicationOnSetupComplete;
+        }
+
+        void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
+            var session = Application.ObjectSpaceProvider.CreateUpdatingSession();
+            mergeTypes(new UnitOfWork(session.DataLayer));
+            
+        }
+        public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo)
+        {
+            base.CustomizeTypesInfo(typesInfo);
+            var existentTypesMemberCreator = new ExistentTypesMemberCreator();
+            if (_connectionString != null) {
+                var xpoMultiDataStoreProxy = new XpoMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
+                var simpleDataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy);
+                var session = new Session(simpleDataLayer);
+                existentTypesMemberCreator.CreateMembers(session, TypesInfo.Instance, session.Dictionary );
             }
         }
 
         void RunUpdaters() {
-            var xpoMultiDataStoreProxy = new XpoMultiDataStoreProxy(_connectionString,GetReflectionDictionary());
-
-            using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
-                using (var session = new Session(dataLayer)) {
-                    foreach (var worldCreatorUpdater in GetWorldCreatorUpdaters(session)){
-                        worldCreatorUpdater.CreatePersistentAssemblies();
+            if (_connectionString != null) {
+                var xpoMultiDataStoreProxy = new XpoMultiDataStoreProxy(_connectionString,GetReflectionDictionary());
+                using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
+                    using (var session = new Session(dataLayer)) {
+                        foreach (var worldCreatorUpdater in GetWorldCreatorUpdaters(session)){
+                            worldCreatorUpdater.CreatePersistentAssemblies();
+                        }
                     }
                 }
             }
-            
         }
 
         IEnumerable<WorldCreatorUpdater> GetWorldCreatorUpdaters(Session session) {

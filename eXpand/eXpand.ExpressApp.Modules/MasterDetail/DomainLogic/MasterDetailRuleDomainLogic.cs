@@ -13,7 +13,8 @@ namespace eXpand.ExpressApp.MasterDetail.DomainLogic {
         {
             var calculatedModelNodeList = new CalculatedModelNodeList<IModelMember>();
             if (masterDetailRule.ModelClass != null) {
-                IEnumerable<IModelMember> modelMembers = masterDetailRule.Application.BOModel.GetClass(masterDetailRule.ModelClass.TypeInfo.Type).AllMembers.Where(member => member.MemberInfo.IsList&&member.MemberInfo.IsAssociation);
+                IEnumerable<IModelMember> modelMembers =masterDetailRule.Application.BOModel.GetClass(masterDetailRule.ModelClass.TypeInfo.Type).AllMembers.
+                        Where(member => member.MemberInfo.IsList);
                 calculatedModelNodeList.AddRange(modelMembers);
             }
             return calculatedModelNodeList;

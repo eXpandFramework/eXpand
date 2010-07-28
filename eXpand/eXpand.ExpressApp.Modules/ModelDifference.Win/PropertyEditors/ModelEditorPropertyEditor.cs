@@ -69,24 +69,17 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
                 _controller.Modifying -= Model_Modifying;
                 _controller = null;
             }
-            var masterModel = new ModelApplicationBuilder(CurrentObject.PersistentApplication.ExecutableName).GetMasterModel();
-            ModelDifferenceModule.MasterModel = (ModelApplicationBase)masterModel;
+
+            ModelDifferenceModule.MasterModel = new ModelApplicationBuilder(CurrentObject.PersistentApplication.ExecutableName).GetMasterModel();
             base.OnCurrentObjectChanged();
         }
 
 
         protected override object CreateControlCore() {
             var modelEditorControl = new ModelEditorControl(new SettingsStorageOnDictionary());
-            View.Closed+=ViewOnClosed;
             return modelEditorControl;
         }
 
-        void ViewOnClosed(object sender, EventArgs eventArgs) {
-            //Control.Dispose();
-            
-            //_controller.SetControl(null);
-            //_controller.SetTemplate(null);
-        }
         #endregion
 
         #region Eventhandler
@@ -115,16 +108,8 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         public void Setup(ObjectSpace objectSpace, XafApplication application)
         {
             objectSpace.ObjectSaving += SpaceOnObjectSaving;
-            objectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
         }
 
-        void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
-            if (objectChangedEventArgs.PropertyName=="XmlContent") {
-                View.Refresh();
-                _controller = null;
-                ReadValueCore();
-            }
-        }
 
         private ModelEditorViewController GetModelEditorController()
         {
