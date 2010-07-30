@@ -1,5 +1,6 @@
 ﻿using System;
 using DevExpress.Data.Filtering.Helpers;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Filtering;
 
 namespace eXpand.ExpressApp.Logic.Conditional.Logic {
@@ -12,16 +13,17 @@ namespace eXpand.ExpressApp.Logic.Conditional.Logic {
         {
             string criteria = logicRule.NormalCriteria;
             return targetObject == null
-                       ? string.IsNullOrEmpty(logicRule.EmptyCriteria) || fit(new object(), logicRule.EmptyCriteria)
-                       : fit(targetObject, criteria);
+                       ? string.IsNullOrEmpty(logicRule.EmptyCriteria) || Fit(new object(), logicRule.EmptyCriteria)
+                       : Fit(targetObject, criteria);
         }
 
-        static bool fit(object targetObject, string criteria)
+        static bool Fit(object targetObject, string criteria)
         {
             Type objectType = targetObject.GetType();
             var wrapper = new LocalizedCriteriaWrapper(objectType, criteria);
-            wrapper.UpdateParametersValues();
-            var descriptor = new EvaluatorContextDescriptorDefault(objectType);
+            wrapper.UpdateParametersValues(targetObject);
+            ObjectSpace objectSpace = ObjectSpace.FindObjectSpace(targetObject);
+            EvaluatorContextDescriptor descriptor = objectSpace != null ? objectSpace.GetEvaluatorContextDescriptor(objectType) : new EvaluatorContextDescriptorDefault(objectType);
             var evaluator = new ExpressionEvaluator(descriptor, wrapper.CriteriaOperator);
             return evaluator.Fit(targetObject);
         }

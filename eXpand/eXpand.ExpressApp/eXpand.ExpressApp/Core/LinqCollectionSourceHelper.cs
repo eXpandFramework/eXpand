@@ -4,7 +4,7 @@ using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.Attributes;
-using eXpand.ExpressApp.SystemModule;
+using eXpand.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.Core
 {

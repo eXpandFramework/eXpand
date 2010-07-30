@@ -1,18 +1,10 @@
 using System;
-using System.ComponentModel;
 using DevExpress.ExpressApp;
 using eXpand.Persistent.Base;
-using DevExpress.ExpressApp.Model;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public interface IModelMemberIsRuntimeMember : IModelNode
-    {
-        [Category("eXpand")]
-        [Description("Create member at runtime")]
-        bool IsRuntimeMember { get; set; }
-    }
 
     public class AddRuntimeFieldsFromModelToXPDictionary : ViewController, IModelExtender
     {
@@ -21,10 +13,6 @@ namespace eXpand.ExpressApp.SystemModule
             TargetObjectType = typeof(IXpoModelDifference);
         }
 
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
-            extenders.Add<IModelMember, IModelMemberIsRuntimeMember>();
-        }
 
         protected override void OnActivated()
         {

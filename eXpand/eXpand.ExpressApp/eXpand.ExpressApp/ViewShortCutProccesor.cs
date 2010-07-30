@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
+
 
 namespace eXpand.ExpressApp {
     public class ViewShortCutProccesor {
@@ -21,34 +23,40 @@ namespace eXpand.ExpressApp {
             var shortcut = shortcutEventArgs.Shortcut;
             IModelDetailView modelDetailView = GetModelView(shortcut);
             if ((modelDetailView != null)) {
-                object objectKey = GetObjectKey(shortcut);
-                var objectSpace = _application.CreateObjectSpace();
                 shortcutEventArgs.Handled = true;
-                object obj = GetObject(modelDetailView, objectKey, objectSpace);
+                var objectSpace = _application.CreateObjectSpace();
+                object obj = GetObject(shortcut, modelDetailView, objectSpace);
                 _detailView = _application.CreateDetailView(objectSpace, modelDetailView, true,obj);
                 shortcutEventArgs.View = _detailView;
-                if (objectKey== null)
-                    _application.ViewShown+=ApplicationOnViewShown;
+                    
             }
+        }
+
+        object GetObject(ViewShortcut shortcut, IModelDetailView modelDetailView, ObjectSpace objectSpace) {
+            object objectKey = GetObjectKey(shortcut);
+            return GetObjectCore(modelDetailView, objectKey, objectSpace);
         }
 
         object GetObjectKey(ViewShortcut shortcut) {
             object objectKey = null;
-            if (shortcut.ObjectKey.StartsWith("@")) {
-                objectKey =
-                    ParametersFactory.CreateParameter(shortcut.ObjectKey.Substring(1)).CurrentValue;
-            }
+            objectKey = shortcut.ObjectKey.StartsWith("@")
+                            ? ParametersFactory.CreateParameter(shortcut.ObjectKey.Substring(1)).CurrentValue
+                            : CriteriaWrapper.TryGetReadOnlyParameterValue(objectKey);
             return objectKey;
         }
 
-        object GetObject(IModelDetailView modelView, object objectKey, ObjectSpace objectSpace) {
+        object GetObjectCore(IModelDetailView modelView, object objectKey, ObjectSpace objectSpace) {
             Type type = modelView.ModelClass.TypeInfo.Type;
             object obj;
+
             if (typeof(IXPSimpleObject).IsAssignableFrom(type)){
-                if (objectKey!= null)
+                if (objectKey != null && !(objectKey is CriteriaOperator))
                     obj=objectSpace.GetObjectByKey(type,objectKey);
-                else
-                    obj = objectSpace.FindObject(type, null) ?? objectSpace.CreateObject(type);
+                else {
+                    obj = objectSpace.FindObject(type, (CriteriaOperator) objectKey) ?? objectSpace.CreateObject(type);
+                    if (!(objectSpace.IsNewObject(obj)))
+                        _application.ViewShown += ApplicationOnViewShown;
+                }
             }
             else{
                 obj = Activator.CreateInstance(type);

@@ -102,6 +102,7 @@
     <Compile Include="Attributes\AllowEditAttribute.cs" />
     <Compile Include="Attributes\CanInstantiate.cs" />
     <Compile Include="Attributes\HideFromNewMenuAttribute.cs" />
+    <Compile Include="Attributes\NavigationItemAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
@@ -133,12 +134,15 @@
     <Compile Include="IXpoDataStoreProxy.cs" />
     <Compile Include="ListEditors\GridViewOptionsModelSynchronizer.cs" />
     <Compile Include="ListEditors\OptionsModelSynchronizer.cs" />
+    <Compile Include="Attributes\CloneViewAttribute.cs" />
     <Compile Include="NodeUpdaters\ModelListViewLinqColumnsNodesGeneratorUpdater.cs" />
     <Compile Include="NodeUpdaters\ModelListViewLinqNodesGeneratorUpdater.cs" />
     <Compile Include="ModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MultiDataStoreProvider.cs" />
+    <Compile Include="NodeUpdaters\ModelViewClonerUpdater.cs" />
+    <Compile Include="NodeUpdaters\NavigationItemNodeUpdater.cs" />
     <Compile Include="ObjectSpaceProvider.cs" />
     <Compile Include="Core\DetailViewExtensions.cs" />
     <Compile Include="Core\ILinqCollectionSource.cs" />
@@ -175,6 +179,7 @@
     <Compile Include="SystemModule\CreateExpandAbleMembersViewController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Model\IModelListViewLinq.cs" />
     <Compile Include="SystemModule\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -25,7 +25,7 @@ namespace eXpand.ExpressApp.ConditionalActionState.Logic
                         break;
                     case ActionState.Executed: {
                         if (logicRuleInfo.Active) {
-                            ExecuteAction(actionBase, executionContext);
+                            ExecuteAction(actionBase);
                         }
                     }
                         break;
@@ -48,12 +48,10 @@ namespace eXpand.ExpressApp.ConditionalActionState.Logic
             actionBase.Enabled[ActiveObjectTypeHasRules] = !info.Active;
         }
 
-        void ExecuteAction(ActionBase actionBase, ExecutionContext executionContext) {
-            if (executionContext == ExecutionContext.ViewControlsCreated) {
-                var simpleAction = ((SimpleAction) actionBase);
-                if (simpleAction.Active && simpleAction.Enabled) {
-                    simpleAction.DoExecute();
-                }
+        void ExecuteAction(ActionBase actionBase) {
+            var simpleAction = ((SimpleAction) actionBase);
+            if (simpleAction.Active && simpleAction.Enabled) {
+                simpleAction.DoExecute();
             }
         }
 

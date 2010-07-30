@@ -24,8 +24,7 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.NullAble.IntegerPropertyEditor{
             var repositoryItemIntegerEdit = (RepositoryItemIntegerEdit) item;
             if (View != null)
             {
-                Type type = View.ObjectTypeInfo.Type.GetProperty(PropertyName).PropertyType;
-                bool b = type == typeof (int?);
+                bool b = MemberInfo.MemberType == typeof(int?);
                 repositoryItemIntegerEdit.AllowNullInput =
                     b
                         ? DefaultBoolean.True

@@ -133,7 +133,8 @@
     <Compile Include="ILogicRule.cs" />
     <Compile Include="ILogicRuleInfo.cs" />
     <Compile Include="ILogicRuleManager.cs" />
-    <Compile Include="IRule.cs" />
+    <Compile Include="IRule.cs">
+    </Compile>
     <Compile Include="IRuleCollector.cs" />
     <Compile Include="IRuleHolder.cs">
       <SubType>Code</SubType>

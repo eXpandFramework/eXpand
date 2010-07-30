@@ -5,14 +5,10 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
+using eXpand.ExpressApp.Model;
 using eXpand.ExpressApp.NodeUpdaters;
 
 namespace eXpand.ExpressApp.SystemModule {
-    public interface IModelListViewLinq : IModelNode
-    {
-        string XPQueryMethod { get; set; }
-    }
-
     [ToolboxItem(true)]
     [Description("Includes Controllers that represent basic features for XAF applications.")]
     [Browsable(true)]
@@ -36,6 +32,8 @@ namespace eXpand.ExpressApp.SystemModule {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new ModelListViewLinqNodesGeneratorUpdater());
             updaters.Add(new ModelListViewLinqColumnsNodesGeneratorUpdater());
+            updaters.Add(new ModelViewClonerUpdater());
+            updaters.Add(new NavigationItemNodeUpdater());
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
@@ -45,6 +43,7 @@ namespace eXpand.ExpressApp.SystemModule {
             extenders.Add<IModelClass, IModelClassLoadWhenFiltered>();
             extenders.Add<IModelListView, IModelListViewLoadWhenFiltered>();
             extenders.Add<IModelListView, IModelListViewLinq>();
+            
         }
     }
 

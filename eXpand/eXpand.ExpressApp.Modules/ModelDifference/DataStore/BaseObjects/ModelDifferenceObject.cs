@@ -14,9 +14,10 @@ using eXpand.Persistent.Base;
 using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
-    [CreatableItem(false), NavigationItem("Default"), HideFromNewMenu]
+    [CreatableItem(false), DevExpress.Persistent.Base.NavigationItem("Default"), HideFromNewMenu]
     [Custom("Caption", Caption), Custom("IsClonable", "True"), VisibleInReports(false)]
-    public class ModelDifferenceObject : eXpandCustomObject {
+    public class ModelDifferenceObject : eXpandCustomObject, IXpoModelDifference
+    {
         
 
         public const string Caption = "Application Difference";

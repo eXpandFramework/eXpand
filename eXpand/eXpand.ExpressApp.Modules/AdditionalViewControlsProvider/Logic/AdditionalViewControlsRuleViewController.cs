@@ -33,6 +33,11 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                             InitializeControl( control, info, calculator, executionContext);
                         }
                     }
+                    else {
+                        IList controls = GetControls(viewSiteControl);
+                        var findControl = FindControl(info, controlType, controls);
+                        RemoveControl(controls, findControl, info);
+                    }
                 }
             }
 
@@ -55,10 +60,10 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         }
 
         object FindControl(LogicRuleInfo<IAdditionalViewControlsRule> info, Type controlType, IList controls) {
-            if (!info.Rule.UseSameType)
+            if (!info.Rule.UseSameType&&info.Active)
                 return null;
             object firstOrDefault = controls.OfType<object>().Where(o => controlType==o.GetType()).FirstOrDefault();
-            RemoveControl(controls, firstOrDefault, info);
+//            RemoveControl(controls, firstOrDefault, info);
             return firstOrDefault;
         }
 

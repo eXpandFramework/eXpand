@@ -3,7 +3,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 using eXpand.ExpressApp.Core;
-using eXpand.ExpressApp.SystemModule;
+using eXpand.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.NodeUpdaters {
     public class ModelListViewLinqColumnsNodesGeneratorUpdater : ModelNodesGeneratorUpdater<ModelListViewColumnsNodesGenerator>
