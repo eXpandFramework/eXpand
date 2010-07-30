@@ -32,9 +32,27 @@ namespace eXpandAddIns
         {
             base.InitializePlugIn();
             SetGridDataSource();
+            events.ProjectItemRemoved+=EventsOnProjectItemRemoved;
+            events.ProjectItemAdded+=EventsOnProjectItemAdded;
+            events.ProjectItemRenamed+=EventsOnProjectItemRenamed;
             events.SolutionOpened += SetGridDataSource;
-            events.ProjectAdded += project => addProject(project);
-            events.ProjectRemoved += removeProject;
+//            events.ProjectAdded += project => addProject(project);
+//            events.ProjectRemoved += removeProject;
+        }
+
+        void EventsOnProjectItemRemoved(ProjectItem projectItem) {
+            if (projectItem.Name.EndsWith(".xafml"))
+                SetGridDataSource();
+        }
+
+        void EventsOnProjectItemRenamed(ProjectItem projectItem, string oldName) {
+            if (projectItem.Name.EndsWith(".xafml"))
+                SetGridDataSource();
+        }
+
+        void EventsOnProjectItemAdded(ProjectItem projectItem) {
+            if (projectItem.Name.EndsWith(".xafml"))
+                SetGridDataSource();
         }
 
         private int addProject(Project project)
@@ -44,7 +62,7 @@ namespace eXpandAddIns
 
         private void SetGridDataSource()
         {
-            gridControl1.DataSource = GetProjectWrappers().ToList();
+            gridControl1.DataSource = new BindingList<ProjectWrapper>(GetProjectWrappers().ToList());
             var gridView = ((GridView)gridControl1.MainView);
             gridView.FocusedRowHandle = GridControl.AutoFilterRowHandle;
         }
@@ -52,16 +70,40 @@ namespace eXpandAddIns
         IEnumerable<ProjectWrapper> GetProjectWrappers() {
             IEnumerable<Project> projects = CodeRush.Solution.AllProjects.Select(project => CodeRush.Solution.FindEnvDTEProject(project.Name));
 
+            projects = projects.Where(project => project.ConfigurationManager != null && project.ProjectItems != null &&
+                                                       project.ProjectItems.OfType<ProjectItem>().Any(item => item.Name.EndsWith(".xafml")));
 
-            projects =projects.Where(project =>project.ProjectItems != null &&
-                                               project.ProjectItems.Cast<ProjectItem>().Any(item => item.Name.EndsWith(".xafml")));
-            return projects.Select(project1 =>new ProjectWrapper {
-                                                                     Name = project1.Name,
-                                                                     OutputPath =project1.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath).Value.ToString(),
-                                                                     OutPutFileName =project1.FindProperty(ProjectProperty.OutputFileName).Value.ToString(),
-                                                                     FullPath = project1.FindProperty(ProjectProperty.FullPath).Value.ToString(),
-                                                                     UniqueName = project1.UniqueName
-                                                                 });
+            var projectItems = projects.SelectMany(project1 => project1.ProjectItems.OfType<ProjectItem>());
+
+            var items = new List<ProjectWrapper>();
+            GetAllItems(projectItems, items, true);
+            return items;
+        }
+
+        void GetAllItems(IEnumerable<ProjectItem> projectItems, List<ProjectWrapper> list, bool isRoot) {
+            foreach (var projectItem in projectItems) {
+                if (projectItem.Name.EndsWith(".xafml"))
+                    list.Add(ProjectWrapperSelector(projectItem, isRoot));
+                GetAllItems(projectItem.ProjectItems.OfType<ProjectItem>(),list,false);
+            }
+        }
+
+        ProjectWrapper ProjectWrapperSelector(ProjectItem item1, bool isRoot) {
+            return new ProjectWrapper
+                   {
+                       Name = GetName(item1,isRoot),
+                       OutputPath = item1.ContainingProject.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath).Value.ToString(),
+                       OutPutFileName = item1.ContainingProject.FindProperty(ProjectProperty.OutputFileName).Value.ToString(),
+                       FullPath = item1.ContainingProject.FindProperty(ProjectProperty.FullPath).Value.ToString(),
+                       UniqueName = item1.ContainingProject.UniqueName,
+                       LocalPath=item1.FindProperty(ProjectItemProperty.LocalPath).Value.ToString()
+                   };
+        }
+
+        string GetName(ProjectItem item1, bool isRoot) {
+            if (isRoot)
+                return item1.ContainingProject.Name;
+            return item1.Name == "Model.DesignedDiffs.xafml" ? item1.ContainingProject.Name : item1.ContainingProject.Name+" / "+item1.Name;
         }
 
         private void removeProject(Project project)
@@ -89,10 +131,6 @@ namespace eXpandAddIns
 
         // ReSharper restore RedundantOverridenMember
         #endregion
-//        private ProjectItem getModelItem(Project project)
-//        {
-//            return project.ProjectItems.Cast<ProjectItem>().Where(item => item.Name.EndsWith(".xafml")).FirstOrDefault();
-//        }
 
         public class ProjectWrapper {
             public string Name { get; set; }
@@ -102,16 +140,12 @@ namespace eXpandAddIns
             public string FullPath { get; set; }
 
             public string UniqueName { get; set; }
+
+            public string LocalPath { get; set; }
         }
         private void openModelEditor(ProjectWrapper projectWrapper)
         {
 
-//            Configuration configuration = projectWrapper.ConfigurationManager.ActiveConfiguration;
-//            Property outputPathProperty = configuration.FindProperty(ConfigurationProperty.OutputPath);
-//            Property outputFileProperty = projectWrapper.FindProperty(ProjectProperty.OutputFileName);
-//            Property outputDiffsProperty = projectWrapper.FindProperty(ProjectProperty.FullPath);
-
-//            string outputFileName = outputFileProperty.Value.ToString();
             string outputFileName = projectWrapper.OutPutFileName;
             if (outputFileName.ToLower().EndsWith(".exe"))
                 outputFileName += ".config";
@@ -133,9 +167,9 @@ namespace eXpandAddIns
                             MessageBox.Show(string.Format(@"Assembly {0} not found", assemblyName), null, MessageBoxButtons.OK);
                             return;
                         }
-                        string arguments = string.Format("\"{0}\" \"{1}\"",
+                        string arguments = string.Format("'{0}' '{1}' '{2}'",
                                                          assemblyName,
-                                                         projectWrapper.FullPath);
+                                                         projectWrapper.FullPath,projectWrapper.LocalPath);
                         if (File.Exists(path))
                             Process.Start(path, arguments);
                         else

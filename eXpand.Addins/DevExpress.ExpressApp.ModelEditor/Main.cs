@@ -68,16 +68,17 @@ namespace DevExpress.ExpressApp.ModelEditor {
 			Application.ThreadException += OnException;
 		    
 
-			if (args.Length == 0 ||args.Length > 2) {
+			if (args.Length == 0 ||args.Length > 3) {
                 MessageBox.Show(string.Format("Usage: {0}'{1}' <Path_to_app_config_file> {0} '{1}' <Path_to_dll_file> <Path_to_diff_file>", 
                                                 Environment.NewLine, Environment.GetCommandLineArgs()[0]), ModelEditorForm.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else {
 				try {
-				    args[0] = args[0].TrimStart('"').TrimEnd('"');
-				    args[1] = args[1].TrimStart('"').TrimEnd('"');
+                    args[0] = args[0].TrimStart(Convert.ToChar("'")).TrimEnd(Convert.ToChar("'"));
+                    args[1] = args[1].TrimStart(Convert.ToChar("'")).TrimEnd(Convert.ToChar("'"));
+                    args[2] = args[2].TrimStart(Convert.ToChar("'")).TrimEnd(Convert.ToChar("'"));
 					string targetPath = args[0];
-                    string diffsPath = (args.Length == 2 ? args[1] : string.Empty);
+                    string diffsPath = (args.Length == 3 ? args[1] : string.Empty);
                     if (Path.GetExtension(targetPath).ToLower() != ".config" && Path.GetExtension(targetPath).ToLower() != ".dll") {
                         throw new Exception("This file can be executed with a configuration or an assebly file as a parameter.");
                     }
@@ -98,7 +99,7 @@ namespace DevExpress.ExpressApp.ModelEditor {
 					ApplicationModulesManager mgr = dmf.CreateModelManager(targetPath, string.Empty);
 					mgr.Load();
                     var modelManager = new ApplicationModelsManager(mgr.Modules, mgr.ControllersManager, mgr.DomainComponents);
-                    FileModelStore fileModelStore = dmf.CreateModuleModelStore(diffsPath);
+                    var fileModelStore = new FileModelStore(Path.GetDirectoryName(args[2]), Path.GetFileNameWithoutExtension(args[2]));;
                     
                     IModelApplication modelApplication = modelManager.CreateModelApplication(fileModelStore);
 				    var controller = new ModelEditorViewController(modelApplication, fileModelStore, mgr.Modules);
