@@ -37,8 +37,7 @@ namespace eXpand.ExpressApp.SystemModule
 
         protected bool IsReady(IModelListViewLoadWhenFiltered modelListViewGridViewOptions)
         {
-            return modelListViewGridViewOptions.LoadWhenFiltered &&
-                   GetActiveFilter() == string.Empty;
+            return modelListViewGridViewOptions.LoadWhenFiltered &&string.IsNullOrEmpty(GetActiveFilter());
         }
 
         protected abstract string GetActiveFilter();
