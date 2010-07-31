@@ -40,7 +40,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         [Category("Behavior")]
         [Description("Searches the container controls collection for one that has the same type and use that one1")]
         [DefaultValue(true)]
-        bool UseSameType { get; set; }
+        bool NotUseSameType { get; set; }
 
         
     }

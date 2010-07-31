@@ -28,7 +28,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                         object o = FindControl(info, controlType, controls);
                         object control = GetControl(controlType, o,info);
                         ReflectionHelper.CreateObject(calculator.ControlsRule.DecoratorType, new[] { info.View, control, info.Rule });
-                        if (!info.Rule.UseSameType||o== null) {
+                        if (info.Rule.NotUseSameType||o== null) {
                             AddControl(control, controls);
                             InitializeControl( control, info, calculator, executionContext);
                         }
@@ -60,7 +60,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         }
 
         object FindControl(LogicRuleInfo<IAdditionalViewControlsRule> info, Type controlType, IList controls) {
-            if (!info.Rule.UseSameType&&info.Active)
+            if (info.Rule.NotUseSameType&&info.Active)
                 return null;
             object firstOrDefault = controls.OfType<object>().Where(o => controlType==o.GetType()).FirstOrDefault();
 //            RemoveControl(controls, firstOrDefault, info);

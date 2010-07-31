@@ -38,9 +38,9 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             set { _additionalViewControlsRule.Position = value; }
         }
 
-        public bool UseSameType {
-            get { return _additionalViewControlsRule.UseSameType; }
-            set { _additionalViewControlsRule.UseSameType=value; }
+        public bool NotUseSameType {
+            get { return _additionalViewControlsRule.NotUseSameType; }
+            set { _additionalViewControlsRule.NotUseSameType=value; }
         }
         #endregion
     }

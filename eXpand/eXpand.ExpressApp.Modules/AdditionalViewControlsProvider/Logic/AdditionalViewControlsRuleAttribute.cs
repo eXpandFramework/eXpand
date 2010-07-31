@@ -20,6 +20,6 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         public string MessageProperty { get; set; }
         public string Message { get; set; }
         public Position Position { get; set; }
-        public bool UseSameType { get; set; }
+        public bool NotUseSameType { get; set; }
     }
 }

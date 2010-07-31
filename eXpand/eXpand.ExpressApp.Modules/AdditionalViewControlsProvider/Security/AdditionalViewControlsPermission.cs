@@ -19,7 +19,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Security {
         public string MessageProperty { get; set; }
 
         public Position Position { get; set; }
-        public bool UseSameType { get; set; }
+        public bool NotUseSameType { get; set; }
         #endregion
         public override IPermission Copy() {
             return new AdditionalViewControlsPermission();

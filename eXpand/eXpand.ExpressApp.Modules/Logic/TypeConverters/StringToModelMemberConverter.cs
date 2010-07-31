@@ -13,9 +13,11 @@ namespace eXpand.ExpressApp.Logic.TypeConverters {
             _modelApplication = modelApplication;
         }
 
-        public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
-        {
-            return _modelApplication.BOModel.GetClass(destinationType).AllMembers.Where(member => member.Name == value.ToString()).Single();
+        public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType) {
+            var modelMember = _modelApplication.BOModel.GetClass(destinationType).AllMembers.Where(member => member.Name == value.ToString()).FirstOrDefault();
+            if (modelMember== null)
+                throw new NullReferenceException(value.ToString());
+            return modelMember;
         }
     }
 }
