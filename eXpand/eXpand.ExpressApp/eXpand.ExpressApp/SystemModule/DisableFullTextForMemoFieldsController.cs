@@ -41,7 +41,7 @@ namespace eXpand.ExpressApp.SystemModule
             if (View != null && ((IModelListViewDisableFullTextForMemoFields)View.Model).DisableFullTextForMemoFields)
             {
                 var filterController = Frame.GetController<FilterController>();
-                var members = removeUnlimitedSizeMembers(Frame.GetController<SearchFromListViewController>().GetFullTextSearchProperties(filterController.FullTextSearchTargetPropertiesMode), View.ObjectTypeInfo);
+                var members = removeUnlimitedSizeMembers(filterController.GetFullTextSearchProperties(), View.ObjectTypeInfo);
                 customBuildCriteriaEventArgs.Criteria = new SearchCriteriaBuilder(
                     View.ObjectTypeInfo,
                     members,

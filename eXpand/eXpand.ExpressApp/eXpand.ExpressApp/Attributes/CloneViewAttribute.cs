@@ -6,7 +6,7 @@ namespace eXpand.ExpressApp.Attributes {
         ListView,
         LookupListView
     }
-    [AttributeUsage(AttributeTargets.Class,AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Class|AttributeTargets.Method,AllowMultiple = true)]
     public class CloneViewAttribute : Attribute
     {
         readonly CloneViewType _viewType;
