@@ -21,7 +21,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             get { return DifferenceType.User; }
         }
 
-        protected internal override ModelDifferenceObject GetActiveDifferenceObject(string modelId){
+        protected internal override ModelDifferenceObject GetActiveDifferenceObject(string name){
             return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName,null);
         }
 

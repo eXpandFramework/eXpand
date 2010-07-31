@@ -143,9 +143,9 @@
     <Compile Include="Controllers\SyncronizeApplicationModelDiffsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\ApplicationCreator.cs" />
     <Compile Include="Core\ModelApplicationFromStreamStoreBase.cs" />
     <Compile Include="Core\ModelApplicationBuilder.cs" />
+    <Compile Include="Core\ResourcesModelStore.cs" />
     <Compile Include="CreateCustomModelDifferenceStoreEventArgs.cs" />
     <Compile Include="DataStore\BaseObjects\AspectObject.cs" />
     <Compile Include="DataStore\BaseObjects\ModelDifferenceObject.cs" />

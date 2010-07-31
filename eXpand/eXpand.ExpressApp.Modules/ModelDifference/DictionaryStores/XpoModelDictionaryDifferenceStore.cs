@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -10,7 +11,9 @@ using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.ModelDifference.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
+using eXpand.ExpressApp.SystemModule;
 using eXpand.Persistent.Base;
+using ResourcesModelStore = eXpand.ExpressApp.ModelDifference.Core.ResourcesModelStore;
 
 namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     public  class XpoModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore
@@ -57,11 +60,43 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 AddLAyers(new List<ModelApplicationBase> { loadedModel }, model);
                 return;
             }
+            
+
             List<ModelApplicationBase> loadedModels = GetLoadedModelApplications();
+
             if (loadedModels.Count() == 0){
                 loadedModels = new List<ModelApplicationBase> { model.CreatorInstance.CreateModelApplication() };
             }
             AddLAyers(loadedModels, model);
+            CreateResourceModels(model);
+        }
+
+        void CreateResourceModels(ModelApplicationBase model) {
+            var modelApplicationPrefix = ((IModelOptionsLoadModelResources) model.Application.Options).ModelApplicationPrefix;
+            if (string.IsNullOrEmpty(modelApplicationPrefix)) return;
+            var assemblies = ((IModelApplicationModule) model.Application).ModulesList.Select(module => XafTypesInfo.Instance.FindTypeInfo(module.Name).AssemblyInfo.Assembly);
+            foreach (var assembly in assemblies) {
+                LoadFromResources(model, modelApplicationPrefix, assembly);
+            }
+            
+        }
+
+        void LoadFromResources(ModelApplicationBase model, string modelApplicationPrefix, Assembly assembly) {
+            var resourcesModelStore = new ResourcesModelStore(assembly, modelApplicationPrefix);
+            ModelDifferenceObject modelDifferenceObject = null;
+            resourcesModelStore.ResourceLoading += (sender, args) =>{
+                var resourceName = Path.GetFileNameWithoutExtension(args.ResourceName.StartsWith(modelApplicationPrefix) ? args.ResourceName : args.ResourceName.Substring(args.ResourceName.IndexOf("." + modelApplicationPrefix) + 1)).Replace(modelApplicationPrefix,"");
+                modelDifferenceObject = GetActiveDifferenceObject(resourceName)?? new ModelDifferenceObject(ObjectSpace.Session).InitializeMembers(resourceName, Application.Title, Application.GetType().FullName);
+                args.Model = modelDifferenceObject.Model;
+                model.AddLayer(args.Model);
+            };
+            resourcesModelStore.ResourceLoaded += (o, loadedArgs) =>{
+                if (modelDifferenceObject.Model.HasModification){
+                    ObjectSpace.SetModified(modelDifferenceObject);
+                    ObjectSpace.CommitChanges();
+                }
+            };
+            resourcesModelStore.Load(model);
         }
 
         void AddLAyers(IEnumerable<ModelApplicationBase> loadedModels, ModelApplicationBase model) {
@@ -122,8 +157,8 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         }
 
 
-        protected internal override ModelDifferenceObject GetActiveDifferenceObject(string modelId) {
-            return new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName,modelId);
+        protected internal override ModelDifferenceObject GetActiveDifferenceObject(string name) {
+            return new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName,name);
         }
 
         protected internal override ModelDifferenceObject GetNewDifferenceObject(ObjectSpace session)

@@ -1,4 +1,3 @@
-using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
@@ -11,7 +10,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         private readonly ObjectSpace _objectSpace;
 
         protected XpoDictionaryDifferenceStore(XafApplication application){
-            this._application = application;
+            _application = application;
             _objectSpace = application.CreateObjectSpace();
         }
 
@@ -40,7 +39,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             }
         }
         
-        protected internal abstract ModelDifferenceObject GetActiveDifferenceObject(string modelId);
+        protected internal abstract ModelDifferenceObject GetActiveDifferenceObject(string name);
 
         protected internal abstract ModelDifferenceObject GetNewDifferenceObject(ObjectSpace objectSpace);
 

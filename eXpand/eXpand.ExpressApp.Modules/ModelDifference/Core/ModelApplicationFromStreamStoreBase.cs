@@ -14,7 +14,10 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
         }
 
         public virtual void  Load(ModelApplicationBase model, string aspect) {
-            new ModelXmlReader().ReadFromStream(model, aspect, GetStream());
+            var stream = GetStream();
+            if (stream== null)
+                throw new NullReferenceException("Stream for "+GetType().FullName);
+            new ModelXmlReader().ReadFromStream(model, aspect, stream);
         }
 
         protected abstract Stream GetStream();
