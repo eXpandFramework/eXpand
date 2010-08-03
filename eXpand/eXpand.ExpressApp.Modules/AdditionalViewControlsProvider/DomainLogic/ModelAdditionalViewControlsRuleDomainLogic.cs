@@ -40,7 +40,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.DomainLogic {
         }
 
         static Func<TypeDecorator, bool> PredicatePosition(Position position) {
-            return decorator => decorator.Position==position;
+            return decorator =>position==Position.DetailViewItem? decorator.Position==position: true;
         }
 
         static IEnumerable<TypeDecorator> GetTypeDecorators() {

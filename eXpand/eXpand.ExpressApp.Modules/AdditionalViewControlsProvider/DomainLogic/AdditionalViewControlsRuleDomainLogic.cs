@@ -7,10 +7,6 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.DomainLogic {
     [DomainLogic(typeof(IAdditionalViewControlsRule))]
     public class AdditionalViewControlsRuleDomainLogic
     {
-        public static bool Get_UseSameType(IAdditionalViewControlsRule modelNode)
-        {
-            return true;
-        }
         public static Type Get_ControlType(IAdditionalViewControlsRule additionalViewControlsRule)
         {
             TypeDecorator decorator = ModelAdditionalViewControlsRuleDomainLogic.GetTypeDecorator(additionalViewControlsRule.Position);

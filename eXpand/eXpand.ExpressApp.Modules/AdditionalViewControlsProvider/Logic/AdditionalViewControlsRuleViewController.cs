@@ -23,8 +23,8 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                     IAdditionalViewControlsRule additionalViewControlsRule = info.Rule;
                     var calculator = new AdditionalViewControlsProviderCalculator(additionalViewControlsRule, info.View.ObjectTypeInfo.Type);
                     Type controlType = calculator.ControlsRule.ControlType;
+                    IList controls = GetControls(viewSiteControl);
                     if (info.Active) {
-                        IList controls = GetControls(viewSiteControl);
                         object o = FindControl(info, controlType, controls);
                         object control = GetControl(controlType, o,info);
                         ReflectionHelper.CreateObject(calculator.ControlsRule.DecoratorType, new[] { info.View, control, info.Rule });
@@ -32,11 +32,11 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                             AddControl(control, controls);
                             InitializeControl( control, info, calculator, executionContext);
                         }
+                        ((AdditionalViewControlsRule) info.Rule).Control = control;
                     }
                     else {
-                        IList controls = GetControls(viewSiteControl);
-                        var findControl = FindControl(info, controlType, controls);
-                        RemoveControl(controls, findControl, info);
+                        object control = ((AdditionalViewControlsRule) info.Rule).Control;
+                        controls.Remove(control);
                     }
                 }
             }

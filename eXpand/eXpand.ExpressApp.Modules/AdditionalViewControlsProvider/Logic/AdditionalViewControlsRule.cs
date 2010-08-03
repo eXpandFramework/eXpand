@@ -42,6 +42,8 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             get { return _additionalViewControlsRule.NotUseSameType; }
             set { _additionalViewControlsRule.NotUseSameType=value; }
         }
+
+        public object Control { get; set; }
         #endregion
     }
 }

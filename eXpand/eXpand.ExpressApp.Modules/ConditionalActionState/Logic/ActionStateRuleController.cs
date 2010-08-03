@@ -30,7 +30,7 @@ namespace eXpand.ExpressApp.ConditionalActionState.Logic
                     }
                         break;
                     case ActionState.ExecutedAndDisable:
-                        ExecuteAndDisableAction(actionBase, executionContext);
+                        ExecuteAndDisableAction(actionBase);
                         break;
                 }
             }
@@ -55,14 +55,12 @@ namespace eXpand.ExpressApp.ConditionalActionState.Logic
             }
         }
 
-        void ExecuteAndDisableAction(ActionBase actionBase, ExecutionContext executionContext) {
-            if (executionContext == ExecutionContext.ViewControlAdding) {
-                var simpleAction = ((SimpleAction) actionBase);
-                simpleAction.Active[ActiveObjectTypeHasRules] = true;
-                if (simpleAction.Active && simpleAction.Enabled)
-                    simpleAction.DoExecute();
-                simpleAction.Active[ActiveObjectTypeHasRules] = false;
-            }
+        void ExecuteAndDisableAction(ActionBase actionBase) {
+            var simpleAction = ((SimpleAction) actionBase);
+            simpleAction.Active[ActiveObjectTypeHasRules] = true;
+            if (simpleAction.Active && simpleAction.Enabled)
+                simpleAction.DoExecute();
+            simpleAction.Active[ActiveObjectTypeHasRules] = false;
         }
 
         IEnumerable<ActionBase> GetActions(IActionStateRule rule) {
