@@ -30,10 +30,15 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
         }
 
         public override void Load(ModelApplicationBase model){
-            foreach (string resourceName in assembly.GetManifestResourceNames().Where(s => s.StartsWith(_prefix) || (!(s.StartsWith(_prefix))&&s.IndexOf("."+_prefix)>-1))){
+            foreach (string resourceName in assembly.GetManifestResourceNames().Where(Predicate())){
                 ReadFromResource(model, resourceName, "");
             }
         }
+
+        Func<string, bool> Predicate() {
+            return s => ((s.StartsWith(_prefix) || (!(s.StartsWith(_prefix)) && s.IndexOf("." + _prefix) > -1)) && (!(s.EndsWith(ModelDiffDefaultName + ".xafml"))&&s.EndsWith(".xafml")));
+        }
+
         public override bool ReadOnly
         {
             get { return true; }

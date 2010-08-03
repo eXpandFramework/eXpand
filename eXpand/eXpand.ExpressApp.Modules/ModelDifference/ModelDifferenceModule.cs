@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -12,24 +11,14 @@ using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 
+
 namespace eXpand.ExpressApp.ModelDifference
 {
-    public interface IModelOptionsLoadModelResources {
-        [Category("eXpand.ModelDifference")]
-        [Description("For all resources that end with .xafml a new model application difference will be created and compined with the master application model")]
-        [DefaultValue("MDO_")]
-        string ModelApplicationPrefix { get; set; }    
-    }
     public sealed class ModelDifferenceModule : ModuleBase{
         static ModelApplicationBase _model;
 
         public ModelDifferenceModule(){
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
-        }
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
-            base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelOptions, IModelOptionsLoadModelResources>();
         }
         public static ModelApplicationBase MasterModel
         {

@@ -18,6 +18,7 @@ using ResourcesModelStore = eXpand.ExpressApp.ModelDifference.Core.ResourcesMode
 namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     public  class XpoModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore
     {
+        public const string ModelApplicationPrefix = "MDO_";
         private readonly bool _enableLoading;
         readonly string _path;
         readonly List<ModelApplicationFromStreamStoreBase> _extraDiffStores;
@@ -72,11 +73,10 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         }
 
         void CreateResourceModels(ModelApplicationBase model) {
-            var modelApplicationPrefix = ((IModelOptionsLoadModelResources) model.Application.Options).ModelApplicationPrefix;
-            if (string.IsNullOrEmpty(modelApplicationPrefix)) return;
+            
             var assemblies = ((IModelApplicationModule) model.Application).ModulesList.Select(module => XafTypesInfo.Instance.FindTypeInfo(module.Name).AssemblyInfo.Assembly);
             foreach (var assembly in assemblies) {
-                LoadFromResources(model, modelApplicationPrefix, assembly);
+                LoadFromResources(model, ModelApplicationPrefix, assembly);
             }
             
         }
