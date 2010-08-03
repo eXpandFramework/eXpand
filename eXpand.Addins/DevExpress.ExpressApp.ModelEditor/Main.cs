@@ -1,58 +1,21 @@
-
-
-//ModelEditor 9.1.2
-
-
-
-//#region Copyright (c) 2000-2008 Developer Express Inc.
-//*
-//{*******************************************************************}
-//{                                                                   }
-//{       Developer Express .NET Component Library                    }
-//{       eXpressApp Framework                                 }
-//{                                                                   }
-//{       Copyright (c) 2000-2008 Developer Express Inc.              }
-//{       ALL RIGHTS RESERVED                                         }
-//{                                                                   }
-//{   The entire contents of this file is protected by U.S. and       }
-//{   International Copyright Laws. Unauthorized reproduction,        }
-//{   reverse-engineering, and distribution of all or any portion of  }
-//{   the code contained in this file is strictly prohibited and may  }
-//{   result in severe civil and criminal penalties and will be       }
-//{   prosecuted to the maximum extent possible under the law.        }
-//{                                                                   }
-//{   RESTRICTIONS                                                    }
-//{                                                                   }
-//{   THIS SOURCE CODE AND ALL RESULTING INTERMEDIATE FILES           }
-//{   ARE CONFIDENTIAL AND PROPRIETARY TRADE                          }
-//{   SECRETS OF DEVELOPER EXPRESS INC. THE REGISTERED DEVELOPER IS   }
-//{   LICENSED TO DISTRIBUTE THE PRODUCT AND ALL ACCOMPANYING .NET    }
-//{   CONTROLS AS PART OF AN EXECUTABLE PROGRAM ONLY.                 }
-//{                                                                   }
-//{   THE SOURCE CODE CONTAINED WITHIN THIS FILE AND ALL RELATED      }
-//{   FILES OR ANY PORTION OF ITS CONTENTS SHALL AT NO TIME BE        }
-//{   COPIED, TRANSFERRED, SOLD, DISTRIBUTED, OR OTHERWISE MADE       }
-//{   AVAILABLE TO OTHER INDIVIDUALS WITHOUT EXPRESS WRITTEN CONSENT  }
-//{   AND PERMISSION FROM DEVELOPER EXPRESS INC.                      }
-//{                                                                   }
-//{   CONSULT THE END USER LICENSE AGREEMENT FOR INFORMATION ON       }
-//{   ADDITIONAL RESTRICTIONS.                                        }
-//{                                                                   }
-//{*******************************************************************}
-//*/
-//#endregion Copyright (c) 2000-2008 Developer Express Inc.
-
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 using System.IO;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Win.Core;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Model;
-namespace DevExpress.ExpressApp.ModelEditor {
+using eXpand.Utils.DependentAssembly;
+using System.Linq;
+using ResourcesModelStore = eXpand.ExpressApp.ModelDifference.Core.ResourcesModelStore;
+
+namespace eXpand.ExpressApp.ModelEditor {
 	public class MainClass {
 		private static ModelEditorForm modelEditorForm;
 		static private void HandleException(Exception e) {
@@ -74,38 +37,34 @@ namespace DevExpress.ExpressApp.ModelEditor {
 			}
 			else {
 				try {
-                    args[0] = args[0].TrimStart(Convert.ToChar("'")).TrimEnd(Convert.ToChar("'"));
-                    args[1] = args[1].TrimStart(Convert.ToChar("'")).TrimEnd(Convert.ToChar("'"));
-                    args[2] = args[2].TrimStart(Convert.ToChar("'")).TrimEnd(Convert.ToChar("'"));
-					string targetPath = args[0];
-                    string diffsPath = (args.Length == 3 ? args[1] : string.Empty);
-                    if (Path.GetExtension(targetPath).ToLower() != ".config" && Path.GetExtension(targetPath).ToLower() != ".dll") {
+				    
+                    var pathInfo = new PathInfo(args);
+                    if (Path.GetExtension(pathInfo.AssemblyPath).ToLower() != ".config" && Path.GetExtension(pathInfo.AssemblyPath).ToLower() != ".dll")
+                    {
                         throw new Exception("This file can be executed with a configuration or an assebly file as a parameter.");
                     }
 
-					if(!File.Exists(targetPath)) {
-						targetPath = Path.Combine(Environment.CurrentDirectory, targetPath);
-						if(!File.Exists(targetPath)) {
-							throw new Exception(String.Format("The config file '{0}' couldn't be found.", targetPath));
+                    if (!File.Exists(pathInfo.AssemblyPath))
+                    {
+                        pathInfo.AssemblyPath = Path.Combine(Environment.CurrentDirectory, pathInfo.AssemblyPath);
+                        if (!File.Exists(pathInfo.AssemblyPath))
+                        {
+                            throw new Exception(String.Format("The config file '{0}' couldn't be found.", pathInfo.AssemblyPath));
 						}
 					}
-                    if (diffsPath == string.Empty) {
-                        diffsPath = Path.GetDirectoryName(targetPath);
-                    }
-					if(diffsPath == string.Empty) { 
-                        diffsPath = Environment.CurrentDirectory; 
-                    } 
-					var dmf = new DesignerModelFactory();
-					ApplicationModulesManager mgr = dmf.CreateModelManager(targetPath, string.Empty);
-					mgr.Load();
-                    var modelManager = new ApplicationModelsManager(mgr.Modules, mgr.ControllersManager, mgr.DomainComponents);
-                    var fileModelStore = new FileModelStore(Path.GetDirectoryName(args[2]), Path.GetFileNameWithoutExtension(args[2]));;
-                    
-                    IModelApplication modelApplication = modelManager.CreateModelApplication(fileModelStore);
-				    var controller = new ModelEditorViewController(modelApplication, fileModelStore, mgr.Modules);
+                     
+					var designerModelFactory = new DesignerModelFactory();
+                    ApplicationModulesManager applicationModulesManager = designerModelFactory.CreateModelManager(pathInfo.AssemblyPath, string.Empty);
+					applicationModulesManager.Load();
+                    var modelManager = new ApplicationModelsManager(applicationModulesManager.Modules, applicationModulesManager.ControllersManager, applicationModulesManager.DomainComponents);
+                    var fileModelStore = new FileModelStore(Path.GetDirectoryName(pathInfo.LocalPath), Path.GetFileNameWithoutExtension(pathInfo.LocalPath));
+
+				    IModelApplication modelApplication = modelManager.CreateModelApplication(fileModelStore);                    
+				    AddLayers((ModelApplicationBase) modelApplication,pathInfo.AssemblyPath,applicationModulesManager);
+				    var controller = new ModelEditorViewController(modelApplication, fileModelStore, applicationModulesManager.Modules);
 				    modelEditorForm = new ModelEditorForm(controller, new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor"));
                     modelEditorForm.Disposed += (sender, eventArgs) => ((IModelEditorSettings)modelEditorForm).ModelEditorSaveSettings();
-					modelEditorForm.SetCaption(Path.GetFileName(targetPath));
+					modelEditorForm.SetCaption(Path.GetFileName(pathInfo.LocalPath));
                     
 					Application.Run(modelEditorForm);
 				} catch(Exception exception) {
@@ -114,5 +73,19 @@ namespace DevExpress.ExpressApp.ModelEditor {
 			}
 		}
 
+	    static void AddLayers(ModelApplicationBase modelApplication, string fullPath, ApplicationModulesManager applicationModulesManager) {
+	        var lastLayer = modelApplication.LastLayer;
+            modelApplication.RemoveLayer(lastLayer);
+	        IEnumerable<string> assemblyPaths = DependentAssemblyPathResolver.GetAssemblyPaths(fullPath).Reverse();
+	        foreach (var assemblyPath in assemblyPaths) {
+	            string path = assemblyPath;
+	            var assembly = applicationModulesManager.Modules.Where(mbase => mbase.GetType().Assembly.Location==path).Select(mbase => mbase.GetType().Assembly).Single();
+	            var layer = modelApplication.CreatorInstance.CreateModelApplication();
+	            modelApplication.AddLayer(layer);
+	            var resourcesModelStore = new ResourcesModelStore(assembly, "");
+                resourcesModelStore.Load(layer);                
+	        }
+	        modelApplication.AddLayer(lastLayer);
+	    }
 	}
 }

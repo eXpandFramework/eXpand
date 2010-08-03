@@ -53,7 +53,7 @@
     </Reference>
     <Reference Include="eXpand.Utils, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
@@ -95,6 +95,8 @@
     <Compile Include="Extensioons\ElementExtensions.cs" />
     <Compile Include="Extensioons\ProjectItemExtensions.cs" />
     <Compile Include="Extensioons\PropertyExtensions.cs" />
+    <Compile Include="ModelEditor\GridBinder.cs" />
+    <Compile Include="ModelEditor\ModelEditorRunner.cs" />
     <Compile Include="Options.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -108,6 +110,8 @@
       <DependentUpon>PlugIn1.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensioons\ProjectExtensions.cs" />
+    <Compile Include="ModelEditor\ProjectWrapper.cs" />
+    <Compile Include="ModelEditor\ProjectWrapperBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensioons\SolutionExtension.cs" />
     <Compile Include="Enums\SolutionProperty.cs" />
@@ -117,11 +121,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ReverseLineReader.cs" />
-    <Compile Include="ToolWindow1.cs">
+    <Compile Include="ModelEditor\METoolWindow.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ToolWindow1.Designer.cs">
-      <DependentUpon>ToolWindow1.cs</DependentUpon>
+    <Compile Include="ModelEditor\METoolWindow.Designer.cs">
+      <DependentUpon>METoolWindow.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -135,8 +139,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ToolWindow1.resx">
-      <DependentUpon>ToolWindow1.cs</DependentUpon>
+    <EmbeddedResource Include="ModelEditor\METoolWindow.resx">
+      <DependentUpon>METoolWindow.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

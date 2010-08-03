@@ -1,13 +1,12 @@
 using DevExpress.DXCore.Controls.XtraEditors;
 using DevExpress.DXCore.Controls.XtraGrid;
 using DevExpress.DXCore.Controls.XtraGrid.Columns;
-using DevExpress.DXCore.Controls.XtraGrid.Views.Base;
 using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
 
-namespace eXpandAddIns
+namespace eXpandAddIns.ModelEditor
 {
     [System.Runtime.InteropServices.Guid("76ed6075-b303-4bb8-8071-6b3982623d5a")]
-    partial class ToolWindow1
+    partial class METoolWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -15,7 +14,7 @@ namespace eXpandAddIns
         private System.ComponentModel.IContainer components;
         private DevExpress.DXCore.PlugInCore.DXCoreEvents events;
 
-        public ToolWindow1()
+        public METoolWindow()
         {
             // Required for Windows.Forms Class Composition Designer support
             InitializeComponent();
@@ -43,7 +42,7 @@ namespace eXpandAddIns
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolWindow1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(METoolWindow));
             this.events = new DevExpress.DXCore.PlugInCore.DXCoreEvents(this.components);
             this.gridControl1 = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView();
@@ -120,7 +119,7 @@ namespace eXpandAddIns
             this.Controls.Add(this.textEdit1);
             this.Image = ((System.Drawing.Bitmap)(resources.GetObject("$this.Image")));
             this.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.Name = "ToolWindow1";
+            this.Name = "METoolWindow";
             this.Size = new System.Drawing.Size(709, 356);
             ((System.ComponentModel.ISupportInitialize)(this.events)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
@@ -140,7 +139,7 @@ namespace eXpandAddIns
         ///
         public static EnvDTE.Window ShowWindow()
         {
-            return DevExpress.CodeRush.Core.CodeRush.ToolWindows.Show(typeof(ToolWindow1).GUID);
+            return DevExpress.CodeRush.Core.CodeRush.ToolWindows.Show(typeof(METoolWindow).GUID);
         }
         #endregion
         #region HideWindow
@@ -149,7 +148,7 @@ namespace eXpandAddIns
         ///
         public static EnvDTE.Window HideWindow()
         {
-            return DevExpress.CodeRush.Core.CodeRush.ToolWindows.Hide(typeof(ToolWindow1).GUID);
+            return DevExpress.CodeRush.Core.CodeRush.ToolWindows.Hide(typeof(METoolWindow).GUID);
         }
         #endregion
 

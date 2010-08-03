@@ -38,10 +38,10 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
-[assembly: AssemblyTitle("Model Editor")]
-[assembly: AssemblyDescription("eXpressApp Framework Model Editor")]
+[assembly: AssemblyTitle("eXpand.ExpressApp.ModelEditor")]
+[assembly: AssemblyDescription("eXpand.ExpressApp.ModelEditor")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("Model Editor")]
-[assembly: AssemblyVersion("0.0.09314.05")]
-[assembly: AssemblyFileVersion("0.0.09314.05")]
+[assembly: AssemblyProduct("eXpand.ExpressApp.ModelEditor")]
+[assembly: AssemblyVersion(eXpand.AssemblyInfo.Version)]
+[assembly: AssemblyFileVersion(eXpand.AssemblyInfo.Version)]
 

@@ -10,13 +10,13 @@
     <ApplicationIcon>App.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>DevExpress.ExpressApp.ModelEditor</AssemblyName>
+    <AssemblyName>eXpand.ExpressApp.ModelEditor</AssemblyName>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>DevExpress.ExpressApp.ModelEditor</RootNamespace>
+    <RootNamespace>eXpand.ExpressApp.ModelEditor</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -43,6 +43,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <OutputPath>..\..\eXpand.DLL\PlugIns\</OutputPath>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>..\..\eXpand.DLL\PlugIns\</OutputPath>
@@ -140,15 +141,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
-    <Compile Include="AssemblyVersionInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Main.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PathInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Win.v10.1">
@@ -159,6 +158,15 @@
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v10.1">
       <Name>DevExpress.Persistent.Base.v10.1</Name>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ModelDifference, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="eXpand.Utils, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
   </ItemGroup>
   <ItemGroup>
