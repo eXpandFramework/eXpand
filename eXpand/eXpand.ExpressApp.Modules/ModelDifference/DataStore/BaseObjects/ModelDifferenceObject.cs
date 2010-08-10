@@ -110,7 +110,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
                 ModelApplicationBase masterModel = ModelDifferenceModule.MasterModel;
                 var modelApplicationBase = masterModel.CreatorInstance.CreateModelApplication();
                 masterModel.AddLayer(modelApplicationBase);
-                for (int i = 0; i < Model.Aspects.Count; i++) {
+                for (int i = 0; i < Model.GetAspectNames().ToList().Count; i++) {
                     var aspect = Model.GetAspect(i);
                     if (aspect!=Model.CurrentAspect) {
                         var xml = new ModelXmlWriter().WriteToString(Model,i);
