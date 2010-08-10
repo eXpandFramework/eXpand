@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo.DB;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using Microsoft.SqlServer.Management.Smo;
-using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.Core;
 
 namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class AttributeMapper {
+        readonly ForeignKeyCalculator _foreignKeyCalculator=new ForeignKeyCalculator();
         readonly ObjectSpace _objectSpace;
 
         readonly DataTypeMapper _dataTypeMapper;
@@ -46,7 +44,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
 
         IPersistentAssociationAttribute GetPersistentAssociationAttribute(Column column) {
             var persistentAssociationAttribute = _objectSpace.CreateWCObject<IPersistentAssociationAttribute>();
-            persistentAssociationAttribute.AssociationName = GetForeignKeyName(column.Name, (Table) column.Parent);
+            persistentAssociationAttribute.AssociationName = _foreignKeyCalculator.GetForeignKeyName(column.Name, (Table)column.Parent);
             return persistentAssociationAttribute;
         }
 
@@ -70,16 +68,6 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             return persistentAttributeInfo;
         }
 
-        string GetForeignKeyName(string name, Table table)
-        {
-            var foreignTableName = (from ForeignKey key in table.ForeignKeys
-                                    from ForeignKeyColumn column in key.Columns
-                                    where column.Name == name
-                                    select key.Name).FirstOrDefault();
-            if (foreignTableName != null)
-                return foreignTableName;
-            throw new NotImplementedException(table.Name + " " + name);
-        }
 
         public ObjectSpace ObjectSpace {
             get { return _objectSpace; }

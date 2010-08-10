@@ -1,5 +1,4 @@
-﻿using System;
-using DevExpress.Data.Filtering;
+﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
@@ -12,7 +11,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
         readonly DataTypeMapper _dataTypeMapper;
         readonly AttributeMapper _attributeMapper;
         readonly ObjectSpace _objectSpace;
-
+        readonly ForeignKeyCalculator _foreignKeyCalculator=new ForeignKeyCalculator();
         public ColumnMapper(DataTypeMapper dataTypeMapper, AttributeMapper attributeMapper) {
             _dataTypeMapper = dataTypeMapper;
             _attributeMapper = attributeMapper;
@@ -44,7 +43,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
                 CreateCollection((IPersistentReferenceMemberInfo) persistentMemberInfo);
             else {
                 var table = (Table) column.Parent;
-                var foreignKey = GetForeignKey(table.Parent,column.Name,table.Name);
+                var foreignKey = _foreignKeyCalculator.GetForeignKey(table.Parent, column.Name, table.Name);
                 var persistentClassInfoOwner = GetReferenceClassInfo(foreignKey.ReferencedTable);
                 CreatePersistentReferenceMemberInfo(foreignKey.ReferencedKey, persistentClassInfoOwner, owner,TemplateType.XPOneToOnePropertyMember);
             }
@@ -87,22 +86,15 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
                 return CreatePersistentCoreTypeMemberInfo(column, owner, templateType);
             }
             var table = (Table)column.Parent;
-            ForeignKey foreignKey = GetForeignKey(table.Parent, column.Name, table.Name);
-            if (owner.CodeTemplateInfo.CodeTemplate.TemplateType != TemplateType.Struct&&IsOneToOne(foreignKey))
+            ForeignKey foreignKey = _foreignKeyCalculator.GetForeignKey(table.Parent, column.Name, table.Name);
+            if (owner.CodeTemplateInfo.CodeTemplate.TemplateType != TemplateType.Struct && _foreignKeyCalculator.IsOneToOne(foreignKey))
                 templateType=TemplateType.XPOneToOnePropertyMember;
             IPersistentClassInfo referenceClassInfo = GetReferenceClassInfo(foreignKey.ReferencedTable);
             var persistentReferenceMemberInfo = CreatePersistentReferenceMemberInfo(column.Name, owner, referenceClassInfo,templateType);
             return persistentReferenceMemberInfo;
         }
 
-        bool IsOneToOne(ForeignKey foreignKey) {
-            return GetRefForeignKey(foreignKey) != null;
-        }
 
-        ForeignKey GetRefForeignKey(ForeignKey foreignKey) {
-            return foreignKey.Parent.Parent.Tables[foreignKey.ReferencedTable].ForeignKeys.OfType<ForeignKey>().Where(
-                key => key.ReferencedTable == foreignKey.Parent.Name ).FirstOrDefault();
-        }
 
         IPersistentClassInfo GetReferenceClassInfo(string name) {
             return (IPersistentClassInfo)_objectSpace.FindObject(WCTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>(),
@@ -147,26 +139,14 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
         void CreateTemplateInfo(IPersistentReferenceMemberInfo persistentReferenceMemberInfo, Column column) {
             var table = (Table)column.Parent;
             var database = table.Parent;
-            var foreignKey = GetForeignKey(database, column.Name, table.Name);
+            var foreignKey = _foreignKeyCalculator.GetForeignKey(database, column.Name, table.Name);
             var templateInfo = _objectSpace.CreateWCObject<ITemplateInfo>();
             templateInfo.Name = persistentReferenceMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType.ToString();
-            templateInfo.TemplateCode = GetRefForeignKey(foreignKey).Columns.OfType<ForeignKeyColumn>().Single().Name;
+            templateInfo.TemplateCode = _foreignKeyCalculator.GetRefTableForeignKey(foreignKey).Columns.OfType<ForeignKeyColumn>().Single().Name;
             persistentReferenceMemberInfo.TemplateInfos.Add(templateInfo);
         }
 
 
 
-        ForeignKey GetForeignKey(Database database,string columnName, string tableName) {
-
-            Table table = database.Tables[tableName];
-            string name = table.Columns[columnName].Name;
-            var foreignKey = (from ForeignKey key in table.ForeignKeys
-                                    from ForeignKeyColumn column in key.Columns
-                                    where column.Name == name
-                                    select key).FirstOrDefault();
-            if (foreignKey!=null)
-                return foreignKey;
-            throw new NotImplementedException(table.Name+" "+name);
-        }
     }
 }

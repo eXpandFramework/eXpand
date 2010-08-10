@@ -122,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttributeMapper.cs" />
+    <Compile Include="ForeignKeyCalculator.cs" />
     <Compile Include="TableMapper.cs" />
     <Compile Include="DataTypeMapper.cs" />
     <Compile Include="DbMapper.cs" />
