@@ -11,6 +11,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
         static WCTypesInfo() {
             _instance=new WCTypesInfo();
+            Instance._dictionary = new Dictionary<Type, Type>();
         }
 
         public static WCTypesInfo Instance
@@ -21,9 +22,12 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return _dictionary[typeof(T)];
         }
 
+        public void Reset()
+        {
+            _dictionary.Clear();    
+        }
         public void Register(IEnumerable<Type> types) {
             IEnumerable<Type> persistentTypes = GetPersistentTypes(types);
-            _dictionary = new Dictionary<Type,Type>();
             foreach (var persistentType in persistentTypes) {
                 var interfaceType = persistentType.GetCustomAttributes(typeof(RegistratorAttribute),false).OfType<RegistratorAttribute>().Single().InterfaceType;
                 _dictionary.Add(interfaceType,persistentType);
@@ -32,6 +36,10 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
         IEnumerable<Type> GetPersistentTypes(IEnumerable<Type> types) {
             return types.Where(type => type.GetCustomAttributes(typeof(RegistratorAttribute),false).OfType<RegistratorAttribute>().Count()==1);
+        }
+
+        public void Register(Type type) {
+            Register(new List<Type>{type});
         }
     }
 }

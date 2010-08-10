@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq.Expressions;
-using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
-using System.Linq;
 
 namespace eXpand.ExpressApp.Core
 {

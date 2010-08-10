@@ -5,7 +5,6 @@ using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using Microsoft.SqlServer.Management.Smo;
 using System.Linq;
-using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.Core;
 
 namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
@@ -106,12 +105,12 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
         }
 
         IPersistentClassInfo GetReferenceClassInfo(string name) {
-            return (IPersistentClassInfo)_objectSpace.FindObject(XafTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>(),
+            return (IPersistentClassInfo)_objectSpace.FindObject(WCTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>(),
                                                                  CriteriaOperator.Parse("Name=?", name), true);
         }
 
         IPersistentCoreTypeMemberInfo CreatePersistentCoreTypeMemberInfo(Column column, IPersistentClassInfo owner, TemplateType templateType) {
-            var persistentCoreTypeMemberInfo = _objectSpace.CreateObjectFromInterface<IPersistentCoreTypeMemberInfo>();
+            var persistentCoreTypeMemberInfo = _objectSpace.CreateWCObject<IPersistentCoreTypeMemberInfo>();
             persistentCoreTypeMemberInfo.Name = column.Name;
             persistentCoreTypeMemberInfo.DataType = _dataTypeMapper.GetDataType(column);
             owner.OwnMembers.Add(persistentCoreTypeMemberInfo);
@@ -124,20 +123,20 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
         }
 
         void CreateCollection(IPersistentReferenceMemberInfo persistentReferenceMemberInfo) {
-            var persistentCollectionMemberInfo = _objectSpace.CreateObjectFromInterface<IPersistentCollectionMemberInfo>();
+            var persistentCollectionMemberInfo = _objectSpace.CreateWCObject<IPersistentCollectionMemberInfo>();
             persistentReferenceMemberInfo.ReferenceClassInfo.OwnMembers.Add(persistentCollectionMemberInfo);
             persistentCollectionMemberInfo.Name = persistentReferenceMemberInfo.Name + "s";
             persistentCollectionMemberInfo.Owner = persistentReferenceMemberInfo.ReferenceClassInfo;
             persistentCollectionMemberInfo.CollectionClassInfo = persistentReferenceMemberInfo.Owner;
             persistentCollectionMemberInfo.SetDefaultTemplate(TemplateType.XPCollectionMember);
-            var persistentAssociationAttribute = _objectSpace.CreateObjectFromInterface<IPersistentAssociationAttribute>();
+            var persistentAssociationAttribute = _objectSpace.CreateWCObject<IPersistentAssociationAttribute>();
             persistentCollectionMemberInfo.TypeAttributes.Add(persistentAssociationAttribute);
             persistentAssociationAttribute.AssociationName =persistentReferenceMemberInfo.TypeAttributes.OfType<IPersistentAssociationAttribute>().Single().AssociationName;
         }
 
         IPersistentReferenceMemberInfo CreatePersistentReferenceMemberInfo(string name, IPersistentClassInfo owner, IPersistentClassInfo referenceClassInfo, TemplateType templateType)
         {
-            var persistentReferenceMemberInfo =_objectSpace.CreateObjectFromInterface<IPersistentReferenceMemberInfo>();
+            var persistentReferenceMemberInfo = _objectSpace.CreateWCObject<IPersistentReferenceMemberInfo>();
             persistentReferenceMemberInfo.Name = name;
             persistentReferenceMemberInfo.ReferenceClassInfo=referenceClassInfo;
             owner.OwnMembers.Add(persistentReferenceMemberInfo);
@@ -149,7 +148,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             var table = (Table)column.Parent;
             var database = table.Parent;
             var foreignKey = GetForeignKey(database, column.Name, table.Name);
-            var templateInfo = _objectSpace.CreateObjectFromInterface<ITemplateInfo>();
+            var templateInfo = _objectSpace.CreateWCObject<ITemplateInfo>();
             templateInfo.Name = persistentReferenceMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType.ToString();
             templateInfo.TemplateCode = GetRefForeignKey(foreignKey).Columns.OfType<ForeignKeyColumn>().Single().Name;
             persistentReferenceMemberInfo.TemplateInfos.Add(templateInfo);

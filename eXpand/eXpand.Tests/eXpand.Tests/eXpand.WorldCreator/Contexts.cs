@@ -111,13 +111,13 @@ namespace eXpand.Tests.eXpand.WorldCreator
             XafTypesInfo.Reset();
             XafTypesInfo.HardReset();
             XafTypesInfo.XpoTypeInfoSource.ResetDictionary();
-//            var objectSpaceProvider = new ObjectSpaceProvider(new MemoryDataStoreProvider());
+            WCTypesInfo.Instance.Reset();
             ObjectSpace = ObjectSpaceInMemory.CreateNew();
             UnitOfWork = (UnitOfWork) ObjectSpace.Session;
             var type1 = typeof(PersistentClassInfo);
             foreach (var type in type1.Assembly.GetTypes()) {
                 if (type.Namespace.StartsWith(type1.Namespace)) {
-                    XafTypesInfo.Instance.RegisterEntity(type);
+                    WCTypesInfo.Instance.Register(type);
                 }
             }
 

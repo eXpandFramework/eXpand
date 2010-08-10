@@ -4,7 +4,6 @@ using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 using Microsoft.SqlServer.Management.Smo;
-using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.Core;
 using System.Linq;
 
@@ -46,19 +45,19 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
         }
 
         void CreateStructureClassInfo(string name, IPersistentAssemblyInfo persistentAssemblyInfo) {
-            var persistentClassInfo = _objectSpace.CreateObjectFromInterface<IPersistentClassInfo>();
+            var persistentClassInfo = _objectSpace.CreateWCObject<IPersistentClassInfo>();
             persistentAssemblyInfo.PersistentClassInfos.Add(persistentClassInfo);
             persistentClassInfo.SetDefaultTemplate(TemplateType.Struct);
             persistentClassInfo.Name = name + KeyStruct;
         }
 
         IPersistentClassInfo GetPersistentClassInfo(string name) {
-            var findBussinessObjectType = XafTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>();
-            return (IPersistentClassInfo) (_objectSpace.FindObject(findBussinessObjectType,CriteriaOperator.Parse("Name=?",name),true) ?? CreateNew(name));
+            var findBussinessObjectType = WCTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>();
+            return (IPersistentClassInfo) (_objectSpace.Session.FindObject(findBussinessObjectType,CriteriaOperator.Parse("Name=?",name),true) ?? CreateNew(name));
         }
 
         IPersistentClassInfo CreateNew(string name) {
-            var persistentClassInfo = _objectSpace.CreateObjectFromInterface<IPersistentClassInfo>();
+            var persistentClassInfo = _objectSpace.CreateWCObject<IPersistentClassInfo>();
             persistentClassInfo.Name = name;
             return persistentClassInfo;
         }
