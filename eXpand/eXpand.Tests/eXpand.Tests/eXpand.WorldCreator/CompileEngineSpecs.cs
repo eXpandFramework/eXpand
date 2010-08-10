@@ -16,11 +16,11 @@ using System.Linq;
 namespace eXpand.Tests.eXpand.WorldCreator
 {
     [Subject(typeof(CompileEngine))][Isolated]
-    public class When_cannot_compile_a_dynamic_module:With_Isolations {
+    public class When_cannot_compile_a_dynamic_module:With_In_Memory_DataStore {
         static IPersistentAssemblyInfo _persistentAssemblyInfo;
 
         Establish context = () => {
-            new TestAppLication<PersistentAssemblyInfo>().Setup(null,info => _persistentAssemblyInfo=info);
+            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _persistentAssemblyInfo.Name="a0";
             Isolate.WhenCalled(() => CodeEngine.GenerateCode(_persistentAssemblyInfo)).WillReturn("1111");
         };
@@ -38,7 +38,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
     [Subject(typeof(CompileEngine), "specs")]
     [Isolated]
-    public class When_compiling_a_dynamic_assembly:With_Isolations
+    public class When_compiling_a_dynamic_assembly
     {
         static Type type;
         static IPersistentAssemblyInfo _persistentAssemblyInfo;
@@ -60,20 +60,20 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
 
     [Subject(typeof(CompileEngine), "specs")]
-    public class When_compiling_class_with_members:With_Isolations {
+    public class When_compiling_class_with_members:With_In_Memory_DataStore {
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         static Type _compileModule;
 
         Establish context = () => {
-            new TestAppLication<PersistentAssemblyInfo>().Setup(null,info => _persistentAssemblyInfo=info);
+            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             var persistentAssociationAttribute = _persistentAssemblyInfo.Session;
             var classCodeTemplate = new CodeTemplate(persistentAssociationAttribute){TemplateType = TemplateType.Class};
             classCodeTemplate.SetDefaults();
             _persistentAssemblyInfo = new PersistentAssemblyInfo(persistentAssociationAttribute) { Name = "a2" };
             var persistentClassInfo = new PersistentClassInfo(persistentAssociationAttribute) {Name = "ClassWithMembers", CodeTemplateInfo =new CodeTemplateInfo(persistentAssociationAttribute) {TemplateInfo = classCodeTemplate},PersistentAssemblyInfo = _persistentAssemblyInfo};
 
-            var memberCodeTemplate = new CodeTemplate(persistentAssociationAttribute){TemplateType = TemplateType.ReadWriteMember};
+            var memberCodeTemplate = new CodeTemplate(persistentAssociationAttribute){TemplateType = TemplateType.XPReadWritePropertyMember};
             memberCodeTemplate.SetDefaults();
             new PersistentCoreTypeMemberInfo(persistentAssociationAttribute){Name = "Property",CodeTemplateInfo =new CodeTemplateInfo(persistentAssociationAttribute) {TemplateInfo = memberCodeTemplate},Owner = persistentClassInfo};
             new PersistentReferenceMemberInfo(persistentAssociationAttribute){Name = "RefProperty",CodeTemplateInfo=new CodeTemplateInfo(persistentAssociationAttribute)  {TemplateInfo = memberCodeTemplate},Owner = persistentClassInfo,ReferenceType = typeof(User)};
@@ -97,13 +97,13 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
 
     [Subject(typeof(CompileEngine), "specs")]
-    public class When_PersistentClassInfo_BaseType_Belongs_to_different_assemmbly:With_Isolations {
+    public class When_PersistentClassInfo_BaseType_Belongs_to_different_assemmbly:With_In_Memory_DataStore {
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         static Type _compileModule;
 
         Establish context = () => {
-            new TestAppLication<PersistentAssemblyInfo>().Setup(null, info => _persistentAssemblyInfo = info);
+            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _persistentAssemblyInfo.Name = "a3";
             var unitOfWork = _persistentAssemblyInfo.Session;
             var persistentClassInfo = new PersistentClassInfo(unitOfWork){Name = "ClassWithBaseType",BaseType = typeof(User),CodeTemplateInfo = new CodeTemplateInfo(unitOfWork)};
@@ -130,12 +130,12 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
 
     [Subject(typeof(CompileEngine), "specs")]
-    public class When_PersistentClassInfo_BaseType_Belongs_to_same_assemmbly:With_Isolations {
+    public class When_PersistentClassInfo_BaseType_Belongs_to_same_assemmbly:With_In_Memory_DataStore {
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         static Type _compileModule;
         Establish context = () => {
-            new TestAppLication<PersistentAssemblyInfo>().Setup(null, info => _persistentAssemblyInfo = info);
+            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             var unitOfWork = _persistentAssemblyInfo.Session;
             _persistentAssemblyInfo = new PersistentAssemblyInfo(unitOfWork) { Name = "a4" };
             var persistentClassInfo = new PersistentClassInfo(unitOfWork){Name = "TestClass",BaseType = typeof(User),CodeTemplateInfo = new CodeTemplateInfo(unitOfWork)};
@@ -162,17 +162,18 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
 
     [Subject(typeof(CompileEngine))]
-    public class When_compiling_assembly_with_strong_key:With_Isolations {
+    public class When_compiling_assembly_with_strong_key:With_In_Memory_DataStore {
         static Type _compileModule;
         static PersistentAssemblyInfo _info;
 
-        Establish context = () => new TestAppLication<PersistentAssemblyInfo>().Setup(null, info => {
-            var strongKeyFile = new StrongKeyFile(info.Session);
+        Establish context = () => {
+            _info = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            var strongKeyFile = new StrongKeyFile(UnitOfWork);
             strongKeyFile.LoadFromStream("test", new FileStream(@"../eXpand.Key/eXpand.snk", FileMode.Open));
-            info.StrongKeyFile = strongKeyFile;
-            info.Name = "a5";
-            _info = info;
-        });
+            _info.StrongKeyFile = strongKeyFile;
+            _info.Name = "a5";
+
+        };
 
         Because of = () => {
             _compileModule = new CompileEngine().CompileModule(_info, Path.GetDirectoryName(Application.ExecutablePath));
@@ -185,16 +186,15 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
 
     [Subject(typeof(CompileEngine))]
-    public class When_compiling_assembly_with_version:With_Isolations {
+    public class When_compiling_assembly_with_version:With_In_Memory_DataStore {
         static Type _compileModule;
         static PersistentAssemblyInfo _info;
 
-        Establish context = () => new TestAppLication<
-            PersistentAssemblyInfo>().Setup(null, info => {
-                info.Name = "a6";
-                info.Version = new Version(2, 2, 2, 2).ToString();
-                _info = info;
-        });
+        Establish context = () => {
+            _info = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _info.Name = "a6";
+            _info.Version = new Version(2, 2, 2, 2).ToString();
+        };
 
         Because of = () => {
             _compileModule = new CompileEngine().CompileModule(_info, Path.GetDirectoryName(Application.ExecutablePath));
@@ -207,7 +207,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
 
     [Subject(typeof(CompileEngine))]
-    public class When_compiling_a_list_of_assemblies:With_Isolations {
+    public class When_compiling_a_list_of_assemblies:With_In_Memory_DataStore {
         static IList<IPersistentAssemblyInfo> _persistentAssemblyInfos;
 
         static CompileEngine _compileEngine;
@@ -215,12 +215,11 @@ namespace eXpand.Tests.eXpand.WorldCreator
         static IPersistentAssemblyInfo _persistnetAssembly;
 
         Establish context = () => {
-            new TestAppLication<PersistentAssemblyInfo>().Setup(null,info => {
-                info.Name = "SecondAssembly";
-                info.CompileOrder = 1;
-                var persistentAssemblyInfo = new PersistentAssemblyInfo(info.Session){Name = "FirstAssembly"};
-                _persistentAssemblyInfos = new List<PersistentAssemblyInfo>{persistentAssemblyInfo,info}.Cast<IPersistentAssemblyInfo>().ToList();
-            });
+            var info = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            info.Name = "SecondAssembly";
+            info.CompileOrder = 1;
+            var persistentAssemblyInfo = new PersistentAssemblyInfo(info.Session) { Name = "FirstAssembly" };
+            _persistentAssemblyInfos = new List<PersistentAssemblyInfo> { persistentAssemblyInfo, info }.Cast<IPersistentAssemblyInfo>().ToList();
             _compileEngine = new CompileEngine();
             string executablePath = Path.GetDirectoryName(Application.ExecutablePath);
             Isolate.WhenCalled(() => _compileEngine.CompileModule(Isolate.Fake.Instance<IPersistentAssemblyInfo>(), executablePath)).DoInstead(callContext =>
@@ -238,15 +237,13 @@ namespace eXpand.Tests.eXpand.WorldCreator
     }
 
     [Subject(typeof(CompileEngine))]
-    public class When_compiling_an_assembly_with_dots_in_its_name:With_Isolations {
+    public class When_compiling_an_assembly_with_dots_in_its_name:With_In_Memory_DataStore {
         static Type _compileModule;
         static IPersistentAssemblyInfo _persistentAssemblyInfo;
 
         Establish context = () => {
-            _persistentAssemblyInfo = Isolate.Fake.Instance<IPersistentAssemblyInfo>(Members.CallOriginal);
-            new TestAppLication<PersistentAssemblyInfo>().Setup(null, info => {
-                _persistentAssemblyInfo = info;
-            });
+
+            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _persistentAssemblyInfo.Name = "TestAssembly.Win";
         };
 
@@ -259,7 +256,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
             () => (_compileModule.Assembly.FullName + "").IndexOf("TestAssembly.Win").ShouldBeGreaterThan(-1);
     }
     [Subject(typeof(CompileEngine))]
-    public class When_compiling_an_assembly_that_is_loaded:With_Isolations
+    public class When_compiling_an_assembly_that_is_loaded:With_In_Memory_DataStore
     {
         static Type _compileModule;
         static Type _type;
@@ -267,10 +264,10 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
         Establish context = () =>
         {
-            _persistentAssemblyInfo = new TestAppLication<PersistentAssemblyInfo>().Setup().CurrentObject;
+            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _persistentAssemblyInfo.Name = "T";
             _type = new CompileEngine().CompileModule(_persistentAssemblyInfo, Path.GetDirectoryName(Application.ExecutablePath));
-            _persistentAssemblyInfo = new TestAppLication<PersistentAssemblyInfo>().Setup().CurrentObject;
+            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _persistentAssemblyInfo.Name = "T";
         };
 

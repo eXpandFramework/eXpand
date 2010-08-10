@@ -86,7 +86,9 @@
     <Reference Include="DevExpress.XtraGrid.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="eXpand.ExpressApp, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="eXpand.ExpressApp, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="eXpand.ExpressApp.FilterDataStore, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.DLL\eXpand.ExpressApp.FilterDataStore.dll</HintPath>
@@ -125,7 +127,11 @@
       <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.Security.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.WorldCreator, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.ExpressApp.WorldCreator, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.WorldCreator.SqlDBMapper, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -164,6 +170,9 @@
       <HintPath>..\..\..\_third_party_assemblies\MbUnit.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -196,7 +205,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AttributeMapperSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\CodeEngineSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\CompileEngineSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\Contexts.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\DbMapper\DbMapperSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\DbMapper\MapperContexts.cs" />
+    <Compile Include="eXpand.WorldCreator\DbMapper\ColumnMapperSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\DbMapper\AttributeMapperSpecs.cs" />
     <Compile Include="Contact.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -227,6 +248,25 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CleanupAfterEveryContextInAssembly.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\DbMapper\TableMapperSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\ExistentTypeSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\InterfaceInfoSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\Interfaces.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\ScriptValidatorSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\TypesInfoSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\XpoObjectMergerSpecs.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eXpand.Xpo\CriteriaOperatorExtractorFixture.cs">

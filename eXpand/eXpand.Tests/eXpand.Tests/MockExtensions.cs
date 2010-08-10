@@ -12,28 +12,28 @@ using TypeMock.ArrangeActAssert;
 namespace eXpand.Tests {
     public static class MockExtensions {
         
-        public static TypesInfo WCTypesInfo(this IFaker faker) {
-            Isolate.WhenCalled(() => TypesInfo.Instance).WillReturn(Isolate.Fake.Instance<TypesInfo>());
-            var typesInfo = TypesInfo.Instance;
-
-            Isolate.WhenCalled(() => typesInfo.ExtendedCoreMemberInfoType).WillReturn(typeof (ExtendedCoreTypeMemberInfo));
-            Isolate.WhenCalled(() => typesInfo.ExtendedCoreMemberInfoType).WillReturn(typeof (ExtendedCoreTypeMemberInfo));
-            Isolate.WhenCalled(() => typesInfo.ExtendedReferenceMemberInfoType).WillReturn(typeof (ExtendedReferenceMemberInfo));
-            Isolate.WhenCalled(() => typesInfo.ExtendedCollectionMemberInfoType).WillReturn(typeof (ExtendedCollectionMemberInfo));
-            Isolate.WhenCalled(() => typesInfo.PersistentAssemblyInfoType).WillReturn(typeof (PersistentAssemblyInfo));
-            Isolate.WhenCalled(() => typesInfo.PersistentCoreTypeInfoType).WillReturn(typeof (PersistentCoreTypeMemberInfo));
-            Isolate.WhenCalled(() => typesInfo.PersistentTypesInfoType).WillReturn(typeof (PersistentClassInfo));
-            Isolate.WhenCalled(() => typesInfo.PersistentCollectionInfoType).WillReturn(typeof(PersistentCollectionMemberInfo));
-            Isolate.WhenCalled(() => typesInfo.CodeTemplateInfoType).WillReturn(typeof (CodeTemplateInfo));
-            Isolate.WhenCalled(() => typesInfo.PersistentReferenceInfoType).WillReturn(typeof (PersistentReferenceMemberInfo));
-            Isolate.WhenCalled(() => typesInfo.CodeTemplateType).WillReturn(typeof (CodeTemplate));
-            Isolate.WhenCalled(() => typesInfo.TemplateInfoType).WillReturn(typeof (TemplateInfo));
-            Isolate.WhenCalled(() => typesInfo.IntefaceInfoType).WillReturn(typeof (InterfaceInfo));
-            Isolate.WhenCalled(() => typesInfo.PersistentAssociationAttributeType).WillReturn(typeof (PersistentAssociationAttribute));
-            Isolate.WhenCalled(() => typesInfo.PersistentDefaultClassOptionsAttributeType).WillReturn(typeof (PersistentDefaultClassOptionsAttribute));
-            
-            return typesInfo;
-        }
+//        public static TypesInfo WCTypesInfo(this IFaker faker) {
+//            Isolate.WhenCalled(() => TypesInfo.Instance).WillReturn(Isolate.Fake.Instance<TypesInfo>());
+//            var typesInfo = TypesInfo.Instance;
+//
+//            Isolate.WhenCalled(() => typesInfo.ExtendedCoreMemberInfoType).WillReturn(typeof (ExtendedCoreTypeMemberInfo));
+//            Isolate.WhenCalled(() => typesInfo.ExtendedCoreMemberInfoType).WillReturn(typeof (ExtendedCoreTypeMemberInfo));
+//            Isolate.WhenCalled(() => typesInfo.ExtendedReferenceMemberInfoType).WillReturn(typeof (ExtendedReferenceMemberInfo));
+//            Isolate.WhenCalled(() => typesInfo.ExtendedCollectionMemberInfoType).WillReturn(typeof (ExtendedCollectionMemberInfo));
+//            Isolate.WhenCalled(() => typesInfo.PersistentAssemblyInfoType).WillReturn(typeof (PersistentAssemblyInfo));
+//            Isolate.WhenCalled(() => typesInfo.PersistentCoreTypeInfoType).WillReturn(typeof (PersistentCoreTypeMemberInfo));
+//            Isolate.WhenCalled(() => typesInfo.PersistentClassInfoInfoType).WillReturn(typeof (PersistentClassInfo));
+//            Isolate.WhenCalled(() => typesInfo.PersistentCollectionInfoType).WillReturn(typeof(PersistentCollectionMemberInfo));
+//            Isolate.WhenCalled(() => typesInfo.CodeTemplateInfoType).WillReturn(typeof (CodeTemplateInfo));
+//            Isolate.WhenCalled(() => typesInfo.PersistentReferenceInfoType).WillReturn(typeof (PersistentReferenceMemberInfo));
+//            Isolate.WhenCalled(() => typesInfo.CodeTemplateType).WillReturn(typeof (CodeTemplate));
+//            Isolate.WhenCalled(() => typesInfo.TemplateInfoType).WillReturn(typeof (TemplateInfo));
+//            Isolate.WhenCalled(() => typesInfo.IntefaceInfoType).WillReturn(typeof (InterfaceInfo));
+//            Isolate.WhenCalled(() => typesInfo.PersistentAssociationAttributeType).WillReturn(typeof (PersistentAssociationAttribute));
+//            Isolate.WhenCalled(() => typesInfo.PersistentDefaultClassOptionsAttributeType).WillReturn(typeof (PersistentDefaultClassOptionsAttribute));
+//            
+//            return typesInfo;
+//        }
         public static ExpressApp.IO.Core.TypesInfo IOTypesInfo(this IFaker faker)
         {
             Isolate.WhenCalled(() => ExpressApp.IO.Core.TypesInfo.Instance).WillReturn(Isolate.Fake.Instance<ExpressApp.IO.Core.TypesInfo>());

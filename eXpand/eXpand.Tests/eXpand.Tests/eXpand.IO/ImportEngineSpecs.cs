@@ -101,7 +101,7 @@ namespace eXpand.Tests.eXpand.IO {
         static ObjectSpace _objectSpace;
         static Stream _manifestResourceStream;
         
-        static DifferenceObject _differenceObject;
+        static ModelDifferenceObject _differenceObject;
 
         Establish context = () => {
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.WithValueConverter.xml");

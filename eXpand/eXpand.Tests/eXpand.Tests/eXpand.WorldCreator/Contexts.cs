@@ -4,50 +4,50 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using eXpand.ExpressApp.WorldCreator;
 using eXpand.ExpressApp.WorldCreator.Core;
+using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Xpo;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
 
 namespace eXpand.Tests.eXpand.WorldCreator
 {
-    public class With_Isolations
-    {
-        protected static Func<Type[]> WCArtifacts;
-
-        public static string GetUniqueAssemblyName()
-        {
-            return "a"+Guid.NewGuid().ToString().Replace("-", "");
-        }
-        Establish context = () => {
-            XafTypesInfo.Reset();
-            XafTypesInfo.HardReset();
-            WCArtifacts = () => new[] {typeof (WorldCreatorModule)};
-            Isolate.Fake.WCTypesInfo();
-        };
-    }
+//    public class With_Isolations
+//    {
+//        
+//
+//        public static string GetUniqueAssemblyName()
+//        {
+//            return "a"+Guid.NewGuid().ToString().Replace("-", "");
+//        }
+//        Establish context = () => {
+//            XafTypesInfo.Reset();
+//            XafTypesInfo.HardReset();
+//            var type1 = typeof(PersistentClassInfo);
+//            foreach (var type in type1.Assembly.GetTypes()) {
+//                if (type.Namespace.StartsWith(type1.Namespace)) {
+//                    XafTypesInfo.Instance.RegisterEntity(type);
+//                }
+//            }
+//        };
+//    }
 
     public abstract class with_classInfo_with_interfaceInfos<InterfaceType> : With_In_Memory_DataStore
     {
         protected static PersistentClassInfo _persistentClassInfo;
 
-
-
         Establish context = () =>
         {
-
-            var testAppLication = new TestAppLication<PersistentClassInfo>();
-            var viewCreationHandler = testAppLication.Setup(null, info => {
-                _persistentClassInfo=info;
-                info.PersistentAssemblyInfo = new PersistentAssemblyInfo(info.Session);
-                var interfaceInfos = _persistentClassInfo.Interfaces;
-                var interfaceInfo = new InterfaceInfo(_persistentClassInfo.Session);
-                Isolate.WhenCalled(() => interfaceInfo.Type).WillReturn(typeof(InterfaceType));
-                interfaceInfos.Add(interfaceInfo);
-            }).WithArtiFacts(WCArtifacts);
-            viewCreationHandler.CreateDetailView().CreateFrame();
+            _persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            _persistentClassInfo.PersistentAssemblyInfo = new PersistentAssemblyInfo(_persistentClassInfo.Session);
+            var interfaceInfos = _persistentClassInfo.Interfaces;
+            var interfaceInfo = new InterfaceInfo(_persistentClassInfo.Session);
+            Isolate.WhenCalled(() => interfaceInfo.Type).WillReturn(typeof(InterfaceType));
+            interfaceInfos.Add(interfaceInfo);
         };
 
     }
@@ -68,19 +68,22 @@ namespace eXpand.Tests.eXpand.WorldCreator
 //        protected static TypesInfo typesInfo;
 //    }
 
-    public abstract class With_Types 
-    {
-        protected static TypesInfo TypesInfo;
-
-        Establish context = () =>
-        {
-            TypesInfo = Isolate.Fake.Instance<TypesInfo>();
-            Isolate.WhenCalled(() => TypesInfo.ExtendedCoreMemberInfoType).WillReturn(typeof(ExtendedCoreTypeMemberInfo));
-            Isolate.WhenCalled(() => TypesInfo.ExtendedCoreMemberInfoType).WillReturn(typeof(ExtendedCoreTypeMemberInfo));
-            Isolate.WhenCalled(() => TypesInfo.ExtendedReferenceMemberInfoType).WillReturn(typeof(ExtendedReferenceMemberInfo));
-            Isolate.WhenCalled(() => TypesInfo.ExtendedCollectionMemberInfoType).WillReturn(typeof(ExtendedCollectionMemberInfo));
-        };
-    }
+//    public abstract class With_Types 
+//    {
+//        protected static TypesInfo TypesInfo;
+//
+//        Establish context = () =>
+//        {
+//            TypesInfo = Isolate.Fake.Instance<TypesInfo>();
+//            XafTypesInfo.Instance.RegisterEntity(typeof(PersistentRuleRequiredFieldAttribute));
+//            var typeInfos = XafTypesInfo.Instance.FindTypeInfo(typeof(IPersistentRuleRequiredFieldAttribute)).Implementors;
+//            Isolate.WhenCalled(() => TypesInfo.ExtendedCoreMemberInfoType).WillReturn(typeof(ExtendedCoreTypeMemberInfo));
+//            Isolate.WhenCalled(() => TypesInfo.ExtendedCoreMemberInfoType).WillReturn(typeof(ExtendedCoreTypeMemberInfo));
+//            Isolate.WhenCalled(() => TypesInfo.ExtendedCoreMemberInfoType).WillReturn(typeof(ExtendedCoreTypeMemberInfo));
+//            Isolate.WhenCalled(() => TypesInfo.ExtendedReferenceMemberInfoType).WillReturn(typeof(ExtendedReferenceMemberInfo));
+//            Isolate.WhenCalled(() => TypesInfo.ExtendedCollectionMemberInfoType).WillReturn(typeof(ExtendedCollectionMemberInfo));
+//        };
+//    }
 
     public abstract class With_DynamicCore_Property 
     {
@@ -90,7 +93,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         Establish context = () =>
         {
             ClassInfo = new PersistentClassInfo(Session.DefaultSession) { Name = "TestClass" };
-            ClassInfo.OwnMembers.Add(new PersistentCoreTypeMemberInfo(Session.DefaultSession) { Name = "TestProperty", DataType = XPODataType.Boolean });
+            ClassInfo.OwnMembers.Add(new PersistentCoreTypeMemberInfo(Session.DefaultSession) { Name = "TestProperty", DataType = DBColumnType.Boolean });
 //            Type = TypeDefineBuilder.Define(ClassInfo);
             PropertyInfo = Type.GetProperty("TestProperty");
         };
@@ -98,7 +101,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         
     }
 
-    public abstract class With_In_Memory_DataStore :With_Isolations
+    public abstract class With_In_Memory_DataStore 
     {
         protected static ObjectSpace ObjectSpace;
         protected static UnitOfWork UnitOfWork;
@@ -106,10 +109,18 @@ namespace eXpand.Tests.eXpand.WorldCreator
         {
             ReflectionHelper.Reset();
             XafTypesInfo.Reset();
+            XafTypesInfo.HardReset();
             XafTypesInfo.XpoTypeInfoSource.ResetDictionary();
-            var objectSpaceProvider = new ObjectSpaceProvider(new MemoryDataStoreProvider());
-            ObjectSpace = objectSpaceProvider.CreateObjectSpace();
+//            var objectSpaceProvider = new ObjectSpaceProvider(new MemoryDataStoreProvider());
+            ObjectSpace = ObjectSpaceInMemory.CreateNew();
             UnitOfWork = (UnitOfWork) ObjectSpace.Session;
+            var type1 = typeof(PersistentClassInfo);
+            foreach (var type in type1.Assembly.GetTypes()) {
+                if (type.Namespace.StartsWith(type1.Namespace)) {
+                    XafTypesInfo.Instance.RegisterEntity(type);
+                }
+            }
+
             
         };
         

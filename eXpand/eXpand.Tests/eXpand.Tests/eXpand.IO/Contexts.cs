@@ -52,7 +52,6 @@ namespace eXpand.Tests.eXpand.IO {
         {
             IOArtifacts = () => new[] { typeof(IOModule) };
             Isolate.Fake.IOTypesInfo();
-            Isolate.Fake.WCTypesInfo();
         };
     }
 

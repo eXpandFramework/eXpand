@@ -16,7 +16,7 @@ using Machine.Specifications;
 using System.Linq;
 using eXpand.Xpo;
 
-namespace eXpand.Tests.eXpand.IO {
+namespace eXpand.Tests.eXpand.IO.ss {
     [Subject(typeof(ClassInfoGraphNode))]
     public class When_creating_a_graph_for_type_with_associated_collection_and_associated_type_derived_types_exist_in_the_domain:With_Isolations
     {
@@ -180,7 +180,9 @@ namespace eXpand.Tests.eXpand.IO {
         Establish context = () => {
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer,IOrder>.Build().OneToMany();
             _objectSpace = oneToMany.ObjectSpace;
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type };
+            var serializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>();
+            serializationConfigurationGroup.Name = "dummy";
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type,SerializationConfigurationGroup = serializationConfigurationGroup};
             _t2Type = oneToMany.T2Type;
         };
 
@@ -200,9 +202,11 @@ namespace eXpand.Tests.eXpand.IO {
 
 
         It should_be_able_to_validate_graph_for_the_associated_collection_type =
-            () =>
-            Validator.RuleSet.ValidateTarget(_serializationConfiguration2, ContextIdentifier.Save).State.ShouldEqual(
-                ValidationState.Valid);
+            () => {
+                var ruleSetValidationResult = Validator.RuleSet.ValidateTarget(_serializationConfiguration2,
+                                                                               ContextIdentifier.Save);
+                ruleSetValidationResult.State.ShouldEqual(ValidationState.Valid);
+            };
         It should_create_nodes_for_all_properties_of_associated_collection_type =() => {
             const int customer_and_oid = 2;
             _serializationConfiguration2.SerializationGraph.Count.ShouldEqual(customer_and_oid);
