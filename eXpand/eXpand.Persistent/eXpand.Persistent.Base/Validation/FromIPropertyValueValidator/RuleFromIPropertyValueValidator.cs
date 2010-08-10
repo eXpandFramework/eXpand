@@ -44,14 +44,8 @@ namespace eXpand.Persistent.Base.Validation.FromIPropertyValueValidator {
 
         protected override bool IsValidInternal(object target, out string errorMessageTemplate) {
             errorMessageTemplate = null;
-
-
-            bool result = ((IPropertyValueValidator) target).IsPropertyValueValid(Properties.TargetPropertyName,
-                                                                                  ref errorMessageTemplate,
-                                                                                  Properties.TargetContextIDs, Id);
-
+            bool result = ((IPropertyValueValidator) target).IsPropertyValueValid(Properties.TargetPropertyName,ref errorMessageTemplate,Properties.TargetContextIDs, Id);
             if (errorMessageTemplate == null)
-
                 errorMessageTemplate = Properties.MessageTemplateInvalidPropertyValue;
 
             return result;

@@ -8,5 +8,6 @@ namespace eXpand.Persistent.Base.ImportExport {
         Session Session { get; }
         Type TypeToSerialize { get; set; }
         IList<IClassInfoGraphNode> SerializationGraph { get; }
+        ISerializationConfigurationGroup SerializationConfigurationGroup { get; set; }
     }
 }

@@ -7,10 +7,14 @@
     }
 
     public enum TemplateType {
-        None=0,
-        Class=1,
-        ReadWriteMember=2,
-        ReadOnlyMember=3,
-        InterfaceReadWriteMember=4
+        None,
+        Class,
+        XPReadWritePropertyMember,
+        XPOneToOnePropertyMember,
+        XPCollectionMember,
+        InterfaceReadWriteMember,
+        Struct,
+        ReadWriteMember,
+        FieldMember
     }
 }
