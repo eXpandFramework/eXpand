@@ -24,7 +24,7 @@ namespace eXpand.Xpo.DB {
 
 
         public string GetKey(Type type){
-            var dataStoreAttribute = _dataStoreAttributes.Where(attribute => type.Namespace.StartsWith(attribute.NameSpace)).SingleOrDefault();
+            var dataStoreAttribute = _dataStoreAttributes.Where(attribute => (type.Namespace+"").StartsWith(attribute.NameSpace)).SingleOrDefault();
             return dataStoreAttribute == null ? STR_Default : dataStoreAttribute.DataStoreNameSuffix;
         }
 

@@ -55,9 +55,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependentAssembly\DependentAttributeInspector.cs" />
+    <Compile Include="DependentAssembly\DependentAssemblyPathResolver.cs" />
+    <Compile Include="DependentAssembly\IDependentAssemblyInspector.cs" />
     <Compile Include="BackingFieldResolver\BackingFieldResolver.cs" />
     <Compile Include="BackingFieldResolver\ILPattern.cs" />
     <Compile Include="BackingFieldResolver\MatchContext.cs" />
+    <Compile Include="DependentAssembly\DependentAssemblyAttribute.cs" />
     <Compile Include="ExpressionBuilder\Builder.cs" />
     <Compile Include="BackingFieldResolver\MethodBaseRocks.cs" />
     <Compile Include="ExpressionBuilder\IBuilder.cs" />

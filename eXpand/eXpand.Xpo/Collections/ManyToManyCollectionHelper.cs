@@ -11,7 +11,7 @@ namespace eXpand.Xpo.Collections {
         private XPClassInfo intermediateClassInfo;
         private IXPSimpleObject owner;
         private XPBaseCollection hiddenCollection;
-        private XPCollection<T> collection;
+        private DevExpress.Xpo.XPCollection<T> collection;
         public ManyToManyCollectionHelper(IXPSimpleObject owner, XPBaseCollection hiddenCollection, string hiddenCollectionName)
         {
             this.intermediateClassInfo = owner.ClassInfo.GetMember(hiddenCollectionName).IntermediateClass;
@@ -78,12 +78,12 @@ namespace eXpand.Xpo.Collections {
                 intermediateObjectHash.Add(e.ChangedObject, intermediateObject);
             }
         }
-        public XPCollection<T> GetCollection()
+        public DevExpress.Xpo.XPCollection<T> GetCollection()
         {
             if (collection == null)
             {
                 Type type = hiddenCollection.GetType();
-                collection = new XPCollection<T>(owner.Session);
+                collection = new DevExpress.Xpo.XPCollection<T>(owner.Session);
                 collection.LoadingEnabled = false;
                 collection.AddRange(hiddenCollection);
                 collection.CollectionChanged += new XPCollectionChangedEventHandler(collection_CollectionChanged);

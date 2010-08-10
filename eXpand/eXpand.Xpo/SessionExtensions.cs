@@ -43,6 +43,7 @@ namespace eXpand.Xpo
                 return null;
             return session.GetObjectByKey(o.GetType(), ((PersistentBase)o).ClassInfo.KeyProperty.GetValue(o));
         }
+
         public static ClassType FindObject<ClassType>(this Session session,PersistentCriteriaEvaluationBehavior persistentCriteriaEvaluationBehavior, Expression<Func<ClassType,bool>> expression){
             return (ClassType)
                 session.FindObject(persistentCriteriaEvaluationBehavior, typeof (ClassType), new XPQuery<ClassType>(session).TransformExpression(expression));

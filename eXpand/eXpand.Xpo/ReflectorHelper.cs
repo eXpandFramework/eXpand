@@ -31,7 +31,7 @@ namespace eXpand.Xpo
                 if (typeof(IEnumerable).IsAssignableFrom(conversionType) && string.IsNullOrEmpty(value + ""))
                     return null;
                 if (conversionType.IsValueType)
-                    throw new NotImplementedException(conversionType.Name);
+                    return Activator.CreateInstance(conversionType);
             }
             else if (typeof(Enum).IsAssignableFrom(conversionType))
                 return Enum.Parse(conversionType, (string)value);
