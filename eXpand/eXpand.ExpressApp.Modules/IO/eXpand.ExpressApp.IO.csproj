@@ -115,6 +115,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\SerializeClassInfoGraphNodesCalculator.cs" />
     <Compile Include="NodeUpdaters\AllowEditForClassInfoNodeListViewsUpdater.cs" />
     <Compile Include="Controllers\SerializationConfigurationDetailViewController.cs">
       <SubType>Component</SubType>

@@ -11,6 +11,7 @@ using TypesInfo = eXpand.ExpressApp.IO.Core.TypesInfo;
 namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
     public class ClassInfoGraphNodeBuilder{
         string[] _excludedMembers;
+        ISerializationConfigurationGroup _serializationConfigurationGroup;
 
         public string[] ExcludedMembers{
             get { return _excludedMembers; }
@@ -20,6 +21,7 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
             var typeToSerialize = serializationConfiguration.TypeToSerialize;
             var castTypeToTypeInfo = XafTypesInfo.CastTypeToTypeInfo(typeToSerialize);
             var objectSpace = ObjectSpace.FindObjectSpace(serializationConfiguration);
+            _serializationConfigurationGroup = serializationConfiguration.SerializationConfigurationGroup;
             foreach (var descendant in ReflectionHelper.FindTypeDescendants(castTypeToTypeInfo)) {
                 generate(objectSpace, descendant.Type);
             }
@@ -50,8 +52,7 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
         }
 
         void generate(ObjectSpace objectSpace, Type typeToSerialize) {
-            if (!SerializationConfigurationQuery.ConfigurationExists(objectSpace.Session, typeToSerialize))
-            {
+            if (!SerializationConfigurationQuery.ConfigurationExists(objectSpace.Session, typeToSerialize,_serializationConfigurationGroup)){
                 var serializationConfiguration =
                     (ISerializationConfiguration)
                     objectSpace.CreateObject(TypesInfo.Instance.SerializationConfigurationType);

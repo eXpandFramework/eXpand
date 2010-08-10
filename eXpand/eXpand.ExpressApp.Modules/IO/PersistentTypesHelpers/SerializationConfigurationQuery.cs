@@ -9,22 +9,23 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers
 {
     public static class SerializationConfigurationQuery
     {
-        public static CriteriaOperator GetCriteria(Type serializationConfigurationType)
+        public static CriteriaOperator GetCriteria(Type serializationConfigurationType, ISerializationConfigurationGroup serializationConfigurationGroup)
         {
             const ISerializationConfiguration serializationConfiguration = null;
-            return new BinaryOperator(serializationConfiguration.GetPropertyName(x => x.TypeToSerialize),
-                                      serializationConfigurationType);
+            return new GroupOperator(new BinaryOperator(serializationConfiguration.GetPropertyName(x => x.TypeToSerialize),
+                                      serializationConfigurationType), new BinaryOperator(serializationConfiguration.GetPropertyName(x => x.SerializationConfigurationGroup),
+                                      serializationConfigurationGroup));
         }
 
-        public static bool ConfigurationExists(Session session, Type type)
+        public static bool ConfigurationExists(Session session, Type type, ISerializationConfigurationGroup serializationConfigurationGroup)
         {
-            return Find(session, type) != null;
+            return Find(session, type,serializationConfigurationGroup) != null;
         }
 
-        public static ISerializationConfiguration Find(Session session, Type type) {
+        public static ISerializationConfiguration Find(Session session, Type type, ISerializationConfigurationGroup serializationConfigurationGroup) {
             return session.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction,
                                       TypesInfo.Instance.SerializationConfigurationType,
-                                      GetCriteria(type)) as ISerializationConfiguration;
+                                      GetCriteria(type,serializationConfigurationGroup)) as ISerializationConfiguration;
         }
     }
 }
