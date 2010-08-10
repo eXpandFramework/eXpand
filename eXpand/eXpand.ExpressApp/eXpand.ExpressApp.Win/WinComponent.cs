@@ -14,6 +14,8 @@ namespace eXpand.ExpressApp.Win
 {
 
     public partial class WinComponent : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation,IWinApplication {
+        
+
         public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
 
         public void OnCustomCreateListEditor(CreatingListEditorEventArgs e) {
@@ -64,9 +66,9 @@ namespace eXpand.ExpressApp.Win
             else
                 Logon(null);
 
-
             ProcessStartupActions();
             ShowStartupWindow();
+            SplashScreen.Stop();
             Tracing.Tracer.LogSeparator("Application running");
         }
 

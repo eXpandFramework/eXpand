@@ -150,9 +150,6 @@
     <Compile Include="SystemModule\CursorPositionController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\GroupLevelExpandIndexController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>
