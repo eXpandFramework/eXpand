@@ -142,7 +142,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Decorators\WinFrameControlDecorator.cs" />
-    <Compile Include="Editors\AdditionalViewControlsItem.cs" />
+    <Compile Include="Editors\AdditionalViewControlsItem.cs">
+    </Compile>
     <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>

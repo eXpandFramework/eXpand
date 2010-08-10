@@ -104,6 +104,9 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
                 else if (logicRuleInfo.Rule.Position == Position.Top)
                     value.Dock=DockStyle.Top;
             }
+            else {
+                value.Dock=DockStyle.Fill;
+            }
         }
 
     }
