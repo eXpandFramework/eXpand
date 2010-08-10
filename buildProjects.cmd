@@ -27,12 +27,15 @@ call buildproject.cmd eXpand.ExpressApp.ModelArtifactState ".\eXpand\eXpand.Expr
 call buildproject.cmd eXpand.ExpressApp.ModelArtifactState.Win ".\eXpand\eXpand.ExpressApp.Modules\ModelArtifactState.Win\eXpand.ExpressApp.ModelArtifactState.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.WizardUI.Win ".\eXpand\eXpand.ExpressApp.Modules\WizardUI.Win\eXpand.ExpressApp.WizardUI.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.ViewVariants ".\eXpand\eXpand.ExpressApp.Modules\ViewVariants\eXpand.ExpressApp.ViewVariants.csproj"
+call buildproject.cmd eXpand.ExpressApp.MasterDetail ".\eXpand\eXpand.ExpressApp.Modules\MasterDetail\eXpand.ExpressApp.MasterDetail.csproj"
+call buildproject.cmd eXpand.ExpressApp.MasterDetail.Win ".\eXpand\eXpand.ExpressApp.Modules\MasterDetail.Win\eXpand.ExpressApp.MasterDetail.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.ViewVariants.Win ".\eXpand\eXpand.ExpressApp.Modules\ViewVariants.Win\eXpand.ExpressApp.ViewVariants.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.TreeListEditors.Win ".\eXpand\eXpand.ExpressApp.Modules\TreeListEditors.Win\eXpand.ExpressApp.TreeListEditors.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.ExceptionHandling ".\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling\eXpand.ExpressApp.ExceptionHandling.csproj"
 call buildproject.cmd eXpand.ExpressApp.ExceptionHandling.Win ".\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling.Win\eXpand.ExpressApp.ExceptionHandling.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.ExceptionHandling.Web ".\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling.Web\eXpand.ExpressApp.ExceptionHandling.Web.csproj"
 call buildproject.cmd eXpand.ExpressApp.WorldCreator ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator\eXpand.ExpressApp.WorldCreator.csproj"
+call buildproject.cmd eXpand.ExpressApp.WorldCreator.SqlDBMapper ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator.SqlDBMapper\eXpand.ExpressApp.WorldCreator.SqlDBMapper.csproj"
 call buildproject.cmd eXpand.ExpressApp.WorldCreator.Win ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator.Win\eXpand.ExpressApp.WorldCreator.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.WorldCreator.Web ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator.Web\eXpand.ExpressApp.WorldCreator.Web.csproj"
 call buildproject.cmd eXpand.ExpressApp.IO ".\eXpand\eXpand.ExpressApp.Modules\IO\eXpand.ExpressApp.IO.csproj"
@@ -44,5 +47,7 @@ call buildproject.cmd eXpand.NCarousel ".\eXpand\eXpand.ExpressApp.Modules\NCaro
 call buildproject.cmd eXpand.ExpressApp.NCarousel.Web ".\eXpand\eXpand.ExpressApp.Modules\NCarousel.Web\eXpand.ExpressApp.NCarousel.Web.csproj"
 call buildproject.cmd eXpand.ExpressApp.Thumbnail.Web ".\eXpand\eXpand.ExpressApp.Modules\Thumbnail.Web\eXpand.ExpressApp.Thumbnail.Web.csproj"
 call buildproject.cmd eXpand.Persistent.BaseImpl ".\eXpand\eXpand.Persistent\eXpand.Persistent.BaseImpl\eXpand.Persistent.BaseImpl.csproj"
+echo Building eXpand.ExpressApp.ModelEditor...
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.Addins\eXpand.ExpressApp.ModelEditor\eXpand.ExpressApp.ModelEditor.csproj"
 echo Building eXpandAddIns...
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.Addins\eXpandAddIns.csproj"

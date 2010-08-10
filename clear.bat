@@ -50,6 +50,9 @@ call clearProject.bat eXpand.ExpressApp.PivotChart.Web
 call clearProject.bat eXpand.ExpressApp.Thumbnail.Web
 call clearProject.bat eXpand.ExpressApp.NCarousel.Web
 call clearProject.bat eXpand.NCarousel
+call clearProject.bat eXpand.MasterDetail
+call clearProject.bat eXpand.MasterDetail.Win
+call clearProject.bat eXpand.WorldCreator.SqlDBMapper
 
 rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Common.dll
 rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Configuration.Design.DLL
