@@ -14,8 +14,12 @@ namespace eXpand.ExpressApp.PivotChart.Win.PropertyEditors {
             get { return (AnalysisControlWin) base.Control; }
         }
 
+        
         void analysisControl_HandleCreated(object sender, EventArgs e) {
-            ReadValue();
+            if (CurrentObject is IAnalysisInfo&& ((IAnalysisInfo) CurrentObject).DataType!= null)
+                ReadValue();
+            else if (!(CurrentObject is IAnalysisInfo))
+                ReadValue();
         }
 
         protected override IAnalysisControl CreateAnalysisControl() {

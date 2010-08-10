@@ -1,15 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.PivotChart;
-using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 
 namespace eXpand.ExpressApp.PivotChart.InPlaceEdit {
-    public abstract class PivotGridInplaceEditorsControllerBase : ViewController<DetailView>{
+    public interface IModelMemberPivotGridInPlaceEdit {
+        [Category("eXpand.PivotChart")]
+        bool InPlaceEdit { get; set; }
+    }
+    [ModelInterfaceImplementor(typeof(IModelMemberPivotGridInPlaceEdit), "ModelMember")]
+    public interface IModelPropertyEditorPivotGridInPlaceEdit:IModelMemberPivotGridInPlaceEdit {
+        
+    }
+    public class PivotGridInplaceEditorsControllerBase : ViewController<DetailView>,IModelExtender{
         public event EventHandler<EditorCreatedArgs> EditorCreated;
 
         protected virtual void OnEditorCreated(EditorCreatedArgs e) {
@@ -17,51 +25,46 @@ namespace eXpand.ExpressApp.PivotChart.InPlaceEdit {
             if (handler != null) handler(this, e);
         }
 
-        protected PivotGridInplaceEditorsControllerBase() {
+        public PivotGridInplaceEditorsControllerBase() {
             TargetObjectType = typeof (IAnalysisInfo);
         }
-        protected override void OnFrameAssigned()
+
+        protected override void OnViewControlsCreated() {
+            base.OnViewControlsCreated();
+            foreach (var analysisEditor in GetAnalysisEditors()) {
+                AnalysisEditorBase @base = analysisEditor;
+                analysisEditor.ValueRead += (sender, args) =>{
+                    CreateEditors(@base);
+                    OnEditorCreated(new EditorCreatedArgs(@base));
+                };
+            }
+        }
+
+        IEnumerable<AnalysisEditorBase> GetAnalysisEditors() {
+            IEnumerable<IModelPropertyEditorPivotGridInPlaceEdit> modelPropertyEditors = View.Model.Items.OfType<IModelPropertyEditorPivotGridInPlaceEdit>().Where(
+                        editor => editor.InPlaceEdit && typeof(IAnalysisInfo).IsAssignableFrom(
+                            ((IModelPropertyEditor)editor).ModelMember.MemberInfo.MemberType));
+
+            var analysisEditors = View.GetItems<AnalysisEditorBase>();
+            IEnumerable<IMemberInfo> memberInfos = modelPropertyEditors.OfType<IModelPropertyEditor>().Select(modelPropertyEditor => View.ObjectTypeInfo.FindMember(modelPropertyEditor.PropertyName));
+            return memberInfos.Select(memberInfo => analysisEditors.Where(@base => @base.MemberInfo == memberInfo).FirstOrDefault()).Where(analysisEditorBase => analysisEditorBase != null);
+        }
+
+
+
+
+
+        protected virtual void CreateEditors(AnalysisEditorBase analysisEditorBase) {
+            throw new NotImplementedException();
+        }
+        #region IModelExtender Members
+
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            base.OnFrameAssigned();
-            Frame.TemplateChanged+=FrameOnTemplateChanged;
+            extenders.Add<IModelMember,IModelMemberPivotGridInPlaceEdit>();
+            extenders.Add<IModelPropertyEditor, IModelPropertyEditorPivotGridInPlaceEdit>();
         }
 
-        void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
-            var supportViewControlAdding = (Frame.Template) as ISupportViewControlAdding;
-            if (supportViewControlAdding != null) {
-                supportViewControlAdding.ViewControlAdding -= SupportViewControlAddingOnViewControlAdding;
-                supportViewControlAdding.ViewControlAdding += SupportViewControlAddingOnViewControlAdding;
-            }
-        }
-
-        protected override void OnDeactivating() {
-            base.OnDeactivating();
-            var supportViewControlAdding = (Frame.Template) as ISupportViewControlAdding;
-            if (supportViewControlAdding != null) {
-                supportViewControlAdding.ViewControlAdding -= SupportViewControlAddingOnViewControlAdding;
-            }
-        }
-        void SupportViewControlAddingOnViewControlAdding(object sender, EventArgs eventArgs) {
-            CreateEditors();
-        }
-
-        void CreateEditors() {
-            if (Frame.View is DetailView) {
-                IEnumerable<IModelPropertyEditor> modelPropertyEditors =View.Items.OfType<IModelPropertyEditor>().Where(
-                        editor =>editor.AllowEdit &&typeof (IAnalysisInfo).IsAssignableFrom(editor.ModelMember.MemberInfo.MemberType));
-                var analysisEditors = View.GetItems<AnalysisEditorBase>();
-                IEnumerable<IMemberInfo> memberInfos = modelPropertyEditors.Select(modelPropertyEditor => View.ObjectTypeInfo.FindMember(modelPropertyEditor.PropertyName));
-                IEnumerable<AnalysisEditorBase> analysisEditorBases = memberInfos.Select(memberInfo => analysisEditors.Where(@base => @base.MemberInfo == memberInfo).FirstOrDefault());
-                foreach (AnalysisEditorBase analysisEditorBase in analysisEditorBases.Where(analysisEditorBase => analysisEditorBase != null)) {
-                    CreateEditors(analysisEditorBase);
-                    OnEditorCreated(new EditorCreatedArgs(analysisEditorBase));
-                }
-            }
-        }
-
-
-
-
-        protected abstract void CreateEditors(AnalysisEditorBase analysisEditorBase);
+        #endregion
     }
 }

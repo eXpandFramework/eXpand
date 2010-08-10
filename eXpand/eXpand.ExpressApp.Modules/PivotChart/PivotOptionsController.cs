@@ -31,7 +31,6 @@ namespace eXpand.ExpressApp.PivotChart
         {
             base.OnActivated();
             View.ViewEditModeChanged += (sender, args) => PivotSettingsChoiceAction.Active["EditMode"] = View.ViewEditMode == ViewEditMode.Edit;
-            PivotSettingsChoiceAction.Active["EditMode"] = View.ViewEditMode == ViewEditMode.Edit;
             PivotSettingsChoiceAction.Items.Clear();
             foreach (var keyValuePair in GetActionChoiceItems()){
                 PivotSettingsChoiceAction.Items.Add(new ChoiceActionItem(keyValuePair.Key.Name, keyValuePair.Key));

@@ -1,5 +1,7 @@
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
+using eXpand.ExpressApp.PivotChart.AnalysisControlVisibility;
 using eXpand.ExpressApp.PivotChart.Security;
 
 namespace eXpand.ExpressApp.PivotChart {
@@ -8,6 +10,12 @@ namespace eXpand.ExpressApp.PivotChart {
         
         public PivotChartModule(){
             InitializeComponent();
+        }
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelMember, IModelMemberAnalysisControlVisibility>();
+            extenders.Add<IModelPropertyEditor, IModelPropertyEditorAnalysisControlVisibility>();
         }
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
         {

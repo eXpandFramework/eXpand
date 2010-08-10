@@ -18,7 +18,7 @@ namespace eXpand.ExpressApp.PivotChart.AnalysisControlVisibility {
     public interface IModelPropertyEditorAnalysisControlVisibility : IModelMemberAnalysisControlVisibility{
     }
 
-    public abstract class AnalysisControlVisibilityControllerBase<TAnalysisEditor,TAnalysisControl> : AnalysisViewControllerBase,IModelExtender
+    public abstract class AnalysisControlVisibilityControllerBase<TAnalysisEditor,TAnalysisControl> : AnalysisViewControllerBase
         where TAnalysisEditor : AnalysisEditorBase where TAnalysisControl: class, IAnalysisControl{
         public const string AnalysisControlVisibilityAttributeName = "AnalysisControlVisibility";
 
@@ -64,11 +64,6 @@ namespace eXpand.ExpressApp.PivotChart.AnalysisControlVisibility {
 
         #region IModelExtender Members
 
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
-            extenders.Add<IModelMember,IModelMemberAnalysisControlVisibility>();
-            extenders.Add<IModelPropertyEditor,IModelPropertyEditorAnalysisControlVisibility>();
-        }
 
         #endregion
         }

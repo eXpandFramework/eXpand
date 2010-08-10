@@ -6,25 +6,17 @@ using DevExpress.ExpressApp;
 using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
-using eXpand.ExpressApp.Attributes;
 using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.PivotChart.PivotedProperty
 {
-    public class PivotedPropertyController : ViewController<DetailView>
-    {
-        public PivotedPropertyController() {
-            TargetObjectType = null;
-        }
+    public class PivotedPropertyController : ViewController<DetailView>{
 
-        protected override void OnActivated()
-        {
+        protected override void OnActivated(){
             base.OnActivated();
             IEnumerable<IMemberInfo> memberInfos =View.ObjectTypeInfo.Members.OfType<IMemberInfo>().Where(
                     memberInfo => memberInfo.FindAttribute<PivotedPropertyAttribute>() != null).Select(info1 => info1);
-            
-            Active["HasPivotProperty"] = memberInfos.Count() > 0;
-            if (Active) {
+            if (memberInfos.Count()>0){
                 AttachControllers(memberInfos);
                 foreach (var memberInfo in memberInfos) {
                     BindMembers(memberInfo);
@@ -34,15 +26,15 @@ namespace eXpand.ExpressApp.PivotChart.PivotedProperty
         void BindMembers(IMemberInfo memberInfo) {
             var pivotedPropertyAttribute = memberInfo.FindAttribute<PivotedPropertyAttribute>();
             IAnalysisInfo analysisInfo;
-            if (string.IsNullOrEmpty(pivotedPropertyAttribute.Criteria)) {
+            if (string.IsNullOrEmpty(pivotedPropertyAttribute.AnalysisCriteria)) {
                 analysisInfo = (IAnalysisInfo) ObjectSpace.CreateObject(memberInfo.MemberType);
                 var pivotedType = View.ObjectTypeInfo.FindMember(pivotedPropertyAttribute.CollectionName).ListElementType;
                 ObjectSpace.Session.GetClassInfo(analysisInfo).GetMember(analysisInfo.GetPropertyName(x=>x.DataType)).SetValue(analysisInfo,pivotedType);
             }
             else {
-                analysisInfo = ObjectSpace.FindObject(memberInfo.MemberType, CriteriaOperator.Parse(pivotedPropertyAttribute.Criteria)) as IAnalysisInfo;
+                analysisInfo = ObjectSpace.FindObject(memberInfo.MemberType, CriteriaOperator.Parse(pivotedPropertyAttribute.AnalysisCriteria)) as IAnalysisInfo;
                 if (analysisInfo== null)
-                    throw new UserFriendlyException(new Exception("Could not find a "+memberInfo.MemberType.Name+" object that can fit "+pivotedPropertyAttribute.Criteria));
+                    throw new UserFriendlyException(new Exception("Could not find a "+memberInfo.MemberType.Name+" object that can fit "+pivotedPropertyAttribute.AnalysisCriteria));
             }
             memberInfo.SetValue(View.CurrentObject,analysisInfo);
         }
@@ -52,6 +44,7 @@ namespace eXpand.ExpressApp.PivotChart.PivotedProperty
             var assignCustomAnalysisDataSourceDetailViewController = AttachAssignCustomAnalysisDataSourceDetailViewController();
             assignCustomAnalysisDataSourceDetailViewController.ApplyingCollectionCriteria+=ApplyingCollectionCriteria;
             assignCustomAnalysisDataSourceDetailViewController.DatasourceCreating+=DatasourceCreating;
+            
             ActivateController<AnalysisDataBindController>();
         }
 
@@ -81,6 +74,7 @@ namespace eXpand.ExpressApp.PivotChart.PivotedProperty
                                                                          TargetObjectType =View.ObjectTypeInfo.Type
                                                                      };
             assignCustomAnalysisDataSourceDetailViewController.SetView(View);
+            Frame.RegisterController(assignCustomAnalysisDataSourceDetailViewController);
             return assignCustomAnalysisDataSourceDetailViewController; 
         }
 

@@ -117,7 +117,6 @@
     <Compile Include="Model\IModelApplicationFilterDataStore.cs" />
     <Compile Include="Model\IModelFilterDataStoreSystemTable.cs" />
     <Compile Include="Model\IModelFilterDataStoreSystemTables.cs" />
-    <Compile Include="NodeUpdaters\DisableFilterNodeUpdater.cs" />
     <Compile Include="Providers\UserFilterProvider.cs" />
     <Compile Include="FilterDataStoreModule.cs">
       <SubType>Component</SubType>

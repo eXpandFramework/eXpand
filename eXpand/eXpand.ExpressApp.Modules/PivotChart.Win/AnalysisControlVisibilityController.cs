@@ -8,6 +8,7 @@ namespace eXpand.ExpressApp.PivotChart.Win {
         protected override void HidePivot(AnalysisControlWin analysisControl) {
             analysisControl.ChartControl.Parent = analysisControl;
             analysisControl.TabControl.Visible = false;
+            analysisControl.ChartControl.Dock = System.Windows.Forms.DockStyle.Fill;
         }
 
         protected override void HideChart(AnalysisControlWin analysisControl) {

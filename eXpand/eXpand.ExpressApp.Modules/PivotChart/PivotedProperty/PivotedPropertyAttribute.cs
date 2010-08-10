@@ -4,17 +4,17 @@ namespace eXpand.ExpressApp.PivotChart.PivotedProperty {
     public class PivotedPropertyAttribute : ExpandObjectMembersAttribute
     {
         readonly string _collectionName;
-        readonly string _criteria;
+        readonly string _analysisCriteria;
         readonly string _associatedMemberName;
 
 
-        public PivotedPropertyAttribute(string collectionName, string criteria):base(ExpandObjectMembers.InDetailView) {
+        public PivotedPropertyAttribute(string collectionName, string analysisCriteria):base(ExpandObjectMembers.InDetailView) {
             _collectionName = collectionName;
-            _criteria = criteria;
+            _analysisCriteria = analysisCriteria;
         }
-        public PivotedPropertyAttribute(string collectionName, string criteria, string associatedMemberName):this(collectionName,criteria) {
+        public PivotedPropertyAttribute(string collectionName, string analysisCriteria, string associatedMemberName):this(collectionName,analysisCriteria) {
             _collectionName = collectionName;
-            _criteria = criteria;
+            _analysisCriteria = analysisCriteria;
             _associatedMemberName = associatedMemberName;
         }
 
@@ -26,8 +26,8 @@ namespace eXpand.ExpressApp.PivotChart.PivotedProperty {
             get { return _associatedMemberName; }
         }
 
-        public string Criteria {
-            get { return _criteria; }
+        public string AnalysisCriteria {
+            get { return _analysisCriteria; }
         }
 
 

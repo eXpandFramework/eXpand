@@ -1,6 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.PivotChart;
+using DevExpress.Persistent.Base;
 using DevExpress.Web.ASPxEditors.FilterControl;
 using DevExpress.XtraCharts.Native;
 using eXpand.ExpressApp.PivotChart.Web.Editors;
@@ -26,11 +27,18 @@ namespace eXpand.ExpressApp.PivotChart.Web.PropertyEditors {
             Control.ChartTypeComboBox.SelectedIndex =
                 (int) SeriesViewFactory.GetViewType(Control.Chart.SeriesTemplate.View);
         }
+        public new IAnalysisInfo CurrentObject
+        {
+            get { return (IAnalysisInfo)base.CurrentObject; }
+            set { base.CurrentObject = value; }
+        }
 
         void AnalysisControlOnLoad(object sender, EventArgs eventArgs) {
             ((IPopupFilterControlOwner) Control.PivotGrid).SettingsLoadingPanel.Enabled =((IModelPropertyEditorLoadingPanel) Model).LoadingPanel;
-            ReadValue();
-            Control.DataBind();
+            if (CurrentObject.DataType!= null){
+//                ReadValue();
+//                Control.DataBind();
+            }
         }
     }
 }
