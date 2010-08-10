@@ -11,7 +11,6 @@ using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.ExpressApp.WorldCreator.NodeUpdaters;
 using eXpand.Persistent.Base.PersistentMetaData;
-using TypesInfo = eXpand.ExpressApp.WorldCreator.Core.TypesInfo;
 
 namespace eXpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase:ModuleBase {
@@ -28,13 +27,14 @@ namespace eXpand.ExpressApp.WorldCreator {
             if (Application == null||GetPath()== null)
                 return;
             
-            TypesInfo.Instance.AddTypes(GetAdditionalClasses());
             Application.SettingUp+=ApplicationOnSettingUp;
 
-
+            WCTypesInfo.Instance.Register(GetAdditionalClasses());
             RunUpdaters();
 
-            using (SimpleDataLayer simpleDataLayer = XpoMultiDataStoreProxy.GetDataLayer(_connectionString, GetReflectionDictionary(), TypesInfo.Instance.PersistentAssemblyInfoType)) {
+            var bussinessObjectType = WCTypesInfo.Instance.FindBussinessObjectType<IPersistentAssemblyInfo>();
+            using (SimpleDataLayer simpleDataLayer 
+                = XpoMultiDataStoreProxy.GetDataLayer(_connectionString, GetReflectionDictionary(), bussinessObjectType)) {
                 using (var session = new UnitOfWork(simpleDataLayer)) {
                     AddDynamicModules(moduleManager, session);
                 }
@@ -55,7 +55,7 @@ namespace eXpand.ExpressApp.WorldCreator {
                 var xpoMultiDataStoreProxy = new XpoMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
                 var simpleDataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy);
                 var session = new Session(simpleDataLayer);
-                existentTypesMemberCreator.CreateMembers(session, TypesInfo.Instance, session.Dictionary );
+                existentTypesMemberCreator.CreateMembers(session);
             }
         }
 
@@ -78,7 +78,10 @@ namespace eXpand.ExpressApp.WorldCreator {
         }
 
         ReflectionDictionary GetReflectionDictionary() {
-            Type persistentAssemblyInfoType = TypesInfo.Instance.PersistentAssemblyInfoType;
+            Type persistentAssemblyInfoType = GetAdditionalClasses().Where(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1)).FirstOrDefault();
+            if (persistentAssemblyInfoType == null)
+                throw new ArgumentNullException("No bussincess object that implements " +
+                                                typeof (IPersistentAssemblyInfo).FullName + " found");
             IEnumerable<Type> types = persistentAssemblyInfoType.Assembly.GetTypes().Where(type => type.Namespace.StartsWith(persistentAssemblyInfoType.Namespace));
             var reflectionDictionary = new ReflectionDictionary();
             foreach (var type in types) {
@@ -98,7 +101,7 @@ namespace eXpand.ExpressApp.WorldCreator {
         }
 
         public void AddDynamicModules(ApplicationModulesManager moduleManager, Session session){
-            Type assemblyInfoType = TypesInfo.Instance.PersistentAssemblyInfoType;
+            Type assemblyInfoType = WCTypesInfo.Instance.FindBussinessObjectType<IPersistentAssemblyInfo>();
             List<IPersistentAssemblyInfo> persistentAssemblyInfos =
                 new XPCollection(session, assemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(info => !info.DoNotCompile &&
                     moduleManager.Modules.Where(@base => @base.Name == "Dynamic" + info.Name + "Module").FirstOrDefault() ==null).ToList();

@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.NodeGenerators;
+using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.Core;
+using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.ExpressApp.WorldCreator.NodeUpdaters {
     public class ShowOwnerForExtendedMembersUpdater : ModelNodesGeneratorUpdater<ModelBOModelClassNodesGenerator>
@@ -20,9 +23,9 @@ namespace eXpand.ExpressApp.WorldCreator.NodeUpdaters {
         {
             return
                 application.Views.OfType<IModelListView>().Where(
-                view => view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedReferenceMemberInfoType ||
-                view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedCollectionMemberInfoType ||
-                view.ModelClass.TypeInfo.Type == TypesInfo.Instance.ExtendedCoreMemberInfoType);
+                view => view.ModelClass.TypeInfo.Type == WCTypesInfo.Instance.FindBussinessObjectType<IExtendedReferenceMemberInfo>() ||
+                view.ModelClass.TypeInfo.Type == WCTypesInfo.Instance.FindBussinessObjectType<IExtendedCollectionMemberInfo>() ||
+                view.ModelClass.TypeInfo.Type == WCTypesInfo.Instance.FindBussinessObjectType<IExtendedCoreTypeMemberInfo>());
         }
 
     }

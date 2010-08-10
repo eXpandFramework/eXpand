@@ -1,18 +1,19 @@
 using DevExpress.ExpressApp;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.ExpressApp.Core;
 
-namespace eXpand.ExpressApp.WorldCreator.Controllers.DetailView {
-    public class PersistentTemplatedTypeInfoController : ViewController<DevExpress.ExpressApp.DetailView> 
+namespace eXpand.ExpressApp.WorldCreator.Controllers {
+    public class InitializeTemplatedTypeInfoController : ViewController<DetailView> 
     {
-        public PersistentTemplatedTypeInfoController() {
+        public InitializeTemplatedTypeInfoController() {
             TargetObjectType = typeof(IPersistentTemplatedTypeInfo);
         }
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
             if (ObjectSpace.Session.IsNewObject(View.CurrentObject))
-                ((IPersistentTemplatedTypeInfo)View.CurrentObject).Init(TypesInfo.Instance.CodeTemplateType);
+                ((IPersistentTemplatedTypeInfo)View.CurrentObject).Init(WCTypesInfo.Instance.FindBussinessObjectType<ICodeTemplate>());
 
         }
     }

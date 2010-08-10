@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo.DB;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
@@ -38,7 +39,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                     code = code.Replace("$ASSEMBLYNAME$", persistentClassInfo.PersistentAssemblyInfo.Name);
                     code = code.Replace("$TYPEATTRIBUTES$", attributesCode);
                     code = code.Replace("$CLASSNAME$", persistentClassInfo.Name);
-                    code = code.Replace("$BASECLASSNAME$",getBaseType(persistentClassInfo) + getInterfacesCode(persistentClassInfo));
+                    code = code.Replace("$BASECLASSNAME$", persistentClassInfo.BaseTypeFullName + GetInterfacesCode(persistentClassInfo));
                     code = code.Replace("$INJECTCODE$", GetInjectCode(persistentClassInfo));
                     code = GetAllMembersCode(persistentClassInfo, code);
                     return code;
@@ -65,7 +66,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return code;
         }
 
-        static string getInterfacesCode(IPersistentClassInfo persistentClassInfo) {
+        static string GetInterfacesCode(IPersistentClassInfo persistentClassInfo) {
             return persistentClassInfo.Interfaces.Aggregate<IInterfaceInfo, string>(null, (current, interfaceInfo) => current + ("," + interfaceInfo.Type.FullName));
         }
 
@@ -75,9 +76,6 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         }
 
 
-        static string getBaseType(IPersistentClassInfo persistentClassInfo) {
-            return persistentClassInfo.BaseTypeFullName??persistentClassInfo.GetDefaultBaseClass().FullName;
-        }
 
         static string GetMembersCode(IEnumerable<IPersistentMemberInfo> persistentMemberInfos){
             Func<IPersistentMemberInfo, string> codeSelector = persistentMemberInfo => GenerateCode(persistentMemberInfo);
@@ -87,12 +85,57 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
         static string GetPropertyTypeCode(IPersistentMemberInfo persistentMemberInfo){
             if (persistentMemberInfo is IPersistentCoreTypeMemberInfo)
-                return Type.GetType("System."+((IPersistentCoreTypeMemberInfo)persistentMemberInfo).DataType).FullName;
+                return GetCorePropertyTypeCode(persistentMemberInfo);
             if (persistentMemberInfo is IPersistentReferenceMemberInfo)
                 return ((IPersistentReferenceMemberInfo) persistentMemberInfo).ReferenceTypeFullName;
             if (persistentMemberInfo is IPersistentCollectionMemberInfo)
                 return ((IPersistentCollectionMemberInfo)persistentMemberInfo).CollectionTypeFullName;
             throw new NotImplementedException(persistentMemberInfo.GetType().FullName);
+        }
+
+        static string GetCorePropertyTypeCode(IPersistentMemberInfo persistentMemberInfo) {
+            DBColumnType dbColumnType = ((IPersistentCoreTypeMemberInfo)persistentMemberInfo).DataType;
+            switch (dbColumnType)
+            {
+                case DBColumnType.Boolean:
+                    return "bool";
+                case DBColumnType.Byte:
+                    return "byte";
+                case DBColumnType.SByte:
+                    return "sbyte";
+                case DBColumnType.Char:
+                    return "char";
+                case DBColumnType.Decimal:
+                    return "decimal";
+                case DBColumnType.Single:
+                    return "float";
+                case DBColumnType.Double:
+                    return "double";
+                case DBColumnType.Int32:
+                    return "int";
+                case DBColumnType.UInt32:
+                    return "uint";
+                case DBColumnType.Int16:
+                    return "short";
+                case DBColumnType.UInt16:
+                    return "ushort";
+                case DBColumnType.Int64:
+                    return "long";
+                case DBColumnType.UInt64:
+                    return "ulong";
+                case DBColumnType.String:
+                    return "string";
+                case DBColumnType.DateTime:
+                    return "DateTime";
+                case DBColumnType.Guid:
+                    return "Guid";
+                case DBColumnType.TimeSpan:
+                    return "TimeSpan";
+                case DBColumnType.ByteArray:
+                    return "byte[]";
+                default:
+                    return dbColumnType.ToString();
+            }
         }
 
         public static string GenerateCode(IPersistentAttributeInfo persistentAttributeInfo) {
@@ -101,7 +144,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             Func<object, object> argSelector = getArgumentCode;
             string args = attributeInfo.InitializedArgumentValues.Length>0
                               ? attributeInfo.InitializedArgumentValues.Select(argSelector).Aggregate
-                                    <object, string>(null, (current, o) => current + (o + ",")).TrimEnd(',')
+                              <object, string>(null, (current, o) => current + (((o is bool) ? o.ToString().ToLower() : o) + ",")).TrimEnd(',')
                               : null;
             return string.Format("[{0}({1})]", attribute.GetType().FullName, args);
         }

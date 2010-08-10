@@ -11,7 +11,7 @@ using DevExpress.Persistent.Base;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Utils.Helpers;
 
-namespace eXpand.ExpressApp.WorldCreator.Controllers.ListView
+namespace eXpand.ExpressApp.WorldCreator.Controllers
 {
     [ModelNodesGenerator(typeof(ModelInterfaceSourcesNodesGenerator))]
     public interface IModelInterfaceSources : IModelNode, IModelList<IModelAssemblyResourceImageSource>
@@ -24,9 +24,9 @@ namespace eXpand.ExpressApp.WorldCreator.Controllers.ListView
         }
     }
 
-    public class InterfaceInfoController : ViewController<DevExpress.ExpressApp.ListView>, IModelExtender
+    public class PopulateInterfacesController : ViewController<DevExpress.ExpressApp.ListView>, IModelExtender
     {
-        public InterfaceInfoController()
+        public PopulateInterfacesController()
         {
             TargetObjectType = typeof(IInterfaceInfo);
             var populateInterfaces = new SimpleAction(Container)
@@ -51,14 +51,9 @@ namespace eXpand.ExpressApp.WorldCreator.Controllers.ListView
             ObjectSpace.Session.Delete(iface);
             string assemblyName = iface.GetPropertyInfo(x => x.Assembly).Name;
             string name = iface.GetPropertyInfo(x => x.Name).Name;
-            foreach (Type type in getInterfaces())
-            {
-                if (
-                    ObjectSpace.Session.FindObject(
-                    View.ObjectTypeInfo.Type,
-                    CriteriaOperator.Parse(string.Format("{0}=? AND {1}=?", assemblyName, name),
-                    new AssemblyName(type.Assembly.FullName + "").Name, type.FullName)) == null)
-                {
+            foreach (Type type in getInterfaces()){
+                if (ObjectSpace.Session.FindObject(View.ObjectTypeInfo.Type,CriteriaOperator.Parse(string.Format("{0}=? AND {1}=?", assemblyName, name),
+                    new AssemblyName(type.Assembly.FullName + "").Name, type.FullName)) == null){
                     createInterfaceInfo(type, collectionSourceBase);
                 }
             }
@@ -82,8 +77,7 @@ namespace eXpand.ExpressApp.WorldCreator.Controllers.ListView
                 AppDomain.CurrentDomain.GetAssemblies().Where(
                     assembly => assemblyNames.Contains(new AssemblyName(assembly.FullName + "").Name));
             var types = new List<Type>();
-            foreach (Assembly assembly in assemblies)
-            {
+            foreach (Assembly assembly in assemblies){
                 types.AddRange(assembly.GetTypes().Where(type => type.IsInterface));
             }
             return types;

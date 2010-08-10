@@ -4,9 +4,9 @@ using eXpand.ExpressApp.SystemModule;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 
-namespace eXpand.ExpressApp.WorldCreator.Controllers.ListView {
-    public class InterfaceInfoNestedController : MasterObjectViewController<IPersistentClassInfo> {
-        public InterfaceInfoNestedController() {
+namespace eXpand.ExpressApp.WorldCreator.Controllers {
+    public class CreateMembersFromInterfacesController : MasterObjectViewController<IPersistentClassInfo> {
+        public CreateMembersFromInterfacesController() {
             TargetObjectType = typeof (IInterfaceInfo);
         }
 

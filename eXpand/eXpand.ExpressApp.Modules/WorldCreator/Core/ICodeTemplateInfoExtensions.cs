@@ -8,7 +8,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core
     {
         public static void CloneProperties(this ICodeTemplateInfo codeTemplateInfo)
         {
-            var templateInfo = (ITemplateInfo)(codeTemplateInfo.TemplateInfo ?? ObjectSpace.FindObjectSpace(codeTemplateInfo).CreateObject(TypesInfo.Instance.TemplateInfoType));
+            var templateInfo = codeTemplateInfo.TemplateInfo ?? ObjectSpace.FindObjectSpace(codeTemplateInfo).CreateWCObject<ITemplateInfo>();
             codeTemplateInfo.TemplateInfo = templateInfo;
             var type = templateInfo.GetType();
             var infos = typeof(ITemplateInfo).GetProperties().Select(propertyInfo =>
