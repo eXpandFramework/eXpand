@@ -13,8 +13,7 @@ namespace eXpandAddIns.ModelEditor
     [ToolboxItem(false)]
     public partial class METoolWindow : ToolWindowPlugIn
     {
-
-
+        bool _buildStarted;
 
 
         // DXCore-generated code...
@@ -24,6 +23,22 @@ namespace eXpandAddIns.ModelEditor
         {
             base.InitializePlugIn();
             GridBinder.Init(gridControl1, events);
+            events.ProjectBuildDone+=EventsOnProjectBuildDone;
+        }
+
+        void EventsOnProjectBuildDone(string project, string projectConfiguration, string platform, string solutionConfiguration, bool succeeded) {
+            if (_buildStarted) {
+                _buildStarted = false;
+                DialogResult dialogResult=DialogResult.Yes;
+                if (!succeeded) {
+                    dialogResult = MessageBox.Show(@"Build fail!!! Continue opening the ME?", null,MessageBoxButtons.YesNo);
+                }
+                if (dialogResult==DialogResult.Yes){
+                    var projectWrapper = (ProjectWrapper)gridView1.GetRow(gridView1.FocusedRowHandle);
+                    openModelEditor(projectWrapper);
+                }
+            }
+            
         }
 
 
@@ -62,9 +77,11 @@ namespace eXpandAddIns.ModelEditor
                     {
                         Solution solution = CodeRush.Solution.Active;
                         string solutionConfigurationName = solution.SolutionBuild.ActiveConfiguration.Name;
-                        solution.SolutionBuild.BuildProject(solutionConfigurationName, projectWrapper.UniqueName, true);
+                        _buildStarted = true;
+                        solution.SolutionBuild.BuildProject(solutionConfigurationName, projectWrapper.UniqueName, false);
                     }
-                    openModelEditor(projectWrapper);
+                    else
+                        openModelEditor(projectWrapper);
                 }
                 else if (gridView.RowCount > 0)
                     openModelEditor((ProjectWrapper)gridView.GetRow(0));

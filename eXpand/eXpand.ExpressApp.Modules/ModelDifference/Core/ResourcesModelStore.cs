@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
@@ -51,10 +52,12 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
         {
             var resourceLoadedArgs = new ResourceLoadedArgs(resourceName);
             OnResourceLoading(resourceLoadedArgs);
-            if (resourceLoadedArgs.Model != null)
-                rootNode = resourceLoadedArgs.Model;
-            new ModelXmlReader().ReadFromResource(rootNode, aspect, assembly, resourceName);
-            OnResourceLoaded(resourceLoadedArgs);
+            if (!(resourceLoadedArgs.Cancel)) {
+                if (resourceLoadedArgs.Model != null)
+                    rootNode = resourceLoadedArgs.Model;
+                new ModelXmlReader().ReadFromResource(rootNode, aspect, assembly, resourceName);
+                OnResourceLoaded(resourceLoadedArgs);
+            }
         }
         public override string ToString()
         {
@@ -62,7 +65,7 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
         }
     }
 
-    public class ResourceLoadedArgs:EventArgs {
+    public class ResourceLoadedArgs:CancelEventArgs {
         
         readonly string _resourceName;
 
@@ -76,5 +79,7 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
         }
 
         public ModelApplicationBase Model { get; set; }
+
+        
     }
 }

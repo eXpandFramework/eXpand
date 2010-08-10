@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using DevExpress.CodeRush.Core;
 using EnvDTE;
-using eXpand.Utils;
 using eXpandAddIns.Enums;
 using eXpandAddIns.Extensioons;
 using Project = EnvDTE.Project;
@@ -49,7 +47,7 @@ namespace eXpandAddIns.ModelEditor {
         static void GetAllItems(IEnumerable<ProjectItem> projectItems, List<ProjectWrapper> list)
         {
             foreach (var projectItem in projectItems){
-                if (projectItem.Name.EndsWith(".xafml"))
+                if (projectItem.Name.EndsWith(".xafml") && projectItem.FindProperty(ProjectItemProperty.ItemType).Value+""== "EmbeddedResource")
                     list.Add(ProjectWrapperSelector(projectItem));
                 GetAllItems(projectItem.ProjectItems.OfType<ProjectItem>(), list);
             }

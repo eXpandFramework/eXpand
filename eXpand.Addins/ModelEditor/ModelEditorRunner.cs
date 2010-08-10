@@ -33,8 +33,6 @@ namespace eXpandAddIns.ModelEditor {
                 return;
             }
 
-//            IEnumerable<string> assemblyPaths = DependedAssemblyPathResolver.GetAssemblyPaths(assemblyPath);
-//            string s = assemblyPaths.Aggregate("", (current, assemblyPath1) => current + (assemblyPath1 + ";")).TrimEnd(';');
             string arguments = String.Format("'{0}' '{1}' '{2}'", assemblyPath, fullPath, projectWrapper.LocalPath);
             if (File.Exists(path))
                 Process.Start(path, arguments);

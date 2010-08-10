@@ -8,7 +8,7 @@ namespace eXpandAddIns.Extensioons
     {
         public static Property FindProperty(this ProjectItem projectItem,ProjectItemProperty projectItemProperty)
         {
-            return projectItem.Properties.Cast<Property>().Where(property => property.Name == projectItemProperty.ToString()).FirstOrDefault();
+            return projectItem.Properties.Cast<Property>().Where(property =>property.Name == projectItemProperty.ToString()).FirstOrDefault();
         }
     }
 }
