@@ -5,10 +5,12 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.Core;
+using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("AssociationName")]
+    [Registrator(typeof(IPersistentAssociationAttribute))]
     public class PersistentAssociationAttribute : PersistentAttributeInfo, IPersistentAssociationAttribute {
         string _associationName;
         PersistentClassInfo _elementClassInfo;

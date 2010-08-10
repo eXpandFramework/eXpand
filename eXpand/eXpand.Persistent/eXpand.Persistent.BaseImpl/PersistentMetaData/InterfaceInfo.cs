@@ -13,6 +13,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "Name,Assembly")]
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
+    [Registrator(typeof(IInterfaceInfo))]
     public class InterfaceInfo : BaseObject, IInterfaceInfo {
         string _assembly;
         string _name;

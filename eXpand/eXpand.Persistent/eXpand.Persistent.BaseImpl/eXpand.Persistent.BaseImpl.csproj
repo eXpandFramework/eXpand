@@ -85,12 +85,15 @@
     </Reference>
     <Reference Include="eXpand.ExpressApp.ArtifactState, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.ExpressApp.ConditionalActionState, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.ExpressApp.ConditionalControllerState, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="eXpand.ExpressApp.Logic, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -145,9 +148,11 @@
   <ItemGroup>
     <Compile Include="ImportExport\ClassInfoGraphNode.cs" />
     <Compile Include="ImportExport\SerializationConfiguration.cs" />
+    <Compile Include="ImportExport\SerializationConfigurationGroup.cs" />
     <Compile Include="ImportExport\XmlFileChooser.cs" />
     <Compile Include="PersistentMetaData\CodeTemplate.cs" />
     <Compile Include="PersistentMetaData\CodeTemplateInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentKeyAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentMapInheritanceAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -160,6 +165,7 @@
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentDefaultClassOptionsAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentPersistentAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentPivotedPropertyAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentRuleRequiredFieldAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentSizeAttribute.cs">
@@ -241,25 +247,37 @@
     <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpClassTemplates.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpReadWriteMemberTemplates.xml" />
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpXPReadWritePropertyMemberTemplates.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpReadOnlyMemberTemplates.xml" />
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpXPCollectionMemberTemplates.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PersistentMetaData\Resources\DefaultVBClassTemplates.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultVBReadOnlyMemberTemplates.xml" />
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultVBXPCollectionMemberTemplates.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultVBReadWriteMemberTemplates.xml" />
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultVBXPPropertyMemberTemplates.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PersistentMetaData\Resources\DefaultVBInterfaceReadWriteMemberTemplates.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpInterfaceReadWriteMemberTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpStructTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpReadWriteMemberTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpFieldMemberTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpXPOneToOnePropertyMemberTemplates.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

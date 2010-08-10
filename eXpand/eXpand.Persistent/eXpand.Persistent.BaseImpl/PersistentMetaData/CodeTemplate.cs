@@ -7,6 +7,7 @@ using eXpand.Persistent.Base.PersistentMetaData;
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
+    [Registrator(typeof(ICodeTemplate))]
     public class CodeTemplate : TemplateInfo, ICodeTemplate {
         CodeDomProvider _codeDomProvider;
         bool _isDefault;

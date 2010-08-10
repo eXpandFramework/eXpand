@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -11,7 +10,8 @@ using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [DefaultClassOptions]
-    [NavigationItem("WorldCreator")]
+    [DevExpress.Persistent.Base.NavigationItem("WorldCreator")]
+    [Registrator(typeof(IPersistentAssemblyInfo))]
     public class PersistentAssemblyInfo : BaseObject, IPersistentAssemblyInfo {
         CodeDomProvider _codeDomProvider;
         string _compileErrors;
@@ -25,10 +25,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         string _version="1.0.0.*";
 
         public PersistentAssemblyInfo(Session session) : base(session) {
-        }
-        protected override void OnSaving()
-        {
-            base.OnSaving();
         }
         [Index(4)]
         [FileTypeFilter("Strong Keys", 1, "*.snk")]

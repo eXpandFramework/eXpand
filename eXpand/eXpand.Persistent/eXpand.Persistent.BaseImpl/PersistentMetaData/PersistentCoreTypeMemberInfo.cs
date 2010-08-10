@@ -1,15 +1,17 @@
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Xpo;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData
 {
+    [Registrator(typeof(IPersistentCoreTypeMemberInfo))]
     public class PersistentCoreTypeMemberInfo : PersistentMemberInfo, IPersistentCoreTypeMemberInfo {
         public PersistentCoreTypeMemberInfo(Session session) : base(session) { }
 
 
-        XPODataType _dataType;
-        public XPODataType DataType {
+        DBColumnType _dataType;
+        public DBColumnType DataType
+        {
             get { return _dataType; }
             set { SetPropertyValue("Type", ref _dataType, value); }
         }

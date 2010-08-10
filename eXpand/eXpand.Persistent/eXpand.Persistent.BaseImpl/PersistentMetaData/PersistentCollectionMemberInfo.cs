@@ -11,6 +11,7 @@ using eXpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
+    [Registrator(typeof(IPersistentCollectionMemberInfo))]
     [RuleRequiredForAtLeast1Property(null, DefaultContexts.Save, "CollectionType,CollectionClassInfo")]
     public class PersistentCollectionMemberInfo : PersistentMemberInfo, IPersistentCollectionMemberInfo {
         PersistentClassInfo _collectionClassInfo;
@@ -45,19 +46,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             }
         }
 
-        public PersistentClassInfo CollectionClassInfo {
-            get { return _collectionClassInfo; }
-            set {
-                SetPropertyValue("CollectionClassInfo", ref _collectionClassInfo, value);
-                if (!IsLoading && !IsSaving) {
-                    _collectionTypeFullName = _collectionClassInfo != null
-                                                  ? _collectionClassInfo.PersistentAssemblyInfo.Name + "." +
-                                                    _collectionClassInfo.Name
-                                                  : null;
-                    _collectionType = null;
-                }
-            }
-        }
         #region IPersistentCollectionMemberInfo Members
         public RelationType RelationType {
             get { return _relationType; }
@@ -81,6 +69,27 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 else
                     _collectionType = ReflectionHelper.GetType(s.Substring(s.LastIndexOf(".") + 1));
             }
+        }
+        public PersistentClassInfo CollectionClassInfo
+        {
+            get { return _collectionClassInfo; }
+            set
+            {
+                SetPropertyValue("CollectionClassInfo", ref _collectionClassInfo, value);
+                if (!IsLoading && !IsSaving)
+                {
+                    _collectionTypeFullName = _collectionClassInfo != null
+                                                  ? _collectionClassInfo.PersistentAssemblyInfo.Name + "." +
+                                                    _collectionClassInfo.Name
+                                                  : null;
+                    _collectionType = null;
+                }
+            }
+        }
+
+        IPersistentClassInfo IPersistentCollectionMemberInfo.CollectionClassInfo {
+            get { return CollectionClassInfo; }
+            set { CollectionClassInfo=value as PersistentClassInfo; }
         }
         #endregion
     }

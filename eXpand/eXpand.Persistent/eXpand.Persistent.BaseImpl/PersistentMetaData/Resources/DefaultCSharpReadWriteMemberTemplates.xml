@@ -5,6 +5,7 @@
         return _$PROPERTYNAME$;
       }
       set{
-        SetPropertyValue("$PROPERTYNAME$", ref _$PROPERTYNAME$, value);
+        _$PROPERTYNAME$= value;
+        $INJECTCODE$
       }
     }

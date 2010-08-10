@@ -9,6 +9,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     public abstract class PersistentMemberInfo : PersistentTemplatedTypeInfo, IPersistentMemberInfo {
         PersistentClassInfo _owner;
 
+
         protected PersistentMemberInfo(Session session) : base(session) {
         }
 

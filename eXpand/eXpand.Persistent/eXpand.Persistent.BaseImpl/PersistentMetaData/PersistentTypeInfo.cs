@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
@@ -10,7 +11,7 @@ using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-
+    [DefaultProperty("Name")]
     public abstract class PersistentTypeInfo : BaseObject, IPersistentTypeInfo {
         public event EventHandler<ObjectCreatedEventArgs> AfterConstructed;
 
@@ -27,7 +28,8 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
         protected PersistentTypeInfo(Session session) : base(session) {
         }
-        
+
+
         [Association("TypeAttributes")]
         [Aggregated]
         public XPCollection<PersistentAttributeInfo> TypeAttributes {
