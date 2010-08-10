@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="AMIObject_DetailView">
+      <Items>
+        <ActionButton Id="d94c7ee7-6c8e-44dc-88d8-d1456e266f3e" IsNewNode="True" ActionId="Show another instance" />
+      </Items>
+    </DetailView>
+    <DetailView Id="LOCustomer_DetailView">
+      <Items>
+        <ActionButton Id="381b9740-3a95-4baf-803b-35a4c867f339" IsNewNode="True" ActionId="LogOut" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" IsNewNode="True" Caption="Main(1)" Index="0" RelativeSize="100">
+          <LayoutItem Id="381b9740-3a95-4baf-803b-35a4c867f339" IsNewNode="True" Index="0" RelativeSize="100" ShowCaption="False" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <AdditionalViewControls>
+    <GroupContexts>
+      <ExecutionContexts Id="ConditionalControlAndMessage" IsNewNode="True">
+        <CurrentObjectChanged Name="CurrentObjectChanged" IsNewNode="True" />
+      </ExecutionContexts>
+    </GroupContexts>
+    <Rules>
+      <!--This is due to Dx bug-->
+      <AdditionalViewControlsRule Id="Conditional Additional View Control And Message" ExecutionContextGroup="ConditionalControlAndMessage" />
+    </Rules>
+  </AdditionalViewControls>
+</Application>

@@ -1,0 +1,39 @@
+﻿<Application>
+  <MasterDetail>
+    <Rules>
+      <MasterDetailRule Id="IODMDCustomer_Orders" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDCustomer" CollectionMember="IODMDOrders" ChildListView="IODMDOrder_ListView" NormalCriteria="1=1" />
+      <MasterDetailRule Id="IODMDOrder_OrderLines" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDOrder" CollectionMember="IODMDOrderLines" ChildListView="IODMDOrderLine_ListView" NormalCriteria="1=1" />
+    </Rules>
+  </MasterDetail>
+  <NavigationItems>
+    <Items>
+      <Item Id="IO">
+        <Items>
+          <Item Id="Dynamic assembly Master detail" IsNewNode="True" ViewId="IODMDCustomer_ListView" Caption="Master detail" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Views>
+    <ListView Id="IODMDCustomer_ListView">
+      <GridViewOptions>
+        <OptionsDetail EnableMasterViewMode="True" />
+        <OptionsView ShowDetailButtons="True" />
+      </GridViewOptions>
+    </ListView>
+    <ListView Id="IODMDOrder_ListView">
+      <Columns>
+        <ColumnInfo Id="IODMDCustomer" Index="-1" />
+      </Columns>
+      <GridViewOptions>
+        <OptionsDetail EnableMasterViewMode="True" />
+        <OptionsView ShowDetailButtons="True" />
+      </GridViewOptions>
+    </ListView>
+    <ListView Id="IODMDOrderLine_ListView">
+      <Columns>
+        <ColumnInfo Id="IODMDOrder" Index="-1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

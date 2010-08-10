@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="AutoCommit_ListView" AllowEdit="True" AutoCommitListView="True" SupressConfirmation="True" />
+  </Views>
+</Application>

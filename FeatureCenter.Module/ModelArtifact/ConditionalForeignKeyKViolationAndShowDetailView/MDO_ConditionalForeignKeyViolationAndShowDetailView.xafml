@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <ModelArtifactState>
+    <ConditionalControllerState>
+      <GroupContexts>
+        <ExecutionContexts Id="ConditionalForeignKeyViolation" IsNewNode="True">
+          <ViewChanging IsNewNode="True" Index="0" />
+          <CurrentObjectChanged IsNewNode="True" Index="0" />
+        </ExecutionContexts>
+      </GroupContexts>
+      <!--this is here due to a dx bug-->
+      <Rules>
+        <ControllerStateRule Id="ConditionalForeignKeyViolation" ExecutionContextGroup="ConditionalForeignKeyViolation" />
+        <ControllerStateRule Id="ConditionalShowDetailView" ExecutionContextGroup="ConditionalForeignKeyViolation" />
+      </Rules>
+    </ConditionalControllerState>
+  </ModelArtifactState>
+  <Views>
+    <ListView Id="ConditionalForeignKeyViolationAndShowDetailView_ListView" EnableFKViolations="True" />
+  </Views>
+</Application>

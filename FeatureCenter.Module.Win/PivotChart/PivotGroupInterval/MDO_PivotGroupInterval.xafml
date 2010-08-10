@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+  <AdditionalViewControls>
+    <Rules>
+      <AdditionalViewControlsRule Id="Header Pivot PivotGroupInterval" ControlType="FeatureCenter.Module.Win.ApplicationCaption" />
+      <AdditionalViewControlsRule Id="ViewMessage Pivot PivotGroupInterval" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" />
+      <!--these are here due to a dx bug-->
+    </Rules>
+  </AdditionalViewControls>
+</Application>

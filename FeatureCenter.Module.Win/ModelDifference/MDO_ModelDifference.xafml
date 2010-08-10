@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <AdditionalViewControls>
+    <Rules>
+      <!--these are here due to a dx bug-->
+      <AdditionalViewControlsRule Id="Header Model Difference" ControlType="FeatureCenter.Module.Win.ApplicationCaption" />
+      <AdditionalViewControlsRule Id="ViewMessage Model Difference 1" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" />
+      <AdditionalViewControlsRule Id="ViewMessage Model Difference 2" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" />
+      <AdditionalViewControlsRule Id="ViewMessage Model Difference 3" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" />
+      <AdditionalViewControlsRule Id="ViewMessage Model Difference 4" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" />
+      <AdditionalViewControlsRule Id="ViewMessage Model Difference 5" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" />
+    </Rules>
+  </AdditionalViewControls>
+</Application>

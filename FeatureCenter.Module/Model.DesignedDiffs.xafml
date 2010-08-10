@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="FeatureCenter" Logo="ExpressAppLogo">
+  <NavigationItems DefaultChildItemsDisplayStyle="List" NavigationStyle="TreeList">
+    <Items>
+      <Item Id="WorldCreator" Caption="WorldCreator">
+        <Items>
+          <Item Id="Admin" IsNewNode="True" Caption="Admin">
+            <Items IsNewNode="True">
+              <Item Id="a121f0b2-b9d5-435a-9e95-21dc00dc7d64" IsNewNode="True" ViewId="ExtendedCollectionMemberInfo_ListView" ObjectKey="" />
+              <Item Id="CodeTemplate_ListView" IsNewNode="True" ViewId="CodeTemplate_ListView" ObjectKey="" />
+              <Item Id="ExtendedCollectionMemberInfo_ListView" IsNewNode="True" ViewId="ExtendedCollectionMemberInfo_ListView" ObjectKey="" />
+              <Item Id="ExtendedCoreTypeMemberInfo_ListView" IsNewNode="True" ViewId="ExtendedCoreTypeMemberInfo_ListView" ObjectKey="" />
+              <Item Id="ExtendedReferenceMemberInfo_ListView" IsNewNode="True" ViewId="ExtendedReferenceMemberInfo_ListView" ObjectKey="" />
+              <Item Id="InterfaceInfo_ListView" IsNewNode="True" ViewId="InterfaceInfo_ListView" ObjectKey="" />
+              <Item Id="PersistentAssemblyInfo_ListView" IsNewNode="True" ViewId="PersistentAssemblyInfo_ListView" ObjectKey="" />
+            </Items>
+          </Item>
+          <Item Id="CodeTemplate_ListView" Removed="True" />
+          <Item Id="ExtendedCollectionMemberInfo_ListView" Removed="True" />
+          <Item Id="ExtendedCoreTypeMemberInfo_ListView" Removed="True" />
+          <Item Id="ExtendedReferenceMemberInfo_ListView" Removed="True" />
+          <Item Id="InterfaceInfo_ListView" Removed="True" />
+          <Item Id="PersistentAssemblyInfo_ListView" Removed="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Options HighlightFocusedLayoutItem="False" />
+</Application>

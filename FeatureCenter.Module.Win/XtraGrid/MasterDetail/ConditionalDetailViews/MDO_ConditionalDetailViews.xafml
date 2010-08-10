@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <MasterDetail>
+    <Rules>
+      <MasterDetailRule Id="Customer_Orders_For_Paris" IsNewNode="True" TypeInfo="FeatureCenter.Module.Win.WinCustomer" NormalCriteria="City='Paris'" ChildListView="ConditionalMasterDetailOrderForParis_ListView" CollectionMember="Orders" View="ConditionalMasterDetailCustomer_ListView" />
+    </Rules>
+  </MasterDetail>
+  <Views>
+    <ListView Id="ConditionalMasterDetailCustomer_ListView">
+      <GridViewOptions>
+        <OptionsDetail AllowExpandEmptyDetails="True" EnableMasterViewMode="True" />
+        <OptionsView ShowDetailButtons="True" />
+      </GridViewOptions>
+    </ListView>
+    <ListView Id="ConditionalMasterDetailOrder_ListView">
+      <Columns>
+        <ColumnInfo Id="Customer" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="ConditionalMasterDetailOrderForParis_ListView">
+      <Columns>
+        <ColumnInfo Id="Customer" Index="-1" />
+        <ColumnInfo Id="OrderDate" Index="-1" />
+        <ColumnInfo Id="Reference" Index="-1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

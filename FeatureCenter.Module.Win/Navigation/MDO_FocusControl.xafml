@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="FocusControl_DetailView" HighlightFocusedLayoutItem="True">
+      <Items>
+        <PropertyEditor Id="Description" FocusShortcut="CtrlG" />
+      </Items>
+      <Layout>
+        <LayoutItem Id="Name" IsNewNode="True" Index="0" RelativeSize="4" />
+        <LayoutItem Id="City" IsNewNode="True" Index="1" RelativeSize="3" />
+        <TabbedGroup Id="Item1" IsNewNode="True" CaptionLocation="Top" Index="2" RelativeSize="92">
+          <LayoutGroup Id="Main" IsNewNode="True" Index="0" RelativeSize="100">
+            <LayoutGroup Id="SizeableEditors" IsNewNode="True" Caption="Description" Direction="Horizontal" Index="0" RelativeSize="100" />
+          </LayoutGroup>
+          <LayoutGroup Id="Item2" IsNewNode="True" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="100">
+            <LayoutItem Id="Description" IsNewNode="True" Index="0" RelativeSize="100" />
+          </LayoutGroup>
+        </TabbedGroup>
+        <LayoutGroup Id="Main" Removed="True" />
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

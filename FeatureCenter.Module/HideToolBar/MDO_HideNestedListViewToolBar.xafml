@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="HideNestedListToolBarView_ListView" HideToolBar="True" />
+    <DetailView Id="HideNestedListViewToolBar_DetailView">
+      <Items>
+        <PropertyEditor Id="Orders" View="HideNestedListToolBarView_ListView" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

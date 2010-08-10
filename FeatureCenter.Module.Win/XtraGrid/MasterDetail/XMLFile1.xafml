@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+  <MasterDetail>
+    <Rules>
+      <MasterDetailRule IsNewNode="True" Id="MDCustomer_Orders" Index="0" TypeInfo="FeatureCenter.Module.Win.MasterDetail.MDCustomer" NormalCriteria="1=1" ChildListView="MDOrder_ListView" CollectionMember="Orders" View="MDCustomer_ListView" />
+      <MasterDetailRule IsNewNode="True" Id="MDOrder_OrderLines" Index="0" TypeInfo="FeatureCenter.Module.Win.MasterDetail.MDOrder" NormalCriteria="1=1" ChildListView="MDOrderLine_ListView" CollectionMember="OrderLines" View="MDOrder_ListView" />      
+    </Rules>
+  </MasterDetail>
+</Application>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+  <Views>
+    <DetailView Id="ControllingSearchCustomer_DetailView">
+      <Items>
+        <PropertyEditor Id="City" SearchMemberMode="Include" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

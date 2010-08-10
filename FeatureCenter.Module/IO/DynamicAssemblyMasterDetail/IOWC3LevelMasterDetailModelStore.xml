@@ -1,0 +1,2062 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SerializedObjects>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;MasterDetail&gt;
+    &lt;Rules&gt;
+      &lt;MasterDetailRule Id="IODMDCustomer_Orders" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDCustomer" CollectionMember="IODMDOrders" ChildListView="IODMDOrder_ListView" NormalCriteria="1=1" /&gt;
+      &lt;MasterDetailRule Id="IODMDOrder_OrderLines" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDOrder" CollectionMember="IODMDOrderLines" ChildListView="IODMDOrderLine_ListView" NormalCriteria="1=1" /&gt;
+    &lt;/Rules&gt;
+  &lt;/MasterDetail&gt;
+  &lt;NavigationItems&gt;
+    &lt;Items&gt;
+      &lt;Item Id="IO"&gt;
+        &lt;Items&gt;
+          &lt;Item Id="Dynamic assembly Master detail" IsNewNode="True" ViewId="IODMDCustomer_ListView" Caption="Master detail" /&gt;
+        &lt;/Items&gt;
+      &lt;/Item&gt;
+    &lt;/Items&gt;
+  &lt;/NavigationItems&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="IODMDCustomer_ListView"&gt;
+      &lt;GridViewOptions&gt;
+        &lt;OptionsDetail EnableMasterViewMode="True" /&gt;
+        &lt;OptionsView ShowDetailButtons="True" /&gt;
+      &lt;/GridViewOptions&gt;
+    &lt;/ListView&gt;
+    &lt;ListView Id="IODMDOrder_ListView"&gt;
+      &lt;Columns&gt;
+        &lt;ColumnInfo Id="IODMDCustomer" Index="-1" /&gt;
+      &lt;/Columns&gt;
+      &lt;GridViewOptions&gt;
+        &lt;OptionsDetail EnableMasterViewMode="True" /&gt;
+        &lt;OptionsView ShowDetailButtons="True" /&gt;
+      &lt;/GridViewOptions&gt;
+    &lt;/ListView&gt;
+    &lt;ListView Id="IODMDOrderLine_ListView"&gt;
+      &lt;Columns&gt;
+        &lt;ColumnInfo Id="IODMDOrder" Index="-1" /&gt;
+      &lt;/Columns&gt;
+    &lt;/ListView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[IOWC3LevelMasterDetailModelStore]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663426970000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">f5177d83-a66b-4315-ab11-ebf546c2cc77</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentApplication">
+    <Property type="simple" name="Name" isKey="false"><![CDATA[FeatureCenter]]></Property>
+    <Property type="simple" name="UniqueName" isKey="false"><![CDATA[FeatureCenter.Win.FeatureCenterWindowsFormsApplication]]></Property>
+    <Property type="simple" name="ExecutableName" isKey="false"><![CDATA[FeatureCenter.Win.exe]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">1f6031d4-7144-44e0-848f-29662cffbb81</Property>
+    <Property type="collection" name="ModelDifferenceObjects" isKey="false">
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">4ab25cd8-62b1-4d84-be66-01d1c0a0b8fd</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">5306caac-30a2-4f70-8552-0249f1c83809</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">c52abee8-7ba6-4e40-a794-09d7c8b49e10</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">ff44e279-a015-4fab-bec3-0acf30fe3a7d</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">9a21c777-755a-4598-9fa8-12c95f7bd68b</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">f3d50536-58ef-424f-8e2b-171864702aa2</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">76e79c1e-9df0-4673-9330-1f3701fcabe1</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">7dbc66fe-1f9d-4561-9e00-23b366008fd9</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">1a327d63-629d-4b99-b1a7-33e38507a1e5</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">5f612600-f3a2-476a-b3bf-37ca8e4ac73d</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">891a4b9b-b3e2-4d3b-bef7-3830bcd3d818</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">64df56c7-baac-4898-8b0f-3d403075394d</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">2ba0cb68-f854-493e-9f27-3d4df49483ba</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">d0139789-008f-4f18-bb17-3e922a1fd2a2</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">a51b3759-f1d0-4915-a78c-44f5582caf47</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">b9dfdf67-3d27-47c8-a4be-451adf986321</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">8380ff46-ed65-422a-84b9-4e8fe9f4380b</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">145c92c7-5547-42cf-b5eb-50d218622a3d</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">1bab4ae4-8672-4589-888c-538aafd85557</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">35be880c-15bc-4613-a3eb-5b93671bb1d3</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">b69273c2-0d9b-477c-a4d4-61c9ba83e78e</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">607723d0-5cc9-4d40-96ae-61dc66376031</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">2dc76f08-b6e3-424d-9e92-62b984e40eae</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">ac9d7068-03f3-4a89-bf59-65afffce0152</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">e7f9f3b9-0dc7-4fc3-9bf5-6d65671e8645</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">def3f8b5-f475-410c-9247-6fe091d9c95f</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">9e83dce0-5410-4f7a-9003-71a363defc42</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">5a5594a1-e3b8-4e95-9ff9-74d5f59b277d</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">93fa4952-590c-4539-8314-759ee349790f</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">671a27a3-d30a-406b-b282-75ffb233eaec</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">aa8204f1-9c3e-4476-b868-8ecf12baa9b0</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">764a6e60-0064-4865-8614-8fc4ae7a5c8e</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">db09177d-84b7-4c2a-8a98-934fcfa114c3</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">2e003adc-7009-4944-b8d9-9746149f3a4e</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="UserModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">64638f51-eb6a-483b-8b3e-9e933ba87cc4</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">df739a21-caab-4f92-8585-a741ac1be064</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">aa0b5680-d789-44de-8f9e-a7eb49a0a371</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">c8a09ab7-62c7-4091-8ab0-b5098a5c7464</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">c1b9faed-fe20-4123-bdc3-b5fb39fd5a5c</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">f4e1ef16-54be-4b99-bcda-b895029b19c9</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">b1280773-5d5e-468d-a5e1-bfe6122c5c27</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">f252449e-e292-47ad-9bbd-c3bb4250a93f</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">87f55a92-ba96-47e4-b138-c8b52acdd095</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">8518f103-0376-4444-930e-d964f63a593c</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">f4a9b54f-b0b5-4a2b-b133-d9e08db05f3a</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">2b6e2d29-bc24-4581-bc25-e1f2248ca052</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">de44d1d1-2168-4523-b890-e2e96c60de8c</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">530fac8b-dd2e-4ff1-ac6e-e74a001412dd</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">f5177d83-a66b-4315-ab11-ebf546c2cc77</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">11d869b9-c30a-4954-aa1d-ef70a7e03b11</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">2a006334-61b0-4c3b-8363-f020d13c48f2</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">b2ea0167-f605-41bc-bd57-f08fa4b9570a</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">5a668da3-41f4-4e42-a38c-f6361246534d</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">25d7a779-c442-4b6f-ad2b-f9aba4141e4d</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Options ConnectionInfoMessage="True" /&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="ConnectionInfoStatus_DetailView"&gt;
+      &lt;Layout&gt;
+        &lt;LayoutGroup Id="Main" RelativeSize="100"&gt;
+          &lt;LayoutGroup Id="SimpleEditors" Direction="Horizontal" RelativeSize="100"&gt;
+            &lt;LayoutGroup Id="CustomerBase" Removed="True" /&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;LayoutGroup Id="Orders_Group" Removed="True" /&gt;
+          &lt;LayoutGroup Id="SizeableEditors" Removed="True" /&gt;
+        &lt;/LayoutGroup&gt;
+      &lt;/Layout&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ConnectionInfoStatus]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663471670000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">4ab25cd8-62b1-4d84-be66-01d1c0a0b8fd</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;AdditionalViewControls&gt;
+    &lt;Rules&gt;
+      &lt;AdditionalViewControlsRule Id="Header Pivot InPlaceEdit" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In Place Edit" NormalCriteria="Name='InPlaceEdit'" Position="Top" ViewType="DetailView" ControlType="FeatureCenter.Module.Win.ApplicationCaption" /&gt;
+      &lt;AdditionalViewControlsRule Id="ViewMessage Pivot InPlaceEdit" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how you can enable in place editing for your pivot grid" NormalCriteria="Name='InPlaceEdit'" Position="Bottom" ViewType="DetailView" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" /&gt;
+    &lt;/Rules&gt;
+  &lt;/AdditionalViewControls&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="InPlaceEdit_DetailView"&gt;
+      &lt;Items&gt;
+        &lt;PropertyEditor Id="Self" InPlaceEdit="True" /&gt;
+      &lt;/Items&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[InPlaceEdit]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663465870000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">5306caac-30a2-4f70-8552-0249f1c83809</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="DisableFullTextForMemoFields_ListView" DisableFullTextForMemoFields="True" /&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[DisableFullTextForMemoFields]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663469100000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">c52abee8-7ba6-4e40-a794-09d7c8b49e10</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="AutoCommit_ListView" AllowEdit="True" AutoCommitListView="True" SupressConfirmation="True" /&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[AutoCommitListView]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663472270000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">ff44e279-a015-4fab-bec3-0acf30fe3a7d</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;AdditionalViewControls&gt;
+    &lt;GroupContexts&gt;
+      &lt;ExecutionContexts Id="ConditionalControlAndMessage" IsNewNode="True" /&gt;
+    &lt;/GroupContexts&gt;
+    &lt;Rules&gt;
+      &lt;AdditionalViewControlsRule Id="Conditional Additional View Control And Message" ExecutionContextGroup="ConditionalControlAndMessage" /&gt;
+    &lt;/Rules&gt;
+  &lt;/AdditionalViewControls&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ConditionalControlAndMessage]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663468930000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">9a21c777-755a-4598-9fa8-12c95f7bd68b</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="HidePopupMenu_ListView" HidePopupMenu="True" /&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[HidePopupMenu]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663474300000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">f3d50536-58ef-424f-8e2b-171864702aa2</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;BOModel&gt;
+    &lt;Class Name="FeatureCenter.Module.Customer"&gt;
+      &lt;OwnMembers&gt;
+        &lt;Member Name="RuntimeMember" IsNewNode="True" Type="System.String" IsRuntimeMember="True" /&gt;
+      &lt;/OwnMembers&gt;
+    &lt;/Class&gt;
+  &lt;/BOModel&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="RuntimeFieldsFromModel_DetailView"&gt;
+      &lt;Items&gt;
+        &lt;PropertyEditor Id="RuntimeMember" IsNewNode="True" PropertyName="RuntimeMember" /&gt;
+      &lt;/Items&gt;
+      &lt;Layout&gt;
+        &lt;LayoutGroup Id="Main" RelativeSize="100"&gt;
+          &lt;LayoutItem Id="RuntimeMember" IsNewNode="True" Index="0" RelativeSize="4" /&gt;
+          &lt;LayoutGroup Id="SimpleEditors" Direction="Horizontal" Index="1" RelativeSize="95"&gt;
+            &lt;LayoutGroup Id="Customer" Removed="True" /&gt;
+            &lt;LayoutGroup Id="CustomerBase" Removed="True" /&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;LayoutGroup Id="Orders_Group" Removed="True" /&gt;
+          &lt;LayoutGroup Id="SizeableEditors" Removed="True" /&gt;
+        &lt;/LayoutGroup&gt;
+      &lt;/Layout&gt;
+    &lt;/DetailView&gt;
+    &lt;ListView Id="RuntimeFieldsFromModel_ListView"&gt;
+      &lt;Columns&gt;
+        &lt;ColumnInfo Id="City" Index="-1" /&gt;
+        &lt;ColumnInfo Id="Name" Index="-1" /&gt;
+        &lt;ColumnInfo Id="RuntimeMember" IsNewNode="True" PropertyName="RuntimeMember" /&gt;
+      &lt;/Columns&gt;
+    &lt;/ListView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[RuntimeFieldsFromModel]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663468770000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">76e79c1e-9df0-4673-9330-1f3701fcabe1</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="LoadWhenFiltered_ListView" LoadWhenFiltered="True" /&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[LoadWhenFiltered]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663469330000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">7dbc66fe-1f9d-4561-9e00-23b366008fd9</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;AdditionalViewControls&gt;
+    &lt;Rules&gt;
+      &lt;AdditionalViewControlsRule Id="Header HidePivot" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Hide Pivot" NormalCriteria="Name='HidePivot'" Position="Top" ViewType="DetailView" ControlType="FeatureCenter.Module.Win.ApplicationCaption" /&gt;
+      &lt;AdditionalViewControlsRule Id="ViewMessage HidePivot" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how you can hide the pivot control" NormalCriteria="Name='HidePivot'" Position="Bottom" ViewType="DetailView" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" /&gt;
+    &lt;/Rules&gt;
+  &lt;/AdditionalViewControls&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="HidePivot_DetailView"&gt;
+      &lt;Items&gt;
+        &lt;PropertyEditor Id="Self" AnalysisControlVisibility="Chart" /&gt;
+      &lt;/Items&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[HidePivot]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663469870000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">1a327d63-629d-4b99-b1a7-33e38507a1e5</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="GuessAutoFilterRowValues_ListView" ShowAutoFilterRow="True" GuessAutoFilterRowValuesFromFilter="True" ActiveFilterString="[City] Like 'paris%'" /&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[GuessAutoFilterRowValues]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663472530000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">5f612600-f3a2-476a-b3bf-37ca8e4ac73d</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;MasterDetail&gt;
+    &lt;Rules&gt;
+      &lt;MasterDetailRule Id="EAMDCustomer-Orders" IsNewNode="True" TypeInfo="FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail.EAMDCustomer" CollectionMember="Orders" ChildListView="EAMDOrder_ListView" NormalCriteria="1=1" /&gt;
+    &lt;/Rules&gt;
+  &lt;/MasterDetail&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="EAMDCustomer_ListView"&gt;
+      &lt;GridViewOptions&gt;
+        &lt;OptionsDetail EnableMasterViewMode="True" /&gt;
+        &lt;OptionsView ShowDetailButtons="True" /&gt;
+      &lt;/GridViewOptions&gt;
+    &lt;/ListView&gt;
+    &lt;ListView Id="EAMDOrder_ListView"&gt;
+      &lt;Columns&gt;
+        &lt;ColumnInfo Id="Customer" Index="-1" /&gt;
+      &lt;/Columns&gt;
+    &lt;/ListView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ExistentAssemblyMasterDetailModelStore]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663388270000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">891a4b9b-b3e2-4d3b-bef7-3830bcd3d818</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="ControllingSearchCustomer_DetailView"&gt;
+      &lt;Items&gt;
+        &lt;PropertyEditor Id="City" SearchMemberMode="Include" /&gt;
+      &lt;/Items&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ControllingDetailViewSearch]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663470200000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">64df56c7-baac-4898-8b0f-3d403075394d</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="HideNestedListToolBarView_ListView" HideToolBar="True" /&gt;
+    &lt;DetailView Id="HideNestedListViewToolBar_DetailView"&gt;
+      &lt;Items&gt;
+        &lt;PropertyEditor Id="Orders" View="HideNestedListToolBarView_ListView" /&gt;
+      &lt;/Items&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[HideNestedListViewToolBar]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663470400000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">2ba0cb68-f854-493e-9f27-3d4df49483ba</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;AdditionalViewControls&gt;
+    &lt;Rules&gt;
+      &lt;AdditionalViewControlsRule Id="Header External Application Differences" IsNewNode="True" Index="0" TypeInfo="eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="External Application Differences" View="" ControlType="FeatureCenter.Module.Win.ApplicationCaption" /&gt;
+      &lt;AdditionalViewControlsRule Id="ViewMessage External Application Difference" IsNewNode="True" Index="0" TypeInfo="eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="In this view you can see the application model difference of an external application (this could be a web application as well). Use the start external application action on the main tool bar and note that diffs that have been applied. You are free to change the diffs as you wish to test the behaviour" NormalCriteria="1=1" Position="Bottom" View="" UseSameType="False" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" /&gt;
+    &lt;/Rules&gt;
+  &lt;/AdditionalViewControls&gt;
+  &lt;NavigationItems&gt;
+    &lt;Items&gt;
+      &lt;Item Id="Application Differences" IsNewNode="True"&gt;
+        &lt;Items IsNewNode="True"&gt;
+          &lt;Item Id="External Application" IsNewNode="True" Caption="External Application" ViewId="ExternalApplication_DetailView" ObjectKey="@ExternalApplicationKey" /&gt;
+        &lt;/Items&gt;
+      &lt;/Item&gt;
+    &lt;/Items&gt;
+  &lt;/NavigationItems&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="ExternalApplication_DetailView" IsNewNode="True" ClassName="eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject"&gt;
+      &lt;Items IsNewNode="True"&gt;
+        &lt;PropertyEditor Id="CombineOrder" IsNewNode="True" PropertyName="CombineOrder" /&gt;
+        &lt;PropertyEditor Id="DateCreated" IsNewNode="True" PropertyName="DateCreated" /&gt;
+        &lt;PropertyEditor Id="DifferenceType" IsNewNode="True" PropertyName="DifferenceType" /&gt;
+        &lt;PropertyEditor Id="Disabled" IsNewNode="True" PropertyName="Disabled" /&gt;
+        &lt;PropertyEditor Id="Model" IsNewNode="True" PropertyName="Model" /&gt;
+        &lt;PropertyEditor Id="Name" IsNewNode="True" PropertyName="Name" /&gt;
+        &lt;PropertyEditor Id="PersistentApplication.Name" IsNewNode="True" PropertyName="PersistentApplication.Name" /&gt;
+        &lt;PropertyEditor Id="XmlContent" IsNewNode="True" PropertyName="XmlContent" /&gt;
+      &lt;/Items&gt;
+      &lt;Layout IsNewNode="True" Width="1127" Height="777"&gt;
+        &lt;TabbedGroup Id="5553961c-0806-4ee9-9ecd-d99d869bf4c6" IsNewNode="True" Index="0" RelativeSize="100"&gt;
+          &lt;LayoutGroup Id="Item2" IsNewNode="True" ShowCaption="True" Caption="Model" CaptionLocation="Top" Index="0" RelativeSize="100"&gt;
+            &lt;LayoutItem Id="Model" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" /&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;LayoutGroup Id="Item1" IsNewNode="True" ShowCaption="True" Caption="Xml Content" CaptionLocation="Top" Index="1" RelativeSize="100"&gt;
+            &lt;LayoutItem Id="XmlContent" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" /&gt;
+          &lt;/LayoutGroup&gt;
+        &lt;/TabbedGroup&gt;
+      &lt;/Layout&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ExternalApplication]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663469200000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">d0139789-008f-4f18-bb17-3e922a1fd2a2</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;MasterDetail&gt;
+    &lt;Rules&gt;
+      &lt;MasterDetailRule Id="DMDCustomer_Orders" IsNewNode="True" TypeInfo="MasterDetailDynamicAssembly.DMDCustomer" CollectionMember="DMDOrders" ChildListView="DMDOrder_ListView" NormalCriteria="1=1" /&gt;
+      &lt;MasterDetailRule Id="DMDOrder_OrderLines" IsNewNode="True" TypeInfo="MasterDetailDynamicAssembly.DMDOrder" CollectionMember="DMDOrderLines" ChildListView="DMDOrderLine_ListView" NormalCriteria="1=1" /&gt;
+    &lt;/Rules&gt;
+  &lt;/MasterDetail&gt;
+  &lt;NavigationItems&gt;
+    &lt;Items&gt;
+      &lt;Item Id="WorldCreator"&gt;
+        &lt;Items&gt;
+          &lt;Item Id="Dynamic assembly Master detail" IsNewNode="True" ViewId="DMDCustomer_ListView" Caption="Master detail" /&gt;
+        &lt;/Items&gt;
+      &lt;/Item&gt;
+    &lt;/Items&gt;
+  &lt;/NavigationItems&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="DMDCustomer_ListView"&gt;
+      &lt;GridViewOptions&gt;
+        &lt;OptionsDetail EnableMasterViewMode="True" /&gt;
+        &lt;OptionsView ShowDetailButtons="True" /&gt;
+      &lt;/GridViewOptions&gt;
+    &lt;/ListView&gt;
+    &lt;ListView Id="DMDOrder_ListView"&gt;
+      &lt;Columns&gt;
+        &lt;ColumnInfo Id="DMDCustomer" Index="-1" /&gt;
+      &lt;/Columns&gt;
+      &lt;GridViewOptions&gt;
+        &lt;OptionsDetail EnableMasterViewMode="True" /&gt;
+        &lt;OptionsView ShowDetailButtons="True" /&gt;
+      &lt;/GridViewOptions&gt;
+    &lt;/ListView&gt;
+    &lt;ListView Id="DMDOrderLine_ListView"&gt;
+      &lt;Columns&gt;
+        &lt;ColumnInfo Id="DMDOrder" Index="-1" /&gt;
+      &lt;/Columns&gt;
+    &lt;/ListView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[WC3LevelMasterDetailModelStore]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663340030000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">a51b3759-f1d0-4915-a78c-44f5582caf47</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="CursorPosition_DetailView"&gt;
+      &lt;Items&gt;
+        &lt;PropertyEditor Id="Description" CursorPosition="Start" /&gt;
+        &lt;PropertyEditor Id="Name" CursorPosition="End" /&gt;
+      &lt;/Items&gt;
+      &lt;Layout&gt;
+        &lt;LayoutGroup Id="Main" RelativeSize="100"&gt;
+          &lt;LayoutGroup Id="SimpleEditors" RelativeSize="8"&gt;
+            &lt;LayoutGroup Id="CustomerBase" RelativeSize="100"&gt;
+              &lt;LayoutItem Id="Name" RelativeSize="51" /&gt;
+              &lt;LayoutItem Id="City" RelativeSize="48" /&gt;
+            &lt;/LayoutGroup&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;LayoutGroup Id="SizeableEditors" RelativeSize="91"&gt;
+            &lt;LayoutItem Id="Description" RelativeSize="100" /&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;LayoutGroup Id="WinOrders_Group" Removed="True" /&gt;
+        &lt;/LayoutGroup&gt;
+      &lt;/Layout&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[CursorPosition]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663473130000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">b9dfdf67-3d27-47c8-a4be-451adf986321</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="HighlightFocusedLayoutItem_DetailView" HighlightFocusedLayoutItem="True" /&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[HighlightFocusedLayoutItem]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663470800000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">8380ff46-ed65-422a-84b9-4e8fe9f4380b</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string /></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ShowInAnalysis]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663471500000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">145c92c7-5547-42cf-b5eb-50d218622a3d</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;AdditionalViewControls&gt;
+    &lt;GroupContexts&gt;
+      &lt;ExecutionContexts Id="UpdateOnlyChangeFields" IsNewNode="True" /&gt;
+    &lt;/GroupContexts&gt;
+  &lt;/AdditionalViewControls&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[UpdateOnlyChangeFields]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663469570000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">1bab4ae4-8672-4589-888c-538aafd85557</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;ModelArtifactState&gt;
+    &lt;ConditionalControllerState&gt;
+      &lt;GroupContexts&gt;
+        &lt;ExecutionContexts Id="ConditionalForeignKeyViolation" IsNewNode="True"&gt;
+          &lt;CurrentObjectChanged IsNewNode="True" Index="0" /&gt;
+          &lt;ViewChanging IsNewNode="True" Index="0" /&gt;
+          &lt;ViewChanging IsNewNode="True" Index="0" /&gt;
+          &lt;CurrentObjectChanged IsNewNode="True" Index="0" /&gt;
+        &lt;/ExecutionContexts&gt;
+      &lt;/GroupContexts&gt;
+      &lt;Rules&gt;
+        &lt;ControllerStateRule Id="ConditionalForeignKeyViolation" ExecutionContextGroup="ConditionalForeignKeyViolation" /&gt;
+        &lt;ControllerStateRule Id="ConditionalShowDetailView" ExecutionContextGroup="ConditionalForeignKeyViolation" /&gt;
+      &lt;/Rules&gt;
+    &lt;/ConditionalControllerState&gt;
+  &lt;/ModelArtifactState&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="ConditionalForeignKeyViolationAndShowDetailView_ListView" EnableFKViolations="True" /&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ConditionalForeignKeyViolationAndShowDetailView]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663470900000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">35be880c-15bc-4613-a3eb-5b93671bb1d3</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="FocusControl_DetailView" HighlightFocusedLayoutItem="True"&gt;
+      &lt;Items&gt;
+        &lt;PropertyEditor Id="Description" FocusShortcut="CtrlG" /&gt;
+      &lt;/Items&gt;
+      &lt;Layout&gt;
+        &lt;LayoutItem Id="Name" IsNewNode="True" Index="0" RelativeSize="4" /&gt;
+        &lt;LayoutItem Id="City" IsNewNode="True" Index="1" RelativeSize="3" /&gt;
+        &lt;TabbedGroup Id="Item1" IsNewNode="True" CaptionLocation="Top" Index="2" RelativeSize="92"&gt;
+          &lt;LayoutGroup Id="Main" IsNewNode="True" Index="0" RelativeSize="100"&gt;
+            &lt;LayoutGroup Id="SizeableEditors" IsNewNode="True" Caption="Description" Direction="Horizontal" Index="0" RelativeSize="100" /&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;LayoutGroup Id="Item2" IsNewNode="True" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="100"&gt;
+            &lt;LayoutItem Id="Description" IsNewNode="True" Index="0" RelativeSize="100" /&gt;
+          &lt;/LayoutGroup&gt;
+        &lt;/TabbedGroup&gt;
+        &lt;LayoutGroup Id="Main" Removed="True" /&gt;
+      &lt;/Layout&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[FocusControl]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663475230000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">b69273c2-0d9b-477c-a4d4-61c9ba83e78e</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="AutoExpandNewRowCustomer_ListView" NewItemRowPosition="Top" AllowEdit="True" SupressConfirmation="True" AutoExpandNewRow="True"&gt;
+      &lt;GridViewOptions&gt;
+        &lt;OptionsDetail AllowExpandEmptyDetails="True" EnableMasterViewMode="True" /&gt;
+        &lt;OptionsView ShowDetailButtons="True" /&gt;
+      &lt;/GridViewOptions&gt;
+    &lt;/ListView&gt;
+    &lt;ListView Id="AutoExpandNewRowOrder_ListView" AllowEdit="True" NewItemRowPosition="Top" AutoExpandNewRow="True"&gt;
+      &lt;Columns&gt;
+        &lt;ColumnInfo Id="Customer" Index="-1" /&gt;
+      &lt;/Columns&gt;
+    &lt;/ListView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[AutoExpandNewRow]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663474770000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">607723d0-5cc9-4d40-96ae-61dc66376031</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;AdditionalViewControls&gt;
+    &lt;Rules&gt;
+      &lt;AdditionalViewControlsRule Id="Header Pivot PivotGroupInterval" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Pivot Group Interval" NormalCriteria="Name='PivotGroupInterval'" Position="Top" ViewType="DetailView" ControlType="FeatureCenter.Module.Win.ApplicationCaption" /&gt;
+      &lt;AdditionalViewControlsRule Id="ViewMessage Pivot PivotGroupInterval" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how you can control the group interval for your date fields. Here you see orderline grouped by year" NormalCriteria="Name='PivotGroupInterval'" Position="Bottom" ViewType="DetailView" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" /&gt;
+    &lt;/Rules&gt;
+  &lt;/AdditionalViewControls&gt;
+  &lt;BOModel&gt;
+    &lt;Class Name="FeatureCenter.Base.OrderLineBase"&gt;
+      &lt;OwnMembers&gt;
+        &lt;Member Name="OrderLineDate" PivotGroupInterval="DateYear" /&gt;
+      &lt;/OwnMembers&gt;
+    &lt;/Class&gt;
+  &lt;/BOModel&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[PivotGroupInterval]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663471330000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">2dc76f08-b6e3-424d-9e92-62b984e40eae</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="ForeignKeyViolation_ListView" EnableFKViolations="True" /&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ForeignKeyViolation]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663467300000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">ac9d7068-03f3-4a89-bf59-65afffce0152</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;NavigationItems StartupNavigationItem="Welcome" /&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="WelcomeObject_DetailView"&gt;
+      &lt;Items&gt;
+        &lt;StaticText Id="Welcome_Static" Text="This demo has been designed to help you quickly get acquainted with the eXpand Framework and start using it effectively. &amp;#xD;&amp;#xA;If you are new to the eXpand Framework, you can get a glimpse of various features offered by it. Each individual demo shows off some particular XAF feature and comes with a description of that functionality.&amp;#xD;&amp;#xA;If you are a seasoned XAF developer, this demo can prove valuable to you too. You can refer to this demo's source code to see how some specific behavior can be implemented.&amp;#xD;&amp;#xA;&amp;#xD;&amp;#xA; Also in this view we demo the ability of eXpand to use non peristent detailviews as Navigation items views&amp;#xD;&amp;#xA;&amp;#xD;&amp;#xA;To navigate through the individual demos, use the tree view on the left." IsNewNode="True" /&gt;
+      &lt;/Items&gt;
+      &lt;Layout&gt;
+        &lt;LayoutGroup Id="Main" IsNewNode="True" Index="0" RelativeSize="100" Caption="Main" Direction="Vertical"&gt;
+          &lt;LayoutItem Id="Welcome_Static" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" /&gt;
+        &lt;/LayoutGroup&gt;
+      &lt;/Layout&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[Welcome]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663466070000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">e7f9f3b9-0dc7-4fc3-9bf5-6d65671e8645</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="FilterControl_ListView" ActiveFilterString="City='Paris'" FilterControlPosition="Left" /&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[FilterControl]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663472930000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">def3f8b5-f475-410c-9247-6fe091d9c95f</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="XtraGridViewOptions_ListView"&gt;
+      &lt;GridViewOptions&gt;
+        &lt;OptionsCustomization AllowColumnMoving="False" /&gt;
+        &lt;OptionsMenu EnableColumnMenu="False" /&gt;
+        &lt;OptionsNavigation UseTabKey="True" /&gt;
+        &lt;OptionsView ShowHorzLines="False" ShowVertLines="False" AnimationType="AnimateAllContent" ShowFilterPanel="True" ShowFilterPanelMode="ShowAlways" ShowColumnHeaders="False" /&gt;
+      &lt;/GridViewOptions&gt;
+    &lt;/ListView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[XtraGridViewOptions]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663473800000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">9e83dce0-5410-4f7a-9003-71a363defc42</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="AMIObject_DetailView"&gt;
+      &lt;Items&gt;
+        &lt;ActionButton Id="d94c7ee7-6c8e-44dc-88d8-d1456e266f3e" IsNewNode="True" ActionId="Show another instance" /&gt;
+      &lt;/Items&gt;
+    &lt;/DetailView&gt;
+    &lt;DetailView Id="LOCustomer_DetailView"&gt;
+      &lt;Items&gt;
+        &lt;ActionButton Id="381b9740-3a95-4baf-803b-35a4c867f339" IsNewNode="True" ActionId="LogOut" /&gt;
+      &lt;/Items&gt;
+      &lt;Layout&gt;
+        &lt;LayoutGroup Id="Main" IsNewNode="True" Caption="Main(1)" Index="0" RelativeSize="100"&gt;
+          &lt;LayoutItem Id="381b9740-3a95-4baf-803b-35a4c867f339" IsNewNode="True" Index="0" RelativeSize="100" ShowCaption="False" /&gt;
+        &lt;/LayoutGroup&gt;
+      &lt;/Layout&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ApplicationMultipleInstances]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663474130000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">5a5594a1-e3b8-4e95-9ff9-74d5f59b277d</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Validation&gt;
+    &lt;Rules&gt;
+      &lt;RuleUniqueValue Id="FDSSCustomer_Unique_Name" IsNewNode="True" TargetType="FeatureCenter.Module.FilterDataStore.SkinFilter.FDSSCustomer" TargetContextIDs="Save" TargetPropertyName="Name" /&gt;
+    &lt;/Rules&gt;
+  &lt;/Validation&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[UserFilter]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663470130000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">93fa4952-590c-4539-8314-759ee349790f</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="DisableEditDetailView_DetailView" AllowEdit="False" /&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[DisableEditDetailView]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663469400000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">671a27a3-d30a-406b-b282-75ffb233eaec</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Validation&gt;
+    &lt;Rules&gt;
+      &lt;RuleUniqueValue Id="FDSSCustomer_Unique_Name" IsNewNode="True" TargetType="FeatureCenter.Module.FilterDataStore.SkinFilter.FDSSCustomer" TargetContextIDs="Save" TargetPropertyName="Name" /&gt;
+    &lt;/Rules&gt;
+  &lt;/Validation&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[SkinFilter]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663467370000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">aa8204f1-9c3e-4476-b868-8ecf12baa9b0</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string /></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ModelCombine]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663391170000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">764a6e60-0064-4865-8614-8fc4ae7a5c8e</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="ActionButtonViewItem_DetailView"&gt;
+      &lt;Items&gt;
+        &lt;ActionButton Id="Get Last Order Line Date" IsNewNode="True" ActionId="LastOrderLineDate" Caption="Get Last Order Line Date" /&gt;
+        &lt;ActionButton Id="Save" IsNewNode="True" ActionId="Save" Caption="Save Object" /&gt;
+      &lt;/Items&gt;
+      &lt;Layout&gt;
+        &lt;LayoutGroup Id="Main" RelativeSize="100"&gt;
+          &lt;LayoutGroup Id="SimpleEditors" RelativeSize="100"&gt;
+            &lt;LayoutGroup Id="CustomerBase" Caption="Birth Date" RelativeSize="100"&gt;
+              &lt;LayoutItem Id="BirthDate" IsNewNode="True" Index="0" RelativeSize="4" /&gt;
+              &lt;LayoutGroup Id="07164c4c-ef67-4fb4-a8c9-c239fbda0662" IsNewNode="True" Caption="" Direction="Horizontal" Index="1" RelativeSize="95"&gt;
+                &lt;LayoutItem Id="Get Last Order Line Date" IsNewNode="True" Index="0" RelativeSize="49" /&gt;
+                &lt;LayoutItem Id="Save" IsNewNode="True" Index="1" RelativeSize="50" /&gt;
+              &lt;/LayoutGroup&gt;
+              &lt;LayoutItem Id="City" Removed="True" /&gt;
+              &lt;LayoutItem Id="Name" Removed="True" /&gt;
+            &lt;/LayoutGroup&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;LayoutGroup Id="Orders_Group" Removed="True" /&gt;
+          &lt;LayoutGroup Id="SizeableEditors" Removed="True" /&gt;
+        &lt;/LayoutGroup&gt;
+      &lt;/Layout&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ActionButtonViewItem]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663466900000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">db09177d-84b7-4c2a-8a98-934fcfa114c3</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;AdditionalViewControls&gt;
+    &lt;Rules&gt;
+      &lt;AdditionalViewControlsRule Id="Header HideChart" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Hide Chart" NormalCriteria="Name='HideChart'" Position="Top" ViewType="DetailView" ControlType="FeatureCenter.Module.Win.ApplicationCaption" /&gt;
+      &lt;AdditionalViewControlsRule Id="ViewMessage HideChart" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how you can hide the chart control" NormalCriteria="Name='HideChart'" Position="Bottom" ViewType="DetailView" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" /&gt;
+    &lt;/Rules&gt;
+  &lt;/AdditionalViewControls&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="HideChart_DetailView"&gt;
+      &lt;Items&gt;
+        &lt;PropertyEditor Id="Self" AnalysisControlVisibility="Pivot" /&gt;
+      &lt;/Items&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[HideChart]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663467230000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">2e003adc-7009-4944-b8d9-9746149f3a4e</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="UserModelDifferenceObject">
+    <Property type="simple" name="NonPersistent" isKey="false">False</Property>
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string /></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">1</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[AutoCreated for admin 5/8/2010 12:52:30 πμ]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663505130000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">64638f51-eb6a-483b-8b3e-9e933ba87cc4</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="Users" isKey="false">
+      <SerializedObjectRef type="User" strategy="SerializeAsObject">
+        <Key name="oid">ec6b3699-9715-410c-9be8-879d29ec70fd</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="User">
+    <Property type="simple" name="UserName" isKey="false"><![CDATA[admin]]></Property>
+    <Property type="simple" name="ChangePasswordOnFirstLogon" isKey="false">False</Property>
+    <Property type="simple" name="IsActive" isKey="false">True</Property>
+    <Property type="simple" name="StoredPassword" isKey="false"><![CDATA[]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="FirstName" isKey="false"><![CDATA[Administrator]]></Property>
+    <Property type="simple" name="LastName" isKey="false"><![CDATA[]]></Property>
+    <Property type="simple" name="MiddleName" isKey="false"><![CDATA[]]></Property>
+    <Property type="simple" name="Birthday" isKey="false"></Property>
+    <Property type="simple" name="Email" isKey="false"><![CDATA[]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Photo" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">ec6b3699-9715-410c-9be8-879d29ec70fd</Property>
+    <Property type="object" name="Address1" isKey="false">
+      <SerializedObjectRef type="Address" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="Address2" isKey="false">
+      <SerializedObjectRef type="Address" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="Roles" isKey="false">
+      <SerializedObjectRef type="Role" strategy="SerializeAsObject">
+        <Key name="oid">a9ccabea-6644-475e-8a3e-dbc25c19c780</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="UserModelDifferenceObjects" isKey="false">
+      <SerializedObjectRef type="UserModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">64638f51-eb6a-483b-8b3e-9e933ba87cc4</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="PhoneNumbers" isKey="false" />
+  </SerializedObject>
+  <SerializedObject type="Role">
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[Administrators]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">a9ccabea-6644-475e-8a3e-dbc25c19c780</Property>
+    <Property type="collection" name="Users" isKey="false">
+      <SerializedObjectRef type="User" strategy="SerializeAsObject">
+        <Key name="oid">ec6b3699-9715-410c-9be8-879d29ec70fd</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="User" strategy="SerializeAsObject">
+        <Key name="oid">3128ce8a-3581-46a6-9bc0-2766ec573fbb</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="RoleModelDifferenceObjects" isKey="false" />
+    <Property type="collection" name="PersistentPermissions" isKey="false">
+      <SerializedObjectRef type="PersistentPermission" strategy="SerializeAsObject">
+        <Key name="oid">56ce88ba-3743-4ee9-ad14-14f0363f4442</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="PersistentPermission" strategy="SerializeAsObject">
+        <Key name="oid">60b05a59-68c5-4bcd-8ed2-78cc4cf6dc71</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="PersistentPermission" strategy="SerializeAsObject">
+        <Key name="oid">dba26564-2b75-4a15-9a92-e7b8e6676557</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="User">
+    <Property type="simple" name="UserName" isKey="false"><![CDATA[filterbyuser]]></Property>
+    <Property type="simple" name="ChangePasswordOnFirstLogon" isKey="false">False</Property>
+    <Property type="simple" name="IsActive" isKey="false">True</Property>
+    <Property type="simple" name="StoredPassword" isKey="false"><![CDATA[]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="FirstName" isKey="false"><![CDATA[filterbyuser]]></Property>
+    <Property type="simple" name="LastName" isKey="false"><![CDATA[]]></Property>
+    <Property type="simple" name="MiddleName" isKey="false"><![CDATA[]]></Property>
+    <Property type="simple" name="Birthday" isKey="false"></Property>
+    <Property type="simple" name="Email" isKey="false"><![CDATA[]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Photo" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">3128ce8a-3581-46a6-9bc0-2766ec573fbb</Property>
+    <Property type="object" name="Address1" isKey="false">
+      <SerializedObjectRef type="Address" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="Address2" isKey="false">
+      <SerializedObjectRef type="Address" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="Roles" isKey="false">
+      <SerializedObjectRef type="Role" strategy="SerializeAsObject">
+        <Key name="oid">a9ccabea-6644-475e-8a3e-dbc25c19c780</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="UserModelDifferenceObjects" isKey="false" />
+    <Property type="collection" name="PhoneNumbers" isKey="false" />
+  </SerializedObject>
+  <SerializedObject type="PersistentPermission">
+    <Property type="simple" name="SerializedPermission" isKey="false"><![CDATA[<IPermission class="DevExpress.ExpressApp.Security.EditModelPermission"
+assembly="DevExpress.ExpressApp.v10.1"
+version="10.1.5.0"
+modifier="Allow"/>
+]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">56ce88ba-3743-4ee9-ad14-14f0363f4442</Property>
+    <Property type="object" name="Role" isKey="false">
+      <SerializedObjectRef type="Role" strategy="SerializeAsObject">
+        <Key name="oid">a9ccabea-6644-475e-8a3e-dbc25c19c780</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentPermission">
+    <Property type="simple" name="SerializedPermission" isKey="false"><![CDATA[<IPermission class="DevExpress.ExpressApp.Security.EditModelPermission"
+assembly="DevExpress.ExpressApp.v10.1"
+version="10.1.5.0"
+modifier="Allow"/>
+]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">60b05a59-68c5-4bcd-8ed2-78cc4cf6dc71</Property>
+    <Property type="object" name="Role" isKey="false">
+      <SerializedObjectRef type="Role" strategy="SerializeAsObject">
+        <Key name="oid">a9ccabea-6644-475e-8a3e-dbc25c19c780</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentPermission">
+    <Property type="simple" name="SerializedPermission" isKey="false"><![CDATA[<IPermission class="DevExpress.ExpressApp.Security.ObjectAccessPermission"
+assembly="DevExpress.ExpressApp.v10.1"
+version="10.1.5.0">
+<ParticularAccessItem access="Read"
+objectType="System.Object"
+modifier="Allow"/>
+<ParticularAccessItem access="Write"
+objectType="System.Object"
+modifier="Allow"/>
+<ParticularAccessItem access="Create"
+objectType="System.Object"
+modifier="Allow"/>
+<ParticularAccessItem access="Delete"
+objectType="System.Object"
+modifier="Allow"/>
+<ParticularAccessItem access="Navigate"
+objectType="System.Object"
+modifier="Allow"/>
+</IPermission>
+]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">dba26564-2b75-4a15-9a92-e7b8e6676557</Property>
+    <Property type="object" name="Role" isKey="false">
+      <SerializedObjectRef type="Role" strategy="SerializeAsObject">
+        <Key name="oid">a9ccabea-6644-475e-8a3e-dbc25c19c780</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;AdditionalViewControls&gt;
+    &lt;Rules&gt;
+      &lt;AdditionalViewControlsRule Id="Header Model Difference" IsNewNode="True" Index="0" TypeInfo="eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="Model Differences" View="ModelDifferenceObject_ListView" ControlType="FeatureCenter.Module.Win.ApplicationCaption" /&gt;
+      &lt;AdditionalViewControlsRule Id="UpdateOnlyChangeFields" ExecutionContextGroup="UpdateOnlyChangeFields" /&gt;
+      &lt;AdditionalViewControlsRule Id="ViewMessage Model Difference 1" IsNewNode="True" Index="0" TypeInfo="eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="In this view you can see all application models (Application,User,Roles) note the application model with the name 'RuntimeMemberModelStore'. This one has been loaded at runtime to provide the demo for the runtime members through model" NormalCriteria="1=1" Position="Bottom" ViewType="ListView" NotUseSameType="True" FrameTemplateContext="ApplicationWindow" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" /&gt;
+      &lt;AdditionalViewControlsRule Id="ViewMessage Model Difference 2" IsNewNode="True" Index="0" TypeInfo="eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="You can create as many models as you like of any type (Application,User,Role) combine them using the combine actions avaliable from the model or even modify models of other applications (eg. web)" NormalCriteria="1=1" Position="Bottom" ViewType="ListView" NotUseSameType="True" FrameTemplateContext="ApplicationWindow" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" /&gt;
+      &lt;AdditionalViewControlsRule Id="ViewMessage Model Difference 3" IsNewNode="True" Index="0" TypeInfo="eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="Any changes you do at any active application model are automatically combined with current loaded application" NormalCriteria="1=1" Position="Bottom" ViewType="ListView" NotUseSameType="True" FrameTemplateContext="ApplicationWindow" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" /&gt;
+      &lt;AdditionalViewControlsRule Id="ViewMessage Model Difference 4" IsNewNode="True" Index="0" TypeInfo="eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="Logout using File/Logout action and login as ModelCombine user, change the layout of any detail view or customize the gridview of any listview, then login again as Admin come back to this view open Application Model with name ModelCombine and note the xml diffs will contain the changes you made and since this is an application model all users will have that change!!.That way we can let a power user design our forms at runtime and auto combine them to any model type we want (Application,User,Role). You can also Goto Roles/ModelCombine Role and note the special ModelCombinePermission permission that is applied to it" NormalCriteria="1=1" Position="Bottom" ViewType="ListView" NotUseSameType="True" FrameTemplateContext="ApplicationWindow" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" /&gt;
+      &lt;AdditionalViewControlsRule Id="ViewMessage Model Difference 5" IsNewNode="True" Index="0" TypeInfo="eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="Also go to the Application/Options node and note the SynchronizeApplicationModelDiffs (When an active model difference is saved then it will be combined with application model difference) and the SynchronizeActiveUserDifferenceWithUserModel (When open active user difference object's detailview current user diffs are going to be shown as well) " NormalCriteria="1=1" Position="Bottom" ViewType="ListView" NotUseSameType="True" FrameTemplateContext="ApplicationWindow" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" /&gt;
+    &lt;/Rules&gt;
+  &lt;/AdditionalViewControls&gt;
+  &lt;NavigationItems&gt;
+    &lt;Items&gt;
+      &lt;Item Id="Application Differences" IsNewNode="True"&gt;
+        &lt;Items IsNewNode="True"&gt;
+          &lt;Item Id="ModelDifferenceObject_ListView" IsNewNode="True" Caption="Application Difference" ViewId="ModelDifferenceObject_ListView" /&gt;
+        &lt;/Items&gt;
+      &lt;/Item&gt;
+    &lt;/Items&gt;
+  &lt;/NavigationItems&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ModelDifference]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663471030000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">df739a21-caab-4f92-8585-a741ac1be064</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;AdditionalViewControls&gt;
+    &lt;GroupContexts&gt;
+      &lt;ExecutionContexts Id="ConditionalViewControlsPositioning" IsNewNode="True" /&gt;
+    &lt;/GroupContexts&gt;
+    &lt;Rules&gt;
+      &lt;AdditionalViewControlsRule Id="Conditional View Controls Positioning For Customer City" ExecutionContextGroup="ConditionalViewControlsPositioning" /&gt;
+      &lt;AdditionalViewControlsRule Id="Conditional View Controls Positioning For Customer Name" ExecutionContextGroup="ConditionalViewControlsPositioning" /&gt;
+    &lt;/Rules&gt;
+  &lt;/AdditionalViewControls&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="ConditionalViewControlsPositioning_DetailView"&gt;
+      &lt;Items&gt;
+        &lt;AdditionalViewControlsItem Id="Warning For City" IsNewNode="True" Rule="Conditional View Controls Positioning For Customer City" /&gt;
+        &lt;AdditionalViewControlsItem Id="Warning for Name" IsNewNode="True" Rule="Conditional View Controls Positioning For Customer Name" /&gt;
+      &lt;/Items&gt;
+      &lt;Layout&gt;
+        &lt;LayoutGroup Id="Main" RelativeSize="100"&gt;
+          &lt;LayoutGroup Id="SimpleEditors" RelativeSize="11"&gt;
+            &lt;LayoutGroup Id="CustomerBase" RelativeSize="100"&gt;
+              &lt;LayoutItem Id="Name" RelativeSize="37" /&gt;
+              &lt;LayoutItem Id="Warning for Name" IsNewNode="True" ShowCaption="False" Index="1" RelativeSize="27" /&gt;
+              &lt;LayoutGroup Id="d9cfb4dc-c39c-4565-9f87-d4f4a9786e9e" IsNewNode="True" Caption="" Direction="Horizontal" Index="2" RelativeSize="34"&gt;
+                &lt;LayoutItem Id="City" IsNewNode="True" Index="0" RelativeSize="49" /&gt;
+                &lt;LayoutItem Id="Warning For City" IsNewNode="True" ShowCaption="False" Index="1" RelativeSize="50" /&gt;
+              &lt;/LayoutGroup&gt;
+              &lt;LayoutItem Id="City" Removed="True" /&gt;
+            &lt;/LayoutGroup&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;LayoutGroup Id="SizeableEditors" RelativeSize="88"&gt;
+            &lt;LayoutItem Id="Description" RelativeSize="100" /&gt;
+          &lt;/LayoutGroup&gt;
+        &lt;/LayoutGroup&gt;
+      &lt;/Layout&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ConditionalViewControlsPositioning]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663466200000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">aa0b5680-d789-44de-8f9e-a7eb49a0a371</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;AdditionalViewControls&gt;
+    &lt;Rules&gt;
+      &lt;AdditionalViewControlsRule Id="Header Importing Analysis" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Importing Analysis Objects" Position="Top" /&gt;
+      &lt;AdditionalViewControlsRule Id="ViewMessage Importing Analysis" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how to IO engine to import analysis objects" Position="Bottom" /&gt;
+    &lt;/Rules&gt;
+  &lt;/AdditionalViewControls&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[Analysis]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663471570000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">c8a09ab7-62c7-4091-8ab0-b5098a5c7464</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Validation&gt;
+    &lt;Rules&gt;
+      &lt;RuleUniqueValue Id="FDSCCustomer_Unique_Name" IsNewNode="True" TargetType="FeatureCenter.Module.FilterDataStore.ContinentFilter.FDSCCustomer" TargetContextIDs="Save" TargetPropertyName="Name" /&gt;
+    &lt;/Rules&gt;
+  &lt;/Validation&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ContinentFilter]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663468870000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">c1b9faed-fe20-4123-bdc3-b5fb39fd5a5c</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;ModelArtifactState&gt;
+    &lt;ConditionalActionState&gt;
+      &lt;GroupContexts&gt;
+        &lt;ExecutionContexts Id="ConditionalSaveDelete" IsNewNode="True"&gt;
+          &lt;CurrentObjectChanged IsNewNode="True" Index="0" /&gt;
+          &lt;ViewChanging IsNewNode="True" Index="0" /&gt;
+          &lt;ViewChanging IsNewNode="True" Index="0" /&gt;
+          &lt;CurrentObjectChanged IsNewNode="True" Index="0" /&gt;
+        &lt;/ExecutionContexts&gt;
+      &lt;/GroupContexts&gt;
+      &lt;Rules&gt;
+        &lt;ActionStateRule Id="Disable Delete for ConditionalSaveDelete" ExecutionContextGroup="ConditionalSaveDelete" /&gt;
+        &lt;ActionStateRule Id="Disable Save for ConditionalSaveDelete" ExecutionContextGroup="ConditionalSaveDelete" /&gt;
+        &lt;ActionStateRule Id="Disable SaveAndClose for ConditionalSaveDelete" ExecutionContextGroup="ConditionalSaveDelete" /&gt;
+      &lt;/Rules&gt;
+    &lt;/ConditionalActionState&gt;
+  &lt;/ModelArtifactState&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="ConditionalSaveDelete_DetailView"&gt;
+      &lt;Layout&gt;
+        &lt;LayoutGroup Id="Main" RelativeSize="100"&gt;
+          &lt;LayoutGroup Id="SimpleEditors" RelativeSize="8"&gt;
+            &lt;LayoutGroup Id="CustomerBase" RelativeSize="100"&gt;
+              &lt;LayoutItem Id="Name" RelativeSize="51" /&gt;
+              &lt;LayoutItem Id="City" RelativeSize="48" /&gt;
+            &lt;/LayoutGroup&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;LayoutGroup Id="SizeableEditors" RelativeSize="91"&gt;
+            &lt;LayoutItem Id="Description" RelativeSize="100" /&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;LayoutGroup Id="Orders_Group" Removed="True" /&gt;
+        &lt;/LayoutGroup&gt;
+      &lt;/Layout&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ConditionalSaveDelete]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663468700000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">f4e1ef16-54be-4b99-bcda-b895029b19c9</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="LookUpListViewSearch_DetailView"&gt;
+      &lt;Items&gt;
+        &lt;PropertyEditor Id="Customer" View="" /&gt;
+      &lt;/Items&gt;
+      &lt;Layout&gt;
+        &lt;LayoutGroup Id="Main" RelativeSize="100"&gt;
+          &lt;LayoutGroup Id="SimpleEditors" RelativeSize="100"&gt;
+            &lt;LayoutGroup Id="Order" RelativeSize="5"&gt;
+              &lt;LayoutItem Id="Customer" RelativeSize="100" /&gt;
+            &lt;/LayoutGroup&gt;
+            &lt;LayoutGroup Id="OrderBase" Direction="Horizontal" RelativeSize="94"&gt;
+              &lt;LayoutItem Id="OrderDate" Removed="True" /&gt;
+              &lt;LayoutItem Id="Reference" Removed="True" /&gt;
+              &lt;LayoutItem Id="Total" Removed="True" /&gt;
+            &lt;/LayoutGroup&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;LayoutGroup Id="OrderLines_Group" Removed="True" /&gt;
+        &lt;/LayoutGroup&gt;
+      &lt;/Layout&gt;
+    &lt;/DetailView&gt;
+    &lt;ListView Id="LookUpListViewSearch_LookupListView" LookUpListSearch="AlwaysEnable" /&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[LookUpListSearch]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663469970000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">b1280773-5d5e-468d-a5e1-bfe6122c5c27</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="XtraGridColumnsOptions_ListView" ShowAutoFilterRow="True"&gt;
+      &lt;Columns&gt;
+        &lt;ColumnInfo Id="Name"&gt;
+          &lt;GridColumnOptions&gt;
+            &lt;OptionsFilter ImmediateUpdateAutoFilter="False" AutoFilterCondition="Contains" /&gt;
+          &lt;/GridColumnOptions&gt;
+        &lt;/ColumnInfo&gt;
+        &lt;ColumnInfo Id="City"&gt;
+          &lt;GridColumnOptions&gt;
+            &lt;OptionsFilter AllowAutoFilter="False" /&gt;
+          &lt;/GridColumnOptions&gt;
+        &lt;/ColumnInfo&gt;
+      &lt;/Columns&gt;
+    &lt;/ListView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[XtraGridColumnsOptions]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663471970000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">f252449e-e292-47ad-9bbd-c3bb4250a93f</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;AdditionalViewControls&gt;
+    &lt;Rules&gt;
+      &lt;AdditionalViewControlsRule Id="Header Controlling Pivot Grid Settings" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Controlling Pivot Grid Settings" NormalCriteria="Name='Controlling Grid Settings'" Position="Top" ViewType="DetailView" ControlType="FeatureCenter.Module.Win.ApplicationCaption" /&gt;
+      &lt;AdditionalViewControlsRule Id="ViewMessage Controlling Pivot Grid Settings" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how to control your pivot grid settings through the Settings action on the main toolbar. There is also PivotSettings permission that you can use in order only certain roles to be able to change the settings" NormalCriteria="Name='Controlling Grid Settings'" Position="Bottom" ViewType="DetailView" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" /&gt;
+    &lt;/Rules&gt;
+  &lt;/AdditionalViewControls&gt;
+  &lt;ModelArtifactState&gt;
+    &lt;ConditionalActionState&gt;
+      &lt;GroupContexts /&gt;
+      &lt;Rules&gt;
+        &lt;ActionStateRule Id="Execute Bind Action" IsNewNode="True" ActionState="Executed" ActionId="BindMultiAnalysisData" ExecutionContextGroup="PivotChartContextGroup" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" /&gt;
+      &lt;/Rules&gt;
+    &lt;/ConditionalActionState&gt;
+  &lt;/ModelArtifactState&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ControllingPivotGridSettings]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663469500000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">87f55a92-ba96-47e4-b138-c8b52acdd095</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="MasterDetailAtAnyLevelCustomer_ListView"&gt;
+      &lt;GridViewOptions&gt;
+        &lt;OptionsDetail EnableMasterViewMode="True" AllowExpandEmptyDetails="True" /&gt;
+        &lt;OptionsView ShowDetailButtons="True" /&gt;
+      &lt;/GridViewOptions&gt;
+    &lt;/ListView&gt;
+    &lt;ListView Id="MasterDetailAtAnyLevelOrder_ListView"&gt;
+      &lt;Columns&gt;
+        &lt;ColumnInfo Id="Customer" Index="-1" /&gt;
+      &lt;/Columns&gt;
+      &lt;GridViewOptions&gt;
+        &lt;OptionsDetail EnableMasterViewMode="True" AllowExpandEmptyDetails="True" ShowDetailTabs="False" /&gt;
+        &lt;OptionsView ShowDetailButtons="True" /&gt;
+      &lt;/GridViewOptions&gt;
+    &lt;/ListView&gt;
+    &lt;ListView Id="MasterDetailAtAnyLevelOrderLine_ListView"&gt;
+      &lt;Columns&gt;
+        &lt;ColumnInfo Id="Order" Index="-1" /&gt;
+      &lt;/Columns&gt;
+      &lt;GridViewOptions&gt;
+        &lt;OptionsDetail ShowDetailTabs="False" /&gt;
+      &lt;/GridViewOptions&gt;
+    &lt;/ListView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[AtAnyLevel]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663474600000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">8518f103-0376-4444-930e-d964f63a593c</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;MasterDetail&gt;
+    &lt;Rules&gt;
+      &lt;MasterDetailRule Id="Customer_Orders_For_Paris" IsNewNode="True" TypeInfo="FeatureCenter.Module.Win.WinCustomer" NormalCriteria="City='Paris'" ChildListView="ConditionalMasterDetailOrderForParis_ListView" CollectionMember="Orders" View="ConditionalMasterDetailCustomer_ListView" /&gt;
+    &lt;/Rules&gt;
+  &lt;/MasterDetail&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="ConditionalMasterDetailCustomer_ListView"&gt;
+      &lt;GridViewOptions&gt;
+        &lt;OptionsDetail AllowExpandEmptyDetails="True" EnableMasterViewMode="True" /&gt;
+        &lt;OptionsView ShowDetailButtons="True" /&gt;
+      &lt;/GridViewOptions&gt;
+    &lt;/ListView&gt;
+    &lt;ListView Id="ConditionalMasterDetailOrder_ListView"&gt;
+      &lt;Columns&gt;
+        &lt;ColumnInfo Id="Customer" Index="-1" /&gt;
+      &lt;/Columns&gt;
+    &lt;/ListView&gt;
+    &lt;ListView Id="ConditionalMasterDetailOrderForParis_ListView"&gt;
+      &lt;Columns&gt;
+        &lt;ColumnInfo Id="Customer" Index="-1" /&gt;
+        &lt;ColumnInfo Id="OrderDate" Index="-1" /&gt;
+        &lt;ColumnInfo Id="Reference" Index="-1" /&gt;
+      &lt;/Columns&gt;
+    &lt;/ListView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ConditionalDetailViews]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663472670000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">f4a9b54f-b0b5-4a2b-b133-d9e08db05f3a</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="MDSCustomer_ListView" MasterDetailMode="ListViewAndDetailView" /&gt;
+    &lt;ListView Id="MDSCustomer_MDSOrders_ListView" MasterDetailMode="ListViewAndDetailView" /&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[MultipleDataStore]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663469630000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">2b6e2d29-bc24-4581-bc25-e1f2248ca052</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Options NotifyIcon="True" /&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[TrayIcon]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663473430000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">de44d1d1-2168-4523-b890-e2e96c60de8c</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="ControllingSearchCustomer_ListView"&gt;
+      &lt;Columns&gt;
+        &lt;ColumnInfo Id="Description" SearchMemberMode="Exclude" /&gt;
+        &lt;ColumnInfo Id="Name" SearchMemberMode="Exclude" /&gt;
+      &lt;/Columns&gt;
+    &lt;/ListView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ControllingListViewSearch]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663469730000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">530fac8b-dd2e-4ff1-ac6e-e74a001412dd</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;AdditionalViewControls&gt;
+    &lt;GroupContexts&gt;
+      &lt;ExecutionContexts Id="PivotConnectingWithCustomer" IsNewNode="True" /&gt;
+    &lt;/GroupContexts&gt;
+    &lt;Rules&gt;
+      &lt;AdditionalViewControlsRule Id="Custom Sort -Connecting With Customer" IsNewNode="True" TypeInfo="FeatureCenter.Module.PivotChart.ConnectWithCustomer.CAWCustomer" ExecutionContextGroup="PivotConnectingWithCustomer" Message="This view is special cause you can see how you can apply a custom sorting. By default pivot sorts columns in asceding order. Here it is configure to sort them in desceding. You can sort also using a different property than UnitPrice if the property is on your pivot field area (no need to be a bound one)" View="CAWCustomer_DetailView" NotUseSameType="True" Position="DetailViewItem" NormalCriteria="1=1" /&gt;
+    &lt;/Rules&gt;
+  &lt;/AdditionalViewControls&gt;
+  &lt;ModelArtifactState&gt;
+    &lt;ConditionalActionState&gt;
+      &lt;GroupContexts&gt;
+        &lt;ExecutionContexts Id="ConnectWithCustomer" IsNewNode="True"&gt;
+          &lt;ViewControlsCreated IsNewNode="True" Index="0" /&gt;
+          &lt;ViewControlsCreated IsNewNode="True" Index="0" /&gt;
+        &lt;/ExecutionContexts&gt;
+      &lt;/GroupContexts&gt;
+      &lt;Rules&gt;
+        &lt;ActionStateRule Id="Disable Bind Action" IsNewNode="True" ActionState="Hidden" ActionId="UnbindMultiAnalysisData" ExecutionContextGroup="ConnectWithCustomer" TypeInfo="FeatureCenter.Module.PivotChart.ConnectWithCustomer.CAWCustomer" View="CAWCustomer_DetailView" /&gt;
+        &lt;ActionStateRule Id="Execute Bind Action for customer" IsNewNode="True" ActionState="Executed" ActionId="BindMultiAnalysisData" ExecutionContextGroup="ConnectWithCustomer" TypeInfo="FeatureCenter.Module.PivotChart.ConnectWithCustomer.CAWCustomer" View="CAWCustomer_DetailView" /&gt;
+      &lt;/Rules&gt;
+    &lt;/ConditionalActionState&gt;
+  &lt;/ModelArtifactState&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="CAWCustomer_DetailView"&gt;
+      &lt;Items&gt;
+        &lt;PropertyEditor Id="ControllingGridSettingsAnalysis.Self" Caption="Grid Settings" /&gt;
+        &lt;AdditionalViewControlsItem Id="Custom Sort" IsNewNode="True" Rule="Custom Sort -Connecting With Customer" /&gt;
+        &lt;PropertyEditor Id="HideChartAnalysis.Self" AnalysisControlVisibility="Pivot" /&gt;
+        &lt;PropertyEditor Id="HidePivotAnalysis.Self" AnalysisControlVisibility="Chart" /&gt;
+        &lt;PropertyEditor Id="InPlaceEditAnalysis.Self" InPlaceEdit="True" /&gt;
+      &lt;/Items&gt;
+      &lt;Layout&gt;
+        &lt;LayoutGroup Id="Main" RelativeSize="100"&gt;
+          &lt;LayoutGroup Id="SimpleEditors" RelativeSize="8"&gt;
+            &lt;LayoutGroup Id="CustomerBase" Index="0" RelativeSize="100"&gt;
+              &lt;LayoutItem Id="Name" RelativeSize="51" /&gt;
+              &lt;LayoutItem Id="City" RelativeSize="48" /&gt;
+            &lt;/LayoutGroup&gt;
+            &lt;LayoutGroup Id="CAWCustomer" Removed="True" /&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;LayoutGroup Id="SizeableEditors" RelativeSize="4"&gt;
+            &lt;LayoutItem Id="Description" RelativeSize="100" /&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;TabbedGroup Id="Item1" IsNewNode="True" CaptionLocation="Top" Index="2" RelativeSize="87"&gt;
+            &lt;LayoutGroup Id="Item7" IsNewNode="True" ShowCaption="True" Caption="CustomSorted" CaptionLocation="Top" Index="0" RelativeSize="100"&gt;
+              &lt;LayoutItem Id="Custom Sort" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="10" /&gt;
+              &lt;LayoutItem Id="CustomSortedAnalysis.Self" IsNewNode="True" ShowCaption="False" Index="1" RelativeSize="94" /&gt;
+            &lt;/LayoutGroup&gt;
+            &lt;LayoutGroup Id="Item2" IsNewNode="True" ShowCaption="True" Caption="PivotGroupInterval" CaptionLocation="Top" Index="1" RelativeSize="100"&gt;
+              &lt;LayoutItem Id="InPlacePivotGroupInterval.Self" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" /&gt;
+            &lt;/LayoutGroup&gt;
+            &lt;LayoutGroup Id="Item3" IsNewNode="True" ShowCaption="True" Caption="Grid Settings" CaptionLocation="Top" Index="2" RelativeSize="100"&gt;
+              &lt;LayoutItem Id="ControllingGridSettingsAnalysis.Self" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" /&gt;
+            &lt;/LayoutGroup&gt;
+            &lt;LayoutGroup Id="Item4" IsNewNode="True" ShowCaption="True" Caption="Hide Chart" CaptionLocation="Top" Index="3" RelativeSize="100"&gt;
+              &lt;LayoutItem Id="HideChartAnalysis.Self" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" /&gt;
+            &lt;/LayoutGroup&gt;
+            &lt;LayoutGroup Id="Item5" IsNewNode="True" ShowCaption="True" Caption="Hide Pivot" CaptionLocation="Top" Index="4" RelativeSize="100"&gt;
+              &lt;LayoutItem Id="HidePivotAnalysis.Self" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" /&gt;
+            &lt;/LayoutGroup&gt;
+            &lt;LayoutGroup Id="Item6" IsNewNode="True" ShowCaption="True" Caption="InPlaceEdit" CaptionLocation="Top" Index="5" RelativeSize="100"&gt;
+              &lt;LayoutItem Id="InPlaceEditAnalysis.Self" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" /&gt;
+            &lt;/LayoutGroup&gt;
+            &lt;LayoutGroup Id="Orders_Group" IsNewNode="True" ShowCaption="True" Caption="Orders" Index="6" RelativeSize="100"&gt;
+              &lt;LayoutItem Id="Orders" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" /&gt;
+            &lt;/LayoutGroup&gt;
+          &lt;/TabbedGroup&gt;
+          &lt;LayoutGroup Id="Orders_Group" Removed="True" /&gt;
+        &lt;/LayoutGroup&gt;
+      &lt;/Layout&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ConnectWithCustomer]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663466400000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">11d869b9-c30a-4954-aa1d-ef70a7e03b11</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="HideDetailViewToolBar_DetailView" HideToolBar="True" /&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[HideDetailViewToolBar]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663470300000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">2a006334-61b0-4c3b-8363-f020d13c48f2</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;DetailView Id="TabStopForReadOnly_DetailView" TabOverReadOnlyEditors="True"&gt;
+      &lt;Items&gt;
+        &lt;PropertyEditor Id="City" AllowEdit="False" /&gt;
+      &lt;/Items&gt;
+      &lt;Layout&gt;
+        &lt;LayoutGroup Id="Main" RelativeSize="100"&gt;
+          &lt;LayoutGroup Id="SimpleEditors" RelativeSize="8"&gt;
+            &lt;LayoutGroup Id="CustomerBase" RelativeSize="100"&gt;
+              &lt;LayoutItem Id="Name" RelativeSize="51" /&gt;
+              &lt;LayoutItem Id="City" RelativeSize="48" /&gt;
+            &lt;/LayoutGroup&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;LayoutGroup Id="SizeableEditors" RelativeSize="91"&gt;
+            &lt;LayoutItem Id="Description" RelativeSize="100" /&gt;
+          &lt;/LayoutGroup&gt;
+          &lt;LayoutGroup Id="Orders_Group" Removed="True" /&gt;
+        &lt;/LayoutGroup&gt;
+      &lt;/Layout&gt;
+    &lt;/DetailView&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[TabStopForReadOnly]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663472130000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">b2ea0167-f605-41bc-bd57-f08fa4b9570a</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Views&gt;
+    &lt;ListView Id="HideListViewToolBar_ListView" HideToolBar="True" /&gt;
+  &lt;/Views&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[HideListViewToolBar]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663466330000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">5a668da3-41f4-4e42-a38c-f6361246534d</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
+  &lt;Options LogOutEnable="True" /&gt;
+&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
+    <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[LogOut]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="DateCreated" isKey="false">634165663471870000</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">25d7a779-c442-4b6f-ad2b-f9aba4141e4d</Property>
+    <Property type="object" name="PersistentApplication" isKey="false">
+      <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsObject">
+        <Key name="oid">1f6031d4-7144-44e0-848f-29662cffbb81</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+</SerializedObjects>

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <AdditionalViewControls>
+    <GroupContexts>
+      <ExecutionContexts Id="PivotConnectingWithCustomer" IsNewNode="True">
+        <ViewControlsCreated Name="ViewControlsCreated" IsNewNode="True" />
+      </ExecutionContexts>
+    </GroupContexts>
+    <Rules>
+      <AdditionalViewControlsRule Id="Custom Sort -Connecting With Customer" IsNewNode="True" TypeInfo="FeatureCenter.Module.PivotChart.ConnectWithCustomer.CAWCustomer" ExecutionContextGroup="PivotConnectingWithCustomer" Message="This view is special cause you can see how you can apply a custom sorting. By default pivot sorts columns in asceding order. Here it is configure to sort them in desceding. You can sort also using a different property than UnitPrice if the property is on your pivot field area (no need to be a bound one)" View="CAWCustomer_DetailView" NotUseSameType="True" Position="DetailViewItem" NormalCriteria="1=1" />
+    </Rules>
+  </AdditionalViewControls>
+  <ModelArtifactState>
+    <ConditionalActionState>
+      <GroupContexts>
+        <ExecutionContexts Id="ConnectWithCustomer" IsNewNode="True">
+          <ViewControlsCreated IsNewNode="True" Index="0" />
+        </ExecutionContexts>
+      </GroupContexts>
+      <Rules>
+        <ActionStateRule Id="Disable Bind Action" IsNewNode="True" ActionState="Hidden" ActionId="UnbindMultiAnalysisData" ExecutionContextGroup="ConnectWithCustomer" TypeInfo="FeatureCenter.Module.PivotChart.ConnectWithCustomer.CAWCustomer" View="CAWCustomer_DetailView" />
+        <ActionStateRule Id="Execute Bind Action for customer" IsNewNode="True" ActionState="Executed" ActionId="BindMultiAnalysisData" ExecutionContextGroup="ConnectWithCustomer" TypeInfo="FeatureCenter.Module.PivotChart.ConnectWithCustomer.CAWCustomer" View="CAWCustomer_DetailView" />
+      </Rules>
+    </ConditionalActionState>
+  </ModelArtifactState>
+  <Views>
+    <DetailView Id="CAWCustomer_DetailView">
+      <Items>
+        <PropertyEditor Id="ControllingGridSettingsAnalysis.Self" Caption="Grid Settings" />
+        <AdditionalViewControlsItem Id="Custom Sort" IsNewNode="True" Rule="Custom Sort -Connecting With Customer" />
+        <PropertyEditor Id="HideChartAnalysis.Self" AnalysisControlVisibility="Pivot" />
+        <PropertyEditor Id="HidePivotAnalysis.Self" AnalysisControlVisibility="Chart" />
+        <PropertyEditor Id="InPlaceEditAnalysis.Self" InPlaceEdit="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="8">
+            <LayoutGroup Id="CustomerBase" Index="0" RelativeSize="100">
+              <LayoutItem Id="Name" RelativeSize="51" />
+              <LayoutItem Id="City" RelativeSize="48" />
+            </LayoutGroup>
+            <LayoutGroup Id="CAWCustomer" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="4">
+            <LayoutItem Id="Description" RelativeSize="100" />
+          </LayoutGroup>
+          <TabbedGroup Id="Item1" IsNewNode="True" CaptionLocation="Top" Index="2" RelativeSize="87">
+            <LayoutGroup Id="Item7" IsNewNode="True" ShowCaption="True" Caption="CustomSorted" CaptionLocation="Top" Index="0" RelativeSize="100">
+              <LayoutItem Id="Custom Sort" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="5" />
+              <LayoutItem Id="CustomSortedAnalysis.Self" IsNewNode="True" ShowCaption="False" Index="1" RelativeSize="94" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item2" IsNewNode="True" ShowCaption="True" Caption="PivotGroupInterval" CaptionLocation="Top" Index="1" RelativeSize="100">
+              <LayoutItem Id="InPlacePivotGroupInterval.Self" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item3" IsNewNode="True" ShowCaption="True" Caption="Grid Settings" CaptionLocation="Top" Index="2" RelativeSize="100">
+              <LayoutItem Id="ControllingGridSettingsAnalysis.Self" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item4" IsNewNode="True" ShowCaption="True" Caption="Hide Chart" CaptionLocation="Top" Index="3" RelativeSize="100">
+              <LayoutItem Id="HideChartAnalysis.Self" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item5" IsNewNode="True" ShowCaption="True" Caption="Hide Pivot" CaptionLocation="Top" Index="4" RelativeSize="100">
+              <LayoutItem Id="HidePivotAnalysis.Self" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item6" IsNewNode="True" ShowCaption="True" Caption="InPlaceEdit" CaptionLocation="Top" Index="5" RelativeSize="100">
+              <LayoutItem Id="InPlaceEditAnalysis.Self" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Orders_Group" IsNewNode="True" ShowCaption="True" Caption="Orders" Index="6" RelativeSize="100">
+              <LayoutItem Id="Orders" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="Orders_Group" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

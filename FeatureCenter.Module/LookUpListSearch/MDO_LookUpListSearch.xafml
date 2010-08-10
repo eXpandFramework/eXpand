@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="LookUpListViewSearch_DetailView">
+      <Items>
+        <PropertyEditor Id="Customer" View="" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Order" RelativeSize="5">
+              <LayoutItem Id="Customer" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="OrderBase" Direction="Horizontal" RelativeSize="94">
+              <LayoutItem Id="OrderDate" Removed="True" />
+              <LayoutItem Id="Reference" Removed="True" />
+              <LayoutItem Id="Total" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="OrderLines_Group" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="LookUpListViewSearch_LookupListView" LookUpListSearch="AlwaysEnable" />
+  </Views>
+</Application>

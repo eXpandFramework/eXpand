@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="XtraGridViewOptions_ListView">
+      <GridViewOptions>
+        <OptionsCustomization AllowColumnMoving="False" />
+        <OptionsMenu EnableColumnMenu="False" />
+        <OptionsNavigation UseTabKey="True" />
+        <OptionsView ShowHorzLines="False" ShowVertLines="False" AnimationType="AnimateAllContent" ShowFilterPanel="True" ShowFilterPanelMode="ShowAlways" ShowColumnHeaders="False" />
+      </GridViewOptions>
+    </ListView>
+  </Views>
+</Application>

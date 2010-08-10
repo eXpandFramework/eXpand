@@ -1,0 +1,749 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SerializedObjects>
+  <SerializedObject type="PersistentAssemblyInfo">
+    <Property type="simple" name="Name" isKey="false"><![CDATA[IOMasterDetailDynamicAssembly]]></Property>
+    <Property type="simple" name="CompileOrder" isKey="false">0</Property>
+    <Property type="simple" name="CodeDomProvider" isKey="false">0</Property>
+    <Property type="simple" name="Version" isKey="false"><![CDATA[1.0.0.*]]></Property>
+    <Property type="simple" name="DoNotCompile" isKey="false">False</Property>
+    <Property type="simple" name="CompileErrors" isKey="false"></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">55409523-8e53-4e16-a925-b241c1e61ae0</Property>
+    <Property type="object" name="StrongKeyFile" isKey="false">
+      <SerializedObjectRef type="StrongKeyFile" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentClassInfos" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">b2119fb8-03c3-4ff0-9b07-169a4488168d</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">2c6db565-078f-49a0-97ca-7a20eda64c9c</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">45a5ba57-1e4b-4937-984c-f83addd0c6b2</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false" />
+  </SerializedObject>
+  <SerializedObject type="PersistentClassInfo">
+    <Property type="simple" name="BaseType" isKey="false"></Property>
+    <Property type="simple" name="MergedObjectType" isKey="false"></Property>
+    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[FeatureCenter.Base.CustomerBase]]></Property>
+    <Property type="simple" name="MergedObjectFullName" isKey="false"></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[IODMDCustomer]]></Property>
+    <Property type="simple" name="oid" isKey="true">b2119fb8-03c3-4ff0-9b07-169a4488168d</Property>
+    <Property type="object" name="BaseClassInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="MergedClassInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject">
+        <Key name="oid">55409523-8e53-4e16-a925-b241c1e61ae0</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="CodeTemplateInfo" isKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">c97a9f2b-9efd-4ee9-8275-d8989d67fd34</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="OwnMembers" isKey="false">
+      <SerializedObjectRef type="PersistentCollectionMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">31390176-c4f6-4ab1-90a3-246dad8b49f9</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="Interfaces" isKey="false" />
+    <Property type="collection" name="TypeAttributes" isKey="false" />
+    <Property type="collection" name="TemplateInfos" isKey="false" />
+  </SerializedObject>
+  <SerializedObject type="CodeTemplateInfo">
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">c97a9f2b-9efd-4ee9-8275-d8989d67fd34</Property>
+    <Property type="object" name="TemplateInfo" isKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">207a673b-cb9b-4358-b9cd-38ed42f2d921</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentTemplatedTypeInfos" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">b2119fb8-03c3-4ff0-9b07-169a4488168d</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="Name" isKey="false"><![CDATA[Default]]></Property>
+    <Property type="simple" name="TemplateCode" isKey="false"><![CDATA[namespace $ASSEMBLYNAME${
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
+using DevExpress.Xpo;
+using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+using eXpand.Xpo;
+using System.Linq;
+
+  $TYPEATTRIBUTES$
+  public class $CLASSNAME$:$BASECLASSNAME${
+    public $CLASSNAME$(Session session):base(session){}
+    public override void AfterConstruction() {
+        base.AfterConstruction();
+    }
+
+    protected override void OnSaving() {
+        base.OnSaving();
+    }
+    
+    protected override void OnChanged(string propertyName, object oldValue, object newValue) {
+        base.OnChanged(propertyName,oldValue, newValue);
+    }
+    $INJECTCODE$
+  }
+}
+]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">207a673b-cb9b-4358-b9cd-38ed42f2d921</Property>
+    <Property type="object" name="PersistentTypeInfo" isKey="false">
+      <SerializedObjectRef type="PersistentTypeInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">c97a9f2b-9efd-4ee9-8275-d8989d67fd34</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentCollectionMemberInfo">
+    <Property type="simple" name="CollectionType" isKey="false"></Property>
+    <Property type="simple" name="RelationType" isKey="false">0</Property>
+    <Property type="simple" name="CollectionTypeFullName" isKey="false"><![CDATA[IOMasterDetailDynamicAssembly.IODMDOrder]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[IODMDOrders]]></Property>
+    <Property type="simple" name="oid" isKey="true">31390176-c4f6-4ab1-90a3-246dad8b49f9</Property>
+    <Property type="object" name="CollectionClassInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">45a5ba57-1e4b-4937-984c-f83addd0c6b2</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="Owner" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">b2119fb8-03c3-4ff0-9b07-169a4488168d</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="CodeTemplateInfo" isKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">c98a3c5a-859b-4a07-9de9-9ffed04c1e07</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="TypeAttributes" isKey="false">
+      <SerializedObjectRef type="PersistentAssociationAttribute" strategy="SerializeAsObject">
+        <Key name="oid">156af817-50df-477c-9541-53f28efcfec2</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="TemplateInfos" isKey="false" />
+  </SerializedObject>
+  <SerializedObject type="PersistentClassInfo">
+    <Property type="simple" name="BaseType" isKey="false"></Property>
+    <Property type="simple" name="MergedObjectType" isKey="false"></Property>
+    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[FeatureCenter.Base.OrderBase]]></Property>
+    <Property type="simple" name="MergedObjectFullName" isKey="false"></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[IODMDOrder]]></Property>
+    <Property type="simple" name="oid" isKey="true">45a5ba57-1e4b-4937-984c-f83addd0c6b2</Property>
+    <Property type="object" name="BaseClassInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="MergedClassInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject">
+        <Key name="oid">55409523-8e53-4e16-a925-b241c1e61ae0</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="CodeTemplateInfo" isKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">c32ba4b3-e78d-4dfd-8f54-743f302b69b0</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="OwnMembers" isKey="false">
+      <SerializedObjectRef type="PersistentCollectionMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">f17a3da8-2c84-4e41-952d-29d373e60add</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="PersistentReferenceMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">f017527a-d9a5-426e-84be-cad3c6a949fe</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="Interfaces" isKey="false" />
+    <Property type="collection" name="TypeAttributes" isKey="false" />
+    <Property type="collection" name="TemplateInfos" isKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">7b6c8072-6ba6-456a-b7ff-5c457d2304ce</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="CodeTemplateInfo">
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">c32ba4b3-e78d-4dfd-8f54-743f302b69b0</Property>
+    <Property type="object" name="TemplateInfo" isKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">fb2455b6-182c-4e55-9c5c-6b2af980267f</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentTemplatedTypeInfos" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">45a5ba57-1e4b-4937-984c-f83addd0c6b2</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="Name" isKey="false"><![CDATA[Default]]></Property>
+    <Property type="simple" name="TemplateCode" isKey="false"><![CDATA[namespace $ASSEMBLYNAME${
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
+using DevExpress.Xpo;
+using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+using eXpand.Xpo;
+using System.Linq;
+
+  $TYPEATTRIBUTES$
+  public class $CLASSNAME$:$BASECLASSNAME${
+    public $CLASSNAME$(Session session):base(session){}
+    public override void AfterConstruction() {
+        base.AfterConstruction();
+    }
+
+    protected override void OnSaving() {
+        base.OnSaving();
+    }
+    
+    protected override void OnChanged(string propertyName, object oldValue, object newValue) {
+        base.OnChanged(propertyName,oldValue, newValue);
+    }
+    $INJECTCODE$
+  }
+}
+]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">fb2455b6-182c-4e55-9c5c-6b2af980267f</Property>
+    <Property type="object" name="PersistentTypeInfo" isKey="false">
+      <SerializedObjectRef type="PersistentTypeInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">c32ba4b3-e78d-4dfd-8f54-743f302b69b0</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentCollectionMemberInfo">
+    <Property type="simple" name="CollectionType" isKey="false"></Property>
+    <Property type="simple" name="RelationType" isKey="false">0</Property>
+    <Property type="simple" name="CollectionTypeFullName" isKey="false"><![CDATA[IOMasterDetailDynamicAssembly.IODMDOrderLine]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[IODMDOrderLines]]></Property>
+    <Property type="simple" name="oid" isKey="true">f17a3da8-2c84-4e41-952d-29d373e60add</Property>
+    <Property type="object" name="CollectionClassInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">2c6db565-078f-49a0-97ca-7a20eda64c9c</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="Owner" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">45a5ba57-1e4b-4937-984c-f83addd0c6b2</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="CodeTemplateInfo" isKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">62f47594-9b90-433c-8617-76b1474b9270</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="TypeAttributes" isKey="false">
+      <SerializedObjectRef type="PersistentAssociationAttribute" strategy="SerializeAsObject">
+        <Key name="oid">58ca5263-a56d-4b69-a091-99f5c744ffd1</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="TemplateInfos" isKey="false" />
+  </SerializedObject>
+  <SerializedObject type="PersistentClassInfo">
+    <Property type="simple" name="BaseType" isKey="false"></Property>
+    <Property type="simple" name="MergedObjectType" isKey="false"></Property>
+    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[FeatureCenter.Base.OrderLineBase]]></Property>
+    <Property type="simple" name="MergedObjectFullName" isKey="false"></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[IODMDOrderLine]]></Property>
+    <Property type="simple" name="oid" isKey="true">2c6db565-078f-49a0-97ca-7a20eda64c9c</Property>
+    <Property type="object" name="BaseClassInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="MergedClassInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject">
+        <Key name="oid">55409523-8e53-4e16-a925-b241c1e61ae0</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="CodeTemplateInfo" isKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">bffa5c1b-eea8-4894-af75-bd62957737ef</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="OwnMembers" isKey="false">
+      <SerializedObjectRef type="PersistentReferenceMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">fcd0594d-1f7e-4afd-a2b6-d0a1344b5edc</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="Interfaces" isKey="false" />
+    <Property type="collection" name="TypeAttributes" isKey="false" />
+    <Property type="collection" name="TemplateInfos" isKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">bbc806b3-261c-4bd8-b823-f45d49d19371</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="CodeTemplateInfo">
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">bffa5c1b-eea8-4894-af75-bd62957737ef</Property>
+    <Property type="object" name="TemplateInfo" isKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">5de3f802-de45-4eb3-adc4-bb6e06e29663</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentTemplatedTypeInfos" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">2c6db565-078f-49a0-97ca-7a20eda64c9c</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="Name" isKey="false"><![CDATA[Default]]></Property>
+    <Property type="simple" name="TemplateCode" isKey="false"><![CDATA[namespace $ASSEMBLYNAME${
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
+using DevExpress.Xpo;
+using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+using eXpand.Xpo;
+using System.Linq;
+
+  $TYPEATTRIBUTES$
+  public class $CLASSNAME$:$BASECLASSNAME${
+    public $CLASSNAME$(Session session):base(session){}
+    public override void AfterConstruction() {
+        base.AfterConstruction();
+    }
+
+    protected override void OnSaving() {
+        base.OnSaving();
+    }
+    
+    protected override void OnChanged(string propertyName, object oldValue, object newValue) {
+        base.OnChanged(propertyName,oldValue, newValue);
+    }
+    $INJECTCODE$
+  }
+}
+]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">5de3f802-de45-4eb3-adc4-bb6e06e29663</Property>
+    <Property type="object" name="PersistentTypeInfo" isKey="false">
+      <SerializedObjectRef type="PersistentTypeInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">bffa5c1b-eea8-4894-af75-bd62957737ef</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentReferenceMemberInfo">
+    <Property type="simple" name="ReferenceType" isKey="false"></Property>
+    <Property type="simple" name="AutoGenerateOtherPartMember" isKey="false">True</Property>
+    <Property type="simple" name="ReferenceTypeFullName" isKey="false"><![CDATA[IOMasterDetailDynamicAssembly.IODMDOrder]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[IODMDOrder]]></Property>
+    <Property type="simple" name="oid" isKey="true">fcd0594d-1f7e-4afd-a2b6-d0a1344b5edc</Property>
+    <Property type="object" name="ReferenceClassInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">45a5ba57-1e4b-4937-984c-f83addd0c6b2</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="Owner" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">2c6db565-078f-49a0-97ca-7a20eda64c9c</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="CodeTemplateInfo" isKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">f62c7858-305d-4fc8-9594-917e87e879df</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="TypeAttributes" isKey="false">
+      <SerializedObjectRef type="PersistentAssociationAttribute" strategy="SerializeAsObject">
+        <Key name="oid">8ea0dc62-62af-4b16-ba92-c59be99ed740</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="TemplateInfos" isKey="false" />
+  </SerializedObject>
+  <SerializedObject type="CodeTemplateInfo">
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">f62c7858-305d-4fc8-9594-917e87e879df</Property>
+    <Property type="object" name="TemplateInfo" isKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">75e00351-c5d5-4827-b1a8-18bbb06de578</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentTemplatedTypeInfos" isKey="false">
+      <SerializedObjectRef type="PersistentReferenceMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">fcd0594d-1f7e-4afd-a2b6-d0a1344b5edc</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="Name" isKey="false"><![CDATA[Default]]></Property>
+    <Property type="simple" name="TemplateCode" isKey="false"><![CDATA[    $PROPERTYTYPE$ _$PROPERTYNAME$;
+    $TYPEATTRIBUTES$
+    public $PROPERTYTYPE$ $PROPERTYNAME${
+      get{
+        return _$PROPERTYNAME$;
+      }
+      set{
+        SetPropertyValue("$PROPERTYNAME$", ref _$PROPERTYNAME$, value);
+      }
+    }
+]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">75e00351-c5d5-4827-b1a8-18bbb06de578</Property>
+    <Property type="object" name="PersistentTypeInfo" isKey="false">
+      <SerializedObjectRef type="PersistentTypeInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">f62c7858-305d-4fc8-9594-917e87e879df</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentAssociationAttribute">
+    <Property type="simple" name="AssociationName" isKey="false"><![CDATA[IODMDOrder]]></Property>
+    <Property type="simple" name="ElementType" isKey="false"></Property>
+    <Property type="simple" name="ElementTypeFullName" isKey="false"></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[PersistentAssociationAttribute: IODMDOrder]]></Property>
+    <Property type="simple" name="oid" isKey="true">8ea0dc62-62af-4b16-ba92-c59be99ed740</Property>
+    <Property type="object" name="ElementClassInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="Owner" isKey="false">
+      <SerializedObjectRef type="PersistentReferenceMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">fcd0594d-1f7e-4afd-a2b6-d0a1344b5edc</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="Name" isKey="false"></Property>
+    <Property type="simple" name="TemplateCode" isKey="false"><![CDATA[protected override void SetOrder(FeatureCenter.Base.IOrder order){
+                               IODMDOrder = (IODMDOrder)order;
+                        }
+                        protected override FeatureCenter.Base.IOrder GetOrder() {
+                            return IODMDOrder;
+                        }]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">bbc806b3-261c-4bd8-b823-f45d49d19371</Property>
+    <Property type="object" name="PersistentTypeInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">2c6db565-078f-49a0-97ca-7a20eda64c9c</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false" />
+  </SerializedObject>
+  <SerializedObject type="CodeTemplateInfo">
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">62f47594-9b90-433c-8617-76b1474b9270</Property>
+    <Property type="object" name="TemplateInfo" isKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">4d9be280-ab59-4c25-8628-fa8c1b2f9080</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentTemplatedTypeInfos" isKey="false">
+      <SerializedObjectRef type="PersistentCollectionMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">f17a3da8-2c84-4e41-952d-29d373e60add</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="Name" isKey="false"><![CDATA[Default]]></Property>
+    <Property type="simple" name="TemplateCode" isKey="false"><![CDATA[    $TYPEATTRIBUTES$
+    public XPCollection<$PROPERTYTYPE$> $PROPERTYNAME$ {
+        get { return GetCollection<$PROPERTYTYPE$>("$PROPERTYNAME$"); }
+    }
+]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">4d9be280-ab59-4c25-8628-fa8c1b2f9080</Property>
+    <Property type="object" name="PersistentTypeInfo" isKey="false">
+      <SerializedObjectRef type="PersistentTypeInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">62f47594-9b90-433c-8617-76b1474b9270</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentAssociationAttribute">
+    <Property type="simple" name="AssociationName" isKey="false"><![CDATA[IODMDOrder]]></Property>
+    <Property type="simple" name="ElementType" isKey="false"></Property>
+    <Property type="simple" name="ElementTypeFullName" isKey="false"></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[PersistentAssociationAttribute: IODMDOrder]]></Property>
+    <Property type="simple" name="oid" isKey="true">58ca5263-a56d-4b69-a091-99f5c744ffd1</Property>
+    <Property type="object" name="ElementClassInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="Owner" isKey="false">
+      <SerializedObjectRef type="PersistentCollectionMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">f17a3da8-2c84-4e41-952d-29d373e60add</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentReferenceMemberInfo">
+    <Property type="simple" name="ReferenceType" isKey="false"></Property>
+    <Property type="simple" name="AutoGenerateOtherPartMember" isKey="false">True</Property>
+    <Property type="simple" name="ReferenceTypeFullName" isKey="false"><![CDATA[IOMasterDetailDynamicAssembly.IODMDCustomer]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[IODMDCustomer]]></Property>
+    <Property type="simple" name="oid" isKey="true">f017527a-d9a5-426e-84be-cad3c6a949fe</Property>
+    <Property type="object" name="ReferenceClassInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">b2119fb8-03c3-4ff0-9b07-169a4488168d</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="Owner" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">45a5ba57-1e4b-4937-984c-f83addd0c6b2</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="CodeTemplateInfo" isKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">3147b63c-1f5d-428e-83d3-275fc1ecf596</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="TypeAttributes" isKey="false">
+      <SerializedObjectRef type="PersistentAssociationAttribute" strategy="SerializeAsObject">
+        <Key name="oid">fc967b18-9758-4c45-8268-66b1fcbc74b1</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="TemplateInfos" isKey="false" />
+  </SerializedObject>
+  <SerializedObject type="CodeTemplateInfo">
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">3147b63c-1f5d-428e-83d3-275fc1ecf596</Property>
+    <Property type="object" name="TemplateInfo" isKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">45ccb734-6530-43e2-979a-723eb784544d</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentTemplatedTypeInfos" isKey="false">
+      <SerializedObjectRef type="PersistentReferenceMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">f017527a-d9a5-426e-84be-cad3c6a949fe</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="Name" isKey="false"><![CDATA[Default]]></Property>
+    <Property type="simple" name="TemplateCode" isKey="false"><![CDATA[    $PROPERTYTYPE$ _$PROPERTYNAME$;
+    $TYPEATTRIBUTES$
+    public $PROPERTYTYPE$ $PROPERTYNAME${
+      get{
+        return _$PROPERTYNAME$;
+      }
+      set{
+        SetPropertyValue("$PROPERTYNAME$", ref _$PROPERTYNAME$, value);
+      }
+    }
+]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">45ccb734-6530-43e2-979a-723eb784544d</Property>
+    <Property type="object" name="PersistentTypeInfo" isKey="false">
+      <SerializedObjectRef type="PersistentTypeInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">3147b63c-1f5d-428e-83d3-275fc1ecf596</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentAssociationAttribute">
+    <Property type="simple" name="AssociationName" isKey="false"><![CDATA[IODMDCustomer]]></Property>
+    <Property type="simple" name="ElementType" isKey="false"></Property>
+    <Property type="simple" name="ElementTypeFullName" isKey="false"></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[PersistentAssociationAttribute: IODMDCustomer]]></Property>
+    <Property type="simple" name="oid" isKey="true">fc967b18-9758-4c45-8268-66b1fcbc74b1</Property>
+    <Property type="object" name="ElementClassInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="Owner" isKey="false">
+      <SerializedObjectRef type="PersistentReferenceMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">f017527a-d9a5-426e-84be-cad3c6a949fe</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="Name" isKey="false"></Property>
+    <Property type="simple" name="TemplateCode" isKey="false"><![CDATA[protected override void SetCustomer(FeatureCenter.Base.ICustomer customer){
+                               IODMDCustomer = (IODMDCustomer)customer;
+                        }
+                        protected override FeatureCenter.Base.ICustomer GetCustomer() {
+                            return IODMDCustomer;
+                        }]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">7b6c8072-6ba6-456a-b7ff-5c457d2304ce</Property>
+    <Property type="object" name="PersistentTypeInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">45a5ba57-1e4b-4937-984c-f83addd0c6b2</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false" />
+  </SerializedObject>
+  <SerializedObject type="CodeTemplateInfo">
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">c98a3c5a-859b-4a07-9de9-9ffed04c1e07</Property>
+    <Property type="object" name="TemplateInfo" isKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">9eb2b26f-fa20-455b-9aa6-2b398cab87ff</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentTemplatedTypeInfos" isKey="false">
+      <SerializedObjectRef type="PersistentCollectionMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">31390176-c4f6-4ab1-90a3-246dad8b49f9</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="Name" isKey="false"><![CDATA[Default]]></Property>
+    <Property type="simple" name="TemplateCode" isKey="false"><![CDATA[    $TYPEATTRIBUTES$
+    public XPCollection<$PROPERTYTYPE$> $PROPERTYNAME$ {
+        get { return GetCollection<$PROPERTYTYPE$>("$PROPERTYNAME$"); }
+    }
+]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">9eb2b26f-fa20-455b-9aa6-2b398cab87ff</Property>
+    <Property type="object" name="PersistentTypeInfo" isKey="false">
+      <SerializedObjectRef type="PersistentTypeInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">c98a3c5a-859b-4a07-9de9-9ffed04c1e07</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentAssociationAttribute">
+    <Property type="simple" name="AssociationName" isKey="false"><![CDATA[IODMDCustomer]]></Property>
+    <Property type="simple" name="ElementType" isKey="false"></Property>
+    <Property type="simple" name="ElementTypeFullName" isKey="false"></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false"></Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[PersistentAssociationAttribute: IODMDCustomer]]></Property>
+    <Property type="simple" name="oid" isKey="true">156af817-50df-477c-9541-53f28efcfec2</Property>
+    <Property type="object" name="ElementClassInfo" isKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="Owner" isKey="false">
+      <SerializedObjectRef type="PersistentCollectionMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">31390176-c4f6-4ab1-90a3-246dad8b49f9</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+</SerializedObjects>

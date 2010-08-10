@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <AdditionalViewControls>
+    <GroupContexts>
+      <ExecutionContexts Id="UpdateOnlyChangeFields" IsNewNode="True">
+        <ObjectSpaceCommited Name="ObjectSpaceCommited" IsNewNode="True" />
+      </ExecutionContexts>
+    </GroupContexts>
+  </AdditionalViewControls>
+</Application>
