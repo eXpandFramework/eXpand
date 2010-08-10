@@ -15,12 +15,12 @@ namespace eXpand.ExpressApp.NodeUpdaters {
                 var navigationItemAttributes = modelClass.TypeInfo.FindAttributes<NavigationItemAttribute>();
                 foreach (var itemAttribute in navigationItemAttributes) {
                     var paths = itemAttribute.Path.Split('/');
-                    AddNodes(((IModelRootNavigationItems)node).Items, paths.ToList(), itemAttribute.ViewId);   
+                    AddNodes(((IModelRootNavigationItems)node).Items, paths.ToList(), itemAttribute.ViewId,itemAttribute.ObjectKey);   
                 }
             }
         }
 
-        void AddNodes(IModelNavigationItems navigationItems, List<string> strings, string viewId) {
+        void AddNodes(IModelNavigationItems navigationItems, List<string> strings, string viewId, string objectKey) {
             if (strings.Count == 0) {
                 var modelView = navigationItems.Application.Views.Where(view => view.Id == viewId).FirstOrDefault();
                 if (modelView== null)
@@ -29,18 +29,19 @@ namespace eXpand.ExpressApp.NodeUpdaters {
                 return;
             }
             var id = strings[0];
-            IModelNavigationItem navigationItem = GetNavigationItem(navigationItems, id);
+            IModelNavigationItem navigationItem = GetNavigationItem(navigationItems, id,objectKey);
             strings.RemoveAt(0);
-            AddNodes(navigationItem.Items, strings,viewId);
+            AddNodes(navigationItem.Items, strings,viewId,objectKey);
         }
 
-        IModelNavigationItem GetNavigationItem(IModelNavigationItems navigationItems, string id) {
+        IModelNavigationItem GetNavigationItem(IModelNavigationItems navigationItems, string id, string objectKey) {
             IModelNavigationItem navigationItem;
             if (navigationItems.GetNode<IModelNavigationItem>(id) != null)
                 navigationItem = navigationItems.GetNode<IModelNavigationItem>(id);
             else {
                 navigationItem = navigationItems.AddNode<IModelNavigationItem>(id);
                 navigationItem.Caption = id;
+                navigationItem.ObjectKey = objectKey;
             }
             return navigationItem;
         }

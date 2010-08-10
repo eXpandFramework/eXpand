@@ -1,4 +1,5 @@
 ﻿using System;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.Attributes {
     public enum CloneViewType {
@@ -7,7 +8,7 @@ namespace eXpand.ExpressApp.Attributes {
         LookupListView
     }
     [AttributeUsage(AttributeTargets.Class|AttributeTargets.Method,AllowMultiple = true)]
-    public class CloneViewAttribute : Attribute
+    public class CloneViewAttribute : Attribute,ISupportViewId
     {
         readonly CloneViewType _viewType;
         readonly string _viewId;

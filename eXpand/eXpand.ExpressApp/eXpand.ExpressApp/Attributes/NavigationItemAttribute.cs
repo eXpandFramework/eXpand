@@ -1,9 +1,9 @@
 ﻿using System;
+using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.Attributes {
     [AttributeUsage(AttributeTargets.Class,AllowMultiple = true)]
-    public class NavigationItemAttribute:Attribute
-    {
+    public class NavigationItemAttribute:Attribute, ISupportViewId {
         readonly string path;
         readonly string viewId;
 
@@ -19,5 +19,7 @@ namespace eXpand.ExpressApp.Attributes {
         public string ViewId {
             get { return viewId; }
         }
+
+        public string ObjectKey { get; set; }
     }
 }

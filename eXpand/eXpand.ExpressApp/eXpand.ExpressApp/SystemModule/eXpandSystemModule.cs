@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.Core.DictionaryHelpers;
+using eXpand.ExpressApp.Core.ReadOnlyParameters;
 using eXpand.ExpressApp.Model;
 using eXpand.ExpressApp.NodeUpdaters;
 
@@ -15,7 +16,10 @@ namespace eXpand.ExpressApp.SystemModule {
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof (XafApplication), "Resources.SystemModule.ico")]
     public sealed class eXpandSystemModule : ModuleBase {
-        
+        static eXpandSystemModule() {
+            DevExpress.Persistent.Base.ParametersFactory.RegisterParameter(new MonthAgoParameter());
+        }
+
         public override void Setup(XafApplication application) {
             base.Setup(application);
             application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;

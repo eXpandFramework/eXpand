@@ -117,6 +117,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\ObjectObserver.cs" />
+    <Compile Include="Core\ObjectSpaceExtensions.cs" />
+    <Compile Include="Core\ReadOnlyParameters\MonthAgoParameter.cs" />
     <Compile Include="Core\TypesInfoExtensions.cs" />
     <Compile Include="Core\TypeValueConverter.cs" />
     <Compile Include="DataStoreProvider.cs" />
@@ -124,6 +126,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Editors\EditorAliases.cs" />
+    <Compile Include="Editors\ISupportValueReading.cs" />
     <Compile Include="Enums\AllowEditEnum.cs" />
     <Compile Include="Enums\BooleanEnum.cs" />
     <Compile Include="Enums\DetailViewType.cs" />

@@ -91,11 +91,13 @@
     <Compile Include="General\DateRange.cs" />
     <Compile Include="DifferenceType.cs" />
     <Compile Include="General\IDateRange.cs" />
+    <Compile Include="General\ISupportViewId.cs" />
     <Compile Include="General\PictureItemEventArgs.cs" />
     <Compile Include="General\RelationType.cs" />
     <Compile Include="General\RequestTextPictureItemEventArgs.cs" />
     <Compile Include="ImportExport\IClassInfoGraphNode.cs" />
     <Compile Include="ImportExport\ISerializationConfiguration.cs" />
+    <Compile Include="ImportExport\ISerializationConfigurationGroup.cs" />
     <Compile Include="ImportExport\IXmlFileChooser.cs" />
     <Compile Include="ImportExport\NodeType.cs" />
     <Compile Include="ImportExport\SerializationStrategy.cs" />
@@ -126,6 +128,11 @@
     <Compile Include="PersistentMetaData\IPersistentReferenceMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentTypeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentDefaulClassOptionsAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentKeyAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentPersistentAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentRuleRequiredFieldAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentSizeAttribute.cs" />
+    <Compile Include="PersistentMetaData\RegistratorAttribute.cs" />
     <Compile Include="PivotChart\Web\IPivotGridOptionsOLAP.cs" />
     <Compile Include="PivotChart\Web\IPivotGridWebOptionsChartDataSource.cs" />
     <Compile Include="PivotChart\Web\IPivotGridWebOptionsCustomization.cs" />
