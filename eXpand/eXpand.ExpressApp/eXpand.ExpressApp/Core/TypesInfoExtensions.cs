@@ -10,6 +10,24 @@ using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.Core{
     public static class TypesInfoExtensions{
+        public static Type FindBussinessObjectType<T>(this ITypesInfo typesInfo)  
+        {
+            if (!(typeof(T).IsInterface))
+                throw new ArgumentException(typeof(T).FullName +" should be an interface");
+            var implementors = typesInfo.FindTypeInfo(typeof(T)).Implementors.Where(info => info.IsPersistent);
+            var objectType = implementors.FirstOrDefault();
+            if (objectType== null)
+                throw new ArgumentException("No bussincess object that implements "+typeof(T).FullName+" found");
+            if (implementors.Count() > 1) {
+                var typeInfos = implementors.Where(implementor => !(typeof (T).IsAssignableFrom(implementor.Base.Type)));
+                foreach (ITypeInfo implementor in typeInfos) {
+                    return implementor.Type;
+                }
+
+                throw new ArgumentNullException("More than 1 objects implement " + typeof(T).FullName);
+            }
+            return objectType.Type;
+        }
         public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string collectionName)
         {
             XPCustomMemberInfo member = null;
