@@ -5,7 +5,9 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using System.Linq;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
+using eXpand.ExpressApp.Editors;
 using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.PivotChart.PivotedProperty
@@ -14,16 +16,52 @@ namespace eXpand.ExpressApp.PivotChart.PivotedProperty
 
         protected override void OnActivated(){
             base.OnActivated();
-            IEnumerable<IMemberInfo> memberInfos =View.ObjectTypeInfo.Members.OfType<IMemberInfo>().Where(
-                    memberInfo => memberInfo.FindAttribute<PivotedPropertyAttribute>() != null).Select(info1 => info1);
+            IEnumerable<IMemberInfo> memberInfos = GetMemberInfos();
             if (memberInfos.Count()>0){
                 AttachControllers(memberInfos);
-                foreach (var memberInfo in memberInfos) {
-                    BindMembers(memberInfo);
-                }
+            }
+            
+            View.CurrentObjectChanged+=ViewOnCurrentObjectChanged;
+        }
+        protected override void OnViewControlsCreated() {
+            base.OnViewControlsCreated();
+            var memberInfos = GetMemberInfos();
+            foreach (var memberInfo in memberInfos){
+                BindMember(memberInfo);
+            }
+            var analysisEditorBases = View.GetItems<ISupportValueReading>();
+            foreach (var analysisEditorBase in analysisEditorBases) {
+                analysisEditorBase.ValueReading+=AnalysisEditorBaseOnValueReading;
             }
         }
-        void BindMembers(IMemberInfo memberInfo) {
+
+        void AnalysisEditorBaseOnValueReading(object sender, EventArgs eventArgs) {
+            var analysisEditorBase = ((AnalysisEditorBase) sender);
+            if (analysisEditorBase.PropertyValue== null) {
+                IMemberInfo memberInfo = analysisEditorBase.MemberInfo.GetPath().Where(info => info.Name!="Self").ToList().Single();
+                BindMember(memberInfo);
+            }
+        }
+
+        protected override void OnDeactivating()
+        {
+            base.OnDeactivating();
+            View.CurrentObjectChanged-=ViewOnCurrentObjectChanged;
+        }
+        void ViewOnCurrentObjectChanged(object sender, EventArgs eventArgs) {
+            var memberInfos = GetMemberInfos();
+            foreach (var memberInfo in memberInfos)
+            {
+                BindMember(memberInfo);
+            }
+        }
+
+        IEnumerable<IMemberInfo> GetMemberInfos() {
+            return View.ObjectTypeInfo.Members.OfType<IMemberInfo>().Where(
+                memberInfo => memberInfo.FindAttribute<PivotedPropertyAttribute>() != null).Select(info1 => info1);
+        }
+
+        void BindMember(IMemberInfo memberInfo) {
             var pivotedPropertyAttribute = memberInfo.FindAttribute<PivotedPropertyAttribute>();
             IAnalysisInfo analysisInfo;
             if (string.IsNullOrEmpty(pivotedPropertyAttribute.AnalysisCriteria)) {

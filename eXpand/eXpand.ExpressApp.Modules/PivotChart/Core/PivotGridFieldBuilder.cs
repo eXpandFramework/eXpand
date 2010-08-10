@@ -93,9 +93,10 @@ namespace eXpand.ExpressApp.PivotChart.Core {
         }
 
         protected override void SetupPivotGridField(PivotGridFieldBase field, Type memberType, string displayFormat) {
-            
+            OnSetupGridField(new SetupGridFieldArgs(field, memberType, displayFormat));
             if (memberType == typeof(DateTime)){
-                field.GroupInterval = ((IModelMemberAnalysisDisplayDateTime)_propertyModel).PivotGroupInterval;
+                if (_propertyModel != null)
+                    field.GroupInterval = ((IModelMemberAnalysisDisplayDateTime)_propertyModel).PivotGroupInterval;
             }
             else
                 base.SetupPivotGridField(field, memberType, displayFormat);
