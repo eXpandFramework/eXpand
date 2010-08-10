@@ -56,24 +56,6 @@
     <Compile Include="OrderLineBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\DevExpress 2010.1\Components\Sources\DevExpress.Xpo\DevExpress.Xpo\DevExpress.Xpo.csproj">
-      <Project>{4E2159BE-5FBD-496B-8765-16E9E40796B3}</Project>
-      <Name>DevExpress.Xpo</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\DevExpress 2010.1\eXpressApp Framework\Sources\DevExpress.ExpressApp\DevExpress.ExpressApp\DevExpress.ExpressApp.csproj">
-      <Project>{39E0DE91-4458-44FA-9320-55F94BD812AB}</Project>
-      <Name>DevExpress.ExpressApp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\DevExpress 2010.1\eXpressApp Framework\Sources\DevExpress.Persistent\DevExpress.Persistent.BaseImpl\DevExpress.Persistent.BaseImpl.csproj">
-      <Project>{19815889-3518-45CB-98EE-A575A2198ED2}</Project>
-      <Name>DevExpress.Persistent.BaseImpl</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\eXpand\eXpand.Utils\eXpand.Utils.csproj">
-      <Project>{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}</Project>
-      <Name>eXpand.Utils</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
