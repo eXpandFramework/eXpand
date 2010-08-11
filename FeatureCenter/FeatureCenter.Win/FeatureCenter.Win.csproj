@@ -90,7 +90,9 @@
     <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Win.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.OfficeSkins.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -189,11 +191,11 @@
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.dll</HintPath>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.dll</HintPath>
     </Reference>
     <Reference Include="eXpand.ExpressApp.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\eXpand.DLL\eXpand.ExpressApp.Win.dll</HintPath>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.Win.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.JScript" />
     <Reference Include="Microsoft.mshtml" />
