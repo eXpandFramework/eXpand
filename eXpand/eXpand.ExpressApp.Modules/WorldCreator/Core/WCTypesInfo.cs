@@ -30,7 +30,8 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             IEnumerable<Type> persistentTypes = GetPersistentTypes(types);
             foreach (var persistentType in persistentTypes) {
                 var interfaceType = persistentType.GetCustomAttributes(typeof(RegistratorAttribute),false).OfType<RegistratorAttribute>().Single().InterfaceType;
-                _dictionary.Add(interfaceType,persistentType);
+                if (!_dictionary.ContainsKey(interfaceType))
+                    _dictionary.Add(interfaceType,persistentType);
             }
         }
 
