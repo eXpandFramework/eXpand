@@ -88,13 +88,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="General\DateRange.cs" />
     <Compile Include="DifferenceType.cs" />
-    <Compile Include="General\IDateRange.cs" />
     <Compile Include="General\ISupportViewId.cs" />
     <Compile Include="General\PictureItemEventArgs.cs" />
     <Compile Include="General\RelationType.cs" />
     <Compile Include="General\RequestTextPictureItemEventArgs.cs" />
+    <Compile Include="General\ReservedMember.cs" />
     <Compile Include="ImportExport\IClassInfoGraphNode.cs" />
     <Compile Include="ImportExport\ISerializationConfiguration.cs" />
     <Compile Include="ImportExport\ISerializationConfigurationGroup.cs" />
@@ -103,9 +102,6 @@
     <Compile Include="ImportExport\SerializationStrategy.cs" />
     <Compile Include="IXpoModelDifference.cs" />
     <Compile Include="General\IHidden.cs" />
-    <Compile Include="General\IIndexedObject.cs" />
-    <Compile Include="General\ILocalizable.cs" />
-    <Compile Include="General\IEnumObject.cs" />
     <Compile Include="General\IPictureItem.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplate.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplateInfo.cs" />
@@ -132,7 +128,7 @@
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentPersistentAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentRuleRequiredFieldAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentSizeAttribute.cs" />
-    <Compile Include="PersistentMetaData\RegistratorAttribute.cs" />
+    <Compile Include="PersistentMetaData\WCRegistratorAttribute.cs" />
     <Compile Include="PivotChart\Web\IPivotGridOptionsOLAP.cs" />
     <Compile Include="PivotChart\Web\IPivotGridWebOptionsChartDataSource.cs" />
     <Compile Include="PivotChart\Web\IPivotGridWebOptionsCustomization.cs" />
@@ -150,10 +146,6 @@
     <Compile Include="PivotChart\IPivotOptionsSelection.cs" />
     <Compile Include="PivotChart\IPivotOptionsView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="General\ResourceImpl.cs" />
-    <Compile Include="General\ResourceImpls.cs" />
-    <Compile Include="General\TimePattern.cs" />
-    <Compile Include="General\TimeRange.cs" />
     <Compile Include="Validation\AtLeast1PropertyIsRequired\IRuleRequiredForAtLeast1PropertyProperties.cs" />
     <Compile Include="Validation\RuleDefaultMessageTemplates.cs" />
     <Compile Include="Validation\AtLeast1PropertyIsRequired\RuleRequiredForAtLeast1Property.cs" />

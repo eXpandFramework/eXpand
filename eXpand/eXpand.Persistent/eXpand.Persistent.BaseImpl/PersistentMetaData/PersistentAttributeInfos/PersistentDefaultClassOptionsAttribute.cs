@@ -6,7 +6,7 @@ using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
-    [Registrator(typeof(IPersistentDefaulClassOptionsAttribute))]
+    [WCRegistrator(typeof(IPersistentDefaulClassOptionsAttribute))]
     [DefaultProperty("DefaultClassOptionsName")]
     public class PersistentDefaultClassOptionsAttribute : PersistentAttributeInfo, IPersistentDefaulClassOptionsAttribute
     {

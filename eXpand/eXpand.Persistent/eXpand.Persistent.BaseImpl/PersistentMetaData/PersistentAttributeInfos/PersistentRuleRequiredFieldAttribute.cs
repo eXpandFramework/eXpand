@@ -5,7 +5,7 @@ using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
-    [Registrator(typeof(IPersistentRuleRequiredFieldAttribute))]
+    [WCRegistrator(typeof(IPersistentRuleRequiredFieldAttribute))]
     [DefaultProperty("DefaultProperty")]
     public class PersistentRuleRequiredFieldAttribute : PersistentAttributeInfo, IPersistentRuleRequiredFieldAttribute {
         string _context;

@@ -5,7 +5,7 @@ using eXpand.Persistent.Base.PersistentMetaData;
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
-    [Registrator(typeof(IExtendedCollectionMemberInfo))]
+    [WCRegistrator(typeof(IExtendedCollectionMemberInfo))]
     public class ExtendedCollectionMemberInfo:ExtendedMemberInfo,IExtendedCollectionMemberInfo {
         public ExtendedCollectionMemberInfo(Session session) : base(session) {
         }

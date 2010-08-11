@@ -5,7 +5,7 @@ using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
 {
-    [Registrator(typeof(IPersistentPersistentAttribute))]
+    [WCRegistrator(typeof(IPersistentPersistentAttribute))]
     [DefaultProperty("MapTo")]
     public class PersistentPersistentAttribute : PersistentAttributeInfo, IPersistentPersistentAttribute {
         public PersistentPersistentAttribute(Session session) : base(session) {

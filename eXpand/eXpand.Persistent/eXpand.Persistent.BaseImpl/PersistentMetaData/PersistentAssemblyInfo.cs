@@ -11,7 +11,7 @@ using eXpand.Persistent.Base.PersistentMetaData;
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [DefaultClassOptions]
     [DevExpress.Persistent.Base.NavigationItem("WorldCreator")]
-    [Registrator(typeof(IPersistentAssemblyInfo))]
+    [WCRegistrator(typeof(IPersistentAssemblyInfo))]
     public class PersistentAssemblyInfo : BaseObject, IPersistentAssemblyInfo {
         CodeDomProvider _codeDomProvider;
         string _compileErrors;

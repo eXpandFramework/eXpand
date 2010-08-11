@@ -5,7 +5,7 @@ using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-    [Registrator(typeof(ITemplateInfo))]
+    [WCRegistrator(typeof(ITemplateInfo))]
     public class TemplateInfo : BaseObject,ITemplateInfo {
         string _name;
         string _templateCode;

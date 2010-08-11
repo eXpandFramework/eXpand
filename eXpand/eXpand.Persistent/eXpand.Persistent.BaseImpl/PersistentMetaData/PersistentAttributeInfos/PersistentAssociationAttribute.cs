@@ -10,7 +10,7 @@ using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("AssociationName")]
-    [Registrator(typeof(IPersistentAssociationAttribute))]
+    [WCRegistrator(typeof(IPersistentAssociationAttribute))]
     public class PersistentAssociationAttribute : PersistentAttributeInfo, IPersistentAssociationAttribute {
         string _associationName;
         PersistentClassInfo _elementClassInfo;
