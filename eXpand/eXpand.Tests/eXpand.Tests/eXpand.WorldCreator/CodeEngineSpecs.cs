@@ -39,6 +39,50 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             _generateCode.IndexOf("$TYPEATTRIBUTES$").ShouldEqual(-1);
         };
     }
+
+    public class When_persistent_member_name_is_not_valid:With_In_Memory_DataStore {
+        static PersistentCoreTypeMemberInfo _persistentMemberInfo;
+        static string _generateCode;
+
+
+        Establish context = () => {
+            _persistentMemberInfo = ObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
+
+            _persistentMemberInfo = new PersistentCoreTypeMemberInfo(UnitOfWork) { CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork) };
+            var codeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.XPReadWritePropertyMember };
+            codeTemplate.SetDefaults();
+            _persistentMemberInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
+            _persistentMemberInfo.Name = "in valid";
+        };
+
+        Because of = () => {
+            _generateCode = CodeEngine.GenerateCode(_persistentMemberInfo);
+        };
+
+        It should_clean_the_invalid_name = () => _generateCode.IndexOf("invalid").ShouldBeGreaterThan(-1);
+    }
+
+    public class When_persistent_class_name_is_not_valid:With_In_Memory_DataStore {
+        static string _generateCode;
+        static IPersistentClassInfo _persistentClassInfo;
+
+        Establish context = () => {
+            _persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            _persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            var codeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.Class };
+            codeTemplate.SetDefaults();
+            _persistentClassInfo.CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork);
+            _persistentClassInfo.Name = "in valid";
+            _persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
+        };
+
+        Because of = () => {
+            _generateCode = CodeEngine.GenerateCode(_persistentClassInfo);
+        };
+
+        It should_clean_the_invalid_name = () => _generateCode.IndexOf("invalid").ShouldBeGreaterThan(-1);
+    }
+
     [Subject(typeof(CodeEngine))]
     public class When_generating_code_from_persistentClassinfo_with_no_base_type_defined:With_In_Memory_DataStore {
         static PersistentClassInfo _persistentClassInfo;

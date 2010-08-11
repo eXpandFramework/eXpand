@@ -1,48 +1,34 @@
 ﻿using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Diagnostics;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.WorldCreator.SqlDBMapper;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Machine.Specifications;
-using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using TypeMock.ArrangeActAssert;
 using eXpand.Xpo;
 
 namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
 {
-    internal class MyClass {
-        Establish context = () => { };
-        Because of = () => { };
-        It should_should = () => {
-            const string ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLExpress;Initial Catalog=testsimple;Application Name=testsimple";
-            var cn = new SqlConnection(ConnectionString);
-            var server = new Server(new ServerConnection(cn));
-            Database database = server.Databases[cn.Database];
-            database.Refresh();
-            foreach (var table in database.Tables)
-            {
-                Debug.Print("");
-            }
-            Debug.Print("");
-        };
-    }
-    public class When_creating_a_table_with_the_class_builder : With_table
+    public class When_mapping_a_table : With_table
     {
-        
+        static PersistentPersistentAttribute _persistentPersistentAttribute;
+        static AttributeMapper _attributeMapper;
         static IPersistentClassInfo _persistentClassInfo;
 
         Establish context = () => {
             _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             Isolate.WhenCalled(() => _table.Name).WillReturn("test");
-            
+            _attributeMapper = new AttributeMapper(ObjectSpace);
+            _persistentPersistentAttribute = new PersistentPersistentAttribute(UnitOfWork);
+            Isolate.WhenCalled(() => _attributeMapper.Create(null, null)).WillReturn(new List<IPersistentAttributeInfo> { _persistentPersistentAttribute });
         };
 
         Because of = () =>
         {
-            _persistentClassInfo = new TableMapper(ObjectSpace,_database).Create(_table, _persistentAssemblyInfo);
+            _persistentClassInfo = new TableMapper(ObjectSpace, _database, _attributeMapper).Create(_table, _persistentAssemblyInfo);
         };
 
         It should_return_a_persistent_classinfo_with_name_the_table_name = () => _persistentClassInfo.Name.ShouldEqual("test");
@@ -56,6 +42,8 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         It should_have_a_class_template =
             () => _persistentClassInfo.CodeTemplateInfo.CodeTemplate.TemplateType.ShouldEqual(TemplateType.Class);
 
+        It should_have_the_attributes_of_the_attributemapper =
+            () => _persistentClassInfo.TypeAttributes[0].ShouldEqual(_persistentPersistentAttribute);
     }
 
     public class When_a_persistent_class_info_with_the_same_table_name_exists_and_create_that_table:With_table {
@@ -68,32 +56,11 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         };
 
         Because of = () => {
-            _persistentClassInfo = new TableMapper(ObjectSpace,_database).Create(_table, _persistentAssemblyInfo);
+            _persistentClassInfo = new TableMapper(ObjectSpace, _database, new AttributeMapper(ObjectSpace)).Create(_table, _persistentAssemblyInfo);
         };
 
         It should_return_the_classinfo_from_the_datastore = () => _persistentClassInfo.ShouldEqual(_info);
     }
-//    public class MyClass:With_DataBase {
-//        Establish context = () => {
-//            var table = _database.Tables[0];
-//            foreach (ForeignKey key in table.ForeignKeys) {
-//                foreach (ForeignKeyColumn column in key.Columns)
-//                {
-//                    string s = string.Format("Column: {0} is a foreign key to Table: {1}", column.Name,
-//                                             key.ReferencedTable);
-//                    Debug.Print("");
-//                }
-//            }
-//            var foreignKey = table.ForeignKeys[0];
-//            var enumForeignKeys = table.Columns[1].EnumForeignKeys();
-//            foreach (Column column in table.Columns) {
-//                
-//            }
-//            Debug.Print("");
-//        };
-//        Because of = () => { };
-//        It should_should = () => { };
-//    }
     public class When_creating_a_table_that_has_foreigh_keys:With_table {
         private const string RefName = "RefName";
         
@@ -108,7 +75,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             Isolate.WhenCalled(() => _table.ForeignKeys).WillReturnCollectionValuesOf(new List<ForeignKey>{foreignKey});
         };
 
-        Because of = () => new TableMapper(ObjectSpace,_database).Create(_table, _persistentAssemblyInfo);
+        Because of = () => new TableMapper(ObjectSpace, _database, new AttributeMapper(ObjectSpace)).Create(_table, _persistentAssemblyInfo);
 
         It should_create_a_persistent_classInfo_for_the_foreignkey_as_well =
             () =>
@@ -116,7 +83,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
                                                      info => info.Name == RefName).ShouldNotBeNull();
     }
 
-    public class When_table_has_more_than_one_primary_keys:With_table {
+    public class When_mapping_a_table_that_has_more_than_one_primary_keys:With_table {
         static PersistentClassInfo _persistentClassInfo;
 
         Establish context = () => {
@@ -127,7 +94,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             Isolate.WhenCalled(() => _table.Columns).WillReturnCollectionValuesOf(new List<Column>{pk1,pk2});
         };
 
-        Because of = () => new TableMapper(ObjectSpace,_database).Create(_table, _persistentAssemblyInfo);
+        Because of = () => new TableMapper(ObjectSpace,_database,new AttributeMapper(ObjectSpace)).Create(_table, _persistentAssemblyInfo);
 
         It should_create_a_classInfo_with_name_the_name_of_the_table__plus_KeyStruct = () => {
             _persistentClassInfo = ObjectSpace.Session.FindObject<PersistentClassInfo>(PersistentCriteriaEvaluationBehavior.InTransaction, info => info.Name == TableName + TableMapper.KeyStruct);

@@ -21,7 +21,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 string code = persistentMemberInfo.CodeTemplateInfo.TemplateInfo.TemplateCode;
                 if (code != null) {
                     code = code.Replace("$TYPEATTRIBUTES$", GetAttributesCode(persistentMemberInfo));
-                    code = code.Replace("$PROPERTYNAME$", persistentMemberInfo.Name);
+                    code = code.Replace("$PROPERTYNAME$", CleanName(persistentMemberInfo.Name));
                     code = code.Replace("$PROPERTYTYPE$", GetPropertyTypeCode(persistentMemberInfo));
                     code = code.Replace("$INJECTCODE$", GetInjectCode(persistentMemberInfo));
                 }
@@ -38,7 +38,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 if (code != null) {
                     code = code.Replace("$ASSEMBLYNAME$", persistentClassInfo.PersistentAssemblyInfo.Name);
                     code = code.Replace("$TYPEATTRIBUTES$", attributesCode);
-                    code = code.Replace("$CLASSNAME$", persistentClassInfo.Name);
+                    code = code.Replace("$CLASSNAME$", CleanName(persistentClassInfo.Name));
                     code = code.Replace("$BASECLASSNAME$", persistentClassInfo.BaseTypeFullName + GetInterfacesCode(persistentClassInfo));
                     code = code.Replace("$INJECTCODE$", GetInjectCode(persistentClassInfo));
                     code = GetAllMembersCode(persistentClassInfo, code);
@@ -46,6 +46,14 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 }
             }
             return null;
+        }
+
+        static string CleanName(string name) {
+            var regex = new Regex(@"[^\p{Ll}\p{Lu}\p{Lt}\p{Lo}\p{Nd}\p{Nl}\p{Mn}\p{Mc}\p{Cf}\p{Pc}\p{Lm}]");
+            string ret = regex.Replace(name, "");
+            if (!char.IsLetter(ret, 0) && !System.CodeDom.Compiler.CodeDomProvider.CreateProvider("C#").IsValidIdentifier(ret))
+                ret = string.Concat("_", ret);
+            return ret;
         }
 
         static string GetInjectCode(IPersistentTypeInfo persistentTypeInfo) {
@@ -87,10 +95,19 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             if (persistentMemberInfo is IPersistentCoreTypeMemberInfo)
                 return GetCorePropertyTypeCode(persistentMemberInfo);
             if (persistentMemberInfo is IPersistentReferenceMemberInfo)
-                return ((IPersistentReferenceMemberInfo) persistentMemberInfo).ReferenceTypeFullName;
+                return CleanFullName(((IPersistentReferenceMemberInfo)persistentMemberInfo).ReferenceTypeFullName);
             if (persistentMemberInfo is IPersistentCollectionMemberInfo)
-                return ((IPersistentCollectionMemberInfo)persistentMemberInfo).CollectionTypeFullName;
+                return CleanFullName(((IPersistentCollectionMemberInfo)persistentMemberInfo).CollectionTypeFullName);
             throw new NotImplementedException(persistentMemberInfo.GetType().FullName);
+        }
+
+        static string CleanFullName(string fullName) {
+            var list = fullName.Split('.').ToList();
+            var name = list.Last();
+            list.Remove(name);
+            name = CleanName(name);
+            list.Add(name);
+            return list.Aggregate<string, string>(null, (current, l) => current + (l + ".")).TrimEnd('.');
         }
 
         static string GetCorePropertyTypeCode(IPersistentMemberInfo persistentMemberInfo) {
