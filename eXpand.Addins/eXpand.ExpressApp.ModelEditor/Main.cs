@@ -33,6 +33,9 @@ namespace eXpand.ExpressApp.ModelEditor {
 
 		    try {
 		        var pathInfo = new PathInfo(args);
+		        Tracing.Tracer.LogSeparator("PathInfo");
+		        Tracing.Tracer.LogText(pathInfo.ToString());
+                Tracing.Tracer.LogSeparator("PathInfo");
 		        CheckAssemblyFile(pathInfo);
 		        ApplicationModulesManager applicationModulesManager = GetApplicationModulesManager(pathInfo);
 		        IModelApplication modelApplication = GetModelApplication(applicationModulesManager, pathInfo);
@@ -50,8 +53,9 @@ namespace eXpand.ExpressApp.ModelEditor {
 		}
 
 	    static ModelEditorViewController GetController(PathInfo pathInfo, ApplicationModulesManager applicationModulesManager, IModelApplication modelApplication) {
-	        var fileModelStore = new FileModelStore(Path.GetDirectoryName(pathInfo.LocalPath), Path.GetFileNameWithoutExtension(pathInfo.LocalPath));
-	        var unusableStore = new FileModelStore(Path.GetDirectoryName(pathInfo.LocalPath), ModelStoreBase.UnusableDiffDefaultName);
+	        var storePath = Path.GetDirectoryName(pathInfo.LocalPath);
+	        var fileModelStore = new FileModelStore(storePath, Path.GetFileNameWithoutExtension(pathInfo.LocalPath));
+	        var unusableStore = new FileModelStore(storePath, ModelStoreBase.UnusableDiffDefaultName);
 	        return new ModelEditorViewController(modelApplication, fileModelStore, unusableStore,applicationModulesManager.Modules);
 	    }
 

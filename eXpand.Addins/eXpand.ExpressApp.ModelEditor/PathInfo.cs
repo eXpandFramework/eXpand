@@ -12,6 +12,9 @@ namespace eXpand.ExpressApp.ModelEditor {
 
         }
 
+        public override string ToString() {
+            return string.Format("AssemblyPath={0}{1}FullPath={2}{3}LocalPath={4}", AssemblyPath, Environment.NewLine, FullPath, Environment.NewLine, LocalPath);
+        }
 
         public string AssemblyPath { get; set; }
 
