@@ -4,9 +4,13 @@ using Microsoft.SqlServer.Management.Smo;
 
 namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class ForeignKeyCalculator {
-        public bool IsOneToOne(ForeignKey foreignKey)
-        {
-            return GetRefTableForeignKey(foreignKey) != null;
+        public bool IsOneToOne(ForeignKey foreignKey) {
+            var refTableForeignKey = GetRefTableForeignKey(foreignKey);
+            return refTableForeignKey != null&&!IsSelfReference(foreignKey, refTableForeignKey);
+        }
+
+        bool IsSelfReference(ForeignKey foreignKey, ForeignKey refTableForeignKey) {
+            return refTableForeignKey.Parent.Name==foreignKey.Parent.Name;
         }
 
         public ForeignKey GetRefTableForeignKey(ForeignKey foreignKey)

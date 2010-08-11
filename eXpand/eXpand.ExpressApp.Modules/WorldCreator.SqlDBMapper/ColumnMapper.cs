@@ -22,7 +22,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             IPersistentMemberInfo persistentMemberInfo;
             if (IsCoumboundPKColumn(column)){
                 var structClassInfo = GetReferenceClassInfo(((Table)column.Parent).Name + TableMapper.KeyStruct);
-                CreateStructMemberInfo(column, structClassInfo);
+                CreateStructMemberInfo(column, structClassInfo,owner);
                 persistentMemberInfo = CreateComboundKeyMemberInfo(column, structClassInfo, owner);
             }
             else{
@@ -36,21 +36,23 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
         }
 
         void CreateExtraInfos(Column column, IPersistentClassInfo owner, IPersistentMemberInfo persistentMemberInfo) {
+            var persistentReferenceMemberInfo = (IPersistentReferenceMemberInfo) persistentMemberInfo;
             if (persistentMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPOneToOnePropertyMember) {
-                CreateTemplateInfo((IPersistentReferenceMemberInfo)persistentMemberInfo, column);
+                CreateTemplateInfo(persistentReferenceMemberInfo, column);
             }
-            else if (persistentMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType != TemplateType.XPOneToOnePropertyMember)
-                CreateCollection((IPersistentReferenceMemberInfo) persistentMemberInfo);
+            else if (!column.InPrimaryKey&& persistentMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPReadWritePropertyMember)
+                CreateCollection(persistentReferenceMemberInfo, persistentReferenceMemberInfo.Owner);
             else {
-                var table = (Table) column.Parent;
-                var foreignKey = _foreignKeyCalculator.GetForeignKey(table.Parent, column.Name, table.Name);
-                var persistentClassInfoOwner = GetReferenceClassInfo(foreignKey.ReferencedTable);
-                CreatePersistentReferenceMemberInfo(foreignKey.ReferencedKey, persistentClassInfoOwner, owner,TemplateType.XPOneToOnePropertyMember);
+//                throw new NotImplementedException();
+//                var table = (Table) column.Parent;
+//                var foreignKey = _foreignKeyCalculator.GetForeignKey(table.Parent, column.Name, table.Name);
+//                var persistentClassInfoOwner = GetReferenceClassInfo(foreignKey.ReferencedTable);
+//                CreatePersistentReferenceMemberInfo(foreignKey.ReferencedKey, persistentClassInfoOwner, owner,TemplateType.XPOneToOnePropertyMember);
             }
         }
 
         void AddAttributes(Column column, IPersistentMemberInfo persistentMemberInfo) {
-            var persistentAttributeInfos = _attributeMapper.Create(column, persistentMemberInfo);
+            var persistentAttributeInfos = _attributeMapper.Create(column, persistentMemberInfo,_dataTypeMapper);
             foreach (var persistentAttributeInfo in persistentAttributeInfos) {
                 persistentMemberInfo.TypeAttributes.Add(persistentAttributeInfo);    
             }
@@ -68,11 +70,11 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             return persistentMemberInfo;
         }
 
-        void CreateStructMemberInfo(Column column, IPersistentClassInfo structClassInfo) {
+        void CreateStructMemberInfo(Column column, IPersistentClassInfo structClassInfo, IPersistentClassInfo owner) {
             IPersistentMemberInfo structMemberInfo = CreateMember(column, structClassInfo, TemplateType.ReadWriteMember);
             AddAttributes(column, structMemberInfo);
             if (column.IsForeignKey)
-                CreateCollection((IPersistentReferenceMemberInfo)structMemberInfo);
+                CreateCollection((IPersistentReferenceMemberInfo)structMemberInfo, owner);
         }
 
 
@@ -114,12 +116,12 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             return table.Columns.OfType<Column>().Where(column => column.InPrimaryKey).Count()>1;
         }
 
-        void CreateCollection(IPersistentReferenceMemberInfo persistentReferenceMemberInfo) {
+        void CreateCollection(IPersistentReferenceMemberInfo persistentReferenceMemberInfo, IPersistentClassInfo owner) {
             var persistentCollectionMemberInfo = _objectSpace.CreateWCObject<IPersistentCollectionMemberInfo>();
             persistentReferenceMemberInfo.ReferenceClassInfo.OwnMembers.Add(persistentCollectionMemberInfo);
-            persistentCollectionMemberInfo.Name = persistentReferenceMemberInfo.Name + "s";
+            persistentCollectionMemberInfo.Name = persistentReferenceMemberInfo.Owner.Name + persistentReferenceMemberInfo.Name + "s";
             persistentCollectionMemberInfo.Owner = persistentReferenceMemberInfo.ReferenceClassInfo;
-            persistentCollectionMemberInfo.CollectionClassInfo = persistentReferenceMemberInfo.Owner;
+            persistentCollectionMemberInfo.CollectionClassInfo = owner;
             persistentCollectionMemberInfo.SetDefaultTemplate(TemplateType.XPCollectionMember);
             var persistentAssociationAttribute = _objectSpace.CreateWCObject<IPersistentAssociationAttribute>();
             persistentCollectionMemberInfo.TypeAttributes.Add(persistentAssociationAttribute);

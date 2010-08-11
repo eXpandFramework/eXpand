@@ -6,39 +6,40 @@ using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using Microsoft.SqlServer.Management.Smo;
 using eXpand.ExpressApp.WorldCreator.Core;
+using System.Linq;
 
 namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class AttributeMapper {
         readonly ForeignKeyCalculator _foreignKeyCalculator=new ForeignKeyCalculator();
         readonly ObjectSpace _objectSpace;
 
-        readonly DataTypeMapper _dataTypeMapper;
 
-        public AttributeMapper(ObjectSpace objectSpace,DataTypeMapper dataTypeMapper) {
+        public AttributeMapper(ObjectSpace objectSpace) {
             _objectSpace = objectSpace;
-            _dataTypeMapper = dataTypeMapper;
         }
 
 
 
-        public List<IPersistentAttributeInfo> Create(Column column,IPersistentMemberInfo owner) {
+        public List<IPersistentAttributeInfo> Create(Column column,IPersistentMemberInfo owner,DataTypeMapper dataTypeMapper) {
             var persistentAttributeInfos = new List<IPersistentAttributeInfo>();
+            
             if (owner.CodeTemplateInfo.CodeTemplate.TemplateType==TemplateType.XPOneToOnePropertyMember)
                 return persistentAttributeInfos;
             if (column.InPrimaryKey){
                 if (owner.Owner.CodeTemplateInfo.CodeTemplate.TemplateType != TemplateType.Struct) {
                     persistentAttributeInfos.Add(GetPersistentKeyAttribute(column));
-                    persistentAttributeInfos.Add(_objectSpace.CreateWCObject<IPersistentPersistentAttribute>());
                 }
             }
             if (!column.Nullable && !column.InPrimaryKey){
                 persistentAttributeInfos.Add(GetPersistentRuleRequiredFieldAttribute(column));
             }
-            if (_dataTypeMapper.GetDataType(column) == DBColumnType.String){
+            if (dataTypeMapper.GetDataType(column) == DBColumnType.String){
                 persistentAttributeInfos.Add(GetPersistentSizeAttribute(column));
             }
-            if ((column.IsForeignKey && !(column.InPrimaryKey)) || ((owner.Owner.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.Struct && column.InPrimaryKey)))
+            if ((column.IsForeignKey && !(column.InPrimaryKey)) || ((owner.Owner.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.Struct && column.InPrimaryKey&&column.IsForeignKey)))
                 persistentAttributeInfos.Add(GetPersistentAssociationAttribute(column));
+            if (owner.Owner.CodeTemplateInfo.CodeTemplate.TemplateType!=TemplateType.Struct)
+                persistentAttributeInfos.Add(GetPersistentPersistentAttribute(column.Name));
             return persistentAttributeInfos;
         }
 
@@ -71,6 +72,21 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
 
         public ObjectSpace ObjectSpace {
             get { return _objectSpace; }
+        }
+
+        public List<IPersistentAttributeInfo> Create(Table table, IPersistentClassInfo owner) {
+            var persistentAttributeInfos = new List<IPersistentAttributeInfo>();
+            if (owner.TypeAttributes.OfType<IPersistentPersistentAttribute>().FirstOrDefault()== null)
+                persistentAttributeInfos.Add(GetPersistentPersistentAttribute(table.Name));
+            if (owner.TypeAttributes.OfType<IPersistentDefaulClassOptionsAttribute>().FirstOrDefault()== null)
+                persistentAttributeInfos.Add(ObjectSpace.CreateWCObject<IPersistentDefaulClassOptionsAttribute>());
+            return persistentAttributeInfos;
+        }
+
+        IPersistentPersistentAttribute GetPersistentPersistentAttribute(string name) {
+            var persistentPersistentAttribute = ObjectSpace.CreateWCObject<IPersistentPersistentAttribute>();
+            persistentPersistentAttribute.MapTo = name;
+            return persistentPersistentAttribute;
         }
     }
 }
