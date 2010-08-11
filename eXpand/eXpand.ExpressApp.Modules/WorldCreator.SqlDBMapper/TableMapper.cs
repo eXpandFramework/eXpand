@@ -13,10 +13,12 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
         public const string KeyStruct = "KeyStruct";
         readonly ObjectSpace _objectSpace;
         readonly Database _database;
+        readonly AttributeMapper _attributeMapper;
 
-        public TableMapper(ObjectSpace objectSpace,Database database) {
+        public TableMapper(ObjectSpace objectSpace,Database database,AttributeMapper attributeMapper) {
             _objectSpace = objectSpace;
             _database = database;
+            _attributeMapper = attributeMapper;
         }
 
         public IPersistentClassInfo Create(Table table, IPersistentAssemblyInfo persistentAssemblyInfo) {
@@ -33,27 +35,35 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
         {
             int count = table.Columns.OfType<Column>().Where(column => column.InPrimaryKey).Count();
             if (count>=1) {
-                IPersistentClassInfo persistentClassInfo = GetPersistentClassInfo(table.Name);
-                persistentAssemblyInfo.PersistentClassInfos.Add(persistentClassInfo);
+                IPersistentClassInfo persistentClassInfo = CreatePersistentClassInfo(table.Name,TemplateType.Class, persistentAssemblyInfo);
                 persistentClassInfo.BaseType = typeof (XPLiteObject);
-                persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
                 if (count>1)
-                    CreateStructureClassInfo(persistentClassInfo.Name,persistentAssemblyInfo);
+                    CreatePersistentClassInfo(table.Name + KeyStruct, TemplateType.Struct,persistentAssemblyInfo);
+                CreateExtraInfos(table, persistentClassInfo);
                 return persistentClassInfo;
             }
             throw new NotImplementedException(table.Name);    
         }
 
-        void CreateStructureClassInfo(string name, IPersistentAssemblyInfo persistentAssemblyInfo) {
-            var persistentClassInfo = _objectSpace.CreateWCObject<IPersistentClassInfo>();
-            persistentAssemblyInfo.PersistentClassInfos.Add(persistentClassInfo);
-            persistentClassInfo.SetDefaultTemplate(TemplateType.Struct);
-            persistentClassInfo.Name = name + KeyStruct;
+        void CreateExtraInfos(Table table, IPersistentClassInfo persistentClassInfo) {
+            var persistentAttributeInfos = _attributeMapper.Create(table,persistentClassInfo);
+            foreach (var persistentAttributeInfo in persistentAttributeInfos) {
+                persistentClassInfo.TypeAttributes.Add(persistentAttributeInfo);
+            }
         }
 
-        IPersistentClassInfo GetPersistentClassInfo(string name) {
+
+        IPersistentClassInfo CreatePersistentClassInfo(string name, TemplateType templateType, IPersistentAssemblyInfo persistentAssemblyInfo)
+        {
             var findBussinessObjectType = WCTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>();
-            return (IPersistentClassInfo) (_objectSpace.Session.FindObject(findBussinessObjectType,CriteriaOperator.Parse("Name=?",name),true) ?? CreateNew(name));
+            var info = _objectSpace.Session.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction,
+                                                                        findBussinessObjectType, CriteriaOperator.Parse("Name=?", name)) as IPersistentClassInfo;
+            if (info!= null)
+                return info;
+            var persistentClassInfo = CreateNew(name);
+            persistentAssemblyInfo.PersistentClassInfos.Add(persistentClassInfo);
+            persistentClassInfo.SetDefaultTemplate(templateType);
+            return persistentClassInfo;
         }
 
         IPersistentClassInfo CreateNew(string name) {
@@ -61,5 +71,6 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             persistentClassInfo.Name = name;
             return persistentClassInfo;
         }
+
     }
 }
