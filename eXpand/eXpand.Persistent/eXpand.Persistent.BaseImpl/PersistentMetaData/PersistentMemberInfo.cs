@@ -12,7 +12,13 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
         protected PersistentMemberInfo(Session session) : base(session) {
         }
-
+        [VisibleInDetailView(false)]
+        [VisibleInListView(true)]
+        [Custom("GroupIndex", "0")]
+        public string TypeInfoName
+        {
+            get { return GetType().Name.Replace("Persistent", ""); }
+        }
         [VisibleInListView(false)]
         [Custom("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]

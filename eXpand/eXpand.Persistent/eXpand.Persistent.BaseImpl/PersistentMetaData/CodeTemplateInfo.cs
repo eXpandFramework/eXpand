@@ -15,6 +15,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         public CodeTemplateInfo(Session session) : base(session) {
         }
         [NonPersistent]
+        [VisibleInListView(false)]
         public CodeTemplate CodeTemplate {
             get { return _codeTemplate; }
             set { SetPropertyValue("CodeTemplate", ref _codeTemplate, value); }

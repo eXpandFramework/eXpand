@@ -15,7 +15,13 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
         protected ExtendedMemberInfo(Session session) : base(session) {
         }
-
+        [VisibleInDetailView(false)]
+        [VisibleInListView(true)]
+        [Custom("GroupIndex","0")]
+        public string TypeInfoName
+        {
+            get { return GetType().Name.Replace("Persistent", ""); }
+        }
         public PersistentClassInfo OwnerClassInfo {
             get { return _ownerClassInfo; }
             set { SetPropertyValue("OwnerClassInfo", ref _ownerClassInfo, value); }
