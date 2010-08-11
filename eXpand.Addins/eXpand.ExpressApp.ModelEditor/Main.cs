@@ -27,7 +27,7 @@ namespace eXpand.ExpressApp.ModelEditor {
 			HandleException(e.Exception);
 		}
 		[STAThread]
-		static void Main(string[] args) {
+		public static void Main(string[] args) {
 			Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 			Application.ThreadException += OnException;
 
@@ -104,8 +104,9 @@ namespace eXpand.ExpressApp.ModelEditor {
 	        var resourcesModelStore = new ResourcesModelStore(assembly, "");
 	        resourcesModelStore.ResourceLoading += (sender, args) => {
 	            if (args.ResourceName.EndsWith(Path.GetFileName(pathInfo.LocalPath))) {
-	                args.Cancel = true;
-	                resourceName = args.ResourceName;
+                    args.Cancel = assembly.Location == pathInfo.AssemblyPath;
+                    if (args.Cancel)
+	                    resourceName = args.ResourceName;
 	            }
 	        };
 	        resourcesModelStore.Load(layer);

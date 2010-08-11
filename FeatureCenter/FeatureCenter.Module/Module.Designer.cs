@@ -103,6 +103,7 @@ namespace FeatureCenter.Module
             this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.WorldCreator.WorldCreatorModule));
             this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.IO.IOModule));
             this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.Validation.eXpandValidationModule));
+            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.MasterDetail.MasterDetailModule));
             this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.PivotChart.PivotChartModule));
             this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.FilterDataStore.FilterDataStoreModule));
             this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule));
