@@ -12,17 +12,15 @@ namespace eXpand.ExpressApp.IO.Core {
     public class ExportEngine {
         readonly Dictionary<ObjectInfo, object> exportedObjecs = new Dictionary<ObjectInfo, object>();
         SerializeClassInfoGraphNodesCalculator _serializeClassInfoGraphNodesCalculator ;
-        public XDocument Export(IEnumerable<XPBaseObject> baseCollection) {
-            return Export(baseCollection, null);
-        }
 
-        public XDocument Export( IEnumerable<XPBaseObject> baseCollection, ISerializationConfiguration serializationConfiguration){
+        public XDocument Export(IEnumerable<XPBaseObject> baseCollection, ISerializationConfigurationGroup serializationConfigurationGroup){
             var xDocument = new XDocument();
             var root = new XElement("SerializedObjects");
             xDocument.Add(root);
-            _serializeClassInfoGraphNodesCalculator =new SerializeClassInfoGraphNodesCalculator(serializationConfiguration.SerializationConfigurationGroup);    
+            _serializeClassInfoGraphNodesCalculator =new SerializeClassInfoGraphNodesCalculator(serializationConfigurationGroup);    
             foreach (var baseObject in baseCollection) {
-                var serializedClassInfoGraphNodes = _serializeClassInfoGraphNodesCalculator.GetSerializedClassInfoGraphNodes(baseObject, serializationConfiguration);
+                IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes =
+                    _serializeClassInfoGraphNodesCalculator.GetSerializedClassInfoGraphNodes(baseObject);
                 ExportCore(baseObject, serializedClassInfoGraphNodes, root);
             }
             return xDocument;

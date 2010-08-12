@@ -28,6 +28,7 @@ namespace eXpand.ExpressApp.IO.Core {
             {
                 configuration =
                     (ISerializationConfiguration)ReflectionHelper.CreateObject(serializationConfigurationType, session);
+                configuration.SerializationConfigurationGroup=_serializationConfigurationGroup;
                 configuration.TypeToSerialize = type;
                 new ClassInfoGraphNodeBuilder().Generate(configuration);
             }
@@ -41,10 +42,8 @@ namespace eXpand.ExpressApp.IO.Core {
             return GetSerializedClassInfoGraphNodes(configuration);
         }
 
-        public IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(XPBaseObject baseObject, ISerializationConfiguration serializationConfiguration)
-        {
-            ISerializationConfiguration configuration = serializationConfiguration != null ? baseObject.GetType() == serializationConfiguration.TypeToSerialize ? serializationConfiguration
-                                                                                                 : SerializationConfigurationQuery.Find(baseObject.Session, baseObject.GetType(), _serializationConfigurationGroup) : GetConfiguration(baseObject.Session, baseObject.GetType());
+        public IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(XPBaseObject baseObject) {
+            var configuration = GetConfiguration(baseObject.Session, baseObject.GetType());
             return GetSerializedClassInfoGraphNodes(configuration);
         }
 

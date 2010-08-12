@@ -1,18 +1,23 @@
 using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.IO;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
+using eXpand.Tests.eXpand.WorldCreator;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
 using eXpand.ExpressApp.Core;
 
 namespace eXpand.Tests.eXpand.IO {
     public abstract class With_Customer_Orders:With_Isolations {
+        protected static Session Session;
         protected static Type OrderType;
         protected static ObjectSpace ObjectSpace;
         protected static Type CustomerType;
@@ -20,6 +25,7 @@ namespace eXpand.Tests.eXpand.IO {
         Establish context = () => {
 //            var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
             ObjectSpace = ObjectSpaceInMemory.CreateNew();
+            Session = ObjectSpace.Session;
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(ObjectSpace,"a"+ Guid.NewGuid().ToString().Replace("-",""));
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer", "Order" });
             classHandler.CreateReferenceMembers(info => info.Name == "Customer" ? new[] { typeof(User) } : null, true);
@@ -38,8 +44,45 @@ namespace eXpand.Tests.eXpand.IO {
     public interface ICustomer
     {
     }
+    public class ImagePropertyObject : BaseObject
+    {
+        public ImagePropertyObject(Session session)
+            : base(session)
+        {
+        }
+        private readonly XPDelayedProperty _Photo = new XPDelayedProperty();
+        [ValueConverter(typeof(ImageValueConverter))]
+        [Delayed("_Photo")]
+        public Image Photo
+        {
+            get
+            {
+                return (Image)_Photo.Value;
+            }
+            set
+            {
+                _Photo.Value = value;
+                OnChanged("_Photo");
+            }
+        }
+    }
+    public class DateTimePropertyObject : BaseObject
+    {
+        public DateTimePropertyObject(Session session)
+            : base(session)
+        {
+        }
 
-    public abstract class With_Isolations
+        DateTime _date;
+
+        public DateTime Date
+        {
+            get { return _date; }
+            set { SetPropertyValue("Date", ref _date, value); }
+        }
+    }
+
+    public abstract class With_Isolations : With_WC_types
     {
         public static string GetUniqueAssemblyName()
         {

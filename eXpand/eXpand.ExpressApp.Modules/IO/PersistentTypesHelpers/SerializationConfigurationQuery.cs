@@ -12,9 +12,9 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers
         public static CriteriaOperator GetCriteria(Type serializationConfigurationType, ISerializationConfigurationGroup serializationConfigurationGroup)
         {
             const ISerializationConfiguration serializationConfiguration = null;
+            var groupOperator = new BinaryOperator(serializationConfiguration.GetPropertyName(x => x.SerializationConfigurationGroup),serializationConfigurationGroup);
             return new GroupOperator(new BinaryOperator(serializationConfiguration.GetPropertyName(x => x.TypeToSerialize),
-                                      serializationConfigurationType), new BinaryOperator(serializationConfiguration.GetPropertyName(x => x.SerializationConfigurationGroup),
-                                      serializationConfigurationGroup));
+                                      serializationConfigurationType), groupOperator);
         }
 
         public static bool ConfigurationExists(Session session, Type type, ISerializationConfigurationGroup serializationConfigurationGroup)

@@ -42,7 +42,7 @@ namespace eXpand.Tests.eXpand.IO {
 
 
         Because of = () => {
-            _root = new ExportEngine().Export(new[]{_derivedCustomer}.OfType<XPBaseObject>(),_serializationConfiguration).Root;
+            _root = new ExportEngine().Export(new[]{_derivedCustomer}.OfType<XPBaseObject>(), null).Root;
         };
 
         It should_export_derived_type_instead=() => {
@@ -92,7 +92,7 @@ namespace eXpand.Tests.eXpand.IO {
 
         Because of = () =>
         {
-            _root = new ExportEngine().Export(new[] { _order }, _serializationConfiguration).Root;
+            _root = new ExportEngine().Export(new[] { _order }, null).Root;
         };
 
         It should_export_derived_type_instead = () => _root.SerializedObjects(_derivedCustomerType).Count().ShouldEqual(1);
@@ -133,7 +133,7 @@ namespace eXpand.Tests.eXpand.IO {
 
         };
 
-        Because of = () => { _root = new ExportEngine().Export(new[] { _customer }, _serializationConfiguration).Root; };
+        Because of = () => { _root = new ExportEngine().Export(new[] { _customer }, null).Root; };
 
         It should_export_derived_type_instead = () => _root.SerializedObjects(_derivedOrderType).Count().ShouldEqual(1);
     }
