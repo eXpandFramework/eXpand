@@ -236,4 +236,18 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         It should_have_the_name_of_reference_table_as_name = () => _persistentMemberInfo.Name.ShouldEqual(_refPersistentClassInfo.Name);
 
     }
+    [Subject(typeof(ColumnMapper), "Create MemberInfo")]
+    public class When_memberinfo_with_the_same_name_exists:With_Column {
+        static IPersistentMemberInfo _persistentMemberInfo;
+
+        Establish context = () => {
+            new PersistentCoreTypeMemberInfo(UnitOfWork) {Name = _column.Name, Owner = _owner};
+        };
+
+        Because of = () => {
+            _persistentMemberInfo = new ColumnMapper(new DataTypeMapper(), new AttributeMapper(ObjectSpace)).Create(_column, _owner);
+        };
+
+        It should_not_create_another_member = () => _persistentMemberInfo.ShouldBeNull();
+    }
 }
