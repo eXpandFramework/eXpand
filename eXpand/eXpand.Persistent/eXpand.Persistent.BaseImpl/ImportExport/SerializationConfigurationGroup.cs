@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -8,6 +9,7 @@ using eXpand.Persistent.Base.ImportExport;
 namespace eXpand.Persistent.BaseImpl.ImportExport {
     [DefaultClassOptions]
     [NavigationItem("ImportExport")]
+    [DefaultProperty("Name")]
     public class SerializationConfigurationGroup:BaseObject, ISerializationConfigurationGroup {
         private string _name;
 

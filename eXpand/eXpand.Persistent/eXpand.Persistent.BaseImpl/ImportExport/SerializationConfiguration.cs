@@ -9,13 +9,14 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
 namespace eXpand.Persistent.BaseImpl.ImportExport {
+    [DefaultProperty("TypeToSerialize")]
+    [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "TypeToSerialize,SerializationConfigurationGroup")]
     public class SerializationConfiguration : BaseObject, ISerializationConfiguration {
         private Type _typeToSerialize;
         public SerializationConfiguration(Session session) : base(session) { }
         private SerializationConfigurationGroup _serializationConfigurationGroup;
         
-        [RuleUniqueValue(null,DefaultContexts.Save)]
-        [RuleRequiredField(null, DefaultContexts.Save)]
+        
         [Index(0)]
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
