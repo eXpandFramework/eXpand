@@ -1,4 +1,5 @@
-﻿using DevExpress.Data.Filtering;
+﻿using System;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
@@ -29,13 +30,13 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
                 persistentMemberInfo = CreateMember(column, owner, TemplateType.XPReadWritePropertyMember);
                 AddAttributes(column, persistentMemberInfo);
                 if (column.IsForeignKey) {
-                    CreateExtraInfos(column, owner, persistentMemberInfo);
+                    CreateExtraInfos(column, persistentMemberInfo);
                 }
             }
             return persistentMemberInfo;
         }
 
-        void CreateExtraInfos(Column column, IPersistentClassInfo owner, IPersistentMemberInfo persistentMemberInfo) {
+        void CreateExtraInfos(Column column, IPersistentMemberInfo persistentMemberInfo) {
             var persistentReferenceMemberInfo = (IPersistentReferenceMemberInfo) persistentMemberInfo;
             if (persistentMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPOneToOnePropertyMember) {
                 CreateTemplateInfo(persistentReferenceMemberInfo, column);
@@ -43,11 +44,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             else if (!column.InPrimaryKey&& persistentMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPReadWritePropertyMember)
                 CreateCollection(persistentReferenceMemberInfo, persistentReferenceMemberInfo.Owner);
             else {
-//                throw new NotImplementedException();
-//                var table = (Table) column.Parent;
-//                var foreignKey = _foreignKeyCalculator.GetForeignKey(table.Parent, column.Name, table.Name);
-//                var persistentClassInfoOwner = GetReferenceClassInfo(foreignKey.ReferencedTable);
-//                CreatePersistentReferenceMemberInfo(foreignKey.ReferencedKey, persistentClassInfoOwner, owner,TemplateType.XPOneToOnePropertyMember);
+                throw new NotImplementedException();
             }
         }
 
@@ -88,11 +85,15 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
                 return CreatePersistentCoreTypeMemberInfo(column, owner, templateType);
             }
             var table = (Table)column.Parent;
-            ForeignKey foreignKey = _foreignKeyCalculator.GetForeignKey(table.Parent, column.Name, table.Name);
+            var columnName = column.Name;
+            ForeignKey foreignKey = _foreignKeyCalculator.GetForeignKey(table.Parent, columnName, table.Name);
             if (owner.CodeTemplateInfo.CodeTemplate.TemplateType != TemplateType.Struct && _foreignKeyCalculator.IsOneToOne(foreignKey))
                 templateType=TemplateType.XPOneToOnePropertyMember;
+            else if (foreignKey.Columns.Count>1) {
+                columnName = foreignKey.ReferencedTable;
+            }
             IPersistentClassInfo referenceClassInfo = GetReferenceClassInfo(foreignKey.ReferencedTable);
-            var persistentReferenceMemberInfo = CreatePersistentReferenceMemberInfo(column.Name, owner, referenceClassInfo,templateType);
+            var persistentReferenceMemberInfo = CreatePersistentReferenceMemberInfo(columnName, owner, referenceClassInfo,templateType);
             return persistentReferenceMemberInfo;
         }
 

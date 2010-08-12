@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
@@ -13,6 +14,7 @@ using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Xpo;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
+using System.Linq;
 
 namespace eXpand.Tests.eXpand.WorldCreator
 {
@@ -101,29 +103,36 @@ namespace eXpand.Tests.eXpand.WorldCreator
         
     }
 
-    public abstract class With_In_Memory_DataStore 
+    public abstract class With_In_Memory_DataStore :With_WC_types
     {
         protected static ObjectSpace ObjectSpace;
         protected static UnitOfWork UnitOfWork;
         Establish context = () =>
         {
+            ObjectSpace = ObjectSpaceInMemory.CreateNew();
+            UnitOfWork = (UnitOfWork) ObjectSpace.Session;   
+        };
+        
+    }
+
+    public abstract class With_Types_info {
+        Establish context = () => {
             ReflectionHelper.Reset();
             XafTypesInfo.Reset();
             XafTypesInfo.HardReset();
             XafTypesInfo.XpoTypeInfoSource.ResetDictionary();
-            WCTypesInfo.Instance.Reset();
-            ObjectSpace = ObjectSpaceInMemory.CreateNew();
-            UnitOfWork = (UnitOfWork) ObjectSpace.Session;
-            var type1 = typeof(PersistentClassInfo);
-            foreach (var type in type1.Assembly.GetTypes()) {
-                if (type.Namespace.StartsWith(type1.Namespace)) {
-                    WCTypesInfo.Instance.Register(type);
-                }
-            }
-
-            
         };
-        
+    }
+    public abstract class With_WC_types : With_Types_info
+    {
+        Establish context = () => {
+            WCTypesInfo.Instance.Reset();
+            var type1 = typeof(PersistentClassInfo);
+            var types = type1.Assembly.GetTypes().Where(type => type.Namespace.StartsWith(type1.Namespace));
+            foreach (var type in types){
+                WCTypesInfo.Instance.Register(type);
+            }
+        };
     }
 
 //    public interface IXafTypesInfo {

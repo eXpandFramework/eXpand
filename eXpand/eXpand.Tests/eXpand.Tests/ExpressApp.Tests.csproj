@@ -235,9 +235,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eXpand.IO\ModelBuilder.cs" />
-    <Compile Include="eXpand.IO\SerializationConfigurationGraphSpecs.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="eXpand.Utils\NotificationExtensionsFixture.cs">
       <SubType>Code</SubType>
     </Compile>

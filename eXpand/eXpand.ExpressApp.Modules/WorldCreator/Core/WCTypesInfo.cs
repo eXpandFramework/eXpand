@@ -19,7 +19,14 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             get { return _instance; }
         }
         public Type FindBussinessObjectType<T>() {
-            return _dictionary[typeof(T)];
+            Type findBussinessObjectType;
+            try {
+                findBussinessObjectType = _dictionary[typeof(T)];
+            }
+            catch (KeyNotFoundException e) {
+                throw new KeyNotFoundException(typeof (T).ToString());
+            }
+            return findBussinessObjectType;
         }
 
         public void Reset()

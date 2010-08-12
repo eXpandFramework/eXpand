@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo.DB;
@@ -36,11 +37,28 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             if (dataTypeMapper.GetDataType(column) == DBColumnType.String){
                 persistentAttributeInfos.Add(GetPersistentSizeAttribute(column));
             }
-            if ((column.IsForeignKey && !(column.InPrimaryKey)) || ((owner.Owner.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.Struct && column.InPrimaryKey&&column.IsForeignKey)))
+            if (IsSimpleForeignKey(column) || ((IsCompoundPrimaryKey(owner, column)&&column.IsForeignKey)))
                 persistentAttributeInfos.Add(GetPersistentAssociationAttribute(column));
-            if (owner.Owner.CodeTemplateInfo.CodeTemplate.TemplateType!=TemplateType.Struct)
-                persistentAttributeInfos.Add(GetPersistentPersistentAttribute(column.Name));
+//            if (owner.Owner.CodeTemplateInfo.CodeTemplate.TemplateType!=TemplateType.Struct)
+
+            var persistentPersistentAttribute = GetPersistentPersistentAttribute(column.Name);
+            if (IsSimpleForeignKey(column)&&IsCompoundForeignKey(column))
+                persistentPersistentAttribute.MapTo=String.Empty;
+            persistentAttributeInfos.Add(persistentPersistentAttribute);
             return persistentAttributeInfos;
+        }
+
+        bool IsCompoundForeignKey(Column column) {
+            var foreignKey = _foreignKeyCalculator.GetForeignKey(column);
+            return foreignKey.Columns.Count > 1;
+        }
+
+        bool IsCompoundPrimaryKey(IPersistentMemberInfo owner, Column column) {
+            return owner.Owner.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.Struct && column.InPrimaryKey;
+        }
+
+        bool IsSimpleForeignKey(Column column) {
+            return (column.IsForeignKey && !(column.InPrimaryKey));
         }
 
         IPersistentAssociationAttribute GetPersistentAssociationAttribute(Column column) {

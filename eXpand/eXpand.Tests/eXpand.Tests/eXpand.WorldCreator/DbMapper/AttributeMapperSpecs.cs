@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using eXpand.ExpressApp.WorldCreator.SqlDBMapper;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -104,7 +105,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             () => _persistentAttributeInfos.OfType<PersistentPersistentAttribute>();
     }
 
-    public class When_column_is_primarykey_and_foreing_key_and_table_has_more_privae_keys_and_owner_is_struct:With_ForeignKey_Column
+    public class When_column_is_foreign_and_primary_key_and_table_has_combound_keys:With_ForeignKey_Column
     {
         static List<IPersistentAttributeInfo> _persistentAttributeInfos;
         static IPersistentMemberInfo _persistentMemberInfo;
@@ -112,7 +113,6 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         Establish context = () =>
         {
             Isolate.WhenCalled(() => _column.InPrimaryKey).WillReturn(true);
-            _table.Columns.Add(_column);
             _persistentMemberInfo = Isolate.Fake.Instance<IPersistentMemberInfo>();
             _persistentMemberInfo.Owner.CodeTemplateInfo.CodeTemplate.TemplateType = TemplateType.Struct;
         };
@@ -127,8 +127,28 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         It should_not_create_a_key_attribute =
             () => _persistentAttributeInfos.OfType<IPersistentKeyAttribute>().FirstOrDefault().ShouldBeNull();
 
-        It should_not_create_a_persistent_attribute =
-            () => _persistentAttributeInfos.OfType<IPersistentPersistentAttribute>().FirstOrDefault().ShouldBeNull();
+    }
+
+    public class When_column_is_combound_foreign_key:With_ForeignKey_Column {
+        static IPersistentPersistentAttribute _persistentPersistentAttribute;
+        static List<IPersistentAttributeInfo> _persistentAttributeInfos;
+
+        Establish context = () => {
+            var foreignKeyColumn = Isolate.Fake.Instance<ForeignKeyColumn>();
+            _foreignKey.Columns.Add(foreignKeyColumn);
+        };
+
+        Because of = () => {
+            _persistentAttributeInfos = new AttributeMapper(ObjectSpace).Create(_column, Isolate.Fake.Instance<IPersistentMemberInfo>(),new DataTypeMapper());
+        };
+
+        It should_create_a_persitent_attrbiute = () => {
+            _persistentPersistentAttribute =
+                _persistentAttributeInfos.OfType<IPersistentPersistentAttribute>().FirstOrDefault();
+            _persistentPersistentAttribute.ShouldNotBeNull();
+        };
+
+        It should_map_it_to_an_empty_string = () => _persistentPersistentAttribute.MapTo.ShouldEqual(String.Empty);
     }
 
     public class When_owner_is_one_to_one:With_ForeignKey_Column {
@@ -195,4 +215,5 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
 
         It should_not_return_any_attribute = () => _persistentAttributeInfos.OfType<IPersistentPersistentAttribute>().Count().ShouldEqual(0);
     }
+    
 }

@@ -13,8 +13,8 @@ using eXpand.ExpressApp.WorldCreator.Core;
 
 namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
 {
-    [Subject(typeof(ColumnMapper))]
-    public class When_passing_a_non_FK_column_to_a_property_builder : With_Column
+    [Subject(typeof(ColumnMapper),"Create MemberInfo")]
+    public class When_column_is_not_a_foreign_key_column : With_Column
     {
         static DataTypeMapper _dataTypeMapper;
         static PersistentCoreTypeMemberInfo _persistentMemberInfo;
@@ -42,8 +42,8 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             () => _persistentMemberInfo.TypeAttributes.ShouldContainOnly((PersistentAttributeInfo)_persistentAttributeInfos[0]);
     }
 
-
-    public class When_passing_an_FK_column_to_a_property_builder:With_ForeignKey_Column
+    [Subject(typeof(ColumnMapper), "Create MemberInfo")]
+    public class When_column_is_a_foreign_key_column : With_ForeignKey_Column
     {
         static ColumnMapper _columnMapper;
         static PersistentCollectionMemberInfo _persistentCollectionMemberInfo;
@@ -85,8 +85,8 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             () =>
             _persistentCollectionMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType.ShouldEqual(TemplateType.XPCollectionMember);
     }
-
-    public class When_passing_a_column_with_unknow_datatype:With_Column {
+    [Subject(typeof(ColumnMapper), "Create MemberInfo")]
+    public class When_column_datatatype_is_unknown:With_Column {
         static IPersistentCoreTypeMemberInfo _persistentCoreTypeMemberInfo;
         static DataTypeMapper _dataTypeMapper;
 
@@ -107,8 +107,8 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         It should_have_an_unknown_datatype =
             () => _persistentCoreTypeMemberInfo.DataType.ShouldEqual(DBColumnType.Unknown);
     }
-
-    public class When_mapping_a_column_that_its_table_has_more_than_one_primary_keys : With_Column
+    [Subject(typeof(ColumnMapper), "Create MemberInfo")]
+    public class When_column_table_has_compound_primary_keys : With_Column
     {
         static IPersistentCoreTypeMemberInfo _persistentCoreTypeMemberInfo;
         static IPersistentClassInfo _persistentStructClassInfo;
@@ -150,8 +150,8 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         
 
     }
-
-    public class When_mapping_a_primary_key_column_that_is_also_a_foreogn_key_and_table_has_another_primary_key:With_ForeignKey_Column {
+    [Subject(typeof(ColumnMapper), "Create MemberInfo")]
+    public class When_column_is_primary_and_foreign_key_and_table_has_compound_primary_keys:With_ForeignKey_Column {
         protected static string _unUsedReferencedKey;
         static PersistentClassInfo _persistentStructClassInfo;
         static PersistentClassInfo _persistentClassInfo;
@@ -176,8 +176,8 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             _persistentStructClassInfo.OwnMembers.OfType<IPersistentReferenceMemberInfo>().FirstOrDefault().
                 ShouldNotBeNull();
     }
-
-    public class When_passing_a_column_that_is_a_foreign_key_to_a_column_that_is_a_foreign_key_to_this_column : With_ForeignKey_Column
+    [Subject(typeof(ColumnMapper), "Create MemberInfo")]
+    public class When_column_foreign_key_reference_column_is_foreignkey_to_this_column : With_ForeignKey_Column
     {
         static ITemplateInfo _templateInfo;
         
@@ -206,7 +206,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             () => _templateInfo.TemplateCode.ShouldEqual(RefTablePKFKColumn);
 
     }
-
+    [Subject(typeof(ColumnMapper), "Create MemberInfo")]
     public class When_column_is_primary_key_and_is_foreign_key_to_another_table_primary_key:With_ForeignKey_Column {
         static IPersistentReferenceMemberInfo _persistentReferenceMemberInfo;
 
@@ -223,5 +223,17 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
 
         It should_have_as_referenced_class_info_the_class_info_of_the_foreign_key_table =
             () => _persistentReferenceMemberInfo.ReferenceClassInfo.ShouldEqual(_refPersistentClassInfo);
+    }
+    [Subject(typeof(ColumnMapper), "Create MemberInfo")]
+    public class When_column_is_foreign_key_and_belongs_to_multi_column_foreign_key_column_collection:With_ForeignKey_Column {
+        static IPersistentMemberInfo _persistentMemberInfo;
+        Establish context = () => _foreignKey.Columns.Add(Isolate.Fake.Instance<ForeignKeyColumn>());
+        Because of = () => {
+            _persistentMemberInfo =
+                new ColumnMapper(new DataTypeMapper(), new AttributeMapper(ObjectSpace)).Create(_column, _ownner);
+        };
+
+        It should_have_the_name_of_reference_table_as_name = () => _persistentMemberInfo.Name.ShouldEqual(_refPersistentClassInfo.Name);
+
     }
 }

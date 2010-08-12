@@ -25,7 +25,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper
         void AssemblyToolsControllerOnToolExecuted(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             if ((string) singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data=="MapSqlDB") {
                 var persistentAssemblyInfo = (IPersistentAssemblyInfo)singleChoiceActionExecuteEventArgs.CurrentObject;
-                const string ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLExpress;Initial Catalog=testsimple;Application Name=testsimple";
+                const string ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLExpress;Initial Catalog=mce;";
                 var cn = new SqlConnection(ConnectionString);
                 var server = new Server(new ServerConnection(cn));
                 Database _database = server.Databases[cn.Database];
