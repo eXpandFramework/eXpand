@@ -340,17 +340,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Functional Tests\Config.xml" />
+    <EmbeddedResource Include="IO\AnalysisObjects\AnalysisObjects.xml" />
     <EmbeddedResource Include="IO\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetail.xml" />
     <EmbeddedResource Include="IO\DynamicAssemblyMasterDetail\IOWC3LevelMasterDetailModelStore.xml" />
-    <EmbeddedResource Include="IO\AnalysisObjects\Custom Sort.xml" />
-    <EmbeddedResource Include="IO\AnalysisObjects\HidePivot.xml" />
-    <EmbeddedResource Include="IO\AnalysisObjects\HideChart.xml" />
-    <EmbeddedResource Include="IO\AnalysisObjects\PivotGroupInterval.xml" />
-    <EmbeddedResource Include="IO\AnalysisObjects\InPlaceEdit.xml" />
     <EmbeddedResource Include="ModelDifference\ExternalApplication\MDO_ExternalApplication.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="IO\AnalysisObjects\Controlling Grid Settings.xml" />
     <EmbeddedResource Include="Images\ExpressAppLogo.png" />
     <EmbeddedResource Include="Images\logo.png" />
     <EmbeddedResource Include="Images\Demo_Welcome.png" />

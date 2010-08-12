@@ -1,4 +1,10 @@
 ﻿<Application>
+  <AdditionalViewControls>
+    <Rules>
+      <AdditionalViewControlsRule Id="Header Importing Master Detail" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDCustomer" Message="Importing World Creator objects" Position="Top" />
+      <AdditionalViewControlsRule Id="ViewMessage Importing Master Detail" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDCustomer" Message="In this view you can see how to IO engine to import objetcs that are going to be used by worldcreator to create a master detail relationship" Position="Bottom" />
+    </Rules>
+  </AdditionalViewControls>
   <MasterDetail>
     <Rules>
       <MasterDetailRule Id="IODMDCustomer_Orders" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDCustomer" CollectionMember="IODMDOrders" ChildListView="IODMDOrder_ListView" NormalCriteria="1=1" />

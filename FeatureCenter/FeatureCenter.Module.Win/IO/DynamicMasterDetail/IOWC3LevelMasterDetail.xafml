@@ -1,0 +1,8 @@
+﻿<Application>
+  <AdditionalViewControls>
+    <Rules>
+      <AdditionalViewControlsRule Id="Header Importing Master Detail" ControlType="FeatureCenter.Module.Win.ApplicationCaption"/>
+      <AdditionalViewControlsRule Id="ViewMessage Importing Master Detail" ControlType="FeatureCenter.Module.Win.FooterMessagePanel"  />
+    </Rules>
+  </AdditionalViewControls>
+</Application>

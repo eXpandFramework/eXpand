@@ -18,7 +18,7 @@ namespace FeatureCenter.Module.IO.AnalysisObjects
             return new NavigationItemAttribute("IO/Analysis", ViewId);
         }
         protected override DisplayFeatureModelAttribute GetDisplayFeatureModelAttribute() {
-            return new DisplayFeatureModelAttribute(ViewId, new BinaryOperator("Name", "IO Analysis"));
+            return new DisplayFeatureModelAttribute(ViewId, "Analysis");
         }
     }
 }
