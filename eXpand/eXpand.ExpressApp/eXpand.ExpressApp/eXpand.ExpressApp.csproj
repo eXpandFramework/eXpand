@@ -107,6 +107,7 @@
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
     <Compile Include="Attributes\CustomQueryPropertiesAttribute.cs" />
+    <Compile Include="Core\ApplicationModulesManager.cs" />
     <Compile Include="Core\CustomShowNavigationItemEventArgsExtensions.cs" />
     <Compile Include="Core\DictionaryHelpers\DictionaryHelper.cs">
       <SubType>Code</SubType>
