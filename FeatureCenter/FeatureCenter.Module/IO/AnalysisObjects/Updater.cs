@@ -13,14 +13,7 @@ namespace FeatureCenter.Module.IO.AnalysisObjects {
         public override void UpdateDatabaseAfterUpdateSchema()
         {
             base.UpdateDatabaseAfterUpdateSchema();
-
-            Import("Controlling Grid Settings");
-            Import("PivotGroupInterval");
-            Import("Custom Sort");
-            Import("HideChart");
-            Import("HidePivot");
-            Import("InPlaceEdit");
-            
+            Import("AnalysisObjects");
         }
 
         void Import(string name) {
