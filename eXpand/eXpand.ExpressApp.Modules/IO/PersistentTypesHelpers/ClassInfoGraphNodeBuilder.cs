@@ -56,6 +56,7 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
                 var serializationConfiguration =
                     (ISerializationConfiguration)
                     objectSpace.CreateObject(TypesInfo.Instance.SerializationConfigurationType);
+                serializationConfiguration.SerializationConfigurationGroup=_serializationConfigurationGroup;
                 serializationConfiguration.TypeToSerialize = typeToSerialize;                
                 Generate(serializationConfiguration);
             }

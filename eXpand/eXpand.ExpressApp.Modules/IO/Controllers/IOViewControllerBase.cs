@@ -8,6 +8,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.IO.Core;
 using eXpand.Persistent.Base.ImportExport;
+using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.IO.Controllers {
     public abstract class IOViewControllerBase : ViewController
@@ -30,17 +31,41 @@ namespace eXpand.ExpressApp.IO.Controllers {
         }
 
         void IoActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs){
-            if (ReferenceEquals(singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data, "export")){
-                export();
+            if (ReferenceEquals(singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data, "export")) {
+                ShowSerializationView(singleChoiceActionExecuteEventArgs);
             }
             else{
                 import(singleChoiceActionExecuteEventArgs);
             }
         }
 
-        void export() {
+        void ShowSerializationView(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
+            var groupObjectType = XafTypesInfo.Instance.FindBussinessObjectType<ISerializationConfigurationGroup>();
+            var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
+            var objectSpace = Application.CreateObjectSpace();
+            showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+            showViewParameters.Context = TemplateContext.View;
+            showViewParameters.CreateAllControllers = true;
+            View view;
+            if (ObjectSpace.FindObject(groupObjectType, null) == null)
+                view=Application.CreateDetailView(objectSpace,objectSpace.CreateObjectFromInterface<ISerializationConfigurationGroup>());
+            else {
+                view = Application.CreateListView(objectSpace, groupObjectType, true);
+            }
+            showViewParameters.CreatedView = view;
+            AddDialogController(showViewParameters);
             
-            XDocument xDocument = new ExportEngine().Export(View.SelectedObjects.OfType<XPBaseObject>());
+        }
+
+        void AddDialogController(ShowViewParameters showViewParameters) {
+            var dialogController = new DialogController();
+            dialogController.ViewClosing += (o, eventArgs) => export(((View) o).CurrentObject);
+            showViewParameters.Controllers.Add(dialogController);
+        }
+
+
+        void export(object selectedObject) {
+            XDocument xDocument = new ExportEngine().Export(View.SelectedObjects.OfType<XPBaseObject>(), ObjectSpace.GetObject((ISerializationConfigurationGroup)selectedObject));
             var fileName = GetFilePath();
             if (fileName != null) xDocument.Save(fileName);
         }

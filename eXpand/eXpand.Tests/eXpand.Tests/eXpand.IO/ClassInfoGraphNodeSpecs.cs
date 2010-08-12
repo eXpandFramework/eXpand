@@ -16,7 +16,7 @@ using Machine.Specifications;
 using System.Linq;
 using eXpand.Xpo;
 
-namespace eXpand.Tests.eXpand.IO.ss {
+namespace eXpand.Tests.eXpand.IO {
     [Subject(typeof(ClassInfoGraphNode))]
     public class When_creating_a_graph_for_type_with_associated_collection_and_associated_type_derived_types_exist_in_the_domain:With_Isolations
     {
@@ -180,7 +180,7 @@ namespace eXpand.Tests.eXpand.IO.ss {
         Establish context = () => {
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer,IOrder>.Build().OneToMany();
             _objectSpace = oneToMany.ObjectSpace;
-            var serializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>();
+            var serializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>();            
             serializationConfigurationGroup.Name = "dummy";
             _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type,SerializationConfigurationGroup = serializationConfigurationGroup};
             _t2Type = oneToMany.T2Type;
