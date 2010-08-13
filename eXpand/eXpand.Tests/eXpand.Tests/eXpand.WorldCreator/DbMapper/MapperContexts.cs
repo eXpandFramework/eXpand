@@ -72,7 +72,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         protected static PersistentClassInfo _refPersistentClassInfo;
         protected const string FK_Name = "FK_Name";
         protected const string RefTable = "RefTable";
-        protected static PersistentClassInfo _ownner;
+        protected static PersistentClassInfo _owner;
 
         protected static Column _column;
 
@@ -85,8 +85,8 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             _refPersistentClassInfo.PersistentAssemblyInfo = new PersistentAssemblyInfo(UnitOfWork);
             _refPersistentClassInfo.Name = RefTable;
             _refPersistentClassInfo.SetDefaultTemplate(TemplateType.Class);
-            _ownner = new PersistentClassInfo(UnitOfWork) { PersistentAssemblyInfo = new PersistentAssemblyInfo(UnitOfWork) };
-            _ownner.SetDefaultTemplate(TemplateType.Class);
+            _owner = new PersistentClassInfo(UnitOfWork) { PersistentAssemblyInfo = new PersistentAssemblyInfo(UnitOfWork) };
+            _owner.SetDefaultTemplate(TemplateType.Class);
             _refTable= AddTable(RefTable);
             _refColumn = AddColumn(_refTable, RefTablePKFKColumn);
         };
@@ -101,12 +101,16 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             return column;
         }
 
-        protected static void AddForeignKeyColumn(ForeignKey foreignKey, Column column, string refColumnName)
+        protected static void AddForeignKeyColumn(ForeignKey foreignKey, string name, string refColumnName)
         {
             var foreignKeyColumn = Isolate.Fake.Instance<ForeignKeyColumn>();
             Isolate.WhenCalled(() => foreignKeyColumn.ReferencedColumn).WillReturn(refColumnName);
-            Isolate.WhenCalled(() => foreignKeyColumn.Name).WillReturn(column.Name);
-            Isolate.WhenCalled(() => foreignKey.Columns).WillReturnCollectionValuesOf(new List<ForeignKeyColumn> { foreignKeyColumn });
+            Isolate.WhenCalled(() => foreignKeyColumn.Name).WillReturn(name);
+            if (foreignKey.Columns.Count==0)
+                Isolate.WhenCalled(() => foreignKey.Columns).WillReturnCollectionValuesOf(new List<ForeignKeyColumn> { foreignKeyColumn });
+            else {
+                foreignKey.Columns.Add(foreignKeyColumn);
+            }
         }
 
         protected static ForeignKey AddForeignKey(string name, string refTableName, string refColumnName,Table table, Column column)
@@ -119,9 +123,13 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             Isolate.WhenCalled(() => foreignKey.Parent).WillReturn(table);
             Isolate.WhenCalled(() => foreignKey.Parent.Parent).WillReturn(_database);
             Isolate.WhenCalled(() => foreignKey.ReferencedTable).WillReturn(refTableName);
-            Isolate.WhenCalled(() => table.ForeignKeys).WillReturnCollectionValuesOf(new List<ForeignKey> { foreignKey });
+            if (table.ForeignKeys.Count==0)
+                Isolate.WhenCalled(() => table.ForeignKeys).WillReturnCollectionValuesOf(new List<ForeignKey> { foreignKey });
+            else {
+                table.ForeignKeys.Add(foreignKey);
+            }
             Isolate.WhenCalled(() => foreignKey.ReferencedKey).WillReturn(refColumnName);
-            AddForeignKeyColumn(foreignKey, column, refColumnName);
+            AddForeignKeyColumn(foreignKey, column.Name, refColumnName);
             return foreignKey;
         }
     }

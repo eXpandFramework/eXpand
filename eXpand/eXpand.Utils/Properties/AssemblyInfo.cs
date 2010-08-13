@@ -39,7 +39,7 @@ namespace eXpand
 {
     public class AssemblyInfo
     {
-        public const string Version = "10.1.5.178";
+        public const string Version = "10.1.5.179";
 
         
     }

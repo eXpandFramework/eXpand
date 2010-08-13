@@ -37,6 +37,7 @@ namespace eXpand.Utils.Linq {
         }
 
 
+
         Expression Constant(ConstantExpression expression) {
             return expression;
         }
