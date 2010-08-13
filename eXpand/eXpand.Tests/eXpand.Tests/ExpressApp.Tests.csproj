@@ -273,6 +273,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eXpand.Xpo\PropertyPathParserFixture.cs" />
+    <Compile Include="eXpand\ObjectSpaceExtensionSpecs.cs" />
+    <Compile Include="eXpand\Contexts.cs" />
     <Compile Include="MockExtensions.cs" />
     <Compile Include="HandleInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
