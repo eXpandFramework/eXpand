@@ -34,7 +34,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             return table1;
         }
 
-        Because of = () => new ExpressApp.WorldCreator.SqlDBMapper.DbMapper(ObjectSpace, _persistentAssemblyInfo).Map(_database);
+        Because of = () => new global::eXpand.ExpressApp.WorldCreator.SqlDBMapper.DbMapper(ObjectSpace, _persistentAssemblyInfo).Map(_database);
 
         It should_create_classinfos_for_all_tables_in_the_assembly =
             () => {
