@@ -205,6 +205,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="eXpand.Utils\Contexts.cs" />
+    <Compile Include="eXpand.Utils\ExpressionTransformerSpecs.cs" />
     <Compile Include="eXpand.WorldCreator\CodeEngineSpecs.cs">
       <SubType>Code</SubType>
     </Compile>
