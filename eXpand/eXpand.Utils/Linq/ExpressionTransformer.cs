@@ -13,7 +13,7 @@ namespace eXpand.Utils.Linq {
                 case ExpressionType.AndAlso:
                     return TransformCore(type, (BinaryExpression)expression, expression.NodeType);
                 case ExpressionType.Lambda:
-                    return Transform(type, ((LambdaExpression)expression).Body);
+                    return Lambda((LambdaExpression) expression, type);
                 case ExpressionType.NotEqual:
                 case ExpressionType.Equal:
                     return TransformCore(type, (BinaryExpression)expression,expression.NodeType);
@@ -26,6 +26,12 @@ namespace eXpand.Utils.Linq {
             }
             throw new NotImplementedException(expression.NodeType.ToString());
         }
+
+        Expression Lambda(LambdaExpression expression, Type type) {
+            Expression body = Transform(type, expression.Body);
+            return Expression.Lambda(body, expression.Parameters.Select(parameterExpression => Expression.Parameter(type, parameterExpression.Name)).ToArray());
+        }
+
 
         Expression Constant(ConstantExpression expression) {
             return expression;

@@ -17,7 +17,7 @@ namespace eXpand.Tests.eXpand.Utils
 
         Because of = () =>
         {
-            _transform = new ExpressionTransformer().Transform(typeof(TransformerExpressionClass), _expression) as BinaryExpression;
+            _transform =((LambdaExpression) new ExpressionTransformer().Transform(typeof(TransformerExpressionClass), _expression)).Body as BinaryExpression;
         };
 
         It should_return_a_binary_expression = () => _transform.ShouldNotBeNull();
@@ -36,7 +36,8 @@ namespace eXpand.Tests.eXpand.Utils
         };
 
         Because of = () => {
-            _transform = new ExpressionTransformer().Transform(typeof(TransformerExpressionClass), _expression) as BinaryExpression;
+            _transform = ((LambdaExpression)new ExpressionTransformer().Transform(typeof(TransformerExpressionClass), _expression)).Body as BinaryExpression;
+
         };
 
         It should_return_a_binary_expression = () => _transform.ShouldNotBeNull();
@@ -56,7 +57,7 @@ namespace eXpand.Tests.eXpand.Utils
 
         Because of = () =>
         {
-            _transform = new ExpressionTransformer().Transform(typeof(TransformerExpressionClass), _expression) as BinaryExpression;
+            _transform = ((LambdaExpression)new ExpressionTransformer().Transform(typeof(TransformerExpressionClass), _expression)).Body as BinaryExpression;
         };
 
         It should_return_a_binary_expression = () => _transform.ShouldNotBeNull();
@@ -76,7 +77,7 @@ namespace eXpand.Tests.eXpand.Utils
 
         Because of = () =>
         {
-            _transform = new ExpressionTransformer().Transform(typeof(TransformerExpressionClass), _expression) as BinaryExpression;
+            _transform = ((LambdaExpression)new ExpressionTransformer().Transform(typeof(TransformerExpressionClass), _expression)).Body as BinaryExpression;
         };
 
         It should_return_a_binary_expression = () => _transform.ShouldNotBeNull();
