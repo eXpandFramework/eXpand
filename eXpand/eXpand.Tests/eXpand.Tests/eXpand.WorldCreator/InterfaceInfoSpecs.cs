@@ -2,7 +2,6 @@
 using DevExpress.Xpo.DB;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Xpo;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
 using System.Linq;
