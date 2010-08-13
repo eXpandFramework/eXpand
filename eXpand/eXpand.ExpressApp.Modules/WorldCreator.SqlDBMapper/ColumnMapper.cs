@@ -20,17 +20,20 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
         }
 
         public IPersistentMemberInfo Create(Column column, IPersistentClassInfo owner) {
-            IPersistentMemberInfo persistentMemberInfo;
+            IPersistentMemberInfo persistentMemberInfo = null;
             if (IsCoumboundPKColumn(column)){
                 var structClassInfo = GetReferenceClassInfo(((Table)column.Parent).Name + TableMapper.KeyStruct);
-                CreateStructMemberInfo(column, structClassInfo,owner);
-                persistentMemberInfo = CreateComboundKeyMemberInfo(column, structClassInfo, owner);
+                var structMemberInfo = CreateStructMemberInfo(column, structClassInfo,owner);
+                if (structMemberInfo!= null)
+                    persistentMemberInfo = CreateComboundKeyMemberInfo(column, structClassInfo, owner);
             }
             else{
                 persistentMemberInfo = CreateMember(column, owner, TemplateType.XPReadWritePropertyMember);
-                AddAttributes(column, persistentMemberInfo);
-                if (column.IsForeignKey) {
-                    CreateExtraInfos(column, persistentMemberInfo);
+                if (persistentMemberInfo != null) {
+                    AddAttributes(column, persistentMemberInfo);
+                    if (column.IsForeignKey) {
+                        CreateExtraInfos(column, persistentMemberInfo);
+                    }
                 }
             }
             return persistentMemberInfo;
@@ -67,11 +70,14 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             return persistentMemberInfo;
         }
 
-        void CreateStructMemberInfo(Column column, IPersistentClassInfo structClassInfo, IPersistentClassInfo owner) {
+        IPersistentMemberInfo CreateStructMemberInfo(Column column, IPersistentClassInfo structClassInfo, IPersistentClassInfo owner) {
             IPersistentMemberInfo structMemberInfo = CreateMember(column, structClassInfo, TemplateType.ReadWriteMember);
-            AddAttributes(column, structMemberInfo);
-            if (column.IsForeignKey)
-                CreateCollection((IPersistentReferenceMemberInfo)structMemberInfo, owner);
+            if (structMemberInfo != null) {
+                AddAttributes(column, structMemberInfo);
+                if (column.IsForeignKey)
+                    CreateCollection((IPersistentReferenceMemberInfo)structMemberInfo, owner);
+            }
+            return structMemberInfo;
         }
 
 
@@ -81,6 +87,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
         }
 
         IPersistentMemberInfo CreateMember(Column column, IPersistentClassInfo owner,TemplateType templateType) {
+            if (_objectSpace.)
             if (!(column.IsForeignKey)){
                 return CreatePersistentCoreTypeMemberInfo(column, owner, templateType);
             }
