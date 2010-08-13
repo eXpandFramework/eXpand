@@ -1,0 +1,190 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F40D575E-A391-4156-B2FC-9E01627C033D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExternalApplication.Win</RootNamespace>
+    <AssemblyName>ExternalApplication.Win</AssemblyName>
+    <ApplicationIcon>ExpressApp.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\FeatureCenter.Win\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EasyTest\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.EasyTest.WinAdapter.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.OfficeSkins.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.BonusSkins.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Images.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Objects.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Win.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp, Version=10.1.5.179, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\eXpand.DLL\eXpand.ExpressApp.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Win, Version=10.1.5.179, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\eXpand.DLL\eXpand.ExpressApp.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.configuration">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinApplication.resx">
+      <DependentUpon>WinApplication.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="WinApplication.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WinApplication.Designer.cs">
+      <DependentUpon>WinApplication.cs</DependentUpon>
+    </Compile>
+    <None Include="App.config" />
+    <Content Include="Model.xafml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExpressApp.ico" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj">
+      <Project>{A986B220-63AF-44A6-98D5-7F55E1E2FA03}</Project>
+      <Name>ExternalApplication.Module.Win</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
