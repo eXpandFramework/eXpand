@@ -48,9 +48,6 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             return column.IsForeignKey ? GetForeignKey(table.Parent,column.Name,table.Name) : null;
         }
 
-        public ForeignKey GetForeignKey(Column column) {
-            var table = ((Table) column.Parent);
-            return GetForeignKey(table.Parent,column.Name,table.Name);
-        }
+        
     }
 }

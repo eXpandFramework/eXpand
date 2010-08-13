@@ -8,6 +8,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using eXpand.ExpressApp.WorldCreator;
 using eXpand.ExpressApp.WorldCreator.Core;
+using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
@@ -46,6 +47,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         {
             _persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
             _persistentClassInfo.PersistentAssemblyInfo = new PersistentAssemblyInfo(_persistentClassInfo.Session);
+            _persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
             var interfaceInfos = _persistentClassInfo.Interfaces;
             var interfaceInfo = new InterfaceInfo(_persistentClassInfo.Session);
             Isolate.WhenCalled(() => interfaceInfo.Type).WillReturn(typeof(InterfaceType));
