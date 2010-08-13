@@ -55,6 +55,7 @@ namespace eXpand.Tests.eXpand.Utils
     }
     [Subject(typeof(ExpressionTransformer), "Transform")]
     public class When_expression_type_is_and_also {
+        static LambdaExpression _lambdaExpression;
         static BinaryExpression _transform;
         static Expression<Func<ITransformerExpressionClass, bool>> _expression;
 
@@ -63,15 +64,20 @@ namespace eXpand.Tests.eXpand.Utils
             _expression = info => info.Name == "test" && info.Name == "test";
         };
 
-        Because of = () =>
-        {
-            _transform = ((LambdaExpression)new ExpressionTransformer().Transform(typeof(TransformerExpressionClass), _expression)).Body as BinaryExpression;
+        Because of = () => {
+            _lambdaExpression = ((LambdaExpression)new ExpressionTransformer().Transform(typeof(TransformerExpressionClass), _expression));
+            _transform = _lambdaExpression.Body as BinaryExpression;
         };
 
         It should_return_a_binary_expression = () => _transform.ShouldNotBeNull();
 
         It should_have_as_left_a_binary_expression = () => _transform.Left.ShouldBeOfType(typeof(BinaryExpression));
         It should_have_as_right_a_binary_expression = () => _transform.Left.ShouldBeOfType(typeof(BinaryExpression));
+
+        It should_have_as_expression_of_the_left_memberexpression_the_parameter_of_the_passed_in_lamda =
+            () => _lambdaExpression.Parameters[0].ShouldEqual(((MemberExpression) ((BinaryExpression)_transform.Left).Left).Expression);
+        It should_have_as_expression_of_the_right_memberexpression_the_parameter_of_the_passed_in_lamda =
+            () => _lambdaExpression.Parameters[0].ShouldEqual(((MemberExpression) ((BinaryExpression)_transform.Right).Left).Expression);
     }
     [Subject(typeof(ExpressionTransformer), "Transform")]
     public class When_expression_type_is_or_else {
