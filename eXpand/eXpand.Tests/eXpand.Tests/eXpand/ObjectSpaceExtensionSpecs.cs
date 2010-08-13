@@ -7,7 +7,7 @@ using eXpand.ExpressApp.Core;
 
 namespace eXpand.Tests.eXpand
 {
-    public class When_trying_to_find_a_bussiness_object_from_an_interface_given_a_lamda:With_In_Memory_DataStore {
+    public class When_trying_to_find_a_bussiness_object_from_an_interface_given_an_expression:With_In_Memory_DataStore {
         static IPersistentClassInfo _persistentClassInfo;
 
         Establish context = () => {

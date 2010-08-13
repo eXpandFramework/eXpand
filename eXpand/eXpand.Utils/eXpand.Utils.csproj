@@ -84,6 +84,7 @@
     <Compile Include="Linq\Dynamic\DynamicQueryable.cs" />
     <Compile Include="Linq\Dynamic\ExpressionParser.cs" />
     <Compile Include="Linq\Dynamic\ParseException.cs" />
+    <Compile Include="Linq\ExpressionTransformer.cs" />
     <Compile Include="Linq\PredicateBuilder.cs" />
     <Compile Include="Linq\Dynamic\Res.cs" />
     <Compile Include="Linq\Dynamic\Signature.cs" />
