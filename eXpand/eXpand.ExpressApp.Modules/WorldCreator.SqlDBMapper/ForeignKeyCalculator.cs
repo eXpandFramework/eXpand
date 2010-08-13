@@ -42,5 +42,10 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
                 return foreignKey;
             throw new NotImplementedException(table.Name + " " + name);
         }
+
+        public ForeignKey GetForeignKey(Column column) {
+            var table = ((Table) column.Parent);
+            return GetForeignKey(table.Parent,column.Name,table.Name);
+        }
     }
 }

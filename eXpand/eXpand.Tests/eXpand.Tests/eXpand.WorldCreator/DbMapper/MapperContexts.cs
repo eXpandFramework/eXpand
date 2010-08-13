@@ -113,6 +113,9 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         {
             var foreignKey = Isolate.Fake.Instance<ForeignKey>();
             foreignKey.Name = name;
+            var foreignKeyColumn = Isolate.Fake.Instance<ForeignKeyColumn>();
+            foreignKeyColumn.Name = column.Name;
+            Isolate.WhenCalled(() => foreignKey.Columns).WillReturnCollectionValuesOf(new List<ForeignKeyColumn>{foreignKeyColumn});
             Isolate.WhenCalled(() => foreignKey.Parent).WillReturn(table);
             Isolate.WhenCalled(() => foreignKey.Parent.Parent).WillReturn(_database);
             Isolate.WhenCalled(() => foreignKey.ReferencedTable).WillReturn(refTableName);
