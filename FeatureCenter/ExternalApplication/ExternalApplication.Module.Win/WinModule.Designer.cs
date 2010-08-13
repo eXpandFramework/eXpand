@@ -1,12 +1,8 @@
-using eXpand.ExpressApp.IO;
-using eXpand.ExpressApp.IO.Win;
+
 using eXpand.ExpressApp.ModelDifference;
 using eXpand.ExpressApp.ModelDifference.Win;
 using eXpand.ExpressApp.SystemModule;
 using eXpand.ExpressApp.Win.SystemModule;
-using eXpand.ExpressApp.WorldCreator;
-using eXpand.ExpressApp.WorldCreator.SqlDBMapper;
-using eXpand.ExpressApp.WorldCreator.Win;
 
 namespace ExternalApplication.Module.Win
 {
@@ -78,13 +74,8 @@ namespace ExternalApplication.Module.Win
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
             this.RequiredModuleTypes.Add(typeof(ModelDifferenceWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(IOModule));
-            this.RequiredModuleTypes.Add(typeof(IOWinModule));
             this.RequiredModuleTypes.Add(typeof(eXpandSystemModule));
             this.RequiredModuleTypes.Add(typeof(eXpandSystemWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(WorldCreatorModule));
-            this.RequiredModuleTypes.Add(typeof(WorldCreatorWinModule));
-            this.RequiredModuleTypes.Add(typeof(WorldCreatorSqlDBMapperModule));
             this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.Validation.eXpandValidationModule));
 
         }
