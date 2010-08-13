@@ -6,6 +6,8 @@ using System.Reflection;
 namespace eXpand.Utils.Linq {
     public class ExpressionTransformer {
         public Expression Transform(Type type, LambdaExpression expression) {
+            if (expression== null)
+                return null;
             if (expression.NodeType == ExpressionType.Lambda) {
                 var parameterExpressions = expression.Parameters.Select(parameterExpression => Expression.Parameter(type, parameterExpression.Name)).ToArray();
                 var parameter = parameterExpressions[0];

@@ -93,4 +93,19 @@ namespace eXpand.Tests.eXpand.Utils
         It should_have_as_left_a_binary_expression = () => _transform.Left.ShouldBeOfType(typeof(BinaryExpression));
         It should_have_as_right_a_binary_expression = () => _transform.Left.ShouldBeOfType(typeof(BinaryExpression));
     }
+
+    internal class When_expression_is_null {
+        static Expression _expression;
+
+        Establish context = () => {
+            
+        };
+
+        Because of = () =>
+        {
+            _expression = new ExpressionTransformer().Transform(typeof(TransformerExpressionClass),null);
+        };
+
+        It should_return_null_as_expression = () => _expression.ShouldBeNull();
+    }
 }
