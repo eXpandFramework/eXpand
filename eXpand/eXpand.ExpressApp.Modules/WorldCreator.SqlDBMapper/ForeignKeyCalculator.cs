@@ -4,8 +4,8 @@ using Microsoft.SqlServer.Management.Smo;
 
 namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class ForeignKeyCalculator {
-        public bool IsOneToOne(ForeignKey foreignKey) {
-            var refTableForeignKey = GetRefTableForeignKey(foreignKey);
+        public bool IsOneToOne(ForeignKey foreignKey, string referenceColumn) {
+            var refTableForeignKey = GetRefTableForeignKey(foreignKey, referenceColumn);
             return refTableForeignKey != null&&!IsSelfReference(foreignKey, refTableForeignKey);
         }
 
@@ -13,10 +13,10 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             return refTableForeignKey.Parent.Name==foreignKey.Parent.Name;
         }
 
-        public ForeignKey GetRefTableForeignKey(ForeignKey foreignKey)
+        public ForeignKey GetRefTableForeignKey(ForeignKey foreignKey, string referencedColumn)
         {
             return foreignKey.Parent.Parent.Tables[foreignKey.ReferencedTable].ForeignKeys.OfType<ForeignKey>().Where(
-                key => key.ReferencedTable == foreignKey.Parent.Name).FirstOrDefault();
+                key => key.ReferencedTable == foreignKey.Parent.Name&&key.Columns.OfType<ForeignKeyColumn>().Any(column => column.ReferencedColumn==referencedColumn)).FirstOrDefault();
         }
         public string GetForeignKeyName(string name, Table table)
         {
@@ -45,7 +45,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
 
         public ForeignKey GetForeignKey(Column column) {
             var table = ((Table) column.Parent);
-            return GetForeignKey(table.Parent,column.Name,table.Name);
+            return column.IsForeignKey ? GetForeignKey(table.Parent,column.Name,table.Name) : null;
         }
     }
 }

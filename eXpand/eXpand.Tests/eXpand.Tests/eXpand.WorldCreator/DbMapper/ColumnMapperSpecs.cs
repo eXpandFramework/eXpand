@@ -54,7 +54,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         };
 
         Because of = () => {
-            _persistentReferenceMemberInfo = _columnMapper.Create(_column,_ownner) as PersistentReferenceMemberInfo;
+            _persistentReferenceMemberInfo = _columnMapper.Create(_column,_owner) as PersistentReferenceMemberInfo;
         };
 
         It should_create_a_persistenetReferenceMember = () => _persistentReferenceMemberInfo.ShouldNotBeNull();
@@ -166,7 +166,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             _table.Columns.Add(_column);
         };
 
-        Because of = () => new ColumnMapper(new DataTypeMapper(), new AttributeMapper(ObjectSpace)).Create(_column, _ownner);
+        Because of = () => new ColumnMapper(new DataTypeMapper(), new AttributeMapper(ObjectSpace)).Create(_column, _owner);
 
         It should_create_a_collection_to_the_referenced_classInfo =
             () =>_refPersistentClassInfo.OwnMembers.OfType<PersistentCollectionMemberInfo>().FirstOrDefault().ShouldNotBeNull();
@@ -191,7 +191,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         };
 
         Because of = () => {
-            _persistentReferenceMemberInfo = new ColumnMapper(new DataTypeMapper(), new AttributeMapper(ObjectSpace)).Create(_column, _ownner) as IPersistentReferenceMemberInfo;
+            _persistentReferenceMemberInfo = new ColumnMapper(new DataTypeMapper(), new AttributeMapper(ObjectSpace)).Create(_column, _owner) as IPersistentReferenceMemberInfo;
         };
 
         It should_return_a_reference_memberinfo = () => _persistentReferenceMemberInfo.ShouldNotBeNull();
@@ -216,7 +216,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         };
 
         Because of = () => {
-            _persistentReferenceMemberInfo = new ColumnMapper(new DataTypeMapper(), new AttributeMapper(ObjectSpace)).Create(_column, _ownner) as IPersistentReferenceMemberInfo;
+            _persistentReferenceMemberInfo = new ColumnMapper(new DataTypeMapper(), new AttributeMapper(ObjectSpace)).Create(_column, _owner) as IPersistentReferenceMemberInfo;
         };
 
         It should_return_a_referenced_typeinfo = () => _persistentReferenceMemberInfo.ShouldNotBeNull();
@@ -230,18 +230,19 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         Establish context = () => _foreignKey.Columns.Add(Isolate.Fake.Instance<ForeignKeyColumn>());
         Because of = () => {
             _persistentMemberInfo =
-                new ColumnMapper(new DataTypeMapper(), new AttributeMapper(ObjectSpace)).Create(_column, _ownner);
+                new ColumnMapper(new DataTypeMapper(), new AttributeMapper(ObjectSpace)).Create(_column, _owner);
         };
 
         It should_have_the_name_of_reference_table_as_name = () => _persistentMemberInfo.Name.ShouldEqual(_refPersistentClassInfo.Name);
 
     }
     [Subject(typeof(ColumnMapper), "Create MemberInfo")]
-    public class When_memberinfo_with_the_same_name_exists:With_Column {
+    public class When_memberinfo_with_the_same_name_exists:With_ForeignKey_Column {
         static IPersistentMemberInfo _persistentMemberInfo;
 
         Establish context = () => {
-            new PersistentCoreTypeMemberInfo(UnitOfWork) {Name = _column.Name, Owner = _owner};
+            AddForeignKeyColumn(_foreignKey, "SecondColumn", "RefSecondColumn");
+            new PersistentCoreTypeMemberInfo(UnitOfWork) { Name = RefTable, Owner = _owner };
         };
 
         Because of = () => {
