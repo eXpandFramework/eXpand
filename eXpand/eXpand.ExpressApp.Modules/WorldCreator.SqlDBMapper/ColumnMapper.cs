@@ -1,11 +1,13 @@
 ﻿using System;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using Microsoft.SqlServer.Management.Smo;
 using System.Linq;
 using eXpand.ExpressApp.WorldCreator.Core;
+using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class ColumnMapper {
@@ -87,7 +89,8 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
         }
 
         IPersistentMemberInfo CreateMember(Column column, IPersistentClassInfo owner,TemplateType templateType) {
-            if (_objectSpace.)
+            if (_objectSpace.FindObject<IPersistentMemberInfo>(info => info.Name==column.Name&&info.Owner==owner,PersistentCriteriaEvaluationBehavior.InTransaction)!=null)
+                return null;
             if (!(column.IsForeignKey)){
                 return CreatePersistentCoreTypeMemberInfo(column, owner, templateType);
             }
