@@ -50,9 +50,9 @@ call clearProject.bat eXpand.ExpressApp.PivotChart.Web
 call clearProject.bat eXpand.ExpressApp.Thumbnail.Web
 call clearProject.bat eXpand.ExpressApp.NCarousel.Web
 call clearProject.bat eXpand.NCarousel
-call clearProject.bat eXpand.MasterDetail
-call clearProject.bat eXpand.MasterDetail.Win
-call clearProject.bat eXpand.WorldCreator.SqlDBMapper
+call clearProject.bat eXpand.ExpressApp.MasterDetail
+call clearProject.bat eXpand.ExpressApp.MasterDetail.Win
+call clearProject.bat eXpand.ExpressApp.WorldCreator.SqlDBMapper
 
 rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Common.dll
 rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Configuration.Design.DLL
@@ -62,4 +62,13 @@ rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Logging.DLL
 rd /s /q %GACPATH%Microsoft.Practices.ObjectBuilder2.DLL
 rd /s /q %GACPATH%WM.EnterpriseLibraryExtensions.Logging.Configuration.Design.DLL
 rd /s /q %GACPATH%WM.EnterpriseLibraryExtensions.Logging.DLL
+rd /s /q .\FeatureCenter\FeatureCenter.Base\bin
+rd /s /q .\FeatureCenter\FeatureCenter.Base\obj
+rd /s /q .\FeatureCenter\FeatureCenter.Module\bin
+rd /s /q .\FeatureCenter\FeatureCenter.Module\obj
+rd /s /q .\FeatureCenter\FeatureCenter.Module.Win\bin
+rd /s /q .\FeatureCenter\FeatureCenter.Module.Win\obj
+rd /s /q .\FeatureCenter\FeatureCenter.Win\bin
+rd /s /q .\FeatureCenter\FeatureCenter.Win\obj
+
 pause
