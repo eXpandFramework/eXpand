@@ -13,6 +13,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                                                                                       WCTypesInfo.Instance.FindBussinessObjectType<ICodeTemplate>(),
                                                                                       getProvider(persistentMemberInfo));
             persistentMemberInfo.CodeTemplateInfo.CodeTemplate = defaultTemplate;
+            persistentMemberInfo.CodeTemplateInfo.CloneProperties();
         }
         static CodeDomProvider getProvider(IPersistentTemplatedTypeInfo persistentMemberInfo)
         {

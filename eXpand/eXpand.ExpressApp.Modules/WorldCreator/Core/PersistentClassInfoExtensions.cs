@@ -6,7 +6,6 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.WorldCreator.Core {
     public static class PersistentClassInfoExtensions {
