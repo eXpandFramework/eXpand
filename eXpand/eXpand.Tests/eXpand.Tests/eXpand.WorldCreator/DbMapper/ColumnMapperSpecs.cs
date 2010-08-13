@@ -242,7 +242,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
 
         Establish context = () => {
             AddForeignKeyColumn(_foreignKey, "SecondColumn", "RefSecondColumn");
-            new PersistentCoreTypeMemberInfo(UnitOfWork) { Name = RefTable, Owner = _owner };
+            new PersistentCoreTypeMemberInfo(UnitOfWork) { Name = "RefSecondColumn", Owner = _owner };
         };
 
         Because of = () => {
