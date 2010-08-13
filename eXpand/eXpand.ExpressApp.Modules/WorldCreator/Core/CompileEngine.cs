@@ -1,11 +1,13 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.PersistentMetaData;
 using Microsoft.CSharp;
@@ -93,7 +95,8 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 }
                 return null;
             }
-            catch (Exception){
+            catch (Exception e){
+                Tracing.Tracer.LogError(e);
             }
             finally {
                 if (compileAssemblyFromSource != null){

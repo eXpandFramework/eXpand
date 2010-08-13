@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.Xpo.DB;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
@@ -75,7 +76,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
 
             var memberCodeTemplate = new CodeTemplate(persistentAssociationAttribute){TemplateType = TemplateType.XPReadWritePropertyMember};
             memberCodeTemplate.SetDefaults();
-            new PersistentCoreTypeMemberInfo(persistentAssociationAttribute){Name = "Property",CodeTemplateInfo =new CodeTemplateInfo(persistentAssociationAttribute) {TemplateInfo = memberCodeTemplate},Owner = persistentClassInfo};
+            new PersistentCoreTypeMemberInfo(persistentAssociationAttribute){Name = "Property",CodeTemplateInfo =new CodeTemplateInfo(persistentAssociationAttribute) {TemplateInfo = memberCodeTemplate},Owner = persistentClassInfo,DataType = DBColumnType.Boolean};
             new PersistentReferenceMemberInfo(persistentAssociationAttribute){Name = "RefProperty",CodeTemplateInfo=new CodeTemplateInfo(persistentAssociationAttribute)  {TemplateInfo = memberCodeTemplate},Owner = persistentClassInfo,ReferenceType = typeof(User)};
             new PersistentCollectionMemberInfo(persistentAssociationAttribute) { Name = "CollProperty", CodeTemplateInfo =new CodeTemplateInfo(persistentAssociationAttribute) { TemplateInfo = memberCodeTemplate }, Owner = persistentClassInfo, CollectionType = typeof(User) };
         };
