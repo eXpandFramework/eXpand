@@ -1,5 +1,4 @@
-﻿using System;
-using DevExpress.Data.Filtering;
+﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -48,9 +47,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             }
             else if (!column.InPrimaryKey&& persistentMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPReadWritePropertyMember)
                 CreateCollection(persistentReferenceMemberInfo, persistentReferenceMemberInfo.Owner);
-            else {
-                throw new NotImplementedException();
-            }
+            
         }
 
         void AddAttributes(Column column, IPersistentMemberInfo persistentMemberInfo) {
