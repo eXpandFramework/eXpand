@@ -70,5 +70,9 @@ rd /s /q .\FeatureCenter\FeatureCenter.Module.Win\bin
 rd /s /q .\FeatureCenter\FeatureCenter.Module.Win\obj
 rd /s /q .\FeatureCenter\FeatureCenter.Win\bin
 rd /s /q .\FeatureCenter\FeatureCenter.Win\obj
+rd /s /q .\FeatureCenter\ExternalApplication\ExternalApplication.Module.Win\bin
+rd /s /q .\FeatureCenter\ExternalApplication\ExternalApplication.Module.Win\obj
+rd /s /q .\FeatureCenter\ExternalApplication\ExternalApplication.Win\bin
+rd /s /q .\FeatureCenter\ExternalApplication\ExternalApplication.Win\obj
 
 pause
