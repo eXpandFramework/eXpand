@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -43,7 +44,9 @@ namespace eXpand.Utils.Linq {
 
         MemberExpression MemberAccess(Type type, MemberExpression expression, ParameterExpression parameterExpression1) {
             var parameterExpression = parameterExpression1;
-            MemberInfo memberInfo = type.GetMember(expression.Member.Name).Single();
+            MemberInfo memberInfo = type.GetMember(expression.Member.Name).SingleOrDefault();
+            if (memberInfo== null)
+                Debug.Print("");
             MemberExpression memberAccess = Expression.MakeMemberAccess(parameterExpression, memberInfo);
             return memberAccess;
         }
@@ -51,9 +54,9 @@ namespace eXpand.Utils.Linq {
         BinaryExpression TransformCore(Type type, BinaryExpression expression, ExpressionType expressionType, ParameterExpression parameterExpression)
         {
             Expression left = Transform(type, expression.Left,parameterExpression);
-            Expression right = Transform(type, expression.Right,parameterExpression);
+//            Expression right = Transform(type, expression.Right,parameterExpression);
             MethodInfo methodInfo = GetMethodInfo(expressionType);
-            return (BinaryExpression)methodInfo.Invoke(null, new[] { left, right });
+            return (BinaryExpression)methodInfo.Invoke(null, new[] { left, expression.Right });
         }
 
         MethodInfo GetMethodInfo(ExpressionType expressionType) {

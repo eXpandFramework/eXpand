@@ -93,13 +93,9 @@ namespace eXpand.Tests.eXpand.Utils
         It should_have_as_left_a_binary_expression = () => _transform.Left.ShouldBeOfType(typeof(BinaryExpression));
         It should_have_as_right_a_binary_expression = () => _transform.Left.ShouldBeOfType(typeof(BinaryExpression));
     }
-
-    internal class When_expression_is_null {
+    [Subject(typeof(ExpressionTransformer), "Transform")]
+    public class When_expression_is_null {
         static Expression _expression;
-
-        Establish context = () => {
-            
-        };
 
         Because of = () =>
         {
@@ -107,5 +103,21 @@ namespace eXpand.Tests.eXpand.Utils
         };
 
         It should_return_null_as_expression = () => _expression.ShouldBeNull();
+    }
+    [Subject(typeof(ExpressionTransformer), "Transform")]
+    internal class When_expression_right_member_is_not_constant {
+        static BinaryExpression _transform;
+        static Expression<Func<ITransformerExpressionClass, bool>> _expression;
+
+        Establish context = () =>
+        {
+            var transformerExpressionClass = new TransformerExpressionClass();
+            _expression = info => info.ExpressionClass == transformerExpressionClass;
+        };
+
+        Because of = () =>{
+            _transform = ((LambdaExpression)new ExpressionTransformer().Transform(typeof(TransformerExpressionClass), _expression)).Body as BinaryExpression;
+        };
+        It should_not_be_transformed = () => ((MemberExpression)_transform.Right).Member.Name.ShouldEqual("transformerExpressionClass");
     }
 }
