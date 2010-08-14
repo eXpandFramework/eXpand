@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project DefaultTargets="integrate" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
+	<Import Project="Resource\Build\NCoverExplorer.MSBuildTasks.targets"/>
+	<Import Project="Resource\Build\Microsoft.StyleCop.Targets" />
+
+	<!-- Main build entry file (extends development builds)-->
+	<PropertyGroup>
+		<!--
+			Primary configuration properties (override them via command line if needed
+		-->
+		<BuildPath Condition="$(BuildPath)==''">$(MSBuildProjectDirectory)\Build</BuildPath>
+		<Version Condition="$(Version)==''">0.0.0.0</Version>
+		<Configuration Condition="$(Configuration)==''">Release</Configuration>
+		<ArtifactDirectory Condition="$(ArtifactDirectory)==''">$(BuildPath)\Artifact</ArtifactDirectory>
+		<PackageDirectory Condition="$(PackageDirectory)==''">$(BuildPath)\_Package\$(Version)</PackageDirectory>
+		<!--
+			Derived configuration properties
+		-->
+		<ProjectName>eXpand</ProjectName>
+		<TestPath>$(BuildPath)\Test</TestPath>
+		<TempPath>$(BuildPath)\Temp</TempPath>
+		<SourceExclusions>**\.svn\**\*.*;**\_svn\**\*.*;**\*.user;**\*.suo;**\*.db;**\bin\**\*.*;**\obj\**\*.*;.hg\**\*.*;_hg\**\*.*;.git\**\*.*</SourceExclusions>
+	</PropertyGroup>
+
+	<!-- 
+	 Solution redirects. Every VS project normally knows how to support these targets
+	-->
+	<Target Name="Build">
+		<MSBuild Projects="$(ProjectName).sln" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=bin\Release\"/> <!-- HACK: output changed here file -->
+	</Target>
+	
+	<Target Name="Clean">
+		<MSBuild Projects="$(ProjectName).sln" Targets="Clean" Properties="Configuration=$(Configuration)"/>
+
+		<CreateItem Include="**/Debug/**/*.*;**/Release/**/*.*">
+			<Output ItemName="_binaryFiles" TaskParameter="Include"/>
+		</CreateItem>
+		<Delete Files="@(_binaryFiles)" TreatErrorsAsWarnings="true"/>
+		<RemoveDir Directories="$(BuildPath)" />
+	</Target>
+
+	<Target Name="Copy" DependsOnTargets="Build"> 
+		<MakeDir Directories="$(BuildPath);$(TempPath)"/>
+
+		<!--Library-->
+		<CreateItem Include="eXpand\**\bin\$(Configuration)\*.*;Resource\Library\*.*">
+			<Output ItemName="files" TaskParameter="Include"/>
+		</CreateItem>
+		<Copy SourceFiles="@(files)" DestinationFolder="$(TempPath)" />
+	
+		<!-- TODO: All Tests 
+		<CreateItem Include="eXpand\eXpand.Tests\**\bin\$(Configuration)\*.*" Exclude="eXpand\eXpand.Tests\**\bin\$(Configuration)\*.xml;eXpand\eXpand.Tests\**\bin\$(Configuration)\*.pdb;">
+			<Output ItemName="TestFiles" TaskParameter="Include"/>
+		</CreateItem>
+		<Copy SourceFiles="@(TestFiles)" DestinationFolder="$(TestPath)" />
+		-->
+	</Target>
+		
+	<Target Name="Test" DependsOnTargets="Build;Copy" > 
+		<!-- TODO: placeholder for now-->
+	</Target>
+
+	<Target Name="Config">
+		<Message Text="This sub-solution does not need configuration" />
+	</Target>
+	
+	<Target Name="Report" DependsOnTargets="Clean;Build;Copy">
+		<MakeDir Directories="$(ArtifactDirectory)" />
+		
+		<!-- StyleCop 
+		<CreateItem Include="eXpand\**\*.cs" Exclude="eXpand\**\*.designer.cs">	  
+			<Output TaskParameter="Include" ItemName="StyleCopFiles" />
+		</CreateItem>
+
+		<StyleCopTask
+			ProjectFullPath="$(ProjectName).sln"
+			OverrideSettingsFile="eXpand\Settings.StyleCop"
+			OutputFile="$(ArtifactDirectory)/$(ProjectName).StyleCopViolations.xml"
+			TreatErrorsAsWarnings="true"
+			SourceFiles="@(StyleCopFiles)" />  		
+		-->
+		
+	<!-- placeholder for now		
+		<FxCop ToolPath="Resource/Tool/FxCop" ProjectFile="$(ProjectName).FxCop" AnalysisReportFileName="$(ArtifactDirectory)/$(ProjectName).fxcop-result.xml"/>
+		-->
+	</Target>
+	
+	<Target Name="Integrate" DependsOnTargets="Clean;Test;Report;" />
+	<!--For Continuous integration and automated releases-->
+	<Target Name="Release" DependsOnTargets="Clean;Build;Test;Report;Distrib" />
+	
+	<Target Name="Distrib" DependsOnTargets="Clean;Build;Copy;Config;">
+		<MakeDir Directories="$(PackageDirectory);$(TempPath)" />
+
+		<!-- Source.zip -->
+		<CreateItem Include="**\*.*" Exclude="Resource\Tool\**\*.*;Build\**\*.*;Resource\Build\Profile.Local\*.*;$(SourceExclusions)">
+			<Output ItemName="_SourceFiles" TaskParameter="Include" />
+		</CreateItem>
+		<Zip Files="@(_SourceFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Source-$(Version).zip" Flatten="false" />
+		
+		<!-- Lib.zip -->
+		<CreateItem Include="$(TempPath)\*.*;">
+			<Output ItemName="_libFiles" TaskParameter="Include" />
+		</CreateItem>
+		<Zip Files="@(_libFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Lib-$(Version).zip" Flatten="true" />
+	</Target>
+</Project>
