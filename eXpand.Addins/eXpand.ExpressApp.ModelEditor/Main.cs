@@ -38,7 +38,7 @@ namespace eXpand.ExpressApp.ModelEditor {
                 Tracing.Tracer.LogSeparator("PathInfo");
 		        CheckAssemblyFile(pathInfo);
 		        ApplicationModulesManager applicationModulesManager = GetApplicationModulesManager(pathInfo);
-		        IModelApplication modelApplication = GetModelApplication(applicationModulesManager, pathInfo);
+		        ModelApplicationBase modelApplication = GetModelApplication(applicationModulesManager, pathInfo);
 		        ModelEditorViewController controller = GetController(pathInfo, applicationModulesManager, modelApplication);
 		        modelEditorForm = new ModelEditorForm(controller,new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor"));
 		        modelEditorForm.Disposed +=(sender, eventArgs) => ((IModelEditorSettings) modelEditorForm).ModelEditorSaveSettings();
@@ -52,18 +52,17 @@ namespace eXpand.ExpressApp.ModelEditor {
 			
 		}
 
-	    static ModelEditorViewController GetController(PathInfo pathInfo, ApplicationModulesManager applicationModulesManager, IModelApplication modelApplication) {
+	    static ModelEditorViewController GetController(PathInfo pathInfo, ApplicationModulesManager applicationModulesManager, ModelApplicationBase modelApplication) {
 	        var storePath = Path.GetDirectoryName(pathInfo.LocalPath);
 	        var fileModelStore = new FileModelStore(storePath, Path.GetFileNameWithoutExtension(pathInfo.LocalPath));
 	        var unusableStore = new FileModelStore(storePath, ModelStoreBase.UnusableDiffDefaultName);
-	        return new ModelEditorViewController(modelApplication, fileModelStore, unusableStore,applicationModulesManager.Modules);
+	        return new ModelEditorViewController((IModelApplication)modelApplication, fileModelStore, unusableStore,applicationModulesManager.Modules);
 	    }
 
-	    static IModelApplication GetModelApplication(ApplicationModulesManager applicationModulesManager, PathInfo pathInfo) {
+        static ModelApplicationBase GetModelApplication(ApplicationModulesManager applicationModulesManager, PathInfo pathInfo){
 	        var modelManager = new ApplicationModelsManager(applicationModulesManager.Modules, applicationModulesManager.ControllersManager, applicationModulesManager.DomainComponents);
-	        IModelApplication modelApplication = modelManager.CreateModelApplication();
-            if (!(pathInfo.LocalPath.EndsWith(ModelStoreBase.ModelDiffDefaultName + ".xafml")))
-                AddLayers((ModelApplicationBase)modelApplication, applicationModulesManager, pathInfo);
+            var modelApplication = (ModelApplicationBase) modelManager.CreateModelApplication();
+            AddLayers(modelApplication, applicationModulesManager, pathInfo);
 	        return modelApplication;
 	    }
 
@@ -101,7 +100,7 @@ namespace eXpand.ExpressApp.ModelEditor {
 	        string resourceName = null;
 	        var layer = modelApplication.CreatorInstance.CreateModelApplication();
 	        modelApplication.AddLayer(layer);
-	        var resourcesModelStore = new ResourcesModelStore(assembly, "");
+	        var resourcesModelStore = new ResourcesModelStore(assembly, "", true);
 	        resourcesModelStore.ResourceLoading += (sender, args) => {
 	            if (args.ResourceName.EndsWith(Path.GetFileName(pathInfo.LocalPath))) {
                     args.Cancel = assembly.Location == pathInfo.AssemblyPath;

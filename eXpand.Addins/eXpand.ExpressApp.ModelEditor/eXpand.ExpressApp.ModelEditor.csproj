@@ -159,12 +159,13 @@
     <Reference Include="DevExpress.Persistent.Base.v10.1">
       <Name>DevExpress.Persistent.Base.v10.1</Name>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.ModelDifference, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.ExpressApp.ModelDifference, Version=10.1.5.179, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ModelDifference.dll</HintPath>
     </Reference>
     <Reference Include="eXpand.Utils, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>

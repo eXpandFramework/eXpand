@@ -24,6 +24,13 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
 
         private readonly Assembly assembly;
         readonly string _prefix;
+        readonly bool _loadDefaulModel;
+
+        public ResourcesModelStore(Assembly assembly, string prefix, bool loadDefaulModel) {
+            this.assembly = assembly;
+            _prefix = prefix;
+            _loadDefaulModel = loadDefaulModel;
+        }
 
         public ResourcesModelStore(Assembly assembly, string prefix) {
             this.assembly = assembly;
@@ -37,7 +44,13 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
         }
 
         Func<string, bool> Predicate() {
-            return s => ((s.StartsWith(_prefix) || (!(s.StartsWith(_prefix)) && s.IndexOf("." + _prefix) > -1)) && (!(s.EndsWith(ModelDiffDefaultName + ".xafml"))&&s.EndsWith(".xafml")));
+            return s => ((s.StartsWith(_prefix) || (!(s.StartsWith(_prefix)) && s.IndexOf("." + _prefix) > -1)) && ((CanLoadDefault(s)) && s.EndsWith(".xafml")));
+        }
+
+        bool CanLoadDefault(string s) {
+            if (_loadDefaulModel)
+                return true;
+            return !(s.EndsWith(ModelDiffDefaultName + ".xafml"));
         }
 
         public override bool ReadOnly
