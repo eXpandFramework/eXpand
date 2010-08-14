@@ -11,15 +11,6 @@
       <MasterDetailRule Id="IODMDOrder_OrderLines" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDOrder" CollectionMember="IODMDOrderLines" ChildListView="IODMDOrderLine_ListView" NormalCriteria="1=1" />
     </Rules>
   </MasterDetail>
-  <NavigationItems>
-    <Items>
-      <Item Id="IO">
-        <Items>
-          <Item Id="Dynamic assembly Master detail" IsNewNode="True" ViewId="IODMDCustomer_ListView" Caption="Master detail" />
-        </Items>
-      </Item>
-    </Items>
-  </NavigationItems>
   <Views>
     <ListView Id="IODMDCustomer_ListView">
       <GridViewOptions>

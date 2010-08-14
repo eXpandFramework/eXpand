@@ -9,7 +9,7 @@ namespace FeatureCenter.Module
     #region LookUp ListView Search
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderLookUpListSearch, "1=1", "1=1", Captions.ViewMessageLookUpListSearch, Position.Bottom, ViewType = ViewType.DetailView, View = "LookUpListViewSearch_DetailView")]
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderLookUpListSearch, "1=1", "1=1", Captions.HeaderLookUpListSearch, Position.Top, ViewType = ViewType.DetailView, View = "LookUpListViewSearch_DetailView")]
-    [NavigationItem("Lookup ListView Search", "LookUpListViewSearch_DetailView")]
+    [NavigationItem(Captions.Miscellaneous+"Lookup ListView Search", "LookUpListViewSearch_DetailView")]
     [CloneView(CloneViewType.DetailView, "LookUpListViewSearch_DetailView")]
     [DisplayFeatureModelAttribute("LookUpListViewSearch_DetailView")]
     #endregion

@@ -9,7 +9,7 @@ namespace FeatureCenter.Module.Win.TrayIcon
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderTrayIcon, "1=1", "1=1",
         Captions.HeaderTrayIcon, Position.Top)]
     [NonPersistent]
-    [NavigationItem("Tray Icon", "TICustomer_DetailView")]
+    [NavigationItem(Module.Captions.Miscellaneous+"Tray Icon", "TICustomer_DetailView")]
     [DisplayFeatureModel("TICustomer_DetailView", "TrayIcon")]
     public class TICustomer
     {

@@ -15,7 +15,7 @@ namespace FeatureCenter.Module.IO.AnalysisObjects
         }
         protected override NavigationItemAttribute GetNavigationItemAttribute()
         {
-            return new NavigationItemAttribute("IO/Analysis", ViewId);
+            return new NavigationItemAttribute(Captions.IO+ "Analysis", ViewId);
         }
         protected override DisplayFeatureModelAttribute GetDisplayFeatureModelAttribute() {
             return new DisplayFeatureModelAttribute(ViewId, "Analysis");

@@ -18,6 +18,8 @@ namespace FeatureCenter.Module
         
     #region Detail View of Persistent object with records
     [eXpand.ExpressApp.Attributes.NavigationItem("Navigation/Detail View of Persistent object with records", "Customer_DetailView")]
+    [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderDetailViewNavigation, "1=1", "1=1", Captions.ViewMessageDetailViewNavigation, Position.Bottom, View = "Customer_DetailView")]
+    [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderDetailViewNavigation, "1=1", "1=1", Captions.HeaderDetailViewNavigation, Position.Top, View = "Customer_DetailView")]
     #endregion
     #region Conditional Save Delete
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderConditionalSaveDelete, "1=1", "1=1", Captions.ViewMessageConditionalSaveDelete, Position.Bottom, View = "ConditionalSaveDelete_DetailView")]
@@ -55,21 +57,21 @@ namespace FeatureCenter.Module
     #region Load When Filtered
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderLoadWhenFiltered, "1=1", "1=1", Captions.ViewMessageLoadWhenFiltered, Position.Bottom, ViewType = ViewType.ListView, View = "LoadWhenFiltered_ListView")]
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderLoadWhenFiltered, "1=1", "1=1", Captions.HeaderLoadWhenFiltered, Position.Top, ViewType = ViewType.ListView, View = "LoadWhenFiltered_ListView")]
-    [eXpand.ExpressApp.Attributes.NavigationItem("Load When Filtered", "LoadWhenFiltered_ListView")]
+    [eXpand.ExpressApp.Attributes.NavigationItem(Captions.ListViewCotrol + "Load When Filtered", "LoadWhenFiltered_ListView")]
     [CloneView(CloneViewType.ListView, "LoadWhenFiltered_ListView")]
     [DisplayFeatureModelAttribute("LoadWhenFiltered_ListView")]
     #endregion
     #region Linq Query
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderLinqQuery, "1=1", "1=1", Captions.ViewMessageLinqQuery, Position.Bottom, ViewType = ViewType.ListView, View = "LinqQuery_ListView")]
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderLinqQuery, "1=1", "1=1", Captions.HeaderLinqQuery, Position.Top, ViewType = ViewType.ListView, View = "LinqQuery_ListView")]
-    [eXpand.ExpressApp.Attributes.NavigationItem("LinqQuery", "Customer_ListView_EmployeesLinq_Linq")]
+    [eXpand.ExpressApp.Attributes.NavigationItem(Captions.Miscellaneous+"LinqQuery", "Customer_ListView_EmployeesLinq_Linq")]
     [CloneView(CloneViewType.ListView, "LinqQuery_ListView")]
     #endregion
     #region HighlightFocusedLayoutItem
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderHighlightFocusedLayoutItem, "1=1", "1=1", Captions.ViewMessageHighlightFocusedLayoutItem, Position.Bottom, ViewType = ViewType.DetailView, View = "HighlightFocusedLayoutItem_DetailView")]
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderHighlightFocusedLayoutItem, "1=1", "1=1", Captions.HeaderHighlightFocusedLayoutItem, Position.Top, ViewType = ViewType.DetailView, View = "HighlightFocusedLayoutItem_DetailView")]
     [CloneView(CloneViewType.DetailView, "HighlightFocusedLayoutItem_DetailView")]
-    [eXpand.ExpressApp.Attributes.NavigationItem("Highlight Focused Layout Item", "HighlightFocusedLayoutItem_DetailView")]
+    [eXpand.ExpressApp.Attributes.NavigationItem(Captions.DetailViewCotrol + "Highlight Focused Layout Item", "HighlightFocusedLayoutItem_DetailView")]
     [DisplayFeatureModelAttribute("HighlightFocusedLayoutItem_DetailView")]
     #endregion
     #region HideNestedListViewToolBar
@@ -97,7 +99,7 @@ namespace FeatureCenter.Module
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderFKViolation, "1=1", "1=1", Captions.ViewMessageFKViolation, Position.Bottom, ViewType = ViewType.ListView, View = "ForeignKeyViolation_ListView")]
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderFKViolation, "1=1", "1=1", Captions.HeaderFKViolation, Position.Top, View = "ForeignKeyViolation_ListView")]
     [CloneView(CloneViewType.ListView, "ForeignKeyViolation_ListView")]
-    [eXpand.ExpressApp.Attributes.NavigationItem("Foreign Key Violation", "ForeignKeyViolation_ListView")]
+    [eXpand.ExpressApp.Attributes.NavigationItem(Captions.Miscellaneous+ "Foreign Key Violation", "ForeignKeyViolation_ListView")]
     [DisplayFeatureModelAttribute("ForeignKeyViolation_ListView")]
     #endregion
     #region Disable Full Text For Memo Fields
@@ -128,7 +130,7 @@ namespace FeatureCenter.Module
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderActionButtonViewItem, "1=1", "1=1",
         Captions.HeaderActionButtonViewItem, Position.Top, View = "ActionButtonViewItem_DetailView")]
     [CloneView(CloneViewType.DetailView, "ActionButtonViewItem_DetailView")]
-    [eXpand.ExpressApp.Attributes.NavigationItem("Action Button View Item", "ActionButtonViewItem_DetailView")]
+    [eXpand.ExpressApp.Attributes.NavigationItem(Captions.DetailViewCotrol+"Action Button View Item", "ActionButtonViewItem_DetailView")]
     [DisplayFeatureModelAttribute("ActionButtonViewItem_DetailView")]
     #endregion
     #region ConnectionInfoStatus
@@ -136,7 +138,7 @@ namespace FeatureCenter.Module
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderConnectionInfoStatus, "1=1", "1=1",
         Captions.ViewMessageConnectionInfoStatus, Position.Bottom, View = "ConnectionInfoStatus_DetailView")]
     [CloneView(CloneViewType.DetailView, "ConnectionInfoStatus_DetailView")]
-    [eXpand.ExpressApp.Attributes.NavigationItem("Connection Info Status", "ConnectionInfoStatus_DetailView")]
+    [eXpand.ExpressApp.Attributes.NavigationItem(Captions.Miscellaneous+ "Connection Info Status", "ConnectionInfoStatus_DetailView")]
     [DisplayFeatureModelAttribute("ConnectionInfoStatus_DetailView")]
     #endregion
     #region Disable Edit Detail View
@@ -145,7 +147,7 @@ namespace FeatureCenter.Module
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderDisableEditDetailView, "1=1", "1=1",
         Captions.HeaderDisableEditDetailView, Position.Top, View = "DisableEditDetailView_DetailView")]
     [CloneView(CloneViewType.DetailView, "DisableEditDetailView_DetailView")]
-    [eXpand.ExpressApp.Attributes.NavigationItem("Disable Edit Detail View","DisableEditDetailView_DetailView")]
+    [eXpand.ExpressApp.Attributes.NavigationItem(Captions.DetailViewCotrol+"Disable Edit Detail View","DisableEditDetailView_DetailView")]
     [DisplayFeatureModelAttribute("DisableEditDetailView_DetailView")]
     #endregion
     #region Conditional View Controls Positioning

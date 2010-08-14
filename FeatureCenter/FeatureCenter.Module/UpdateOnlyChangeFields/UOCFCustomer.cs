@@ -11,7 +11,7 @@ namespace FeatureCenter.Module.UpdateOnlyChangeFields {
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderUpdateOnlyChangeFields, "1=1", "1=1",
         Captions.HeaderUpdateOnlyChangeFields, Position.Top, ViewType = ViewType.DetailView)]
     [AdditionalViewControlsRule("UpdateOnlyChangeFields", "1=1", "1=1", null, Position.Bottom, MessageProperty = "ModificationStatements")]
-    [eXpand.ExpressApp.Attributes.NavigationItem("Update Only Changed Fields", "UOCFCustomer_DetailView")]
+    [eXpand.ExpressApp.Attributes.NavigationItem(Captions.Miscellaneous+"Update Only Changed Fields", "UOCFCustomer_DetailView")]
     [DisplayFeatureModel("UOCFCustomer_DetailView", "UpdateOnlyChangeFields")]
     public class UOCFCustomer : CustomerBase,ISupportChangedMembers {
         readonly ChangedMemberCollector _changedMemberCollector;

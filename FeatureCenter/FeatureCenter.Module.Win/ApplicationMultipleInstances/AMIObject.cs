@@ -9,7 +9,7 @@ namespace FeatureCenter.Module.Win.ApplicationMultipleInstances
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderApplicationMultipleInstances, "1=1", "1=1",
         Captions.HeaderApplicationMultipleInstances, Position.Top)]
     [NonPersistent]
-    [NavigationItem("Application Multiple Instances", "AMIObject_DetailView")]
+    [NavigationItem(Module.Captions.Miscellaneous+"Application Multiple Instances", "AMIObject_DetailView")]
     [DisplayFeatureModel("AMIObject_DetailView", "ApplicationMultipleInstances")]
     public class AMIObject {
         

@@ -1,7 +1,11 @@
 ﻿namespace FeatureCenter.Module {
     public class Captions {
+        public const string IO = "ImportExport/";
+        public const string Miscellaneous = "Miscellaneous/";
         public const string Header = "Header";
         public const string HeaderWelcome = "Welcome";
+        public const string DetailViewCotrol = "DetailView Cotrol/";
+        public const string ListViewCotrol = "ListView Cotrol/";
         public const string HeaderPropertyPathFilters = "Property Path Filters";
         public const string HeaderNonPersistent = "Non Persistent Detail View";
         

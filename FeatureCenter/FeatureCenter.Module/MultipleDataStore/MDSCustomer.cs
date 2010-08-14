@@ -10,7 +10,7 @@ using FeatureCenter.Module.MultipleDataStore;
 namespace FeatureCenter.Module.MultipleDataStore {
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderMultipleDataStores, "1=1", "1=1", Captions.ViewMessageMultipleDataStores, Position.Bottom,ViewType = ViewType.ListView)]
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderMultipleDataStores, "1=1", "1=1", Captions.HeaderMultipleDataStores, Position.Top)]
-    [NavigationItem("Multiple DataStores", "MDSCustomer_ListView")]
+    [NavigationItem(Captions.Miscellaneous+"Multiple DataStores", "MDSCustomer_ListView")]
     [DisplayFeatureModel("MDSCustomer_ListView", "MultipleDataStore")]
     public class MDSCustomer : CustomerBase {
         public MDSCustomer(Session session) : base(session) {
