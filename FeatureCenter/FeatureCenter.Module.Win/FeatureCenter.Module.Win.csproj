@@ -519,12 +519,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="IO\Analysis\MDO_Analysis.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="IO\DynamicMasterDetail\IOWC3LevelMasterDetail.xafml">
+    <EmbeddedResource Include="ImportExport\AnalysisObjects\MDO_Analysis.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

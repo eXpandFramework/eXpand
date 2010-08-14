@@ -1,7 +1,6 @@
-﻿using DevExpress.Data.Filtering;
-using eXpand.ExpressApp.Attributes;
+﻿using eXpand.ExpressApp.Attributes;
 
-namespace FeatureCenter.Module.IO.AnalysisObjects
+namespace FeatureCenter.Module.ImportExport.AnalysisObjects
 {
     public class CreateObjectAttributesController : Module.CreateObjectAttributesController
     {

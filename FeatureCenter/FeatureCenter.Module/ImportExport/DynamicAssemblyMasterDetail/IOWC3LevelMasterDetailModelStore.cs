@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using eXpand.ExpressApp.ModelDifference.Core;
 
-namespace FeatureCenter.Module.IO.DynamicAssemblyMasterDetail {
+namespace FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail {
     public class IOWC3LevelMasterDetailModelStore : ModelApplicationFromStreamStoreBase
     {
         protected override Stream GetStream() {

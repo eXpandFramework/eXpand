@@ -3,7 +3,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.ModelDifference;
 using FeatureCenter.Module.FilterDataStore;
-using FeatureCenter.Module.IO.DynamicAssemblyMasterDetail;
+using FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail;
 using FeatureCenter.Module.ModelDifference.ExternalApplication;
 using FeatureCenter.Module.PropertyPath;
 using System.Linq;
@@ -26,7 +26,6 @@ namespace FeatureCenter.Module
         void ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs createCustomModelDifferenceStoreEventArgs) {
             createCustomModelDifferenceStoreEventArgs.AddExtraDiffStore(new ExistentAssemblyMasterDetailModelStore());
             createCustomModelDifferenceStoreEventArgs.AddExtraDiffStore(new WC3LevelMasterDetailModelStore());
-            createCustomModelDifferenceStoreEventArgs.AddExtraDiffStore(new IOWC3LevelMasterDetailModelStore());
         }
 
         public override void Setup(ApplicationModulesManager moduleManager)

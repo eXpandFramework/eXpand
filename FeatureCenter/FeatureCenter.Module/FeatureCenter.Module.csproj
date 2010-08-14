@@ -221,15 +221,14 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FilterDataStore\DisableFiltersNodeUpdater.cs" />
-    <Compile Include="IO\AnalysisObjects\CreateObjectAttributesController.cs">
+    <Compile Include="ImportExport\AnalysisObjects\CreateObjectAttributesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IO\DynamicAssemblyMasterDetail\CreateObjectAttributesController.cs">
+    <Compile Include="ImportExport\DynamicAssemblyMasterDetail\CreateObjectAttributesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IO\DynamicAssemblyMasterDetail\IOWC3LevelMasterDetailModelStore.cs" />
-    <Compile Include="IO\DynamicAssemblyMasterDetail\Updater.cs" />
-    <Compile Include="IO\DynamicAssemblyMasterDetail\WorldCreatorUpdater.cs" />
+    <Compile Include="ImportExport\DynamicAssemblyMasterDetail\Updater.cs" />
+    <Compile Include="ImportExport\DynamicAssemblyMasterDetail\WorldCreatorUpdater.cs" />
     <Compile Include="ModelDifference\CreateDisplayFeatureModelAttributeController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -287,7 +286,7 @@
     <Compile Include="MultipleDataStore\MDSOrderLine.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderLine.cs" />
-    <Compile Include="IO\AnalysisObjects\Updater.cs" />
+    <Compile Include="ImportExport\AnalysisObjects\Updater.cs" />
     <Compile Include="PropertyPath\PropertyPathFiltersNodeUpdater.cs" />
     <Compile Include="PropertyPath\PPCustomer.cs" />
     <Compile Include="Module.cs">
@@ -311,9 +310,11 @@
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\CreateObjectAttributesController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\DynamicAssemblyBuilder.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\Updater.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\WC3LevelMasterDetailModelStore.cs" />
-    <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\WorldCreatorUpdater.cs" />
+    <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\WorldCreatorUpdater.cs">
+    </Compile>
     <Compile Include="WorldCreator\ExistentAssemblyMasterDetail\CreateObjectAttributesController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -340,9 +341,13 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Functional Tests\Config.xml" />
-    <EmbeddedResource Include="IO\AnalysisObjects\AnalysisObjects.xml" />
-    <EmbeddedResource Include="IO\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetail.xml" />
-    <EmbeddedResource Include="IO\DynamicAssemblyMasterDetail\IOWC3LevelMasterDetailModelStore.xml" />
+    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModelGroup.xml" />
+    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModel.xml" />
+    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailGroup.xml" />
+    <EmbeddedResource Include="ImportExport\AnalysisObjects\AnalysisObjectsConfiguration.xml" />
+    <EmbeddedResource Include="ImportExport\AnalysisObjects\AnalysisObjects.xml" />
+    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetail.xml" />
+    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\IOWC3LevelMasterDetailModelStore.xml" />
     <EmbeddedResource Include="ModelDifference\ExternalApplication\MDO_ExternalApplication.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -392,10 +397,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Functional Tests\Sample.ets" />
-    <EmbeddedResource Include="IO\DynamicAssemblyMasterDetail\IOWC3LevelMasterDetail.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IO\AnalysisObjects\MDO_Analysis.xafml">
+    <EmbeddedResource Include="ImportExport\AnalysisObjects\MDO_Analysis.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PivotChart\ConnectWithCustomer\MDO_ConnectWithCustomer.xafml">

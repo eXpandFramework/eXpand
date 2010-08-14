@@ -2,7 +2,7 @@
   <AdditionalViewControls>
     <Rules>
       <AdditionalViewControlsRule Id="Header Importing Master Detail" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDCustomer" Message="Importing World Creator objects" Position="Top" />
-      <AdditionalViewControlsRule Id="ViewMessage Importing Master Detail" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDCustomer" Message="In this view you can see how to IO engine to import objetcs that are going to be used by worldcreator to create a master detail relationship" Position="Bottom" />
+      <AdditionalViewControlsRule Id="ViewMessage Importing Master Detail" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDCustomer" Message="In this view you can see how to use IO engine to import objetcs that are going to be used by worldcreator to create a master detail relationship. This view will display its content properly one after the 2nd run of the application" Position="Bottom" />
     </Rules>
   </AdditionalViewControls>
   <MasterDetail>

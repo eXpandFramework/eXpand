@@ -1,6 +1,6 @@
 ﻿using eXpand.ExpressApp.Attributes;
 
-namespace FeatureCenter.Module.IO.DynamicAssemblyMasterDetail
+namespace FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail
 {
     public class CreateObjectAttributesController : Module.CreateObjectAttributesController
     {
@@ -13,7 +13,7 @@ namespace FeatureCenter.Module.IO.DynamicAssemblyMasterDetail
         }
 
         protected override DisplayFeatureModelAttribute GetDisplayFeatureModelAttribute() {
-            return new DisplayFeatureModelAttribute("IODMDCustomer_ListView", "IOWC3LevelMasterDetailModelStore");
+            return new DisplayFeatureModelAttribute("IODMDCustomer_ListView", "IOWC3LevelMasterDetail");
         }
     }
 }
