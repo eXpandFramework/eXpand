@@ -1,6 +1,6 @@
-﻿using System;
-using DevExpress.Data.Filtering;
+﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 using Microsoft.SqlServer.Management.Smo;
@@ -34,15 +34,14 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
         private IPersistentClassInfo CreateCore(Table table, IPersistentAssemblyInfo persistentAssemblyInfo)
         {
             int count = table.Columns.OfType<Column>().Where(column => column.InPrimaryKey).Count();
-            if (count>=1) {
-                IPersistentClassInfo persistentClassInfo = CreatePersistentClassInfo(table.Name,TemplateType.Class, persistentAssemblyInfo);
-                persistentClassInfo.BaseType = typeof (XPLiteObject);
-                if (count>1)
-                    CreatePersistentClassInfo(table.Name + KeyStruct, TemplateType.Struct,persistentAssemblyInfo);
-                CreateExtraInfos(table, persistentClassInfo);
-                return persistentClassInfo;
-            }
-            throw new NotImplementedException(table.Name);    
+            IPersistentClassInfo persistentClassInfo = CreatePersistentClassInfo(table.Name,TemplateType.Class, persistentAssemblyInfo);
+            persistentClassInfo.BaseType = typeof (XPLiteObject);
+            if (count>1)
+                CreatePersistentClassInfo(table.Name + KeyStruct, TemplateType.Struct,persistentAssemblyInfo);
+            CreateExtraInfos(table, persistentClassInfo);
+            if (count==0) 
+                Tracing.Tracer.LogError("No primary keys found for "+table.Name);
+            return persistentClassInfo;
         }
 
         void CreateExtraInfos(Table table, IPersistentClassInfo persistentClassInfo) {
