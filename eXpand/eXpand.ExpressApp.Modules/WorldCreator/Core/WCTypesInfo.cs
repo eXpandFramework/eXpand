@@ -23,8 +23,8 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             try {
                 findBussinessObjectType = _dictionary[typeof(T)];
             }
-            catch (KeyNotFoundException e) {
-                throw new KeyNotFoundException(typeof (T).ToString());
+            catch (KeyNotFoundException) {
+                throw new KeyNotFoundException("Register " + typeof(T) + " at your AdditionalBusinessClasses");
             }
             return findBussinessObjectType;
         }
