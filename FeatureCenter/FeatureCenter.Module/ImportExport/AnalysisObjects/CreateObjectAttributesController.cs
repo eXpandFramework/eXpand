@@ -14,7 +14,7 @@ namespace FeatureCenter.Module.ImportExport.AnalysisObjects
         }
         protected override NavigationItemAttribute GetNavigationItemAttribute()
         {
-            return new NavigationItemAttribute(Captions.IO+ "Analysis", ViewId);
+            return new NavigationItemAttribute(Captions.Importexport+ "Analysis", ViewId);
         }
         protected override DisplayFeatureModelAttribute GetDisplayFeatureModelAttribute() {
             return new DisplayFeatureModelAttribute(ViewId, "Analysis");

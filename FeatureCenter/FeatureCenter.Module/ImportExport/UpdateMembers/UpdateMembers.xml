@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SerializedObjects>
+  <SerializedObject type="UMCustomer">
+    <Property type="simple" name="City" isKey="false"><![CDATA[New York]]></Property>
+    <Property type="simple" name="Name" isKey="true"><![CDATA[Benjamin CISCO]]></Property>
+  </SerializedObject>
+  <SerializedObject type="UMCustomer">
+    <Property type="simple" name="City" isKey="false"><![CDATA[Paris]]></Property>
+    <Property type="simple" name="Name" isKey="true"><![CDATA[James T KIRK]]></Property>
+  </SerializedObject>
+  <SerializedObject type="UMCustomer">
+    <Property type="simple" name="City" isKey="false"><![CDATA[London]]></Property>
+    <Property type="simple" name="Name" isKey="true"><![CDATA[Jean-Luc PICARD]]></Property>
+  </SerializedObject>
+  <SerializedObject type="UMCustomer">
+    <Property type="simple" name="City" isKey="false"><![CDATA[New York]]></Property>
+    <Property type="simple" name="Name" isKey="true"><![CDATA[Jerry MERRY]]></Property>
+  </SerializedObject>
+  <SerializedObject type="UMCustomer">
+    <Property type="simple" name="City" isKey="false"><![CDATA[New York]]></Property>
+    <Property type="simple" name="Name" isKey="true"><![CDATA[John SMITH]]></Property>
+  </SerializedObject>
+  <SerializedObject type="UMCustomer">
+    <Property type="simple" name="City" isKey="false"><![CDATA[London]]></Property>
+    <Property type="simple" name="Name" isKey="true"><![CDATA[Jordy LAFORGE]]></Property>
+  </SerializedObject>
+  <SerializedObject type="UMCustomer">
+    <Property type="simple" name="City" isKey="false"><![CDATA[Hong Kong]]></Property>
+    <Property type="simple" name="Name" isKey="true"><![CDATA[Ken WONG ]]></Property>
+  </SerializedObject>
+  <SerializedObject type="UMCustomer">
+    <Property type="simple" name="City" isKey="false"><![CDATA[Paris]]></Property>
+    <Property type="simple" name="Name" isKey="true"><![CDATA[Maria JONES]]></Property>
+  </SerializedObject>
+  <SerializedObject type="UMCustomer">
+    <Property type="simple" name="City" isKey="false"><![CDATA[London]]></Property>
+    <Property type="simple" name="Name" isKey="true"><![CDATA[Robert DUVAL]]></Property>
+  </SerializedObject>
+  <SerializedObject type="UMCustomer">
+    <Property type="simple" name="City" isKey="false"><![CDATA[Paris]]></Property>
+    <Property type="simple" name="Name" isKey="true"><![CDATA[Tom SAILOR]]></Property>
+  </SerializedObject>
+</SerializedObjects>

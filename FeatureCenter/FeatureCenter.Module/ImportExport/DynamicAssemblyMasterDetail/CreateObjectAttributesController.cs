@@ -9,7 +9,7 @@ namespace FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail
         }
 
         protected override NavigationItemAttribute GetNavigationItemAttribute() {
-            return new NavigationItemAttribute(Captions.IO + "Dynamic assembly Master detail", "IODMDCustomer_ListView");
+            return new NavigationItemAttribute(Captions.Importexport + "Dynamic assembly Master detail", "IODMDCustomer_ListView");
         }
 
         protected override DisplayFeatureModelAttribute GetDisplayFeatureModelAttribute() {

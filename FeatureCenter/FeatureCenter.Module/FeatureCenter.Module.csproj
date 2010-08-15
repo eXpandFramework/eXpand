@@ -170,6 +170,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.WorldCreator.dll</HintPath>
     </Reference>
+    <Reference Include="eXpand.ExpressApp.WorldCreator.SqlDBMapper, Version=10.1.5.179, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.WorldCreator.SqlDBMapper.dll</HintPath>
+    </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eXpand.DLL\eXpand.Persistent.Base.dll</HintPath>
@@ -229,6 +233,8 @@
     </Compile>
     <Compile Include="ImportExport\DynamicAssemblyMasterDetail\Updater.cs" />
     <Compile Include="ImportExport\DynamicAssemblyMasterDetail\WorldCreatorUpdater.cs" />
+    <Compile Include="ImportExport\UpdateMembers\UMCustomer.cs" />
+    <Compile Include="ImportExport\UpdateMembers\Updater.cs" />
     <Compile Include="ModelDifference\CreateDisplayFeatureModelAttributeController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -341,6 +347,10 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Functional Tests\Config.xml" />
+    <Content Include="ImportExport\UpdateMembers\UpdateMembers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="ImportExport\UpdateMembers\UpdateMembersGroup.xml" />
     <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModelGroup.xml" />
     <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModel.xml" />
     <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailGroup.xml" />

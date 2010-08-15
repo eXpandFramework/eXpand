@@ -1,6 +1,7 @@
 ﻿namespace FeatureCenter.Module {
     public class Captions {
-        public const string IO = "ImportExport/";
+        public const string HeaderUpdateMembers = "Update Members";
+        public const string Importexport = "ImportExport/";
         public const string Miscellaneous = "Miscellaneous/";
         public const string Header = "Header";
         public const string HeaderWelcome = "Welcome";
@@ -86,6 +87,7 @@
         public const string ViewMessageFilterDataStoreContinentFilter = "Here you can see how to apply a low level filter to your data. This example is special cause i have modify only the selects statements that go to your datastore and have filter an already created field (city) uppon a range of values which i have categorize to continents. Use the continent single choise above to filter your views. Also name has a rule required validation but since you are modifying statements you are bellow the validation system and that allows you to add customer with the same names but different continents";
         public const string ViewMessageExistentAssemblyMasterDetail = "In this view you can see how can you add a master detail by extending dynamically existent classes that you have design in visual studio";
         public const string ViewMessageShowInAnalysis = "In this view you can see how can you enable the ShowInAnalysis action works similar with show in reports action. Just select some records and execute the action to create an analysis for the selected records. The same behaviour can be applied using the ShowInAnalysis permission";
-        public const string ViewMessageConnectWithCustomer = "In this view you can see how you can apply the pivoted attribute to your customer in order to display in the same detail view pre deisigned analysis";        
+        public const string ViewMessageConnectWithCustomer = "In this view you can see how you can apply the pivoted attribute to your customer in order to display in the same detail view pre deisigned analysis";
+        public const string ViewMessageUpdateMembers = "Here you can see how to use IO import engine to update only the city member of this customer list. Right click and choose import then navigate to the bin directory of the application and select the updatemembers.xml file. After import just hit refresh and note that the city names of your customers have changed. To see how to configure the creation of updatemembers.xml see the Update Members serialization configuration";        
     }
 }

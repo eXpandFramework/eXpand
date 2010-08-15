@@ -1,6 +1,7 @@
 using DevExpress.ExpressApp.ScriptRecorder;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.WorldCreator.SqlDBMapper;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using System.Linq;
 namespace FeatureCenter.Module
@@ -56,6 +57,8 @@ namespace FeatureCenter.Module
             AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentRuleRequiredFieldAttribute));
             AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentSizeAttribute));
             AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentValueConverter));
+            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentPersistentAttribute));
+            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentKeyAttribute));
             AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentTypeInfo));
             AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentTemplatedTypeInfo));
             AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.StrongKeyFile));
@@ -108,6 +111,7 @@ namespace FeatureCenter.Module
             this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.FilterDataStore.FilterDataStoreModule));
             this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule));
             this.RequiredModuleTypes.Add(typeof(ScriptRecorderModuleBase));
+            this.RequiredModuleTypes.Add(typeof(WorldCreatorSqlDBMapperModule));
         }
 
         #endregion
