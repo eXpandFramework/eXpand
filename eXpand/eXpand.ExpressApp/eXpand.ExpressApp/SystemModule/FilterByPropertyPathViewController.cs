@@ -240,7 +240,7 @@ namespace eXpand.ExpressApp.SystemModule
 
             SetActiveFilter(memberSearchWrapper, filtersByCollectionWrapper.PropertyPathFilter);
 
-            ListView listView = Application.CreateListView(memberSearchWrapper.Id, newCollectionSource, false);
+            DevExpress.ExpressApp.ListView listView = Application.CreateListView(memberSearchWrapper.Id, newCollectionSource, false);
 
             e.ShowViewParameters.CreatedView = listView;
             e.ShowViewParameters.Context = TemplateContext.PopupWindow;

@@ -18,6 +18,14 @@ namespace eXpand.ExpressApp.Web
             new ViewShortCutProccesor(this).Proccess(args);
             
         }
+        protected override void OnDetailViewCreating(DetailViewCreatingEventArgs args)
+        {
+            args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.Obj, args.ObjectSpace, args.IsRoot);
+        }
+        protected override void OnListViewCreating(ListViewCreatingEventArgs args)
+        {
+            args.View = ViewFactory.CreateListView(this, args.ViewID, args.CollectionSource, args.IsRoot);
+        }
         public ApplicationModelsManager ModelsManager
         {
             get { return modelsManager; }

@@ -123,6 +123,7 @@
     <Compile Include="Core\TypesInfoExtensions.cs" />
     <Compile Include="Core\TypeValueConverter.cs" />
     <Compile Include="DataStoreProvider.cs" />
+    <Compile Include="DetailView.cs" />
     <Compile Include="Editors\ActionButtonDetailItem.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -139,6 +140,7 @@
     <Compile Include="ListEditors\GridViewOptionsModelSynchronizer.cs" />
     <Compile Include="ListEditors\OptionsModelSynchronizer.cs" />
     <Compile Include="Attributes\CloneViewAttribute.cs" />
+    <Compile Include="ListView.cs" />
     <Compile Include="NodeUpdaters\ModelListViewLinqColumnsNodesGeneratorUpdater.cs" />
     <Compile Include="NodeUpdaters\ModelListViewLinqNodesGeneratorUpdater.cs" />
     <Compile Include="ModuleBase.cs">
@@ -259,6 +261,7 @@
     <Compile Include="SystemModule\ViewEditModeController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ViewFactory.cs" />
     <Compile Include="ViewShortCutProccesor.cs" />
     <Compile Include="XpandObjectSpace.cs" />
     <Compile Include="XpoMultiDataStoreProxy.cs" />

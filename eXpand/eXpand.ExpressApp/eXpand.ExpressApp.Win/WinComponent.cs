@@ -12,7 +12,6 @@ using eXpand.ExpressApp.Win.Interfaces;
 
 namespace eXpand.ExpressApp.Win
 {
-
     public partial class WinComponent : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation,IWinApplication {
         
 
@@ -30,6 +29,13 @@ namespace eXpand.ExpressApp.Win
             
         }
 
+        protected override void OnDetailViewCreating(DetailViewCreatingEventArgs args) {
+            args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.Obj, args.ObjectSpace, args.IsRoot);
+        }
+        protected override void OnListViewCreating(ListViewCreatingEventArgs args)
+        {
+            args.View = ViewFactory.CreateListView(this, args.ViewID,  args.CollectionSource, args.IsRoot);
+        }
         public ApplicationModelsManager ModelsManager {
             get { return modelsManager; }
         }
