@@ -6,7 +6,6 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Views.Grid;
 using eXpand.ExpressApp.SystemModule;
-using XafGridView = eXpand.ExpressApp.Win.ListEditors.XafGridView;
 
 namespace eXpand.ExpressApp.Win.SystemModule {
     public interface IModelClassEditValueChangedFiringMode
@@ -28,7 +27,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         {
             base.OnViewControlsCreated();
             if (((IModelListViewEditValueChangedFiringMode)View.Model).EditValueChangedFiringMode==EditValueChangedFiringMode.Buffered) {
-                mainView = ((ListEditors.GridListEditor)View.Editor).GridView;
+                mainView = ((GridListEditor)View.Editor).GridView;
                 mainView.ShownEditor += MainViewOnShownEditor;
             }
         }
