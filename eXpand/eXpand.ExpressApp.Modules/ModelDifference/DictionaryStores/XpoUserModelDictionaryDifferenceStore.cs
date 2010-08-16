@@ -6,6 +6,7 @@ using DevExpress.Persistent.Base.Security;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.Security;
+using eXpand.ExpressApp.Security.Core;
 using eXpand.Persistent.Base;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model;
@@ -82,7 +83,8 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 base.OnDifferenceObjectSaving(userModelDifferenceObject, model);
             }
 
-            if (SecuritySystem.Instance is ISecurityComplex && IsGranted()){
+            if (SecuritySystem.Instance is ISecurityComplex && SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false))
+            {
                 var reader = new ModelXmlReader();
                 var writer = new ModelXmlWriter();
                 var space = Application.CreateObjectSpace();
@@ -105,13 +107,5 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                     permission => permission.Difference));
         }
 
-        private bool IsGranted(){            
-            var securityComplex = ((SecurityComplex) SecuritySystem.Instance);
-            bool permission = securityComplex.IsGrantedForNonExistentPermission;
-            securityComplex.IsGrantedForNonExistentPermission = false;
-            bool granted = SecuritySystem.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow));
-            securityComplex.IsGrantedForNonExistentPermission=permission;
-            return granted;
-        }
     }
 }

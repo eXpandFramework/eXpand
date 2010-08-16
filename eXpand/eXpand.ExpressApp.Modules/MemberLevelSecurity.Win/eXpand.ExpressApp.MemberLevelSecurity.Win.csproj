@@ -164,7 +164,9 @@
     <Compile Include="MemberLevelSecurityModuleWin.Designer.cs">
       <DependentUpon>MemberLevelSecurityModuleWin.cs</DependentUpon>
     </Compile>
-    <Compile Include="NodeUpdaters\MemberLevelSecurityStringPropertyEditorUpdater.cs" />
+    <Compile Include="NodeUpdaters\MemberLevelSecurityStringPropertyEditorUpdater.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyEditors\IMemberLevelSecurityPropertyEditor.cs" />
     <Compile Include="PropertyEditors\MemberLevelSecurityStringPropertyEditor.cs" />

@@ -124,6 +124,7 @@
     <Compile Include="Controllers\PopulateController.Designer.cs">
       <DependentUpon>PopulateController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\SecuritySystemExtensions.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
