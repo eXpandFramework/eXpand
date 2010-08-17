@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Project DefaultTargets="integrate" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<!--	
 	<Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
 	<Import Project="Resource\Build\NCoverExplorer.MSBuildTasks.targets"/>
 	<Import Project="Resource\Build\Microsoft.StyleCop.Targets" />
-
+-->
 	<!-- Main build entry file (extends development builds)-->
 	<PropertyGroup>
 		<!--
@@ -20,31 +21,99 @@
 		<ProjectName>eXpand</ProjectName>
 		<TestPath>$(BuildPath)\Test</TestPath>
 		<TempPath>$(BuildPath)\Temp</TempPath>
+		<ExpandPath>$(MSBuildProjectDirectory)\eXpand.DLL</ExpandPath>
 		<SourceExclusions>**\.svn\**\*.*;**\_svn\**\*.*;**\*.user;**\*.suo;**\*.db;**\bin\**\*.*;**\obj\**\*.*;.hg\**\*.*;_hg\**\*.*;.git\**\*.*</SourceExclusions>
+		
 	</PropertyGroup>
 
+	<ItemGroup>
+		<ProjectFiles Include="
+			.\eXpand\eXpand.Utils\eXpand.Utils.csproj;
+			.\eXpand\eXpand.Xpo\eXpand.Xpo.csproj;
+			.\eXpand\eXpand.Persistent\eXpand.Persistent.Base\eXpand.Persistent.Base.csproj;
+			.\eXpand\eXpand.ExpressApp\eXpand.ExpressApp\eXpand.ExpressApp.csproj;
+			.\eXpand\eXpand.ExpressApp\eXpand.ExpressApp.Win\eXpand.ExpressApp.Win.csproj;
+			.\eXpand\eXpand.ExpressApp\eXpand.ExpressApp.Web\eXpand.ExpressApp.Web.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\Security\eXpand.ExpressApp.Security.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\Validation\eXpand.ExpressApp.Validation.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\Logic\eXpand.ExpressApp.Logic.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\Logic.Win\eXpand.ExpressApp.Logic.Win.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\Logic.Conditional\eXpand.ExpressApp.Logic.Conditional.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\MemberLevelSecurity\eXpand.ExpressApp.MemberLevelSecurity.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\MemberLevelSecurity.Win\eXpand.ExpressApp.MemberLevelSecurity.Win.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\MemberLevelSecurity.Web\eXpand.ExpressApp.MemberLevelSecurity.Web.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\AdditionalViewControlsProvider\eXpand.ExpressApp.AdditionalViewControlsProvider.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\AdditionalViewControlsProvider.Win\eXpand.ExpressApp.AdditionalViewControlsProvider.Win.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\AdditionalViewControlsProvider.Web\eXpand.ExpressApp.AdditionalViewControlsProvider.Web.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\ModelDifference\eXpand.ExpressApp.ModelDifference.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\ModelDifference.Win\eXpand.ExpressApp.ModelDifference.Win.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\ModelDifference.Web\eXpand.ExpressApp.ModelDifference.Web.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\FilterDataStore\eXpand.ExpressApp.FilterDataStore.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\FilterDataStore.Win\eXpand.ExpressApp.FilterDataStore.Win.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\ArtifactState\eXpand.ExpressApp.ArtifactState.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\ConditionalActionState\eXpand.ExpressApp.ConditionalActionState.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\ConditionalControllerState\eXpand.ExpressApp.ConditionalControllerState.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\ModelArtifactState\eXpand.ExpressApp.ModelArtifactState.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\ModelArtifactState.Win\eXpand.ExpressApp.ModelArtifactState.Win.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\WizardUI.Win\eXpand.ExpressApp.WizardUI.Win.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\ViewVariants\eXpand.ExpressApp.ViewVariants.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\MasterDetail\eXpand.ExpressApp.MasterDetail.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\MasterDetail.Win\eXpand.ExpressApp.MasterDetail.Win.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\ViewVariants.Win\eXpand.ExpressApp.ViewVariants.Win.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\TreeListEditors.Win\eXpand.ExpressApp.TreeListEditors.Win.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling\eXpand.ExpressApp.ExceptionHandling.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling.Win\eXpand.ExpressApp.ExceptionHandling.Win.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling.Web\eXpand.ExpressApp.ExceptionHandling.Web.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\WorldCreator\eXpand.ExpressApp.WorldCreator.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\WorldCreator.SqlDBMapper\eXpand.ExpressApp.WorldCreator.SqlDBMapper.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\WorldCreator.Win\eXpand.ExpressApp.WorldCreator.Win.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\WorldCreator.Web\eXpand.ExpressApp.WorldCreator.Web.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\IO\eXpand.ExpressApp.IO.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\IO.Win\eXpand.ExpressApp.IO.Win.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\PivotChart\eXpand.ExpressApp.PivotChart.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\PivotChart.Win\eXpand.ExpressApp.PivotChart.Win.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\PivotChart.Web\eXpand.ExpressApp.PivotChart.Web.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\NCarousel\eXpand.NCarousel.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\NCarousel.Web\eXpand.ExpressApp.NCarousel.Web.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\Thumbnail.Web\eXpand.ExpressApp.Thumbnail.Web.csproj;
+			.\eXpand\eXpand.Persistent\eXpand.Persistent.BaseImpl\eXpand.Persistent.BaseImpl.csproj;
+			.\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj;
+			.\FeatureCenter\FeatureCenter.Module\FeatureCenter.Module.csproj;
+			.\FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj;
+			.\FeatureCenter\FeatureCenter.Win\FeatureCenter.Win.csproj;
+			.\FeatureCenter\ExternalApplication\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj;
+			.\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj;
+			.\eXpand.Addins\eXpand.ExpressApp.ModelEditor\eXpand.ExpressApp.ModelEditor.csproj;
+			.\eXpand.Addins\eXpandAddIns.csproj;
+			" />	
+	</ItemGroup>
+	
 	<!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
 	-->
 	<Target Name="Build">
-		<MSBuild Projects="$(ProjectName).sln" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=bin\Release\"/> <!-- HACK: output changed here file -->
+		<Message Text="@(ProjectFiles->'%(Filename)', '%0D%0A')" />
+		<MSBuild Projects="@(ProjectFiles)" Targets="Build" 
+				 Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=$(ExpandPath)" /> 
 	</Target>
 	
 	<Target Name="Clean">
-		<MSBuild Projects="$(ProjectName).sln" Targets="Clean" Properties="Configuration=$(Configuration)"/>
+		<MSBuild Projects="@(ProjectFiles)" Targets="Clean" Properties="Configuration=$(Configuration)"/>
 
 		<CreateItem Include="**/Debug/**/*.*;**/Release/**/*.*">
 			<Output ItemName="_binaryFiles" TaskParameter="Include"/>
 		</CreateItem>
 		<Delete Files="@(_binaryFiles)" TreatErrorsAsWarnings="true"/>
-		<RemoveDir Directories="$(BuildPath)" />
+		<RemoveDir Directories="$(BuildPath);$(ExpandPath)" />
 	</Target>
 
 	<Target Name="Copy" DependsOnTargets="Build"> 
 		<MakeDir Directories="$(BuildPath);$(TempPath)"/>
 
-		<!--Library-->
-		<CreateItem Include="eXpand\**\bin\$(Configuration)\*.*;Resource\Library\*.*">
+		<!--Library
+		Resource\Library\*.*
+		-->
+		<CreateItem Include="$(ExpandPath)\*.*;" Exclude="$(ExpandPath)\*.locked" >
 			<Output ItemName="files" TaskParameter="Include"/>
 		</CreateItem>
 		<Copy SourceFiles="@(files)" DestinationFolder="$(TempPath)" />
@@ -88,7 +157,8 @@
 	
 	<Target Name="Integrate" DependsOnTargets="Clean;Test;Report;" />
 	<!--For Continuous integration and automated releases-->
-	<Target Name="Release" DependsOnTargets="Clean;Build;Test;Report;Distrib" />
+	<Target Name="Release" DependsOnTargets="Clean;Build;Test;Report;" />
+	<!-- Distrib -->
 	
 	<Target Name="Distrib" DependsOnTargets="Clean;Build;Copy;Config;">
 		<MakeDir Directories="$(PackageDirectory);$(TempPath)" />
