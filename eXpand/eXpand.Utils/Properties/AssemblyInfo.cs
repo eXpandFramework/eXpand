@@ -33,13 +33,13 @@ using eXpand;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion(eXpand.AssemblyInfo.Version)]
-[assembly: AssemblyFileVersion(eXpand.AssemblyInfo.Version)]
+[assembly: AssemblyVersion(AssemblyInfo.Version)]
+[assembly: AssemblyFileVersion(AssemblyInfo.Version)]
 namespace eXpand
 {
     public class AssemblyInfo
     {
-        public const string Version = "10.1.5.179";
+        public const string Version = "10.1.6.0";
 
         
     }
