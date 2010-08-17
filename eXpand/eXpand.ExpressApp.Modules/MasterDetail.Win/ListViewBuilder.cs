@@ -10,13 +10,13 @@ namespace eXpand.ExpressApp.MasterDetail.Win {
             _objectSpace = objectSpace;
         }
 
-        public ListView CreateListView(IModelListView childModelListView, int rowHandle, int relationIndex)
+        public DevExpress.ExpressApp.ListView CreateListView(IModelListView childModelListView, int rowHandle, int relationIndex)
         {
             IModelMember relationModelMember = _modelDetailRelationCalculator.GetRelationModelMember(rowHandle, relationIndex);
             return CreateListView(childModelListView, relationModelMember);
         }
 
-        ListView CreateListView(IModelListView childModelListView, IModelMember relationModelMember)
+        DevExpress.ExpressApp.ListView CreateListView(IModelListView childModelListView, IModelMember relationModelMember)
         {
             var propertyCollectionSource = ModuleBase.Application.CreatePropertyCollectionSource(_objectSpace, childModelListView.ModelClass.TypeInfo.Type, null, relationModelMember.MemberInfo, childModelListView.Id);
             return ModuleBase.Application.CreateListView(childModelListView, propertyCollectionSource, false);
