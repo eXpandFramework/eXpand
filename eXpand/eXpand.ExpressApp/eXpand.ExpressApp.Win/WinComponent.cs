@@ -12,10 +12,10 @@ using eXpand.ExpressApp.Win.Interfaces;
 
 namespace eXpand.ExpressApp.Win
 {
-    public partial class WinComponent : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation,IWinApplication {
-        
+    public partial class WinComponent : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation,IWinApplication{
 
         public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
+        
 
         public void OnCustomCreateListEditor(CreatingListEditorEventArgs e) {
             EventHandler<CreatingListEditorEventArgs> handler = CustomCreateListEditor;
@@ -29,13 +29,14 @@ namespace eXpand.ExpressApp.Win
             
         }
 
-        protected override void OnDetailViewCreating(DetailViewCreatingEventArgs args) {
+        void OnListViewCreating(object sender, ListViewCreatingEventArgs args) {
+            args.View = ViewFactory.CreateListView(this, args.ViewID, args.CollectionSource, args.IsRoot);            
+        }
+
+        void OnDetailViewCreating(object sender, DetailViewCreatingEventArgs args) {
             args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.Obj, args.ObjectSpace, args.IsRoot);
         }
-        protected override void OnListViewCreating(ListViewCreatingEventArgs args)
-        {
-            args.View = ViewFactory.CreateListView(this, args.ViewID,  args.CollectionSource, args.IsRoot);
-        }
+
         public ApplicationModelsManager ModelsManager {
             get { return modelsManager; }
         }
@@ -43,9 +44,7 @@ namespace eXpand.ExpressApp.Win
         protected override ListEditor CreateListEditorCore(IModelListView modelListView, CollectionSourceBase collectionSource) {
             var creatingListEditorEventArgs = new CreatingListEditorEventArgs(modelListView,collectionSource);
             OnCustomCreateListEditor(creatingListEditorEventArgs);
-            if (creatingListEditorEventArgs.Handled)
-                return creatingListEditorEventArgs.ListEditor;
-            return base.CreateListEditorCore(modelListView, collectionSource);
+            return creatingListEditorEventArgs.Handled ? creatingListEditorEventArgs.ListEditor : base.CreateListEditorCore(modelListView, collectionSource);
         }
 
         public void Logout()
@@ -90,6 +89,8 @@ namespace eXpand.ExpressApp.Win
         public WinComponent()
         {
             InitializeComponent();
+            DetailViewCreating += OnDetailViewCreating;
+            ListViewCreating += OnListViewCreating;
         }
 
 

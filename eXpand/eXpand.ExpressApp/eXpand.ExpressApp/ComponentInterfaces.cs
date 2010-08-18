@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp {
+
     public interface ISupportCustomListEditorCreation
     {
         event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;

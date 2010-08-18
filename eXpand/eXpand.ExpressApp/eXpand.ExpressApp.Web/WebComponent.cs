@@ -10,6 +10,8 @@ namespace eXpand.ExpressApp.Web
         protected WebComponent()
         {
             InitializeComponent();
+            DetailViewCreating += OnDetailViewCreating;
+            ListViewCreating += OnListViewCreating;
         }
 
         protected override void OnCustomProcessShortcut(CustomProcessShortcutEventArgs args)
@@ -18,13 +20,15 @@ namespace eXpand.ExpressApp.Web
             new ViewShortCutProccesor(this).Proccess(args);
             
         }
-        protected override void OnDetailViewCreating(DetailViewCreatingEventArgs args)
-        {
-            args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.Obj, args.ObjectSpace, args.IsRoot);
-        }
-        protected override void OnListViewCreating(ListViewCreatingEventArgs args)
+
+        void OnListViewCreating(object sender, ListViewCreatingEventArgs args)
         {
             args.View = ViewFactory.CreateListView(this, args.ViewID, args.CollectionSource, args.IsRoot);
+        }
+
+        void OnDetailViewCreating(object sender, DetailViewCreatingEventArgs args)
+        {
+            args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.Obj, args.ObjectSpace, args.IsRoot);
         }
         public ApplicationModelsManager ModelsManager
         {
