@@ -1,7 +1,7 @@
 using System;
 using DevExpress.ExpressApp;
+using eXpand.ExpressApp.Core;
 using eXpand.Persistent.Base;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 
 namespace eXpand.ExpressApp.SystemModule
 {

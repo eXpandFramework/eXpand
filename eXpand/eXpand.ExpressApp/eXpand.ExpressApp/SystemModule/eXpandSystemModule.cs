@@ -4,7 +4,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using eXpand.ExpressApp.Core;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.Core.ReadOnlyParameters;
 using eXpand.ExpressApp.Model;
 using eXpand.ExpressApp.NodeUpdaters;

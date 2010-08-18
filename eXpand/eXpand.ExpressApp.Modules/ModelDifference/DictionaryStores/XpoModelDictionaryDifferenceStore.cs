@@ -8,6 +8,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
+using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.ModelDifference.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
@@ -55,8 +56,6 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         {
             if (!_enableLoading)
                 return;
-            ModelApplicationBase lastLayer = model.LastLayer;
-            model.RemoveLayer(lastLayer);
             if (UseModelFromPath()){
                 var loadedModel = LoadFromPath();
                 loadedModel.Id = "Loaded From Path";
@@ -72,7 +71,6 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             }
             AddLAyers(loadedModels, model);
             CreateResourceModels(model);
-            model.AddLayer(lastLayer);
         }
 
         void CreateResourceModels(ModelApplicationBase model) {
@@ -91,7 +89,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 var resourceName = Path.GetFileNameWithoutExtension(args.ResourceName.StartsWith(modelApplicationPrefix) ? args.ResourceName : args.ResourceName.Substring(args.ResourceName.IndexOf("." + modelApplicationPrefix) + 1)).Replace(modelApplicationPrefix,"");
                 if (GetActiveDifferenceObject(resourceName) != null) {
                     modelDifferenceObject = GetActiveDifferenceObject(resourceName);
-                    model.AddLayer(modelDifferenceObject.Model);
+                    model.AddLayerBeforeLast(modelDifferenceObject.Model);
                 }
                 else {
                     modelDifferenceObject =new ModelDifferenceObject(ObjectSpace.Session).InitializeMembers(resourceName, Application.Title,Application.GetType().FullName);
@@ -99,12 +97,12 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
                 args.Model = modelDifferenceObject.Model;
             };
             resourcesModelStore.ResourceLoaded += (o, loadedArgs) =>{
-                if (modelDifferenceObject.Model.HasModification){
+                if (!(modelDifferenceObject.Model.IsEmpty)){
                     ObjectSpace.SetModified(modelDifferenceObject);
-                    ObjectSpace.CommitChanges();
                 }
             };
             resourcesModelStore.Load(model);
+            ObjectSpace.CommitChanges();
         }
 
         void AddLAyers(IEnumerable<ModelApplicationBase> loadedModels, ModelApplicationBase model) {
@@ -122,7 +120,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         void LoadModelsFromExtraDiffStores(ModelApplicationBase loadedModel, ModelApplicationBase model) {
             var extraDiffStores = _extraDiffStores.Where(extraDiffStore => loadedModel.Id == extraDiffStore.Name);
             foreach (var extraDiffStore in extraDiffStores) {  
-                model.AddLayer(loadedModel);
+                model.AddLayerBeforeLast(loadedModel);
                 extraDiffStore.Load(loadedModel);
                 Tracing.Tracer.LogVerboseValue("Name",extraDiffStore.Name);
             }

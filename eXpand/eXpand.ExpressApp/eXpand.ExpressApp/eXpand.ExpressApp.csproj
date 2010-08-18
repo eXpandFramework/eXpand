@@ -109,9 +109,10 @@
     <Compile Include="Attributes\CustomQueryPropertiesAttribute.cs" />
     <Compile Include="Core\ApplicationModulesManager.cs" />
     <Compile Include="Core\CustomShowNavigationItemEventArgsExtensions.cs" />
-    <Compile Include="Core\DictionaryHelpers\DictionaryHelper.cs">
+    <Compile Include="Core\DictionaryHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\ModelApplicationBaseExtensions.cs" />
     <Compile Include="Core\DynamicModel\IDynamicModelPropertiesSource.cs" />
     <Compile Include="Core\FrameExtensions.cs" />
     <Compile Include="Core\ModelNodeExtensions.cs">

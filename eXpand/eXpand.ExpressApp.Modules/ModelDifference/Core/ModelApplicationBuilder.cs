@@ -5,9 +5,12 @@ using System.Web.Configuration;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
+using ModelApplicationBaseExtensions = eXpand.ExpressApp.Core.ModelApplicationBaseExtensions;
+
 
 namespace eXpand.ExpressApp.ModelDifference.Core {
     public class XpoTypeInfoSource : DevExpress.ExpressApp.DC.Xpo.XpoTypeInfoSource
@@ -61,7 +64,7 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
             var xpoSource = new XpoTypeInfoSource(typesInfo);
             typesInfo.AddSource(xpoSource);
             typesInfo.AddSource(new DynamicTypeInfoSource());
-//            typesInfo.SetRedirectStrategy((@from, info) => xpoSource.GetFirstRegisteredTypeForEntity(from) ?? from);   
+            typesInfo.SetRedirectStrategy((@from, info) => xpoSource.GetFirstRegisteredTypeForEntity(from) ?? from);   
             var application = GetApplication(_executableName, typesInfo);
 
             var modulesManager = CreateApplicationModelManager(application,string.Empty,
@@ -79,9 +82,17 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
             var modelApplicationCreator = ModuleBase.ModelApplicationCreator;
             ModuleBase.ModelApplicationCreator = null;
             var modelApplication = modelsManager.CreateModelApplication();
+            AddAfterSetupLayer(modelApplication);
             ModuleBase.ModelApplicationCreator=modelApplicationCreator;
             application.Dispose();
             return (ModelApplicationBase) modelApplication;
+        }
+
+        void AddAfterSetupLayer(IModelApplication modelApplication) {
+            var modelApplicationBase = ((ModelApplicationBase) modelApplication);
+            ModelApplicationBase afterSetup = modelApplicationBase.CreatorInstance.CreateModelApplication();
+            afterSetup.Id = "After Setup";
+            modelApplicationBase.AddLayer(afterSetup);
         }
 
         private XafApplication GetApplication(string executableName, TypesInfo typesInfo)
@@ -127,10 +138,15 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
         public ModelApplicationBase GetLayer(Type modelApplicationFromStreamStoreBaseType) {
             var masterModel = GetMasterModel();
             var layer = masterModel.CreatorInstance.CreateModelApplication();
-            masterModel.AddLayer(layer);
+
+            ModelApplicationBaseExtensions.AddLayerBeforeLast(masterModel, layer);
             var storeBase =(ModelApplicationFromStreamStoreBase)ReflectionHelper.CreateObject(modelApplicationFromStreamStoreBaseType);
             storeBase.Load(layer);
             return layer;
+        }
+
+        public void ResetModel() {
+            ModelDifferenceModule.MasterModel = null;
         }
     }
 }

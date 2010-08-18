@@ -1,9 +1,12 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using DevExpress.ExpressApp.Model.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
+using eXpand.ExpressApp.Core;
+using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ValueConverters;
 
 namespace eXpand.ExpressApp.ModelDifference.Controllers{
     public interface IModelOptionsApplicationModelDiffs:IModelOptions
@@ -42,11 +45,11 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
             var store = (args.Object) as ModelDifferenceObject;
             if (store != null && ReferenceEquals(GetDifference(Application.GetType().FullName, store.Name), store))
             {
-                var lastLayer = ((ModelApplicationBase)Application.Model).LastLayer;
-                var cloneLayer = lastLayer.Clone();
-                ((ModelApplicationBase)Application.Model).RemoveLayer(lastLayer);
-                ((ModelApplicationBase)Application.Model).AddLayer(store.Model.Clone());
-                ((ModelApplicationBase)Application.Model).AddLayer(cloneLayer);
+//                var lastLayer = ((ModelApplicationBase)Application.Model).LastLayer;
+//                var cloneLayer = lastLayer.Clone();
+//                ((ModelApplicationBase)Application.Model).RemoveLayer(lastLayer);
+                ((ModelApplicationBase)Application.Model).AddLayerBeforeLast(store.Model.Clone());
+//                ((ModelApplicationBase)Application.Model).AddLayer(cloneLayer);
             }
         }
         protected virtual ModelDifferenceObject GetDifference(string applicationName, string name) {

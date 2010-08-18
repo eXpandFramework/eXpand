@@ -6,9 +6,8 @@ using DevExpress.ExpressApp.Localization;
 using DevExpress.Xpo.Metadata;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
-using eXpand.ExpressApp.SystemModule;
 
-namespace eXpand.ExpressApp.Core.DictionaryHelpers
+namespace eXpand.ExpressApp.Core
 {
     public class DictionaryHelper
     {

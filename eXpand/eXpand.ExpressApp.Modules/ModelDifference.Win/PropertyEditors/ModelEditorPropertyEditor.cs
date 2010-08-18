@@ -18,8 +18,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         
         private ModelEditorViewController _controller;
-        
-
+        ModelApplicationBuilder _modelApplicationBuilder;
         #endregion
 
         #region Constructor
@@ -70,7 +69,8 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
                 _controller = null;
             }
 
-            ModelDifferenceModule.MasterModel = new ModelApplicationBuilder(CurrentObject.PersistentApplication.ExecutableName).GetMasterModel();
+            _modelApplicationBuilder = new ModelApplicationBuilder(CurrentObject.PersistentApplication.ExecutableName);
+            ModelDifferenceModule.MasterModel = _modelApplicationBuilder.GetMasterModel();
             base.OnCurrentObjectChanged();
         }
 
@@ -117,7 +117,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
             _controller = new ModelEditorViewController((IModelApplication)ModelDifferenceModule.MasterModel, null, null);
             _controller.SetControl(Control);
-            ModelDifferenceModule.MasterModel = null;
+            _modelApplicationBuilder.ResetModel();
             _controller.Modifying += Model_Modifying;
             _controller.SaveAction.Active["Not needed"] = false;
             

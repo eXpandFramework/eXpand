@@ -8,6 +8,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.Attributes;
+using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ValueConverters;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.Persistent.Base;
@@ -109,7 +110,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             set {
                 ModelApplicationBase masterModel = ModelDifferenceModule.MasterModel;
                 var modelApplicationBase = masterModel.CreatorInstance.CreateModelApplication();
-                masterModel.AddLayer(modelApplicationBase);
+                masterModel.AddLayerBeforeLast(modelApplicationBase);
                 for (int i = 0; i < Model.GetAspectNames().ToList().Count; i++) {
                     var aspect = Model.GetAspect(i);
                     if (aspect!=Model.CurrentAspect) {
@@ -133,17 +134,24 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
 
-        public virtual ModelDifferenceObject InitializeMembers(string name, string applicationTitle, string uniqueName)
-        {
+        public virtual ModelDifferenceObject InitializeMembers(string name, string applicationTitle, string uniqueName,
+                                                               bool cretateModelInstance) {
             PersistentApplication = new QueryPersistentApplication(Session).Find(uniqueName) ??
                                     new PersistentApplication(Session) { Name = applicationTitle, UniqueName = uniqueName };
             DateCreated = DateTime.Now;
             Name = name;
-            var masterModel = ModelDifferenceModule.MasterModel;
-            var modelApplication = masterModel.CreatorInstance.CreateModelApplication();
-            masterModel.AddLayer(modelApplication);
-            Model=modelApplication;
+            if (cretateModelInstance) {
+                var masterModel = ModelDifferenceModule.MasterModel;
+                var modelApplication = masterModel.CreatorInstance.CreateModelApplication();
+                modelApplication.Id = name;
+                masterModel.AddLayerBeforeLast(modelApplication);
+                Model=modelApplication;
+            }
             return this;
+        }
+        public virtual ModelDifferenceObject InitializeMembers(string name, string applicationTitle, string uniqueName)
+        {
+            return InitializeMembers(name,applicationTitle, uniqueName, true);
         }
 
         public ModelDifferenceObject InitializeMembers(string name) {

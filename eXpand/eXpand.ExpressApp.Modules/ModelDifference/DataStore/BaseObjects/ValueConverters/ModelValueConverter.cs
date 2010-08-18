@@ -4,7 +4,7 @@ using System.IO;
 using System.Xml;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Xpo.Metadata;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
+using eXpand.ExpressApp.Core;
 using eXpand.Utils.GeneralDataStructures;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
@@ -58,7 +58,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ValueConverter
             
             if (!(string.IsNullOrEmpty(value as string)))
             {
-                masterModel.AddLayer(layer);
+                masterModel.AddLayerBeforeLast(layer);
                 var serializableDictionary = new SerializableDictionary<string, string>();
                 var xmlReader = XmlReader.Create(new StringReader((string)value), new XmlReaderSettings { ConformanceLevel = ConformanceLevel.Auto });
                 serializableDictionary.ReadXml(xmlReader);

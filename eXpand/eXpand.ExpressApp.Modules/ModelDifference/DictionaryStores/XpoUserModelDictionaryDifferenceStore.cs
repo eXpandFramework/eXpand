@@ -3,6 +3,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base.Security;
+using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.Security;
@@ -56,7 +57,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
             foreach (var modelDifferenceObject in modelDifferenceObjects)
             {
-                ((ModelApplicationBase)ModuleBase.Application.Model).AddLayer(modelDifferenceObject.Model);
+                ((ModelApplicationBase)ModuleBase.Application.Model).AddLayerBeforeLast(modelDifferenceObject.Model);
                 
                 for (int i = 0; i < ((ModelApplicationBase)ModuleBase.Application.Model).LastLayer.AspectCount; i++)
                 {
