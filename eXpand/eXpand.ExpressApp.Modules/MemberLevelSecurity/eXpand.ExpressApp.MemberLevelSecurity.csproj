@@ -115,7 +115,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MemberAccessPermission.cs" />
+    <Compile Include="MemberAccessPermission.cs">
+    </Compile>
     <Compile Include="MemberAccessPermissionItem.cs" />
     <Compile Include="MemberLevelObjectAccessComparer.cs">
     </Compile>

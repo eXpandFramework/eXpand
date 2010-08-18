@@ -1,10 +1,7 @@
-using System;
 using System.ComponentModel;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.NodeWrappers;
 
-namespace XAFPoint.ExpressApp.HideMemberModule.Controllers
+namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers
 {
     public partial class LogonController : DevExpress.ExpressApp.LogonController 
     {

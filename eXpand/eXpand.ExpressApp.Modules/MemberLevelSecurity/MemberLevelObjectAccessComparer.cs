@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
@@ -26,11 +27,10 @@ namespace eXpand.ExpressApp.MemberLevelSecurity {
         }
 
         public override bool IsMemberModificationDenied(object targetObject, IMemberInfo memberInfo) {
-
-            if (memberInfo.GetPath().Any(currentMemberInfo => !SecuritySystemExtensions.IsGranted(new MemberAccessPermission(currentMemberInfo.Owner.Type,
-                                                                             currentMemberInfo.Name,
-                                                                             MemberOperation.Write), true))){
-                return true;
+            bool firstOrDefault =memberInfo.GetPath().Select(info =>!SecuritySystemExtensions.IsGranted(
+                        new MemberAccessPermission(info.Owner.Type, info.Name, MemberOperation.Write), true)).Where(b => b).FirstOrDefault();
+            if (firstOrDefault) {
+                return Fit(targetObject);
             }
             var securityComplex = ((SecurityBase)SecuritySystem.Instance);
             bool isGrantedForNonExistentPermission = securityComplex.IsGrantedForNonExistentPermission;
@@ -38,6 +38,17 @@ namespace eXpand.ExpressApp.MemberLevelSecurity {
             bool isMemberModificationDenied = base.IsMemberModificationDenied(targetObject, memberInfo);
             securityComplex.IsGrantedForNonExistentPermission = isGrantedForNonExistentPermission;
             return isMemberModificationDenied;
+        }
+
+        public bool Fit(object currentObject) {
+            var memberAccessPermission = ((SecurityBase)SecuritySystem.Instance).PermissionSet.GetPermission(typeof(MemberAccessPermission)) as MemberAccessPermission;
+            if (memberAccessPermission != null && memberAccessPermission.IsSubsetOf(memberAccessPermission))
+            {
+                ObjectSpace objectSpace = ObjectSpace.FindObjectSpace(currentObject);
+                var criteriaOperator = CriteriaOperator.Parse(memberAccessPermission.Criteria);
+                return objectSpace.GetExpressionEvaluator(currentObject.GetType(), criteriaOperator).Fit(currentObject);
+            }
+            return true;
         }
     }
 }

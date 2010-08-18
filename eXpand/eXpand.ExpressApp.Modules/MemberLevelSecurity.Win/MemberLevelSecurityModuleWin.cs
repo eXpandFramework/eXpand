@@ -1,7 +1,5 @@
 using System.ComponentModel;
-using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Utils;
-using eXpand.ExpressApp.MemberLevelSecurity.Win.NodeUpdaters;
 
 namespace eXpand.ExpressApp.MemberLevelSecurity.Win
 {
@@ -14,16 +12,6 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win
             InitializeComponent();
         }
 
-        bool? _comparerIsSet=false;
-
-        protected override bool? ComparerIsSet {
-            get { return _comparerIsSet; }
-            set { _comparerIsSet = value; }
-        }
-
-        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
-            base.AddGeneratorUpdaters(updaters);
-            updaters.Add(new MemberLevelSecurityStringPropertyEditorUpdater());            
-        }
+        
     }
 }

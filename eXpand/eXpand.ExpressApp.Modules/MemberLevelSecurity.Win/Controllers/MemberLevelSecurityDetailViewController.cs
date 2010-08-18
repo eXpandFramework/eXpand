@@ -4,30 +4,20 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Xpo;
-using DevExpress.XtraEditors;
 using DevExpress.XtraLayout;
-using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
-    public partial class MemberLevelSecurityDetailViewController : MemberLevelSecurityControllerBase {
-        readonly Dictionary<string, ControlHelper> controlHelpers = new Dictionary<string, ControlHelper>();
-
-
-        public MemberLevelSecurityDetailViewController() {
-            InitializeComponent();
-            RegisterActions(components);
-            TargetViewType = ViewType.DetailView;
-        }
-
+    public class MemberLevelSecurityDetailViewController : ViewController<DetailView> {
+        readonly Dictionary<string, ControlHelper> controlStorage = new Dictionary<string, ControlHelper>();
 
         void Initialize(string name) {
-            if (!controlHelpers.ContainsKey(name))
-                controlHelpers.Add(name, new ControlHelper());
+            if (!controlStorage.ContainsKey(name))
+                controlStorage.Add(name, new ControlHelper());
             InitLayoutControltem(name);
-            InitDefaultControl(name);
-            InitNewControl(name);
+            InitControls(name);
         }
 
         protected override void OnActivated() {
@@ -38,10 +28,7 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
 
 
         void View_OnControlsCreated(object sender, EventArgs e) {
-            if (HasProtectPermission())
-                SetEditorButtons(((DetailView) View).GetPropertyEditors(typeof (ButtonEdit)));
-            else
-                protectMembers();
+            protectMembers();
         }
 
         protected override void OnDeactivating() {
@@ -56,24 +43,10 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
 
         void protectMembers() {
             if (SecuritySystem.CurrentUser != null) {
-                ICollection<PropertyEditor> propertyEditors = ((DetailView)View).GetPropertyEditors(typeof(ButtonEdit));
-                if (!HasProtectPermission())
-                    ReplaceEditorControl((from editor in propertyEditors
-                                          select editor.PropertyName).ToList());
-                else
-                    SetEditorButtons(propertyEditors);
+                ReplaceEditorControl(View.GetItems<PropertyEditor>().Select(editor => editor.PropertyName));
             }
         }
 
-        void SetEditorButtons(IEnumerable<PropertyEditor> propertyEditors) {
-            if (View.CurrentObject is XPBaseObject)
-                foreach (DXPropertyEditor propertyEditor in propertyEditors)
-                    MemberLevelSecurityListViewViewController.SetEditorButtonKind(
-                                                                                 ((ButtonEdit) propertyEditor.Control).
-                                                                                     Properties,
-                                                                                 (XPBaseObject) View.CurrentObject,
-                                                                                 propertyEditor.PropertyName);
-        }
 
 
         void ReplaceEditorControl(IEnumerable<string> propertyNames) {
@@ -81,13 +54,18 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
             if (xpBaseObject != null) {
                 foreach (string name in propertyNames) {
                     Initialize(name);
-                    ReplaceEditorControl(
-                                            MemberLevelSecurityListViewViewController.IsProtected(xpBaseObject, name).
-                                                IsProtected
-                                                ? controlHelpers[name].NewControl
-                                                : controlHelpers[name].DefaultControl, controlHelpers[name]);
+                    bool canRead = GetCanRead(name);
+                    ReplaceEditorControl(!canRead? controlStorage[name].ProtectedControl: controlStorage[name].DefaultControl, controlStorage[name]);
                 }
             }
+        }
+
+        bool GetCanRead(string name) {
+            bool canRead = DataManipulationRight.CanRead(View.ObjectTypeInfo.Type, name, View.CurrentObject, null);
+            bool fit = ((MemberLevelObjectAccessComparer)ObjectAccessComparerBase.CurrentComparer).Fit(View.CurrentObject);
+            if (fit)
+                return canRead ;
+            return true;
         }
 
         void ReplaceEditorControl(Control newControl, ControlHelper controlHelper) {
@@ -114,28 +92,30 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
         }
 
         void InitLayoutControltem(string name) {
-            if (controlHelpers[name].LayoutControlItem == null) {
+            if (controlStorage[name].LayoutControlItem == null) {
                 int hash = FindControlHashByPropertyName(name);
                 if (hash != 0)
-                    controlHelpers[name].LayoutControlItem = FindLayoutControlItemByControlHash(hash, name);
+                    controlStorage[name].LayoutControlItem = FindLayoutControlItemByControlHash(hash, name);
             }
         }
 
-        void InitDefaultControl(string name) {
-            if (controlHelpers[name].DefaultControl == null) {
-                var item = ((DetailView)View).FindItem(name);
-                if (item != null)
-                    controlHelpers[name].DefaultControl = (Control) item.Control;
+        void InitControls(string name) {
+            if (controlStorage[name].DefaultControl == null) {
+                var item = View.FindItem(name) as PropertyEditor;
+                if (item != null) {
+                    controlStorage[name].DefaultControl =(Control) item.Control;
+                    var protectedContentEdit = new ProtectedContentEdit();
+                    ((RepositoryItemProtectedContentTextEdit) protectedContentEdit.Properties).ProtectedContentText =
+                        Application.Model.ProtectedContentText;
+                    controlStorage[name].ProtectedControl = protectedContentEdit;
+                }
             }
         }
 
-        void InitNewControl(string name) {
-            if (controlHelpers[name].NewControl == null)
-                controlHelpers[name].NewControl = new ProtectedContentEdit();
-        }
+
 
         int FindControlHashByPropertyName(string name) {
-            var item = ((DetailView)View).FindItem(name);
+            var item = View.FindItem(name);
             if (item != null)
                 return item.Control.GetHashCode();
             return 0;
@@ -146,8 +126,8 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
                 if (obj is LayoutControlItem) {
                     var item = (LayoutControlItem) obj;
                     if (item.Control != null && item.Control.GetHashCode() == hash) {
-                        controlHelpers[name].LayoutControlItem = item;
-                        return controlHelpers[name].LayoutControlItem;
+                        controlStorage[name].LayoutControlItem = item;
+                        return controlStorage[name].LayoutControlItem;
                     }
                 }
             return null;
@@ -159,7 +139,7 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
 
             public LayoutControlItem LayoutControlItem { get; set; }
 
-            public Control NewControl { get; set; }
+            public Control ProtectedControl { get; set; }
         }
         #endregion
     }

@@ -1,4 +1,4 @@
-namespace XAFPoint.ExpressApp.HideMemberModule.Controllers
+namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers
 {
     partial class LogonController
     {

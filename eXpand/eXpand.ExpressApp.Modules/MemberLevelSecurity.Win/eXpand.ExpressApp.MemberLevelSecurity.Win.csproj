@@ -136,26 +136,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\LogonController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\LogonController.Designer.cs">
-      <DependentUpon>LogonController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\MemberLevelSecurityControllerBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controllers\MemberLevelSecurityDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\MemberLevelSecurityDetailViewController.Designer.cs">
-      <DependentUpon>MemberLevelSecurityDetailViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\MemberLevelSecurityListViewViewController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\MemberLevelSecurityListViewViewController.Designer.cs">
-      <DependentUpon>MemberLevelSecurityListViewViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\MemberProtectedInfo.cs" />
     <Compile Include="MemberLevelSecurityModuleWin.cs">
@@ -164,13 +149,7 @@
     <Compile Include="MemberLevelSecurityModuleWin.Designer.cs">
       <DependentUpon>MemberLevelSecurityModuleWin.cs</DependentUpon>
     </Compile>
-    <Compile Include="NodeUpdaters\MemberLevelSecurityStringPropertyEditorUpdater.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyEditors\IMemberLevelSecurityPropertyEditor.cs" />
-    <Compile Include="PropertyEditors\MemberLevelSecurityStringPropertyEditor.cs" />
-    <Compile Include="Security\MemberLevelSecurityPermission.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>

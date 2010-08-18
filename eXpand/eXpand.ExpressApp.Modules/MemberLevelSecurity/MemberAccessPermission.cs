@@ -50,6 +50,11 @@ namespace eXpand.ExpressApp.MemberLevelSecurity {
             set { GetDesignModeItem().Modifier = value; }
         }
 
+        public string Criteria {
+            get { return GetDesignModeItem().Criteria; }
+            set { GetDesignModeItem().Criteria=value; }
+        }
+
         MemberAccessPermissionItem GetDesignModeItem() {
             if (items.Count > 1) {
                 throw new InvalidOperationException();
@@ -91,6 +96,7 @@ namespace eXpand.ExpressApp.MemberLevelSecurity {
             itemElement.AddAttribute("ObjectType", (ObjectType != null) ? ObjectType.ToString() : "");
             itemElement.AddAttribute("Modifier", Modifier.ToString());
             itemElement.AddAttribute("MemberName", MemberName+"");
+            itemElement.AddAttribute("Criteria", Criteria+"");
             result.AddChild(itemElement);
             return result;
         }
@@ -110,12 +116,12 @@ namespace eXpand.ExpressApp.MemberLevelSecurity {
                     (ObjectAccessModifier)
                     Enum.Parse(typeof (ObjectAccessModifier), childElement.Attributes["Modifier"].ToString());
                 MemberName = childElement.Attributes["MemberName"].ToString();
+                Criteria = childElement.Attributes["Criteria"].ToString();
             }
         }
 
         public override string ToString() {
-            return ((ObjectType != null) ? ObjectType.Name : "N/A") + "." + MemberName + " - " + Modifier + " " +
-                   Operation;
+            return ((ObjectType != null) ? ObjectType.Name : "N/A") + "." + MemberName + " - " + Modifier + " " +Operation;
             //return base.ToString();
         }
 
