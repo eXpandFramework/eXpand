@@ -1,6 +1,7 @@
 using DevExpress.ExpressApp.ScriptRecorder;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using eXpand.ExpressApp.MemberLevelSecurity;
 using eXpand.ExpressApp.WorldCreator.SqlDBMapper;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using System.Linq;
@@ -112,6 +113,7 @@ namespace FeatureCenter.Module
             this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule));
             this.RequiredModuleTypes.Add(typeof(ScriptRecorderModuleBase));
             this.RequiredModuleTypes.Add(typeof(WorldCreatorSqlDBMapperModule));
+            this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityModule));
         }
 
         #endregion

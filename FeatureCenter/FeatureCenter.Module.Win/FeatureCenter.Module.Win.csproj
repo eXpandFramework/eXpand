@@ -242,7 +242,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.MemberLevelSecurity.dll</HintPath>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.MemberLevelSecurity.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.ExpressApp.MemberLevelSecurity.Win, Version=10.1.5.179, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.MemberLevelSecurity.Win.dll</HintPath>
     </Reference>

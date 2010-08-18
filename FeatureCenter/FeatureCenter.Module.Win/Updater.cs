@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
 namespace FeatureCenter.Module.Win
@@ -10,6 +12,7 @@ namespace FeatureCenter.Module.Win
         public override void UpdateDatabaseAfterUpdateSchema()
         {
             base.UpdateDatabaseAfterUpdateSchema();
+
         }
     }
 }

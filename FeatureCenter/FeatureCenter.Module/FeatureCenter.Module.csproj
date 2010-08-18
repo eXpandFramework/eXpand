@@ -305,6 +305,8 @@
     <Compile Include="PropertyPath\PPOrder.cs" />
     <Compile Include="PropertyPath\PPOrderLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\MemberLevel\MLSCustomer.cs" />
+    <Compile Include="Security\MemberLevel\Updater.cs" />
     <Compile Include="UpdateOnlyChangeFields\UOCFCustomer.cs">
     </Compile>
     <Compile Include="UpdateOnlyChangeFields\UpdateStatementController.cs">
@@ -357,7 +359,6 @@
     <EmbeddedResource Include="ImportExport\AnalysisObjects\AnalysisObjectsConfiguration.xml" />
     <EmbeddedResource Include="ImportExport\AnalysisObjects\AnalysisObjects.xml" />
     <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetail.xml" />
-    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\IOWC3LevelMasterDetailModelStore.xml" />
     <EmbeddedResource Include="ModelDifference\ExternalApplication\MDO_ExternalApplication.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

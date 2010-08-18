@@ -15,7 +15,8 @@ using System.Linq;
 
 namespace FeatureCenter.Module
 {
-        
+    
+
     #region Detail View of Persistent object with records
     [eXpand.ExpressApp.Attributes.NavigationItem("Navigation/Detail View of Persistent object with records", "Customer_DetailView")]
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderDetailViewNavigation, "1=1", "1=1", Captions.ViewMessageDetailViewNavigation, Position.Bottom, View = "Customer_DetailView")]

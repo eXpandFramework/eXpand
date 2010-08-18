@@ -1,4 +1,5 @@
 using DevExpress.ExpressApp.ScriptRecorder.Win;
+using eXpand.ExpressApp.MemberLevelSecurity.Win;
 
 namespace FeatureCenter.Module.Win
 {
@@ -59,6 +60,7 @@ namespace FeatureCenter.Module.Win
             this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.PivotChart.Win.PivotChartWinModule));
             this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule));
             this.RequiredModuleTypes.Add(typeof(ScriptRecorderWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityModuleWin));
         }
 
         #endregion
