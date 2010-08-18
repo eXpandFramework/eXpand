@@ -13,7 +13,7 @@ using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.SystemModule;
 using eXpand.Persistent.Base;
-using ResourcesModelStore = eXpand.ExpressApp.ModelDifference.Core.ResourcesModelStore;
+using ResourcesModelStore = eXpand.Persistent.Base.ModelDifference.ResourcesModelStore;
 
 namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     public  class XpoModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore
@@ -55,6 +55,8 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         {
             if (!_enableLoading)
                 return;
+            ModelApplicationBase lastLayer = model.LastLayer;
+            model.RemoveLayer(lastLayer);
             if (UseModelFromPath()){
                 var loadedModel = LoadFromPath();
                 loadedModel.Id = "Loaded From Path";
@@ -70,6 +72,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             }
             AddLAyers(loadedModels, model);
             CreateResourceModels(model);
+            model.AddLayer(lastLayer);
         }
 
         void CreateResourceModels(ModelApplicationBase model) {
@@ -86,9 +89,14 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             ModelDifferenceObject modelDifferenceObject = null;
             resourcesModelStore.ResourceLoading += (sender, args) =>{
                 var resourceName = Path.GetFileNameWithoutExtension(args.ResourceName.StartsWith(modelApplicationPrefix) ? args.ResourceName : args.ResourceName.Substring(args.ResourceName.IndexOf("." + modelApplicationPrefix) + 1)).Replace(modelApplicationPrefix,"");
-                modelDifferenceObject = GetActiveDifferenceObject(resourceName)?? new ModelDifferenceObject(ObjectSpace.Session).InitializeMembers(resourceName, Application.Title, Application.GetType().FullName);
+                if (GetActiveDifferenceObject(resourceName) != null) {
+                    modelDifferenceObject = GetActiveDifferenceObject(resourceName);
+                    model.AddLayer(modelDifferenceObject.Model);
+                }
+                else {
+                    modelDifferenceObject =new ModelDifferenceObject(ObjectSpace.Session).InitializeMembers(resourceName, Application.Title,Application.GetType().FullName);
+                }
                 args.Model = modelDifferenceObject.Model;
-                model.AddLayer(args.Model);
             };
             resourcesModelStore.ResourceLoaded += (o, loadedArgs) =>{
                 if (modelDifferenceObject.Model.HasModification){

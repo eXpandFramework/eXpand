@@ -14,7 +14,8 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Model;
 using eXpand.Utils.DependentAssembly;
 using System.Linq;
-using ResourcesModelStore = eXpand.ExpressApp.ModelDifference.Core.ResourcesModelStore;
+using ResourcesModelStore = eXpand.Persistent.Base.ModelDifference.ResourcesModelStore;
+
 
 namespace eXpand.ExpressApp.ModelEditor {
 	public class MainClass {

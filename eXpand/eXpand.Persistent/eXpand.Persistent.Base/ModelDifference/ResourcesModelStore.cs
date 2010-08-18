@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using System.Linq;
 
-namespace eXpand.ExpressApp.ModelDifference.Core {
+namespace eXpand.Persistent.Base.ModelDifference {
     public class ResourcesModelStore : ModelStoreBase
     {
         public event EventHandler<ResourceLoadedArgs> ResourceLoading;

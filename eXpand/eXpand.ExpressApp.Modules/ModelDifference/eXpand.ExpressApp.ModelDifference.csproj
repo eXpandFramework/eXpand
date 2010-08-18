@@ -145,7 +145,6 @@
     </Compile>
     <Compile Include="Core\ModelApplicationFromStreamStoreBase.cs" />
     <Compile Include="Core\ModelApplicationBuilder.cs" />
-    <Compile Include="Core\ResourcesModelStore.cs" />
     <Compile Include="CreateCustomModelDifferenceStoreEventArgs.cs" />
     <Compile Include="DataStore\BaseObjects\ModelDifferenceObject.cs" />
     <Compile Include="DataStore\BaseObjects\PersistentApplication.cs">
