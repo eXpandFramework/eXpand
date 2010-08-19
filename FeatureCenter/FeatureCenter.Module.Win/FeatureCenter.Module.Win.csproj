@@ -354,33 +354,33 @@
     <Compile Include="ApplicationCaption.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ApplicationMultipleInstances\AMIObject.cs">
+    <Compile Include="Miscellaneous\ApplicationMultipleInstances\AMIObject.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ApplicationMultipleInstances\ShowAnotherInstanceController.cs">
+    <Compile Include="Miscellaneous\ApplicationMultipleInstances\ShowAnotherInstanceController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FooterMessagePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LogOut\LOCustomer.cs" />
+    <Compile Include="Navigation\LogOut\LOCustomer.cs" />
     <Compile Include="Captions.cs" />
     <Compile Include="Navigation\CursorPosition\AttributeRegistrator.cs" />
     <Compile Include="Navigation\FocusControl\AttributeRegistrator.cs" />
     <Compile Include="Navigation\TabStopForReadOnly\AttributeRegistrator.cs" />
-    <Compile Include="XtraGrid\AutoCommitListView\AttributeRegistrator.cs" />
-    <Compile Include="XtraGrid\FilterControl\AttributeRegistrator.cs" />
-    <Compile Include="XtraGrid\GuessAutoFilterRowValues\AttributeRegistrator.cs" />
-    <Compile Include="XtraGrid\HidePopupMenu\AttributeRegistrator.cs" />
-    <Compile Include="XtraGrid\MasterDetail\AtAnyLevel\AttributeRegistrator.cs" />
-    <Compile Include="XtraGrid\MasterDetail\AtAnyLevel\OrderLinesNewItemRowPosition.cs">
+    <Compile Include="Controlling XtraGrid\AutoCommitListView\AttributeRegistrator.cs" />
+    <Compile Include="Controlling XtraGrid\FilterControl\AttributeRegistrator.cs" />
+    <Compile Include="Controlling XtraGrid\GuessAutoFilterRowValues\AttributeRegistrator.cs" />
+    <Compile Include="Controlling XtraGrid\HidePopupMenu\AttributeRegistrator.cs" />
+    <Compile Include="Controlling XtraGrid\MasterDetail\AtAnyLevel\AttributeRegistrator.cs" />
+    <Compile Include="Controlling XtraGrid\MasterDetail\AtAnyLevel\OrderLinesNewItemRowPosition.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XtraGrid\MasterDetail\AtAnyLevel\OrdersNewItemRowPosition.cs">
+    <Compile Include="Controlling XtraGrid\MasterDetail\AtAnyLevel\OrdersNewItemRowPosition.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PropertyEditors\NullAble\PENACustomer.cs" />
-    <Compile Include="TrayIcon\TICustomer.cs" />
+    <Compile Include="Miscellaneous\TrayIcon\TICustomer.cs" />
     <Compile Include="WinCustomer.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
@@ -393,10 +393,10 @@
     </Compile>
     <Compile Include="WinOrder.cs" />
     <Compile Include="WinOrderLine.cs" />
-    <Compile Include="XtraGrid\MasterDetail\AutoExpandNewRow\AttributeRegistrator.cs" />
-    <Compile Include="XtraGrid\MasterDetail\ConditionalDetailViews\AttributeRegistrator.cs" />
-    <Compile Include="XtraGrid\XtraGridColumnsOptions\AttributeRegistrator.cs" />
-    <Compile Include="XtraGrid\XtraGridViewOptions\AttributeRegistrator.cs" />
+    <Compile Include="Controlling XtraGrid\MasterDetail\AutoExpandNewRow\AttributeRegistrator.cs" />
+    <Compile Include="Controlling XtraGrid\MasterDetail\ConditionalDetailViews\AttributeRegistrator.cs" />
+    <Compile Include="Controlling XtraGrid\ColumnsOptions\AttributeRegistrator.cs" />
+    <Compile Include="Controlling XtraGrid\XtraGridViewOptions\AttributeRegistrator.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
@@ -420,7 +420,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XtraGrid\AutoCommitListView\MDO_AutoCommitListView.xafml">
+    <EmbeddedResource Include="Controlling XtraGrid\AutoCommitListView\MDO_AutoCommitListView.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -430,7 +430,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XtraGrid\FilterControl\MDO_FilterControl.xafml">
+    <EmbeddedResource Include="Controlling XtraGrid\FilterControl\MDO_FilterControl.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -440,22 +440,22 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XtraGrid\HidePopupMenu\MDO_HidePopupMenu.xafml">
+    <EmbeddedResource Include="Controlling XtraGrid\HidePopupMenu\MDO_HidePopupMenu.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XtraGrid\MasterDetail\AutoExpandNewRow\MDO_AutoExpandNewRow.xafml">
+    <EmbeddedResource Include="Controlling XtraGrid\MasterDetail\AutoExpandNewRow\MDO_AutoExpandNewRow.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XtraGrid\MasterDetail\AtAnyLevel\MDO_AtAnyLevel.xafml">
+    <EmbeddedResource Include="Controlling XtraGrid\MasterDetail\AtAnyLevel\MDO_AtAnyLevel.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XtraGrid\MasterDetail\ConditionalDetailViews\MDO_ConditionalDetailViews.xafml">
+    <EmbeddedResource Include="Controlling XtraGrid\MasterDetail\ConditionalDetailViews\MDO_ConditionalDetailViews.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -465,32 +465,32 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XtraGrid\XtraGridColumnsOptions\MDO_XtraGridColumnsOptions.xafml">
+    <EmbeddedResource Include="Controlling XtraGrid\ColumnsOptions\MDO_XtraGridColumnsOptions.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XtraGrid\XtraGridViewOptions\MDO_XtraGridViewOptions.xafml">
+    <EmbeddedResource Include="Controlling XtraGrid\XtraGridViewOptions\MDO_XtraGridViewOptions.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XtraGrid\GuessAutoFilterRowValues\MDO_GuessAutoFilterRowValues.xafml">
+    <EmbeddedResource Include="Controlling XtraGrid\GuessAutoFilterRowValues\MDO_GuessAutoFilterRowValues.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ApplicationMultipleInstances\MDO_ApplicationMultipleInstances.xafml">
+    <EmbeddedResource Include="Miscellaneous\ApplicationMultipleInstances\MDO_ApplicationMultipleInstances.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TrayIcon\MDO_TrayIcon.xafml">
+    <EmbeddedResource Include="Miscellaneous\TrayIcon\MDO_TrayIcon.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="LogOut\MDO_LogOut.xafml">
+    <EmbeddedResource Include="Navigation\LogOut\MDO_LogOut.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

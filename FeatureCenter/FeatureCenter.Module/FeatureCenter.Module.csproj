@@ -215,30 +215,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionButtonViewItem\ActionButtonViewItemController.cs">
+    <Compile Include="DetailViewControl\ActionButtonViewItem\ActionButtonViewItemController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ActionButtonViewItem\AttributeRegistrator.cs" />
+    <Compile Include="DetailViewControl\ActionButtonViewItem\AttributeRegistrator.cs" />
     <Compile Include="AdditionalViewControls\ConditionalControlAndMessage\AttributeRegistrator.cs" />
     <Compile Include="AdditionalViewControls\ConditionalViewControlsPositioning\AttributeRegistrator.cs" />
     <Compile Include="AttributeRegistrator.cs" />
-    <Compile Include="ConnectionInfoStatus\AttributeRegistrator.cs" />
+    <Compile Include="Miscellaneous\ConnectionInfoStatus\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\DetailView\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\FullTextForMemoFields\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\ListView\AttributeRegistrator.cs" />
     <Compile Include="CreateObjectAttributesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DisableEditDetailView\AttributeRegistrator.cs" />
+    <Compile Include="DetailViewControl\DisableEditDetailView\AttributeRegistrator.cs" />
     <Compile Include="DisplayFeatureModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FilterDataStore\DisableFiltersNodeUpdater.cs" />
-    <Compile Include="ForeignKeyViolation\AttributeRegistrator.cs" />
+    <Compile Include="LowLevelFilterDataStore\DisableFiltersNodeUpdater.cs" />
+    <Compile Include="Miscellaneous\ForeignKeyViolation\AttributeRegistrator.cs" />
     <Compile Include="HideToolBar\DetailView\AttributeRegistrator.cs" />
     <Compile Include="HideToolBar\ListView\AttributeRegistrator.cs" />
     <Compile Include="HideToolBar\NestedListView\AttributeRegistrator.cs" />
-    <Compile Include="HighlightFocusedLayoutItem\AttributeRegistrator.cs" />
+    <Compile Include="DetailViewControl\HighlightFocusedLayoutItem\AttributeRegistrator.cs" />
     <Compile Include="ImportExport\AnalysisObjects\CreateObjectAttributesController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -249,15 +249,15 @@
     <Compile Include="ImportExport\DynamicAssemblyMasterDetail\WorldCreatorUpdater.cs" />
     <Compile Include="ImportExport\UpdateMembers\UMCustomer.cs" />
     <Compile Include="ImportExport\UpdateMembers\Updater.cs" />
-    <Compile Include="LinqQuery\AttributeRegistrator.cs" />
-    <Compile Include="LoadWhenFiltered\AttributeRegistrator.cs" />
-    <Compile Include="LookUpListSearch\AttributeRegistrator.cs" />
+    <Compile Include="Miscellaneous\LinqQuery\AttributeRegistrator.cs" />
+    <Compile Include="ListViewControl\LoadWhenFiltered\AttributeRegistrator.cs" />
+    <Compile Include="Miscellaneous\LookUpListSearch\AttributeRegistrator.cs" />
     <Compile Include="ModelArtifact\ConditionalForeignKeyKViolationAndShowDetailView\AttributeRegistrator.cs" />
     <Compile Include="ModelArtifact\ConditionalSaveDelete\AttributeRegistrator.cs" />
-    <Compile Include="ModelDifference\CreateDisplayFeatureModelAttributeController.cs">
+    <Compile Include="ApplicationDifferences\CreateDisplayFeatureModelAttributeController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ModelDifference\ExternalApplication\CreateObjectAttributesController.cs">
+    <Compile Include="ApplicationDifferences\ExternalApplication\CreateObjectAttributesController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Navigation\AttributeRegistrator.cs" />
@@ -283,39 +283,39 @@
     <Compile Include="RuntimeFieldsFromModel\AddRecordsToAddRuntimeFieldsFromModelObjectControler.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ModelDifference\ExternalApplication\ExternalApplicationKeyParameter.cs">
+    <Compile Include="ApplicationDifferences\ExternalApplication\ExternalApplicationKeyParameter.cs">
     </Compile>
-    <Compile Include="ModelDifference\ExternalApplication\ExternalApplicationModelStore.cs" />
-    <Compile Include="ModelDifference\ExternalApplication\StartExternalApplicationController.cs">
+    <Compile Include="ApplicationDifferences\ExternalApplication\ExternalApplicationModelStore.cs" />
+    <Compile Include="ApplicationDifferences\ExternalApplication\StartExternalApplicationController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ModelDifference\ExternalApplication\Updater.cs" />
-    <Compile Include="ModelDifference\Updater.cs" />
+    <Compile Include="ApplicationDifferences\ExternalApplication\Updater.cs" />
+    <Compile Include="ApplicationDifferences\Updater.cs" />
     <Compile Include="Captions.cs" />
     <Compile Include="Customer.cs" />
-    <Compile Include="FilterDataStore\ContinentFilter\ContinentController.cs">
+    <Compile Include="LowLevelFilterDataStore\ContinentFilter\ContinentController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FilterDataStore\ContinentFilter\ContinentFilterProvider.cs">
+    <Compile Include="LowLevelFilterDataStore\ContinentFilter\ContinentFilterProvider.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FilterDataStore\ContinentFilter\FDSCCustomer.cs">
+    <Compile Include="LowLevelFilterDataStore\ContinentFilter\FDSCCustomer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FilterDataStore\SkinFilter\FDSSCustomer.cs" />
-    <Compile Include="FilterDataStore\UserFilter\FDSUCustomer.cs" />
-    <Compile Include="FilterDataStore\UserFilter\Updater.cs" />
+    <Compile Include="LowLevelFilterDataStore\SkinFilter\FDSSCustomer.cs" />
+    <Compile Include="LowLevelFilterDataStore\UserFilter\FDSUCustomer.cs" />
+    <Compile Include="LowLevelFilterDataStore\UserFilter\Updater.cs" />
     <Compile Include="ExpandAbleMembers\EAMCustomer.cs" />
     <Compile Include="ExpandAbleMembers\EAMOrder.cs" />
     <Compile Include="Navigation\HideFromNewMenuObject.cs" />
-    <Compile Include="MultipleDataStore\MDSCustomer.cs" />
-    <Compile Include="MultipleDataStore\MDSOrder.cs" />
-    <Compile Include="MultipleDataStore\MDSOrderLine.cs" />
+    <Compile Include="Miscellaneous\MultipleDataStore\MDSCustomer.cs" />
+    <Compile Include="Miscellaneous\MultipleDataStore\MDSOrder.cs" />
+    <Compile Include="Miscellaneous\MultipleDataStore\MDSOrderLine.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderLine.cs" />
     <Compile Include="ImportExport\AnalysisObjects\Updater.cs" />
-    <Compile Include="PropertyPath\PropertyPathFiltersNodeUpdater.cs" />
-    <Compile Include="PropertyPath\PPCustomer.cs" />
+    <Compile Include="ListViewControl\PropertyPathFilters\PropertyPathFiltersNodeUpdater.cs" />
+    <Compile Include="ListViewControl\PropertyPathFilters\PPCustomer.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -323,15 +323,15 @@
       <DependentUpon>Module.cs</DependentUpon>
     </Compile>
     <Compile Include="Navigation\NonPersistentObject.cs" />
-    <Compile Include="PropertyPath\PPOrder.cs" />
-    <Compile Include="PropertyPath\PPOrderLine.cs" />
+    <Compile Include="ListViewControl\PropertyPathFilters\PPOrder.cs" />
+    <Compile Include="ListViewControl\PropertyPathFilters\PPOrderLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuntimeFieldsFromModel\AttributeRegistrator.cs" />
     <Compile Include="Security\MemberLevel\MLSCustomer.cs" />
     <Compile Include="Security\MemberLevel\Updater.cs" />
-    <Compile Include="UpdateOnlyChangeFields\UOCFCustomer.cs">
+    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs">
     </Compile>
-    <Compile Include="UpdateOnlyChangeFields\UpdateStatementController.cs">
+    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UpdateStatementController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Updater.cs">
@@ -367,7 +367,7 @@
     <EmbeddedResource Include="ControllingSearch\DetailView\MDO_ControllingDetailViewSearch.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FilterDataStore\ContinentFilter\MDO_ContinentFilter.xafml">
+    <EmbeddedResource Include="LowLevelFilterDataStore\ContinentFilter\MDO_ContinentFilter.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Functional Tests\Config.xml" />
@@ -381,7 +381,7 @@
     <EmbeddedResource Include="ImportExport\AnalysisObjects\AnalysisObjectsConfiguration.xml" />
     <EmbeddedResource Include="ImportExport\AnalysisObjects\AnalysisObjects.xml" />
     <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetail.xml" />
-    <EmbeddedResource Include="ModelDifference\ExternalApplication\MDO_ExternalApplication.xafml">
+    <EmbeddedResource Include="ApplicationDifferences\ExternalApplication\MDO_ExternalApplication.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Images\ExpressAppLogo.png" />
@@ -405,13 +405,13 @@
     <EmbeddedResource Include="AdditionalViewControls\ConditionalViewControlsPositioning\MDO_ConditionalViewControlsPositioning.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DisableEditDetailView\MDO_DisableEditDetailView.xafml">
+    <EmbeddedResource Include="DetailViewControl\DisableEditDetailView\MDO_DisableEditDetailView.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectionInfoStatus\MDO_ConnectionInfoStatus.xafml">
+    <EmbeddedResource Include="Miscellaneous\ConnectionInfoStatus\MDO_ConnectionInfoStatus.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ActionButtonViewItem\MDO_ActionButtonViewItem.xafml">
+    <EmbeddedResource Include="DetailViewControl\ActionButtonViewItem\MDO_ActionButtonViewItem.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ControllingSearch\ListView\MDO_ControllingListViewSearch.xafml">
@@ -420,13 +420,13 @@
     <EmbeddedResource Include="ControllingSearch\FullTextForMemoFields\MDO_DisableFullTextForMemoFields.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ForeignKeyViolation\MDO_ForeignKeyViolation.xafml">
+    <EmbeddedResource Include="Miscellaneous\ForeignKeyViolation\MDO_ForeignKeyViolation.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FilterDataStore\SkinFilter\MDO_SkinFilter.xafml">
+    <EmbeddedResource Include="LowLevelFilterDataStore\SkinFilter\MDO_SkinFilter.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FilterDataStore\UserFilter\MDO_UserFilter.xafml">
+    <EmbeddedResource Include="LowLevelFilterDataStore\UserFilter\MDO_UserFilter.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Functional Tests\Sample.ets" />
@@ -445,16 +445,16 @@
     <EmbeddedResource Include="PivotChart\InPlaceEdit\MDO_InPlaceEdit.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModelDifference\MDO_ModelDifference.xafml">
+    <EmbeddedResource Include="ApplicationDifferences\MDO_ModelDifference.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="MultipleDataStore\MDO_MultipleDataStore.xafml">
+    <EmbeddedResource Include="Miscellaneous\MultipleDataStore\MDO_MultipleDataStore.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PivotChart\ControllingPivotGridSettings\MDO_ControllingPivotGridSettings.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UpdateOnlyChangeFields\MDO_UpdateOnlyChangeFields.xafml">
+    <EmbeddedResource Include="Miscellaneous\UpdateOnlyChangeFields\MDO_UpdateOnlyChangeFields.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Welcome\MDO_Welcome.xafml">
@@ -466,13 +466,13 @@
     <EmbeddedResource Include="ModelArtifact\ConditionalForeignKeyKViolationAndShowDetailView\MDO_ConditionalForeignKeyViolationAndShowDetailView.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LookUpListSearch\MDO_LookUpListSearch.xafml">
+    <EmbeddedResource Include="Miscellaneous\LookUpListSearch\MDO_LookUpListSearch.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoadWhenFiltered\MDO_LoadWhenFiltered.xafml">
+    <EmbeddedResource Include="ListViewControl\LoadWhenFiltered\MDO_LoadWhenFiltered.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="HighlightFocusedLayoutItem\MDO_HighlightFocusedLayoutItem.xafml">
+    <EmbeddedResource Include="DetailViewControl\HighlightFocusedLayoutItem\MDO_HighlightFocusedLayoutItem.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="HideToolBar\NestedListView\MDO_HideNestedListViewToolBar.xafml">
@@ -484,7 +484,9 @@
     <EmbeddedResource Include="HideToolBar\DetailView\MDO_HideDetailViewToolBar.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModelDifference\ExternalApplication\ExternalApplication.xafml" />
+    <EmbeddedResource Include="ApplicationDifferences\ExternalApplication\ExternalApplication.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="WorldCreator\DynamicAssemblyMasterDetail\WC3LevelMasterDetail.xafml" />
     <EmbeddedResource Include="WorldCreator\ExistentAssemblyMasterDetail\ExisstentAssemblyMasterDetail.xafml">
       <SubType>Designer</SubType>

@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application>
-  <Validation>
-    <Rules>
-      <RuleUniqueValue Id="FDSCCustomer_Unique_Name" IsNewNode="True" TargetType="FeatureCenter.Module.FilterDataStore.ContinentFilter.FDSCCustomer" TargetContextIDs="Save" TargetPropertyName="Name" />
-    </Rules>
-  </Validation>
-</Application>
