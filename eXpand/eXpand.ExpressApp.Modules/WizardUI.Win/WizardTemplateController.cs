@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Actions;
 
@@ -10,10 +6,6 @@ namespace eXpand.ExpressApp.WizardUI.Win
 {
     public class WizardTemplateController : ViewController
     {
-        public WizardTemplateController()
-        {
-        }
-
         protected override void OnActivated()
         {
             base.OnActivated();
@@ -36,7 +28,7 @@ namespace eXpand.ExpressApp.WizardUI.Win
         {
             if (e.ShowViewParameters.CreatedView is DetailView)
             {
-                IModelDetailViewWizard modelWizard = (IModelDetailViewWizard)(e.ShowViewParameters.CreatedView as DetailView).Model;
+                var modelWizard = (IModelDetailViewWizard)(e.ShowViewParameters.CreatedView as DetailView).Model;
                 if (modelWizard != null && modelWizard.Wizard.Count > 0 && modelWizard.Wizard.ShowInWizard)
                 {
                     e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;

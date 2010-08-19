@@ -18,6 +18,7 @@ using DevExpress.ExpressApp.Model;
 namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
     public class ChangeViewVariantActionViewController : ViewController<ListView>
     {
+        private const string EXpandViewVariants = "eXpand.ViewVariants";
         protected override void OnAfterConstruction()
         {
             base.OnAfterConstruction();
@@ -40,7 +41,7 @@ namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
             
             if (e.Button.Kind == ButtonPredefines.Delete)
             {
-                if (Windows.MessageBox.Show(CaptionHelper.GetLocalizedText("eXpand.ViewVariants", "DeleteViewConfirmation"), null, Windows.MessageBoxButtons.YesNo) == Windows.DialogResult.Yes)
+                if (Windows.MessageBox.Show(CaptionHelper.GetLocalizedText(EXpandViewVariants, "DeleteViewConfirmation"), null, Windows.MessageBoxButtons.YesNo) == Windows.DialogResult.Yes)
                 {
                     deleteView(sender);
                     return;
@@ -88,7 +89,7 @@ namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
         private void deleteView(object sender) {
             var changeVariantController = Frame.GetController<ChangeVariantController>();
             if (changeVariantController.ChangeVariantAction.Items.Count == 1) {
-                Windows.MessageBox.Show("You cannot delete all views");
+                Windows.MessageBox.Show(CaptionHelper.GetLocalizedText(EXpandViewVariants, "CannotDeleteViewsMessage"));
                 return;
             }
             

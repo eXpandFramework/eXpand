@@ -27,7 +27,7 @@ namespace eXpand.ExpressApp.WizardUI.Win.Templates
         /// <summary>
         /// PanelControl for the DetailView
         /// </summary>
-        private PanelControl _ViewSitePanel = new PanelControl() { Dock = DockStyle.Fill, BorderStyle = BorderStyles.NoBorder };
+        private readonly PanelControl _ViewSitePanel = new PanelControl { Dock = DockStyle.Fill, BorderStyle = BorderStyles.NoBorder };
 
         #endregion
 
@@ -38,10 +38,10 @@ namespace eXpand.ExpressApp.WizardUI.Win.Templates
         /// </summary>
         public WizardDetailViewForm()
         {
-            this.InitializeComponent();
-            this.Initialize(null, new List<IActionContainer>(), new IActionContainer[0], this._ViewSitePanel, null);
+            InitializeComponent();
+            Initialize(null, new List<IActionContainer>(), new IActionContainer[0], _ViewSitePanel, null);
 
-            this.showRecordAfterCompletion.Text = CaptionHelper.GetLocalizedText("Texts", "WizardShowRecordAfterFinish");
+            showRecordAfterCompletion.Text = CaptionHelper.GetLocalizedText("Texts", "WizardShowRecordAfterFinish");
         }
 
         #endregion
@@ -53,7 +53,7 @@ namespace eXpand.ExpressApp.WizardUI.Win.Templates
         /// </summary>
         public WizardControl WizardControl
         {
-            get { return this.wizardControl; }
+            get { return wizardControl; }
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace eXpand.ExpressApp.WizardUI.Win.Templates
         {
             get
             {
-                return this.showRecordAfterCompletion.Checked;
+                return showRecordAfterCompletion.Checked;
             }
         }
 
@@ -76,15 +76,12 @@ namespace eXpand.ExpressApp.WizardUI.Win.Templates
 
         protected override IModelFormState GetFormStateNode()
         {
-            if ((base.View == null) || (base.ModelTemplate == null))
+            if ((View == null) || (ModelTemplate == null))
             {
                 return base.GetFormStateNode();
             }
-            IModelFormState state = base.ModelTemplate.FormStates[base.View.Id];
-            if (state == null)
-            {
-                state = base.ModelTemplate.FormStates.AddNode<IModelFormState>(base.View.Id);
-            }
+            IModelFormState state = ModelTemplate.FormStates[View.Id] ??
+                                    ModelTemplate.FormStates.AddNode<IModelFormState>(View.Id);
 
             return state;
         }

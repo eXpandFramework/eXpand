@@ -11,8 +11,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.SystemModule;
-using System;
 using System.Linq;
 
 namespace eXpand.ExpressApp.WizardUI.Win
@@ -38,7 +36,7 @@ namespace eXpand.ExpressApp.WizardUI.Win
     [DisplayProperty("Caption"), KeyProperty("ID"), ModelDisplayName("WizardPage"), ModelPersistentName("WizardPage")]
     public interface IModelDetailViewWizardPage : IModelNode
     {
-        [Required()]
+        [Required]
         string ID { get; set; }
 
         [Localizable(true)]
@@ -47,7 +45,7 @@ namespace eXpand.ExpressApp.WizardUI.Win
         [Browsable(false)]
         CalculatedModelNodeList<IModelDetailView> DetailViews { get; }
 
-        [Required(), DataSourceProperty("DetailViews"), ModelPersistentName("ViewID")]
+        [Required, DataSourceProperty("DetailViews"), ModelPersistentName("ViewID")]
         IModelDetailView DetailView { get; set; }
 
         [Localizable(true)]
@@ -59,26 +57,19 @@ namespace eXpand.ExpressApp.WizardUI.Win
     {
         public static CalculatedModelNodeList<IModelDetailView> Get_DetailViews(IModelDetailViewWizardPage wizardPage)
         {
-            CalculatedModelNodeList<IModelDetailView> views = new CalculatedModelNodeList<IModelDetailView>();
+            var views = new CalculatedModelNodeList<IModelDetailView>();
             if (wizardPage.Parent == null)
             {
                 return views;
             }
 
-            IModelDetailView parentView = wizardPage.Parent.Parent as IModelDetailView;
+            var parentView = wizardPage.Parent.Parent as IModelDetailView;
             if (parentView == null || parentView.ModelClass == null)
             {
                 return views;
             }
-            
-            foreach (var modelView in wizardPage.Application.Views
-                .OfType<IModelDetailView>()
-                .Where(modelView => modelView.ModelClass != null &&
-                    modelView.ModelClass.TypeInfo.IsAssignableFrom(parentView.ModelClass.TypeInfo) &&
-                    !modelView.ModelClass.TypeInfo.IsAbstract))
-            {
-                views.Add(modelView);
-            }
+
+            views.AddRange(wizardPage.Application.Views.OfType<IModelDetailView>().Where(modelView => modelView.ModelClass != null && modelView.ModelClass.TypeInfo.IsAssignableFrom(parentView.ModelClass.TypeInfo) && !modelView.ModelClass.TypeInfo.IsAbstract));
 
             return views;
         }
@@ -106,7 +97,7 @@ namespace eXpand.ExpressApp.WizardUI.Win
             application.CreateCustomTemplate += Application_CreateCustomTemplate;
         }
 
-        public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders)
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelDetailView, IModelDetailViewWizard>();
@@ -121,7 +112,7 @@ namespace eXpand.ExpressApp.WizardUI.Win
         {
             if (e.Context == "WizardDetailViewForm")
             {
-                e.Template = new eXpand.ExpressApp.WizardUI.Win.Templates.WizardDetailViewForm();
+                e.Template = new Templates.WizardDetailViewForm();
             }
         }
 
