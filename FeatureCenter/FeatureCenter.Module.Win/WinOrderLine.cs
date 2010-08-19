@@ -1,14 +1,10 @@
 ﻿using DevExpress.Xpo;
-using eXpand.ExpressApp.Attributes;
 using FeatureCenter.Base;
 
 namespace FeatureCenter.Module.Win
 {
     
 
-    #region Master Detail At Any Level
-    [CloneView(CloneViewType.ListView, "MasterDetailAtAnyLevelOrderLine_ListView")]
-    #endregion
     public class WinOrderLine:OrderLineBase {
         public WinOrderLine(Session session) : base(session) {
         }
