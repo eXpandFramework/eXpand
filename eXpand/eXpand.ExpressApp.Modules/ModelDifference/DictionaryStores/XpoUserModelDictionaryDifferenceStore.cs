@@ -57,7 +57,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
             foreach (var modelDifferenceObject in modelDifferenceObjects)
             {
-                ((ModelApplicationBase)ModuleBase.Application.Model).AddLayerBeforeLast(modelDifferenceObject.Model);
+                ((ModelApplicationBase)ModuleBase.Application.Model).AddLayer(modelDifferenceObject.Model);
                 
                 for (int i = 0; i < ((ModelApplicationBase)ModuleBase.Application.Model).LastLayer.AspectCount; i++)
                 {

@@ -20,13 +20,11 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     public  class XpoModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore
     {
         public const string ModelApplicationPrefix = "MDO_";
-        private readonly bool _enableLoading;
         readonly string _path;
         readonly List<ModelApplicationFromStreamStoreBase> _extraDiffStores;
         public const string EnableDebuggerAttachedCheck = "EnableDebuggerAttachedCheck";
 
-        public XpoModelDictionaryDifferenceStore(XafApplication application, bool enableLoading, string path, List<ModelApplicationFromStreamStoreBase> extraDiffStores) : base(application) {
-            _enableLoading = enableLoading;
+        public XpoModelDictionaryDifferenceStore(XafApplication application, string path, List<ModelApplicationFromStreamStoreBase> extraDiffStores) : base(application) {
             _path = path;
             _extraDiffStores = extraDiffStores;
         }
@@ -54,8 +52,6 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         
         public override void Load(ModelApplicationBase model)
         {
-            if (!_enableLoading)
-                return;
             if (UseModelFromPath()){
                 var loadedModel = LoadFromPath();
                 loadedModel.Id = "Loaded From Path";
