@@ -120,17 +120,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\CloneViewController.cs">
+    <Compile Include="CloneViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\CloneViewController.Designer.cs">
+    <Compile Include="CloneViewController.Designer.cs">
       <DependentUpon>CloneViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\SynchronizeActionWithViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\SynchronizeActionWithViewController.Designer.cs">
-      <DependentUpon>SynchronizeActionWithViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="eXpandViewVariantsModule.cs">
       <SubType>Component</SubType>
@@ -140,7 +134,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
-    <Compile Include="BasicObjects\ViewCloner.cs" />
+    <Compile Include="ViewCloner.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="eXpandViewVariantsModule.resx">
@@ -149,7 +143,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\CloneViewController.resx">
+    <EmbeddedResource Include="CloneViewController.resx">
       <DependentUpon>CloneViewController.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>

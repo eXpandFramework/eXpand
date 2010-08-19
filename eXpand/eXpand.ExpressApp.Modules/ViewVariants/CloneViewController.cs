@@ -36,13 +36,13 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
 
         private void cloneViewPopupWindowShowAction_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
         {
-            ViewCloner viewCloner;
-            var variantsNode = GetDefaultVariantsNode();
-            var newVariantNode = GetNewVariantNode(variantsNode, e, out viewCloner);
-            var clonedNode = (IModelListView)((ModelApplicationBase)View.Model.Application).CloneNodeFrom((ModelNode)View.Model);
-     
-            Application.Model.Views.Add(clonedNode);
+            
+            var newVariantNode = GetNewVariantNode((ViewCloner) e.PopupWindow.View.CurrentObject);
+            ActivateVariant(newVariantNode);
+            View.SetInfo(newVariantNode.View);
+        }
 
+        void ActivateVariant(IModelVariant newVariantNode) {
             var changeVariantController = Frame.GetController<ChangeVariantController>();
             SingleChoiceAction changeVariantAction = changeVariantController.ChangeVariantAction;
             if (changeVariantController.Active.ResultValue)
@@ -55,11 +55,9 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
             {
                 changeVariantController.Frame.SetView(View);
                 changeVariantAction.SelectedItem = (from item in changeVariantAction.Items
-                                                    where item.Caption == viewCloner.Caption
+                                                    where item.Caption == newVariantNode.Caption
                                                     select item).Single();
             }
-
-            View.SetInfo(clonedNode);
         }
 
         protected override void OnActivated()
@@ -68,28 +66,24 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
             cloneViewPopupWindowShowAction.Active["IsClonable"] = ((IModelListViewViewClonable)View.Model).IsClonable;
         }
 
-        private IModelVariant GetNewVariantNode(IModelVariants variantsNode, PopupWindowShowActionExecuteEventArgs e, out ViewCloner viewCloner) {
-            var newVariantNode = variantsNode.AddNode<IModelVariant>("Variant");
-            viewCloner = ((ViewCloner) e.PopupWindow.View.CurrentObject);
-            newVariantNode.View.Id = viewCloner.Caption;
-            setAttributes(newVariantNode, viewCloner);
+        private IModelVariant GetNewVariantNode(ViewCloner viewCloner) {
+            var modelViewVariants = ((IModelViewVariants)View.Model);
+            IModelVariants modelVariants = modelViewVariants.Variants;
+            var newVariantNode = modelVariants.AddNode<IModelVariant>();
+            modelVariants.Current=newVariantNode;
+            newVariantNode.Caption = viewCloner.Caption;
+            newVariantNode.Id = viewCloner.Caption;
+            IModelListView clonedView = GetClonedView(viewCloner.Caption);
+            newVariantNode.View = clonedView;
             return newVariantNode;
         }
 
-        private IModelVariants GetDefaultVariantsNode()
-        {
-            var variantsNode = View.Model as IModelVariants;
-            if (variantsNode == null)
-            {
-                variantsNode = View.Model.AddNode<IModelVariants>();
-                variantsNode.Current.Caption = "Default";
-                var childNode = variantsNode.AddNode<IModelVariant>("Default");
-                childNode.Caption = "Default";
-                childNode.View.Id = View.Id;
-            }
-
-            return variantsNode;
+        IModelListView GetClonedView(string caption) {
+            var clonedView = (IModelListView)((ModelApplicationBase)View.Model.Application).CloneNodeFrom((ModelNode)View.Model,caption);
+            Application.Model.Views.Add(clonedView);
+            return clonedView;
         }
+
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
@@ -97,10 +91,5 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
             extenders.Add<IModelClass, IModelClassViewClonable>();
         }
 
-        private void setAttributes(IModelVariant modelNode, ViewCloner viewCloner)
-        {
-            modelNode.Caption = viewCloner.Caption;
-            modelNode.Id = viewCloner.Caption;
-        }
     }
 }
