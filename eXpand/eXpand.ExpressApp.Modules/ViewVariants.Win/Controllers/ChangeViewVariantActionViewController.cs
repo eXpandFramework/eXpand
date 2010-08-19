@@ -1,4 +1,5 @@
 using System.Linq;
+using DevExpress.ExpressApp.Utils;
 using Windows = System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -39,7 +40,7 @@ namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
             
             if (e.Button.Kind == ButtonPredefines.Delete)
             {
-                if (Windows.MessageBox.Show("Delete current view?", null, Windows.MessageBoxButtons.YesNo) == Windows.DialogResult.Yes)
+                if (Windows.MessageBox.Show(CaptionHelper.GetLocalizedText("eXpand.ViewVariants", "DeleteViewConfirmation"), null, Windows.MessageBoxButtons.YesNo) == Windows.DialogResult.Yes)
                 {
                     deleteView(sender);
                     return;
