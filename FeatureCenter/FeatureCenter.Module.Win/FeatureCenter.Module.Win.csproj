@@ -351,7 +351,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdditionalViewControlsNodeUpdater.cs" />
     <Compile Include="ApplicationCaption.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -469,16 +468,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ModelDifference\ExternalApplication\MDO_ExternalApplication.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ModelDifference\MDO_ModelDifference.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="ApplicationMultipleInstances\MDO_ApplicationMultipleInstances.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -490,36 +479,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="LogOut\MDO_LogOut.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="PivotChart\ControllingPivotGridSettings\MDO_ControllingPivotGridSettings.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="PivotChart\InlineEdit\MDO_InPlaceEdit.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="PivotChart\HideChart\MDO_HideChart.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="PivotChart\PivotGroupInterval\MDO_PivotGroupInterval.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="PivotChart\HidePivot\MDO_HidePivot.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ImportExport\AnalysisObjects\MDO_Analysis.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
