@@ -158,6 +158,7 @@
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v10.1">
       <Name>DevExpress.Persistent.Base.v10.1</Name>
+      <Private>True</Private>
     </Reference>
     <Reference Include="eXpand.Persistent.Base, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -199,6 +200,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
