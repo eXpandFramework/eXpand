@@ -45,6 +45,7 @@
         public const string HeaderShowInAnalysis = "Show In Analysis";
         public const string HeaderConnectWithCustomer = "Connect With Customer";
         public const string HeaderMemberLevelSecurity = "Header Member Level Security";
+        public const string HeaderViewVariants = "Header View Variants";
 
 
         public const string ViewMessage = "ViewMessage";
@@ -92,6 +93,7 @@
         public const string ViewMessageShowInAnalysis = "In this view you can see how can you enable the ShowInAnalysis action works similar with show in reports action. Just select some records and execute the action to create an analysis for the selected records. The same behaviour can be applied using the ShowInAnalysis permission";
         public const string ViewMessageConnectWithCustomer = "In this view you can see how you can apply the pivoted attribute to your customer in order to display in the same detail view pre deisigned analysis";
         public const string ViewMessageUpdateMembers = "Here you can see how to use IO import engine to update only the city member of this customer list. Right click and choose import then navigate to the bin directory of the application and select the updatemembers.xml file. After import just hit refresh and note that the city names of your customers have changed. To see how to configure the creation of updatemembers.xml see the Update Members serialization configuration";
-        public const string ViewMessageMemberLevelSecurity = "Here you can see how to to apply conditional member level security permissions. eg. For Customers that live in paris Deny Read permission have been applied and for the ones that live in New York a Deny Write.";        
+        public const string ViewMessageMemberLevelSecurity = "Here you can see how to to apply conditional member level security permissions. eg. For Customers that live in paris Deny Read permission have been applied and for the ones that live in New York a Deny Write.";
+        public const string ViewMessageViewVariants = "Here you can see how you can allow end users to create views at runtime with out giving them access to model editor";        
     }
 }

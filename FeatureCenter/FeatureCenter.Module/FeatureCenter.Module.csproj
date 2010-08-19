@@ -336,6 +336,7 @@
     </Compile>
     <Compile Include="Updater.cs">
     </Compile>
+    <Compile Include="ViewVariants\AttributeRegistrator.cs" />
     <Compile Include="Welcome\WelcomeObject.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\CreateObjectAttributesController.cs">
       <SubType>Component</SubType>
@@ -430,6 +431,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Functional Tests\Sample.ets" />
+    <EmbeddedResource Include="ViewVariants\MDO_ViewVariants.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="ImportExport\AnalysisObjects\MDO_Analysis.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
