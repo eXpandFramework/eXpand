@@ -11,9 +11,16 @@ using DevExpress.Persistent.Base.Security;
 using eXpand.ExpressApp.Logic.Model;
 
 namespace eXpand.ExpressApp.Logic {
-    public abstract class LogicModuleBase<TLogicRule, TLogicRule2> : ExpressApp.ModuleBase,IRuleHolder,IRuleCollector
+    public abstract class LogicModuleBase<TLogicRule, TLogicRule2> : ModuleBase,IRuleHolder,IRuleCollector
         where TLogicRule : ILogicRule
         where TLogicRule2 : ILogicRule{
+        public event EventHandler RulesCollected;
+
+        protected void OnRulesCollected(EventArgs e) {
+            EventHandler handler = RulesCollected;
+            if (handler != null) handler(this, e);
+        }
+
         protected LogicModuleBase() {
             RequiredModuleTypes.Add(typeof(LogicModule));
         }
@@ -35,6 +42,7 @@ namespace eXpand.ExpressApp.Logic {
                     LogicRuleManager<TLogicRule>.Instance[typeInfo] = modelLogicRules;
                 }
             }
+            OnRulesCollected(EventArgs.Empty);
         }
         
         protected virtual IEnumerable<TLogicRule> CollectRulesFromPermissions(IModelLogic modelLogic, ITypeInfo typeInfo) {
