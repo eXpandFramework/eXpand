@@ -4,23 +4,17 @@ using eXpand.ExpressApp.ArtifactState.Logic;
 namespace eXpand.ExpressApp.ConditionalActionState.Logic{
     public class ActionStateRule : ArtifactStateRule, IActionStateRule
     {
-        readonly IActionStateRule _actionStateRule;
-
-        public ActionStateRule(IActionStateRule controllerStateRule)
-            : base(controllerStateRule)
+        public ActionStateRule(IActionStateRule actionStateRule)
+            : base(actionStateRule)
         {
-            _actionStateRule = controllerStateRule;
+            ActionId=actionStateRule.ActionId;
+            ActionState = actionStateRule.ActionState;
         }
-        
+
         [Category("Data")]
-        public string ActionId {
-            get { return _actionStateRule.ActionId; }
-            set { _actionStateRule.ActionId = value; }
-        }
+        public string ActionId { get; set; }
+
         [Category("Behavior")]
-        public ActionState ActionState {
-            get { return _actionStateRule.ActionState; }
-            set { _actionStateRule.ActionState = value; }
-        }
+        public ActionState ActionState { get; set; }
     }
 }

@@ -3,45 +3,32 @@ using eXpand.ExpressApp.Logic.Conditional.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public class AdditionalViewControlsRule : ConditionalLogicRule, IAdditionalViewControlsRule {
-        readonly IAdditionalViewControlsRule _additionalViewControlsRule;
+        
 
         public AdditionalViewControlsRule(IAdditionalViewControlsRule additionalViewControlsRule)
             : base(additionalViewControlsRule) {
-            _additionalViewControlsRule = additionalViewControlsRule;
+                Message = additionalViewControlsRule.Message;
+                ControlType = additionalViewControlsRule.ControlType;
+                DecoratorType = additionalViewControlsRule.DecoratorType;
+                MessageProperty = additionalViewControlsRule.MessageProperty;
+                Position = additionalViewControlsRule.Position;
+                NotUseSameType = additionalViewControlsRule.NotUseSameType;
         }
         #region IAdditionalViewControlsRule Members
-        public string Message {
-            get { return _additionalViewControlsRule.Message; }
-            set { _additionalViewControlsRule.Message = value; }
-        }
+        public string Message { get; set; }
 
-        public Type ControlType {
-            get { return _additionalViewControlsRule.ControlType; }
-            set { _additionalViewControlsRule.ControlType = value; }
-        }
+        public Type ControlType { get; set; }
 
 
-        public Type DecoratorType {
-            get { return _additionalViewControlsRule.DecoratorType; }
-            set { _additionalViewControlsRule.DecoratorType = value; }
-        }
+        public Type DecoratorType { get; set; }
 
 
-        public string MessageProperty {
-            get { return _additionalViewControlsRule.MessageProperty; }
-            set { _additionalViewControlsRule.MessageProperty = value; }
-        }
+        public string MessageProperty { get; set; }
 
 
-        public Position Position {
-            get { return _additionalViewControlsRule.Position; }
-            set { _additionalViewControlsRule.Position = value; }
-        }
+        public Position Position { get; set; }
 
-        public bool NotUseSameType {
-            get { return _additionalViewControlsRule.NotUseSameType; }
-            set { _additionalViewControlsRule.NotUseSameType=value; }
-        }
+        public bool NotUseSameType { get; set; }
 
         public object Control { get; set; }
         #endregion

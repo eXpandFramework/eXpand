@@ -1,27 +1,18 @@
-﻿using System;
-using DevExpress.ExpressApp.Model;
+﻿using DevExpress.ExpressApp.Model;
 using eXpand.ExpressApp.Logic.Conditional.Logic;
 
 namespace eXpand.ExpressApp.MasterDetail.Logic {
     public class MasterDetailRule : ConditionalLogicRule, IMasterDetailRule
     {
-        readonly IMasterDetailRule _masterDetailRule;
-
         public MasterDetailRule(IMasterDetailRule masterDetailRule)
             : base(masterDetailRule)
         {
-            _masterDetailRule = masterDetailRule;
+            ChildListView=masterDetailRule.ChildListView;
+            CollectionMember=masterDetailRule.CollectionMember;
         }
 
-        public IModelListView ChildListView {
-            get { return _masterDetailRule.ChildListView; }
-            set { _masterDetailRule.ChildListView=value; }
-        }
+        public IModelListView ChildListView { get; set; }
 
-        public IModelMember CollectionMember {
-            get { return _masterDetailRule.CollectionMember; }
-
-            set { throw new NotImplementedException();}
-        }
+        public IModelMember CollectionMember { get; set; }
     }
 }
