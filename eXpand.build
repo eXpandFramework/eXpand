@@ -84,6 +84,7 @@
 			.\FeatureCenter\ExternalApplication\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj;
 			.\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj;
 			.\eXpand.Addins\eXpand.ExpressApp.ModelEditor\eXpand.ExpressApp.ModelEditor.csproj;
+			.\eXpand.Addins\eXpandAddIns.csproj;
 			" />	
 	</ItemGroup>
 	
