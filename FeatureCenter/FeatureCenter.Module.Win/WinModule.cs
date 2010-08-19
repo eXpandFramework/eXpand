@@ -27,7 +27,7 @@ namespace FeatureCenter.Module.Win
                     mbase => typeof(ModelDifferenceBaseModule).IsAssignableFrom(mbase.GetType())).SingleOrDefault();
             if (modelDifferenceBaseModule != null)
                 modelDifferenceBaseModule.CreateCustomModelDifferenceStore += ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore;
-            var additionalViewControlsModule = (AdditionalViewControlsModule)Application.Modules.FindModule(typeof(AdditionalViewControlsModule));
+            var additionalViewControlsModule = (AdditionalViewControlsModule)moduleManager.Modules.FindModule(typeof(AdditionalViewControlsModule));
             additionalViewControlsModule.RulesCollected += AdditionalViewControlsModuleOnRulesCollected;
         }
 
