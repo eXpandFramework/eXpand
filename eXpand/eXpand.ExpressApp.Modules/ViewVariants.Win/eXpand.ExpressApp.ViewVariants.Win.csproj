@@ -125,7 +125,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ChangeViewVariantActionViewController.cs">
+    <Compile Include="ChangeViewVariantActionViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="eXpandViewVariantsWin.cs">

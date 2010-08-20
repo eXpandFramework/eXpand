@@ -1,6 +1,6 @@
 using System.Linq;
 using DevExpress.ExpressApp.Utils;
-using Windows = System.Windows.Forms;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
@@ -15,7 +15,7 @@ using DevExpress.XtraEditors.Repository;
 using eXpand.ExpressApp.ViewVariants.BasicObjects;
 using DevExpress.ExpressApp.Model;
 
-namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
+namespace eXpand.ExpressApp.ViewVariants.Win {
     public class ChangeViewVariantActionViewController : ViewController<ListView>
     {
         private const string EXpandViewVariants = "eXpand.ViewVariants";
@@ -41,7 +41,7 @@ namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
             
             if (e.Button.Kind == ButtonPredefines.Delete)
             {
-                if (Windows.MessageBox.Show(CaptionHelper.GetLocalizedText(EXpandViewVariants, "DeleteViewConfirmation"), null, Windows.MessageBoxButtons.YesNo) == Windows.DialogResult.Yes)
+                if (MessageBox.Show(CaptionHelper.GetLocalizedText(EXpandViewVariants, "DeleteViewConfirmation"), null, MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     deleteView(sender);
                     return;
@@ -64,32 +64,17 @@ namespace eXpand.ExpressApp.ViewVariants.Win.Controllers {
             var newCaption = ((ViewCloner)args.CurrentObject).Caption;
             var changeVariantController = Frame.GetController<ChangeVariantController>();
             var changeVariantAction = changeVariantController.ChangeVariantAction;
-            setCurrentVariant(changeVariantAction.SelectedItem.Caption,newCaption);
+            View.Caption = newCaption;
             changeVariantAction.SelectedItem.Caption = newCaption;
-            changeVariantAction.SelectedItem.Data = newCaption;
             View.SetInfo(View.Model);
             View.Refresh();
-            var showNavigationItemController=Frame.GetController<ShowNavigationItemController>();
-            ((ViewShortcut)showNavigationItemController.ShowNavigationItemAction.SelectedItem.Data).ViewId = newCaption;
-
         }
 
-        private void setCurrentVariant(string oldId, string newId) {
-            var variantNodes = Application.Model.Views.OfType<IModelListView>().Where(nodeWrapper => ((IModelViewVariants)nodeWrapper).Variants != null).Select(nodeWrapper => ((IModelViewVariants)nodeWrapper).Variants).SelectMany(node => node.ToList()).ToList();
-            foreach (var node in variantNodes) {
-                if (node.Id == oldId) {
-                    ((IModelVariants)node.Parent).Current = ((IModelVariants)node.Parent)[newId];
-                    node.Id = newId;
-                    node.View.Id = newId;
-                    node.Caption = newId;
-                }
-            }
-        }
 
         private void deleteView(object sender) {
             var changeVariantController = Frame.GetController<ChangeVariantController>();
             if (changeVariantController.ChangeVariantAction.Items.Count == 1) {
-                Windows.MessageBox.Show(CaptionHelper.GetLocalizedText(EXpandViewVariants, "CannotDeleteViewsMessage"));
+                MessageBox.Show(CaptionHelper.GetLocalizedText(EXpandViewVariants, "CannotDeleteViewsMessage"));
                 return;
             }
             
