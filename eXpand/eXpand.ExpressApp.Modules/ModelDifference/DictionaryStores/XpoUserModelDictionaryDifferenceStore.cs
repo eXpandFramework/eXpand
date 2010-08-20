@@ -55,18 +55,12 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             var reader = new ModelXmlReader();
             var writer = new ModelXmlWriter();
 
-            foreach (var modelDifferenceObject in modelDifferenceObjects)
-            {
-                ((ModelApplicationBase)ModuleBase.Application.Model).AddLayer(modelDifferenceObject.Model);
-                
-                for (int i = 0; i < ((ModelApplicationBase)ModuleBase.Application.Model).LastLayer.AspectCount; i++)
-                {
-                    var xml = writer.WriteToString(((ModelApplicationBase)ModuleBase.Application.Model).LastLayer, i);
+            foreach (var modelDifferenceObject in modelDifferenceObjects){
+                for (int i = 0; i < modelDifferenceObject.Model.AspectCount; i++){
+                    var xml = writer.WriteToString(modelDifferenceObject.Model, i);
                     if (!string.IsNullOrEmpty(xml))
-                        reader.ReadFromString(model, ((ModelApplicationBase)ModuleBase.Application.Model).GetAspect(i), xml);
+                        reader.ReadFromString(model, modelDifferenceObject.Model.GetAspect(i), xml);
                 }
-
-                ((ModelApplicationBase)ModuleBase.Application.Model).RemoveLayer(modelDifferenceObject.Model);
             }
         }
 

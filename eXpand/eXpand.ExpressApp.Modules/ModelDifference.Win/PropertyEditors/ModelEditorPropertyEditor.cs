@@ -57,7 +57,6 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         protected override void ReadValueCore()
         {
             base.ReadValueCore();
-
             if (_controller == null)
                 _controller = GetModelEditorController();
         }
@@ -67,8 +66,9 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
                 Control.CurrentModelNode = null;
                 _controller.Modifying -= Model_Modifying;
                 _controller = null;
+                _modelApplicationBuilder.ResetModel();
             }
-
+            
             _modelApplicationBuilder = new ModelApplicationBuilder(CurrentObject.PersistentApplication.ExecutableName);
             ModelDifferenceModule.MasterModel = _modelApplicationBuilder.GetMasterModel();
             base.OnCurrentObjectChanged();
@@ -76,10 +76,14 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
 
         protected override object CreateControlCore() {
+            View.Closed+=ViewOnClosed;
             var modelEditorControl = new ModelEditorControl(new SettingsStorageOnDictionary());
             return modelEditorControl;
         }
 
+        void ViewOnClosed(object sender, EventArgs eventArgs) {
+            _modelApplicationBuilder.ResetModel();
+        }
         #endregion
 
         #region Eventhandler
@@ -114,10 +118,9 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         private ModelEditorViewController GetModelEditorController()
         {
             ModelDifferenceModule.MasterModel.AddLayers(CurrentObject.GetAllLayers());
-
+            
             _controller = new ModelEditorViewController((IModelApplication)ModelDifferenceModule.MasterModel, null, null);
             _controller.SetControl(Control);
-            _modelApplicationBuilder.ResetModel();
             _controller.Modifying += Model_Modifying;
             _controller.SaveAction.Active["Not needed"] = false;
             

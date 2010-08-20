@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Reflection;
 using System.Web.Configuration;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
@@ -25,6 +26,7 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
     }
     public class ModelApplicationBuilder {
         readonly string _executableName;
+        ICurrentAspectProvider _oldAspectProvider;
 
         public ModelApplicationBuilder(string executableName) {
             _executableName = executableName;
@@ -57,8 +59,17 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
             }
         }
 
-        public ModelApplicationBase GetMasterModel()
-        {
+        public ModelApplicationBase GetMasterModel() {
+            if (_executableName != Assembly.GetAssembly(ModuleBase.Application.GetType()).ManifestModule.Name)
+                return GetExternalMasterModel();
+
+            var masterModel = (ModelApplicationBase)ModuleBase.Application.Model;
+            _oldAspectProvider = masterModel.CurrentAspectProvider;
+            masterModel.CurrentAspectProvider = new CurrentAspectProvider(_oldAspectProvider.CurrentAspect);
+            return masterModel;
+        }
+
+        ModelApplicationBase GetExternalMasterModel() {
             var typesInfo = new TypesInfo();
             typesInfo.AddSource(new ReflectionTypeInfoSource());
             var xpoSource = new XpoTypeInfoSource(typesInfo);
@@ -68,7 +79,7 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
             var application = GetApplication(_executableName, typesInfo);
 
             var modulesManager = CreateApplicationModelManager(application,string.Empty,
-                AppDomain.CurrentDomain.SetupInformation.ApplicationBase,typesInfo);
+                                                               AppDomain.CurrentDomain.SetupInformation.ApplicationBase,typesInfo);
 
             ReadModulesFromConfig(modulesManager, application);
 
@@ -78,7 +89,6 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
                 modulesManager.Modules,
                 modulesManager.ControllersManager,
                 modulesManager.DomainComponents);
-
             var modelApplicationCreator = ModuleBase.ModelApplicationCreator;
             ModuleBase.ModelApplicationCreator = null;
             var modelApplication = modelsManager.CreateModelApplication();
@@ -146,6 +156,10 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
         }
 
         public void ResetModel() {
+            while (ModelDifferenceModule.MasterModel.LastLayer.Id!="UserDiff") {
+                ModelDifferenceModule.MasterModel.RemoveLayer(ModelDifferenceModule.MasterModel.LastLayer);
+            }
+            ModelDifferenceModule.MasterModel.CurrentAspectProvider=_oldAspectProvider;
             ModelDifferenceModule.MasterModel = null;
         }
     }

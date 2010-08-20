@@ -43,13 +43,8 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
         internal void ObjectSpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args){
 
             var store = (args.Object) as ModelDifferenceObject;
-            if (store != null && ReferenceEquals(GetDifference(Application.GetType().FullName, store.Name), store))
-            {
-//                var lastLayer = ((ModelApplicationBase)Application.Model).LastLayer;
-//                var cloneLayer = lastLayer.Clone();
-//                ((ModelApplicationBase)Application.Model).RemoveLayer(lastLayer);
+            if (store != null && ReferenceEquals(GetDifference(Application.GetType().FullName, store.Name), store)){
                 ((ModelApplicationBase)Application.Model).AddLayerBeforeLast(store.Model.Clone());
-//                ((ModelApplicationBase)Application.Model).AddLayer(cloneLayer);
             }
         }
         protected virtual ModelDifferenceObject GetDifference(string applicationName, string name) {
