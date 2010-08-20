@@ -11,6 +11,9 @@ namespace eXpand.ExpressApp.SystemModule {
             base.OnActivated();
             foreach (var actionButtonDetailItem in View.GetItems<ActionButtonDetailItem>()){
                 actionButtonDetailItem.Executed+=ActionButtonDetailItemOnExecuted;
+                var modelActionButton = ((IModelActionButton) actionButtonDetailItem.Model);
+                var id = modelActionButton.ActionId.Id;
+                Actions[id].Active["ShowInContainer"] = modelActionButton.ShowInContainer;
             }
         }
 
@@ -18,7 +21,10 @@ namespace eXpand.ExpressApp.SystemModule {
             var actionButtonDetailItem = ((ActionButtonDetailItem) sender);
             var simpleActions = Frame.Controllers.Cast<Controller>().SelectMany(controller1 => controller1.Actions).OfType<SimpleAction>();
             var action = simpleActions.Where(@base => @base.Id == ((IModelActionButton)actionButtonDetailItem.Model).ActionId.Id).Single();
+            var b = action.Active["ShowInContainer"];
+            action.Active["ShowInContainer"] = true;
             action.DoExecute();
+            action.Active["ShowInContainer"] = b;
         }
     }
 }

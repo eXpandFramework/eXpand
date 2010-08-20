@@ -10,6 +10,7 @@ namespace eXpand.ExpressApp.Editors {
         [DataSourceProperty("Application.ActionDesign.Actions")]
         [Required]
         IModelAction ActionId { get; set; }
+        bool ShowInContainer { get; set; }
     }
     
     public abstract class ActionButtonDetailItem : ViewItem {
