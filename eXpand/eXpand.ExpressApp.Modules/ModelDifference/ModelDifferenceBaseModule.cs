@@ -23,7 +23,8 @@ namespace eXpand.ExpressApp.ModelDifference{
         void OnSetupComplete(object sender, EventArgs e) {
             var customModelDifferenceStoreEventArgs = new CreateCustomModelDifferenceStoreEventArgs();
             OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);
-            new XpoModelDictionaryDifferenceStore(Application,  GetPath(), customModelDifferenceStoreEventArgs.ExtraDiffStores).Load((ModelApplicationBase) Application.Model);            
+            if (!customModelDifferenceStoreEventArgs.Handled)
+                new XpoModelDictionaryDifferenceStore(Application,  GetPath(), customModelDifferenceStoreEventArgs.ExtraDiffStores).Load((ModelApplicationBase) Application.Model);            
         }
 
         public abstract string GetPath();
