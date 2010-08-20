@@ -9,5 +9,7 @@ namespace eXpand.ExpressApp.Logic.Model {
 // ReSharper restore PossibleInterfaceMemberAmbiguity
         [Browsable(false)]
         IEnumerable<IModelView> Views { get; }
+        [Browsable(false)]
+        IEnumerable<string> ExecutionContexts { get; }
     }
 }

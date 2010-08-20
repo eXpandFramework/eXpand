@@ -11,6 +11,13 @@ namespace eXpand.ExpressApp.Logic.DomainLogic
     [DomainLogic(typeof(IModelLogicRule))]
     public class ModelLogicRuleDomainLogic
     {
+        public static List<string> Get_ExecutionContexts(IModelLogicRule modelLogicRule)
+        {
+            var contexts = ((IModelLogic)modelLogicRule.Parent.Parent).GroupContexts;
+            return contexts.Select(groupContext => groupContext.Id).ToList();
+
+        }
+
         public static IModelList<IModelView> Get_Views(IModelLogicRule modelLogicRule) {
             var calculatedModelNodeList = new CalculatedModelNodeList<IModelView>();
             if (modelLogicRule.ModelClass== null)

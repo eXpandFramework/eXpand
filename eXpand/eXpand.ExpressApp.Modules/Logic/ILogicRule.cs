@@ -27,6 +27,7 @@ namespace eXpand.ExpressApp.Logic {
 
         [Category("Data")]
         [Required]
+        [DataSourceProperty("ExecutionContexts")]
         string ExecutionContextGroup { get; set; }
 
         
