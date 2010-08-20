@@ -156,10 +156,11 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
         }
 
         public void ResetModel() {
-            while (ModelDifferenceModule.MasterModel.LastLayer.Id!="UserDiff") {
+            while (ModelDifferenceModule.MasterModel.LastLayer.Id != "UserDiff" && ModelDifferenceModule.MasterModel.LastLayer.Id != "After Setup"){
                 ModelDifferenceModule.MasterModel.RemoveLayer(ModelDifferenceModule.MasterModel.LastLayer);
             }
-            ModelDifferenceModule.MasterModel.CurrentAspectProvider=_oldAspectProvider;
+            if (_oldAspectProvider != null)
+                ModelDifferenceModule.MasterModel.CurrentAspectProvider=_oldAspectProvider;
             ModelDifferenceModule.MasterModel = null;
         }
     }
