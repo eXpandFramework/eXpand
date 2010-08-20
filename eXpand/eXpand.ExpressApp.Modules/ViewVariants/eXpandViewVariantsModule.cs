@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using DevExpress.ExpressApp;
 using DevExpress.Utils;
 using EditorBrowsableState=System.ComponentModel.EditorBrowsableState;
 

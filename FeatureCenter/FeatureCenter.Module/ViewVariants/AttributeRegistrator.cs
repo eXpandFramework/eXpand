@@ -11,9 +11,12 @@ namespace FeatureCenter.Module.ViewVariants
     {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type!=typeof(Customer))yield break;
-            yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderViewVariants, "1=1", "1=1", Captions.ViewMessageViewVariants, Position.Bottom) { ViewType = ViewType.ListView, View = "RuntimeFieldsFromModel_ListView" };
-            yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderViewVariants, "1=1", "1=1",
-                Captions.HeaderViewVariants, Position.Top) { View = "ViewVariants_ListView" };
+            var list=new List<string> {"ViewVariants_ListView","Hong Kong Customers","London Customers","Paris Customers","New York Customers"};
+            for (int i = 0; i < list.Count; i++) {
+//                yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderViewVariants+i, "1=1", "1=1", Captions.ViewMessageViewVariants, Position.Bottom) { ViewType = ViewType.ListView, View = list[i] };
+//                yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderViewVariants+i, "1=1", "1=1", Captions.HeaderViewVariants, Position.Top) { View = list[i] };
+                yield return new DisplayFeatureModelAttribute("ViewVariants_ListView", "ViewVariants");
+            }
             yield return new CloneViewAttribute(CloneViewType.ListView, "ViewVariants_ListView");
             yield return new NavigationItemAttribute("View Variants", "ViewVariants_ListView");
             yield return new DisplayFeatureModelAttribute("ViewVariants_ListView", "ViewVariants");

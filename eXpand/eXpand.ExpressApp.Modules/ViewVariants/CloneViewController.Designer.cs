@@ -1,4 +1,4 @@
-namespace eXpand.ExpressApp.ViewVariants.Controllers
+namespace eXpand.ExpressApp.ViewVariants
 {
     partial class CloneViewController {
         /// <summary>

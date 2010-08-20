@@ -3,7 +3,6 @@
   <Localization>
     <LocalizationGroup Name="eXpand.ViewVariants" IsNewNode="True">
       <LocalizationItem Name="DeleteViewConfirmation" IsNewNode="True" Value="Delete current view?" />
-      <LocalizationItem Name="CannotDeleteViewsMessage" IsNewNode="True" Value="You cannot delete all views" />
     </LocalizationGroup>
   </Localization>
 </Application>

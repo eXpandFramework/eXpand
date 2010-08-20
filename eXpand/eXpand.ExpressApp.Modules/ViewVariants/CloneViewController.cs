@@ -2,12 +2,11 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.ViewVariantsModule;
-using eXpand.ExpressApp.ViewVariants.BasicObjects;
 using DevExpress.ExpressApp.Model;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model.Core;
 
-namespace eXpand.ExpressApp.ViewVariants.Controllers
+namespace eXpand.ExpressApp.ViewVariants
 {
     public interface IModelClassViewClonable{
         [Description("Determines if the clone action will be shown for the view")]
@@ -21,6 +20,8 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
 
     public partial class CloneViewController : ViewController<ListView>, IModelExtender
     {
+        IModelView _rootView;
+
         public CloneViewController()
         {
             InitializeComponent();
@@ -34,10 +35,13 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
             e.View = Application.CreateDetailView(objectSpace, new ViewCloner(objectSpace.Session));
         }
 
-        private void cloneViewPopupWindowShowAction_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
-        {
-            
-            var newVariantNode = GetNewVariantNode((ViewCloner) e.PopupWindow.View.CurrentObject);
+        private void cloneViewPopupWindowShowAction_Execute(object sender, PopupWindowShowActionExecuteEventArgs e) {
+            var viewCloner = (ViewCloner) e.PopupWindow.View.CurrentObject;
+            Clone(viewCloner);
+        }
+
+        public void Clone(ViewCloner viewCloner) {
+            var newVariantNode = GetNewVariantNode(viewCloner);
             ActivateVariant(newVariantNode);
             View.SetInfo(newVariantNode.View);
         }
@@ -63,23 +67,27 @@ namespace eXpand.ExpressApp.ViewVariants.Controllers
         protected override void OnActivated()
         {
             base.OnActivated();
-            cloneViewPopupWindowShowAction.Active["IsClonable"] = ((IModelListViewViewClonable)View.Model).IsClonable;
+            _rootView = Application.Model.Views[View.CreateShortcut().ViewId];
+            cloneViewPopupWindowShowAction.Active["IsClonable"] = ((IModelListViewViewClonable)_rootView).IsClonable;
         }
 
         private IModelVariant GetNewVariantNode(ViewCloner viewCloner) {
-            var modelViewVariants = ((IModelViewVariants)View.Model);
+            IModelListView clonedView = GetClonedView(viewCloner.Caption);
+            var modelViewVariants = ((IModelViewVariants)_rootView);
             IModelVariants modelVariants = modelViewVariants.Variants;
             var newVariantNode = modelVariants.AddNode<IModelVariant>();
             modelVariants.Current=newVariantNode;
             newVariantNode.Caption = viewCloner.Caption;
             newVariantNode.Id = viewCloner.Caption;
-            IModelListView clonedView = GetClonedView(viewCloner.Caption);
             newVariantNode.View = clonedView;
             return newVariantNode;
         }
 
         IModelListView GetClonedView(string caption) {
-            var clonedView = (IModelListView)((ModelApplicationBase)View.Model.Application).CloneNodeFrom((ModelNode)View.Model,caption);
+            var clonedView = (IModelListView)(((ModelNode)Application.Model.Views)).CloneNodeFrom((ModelNode)View.Model, caption);
+            var modelViewVariants = ((IModelViewVariants) clonedView);
+            modelViewVariants.Variants.Current = null;            
+            modelViewVariants.Variants.Clear();
             Application.Model.Views.Add(clonedView);
             return clonedView;
         }
