@@ -12,7 +12,8 @@ namespace eXpand.Xpo.Converters.ValueConverters {
                 var dateTime = new DateTime(1753, 1, 1);
                 if (dateTime>(DateTime) value) {
                     var time = ((DateTime) value).TimeOfDay;
-                    return dateTime.AddTicks(time.Ticks);
+                    DateTime storageType = dateTime.AddTicks(time.Ticks);
+                    return storageType;
                 }
                 dateTime = new DateTime(9999, 12, 31);
                 if (dateTime<(DateTime) value)

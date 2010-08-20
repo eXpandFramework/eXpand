@@ -94,6 +94,7 @@
     <Compile Include="Converters\ValueConverters\SqlDateTimeOverFlowValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\UnitValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\UriValueConverter.cs" />
+    <Compile Include="Converters\ValueConverters\UtcDateTimeConverter.cs" />
     <Compile Include="Filtering\CriteriaOperatorExtensions.cs" />
     <Compile Include="Filtering\CriteriaOperatorExtractor.cs" />
     <Compile Include="Collections\XPBaseCollectionExtensions.cs">
