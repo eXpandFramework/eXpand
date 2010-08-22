@@ -95,6 +95,7 @@
     <Compile Include="General\RelationType.cs" />
     <Compile Include="General\RequestTextPictureItemEventArgs.cs" />
     <Compile Include="General\ReservedMember.cs" />
+    <Compile Include="General\ValueConverters\ImageCompressionValueConverter.cs" />
     <Compile Include="ImportExport\IClassInfoGraphNode.cs" />
     <Compile Include="ImportExport\ISerializationConfiguration.cs" />
     <Compile Include="ImportExport\ISerializationConfigurationGroup.cs" />

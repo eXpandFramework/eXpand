@@ -10,6 +10,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Attributes;
 using eXpand.Persistent.Base.ExceptionHandling;
+using eXpand.Persistent.Base.General.ValueConverters;
 
 namespace eXpand.Persistent.BaseImpl.ExceptionHandling
 {
@@ -111,7 +112,7 @@ namespace eXpand.Persistent.BaseImpl.ExceptionHandling
             set { SetPropertyValue("FullException", ref _fullException, value); }
         }
 
-        [Size(SizeAttribute.Unlimited), Delayed, ValueConverter(typeof(ImageValueConverter))]
+        [Size(SizeAttribute.Unlimited), Delayed, ValueConverter(typeof(ImageCompressionValueConverter))]
         public Image Screenshot
         {
             get { return GetDelayedPropertyValue<Image>("Screenshot"); }
