@@ -13,7 +13,8 @@ namespace eXpand.ExpressApp.SystemModule {
                 actionButtonDetailItem.Executed+=ActionButtonDetailItemOnExecuted;
                 var modelActionButton = ((IModelActionButton) actionButtonDetailItem.Model);
                 var id = modelActionButton.ActionId.Id;
-                Actions[id].Active["ShowInContainer"] = modelActionButton.ShowInContainer;
+                var actionBase = Frame.Template.GetContainers().Select(container => container.Actions).SelectMany(bases => bases).Where(@base => @base.Id==id).Single();
+                actionBase.Active["ShowInContainer"] = modelActionButton.ShowInContainer;
             }
         }
 
