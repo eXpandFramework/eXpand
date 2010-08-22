@@ -137,6 +137,9 @@
     <Compile Include="Controllers\CombineDifferencesController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\SynchronizeWithUserModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\SyncronizeApplicationModelDiffsController.cs">
       <SubType>Component</SubType>
     </Compile>
