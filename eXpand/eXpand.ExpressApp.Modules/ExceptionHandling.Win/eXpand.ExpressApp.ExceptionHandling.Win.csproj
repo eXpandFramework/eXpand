@@ -77,6 +77,9 @@
     <Reference Include="DevExpress.Xpo.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="eXpand.ExpressApp, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="eXpand.ExpressApp.ExceptionHandling, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.DLL\eXpand.ExpressApp.ExceptionHandling.dll</HintPath>
@@ -109,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExceptionHandlingWinModule.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ExceptionHandlingWinModule.Designer.cs">
       <DependentUpon>ExceptionHandlingWinModule.cs</DependentUpon>
