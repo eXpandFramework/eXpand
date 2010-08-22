@@ -190,6 +190,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eXpand.DLL\eXpand.Xpo.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Projects\EntLib41src\Blocks\Logging\Src\Logging\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Projects\EntLib41src\Blocks\Logging\Src\Logging\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -234,6 +242,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="LowLevelFilterDataStore\DisableFiltersNodeUpdater.cs" />
+    <Compile Include="Miscellaneous\ExceptionHandling\AttributeRegistrator.cs">
+    </Compile>
+    <Compile Include="Miscellaneous\ExceptionHandling\ExceptionHandlingObject.cs" />
+    <Compile Include="Miscellaneous\ExceptionHandling\ShowELConfigurationToolController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Miscellaneous\ExceptionHandling\ThrowExceptionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Miscellaneous\ForeignKeyViolation\AttributeRegistrator.cs" />
     <Compile Include="HideToolBar\DetailView\AttributeRegistrator.cs" />
     <Compile Include="HideToolBar\ListView\AttributeRegistrator.cs" />
@@ -431,6 +448,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Functional Tests\Sample.ets" />
+    <EmbeddedResource Include="Miscellaneous\ExceptionHandling\MDO_ExceptionHandling.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="ViewVariants\MDO_ViewVariants.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -2,9 +2,12 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.SystemModule;
+using DevExpress.Persistent.Validation;
 using eXpand.ExpressApp.AdditionalViewControlsProvider;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using eXpand.ExpressApp.ExceptionHandling.Win;
 using eXpand.ExpressApp.FilterDataStore.Core;
 using eXpand.ExpressApp.FilterDataStore.Win.Providers;
 using eXpand.ExpressApp.Logic;
@@ -24,11 +27,24 @@ namespace FeatureCenter.Module.Win
         {
             base.Setup(moduleManager);
             var modelDifferenceBaseModule = (ModelDifferenceBaseModule)moduleManager.Modules.Where(
-                    mbase => typeof(ModelDifferenceBaseModule).IsAssignableFrom(mbase.GetType())).SingleOrDefault();
-            if (modelDifferenceBaseModule != null)
-                modelDifferenceBaseModule.CreateCustomModelDifferenceStore += ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore;
+                    mbase => typeof(ModelDifferenceBaseModule).IsAssignableFrom(mbase.GetType())).Single();
+            modelDifferenceBaseModule.CreateCustomModelDifferenceStore += ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore;
             var additionalViewControlsModule = (AdditionalViewControlsModule)moduleManager.Modules.FindModule(typeof(AdditionalViewControlsModule));
             additionalViewControlsModule.RulesCollected += AdditionalViewControlsModuleOnRulesCollected;
+            var exceptionHandlingWinModule =
+                (ExceptionHandlingWinModule) moduleManager.Modules.FindModule(typeof (ExceptionHandlingWinModule));
+            exceptionHandlingWinModule.CustomHandleException+=ExceptionHandlingWinModuleOnCustomHandleException;            
+
+        }
+
+        void ExceptionHandlingWinModuleOnCustomHandleException(object sender, CustomHandleExceptionEventArgs customHandleExceptionEventArgs) {
+            customHandleExceptionEventArgs.Handled = IsExculded(customHandleExceptionEventArgs.Exception);
+        }
+
+        bool IsExculded(Exception exception)
+        {
+            return (exception is ValidationException) ||
+                   (exception.InnerException != null && exception.InnerException is ValidationException);
         }
 
         void AdditionalViewControlsModuleOnRulesCollected(object sender, EventArgs e) {
