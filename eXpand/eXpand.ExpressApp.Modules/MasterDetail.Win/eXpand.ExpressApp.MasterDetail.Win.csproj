@@ -156,9 +156,6 @@
     <Compile Include="MasterDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MasterDetailBaseController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ModelDetailRelationCalculator.cs" />
     <Compile Include="MasterDetailWindowsModule.cs">
       <SubType>Component</SubType>

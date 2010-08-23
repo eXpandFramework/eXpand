@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Base;
 
 namespace eXpand.ExpressApp.Win.ListEditors {
@@ -14,10 +13,6 @@ namespace eXpand.ExpressApp.Win.ListEditors {
         
 
         public XafGridView() {
-        }
-        protected override void SetGridControl(GridControl newControl)
-        {
-            base.SetGridControl(newControl);
         }
         public XafGridView(DevExpress.ExpressApp.Win.Editors.GridListEditor gridListEditor) {
             _gridListEditor = gridListEditor;
@@ -39,7 +34,7 @@ namespace eXpand.ExpressApp.Win.ListEditors {
 
         public Window Window { get; set; }
 
-        public Window MasterWindow { get; set; }
+        public Frame MasterFrame { get; set; }
 
         
 
@@ -55,21 +50,10 @@ namespace eXpand.ExpressApp.Win.ListEditors {
         {
             var xafGridView = ((XafGridView) v);
             Window = xafGridView.Window;
-            MasterWindow = xafGridView.MasterWindow;
-//            _baseGridController = xafGridView.DataController;
-
-//            DataController.SetDataSource(xafGridView.GridControl.BindingContext, xafGridView.DataSource, null);
-//            DestroyDataController();
-//            SetupDataController();
+            MasterFrame = xafGridView.MasterFrame;
             Events.AddHandler(instanceCreated, xafGridView.Events[instanceCreated]);
             base.Assign(v, copyEvents);
         }
-//        protected override DevExpress.Data.BaseGridController CreateDataController()
-//        {
-//            if (_baseGridController!= null)
-//                return _baseGridController;
-//            return base.CreateDataController();
-//        }
         protected override void AssignColumns(ColumnView cv, bool synchronize) {
             if (_gridListEditor== null) {
                 base.AssignColumns(cv, synchronize);

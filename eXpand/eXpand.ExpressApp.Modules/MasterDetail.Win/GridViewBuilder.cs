@@ -10,12 +10,12 @@ namespace eXpand.ExpressApp.MasterDetail.Win {
     public class GridViewBuilder {
         readonly XafApplication _xafApplication;
         readonly ObjectSpace _objectSpace;
-        readonly Window _masterWindow;
+        readonly Frame _masterFrame;
 
-        public GridViewBuilder(XafApplication xafApplication,ObjectSpace objectSpace,Window masterWindow) {
+        public GridViewBuilder(XafApplication xafApplication,ObjectSpace objectSpace,Frame masterFrame) {
             _xafApplication = xafApplication;
             _objectSpace = objectSpace;
-            _masterWindow = masterWindow;
+            _masterFrame = masterFrame;
         }
 
         public XafGridView GetLevelDefaultView(XafGridView masterGridView, int rowHandle, int relationIndex, IModelListView masterModelListView,  List<IMasterDetailRule> masterDetailRules) {
@@ -67,7 +67,7 @@ namespace eXpand.ExpressApp.MasterDetail.Win {
                 EventHandler[] listViewOnControlsCreated = { null };
                 listViewOnControlsCreated[0] = (sender, args) =>
                 {
-                    detailXafGridView.MasterWindow = masterGridView.MasterWindow ?? _masterWindow;
+                    detailXafGridView.MasterFrame = masterGridView.MasterFrame ?? _masterFrame;
                     detailXafGridView.Window = window;
                     detailXafGridView.GridControl = masterGridView.GridControl;
                     listView.ControlsCreated -= listViewOnControlsCreated[0];

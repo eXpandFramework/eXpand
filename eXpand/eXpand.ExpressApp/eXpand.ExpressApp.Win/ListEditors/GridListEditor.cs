@@ -68,17 +68,11 @@ namespace eXpand.ExpressApp.Win.ListEditors
         }
 
         DevExpress.ExpressApp.Win.Editors.XafGridView GetFocusedGridView(DevExpress.ExpressApp.Win.Editors.XafGridView view) {
-//            if (view != null) {
-                Window masterWindow = ((XafGridView)view).MasterWindow;
-                if (masterWindow != null) {
-                    return (DevExpress.ExpressApp.Win.Editors.XafGridView)((GridListEditor)((ListView)masterWindow.View).Editor).Grid.FocusedView;
-                }
-                return view;
-//            }
-//            return view;
-//            if (GridView!= null)
-//                return (DevExpress.ExpressApp.Win.Editors.XafGridView)GridView.GridControl.FocusedView??GridView;
-//            return GridView;
+            Frame masterFrame = ((XafGridView)view).MasterFrame;
+            if (masterFrame != null) {
+                return (DevExpress.ExpressApp.Win.Editors.XafGridView)((GridListEditor)((ListView)masterFrame.View).Editor).Grid.FocusedView;
+            }
+            return view;
         }
 
 
