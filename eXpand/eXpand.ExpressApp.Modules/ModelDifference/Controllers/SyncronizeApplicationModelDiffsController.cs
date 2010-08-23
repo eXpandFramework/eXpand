@@ -1,12 +1,9 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
-using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using DevExpress.ExpressApp.Model.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
-using eXpand.ExpressApp.Core;
-using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ValueConverters;
 
 namespace eXpand.ExpressApp.ModelDifference.Controllers{
     public interface IModelOptionsApplicationModelDiffs:IModelOptions
@@ -40,11 +37,12 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
                 ObjectSpace.ObjectSaved -= ObjectSpaceOnObjectSaving;
         }
 
-        internal void ObjectSpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args){
+        void ObjectSpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args){
 
             var store = (args.Object) as ModelDifferenceObject;
-            if (store != null && ReferenceEquals(GetDifference(Application.GetType().FullName, store.Name), store)){
-                ((ModelApplicationBase)Application.Model).AddLayerBeforeLast(store.Model.Clone());
+            if (store != null && ReferenceEquals(GetDifference(Application.GetType().FullName, store.Name), store)) {
+                ModelApplicationBase modelApplicationBase = ((ModelApplicationBase)Application.Model).LastLayer;
+                new ModelXmlReader().ReadFromString(modelApplicationBase, store.Model.CurrentAspect, store.Model.Xml);
             }
         }
         protected virtual ModelDifferenceObject GetDifference(string applicationName, string name) {
