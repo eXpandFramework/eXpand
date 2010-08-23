@@ -14,19 +14,20 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
         readonly ObjectSpace _objectSpace;
         readonly Database _database;
         readonly AttributeMapper _attributeMapper;
+        readonly ExtraInfoBuilder _extraInfoBuilder;
 
         public TableMapper(ObjectSpace objectSpace,Database database,AttributeMapper attributeMapper) {
             _objectSpace = objectSpace;
             _database = database;
             _attributeMapper = attributeMapper;
+            _extraInfoBuilder = new ExtraInfoBuilder(_objectSpace, _attributeMapper);
         }
 
         public IPersistentClassInfo Create(Table table, IPersistentAssemblyInfo persistentAssemblyInfo) {
 
             var persistentClassInfo = CreateCore(table, persistentAssemblyInfo);
             foreach (ForeignKey foreignKey in table.ForeignKeys) {
-                var referencedTable = foreignKey.ReferencedTable;
-                CreateCore(_database.Tables[referencedTable], persistentAssemblyInfo);
+                CreateCore(_database.Tables[foreignKey.ReferencedTable], persistentAssemblyInfo);
             }
             return persistentClassInfo;
         }
@@ -38,18 +39,12 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             persistentClassInfo.BaseType = typeof (XPLiteObject);
             if (count>1)
                 CreatePersistentClassInfo(table.Name + KeyStruct, TemplateType.Struct,persistentAssemblyInfo);
-            CreateExtraInfos(table, persistentClassInfo);
+            _extraInfoBuilder.CreateExtraInfos(table, persistentClassInfo);
             if (count==0) 
                 Tracing.Tracer.LogError("No primary keys found for "+table.Name);
             return persistentClassInfo;
         }
 
-        void CreateExtraInfos(Table table, IPersistentClassInfo persistentClassInfo) {
-            var persistentAttributeInfos = _attributeMapper.Create(table,persistentClassInfo);
-            foreach (var persistentAttributeInfo in persistentAttributeInfos) {
-                persistentClassInfo.TypeAttributes.Add(persistentAttributeInfo);
-            }
-        }
 
 
         IPersistentClassInfo CreatePersistentClassInfo(string name, TemplateType templateType, IPersistentAssemblyInfo persistentAssemblyInfo)
