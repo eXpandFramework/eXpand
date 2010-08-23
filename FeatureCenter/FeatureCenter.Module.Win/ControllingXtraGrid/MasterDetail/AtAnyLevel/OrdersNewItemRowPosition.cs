@@ -1,7 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 
-namespace FeatureCenter.Module.Win.MasterDetail.AtAnyLevel
+namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.AtAnyLevel
 {
     public class OrdersNewItemRowPosition:ViewController<ListView>
     {

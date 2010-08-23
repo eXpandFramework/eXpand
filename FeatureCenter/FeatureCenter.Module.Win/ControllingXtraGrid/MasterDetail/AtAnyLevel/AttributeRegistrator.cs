@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using eXpand.ExpressApp.Attributes;
 using eXpand.ExpressApp.MasterDetail.Logic;
-using ViewType = DevExpress.ExpressApp.ViewType;
 
-namespace FeatureCenter.Module.Win.XtraGrid.MasterDetail.AtAnyLevel
+namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.AtAnyLevel
 {
     public class AttributeRegistrator : Module.AttributeRegistrator
     {

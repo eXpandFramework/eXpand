@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <MasterDetail>
+    <Rules>
+      <MasterDetailRule Id="482e19c4-5551-4f19-b33c-5e3feb276039" IsNewNode="True" CollectionMember="OrderLines" TypeInfo="FeatureCenter.Module.Win.WinOrder" ChildListView="MasterDetailAtAnyLevelOrderLine_ListView" NormalCriteria="1=1" />
+    </Rules>
+  </MasterDetail>
   <Views>
     <ListView Id="MasterDetailAtAnyLevelCustomer_ListView">
       <GridViewOptions>
@@ -22,6 +27,12 @@
       </Columns>
       <GridViewOptions>
         <OptionsDetail ShowDetailTabs="False" />
+      </GridViewOptions>
+    </ListView>
+    <ListView Id="WinCustomer_Orders_ListView">
+      <GridViewOptions>
+        <OptionsDetail SmartDetailExpandButton="True" EnableMasterViewMode="True" />
+        <OptionsView ShowDetailButtons="True" />
       </GridViewOptions>
     </ListView>
   </Views>

@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.DC;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using eXpand.ExpressApp.Attributes;
 
-namespace FeatureCenter.Module.Win.XtraGrid.XtraGridColumnsOptions
+namespace FeatureCenter.Module.Win.ControllingXtraGrid.ColumnsOptions
 {
     public class AttributeRegistrator : Module.AttributeRegistrator
     {

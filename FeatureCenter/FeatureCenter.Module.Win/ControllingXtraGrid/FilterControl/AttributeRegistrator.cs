@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.DC;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using eXpand.ExpressApp.Attributes;
 
-namespace FeatureCenter.Module.Win.XtraGrid.FilterControl
+namespace FeatureCenter.Module.Win.ControllingXtraGrid.FilterControl
 {
     public class AttributeRegistrator : Module.AttributeRegistrator
     {
