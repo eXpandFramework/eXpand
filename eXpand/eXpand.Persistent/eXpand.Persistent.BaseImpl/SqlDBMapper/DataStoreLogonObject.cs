@@ -29,6 +29,10 @@ namespace eXpand.Persistent.BaseImpl.SqlDBMapper
             get { return _authentication; }
             set { SetPropertyValue("Authentication", ref _authentication, value); }
         }
+
+        public override string ToString() {
+            return this.GetConnectionString();
+        }
         private string _userName;
         public string UserName
         {

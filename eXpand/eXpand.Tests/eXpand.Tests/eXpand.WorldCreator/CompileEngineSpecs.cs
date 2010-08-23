@@ -9,6 +9,7 @@ using DevExpress.Xpo.DB;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Utils;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
@@ -194,7 +195,7 @@ namespace eXpand.Tests.eXpand.WorldCreator
         Establish context = () => {
             _info = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _info.Name = "a6";
-            _info.Version = new Version(2, 2, 2, 2).ToString();
+            _info.Attributes.OfType<PersistentAssemblyVersionAttributeInfo>().Single().Version =new Version(2, 2, 2, 2).ToString();
         };
 
         Because of = () => {

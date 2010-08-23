@@ -155,15 +155,18 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             }
         }
 
-        public static string GenerateCode(IPersistentAttributeInfo persistentAttributeInfo) {
-            AttributeInfo attributeInfo = persistentAttributeInfo.Create();
+        public static string GenerateCode(IPersistentAttributeCreator persistentAttributeCreator){
+            AttributeInfo attributeInfo = persistentAttributeCreator.Create();
             var attribute = (Attribute)ReflectionHelper.CreateObject(attributeInfo.Constructor.DeclaringType, attributeInfo.InitializedArgumentValues);
             Func<object, object> argSelector = getArgumentCode;
             string args = attributeInfo.InitializedArgumentValues.Length>0
                               ? attributeInfo.InitializedArgumentValues.Select(argSelector).Aggregate
                               <object, string>(null, (current, o) => current + (((o is bool) ? o.ToString().ToLower() : o) + ",")).TrimEnd(',')
                               : null;
-            return string.Format("[{0}({1})]", attribute.GetType().FullName, args);
+            string assemblyDecleration = null;
+            if (persistentAttributeCreator is IPersistentAssemblyAttributeInfo)
+                assemblyDecleration = "assembly: ";
+            return string.Format("[{0}{1}({2})]",assemblyDecleration, attribute.GetType().FullName, args);
         }
 
         static object getArgumentCode(object argumentValue) {
@@ -176,16 +179,17 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return argumentValue;
         }
 
-        static string GetVersionCode(IPersistentAssemblyInfo persistentAssemblyInfo)
+        static string GetAssemblyAttributesCode(IPersistentAssemblyInfo persistentAssemblyInfo)
         {
-            var version = persistentAssemblyInfo.Version;
-            if (!string.IsNullOrEmpty(version))
-                return string.Format(@"[assembly: System.Reflection.AssemblyVersionAttribute(""{0}"")]", version) + Environment.NewLine;
-            return null;
+            return (persistentAssemblyInfo.Attributes.Aggregate<IPersistentAssemblyAttributeInfo, string>(null, (current, persistentAssemblyAttributeInfo) => current + GenerateCode(persistentAssemblyAttributeInfo) + Environment.NewLine) + "").TrimEnd(Environment.NewLine.ToCharArray());
+//            var version = persistentAssemblyInfo.Version;
+//            if (!string.IsNullOrEmpty(version))
+//                return string.Format(@"[assembly: System.Reflection.AssemblyVersionAttribute(""{0}"")]", version) + Environment.NewLine;
+//            return null;
         }
 
         public static string GenerateCode(IPersistentAssemblyInfo persistentAssemblyInfo) {
-            string generateCode =GetVersionCode(persistentAssemblyInfo)+Environment.NewLine+getModuleCode(persistentAssemblyInfo.Name)+Environment.NewLine+ persistentAssemblyInfo.PersistentClassInfos.
+            string generateCode =GetAssemblyAttributesCode(persistentAssemblyInfo)+Environment.NewLine+getModuleCode(persistentAssemblyInfo.Name)+Environment.NewLine+ persistentAssemblyInfo.PersistentClassInfos.
                 Aggregate<IPersistentClassInfo, string>(null, (current, persistentClassInfo) => current + (GenerateCode(persistentClassInfo) + Environment.NewLine));
             return groupUsings(generateCode,persistentAssemblyInfo.CodeDomProvider);
         }

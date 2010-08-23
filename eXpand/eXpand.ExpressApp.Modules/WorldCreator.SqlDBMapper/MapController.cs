@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
@@ -53,7 +52,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper
 
 
         void CreateMappedAssemblyInfo(ObjectSpace objectSpace, IPersistentAssemblyInfo persistentAssemblyInfo, IDataStoreLogonObject dataStoreLogonObject) {
-            string connectionString = new MSSqlProviderFactory().GetConnectionString(GetParamsDict(dataStoreLogonObject));
+            string connectionString=dataStoreLogonObject.GetConnectionString();
             var sqlConnection = (SqlConnection)new SimpleDataLayer(XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None)).Connection;
             var server = new Server(new ServerConnection(sqlConnection));
             Database database = server.Databases[sqlConnection.Database];
@@ -64,19 +63,5 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper
             objectSpace.CommitChanges();
         }
 
-        Dictionary<string, string> GetParamsDict(IDataStoreLogonObject dataStoreLogonObject) {
-            		
-			var parameters = new Dictionary<string, string>();
-            if (dataStoreLogonObject.UserName != null)
-                parameters.Add(ProviderFactory.UserIDParamID, dataStoreLogonObject.UserName);
-            if (dataStoreLogonObject.PassWord != null)
-                parameters.Add(ProviderFactory.PasswordParamID, dataStoreLogonObject.PassWord);
-            parameters.Add(ProviderFactory.ReadOnlyParamID, "1");
-            parameters.Add(ProviderFactory.ServerParamID, dataStoreLogonObject.ServerName);
-            parameters.Add(ProviderFactory.DatabaseParamID, dataStoreLogonObject.DataBase.Name);
-            parameters.Add(ProviderFactory.UseIntegratedSecurityParamID, (dataStoreLogonObject.Authentication == DataStoreAuthentication.Windows) ? "true" : "false");
-			return parameters;
-
-        }
     }
 }

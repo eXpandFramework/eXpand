@@ -119,6 +119,7 @@
     <Compile Include="PersistentMetaData\ITemplateInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\AttributeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssociationAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAttributeCreator.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentClassInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentCollectionMemberInfo.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentPersistentAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentRuleRequiredFieldAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentSizeAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssemblyAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\WCRegistratorAttribute.cs" />
     <Compile Include="PivotChart\Web\IPivotGridOptionsOLAP.cs" />
     <Compile Include="PivotChart\Web\IPivotGridWebOptionsChartDataSource.cs" />

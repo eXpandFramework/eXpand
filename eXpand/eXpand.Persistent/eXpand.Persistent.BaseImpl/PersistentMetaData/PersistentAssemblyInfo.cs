@@ -7,6 +7,8 @@ using eXpand.ExpressApp.Attributes;
 using eXpand.ExpressApp.Enums;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [DefaultClassOptions]
@@ -22,10 +24,16 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
         StrongKeyFile _strongKeyFile;
 
-        string _version="1.0.0.*";
+        const string _version="1.0.0.*";
 
         public PersistentAssemblyInfo(Session session) : base(session) {
         }
+
+        public override void AfterConstruction() {
+            base.AfterConstruction();
+            Attributes.Add(new PersistentAssemblyVersionAttributeInfo(Session){Version = _version});
+        }
+
         [Index(4)]
         [FileTypeFilter("Strong Keys", 1, "*.snk")]
         [Aggregated, ExpandObjectMembers(ExpandObjectMembers.Never)]
@@ -67,6 +75,14 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set { SetPropertyValue("CompileOrder", ref _compileOrder, value); }
         }
 
+        [Association("PersistentAssemblyInfo-Attributes")]
+        public XPCollection<PersistentAssemblyAttributeInfo> Attributes {
+            get { return GetCollection<PersistentAssemblyAttributeInfo>("Attributes"); }
+        }
+        IList<IPersistentAssemblyAttributeInfo> IPersistentAssemblyInfo.Attributes {
+            get { return new ListConverter<IPersistentAssemblyAttributeInfo, PersistentAssemblyAttributeInfo>(Attributes); }
+        }
+
         [Index(2)]
         [AllowEdit(true, AllowEditEnum.NewObject)]
         public CodeDomProvider CodeDomProvider {
@@ -74,11 +90,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set { SetPropertyValue("CodeDomProvider", ref _codeDomProvider, value); }
         }
 
-        [Index(3)]
-        public string Version {
-            get { return _version; }
-            set { SetPropertyValue("Version", ref _version, value); }
-        }
 
         [Index(5)]
         public bool DoNotCompile {

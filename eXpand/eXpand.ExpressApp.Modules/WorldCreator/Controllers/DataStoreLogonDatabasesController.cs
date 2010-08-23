@@ -4,11 +4,11 @@ using eXpand.Persistent.Base.SqlDBMapper;
 using eXpand.ExpressApp.Core;
 using eXpand.Utils.Helpers;
 
-namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper
+namespace eXpand.ExpressApp.WorldCreator.Controllers
 {
-    public class DataStoreLogonObjectController:ViewController<DetailView>
+    public class DataStoreLogonDatabasesController:ViewController<DetailView>
     {
-        public DataStoreLogonObjectController() {
+        public DataStoreLogonDatabasesController() {
             TargetObjectType = typeof (IDataStoreLogonObject);
         }
         protected override void OnActivated()

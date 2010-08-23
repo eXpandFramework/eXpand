@@ -153,6 +153,9 @@
     <Compile Include="ImportExport\XmlFileChooser.cs" />
     <Compile Include="PersistentMetaData\CodeTemplate.cs" />
     <Compile Include="PersistentMetaData\CodeTemplateInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAssemblyAttributeInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAssemblyDataStoreAttributeInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAssemblyVersionAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentKeyAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentMapInheritanceAttribute.cs">
       <SubType>Code</SubType>

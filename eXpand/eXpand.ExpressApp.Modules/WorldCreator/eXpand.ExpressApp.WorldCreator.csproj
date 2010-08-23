@@ -117,6 +117,9 @@
     <Compile Include="Controllers\AssemblyToolsController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\DataStoreLogonDatabasesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\PersistentReferenceMemberInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
