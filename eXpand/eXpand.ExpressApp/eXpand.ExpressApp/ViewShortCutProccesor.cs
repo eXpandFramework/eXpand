@@ -33,14 +33,27 @@ namespace eXpand.ExpressApp {
         }
 
         object GetObject(ViewShortcut shortcut, IModelDetailView modelDetailView, ObjectSpace objectSpace) {
-            object objectKey = GetObjectKey(shortcut,modelDetailView.ModelClass.TypeInfo.Type);
+            object objectKey = GetObjectKey(shortcut,modelDetailView.ModelClass.TypeInfo.Type,objectSpace);
             return GetObjectCore(modelDetailView, objectKey, objectSpace);
         }
 
-        object GetObjectKey(ViewShortcut shortcut, Type type) {
+        object GetObjectKey(ViewShortcut shortcut, Type type, ObjectSpace objectSpace) {
+            var objectKey = GetObjectKey(objectSpace, type, shortcut);
+            if (objectKey!= null)
+                return objectKey;
             return shortcut.ObjectKey.StartsWith("@")
                             ? ParametersFactory.CreateParameter(shortcut.ObjectKey.Substring(1)).CurrentValue
                             : CriteriaWrapper.ParseCriteriaWithReadOnlyParameters(shortcut.ObjectKey,type);
+        }
+
+        object GetObjectKey(ObjectSpace objectSpace, Type type, ViewShortcut shortcut) {
+            object objectKey= null;
+            try {
+                objectKey = objectSpace.GetObjectKey(type,shortcut.ObjectKey);
+            }
+            catch {
+            }
+            return objectKey;
         }
 
         object GetObjectCore(IModelDetailView modelView, object objectKey, ObjectSpace objectSpace) {
