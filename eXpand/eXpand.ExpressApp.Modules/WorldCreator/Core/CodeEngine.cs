@@ -204,5 +204,38 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return null;
         }
 
+        static string GetCode(IPersistentReferenceMemberInfo key)
+        {
+            var referenceMemberInfos = key.ReferenceClassInfo.OwnMembers.OfType<IPersistentReferenceMemberInfo>();
+            string ret = null;
+            foreach (var referenceMemberInfo in referenceMemberInfos)
+            {
+                string refPropertyName = CleanName(key.Name) + "." + CleanName(referenceMemberInfo.Name);
+                var persistentMemberInfo = referenceMemberInfo.ReferenceClassInfo.OwnMembers.Where(info => info.TypeAttributes.OfType<IPersistentKeyAttribute>().Count() > 0).SingleOrDefault();
+                if (persistentMemberInfo != null)
+                {
+                    var refKeyName = CleanName(persistentMemberInfo.Name);
+                    ret += @"if(" + refPropertyName + ".Session != Session){" +
+                          refPropertyName + "=Session.GetObjectByKey<" + CleanName(referenceMemberInfo.ReferenceClassInfo.Name) + ">(" + refPropertyName + "." + refKeyName + ");"
+                          + "}";
+                }
+            }
+            return ret;
+        }
+
+        public static void SupportCompositeKeyPersistentObjects(IPersistentAssemblyInfo persistentAssemblyInfo, Func<ITemplateInfo, bool> templateInfoPredicate) {
+            var keys = persistentAssemblyInfo.PersistentClassInfos.SelectMany(info => info.OwnMembers).OfType<IPersistentReferenceMemberInfo>().Where(memberInfo => memberInfo.ReferenceClassInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.Struct);
+            foreach (var key in keys)
+            {
+                
+                var templateInfo = key.Owner.TemplateInfos.Where(templateInfoPredicate).Single();
+                templateInfo.TemplateCode = @"protected override void OnLoaded() {
+                                                base.OnLoaded();
+                                                " + GetCode(key) + @"
+                                            }";
+
+            }
+
+        }
     }
 }

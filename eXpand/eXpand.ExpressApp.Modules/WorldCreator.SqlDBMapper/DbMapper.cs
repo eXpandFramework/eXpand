@@ -1,5 +1,7 @@
-﻿using DevExpress.ExpressApp;
+﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
+using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 using Microsoft.SqlServer.Management.Smo;
 using System.Linq;
@@ -28,6 +30,9 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
                     columnMapper.Create(column, persistentClassInfo);
                 }
             }
+
+            Func<ITemplateInfo, bool> templateInfoPredicate = info => info.Name == ExtraInfoBuilder.SupportPersistentObjectsAsAPartOfACompositeKey;
+            CodeEngine.SupportCompositeKeyPersistentObjects(_persistentAssemblyInfo, templateInfoPredicate);
         }
     }
 }

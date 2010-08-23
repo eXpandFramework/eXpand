@@ -9,9 +9,11 @@ using Machine.Specifications;
 using Microsoft.SqlServer.Management.Smo;
 using TypeMock.ArrangeActAssert;
 using eXpand.Xpo;
+using System.Linq;
 
 namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
 {
+    [Subject(typeof(TableMapper))]
     public class When_mapping_a_table : With_table
     {
         static PersistentPersistentAttribute _persistentPersistentAttribute;
@@ -45,7 +47,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         It should_have_the_attributes_of_the_attributemapper =
             () => _persistentClassInfo.TypeAttributes[0].ShouldEqual(_persistentPersistentAttribute);
     }
-
+    [Subject(typeof(TableMapper))]
     public class When_a_persistent_class_info_with_the_same_table_name_exists_and_create_that_table:With_table {
         static PersistentClassInfo _info;
         static IPersistentClassInfo _persistentClassInfo;
@@ -61,6 +63,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
 
         It should_return_the_classinfo_from_the_datastore = () => _persistentClassInfo.ShouldEqual(_info);
     }
+    [Subject(typeof(TableMapper))]
     public class When_creating_a_table_that_has_foreigh_keys:With_table {
         private const string RefName = "RefName";
         
@@ -82,7 +85,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             UnitOfWork.FindObject<PersistentClassInfo>(PersistentCriteriaEvaluationBehavior.InTransaction,
                                                      info => info.Name == RefName).ShouldNotBeNull();
     }
-
+    [Subject(typeof(TableMapper))]
     public class When_mapping_a_table_that_has_more_than_one_primary_keys:With_table {
         static PersistentClassInfo _persistentClassInfo;
 
@@ -95,12 +98,19 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         };
 
         Because of = () => new TableMapper(ObjectSpace,_database,new AttributeMapper(ObjectSpace)).Create(_table, _persistentAssemblyInfo);
-
+        It should_add_an_empty_templateinfo_with_name_Support_Persistemt_Objects_as_part_of_a_composite_key = () =>
+        {
+            var templateInfo = _persistentAssemblyInfo.PersistentClassInfos[0].TemplateInfos.SingleOrDefault();
+            templateInfo.ShouldNotBeNull();
+            templateInfo.Name.ShouldEqual(ExtraInfoBuilder.SupportPersistentObjectsAsAPartOfACompositeKey);
+        };
         It should_create_a_classInfo_with_name_the_name_of_the_table__plus_KeyStruct = () => {
             _persistentClassInfo = ObjectSpace.Session.FindObject<PersistentClassInfo>(PersistentCriteriaEvaluationBehavior.InTransaction, info => info.Name == TableName + TableMapper.KeyStruct);
             _persistentClassInfo.ShouldNotBeNull();
         };
 
         It should_set_the_template_of_the_classInfo_to_struct = () => _persistentClassInfo.CodeTemplateInfo.CodeTemplate.TemplateType.ShouldEqual(TemplateType.Struct);
+
+        
     }
 }

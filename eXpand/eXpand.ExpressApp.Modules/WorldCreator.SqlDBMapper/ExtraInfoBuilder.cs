@@ -4,11 +4,13 @@ using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using Microsoft.SqlServer.Management.Smo;
 using eXpand.ExpressApp.WorldCreator.Core;
+using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper
 {
     public class ExtraInfoBuilder
     {
+        public const string SupportPersistentObjectsAsAPartOfACompositeKey = "Support Persistent objects as a part of a composite key";
         readonly ObjectSpace _objectSpace;
         readonly AttributeMapper _attributeMapper;
 
@@ -35,8 +37,14 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper
             foreach (var persistentAttributeInfo in persistentAttributeInfos){
                 persistentClassInfo.TypeAttributes.Add(persistentAttributeInfo);
             }
+            var count = table.Columns.OfType<Column>().Where(column => column.InPrimaryKey).Count();
+            if (count>0) {
+                var templateInfo = _objectSpace.CreateObjectFromInterface<ITemplateInfo>();
+                templateInfo.Name = SupportPersistentObjectsAsAPartOfACompositeKey;
+                persistentClassInfo.TemplateInfos.Add(templateInfo);
+            }
         }
-
+        
         public void CreateExtraInfos(Column column, IPersistentMemberInfo persistentMemberInfo, ForeignKeyCalculator foreignKeyCalculator)
         {
             var persistentReferenceMemberInfo = (IPersistentReferenceMemberInfo)persistentMemberInfo;
