@@ -149,6 +149,8 @@
     <Compile Include="PivotChart\IPivotOptionsSelection.cs" />
     <Compile Include="PivotChart\IPivotOptionsView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlDBMapper\IDataBase.cs" />
+    <Compile Include="SqlDBMapper\IDataStoreLogonObject.cs" />
     <Compile Include="Validation\AtLeast1PropertyIsRequired\IRuleRequiredForAtLeast1PropertyProperties.cs" />
     <Compile Include="Validation\RuleDefaultMessageTemplates.cs" />
     <Compile Include="Validation\AtLeast1PropertyIsRequired\RuleRequiredForAtLeast1Property.cs" />

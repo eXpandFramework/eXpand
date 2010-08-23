@@ -42,6 +42,7 @@ namespace FeatureCenter.Module
             // Solution1Module
             // 
 
+            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.SqlDBMapper.DataStoreLogonObject));
             AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.ImportExport.ClassInfoGraphNode));
             AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.ImportExport.SerializationConfiguration));
             AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.ImportExport.SerializationConfigurationGroup));

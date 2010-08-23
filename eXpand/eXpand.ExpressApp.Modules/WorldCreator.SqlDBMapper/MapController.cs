@@ -1,11 +1,16 @@
-﻿using System.Data.SqlClient;
+﻿using System.Collections.Generic;
+using System.Data.SqlClient;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using eXpand.ExpressApp.WorldCreator.Controllers;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.Base.SqlDBMapper;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
+using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper
 {
@@ -27,29 +32,51 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper
 
         void AssemblyToolsControllerOnToolExecuted(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             if ((string) singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data=="MapSqlDB") {
-                var persistentAssemblyInfo = (IPersistentAssemblyInfo)singleChoiceActionExecuteEventArgs.CurrentObject;
-                var objectSpace = new ObjectSpace(new UnitOfWork(ObjectSpace.Session.DataLayer),XafTypesInfo.Instance);
-                IPersistentAssemblyInfo assemblyInfo = GetMappedAssemblyInfo(objectSpace, persistentAssemblyInfo);
-                Show(singleChoiceActionExecuteEventArgs, objectSpace, assemblyInfo);
+                ObjectSpace space = Application.CreateObjectSpace();
+                var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
+                showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                showViewParameters.CreatedView = Application.CreateDetailView(space, space.CreateObjectFromInterface<IDataStoreLogonObject>());
+                var dialogController = new DialogController();
+                dialogController.AcceptAction.Execute +=AcceptActionOnExecute;   
+                showViewParameters.Controllers.Add(dialogController);   
             }
         }
 
-        void Show(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs, ObjectSpace objectSpace, IPersistentAssemblyInfo assemblyInfo) {
-            ShowViewParameters showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
-            showViewParameters.TargetWindow=TargetWindow.Current;
-            showViewParameters.CreatedView = Application.CreateDetailView(objectSpace, assemblyInfo, View.IsRoot);
+        void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
+            var persistentAssemblyInfo = (IPersistentAssemblyInfo)View.CurrentObject;
+            var objectSpace = new ObjectSpace(new UnitOfWork(ObjectSpace.Session.DataLayer), XafTypesInfo.Instance);
+            CreateMappedAssemblyInfo(objectSpace, persistentAssemblyInfo, (IDataStoreLogonObject)simpleActionExecuteEventArgs.CurrentObject);
+            ObjectSpace.Refresh();
+            ObjectSpace.SetModified(View.CurrentObject);
         }
 
-        IPersistentAssemblyInfo GetMappedAssemblyInfo(ObjectSpace objectSpace, IPersistentAssemblyInfo persistentAssemblyInfo) {
-            const string ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLExpress;Initial Catalog=mce;";
-            var cn = new SqlConnection(ConnectionString);
-            var server = new Server(new ServerConnection(cn));
-            Database _database = server.Databases[cn.Database];
-            _database.Refresh();
+
+
+        void CreateMappedAssemblyInfo(ObjectSpace objectSpace, IPersistentAssemblyInfo persistentAssemblyInfo, IDataStoreLogonObject dataStoreLogonObject) {
+            string connectionString = new MSSqlProviderFactory().GetConnectionString(GetParamsDict(dataStoreLogonObject));
+            var sqlConnection = (SqlConnection)new SimpleDataLayer(XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None)).Connection;
+            var server = new Server(new ServerConnection(sqlConnection));
+            Database database = server.Databases[sqlConnection.Database];
+            database.Refresh();
             IPersistentAssemblyInfo assemblyInfo = objectSpace.GetObject(persistentAssemblyInfo);
             var dbMapper = new DbMapper(objectSpace, assemblyInfo);
-            dbMapper.Map(_database);
-            return assemblyInfo;
+            dbMapper.Map(database);
+            objectSpace.CommitChanges();
+        }
+
+        Dictionary<string, string> GetParamsDict(IDataStoreLogonObject dataStoreLogonObject) {
+            		
+			var parameters = new Dictionary<string, string>();
+            if (dataStoreLogonObject.UserName != null)
+                parameters.Add(ProviderFactory.UserIDParamID, dataStoreLogonObject.UserName);
+            if (dataStoreLogonObject.PassWord != null)
+                parameters.Add(ProviderFactory.PasswordParamID, dataStoreLogonObject.PassWord);
+            parameters.Add(ProviderFactory.ReadOnlyParamID, "1");
+            parameters.Add(ProviderFactory.ServerParamID, dataStoreLogonObject.ServerName);
+            parameters.Add(ProviderFactory.DatabaseParamID, dataStoreLogonObject.DataBase.Name);
+            parameters.Add(ProviderFactory.UseIntegratedSecurityParamID, (dataStoreLogonObject.Authentication == DataStoreAuthentication.Windows) ? "true" : "false");
+			return parameters;
+
         }
     }
 }

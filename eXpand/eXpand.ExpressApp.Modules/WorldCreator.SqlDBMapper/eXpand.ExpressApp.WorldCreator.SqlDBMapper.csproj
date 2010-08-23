@@ -131,6 +131,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttributeMapper.cs" />
+    <Compile Include="DataStoreLogonObjectController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ExtraInfoBuilder.cs" />
     <Compile Include="ForeignKeyCalculator.cs" />
     <Compile Include="TableMapper.cs" />

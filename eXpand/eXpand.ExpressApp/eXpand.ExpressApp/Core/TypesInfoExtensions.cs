@@ -14,7 +14,8 @@ namespace eXpand.ExpressApp.Core{
         {
             if (!(typeof(T).IsInterface))
                 throw new ArgumentException(typeof(T).FullName +" should be an interface");
-            var implementors = typesInfo.FindTypeInfo(typeof(T)).Implementors.Where(info => info.IsPersistent);
+//            var implementors = typesInfo.FindTypeInfo(typeof(T)).Implementors.Where(info => info.IsPersistent);
+            var implementors = typesInfo.FindTypeInfo(typeof(T)).Implementors;
             var objectType = implementors.FirstOrDefault();
             if (objectType== null)
                 throw new ArgumentException("No bussincess object that implements "+typeof(T).FullName+" found");
