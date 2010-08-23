@@ -372,7 +372,7 @@
     <Compile Include="Navigation\FocusControl\AttributeRegistrator.cs" />
     <Compile Include="Navigation\TabStopForReadOnly\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\AutoCommitListView\AttributeRegistrator.cs" />
-    <Compile Include="ControllingXtraGrid\FilterControl\AttributeRegistrator.cs" />
+    <Compile Include="ListViewControl\FilterControl\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\GuessAutoFilterRowValues\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\HidePopupMenu\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\MasterDetail\AtAnyLevel\AttributeRegistrator.cs" />
@@ -433,7 +433,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ControllingXtraGrid\FilterControl\MDO_FilterControl.xafml">
+    <EmbeddedResource Include="ListViewControl\FilterControl\MDO_FilterControl.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
