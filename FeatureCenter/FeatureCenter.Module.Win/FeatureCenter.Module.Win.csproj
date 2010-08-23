@@ -354,6 +354,9 @@
     <Compile Include="ApplicationCaption.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ListViewControl\LoadWhenFiltered\LoadWhenFilteredController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Miscellaneous\ApplicationMultipleInstances\AMIObject.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -491,6 +494,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Navigation\LogOut\MDO_LogOut.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ListViewControl\LoadWhenFiltered\MDO_LoadWhenFiltered.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

@@ -9,13 +9,14 @@ namespace FeatureCenter.Module.ListViewControl.LoadWhenFiltered
 {
     public class AttributeRegistrator:Module.AttributeRegistrator
     {
+        public const string LoadWhenFiltered_ListView = "LoadWhenFiltered_ListView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(Customer)) yield break;
-            yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderLoadWhenFiltered, "1=1", "1=1", Captions.ViewMessageLoadWhenFiltered, Position.Bottom){ViewType = ViewType.ListView, View = "LoadWhenFiltered_ListView"};
-            yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderLoadWhenFiltered, "1=1", "1=1", Captions.HeaderLoadWhenFiltered, Position.Top) { ViewType = ViewType.ListView, View = "LoadWhenFiltered_ListView" };
-            yield return new NavigationItemAttribute(Captions.ListViewCotrol + "Load When Filtered", "LoadWhenFiltered_ListView");
-            yield return new CloneViewAttribute(CloneViewType.ListView, "LoadWhenFiltered_ListView");
-            new DisplayFeatureModelAttribute("LoadWhenFiltered_ListView");
+            yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderLoadWhenFiltered, "1=1", "1=1", Captions.ViewMessageLoadWhenFiltered, Position.Bottom){ViewType = ViewType.ListView, View = LoadWhenFiltered_ListView};
+            yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderLoadWhenFiltered, "1=1", "1=1", Captions.HeaderLoadWhenFiltered, Position.Top) { ViewType = ViewType.ListView, View = LoadWhenFiltered_ListView };
+            yield return new NavigationItemAttribute(Captions.ListViewCotrol + "Load When Filtered", LoadWhenFiltered_ListView);
+            yield return new CloneViewAttribute(CloneViewType.ListView, LoadWhenFiltered_ListView);
+            new DisplayFeatureModelAttribute(LoadWhenFiltered_ListView);
         }
     }
 }

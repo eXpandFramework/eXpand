@@ -78,7 +78,7 @@
         public const string ViewMessageHideListViewToolBarNested = "In this view can see how to hide toolbars of a nested list view";
         public const string ViewMessageHideDetailViewToolBar = "In this view can see how to a DetailView toolbar ";
         public const string ViewMessageHighlightFocusedLayoutItem = "In this view can see how to Highlight Focused Layout Item";
-        public const string ViewMessageLoadWhenFiltered = "In this view to speed start up loading time i have disable loading of records. Loading will only occur when a filter on the grid exists. To test just add a filter to the grid navigate to another view and come back here to see records loaded. Also you can use the fulltext action";
+        public const string ViewMessageLoadWhenFiltered = "In this view to speed start up loading time i have disable loading of records. Loading will only occur when a filter on the grid exists. To test just hit the accept filter button or use the fulltext search action at the top right corner";
         public const string ViewMessageLookUpListSearch = "In this view i have enable customer lookup search for customer lookup independent of the count of customer records. By default Xaf shows a a non search able lookup list view if customer records are less than 25 ";
         public const string ViewMessageUpdateOnlyChangeFields = "In this view you can see that only fields that are changed will be updated in the datastore and that will speed up your system. By default xaf updates all fields. To test make a change to Name property for example and hit save , then note at the audit trail info that will update only the name field";
         public const string ViewMessageLinqQuery = "This view demo how you can query your data using linq";
