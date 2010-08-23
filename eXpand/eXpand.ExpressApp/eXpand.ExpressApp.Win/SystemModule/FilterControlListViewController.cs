@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
@@ -46,11 +47,18 @@ namespace eXpand.ExpressApp.Win.SystemModule
             get { return filterControl; }
         }
 
-        public event EventHandler FilterActivated;
-        
-        private void InvokeFilterActivated(EventArgs e)
+        public event EventHandler FilterControlCreated;
+
+        protected void OnFilterControlCreated(EventArgs e) {
+            EventHandler handler = FilterControlCreated;
+            if (handler != null) handler(this, e);
+        }
+
+        public event EventHandler CustomAssignFilterControlSourceControl;
+
+        protected void OnCustomAssignFilterControlSourceControl(EventArgs e)
         {
-            EventHandler activated = FilterActivated;
+            EventHandler activated = CustomAssignFilterControlSourceControl;
             if (activated != null) activated(this, e);
         }
 
@@ -63,13 +71,12 @@ namespace eXpand.ExpressApp.Win.SystemModule
                                 Dock = ((IModelListViewFilterControlSettings)View.Model).FilterControlPosition,
                                 SourceControl = gridControl
                             };
-            InvokeFilterActivated(e);
+            OnCustomAssignFilterControlSourceControl(e);
             gridControl = filterControl.SourceControl as GridControl;
-            if (gridControl != null )
-            {
+            if (gridControl != null ){
                 if (!gridControl.FormsUseDefaultLookAndFeel)
                     filterControl.LookAndFeel.Assign(gridControl.LookAndFeel);
-                setCriteriaFromView(filterControl);
+                filterControl.FilterCriteria=GetCriteriaFromView();
             }
 
             var accept = new SimpleButton { Text = CaptionHelper.GetLocalizedText("eXpand", "AcceptFilter") };
@@ -78,14 +85,15 @@ namespace eXpand.ExpressApp.Win.SystemModule
             filterControl.Controls.Add(accept);
 
             ((Forms.Control) sender).Parent.Controls.Add(filterControl);
+            OnFilterControlCreated(EventArgs.Empty);
         }
 
-        private void setCriteriaFromView(FilterControl filter)
+        private CriteriaOperator GetCriteriaFromView()
         {
             var criteriaWrapper = new CriteriaWrapper(View.ObjectTypeInfo.Type, ((IModelListViewWin)View.Model).ActiveFilterString, false);
             new FilterWithObjectsProcessor(ObjectSpace).Process(criteriaWrapper.CriteriaOperator,
                                                                 FilterWithObjectsProcessorMode.StringToObject);
-            filter.FilterCriteria =criteriaWrapper.CriteriaOperator;
+            return criteriaWrapper.CriteriaOperator;
         }
     }
 }

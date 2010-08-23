@@ -22,21 +22,22 @@ namespace eXpand.ExpressApp.SystemModule
 
     public abstract class LoadWhenFilteredController:ViewController<ListView>
     {
-        const string LoadWhenFiltered = "LoadWhenFiltered";
+        protected const string LoadWhenFiltered = "LoadWhenFiltered";
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            var modelListViewGridViewOptions = ((IModelListViewLoadWhenFiltered)View.Model);
-            if (IsReady(modelListViewGridViewOptions))
+            
+            if (IsReady())
             {
                 var filterController = Frame.GetController<FilterController>();
                 filterController.FullTextFilterAction.Execute += FullTextFilterAction_Execute;
-                SetDoNotLoadWhenFilterExistsCriteria();
+                View.CollectionSource.Criteria[LoadWhenFiltered]=GetDoNotLoadWhenFilterExistsCriteria();
             }
         }
 
-        protected bool IsReady(IModelListViewLoadWhenFiltered modelListViewGridViewOptions)
+        protected bool IsReady()
         {
+            var modelListViewGridViewOptions = ((IModelListViewLoadWhenFiltered)View.Model);
             return modelListViewGridViewOptions.LoadWhenFiltered &&string.IsNullOrEmpty(GetActiveFilter());
         }
 
@@ -45,18 +46,20 @@ namespace eXpand.ExpressApp.SystemModule
         void FullTextFilterAction_Execute(object sender, ParametrizedActionExecuteEventArgs e)
         {
             if (string.IsNullOrEmpty(e.ParameterCurrentValue as string))
-                SetDoNotLoadWhenFilterExistsCriteria();
+                View.CollectionSource.Criteria[LoadWhenFiltered]=GetDoNotLoadWhenFilterExistsCriteria();
             else
                 ClearDoNotLoadWhenFilterExistsCriteria();
         }
-        void SetDoNotLoadWhenFilterExistsCriteria()
+
+        protected BinaryOperator GetDoNotLoadWhenFilterExistsCriteria()
         {
             IMemberInfo memberInfo = View.ObjectTypeInfo.KeyMember;
             Type memberType = memberInfo.MemberType;
             object o = memberType.IsValueType ? Activator.CreateInstance(memberType) : null;
-            (View).CollectionSource.Criteria[LoadWhenFiltered] = new BinaryOperator(memberInfo.Name, o);
+            return new BinaryOperator(memberInfo.Name, o);
         }
-        void ClearDoNotLoadWhenFilterExistsCriteria()
+
+        protected void ClearDoNotLoadWhenFilterExistsCriteria()
         {
             View.CollectionSource.Criteria[LoadWhenFiltered] = null;
         }

@@ -35,13 +35,13 @@ namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
             lookUpQueryPopUp = false;
 
             var filterControlListViewController = Frame.GetController<FilterControlListViewController>();
-            filterControlListViewController.FilterActivated +=FilterControlListViewControllerOnFilterActivated;
+            filterControlListViewController.CustomAssignFilterControlSourceControl +=CustomAssignFilterControlSourceControlListViewControllerOnCustomAssignFilterControlSourceControl;
         }
 
-        private void FilterControlListViewControllerOnFilterActivated(object sender, EventArgs args)
+        private void CustomAssignFilterControlSourceControlListViewControllerOnCustomAssignFilterControlSourceControl(object sender, EventArgs args)
         {
             var filterControlListViewController = Frame.GetController<FilterControlListViewController>();
-            setRecursiveActionActiveState(filterControlListViewController.FilterControl);
+            UpdateActionState(filterControlListViewController.FilterControl);
             if (((ListView)View).Editor is DevExpress.ExpressApp.TreeListEditors.Win.CategorizedListEditor)
                 filterControlListViewController.FilterControl.SourceControl = ((DevExpress.ExpressApp.TreeListEditors.Win.CategorizedListEditor)((ListView)View).Editor).Grid;
             filterControlListViewController.FilterControl.FilterChanged += FilterOnFilterChanged;
@@ -81,7 +81,7 @@ namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
             }
         }
 
-        private void setRecursiveActionActiveState(ExpressApp.Win.Editors.FilterControl filter)
+        private void UpdateActionState(ExpressApp.Win.Editors.FilterControl filter)
         {
             filter.EditorActivated +=
                 edit =>
