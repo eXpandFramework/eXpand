@@ -161,7 +161,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             Func<object, object> argSelector = getArgumentCode;
             string args = attributeInfo.InitializedArgumentValues.Length>0
                               ? attributeInfo.InitializedArgumentValues.Select(argSelector).Aggregate
-                              <object, string>(null, (current, o) => current + (((o is bool) ? o.ToString().ToLower() : o) + ",")).TrimEnd(',')
+                              <object, string>(null, (current, o) => current + (o + ",")).TrimEnd(',')
                               : null;
             string assemblyDecleration = null;
             if (persistentAttributeCreator is IPersistentAssemblyAttributeInfo)
@@ -171,21 +171,19 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
         static object getArgumentCode(object argumentValue) {
             if (argumentValue is string)
-                return @"""" + argumentValue + @"""";
+                return @"@""" + argumentValue + @"""";
             if (argumentValue is Type)
                 return "typeof("+ ((Type) argumentValue).FullName+")";
             if (argumentValue is Enum)
                 return argumentValue.GetType().FullName+"."+argumentValue;
+            if (argumentValue is bool)
+                return argumentValue.ToString().ToLower();
             return argumentValue;
         }
 
         static string GetAssemblyAttributesCode(IPersistentAssemblyInfo persistentAssemblyInfo)
         {
             return (persistentAssemblyInfo.Attributes.Aggregate<IPersistentAssemblyAttributeInfo, string>(null, (current, persistentAssemblyAttributeInfo) => current + GenerateCode(persistentAssemblyAttributeInfo) + Environment.NewLine) + "").TrimEnd(Environment.NewLine.ToCharArray());
-//            var version = persistentAssemblyInfo.Version;
-//            if (!string.IsNullOrEmpty(version))
-//                return string.Format(@"[assembly: System.Reflection.AssemblyVersionAttribute(""{0}"")]", version) + Environment.NewLine;
-//            return null;
         }
 
         public static string GenerateCode(IPersistentAssemblyInfo persistentAssemblyInfo) {

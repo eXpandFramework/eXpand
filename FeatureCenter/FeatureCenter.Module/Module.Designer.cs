@@ -45,6 +45,7 @@ namespace FeatureCenter.Module
             // Solution1Module
             // 
 
+            AdditionalBusinessClasses.Add(typeof(PersistentAssemblyDataStoreAttributeInfo));
             AdditionalBusinessClasses.Add(typeof(PersistentAssemblyAttributeInfo));
             AdditionalBusinessClasses.Add(typeof(PersistentAssemblyVersionAttributeInfo));
             AdditionalBusinessClasses.Add(typeof(ExceptionObject));

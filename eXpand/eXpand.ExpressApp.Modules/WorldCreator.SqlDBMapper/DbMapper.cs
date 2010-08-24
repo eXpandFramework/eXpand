@@ -5,13 +5,14 @@ using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 using Microsoft.SqlServer.Management.Smo;
 using System.Linq;
+using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class DbMapper
     {
         readonly ObjectSpace _objectSpace;
         readonly IPersistentAssemblyInfo _persistentAssemblyInfo;
-        readonly IDataStoreLogonObject _dataStoreLogonObject;
+        IDataStoreLogonObject _dataStoreLogonObject;
 
         public DbMapper(ObjectSpace objectSpace, IPersistentAssemblyInfo persistentAssemblyInfo, IDataStoreLogonObject dataStoreLogonObject) {
             _objectSpace = objectSpace;
@@ -24,7 +25,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             var tableMapper = new TableMapper(_objectSpace,database,attributeMapper);
             var dataTypeMapper = new DataTypeMapper();
             var columnMapper = new ColumnMapper(dataTypeMapper, attributeMapper);
-            Tracing.Tracer.LogSeparator("DBMapper Start mapping datatbase "+database.Name);
+            Tracing.Tracer.LogSeparator("DBMapper Start mapping database "+database.Name);
             foreach (Table table in database.Tables.OfType<Table>().Where(table => !(table.IsSystemObject))){
                 Tracing.Tracer.LogVerboseValue("Table",table.Name);
                 IPersistentClassInfo persistentClassInfo = tableMapper.Create(table, _persistentAssemblyInfo);
@@ -32,6 +33,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
                     columnMapper.Create(column, persistentClassInfo);
                 }
             }
+            _dataStoreLogonObject = (IDataStoreLogonObject) ReflectionHelper.CreateObject(XafTypesInfo.Instance.FindBussinessObjectType<IDataStoreLogonObject>(), new object[] { _persistentAssemblyInfo.Session, _dataStoreLogonObject });
             attributeMapper.Create(_persistentAssemblyInfo, _dataStoreLogonObject);
             Func<ITemplateInfo, bool> templateInfoPredicate = info => info.Name == ExtraInfoBuilder.SupportPersistentObjectsAsAPartOfACompositeKey;
             CodeEngine.SupportCompositeKeyPersistentObjects(_persistentAssemblyInfo, templateInfoPredicate);

@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using eXpand.Persistent.Base.General;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Xpo.Attributes;
 

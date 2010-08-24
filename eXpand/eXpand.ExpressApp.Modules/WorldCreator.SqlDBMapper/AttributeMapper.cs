@@ -108,9 +108,12 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
         }
 
         public void Create(IPersistentAssemblyInfo persistentAssemblyInfo, IDataStoreLogonObject dataStoreLogonObject) {
-            var persistentAssemblyDataStoreAttributeInfo = _objectSpace.CreateWCObject<IPersistentAssemblyDataStoreAttributeInfo>();
-            persistentAssemblyDataStoreAttributeInfo.DataStoreLogon = dataStoreLogonObject;
-            persistentAssemblyInfo.Attributes.Add(persistentAssemblyDataStoreAttributeInfo);
+            if (persistentAssemblyInfo.PersistentClassInfos.Count()>0) {
+                var persistentAssemblyDataStoreAttributeInfo = _objectSpace.CreateWCObject<IPersistentAssemblyDataStoreAttributeInfo>();
+                persistentAssemblyDataStoreAttributeInfo.DataStoreLogon = dataStoreLogonObject;
+                persistentAssemblyDataStoreAttributeInfo.PersistentClassInfo =persistentAssemblyInfo.PersistentClassInfos[0];
+                persistentAssemblyInfo.Attributes.Add(persistentAssemblyDataStoreAttributeInfo);
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.ConditionalEditorState;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData
@@ -16,6 +17,12 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
         public DataStoreLogonObject(Session session)
             : base(session)
         {
+        }
+
+        public DataStoreLogonObject(Session session,DataStoreLogonObject dataStoreLogonObject) : base(session) {
+            foreach (XPMemberInfo memberInfo in ClassInfo.OwnMembers) {
+                memberInfo.SetValue(this, memberInfo.GetValue(dataStoreLogonObject));
+            }
         }
 
 

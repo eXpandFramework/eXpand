@@ -36,6 +36,7 @@ namespace eXpand.ExpressApp.WorldCreator {
             using (SimpleDataLayer simpleDataLayer 
                 = XpoMultiDataStoreProxy.GetDataLayer(_connectionString, GetReflectionDictionary(), bussinessObjectType)) {
                 using (var session = new UnitOfWork(simpleDataLayer)) {
+                    session.LockingOption=LockingOption.None;
                     AddDynamicModules(moduleManager, session);
                 }
             }
@@ -100,15 +101,16 @@ namespace eXpand.ExpressApp.WorldCreator {
                 throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
         }
 
-        public void AddDynamicModules(ApplicationModulesManager moduleManager, Session session){
+        public void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork){
             Type assemblyInfoType = WCTypesInfo.Instance.FindBussinessObjectType<IPersistentAssemblyInfo>();
             List<IPersistentAssemblyInfo> persistentAssemblyInfos =
-                new XPCollection(session, assemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(info => !info.DoNotCompile &&
+                new XPCollection(unitOfWork, assemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(info => !info.DoNotCompile &&
                     moduleManager.Modules.Where(@base => @base.Name == "Dynamic" + info.Name + "Module").FirstOrDefault() ==null).ToList();
             _definedModules = new CompileEngine().CompileModules(persistentAssemblyInfos,GetPath());
             foreach (var definedModule in _definedModules){
                 moduleManager.AddModule(definedModule);
             }
+            unitOfWork.CommitChanges();
         }
 
         public abstract string GetPath();

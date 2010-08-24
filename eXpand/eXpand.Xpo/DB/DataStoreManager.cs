@@ -5,7 +5,6 @@ using System.Data;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
-using eXpand.Xpo.Attributes;
 using System.Linq;
 
 namespace eXpand.Xpo.DB {
@@ -19,13 +18,13 @@ namespace eXpand.Xpo.DB {
 
         public DataStoreManager(string connectionString) {
             _connectionString = connectionString;
-            _dataStoreAttributes = getDataStoreAttributes();
+            _dataStoreAttributes = GetDataStoreAttributes();
         }
 
 
         public string GetKey(Type type){
             var dataStoreAttribute = _dataStoreAttributes.Where(attribute => (type.Namespace+"").StartsWith(attribute.NameSpace)).SingleOrDefault();
-            return dataStoreAttribute == null ? STR_Default : dataStoreAttribute.DataStoreNameSuffix;
+            return dataStoreAttribute == null ? STR_Default : (dataStoreAttribute.DataStoreNameSuffix??dataStoreAttribute.ConnectionString);
         }
 
         string GetKey(XPClassInfo xpClassInfo) {
@@ -86,6 +85,8 @@ namespace eXpand.Xpo.DB {
         {
             if (key==STR_Default)
                 return _connectionString;
+            if (key.StartsWith(DataStoreBase.XpoProviderTypeParameterName))
+                return key;
             ConnectionStringSettings connectionStringSettings =
                 ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", key)];
             if (connectionStringSettings != null){
@@ -107,8 +108,8 @@ namespace eXpand.Xpo.DB {
             return XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
         }
 
-        IEnumerable<DataStoreAttribute> getDataStoreAttributes() {
-            return AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetCustomAttributes(typeof(DataStoreAttribute), false).OfType<DataStoreAttribute>());
+        IEnumerable<DataStoreAttribute> GetDataStoreAttributes() {
+            return AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>());
         }
 
         public Dictionary<string, SimpleDataLayer> SimpleDataLayers {

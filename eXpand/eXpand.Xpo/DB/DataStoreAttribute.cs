@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace eXpand.Xpo.Attributes {
+namespace eXpand.Xpo.DB {
     [AttributeUsage(AttributeTargets.Assembly,AllowMultiple = true)]
     public class DataStoreAttribute:Attribute
     {
-        readonly string _connectionString;
+        protected string _connectionString;
         readonly Type _nameSpaceType;
         readonly string _dataStoreNameSuffix;
 
@@ -13,15 +13,10 @@ namespace eXpand.Xpo.Attributes {
             _dataStoreNameSuffix = dataStoreNameSuffix;
         }
 
-        public DataStoreAttribute(string connectionString, Type nameSpaceType) {
-            _connectionString = connectionString;
-            _nameSpaceType = nameSpaceType;
-        }
-
-        public string ConnectionString {
+        public string ConnectionString
+        {
             get { return _connectionString; }
         }
-
         public string NameSpace {
             get { return _nameSpaceType.Namespace; }
         }

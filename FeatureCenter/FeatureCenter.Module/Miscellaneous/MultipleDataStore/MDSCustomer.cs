@@ -2,7 +2,7 @@
 using DevExpress.Xpo;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using eXpand.ExpressApp.Attributes;
-using eXpand.Xpo.Attributes;
+using eXpand.Persistent.Base.General;
 using FeatureCenter.Base;
 using FeatureCenter.Module.Miscellaneous.MultipleDataStore;
 

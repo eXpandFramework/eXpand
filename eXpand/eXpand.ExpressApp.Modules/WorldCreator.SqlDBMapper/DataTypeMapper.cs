@@ -1,4 +1,5 @@
-﻿using DevExpress.Xpo.DB;
+﻿using DevExpress.Persistent.Base;
+using DevExpress.Xpo.DB;
 using Microsoft.SqlServer.Management.Smo;
 
 namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
@@ -12,6 +13,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
                 case SqlDataType.Int:
                     return DBColumnType.Int32;
                 case SqlDataType.Image:
+                case SqlDataType.VarBinaryMax:
                 case SqlDataType.VarBinary:
                     return DBColumnType.ByteArray;
                 case SqlDataType.Char:
@@ -21,6 +23,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
                     return DBColumnType.String;
                 case SqlDataType.VarChar:
                 case SqlDataType.NVarChar:
+                case SqlDataType.NVarCharMax:
                 case SqlDataType.Xml:
                 case SqlDataType.NText:
                 case SqlDataType.Text:
@@ -53,6 +56,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
                     
                 
             }
+            Tracing.Tracer.LogError("Column " + column.Name + " with datatype " + column.DataType.SqlDataType+" on table "+((Table) column.Parent).Name+" is Unknown to "+GetType().Name);
             return DBColumnType.Unknown;
         }
 
