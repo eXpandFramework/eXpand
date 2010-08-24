@@ -27,7 +27,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             var columnMapper = new ColumnMapper(dataTypeMapper, attributeMapper);
             Tracing.Tracer.LogSeparator("DBMapper Start mapping database "+database.Name);
             foreach (Table table in database.Tables.OfType<Table>().Where(table => !(table.IsSystemObject))){
-                Tracing.Tracer.LogVerboseValue("Table",table.Name);
+                Tracing.Tracer.LogValue("Table",table.Name);
                 IPersistentClassInfo persistentClassInfo = tableMapper.Create(table, _persistentAssemblyInfo);
                 foreach (Column column in table.Columns) {
                     columnMapper.Create(column, persistentClassInfo);

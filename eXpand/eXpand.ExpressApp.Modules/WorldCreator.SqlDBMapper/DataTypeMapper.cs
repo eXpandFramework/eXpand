@@ -56,7 +56,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
                     
                 
             }
-            Tracing.Tracer.LogError("Column " + column.Name + " with datatype " + column.DataType.SqlDataType+" on table "+((Table) column.Parent).Name+" is Unknown to "+GetType().Name);
+            Tracing.Tracer.LogText("Column " + column.Name + " with datatype " + column.DataType.SqlDataType+" on table "+((Table) column.Parent).Name+" is Unknown to "+GetType().Name);
             return DBColumnType.Unknown;
         }
 

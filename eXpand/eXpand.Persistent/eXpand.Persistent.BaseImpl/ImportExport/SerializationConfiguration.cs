@@ -22,6 +22,7 @@ namespace eXpand.Persistent.BaseImpl.ImportExport {
         [ValueConverter(typeof(TypeValueConverter))]
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         [VisibleInListView(true)]
+        [RuleRequiredField]
         public Type TypeToSerialize
         {
             get {
