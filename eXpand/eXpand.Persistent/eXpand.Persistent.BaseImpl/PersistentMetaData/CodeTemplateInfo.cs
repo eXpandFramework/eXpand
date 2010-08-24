@@ -5,7 +5,7 @@ using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-    [WCRegistrator(typeof(ICodeTemplateInfo))]
+    [InterfaceRegistrator(typeof(ICodeTemplateInfo))]
     public class CodeTemplateInfo : BaseObject, ICodeTemplateInfo {
         CodeTemplate _codeTemplate;
         PersistentAssemblyInfo _persistentAssemblyInfo;

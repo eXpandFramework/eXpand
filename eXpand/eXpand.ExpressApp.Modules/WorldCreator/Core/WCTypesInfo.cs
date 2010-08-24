@@ -36,14 +36,14 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public void Register(IEnumerable<Type> types) {
             IEnumerable<Type> persistentTypes = GetPersistentTypes(types);
             foreach (var persistentType in persistentTypes) {
-                var interfaceType = persistentType.GetCustomAttributes(typeof(WCRegistratorAttribute),false).OfType<WCRegistratorAttribute>().Single().InterfaceType;
+                var interfaceType = persistentType.GetCustomAttributes(typeof(InterfaceRegistratorAttribute),false).OfType<InterfaceRegistratorAttribute>().Single().InterfaceType;
                 if (!_dictionary.ContainsKey(interfaceType))
                     _dictionary.Add(interfaceType,persistentType);
             }
         }
 
         IEnumerable<Type> GetPersistentTypes(IEnumerable<Type> types) {
-            return types.Where(type => type.GetCustomAttributes(typeof(WCRegistratorAttribute),false).OfType<WCRegistratorAttribute>().Count()==1);
+            return types.Where(type => type.GetCustomAttributes(typeof(InterfaceRegistratorAttribute),false).OfType<InterfaceRegistratorAttribute>().Count()==1);
         }
 
         public void Register(Type type) {

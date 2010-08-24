@@ -1,8 +1,8 @@
 ﻿using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.SqlDBMapper;
+using eXpand.Persistent.Base.PersistentMetaData;
 
-namespace eXpand.Persistent.BaseImpl.SqlDBMapper {
+namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [NonPersistent]
     public class DataBase : BaseObject, IDataBase {
         public DataBase(Session session) : base(session) {

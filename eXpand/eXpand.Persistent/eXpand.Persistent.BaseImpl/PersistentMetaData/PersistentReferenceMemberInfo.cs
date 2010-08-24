@@ -11,7 +11,7 @@ using eXpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-    [WCRegistrator(typeof(IPersistentReferenceMemberInfo))]
+    [InterfaceRegistrator(typeof(IPersistentReferenceMemberInfo))]
     [RuleRequiredForAtLeast1Property(null, DefaultContexts.Save, "ReferenceType,ReferenceClassInfo")]
     public class PersistentReferenceMemberInfo : PersistentMemberInfo, IPersistentReferenceMemberInfo {
         bool _autoGenerateOtherPartMember;

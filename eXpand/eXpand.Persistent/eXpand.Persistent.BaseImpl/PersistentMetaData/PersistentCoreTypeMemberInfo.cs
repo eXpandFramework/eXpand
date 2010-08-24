@@ -4,7 +4,7 @@ using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData
 {
-    [WCRegistrator(typeof(IPersistentCoreTypeMemberInfo))]
+    [InterfaceRegistrator(typeof(IPersistentCoreTypeMemberInfo))]
     public class PersistentCoreTypeMemberInfo : PersistentMemberInfo, IPersistentCoreTypeMemberInfo {
         public PersistentCoreTypeMemberInfo(Session session) : base(session) { }
 

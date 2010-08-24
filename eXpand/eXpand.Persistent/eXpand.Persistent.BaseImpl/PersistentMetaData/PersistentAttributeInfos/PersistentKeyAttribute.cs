@@ -5,7 +5,7 @@ using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
 {
-    [WCRegistrator(typeof(IPersistentKeyAttribute))]
+    [InterfaceRegistrator(typeof(IPersistentKeyAttribute))]
     [DefaultProperty("KeyName")]
     public class PersistentKeyAttribute:PersistentAttributeInfo, IPersistentKeyAttribute {
         public PersistentKeyAttribute(Session session) : base(session) {

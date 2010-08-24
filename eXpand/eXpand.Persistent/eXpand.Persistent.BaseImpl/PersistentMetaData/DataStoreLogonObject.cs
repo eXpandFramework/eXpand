@@ -5,10 +5,11 @@ using DevExpress.ExpressApp.ConditionalEditorState;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.SqlDBMapper;
+using eXpand.Persistent.Base.PersistentMetaData;
 
-namespace eXpand.Persistent.BaseImpl.SqlDBMapper
+namespace eXpand.Persistent.BaseImpl.PersistentMetaData
 {
+    [InterfaceRegistrator(typeof (IDataStoreLogonObject))]
     [EditorStateRule("DataStoreLogonObject_UserName", "UserName,PassWord",EditorState.Disabled, "Authentication=0",ViewType.DetailView)]
     [NonPersistent]
     public class DataStoreLogonObject : BaseObject, IDataStoreLogonObject {
@@ -16,6 +17,8 @@ namespace eXpand.Persistent.BaseImpl.SqlDBMapper
             : base(session)
         {
         }
+
+
         private string _serverName;
 
         public string ServerName

@@ -6,7 +6,6 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using eXpand.ExpressApp.WorldCreator.Controllers;
 using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.Base.SqlDBMapper;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using eXpand.ExpressApp.Core;
@@ -43,6 +42,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper
 
         void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
             var persistentAssemblyInfo = (IPersistentAssemblyInfo)View.CurrentObject;
+            ObjectSpace.CommitChanges();
             var objectSpace = new ObjectSpace(new UnitOfWork(ObjectSpace.Session.DataLayer), XafTypesInfo.Instance);
             CreateMappedAssemblyInfo(objectSpace, persistentAssemblyInfo, (IDataStoreLogonObject)simpleActionExecuteEventArgs.CurrentObject);
             ObjectSpace.Refresh();
@@ -58,7 +58,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper
             Database database = server.Databases[sqlConnection.Database];
             database.Refresh();
             IPersistentAssemblyInfo assemblyInfo = objectSpace.GetObject(persistentAssemblyInfo);
-            var dbMapper = new DbMapper(objectSpace, assemblyInfo);
+            var dbMapper = new DbMapper(objectSpace, assemblyInfo,dataStoreLogonObject);
             dbMapper.Map(database);
             objectSpace.CommitChanges();
         }

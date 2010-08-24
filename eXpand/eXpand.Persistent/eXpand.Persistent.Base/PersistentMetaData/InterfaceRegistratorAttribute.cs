@@ -2,11 +2,11 @@
 
 namespace eXpand.Persistent.Base.PersistentMetaData
 {
-    public class WCRegistratorAttribute:Attribute
+    public class InterfaceRegistratorAttribute:Attribute
     {
         readonly Type interfaceType;
 
-        public WCRegistratorAttribute(Type interfaceType) {
+        public InterfaceRegistratorAttribute(Type interfaceType) {
             this.interfaceType = interfaceType;
         }
 

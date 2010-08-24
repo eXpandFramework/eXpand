@@ -11,7 +11,7 @@ using eXpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-    [WCRegistrator(typeof(IPersistentCollectionMemberInfo))]
+    [InterfaceRegistrator(typeof(IPersistentCollectionMemberInfo))]
     [RuleRequiredForAtLeast1Property(null, DefaultContexts.Save, "CollectionType,CollectionClassInfo")]
     public class PersistentCollectionMemberInfo : PersistentMemberInfo, IPersistentCollectionMemberInfo {
         PersistentClassInfo _collectionClassInfo;

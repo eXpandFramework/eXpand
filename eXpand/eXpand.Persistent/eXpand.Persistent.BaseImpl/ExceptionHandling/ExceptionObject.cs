@@ -7,13 +7,13 @@ using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.Base.Security;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.Attributes;
 using eXpand.Persistent.Base.ExceptionHandling;
 using eXpand.Persistent.Base.General.ValueConverters;
 
 namespace eXpand.Persistent.BaseImpl.ExceptionHandling
 {
+    
     [HideFromNewMenu]
     [DeferredDeletion(false)]
     public class ExceptionObject : XPLiteObject, IExceptionObject

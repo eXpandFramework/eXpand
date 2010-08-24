@@ -14,7 +14,8 @@ using eXpand.ExpressApp.Core;
 namespace eXpand.ExpressApp.ExceptionHandling {
     public static class ExceptionObjectBuilder {
         public static IExceptionObject Create(Session session, Exception exception,XafApplication application) {
-            var exceptionObject = (IExceptionObject)ReflectionHelper.CreateObject(XafTypesInfo.Instance.FindBussinessObjectType<IExceptionObject>(), new[] { session });
+            var findBussinessObjectType = XafTypesInfo.Instance.FindBussinessObjectType<IExceptionObject>();
+            var exceptionObject = (IExceptionObject)ReflectionHelper.CreateObject(findBussinessObjectType, new[] { session });
             if (application != null)
                 exceptionObject.Application = application.ApplicationName;
             exceptionObject.ComputerName = Environment.MachineName;

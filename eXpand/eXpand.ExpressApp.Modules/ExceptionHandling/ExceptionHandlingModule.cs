@@ -1,9 +1,11 @@
 using System;
 using System.Configuration;
 using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
+using eXpand.Persistent.Base.ExceptionHandling;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using Microsoft.Practices.EnterpriseLibrary.Logging.Configuration;
 
@@ -25,6 +27,7 @@ namespace eXpand.ExpressApp.ExceptionHandling {
                 var connectionStringSettingsCollection = ConfigurationManager.ConnectionStrings;
                 var connectionStringSettings = connectionStringSettingsCollection.OfType<ConnectionStringSettings>().Where(settings => settings.Name=="ExceptionHandlingConnectionString").FirstOrDefault();
                 if (connectionStringSettings!= null) {
+                    if (XafTypesInfo.Instance.FindTypeInfo(typeof(IExceptionObject)).Implementors.Count() == 0) return;
                     var session = new Session(
                         new SimpleDataLayer(XpoDefault.GetConnectionProvider(connectionStringSettings.ConnectionString,AutoCreateOption.DatabaseAndSchema)));
                     var exceptionObject = ExceptionObjectBuilder.Create(session,exception,Application);

@@ -25,7 +25,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             Isolate.WhenCalled(() => _table.Name).WillReturn("test");
             _attributeMapper = new AttributeMapper(ObjectSpace);
             _persistentPersistentAttribute = new PersistentPersistentAttribute(UnitOfWork);
-            Isolate.WhenCalled(() => _attributeMapper.Create(null, null)).WillReturn(new List<IPersistentAttributeInfo> { _persistentPersistentAttribute });
+            Isolate.WhenCalled(() => _attributeMapper.Create(_table, null)).WillReturn(new List<IPersistentAttributeInfo> { _persistentPersistentAttribute });
         };
 
         Because of = () =>

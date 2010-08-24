@@ -214,8 +214,8 @@
     <Compile Include="PivotChart\Web\PivotGridWebOptionsPager.cs" />
     <Compile Include="PivotChart\Web\PivotGridWebOptionsView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlDBMapper\DataStoreLogonObject.cs" />
-    <Compile Include="SqlDBMapper\DataBase.cs" />
+    <Compile Include="PersistentMetaData\DataStoreLogonObject.cs" />
+    <Compile Include="PersistentMetaData\DataBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

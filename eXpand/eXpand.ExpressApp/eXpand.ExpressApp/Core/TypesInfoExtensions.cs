@@ -131,5 +131,7 @@ namespace eXpand.ExpressApp.Core{
             Guid guid = Guid.NewGuid();
             return CreateBothPartMembers(typesinfo, typeToCreateOn, otherPartMember, xpDictionary,isManyToMany,guid.ToString());
         }
+
+        
     }
 }

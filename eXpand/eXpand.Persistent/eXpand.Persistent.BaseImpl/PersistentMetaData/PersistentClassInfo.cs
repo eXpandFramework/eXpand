@@ -15,7 +15,7 @@ using eXpand.Utils.Helpers;
 using eXpand.Xpo;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-    [WCRegistrator(typeof(IPersistentClassInfo))]
+    [InterfaceRegistrator(typeof(IPersistentClassInfo))]
     public class PersistentClassInfo : PersistentTemplatedTypeInfo, IPersistentClassInfo, IPropertyValueValidator {
         PersistentClassInfo _baseClassInfo;
         Type _baseType;

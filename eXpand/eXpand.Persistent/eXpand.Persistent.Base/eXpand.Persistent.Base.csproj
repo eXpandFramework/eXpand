@@ -118,6 +118,7 @@
     <Compile Include="PersistentMetaData\IPersistentTemplatedTypeInfo.cs" />
     <Compile Include="PersistentMetaData\ITemplateInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\AttributeInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssemblyDataStoreAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssociationAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAttributeCreator.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAttributeInfo.cs" />
@@ -133,7 +134,7 @@
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentRuleRequiredFieldAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentSizeAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssemblyAttributeInfo.cs" />
-    <Compile Include="PersistentMetaData\WCRegistratorAttribute.cs" />
+    <Compile Include="PersistentMetaData\InterfaceRegistratorAttribute.cs" />
     <Compile Include="PivotChart\Web\IPivotGridOptionsOLAP.cs" />
     <Compile Include="PivotChart\Web\IPivotGridWebOptionsChartDataSource.cs" />
     <Compile Include="PivotChart\Web\IPivotGridWebOptionsCustomization.cs" />
@@ -151,8 +152,8 @@
     <Compile Include="PivotChart\IPivotOptionsSelection.cs" />
     <Compile Include="PivotChart\IPivotOptionsView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlDBMapper\IDataBase.cs" />
-    <Compile Include="SqlDBMapper\IDataStoreLogonObject.cs" />
+    <Compile Include="PersistentMetaData\IDataBase.cs" />
+    <Compile Include="PersistentMetaData\IDataStoreLogonObject.cs" />
     <Compile Include="Validation\AtLeast1PropertyIsRequired\IRuleRequiredForAtLeast1PropertyProperties.cs" />
     <Compile Include="Validation\RuleDefaultMessageTemplates.cs" />
     <Compile Include="Validation\AtLeast1PropertyIsRequired\RuleRequiredForAtLeast1Property.cs" />
@@ -197,6 +198,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SqlDBMapper\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

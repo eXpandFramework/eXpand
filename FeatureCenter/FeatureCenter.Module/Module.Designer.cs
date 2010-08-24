@@ -3,6 +3,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.MemberLevelSecurity;
 using eXpand.ExpressApp.WorldCreator.SqlDBMapper;
+using eXpand.Persistent.BaseImpl.ExceptionHandling;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using System.Linq;
 namespace FeatureCenter.Module
@@ -42,7 +43,8 @@ namespace FeatureCenter.Module
             // Solution1Module
             // 
 
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.SqlDBMapper.DataStoreLogonObject));
+            AdditionalBusinessClasses.Add(typeof(ExceptionObject));
+            AdditionalBusinessClasses.Add(typeof(DataStoreLogonObject));
             AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.ImportExport.ClassInfoGraphNode));
             AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.ImportExport.SerializationConfiguration));
             AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.ImportExport.SerializationConfigurationGroup));

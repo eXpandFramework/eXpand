@@ -1,6 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.Xpo.DB;
-using eXpand.Persistent.Base.SqlDBMapper;
+using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.ExpressApp.Core;
 using eXpand.Utils.Helpers;
 

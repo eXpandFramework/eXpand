@@ -17,7 +17,9 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
         public string Name {
             get { return GetType().Name + ": " + ToString(); }
         }
-
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [Association("PersistentAssemblyInfo-Attributes")]
         public PersistentAssemblyInfo Owner {
             get { return _owner; }

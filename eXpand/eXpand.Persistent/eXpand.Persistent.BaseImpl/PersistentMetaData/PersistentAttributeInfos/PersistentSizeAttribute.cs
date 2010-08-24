@@ -5,7 +5,7 @@ using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
 {
-    [WCRegistrator(typeof(IPersistentSizeAttribute))]
+    [InterfaceRegistrator(typeof(IPersistentSizeAttribute))]
     [DefaultProperty("Size")]
     public class PersistentSizeAttribute : PersistentAttributeInfo, IPersistentSizeAttribute {
         public PersistentSizeAttribute(Session session) : base(session) {
