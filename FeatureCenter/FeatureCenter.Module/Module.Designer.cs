@@ -6,6 +6,8 @@ using eXpand.ExpressApp.WorldCreator.SqlDBMapper;
 using eXpand.Persistent.BaseImpl.ExceptionHandling;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using System.Linq;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 namespace FeatureCenter.Module
 {
     partial class FeatureCenterModule
@@ -43,6 +45,8 @@ namespace FeatureCenter.Module
             // Solution1Module
             // 
 
+            AdditionalBusinessClasses.Add(typeof(PersistentAssemblyAttributeInfo));
+            AdditionalBusinessClasses.Add(typeof(PersistentAssemblyVersionAttributeInfo));
             AdditionalBusinessClasses.Add(typeof(ExceptionObject));
             AdditionalBusinessClasses.Add(typeof(DataStoreLogonObject));
             AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.ImportExport.ClassInfoGraphNode));

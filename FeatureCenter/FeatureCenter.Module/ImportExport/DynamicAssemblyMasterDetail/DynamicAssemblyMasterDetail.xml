@@ -4,7 +4,7 @@
     <Property type="simple" name="Name" isKey="false"><![CDATA[IOMasterDetailDynamicAssembly]]></Property>
     <Property type="simple" name="CompileOrder" isKey="false">0</Property>
     <Property type="simple" name="CodeDomProvider" isKey="false">0</Property>
-    <Property type="simple" name="Version" isKey="false"><![CDATA[1.0.0.*]]></Property>
+    
     <Property type="simple" name="DoNotCompile" isKey="false">False</Property>
     <Property type="simple" name="CompileErrors" isKey="false"></Property>
     
