@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>eXpand Framework</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<meta http-equiv="Cache-Control" content="no-cache" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+</head>
+<body>
+<h1>eXpand Framework</h1>
+<p><em>Development build ${Version}</em></p>
+
+<h2>eXpand Framework</h2>
+<ul>
+<li><a href="${BinaryPackage}">Download binaries</a> (DLL, PDB, XML).</li>
+<li><a href="${SourcePackage}">Download sources</a> (C#, VS2008 solution).</li>
+</ul>
+
+
+<h2>Links</h2>
+<ul>
+<li><a href="http://code.google.com/p/expandframework/">Home page of the eXpand Framework</a></li>
+<li><a href="http://github.com/apobekiaris/eXpand/">Sourcecode</a></li>
+
+</ul>
+<p><sub><em>Build ${Version} released on ${BuildTime}.</em></sub></p>
+<p>&copy;2010 eXpand. All rights reserved</p>
+</body>
+</html>

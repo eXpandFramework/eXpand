@@ -16,6 +16,7 @@
 		<Configuration Condition="$(Configuration)==''">Release</Configuration>
 		<ArtifactDirectory Condition="$(ArtifactDirectory)==''">$(BuildPath)\Artifact</ArtifactDirectory>
 		<PackageDirectory Condition="$(PackageDirectory)==''">$(BuildPath)\_Package\$(Version)</PackageDirectory>
+		<DeploymentFolder Condition="$(DeploymentFolder)==''">$(BuildPath)\_DeploymentFolder\</DeploymentFolder>
 		<!--
 			Derived configuration properties
 		-->
@@ -89,6 +90,22 @@
 			" />	
 	</ItemGroup>
 	
+	<ItemGroup>
+		<Tokens Include="SourcePackage">
+			<ReplacementValue>$(ProjectName)-Source-$(Version).zip</ReplacementValue>
+		</Tokens>	
+		<Tokens Include="BinaryPackage">
+			<ReplacementValue>$(ProjectName)-Lib-$(Version).zip</ReplacementValue>
+		</Tokens>
+		<Tokens Include="Version">
+			<ReplacementValue>$(Version)</ReplacementValue>
+		</Tokens>
+		<Tokens Include="BuildTime">
+			<ReplacementValue>$(BuildTime)</ReplacementValue>
+		</Tokens>
+	</ItemGroup>
+
+	
 	<!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
 	-->
@@ -160,6 +177,22 @@
 	<!--For Continuous integration and automated releases-->
 	<Target Name="Release" DependsOnTargets="Clean;Build;Test;Report;Distrib;" />
 	
+	<Target Name="DeployUpdate">
+		<MakeDir Directories="$(DeploymentFolder);" />
+
+		<CreateItem Include="$(PackageDirectory)\*.zip">
+			<Output ItemName="deploymentFiles" TaskParameter="Include" />
+		</CreateItem>
+		<Copy SourceFiles="@(deploymentFiles)" DestinationFolder="$(DeploymentFolder)\%(deploymentFiles.SubFolder)%(deploymentFiles.RecursiveDir)" />
+
+		
+		<!--Index-->
+		<Copy SourceFiles="Resource\Template\index.template" DestinationFolder="$(TempPath)" />
+		<TemplateFile Template="$(TempPath)\index.template" OutputFile="index.out" Tokens="@(Tokens)" />
+		<Copy SourceFiles="$(TempPath)\index.out" DestinationFiles="$(DeploymentFolder)\index.htm" />
+		
+	</Target>
+	
 	<Target Name="Distrib" DependsOnTargets="Clean;Build;Copy;Config;">
 		<MakeDir Directories="$(PackageDirectory);" />
 
@@ -174,5 +207,31 @@
 			<Output ItemName="_libFiles" TaskParameter="Include" />
 		</CreateItem>
 		<Zip Files="@(_libFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Lib-$(Version).zip" Flatten="true" />
+		
+		<!--
+		Condition="$(DeployUpdate)=='true'" 
+		-->
+		<CallTarget Targets="DeployUpdate" />
 	</Target>
+	
+	<Target Name="_Version">
+		<!--
+		<CreateItem Include="**\GlobalAssemblyInfo.cs">
+			<Output ItemName="_VersionPaths" TaskParameter="Include"/>
+		</CreateItem>
+		<CreateItem Include="@(_VersionPaths->'%(SubFolder)%(RecursiveDir)VersionAssemblyInfo.cs')">
+			<Output ItemName="_VersionFiles" TaskParameter="Include"/>
+		</CreateItem>
+		-->
+		<Time Format="yyyy-MM-dd HH:mm" Condition="$(BuildTime)==''">
+			<Output TaskParameter="FormattedTime" PropertyName="BuildTime" />
+		</Time>
+		<!--
+		<AssemblyInfo OutputFile="%(_VersionFiles.FullPath)" CodeLanguage="CS"
+									AssemblyVersion="$(Version)"
+									AssemblyFileVersion="$(Version)"
+									AssemblyConfiguration="$(Configuration) built on $(BuildTime)" />
+		-->
+	</Target>
+
 </Project>
