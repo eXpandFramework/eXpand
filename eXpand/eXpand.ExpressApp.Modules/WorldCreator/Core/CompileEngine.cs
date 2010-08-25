@@ -1,7 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -41,10 +40,10 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             };
             if (action!= null)
                 action.Invoke(compilerParams);                
-            addReferences(compilerParams,path);
+            AddReferences(compilerParams,path);
             if (File.Exists(compilerParams.OutputAssembly))
                 File.Delete(compilerParams.OutputAssembly);
-            return compile(persistentAssemblyInfo, generateCode, compilerParams, codeProvider);
+            return CompileCore(persistentAssemblyInfo, generateCode, compilerParams, codeProvider);
 
         }
         public Type CompileModule(IPersistentAssemblyBuilder persistentAssemblyBuilder, string path) {
@@ -84,7 +83,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return new VBCodeProvider();
         }
 
-        Type compile(IPersistentAssemblyInfo persistentAssemblyInfo, string generateCode, CompilerParameters compilerParams, System.CodeDom.Compiler.CodeDomProvider codeProvider) {
+        Type CompileCore(IPersistentAssemblyInfo persistentAssemblyInfo, string generateCode, CompilerParameters compilerParams, System.CodeDom.Compiler.CodeDomProvider codeProvider) {
             CompilerResults compileAssemblyFromSource = null;
             try{
                 compileAssemblyFromSource = codeProvider.CompileAssemblyFromSource(compilerParams, generateCode);
@@ -115,9 +114,9 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                     persistentAssemblyInfo.CompileErrors, (current, error) => current +Environment.NewLine+ error.ToString());
         }
 
-        void addReferences(CompilerParameters compilerParams, string path) {
+        void AddReferences(CompilerParameters compilerParams, string path) {
             Func<Assembly, bool> isNotDynamic =assembly1 =>!(assembly1 is AssemblyBuilder) && !CompiledAssemblies.Contains(assembly1) &&
-                assembly1.EntryPoint == null && !isCodeDomCompiled(assembly1);
+                assembly1.EntryPoint == null && !IsCodeDomCompiled(assembly1);
             Func<Assembly, string> assemblyNameSelector = assembly => new AssemblyName(assembly.FullName + "").Name + ".dll";
             compilerParams.ReferencedAssemblies.AddRange(
                 AppDomain.CurrentDomain.GetAssemblies().Where(isNotDynamic).Select(assemblyNameSelector).ToArray());
@@ -126,24 +125,24 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
             Func<Assembly, string> dynamicAssemblyNameSelector = assembly4 => Path.Combine(path, new AssemblyName(assembly4.FullName + "").Name + XpandExtension);
             compilerParams.ReferencedAssemblies.AddRange(
-                AppDomain.CurrentDomain.GetAssemblies().Where(isCodeDomCompiled).Select(
+                AppDomain.CurrentDomain.GetAssemblies().Where(IsCodeDomCompiled).Select(
                     dynamicAssemblyNameSelector).ToArray());
         }
 
-        bool isCodeDomCompiled(Assembly assembly1) {
+        bool IsCodeDomCompiled(Assembly assembly1) {
             return assembly1.ManifestModule.Name == "<Unknown>";
         }
 
 
         static string GetReferenceLocations() {
-            Func<Assembly, string> locationSelector =getAssemblyLocation;
+            Func<Assembly, string> locationSelector =GetAssemblyLocation;
             Func<string, bool> pathIsValid = s => s.Length > 2;
             string referenceLocations = AppDomain.CurrentDomain.GetAssemblies().Select(locationSelector).Distinct().
                 Where(pathIsValid).Aggregate<string, string>(null, (current, type) => current + (type + ",")).TrimEnd(',');
             return referenceLocations;
         }
 
-        static string getAssemblyLocation(Assembly assembly) {
+        static string GetAssemblyLocation(Assembly assembly) {
             return @"""" +((assembly is AssemblyBuilder)? null: (!string.IsNullOrEmpty(assembly.Location) ? Path.GetDirectoryName(assembly.Location) : null)) +@"""";
         }
 

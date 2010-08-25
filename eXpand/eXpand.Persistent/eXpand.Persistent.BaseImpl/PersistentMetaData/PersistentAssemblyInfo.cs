@@ -46,7 +46,9 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         [Custom("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
         public string GeneratedCode {
-            get { return CodeEngine.GenerateCode(this); }
+            get {
+                return CodeEngine.GenerateCode(this);
+            }
         }
 
         [Association("PersistentAssemblyInfo-PersistentClassInfos")]

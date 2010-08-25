@@ -61,7 +61,31 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         It should_clean_the_invalid_name = () => _generateCode.IndexOf("invalid").ShouldBeGreaterThan(-1);
     }
+    [Subject(typeof(CodeEngine),"Generate Code")]
+    public class When_persistent_memberinfo_name_is_the_same_as_its_owner:With_In_Memory_DataStore
+    {
+        static string _generateCode;
+        static PersistentCoreTypeMemberInfo _persistentCoreTypeMemberInfo;
 
+        Establish context = () => {
+            _persistentCoreTypeMemberInfo = new PersistentCoreTypeMemberInfo(UnitOfWork)
+            {
+                Name = "Key",
+                Owner = new PersistentClassInfo(UnitOfWork) { Name = "Key" },
+                CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork)
+            };
+            var codeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.XPReadWritePropertyMember };
+            codeTemplate.SetDefaults();
+            _persistentCoreTypeMemberInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
+        };
+
+        Because of = () => {
+            _generateCode = CodeEngine.GenerateCode(_persistentCoreTypeMemberInfo);
+        };
+
+        It should_extend_generated_code_property_name_with_a_member_suffix =
+            () => _generateCode.IndexOf("KeyMember").ShouldBeGreaterThan(-1);
+    }
     public class When_persistent_class_name_is_not_valid:With_In_Memory_DataStore {
         static string _generateCode;
         static IPersistentClassInfo _persistentClassInfo;

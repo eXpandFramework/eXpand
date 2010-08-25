@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
@@ -21,13 +23,20 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                 string code = persistentMemberInfo.CodeTemplateInfo.TemplateInfo.TemplateCode;
                 if (code != null) {
                     code = code.Replace("$TYPEATTRIBUTES$", GetAttributesCode(persistentMemberInfo));
-                    code = code.Replace("$PROPERTYNAME$", CleanName(persistentMemberInfo.Name));
+                    code = code.Replace("$PROPERTYNAME$", GetMemberName(persistentMemberInfo));
                     code = code.Replace("$PROPERTYTYPE$", GetPropertyTypeCode(persistentMemberInfo));
                     code = code.Replace("$INJECTCODE$", GetInjectCode(persistentMemberInfo));
                 }
                 return code;
             }
             return null;
+        }
+
+        static string GetMemberName(IPersistentMemberInfo persistentMemberInfo) {
+            string memberName = CleanName(persistentMemberInfo.Name);
+            if (persistentMemberInfo.Owner.Name == persistentMemberInfo.Name)
+                memberName += "Member";
+            return memberName;
         }
 
         public static string GenerateCode(IPersistentClassInfo persistentClassInfo) {
@@ -183,20 +192,46 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
         static string GetAssemblyAttributesCode(IPersistentAssemblyInfo persistentAssemblyInfo)
         {
+            string code = "";
+            foreach (var assemblyAttributeInfo in persistentAssemblyInfo.Attributes) {
+                code += GenerateCode(assemblyAttributeInfo) + Environment.NewLine;
+                ((IXPInvalidateableObject) assemblyAttributeInfo).Invalidate();
+            }
+            return code.TrimEnd(Environment.NewLine.ToCharArray());
             return (persistentAssemblyInfo.Attributes.Aggregate<IPersistentAssemblyAttributeInfo, string>(null, (current, persistentAssemblyAttributeInfo) => current + GenerateCode(persistentAssemblyAttributeInfo) + Environment.NewLine) + "").TrimEnd(Environment.NewLine.ToCharArray());
         }
 
         public static string GenerateCode(IPersistentAssemblyInfo persistentAssemblyInfo) {
-            string generateCode =GetAssemblyAttributesCode(persistentAssemblyInfo)+Environment.NewLine+getModuleCode(persistentAssemblyInfo.Name)+Environment.NewLine+ persistentAssemblyInfo.PersistentClassInfos.
-                Aggregate<IPersistentClassInfo, string>(null, (current, persistentClassInfo) => current + (GenerateCode(persistentClassInfo) + Environment.NewLine));
-            return groupUsings(generateCode,persistentAssemblyInfo.CodeDomProvider);
+
+            var usingsDictionary=new Dictionary<string, string>();
+            string generateAssemblyCode = GetAssemblyAttributesCode(persistentAssemblyInfo) + Environment.NewLine +
+                                  GetModuleCode(persistentAssemblyInfo.Name) + Environment.NewLine;
+            var generatedClassCode = new StringBuilder();
+            var generatedUsings = new StringBuilder();
+            foreach (var persistentClassInfo in persistentAssemblyInfo.PersistentClassInfos) {
+                string code = GenerateCode(persistentClassInfo);
+                
+                var regex = new Regex(persistentAssemblyInfo.CodeDomProvider == CodeDomProvider.CSharp ? "(using [^;]*;\r\n)*" : "(Imports [^\r\n]*\r\n)*");
+                string usingsString = string.Concat("", regex.Matches(code).Cast<Match>().Where(match1 => !string.IsNullOrEmpty(match1.Value)).Select(match => match.Value).FirstOrDefault());
+                code=regex.Replace(code, "");
+                if (!(usingsDictionary.ContainsKey(usingsString))) {
+                    usingsDictionary.Add(usingsString, null);
+                    generatedUsings.Append(usingsString);
+                }
+                generatedClassCode.Append(code);
+                ((IXPInvalidateableObject) persistentClassInfo).Invalidate();
+            }
+            return generatedUsings + generateAssemblyCode + generatedClassCode;
+//            string generateCode =GetAssemblyAttributesCode(persistentAssemblyInfo)+Environment.NewLine+GetModuleCode(persistentAssemblyInfo.Name)+Environment.NewLine+ persistentAssemblyInfo.PersistentClassInfos.
+//                Aggregate<IPersistentClassInfo, string>(null, (current, persistentClassInfo) => current + (GenerateCode(persistentClassInfo) + Environment.NewLine));
+            //return GroupUsings(generatedCode.ToString(),persistentAssemblyInfo.CodeDomProvider);
         }
-        internal static string getModuleCode(string assemblyName)
+        internal static string GetModuleCode(string assemblyName)
         {
             return "namespace " + assemblyName + "{public class Dynamic" + (assemblyName + "").Replace(".", "") + "Module:DevExpress.ExpressApp.ModuleBase{}}";
         }
 
-        static string groupUsings(string generateCode,CodeDomProvider codeDomProvider) {
+        static string GroupUsings(string generateCode,CodeDomProvider codeDomProvider) {
             var regex = new Regex(codeDomProvider == CodeDomProvider.CSharp ? "(using [^;]*;\r\n)*" : "(Imports [^\r\n]*\r\n)*");
             if (generateCode != null) {
                 string s =

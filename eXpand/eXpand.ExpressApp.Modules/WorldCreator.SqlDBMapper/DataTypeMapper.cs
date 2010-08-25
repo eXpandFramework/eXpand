@@ -15,6 +15,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
                 case SqlDataType.Image:
                 case SqlDataType.VarBinaryMax:
                 case SqlDataType.VarBinary:
+                case SqlDataType.Binary:
                     return DBColumnType.ByteArray;
                 case SqlDataType.Char:
                 case SqlDataType.NChar:
