@@ -8,7 +8,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [InterfaceRegistrator(typeof(ICodeTemplateInfo))]
     public class CodeTemplateInfo : BaseObject, ICodeTemplateInfo {
         CodeTemplate _codeTemplate;
-        PersistentAssemblyInfo _persistentAssemblyInfo;
 
         TemplateInfo _templateInfo;
 
@@ -31,16 +30,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
 
-        [Association("PersistentAssemblyInfo-CodeTemplateInfos")]
-        public PersistentAssemblyInfo PersistentAssemblyInfo {
-            get { return _persistentAssemblyInfo; }
-            set { SetPropertyValue("PersistentAssemblyInfo", ref _persistentAssemblyInfo, value); }
-        }
         #region ICodeTemplateInfo Members
-        IPersistentAssemblyInfo ICodeTemplateInfo.PersistentAssemblyInfo {
-            get { return PersistentAssemblyInfo; }
-            set { PersistentAssemblyInfo = value as PersistentAssemblyInfo; }
-        }
 
         ITemplateInfo ICodeTemplateInfo.TemplateInfo {
             get { return TemplateInfo; }

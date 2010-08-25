@@ -24,14 +24,14 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
         StrongKeyFile _strongKeyFile;
 
-        const string _version="1.0.0.*";
+        const string Version="1.0.0.*";
 
         public PersistentAssemblyInfo(Session session) : base(session) {
         }
 
         public override void AfterConstruction() {
             base.AfterConstruction();
-            Attributes.Add(new PersistentAssemblyVersionAttributeInfo(Session){Version = _version});
+            Attributes.Add(new PersistentAssemblyVersionAttributeInfo(Session){Version = Version});
         }
 
         [Index(4)]
@@ -57,11 +57,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return GetCollection<PersistentClassInfo>("PersistentClassInfos"); }
         }
 
-        [Association("PersistentAssemblyInfo-CodeTemplateInfos")]
-        [Aggregated]
-        public XPCollection<CodeTemplateInfo> CodeTemplateInfos {
-            get { return GetCollection<CodeTemplateInfo>("CodeTemplateInfos"); }
-        }
         #region IPersistentAssemblyInfo Members
         [RuleRequiredField(null, DefaultContexts.Save)]
         [RuleUniqueValue(null, DefaultContexts.Save)]

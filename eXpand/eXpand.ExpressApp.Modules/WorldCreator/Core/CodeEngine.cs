@@ -10,12 +10,6 @@ using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.ExpressApp.WorldCreator.Core {
     public static class CodeEngine {
-        public static string GenerateCode(ICodeTemplateInfo codeTemplateInfo) {
-            string code = codeTemplateInfo.TemplateInfo.TemplateCode+"";
-            code = code.Replace("$ASSEMBLYNAME$", codeTemplateInfo.PersistentAssemblyInfo.Name);
-            code = code.Replace("$CLASSNAME$", codeTemplateInfo.TemplateInfo.Name);
-            return code;
-        }
 
         public static string GenerateCode(IPersistentMemberInfo persistentMemberInfo) {
             if (persistentMemberInfo.CodeTemplateInfo.TemplateInfo != null) {

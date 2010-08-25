@@ -1,11 +1,8 @@
 using System;
-using System.Security.Principal;
-
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
-using DevExpress.Data.Filtering;
 
-namespace eXpand.ExpressApp.WorldCreator
+namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper
 {
     public class Updater : ModuleUpdater
     {
