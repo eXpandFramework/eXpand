@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="RFCustomer_ListView" IsActiveFilterEnabled="True" ActiveFilterString="[Category!] In ()" FilterControlPosition="Top"  />
+  </Views>
+</Application>

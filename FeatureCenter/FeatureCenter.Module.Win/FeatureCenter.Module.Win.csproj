@@ -366,6 +366,9 @@
     <Compile Include="FooterMessagePanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Miscellaneous\RecursiveFiltering\Category.cs" />
+    <Compile Include="Miscellaneous\RecursiveFiltering\RFCustomer.cs" />
+    <Compile Include="Miscellaneous\RecursiveFiltering\Updater.cs" />
     <Compile Include="Navigation\LogOut\LOCustomer.cs" />
     <Compile Include="Captions.cs" />
     <Compile Include="Navigation\CursorPosition\AttributeRegistrator.cs" />
@@ -499,6 +502,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ListViewControl\LoadWhenFiltered\MDO_LoadWhenFiltered.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Miscellaneous\RecursiveFiltering\MDO_RecursiveFiltering.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

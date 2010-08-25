@@ -5,7 +5,6 @@ using DevExpress.Data.Filtering;
 using DevExpress.Data.Filtering.Helpers;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.TreeListEditors.Win;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
 using DevExpress.XtraEditors;

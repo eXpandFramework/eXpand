@@ -104,7 +104,7 @@
     <Compile Include="ImportExport\NodeType.cs" />
     <Compile Include="ImportExport\SerializationStrategy.cs" />
     <Compile Include="IXpoModelDifference.cs" />
-    <Compile Include="General\IHidden.cs" />
+    <Compile Include="General\IObsoleteTreeNode.cs" />
     <Compile Include="General\IPictureItem.cs" />
     <Compile Include="ModelDifference\ResourcesModelStore.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplate.cs" />

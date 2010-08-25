@@ -17,6 +17,7 @@
         public const string HeaderHideGridPopUpMenu = "Hide Grid PopUp Menu";
         public const string HeaderTrayIcon = "Tray Icon";
         public const string HeaderTabStopForReadOnly = "Tab Stop For Read Only";
+        public const string HeaderRecursiveFiltering = "Recursive Filtering";
 
         public const string ViewMessageAutoCommitListView = "Make a a change to one record and navigate to next one so the changes you have make to saved automatically";
         public const string ViewMessageApplicationMultipleInstances = "FeatureCenter has been set up using Options/ApplicationMultipleInstances attribute to not to allow multi instances. To test it just click on the show another instance action. This feature does not work in debug mode";
@@ -36,5 +37,6 @@
         public const string ViewMessageHideGridPopUpMenu = "Right click on the listview and the popup will never show";
         public const string ViewMessageTrayIcon = "As you can see at the right bottom conrner (tray taskbar) a tray icon with popup context menu is already enable for this application";
         public const string ViewMessageTabStopForReadOnly = "Using TAB navigate through editors and note that for city that is reaonly you spent one tab";
+        public const string ViewMessageRecursiveFiltering = "To test this feature just click on the filter editor enter value lookup property editor, select the Good node and then click accept. Notice that all child nodes of Good are now in your filter criteria";
     }
 }
