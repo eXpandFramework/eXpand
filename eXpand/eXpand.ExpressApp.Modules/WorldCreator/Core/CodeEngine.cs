@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using DevExpress.Persistent.Base;
-using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
@@ -167,7 +166,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public static string GenerateCode(IPersistentAttributeCreator persistentAttributeCreator){
             AttributeInfo attributeInfo = persistentAttributeCreator.Create();
             var attribute = (Attribute)ReflectionHelper.CreateObject(attributeInfo.Constructor.DeclaringType, attributeInfo.InitializedArgumentValues);
-            Func<object, object> argSelector = getArgumentCode;
+            Func<object, object> argSelector = GetArgumentCode;
             string args = attributeInfo.InitializedArgumentValues.Length>0
                               ? attributeInfo.InitializedArgumentValues.Select(argSelector).Aggregate
                               <object, string>(null, (current, o) => current + (o + ",")).TrimEnd(',')
@@ -178,7 +177,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return string.Format("[{0}{1}({2})]",assemblyDecleration, attribute.GetType().FullName, args);
         }
 
-        static object getArgumentCode(object argumentValue) {
+        static object GetArgumentCode(object argumentValue) {
             if (argumentValue is string)
                 return @"@""" + argumentValue + @"""";
             if (argumentValue is Type)
@@ -192,13 +191,8 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
         static string GetAssemblyAttributesCode(IPersistentAssemblyInfo persistentAssemblyInfo)
         {
-            string code = "";
-            foreach (var assemblyAttributeInfo in persistentAssemblyInfo.Attributes) {
-                code += GenerateCode(assemblyAttributeInfo) + Environment.NewLine;
-                ((IXPInvalidateableObject) assemblyAttributeInfo).Invalidate();
-            }
+            string code = persistentAssemblyInfo.Attributes.Aggregate("", (current, assemblyAttributeInfo) => current + (GenerateCode(assemblyAttributeInfo) + Environment.NewLine));
             return code.TrimEnd(Environment.NewLine.ToCharArray());
-            return (persistentAssemblyInfo.Attributes.Aggregate<IPersistentAssemblyAttributeInfo, string>(null, (current, persistentAssemblyAttributeInfo) => current + GenerateCode(persistentAssemblyAttributeInfo) + Environment.NewLine) + "").TrimEnd(Environment.NewLine.ToCharArray());
         }
 
         public static string GenerateCode(IPersistentAssemblyInfo persistentAssemblyInfo) {
@@ -219,26 +213,12 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                     generatedUsings.Append(usingsString);
                 }
                 generatedClassCode.Append(code);
-                ((IXPInvalidateableObject) persistentClassInfo).Invalidate();
             }
             return generatedUsings + generateAssemblyCode + generatedClassCode;
-//            string generateCode =GetAssemblyAttributesCode(persistentAssemblyInfo)+Environment.NewLine+GetModuleCode(persistentAssemblyInfo.Name)+Environment.NewLine+ persistentAssemblyInfo.PersistentClassInfos.
-//                Aggregate<IPersistentClassInfo, string>(null, (current, persistentClassInfo) => current + (GenerateCode(persistentClassInfo) + Environment.NewLine));
-            //return GroupUsings(generatedCode.ToString(),persistentAssemblyInfo.CodeDomProvider);
         }
         internal static string GetModuleCode(string assemblyName)
         {
             return "namespace " + assemblyName + "{public class Dynamic" + (assemblyName + "").Replace(".", "") + "Module:DevExpress.ExpressApp.ModuleBase{}}";
-        }
-
-        static string GroupUsings(string generateCode,CodeDomProvider codeDomProvider) {
-            var regex = new Regex(codeDomProvider == CodeDomProvider.CSharp ? "(using [^;]*;\r\n)*" : "(Imports [^\r\n]*\r\n)*");
-            if (generateCode != null) {
-                string s =
-                    regex.Matches(generateCode).Cast<Match>().Where(match1 => !string.IsNullOrEmpty(match1.Value)).Select(match => match.Value).Distinct().Aggregate<string, string>(null, (current, match) => current + match);
-                return s +Environment.NewLine+ regex.Replace(generateCode, "");
-            }
-            return null;
         }
 
         static string GetCode(IPersistentReferenceMemberInfo key)

@@ -14,6 +14,7 @@ namespace eXpand.Persistent.BaseImpl.ImportExport
     [Custom("DefaultListViewMasterDetailMode", "ListViewAndDetailView")]
     [ControllerStateRule("ClassInfoGraphNode+NewObjectViewController", typeof(NewObjectViewController),  "1=1", "1=1", ControllerState.Disabled)]
     [ControllerStateRule("ClassInfoGraphNode+DeleteObjectsViewController", typeof(DeleteObjectsViewController),  "1=1", "1=1", ControllerState.Disabled)]
+    [DefaultProperty("Name")]
     public class ClassInfoGraphNode : BaseObject, IClassInfoGraphNode
     {
         

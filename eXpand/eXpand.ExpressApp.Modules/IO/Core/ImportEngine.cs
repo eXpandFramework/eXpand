@@ -6,6 +6,7 @@ using System.Linq;
 using System.Xml.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -35,6 +36,7 @@ namespace eXpand.ExpressApp.IO.Core {
         }
         public void ImportObjects(Stream stream, UnitOfWork unitOfWork){
             unitOfWork.PurgeDeletedObjects();
+            Guard.ArgumentNotNull(stream,"Stream");
             stream.Position = 0;
             using (var streamReader = new StreamReader(stream)) {
                 var xDocument = XDocument.Load(streamReader);
