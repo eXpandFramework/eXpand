@@ -337,6 +337,7 @@ namespace eXpand.Tests.eXpand.IO
         It should_create_all_properties_of_persistentAssociation_attribute =
             () =>
             _root.SerializedObjects(typeof (PersistentAssociationAttribute)).FirstOrDefault().Properties().Count().ShouldEqual(7);
+
     }
 
     [Subject(typeof(ExportEngine),"Non Default Keys")]

@@ -325,9 +325,6 @@
     <EmbeddedResource Include="eXpand.IO\Resources\ExistentKeyObject.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="eXpand.IO\Resources\PersistentAssmeblyInfo.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="eXpand.IO\Resources\ModelDifferenceObject.xml" />
   </ItemGroup>
   <ItemGroup>
