@@ -18,15 +18,21 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         {
             get { return _instance; }
         }
-        public Type FindBussinessObjectType<T>() {
+        public Type FindBussinessObjectType(Type type) {
             Type findBussinessObjectType;
-            try {
-                findBussinessObjectType = _dictionary[typeof(T)];
+            try
+            {
+                findBussinessObjectType = _dictionary[type];
             }
-            catch (KeyNotFoundException) {
-                throw new KeyNotFoundException("Register " + typeof(T) + " at your AdditionalBusinessClasses");
+            catch (KeyNotFoundException)
+            {
+                throw new KeyNotFoundException("Register " + type + " at your AdditionalBusinessClasses");
             }
             return findBussinessObjectType;
+        }
+
+        public Type FindBussinessObjectType<T>() {
+            return FindBussinessObjectType(typeof(T));
         }
 
         public void Reset()

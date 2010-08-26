@@ -12,6 +12,12 @@ namespace eXpand.ExpressApp.Attributes {
             this.viewId = viewId;
         }
 
+        public NavigationItemAttribute(string path, string viewId, string objectKey) {
+            this.path = path;
+            this.viewId = viewId;
+            ObjectKey = objectKey;
+        }
+
         public string Path {
             get { return path; }
         }

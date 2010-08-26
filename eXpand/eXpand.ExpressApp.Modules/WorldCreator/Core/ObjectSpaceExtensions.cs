@@ -1,13 +1,17 @@
-﻿using DevExpress.ExpressApp;
+﻿using System;
+using DevExpress.ExpressApp;
 
 namespace eXpand.ExpressApp.WorldCreator.Core
 {
     public static class ObjectSpaceExtensions
     {
+        public static object CreateWCObject(this ObjectSpace objectSpace,Type type) {
+            var findBussinessObjectType = WCTypesInfo.Instance.FindBussinessObjectType(type);
+            return objectSpace.CreateObject(findBussinessObjectType);
+        }
         public static T CreateWCObject<T>(this ObjectSpace objectSpace)
         {
-            var findBussinessObjectType = WCTypesInfo.Instance.FindBussinessObjectType<T>();
-            return (T)objectSpace.CreateObject(findBussinessObjectType);
+            return (T) CreateWCObject(objectSpace,typeof(T));
         }
 
     }

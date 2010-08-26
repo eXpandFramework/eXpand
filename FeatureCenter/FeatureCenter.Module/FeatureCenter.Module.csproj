@@ -355,6 +355,7 @@
     </Compile>
     <Compile Include="ViewVariants\AttributeRegistrator.cs" />
     <Compile Include="Welcome\WelcomeObject.cs" />
+    <Compile Include="WorldCreator\NorthWind\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\CreateObjectAttributesController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -371,6 +372,7 @@
     <Compile Include="WorldCreator\ExistentAssemblyMasterDetail\ExistentAssemblyMasterDetailModelStore.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyMasterDetail\Updater.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyMasterDetail\WorldCreatorUpdater.cs" />
+    <Compile Include="WorldCreator\NorthWind\WorldCreatorUpdater.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
@@ -392,6 +394,7 @@
     <Content Include="ImportExport\UpdateMembers\UpdateMembers.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="WorldCreator\NorthWind\NorthWind.xml" />
     <EmbeddedResource Include="ImportExport\UpdateMembers\UpdateMembersGroup.xml" />
     <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModelGroup.xml" />
     <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModel.xml" />
@@ -448,6 +451,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Functional Tests\Sample.ets" />
+    <EmbeddedResource Include="WorldCreator\NorthWind\MDO_NorthWind.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Miscellaneous\ExceptionHandling\MDO_ExceptionHandling.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -511,7 +517,9 @@
     <EmbeddedResource Include="ApplicationDifferences\ExternalApplication\ExternalApplication.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorldCreator\DynamicAssemblyMasterDetail\WC3LevelMasterDetail.xafml" />
+    <EmbeddedResource Include="WorldCreator\DynamicAssemblyMasterDetail\WC3LevelMasterDetail.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="WorldCreator\ExistentAssemblyMasterDetail\ExisstentAssemblyMasterDetail.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

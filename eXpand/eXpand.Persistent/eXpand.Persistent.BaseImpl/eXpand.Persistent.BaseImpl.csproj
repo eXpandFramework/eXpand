@@ -169,6 +169,7 @@
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentDefaultClassOptionsAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentNavigationItemAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentPersistentAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentPivotedPropertyAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentRuleRequiredFieldAttribute.cs" />
