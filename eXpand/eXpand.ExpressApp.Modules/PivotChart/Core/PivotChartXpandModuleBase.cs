@@ -23,7 +23,7 @@ namespace eXpand.ExpressApp.PivotChart.Core {
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
-            TypesInfo.AddTypes(application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses));
+            TypesInfo.AddTypes(GetAdditionalClasses());
         }
 
         public abstract TypesInfo TypesInfo{ get;}

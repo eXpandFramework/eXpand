@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
@@ -23,6 +24,13 @@ namespace eXpand.ExpressApp {
                 return _instanceXafApplicationManager.Value;
             }
         }
+        public BusinessClassesList GetAdditionalClasses()
+        {
+            var businessClassesList = new BusinessClassesList(Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses));
+            businessClassesList.AddRange(Application.Modules.SelectMany(moduleBase => moduleBase.BusinessClassAssemblies.GetBusinessClasses()));
+            return businessClassesList;
+        }
+
         protected override void CustomizeModelApplicationCreatorProperties(ModelApplicationCreatorProperties creatorProperties)
         {
             base.CustomizeModelApplicationCreatorProperties(creatorProperties);

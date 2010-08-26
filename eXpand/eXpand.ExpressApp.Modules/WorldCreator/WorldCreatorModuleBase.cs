@@ -127,11 +127,6 @@ namespace eXpand.ExpressApp.WorldCreator {
             new XpoObjectMerger().MergeTypes(unitOfWork, persistentTypes.ToList(), dbCommand);
         }
 
-        public BusinessClassesList GetAdditionalClasses(){
-            var businessClassesList = new BusinessClassesList(Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses));
-            businessClassesList.AddRange(Application.Modules.SelectMany(moduleBase => moduleBase.BusinessClassAssemblies.GetBusinessClasses()));
-            return businessClassesList;
-        }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
