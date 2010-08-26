@@ -37,47 +37,13 @@ namespace ExternalApplication.Module.Win
             // 
             // ExternalApplicationWindowsFormsModule
             // 
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.ImportExport.ClassInfoGraphNode));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.ImportExport.SerializationConfiguration));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.ImportExport.SerializationConfigurationGroup));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.ImportExport.XmlFileChooser));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.TemplateInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.CodeTemplate));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.CodeTemplateInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAttributeInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentMapInheritanceAttribute));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAggregatedAttribute));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentCustomAttribute));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentDefaultClassOptionsAttribute));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentPivotedPropertyAttribute));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentRuleRequiredFieldAttribute));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentSizeAttribute));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentValueConverter));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentPersistentAttribute));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentTypeInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentTemplatedTypeInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.StrongKeyFile));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.ExtendedMemberInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.ExtendedCollectionMemberInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.ExtendedCoreTypeMemberInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.ExtendedReferenceMemberInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.InterfaceInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAssemblyInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAssociationAttribute));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentClassInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentMemberInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentCollectionMemberInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentCoreTypeMemberInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentReferenceMemberInfo));
-            AdditionalBusinessClasses.Add(typeof(eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentKeyAttribute));
-
+            AdditionalBusinessClassAssemblies.Add(typeof(eXpand.Persistent.BaseImpl.ImportExport.ClassInfoGraphNode).Assembly);
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
             this.RequiredModuleTypes.Add(typeof(ModelDifferenceWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(eXpandSystemModule));
             this.RequiredModuleTypes.Add(typeof(eXpandSystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.Validation.eXpandValidationModule));
-
         }
 
         #endregion

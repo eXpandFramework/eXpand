@@ -29,8 +29,9 @@ namespace eXpand.ExpressApp.WorldCreator {
             
             Application.SettingUp+=ApplicationOnSettingUp;
 
-            WCTypesInfo.Instance.Register(GetAdditionalClasses());
-            RunUpdaters();
+            var businessClassesList = GetAdditionalClasses();
+            WCTypesInfo.Instance.Register(businessClassesList);
+            RunUpdaters(businessClassesList);
 
             var bussinessObjectType = WCTypesInfo.Instance.FindBussinessObjectType<IPersistentAssemblyInfo>();
             using (SimpleDataLayer simpleDataLayer 
@@ -60,11 +61,13 @@ namespace eXpand.ExpressApp.WorldCreator {
             }
         }
 
-        void RunUpdaters() {
+        void RunUpdaters(IEnumerable<Type> businessClassesList) {
             if (_connectionString != null) {
                 var xpoMultiDataStoreProxy = new XpoMultiDataStoreProxy(_connectionString,GetReflectionDictionary());
                 using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
                     using (var session = new Session(dataLayer)) {
+                        var types = businessClassesList.Where(type => !type.IsAbstract&&type.GetCustomAttributes(typeof(NonPersistentAttribute),false).Count()==0).ToArray();
+                        session.CreateObjectTypeRecords(types);
                         foreach (var worldCreatorUpdater in GetWorldCreatorUpdaters(session)){
                             worldCreatorUpdater.Update();
                         }
@@ -124,9 +127,10 @@ namespace eXpand.ExpressApp.WorldCreator {
             new XpoObjectMerger().MergeTypes(unitOfWork, persistentTypes.ToList(), dbCommand);
         }
 
-        public IEnumerable<Type> GetAdditionalClasses()
-        {
-            return Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses);
+        public BusinessClassesList GetAdditionalClasses(){
+            var businessClassesList = new BusinessClassesList(Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses));
+            businessClassesList.AddRange(Application.Modules.SelectMany(moduleBase => moduleBase.BusinessClassAssemblies.GetBusinessClasses()));
+            return businessClassesList;
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
