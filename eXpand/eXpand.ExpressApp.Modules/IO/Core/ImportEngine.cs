@@ -25,8 +25,8 @@ namespace eXpand.ExpressApp.IO.Core {
                         ITypeInfo typeInfo = GetTypeInfo(element);
                         IEnumerable<XElement> elements = element.Descendants("Property");
                         var xElements = elements.Where(xElement => xElement.GetAttributeValue("isKey").MakeFirstCharUpper() == true.ToString());
-                        CriteriaOperator objectKeyCriteria = getObjectKeyCriteria(typeInfo, xElements);
-                        createObject(element, nestedUnitOfWork, typeInfo, objectKeyCriteria);
+                        CriteriaOperator objectKeyCriteria = GetObjectKeyCriteria(typeInfo, xElements);
+                        CreateObject(element, nestedUnitOfWork, typeInfo, objectKeyCriteria);
                         nestedUnitOfWork.CommitChanges();
                     }
                 }
@@ -39,50 +39,50 @@ namespace eXpand.ExpressApp.IO.Core {
             Guard.ArgumentNotNull(stream,"Stream");
             stream.Position = 0;
             using (var streamReader = new StreamReader(stream)) {
-                var xDocument = XDocument.Load(streamReader);
+                var xDocument = XDocument.Load(streamReader,LoadOptions.SetLineInfo|LoadOptions.PreserveWhitespace);
                 ImportObjects(xDocument, unitOfWork);
             }
 
         }
 
-        XPBaseObject createObject(XElement element, UnitOfWork nestedUnitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria){
-            XPBaseObject xpBaseObject = getObject(nestedUnitOfWork, typeInfo,objectKeyCriteria) ;
+        XPBaseObject CreateObject(XElement element, UnitOfWork nestedUnitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria){
+            XPBaseObject xpBaseObject = GetObject(nestedUnitOfWork, typeInfo,objectKeyCriteria) ;
             var keyValuePair = new KeyValuePair<ITypeInfo, CriteriaOperator>(typeInfo, objectKeyCriteria);
             if (!importedObjecs.ContainsKey(keyValuePair)) {
                 importedObjecs.Add(keyValuePair, null);
-                importProperties(nestedUnitOfWork, xpBaseObject, element);
+                ImportProperties(nestedUnitOfWork, xpBaseObject, element);
             }
             return xpBaseObject;
         }
 
-        void importProperties(UnitOfWork nestedUnitOfWork, XPBaseObject xpBaseObject, XElement element) {
-            importSimpleProperties(element, xpBaseObject);
-            importComplexProperties(element, nestedUnitOfWork,
+        void ImportProperties(UnitOfWork nestedUnitOfWork, XPBaseObject xpBaseObject, XElement element) {
+            ImportSimpleProperties(element, xpBaseObject);
+            ImportComplexProperties(element, nestedUnitOfWork,
                                     (o, xElement) =>
                                     xpBaseObject.SetMemberValue(xElement.Parent.GetAttributeValue("name"), o),
                                     NodeType.Object);
-            importComplexProperties(element, nestedUnitOfWork,
+            ImportComplexProperties(element, nestedUnitOfWork,
                                     (baseObject, element1) =>
                                     ((IList) xpBaseObject.GetMemberValue(element1.Parent.GetAttributeValue("name"))).Add(
                                         baseObject), NodeType.Collection);
         }
 
-        void importComplexProperties(XElement element, UnitOfWork nestedUnitOfWork, Action<XPBaseObject,XElement> instance, NodeType nodeType) {
+        void ImportComplexProperties(XElement element, UnitOfWork nestedUnitOfWork, Action<XPBaseObject,XElement> instance, NodeType nodeType) {
             IEnumerable<XElement> objectElements = GetObjectRefElements(element,nodeType);
             foreach (var objectElement in objectElements) {
                 ITypeInfo typeInfo = GetTypeInfo(objectElement);
-                var refObjectKeyCriteria = getObjectKeyCriteria(typeInfo,objectElement.Descendants("Key"));
+                var refObjectKeyCriteria = GetObjectKeyCriteria(typeInfo,objectElement.Descendants("Key"));
                 XPBaseObject xpBaseObject;
                 if (objectElement.GetAttributeValue("strategy") == SerializationStrategy.SerializeAsObject.ToString()) {
                     var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement();
                     if (findObjectFromRefenceElement != null) {
-                        xpBaseObject = createObject(findObjectFromRefenceElement, nestedUnitOfWork,
+                        xpBaseObject = CreateObject(findObjectFromRefenceElement, nestedUnitOfWork,
                                                     typeInfo, refObjectKeyCriteria);
                         instance.Invoke(xpBaseObject, objectElement);
                     }
                 }
                 else {
-                    xpBaseObject = getObject(nestedUnitOfWork, typeInfo, refObjectKeyCriteria);
+                    xpBaseObject = GetObject(nestedUnitOfWork, typeInfo, refObjectKeyCriteria);
                     instance.Invoke(xpBaseObject, objectElement);
                 }
                 
@@ -97,12 +97,14 @@ namespace eXpand.ExpressApp.IO.Core {
                 element1 => element1.Descendants("SerializedObjectRef"));
         }
 
-        void importSimpleProperties(XElement element, XPBaseObject xpBaseObject) {            
+        void ImportSimpleProperties(XElement element, XPBaseObject xpBaseObject) {            
             foreach (var simpleElement in element.Properties(NodeType.Simple)){
                 string propertyName = simpleElement.GetAttributeValue("name");
-                XPMemberInfo xpMemberInfo = xpBaseObject.ClassInfo.GetMember(propertyName);
-                object value = GetValue(simpleElement, xpMemberInfo);
-                xpBaseObject.SetMemberValue(propertyName, value);
+                XPMemberInfo xpMemberInfo = xpBaseObject.ClassInfo.FindMember(propertyName);
+                if (xpMemberInfo != null) {
+                    object value = GetValue(simpleElement, xpMemberInfo);
+                    xpBaseObject.SetMemberValue(propertyName, value);
+                }
             }
         }
 
@@ -127,7 +129,7 @@ namespace eXpand.ExpressApp.IO.Core {
             return ReflectionHelper.FindTypeInfoByName(element.GetAttributeValue("type"));
         }
 
-        XPBaseObject getObject(UnitOfWork unitOfWork, ITypeInfo typeInfo, CriteriaOperator criteriaOperator) {
+        XPBaseObject GetObject(UnitOfWork unitOfWork, ITypeInfo typeInfo, CriteriaOperator criteriaOperator) {
             var xpBaseObject = unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, typeInfo.Type,
                                                      criteriaOperator) as XPBaseObject;
             if (xpBaseObject == null) {
@@ -139,7 +141,7 @@ namespace eXpand.ExpressApp.IO.Core {
             return xpBaseObject ?? (XPBaseObject)ReflectionHelper.CreateObject(typeInfo.Type, unitOfWork);
         }
 
-        CriteriaOperator getObjectKeyCriteria(ITypeInfo typeInfo, IEnumerable<XElement> xElements)
+        CriteriaOperator GetObjectKeyCriteria(ITypeInfo typeInfo, IEnumerable<XElement> xElements)
         {
             string criteria = "";
             var parameters=new List<object>();

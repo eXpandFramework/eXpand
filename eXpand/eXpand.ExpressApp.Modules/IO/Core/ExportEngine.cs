@@ -42,10 +42,10 @@ namespace eXpand.ExpressApp.IO.Core {
                             SetMemberValue(selectedObject, classInfoGraphNode, propertyElement);
                             break;
                         case NodeType.Object:
-                            createObjectProperty(selectedObject, propertyElement, classInfoGraphNode, root);
+                            CreateObjectProperty(selectedObject, propertyElement, classInfoGraphNode, root);
                             break;
                         case NodeType.Collection:
-                            createCollectionProperty(selectedObject, classInfoGraphNode, root, propertyElement);
+                            CreateCollectionProperty(selectedObject, classInfoGraphNode, root, propertyElement);
                             break;
                     }
                 }
@@ -54,19 +54,19 @@ namespace eXpand.ExpressApp.IO.Core {
 
         void SetMemberValue(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode, XElement propertyElement) {
             var memberValue = selectedObject.GetMemberValue(classInfoGraphNode.Name);
-            var xpMemberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
-            if (xpMemberInfo.Converter!= null) {
-                memberValue = (xpMemberInfo.Converter.ConvertToStorageType(memberValue) );
-            }
-            
-            if (memberValue is byte[])
-                memberValue = Convert.ToBase64String((byte[]) memberValue);
-            if (memberValue is DateTime)
-                memberValue = ((DateTime) memberValue).Ticks;
-            if (memberValue is string)
-                propertyElement.Add(new XCData(memberValue.ToString()));
-            else {
-                propertyElement.Value = memberValue+"";
+            var xpMemberInfo = selectedObject.ClassInfo.FindMember(classInfoGraphNode.Name);
+            if (xpMemberInfo != null ) {
+                if (xpMemberInfo.Converter != null)
+                    memberValue = (xpMemberInfo.Converter.ConvertToStorageType(memberValue));
+                if (memberValue is byte[])
+                    memberValue = Convert.ToBase64String((byte[])memberValue);
+                if (memberValue is DateTime)
+                    memberValue = ((DateTime)memberValue).Ticks;
+                if (memberValue is string)
+                    propertyElement.Add(new XCData(memberValue.ToString()));
+                else                {
+                    propertyElement.Value = memberValue + "";
+                }
             }
         }
 
@@ -79,12 +79,14 @@ namespace eXpand.ExpressApp.IO.Core {
             return propertyElement;
         }
 
-        void createCollectionProperty(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode, XElement root,
+        void CreateCollectionProperty(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode, XElement root,
                                       XElement propertyElement) {
-            XPMemberInfo memberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
-            var theObjects = (IEnumerable)memberInfo.GetValue(selectedObject);
-            foreach (XPBaseObject theObject in theObjects) {
-                CreateRefElelement(classInfoGraphNode,theObject.GetType().Name, root,  theObject, propertyElement);
+            XPMemberInfo memberInfo = selectedObject.ClassInfo.FindMember(classInfoGraphNode.Name);
+            if (memberInfo != null) {
+                var theObjects = (IEnumerable)memberInfo.GetValue(selectedObject);
+                foreach (XPBaseObject theObject in theObjects) {
+                    CreateRefElelement(classInfoGraphNode,theObject.GetType().Name, root,  theObject, propertyElement);
+                }
             }
         }
 
@@ -95,7 +97,7 @@ namespace eXpand.ExpressApp.IO.Core {
             serializedObjectRefElement.Add(new XAttribute("strategy", classInfoGraphNode.SerializationStrategy));
             if (theObject != null) {
                 IEnumerable<IClassInfoGraphNode> classInfoGraphNodes = _serializeClassInfoGraphNodesCalculator.GetSerializedClassInfoGraphNodes(theObject, typeName);
-                createRefKeyElements(classInfoGraphNodes, theObject, serializedObjectRefElement);
+                CreateRefKeyElements(classInfoGraphNodes, theObject, serializedObjectRefElement);
                 if (classInfoGraphNode.SerializationStrategy == SerializationStrategy.SerializeAsObject)
                     ExportCore(theObject, classInfoGraphNodes, root);
             }
@@ -103,7 +105,7 @@ namespace eXpand.ExpressApp.IO.Core {
 
 
 
-        void createRefKeyElements(IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes, XPBaseObject theObject, XElement serializedObjectRefElement) {
+        void CreateRefKeyElements(IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes, XPBaseObject theObject, XElement serializedObjectRefElement) {
             foreach (var infoGraphNode in serializedClassInfoGraphNodes.Where(node => node.Key)) {
                 var serializedObjectRefKeyElement = new XElement("Key");
                 serializedObjectRefKeyElement.Add(new XAttribute("name",infoGraphNode.Name));
@@ -112,10 +114,12 @@ namespace eXpand.ExpressApp.IO.Core {
             }
         }
 
-        void createObjectProperty(XPBaseObject selectedObject, XElement propertyElement, IClassInfoGraphNode classInfoGraphNode, XElement root) {
-            XPMemberInfo memberInfo = selectedObject.ClassInfo.GetMember(classInfoGraphNode.Name);
-            var theObject = (XPBaseObject) memberInfo.GetValue(selectedObject);
-            CreateRefElelement(classInfoGraphNode,theObject!= null?theObject.GetType().Name:memberInfo.MemberType.Name, root,  theObject, propertyElement);
+        void CreateObjectProperty(XPBaseObject selectedObject, XElement propertyElement, IClassInfoGraphNode classInfoGraphNode, XElement root) {
+            XPMemberInfo memberInfo = selectedObject.ClassInfo.FindMember(classInfoGraphNode.Name);
+            if (memberInfo != null) {
+                var theObject = (XPBaseObject) memberInfo.GetValue(selectedObject);
+                CreateRefElelement(classInfoGraphNode,theObject!= null?theObject.GetType().Name:memberInfo.MemberType.Name, root,  theObject, propertyElement);
+            }
         }
 
 

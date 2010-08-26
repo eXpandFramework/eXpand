@@ -198,18 +198,24 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             var generatedUsings = new StringBuilder();
             foreach (var persistentClassInfo in persistentAssemblyInfo.PersistentClassInfos) {
                 string code = GenerateCode(persistentClassInfo);
-                
-                var regex = new Regex(persistentAssemblyInfo.CodeDomProvider == CodeDomProvider.CSharp ? "(using [^;]*;\r\n)*" : "(Imports [^\r\n]*\r\n)*");
-                string usingsString = string.Concat("", regex.Matches(code).Cast<Match>().Where(match1 => !string.IsNullOrEmpty(match1.Value)).Select(match => match.Value).FirstOrDefault());
-                code=regex.Replace(code, "");
+                string usingsString = GetUsingsString(persistentAssemblyInfo, code);
+                code=code.Replace(usingsString,"");
+                code = code.Replace("\n", "\r\n");
                 if (!(usingsDictionary.ContainsKey(usingsString))) {
                     usingsDictionary.Add(usingsString, null);
+                    usingsString = usingsString.Replace("\n", "\r\n");
                     generatedUsings.Append(usingsString);
                 }
                 generatedClassCode.Append(code);
             }
             return generatedUsings + generateAssemblyCode + generatedClassCode;
         }
+
+        static string GetUsingsString(IPersistentAssemblyInfo persistentAssemblyInfo, string code) {
+            var regex = new Regex(persistentAssemblyInfo.CodeDomProvider == CodeDomProvider.CSharp ? "(using [^;]*;\r\n)" : "(Imports [^\r\n]*\r\n)",RegexOptions.IgnorePatternWhitespace);
+            return regex.Matches(code).OfType<Match>().Aggregate("", (current, match) => current + match.Value+"\n");
+        }
+
         internal static string GetModuleCode(string assemblyName)
         {
             return "namespace " + assemblyName + "{public class Dynamic" + (assemblyName + "").Replace(".", "") + "Module:DevExpress.ExpressApp.ModuleBase{}}";

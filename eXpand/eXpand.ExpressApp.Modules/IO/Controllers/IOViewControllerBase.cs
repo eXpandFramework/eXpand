@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -67,7 +68,16 @@ namespace eXpand.ExpressApp.IO.Controllers {
         void export(object selectedObject) {
             XDocument xDocument = new ExportEngine().Export(View.SelectedObjects.OfType<XPBaseObject>(), ObjectSpace.GetObject((ISerializationConfigurationGroup)selectedObject));
             var fileName = GetFilePath();
-            if (fileName != null) xDocument.Save(fileName);
+            if (fileName != null) {
+                var xmlWriterSettings = new XmlWriterSettings {
+                    OmitXmlDeclaration = true, Indent = true,NewLineChars = "\r\n",CloseOutput = true,};
+                using (XmlWriter textWriter = XmlWriter.Create(new FileStream(fileName,FileMode.Create), xmlWriterSettings)){
+                    if (textWriter!= null) {
+                        xDocument.Save(textWriter);
+                        textWriter.Close();
+                    }
+                }
+            }
         }
 
         protected abstract string GetFilePath();
