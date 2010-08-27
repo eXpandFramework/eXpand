@@ -23,7 +23,8 @@ namespace eXpand.Xpo.DB {
 
 
         public string GetKey(Type type){
-            var dataStoreAttribute = _dataStoreAttributes.Where(attribute => (type.Namespace+"").StartsWith(attribute.NameSpace)).SingleOrDefault();
+            var nameSpace = (type.Namespace + "");
+            var dataStoreAttribute = _dataStoreAttributes.Where(attribute => nameSpace.StartsWith(attribute.NameSpace)).SingleOrDefault();
             return dataStoreAttribute == null ? STR_Default : (dataStoreAttribute.DataStoreNameSuffix??dataStoreAttribute.ConnectionString);
         }
 
@@ -125,12 +126,8 @@ namespace eXpand.Xpo.DB {
                         dictionary[simpleDataLayer.Value.ConnectionProvider].Add(dbTable);
                     }
                 else
-                    try {
-                        dictionary[_simpleDataLayers[GetKey(dbTable.Name)].ConnectionProvider].Add(dbTable);
-                    }
-                    catch (Exception e) {
-                        Console.WriteLine(e);
-                    }
+                    dictionary[_simpleDataLayers[GetKey(dbTable.Name)].ConnectionProvider].Add(dbTable);
+               
             }
             return dictionary;
         }

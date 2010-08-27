@@ -93,42 +93,42 @@ namespace eXpand.ExpressApp {
             return UpdateSchemaResult.SchemaExists;
         }
 
-        public static SimpleDataLayer GetDataLayer(string connectionString, XPDictionary xpDictionary, Type type) {
-            var dummyProxy = new XpoMultiDataStoreProxy(connectionString,xpDictionary);
-            connectionString = dummyProxy.DataStoreManager.GetConnectionString(type);
-            var xpoDataStoreProxy = new XpoDataStoreProxy(connectionString);
-            xpoDataStoreProxy.DataStoreModifyData += (o, eventArgs) => dummyProxy.ModifyData(eventArgs.ModificationStatements);
-            xpoDataStoreProxy.DataStoreSelectData += (sender1, dataEventArgs) => {
-                if (dummyProxy.DataStoreManager.SimpleDataLayers.Count > 1 && dummyProxy.IsQueryingXPObjectType(dataEventArgs)){
-                    dummyProxy.CreateExcludeXPObjectTypeArgs(dataEventArgs.SelectStatements, xpDictionary);
-                }
-                dummyProxy.SelectData(dataEventArgs.SelectStatements);
-            };
-            xpoDataStoreProxy.DataStoreUpdateSchema +=
-                (o1, schemaEventArgs) => dummyProxy.UpdateSchema(schemaEventArgs.DontCreateIfFirstTableNotExist, schemaEventArgs.Tables);
-            return new SimpleDataLayer(xpDictionary, xpoDataStoreProxy);
-        }
+//        public static SimpleDataLayer GetDataLayer(string connectionString, XPDictionary xpDictionary, Type type) {
+//            var dummyProxy = new XpoMultiDataStoreProxy(connectionString,xpDictionary);
+//            connectionString = dummyProxy.DataStoreManager.GetConnectionString(type);
+//            var xpoDataStoreProxy = new XpoDataStoreProxy(connectionString);
+//            xpoDataStoreProxy.DataStoreModifyData += (o, eventArgs) => dummyProxy.ModifyData(eventArgs.ModificationStatements);
+//            xpoDataStoreProxy.DataStoreSelectData += (sender1, dataEventArgs) => {
+//                if (dummyProxy.DataStoreManager.SimpleDataLayers.Count > 1 && dummyProxy.IsQueryingXPObjectType(dataEventArgs)){
+//                    dummyProxy.CreateExcludeXPObjectTypeArgs(dataEventArgs.SelectStatements, xpDictionary);
+//                }
+//                dummyProxy.SelectData(dataEventArgs.SelectStatements);
+//            };
+//            xpoDataStoreProxy.DataStoreUpdateSchema +=
+//                (o1, schemaEventArgs) => dummyProxy.UpdateSchema(schemaEventArgs.DontCreateIfFirstTableNotExist, schemaEventArgs.Tables);
+//            return new SimpleDataLayer(xpDictionary, dummyProxy);
+//        }
 
-        void CreateExcludeXPObjectTypeArgs(IEnumerable<SelectStatement> selectStatements, XPDictionary xpDictionary) {
-            IEnumerable<string> typeNames =
-                xpDictionary.Classes.OfType<XPClassInfo>().Where(classInfo => classInfo.ClassType != null).Select(
-                    info => info.ClassType.FullName);
-            foreach (
-                SelectStatement selectStatement in
-                    selectStatements.Where(statement => statement.TableName == "XPObjectType")) {
-                List<string> values = typeNames.ToList();
-                var criteriaOperator = new GroupOperator(GroupOperatorType.Or);
-                foreach (string value in values) {
-                    criteriaOperator.Operands.Add(new QueryOperand("TypeName", selectStatement.Alias) == value);
-                }
-                selectStatement.Condition = criteriaOperator;
-            }
-        }
+//        void CreateExcludeXPObjectTypeArgs(IEnumerable<SelectStatement> selectStatements, XPDictionary xpDictionary) {
+//            IEnumerable<string> typeNames =
+//                xpDictionary.Classes.OfType<XPClassInfo>().Where(classInfo => classInfo.ClassType != null).Select(
+//                    info => info.ClassType.FullName);
+//            foreach (
+//                SelectStatement selectStatement in
+//                    selectStatements.Where(statement => statement.TableName == "XPObjectType")) {
+//                List<string> values = typeNames.ToList();
+//                var criteriaOperator = new GroupOperator(GroupOperatorType.Or);
+//                foreach (string value in values) {
+//                    criteriaOperator.Operands.Add(new QueryOperand("TypeName", selectStatement.Alias) == value);
+//                }
+//                selectStatement.Condition = criteriaOperator;
+//            }
+//        }
 
-        bool IsQueryingXPObjectType(DataStoreSelectDataEventArgs dataEventArgs) {
-            return
-                dataEventArgs.SelectStatements.Select(statement => statement.TableName).Where(s => s == "XPObjectType").
-                    FirstOrDefault() != null;
-        }
+//        bool IsQueryingXPObjectType(DataStoreSelectDataEventArgs dataEventArgs) {
+//            return
+//                dataEventArgs.SelectStatements.Select(statement => statement.TableName).Where(s => s == "XPObjectType").
+//                    FirstOrDefault() != null;
+//        }
     }
 }
