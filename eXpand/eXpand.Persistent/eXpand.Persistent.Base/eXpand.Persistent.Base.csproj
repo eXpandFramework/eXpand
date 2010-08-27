@@ -114,9 +114,11 @@
     <Compile Include="PersistentMetaData\IExtendedMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IExtendedReferenceMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IInterfaceInfo.cs" />
+    <Compile Include="PersistentMetaData\IMapperInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentAssemblyInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentAssociatedMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentTemplatedTypeInfo.cs" />
+    <Compile Include="PersistentMetaData\ISqlMapperInfo.cs" />
     <Compile Include="PersistentMetaData\ITemplateInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\AttributeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssemblyDataStoreAttributeInfo.cs" />
@@ -131,6 +133,7 @@
     <Compile Include="PersistentMetaData\IPersistentTypeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentDefaulClassOptionsAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentKeyAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentNavigationItemAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentPersistentAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentRuleRequiredFieldAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentSizeAttribute.cs" />

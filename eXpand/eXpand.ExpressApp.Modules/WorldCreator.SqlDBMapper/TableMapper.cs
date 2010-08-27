@@ -23,23 +23,23 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             _extraInfoBuilder = new ExtraInfoBuilder(_objectSpace, _attributeMapper);
         }
 
-        public IPersistentClassInfo Create(Table table, IPersistentAssemblyInfo persistentAssemblyInfo) {
+        public IPersistentClassInfo Create(Table table, IPersistentAssemblyInfo persistentAssemblyInfo, IMapperInfo mapperInfo) {
 
-            var persistentClassInfo = CreateCore(table, persistentAssemblyInfo);
+            var persistentClassInfo = CreateCore(table, persistentAssemblyInfo,mapperInfo);
             foreach (ForeignKey foreignKey in table.ForeignKeys) {
-                CreateCore(_database.Tables[foreignKey.ReferencedTable], persistentAssemblyInfo);
+                CreateCore(_database.Tables[foreignKey.ReferencedTable], persistentAssemblyInfo, mapperInfo);
             }
             return persistentClassInfo;
         }
 
-        private IPersistentClassInfo CreateCore(Table table, IPersistentAssemblyInfo persistentAssemblyInfo)
+        private IPersistentClassInfo CreateCore(Table table, IPersistentAssemblyInfo persistentAssemblyInfo, IMapperInfo mapperInfo)
         {
             int count = table.Columns.OfType<Column>().Where(column => column.InPrimaryKey).Count();
             IPersistentClassInfo persistentClassInfo = CreatePersistentClassInfo(table.Name,TemplateType.Class, persistentAssemblyInfo);
             persistentClassInfo.BaseType = typeof (XPLiteObject);
             if (count>1)
                 CreatePersistentClassInfo(table.Name + KeyStruct, TemplateType.Struct,persistentAssemblyInfo);
-            _extraInfoBuilder.CreateExtraInfos(table, persistentClassInfo);
+            _extraInfoBuilder.CreateExtraInfos(table, persistentClassInfo,mapperInfo);
             if (count==0) 
                 Tracing.Tracer.LogError("No primary keys found for "+table.Name);
             return persistentClassInfo;

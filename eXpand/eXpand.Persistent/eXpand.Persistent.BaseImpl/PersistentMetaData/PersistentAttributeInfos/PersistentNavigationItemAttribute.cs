@@ -1,10 +1,14 @@
-﻿using DevExpress.Persistent.Validation;
+﻿using System.ComponentModel;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.Attributes;
+using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
-    public class PersistentNavigationItemAttribute:PersistentAttributeInfo {
+    [InterfaceRegistrator(typeof(IPersistentNavigationItemAttribute))]
+    [DefaultProperty("Path")]
+    public class PersistentNavigationItemAttribute:PersistentAttributeInfo, IPersistentNavigationItemAttribute {
         public PersistentNavigationItemAttribute(Session session) : base(session) {
         }
         private string _viewId;

@@ -180,6 +180,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PersistentMetaData\PersistentTemplatedTypeInfo.cs" />
+    <Compile Include="PersistentMetaData\SqlMapperInfo.cs" />
     <Compile Include="PersistentMetaData\StrongKeyFile.cs" />
     <Compile Include="PersistentMetaData\TemplateInfo.cs" />
     <Compile Include="PersistentMetaData\ExtendedCollectionMemberInfo.cs" />

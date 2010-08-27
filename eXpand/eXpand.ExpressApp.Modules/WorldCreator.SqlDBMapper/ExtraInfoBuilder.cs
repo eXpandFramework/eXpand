@@ -32,8 +32,8 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper
             persistentAssociationAttribute.AssociationName = persistentReferenceMemberInfo.TypeAttributes.OfType<IPersistentAssociationAttribute>().Single().AssociationName;
         }
 
-        public void CreateExtraInfos(Table table, IPersistentClassInfo persistentClassInfo){
-            var persistentAttributeInfos = _attributeMapper.Create(table, persistentClassInfo);
+        public void CreateExtraInfos(Table table, IPersistentClassInfo persistentClassInfo,IMapperInfo mapperInfo){
+            var persistentAttributeInfos = _attributeMapper.Create(table, persistentClassInfo,mapperInfo);
             foreach (var persistentAttributeInfo in persistentAttributeInfos){
                 persistentClassInfo.TypeAttributes.Add(persistentAttributeInfo);
             }

@@ -188,7 +188,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         static List<IPersistentAttributeInfo> _persistentAttributeInfos;
 
         Because of = () => {
-            _persistentAttributeInfos = new AttributeMapper(ObjectSpace).Create(_table, Isolate.Fake.Instance<IPersistentClassInfo>());
+            _persistentAttributeInfos = new AttributeMapper(ObjectSpace).Create(_table, Isolate.Fake.Instance<IPersistentClassInfo>(), Isolate.Fake.Instance<IMapperInfo>());
         };
 
         It should_create_a_persistent_attribute = () => {
@@ -210,7 +210,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         };
 
         Because of = () => {
-            _persistentAttributeInfos = new AttributeMapper(ObjectSpace).Create(_table, _persistentClassInfo);
+            _persistentAttributeInfos = new AttributeMapper(ObjectSpace).Create(_table, _persistentClassInfo, Isolate.Fake.Instance<IMapperInfo>());
         };
 
         It should_not_return_any_attribute = () => _persistentAttributeInfos.OfType<IPersistentPersistentAttribute>().Count().ShouldEqual(0);

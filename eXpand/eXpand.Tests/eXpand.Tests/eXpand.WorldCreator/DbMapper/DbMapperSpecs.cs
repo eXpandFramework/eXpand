@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DevExpress.Xpo;
+using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Machine.Specifications;
@@ -40,7 +41,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             return table1;
         }
 
-        Because of = () => new ExpressApp.WorldCreator.SqlDBMapper.DbMapper(ObjectSpace, _persistentAssemblyInfo, _dataStoreLogonObject).Map(_database);
+        Because of = () => new ExpressApp.WorldCreator.SqlDBMapper.DbMapper(ObjectSpace, _persistentAssemblyInfo, _dataStoreLogonObject).Map(_database, Isolate.Fake.Instance<IMapperInfo>());
 
         It should_create_classinfos_for_all_tables_in_the_assembly =
             () => {

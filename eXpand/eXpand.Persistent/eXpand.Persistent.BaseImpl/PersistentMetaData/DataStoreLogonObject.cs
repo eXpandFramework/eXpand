@@ -19,22 +19,22 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
         {
         }
 
-        public DataStoreLogonObject(Session session,DataStoreLogonObject dataStoreLogonObject) : base(session) {
+        public DataStoreLogonObject(Session session,DataStoreLogonObject sqlMapperInfo) : base(session) {
             foreach (XPMemberInfo memberInfo in ClassInfo.OwnMembers) {
-                memberInfo.SetValue(this, memberInfo.GetValue(dataStoreLogonObject));
+                memberInfo.SetValue(this, memberInfo.GetValue(sqlMapperInfo));
             }
         }
 
 
         private string _serverName;
-
+        [Index(0)]
         public string ServerName
         {
             get { return _serverName; }
             set { SetPropertyValue("ServerName", ref _serverName, value); }
         }
         private DataStoreAuthentication _authentication;
-
+        [Index(1)]
         public DataStoreAuthentication Authentication {
             get { return _authentication; }
             set { SetPropertyValue("Authentication", ref _authentication, value); }
@@ -44,11 +44,13 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
             return this.GetConnectionString();
         }
         private string _userName;
+        [Index(2)]
         public string UserName
         {
             get { return _userName; }
             set { SetPropertyValue("UserName", ref _userName, value); }
         }
+        [Index(4)]
         [DataSourceProperty("DataBases")]
         public DataBase DataBase
         {
@@ -65,6 +67,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData
 
         
         private string _passWord;
+        [Index(3)]
         [Custom("IsPassword","True")]
         public string PassWord {
             get { return _passWord; }

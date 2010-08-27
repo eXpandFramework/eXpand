@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo.DB;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -92,12 +93,17 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             get { return _objectSpace; }
         }
 
-        public List<IPersistentAttributeInfo> Create(Table table, IPersistentClassInfo owner) {
+        public List<IPersistentAttributeInfo> Create(Table table, IPersistentClassInfo owner,IMapperInfo mapperInfo) {
             var persistentAttributeInfos = new List<IPersistentAttributeInfo>();
             if (owner.TypeAttributes.OfType<IPersistentPersistentAttribute>().FirstOrDefault()== null)
                 persistentAttributeInfos.Add(GetPersistentPersistentAttribute(table.Name));
-            if (owner.TypeAttributes.OfType<IPersistentDefaulClassOptionsAttribute>().FirstOrDefault()== null)
-                persistentAttributeInfos.Add(ObjectSpace.CreateWCObject<IPersistentDefaulClassOptionsAttribute>());
+            if (!(string.IsNullOrEmpty(mapperInfo.NavigationPath)) && owner.TypeAttributes.OfType<IPersistentNavigationItemAttribute>().FirstOrDefault() == null){
+                var persistentNavigationItemAttribute = ObjectSpace.CreateWCObject<IPersistentNavigationItemAttribute>();
+                var cleanName = CodeEngine.CleanName(owner.Name);
+                persistentNavigationItemAttribute.Path = mapperInfo.NavigationPath+"/"+cleanName;
+                persistentNavigationItemAttribute.ViewId = cleanName + "_ListView";
+                persistentAttributeInfos.Add(persistentNavigationItemAttribute);
+            }
             return persistentAttributeInfos;
         }
 

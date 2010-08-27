@@ -20,7 +20,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             _dataStoreLogonObject = dataStoreLogonObject;
         }
 
-        public void Map(Database database) {
+        public void Map(Database database, IMapperInfo mapperInfo) {
             var attributeMapper = new AttributeMapper(_objectSpace);
             var tableMapper = new TableMapper(_objectSpace,database,attributeMapper);
             var dataTypeMapper = new DataTypeMapper();
@@ -28,7 +28,7 @@ namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper {
             Tracing.Tracer.LogSeparator("DBMapper Start mapping database "+database.Name);
             foreach (Table table in database.Tables.OfType<Table>().Where(table => !(table.IsSystemObject))){
                 Tracing.Tracer.LogValue("Table",table.Name);
-                IPersistentClassInfo persistentClassInfo = tableMapper.Create(table, _persistentAssemblyInfo);
+                IPersistentClassInfo persistentClassInfo = tableMapper.Create(table, _persistentAssemblyInfo,mapperInfo);
                 foreach (Column column in table.Columns) {
                     columnMapper.Create(column, persistentClassInfo);
                 }

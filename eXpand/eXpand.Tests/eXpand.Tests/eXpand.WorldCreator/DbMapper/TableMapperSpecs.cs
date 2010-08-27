@@ -25,12 +25,12 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             Isolate.WhenCalled(() => _table.Name).WillReturn("test");
             _attributeMapper = new AttributeMapper(ObjectSpace);
             _persistentPersistentAttribute = new PersistentPersistentAttribute(UnitOfWork);
-            Isolate.WhenCalled(() => _attributeMapper.Create(_table, null)).WillReturn(new List<IPersistentAttributeInfo> { _persistentPersistentAttribute });
+            Isolate.WhenCalled(() => _attributeMapper.Create(_table, null, null)).WillReturn(new List<IPersistentAttributeInfo> { _persistentPersistentAttribute });
         };
 
         Because of = () =>
         {
-            _persistentClassInfo = new TableMapper(ObjectSpace, _database, _attributeMapper).Create(_table, _persistentAssemblyInfo);
+            _persistentClassInfo = new TableMapper(ObjectSpace, _database, _attributeMapper).Create(_table, _persistentAssemblyInfo, Isolate.Fake.Instance<IMapperInfo>());
         };
 
         It should_return_a_persistent_classinfo_with_name_the_table_name = () => _persistentClassInfo.Name.ShouldEqual("test");
@@ -58,7 +58,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
         };
 
         Because of = () => {
-            _persistentClassInfo = new TableMapper(ObjectSpace, _database, new AttributeMapper(ObjectSpace)).Create(_table, _persistentAssemblyInfo);
+            _persistentClassInfo = new TableMapper(ObjectSpace, _database, new AttributeMapper(ObjectSpace)).Create(_table, _persistentAssemblyInfo, Isolate.Fake.Instance<IMapperInfo>());
         };
 
         It should_return_the_classinfo_from_the_datastore = () => _persistentClassInfo.ShouldEqual(_info);
@@ -78,7 +78,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             Isolate.WhenCalled(() => _table.ForeignKeys).WillReturnCollectionValuesOf(new List<ForeignKey>{foreignKey});
         };
 
-        Because of = () => new TableMapper(ObjectSpace, _database, new AttributeMapper(ObjectSpace)).Create(_table, _persistentAssemblyInfo);
+        Because of = () => new TableMapper(ObjectSpace, _database, new AttributeMapper(ObjectSpace)).Create(_table, _persistentAssemblyInfo, Isolate.Fake.Instance<IMapperInfo>());
 
         It should_create_a_persistent_classInfo_for_the_foreignkey_as_well =
             () =>
@@ -97,7 +97,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             Isolate.WhenCalled(() => _table.Columns).WillReturnCollectionValuesOf(new List<Column>{pk1,pk2});
         };
 
-        Because of = () => new TableMapper(ObjectSpace,_database,new AttributeMapper(ObjectSpace)).Create(_table, _persistentAssemblyInfo);
+        Because of = () => new TableMapper(ObjectSpace, _database, new AttributeMapper(ObjectSpace)).Create(_table, _persistentAssemblyInfo, Isolate.Fake.Instance<IMapperInfo>());
         It should_add_an_empty_templateinfo_with_name_Support_Persistemt_Objects_as_part_of_a_composite_key = () =>
         {
             var templateInfo = _persistentAssemblyInfo.PersistentClassInfos[0].TemplateInfos.SingleOrDefault();

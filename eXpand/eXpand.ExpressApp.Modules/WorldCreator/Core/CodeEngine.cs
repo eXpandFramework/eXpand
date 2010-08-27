@@ -50,7 +50,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return null;
         }
 
-        static string CleanName(string name) {
+        public static string CleanName(string name) {
             var regex = new Regex(@"[^\p{Ll}\p{Lu}\p{Lt}\p{Lo}\p{Nd}\p{Nl}\p{Mn}\p{Mc}\p{Cf}\p{Pc}\p{Lm}]");
             string ret = regex.Replace(name+"", "");
             if (!(string.IsNullOrEmpty(ret)) && !char.IsLetter(ret, 0) && !System.CodeDom.Compiler.CodeDomProvider.CreateProvider("C#").IsValidIdentifier(ret))

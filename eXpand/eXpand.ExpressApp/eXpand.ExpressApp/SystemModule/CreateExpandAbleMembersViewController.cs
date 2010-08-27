@@ -1,10 +1,8 @@
-using System;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using DevExpress.Xpo.Metadata;
 
 namespace eXpand.ExpressApp.SystemModule {
     public interface IModelClassCreateExpandAbleMembers
@@ -28,19 +26,17 @@ namespace eXpand.ExpressApp.SystemModule {
         protected override void OnActivated() {
             base.OnActivated();
             if (((IModelDetailViewCreateExpandAbleMembers) View.Model).CreateExpandAbleMembers)
-                ConstractExpandObjectMembers(View.ObjectSpace.Session, (PersistentBase) View.CurrentObject);
+                ConstractExpandObjectMembers(View.ObjectSpace.Session);
         }
 
-        public virtual void ConstractExpandObjectMembers(Session session, PersistentBase persistentBase) {
-            if (persistentBase != null && session.IsNewObject(persistentBase)) {
-                foreach (XPMemberInfo memberInfo in persistentBase.ClassInfo.ObjectProperties) {
-                    if (memberInfo.HasAttribute(typeof (ExpandObjectMembersAttribute))) {
-                        if (((ExpandObjectMembersAttribute)
-                             memberInfo.GetAttributeInfo(typeof (ExpandObjectMembersAttribute))).ExpandingMode !=
-                            ExpandObjectMembers.Never && memberInfo.GetValue(persistentBase) == null)
-                            memberInfo.SetValue(persistentBase,
-                                                ReflectionHelper.CreateObject(memberInfo.MemberType,
-                                                                         new object[] {persistentBase.Session}));
+        public virtual void ConstractExpandObjectMembers(Session session) {
+            if (session.IsNewObject(View.CurrentObject)) {
+                foreach (var memberInfo in View.ObjectTypeInfo.Members) {
+                    var expandObjectMembersAttribute = memberInfo.FindAttribute<ExpandObjectMembersAttribute>();
+                    if (expandObjectMembersAttribute != null && expandObjectMembersAttribute.ExpandingMode!=ExpandObjectMembers.Never){
+                        if (memberInfo.GetValue(View.CurrentObject)== null) {
+                            memberInfo.SetValue(View.CurrentObject,ObjectSpace.CreateObject(memberInfo.MemberType));
+                        }
                     }
                 }
             }
