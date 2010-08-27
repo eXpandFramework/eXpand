@@ -11,7 +11,6 @@ namespace FeatureCenter.Module.WorldCreator.NorthWind {
         }
         public override void Update()
         {
-            return;
             if (Session.FindObject<PersistentAssemblyInfo>(info => info.Name == NorthWind) != null) return;
             new ImportEngine().ImportObjects(GetType().Assembly.GetManifestResourceStream(GetType(),NorthWind+".xml"),new UnitOfWork(Session.DataLayer));
         }
