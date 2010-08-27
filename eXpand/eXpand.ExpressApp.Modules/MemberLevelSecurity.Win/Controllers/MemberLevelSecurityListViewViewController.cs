@@ -52,11 +52,12 @@ namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers
             bool canNotRead = CanNotRead(e.Column.FieldName, baseObject);
             IMemberInfo memberInfo = View.ObjectTypeInfo.FindMember(e.Column.FieldName);
             IModelColumn modelColumn = GetModelColumn(memberInfo);
-            e.RepositoryItem = ((GridListEditor)View.Editor).RepositoryFactory.CreateRepositoryItem(canNotRead , modelColumn, View.ObjectTypeInfo.Type);
+            if (modelColumn != null)
+                e.RepositoryItem = ((GridListEditor)View.Editor).RepositoryFactory.CreateRepositoryItem(canNotRead , modelColumn, View.ObjectTypeInfo.Type);
         }
 
         IModelColumn GetModelColumn(IMemberInfo memberInfo) {
-            return View.Model.Columns.Where(column => column.ModelMember.MemberInfo == memberInfo).Single();
+            return View.Model.Columns.Where(column =>column.ModelMember!=null&& column.ModelMember.MemberInfo == memberInfo).SingleOrDefault();
         }
 
         bool CanNotWrite(string fieldName, object baseObject) {
