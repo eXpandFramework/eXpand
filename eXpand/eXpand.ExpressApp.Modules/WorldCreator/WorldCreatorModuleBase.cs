@@ -13,6 +13,7 @@ using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.ExpressApp.WorldCreator.NodeUpdaters;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Xpo.DB;
+using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase:ModuleBase {
@@ -90,8 +91,11 @@ namespace eXpand.ExpressApp.WorldCreator {
                 var businessClass = moduleBase.BusinessClasses[0];
                 var connectionProvider = dataStoreManager.GetConnectionProvider(businessClass);
                 var session = new Session(new SimpleDataLayer(connectionProvider));
-                foreach (var objectType in xpObjectTypes) {
-                    session.Save(new XPObjectType(session, objectType.AssemblyName, objectType.TypeName));
+                if (session.GetCount(typeof(XPObjectType))<xpObjectTypes.Count) {
+                    session.Delete(new XPCollection<XPObjectType>(session));
+                    foreach (var objectType in xpObjectTypes) {
+                        session.Save(new XPObjectType(session, objectType.AssemblyName, objectType.TypeName));
+                    }
                 }
             }            
         }
