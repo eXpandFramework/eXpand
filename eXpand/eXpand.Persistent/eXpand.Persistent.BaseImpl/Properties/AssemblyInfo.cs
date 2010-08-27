@@ -37,5 +37,5 @@ using eXpand.Xpo.Attributes;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion(eXpand.AssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(eXpand.AssemblyInfo.Version)]
-[assembly: eXpand.Xpo.DB.DataStore(typeof(PersistentAssemblyInfo),"WorldCreator")]
+
 

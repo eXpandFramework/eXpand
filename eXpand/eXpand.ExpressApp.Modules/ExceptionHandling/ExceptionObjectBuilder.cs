@@ -28,7 +28,7 @@ namespace eXpand.ExpressApp.ExceptionHandling {
             exceptionObject.Time = DateTime.Now.TimeOfDay;
             var user = ((User) SecuritySystem.CurrentUser);
             if (user != null)
-                exceptionObject.User = (User) session.GetObjectByKey(typeof(User), user.ClassInfo.KeyProperty.GetValue(user));
+                exceptionObject.UserId = (Guid) session.GetKeyValue(user);
             exceptionObject.TracingLastEntries = Tracing.Tracer.GetLastEntriesAsString();
             var windowsIdentity = WindowsIdentity.GetCurrent();
             if (windowsIdentity != null) exceptionObject.WindowsID = windowsIdentity.Name;

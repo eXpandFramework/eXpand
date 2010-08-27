@@ -8,8 +8,9 @@ using eXpand.ExpressApp.Enums;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
+using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-
+[assembly: eXpand.Xpo.DB.DataStore(typeof(PersistentAssemblyInfo), "WorldCreator")]
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [DefaultClassOptions]
     [DevExpress.Persistent.Base.NavigationItem("WorldCreator")]

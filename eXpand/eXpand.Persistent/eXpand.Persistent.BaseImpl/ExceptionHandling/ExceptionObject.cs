@@ -4,13 +4,13 @@ using System.ComponentModel;
 using System.Drawing;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
-using DevExpress.Persistent.Base.Security;
-using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.Attributes;
 using eXpand.Persistent.Base.ExceptionHandling;
 using eXpand.Persistent.Base.General.ValueConverters;
+using eXpand.Persistent.BaseImpl.ExceptionHandling;
 
+[assembly: eXpand.Xpo.DB.DataStore(typeof(ExceptionObject), "ExceptionHandling")]
 namespace eXpand.Persistent.BaseImpl.ExceptionHandling
 {
     
@@ -28,7 +28,7 @@ namespace eXpand.Persistent.BaseImpl.ExceptionHandling
         string _message;
         string _threadId;
         TimeSpan _time;
-        User _user;
+        Guid _userId;
         string _windowsId;
         #endregion
         #region Constructor
@@ -55,15 +55,15 @@ namespace eXpand.Persistent.BaseImpl.ExceptionHandling
             get { return _time; }
             set { SetPropertyValue("Time", ref _time, value); }
         }
-        public User User
+        public Guid UserId
         {
-            get { return _user; }
-            set { SetPropertyValue("User", ref _user, value); }
+            get { return _userId; }
+            set { SetPropertyValue("UserId", ref _userId, value); }
         }
 
-        IUser IExceptionObject.User {
-            get { return User; }
-            set { User=value as User; }
+        Guid IExceptionObject.UserId {
+            get { return UserId; }
+            set { UserId=value ; }
         }
 
         private string _tracingLastEntries;

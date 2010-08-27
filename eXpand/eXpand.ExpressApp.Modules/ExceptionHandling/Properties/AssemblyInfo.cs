@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using eXpand.Persistent.Base.General;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -30,4 +31,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 [assembly: AssemblyVersion(eXpand.AssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(eXpand.AssemblyInfo.Version)]
+
 

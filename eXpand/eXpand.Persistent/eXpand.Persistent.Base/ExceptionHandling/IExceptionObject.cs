@@ -2,14 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using DevExpress.Persistent.Base.General;
-using DevExpress.Persistent.Base.Security;
 
 namespace eXpand.Persistent.Base.ExceptionHandling {
     public interface IExceptionObject : ITreeNode {
         int ID { get; set; }
         DateTime Date { get; set; }
         TimeSpan Time { get; set; }
-        IUser User { get; set; }
+        Guid UserId { get; set; }
         string TracingLastEntries { get; set; }
         string WindowsID { get; set; }
         string ComputerName { get; set; }
