@@ -22,6 +22,8 @@ namespace eXpand.ExpressApp.IO.PersistentTypesHelpers {
             var castTypeToTypeInfo = XafTypesInfo.CastTypeToTypeInfo(typeToSerialize);
             var objectSpace = ObjectSpace.FindObjectSpace(serializationConfiguration);
             _serializationConfigurationGroup = serializationConfiguration.SerializationConfigurationGroup;
+            if (_serializationConfigurationGroup== null)
+                throw new NullReferenceException("_serializationConfigurationGroup");
             foreach (var descendant in ReflectionHelper.FindTypeDescendants(castTypeToTypeInfo)) {
                 Generate(objectSpace, descendant.Type);
             }

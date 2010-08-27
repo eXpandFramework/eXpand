@@ -209,7 +209,7 @@ namespace eXpand.Tests.eXpand.IO {
                 _pivotGridSettingsContent = Encoding.UTF8.GetBytes(_xml);
                 analysis.PivotGridSettingsContent = _pivotGridSettingsContent;
             }
-            document = new ExportEngine().Export(new List<XPBaseObject> {analysis}, null);
+            document = new ExportEngine().Export(new List<XPBaseObject> {analysis}, objectSpace.CreateObject<SerializationConfigurationGroup>());
         };
 
         Because of = () => new ImportEngine().ImportObjects(document, (UnitOfWork)_session);
@@ -227,11 +227,16 @@ namespace eXpand.Tests.eXpand.IO {
             var modelBuilder = ModelBuilder<ICustomer, IOrder>.Build();
             modelBuilder.OneToMany();
             _persistentAssemblyInfo = modelBuilder.PersistentAssemblyBuilder.PersistentAssemblyInfo;
-            var configuration = new SerializationConfiguration(_persistentAssemblyInfo.Session) {TypeToSerialize = typeof (PersistentAssemblyInfo)};
-            new ClassInfoGraphNodeBuilder().Generate(configuration);
             _objectSpace=ObjectSpace.FindObjectSpace(_persistentAssemblyInfo);
+            var configuration = new SerializationConfiguration(_persistentAssemblyInfo.Session)
+            {
+                TypeToSerialize = typeof(PersistentAssemblyInfo),
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
+
+            new ClassInfoGraphNodeBuilder().Generate(configuration);
             _objectSpace.CommitChanges();
-            _document = new ExportEngine().Export(new[] { _persistentAssemblyInfo }.OfType<XPBaseObject>(), null);
+            _document = new ExportEngine().Export(new[] { _persistentAssemblyInfo }.OfType<XPBaseObject>(), configuration.SerializationConfigurationGroup);
         };
 
         Because of = () => new ImportEngine().ImportObjects(_document, (UnitOfWork) _objectSpace.Session);
@@ -261,7 +266,7 @@ namespace eXpand.Tests.eXpand.IO {
             var testClass = (XPBaseObject) _objectSpace.CreateObject(_testClassType);
             testClass.SetMemberValue("TestProperty","<Application></Application>");
 
-            XDocument document = new ExportEngine().Export(new []{testClass}, null);
+            XDocument document = new ExportEngine().Export(new []{testClass}, _objectSpace.CreateObject<SerializationConfigurationGroup>());
             testClass.Delete();
             _memoryStream = new MemoryStream();
             document.Save(new StreamWriter(_memoryStream));

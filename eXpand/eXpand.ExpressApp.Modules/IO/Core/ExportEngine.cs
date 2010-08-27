@@ -35,7 +35,7 @@ namespace eXpand.ExpressApp.IO.Core {
                 var serializedObjectElement = new XElement("SerializedObject");
                 serializedObjectElement.Add(new XAttribute("type", selectedObject.GetType().Name));
                 root.Add(serializedObjectElement);
-                foreach (var classInfoGraphNode in serializedClassInfoGraphNodes) {
+                foreach (var classInfoGraphNode in serializedClassInfoGraphNodes.Where(node => node.SerializationStrategy!=SerializationStrategy.DoNotSerialize)) {
                     XElement propertyElement = GetPropertyElement(serializedObjectElement, classInfoGraphNode);
                     switch (classInfoGraphNode.NodeType) {
                         case NodeType.Simple:

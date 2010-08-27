@@ -28,8 +28,12 @@ namespace eXpand.Tests.eXpand.IO {
             
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
             _objectSpace = oneToMany.ObjectSpace;
-            
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type };
+
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = oneToMany.T1Type,
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
 
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace);
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "DerivedOrder" });
@@ -42,6 +46,7 @@ namespace eXpand.Tests.eXpand.IO {
             var existentConfiguration =
                 (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
             existentConfiguration.TypeToSerialize = _derivedOrderType;
+            existentConfiguration.SerializationConfigurationGroup=_serializationConfiguration.SerializationConfigurationGroup;
         };
 
         Because of = () =>
@@ -69,7 +74,11 @@ namespace eXpand.Tests.eXpand.IO {
             var existentConfiguration =
                 (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
             existentConfiguration.TypeToSerialize = oneToMany.T2Type;
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T2Type };
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = oneToMany.T2Type,
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
 
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace);
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[]{"DerivedCustomer"});
@@ -107,7 +116,11 @@ namespace eXpand.Tests.eXpand.IO {
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             _t1Type = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
             _t2Type = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedCustomer").Single();
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = _t1Type };
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = _t1Type,
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
         };
 
 
@@ -130,8 +143,14 @@ namespace eXpand.Tests.eXpand.IO {
             _objectSpace = oneToMany.ObjectSpace;
             var existentConfiguration =
                 (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
+            var serializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>();
             existentConfiguration.TypeToSerialize = oneToMany.T2Type;
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type };
+            existentConfiguration.SerializationConfigurationGroup=serializationConfigurationGroup;
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = oneToMany.T1Type,
+                SerializationConfigurationGroup = serializationConfigurationGroup
+            };
         };
 
         Because of = () =>
@@ -155,8 +174,14 @@ namespace eXpand.Tests.eXpand.IO {
             _objectSpace = oneToMany.ObjectSpace;
             var existentConfiguration =
                 (SerializationConfiguration) _objectSpace.CreateObject(typeof (SerializationConfiguration));
-            existentConfiguration.TypeToSerialize=oneToMany.T1Type;            
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T2Type };
+            var serializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>();
+            existentConfiguration.TypeToSerialize=oneToMany.T1Type;
+            existentConfiguration.SerializationConfigurationGroup=serializationConfigurationGroup;
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = oneToMany.T2Type,
+                SerializationConfigurationGroup = serializationConfigurationGroup
+            };
         };
 
         Because of = () => {
@@ -230,7 +255,11 @@ namespace eXpand.Tests.eXpand.IO {
             _objectSpace.CommitChanges();
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder,Path.GetDirectoryName(Application.ExecutablePath));
             var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "CustomerSelfRef").Single();
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = customerType };
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = customerType,
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
         };
 
 
@@ -251,7 +280,11 @@ namespace eXpand.Tests.eXpand.IO {
         Establish context = () => {
             _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
             _persistentAssemblyInfo = (PersistentAssemblyInfo)_objectSpace.CreateObject(typeof(PersistentAssemblyInfo));
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = _persistentAssemblyInfo.GetType() };
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = _persistentAssemblyInfo.GetType(),
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
             
         };
 
@@ -260,7 +293,7 @@ namespace eXpand.Tests.eXpand.IO {
         It should_generate_it =
             () =>
             _serializationConfiguration.SerializationGraph.Count().ShouldEqual(
-                _persistentAssemblyInfo.ClassInfo.PersistentProperties.OfType<XPMemberInfo>().Count()-2);
+                _persistentAssemblyInfo.ClassInfo.PersistentProperties.OfType<XPMemberInfo>().Count());
     }
     [Subject(typeof(ClassInfoGraphNode))]
     public class When_creating_a_graph_with_a_byte_array_property:With_Isolations {
@@ -270,6 +303,7 @@ namespace eXpand.Tests.eXpand.IO {
             var objectSpace = ObjectSpaceInMemory.CreateNew();
             _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
             _serializationConfiguration.TypeToSerialize = typeof (Analysis);            
+            _serializationConfiguration.SerializationConfigurationGroup=objectSpace.CreateObject<SerializationConfigurationGroup>();
         };
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
 

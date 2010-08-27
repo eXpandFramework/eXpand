@@ -35,14 +35,18 @@ namespace eXpand.Tests.eXpand.IO {
 
             Type _derivedCustomerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedCustomer").Single();
             Type customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = customerType };
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = customerType,
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
             _derivedCustomer = _objectSpace.CreateObject(_derivedCustomerType);
         };
 
 
         Because of = () => {
-            _root = new ExportEngine().Export(new[]{_derivedCustomer}.OfType<XPBaseObject>(), null).Root;
+            _root = new ExportEngine().Export(new[]{_derivedCustomer}.OfType<XPBaseObject>(), _serializationConfiguration.SerializationConfigurationGroup).Root;
         };
 
         It should_export_derived_type_instead=() => {
@@ -83,7 +87,12 @@ namespace eXpand.Tests.eXpand.IO {
             _order = (XPBaseObject)_objectSpace.CreateObject(oneToMany.T2Type);
             _order.SetMemberValue("Customer", _objectSpace.CreateObject(_derivedCustomerType));
 
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T2Type };
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = oneToMany.T1Type,
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
+            
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
 
             _objectSpace.CommitChanges();
@@ -92,7 +101,7 @@ namespace eXpand.Tests.eXpand.IO {
 
         Because of = () =>
         {
-            _root = new ExportEngine().Export(new[] { _order }, null).Root;
+            _root = new ExportEngine().Export(new[] { _order }, _serializationConfiguration.SerializationConfigurationGroup).Root;
         };
 
         It should_export_derived_type_instead = () => _root.SerializedObjects(_derivedCustomerType).Count().ShouldEqual(1);
@@ -127,13 +136,17 @@ namespace eXpand.Tests.eXpand.IO {
             _customer = (XPBaseObject)_objectSpace.CreateObject(oneToMany.T1Type);
             _derivedOrder.SetMemberValue("Customer", _customer);
 
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type };
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize =oneToMany.T1Type,
+                SerializationConfigurationGroup=_objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
             _objectSpace.CommitChanges();
 
         };
 
-        Because of = () => { _root = new ExportEngine().Export(new[] { _customer }, null).Root; };
+        Because of = () => { _root = new ExportEngine().Export(new[] { _customer }, _serializationConfiguration.SerializationConfigurationGroup).Root; };
 
         It should_export_derived_type_instead = () => _root.SerializedObjects(_derivedOrderType).Count().ShouldEqual(1);
     }

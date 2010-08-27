@@ -49,7 +49,11 @@ namespace eXpand.Tests.eXpand.IO
             _order1.SetMemberValue("Customer",_customer);
             _order2 = (XPBaseObject) ObjectSpace.CreateObject(OrderType);
             _order2.SetMemberValue("Customer",_customer);
-            _serializationConfiguration = new SerializationConfiguration(ObjectSpace.Session) { TypeToSerialize = CustomerType ,SerializationConfigurationGroup = new SerializationConfigurationGroup(Session)};
+            _serializationConfiguration = new SerializationConfiguration(ObjectSpace.Session)
+            {
+                TypeToSerialize = CustomerType,
+                SerializationConfigurationGroup = new SerializationConfigurationGroup(Session)
+            };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
             _serializationConfiguration.SerializationGraph.Where(node => node.Name == "User").Single().SerializationStrategy = SerializationStrategy.DoNotSerialize;
             ObjectSpace.CommitChanges();
@@ -84,10 +88,9 @@ namespace eXpand.Tests.eXpand.IO
         It should_have_1_key_property_element_as_customer_Serialized_element_child =
             () => _customerElement.ObjectKeyProperties().Count().ShouldEqual(1);
 
-        It should_have_1_object_property_with_value_the_oid_of_user=() => {
+        It should_have_0_object_property_with_value_the_oid_of_user=() => {
             var objectProperties = _customerElement.Properties(NodeType.Object);
-            objectProperties.Count().ShouldEqual(1);
-            objectProperties.KeyElements("oid").Single().Value.ShouldEqual(_user.GetMemberValue("Oid").ToString());
+            objectProperties.Count().ShouldEqual(0);
         };
 
         It should_have_1_collection_property__with_name_Orders_as_Serialized_element_child=() => {
@@ -106,6 +109,7 @@ namespace eXpand.Tests.eXpand.IO
 
     [Subject(typeof(ExportEngine))]
     public class When_exporting_with_reference_object_with_no_existent_configuration:With_Isolations {
+        static SerializationConfigurationGroup _serializationConfigurationGroup;
         static Type _customerType;
         static ObjectSpace _objectSpace;
         static XPBaseObject _order;
@@ -119,7 +123,12 @@ namespace eXpand.Tests.eXpand.IO
             var modelInstancesHandler = oneToMany.CreateInstances();
             _order = (XPBaseObject) modelInstancesHandler.T2Instance;
             _objectSpace = oneToMany.ObjectSpace;
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = _order.GetType() };
+            _serializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>();
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = _order.GetType(),
+                SerializationConfigurationGroup = _serializationConfigurationGroup
+            };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
             _objectSpace.CommitChanges();
             _objectSpace.Session.FindObject<SerializationConfiguration>(configuration => configuration.TypeToSerialize==_customerType).Delete();
@@ -127,7 +136,7 @@ namespace eXpand.Tests.eXpand.IO
             _objectSpace.CommitChanges();
         };
 
-        Because of = () => new ExportEngine().Export(new []{_order}, null);
+        Because of = () => new ExportEngine().Export(new List<XPBaseObject> { _order }, _serializationConfigurationGroup);
 
         It should_create_the_non_existent_configuration =
             () => {
@@ -157,13 +166,17 @@ namespace eXpand.Tests.eXpand.IO
             var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
             _customer = (XPBaseObject) objectSpace.CreateObject(customerType);
             objectSpace.CommitChanges();
-            _serializationConfiguration = new SerializationConfiguration(objectSpace.Session) { TypeToSerialize = customerType };
+            _serializationConfiguration = new SerializationConfiguration(objectSpace.Session)
+            {
+                TypeToSerialize = customerType,
+                SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
         };
 
 
         Because of = () => {
-            XDocument document = new ExportEngine().Export(new[]{_customer}, null);
+            XDocument document = new ExportEngine().Export(new[]{_customer}, _serializationConfiguration.SerializationConfigurationGroup);
             _root = document.Root;
         };
 
@@ -174,7 +187,39 @@ namespace eXpand.Tests.eXpand.IO
             };
         It should_set_null_value_to_that_property=() => _property.Value.ShouldEqual(String.Empty);
     }
+    [Subject(typeof(ExportEngine))]
+    public class When_a_many_to_many_collection_has_non_serialize_strategy : With_Isolations
+    {
+        static SerializationConfigurationGroup _serializationConfigurationGroup;
+        static XElement _root;
+        static ObjectSpace _objectSpace;
+        static SerializationConfiguration _serializationConfiguration;
+        static XPBaseObject _customer;
 
+        Establish context = () => {
+            var typeHandler = ModelBuilder<ICustomer, IOrder>.Build().ManyToMany();
+            var modelInstancesHandler = typeHandler.CreateInstances();
+            _objectSpace = typeHandler.ObjectSpace;
+            _customer = (XPBaseObject)modelInstancesHandler.T1instance;
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = _customer.GetType() };
+            _serializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>();
+            _serializationConfiguration.SerializationConfigurationGroup=_serializationConfigurationGroup;
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+            
+            var classInfoGraphNode = _serializationConfiguration.SerializationGraph.Where(node => node.Name=="Orders").Single();
+            classInfoGraphNode.SerializationStrategy=SerializationStrategy.DoNotSerialize;
+            _objectSpace.CommitChanges();
+            
+        };
+
+        Because of = () => {
+            var xDocument = new ExportEngine().Export(new[] { _customer }, _serializationConfigurationGroup);
+            _root = xDocument.Root;
+        };
+
+        It should_not_create_an_property_element_with_the_name_of_the_collection =
+            () => _root.SerializedObjects(_customer.GetType()).Properties(NodeType.Collection).Count().ShouldEqual(0);
+    }
     [Subject(typeof(ExportEngine))]
     public class When_exporting_Customers_Orders_many_to_many:With_Isolations {
         static XElement _customersElement;
@@ -193,13 +238,17 @@ namespace eXpand.Tests.eXpand.IO
             _customer = (XPBaseObject) modelInstancesHandler.T1instance;
             _order = (XPBaseObject) modelInstancesHandler.T2Instance;
             _objectSpace=typeHandler.ObjectSpace;
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session){TypeToSerialize = _customer.GetType()};
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = _customer.GetType(),
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
             _objectSpace.CommitChanges();
         };
 
         Because of = () => {
-            var xDocument = new ExportEngine().Export(new[] {_customer}, null);
+            var xDocument = new ExportEngine().Export(new[] {_customer}, _serializationConfiguration.SerializationConfigurationGroup);
             _root = xDocument.Root;
         };
 
@@ -295,13 +344,17 @@ namespace eXpand.Tests.eXpand.IO
             Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
             _customer = (XPBaseObject) _objectSpace.CreateObject(customerType);
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = customerType };
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = customerType,
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
             _serializationConfiguration.SerializationGraph.Where(node => node.Name=="oid").Single().SerializationStrategy=SerializationStrategy.DoNotSerialize;
         };
 
         Because of = () => {
-            var document = new ExportEngine().Export(new []{_customer}, null);
+            var document = new ExportEngine().Export(new []{_customer}, _serializationConfiguration.SerializationConfigurationGroup);
             _root = document.Root;
         };
 
@@ -319,13 +372,18 @@ namespace eXpand.Tests.eXpand.IO
             var modelBuilder = ModelBuilder<ICustomer,IOrder>.Build();
             modelBuilder.OneToMany();
             _persistentAssemblyInfo = modelBuilder.PersistentAssemblyBuilder.PersistentAssemblyInfo;
-            _serializationConfiguration = new SerializationConfiguration(_persistentAssemblyInfo.Session){TypeToSerialize = typeof(PersistentAssemblyInfo)};
+            var session = _persistentAssemblyInfo.Session;
+            _serializationConfiguration = new SerializationConfiguration(session)
+            {
+                TypeToSerialize = typeof(PersistentAssemblyInfo),
+                SerializationConfigurationGroup = new SerializationConfigurationGroup(session)
+            };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
             ObjectSpace.FindObjectSpace(_persistentAssemblyInfo).CommitChanges();
         };
 
         Because of = () => {
-            _root = new ExportEngine().Export(new []{_persistentAssemblyInfo}.OfType<XPBaseObject>(), null).Root;
+            _root = new ExportEngine().Export(new[] { _persistentAssemblyInfo }.OfType<XPBaseObject>(), ObjectSpace.FindObjectSpace(_persistentAssemblyInfo).CreateObject<SerializationConfigurationGroup>()).Root;
         };
 
         It should_contain_serialized_element_of_persistentAssemblyInfo_type =
@@ -362,7 +420,7 @@ namespace eXpand.Tests.eXpand.IO
         };
 
         Because of = () => {
-            var xDocument = new ExportEngine().Export(new List<XPBaseObject> { _analysis }, null);
+            var xDocument = new ExportEngine().Export(new List<XPBaseObject> { _analysis }, ObjectSpace.FindObjectSpace(_analysis).CreateObject<SerializationConfigurationGroup>());
             xDocument.Save(@"c:\my.xml");
             _root = xDocument.Root;
         };
@@ -378,24 +436,25 @@ namespace eXpand.Tests.eXpand.IO
 
     [Subject(typeof(ExportEngine))]
     public class When_object_has_An_image_property:With_Isolations {
+        static ObjectSpace _objectSpace;
         static Color _color;
         static XElement _root;
         static ImagePropertyObject _imagePropertyObject;
 
         Establish context = () => {
-            var objectSpace = ObjectSpaceInMemory.CreateNew();
-            _imagePropertyObject = objectSpace.CreateObject<ImagePropertyObject>();
+            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _imagePropertyObject = _objectSpace.CreateObject<ImagePropertyObject>();
             var bitmap = new Bitmap(1,1);
             bitmap.SetPixel(0,0,Color.Red);
             _color = bitmap.GetPixel(0,0);
 
             _imagePropertyObject.Photo = bitmap;
-            objectSpace.CommitChanges();
+            _objectSpace.CommitChanges();
             _imagePropertyObject.Reload();
         };
 
         Because of = () => {
-            _root = new ExportEngine().Export(new[]{_imagePropertyObject}, null).Root;
+            _root = new ExportEngine().Export(new[]{_imagePropertyObject}, _objectSpace.CreateObject<SerializationConfigurationGroup>()).Root;
         };
 
         It should_serialize_the_image_property =
@@ -414,20 +473,21 @@ namespace eXpand.Tests.eXpand.IO
 
     [Subject(typeof(ExportEngine))]
     public class When_exporting_object_with_date_time_property:With_Isolations {
+        static ObjectSpace _objectSpace;
         static XElement _root;
         static DateTimePropertyObject _dateTimePropertyObject;
         static DateTime _dateTime;
 
         Establish context = () => {
-            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            _objectSpace = ObjectSpaceInMemory.CreateNew();
             _dateTime = DateTime.Now;
-            _dateTimePropertyObject = objectSpace.CreateObject<DateTimePropertyObject>();
+            _dateTimePropertyObject = _objectSpace.CreateObject<DateTimePropertyObject>();
             _dateTimePropertyObject.Date = _dateTime;
-            objectSpace.CommitChanges();
+            _objectSpace.CommitChanges();
         };
 
         Because of = () => {
-            _root = new ExportEngine().Export(new[]{_dateTimePropertyObject}, null).Root;
+            _root = new ExportEngine().Export(new[]{_dateTimePropertyObject}, _objectSpace.CreateObject<SerializationConfigurationGroup>()).Root;
         };
 
         It should_export_the_full_date_time = () => {
