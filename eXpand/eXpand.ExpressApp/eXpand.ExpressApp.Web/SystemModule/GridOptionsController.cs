@@ -7,7 +7,7 @@ using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Web.SystemModule {
 
-    public interface IModelListViewMainViewOptionsBase : ExpressApp.SystemModule.IModelListViewMainViewOptionsBase
+    public interface IModelListViewMainViewOptions : IModelListViewMainViewOptionsBase
     {
         IModelGridViewOptions GridViewOptions { get; set; }
     }
