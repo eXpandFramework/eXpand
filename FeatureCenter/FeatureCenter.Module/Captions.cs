@@ -48,6 +48,7 @@
         public const string HeaderViewVariants = "Header View Variants";
         public const string HeaderExceptionHandling = "Header Exception Handling";
         public const string HeaderNorthWind = "Header NorthWind";
+        public const string HeaderRoleDifference = "Header Role Difference";
 
 
         public const string ViewMessage = "ViewMessage";
@@ -98,6 +99,7 @@
         public const string ViewMessageMemberLevelSecurity = "Here you can see how to to apply conditional member level security permissions. eg. For Customers that live in paris Deny Read permission have been applied and for the ones that live in New York a Deny Write.";
         public const string ViewMessageViewVariants = "Here you can see how you can allow end users to create views at runtime with out giving them access to model editor. Note the viewvariants single choise actions 2 buttons on the right that allow you to edit delete a view and the clone view action";
         public const string ViewMessageExceptionHandling = "Here you can see how you can apply the power full Microsoft Enterpise Logging module to log your exception. FeatureCenter has been configured to log your exceptions at a special log with the name FeatureCenter (see your windows event viewer) You can add more tracelisteners easy using MS EL config tool. There are listener avaliable that can log exceptions to database,xml,WMI,email etc\r\nAlso at your application config at the ConnectionStrings section there is one with the name ExceptionHandlingConnectionString. That is going to be used by eXpand to store your exceptions at database so you can analyze them at any time";
-        public const string ViewMessageNorthWind = "In this view you can see the structure of the NorthWind database. This structure has been created by using the tools/mapdatabase action and is pointing to northwind database and not to the feature center. You can map any sql database you want to WC and edit/query/analyze or make reports on it";        
+        public const string ViewMessageNorthWind = "In this view you can see the structure of the NorthWind database. This structure has been created by using the tools/mapdatabase action and is pointing to northwind database and not to the feature center. You can map any sql database you want to WC and edit/query/analyze or make reports on it";
+        public const string ViewMessageRoleDifference = "In this view you can see how you can design role differences and apply them to a role by just affind an RDO prefix on your xafml file. Browse the source code for more info under the ApplicationDifferences/RoleDifference folder ";        
     }
 }

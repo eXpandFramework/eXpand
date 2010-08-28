@@ -223,6 +223,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationDifferences\RoleDifference\AttributeRegistrator.cs" />
     <Compile Include="DetailViewControl\ActionButtonViewItem\ActionButtonViewItemController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -448,6 +449,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LowLevelFilterDataStore\UserFilter\MDO_UserFilter.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationDifferences\RoleDifference\RDO_Administrators_RoleDifference.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Functional Tests\Sample.ets" />
