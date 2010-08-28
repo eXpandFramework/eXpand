@@ -30,18 +30,18 @@ namespace eXpand.ExpressApp.SystemModule {
         }
 
         public virtual void ConstractExpandObjectMembers(Session session) {
-            if (session.IsNewObject(View.CurrentObject)) {
+            if (View.CurrentObject != null && session.IsNewObject(View.CurrentObject)) {
                 foreach (var memberInfo in View.ObjectTypeInfo.Members) {
                     var expandObjectMembersAttribute = memberInfo.FindAttribute<ExpandObjectMembersAttribute>();
-                    if (expandObjectMembersAttribute != null && expandObjectMembersAttribute.ExpandingMode!=ExpandObjectMembers.Never){
-                        if (memberInfo.GetValue(View.CurrentObject)== null) {
-                            memberInfo.SetValue(View.CurrentObject,ObjectSpace.CreateObject(memberInfo.MemberType));
+                    if (expandObjectMembersAttribute != null &&
+                        expandObjectMembersAttribute.ExpandingMode != ExpandObjectMembers.Never) {
+                        if (memberInfo.GetValue(View.CurrentObject) == null) {
+                            memberInfo.SetValue(View.CurrentObject, ObjectSpace.CreateObject(memberInfo.MemberType));
                         }
                     }
                 }
             }
         }
-
         #region IModelExtender Members
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)

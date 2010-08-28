@@ -23,7 +23,7 @@ namespace eXpand.Persistent.BaseImpl.ImportExport {
             set { SetPropertyValue("Name", ref _name, value); }
         }
 
-        [Association("SerializationConfigurationGroup-SerializationConfigurations")]
+        [Association("SerializationConfigurationGroup-SerializationConfigurations")][Aggregated]
         public XPCollection<SerializationConfiguration> SerializationConfigurations {
             get { return GetCollection<SerializationConfiguration>("SerializationConfigurations"); }
         }
