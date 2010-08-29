@@ -11,18 +11,21 @@ namespace eXpand.Persistent.BaseImpl
 {
     public abstract class Updater : ModuleUpdater
     {
+        private const string Administrators = "Administrators";
         protected Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) { }
 
 
-        protected virtual List<IPermission> GetDenyPermissions() {
-            return new List<IPermission> {
+        protected virtual List<IPermission> GetDenyPermissions(Role role) {
+            if (role.Name!=Administrators)
+                return new List<IPermission> {
                                              new ObjectAccessPermission(typeof(Role), ObjectAccess.AllAccess, ObjectAccessModifier.Deny)
                                          };
+            return new List<IPermission>();
         }
 
         protected void InitializeSecurity()
         {
-            Role admins = EnsureRoleExists("Administrators", GetDenyPermissions);
+            Role admins = EnsureRoleExists(Administrators, GetDenyPermissions);
             EnsureUserExists("admin", "Administrator",admins);
 
             Role userRole = EnsureRoleExists("userRole", GetDenyPermissions);
@@ -42,7 +45,7 @@ namespace eXpand.Persistent.BaseImpl
             return user;
         }
 
-        protected Role EnsureRoleExists(string roleName,Func<List<IPermission>> permissionAddFunc)
+        protected Role EnsureRoleExists(string roleName,Func<Role,List<IPermission>> permissionAddFunc)
         {
             var role = Session.FindObject<Role>(new BinaryOperator("Name", roleName));
             if (role == null){
@@ -51,7 +54,7 @@ namespace eXpand.Persistent.BaseImpl
                     Session.Delete(role.PersistentPermissions[0]);
                 }
                 role.AddPermission(new ObjectAccessPermission(typeof(object), ObjectAccess.AllAccess));
-                foreach (var permission in permissionAddFunc.Invoke()) {
+                foreach (var permission in permissionAddFunc.Invoke(role)) {
                     role.AddPermission(permission);
                 }
                 role.Save();
