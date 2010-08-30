@@ -11,11 +11,12 @@ namespace eXpand.Persistent.BaseImpl
 {
     public abstract class Updater : ModuleUpdater
     {
-        private const string Administrators = "Administrators";
+        public const string Administrators = "Administrators";
+        public const string UserRole = "UserRole";
         protected Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) { }
 
 
-        protected virtual List<IPermission> GetDenyPermissions(Role role) {
+        protected virtual List<IPermission> GetPermissions(Role role) {
             if (role.Name!=Administrators)
                 return new List<IPermission> {
                                              new ObjectAccessPermission(typeof(Role), ObjectAccess.AllAccess, ObjectAccessModifier.Deny)
@@ -23,17 +24,17 @@ namespace eXpand.Persistent.BaseImpl
             return new List<IPermission>();
         }
 
-        protected void InitializeSecurity()
+        protected virtual void InitializeSecurity()
         {
-            Role admins = EnsureRoleExists(Administrators, GetDenyPermissions);
+            Role admins = EnsureRoleExists(Administrators, GetPermissions);
             EnsureUserExists("admin", "Administrator",admins);
 
-            Role userRole = EnsureRoleExists("userRole", GetDenyPermissions);
+            Role userRole = EnsureRoleExists(UserRole, GetPermissions);
             EnsureUserExists("user", "user", userRole);
         }
 
 
-        protected User EnsureUserExists(string userName, string firstName, Role role)
+        protected virtual User EnsureUserExists(string userName, string firstName, Role role)
         {
             var user = Session.FindObject<User>(new BinaryOperator("UserName", userName));
             if (user == null){
@@ -45,7 +46,7 @@ namespace eXpand.Persistent.BaseImpl
             return user;
         }
 
-        protected Role EnsureRoleExists(string roleName,Func<Role,List<IPermission>> permissionAddFunc)
+        protected virtual Role EnsureRoleExists(string roleName,Func<Role,List<IPermission>> permissionAddFunc)
         {
             var role = Session.FindObject<Role>(new BinaryOperator("Name", roleName));
             if (role == null){
