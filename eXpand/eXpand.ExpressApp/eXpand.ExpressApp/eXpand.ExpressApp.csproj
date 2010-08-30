@@ -112,6 +112,7 @@
     <Compile Include="Core\DictionaryHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\DynamicModel\DynamicDouplicateTypesMapper.cs" />
     <Compile Include="Core\ModelApplicationBaseExtensions.cs" />
     <Compile Include="Core\DynamicModel\IDynamicModelPropertiesSource.cs" />
     <Compile Include="Core\FrameExtensions.cs" />

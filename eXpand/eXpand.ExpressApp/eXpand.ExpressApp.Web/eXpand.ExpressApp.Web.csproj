@@ -101,6 +101,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\DynamicDouplicateTypesMapper.cs" />
     <Compile Include="Core\ISharedApplicationParameters.cs" />
     <Compile Include="Core\ListViewExtensions.cs" />
     <Compile Include="Core\SharedApplicationParameters.cs" />
