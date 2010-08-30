@@ -31,9 +31,11 @@ namespace eXpand.ExpressApp.Win.SystemModule
             extenders.Add<IModelClass, IModelClassClassTypeToInstantiate>();
             extenders.Add<IModelView, IModelViewClassTypeToInstantiate>();
         }
+
         protected override void UpdateActionState()
         {
             base.UpdateActionState();
+            
             foreach (ITypeInfo typeInfo in currentViewTypes)
             {
                 var b = typeInfo.FindAttribute<CanInstantiate>() != null;

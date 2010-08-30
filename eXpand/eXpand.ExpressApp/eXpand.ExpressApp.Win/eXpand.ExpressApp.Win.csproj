@@ -214,9 +214,6 @@
     <Compile Include="SystemModule\WindowHintController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\WinNewObjectViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Core\MoreSerializer.cs">
       <SubType>Code</SubType>
     </Compile>
