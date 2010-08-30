@@ -53,6 +53,7 @@ call clearProject.bat eXpand.NCarousel
 call clearProject.bat eXpand.ExpressApp.MasterDetail
 call clearProject.bat eXpand.ExpressApp.MasterDetail.Win
 call clearProject.bat eXpand.ExpressApp.WorldCreator.SqlDBMapper
+call clearProject.bat eXpand.ExpressApp.ConditionalDetailViews
 
 rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Common.dll
 rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Configuration.Design.DLL

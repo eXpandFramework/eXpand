@@ -46,6 +46,7 @@ call buildproject.cmd eXpand.ExpressApp.PivotChart.Web ".\eXpand\eXpand.ExpressA
 call buildproject.cmd eXpand.NCarousel ".\eXpand\eXpand.ExpressApp.Modules\NCarousel\eXpand.NCarousel.csproj"
 call buildproject.cmd eXpand.ExpressApp.NCarousel.Web ".\eXpand\eXpand.ExpressApp.Modules\NCarousel.Web\eXpand.ExpressApp.NCarousel.Web.csproj"
 call buildproject.cmd eXpand.ExpressApp.Thumbnail.Web ".\eXpand\eXpand.ExpressApp.Modules\Thumbnail.Web\eXpand.ExpressApp.Thumbnail.Web.csproj"
+call buildproject.cmd eXpand.ExpressApp.ConditionalDetailViews ".\eXpand\eXpand.ExpressApp.Modules\ConditionalDetailViews\eXpand.ExpressApp.ConditionalDetailViews.csproj"
 call buildproject.cmd eXpand.Persistent.BaseImpl ".\eXpand\eXpand.Persistent\eXpand.Persistent.BaseImpl\eXpand.Persistent.BaseImpl.csproj"
 
 
