@@ -61,9 +61,16 @@ namespace eXpandAddIns
         {
             Project startUpProject = CodeRush.ApplicationObject.Solution.FindStartUpProject();
             Property outPut = startUpProject.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath);
-            Property fullPath = startUpProject.FindProperty(ProjectProperty.FullPath);
-            string path = Path.Combine(fullPath.Value.ToString(),outPut.Value.ToString());
-//            var reader = new ReverseLineReader(Path.Combine(path, "expressAppFrameWork.log"));
+            bool isWeb = IsWeb(startUpProject);
+
+
+
+            string fullPath = startUpProject.FindProperty(ProjectProperty.FullPath).Value+"";
+            string path = Path.Combine(fullPath, outPut.Value.ToString());
+            if (isWeb)
+                path = Path.GetDirectoryName(startUpProject.FullName);
+            
+
             Func<Stream> streamSource = () => {
                 File.Copy(Path.Combine(path, "expressAppFrameWork.log"), Path.Combine(path, "expressAppFrameWork.locked"),true);
                 return File.Open(Path.Combine(path, "expressAppFrameWork.locked"),FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -85,7 +92,11 @@ namespace eXpandAddIns
                 }
             }
         }
-        
+
+        bool IsWeb(Project startUpProject) {
+            return startUpProject.ProjectItems.OfType<ProjectItem>().Where(item => item.Name.ToLower() == "web.config").Count()>0;
+        }
+
         public static string Inject(string injectToString, int positionToInject, string stringToInject)
         {
             var builder = new StringBuilder();
