@@ -400,7 +400,7 @@
     <Compile Include="WinOrder.cs" />
     <Compile Include="WinOrderLine.cs" />
     <Compile Include="ControllingXtraGrid\MasterDetail\AutoExpandNewRow\AttributeRegistrator.cs" />
-    <Compile Include="ControllingXtraGrid\MasterDetail\ConditionalDetailViews\AttributeRegistrator.cs" />
+    <Compile Include="ControllingXtraGrid\MasterDetail\ConditionalGridDetailViews\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\ColumnsOptions\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\XtraGridViewOptions\AttributeRegistrator.cs" />
   </ItemGroup>
@@ -461,7 +461,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ControllingXtraGrid\MasterDetail\ConditionalDetailViews\MDO_ConditionalDetailViews.xafml">
+    <EmbeddedResource Include="ControllingXtraGrid\MasterDetail\ConditionalGridDetailViews\MDO_ConditionalGridDetailViews.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

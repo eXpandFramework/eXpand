@@ -6,7 +6,7 @@ using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using eXpand.ExpressApp.Attributes;
 using eXpand.ExpressApp.MasterDetail.Logic;
 
-namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.ConditionalDetailViews
+namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.ConditionalGridDetailViews
 {
     public class AttributeRegistrator : Module.AttributeRegistrator
     {
