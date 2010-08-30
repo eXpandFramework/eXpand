@@ -1,15 +1,12 @@
 using System.ComponentModel;
-using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.Logic {
-    public class LogicRuleExecutingEventArgs<TLogicRule> : CancelEventArgs
-        where TLogicRule:ILogicRule
-    {
+    public class LogicRuleExecutingEventArgs<TLogicRule> : CancelEventArgs where TLogicRule : ILogicRule {
         readonly ExecutionContext _executionContext;
 
 
-        public LogicRuleExecutingEventArgs(LogicRuleInfo<TLogicRule> info, bool cancel, ExecutionContext executionContext)
-        {
+        public LogicRuleExecutingEventArgs(LogicRuleInfo<TLogicRule> info, bool cancel,
+                                           ExecutionContext executionContext) {
             _executionContext = executionContext;
             LogicRuleInfo = info;
             Cancel = cancel;

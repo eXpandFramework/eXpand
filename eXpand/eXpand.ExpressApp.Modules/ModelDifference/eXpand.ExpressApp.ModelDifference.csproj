@@ -26,6 +26,7 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
+    <OutputPath>..\..\..\eXpand.DLL\</OutputPath>
     <PublishUrl>http://localhost/eXpressApp.Module.XpoDictionaryDifferenceModule/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -40,7 +41,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <OutputPath>..\..\..\eXpand.DLL\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -64,10 +64,10 @@
     <Reference Include="DevExpress.Data.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Security.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v10.1">
@@ -82,13 +82,13 @@
     <Reference Include="DevExpress.Persistent.Base.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.1.Linq, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v10.1.Linq, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
@@ -124,6 +124,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>
@@ -133,45 +134,34 @@
     <Compile Include="Controllers\CloneObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\CombineActiveModelDictionaryController.cs">
+    <Compile Include="Controllers\CombineDifferencesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\CombineActiveUserDifferenceWithUserModelController.cs">
+    <Compile Include="Controllers\SynchronizeWithUserModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\CombineDifferencesOnDemandDetailViewController.cs">
+    <Compile Include="Controllers\SyncronizeApplicationModelDiffsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\CombineDifferencesOnDemandDetailViewController.Designer.cs">
-      <DependentUpon>CombineDifferencesOnDemandDetailViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\CombineDifferencesOnDemandListViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\CombineDifferencesOnDemandListViewController.Designer.cs">
-      <DependentUpon>CombineDifferencesOnDemandListViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\CreateNewDifferenceObjectViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\CreateNewDifferenceObjectViewController.Designer.cs">
-      <DependentUpon>CreateNewDifferenceObjectViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataStore\BaseObjects\DifferenceObject.cs" />
+    <Compile Include="Core\ModelApplicationFromStreamStoreBase.cs" />
+    <Compile Include="Core\ModelApplicationBuilder.cs" />
+    <Compile Include="CreateCustomModelDifferenceStoreEventArgs.cs" />
     <Compile Include="DataStore\BaseObjects\ModelDifferenceObject.cs" />
-    <Compile Include="DataStore\BaseObjects\ValueConverters\DictionaryValueConverter.cs" />
+    <Compile Include="DataStore\BaseObjects\PersistentApplication.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataStore\BaseObjects\ValueConverters\ModelValueConverter.cs" />
     <Compile Include="DataStore\Queries\IQueryDifferenceObject.cs" />
     <Compile Include="DataStore\Queries\QueryDifferenceObject.cs" />
-    <Compile Include="DataStore\Queries\QueryPersistentApplication.cs" />
     <Compile Include="DataStore\BaseObjects\Associations.cs" />
-    <Compile Include="DataStore\BaseObjects\PersistentApplication.cs" />
     <Compile Include="DataStore\Builders\UserDifferenceObjectBuilder.cs" />
     <Compile Include="DataStore\Builders\RoleDifferenceObjectBuilder.cs" />
-    <Compile Include="DataStore\Builders\ModelDifferenceObjectBuilder.cs" />
     <Compile Include="DataStore\BaseObjects\RoleModelDifferenceObject.cs" />
     <Compile Include="DataStore\BaseObjects\UserModelDifferenceObject.cs" />
+    <Compile Include="DataStore\Queries\QueryPersistentApplication.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataStore\Queries\QueryRoleModelDifferenceObject.cs" />
-    <Compile Include="DictionaryStores\XpoModelDictionaryDifferenceStoreFactory.cs" />
     <Compile Include="ModelDifferenceBaseModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -194,12 +184,6 @@
     <Compile Include="DataStore\Queries\QueryUserModelDifferenceObject.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\CombineDifferencesOnDemandDetailViewController.resx">
-      <DependentUpon>CombineDifferencesOnDemandDetailViewController.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controllers\CombineDifferencesOnDemandListViewController.resx">
-      <DependentUpon>CombineDifferencesOnDemandListViewController.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

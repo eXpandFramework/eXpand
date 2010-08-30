@@ -10,7 +10,7 @@ namespace eXpand.ExpressApp.PivotChart.Win.Core
         static IValueManager<TypesInfo> instanceManager;
 
 
-        public new static TypesInfo Instance
+        public static TypesInfo Instance
         {
             get
             {

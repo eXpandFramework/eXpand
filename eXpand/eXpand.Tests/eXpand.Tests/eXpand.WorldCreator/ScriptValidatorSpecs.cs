@@ -8,14 +8,14 @@ using System.Linq;
 
 namespace eXpand.Tests.eXpand.WorldCreator
 {
-    public class When_validating_script
+    public class When_validating_script:With_In_Memory_DataStore
     {
         static PersistentAssemblyInfo _info;
 
-        Establish context = () => new TestAppLication<PersistentAssemblyInfo>().Setup(null, info => {
-            info.Name = "TestAssemlby";
-            _info=info;
-        });
+        Establish context = () => {
+            _info = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _info.Name = "TestAssemlby";
+        };
 
          Because of = () => _info.Validate(Path.GetDirectoryName(Application.ExecutablePath));
 

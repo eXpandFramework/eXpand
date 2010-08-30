@@ -20,22 +20,49 @@ call buildproject.cmd eXpand.ExpressApp.ModelDifference.Win ".\eXpand\eXpand.Exp
 call buildproject.cmd eXpand.ExpressApp.ModelDifference.Web ".\eXpand\eXpand.ExpressApp.Modules\ModelDifference.Web\eXpand.ExpressApp.ModelDifference.Web.csproj"
 call buildproject.cmd eXpand.ExpressApp.FilterDataStore ".\eXpand\eXpand.ExpressApp.Modules\FilterDataStore\eXpand.ExpressApp.FilterDataStore.csproj"
 call buildproject.cmd eXpand.ExpressApp.FilterDataStore.Win ".\eXpand\eXpand.ExpressApp.Modules\FilterDataStore.Win\eXpand.ExpressApp.FilterDataStore.Win.csproj"
+call buildproject.cmd eXpand.ExpressApp.ArtifactState ".\eXpand\eXpand.ExpressApp.Modules\ArtifactState\eXpand.ExpressApp.ArtifactState.csproj"
+call buildproject.cmd eXpand.ExpressApp.ConditionalActionState ".\eXpand\eXpand.ExpressApp.Modules\ConditionalActionState\eXpand.ExpressApp.ConditionalActionState.csproj"
+call buildproject.cmd eXpand.ExpressApp.ConditionalControllerState ".\eXpand\eXpand.ExpressApp.Modules\ConditionalControllerState\eXpand.ExpressApp.ConditionalControllerState.csproj"
 call buildproject.cmd eXpand.ExpressApp.ModelArtifactState ".\eXpand\eXpand.ExpressApp.Modules\ModelArtifactState\eXpand.ExpressApp.ModelArtifactState.csproj"
 call buildproject.cmd eXpand.ExpressApp.ModelArtifactState.Win ".\eXpand\eXpand.ExpressApp.Modules\ModelArtifactState.Win\eXpand.ExpressApp.ModelArtifactState.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.WizardUI.Win ".\eXpand\eXpand.ExpressApp.Modules\WizardUI.Win\eXpand.ExpressApp.WizardUI.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.ViewVariants ".\eXpand\eXpand.ExpressApp.Modules\ViewVariants\eXpand.ExpressApp.ViewVariants.csproj"
+call buildproject.cmd eXpand.ExpressApp.MasterDetail ".\eXpand\eXpand.ExpressApp.Modules\MasterDetail\eXpand.ExpressApp.MasterDetail.csproj"
+call buildproject.cmd eXpand.ExpressApp.MasterDetail.Win ".\eXpand\eXpand.ExpressApp.Modules\MasterDetail.Win\eXpand.ExpressApp.MasterDetail.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.ViewVariants.Win ".\eXpand\eXpand.ExpressApp.Modules\ViewVariants.Win\eXpand.ExpressApp.ViewVariants.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.TreeListEditors.Win ".\eXpand\eXpand.ExpressApp.Modules\TreeListEditors.Win\eXpand.ExpressApp.TreeListEditors.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.ExceptionHandling ".\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling\eXpand.ExpressApp.ExceptionHandling.csproj"
 call buildproject.cmd eXpand.ExpressApp.ExceptionHandling.Win ".\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling.Win\eXpand.ExpressApp.ExceptionHandling.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.ExceptionHandling.Web ".\eXpand\eXpand.ExpressApp.Modules\ExceptionHandling.Web\eXpand.ExpressApp.ExceptionHandling.Web.csproj"
 call buildproject.cmd eXpand.ExpressApp.WorldCreator ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator\eXpand.ExpressApp.WorldCreator.csproj"
+call buildproject.cmd eXpand.ExpressApp.WorldCreator.SqlDBMapper ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator.SqlDBMapper\eXpand.ExpressApp.WorldCreator.SqlDBMapper.csproj"
 call buildproject.cmd eXpand.ExpressApp.WorldCreator.Win ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator.Win\eXpand.ExpressApp.WorldCreator.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.WorldCreator.Web ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator.Web\eXpand.ExpressApp.WorldCreator.Web.csproj"
-call buildproject.cmd eXpand.ExpressApp.WorldCreator.CThru ".\eXpand\eXpand.ExpressApp.Modules\WorldCreator.CThru\eXpand.ExpressApp.WorldCreator.CThru.csproj"
 call buildproject.cmd eXpand.ExpressApp.IO ".\eXpand\eXpand.ExpressApp.Modules\IO\eXpand.ExpressApp.IO.csproj"
 call buildproject.cmd eXpand.ExpressApp.IO.Win ".\eXpand\eXpand.ExpressApp.Modules\IO.Win\eXpand.ExpressApp.IO.Win.csproj"
 call buildproject.cmd eXpand.ExpressApp.PivotChart ".\eXpand\eXpand.ExpressApp.Modules\PivotChart\eXpand.ExpressApp.PivotChart.csproj"
-call buildproject.cmd eXpand.ExpressApp.PivotChart ".\eXpand\eXpand.ExpressApp.Modules\PivotChart.Win\eXpand.ExpressApp.PivotChart.Win.csproj"
-call buildproject.cmd eXpand.ExpressApp.PivotChart ".\eXpand\eXpand.ExpressApp.Modules\PivotChart.Web\eXpand.ExpressApp.PivotChart.Web.csproj"
+call buildproject.cmd eXpand.ExpressApp.PivotChart.Win ".\eXpand\eXpand.ExpressApp.Modules\PivotChart.Win\eXpand.ExpressApp.PivotChart.Win.csproj"
+call buildproject.cmd eXpand.ExpressApp.PivotChart.Web ".\eXpand\eXpand.ExpressApp.Modules\PivotChart.Web\eXpand.ExpressApp.PivotChart.Web.csproj"
+call buildproject.cmd eXpand.NCarousel ".\eXpand\eXpand.ExpressApp.Modules\NCarousel\eXpand.NCarousel.csproj"
+call buildproject.cmd eXpand.ExpressApp.NCarousel.Web ".\eXpand\eXpand.ExpressApp.Modules\NCarousel.Web\eXpand.ExpressApp.NCarousel.Web.csproj"
+call buildproject.cmd eXpand.ExpressApp.Thumbnail.Web ".\eXpand\eXpand.ExpressApp.Modules\Thumbnail.Web\eXpand.ExpressApp.Thumbnail.Web.csproj"
 call buildproject.cmd eXpand.Persistent.BaseImpl ".\eXpand\eXpand.Persistent\eXpand.Persistent.BaseImpl\eXpand.Persistent.BaseImpl.csproj"
+
+
+echo Building FeatureCenter.Base...
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj"
+echo Building FeatureCenter.Module...
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\FeatureCenter.Module\FeatureCenter.Module.csproj"
+echo Building FeatureCenter.Module.Win...
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj"
+echo Building FeatureCenter.Win...
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\FeatureCenter.Win\FeatureCenter.Win.csproj"
+echo Building ExternalApplication.Module.Win...
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\ExternalApplication\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj"
+echo Building ExternalApplication.Win...
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj"
+
+echo Building eXpand.ExpressApp.ModelEditor...
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.Addins\eXpand.ExpressApp.ModelEditor\eXpand.ExpressApp.ModelEditor.csproj"
+echo Building eXpandAddIns...
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.Addins\eXpandAddIns.csproj"

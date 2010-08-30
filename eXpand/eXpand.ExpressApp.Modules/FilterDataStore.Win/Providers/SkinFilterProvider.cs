@@ -1,41 +1,23 @@
 using System;
+using System.ComponentModel;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.FilterDataStore.Core;
 
 namespace eXpand.ExpressApp.FilterDataStore.Win.Providers
 {
-    public class SkinFilterProvider:FilterProviderBase
+    public sealed class SkinFilterProvider:FilterProviderBase
     {
-        public override object FilterValue
-        {
-            get { return Skin; }
-        }
+        public override object FilterValue { get; set; }
 
-        public override string FilterMemberName
-        {
-            get { return "Skin"; }
-        }
-
-        public override int FilterMemberSize
-        {
-            get { return SizeAttribute.DefaultStringMappingFieldSize; }
-        }
-
-        public override bool FilterMemberIndexed
-        {
-            get { return true; }
-        }
-
-        public override bool UseFilterValueWhenNull
-        {
-            get { return false; }
-        }
-
-        public override Type FilterMemberType
-        {
-            get { return typeof(string); }
-        }
-
-        public static string Skin { get; set; }
+        [DefaultValue("Skin")]
+        public override string FilterMemberName { get; set; }
+        [DefaultValue(SizeAttribute.DefaultStringMappingFieldSize)]
+        public override int FilterMemberSize { get; set; }
+        [DefaultValue(true)]
+        public override bool FilterMemberIndexed { get; set; }
+        
+        public override bool UseFilterValueWhenNull { get; set; }
+        [DefaultValue(typeof(string))]
+        public override Type FilterMemberType { get; set; }
     }
 }

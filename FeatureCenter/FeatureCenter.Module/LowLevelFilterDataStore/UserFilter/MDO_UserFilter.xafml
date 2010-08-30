@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+  <Validation>
+    <Rules>
+      <RuleUniqueValue Id="FDSSCustomer_Unique_Name" IsNewNode="True" TargetType="FeatureCenter.Module.LowLevelFilterDataStore.SkinFilter.FDSSCustomer" TargetContextIDs="Save" TargetPropertyName="Name" />
+    </Rules>
+  </Validation>
+</Application>

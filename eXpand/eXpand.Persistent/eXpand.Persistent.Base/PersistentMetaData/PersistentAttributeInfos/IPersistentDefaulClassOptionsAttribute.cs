@@ -1,5 +1,5 @@
 ﻿namespace eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos {
-    public interface IPersistentDefaulClassOptionsAttribute
+    public interface IPersistentDefaulClassOptionsAttribute : IPersistentAttributeInfo
     {
         
     }

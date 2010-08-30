@@ -4,17 +4,23 @@ using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public interface IModelHideViewToolBar : IModelNode
+    public interface IModelClassHideViewToolBar 
     {
-        [DefaultValue(false)]
+        [Category("eXpand")]
+        [Description("Hides view toolbar")]
         bool HideToolBar { get; set; }
     }
+    [ModelInterfaceImplementor(typeof(IModelClassHideViewToolBar), "ModelClass")]
+    public interface IModelViewHideViewToolBar : IModelClassHideViewToolBar
+    {
+    }
 
-    public abstract class HideToolBarController : ViewController<ListView>, IModelExtender
+    public class HideToolBarController : ViewController, IModelExtender
     {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            extenders.Add<IModelListView, IModelHideViewToolBar>();
+            extenders.Add<IModelClass, IModelClassHideViewToolBar>();
+            extenders.Add<IModelView, IModelViewHideViewToolBar>();
         }
     }
 }

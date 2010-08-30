@@ -6,7 +6,7 @@
     <Property type="simple" name="CompileErrors" isKey="false" isNaturalKey="false"></Property>
     <Property type="simple" name="oid" isKey="true" isNaturalKey="true">8be24930-da35-40c6-a11c-ae52d37619b3</Property>
     <Property type="simple" name="Name" isKey="false" isNaturalKey="false">TestAssembly</Property>
-    <Property type="simple" name="Version" isKey="false" isNaturalKey="false">1.0.0.*</Property>
+    
     <Property type="simple" name="CodeDomProvider" isKey="false" isNaturalKey="false">0</Property>
     <Property type="object" name="StrongKeyFile" isKey="false" isNaturalKey="false">
       <SerializedObjectRef type="FileData" strategy="SerializeAsObject" />

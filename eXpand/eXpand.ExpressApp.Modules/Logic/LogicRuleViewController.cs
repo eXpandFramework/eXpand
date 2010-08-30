@@ -1,45 +1,85 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Templates;
-using eXpand.Persistent.Base.General;
-using System.Linq;
+using eXpand.ExpressApp.Logic.Model;
 
 namespace eXpand.ExpressApp.Logic{
-    public abstract class LogicRuleViewController<TLogicRule> : ViewController where TLogicRule : ILogicRule{
+    public abstract class LogicRuleViewController<TModelLogicRule> : ViewController where TModelLogicRule : ILogicRule{
 
         private bool isRefreshing;
-        public static readonly string ActiveObjectTypeHasRules = "ObjectTypeHas" + typeof(TLogicRule).Name;
-        LogicContextsNodeWrapper _logicContextsNodeWrapper;
-
+        public static readonly string ActiveObjectTypeHasRules = "ObjectTypeHas" + typeof(TModelLogicRule).Name;
 
         public virtual bool IsReady{
             get { return Active.ResultValue && View != null && View.ObjectTypeInfo != null; }
         }
 
         public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext){
-            if (isReady){
+            if (isReady) {
                 object currentObject = view.CurrentObject;
-                foreach (TLogicRule rule in LogicRuleManager<TLogicRule>.Instance[view.ObjectTypeInfo])
-                    if (IsValidRule(rule, view))
-                        ForceExecutionCore(currentObject, rule, invertCustomization, view, executionContext);
+                var modelLogicRules = LogicRuleManager<TModelLogicRule>.Instance[view.ObjectTypeInfo].Where(rule => IsValidRule(rule, view));
+                IEnumerable<LogicRuleInfo<TModelLogicRule>> logicRuleInfos = GetContextValidLogicRuleInfos(view, modelLogicRules, currentObject, executionContext, invertCustomization);
+                foreach (var logicRuleInfo in logicRuleInfos) {
+                    ForceExecutionCore(logicRuleInfo,executionContext);
+                }
             }
         }
 
-        public abstract void ExecuteRule(LogicRuleInfo<TLogicRule> info, ExecutionContext executionContext);
+        protected virtual IEnumerable<LogicRuleInfo<TModelLogicRule>> GetContextValidLogicRuleInfos(View view, IEnumerable<TModelLogicRule> modelLogicRules, object currentObject, ExecutionContext executionContext, bool invertCustomization) {
+            return modelLogicRules.Select(rule => GetInfo(view, currentObject, rule, executionContext, invertCustomization)).Where(info => info!=null);
+        }
+
+        void ForceExecutionCore(LogicRuleInfo<TModelLogicRule> logicRuleInfo, ExecutionContext executionContext) {
+            var args = new LogicRuleExecutingEventArgs<TModelLogicRule>(logicRuleInfo, false, executionContext);
+            OnLogicRuleExecuting(args);
+            if (!args.Cancel){
+                ExecuteRule(logicRuleInfo, executionContext);
+            }
+            OnLogicRuleExecuted(new LogicRuleExecutedEventArgs<TModelLogicRule>(logicRuleInfo, executionContext));
+        }
+
+        LogicRuleInfo<TModelLogicRule> GetInfo(View view, object currentObject, TModelLogicRule rule, ExecutionContext executionContext, bool invertCustomization) {
+            LogicRuleInfo<TModelLogicRule> info = CalculateLogicRuleInfo(currentObject, rule);
+            if (info != null && ExecutionContextIsValid(executionContext, info)&&TemplateContextIsValid(info)&&ViewIsRoot(info)){
+                info.InvertingCustomization = invertCustomization;
+                info.View = view;
+                if (invertCustomization)
+                    info.Active = !info.Active;
+                return info;
+            }
+            return null;
+        }
+
+        protected virtual bool ViewIsRoot(LogicRuleInfo<TModelLogicRule> info) {
+            if (!(info.Rule.IsRootView.HasValue))
+                return true;
+            return info.Rule.IsRootView==View.IsRoot;
+        }
+
+        protected virtual bool TemplateContextIsValid(LogicRuleInfo<TModelLogicRule> info) {
+            FrameTemplateContext frameTemplateContext = info.Rule.FrameTemplateContext;
+            if (frameTemplateContext==FrameTemplateContext.All)
+                return true;
+            return frameTemplateContext+"Context" == Frame.Context;
+        }
+
+
+        public abstract void ExecuteRule(LogicRuleInfo<TModelLogicRule> info, ExecutionContext executionContext);
 
 
         
-        public event EventHandler<LogicRuleExecutingEventArgs<TLogicRule>> LogicRuleExecuting;
+        public event EventHandler<LogicRuleExecutingEventArgs<TModelLogicRule>> LogicRuleExecuting;
 
         
-        public event EventHandler<LogicRuleExecutedEventArgs<TLogicRule>> LogicRuleExecuted;
+        public event EventHandler<LogicRuleExecutedEventArgs<TModelLogicRule>> LogicRuleExecuted;
         
 
         private void FrameOnViewChanging(object sender, EventArgs args){
             if (View != null) InvertExecution(View);
             var view = ((ViewChangingEventArgs)args).View;
-            Active[ActiveObjectTypeHasRules] = LogicRuleManager<TLogicRule>.HasRules(view);
+            Active[ActiveObjectTypeHasRules] = LogicRuleManager<TModelLogicRule>.HasRules(view);
             ForceExecution(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view, false, ExecutionContext.ViewChanging);
             
         }
@@ -50,8 +90,6 @@ namespace eXpand.ExpressApp.Logic{
 
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
-            var module = (LogicRuleProviderModuleBase<TLogicRule>)Application.Modules.Where(modul => typeof(LogicRuleProviderModuleBase<TLogicRule>).IsAssignableFrom(modul.GetType())).Single();
-            _logicContextsNodeWrapper = module.CreateContextsNodeWrapper();
             Frame.ViewChanging += FrameOnViewChanging;
             Frame.TemplateChanged+=FrameOnTemplateChanged;
         }
@@ -64,13 +102,18 @@ namespace eXpand.ExpressApp.Logic{
 
         protected override void OnActivated(){base.OnActivated();
             if (IsReady){
+                ObjectSpace.Committed+=ObjectSpaceOnCommitted;
                 Frame.TemplateViewChanged += FrameOnTemplateViewChanged;
-                ForceExecution(ExecutionContext.ViewActivated);
+                ForceExecution(ExecutionContext.ControllerActivated);
                 View.ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
                 View.CurrentObjectChanged+=ViewOnCurrentObjectChanged;
                 View.ObjectSpace.Refreshing += ObjectSpace_Refreshing;
                 View.ObjectSpace.Reloaded += ObjectSpace_Reloaded;
             }
+        }
+
+        void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs) {
+            ForceExecution(ExecutionContext.ObjectSpaceCommited);
         }
 
         protected override void OnViewControlsCreated(){
@@ -80,6 +123,7 @@ namespace eXpand.ExpressApp.Logic{
         protected override void OnDeactivating(){
             base.OnDeactivating();
             if (IsReady){
+                ObjectSpace.Committed -= ObjectSpaceOnCommitted;
                 Frame.TemplateViewChanged-=FrameOnTemplateViewChanged;
                 View.ObjectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
                 View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
@@ -121,67 +165,62 @@ namespace eXpand.ExpressApp.Logic{
             }
         }
 
-        protected virtual void OnLogicRuleExecuting(LogicRuleExecutingEventArgs<TLogicRule> args){
+        protected virtual void OnLogicRuleExecuting(LogicRuleExecutingEventArgs<TModelLogicRule> args){
             if (LogicRuleExecuting != null){
                 LogicRuleExecuting(this, args);
             }
         }
 
-        protected virtual void OnLogicRuleExecuted(LogicRuleExecutedEventArgs<TLogicRule> args){
+        protected virtual void OnLogicRuleExecuted(LogicRuleExecutedEventArgs<TModelLogicRule> args){
             if (LogicRuleExecuted != null){
                 LogicRuleExecuted(this, args);
             }
         }
 
-        protected virtual bool IsValidRule(TLogicRule rule, View view){
+        protected virtual bool IsValidRule(TModelLogicRule rule, View view){
             return view != null &&(IsValidViewId(view, rule))&&
                    IsValidViewType(view, rule) && IsValidNestedType(rule, view) && IsValidTypeInfo(view, rule);
         }
 
-        bool IsValidViewId(View view, TLogicRule rule) {
-            return string.IsNullOrEmpty(rule.ViewId)||view.Id==rule.ViewId;
+        bool IsValidViewId(View view, TModelLogicRule rule) {
+            return rule.View == null|| view.Id== rule.View.Id;
         }
 
-        bool IsValidTypeInfo(View view, TLogicRule rule) {
-            return ((rule.TypeInfo != null && rule.TypeInfo.IsAssignableFrom(view.ObjectTypeInfo)) || rule.TypeInfo==null);
+        bool IsValidTypeInfo(View view, TModelLogicRule rule) {
+            return ((rule.TypeInfo != null && rule.TypeInfo.IsAssignableFrom(view.ObjectTypeInfo)) || rule.TypeInfo == null);
         }
 
-        private bool IsValidNestedType(TLogicRule rule, View view) {
+        private bool IsValidNestedType(TModelLogicRule rule, View view) {
             return view is DetailView || (rule.Nesting == Nesting.Any || view.IsRoot);
         }
 
-        private bool IsValidViewType(View view, TLogicRule rule){
+        private bool IsValidViewType(View view, TModelLogicRule rule){
             return (rule.ViewType == ViewType.Any || (view is DetailView ? rule.ViewType == ViewType.DetailView : rule.ViewType==ViewType.ListView));
         }
 
-        protected virtual LogicRuleInfo<TLogicRule> CalculateLogicRuleInfo(object targetObject, TLogicRule logicRule){
-            var logicRuleInfo = (LogicRuleInfo<TLogicRule>)Activator.CreateInstance(typeof(LogicRuleInfo<TLogicRule>));
+        protected virtual LogicRuleInfo<TModelLogicRule> CalculateLogicRuleInfo(object targetObject, TModelLogicRule modelLogicRule){
+            var logicRuleInfo = (LogicRuleInfo<TModelLogicRule>)Activator.CreateInstance(typeof(LogicRuleInfo<TModelLogicRule>));
             logicRuleInfo.Active = true;
             logicRuleInfo.Object = targetObject;
-            logicRuleInfo.Rule = logicRule;
-            logicRuleInfo.ExecutionContext = _logicContextsNodeWrapper.CurrentExecutionContext;
+            logicRuleInfo.Rule = modelLogicRule;
+
+            logicRuleInfo.ExecutionContext = CalculateCurrentExecutionContext(modelLogicRule.ExecutionContextGroup);
             return logicRuleInfo;
         }
 
-        
-
-        protected virtual void ForceExecutionCore(object currentObject, TLogicRule rule, bool invertCustomization, View view, ExecutionContext executionContext){
-            LogicRuleInfo<TLogicRule> info = CalculateLogicRuleInfo(currentObject, rule);
-            if (info != null&&ContextIsValid(executionContext,info)){
-                info.InvertingCustomization = invertCustomization;
-                info.View = view;
-                if (invertCustomization)
-                    info.Active = !info.Active;
-                var args = new LogicRuleExecutingEventArgs<TLogicRule>(info, false, executionContext);
-                OnLogicRuleExecuting(args);
-                if (!args.Cancel){
-                    ExecuteRule(info, executionContext);
-                }
-                OnLogicRuleExecuted(new LogicRuleExecutedEventArgs<TLogicRule>(info, executionContext));
-            }
+        ExecutionContext CalculateCurrentExecutionContext(string executionContextGroup) {
+            var modelGroupContexts = GetModelGroupContexts(executionContextGroup);
+            IModelExecutionContexts executionContexts = modelGroupContexts.Where(context => context.Id == executionContextGroup).Single();
+            return executionContexts.Aggregate(ExecutionContext.None, (current, modelGroupContext) =>
+                                                current | (ExecutionContext)Enum.Parse(typeof(ExecutionContext), modelGroupContext.Name.ToString()));    
         }
 
-        public virtual bool ContextIsValid(ExecutionContext executionContext, LogicRuleInfo<TLogicRule> logicRuleInfo) {
+        protected abstract IModelGroupContexts GetModelGroupContexts(string executionContextGroup);
+        
+
+
+
+        public virtual bool ExecutionContextIsValid(ExecutionContext executionContext, LogicRuleInfo<TModelLogicRule> logicRuleInfo) {
             return (logicRuleInfo.ExecutionContext | executionContext) == logicRuleInfo.ExecutionContext;
         }
     }

@@ -8,7 +8,7 @@ using DevExpress.Xpo;
 namespace eXpand.ExpressApp.SystemModule
 {
     [Obsolete("see autocreateableobject attribute")]
-    public abstract class ShowNonPersistentObjectDetailViewFromNavigationControllerBase<NonPersistentObjectType> : BaseViewController 
+    public abstract class ShowNonPersistentObjectDetailViewFromNavigationControllerBase<NonPersistentObjectType> : ViewController
     {
         private const string DefaultReason = "ShowNonPersistentObjectDetailViewFromNavigationControllerBase is active";
 
@@ -36,7 +36,7 @@ namespace eXpand.ExpressApp.SystemModule
             Frame.GetController<DetailViewController>().Active[DefaultReason] = flag;
             Frame.GetController<DeleteObjectsViewController>().Active[DefaultReason] = flag;
             Frame.GetController<NewObjectViewController>().Active[DefaultReason] = flag;
-            Frame.GetController<DevExpress.ExpressApp.SystemModule.FilterController>().Active[DefaultReason] = flag;
+            Frame.GetController<FilterController>().Active[DefaultReason] = flag;
             Frame.GetController<ViewNavigationController>().Active[DefaultReason] = flag;
             Frame.GetController<RecordsNavigationController>().Active[DefaultReason] = flag;
         }
@@ -45,13 +45,13 @@ namespace eXpand.ExpressApp.SystemModule
             // TODO: Model Upgrade
             //if (e.ActionArguments.SelectedChoiceActionItem.Model.Info.GetAttributeValue("ViewID") == Application.FindListViewId(typeof(NonPersistentObjectType)))
             //{
-                ObjectSpace os = ObjectSpaceInMemory.CreateNew();
-                NonPersistentObjectType obj = CreateNonPersistentObject(os);
-                CustomizeNonPersistentObject(obj);
-                DetailView dv = Application.CreateDetailView(os, obj, true);
-                e.ActionArguments.ShowViewParameters.CreatedView = dv;
-                CustomizeShowViewParameters(e.ActionArguments.ShowViewParameters);
-                e.Handled = true;
+            ObjectSpace os = ObjectSpaceInMemory.CreateNew();
+            NonPersistentObjectType obj = CreateNonPersistentObject(os);
+            CustomizeNonPersistentObject(obj);
+            DetailView dv = Application.CreateDetailView(os, obj, true);
+            e.ActionArguments.ShowViewParameters.CreatedView = dv;
+            CustomizeShowViewParameters(e.ActionArguments.ShowViewParameters);
+            e.Handled = true;
             //}
         }
 
@@ -63,17 +63,22 @@ namespace eXpand.ExpressApp.SystemModule
             ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(type);
             var dcAttribute = typeInfo.FindAttribute<DomainComponentAttribute>(false);
             var npAttribute = typeInfo.FindAttribute<NonPersistentAttribute>(false);
-            if (typeof (PersistentBase).IsAssignableFrom(type)) {
-                if (npAttribute != null) {
-                    obj = (NonPersistentObjectType) os.CreateObject(type);
+            if (typeof(PersistentBase).IsAssignableFrom(type))
+            {
+                if (npAttribute != null)
+                {
+                    obj = (NonPersistentObjectType)os.CreateObject(type);
                 }
             }
-            else {
-                if (dcAttribute != null || npAttribute != null) {
-                    obj = (NonPersistentObjectType) Activator.CreateInstance(type);
+            else
+            {
+                if (dcAttribute != null || npAttribute != null)
+                {
+                    obj = (NonPersistentObjectType)Activator.CreateInstance(type);
                 }
             }
-            if (Equals(obj, default(NonPersistentObjectType))) {
+            if (Equals(obj, default(NonPersistentObjectType)))
+            {
                 throw new InvalidOperationException("Cannot create an object of a non-persistent type.");
             }
             return obj;

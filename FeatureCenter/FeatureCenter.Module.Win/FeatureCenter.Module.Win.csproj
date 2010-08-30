@@ -1,0 +1,524 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A75E4F29-14BF-4291-89CF-F80DEB2B5F43}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FeatureCenter.Module.Win</RootNamespace>
+    <AssemblyName>FeatureCenter.Module.Win</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EasyTest\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.Win.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.PivotChart.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Printing.Win.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Reports.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Reports.Win.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Scheduler.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Win.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Objects.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v10.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v10.1.UI">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v10.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v10.1.Extensions">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v10.1.Reporting.Extensions">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v10.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraWizard.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.AdditionalViewControlsProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.AdditionalViewControlsProvider.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ArtifactState, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ArtifactState.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ConditionalActionState, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ConditionalActionState.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ConditionalControllerState, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ConditionalControllerState.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ExceptionHandling, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ExceptionHandling.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ExceptionHandling.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.FilterDataStore, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.FilterDataStore.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.FilterDataStore.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.FilterDataStore.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.IO, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.IO.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.IO.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Logic, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.Logic.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Logic.Conditional, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.Logic.Conditional.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Logic.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.Logic.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.MasterDetail, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.MasterDetail.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.MasterDetail.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.MasterDetail.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.MemberLevelSecurity, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.MemberLevelSecurity.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.MemberLevelSecurity.Win, Version=10.1.5.179, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.MemberLevelSecurity.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ModelArtifactState, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ModelArtifactState.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ModelArtifactState.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ModelArtifactState.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ModelDifference, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ModelDifference.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ModelDifference.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ModelDifference.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.PivotChart, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.PivotChart.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.PivotChart.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.PivotChart.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Security, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.TreeListEditors.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.TreeListEditors.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Validation, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ViewVariants, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ViewVariants.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ViewVariants.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ViewVariants.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.WizardUI.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.WizardUI.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.WorldCreator, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.WorldCreator.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.WorldCreator.Win, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.WorldCreator.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.Persistent.Base, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.Persistent.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.Persistent.BaseImpl, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.Persistent.BaseImpl.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.Utils, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.Xpo, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.Xpo.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.configuration">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationCaption.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListViewControl\LoadWhenFiltered\LoadWhenFilteredController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Miscellaneous\ApplicationMultipleInstances\AMIObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Miscellaneous\ApplicationMultipleInstances\ShowAnotherInstanceController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FooterMessagePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Miscellaneous\RecursiveFiltering\Category.cs" />
+    <Compile Include="Miscellaneous\RecursiveFiltering\RFCustomer.cs" />
+    <Compile Include="Miscellaneous\RecursiveFiltering\Updater.cs" />
+    <Compile Include="Navigation\LogOut\LOCustomer.cs" />
+    <Compile Include="Captions.cs" />
+    <Compile Include="Navigation\CursorPosition\AttributeRegistrator.cs" />
+    <Compile Include="Navigation\FocusControl\AttributeRegistrator.cs" />
+    <Compile Include="Navigation\TabStopForReadOnly\AttributeRegistrator.cs" />
+    <Compile Include="ControllingXtraGrid\AutoCommitListView\AttributeRegistrator.cs" />
+    <Compile Include="ListViewControl\FilterControl\AttributeRegistrator.cs" />
+    <Compile Include="ControllingXtraGrid\GuessAutoFilterRowValues\AttributeRegistrator.cs" />
+    <Compile Include="ControllingXtraGrid\HidePopupMenu\AttributeRegistrator.cs" />
+    <Compile Include="ControllingXtraGrid\MasterDetail\AtAnyLevel\AttributeRegistrator.cs" />
+    <Compile Include="ControllingXtraGrid\MasterDetail\AtAnyLevel\OrderLinesNewItemRowPosition.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControllingXtraGrid\MasterDetail\AtAnyLevel\OrdersNewItemRowPosition.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PropertyEditors\NullAble\PENACustomer.cs" />
+    <Compile Include="Miscellaneous\TrayIcon\TICustomer.cs" />
+    <Compile Include="WinCustomer.cs" />
+    <Compile Include="WinModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Updater.cs">
+    </Compile>
+    <Compile Include="WinModule.Designer.cs">
+      <DependentUpon>WinModule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinOrder.cs" />
+    <Compile Include="WinOrderLine.cs" />
+    <Compile Include="ControllingXtraGrid\MasterDetail\AutoExpandNewRow\AttributeRegistrator.cs" />
+    <Compile Include="ControllingXtraGrid\MasterDetail\ConditionalDetailViews\AttributeRegistrator.cs" />
+    <Compile Include="ControllingXtraGrid\ColumnsOptions\AttributeRegistrator.cs" />
+    <Compile Include="ControllingXtraGrid\XtraGridViewOptions\AttributeRegistrator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinModule.resx">
+      <DependentUpon>WinModule.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FeatureCenter.Base\FeatureCenter.Base.csproj">
+      <Project>{782230D9-DFA4-4D7A-89A9-660A361B5A8A}</Project>
+      <Name>FeatureCenter.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FeatureCenter.Module\FeatureCenter.Module.csproj">
+      <Project>{2FE9D002-F5ED-46AC-860D-1ADF67573F0C}</Project>
+      <Name>FeatureCenter.Module</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ControllingXtraGrid\AutoCommitListView\MDO_AutoCommitListView.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Navigation\CursorPosition\MDO_CursorPosition.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ListViewControl\FilterControl\MDO_FilterControl.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Navigation\FocusControl\MDO_FocusControl.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ControllingXtraGrid\HidePopupMenu\MDO_HidePopupMenu.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ControllingXtraGrid\MasterDetail\AutoExpandNewRow\MDO_AutoExpandNewRow.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ControllingXtraGrid\MasterDetail\AtAnyLevel\MDO_AtAnyLevel.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ControllingXtraGrid\MasterDetail\ConditionalDetailViews\MDO_ConditionalDetailViews.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Navigation\TabStopForReadOnly\MDO_TabStopForReadOnly.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ControllingXtraGrid\ColumnsOptions\MDO_XtraGridColumnsOptions.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ControllingXtraGrid\XtraGridViewOptions\MDO_XtraGridViewOptions.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ControllingXtraGrid\GuessAutoFilterRowValues\MDO_GuessAutoFilterRowValues.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Miscellaneous\ApplicationMultipleInstances\MDO_ApplicationMultipleInstances.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Miscellaneous\TrayIcon\MDO_TrayIcon.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Navigation\LogOut\MDO_LogOut.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ListViewControl\LoadWhenFiltered\MDO_LoadWhenFiltered.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Miscellaneous\RecursiveFiltering\MDO_RecursiveFiltering.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PropertyEditors\StringPropertyEditors\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

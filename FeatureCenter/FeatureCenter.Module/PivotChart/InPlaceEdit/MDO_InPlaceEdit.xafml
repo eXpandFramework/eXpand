@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <AdditionalViewControls>
+    <Rules>
+      <AdditionalViewControlsRule Id="Header Pivot InPlaceEdit" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In Place Edit" NormalCriteria="Name='InPlaceEdit'" Position="Top" ViewType="DetailView"/>
+      <AdditionalViewControlsRule Id="ViewMessage Pivot InPlaceEdit" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how you can enable in place editing for your pivot grid" NormalCriteria="Name='InPlaceEdit'" Position="Bottom" ViewType="DetailView"/>
+    </Rules>
+  </AdditionalViewControls>
+  <Views>
+    <DetailView Id="InPlaceEdit_DetailView">
+      <Items>
+        <PropertyEditor Id="Self" InPlaceEdit="True" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="ActionButtonViewItem_DetailView">
+      <Items>
+        <ActionButton Id="Get Last Order Line Date" IsNewNode="True" ActionId="LastOrderLineDate" Caption="Get Last Order Line Date" />
+        <ActionButton Id="Save" IsNewNode="True" ActionId="Save" Caption="Save Object" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="CustomerBase" Caption="Birth Date" RelativeSize="100">
+              <LayoutItem Id="BirthDate" IsNewNode="True" Index="0" RelativeSize="4" />
+              <LayoutGroup Id="07164c4c-ef67-4fb4-a8c9-c239fbda0662" IsNewNode="True" Caption="" Direction="Horizontal" Index="1" RelativeSize="95">
+                <LayoutItem Id="Get Last Order Line Date" IsNewNode="True" Index="0" RelativeSize="49" />
+                <LayoutItem Id="Save" IsNewNode="True" Index="1" RelativeSize="50" />
+              </LayoutGroup>
+              <LayoutItem Id="City" Removed="True" />
+              <LayoutItem Id="Name" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Orders_Group" Removed="True" />
+          <LayoutGroup Id="SizeableEditors" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

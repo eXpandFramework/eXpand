@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.WorldCreator.Core {
     public static class PersistentClassInfoExtensions {
         
         public static IPersistentMemberInfo CreateCollection(this IPersistentClassInfo classInfo, string assemblyName, string classInfoName) {
-            var collectionMemberInfo =
-                (IPersistentCollectionMemberInfo)
-                Activator.CreateInstance(TypesInfo.Instance.PersistentCollectionInfoType, classInfo.Session);
-
+            var collectionMemberInfo =ObjectSpace.FindObjectSpace(classInfo).CreateWCObject<IPersistentCollectionMemberInfo>();
             collectionMemberInfo.Owner=classInfo;
             collectionMemberInfo.Name = classInfoName+"s";
             collectionMemberInfo.SetCollectionTypeFullName(assemblyName + "." + classInfoName);
-            collectionMemberInfo.Init(TypesInfo.Instance.CodeTemplateType);
+            collectionMemberInfo.Init(WCTypesInfo.Instance.FindBussinessObjectType<ICodeTemplate>());
             collectionMemberInfo.CodeTemplateInfo.CloneProperties();
             classInfo.OwnMembers.Add(collectionMemberInfo);
             return collectionMemberInfo;
@@ -39,7 +38,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             
             Type memberInfoType = GetMemberInfoType(propertyInfo.PropertyType);
             var persistentMemberInfo =
-                ((IPersistentMemberInfo)Activator.CreateInstance(memberInfoType, classInfo.Session));
+                ((IPersistentMemberInfo)ReflectionHelper.CreateObject(memberInfoType, classInfo.Session));
             classInfo.OwnMembers.Add(persistentMemberInfo);
             persistentMemberInfo.SetDefaultTemplate(TemplateType.InterfaceReadWriteMember);
             persistentMemberInfo.CodeTemplateInfo.TemplateInfo.TemplateCode =
@@ -48,7 +47,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             persistentMemberInfo.Name = propertyInfo.Name;
             if (persistentMemberInfo is IPersistentCoreTypeMemberInfo)
                 ((IPersistentCoreTypeMemberInfo) persistentMemberInfo).DataType =
-                    (XPODataType) Enum.Parse(typeof (XPODataType), propertyInfo.PropertyType.Name);
+                    (DBColumnType)Enum.Parse(typeof(DBColumnType), propertyInfo.PropertyType.Name);
             else if (persistentMemberInfo is IPersistentReferenceMemberInfo)
                 ((IPersistentReferenceMemberInfo)persistentMemberInfo).SetReferenceTypeFullName(propertyInfo.PropertyType.FullName);
             
@@ -57,10 +56,10 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
         static Type GetMemberInfoType(Type propertyType) {
             if (typeof (IXPSimpleObject).IsAssignableFrom(propertyType))
-                return TypesInfo.Instance.PersistentReferenceInfoType;
-            var i = ((int) Enum.Parse(typeof (XPODataType), propertyType.Name));
+                return WCTypesInfo.Instance.FindBussinessObjectType<IPersistentReferenceMemberInfo>();
+            var i = ((int)Enum.Parse(typeof(DBColumnType), propertyType.Name));
             if (i > -1)
-                return TypesInfo.Instance.PersistentCoreTypeInfoType;
+                return WCTypesInfo.Instance.FindBussinessObjectType<IPersistentCoreTypeMemberInfo>();
             throw new NotImplementedException(propertyType.ToString());
         }
     }

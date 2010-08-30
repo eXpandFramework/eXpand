@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <AdditionalViewControls>
+    <Rules>
+      <AdditionalViewControlsRule Id="Header Pivot PivotGroupInterval" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Pivot Group Interval" NormalCriteria="Name='PivotGroupInterval'" Position="Top" ViewType="DetailView" />
+      <AdditionalViewControlsRule Id="ViewMessage Pivot PivotGroupInterval" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how you can control the group interval for your date fields. Here you see orderline grouped by year" NormalCriteria="Name='PivotGroupInterval'" Position="Bottom" ViewType="DetailView"/>
+    </Rules>
+  </AdditionalViewControls>
+  <BOModel>
+    <Class Name="FeatureCenter.Base.OrderLineBase">
+      <OwnMembers>
+        <Member Name="OrderLineDate" PivotGroupInterval="DateYear" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>

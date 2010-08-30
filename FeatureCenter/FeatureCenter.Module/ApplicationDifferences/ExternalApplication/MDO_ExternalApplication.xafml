@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <AdditionalViewControls>
+    <Rules>
+      <AdditionalViewControlsRule Id="Header External Application Differences" IsNewNode="True" Index="0" TypeInfo="eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="External Application Differences" View="" />
+      <AdditionalViewControlsRule Id="ViewMessage External Application Difference" IsNewNode="True" Index="0" TypeInfo="eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="In this view you can see the application model difference of an external application (this could be a web application as well). Use the start external application action on the main tool bar and note that diffs that have been applied. You are free to change the diffs as you wish to test the behaviour" NormalCriteria="1=1" Position="Bottom" View="" UseSameType="False" />
+    </Rules>
+  </AdditionalViewControls>
+  <NavigationItems>
+    <Items>
+      <Item Id="Application Differences" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="External Application" IsNewNode="True" Caption="External Application" ViewId="ExternalApplication_DetailView" ObjectKey="@ExternalApplicationKey" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Views>
+    <DetailView Id="ExternalApplication_DetailView" IsNewNode="True" ClassName="eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="CombineOrder" IsNewNode="True" PropertyName="CombineOrder" />
+        <PropertyEditor Id="DateCreated" IsNewNode="True" PropertyName="DateCreated" />
+        <PropertyEditor Id="DifferenceType" IsNewNode="True" PropertyName="DifferenceType" />
+        <PropertyEditor Id="Disabled" IsNewNode="True" PropertyName="Disabled" />
+        <PropertyEditor Id="Model" IsNewNode="True" PropertyName="Model" />
+        <PropertyEditor Id="Name" IsNewNode="True" PropertyName="Name" />
+        <PropertyEditor Id="PersistentApplication.Name" IsNewNode="True" PropertyName="PersistentApplication.Name" />
+        <PropertyEditor Id="XmlContent" IsNewNode="True" PropertyName="XmlContent" />
+      </Items>
+      <Layout IsNewNode="True" Width="1127" Height="777">
+        <TabbedGroup Id="5553961c-0806-4ee9-9ecd-d99d869bf4c6" IsNewNode="True" Index="0" RelativeSize="100">
+          <LayoutGroup Id="Item2" IsNewNode="True" ShowCaption="True" Caption="Model" CaptionLocation="Top" Index="0" RelativeSize="100">
+            <LayoutItem Id="Model" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" />
+          </LayoutGroup>
+          <LayoutGroup Id="Item1" IsNewNode="True" ShowCaption="True" Caption="Xml Content" CaptionLocation="Top" Index="1" RelativeSize="100">
+            <LayoutItem Id="XmlContent" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" />
+          </LayoutGroup>
+        </TabbedGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

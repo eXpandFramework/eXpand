@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SerializedObjects>
+  <SerializedObject type="SerializationConfigurationGroup">
+    <Property type="simple" name="Name" isKey="false"><![CDATA[Analysis]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">2ca198bd-8ea3-433c-a415-e40440d8174e</Property>
+    <Property type="collection" name="SerializationConfigurations" isKey="false">
+      <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
+        <Key name="oid">e5542002-5c34-4156-814b-42102827e949</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="SerializationConfiguration">
+    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[DevExpress.Persistent.BaseImpl.Analysis]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">e5542002-5c34-4156-814b-42102827e949</Property>
+    <Property type="object" name="SerializationConfigurationGroup" isKey="false">
+      <SerializedObjectRef type="SerializationConfigurationGroup" strategy="SerializeAsObject">
+        <Key name="oid">2ca198bd-8ea3-433c-a415-e40440d8174e</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="SerializationGraph" isKey="false">
+      <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
+        <Key name="oid">e74353e6-7150-481c-9cce-079b1cbc358a</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
+        <Key name="oid">78b793a3-2ded-4375-a84d-0e1f18740d44</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
+        <Key name="oid">2b3d6ccf-3628-4b4f-b9dd-222b0bcee53f</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
+        <Key name="oid">30af3607-8ab5-4cc0-b359-31274b941a0a</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
+        <Key name="oid">ce49d508-63c1-4753-9999-52a458f0997b</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
+        <Key name="oid">dabe99a7-650e-4c87-8e7a-5d56670b54e0</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
+        <Key name="oid">6c44b12f-2032-4c74-b008-7e127b85abd9</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
+        <Key name="oid">a186c920-f446-4266-ba27-a2685f0c815f</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
+        <Key name="oid">51caebc2-a670-4dfa-aca6-d1075d86d808</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
+        <Key name="oid">520f2400-12c8-4278-9ccb-ed33834b90af</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ClassInfoGraphNode">
+    <Property type="simple" name="NodeType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ChartSettingsContent]]></Property>
+    <Property type="simple" name="SerializationStrategy" isKey="false">0</Property>
+    <Property type="simple" name="Key" isKey="false">False</Property>
+    <Property type="simple" name="TypeName" isKey="false"><![CDATA[Byte]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">e74353e6-7150-481c-9cce-079b1cbc358a</Property>
+    <Property type="object" name="SerializationConfiguration" isKey="false">
+      <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
+        <Key name="oid">e5542002-5c34-4156-814b-42102827e949</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ClassInfoGraphNode">
+    <Property type="simple" name="NodeType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[oid]]></Property>
+    <Property type="simple" name="SerializationStrategy" isKey="false">0</Property>
+    <Property type="simple" name="Key" isKey="false">True</Property>
+    <Property type="simple" name="TypeName" isKey="false"><![CDATA[Guid]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">78b793a3-2ded-4375-a84d-0e1f18740d44</Property>
+    <Property type="object" name="SerializationConfiguration" isKey="false">
+      <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
+        <Key name="oid">e5542002-5c34-4156-814b-42102827e949</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ClassInfoGraphNode">
+    <Property type="simple" name="NodeType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[dimensionPropertiesString]]></Property>
+    <Property type="simple" name="SerializationStrategy" isKey="false">0</Property>
+    <Property type="simple" name="Key" isKey="false">False</Property>
+    <Property type="simple" name="TypeName" isKey="false"><![CDATA[String]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">2b3d6ccf-3628-4b4f-b9dd-222b0bcee53f</Property>
+    <Property type="object" name="SerializationConfiguration" isKey="false">
+      <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
+        <Key name="oid">e5542002-5c34-4156-814b-42102827e949</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ClassInfoGraphNode">
+    <Property type="simple" name="NodeType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[Skin]]></Property>
+    <Property type="simple" name="SerializationStrategy" isKey="false">0</Property>
+    <Property type="simple" name="Key" isKey="false">False</Property>
+    <Property type="simple" name="TypeName" isKey="false"><![CDATA[String]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">30af3607-8ab5-4cc0-b359-31274b941a0a</Property>
+    <Property type="object" name="SerializationConfiguration" isKey="false">
+      <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
+        <Key name="oid">e5542002-5c34-4156-814b-42102827e949</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ClassInfoGraphNode">
+    <Property type="simple" name="NodeType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[PivotGridSettingsContent]]></Property>
+    <Property type="simple" name="SerializationStrategy" isKey="false">0</Property>
+    <Property type="simple" name="Key" isKey="false">False</Property>
+    <Property type="simple" name="TypeName" isKey="false"><![CDATA[Byte]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">ce49d508-63c1-4753-9999-52a458f0997b</Property>
+    <Property type="object" name="SerializationConfiguration" isKey="false">
+      <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
+        <Key name="oid">e5542002-5c34-4156-814b-42102827e949</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ClassInfoGraphNode">
+    <Property type="simple" name="NodeType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[ObjectTypeName]]></Property>
+    <Property type="simple" name="SerializationStrategy" isKey="false">0</Property>
+    <Property type="simple" name="Key" isKey="false">False</Property>
+    <Property type="simple" name="TypeName" isKey="false"><![CDATA[String]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">dabe99a7-650e-4c87-8e7a-5d56670b54e0</Property>
+    <Property type="object" name="SerializationConfiguration" isKey="false">
+      <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
+        <Key name="oid">e5542002-5c34-4156-814b-42102827e949</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ClassInfoGraphNode">
+    <Property type="simple" name="NodeType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[City]]></Property>
+    <Property type="simple" name="SerializationStrategy" isKey="false">0</Property>
+    <Property type="simple" name="Key" isKey="false">False</Property>
+    <Property type="simple" name="TypeName" isKey="false"><![CDATA[String]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">6c44b12f-2032-4c74-b008-7e127b85abd9</Property>
+    <Property type="object" name="SerializationConfiguration" isKey="false">
+      <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
+        <Key name="oid">e5542002-5c34-4156-814b-42102827e949</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ClassInfoGraphNode">
+    <Property type="simple" name="NodeType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[Name]]></Property>
+    <Property type="simple" name="SerializationStrategy" isKey="false">0</Property>
+    <Property type="simple" name="Key" isKey="false">False</Property>
+    <Property type="simple" name="TypeName" isKey="false"><![CDATA[String]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">a186c920-f446-4266-ba27-a2685f0c815f</Property>
+    <Property type="object" name="SerializationConfiguration" isKey="false">
+      <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
+        <Key name="oid">e5542002-5c34-4156-814b-42102827e949</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ClassInfoGraphNode">
+    <Property type="simple" name="NodeType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[Criteria]]></Property>
+    <Property type="simple" name="SerializationStrategy" isKey="false">0</Property>
+    <Property type="simple" name="Key" isKey="false">False</Property>
+    <Property type="simple" name="TypeName" isKey="false"><![CDATA[String]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">51caebc2-a670-4dfa-aca6-d1075d86d808</Property>
+    <Property type="object" name="SerializationConfiguration" isKey="false">
+      <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
+        <Key name="oid">e5542002-5c34-4156-814b-42102827e949</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="ClassInfoGraphNode">
+    <Property type="simple" name="NodeType" isKey="false">0</Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[UserFilter]]></Property>
+    <Property type="simple" name="SerializationStrategy" isKey="false">0</Property>
+    <Property type="simple" name="Key" isKey="false">False</Property>
+    <Property type="simple" name="TypeName" isKey="false"><![CDATA[Guid]]></Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">520f2400-12c8-4278-9ccb-ed33834b90af</Property>
+    <Property type="object" name="SerializationConfiguration" isKey="false">
+      <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
+        <Key name="oid">e5542002-5c34-4156-814b-42102827e949</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+</SerializedObjects>

@@ -1,39 +1,42 @@
-using DevExpress.ExpressApp.Model;
-using eXpand.ExpressApp.SystemModule;
-using eXpand.ExpressApp.Win.Interfaces;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Model;
+using eXpand.ExpressApp.Win.Interfaces;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public interface IModelLogOutEnable : IModelNode
+    public interface IModelOptionsLogOutEnable : IModelNode
     {
+        [Category("eXpand")]
         bool LogOutEnable { get; set; }
     }
 
-    public partial class WinLogoutWindowController : BaseWindowController, IModelExtender
+    public class WinLogoutWindowController : WindowController, IModelExtender
     {
         public const string LogOutEnable = "LogOutEnable";
 
         public WinLogoutWindowController()
         {
-            InitializeComponent();
-            RegisterActions(components);
+            var logOutAction = new SimpleAction(this, "LogOut", "Export") { Caption = "Log Out" };
+            logOutAction.Execute+=logOutSimpleAction_Execute;            
+            
         }
 
         protected override void OnActivated()
         {
             base.OnActivated();
-            Active[LogOutEnable] = ((IModelLogOutEnable)Application.Model.Options).LogOutEnable;
+            Active[LogOutEnable] = ((IModelOptionsLogOutEnable)Application.Model.Options).LogOutEnable&&Application is ILogOut;
         }
 
-        private void logOutSimpleAction_Execute(object sender, DevExpress.ExpressApp.Actions.SimpleActionExecuteEventArgs e)
+        private void logOutSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
             ((ILogOut)Application).Logout();
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            extenders.Add<IModelOptions, IModelLogOutEnable>();
+            extenders.Add<IModelOptions, IModelOptionsLogOutEnable>();
         }
     }
 }

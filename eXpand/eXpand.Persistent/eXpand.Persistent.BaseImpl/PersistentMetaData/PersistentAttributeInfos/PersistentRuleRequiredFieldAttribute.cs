@@ -1,13 +1,16 @@
 ﻿using System.ComponentModel;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
+    [InterfaceRegistrator(typeof(IPersistentRuleRequiredFieldAttribute))]
     [DefaultProperty("DefaultProperty")]
-    public class PersistentRuleRequiredFieldAttribute : PersistentAttributeInfo {
+    public class PersistentRuleRequiredFieldAttribute : PersistentAttributeInfo, IPersistentRuleRequiredFieldAttribute {
         string _context;
         string _iD;
+
 
         public PersistentRuleRequiredFieldAttribute(Session session) : base(session) {
         }

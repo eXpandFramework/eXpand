@@ -6,5 +6,6 @@
       }
       set{
         SetPropertyValue("$PROPERTYNAME$", ref _$PROPERTYNAME$, value);
+        $INJECTCODE$
       }
     }

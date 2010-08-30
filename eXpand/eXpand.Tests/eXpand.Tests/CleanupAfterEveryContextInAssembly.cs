@@ -9,8 +9,9 @@ namespace eXpand.Tests {
         public void AfterContextCleanup() {
             Isolate.CleanUp();
             ReflectionHelper.Reset();
-            XafTypesInfo.Reset(true);
-            
+            XafTypesInfo.Reset();
+            XafTypesInfo.HardReset();
+            XafTypesInfo.XpoTypeInfoSource.ResetDictionary();
         }
     }
 

@@ -12,7 +12,6 @@ using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.ImportExport;
 using eXpand.Persistent.BaseImpl.ImportExport;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
-using eXpand.Tests.eXpand.WorldCreator;
 using Machine.Specifications;
 using System.Linq;
 using eXpand.Xpo;
@@ -25,12 +24,16 @@ namespace eXpand.Tests.eXpand.IO {
         static SerializationConfiguration _serializationConfiguration;
         static ObjectSpace _objectSpace;
 
-        Establish context = () =>
-        {
+        Establish context = () => {
+            
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
             _objectSpace = oneToMany.ObjectSpace;
-            
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type };
+
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = oneToMany.T1Type,
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
 
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace);
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "DerivedOrder" });
@@ -43,6 +46,7 @@ namespace eXpand.Tests.eXpand.IO {
             var existentConfiguration =
                 (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
             existentConfiguration.TypeToSerialize = _derivedOrderType;
+            existentConfiguration.SerializationConfigurationGroup=_serializationConfiguration.SerializationConfigurationGroup;
         };
 
         Because of = () =>
@@ -64,12 +68,17 @@ namespace eXpand.Tests.eXpand.IO {
         static ObjectSpace _objectSpace;
 
         Establish context = () => {
+
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
             _objectSpace = oneToMany.ObjectSpace;
             var existentConfiguration =
                 (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
             existentConfiguration.TypeToSerialize = oneToMany.T2Type;
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T2Type };
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = oneToMany.T2Type,
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
 
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace);
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[]{"DerivedCustomer"});
@@ -107,8 +116,13 @@ namespace eXpand.Tests.eXpand.IO {
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             _t1Type = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
             _t2Type = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedCustomer").Single();
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = _t1Type };
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = _t1Type,
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
         };
+
 
         Because of = () => {
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
@@ -129,8 +143,14 @@ namespace eXpand.Tests.eXpand.IO {
             _objectSpace = oneToMany.ObjectSpace;
             var existentConfiguration =
                 (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
+            var serializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>();
             existentConfiguration.TypeToSerialize = oneToMany.T2Type;
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type };
+            existentConfiguration.SerializationConfigurationGroup=serializationConfigurationGroup;
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = oneToMany.T1Type,
+                SerializationConfigurationGroup = serializationConfigurationGroup
+            };
         };
 
         Because of = () =>
@@ -154,8 +174,14 @@ namespace eXpand.Tests.eXpand.IO {
             _objectSpace = oneToMany.ObjectSpace;
             var existentConfiguration =
                 (SerializationConfiguration) _objectSpace.CreateObject(typeof (SerializationConfiguration));
-            existentConfiguration.TypeToSerialize=oneToMany.T1Type;            
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T2Type };
+            var serializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>();
+            existentConfiguration.TypeToSerialize=oneToMany.T1Type;
+            existentConfiguration.SerializationConfigurationGroup=serializationConfigurationGroup;
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = oneToMany.T2Type,
+                SerializationConfigurationGroup = serializationConfigurationGroup
+            };
         };
 
         Because of = () => {
@@ -179,7 +205,9 @@ namespace eXpand.Tests.eXpand.IO {
         Establish context = () => {
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer,IOrder>.Build().OneToMany();
             _objectSpace = oneToMany.ObjectSpace;
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type };
+            var serializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>();            
+            serializationConfigurationGroup.Name = "dummy";
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type,SerializationConfigurationGroup = serializationConfigurationGroup};
             _t2Type = oneToMany.T2Type;
         };
 
@@ -199,9 +227,11 @@ namespace eXpand.Tests.eXpand.IO {
 
 
         It should_be_able_to_validate_graph_for_the_associated_collection_type =
-            () =>
-            Validator.RuleSet.ValidateTarget(_serializationConfiguration2, ContextIdentifier.Save).State.ShouldEqual(
-                ValidationState.Valid);
+            () => {
+                var ruleSetValidationResult = Validator.RuleSet.ValidateTarget(_serializationConfiguration2,
+                                                                               ContextIdentifier.Save);
+                ruleSetValidationResult.State.ShouldEqual(ValidationState.Valid);
+            };
         It should_create_nodes_for_all_properties_of_associated_collection_type =() => {
             const int customer_and_oid = 2;
             _serializationConfiguration2.SerializationGraph.Count.ShouldEqual(customer_and_oid);
@@ -214,19 +244,24 @@ namespace eXpand.Tests.eXpand.IO {
 
         Establish context = () =>
         {
-            var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
-            _objectSpace = artifactHandler.ObjectSpace;            
+            
+            _objectSpace = ObjectSpaceInMemory.CreateNew();            
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "CustomerSelfRef" });
             var persistentClassInfo = persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0];
             classHandler.CreateRefenenceMember(persistentClassInfo, "Parent",persistentClassInfo);
             classHandler.CreateCollectionMember(persistentClassInfo, "Collection",persistentClassInfo);
-            
-            artifactHandler.ObjectSpace.CommitChanges();
+
+            _objectSpace.CommitChanges();
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder,Path.GetDirectoryName(Application.ExecutablePath));
             var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "CustomerSelfRef").Single();
-            _serializationConfiguration = new SerializationConfiguration(artifactHandler.UnitOfWork) { TypeToSerialize = customerType };
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = customerType,
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
         };
+
 
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
 
@@ -245,12 +280,20 @@ namespace eXpand.Tests.eXpand.IO {
         Establish context = () => {
             _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
             _persistentAssemblyInfo = (PersistentAssemblyInfo)_objectSpace.CreateObject(typeof(PersistentAssemblyInfo));
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = _persistentAssemblyInfo.GetType() };
+            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session)
+            {
+                TypeToSerialize = _persistentAssemblyInfo.GetType(),
+                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
             
         };
 
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
-        It should_generate_it = () => _serializationConfiguration.SerializationGraph.Count().ShouldEqual(_persistentAssemblyInfo.ClassInfo.PersistentProperties.OfType<XPMemberInfo>().Count());
+
+        It should_generate_it =
+            () =>
+            _serializationConfiguration.SerializationGraph.Count().ShouldEqual(
+                _persistentAssemblyInfo.ClassInfo.PersistentProperties.OfType<XPMemberInfo>().Count());
     }
     [Subject(typeof(ClassInfoGraphNode))]
     public class When_creating_a_graph_with_a_byte_array_property:With_Isolations {
@@ -260,6 +303,7 @@ namespace eXpand.Tests.eXpand.IO {
             var objectSpace = ObjectSpaceInMemory.CreateNew();
             _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
             _serializationConfiguration.TypeToSerialize = typeof (Analysis);            
+            _serializationConfiguration.SerializationConfigurationGroup=objectSpace.CreateObject<SerializationConfigurationGroup>();
         };
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
 

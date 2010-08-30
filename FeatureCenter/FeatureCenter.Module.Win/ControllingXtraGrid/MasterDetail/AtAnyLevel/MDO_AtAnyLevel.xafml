@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="MasterDetailAtAnyLevelCustomer_ListView">
+      <GridViewOptions>
+        <OptionsDetail EnableMasterViewMode="True" AllowExpandEmptyDetails="True" />
+        <OptionsView ShowDetailButtons="True" />
+      </GridViewOptions>
+    </ListView>
+    <ListView Id="MasterDetailAtAnyLevelOrder_ListView">
+      <Columns>
+        <ColumnInfo Id="Customer" Index="-1" />
+      </Columns>
+      <GridViewOptions>
+        <OptionsDetail EnableMasterViewMode="True" AllowExpandEmptyDetails="True" ShowDetailTabs="False" />
+        <OptionsView ShowDetailButtons="True" />
+      </GridViewOptions>
+    </ListView>
+    <ListView Id="MasterDetailAtAnyLevelOrderLine_ListView">
+      <Columns>
+        <ColumnInfo Id="Order" Index="-1" />
+      </Columns>
+      <GridViewOptions>
+        <OptionsDetail ShowDetailTabs="False" />
+      </GridViewOptions>
+    </ListView>
+  </Views>
+</Application>

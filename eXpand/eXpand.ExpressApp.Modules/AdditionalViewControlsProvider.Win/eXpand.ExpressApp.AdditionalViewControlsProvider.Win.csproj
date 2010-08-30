@@ -64,23 +64,29 @@
     <Reference Include="DevExpress.ExpressApp.Validation.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Win.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -100,15 +106,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.Win, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="eXpand.Persistent.Base, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="eXpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.Utils, Version=0.0.9314.22, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -134,28 +132,37 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdditionalViewControlsRuleViewController.cs">
+    <Compile Include="AdditionalViewControlsProviderWindowsFormsModule.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\HintPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AdditionalViewControlsProviderWindowsFormsModule.cs">
+    <Compile Include="Controls\WarningPanel.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AdditionalViewControlsProviderWindowsFormsModule.Designer.cs">
-      <DependentUpon>AdditionalViewControlsProviderWindowsFormsModule.cs</DependentUpon>
+    <Compile Include="Decorators\WinFrameControlDecorator.cs" />
+    <Compile Include="Editors\AdditionalViewControlsItem.cs">
+    </Compile>
+    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Updater.cs" />
-    <Compile Include="Decorators\WinHintPanelDecorator.cs" />
+    <Compile Include="Security\ControlTypeConverter.cs" />
+    <Compile Include="Security\DecoratorTypeConverter.cs" />
+    <Compile Include="Security\UpdateControlTypeTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Security\UpdateDecoratorTypeTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Updater.cs">
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AdditionalViewControlsProviderWindowsFormsModule.resx">
-      <DependentUpon>AdditionalViewControlsProviderWindowsFormsModule.cs</DependentUpon>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

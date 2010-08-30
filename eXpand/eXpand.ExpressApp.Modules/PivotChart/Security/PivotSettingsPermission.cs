@@ -1,11 +1,11 @@
 ﻿using DevExpress.Xpo;
-using eXpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
+using eXpand.ExpressApp.ConditionalControllerState.Security;
 
 namespace eXpand.ExpressApp.PivotChart.Security {
     [NonPersistent]
     public class PivotSettingsPermission : ControllerStateRulePermission {
         public PivotSettingsPermission() {
-            ControllerType = typeof (PivotOptionsController).FullName;
+            ControllerType = typeof (PivotOptionsController);
             NormalCriteria = "1=1";
         }
 

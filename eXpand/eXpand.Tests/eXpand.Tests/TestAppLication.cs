@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
-using DevExpress.ExpressApp.EasyTest.ScriptRecorder;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
@@ -12,7 +11,6 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.SystemModule;
 using TypeMock.ArrangeActAssert;
-using eXpand.ExpressApp.Core;
 using System.Linq;
 
 namespace eXpand.Tests.eXpand.WorldCreator

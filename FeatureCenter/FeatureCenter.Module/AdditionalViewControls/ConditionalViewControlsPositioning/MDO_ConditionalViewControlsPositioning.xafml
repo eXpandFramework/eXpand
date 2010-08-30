@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <AdditionalViewControls>
+    <GroupContexts>
+      <ExecutionContexts Id="ConditionalViewControlsPositioning" IsNewNode="True">
+        <ObjectChanged Name="ObjectChanged" IsNewNode="True" />
+        <ViewControlAdding Name="ViewControlAdding" IsNewNode="True" />
+      </ExecutionContexts>
+    </GroupContexts>
+    <Rules>
+      <!--This is due to Dx bug-->
+      <AdditionalViewControlsRule Id="Conditional View Controls Positioning For Customer Name" ExecutionContextGroup="ConditionalViewControlsPositioning" />
+      <AdditionalViewControlsRule Id="Conditional View Controls Positioning For Customer City" ExecutionContextGroup="ConditionalViewControlsPositioning" />
+    </Rules>
+  </AdditionalViewControls>
+  <Views>
+    <DetailView Id="ConditionalViewControlsPositioning_DetailView">
+      <Items>
+        <AdditionalViewControlsItem Id="Warning For City" IsNewNode="True" Rule="Conditional View Controls Positioning For Customer City" />
+        <AdditionalViewControlsItem Id="Warning for Name" IsNewNode="True" Rule="Conditional View Controls Positioning For Customer Name" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="11">
+            <LayoutGroup Id="CustomerBase" RelativeSize="100">
+              <LayoutItem Id="Name" RelativeSize="37" />
+              <LayoutItem Id="Warning for Name" IsNewNode="True" ShowCaption="False" Index="1" RelativeSize="27" />
+              <LayoutGroup Id="d9cfb4dc-c39c-4565-9f87-d4f4a9786e9e" IsNewNode="True" Caption="" Direction="Horizontal" Index="2" RelativeSize="34">
+                <LayoutItem Id="City" IsNewNode="True" Index="0" RelativeSize="49" />
+                <LayoutItem Id="Warning For City" IsNewNode="True" ShowCaption="False" Index="1" RelativeSize="50" />
+              </LayoutGroup>
+              <LayoutItem Id="City" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="88">
+            <LayoutItem Id="Description" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

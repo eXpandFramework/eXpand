@@ -2,19 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.Base.Validation.FromIPropertyValueValidator;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Persistent.BaseImpl.Validation.FromIPropertyValueValidator;
 using eXpand.Utils.Helpers;
 using eXpand.Xpo;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
+    [InterfaceRegistrator(typeof(IPersistentClassInfo))]
     public class PersistentClassInfo : PersistentTemplatedTypeInfo, IPersistentClassInfo, IPropertyValueValidator {
         PersistentClassInfo _baseClassInfo;
         Type _baseType;
@@ -27,13 +28,18 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
         PersistentAssemblyInfo _persistentAssemblyInfo;
 
+
         public PersistentClassInfo(Session session) : base(session) {
         }
-
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
+            BaseType = typeof (eXpandCustomObject);
+        }
         [Index(0)]
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof (TypeValueConverter))]
-        [TypeConverter(typeof (LocalizedClassInfoTypeConverter))]
+        [TypeConverter(typeof (MyLocalizedClassInfoTypeConverter))]
         public Type BaseType {
             get { return _baseType; }
             set {
@@ -59,7 +65,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         [Index(2)]
-        [RuleFromIPropertyValueValidatorAttribute(null, DefaultContexts.Save)]
+        [RuleFromIPropertyValueValidator(null, DefaultContexts.Save)]
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof (TypeValueConverter))]
         [TypeConverter(typeof (LocalizedClassInfoTypeConverter))]
@@ -89,7 +95,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
         [Index(4)]
         [VisibleInListView(false)]
-        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
+        [Custom("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
         public string GeneratedCode {
             get { return CodeEngine.GenerateCode(this); }
@@ -111,6 +117,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _persistentAssemblyInfo; }
             set { SetPropertyValue("PersistentAssemblyInfo", ref _persistentAssemblyInfo, value); }
         }
+
         #region IPersistentClassInfo Members
         [Browsable(false)]
         [Size(SizeAttribute.Unlimited)]
@@ -130,9 +137,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return new ListConverter<IInterfaceInfo, InterfaceInfo>(Interfaces); }
         }
 
-        public virtual Type GetDefaultBaseClass() {
-            return typeof (eXpandCustomObject);
-        }
 
         IPersistentAssemblyInfo IPersistentClassInfo.PersistentAssemblyInfo {
             get { return PersistentAssemblyInfo; }
@@ -160,5 +164,15 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             return true;
         }
         #endregion
+    }
+
+    public class MyLocalizedClassInfoTypeConverter:LocalizedClassInfoTypeConverter {
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context) {
+            var typeInfos = XafTypesInfo.Instance.FindTypeInfo(typeof(PersistentBase)).Descendants;
+            var list = (from typeInfo in typeInfos where typeInfo.Type != null select typeInfo.Type).ToList();
+            list.Sort(this);
+            list.Insert(0, null);
+            return new StandardValuesCollection(list);
+        }
     }
 }

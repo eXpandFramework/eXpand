@@ -37,66 +37,58 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CThru, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\CThru.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Data.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.AuditTrail.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.AuditTrail.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Security.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Validation.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Win.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxEditors.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Web.ASPxEditors.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxGridView.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Web.ASPxGridView.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Web.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.1.Linq, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v10.1.Linq, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraGrid.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraEditors.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="eXpand.ExpressApp, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.ExpressApp, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.dll</HintPath>
-      <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider, Version=0.0.9314.9, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="eXpand.ExpressApp.FilterDataStore, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\eXpand.DLL\eXpand.ExpressApp.FilterDataStore.dll</HintPath>
@@ -135,17 +127,11 @@
       <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.Security.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.Web, Version=0.0.9314.13, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="eXpand.ExpressApp.Win, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\eXpand.Dll\eXpand.ExpressApp.Win.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="eXpand.ExpressApp.WorldCreator, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.ExpressApp.WorldCreator, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.WorldCreator.CThru, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.ExpressApp.WorldCreator.SqlDBMapper, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -184,6 +170,9 @@
       <HintPath>..\..\..\_third_party_assemblies\MbUnit.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -207,106 +196,32 @@
     <Reference Include="Typemock.ArrangeActAssert, Version=5.4.1.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\_third_party_assemblies\Typemock.ArrangeActAssert.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="TypeMock.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\eXpand.DLL\TypeMock.Extensions.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AttributeMapperSpecs.cs" />
+    <Compile Include="eXpand.Utils\Contexts.cs" />
+    <Compile Include="eXpand.Utils\ExpressionTransformerSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\CodeEngineSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\CompileEngineSpecs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\Contexts.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="eXpand.WorldCreator\DbMapper\DbMapperSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\DbMapper\MapperContexts.cs" />
+    <Compile Include="eXpand.WorldCreator\DbMapper\ColumnMapperSpecs.cs" />
+    <Compile Include="eXpand.WorldCreator\DbMapper\AttributeMapperSpecs.cs" />
     <Compile Include="Contact.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ControllerFactory.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eXpand.ExpressApp.FilterDataStore\FilterDataStoreModuleFixture.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp.FilterDataStore\ObjectSpaceProviderProxyFixture.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp.FilterDataStore\Specs.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\BuildingModelDifferenceObjects\RoleAspectObjects.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\BuildingModelDifferenceObjects\UserAspectsObjects.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\When_serializing_schema_with_value_calculator.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\ClonningModelDifferencesObjects\OnDemand_At_All_Views.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\Automatic_For_All_Views.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\Automatic_For_DetailView.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\OnDemand_At_All_Views.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\OnDemand_At_Difference_DetailView.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\CombiningDictionaries\OnDemand_At_Difference_ListView.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Creating\ModelDifferenceObjects.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Creating\OnDemand_AtDetail_View_For_All_ObjectTypes.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Creating\RoleAspectObjects.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Creating\UserAspectObjects.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Getting_Difference_Objects_From_Application_Dictionary.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Getting_Difference_Objects_From_User_Dictionary.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Loading_ApplicationModel_Dictionary.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Loading_UserModel_Dictionary.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Saving_All_Dictionaries.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Saving_Application_Model.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DictionaryDifferenceStores\Saving_UserModel.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Changing_ModelDifferenceObjects.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Deleting_ModelDifferenceObjects.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Quering_ModelDifferenceObjects.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Quering_PersistentApplications.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Quering_RoleDifferenceObjectsObjects.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Quering_UserDifferenceObjectsObjects.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Saving_DifferenceObjects.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\DifferenceObjects\Saving_ModelDifferenceObjects.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\ModelPropertyEditor\At_Reading_Value.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\ModelPropertyEditor\At_Setup.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\ModelPropertyEditor\When_Controller_IsModified.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\ModelPropertyEditor\When_Creating_Control.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\ModelPropertyEditor\When_Creating_Model_Editor_Controller.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Module\AfterLogin.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Module\After_Application_Setup.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Module\After_WinApplication_Setup.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Module\BeforeLogin.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Module\When_Updating_Persistent_App.cs" />
-    <Compile Include="eXpand.ExpressApp.ModelDiffernece\Navigation\OnDemand_At_ListView.cs" />
-    <Compile Include="eXpand.ExpressApp.Web\When_AspxGridView_Settings_Schema_Created.cs" />
-    <Compile Include="eXpand.ExpressApp\DictionaryHelperTests.cs" />
-    <Compile Include="eXpand.ExpressApp\HidingFromNewMenu.cs" />
-    <Compile Include="eXpand.ExpressApp\ISecurityFixture.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp\RuleRequiredForAtLeast1PropertyFixture.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp\SchemaHelperFixture.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.ExpressApp\TestFixture1.cs" />
-    <Compile Include="eXpand.ExpressApp\TypesInfoFixture.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="eXpand.IO\AllObjectsSpecs.cs" />
     <Compile Include="eXpand.IO\ClassInfoGraphNodeSpecs.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -317,7 +232,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eXpand.IO\ModelBuilder.cs" />
-    <Compile Include="eXpand.IO\SerializationConfigurationGraphSpecs.cs" />
     <Compile Include="eXpand.Utils\NotificationExtensionsFixture.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -330,21 +244,7 @@
     <Compile Include="CleanupAfterEveryContextInAssembly.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eXpand.WorldCreator\CodeEngineSpecs.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.WorldCreator\CodeTemplateSpecs.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.WorldCreator\CompileEngineSpecs.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.WorldCreator\Contexts.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.WorldCreator\ExistentMembersSpecs.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="eXpand.WorldCreator\DbMapper\TableMapperSpecs.cs" />
     <Compile Include="eXpand.WorldCreator\ExistentTypeSpecs.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -354,43 +254,23 @@
     <Compile Include="eXpand.WorldCreator\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eXpand.WorldCreator\PersistentClassInfoSpecs.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.WorldCreator\PersistentMemberInfoSpecs.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.WorldCreator\PersistentReferenceSpecs.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="eXpand.WorldCreator\PersistentTypeInfoSpecs.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="eXpand.WorldCreator\ScriptValidatorSpecs.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="eXpand.WorldCreator\TypesInfoSpecs.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eXpand.WorldCreator\WorldCreatorModuleSpecs.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="eXpand.WorldCreator\XpoObjectMergerSpecs.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TestAppLication.cs" />
     <Compile Include="eXpand.Xpo\CriteriaOperatorExtractorFixture.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="eXpand.Xpo\PersistentMetaDataFixture.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="eXpand.Xpo\PropertyPathParserFixture.cs" />
-    <Compile Include="eXpand.ExpressApp\RunTimeMembersTypeDescriptor_Tests.cs" />
+    <Compile Include="eXpand.Xpo\ValueConvertersSpecs.cs" />
+    <Compile Include="eXpand\ObjectSpaceExtensionSpecs.cs" />
+    <Compile Include="eXpand\Contexts.cs" />
     <Compile Include="MockExtensions.cs" />
-    <Compile Include="XpandBaseFixture.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="HandleInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -445,9 +325,6 @@
     <EmbeddedResource Include="eXpand.IO\Resources\ExistentKeyObject.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="eXpand.IO\Resources\PersistentAssmeblyInfo.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="eXpand.IO\Resources\ModelDifferenceObject.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -458,16 +335,13 @@
     <EmbeddedResource Include="eXpand.IO\Resources\ObjectWithImageProperty.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\eXpand.ExpressApp.Modules\Logic.Conditional\eXpand.ExpressApp.Logic.Conditional.csproj">
-      <Project>{68239940-CDB3-4644-8FD4-74805FD73279}</Project>
-      <Name>eXpand.ExpressApp.Logic.Conditional</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\eXpand.ExpressApp.Modules\Logic\eXpand.ExpressApp.Logic.csproj">
       <Project>{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}</Project>
       <Name>eXpand.ExpressApp.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="eXpand.ExpressApp.Web\" />
     <Folder Include="ModelArtifactSpecs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

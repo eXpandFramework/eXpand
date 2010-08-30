@@ -11,35 +11,19 @@ using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Builders;
 using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 
+
 namespace eXpand.ExpressApp.ModelDifference
 {
-    public sealed partial class ModelDifferenceModule : ModuleBase
-    {
-        private static ModelApplicationCreator _ModelApplicationCreator;
-        public static ModelApplicationCreator ModelApplicationCreator
-        {
-            get
-            {
-                return _ModelApplicationCreator;
-            }
-            set
-            {
-                _ModelApplicationCreator = value;
-            }
-        }
+    public sealed class ModelDifferenceModule : ModuleBase{
+        static ModelApplicationBase _model;
 
-        private static XafApplication _Application;
-        public static XafApplication Application
-        {
-            get
-            {
-                return _Application;
-            }
+        public ModelDifferenceModule(){
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
         }
-
-        public ModelDifferenceModule()
+        public static ModelApplicationBase MasterModel
         {
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
+            get { return _model??(ModelApplicationBase)Application.Model; }
+            set {_model = value;}
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
@@ -73,9 +57,14 @@ namespace eXpand.ExpressApp.ModelDifference
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
-            application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;
-            if (_Application == null)
-                _Application = application;
+            if (!(Application is ISupportModelsManager))
+                throw new NotImplementedException("Implement " + typeof(ISupportModelsManager).FullName + " at your " + Application.GetType().FullName);
+            application.CreateCustomUserModelDifferenceStore +=ApplicationOnCreateCustomUserModelDifferenceStore;
+        }
+
+        void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, DevExpress.ExpressApp.CreateCustomModelDifferenceStoreEventArgs args) {
+            args.Handled = true;
+            args.Store = new XpoUserModelDictionaryDifferenceStore(Application);
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters)
@@ -84,11 +73,6 @@ namespace eXpand.ExpressApp.ModelDifference
             updaters.Add(new BOModelNodesUpdater());
         }
 
-        private void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs args)
-        {
-            args.Handled = true;
-            args.Store = new XpoUserModelDictionaryDifferenceStore(Application);
-        }
     }
 
     public class BOModelNodesUpdater : ModelNodesGeneratorUpdater<ModelBOModelClassNodesGenerator>

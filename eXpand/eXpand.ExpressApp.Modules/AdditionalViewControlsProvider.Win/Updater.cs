@@ -1,6 +1,5 @@
 using System;
 using System.Security.Principal;
-
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
 using DevExpress.Data.Filtering;

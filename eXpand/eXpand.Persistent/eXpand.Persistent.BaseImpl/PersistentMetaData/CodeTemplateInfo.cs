@@ -5,15 +5,16 @@ using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
+    [InterfaceRegistrator(typeof(ICodeTemplateInfo))]
     public class CodeTemplateInfo : BaseObject, ICodeTemplateInfo {
         CodeTemplate _codeTemplate;
-        PersistentAssemblyInfo _persistentAssemblyInfo;
 
         TemplateInfo _templateInfo;
 
         public CodeTemplateInfo(Session session) : base(session) {
         }
         [NonPersistent]
+        [VisibleInListView(false)]
         public CodeTemplate CodeTemplate {
             get { return _codeTemplate; }
             set { SetPropertyValue("CodeTemplate", ref _codeTemplate, value); }
@@ -29,16 +30,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
 
-        [Association("PersistentAssemblyInfo-CodeTemplateInfos")]
-        public PersistentAssemblyInfo PersistentAssemblyInfo {
-            get { return _persistentAssemblyInfo; }
-            set { SetPropertyValue("PersistentAssemblyInfo", ref _persistentAssemblyInfo, value); }
-        }
         #region ICodeTemplateInfo Members
-        IPersistentAssemblyInfo ICodeTemplateInfo.PersistentAssemblyInfo {
-            get { return PersistentAssemblyInfo; }
-            set { PersistentAssemblyInfo = value as PersistentAssemblyInfo; }
-        }
 
         ITemplateInfo ICodeTemplateInfo.TemplateInfo {
             get { return TemplateInfo; }

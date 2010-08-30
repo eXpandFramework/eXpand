@@ -1,4 +1,3 @@
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -10,11 +9,18 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     public abstract class PersistentMemberInfo : PersistentTemplatedTypeInfo, IPersistentMemberInfo {
         PersistentClassInfo _owner;
 
+
         protected PersistentMemberInfo(Session session) : base(session) {
         }
-
+        [VisibleInDetailView(false)]
+        [VisibleInListView(true)]
+        [Custom("GroupIndex", "0")]
+        public string TypeInfoName
+        {
+            get { return GetType().Name.Replace("Persistent", ""); }
+        }
         [VisibleInListView(false)]
-        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
+        [Custom("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
         public string GeneratedCode {
             get { return CodeEngine.GenerateCode(this); }

@@ -9,6 +9,7 @@ using eXpand.Persistent.Base.PersistentMetaData;
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
+    [InterfaceRegistrator(typeof(IExtendedReferenceMemberInfo))]
     public class ExtendedReferenceMemberInfo:ExtendedMemberInfo,IExtendedReferenceMemberInfo {
         private Type _referenceType;
 

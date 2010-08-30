@@ -4,7 +4,7 @@ using System.Reflection;
 using MbUnit.Framework;
 using eXpand.Utils.Helpers;
 
-namespace Fixtures.eXpand.Utils
+namespace eXpand.Tests.eXpand.Utils
 {
     [TestFixture]
     public class ReflectionExtensionsFixture

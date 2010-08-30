@@ -20,7 +20,7 @@ namespace eXpand.ExpressApp.WizardUI.Win
     using DevExpress.ExpressApp.Win.SystemModule;
     using DevExpress.Persistent.Validation;
     using DevExpress.XtraWizard;
-    using eXpand.ExpressApp.WizardUI.Win.Templates;
+    using Templates;
 
     /// <summary>
     /// Controller handles Page generation and View Management
@@ -47,7 +47,7 @@ namespace eXpand.ExpressApp.WizardUI.Win
         /// </summary>
         public WizardController()
         {
-            this.TargetViewType = ViewType.DetailView;
+            TargetViewType = ViewType.DetailView;
         }
 
         #endregion
@@ -61,42 +61,44 @@ namespace eXpand.ExpressApp.WizardUI.Win
         {
             base.OnActivated();
 
-            if (this.Frame.Template != null && this.Frame.Template is WizardDetailViewForm)
+            if (Frame.Template != null && Frame.Template is WizardDetailViewForm)
             {
-                IModelDetailViewWizard modelWizard = (IModelDetailViewWizard)(this.View as DetailView).Model;
-                this._WizardForm = this.Frame.Template as WizardDetailViewForm;
+                var modelWizard = (IModelDetailViewWizard)((DetailView) View).Model;
+                _WizardForm = Frame.Template as WizardDetailViewForm;
 
-                this._WizardForm.WizardControl.CancelClick += this.WizardControl_CancelClick;
-                this._WizardForm.WizardControl.FinishClick += this.WizardControl_FinishClick;
-                this._WizardForm.WizardControl.NextClick += this.WizardControl_NextClick;
-                this._WizardForm.WizardControl.SelectedPageChanged += this.WizardControl_SelectedPageChanged;
-                this._WizardForm.WizardControl.SelectedPageChanging += this.WizardControl_SelectedPageChanging;
-                this._WizardForm.WizardControl.BeginUpdate();
+                _WizardForm.WizardControl.CancelClick += WizardControl_CancelClick;
+                _WizardForm.WizardControl.FinishClick += WizardControl_FinishClick;
+                _WizardForm.WizardControl.NextClick += WizardControl_NextClick;
+                _WizardForm.WizardControl.SelectedPageChanged += WizardControl_SelectedPageChanged;
+                _WizardForm.WizardControl.SelectedPageChanging += WizardControl_SelectedPageChanging;
+                _WizardForm.WizardControl.BeginUpdate();
 
                 try
                 {
-                    CompletionWizardPage finishPage = this._WizardForm.WizardControl.Pages[0] as CompletionWizardPage;
+                    var finishPage = _WizardForm.WizardControl.Pages[0] as CompletionWizardPage;
                     foreach (IModelDetailViewWizardPage page in modelWizard.Wizard)
                     {
-                        this.OnWizardPageDetailViewCreating();
-                        var detailView = Application.CreateDetailView(this.ObjectSpace, page.DetailView, false);
-                        this.OnWizardPageDetailViewCreated();
-                        detailView.CurrentObject = this.View.CurrentObject;
+                        OnWizardPageDetailViewCreating();
+                        var detailView = Application.CreateDetailView(ObjectSpace, page.DetailView, false);
+                        OnWizardPageDetailViewCreated();
+                        detailView.CurrentObject = View.CurrentObject;
 
-                        var wizardPage = new XafWizardPage() { View = detailView };
-                        wizardPage.Text = page.Caption;
-                        wizardPage.DescriptionText = page.Description;
-                        this._WizardForm.WizardControl.Pages.Insert(finishPage, wizardPage);
+                        var wizardPage = new XafWizardPage {
+                                                               View = detailView,
+                                                               Text = page.Caption,
+                                                               DescriptionText = page.Description
+                                                           };
+                        _WizardForm.WizardControl.Pages.Insert(finishPage, wizardPage);
                     }
 
                     if (!modelWizard.Wizard.ShowCompletionWizardPage)
                     {
-                        this._WizardForm.WizardControl.Pages.Remove(finishPage);
+                        _WizardForm.WizardControl.Pages.Remove(finishPage);
                     }
                 }
                 finally
                 {
-                    this._WizardForm.WizardControl.EndUpdate();
+                    _WizardForm.WizardControl.EndUpdate();
                 }
             }
         }
@@ -123,15 +125,15 @@ namespace eXpand.ExpressApp.WizardUI.Win
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && this._WizardForm != null)
+            if (disposing && _WizardForm != null)
             {
-                this._WizardForm.WizardControl.CancelClick -= this.WizardControl_CancelClick;
-                this._WizardForm.WizardControl.FinishClick -= this.WizardControl_FinishClick;
-                this._WizardForm.WizardControl.NextClick -= this.WizardControl_NextClick;
-                this._WizardForm.WizardControl.SelectedPageChanged -= this.WizardControl_SelectedPageChanged;
-                this._WizardForm.WizardControl.SelectedPageChanging -= this.WizardControl_SelectedPageChanging;
+                _WizardForm.WizardControl.CancelClick -= WizardControl_CancelClick;
+                _WizardForm.WizardControl.FinishClick -= WizardControl_FinishClick;
+                _WizardForm.WizardControl.NextClick -= WizardControl_NextClick;
+                _WizardForm.WizardControl.SelectedPageChanged -= WizardControl_SelectedPageChanged;
+                _WizardForm.WizardControl.SelectedPageChanging -= WizardControl_SelectedPageChanging;
 
-                foreach (BaseWizardPage page in this._WizardForm.WizardControl.Pages)
+                foreach (BaseWizardPage page in _WizardForm.WizardControl.Pages)
                 {
                     if (page is XafWizardPage)
                     {
@@ -140,7 +142,7 @@ namespace eXpand.ExpressApp.WizardUI.Win
                     }
                 }
 
-                this._WizardForm.WizardControl.Dispose();
+                _WizardForm.WizardControl.Dispose();
             }
 
             base.Dispose(disposing);
@@ -153,8 +155,8 @@ namespace eXpand.ExpressApp.WizardUI.Win
         /// <param name="e">WizardPageChanged EventArgs</param>
         private void WizardControl_SelectedPageChanged(object sender, WizardPageChangedEventArgs e)
         {
-            ((WizardControl)sender).SelectedPageChanged -= this.WizardControl_SelectedPageChanged;
-            this.UpdateCurrentView(e.Page);
+            ((WizardControl)sender).SelectedPageChanged -= WizardControl_SelectedPageChanged;
+            UpdateCurrentView(e.Page);
         }
 
         /// <summary>
@@ -164,7 +166,7 @@ namespace eXpand.ExpressApp.WizardUI.Win
         /// <param name="e">WizardPageChanged EventArgs</param>
         private void WizardControl_SelectedPageChanging(object sender, WizardPageChangingEventArgs e)
         {
-            this.UpdateCurrentView(e.Page);
+            UpdateCurrentView(e.Page);
         }
 
         /// <summary>
@@ -176,20 +178,20 @@ namespace eXpand.ExpressApp.WizardUI.Win
             if (page is XafWizardPage)
             {
                 var wizardPage = page as XafWizardPage;
-                this.OnWizardPageDetailViewCreating();
-                wizardPage.View = Application.CreateDetailView(this.ObjectSpace, wizardPage.View.Id, false);
-                this.OnWizardPageDetailViewCreated();
-                wizardPage.View.CurrentObject = this.View.CurrentObject;
+                OnWizardPageDetailViewCreating();
+                wizardPage.View = Application.CreateDetailView(ObjectSpace, wizardPage.View.Id, false);
+                OnWizardPageDetailViewCreated();
+                wizardPage.View.CurrentObject = View.CurrentObject;
 
                 wizardPage.View.ErrorMessages.Clear();
-                ((Control)((IViewSiteTemplate)this.Frame.Template).ViewSiteControl).Parent = page;
+                ((Control)((IViewSiteTemplate)Frame.Template).ViewSiteControl).Parent = page;
 
-                this.UpdateControllers(wizardPage.View);
+                UpdateControllers(wizardPage.View);
 
-                this.Frame.Template.SetView(wizardPage.View);
-                if (!this.View.ErrorMessages.IsEmpty)
+                Frame.Template.SetView(wizardPage.View);
+                if (!View.ErrorMessages.IsEmpty)
                 {
-                    wizardPage.View.ErrorMessages.LoadMessages(this.View.ErrorMessages);
+                    wizardPage.View.ErrorMessages.LoadMessages(View.ErrorMessages);
                 }
             }
         }
@@ -201,12 +203,11 @@ namespace eXpand.ExpressApp.WizardUI.Win
         /// <param name="e">WizardCommandButtonClick EventArgs</param>
         private void WizardControl_NextClick(object sender, WizardCommandButtonClickEventArgs e)
         {
-            RuleValidationResult result = null;
-            RuleSetValidationResult validationResults = new RuleSetValidationResult();
-            List<string> usedProperties = new List<string>();
-            List<ResultsHighlightController> resultsHighlightControllers = new List<ResultsHighlightController>();
-            resultsHighlightControllers.Add(this.Frame.GetController<ResultsHighlightController>());
-            string reason;
+            RuleValidationResult result;
+            var validationResults = new RuleSetValidationResult();
+            var usedProperties = new List<string>();
+            var resultsHighlightControllers = new List<ResultsHighlightController>
+                                              {Frame.GetController<ResultsHighlightController>()};
 
             foreach (var item in ((XafWizardPage)e.Page).View.GetItems<PropertyEditor>())
             {
@@ -215,12 +216,9 @@ namespace eXpand.ExpressApp.WizardUI.Win
                     usedProperties.Add(item.PropertyName);
                     if (item is ListPropertyEditor)
                     {
-                        foreach (var property in ((ListPropertyEditor)item).ListView.Editor.RequiredProperties)
-                        {
-                            usedProperties.Add(property.TrimEnd('!'));
-                        }
+                        usedProperties.AddRange(((ListPropertyEditor) item).ListView.Editor.RequiredProperties.Select(property => property.TrimEnd('!')));
 
-                        ResultsHighlightController nestedController = ((ListPropertyEditor)item).Frame.GetController<ResultsHighlightController>();
+                        var nestedController = ((ListPropertyEditor)item).Frame.GetController<ResultsHighlightController>();
                         if (nestedController != null)
                         {
                             resultsHighlightControllers.Add(nestedController);
@@ -229,21 +227,14 @@ namespace eXpand.ExpressApp.WizardUI.Win
                 }
             }
 
-            foreach (var obj in this.ObjectSpace.ModifiedObjects)
+            foreach (var obj in ObjectSpace.ModifiedObjects)
             {
                 IList<IRule> rules = Validator.RuleSet.GetRules(obj, ContextIdentifier.Save);
                 foreach (IRule rule in rules)
                 {
-                    bool ruleInUse = false;
-                    foreach (string property in rule.UsedProperties)
-                    {
-                        if (usedProperties.Contains(property) || !string.IsNullOrEmpty(usedProperties.Where(p => p.EndsWith(String.Format(".{0}", property))).FirstOrDefault()))
-                        {
-                            ruleInUse = true;
-                            break;
-                        }
-                    }
+                    bool ruleInUse = rule.UsedProperties.Any(property => usedProperties.Contains(property) || !string.IsNullOrEmpty(usedProperties.Where(p => p.EndsWith(String.Format(".{0}", property))).FirstOrDefault()));
 
+                    string reason;
                     if (ruleInUse && RuleSet.NeedToValidateRule(rule, obj, out reason))
                     {
                         result = rule.Validate(obj);
@@ -278,24 +269,26 @@ namespace eXpand.ExpressApp.WizardUI.Win
         /// <param name="e">Cancel EventArgs</param>
         private void WizardControl_FinishClick(object sender, CancelEventArgs e)
         {
-            this.UpdateControllers(this.View);
-            var currentObject = this.View.CurrentObject;
-            var controller = this.Frame.GetController<DetailViewController>();
+            UpdateControllers(View);
+            var currentObject = View.CurrentObject;
+            var controller = Frame.GetController<DetailViewController>();
             if (controller.SaveAndCloseAction.Active && controller.SaveAndCloseAction.Enabled)
             {
-                this.Frame.GetController<DetailViewController>().SaveAndCloseAction.DoExecute();   
+                Frame.GetController<DetailViewController>().SaveAndCloseAction.DoExecute();   
             }
 
-            if (this._WizardForm.ShowRecordAfterCompletion)
+            if (_WizardForm.ShowRecordAfterCompletion)
             {
-                ObjectSpace os = this.Application.CreateObjectSpace();
+                ObjectSpace os = Application.CreateObjectSpace();
 
-                ShowViewParameters showViewParameter = new ShowViewParameters();
-                showViewParameter.Context = TemplateContext.View;
-                showViewParameter.CreatedView = this.Application.CreateDetailView(os, os.GetObject(currentObject));
-                showViewParameter.TargetWindow = TargetWindow.NewWindow;
+                var showViewParameter = new ShowViewParameters
+                {
+                    Context = TemplateContext.View,
+                    CreatedView = Application.CreateDetailView(os, os.GetObject(currentObject)),
+                    TargetWindow = TargetWindow.NewWindow
+                };
 
-                this.Application.ShowViewStrategy.ShowView(showViewParameter, new ShowViewSource(null, null));
+                Application.ShowViewStrategy.ShowView(showViewParameter, new ShowViewSource(null, null));
             }
         }
 
@@ -306,14 +299,14 @@ namespace eXpand.ExpressApp.WizardUI.Win
         /// <param name="e">Cancel EventArgs</param>
         private void WizardControl_CancelClick(object sender, CancelEventArgs e)
         {
-            this.UpdateControllers(this.View);
-            this.Frame.GetController<CloseWindowController>().CloseAction.DoExecute();
-            if (((WizardControl)sender).SelectedPage != null && this.View != null)
+            UpdateControllers(View);
+            Frame.GetController<CloseWindowController>().CloseAction.DoExecute();
+            if (((WizardControl)sender).SelectedPage != null && View != null)
             {
-                this.UpdateCurrentView(((WizardControl)sender).SelectedPage);
+                UpdateCurrentView(((WizardControl)sender).SelectedPage);
             }
 
-            e.Cancel = ((Form)this.Frame.Template).DialogResult != DialogResult.Cancel;
+            e.Cancel = ((Form)Frame.Template).DialogResult != DialogResult.Cancel;
         }
 
         /// <summary>
@@ -322,7 +315,7 @@ namespace eXpand.ExpressApp.WizardUI.Win
         /// <param name="view">current View</param>
         private void UpdateControllers(DevExpress.ExpressApp.View view)
         {
-            foreach (Controller controller in this.Frame.Controllers)
+            foreach (Controller controller in Frame.Controllers)
             {
                 if (controller is ViewController && !controller.Equals(this))
                 {

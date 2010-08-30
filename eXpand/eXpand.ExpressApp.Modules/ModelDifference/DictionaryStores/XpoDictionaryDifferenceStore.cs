@@ -6,20 +6,20 @@ using eXpand.Persistent.Base;
 namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
     public abstract class XpoDictionaryDifferenceStore : ModelDifferenceStore{
 
-        private readonly XafApplication application;
-        private ObjectSpace objectSpace;
+        private readonly XafApplication _application;
+        private readonly ObjectSpace _objectSpace;
 
         protected XpoDictionaryDifferenceStore(XafApplication application){
-            this.application = application;
-            objectSpace = application.CreateObjectSpace();
+            _application = application;
+            _objectSpace = application.CreateObjectSpace();
         }
 
         public XafApplication Application{
-            get { return application; }
+            get { return _application; }
         }
 
         public ObjectSpace ObjectSpace{
-            get { return objectSpace; }
+            get { return _objectSpace  ; }
         }
 
         public override string Name{
@@ -30,23 +30,23 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
         public override void SaveDifference(ModelApplicationBase model){
             if (model != null){
-                objectSpace = application.CreateObjectSpace();
                 ModelDifferenceObject modelDifferenceObject = 
-                    GetActiveDifferenceObject() ?? 
-                    GetNewDifferenceObject(objectSpace)
-                    .InitializeMembers(Application.Title, application.GetType().FullName);
+                    GetActiveDifferenceObject(model.Id) ?? 
+                    GetNewDifferenceObject(ObjectSpace)
+                    .InitializeMembers(model.Id=="Application"?Application.Title:model.Id, Application.Title, Application.GetType().FullName);
                 
                 OnDifferenceObjectSaving(modelDifferenceObject, model);
             }
         }
         
-        protected internal abstract ModelDifferenceObject GetActiveDifferenceObject();
+        protected internal abstract ModelDifferenceObject GetActiveDifferenceObject(string name);
 
         protected internal abstract ModelDifferenceObject GetNewDifferenceObject(ObjectSpace objectSpace);
 
         protected internal virtual void OnDifferenceObjectSaving(ModelDifferenceObject modelDifferenceObject, ModelApplicationBase model){
-            modelDifferenceObject.Model = model;
-            objectSpace.CommitChanges();
+            if (model.HasModification)
+                ObjectSpace.SetModified(modelDifferenceObject);
+            ObjectSpace.CommitChanges();
         }
     }
 }

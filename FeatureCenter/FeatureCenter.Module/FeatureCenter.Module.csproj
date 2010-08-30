@@ -1,0 +1,577 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2FE9D002-F5ED-46AC-860D-1ADF67573F0C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FeatureCenter.Module</RootNamespace>
+    <AssemblyName>FeatureCenter.Module</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EasyTest\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalFormatting.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Objects.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v10.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v10.1.Linq">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.AdditionalViewControlsProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ArtifactState, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ArtifactState.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ConditionalActionState, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ConditionalActionState.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ConditionalControllerState, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ConditionalControllerState.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ExceptionHandling, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.FilterDataStore, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.FilterDataStore.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.IO, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Logic, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.Logic.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Logic.Conditional, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.Logic.Conditional.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.MasterDetail, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.MasterDetail.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.MemberLevelSecurity, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.MemberLevelSecurity.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ModelArtifactState, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ModelArtifactState.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ModelDifference, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ModelDifference.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.PivotChart, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.PivotChart.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Security, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.Validation, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ViewVariants, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ViewVariants.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.WorldCreator, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.WorldCreator.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.WorldCreator.SqlDBMapper, Version=10.1.5.179, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.WorldCreator.SqlDBMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.Persistent.Base, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.Persistent.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.Persistent.BaseImpl, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.Persistent.BaseImpl.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.Utils, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="eXpand.Xpo, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.Xpo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Projects\EntLib41src\Blocks\Logging\Src\Logging\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Projects\EntLib41src\Blocks\Logging\Src\Logging\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationDifferences\RoleDifference\AttributeRegistrator.cs" />
+    <Compile Include="DetailViewControl\ActionButtonViewItem\ActionButtonViewItemController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DetailViewControl\ActionButtonViewItem\AttributeRegistrator.cs" />
+    <Compile Include="AdditionalViewControls\ConditionalControlAndMessage\AttributeRegistrator.cs" />
+    <Compile Include="AdditionalViewControls\ConditionalViewControlsPositioning\AttributeRegistrator.cs" />
+    <Compile Include="AttributeRegistrator.cs" />
+    <Compile Include="Miscellaneous\ConnectionInfoStatus\AttributeRegistrator.cs" />
+    <Compile Include="ControllingSearch\DetailView\AttributeRegistrator.cs" />
+    <Compile Include="ControllingSearch\FullTextForMemoFields\AttributeRegistrator.cs" />
+    <Compile Include="ControllingSearch\ListView\AttributeRegistrator.cs" />
+    <Compile Include="CreateObjectAttributesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DetailViewControl\DisableEditDetailView\AttributeRegistrator.cs" />
+    <Compile Include="DisplayFeatureModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LowLevelFilterDataStore\DisableFiltersNodeUpdater.cs" />
+    <Compile Include="Miscellaneous\ExceptionHandling\AttributeRegistrator.cs">
+    </Compile>
+    <Compile Include="Miscellaneous\ExceptionHandling\ExceptionHandlingObject.cs" />
+    <Compile Include="Miscellaneous\ExceptionHandling\ShowELConfigurationToolController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Miscellaneous\ExceptionHandling\ThrowExceptionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Miscellaneous\ForeignKeyViolation\AttributeRegistrator.cs" />
+    <Compile Include="HideToolBar\DetailView\AttributeRegistrator.cs" />
+    <Compile Include="HideToolBar\ListView\AttributeRegistrator.cs" />
+    <Compile Include="HideToolBar\NestedListView\AttributeRegistrator.cs" />
+    <Compile Include="DetailViewControl\HighlightFocusedLayoutItem\AttributeRegistrator.cs" />
+    <Compile Include="ImportExport\AnalysisObjects\CreateObjectAttributesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ImportExport\DynamicAssemblyMasterDetail\CreateObjectAttributesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ImportExport\DynamicAssemblyMasterDetail\Updater.cs" />
+    <Compile Include="ImportExport\DynamicAssemblyMasterDetail\WorldCreatorUpdater.cs" />
+    <Compile Include="ImportExport\UpdateMembers\UMCustomer.cs" />
+    <Compile Include="ImportExport\UpdateMembers\Updater.cs" />
+    <Compile Include="Miscellaneous\LinqQuery\AttributeRegistrator.cs" />
+    <Compile Include="ListViewControl\LoadWhenFiltered\AttributeRegistrator.cs" />
+    <Compile Include="Miscellaneous\LookUpListSearch\AttributeRegistrator.cs" />
+    <Compile Include="ModelArtifact\ConditionalForeignKeyKViolationAndShowDetailView\AttributeRegistrator.cs" />
+    <Compile Include="ModelArtifact\ConditionalSaveDelete\AttributeRegistrator.cs" />
+    <Compile Include="ApplicationDifferences\CreateDisplayFeatureModelAttributeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ApplicationDifferences\ExternalApplication\CreateObjectAttributesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Navigation\AttributeRegistrator.cs" />
+    <Compile Include="PivotChart\ConnectWithCustomer\CAWOrder.cs" />
+    <Compile Include="PivotChart\ConnectWithCustomer\CAWCustomer.cs" />
+    <Compile Include="PivotChart\ConnectWithCustomer\CAWOrderLine.cs" />
+    <Compile Include="PivotChart\ControllingPivotGridSettings\CreateObjectAttributesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PivotChart\HideChart\CreateObjectAttributesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PivotChart\HidePivot\CreateObjectAttributesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PivotChart\InPlaceEdit\CreateObjectAttributesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PivotChart\PivotGroupInterval\CreateObjectAttributesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PivotChart\ShowInAnalysis\AttributeRegistrator.cs" />
+    <Compile Include="RuntimeFieldsFromModel\AddRecordsToAddRuntimeFieldsFromModelObjectControler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ApplicationDifferences\ExternalApplication\ExternalApplicationKeyParameter.cs">
+    </Compile>
+    <Compile Include="ApplicationDifferences\ExternalApplication\ExternalApplicationModelStore.cs" />
+    <Compile Include="ApplicationDifferences\ExternalApplication\StartExternalApplicationController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ApplicationDifferences\ExternalApplication\Updater.cs" />
+    <Compile Include="ApplicationDifferences\Updater.cs" />
+    <Compile Include="Captions.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="LowLevelFilterDataStore\ContinentFilter\ContinentController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LowLevelFilterDataStore\ContinentFilter\ContinentFilterProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelFilterDataStore\ContinentFilter\FDSCCustomer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LowLevelFilterDataStore\SkinFilter\FDSSCustomer.cs" />
+    <Compile Include="LowLevelFilterDataStore\UserFilter\FDSUCustomer.cs" />
+    <Compile Include="LowLevelFilterDataStore\UserFilter\Updater.cs" />
+    <Compile Include="ExpandAbleMembers\EAMCustomer.cs" />
+    <Compile Include="ExpandAbleMembers\EAMOrder.cs" />
+    <Compile Include="Navigation\HideFromNewMenuObject.cs" />
+    <Compile Include="Miscellaneous\MultipleDataStore\MDSCustomer.cs" />
+    <Compile Include="Miscellaneous\MultipleDataStore\MDSOrder.cs" />
+    <Compile Include="Miscellaneous\MultipleDataStore\MDSOrderLine.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="OrderLine.cs" />
+    <Compile Include="ImportExport\AnalysisObjects\Updater.cs" />
+    <Compile Include="ListViewControl\PropertyPathFilters\PropertyPathFiltersNodeUpdater.cs" />
+    <Compile Include="ListViewControl\PropertyPathFilters\PPCustomer.cs" />
+    <Compile Include="Module.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Module.Designer.cs">
+      <DependentUpon>Module.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Navigation\NonPersistentObject.cs" />
+    <Compile Include="ListViewControl\PropertyPathFilters\PPOrder.cs" />
+    <Compile Include="ListViewControl\PropertyPathFilters\PPOrderLine.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuntimeFieldsFromModel\AttributeRegistrator.cs" />
+    <Compile Include="Security\MemberLevel\MLSCustomer.cs" />
+    <Compile Include="Security\MemberLevel\Updater.cs" />
+    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs">
+    </Compile>
+    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UpdateStatementController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Updater.cs">
+    </Compile>
+    <Compile Include="ViewVariants\AttributeRegistrator.cs" />
+    <Compile Include="Welcome\WelcomeObject.cs" />
+    <Compile Include="WorldCreator\NorthWind\AttributeRegistrator.cs" />
+    <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\CreateObjectAttributesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\DynamicAssemblyBuilder.cs" />
+    <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\Updater.cs" />
+    <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\WC3LevelMasterDetailModelStore.cs" />
+    <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\WorldCreatorUpdater.cs">
+    </Compile>
+    <Compile Include="WorldCreator\ExistentAssemblyMasterDetail\CreateObjectAttributesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WorldCreator\ExistentAssemblyMasterDetail\EAMDCustomer.cs" />
+    <Compile Include="WorldCreator\ExistentAssemblyMasterDetail\EAMDOrder.cs" />
+    <Compile Include="WorldCreator\ExistentAssemblyMasterDetail\ExistentAssemblyMasterDetailModelStore.cs" />
+    <Compile Include="WorldCreator\ExistentAssemblyMasterDetail\Updater.cs" />
+    <Compile Include="WorldCreator\ExistentAssemblyMasterDetail\WorldCreatorUpdater.cs" />
+    <Compile Include="WorldCreator\NorthWind\WorldCreatorUpdater.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Module.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Module.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ControllingSearch\DetailView\MDO_ControllingDetailViewSearch.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LowLevelFilterDataStore\ContinentFilter\MDO_ContinentFilter.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Functional Tests\Config.xml" />
+    <Content Include="ImportExport\UpdateMembers\UpdateMembers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="WorldCreator\NorthWind\NorthWind.xml" />
+    <EmbeddedResource Include="ImportExport\UpdateMembers\UpdateMembersGroup.xml" />
+    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModelGroup.xml" />
+    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModel.xml" />
+    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailGroup.xml" />
+    <EmbeddedResource Include="ImportExport\AnalysisObjects\AnalysisObjectsConfiguration.xml" />
+    <EmbeddedResource Include="ImportExport\AnalysisObjects\AnalysisObjects.xml" />
+    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetail.xml" />
+    <EmbeddedResource Include="ApplicationDifferences\ExternalApplication\MDO_ExternalApplication.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\ExpressAppLogo.png" />
+    <EmbeddedResource Include="Images\logo.png" />
+    <EmbeddedResource Include="Images\Demo_Welcome.png" />
+    <EmbeddedResource Include="Images\Demo_Welcome_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PivotChart\HideChart\MDO_HideChart.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PivotChart\HidePivot\MDO_HidePivot.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuntimeFieldsFromModel\MDO_RuntimeFieldsFromModel.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdditionalViewControls\ConditionalControlAndMessage\MDO_ConditionalControlAndMessage.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdditionalViewControls\ConditionalViewControlsPositioning\MDO_ConditionalViewControlsPositioning.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetailViewControl\DisableEditDetailView\MDO_DisableEditDetailView.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Miscellaneous\ConnectionInfoStatus\MDO_ConnectionInfoStatus.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetailViewControl\ActionButtonViewItem\MDO_ActionButtonViewItem.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControllingSearch\ListView\MDO_ControllingListViewSearch.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControllingSearch\FullTextForMemoFields\MDO_DisableFullTextForMemoFields.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Miscellaneous\ForeignKeyViolation\MDO_ForeignKeyViolation.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LowLevelFilterDataStore\SkinFilter\MDO_SkinFilter.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LowLevelFilterDataStore\UserFilter\MDO_UserFilter.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationDifferences\RoleDifference\RDO_Administrators_RoleDifference.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Functional Tests\Sample.ets" />
+    <EmbeddedResource Include="WorldCreator\NorthWind\MDO_NorthWind.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Miscellaneous\ExceptionHandling\MDO_ExceptionHandling.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewVariants\MDO_ViewVariants.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportExport\AnalysisObjects\MDO_Analysis.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PivotChart\ConnectWithCustomer\MDO_ConnectWithCustomer.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PivotChart\ShowInAnalysis\MDO_ShowInAnalysis.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PivotChart\PivotGroupInterval\MDO_PivotGroupInterval.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PivotChart\InPlaceEdit\MDO_InPlaceEdit.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationDifferences\MDO_ModelDifference.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Miscellaneous\MultipleDataStore\MDO_MultipleDataStore.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PivotChart\ControllingPivotGridSettings\MDO_ControllingPivotGridSettings.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Miscellaneous\UpdateOnlyChangeFields\MDO_UpdateOnlyChangeFields.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Welcome\MDO_Welcome.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModelArtifact\ConditionalSaveDelete\MDO_ConditionalSaveDelete.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModelArtifact\ConditionalForeignKeyKViolationAndShowDetailView\MDO_ConditionalForeignKeyViolationAndShowDetailView.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Miscellaneous\LookUpListSearch\MDO_LookUpListSearch.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListViewControl\LoadWhenFiltered\MDO_LoadWhenFiltered.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetailViewControl\HighlightFocusedLayoutItem\MDO_HighlightFocusedLayoutItem.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HideToolBar\NestedListView\MDO_HideNestedListViewToolBar.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HideToolBar\ListView\MDO_HideListViewToolBar.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HideToolBar\DetailView\MDO_HideDetailViewToolBar.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationDifferences\ExternalApplication\ExternalApplication.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorldCreator\DynamicAssemblyMasterDetail\WC3LevelMasterDetail.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorldCreator\ExistentAssemblyMasterDetail\ExisstentAssemblyMasterDetail.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FeatureCenter.Base\FeatureCenter.Base.csproj">
+      <Project>{782230D9-DFA4-4D7A-89A9-660A361B5A8A}</Project>
+      <Name>FeatureCenter.Base</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

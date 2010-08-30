@@ -4,6 +4,6 @@ namespace eXpand.Xpo
 {
     public interface ISupportChangedMembers
     {
-        MemberInfoCollection ChangedMembers { get; }
+        ChangedMemberCollector ChangedMemberCollector { get; }
     }
 }

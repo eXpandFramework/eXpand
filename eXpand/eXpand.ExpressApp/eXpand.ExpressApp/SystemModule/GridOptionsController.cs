@@ -1,58 +1,15 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
-using DevExpress.ExpressApp;
-using eXpand.Xpo;
 using DevExpress.ExpressApp.Model;
+using eXpand.ExpressApp.ListEditors;
 
 namespace eXpand.ExpressApp.SystemModule {
-    public abstract class GridOptionsController<ControlType,SettingsType>:ViewController<ListView>, IModelExtender
-    {
-        object Getvalue(PropertyInfo propertyInfo, string attributeValue, object settings)
-        {
-            return string.IsNullOrEmpty(attributeValue) ? propertyInfo.GetValue(settings, null) : ReflectorHelper.ChangeType(attributeValue, propertyInfo.PropertyType);
-        }
+    public interface IModelListViewMainViewOptionsBase : IModelNode {
+    }
 
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
-            //extenders.Add<IModelListView, IModelListViewGridOptions>();
+    public abstract class GridOptionsController<ControlType, OptionsInterfaceType> :
+        OptionsController<ControlType, OptionsInterfaceType, IModelListView> where OptionsInterfaceType : IModelNode {
+        protected override Type GetExtenderType() {
+            return OptionsModelSynchronizer<object, IModelNode, IModelListViewMainViewOptionsBase>.GetModelOptionsType();
         }
-
-        protected override void OnViewControlsCreated()
-        {
-            return;
-            base.OnViewControlsCreated();
-            var dictionaryNode = View.Model;
-            if (dictionaryNode != null) {
-                var propertyInfos = typeof(ControlType).GetProperties().Where(info1 => typeof(SettingsType).IsAssignableFrom(info1.PropertyType));
-                //foreach (DictionaryNode childNode in dictionaryNode.ChildNodes) {
-                //    DictionaryNode node = childNode;
-                //    var propertyInfo = propertyInfos.Where(info1 => info1.Name==node.Name).FirstOrDefault();
-                //    if (propertyInfo != null) {
-                //        object settings = propertyInfo.GetValue(GetControl(), null);
-                //        Delegate(childNode.Name, settings, dictionaryNode);
-                //    }
-                //}
-            }
-        }
-
-        protected virtual object GetControl() {
-            return View.Editor.Control;
-        }
-
-        void Delegate(string sourceChildNode, object settings, object optons)
-        {
-            //if (optons != null)
-                //foreach (var dictionaryAttribute in dictionaryNode.Attributes.OfType<DictionaryAttribute>()){
-                //    var attributeValue = dictionaryNode.GetAttributeValue(dictionaryAttribute.Name);
-                //    DictionaryAttribute attribute = dictionaryAttribute;
-                //    var single = settings.GetType().GetProperties().Where(propertyInfo => propertyInfo.Name == attribute.Name).Single();
-                //    if (!string.IsNullOrEmpty(attributeValue)){
-                //        var value = Getvalue(single, attributeValue, settings);
-                //        single.SetValue(settings, value, null);
-                //    }
-                //}
-        }
-
     }
 }

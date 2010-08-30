@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="AMIObject_DetailView">
+      <Items>
+        <ActionButton Id="d94c7ee7-6c8e-44dc-88d8-d1456e266f3e" IsNewNode="True" ActionId="Show another instance" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

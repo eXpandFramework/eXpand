@@ -9,20 +9,20 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
 namespace eXpand.Persistent.BaseImpl.ImportExport {
-
-    [DefaultClassOptions]
-    [NavigationItem("ImportExport")]
+    [DefaultProperty("TypeToSerialize")]
+    [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "TypeToSerialize,SerializationConfigurationGroup")]
     public class SerializationConfiguration : BaseObject, ISerializationConfiguration {
         private Type _typeToSerialize;
         public SerializationConfiguration(Session session) : base(session) { }
-
-        [RuleUniqueValue(null,DefaultContexts.Save)]
-        [RuleRequiredField(null, DefaultContexts.Save)]
+        private SerializationConfigurationGroup _serializationConfigurationGroup;
+        
+        
         [Index(0)]
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         [VisibleInListView(true)]
+        [RuleRequiredField]
         public Type TypeToSerialize
         {
             get {
@@ -34,6 +34,17 @@ namespace eXpand.Persistent.BaseImpl.ImportExport {
         public XPCollection<ClassInfoGraphNode> SerializationGraph
         {
             get { return GetCollection<ClassInfoGraphNode>("SerializationGraph"); }
+        }
+        [RuleRequiredField]
+        [Association("SerializationConfigurationGroup-SerializationConfigurations")]
+        public SerializationConfigurationGroup SerializationConfigurationGroup
+        {
+            get { return _serializationConfigurationGroup; }
+            set { SetPropertyValue("SerializationConfigurationGroup", ref _serializationConfigurationGroup, value); }
+        }
+        ISerializationConfigurationGroup ISerializationConfiguration.SerializationConfigurationGroup {
+            get { return SerializationConfigurationGroup; }
+            set { SerializationConfigurationGroup=value as SerializationConfigurationGroup; }
         }
 
         IList<IClassInfoGraphNode> ISerializationConfiguration.SerializationGraph {

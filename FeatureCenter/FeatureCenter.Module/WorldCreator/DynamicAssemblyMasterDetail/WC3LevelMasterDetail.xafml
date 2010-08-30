@@ -1,0 +1,39 @@
+﻿<Application>
+  <MasterDetail>
+    <Rules>
+      <MasterDetailRule Id="DMDCustomer_Orders" IsNewNode="True" TypeInfo="MasterDetailDynamicAssembly.DMDCustomer" CollectionMember="DMDOrders" ChildListView="DMDOrder_ListView" NormalCriteria="1=1" />
+      <MasterDetailRule Id="DMDOrder_OrderLines" IsNewNode="True" TypeInfo="MasterDetailDynamicAssembly.DMDOrder" CollectionMember="DMDOrderLines" ChildListView="DMDOrderLine_ListView" NormalCriteria="1=1" />
+    </Rules>
+  </MasterDetail>
+  <NavigationItems>
+    <Items>
+      <Item Id="WorldCreator">
+        <Items>
+          <Item Id="Dynamic assembly Master detail" IsNewNode="True" ViewId="DMDCustomer_ListView" Caption="Master detail" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Views>
+    <ListView Id="DMDCustomer_ListView">
+      <GridViewOptions>
+        <OptionsDetail EnableMasterViewMode="True" />
+        <OptionsView ShowDetailButtons="True" />
+      </GridViewOptions>
+    </ListView>
+    <ListView Id="DMDOrder_ListView">
+      <Columns>
+        <ColumnInfo Id="DMDCustomer" Index="-1" />
+      </Columns>
+      <GridViewOptions>
+        <OptionsDetail EnableMasterViewMode="True" />
+        <OptionsView ShowDetailButtons="True" />
+      </GridViewOptions>
+    </ListView>
+    <ListView Id="DMDOrderLine_ListView">
+      <Columns>
+        <ColumnInfo Id="DMDOrder" Index="-1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

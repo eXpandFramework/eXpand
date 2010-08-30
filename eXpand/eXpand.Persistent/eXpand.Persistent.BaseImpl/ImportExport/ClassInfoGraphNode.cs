@@ -1,23 +1,20 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalEditorState;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.ModelArtifactState.Attributes;
-using eXpand.ExpressApp.ModelArtifactState.ControllerState;
-using eXpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
+using eXpand.ExpressApp.ConditionalControllerState.Logic;
 using eXpand.Persistent.Base.ImportExport;
-using State = eXpand.Persistent.Base.General.State;
 using System.Linq;
 
 namespace eXpand.Persistent.BaseImpl.ImportExport
 {
     [Custom("DefaultListViewMasterDetailMode", "ListViewAndDetailView")]
-    [ControllerStateRule("ClassInfoGraphNode+NewObjectViewController", typeof(NewObjectViewController), Nesting.Any, "1=1", "1=1", ViewType.Any, null, State.Disabled, null)]
-    [ControllerStateRule("ClassInfoGraphNode+DeleteObjectsViewController", typeof(DeleteObjectsViewController), Nesting.Any, "1=1", "1=1", ViewType.Any, null, State.Disabled, null)]
+    [ControllerStateRule("ClassInfoGraphNode+NewObjectViewController", typeof(NewObjectViewController),  "1=1", "1=1", ControllerState.Disabled)]
+    [ControllerStateRule("ClassInfoGraphNode+DeleteObjectsViewController", typeof(DeleteObjectsViewController),  "1=1", "1=1", ControllerState.Disabled)]
+    [DefaultProperty("Name")]
     public class ClassInfoGraphNode : BaseObject, IClassInfoGraphNode
     {
         
@@ -34,13 +31,13 @@ namespace eXpand.Persistent.BaseImpl.ImportExport
 
         private NodeType _nodeType;
         [VisibleInListView(false)]
-        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute,"false")]
+        [Custom("AllowEdit", "false")]
         public NodeType NodeType {
             get { return _nodeType; }
             set { SetPropertyValue("NodeType", ref _nodeType, value); }
         }
         [VisibleInDetailView(false)]
-        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
+        [Custom("AllowEdit", "false")]
         public string Name
         {
             get { return name; }

@@ -1,44 +1,36 @@
 ﻿using System;
-using eXpand.ExpressApp.Logic.Conditional;
+using eXpand.ExpressApp.Logic.Conditional.Logic;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public class AdditionalViewControlsRule : ConditionalLogicRule, IAdditionalViewControlsRule {
-        readonly IAdditionalViewControlsRule _additionalViewControlsRule;
+        
 
         public AdditionalViewControlsRule(IAdditionalViewControlsRule additionalViewControlsRule)
             : base(additionalViewControlsRule) {
-            _additionalViewControlsRule = additionalViewControlsRule;
+                Message = additionalViewControlsRule.Message;
+                ControlType = additionalViewControlsRule.ControlType;
+                DecoratorType = additionalViewControlsRule.DecoratorType;
+                MessageProperty = additionalViewControlsRule.MessageProperty;
+                Position = additionalViewControlsRule.Position;
+                NotUseSameType = additionalViewControlsRule.NotUseSameType;
         }
         #region IAdditionalViewControlsRule Members
-        public string Message {
-            get { return _additionalViewControlsRule.Message; }
-            set { _additionalViewControlsRule.Message = value; }
-        }
+        public string Message { get; set; }
 
-        public string MessagePropertyName {
-            get { return _additionalViewControlsRule.MessagePropertyName; }
-            set { _additionalViewControlsRule.MessagePropertyName = value; }
-        }
+        public Type ControlType { get; set; }
 
-        public Type DecoratorType {
-            get { return _additionalViewControlsRule.DecoratorType; }
-            set { _additionalViewControlsRule.DecoratorType = value; }
-        }
 
-        public Type ControlType {
-            get { return _additionalViewControlsRule.ControlType; }
-            set { _additionalViewControlsRule.ControlType = value; }
-        }
+        public Type DecoratorType { get; set; }
 
-        public AdditionalViewControlsProviderPosition AdditionalViewControlsProviderPosition {
-            get { return _additionalViewControlsRule.AdditionalViewControlsProviderPosition; }
-            set { _additionalViewControlsRule.AdditionalViewControlsProviderPosition = value; }
-        }
 
-        public bool UseSameIfFound {
-            get { return _additionalViewControlsRule.UseSameIfFound; }
-            set { _additionalViewControlsRule.UseSameIfFound=value; }
-        }
+        public string MessageProperty { get; set; }
+
+
+        public Position Position { get; set; }
+
+        public bool NotUseSameType { get; set; }
+
+        public object Control { get; set; }
         #endregion
     }
 }

@@ -1,15 +1,17 @@
+using System;
 using DevExpress.Data.Filtering;
 using eXpand.Xpo;
+using eXpand.Xpo.Filtering;
 using MbUnit.Framework;
 
 namespace eXpand.Tests.eXpand.Xpo {
     [TestFixture]
     public class CriteriaOperatorExtractorFixture
     {
-
         [Test]
         public void ExtractGroupOperator()
         {
+            int dayOfYear = DateTime.Now.DayOfYear;
             BinaryOperator binaryOperator2;
             CriteriaOperator groupOperator;
             BinaryOperator binaryOperator = getGroupOperator(out binaryOperator2, out groupOperator);

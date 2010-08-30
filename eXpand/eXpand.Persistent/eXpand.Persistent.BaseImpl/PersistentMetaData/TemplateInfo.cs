@@ -1,15 +1,25 @@
+using System.ComponentModel;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
-    public class TemplateInfo : BaseObject, ITemplateInfo {
+    [InterfaceRegistrator(typeof(ITemplateInfo))]
+    public class TemplateInfo : BaseObject,ITemplateInfo {
         string _name;
         string _templateCode;
 
         public TemplateInfo(Session session) : base(session) {
         }
+        private PersistentTypeInfo _persistentTypeInfo;
+        [Browsable(false)]
+        [Association("PersistentTypeInfo-TemplateInfos")]
+        public PersistentTypeInfo PersistentTypeInfo {
+            get { return _persistentTypeInfo; }
+            set { SetPropertyValue("PersistentTypeInfo", ref _persistentTypeInfo, value); }
+        }
+
 
         [Association("TemplateInfo-CodeTemplateInfos")]
         public XPCollection<CodeTemplateInfo> CodeTemplateInfos {
@@ -29,4 +39,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
         #endregion
     }
+
+    
 }

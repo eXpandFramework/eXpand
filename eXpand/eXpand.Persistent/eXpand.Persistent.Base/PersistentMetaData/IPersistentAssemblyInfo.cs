@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.Base.PersistentMetaData {
     public interface IPersistentAssemblyInfo
@@ -12,8 +13,8 @@ namespace eXpand.Persistent.Base.PersistentMetaData {
         CodeDomProvider CodeDomProvider { get; }
         Session Session { get; }
         IFileData FileData { get; set; }
-        string Version { get; set; }
         int CompileOrder { get; set; }
+        IList<IPersistentAssemblyAttributeInfo> Attributes { get; }
     }
     public enum CodeDomProvider {
         CSharp,

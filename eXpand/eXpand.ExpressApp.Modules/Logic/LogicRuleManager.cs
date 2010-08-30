@@ -5,17 +5,17 @@ using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
-using eXpand.Persistent.Base.General;
 
 namespace eXpand.ExpressApp.Logic {
-    public class LogicRuleManager<TLogicRule> : ILogicRuleManager<TLogicRule> where TLogicRule : ILogicRule {
+    public class LogicRuleManager<TLogicRule> : ILogicRuleManager<TLogicRule> 
+    {
         public const BindingFlags MethodRuleBindingFlags =
             BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public |
             BindingFlags.NonPublic;
 
-        public const int MethodRuleOutParametersCount = 1;
-        public static readonly Type MethodRuleOutParameterType = typeof (Boolean);
-        public static readonly Type MethodRuleReturnType = typeof (State);
+        
+
+
 
         static IValueManager<LogicRuleManager<TLogicRule>>
             instanceManager;
@@ -86,23 +86,6 @@ namespace eXpand.ExpressApp.Logic {
                    (memberInfo.MemberTypeInfo.IsDomainComponent || memberInfo.Owner.IsDomainComponent);
         }
 
-        public static IEnumerable<TLogicRule> FindAttributes(MethodInfo methodInfo) {
-            if (methodInfo != null) {
-                ParameterInfo[] parameters = methodInfo.GetParameters();
-                if (methodInfo.ReturnType == MethodRuleReturnType
-                    && !methodInfo.ContainsGenericParameters
-                    && parameters.Length == MethodRuleOutParametersCount) {
-                    ParameterInfo parameter = parameters[0];
-                    if (parameter.ParameterType == MethodRuleOutParameterType.MakeByRefType() && parameter.IsOut) {
-                        foreach (
-                            TLogicRule attribute in
-                                methodInfo.GetCustomAttributes(typeof (TLogicRule), true)) {
-                            yield return attribute;
-                        }
-                    }
-                }
-            }
-        }
 
         public static IEnumerable<TLogicRule> FindAttributes(ITypeInfo typeInfo) {
             return typeInfo != null ? GetLogicRuleAttributes(typeInfo) : null;
@@ -112,17 +95,6 @@ namespace eXpand.ExpressApp.Logic {
             return typeInfo.FindAttributes<Attribute>(false).OfType<TLogicRule>();
         }
 
-        public static MethodInfo FindMethodRule(Type type, string methodName) {
-            if (type != null && !string.IsNullOrEmpty(methodName)) {
-                var parameterModifier = new ParameterModifier(MethodRuleOutParametersCount);
-                parameterModifier[0] = true;
-                MethodInfo methodInfo = type.GetMethod(methodName, MethodRuleBindingFlags, null,
-                                                       new[] {MethodRuleOutParameterType.MakeByRefType()},
-                                                       new[] {parameterModifier});
-                return methodInfo;
-            }
-            return null;
-        }
 
     }
 }

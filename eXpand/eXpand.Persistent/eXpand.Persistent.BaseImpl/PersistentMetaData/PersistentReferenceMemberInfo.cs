@@ -7,10 +7,11 @@ using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.General;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Persistent.BaseImpl.Validation.RuleRequiredForAtLeast1Property;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
+    [InterfaceRegistrator(typeof(IPersistentReferenceMemberInfo))]
     [RuleRequiredForAtLeast1Property(null, DefaultContexts.Save, "ReferenceType,ReferenceClassInfo")]
     public class PersistentReferenceMemberInfo : PersistentMemberInfo, IPersistentReferenceMemberInfo {
         bool _autoGenerateOtherPartMember;
@@ -43,19 +44,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             }
         }
 
-        public PersistentClassInfo ReferenceClassInfo {
-            get { return _referenceClassInfo; }
-            set {
-                SetPropertyValue("ReferenceClassInfo", ref _referenceClassInfo, value);
-                if (!IsLoading && !IsSaving) {
-                    _referenceTypeFullName = _referenceClassInfo != null
-                                                 ? _referenceClassInfo.PersistentAssemblyInfo.Name + "." +
-                                                   _referenceClassInfo.Name
-                                                 : null;
-                    _referenceType = null;
-                }
-            }
-        }
 
 
         public bool AutoGenerateOtherPartMember {
@@ -81,6 +69,27 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
                 else
                     _referenceType = ReflectionHelper.GetType(value.Substring(value.LastIndexOf(".") + 1));
             }
+        }
+        public PersistentClassInfo ReferenceClassInfo
+        {
+            get { return _referenceClassInfo; }
+            set
+            {
+                SetPropertyValue("ReferenceClassInfo", ref _referenceClassInfo, value);
+                if (!IsLoading && !IsSaving)
+                {
+                    _referenceTypeFullName = _referenceClassInfo != null
+                                                 ? _referenceClassInfo.PersistentAssemblyInfo.Name + "." +
+                                                   _referenceClassInfo.Name
+                                                 : null;
+                    _referenceType = null;
+                }
+            }
+        }
+
+        IPersistentClassInfo IPersistentReferenceMemberInfo.ReferenceClassInfo {
+            get { return ReferenceClassInfo; }
+            set { ReferenceClassInfo=value as PersistentClassInfo; }
         }
 
 

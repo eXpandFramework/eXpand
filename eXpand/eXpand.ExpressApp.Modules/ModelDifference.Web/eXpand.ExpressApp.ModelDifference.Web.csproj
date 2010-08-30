@@ -18,6 +18,7 @@
     <AssemblyOriginatorKeyFile>..\..\..\eXpand.Key\eXpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <OutputPath>..\..\..\eXpand.DLL\</OutputPath>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -32,7 +33,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <OutputPath>..\..\..\eXpand.DLL\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -88,7 +88,10 @@
     <Reference Include="DevExpress.Xpo.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.ModelDifference, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="eXpand.ExpressApp.ModelDifference, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -119,14 +122,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\CombineActiveUserDifferenceWithActiveModelDictionaryController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ModelDifferenceAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XpoWebModelDictionaryDifferenceStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
@@ -164,6 +163,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

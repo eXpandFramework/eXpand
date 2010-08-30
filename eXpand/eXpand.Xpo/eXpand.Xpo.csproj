@@ -51,13 +51,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.1.Linq, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v10.1.Linq, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -83,8 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AggregatedDelete.cs" />
-    <Compile Include="Attributes\DataStoreAttribute.cs" />
     <Compile Include="Attributes\Encrypt.cs" />
+    <Compile Include="ChangedMemberCollector.cs" />
+    <Compile Include="Collections\ManyToManyCollectionHelper.cs" />
     <Compile Include="Collections\XPCollection.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -92,8 +93,10 @@
     <Compile Include="Converters\ValueConverters\SqlDateTimeOverFlowValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\UnitValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\UriValueConverter.cs" />
-    <Compile Include="CriteriaOperatorExtensions.cs" />
-    <Compile Include="CriteriaOperatorExtractor.cs" />
+    <Compile Include="Converters\ValueConverters\UtcDateTimeConverter.cs" />
+    <Compile Include="DB\DataStoreAttribute.cs" />
+    <Compile Include="Filtering\CriteriaOperatorExtensions.cs" />
+    <Compile Include="Filtering\CriteriaOperatorExtractor.cs" />
     <Compile Include="Collections\XPBaseCollectionExtensions.cs">
     </Compile>
     <Compile Include="ConnectionProviders\CustomContainsProvider.cs" />
@@ -124,7 +127,6 @@
     <Compile Include="XpandUnitOfWork.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XPODataType.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

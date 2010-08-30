@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
@@ -22,14 +23,6 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
                 OnHintChanged();
             }
         }
-
-//        public ViewType CurrentViewType {
-//            get { return currentViewType; }
-//            set {
-//                currentViewType = value;
-//                OnHintChanged();
-//            }
-//        }
 
         public object CurrentObject {
             get { return currentObject; }
@@ -72,7 +65,8 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
         #endregion
         void supportNotifyPropertyChanged_PropertyChanged(object sender, PropertyChangedEventArgs e) {
             if ((_controlsRule != null) &&
-                (string.IsNullOrEmpty(e.PropertyName) || (e.PropertyName == _controlsRule.MessagePropertyName))) {
+                ((e.PropertyName == _controlsRule.MessageProperty) && e.PropertyName!=null))
+            {
                 UpdateAdditionalText();
             }
         }
@@ -91,10 +85,15 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider {
         }
 
         void UpdateAdditionalText() {
-            if (_controlsRule != null &&!string.IsNullOrEmpty(_controlsRule.MessagePropertyName)){
-                AdditionalText = CurrentObject != null
-                                     ? (string)ReflectionHelper.GetMemberValue(CurrentObject, _controlsRule.MessagePropertyName)
-                                     : _objectType.GetProperty(_controlsRule.MessagePropertyName).GetValue(null, null)as string;
+            if (_controlsRule != null &&!string.IsNullOrEmpty(_controlsRule.MessageProperty)){
+                if (CurrentObject != null)
+                    AdditionalText =
+                        (string) ReflectionHelper.GetMemberValue(CurrentObject, _controlsRule.MessageProperty);
+                else {
+                    PropertyInfo propertyInfo = _objectType.GetProperty(_controlsRule.MessageProperty,BindingFlags.Static);
+                    if (propertyInfo!= null)
+                        AdditionalText =propertyInfo.GetValue(null, null) as string;
+                }
             }
             else
                 AdditionalText = "";

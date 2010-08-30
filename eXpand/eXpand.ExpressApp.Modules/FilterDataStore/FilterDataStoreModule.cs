@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
@@ -12,61 +11,52 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.FilterDataStore.Core;
-using eXpand.Xpo;
+using eXpand.ExpressApp.FilterDataStore.Model;
 using eXpand.Xpo.DB;
+using eXpand.Xpo.Filtering;
 
 namespace eXpand.ExpressApp.FilterDataStore
 {
-    [DisplayProperty("Name"), KeyProperty("Name")]
-    public interface IModelDisabledDataStoreFilter
-    {
-        string Name { get; set; }
-    }
-
-    public interface IModelDisabledDataStoreFilters : IModelNode, IModelList<IModelDisabledDataStoreFilter>
-    {
-    }
-
-   
-    public interface IModelFilterDataStoreModule
-    {
-        IModelFilterDataStoreSystemTables SystemTables { get; set; }
-    }
-
-    [DisplayProperty("Name"), KeyProperty("Name")]
-    public interface IModelFilterDataStoreSystemTable
-    {
-        string Name { get; set; }
-    }
-
-    public interface IModelFilterDataStoreSystemTables : IModelNode, IModelList<IModelFilterDataStoreSystemTable>
-    {
-    }
-
     public sealed partial class FilterDataStoreModule : ModuleBase
     {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
             base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelClass, IModelDisabledDataStoreFilters>();
-            extenders.Add<IModelApplication, IModelFilterDataStoreModule>();
+            extenders.Add<IModelClass, IModelClassDisabledDataStoreFilters>();
+            extenders.Add<IModelApplication, IModelApplicationFilterDataStore>();
         }
 
         public FilterDataStoreModule()
         {
             InitializeComponent();
         }
-
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
         {
             base.CustomizeTypesInfo(typesInfo);
             if (FilterProviderManager.Providers != null) {
-                foreach (FilterProviderBase provider in FilterProviderManager.Providers) {
-                    FilterProviderBase provider1 = provider;
-                    foreach (ITypeInfo typeInfo in typesInfo.PersistentTypes.Where(
-                                typeInfo =>!(typeInfo.IsAbstract) && typeInfo.FindMember(provider1.FilterMemberName) == null &&typeInfo.IsPersistent)) {
-                        CreateMember(typeInfo, provider);
-                    }
+                CreateMembers(typesInfo);
+                SubscribeToDataStoreProxyEvents();
+            }
+        }
+
+        void SubscribeToDataStoreProxyEvents() {
+            if (Application != null) {
+                var objectSpaceProvider = (Application.ObjectSpaceProvider);
+                if (!(objectSpaceProvider is IObjectSpaceProvider)){
+                    throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
+                }
+                XpoDataStoreProxy proxy = ((IObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
+                proxy.DataStoreModifyData += (o, args) => ModifyData(args.ModificationStatements);
+                proxy.DataStoreSelectData += Proxy_DataStoreSelectData;
+            }
+        }
+
+        void CreateMembers(ITypesInfo typesInfo) {
+            foreach (FilterProviderBase provider in FilterProviderManager.Providers) {
+                FilterProviderBase provider1 = provider;
+                foreach (ITypeInfo typeInfo in typesInfo.PersistentTypes.Where(
+                    typeInfo =>!(typeInfo.IsAbstract) && typeInfo.FindMember(provider1.FilterMemberName) == null &&typeInfo.IsPersistent)) {
+                    CreateMember(typeInfo, provider);
                 }
             }
         }
@@ -88,25 +78,9 @@ namespace eXpand.ExpressApp.FilterDataStore
                 member.AddAttribute(attribute);
         }
 
-        public override void Setup(XafApplication application)
-        {
-            base.Setup(application);
-            application.SetupComplete += ApplicationOnLoggingOn;
-        }
-        void ApplicationOnLoggingOn(object sender, EventArgs e)
-        {
-            var objectSpaceProvider = (((XafApplication)(sender)).ObjectSpaceProvider);
-            if (!(objectSpaceProvider is IObjectSpaceProvider)){
-                throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
-            }
-            XpoDataStoreProxy proxy = ((IObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
-            proxy.DataStoreModifyData += (o, args) => ModifyData(args.ModificationStatements);
-            proxy.DataStoreSelectData += Proxy_DataStoreSelectData;
-        }
-
         private void Proxy_DataStoreSelectData(object sender, DataStoreSelectDataEventArgs e)
         {
-            filterData(e.SelectStatements);
+            FilterData(e.SelectStatements);
         }
 
         public void ModifyData(ModificationStatement[] statements)
@@ -141,11 +115,9 @@ namespace eXpand.ExpressApp.FilterDataStore
             foreach (InsertStatement statement in statements)
             {
                 traceStatement(statement, "InsertData");
-                if (!IsSystemTable(statement.TableName))
-                {
+                if (!IsSystemTable(statement.TableName)){
                     List<QueryOperand> operands = statement.Operands.OfType<QueryOperand>().ToList();
-                    for (int i = 0; i < operands.Count(); i++)
-                    {
+                    for (int i = 0; i < operands.Count(); i++){
                         FilterProviderBase providerBase =
                             FilterProviderManager.GetFilterProvider(operands[i].ColumnName, StatementContext.Insert);
                         if (providerBase != null && !FilterIsShared(statement.TableName,providerBase.Name)) 
@@ -157,7 +129,7 @@ namespace eXpand.ExpressApp.FilterDataStore
         }
 
 
-        public BaseStatement[] filterData(SelectStatement[] statements)
+        public BaseStatement[] FilterData(SelectStatement[] statements)
         {
             return statements.Select(statement => ApplyCondition(statement)).ToArray();
         }
@@ -183,7 +155,7 @@ namespace eXpand.ExpressApp.FilterDataStore
         }
 
         void ApplyCondition(SelectStatement statement, FilterProviderBase providerBase, string nodeAlias) {
-            if (providerBase.FilterValue is IEnumerable) {
+            if (providerBase.FilterValue is IList) {
                 CriteriaOperator criteriaOperator = ((IEnumerable) providerBase.FilterValue).Cast<object>().Aggregate<object, CriteriaOperator>(null, (current, value) 
                     => current | new QueryOperand(providerBase.FilterMemberName, nodeAlias) == value.ToString());
                 criteriaOperator = new GroupOperator(criteriaOperator);
@@ -220,8 +192,7 @@ namespace eXpand.ExpressApp.FilterDataStore
         {
             bool ret = false;
 
-            foreach (IModelFilterDataStoreSystemTable systemTable in ((IModelFilterDataStoreModule)Application.Model).SystemTables)
-            {
+            foreach (IModelFilterDataStoreSystemTable systemTable in ((IModelApplicationFilterDataStore)Application.Model).FilterDataStoreSystemTables){
                 if (systemTable.Name == name)
                     ret= true;
             }
@@ -241,14 +212,11 @@ namespace eXpand.ExpressApp.FilterDataStore
         {
             bool ret = false;
             string classNameInDictionary = FindClassNameInDictionary(tableName);
-            if (!string.IsNullOrEmpty(classNameInDictionary))
-            {
+            if (!string.IsNullOrEmpty(classNameInDictionary)) {
                 var classInfoNodeWrapper = Application.Model.BOModel[classNameInDictionary];
-                if (classInfoNodeWrapper != null)
-                    foreach (
-                        var childNode in ((IModelDisabledDataStoreFilters)classInfoNodeWrapper))
-                        if (childNode.Name  == providerName)
-                            ret =true;
+                if (classInfoNodeWrapper != null &&
+                    ((IModelClassDisabledDataStoreFilters) classInfoNodeWrapper).DisabledDataStoreFilters.Where(
+                        childNode => childNode.Name == providerName).FirstOrDefault() != null) ret = true;
             }
             Tracing.Tracer.LogVerboseValue("FilterIsShared", ret);
             return ret;

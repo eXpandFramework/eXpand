@@ -1,58 +1,49 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using eXpand.Persistent.Base.General;
+using DevExpress.ExpressApp.Model;
 
-namespace eXpand.ExpressApp.Logic
-{
-    public abstract class LogicRule : ILogicRule 
-    {
-        readonly ILogicRule _logicRule;
+namespace eXpand.ExpressApp.Logic {
+    public abstract class LogicRule : ILogicRule {
 
-        protected LogicRule(ILogicRule logicRule){
-            _logicRule = logicRule;
+        protected LogicRule(ILogicRule logicRule) {
+            ExecutionContextGroup=logicRule.ExecutionContextGroup;
+            Description=logicRule.Description;
+            FrameTemplateContext = logicRule.FrameTemplateContext;
+            ID = logicRule.Id;
+            Index = logicRule.Index;
+            IsRootView = logicRule.IsRootView;
+            Nesting = logicRule.Nesting;
+            TypeInfo = logicRule.TypeInfo;
+            View = logicRule.View;
+            ViewType = logicRule.ViewType;
         }
 
-        public string ID {
-            get { return _logicRule.ID; }
-            set { _logicRule.ID = value; }
+        public string ID { get; set; }
+        #region ILogicRule Members
+        public string ExecutionContextGroup { get; set; }
+
+
+        public FrameTemplateContext FrameTemplateContext { get; set; }
+
+        public bool? IsRootView { get; set; }
+
+        public ViewType ViewType { get; set; }
+
+        public IModelView View { get; set; }
+
+        public Nesting Nesting { get; set; }
+
+
+        string IRule.Id {
+            get { return ID; }
+            set { ID = value; }
         }
 
-        public string ExecutionContextGroup {
-            get { return _logicRule.ExecutionContextGroup; }
-            set { _logicRule.ExecutionContextGroup = value; }
-        }
+        public string Description { get; set; }
 
-        public ViewType ViewType {
-            get { return _logicRule.ViewType; }
-            set { _logicRule.ViewType = value; }
-        }
+        public ITypeInfo TypeInfo { get; set; }
 
-        public Nesting Nesting {
-            get { return _logicRule.Nesting; }
-            set { _logicRule.Nesting = value; }
-        }
-
-        public string Description {
-            get { return _logicRule.Description; }
-            set { _logicRule.Description = value; }
-        }
-
-        public ITypeInfo TypeInfo {
-            get { return _logicRule.TypeInfo; }
-            set { _logicRule.TypeInfo = value; }
-        }
-
-        public string ViewId {
-            get { return _logicRule.ViewId; }
-            set { _logicRule.ViewId = value; }
-        }
-        public int Index
-        {
-            get { return _logicRule.Index; }
-            set { _logicRule.Index = value; }
-        }
-
+        public int Index { get; set; }
+        #endregion
     }
 }
-
-

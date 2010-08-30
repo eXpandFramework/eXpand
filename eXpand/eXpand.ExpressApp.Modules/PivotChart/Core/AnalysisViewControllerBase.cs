@@ -56,6 +56,12 @@ namespace eXpand.ExpressApp.PivotChart.Core {
         protected virtual void OnAnalysisControlCreated() {
             UpdateActionState();
             foreach (AnalysisEditorBase analysisEditor in analysisEditors){
+                IAnalysisControl analysisControl = analysisEditor.Control;
+                if (!(((ISupportPivotGridFieldBuilder)analysisControl).FieldBuilder is PivotGridFieldBuilder)) {
+                    var pivotGridFieldBuilder = new PivotGridFieldBuilder(analysisControl);
+                    pivotGridFieldBuilder.SetModel(Application.Model);
+                    ((ISupportPivotGridFieldBuilder)analysisControl).FieldBuilder = pivotGridFieldBuilder;
+                }
                 analysisEditor.IsDataSourceReadyChanged +=analysisEditor_IsDataSourceReadyChanged;
             }
         }

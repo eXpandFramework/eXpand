@@ -108,6 +108,15 @@
     <Compile Include="Core\FilterProviderBase.cs" />
     <Compile Include="Core\FilterProviderConfiguration.cs" />
     <Compile Include="Core\StatementContext.cs" />
+    <Compile Include="DomainLogic\ModelDisabledDataStoreFilterDomainLogic.cs" />
+    <Compile Include="Model\IModelClassDisabledDataStoreFilters.cs" />
+    <Compile Include="NodeGenerators\ModelDisabledDataStoreFiltersNodesGenerator.cs" />
+    <Compile Include="NodeGenerators\ModelSystemTablesNodesGenerator.cs" />
+    <Compile Include="Model\IModelDisabledDataStoreFilter.cs" />
+    <Compile Include="Model\IModelDisabledDataStoreFilters.cs" />
+    <Compile Include="Model\IModelApplicationFilterDataStore.cs" />
+    <Compile Include="Model\IModelFilterDataStoreSystemTable.cs" />
+    <Compile Include="Model\IModelFilterDataStoreSystemTables.cs" />
     <Compile Include="Providers\UserFilterProvider.cs" />
     <Compile Include="FilterDataStoreModule.cs">
       <SubType>Component</SubType>

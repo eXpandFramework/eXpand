@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.Web.ASPxPivotGrid;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.PivotChart.Web.Editors;
@@ -31,6 +32,11 @@ namespace eXpand.ExpressApp.PivotChart.Web.Options
                 Synchonize(_syncronizeInfo.ClassInfo,_syncronizeInfo.Type,_syncronizeInfo.CurrentObject);
             }
             _syncronizeInfo = null;
+        }
+        protected override void OnActivated()
+        {
+            base.OnActivated();
+            PivotSettingsChoiceAction.Active["EditMode"] = View.ViewEditMode == ViewEditMode.Edit;
         }
         protected override IEnumerable<object> GetGridOptionInstance(Type type) {
             var asPxPivotGrids = AnalysisEditors.Where(analysisEditor => analysisEditor.Control != null).Select(analysisEditor => ((AnalysisControlWeb)analysisEditor.Control).PivotGrid);

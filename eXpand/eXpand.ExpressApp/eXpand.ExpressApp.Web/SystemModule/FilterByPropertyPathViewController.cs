@@ -1,6 +1,4 @@
 using System.Web.UI;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxEditors;
 using DevExpress.Web.ASPxPanel;
@@ -9,8 +7,6 @@ using DevExpress.ExpressApp.Web.SystemModule;
 namespace eXpand.ExpressApp.Web.SystemModule
 {
     public class FilterByPropertyPathViewController : ExpressApp.SystemModule.FilterByPropertyPathViewController{
-        public FilterByPropertyPathViewController() { }
-
         public class FilterPanel : ASPxPanel
         {
             private readonly ASPxLabel label;

@@ -2,9 +2,11 @@ using System;
 using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
+    [InterfaceRegistrator(typeof(IPersistentDefaulClassOptionsAttribute))]
     [DefaultProperty("DefaultClassOptionsName")]
     public class PersistentDefaultClassOptionsAttribute : PersistentAttributeInfo, IPersistentDefaulClassOptionsAttribute
     {

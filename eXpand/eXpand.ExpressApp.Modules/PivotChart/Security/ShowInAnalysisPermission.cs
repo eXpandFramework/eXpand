@@ -1,13 +1,12 @@
 ﻿using DevExpress.Xpo;
-using eXpand.ExpressApp.ModelArtifactState.ControllerState;
-using eXpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
+using eXpand.ExpressApp.ConditionalControllerState.Security;
 using eXpand.ExpressApp.PivotChart.ShowInAnalysis;
 
 namespace eXpand.ExpressApp.PivotChart.Security {
     [NonPersistent]
     public class ShowInAnalysisPermission : ControllerStateRulePermission {
         public ShowInAnalysisPermission() {
-            ControllerType = typeof (ShowInAnalysisViewController).FullName;
+            ControllerType = typeof (ShowInAnalysisViewController);
             NormalCriteria = "1=1";
         }
 

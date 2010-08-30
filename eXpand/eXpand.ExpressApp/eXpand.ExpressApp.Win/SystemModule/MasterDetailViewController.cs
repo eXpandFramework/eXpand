@@ -1,323 +1,459 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.NodeWrappers;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Win.Core;
+using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Base;
-using DevExpress.Utils;
-using DevExpress.Xpo;
-using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid;
-using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Model;
+using eXpand.ExpressApp.Win.ListEditors;
+using GridListEditor = eXpand.ExpressApp.Win.ListEditors.GridListEditor;
+using NewItemRowPosition = DevExpress.ExpressApp.NewItemRowPosition;
+using XafGridView = DevExpress.ExpressApp.Win.Editors.XafGridView;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public interface IModelListViewMasterDetailOptions : IModelNode
+    public interface IModelListViewMasterDetail : IModelNode
     {
-        [DataSourceProperty("Application.Views")]
-        [DataSourceCriteria("ModelClass Is Not Null And ModelClass.Name = '@This.Name'")]
-        IModelListView DetailListView { get; set; }
-
-        [DataSourceProperty("ModelClass.AllMembers")]
-        [DataSourceCriteria("MemberInfo.IsList")]
-        IModelMember DetailListRelationName { get; set; }
-        bool ExpandAllRows { get; set; }
+        IModelMasterDetail MasterDetail { get; }
+    }
+    [ReadOnly(true)]
+    [ModelNodesGenerator(typeof(ModelMasterDetailNodesGenerator))]
+    public interface IModelMasterDetail : IModelNode, IModelList<IModelDetailRelation>
+    {
+        bool Enable { get; set; }
     }
 
-    public partial class MasterDetailViewController : BaseViewController<ListView>, IModelExtender
+    public class ModelMasterDetailNodesGenerator : ModelNodesGeneratorBase
     {
-        private GridControl gridControl;
-        private XafGridView gridView;
-        private RepositoryEditorsFactory repositoryFactory;
-
-        public MasterDetailViewController()
+        protected override void GenerateNodesCore(ModelNode node)
         {
-            InitializeComponent();
-            RegisterActions(components);
-        }
-
-        public object CurrentObject
-        {
-            get
+            var modelListView = ((IModelListView)node.Parent);
+            IEnumerable<IModelMember> modelMembers = modelListView.ModelClass.AllMembers.Where(member => member.MemberInfo.IsAssociation && member.MemberInfo.IsList);
+            foreach (var modelMember in modelMembers)
             {
-                if (gridControl != null)
-                    return gridControl.FocusedView.GetRow(((GridView)gridControl.FocusedView).FocusedRowHandle);
-                return null;
-            }
-        }
-
-        public XafGridView GridView
-        {
-            get { return gridView; }
-        }
-
-        private void RefreshColumn(IModelColumn frameColumn, GridColumn column)
-        {
-            column.Caption = frameColumn.Caption;
-            if (string.IsNullOrEmpty(column.Caption))
-            {
-                column.Caption = column.FieldName;
-            }
-            if (!string.IsNullOrEmpty(frameColumn.DisplayFormat))
-            {
-                column.DisplayFormat.FormatString = frameColumn.DisplayFormat;
-                column.DisplayFormat.FormatType = FormatType.Custom;
-                column.GroupFormat.FormatString = frameColumn.DisplayFormat;
-                column.GroupFormat.FormatType = FormatType.Custom;
-            }
-            column.GroupIndex = frameColumn.GroupIndex;
-            column.SortIndex = frameColumn.SortIndex;
-            column.SortOrder = frameColumn.SortOrder;
-            column.Width = frameColumn.Width;
-            column.VisibleIndex = frameColumn.Index;
-            column.SummaryItem.SummaryType = (DevExpress.Data.SummaryItemType)Enum.Parse(typeof(DevExpress.Data.SummaryItemType), frameColumn.SummaryType.ToString());
-        }
-        protected internal bool IsDataShownOnDropDownWindow(RepositoryItem repositoryItem)
-        {
-            return DXPropertyEditor.RepositoryItemsTypesWithMandatoryButtons.Contains(repositoryItem.GetType());
-        }
-        protected string GetDisplayablePropertyName(string memberName, ITypeInfo typeInfo)
-        {
-            IMemberInfo displayableMemberDescriptor = ReflectionHelper.FindDisplayableMemberDescriptor(typeInfo, memberName);
-            if (displayableMemberDescriptor != null)
-            {
-                return displayableMemberDescriptor.BindingName;
-            }
-            return memberName;
-        }
-
-        public GridColumn AddColumn(IModelColumn columnInfo, Type objectType, IModelListView model)
-        {
-            var column = new GridColumn();
-
-            GridView.Columns.Add(column);
-            IMemberInfo memberInfo = XafTypesInfo.Instance.FindTypeInfo(objectType).FindMember(columnInfo.PropertyName);
-            if (memberInfo != null)
-            {
-                column.FieldName = memberInfo.BindingName;
-                if (memberInfo.MemberType.IsEnum)
+                var modelMasterDetail = ((IModelMasterDetail)node);
+                if (modelMasterDetail.GetNode<IModelDetailRelation>(modelMember.Name) == null)
                 {
-                    column.SortMode = ColumnSortMode.Value;
-                }
-                else if (!SimpleTypes.IsSimpleType(memberInfo.MemberType))
-                {
-                    column.SortMode = ColumnSortMode.DisplayText;
-                }
-                column.FilterMode = SimpleTypes.IsClass(memberInfo.MemberType) ? ColumnFilterMode.DisplayText : ColumnFilterMode.Value;
-            }
-            else
-            {
-                column.FieldName = columnInfo.PropertyName;
-            }
-
-            RefreshColumn(columnInfo, column);
-            if (memberInfo != null)
-            {
-                if (repositoryFactory != null)
-                {
-                    bool isGranted = DataManipulationRight.CanRead(objectType, columnInfo.PropertyName, null,
-                                                                   ((ListView)View).CollectionSource);
-                    RepositoryItem repositoryItem = repositoryFactory.CreateRepositoryItem(!isGranted, columnInfo, objectType);
-                    if (repositoryItem != null)
-                    {
-                        gridControl.RepositoryItems.Add(repositoryItem);
-                        column.ColumnEdit = repositoryItem;
-                        column.OptionsColumn.AllowEdit = IsDataShownOnDropDownWindow(repositoryItem) ? true : model.AllowEdit;
-                        column.AppearanceCell.Options.UseTextOptions = true;
-                        column.AppearanceCell.TextOptions.HAlignment = WinAlignmentProvider.GetAlignment(memberInfo.MemberType);
-                        repositoryItem.ReadOnly |= !model.AllowEdit;
-                        if ((repositoryItem is ILookupEditRepositoryItem) && ((ILookupEditRepositoryItem)repositoryItem).IsFilterByValueSupported)
-                        {
-                            column.FilterMode = ColumnFilterMode.Value;
-                        }
-                        if ((repositoryItem is RepositoryItemPictureEdit) && (((RepositoryItemPictureEdit)repositoryItem).CustomHeight > 0))
-                        {
-                            GridView.OptionsView.RowAutoHeight = true;
-                        }
-                    }
-                }
-                if ((column.ColumnEdit == null) && !typeof(IList).IsAssignableFrom(memberInfo.MemberType))
-                {
-                    column.OptionsColumn.AllowEdit = false;
-                    column.FieldName = GetDisplayablePropertyName(columnInfo.PropertyName, XafTypesInfo.Instance.FindTypeInfo(objectType));
+                    var modelDetailRelation = modelMasterDetail.AddNode<IModelDetailRelation>(modelMember.Name);
+                    modelDetailRelation.CollectionMemberName = modelMember.Name;
                 }
             }
-
-            if (!gridControl.IsLoading && gridView.DataController.Columns.GetColumnIndex(column.FieldName) == -1)
-            {
-                gridView.DataController.RePopulateColumns();
-            }
-            return column;
         }
+    }
 
-        public void RefreshColumns(IModelListView model)
+    [KeyProperty("CollectionMemberName")]
+    [DisplayPropertyAttribute("CollectionMemberName")]
+    public interface IModelDetailRelation : IModelNode
+    {
+        [DataSourceProperty("ListViews")]
+        IModelListView ListView { get; set; }
+
+        [Browsable(false)]
+        IModelList<IModelListView> ListViews { get; }
+
+        [Category("eXpand")]
+        [Description("The collection member that is going to be used as child collection")]
+        [ReadOnly(true)]
+        string CollectionMemberName { get; set; }
+    }
+    [DomainLogic(typeof(IModelDetailRelation))]
+    public class MasterDetailOptionsDomainLogic
+    {
+        public static IModelList<IModelListView> Get_ListViews(IModelDetailRelation modelDetailRelation)
         {
-            gridControl.BeginUpdate();
-            try
-            {
-                var presentedColumns = new Dictionary<string, GridColumn>();
+            var modelListViews = new CalculatedModelNodeList<IModelListView>();
+            var modelListView = (IModelListView) modelDetailRelation.Parent.Parent;
+            Type listType = modelListView.ModelClass.FindMember(modelDetailRelation.CollectionMemberName).MemberInfo.ListElementTypeInfo.Type;
+            IModelClass modelClass = modelDetailRelation.Application.BOModel.GetClass(listType);
+            var listViews = modelListView.Application.Views.OfType<IModelListView>().Where(modelView => modelView.ModelClass==modelClass);
+            modelListViews.AddRange(listViews);
+            return modelListViews;
+        }
+    }
+    public class GridViewBuilder {
 
-                foreach (IModelColumn column in from col in model.Columns orderby col.SortIndex select col)
-                {
-                    GridColumn gridColumn;
-                    if (presentedColumns.TryGetValue(column.PropertyName, out gridColumn))
-                    {
-                        RefreshColumn(column, gridColumn);
-                    }
-                    else
-                    {
-                        gridColumn = AddColumn(column, model.ModelClass.TypeInfo.Type, model);
-                        presentedColumns.Add(column.PropertyName, gridColumn);
-                    }
-                }
-            }
-            finally
-            {
-                gridControl.EndUpdate();
-            }
+//        public void SetGridViewMasterProperties(IModelListView modelListView, XafGridView xafGridView)
+//        {
+//            IEnumerable<IModelDetailRelation> modelDetailRelations = ((IModelListViewMasterDetail)modelListView).MasterDetail.Where(relation => relation.ListView != null);
+//            xafGridView.OptionsDetail.ShowDetailTabs = modelDetailRelations.Count() > 1;
+//            xafGridView.OptionsView.ShowDetailButtons = modelDetailRelations.Count() > 0;
+//            xafGridView.OptionsDetail.EnableMasterViewMode = ((IModelListViewMasterDetail)modelListView).MasterDetail.Enable;
+//        }
+
+//        public ListEditors.XafGridView GetDefaultXafGridView(XafGridView masterGridView, int rowHandle, int relationIndex, IModelListView childModelListView,List<Controller> controllers,ListView listView)
+//        {
+//            return GetDefaultXafGridView(childModelListView, masterGridView.GridControl, controllers,listView);
+//        }
+
+//        ListEditors.XafGridView GetDefaultXafGridView(IModelListView modelListView, GridControl gridControl, List<Controller> controllers,ListView listView)
+//        {
+//            Type type = modelListView.ModelClass.TypeInfo.Type;
+//            CollectionSourceBase collectionSourceBase = _xafApplication.CreateCollectionSource(_objectSpace.CreateNestedObjectSpace(), type, modelListView.Id);
+//            ListView listView = _xafApplication.CreateListView(modelListView, collectionSourceBase, true);
+//            listView.CreateControls();
+//            var baseView = (ListEditors.XafGridView)(((GridControl)listView.Control)).MainView;
+//            SetGridViewMasterProperties(modelListView, baseView);
+//            baseView.OptionsView.ShowDetailButtons = true;
+//            baseView.OptionsDetail.EnableMasterViewMode = true;
+//            gridControl.ViewCollection.Add(baseView);
+//            var nestedControllersManager = new NestedControllersManager(_xafApplication);
+//            controllers.AddRange(nestedControllersManager.GetControllers(listView));
+//            Window window = _xafApplication.CreateWindow(TemplateContext.View, controllers, false, true);
+//            window.SetView(listView);
+//            return baseView;
+//        }
+
+        public XafGridView GetLevelDefaultView(XafGridView masterGridView, int rowHandle, int relationIndex, IModelListView modelListView,XafApplication xafApplication, ObjectSpace objectSpace) {
+            return GetLevelDefaultViewCore(modelListView, masterGridView, rowHandle, relationIndex, xafApplication, objectSpace);
         }
 
+        XafGridView GetLevelDefaultViewCore(IModelListView modelListView, XafGridView masterGridView, int rowHandle, int relationIndex, XafApplication xafApplication, ObjectSpace objectSpace) {
+            var modelDetailRelationCalculator = new ModelDetailRelationCalculator(modelListView, masterGridView);
+            bool isRelationSet = modelDetailRelationCalculator.IsRelationSet(rowHandle, relationIndex);
+            if (isRelationSet)
+            {
+                IModelListView childModelListView = modelDetailRelationCalculator.GetChildModelListView(rowHandle, relationIndex);
+                Window window = xafApplication.CreateWindow(TemplateContext.View, null, true, true);
+                var listViewBuilder = new ListViewBuilder(xafApplication, objectSpace);
+                ListView listView = listViewBuilder.CreateListView(childModelListView);
+                ListEditors.XafGridView defaultXafGridView = null;
+                EventHandler[] listViewOnControlsCreated = { null };
+                listViewOnControlsCreated[0] = (sender, args) =>
+                {
+                    defaultXafGridView = (ListEditors.XafGridView)((GridListEditor)((ListView)sender).Editor).GridView;
+//                    defaultXafGridView.OwnerPropertyName = childModelListView.Id;
+                    defaultXafGridView.Window = window;
+                    defaultXafGridView.GridControl = masterGridView.GridControl;
+                    listView.ControlsCreated -= listViewOnControlsCreated[0];
+                };
+                listView.ControlsCreated += listViewOnControlsCreated[0];
+                window.SetView(listView);
+                return defaultXafGridView;
+            }
+            return null;
+        }
+    }
+
+    public class ListViewBuilder {
+        readonly XafApplication _xafApplication;
+        readonly ObjectSpace _objectSpace;
+        GridListEditor _gridListEditor;
+        XafGridView _xafGridView;
+
+        public ListViewBuilder(XafApplication xafApplication,ObjectSpace objectSpace) {
+            _xafApplication = xafApplication;
+            _objectSpace = objectSpace;
+        }
+
+        public ListView CreateListView(IModelListView modelListView)
+        {
+            Type type = modelListView.ModelClass.TypeInfo.Type;
+            CollectionSourceBase collectionSourceBase = _xafApplication.CreateCollectionSource(_objectSpace.CreateNestedObjectSpace(), type, modelListView.Id);
+            ListView listView = _xafApplication.CreateListView(modelListView, collectionSourceBase, true);
+//            listView.CreateControls();
+            return listView;
+        }
+
+        public ListView CreateListView(IModelListView modelListView, XafGridView xafGridView) {
+            _xafGridView = xafGridView;
+            Type type = modelListView.ModelClass.TypeInfo.Type;
+            CollectionSourceBase collectionSourceBase = _xafApplication.CreateCollectionSource(_objectSpace.CreateNestedObjectSpace(), type, modelListView.Id);
+            _gridListEditor = new GridListEditor(modelListView);
+            _gridListEditor.CustomGridViewCreate+=GridListEditorOnCustomGridViewCreate;
+            _gridListEditor.CustomGridCreate+=GridListEditorOnCustomGridCreate;
+            
+            
+            
+            ((ISupportCustomListEditorCreation) _xafApplication).CustomCreateListEditor +=OnCustomCreateListEditor;
+            var listView = _xafApplication.CreateListView(modelListView, collectionSourceBase, false);
+            listView.CreateControls();
+
+
+            return listView;
+        }
+
+        void GridListEditorOnCustomGridCreate(object sender, CustomGridCreateEventArgs customGridCreateEventArgs) {
+            _gridListEditor.CustomGridCreate -= GridListEditorOnCustomGridCreate;
+//            customGridCreateEventArgs.Handled = true;
+            customGridCreateEventArgs.Grid = _xafGridView.GridControl;
+        }
+
+        void GridListEditorOnCustomGridViewCreate(object sender, CustomGridViewCreateEventArgs args) {
+            _gridListEditor.CustomGridViewCreate -= GridListEditorOnCustomGridViewCreate;
+            args.GridView = (ListEditors.XafGridView) _xafGridView;
+//            args.Handled = true;
+        }
+
+        void OnCustomCreateListEditor(object sender, CreatingListEditorEventArgs args) {
+            ((ISupportCustomListEditorCreation) _xafApplication).CustomCreateListEditor-=OnCustomCreateListEditor;
+            args.Handled = true;
+            args.ListEditor = _gridListEditor;
+        }
+
+    }
+    public class NestedControllersManager {
+        readonly XafApplication _xafApplication;
+
+        public NestedControllersManager(XafApplication xafApplication) {
+            _xafApplication = xafApplication;
+        }
+        NewItemRowPosition GetNewItemRowPosition(NewItemRowListViewController newItemRowListViewController, NewObjectViewController newObjectViewController)
+        {
+            newObjectViewController.NewObjectAction.Active.Clear();
+            newObjectViewController.NewObjectAction.Enabled.Clear();
+            NewItemRowPosition newItemRowPosition = NewItemRowPosition.None;
+            newItemRowListViewController.CustomCalculateNewItemRowPosition += (sender, args) => newItemRowPosition = args.NewItemRowPosition;
+            return newItemRowPosition;
+        }
+
+        public IEnumerable<Controller> GetControllers(ListView listView) {
+            return GetNewItemRowPositionControllers(listView);
+        }
+        IEnumerable<Controller> GetNewItemRowPositionControllers(ListView listView)
+        {
+            var newItemRowListViewController = _xafApplication.CreateController<NewItemRowListViewController>();
+            var newObjectViewController = _xafApplication.CreateController<NewObjectViewController>();
+            ((ISupportNewItemRowPosition)listView.Editor).NewItemRowPosition = GetNewItemRowPosition(newItemRowListViewController, newObjectViewController);
+            return new List<Controller> { newItemRowListViewController, newObjectViewController };
+        }
+
+    }
+    public class ModelDetailRelationCalculator
+    {
+        readonly IModelListView _modelListView;
+        readonly XafGridView _xafGridView;
+
+        public ModelDetailRelationCalculator(IModelListView modelListView,XafGridView xafGridView) {
+            _modelListView = modelListView;
+            _xafGridView = xafGridView;
+        }
+
+        public  bool IsRelationSet( int rowHandle, int relationIndex)
+        {
+            string rName = _xafGridView.GetRelationName(rowHandle, relationIndex);
+            IModelDetailRelation modelDetailRelation = ((IModelListViewMasterDetail)_modelListView).MasterDetail.Where(relation => relation.CollectionMemberName == rName && relation.ListView != null).FirstOrDefault();
+            return modelDetailRelation!= null;
+        }
+
+        public IModelListView GetChildModelListView(int rowHandle, int relationIndex)
+        {
+            var rName = _xafGridView.GetRelationName(rowHandle, relationIndex);
+            return ((IModelListViewMasterDetail)_modelListView).MasterDetail.Where(relation => relation.CollectionMemberName == rName).Single().ListView;
+        }
+
+        public string GetOwnerPropertyName(IModelListView childModelListView,int rowHandle, int relationIndex) {
+            var rName = _xafGridView.GetRelationName(rowHandle, relationIndex);
+            IMemberInfo associatedMemberInfo = _modelListView.ModelClass.AllMembers.Where(member => member.MemberInfo.Name == rName).Single().MemberInfo.AssociatedMemberInfo;
+            return associatedMemberInfo.Name;
+
+        }
+    }
+    struct LevelDefaultViewInfoCreation
+    {
+        public LevelDefaultViewInfoCreation(int rowHandle, int relationIndex)
+            : this()
+        {
+            RowHandle = rowHandle;
+            RelationIndex = relationIndex;
+        }
+
+        public int RowHandle { get; set; }
+        public int RelationIndex { get; set; }
+    }
+
+    public class MasterDetailDeleteViewController : ListViewController<GridListEditor>
+    {
         protected override void OnActivated()
         {
             base.OnActivated();
-            
-            ExpandAllRowsSimpleAction.Active["key"] = false;
-            CollapseAllRowsSimpleAction.Active["key"] = false;
-            if (this.IsActive)
+            Frame.GetController<DeleteObjectsViewController>().Deleting += OnDeleting;
+        }
+        void OnDeleting(object sender, DeletingEventArgs deletingEventArgs)
+        {
+            GridControl gridControl = ((GridListEditor)View.Editor).Grid;
+            if (gridControl.FocusedView != gridControl.MainView)
             {
-                Frame.GetController<DeleteObjectsViewController>().DeleteAction.Executing += DeleteAction_OnExecuting;
-                ExpandAllRowsSimpleAction.Active["key"] = true;
-                CollapseAllRowsSimpleAction.Active["key"] = true;
-                repositoryFactory = new RepositoryEditorsFactory(Application, ObjectSpace);
+                deletingEventArgs.Objects.Clear();
+                IEnumerable selectedObjects = GetSelectedObjects((GridView)gridControl.FocusedView);
+                if (selectedObjects != null)
+                    foreach (var selectedObject in selectedObjects)
+                    {
+                        deletingEventArgs.Objects.Add(selectedObject);
+                    }
             }
         }
 
-        private bool IsActive
+        IEnumerable GetSelectedObjects(GridView focusedView)
         {
-            get
+            int[] selectedRows = focusedView.GetSelectedRows();
+            if ((selectedRows != null) && (selectedRows.Length > 0))
             {
-                return this.DetailListView != null && this.DetailListRelationName != null;
+                IEnumerable<object> objects = selectedRows.Where(rowHandle => rowHandle > -1).Select(rowHandle
+                    => focusedView.GetRow(rowHandle)).Where(obj => obj != null);
+                return objects;
             }
+            return null;
+        }
+    }
+
+    public abstract class MasterDetailBaseController : ListViewController<GridListEditor>
+    {
+        protected override void OnActivated()
+        {
+            base.OnActivated();
+            Active["ModelEnabled"] = ((IModelListViewMasterDetail) View.Model).MasterDetail.Enable;
+        }
+    }
+    public class MasterDetailNewObjectViewController : MasterDetailBaseController
+    {
+
+        protected override void OnViewControlsCreated()
+        {
+            base.OnViewControlsCreated();
+            XafGridView view = ((GridListEditor)View.Editor).GridView;
+            view.MasterRowExpanded += view_MasterRowExpanded;
         }
 
-        private IModelListView DetailListView
+
+        void view_MasterRowExpanded(object sender, CustomMasterRowEventArgs e)
         {
-            get
-            {
-                return ((IModelListViewMasterDetailOptions)this.View.Model).DetailListView;
-            }
+            var xafGridView = ((XafGridView)sender);
+            BaseView detailView = xafGridView.GetDetailView(e.RowHandle, e.RelationIndex);
+            if (detailView.DataController is XafCurrencyDataController)
+                ((XafCurrencyDataController)detailView.DataController).NewItemRowObjectCustomAdding += (o, args) => CreateChildObject(xafGridView, e);
+
+        }
+        void CreateChildObject(XafGridView masterView, CustomMasterRowEventArgs e)
+        {
+            string relationName = masterView.GetRelationName(e.RowHandle, e.RelationIndex);
+            object masterObject = ObjectSpace.GetObject(masterView.GetRow(e.RowHandle));
+            IMemberInfo memberInfo = XafTypesInfo.Instance.FindTypeInfo(masterObject.GetType()).FindMember(relationName);
+            Type listElementType = memberInfo.ListElementType;
+            IMemberInfo referenceToOwner = memberInfo.AssociatedMemberInfo;
+            object obj = ObjectSpace.CreateObject(listElementType);
+            referenceToOwner.SetValue(obj, masterObject);
+            if (IsHiddenFrame())
+                ObjectSpace.CommitChanges();
+        }
+        bool IsHiddenFrame()
+        {
+            return !((WinWindow)Frame).Form.Visible;
+        }
+    }
+
+    public class MasterDetailListViewProcessCurrentObjectController : MasterDetailBaseController
+    {
+        protected override void OnViewControlsCreated()
+        {
+            base.OnViewControlsCreated();
+            var listViewProcessCurrentObjectController = Frame.GetController<ListViewProcessCurrentObjectController>();
+            listViewProcessCurrentObjectController.CustomizeShowViewParameters+=OnCustomizeShowViewParameters;
+            listViewProcessCurrentObjectController.CustomProcessSelectedItem+=ListViewProcessCurrentObjectControllerOnCustomProcessSelectedItem;            
         }
 
-        private IModelMember DetailListRelationName
-        {
-            get
-            {
-                return ((IModelListViewMasterDetailOptions)this.View.Model).DetailListRelationName;
-            }
+        void ListViewProcessCurrentObjectControllerOnCustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs customProcessListViewSelectedItemEventArgs) {
+            customProcessListViewSelectedItemEventArgs.Handled = true;
         }
 
-        private bool ExpandAllRows
+        void OnCustomizeShowViewParameters(object sender, CustomizeShowViewParametersEventArgs customizeShowViewParametersEventArgs) {
+            var focusedView = (GridView) ((GridListEditor) View.Editor).Grid.FocusedView;
+            ObjectSpace objectSpace = Application.GetObjectSpaceToShowViewFrom(Frame);
+            object row = objectSpace.GetObject(focusedView.GetRow(focusedView.FocusedRowHandle));
+            DetailView createdView = Application.CreateDetailView(objectSpace, row);
+            var showViewParameters = customizeShowViewParametersEventArgs.ShowViewParameters;
+            showViewParameters.CreatedView = createdView;
+            showViewParameters.TargetWindow=TargetWindow.NewWindow;
+        }
+
+
+        protected override void OnDeactivating()
         {
-            get
-            {
-                return ((IModelListViewMasterDetailOptions)this.View.Model).ExpandAllRows;
-            }
+            base.OnDeactivating();
+            var listViewProcessCurrentObjectController = Frame.GetController<ListViewProcessCurrentObjectController>();
+            listViewProcessCurrentObjectController.CustomizeShowViewParameters -= OnCustomizeShowViewParameters;
+            listViewProcessCurrentObjectController.CustomProcessSelectedItem -= ListViewProcessCurrentObjectControllerOnCustomProcessSelectedItem;            
+        }
+    }
+    public class MasterDetailViewController : MasterDetailBaseController, IModelExtender
+    {
+        
+        Dictionary<LevelDefaultViewInfoCreation, bool> _levelDefaultViewCreation;
+        Window _windowToDispose;
+
+
+        void ViewOnMasterRowCollapsing(object sender, MasterRowCanExpandEventArgs masterRowCanExpandEventArgs) {
+            _windowToDispose = ((ListEditors.XafGridView)((GridView) sender).GetDetailView(masterRowCanExpandEventArgs.RowHandle,masterRowCanExpandEventArgs.RelationIndex)).Window;
+        }
+
+        void ViewOnMasterRowCollapsed(object sender, CustomMasterRowEventArgs customMasterRowEventArgs) {
+            ((WinWindow) _windowToDispose).Form.Close();
         }
 
         protected override void OnDeactivating()
         {
-            if (this.IsActive)
-            {
-                Frame.GetController<DeleteObjectsViewController>().DeleteAction.Executing -= DeleteAction_OnExecuting;
-            }
-
             base.OnDeactivating();
-        }
-
-        private void DeleteAction_OnExecuting(object sender, CancelEventArgs e)
-        {
-            if (!e.Cancel)
-            {
-                e.Cancel = true;
-
-                var view = ((GridView)gridControl.FocusedView);
-                var list = new List<object>();
-                if (view != null)
-                    list.AddRange(view.GetSelectedRows().Select(selectedRow => view.GetRow(selectedRow)));
-                ObjectSpace.Delete(list);
-            }
-        }
-
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
-            extenders.Add<IModelListView, IModelListViewMasterDetailOptions>();
+            _levelDefaultViewCreation = null;
         }
 
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            if (this.IsActive)
-            {
-                gridControl = (GridControl)View.Control;
-                gridControl.HandleCreated += GridControl_OnHandleCreated;
+            _levelDefaultViewCreation = new Dictionary<LevelDefaultViewInfoCreation, bool>();
+            XafGridView view = ((GridListEditor) View.Editor).GridView;
+            view.MasterRowCollapsed += ViewOnMasterRowCollapsed;
+            view.MasterRowExpanded += view_MasterRowExpanded;
+            view.MasterRowCollapsing += ViewOnMasterRowCollapsing;
+            view.MasterRowEmpty += ViewOnMasterRowEmpty;
+            view.MasterRowGetLevelDefaultView += ViewOnMasterRowGetLevelDefaultView;
+        }
+
+
+
+        void view_MasterRowExpanded(object sender, CustomMasterRowEventArgs e)
+        {
+            _levelDefaultViewCreation[new LevelDefaultViewInfoCreation(e.RowHandle, e.RelationIndex)] = false;
+        }
+
+
+
+        void ViewOnMasterRowEmpty(object sender, MasterRowEmptyEventArgs eventArgs) {
+            var modelDetailRelationCalculator = new ModelDetailRelationCalculator(View.Model, (XafGridView) sender);
+            eventArgs.IsEmpty=!modelDetailRelationCalculator.IsRelationSet(eventArgs.RowHandle, eventArgs.RelationIndex);
+        }
+
+        void ViewOnMasterRowGetLevelDefaultView(object sender, MasterRowGetLevelDefaultViewEventArgs e) {
+            var levelDefaultViewInfoCreation = new LevelDefaultViewInfoCreation(e.RowHandle, e.RelationIndex);
+            if (!_levelDefaultViewCreation.ContainsKey(levelDefaultViewInfoCreation) || !(_levelDefaultViewCreation[levelDefaultViewInfoCreation])) {
+                if (!_levelDefaultViewCreation.ContainsKey(levelDefaultViewInfoCreation))
+                    _levelDefaultViewCreation.Add(levelDefaultViewInfoCreation, true);
+                var gridViewBuilder = new GridViewBuilder();
+                var levelDefaultView =
+                    (ListEditors.XafGridView)
+                    gridViewBuilder.GetLevelDefaultView((XafGridView) sender, e.RowHandle, e.RelationIndex, View.Model,
+                                                        Application, ObjectSpace);
+                e.DefaultView = levelDefaultView;
             }
         }
 
-        private void GridControl_OnHandleCreated(object sender, EventArgs e)
-        {
-            var view = (GridView)((GridControl)sender).FocusedView;
-            view.OptionsDetail.ShowDetailTabs = false;
-            view.OptionsView.ShowDetailButtons = true;
-            view.OptionsDetail.EnableMasterViewMode = true;
-            gridControl.ShowOnlyPredefinedDetails = true;
-            gridView = new XafGridView();
-            GridViewViewController.SetOptions(gridView, this.DetailListView);
-            gridView.GridControl = gridControl;
-            RefreshColumns(this.DetailListView);
-            gridControl.LevelTree.Nodes.Add(this.DetailListRelationName.Name, gridView);
-            gridView.DoubleClick += gridView_DoubleClick;
 
-            if (this.ExpandAllRows)
-                ExpandAllRowsSimpleAction.DoExecute();
+
+        #region IModelExtender Members
+
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            extenders.Add<IModelListView, IModelListViewMasterDetail>();
         }
 
-        private void gridView_DoubleClick(object sender, EventArgs e)
-        {
-            var parameter = new ShowViewParameters();
-            ListViewProcessCurrentObjectController.ShowObject(((GridView)sender).GetFocusedRow(), parameter, Application, Frame, View);
-            parameter.CreatedView.AllowNew["MasterDetail"] = false;
-            Application.ShowViewStrategy.ShowView(parameter, new ShowViewSource(null, null));
-        }
-
-        private void ExpandAllRowsSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)
-        {
-            if (View.CurrentObject != null)
-            {
-                ObjectSpace.Session.PreFetch(((PersistentBase)View.CurrentObject).ClassInfo,
-                                             View.CollectionSource.List,
-                                             this.DetailListRelationName.Name);
-                var view = (GridView)gridControl.MainView;
-                for (int i = 0; i < view.RowCount; i++)
-                    view.ExpandMasterRow(i);
-            }
-        }
-
-        private void CollapseAllRowsSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)
-        {
-            var view = (GridView)gridControl.MainView;
-
-            view.CollapseAllDetails();
-        }
+        #endregion
     }
 }

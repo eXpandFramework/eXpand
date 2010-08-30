@@ -1,14 +1,4 @@
-using DevExpress.ExpressApp;
-
-namespace eXpand.ExpressApp.Logic
-{
-    public sealed partial class LogicModule : ModuleBase
-    {
-        public LogicModule()
-        {
-            InitializeComponent();
-        }
+﻿namespace eXpand.ExpressApp.Logic {
+    public class LogicModule:ModuleBase {
     }
 }
-
-

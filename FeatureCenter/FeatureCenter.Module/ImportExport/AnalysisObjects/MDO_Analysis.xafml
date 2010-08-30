@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <AdditionalViewControls>
+    <Rules>
+      <AdditionalViewControlsRule Id="Header Importing Analysis" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Importing Analysis Objects" Position="Top" />
+      <AdditionalViewControlsRule Id="ViewMessage Importing Analysis" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how to IO engine to import analysis objects" Position="Bottom" />
+    </Rules>
+  </AdditionalViewControls>
+</Application>

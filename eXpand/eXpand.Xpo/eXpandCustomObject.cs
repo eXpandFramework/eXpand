@@ -2,8 +2,6 @@ using System;
 using System.ComponentModel;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-using DevExpress.Xpo.Metadata.Helpers;
-using DevExpress.Data.Filtering;
 
 namespace eXpand.Xpo
 {
@@ -29,21 +27,7 @@ namespace eXpand.Xpo
 #endif
         private bool isDefaultPropertyAttributeInit;
         private XPMemberInfo defaultPropertyMemberInfo;
-        private MemberInfoCollection _ChangedMembers;
-
-        protected override void OnChanged(string propertyName, object oldValue, object newValue)
-        {
-            base.OnChanged(propertyName, oldValue, newValue);
-
-            if (!this.IsLoading)
-            {
-                XPMemberInfo member = this.GetPersistentMember(propertyName);
-                if (member != null && !this.ChangedMembers.Contains(member))
-                {
-                    this.ChangedMembers.Add(this.ClassInfo.GetMember(member.Name));
-                }
-            }
-        }
+        readonly ChangedMemberCollector _changedMemberCollector;
 
         protected override void OnSaving()
         {
@@ -56,24 +40,6 @@ namespace eXpand.Xpo
             }
         }
 
-        protected override void OnSaved()
-        {
-            base.OnSaved();
-
-            if (this.Session is NestedUnitOfWork)
-            {
-                var parentitem = ((NestedUnitOfWork)this.Session).GetParentObject(this);
-                foreach (XPMemberInfo changedProperty in this.ChangedMembers)
-                {
-                    if (!parentitem.ChangedMembers.Contains(changedProperty))
-                    {
-                        parentitem.ChangedMembers.Add(changedProperty);
-                    }
-                }
-            }
-
-            this.ChangedMembers.Clear();
-        }
 
         public override string ToString()
         {
@@ -97,39 +63,31 @@ namespace eXpand.Xpo
             return base.ToString();
         }
 
-        private XPMemberInfo GetPersistentMember(string propertyName)
-        {
-            XPMemberInfo persistentMember = this.ClassInfo.GetPersistentMember(propertyName);
-            if (persistentMember == null)
-            {
-                var memberInfo = this.ClassInfo.FindMember(propertyName);
-                if (memberInfo != null && memberInfo.IsAliased)
-                {
-                    PersistentAliasAttribute pa = (PersistentAliasAttribute)memberInfo.GetAttributeInfo(typeof(PersistentAliasAttribute));
-                    CriteriaOperator criteria = CriteriaOperator.Parse(pa.AliasExpression);
-                    if (criteria is OperandProperty)
-                    {
-                        string[] path = ((OperandProperty)criteria).PropertyName.Split('.');
-                        memberInfo = null;
-                        foreach (string pn in path)
-                        {
-                            if (memberInfo == null)
-                                memberInfo = this.ClassInfo.GetMember(pn);
-                            else
-                                memberInfo = memberInfo.ReferenceType.GetMember(pn);
-                        }
-
-                        return memberInfo;
-                    }
-                }
-            }
-
-            return persistentMember;
-        }
+//        private XPMemberInfo GetPersistentMember(string propertyName)
+//        {
+//            XPMemberInfo persistentMember = ClassInfo.GetPersistentMember(propertyName);
+//            if (persistentMember == null)
+//            {
+//                var memberInfo = ClassInfo.FindMember(propertyName);
+//                if (memberInfo != null && memberInfo.IsAliased)
+//                {
+//                    var pa = (PersistentAliasAttribute)memberInfo.GetAttributeInfo(typeof(PersistentAliasAttribute));
+//                    CriteriaOperator criteria = CriteriaOperator.Parse(pa.AliasExpression);
+//                    if (criteria is OperandProperty){
+//                        string[] path = ((OperandProperty)criteria).PropertyName.Split('.');
+//                        return path.Aggregate<string, XPMemberInfo>(null, (current, pn) => current == null ? ClassInfo.GetMember(pn) : current.ReferenceType.GetMember(pn));
+//                    }
+//                }
+//            }
+//
+//            return persistentMember;
+//        }
 
         public const string CancelTriggerObjectChangedName = "CancelTriggerObjectChanged";
         //        protected eXpandCustomObject() {}
-        protected eXpandCustomObject(Session session) : base(session) { }
+        protected eXpandCustomObject(Session session) : base(session) {
+            _changedMemberCollector=new ChangedMemberCollector(this);
+        }
 
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]
@@ -186,20 +144,16 @@ namespace eXpand.Xpo
 
         #region ISupportChangedMembers Member
 
-        [Browsable(false)]
-        public MemberInfoCollection ChangedMembers
-        {
-            get
-            {
-                if (this._ChangedMembers == null)
-                {
-                    this._ChangedMembers = new MemberInfoCollection(this.ClassInfo);
-                }
-
-                return this._ChangedMembers;
-            }
-        }
+//        [Browsable(false)]
+//        public MemberInfoCollection ChangedMembers
+//        {
+//            get { return _changedMembers ?? (_changedMembers = new MemberInfoCollection(ClassInfo)); }
+//        }
 
         #endregion
+        [Browsable(false)]
+        public ChangedMemberCollector ChangedMemberCollector {
+            get { return _changedMemberCollector; }
+        }
     }
 }

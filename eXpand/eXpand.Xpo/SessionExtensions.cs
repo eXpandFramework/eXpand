@@ -3,7 +3,6 @@ using System.Linq.Expressions;
 using DevExpress.Data.Filtering;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-using System.Linq;
 
 namespace eXpand.Xpo
 {
@@ -11,15 +10,6 @@ namespace eXpand.Xpo
     {
         public static void UnDelete(this XPBaseObject simpleObject) {
             simpleObject.Session.PurgeDeletedObjects();
-            return;
-            simpleObject.SetMemberValue(XPObject.Fields.GCRecord.PropertyName, null);
-            var persistentProperties = simpleObject.ClassInfo.PersistentProperties;
-            foreach (XPMemberInfo persistentProperty in (persistentProperties).OfType<XPMemberInfo>().Where(
-                        info => info.Name != XPObject.Fields.GCRecord.PropertyName)){
-                var memberType = persistentProperty.MemberType;
-                object obj = memberType.IsValueType ? Activator.CreateInstance(memberType) : null;
-                simpleObject.SetMemberValue(persistentProperty.Name, obj);
-            }
         }
         public static bool IsNewObject(this IXPSimpleObject simpleObject)
         {
@@ -53,9 +43,16 @@ namespace eXpand.Xpo
                 return null;
             return session.GetObjectByKey(o.GetType(), ((PersistentBase)o).ClassInfo.KeyProperty.GetValue(o));
         }
+
         public static ClassType FindObject<ClassType>(this Session session,PersistentCriteriaEvaluationBehavior persistentCriteriaEvaluationBehavior, Expression<Func<ClassType,bool>> expression){
             return (ClassType)
                 session.FindObject(persistentCriteriaEvaluationBehavior, typeof (ClassType), new XPQuery<ClassType>(session).TransformExpression(expression));
+        }
+        
+        public static object FindObject<ClassType>(this Session session, Type classType, Expression<Func<ClassType,bool>> expression, bool selectDeleted)
+        {
+            return session.FindObject(classType, new XPQuery<ClassType>(session).TransformExpression(expression),
+                                      selectDeleted);
         }
         public static ClassType FindObject<ClassType>(this Session session, Expression<Func<ClassType,bool>> expression)
         {

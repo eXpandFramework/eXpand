@@ -1,3 +1,4 @@
+using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 
@@ -5,7 +6,13 @@ namespace eXpand.ExpressApp.ExceptionHandling.Win
 {
     public sealed partial class ExceptionHandlingWinModule : ExceptionHandlingModule
     {
-        
+        public event EventHandler<CustomHandleExceptionEventArgs> CustomHandleException;
+
+        void OnCustomHandleException(CustomHandleExceptionEventArgs e) {
+            EventHandler<CustomHandleExceptionEventArgs> handler = CustomHandleException;
+            if (handler != null) handler(this, e);
+        }
+
         public ExceptionHandlingWinModule()
         {
             InitializeComponent();
@@ -20,7 +27,10 @@ namespace eXpand.ExpressApp.ExceptionHandling.Win
         private void OnCustomHandleException(object sender, CustomHandleExceptionEventArgs args)
         {
             var exception = args.Exception;
-            Log(exception);
+            var customHandleExceptionEventArgs = new CustomHandleExceptionEventArgs(exception);
+            OnCustomHandleException(customHandleExceptionEventArgs);
+            if (!(customHandleExceptionEventArgs.Handled))
+                Log(exception);
         }
 
     }

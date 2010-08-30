@@ -20,6 +20,7 @@
         String,
         DateTime,
         TimeSpan,
-        ByteArray
+        ByteArray,
+        Unknown=1000
     }
 }

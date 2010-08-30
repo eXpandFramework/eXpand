@@ -12,39 +12,50 @@ namespace eXpand.Utils.Helpers
         public static IEnumerable<Type> GetTypes(this AppDomain appdomain, string typeToFind)
         {
             var types = new List<Type>();
-            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {
-                try {
-                    types.AddRange(assembly.GetTypes().Where(type => type.Name==typeToFind));
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                try
+                {
+                    types.AddRange(assembly.GetTypes().Where(type => type.Name == typeToFind));
                 }
-                catch (ReflectionTypeLoadException) {
+                catch (ReflectionTypeLoadException)
+                {
                 }
             }
             return types;
 
         }
 
-        public static IEnumerable<Type> GetTypes(this AppDomain appDomain, Type typeToFind) {
+        public static IEnumerable<Type> GetTypes(this AppDomain appDomain, Type typeToFind)
+        {
             var types = new List<Type>();
-            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {
-                try {
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                try
+                {
                     types.AddRange(assembly.GetTypes().Where(typeToFind.IsAssignableFrom));
                 }
-                catch (ReflectionTypeLoadException) {
+                catch (ReflectionTypeLoadException)
+                {
                 }
             }
             return types;
         }
 
-        public static IEnumerable<Type> GetTypes(this AppDomain appDomain) {
+        public static IEnumerable<Type> GetTypes(this AppDomain appDomain)
+        {
             var types = new List<Type>();
-            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {
-                try {
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                try
+                {
                     types.AddRange(assembly.GetTypes());
                 }
-                catch (ReflectionTypeLoadException) {
+                catch (ReflectionTypeLoadException)
+                {
                 }
             }
-            
+
             return types;
         }
 

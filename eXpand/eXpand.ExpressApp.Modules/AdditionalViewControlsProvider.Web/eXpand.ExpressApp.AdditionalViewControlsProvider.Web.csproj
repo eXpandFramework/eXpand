@@ -64,16 +64,16 @@
     <Reference Include="DevExpress.ExpressApp.Validation.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Web.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxEditors.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Web.ASPxEditors.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Web.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v10.1">
@@ -83,7 +83,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.ExpressApp.AdditionalViewControlsProvider, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -103,15 +103,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eXpand.Persistent.Base, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="eXpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="eXpand.Xpo, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.Utils, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -134,23 +126,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdditionalViewControlsRuleViewController.cs">
-    </Compile>
-    <Compile Include="Controls\HintPanel.cs" />
     <Compile Include="AdditionalViewControlsProviderAspNetModule.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AdditionalViewControlsProviderAspNetModule.Designer.cs">
-      <DependentUpon>AdditionalViewControlsProviderAspNetModule.cs</DependentUpon>
+    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Updater.cs" />
     <Compile Include="Decorators\WebHintPanelDecorator.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="AdditionalViewControlsProviderAspNetModule.resx">
-      <DependentUpon>AdditionalViewControlsProviderAspNetModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <Compile Include="Controls\HintPanel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\ControlTypeConverter.cs" />
+    <Compile Include="Security\DecoratorTypeConverter.cs" />
+    <Compile Include="Security\UpdateControlTypeTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Security\UpdateDecoratorTypeTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Updater.cs">
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />

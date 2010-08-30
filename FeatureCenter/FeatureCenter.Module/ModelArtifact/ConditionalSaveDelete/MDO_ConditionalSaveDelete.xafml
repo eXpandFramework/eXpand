@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <ModelArtifactState>
+    <ConditionalActionState>
+      <GroupContexts>
+        <ExecutionContexts Id="ConditionalSaveDelete" IsNewNode="True">
+          <CurrentObjectChanged IsNewNode="True" Index="0" />
+          <ViewChanging IsNewNode="True" Index="0" />
+        </ExecutionContexts>
+      </GroupContexts>
+      <Rules>
+        <ActionStateRule Id="Disable Delete for ConditionalSaveDelete" ExecutionContextGroup="ConditionalSaveDelete" />
+        <ActionStateRule Id="Disable Save for ConditionalSaveDelete" ExecutionContextGroup="ConditionalSaveDelete" />
+        <ActionStateRule Id="Disable SaveAndClose for ConditionalSaveDelete" ExecutionContextGroup="ConditionalSaveDelete" />
+      </Rules>
+    </ConditionalActionState>
+  </ModelArtifactState>
+  <Views>
+    <DetailView Id="ConditionalSaveDelete_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="Orders_Group" Removed="True" />
+          <LayoutGroup Id="SimpleEditors" RelativeSize="8">
+            <LayoutGroup Id="CustomerBase" RelativeSize="100">
+              <LayoutItem Id="City" RelativeSize="48" />
+              <LayoutItem Id="Name" RelativeSize="51" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="91">
+            <LayoutItem Id="Description" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

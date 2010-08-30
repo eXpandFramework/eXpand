@@ -7,7 +7,7 @@ namespace eXpand.Persistent.Base.PersistentMetaData {
         string MergedObjectFullName { get; set; }
         IList<IPersistentMemberInfo> OwnMembers { get; }
         IList<IInterfaceInfo> Interfaces { get; }
-        Type GetDefaultBaseClass();
         IPersistentAssemblyInfo PersistentAssemblyInfo { get; set; }
+        Type BaseType { get; set; }
     }
 }

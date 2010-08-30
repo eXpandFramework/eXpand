@@ -6,9 +6,6 @@ namespace eXpand.ExpressApp.ModelDifference.Web.Controllers
 {
     public class CombineActiveModelDictionaryWithActiveModelDifferenceController : CombineActiveModelDictionaryController<ModelDifferenceObject>
     {
-        public CombineActiveModelDictionaryWithActiveModelDifferenceController() {
-        }
-
         protected override ModelDifferenceObject GetActiveDifference(PersistentApplication persistentApplication, string applicationUniqueName){
             return new QueryModelDifferenceObject(View.ObjectSpace.Session)
                 .GetActiveModelDifference(persistentApplication.UniqueName);

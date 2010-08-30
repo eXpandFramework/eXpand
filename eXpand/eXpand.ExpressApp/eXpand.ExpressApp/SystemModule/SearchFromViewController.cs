@@ -1,16 +1,33 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.ComponentModel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
-using System.ComponentModel;
 
-namespace eXpand.ExpressApp.SystemModule {
-
-    public interface IModelViewPropertySearchMode : IModelNode
+namespace eXpand.ExpressApp.SystemModule
+{
+    public interface IModelMemberSearchMode 
     {
-        [DefaultValue(SearchMemberMode.Include)]
+        [Category("eXpand")]
+        [Description("Control if member will be included on full text search")]
         SearchMemberMode SearchMemberMode { get; set; }
     }
+    [ModelInterfaceImplementor(typeof(IModelMemberSearchMode), "ModelMember")]
+    public interface IModelPropertyEditorSearchMode : IModelMemberSearchMode
+    {
+    }
+    [ModelInterfaceImplementor(typeof(IModelMemberSearchMode), "ModelMember")]
+    public interface IModelColumnSearchMode : IModelMemberSearchMode
+    {
 
-    public abstract class SearchFromViewController : ViewController {
+    }
+
+    public class SearchFromViewController : ViewController, IModelExtender
+    {
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            extenders.Add<IModelMember, IModelMemberSearchMode>();
+            extenders.Add<IModelPropertyEditor, IModelPropertyEditorSearchMode>();
+            extenders.Add<IModelColumn, IModelColumnSearchMode>();
         }
+    }
 }

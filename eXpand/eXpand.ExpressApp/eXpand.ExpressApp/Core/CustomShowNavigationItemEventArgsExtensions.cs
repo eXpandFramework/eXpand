@@ -9,7 +9,7 @@ namespace eXpand.ExpressApp.Core
     {
         public static bool FitToObjectType(this CustomShowNavigationItemEventArgs args, XafApplication application,Type objectType)
         {
-            var viewShortcut = args.ActionArguments.SelectedChoiceActionItem.Data as ViewShortcut;
+            var viewShortcut = args.ActionArguments.SelectedChoiceActionItem.Data as DevExpress.ExpressApp.ViewShortcut;
             if (viewShortcut != null && 
                 application.Model.Views[viewShortcut.ViewId].ModelClass.TypeInfo.FullName == objectType.FullName)
                 return true;

@@ -1,0 +1,23 @@
+﻿    $PROPERTYTYPE$ _$PROPERTYNAME$;
+    $TYPEATTRIBUTES$
+    public $PROPERTYTYPE$ $PROPERTYNAME${
+      get{
+          return _$PROPERTYNAME$;
+      }
+      set{
+          if(_$PROPERTYNAME$ == value)
+              return;
+          $PROPERTYTYPE$ prev$PROPERTYNAME$ = _$PROPERTYNAME$;
+          _$PROPERTYNAME$ = value;
+
+          if(IsLoading) return;
+          
+          if(prev$PROPERTYNAME$ != null && prev$PROPERTYNAME$.$INJECTCODE$ == this)
+              prev$PROPERTYNAME$.$INJECTCODE$ = null;
+
+          
+          if(_$PROPERTYNAME$ != null)
+              _$PROPERTYNAME$.$INJECTCODE$ = this;
+          OnChanged("$PROPERTYNAME$");
+      }
+    }

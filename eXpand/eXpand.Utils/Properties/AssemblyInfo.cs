@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using eXpand;
@@ -32,12 +33,14 @@ using eXpand;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.0.09314.22")]
-[assembly: AssemblyFileVersion("0.0.09314.22")]
+[assembly: AssemblyVersion(AssemblyInfo.Version)]
+[assembly: AssemblyFileVersion(AssemblyInfo.Version)]
 namespace eXpand
 {
     public class AssemblyInfo
     {
-        public const string Version = "0.0.0.11";    
+        public const string Version = "10.1.6.0";
+
+        
     }
 }

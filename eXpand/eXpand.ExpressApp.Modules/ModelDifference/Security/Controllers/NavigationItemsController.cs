@@ -5,15 +5,12 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using eXpand.ExpressApp.SystemModule;
+using eXpand.ExpressApp.Security.Core;
 
 namespace eXpand.ExpressApp.ModelDifference.Security.Controllers
 {
-    public partial class NavigationItemsController : BaseWindowController
+    public class NavigationItemsController : WindowController
     {
-        public NavigationItemsController() {
-        }
-
         [CoverageExclude]
         protected override void OnActivated()
         {
@@ -33,7 +30,7 @@ namespace eXpand.ExpressApp.ModelDifference.Security.Controllers
             if (args.FitToObjectType(Application, typeof(ModelDifferenceObject)))
             {
                 SecuritySystem.ReloadPermissions();
-                if (!SecuritySystem.IsGranted(new EditModelPermission(ModelAccessModifier.Allow)))
+                if (!SecuritySystemExtensions.IsGranted(new EditModelPermission(ModelAccessModifier.Allow),false))
                 {
                     args.Handled = true;
                     throw new SecurityException(ExceptionLocalizerTemplate<SystemExceptionResourceLocalizer, ExceptionId>.GetExceptionMessage(ExceptionId.PermissionIsDenied));

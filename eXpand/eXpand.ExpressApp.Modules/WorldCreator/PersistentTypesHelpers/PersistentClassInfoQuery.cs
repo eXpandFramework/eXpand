@@ -16,7 +16,7 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers
 
 
             var operands = new BinaryOperator(persistentClassInfo.GetPropertyName(x=>x.Name),referenceTypeFullName.Substring(referenceTypeFullName.IndexOf(".")+1));
-            return session.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, TypesInfo.Instance.PersistentTypesInfoType, new GroupOperator(binaryOperator,operands)) as IPersistentClassInfo;
+            return session.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, WCTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>(), new GroupOperator(binaryOperator, operands)) as IPersistentClassInfo;
         }
     }
 }

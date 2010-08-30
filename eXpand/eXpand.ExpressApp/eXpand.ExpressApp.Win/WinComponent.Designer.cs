@@ -1,7 +1,6 @@
 ﻿namespace eXpand.ExpressApp.Win
 {
-    partial class WinComponent
-    {
+    partial class WinComponent  {
         /// <summary>
         /// Required designer variable.
         /// </summary>

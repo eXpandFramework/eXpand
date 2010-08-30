@@ -3,9 +3,11 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base.Security;
+using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.Security;
+using eXpand.ExpressApp.Security.Core;
 using eXpand.Persistent.Base;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model;
@@ -21,16 +23,16 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             get { return DifferenceType.User; }
         }
 
-        protected internal override ModelDifferenceObject GetActiveDifferenceObject(){
-            return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName);
+        protected internal override ModelDifferenceObject GetActiveDifferenceObject(string name){
+            return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName,null);
         }
 
         protected internal IQueryable<ModelDifferenceObject> GetActiveDifferenceObjects(){
-            List<ModelDifferenceObject> allLayers =
+            var allLayers =
                 new List<ModelDifferenceObject>(new QueryRoleModelDifferenceObject(ObjectSpace.Session)
-                    .GetActiveModelDifferences(Application.GetType().FullName).Cast<ModelDifferenceObject>());
+                    .GetActiveModelDifferences(Application.GetType().FullName, null).Cast<ModelDifferenceObject>());
 
-            allLayers.AddRange(new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName).Cast<ModelDifferenceObject>());
+            allLayers.AddRange(new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName,null).Cast<ModelDifferenceObject>());
             return allLayers.AsQueryable();
         }
 
@@ -50,21 +52,15 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
 
         public void CombineWithActiveDifferenceObjects(ModelApplicationBase model, List<ModelDifferenceObject> modelDifferenceObjects)
         {
-            ModelXmlReader reader = new ModelXmlReader();
-            ModelXmlWriter writer = new ModelXmlWriter();
+            var reader = new ModelXmlReader();
+            var writer = new ModelXmlWriter();
 
-            foreach (var modelDifferenceObject in modelDifferenceObjects)
-            {
-                ((ModelApplicationBase)ModelDifferenceModule.Application.Model).AddLayer(modelDifferenceObject.Model);
-                
-                for (int i = 0; i < ((ModelApplicationBase)ModelDifferenceModule.Application.Model).LastLayer.AspectCount; i++)
-                {
-                    var xml = writer.WriteToString(((ModelApplicationBase)ModelDifferenceModule.Application.Model).LastLayer, i);
+            foreach (var modelDifferenceObject in modelDifferenceObjects){
+                for (int i = 0; i < modelDifferenceObject.Model.AspectCount; i++){
+                    var xml = writer.WriteToString(modelDifferenceObject.Model, i);
                     if (!string.IsNullOrEmpty(xml))
-                        reader.ReadFromString(model, ((ModelApplicationBase)ModelDifferenceModule.Application.Model).GetAspect(i), xml);
+                        reader.ReadFromString(model, modelDifferenceObject.Model.GetAspect(i), xml);
                 }
-
-                ((ModelApplicationBase)ModelDifferenceModule.Application.Model).RemoveLayer(modelDifferenceObject.Model);
             }
         }
 
@@ -77,41 +73,34 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         protected internal override void OnDifferenceObjectSaving(ModelDifferenceObject userModelDifferenceObject, ModelApplicationBase model){
             var userStoreObject = ((UserModelDifferenceObject) userModelDifferenceObject);
             if (!userStoreObject.NonPersistent){
+                if (!(string.IsNullOrEmpty(model.Xml)))
+                    new ModelXmlReader().ReadFromString(userStoreObject.Model,model.CurrentAspect,model.Xml);
                 base.OnDifferenceObjectSaving(userModelDifferenceObject, model);
             }
 
-            if (SecuritySystem.Instance is ISecurityComplex && IsGranted()){
+            if (SecuritySystem.Instance is ISecurityComplex && SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false))
+            {
                 var reader = new ModelXmlReader();
                 var writer = new ModelXmlWriter();
                 var space = Application.CreateObjectSpace();
-                IQueryable<ModelDifferenceObject> differences = GetDifferences(space);
+                IEnumerable<ModelDifferenceObject> differences = GetDifferences(space);
                 foreach (var difference in differences){
-                    for (int i = 0; i < model.AspectCount; i++)
-                    {
+                    for (int i = 0; i < model.AspectCount; i++){
                         var xml = writer.WriteToString(model, i);
                         if (!string.IsNullOrEmpty(xml))
                             reader.ReadFromString(difference.Model, model.GetAspect(i), xml);
                     }
-
                     space.SetModified(difference);
                 }
                 space.CommitChanges();
             }
         }
 
-        private IQueryable<ModelDifferenceObject> GetDifferences(ObjectSpace space){
+        private IEnumerable<ModelDifferenceObject> GetDifferences(ObjectSpace space){
             return new QueryModelDifferenceObject(space.Session).GetModelDifferences(
                 ((IUser) SecuritySystem.CurrentUser).Permissions.OfType<ModelCombinePermission>().Select(
                     permission => permission.Difference));
         }
 
-        private bool IsGranted(){            
-            var securityComplex = ((SecurityComplex) SecuritySystem.Instance);
-            bool permission = securityComplex.IsGrantedForNonExistentPermission;
-            securityComplex.IsGrantedForNonExistentPermission = false;
-            bool granted = SecuritySystem.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow));
-            securityComplex.IsGrantedForNonExistentPermission=permission;
-            return granted;
-        }
     }
 }

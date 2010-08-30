@@ -50,19 +50,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.1.Linq, Version=10.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v10.1.Linq, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="eXpand.Utils, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -88,23 +88,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="General\DateRange.cs" />
     <Compile Include="DifferenceType.cs" />
-    <Compile Include="General\IDateRange.cs" />
-    <Compile Include="General\ILogicRule.cs" />
-    <Compile Include="General\ILogicRuleManager.cs" />
+    <Compile Include="ExceptionHandling\IExceptionObject.cs" />
+    <Compile Include="General\DataStoreAttribute.cs" />
+    <Compile Include="General\ISupportViewId.cs" />
+    <Compile Include="General\PictureItemEventArgs.cs" />
     <Compile Include="General\RelationType.cs" />
-    <Compile Include="General\State.cs" />
+    <Compile Include="General\RequestTextPictureItemEventArgs.cs" />
+    <Compile Include="General\ReservedMember.cs" />
+    <Compile Include="General\ValueConverters\ImageCompressionValueConverter.cs" />
     <Compile Include="ImportExport\IClassInfoGraphNode.cs" />
     <Compile Include="ImportExport\ISerializationConfiguration.cs" />
+    <Compile Include="ImportExport\ISerializationConfigurationGroup.cs" />
     <Compile Include="ImportExport\IXmlFileChooser.cs" />
     <Compile Include="ImportExport\NodeType.cs" />
     <Compile Include="ImportExport\SerializationStrategy.cs" />
     <Compile Include="IXpoModelDifference.cs" />
-    <Compile Include="General\IHidden.cs" />
-    <Compile Include="General\IIndexedObject.cs" />
-    <Compile Include="General\ILocalizable.cs" />
-    <Compile Include="General\IEnumObject.cs" />
+    <Compile Include="General\IObsoleteTreeNode.cs" />
+    <Compile Include="General\IPictureItem.cs" />
+    <Compile Include="ModelDifference\ResourcesModelStore.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplate.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplateInfo.cs" />
     <Compile Include="PersistentMetaData\IExtendedCollectionMemberInfo.cs" />
@@ -112,12 +114,16 @@
     <Compile Include="PersistentMetaData\IExtendedMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IExtendedReferenceMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IInterfaceInfo.cs" />
+    <Compile Include="PersistentMetaData\IMapperInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentAssemblyInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentAssociatedMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentTemplatedTypeInfo.cs" />
+    <Compile Include="PersistentMetaData\ISqlMapperInfo.cs" />
     <Compile Include="PersistentMetaData\ITemplateInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\AttributeInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssemblyDataStoreAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssociationAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAttributeCreator.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentClassInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentCollectionMemberInfo.cs" />
@@ -126,6 +132,13 @@
     <Compile Include="PersistentMetaData\IPersistentReferenceMemberInfo.cs" />
     <Compile Include="PersistentMetaData\IPersistentTypeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentDefaulClassOptionsAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentKeyAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentNavigationItemAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentPersistentAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentRuleRequiredFieldAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentSizeAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssemblyAttributeInfo.cs" />
+    <Compile Include="PersistentMetaData\InterfaceRegistratorAttribute.cs" />
     <Compile Include="PivotChart\Web\IPivotGridOptionsOLAP.cs" />
     <Compile Include="PivotChart\Web\IPivotGridWebOptionsChartDataSource.cs" />
     <Compile Include="PivotChart\Web\IPivotGridWebOptionsCustomization.cs" />
@@ -143,24 +156,20 @@
     <Compile Include="PivotChart\IPivotOptionsSelection.cs" />
     <Compile Include="PivotChart\IPivotOptionsView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="General\ResourceImpl.cs" />
-    <Compile Include="General\ResourceImpls.cs" />
-    <Compile Include="General\TimePattern.cs" />
-    <Compile Include="General\TimeRange.cs" />
-    <Compile Include="Taxonomies\BaseTaxonomy.cs" />
-    <Compile Include="Taxonomies\BaseTerm.cs" />
-    <Compile Include="Taxonomies\GenericWeakReference.cs" />
-    <Compile Include="Taxonomies\IBaseTaxonomy.cs" />
-    <Compile Include="Taxonomies\IBaseTerm.cs" />
-    <Compile Include="Taxonomies\ICategorizedKeyedObject.cs" />
-    <Compile Include="Taxonomies\IGenericWeakReference.cs" />
-    <Compile Include="Taxonomies\IKeyedObject.cs" />
-    <Compile Include="Taxonomies\IObjectWithAssignments.cs" />
-    <Compile Include="Taxonomies\IStructuralTerm.cs" />
-    <Compile Include="Taxonomies\ITaxonomyManager.cs" />
-    <Compile Include="Taxonomies\IValueTerm.cs" />
-    <Compile Include="Taxonomies\KeyedObjectValidity.cs" />
-    <Compile Include="Taxonomies\TaxonomyManager.cs" />
+    <Compile Include="PersistentMetaData\IDataBase.cs" />
+    <Compile Include="PersistentMetaData\IDataStoreLogonObject.cs" />
+    <Compile Include="Validation\AtLeast1PropertyIsRequired\IRuleRequiredForAtLeast1PropertyProperties.cs" />
+    <Compile Include="Validation\RuleDefaultMessageTemplates.cs" />
+    <Compile Include="Validation\AtLeast1PropertyIsRequired\RuleRequiredForAtLeast1Property.cs" />
+    <Compile Include="Validation\AtLeast1PropertyIsRequired\RuleRequiredForAtLeast1PropertyAttribute.cs" />
+    <Compile Include="Validation\AtLeast1PropertyIsRequired\RuleRequiredForAtLeast1PropertyProperties.cs" />
+    <Compile Include="Validation\FromIPropertyValueValidator\IPropertyValueValidator.cs" />
+    <Compile Include="Validation\FromIPropertyValueValidator\IRuleFromIPropertyValueValidatorProperties.cs" />
+    <Compile Include="Validation\FromIPropertyValueValidator\RuleFromIPropertyValueValidator.cs" />
+    <Compile Include="Validation\FromIPropertyValueValidator\RuleFromIPropertyValueValidatorAttribute.cs" />
+    <Compile Include="Validation\FromIPropertyValueValidator\RuleFromIPropertyValueValidatorProperties.cs" />
+    <Compile Include="Validation\IRuleMultiPropertiesValues.cs" />
+    <Compile Include="Validation\RuleMultiPropertiesValues.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -193,6 +202,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SqlDBMapper\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

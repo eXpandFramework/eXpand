@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+  <AdditionalViewControls>
+    <Rules>
+      <AdditionalViewControlsRule Id="Header External Application Differences" ControlType="FeatureCenter.Module.Win.ApplicationCaption" />
+      <AdditionalViewControlsRule Id="ViewMessage External Application Difference" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" />
+    </Rules>
+  </AdditionalViewControls>
+</Application>

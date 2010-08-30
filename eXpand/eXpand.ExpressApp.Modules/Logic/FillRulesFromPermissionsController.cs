@@ -1,27 +1,28 @@
+﻿using System.Collections.Generic;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base.Security;
-using eXpand.ExpressApp.Security.Permissions;
-using System.Linq;
+using eXpand.ExpressApp.Logic.Security;
 
-namespace eXpand.ExpressApp.Logic{
-    public class FillRulesFromPermissionsController : ViewController
-    {
+namespace eXpand.ExpressApp.Logic {
+    public class FillRulesFromPermissionsController : ViewController {
         public FillRulesFromPermissionsController() {
-            TargetObjectType = typeof(IPersistentPermission);
+            TargetObjectType = typeof (IPersistentPermission);
         }
 
-        protected override void OnActivated(){
+        protected override void OnActivated() {
             base.OnActivated();
-            ObjectSpace.ObjectDeleted+=ObjectSpaceOnObjectDeleted;
-            ObjectSpace.ObjectSaved+=ObjectSpaceOnObjectSaved;
+            ObjectSpace.ObjectDeleted += ObjectSpaceOnObjectDeleted;
+            ObjectSpace.ObjectSaved += ObjectSpaceOnObjectSaved;
         }
-        protected override void OnDeactivating()
-        {
+
+        protected override void OnDeactivating() {
             base.OnDeactivating();
             ObjectSpace.ObjectDeleted -= ObjectSpaceOnObjectDeleted;
             ObjectSpace.ObjectSaved -= ObjectSpaceOnObjectSaved;
         }
-        private void ObjectSpaceOnObjectSaved(object sender, ObjectManipulatingEventArgs args) {
+
+        void ObjectSpaceOnObjectSaved(object sender, ObjectManipulatingEventArgs args) {
             var permission = (args.Object) as IPersistentPermission;
             if (permission != null && permission.Permission is LogicRulePermission) {
                 CollectRules();
@@ -29,13 +30,13 @@ namespace eXpand.ExpressApp.Logic{
         }
 
         void CollectRules() {
-            var ruleCollectors = Application.Modules.OfType<IRuleCollector>();
-            foreach (var ruleCollector in ruleCollectors) {
+            IEnumerable<IRuleCollector> ruleCollectors = Application.Modules.OfType<IRuleCollector>();
+            foreach (IRuleCollector ruleCollector in ruleCollectors) {
                 ruleCollector.CollectRules(Application);
             }
         }
 
-        private void ObjectSpaceOnObjectDeleted(object sender, ObjectsManipulatingEventArgs args){
+        void ObjectSpaceOnObjectDeleted(object sender, ObjectsManipulatingEventArgs args) {
             CollectRules();
         }
     }

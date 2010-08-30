@@ -6,11 +6,11 @@ namespace eXpand.Xpo.Collections
 {
     public static class XPCollectionExtensions
     {
-        public static void CreateCriteria<T>(this XPCollection<T> collection, Expression<Func<T, bool>> expression)
+        public static void CreateCriteria<T>(this DevExpress.Xpo.XPCollection<T> collection, Expression<Func<T, bool>> expression)
         {
             collection.Criteria = new XPQuery<T>(collection.Session).TransformExpression(expression);
         }
-        public static void CombineFilter<T>(this XPCollection<T> collection, Expression<Func<T, bool>> expression)
+        public static void CombineFilter<T>(this DevExpress.Xpo.XPCollection<T> collection, Expression<Func<T, bool>> expression)
         {
             collection.Filter = XPBaseCollectionExtensions.CombineCriteria(collection.Filter,
                                                                            new XPQuery<T>(collection.Session).TransformExpression(expression));

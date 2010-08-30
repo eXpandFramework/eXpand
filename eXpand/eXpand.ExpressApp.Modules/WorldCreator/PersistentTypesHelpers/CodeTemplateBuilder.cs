@@ -1,4 +1,5 @@
 ﻿using System;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using eXpand.Persistent.Base.PersistentMetaData;
 
@@ -9,7 +10,7 @@ namespace eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
             
             var defaultTemplate = CodeTemplateQuery.FindDefaultTemplate(templateType, session, codeTemplateType,codeDomProvider);
             if (defaultTemplate== null) {
-                defaultTemplate = (ICodeTemplate)Activator.CreateInstance(codeTemplateType, session);
+                defaultTemplate = (ICodeTemplate)ReflectionHelper.CreateObject(codeTemplateType, session);
                 defaultTemplate.IsDefault = true;
                 defaultTemplate.TemplateType=templateType;
                 defaultTemplate.CodeDomProvider=codeDomProvider;

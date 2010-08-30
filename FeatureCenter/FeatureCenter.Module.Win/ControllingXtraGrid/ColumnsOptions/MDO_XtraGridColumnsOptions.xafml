@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="XtraGridColumnsOptions_ListView" ShowAutoFilterRow="True">
+      <Columns>
+        <ColumnInfo Id="Name">
+          <GridColumnOptions>
+            <OptionsFilter ImmediateUpdateAutoFilter="False" AutoFilterCondition="Contains" />
+          </GridColumnOptions>
+        </ColumnInfo>
+        <ColumnInfo Id="City">
+          <GridColumnOptions>
+            <OptionsFilter AllowAutoFilter="False" />
+          </GridColumnOptions>
+        </ColumnInfo>
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

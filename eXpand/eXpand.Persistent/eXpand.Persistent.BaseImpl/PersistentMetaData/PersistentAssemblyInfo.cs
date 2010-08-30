@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -8,10 +7,14 @@ using eXpand.ExpressApp.Attributes;
 using eXpand.ExpressApp.Enums;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.Persistent.Base.PersistentMetaData;
-
+using eXpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
+using eXpand.Persistent.BaseImpl.PersistentMetaData;
+using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+[assembly: eXpand.Xpo.DB.DataStore(typeof(PersistentAssemblyInfo), "WorldCreator")]
 namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
     [DefaultClassOptions]
-    [NavigationItem("WorldCreator")]
+    [DevExpress.Persistent.Base.NavigationItem("WorldCreator")]
+    [InterfaceRegistrator(typeof(IPersistentAssemblyInfo))]
     public class PersistentAssemblyInfo : BaseObject, IPersistentAssemblyInfo {
         CodeDomProvider _codeDomProvider;
         string _compileErrors;
@@ -22,9 +25,14 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
 
         StrongKeyFile _strongKeyFile;
 
-        string _version="1.0.0.*";
+        const string Version="1.0.0.*";
 
         public PersistentAssemblyInfo(Session session) : base(session) {
+        }
+
+        public override void AfterConstruction() {
+            base.AfterConstruction();
+            Attributes.Add(new PersistentAssemblyVersionAttributeInfo(Session){Version = Version});
         }
 
         [Index(4)]
@@ -36,10 +44,12 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         [Index(6)]
-        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
+        [Custom("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
         public string GeneratedCode {
-            get { return CodeEngine.GenerateCode(this); }
+            get {
+                return CodeEngine.GenerateCode(this);
+            }
         }
 
         [Association("PersistentAssemblyInfo-PersistentClassInfos")]
@@ -48,11 +58,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             get { return GetCollection<PersistentClassInfo>("PersistentClassInfos"); }
         }
 
-        [Association("PersistentAssemblyInfo-CodeTemplateInfos")]
-        [Aggregated]
-        public XPCollection<CodeTemplateInfo> CodeTemplateInfos {
-            get { return GetCollection<CodeTemplateInfo>("CodeTemplateInfos"); }
-        }
         #region IPersistentAssemblyInfo Members
         [RuleRequiredField(null, DefaultContexts.Save)]
         [RuleUniqueValue(null, DefaultContexts.Save)]
@@ -68,6 +73,14 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set { SetPropertyValue("CompileOrder", ref _compileOrder, value); }
         }
 
+        [Association("PersistentAssemblyInfo-Attributes")]
+        public XPCollection<PersistentAssemblyAttributeInfo> Attributes {
+            get { return GetCollection<PersistentAssemblyAttributeInfo>("Attributes"); }
+        }
+        IList<IPersistentAssemblyAttributeInfo> IPersistentAssemblyInfo.Attributes {
+            get { return new ListConverter<IPersistentAssemblyAttributeInfo, PersistentAssemblyAttributeInfo>(Attributes); }
+        }
+
         [Index(2)]
         [AllowEdit(true, AllowEditEnum.NewObject)]
         public CodeDomProvider CodeDomProvider {
@@ -75,11 +88,6 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
             set { SetPropertyValue("CodeDomProvider", ref _codeDomProvider, value); }
         }
 
-        [Index(3)]
-        public string Version {
-            get { return _version; }
-            set { SetPropertyValue("Version", ref _version, value); }
-        }
 
         [Index(5)]
         public bool DoNotCompile {
@@ -93,7 +101,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         [Index(7)]
-        [Custom(PropertyInfoNodeWrapper.AllowEditAttribute, "false")]
+        [Custom("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
         public string CompileErrors {
             get { return _compileErrors; }

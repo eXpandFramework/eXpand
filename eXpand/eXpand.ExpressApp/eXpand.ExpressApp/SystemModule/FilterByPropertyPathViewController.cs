@@ -7,12 +7,13 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
-using eXpand.Persistent.BaseImpl;
+using eXpand.ExpressApp.Filtering;
 using eXpand.Xpo;
 using eXpand.Xpo.Parser;
 using System.ComponentModel;
@@ -20,15 +21,21 @@ using System.ComponentModel;
 namespace eXpand.ExpressApp.SystemModule
 {
 
-    public interface IModelListViewPropertyPathFilters
+    public interface IModelListViewPropertyPathFilters:IModelNode
     {
         IModelPropertyPathFilters PropertyPathFilters { get; set; }
     }
-
+    [ModelNodesGenerator(typeof(ModelPropertyPathFiltersNodesGenerator))]
     public interface IModelPropertyPathFilters : IModelNode, IModelList<IModelPropertyPathFilter>
     {
     }
 
+    public class ModelPropertyPathFiltersNodesGenerator : ModelNodesGeneratorBase
+    {
+        protected override void GenerateNodesCore(ModelNode node) {
+            
+        }
+    }
     public interface IModelPropertyPathFilter : IModelNode
     {
         [Required, ModelPersistentName("ID")]
@@ -41,9 +48,10 @@ namespace eXpand.ExpressApp.SystemModule
         IModelListView PropertyPathListViewId { get; set; }
     }
 
-    public abstract partial class FilterByPropertyPathViewController : BaseViewController<ListView>, IModelExtender
+    public abstract class FilterByPropertyPathViewController : ViewController<ListView>
     {
         private Dictionary<string, FiltersByCollectionWrapper> _filtersByPropertyPathWrappers;
+        readonly SingleChoiceAction _filterSingleChoiceAction;
 
         public Dictionary<string, FiltersByCollectionWrapper> FiltersByPropertyPathWrappers
         {
@@ -52,10 +60,11 @@ namespace eXpand.ExpressApp.SystemModule
 
         protected FilterByPropertyPathViewController()
         {
-            InitializeComponent();
-            RegisterActions(components);
+            _filterSingleChoiceAction = new SingleChoiceAction(this, "_filterSingleChoiceAction",
+                                                               PredefinedCategory.Search) {Caption = "Search By"};
+            _filterSingleChoiceAction.Execute+=createFilterSingleChoiceAction_Execute;
+            _filterSingleChoiceAction.ItemType=SingleChoiceActionItemType.ItemIsOperation;
             TargetViewNesting = Nesting.Root;
-            _filterSingleChoiceAction.Category = PredefinedCategory.Search.ToString();
         }
 
         public SingleChoiceAction FilterSingleChoiceAction
@@ -113,10 +122,16 @@ namespace eXpand.ExpressApp.SystemModule
 
         private void checkIfAdditionalViewControlsModuleIsRegister()
         {
-            //TODO: Model upgrade AdditionalViewControls
-            var node = View.Model as IModelListView;
-            if (node == null)
-            {
+            bool found = false;
+            for (int i = 0; i < View.Model.Application.NodeCount; i++) {
+                IModelNode modelNode = View.Model.Application.GetNode(i);
+                if (modelNode.GetValue<string>("Id") == "AdditionalViewControls") {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!(found)){
                 throw new UserFriendlyException(new Exception("AdditionalViewControlsProvider module not found"));
             }
         }
@@ -124,19 +139,11 @@ namespace eXpand.ExpressApp.SystemModule
         private void getFilterWrappers()
         {
             _filtersByPropertyPathWrappers = new Dictionary<string, FiltersByCollectionWrapper>();
-
             foreach (IModelPropertyPathFilter childNode in ((IModelListViewPropertyPathFilters)View.Model).PropertyPathFilters)
-                _filtersByPropertyPathWrappers.Add(
-                    childNode.Id,
-                    new FiltersByCollectionWrapper(
-                        View.ObjectTypeInfo, childNode,
+                _filtersByPropertyPathWrappers.Add(childNode.Id,new FiltersByCollectionWrapper(View.ObjectTypeInfo, childNode,
                         ObjectSpace.Session.GetClassInfo(View.ObjectTypeInfo.Type)));
         }
 
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
-            extenders.Add<IModelListView, IModelListViewPropertyPathFilters>();
-        }
 
         private void ApplyFilterString()
         {
@@ -144,7 +151,7 @@ namespace eXpand.ExpressApp.SystemModule
                 .Select(pair => ApplyFilterString(pair.Value))
                 .Where(filterString => !string.IsNullOrEmpty(filterString))
                 .Aggregate<string, string>(null, (current, filterString) => current + (filterString + Environment.NewLine));
-            
+
             const string delimeter = ") AND (";
             text = (text + "").Replace(Environment.NewLine, delimeter);
             if (text.EndsWith(delimeter))
@@ -153,7 +160,7 @@ namespace eXpand.ExpressApp.SystemModule
                 text = "(" + text + ")";
 
             var frameTemplate = Frame.Template as IViewSiteTemplate;
-            if (frameTemplate != null && !string.IsNullOrEmpty(text)) AddFilterPanel(text, frameTemplate.ViewSiteControl);
+            if (frameTemplate != null) AddFilterPanel(text, frameTemplate.ViewSiteControl);
         }
 
         protected abstract void AddFilterPanel(string text, object viewSiteControl);
@@ -167,8 +174,7 @@ namespace eXpand.ExpressApp.SystemModule
 
         private string GetHintPanelText(FiltersByCollectionWrapper filtersByCollectionWrapper, CriteriaOperator criteriaOperator)
         {
-            if (criteriaOperator != null)
-            {
+            if (!(ReferenceEquals(criteriaOperator, null))){
                 var wrapper = new LocalizedCriteriaWrapper(filtersByCollectionWrapper.BinaryOperatorLastMemberClassType, criteriaOperator);
                 wrapper.UpdateParametersValues();
                 CriteriaOperator userFriendlyFilter = CriteriaOperator.Clone(wrapper.CriteriaOperator);
@@ -181,11 +187,10 @@ namespace eXpand.ExpressApp.SystemModule
         private CriteriaOperator SetCollectionSourceCriteria(FiltersByCollectionWrapper filtersByCollectionWrapper)
         {
             CriteriaOperator criteriaOperator = CriteriaOperator.Parse(filtersByCollectionWrapper.PropertyPathFilter);
-            if (criteriaOperator != null)
-            {
+            if (!(ReferenceEquals(criteriaOperator, null))){
                 new FilterWithObjectsProcessor(View.ObjectSpace).Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
                 var criterion = new PropertyPathParser(View.ObjectSpace.Session.GetClassInfo(View.ObjectTypeInfo.Type)).Parse(filtersByCollectionWrapper.PropertyPath, criteriaOperator.ToString());
-                ((ListView)View).CollectionSource.Criteria[filtersByCollectionWrapper.ID] = criterion;
+                View.CollectionSource.Criteria[filtersByCollectionWrapper.ID] = criterion;
                 return criteriaOperator;
             }
             return criteriaOperator;
@@ -195,6 +200,7 @@ namespace eXpand.ExpressApp.SystemModule
         {
             View view = ((DialogController)sender).Frame.View;
             SynchronizeInfo(view);
+            
         }
 
         protected virtual void SynchronizeInfo(View view)
@@ -230,14 +236,11 @@ namespace eXpand.ExpressApp.SystemModule
             IModelListView memberSearchWrapper = GetNodeMemberSearchWrapper(filtersByCollectionWrapper);
             var objectSpace = Application.CreateObjectSpace();
             var classType = filtersByCollectionWrapper.BinaryOperatorLastMemberClassType;
-            CollectionSourceBase newCollectionSource = !memberSearchWrapper.UseServerMode
-                                                           ? (CollectionSourceBase)
-                                                             new CollectionSource(objectSpace, classType, false)
-                                                           : new CollectionSource(objectSpace, classType, true);
+            CollectionSourceBase newCollectionSource = new CollectionSource(objectSpace, classType, memberSearchWrapper.UseServerMode);
 
             SetActiveFilter(memberSearchWrapper, filtersByCollectionWrapper.PropertyPathFilter);
 
-            ListView listView = Application.CreateListView(memberSearchWrapper.Id, newCollectionSource, false);
+            DevExpress.ExpressApp.ListView listView = Application.CreateListView(memberSearchWrapper.Id, newCollectionSource, false);
 
             e.ShowViewParameters.CreatedView = listView;
             e.ShowViewParameters.Context = TemplateContext.PopupWindow;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.XtraEditors.Repository;
@@ -8,6 +7,7 @@ using System.Linq;
 using eXpand.ExpressApp.PivotChart.InPlaceEdit;
 using eXpand.ExpressApp.PivotChart.Win.Editors;
 using eXpand.ExpressApp.PivotChart.Win.PropertyEditors;
+using ReflectorHelper = eXpand.Xpo.ReflectorHelper;
 
 namespace eXpand.ExpressApp.PivotChart.Win {
     public class PivotGridInplaceEditorsController : PivotGridInplaceEditorsControllerBase
@@ -58,7 +58,7 @@ namespace eXpand.ExpressApp.PivotChart.Win {
         void _pivotGridControl_EditValueChanged(object sender, EditValueChangedEventArgs e) {
             PivotDrillDownDataSource ds = e.CreateDrillDownDataSource();
             for (int j = 0; j < ds.RowCount; j++) {
-                ds[j][e.DataField] = Convert.ToDouble(e.Editor.EditValue);
+                ds[j][e.DataField] = ReflectorHelper.ChangeType(e.Editor.EditValue, ds[j][e.DataField].GetType());
             }
         }
 

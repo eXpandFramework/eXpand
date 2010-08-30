@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Reflection;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.Attributes;
@@ -11,7 +10,6 @@ using eXpand.Persistent.Base;
 using System.Collections.Generic;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects
 {
@@ -35,12 +33,10 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects
             base.AfterConstruction();
             DifferenceType = DifferenceType.User;
         }
-
-        public override ModelDifferenceObject InitializeMembers(string applicationName, string uniqueName)
-        {
-            base.InitializeMembers(applicationName, uniqueName);
+        public override ModelDifferenceObject InitializeMembers(string name, string applicationTitle, string uniqueName) {
+            ModelDifferenceObject modelDifferenceObject = base.InitializeMembers(name, applicationTitle, uniqueName);
             UserDifferenceObjectBuilder.SetUp(this);
-            return this;
+            return modelDifferenceObject;
         }
 
         public void AssignToCurrentUser()
@@ -54,14 +50,14 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects
 
         public override ModelApplicationBase[] GetAllLayers()
         {
-            List<ModelDifferenceObject> modelDifferenceObjects =
+            var modelDifferenceObjects =
                 new List<ModelDifferenceObject>(
-                    new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName).Cast<ModelDifferenceObject>()) 
+                    new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName,null).Cast<ModelDifferenceObject>()) 
             {
-                new QueryModelDifferenceObject(Session).GetActiveModelDifference(PersistentApplication.UniqueName)
+                new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(PersistentApplication.UniqueName,null)
             };
 
-            return base.GetAllLayers(modelDifferenceObjects.AsEnumerable());
+            return GetAllLayers(modelDifferenceObjects.AsEnumerable());
         }
     }
 }

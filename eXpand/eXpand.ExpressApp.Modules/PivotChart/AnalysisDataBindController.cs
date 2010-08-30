@@ -88,10 +88,14 @@ namespace eXpand.ExpressApp.PivotChart {
             }
             base.Dispose(disposing);
         }
-
+        protected override void OnFrameAssigned()
+        {
+            base.OnFrameAssigned();
+            Frame.GetController<DevExpress.ExpressApp.PivotChart.AnalysisDataBindController>().Active[GetType().FullName] = false;
+        }
         protected override void OnActivated() {
             base.OnActivated();
-            Frame.GetController<DevExpress.ExpressApp.PivotChart.AnalysisDataBindController>().Active[GetType().FullName] = false;
+            
             SubscribeToEvents();
             foreach (AnalysisEditorBase analysisEditor in AnalysisEditors) {
                 analysisEditor.IsDataSourceReady = false;

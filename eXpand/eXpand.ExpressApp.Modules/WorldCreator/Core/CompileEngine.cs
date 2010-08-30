@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.PersistentMetaData;
 using Microsoft.CSharp;
@@ -26,7 +27,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo,Action<CompilerParameters> action,string path) {
             Assembly loadedAssembly = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => new AssemblyName(assembly.FullName+"").Name==persistentAssemblyInfo.Name).FirstOrDefault();
             if (loadedAssembly!= null)
-                return loadedAssembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
+                return loadedAssembly.GetTypes().Where(type => typeof(DevExpress.ExpressApp.ModuleBase).IsAssignableFrom(type)).Single();
             var generateCode = CodeEngine.GenerateCode(persistentAssemblyInfo);
             var codeProvider = getCodeDomProvider(persistentAssemblyInfo.CodeDomProvider);
             var compilerParams = new CompilerParameters
@@ -39,10 +40,10 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             };
             if (action!= null)
                 action.Invoke(compilerParams);                
-            addReferences(compilerParams,path);
+            AddReferences(compilerParams,path);
             if (File.Exists(compilerParams.OutputAssembly))
                 File.Delete(compilerParams.OutputAssembly);
-            return compile(persistentAssemblyInfo, generateCode, compilerParams, codeProvider);
+            return CompileCore(persistentAssemblyInfo, generateCode, compilerParams, codeProvider);
 
         }
         public Type CompileModule(IPersistentAssemblyBuilder persistentAssemblyBuilder, string path) {
@@ -82,18 +83,19 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
             return new VBCodeProvider();
         }
 
-        Type compile(IPersistentAssemblyInfo persistentAssemblyInfo, string generateCode, CompilerParameters compilerParams, System.CodeDom.Compiler.CodeDomProvider codeProvider) {
+        Type CompileCore(IPersistentAssemblyInfo persistentAssemblyInfo, string generateCode, CompilerParameters compilerParams, System.CodeDom.Compiler.CodeDomProvider codeProvider) {
             CompilerResults compileAssemblyFromSource = null;
             try{
                 compileAssemblyFromSource = codeProvider.CompileAssemblyFromSource(compilerParams, generateCode);
                 if (compilerParams.GenerateInMemory) {
                     Assembly compiledAssembly = compileAssemblyFromSource.CompiledAssembly;
                     CompiledAssemblies.Add(compiledAssembly);
-                    return compiledAssembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
+                    return compiledAssembly.GetTypes().Where(type => typeof(DevExpress.ExpressApp.ModuleBase).IsAssignableFrom(type)).Single();
                 }
                 return null;
             }
-            catch (Exception){
+            catch (Exception e){
+                Tracing.Tracer.LogError(e);
             }
             finally {
                 if (compileAssemblyFromSource != null){
@@ -112,9 +114,9 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                     persistentAssemblyInfo.CompileErrors, (current, error) => current +Environment.NewLine+ error.ToString());
         }
 
-        void addReferences(CompilerParameters compilerParams, string path) {
+        void AddReferences(CompilerParameters compilerParams, string path) {
             Func<Assembly, bool> isNotDynamic =assembly1 =>!(assembly1 is AssemblyBuilder) && !CompiledAssemblies.Contains(assembly1) &&
-                assembly1.EntryPoint == null && !isCodeDomCompiled(assembly1);
+                assembly1.EntryPoint == null && !IsCodeDomCompiled(assembly1);
             Func<Assembly, string> assemblyNameSelector = assembly => new AssemblyName(assembly.FullName + "").Name + ".dll";
             compilerParams.ReferencedAssemblies.AddRange(
                 AppDomain.CurrentDomain.GetAssemblies().Where(isNotDynamic).Select(assemblyNameSelector).ToArray());
@@ -123,24 +125,24 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
 
             Func<Assembly, string> dynamicAssemblyNameSelector = assembly4 => Path.Combine(path, new AssemblyName(assembly4.FullName + "").Name + XpandExtension);
             compilerParams.ReferencedAssemblies.AddRange(
-                AppDomain.CurrentDomain.GetAssemblies().Where(assembly3 => isCodeDomCompiled(assembly3)).Select(
+                AppDomain.CurrentDomain.GetAssemblies().Where(IsCodeDomCompiled).Select(
                     dynamicAssemblyNameSelector).ToArray());
         }
 
-        bool isCodeDomCompiled(Assembly assembly1) {
+        bool IsCodeDomCompiled(Assembly assembly1) {
             return assembly1.ManifestModule.Name == "<Unknown>";
         }
 
 
         static string GetReferenceLocations() {
-            Func<Assembly, string> locationSelector =assembly =>getAssemblyLocation(assembly);
+            Func<Assembly, string> locationSelector =GetAssemblyLocation;
             Func<string, bool> pathIsValid = s => s.Length > 2;
             string referenceLocations = AppDomain.CurrentDomain.GetAssemblies().Select(locationSelector).Distinct().
                 Where(pathIsValid).Aggregate<string, string>(null, (current, type) => current + (type + ",")).TrimEnd(',');
             return referenceLocations;
         }
 
-        static string getAssemblyLocation(Assembly assembly) {
+        static string GetAssemblyLocation(Assembly assembly) {
             return @"""" +((assembly is AssemblyBuilder)? null: (!string.IsNullOrEmpty(assembly.Location) ? Path.GetDirectoryName(assembly.Location) : null)) +@"""";
         }
 

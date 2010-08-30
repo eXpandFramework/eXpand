@@ -3,39 +3,23 @@ using DevExpress.ExpressApp.Security;
 
 namespace eXpand.ExpressApp.MemberLevelSecurity {
     public class MemberAccessPermissionItem {
-        string memberName;
-        ObjectAccessModifier modifier;
-        Type objectType;
-        MemberOperation operation;
-
         public MemberAccessPermissionItem() {
         }
 
         public MemberAccessPermissionItem(MemberAccessPermissionItem source) {
-            memberName = source.memberName;
-            objectType = source.objectType;
-            operation = source.operation;
-            modifier = source.modifier;
+            MemberName = source.MemberName;
+            ObjectType = source.ObjectType;
+            Operation = source.Operation;
+            Modifier = source.Modifier;
         }
 
-        public Type ObjectType {
-            get { return objectType; }
-            set { objectType = value; }
-        }
+        public Type ObjectType { get; set; }
 
-        public string MemberName {
-            get { return memberName; }
-            set { memberName = value; }
-        }
+        public string MemberName { get; set; }
 
-        public MemberOperation Operation {
-            get { return operation; }
-            set { operation = value; }
-        }
+        public MemberOperation Operation { get; set; }
 
-        public ObjectAccessModifier Modifier {
-            get { return modifier; }
-            set { modifier = value; }
-        }
+        public ObjectAccessModifier Modifier { get; set; }
+        public string Criteria { get; set; }
     }
 }

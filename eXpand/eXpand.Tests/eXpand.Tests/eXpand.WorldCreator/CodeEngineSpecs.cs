@@ -4,25 +4,29 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using eXpand.ExpressApp.WorldCreator.Core;
+using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData;
 using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using eXpand.Xpo;
 using Machine.Specifications;
+using System.Linq;
 
 namespace eXpand.Tests.eXpand.WorldCreator {
+    
     [Subject(typeof(CodeEngine))]
-    public class When_generating_code_from_persistentMemberInfo {
+    public class When_generating_code_from_persistentMemberInfo : With_In_Memory_DataStore
+    {
         static string _generateCode;
 
         static PersistentMemberInfo _persistentMemberInfo;
 
         Establish context = () => {
-            var artifactHandler = new TestAppLication<PersistentCoreTypeMemberInfo>().Setup();
-            _persistentMemberInfo=artifactHandler.CurrentObject;
 
-            _persistentMemberInfo = new PersistentCoreTypeMemberInfo(artifactHandler.UnitOfWork) { CodeTemplateInfo = new CodeTemplateInfo(artifactHandler.UnitOfWork) };
-            var codeTemplate = new CodeTemplate(artifactHandler.UnitOfWork) { TemplateType = TemplateType.ReadWriteMember };
+            _persistentMemberInfo = ObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
+
+            _persistentMemberInfo = new PersistentCoreTypeMemberInfo(UnitOfWork) { CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork) };
+            var codeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.XPReadWritePropertyMember };
             codeTemplate.SetDefaults();            
             _persistentMemberInfo.CodeTemplateInfo.TemplateInfo=codeTemplate;
 
@@ -35,22 +39,90 @@ namespace eXpand.Tests.eXpand.WorldCreator {
             _generateCode.IndexOf("$TYPEATTRIBUTES$").ShouldEqual(-1);
         };
     }
-        [Subject(typeof(CodeEngine))]
-    public class When_generating_code_from_persistentClassinfo_with_no_base_type_defined {
+
+    public class When_persistent_member_name_is_not_valid:With_In_Memory_DataStore {
+        static PersistentCoreTypeMemberInfo _persistentMemberInfo;
+        static string _generateCode;
+
+
+        Establish context = () => {
+            _persistentMemberInfo = ObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
+
+            _persistentMemberInfo = new PersistentCoreTypeMemberInfo(UnitOfWork) { CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork) };
+            var codeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.XPReadWritePropertyMember };
+            codeTemplate.SetDefaults();
+            _persistentMemberInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
+            _persistentMemberInfo.Name = "in valid";
+        };
+
+        Because of = () => {
+            _generateCode = CodeEngine.GenerateCode(_persistentMemberInfo);
+        };
+
+        It should_clean_the_invalid_name = () => _generateCode.IndexOf("invalid").ShouldBeGreaterThan(-1);
+    }
+    [Subject(typeof(CodeEngine),"Generate Code")]
+    public class When_persistent_memberinfo_name_is_the_same_as_its_owner:With_In_Memory_DataStore
+    {
+        static string _generateCode;
+        static PersistentCoreTypeMemberInfo _persistentCoreTypeMemberInfo;
+
+        Establish context = () => {
+            _persistentCoreTypeMemberInfo = new PersistentCoreTypeMemberInfo(UnitOfWork)
+            {
+                Name = "Key",
+                Owner = new PersistentClassInfo(UnitOfWork) { Name = "Key" },
+                CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork)
+            };
+            var codeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.XPReadWritePropertyMember };
+            codeTemplate.SetDefaults();
+            _persistentCoreTypeMemberInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
+        };
+
+        Because of = () => {
+            _generateCode = CodeEngine.GenerateCode(_persistentCoreTypeMemberInfo);
+        };
+
+        It should_extend_generated_code_property_name_with_a_member_suffix =
+            () => _generateCode.IndexOf("KeyMember").ShouldBeGreaterThan(-1);
+    }
+    public class When_persistent_class_name_is_not_valid:With_In_Memory_DataStore {
+        static string _generateCode;
+        static IPersistentClassInfo _persistentClassInfo;
+
+        Establish context = () => {
+            _persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            _persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            var codeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.Class };
+            codeTemplate.SetDefaults();
+            _persistentClassInfo.CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork);
+            _persistentClassInfo.Name = "in valid";
+            _persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
+        };
+
+        Because of = () => {
+            _generateCode = CodeEngine.GenerateCode(_persistentClassInfo);
+        };
+
+        It should_clean_the_invalid_name = () => _generateCode.IndexOf("invalid").ShouldBeGreaterThan(-1);
+    }
+
+    [Subject(typeof(CodeEngine))]
+    public class When_generating_code_from_persistentClassinfo_with_no_base_type_defined:With_In_Memory_DataStore {
         static PersistentClassInfo _persistentClassInfo;
 
         static string _generateCode;
 
         Establish context = () => {
-            var artifactHandler = new TestAppLication<CodeTemplate>().Setup();
-            var codeTemplate = artifactHandler.CurrentObject;
+
+            var codeTemplate = ObjectSpace.CreateObject<CodeTemplate>();
             codeTemplate.TemplateType = TemplateType.Class ;
             codeTemplate.SetDefaults();
-            _persistentClassInfo = new PersistentClassInfo(artifactHandler.UnitOfWork)
+            _persistentClassInfo = new PersistentClassInfo(UnitOfWork)
             {
                                                                            Name = "TestClass",
-                                                                           CodeTemplateInfo = new CodeTemplateInfo(artifactHandler.UnitOfWork) { TemplateInfo = codeTemplate },
-                                                                           PersistentAssemblyInfo = new PersistentAssemblyInfo(artifactHandler.UnitOfWork)
+                                                                           CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork) { TemplateInfo = codeTemplate },
+                                                                           PersistentAssemblyInfo = new PersistentAssemblyInfo(UnitOfWork)
                                                                        };
         };
 
@@ -59,48 +131,50 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         It should_use_default_Base_type =() => _generateCode.IndexOf(typeof (eXpandCustomObject).FullName).ShouldBeGreaterThan(-1);
     }
     [Subject(typeof(CodeEngine))]
-    public class When_generating_code_from_persistentClassinfo_with_baseclassinfo_defined:With_Isolations {
+    public class When_generating_code_from_persistentClassinfo_with_baseclassinfo_defined:With_In_Memory_DataStore {
+        static PersistentClassInfo _childPersistentClassInfo;
         static string _generateCode;
-        static PersistentClassInfo _info;
 
-        Establish context = () => new TestAppLication<PersistentClassInfo>().Setup(null, info => {
-            info.Name = "ParentClass";
-            var persistentAssemblyInfo = new PersistentAssemblyInfo(info.Session){Name = "TestAssembly"};
-            var parentPersistentClassInfo = new PersistentClassInfo(info.Session) { Name = "ParentClass", PersistentAssemblyInfo = persistentAssemblyInfo };
-            info.Name = "ChildClass";
-            info.BaseClassInfo = parentPersistentClassInfo;
-            info.PersistentAssemblyInfo = persistentAssemblyInfo;
-            _info=info;
-        }).WithArtiFacts(WCArtifacts).CreateDetailView().CreateFrame().RaiseControlsCreated();
+        Establish context = () => {
+            IClassInfoHandler classInfoHandler = PersistentAssemblyBuilder.BuildAssembly(ObjectSpace,"TestAssembly").CreateClasses(new[] {"ParentClass","ChildClass"});
+            classInfoHandler.SetInheritance(info => {
+                if (info.Name == "ChildClass") {
+                    _childPersistentClassInfo = (PersistentClassInfo)info;
+                    return info.PersistentAssemblyInfo.PersistentClassInfos.Where(
+                        classInfo => classInfo.Name == "ParentClass").Single();
+                }
+                return null;
+            });            
+        };
 
-        Because of = () => { _generateCode = CodeEngine.GenerateCode(_info); };
+        Because of = () => { _generateCode = CodeEngine.GenerateCode(_childPersistentClassInfo); };
 
         It should_derive_child_from_parent_classInfo =
             () => _generateCode.IndexOf("ChildClass:TestAssembly.ParentClass").ShouldBeGreaterThan(-1);
     }
     [Subject(typeof(CodeEngine))]
-    public class When_generating_code_from_persistentClassinfo_with_baseType_defined {
+    public class When_generating_code_from_persistentClassinfo_with_baseType_defined:With_In_Memory_DataStore {
         static PersistentClassInfo _persistentClassInfo;
 
         static string _generateCode;
 
         Establish context = () => {
-            var artifactHandler = new TestAppLication<PersistentClassInfo>().Setup();
-            _persistentClassInfo = artifactHandler.CurrentObject;
-            var classCodeTemplate = new CodeTemplate(artifactHandler.UnitOfWork) { TemplateType = TemplateType.Class };
+            
+            _persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            var classCodeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.Class };
             classCodeTemplate.SetDefaults();
-            _persistentClassInfo = new PersistentClassInfo(artifactHandler.UnitOfWork) { Name = "TestClass", BaseType = typeof(User), CodeTemplateInfo = new CodeTemplateInfo(artifactHandler.UnitOfWork) { TemplateInfo = classCodeTemplate }, PersistentAssemblyInfo = new PersistentAssemblyInfo(artifactHandler.UnitOfWork) };
-            _persistentClassInfo.TypeAttributes.Add(new PersistentDefaultClassOptionsAttribute(artifactHandler.UnitOfWork));
+            _persistentClassInfo = new PersistentClassInfo(UnitOfWork) { Name = "TestClass", BaseType = typeof(User), CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork) { TemplateInfo = classCodeTemplate }, PersistentAssemblyInfo = new PersistentAssemblyInfo(UnitOfWork) };
+            _persistentClassInfo.TypeAttributes.Add(new PersistentDefaultClassOptionsAttribute(UnitOfWork));
 
-            var memberCodeTemplate = new CodeTemplate(artifactHandler.UnitOfWork) { TemplateType = TemplateType.ReadWriteMember };
+            var memberCodeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.XPReadWritePropertyMember };
             memberCodeTemplate.SetDefaults();
-            var persistentCoreTypeMemberInfo = new PersistentCoreTypeMemberInfo(artifactHandler.UnitOfWork) { Name = "property1", CodeTemplateInfo = new CodeTemplateInfo(artifactHandler.UnitOfWork) { TemplateInfo = memberCodeTemplate } };
-            persistentCoreTypeMemberInfo.TypeAttributes.Add(new PersistentSizeAttribute(artifactHandler.UnitOfWork));            
+            var persistentCoreTypeMemberInfo = new PersistentCoreTypeMemberInfo(UnitOfWork) { Name = "property1", CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork) { TemplateInfo = memberCodeTemplate } };
+            persistentCoreTypeMemberInfo.TypeAttributes.Add(new PersistentSizeAttribute(UnitOfWork));            
             _persistentClassInfo.OwnMembers.AddRange(new[] {
                                                                persistentCoreTypeMemberInfo,
-                                                               new PersistentCoreTypeMemberInfo(artifactHandler.UnitOfWork){Name = "property2",CodeTemplateInfo =new CodeTemplateInfo(artifactHandler.UnitOfWork) {TemplateInfo = memberCodeTemplate}}
+                                                               new PersistentCoreTypeMemberInfo(UnitOfWork){Name = "property2",CodeTemplateInfo =new CodeTemplateInfo(UnitOfWork) {TemplateInfo = memberCodeTemplate}}
                                                            });
-            var interfaceInfo = new InterfaceInfo(artifactHandler.UnitOfWork) { Assembly = new AssemblyName(typeof(IDummyString).Assembly.FullName + "").Name, Name = typeof(IDummyString).FullName };
+            var interfaceInfo = new InterfaceInfo(UnitOfWork) { Assembly = new AssemblyName(typeof(IDummyString).Assembly.FullName + "").Name, Name = typeof(IDummyString).FullName };
             _persistentClassInfo.Interfaces.Add(interfaceInfo);
             _persistentClassInfo.Save();
         };
@@ -136,21 +210,21 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         It should_replace_PROPERTYTYPE_with_persistentClassInfo_type = () => _generateCode.IndexOf("PROPERTYTYPE").ShouldEqual(-1);
     }
     [Subject(typeof(CodeEngine))]
-    public class When_generating_code_from_2_CSharp_classes {
+    public class When_generating_code_from_2_CSharp_classes:With_In_Memory_DataStore {
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         static string _generateCode;
 
         Establish context = () => {
-            var artifactHandler = new TestAppLication<PersistentAssemblyInfo>().Setup();
-            _persistentAssemblyInfo = artifactHandler.CurrentObject;
-            createClass(artifactHandler);
-            createClass(artifactHandler);
+
+            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            createClass();
+            createClass();
         };
 
-        static void createClass(IArtifactHandler<PersistentAssemblyInfo> artifactHandler) {
-            var persistentClassInfo = new PersistentClassInfo(artifactHandler.UnitOfWork) { PersistentAssemblyInfo = _persistentAssemblyInfo, CodeTemplateInfo = new CodeTemplateInfo(artifactHandler.UnitOfWork) };
-            var codeTemplate = new CodeTemplate(artifactHandler.UnitOfWork) { TemplateType = TemplateType.Class };
+        static void createClass() {
+            var persistentClassInfo = new PersistentClassInfo(UnitOfWork) { PersistentAssemblyInfo = _persistentAssemblyInfo, CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork) };
+            var codeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.Class };
             codeTemplate.SetDefaults();
             persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
         }
@@ -161,23 +235,24 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         It should_group_all_usings_together_at_the_top_of_generated_code=() => _generateCode.ShouldStartWith("using");
     }
+
     [Subject(typeof(CodeEngine))]
-    public class When_generating_code_from_2_VB_classes {
+    public class When_generating_code_from_2_VB_classes:With_In_Memory_DataStore {
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         static string _generateCode;
 
         Establish context = () => {
-            var artifactHandler = new TestAppLication<PersistentAssemblyInfo>().Setup();
-            _persistentAssemblyInfo = artifactHandler.CurrentObject;
+
+            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _persistentAssemblyInfo.CodeDomProvider = CodeDomProvider.VB;
-            createClass(artifactHandler);
-            createClass(artifactHandler);
+            createClass();
+            createClass();
         };
 
-        static void createClass(IArtifactHandler<PersistentAssemblyInfo> artifactHandler) {
-            var persistentClassInfo = new PersistentClassInfo(artifactHandler.UnitOfWork) { PersistentAssemblyInfo = _persistentAssemblyInfo, CodeTemplateInfo = new CodeTemplateInfo(artifactHandler.UnitOfWork) };
-            var codeTemplate = new CodeTemplate(artifactHandler.UnitOfWork) { TemplateType = TemplateType.Class, CodeDomProvider = CodeDomProvider.VB };
+        static void createClass() {
+            var persistentClassInfo = new PersistentClassInfo(UnitOfWork) { PersistentAssemblyInfo = _persistentAssemblyInfo, CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork) };
+            var codeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.Class, CodeDomProvider = CodeDomProvider.VB };
             codeTemplate.SetDefaults();
             persistentClassInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
         }
@@ -188,15 +263,15 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         It should_group_all_usings_together_at_the_top_of_generated_code=() => _generateCode.ShouldStartWith("Imports");
     }
+
     [Subject(typeof(CodeEngine))]
-    public class When_generating_code_from_Persistent_attribute_with_enum_parameter {
+    public class When_generating_code_from_Persistent_attribute_with_enum_parameter:With_In_Memory_DataStore {
         static PersistentMapInheritanceAttribute _persistentMapInheritanceAttribute;
 
         static string _generateCode;
 
         Establish context = () => {
-            var artifactHandler = new TestAppLication<PersistentMapInheritanceAttribute>().Setup();
-            _persistentMapInheritanceAttribute = new PersistentMapInheritanceAttribute(artifactHandler.UnitOfWork);
+            _persistentMapInheritanceAttribute = new PersistentMapInheritanceAttribute(UnitOfWork);
         };
 
         Because of = () => {
@@ -205,13 +280,14 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         It should_create_arg_with_enumTypename_dot_enumName = () => _generateCode.ShouldStartWith("["+typeof(MapInheritanceAttribute).FullName+"("+typeof(MapInheritanceType).FullName+"."+MapInheritanceType.ParentTable+")]");
     }
+
     [Subject(typeof(CodeEngine))]
-    public class When_generating_code_from_Persistent_attribute_with_string_parameter {
+    public class When_generating_code_from_Persistent_attribute_with_string_parameter:With_In_Memory_DataStore {
         static PersistentCustomAttribute _persistentCustomAttribute;
 
         Establish context = () => {
-            var artifactHandler = new TestAppLication<PersistentCustomAttribute>().Setup();
-            _persistentCustomAttribute = new PersistentCustomAttribute(artifactHandler.UnitOfWork) { PropertyName = "PropertyName", Value = "Value" };
+            
+            _persistentCustomAttribute = new PersistentCustomAttribute(UnitOfWork) { PropertyName = "PropertyName", Value = "Value" };
         };
 
         static string _generateCode;
@@ -222,15 +298,15 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         It should_create_arg_enclosed_with_quotes=() => _generateCode.ShouldStartWith("["+typeof(CustomAttribute).FullName+@"(""PropertyName"",""Value"")"+"]");
     }
+
     [Subject(typeof(CodeEngine))]
-    public class When_generating_code_from_Persistent_attribute_with_type_parameter {
+    public class When_generating_code_from_Persistent_attribute_with_type_parameter:With_In_Memory_DataStore {
         static PersistentValueConverter _persistentValueConverter;
 
         static string _generateCode;
 
         Establish context = () => {
-            var artifactHandler = new TestAppLication<PersistentValueConverter>().Setup();
-            _persistentValueConverter = new PersistentValueConverter(artifactHandler.UnitOfWork) { ConverterType = typeof(CompressionConverter) };
+            _persistentValueConverter = new PersistentValueConverter(UnitOfWork) { ConverterType = typeof(CompressionConverter) };
         };
 
         Because of = () => {
@@ -240,8 +316,5 @@ namespace eXpand.Tests.eXpand.WorldCreator {
         
         It should_create_arg_as_typeof_parameter=() => _generateCode.ShouldStartWith("["+typeof(ValueConverterAttribute).FullName+"(typeof("+typeof(CompressionConverter).FullName+"))]");
     }
-    [Subject(typeof(CodeEngine))]
-    public class When_generating_code_from_Persistent_attribute_with_int_parameter {
-        It should_create_arg_the_same_as_parameter;
-    }
+
 }

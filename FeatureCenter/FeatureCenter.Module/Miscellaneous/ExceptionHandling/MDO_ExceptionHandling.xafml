@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="ExceptionHandling_DetailView">
+      <Items>
+        <ActionButton Id="Show EL Config Tool" IsNewNode="True" ActionId="Show EL Config Tool" />
+        <ActionButton Id="Throw Exception" IsNewNode="True" ActionId="Throw Exception" />
+        <ActionButton Id="Throw Validation" IsNewNode="True" ActionId="Throw Validation Exception" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="710780e3-012f-4c67-890d-7adf25c1bbed" IsNewNode="True" Caption="710780e3-012f-4c67-890d-7adf25c1bbed(2)" Index="0" RelativeSize="8">
+            <LayoutGroup Id="ae7ff017-f534-4410-8c32-d044a5459fce" IsNewNode="True" Caption="" Direction="Horizontal" Index="0" RelativeSize="51">
+              <LayoutItem Id="Throw Exception" IsNewNode="True" Index="0" RelativeSize="50" />
+              <LayoutItem Id="Show EL Config Tool" IsNewNode="True" Index="1" RelativeSize="50" />
+            </LayoutGroup>
+            <LayoutItem Id="Throw Validation" IsNewNode="True" Index="1" RelativeSize="48" />
+          </LayoutGroup>
+          <LayoutGroup Id="Exceptions_Group" Direction="Vertical" Index="1" RelativeSize="91">
+            <LayoutItem Id="Exceptions" RelativeSize="94" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

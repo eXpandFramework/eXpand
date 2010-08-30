@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+  <Views>
+    <ListView Id="ControllingSearchCustomer_ListView">
+      <Columns>
+        <ColumnInfo Id="Name" SearchMemberMode="Exclude" />
+        <ColumnInfo Id="Description" SearchMemberMode="Exclude" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

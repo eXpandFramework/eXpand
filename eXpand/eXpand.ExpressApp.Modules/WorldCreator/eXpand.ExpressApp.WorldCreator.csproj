@@ -114,28 +114,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AssemblyToolsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\DataStoreLogonDatabasesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\PersistentReferenceMemberInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\CodeTemplateInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\DetailView\PersistentAssemblyController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Core\AssemblyInfoExtensions.cs" />
     <Compile Include="Core\ICodeTemplateInfoExtensions.cs" />
     <Compile Include="Core\IPersistentMemberInfoExtensions.cs" />
     <Compile Include="Core\IPersistentTemplatedTypeInfoExtensions.cs" />
+    <Compile Include="Core\ObjectSpaceExtensions.cs" />
+    <Compile Include="NodeUpdaters\ImageSourcesUpdater.cs" />
     <Compile Include="Observers\CodeTemplateInfoObserver.cs" />
     <Compile Include="Observers\CodeTemplateObserver.cs" />
-    <Compile Include="Controllers\CodeTemplateController.cs">
+    <Compile Include="Controllers\CodeTemplateObserverController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\ListView\InterfaceInfoNestedController.cs">
+    <Compile Include="Controllers\CreateMembersFromInterfacesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\DetailView\PersistentTemplatedTypeInfoController.cs">
+    <Compile Include="Controllers\InitializeTemplatedTypeInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Observers\PersistentReferenceMemberInfoObserver.cs" />
@@ -144,16 +149,16 @@
     <Compile Include="Core\CodeEngine.cs" />
     <Compile Include="Core\CompileEngine.cs" />
     <Compile Include="Core\ExistentTypesMemberCreator.cs" />
-    <Compile Include="Core\TypeInfo.cs" />
-    <Compile Include="Core\TypesInfo.cs" />
     <Compile Include="Core\PersistentClassInfoExtensions.cs" />
     <Compile Include="Core\TypeInfoExtensions.cs" />
-    <Compile Include="Controllers\ListView\InterfaceInfoController.cs">
+    <Compile Include="Controllers\PopulateInterfacesController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PersistentTypesHelpers\PersistentAssemblyBuilder.cs" />
     <Compile Include="PersistentTypesHelpers\PersistentClassInfoQuery.cs" />
     <Compile Include="PersistentTypesHelpers\PersistentAttributeInfoQuery.cs" />
+    <Compile Include="NodeUpdaters\ShowOwnerForExtendedMembersUpdater.cs" />
+    <Compile Include="Core\WCTypesInfo.cs" />
     <Compile Include="WorldCreatorModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -163,6 +168,7 @@
     <Compile Include="WorldCreatorModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WorldCreatorUpdater.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

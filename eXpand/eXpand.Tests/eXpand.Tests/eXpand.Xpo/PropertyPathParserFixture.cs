@@ -8,11 +8,10 @@ using TypeMock.ArrangeActAssert;
 namespace eXpand.Tests.eXpand.Xpo
 {
     [TestFixture]
-    public class PropertyPathParserFixture:XpandBaseFixture
+    public class PropertyPathParserFixture
     {
         [SetUp]
-        public override void Setup() {
-            base.Setup();
+        public void Setup() {
             Isolate.Fake.StaticMethods(typeof(ReflectorHelper));
         }
         [Test][Isolated]

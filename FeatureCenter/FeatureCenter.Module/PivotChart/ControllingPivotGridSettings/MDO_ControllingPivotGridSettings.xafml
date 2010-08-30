@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+  <AdditionalViewControls>
+    <Rules>
+      <AdditionalViewControlsRule Id="Header Controlling Pivot Grid Settings" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Controlling Pivot Grid Settings" NormalCriteria="Name='Controlling Grid Settings'" Position="Top" ViewType="DetailView" />
+      <AdditionalViewControlsRule Id="ViewMessage Controlling Pivot Grid Settings" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how to control your pivot grid settings through the Settings action on the main toolbar. There is also PivotSettings permission that you can use in order only certain roles to be able to change the settings" NormalCriteria="Name='Controlling Grid Settings'" Position="Bottom" ViewType="DetailView"/>
+    </Rules>
+  </AdditionalViewControls>
+  <ModelArtifactState>
+    <ConditionalActionState>
+      <GroupContexts>
+        <ExecutionContexts Id="PivotChartContextGroup" IsNewNode="True">
+          <ViewControlsCreated IsNewNode="True"/>
+        </ExecutionContexts>
+      </GroupContexts>
+      <Rules>
+        <ActionStateRule Id="Execute Bind Action" IsNewNode="True" ActionState="Executed" ActionId="BindMultiAnalysisData" ExecutionContextGroup="PivotChartContextGroup" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis"  />
+      </Rules>
+    </ConditionalActionState>
+  </ModelArtifactState>
+</Application>

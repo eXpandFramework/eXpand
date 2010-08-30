@@ -1,30 +1,20 @@
-﻿using System;
-using System.Collections;
-using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.TreeListEditors.Win;
-using DevExpress.Persistent.Base.General;
+﻿using System.Collections;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-using eXpand.ExpressApp.SystemModule;
 using eXpand.Persistent.Base.General;
+using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
 {
 
 
     using System;
-    using DevExpress.ExpressApp.TreeListEditors.Win;
     using DevExpress.ExpressApp;
     using DevExpress.Persistent.Base.General;
     using DevExpress.Data.Filtering;
 
-    namespace WinSample.Module.Win
-    {
-    }
 
-
-    public partial class HideICategorizedItemController : BaseViewController
+    public partial class HideICategorizedItemController : ViewController
     {
         public HideICategorizedItemController()
         {
@@ -37,7 +27,7 @@ namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
         {
             base.OnActivated();
             if (View.ObjectTypeInfo.Type.GetInterface(typeof (ICategorizedItem).Name) != null &&
-                View.ObjectTypeInfo.Type.GetProperty("Category").PropertyType.GetInterface(typeof(IHidden).Name) != null)
+                View.ObjectTypeInfo.Type.GetProperty("Category").PropertyType.GetInterface(typeof(IObsoleteTreeNode).Name) != null)
                 View.ControlsCreated += View_OnControlsCreated;
         }
 
@@ -47,9 +37,10 @@ namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
             var listEditor = (DevExpress.ExpressApp.TreeListEditors.Win.CategorizedListEditor) view.Editor;
             ListView categoriesListView = listEditor.CategoriesListView;
 
-
-            categoriesListView.CollectionSource.Criteria["Hidden"] =
-                new GroupOperator(GroupOperatorType.Or, new BinaryOperator("Hidden", true));
+            IObsoleteTreeNode obsoleteTreeNode = null;
+            var propertyName = obsoleteTreeNode.GetPropertyName(node => node.Obsolete);
+            categoriesListView.CollectionSource.Criteria[propertyName] =
+                new GroupOperator(GroupOperatorType.Or, new BinaryOperator(propertyName, true));
 
             var ids = new ArrayList();
             XPMemberInfo keyProperty = null;
@@ -64,7 +55,7 @@ namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
                     ids.Add(keyProperty.GetValue(baseObject));
                 }
             }
-            categoriesListView.CollectionSource.Criteria["Hidden"] = keyProperty != null ? new NotOperator(new InOperator(keyProperty.Name, ids)) : null;
+            categoriesListView.CollectionSource.Criteria[propertyName] = keyProperty != null ? new NotOperator(new InOperator(keyProperty.Name, ids)) : null;
         }
     }
 }

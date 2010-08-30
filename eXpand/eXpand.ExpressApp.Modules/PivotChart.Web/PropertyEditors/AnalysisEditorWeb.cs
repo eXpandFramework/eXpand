@@ -1,23 +1,17 @@
 ﻿using System;
-using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.PivotChart;
+using DevExpress.Persistent.Base;
 using DevExpress.Web.ASPxEditors.FilterControl;
 using DevExpress.XtraCharts.Native;
-using eXpand.ExpressApp.Core.DictionaryHelpers;
 using eXpand.ExpressApp.PivotChart.Web.Editors;
 
-namespace eXpand.ExpressApp.PivotChart.Web {
-    public class LoadingPanelController:ViewController {
-        public const string LoadingPanel = "LoadingPanel";
-        public override Schema GetSchema()
-        {
-            return new Schema(new SchemaHelper().InjectBoolAttribute(LoadingPanel, ModelElement.DetailViewPropertyEditors));
-        }
-    }
+namespace eXpand.ExpressApp.PivotChart.Web.PropertyEditors {
     public class AnalysisEditorWeb : DevExpress.ExpressApp.PivotChart.Web.AnalysisEditorWeb {
-        public AnalysisEditorWeb(Type objectType, DictionaryNode info) : base(objectType, info) {
+        public AnalysisEditorWeb(Type objectType, IModelMemberViewItem info)
+            : base(objectType, info)
+        {
         }
-
         public new AnalysisControlWeb Control {
             get { return (AnalysisControlWeb) base.Control; }
         }
@@ -33,11 +27,18 @@ namespace eXpand.ExpressApp.PivotChart.Web {
             Control.ChartTypeComboBox.SelectedIndex =
                 (int) SeriesViewFactory.GetViewType(Control.Chart.SeriesTemplate.View);
         }
+        public new IAnalysisInfo CurrentObject
+        {
+            get { return (IAnalysisInfo)base.CurrentObject; }
+            set { base.CurrentObject = value; }
+        }
 
         void AnalysisControlOnLoad(object sender, EventArgs eventArgs) {
-            ((IPopupFilterControlOwner)Control.PivotGrid).SettingsLoadingPanel.Enabled = Info.GetAttributeBoolValue(LoadingPanelController.LoadingPanel,true);
-            ReadValue();
-            Control.DataBind();
+            ((IPopupFilterControlOwner) Control.PivotGrid).SettingsLoadingPanel.Enabled =((IModelPropertyEditorLoadingPanel) Model).LoadingPanel;
+            if (CurrentObject.DataType!= null){
+//                ReadValue();
+//                Control.DataBind();
+            }
         }
     }
 }

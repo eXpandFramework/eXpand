@@ -1,20 +1,32 @@
-﻿using DevExpress.ExpressApp;
-using eXpand.ExpressApp.SystemModule;
+﻿using System.ComponentModel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
-    public interface IModelViewSupressConfirmation : IModelNode
+    public interface IModelClassSupressConfirmation : IModelNode
     {
+        [Category("eXpand")]
+        [Description("Suppress confirmation message when an object has been change")]
         bool SupressConfirmation { get; set; }
     }
-
-    public class SupressConfirmationController : BaseViewController, IModelExtender
+    [ModelInterfaceImplementor(typeof(IModelClassSupressConfirmation), "ModelClass")]
+    public interface IModelViewSupressConfirmation : IModelClassSupressConfirmation
     {
-        private WinDetailViewController winDetailViewController;
+        
+    }
 
-        public SupressConfirmationController(){}
+    public class SupressConfirmationController : ViewController, IModelExtender
+    {
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
+            extenders.Add<IModelClass, IModelClassSupressConfirmation>();
+            extenders.Add<IModelView, IModelViewSupressConfirmation>();
+            
+        }
+
+        private WinDetailViewController winDetailViewController;
 
         protected override void OnActivated()
         {
@@ -38,12 +50,6 @@ namespace eXpand.ExpressApp.Win.SystemModule
         private void ObjectSpace_ObjectChanged(object sender, ObjectChangedEventArgs e)
         {
             winDetailViewController.SuppressConfirmation = false;
-        }
-
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
-            extenders.Add<IModelListView, IModelViewSupressConfirmation>();
-            extenders.Add<IModelDetailView, IModelViewSupressConfirmation>();
         }
     }
 }

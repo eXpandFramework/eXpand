@@ -13,8 +13,6 @@ call RegisterAssemblyFolders32bit.bat
 
 call buildprojects.cmd
 
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.AddIns\eXpandAddIns.csproj"
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\eXpand.AddIns\DevExpress.ExpressApp.ModelEditor\DevExpress.ExpressApp.ModelEditor.csproj"
 
 %sn% -q -T eXpand.Dll\eXpand.Utils.dll > PublicKeyToken.txt
 

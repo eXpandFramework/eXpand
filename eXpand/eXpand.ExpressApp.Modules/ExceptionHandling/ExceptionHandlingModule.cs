@@ -1,11 +1,13 @@
 using System;
 using System.Configuration;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Validation;
+using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
+using eXpand.Persistent.Base.ExceptionHandling;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
+using Microsoft.Practices.EnterpriseLibrary.Logging.Configuration;
 
 namespace eXpand.ExpressApp.ExceptionHandling {
     public abstract partial class ExceptionHandlingModule : ModuleBase {
@@ -17,16 +19,31 @@ namespace eXpand.ExpressApp.ExceptionHandling {
 
 
         protected void Log(Exception exception) {
-            if ((ConfigurationManager.AppSettings[ExceptionHandling] + "").ToLower() == "true") {
-                if (!(exception is ValidationException) &&
-                    !(exception.InnerException != null && exception.InnerException is ValidationException)) {
-                    if (!Debugger.IsAttached) {
-                        string asString = Tracing.Tracer.GetLastEntriesAsString();
-                        asString = Regex.Replace(asString, @"\n", "<br>");
-                        Logger.Write(asString);
-                    }
+            if (IsEnabled() ) {
+                if (EmailTraceListenersAreValid()) {
+                    string asString = Tracing.Tracer.GetLastEntriesAsString();
+                    Logger.Write(asString);
+                }
+                var connectionStringSettingsCollection = ConfigurationManager.ConnectionStrings;
+                var connectionStringSettings = connectionStringSettingsCollection.OfType<ConnectionStringSettings>().Where(settings => settings.Name=="ExceptionHandlingConnectionString").FirstOrDefault();
+                if (connectionStringSettings!= null) {
+                    if (XafTypesInfo.Instance.FindTypeInfo(typeof(IExceptionObject)).Implementors.Count() == 0) return;
+                    var session = new Session(
+                        new SimpleDataLayer(XpoDefault.GetConnectionProvider(connectionStringSettings.ConnectionString,AutoCreateOption.DatabaseAndSchema)));
+                    var exceptionObject = ExceptionObjectBuilder.Create(session,exception,Application);
+                    session.Save(exceptionObject);
                 }
             }
+        }
+
+        bool EmailTraceListenersAreValid() {
+            var loggingSettings = (LoggingSettings)ConfigurationManager.GetSection("loggingConfiguration");
+            return loggingSettings.TraceListeners.OfType<EmailTraceListenerData>().Where(data => data.FromAddress == "user@domain.com" || data.SmtpServer=="mail.mail.com").FirstOrDefault() == null;
+        }
+
+
+        bool IsEnabled() {
+            return (ConfigurationManager.AppSettings[ExceptionHandling] + "").ToLower() == "true";
         }
     }
 }

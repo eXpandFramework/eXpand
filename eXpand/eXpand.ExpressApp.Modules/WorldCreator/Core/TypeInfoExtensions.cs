@@ -1,7 +1,9 @@
 ﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using eXpand.Persistent.Base.PersistentMetaData;
+using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.WorldCreator.Core {
     public static class TypeInfoExtensions {
@@ -17,8 +19,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         }
 
         public static void Init(this IPersistentTemplatedTypeInfo persistentTemplatedTypeInfo, Type codeTemplateType) {
-            persistentTemplatedTypeInfo.CodeTemplateInfo = (ICodeTemplateInfo)Activator.CreateInstance(TypesInfo.Instance.CodeTemplateInfoType,
-                                                                                                persistentTemplatedTypeInfo.Session);
+            persistentTemplatedTypeInfo.CodeTemplateInfo = ObjectSpaceExtensions.CreateWCObject<ICodeTemplateInfo>(ObjectSpace.FindObjectSpace(persistentTemplatedTypeInfo));
             if (persistentTemplatedTypeInfo is IPersistentMemberInfo)
             {
                 var persistentMemberInfo = ((IPersistentMemberInfo)persistentTemplatedTypeInfo);
@@ -34,8 +35,8 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
         {
             persistentMemberInfo.CodeTemplateInfo.CodeTemplate =CodeTemplateBuilder.CreateDefaultTemplate(
                 persistentMemberInfo is IPersistentCollectionMemberInfo
-                    ? TemplateType.ReadOnlyMember
-                    : TemplateType.ReadWriteMember, persistentMemberInfo.Session, codeTemplateType,codeDomProvider);
+                    ? TemplateType.XPCollectionMember
+                    : TemplateType.XPReadWritePropertyMember, persistentMemberInfo.Session, codeTemplateType,codeDomProvider);
         }
 
         public static void Init(this IPersistentClassInfo persistentClassInfo, Type codeTemplateType, CodeDomProvider codeDomProvider) {

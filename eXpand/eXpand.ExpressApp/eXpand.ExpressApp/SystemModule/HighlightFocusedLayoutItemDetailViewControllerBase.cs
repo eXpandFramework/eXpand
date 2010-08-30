@@ -1,47 +1,61 @@
-﻿using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model;
+﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Model;
 using System.ComponentModel;
 
-namespace eXpand.ExpressApp.SystemModule {
+namespace eXpand.ExpressApp.SystemModule
+{
 
-    public interface IModelDetailViewHighlightOptions : IModelNode
+    public interface IModelOptionsHighlightFocusedItem
     {
+        [Category("eXpand")]
         [DefaultValue(true)]
         bool HighlightFocusedLayoutItem { get; set; }
     }
-
-    [DomainLogic(typeof(IModelDetailViewHighlightOptions))]
-    public static class ModelDetailViewHighlightOptionsDomainLogic
+    
+    public interface IModelClassHighlightFocusedItem :IModelNode
     {
-        public static bool Get_ModelDetailViewHighlightOptions(IModelDetailViewHighlightOptions modelDetailViewHighlightOptions)
+        [Category("eXpand")]
+        bool HighlightFocusedLayoutItem { get; set; }
+    }
+    [ModelInterfaceImplementor(typeof(IModelClassHighlightFocusedItem), "ModelClass")]
+    public interface IModelDetailViewHighlightFocusedItem : IModelClassHighlightFocusedItem
+    {
+    }
+    [DomainLogic(typeof(IModelClassHighlightFocusedItem))]
+    public class ModelDetailViewHighlightFocusedLayoutItemLogic
+    {
+        public static bool Get_HighlightFocusedLayoutItem(IModelClassHighlightFocusedItem model)
         {
-            return (modelDetailViewHighlightOptions is IModelDetailView &&
-                !((IModelDetailViewHighlightOptions)modelDetailViewHighlightOptions).HighlightFocusedLayoutItem) ?
-                ((IModelDetailViewHighlightOptions)modelDetailViewHighlightOptions.Application.Options).HighlightFocusedLayoutItem :
-                modelDetailViewHighlightOptions.HighlightFocusedLayoutItem;
+            if (model != null)
+                return ((IModelOptionsHighlightFocusedItem)model.Application.Options).HighlightFocusedLayoutItem;
+            return false;
         }
     }
 
-    public abstract class HighlightFocusedLayoutItemDetailViewControllerBase : ViewController<DetailView>, IModelExtender
+
+    public class HighlightFocusedLayoutItemDetailViewControllerBase : ViewController<DetailView>, IModelExtender
     {
-        public const string ActiveKeyHighlightFocusedEditor = "HighlightFocusedLayoutItem";
-        
         protected override void OnViewChanging(View view)
         {
             base.OnViewChanging(view);
             var dv = view as DetailView;
             if (dv != null)
-                Active[ActiveKeyHighlightFocusedEditor] = (dv.Model as IModelDetailViewHighlightOptions).HighlightFocusedLayoutItem;
+                Active["ActiveKeyHighlightFocusedEditor"] = ((IModelDetailViewHighlightFocusedItem)dv.Model).HighlightFocusedLayoutItem;
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            extenders.Add<IModelOptions, IModelDetailViewHighlightOptions>();
-            extenders.Add<IModelDetailView, IModelDetailViewHighlightOptions>();
+            extenders.Add<IModelOptions, IModelOptionsHighlightFocusedItem>();
+            extenders.Add<IModelClass, IModelClassHighlightFocusedItem>();
+            extenders.Add<IModelDetailView, IModelDetailViewHighlightFocusedItem>();
         }
 
-        protected abstract void AssignStyle(object control);
+        
+
+        protected virtual void AssignStyle(object control) {
+            throw new NotImplementedException();
+        }
     }
 }

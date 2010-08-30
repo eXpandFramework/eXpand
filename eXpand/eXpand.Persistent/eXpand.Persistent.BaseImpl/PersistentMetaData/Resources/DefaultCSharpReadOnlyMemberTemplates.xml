@@ -1,4 +1,0 @@
-﻿    $TYPEATTRIBUTES$
-    public XPCollection<$PROPERTYTYPE$> $PROPERTYNAME$ {
-        get { return GetCollection<$PROPERTYTYPE$>("$PROPERTYNAME$"); }
-    }

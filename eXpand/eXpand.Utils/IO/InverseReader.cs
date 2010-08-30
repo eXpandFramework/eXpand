@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 
 namespace eXpand.Utils.IO
 {
+    [Obsolete("use ReverseLineReader", true)]
     public class InverseReader
     {
         private readonly FileStream fileStream;
