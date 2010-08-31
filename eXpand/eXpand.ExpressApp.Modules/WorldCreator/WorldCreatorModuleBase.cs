@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
-using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using eXpand.ExpressApp.WorldCreator.Core;
 using eXpand.ExpressApp.WorldCreator.NodeUpdaters;
@@ -49,37 +48,11 @@ namespace eXpand.ExpressApp.WorldCreator {
             
         }
 
-//        void CreateDynamicModules(ApplicationModulesManager moduleManager,UnitOfWork unitOfWork) {
-//            unitOfWork.LockingOption=LockingOption.None;
-//            AddDynamicModules(moduleManager, unitOfWork);
-//            var bussinessObjectType = WCTypesInfo.Instance.FindBussinessObjectType<IPersistentAssemblyInfo>();
-//            using (SimpleDataLayer simpleDataLayer 
-//                = XpoMultiDataStoreProxy.GetDataLayer(_connectionString, GetReflectionDictionary(), bussinessObjectType)) {
-//                using (var unitOfWork = new UnitOfWork(simpleDataLayer)) {                    
-//                    unitOfWork.LockingOption=LockingOption.None;
-//                    AddDynamicModules(moduleManager, unitOfWork);
-//                    SynchronizeTypes(xpObjectTypes);
-//                }
-//            }
-//        }
 
         void RunUpdaters(Session session) {
             foreach (WorldCreatorUpdater worldCreatorUpdater in GetWorldCreatorUpdaters(session)) {
                 worldCreatorUpdater.Update();
-            }
-             
-//            if (_connectionString != null) {
-//                var xpoMultiDataStoreProxy = new XpoMultiDataStoreProxy(_connectionString,GetReflectionDictionary());
-//                using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
-//                    using (var session = new Session(dataLayer)) {
-//                        var types = businessClassesList.Where(type => !type.IsAbstract&&type.GetCustomAttributes(typeof(NonPersistentAttribute),false).Count()==0).ToArray();
-//                        session.CreateObjectTypeRecords(types);
-//                        foreach (var worldCreatorUpdater in GetWorldCreatorUpdaters(session)){
-//                            worldCreatorUpdater.Update();
-//                        }
-//                    }
-//                }
-//            }
+            }             
         }
 
         void SynchronizeTypes(UnitOfWork unitOfWork) {

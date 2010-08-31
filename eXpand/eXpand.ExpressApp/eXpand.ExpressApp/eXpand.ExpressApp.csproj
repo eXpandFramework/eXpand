@@ -119,6 +119,7 @@
     <Compile Include="Core\ModelNodeExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\ModelXmlReaderExtensions.cs" />
     <Compile Include="Core\ObjectObserver.cs" />
     <Compile Include="Core\ObjectSpaceExtensions.cs" />
     <Compile Include="Core\ReadOnlyParameters\MonthAgoParameter.cs" />

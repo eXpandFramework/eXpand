@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Model;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using DevExpress.ExpressApp.Model.Core;
+using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.ModelDifference.Controllers
 {
@@ -50,7 +51,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
             ModelDifferenceObject differenceObject = userAspectObjectQuery.GetActiveModelDifference(Application.GetType().FullName,null);
             if (ReferenceEquals(differenceObject, View.CurrentObject)) {
                 var model = ((UserModelDifferenceObject)View.CurrentObject).Model;
-                new ModelXmlReader().ReadFromString(model, Application.CurrentAspectProvider.CurrentAspect, ((ModelApplicationBase)Application.Model).LastLayer.Xml);
+                new ModelXmlReader().ReadFromString(model, ((ModelApplicationBase)Application.Model).LastLayer);
                 ObjectSpace.SetModified(userAspectObjectQuery);
                 ObjectSpace.CommitChanges();
             }
