@@ -8,10 +8,11 @@ namespace eXpand.ExpressApp.Web.SystemModule {
     public class HideToolBarController : ExpressApp.SystemModule.HideToolBarController {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            if (Frame.Template != null) {
+            if (Frame.Template != null && ((IModelViewHideViewToolBar)View.Model).HideToolBar.HasValue)
+            {
                 ActionContainerHolder containerHolder = ((Control) Frame.Template).FindNestedControls<ActionContainerHolder>("ToolBar").SingleOrDefault();
                 if (containerHolder != null)
-                    containerHolder.Visible = !((IModelViewHideViewToolBar) View.Model).HideToolBar;
+                    containerHolder.Visible = !((IModelViewHideViewToolBar) View.Model).HideToolBar.Value;
             }
         }
     }

@@ -7,8 +7,8 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             var template = Frame.Template as IBarManagerHolder;
-            if (template != null && template.BarManager != null)
-                SetToolbarVisibility(template, !((IModelViewHideViewToolBar) View.Model).HideToolBar);
+            if (template != null && template.BarManager != null && ((IModelViewHideViewToolBar)View.Model).HideToolBar.HasValue)
+                SetToolbarVisibility(template, !((IModelViewHideViewToolBar) View.Model).HideToolBar.Value);
         }
 
         void SetToolbarVisibility(IBarManagerHolder template, bool visible) {

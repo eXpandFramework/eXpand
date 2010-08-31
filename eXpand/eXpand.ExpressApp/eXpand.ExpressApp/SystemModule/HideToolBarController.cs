@@ -8,7 +8,7 @@ namespace eXpand.ExpressApp.SystemModule
     {
         [Category("eXpand")]
         [Description("Hides view toolbar")]
-        bool HideToolBar { get; set; }
+        bool? HideToolBar { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelClassHideViewToolBar), "ModelClass")]
     public interface IModelViewHideViewToolBar : IModelClassHideViewToolBar
