@@ -43,7 +43,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
             var store = (args.Object) as ModelDifferenceObject;
             if (store != null && ReferenceEquals(GetDifference(Application.GetType().FullName, store.Name), store)) {
                 ModelApplicationBase modelApplicationBase = ((ModelApplicationBase)Application.Model).LastLayer;
-                new ModelXmlReader().ReadFromString(modelApplicationBase, store.Model);
+                new ModelXmlReader().ReadFromModel(modelApplicationBase, store.Model);
             }
         }
         protected virtual ModelDifferenceObject GetDifference(string applicationName, string name) {

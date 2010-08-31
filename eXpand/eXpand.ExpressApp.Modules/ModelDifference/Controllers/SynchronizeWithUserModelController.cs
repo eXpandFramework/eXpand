@@ -51,7 +51,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers
             ModelDifferenceObject differenceObject = userAspectObjectQuery.GetActiveModelDifference(Application.GetType().FullName,null);
             if (ReferenceEquals(differenceObject, View.CurrentObject)) {
                 var model = ((UserModelDifferenceObject)View.CurrentObject).Model;
-                new ModelXmlReader().ReadFromString(model, ((ModelApplicationBase)Application.Model).LastLayer);
+                new ModelXmlReader().ReadFromModel(model, ((ModelApplicationBase)Application.Model).LastLayer);
                 ObjectSpace.SetModified(userAspectObjectQuery);
                 ObjectSpace.CommitChanges();
             }

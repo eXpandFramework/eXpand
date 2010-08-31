@@ -73,7 +73,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         protected internal override void OnDifferenceObjectSaving(ModelDifferenceObject userModelDifferenceObject, ModelApplicationBase model){
             var userStoreObject = ((UserModelDifferenceObject) userModelDifferenceObject);
             if (!userStoreObject.NonPersistent){
-                new ModelXmlReader().ReadFromString(userStoreObject.Model, model);
+                new ModelXmlReader().ReadFromModel(userStoreObject.Model, model);
                 base.OnDifferenceObjectSaving(userModelDifferenceObject, model);
             }
 

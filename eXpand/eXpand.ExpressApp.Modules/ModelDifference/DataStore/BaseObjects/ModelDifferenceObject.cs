@@ -112,7 +112,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
                 var modelApplicationBase = masterModel.CreatorInstance.CreateModelApplication();
                 masterModel.AddLayerBeforeLast(modelApplicationBase);
                 var modelXmlReader = new ModelXmlReader();
-                modelXmlReader.ReadFromString(modelApplicationBase,Model,s => s!=Model.CurrentAspect);
+                modelXmlReader.ReadFromModel(modelApplicationBase,Model,s => s!=Model.CurrentAspect);
                 if (!(string.IsNullOrEmpty(value)))
                     modelXmlReader.ReadFromString(modelApplicationBase,Model.CurrentAspect,value);
                 Model = modelApplicationBase;
