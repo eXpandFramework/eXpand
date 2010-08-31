@@ -78,6 +78,7 @@
 			.\eXpand\eXpand.ExpressApp.Modules\NCarousel\eXpand.NCarousel.csproj;
 			.\eXpand\eXpand.ExpressApp.Modules\NCarousel.Web\eXpand.ExpressApp.NCarousel.Web.csproj;
 			.\eXpand\eXpand.ExpressApp.Modules\Thumbnail.Web\eXpand.ExpressApp.Thumbnail.Web.csproj;
+			.\eXpand\eXpand.ExpressApp.Modules\ConditionalDetailViews\eXpand.ExpressApp.ConditionalDetailViews.csproj;
 			.\eXpand\eXpand.Persistent\eXpand.Persistent.BaseImpl\eXpand.Persistent.BaseImpl.csproj;
 			.\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj;
 			.\FeatureCenter\FeatureCenter.Module\FeatureCenter.Module.csproj;
