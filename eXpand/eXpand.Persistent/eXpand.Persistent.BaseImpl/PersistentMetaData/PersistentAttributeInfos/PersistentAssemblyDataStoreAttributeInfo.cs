@@ -1,4 +1,6 @@
-﻿using DevExpress.Xpo;
+﻿using System.ComponentModel;
+using DevExpress.ExpressApp.Utils;
+using DevExpress.Xpo;
 using eXpand.ExpressApp.Attributes;
 using eXpand.Persistent.Base.General;
 using eXpand.Persistent.Base.PersistentMetaData;
@@ -10,16 +12,23 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
     public class PersistentAssemblyDataStoreAttributeInfo : PersistentAssemblyAttributeInfo, IPersistentAssemblyDataStoreAttributeInfo {
         public PersistentAssemblyDataStoreAttributeInfo(Session session) : base(session) {
         }
-        [Persistent("connectionString")]
-        [Size(SizeAttribute.Unlimited)]
-        private string _connectionString;
-        private DataStoreLogonObject _dataStoreLogon;
         
+        
+        private DataStoreLogonObject _dataStoreLogon;
+        private string _connectionString;
+
+        [Browsable(false)]
+        [Size(SizeAttribute.Unlimited)]
+        public string ConnectionString {
+            get { return _connectionString; }
+            set { SetPropertyValue("ConnectionString", ref _connectionString, value); }
+        }
         public override AttributeInfo Create() {
             var constructorInfo = typeof(DataStoreAttribute).GetConstructor(new[]{typeof(string),typeof(string)});
             string initializedArgumentValues = null;
             if (PersistentClassInfo.PersistentAssemblyInfo != null)
                 initializedArgumentValues = PersistentClassInfo.PersistentAssemblyInfo.Name+"."+PersistentClassInfo.Name;
+            Guard.ArgumentNotNull(ConnectionString, "ConnectionString");
             return new AttributeInfo(constructorInfo, _connectionString,initializedArgumentValues);
         }
         
