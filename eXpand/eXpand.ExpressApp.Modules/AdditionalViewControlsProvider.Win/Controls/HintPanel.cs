@@ -4,6 +4,7 @@ using DevExpress.Utils.Frames;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls
 {
+    [AdditionalViewControl]
     public  class HintPanel:NotePanel8_1
     {
         public HintPanel()

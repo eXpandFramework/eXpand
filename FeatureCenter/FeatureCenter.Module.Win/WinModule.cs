@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Validation;
 using eXpand.ExpressApp.AdditionalViewControlsProvider;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
 using eXpand.ExpressApp.ExceptionHandling.Win;
 using eXpand.ExpressApp.FilterDataStore.Core;
 using eXpand.ExpressApp.FilterDataStore.Win.Providers;

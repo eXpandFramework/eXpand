@@ -106,6 +106,9 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="eXpand.Persistent.Base, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="eXpand.Utils, Version=0.0.9314.22, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -133,6 +136,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdditionalViewControlsProviderWindowsFormsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ApplicationCaption.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\HintPanel.cs">

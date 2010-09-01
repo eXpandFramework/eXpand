@@ -88,6 +88,8 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
         protected override object GetControl(Type controlType, object o, LogicRuleInfo<IAdditionalViewControlsRule> info) {
             object control = base.GetControl(controlType, o, info);
             if (control is ISupportLayoutManager) {
+                if (info.Rule.Position != Position.DetailViewItem)
+                    throw new ArgumentException("Rule:" + info.Rule.Id + " position should be set to " + Position.DetailViewItem);
                 ((ISupportLayoutManager) control).LayoutItem = RuleToLayoutMap[info.Rule.Id];
             }
             return control;

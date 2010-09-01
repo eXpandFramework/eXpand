@@ -411,8 +411,6 @@
     <EmbeddedResource Include="ApplicationDifferences\ExternalApplication\MDO_ExternalApplication.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Images\ExpressAppLogo.png" />
-    <EmbeddedResource Include="Images\logo.png" />
     <EmbeddedResource Include="Images\Demo_Welcome.png" />
     <EmbeddedResource Include="Images\Demo_Welcome_32x32.png" />
   </ItemGroup>

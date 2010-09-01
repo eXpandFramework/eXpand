@@ -2,6 +2,7 @@
 using DevExpress.Web.ASPxPanel;
 
 namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Web.Controls {
+    [AdditionalViewControl]
     public class HintPanel : ASPxPanel
     {
         private readonly ASPxLabel label;
