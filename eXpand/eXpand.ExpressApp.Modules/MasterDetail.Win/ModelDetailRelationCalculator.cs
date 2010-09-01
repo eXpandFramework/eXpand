@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
@@ -49,5 +48,6 @@ namespace eXpand.ExpressApp.MasterDetail.Win {
             var relationName = _xafGridView.GetRelationName(rowHandle, relationIndex);
             return _modelListView.ModelClass.AllMembers.Where(member => member.Name == relationName).Single();
         }
+
     }
 }
