@@ -1,9 +1,10 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Web.ASPxEditors;
 using DevExpress.Web.ASPxGridView;
+using eXpand.ExpressApp.Core.DynamicModel;
 using eXpand.ExpressApp.SystemModule;
-using eXpand.ExpressApp.Web.Core;
+using DynamicDouplicateTypesMapper = eXpand.ExpressApp.Web.Core.DynamicDouplicateTypesMapper;
 
 namespace eXpand.ExpressApp.Web.SystemModule
 {
@@ -20,19 +21,31 @@ namespace eXpand.ExpressApp.Web.SystemModule
     public interface IModelGridViewColumnSettings:IModelNode {
     }
 
-    public class GridColumnOptionsController : ColumnOptionsController<GridViewDataColumn, IModelGridColumnOptions>
+    public class GridColumnOptionsController : ColumnOptionsController
     {
-        protected override Func<PropertyInfo, bool> ControlPropertiesFilterPredicate() {
-            return info => info.PropertyType == typeof(GridViewDataColumnSettings);
+
+        protected override IEnumerable<DynamicModelType> GetDynamicModelTypes() {
+            yield return new DynamicModelType(typeof(IModelGridViewColumnSettings), typeof(GridViewDataColumnSettings), null, null,new DynamicDouplicateTypesMapper());
         }
 
-        public override Func<PropertyInfo, bool> DynamicPropertiesFilterPredicate() {
-            return info => true;
-        }
-        protected override ExpressApp.Core.DynamicModel.DynamicDouplicateTypesMapper GetDouplicatesTypeMapper()
-        {
-            return new DynamicDouplicateTypesMapper();
-        }
 
     }
+
+    public class GridColumnPropertiesEditController : ColumnOptionsController
+    {
+        protected override IEnumerable<DynamicModelType> GetDynamicModelTypes() {
+            yield return new DynamicModelType(typeof(IModelColumnPropertiesEdit), typeof(EditPropertiesBase));
+        }
+
+        
+    }
+
+    public interface IModelColumnProperties : IModelNode {
+        IModelColumnPropertiesEdit PropertiesEdit { get; set; }
+    }
+
+    public interface IModelColumnPropertiesEdit:IModelNode {
+        
+    }
+
 }

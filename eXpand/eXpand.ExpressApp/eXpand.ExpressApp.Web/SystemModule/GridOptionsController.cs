@@ -1,10 +1,8 @@
-﻿using System;
-using System.Reflection;
-using System.Web.UI.WebControls;
+﻿using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Web.ASPxGridView;
+using eXpand.ExpressApp.Core.DynamicModel;
 using eXpand.ExpressApp.SystemModule;
-using eXpand.ExpressApp.Web.Core;
 
 namespace eXpand.ExpressApp.Web.SystemModule {
 
@@ -60,15 +58,21 @@ namespace eXpand.ExpressApp.Web.SystemModule {
     public interface IModelGridViewSettings:IModelNode {
     }
 
-    public class GridOptionsController : GridOptionsController<ASPxGridView, IModelGridViewOptions>
+    public class GridOptionsController : ExpressApp.SystemModule.GridOptionsController
     {
-        protected override Func<PropertyInfo, bool> ControlPropertiesFilterPredicate() {
-            return info => info.PropertyType.Name.EndsWith("Settings");
+        protected override IEnumerable<DynamicModelType> GetDynamicModelTypes() {
+            yield return new DynamicModelType(typeof(IModelGridViewSettings), typeof(ASPxGridViewSettings));
+            yield return new DynamicModelType(typeof(IModelGridViewSettingsBehavior), typeof(ASPxGridViewBehaviorSettings));
+            yield return new DynamicModelType(typeof(IModelGridViewSettingsPager), typeof(ASPxGridViewBehaviorSettings));
+            yield return new DynamicModelType(typeof(IModelGridViewSettingsEditing), typeof(ASPxGridViewEditingSettings));
+            yield return new DynamicModelType(typeof(IModelGridViewSettingsText), typeof(ASPxGridViewTextSettings));
+            yield return new DynamicModelType(typeof(IModelGridViewSettingsCookies), typeof(ASPxGridViewCookiesSettings));
+            yield return new DynamicModelType(typeof(IModelGridViewSettingsCustomizationWindow), typeof(ASPxGridViewCustomizationWindowSettings));
+            yield return new DynamicModelType(typeof(IModelGridViewSettingsDetail), typeof(ASPxGridViewDetailSettings));
+            yield return new DynamicModelType(typeof(IModelGridViewSettingsLoadingPanel), typeof(ASPxGridViewLoadingPanelSettings));
         }
 
-        public override Func<PropertyInfo, bool> DynamicPropertiesFilterPredicate() {
-            return info => info.PropertyType!=typeof(Unit);
-        }
+
     }
 
     
