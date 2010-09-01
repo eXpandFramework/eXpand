@@ -127,10 +127,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridColumnOptionsController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridOptionsController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HideToolBarController.cs">
       <SubType>Component</SubType>

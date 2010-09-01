@@ -114,6 +114,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\DynamicDouplicateTypesMapper.cs" />
     <Compile Include="Core\ListViewExtensions.cs" />
     <Compile Include="Editors\FilterControl.cs">
       <SubType>Component</SubType>
@@ -164,7 +165,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridColumnOptionsController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridViewOptionsController.cs">
       <SubType>Component</SubType>

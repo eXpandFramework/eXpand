@@ -3,6 +3,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.XtraGrid.Views.Grid;
 using eXpand.ExpressApp.Core.DynamicModel;
 using eXpand.ExpressApp.SystemModule;
+using DynamicDouplicateTypesMapper = eXpand.ExpressApp.Win.Core.DynamicDouplicateTypesMapper;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
@@ -67,7 +68,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
             yield return new DynamicModelType(typeof(IModelGridViewOptionsCustomization), typeof(GridOptionsCustomization));
             yield return new DynamicModelType(typeof(IModelGridViewOptionsNavigation), typeof(GridOptionsNavigation));
             yield return new DynamicModelType(typeof(IModelGridViewOptionsSelection), typeof(GridOptionsSelection));
-            yield return new DynamicModelType(typeof(IModelGridViewOptionsView), typeof(GridOptionsView));
+            yield return new DynamicModelType(typeof(IModelGridViewOptionsView), typeof(GridOptionsView), null, null,new DynamicDouplicateTypesMapper());
             yield return new DynamicModelType(typeof(IModelGridViewOptionsMenu), typeof(GridOptionsMenu));
             yield return new DynamicModelType(typeof(IModelGridViewOptionsPrint), typeof(GridOptionsPrint));
             yield return new DynamicModelType(typeof(IModelGridViewOptionsHint), typeof(GridOptionsHint));
