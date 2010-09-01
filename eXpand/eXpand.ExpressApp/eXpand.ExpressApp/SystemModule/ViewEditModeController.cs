@@ -10,7 +10,7 @@ namespace eXpand.ExpressApp.SystemModule
     {
         [Category("eXpand")]
         [Description("Control detail view default edit mode")]
-        ViewEditMode ViewEditMode { get; set; }
+        ViewEditMode? ViewEditMode { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelClassEditMode), "ModelClass")]
     public interface IModelDetailViewEditMode : IModelClassEditMode
@@ -24,8 +24,9 @@ namespace eXpand.ExpressApp.SystemModule
         protected override void OnActivated()
         {
             base.OnActivated();
-            var attributeValue = ((IModelDetailViewEditMode)View.Model).ViewEditMode;
-            View.ViewEditMode = attributeValue;
+            var viewEditMode = ((IModelDetailViewEditMode)View.Model).ViewEditMode;
+            if (viewEditMode.HasValue)
+                View.ViewEditMode = viewEditMode.Value;
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)

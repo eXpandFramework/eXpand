@@ -7,7 +7,7 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
     public interface ISupportLayoutManager {
         BaseLayoutItem LayoutItem { get; set; }
     }
-
+    [AdditionalViewControl]
     public class WarningPanel:NotePanel8_1, ISupportLayoutManager {
         public WarningPanel() {
             BackColor = Color.LightGoldenrodYellow;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -17,7 +16,7 @@ namespace eXpand.ExpressApp.Core.DynamicModel {
         readonly string _category;
         List<PropertyInfo> propertiesCore;
         readonly Func<PropertyInfo, bool> _filterPredicate;
-        
+        readonly DynamicDouplicateTypesMapper _douplicateTypesMapper;
 
 
         DynamicModelType(Type baseInterface) {
@@ -38,12 +37,13 @@ namespace eXpand.ExpressApp.Core.DynamicModel {
             AfterInitSource();
         }
 
-        public DynamicModelType(Type baseInterface, Type sourceTypeForDynamicModelPropertiesCore, string category, Func<PropertyInfo, bool> filterPredicate)
+        public DynamicModelType(Type baseInterface, Type sourceTypeForDynamicModelPropertiesCore, string category, Func<PropertyInfo, bool> filterPredicate,DynamicDouplicateTypesMapper douplicateTypesMapper)
             : this(baseInterface)
         {
             _sourceTypeForDynamicModelPropertiesCore = sourceTypeForDynamicModelPropertiesCore;
             _category = category;
             _filterPredicate = filterPredicate;
+            _douplicateTypesMapper = douplicateTypesMapper;
             AfterInitSource();
         }
 
@@ -101,7 +101,7 @@ namespace eXpand.ExpressApp.Core.DynamicModel {
             
                 var propertyInfos = _filterPredicate!=null?propertiesCore.Where(_filterPredicate):propertiesCore;
                 var simplePropertyInfos = propertyInfos.Select(info =>{
-                    Type propertyType = info.PropertyType;
+                    Type propertyType = GetPropertyType(info);
                     if (propertyType.IsValueType) {
                         propertyType = typeof(Nullable<>).MakeGenericType(new[] { propertyType });
                     }
@@ -110,6 +110,12 @@ namespace eXpand.ExpressApp.Core.DynamicModel {
                     return simplePropertyInfo;
                 });
                 return simplePropertyInfos.ToArray();
+        }
+
+        Type GetPropertyType(PropertyInfo info) {
+            return _douplicateTypesMapper != null && _douplicateTypesMapper.ContainsKey(info.PropertyType)
+                       ? _douplicateTypesMapper[info.PropertyType]
+                       : info.PropertyType;
         }
 
         IEnumerable<PropertyInfo> GetPropertiesCore() {
@@ -122,7 +128,7 @@ namespace eXpand.ExpressApp.Core.DynamicModel {
             return properties;
         }
 
-        //Dennis: It's important to override this method to distinguish types because it's called several times internally during the registration. 
+        
         public override bool Equals(object obj) {
             var type = obj as DynamicModelType;
             if (type != null)

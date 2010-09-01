@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using DevExpress.CodeRush.Core;
 using EnvDTE;
@@ -9,39 +8,6 @@ namespace eXpandAddIns.Extensioons
 {
     public static class SolutionExtension
     {
-//        public static List<Project> GetAllProjects(this Solution solution)
-//        {
-//            var DTE = CodeRush.ApplicationObject;
-//            var UIHSolutionExplorer = DTE.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
-//            var projects = new List<Project>();
-//            if (UIHSolutionExplorer != null && UIHSolutionExplorer.UIHierarchyItems.Count > 0)
-//                ProcessSolutionExplorerItem(UIHSolutionExplorer.UIHierarchyItems.Item(1),projects);
-//            return projects;
-//        }
-
-//        private static void ProcessSolutionExplorerItem(UIHierarchyItem item, List<Project> projects)
-//        {
-//            if (item.UIHierarchyItems.Count > 0)
-//                for (int i = 1; i <= item.UIHierarchyItems.Count; i++)
-//                {
-//                    UIHierarchyItem hierarchyItem = item.UIHierarchyItems.Item(i);
-//                    object o = hierarchyItem.Object;
-//                    if (o is Project && !isSolutionFolder(o))
-//                        projects.Add((Project) o);
-//                    else if (o is ProjectItem)
-//                    {
-//                        Project project = ((ProjectItem) o).SubProject;
-//                        if (project != null && !isSolutionFolder(project))
-//                            projects.Add(project);
-//                    }
-//                    ProcessSolutionExplorerItem(hierarchyItem, projects);
-//                }
-//        }
-
-//        private static bool isSolutionFolder(object o)
-//        {
-//            return ((Project)o).Kind == "{66A26720-8FB5-11D2-AA7E-00C04F688DDE}";
-//        }
 
         public static Project FindProject(this Solution solution, string projectName)
         {

@@ -13,6 +13,7 @@ namespace eXpand.ExpressApp.Logic {
         ControllerActivated = 64,
         ViewControlAdding = 128,
         TemplateViewChanged = 256,
-        ObjectSpaceCommited=512
+        ObjectSpaceCommited=512,
+        CustomProcessSelectedItem=1024
     }
 }

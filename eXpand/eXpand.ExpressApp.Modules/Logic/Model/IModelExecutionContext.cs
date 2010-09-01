@@ -15,6 +15,8 @@ namespace eXpand.ExpressApp.Logic.Model {
 
     public interface IModelViewChanging : IModelExecutionContext {
     }
+    public interface IModelCustomProcessSelectedItem : IModelExecutionContext{
+    }
 
     public interface IModelObjectChanged : IModelExecutionContext {
     }

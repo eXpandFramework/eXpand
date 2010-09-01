@@ -1,11 +1,11 @@
 using System.ComponentModel;
 using System.Reflection;
-using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.ViewVariants {
     [NonPersistent]
-    public class ViewCloner : BaseObject {
+    public class ViewCloner : eXpandCustomObject {
         string caption;
 
         string clonedViewName;

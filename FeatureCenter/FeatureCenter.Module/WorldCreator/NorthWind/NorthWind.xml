@@ -70,7 +70,7 @@
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentAssemblyDataStoreAttributeInfo">
-    <Property type="simple" name="_connectionString" isKey="false"><![CDATA[XpoProvider=MSSqlServer;data source=.\SQLEXPRESS;integrated security=SSPI;initial catalog=Northwind]]></Property>
+    <Property type="simple" name="ConnectionString" isKey="false"><![CDATA[XpoProvider=MSSqlServer;data source=.\SQLEXPRESS;integrated security=SSPI;initial catalog=Northwind]]></Property>
     
     
     

@@ -3,9 +3,9 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using DevExpress.Utils.Frames;
-using FeatureCenter.Module.Welcome;
 
-namespace FeatureCenter.Module.Win {
+namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
+    [AdditionalViewControl]
     public class ApplicationCaption : ApplicationCaption8_1
     {
         public ApplicationCaption() {
@@ -19,7 +19,8 @@ namespace FeatureCenter.Module.Win {
 
         protected override Image DXLogo {
             get {
-                Stream manifestResourceStream = typeof(WelcomeObject).Assembly.GetManifestResourceStream("FeatureCenter.Module.Images.logo.png");
+
+                Stream manifestResourceStream = typeof(eXpand.Persistent.Base.DifferenceType).Assembly.GetManifestResourceStream("eXpand.Persistent.Base.Resources.Logo.png");
                 if (manifestResourceStream != null) return Image.FromStream(manifestResourceStream);
                 throw new NullReferenceException();
             }

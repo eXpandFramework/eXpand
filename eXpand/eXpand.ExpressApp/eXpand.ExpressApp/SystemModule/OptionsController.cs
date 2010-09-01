@@ -34,7 +34,11 @@ namespace eXpand.ExpressApp.SystemModule
                    let info2 = info
                    let firstOrDefault = typeof(OptionsInterfaceType).GetProperties().FirstOrDefault(info1 => info1.Name == info2.Name)
                    where firstOrDefault != null
-                   select new DynamicModelType(firstOrDefault.PropertyType, info.PropertyType, null, DynamicPropertiesFilterPredicate());
+                   select new DynamicModelType(firstOrDefault.PropertyType, info.PropertyType, null, DynamicPropertiesFilterPredicate(),GetDouplicatesTypeMapper());
+        }
+
+        protected virtual DynamicDouplicateTypesMapper GetDouplicatesTypeMapper() {
+            return null;
         }
 
         protected abstract Func<PropertyInfo, bool> ControlPropertiesFilterPredicate();

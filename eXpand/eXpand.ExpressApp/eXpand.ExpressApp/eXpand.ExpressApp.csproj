@@ -118,12 +118,14 @@
     <Compile Include="Core\DictionaryHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\DynamicModel\DynamicDouplicateTypesMapper.cs" />
     <Compile Include="Core\ModelApplicationBaseExtensions.cs" />
     <Compile Include="Core\DynamicModel\IDynamicModelPropertiesSource.cs" />
     <Compile Include="Core\FrameExtensions.cs" />
     <Compile Include="Core\ModelNodeExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\ModelXmlReaderExtensions.cs" />
     <Compile Include="Core\ObjectObserver.cs" />
     <Compile Include="Core\ObjectSpaceExtensions.cs" />
     <Compile Include="Core\ReadOnlyParameters\MonthAgoParameter.cs" />

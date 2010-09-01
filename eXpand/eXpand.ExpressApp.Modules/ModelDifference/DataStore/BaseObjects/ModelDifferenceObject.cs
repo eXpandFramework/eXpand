@@ -111,16 +111,10 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
                 ModelApplicationBase masterModel = ModelDifferenceModule.MasterModel;
                 var modelApplicationBase = masterModel.CreatorInstance.CreateModelApplication();
                 masterModel.AddLayerBeforeLast(modelApplicationBase);
-                for (int i = 0; i < Model.GetAspectNames().ToList().Count; i++) {
-                    var aspect = Model.GetAspect(i);
-                    if (aspect!=Model.CurrentAspect) {
-                        var xml = new ModelXmlWriter().WriteToString(Model,i);
-                        if (!(string.IsNullOrEmpty(xml)))
-                            new ModelXmlReader().ReadFromString(modelApplicationBase, aspect,xml);
-                    }
-                }
+                var modelXmlReader = new ModelXmlReader();
+                modelXmlReader.ReadFromModel(modelApplicationBase,Model,s => s!=Model.CurrentAspect);
                 if (!(string.IsNullOrEmpty(value)))
-                    new ModelXmlReader().ReadFromString(modelApplicationBase,Model.CurrentAspect,value);
+                    modelXmlReader.ReadFromString(modelApplicationBase,Model.CurrentAspect,value);
                 Model = modelApplicationBase;
                 OnChanged("XmlContent");
             }

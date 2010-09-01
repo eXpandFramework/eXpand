@@ -4,6 +4,7 @@ using System.Web.UI.WebControls;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Web.ASPxGridView;
 using eXpand.ExpressApp.SystemModule;
+using eXpand.ExpressApp.Web.Core;
 
 namespace eXpand.ExpressApp.Web.SystemModule {
 

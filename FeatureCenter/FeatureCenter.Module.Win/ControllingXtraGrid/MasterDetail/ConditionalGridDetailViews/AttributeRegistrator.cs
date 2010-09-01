@@ -6,7 +6,7 @@ using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using eXpand.ExpressApp.Attributes;
 using eXpand.ExpressApp.MasterDetail.Logic;
 
-namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.ConditionalDetailViews
+namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.ConditionalGridDetailViews
 {
     public class AttributeRegistrator : Module.AttributeRegistrator
     {
@@ -17,7 +17,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.ConditionalD
                                                                                                                                       ViewType = ViewType.ListView, View = "ConditionalMasterDetailCustomer_ListView"};
                 yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderConditionalDetailGridViews, "1=1", "1=1",
                                                                      Captions.HeaderConditionalDetailGridViews, Position.Top){Nesting = Nesting.Root, ViewType = ViewType.ListView, View = "ConditionalMasterDetailCustomer_ListView"};
-                yield return new MasterDetailAttribute("Customer_Orders_For_All_Other_Cities", "1=1", "ConditionalMasterDetailOrder_ListView", "Orders") { View = "ConditionalMasterDetailCustomer_ListView" };
+                yield return new MasterDetailAttribute("Customer_Orders_For_All_Other_Cities", "City!='Paris'", "ConditionalMasterDetailOrder_ListView", "Orders") { View = "ConditionalMasterDetailCustomer_ListView" };
                 yield return new CloneViewAttribute(CloneViewType.ListView, "ConditionalMasterDetailCustomer_ListView");
                 yield return new NavigationItemAttribute("Controlling XtraGrid/Master Detail/Conditional Detail views", "ConditionalMasterDetailCustomer_ListView");
                 yield return new DisplayFeatureModelAttribute("ConditionalMasterDetailCustomer_ListView", "ConditionalDetailViews");

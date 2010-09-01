@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.SystemModule;
 using eXpand.ExpressApp.MasterDetail.Model;
 
 namespace eXpand.ExpressApp.MasterDetail.DomainLogic {

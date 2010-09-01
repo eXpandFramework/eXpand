@@ -333,7 +333,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eXpand.DLL\eXpand.Persistent.Base.dll</HintPath>
     </Reference>
-    <Reference Include="eXpand.Persistent.BaseImpl, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="eXpand.Persistent.BaseImpl, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eXpand.DLL\eXpand.Persistent.BaseImpl.dll</HintPath>
     </Reference>
@@ -374,9 +374,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationCaption.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ListViewControl\LoadWhenFiltered\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -423,7 +420,7 @@
     <Compile Include="WinOrder.cs" />
     <Compile Include="WinOrderLine.cs" />
     <Compile Include="ControllingXtraGrid\MasterDetail\AutoExpandNewRow\AttributeRegistrator.cs" />
-    <Compile Include="ControllingXtraGrid\MasterDetail\ConditionalDetailViews\AttributeRegistrator.cs" />
+    <Compile Include="ControllingXtraGrid\MasterDetail\ConditionalGridDetailViews\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\ColumnsOptions\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\XtraGridViewOptions\AttributeRegistrator.cs" />
   </ItemGroup>
@@ -485,7 +482,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ControllingXtraGrid\MasterDetail\ConditionalDetailViews\MDO_ConditionalDetailViews.xafml">
+    <EmbeddedResource Include="ControllingXtraGrid\MasterDetail\ConditionalGridDetailViews\MDO_ConditionalGridDetailViews.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

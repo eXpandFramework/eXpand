@@ -30,8 +30,12 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.DomainLogic {
         public static List<Type> Get_ControlTypes(IModelAdditionalViewControlsRule modelAdditionalViewControlsRule)
         {
             TypeDecorator decorator = GetTypeDecorator(modelAdditionalViewControlsRule.Position);
-            return decorator != null ? ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(decorator.ControlType), true).Select(info => info.Type).ToList()
+            return decorator != null ? FindTypeDescendants(decorator).Select(info => info.Type).ToList()
                        : new List<Type> {typeof (NotAvaliableInThisPlatform)};
+        }
+
+        static IEnumerable<ITypeInfo> FindTypeDescendants(TypeDecorator decorator) {
+            return ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(decorator.ControlType), true).Where(info => info.FindAttribute<AdditionalViewControlAttribute>()!=null);
         }
 
         public static TypeDecorator GetTypeDecorator(Position position) {

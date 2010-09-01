@@ -3,28 +3,15 @@ using DevExpress.DXCore.Controls.XtraEditors;
 
 namespace eXpandAddIns
 {
-    partial class Options {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private readonly System.ComponentModel.IContainer components;
+    partial class Options
+    {
 
-        public Options() {
+        public Options()
+        {
             /// <summary>
             /// Required for Windows.Forms Class Composition Designer support
             /// </summary>
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
-            if (disposing && (components != null)) {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
@@ -33,7 +20,8 @@ namespace eXpandAddIns
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.textEdit1 = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
             this.labelControl1 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
@@ -177,7 +165,7 @@ namespace eXpandAddIns
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.labelControl5);
-            
+
             this.Controls.Add(this.buttonEdit1);
             this.Controls.Add(this.labelControl3);
             this.Controls.Add(this.labelControl2);
@@ -189,7 +177,7 @@ namespace eXpandAddIns
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).EndInit();
-            
+
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
@@ -203,32 +191,40 @@ namespace eXpandAddIns
         ///
         /// Gets a DecoupledStorage instance for this options page.
         ///
-        public static DecoupledStorage Storage {
-            get {
+        public static DecoupledStorage Storage
+        {
+            get
+            {
                 return CodeRush.Options.GetStorage(GetCategory(), GetPageName());
             }
         }
         ///
         /// Returns the category of this options page.
         ///
-        public override string Category {
-            get {
+        public override string Category
+        {
+            get
+            {
                 return GetCategory();
             }
         }
         ///
         /// Returns the page name of this options page.
         ///
-        public override string PageName {
-            get {
+        public override string PageName
+        {
+            get
+            {
                 return GetPageName();
             }
         }
         ///
         /// Returns the full path (Category + PageName) of this options page.
         ///
-        public static string FullPath {
-            get {
+        public static string FullPath
+        {
+            get
+            {
                 return GetCategory() + "\\" + GetPageName();
             }
         }
@@ -236,7 +232,8 @@ namespace eXpandAddIns
         ///
         /// Displays the DXCore options dialog and selects this page.
         ///
-        public new static void Show() {
+        public new static void Show()
+        {
             CodeRush.Command.Execute("Options", FullPath);
         }
         private System.Windows.Forms.OpenFileDialog openFileDialog1;

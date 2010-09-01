@@ -122,6 +122,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ConditionalControllerState.dll</HintPath>
     </Reference>
+    <Reference Include="eXpand.ExpressApp.ConditionalDetailViews, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ConditionalDetailViews.dll</HintPath>
+    </Reference>
     <Reference Include="eXpand.ExpressApp.ExceptionHandling, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eXpand.DLL\eXpand.ExpressApp.ExceptionHandling.dll</HintPath>
@@ -239,6 +243,7 @@
     <Compile Include="AdditionalViewControls\ConditionalControlAndMessage\AttributeRegistrator.cs" />
     <Compile Include="AdditionalViewControls\ConditionalViewControlsPositioning\AttributeRegistrator.cs" />
     <Compile Include="AttributeRegistrator.cs" />
+    <Compile Include="ListViewControl\ConditionalDetailViews\AttributeRegistrator.cs" />
     <Compile Include="Miscellaneous\ConnectionInfoStatus\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\DetailView\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\FullTextForMemoFields\AttributeRegistrator.cs" />
@@ -424,8 +429,6 @@
     <EmbeddedResource Include="ApplicationDifferences\ExternalApplication\MDO_ExternalApplication.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Images\ExpressAppLogo.png" />
-    <EmbeddedResource Include="Images\logo.png" />
     <EmbeddedResource Include="Images\Demo_Welcome.png" />
     <EmbeddedResource Include="Images\Demo_Welcome_32x32.png" />
   </ItemGroup>
@@ -473,6 +476,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Functional Tests\Sample.ets" />
+    <EmbeddedResource Include="ListViewControl\ConditionalDetailViews\MDO_ConditionalDetailViews.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="WorldCreator\NorthWind\MDO_NorthWind.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

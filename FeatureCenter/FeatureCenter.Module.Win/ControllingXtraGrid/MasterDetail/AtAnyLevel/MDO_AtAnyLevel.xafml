@@ -3,11 +3,11 @@
   <Views>
     <ListView Id="MasterDetailAtAnyLevelCustomer_ListView">
       <GridViewOptions>
-        <OptionsDetail EnableMasterViewMode="True" AllowExpandEmptyDetails="True" />
+        <OptionsDetail AllowExpandEmptyDetails="True" EnableMasterViewMode="True" />
         <OptionsView ShowDetailButtons="True" />
       </GridViewOptions>
     </ListView>
-    <ListView Id="MasterDetailAtAnyLevelOrder_ListView">
+    <ListView Id="MasterDetailAtAnyLevelOrder_ListView" AllowEdit="True">
       <Columns>
         <ColumnInfo Id="Customer" Index="-1" />
       </Columns>
@@ -16,7 +16,7 @@
         <OptionsView ShowDetailButtons="True" />
       </GridViewOptions>
     </ListView>
-    <ListView Id="MasterDetailAtAnyLevelOrderLine_ListView">
+    <ListView Id="MasterDetailAtAnyLevelOrderLine_ListView" AllowEdit="True">
       <Columns>
         <ColumnInfo Id="Order" Index="-1" />
       </Columns>

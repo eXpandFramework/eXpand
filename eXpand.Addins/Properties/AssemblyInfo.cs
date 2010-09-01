@@ -32,5 +32,5 @@ using DevExpress.CodeRush.Common;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.0.09314.05")]
-[assembly: AssemblyFileVersion("0.0.09314.05")]
+[assembly: AssemblyVersion(eXpand.AssemblyInfo.Version)]
+[assembly: AssemblyFileVersion(eXpand.AssemblyInfo.Version)]

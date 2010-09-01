@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using eXpand.ExpressApp.Logic.Model;
 
@@ -109,8 +110,15 @@ namespace eXpand.ExpressApp.Logic{
                 View.CurrentObjectChanged+=ViewOnCurrentObjectChanged;
                 View.ObjectSpace.Refreshing += ObjectSpace_Refreshing;
                 View.ObjectSpace.Reloaded += ObjectSpace_Reloaded;
+                if (View is ListView)
+                    Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem+=OnCustomProcessSelectedItem;
             }
         }
+
+        void OnCustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs customProcessListViewSelectedItemEventArgs) {
+            ForceExecution(ExecutionContext.CustomProcessSelectedItem);
+        }
+
 
         void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs) {
             ForceExecution(ExecutionContext.ObjectSpaceCommited);
@@ -129,6 +137,8 @@ namespace eXpand.ExpressApp.Logic{
                 View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
                 View.ObjectSpace.Refreshing -= ObjectSpace_Refreshing;
                 View.ObjectSpace.Reloaded -= ObjectSpace_Reloaded;
+                if (View is ListView)
+                    Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem -= OnCustomProcessSelectedItem;
             }
         }
 
