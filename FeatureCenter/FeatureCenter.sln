@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Module", "FeatureCenter.Module\FeatureCenter.Module.csproj", "{2FE9D002-F5ED-46AC-860D-1ADF67573F0C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Module.Win", "FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj", "{A75E4F29-14BF-4291-89CF-F80DEB2B5F43}"
