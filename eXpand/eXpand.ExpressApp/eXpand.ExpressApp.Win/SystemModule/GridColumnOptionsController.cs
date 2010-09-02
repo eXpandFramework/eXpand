@@ -1,7 +1,7 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraGrid.Columns;
+using eXpand.ExpressApp.Core.DynamicModel;
 using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Win.SystemModule {
@@ -20,14 +20,13 @@ namespace eXpand.ExpressApp.Win.SystemModule {
     public interface IModelGridColumnOptionsColumnFilter : IModelNode {
     }
 
-    public class GridColumnOptionsController : ColumnOptionsController<GridColumn, IModelGridColumnOptions>
+    public class GridColumnOptionsController : ColumnOptionsController
     {
-        protected override Func<PropertyInfo, bool> ControlPropertiesFilterPredicate() {
-            return info => info.PropertyType == typeof(OptionsColumnFilter) || info.PropertyType == typeof(OptionsColumn);
+        protected override IEnumerable<DynamicModelType> GetDynamicModelTypes() {
+            yield return new DynamicModelType(typeof(IModelGridColumnOptionsColumn), typeof(OptionsColumn));
+            yield return new DynamicModelType(typeof(IModelGridColumnOptionsColumnFilter), typeof(OptionsColumnFilter));
         }
 
-        public override Func<PropertyInfo, bool> DynamicPropertiesFilterPredicate() {
-            return info => true;
-        }
+
     }
 }

@@ -1,8 +1,9 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraGrid.Views.Grid;
+using eXpand.ExpressApp.Core.DynamicModel;
 using eXpand.ExpressApp.SystemModule;
+using DynamicDouplicateTypesMapper = eXpand.ExpressApp.Win.Core.DynamicDouplicateTypesMapper;
 
 namespace eXpand.ExpressApp.Win.SystemModule
 {
@@ -59,17 +60,21 @@ namespace eXpand.ExpressApp.Win.SystemModule
     public interface IModelGridViewOptionsHint:IModelNode {
     }
 
-    public class GridViewOptionsController : GridOptionsController<GridView, IModelGridViewOptions>
+    public class GridViewOptionsController : GridOptionsController
     {
-        protected override Func<PropertyInfo, bool> ControlPropertiesFilterPredicate()
-        {
-            return info => info.PropertyType.Name.StartsWith("GridOptions");
+        protected override IEnumerable<DynamicModelType> GetDynamicModelTypes() {
+            yield return new DynamicModelType(typeof(IModelGridViewOptionsBehaviour), typeof(GridOptionsBehavior));
+            yield return new DynamicModelType(typeof(IModelGridViewOptionsDetail), typeof(GridOptionsDetail));
+            yield return new DynamicModelType(typeof(IModelGridViewOptionsCustomization), typeof(GridOptionsCustomization));
+            yield return new DynamicModelType(typeof(IModelGridViewOptionsNavigation), typeof(GridOptionsNavigation));
+            yield return new DynamicModelType(typeof(IModelGridViewOptionsSelection), typeof(GridOptionsSelection));
+            yield return new DynamicModelType(typeof(IModelGridViewOptionsView), typeof(GridOptionsView), null, null,new DynamicDouplicateTypesMapper());
+            yield return new DynamicModelType(typeof(IModelGridViewOptionsMenu), typeof(GridOptionsMenu));
+            yield return new DynamicModelType(typeof(IModelGridViewOptionsPrint), typeof(GridOptionsPrint));
+            yield return new DynamicModelType(typeof(IModelGridViewOptionsHint), typeof(GridOptionsHint));
         }
 
-        public override Func<PropertyInfo, bool> DynamicPropertiesFilterPredicate()
-        {
-            return info => info.PropertyType.Name != typeof(NewItemRowPosition).Name;
-        }
+
 
     }
 

@@ -1,5 +1,4 @@
 ﻿using DevExpress.ExpressApp.Model;
-using eXpand.ExpressApp.ListEditors;
 
 namespace eXpand.ExpressApp.Web.ListEditors {
     public class ASPxGridListEditorSynchronizer : DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditorSynchronizer
