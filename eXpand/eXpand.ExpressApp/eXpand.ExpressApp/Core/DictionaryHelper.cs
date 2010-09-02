@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Localization;
-using DevExpress.Xpo.Metadata;
-using System.Linq;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Xpo.Metadata;
+using eXpand.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Core
 {
@@ -27,35 +28,39 @@ namespace eXpand.ExpressApp.Core
             return removedAspectsWithNoDefaultAspects;
         }
 
-        private string removeSpaces(string aspects){
-            return aspects.Replace(" >",">");
-        }
-
-        private string removeAttributesWithNoDefaultValue(string aspect,string value){
-            return Regex.Replace(value, "( [^=\"]*=\"" +aspect+ ":([^\"]*)\")", "");
-        }
-
-        private static IEnumerable<IModelMember> GetCustomFields(IModelApplication model)
+        private string removeSpaces(string aspects)
         {
-            return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).Where(member => member.MemberInfo!=null);
+            return aspects.Replace(" >", ">");
+        }
+
+        private string removeAttributesWithNoDefaultValue(string aspect, string value)
+        {
+            return Regex.Replace(value, "( [^=\"]*=\"" + aspect + ":([^\"]*)\")", "");
+        }
+
+        private static ICollection<IModelMember> GetCustomFields(IModelApplication model)
+        {
+            var result = new List<IModelMember>();
+            foreach (IModelMember node in model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelBOModelRuntimeMember>().Where(member => member.IsRuntimeMember))
+            {
+                result.Add(node);
+            }
+
+            return result;
         }
 
         public static void AddFields(IModelApplication model, XPDictionary dictionary)
         {
-            model.BOModel.SelectMany(modelClass => modelClass.AllMembers).Where(member => member.MemberInfo != null).
-                ToList();
-            return;
             foreach (IModelMember modelMember in GetCustomFields(model))
                 try
                 {
-                    continue;
-                    Type classType = ((IModelClass)modelMember.Parent.Parent).TypeInfo.Type;
+                    Type classType = modelMember.ModelClass.TypeInfo.Type;
                     XPClassInfo typeInfo = dictionary.GetClassInfo(classType);
                     lock (typeInfo)
                     {
                         if (typeInfo.FindMember(modelMember.Name) == null)
                         {
-                            XPCustomMemberInfo memberInfo = typeInfo.CreateMember(modelMember.Name, modelMember.MemberInfo.MemberType);
+                            XPCustomMemberInfo memberInfo = typeInfo.CreateMember(modelMember.Name, modelMember.Type);
                             if (modelMember.Size != 0)
                                 memberInfo.AddAttribute(new DevExpress.Xpo.SizeAttribute(modelMember.Size));
 
