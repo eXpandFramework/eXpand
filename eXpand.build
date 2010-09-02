@@ -176,7 +176,7 @@
 	
 	<Target Name="Integrate" DependsOnTargets="Clean;Test;Report;" />
 	<!--For Continuous integration and automated releases-->
-	<Target Name="Release" DependsOnTargets="Clean;Build;Test;Report;Distrib;" />
+	<Target Name="Release" DependsOnTargets="Clean;_Version;Build;Test;Report;Distrib;" />
 	
 	<Target Name="DeployUpdate">
 		<MakeDir Directories="$(DeploymentFolder);" />
@@ -216,23 +216,11 @@
 	</Target>
 	
 	<Target Name="_Version">
-		<!--
-		<CreateItem Include="**\GlobalAssemblyInfo.cs">
-			<Output ItemName="_VersionPaths" TaskParameter="Include"/>
-		</CreateItem>
-		<CreateItem Include="@(_VersionPaths->'%(SubFolder)%(RecursiveDir)VersionAssemblyInfo.cs')">
-			<Output ItemName="_VersionFiles" TaskParameter="Include"/>
-		</CreateItem>
-		-->
-		<Time Format="yyyy-MM-dd HH:mm" Condition="$(BuildTime)==''">
-			<Output TaskParameter="FormattedTime" PropertyName="BuildTime" />
-		</Time>
-		<!--
-		<AssemblyInfo OutputFile="%(_VersionFiles.FullPath)" CodeLanguage="CS"
-									AssemblyVersion="$(Version)"
-									AssemblyFileVersion="$(Version)"
-									AssemblyConfiguration="$(Configuration) built on $(BuildTime)" />
-		-->
+		<FileUpdate 
+			Files="eXpand\eXpand.Utils\Properties\AssemblyInfo.cs"		
+			Regex="(\d+\.\d+\.\d+\.\d+)"
+			ReplacementText="$(Version)"
+			/>
 	</Target>
 
 </Project>
