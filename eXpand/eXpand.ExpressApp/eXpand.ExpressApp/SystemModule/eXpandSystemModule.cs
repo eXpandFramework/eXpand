@@ -8,18 +8,28 @@ using eXpand.ExpressApp.Core.ReadOnlyParameters;
 using eXpand.ExpressApp.Model;
 using eXpand.ExpressApp.NodeUpdaters;
 
-namespace eXpand.ExpressApp.SystemModule {
+namespace eXpand.ExpressApp.SystemModule
+{
+    public interface IModelBOModelRuntimeMember : IModelNode
+    {
+        [Category("eXpand")]
+        bool IsRuntimeMember { get; set; }
+    }
+
     [ToolboxItem(true)]
     [Description("Includes Controllers that represent basic features for XAF applications.")]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
-    [ToolboxBitmap(typeof (XafApplication), "Resources.SystemModule.ico")]
-    public sealed class eXpandSystemModule : ModuleBase {
-        static eXpandSystemModule() {
+    [ToolboxBitmap(typeof(XafApplication), "Resources.SystemModule.ico")]
+    public sealed class eXpandSystemModule : ModuleBase
+    {
+        static eXpandSystemModule()
+        {
             DevExpress.Persistent.Base.ParametersFactory.RegisterParameter(new MonthAgoParameter());
         }
 
-        public override void Setup(XafApplication application) {
+        public override void Setup(XafApplication application)
+        {
             base.Setup(application);
             application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
             application.SetupComplete +=
@@ -46,7 +56,7 @@ namespace eXpand.ExpressApp.SystemModule {
             extenders.Add<IModelClass, IModelClassLoadWhenFiltered>();
             extenders.Add<IModelListView, IModelListViewLoadWhenFiltered>();
             extenders.Add<IModelListView, IModelListViewLinq>();
-            
+            extenders.Add<IModelMember, IModelBOModelRuntimeMember>();
         }
     }
 
