@@ -16,17 +16,9 @@ namespace eXpand.ExpressApp.MasterDetail.Win
 {
     public class MasterDetailViewController : ListViewController<GridListEditor>, IModelExtender
     {
-        Window _windowToDispose;
-
-
-        void ViewOnMasterRowCollapsing(object sender, MasterRowCanExpandEventArgs masterRowCanExpandEventArgs)
+        private List<IMasterDetailRule> MasterDetailRules
         {
-            _windowToDispose = ((XafGridView)((GridView)sender).GetDetailView(masterRowCanExpandEventArgs.RowHandle, masterRowCanExpandEventArgs.RelationIndex)).Window;
-        }
-
-        void ViewOnMasterRowCollapsed(object sender, CustomMasterRowEventArgs customMasterRowEventArgs)
-        {
-            ((WinWindow)_windowToDispose).Form.Close();
+            get { return Frame.GetController<MasterDetailRuleController>().MasterDetailRules; }
         }
 
         protected override void OnDeactivating()
@@ -48,75 +40,71 @@ namespace eXpand.ExpressApp.MasterDetail.Win
             }
         }
 
-
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
             var view = ((GridListEditor)View.Editor).GridView;
+            var grid = ((GridListEditor)View.Editor).Grid;
+            grid.ViewRegistered += Grid_ViewRegistered;
+            grid.ViewRemoved += Grid_ViewRemoved;
             view.MasterRowGetRelationCount += ViewOnMasterRowGetRelationCount;
             view.MasterRowGetRelationName += ViewOnMasterRowGetRelationName;
             view.MasterRowGetRelationDisplayCaption += MasterRowGetRelationDisplayCaption;
             view.MasterRowGetChildList += ViewOnMasterRowGetChildList;
-            view.MasterRowCollapsed += ViewOnMasterRowCollapsed;
-            view.MasterRowExpanded += view_MasterRowExpanded;
-            view.MasterRowCollapsing += ViewOnMasterRowCollapsing;
             view.MasterRowEmpty += ViewOnMasterRowEmpty;
             view.MasterRowGetLevelDefaultView += ViewOnMasterRowGetLevelDefaultView;
         }
 
-
         void ViewOnMasterRowGetChildList(object sender, MasterRowGetChildListEventArgs e)
         {
             object row = ((XafGridView)sender).GetRow(e.RowHandle);
-            e.ChildList = (IList)Frame.GetController<MasterDetailRuleController>().MasterDetailRules[e.RelationIndex].CollectionMember.MemberInfo.GetValue(row);
+            e.ChildList = (IList)MasterDetailRules[e.RelationIndex].CollectionMember.MemberInfo.GetValue(row);
         }
 
         void ViewOnMasterRowGetRelationName(object sender, MasterRowGetRelationNameEventArgs e)
         {
-            var masterDetailRule = Frame.GetController<MasterDetailRuleController>().MasterDetailRules[e.RelationIndex];
-            e.RelationName = masterDetailRule.CollectionMember.Name;
+            e.RelationName = MasterDetailRules[e.RelationIndex].CollectionMember.Name;
         }
 
         void MasterRowGetRelationDisplayCaption(object sender, MasterRowGetRelationNameEventArgs e)
         {
-            var masterDetailRule = Frame.GetController<MasterDetailRuleController>().MasterDetailRules[e.RelationIndex];
+            var masterDetailRule = MasterDetailRules[e.RelationIndex];
             e.RelationName = CaptionHelper.GetMemberCaption(masterDetailRule.View.ModelClass.TypeInfo, masterDetailRule.CollectionMember.Name);
         }
 
 
         void ViewOnMasterRowGetRelationCount(object sender, MasterRowGetRelationCountEventArgs e)
         {
-            e.RelationCount = Frame.GetController<MasterDetailRuleController>().MasterDetailRules.Count;
+            e.RelationCount = MasterDetailRules.Count;
         }
 
         void ViewOnMasterRowGetLevelDefaultView(object sender, MasterRowGetLevelDefaultViewEventArgs e)
         {
             var gridViewBuilder = new GridViewBuilder(Application, ObjectSpace, Frame);
-            List<IMasterDetailRule> masterDetailRules = Frame.GetController<MasterDetailRuleController>().MasterDetailRules;
-            var masterGridView = (XafGridView)sender;
-            var levelDefaultView = gridViewBuilder.GetLevelDefaultView(masterGridView, e.RowHandle, e.RelationIndex, View.Model, masterDetailRules);
+            var levelDefaultView = gridViewBuilder.GetLevelDefaultView((XafGridView)sender, e.RowHandle, e.RelationIndex, View.Model, MasterDetailRules);
             e.DefaultView = levelDefaultView;
         }
 
-
-
-        void view_MasterRowExpanded(object sender, CustomMasterRowEventArgs e)
-        {
-            var gridViewBuilder = new GridViewBuilder(Application, ObjectSpace, Frame);
-            GridControl gridControl = ((GridListEditor)View.Editor).Grid;
-            var masterGridView = (XafGridView)gridControl.MainView;
-            List<IMasterDetailRule> masterDetailRules = Frame.GetController<MasterDetailRuleController>().MasterDetailRules;
-            gridViewBuilder.ModifyInstanceGridView(masterGridView, e.RowHandle, e.RelationIndex, View.Model, masterDetailRules);
-        }
-
-
-
-
         void ViewOnMasterRowEmpty(object sender, MasterRowEmptyEventArgs eventArgs)
         {
-            List<IMasterDetailRule> masterDetailRules = Frame.GetController<MasterDetailRuleController>().MasterDetailRules;
-            var modelDetailRelationCalculator = new ModelDetailRelationCalculator(View.Model, (XafGridView)sender, masterDetailRules);
+            var modelDetailRelationCalculator = new ModelDetailRelationCalculator(View.Model, (XafGridView)sender, MasterDetailRules);
             eventArgs.IsEmpty = !modelDetailRelationCalculator.IsRelationSet(eventArgs.RowHandle, eventArgs.RelationIndex);
+        }
+
+        void Grid_ViewRegistered(object sender, ViewOperationEventArgs e)
+        {
+            var gridViewBuilder = new GridViewBuilder(Application, ObjectSpace, Frame);
+            var parentGridView = (XafGridView)e.View.ParentView;
+            var frame = parentGridView.Window ?? Frame;
+            List<IMasterDetailRule> masterDetailRules = frame.GetController<MasterDetailRuleController>().MasterDetailRules;
+            gridViewBuilder.ModifyInstanceGridView(parentGridView, e.View.SourceRowHandle, parentGridView.GetRelationIndex(e.View.SourceRowHandle, e.View.LevelName), ((ListView)frame.View).Model, masterDetailRules);
+        }
+
+        void Grid_ViewRemoved(object sender, ViewOperationEventArgs e)
+        {
+            var window = (e.View as XafGridView).Window as WinWindow;
+            if (window != null && window.Form != null)
+                window.Form.Close();
         }
     }
 }
