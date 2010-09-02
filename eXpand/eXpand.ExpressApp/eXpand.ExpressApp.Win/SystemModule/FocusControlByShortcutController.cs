@@ -37,7 +37,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
             var barManagerHolder = Frame.Template as IBarManagerHolder;
-            if (barManagerHolder != null && barManagerHolder.BarManager.MainMenu != null){
+            if (barManagerHolder != null && barManagerHolder.BarManager != null && barManagerHolder.BarManager.MainMenu != null){
                 var barManager = barManagerHolder.BarManager;
                 BarSubItem rootMenu = GetRootMenu(barManager);
                 FindShortcuts();
