@@ -15,15 +15,8 @@ using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 namespace eXpand.ExpressApp.ModelDifference
 {
     public sealed class ModelDifferenceModule : ModuleBase{
-        static ModelApplicationBase _model;
-
         public ModelDifferenceModule(){
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
-        }
-        public static ModelApplicationBase MasterModel
-        {
-            get { return _model??(ModelApplicationBase)Application.Model; }
-            set {_model = value;}
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)

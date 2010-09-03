@@ -3,7 +3,6 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base.Security;
-using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
 using eXpand.ExpressApp.ModelDifference.Security;
@@ -41,8 +40,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             base.Load(model);
             
             var modelDifferenceObjects = GetActiveDifferenceObjects().ToList();
-            if (modelDifferenceObjects.Count() == 0)
-            {
+            if (modelDifferenceObjects.Count() == 0){
                 SaveDifference(model);
                 return;
             }
@@ -50,16 +48,14 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
             CombineWithActiveDifferenceObjects(model, modelDifferenceObjects);
         }
 
-        public void CombineWithActiveDifferenceObjects(ModelApplicationBase model, List<ModelDifferenceObject> modelDifferenceObjects)
+        void CombineWithActiveDifferenceObjects(ModelApplicationBase model, IEnumerable<ModelDifferenceObject> modelDifferenceObjects)
         {
             var reader = new ModelXmlReader();
-            var writer = new ModelXmlWriter();
-
             foreach (var modelDifferenceObject in modelDifferenceObjects){
-                for (int i = 0; i < modelDifferenceObject.Model.AspectCount; i++){
-                    var xml = writer.WriteToString(modelDifferenceObject.Model, i);
+                foreach (var aspectObject in modelDifferenceObject.AspectObjects) {
+                    var xml = aspectObject.Xml;
                     if (!string.IsNullOrEmpty(xml))
-                        reader.ReadFromString(model, modelDifferenceObject.Model.GetAspect(i), xml);
+                        reader.ReadFromString(model, aspectObject.Name, xml);
                 }
             }
         }
@@ -73,22 +69,15 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         protected internal override void OnDifferenceObjectSaving(ModelDifferenceObject userModelDifferenceObject, ModelApplicationBase model){
             var userStoreObject = ((UserModelDifferenceObject) userModelDifferenceObject);
             if (!userStoreObject.NonPersistent){
-                new ModelXmlReader().ReadFromModel(userStoreObject.Model, model);
+                userModelDifferenceObject.CreateAspects(model);
                 base.OnDifferenceObjectSaving(userModelDifferenceObject, model);
             }
 
-            if (SecuritySystem.Instance is ISecurityComplex && SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false))
-            {
-                var reader = new ModelXmlReader();
-                var writer = new ModelXmlWriter();
+            if (SecuritySystem.Instance is ISecurityComplex && SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false)){
                 var space = Application.CreateObjectSpace();
                 IEnumerable<ModelDifferenceObject> differences = GetDifferences(space);
                 foreach (var difference in differences){
-                    for (int i = 0; i < model.AspectCount; i++){
-                        var xml = writer.WriteToString(model, i);
-                        if (!string.IsNullOrEmpty(xml))
-                            reader.ReadFromString(difference.Model, model.GetAspect(i), xml);
-                    }
+                    difference.CreateAspects(model);
                     space.SetModified(difference);
                 }
                 space.CommitChanges();

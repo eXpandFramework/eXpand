@@ -23,9 +23,9 @@
       </Items>
       <Layout Width="1127" Height="777">
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="9">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="10">
             <LayoutGroup Id="ModelDifferenceObject" ShowCaption="False" RelativeSize="100">
-              <LayoutGroup Id="ModelDifferenceObject_col1" RelativeSize="46">
+              <LayoutGroup Id="ModelDifferenceObject_col1" RelativeSize="44">
                 <LayoutItem Id="PersistentApplication.Name" IsNewNode="True" Index="0" RelativeSize="47" />
                 <LayoutItem Id="Name" IsNewNode="True" Index="1" RelativeSize="35" />
                 <LayoutItem Id="PreferredAspect" IsNewNode="True" ShowCaption="False" Index="2" RelativeSize="17" />
@@ -33,24 +33,26 @@
                 <LayoutItem Id="Model" Removed="True" />
                 <LayoutItem Id="PersistentApplication" Removed="True" />
               </LayoutGroup>
-              <LayoutGroup Id="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a" IsNewNode="True" Caption="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a(9)" Index="1" RelativeSize="53">
+              <LayoutGroup Id="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a" IsNewNode="True" Caption="a3e3f9af-1f40-4fcd-a274-88b3ea7e417a(9)" Index="1" RelativeSize="55">
                 <LayoutGroup Id="0f836b75-5e4e-4e4e-bce7-d72400025c33" IsNewNode="True" Caption="0f836b75-5e4e-4e4e-bce7-d72400025c33(9)" Direction="Horizontal" Index="0" RelativeSize="55">
-                  <LayoutItem Id="CombineOrder" IsNewNode="True" Index="0" RelativeSize="60" />
-                  <LayoutItem Id="Disabled" IsNewNode="True" Index="1" RelativeSize="39" />
+                  <LayoutItem Id="CombineOrder" IsNewNode="True" Index="0" RelativeSize="58" />
+                  <LayoutItem Id="Disabled" IsNewNode="True" Index="1" RelativeSize="41" />
                 </LayoutGroup>
                 <LayoutItem Id="DateCreated" IsNewNode="True" Index="1" RelativeSize="44" />
               </LayoutGroup>
               <LayoutGroup Id="ModelDifferenceObject_col2" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
-          <TabbedGroup Id="Item1" IsNewNode="True" CaptionLocation="Top" Index="1" RelativeSize="90">
+          <TabbedGroup Id="Item1" IsNewNode="True" CaptionLocation="Top" Index="1" RelativeSize="89">
             <LayoutGroup Id="Model" IsNewNode="True" ShowCaption="True" Caption="Model Application" CaptionLocation="Top" Index="0" RelativeSize="100">
               <LayoutItem Id="Model" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" />
             </LayoutGroup>
-            <LayoutGroup Id="SizeableEditors" IsNewNode="True" ShowCaption="True" Caption="Xml Content" Index="1" RelativeSize="100">
-              <LayoutItem Id="XmlContent" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="100" />
+            <LayoutGroup Id="SizeableEditors" IsNewNode="True" ShowCaption="True" Caption="Xml Content" Direction="Horizontal" Index="1" RelativeSize="100">
+              <LayoutItem Id="XmlContent" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="49" />
+              <LayoutItem Id="AspectObjects" IsNewNode="True" Index="1" RelativeSize="50" />
             </LayoutGroup>
           </TabbedGroup>
+          <LayoutGroup Id="AspectObjects_Group" Removed="True" />
           <LayoutGroup Id="SizeableEditors" Removed="True" />
         </LayoutGroup>
       </Layout>
