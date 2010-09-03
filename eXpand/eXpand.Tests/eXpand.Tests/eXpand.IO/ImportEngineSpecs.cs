@@ -259,7 +259,7 @@ namespace eXpand.Tests.eXpand.IO {
 
         Establish context = () => {
             _objectSpace = ObjectSpaceInMemory.CreateNew();
-            PersistentAssemblyBuilder persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace);
+            PersistentAssemblyBuilder persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace,GetUniqueAssemblyName());
             persistentAssemblyBuilder.CreateClasses(new[] { "TestClass" }).CreateSimpleMembers<string>(info => new[] { "TestProperty" });
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             _testClassType = compileModule.Assembly.GetTypes().Where(type => type.Name == "TestClass").Single();

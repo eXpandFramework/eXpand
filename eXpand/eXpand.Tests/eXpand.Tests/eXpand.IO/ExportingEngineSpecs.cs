@@ -311,7 +311,7 @@ namespace eXpand.Tests.eXpand.IO
         static XPBaseObject _customer;
 
         Establish context = () => {
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly();
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             persistentAssemblyBuilder.CreateClasses(new[] { "Customer" });
             _objectSpace = persistentAssemblyBuilder.ObjectSpace;
             _objectSpace.CommitChanges();
@@ -337,7 +337,7 @@ namespace eXpand.Tests.eXpand.IO
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly();
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             persistentAssemblyBuilder.CreateClasses(new[] {"Customer"});
             _objectSpace = persistentAssemblyBuilder.ObjectSpace;
             _objectSpace.CommitChanges();

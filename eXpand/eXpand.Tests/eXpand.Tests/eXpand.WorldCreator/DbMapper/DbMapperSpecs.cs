@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
 {
-    [Subject(typeof(ExpressApp.WorldCreator.SqlDBMapper.DbMapper))]
+    [Subject(typeof(global::eXpand.ExpressApp.WorldCreator.SqlDBMapper.DbMapper))]
     public class When_mapping_a_database_to_an_assembly:With_DataBase
     {
         static DataStoreLogonObject _dataStoreLogonObject;
@@ -41,7 +41,7 @@ namespace eXpand.Tests.eXpand.WorldCreator.DbMapper
             return table1;
         }
 
-        Because of = () => new ExpressApp.WorldCreator.SqlDBMapper.DbMapper(ObjectSpace, _persistentAssemblyInfo, _dataStoreLogonObject).Map(_database, Isolate.Fake.Instance<IMapperInfo>());
+        Because of = () => new global::eXpand.ExpressApp.WorldCreator.SqlDBMapper.DbMapper(ObjectSpace, _persistentAssemblyInfo, _dataStoreLogonObject).Map(_database, Isolate.Fake.Instance<IMapperInfo>());
 
         It should_create_classinfos_for_all_tables_in_the_assembly =
             () => {

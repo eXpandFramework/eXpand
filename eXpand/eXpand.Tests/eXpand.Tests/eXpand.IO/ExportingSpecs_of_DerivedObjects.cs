@@ -25,7 +25,7 @@ namespace eXpand.Tests.eXpand.IO {
         Establish context = () =>
         {
             _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(GetUniqueAssemblyName());
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer", "DerivedCustomer" });
             classHandler.CreateSimpleMembers<string>(classInfo => classInfo.Name == "DerivedCustomer" ? new[] { "DerivedName" } : null);
             classHandler.SetInheritance(info => info.Name == "DerivedCustomer" ? persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0] : null);
@@ -76,7 +76,7 @@ namespace eXpand.Tests.eXpand.IO {
             existentConfiguration.TypeToSerialize = oneToMany.T2Type;
 
 
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace);
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace,GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "DerivedCustomer" });
             classHandler.SetInheritance(info => oneToMany.T1Type);
 
@@ -124,7 +124,7 @@ namespace eXpand.Tests.eXpand.IO {
             existentConfiguration.TypeToSerialize = oneToMany.T1Type;
 
 
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace);
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace,GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "DerivedOrder" });
             classHandler.SetInheritance(info => oneToMany.T2Type);
 
