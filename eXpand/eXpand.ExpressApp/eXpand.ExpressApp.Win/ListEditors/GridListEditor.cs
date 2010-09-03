@@ -12,6 +12,9 @@ using DevExpress.ExpressApp.Win.Core;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using eXpand.ExpressApp.ListEditors;
+using DevExpress.Utils;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using DevExpress.ExpressApp.SystemModule;
 
 namespace eXpand.ExpressApp.Win.ListEditors
 {
@@ -141,6 +144,26 @@ namespace eXpand.ExpressApp.Win.ListEditors
                 return objects.ToList();
             }
             return new List<object>();
+        }
+
+        protected override void ProcessMouseClick(EventArgs e)
+        {
+            if (this.GridView.FocusedRowHandle >= 0)
+            {
+                DXMouseEventArgs mouseArgs = DXMouseEventArgs.GetMouseArgs(this.Grid, e);
+                GridHitInfo info = this.GridView.CalcHitInfo(mouseArgs.Location);
+                if (info.InRow && (info.HitTest == GridHitTest.RowDetail))
+                {
+                    mouseArgs.Handled = true;
+                    var view = this.Grid.FocusedView as XafGridView;
+                    var showViewParameter = new ShowViewParameters();
+                    ListViewProcessCurrentObjectController.ShowObject(this.Grid.FocusedView.GetRow(info.RowHandle), showViewParameter, view.MasterFrame.Application, view.Window, view.Window.View);
+                    view.MasterFrame.Application.ShowViewStrategy.ShowView(showViewParameter, new ShowViewSource(null, null));
+                    return;
+                }
+            }
+
+            base.ProcessMouseClick(e);
         }
 
         #region IPopupMenuHider Members
