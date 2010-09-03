@@ -5,7 +5,7 @@ using DevExpress.Xpo;
 using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
-    public class PersistentApplication : eXpandCustomObject{
+    public class PersistentApplication : XpandCustomObject{
         string _name;
         string executableName;
         string uniqueName;
@@ -45,7 +45,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         #endregion
         public override void AfterConstruction() {
             base.AfterConstruction();
-            ExecutableName = Assembly.GetAssembly(ModuleBase.Application.GetType()).ManifestModule.Name;
+            ExecutableName = Assembly.GetAssembly(XpandModuleBase.Application.GetType()).ManifestModule.Name;
         }
     }
 }

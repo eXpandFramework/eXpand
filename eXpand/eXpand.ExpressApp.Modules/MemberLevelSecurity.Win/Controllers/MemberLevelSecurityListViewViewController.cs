@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers
 {
-    public class MemberLevelSecurityListViewViewController : ViewController<ListView>
+    public class MemberLevelSecurityListViewViewController : ViewController<XpandListView>
     {
         private GridControl gridControl;
 

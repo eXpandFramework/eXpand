@@ -20,7 +20,7 @@ namespace eXpand.ExpressApp.SystemModule
     {
     }
 
-    public abstract class LoadWhenFilteredController:ViewController<ListView>
+    public abstract class LoadWhenFilteredController:ViewController<XpandListView>
     {
         protected const string LoadWhenFiltered = "LoadWhenFiltered";
         protected override void OnViewControlsCreated()

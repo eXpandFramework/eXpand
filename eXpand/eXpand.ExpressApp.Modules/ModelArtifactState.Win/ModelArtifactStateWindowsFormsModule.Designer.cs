@@ -34,9 +34,9 @@ namespace eXpand.ExpressApp.ModelArtifactState.Win{
         {
          
             RequiredModuleTypes.Add(typeof(ValidationModule));
-            RequiredModuleTypes.Add(typeof(eXpandSecurityModule));
-            RequiredModuleTypes.Add(typeof(eXpandValidationModule));
-            RequiredModuleTypes.Add(typeof(eXpandSystemModule));
+            RequiredModuleTypes.Add(typeof(XpandSecurityModule));
+            RequiredModuleTypes.Add(typeof(XpandValidationModule));
+            RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(Logic.Win.LogicWindowsModule));
             
         }

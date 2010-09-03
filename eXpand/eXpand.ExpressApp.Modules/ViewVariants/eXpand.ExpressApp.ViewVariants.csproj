@@ -122,19 +122,19 @@
     <Compile Include="CloneViewController.Designer.cs">
       <DependentUpon>CloneViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="eXpandViewVariantsModule.cs">
+    <Compile Include="XpandViewVariantsModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="eXpandViewVariantsModule.Designer.cs">
-      <DependentUpon>eXpandViewVariantsModule.cs</DependentUpon>
+    <Compile Include="XpandViewVariantsModule.Designer.cs">
+      <DependentUpon>XpandViewVariantsModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="ViewCloner.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="eXpandViewVariantsModule.resx">
-      <DependentUpon>eXpandViewVariantsModule.cs</DependentUpon>
+    <EmbeddedResource Include="XpandViewVariantsModule.resx">
+      <DependentUpon>XpandViewVariantsModule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

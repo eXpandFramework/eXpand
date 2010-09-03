@@ -18,7 +18,7 @@ using eXpand.ExpressApp.Core;
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [CreatableItem(false), DevExpress.Persistent.Base.NavigationItem("Default"), HideFromNewMenu]
     [Custom("Caption", Caption), Custom("IsClonable", "True"), VisibleInReports(false)]
-    public class ModelDifferenceObject : eXpandCustomObject, IXpoModelDifference
+    public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference
     {
         
 
@@ -169,7 +169,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         public ModelDifferenceObject InitializeMembers(string name) {
-            return InitializeMembers(name, ModuleBase.Application.Title, ModuleBase.Application.GetType().FullName);
+            return InitializeMembers(name, XpandModuleBase.Application.Title, XpandModuleBase.Application.GetType().FullName);
         }
 
         public void CreateAspects(ModelApplicationBase model) {

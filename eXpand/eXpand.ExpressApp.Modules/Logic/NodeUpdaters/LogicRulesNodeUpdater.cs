@@ -34,7 +34,7 @@ namespace eXpand.ExpressApp.Logic.NodeUpdaters {
 
         void ConvertModelNodes(TLogicRule attribute, TModelLogicRule rule) {
             if (_explicitProperties== null)
-                _explicitProperties = ReflectorHelper.GetExplicitProperties(attribute.GetType());
+                _explicitProperties = XpandReflectionHelper.GetExplicitProperties(attribute.GetType());
             foreach (PropertyInfo explicitProperty in _explicitProperties){
                 object[] customAttributes = explicitProperty.GetCustomAttributes(typeof(TypeConverterAttribute), false);
                 if (customAttributes.Length > 0){

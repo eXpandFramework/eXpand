@@ -43,7 +43,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.Queries{
         }
         public virtual TDifferenceObject GetActiveModelDifference(string name)
         {
-            return GetActiveModelDifference(ModuleBase.Application.GetType().FullName,name);
+            return GetActiveModelDifference(XpandModuleBase.Application.GetType().FullName,name);
         }
 
         public virtual TDifferenceObject GetActiveModelDifference(string applicationName, string name)

@@ -122,7 +122,7 @@ namespace eXpand.ExpressApp.IO.Core {
             if (type == typeof(byte[])){
                 return string.IsNullOrEmpty(simpleElement.Value) ? null : Convert.FromBase64String(simpleElement.Value);
             }
-            return ReflectorHelper.ChangeType(simpleElement.Value, type);
+            return XpandReflectionHelper.ChangeType(simpleElement.Value, type);
         }
 
         ITypeInfo GetTypeInfo(XElement element) {
@@ -147,7 +147,7 @@ namespace eXpand.ExpressApp.IO.Core {
             var parameters=new List<object>();
             foreach (var xElement in xElements) {
                 var name = xElement.GetAttributeValue("name");
-                parameters.Add(ReflectorHelper.ChangeType(xElement.Value, typeInfo.FindMember(name).MemberType));
+                parameters.Add(XpandReflectionHelper.ChangeType(xElement.Value, typeInfo.FindMember(name).MemberType));
                 criteria += name + "=? AND ";
             }
             return CriteriaOperator.Parse(criteria.TrimEnd("AND ".ToCharArray()),parameters.ToArray());

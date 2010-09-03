@@ -15,7 +15,7 @@ using eXpand.Xpo.DB;
 using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.WorldCreator {
-    public abstract class WorldCreatorModuleBase:ModuleBase {
+    public abstract class WorldCreatorModuleBase:XpandModuleBase {
         string _connectionString;
         List<Type> _dynamicModuleTypes=new List<Type>();
 
@@ -32,7 +32,7 @@ namespace eXpand.ExpressApp.WorldCreator {
             var businessClassesList = GetAdditionalClasses();
             WCTypesInfo.Instance.Register(businessClassesList);
             if (_connectionString != null) {
-                var xpoMultiDataStoreProxy = new XpoMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
+                var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
                 using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
                     using (var session = new Session(dataLayer)) {
                         RunUpdaters(session);
@@ -58,7 +58,7 @@ namespace eXpand.ExpressApp.WorldCreator {
         void SynchronizeTypes(UnitOfWork unitOfWork) {
             var xpObjectTypes = new XPCollection<XPObjectType>(unitOfWork);
             var moduleTypes = DynamicModuleTypes.Where(type => type.Assembly.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>().SingleOrDefault() != null);
-            var dataStoreManager = new XpoMultiDataStoreProxy(_connectionString).DataStoreManager;
+            var dataStoreManager = new SqlMultiDataStoreProxy(_connectionString).DataStoreManager;
             foreach (var moduleType in moduleTypes){
                 var moduleBase = (DevExpress.ExpressApp.ModuleBase)Activator.CreateInstance(moduleType);
                 var businessClass = moduleBase.BusinessClasses[0];
@@ -84,7 +84,7 @@ namespace eXpand.ExpressApp.WorldCreator {
             base.CustomizeTypesInfo(typesInfo);
             var existentTypesMemberCreator = new ExistentTypesMemberCreator();
             if (_connectionString != null) {
-                var xpoMultiDataStoreProxy = new XpoMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
+                var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
                 var simpleDataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy);
                 var session = new Session(simpleDataLayer);
                 existentTypesMemberCreator.CreateMembers(session);
@@ -114,9 +114,9 @@ namespace eXpand.ExpressApp.WorldCreator {
         }
 
         void CreateDataStore(SetupEventArgs setupEventArgs) {
-            var objectSpaceProvider = setupEventArgs.SetupParameters.ObjectSpaceProvider as IObjectSpaceProvider;
+            var objectSpaceProvider = setupEventArgs.SetupParameters.ObjectSpaceProvider as IXpandObjectSpaceProvider;
             if (objectSpaceProvider== null)
-                throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
+                throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IXpandObjectSpaceProvider).FullName);
         }
 
         void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork){

@@ -18,7 +18,7 @@ namespace eXpand.ExpressApp.ViewVariants
     {
     }
 
-    public partial class CloneViewController : ViewController<ListView>, IModelExtender
+    public partial class CloneViewController : ViewController<XpandListView>, IModelExtender
     {
         IModelView _rootView;
 

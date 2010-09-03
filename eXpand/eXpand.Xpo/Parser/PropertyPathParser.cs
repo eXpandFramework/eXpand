@@ -21,7 +21,7 @@ namespace eXpand.Xpo.Parser
             foreach (string split in propertyPath.Split('.')) {
                 path += split;
                 criteria += split;
-                XPMemberInfo memberInfo = ReflectorHelper.GetXpMemberInfo(_xpClassInfo, path);
+                XPMemberInfo memberInfo = XpandReflectionHelper.GetXpMemberInfo(_xpClassInfo, path);
                 if (memberInfo.IsCollection) {
                     criteria = criteria.TrimEnd('.');
                     criteria += "[";

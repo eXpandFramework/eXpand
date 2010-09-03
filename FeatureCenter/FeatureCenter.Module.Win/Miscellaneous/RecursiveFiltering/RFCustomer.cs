@@ -10,7 +10,7 @@ namespace FeatureCenter.Module.Win.Miscellaneous.RecursiveFiltering
         Captions.ViewMessageRecursiveFiltering, Position.Bottom)]
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderRecursiveFiltering, "1=1", "1=1",
         Captions.HeaderRecursiveFiltering, Position.Top)]
-    [NavigationItem(Module.Captions.Miscellaneous + "RecursiveFiltering", "RFCustomer_ListView")]
+    [XpandNavigationItem(Module.Captions.Miscellaneous + "RecursiveFiltering", "RFCustomer_ListView")]
     public class RFCustomer:CustomerBase,ICategorizedItem
     {
         public RFCustomer(Session session) : base(session) {

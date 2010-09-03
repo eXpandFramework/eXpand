@@ -14,7 +14,7 @@ namespace FeatureCenter.Module.Miscellaneous.ForeignKeyViolation
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderFKViolation, "1=1", "1=1", Captions.ViewMessageFKViolation, Position.Bottom){ViewType = ViewType.ListView, View = "ForeignKeyViolation_ListView"};
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderFKViolation, "1=1", "1=1", Captions.HeaderFKViolation, Position.Top) { View = "ForeignKeyViolation_ListView" };
             yield return new CloneViewAttribute(CloneViewType.ListView, "ForeignKeyViolation_ListView");
-            yield return new NavigationItemAttribute(Captions.Miscellaneous + "Foreign Key Violation", "ForeignKeyViolation_ListView");
+            yield return new XpandNavigationItemAttribute(Captions.Miscellaneous + "Foreign Key Violation", "ForeignKeyViolation_ListView");
             yield return new DisplayFeatureModelAttribute("ForeignKeyViolation_ListView");
         }
     }

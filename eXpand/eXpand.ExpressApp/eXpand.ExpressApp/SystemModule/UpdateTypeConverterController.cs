@@ -8,7 +8,7 @@ using eXpand.ExpressApp.Core;
 namespace eXpand.ExpressApp.SystemModule {
     public abstract class UpdateTypeConverterController<T, TReferenceConverter> : ViewController
         where T : class
-        where TReferenceConverter : ReferenceConverter
+        where TReferenceConverter : XpandReferenceConverter
     {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);

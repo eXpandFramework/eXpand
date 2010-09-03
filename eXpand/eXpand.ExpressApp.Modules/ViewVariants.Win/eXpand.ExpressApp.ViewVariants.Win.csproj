@@ -131,18 +131,18 @@
     <Compile Include="ChangeViewVariantActionViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="eXpandViewVariantsWin.cs">
+    <Compile Include="XpandViewVariantsWin.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="eXpandViewVariantsWin.Designer.cs">
-      <DependentUpon>eXpandViewVariantsWin.cs</DependentUpon>
+    <Compile Include="XpandViewVariantsWin.Designer.cs">
+      <DependentUpon>XpandViewVariantsWin.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="eXpandViewVariantsWin.resx">
-      <DependentUpon>eXpandViewVariantsWin.cs</DependentUpon>
+    <EmbeddedResource Include="XpandViewVariantsWin.resx">
+      <DependentUpon>XpandViewVariantsWin.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

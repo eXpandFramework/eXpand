@@ -11,7 +11,7 @@ using DevExpress.Persistent.Base.Security;
 using eXpand.ExpressApp.Logic.Model;
 
 namespace eXpand.ExpressApp.Logic {
-    public abstract class LogicModuleBase<TLogicRule, TLogicRule2> : ModuleBase,IRuleHolder,IRuleCollector
+    public abstract class LogicModuleBase<TLogicRule, TLogicRule2> : XpandModuleBase,IRuleHolder,IRuleCollector
         where TLogicRule : ILogicRule
         where TLogicRule2 : ILogicRule{
         public event EventHandler RulesCollected;

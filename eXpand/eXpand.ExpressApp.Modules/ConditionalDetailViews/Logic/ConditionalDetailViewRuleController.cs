@@ -17,7 +17,7 @@ namespace eXpand.ExpressApp.ConditionalDetailViews.Logic {
         protected override void OnActivated()
         {
             base.OnActivated();
-            if (IsReady&&View is ListView)
+            if (IsReady&&View is XpandListView)
                 Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem += OnCustomProcessSelectedItem;
         }
 
@@ -34,7 +34,7 @@ namespace eXpand.ExpressApp.ConditionalDetailViews.Logic {
         protected override void OnDeactivating()
         {
             base.OnDeactivating();
-            if (IsReady && View is ListView)
+            if (IsReady && View is XpandListView)
                 Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem += OnCustomProcessSelectedItem;
         }
 

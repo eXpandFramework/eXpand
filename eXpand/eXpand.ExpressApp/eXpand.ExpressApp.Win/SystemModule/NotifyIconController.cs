@@ -46,7 +46,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
                     strip.Items.Add(GetMenuItem("Minimize", (o, eventArgs) => changeFormVisibility(form)));
                     if (Application is ILogOut)
                         strip.Items.Add(GetMenuItem("LogOut", (o, eventArgs) => ((ILogOut)Application).Logout()));
-                    strip.Items.Add(GetMenuItem("Exit", (o, eventArgs) => ModuleBase.Application.Exit()));
+                    strip.Items.Add(GetMenuItem("Exit", (o, eventArgs) => XpandModuleBase.Application.Exit()));
 
                     var notifyIcon1 = new NotifyIcon(container) { Visible = true, ContextMenuStrip = strip };
                     setIcon(notifyIcon1);
@@ -79,7 +79,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
                 notifyIcon1.Icon = new Icon(path);
             else
             {
-                Stream resourceStream = typeof(eXpandSystemModule).Assembly.GetManifestResourceStream("eXpand.ExpressApp.Resources.ExpressApp.ico");
+                Stream resourceStream = typeof(XpandSystemModule).Assembly.GetManifestResourceStream("eXpand.ExpressApp.Resources.ExpressApp.ico");
                 if (resourceStream != null) notifyIcon1.Icon = new Icon(resourceStream);
             }
         }

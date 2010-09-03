@@ -18,7 +18,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.AutoExpandNe
                                                                      Captions.HeaderAutoExpandNewRow, Position.Top){Nesting = Nesting.Root, ViewType = ViewType.ListView, View = "AutoExpandNewRowCustomer_ListView"};
                 yield return new MasterDetailAttribute("AutoExpandNewRowCustomer_Orders", "1=1", "AutoExpandNewRowOrder_ListView", "Orders") { View = "AutoExpandNewRowCustomer_ListView" };
                 yield return new CloneViewAttribute(CloneViewType.ListView, "AutoExpandNewRowCustomer_ListView");
-                yield return new NavigationItemAttribute("Controlling XtraGrid/Master Detail/Auto Expand new row", "AutoExpandNewRowCustomer_ListView");
+                yield return new XpandNavigationItemAttribute("Controlling XtraGrid/Master Detail/Auto Expand new row", "AutoExpandNewRowCustomer_ListView");
                 yield return new DisplayFeatureModelAttribute("AutoExpandNewRowCustomer_ListView", "AutoExpandNewRow");
             }
             if (typesInfo.Type==typeof(WinOrder)) {

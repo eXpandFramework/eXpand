@@ -29,7 +29,7 @@ namespace eXpand.ExpressApp.Security.Permissions
         {
             var typePropertyEditorIsUsed = propertyInfo.PropertyType==typeof (Type);
             if (!typePropertyEditorIsUsed)
-                return ReflectorHelper.ChangeType(e.Attributes[propertyInfo.Name].ToString().XMLDecode(), propertyInfo.PropertyType);
+                return XpandReflectionHelper.ChangeType(e.Attributes[propertyInfo.Name].ToString().XMLDecode(), propertyInfo.PropertyType);
             return string.IsNullOrEmpty((e.Attributes[propertyInfo.Name]+"")) ? null : XafTypesInfo.Instance.FindTypeInfo(e.Attributes[propertyInfo.Name].ToString()).Type;
         }
 

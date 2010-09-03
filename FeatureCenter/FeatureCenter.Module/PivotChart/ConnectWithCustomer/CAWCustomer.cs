@@ -9,7 +9,7 @@ using FeatureCenter.Base;
 
 namespace FeatureCenter.Module.PivotChart.ConnectWithCustomer
 {
-    [NavigationItem("PivotChart/Connecting with customer", "CAWCustomer_DetailView")]
+    [XpandNavigationItem("PivotChart/Connecting with customer", "CAWCustomer_DetailView")]
 //    [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderConnectWithCustomer, "1=1", "1=1", Captions.ViewMessageConnectWithCustomer, Position.Bottom, ViewType = ViewType.DetailView)]
 //    [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderConnectWithCustomer, "1=1", "1=1", Captions.HeaderConnectWithCustomer, Position.Top, ViewType = ViewType.DetailView)]
     [DisplayFeatureModel("CAWCustomer_DetailView", "ConnectWithCustomer")]
@@ -40,7 +40,7 @@ namespace FeatureCenter.Module.PivotChart.ConnectWithCustomer
         [Browsable(false)]
         public XPCollection<CAWOrderLine> OrderLines {
             get {
-                return new eXpand.Xpo.Collections.XPCollection<CAWOrderLine>(Session,line => line.Order.Customer.Oid == Oid);
+                return new eXpand.Xpo.Collections.XpandXPCollection<CAWOrderLine>(Session,line => line.Order.Customer.Oid == Oid);
             }
         }
     }

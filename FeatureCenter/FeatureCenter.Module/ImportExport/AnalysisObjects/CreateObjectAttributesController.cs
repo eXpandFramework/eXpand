@@ -12,9 +12,9 @@ namespace FeatureCenter.Module.ImportExport.AnalysisObjects
         {
             return new CloneViewAttribute(CloneViewType.ListView, ViewId);
         }
-        protected override NavigationItemAttribute GetNavigationItemAttribute()
+        protected override XpandNavigationItemAttribute GetNavigationItemAttribute()
         {
-            return new NavigationItemAttribute(Captions.Importexport+ "Analysis", ViewId);
+            return new XpandNavigationItemAttribute(Captions.Importexport+ "Analysis", ViewId);
         }
         protected override DisplayFeatureModelAttribute GetDisplayFeatureModelAttribute() {
             return new DisplayFeatureModelAttribute(ViewId, "Analysis");

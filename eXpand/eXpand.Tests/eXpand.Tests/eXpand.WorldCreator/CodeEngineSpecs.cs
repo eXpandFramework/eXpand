@@ -128,7 +128,7 @@ namespace eXpand.Tests.eXpand.WorldCreator {
 
         Because of = () => { _generateCode = CodeEngine.GenerateCode(_persistentClassInfo); };
 
-        It should_use_default_Base_type =() => _generateCode.IndexOf(typeof (eXpandCustomObject).FullName).ShouldBeGreaterThan(-1);
+        It should_use_default_Base_type =() => _generateCode.IndexOf(typeof (XpandCustomObject).FullName).ShouldBeGreaterThan(-1);
     }
     [Subject(typeof(CodeEngine))]
     public class When_generating_code_from_persistentClassinfo_with_baseclassinfo_defined:With_In_Memory_DataStore {

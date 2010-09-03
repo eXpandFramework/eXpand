@@ -56,7 +56,7 @@ namespace eXpand.ExpressApp.PivotChart
             var dialogController = new DialogController();
             dialogController.AcceptAction.Execute += (o, args) => Synchonize(classInfo, type, args.CurrentObject);
             showViewParameters.Controllers.Add(dialogController);
-            ((DetailView) showViewParameters.CreatedView).ViewEditMode=ViewEditMode.Edit;
+            ((XpandDetailView) showViewParameters.CreatedView).ViewEditMode=ViewEditMode.Edit;
 
         }
 

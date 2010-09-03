@@ -48,7 +48,7 @@ namespace eXpand.ExpressApp.SystemModule
         IModelListView PropertyPathListViewId { get; set; }
     }
 
-    public abstract class FilterByPropertyPathViewController : ViewController<ListView>
+    public abstract class FilterByPropertyPathViewController : ViewController<XpandListView>
     {
         private Dictionary<string, FiltersByCollectionWrapper> _filtersByPropertyPathWrappers;
         readonly SingleChoiceAction _filterSingleChoiceAction;
@@ -294,7 +294,7 @@ namespace eXpand.ExpressApp.SystemModule
             {
                 if (binaryOperatorLastMemberClassType == null)
                 {
-                    var xpMemberInfo = ReflectorHelper.GetXpMemberInfo(classInfo, PropertyPath);
+                    var xpMemberInfo = XpandReflectionHelper.GetXpMemberInfo(classInfo, PropertyPath);
                     if (xpMemberInfo != null)
                         return binaryOperatorLastMemberClassType = xpMemberInfo.IsCollection ? xpMemberInfo.CollectionElementType.ClassType : xpMemberInfo.ReferenceType.ClassType;
                 }

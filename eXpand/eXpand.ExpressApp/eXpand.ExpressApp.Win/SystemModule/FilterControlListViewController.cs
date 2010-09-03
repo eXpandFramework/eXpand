@@ -25,7 +25,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
         
     }
 
-    public class FilterControlListViewController : ViewController<ListView>,IModelExtender
+    public class FilterControlListViewController : ViewController<XpandListView>,IModelExtender
     {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
@@ -40,11 +40,11 @@ namespace eXpand.ExpressApp.Win.SystemModule
                     (sender, args) => ((Forms.Control)View.Control).HandleCreated += gridControl_HandleCreated;
         }
         
-        private Editors.FilterControl filterControl;
+        private Editors.XpandFilterControl _xpandFilterControl;
 
-        public Editors.FilterControl FilterControl
+        public Editors.XpandFilterControl XpandFilterControl
         {
-            get { return filterControl; }
+            get { return _xpandFilterControl; }
         }
 
         public event EventHandler FilterControlCreated;
@@ -65,26 +65,26 @@ namespace eXpand.ExpressApp.Win.SystemModule
         private void gridControl_HandleCreated(object sender, EventArgs e)
         {
             var gridControl = sender as GridControl;
-            filterControl = new Editors.FilterControl
+            _xpandFilterControl = new Editors.XpandFilterControl
                             {
                                 Height = 150,
                                 Dock = ((IModelListViewFilterControlSettings)View.Model).FilterControlPosition,
                                 SourceControl = gridControl
                             };
             OnCustomAssignFilterControlSourceControl(e);
-            gridControl = filterControl.SourceControl as GridControl;
+            gridControl = _xpandFilterControl.SourceControl as GridControl;
             if (gridControl != null ){
                 if (!gridControl.FormsUseDefaultLookAndFeel)
-                    filterControl.LookAndFeel.Assign(gridControl.LookAndFeel);
-                filterControl.FilterCriteria=GetCriteriaFromView();
+                    _xpandFilterControl.LookAndFeel.Assign(gridControl.LookAndFeel);
+                _xpandFilterControl.FilterCriteria=GetCriteriaFromView();
             }
 
             var accept = new SimpleButton { Text = CaptionHelper.GetLocalizedText("eXpand", "AcceptFilter") };
-            accept.Click += ((o, args) => filterControl.ApplyFilter());
+            accept.Click += ((o, args) => _xpandFilterControl.ApplyFilter());
             accept.Dock = Forms.DockStyle.Bottom;
-            filterControl.Controls.Add(accept);
+            _xpandFilterControl.Controls.Add(accept);
 
-            ((Forms.Control) sender).Parent.Controls.Add(filterControl);
+            ((Forms.Control) sender).Parent.Controls.Add(_xpandFilterControl);
             OnFilterControlCreated(EventArgs.Empty);
         }
 

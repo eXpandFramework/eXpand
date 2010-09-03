@@ -11,7 +11,7 @@ namespace eXpand.ExpressApp.MasterDetail {
     public class MasterDetailModule : LogicModuleBase<IMasterDetailRule, MasterDetailRule>
     {
         public MasterDetailModule() {
-            RequiredModuleTypes.Add(typeof(eXpandSystemModule));
+            RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(LogicModule));
         }
         #region IModelExtender Members

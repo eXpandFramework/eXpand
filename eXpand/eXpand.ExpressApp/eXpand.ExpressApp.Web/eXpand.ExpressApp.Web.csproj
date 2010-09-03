@@ -108,10 +108,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Editors\ActionButtonDetailItem.cs" />
-    <Compile Include="ListEditors\ASPxGridListEditor.cs">
+    <Compile Include="ListEditors\XpandASPxGridListEditor.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\ASPxGridListEditorSynchronizer.cs">
+    <Compile Include="ListEditors\XpandASPxGridListEditorSynchronizer.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ListEditors\ColumnOptionsModelSynchronizer.cs">
@@ -120,7 +120,7 @@
     <Compile Include="ListEditors\GridViewOptionsModelSynchronizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyEditors\UriEditor.cs" />
-    <Compile Include="SystemModule\eXpandSystemAspNetModule.cs">
+    <Compile Include="SystemModule\XpandSystemAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
@@ -141,11 +141,11 @@
     <Compile Include="SystemModule\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WebComponent.cs">
+    <Compile Include="XpandWebApplication.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WebComponent.designer.cs">
-      <DependentUpon>WebComponent.cs</DependentUpon>
+    <Compile Include="XpandWebApplication.designer.cs">
+      <DependentUpon>XpandWebApplication.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

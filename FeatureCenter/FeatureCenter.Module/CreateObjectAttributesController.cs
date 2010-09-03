@@ -17,12 +17,12 @@ namespace FeatureCenter.Module {
                 AddAttribute(typeInfo, displayFeatureModelAttribute);
                 CloneViewAttribute cloneViewAttribute = GetCloneViewAttribute();
                 AddAttribute(typeInfo, cloneViewAttribute);
-                NavigationItemAttribute navigationItemAttribute=GetNavigationItemAttribute();
-                AddAttribute(typeInfo, navigationItemAttribute);
+                XpandNavigationItemAttribute xpandNavigationItemAttribute=GetNavigationItemAttribute();
+                AddAttribute(typeInfo, xpandNavigationItemAttribute);
             }
         }
 
-        protected virtual NavigationItemAttribute GetNavigationItemAttribute() {
+        protected virtual XpandNavigationItemAttribute GetNavigationItemAttribute() {
             return null;
         }
 

@@ -17,7 +17,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
     {
     }
 
-    public class AutoCommitListViewController : ViewController<ListView>, IModelExtender
+    public class AutoCommitListViewController : ViewController<XpandListView>, IModelExtender
     {
         protected override void OnActivated()
         {

@@ -8,7 +8,7 @@ using eXpand.ExpressApp.Win;
 
 namespace FeatureCenter.Win
 {
-    public partial class FeatureCenterWindowsFormsApplication : WinComponent
+    public partial class FeatureCenterWindowsFormsApplication : XpandWinApplication
     {
         public FeatureCenterWindowsFormsApplication()
         {

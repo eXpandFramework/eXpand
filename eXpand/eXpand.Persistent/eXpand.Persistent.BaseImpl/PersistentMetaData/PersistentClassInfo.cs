@@ -34,7 +34,7 @@ namespace eXpand.Persistent.BaseImpl.PersistentMetaData {
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            BaseType = typeof (eXpandCustomObject);
+            BaseType = typeof (XpandCustomObject);
         }
         [Index(0)]
         [Size(SizeAttribute.Unlimited)]

@@ -17,7 +17,7 @@ namespace eXpand.ExpressApp.PivotChart.InPlaceEdit {
     public interface IModelPropertyEditorPivotGridInPlaceEdit:IModelMemberPivotGridInPlaceEdit {
         
     }
-    public class PivotGridInplaceEditorsControllerBase : ViewController<DetailView>,IModelExtender{
+    public class PivotGridInplaceEditorsControllerBase : ViewController<XpandDetailView>,IModelExtender{
         public event EventHandler<EditorCreatedArgs> EditorCreated;
 
         protected virtual void OnEditorCreated(EditorCreatedArgs e) {

@@ -144,18 +144,18 @@
     </Compile>
     <Compile Include="Controllers\TreeNodeExtensions.cs">
     </Compile>
-    <Compile Include="eXpandTreeListEditorsWinModule.cs">
+    <Compile Include="XpandTreeListEditorsWinModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="eXpandTreeListEditorsWinModule.Designer.cs">
-      <DependentUpon>eXpandTreeListEditorsWinModule.cs</DependentUpon>
+    <Compile Include="XpandTreeListEditorsWinModule.Designer.cs">
+      <DependentUpon>XpandTreeListEditorsWinModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="eXpandTreeListEditorsWinModule.resx">
-      <DependentUpon>eXpandTreeListEditorsWinModule.cs</DependentUpon>
+    <EmbeddedResource Include="XpandTreeListEditorsWinModule.resx">
+      <DependentUpon>XpandTreeListEditorsWinModule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

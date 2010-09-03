@@ -116,24 +116,27 @@
   <ItemGroup>
     <Compile Include="Core\DynamicDouplicateTypesMapper.cs" />
     <Compile Include="Core\ListViewExtensions.cs" />
-    <Compile Include="Editors\FilterControl.cs">
+    <Compile Include="Editors\XpandFilterControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\ColumnOptionsModelSynchronizer.cs" />
-    <Compile Include="ListEditors\XafGridView.cs">
+    <Compile Include="ListEditors\XpandXafGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\XpandXafGridColumn.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PropertyEditors\NullAble\BooleanPropertyEditor\BooleanHAlignFarPropertyEditor.cs" />
     <Compile Include="Interfaces\ILogOut.cs" />
-    <Compile Include="ListEditors\GridListEditor.cs">
+    <Compile Include="ListEditors\XpandGridListEditor.cs">
     </Compile>
     <Compile Include="ListEditors\IPopupMenuHider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyEditors\NullAble\BooleanPropertyEditor\BooleanPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\NullAble\BooleanPropertyEditor\XpandBooleanPropertyEditor.cs" />
     <Compile Include="Editors\ActionButtonDetailItem.cs" />
-    <Compile Include="PropertyEditors\NullAble\DatePropertyEditor\DatePropertyEditor.cs" />
-    <Compile Include="PropertyEditors\NullAble\DoublePropertyEditor\DoublePropertyEditor.cs" />
-    <Compile Include="PropertyEditors\NullAble\IntegerPropertyEditor\IntegerPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\NullAble\DatePropertyEditor\XpandDatePropertyEditor.cs" />
+    <Compile Include="PropertyEditors\NullAble\DoublePropertyEditor\XpandDoublePropertyEditor.cs" />
+    <Compile Include="PropertyEditors\NullAble\IntegerPropertyEditor\XpandIntegerPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditorBase.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringLookupPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditor.cs" />
@@ -152,7 +155,7 @@
     <Compile Include="SystemModule\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\eXpandSystemWindowsFormsModule.cs">
+    <Compile Include="SystemModule\XpandSystemWindowsFormsModule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
@@ -215,17 +218,14 @@
     <Compile Include="SystemModule\WindowHintController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\MoreSerializer.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="SystemModule\WinLogoutWindowController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WinComponent.cs">
+    <Compile Include="XpandWinApplication.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WinComponent.Designer.cs">
-      <DependentUpon>WinComponent.cs</DependentUpon>
+    <Compile Include="XpandWinApplication.Designer.cs">
+      <DependentUpon>XpandWinApplication.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -264,9 +264,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Templates\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

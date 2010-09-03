@@ -168,11 +168,10 @@
     </Compile>
     <Compile Include="Options\PivotGridOptionMapper.cs" />
     <Compile Include="Core\TypesInfo.cs" />
-    <Compile Include="PivotChartWinModule.cs">
-      <SubType>Component</SubType>
+    <Compile Include="XpandPivotChartWinModule.cs">
     </Compile>
-    <Compile Include="PivotChartWinModule.Designer.cs">
-      <DependentUpon>PivotChartWinModule.cs</DependentUpon>
+    <Compile Include="XpandPivotChartWinModule.Designer.cs">
+      <DependentUpon>XpandPivotChartWinModule.cs</DependentUpon>
     </Compile>
     <Compile Include="PivotGridInplaceEditorsController.cs">
       <SubType>Component</SubType>
@@ -182,8 +181,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PivotChartWinModule.resx">
-      <DependentUpon>PivotChartWinModule.cs</DependentUpon>
+    <EmbeddedResource Include="XpandPivotChartWinModule.resx">
+      <DependentUpon>XpandPivotChartWinModule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

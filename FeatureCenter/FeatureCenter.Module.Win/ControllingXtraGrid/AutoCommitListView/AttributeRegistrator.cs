@@ -15,7 +15,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.AutoCommitListView
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderAutoCommitListView, "1=1", "1=1",
                 Captions.HeaderAutoCommitListView, Position.Top){View = "AutoCommit_ListView"};
             yield return new CloneViewAttribute(CloneViewType.ListView, "AutoCommit_ListView");
-            yield return new NavigationItemAttribute("Controlling XtraGrid/Auto Commit List View", "AutoCommit_ListView");
+            yield return new XpandNavigationItemAttribute("Controlling XtraGrid/Auto Commit List View", "AutoCommit_ListView");
             yield return new DisplayFeatureModelAttribute("AutoCommit_ListView", "AutoCommitListView");
         }
     }

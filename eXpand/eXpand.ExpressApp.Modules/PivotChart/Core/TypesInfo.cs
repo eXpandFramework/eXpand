@@ -24,7 +24,7 @@ namespace eXpand.ExpressApp.PivotChart.Core {
             if (infoType == null)
                 throw new NoNullAllowedException("No Class that implemenets " + type1.AssemblyQualifiedName +
                                                  " found at AdditionalBusinessClasses list. " +
-                                                 typeof (PivotChartModule).Name +
+                                                 typeof (XpandPivotChartModule).Name +
                                                  " should be the last module added to Application.Modules. Please check InitializeComponent method of your XafApplication descenant");
             return infoType;
         }

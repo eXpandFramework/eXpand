@@ -5,7 +5,7 @@ using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.ViewVariants {
     [NonPersistent]
-    public class ViewCloner : eXpandCustomObject {
+    public class ViewCloner : XpandCustomObject {
         string caption;
 
         string clonedViewName;

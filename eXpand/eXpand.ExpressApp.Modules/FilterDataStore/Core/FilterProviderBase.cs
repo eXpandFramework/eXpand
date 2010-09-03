@@ -23,7 +23,7 @@ namespace eXpand.ExpressApp.FilterDataStore.Core {
 
         void SetPropertyValue(NameValueCollection config, PropertyInfo propertyInfo) {
             if (!(string.IsNullOrEmpty(config[propertyInfo.Name.MakeFirstCharLower()]))){
-                propertyInfo.SetValue(this,ReflectorHelper.ChangeType(config[propertyInfo.Name.MakeFirstCharLower()],propertyInfo.PropertyType), null);
+                propertyInfo.SetValue(this,XpandReflectionHelper.ChangeType(config[propertyInfo.Name.MakeFirstCharLower()],propertyInfo.PropertyType), null);
             }
             else {
                 var defaultValueAttribute = propertyInfo.GetCustomAttributes(typeof(DefaultValueAttribute),true).OfType<DefaultValueAttribute>().FirstOrDefault();

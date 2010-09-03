@@ -14,7 +14,7 @@ namespace FeatureCenter.Module.HideToolBar.ListView
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderHideListViewToolBar, "1=1", "1=1", Captions.ViewMessageHideListViewToolBar, Position.Bottom){ViewType = ViewType.ListView, View = "HideListViewToolBar_ListView"};
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderHideListViewToolBar, "1=1", "1=1", Captions.HeaderHideListViewToolBar, Position.Top) { ViewType = ViewType.ListView, View = "HideListViewToolBar_ListView" };
             yield return new CloneViewAttribute(CloneViewType.ListView, "HideListViewToolBar_ListView");
-            yield return new NavigationItemAttribute("Hide Tool Bar/ListView", "HideListViewToolBar_ListView");
+            yield return new XpandNavigationItemAttribute("Hide Tool Bar/ListView", "HideListViewToolBar_ListView");
             yield return new DisplayFeatureModelAttribute("HideListViewToolBar_ListView");
         }
     }

@@ -7,12 +7,12 @@ namespace eXpand.ExpressApp
 {
     public class DataStoreProvider :  IXpoDataStoreProxy
     {
-        private readonly XpoDataStoreProxy proxyCore;
+        private readonly SqlDataStoreProxy proxyCore;
         private readonly string connectionStringCore;
         public DataStoreProvider(string connectionString)
         {
             connectionStringCore = connectionString;
-            proxyCore = new XpoDataStoreProxy(connectionString);
+            proxyCore = new SqlDataStoreProxy(connectionString);
         }
         public string ConnectionString
         {
@@ -32,7 +32,7 @@ namespace eXpand.ExpressApp
         {
             get { return null; }
         }
-        public virtual XpoDataStoreProxy Proxy
+        public virtual SqlDataStoreProxy Proxy
         {
             get
             {

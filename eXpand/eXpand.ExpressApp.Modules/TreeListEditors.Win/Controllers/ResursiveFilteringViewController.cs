@@ -40,10 +40,10 @@ namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
         private void CustomAssignFilterControlSourceControlListViewControllerOnCustomAssignFilterControlSourceControl(object sender, EventArgs args)
         {
             var filterControlListViewController = Frame.GetController<FilterControlListViewController>();
-            UpdateActionState(filterControlListViewController.FilterControl);
-            if (((ListView)View).Editor is DevExpress.ExpressApp.TreeListEditors.Win.CategorizedListEditor)
-                filterControlListViewController.FilterControl.SourceControl = ((DevExpress.ExpressApp.TreeListEditors.Win.CategorizedListEditor)((ListView)View).Editor).Grid;
-            filterControlListViewController.FilterControl.FilterChanged += FilterOnFilterChanged;
+            UpdateActionState(filterControlListViewController.XpandFilterControl);
+            if (((XpandListView)View).Editor is DevExpress.ExpressApp.TreeListEditors.Win.CategorizedListEditor)
+                filterControlListViewController.XpandFilterControl.SourceControl = ((DevExpress.ExpressApp.TreeListEditors.Win.CategorizedListEditor)((XpandListView)View).Editor).Grid;
+            filterControlListViewController.XpandFilterControl.FilterChanged += FilterOnFilterChanged;
 
         }
 
@@ -80,9 +80,9 @@ namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers
             }
         }
 
-        private void UpdateActionState(ExpressApp.Win.Editors.FilterControl filter)
+        private void UpdateActionState(ExpressApp.Win.Editors.XpandFilterControl xpandFilter)
         {
-            filter.EditorActivated +=
+            xpandFilter.EditorActivated +=
                 edit =>
                 {
                     if (edit is LookupEdit)

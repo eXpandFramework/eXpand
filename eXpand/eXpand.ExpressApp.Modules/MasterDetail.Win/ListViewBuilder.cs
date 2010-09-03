@@ -18,8 +18,8 @@ namespace eXpand.ExpressApp.MasterDetail.Win {
 
         DevExpress.ExpressApp.ListView CreateListView(IModelListView childModelListView, IModelMember relationModelMember)
         {
-            var propertyCollectionSource = ModuleBase.Application.CreatePropertyCollectionSource(_objectSpace, childModelListView.ModelClass.TypeInfo.Type, null, relationModelMember.MemberInfo, childModelListView.Id);
-            return ModuleBase.Application.CreateListView(childModelListView, propertyCollectionSource, false);
+            var propertyCollectionSource = XpandModuleBase.Application.CreatePropertyCollectionSource(_objectSpace, childModelListView.ModelClass.TypeInfo.Type, null, relationModelMember.MemberInfo, childModelListView.Id);
+            return XpandModuleBase.Application.CreateListView(childModelListView, propertyCollectionSource, false);
         }
 
     }

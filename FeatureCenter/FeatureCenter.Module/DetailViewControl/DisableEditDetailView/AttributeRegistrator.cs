@@ -15,7 +15,7 @@ namespace FeatureCenter.Module.DetailViewControl.DisableEditDetailView
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderDisableEditDetailView, "1=1", "1=1",
                 Captions.HeaderDisableEditDetailView, Position.Top){View = "DisableEditDetailView_DetailView"};
             yield return new CloneViewAttribute(CloneViewType.DetailView, "DisableEditDetailView_DetailView");
-            yield return new NavigationItemAttribute(Captions.DetailViewCotrol + "Disable Edit Detail View", "DisableEditDetailView_DetailView");
+            yield return new XpandNavigationItemAttribute(Captions.DetailViewCotrol + "Disable Edit Detail View", "DisableEditDetailView_DetailView");
             new DisplayFeatureModelAttribute("DisableEditDetailView_DetailView");
         }
     }

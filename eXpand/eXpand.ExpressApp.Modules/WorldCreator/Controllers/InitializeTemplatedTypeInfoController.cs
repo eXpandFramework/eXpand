@@ -4,7 +4,7 @@ using eXpand.Persistent.Base.PersistentMetaData;
 using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.WorldCreator.Controllers {
-    public class InitializeTemplatedTypeInfoController : ViewController<DetailView> 
+    public class InitializeTemplatedTypeInfoController : ViewController<XpandDetailView> 
     {
         public InitializeTemplatedTypeInfoController() {
             TargetObjectType = typeof(IPersistentTemplatedTypeInfo);

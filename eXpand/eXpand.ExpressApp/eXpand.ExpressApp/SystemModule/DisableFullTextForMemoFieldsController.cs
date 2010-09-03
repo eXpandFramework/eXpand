@@ -22,7 +22,7 @@ namespace eXpand.ExpressApp.SystemModule
     {
     }
 
-    public class DisableFullTextForMemoFieldsController : ViewController<ListView>, IModelExtender
+    public class DisableFullTextForMemoFieldsController : ViewController<XpandListView>, IModelExtender
     {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {

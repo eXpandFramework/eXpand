@@ -15,7 +15,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.ColumnsOptions
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderControlXtraGridColumns, "1=1", "1=1",
                 Captions.HeaderControlXtraGridColumns, Position.Top){View = "XtraGridColumnsOptions_ListView"};
             yield return new CloneViewAttribute(CloneViewType.ListView, "XtraGridColumnsOptions_ListView");
-            yield return new NavigationItemAttribute("Controlling XtraGrid/Column options", "XtraGridColumnsOptions_ListView");
+            yield return new XpandNavigationItemAttribute("Controlling XtraGrid/Column options", "XtraGridColumnsOptions_ListView");
             yield return new DisplayFeatureModelAttribute("XtraGridColumnsOptions_ListView");
         }
     }

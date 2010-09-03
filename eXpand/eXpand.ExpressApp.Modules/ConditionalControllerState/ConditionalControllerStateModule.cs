@@ -10,7 +10,7 @@ using eXpand.ExpressApp.Validation;
 namespace eXpand.ExpressApp.ConditionalControllerState {
     public sealed class ConditionalControllerStateModule : LogicModuleBase<IControllerStateRule, ControllerStateRule>{
         public ConditionalControllerStateModule() {
-            RequiredModuleTypes.Add(typeof (eXpandValidationModule));
+            RequiredModuleTypes.Add(typeof (XpandValidationModule));
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {

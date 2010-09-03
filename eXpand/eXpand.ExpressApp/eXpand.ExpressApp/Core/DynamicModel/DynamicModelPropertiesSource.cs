@@ -14,7 +14,7 @@ namespace eXpand.ExpressApp.Core.DynamicModel {
         }
         #region IDynamicModelPropertiesSource Members
         public PropertyInfo[] GetProperties() {
-            var simplePropertyInfos = _type.GetProperties().Select(info => new SimplePropertyInfo(info)).ToArray();
+            var simplePropertyInfos = _type.GetProperties().Select(info => new XpandPropertyInfo(info)).ToArray();
             foreach (var simplePropertyInfo in simplePropertyInfos) {
                 simplePropertyInfo.AddAttribute(new CategoryAttribute(_category));
             }

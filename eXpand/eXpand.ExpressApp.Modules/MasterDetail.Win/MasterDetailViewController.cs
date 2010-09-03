@@ -8,13 +8,12 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using eXpand.ExpressApp.MasterDetail.Logic;
 using eXpand.ExpressApp.SystemModule;
-using GridListEditor = eXpand.ExpressApp.Win.ListEditors.GridListEditor;
-using XafGridView = eXpand.ExpressApp.Win.ListEditors.XafGridView;
+using eXpand.ExpressApp.Win.ListEditors;
 
 
 namespace eXpand.ExpressApp.MasterDetail.Win
 {
-    public class MasterDetailViewController : ListViewController<GridListEditor>, IModelExtender
+    public class MasterDetailViewController : ListViewController<XpandGridListEditor>, IModelExtender
     {
         private List<IMasterDetailRule> MasterDetailRules
         {
@@ -24,17 +23,17 @@ namespace eXpand.ExpressApp.MasterDetail.Win
         protected override void OnDeactivating()
         {
             base.OnDeactivating();
-            var editor = View.Editor as GridListEditor;
+            var editor = View.Editor as XpandGridListEditor;
             if (editor != null && editor.Grid != null)
             {
                 if (editor.GridView == editor.Grid.MainView)
                 {
-                    List<XafGridView> gridViews = editor.Grid.Views.OfType<XafGridView>().ToList();
+                    List<XpandXafGridView> gridViews = editor.Grid.Views.OfType<XpandXafGridView>().ToList();
                     for (int i = gridViews.Count() - 1; i > -1; i--)
                     {
-                        XafGridView xafGridView = gridViews[i];
-                        if (xafGridView.Window != null)
-                            ((WinWindow)xafGridView.Window).Form.Close();
+                        XpandXafGridView xpandXafGridView = gridViews[i];
+                        if (xpandXafGridView.Window != null)
+                            ((WinWindow)xpandXafGridView.Window).Form.Close();
                     }
                 }
             }
@@ -43,8 +42,8 @@ namespace eXpand.ExpressApp.MasterDetail.Win
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            var view = ((GridListEditor)View.Editor).GridView;
-            var grid = ((GridListEditor)View.Editor).Grid;
+            var view = ((XpandGridListEditor)View.Editor).GridView;
+            var grid = ((XpandGridListEditor)View.Editor).Grid;
             grid.ViewRegistered += Grid_ViewRegistered;
             grid.ViewRemoved += Grid_ViewRemoved;
             view.MasterRowGetRelationCount += ViewOnMasterRowGetRelationCount;
@@ -57,7 +56,7 @@ namespace eXpand.ExpressApp.MasterDetail.Win
 
         void ViewOnMasterRowGetChildList(object sender, MasterRowGetChildListEventArgs e)
         {
-            object row = ((XafGridView)sender).GetRow(e.RowHandle);
+            object row = ((XpandXafGridView)sender).GetRow(e.RowHandle);
             e.ChildList = (IList)MasterDetailRules[e.RelationIndex].CollectionMember.MemberInfo.GetValue(row);
         }
 
@@ -81,28 +80,28 @@ namespace eXpand.ExpressApp.MasterDetail.Win
         void ViewOnMasterRowGetLevelDefaultView(object sender, MasterRowGetLevelDefaultViewEventArgs e)
         {
             var gridViewBuilder = new GridViewBuilder(Application, ObjectSpace, Frame);
-            var levelDefaultView = gridViewBuilder.GetLevelDefaultView((XafGridView)sender, e.RowHandle, e.RelationIndex, View.Model, MasterDetailRules);
+            var levelDefaultView = gridViewBuilder.GetLevelDefaultView((XpandXafGridView)sender, e.RowHandle, e.RelationIndex, View.Model, MasterDetailRules);
             e.DefaultView = levelDefaultView;
         }
 
         void ViewOnMasterRowEmpty(object sender, MasterRowEmptyEventArgs eventArgs)
         {
-            var modelDetailRelationCalculator = new ModelDetailRelationCalculator(View.Model, (XafGridView)sender, MasterDetailRules);
+            var modelDetailRelationCalculator = new ModelDetailRelationCalculator(View.Model, (XpandXafGridView)sender, MasterDetailRules);
             eventArgs.IsEmpty = !modelDetailRelationCalculator.IsRelationSet(eventArgs.RowHandle, eventArgs.RelationIndex);
         }
 
         void Grid_ViewRegistered(object sender, ViewOperationEventArgs e)
         {
             var gridViewBuilder = new GridViewBuilder(Application, ObjectSpace, Frame);
-            var parentGridView = (XafGridView)e.View.ParentView;
+            var parentGridView = (XpandXafGridView)e.View.ParentView;
             var frame = parentGridView.Window ?? Frame;
             List<IMasterDetailRule> masterDetailRules = frame.GetController<MasterDetailRuleController>().MasterDetailRules;
-            gridViewBuilder.ModifyInstanceGridView(parentGridView, e.View.SourceRowHandle, parentGridView.GetRelationIndex(e.View.SourceRowHandle, e.View.LevelName), ((ListView)frame.View).Model, masterDetailRules);
+            gridViewBuilder.ModifyInstanceGridView(parentGridView, e.View.SourceRowHandle, parentGridView.GetRelationIndex(e.View.SourceRowHandle, e.View.LevelName), ((XpandListView)frame.View).Model, masterDetailRules);
         }
 
         void Grid_ViewRemoved(object sender, ViewOperationEventArgs e)
         {
-            var window = (e.View as XafGridView).Window as WinWindow;
+            var window = (e.View as XpandXafGridView).Window as WinWindow;
             if (window != null && window.Form != null)
                 window.Form.Close();
         }

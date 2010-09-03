@@ -16,7 +16,7 @@ namespace FeatureCenter.Module.Miscellaneous.LookUpListSearch
             if (typesInfo.Type==typeof(Order)) {
                 yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderLookUpListSearch, "1=1", "1=1", Captions.ViewMessageLookUpListSearch, Position.Bottom){ViewType = ViewType.DetailView, View = "LookUpListViewSearch_DetailView"};
                 yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderLookUpListSearch, "1=1", "1=1", Captions.HeaderLookUpListSearch, Position.Top) { ViewType = ViewType.DetailView, View = "LookUpListViewSearch_DetailView" };
-                yield return new NavigationItemAttribute(Captions.Miscellaneous + "Lookup ListView Search", "LookUpListViewSearch_DetailView");
+                yield return new XpandNavigationItemAttribute(Captions.Miscellaneous + "Lookup ListView Search", "LookUpListViewSearch_DetailView");
                 yield return new CloneViewAttribute(CloneViewType.DetailView, "LookUpListViewSearch_DetailView");
                 yield return new DisplayFeatureModelAttribute("LookUpListViewSearch_DetailView");
             }

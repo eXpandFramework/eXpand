@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Model.Core;
 using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 
 namespace eXpand.ExpressApp.ModelDifference{
-    public abstract class ModelDifferenceBaseModule : ModuleBase 
+    public abstract class ModelDifferenceBaseModule : XpandModuleBase 
     {
         protected internal abstract bool? PersistentApplicationModelUpdated { get; set; }
         public event EventHandler<CreateCustomModelDifferenceStoreEventArgs> CreateCustomModelDifferenceStore;

@@ -19,7 +19,7 @@ namespace FeatureCenter.Module.AdditionalViewControls.ConditionalControlAndMessa
         Captions.ViewMessageAdditionalViewControls, Position.Bottom){ ViewType = ViewType.ListView,View = "ConditionalControlAndMessage_ListView",
         ExecutionContextGroup = "ConditionalControlAndMessage"};
             yield return new CloneViewAttribute(CloneViewType.ListView, "ConditionalControlAndMessage_ListView");
-            yield return new NavigationItemAttribute("Additional View Controls/Conditional control with conditional Message","ConditionalControlAndMessage_ListView");
+            yield return new XpandNavigationItemAttribute("Additional View Controls/Conditional control with conditional Message","ConditionalControlAndMessage_ListView");
             yield return new DisplayFeatureModelAttribute("ConditionalControlAndMessage_ListView");
         }
     }

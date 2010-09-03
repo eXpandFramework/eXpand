@@ -21,7 +21,7 @@ namespace FeatureCenter.Module.Win.ListViewControl.LoadWhenFiltered
 
         void FilterControlListViewControllerOnFilterControlCreated(object sender, EventArgs eventArgs) {
             var filterControlListViewController = Frame.GetController<FilterControlListViewController>();
-            var filterControl = filterControlListViewController.FilterControl;
+            var filterControl = filterControlListViewController.XpandFilterControl;
             filterControl.FilterCriteria = new BinaryOperator("City", "Paris");
         }
 

@@ -13,7 +13,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         }
 
         void SearchActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
-            var propertyEditor = ((DetailView)View).GetItems<PropertyEditor>().Where(editor => editor.PropertyName == SearchAbleMemberInfos.ToList()[0].Name).Single();
+            var propertyEditor = ((XpandDetailView)View).GetItems<PropertyEditor>().Where(editor => editor.PropertyName == SearchAbleMemberInfos.ToList()[0].Name).Single();
             ((Control)propertyEditor.Control).Focus();            
         }
 

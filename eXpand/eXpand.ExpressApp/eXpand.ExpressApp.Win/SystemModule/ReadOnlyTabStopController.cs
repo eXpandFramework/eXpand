@@ -19,7 +19,7 @@ namespace eXpand.ExpressApp.Win.SystemModule
     {
     }
 
-    public class ReadOnlyTabStopController : ViewController<DetailView>,IModelExtender
+    public class ReadOnlyTabStopController : ViewController<XpandDetailView>,IModelExtender
     {
 
 
@@ -39,10 +39,10 @@ namespace eXpand.ExpressApp.Win.SystemModule
             }
             
         }
-        private void CheckControlsVisibility(DetailView detailView)
+        private void CheckControlsVisibility(XpandDetailView xpandDetailView)
         {
-            Guard.ArgumentNotNull(detailView, "detailView");
-            foreach (PropertyEditor propertyEditor in detailView.GetItems<PropertyEditor>())
+            Guard.ArgumentNotNull(xpandDetailView, "detailView");
+            foreach (PropertyEditor propertyEditor in xpandDetailView.GetItems<PropertyEditor>())
             {
                 var editor = propertyEditor.Control as BaseEdit;
                 if (editor != null) {

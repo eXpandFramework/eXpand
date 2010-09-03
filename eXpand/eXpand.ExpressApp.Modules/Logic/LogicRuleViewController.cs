@@ -110,7 +110,7 @@ namespace eXpand.ExpressApp.Logic{
                 View.CurrentObjectChanged+=ViewOnCurrentObjectChanged;
                 View.ObjectSpace.Refreshing += ObjectSpace_Refreshing;
                 View.ObjectSpace.Reloaded += ObjectSpace_Reloaded;
-                if (View is ListView)
+                if (View is XpandListView)
                     Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem+=OnCustomProcessSelectedItem;
             }
         }
@@ -137,7 +137,7 @@ namespace eXpand.ExpressApp.Logic{
                 View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
                 View.ObjectSpace.Refreshing -= ObjectSpace_Refreshing;
                 View.ObjectSpace.Reloaded -= ObjectSpace_Reloaded;
-                if (View is ListView)
+                if (View is XpandListView)
                     Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem -= OnCustomProcessSelectedItem;
             }
         }
@@ -201,11 +201,11 @@ namespace eXpand.ExpressApp.Logic{
         }
 
         private bool IsValidNestedType(TModelLogicRule rule, View view) {
-            return view is DetailView || (rule.Nesting == Nesting.Any || view.IsRoot);
+            return view is XpandDetailView || (rule.Nesting == Nesting.Any || view.IsRoot);
         }
 
         private bool IsValidViewType(View view, TModelLogicRule rule){
-            return (rule.ViewType == ViewType.Any || (view is DetailView ? rule.ViewType == ViewType.DetailView : rule.ViewType==ViewType.ListView));
+            return (rule.ViewType == ViewType.Any || (view is XpandDetailView ? rule.ViewType == ViewType.DetailView : rule.ViewType==ViewType.ListView));
         }
 
         protected virtual LogicRuleInfo<TModelLogicRule> CalculateLogicRuleInfo(object targetObject, TModelLogicRule modelLogicRule){

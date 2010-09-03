@@ -4,7 +4,7 @@ using eXpand.ExpressApp.ConditionalActionState;
 using eXpand.ExpressApp.ConditionalControllerState;
 
 namespace eXpand.ExpressApp.ModelArtifactState {
-    public class ModelArtifactStateModule:ModuleBase {
+    public class ModelArtifactStateModule:XpandModuleBase {
         public ModelArtifactStateModule() {
             RequiredModuleTypes.Add(typeof(ConditionalControllerStateModule));
             RequiredModuleTypes.Add(typeof(ConditionalActionStateModule));

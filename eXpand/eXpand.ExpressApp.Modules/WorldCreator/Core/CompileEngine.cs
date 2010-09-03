@@ -165,7 +165,7 @@ namespace eXpand.ExpressApp.WorldCreator.Core {
                     var fileInfo=new FileInfo(fileName);
                     fileInfo.CopyTo(fileName+".wc");
                     Assembly assembly = Assembly.LoadFile(fileName+".wc");
-                    Type single = assembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
+                    Type single = assembly.GetTypes().Where(type => typeof(XpandModuleBase).IsAssignableFrom(type)).Single();
                     definedModules.Add(single);
                 }
             }

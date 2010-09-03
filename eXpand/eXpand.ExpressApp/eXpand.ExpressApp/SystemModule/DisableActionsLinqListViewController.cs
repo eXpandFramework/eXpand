@@ -4,7 +4,7 @@ using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public class DisableActionsLinqListViewController : ViewController<ListView> {
+    public class DisableActionsLinqListViewController : ViewController<XpandListView> {
         private const string DefaultReason = "LinqListViewController is active";
         protected override void OnActivated()
         {

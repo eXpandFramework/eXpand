@@ -10,7 +10,7 @@ using Microsoft.Practices.EnterpriseLibrary.Logging;
 using Microsoft.Practices.EnterpriseLibrary.Logging.Configuration;
 
 namespace eXpand.ExpressApp.ExceptionHandling {
-    public abstract partial class ExceptionHandlingModule : ModuleBase {
+    public abstract partial class ExceptionHandlingModule : XpandModuleBase {
         public const string ExceptionHandling = "ExceptionHandling";
 
         protected ExceptionHandlingModule() {

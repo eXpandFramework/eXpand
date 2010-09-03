@@ -11,7 +11,7 @@ namespace FeatureCenter.Module.Security.MemberLevel {
         View = "MLSCustomer_ListView")]
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderMemberLevelSecurity, "1=1", "1=1",
         Captions.HeaderMemberLevelSecurity, Position.Top, ViewType = ViewType.ListView, View = "MLSCustomer_ListView")]
-    [NavigationItem(Captions.Security + Captions.MemberLevelSecurity, "MLSCustomer_ListView")]
+    [XpandNavigationItem(Captions.Security + Captions.MemberLevelSecurity, "MLSCustomer_ListView")]
 //    [DisplayFeatureModel("MLSCustomer_ListView", "MemberLevel")]
     public class MLSCustomer : BaseObject, ICustomer {
         string _city;

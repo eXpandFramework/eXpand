@@ -1,6 +1,6 @@
 namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper
 {
-    public sealed class WorldCreatorSqlDBMapperModule : ModuleBase
+    public sealed class WorldCreatorSqlDBMapperModule : XpandModuleBase
     {
         public WorldCreatorSqlDBMapperModule() {
             RequiredModuleTypes.Add(typeof(WorldCreatorModule));

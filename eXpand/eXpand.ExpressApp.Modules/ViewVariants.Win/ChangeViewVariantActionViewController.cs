@@ -14,7 +14,7 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.ExpressApp.Model;
 
 namespace eXpand.ExpressApp.ViewVariants.Win {
-    public class ChangeViewVariantActionViewController : ViewController<ListView>
+    public class ChangeViewVariantActionViewController : ViewController<XpandListView>
     {
         private const string EXpandViewVariants = "eXpand.ViewVariants";
         protected override void OnAfterConstruction()

@@ -3,7 +3,7 @@ using DevExpress.ExpressApp;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public abstract class MasterObjectViewController<TObject> : ViewController<ListView> where TObject : class
+    public abstract class MasterObjectViewController<TObject> : ViewController<XpandListView> where TObject : class
     {
         protected MasterObjectViewController()
         {

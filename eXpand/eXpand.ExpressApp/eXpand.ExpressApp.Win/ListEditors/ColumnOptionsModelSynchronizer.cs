@@ -13,7 +13,7 @@ namespace eXpand.ExpressApp.Win.ListEditors {
         }
 
         protected override object GetControl() {
-            return ((XafGridView)Control).Columns.OfType<XafGridColumn>().Where(column => column.PropertyName == Model.PropertyName).Single();
+            return ((XpandXafGridView)Control).Columns.OfType<XafGridColumn>().Where(column => column.PropertyName == Model.PropertyName).Single();
         }
     }
 }

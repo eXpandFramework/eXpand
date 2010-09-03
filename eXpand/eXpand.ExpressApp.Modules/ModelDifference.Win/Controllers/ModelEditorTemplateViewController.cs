@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace eXpand.ExpressApp.ModelDifference.Win.Controllers
 {
-    public class ModelEditorTemplateViewController : ViewController<DetailView>
+    public class ModelEditorTemplateViewController : ViewController<XpandDetailView>
     {
         public ModelEditorTemplateViewController()
         {

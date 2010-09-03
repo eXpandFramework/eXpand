@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp.Security;
 
 namespace eXpand.ExpressApp.MemberLevelSecurity {
-    public abstract class MemberLevelSecurityModuleBase:ModuleBase
+    public abstract class MemberLevelSecurityModuleBase:XpandModuleBase
     {
         static bool _comparerIsLock;
 //        protected abstract bool? ComparerIsSet { get; set; }

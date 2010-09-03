@@ -14,9 +14,9 @@ namespace FeatureCenter.Module.PivotChart.ControllingPivotGridSettings
         {
             return new CloneViewAttribute(CloneViewType.DetailView, ControllingPivotGridSettings_DetailView);
         }
-        protected override NavigationItemAttribute GetNavigationItemAttribute()
+        protected override XpandNavigationItemAttribute GetNavigationItemAttribute()
         {
-            return new NavigationItemAttribute("PivotChart/Controlling Grid Settings", ControllingPivotGridSettings_DetailView) { ObjectKey = "Name='Controlling Grid Settings'" };
+            return new XpandNavigationItemAttribute("PivotChart/Controlling Grid Settings", ControllingPivotGridSettings_DetailView) { ObjectKey = "Name='Controlling Grid Settings'" };
         }
         protected override DisplayFeatureModelAttribute GetDisplayFeatureModelAttribute() {
             return new DisplayFeatureModelAttribute(ControllingPivotGridSettings_DetailView, new BinaryOperator("Name", "Controlling Grid Settings"));

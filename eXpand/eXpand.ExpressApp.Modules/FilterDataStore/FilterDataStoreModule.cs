@@ -17,7 +17,7 @@ using eXpand.Xpo.Filtering;
 
 namespace eXpand.ExpressApp.FilterDataStore
 {
-    public sealed partial class FilterDataStoreModule : ModuleBase
+    public sealed partial class FilterDataStoreModule : XpandModuleBase
     {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
@@ -42,10 +42,10 @@ namespace eXpand.ExpressApp.FilterDataStore
         void SubscribeToDataStoreProxyEvents() {
             if (Application != null) {
                 var objectSpaceProvider = (Application.ObjectSpaceProvider);
-                if (!(objectSpaceProvider is IObjectSpaceProvider)){
-                    throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IObjectSpaceProvider).FullName);
+                if (!(objectSpaceProvider is IXpandObjectSpaceProvider)){
+                    throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IXpandObjectSpaceProvider).FullName);
                 }
-                XpoDataStoreProxy proxy = ((IObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
+                SqlDataStoreProxy proxy = ((IXpandObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
                 proxy.DataStoreModifyData += (o, args) => ModifyData(args.ModificationStatements);
                 proxy.DataStoreSelectData += Proxy_DataStoreSelectData;
             }

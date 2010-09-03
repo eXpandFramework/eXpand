@@ -13,7 +13,7 @@ namespace eXpand.ExpressApp.ConditionalDetailViews
     {
         public ConditionalDetailViewModule()
         {
-            RequiredModuleTypes.Add(typeof(eXpandSystemModule));
+            RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(LogicModule));
         }
         #region IModelExtender Members

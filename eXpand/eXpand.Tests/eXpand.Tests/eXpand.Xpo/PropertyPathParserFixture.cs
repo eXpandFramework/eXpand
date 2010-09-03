@@ -12,13 +12,13 @@ namespace eXpand.Tests.eXpand.Xpo
     {
         [SetUp]
         public void Setup() {
-            Isolate.Fake.StaticMethods(typeof(ReflectorHelper));
+            Isolate.Fake.StaticMethods(typeof(XpandReflectionHelper));
         }
         [Test][Isolated]
         public void When_PropertyPath_Is_A_Reference_Object_Without_Chain()
         {
             XPMemberInfo associationMemberInfo = GetAssociationMemberInfo();
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null,"Category")).WithExactArguments().WillReturn(associationMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null,"Category")).WithExactArguments().WillReturn(associationMemberInfo);
             var propertyPathParser = new PropertyPathParser(null);
             CriteriaOperator criteriaOperator = propertyPathParser.Parse("Category","SomeProperty=50");
 
@@ -29,7 +29,7 @@ namespace eXpand.Tests.eXpand.Xpo
         public void When_PropertyPath_Is_A_Collection_Without_Chain()
         {
             XPMemberInfo collectionMemberInfo = GetCollectionMemberInfo();
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null,"Orders")).WithExactArguments().WillReturn(collectionMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null,"Orders")).WithExactArguments().WillReturn(collectionMemberInfo);
             var parser = new PropertyPathParser(null);
 
             CriteriaOperator criteriaOperator= parser.Parse("Orders", "Amount=50");
@@ -41,8 +41,8 @@ namespace eXpand.Tests.eXpand.Xpo
         public void When_PropertyPath_Is_A_Reference_Object_With_A_Reference_Object_In_Chain()
         {   
             XPMemberInfo associationMemberInfo = GetAssociationMemberInfo();
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null,"Order")).WillReturn(associationMemberInfo);
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null, "Order.OrderLine")).WillReturn(associationMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null,"Order")).WillReturn(associationMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null, "Order.OrderLine")).WillReturn(associationMemberInfo);
             var parser = new PropertyPathParser(null);
 
             CriteriaOperator criteriaOperator = parser.Parse("Order.OrderLine", "Amount=50");
@@ -68,8 +68,8 @@ namespace eXpand.Tests.eXpand.Xpo
         {
             XPMemberInfo collectionMemberInfo = GetCollectionMemberInfo();
             XPMemberInfo associationMemberInfo = GetAssociationMemberInfo();
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null,"Order")).WithExactArguments().WillReturn(associationMemberInfo);
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null,"Order.OrderLines")).WithExactArguments().WillReturn(collectionMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null,"Order")).WithExactArguments().WillReturn(associationMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null,"Order.OrderLines")).WithExactArguments().WillReturn(collectionMemberInfo);
             var parser = new PropertyPathParser(null);
 
             CriteriaOperator criteriaOperator= parser.Parse("Order.OrderLines", "Ammount=50");
@@ -82,9 +82,9 @@ namespace eXpand.Tests.eXpand.Xpo
         {
             XPMemberInfo collectionMemberInfo = GetCollectionMemberInfo();
             XPMemberInfo associationMemberInfo = GetAssociationMemberInfo();
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null, "Customer")).WithExactArguments().WillReturn(associationMemberInfo);
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null, "Customer.Orders")).WithExactArguments().WillReturn(collectionMemberInfo);
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null, "Customer.Orders.OrderLine")).WithExactArguments().WillReturn(associationMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null, "Customer")).WithExactArguments().WillReturn(associationMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null, "Customer.Orders")).WithExactArguments().WillReturn(collectionMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null, "Customer.Orders.OrderLine")).WithExactArguments().WillReturn(associationMemberInfo);
             var parser = new PropertyPathParser(null);
 
             CriteriaOperator criteriaOperator= parser.Parse("Customer.Orders.OrderLine", "Ammount=50");
@@ -97,9 +97,9 @@ namespace eXpand.Tests.eXpand.Xpo
         {
             XPMemberInfo collectionMemberInfo = GetCollectionMemberInfo();
             XPMemberInfo associationMemberInfo = GetAssociationMemberInfo();
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null, "Customer")).WithExactArguments().WillReturn(associationMemberInfo);
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null, "Customer.Orders")).WithExactArguments().WillReturn(collectionMemberInfo);
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null, "Customer.Orders.OrderLines")).WithExactArguments().WillReturn(collectionMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null, "Customer")).WithExactArguments().WillReturn(associationMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null, "Customer.Orders")).WithExactArguments().WillReturn(collectionMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null, "Customer.Orders.OrderLines")).WithExactArguments().WillReturn(collectionMemberInfo);
             var parser = new PropertyPathParser(null);
 
             CriteriaOperator criteriaOperator= parser.Parse("Customer.Orders.OrderLines", "Ammount=50");
@@ -112,8 +112,8 @@ namespace eXpand.Tests.eXpand.Xpo
         {
             XPMemberInfo collectionMemberInfo = GetCollectionMemberInfo();
             XPMemberInfo associationMemberInfo = GetAssociationMemberInfo();
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null, "Orders")).WithExactArguments().WillReturn(collectionMemberInfo);
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null, "Orders.OrderLine")).WithExactArguments().WillReturn(associationMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null, "Orders")).WithExactArguments().WillReturn(collectionMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null, "Orders.OrderLine")).WithExactArguments().WillReturn(associationMemberInfo);
             var parser = new PropertyPathParser(null);
 
             CriteriaOperator criteriaOperator = parser.Parse("Orders.OrderLine", "Ampunt=50");
@@ -127,9 +127,9 @@ namespace eXpand.Tests.eXpand.Xpo
         {
             XPMemberInfo collectionMemberInfo = GetCollectionMemberInfo();
             XPMemberInfo associationMemberInfo = GetAssociationMemberInfo();
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null, "Customers")).WithExactArguments().WillReturn(collectionMemberInfo);
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null, "Customers.Order")).WithExactArguments().WillReturn(associationMemberInfo);
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null, "Customers.Order.OrderLine")).WithExactArguments().WillReturn(associationMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null, "Customers")).WithExactArguments().WillReturn(collectionMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null, "Customers.Order")).WithExactArguments().WillReturn(associationMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null, "Customers.Order.OrderLine")).WithExactArguments().WillReturn(associationMemberInfo);
             var parser = new PropertyPathParser(null);
 
             CriteriaOperator criteriaOperator = parser.Parse("Customers.Order.OrderLine", "Ammount=50");
@@ -141,7 +141,7 @@ namespace eXpand.Tests.eXpand.Xpo
         public void When_Parameter_Is_A_Chain()
         {
             XPMemberInfo collectionMemberInfo = GetCollectionMemberInfo();
-            Isolate.WhenCalled(() => ReflectorHelper.GetXpMemberInfo(null, "Customers")).WithExactArguments().WillReturn(collectionMemberInfo);
+            Isolate.WhenCalled(() => XpandReflectionHelper.GetXpMemberInfo(null, "Customers")).WithExactArguments().WillReturn(collectionMemberInfo);
             var parser = new PropertyPathParser(null);
 
             CriteriaOperator criteriaOperator = parser.Parse("Customers", "Order.OrderLine.Ammount=50");

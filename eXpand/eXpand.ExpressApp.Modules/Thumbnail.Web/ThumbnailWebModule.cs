@@ -17,7 +17,7 @@ namespace eXpand.ExpressApp.Thumbnail.Web
         bool HideImages { get; set; }
     }
 
-    public sealed class ThumbnailWebModule : ModuleBase{
+    public sealed class ThumbnailWebModule : XpandModuleBase{
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView,IModelListViewThumbnailWeb>();

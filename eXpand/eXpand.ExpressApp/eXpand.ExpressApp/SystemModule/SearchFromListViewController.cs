@@ -38,7 +38,7 @@ namespace eXpand.ExpressApp.SystemModule {
 
 
         void GetProperties(SearchMemberMode searchMemberMode, Action<string> action) {
-            var listView = ((ListView) View);
+            var listView = ((XpandListView) View);
             IEnumerable<string> enumerable = listView.Model.Columns.OfType
                 <IModelColumnSearchMode>().Where(
                     wrapper => wrapper.SearchMemberMode == searchMemberMode).Select(

@@ -24,7 +24,7 @@ namespace FeatureCenter.Module.ModelArtifact.ConditionalForeignKeyKViolationAndS
                 {View = "ConditionalForeignKeyViolationAndShowDetailView_ListView"};
             yield return new ControllerStateRuleAttribute("ConditionalShowDetailView", typeof(ListViewProcessCurrentObjectController), "City='Paris'",
                 "1=1", ControllerState.Disabled){View = "ConditionalForeignKeyViolationAndShowDetailView_ListView"};
-            yield return new NavigationItemAttribute("ModelArtifact/Conditional Foreign Key Violation And Show DetailView", "ConditionalForeignKeyViolationAndShowDetailView_ListView");
+            yield return new XpandNavigationItemAttribute("ModelArtifact/Conditional Foreign Key Violation And Show DetailView", "ConditionalForeignKeyViolationAndShowDetailView_ListView");
             yield return new CloneViewAttribute(CloneViewType.ListView, "ConditionalForeignKeyViolationAndShowDetailView_ListView");
             yield return new DisplayFeatureModelAttribute("ConditionalForeignKeyViolationAndShowDetailView_ListView");
         }

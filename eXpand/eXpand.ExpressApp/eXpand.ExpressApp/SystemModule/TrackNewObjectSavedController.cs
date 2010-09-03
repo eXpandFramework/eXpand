@@ -12,7 +12,7 @@ namespace eXpand.ExpressApp.SystemModule
         }
     }
 
-    public class TrackNewObjectSavedController : ViewController<DetailView>
+    public class TrackNewObjectSavedController : ViewController<XpandDetailView>
     {
         bool isNewObject;
 

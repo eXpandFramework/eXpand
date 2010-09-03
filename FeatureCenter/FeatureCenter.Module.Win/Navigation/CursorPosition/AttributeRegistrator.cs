@@ -15,7 +15,7 @@ namespace FeatureCenter.Module.Win.Navigation.CursorPosition
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderCursorPosition, "1=1", "1=1",
                 Captions.HeaderCursorPosition, Position.Top) { View = "CursorPosition_DetailView" };
             yield return new CloneViewAttribute(CloneViewType.DetailView, "CursorPosition_DetailView");
-            yield return new NavigationItemAttribute("Navigation/Cursor Position", "CursorPosition_DetailView");
+            yield return new XpandNavigationItemAttribute("Navigation/Cursor Position", "CursorPosition_DetailView");
             yield return new DisplayFeatureModelAttribute("CursorPosition_DetailView");
         }
     }

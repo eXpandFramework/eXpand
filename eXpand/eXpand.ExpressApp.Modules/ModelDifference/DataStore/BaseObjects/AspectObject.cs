@@ -3,7 +3,7 @@ using DevExpress.Xpo;
 using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
-    public class AspectObject:eXpandCustomObject {
+    public class AspectObject:XpandCustomObject {
         public AspectObject(Session session) : base(session) {
         }
         private string _name;

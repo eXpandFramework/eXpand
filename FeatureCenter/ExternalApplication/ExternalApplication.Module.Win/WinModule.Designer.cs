@@ -41,9 +41,9 @@ namespace ExternalApplication.Module.Win
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
             this.RequiredModuleTypes.Add(typeof(ModelDifferenceWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(eXpandSystemModule));
-            this.RequiredModuleTypes.Add(typeof(eXpandSystemWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.Validation.eXpandValidationModule));
+            this.RequiredModuleTypes.Add(typeof(XpandSystemModule));
+            this.RequiredModuleTypes.Add(typeof(XpandSystemWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.Validation.XpandValidationModule));
         }
 
         #endregion

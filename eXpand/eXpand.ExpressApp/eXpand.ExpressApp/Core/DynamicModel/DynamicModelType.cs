@@ -105,7 +105,7 @@ namespace eXpand.ExpressApp.Core.DynamicModel {
                     if (propertyType.IsValueType) {
                         propertyType = typeof(Nullable<>).MakeGenericType(new[] { propertyType });
                     }
-                    var simplePropertyInfo = new SimplePropertyInfo(info.Name, propertyType,GetType(), info.CanRead,info.CanWrite);
+                    var simplePropertyInfo = new XpandPropertyInfo(info.Name, propertyType,GetType(), info.CanRead,info.CanWrite);
                     if (_category != null) simplePropertyInfo.AddAttribute(new CategoryAttribute(_category));
                     return simplePropertyInfo;
                 });

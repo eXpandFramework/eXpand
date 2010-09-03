@@ -164,11 +164,10 @@
     <Compile Include="PropertyEditors\AnalysisEditorWeb.cs">
     </Compile>
     <Compile Include="Core\TypesInfo.cs" />
-    <Compile Include="PivotChartXpandAspNetModule.cs">
-      <SubType>Component</SubType>
+    <Compile Include="XpandPivotChartAspNetModule.cs">
     </Compile>
-    <Compile Include="PivotChartXpandAspNetModule.Designer.cs">
-      <DependentUpon>PivotChartXpandAspNetModule.cs</DependentUpon>
+    <Compile Include="XpandPivotChartAspNetModule.Designer.cs">
+      <DependentUpon>XpandPivotChartAspNetModule.cs</DependentUpon>
     </Compile>
     <Compile Include="PivotedProperty\PivotedPropertyController.cs">
       <SubType>Component</SubType>
@@ -188,8 +187,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PivotChartXpandAspNetModule.resx">
-      <DependentUpon>PivotChartXpandAspNetModule.cs</DependentUpon>
+    <EmbeddedResource Include="XpandPivotChartAspNetModule.resx">
+      <DependentUpon>XpandPivotChartAspNetModule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

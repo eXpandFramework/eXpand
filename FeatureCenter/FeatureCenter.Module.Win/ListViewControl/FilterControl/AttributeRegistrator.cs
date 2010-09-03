@@ -15,7 +15,7 @@ namespace FeatureCenter.Module.Win.ListViewControl.FilterControl
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderFilterControl, "1=1", "1=1",
                 Captions.HeaderFilterControl, Position.Top){View = "FilterControl_ListView"};
             yield return new CloneViewAttribute(CloneViewType.ListView, "FilterControl_ListView");
-            yield return new NavigationItemAttribute(Module.Captions.ListViewCotrol +"Filter Control", "FilterControl_ListView");
+            yield return new XpandNavigationItemAttribute(Module.Captions.ListViewCotrol +"Filter Control", "FilterControl_ListView");
             yield return new DisplayFeatureModelAttribute("FilterControl_ListView");
         }
     }

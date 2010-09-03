@@ -45,7 +45,7 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
             }
             ReflectionHelper.AddResolvePath(assembliesPath);
             try {
-                var result = new ExpressApp.Core.ApplicationModulesManager(new ControllersManager(), assembliesPath,typesInfo);
+                var result = new ExpressApp.Core.XpandApplicationModulesManager(new ControllersManager(), assembliesPath,typesInfo);
                 if (application != null) {
                     foreach (DevExpress.ExpressApp.ModuleBase module in application.Modules) {
                         result.AddModule(module);
@@ -60,10 +60,10 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
         }
 
         public ModelApplicationBase GetMasterModel() {
-            if (_executableName != Assembly.GetAssembly(ModuleBase.Application.GetType()).ManifestModule.Name)
+            if (_executableName != Assembly.GetAssembly(XpandModuleBase.Application.GetType()).ManifestModule.Name)
                 return GetExternalMasterModel();
 
-            var masterModel = (ModelApplicationBase)ModuleBase.Application.Model;
+            var masterModel = (ModelApplicationBase)XpandModuleBase.Application.Model;
             _oldAspectProvider = masterModel.CurrentAspectProvider;
             masterModel.CurrentAspectProvider = new CurrentAspectProvider(_oldAspectProvider.CurrentAspect);
             return masterModel;
@@ -89,11 +89,11 @@ namespace eXpand.ExpressApp.ModelDifference.Core {
                 modulesManager.Modules,
                 modulesManager.ControllersManager,
                 modulesManager.DomainComponents);
-            var modelApplicationCreator = ModuleBase.ModelApplicationCreator;
-            ModuleBase.ModelApplicationCreator = null;
+            var modelApplicationCreator = XpandModuleBase.ModelApplicationCreator;
+            XpandModuleBase.ModelApplicationCreator = null;
             var modelApplication = modelsManager.CreateModelApplication();
             AddAfterSetupLayer(modelApplication);
-            ModuleBase.ModelApplicationCreator=modelApplicationCreator;
+            XpandModuleBase.ModelApplicationCreator=modelApplicationCreator;
             application.Dispose();
             return (ModelApplicationBase) modelApplication;
         }

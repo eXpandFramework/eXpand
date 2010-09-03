@@ -3,7 +3,7 @@ using eXpand.ExpressApp.Win;
 
 namespace ExternalApplication.Win
 {
-    public partial class ExternalApplicationWindowsFormsApplication : WinComponent
+    public partial class ExternalApplicationWindowsFormsApplication : XpandWinApplication
     {
         public ExternalApplicationWindowsFormsApplication()
         {

@@ -14,7 +14,7 @@ using eXpand.ExpressApp.ModelDifference.DictionaryStores;
 
 namespace eXpand.ExpressApp.ModelDifference
 {
-    public sealed class ModelDifferenceModule : ModuleBase{
+    public sealed class ModelDifferenceModule : XpandModuleBase{
         public ModelDifferenceModule(){
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
         }

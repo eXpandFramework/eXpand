@@ -12,7 +12,7 @@ using DevExpress.Xpo;
 namespace eXpand.ExpressApp {
     public class ViewShortCutProccesor {
         readonly XafApplication _application;
-        DevExpress.ExpressApp.DetailView _detailView;
+        DetailView _detailView;
 
         public ViewShortCutProccesor(XafApplication application) {
             _application = application;

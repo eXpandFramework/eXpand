@@ -48,8 +48,8 @@ namespace eXpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         }
 
         object GetContainerControl(IViewSiteTemplate viewSiteTemplate, IAdditionalViewControlsRule rule) {
-            if (rule.Position==Position.DetailViewItem&&View is DetailView) {
-                var modelAdditionalViewControlsItem = ((DetailView)View).Items.OfType<AdditionalViewControlsItem>().Where(item => item.Model.Rule.Id == rule.Id).FirstOrDefault();
+            if (rule.Position==Position.DetailViewItem&&View is XpandDetailView) {
+                var modelAdditionalViewControlsItem = ((XpandDetailView)View).Items.OfType<AdditionalViewControlsItem>().Where(item => item.Model.Rule.Id == rule.Id).FirstOrDefault();
                 return modelAdditionalViewControlsItem != null ? modelAdditionalViewControlsItem.Control : null;
             }
             return viewSiteTemplate.ViewSiteControl;

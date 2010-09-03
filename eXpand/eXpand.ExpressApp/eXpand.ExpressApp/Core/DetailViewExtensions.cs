@@ -8,9 +8,9 @@ namespace eXpand.ExpressApp.Core
 {
     public static class DetailViewExtensions
     {
-        public static ICollection<PropertyEditor> GetPropertyEditors(this DetailView detailView, Type editorIsOfType) 
+        public static ICollection<PropertyEditor> GetPropertyEditors(this XpandDetailView xpandDetailView, Type editorIsOfType) 
         {
-            IEnumerable<PropertyEditor> editors = from editor in detailView.GetItems<PropertyEditor>()
+            IEnumerable<PropertyEditor> editors = from editor in xpandDetailView.GetItems<PropertyEditor>()
                                                   where editor.Control != null&&editorIsOfType.IsAssignableFrom(editor.Control.GetType()) 
                                                   select editor;
             return editors.ToList();

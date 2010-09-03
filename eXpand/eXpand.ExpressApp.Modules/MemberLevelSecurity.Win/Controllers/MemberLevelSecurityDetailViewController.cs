@@ -10,7 +10,7 @@ using DevExpress.Xpo;
 using DevExpress.XtraLayout;
 
 namespace eXpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
-    public class MemberLevelSecurityDetailViewController : ViewController<DetailView> {
+    public class MemberLevelSecurityDetailViewController : ViewController<XpandDetailView> {
         readonly Dictionary<string, ControlHelper> controlStorage = new Dictionary<string, ControlHelper>();
 
         void Initialize(string name) {

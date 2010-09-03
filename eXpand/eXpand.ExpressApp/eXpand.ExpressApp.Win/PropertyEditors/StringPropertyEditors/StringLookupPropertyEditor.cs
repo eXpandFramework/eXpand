@@ -18,7 +18,7 @@ namespace eXpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors{
             get{
                 if (comboBoxItems== null){
                     comboBoxItems=new List<ComboBoxItem>();
-                    PropertyInfo propertyInfo = ReflectorHelper.GetPropertyInfo(ObjectType, PropertyName);
+                    PropertyInfo propertyInfo = XpandReflectionHelper.GetPropertyInfo(ObjectType, PropertyName);
                     var xpView = new XPView(helper.ObjectSpace.Session, propertyInfo.PropertyType);
                     xpView.AddProperty(PropertyName, PropertyName, true);
                     comboBoxItems = new List<ComboBoxItem>();

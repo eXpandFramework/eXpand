@@ -5,7 +5,7 @@ using eXpand.ExpressApp.IO.NodeUpdaters;
 
 namespace eXpand.ExpressApp.IO
 {
-    public sealed partial class IOModule : ModuleBase
+    public sealed partial class IOModule : XpandModuleBase
     {
 
         public IOModule()

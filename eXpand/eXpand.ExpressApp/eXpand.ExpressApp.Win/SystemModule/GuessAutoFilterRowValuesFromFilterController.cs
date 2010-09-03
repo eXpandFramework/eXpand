@@ -3,7 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using eXpand.ExpressApp.SystemModule;
-using XafGridView = eXpand.ExpressApp.Win.ListEditors.XafGridView;
+using eXpand.ExpressApp.Win.ListEditors;
 
 namespace eXpand.ExpressApp.Win.SystemModule {
     public interface IModelClassGuessAutoFilterRowValuesFromFilter : IModelNode {
@@ -27,7 +27,7 @@ namespace eXpand.ExpressApp.Win.SystemModule {
         protected override void OnViewControlsCreated() {
             var modelListViewGridViewOptions = ((IModelListViewGuessAutoFilterRowValuesFromFilter)View.Model);
             if (modelListViewGridViewOptions.GuessAutoFilterRowValuesFromFilter) {
-                XafGridView mainView = ((ListEditors.GridListEditor)View.Editor).GridView;
+                XpandXafGridView mainView = ((ListEditors.XpandGridListEditor)View.Editor).GridView;
                 mainView.GuessAutoFilterRowValuesFromFilter();
             }
         }

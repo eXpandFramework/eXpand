@@ -9,7 +9,7 @@ using DevExpress.XtraTreeList;
 using DevExpress.XtraTreeList.Columns;
 
 namespace eXpand.ExpressApp.TreeListEditors.Win.Controllers {
-    public class TreeListInplaceEditViewController : ViewController<ListView> {
+    public class TreeListInplaceEditViewController : ViewController<XpandListView> {
         void treeList_CellValueChanged(object sender, CellValueChangedEventArgs cellValueChangedEventArgs) {
             ReflectionHelper.SetMemberValue(((ObjectTreeList) sender).FocusedObject,
                                             cellValueChangedEventArgs.Column.FieldName, cellValueChangedEventArgs.Value);

@@ -2,13 +2,13 @@
 
 namespace eXpand.ExpressApp {
     public class MultiDataStoreProvider:DataStoreProvider {
-        XpoMultiDataStoreProxy _xpoMultiDataStoreProxy;
+        SqlMultiDataStoreProxy _sqlMultiDataStoreProxy;
 
         public MultiDataStoreProvider(string connectionString) : base(connectionString) {
         }
 
-        public override XpoDataStoreProxy Proxy{
-            get { return _xpoMultiDataStoreProxy ?? (_xpoMultiDataStoreProxy = new XpoMultiDataStoreProxy(ConnectionString)); }
+        public override SqlDataStoreProxy Proxy{
+            get { return _sqlMultiDataStoreProxy ?? (_sqlMultiDataStoreProxy = new SqlMultiDataStoreProxy(ConnectionString)); }
         }
     }
 }

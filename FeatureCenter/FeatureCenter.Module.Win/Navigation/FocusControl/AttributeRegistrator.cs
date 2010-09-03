@@ -15,7 +15,7 @@ namespace FeatureCenter.Module.Win.Navigation.FocusControl
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderFocusControl, "1=1", "1=1",
                 Captions.HeaderFocusControl, Position.Top){View = "FocusControl_DetailView"};
             yield return new CloneViewAttribute(CloneViewType.DetailView, "FocusControl_DetailView");
-            yield return new NavigationItemAttribute("Navigation/Focus Control", "FocusControl_DetailView");
+            yield return new XpandNavigationItemAttribute("Navigation/Focus Control", "FocusControl_DetailView");
             yield return new DisplayFeatureModelAttribute("FocusControl_DetailView");
         }
     }

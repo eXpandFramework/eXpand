@@ -6,13 +6,13 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata.Helpers;
+using eXpand.ExpressApp;
 using eXpand.Xpo.DB;
 using System.Linq;
-using IObjectSpaceProvider = eXpand.ExpressApp.IObjectSpaceProvider;
 
 namespace FeatureCenter.Module.Miscellaneous.UpdateOnlyChangeFields {
     public class UpdateStatementController:ViewController<DetailView> {
-        XpoDataStoreProxy _xpoDataStoreProxy;
+        SqlDataStoreProxy _sqlDataStoreProxy;
         SimpleAction _saveAction;
 
         public UpdateStatementController() {
@@ -21,7 +21,7 @@ namespace FeatureCenter.Module.Miscellaneous.UpdateOnlyChangeFields {
         protected override void OnActivated()
         {
             base.OnActivated();
-            _xpoDataStoreProxy = ((IObjectSpaceProvider)Application.ObjectSpaceProvider).DataStoreProvider.Proxy;
+            _sqlDataStoreProxy = ((IXpandObjectSpaceProvider)Application.ObjectSpaceProvider).DataStoreProvider.Proxy;
             _saveAction = Frame.GetController<DetailViewController>().SaveAction;
             _saveAction.Executing+=SaveActionOnExecuting;
             _saveAction.Executed+=SaveActionOnExecuted;
@@ -33,15 +33,15 @@ namespace FeatureCenter.Module.Miscellaneous.UpdateOnlyChangeFields {
             _saveAction.Executed -= SaveActionOnExecuted;
         }
         void SaveActionOnExecuted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
-            _xpoDataStoreProxy.DataStoreModifyData -= XpoDataStoreProxyOnDataStoreModifyData;
+            _sqlDataStoreProxy.DataStoreModifyData -= SqlDataStoreProxyOnDataStoreModifyData;
         }
 
         void SaveActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
 
-            _xpoDataStoreProxy.DataStoreModifyData += XpoDataStoreProxyOnDataStoreModifyData;
+            _sqlDataStoreProxy.DataStoreModifyData += SqlDataStoreProxyOnDataStoreModifyData;
         }
 
-        void XpoDataStoreProxyOnDataStoreModifyData(object sender, DataStoreModifyDataEventArgs dataStoreModifyDataEventArgs) {
+        void SqlDataStoreProxyOnDataStoreModifyData(object sender, DataStoreModifyDataEventArgs dataStoreModifyDataEventArgs) {
             var updateStatement = (UpdateStatement) dataStoreModifyDataEventArgs.ModificationStatements[0];
             List<QueryOperand> queryOperands = updateStatement.Operands.OfType<QueryOperand>().Where(value => value.ColumnName!=GCRecordField.StaticName&&value.ColumnName!=OptimisticLockingAttribute.DefaultFieldName).ToList();
             string s = "";

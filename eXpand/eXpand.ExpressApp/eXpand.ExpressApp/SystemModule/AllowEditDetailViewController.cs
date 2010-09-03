@@ -6,7 +6,7 @@ using eXpand.ExpressApp.Enums;
 
 namespace eXpand.ExpressApp.SystemModule
 {
-    public class AllowEditDetailViewController : ViewController<DetailView>
+    public class AllowEditDetailViewController : ViewController<XpandDetailView>
     {
         protected override void OnActivated()
         {

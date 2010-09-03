@@ -12,7 +12,7 @@ using eXpand.ExpressApp.Core;
 
 namespace eXpand.ExpressApp.WorldCreator.SqlDBMapper
 {
-    public class MapController:ViewController<DetailView>
+    public class MapController:ViewController<XpandDetailView>
     {
         public MapController() {
             TargetObjectType = typeof (IPersistentAssemblyInfo);

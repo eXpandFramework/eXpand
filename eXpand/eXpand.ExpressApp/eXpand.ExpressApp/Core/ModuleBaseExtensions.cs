@@ -9,11 +9,11 @@ namespace eXpand.ExpressApp.Core
 {
     public static class ModuleBaseExtensions
     {
-        public static IList<Controller> CollectControllers(this ModuleBase moduleBase)
+        public static IList<Controller> CollectControllers(this XpandModuleBase moduleBase)
         {
             return CollectControllers(moduleBase, null);
         }
-        public static IList<Controller> CollectControllers(this ModuleBase moduleBase, Predicate<ITypeInfo> filterPredicate)
+        public static IList<Controller> CollectControllers(this XpandModuleBase moduleBase, Predicate<ITypeInfo> filterPredicate)
         {
             ControllersManager controllersManager = moduleBase.ModuleManager.ControllersManager;
             IList<Controller> controllers = filterPredicate != null

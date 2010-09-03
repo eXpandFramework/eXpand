@@ -4,7 +4,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using eXpand.ExpressApp.Attributes;
-using NavigationItemAttribute = eXpand.ExpressApp.Attributes.NavigationItemAttribute;
 
 namespace FeatureCenter.Module.Miscellaneous.ExceptionHandling
 {
@@ -15,7 +14,7 @@ namespace FeatureCenter.Module.Miscellaneous.ExceptionHandling
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderExceptionHandling, "1=1", "1=1", Captions.ViewMessageExceptionHandling, Position.Bottom) { ViewType = ViewType.DetailView, View = "ExceptionHandling_DetailView" };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderExceptionHandling, "1=1", "1=1", Captions.HeaderExceptionHandling, Position.Top) { View = "ExceptionHandling_DetailView" };
             yield return new CloneViewAttribute(CloneViewType.DetailView, "ExceptionHandling_DetailView");
-            yield return new NavigationItemAttribute(Captions.Miscellaneous + "ExceptionHandling", "ExceptionHandling_DetailView");
+            yield return new XpandNavigationItemAttribute(Captions.Miscellaneous + "ExceptionHandling", "ExceptionHandling_DetailView");
         }
     }
 }

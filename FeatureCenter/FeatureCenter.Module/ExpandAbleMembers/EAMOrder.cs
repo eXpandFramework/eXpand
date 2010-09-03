@@ -8,7 +8,7 @@ using FeatureCenter.Base;
 namespace FeatureCenter.Module.ExpandAbleMembers {
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderExpandAbleMembers, "1=1", "1=1", Captions.ViewMessageExpandAbleMembers, Position.Bottom, ViewType = ViewType.DetailView)]
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderExpandAbleMembers, "1=1", "1=1", Captions.HeaderExpandAbleMembers, Position.Top, ViewType = ViewType.DetailView)]
-    [eXpand.ExpressApp.Attributes.NavigationItem("Expand Able Members", "EAMOrder_DetailView")]
+    [eXpand.ExpressApp.Attributes.XpandNavigationItem("Expand Able Members", "EAMOrder_DetailView")]
     public class EAMOrder : OrderBase {
         EAMCustomer _customer;
 

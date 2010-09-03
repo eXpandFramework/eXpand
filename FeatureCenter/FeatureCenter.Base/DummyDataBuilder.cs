@@ -27,7 +27,7 @@ namespace FeatureCenter.Base {
 
         public void CreateObjects(ITypeInfo typeInfo) {
             var citynames = new List<string>(GetCitynames());
-            ReflectorHelper.Shuffle(citynames);
+            XpandReflectionHelper.Shuffle(citynames);
             var rand = new Random();
             int i=0;
             foreach (string name in GetCustomerNames())

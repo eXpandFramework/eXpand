@@ -19,7 +19,7 @@ namespace eXpand.Tests.eXpand.Xpo
 
         It should_add_the_time_of_day_to_it = () => _convertToStorageType.TimeOfDay.ToString().ShouldEqual("01:01:01");
     }
-    [Subject(typeof(UtcDateTimeConverter), "Convert to storage")]
+    [Subject(typeof(XpandUtcDateTimeConverter), "Convert to storage")]
     public class When_datatime_is_sql_invalid
     {
         static DateTime _convertToStorageType;
@@ -31,7 +31,7 @@ namespace eXpand.Tests.eXpand.Xpo
         };
         Because of = () =>
         {
-            _convertToStorageType = (DateTime)new UtcDateTimeConverter().ConvertToStorageType(_dateTime);
+            _convertToStorageType = (DateTime)new XpandUtcDateTimeConverter().ConvertToStorageType(_dateTime);
         };
         It should_convert_it_1_1_1753 = () => _convertToStorageType.Date.ToShortDateString().ShouldEqual("1/1/1753");
 

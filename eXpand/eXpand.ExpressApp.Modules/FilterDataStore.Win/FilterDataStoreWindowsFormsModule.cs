@@ -7,7 +7,7 @@ using eXpand.ExpressApp.FilterDataStore.Win.Providers;
 
 namespace eXpand.ExpressApp.FilterDataStore.Win
 {
-    public sealed partial class FilterDataStoreWindowsFormsModule : ModuleBase
+    public sealed partial class FilterDataStoreWindowsFormsModule : XpandModuleBase
     {
         public FilterDataStoreWindowsFormsModule()
         {

@@ -6,7 +6,7 @@ using eXpand.Utils.Helpers;
 
 namespace eXpand.ExpressApp.WorldCreator.Controllers
 {
-    public class DataStoreLogonDatabasesController:ViewController<DetailView>
+    public class DataStoreLogonDatabasesController:ViewController<XpandDetailView>
     {
         public DataStoreLogonDatabasesController() {
             TargetObjectType = typeof (IDataStoreLogonObject);
