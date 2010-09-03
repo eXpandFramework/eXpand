@@ -165,6 +165,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridColumnOptionsController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridViewOptionsController.cs">
       <SubType>Component</SubType>

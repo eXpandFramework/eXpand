@@ -19,13 +19,13 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             DifferenceType = DifferenceType.Role;
         }
 
-        public override ModelApplicationBase[] GetAllLayers()
+        public override ModelApplicationBase[] GetAllLayers(ModelApplicationBase master)
         {
             var modelDifferenceObjects = new List<ModelDifferenceObject> {
                 new QueryModelDifferenceObject(Session).GetActiveModelDifference(PersistentApplication.UniqueName,null)
             };
 
-            return GetAllLayers(modelDifferenceObjects);
+            return GetAllLayers(modelDifferenceObjects,master);
         }
     }
 }

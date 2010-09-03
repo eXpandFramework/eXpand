@@ -19,6 +19,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         
         private ModelEditorViewController _controller;
         ModelApplicationBuilder _modelApplicationBuilder;
+        ModelApplicationBase _masterModel;
         #endregion
 
         #region Constructor
@@ -66,11 +67,11 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
                 Control.CurrentModelNode = null;
                 _controller.Modifying -= Model_Modifying;
                 _controller = null;
-                _modelApplicationBuilder.ResetModel();
+                ResetModel();
             }
             
             _modelApplicationBuilder = new ModelApplicationBuilder(CurrentObject.PersistentApplication.ExecutableName);
-            ModelDifferenceModule.MasterModel = _modelApplicationBuilder.GetMasterModel();
+            _masterModel = _modelApplicationBuilder.GetMasterModel();
             base.OnCurrentObjectChanged();
         }
 
@@ -82,7 +83,11 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
         }
 
         void ViewOnClosed(object sender, EventArgs eventArgs) {
-            _modelApplicationBuilder.ResetModel();
+            ResetModel();
+        }
+
+        void ResetModel() {
+            _modelApplicationBuilder.ResetModel(_masterModel);
         }
         #endregion
 
@@ -98,7 +103,7 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             if (Control == null) return;
             if (ReferenceEquals(args.Object, CurrentObject))
             {
-                new ModelValidator().ValidateModel(CurrentObject.Model);
+                new ModelValidator().ValidateModel(CurrentObject.GetModel(_masterModel));
                 ModelEditorViewController.SaveAction.Active["Not needed"] = true;
                 ModelEditorViewController.Save();
                 ModelEditorViewController.SaveAction.Active["Not needed"] = false;
@@ -117,9 +122,10 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         private ModelEditorViewController GetModelEditorController()
         {
-            ModelDifferenceModule.MasterModel.AddLayers(CurrentObject.GetAllLayers());
+            _masterModel.AddLayers(CurrentObject.GetAllLayers(_masterModel));
             
-            _controller = new ModelEditorViewController((IModelApplication)ModelDifferenceModule.MasterModel, null, null);
+            _controller = new ModelEditorViewController((IModelApplication)_masterModel, null, null);
+            var a = ((ModelApplicationBase)ModuleBase.Application.Model).Aspects;
             _controller.SetControl(Control);
             _controller.Modifying += Model_Modifying;
             _controller.SaveAction.Active["Not needed"] = false;

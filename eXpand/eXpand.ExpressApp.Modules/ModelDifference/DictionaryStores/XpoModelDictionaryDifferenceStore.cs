@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Utils;
-using DevExpress.Persistent.Base;
-using DevExpress.Xpo;
-using eXpand.ExpressApp.Core;
 using eXpand.ExpressApp.ModelDifference.Core;
 using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
-using eXpand.ExpressApp.SystemModule;
 using eXpand.Persistent.Base;
-using ResourcesModelStore = eXpand.Persistent.Base.ModelDifference.ResourcesModelStore;
-using eXpand.Xpo;
 
 namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
+    internal class ModelDifferenceObjectInfo {
+        public ModelDifferenceObjectInfo(ModelDifferenceObject modelDifferenceObject, ModelApplicationBase model) {
+            ModelDifferenceObject = modelDifferenceObject;
+            Model = model;
+        }
+
+        public ModelDifferenceObject ModelDifferenceObject { get; set; }
+        public ModelApplicationBase Model { get; set; }
+    }
     public  class XpoModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore
     {
         public const string ModelApplicationPrefix = "MDO_";
@@ -30,7 +28,7 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         readonly string _path;
         readonly List<ModelApplicationFromStreamStoreBase> _extraDiffStores;
         public const string EnableDebuggerAttachedCheck = "EnableDebuggerAttachedCheck";
-
+        
         public XpoModelDictionaryDifferenceStore(XafApplication application, string path, List<ModelApplicationFromStreamStoreBase> extraDiffStores) : base(application) {
             _path = path;
             _extraDiffStores = extraDiffStores;
@@ -59,109 +57,51 @@ namespace eXpand.ExpressApp.ModelDifference.DictionaryStores{
         
         public override void Load(ModelApplicationBase model)
         {
-            if (UseModelFromPath()){
-                var loadedModel = LoadFromPath();
-                loadedModel.Id = "Loaded From Path";
-                AddLAyers(new List<ModelApplicationBase> { loadedModel }, model);
+            
+            var extraDiffStoresLayerBuilder = new ExtraDiffStoresLayerBuilder(this);
+            var language = model.Application.PreferredLanguage;
+            if (UseModelFromPath()) {
                 return;
             }
-            
-
-            List<ModelApplicationBase> loadedModels = GetLoadedModelApplications();
-
-            if (loadedModels.Count() == 0){
-                loadedModels = new List<ModelApplicationBase> { model.CreatorInstance.CreateModelApplication() };
-            }
-            AddLAyers(loadedModels, model);
-            CreateResourceModels(model);
-        }
-
-        void CreateResourceModels(ModelApplicationBase model) {
-            
-            var assemblies = ((IModelApplicationModule) model.Application).ModulesList.Select(module => XafTypesInfo.Instance.FindTypeInfo(module.Name).AssemblyInfo.Assembly);
-            foreach (var assembly in assemblies) {
-                LoadFromResources(model, ModelApplicationPrefix, assembly);
-                LoadFromResources(model, RoleApplicationPrefix, assembly);
-            }
-            
-        }
-
-        void LoadFromResources(ModelApplicationBase model, string prefix, Assembly assembly) {
-            var resourcesModelStore = new ResourcesModelStore(assembly, prefix);
-            ModelDifferenceObject modelDifferenceObject = null;
-            resourcesModelStore.ResourceLoading += (sender, args) =>{
-                var resourceName = Path.GetFileNameWithoutExtension(args.ResourceName.StartsWith(prefix) ? args.ResourceName : args.ResourceName.Substring(args.ResourceName.IndexOf("." + prefix) + 1)).Replace(prefix,"");
-                var activeDifferenceObject = GetDifferenceObject(resourceName,prefix);
-                if (activeDifferenceObject != null) {
-                    modelDifferenceObject = activeDifferenceObject;
-                    model.AddLayerBeforeLast(modelDifferenceObject.Model);
-                }
-                else {
-                    modelDifferenceObject = GetModelDifferenceObject(resourceName,prefix);
-                }
-                args.Model = modelDifferenceObject.Model;
-            };
-            resourcesModelStore.ResourceLoaded += (o, loadedArgs) =>{
-                if (!(modelDifferenceObject.Model.IsEmpty)){
-                    ObjectSpace.SetModified(modelDifferenceObject);
-                }
-            };
-            resourcesModelStore.Load(model);
-            ObjectSpace.CommitChanges();
-        }
-
-        ModelDifferenceObject GetDifferenceObject(string resourceName, string prefix) {
-            if (prefix==ModelApplicationPrefix)
-                return GetActiveDifferenceObject(resourceName);
-            return ObjectSpace.Session.FindObject<RoleModelDifferenceObject>(o => o.Name == resourceName);
-        }
-
-        ModelDifferenceObject GetModelDifferenceObject(string resourceName, string prefix) {
-            ModelDifferenceObject modelDifferenceObject;
-            if (prefix == ModelApplicationPrefix)
-                modelDifferenceObject = new ModelDifferenceObject(ObjectSpace.Session);
-            else {
-                modelDifferenceObject = new RoleModelDifferenceObject(ObjectSpace.Session);
-                Type roleType = ((ISecurityComplex) SecuritySystem.Instance).RoleType;
-                var criteriaParametersList = resourceName.Substring(0,resourceName.IndexOf("_"));
-                object findObject = ObjectSpace.FindObject(roleType,CriteriaOperator.Parse("Name=?",criteriaParametersList));
-                Guard.ArgumentNotNull(findObject, criteriaParametersList);
-                var xpBaseCollection = ((XPBaseCollection) modelDifferenceObject.GetMemberValue("Roles"));
-                xpBaseCollection.BaseAdd(findObject);
-            }
-            modelDifferenceObject.InitializeMembers(resourceName, Application.Title, Application.GetType().FullName);
-            return modelDifferenceObject;
-        }
-
-        void AddLAyers(IEnumerable<ModelApplicationBase> loadedModels, ModelApplicationBase model) {
-            var language = model.Application.PreferredLanguage;
-            Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Adding Layers to application model ");
-            foreach (var loadedModel in loadedModels) {
-                LoadModelsFromExtraDiffStores(loadedModel,model);
-                SaveDifference(loadedModel);
-            }
+            var loadedModelDifferenceObjectInfos = GetLoadedModelDifferenceObjectInfos(model);
+            extraDiffStoresLayerBuilder.AddLayers(loadedModelDifferenceObjectInfos, _extraDiffStores);
+            CreateResourceModels(model,loadedModelDifferenceObjectInfos);
             if (model.Application.PreferredLanguage != language){
                 Application.SetLanguage(model.Application.PreferredLanguage);
             }
+            ObjectSpace.CommitChanges();
         }
 
-        void LoadModelsFromExtraDiffStores(ModelApplicationBase loadedModel, ModelApplicationBase model) {
-            var extraDiffStores = _extraDiffStores.Where(extraDiffStore => loadedModel.Id == extraDiffStore.Name);
-            foreach (var extraDiffStore in extraDiffStores) {  
-                model.AddLayerBeforeLast(loadedModel);
-                extraDiffStore.Load(loadedModel);
-                Tracing.Tracer.LogVerboseValue("Name",extraDiffStore.Name);
+        Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelDifferenceObjectInfos(ModelApplicationBase model) {
+            Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos = GetLoadedModelApplications(model);
+
+            if (loadedModelDifferenceObjectInfos.Count() == 0) {
+                var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo>();
+                var application = model.CreatorInstance.CreateModelApplication();
+                application.Id = "StartUp";
+                modelDifferenceObjectInfos.Add(application.Id, new ModelDifferenceObjectInfo(null, application));                
+                loadedModelDifferenceObjectInfos = modelDifferenceObjectInfos;
             }
+            return loadedModelDifferenceObjectInfos;
         }
 
-        List<ModelApplicationBase> GetLoadedModelApplications() {
+
+        void CreateResourceModels(ModelApplicationBase model, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos) {
+            var resourcesLayerBuilder = new ResourcesLayerBuilder(ObjectSpace,Application, this);
+            resourcesLayerBuilder.AddLayers(ModelApplicationPrefix, loadedModelDifferenceObjectInfos,model);
+            resourcesLayerBuilder.AddLayers(RoleApplicationPrefix, loadedModelDifferenceObjectInfos,model);
+        }
+
+        Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelApplications(ModelApplicationBase model) {
             if (UseModelFromPath()){
                 var loadedModel = LoadFromPath();
                 loadedModel.Id = "Loaded From Path";
-                return new List<ModelApplicationBase> {loadedModel};
+                var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo>
+                                                 {{loadedModel.Id, new ModelDifferenceObjectInfo(null, loadedModel)}};
+                return modelDifferenceObjectInfos;
             }
-            return new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(
-                    Application.GetType().FullName, null).ToList().Select(o => o.Model).ToList();
+            var modelDifferenceObjects = new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName, null);
+            return modelDifferenceObjects.ToList().Select(o => new ModelDifferenceObjectInfo(o, o.GetModel(model))).ToDictionary(info => info.Model.Id,objectInfo => objectInfo);
             
         }
 

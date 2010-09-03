@@ -48,7 +48,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects
             list.Add(objectByKey);
         }
 
-        public override ModelApplicationBase[] GetAllLayers()
+        public override ModelApplicationBase[] GetAllLayers(ModelApplicationBase master)
         {
             var modelDifferenceObjects =
                 new List<ModelDifferenceObject>(
@@ -57,7 +57,7 @@ namespace eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects
                 new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(PersistentApplication.UniqueName,null)
             };
 
-            return GetAllLayers(modelDifferenceObjects.AsEnumerable());
+            return GetAllLayers(modelDifferenceObjects.AsEnumerable(),master);
         }
     }
 }
