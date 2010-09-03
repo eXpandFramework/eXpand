@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 
@@ -73,18 +73,35 @@ namespace eXpand.ExpressApp.Win.ListEditors
             else
             {
                 Columns.Clear();
-                var method = typeof(XafGridColumn).GetMethod("Assign", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, new Type[] { typeof(GridColumn) }, null);
                 var columnsListEditorModelSynchronizer = new ColumnsListEditorModelSynchronizer(_gridListEditor, _gridListEditor.Model);
                 columnsListEditorModelSynchronizer.ApplyModel();
                 var gridColumns = _gridListEditor.GridView.Columns.OfType<DevExpress.ExpressApp.Win.Editors.XafGridColumn>();
                 foreach (var column in gridColumns)
                 {
-                    var col = new XafGridColumn(column.TypeInfo, _gridListEditor);
-                    col.ApplyModel(column.Model);
-                    this.Columns.Add(col);
-                    method.Invoke(col, new object[] { column });
+                    var clone = new XpandGridColumn(column.TypeInfo, _gridListEditor);
+                    clone.ApplyModel(column.Model);
+                    clone.AssignColumn(column);
+                    this.Columns.Add(clone);
                 }
             }
+        }
+    }
+
+    public class XpandGridColumn : DevExpress.ExpressApp.Win.Editors.XafGridColumn
+    {
+        public XpandGridColumn(ITypeInfo typeInfo, DevExpress.ExpressApp.Win.Editors.GridListEditor gridListEditor)
+            : base(typeInfo, gridListEditor)
+        {
+        }
+
+        public void AssignColumn(GridColumn column)
+        {
+            Assign(column);
+        }
+
+        protected override void Assign(GridColumn column)
+        {
+            base.Assign(column);
         }
     }
 }
