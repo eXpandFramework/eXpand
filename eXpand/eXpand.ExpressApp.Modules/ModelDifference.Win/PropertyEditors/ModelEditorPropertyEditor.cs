@@ -125,7 +125,6 @@ namespace eXpand.ExpressApp.ModelDifference.Win.PropertyEditors
             _masterModel.AddLayers(CurrentObject.GetAllLayers(_masterModel));
             
             _controller = new ModelEditorViewController((IModelApplication)_masterModel, null, null);
-            var a = ((ModelApplicationBase)ModuleBase.Application.Model).Aspects;
             _controller.SetControl(Control);
             _controller.Modifying += Model_Modifying;
             _controller.SaveAction.Active["Not needed"] = false;
