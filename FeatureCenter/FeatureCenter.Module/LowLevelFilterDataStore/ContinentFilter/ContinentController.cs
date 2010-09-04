@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
-using eXpand.ExpressApp.FilterDataStore.Core;
+using Xpand.ExpressApp.FilterDataStore.Core;
 using System.Linq;
 using FeatureCenter.Module.LowLevelFilterDataStore.ContinentFilter;
 

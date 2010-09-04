@@ -1,10 +1,11 @@
 ﻿using DevExpress.Xpo;
-using eXpand.ExpressApp.IO.Core;
-using eXpand.Persistent.BaseImpl.PersistentMetaData;
-using eXpand.Xpo;
+using Xpand.ExpressApp.IO.Core;
+using Xpand.Persistent.BaseImpl.PersistentMetaData;
+
+using Xpand.Xpo;
 
 namespace FeatureCenter.Module.WorldCreator.NorthWind {
-    public class WorldCreatorUpdater : eXpand.ExpressApp.WorldCreator.WorldCreatorUpdater
+    public class WorldCreatorUpdater : Xpand.ExpressApp.WorldCreator.WorldCreatorUpdater
     {
         private const string NorthWind = "NorthWind";
         public WorldCreatorUpdater(Session session) : base(session) {

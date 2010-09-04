@@ -1,13 +1,13 @@
 using DevExpress.ExpressApp.ScriptRecorder;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.ConditionalDetailViews;
-using eXpand.ExpressApp.MemberLevelSecurity;
-using eXpand.ExpressApp.WorldCreator.SqlDBMapper;
-using eXpand.Persistent.BaseImpl.ExceptionHandling;
-using eXpand.Persistent.BaseImpl.PersistentMetaData;
+using Xpand.ExpressApp.ConditionalDetailViews;
+using Xpand.ExpressApp.MemberLevelSecurity;
+using Xpand.ExpressApp.WorldCreator.SqlDBMapper;
+using Xpand.Persistent.BaseImpl.ExceptionHandling;
+using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using System.Linq;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
 namespace FeatureCenter.Module
 {
@@ -53,19 +53,19 @@ namespace FeatureCenter.Module
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalFormatting.ConditionalFormattingModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.ValidationModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.SystemModule.eXpandSystemModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.ModelDifference.ModelDifferenceModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.Security.eXpandSecurityModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.Validation.eXpandValidationModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.ViewVariants.eXpandViewVariantsModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.WorldCreator.WorldCreatorModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.IO.IOModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.Validation.eXpandValidationModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.MasterDetail.MasterDetailModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.PivotChart.PivotChartModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.FilterDataStore.FilterDataStoreModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.SystemModule.XpandSystemModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelDifference.ModelDifferenceModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Security.XpandSecurityModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Validation.XpandValidationModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ViewVariants.XpandViewVariantsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WorldCreator.WorldCreatorModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.IO.IOModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Validation.XpandValidationModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.MasterDetail.MasterDetailModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.PivotChart.XpandPivotChartModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule));
             this.RequiredModuleTypes.Add(typeof(ScriptRecorderModuleBase));
             this.RequiredModuleTypes.Add(typeof(WorldCreatorSqlDBMapperModule));
             this.RequiredModuleTypes.Add(typeof(ConditionalDetailViewModule));

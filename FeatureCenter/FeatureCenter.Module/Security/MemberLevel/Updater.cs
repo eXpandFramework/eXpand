@@ -3,9 +3,10 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.MemberLevelSecurity;
-using eXpand.Xpo;
+using Xpand.ExpressApp.MemberLevelSecurity;
+
 using System.Linq;
+using Xpand.Xpo;
 
 namespace FeatureCenter.Module.Security.MemberLevel
 {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
-using eXpand.ExpressApp.MasterDetail.Logic;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.MasterDetail.Logic;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.ConditionalGridDetailViews
 {
@@ -19,7 +19,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.ConditionalG
                                                                      Captions.HeaderConditionalDetailGridViews, Position.Top){Nesting = Nesting.Root, ViewType = ViewType.ListView, View = "ConditionalMasterDetailCustomer_ListView"};
                 yield return new MasterDetailAttribute("Customer_Orders_For_All_Other_Cities", "City!='Paris'", "ConditionalMasterDetailOrder_ListView", "Orders") { View = "ConditionalMasterDetailCustomer_ListView" };
                 yield return new CloneViewAttribute(CloneViewType.ListView, "ConditionalMasterDetailCustomer_ListView");
-                yield return new NavigationItemAttribute("Controlling XtraGrid/Master Detail/Conditional Detail views", "ConditionalMasterDetailCustomer_ListView");
+                yield return new XpandNavigationItemAttribute("Controlling XtraGrid/Master Detail/Conditional Detail views", "ConditionalMasterDetailCustomer_ListView");
                 yield return new DisplayFeatureModelAttribute("ConditionalMasterDetailCustomer_ListView", "ConditionalDetailViews");
             }
             if (typesInfo.Type==typeof(WinOrder)) {

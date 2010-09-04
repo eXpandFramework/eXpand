@@ -2,8 +2,8 @@
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.Attributes;
-using eXpand.Persistent.Base.General;
+using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module {
     public abstract class CreateObjectAttributesController:ViewController {
@@ -17,12 +17,12 @@ namespace FeatureCenter.Module {
                 AddAttribute(typeInfo, displayFeatureModelAttribute);
                 CloneViewAttribute cloneViewAttribute = GetCloneViewAttribute();
                 AddAttribute(typeInfo, cloneViewAttribute);
-                NavigationItemAttribute navigationItemAttribute=GetNavigationItemAttribute();
-                AddAttribute(typeInfo, navigationItemAttribute);
+                XpandNavigationItemAttribute xpandNavigationItemAttribute=GetNavigationItemAttribute();
+                AddAttribute(typeInfo, xpandNavigationItemAttribute);
             }
         }
 
-        protected virtual NavigationItemAttribute GetNavigationItemAttribute() {
+        protected virtual XpandNavigationItemAttribute GetNavigationItemAttribute() {
             return null;
         }
 

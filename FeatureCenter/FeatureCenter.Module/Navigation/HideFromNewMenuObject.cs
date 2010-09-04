@@ -1,6 +1,6 @@
 ﻿using DevExpress.Xpo;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Navigation
 {
@@ -9,7 +9,7 @@ namespace FeatureCenter.Module.Navigation
         Captions.ViewMessageHideFromNewMenu, Position.Bottom)]
     [NonPersistent]
     [HideFromNewMenu]
-    [NavigationItem("Navigation/Hide From New Menu", "HideFromNewMenuObject_DetailView")]
+    [XpandNavigationItem("Navigation/Hide From New Menu", "HideFromNewMenuObject_DetailView")]
     public class HideFromNewMenuObject
     {
     }

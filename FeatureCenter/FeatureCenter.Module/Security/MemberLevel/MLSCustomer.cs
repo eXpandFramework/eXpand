@@ -1,9 +1,9 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Security.MemberLevel {
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderMemberLevelSecurity, "1=1", "1=1",
@@ -11,7 +11,7 @@ namespace FeatureCenter.Module.Security.MemberLevel {
         View = "MLSCustomer_ListView")]
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderMemberLevelSecurity, "1=1", "1=1",
         Captions.HeaderMemberLevelSecurity, Position.Top, ViewType = ViewType.ListView, View = "MLSCustomer_ListView")]
-    [NavigationItem(Captions.Security + Captions.MemberLevelSecurity, "MLSCustomer_ListView")]
+    [XpandNavigationItem(Captions.Security + Captions.MemberLevelSecurity, "MLSCustomer_ListView")]
 //    [DisplayFeatureModel("MLSCustomer_ListView", "MemberLevel")]
     public class MLSCustomer : BaseObject, ICustomer {
         string _city;

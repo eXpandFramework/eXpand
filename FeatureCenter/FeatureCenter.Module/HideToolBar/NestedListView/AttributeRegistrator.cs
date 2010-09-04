@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.HideToolBar.NestedListView
 {
@@ -14,7 +14,7 @@ namespace FeatureCenter.Module.HideToolBar.NestedListView
                 yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderHideListViewToolBar+"Nested", "1=1", "1=1", Captions.ViewMessageHideListViewToolBarNested, Position.Bottom){View = "HideNestedListViewToolBar_DetailView"};
                 yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderHideListViewToolBar + "Nested", "1=1", "1=1", Captions.HeaderHideListViewToolBar, Position.Top) { View = "HideNestedListViewToolBar_DetailView" };
                 yield return new CloneViewAttribute(CloneViewType.DetailView, "HideNestedListViewToolBar_DetailView");
-                yield return new NavigationItemAttribute("Hide Tool Bar/NestedListView", "HideNestedListViewToolBar_DetailView");
+                yield return new XpandNavigationItemAttribute("Hide Tool Bar/NestedListView", "HideNestedListViewToolBar_DetailView");
                 yield return new DisplayFeatureModelAttribute("HideNestedListViewToolBar_DetailView");
             }
             if (typesInfo.Type==typeof(Order)) {

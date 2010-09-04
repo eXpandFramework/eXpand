@@ -1,4 +1,4 @@
-﻿using eXpand.ExpressApp.Attributes;
+﻿using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail
 {
@@ -8,8 +8,8 @@ namespace FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail
             return WorldCreatorUpdater.MasterDetailDynamicAssembly+"."+WorldCreatorUpdater.DMDCustomer;
         }
 
-        protected override NavigationItemAttribute GetNavigationItemAttribute() {
-            return new NavigationItemAttribute(Captions.Importexport + "Dynamic assembly Master detail", "IODMDCustomer_ListView");
+        protected override XpandNavigationItemAttribute GetNavigationItemAttribute() {
+            return new XpandNavigationItemAttribute(Captions.Importexport + "Dynamic assembly Master detail", "IODMDCustomer_ListView");
         }
 
         protected override DisplayFeatureModelAttribute GetDisplayFeatureModelAttribute() {

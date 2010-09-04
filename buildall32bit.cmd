@@ -2,10 +2,10 @@
 
 call defines.bat
 
-if exist eXpand.Key\eXpand.snk goto build
+if exist Xpand.Key\Xpand.snk goto build
 echo Generating strong key
-mkdir eXpand.Key
-%sn% -k eXpand.Key\eXpand.snk
+mkdir Xpand.Key
+%sn% -k Xpand.Key\Xpand.snk
 
 :build
 call RegisterAssemblyFolders32bit.bat
@@ -14,14 +14,14 @@ call RegisterAssemblyFolders32bit.bat
 call buildprojects.cmd
 
 
-%sn% -q -T eXpand.Dll\eXpand.Utils.dll > PublicKeyToken.txt
+%sn% -q -T Xpand.Dll\Xpand.Utils.dll > PublicKeyToken.txt
 
 rem Install VS Template
-set templates="%ProgramFiles%\Microsoft Visual Studio 9.0\Common7\IDE\ProjectTemplates\CSharp\eXpand\"
+set templates="%ProgramFiles%\Microsoft Visual Studio 9.0\Common7\IDE\ProjectTemplates\CSharp\Xpand\"
 set devenv="%ProgramFiles%\Microsoft Visual Studio 9.0\Common7\IDE\"
 
 echo Installing and refreshing visual studio templates
-xcopy "eXpand.DesignExperience\vs_templates\*.*" %templates% /Y /R /I
+xcopy "Xpand.DesignExperience\vs_templates\*.*" %templates% /Y /R /I
 
 %SystemDrive%
 cd\

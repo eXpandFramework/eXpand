@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Win.ControllingXtraGrid.GuessAutoFilterRowValues
 {
@@ -15,7 +15,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.GuessAutoFilterRowValues
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderGuessAutoFilterRowValuesFromFilter, "1=1", "1=1",
                 Captions.HeaderGuessAutoFilterRowValuesFromFilter, Position.Top){View = "GuessAutoFilterRowValues_ListView"};
             yield return new CloneViewAttribute(CloneViewType.ListView, "GuessAutoFilterRowValues_ListView");
-            yield return new NavigationItemAttribute("Controlling XtraGrid/Guess Auto FilterRow Values", "GuessAutoFilterRowValues_ListView");
+            yield return new XpandNavigationItemAttribute("Controlling XtraGrid/Guess Auto FilterRow Values", "GuessAutoFilterRowValues_ListView");
             new DisplayFeatureModelAttribute("GuessAutoFilterRowValues_ListView");
         }
     }

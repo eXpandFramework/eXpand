@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Application>
-  <Localization>
-    <LocalizationGroup Name="eXpand">
-      <LocalizationItem Name="AcceptFilter" Value="Filter übernehmen" />
-    </LocalizationGroup>
-  </Localization>
-</Application>

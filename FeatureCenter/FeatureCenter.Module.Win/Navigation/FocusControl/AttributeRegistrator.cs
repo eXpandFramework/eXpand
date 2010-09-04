@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Win.Navigation.FocusControl
 {
@@ -15,7 +15,7 @@ namespace FeatureCenter.Module.Win.Navigation.FocusControl
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderFocusControl, "1=1", "1=1",
                 Captions.HeaderFocusControl, Position.Top){View = "FocusControl_DetailView"};
             yield return new CloneViewAttribute(CloneViewType.DetailView, "FocusControl_DetailView");
-            yield return new NavigationItemAttribute("Navigation/Focus Control", "FocusControl_DetailView");
+            yield return new XpandNavigationItemAttribute("Navigation/Focus Control", "FocusControl_DetailView");
             yield return new DisplayFeatureModelAttribute("FocusControl_DetailView");
         }
     }

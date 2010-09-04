@@ -1,6 +1,6 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.Persistent.BaseImpl;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.PivotChart.PivotGroupInterval
 {
@@ -14,9 +14,9 @@ namespace FeatureCenter.Module.PivotChart.PivotGroupInterval
         {
             return new CloneViewAttribute(CloneViewType.DetailView, DetailView);
         }
-        protected override NavigationItemAttribute GetNavigationItemAttribute()
+        protected override XpandNavigationItemAttribute GetNavigationItemAttribute()
         {
-            return new NavigationItemAttribute("PivotChart/Pivot Group Interval", DetailView) { ObjectKey = "Name='PivotGroupInterval'" };
+            return new XpandNavigationItemAttribute("PivotChart/Pivot Group Interval", DetailView) { ObjectKey = "Name='PivotGroupInterval'" };
         }
         protected override DisplayFeatureModelAttribute GetDisplayFeatureModelAttribute() {
             return new DisplayFeatureModelAttribute(DetailView, new BinaryOperator("Name", "PivotGroupInterval"));

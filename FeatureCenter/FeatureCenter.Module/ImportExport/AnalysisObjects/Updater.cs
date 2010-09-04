@@ -3,8 +3,9 @@ using System.IO;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.IO.Core;
-using eXpand.Xpo;
+using Xpand.ExpressApp.IO.Core;
+
+using Xpand.Xpo;
 
 namespace FeatureCenter.Module.ImportExport.AnalysisObjects {
     public class Updater : ModuleUpdater

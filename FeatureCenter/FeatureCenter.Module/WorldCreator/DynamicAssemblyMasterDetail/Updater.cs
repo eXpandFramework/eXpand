@@ -1,8 +1,8 @@
 ﻿using System;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
+using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 
 namespace FeatureCenter.Module.WorldCreator.DynamicAssemblyMasterDetail {
     public class Updater:ModuleUpdater {

@@ -4,7 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.SystemModule;
 
 namespace FeatureCenter.Module.ListViewControl.PropertyPathFilters {
     public class PropertyPathFiltersNodeUpdater : ModelNodesGeneratorUpdater<ModelPropertyPathFiltersNodesGenerator>

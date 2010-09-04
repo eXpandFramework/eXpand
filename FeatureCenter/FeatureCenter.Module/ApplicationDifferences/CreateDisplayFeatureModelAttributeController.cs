@@ -1,4 +1,4 @@
-﻿using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+﻿using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 
 namespace FeatureCenter.Module.ApplicationDifferences
 {

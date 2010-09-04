@@ -1,6 +1,6 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.Persistent.BaseImpl;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.PivotChart.InPlaceEdit
 {
@@ -14,9 +14,9 @@ namespace FeatureCenter.Module.PivotChart.InPlaceEdit
         {
             return new CloneViewAttribute(CloneViewType.DetailView, InPlaceEdit_DetailView);
         }
-        protected override NavigationItemAttribute GetNavigationItemAttribute()
+        protected override XpandNavigationItemAttribute GetNavigationItemAttribute()
         {
-            return new NavigationItemAttribute("PivotChart/In Place Edit", InPlaceEdit_DetailView) { ObjectKey = "Name='InPlaceEdit'" };
+            return new XpandNavigationItemAttribute("PivotChart/In Place Edit", InPlaceEdit_DetailView) { ObjectKey = "Name='InPlaceEdit'" };
         }
         protected override DisplayFeatureModelAttribute GetDisplayFeatureModelAttribute() {
             return new DisplayFeatureModelAttribute(InPlaceEdit_DetailView, new BinaryOperator("Name", "InPlaceEdit"));

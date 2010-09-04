@@ -1,8 +1,8 @@
 
-using eXpand.ExpressApp.ModelDifference;
-using eXpand.ExpressApp.ModelDifference.Win;
-using eXpand.ExpressApp.SystemModule;
-using eXpand.ExpressApp.Win.SystemModule;
+using Xpand.ExpressApp.ModelDifference;
+using Xpand.ExpressApp.ModelDifference.Win;
+using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Win.SystemModule;
 
 namespace ExternalApplication.Module.Win
 {
@@ -37,13 +37,13 @@ namespace ExternalApplication.Module.Win
             // 
             // ExternalApplicationWindowsFormsModule
             // 
-            AdditionalBusinessClassAssemblies.Add(typeof(eXpand.Persistent.BaseImpl.ImportExport.ClassInfoGraphNode).Assembly);
+            AdditionalBusinessClassAssemblies.Add(typeof(Xpand.Persistent.BaseImpl.ImportExport.ClassInfoGraphNode).Assembly);
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
             this.RequiredModuleTypes.Add(typeof(ModelDifferenceWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(eXpandSystemModule));
-            this.RequiredModuleTypes.Add(typeof(eXpandSystemWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(eXpand.ExpressApp.Validation.eXpandValidationModule));
+            this.RequiredModuleTypes.Add(typeof(XpandSystemModule));
+            this.RequiredModuleTypes.Add(typeof(XpandSystemWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Validation.XpandValidationModule));
         }
 
         #endregion

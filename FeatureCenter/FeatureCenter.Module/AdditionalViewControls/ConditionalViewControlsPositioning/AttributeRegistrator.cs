@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.AdditionalViewControls.ConditionalViewControlsPositioning
 {
@@ -20,7 +20,7 @@ namespace FeatureCenter.Module.AdditionalViewControls.ConditionalViewControlsPos
             yield return new AdditionalViewControlsRuleAttribute(Captions.ConditionalViewControlsPositioningForCustomerCity, "1=1", "1=1", null, Position.DetailViewItem)
             {MessageProperty = "CityWarning", View = "ConditionalViewControlsPositioning_DetailView"};
             yield return new CloneViewAttribute(CloneViewType.DetailView, "ConditionalViewControlsPositioning_DetailView");
-            yield return new NavigationItemAttribute("Additional View Controls/Conditional View Controls Positioning",
+            yield return new XpandNavigationItemAttribute("Additional View Controls/Conditional View Controls Positioning",
                 "ConditionalViewControlsPositioning_DetailView");
             yield return new DisplayFeatureModelAttribute("ConditionalViewControlsPositioning_DetailView");
         }

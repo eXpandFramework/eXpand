@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
-using eXpand.ExpressApp.MasterDetail.Logic;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.MasterDetail.Logic;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.AtAnyLevel
 {
@@ -21,7 +21,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.AtAnyLevel
                                                                      Captions.HeaderMasterDetail, Position.Top){View = "MasterDetailAtAnyLevelCustomer_ListView"};
                 yield return new MasterDetailAttribute("AtAnyLevelCustomer_Orders", "1=1", "MasterDetailAtAnyLevelOrder_ListView", "Orders") { View = "MasterDetailAtAnyLevelCustomer_ListView" };
                 yield return new CloneViewAttribute(CloneViewType.ListView, "MasterDetailAtAnyLevelCustomer_ListView");
-                yield return new NavigationItemAttribute("Controlling XtraGrid/Master Detail/At any level", "MasterDetailAtAnyLevelCustomer_ListView");
+                yield return new XpandNavigationItemAttribute("Controlling XtraGrid/Master Detail/At any level", "MasterDetailAtAnyLevelCustomer_ListView");
                 yield return new DisplayFeatureModelAttribute("MasterDetailAtAnyLevelCustomer_ListView", "AtAnyLevel");
             }
             if (typesInfo.Type==typeof(WinOrder)) {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Win.ControllingXtraGrid.HidePopupMenu
 {
@@ -15,7 +15,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.HidePopupMenu
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderHideGridPopUpMenu, "1=1", "1=1", Captions.HeaderHideGridPopUpMenu
                 , Position.Top){View = "HidePopupMenu_ListView"};
             yield return new CloneViewAttribute(CloneViewType.ListView, "HidePopupMenu_ListView");
-            yield return new NavigationItemAttribute("Controlling XtraGrid/Hide Popupmenu", "HidePopupMenu_ListView");
+            yield return new XpandNavigationItemAttribute("Controlling XtraGrid/Hide Popupmenu", "HidePopupMenu_ListView");
             yield return new DisplayFeatureModelAttribute("HidePopupMenu_ListView");
         }
     }

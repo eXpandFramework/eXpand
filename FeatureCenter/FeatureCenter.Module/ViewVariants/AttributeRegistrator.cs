@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.ViewVariants
 {
@@ -14,7 +14,7 @@ namespace FeatureCenter.Module.ViewVariants
                 yield return new DisplayFeatureModelAttribute("ViewVariants_ListView", "ViewVariants");
             }
             yield return new CloneViewAttribute(CloneViewType.ListView, "ViewVariants_ListView");
-            yield return new NavigationItemAttribute("View Variants", "ViewVariants_ListView");
+            yield return new XpandNavigationItemAttribute("View Variants", "ViewVariants_ListView");
             yield return new DisplayFeatureModelAttribute("ViewVariants_ListView", "ViewVariants");
         }
     }

@@ -2,9 +2,9 @@
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail
 {
@@ -12,7 +12,7 @@ namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail
         Captions.ViewMessageExistentAssemblyMasterDetail, Position.Bottom, ViewType = ViewType.DetailView)]
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderExistentAssemblyMasterDetail, "1=1", "1=1",
         Captions.HeaderExistentAssemblyMasterDetail, Position.Top, ViewType = ViewType.DetailView)]
-    [NavigationItem("WorldCreator/Existent Assembly Master Detail", "EAMDCustomer_ListView")]
+    [XpandNavigationItem("WorldCreator/Existent Assembly Master Detail", "EAMDCustomer_ListView")]
     [DisplayFeatureModel("EAMDCustomer_ListView", "ExistentAssemblyMasterDetailModelStore")]
     public class EAMDCustomer:BaseObject,ICustomer
     {

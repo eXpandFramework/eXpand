@@ -1,1 +1,0 @@
-http://apobekiaris.blogspot.com/2009/06/codesmith-templates-for-xaf-baseobjects.html

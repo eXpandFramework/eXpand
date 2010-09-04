@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using eXpand.ExpressApp.ModelDifference.Core;
+using Xpand.ExpressApp.ModelDifference.Core;
 
 namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail {
     public class ExistentAssemblyMasterDetailModelStore : ModelApplicationFromStreamStoreBase

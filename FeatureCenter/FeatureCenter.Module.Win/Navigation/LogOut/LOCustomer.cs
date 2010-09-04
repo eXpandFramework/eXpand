@@ -1,6 +1,6 @@
 ﻿using DevExpress.Xpo;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Win.Navigation.LogOut {
     [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Captions.HeaderLogOut, "1=1", "1=1",
@@ -8,7 +8,7 @@ namespace FeatureCenter.Module.Win.Navigation.LogOut {
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderLogOut, "1=1", "1=1", Captions.HeaderLogOut
         , Position.Top)]
     [NonPersistent]
-    [NavigationItem("Navigation/Log Out", "LOCustomer_DetailView")]
+    [XpandNavigationItem("Navigation/Log Out", "LOCustomer_DetailView")]
     public class LOCustomer  {
         
     }

@@ -5,7 +5,8 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using eXpand.Utils;
+
+using Xpand.Utils;
 
 namespace FeatureCenter.Base {
     public class DummyDataBuilder {
@@ -27,7 +28,7 @@ namespace FeatureCenter.Base {
 
         public void CreateObjects(ITypeInfo typeInfo) {
             var citynames = new List<string>(GetCitynames());
-            ReflectorHelper.Shuffle(citynames);
+            XpandReflectionHelper.Shuffle(citynames);
             var rand = new Random();
             int i=0;
             foreach (string name in GetCustomerNames())

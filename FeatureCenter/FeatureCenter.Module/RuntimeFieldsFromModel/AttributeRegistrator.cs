@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.RuntimeFieldsFromModel
 {
@@ -16,7 +16,7 @@ namespace FeatureCenter.Module.RuntimeFieldsFromModel
                 Captions.HeaderRuntimeMemberFromModel, Position.Top){View = "RuntimeFieldsFromModel_ListView"};
             yield return new CloneViewAttribute(CloneViewType.DetailView, "RuntimeFieldsFromModel_DetailView");
             yield return new CloneViewAttribute(CloneViewType.ListView, "RuntimeFieldsFromModel_ListView") { DetailView = "RuntimeFieldsFromModel_DetailView" };
-            yield return new NavigationItemAttribute("Add Runtime Fields From Model","RuntimeFieldsFromModel_ListView");
+            yield return new XpandNavigationItemAttribute("Add Runtime Fields From Model","RuntimeFieldsFromModel_ListView");
             yield return new DisplayFeatureModelAttribute("RuntimeFieldsFromModel_ListView", "RuntimeFieldsFromModel");
             yield return new DisplayFeatureModelAttribute("RuntimeFieldsFromModel_DetailView", "RuntimeFieldsFromModel");
         }

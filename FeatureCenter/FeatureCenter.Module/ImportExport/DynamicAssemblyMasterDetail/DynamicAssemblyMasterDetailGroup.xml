@@ -102,7 +102,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentKeyAttribute]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentKeyAttribute]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -249,7 +249,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.TemplateInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.TemplateInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -415,7 +415,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentDefaultClassOptionsAttribute]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentDefaultClassOptionsAttribute]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -543,7 +543,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentMemberInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentMemberInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -728,7 +728,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAssemblyVersionAttributeInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAssemblyVersionAttributeInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -875,7 +875,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentTemplatedTypeInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentTemplatedTypeInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -1041,7 +1041,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAggregatedAttribute]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAggregatedAttribute]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -1169,7 +1169,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentCustomAttribute]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentCustomAttribute]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -1335,7 +1335,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.StrongKeyFile]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.StrongKeyFile]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -1482,7 +1482,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentPersistentAttribute]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentPersistentAttribute]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -1629,7 +1629,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.ExtendedReferenceMemberInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.ExtendedReferenceMemberInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -1833,7 +1833,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentRuleRequiredFieldAttribute]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentRuleRequiredFieldAttribute]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -1999,7 +1999,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.ExtendedCollectionMemberInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.ExtendedCollectionMemberInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -2184,7 +2184,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAssemblyInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAssemblyInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -2445,7 +2445,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAssemblyAttributeInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAssemblyAttributeInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -2516,7 +2516,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentSizeAttribute]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentSizeAttribute]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -2663,7 +2663,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentPivotedPropertyAttribute]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentPivotedPropertyAttribute]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -2848,7 +2848,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentReferenceMemberInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentReferenceMemberInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -3109,7 +3109,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentClassInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentClassInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -3503,7 +3503,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAssociationAttribute]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAssociationAttribute]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -3707,7 +3707,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentCollectionMemberInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentCollectionMemberInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -3968,7 +3968,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentMapInheritanceAttribute]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentMapInheritanceAttribute]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -4115,7 +4115,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentValueConverter]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentValueConverter]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -4243,7 +4243,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.ExtendedMemberInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.ExtendedMemberInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -4371,7 +4371,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentTypeInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentTypeInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -4461,7 +4461,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.CodeTemplateInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.CodeTemplateInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -4608,7 +4608,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAttributeInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAttributeInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -4679,7 +4679,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.InterfaceInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.InterfaceInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -4826,7 +4826,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.CodeTemplate]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.CodeTemplate]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -5049,7 +5049,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentCoreTypeMemberInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentCoreTypeMemberInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>
@@ -5253,7 +5253,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.PersistentMetaData.ExtendedCoreTypeMemberInfo]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.ExtendedCoreTypeMemberInfo]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>

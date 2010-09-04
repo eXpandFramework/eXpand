@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.FilterDataStore.Core;
+using Xpand.ExpressApp.FilterDataStore.Core;
 
 namespace FeatureCenter.Module.LowLevelFilterDataStore.ContinentFilter
 {

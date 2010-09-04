@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.SystemModule;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
-using eXpand.ExpressApp.ConditionalControllerState.Logic;
-using eXpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.ConditionalControllerState.Logic;
+using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.ModelArtifact.ConditionalForeignKeyKViolationAndShowDetailView
 {
@@ -24,7 +24,7 @@ namespace FeatureCenter.Module.ModelArtifact.ConditionalForeignKeyKViolationAndS
                 {View = "ConditionalForeignKeyViolationAndShowDetailView_ListView"};
             yield return new ControllerStateRuleAttribute("ConditionalShowDetailView", typeof(ListViewProcessCurrentObjectController), "City='Paris'",
                 "1=1", ControllerState.Disabled){View = "ConditionalForeignKeyViolationAndShowDetailView_ListView"};
-            yield return new NavigationItemAttribute("ModelArtifact/Conditional Foreign Key Violation And Show DetailView", "ConditionalForeignKeyViolationAndShowDetailView_ListView");
+            yield return new XpandNavigationItemAttribute("ModelArtifact/Conditional Foreign Key Violation And Show DetailView", "ConditionalForeignKeyViolationAndShowDetailView_ListView");
             yield return new CloneViewAttribute(CloneViewType.ListView, "ConditionalForeignKeyViolationAndShowDetailView_ListView");
             yield return new DisplayFeatureModelAttribute("ConditionalForeignKeyViolationAndShowDetailView_ListView");
         }

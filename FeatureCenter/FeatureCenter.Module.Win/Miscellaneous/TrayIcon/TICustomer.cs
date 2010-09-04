@@ -1,6 +1,6 @@
 ﻿using DevExpress.Xpo;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Win.Miscellaneous.TrayIcon
 {
@@ -9,7 +9,7 @@ namespace FeatureCenter.Module.Win.Miscellaneous.TrayIcon
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderTrayIcon, "1=1", "1=1",
         Captions.HeaderTrayIcon, Position.Top)]
     [NonPersistent]
-    [NavigationItem(Module.Captions.Miscellaneous+"Tray Icon", "TICustomer_DetailView")]
+    [XpandNavigationItem(Module.Captions.Miscellaneous+"Tray Icon", "TICustomer_DetailView")]
     [DisplayFeatureModel("TICustomer_DetailView", "TrayIcon")]
     public class TICustomer
     {

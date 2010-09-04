@@ -3,9 +3,9 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
-using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
+using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using System.Linq;
-using eXpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module
 {

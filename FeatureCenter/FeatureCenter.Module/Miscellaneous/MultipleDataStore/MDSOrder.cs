@@ -1,6 +1,6 @@
 ﻿using DevExpress.Xpo;
-using eXpand.ExpressApp.Attributes;
 using FeatureCenter.Base;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Miscellaneous.MultipleDataStore {
     public class MDSOrder : OrderBase {

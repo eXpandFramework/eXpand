@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.ApplicationDifferences.RoleDifference
 {
@@ -14,7 +14,7 @@ namespace FeatureCenter.Module.ApplicationDifferences.RoleDifference
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderRoleDifference, "1=1", "1=1", Captions.ViewMessageRoleDifference, Position.Bottom) { ViewType = ViewType.DetailView, View = "RoleDifference" };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderRoleDifference, "1=1", "1=1", Captions.HeaderRoleDifference, Position.Top) { ViewType = ViewType.DetailView, View = "RoleDifference" };
             yield return new CloneViewAttribute(CloneViewType.DetailView, "RoleDifference");
-            yield return new NavigationItemAttribute("Application Differences/Role Differences", "RoleDifference");
+            yield return new XpandNavigationItemAttribute("Application Differences/Role Differences", "RoleDifference");
             yield return new DisplayFeatureModelAttribute("RoleDifference", "Administrators_RoleDifference");
         }
     }

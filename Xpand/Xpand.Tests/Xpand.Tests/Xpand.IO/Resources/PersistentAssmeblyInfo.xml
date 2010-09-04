@@ -1,0 +1,547 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SerializedObjects>
+  <SerializedObject type="PersistentAssemblyInfo">
+    <Property type="simple" name="DoNotCompile" isKey="false" isNaturalKey="false">False</Property>
+    <Property type="simple" name="CompileOrder" isKey="false" isNaturalKey="false">0</Property>
+    <Property type="simple" name="CompileErrors" isKey="false" isNaturalKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">8be24930-da35-40c6-a11c-ae52d37619b3</Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">TestAssembly</Property>
+    
+    <Property type="simple" name="CodeDomProvider" isKey="false" isNaturalKey="false">0</Property>
+    <Property type="object" name="StrongKeyFile" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="FileData" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentClassInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">83eb11b9-84d1-427b-a5ce-3a65b5a3179c</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">133cacd0-9c63-426d-9013-7ea69e002014</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false" isNaturalKey="false" />
+  </SerializedObject>
+  <SerializedObject type="PersistentClassInfo">
+    <Property type="simple" name="BaseType" isKey="false" isNaturalKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Order</Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">83eb11b9-84d1-427b-a5ce-3a65b5a3179c</Property>
+    <Property type="simple" name="MergedObjectType" isKey="false" isNaturalKey="false"></Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject">
+        <Key name="oid">8be24930-da35-40c6-a11c-ae52d37619b3</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="BaseClassInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="MergedClassInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="CodeTemplateInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">5a7a19c8-d15b-48ad-adc3-5bb4cce7f045</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="Interfaces" isKey="false" isNaturalKey="false" />
+    <Property type="collection" name="OwnMembers" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentCoreTypeMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">41321177-3ed5-4491-a889-0318547141a4</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="PersistentReferenceMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">8b008169-3c1b-4ea4-832a-4e39c28c2f1d</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="TypeAttributes" isKey="false" isNaturalKey="false" />
+  </SerializedObject>
+  <SerializedObject type="CodeTemplateInfo">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">5a7a19c8-d15b-48ad-adc3-5bb4cce7f045</Property>
+    <Property type="object" name="TemplateInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">275c0709-4549-40a4-981a-c56957efb77a</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentTemplatedTypeInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">83eb11b9-84d1-427b-a5ce-3a65b5a3179c</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="TemplateCode" isKey="false" isNaturalKey="false">
+      namespace $ASSEMBLYNAME${
+      using System;
+      using System.Collections.Generic;
+      using System.ComponentModel;
+      using DevExpress.Persistent.Base;
+      using DevExpress.Persistent.Validation;
+      using DevExpress.Xpo;
+      using Xpand.Persistent.Base.PersistentMetaData;
+      using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+      
+      using System.Linq;
+
+      $TYPEATTRIBUTES$
+      public class $CLASSNAME$:$BASECLASSNAME${
+      public $CLASSNAME$(Session session):base(session){}
+      public override void AfterConstruction() {
+      base.AfterConstruction();
+      }
+
+      protected override void OnSaving() {
+      base.OnSaving();
+      }
+
+      protected override void OnChanged(string propertyName, object oldValue, object newValue) {
+      base.OnChanged(propertyName,oldValue, newValue);
+      }
+      }
+      }
+    </Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Default</Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">275c0709-4549-40a4-981a-c56957efb77a</Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">5a7a19c8-d15b-48ad-adc3-5bb4cce7f045</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentCoreTypeMemberInfo">
+    <Property type="simple" name="DataType" isKey="false" isNaturalKey="false">9</Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">41321177-3ed5-4491-a889-0318547141a4</Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Ammount</Property>
+    <Property type="object" name="Owner" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">83eb11b9-84d1-427b-a5ce-3a65b5a3179c</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="CodeTemplateInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">eae9e401-dcc7-4f74-81c1-4911b538beb3</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="TypeAttributes" isKey="false" isNaturalKey="false" />
+  </SerializedObject>
+  <SerializedObject type="CodeTemplateInfo">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">eae9e401-dcc7-4f74-81c1-4911b538beb3</Property>
+    <Property type="object" name="TemplateInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">6e40bec3-ea6d-4bcc-b1ac-c793a2c48e79</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentTemplatedTypeInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentCoreTypeMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">41321177-3ed5-4491-a889-0318547141a4</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="TemplateCode" isKey="false" isNaturalKey="false">
+      $PROPERTYTYPE$ _$PROPERTYNAME$;
+      $TYPEATTRIBUTES$
+      public $PROPERTYTYPE$ $PROPERTYNAME${
+      get{
+      return _$PROPERTYNAME$;
+      }
+      set{
+      SetPropertyValue("$PROPERTYNAME$", ref _$PROPERTYNAME$, value);
+      }
+      }
+    </Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Default</Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">6e40bec3-ea6d-4bcc-b1ac-c793a2c48e79</Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">eae9e401-dcc7-4f74-81c1-4911b538beb3</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentReferenceMemberInfo">
+    <Property type="simple" name="ReferenceTypeFullName" isKey="false" isNaturalKey="false">TestAssembly.Customer</Property>
+    <Property type="simple" name="AutoGenerateOtherPartMember" isKey="false" isNaturalKey="false">True</Property>
+    <Property type="simple" name="ReferenceType" isKey="false" isNaturalKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">8b008169-3c1b-4ea4-832a-4e39c28c2f1d</Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Customer</Property>
+    <Property type="object" name="CodeTemplateInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">0845fa48-3898-4e3b-88f5-548476c70082</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="Owner" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">83eb11b9-84d1-427b-a5ce-3a65b5a3179c</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="ReferenceClassInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">133cacd0-9c63-426d-9013-7ea69e002014</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="TypeAttributes" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentAssociationAttribute" strategy="SerializeAsObject">
+        <Key name="oid">8bc7c1a6-0f4d-4b91-8708-d6a68dd6887f</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="CodeTemplateInfo">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">0845fa48-3898-4e3b-88f5-548476c70082</Property>
+    <Property type="object" name="TemplateInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">35e6811a-b7e8-4432-b3b8-37042ac0247c</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentTemplatedTypeInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentReferenceMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">8b008169-3c1b-4ea4-832a-4e39c28c2f1d</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="TemplateCode" isKey="false" isNaturalKey="false">
+      $PROPERTYTYPE$ _$PROPERTYNAME$;
+      $TYPEATTRIBUTES$
+      public $PROPERTYTYPE$ $PROPERTYNAME${
+      get{
+      return _$PROPERTYNAME$;
+      }
+      set{
+      SetPropertyValue("$PROPERTYNAME$", ref _$PROPERTYNAME$, value);
+      }
+      }
+    </Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Default</Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">35e6811a-b7e8-4432-b3b8-37042ac0247c</Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">0845fa48-3898-4e3b-88f5-548476c70082</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentClassInfo">
+    <Property type="simple" name="BaseType" isKey="false" isNaturalKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Customer</Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">133cacd0-9c63-426d-9013-7ea69e002014</Property>
+    <Property type="simple" name="MergedObjectType" isKey="false" isNaturalKey="false"></Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject">
+        <Key name="oid">8be24930-da35-40c6-a11c-ae52d37619b3</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="BaseClassInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="MergedClassInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="CodeTemplateInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">737626d7-fa0f-4d88-84a4-3e0405a11dd3</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="Interfaces" isKey="false" isNaturalKey="false" />
+    <Property type="collection" name="OwnMembers" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentCollectionMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">f0fd6e10-72d2-4715-8959-1a49fdca5220</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="PersistentReferenceMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">051a2555-dd52-4b98-8ee4-2babebc57823</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="PersistentCoreTypeMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">b7d274a5-5470-4e3b-af9d-39c73ac7a5d8</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="TypeAttributes" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentDefaultClassOptionsAttribute" strategy="SerializeAsObject">
+        <Key name="oid">069480a8-812d-40ee-af33-9facbda2dfe9</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="CodeTemplateInfo">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">737626d7-fa0f-4d88-84a4-3e0405a11dd3</Property>
+    <Property type="object" name="TemplateInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">2537615f-7187-4c1a-8cb8-8751af9fe2dd</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentTemplatedTypeInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">133cacd0-9c63-426d-9013-7ea69e002014</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="TemplateCode" isKey="false" isNaturalKey="false">
+      namespace $ASSEMBLYNAME${
+      using System;
+      using System.Collections.Generic;
+      using System.ComponentModel;
+      using DevExpress.Persistent.Base;
+      using DevExpress.Persistent.Validation;
+      using DevExpress.Xpo;
+      using Xpand.Persistent.Base.PersistentMetaData;
+      using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+      
+      using System.Linq;
+
+      $TYPEATTRIBUTES$
+      public class $CLASSNAME$:$BASECLASSNAME${
+      public $CLASSNAME$(Session session):base(session){}
+      public override void AfterConstruction() {
+      base.AfterConstruction();
+      }
+
+      protected override void OnSaving() {
+      base.OnSaving();
+      }
+
+      protected override void OnChanged(string propertyName, object oldValue, object newValue) {
+      base.OnChanged(propertyName,oldValue, newValue);
+      }
+      }
+      }
+    </Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Default</Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">2537615f-7187-4c1a-8cb8-8751af9fe2dd</Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">737626d7-fa0f-4d88-84a4-3e0405a11dd3</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentCollectionMemberInfo">
+    <Property type="simple" name="RelationType" isKey="false" isNaturalKey="false">0</Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">f0fd6e10-72d2-4715-8959-1a49fdca5220</Property>
+    <Property type="simple" name="CollectionType" isKey="false" isNaturalKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Orders</Property>
+    <Property type="simple" name="CollectionTypeFullName" isKey="false" isNaturalKey="false">TestAssembly.Order</Property>
+    <Property type="object" name="CodeTemplateInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">f20de8e6-1e07-483d-b1c1-16ebff47af3d</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="CollectionClassInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="object" name="Owner" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">133cacd0-9c63-426d-9013-7ea69e002014</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="TypeAttributes" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentAssociationAttribute" strategy="SerializeAsObject">
+        <Key name="oid">6edef5f9-182a-4193-98a2-4c62b541d2cc</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="CodeTemplateInfo">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">f20de8e6-1e07-483d-b1c1-16ebff47af3d</Property>
+    <Property type="object" name="TemplateInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">d9c42c4a-0bb0-45cc-ba58-430c2eab6d26</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentTemplatedTypeInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentCollectionMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">f0fd6e10-72d2-4715-8959-1a49fdca5220</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="TemplateCode" isKey="false" isNaturalKey="false">
+      $TYPEATTRIBUTES$
+      public XPCollection&lt;$PROPERTYTYPE$&gt; $PROPERTYNAME$ {
+      get { return GetCollection&lt;$PROPERTYTYPE$&gt;("$PROPERTYNAME$"); }
+      }
+    </Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Default</Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">d9c42c4a-0bb0-45cc-ba58-430c2eab6d26</Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">f20de8e6-1e07-483d-b1c1-16ebff47af3d</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentAssociationAttribute">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">6edef5f9-182a-4193-98a2-4c62b541d2cc</Property>
+    <Property type="simple" name="ElementType" isKey="false" isNaturalKey="false"></Property>
+    <Property type="simple" name="AssociationName" isKey="false" isNaturalKey="false">Customer</Property>
+    <Property type="simple" name="ElementTypeFullName" isKey="false" isNaturalKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">PersistentAssociationAttribute: Customer</Property>
+    <Property type="object" name="Owner" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentCollectionMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">f0fd6e10-72d2-4715-8959-1a49fdca5220</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="ElementClassInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentReferenceMemberInfo">
+    <Property type="simple" name="ReferenceTypeFullName" isKey="false" isNaturalKey="false">DevExpress.Persistent.BaseImpl.User</Property>
+    <Property type="simple" name="AutoGenerateOtherPartMember" isKey="false" isNaturalKey="false">True</Property>
+    
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">051a2555-dd52-4b98-8ee4-2babebc57823</Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">User</Property>
+    <Property type="object" name="CodeTemplateInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">f9a98e7a-5ee2-4040-9bcf-b7b69bedb43d</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="Owner" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">133cacd0-9c63-426d-9013-7ea69e002014</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="ReferenceClassInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="TypeAttributes" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentAssociationAttribute" strategy="SerializeAsObject">
+        <Key name="oid">a14834af-b3b2-4ff1-a0e6-4ad4538c918c</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="CodeTemplateInfo">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">f9a98e7a-5ee2-4040-9bcf-b7b69bedb43d</Property>
+    <Property type="object" name="TemplateInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">4c32a931-729f-4ba0-a656-ada8d31e8f80</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentTemplatedTypeInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentReferenceMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">051a2555-dd52-4b98-8ee4-2babebc57823</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="TemplateCode" isKey="false" isNaturalKey="false">
+      $PROPERTYTYPE$ _$PROPERTYNAME$;
+      $TYPEATTRIBUTES$
+      public $PROPERTYTYPE$ $PROPERTYNAME${
+      get{
+      return _$PROPERTYNAME$;
+      }
+      set{
+      SetPropertyValue("$PROPERTYNAME$", ref _$PROPERTYNAME$, value);
+      }
+      }
+    </Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Default</Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">4c32a931-729f-4ba0-a656-ada8d31e8f80</Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">f9a98e7a-5ee2-4040-9bcf-b7b69bedb43d</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentAssociationAttribute">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">a14834af-b3b2-4ff1-a0e6-4ad4538c918c</Property>
+    <Property type="simple" name="ElementType" isKey="false" isNaturalKey="false"></Property>
+    <Property type="simple" name="AssociationName" isKey="false" isNaturalKey="false">User</Property>
+    <Property type="simple" name="ElementTypeFullName" isKey="false" isNaturalKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">PersistentAssociationAttribute: User</Property>
+    <Property type="object" name="Owner" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentReferenceMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">051a2555-dd52-4b98-8ee4-2babebc57823</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="ElementClassInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentCoreTypeMemberInfo">
+    <Property type="simple" name="DataType" isKey="false" isNaturalKey="false">15</Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">b7d274a5-5470-4e3b-af9d-39c73ac7a5d8</Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Name</Property>
+    <Property type="object" name="Owner" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">133cacd0-9c63-426d-9013-7ea69e002014</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="CodeTemplateInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">b945a855-3549-4e72-9d9c-5c4015481534</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="TypeAttributes" isKey="false" isNaturalKey="false" />
+  </SerializedObject>
+  <SerializedObject type="CodeTemplateInfo">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">b945a855-3549-4e72-9d9c-5c4015481534</Property>
+    <Property type="object" name="TemplateInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="TemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">3520c0d9-39f5-455d-96e3-e417f39a85d1</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="PersistentAssemblyInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentAssemblyInfo" strategy="SerializeAsObject" />
+    </Property>
+    <Property type="collection" name="PersistentTemplatedTypeInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentCoreTypeMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">b7d274a5-5470-4e3b-af9d-39c73ac7a5d8</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="TemplateInfo">
+    <Property type="simple" name="TemplateCode" isKey="false" isNaturalKey="false">
+      $PROPERTYTYPE$ _$PROPERTYNAME$;
+      $TYPEATTRIBUTES$
+      public $PROPERTYTYPE$ $PROPERTYNAME${
+      get{
+      return _$PROPERTYNAME$;
+      }
+      set{
+      SetPropertyValue("$PROPERTYNAME$", ref _$PROPERTYNAME$, value);
+      }
+      }
+    </Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">Default</Property>
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">3520c0d9-39f5-455d-96e3-e417f39a85d1</Property>
+    <Property type="collection" name="CodeTemplateInfos" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="CodeTemplateInfo" strategy="SerializeAsObject">
+        <Key name="oid">b945a855-3549-4e72-9d9c-5c4015481534</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentDefaultClassOptionsAttribute">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">069480a8-812d-40ee-af33-9facbda2dfe9</Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">PersistentDefaultClassOptionsAttribute: DefaultClassOptions</Property>
+    <Property type="object" name="Owner" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
+        <Key name="oid">133cacd0-9c63-426d-9013-7ea69e002014</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="PersistentAssociationAttribute">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">8bc7c1a6-0f4d-4b91-8708-d6a68dd6887f</Property>
+    <Property type="simple" name="ElementType" isKey="false" isNaturalKey="false"></Property>
+    <Property type="simple" name="AssociationName" isKey="false" isNaturalKey="false">Customer</Property>
+    <Property type="simple" name="ElementTypeFullName" isKey="false" isNaturalKey="false"></Property>
+    <Property type="simple" name="Name" isKey="false" isNaturalKey="false">PersistentAssociationAttribute: Customer</Property>
+    <Property type="object" name="Owner" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentReferenceMemberInfo" strategy="SerializeAsObject">
+        <Key name="oid">8b008169-3c1b-4ea4-832a-4e39c28c2f1d</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="object" name="ElementClassInfo" isKey="false" isNaturalKey="false">
+      <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject" />
+    </Property>
+  </SerializedObject>
+</SerializedObjects>

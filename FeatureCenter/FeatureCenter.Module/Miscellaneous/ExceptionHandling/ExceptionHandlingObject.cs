@@ -1,7 +1,7 @@
 ﻿using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.ConditionalActionState.Logic;
-using eXpand.Persistent.BaseImpl.ExceptionHandling;
+using Xpand.ExpressApp.ConditionalActionState.Logic;
+using Xpand.Persistent.BaseImpl.ExceptionHandling;
 
 namespace FeatureCenter.Module.Miscellaneous.ExceptionHandling {
     [ActionStateRule("Hide_Save_For_ExceptionHandlingObject", "Save", "1=1", null, ActionState.Hidden)]

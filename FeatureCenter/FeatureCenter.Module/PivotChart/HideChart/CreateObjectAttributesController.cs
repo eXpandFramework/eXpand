@@ -1,6 +1,6 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.Persistent.BaseImpl;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.PivotChart.HideChart
 {
@@ -14,9 +14,9 @@ namespace FeatureCenter.Module.PivotChart.HideChart
         {
             return new CloneViewAttribute(CloneViewType.DetailView, DetailView);
         }
-        protected override NavigationItemAttribute GetNavigationItemAttribute()
+        protected override XpandNavigationItemAttribute GetNavigationItemAttribute()
         {
-            return new NavigationItemAttribute("PivotChart/Hide Chart", DetailView) { ObjectKey = "Name='HideChart'" };
+            return new XpandNavigationItemAttribute("PivotChart/Hide Chart", DetailView) { ObjectKey = "Name='HideChart'" };
         }
         protected override DisplayFeatureModelAttribute GetDisplayFeatureModelAttribute() {
             return new DisplayFeatureModelAttribute(DetailView, new BinaryOperator("Name", "HideChart"));

@@ -1,11 +1,11 @@
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.ListViewControl.PropertyPathFilters {
-    [NavigationItem(Captions.ListViewCotrol + "Property Path Filters", "PPCustomer_ListView")]
+    [XpandNavigationItem(Captions.ListViewCotrol + "Property Path Filters", "PPCustomer_ListView")]
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderPropertyPathFilters, "1=1", "1=1",Captions.ViewMessagePropertyPathFilters, Position.Bottom,ViewType = ViewType.ListView)]
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderPropertyPathFilters, "1=1", "1=1", Captions.HeaderPropertyPathFilters, Position.Top, ViewType = ViewType.ListView)]
     public class PPCustomer : CustomerBase {
