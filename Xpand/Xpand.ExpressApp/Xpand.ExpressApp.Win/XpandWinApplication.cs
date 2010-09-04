@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
@@ -39,6 +42,21 @@ namespace Xpand.ExpressApp.Win
 
         public ApplicationModelsManager ModelsManager {
             get { return modelsManager; }
+        }
+
+        public override IModelTemplate GetTemplateCustomizationModel(IFrameTemplate template) {
+            var list = new List<ModelApplicationBase>();
+            while (((ModelApplicationBase)Model).LastLayer.Id != "UserDiff" && ((ModelApplicationBase)Model).LastLayer.Id != AfterSetupLayerId)
+            {
+                var modelApplicationBase = ((ModelApplicationBase)Model).LastLayer;
+                list.Add(modelApplicationBase);
+                ((ModelApplicationBase)Model).RemoveLayer(modelApplicationBase);
+            }
+            var modelTemplate = base.GetTemplateCustomizationModel(template);
+            foreach (var modelApplicationBase in list) {
+                ((ModelApplicationBase)Model).AddLayer(modelApplicationBase);
+            }
+            return modelTemplate;
         }
 
         protected override ListEditor CreateListEditorCore(IModelListView modelListView, CollectionSourceBase collectionSource) {
