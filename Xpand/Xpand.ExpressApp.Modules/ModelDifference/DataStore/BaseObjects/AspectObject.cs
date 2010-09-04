@@ -4,12 +4,13 @@ using DevExpress.Xpo;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
+    [RuleCombinationOfPropertiesIsUnique("AspectObject_Name_MDO",DefaultContexts.Save,"Name,ModelDifferenceObject" )]
     public class AspectObject:XpandCustomObject {
         public AspectObject(Session session) : base(session) {
         }
         private string _name;
 
-        [RuleUniqueValue(null, DefaultContexts.Save)]
+        
         [RuleRequiredField]
         public string Name {
             get { return _name; }

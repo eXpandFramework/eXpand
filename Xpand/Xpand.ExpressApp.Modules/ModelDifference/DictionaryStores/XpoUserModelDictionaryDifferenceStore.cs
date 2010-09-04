@@ -55,7 +55,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores{
                 foreach (var aspectObject in modelDifferenceObject.AspectObjects) {
                     var xml = aspectObject.Xml;
                     if (!string.IsNullOrEmpty(xml))
-                        reader.ReadFromString(model, aspectObject.Name, xml);
+                        reader.ReadFromString(model, modelDifferenceObject.GetAspectName(aspectObject), xml);
                 }
             }
         }

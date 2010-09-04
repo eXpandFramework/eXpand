@@ -159,11 +159,15 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         public void ResetModel(ModelApplicationBase masterModel) {
             if (masterModel.LastLayer != null)
-                while (masterModel.LastLayer.Id != "UserDiff" && masterModel.LastLayer.Id != "After Setup"){
-                    masterModel.RemoveLayer(masterModel.LastLayer);
-                }
+                ClearLayers(masterModel);
             if (_oldAspectProvider != null)
                 masterModel.CurrentAspectProvider = _oldAspectProvider;
+        }
+
+        void ClearLayers(ModelApplicationBase masterModel) {
+            while (masterModel.LastLayer.Id != "UserDiff" && masterModel.LastLayer.Id != "After Setup"){
+                masterModel.RemoveLayer(masterModel.LastLayer);
+            }
         }
     }
 }

@@ -57,7 +57,6 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores{
         
         public override void Load(ModelApplicationBase model)
         {
-            
             var extraDiffStoresLayerBuilder = new ExtraDiffStoresLayerBuilder(this);
             var language = model.Application.PreferredLanguage;
             if (UseModelFromPath()) {
