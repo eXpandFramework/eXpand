@@ -4,10 +4,10 @@ using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData;
+using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
+using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using FeatureCenter.Base;
+using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace FeatureCenter.Module.WorldCreator.DynamicAssemblyMasterDetail {
     public class DynamicAssemblyBuilder

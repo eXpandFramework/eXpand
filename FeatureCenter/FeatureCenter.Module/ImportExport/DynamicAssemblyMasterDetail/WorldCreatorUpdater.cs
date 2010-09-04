@@ -1,11 +1,12 @@
 ﻿using DevExpress.Xpo;
-using eXpand.ExpressApp.IO.Core;
-using eXpand.Persistent.BaseImpl.PersistentMetaData;
-using eXpand.Xpo;
+using Xpand.ExpressApp.IO.Core;
+using Xpand.Persistent.BaseImpl.PersistentMetaData;
+
+using Xpand.Xpo;
 
 namespace FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail
 {
-    public class WorldCreatorUpdater:eXpand.ExpressApp.WorldCreator.WorldCreatorUpdater
+    public class WorldCreatorUpdater:Xpand.ExpressApp.WorldCreator.WorldCreatorUpdater
     {
         public const string MasterDetailDynamicAssembly = "IOMasterDetailDynamicAssembly";
 

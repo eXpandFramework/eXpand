@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.Xpo;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+
 using FeatureCenter.Base;
+using Xpand.ExpressApp.Attributes;
+using Xpand.Xpo;
 
 namespace FeatureCenter.Module.Miscellaneous.UpdateOnlyChangeFields {
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderUpdateOnlyChangeFields, "1=1", "1=1",
@@ -11,7 +13,7 @@ namespace FeatureCenter.Module.Miscellaneous.UpdateOnlyChangeFields {
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderUpdateOnlyChangeFields, "1=1", "1=1",
         Captions.HeaderUpdateOnlyChangeFields, Position.Top, ViewType = ViewType.DetailView)]
     [AdditionalViewControlsRule("UpdateOnlyChangeFields", "1=1", "1=1", null, Position.Bottom, MessageProperty = "ModificationStatements")]
-    [eXpand.ExpressApp.Attributes.XpandNavigationItem(Captions.Miscellaneous+"Update Only Changed Fields", "UOCFCustomer_DetailView")]
+    [XpandNavigationItem(Captions.Miscellaneous+"Update Only Changed Fields", "UOCFCustomer_DetailView")]
     [DisplayFeatureModel("UOCFCustomer_DetailView", "UpdateOnlyChangeFields")]
     public class UOCFCustomer : CustomerBase,ISupportChangedMembers {
         readonly ChangedMemberCollector _changedMemberCollector;

@@ -1,4 +1,4 @@
-﻿using eXpand.ExpressApp.Attributes;
+﻿using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.ImportExport.AnalysisObjects
 {

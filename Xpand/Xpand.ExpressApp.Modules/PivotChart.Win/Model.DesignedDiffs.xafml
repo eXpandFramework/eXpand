@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+	<DetailViewItems>
+		<PropertyEditor>
+			<DefaultEditor PropertyType="DevExpress.Persistent.Base.IAnalysisInfo" EditorType="Xpand.ExpressApp.PivotChart.Win.AnalysisEditorWin" />
+		</PropertyEditor>
+	</DetailViewItems>
+	<SchemaModules IsNewNode="True">
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.AutoFilterRowListViewController" Version="9.3.3.0" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.3.3.0" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.3.3.0" IsNewNode="True" />
+		<SchemaModule Name="PivotChartModuleBase" Version="9.3.3.0" IsNewNode="True" />
+		<SchemaModule Name="SystemModule" Version="9.3.3.0" IsNewNode="True" />
+	</SchemaModules>
+</Application>

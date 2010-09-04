@@ -1,12 +1,13 @@
 ﻿using System;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
-using eXpand.Persistent.BaseImpl.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.BaseImpl.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
+using Xpand.Xpo;
 
 namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail {
-    public class WorldCreatorUpdater : eXpand.ExpressApp.WorldCreator.WorldCreatorUpdater
+    public class WorldCreatorUpdater : Xpand.ExpressApp.WorldCreator.WorldCreatorUpdater
     {
         public WorldCreatorUpdater(Session session) : base(session) {
         }

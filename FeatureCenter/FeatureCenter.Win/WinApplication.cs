@@ -4,7 +4,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp;
-using eXpand.ExpressApp.Win;
+using Xpand.ExpressApp.Win;
 
 namespace FeatureCenter.Win
 {

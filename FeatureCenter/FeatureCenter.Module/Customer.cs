@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.Attributes;
 using FeatureCenter.Base;
+using Xpand.ExpressApp.Attributes;
 using IQueryable = System.Linq.IQueryable;
 using System.Linq;
 

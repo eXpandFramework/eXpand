@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.SystemModule;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
-using eXpand.ExpressApp.ConditionalControllerState.Logic;
-using eXpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.ConditionalControllerState.Logic;
+using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.ModelArtifact.ConditionalForeignKeyKViolationAndShowDetailView
 {

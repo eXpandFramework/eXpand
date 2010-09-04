@@ -1,8 +1,8 @@
 ﻿using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Win.Miscellaneous.RecursiveFiltering
 {

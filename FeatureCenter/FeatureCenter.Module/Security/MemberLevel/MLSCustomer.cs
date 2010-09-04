@@ -1,9 +1,9 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Security.MemberLevel {
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderMemberLevelSecurity, "1=1", "1=1",

@@ -7,7 +7,7 @@ using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.BaseImpl;
-using eXpand.ExpressApp.FilterDataStore.Providers;
+using Xpand.ExpressApp.FilterDataStore.Providers;
 using FeatureCenter.Base;
 using System.Linq;
 

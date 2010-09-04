@@ -74,7 +74,7 @@
     
     
     
-    <Property type="simple" name="Name" isKey="false"><![CDATA[PersistentAssemblyDataStoreAttributeInfo: eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAssemblyDataStoreAttributeInfo(f3c154a4-53f2-49e9-8848-4da5c1a3beed)]]></Property>
+    <Property type="simple" name="Name" isKey="false"><![CDATA[PersistentAssemblyDataStoreAttributeInfo: Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAssemblyDataStoreAttributeInfo(f3c154a4-53f2-49e9-8848-4da5c1a3beed)]]></Property>
     <Property type="simple" name="oid" isKey="true">f3c154a4-53f2-49e9-8848-4da5c1a3beed</Property>
     <Property type="object" name="PersistentClassInfo" isKey="false">
       <SerializedObjectRef type="PersistentClassInfo" strategy="SerializeAsObject">
@@ -186,9 +186,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   $TYPEATTRIBUTES$
@@ -839,9 +839,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   $TYPEATTRIBUTES$
@@ -1641,9 +1641,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   $TYPEATTRIBUTES$
@@ -2110,10 +2110,10 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentClassInfo">
-    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[eXpand.Xpo.eXpandCustomObject]]></Property>
+    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[Xpand.Xpo.eXpandCustomObject]]></Property>
     
     
-    <Property type="simple" name="BaseType" isKey="false"><![CDATA[eXpand.Xpo.eXpandCustomObject]]></Property>
+    <Property type="simple" name="BaseType" isKey="false"><![CDATA[Xpand.Xpo.eXpandCustomObject]]></Property>
     <Property type="simple" name="oid" isKey="true">8315cbbc-344d-47d3-b4d5-7f5e907b521b</Property>
     <Property type="simple" name="MergedObjectFullName" isKey="false"></Property>
     
@@ -2176,9 +2176,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   
@@ -2363,9 +2363,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   $TYPEATTRIBUTES$
@@ -2909,9 +2909,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   $TYPEATTRIBUTES$
@@ -4454,9 +4454,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   $TYPEATTRIBUTES$
@@ -5066,9 +5066,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   $TYPEATTRIBUTES$
@@ -5440,10 +5440,10 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentClassInfo">
-    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[eXpand.Xpo.eXpandCustomObject]]></Property>
+    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[Xpand.Xpo.eXpandCustomObject]]></Property>
     
     
-    <Property type="simple" name="BaseType" isKey="false"><![CDATA[eXpand.Xpo.eXpandCustomObject]]></Property>
+    <Property type="simple" name="BaseType" isKey="false"><![CDATA[Xpand.Xpo.eXpandCustomObject]]></Property>
     <Property type="simple" name="oid" isKey="true">e5ef6632-9f15-472d-b86f-74fde92f6ecc</Property>
     <Property type="simple" name="MergedObjectFullName" isKey="false"></Property>
     
@@ -5506,9 +5506,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   
@@ -5660,9 +5660,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   $TYPEATTRIBUTES$
@@ -8269,9 +8269,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   $TYPEATTRIBUTES$
@@ -8488,9 +8488,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   $TYPEATTRIBUTES$
@@ -8763,10 +8763,10 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentClassInfo">
-    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[eXpand.Xpo.eXpandCustomObject]]></Property>
+    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[Xpand.Xpo.eXpandCustomObject]]></Property>
     
     
-    <Property type="simple" name="BaseType" isKey="false"><![CDATA[eXpand.Xpo.eXpandCustomObject]]></Property>
+    <Property type="simple" name="BaseType" isKey="false"><![CDATA[Xpand.Xpo.eXpandCustomObject]]></Property>
     <Property type="simple" name="oid" isKey="true">c99851f8-a111-4bbd-b1f6-15927a731d46</Property>
     <Property type="simple" name="MergedObjectFullName" isKey="false"></Property>
     
@@ -8829,9 +8829,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   
@@ -8986,9 +8986,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   $TYPEATTRIBUTES$
@@ -9269,9 +9269,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   $TYPEATTRIBUTES$
@@ -14054,9 +14054,9 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using eXpand.Persistent.Base.PersistentMetaData;
-using eXpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using eXpand.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
+
 using System.Linq;
 
   $TYPEATTRIBUTES$

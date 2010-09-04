@@ -4,15 +4,16 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
-using eXpand.ExpressApp;
-using eXpand.ExpressApp.ModelDifference;
+using Xpand.ExpressApp;
+using Xpand.ExpressApp.ModelDifference;
 using FeatureCenter.Module.ApplicationDifferences.ExternalApplication;
 using System.Linq;
 using FeatureCenter.Module.ListViewControl.PropertyPathFilters;
 using FeatureCenter.Module.LowLevelFilterDataStore;
 using FeatureCenter.Module.WorldCreator.DynamicAssemblyMasterDetail;
 using FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail;
-using CreateCustomModelDifferenceStoreEventArgs = eXpand.ExpressApp.ModelDifference.CreateCustomModelDifferenceStoreEventArgs;
+using Xpand.ExpressApp;
+using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifference.CreateCustomModelDifferenceStoreEventArgs;
 
 
 namespace FeatureCenter.Module

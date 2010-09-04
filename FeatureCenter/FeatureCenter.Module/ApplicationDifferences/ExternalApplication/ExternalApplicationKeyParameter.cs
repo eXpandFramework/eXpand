@@ -2,8 +2,9 @@
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using eXpand.Xpo;
+using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+
+using Xpand.Xpo;
 
 namespace FeatureCenter.Module.ApplicationDifferences.ExternalApplication {
     public class ExternalApplicationKeyParameter : ReadOnlyParameter

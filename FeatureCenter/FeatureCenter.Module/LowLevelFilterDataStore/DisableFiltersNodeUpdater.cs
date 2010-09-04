@@ -1,8 +1,8 @@
 ﻿using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using eXpand.ExpressApp.FilterDataStore.Core;
-using eXpand.ExpressApp.FilterDataStore.Model;
-using eXpand.ExpressApp.FilterDataStore.NodeGenerators;
+using Xpand.ExpressApp.FilterDataStore.Core;
+using Xpand.ExpressApp.FilterDataStore.Model;
+using Xpand.ExpressApp.FilterDataStore.NodeGenerators;
 using FeatureCenter.Module.LowLevelFilterDataStore.ContinentFilter;
 using FeatureCenter.Module.LowLevelFilterDataStore.SkinFilter;
 using FeatureCenter.Module.LowLevelFilterDataStore.UserFilter;

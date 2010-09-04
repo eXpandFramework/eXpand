@@ -1,5 +1,5 @@
 using System;
-using eXpand.ExpressApp.Win;
+using Xpand.ExpressApp.Win;
 
 namespace ExternalApplication.Win
 {

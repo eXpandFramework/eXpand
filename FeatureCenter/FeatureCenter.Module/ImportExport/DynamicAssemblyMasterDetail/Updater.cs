@@ -1,9 +1,10 @@
 ﻿using System;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.IO.Core;
-using eXpand.Persistent.BaseImpl.ImportExport;
-using eXpand.Xpo;
+using Xpand.ExpressApp.IO.Core;
+using Xpand.Persistent.BaseImpl.ImportExport;
+
+using Xpand.Xpo;
 
 namespace FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail {
     public class Updater:ModuleUpdater {
@@ -16,6 +17,7 @@ namespace FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail {
                 var importEngine = new ImportEngine();
                 var unitOfWork = new UnitOfWork(Session.DataLayer);
                 importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailGroup.xml");
+                return;
                 importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailModel.xml");
                 importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailModelGroup.xml");
             }

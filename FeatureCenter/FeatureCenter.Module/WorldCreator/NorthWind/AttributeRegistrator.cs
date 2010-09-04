@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
-using eXpand.Persistent.BaseImpl.PersistentMetaData;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.BaseImpl.PersistentMetaData;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.WorldCreator.NorthWind
 {

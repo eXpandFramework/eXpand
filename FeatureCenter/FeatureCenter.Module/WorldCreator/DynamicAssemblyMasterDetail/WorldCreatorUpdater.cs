@@ -2,7 +2,7 @@
 
 namespace FeatureCenter.Module.WorldCreator.DynamicAssemblyMasterDetail
 {
-    public class WorldCreatorUpdater:eXpand.ExpressApp.WorldCreator.WorldCreatorUpdater
+    public class WorldCreatorUpdater:Xpand.ExpressApp.WorldCreator.WorldCreatorUpdater
     {
         public const string MasterDetailDynamicAssembly = "MasterDetailDynamicAssembly";
         private const string DMDOrder = "DMDOrder";

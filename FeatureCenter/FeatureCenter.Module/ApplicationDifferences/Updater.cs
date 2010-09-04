@@ -2,9 +2,9 @@
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
-using eXpand.ExpressApp.ModelDifference.Security;
+using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
+using Xpand.ExpressApp.ModelDifference.Security;
 
 namespace FeatureCenter.Module.ApplicationDifferences
 {

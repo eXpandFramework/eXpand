@@ -5,15 +5,15 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Validation;
-using eXpand.ExpressApp.AdditionalViewControlsProvider;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
-using eXpand.ExpressApp.ExceptionHandling.Win;
-using eXpand.ExpressApp.FilterDataStore.Core;
-using eXpand.ExpressApp.FilterDataStore.Win.Providers;
-using eXpand.ExpressApp.Logic;
-using eXpand.ExpressApp.ModelDifference;
-using CreateCustomModelDifferenceStoreEventArgs = eXpand.ExpressApp.ModelDifference.CreateCustomModelDifferenceStoreEventArgs;
+using Xpand.ExpressApp.AdditionalViewControlsProvider;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
+using Xpand.ExpressApp.ExceptionHandling.Win;
+using Xpand.ExpressApp.FilterDataStore.Core;
+using Xpand.ExpressApp.FilterDataStore.Win.Providers;
+using Xpand.ExpressApp.Logic;
+using Xpand.ExpressApp.ModelDifference;
+using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifference.CreateCustomModelDifferenceStoreEventArgs;
 
 namespace FeatureCenter.Module.Win
 {

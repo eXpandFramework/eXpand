@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
-using eXpand.ExpressApp.ConditionalActionState.Logic;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.ExpressApp.ConditionalActionState.Logic;
+using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.ModelArtifact.ConditionalSaveDelete
 {

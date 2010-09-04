@@ -6,9 +6,9 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata.Helpers;
-using eXpand.ExpressApp;
-using eXpand.Xpo.DB;
+using Xpand.ExpressApp;
 using System.Linq;
+using Xpand.Xpo.DB;
 
 namespace FeatureCenter.Module.Miscellaneous.UpdateOnlyChangeFields {
     public class UpdateStatementController:ViewController<DetailView> {

@@ -2,9 +2,10 @@
 using System.IO;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.IO.Core;
-using eXpand.Persistent.BaseImpl.ImportExport;
-using eXpand.Xpo;
+using Xpand.ExpressApp.IO.Core;
+using Xpand.Persistent.BaseImpl.ImportExport;
+
+using Xpand.Xpo;
 
 namespace FeatureCenter.Module.ImportExport.UpdateMembers
 {

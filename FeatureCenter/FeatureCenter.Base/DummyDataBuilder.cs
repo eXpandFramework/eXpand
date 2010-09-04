@@ -5,7 +5,8 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using eXpand.Utils;
+
+using Xpand.Utils;
 
 namespace FeatureCenter.Base {
     public class DummyDataBuilder {

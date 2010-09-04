@@ -1,10 +1,10 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using eXpand.ExpressApp.Attributes;
-using eXpand.Persistent.Base.General;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
 using FeatureCenter.Module.Miscellaneous.MultipleDataStore;
+using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 
 [assembly :DataStore(typeof(MDSCustomer),"FeatureCenterMultipleDataStore")]
 namespace FeatureCenter.Module.Miscellaneous.MultipleDataStore {

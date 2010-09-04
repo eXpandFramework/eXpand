@@ -2,8 +2,8 @@
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using eXpand.ExpressApp.Attributes;
-using eXpand.Persistent.Base.General;
+using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module {
     public abstract class CreateObjectAttributesController:ViewController {

@@ -3,7 +3,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using eXpand.Persistent.BaseImpl.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using FeatureCenter.Base;
 
 namespace ExternalApplication.Module.Win

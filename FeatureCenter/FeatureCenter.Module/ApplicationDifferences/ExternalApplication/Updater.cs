@@ -1,9 +1,9 @@
 ﻿using System;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
-using eXpand.ExpressApp.ModelDifference.Core;
-using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
+using Xpand.ExpressApp.ModelDifference.Core;
+using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 
 namespace FeatureCenter.Module.ApplicationDifferences.ExternalApplication
 {
@@ -20,9 +20,9 @@ namespace FeatureCenter.Module.ApplicationDifferences.ExternalApplication
                 var modelDifferenceObject = new ModelDifferenceObject(Session).InitializeMembers("ExternalApplication", "ExternalApplication", uniqueName,false);
                 modelDifferenceObject.PersistentApplication.ExecutableName = "ExternalApplication.Win.exe";
                 var modelApplicationBuilder = new ModelApplicationBuilder(modelDifferenceObject.PersistentApplication.ExecutableName);
-                throw new NotImplementedException();
-//                modelDifferenceObject.Model = modelApplicationBuilder.GetLayer(typeof(ExternalApplicationModelStore));
-//                modelApplicationBuilder.ResetModel();
+                var model = modelApplicationBuilder.GetLayer(typeof(ExternalApplicationModelStore));
+                modelDifferenceObject.CreateAspects(model);
+                modelApplicationBuilder.ResetModel(model);
                 modelDifferenceObject.Save();
                 
             }

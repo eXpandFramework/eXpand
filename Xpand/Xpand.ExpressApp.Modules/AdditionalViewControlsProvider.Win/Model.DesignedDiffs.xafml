@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Xpand.ExpressApp.AdditionalViewControlsProvider.Security.AdditionalViewControlsPermission">
+      <OwnMembers>
+        <Member Name="ControlType" PropertyEditorType="Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls.ControlTypePropertyEditor" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>

@@ -594,7 +594,7 @@
     </Property>
   </SerializedObject>
   <SerializedObject type="SerializationConfiguration">
-    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.UserModelDifferenceObject]]></Property>
+    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects.UserModelDifferenceObject]]></Property>
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false"></Property>
     <Property type="simple" name="City" isKey="false"></Property>
@@ -855,7 +855,7 @@
     </Property>
   </SerializedObject>
   <SerializedObject type="SerializationConfiguration">
-    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.RoleModelDifferenceObject]]></Property>
+    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects.RoleModelDifferenceObject]]></Property>
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false"></Property>
     <Property type="simple" name="City" isKey="false"></Property>
@@ -1353,7 +1353,7 @@
     </Property>
   </SerializedObject>
   <SerializedObject type="SerializationConfiguration">
-    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.PersistentApplication]]></Property>
+    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects.PersistentApplication]]></Property>
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false"></Property>
     <Property type="simple" name="City" isKey="false"></Property>
@@ -1870,7 +1870,7 @@
     </Property>
   </SerializedObject>
   <SerializedObject type="SerializationConfiguration">
-    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject]]></Property>
+    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject]]></Property>
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false"></Property>
     <Property type="simple" name="City" isKey="false"></Property>
@@ -2672,7 +2672,7 @@
     </Property>
   </SerializedObject>
   <SerializedObject type="SerializationConfiguration">
-    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.ImportExport.SerializationConfigurationGroup]]></Property>
+    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.ImportExport.SerializationConfigurationGroup]]></Property>
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false"></Property>
     <Property type="simple" name="City" isKey="false"></Property>
@@ -2800,7 +2800,7 @@
     </Property>
   </SerializedObject>
   <SerializedObject type="SerializationConfiguration">
-    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.ImportExport.SerializationConfiguration]]></Property>
+    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.ImportExport.SerializationConfiguration]]></Property>
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false"></Property>
     <Property type="simple" name="City" isKey="false"></Property>
@@ -2947,7 +2947,7 @@
     </Property>
   </SerializedObject>
   <SerializedObject type="SerializationConfiguration">
-    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[eXpand.Persistent.BaseImpl.ImportExport.ClassInfoGraphNode]]></Property>
+    <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.ImportExport.ClassInfoGraphNode]]></Property>
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false"></Property>
     <Property type="simple" name="City" isKey="false"></Property>
