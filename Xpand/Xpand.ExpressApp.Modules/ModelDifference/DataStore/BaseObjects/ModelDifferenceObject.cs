@@ -20,8 +20,6 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [Custom("Caption", Caption), Custom("IsClonable", "True"), VisibleInReports(false)]
     public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference
     {
-        
-
         public const string Caption = "Application Difference";
         DifferenceType _differenceType;
         bool _disabled;
@@ -30,6 +28,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         string _name;
         PersistentApplication persistentApplication;
         ModelApplicationBase _currentModel;
+        string _preferredAspect;
 
         public ModelDifferenceObject(Session session) : base(session) {
         }
@@ -50,7 +49,19 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             layers.Add(GetModel(master));
             return layers.ToArray();
         }
-
+        [VisibleInListView(false)]
+        [VisibleInDetailView(false)]
+        [NonPersistent]
+        [NonCloneable]
+        public string PreferredAspect
+        {
+            get { return _preferredAspect; }
+            set
+            {
+                SetPropertyValue("PreferredAspect", ref _preferredAspect, value);
+                _currentModel.CurrentAspectProvider.CurrentAspect = value;
+            }
+        }
         public ModelApplicationBase GetModel(ModelApplicationBase master)
         {
             if (!master.IsMaster){
