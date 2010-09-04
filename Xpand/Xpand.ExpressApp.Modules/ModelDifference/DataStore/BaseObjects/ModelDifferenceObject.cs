@@ -77,7 +77,13 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
                     modelXmlReader.ReadFromString(layer,GetAspectName(aspectObject),aspectObject.Xml);
             }
             _currentModel = layer;
+            
             return layer;
+        }
+
+        public void NotifyXmlContent()
+        {
+            OnChanged("XmlContent");    
         }
         [VisibleInListView(false)]
         [NonPersistent]
@@ -139,7 +145,14 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
                 return null;
             }
             set {
-                GetActiveAspect(_currentModel).Xml = value;
+                var currentModel = _currentModel;
+                if (currentModel == null) throw new ArgumentNullException();
+                var aspectObject = GetActiveAspect(currentModel);
+                if (aspectObject == null) {
+                    aspectObject = new AspectObject(Session){Name = currentModel.CurrentAspect};
+                    AspectObjects.Add(aspectObject);
+                }
+                aspectObject.Xml = value;
                 OnChanged("XmlContent",XmlContent,value);
             }
         }
@@ -219,7 +232,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         AspectObject GetActiveAspect(ModelApplicationBase modelApplicationBase) {
-            return AspectObjects.Where(o => o.Name == GetAspectName(modelApplicationBase.CurrentAspect)).Single();
+            return AspectObjects.Where(o => o.Name == GetAspectName(modelApplicationBase.CurrentAspect)).FirstOrDefault();
         }
     }
 
