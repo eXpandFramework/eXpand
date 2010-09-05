@@ -10,8 +10,6 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.NodeUpdaters;
-
-using Xpand.ExpressApp;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Xpo;
 using Xpand.Xpo.DB;
@@ -62,7 +60,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             var moduleTypes = DynamicModuleTypes.Where(type => type.Assembly.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>().SingleOrDefault() != null);
             var dataStoreManager = new SqlMultiDataStoreProxy(_connectionString).DataStoreManager;
             foreach (var moduleType in moduleTypes){
-                var moduleBase = (DevExpress.ExpressApp.ModuleBase)Activator.CreateInstance(moduleType);
+                var moduleBase = (ModuleBase)Activator.CreateInstance(moduleType);
                 var businessClass = moduleBase.BusinessClasses[0];
                 var connectionProvider = dataStoreManager.GetConnectionProvider(businessClass);
                 var session = new Session(new SimpleDataLayer(connectionProvider));

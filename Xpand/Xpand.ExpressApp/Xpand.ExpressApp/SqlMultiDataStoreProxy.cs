@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using DevExpress.Xpo.Metadata.Helpers;
 using Xpand.Xpo.DB;
+using Xpand.Xpo;
 
 namespace Xpand.ExpressApp {
     public class SqlMultiDataStoreProxy:SqlDataStoreProxy {
@@ -63,13 +62,22 @@ namespace Xpand.ExpressApp {
             }
         }
 
-        void ModifyXPObjectTypeData(ModificationStatement stm, List<ParameterValue> modificationResultIdentities) {
-            var stm1 = stm;
+        void ModifyXPObjectTypeData(ModificationStatement modificationStatement, List<ParameterValue> modificationResultIdentities) {
+            var insertStatement = (InsertStatement) modificationStatement;
             foreach (var parameterValues in _dataStoreManager.SimpleDataLayers.Select(pair
-                => pair.Value).Select(dataLayer => dataLayer.ModifyData(stm1).Identities))
+                => pair.Value).Select(dataLayer => TypeExists(dataLayer,insertStatement) ? null : dataLayer.ModifyData(insertStatement).Identities).Where(values => values!=null))
             {
                 modificationResultIdentities.AddRange(parameterValues);
             }
+        }
+
+        bool TypeExists(SimpleDataLayer dataLayer, InsertStatement stm1) {
+            if (dataLayer.Connection.ConnectionString==Connection.ConnectionString)
+                return false;
+            var session = new Session(dataLayer){IdentityMapBehavior = IdentityMapBehavior.Strong};
+            var value = stm1.Parameters.ToList()[0].Value as string;
+            var xpObjectType = session.FindObject<XPObjectType>(type => type.TypeName == value);
+            return xpObjectType != null;
         }
 
         public override SelectedData SelectData(params SelectStatement[] selects) {
