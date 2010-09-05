@@ -16,6 +16,7 @@ using Xpand.Persistent.Base;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
+    [RuleCombinationOfPropertiesIsUnique("MDO_Unique_Name_Application",DefaultContexts.Save, "Name,PersistentApplication")]
     [CreatableItem(false), NavigationItem("Default"), HideFromNewMenu]
     [Custom("Caption", Caption), Custom("IsClonable", "True"), VisibleInReports(false)]
     public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference
@@ -117,7 +118,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             set { SetPropertyValue("DifferenceType", ref _differenceType, value); }
         }
 
-        [RuleUniqueValue("ModelDiffsObject_Uniq_Name", DefaultContexts.Save)]
+        
         [RuleRequiredField("ModelDiffsObject_Req_Name", DefaultContexts.Save)]
         public string Name {
             get { return _name; }
