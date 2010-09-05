@@ -1,6 +1,5 @@
 ﻿using System;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.MemberLevelSecurity;
@@ -10,7 +9,7 @@ using Xpand.Xpo;
 
 namespace FeatureCenter.Module.Security.MemberLevel
 {
-    public class Updater:ModuleUpdater
+    public class Updater:Module.Updater
     {
         public Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) {
         }

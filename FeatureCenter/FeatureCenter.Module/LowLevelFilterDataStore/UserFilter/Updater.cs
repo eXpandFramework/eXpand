@@ -1,11 +1,11 @@
 ﻿using System;
-using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using Xpand.Xpo;
 
 namespace FeatureCenter.Module.LowLevelFilterDataStore.UserFilter
 {
-    public class Updater:ModuleUpdater
+    public class Updater:Xpand.Persistent.BaseImpl.Updater
     {
         public Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) {
         }
@@ -13,10 +13,9 @@ namespace FeatureCenter.Module.LowLevelFilterDataStore.UserFilter
         {
             base.UpdateDatabaseAfterUpdateSchema();
 
-            User userExists = Module.Updater.EnsureUserExists(Session,"filterbyuser","filterbyuser");
-            Role ensureRoleExists = Module.Updater.EnsureRoleExists(Session, "Administrators");
-            ensureRoleExists.Users.Add(userExists);
-            ensureRoleExists.Save();            
+            var findObject = Session.FindObject<Role>(role => role.Name==Administrators);
+            if (findObject == null) throw new NotImplementedException();
+            EnsureUserExists("filterbyuser", "filterbyuser", findObject);
         }
     }
 }

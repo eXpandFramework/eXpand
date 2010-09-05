@@ -435,9 +435,9 @@
     <EmbeddedResource Include="ListViewControl\ConditionalDetailViews\MDO_ConditionalDetailViews.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorldCreator\NorthWind\MDO_NorthWind.xafml">
+    <None Include="WorldCreator\NorthWind\MDO_NorthWind.xafml">
       <SubType>Designer</SubType>
-    </EmbeddedResource>
+    </None>
     <EmbeddedResource Include="Miscellaneous\ExceptionHandling\MDO_ExceptionHandling.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
