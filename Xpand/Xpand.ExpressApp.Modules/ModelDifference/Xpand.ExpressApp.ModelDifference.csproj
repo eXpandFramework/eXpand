@@ -131,6 +131,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CloneObjectViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\CombineDifferencesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\SynchronizeWithUserModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\SyncronizeApplicationModelDiffsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Core\ModelApplicationFromStreamStoreBase.cs" />
     <Compile Include="Core\ModelApplicationBuilder.cs" />
     <Compile Include="CreateCustomModelDifferenceStoreEventArgs.cs" />
@@ -204,9 +216,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

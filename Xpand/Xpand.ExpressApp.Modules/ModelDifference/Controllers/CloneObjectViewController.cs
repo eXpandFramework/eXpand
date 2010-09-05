@@ -1,8 +1,8 @@
 using System;
-using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using eXpand.Xpo;
+using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.Xpo;
 
-namespace eXpand.ExpressApp.ModelDifference.Controllers{
+namespace Xpand.ExpressApp.ModelDifference.Controllers{
     public class CloneObjectViewController : DevExpress.ExpressApp.CloneObject.CloneObjectViewController
     {
         protected override void OnCustomShowClonedObject(DevExpress.ExpressApp.CloneObject.CustomShowClonedObjectEventArgs args)

@@ -6,9 +6,9 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
-using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 
-namespace eXpand.ExpressApp.ModelDifference.Controllers{
+namespace Xpand.ExpressApp.ModelDifference.Controllers{
     public class CombineDifferencesController : ViewController<ListView>{
 
         public CombineDifferencesController(){
