@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.HideToolBar.ListView
 {
-    public class AttributeRegistrator:Module.AttributeRegistrator
+    public class AttributeRegistrator:Xpand.ExpressApp.Core.AttributeRegistrator
     {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(Customer)) yield break;

@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.ListViewControl.ConditionalDetailViews
 {
-    public class AttributeRegistrator:Module.AttributeRegistrator
+    public class AttributeRegistrator:Xpand.ExpressApp.Core.AttributeRegistrator
     {
         public const string ConditionalDetailViews_ListView = "ConditionalDetailViews_ListView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {

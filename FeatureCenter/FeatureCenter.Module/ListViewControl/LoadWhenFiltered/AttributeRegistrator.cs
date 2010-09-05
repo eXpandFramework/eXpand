@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.ListViewControl.LoadWhenFiltered
 {
-    public class AttributeRegistrator:Module.AttributeRegistrator
+    public class AttributeRegistrator:Xpand.ExpressApp.Core.AttributeRegistrator
     {
         public const string LoadWhenFiltered_ListView = "LoadWhenFiltered_ListView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {

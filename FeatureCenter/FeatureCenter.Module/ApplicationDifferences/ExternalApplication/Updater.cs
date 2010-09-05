@@ -17,7 +17,7 @@ namespace FeatureCenter.Module.ApplicationDifferences.ExternalApplication
 
             var uniqueName = new ExternalApplicationModelStore().Name;
             if (new QueryModelDifferenceObject(Session).GetActiveModelDifference(uniqueName, "ExternalApplication") == null){
-                var modelDifferenceObject = new ModelDifferenceObject(Session).InitializeMembers("ExternalApplication", "ExternalApplication", uniqueName,false);
+                var modelDifferenceObject = new ModelDifferenceObject(Session).InitializeMembers("ExternalApplication", "ExternalApplication", uniqueName);
                 modelDifferenceObject.PersistentApplication.ExecutableName = "ExternalApplication.Win.exe";
                 var modelApplicationBuilder = new ModelApplicationBuilder(modelDifferenceObject.PersistentApplication.ExecutableName);
                 var model = modelApplicationBuilder.GetLayer(typeof(ExternalApplicationModelStore));

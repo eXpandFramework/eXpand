@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp;
@@ -12,7 +9,6 @@ using FeatureCenter.Module.ListViewControl.PropertyPathFilters;
 using FeatureCenter.Module.LowLevelFilterDataStore;
 using FeatureCenter.Module.WorldCreator.DynamicAssemblyMasterDetail;
 using FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail;
-using Xpand.ExpressApp;
 using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifference.CreateCustomModelDifferenceStoreEventArgs;
 
 
@@ -30,20 +26,7 @@ namespace FeatureCenter.Module
             createCustomModelDifferenceStoreEventArgs.AddExtraDiffStore(new ExistentAssemblyMasterDetailModelStore());
             createCustomModelDifferenceStoreEventArgs.AddExtraDiffStore(new WC3LevelMasterDetailModelStore());
         }
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo)
-        {
-            base.CustomizeTypesInfo(typesInfo);
-            foreach (var persistentType in typesInfo.PersistentTypes) {
-                IEnumerable<Attribute> attributes = GetAttributes(persistentType);
-                foreach (var attribute in attributes) {
-                    persistentType.AddAttribute(attribute);    
-                }
-            }
-        }
 
-        IEnumerable<Attribute> GetAttributes(ITypeInfo type) {
-            return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator)).Descendants.Select(typeInfo => (AttributeRegistrator)ReflectionHelper.CreateObject(typeInfo.Type)).SelectMany(registrator => registrator.GetAttributes(type));
-        }
 
         public override void Setup(ApplicationModulesManager moduleManager)
         {
