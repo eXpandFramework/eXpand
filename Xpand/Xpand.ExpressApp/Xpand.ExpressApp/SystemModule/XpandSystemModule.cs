@@ -1,21 +1,20 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.NodeUpdaters;
-using Xpand.ExpressApp;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
 
 namespace Xpand.ExpressApp.SystemModule
 {
-    public interface IModelBOModelRuntimeMember : IModelNode
-    {
-        [Category("eXpand")]
-        bool IsRuntimeMember { get; set; }
-    }
 
     [ToolboxItem(true)]
     [Description("Includes Controllers that represent basic features for XAF applications.")]
@@ -26,7 +25,23 @@ namespace Xpand.ExpressApp.SystemModule
     {
         static XpandSystemModule()
         {
-            DevExpress.Persistent.Base.ParametersFactory.RegisterParameter(new MonthAgoParameter());
+            ParametersFactory.RegisterParameter(new MonthAgoParameter());
+        }
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo)
+        {
+            base.CustomizeTypesInfo(typesInfo);
+            foreach (var persistentType in typesInfo.PersistentTypes)
+            {
+                IEnumerable<Attribute> attributes = GetAttributes(persistentType);
+                foreach (var attribute in attributes)
+                {
+                    persistentType.AddAttribute(attribute);
+                }
+            }
+        }
+        IEnumerable<Attribute> GetAttributes(ITypeInfo type)
+        {
+            return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator)).Descendants.Select(typeInfo => (AttributeRegistrator)ReflectionHelper.CreateObject(typeInfo.Type)).SelectMany(registrator => registrator.GetAttributes(type));
         }
 
         public override void Setup(XafApplication application)
