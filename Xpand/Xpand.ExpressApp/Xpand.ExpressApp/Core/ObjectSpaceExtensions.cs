@@ -3,12 +3,56 @@ using System.Linq.Expressions;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Linq;
 
 namespace Xpand.ExpressApp.Core
 {
     public static class ObjectSpaceExtensions
     {
+        public static bool NeedReload(this ObjectSpace objectSpace, object currentObject)
+        {
+            XPMemberInfo optimisticLockFieldInfo;
+            XPClassInfo classInfo = GetClassInfo(objectSpace,currentObject, out optimisticLockFieldInfo);
+            Boolean isObjectChangedByAnotherUser = false;
+            if (!objectSpace.IsDisposedObject(currentObject) && !objectSpace.IsNewObject(currentObject) && (optimisticLockFieldInfo != null))
+            {
+                Object keyPropertyValue = objectSpace.GetKeyValue(currentObject);
+                Object lockFieldValue = optimisticLockFieldInfo.GetValue(currentObject);
+
+                if (lockFieldValue != null)
+                {
+                    if (objectSpace.Session.FindObject(currentObject.GetType(), new GroupOperator(
+                            new BinaryOperator(objectSpace.GetKeyPropertyName(currentObject.GetType()), keyPropertyValue),
+                            new BinaryOperator(classInfo.OptimisticLockFieldName, lockFieldValue)), true) == null)
+                    {
+                        isObjectChangedByAnotherUser = true;
+                    }
+                }
+                else
+                {
+                    if (objectSpace.Session.FindObject(currentObject.GetType(), new GroupOperator(
+                            new BinaryOperator(objectSpace.GetKeyPropertyName(currentObject.GetType()), keyPropertyValue),
+                            new NullOperator(classInfo.OptimisticLockFieldName)), true) == null)
+                    {
+                        isObjectChangedByAnotherUser = true;
+                    }
+                }
+            }
+            return isObjectChangedByAnotherUser;
+        }
+        private static XPClassInfo FindObjectXPClassInfo(Object obj,Session session)
+        {
+            return session.Dictionary.QueryClassInfo(obj);
+        }
+
+        static XPClassInfo GetClassInfo(this ObjectSpace objectSpace, object currentObject, out XPMemberInfo optimisticLockFieldInfo)
+        {
+            XPClassInfo classInfo = FindObjectXPClassInfo(currentObject,objectSpace.Session);
+            optimisticLockFieldInfo = classInfo.OptimisticLockFieldInDataLayer;
+            return classInfo;
+        }
+
         public static T FindObject<T>(this ObjectSpace objectSpace, Expression<Func<T,bool>> expression, PersistentCriteriaEvaluationBehavior persistentCriteriaEvaluationBehavior) {
             var objectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
             CriteriaOperator criteriaOperator = GetCriteriaOperator(objectType, expression, objectSpace);
