@@ -17,7 +17,6 @@ namespace FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail {
                 var importEngine = new ImportEngine();
                 var unitOfWork = new UnitOfWork(Session.DataLayer);
                 importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailGroup.xml");
-                return;
                 importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailModel.xml");
                 importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailModelGroup.xml");
             }

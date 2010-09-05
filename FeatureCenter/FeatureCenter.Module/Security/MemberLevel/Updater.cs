@@ -17,7 +17,6 @@ namespace FeatureCenter.Module.Security.MemberLevel
         public override void UpdateDatabaseAfterUpdateSchema()
         {
             base.UpdateDatabaseAfterUpdateSchema();
-            return;
             var findObject = Session.FindObject<Role>(role => role.Name=="Administrators");
             MemberAccessPermission memberAccessPermission = findObject.Permissions.OfType<MemberAccessPermission>().FirstOrDefault();
             if (memberAccessPermission == null) {
