@@ -16,7 +16,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.XtraGridViewOptions
                 Captions.HeaderControlXtraGrid, Position.Top){View = "XtraGridViewOptions_ListView"};
             yield return new CloneViewAttribute(CloneViewType.ListView, "XtraGridViewOptions_ListView");
             yield return new XpandNavigationItemAttribute("Controlling XtraGrid/GridView options", "XtraGridViewOptions_ListView");
-            new DisplayFeatureModelAttribute("XtraGridViewOptions_ListView");
+            yield return new DisplayFeatureModelAttribute("XtraGridViewOptions_ListView");
         }
     }
 }

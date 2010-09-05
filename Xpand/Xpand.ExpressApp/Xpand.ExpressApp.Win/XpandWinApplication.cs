@@ -12,13 +12,17 @@ using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Win.Interfaces;
 using Xpand.ExpressApp.Core;
+using Xpand.ExpressApp.Win.Templates;
 
 namespace Xpand.ExpressApp.Win
 {
     public partial class XpandWinApplication : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation,IWinApplication{
 
         public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
-        
+
+        protected override IFrameTemplate CreateDefaultTemplate(TemplateContext context) {
+            return context==TemplateContext.View ? new XpandDetailViewForm() : base.CreateDefaultTemplate(context);
+        }
 
         public void OnCustomCreateListEditor(CreatingListEditorEventArgs e) {
             EventHandler<CreatingListEditorEventArgs> handler = CustomCreateListEditor;

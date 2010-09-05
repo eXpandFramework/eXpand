@@ -221,6 +221,9 @@
     <Compile Include="SystemModule\WinLogoutWindowController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Templates\XpandDetailViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="XpandWinApplication.cs">
       <SubType>Component</SubType>
     </Compile>
