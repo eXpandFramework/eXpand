@@ -17,11 +17,13 @@ namespace Xpand.Persistent.BaseImpl
 
 
         protected virtual List<IPermission> GetPermissions(Role role) {
+            var permissions = new List<IPermission>();
             if (role.Name!=Administrators)
-                return new List<IPermission> {
-                                             new ObjectAccessPermission(typeof(Role), ObjectAccess.AllAccess, ObjectAccessModifier.Deny)
-                                         };
-            return new List<IPermission>();
+                permissions.Add(new ObjectAccessPermission(typeof(Role), ObjectAccess.AllAccess, ObjectAccessModifier.Deny));
+            else {
+                permissions.Add(new EditModelPermission(ModelAccessModifier.Allow));
+            }
+            return permissions;
         }
 
         protected virtual void InitializeSecurity()
