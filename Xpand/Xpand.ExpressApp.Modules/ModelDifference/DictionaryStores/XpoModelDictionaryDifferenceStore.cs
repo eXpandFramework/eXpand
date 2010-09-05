@@ -10,6 +10,7 @@ using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
+using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores{
     internal class ModelDifferenceObjectInfo {
@@ -78,7 +79,9 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores{
                 var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo>();
                 var application = model.CreatorInstance.CreateModelApplication();
                 application.Id = "StartUp";
-                modelDifferenceObjectInfos.Add(application.Id, new ModelDifferenceObjectInfo(null, application));                
+                model.AddLayerBeforeLast(application);
+                var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(application.Id);
+                modelDifferenceObjectInfos.Add(application.Id, new ModelDifferenceObjectInfo(modelDifferenceObject, application));                
                 loadedModelDifferenceObjectInfos = modelDifferenceObjectInfos;
             }
             return loadedModelDifferenceObjectInfos;
