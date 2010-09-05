@@ -10,12 +10,13 @@ using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Builders;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
-using Xpand.ExpressApp;
 
 
 namespace Xpand.ExpressApp.ModelDifference
 {
     public sealed class ModelDifferenceModule : XpandModuleBase{
+        XpoUserModelDictionaryDifferenceStore _xpoUserModelDictionaryDifferenceStore;
+
         public ModelDifferenceModule(){
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
         }
@@ -58,7 +59,8 @@ namespace Xpand.ExpressApp.ModelDifference
 
         void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, DevExpress.ExpressApp.CreateCustomModelDifferenceStoreEventArgs args) {
             args.Handled = true;
-            args.Store = new XpoUserModelDictionaryDifferenceStore(Application);
+            _xpoUserModelDictionaryDifferenceStore =_xpoUserModelDictionaryDifferenceStore?? new XpoUserModelDictionaryDifferenceStore(Application);
+            args.Store = _xpoUserModelDictionaryDifferenceStore;
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters)
