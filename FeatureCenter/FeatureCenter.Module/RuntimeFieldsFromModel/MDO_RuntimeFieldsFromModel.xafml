@@ -3,7 +3,7 @@
   <BOModel>
     <Class Name="FeatureCenter.Module.Customer">
       <OwnMembers>
-        <Member Name="RuntimeMember" IsNewNode="True" Type="System.String" />
+        <Member Name="RuntimeMember" IsNewNode="True" Type="System.String" IsRuntimeMember="True" />
       </OwnMembers>
     </Class>
   </BOModel>
