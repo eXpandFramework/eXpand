@@ -4,15 +4,12 @@ using System.IO;
 using System.Reflection;
 using System.Web.Configuration;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp;
 using Xpand.ExpressApp.Core;
-using ModelApplicationBaseExtensions = Xpand.ExpressApp.Core.ModelApplicationBaseExtensions;
 
 
 namespace Xpand.ExpressApp.ModelDifference.Core {
@@ -33,7 +30,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         public ModelApplicationBuilder(string executableName) {
             _executableName = executableName;
         }
-        public ApplicationModulesManager CreateApplicationModelManager(XafApplication application, string configFileName, string assembliesPath, ITypesInfo typesInfo)
+        public XpandApplicationModulesManager CreateApplicationModelManager(XafApplication application, string configFileName, string assembliesPath, ITypesInfo typesInfo)
         {
             if (!string.IsNullOrEmpty(configFileName)) {
                 bool isWebApplicationModel =
@@ -47,13 +44,11 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             }
             ReflectionHelper.AddResolvePath(assembliesPath);
             try {
-                var result = new XpandApplicationModulesManager(new ControllersManager(), assembliesPath,typesInfo);
-                if (application != null) {
-                    foreach (DevExpress.ExpressApp.ModuleBase module in application.Modules) {
-                        result.AddModule(module);
-                    }
-                    result.Security = application.Security;
+                var result = new XpandApplicationModulesManager(new XpandControllersManager(), assembliesPath,application.Security);
+                foreach (ModuleBase module in application.Modules) {
+                    result.AddModule(module);
                 }
+                result.Security = application.Security;
                 return result;
             }
             finally {
@@ -151,7 +146,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             var masterModel = GetMasterModel();
             var layer = masterModel.CreatorInstance.CreateModelApplication();
 
-            ModelApplicationBaseExtensions.AddLayerBeforeLast(masterModel, layer);
+            masterModel.AddLayerBeforeLast(layer);
             var storeBase =(ModelApplicationFromStreamStoreBase)ReflectionHelper.CreateObject(modelApplicationFromStreamStoreBaseType);
             storeBase.Load(layer);
             return layer;

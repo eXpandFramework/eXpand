@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 
@@ -15,8 +13,7 @@ namespace Xpand.ExpressApp.Core
         public static void ReadFromModel(this ModelXmlReader modelXmlReader, ModelApplicationBase modelNode,
                                           ModelApplicationBase readFrom, Func<string, bool> aspectNamePredicate)
         {
-            var aspectNames = GetAspectNames(readFrom, aspectNamePredicate);
-            for (int i = 0; i < aspectNames.ToList().Count; i++) {
+            for (int i = 0; i < readFrom.AspectCount; i++) {
                 string aspect = readFrom.GetAspect(i);
                 string xml = new ModelXmlWriter().WriteToString(readFrom, i);
                 if (!(string.IsNullOrEmpty(xml)))
@@ -24,8 +21,5 @@ namespace Xpand.ExpressApp.Core
             }
         }
 
-        static IEnumerable<string> GetAspectNames(ModelApplicationBase readFrom, Func<string, bool> aspectNamePredicate) {
-            return aspectNamePredicate!= null ? readFrom.GetAspectNames().Where(aspectNamePredicate) : readFrom.GetAspectNames();
-        }
     }
 }
