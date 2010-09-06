@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers{
             {
                 modelDifferenceObject.DateCreated = DateTime.Now;
                 modelDifferenceObject.Disabled = true;
-                modelDifferenceObject.Name = null;
+                modelDifferenceObject.Name = modelDifferenceObject.Name+" Cloned";
                 modelDifferenceObject.PersistentApplication = (PersistentApplication)modelDifferenceObject.Session.GetObject(((ModelDifferenceObject)View.CurrentObject).PersistentApplication);
 
             }

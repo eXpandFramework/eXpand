@@ -90,7 +90,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         [NonPersistent]
         public ModelApplicationBase Model {
             get {
-                return null;
+                return _currentModel;
             }
         }
 
