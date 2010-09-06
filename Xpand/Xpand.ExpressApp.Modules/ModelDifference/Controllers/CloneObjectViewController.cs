@@ -1,8 +1,8 @@
 using System;
-using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using eXpand.Xpo;
+using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.Xpo;
 
-namespace eXpand.ExpressApp.ModelDifference.Controllers{
+namespace Xpand.ExpressApp.ModelDifference.Controllers{
     public class CloneObjectViewController : DevExpress.ExpressApp.CloneObject.CloneObjectViewController
     {
         protected override void OnCustomShowClonedObject(DevExpress.ExpressApp.CloneObject.CustomShowClonedObjectEventArgs args)
@@ -13,7 +13,7 @@ namespace eXpand.ExpressApp.ModelDifference.Controllers{
             {
                 modelDifferenceObject.DateCreated = DateTime.Now;
                 modelDifferenceObject.Disabled = true;
-                modelDifferenceObject.Name = null;
+                modelDifferenceObject.Name = modelDifferenceObject.Name+" Cloned";
                 modelDifferenceObject.PersistentApplication = (PersistentApplication)modelDifferenceObject.Session.GetObject(((ModelDifferenceObject)View.CurrentObject).PersistentApplication);
 
             }

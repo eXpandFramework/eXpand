@@ -95,8 +95,8 @@ namespace FeatureCenter.Win
             // 
             // reportsWindowsFormsModule1
             // 
-            this.reportsWindowsFormsModule1.EnableInplaceReports = true;
-            this.reportsWindowsFormsModule1.ReportDataType = typeof(DevExpress.ExpressApp.Reports.ReportData);
+            
+            
 
             // 
             // securityComplex1

@@ -22,8 +22,9 @@ namespace FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail
         public override void Update() {
             if (Session.FindObject<PersistentAssemblyInfo>(info => info.Name==MasterDetailDynamicAssembly) == null){
                 var importEngine = new ImportEngine();
-                var unitOfWork = new UnitOfWork(Session.DataLayer);
-                importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetail.xml");
+                using (var unitOfWork = new UnitOfWork(Session.DataLayer)) {
+                    importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetail.xml");
+                }
             }
         }
 

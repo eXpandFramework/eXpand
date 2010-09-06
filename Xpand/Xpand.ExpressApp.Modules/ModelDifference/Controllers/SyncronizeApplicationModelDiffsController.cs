@@ -1,12 +1,12 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
-using eXpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using DevExpress.ExpressApp.Model.Core;
-using eXpand.ExpressApp.ModelDifference.DataStore.Queries;
-using eXpand.ExpressApp.Core;
+using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
+using Xpand.ExpressApp.Core;
 
-namespace eXpand.ExpressApp.ModelDifference.Controllers{
+namespace Xpand.ExpressApp.ModelDifference.Controllers{
     public interface IModelOptionsApplicationModelDiffs:IModelOptions
     {
         [DefaultValue(true)]

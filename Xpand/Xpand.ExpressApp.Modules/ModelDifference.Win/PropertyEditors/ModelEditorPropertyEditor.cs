@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -52,7 +53,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         public ModelEditorViewController ModelEditorViewController
         {
-            get { return _controller ?? (_controller = GetModelEditorController()); }
+            get { return _controller ?? (_controller = GetModelEditorController(CaptionHelper.DefaultLanguage)); }
         }
 
 
@@ -64,7 +65,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
         {
             base.ReadValueCore();
             if (_controller == null) {
-                _controller = GetModelEditorController();
+                _controller = GetModelEditorController(CaptionHelper.DefaultLanguage);
             }
         }
 
@@ -73,21 +74,11 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
             if (Control != null){
                 ResetModel();
             }
-            var xafApplication = XpandModuleBase.Application;
-            xafApplication.ViewShowing+=ApplicationOnViewShowing;
-            xafApplication.ViewShown+=XafApplicationOnViewShown;
             _modelApplicationBuilder = new ModelApplicationBuilder(CurrentObject.PersistentApplication.ExecutableName);
             _masterModel = _modelApplicationBuilder.GetMasterModel();
             base.OnCurrentObjectChanged();
         }
 
-        void XafApplicationOnViewShown(object sender, ViewShownEventArgs viewShownEventArgs) {
-            
-        }
-
-        void ApplicationOnViewShowing(object sender, ViewShowingEventArgs viewShowingEventArgs) {
-            
-        }
 
 
         protected override object CreateControlCore() {
@@ -98,17 +89,20 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
             return modelEditorControl;
         }
 
+
         void CurrentObjectOnChanged(object sender, ObjectChangeEventArgs objectChangeEventArgs) {
             if (objectChangeEventArgs.PropertyName=="XmlContent") {
+                var aspect = _masterModel.CurrentAspect;
                 ResetModel();
                 _masterModel = _modelApplicationBuilder.GetMasterModel();
-                _controller = GetModelEditorController();
+                _controller = GetModelEditorController(aspect);
             }
         }
 
         void ObjectSpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args) {
             if (ReferenceEquals(args.Object, CurrentObject)){
-                new ModelValidator().ValidateModel(_currentObjectModel);
+                var clone = _currentObjectModel.Clone();
+                new ModelValidator().ValidateModel(clone);
                 ModelEditorViewController.SaveAction.Active["Not needed"] = true;
                 ModelEditorViewController.Save();
                 CurrentObject.UpdateAspects(_currentObjectModel);
@@ -143,19 +137,23 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
         }
 
 
-        private ModelEditorViewController GetModelEditorController()
-        {
+        private ModelEditorViewController GetModelEditorController(string aspect) {
             var allLayers = CurrentObject.GetAllLayers(_masterModel);
-            _currentObjectModel = allLayers.Where(@base => @base.Id==CurrentObject.Name).Single();
+            _currentObjectModel = allLayers.Where(@base => @base.Id == CurrentObject.Name).Single();
             _masterModel.AddLayers(allLayers);
-            var controller = new ModelEditorViewController((IModelApplication) _masterModel, null, null);
+            var controller = new ModelEditorViewController((IModelApplication)_masterModel, null, null);
+            _masterModel.CurrentAspectProvider.CurrentAspect = aspect;
             controller.SetControl(Control);
             controller.Modifying += Model_Modifying;
             controller.SaveAction.Active["Not needed"] = false;
+            controller.ChangeAspectAction.ExecuteCompleted += ChangeAspectActionOnExecuteCompleted;
 
             return controller;
         }
 
+        void ChangeAspectActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
+            View.Refresh();
+        }
         #endregion
     }
 }

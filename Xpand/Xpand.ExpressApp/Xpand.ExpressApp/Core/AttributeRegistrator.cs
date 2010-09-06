@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
 
-namespace FeatureCenter.Module
+namespace Xpand.ExpressApp.Core
 {
     
     public abstract class AttributeRegistrator

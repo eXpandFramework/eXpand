@@ -68,7 +68,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win
         void MasterRowGetRelationDisplayCaption(object sender, MasterRowGetRelationNameEventArgs e)
         {
             var masterDetailRule = MasterDetailRules[e.RelationIndex];
-            e.RelationName = CaptionHelper.GetMemberCaption(masterDetailRule.View.ModelClass.TypeInfo, masterDetailRule.CollectionMember.Name);
+            e.RelationName = CaptionHelper.GetMemberCaption(masterDetailRule.TypeInfo, masterDetailRule.CollectionMember.Name);
         }
 
 

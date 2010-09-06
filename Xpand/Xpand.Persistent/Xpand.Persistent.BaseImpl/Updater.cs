@@ -13,21 +13,24 @@ namespace Xpand.Persistent.BaseImpl
     {
         public const string Administrators = "Administrators";
         public const string UserRole = "UserRole";
+        public const string Admin = "Admin";
         protected Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) { }
 
 
         protected virtual List<IPermission> GetPermissions(Role role) {
+            var permissions = new List<IPermission>();
             if (role.Name!=Administrators)
-                return new List<IPermission> {
-                                             new ObjectAccessPermission(typeof(Role), ObjectAccess.AllAccess, ObjectAccessModifier.Deny)
-                                         };
-            return new List<IPermission>();
+                permissions.Add(new ObjectAccessPermission(typeof(Role), ObjectAccess.AllAccess, ObjectAccessModifier.Deny));
+            else {
+                permissions.Add(new EditModelPermission(ModelAccessModifier.Allow));
+            }
+            return permissions;
         }
 
         protected virtual void InitializeSecurity()
         {
             Role admins = EnsureRoleExists(Administrators, GetPermissions);
-            EnsureUserExists("admin", "Administrator",admins);
+            EnsureUserExists(Admin, "Administrator",admins);
 
             Role userRole = EnsureRoleExists(UserRole, GetPermissions);
             EnsureUserExists("user", "user", userRole);

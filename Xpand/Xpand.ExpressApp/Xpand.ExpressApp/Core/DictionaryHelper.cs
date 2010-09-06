@@ -1,43 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Localization;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo.Metadata;
-using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.Core
 {
     public class DictionaryHelper
     {
-        public string GetAspectFromXml(List<string> aspects, string xml)
-        {
-            aspects = aspects.OrderBy(s => s).ToList();
-
-            xml = xml.Replace("&#165;", "¥");
-            xml = removeSpaces(xml);
-            string defaultAspectValuesWhenNoOtherAspectExist = Regex.Replace(xml, "\":([^\"\xA5]*)\"", "\"$1\"");
-            string removedAspectsWithNoDefaultAspects = defaultAspectValuesWhenNoOtherAspectExist;
-            if (!string.IsNullOrEmpty(aspects[0]))
-            {
-                string defaultAspectWhenOtherAspectExists = Regex.Replace(defaultAspectValuesWhenNoOtherAspectExist, @""":([^""\xA5]*)\xA5" + aspects[0] + @":([^""]*)""", "\"$1\"");
-                removedAspectsWithNoDefaultAspects = aspects.Aggregate(defaultAspectWhenOtherAspectExists, (current, aspect) => removeAttributesWithNoDefaultValue(aspect, current));
-            }
-            return removedAspectsWithNoDefaultAspects;
-        }
-
-        private string removeSpaces(string aspects)
-        {
-            return aspects.Replace(" >", ">");
-        }
-
-        private string removeAttributesWithNoDefaultValue(string aspect, string value)
-        {
-            return Regex.Replace(value, "( [^=\"]*=\"" + aspect + ":([^\"]*)\")", "");
-        }
-
         private static IEnumerable<IModelMember> GetCustomFields(IModelApplication model)
         {
             return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelBOModelRuntimeMember>().Where(member => member.IsRuntimeMember).Cast<IModelMember>().ToList();

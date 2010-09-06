@@ -503,7 +503,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ControllingXtraGrid\MasterDetail\AutoExpandNewRow\MDO_AutoExpandNewRow.xafml" />
+    <EmbeddedResource Include="ControllingXtraGrid\MasterDetail\AutoExpandNewRow\MDO_AutoExpandNewRow.xafml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PropertyEditors\StringPropertyEditors\" />

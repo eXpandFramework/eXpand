@@ -23,9 +23,16 @@ namespace FeatureCenter.Module.Miscellaneous.UpdateOnlyChangeFields {
             : base(session) {
             _changedMemberCollector = new ChangedMemberCollector(this);
         }
-
-        
-
+        protected override void OnSaved()
+        {
+            base.OnSaved();
+            _changedMemberCollector.Collect();
+        }
+        protected override void OnChanged(string propertyName, object oldValue, object newValue)
+        {
+            base.OnChanged(propertyName, oldValue, newValue);
+            _changedMemberCollector.Collect(propertyName);
+        }
         [Browsable(false)]
         public ChangedMemberCollector ChangedMemberCollector
         {

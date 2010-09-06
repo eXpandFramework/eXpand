@@ -6,7 +6,7 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Win.ControllingXtraGrid.GuessAutoFilterRowValues
 {
-    public class AttributeRegistrator : Module.AttributeRegistrator
+    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator
     {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type!=typeof(WinCustomer))yield break;
@@ -16,7 +16,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.GuessAutoFilterRowValues
                 Captions.HeaderGuessAutoFilterRowValuesFromFilter, Position.Top){View = "GuessAutoFilterRowValues_ListView"};
             yield return new CloneViewAttribute(CloneViewType.ListView, "GuessAutoFilterRowValues_ListView");
             yield return new XpandNavigationItemAttribute("Controlling XtraGrid/Guess Auto FilterRow Values", "GuessAutoFilterRowValues_ListView");
-            new DisplayFeatureModelAttribute("GuessAutoFilterRowValues_ListView");
+            yield return new DisplayFeatureModelAttribute("GuessAutoFilterRowValues_ListView");
         }
     }
 }

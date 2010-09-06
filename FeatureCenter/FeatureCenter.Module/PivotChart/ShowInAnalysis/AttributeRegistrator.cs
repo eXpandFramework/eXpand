@@ -6,7 +6,7 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.PivotChart.ShowInAnalysis
 {
-    public class AttributeRegistrator:Module.AttributeRegistrator
+    public class AttributeRegistrator:Xpand.ExpressApp.Core.AttributeRegistrator
     {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type!=typeof(OrderLine))yield break;

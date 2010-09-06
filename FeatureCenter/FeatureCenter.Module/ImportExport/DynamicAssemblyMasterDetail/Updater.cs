@@ -15,11 +15,11 @@ namespace FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail {
             base.UpdateDatabaseAfterUpdateSchema();
             if (Session.FindObject<SerializationConfigurationGroup>(@group => @group.Name == "Dynamic Assembly Master Detail")==null) {
                 var importEngine = new ImportEngine();
-                var unitOfWork = new UnitOfWork(Session.DataLayer);
-                importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailGroup.xml");
-                return;
-                importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailModel.xml");
-                importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailModelGroup.xml");
+                using (var unitOfWork = new UnitOfWork(Session.DataLayer)) {
+                    importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailGroup.xml");
+                    importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailModel.xml");
+                    importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailModelGroup.xml");
+                }
             }
         }
     }

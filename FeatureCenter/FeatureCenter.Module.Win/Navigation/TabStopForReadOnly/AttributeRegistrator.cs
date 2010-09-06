@@ -6,7 +6,7 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Win.Navigation.TabStopForReadOnly
 {
-    public class AttributeRegistrator : Module.AttributeRegistrator
+    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator
     {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type!=typeof(WinCustomer))yield break;
@@ -16,7 +16,7 @@ namespace FeatureCenter.Module.Win.Navigation.TabStopForReadOnly
                 Captions.HeaderTabStopForReadOnly, Position.Top){View = "TabStopForReadOnly_DetailView"};
             yield return new CloneViewAttribute(CloneViewType.DetailView, "TabStopForReadOnly_DetailView");
             yield return new XpandNavigationItemAttribute("Navigation/Tab Stop For ReadOnly", "TabStopForReadOnly_DetailView");
-            new DisplayFeatureModelAttribute("TabStopForReadOnly_DetailView");
+            yield return new DisplayFeatureModelAttribute("TabStopForReadOnly_DetailView");
         }
     }
 }

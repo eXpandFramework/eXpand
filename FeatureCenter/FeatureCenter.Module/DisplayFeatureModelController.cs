@@ -3,9 +3,10 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
+using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using System.Linq;
 using Xpand.Persistent.Base.General;
+using Xpand.Xpo;
 
 namespace FeatureCenter.Module
 {
@@ -34,7 +35,7 @@ namespace FeatureCenter.Module
 
         void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
             var objectSpace = Application.CreateObjectSpace();
-            var modelDifferenceObject = new QueryModelDifferenceObject(objectSpace.Session).GetActiveModelDifference(GetModelName());
+            var modelDifferenceObject = objectSpace.Session.FindObject<ModelDifferenceObject>(o => o.Name == GetModelName() && o.PersistentApplication.UniqueName == Application.GetType().FullName);
             simpleActionExecuteEventArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace,modelDifferenceObject);
         }
 
@@ -52,7 +53,7 @@ namespace FeatureCenter.Module
             base.OnActivated();
             var displayFeatureModelAttributes = View.ObjectTypeInfo.FindAttributes<DisplayFeatureModelAttribute>();
             _displayFeatureModelAttribute =
-                displayFeatureModelAttributes.Where(AttributePredicate()).SingleOrDefault();
+                displayFeatureModelAttributes.Where(AttributePredicate()).FirstOrDefault();
             _simpleAction.Active[NoModelAssociated] = (_displayFeatureModelAttribute != null&&_displayFeatureModelAttribute.ViewId==View.Id);    
         }
 

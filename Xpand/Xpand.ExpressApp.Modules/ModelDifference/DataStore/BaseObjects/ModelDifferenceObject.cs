@@ -16,12 +16,11 @@ using Xpand.Persistent.Base;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
+    [RuleCombinationOfPropertiesIsUnique("MDO_Unique_Name_Application",DefaultContexts.Save, "Name,PersistentApplication")]
     [CreatableItem(false), NavigationItem("Default"), HideFromNewMenu]
     [Custom("Caption", Caption), Custom("IsClonable", "True"), VisibleInReports(false)]
     public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference
     {
-        
-
         public const string Caption = "Application Difference";
         DifferenceType _differenceType;
         bool _disabled;
@@ -30,6 +29,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         string _name;
         PersistentApplication persistentApplication;
         ModelApplicationBase _currentModel;
+        string _preferredAspect;
 
         public ModelDifferenceObject(Session session) : base(session) {
         }
@@ -50,7 +50,19 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             layers.Add(GetModel(master));
             return layers.ToArray();
         }
-
+        [VisibleInListView(false)]
+        [VisibleInDetailView(false)]
+        [NonPersistent]
+        [NonCloneable]
+        public string PreferredAspect
+        {
+            get { return _preferredAspect; }
+            set
+            {
+                SetPropertyValue("PreferredAspect", ref _preferredAspect, value);
+                _currentModel.CurrentAspectProvider.CurrentAspect = value;
+            }
+        }
         public ModelApplicationBase GetModel(ModelApplicationBase master)
         {
             if (!master.IsMaster){
@@ -66,13 +78,19 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
                     modelXmlReader.ReadFromString(layer,GetAspectName(aspectObject),aspectObject.Xml);
             }
             _currentModel = layer;
+            
             return layer;
+        }
+
+        public void NotifyXmlContent()
+        {
+            OnChanged("XmlContent");    
         }
         [VisibleInListView(false)]
         [NonPersistent]
         public ModelApplicationBase Model {
             get {
-                return null;
+                return _currentModel;
             }
         }
 
@@ -100,7 +118,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             set { SetPropertyValue("DifferenceType", ref _differenceType, value); }
         }
 
-        [RuleUniqueValue("ModelDiffsObject_Uniq_Name", DefaultContexts.Save)]
+        
         [RuleRequiredField("ModelDiffsObject_Req_Name", DefaultContexts.Save)]
         public string Name {
             get { return _name; }
@@ -128,7 +146,14 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
                 return null;
             }
             set {
-                GetActiveAspect(_currentModel).Xml = value;
+                var currentModel = _currentModel;
+                if (currentModel == null) throw new ArgumentNullException();
+                var aspectObject = GetActiveAspect(currentModel);
+                if (aspectObject == null) {
+                    aspectObject = new AspectObject(Session){Name = currentModel.CurrentAspect};
+                    AspectObjects.Add(aspectObject);
+                }
+                aspectObject.Xml = value;
                 OnChanged("XmlContent",XmlContent,value);
             }
         }
@@ -208,7 +233,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         AspectObject GetActiveAspect(ModelApplicationBase modelApplicationBase) {
-            return AspectObjects.Where(o => o.Name == GetAspectName(modelApplicationBase.CurrentAspect)).Single();
+            return AspectObjects.Where(o => o.Name == GetAspectName(modelApplicationBase.CurrentAspect)).FirstOrDefault();
         }
     }
 

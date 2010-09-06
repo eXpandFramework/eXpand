@@ -63,28 +63,8 @@ namespace Xpand.Xpo
             return base.ToString();
         }
 
-//        private XPMemberInfo GetPersistentMember(string propertyName)
-//        {
-//            XPMemberInfo persistentMember = ClassInfo.GetPersistentMember(propertyName);
-//            if (persistentMember == null)
-//            {
-//                var memberInfo = ClassInfo.FindMember(propertyName);
-//                if (memberInfo != null && memberInfo.IsAliased)
-//                {
-//                    var pa = (PersistentAliasAttribute)memberInfo.GetAttributeInfo(typeof(PersistentAliasAttribute));
-//                    CriteriaOperator criteria = CriteriaOperator.Parse(pa.AliasExpression);
-//                    if (criteria is OperandProperty){
-//                        string[] path = ((OperandProperty)criteria).PropertyName.Split('.');
-//                        return path.Aggregate<string, XPMemberInfo>(null, (current, pn) => current == null ? ClassInfo.GetMember(pn) : current.ReferenceType.GetMember(pn));
-//                    }
-//                }
-//            }
-//
-//            return persistentMember;
-//        }
 
         public const string CancelTriggerObjectChangedName = "CancelTriggerObjectChanged";
-        //        protected eXpandCustomObject() {}
         protected XpandCustomObject(Session session) : base(session) {
             _changedMemberCollector=new ChangedMemberCollector(this);
         }
@@ -128,7 +108,16 @@ namespace Xpand.Xpo
                 }
             }
         }
-
+        protected override void OnSaved()
+        {
+            base.OnSaved();
+            _changedMemberCollector.Collect();
+        }
+        protected override void OnChanged(string propertyName, object oldValue, object newValue)
+        {
+            base.OnChanged(propertyName, oldValue, newValue);
+            _changedMemberCollector.Collect(propertyName);
+        }
         string TruncateValue(XPMemberInfo xpMemberInfo, string value)
         {
             if (xpMemberInfo.HasAttribute(typeof(SizeAttribute)))
@@ -144,11 +133,6 @@ namespace Xpand.Xpo
 
         #region ISupportChangedMembers Member
 
-//        [Browsable(false)]
-//        public MemberInfoCollection ChangedMembers
-//        {
-//            get { return _changedMembers ?? (_changedMembers = new MemberInfoCollection(ClassInfo)); }
-//        }
 
         #endregion
         [Browsable(false)]

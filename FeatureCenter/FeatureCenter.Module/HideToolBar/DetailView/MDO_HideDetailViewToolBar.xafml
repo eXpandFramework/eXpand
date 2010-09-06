@@ -1,6 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Views>
-    <DetailView Id="HideDetailViewToolBar_DetailView" HideToolBar="True" />
+    <DetailView Id="HideDetailViewToolBar_DetailView" HideToolBar="True">
+      <Items>
+        <ActionButton Id="Differences" IsNewNode="True" ActionId="Differences" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="8">
+            <LayoutGroup Id="CustomerBase" RelativeSize="100">
+              <LayoutGroup Id="25bacd7c-ec41-4d75-a96a-3971f2ec9d6e" IsNewNode="True" Caption="" Direction="Horizontal" Index="0" RelativeSize="51">
+                <LayoutItem Id="Differences" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="49" />
+                <LayoutItem Id="Name" IsNewNode="True" Index="1" RelativeSize="50" />
+              </LayoutGroup>
+              <LayoutItem Id="City" RelativeSize="48" />
+              <LayoutItem Id="Name" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="4">
+            <LayoutItem Id="Description" RelativeSize="100" />
+          </LayoutGroup>
+          <LayoutGroup Id="Orders_Group" Direction="Vertical" RelativeSize="87">
+            <LayoutItem Id="Orders" RelativeSize="94" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
   </Views>
 </Application>

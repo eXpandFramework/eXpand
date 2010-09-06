@@ -22,11 +22,12 @@ namespace FeatureCenter.Module.ImportExport.AnalysisObjects {
             if (Session.FindObject<Analysis>(analysis => analysis.Name == "Controlling Grid Settings") == null)
             {
                 var importEngine = new ImportEngine();
-                var unitOfWork = new UnitOfWork(Session.DataLayer);
-                Stream stream = GetType().Assembly.GetManifestResourceStream(GetType(), "AnalysisObjects.xml");
-                importEngine.ImportObjects(stream, unitOfWork);
-                stream = GetType().Assembly.GetManifestResourceStream(GetType(), "AnalysisObjectsConfiguration.xml");
-                importEngine.ImportObjects(stream, unitOfWork);
+                using (var unitOfWork = new UnitOfWork(Session.DataLayer)) {
+                    Stream stream = GetType().Assembly.GetManifestResourceStream(GetType(), "AnalysisObjects.xml");
+                    importEngine.ImportObjects(stream, unitOfWork);
+                    stream = GetType().Assembly.GetManifestResourceStream(GetType(), "AnalysisObjectsConfiguration.xml");
+                    importEngine.ImportObjects(stream, unitOfWork);
+                }
             }
         }
 

@@ -106,6 +106,7 @@
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
     <Compile Include="Attributes\CustomQueryPropertiesAttribute.cs" />
+    <Compile Include="Core\AttributeRegistrator.cs" />
     <Compile Include="Core\XpandApplicationModulesManager.cs" />
     <Compile Include="Core\CustomShowNavigationItemEventArgsExtensions.cs" />
     <Compile Include="Core\DictionaryHelper.cs">
@@ -125,6 +126,7 @@
     <Compile Include="Core\TypesInfoExtensions.cs" />
     <Compile Include="Core\TypeValueConverter.cs" />
     <Compile Include="DataStoreProvider.cs" />
+    <Compile Include="Model\IModelBOModelRuntimeMember.cs" />
     <Compile Include="SystemModule\CreateExpandAbleMembersViewController.cs">
       <SubType>Component</SubType>
     </Compile>

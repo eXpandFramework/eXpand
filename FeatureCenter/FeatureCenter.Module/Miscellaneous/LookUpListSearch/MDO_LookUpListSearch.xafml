@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Views>
-    <DetailView Id="LookUpListViewSearch_DetailView">
+    <DetailView Id="LookUpListSearch_DetailView">
       <Items>
-        <PropertyEditor Id="Customer" View="" />
+        <PropertyEditor Id="Customer" View="LookUpListSearch_LookupListView" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -21,6 +21,6 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="LookUpListViewSearch_LookupListView" LookUpListSearch="AlwaysEnable" />
+    <ListView Id="LookUpListSearch_LookupListView" LookUpListSearch="AlwaysEnable" />
   </Views>
 </Application>

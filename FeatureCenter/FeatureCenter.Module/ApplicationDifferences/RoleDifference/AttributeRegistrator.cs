@@ -7,15 +7,15 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.ApplicationDifferences.RoleDifference
 {
-    public class AttributeRegistrator:Module.AttributeRegistrator
+    public class AttributeRegistrator:Xpand.ExpressApp.Core.AttributeRegistrator
     {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(Customer)) yield break;
-            yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderRoleDifference, "1=1", "1=1", Captions.ViewMessageRoleDifference, Position.Bottom) { ViewType = ViewType.DetailView, View = "RoleDifference" };
-            yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderRoleDifference, "1=1", "1=1", Captions.HeaderRoleDifference, Position.Top) { ViewType = ViewType.DetailView, View = "RoleDifference" };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, "RoleDifference");
-            yield return new XpandNavigationItemAttribute("Application Differences/Role Differences", "RoleDifference");
-            yield return new DisplayFeatureModelAttribute("RoleDifference", "Administrators_RoleDifference");
+            yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderRoleDifference, "1=1", "1=1", Captions.ViewMessageRoleDifference, Position.Bottom) { ViewType = ViewType.DetailView, View = "RoleDifference_DetailView" };
+            yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderRoleDifference, "1=1", "1=1", Captions.HeaderRoleDifference, Position.Top) { ViewType = ViewType.DetailView, View = "RoleDifference_DetailView" };
+            yield return new CloneViewAttribute(CloneViewType.DetailView, "RoleDifference_DetailView");
+            yield return new XpandNavigationItemAttribute("Application Differences/Role Differences", "RoleDifference_DetailView");
+            yield return new DisplayFeatureModelAttribute("RoleDifference_DetailView", "Administrators_RoleDifference");
         }
     }
 }

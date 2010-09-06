@@ -8,9 +8,10 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.WorldCreator.NorthWind
 {
-    public class AttributeRegistrator:Module.AttributeRegistrator
+    public class AttributeRegistrator:Xpand.ExpressApp.Core.AttributeRegistrator
     {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
+            yield break;
             if (typesInfo.Type!=typeof(PersistentAssemblyInfo))yield break;
             yield return new CloneViewAttribute(CloneViewType.DetailView, "NorthWind_DetailView");
             yield return new XpandNavigationItemAttribute("WorldCreator/NorthWind/NorthWind AssemblyInfo", "NorthWind_DetailView") { ObjectKey = CriteriaOperator.Parse("Name=?", "NorthWind").ToString() };

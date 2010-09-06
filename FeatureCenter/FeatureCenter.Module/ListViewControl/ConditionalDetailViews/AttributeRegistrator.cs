@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.ListViewControl.ConditionalDetailViews
 {
-    public class AttributeRegistrator:Module.AttributeRegistrator
+    public class AttributeRegistrator:Xpand.ExpressApp.Core.AttributeRegistrator
     {
         public const string ConditionalDetailViews_ListView = "ConditionalDetailViews_ListView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
@@ -17,7 +17,7 @@ namespace FeatureCenter.Module.ListViewControl.ConditionalDetailViews
             yield return new XpandNavigationItemAttribute(Captions.ListViewCotrol + "Conditional DetailViews", ConditionalDetailViews_ListView);
             yield return new CloneViewAttribute(CloneViewType.ListView, ConditionalDetailViews_ListView);
             yield return new CloneViewAttribute(CloneViewType.DetailView, "ConditionalDetailViews_DetailView");
-            new DisplayFeatureModelAttribute(ConditionalDetailViews_ListView);
+            yield return new DisplayFeatureModelAttribute(ConditionalDetailViews_ListView);
         }
     }
 }

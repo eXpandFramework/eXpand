@@ -14,7 +14,7 @@ namespace FeatureCenter.Module.ApplicationDifferences.ExternalApplication {
         public override object CurrentValue {
             get {
                 return ((User) SecuritySystem.CurrentUser).Session.FindObject<ModelDifferenceObject>(
-                        o => o.Name == "ExternalApplication").Oid;
+                        o => o.Name == "ExternalApplication" && o.PersistentApplication.Name == "ExternalApplication").Oid;
             }
         }
     }

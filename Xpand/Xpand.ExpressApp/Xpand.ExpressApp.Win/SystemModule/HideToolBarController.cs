@@ -10,7 +10,14 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             if (template != null && template.BarManager != null && ((IModelViewHideViewToolBar)View.Model).HideToolBar.HasValue)
                 SetToolbarVisibility(template, !((IModelViewHideViewToolBar) View.Model).HideToolBar.Value);
         }
+        protected override void OnDeactivating()
+        {
+            base.OnDeactivating();
+            var template = Frame.Template as IBarManagerHolder;
+            if (template != null && template.BarManager != null && ((IModelViewHideViewToolBar)View.Model).HideToolBar.HasValue)
+                SetToolbarVisibility(template, ((IModelViewHideViewToolBar)View.Model).HideToolBar.Value);
 
+        }
         void SetToolbarVisibility(IBarManagerHolder template, bool visible) {
             foreach (Bar bar in template.BarManager.Bars) {
                 if (bar.BarName == "ListView Toolbar" || bar.BarName == "Main Toolbar") {

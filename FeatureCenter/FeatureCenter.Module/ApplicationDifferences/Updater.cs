@@ -1,5 +1,5 @@
 ﻿using System;
-using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
@@ -9,7 +9,7 @@ using Xpand.ExpressApp.ModelDifference.Security;
 namespace FeatureCenter.Module.ApplicationDifferences
 {
     
-    public class Updater:ModuleUpdater
+    public class Updater:Xpand.Persistent.BaseImpl.Updater
     {
         private const string ModelCombine = "ModelCombine";
         public Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) {
@@ -22,13 +22,18 @@ namespace FeatureCenter.Module.ApplicationDifferences
             {
                 var modelDifferenceObject = new ModelDifferenceObject(Session).InitializeMembers(ModelCombine);
                 modelDifferenceObject.Save();
-                Role role = Module.Updater.EnsureRoleExists(Session, ModelCombine);
-                User user = Module.Updater.EnsureUserExists(Session, ModelCombine, ModelCombine);
+                Role role = EnsureRoleExists(ModelCombine,GetPermissions);
+                User user = EnsureUserExists( ModelCombine, ModelCombine,role);
                 role.AddPermission(new ModelCombinePermission(ApplicationModelCombineModifier.Allow) { Difference = ModelCombine });
-                Module.Updater.ApplyModelEditingPermission(role);
                 role.Users.Add(user);
                 role.Save();
             }
+        }
+        protected override System.Collections.Generic.List<System.Security.IPermission> GetPermissions(Role role) {
+            var permissions = base.GetPermissions(role);
+            if (role.Name==ModelCombine)
+                permissions.Add(new EditModelPermission(ModelAccessModifier.Allow));
+            return permissions;
         }
     }
 }

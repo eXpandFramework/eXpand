@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.RuntimeFieldsFromModel
 {
-    public class AttributeRegistrator:Module.AttributeRegistrator
+    public class AttributeRegistrator:Xpand.ExpressApp.Core.AttributeRegistrator
     {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type!=typeof(Customer))yield break;
@@ -16,7 +16,7 @@ namespace FeatureCenter.Module.RuntimeFieldsFromModel
                 Captions.HeaderRuntimeMemberFromModel, Position.Top){View = "RuntimeFieldsFromModel_ListView"};
             yield return new CloneViewAttribute(CloneViewType.DetailView, "RuntimeFieldsFromModel_DetailView");
             yield return new CloneViewAttribute(CloneViewType.ListView, "RuntimeFieldsFromModel_ListView") { DetailView = "RuntimeFieldsFromModel_DetailView" };
-            yield return new XpandNavigationItemAttribute("Add Runtime Fields From Model","RuntimeFieldsFromModel_ListView");
+            yield return new XpandNavigationItemAttribute("Runtime Fields From Model","RuntimeFieldsFromModel_ListView");
             yield return new DisplayFeatureModelAttribute("RuntimeFieldsFromModel_ListView", "RuntimeFieldsFromModel");
             yield return new DisplayFeatureModelAttribute("RuntimeFieldsFromModel_DetailView", "RuntimeFieldsFromModel");
         }

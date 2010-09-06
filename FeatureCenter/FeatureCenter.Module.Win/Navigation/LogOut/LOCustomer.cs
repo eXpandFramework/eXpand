@@ -9,6 +9,7 @@ namespace FeatureCenter.Module.Win.Navigation.LogOut {
         , Position.Top)]
     [NonPersistent]
     [XpandNavigationItem("Navigation/Log Out", "LOCustomer_DetailView")]
+    [DisplayFeatureModel("LOCustomer_DetailView", "LogOut")]
     public class LOCustomer  {
         
     }

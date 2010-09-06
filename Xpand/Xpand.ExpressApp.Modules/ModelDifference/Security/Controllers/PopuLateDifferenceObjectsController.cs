@@ -1,6 +1,5 @@
 using System;
 using System.Linq.Expressions;
-using DevExpress.ExpressApp.NodeWrappers;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.Security.Controllers;
@@ -11,15 +10,9 @@ namespace Xpand.ExpressApp.ModelDifference.Security.Controllers
 {
     public class PopulateDifferenceObjectsController : PopulateController<ModelCombinePermission>
     {
-        public PopulateDifferenceObjectsController() {
-        }
-
         protected override string GetPredefinedValues(IModelMember wrapper){
             IQueryable<string> queryable = new XPQuery<ModelDifferenceObject>(ObjectSpace.Session).Select(o => o.Name);
-            string ret = "";
-            foreach (var s in queryable){
-                ret += s + ";";
-            }
+            string ret = Enumerable.Aggregate(queryable, "", (current, s) => current + (s + ";"));
             return ret.TrimEnd(';');
         }
 

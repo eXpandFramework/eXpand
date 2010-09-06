@@ -18,7 +18,9 @@ namespace FeatureCenter.Module.ImportExport.UpdateMembers
             base.UpdateDatabaseAfterUpdateSchema();
             if (Session.FindObject<SerializationConfigurationGroup>(configuration => configuration.Name == "Update Members") == null) {
                 Stream stream = GetType().Assembly.GetManifestResourceStream(GetType(), "UpdateMembersGroup.xml");
-                new ImportEngine().ImportObjects(stream,new UnitOfWork(Session.DataLayer));
+                using (var unitOfWork = new UnitOfWork(Session.DataLayer)) {
+                    new ImportEngine().ImportObjects(stream,unitOfWork);
+                }
             }
         }
     }

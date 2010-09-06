@@ -4,6 +4,7 @@
     <ListView Id="AutoExpandNewRowCustomer_ListView" NewItemRowPosition="Top" AllowEdit="True" SupressConfirmation="True" AutoExpandNewRow="True">
       <GridViewOptions>
         <OptionsDetail AllowExpandEmptyDetails="True" EnableMasterViewMode="True" />
+        <OptionsNavigation AutoFocusNewRow="True" />
         <OptionsView ShowDetailButtons="True" />
       </GridViewOptions>
     </ListView>
