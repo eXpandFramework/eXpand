@@ -16,7 +16,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.GuessAutoFilterRowValues
                 Captions.HeaderGuessAutoFilterRowValuesFromFilter, Position.Top){View = "GuessAutoFilterRowValues_ListView"};
             yield return new CloneViewAttribute(CloneViewType.ListView, "GuessAutoFilterRowValues_ListView");
             yield return new XpandNavigationItemAttribute("Controlling XtraGrid/Guess Auto FilterRow Values", "GuessAutoFilterRowValues_ListView");
-            new DisplayFeatureModelAttribute("GuessAutoFilterRowValues_ListView");
+            yield return new DisplayFeatureModelAttribute("GuessAutoFilterRowValues_ListView");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraGrid;
@@ -27,11 +28,25 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         {
             base.OnViewControlsCreated();
             if (((IModelListViewAutoExpandNewRow)View.Model).AutoExpandNewRow) {
+                var gridControl = (GridControl) View.Editor.Control;
+                gridControl.ProcessGridKey+=GridControlOnProcessGridKey;
                 _xpandXafGridView = ((XpandGridListEditor)View.Editor).GridView;
                 _xpandXafGridView.FocusedRowChanged += GridView_OnFocusedRowChanged;
                 _xpandXafGridView.InitNewRow += GridView_OnInitNewRow;
             }
         }
+
+        void GridControlOnProcessGridKey(object sender, KeyEventArgs e) {
+            var view = ((GridView) ((GridControl) sender).FocusedView);
+            if (view.IsNewItemRow(view.FocusedRowHandle) && (e.KeyData == Keys.Enter ||
+                (e.KeyData == Keys.Tab && view.FocusedColumn == view.Columns[view.Columns.Count - 1])))
+            {
+                view.CloseEditor();
+                view.UpdateCurrentRow();
+                e.Handled = true;
+            }
+        }
+
         void GridView_OnInitNewRow(object sender, InitNewRowEventArgs e)
         {
             _newRowAdded = true;
