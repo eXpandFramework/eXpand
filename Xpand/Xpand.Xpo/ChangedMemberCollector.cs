@@ -14,29 +14,25 @@ namespace Xpand.Xpo {
         public ChangedMemberCollector(XPBaseObject xpBaseObject) {
             _memberInfoCollection=new MemberInfoCollection(xpBaseObject.ClassInfo);
             _xpBaseObject = xpBaseObject;
-            _xpBaseObject.Session.ObjectSaved+=SessionOnObjectSaved;
-            xpBaseObject.Changed+=XPBaseObjectOnChanged;
         }
 
-        void SessionOnObjectSaved(object sender, ObjectManipulationEventArgs objectManipulationEventArgs) {
-            if (ReferenceEquals(objectManipulationEventArgs.Object, _xpBaseObject)) {
-                if (objectManipulationEventArgs.Session is NestedUnitOfWork) {
-                    var parentitem = (ISupportChangedMembers) ((NestedUnitOfWork)objectManipulationEventArgs.Session).GetParentObject(_xpBaseObject);
-                    IEnumerable<XPMemberInfo> memberInfos =_memberInfoCollection.Where(changedProperty =>
-                                                                                       !parentitem.ChangedMemberCollector.MemberInfoCollection.Contains(changedProperty));
-                    foreach (XPMemberInfo changedProperty in memberInfos) {
-                        parentitem.ChangedMemberCollector.MemberInfoCollection.Add(changedProperty);
-                    }
+        public void Collect() {            
+            if (_xpBaseObject.Session is NestedUnitOfWork) {
+                var parentitem = (ISupportChangedMembers)((NestedUnitOfWork)_xpBaseObject.Session).GetParentObject(_xpBaseObject);
+                IEnumerable<XPMemberInfo> memberInfos =_memberInfoCollection.Where(changedProperty =>
+                                                                                   !parentitem.ChangedMemberCollector.MemberInfoCollection.Contains(changedProperty));
+                foreach (XPMemberInfo changedProperty in memberInfos) {
+                    parentitem.ChangedMemberCollector.MemberInfoCollection.Add(changedProperty);
                 }
-                _memberInfoCollection.Clear();
             }
+            _memberInfoCollection.Clear();
         }
 
-        void XPBaseObjectOnChanged(object sender, ObjectChangeEventArgs objectChangeEventArgs) {
-
-            if (!objectChangeEventArgs.Session.IsObjectsLoading){
-                XPMemberInfo member = GetPersistentMember(objectChangeEventArgs.PropertyName);
-                if (member != null && !_memberInfoCollection.Contains(member)){
+        public void Collect(string changedPropertyName){
+            if (!_xpBaseObject.Session.IsObjectsLoading) {
+                XPMemberInfo member = GetPersistentMember(changedPropertyName);
+                if (member != null && !_memberInfoCollection.Contains(member))
+                {
                     _memberInfoCollection.Add(_xpBaseObject.ClassInfo.GetMember(member.Name));
                 }
             }
