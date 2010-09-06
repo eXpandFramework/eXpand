@@ -16,7 +16,7 @@ namespace FeatureCenter.Module.Win.Navigation.TabStopForReadOnly
                 Captions.HeaderTabStopForReadOnly, Position.Top){View = "TabStopForReadOnly_DetailView"};
             yield return new CloneViewAttribute(CloneViewType.DetailView, "TabStopForReadOnly_DetailView");
             yield return new XpandNavigationItemAttribute("Navigation/Tab Stop For ReadOnly", "TabStopForReadOnly_DetailView");
-            new DisplayFeatureModelAttribute("TabStopForReadOnly_DetailView");
+            yield return new DisplayFeatureModelAttribute("TabStopForReadOnly_DetailView");
         }
     }
 }
