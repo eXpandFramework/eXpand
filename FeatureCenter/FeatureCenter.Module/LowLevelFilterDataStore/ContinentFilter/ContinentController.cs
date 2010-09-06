@@ -4,7 +4,6 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.FilterDataStore.Core;
 using System.Linq;
-using FeatureCenter.Module.LowLevelFilterDataStore.ContinentFilter;
 
 namespace FeatureCenter.Module.LowLevelFilterDataStore.ContinentFilter {
     public class ContinentController:ViewController<ListView> {

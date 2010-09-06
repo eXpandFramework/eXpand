@@ -53,7 +53,7 @@ namespace FeatureCenter.Module
             base.OnActivated();
             var displayFeatureModelAttributes = View.ObjectTypeInfo.FindAttributes<DisplayFeatureModelAttribute>();
             _displayFeatureModelAttribute =
-                displayFeatureModelAttributes.Where(AttributePredicate()).SingleOrDefault();
+                displayFeatureModelAttributes.Where(AttributePredicate()).FirstOrDefault();
             _simpleAction.Active[NoModelAssociated] = (_displayFeatureModelAttribute != null&&_displayFeatureModelAttribute.ViewId==View.Id);    
         }
 

@@ -17,7 +17,11 @@ using Xpand.ExpressApp.Win.Templates;
 namespace Xpand.ExpressApp.Win
 {
     public partial class XpandWinApplication : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation,IWinApplication{
+        bool _isSharedModel;
 
+        protected override bool IsSharedModel {
+            get { return _isSharedModel; }
+        }
         public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
 
         protected override IFrameTemplate CreateDefaultTemplate(TemplateContext context) {
@@ -79,7 +83,9 @@ namespace Xpand.ExpressApp.Win
                 SaveModelChanges();
             Security.Logoff();
             Tracing.Tracer.LogSeparator("Application is now restarting");
+            _isSharedModel = true;
             Setup();
+            _isSharedModel = false;
             if (SecuritySystem.Instance.NeedLogonParameters)
             {
                 Tracing.Tracer.LogText("Logon With Parameters");

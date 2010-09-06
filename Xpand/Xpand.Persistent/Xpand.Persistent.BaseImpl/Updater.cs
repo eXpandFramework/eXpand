@@ -13,6 +13,7 @@ namespace Xpand.Persistent.BaseImpl
     {
         public const string Administrators = "Administrators";
         public const string UserRole = "UserRole";
+        public const string Admin = "Admin";
         protected Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) { }
 
 
@@ -29,7 +30,7 @@ namespace Xpand.Persistent.BaseImpl
         protected virtual void InitializeSecurity()
         {
             Role admins = EnsureRoleExists(Administrators, GetPermissions);
-            EnsureUserExists("admin", "Administrator",admins);
+            EnsureUserExists(Admin, "Administrator",admins);
 
             Role userRole = EnsureRoleExists(UserRole, GetPermissions);
             EnsureUserExists("user", "user", userRole);
