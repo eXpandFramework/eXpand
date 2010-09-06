@@ -25,6 +25,7 @@
         public const string HeaderFKViolation = "Foreign Key Violation";
         public const string HeaderHideFromNewMenu = "Hide From New Menu";
         public const string HeaderHideListViewToolBar = "Hide ListView ToolBar";
+        public const string HeaderHideNestedListViewToolBar = "Hide Nested ListView ToolBar";
         public const string HeaderHideDetailViewToolBar = "Hide DetailView ToolBar";
         public const string HeaderHighlightFocusedLayoutItem = "Highlight Focused Layout Item";
         public const string HeaderLoadWhenFiltered = "Do Not Load When No Filter Exists";
