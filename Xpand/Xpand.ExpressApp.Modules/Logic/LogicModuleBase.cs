@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.Security;
 using Xpand.ExpressApp.Logic.Model;
-using Xpand.ExpressApp;
 
 namespace Xpand.ExpressApp.Logic {
     public abstract class LogicModuleBase<TLogicRule, TLogicRule2> : XpandModuleBase,IRuleHolder,IRuleCollector
@@ -66,6 +65,7 @@ namespace Xpand.ExpressApp.Logic {
 
         protected virtual TLogicRule2 GetRuleObject(IModelLogicRule ruleDefinition) {
             var logicRule2 = ((TLogicRule2)ReflectionHelper.CreateObject(typeof(TLogicRule2), (TLogicRule)ruleDefinition));
+            logicRule2.TypeInfo = ruleDefinition.ModelClass.TypeInfo;
             return logicRule2;
         }
 
