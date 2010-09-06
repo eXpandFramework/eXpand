@@ -1,54 +1,70 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<SerializedObjects>
+﻿<SerializedObjects>
   <SerializedObject type="ModelDifferenceObject">
-    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>aspects</string></key><value><string>de</string></value></item><item><key><string>DefaultAspect</string></key><value><string>&lt;Application&gt;
-  &lt;AdditionalViewControls&gt;
-    &lt;Rules&gt;
-      &lt;AdditionalViewControlsRule Id="Header Importing Master Detail" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDCustomer" Message="Importing World Creator objects" Position="Top" ControlType="FeatureCenter.Module.Win.ApplicationCaption" /&gt;
-      &lt;AdditionalViewControlsRule Id="ViewMessage Importing Master Detail" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDCustomer" Message="In this view you can see how to use IO engine to import objetcs that are going to be used by worldcreator to create a master detail relationship. In order that to happen we have to import a series of PersistentInfo objects with a default serialization configuration(see Serialization Configuration/) and a model difference object that will actually force the grid to act in master detail mode. For the model serialization configuration (see Serialization Configuration/) we have to set the Persistent Application property of the model to be serialized as value and change its Key to the Name property and thus the model will get the persistent application of the other models" Position="Bottom" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" /&gt;
-    &lt;/Rules&gt;
-  &lt;/AdditionalViewControls&gt;
-  &lt;MasterDetail&gt;
-    &lt;Rules&gt;
-      &lt;MasterDetailRule Id="IODMDCustomer_Orders" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDCustomer" CollectionMember="IODMDOrders" ChildListView="IODMDOrder_ListView" NormalCriteria="1=1" /&gt;
-      &lt;MasterDetailRule Id="IODMDOrder_OrderLines" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDOrder" CollectionMember="IODMDOrderLines" ChildListView="IODMDOrderLine_ListView" NormalCriteria="1=1" /&gt;
-    &lt;/Rules&gt;
-  &lt;/MasterDetail&gt;
-  &lt;Views&gt;
-    &lt;ListView Id="IODMDCustomer_ListView"&gt;
-      &lt;GridViewOptions&gt;
-        &lt;OptionsDetail EnableMasterViewMode="True" /&gt;
-        &lt;OptionsView ShowDetailButtons="True" /&gt;
-      &lt;/GridViewOptions&gt;
-    &lt;/ListView&gt;
-    &lt;ListView Id="IODMDOrder_ListView"&gt;
-      &lt;Columns&gt;
-        &lt;ColumnInfo Id="IODMDCustomer" Index="-1" /&gt;
-      &lt;/Columns&gt;
-      &lt;GridViewOptions&gt;
-        &lt;OptionsDetail EnableMasterViewMode="True" /&gt;
-        &lt;OptionsView ShowDetailButtons="True" /&gt;
-      &lt;/GridViewOptions&gt;
-    &lt;/ListView&gt;
-    &lt;ListView Id="IODMDOrderLine_ListView"&gt;
-      &lt;Columns&gt;
-        &lt;ColumnInfo Id="IODMDOrder" Index="-1" /&gt;
-      &lt;/Columns&gt;
-    &lt;/ListView&gt;
-  &lt;/Views&gt;
-&lt;/Application&gt;</string></value></item><item><key><string>de</string></key><value><string /></value></item>]]></Property>
-    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
-    <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="UserFilter" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">cf1bcaaf-75d3-4e1c-83e3-ee53ca5b1331</Property>
-    <Property type="simple" name="Disabled" isKey="false">False</Property>
-    <Property type="simple" name="Skin" isKey="false"></Property>
-    <Property type="simple" name="DateCreated" isKey="false">634174191769800000</Property>
     <Property type="simple" name="Name" isKey="false"><![CDATA[IOWC3LevelMasterDetail]]></Property>
+    <Property type="simple" name="Disabled" isKey="false">False</Property>
+    <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
+    <Property type="simple" name="DifferenceType" isKey="false">0</Property>
     <Property type="simple" name="CombineOrder" isKey="false">0</Property>
+    <Property type="simple" name="oid" isKey="true">f0df9499-787c-4635-bbf3-ceea384f85e6</Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="DateCreated" isKey="false">634193449213800000</Property>
+    <Property type="simple" name="City" isKey="false"></Property>
     <Property type="object" name="PersistentApplication" isKey="false">
       <SerializedObjectRef type="PersistentApplication" strategy="SerializeAsValue">
-        <Key name="Name">FeatureCenter</Key>
+        <Key name="UniqueName">FeatureCenter.Win.FeatureCenterWindowsFormsApplication</Key>
+      </SerializedObjectRef>
+    </Property>
+    <Property type="collection" name="AspectObjects" isKey="false">
+      <SerializedObjectRef type="AspectObject" strategy="SerializeAsObject">
+        <Key name="oid">ea167429-02de-4486-bb52-ae2a7c524a04</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="AspectObject">
+    <Property type="simple" name="Name" isKey="false"><![CDATA[(Default language)]]></Property>
+    <Property type="simple" name="Xml" isKey="false">
+      <![CDATA[<Application Company="1">
+  <AdditionalViewControls>
+    <Rules>
+      <AdditionalViewControlsRule Id="Header Importing Master Detail" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDCustomer" Message="Importing World Creator objects" ControlType="Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls.ApplicationCaption" />
+      <AdditionalViewControlsRule Id="ViewMessage Importing Master Detail" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDCustomer" Message="In this view you can see how to use IO engine to import objetcs that are going to be used by worldcreator to create a master detail relationship. In order that to happen we have to import a series of PersistentInfo objects with a default serialization configuration(see Serialization Configuration/) and a model difference object that will actually force the grid to act in master detail mode. For the model serialization configuration (see Serialization Configuration/DynamicAssemblyMasterDetailModel) we have to set the Persistent Application property of the model to be serialized as value and change its Key to the Name property and thus the model will get the persistent application of the other models" Position="Bottom" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" />
+    </Rules>
+  </AdditionalViewControls>
+  <MasterDetail>
+    <Rules>
+      <MasterDetailRule Id="IODMDCustomer_Orders" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDCustomer" CollectionMember="IODMDOrders" ChildListView="IODMDOrder_ListView" NormalCriteria="1=1" />
+      <MasterDetailRule Id="IODMDOrder_OrderLines" IsNewNode="True" TypeInfo="IOMasterDetailDynamicAssembly.IODMDOrder" CollectionMember="IODMDOrderLines" ChildListView="IODMDOrderLine_ListView" NormalCriteria="1=1" />
+    </Rules>
+  </MasterDetail>
+  <Views>
+    <ListView Id="IODMDCustomer_ListView">
+      <GridViewOptions>
+        <OptionsDetail AllowExpandEmptyDetails="True" EnableMasterViewMode="True" />
+        <OptionsView ShowDetailButtons="True" />
+      </GridViewOptions>
+    </ListView>
+    <ListView Id="IODMDOrder_ListView">
+      <GridViewOptions>
+        <OptionsDetail AllowExpandEmptyDetails="True" EnableMasterViewMode="True" />
+        <OptionsView ShowDetailButtons="True" />
+      </GridViewOptions>
+    </ListView>
+    <ListView Id="IODMDOrderLine_ListView">
+      <GridViewOptions>
+        <OptionsDetail AllowExpandEmptyDetails="True" EnableMasterViewMode="True" />
+        <OptionsView ShowDetailButtons="True" />
+      </GridViewOptions>
+    </ListView>
+  </Views>
+</Application>]]>
+    </Property>
+    <Property type="simple" name="Skin" isKey="false"></Property>
+    <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
+    <Property type="simple" name="City" isKey="false"></Property>
+    <Property type="simple" name="oid" isKey="true">ea167429-02de-4486-bb52-ae2a7c524a04</Property>
+    <Property type="object" name="ModelDifferenceObject" isKey="false">
+      <SerializedObjectRef type="ModelDifferenceObject" strategy="SerializeAsObject">
+        <Key name="oid">f0df9499-787c-4635-bbf3-ceea384f85e6</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>

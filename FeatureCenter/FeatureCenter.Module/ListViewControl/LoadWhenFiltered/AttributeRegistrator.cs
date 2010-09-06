@@ -16,7 +16,7 @@ namespace FeatureCenter.Module.ListViewControl.LoadWhenFiltered
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderLoadWhenFiltered, "1=1", "1=1", Captions.HeaderLoadWhenFiltered, Position.Top) { ViewType = ViewType.ListView, View = LoadWhenFiltered_ListView };
             yield return new XpandNavigationItemAttribute(Captions.ListViewCotrol + "Load When Filtered", LoadWhenFiltered_ListView);
             yield return new CloneViewAttribute(CloneViewType.ListView, LoadWhenFiltered_ListView);
-            new DisplayFeatureModelAttribute(LoadWhenFiltered_ListView);
+            yield return new DisplayFeatureModelAttribute(LoadWhenFiltered_ListView);
         }
     }
 }
