@@ -16,7 +16,7 @@ namespace FeatureCenter.Module.DetailViewControl.ActionButtonViewItem
                 Captions.HeaderActionButtonViewItem, Position.Top){View = "ActionButtonViewItem_DetailView"};
             yield return new CloneViewAttribute(CloneViewType.DetailView, "ActionButtonViewItem_DetailView");
             yield return new XpandNavigationItemAttribute(Captions.DetailViewCotrol + "Action Button View Item", "ActionButtonViewItem_DetailView");
-            new DisplayFeatureModelAttribute("ActionButtonViewItem_DetailView");
+            yield return new DisplayFeatureModelAttribute("ActionButtonViewItem_DetailView");
         }
     }
 }
