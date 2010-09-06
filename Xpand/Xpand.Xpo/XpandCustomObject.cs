@@ -27,7 +27,7 @@ namespace Xpand.Xpo
 #endif
         private bool isDefaultPropertyAttributeInit;
         private XPMemberInfo defaultPropertyMemberInfo;
-        readonly ChangedMemberCollector _changedMemberCollector;
+        ChangedMemberCollector _changedMemberCollector;
 
         protected override void OnSaving()
         {
@@ -66,7 +66,7 @@ namespace Xpand.Xpo
 
         public const string CancelTriggerObjectChangedName = "CancelTriggerObjectChanged";
         protected XpandCustomObject(Session session) : base(session) {
-            _changedMemberCollector=new ChangedMemberCollector(this);
+            _changedMemberCollector = _changedMemberCollector ?? new ChangedMemberCollector(this);
         }
 
         [Browsable(false)]
@@ -75,7 +75,11 @@ namespace Xpand.Xpo
         {
             get { return Session.IsNewObject(this); }
         }
-
+        public override void AfterConstruction()
+        {
+            _changedMemberCollector = _changedMemberCollector??new ChangedMemberCollector(this);
+            base.AfterConstruction();
+        }
 
         protected override void TriggerObjectChanged(ObjectChangeEventArgs args)
         {

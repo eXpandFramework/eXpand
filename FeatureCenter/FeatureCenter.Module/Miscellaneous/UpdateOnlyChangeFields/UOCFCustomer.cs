@@ -16,12 +16,17 @@ namespace FeatureCenter.Module.Miscellaneous.UpdateOnlyChangeFields {
     [XpandNavigationItem(Captions.Miscellaneous+"Update Only Changed Fields", "UOCFCustomer_DetailView")]
     [DisplayFeatureModel("UOCFCustomer_DetailView", "UpdateOnlyChangeFields")]
     public class UOCFCustomer : CustomerBase,ISupportChangedMembers {
-        readonly ChangedMemberCollector _changedMemberCollector;
+        ChangedMemberCollector _changedMemberCollector;
 
 
         public UOCFCustomer(Session session)
             : base(session) {
-            _changedMemberCollector = new ChangedMemberCollector(this);
+            _changedMemberCollector = _changedMemberCollector ?? new ChangedMemberCollector(this);
+        }
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
+            _changedMemberCollector = _changedMemberCollector ?? new ChangedMemberCollector(this);
         }
         protected override void OnSaved()
         {

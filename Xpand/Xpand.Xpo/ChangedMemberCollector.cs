@@ -29,12 +29,9 @@ namespace Xpand.Xpo {
         }
 
         public void Collect(string changedPropertyName){
-            if (!_xpBaseObject.Session.IsObjectsLoading) {
-                XPMemberInfo member = GetPersistentMember(changedPropertyName);
-                if (member != null && !_memberInfoCollection.Contains(member))
-                {
-                    _memberInfoCollection.Add(_xpBaseObject.ClassInfo.GetMember(member.Name));
-                }
+            XPMemberInfo member = GetPersistentMember(changedPropertyName);
+            if (member != null && !_memberInfoCollection.Contains(member)){
+                _memberInfoCollection.Add(_xpBaseObject.ClassInfo.GetMember(member.Name));
             }
         }
         private XPMemberInfo GetPersistentMember(string propertyName)
