@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
                 ShowSerializationView(singleChoiceActionExecuteEventArgs);
             }
             else{
-                import(singleChoiceActionExecuteEventArgs);
+                Import(singleChoiceActionExecuteEventArgs);
             }
         }
 
@@ -82,7 +82,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
 
         protected abstract string GetFilePath();
 
-        void import(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
+        void Import(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             ObjectSpace objectSpace = Application.CreateObjectSpace();
             object o = objectSpace.CreateObject(TypesInfo.Instance.XmlFileChooserType);
             singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace, o);
@@ -90,7 +90,9 @@ namespace Xpand.ExpressApp.IO.Controllers {
             dialogController.AcceptAction.Execute += (sender1, args) =>{
                 var memoryStream = new MemoryStream();
                 ((IXmlFileChooser)args.CurrentObject).FileData.SaveToStream(memoryStream);
-                new ImportEngine().ImportObjects(memoryStream, new UnitOfWork(objectSpace.Session.DataLayer));
+                using (var unitOfWork = new UnitOfWork(objectSpace.Session.DataLayer)) {
+                    new ImportEngine().ImportObjects(memoryStream, unitOfWork);
+                }
             };
             singleChoiceActionExecuteEventArgs.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Add(dialogController);
