@@ -1,4 +1,7 @@
-﻿using DevExpress.Xpo;
+﻿using System.Configuration;
+using System.IO;
+using System.Xml.Linq;
+using DevExpress.Xpo;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 
@@ -14,7 +17,14 @@ namespace FeatureCenter.Module.WorldCreator.NorthWind {
         {
             if (Session.FindObject<PersistentAssemblyInfo>(info => info.Name == NorthWind) != null) return;
             using (var unitOfWork = new UnitOfWork(Session.DataLayer)) {
-                new ImportEngine().ImportObjects(GetType().Assembly.GetManifestResourceStream(GetType(),NorthWind+".xml"),unitOfWork);
+                var manifestResourceStream = GetType().Assembly.GetManifestResourceStream(GetType(),NorthWind+".xml");
+                if (manifestResourceStream != null) {
+                    string connectionString=ConfigurationManager.ConnectionStrings["NorthWind"].ConnectionString;
+                    var readToEnd = new StreamReader(manifestResourceStream).ReadToEnd().Replace(@"XpoProvider=MSSqlServer;data source=.\SQLEXPRESS;integrated security=SSPI;initial catalog=Northwind",connectionString);
+                    var document = XDocument.Load(new StringReader(readToEnd));
+                    new ImportEngine().ImportObjects(document, unitOfWork);
+                }
+                
             }
         }
     }
