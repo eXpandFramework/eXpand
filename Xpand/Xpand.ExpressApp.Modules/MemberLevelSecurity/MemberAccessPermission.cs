@@ -140,6 +140,8 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
             }
             return result;
         }
+
+
     }
     public class MemberAccessItemList : IEnumerable<MemberAccessPermissionItem>
     {

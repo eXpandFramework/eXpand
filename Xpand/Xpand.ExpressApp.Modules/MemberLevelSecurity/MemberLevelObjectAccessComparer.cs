@@ -47,7 +47,8 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
                 var memberAccessPermissionItem = memberAccessPermission.items.Where(item => item.Operation == memberOperation).SingleOrDefault();
                 if (memberAccessPermissionItem != null) {
                     var criteriaOperator = CriteriaOperator.Parse(memberAccessPermissionItem.Criteria);
-                    return objectSpace.GetExpressionEvaluator(currentObject.GetType(), criteriaOperator).Fit(currentObject);
+                    var isObjectFitForCriteria = objectSpace.IsObjectFitForCriteria(currentObject, criteriaOperator);
+                    return isObjectFitForCriteria.GetValueOrDefault(true);
                 }
             }
             return true;

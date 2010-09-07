@@ -48,6 +48,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers
             if (View == null) return;
             var gridView = ((GridView)sender);
             var baseObject = gridView.GetRow(e.RowHandle);
+            if (baseObject == null) return;
             bool canNotRead = CanNotRead(e.Column.FieldName, baseObject);
             IMemberInfo memberInfo = View.ObjectTypeInfo.FindMember(e.Column.FieldName);
             IModelColumn modelColumn = GetModelColumn(memberInfo);
