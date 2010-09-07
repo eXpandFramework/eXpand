@@ -8,19 +8,12 @@ using Xpand.ExpressApp.ModelDifference.Core;
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
     internal class ExtraDiffStoresLayerBuilder
     {
-        readonly XpoModelDictionaryDifferenceStore _xpoModelDictionaryDifferenceStore;
-
-        public ExtraDiffStoresLayerBuilder(XpoModelDictionaryDifferenceStore xpoModelDictionaryDifferenceStore) {
-            _xpoModelDictionaryDifferenceStore = xpoModelDictionaryDifferenceStore;
-        }
-
         public void AddLayers(Dictionary<string, ModelDifferenceObjectInfo> modelDifferenceObjectInfos, List<ModelApplicationFromStreamStoreBase> extraDiffsStore)
         {
             Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Adding Layers to application model ");
             foreach (var modelDifferenceObjectInfo in modelDifferenceObjectInfos){
                 LoadModels(modelDifferenceObjectInfo.Value.Model,extraDiffsStore);
                 modelDifferenceObjectInfo.Value.ModelDifferenceObject.CreateAspects(modelDifferenceObjectInfo.Value.Model);
-                _xpoModelDictionaryDifferenceStore.SaveDifference(modelDifferenceObjectInfo.Value.Model);
             }
         }
 
