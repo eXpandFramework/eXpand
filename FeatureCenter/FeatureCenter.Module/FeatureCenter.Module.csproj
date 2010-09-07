@@ -341,7 +341,6 @@
     <Compile Include="ViewVariants\AttributeRegistrator.cs" />
     <Compile Include="Welcome\WelcomeObject.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\AttributeRegistrator.cs" />
-    <Compile Include="WorldCreator\ExistentAssemblyMasterDetail\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\NorthWind\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\DynamicAssemblyBuilder.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\Updater.cs" />
@@ -436,9 +435,9 @@
     <EmbeddedResource Include="ListViewControl\ConditionalDetailViews\MDO_ConditionalDetailViews.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="WorldCreator\NorthWind\MDO_NorthWind.xafml">
+    <EmbeddedResource Include="WorldCreator\NorthWind\MDO_NorthWind.xafml">
       <SubType>Designer</SubType>
-    </None>
+    </EmbeddedResource>
     <EmbeddedResource Include="Miscellaneous\ExceptionHandling\MDO_ExceptionHandling.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Views>
-    <DetailView Id="NorthWind_DetailView1" >
+    <DetailView Id="NorthWind_DetailView" >
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="4">
