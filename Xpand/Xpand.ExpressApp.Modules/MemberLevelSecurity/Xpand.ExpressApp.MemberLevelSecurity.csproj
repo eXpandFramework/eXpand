@@ -117,7 +117,9 @@
   <ItemGroup>
     <Compile Include="MemberAccessPermission.cs">
     </Compile>
-    <Compile Include="MemberAccessPermissionItem.cs" />
+    <Compile Include="MemberAccessPermissionItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MemberLevelObjectAccessComparer.cs">
     </Compile>
     <Compile Include="MemberLevelSecurityModule.cs">

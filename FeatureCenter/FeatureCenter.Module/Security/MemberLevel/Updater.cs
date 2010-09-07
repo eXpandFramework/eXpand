@@ -16,13 +16,15 @@ namespace FeatureCenter.Module.Security.MemberLevel
         public override void UpdateDatabaseAfterUpdateSchema()
         {
             base.UpdateDatabaseAfterUpdateSchema();
-            var findObject = Session.FindObject<Role>(role => role.Name=="Administrators");
-            MemberAccessPermission memberAccessPermission = findObject.Permissions.OfType<MemberAccessPermission>().FirstOrDefault();
+            var role = Session.FindObject<Role>(o => o.Name=="Administrators");
+            MemberAccessPermission memberAccessPermission = role.Permissions.OfType<MemberAccessPermission>().FirstOrDefault();
             if (memberAccessPermission == null) {
                 var accessPermission = new MemberAccessPermission(typeof (MLSCustomer), "Name", MemberOperation.Read,ObjectAccessModifier.Deny){Criteria = "City='Paris'"};
-                findObject.AddPermission(accessPermission);
+                role.AddPermission(accessPermission);
+                role.Save();
                 accessPermission = new MemberAccessPermission(typeof (MLSCustomer), "Name", MemberOperation.Write,ObjectAccessModifier.Deny){Criteria = "City='New York'"};
-                findObject.AddPermission(accessPermission);
+                role.AddPermission(accessPermission);
+                role.Save();
             }
         }
     }

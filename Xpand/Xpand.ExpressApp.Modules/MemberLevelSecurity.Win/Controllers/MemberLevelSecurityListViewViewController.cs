@@ -39,9 +39,8 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers
 
         bool CanNotRead(string propertyName, object currentObject) {
             bool content = !(View.ObjectTypeInfo.FindMember(propertyName) == null || DataManipulationRight.CanRead(View.ObjectTypeInfo.Type, propertyName, null,View.CollectionSource));
-            if (content)
-                return ((MemberLevelObjectAccessComparer)ObjectAccessComparerBase.CurrentComparer).Fit(currentObject);
-            return false;
+            var fit=((MemberLevelObjectAccessComparer)ObjectAccessComparerBase.CurrentComparer).Fit(currentObject,MemberOperation.Read);
+            return content && fit;
         }
 
         private void CustomRowCellEdit(object sender, CustomRowCellEditEventArgs e)

@@ -62,7 +62,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
 
         bool GetCanRead(string name) {
             bool canRead = DataManipulationRight.CanRead(View.ObjectTypeInfo.Type, name, View.CurrentObject, null);
-            bool fit = ((MemberLevelObjectAccessComparer)ObjectAccessComparerBase.CurrentComparer).Fit(View.CurrentObject);
+            bool fit = ((MemberLevelObjectAccessComparer)ObjectAccessComparerBase.CurrentComparer).Fit(View.CurrentObject,MemberOperation.Read);
             if (fit)
                 return canRead ;
             return true;

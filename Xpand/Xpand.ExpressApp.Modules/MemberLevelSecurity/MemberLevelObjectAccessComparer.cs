@@ -12,10 +12,9 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
                                                  SecurityContextList securityContexts) {
             ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(requestedType);
             IMemberInfo memberInfo = typeInfo.FindMember(propertyName);
-            if (memberInfo.GetPath().Any(currentMemberInfo =>!SecuritySystemExtensions.IsGranted(new MemberAccessPermission(
-                                                                             currentMemberInfo.Owner.Type,
-                                                                             currentMemberInfo.Name,
-                                                                             MemberOperation.Read),true))) {
+            if (memberInfo.GetPath().Any(currentMemberInfo 
+                =>!SecuritySystemExtensions.IsGranted(new MemberAccessPermission(currentMemberInfo.Owner.Type,
+                    currentMemberInfo.Name,MemberOperation.Read),true))) {
                 return false;
             }
             var securityComplex = ((SecurityBase)SecuritySystem.Instance);
@@ -30,7 +29,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
             bool firstOrDefault =memberInfo.GetPath().Select(info =>!SecuritySystemExtensions.IsGranted(
                         new MemberAccessPermission(info.Owner.Type, info.Name, MemberOperation.Write), true)).Where(b => b).FirstOrDefault();
             if (firstOrDefault) {
-                return Fit(targetObject);
+                return Fit(targetObject,MemberOperation.Write);
             }
             var securityComplex = ((SecurityBase)SecuritySystem.Instance);
             bool isGrantedForNonExistentPermission = securityComplex.IsGrantedForNonExistentPermission;
@@ -40,13 +39,16 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
             return isMemberModificationDenied;
         }
 
-        public bool Fit(object currentObject) {
+        public bool Fit(object currentObject,MemberOperation memberOperation) {
             var memberAccessPermission = ((SecurityBase)SecuritySystem.Instance).PermissionSet.GetPermission(typeof(MemberAccessPermission)) as MemberAccessPermission;
             if (memberAccessPermission != null && memberAccessPermission.IsSubsetOf(memberAccessPermission))
             {
                 ObjectSpace objectSpace = ObjectSpace.FindObjectSpace(currentObject);
-                var criteriaOperator = CriteriaOperator.Parse(memberAccessPermission.Criteria);
-                return objectSpace.GetExpressionEvaluator(currentObject.GetType(), criteriaOperator).Fit(currentObject);
+                var memberAccessPermissionItem = memberAccessPermission.items.Where(item => item.Operation == memberOperation).SingleOrDefault();
+                if (memberAccessPermissionItem != null) {
+                    var criteriaOperator = CriteriaOperator.Parse(memberAccessPermissionItem.Criteria);
+                    return objectSpace.GetExpressionEvaluator(currentObject.GetType(), criteriaOperator).Fit(currentObject);
+                }
             }
             return true;
         }
