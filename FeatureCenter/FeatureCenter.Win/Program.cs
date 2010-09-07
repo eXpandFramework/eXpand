@@ -26,7 +26,7 @@ namespace FeatureCenter.Win
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            EditModelPermission.AlwaysGranted = System.Diagnostics.Debugger.IsAttached;
+            EditModelPermission.AlwaysGranted = Debugger.IsAttached;
             FeatureCenterWindowsFormsApplication winApplication = new FeatureCenterWindowsFormsApplication();
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
