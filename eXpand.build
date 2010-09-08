@@ -156,22 +156,28 @@
 	<Target Name="Report" DependsOnTargets="Clean;Build;Copy">
 		<MakeDir Directories="$(ArtifactDirectory)" />
 		
-		<!-- StyleCop 
-		<CreateItem Include="Xpand\**\*.cs" Exclude="Xpand\**\*.designer.cs">	  
-			<Output TaskParameter="Include" ItemName="StyleCopFiles" />
+		<CreateItem Include="$(XpandPath)\Xpand.*.dll;" >
+			<Output ItemName="fxAssemblies" TaskParameter="Include"/>
 		</CreateItem>
+	
+		<FxCop 
+			TargetAssemblies="@(fxAssemblies)"
+			ToolPath="Resource/Tool/FxCop" 
+			ProjectFile="$(ProjectName).FxCop" 
+			AnalysisReportFileName="$(ArtifactDirectory)/fxcop.html" 
+			ApplyOutXsl="True"
+			ContinueOnError="True"
+			FailOnError="False"
+			OutputXslFileName="Resource/Tool/FxCop/Xml/FxCopReport.xsl"
+		/> 
+		<FxCop 
+			TargetAssemblies="@(fxAssemblies)"
+			ToolPath="Resource/Tool/FxCop" 
+			ProjectFile="$(ProjectName).FxCop" 
+			AnalysisReportFileName="$(ArtifactDirectory)/fxcop-report.xml" 			
+		/> 
+		<Message Text="##teamcity[importData id='FxCop' file='$(ArtifactDirectory)/fxcop-report.xml']" />
 
-		<StyleCopTask
-			ProjectFullPath="$(ProjectName).sln"
-			OverrideSettingsFile="Xpand\Settings.StyleCop"
-			OutputFile="$(ArtifactDirectory)/$(ProjectName).StyleCopViolations.xml"
-			TreatErrorsAsWarnings="true"
-			SourceFiles="@(StyleCopFiles)" />  		
-		-->
-		
-	<!-- placeholder for now		
-		<FxCop ToolPath="Resource/Tool/FxCop" ProjectFile="$(ProjectName).FxCop" AnalysisReportFileName="$(ArtifactDirectory)/$(ProjectName).fxcop-result.xml"/>
-		-->
 	</Target>
 	
 	<Target Name="Integrate" DependsOnTargets="Clean;Test;Report;" />
