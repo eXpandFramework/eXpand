@@ -18,7 +18,7 @@
   <CustomDictionaries SearchFxCopDir="True" SearchUserProfile="True" SearchProjectDir="True" />
   <SearchGlobalAssemblyCache>True</SearchGlobalAssemblyCache>
   <DeadlockDetectionTimeout>120</DeadlockDetectionTimeout>
-  <IgnoreGeneratedCode>False</IgnoreGeneratedCode>
+  <IgnoreGeneratedCode>True</IgnoreGeneratedCode>
  </ProjectOptions>
  
  <Rules>

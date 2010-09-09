@@ -36,8 +36,10 @@
       (for example 'FileName' -> 'Filename').
     -->
     <Recognized>
-			<Word>lokad</Word>
-			<Word>mape</Word>
+			<Word>Xpand</Word>
+			<Word>Xpo</Word>
+			<Word>Oid</Word>
+			<Word>Utils</Word>
 			
       <Word>accessor</Word>
       <Word>accessors</Word>
