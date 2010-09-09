@@ -106,6 +106,14 @@
     <Reference Include="DevExpress.XtraGrid.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="TypeMock, Version=6.0.4.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_third_party_assemblies\TypeMock.dll</HintPath>
+    </Reference>
+    <Reference Include="Typemock.ArrangeActAssert, Version=6.0.4.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_third_party_assemblies\Typemock.ArrangeActAssert.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -209,15 +217,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TypeMock, Version=5.4.1.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\TypeMock.dll</HintPath>
-    </Reference>
-    <Reference Include="Typemock.ArrangeActAssert, Version=5.4.1.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\Typemock.ArrangeActAssert.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contact.cs">
@@ -306,17 +305,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Xpand.IO\Resources\1toMany.xml" />
-    <Content Include="Xpand.IO\Resources\Analysis.xml" />
-    <Content Include="Xpand.IO\Resources\ExistentKeyObject.xml" />
-    <Content Include="Xpand.IO\Resources\ExistentNaturalKeyObject.xml" />
-    <Content Include="Xpand.IO\Resources\ManyToMany.xml" />
-    <Content Include="Xpand.IO\Resources\ModelDifferenceObject.xml" />
-    <Content Include="Xpand.IO\Resources\NullRefProperty.xml" />
-    <Content Include="Xpand.IO\Resources\ObjectWithImageProperty.xml" />
-    <Content Include="Xpand.IO\Resources\PersistentAssmeblyInfo.xml" />
-    <Content Include="Xpand.IO\Resources\PivotContent.xml" />
-    <Content Include="Xpand.IO\Resources\WithValueConverter.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\1toMany.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\Analysis.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\ExistentKeyObject.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\ExistentNaturalKeyObject.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\ManyToMany.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\ModelDifferenceObject.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\NullRefProperty.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\ObjectWithImageProperty.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\PersistentAssmeblyInfo.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\PivotContent.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\WithValueConverter.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -74,7 +74,7 @@ namespace Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
         }
         
         internal static PersistentAssemblyBuilder BuildAssembly( string name) {
-            var objectSpace = new DevExpress.ExpressApp.ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            var objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
             return BuildAssembly(objectSpace, name);
         }
 

@@ -27,7 +27,8 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper
             _dataTypeMapper = new DataTypeMapper();
             _attributeMapper = new AttributeMapper(ObjectSpace);
             _persistentAttributeInfos = new List<IPersistentAttributeInfo> {Isolate.Fake.Instance<PersistentAttributeInfo>(Members.CallOriginal,ConstructorWillBe.Called,new object[]{UnitOfWork})};
-            Isolate.WhenCalled(() => _attributeMapper.Create(null, Isolate.Fake.Instance<IPersistentMemberInfo>(),_dataTypeMapper)).WillReturn(_persistentAttributeInfos);
+            var persistentMemberInfo = Isolate.Fake.Instance<IPersistentMemberInfo>();
+            Isolate.WhenCalled(() => _attributeMapper.Create(null, persistentMemberInfo,_dataTypeMapper)).WillReturn(_persistentAttributeInfos);
         };
 
         Because of = () => { _persistentMemberInfo = new ColumnMapper(_dataTypeMapper, _attributeMapper).Create(_column,_owner) as PersistentCoreTypeMemberInfo; };

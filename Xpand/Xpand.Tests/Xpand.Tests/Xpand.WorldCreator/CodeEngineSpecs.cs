@@ -29,6 +29,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
             _persistentMemberInfo = new PersistentCoreTypeMemberInfo(UnitOfWork) { CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork) };
             var codeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.XPReadWritePropertyMember };
             codeTemplate.SetDefaults();            
+            _persistentMemberInfo.Owner=new PersistentClassInfo(UnitOfWork);
             _persistentMemberInfo.CodeTemplateInfo.TemplateInfo=codeTemplate;
 
         };
@@ -53,6 +54,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
             var codeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.XPReadWritePropertyMember };
             codeTemplate.SetDefaults();
             _persistentMemberInfo.CodeTemplateInfo.TemplateInfo = codeTemplate;
+            _persistentMemberInfo.Owner=new PersistentClassInfo(UnitOfWork);
             _persistentMemberInfo.Name = "in valid";
         };
 
@@ -129,7 +131,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
         Because of = () => { _generateCode = CodeEngine.GenerateCode(_persistentClassInfo); };
 
-        It should_use_default_Base_type =() => _generateCode.IndexOf(typeof (XpandCustomObject).FullName).ShouldBeGreaterThan(-1);
+        It should_use_default_Base_type =() => _generateCode.IndexOf(typeof (XpandCustomObject).FullName+"").ShouldBeGreaterThan(-1);
     }
     [Subject(typeof(CodeEngine))]
     public class When_generating_code_from_persistentClassinfo_with_baseclassinfo_defined:With_In_Memory_DataStore {
@@ -197,11 +199,11 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         };
 
         It should_replace_BASECLASSNAME_with_persistentClassInfo_name = () => {
-            _generateCode.IndexOf(typeof(User).FullName).ShouldBeGreaterThan(-1);
+            _generateCode.IndexOf(typeof(User).FullName+"").ShouldBeGreaterThan(-1);
             _generateCode.IndexOf("BASECLASSNAME").ShouldEqual(-1);
         };
         It should_replace_ASEEMBLYNAME_with_persistentClassInfo_name = () => {
-            _generateCode.IndexOf(typeof(User).FullName).ShouldBeGreaterThan(-1);
+            _generateCode.IndexOf(typeof(User).FullName+"").ShouldBeGreaterThan(-1);
             _generateCode.IndexOf("ASEEMBLYNAME").ShouldEqual(-1);
         };
 
@@ -297,7 +299,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
             _generateCode = CodeEngine.GenerateCode(_persistentCustomAttribute);
         };
 
-        It should_create_arg_enclosed_with_quotes=() => _generateCode.ShouldStartWith("["+typeof(CustomAttribute).FullName+@"(""PropertyName"",""Value"")"+"]");
+        It should_create_arg_enclosed_with_quotes=() => _generateCode.ShouldStartWith("["+typeof(CustomAttribute).FullName+@"(@""PropertyName"",@""Value"")"+"]");
     }
 
     [Subject(typeof(CodeEngine))]

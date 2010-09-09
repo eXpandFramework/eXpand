@@ -38,7 +38,7 @@ namespace Xpand.Tests.Xpand.IO {
             _user.SetMemberValue("oid", new Guid("{B11AFD0E-6B2B-44cf-A986-96909A93291A}"));
             ObjectSpace.Session.GetClassInfo(OrderType).CreateMember("Ammount", typeof (int));
             ObjectSpace.CommitChanges();
-            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.1toMany.xml");
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.1toMany.xml");
             if (_manifestResourceStream != null)
                 _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
         };
@@ -106,7 +106,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         Establish context = () =>
         {
-            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.ExistentNaturalKeyObject.xml");
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.ExistentNaturalKeyObject.xml");
             _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             persistentAssemblyBuilder.CreateClasses(new[] { "Customer" }).CreateSimpleMembers<string>(info => new[] { "Name" });
@@ -136,7 +136,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         Establish context = () =>
         {
-            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.ExistentNaturalKeyObject.xml");
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.ExistentNaturalKeyObject.xml");
             _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             persistentAssemblyBuilder.CreateClasses(new[] { "Customer" }).CreateSimpleMembers<string>(info => new[] { "Name" });
@@ -176,7 +176,7 @@ namespace Xpand.Tests.Xpand.IO {
             _customerType = typeHandler.T1Type;
             _orderType = typeHandler.T2Type;
             _objectSpace = typeHandler.ObjectSpace;
-            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.ManyToMany.xml");
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.ManyToMany.xml");
         };
 
         Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork) _objectSpace.Session);
@@ -313,7 +313,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         Establish context = () =>
         {
-            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.ObjectWithImageProperty.xml");
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.ObjectWithImageProperty.xml");
             _unitOfWork = new UnitOfWork(ObjectSpaceInMemory.CreateNew().Session.DataLayer);
         };
 
