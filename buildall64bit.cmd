@@ -15,8 +15,8 @@ call buildProjects.cmd
 %sn% -q -T Xpand.Dll\Xpand.Utils.dll > PublicKeyToken.txt
 
 rem Install VS Template
-set templates="%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\Common7\IDE\ProjectTemplates\CSharp\eXpressApp Framework\"
-set devenv="%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\Common7\IDE\"
+set templates="%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\Common7\IDE\ProjectTemplates\CSharp\eXpressApp Framework\"
+set devenv="%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\Common7\IDE\"
 
 echo Installing and refreshing visual studio templates
 xcopy "Xpand.DesignExperience\vs_templates\*.*" %templates% /Y /R /I
