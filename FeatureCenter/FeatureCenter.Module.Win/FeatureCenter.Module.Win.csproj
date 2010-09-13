@@ -378,6 +378,9 @@
     <Compile Include="ListViewControl\LoadWhenFiltered\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ListViewControl\RecursiveView\RVItem.cs" />
+    <Compile Include="ListViewControl\RecursiveView\RVCategory.cs" />
+    <Compile Include="ListViewControl\RecursiveView\Updater.cs" />
     <Compile Include="Miscellaneous\ApplicationMultipleInstances\AMIObject.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -387,9 +390,9 @@
     <Compile Include="FooterMessagePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Miscellaneous\RecursiveFiltering\Category.cs" />
-    <Compile Include="Miscellaneous\RecursiveFiltering\RFCustomer.cs" />
-    <Compile Include="Miscellaneous\RecursiveFiltering\Updater.cs" />
+    <Compile Include="ListViewControl\RecursiveFiltering\RFCategory.cs" />
+    <Compile Include="ListViewControl\RecursiveFiltering\RFCustomer.cs" />
+    <Compile Include="ListViewControl\RecursiveFiltering\Updater.cs" />
     <Compile Include="Navigation\LogOut\LOCustomer.cs" />
     <Compile Include="Captions.cs" />
     <Compile Include="Navigation\CursorPosition\AttributeRegistrator.cs" />
@@ -522,7 +525,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Miscellaneous\RecursiveFiltering\MDO_RecursiveFiltering.xafml">
+    <EmbeddedResource Include="ListViewControl\RecursiveFiltering\MDO_RecursiveFiltering.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -545,6 +548,11 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ListViewControl\RecursiveView\MDO_RecursiveView.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
