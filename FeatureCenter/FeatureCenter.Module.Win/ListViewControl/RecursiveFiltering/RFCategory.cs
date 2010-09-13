@@ -3,9 +3,9 @@ using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
-namespace FeatureCenter.Module.Win.Miscellaneous.RecursiveFiltering {
-    public class Category : BaseObject,ITreeNode {
-        public Category(Session session) : base(session) {
+namespace FeatureCenter.Module.Win.ListViewControl.RecursiveFiltering {
+    public class RFCategory : BaseObject,ITreeNode {
+        public RFCategory(Session session) : base(session) {
         }
         private string _name;
 
@@ -14,24 +14,24 @@ namespace FeatureCenter.Module.Win.Miscellaneous.RecursiveFiltering {
             set { SetPropertyValue("Name", ref _name, value); }
         }
 
-        [Association("Category-RFCustomers")]
+        [Association("RFCategory-RFCustomers")]
         public XPCollection<RFCustomer> Customers {
             get { return GetCollection<RFCustomer>("Customers"); }
         }
         string ITreeNode.Name {
             get { return Name; }
         }
-        private Category _parent;
+        private RFCategory _parent;
 
-        [Association("Category-Categorys")]
-        public Category Parent {
+        [Association("RFCategory-Categorys")]
+        public RFCategory Parent {
             get { return _parent; }
             set { SetPropertyValue("Parent", ref _parent, value); }
         }
 
-        [Association("Category-Categorys")]
-        public XPCollection<Category> Children {
-            get { return GetCollection<Category>("Children"); }
+        [Association("RFCategory-Categorys")]
+        public XPCollection<RFCategory> Children {
+            get { return GetCollection<RFCategory>("Children"); }
         }
         ITreeNode ITreeNode.Parent {
             get { return Parent; }

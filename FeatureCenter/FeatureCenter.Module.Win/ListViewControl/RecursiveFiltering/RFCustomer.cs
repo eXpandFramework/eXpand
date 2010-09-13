@@ -4,13 +4,13 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.Attributes;
 
-namespace FeatureCenter.Module.Win.Miscellaneous.RecursiveFiltering
+namespace FeatureCenter.Module.Win.ListViewControl.RecursiveFiltering
 {
     [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Captions.HeaderRecursiveFiltering, "1=1", "1=1",
         Captions.ViewMessageRecursiveFiltering, Position.Bottom)]
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderRecursiveFiltering, "1=1", "1=1",
         Captions.HeaderRecursiveFiltering, Position.Top)]
-    [XpandNavigationItem(Module.Captions.Miscellaneous + "RecursiveFiltering", "RFCustomer_ListView")]
+    [XpandNavigationItem(Module.Captions.ListViewCotrol + "RecursiveFiltering", "RFCustomer_ListView")]
     [DisplayFeatureModel("RFCustomer_ListView", "RecursiveFiltering")]
     public class RFCustomer:CustomerBase,ICategorizedItem
     {
@@ -18,15 +18,15 @@ namespace FeatureCenter.Module.Win.Miscellaneous.RecursiveFiltering
         }
 
         ITreeNode ICategorizedItem.Category {
-            get { return Category; }
-            set { Category=value as Category; }
+            get { return RfCategory; }
+            set { RfCategory=value as RFCategory; }
         }
-        private Category _category;
+        private RFCategory _rfCategory;
 
-        [Association("Category-RFCustomers")]
-        public Category Category {
-            get { return _category; }
-            set { SetPropertyValue("Category", ref _category, value); }
+        [Association("RFCategory-RFCustomers")]
+        public RFCategory RfCategory {
+            get { return _rfCategory; }
+            set { SetPropertyValue("RFCategory", ref _rfCategory, value); }
         }
     }
 }
