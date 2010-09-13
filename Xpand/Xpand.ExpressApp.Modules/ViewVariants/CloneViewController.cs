@@ -1,10 +1,12 @@
 using System.Linq;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.ExpressApp.Model;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.ViewVariants
 {

@@ -135,7 +135,6 @@
     <Compile Include="Controllers\HideICategorizedItemController.Designer.cs">
       <DependentUpon>HideICategorizedItemController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\CategorizedListEditor.cs" />
     <Compile Include="Controllers\ResursiveFilteringViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -147,6 +146,7 @@
     </Compile>
     <Compile Include="Controllers\TreeNodeExtensions.cs">
     </Compile>
+    <Compile Include="XpandCategorizedListEditor.cs" />
     <Compile Include="XpandTreeListEditorsWinModule.cs">
       <SubType>Component</SubType>
     </Compile>
