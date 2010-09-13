@@ -9,20 +9,18 @@ namespace Xpand.ExpressApp.SystemModule
         protected override void OnViewChanging(View view)
         {
             base.OnViewChanging(view);
-            if (View is XpandListView)
-            {
-                ((XpandListView)View).EditorChanged -= listView_EditorChanged;
+            if (View !=null){
+                View.EditorChanged -= listView_EditorChanged;
             }
-            if (view is XpandListView)
-            {
+            if (view is XpandListView){
                 ((XpandListView)view).EditorChanged += listView_EditorChanged;
                 UpdateActiveState((view as XpandListView).Model.EditorType);
             }
         }
 
-        private void listView_EditorChanged(object sender, System.EventArgs e)
-        {
-            UpdateActiveState(((XpandListView)sender).Editor.GetType());
+        private void listView_EditorChanged(object sender, EventArgs e) {
+            var listEditor = ((XpandListView)sender).Editor;
+            if (listEditor != null) UpdateActiveState(listEditor.GetType());
         }
 
         private void UpdateActiveState(Type editorType)

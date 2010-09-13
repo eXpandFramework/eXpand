@@ -125,6 +125,9 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FeatureCenter.Base">
+      <HintPath>..\..\FeatureCenter.Base\bin\Debug\FeatureCenter.Base.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp, Version=10.1.5.179, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
@@ -218,12 +221,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\FeatureCenter.Base\FeatureCenter.Base.csproj">
-      <Project>{782230D9-DFA4-4D7A-89A9-660A361B5A8A}</Project>
-      <Name>FeatureCenter.Base</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,7 +5,7 @@ using Xpand.Xpo;
 
 namespace FeatureCenter.Module.LowLevelFilterDataStore.UserFilter
 {
-    public class Updater:Xpand.Persistent.BaseImpl.Updater
+    public class Updater : Module.Updater
     {
         public Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) {
         }

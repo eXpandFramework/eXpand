@@ -24,10 +24,18 @@ namespace Xpand.ExpressApp {
                 return _instanceXafApplicationManager.Value;
             }
         }
-        public BusinessClassesList GetAdditionalClasses()
+
+
+        public BusinessClassesList GetAdditionalClasses(ApplicationModulesManager manager) {
+            var moduleList = manager.Modules;
+            var businessClassesList = new BusinessClassesList(moduleList.SelectMany(@base => @base.AdditionalBusinessClasses));
+            businessClassesList.AddRange(moduleList.SelectMany(moduleBase => moduleBase.BusinessClassAssemblies.GetBusinessClasses()));
+            return businessClassesList;
+        }
+        public BusinessClassesList GetAdditionalClasses(ModuleList moduleList)
         {
-            var businessClassesList = new BusinessClassesList(Application.Modules.SelectMany(@base => @base.AdditionalBusinessClasses));
-            businessClassesList.AddRange(Application.Modules.SelectMany(moduleBase => moduleBase.BusinessClassAssemblies.GetBusinessClasses()));
+            var businessClassesList = new BusinessClassesList(moduleList.SelectMany(@base => @base.AdditionalBusinessClasses));
+            businessClassesList.AddRange(moduleList.SelectMany(moduleBase => moduleBase.BusinessClassAssemblies.GetBusinessClasses()));
             return businessClassesList;
         }
 

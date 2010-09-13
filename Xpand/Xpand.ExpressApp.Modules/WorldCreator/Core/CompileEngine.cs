@@ -113,6 +113,10 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             persistentAssemblyInfo.CompileErrors =
                 compileAssemblyFromSource.Errors.Cast<CompilerError>().Aggregate(
                     persistentAssemblyInfo.CompileErrors, (current, error) => current +Environment.NewLine+ error.ToString());
+            if (string.IsNullOrEmpty(persistentAssemblyInfo.CompileErrors) ) {
+                Tracing.Tracer.LogSeparator("Compilization error of "+persistentAssemblyInfo.Name);
+                Tracing.Tracer.LogText(persistentAssemblyInfo.CompileErrors);
+            }
         }
 
         void AddReferences(CompilerParameters compilerParams, string path) {

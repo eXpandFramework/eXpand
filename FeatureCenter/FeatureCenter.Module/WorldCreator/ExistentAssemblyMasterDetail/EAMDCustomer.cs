@@ -9,9 +9,9 @@ using Xpand.ExpressApp.Attributes;
 namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail
 {
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderExistentAssemblyMasterDetail, "1=1", "1=1",
-        Captions.ViewMessageExistentAssemblyMasterDetail, Position.Bottom, ViewType = ViewType.DetailView)]
+        Captions.ViewMessageExistentAssemblyMasterDetail, Position.Bottom, View = "EAMDCustomer_ListView")]
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderExistentAssemblyMasterDetail, "1=1", "1=1",
-        Captions.HeaderExistentAssemblyMasterDetail, Position.Top, ViewType = ViewType.DetailView)]
+        Captions.HeaderExistentAssemblyMasterDetail, Position.Top, View = "EAMDCustomer_ListView")]
     [XpandNavigationItem("WorldCreator/Existent Assembly Master Detail", "EAMDCustomer_ListView")]
     [DisplayFeatureModel("EAMDCustomer_ListView", "ExistentAssemblyMasterDetailModelStore")]
     public class EAMDCustomer:BaseObject,ICustomer

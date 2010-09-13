@@ -1,4 +1,5 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,6 +11,25 @@
     <RootNamespace>FeatureCenter.Module.Win</RootNamespace>
     <AssemblyName>FeatureCenter.Module.Win</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -19,6 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -27,6 +48,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,6 +57,7 @@
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v10.1">
@@ -355,6 +378,9 @@
     <Compile Include="ListViewControl\LoadWhenFiltered\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ListViewControl\RecursiveView\RVItem.cs" />
+    <Compile Include="ListViewControl\RecursiveView\RVCategory.cs" />
+    <Compile Include="ListViewControl\RecursiveView\Updater.cs" />
     <Compile Include="Miscellaneous\ApplicationMultipleInstances\AMIObject.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -364,9 +390,9 @@
     <Compile Include="FooterMessagePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Miscellaneous\RecursiveFiltering\Category.cs" />
-    <Compile Include="Miscellaneous\RecursiveFiltering\RFCustomer.cs" />
-    <Compile Include="Miscellaneous\RecursiveFiltering\Updater.cs" />
+    <Compile Include="ListViewControl\RecursiveFiltering\RFCategory.cs" />
+    <Compile Include="ListViewControl\RecursiveFiltering\RFCustomer.cs" />
+    <Compile Include="ListViewControl\RecursiveFiltering\Updater.cs" />
     <Compile Include="Navigation\LogOut\LOCustomer.cs" />
     <Compile Include="Captions.cs" />
     <Compile Include="Navigation\CursorPosition\AttributeRegistrator.cs" />
@@ -411,6 +437,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="PropertyEditors\StringPropertyEditors\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FeatureCenter.Base\FeatureCenter.Base.csproj">
@@ -498,7 +525,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Miscellaneous\RecursiveFiltering\MDO_RecursiveFiltering.xafml">
+    <EmbeddedResource Include="ListViewControl\RecursiveFiltering\MDO_RecursiveFiltering.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -506,7 +533,26 @@
     <EmbeddedResource Include="ControllingXtraGrid\MasterDetail\AutoExpandNewRow\MDO_AutoExpandNewRow.xafml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PropertyEditors\StringPropertyEditors\" />
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ListViewControl\RecursiveView\MDO_RecursiveView.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

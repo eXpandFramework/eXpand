@@ -312,6 +312,7 @@ namespace Xpand.Tests.Xpand.IO
         static XPBaseObject _customer;
 
         Establish context = () => {
+            _objectSpace = ObjectSpaceInMemory.CreateNew();
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             persistentAssemblyBuilder.CreateClasses(new[] { "Customer" });
             _objectSpace = persistentAssemblyBuilder.ObjectSpace;
@@ -338,6 +339,7 @@ namespace Xpand.Tests.Xpand.IO
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
+            _objectSpace = ObjectSpaceInMemory.CreateNew();
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             persistentAssemblyBuilder.CreateClasses(new[] {"Customer"});
             _objectSpace = persistentAssemblyBuilder.ObjectSpace;
@@ -413,7 +415,7 @@ namespace Xpand.Tests.Xpand.IO
         Establish context = () => {
             ObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew();
             _analysis = objectSpace.CreateObject<Analysis>();
-            Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.PivotContent.xml");
+            Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.PivotContent.xml");
             if (manifestResourceStream != null) {
                 _xml = new StreamReader(manifestResourceStream).ReadToEnd();
                 _analysis.PivotGridSettingsContent = Encoding.UTF8.GetBytes(_xml);
@@ -431,6 +433,7 @@ namespace Xpand.Tests.Xpand.IO
                 string value =
                     _root.SerializedObjects(typeof (Analysis)).FirstOrDefault().Property("PivotGridSettingsContent").
                         Value;
+
                 Encoding.UTF8.GetString(Convert.FromBase64String(value)).ShouldEqual(_xml);
             };
     }

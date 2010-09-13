@@ -1,4 +1,10 @@
 ﻿<Application>
+  <AdditionalViewControls>
+    <Rules>
+      <AdditionalViewControlsRule Id="Header Dynamic Assembly Master Detail" IsNewNode="True" TypeInfo="MasterDetailDynamicAssembly.DMDCustomer" Message="Dynamic Assembly Master Detail" NormalCriteria="1=1" ControlType="Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls.ApplicationCaption" View="DMDCustomer_ListView" />
+      <AdditionalViewControlsRule Id="ViewMessage Dynamic Assembly MasterDetail" IsNewNode="True" TypeInfo="MasterDetailDynamicAssembly.DMDCustomer" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" Position="Bottom" NormalCriteria="1=1" Message="In this view you can see a master detail created dynamic by world creator persistent classes" View="DMDCustomer_ListView" />
+    </Rules>
+  </AdditionalViewControls>
   <MasterDetail>
     <Rules>
       <MasterDetailRule Id="DMDCustomer_Orders" IsNewNode="True" TypeInfo="MasterDetailDynamicAssembly.DMDCustomer" CollectionMember="DMDOrders" ChildListView="DMDOrder_ListView" NormalCriteria="1=1" />

@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             if (Application == null||GetPath()== null)
                 return;
             Application.SettingUp+=ApplicationOnSettingUp;
-            var businessClassesList = GetAdditionalClasses();
+            var businessClassesList = GetAdditionalClasses(moduleManager);
             WCTypesInfo.Instance.Register(businessClassesList);
             if (_connectionString != null) {
                 var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
@@ -97,7 +97,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         ReflectionDictionary GetReflectionDictionary() {
-            Type persistentAssemblyInfoType = GetAdditionalClasses().Where(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1)).FirstOrDefault();
+            Type persistentAssemblyInfoType = GetAdditionalClasses(Application.Modules).Where(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1)).FirstOrDefault();
             if (persistentAssemblyInfoType == null)
                 throw new ArgumentNullException("No bussincess object that implements " +
                                                 typeof (IPersistentAssemblyInfo).FullName + " found");

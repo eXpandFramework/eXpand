@@ -1,1 +1,0 @@
-config foundconneection string foundmaster db opened

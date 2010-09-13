@@ -1,10 +1,12 @@
 using System.Linq;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.ExpressApp.Model;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.ViewVariants
 {
@@ -84,11 +86,10 @@ namespace Xpand.ExpressApp.ViewVariants
         }
 
         IModelListView GetClonedView(string caption) {
-            var clonedView = (IModelListView)(((ModelNode)Application.Model.Views)).CloneNodeFrom((ModelNode)View.Model, caption);
+            var clonedView = (IModelListView)(((ModelNode)View.Model.Parent)).CloneNodeFrom((ModelNode)View.Model, caption);
             var modelViewVariants = ((IModelViewVariants) clonedView);
             modelViewVariants.Variants.Current = null;            
             modelViewVariants.Variants.Clear();
-            Application.Model.Views.Add(clonedView);
             return clonedView;
         }
 

@@ -11,7 +11,10 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
             ObjectType = source.ObjectType;
             Operation = source.Operation;
             Modifier = source.Modifier;
+            Criteria = source.Criteria;
         }
+
+        public string Criteria { get; set; }
 
         public Type ObjectType { get; set; }
 
@@ -20,6 +23,6 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
         public MemberOperation Operation { get; set; }
 
         public ObjectAccessModifier Modifier { get; set; }
-        public string Criteria { get; set; }
+
     }
 }

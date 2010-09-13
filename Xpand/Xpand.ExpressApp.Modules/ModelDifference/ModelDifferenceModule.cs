@@ -10,6 +10,7 @@ using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Builders;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
+using Xpand.ExpressApp.SystemModule;
 
 
 namespace Xpand.ExpressApp.ModelDifference
@@ -19,6 +20,7 @@ namespace Xpand.ExpressApp.ModelDifference
 
         public ModelDifferenceModule(){
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
+            RequiredModuleTypes.Add(typeof(XpandSystemModule));
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)

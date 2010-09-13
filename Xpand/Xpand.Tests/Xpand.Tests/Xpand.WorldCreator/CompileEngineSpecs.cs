@@ -172,7 +172,7 @@ namespace Xpand.Tests.Xpand.WorldCreator
         Establish context = () => {
             _info = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             var strongKeyFile = new StrongKeyFile(UnitOfWork);
-            strongKeyFile.LoadFromStream("test", new FileStream(@"../eXpand.Key/eXpand.snk", FileMode.Open));
+            strongKeyFile.LoadFromStream("test", new FileStream(@"../Xpand.Key/Xpand.snk", FileMode.Open));
             _info.StrongKeyFile = strongKeyFile;
             _info.Name = "a5";
 
@@ -225,7 +225,8 @@ namespace Xpand.Tests.Xpand.WorldCreator
             _persistentAssemblyInfos = new List<PersistentAssemblyInfo> { persistentAssemblyInfo, info }.Cast<IPersistentAssemblyInfo>().ToList();
             _compileEngine = new CompileEngine();
             string executablePath = Path.GetDirectoryName(Application.ExecutablePath);
-            Isolate.WhenCalled(() => _compileEngine.CompileModule(Isolate.Fake.Instance<IPersistentAssemblyInfo>(), executablePath)).DoInstead(callContext =>
+            var persistentAssemblyBuilder = Isolate.Fake.Instance<IPersistentAssemblyInfo>();
+            Isolate.WhenCalled(() => _compileEngine.CompileModule(persistentAssemblyBuilder, executablePath)).DoInstead(callContext =>
             {
                 _persistnetAssembly = (IPersistentAssemblyInfo) callContext.Parameters[0];
                 return null;

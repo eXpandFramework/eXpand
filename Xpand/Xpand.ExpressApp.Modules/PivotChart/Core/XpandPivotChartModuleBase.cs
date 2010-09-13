@@ -21,12 +21,11 @@ namespace Xpand.ExpressApp.PivotChart.Core {
 
         protected abstract IModelNodesGeneratorUpdater GetAnalysisPropertyEditorNodeUpdater();
 
-        public override void Setup(XafApplication application)
+        public override void Setup(ApplicationModulesManager moduleManager)
         {
-            base.Setup(application);
-            TypesInfo.AddTypes(GetAdditionalClasses());
+            base.Setup(moduleManager);
+            TypesInfo.AddTypes(GetAdditionalClasses(moduleManager));
         }
-
         public abstract TypesInfo TypesInfo{ get;}
 
         

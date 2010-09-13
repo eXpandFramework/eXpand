@@ -26,6 +26,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores{
     {
         public const string ModelApplicationPrefix = "MDO_";
         public const string RoleApplicationPrefix = "RDO_";
+        private const string StartUp = "StartUp";
         readonly string _path;
         readonly List<ModelApplicationFromStreamStoreBase> _extraDiffStores;
         public const string EnableDebuggerAttachedCheck = "EnableDebuggerAttachedCheck";
@@ -58,7 +59,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores{
         
         public override void Load(ModelApplicationBase model)
         {
-            var extraDiffStoresLayerBuilder = new ExtraDiffStoresLayerBuilder(this);
+            var extraDiffStoresLayerBuilder = new ExtraDiffStoresLayerBuilder();
             var language = model.Application.PreferredLanguage;
             if (UseModelFromPath()) {
                 return;
@@ -78,7 +79,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores{
             if (loadedModelDifferenceObjectInfos.Count() == 0) {
                 var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo>();
                 var application = model.CreatorInstance.CreateModelApplication();
-                application.Id = "StartUp";
+                application.Id = StartUp;
                 model.AddLayerBeforeLast(application);
                 var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(application.Id);
                 modelDifferenceObjectInfos.Add(application.Id, new ModelDifferenceObjectInfo(modelDifferenceObject, application));                
