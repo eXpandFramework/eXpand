@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
-using DevExpress.Xpo;
+using Xpand.ExpressApp.Model;
 
 
 namespace Xpand.ExpressApp {
@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp {
         public void Proccess(CustomProcessShortcutEventArgs shortcutEventArgs) {
             var shortcut = shortcutEventArgs.Shortcut;
             IModelDetailView modelDetailView = GetModelView(shortcut);
-            if ((modelDetailView != null)) {
+            if ((modelDetailView != null&&IsEnable(modelDetailView))) {
                 shortcutEventArgs.Handled = true;
                 var objectSpace = _application.CreateObjectSpace();
                 object obj = GetObject(shortcut, modelDetailView, objectSpace);
@@ -30,6 +30,10 @@ namespace Xpand.ExpressApp {
                 shortcutEventArgs.View = _detailView;
                     
             }
+        }
+
+        bool IsEnable(IModelDetailView modelDetailView) {
+            return ((IModelDetailViewProccessViewShortcuts)modelDetailView).ViewShortcutProccesor;
         }
 
         object GetObject(ViewShortcut shortcut, IModelDetailView modelDetailView, ObjectSpace objectSpace) {
@@ -56,11 +60,11 @@ namespace Xpand.ExpressApp {
             return objectKey;
         }
 
-        object GetObjectCore(IModelDetailView modelView, object objectKey, ObjectSpace objectSpace) {
+        protected virtual object GetObjectCore(IModelDetailView modelView, object objectKey, ObjectSpace objectSpace) {
             Type type = modelView.ModelClass.TypeInfo.Type;
             object obj;
 
-            if (typeof(IXPSimpleObject).IsAssignableFrom(type)){
+            if (XafTypesInfo.CastTypeToTypeInfo(type).IsPersistent){
                 if (objectKey != null && !(objectKey is CriteriaOperator))
                     obj=objectSpace.GetObjectByKey(type,objectKey);
                 else {

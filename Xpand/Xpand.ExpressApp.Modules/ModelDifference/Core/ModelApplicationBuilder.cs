@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 if (string.IsNullOrEmpty(assembliesPath)) {
                     assembliesPath = Path.GetDirectoryName(configFileName);
                     if (isWebApplicationModel) {
-                        assembliesPath = Path.Combine(assembliesPath, "Bin");
+                        assembliesPath = Path.Combine(assembliesPath+"", "Bin");
                     }
                 }
             }

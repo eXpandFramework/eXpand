@@ -10,7 +10,6 @@ using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using Microsoft.CSharp;
 using Microsoft.VisualBasic;
-using Xpand.ExpressApp;
 using Xpand.Persistent.Base.PersistentMetaData;
 using CodeDomProvider = Xpand.Persistent.Base.PersistentMetaData.CodeDomProvider;
 
@@ -28,7 +27,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo,Action<CompilerParameters> action,string path) {
             Assembly loadedAssembly = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => new AssemblyName(assembly.FullName+"").Name==persistentAssemblyInfo.Name).FirstOrDefault();
             if (loadedAssembly!= null)
-                return loadedAssembly.GetTypes().Where(type => typeof(DevExpress.ExpressApp.ModuleBase).IsAssignableFrom(type)).Single();
+                return loadedAssembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
             var generateCode = CodeEngine.GenerateCode(persistentAssemblyInfo);
             var codeProvider = getCodeDomProvider(persistentAssemblyInfo.CodeDomProvider);
             var compilerParams = new CompilerParameters
@@ -91,7 +90,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 if (compilerParams.GenerateInMemory) {
                     Assembly compiledAssembly = compileAssemblyFromSource.CompiledAssembly;
                     CompiledAssemblies.Add(compiledAssembly);
-                    return compiledAssembly.GetTypes().Where(type => typeof(DevExpress.ExpressApp.ModuleBase).IsAssignableFrom(type)).Single();
+                    return compiledAssembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
                 }
                 return null;
             }
@@ -113,7 +112,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             persistentAssemblyInfo.CompileErrors =
                 compileAssemblyFromSource.Errors.Cast<CompilerError>().Aggregate(
                     persistentAssemblyInfo.CompileErrors, (current, error) => current +Environment.NewLine+ error.ToString());
-            if (string.IsNullOrEmpty(persistentAssemblyInfo.CompileErrors) ) {
+            if (!string.IsNullOrEmpty(persistentAssemblyInfo.CompileErrors) ) {
                 Tracing.Tracer.LogSeparator("Compilization error of "+persistentAssemblyInfo.Name);
                 Tracing.Tracer.LogText(persistentAssemblyInfo.CompileErrors);
             }
@@ -121,18 +120,20 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         void AddReferences(CompilerParameters compilerParams, string path) {
             Func<Assembly, bool> isNotDynamic =assembly1 =>!(assembly1 is AssemblyBuilder) && !CompiledAssemblies.Contains(assembly1) &&
-                assembly1.EntryPoint == null && !IsCodeDomCompiled(assembly1);
+                assembly1.EntryPoint == null && !IsCodeDomCompiled(assembly1) && assembly1.ManifestModule.Name.ToLower().IndexOf("mscorlib.resources") == -1;
             Func<Assembly, string> assemblyNameSelector = assembly => new AssemblyName(assembly.FullName + "").Name + ".dll";
             compilerParams.ReferencedAssemblies.AddRange(
                 AppDomain.CurrentDomain.GetAssemblies().Where(isNotDynamic).Select(assemblyNameSelector).ToArray());
 
             compilerParams.ReferencedAssemblies.Remove("Microsoft.VisualStudio.Debugger.Runtime.dll");
+            compilerParams.ReferencedAssemblies.Remove("mscorlib.resources.dll");
 
             Func<Assembly, string> dynamicAssemblyNameSelector = assembly4 => Path.Combine(path, new AssemblyName(assembly4.FullName + "").Name + XpandExtension);
             compilerParams.ReferencedAssemblies.AddRange(
                 AppDomain.CurrentDomain.GetAssemblies().Where(IsCodeDomCompiled).Select(
                     dynamicAssemblyNameSelector).ToArray());
         }
+
 
         bool IsCodeDomCompiled(Assembly assembly1) {
             return assembly1.ManifestModule.Name == "<Unknown>";
@@ -157,7 +158,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             var definedModules = new List<Type>();
             
             foreach (IPersistentAssemblyInfo persistentAssemblyInfo in persistentAssemblyInfos.OrderByDescending(info => info.CompileOrder)) {
-                string fileName = Path.Combine(Path.GetDirectoryName(path),persistentAssemblyInfo.Name);
+                string fileName = Path.Combine(Path.GetDirectoryName(path)+"",persistentAssemblyInfo.Name);
                 if (File.Exists(fileName+".wc"))
                     File.Delete(fileName+".wc");
                 persistentAssemblyInfo.CompileErrors = null;

@@ -133,6 +133,7 @@
     <Compile Include="Core\TypeValueConverter.cs" />
     <Compile Include="DataStoreProvider.cs" />
     <Compile Include="Model\IModelBOModelRuntimeMember.cs" />
+    <Compile Include="Model\IModelProccessViewShortcuts.cs" />
     <Compile Include="SystemModule\CreateExpandAbleMembersViewController.cs">
       <SubType>Component</SubType>
     </Compile>

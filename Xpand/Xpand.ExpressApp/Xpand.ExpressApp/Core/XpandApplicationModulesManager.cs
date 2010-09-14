@@ -33,6 +33,11 @@ namespace Xpand.ExpressApp.Core
         private readonly List<Assembly> scannedForModuleAssemblies = new List<Assembly>();
         private static readonly object lockObject = new object();
         private readonly Dictionary<Assembly, Assembly> assemblyHash = new Dictionary<Assembly, Assembly>();
+        public new ModuleList Modules
+        {
+            get { return _modules; }
+            set { _modules = value; }
+        }
 
         private void Init(XpandControllersManager xpandControllersManager, string assembliesPath)
         {
@@ -41,6 +46,7 @@ namespace Xpand.ExpressApp.Core
             _modules = new ModuleList(null);
             controllersManager = xpandControllersManager;
         }
+
         private void SetupModules()
         {
             Tracing.Tracer.LogText("SetupModules");
