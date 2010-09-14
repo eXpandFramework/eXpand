@@ -2110,10 +2110,10 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentClassInfo">
-    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[Xpand.Xpo.eXpandCustomObject]]></Property>
+    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[Xpand.Xpo.XpandCustomObject]]></Property>
     
     
-    <Property type="simple" name="BaseType" isKey="false"><![CDATA[Xpand.Xpo.eXpandCustomObject]]></Property>
+    <Property type="simple" name="BaseType" isKey="false"><![CDATA[Xpand.Xpo.XpandCustomObject]]></Property>
     <Property type="simple" name="oid" isKey="true">8315cbbc-344d-47d3-b4d5-7f5e907b521b</Property>
     <Property type="simple" name="MergedObjectFullName" isKey="false"></Property>
     
@@ -5440,10 +5440,10 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentClassInfo">
-    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[Xpand.Xpo.eXpandCustomObject]]></Property>
+    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[Xpand.Xpo.XpandCustomObject]]></Property>
     
     
-    <Property type="simple" name="BaseType" isKey="false"><![CDATA[Xpand.Xpo.eXpandCustomObject]]></Property>
+    <Property type="simple" name="BaseType" isKey="false"><![CDATA[Xpand.Xpo.XpandCustomObject]]></Property>
     <Property type="simple" name="oid" isKey="true">e5ef6632-9f15-472d-b86f-74fde92f6ecc</Property>
     <Property type="simple" name="MergedObjectFullName" isKey="false"></Property>
     
@@ -8763,10 +8763,10 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentClassInfo">
-    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[Xpand.Xpo.eXpandCustomObject]]></Property>
+    <Property type="simple" name="BaseTypeFullName" isKey="false"><![CDATA[Xpand.Xpo.XpandCustomObject]]></Property>
     
     
-    <Property type="simple" name="BaseType" isKey="false"><![CDATA[Xpand.Xpo.eXpandCustomObject]]></Property>
+    <Property type="simple" name="BaseType" isKey="false"><![CDATA[Xpand.Xpo.XpandCustomObject]]></Property>
     <Property type="simple" name="oid" isKey="true">c99851f8-a111-4bbd-b1f6-15927a731d46</Property>
     <Property type="simple" name="MergedObjectFullName" isKey="false"></Property>
     
