@@ -6,7 +6,6 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
-using DevExpress.Xpo;
 
 
 namespace Xpand.ExpressApp {
@@ -56,11 +55,11 @@ namespace Xpand.ExpressApp {
             return objectKey;
         }
 
-        object GetObjectCore(IModelDetailView modelView, object objectKey, ObjectSpace objectSpace) {
+        protected virtual object GetObjectCore(IModelDetailView modelView, object objectKey, ObjectSpace objectSpace) {
             Type type = modelView.ModelClass.TypeInfo.Type;
             object obj;
 
-            if (typeof(IXPSimpleObject).IsAssignableFrom(type)){
+            if (XafTypesInfo.CastTypeToTypeInfo(type).IsPersistent){
                 if (objectKey != null && !(objectKey is CriteriaOperator))
                     obj=objectSpace.GetObjectByKey(type,objectKey);
                 else {
