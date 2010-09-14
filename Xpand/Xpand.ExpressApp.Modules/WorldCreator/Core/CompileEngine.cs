@@ -120,18 +120,20 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         void AddReferences(CompilerParameters compilerParams, string path) {
             Func<Assembly, bool> isNotDynamic =assembly1 =>!(assembly1 is AssemblyBuilder) && !CompiledAssemblies.Contains(assembly1) &&
-                assembly1.EntryPoint == null && !IsCodeDomCompiled(assembly1);
+                assembly1.EntryPoint == null && !IsCodeDomCompiled(assembly1) && assembly1.ManifestModule.Name.ToLower().IndexOf("mscorlib.resources") == -1;
             Func<Assembly, string> assemblyNameSelector = assembly => new AssemblyName(assembly.FullName + "").Name + ".dll";
             compilerParams.ReferencedAssemblies.AddRange(
                 AppDomain.CurrentDomain.GetAssemblies().Where(isNotDynamic).Select(assemblyNameSelector).ToArray());
 
             compilerParams.ReferencedAssemblies.Remove("Microsoft.VisualStudio.Debugger.Runtime.dll");
+            compilerParams.ReferencedAssemblies.Remove("mscorlib.resources.dll");
 
             Func<Assembly, string> dynamicAssemblyNameSelector = assembly4 => Path.Combine(path, new AssemblyName(assembly4.FullName + "").Name + XpandExtension);
             compilerParams.ReferencedAssemblies.AddRange(
                 AppDomain.CurrentDomain.GetAssemblies().Where(IsCodeDomCompiled).Select(
                     dynamicAssemblyNameSelector).ToArray());
         }
+
 
         bool IsCodeDomCompiled(Assembly assembly1) {
             return assembly1.ManifestModule.Name == "<Unknown>";
