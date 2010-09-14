@@ -73,6 +73,8 @@ namespace Xpand.ExpressApp.SystemModule
             extenders.Add<IModelListView, IModelListViewLoadWhenFiltered>();
             extenders.Add<IModelListView, IModelListViewLinq>();
             extenders.Add<IModelMember, IModelBOModelRuntimeMember>();
+            extenders.Add<IModelClass, IModelClassProccessViewShortcuts>();
+            extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
         }
     }
 

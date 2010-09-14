@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
+using Xpand.ExpressApp.Model;
 
 
 namespace Xpand.ExpressApp {
@@ -21,7 +22,7 @@ namespace Xpand.ExpressApp {
         public void Proccess(CustomProcessShortcutEventArgs shortcutEventArgs) {
             var shortcut = shortcutEventArgs.Shortcut;
             IModelDetailView modelDetailView = GetModelView(shortcut);
-            if ((modelDetailView != null)) {
+            if ((modelDetailView != null&&IsEnable(modelDetailView))) {
                 shortcutEventArgs.Handled = true;
                 var objectSpace = _application.CreateObjectSpace();
                 object obj = GetObject(shortcut, modelDetailView, objectSpace);
@@ -29,6 +30,10 @@ namespace Xpand.ExpressApp {
                 shortcutEventArgs.View = _detailView;
                     
             }
+        }
+
+        bool IsEnable(IModelDetailView modelDetailView) {
+            return ((IModelDetailViewProccessViewShortcuts)modelDetailView).ViewShortcutProccesor;
         }
 
         object GetObject(ViewShortcut shortcut, IModelDetailView modelDetailView, ObjectSpace objectSpace) {
