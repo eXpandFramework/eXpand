@@ -41,14 +41,15 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
 
         public bool Fit(object currentObject,MemberOperation memberOperation) {
             var memberAccessPermission = ((SecurityBase)SecuritySystem.Instance).PermissionSet.GetPermission(typeof(MemberAccessPermission)) as MemberAccessPermission;
-            if (memberAccessPermission != null && memberAccessPermission.IsSubsetOf(memberAccessPermission))
-            {
+            if (memberAccessPermission != null && memberAccessPermission.IsSubsetOf(memberAccessPermission)){
                 ObjectSpace objectSpace = ObjectSpace.FindObjectSpace(currentObject);
-                var memberAccessPermissionItem = memberAccessPermission.items.Where(item => item.Operation == memberOperation).SingleOrDefault();
-                if (memberAccessPermissionItem != null) {
-                    var criteriaOperator = CriteriaOperator.Parse(memberAccessPermissionItem.Criteria);
-                    var isObjectFitForCriteria = objectSpace.IsObjectFitForCriteria(currentObject, criteriaOperator);
-                    return isObjectFitForCriteria.GetValueOrDefault(true);
+                if (objectSpace!=null) {
+                    var memberAccessPermissionItem = memberAccessPermission.items.Where(item => item.Operation == memberOperation).SingleOrDefault();
+                    if (memberAccessPermissionItem != null) {
+                        var criteriaOperator = CriteriaOperator.Parse(memberAccessPermissionItem.Criteria);
+                        var isObjectFitForCriteria = objectSpace.IsObjectFitForCriteria(currentObject, criteriaOperator);
+                        return isObjectFitForCriteria.GetValueOrDefault(true);
+                    }
                 }
             }
             return true;
