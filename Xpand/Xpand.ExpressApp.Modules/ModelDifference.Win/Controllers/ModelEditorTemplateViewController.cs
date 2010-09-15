@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers
         {
             base.OnViewChanging(view);
 
-            if (View is XpandDetailView)
+            if (View != null)
             {
                 View.Closing -= View_Closing;
             }
@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers
         {
             try
             {
-                if (View is XpandDetailView)
+                if (View != null)
                 {
                     View.Closing -= View_Closing;
                 }
@@ -50,18 +50,20 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers
 
         void View_Closing(object sender, System.EventArgs e)
         {
-            HideMainBarActions();
+            HideMainBarActions((XpandDetailView) sender);
         }
 
-        void HideMainBarActions()
+        void HideMainBarActions(XpandDetailView xpandDetailView)
         {
-            var modelEditorViewController = View.GetItems<ModelEditorPropertyEditor>()[0].ModelEditorViewController;
-            var actions = (List<ActionBase>)modelEditorViewController.GetType().GetField("mainBarActions",
-                                                                                        BindingFlags.Instance | BindingFlags.NonPublic).GetValue(
-                                                                                            modelEditorViewController);
-            foreach (var actionBase in Frame.Template.DefaultContainer.Actions.Where(actions.Contains))
-            {
-                actionBase.Active["Is Not ModelDiffs view"] = false;
+            var modelEditorViewController = xpandDetailView.GetItems<ModelEditorPropertyEditor>()[0].ModelEditorViewController;
+            FieldInfo fieldInfo = modelEditorViewController.GetType().GetField("mainBarActions",
+                                                                               BindingFlags.Instance | BindingFlags.NonPublic);
+            if (fieldInfo != null) {
+                var actions = (List<ActionBase>)fieldInfo.GetValue(modelEditorViewController);
+                foreach (var actionBase in Frame.Template.DefaultContainer.Actions.Where(actions.Contains))
+                {
+                    actionBase.Active["Is Not ModelDiffs view"] = false;
+                }
             }
         }
 
