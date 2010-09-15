@@ -54,7 +54,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects
                 new List<ModelDifferenceObject>(
                     new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName,null).Cast<ModelDifferenceObject>()) 
             {
-                new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(PersistentApplication.UniqueName,null)
+                new QueryModelDifferenceObject(Session).GetActiveModelDifference(PersistentApplication.UniqueName,null)
             };
 
             return GetAllLayers(modelDifferenceObjects.AsEnumerable(),master);

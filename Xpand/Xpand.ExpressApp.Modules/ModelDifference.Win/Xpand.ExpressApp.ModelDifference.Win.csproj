@@ -136,6 +136,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ModelEditorCustomTemplateViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\ModelEditorTemplateViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -144,6 +147,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyEditors\ModelEditorPropertyEditor.cs" />
+    <Compile Include="Templates\ModelEditorDetailViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
