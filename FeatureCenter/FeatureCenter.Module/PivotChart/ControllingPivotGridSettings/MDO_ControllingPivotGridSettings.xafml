@@ -10,7 +10,7 @@
     <ConditionalActionState>
       <GroupContexts>
         <ExecutionContexts Id="PivotChartContextGroup" IsNewNode="True">
-          <ViewControlsCreated IsNewNode="True"/>
+          <ViewControlsCreated Name="ViewControlsCreated" IsNewNode="True"/>
         </ExecutionContexts>
       </GroupContexts>
       <Rules>

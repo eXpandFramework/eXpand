@@ -14,7 +14,7 @@
     <ConditionalActionState>
       <GroupContexts>
         <ExecutionContexts Id="ConnectWithCustomer" IsNewNode="True">
-          <ViewControlsCreated IsNewNode="True" Index="0" />
+          <ViewControlsCreated Name="ViewControlsCreated" IsNewNode="True" Index="0" />
         </ExecutionContexts>
       </GroupContexts>
       <Rules>
