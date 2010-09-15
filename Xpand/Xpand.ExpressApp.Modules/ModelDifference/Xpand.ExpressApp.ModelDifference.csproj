@@ -140,7 +140,7 @@
     <Compile Include="Controllers\CombineDifferencesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\SynchronizeWithUserModelController.cs">
+    <Compile Include="Controllers\SynchronizeActiveUserDifferenceWithUserModelController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\SyncronizeApplicationModelDiffsController.cs">
