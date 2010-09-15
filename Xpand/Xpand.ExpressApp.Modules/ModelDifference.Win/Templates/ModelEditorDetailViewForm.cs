@@ -2,9 +2,9 @@
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Win.Templates;
 
-namespace Xpand.ExpressApp.Win.Templates
+namespace Xpand.ExpressApp.ModelDifference.Win.Templates
 {
-    public class XpandDetailViewForm : DetailViewForm{
+    public class ModelEditorDetailViewForm : DetailViewForm{
         public override void ReloadSettings(){
             var list = new List<ModelApplicationBase>();
             var applicationBase = ((ModelApplicationBase) XpandModuleBase.Application.Model);

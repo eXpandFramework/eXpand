@@ -137,6 +137,7 @@
     <Compile Include="SystemModule\CreateExpandAbleMembersViewController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Updater.cs" />
     <Compile Include="XpandDetailView.cs" />
     <Compile Include="Editors\ActionButtonDetailItem.cs">
       <SubType>Code</SubType>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -7,7 +8,6 @@ using DevExpress.ExpressApp.Win.Templates.ActionContainers;
 using DevExpress.XtraBars.Ribbon;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.Win.PropertyEditors;
-using System.Linq;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.Controllers
 {
@@ -18,11 +18,39 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers
             TargetObjectType = typeof(ModelDifferenceObject);
         }
 
+        protected override void OnViewChanging(View view)
+        {
+            base.OnViewChanging(view);
 
-        protected override void OnDeactivating()
+            if (View is XpandDetailView)
+            {
+                View.Closing -= View_Closing;
+            }
+
+            if (view is XpandDetailView && typeof(ModelDifferenceObject).IsAssignableFrom(view.ObjectTypeInfo.Type))
+            {
+                view.Closing += View_Closing;
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            try
+            {
+                if (View is XpandDetailView)
+                {
+                    View.Closing -= View_Closing;
+                }
+            }
+            finally
+            {
+                base.Dispose(disposing);
+            }
+        }
+
+        void View_Closing(object sender, System.EventArgs e)
         {
             HideMainBarActions();
-            base.OnDeactivating();
         }
 
         void HideMainBarActions()

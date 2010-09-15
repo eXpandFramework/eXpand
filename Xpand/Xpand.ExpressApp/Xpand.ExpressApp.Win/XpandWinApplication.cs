@@ -10,25 +10,23 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Win.Interfaces;
 using Xpand.ExpressApp.Core;
-using Xpand.ExpressApp.Win.Templates;
+using Xpand.ExpressApp.Win.Interfaces;
 
 namespace Xpand.ExpressApp.Win
 {
-    public partial class XpandWinApplication : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation,IWinApplication{
+    public partial class XpandWinApplication : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication
+    {
         bool _isSharedModel;
 
-        protected override bool IsSharedModel {
+        protected override bool IsSharedModel
+        {
             get { return _isSharedModel; }
         }
         public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
 
-        protected override IFrameTemplate CreateDefaultTemplate(TemplateContext context) {
-            return context==TemplateContext.View ? new XpandDetailViewForm() : base.CreateDefaultTemplate(context);
-        }
-
-        public void OnCustomCreateListEditor(CreatingListEditorEventArgs e) {
+        public void OnCustomCreateListEditor(CreatingListEditorEventArgs e)
+        {
             EventHandler<CreatingListEditorEventArgs> handler = CustomCreateListEditor;
             if (handler != null) handler(this, e);
         }
@@ -37,22 +35,26 @@ namespace Xpand.ExpressApp.Win
         {
             base.OnCustomProcessShortcut(args);
             new ViewShortCutProccesor(this).Proccess(args);
-            
+
         }
 
-        void OnListViewCreating(object sender, ListViewCreatingEventArgs args) {
-            args.View = ViewFactory.CreateListView(this, args.ViewID, args.CollectionSource, args.IsRoot);            
+        void OnListViewCreating(object sender, ListViewCreatingEventArgs args)
+        {
+            args.View = ViewFactory.CreateListView(this, args.ViewID, args.CollectionSource, args.IsRoot);
         }
 
-        void OnDetailViewCreating(object sender, DetailViewCreatingEventArgs args) {
+        void OnDetailViewCreating(object sender, DetailViewCreatingEventArgs args)
+        {
             args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.Obj, args.ObjectSpace, args.IsRoot);
         }
 
-        public ApplicationModelsManager ModelsManager {
+        public ApplicationModelsManager ModelsManager
+        {
             get { return modelsManager; }
         }
 
-        public override IModelTemplate GetTemplateCustomizationModel(IFrameTemplate template) {
+        public override IModelTemplate GetTemplateCustomizationModel(IFrameTemplate template)
+        {
             var list = new List<ModelApplicationBase>();
             while (((ModelApplicationBase)Model).LastLayer.Id != "UserDiff" && ((ModelApplicationBase)Model).LastLayer.Id != AfterSetupLayerId)
             {
@@ -61,14 +63,16 @@ namespace Xpand.ExpressApp.Win
                 ((ModelApplicationBase)Model).RemoveLayer(modelApplicationBase);
             }
             var modelTemplate = base.GetTemplateCustomizationModel(template);
-            foreach (var modelApplicationBase in list) {
+            foreach (var modelApplicationBase in list)
+            {
                 ((ModelApplicationBase)Model).AddLayer(modelApplicationBase);
             }
             return modelTemplate;
         }
 
-        protected override ListEditor CreateListEditorCore(IModelListView modelListView, CollectionSourceBase collectionSource) {
-            var creatingListEditorEventArgs = new CreatingListEditorEventArgs(modelListView,collectionSource);
+        protected override ListEditor CreateListEditorCore(IModelListView modelListView, CollectionSourceBase collectionSource)
+        {
+            var creatingListEditorEventArgs = new CreatingListEditorEventArgs(modelListView, collectionSource);
             OnCustomCreateListEditor(creatingListEditorEventArgs);
             return creatingListEditorEventArgs.Handled ? creatingListEditorEventArgs.ListEditor : base.CreateListEditorCore(modelListView, collectionSource);
         }
@@ -76,7 +80,7 @@ namespace Xpand.ExpressApp.Win
         public void Logout()
         {
             Tracing.Tracer.LogSeparator("Application is being restarted");
-            
+
 
             ShowViewStrategy.CloseAllWindows();
             if (!ignoreUserModelDiffs)
@@ -112,7 +116,7 @@ namespace Xpand.ExpressApp.Win
         }
 
 
-        
+
 
         public XpandWinApplication()
         {
