@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.Core
     {
         
         
-        private XpandControllersManager controllersManager;
+        private XpandControllersManager _xpandControllersManager;
         private ModuleList _modules;
         private readonly ISecurity security;
         private bool isLoaded;
@@ -39,12 +39,17 @@ namespace Xpand.ExpressApp.Core
             set { _modules = value; }
         }
 
+        public new XpandControllersManager ControllersManager
+        {
+            get { return _xpandControllersManager; }
+        }
+
         private void Init(XpandControllersManager xpandControllersManager, string assembliesPath)
         {
             Tracing.Tracer.LogVerboseText("ApplicationModulesManager.Init");
             _assembliesPath = assembliesPath;
             _modules = new ModuleList(null);
-            controllersManager = xpandControllersManager;
+            _xpandControllersManager = xpandControllersManager;
         }
 
         private void SetupModules()
@@ -62,7 +67,7 @@ namespace Xpand.ExpressApp.Core
                         string.Format("Exception occurs while initializing the '{0}' module: {1}", module.GetType().FullName, e.Message), e);
                 }
             }
-            foreach (Controller controller in controllersManager.Controllers)
+            foreach (Controller controller in _xpandControllersManager.Controllers)
             {
                 var supportSetupItem = controller as ISupportSetup;
                 if (supportSetupItem != null)
@@ -100,7 +105,7 @@ namespace Xpand.ExpressApp.Core
                     }
                     module.CustomizeLogics(XafTypesInfo.XpoTypeInfoSource.CustomLogics);
                 }
-                foreach (Controller controller in controllersManager.Controllers)
+                foreach (Controller controller in _xpandControllersManager.Controllers)
                 {
                     try
                     {
@@ -160,7 +165,7 @@ namespace Xpand.ExpressApp.Core
             {
                 typesInfo.LoadTypes(assembly);
             }
-            controllersManager.CollectControllers(IsTypeFromModule);
+            _xpandControllersManager.CollectControllers(IsTypeFromModule);
         }
         protected virtual void LoadTypesInfo(IList<ModuleBase> modules, ITypesInfo typesInfo)
         {
@@ -194,7 +199,7 @@ namespace Xpand.ExpressApp.Core
 
         public new void Clear()
         {
-            Init(controllersManager, _assembliesPath);
+            Init(_xpandControllersManager, _assembliesPath);
             isLoaded = false;
         }
         public new void Load(ITypesInfo typesInfo)

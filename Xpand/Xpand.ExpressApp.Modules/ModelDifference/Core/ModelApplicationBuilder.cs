@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         public ModelApplicationBuilder(string executableName) {
             _executableName = executableName;
         }
-        public XpandApplicationModulesManager CreateApplicationModelManager(XafApplication application, string configFileName, string assembliesPath, ITypesInfo typesInfo)
+        public XpandApplicationModulesManager CreateApplicationModulesManager(XafApplication application, string configFileName, string assembliesPath, ITypesInfo typesInfo)
         {
             if (!string.IsNullOrEmpty(configFileName)) {
                 bool isWebApplicationModel =
@@ -67,32 +67,47 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         }
 
         ModelApplicationBase GetExternalMasterModel() {
+            TypesInfo typesInfo = GetTypesInfo();
+            var application = GetApplication(_executableName, typesInfo);
+            XpandApplicationModulesManager modulesManager = GetModulesManager(typesInfo, application);
+            ApplicationModelsManager modelsManager = GetModelsManager(modulesManager);
+            return (ModelApplicationBase) GetModelApplication(application, modelsManager);
+        }
+
+        TypesInfo GetTypesInfo() {
             var typesInfo = new TypesInfo();
             typesInfo.AddSource(new ReflectionTypeInfoSource());
             var xpoSource = new XpoTypeInfoSource(typesInfo);
             typesInfo.AddSource(xpoSource);
             typesInfo.AddSource(new DynamicTypeInfoSource());
-            typesInfo.SetRedirectStrategy((@from, info) => xpoSource.GetFirstRegisteredTypeForEntity(from) ?? from);   
-            var application = GetApplication(_executableName, typesInfo);
+            typesInfo.SetRedirectStrategy((@from, info) => xpoSource.GetFirstRegisteredTypeForEntity(from) ?? from);
+            return typesInfo;
+        }
 
-            var modulesManager = CreateApplicationModelManager(application,string.Empty,
-                                                               AppDomain.CurrentDomain.SetupInformation.ApplicationBase,typesInfo);
-
-            ReadModulesFromConfig(modulesManager, application);
-
-            modulesManager.Load(typesInfo);
-
-            var modelsManager = new ApplicationModelsManager(
-                modulesManager.Modules,
-                modulesManager.ControllersManager,
-                modulesManager.DomainComponents);
+        IModelApplication GetModelApplication(XafApplication application, ApplicationModelsManager modelsManager) {
             var modelApplicationCreator = XpandModuleBase.ModelApplicationCreator;
             XpandModuleBase.ModelApplicationCreator = null;
             var modelApplication = modelsManager.CreateModelApplication();
             AddAfterSetupLayer(modelApplication);
             XpandModuleBase.ModelApplicationCreator=modelApplicationCreator;
             application.Dispose();
-            return (ModelApplicationBase) modelApplication;
+            return modelApplication;
+        }
+
+        ApplicationModelsManager GetModelsManager(XpandApplicationModulesManager modulesManager) {
+            var controllersManager=modulesManager.ControllersManager;
+            var applicationModelsManager = new ApplicationModelsManager(modulesManager.Modules,controllersManager,modulesManager.DomainComponents);
+            return applicationModelsManager;
+        }
+
+        XpandApplicationModulesManager GetModulesManager(TypesInfo typesInfo, XafApplication application) {
+            var modulesManager = CreateApplicationModulesManager(application,string.Empty,
+                                                                 AppDomain.CurrentDomain.SetupInformation.ApplicationBase,typesInfo);
+
+            ReadModulesFromConfig(modulesManager, application);
+
+            modulesManager.Load(typesInfo);
+            return modulesManager;
         }
 
         void AddAfterSetupLayer(IModelApplication modelApplication) {
