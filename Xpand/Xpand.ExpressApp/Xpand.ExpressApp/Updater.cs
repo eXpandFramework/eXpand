@@ -1,9 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using System.Collections.Generic;
-using DevExpress.Xpo.Helpers;
 
 namespace Xpand.ExpressApp
 {
@@ -13,10 +12,10 @@ namespace Xpand.ExpressApp
         public override void UpdateDatabaseBeforeUpdateSchema()
         {
             base.UpdateDatabaseBeforeUpdateSchema();
-            if (this.CurrentDBVersion <= new Version(10, 0))
+            if (this.CurrentDBVersion < new Version(10, 1, 6))
             {
                 Dictionary<object, string> objectTypes = new Dictionary<object, string>();
-                using (var reader = this.ExecuteReader("select [Oid], [TypeName] from [XPObjectType] where [TypeName] like 'expand.%'", false))
+                using (var reader = this.ExecuteReader("select [Oid], [TypeName] from [XPObjectType] where [TypeName] like 'expand.%'", true))
                 {
                     while (reader.Read())
                     {
@@ -41,6 +40,7 @@ namespace Xpand.ExpressApp
                 var method = typeof(SimpleDataLayer).BaseType.GetMethod("ClearStaticData", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
                 var datalayer = XpandModuleBase.Application.ObjectSpaceProvider.CreateObjectSpace().Session.DataLayer;
                 method.Invoke(datalayer, null);
+                method.Invoke(Session.DataLayer, null);
             }
         }
     }
