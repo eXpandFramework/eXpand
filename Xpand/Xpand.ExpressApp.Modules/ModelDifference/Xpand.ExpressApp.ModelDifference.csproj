@@ -187,6 +187,7 @@
     <Compile Include="DictionaryStores\XpoUserModelDictionaryDifferenceStore.cs" />
     <Compile Include="DataStore\Queries\QueryModelDifferenceObject.cs" />
     <Compile Include="DataStore\Queries\QueryUserModelDifferenceObject.cs" />
+    <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
