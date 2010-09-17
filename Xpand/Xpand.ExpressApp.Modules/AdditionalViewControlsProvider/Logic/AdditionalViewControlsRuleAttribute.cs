@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using Xpand.ExpressApp.Logic.Conditional.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
@@ -21,5 +22,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         public string Message { get; set; }
         public Position Position { get; set; }
         public bool NotUseSameType { get; set; }
+
+        public Color? BackColor { get; set; }
     }
 }

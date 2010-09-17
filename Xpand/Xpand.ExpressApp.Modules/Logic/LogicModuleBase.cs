@@ -65,8 +65,8 @@ namespace Xpand.ExpressApp.Logic {
             return new List<TLogicRule>();
         }
 
-        IEnumerable<TLogicRule> CollectRulesFromModel(IModelLogic modelConditionalEditorStates, ITypeInfo info) {
-            return (modelConditionalEditorStates.Rules.Where(
+        IEnumerable<TLogicRule> CollectRulesFromModel(IModelLogic modelLogic, ITypeInfo info) {
+            return (modelLogic.Rules.Where(
                 ruleDefinition => info == ruleDefinition.ModelClass.TypeInfo).Select(GetRuleObject)).OfType<TLogicRule>();
         }
 
