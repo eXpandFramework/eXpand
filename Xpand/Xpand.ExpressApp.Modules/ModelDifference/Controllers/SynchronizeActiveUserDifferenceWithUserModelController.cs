@@ -1,11 +1,12 @@
-using System;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.ExpressApp.Core;
+using System.Linq;
 
 namespace Xpand.ExpressApp.ModelDifference.Controllers
 {
@@ -25,33 +26,24 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers
             TargetObjectType = typeof (UserModelDifferenceObject);
         }
 
-        protected override void OnActivated()
+        protected override void OnViewControlsCreated()
         {
-            base.OnActivated();
+            base.OnViewControlsCreated();
             _synchronizeActiveUserDifferenceWithUserModel = ((IModelOptionsSynchronizeActiveUserDifferenceWithUserModel)Application.Model.Options).SynchronizeActiveUserDifferenceWithUserModel;
-            if (_synchronizeActiveUserDifferenceWithUserModel) {
-                View.CurrentObjectChanged += ViewOnCurrentObjectChanged;
-                CombineWithApplicationUserDiffs();
-            }
-        }
-
-        protected override void OnDeactivating()
-        {
-            base.OnDeactivating();
             if (_synchronizeActiveUserDifferenceWithUserModel)
-                View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
+            {
+                ISupportMasterModel supportMasterModel = View.GetItems<ISupportMasterModel>().Single();
+                supportMasterModel.ModelCreated += (sender, args) => CombineWithApplicationUserDiffs(supportMasterModel.MasterModel);
+            }
+            
         }
 
-        protected virtual void ViewOnCurrentObjectChanged(object sender, EventArgs args){
-            CombineWithApplicationUserDiffs();
-        }
 
-        public void CombineWithApplicationUserDiffs(){
+        public void CombineWithApplicationUserDiffs(ModelApplicationBase masterModel){
             var userAspectObjectQuery = new QueryUserModelDifferenceObject(View.ObjectSpace.Session);
             ModelDifferenceObject differenceObject = userAspectObjectQuery.GetActiveModelDifference(Application.GetType().FullName,null);
             if (ReferenceEquals(differenceObject, View.CurrentObject)) {
-                var model = ((UserModelDifferenceObject)View.CurrentObject).GetModel((ModelApplicationBase) Application.Model);
-                new ModelXmlReader().ReadFromModel(model, ((ModelApplicationBase)Application.Model).LastLayer);
+                new ModelXmlReader().ReadFromModel(masterModel.LastLayer, ((ModelApplicationBase)Application.Model).LastLayer);
                 ObjectSpace.SetModified(userAspectObjectQuery);
                 ObjectSpace.CommitChanges();
             }

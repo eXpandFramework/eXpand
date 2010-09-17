@@ -34,8 +34,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             var dictionary = new Dictionary<string, List<string>>();
             foreach (var assemblyResourcesName in assemblyResourcesNames) {
                 var resourceName = assemblyResourcesName.s;
-                resourceName=Path.GetFileNameWithoutExtension(resourceName.StartsWith(prefix) ? resourceName
-                                                     : resourceName.Substring(resourceName.IndexOf("." + prefix) + 1)).Replace(prefix, "");
+                string path = resourceName.StartsWith(prefix) ? resourceName: resourceName.Substring(resourceName.IndexOf("." + prefix) + 1);
+                resourceName = (Path.GetFileNameWithoutExtension(path)+"").Replace(prefix, "");
                 if (!(dictionary.ContainsKey(resourceName)))
                     dictionary.Add(resourceName, new List<string>());
                 var assembly1 = assemblyResourcesName.assembly1;
