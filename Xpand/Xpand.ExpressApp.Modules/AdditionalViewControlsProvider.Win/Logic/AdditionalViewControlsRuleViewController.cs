@@ -98,6 +98,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
         protected override void InitializeControl(object control, LogicRuleInfo<IAdditionalViewControlsRule> logicRuleInfo,
                                              AdditionalViewControlsProviderCalculator additionalViewControlsProviderCalculator,
                                              ExecutionContext executionContext) {
+            base.InitializeControl(control, logicRuleInfo, additionalViewControlsProviderCalculator, executionContext);
             var value = (Control) control;
 //            value.Visible = true;
             if (logicRuleInfo.Rule.Position!=Position.DetailViewItem) {    
