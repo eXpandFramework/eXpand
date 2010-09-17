@@ -67,7 +67,9 @@ namespace Xpand.ExpressApp.Logic {
 
         IEnumerable<TLogicRule> CollectRulesFromModel(IModelLogic modelLogic, ITypeInfo info) {
             return (modelLogic.Rules.Where(
-                ruleDefinition => info == ruleDefinition.ModelClass.TypeInfo).Select(GetRuleObject)).OfType<TLogicRule>();
+// ReSharper disable ConvertClosureToMethodGroup
+                ruleDefinition => info == ruleDefinition.ModelClass.TypeInfo).Select(rule => GetRuleObject(rule))).OfType<TLogicRule>();
+// ReSharper restore ConvertClosureToMethodGroup
         }
 
 
