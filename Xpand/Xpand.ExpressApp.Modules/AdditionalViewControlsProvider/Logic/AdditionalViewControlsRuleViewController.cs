@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Editors;
@@ -85,7 +84,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
 
 
 
-        protected void InitializeControl(object control, LogicRuleInfo<IAdditionalViewControlsRule> additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator, ExecutionContext context) {
+        protected virtual void InitializeControl(object control, LogicRuleInfo<IAdditionalViewControlsRule> additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator, ExecutionContext context) {
             if (control is ISupportAppeareance)
                 ((ISupportAppeareance) control).BackColor=additionalViewControlsRule.Rule.BackColor;
         }
