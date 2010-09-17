@@ -71,9 +71,9 @@ namespace Xpand.ExpressApp.Logic {
         }
 
 
-        protected virtual TLogicRule2 GetRuleObject(IModelLogicRule ruleDefinition) {
-            var logicRule2 = ((TLogicRule2)ReflectionHelper.CreateObject(typeof(TLogicRule2), (TLogicRule)ruleDefinition));
-            logicRule2.TypeInfo = ruleDefinition.ModelClass.TypeInfo;
+        protected virtual TLogicRule2 GetRuleObject(IModelLogicRule modelLogicRule) {
+            var logicRule2 = ((TLogicRule2)ReflectionHelper.CreateObject(typeof(TLogicRule2), (TLogicRule)modelLogicRule));
+            logicRule2.TypeInfo = modelLogicRule.ModelClass.TypeInfo;
             return logicRule2;
         }
 
