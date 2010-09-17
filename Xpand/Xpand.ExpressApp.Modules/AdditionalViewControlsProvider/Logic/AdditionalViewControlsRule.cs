@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Drawing;
 using Xpand.ExpressApp.Logic.Conditional.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public class AdditionalViewControlsRule : ConditionalLogicRule, IAdditionalViewControlsRule {
-        
-
         public AdditionalViewControlsRule(IAdditionalViewControlsRule additionalViewControlsRule)
             : base(additionalViewControlsRule) {
                 Message = additionalViewControlsRule.Message;
@@ -13,6 +12,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                 MessageProperty = additionalViewControlsRule.MessageProperty;
                 Position = additionalViewControlsRule.Position;
                 NotUseSameType = additionalViewControlsRule.NotUseSameType;
+                BackColor=additionalViewControlsRule.BackColor;
         }
         #region IAdditionalViewControlsRule Members
         public string Message { get; set; }
@@ -29,6 +29,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         public Position Position { get; set; }
 
         public bool NotUseSameType { get; set; }
+
+        public Color? BackColor { get; set; }
 
         public object Control { get; set; }
         #endregion

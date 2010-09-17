@@ -1,11 +1,13 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.Utils.Frames;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls
 {
     [AdditionalViewControl]
-    public  class HintPanel:NotePanel8_1
+    public  class HintPanel:NotePanel8_1,ISupportAppeareance
     {
         public HintPanel()
         {
@@ -16,6 +18,15 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls
             TabStop = false;
             MinimumSize = new Size(350, 33);
             Visible = false;
+        }
+
+
+        Color? ISupportAppeareance.BackColor {
+            get { return BackColor; }
+            set {
+                if (value.HasValue)
+                    BackColor=(Color) value;
+            }
         }
     }
 }

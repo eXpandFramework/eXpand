@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Security;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -20,6 +21,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security {
 
         public Position Position { get; set; }
         public bool NotUseSameType { get; set; }
+
+        public Color? BackColor { get; set; }
         #endregion
         public override IPermission Copy() {
             return new AdditionalViewControlsPermission();

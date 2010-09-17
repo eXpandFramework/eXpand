@@ -99,7 +99,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
                                              AdditionalViewControlsProviderCalculator additionalViewControlsProviderCalculator,
                                              ExecutionContext executionContext) {
             var value = (Control) control;
-            value.Visible = true;
+//            value.Visible = true;
             if (logicRuleInfo.Rule.Position!=Position.DetailViewItem) {    
                 if (logicRuleInfo.Rule.Position == Position.Bottom)
                     value.Dock=DockStyle.Bottom;

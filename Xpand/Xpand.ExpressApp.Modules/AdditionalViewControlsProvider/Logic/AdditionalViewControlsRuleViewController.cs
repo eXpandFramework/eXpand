@@ -85,6 +85,9 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
 
 
 
-        protected abstract void InitializeControl(object control, LogicRuleInfo<IAdditionalViewControlsRule> additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator, ExecutionContext context);
+        protected void InitializeControl(object control, LogicRuleInfo<IAdditionalViewControlsRule> additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator, ExecutionContext context) {
+            if (control is ISupportAppeareance)
+                ((ISupportAppeareance) control).BackColor=additionalViewControlsRule.Rule.BackColor;
+        }
     }
 }

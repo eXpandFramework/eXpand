@@ -32,34 +32,42 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         public virtual void CollectRules(XafApplication xafApplication) {
-            lock (LogicRuleManager<TLogicRule>.Instance){
+            lock (LogicRuleManager<TLogicRule>.Instance) {
+                bool reloadPermissions = ReloadPermissions();
                 IModelLogic modelLogic = GetModelLogic(xafApplication.Model);
                 foreach (ITypeInfo typeInfo in XafTypesInfo.Instance.PersistentTypes){
                     LogicRuleManager<TLogicRule>.Instance[typeInfo] = null;
                     List<TLogicRule> modelLogicRules = CollectRulesFromModel(modelLogic, typeInfo).ToList();
-                    List<TLogicRule> permissionsLogicRules = CollectRulesFromPermissions(modelLogic, typeInfo).ToList();
+                    List<TLogicRule> permissionsLogicRules = CollectRulesFromPermissions(modelLogic, typeInfo,reloadPermissions).ToList();
                     modelLogicRules.AddRange(permissionsLogicRules);
                     LogicRuleManager<TLogicRule>.Instance[typeInfo] = modelLogicRules;
                 }
             }
             OnRulesCollected(EventArgs.Empty);
         }
-        
-        protected virtual IEnumerable<TLogicRule> CollectRulesFromPermissions(IModelLogic modelLogic, ITypeInfo typeInfo) {
+
+        bool ReloadPermissions() {
             if (SecuritySystem.Instance is ISecurityComplex)
                 if (SecuritySystem.CurrentUser != null){
                     SecuritySystem.ReloadPermissions();
-                    IList<IPermission> permissions = ((IUser)SecuritySystem.CurrentUser).Permissions;
-                    var rulesFromPermissions = permissions.OfType<TLogicRule>().Where(permission 
-                        =>permission.TypeInfo != null &&permission.TypeInfo.Type == typeInfo.Type).OfType<TLogicRule>();
-                    return rulesFromPermissions.OrderBy(rule => rule.Index);
+                    return true;
                 }
+            return false;
+        }
+
+        protected virtual IEnumerable<TLogicRule> CollectRulesFromPermissions(IModelLogic modelLogic, ITypeInfo typeInfo, bool reloadPermissions) {
+            if (reloadPermissions){
+                IList<IPermission> permissions = ((IUser)SecuritySystem.CurrentUser).Permissions;
+                var rulesFromPermissions = permissions.OfType<TLogicRule>().Where(permission 
+                    =>permission.TypeInfo != null &&permission.TypeInfo.Type == typeInfo.Type).OfType<TLogicRule>();
+                return rulesFromPermissions.OrderBy(rule => rule.Index);
+            }
             return new List<TLogicRule>();
         }
 
-        IEnumerable<TLogicRule> CollectRulesFromModel(IModelLogic modelConditionalEditorStates, ITypeInfo info) {
-            return (modelConditionalEditorStates.Rules.Where(
-                ruleDefinition => info == ruleDefinition.ModelClass.TypeInfo).Select(rule => GetRuleObject(rule))).OfType<TLogicRule>();
+        IEnumerable<TLogicRule> CollectRulesFromModel(IModelLogic modelLogic, ITypeInfo info) {
+            return (modelLogic.Rules.Where(
+                ruleDefinition => info == ruleDefinition.ModelClass.TypeInfo).Select(GetRuleObject)).OfType<TLogicRule>();
         }
 
 
