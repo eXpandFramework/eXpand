@@ -2,13 +2,14 @@
 using System.Windows.Forms;
 using DevExpress.Utils.Frames;
 using DevExpress.XtraLayout;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
     public interface ISupportLayoutManager {
         BaseLayoutItem LayoutItem { get; set; }
     }
     [AdditionalViewControl]
-    public class WarningPanel:NotePanel8_1, ISupportLayoutManager {
+    public class WarningPanel : NotePanel8_1, ISupportLayoutManager, ISupportAppeareance {
         public WarningPanel() {
             BackColor = Color.LightGoldenrodYellow;
             Dock = DockStyle.Bottom;
@@ -21,5 +22,25 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
         }
 
         public BaseLayoutItem LayoutItem { get; set; }
+
+        Color? ISupportAppeareance.BackColor
+        {
+            get { return BackColor; }
+            set
+            {
+                if (value.HasValue)
+                    BackColor = value.Value;
+            }
+        }
+
+        int? ISupportAppeareance.Height
+        {
+            get { return Height; }
+            set
+            {
+                if (value.HasValue)
+                    Height = value.Value;
+            }
+        }
     }
 }

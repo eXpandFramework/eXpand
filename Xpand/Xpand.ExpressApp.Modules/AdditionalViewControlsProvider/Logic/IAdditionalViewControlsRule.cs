@@ -8,7 +8,8 @@ using Xpand.ExpressApp.Logic.Conditional.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public interface ISupportAppeareance {
-        Color? BackColor { get; set; }    
+        Color? BackColor { get; set; }
+        int? Height { get; set; }
     }
 
     public interface IAdditionalViewControlsRule : IConditionalLogicRule, ISupportAppeareance {
