@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls
             set
             {
                 if (value.HasValue)
-                    Height = value.Value;
+                    MinimumSize = new Size(Width, value.Value);
             }
         }
     }
