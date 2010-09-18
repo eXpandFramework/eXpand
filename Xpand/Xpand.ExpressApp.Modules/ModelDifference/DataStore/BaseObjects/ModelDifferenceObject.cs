@@ -218,8 +218,10 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
                 var xml = modelXmlWriter.WriteToString(model, i);
                 string name = GetAspectName(model.GetAspect(i));
                 AspectObjects.Filter = CriteriaOperator.Parse("Name=?", name);
-                AspectObject aspectObject = AspectObjects.Count == 1 ? AspectObjects[0] : new AspectObject(Session) { Name = name };
-                aspectObject.Xml = xml;
+                if (AspectObjects.Count == 0)
+                    AspectObjects.Add(new AspectObject(Session) { Name = name });
+
+                AspectObjects[0].Xml = xml;
                 AspectObjects.Filter = null;
             }
         }
@@ -236,5 +238,4 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             return AspectObjects.Where(o => o.Name == GetAspectName(modelApplicationBase.CurrentAspect)).FirstOrDefault();
         }
     }
-
 }
