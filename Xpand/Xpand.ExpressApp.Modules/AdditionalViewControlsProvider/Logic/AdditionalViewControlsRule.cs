@@ -13,6 +13,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                 Position = additionalViewControlsRule.Position;
                 NotUseSameType = additionalViewControlsRule.NotUseSameType;
                 BackColor=additionalViewControlsRule.BackColor;
+                Height = additionalViewControlsRule.Height;
         }
         #region IAdditionalViewControlsRule Members
         public string Message { get; set; }
@@ -31,6 +32,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         public bool NotUseSameType { get; set; }
 
         public Color? BackColor { get; set; }
+
+        public int? Height { get; set; }
 
         public object Control { get; set; }
         #endregion

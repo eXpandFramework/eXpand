@@ -24,5 +24,6 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         public bool NotUseSameType { get; set; }
 
         public Color? BackColor { get; set; }
+        public int? Height { get; set; }
     }
 }

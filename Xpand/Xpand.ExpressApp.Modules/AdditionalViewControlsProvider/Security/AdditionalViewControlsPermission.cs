@@ -23,6 +23,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security {
         public bool NotUseSameType { get; set; }
 
         public Color? BackColor { get; set; }
+        public int? Height { get; set; }
         #endregion
         public override IPermission Copy() {
             return new AdditionalViewControlsPermission();

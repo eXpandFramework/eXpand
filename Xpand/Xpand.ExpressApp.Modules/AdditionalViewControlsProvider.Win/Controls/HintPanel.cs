@@ -20,12 +20,21 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls
             Visible = false;
         }
 
-
         Color? ISupportAppeareance.BackColor {
             get { return BackColor; }
             set {
                 if (value.HasValue)
-                    BackColor=(Color) value;
+                    BackColor = value.Value;
+            }
+        }
+
+        int? ISupportAppeareance.Height
+        {
+            get { return Height; }
+            set
+            {
+                if (value.HasValue)
+                    Height = value.Value;
             }
         }
     }
