@@ -19,13 +19,9 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects{
             DifferenceType = DifferenceType.Role;
         }
 
-        public override ModelApplicationBase[] GetAllLayers(ModelApplicationBase master)
+        public override IEnumerable<ModelApplicationBase> GetAllLayers(ModelApplicationBase master)
         {
-            var modelDifferenceObjects = new List<ModelDifferenceObject> {
-                new QueryModelDifferenceObject(Session).GetActiveModelDifference(PersistentApplication.UniqueName,null)
-            };
-
-            return GetAllLayers(modelDifferenceObjects,master);
+            return GetAllLayers(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName, null), master);
         }
     }
 }

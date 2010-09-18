@@ -1,11 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Collections;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.Builders;
-using System.Collections.Generic;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.Attributes;
@@ -48,16 +48,11 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects
             list.Add(objectByKey);
         }
 
-        public override ModelApplicationBase[] GetAllLayers(ModelApplicationBase master)
+        public override IEnumerable<ModelApplicationBase> GetAllLayers(ModelApplicationBase master)
         {
-            var modelDifferenceObjects =
-                new List<ModelDifferenceObject>(
-                    new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName,null).Cast<ModelDifferenceObject>()) 
-            {
-                new QueryModelDifferenceObject(Session).GetActiveModelDifference(PersistentApplication.UniqueName,null)
-            };
-
-            return GetAllLayers(modelDifferenceObjects.AsEnumerable(),master);
+            IQueryable<ModelDifferenceObject> differenceObjects = new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName,null).Cast<ModelDifferenceObject>();
+            differenceObjects.Concat(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName, null));
+            return GetAllLayers(differenceObjects, master);
         }
     }
 }

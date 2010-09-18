@@ -18,10 +18,10 @@ namespace Xpand.ExpressApp.ModelDifference
         public override void UpdateDatabaseBeforeUpdateSchema()
         {
             base.UpdateDatabaseBeforeUpdateSchema();
-            if (this.CurrentDBVersion >= new Version(0, 0, 0, 0) && this.CurrentDBVersion <= new Version(10, 1, 6))
+            if (CurrentDBVersion > new Version(0, 0, 0, 0) && CurrentDBVersion <= new Version(10, 1, 6))
             {
                 var differenceObjects = new Dictionary<object, string>();
-                using (var reader = this.ExecuteReader("select [Oid], [Model] from [ModelDifferenceObject] where [Model] is not null", false))
+                using (var reader = ExecuteReader("select [Oid], [Model] from [ModelDifferenceObject] where [Model] is not null", false))
                 {
                     while (reader.Read())
                     {
@@ -76,11 +76,7 @@ namespace Xpand.ExpressApp.ModelDifference
             if (!string.IsNullOrEmpty(aspects[0]))
             {
                 string defaultAspectWhenOtherAspectExists = Regex.Replace(defaultAspectValuesWhenNoOtherAspectExist, @""":([^""\xA5]*)\xA5" + aspects[0] + @":([^""]*)""", "\"$1\"");
-                removedAspectsWithNoDefaultAspects = defaultAspectWhenOtherAspectExists;
-                foreach (var aspect in aspects)
-                {
-                    removedAspectsWithNoDefaultAspects = removeAttributesWithNoDefaultValue(aspect, removedAspectsWithNoDefaultAspects);
-                }
+                removedAspectsWithNoDefaultAspects = aspects.Aggregate(defaultAspectWhenOtherAspectExists, (current, aspect) => removeAttributesWithNoDefaultValue(aspect, current));
             }
             return removedAspectsWithNoDefaultAspects;
         }

@@ -41,16 +41,23 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             get { return GetCollection<AspectObject>("AspectObjects"); }
         }
 
-        public virtual ModelApplicationBase[] GetAllLayers(ModelApplicationBase master)
+        public virtual IEnumerable<ModelApplicationBase> GetAllLayers(ModelApplicationBase master)
         {
-            return GetAllLayers(new List<ModelDifferenceObject>().AsEnumerable(),master);
+            return GetAllLayers(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(persistentApplication.UniqueName, null), master);
         }
 
-        protected ModelApplicationBase[] GetAllLayers(IEnumerable<ModelDifferenceObject> differenceObjects, ModelApplicationBase master) {
-            var layers = differenceObjects.Select(differenceObject => differenceObject.GetModel(master)).ToList();
-            layers.Add(GetModel(master));
-            return layers.ToArray();
+        protected IEnumerable<ModelApplicationBase> GetAllLayers(IEnumerable<ModelDifferenceObject> differenceObjects, ModelApplicationBase master) {
+            if (GetttingNonAppModels(differenceObjects))
+                differenceObjects = differenceObjects.Where(o => o.CombineOrder < CombineOrder);
+            var modelApplicationBases = differenceObjects.Distinct().Select(differenceObject => differenceObject.GetModel(master));
+            modelApplicationBases.Concat(new List<ModelApplicationBase> {GetModel(master)});
+            return modelApplicationBases;
         }
+
+        bool GetttingNonAppModels(IEnumerable<ModelDifferenceObject> differenceObjects) {
+            return differenceObjects.Where(o => o is UserModelDifferenceObject || o is RoleModelDifferenceObject).Count() > 0;
+        }
+
         [VisibleInListView(false)]
         [VisibleInDetailView(false)]
         [NonPersistent]
