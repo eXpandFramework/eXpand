@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects
         public override IEnumerable<ModelApplicationBase> GetAllLayers(ModelApplicationBase master)
         {
             IQueryable<ModelDifferenceObject> differenceObjects = new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName,null).Cast<ModelDifferenceObject>();
-            differenceObjects.Concat(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName, null));
+            differenceObjects = differenceObjects.Concat(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName, null));
             return GetAllLayers(differenceObjects, master);
         }
     }
