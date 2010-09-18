@@ -66,15 +66,13 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores
         {
             var extraDiffStoresLayerBuilder = new ExtraDiffStoresLayerBuilder();
             var language = model.Application.PreferredLanguage;
-            if (UseModelFromPath())
-            {
+            if (UseModelFromPath()){
                 return;
             }
             var loadedModelDifferenceObjectInfos = GetLoadedModelDifferenceObjectInfos(model);
             extraDiffStoresLayerBuilder.AddLayers(loadedModelDifferenceObjectInfos, _extraDiffStores);
             CreateResourceModels(model, loadedModelDifferenceObjectInfos);
-            if (model.Application.PreferredLanguage != language)
-            {
+            if (model.Application.PreferredLanguage != language){
                 Application.SetLanguage(model.Application.PreferredLanguage);
             }
             ObjectSpace.CommitChanges();
@@ -88,7 +86,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores
             {
                 var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo>();
                 var application = model.CreatorInstance.CreateModelApplication();
-                application.Id = model.Application.Title;
+                application.Id = XpandModuleBase.Application.Title;
                 model.AddLayerBeforeLast(application);
                 var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(application.Id);
                 modelDifferenceObjectInfos.Add(application.Id, new ModelDifferenceObjectInfo(modelDifferenceObject, application));

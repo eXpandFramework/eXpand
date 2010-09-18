@@ -14,6 +14,7 @@ using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base;
 using Xpand.Xpo;
+using Xpand.Xpo.DB;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [RuleCombinationOfPropertiesIsUnique("MDO_Unique_Name_Application",DefaultContexts.Save, "Name,PersistentApplication")]
@@ -68,6 +69,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             if (!master.IsMaster){
                 throw new ArgumentException("IsNotMaster","master");
             }
+            if (master.LastLayer.Id!="After Setup")
+                throw new ArgumentException("master.LastLayer", master.LastLayer.Id);
             Guard.ArgumentNotNull(Name,"Name");
             var layer = master.CreatorInstance.CreateModelApplication();
             layer.Id = Name;
@@ -159,7 +162,13 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         #endregion
-
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+            if (Session.IsNewObject(this)) {
+                CombineOrder = XpoServerId.GetNextUniqueValue(this);
+            }
+        }
         public override void AfterConstruction() {
             base.AfterConstruction();
             _differenceType = DifferenceType.Model;
@@ -181,46 +190,30 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             return InitializeMembers(name, XpandModuleBase.Application.Title, XpandModuleBase.Application.GetType().FullName);
         }
 
-        public void CreateAspects(ModelApplicationBase model) {
-            var master = (ModelApplicationBase) model.Master;
-            ModelApplicationBase applicationBase = null;
-            if (model.Id != DifferenceType.User.ToString()){
-                applicationBase = GetModel(master);
-                new ModelXmlReader().ReadFromModel(applicationBase,model);
-                UpdateAspects(applicationBase);
-            }
+
+        public void CreateAspects(ModelApplicationBase model, ModelApplicationBase master){
+            var applicationBase = GetModel(master);
+            new ModelXmlReader().ReadFromModel(applicationBase, model);
             CreateAspectsCore(model);
+            //TODO:check this
             if (applicationBase != null) master.RemoveLayer(applicationBase);
         }
 
-        public void UpdateAspects(ModelApplicationBase model) {
+        public void CreateAspects(ModelApplicationBase model) {
+            var master = (ModelApplicationBase) model.Master;
+            CreateAspects(model,master);
+        }
+
+
+        public void CreateAspectsCore(ModelApplicationBase model) {
             var modelXmlWriter = new ModelXmlWriter();
             for (int i = 0; i < model.AspectCount; i++){
                 var xml = modelXmlWriter.WriteToString(model, i);
-                if (!(string.IsNullOrEmpty(xml))){
-                    AspectObjects.Filter = CriteriaOperator.Parse("Name=?", GetAspectName(model.GetAspect(i)));
-                    if (AspectObjects.Count == 1){
-                        var aspectObject = AspectObjects[0];
-                        aspectObject.Xml = xml;
-                    }
-                    AspectObjects.Filter = null;
-                }
-            }
-
-        }
-
-        void CreateAspectsCore(ModelApplicationBase model) {
-            var modelXmlWriter = new ModelXmlWriter();
-            for (int i = 0; i < model.AspectCount; i++) {
-                var xml = modelXmlWriter.WriteToString(model,i);
-                if (!(string.IsNullOrEmpty(xml))) {
-                    AspectObjects.Filter = CriteriaOperator.Parse("Name=?", GetAspectName(model.GetAspect(i)));
-                    if (AspectObjects.Count==0) {
-                        var aspectObject =new AspectObject(Session) {Name = model.GetAspect(i), Xml = xml};
-                        AspectObjects.Add(aspectObject);
-                    }
-                    AspectObjects.Filter = null;
-                }
+                string name = GetAspectName(model.GetAspect(i));
+                AspectObjects.Filter = CriteriaOperator.Parse("Name=?", name);
+                AspectObject aspectObject = AspectObjects.Count == 1 ? AspectObjects[0] : new AspectObject(Session) { Name = name };
+                aspectObject.Xml = xml;
+                AspectObjects.Filter = null;
             }
         }
 

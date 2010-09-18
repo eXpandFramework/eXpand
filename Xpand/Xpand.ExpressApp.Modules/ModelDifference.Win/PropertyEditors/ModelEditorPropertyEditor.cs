@@ -16,11 +16,16 @@ using System.Linq;
 namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
 {
     [PropertyEditor(typeof(ModelApplicationBase))]
-    public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexPropertyEditor
-    {
+    public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexPropertyEditor, ISupportMasterModel {
         #region Members
+        public event EventHandler ModelCreated;
 
-        
+        protected void OnModelCreated(EventArgs e) {
+            EventHandler handler = ModelCreated;
+            if (handler != null) handler(this, e);
+        }
+
+
         private ModelEditorViewController _controller;
         ModelApplicationBuilder _modelApplicationBuilder;
         ModelApplicationBase _masterModel;
@@ -37,7 +42,11 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         #endregion
 
+
         #region Properties
+        public ModelApplicationBase MasterModel {
+            get { return _masterModel; }
+        }
 
         public new ModelDifferenceObject CurrentObject
         {
@@ -71,9 +80,6 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
 
         protected override void OnCurrentObjectChanged(){
-            if (Control != null){
-                ResetModel();
-            }
             _modelApplicationBuilder = new ModelApplicationBuilder(CurrentObject.PersistentApplication.ExecutableName);
             _masterModel = _modelApplicationBuilder.GetMasterModel();
             base.OnCurrentObjectChanged();
@@ -93,7 +99,6 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
         void CurrentObjectOnChanged(object sender, ObjectChangeEventArgs objectChangeEventArgs) {
             if (objectChangeEventArgs.PropertyName=="XmlContent") {
                 var aspect = _masterModel.CurrentAspect;
-                ResetModel();
                 _masterModel = _modelApplicationBuilder.GetMasterModel();
                 _controller = GetModelEditorController(aspect);
             }
@@ -105,19 +110,15 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
                 new ModelValidator().ValidateModel(clone);
                 ModelEditorViewController.SaveAction.Active["Not needed"] = true;
                 ModelEditorViewController.Save();
-                CurrentObject.UpdateAspects(_currentObjectModel);
+                CurrentObject.CreateAspectsCore(_currentObjectModel);
                 ModelEditorViewController.SaveAction.Active["Not needed"] = false;
             }
         }
 
         void ViewOnClosing(object sender, EventArgs eventArgs) {
             _objectSpace.ObjectSaving-=ObjectSpaceOnObjectSaving;
-            ResetModel();
         }
 
-        void ResetModel() {
-            _modelApplicationBuilder.ResetModel(_masterModel);
-        }
         #endregion
 
         #region Eventhandler
@@ -147,7 +148,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
             controller.Modifying += Model_Modifying;
             controller.SaveAction.Active["Not needed"] = false;
             controller.ChangeAspectAction.ExecuteCompleted += ChangeAspectActionOnExecuteCompleted;
-
+            OnModelCreated(EventArgs.Empty);
             return controller;
         }
 

@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.Core
         
         
         private XpandControllersManager _xpandControllersManager;
-        private ModuleList _modules;
+//        private ModuleList _modules;
         private readonly ISecurity security;
         private bool isLoaded;
         private string _assembliesPath;
@@ -33,11 +33,11 @@ namespace Xpand.ExpressApp.Core
         private readonly List<Assembly> scannedForModuleAssemblies = new List<Assembly>();
         private static readonly object lockObject = new object();
         private readonly Dictionary<Assembly, Assembly> assemblyHash = new Dictionary<Assembly, Assembly>();
-        public new ModuleList Modules
-        {
-            get { return _modules; }
-            set { _modules = value; }
-        }
+//        public new ModuleList Modules
+//        {
+//            get { return _modules; }
+//            set { _modules = value; }
+//        }
 
         public new XpandControllersManager ControllersManager
         {
@@ -48,14 +48,14 @@ namespace Xpand.ExpressApp.Core
         {
             Tracing.Tracer.LogVerboseText("ApplicationModulesManager.Init");
             _assembliesPath = assembliesPath;
-            _modules = new ModuleList(null);
+            Modules = new ModuleList(null);
             _xpandControllersManager = xpandControllersManager;
         }
 
         private void SetupModules()
         {
             Tracing.Tracer.LogText("SetupModules");
-            foreach (ModuleBase module in _modules)
+            foreach (ModuleBase module in Modules)
             {
                 try
                 {
@@ -89,7 +89,7 @@ namespace Xpand.ExpressApp.Core
             Tracing.Tracer.LogText("Customize XPDictionary");
             lock (lockObject)
             {
-                foreach (ModuleBase module in _modules)
+                foreach (ModuleBase module in Modules)
                 {
                     try
                     {
@@ -141,7 +141,7 @@ namespace Xpand.ExpressApp.Core
                 Tick.In("LoadModel.2");
                 SetupModules();
                 Tick.In("LoadModel.3");
-                LoadTypesInfo(_modules, typesInfo);
+                LoadTypesInfo(Modules, typesInfo);
                 DoCustomizeTypesInfo(typesInfo);
             }
             finally
@@ -156,7 +156,7 @@ namespace Xpand.ExpressApp.Core
         }
         private void CollectStuff(ITypesInfo typesInfo)
         {
-            foreach (ModuleBase module in _modules)
+            foreach (ModuleBase module in Modules)
             {
                 Assembly assembly = module.GetType().Assembly;
                 assemblyHash[assembly] = assembly;
@@ -185,7 +185,7 @@ namespace Xpand.ExpressApp.Core
         }
         protected new virtual void AddModuleWithReferencedModules(ModuleBase module)
         {
-            AddModuleIntoList(module, _modules);
+            AddModuleIntoList(module, Modules);
         }
         public XpandApplicationModulesManager(XpandControllersManager controllersManager, string assembliesPath, ISecurity security)
         {
@@ -226,14 +226,14 @@ namespace Xpand.ExpressApp.Core
             {
                 throw new ArgumentNullException("module");
             }
-            if (_modules.FindModule(module.GetType()) == null)
+            if (Modules.FindModule(module.GetType()) == null)
             {
                 try
                 {
                     ReflectionHelper.AddResolvePath(_assembliesPath);
                     try
                     {
-                        _modules.Add(module);
+                        Modules.Add(module);
                     }
                     finally
                     {
@@ -254,7 +254,7 @@ namespace Xpand.ExpressApp.Core
         }
         public new virtual ModuleBase AddModule(Type moduleType, bool loadModuleDiffs)
         {
-            if (_modules.FindModule(moduleType) == null)
+            if (Modules.FindModule(moduleType) == null)
             {
                 ModuleBase result;
                 ReflectionHelper.AddResolvePath(_assembliesPath);

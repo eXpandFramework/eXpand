@@ -1,4 +1,5 @@
 ﻿using System;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.Core;
@@ -22,7 +23,6 @@ namespace FeatureCenter.Module.ApplicationDifferences.ExternalApplication
                 var modelApplicationBuilder = new ModelApplicationBuilder(modelDifferenceObject.PersistentApplication.ExecutableName);
                 var model = modelApplicationBuilder.GetLayer(typeof(ExternalApplicationModelStore));
                 modelDifferenceObject.CreateAspects(model);
-                modelApplicationBuilder.ResetModel(model);
                 modelDifferenceObject.Save();
                 
             }

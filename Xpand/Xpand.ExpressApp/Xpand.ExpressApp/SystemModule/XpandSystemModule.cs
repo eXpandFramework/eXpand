@@ -12,6 +12,7 @@ using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
+using Xpand.Xpo.DB;
 
 namespace Xpand.ExpressApp.SystemModule
 {
@@ -27,6 +28,12 @@ namespace Xpand.ExpressApp.SystemModule
         {
             ParametersFactory.RegisterParameter(new MonthAgoParameter());
         }
+
+        public XpandSystemModule() {
+            AdditionalBusinessClasses.Add(typeof(XpoSequencer));
+            AdditionalBusinessClasses.Add(typeof(XpoServerId));
+        }
+
         public override void CustomizeTypesInfo(ITypesInfo typesInfo)
         {
             base.CustomizeTypesInfo(typesInfo);

@@ -3,6 +3,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base.Security;
+using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.ExpressApp.ModelDifference.Security;
@@ -69,7 +70,10 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores{
         protected internal override void OnDifferenceObjectSaving(ModelDifferenceObject userModelDifferenceObject, ModelApplicationBase model){
             var userStoreObject = ((UserModelDifferenceObject) userModelDifferenceObject);
             if (!userStoreObject.NonPersistent){
-                userModelDifferenceObject.CreateAspects(model);
+                if (!(model.AspectCount == 1 && string.IsNullOrEmpty(model.Xml))) {
+                    var modelApplicationBuilder = new ModelApplicationBuilder(userStoreObject.PersistentApplication.ExecutableName);
+                    userModelDifferenceObject.CreateAspects(model, modelApplicationBuilder.GetMasterModel());
+                }
                 base.OnDifferenceObjectSaving(userModelDifferenceObject, model);
             }
 

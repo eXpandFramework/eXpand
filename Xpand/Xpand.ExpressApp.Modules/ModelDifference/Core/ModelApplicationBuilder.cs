@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
-using System.Reflection;
 using System.Web.Configuration;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -25,7 +24,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
     }
     public class ModelApplicationBuilder {
         readonly string _executableName;
-        ICurrentAspectProvider _oldAspectProvider;
+        
 
         public ModelApplicationBuilder(string executableName) {
             _executableName = executableName;
@@ -57,22 +56,13 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         }
 
         public ModelApplicationBase GetMasterModel() {
-            if (_executableName != Assembly.GetAssembly(XpandModuleBase.Application.GetType()).ManifestModule.Name)
-                return GetExternalMasterModel();
-
-            var masterModel = (ModelApplicationBase)XpandModuleBase.Application.Model;
-            _oldAspectProvider = masterModel.CurrentAspectProvider;
-            masterModel.CurrentAspectProvider = new CurrentAspectProvider(_oldAspectProvider.CurrentAspect);
-            return masterModel;
-        }
-
-        ModelApplicationBase GetExternalMasterModel() {
             TypesInfo typesInfo = GetTypesInfo();
             var application = GetApplication(_executableName, typesInfo);
             XpandApplicationModulesManager modulesManager = GetModulesManager(typesInfo, application);
             ApplicationModelsManager modelsManager = GetModelsManager(modulesManager);
-            return (ModelApplicationBase) GetModelApplication(application, modelsManager);
+            return (ModelApplicationBase)GetModelApplication(application, modelsManager);
         }
+
 
         TypesInfo GetTypesInfo() {
             var typesInfo = new TypesInfo();
@@ -117,11 +107,9 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             modelApplicationBase.AddLayer(afterSetup);
         }
 
-        private XafApplication GetApplication(string executableName, TypesInfo typesInfo)
-        {
+        private XafApplication GetApplication(string executableName, TypesInfo typesInfo){
             string assemblyPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-            try
-            {
+            try{
                 ReflectionHelper.AddResolvePath(assemblyPath);
                 var assembly = ReflectionHelper.GetAssembly(Path.GetFileNameWithoutExtension(executableName), assemblyPath);
                 var assemblyInfo = typesInfo.FindAssemblyInfo(assembly);
@@ -130,8 +118,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 var findTypeDescendants = ReflectionHelper.FindTypeDescendants(assemblyInfo, findTypeInfo, false);
                 return Enumerator.GetFirst(findTypeDescendants).CreateInstance(new object[0]) as XafApplication;
             }
-            finally
-            {
+            finally{
                 ReflectionHelper.RemoveResolvePath(assemblyPath);
             }
         }
@@ -139,19 +126,16 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         private void ReadModulesFromConfig(ApplicationModulesManager manager, XafApplication application)
         {
             Configuration config;
-            if (application is IWinApplication)
-            {
+            if (application is IWinApplication){
                 config = ConfigurationManager.OpenExeConfiguration(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + _executableName);
             }
-            else
-            {
+            else{
                 var mapping = new WebConfigurationFileMap();
                 mapping.VirtualDirectories.Add("/Dummy", new VirtualDirectoryMapping(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, true));
                 config = WebConfigurationManager.OpenMappedWebConfiguration(mapping, "/Dummy");
             }
 
-            if (config.AppSettings.Settings["Modules"] != null)
-            {
+            if (config.AppSettings.Settings["Modules"] != null){
                 manager.AddModuleFromAssemblies(config.AppSettings.Settings["Modules"].Value.Split(';'));
             }
         }
@@ -167,17 +151,6 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return layer;
         }
 
-        public void ResetModel(ModelApplicationBase masterModel) {
-            if (masterModel.LastLayer != null)
-                ClearLayers(masterModel);
-            if (_oldAspectProvider != null)
-                masterModel.CurrentAspectProvider = _oldAspectProvider;
-        }
 
-        void ClearLayers(ModelApplicationBase masterModel) {
-            while (masterModel.LastLayer.Id != "UserDiff" && masterModel.LastLayer.Id != "After Setup"){
-                masterModel.RemoveLayer(masterModel.LastLayer);
-            }
-        }
     }
 }
