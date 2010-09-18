@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.DomainLogic {
         {
             ITypeInfo decoratorType =
                 ModelAdditionalViewControlsRuleDomainLogic.GetDecorators().Where(info => info.Type.GetCustomAttributes(typeof(TypeDecorator), true).OfType<TypeDecorator>().Where(
-                    decorator => decorator.IsDefaultDecorator).Count() > 0).SingleOrDefault();
+                    decorator => decorator.IsDefaultDecorator).Count() > 0).FirstOrDefault();
             return decoratorType != null ? decoratorType.Type : typeof(NotAvaliableInThisPlatform);
         }
     
