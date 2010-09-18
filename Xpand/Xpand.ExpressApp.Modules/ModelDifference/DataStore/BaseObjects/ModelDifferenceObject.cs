@@ -50,7 +50,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             if (GetttingNonAppModels(differenceObjects))
                 differenceObjects = differenceObjects.Where(o => o.CombineOrder < CombineOrder);
             var modelApplicationBases = differenceObjects.Distinct().Select(differenceObject => differenceObject.GetModel(master));
-            modelApplicationBases.Concat(new List<ModelApplicationBase> {GetModel(master)});
+            modelApplicationBases = modelApplicationBases.Concat(new List<ModelApplicationBase> { GetModel(master) });
             return modelApplicationBases;
         }
 
