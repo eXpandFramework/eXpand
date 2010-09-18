@@ -12,10 +12,10 @@ namespace Xpand.ExpressApp
         public override void UpdateDatabaseBeforeUpdateSchema()
         {
             base.UpdateDatabaseBeforeUpdateSchema();
-            if (this.CurrentDBVersion < new Version(10, 1, 6))
+            if (CurrentDBVersion>new Version(0,0,0,0)&& CurrentDBVersion < new Version(10, 1, 6))
             {
-                Dictionary<object, string> objectTypes = new Dictionary<object, string>();
-                using (var reader = this.ExecuteReader("select [Oid], [TypeName] from [XPObjectType] where [TypeName] like 'expand.%'", true))
+                var objectTypes = new Dictionary<object, string>();
+                using (var reader = ExecuteReader("select [Oid], [TypeName] from [XPObjectType] where [TypeName] like 'expand.%'", true))
                 {
                     while (reader.Read())
                     {
@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp
                 foreach (var item in objectTypes)
                 {
                     var type = ReflectionHelper.FindType(item.Value.Substring(1, item.Value.Length - 1));
-                    this.ExecuteNonQueryCommand(String.Format("UPDATE [{0}] SET [{1}] = '{2}',  [{3}] = '{4}' WHERE [{5}] = {6}",
+                    ExecuteNonQueryCommand(String.Format("UPDATE [{0}] SET [{1}] = '{2}',  [{3}] = '{4}' WHERE [{5}] = {6}",
                         typeof(XPObjectType).Name,
                         XPObjectType.Fields.TypeName.PropertyName,
                         type.FullName,
@@ -37,10 +37,13 @@ namespace Xpand.ExpressApp
                         false);
                 }
 
-                var method = typeof(SimpleDataLayer).BaseType.GetMethod("ClearStaticData", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-                var datalayer = XpandModuleBase.Application.ObjectSpaceProvider.CreateObjectSpace().Session.DataLayer;
-                method.Invoke(datalayer, null);
-                method.Invoke(Session.DataLayer, null);
+                Type baseType = typeof(SimpleDataLayer).BaseType;
+                if (baseType != null) {
+                    var method = baseType.GetMethod("ClearStaticData", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                    var datalayer = XpandModuleBase.Application.ObjectSpaceProvider.CreateObjectSpace().Session.DataLayer;
+                    method.Invoke(datalayer, null);
+                    method.Invoke(Session.DataLayer, null);
+                }
             }
         }
     }
