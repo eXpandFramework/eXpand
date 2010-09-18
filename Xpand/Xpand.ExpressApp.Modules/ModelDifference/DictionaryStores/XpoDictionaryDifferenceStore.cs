@@ -30,9 +30,10 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores{
 
         public override void SaveDifference(ModelApplicationBase model){
             if (model != null){
+                var objectSpace = _application.CreateObjectSpace();
                 ModelDifferenceObject modelDifferenceObject = 
-                    GetActiveDifferenceObject(model.Id) ?? 
-                    GetNewDifferenceObject(ObjectSpace)
+                    GetActiveDifferenceObject(model.Id) ??
+                    GetNewDifferenceObject(objectSpace)
                     .InitializeMembers(model.Id=="Application"?Application.Title:model.Id, Application.Title, Application.GetType().FullName);
                 
                 OnDifferenceObjectSaving(modelDifferenceObject, model);

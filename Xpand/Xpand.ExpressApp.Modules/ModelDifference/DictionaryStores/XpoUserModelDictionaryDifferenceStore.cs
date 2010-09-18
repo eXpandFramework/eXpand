@@ -70,10 +70,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores{
         protected internal override void OnDifferenceObjectSaving(ModelDifferenceObject userModelDifferenceObject, ModelApplicationBase model){
             var userStoreObject = ((UserModelDifferenceObject) userModelDifferenceObject);
             if (!userStoreObject.NonPersistent){
-                if (!(model.AspectCount == 1 && string.IsNullOrEmpty(model.Xml))) {
-                    var modelApplicationBuilder = new ModelApplicationBuilder(userStoreObject.PersistentApplication.ExecutableName);
-                    userModelDifferenceObject.CreateAspects(model, modelApplicationBuilder.GetMasterModel());
-                }
+                userModelDifferenceObject.CreateAspectsCore(model);
                 base.OnDifferenceObjectSaving(userModelDifferenceObject, model);
             }
 
