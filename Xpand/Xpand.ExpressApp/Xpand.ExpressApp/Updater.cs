@@ -12,7 +12,7 @@ namespace Xpand.ExpressApp
         public override void UpdateDatabaseBeforeUpdateSchema()
         {
             base.UpdateDatabaseBeforeUpdateSchema();
-            if (CurrentDBVersion>new Version(0,0,0,0)&& CurrentDBVersion < new Version(10, 1, 6))
+            if (CurrentDBVersion < new Version(10, 1, 6))
             {
                 var objectTypes = new Dictionary<object, string>();
                 using (var reader = ExecuteReader("select [Oid], [TypeName] from [XPObjectType] where [TypeName] like 'expand.%'", true))
@@ -43,6 +43,7 @@ namespace Xpand.ExpressApp
                     var datalayer = XpandModuleBase.Application.ObjectSpaceProvider.CreateObjectSpace().Session.DataLayer;
                     method.Invoke(datalayer, null);
                     method.Invoke(Session.DataLayer, null);
+                    Session.DropIdentityMap();
                 }
             }
         }
