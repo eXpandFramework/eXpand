@@ -49,7 +49,7 @@ namespace XpandAddIns.ModelEditor {
         {
             foreach (var projectItem in projectItems){
                 string name = projectItem.Name;
-                if (name.EndsWith(".xafml") && projectItem.FindProperty(ProjectItemProperty.ItemType).Value + "" == "EmbeddedResource" && !Regex.IsMatch(name, @"_..\.xafml"))
+                if (name.EndsWith(".xafml") && projectItem.FindProperty(ProjectItemProperty.ItemType).Value + "" == "EmbeddedResource" && !Regex.IsMatch(name, @"_..\.xafml")&&name.IndexOf(" ")==-1)
                     list.Add(ProjectWrapperSelector(projectItem));
                 GetAllItems(projectItem.ProjectItems.OfType<ProjectItem>(), list);
             }
