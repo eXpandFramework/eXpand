@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using DevExpress.CodeRush.Core;
 using EnvDTE;
 using XpandAddIns.Extensioons;
@@ -47,7 +48,8 @@ namespace XpandAddIns.ModelEditor {
         static void GetAllItems(IEnumerable<ProjectItem> projectItems, List<ProjectWrapper> list)
         {
             foreach (var projectItem in projectItems){
-                if (projectItem.Name.EndsWith(".xafml") && projectItem.FindProperty(ProjectItemProperty.ItemType).Value+""== "EmbeddedResource")
+                string name = projectItem.Name;
+                if (name.EndsWith(".xafml") && projectItem.FindProperty(ProjectItemProperty.ItemType).Value + "" == "EmbeddedResource" && !Regex.IsMatch(name, @"_..\.xafml"))
                     list.Add(ProjectWrapperSelector(projectItem));
                 GetAllItems(projectItem.ProjectItems.OfType<ProjectItem>(), list);
             }
