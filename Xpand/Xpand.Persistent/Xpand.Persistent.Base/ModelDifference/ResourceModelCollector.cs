@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
+using DevExpress.ExpressApp.Utils;
 
 namespace Xpand.Persistent.Base.ModelDifference {
     public class ResourceModelCollector {
+        private const int MaxExpectedEncodingStringLengthInBytes = 512;
+        private static readonly Encoding[] ExpectedEncodings = new[] { Encoding.UTF8, Encoding.ASCII, Encoding.Unicode, Encoding.UTF7, Encoding.UTF32, Encoding.BigEndianUnicode };
+        private static readonly Encoding DefaultEncoding = Encoding.UTF8;
         public Dictionary<string, ResourceInfo> Collect(IEnumerable<Assembly> assemblies, string prefix){
             var assemblyResourcesNames = assemblies.SelectMany(assembly => assembly.GetManifestResourceNames().Where(s => s.EndsWith(".xafml")), (assembly1, s) => new { assembly1, s });
             if (!string.IsNullOrEmpty(prefix))
@@ -48,18 +53,64 @@ namespace Xpand.Persistent.Base.ModelDifference {
             return matchResults.Groups[1].Value;
         }
 
-        string GetXml(string resourceName, Assembly assembly1)
-        {
+        string GetXml(string resourceName, Assembly assembly1) {
             string readToEnd;
-            using (var manifestResourceStream = assembly1.GetManifestResourceStream(resourceName))
-            {
+            using (Stream manifestResourceStream = assembly1.GetManifestResourceStream(resourceName)) {
                 if (manifestResourceStream == null) throw new NullReferenceException(resourceName);
-                using (var streamReader = new StreamReader(manifestResourceStream))
-                {
+                Encoding encoding = GetStreamEncoding(manifestResourceStream) ?? DefaultEncoding;
+                using (var streamReader = new StreamReader(manifestResourceStream, encoding)) {
                     readToEnd = streamReader.ReadToEnd();
                 }
             }
             return readToEnd;
+        }
+
+        Encoding GetEncodingFromHeader(string encodingString) {
+            if (string.IsNullOrEmpty(encodingString)) return null;
+            int start = encodingString.IndexOf(@"encoding=""");
+            if (start >= 0) {
+                start += 10;
+                int end = encodingString.IndexOf(@"""", start);
+                if (end > 0) {
+                    string encodingStr = encodingString.Substring(start, end - start);
+                    try {
+                        return Encoding.GetEncoding(encodingStr);
+                    }
+                    catch {
+                        return null;
+                    }
+                }
+            }
+            return null;
+        }
+
+        internal Encoding GetStreamEncoding(Stream stream) {
+            Guard.ArgumentNotNull(stream, "stream");
+            if (stream.Length == 0) return null;
+            var bytes = new byte[Math.Min(stream.Length, MaxExpectedEncodingStringLengthInBytes)];
+            long position = stream.Position;
+            try {
+                stream.Position = 0;
+                stream.Read(bytes, 0, bytes.Length);
+            }
+            finally {
+                stream.Position = position;
+            }
+            foreach (Encoding encoding in ExpectedEncodings) {
+                string content = encoding.GetString(bytes);
+                Encoding result = GetEncodingFromHeader(content);
+                if (result == null) continue;
+                if (result == encoding) return result;
+                content = result.GetString(bytes);
+                if (GetEncodingFromHeader(content) == null) {
+                    throw new InvalidOperationException(
+                        string.Format(
+                            "Encoding '{0}' manually specified in stream does not match actual stream encoding '{1}'.",
+                            result.HeaderName, encoding.HeaderName));
+                }
+                return result;
+            }
+            return null;
         }
 
     }
