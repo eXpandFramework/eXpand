@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
@@ -12,7 +10,7 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.SystemModule;
-
+using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
@@ -27,43 +25,16 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             _xpoModelDictionaryDifferenceStore = xpoModelDictionaryDifferenceStore;
         }
 
-        Dictionary<string,List<string>> Collect(IEnumerable<IModelModule> modelModules, string prefix){
-            var assemblies = modelModules.Select(module => XafTypesInfo.Instance.FindTypeInfo(module.Name).AssemblyInfo.Assembly);
-            var assemblyResourcesNames = assemblies.SelectMany(assembly => assembly.GetManifestResourceNames(), (assembly1, s) => new { assembly1, s });
-            assemblyResourcesNames =assemblyResourcesNames.Where(arg =>((arg.s.StartsWith(prefix) || (!(arg.s.StartsWith(prefix)) && arg.s.IndexOf("." + prefix) > -1))));
-            var dictionary = new Dictionary<string, List<string>>();
-            foreach (var assemblyResourcesName in assemblyResourcesNames) {
-                var resourceName = assemblyResourcesName.s;
-                string path = resourceName.StartsWith(prefix) ? resourceName: resourceName.Substring(resourceName.IndexOf("." + prefix) + 1);
-                resourceName = (Path.GetFileNameWithoutExtension(path)+"").Replace(prefix, "");
-                if (!(dictionary.ContainsKey(resourceName)))
-                    dictionary.Add(resourceName, new List<string>());
-                var assembly1 = assemblyResourcesName.assembly1;
-                var xml = GetXml(assemblyResourcesName.s, assembly1);
-                dictionary[resourceName].Add(xml);
-            }
-            return dictionary;
-        }
 
-        string GetXml(string resourceName, Assembly assembly1) {
-            string readToEnd;
-            using (var manifestResourceStream = assembly1.GetManifestResourceStream(resourceName))
-            {
-                if (manifestResourceStream == null) throw new NullReferenceException(resourceName);
-                using (var streamReader = new StreamReader(manifestResourceStream)) {
-                    readToEnd = streamReader.ReadToEnd();
-                }
-            }
-            return readToEnd;
-        }
 
         public void AddLayers(string modelApplicationPrefix, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos, ModelApplicationBase model) {
             var modelXmlReader = new ModelXmlReader();
-            var modulesList = ((IModelApplicationModule) model.Application).ModulesList;
-            foreach (var resourse in Collect(modulesList,modelApplicationPrefix)) {
-                var modelDifferenceObjectInfo = GetModelDifferenceObjectInfo(modelApplicationPrefix, loadedModelDifferenceObjectInfos, resourse.Key, model);
-                foreach (var xml in resourse.Value){
-                    modelXmlReader.ReadFromString(modelDifferenceObjectInfo.Model, "", xml);
+            var assemblies = ((IModelApplicationModule)model.Application).ModulesList.Select(module => XafTypesInfo.Instance.FindTypeInfo(module.Name).AssemblyInfo.Assembly);
+            var resourceModelCollector = new ResourceModelCollector();
+            foreach (var keyValuePair in resourceModelCollector.Collect(assemblies, modelApplicationPrefix)){
+                var modelDifferenceObjectInfo = GetModelDifferenceObjectInfo(modelApplicationPrefix, loadedModelDifferenceObjectInfos, keyValuePair.Key, model);
+                foreach (var aspectInfo in keyValuePair.Value.AspectInfos){
+                    modelXmlReader.ReadFromString(modelDifferenceObjectInfo.Model, aspectInfo.AspectName, aspectInfo.Xml);
                 }
                 modelDifferenceObjectInfo.ModelDifferenceObject.CreateAspects(modelDifferenceObjectInfo.Model);
             }

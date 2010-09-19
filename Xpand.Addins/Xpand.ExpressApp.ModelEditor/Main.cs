@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using System.IO;
@@ -12,9 +11,8 @@ using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Model;
-using Xpand.Utils.DependentAssembly;
+using Xpand.Persistent.Base.ModelDifference;
 using System.Linq;
-using ResourcesModelStore = Xpand.Persistent.Base.ModelDifference.ResourcesModelStore;
 
 
 namespace Xpand.ExpressApp.ModelEditor {
@@ -84,41 +82,26 @@ namespace Xpand.ExpressApp.ModelEditor {
 	    }
 
 	    static void AddLayers(ModelApplicationBase modelApplication, ApplicationModulesManager applicationModulesManager, PathInfo pathInfo) {
-            IEnumerable<string> assemblyPaths = DependentAssemblyPathResolver.GetAssemblyPaths(pathInfo.AssemblyPath).Reverse();
-	        string resourceName = null;
-	        foreach (var assemblyPath in assemblyPaths) {
-	            var assembly = GetAssembly(applicationModulesManager, assemblyPath);
-	            string addLayerCore = AddLayerCore(pathInfo, modelApplication, assembly);
-                if (addLayerCore != null)
-                    resourceName = addLayerCore;
-	        }
-	        var lastLayer = modelApplication.CreatorInstance.CreateModelApplication();
-	        modelApplication.AddLayer(lastLayer);
-            new ModelXmlReader().ReadFromResource(lastLayer,"",GetAssembly(applicationModulesManager, pathInfo.AssemblyPath), resourceName);
+	        var resourceModelCollector = new ResourceModelCollector();
+	        var dictionary = resourceModelCollector.Collect(applicationModulesManager.Modules.Select(@base => @base.GetType().Assembly), null);
+            AddLayersCore(dictionary.Where(pair => PredicateLastLayer(pair, pathInfo)), modelApplication);
+            AddLayersCore(dictionary.Where(pair => !PredicateLastLayer(pair, pathInfo)), modelApplication);
 	    }
 
-	    static string AddLayerCore(PathInfo pathInfo, ModelApplicationBase modelApplication, Assembly assembly) {
-	        string resourceName = null;
-	        var layer = modelApplication.CreatorInstance.CreateModelApplication();
-	        modelApplication.AddLayer(layer);
-	        var resourcesModelStore = new ResourcesModelStore(assembly, "", true);
-	        resourcesModelStore.ResourceLoading += (sender, args) => {
-	            if (args.ResourceName.EndsWith(Path.GetFileName(pathInfo.LocalPath))) {
-                    args.Cancel = assembly.Location == pathInfo.AssemblyPath;
-                    if (args.Cancel)
-	                    resourceName = args.ResourceName;
+	    static bool PredicateLastLayer(KeyValuePair<string, ResourceInfo> pair, PathInfo pathInfo) {
+            return !(pair.Key.Substring(pair.Key.LastIndexOf(".") + 1).EndsWith(Path.GetFileNameWithoutExtension(pathInfo.LocalPath) + "")) && Path.GetFileNameWithoutExtension(pathInfo.AssemblyPath)==pair.Value.AssemblyName;
+	    }
+
+	    static void AddLayersCore(IEnumerable<KeyValuePair<string, ResourceInfo>> layers, ModelApplicationBase modelApplication) {
+	        foreach (var pair in layers){
+	            ModelApplicationBase layer = modelApplication.CreatorInstance.CreateModelApplication();
+	            layer.Id = pair.Key;
+	            modelApplication.AddLayer(layer);
+	            var modelXmlReader = new ModelXmlReader();
+	            foreach (var aspectInfo in pair.Value.AspectInfos) {
+	                modelXmlReader.ReadFromString(layer,aspectInfo.AspectName, aspectInfo.Xml);
 	            }
-	        };
-	        resourcesModelStore.Load(layer);
-            return resourceName;
-	    }
-
-	    static Assembly GetAssembly(ApplicationModulesManager applicationModulesManager, string path) {
-            var assembly = applicationModulesManager.Modules.Where(mbase => mbase.GetType().Assembly.Location == path).Select(mbase => mbase.GetType().Assembly).SingleOrDefault();
-            if (assembly == null)
-                throw new ArgumentException(path);
-
-            return assembly;
+	        }
 	    }
 	}
 }

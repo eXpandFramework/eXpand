@@ -6,7 +6,11 @@ using DevExpress.ExpressApp.Model.Core;
 namespace Xpand.ExpressApp.ModelDifference.Core {
     public abstract class ModelApplicationFromStreamStoreBase {
         public virtual void Load(ModelApplicationBase model) {
-            Load(model,String.Empty);
+            Load(model,GetAspect());
+        }
+
+        protected virtual string GetAspect() {
+            return String.Empty;
         }
 
         public  virtual string Name {

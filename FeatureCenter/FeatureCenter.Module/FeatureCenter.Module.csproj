@@ -187,7 +187,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.SqlDBMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.Base, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
@@ -439,6 +439,7 @@
     <EmbeddedResource Include="ApplicationDifferences\RoleDifference\RDO_Administrators_RoleDifference.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="AdditionalViewControls\ConditionalControlAndMessage\MDO_ConditionalControlAndMessage_el.xafml" />
     <None Include="Functional Tests\Sample.ets" />
     <EmbeddedResource Include="ListViewControl\ConditionalDetailViews\MDO_ConditionalDetailViews.xafml">
       <SubType>Designer</SubType>
