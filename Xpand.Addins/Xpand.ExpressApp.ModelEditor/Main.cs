@@ -114,7 +114,11 @@ namespace Xpand.ExpressApp.ModelEditor {
 	    }
 
 	    static Assembly GetAssembly(ApplicationModulesManager applicationModulesManager, string path) {
-	        return applicationModulesManager.Modules.Where(mbase => mbase.GetType().Assembly.Location==path).Select(mbase => mbase.GetType().Assembly).Single();
+            var assembly = applicationModulesManager.Modules.Where(mbase => mbase.GetType().Assembly.Location == path).Select(mbase => mbase.GetType().Assembly).SingleOrDefault();
+            if (assembly == null)
+                throw new ArgumentException(path);
+
+            return assembly;
 	    }
 	}
 }
