@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
         public virtual IEnumerable<ModelApplicationBase> GetAllLayers(ModelApplicationBase master)
         {
-            return GetAllLayers(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(persistentApplication.UniqueName, null), master);
+            return GetAllLayers(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(persistentApplication.UniqueName, null).Where(differenceObject => differenceObject.Oid != this.Oid), master);
         }
 
         protected IEnumerable<ModelApplicationBase> GetAllLayers(IEnumerable<ModelDifferenceObject> differenceObjects, ModelApplicationBase master) {

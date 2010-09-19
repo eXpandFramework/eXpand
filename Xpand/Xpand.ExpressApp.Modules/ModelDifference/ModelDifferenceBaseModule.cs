@@ -18,10 +18,11 @@ namespace Xpand.ExpressApp.ModelDifference{
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
-            application.SetupComplete += OnSetupComplete;
+            application.LoggingOn += OnLoggingOn;
         }
 
-        void OnSetupComplete(object sender, EventArgs e) {
+        void OnLoggingOn(object sender, LogonEventArgs e)
+        {
             var customModelDifferenceStoreEventArgs = new CreateCustomModelDifferenceStoreEventArgs();
             OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);
             if (!customModelDifferenceStoreEventArgs.Handled)
@@ -29,6 +30,5 @@ namespace Xpand.ExpressApp.ModelDifference{
         }
 
         public abstract string GetPath();
-
     }
 }
