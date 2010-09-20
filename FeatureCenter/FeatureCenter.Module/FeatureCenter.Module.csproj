@@ -439,7 +439,6 @@
     <EmbeddedResource Include="ApplicationDifferences\RoleDifference\RDO_Administrators_RoleDifference.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="AdditionalViewControls\ConditionalControlAndMessage\MDO_ConditionalControlAndMessage_el.xafml" />
     <None Include="Functional Tests\Sample.ets" />
     <EmbeddedResource Include="ListViewControl\ConditionalDetailViews\MDO_ConditionalDetailViews.xafml">
       <SubType>Designer</SubType>

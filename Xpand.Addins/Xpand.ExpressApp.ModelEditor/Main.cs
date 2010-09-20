@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using System.IO;
@@ -84,16 +85,22 @@ namespace Xpand.ExpressApp.ModelEditor {
 	    static void AddLayers(ModelApplicationBase modelApplication, ApplicationModulesManager applicationModulesManager, PathInfo pathInfo) {
 	        var resourceModelCollector = new ResourceModelCollector();
 	        var dictionary = resourceModelCollector.Collect(applicationModulesManager.Modules.Select(@base => @base.GetType().Assembly), null);
-            AddLayersCore(dictionary.Where(pair => PredicateLastLayer(pair, pathInfo)), modelApplication);
             AddLayersCore(dictionary.Where(pair => !PredicateLastLayer(pair, pathInfo)), modelApplication);
+            AddLayersCore(dictionary.Where(pair => PredicateLastLayer(pair, pathInfo)), modelApplication);
 	    }
 
 	    static bool PredicateLastLayer(KeyValuePair<string, ResourceInfo> pair, PathInfo pathInfo) {
-            return !(pair.Key.Substring(pair.Key.LastIndexOf(".") + 1).EndsWith(Path.GetFileNameWithoutExtension(pathInfo.LocalPath) + "")) && Path.GetFileNameWithoutExtension(pathInfo.AssemblyPath)==pair.Value.AssemblyName;
+            var name =pair.Key.EndsWith(ModelStoreBase.ModelDiffDefaultName)?ModelStoreBase.ModelDiffDefaultName: pair.Key.Substring(pair.Key.LastIndexOf(".") + 1);
+	        bool nameMatch = (name.EndsWith(Path.GetFileNameWithoutExtension(pathInfo.LocalPath) + ""));
+	        bool assemblyMatch = Path.GetFileNameWithoutExtension(pathInfo.AssemblyPath)==pair.Value.AssemblyName;
+	        return nameMatch && assemblyMatch;
 	    }
 
 	    static void AddLayersCore(IEnumerable<KeyValuePair<string, ResourceInfo>> layers, ModelApplicationBase modelApplication) {
-	        foreach (var pair in layers){
+	        IEnumerable<KeyValuePair<string, ResourceInfo>> keyValuePairs = layers;
+	        int count = layers.Count();
+	        Debug.Print("");
+	        foreach (var pair in keyValuePairs){
 	            ModelApplicationBase layer = modelApplication.CreatorInstance.CreateModelApplication();
 	            layer.Id = pair.Key;
 	            modelApplication.AddLayer(layer);
