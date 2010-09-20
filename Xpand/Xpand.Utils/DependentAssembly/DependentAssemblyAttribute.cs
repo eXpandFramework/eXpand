@@ -2,8 +2,12 @@
 using System.Reflection;
 
 namespace Xpand.Utils.DependentAssembly {
-    public class DependentAssemblyAttribute : Attribute
-    {
+    public interface IDependentAssemblyAttribute {
+        Assembly Assembly { get; }
+    }
+
+    [Obsolete("You not need it", true)]
+    public class DependentAssemblyAttribute : Attribute, IDependentAssemblyAttribute {
         readonly Type _type;
 
         public DependentAssemblyAttribute(Type type)
