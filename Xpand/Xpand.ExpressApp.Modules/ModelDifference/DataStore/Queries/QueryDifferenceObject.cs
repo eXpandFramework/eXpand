@@ -21,7 +21,9 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries{
 
         public virtual IQueryable<TDifferenceObject> GetActiveModelDifferences(string uniqueApplicationName, string name){
             var differenceObjects = new XPQuery<TDifferenceObject>(_session);
-            IQueryable<TDifferenceObject> differences = GetDifferences(differenceObjects, uniqueApplicationName, name).Where(o => o.DifferenceType == DifferenceType.Model);
+            IQueryable<TDifferenceObject> differences = GetDifferences(differenceObjects, uniqueApplicationName, name);
+            if (typeof(TDifferenceObject) == typeof(ModelDifferenceObject))
+                differences = differences.Where(o => o.DifferenceType == DifferenceType.Model);
             return differences;
         }
 
