@@ -9,7 +9,16 @@ namespace Xpand.ExpressApp.Web.Editors
     [DetailViewItem(typeof(IModelActionButton))]
     public class ActionButtonDetailItem : ExpressApp.Editors.ActionButtonDetailItem
     {
-        public ActionButtonDetailItem(Type objectType, IModelDetailViewItem model) : base(model, objectType) { }
+        public ActionButtonDetailItem(Type objectType, string id)
+            : base(objectType, id)
+        {
+        }
+
+        public ActionButtonDetailItem(
+            IModelDetailViewItem model, Type objectType)
+            : base(model, objectType)
+        {
+        }
         protected override object CreateControlCore()
         {
             var button = new ASPxButton {Text = Caption};
