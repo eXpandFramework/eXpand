@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp.Model;
 using DevExpress.Web.ASPxGridView;
+using Xpand.ExpressApp.Web.SystemModule;
 
 namespace Xpand.ExpressApp.Web.ListEditors
 {
@@ -11,6 +12,9 @@ namespace Xpand.ExpressApp.Web.ListEditors
         {
             base.ApplyModelCore();
             var gridView = ((ASPxGridView) Control);
+            bool? enableCallBacks = ((IModelListViewMainViewOptions)Model).GridViewOptions.EnableCallBacks;
+            if (enableCallBacks.HasValue)
+                gridView.EnableCallBacks = enableCallBacks.Value;
             if (gridView.Settings.ShowStatusBar==GridViewStatusBarMode.Visible)
                 gridView.Templates.StatusBar = null;
         }

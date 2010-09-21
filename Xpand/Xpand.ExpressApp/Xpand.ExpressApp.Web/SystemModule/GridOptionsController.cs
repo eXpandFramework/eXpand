@@ -12,6 +12,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     }
     public interface IModelGridViewOptions : IModelNode
     {
+        bool? EnableCallBacks { get; set; }
         IModelGridViewSettings Settings { get; set; }
         IModelGridViewSettingsBehavior SettingsBehavior { get; set; }
         IModelGridViewSettingsPager SettingsPager { get; set; }
