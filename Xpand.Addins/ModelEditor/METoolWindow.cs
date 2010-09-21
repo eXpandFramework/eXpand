@@ -13,8 +13,8 @@ namespace XpandAddIns.ModelEditor
     [ToolboxItem(false)]
     public partial class METoolWindow : ToolWindowPlugIn
     {
-        bool _buildStarted;
-
+        string _buildingProject;
+        bool? atLeastOneFail;
 
         // DXCore-generated code...
         #region InitializePlugIn
@@ -27,10 +27,13 @@ namespace XpandAddIns.ModelEditor
         }
 
         void EventsOnProjectBuildDone(string project, string projectConfiguration, string platform, string solutionConfiguration, bool succeeded) {
-            if (_buildStarted) {
-                _buildStarted = false;
+            if (!(atLeastOneFail.HasValue) && !succeeded)
+                atLeastOneFail = true;
+            if (_buildingProject==project) {
+                _buildingProject = null;
                 DialogResult dialogResult=DialogResult.Yes;
-                if (!succeeded) {
+                if (atLeastOneFail.HasValue&& atLeastOneFail.Value) {
+                    atLeastOneFail = null;
                     dialogResult = MessageBox.Show(@"Build fail!!! Continue opening the ME?", null,MessageBoxButtons.YesNo);
                 }
                 if (dialogResult==DialogResult.Yes){
@@ -77,8 +80,8 @@ namespace XpandAddIns.ModelEditor
                     {
                         Solution solution = CodeRush.Solution.Active;
                         string solutionConfigurationName = solution.SolutionBuild.ActiveConfiguration.Name;
-                        _buildStarted = true;
-                        solution.SolutionBuild.BuildProject(solutionConfigurationName, projectWrapper.UniqueName, false);
+                        _buildingProject = projectWrapper.UniqueName;
+                        solution.SolutionBuild.BuildProject(solutionConfigurationName, projectWrapper.UniqueName);
                     }
                     else
                         openModelEditor(projectWrapper);
