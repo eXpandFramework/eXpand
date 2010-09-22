@@ -81,7 +81,7 @@ namespace XpandAddIns.ModelEditor
                         Solution solution = CodeRush.Solution.Active;
                         string solutionConfigurationName = solution.SolutionBuild.ActiveConfiguration.Name;
                         _buildingProject = projectWrapper.UniqueName;
-                        solution.SolutionBuild.BuildProject(solutionConfigurationName, projectWrapper.UniqueName);
+                        solution.SolutionBuild.BuildProject(solutionConfigurationName, projectWrapper.UniqueName,false);
                     }
                     else
                         openModelEditor(projectWrapper);
