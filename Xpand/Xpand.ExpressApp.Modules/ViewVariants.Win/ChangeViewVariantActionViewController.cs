@@ -16,7 +16,7 @@ using DevExpress.ExpressApp.Model;
 namespace Xpand.ExpressApp.ViewVariants.Win {
     public class ChangeViewVariantActionViewController : ViewController<XpandListView>
     {
-        private const string EXpandViewVariants = "eXpand.ViewVariants";
+        
         protected override void OnAfterConstruction()
         {
             base.OnAfterConstruction();
@@ -28,46 +28,59 @@ namespace Xpand.ExpressApp.ViewVariants.Win {
             if (Frame != null && args.Action.Id == Frame.GetController<ChangeVariantController>().ChangeVariantAction.Id &&
                 Frame.Template is IBarManagerHolder) {
                 var repositoryItem = (RepositoryItemImageComboBox) ((BarEditItem) args.ActionControl.Control).Edit;
-                repositoryItem.Buttons.AddRange(new[] { new EditorButton(ButtonPredefines.Ellipsis),new EditorButton(ButtonPredefines.Delete) });
+                var renameButton = new EditorButton(ButtonPredefines.Ellipsis) { ToolTip = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.EXpandViewVariants, "RenameViewToolTip") };
+                var deleteButton = new EditorButton(ButtonPredefines.Delete) { ToolTip = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.EXpandViewVariants, "RenameViewToolTip") };
+                repositoryItem.Buttons.AddRange(new[] { renameButton,deleteButton });
                 repositoryItem.ButtonClick += RepositoryItem_OnButtonClick;
             }
 
         }
 
-        private void RepositoryItem_OnButtonClick(object sender, ButtonPressedEventArgs e)
-        {
-            
-            if (e.Button.Kind == ButtonPredefines.Delete)
-            {
-                if (MessageBox.Show(CaptionHelper.GetLocalizedText(EXpandViewVariants, "DeleteViewConfirmation"), null, MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    var variantInfo = (VariantInfo) Frame.GetController<ChangeVariantController>().ChangeVariantAction.SelectedItem.Data;
-                    DeleteView(variantInfo.ViewID);
-                }
+        private void RepositoryItem_OnButtonClick(object sender, ButtonPressedEventArgs e){
+            if (e.Button.Kind == ButtonPredefines.Delete){
+                DeleteView();
             }
             else if (e.Button.Kind==ButtonPredefines.Ellipsis) {
-                
-                var objectSpace = Application.CreateObjectSpace();
-                var viewCloner = new ViewCloner(objectSpace.Session){Caption = Frame.GetController<ChangeVariantController>().ChangeVariantAction.SelectedItem.Caption};
-                var detailView = Application.CreateDetailView(objectSpace, viewCloner);
-                var parameters = new ShowViewParameters(detailView) {TargetWindow = TargetWindow.NewModalWindow};
-                var controller = new DialogController();
-                controller.AcceptAction.Execute+=EditViewActionOnExecute;
-                parameters.Controllers.Add(controller);
-                Application.ShowViewStrategy.ShowView(parameters, new ShowViewSource(null, null));
+                RenameView();
             }
         }
 
-        private void EditViewActionOnExecute(object sender, SimpleActionExecuteEventArgs args) {
+        void RenameView() {
+            var objectSpace = Application.CreateObjectSpace();
+            var viewCloner = new ViewCloner(objectSpace.Session){Caption = Frame.GetController<ChangeVariantController>().ChangeVariantAction.SelectedItem.Caption};
+            var detailView = Application.CreateDetailView(objectSpace, viewCloner);
+            detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.EXpandViewVariants, "RenameViewToolTip");
+            var parameters = new ShowViewParameters(detailView) {TargetWindow = TargetWindow.NewModalWindow};
+            var controller = new DialogController();
+            controller.AcceptAction.Execute+=RenameViewActionOnExecute;
+            parameters.Controllers.Add(controller);
+            Application.ShowViewStrategy.ShowView(parameters, new ShowViewSource(null, null));
+        }
+
+        void DeleteView() {
+            if (MessageBox.Show(CaptionHelper.GetLocalizedText(XpandViewVariantsModule.EXpandViewVariants, "DeleteViewConfirmation"), null, MessageBoxButtons.YesNo) == DialogResult.Yes){
+                var variantInfo = (VariantInfo) Frame.GetController<ChangeVariantController>().ChangeVariantAction.SelectedItem.Data;
+                DeleteViewCore(variantInfo.ViewID);
+                var changeVariantController = Frame.GetController<ChangeVariantController>();
+                changeVariantController.ChangeVariantAction.DoExecute(changeVariantController.ChangeVariantAction.SelectedItem);
+                View.Refresh();
+            }
+        }
+
+        private void RenameViewActionOnExecute(object sender, SimpleActionExecuteEventArgs args) {
             var viewCloner = ((ViewCloner)args.CurrentObject);
             string id = View.Id;
             Frame.GetController<CloneViewController>().Clone(viewCloner);
-            DeleteView(id);
-            Frame.GetController<ChangeVariantController>().RefreshVariantsAction();
+            DeleteViewCore(id);
+            var changeVariantController = Frame.GetController<ChangeVariantController>();
+            changeVariantController.RefreshVariantsAction();
+            changeVariantController.ChangeVariantAction.SelectedItem = changeVariantController.ChangeVariantAction.FindItemByCaptionPath(viewCloner.Caption);
+            changeVariantController.ChangeVariantAction.DoExecute(changeVariantController.ChangeVariantAction.SelectedItem);
+            View.Refresh();
         }
 
 
-        private void DeleteView(string viewId) {
+        private void DeleteViewCore(string viewId) {
             IModelView modelView = RemoveVariantNode(viewId);
             Application.Model.Views.Remove(Application.Model.Views[viewId]);
             var changeVariantAction = Frame.GetController<ChangeVariantController>().ChangeVariantAction;

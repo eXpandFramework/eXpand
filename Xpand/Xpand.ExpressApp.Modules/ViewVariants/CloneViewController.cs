@@ -2,6 +2,7 @@ using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.ExpressApp.Model;
 using System.ComponentModel;
@@ -34,7 +35,9 @@ namespace Xpand.ExpressApp.ViewVariants
         private void cloneViewPopupWindowShowAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
         {
             ObjectSpace objectSpace = Application.CreateObjectSpace();
-            e.View = Application.CreateDetailView(objectSpace, new ViewCloner(objectSpace.Session));
+            DetailView detailView = Application.CreateDetailView(objectSpace, new ViewCloner(objectSpace.Session));
+            detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.EXpandViewVariants,"CreateViewCaption");
+            e.View = detailView;
         }
 
         private void cloneViewPopupWindowShowAction_Execute(object sender, PopupWindowShowActionExecuteEventArgs e) {
