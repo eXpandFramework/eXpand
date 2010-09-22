@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
@@ -120,11 +121,19 @@ namespace Xpand.ExpressApp.Win
 
         public XpandWinApplication()
         {
-            InitializeComponent();
+            if (XpandModuleBase.Application==null)
+                Application.ThreadException+=(sender, args) => HandleException(args.Exception,this);
+            else {
+                Application.ThreadException += (sender, args) => HandleException(args.Exception, (XpandWinApplication) XpandModuleBase.Application);
+            }
+            InitializeComponent();        
             DetailViewCreating += OnDetailViewCreating;
             ListViewCreating += OnListViewCreating;
         }
 
+        public static void HandleException(Exception exception, XpandWinApplication xpandWinApplication){
+            xpandWinApplication.HandleException(exception);
+        }
 
         public XpandWinApplication(IContainer container)
         {
