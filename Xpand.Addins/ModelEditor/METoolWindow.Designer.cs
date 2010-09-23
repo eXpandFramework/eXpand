@@ -49,10 +49,10 @@ namespace XpandAddIns.ModelEditor
             this.gridColumnName = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
             this.textEdit1 = new DevExpress.DXCore.Controls.XtraEditors.TextEdit();
             this.openModelEditorAction = new DevExpress.CodeRush.Core.Action(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.openModelEditorAction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
@@ -60,11 +60,14 @@ namespace XpandAddIns.ModelEditor
             // gridControl1
             // 
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
             this.gridControl1.EmbeddedNavigator.Name = "";
             this.gridControl1.Location = new System.Drawing.Point(0, 0);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(709, 356);
+            this.gridControl1.Size = new System.Drawing.Size(709, 385);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -85,8 +88,8 @@ namespace XpandAddIns.ModelEditor
             this.gridView1.OptionsMenu.EnableGroupPanelMenu = false;
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
-            this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
             this.gridView1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.gridView1_KeyUp);
+            this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
             // 
             // gridColumnName
             // 
@@ -111,23 +114,38 @@ namespace XpandAddIns.ModelEditor
             this.openModelEditorAction.Image = ((System.Drawing.Bitmap)(resources.GetObject("openModelEditorAction.Image")));
             this.openModelEditorAction.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
             this.openModelEditorAction.RegisterInVS = true;
+            this.openModelEditorAction.ToolbarItem.ButtonIsPressed = false;
+            this.openModelEditorAction.ToolbarItem.Caption = null;
+            this.openModelEditorAction.ToolbarItem.Image = null;
             this.openModelEditorAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.openModelEditorAction_Execute);
             // 
-            // ToolWindow1
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.label1.Location = new System.Drawing.Point(0, 385);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(187, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "CTRL+Return-->builds selection";
+            // 
+            // METoolWindow
             // 
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.textEdit1);
+            this.Controls.Add(this.label1);
             this.Image = ((System.Drawing.Bitmap)(resources.GetObject("$this.Image")));
             this.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Name = "METoolWindow";
-            this.Size = new System.Drawing.Size(709, 356);
+            this.Size = new System.Drawing.Size(709, 398);
             ((System.ComponentModel.ISupportInitialize)(this.events)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.openModelEditorAction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -157,5 +175,6 @@ namespace XpandAddIns.ModelEditor
         private GridColumn gridColumnName;
         private TextEdit textEdit1;
         private DevExpress.CodeRush.Core.Action openModelEditorAction;
+        private System.Windows.Forms.Label label1;
     }
 }

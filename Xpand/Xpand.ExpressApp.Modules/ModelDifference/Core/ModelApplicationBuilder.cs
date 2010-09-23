@@ -57,10 +57,11 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         public ModelApplicationBase GetMasterModel() {
             TypesInfo typesInfo = GetTypesInfo();
-            var application = GetApplication(_executableName, typesInfo);
-            XpandApplicationModulesManager modulesManager = GetModulesManager(typesInfo, application);
-            ApplicationModelsManager modelsManager = GetModelsManager(modulesManager);
-            return (ModelApplicationBase)GetModelApplication(application, modelsManager);
+            using (var application = GetApplication(_executableName, typesInfo)) {
+                XpandApplicationModulesManager modulesManager = GetModulesManager(typesInfo, application);
+                ApplicationModelsManager modelsManager = GetModelsManager(modulesManager);
+                return (ModelApplicationBase)GetModelApplication(modelsManager);
+            }
         }
 
 
@@ -74,13 +75,12 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return typesInfo;
         }
 
-        IModelApplication GetModelApplication(XafApplication application, ApplicationModelsManager modelsManager) {
+        IModelApplication GetModelApplication(ApplicationModelsManager modelsManager) {
             var modelApplicationCreator = XpandModuleBase.ModelApplicationCreator;
             XpandModuleBase.ModelApplicationCreator = null;
             var modelApplication = modelsManager.CreateModelApplication();
             AddAfterSetupLayer(modelApplication);
             XpandModuleBase.ModelApplicationCreator=modelApplicationCreator;
-            application.Dispose();
             return modelApplication;
         }
 

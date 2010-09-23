@@ -17,7 +17,7 @@ namespace Xpand.Utils.DependentAssembly
             _path = path;
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainOnAssemblyResolve;
             Assembly assembly = AppDomain.CurrentDomain.Load(File.ReadAllBytes(path));
-            var locations = assembly.GetCustomAttributes(typeof(DependentAssemblyAttribute), true).OfType<DependentAssemblyAttribute>().Select(attribute => attribute.Assembly.Location).ToList();
+            var locations = assembly.GetCustomAttributes(typeof(IDependentAssemblyAttribute), true).OfType<IDependentAssemblyAttribute>().Select(attribute => attribute.Assembly.Location).ToList();
             AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomainOnAssemblyResolve;
             return locations;
         }

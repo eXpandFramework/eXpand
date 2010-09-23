@@ -32,5 +32,5 @@ using Xpand.Utils.DependentAssembly;
 [assembly: AssemblyVersion("1.0.*")]
 //[assembly: AssemblyVersion(Xpand.AssemblyInfo.Version)]
 //[assembly: AssemblyFileVersion(Xpand.AssemblyInfo.Version)]
-[assembly: DependentAssembly(typeof(FeatureCenterModule))]
+
 

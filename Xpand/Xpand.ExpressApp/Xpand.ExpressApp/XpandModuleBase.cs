@@ -15,13 +15,18 @@ namespace Xpand.ExpressApp {
             get { return _instanceModelApplicationCreatorPropertiesManager.Value; }
         }
         public static ModelApplicationCreator ModelApplicationCreator {
-            get { return _instanceModelApplicationCreatorManager.Value; }
-            set { _instanceModelApplicationCreatorManager.Value = value; }
+            get {
+                return _instanceModelApplicationCreatorManager != null ? _instanceModelApplicationCreatorManager.Value : null;
+            }
+            set {
+                if (_instanceModelApplicationCreatorManager != null)
+                    _instanceModelApplicationCreatorManager.Value = value;
+            }
         }
 
         public new static XafApplication Application {
             get {
-                return _instanceXafApplicationManager.Value;
+                return _instanceXafApplicationManager != null ? _instanceXafApplicationManager.Value : null;
             }
         }
 

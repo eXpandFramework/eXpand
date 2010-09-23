@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using System.IO;
@@ -32,6 +31,7 @@ namespace Xpand.ExpressApp.ModelEditor {
 			Application.ThreadException += OnException;
 
 		    try {
+            
 		        var pathInfo = new PathInfo(args);
 		        Tracing.Tracer.LogSeparator("PathInfo");
 		        Tracing.Tracer.LogText(pathInfo.ToString());
@@ -55,6 +55,7 @@ namespace Xpand.ExpressApp.ModelEditor {
 	    static ModelEditorViewController GetController(PathInfo pathInfo, ApplicationModulesManager applicationModulesManager, ModelApplicationBase modelApplication) {
 	        var storePath = Path.GetDirectoryName(pathInfo.LocalPath);
 	        var fileModelStore = new FileModelStore(storePath, Path.GetFileNameWithoutExtension(pathInfo.LocalPath));
+	        fileModelStore.Load(modelApplication.LastLayer);
 	        var unusableStore = new FileModelStore(storePath, ModelStoreBase.UnusableDiffDefaultName);
 	        return new ModelEditorViewController((IModelApplication)modelApplication, fileModelStore, unusableStore,applicationModulesManager.Modules);
 	    }
@@ -86,7 +87,8 @@ namespace Xpand.ExpressApp.ModelEditor {
 	        var resourceModelCollector = new ResourceModelCollector();
 	        var dictionary = resourceModelCollector.Collect(applicationModulesManager.Modules.Select(@base => @base.GetType().Assembly), null);
             AddLayersCore(dictionary.Where(pair => !PredicateLastLayer(pair, pathInfo)), modelApplication);
-            AddLayersCore(dictionary.Where(pair => PredicateLastLayer(pair, pathInfo)), modelApplication);
+            ModelApplicationBase lastLayer = modelApplication.CreatorInstance.CreateModelApplication();
+	        modelApplication.AddLayer(lastLayer);
 	    }
 
 	    static bool PredicateLastLayer(KeyValuePair<string, ResourceInfo> pair, PathInfo pathInfo) {
@@ -98,8 +100,6 @@ namespace Xpand.ExpressApp.ModelEditor {
 
 	    static void AddLayersCore(IEnumerable<KeyValuePair<string, ResourceInfo>> layers, ModelApplicationBase modelApplication) {
 	        IEnumerable<KeyValuePair<string, ResourceInfo>> keyValuePairs = layers;
-	        int count = layers.Count();
-	        Debug.Print("");
 	        foreach (var pair in keyValuePairs){
 	            ModelApplicationBase layer = modelApplication.CreatorInstance.CreateModelApplication();
 	            layer.Id = pair.Key;
