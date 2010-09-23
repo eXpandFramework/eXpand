@@ -1,9 +1,6 @@
-using System.Collections.Generic;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Editors;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Model;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.NodeUpdaters;
@@ -18,11 +15,6 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
             extenders.Add<IModelApplication, IModelApplicationAdditionalViewControls>();
-        }
-
-        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors) {
-            base.RegisterEditorDescriptors(editorDescriptors);
-            editorDescriptors.Add(new DetailViewItemDescriptor(new DetailViewItemRegistration(typeof(IModelAdditionalViewControlsItem), typeof(AdditionalViewControlsItem), true)));
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters)

@@ -1,6 +1,4 @@
 using System.ComponentModel;
-using DevExpress.ExpressApp.Editors;
-using DevExpress.Persistent.Base.General;
 using DevExpress.Utils;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win
@@ -15,11 +13,5 @@ namespace Xpand.ExpressApp.TreeListEditors.Win
         {
             InitializeComponent();
         }
-        protected override void RegisterEditorDescriptors(System.Collections.Generic.List<EditorDescriptor> editorDescriptors)
-        {
-            base.RegisterEditorDescriptors(editorDescriptors);
-            editorDescriptors.Add(new ListEditorDescriptor(new AliasAndEditorTypeRegistration(EditorAliases.CategorizedListEditor, typeof(ICategorizedItem), true, typeof(XpandCategorizedListEditor), true)));
-        }
-
     }
 }

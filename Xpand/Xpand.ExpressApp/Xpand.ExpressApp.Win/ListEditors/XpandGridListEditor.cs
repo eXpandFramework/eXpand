@@ -15,9 +15,11 @@ using Xpand.ExpressApp.ListEditors;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Editors;
 
 namespace Xpand.ExpressApp.Win.ListEditors
 {
+    [ListEditor(typeof(object))]
     public class XpandGridListEditor : DevExpress.ExpressApp.Win.Editors.GridListEditor, IDXPopupMenuHolder, IPopupMenuHider
     {
         private bool _hidePopupMenu;

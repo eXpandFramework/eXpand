@@ -1,9 +1,6 @@
-using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using Xpand.Persistent.Base.General;
 using Alignment = Xpand.NCarousel.Alignment;
 
 namespace Xpand.ExpressApp.NCarousel.Web
@@ -36,12 +33,5 @@ namespace Xpand.ExpressApp.NCarousel.Web
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView,IModelListViewNCarousel>();
         }
-
-        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors){
-            editorDescriptors.Add(new ListEditorDescriptor(new AliasAndEditorTypeRegistration(typeof (NCarouselListEditor).Name,
-                                                                            typeof (IPictureItem), true,
-                                                                            typeof (NCarouselListEditor), true)));
-        }
-
     }
 }

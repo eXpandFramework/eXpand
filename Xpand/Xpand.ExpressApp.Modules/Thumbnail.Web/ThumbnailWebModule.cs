@@ -23,12 +23,5 @@ namespace Xpand.ExpressApp.Thumbnail.Web
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView,IModelListViewThumbnailWeb>();
         }
-
-        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors){
-            editorDescriptors.Add(new ListEditorDescriptor(new AliasAndEditorTypeRegistration(typeof(ThumbnailListEditor).Name,
-                                                                            typeof(IPictureItem), true,
-                                                                            typeof(ThumbnailListEditor), true)));
-        }
-
     }
 }

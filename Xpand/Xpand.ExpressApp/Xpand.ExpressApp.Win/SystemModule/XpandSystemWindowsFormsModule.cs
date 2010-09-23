@@ -20,12 +20,5 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         public XpandSystemWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof (XpandSystemModule));
         }
-
-        protected override void RegisterEditorDescriptors(System.Collections.Generic.List<EditorDescriptor> editorDescriptors)
-        {
-            base.RegisterEditorDescriptors(editorDescriptors);
-            editorDescriptors.Add(new ListEditorDescriptor(new EditorTypeRegistration(EditorAliases.GridListEditor, typeof(object), typeof(XpandGridListEditor), true)));
-            
-        }
     }
 }
