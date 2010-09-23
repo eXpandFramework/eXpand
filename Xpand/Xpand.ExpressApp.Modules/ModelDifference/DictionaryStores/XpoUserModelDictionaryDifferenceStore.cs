@@ -78,7 +78,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores{
                 var space = Application.CreateObjectSpace();
                 IEnumerable<ModelDifferenceObject> differences = GetDifferences(space);
                 foreach (var difference in differences){
-                    difference.CreateAspects(model);
+                    difference.CreateAspectsCore(model);
                     space.SetModified(difference);
                 }
                 space.CommitChanges();
