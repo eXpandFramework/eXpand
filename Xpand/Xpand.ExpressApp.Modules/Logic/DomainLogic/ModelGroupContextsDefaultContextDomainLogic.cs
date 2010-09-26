@@ -7,7 +7,7 @@ namespace Xpand.ExpressApp.Logic.DomainLogic {
     [DomainLogic(typeof (IModelGroupContexts))]
     public class ModelGroupContextsDefaultContextDomainLogic {
         public static IModelExecutionContexts Get_DefaultContext(IModelGroupContexts modelGroupContexts){
-            return modelGroupContexts.Where(context => context.Id == LogicDefaultGroupContextNodeUpdater.Default).Single();
+            return modelGroupContexts.Where(context => context.Id == LogicDefaultGroupContextNodeUpdater.Default).SingleOrDefault();
         }
     }
 }
