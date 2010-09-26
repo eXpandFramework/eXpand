@@ -1,8 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <ConditionalDetailView>
+    <GroupContexts DefaultContext="CustomProcessSelectedItem">
+      <ExecutionContexts Id="CurrentObjectChanged" IsNewNode="True">
+        <CurrentObjectChanged Name="CurrentObjectChanged" IsNewNode="True" />
+      </ExecutionContexts>
+      <ExecutionContexts Id="CustomProcessSelectedItem" IsNewNode="True">
+        <CustomProcessSelectedItem Name="CustomProcessSelectedItem" IsNewNode="True" />
+      </ExecutionContexts>
+      <ExecutionContexts Id="Default" Removed="True" />
+    </GroupContexts>
     <Rules>
-      <ConditionalDetailViewRule Id="Paris_DetailViews" IsNewNode="True" TypeInfo="FeatureCenter.Module.Customer" View="ConditionalDetailViews_ListView" NormalCriteria="City='Paris'" DetailView="ConditionalDetailViews_DetailView" />
+      <ConditionalDetailViewRule Id="Paris_DetailViews_When_CustomProcessSelectedItem" IsNewNode="True" TypeInfo="FeatureCenter.Module.Customer" View="ConditionalDetailViews_ListView" NormalCriteria="City='Paris'" DetailView="ConditionalDetailViews_DetailView" />
+      <ConditionalDetailViewRule Id="Paris_DetailViews_Copy_When_CurrentObjectChanged" IsNewNode="True" ViewType="DetailView" TypeInfo="FeatureCenter.Module.Customer" NormalCriteria="City='Paris'" DetailView="ConditionalDetailViews_DetailView" View="ConditionalDetailViewsDefault_DetailView" ExecutionContextGroup="CurrentObjectChanged" />
     </Rules>
   </ConditionalDetailView>
   <Views>
