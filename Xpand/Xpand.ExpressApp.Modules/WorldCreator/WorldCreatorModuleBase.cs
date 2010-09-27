@@ -42,8 +42,14 @@ namespace Xpand.ExpressApp.WorldCreator {
                     }
                 }
             }
-            
-            
+            else {
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => assembly.ManifestModule.ScopeName.EndsWith(CompileEngine.XpandExtension));
+                foreach (var assembly1 in assemblies) {
+                    moduleManager.AddModule(assembly1.GetTypes().Where(type => typeof (ModuleBase).IsAssignableFrom(type)).Single());
+                }
+            }
+
+
             Application.SetupComplete +=ApplicationOnSetupComplete;
             
         }

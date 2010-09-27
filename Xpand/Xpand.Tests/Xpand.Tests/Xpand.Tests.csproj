@@ -257,6 +257,7 @@
     <Compile Include="Xpand.WorldCreator\TypesInfoSpecs.cs" />
     <Compile Include="Xpand.WorldCreator\XpoObjectMergerSpecs.cs" />
     <Compile Include="Xpand.Xpo\CriteriaOperatorExtractorFixture.cs" />
+    <Compile Include="Xpand.Xpo\DynamicCalcPropertySpecs.cs" />
     <Compile Include="Xpand.Xpo\PersistentMetaDataFixture.cs" />
     <Compile Include="Xpand.Xpo\PropertyPathParserFixture.cs" />
     <Compile Include="Xpand.Xpo\ValueConvertersSpecs.cs" />

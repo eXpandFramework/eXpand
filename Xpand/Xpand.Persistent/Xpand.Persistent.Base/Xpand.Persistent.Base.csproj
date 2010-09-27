@@ -143,6 +143,7 @@
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentDefaulClassOptionsAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentKeyAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentNavigationItemAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentPersistentAliasAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentPersistentAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentRuleRequiredFieldAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentSizeAttribute.cs" />

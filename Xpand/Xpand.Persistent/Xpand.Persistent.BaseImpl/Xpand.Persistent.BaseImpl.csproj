@@ -160,6 +160,8 @@
     <Compile Include="ImportExport\XmlFileChooser.cs" />
     <Compile Include="PersistentMetaData\CodeTemplate.cs" />
     <Compile Include="PersistentMetaData\CodeTemplateInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentVisibleInLookupListViewAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentVisibleInDetailViewAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAssemblyAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAssemblyDataStoreAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAssemblyVersionAttributeInfo.cs" />
@@ -176,6 +178,8 @@
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentDefaultClassOptionsAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentPersistentAliasAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentVisibleInListViewAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentXpandNavigationItemAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentPersistentAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentPivotedPropertyAttribute.cs" />
@@ -294,6 +298,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpXPOneToOnePropertyMemberTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpXPCalculatedPropertyMemberTemplates.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

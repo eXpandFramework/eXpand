@@ -12,6 +12,7 @@
         XPReadWritePropertyMember,
         XPOneToOnePropertyMember,
         XPCollectionMember,
+        XPCalculatedPropertyMember,
         InterfaceReadWriteMember,
         Struct,
         ReadWriteMember,

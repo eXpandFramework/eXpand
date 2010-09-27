@@ -124,7 +124,10 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Size(SizeAttribute.Unlimited)]
         public string BaseTypeFullName {
             get { return _baseTypeFullName; }
-            set { SetPropertyValue("BaseTypeFullName", ref _baseTypeFullName, value); }
+            set {
+                SetPropertyValue("BaseTypeFullName", ref _baseTypeFullName, value);
+                _baseType = ReflectionHelper.FindType(value);
+            }
         }
 
         [Browsable(false)]

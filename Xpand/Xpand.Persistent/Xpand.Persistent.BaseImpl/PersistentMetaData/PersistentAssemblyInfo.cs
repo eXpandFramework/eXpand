@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -15,8 +16,9 @@ using Xpand.Xpo.DB;
 [assembly: DataStore(typeof(PersistentAssemblyInfo), "WorldCreator")]
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [DefaultClassOptions]
-    [DevExpress.Persistent.Base.NavigationItem("WorldCreator")]
+    [NavigationItem("WorldCreator")]
     [InterfaceRegistrator(typeof(IPersistentAssemblyInfo))]
+    [DefaultProperty("Name")]
     public class PersistentAssemblyInfo : BaseObject, IPersistentAssemblyInfo {
         CodeDomProvider _codeDomProvider;
         string _compileErrors;

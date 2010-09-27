@@ -177,7 +177,7 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         private void ViewOnCurrentObjectChanged(object sender, EventArgs args) {
-            if (_previousObject != null)
+            if (_previousObject != null && !(ObjectSpace.IsDisposedObject(_previousObject)))
                 InvertExecution(View, ExecutionContext.CurrentObjectChanged, _previousObject);
             if (!isRefreshing) {
                 ForceExecution(ExecutionContext.CurrentObjectChanged);
