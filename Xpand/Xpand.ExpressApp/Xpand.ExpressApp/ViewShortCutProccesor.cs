@@ -21,6 +21,7 @@ namespace Xpand.ExpressApp {
         }
 
         public void Proccess(CustomProcessShortcutEventArgs shortcutEventArgs) {
+            if (shortcutEventArgs.Handled) return;
             var shortcut = shortcutEventArgs.Shortcut;
             IModelDetailView modelDetailView = GetModelView(shortcut);
             if ((modelDetailView != null&&IsEnable(modelDetailView))) {
