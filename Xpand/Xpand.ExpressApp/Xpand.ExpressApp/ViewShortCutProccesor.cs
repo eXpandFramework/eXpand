@@ -2,6 +2,7 @@
 using System.Collections;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using System.Linq;
@@ -23,13 +24,21 @@ namespace Xpand.ExpressApp {
             var shortcut = shortcutEventArgs.Shortcut;
             IModelDetailView modelDetailView = GetModelView(shortcut);
             if ((modelDetailView != null&&IsEnable(modelDetailView))) {
-                shortcutEventArgs.Handled = true;
-                var objectSpace = _application.CreateObjectSpace();
-                object obj = GetObject(shortcut, modelDetailView, objectSpace);
-                _detailView = _application.CreateDetailView(objectSpace, modelDetailView, true,obj);
-                shortcutEventArgs.View = _detailView;
-                    
+                if (CanCreate(modelDetailView.ModelClass.TypeInfo)) {
+                    shortcutEventArgs.Handled = true;
+                    var objectSpace = _application.CreateObjectSpace();
+                    object obj = GetObject(shortcut, modelDetailView, objectSpace);
+                    _detailView = _application.CreateDetailView(objectSpace, modelDetailView, true,obj);
+                    shortcutEventArgs.View = _detailView;
+                }
             }
+        }
+
+        bool CanCreate(ITypeInfo typeInfo) {
+            if (!(typeInfo.IsPersistent)) {
+                return typeInfo.Type.GetConstructor(Type.EmptyTypes) != null;
+            }
+            return true;
         }
 
         bool IsEnable(IModelDetailView modelDetailView) {
