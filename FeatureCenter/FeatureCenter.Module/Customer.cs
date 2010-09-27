@@ -1,17 +1,17 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.Attributes;
 using IQueryable = System.Linq.IQueryable;
-using System.Linq;
 
-namespace FeatureCenter.Module
-{
-   
+namespace FeatureCenter.Module {
+    [DefaultClassOptions]
     public class Customer : CustomerBase {
-        public Customer(Session session) : base(session) {
+        public Customer(Session session)
+            : base(session) {
         }
 
         [Association("Customer-Orders")]
@@ -27,7 +27,7 @@ namespace FeatureCenter.Module
             set { SetPropertyValue("BirthDate", ref _birthDate, value); }
         }
         [Browsable(false)]
-        public string ConditionalControlAndMessage{
+        public string ConditionalControlAndMessage {
             get { return "Customer " + Name + " has less than " + Orders.Count; }
         }
 
@@ -40,17 +40,15 @@ namespace FeatureCenter.Module
         public string CityWarning {
             get { return (City + "").Length < 3 ? "Last week I was staying at " + City : null; }
         }
-        
+
         [CustomQueryProperties("DisplayableProperties", "Name_City;Orders_Last_OrderDate")]
-        public static IQueryable EmployeesLinq(Session session)
-        {
+        public static IQueryable EmployeesLinq(Session session) {
             return new XPQuery<Customer>(session).Select(customer =>
-                                                         new
-                                                         {
+                                                         new {
                                                              Name_City = customer.Name + " " + customer.City,
                                                              Orders_Last_OrderDate = customer.Orders.Max(order => order.OrderDate)
                                                          });
         }
-        
+
     }
 }

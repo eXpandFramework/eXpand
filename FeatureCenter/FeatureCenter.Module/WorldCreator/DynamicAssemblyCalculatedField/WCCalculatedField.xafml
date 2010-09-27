@@ -1,0 +1,17 @@
+﻿<Application>
+  <AdditionalViewControls>
+    <Rules>
+      <AdditionalViewControlsRule Id="Header Dynamic Assembly Calculated Field" IsNewNode="True" TypeInfo="MasterDetailDynamicAssembly.DMDCustomer" Message="Dynamic Assembly Calculated Field" NormalCriteria="1=1" ControlType="Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls.ApplicationCaption" View="DMDCustomerCalculatedField_ListView" />
+      <AdditionalViewControlsRule Id="ViewMessage Dynamic Calculated Field" IsNewNode="True" TypeInfo="MasterDetailDynamicAssembly.DMDCustomer" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" Position="Bottom" NormalCriteria="1=1" Message="In this view you can see a master detail created dynamic by world creator persistent classes" View="DMDCustomerCalculatedField_ListView" />
+    </Rules>
+  </AdditionalViewControls>
+  <Views>
+    <ListView Id="DMDCustomerCalculatedField_ListView">
+      <Columns>
+        <ColumnInfo Id="FirstOrderDate" IsNewNode="True" PropertyName="FirstOrderDate" Index="5">
+          <GridColumnOptions IsNewNode="True" />
+        </ColumnInfo>
+      </Columns>
+    </ListView>
+  </Views>
+</Application>
