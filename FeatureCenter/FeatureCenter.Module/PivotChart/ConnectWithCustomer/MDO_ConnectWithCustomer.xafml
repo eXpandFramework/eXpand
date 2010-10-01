@@ -1,22 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <AdditionalViewControls>
-    <GroupContexts>
+    <ExecutionContextsGroup>
       <ExecutionContexts Id="PivotConnectingWithCustomer" IsNewNode="True">
         <ExecutionContext Name="ViewControlsCreated" IsNewNode="True" />
       </ExecutionContexts>
-    </GroupContexts>
+    </ExecutionContextsGroup>
     <Rules>
       <AdditionalViewControlsRule Id="Custom Sort -Connecting With Customer" IsNewNode="True" TypeInfo="FeatureCenter.Module.PivotChart.ConnectWithCustomer.CAWCustomer" ExecutionContextGroup="PivotConnectingWithCustomer" Message="This view is special cause you can see how you can apply a custom sorting. By default pivot sorts columns in asceding order. Here it is configure to sort them in desceding. You can sort also using a different property than UnitPrice if the property is on your pivot field area (no need to be a bound one)" View="CAWCustomer_DetailView" NotUseSameType="True" Position="DetailViewItem" NormalCriteria="1=1" />
     </Rules>
   </AdditionalViewControls>
   <ModelArtifactState>
     <ConditionalActionState>
-      <GroupContexts>
+      <ExecutionContextsGroup>
         <ExecutionContexts Id="ConnectWithCustomer" IsNewNode="True">
           <ExecutionContext Name="ViewControlsCreated" IsNewNode="True" Index="0" />
         </ExecutionContexts>
-      </GroupContexts>
+      </ExecutionContextsGroup>
       <Rules>
         <ActionStateRule Id="Disable Bind Action" IsNewNode="True" ActionState="Hidden" ActionId="UnbindMultiAnalysisData" ExecutionContextGroup="ConnectWithCustomer" TypeInfo="FeatureCenter.Module.PivotChart.ConnectWithCustomer.CAWCustomer" View="CAWCustomer_DetailView" />
         <ActionStateRule Id="Execute Bind Action for customer" IsNewNode="True" ActionState="Executed" ActionId="BindMultiAnalysisData" ExecutionContextGroup="ConnectWithCustomer" TypeInfo="FeatureCenter.Module.PivotChart.ConnectWithCustomer.CAWCustomer" View="CAWCustomer_DetailView" />

@@ -2,12 +2,12 @@
 <Application>
   <ModelArtifactState>
     <ConditionalActionState>
-      <GroupContexts>
+      <ExecutionContextsGroup>
         <ExecutionContexts Id="ConditionalSaveDelete" IsNewNode="True">
           <ExecutionContext Name="CurrentObjectChanged" IsNewNode="True" Index="0" />
           <ExecutionContext Name="ViewChanging" IsNewNode="True" Index="0" />
         </ExecutionContexts>
-      </GroupContexts>
+      </ExecutionContextsGroup>
       <Rules>
         <ActionStateRule Id="Disable Delete for ConditionalSaveDelete" ExecutionContextGroup="ConditionalSaveDelete" />
         <ActionStateRule Id="Disable Save for ConditionalSaveDelete" ExecutionContextGroup="ConditionalSaveDelete" />
