@@ -25,6 +25,10 @@ namespace Xpand.ExpressApp.Logic {
         IModelView ILogicRule.View { get; set; }
         public Nesting Nesting { get; set; }
         public string ExecutionContextGroup { get; set; }
+        public string ViewContextGroup { get; set; }
+        public string FrameTemplateContextGroup { get; set; }
+
+
         public bool? IsRootView { get; set; }
 
 

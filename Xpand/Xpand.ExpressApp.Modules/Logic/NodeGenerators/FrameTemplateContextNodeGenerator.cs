@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp.Model.Core;
 
 namespace Xpand.ExpressApp.Logic.NodeGenerators {
-    public class GroupContextsNodeGenerator : ModelNodesGeneratorBase {
+    public class FrameTemplateContextNodeGenerator : ModelNodesGeneratorBase {
         protected override void GenerateNodesCore(ModelNode node) {
         }
     }

@@ -7,10 +7,8 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Logic.NodeUpdaters;
 using PermissionBase = Xpand.ExpressApp.Security.Permissions.PermissionBase;
 
-namespace Xpand.ExpressApp.Logic.Security
-{
-    public abstract class LogicRulePermission : PermissionBase, ILogicRule
-    {
+namespace Xpand.ExpressApp.Logic.Security {
+    public abstract class LogicRulePermission : PermissionBase, ILogicRule {
         protected LogicRulePermission() {
             ExecutionContextGroup = LogicDefaultGroupContextNodeUpdater.Default;
         }
@@ -24,6 +22,8 @@ namespace Xpand.ExpressApp.Logic.Security
         public string ID { get; set; }
 
         public string ExecutionContextGroup { get; set; }
+        public string ViewContextGroup { get; set; }
+        public string FrameTemplateContextGroup { get; set; }
         public FrameTemplateContext FrameTemplateContext { get; set; }
 
         public bool? IsRootView { get; set; }
@@ -40,10 +40,9 @@ namespace Xpand.ExpressApp.Logic.Security
 
         string IRule.Id {
             get { return ID; }
-            set { ID=value; }
+            set { ID = value; }
         }
-        ITypeInfo ILogicRule.TypeInfo
-        {
+        ITypeInfo ILogicRule.TypeInfo {
             get { return XafTypesInfo.Instance.FindTypeInfo(ObjectType); }
             set { }
         }

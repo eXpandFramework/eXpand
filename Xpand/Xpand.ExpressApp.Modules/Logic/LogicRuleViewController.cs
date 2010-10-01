@@ -56,24 +56,24 @@ namespace Xpand.ExpressApp.Logic {
             if (info != null && ExecutionContextIsValid(executionContext, info) && TemplateContextIsValid(info) && ViewIsRoot(info)) {
                 info.InvertingCustomization = invertCustomization;
                 info.View = view;
-                //                if (invertCustomization)
-                //                    info.Active = !info.Active;
                 return info;
             }
             return null;
         }
 
         protected virtual bool ViewIsRoot(LogicRuleInfo<TModelLogicRule> info) {
-            if (!(info.Rule.IsRootView.HasValue))
-                return true;
-            return info.Rule.IsRootView == View.IsRoot;
+            return !(info.Rule.IsRootView.HasValue) || info.Rule.IsRootView == View.IsRoot;
         }
 
         protected virtual bool TemplateContextIsValid(LogicRuleInfo<TModelLogicRule> info) {
-            FrameTemplateContext frameTemplateContext = info.Rule.FrameTemplateContext;
-            if (frameTemplateContext == FrameTemplateContext.All)
-                return true;
-            return frameTemplateContext + "Context" == Frame.Context;
+            var frameTemplateContext = info.Rule.FrameTemplateContext;
+            return frameTemplateContext != FrameTemplateContext.All? frameTemplateContext + "Context" == Frame.Context: TemplateContextGroupIsValid(info);
+        }
+
+        bool TemplateContextGroupIsValid(LogicRuleInfo<TModelLogicRule> info) {
+            var frameTemplateContextsGroup = GetModelLogic().FrameTemplateContextsGroup;
+            var modelFrameTemplateContextsGroup = frameTemplateContextsGroup.Where(templateContexts => templateContexts.Id==info.Rule.FrameTemplateContextGroup).FirstOrDefault();
+            return modelFrameTemplateContextsGroup == null ||modelFrameTemplateContextsGroup.Where(context => context.Name + "Context" == Frame.Context).FirstOrDefault() != null;
         }
 
 
@@ -230,11 +230,16 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         protected virtual bool IsValidRule(TModelLogicRule rule, View view) {
-            return view != null && IsValidRule(rule, new ViewInfo(view.Id,view is DetailView,view.IsRoot,view.ObjectTypeInfo));
+            return view != null && IsValidRule(rule, new ViewInfo(view.Id, view is DetailView, view.IsRoot, view.ObjectTypeInfo));
         }
 
         bool IsValidViewId(string viewId, TModelLogicRule rule) {
-            return rule.View == null || viewId == rule.View.Id;
+            if (rule.View != null)
+                return viewId == rule.View.Id;
+            var viewContextsGroup = GetModelLogic().ViewContextsGroup;
+            var modelViewContexts = viewContextsGroup.Where(contexts => contexts.Id==rule.ViewContextGroup).FirstOrDefault();
+            return modelViewContexts == null ||
+                   modelViewContexts.Where(context => context.Name == viewId).FirstOrDefault() != null;
         }
 
         bool IsValidTypeInfo(ViewInfo viewInfo, TModelLogicRule rule) {
@@ -260,13 +265,13 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         ExecutionContext CalculateCurrentExecutionContext(string executionContextGroup) {
-            var modelGroupContexts = GetModelGroupContexts(executionContextGroup);
-            IModelExecutionContexts executionContexts = modelGroupContexts.Where(context => context.Id == executionContextGroup).Single();
-            return executionContexts.Aggregate(ExecutionContext.None, (current, modelGroupContext) =>
+            IModelLogic modelLogic = GetModelLogic();
+            var modelExecutionContexts = modelLogic.ExecutionContextsGroup.Where(context => context.Id == executionContextGroup).Single();
+            return modelExecutionContexts.Aggregate(ExecutionContext.None, (current, modelGroupContext) =>
                                                 current | (ExecutionContext)Enum.Parse(typeof(ExecutionContext), modelGroupContext.Name.ToString()));
         }
 
-        protected abstract IModelGroupContexts GetModelGroupContexts(string executionContextGroup);
+        protected abstract IModelLogic GetModelLogic();
 
 
 

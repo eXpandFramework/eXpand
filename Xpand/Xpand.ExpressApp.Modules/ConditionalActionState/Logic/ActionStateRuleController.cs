@@ -8,10 +8,8 @@ using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.Conditional.Logic;
 using Xpand.ExpressApp.Logic.Model;
 
-namespace Xpand.ExpressApp.ConditionalActionState.Logic
-{
-    public class ActionStateRuleController : ConditionalLogicRuleViewController<IActionStateRule>
-    {
+namespace Xpand.ExpressApp.ConditionalActionState.Logic {
+    public class ActionStateRuleController : ConditionalLogicRuleViewController<IActionStateRule> {
         public override void ExecuteRule(LogicRuleInfo<IActionStateRule> logicRuleInfo,
                                          ExecutionContext executionContext) {
             IActionStateRule rule = logicRuleInfo.Rule;
@@ -24,10 +22,10 @@ namespace Xpand.ExpressApp.ConditionalActionState.Logic
                         EnableDisableAction(logicRuleInfo, actionBase);
                         break;
                     case ActionState.Executed: {
-                        if (logicRuleInfo.Active) {
-                            ExecuteAction(actionBase);
+                            if (logicRuleInfo.Active) {
+                                ExecuteAction(actionBase);
+                            }
                         }
-                    }
                         break;
                     case ActionState.ExecutedAndDisable:
                         ExecuteAndDisableAction(actionBase);
@@ -36,27 +34,27 @@ namespace Xpand.ExpressApp.ConditionalActionState.Logic
             }
         }
 
-        protected override IModelGroupContexts GetModelGroupContexts(string executionContextGroup) {
-            return ((IModelApplicationModelArtifactState)Application.Model).ModelArtifactState.ConditionalActionState.GroupContexts;
+        protected override IModelLogic GetModelLogic() {
+            return ((IModelApplicationModelArtifactState)Application.Model).ModelArtifactState.ConditionalActionState;
         }
 
-        void ActivateDeActivateAction(LogicRuleInfo<IActionStateRule> info, ActionBase actionBase){
+        void ActivateDeActivateAction(LogicRuleInfo<IActionStateRule> info, ActionBase actionBase) {
             actionBase.Active[ActiveObjectTypeHasRules] = !info.Active;
         }
 
-        void EnableDisableAction(LogicRuleInfo<IActionStateRule> info, ActionBase actionBase){
+        void EnableDisableAction(LogicRuleInfo<IActionStateRule> info, ActionBase actionBase) {
             actionBase.Enabled[ActiveObjectTypeHasRules] = !info.Active;
         }
 
         void ExecuteAction(ActionBase actionBase) {
-            var simpleAction = ((SimpleAction) actionBase);
+            var simpleAction = ((SimpleAction)actionBase);
             if (simpleAction.Active && simpleAction.Enabled) {
                 simpleAction.DoExecute();
             }
         }
 
         void ExecuteAndDisableAction(ActionBase actionBase) {
-            var simpleAction = ((SimpleAction) actionBase);
+            var simpleAction = ((SimpleAction)actionBase);
             simpleAction.Active[ActiveObjectTypeHasRules] = true;
             if (simpleAction.Active && simpleAction.Enabled)
                 simpleAction.DoExecute();
@@ -71,12 +69,12 @@ namespace Xpand.ExpressApp.ConditionalActionState.Logic
             }
             ActionBase actionBase =
                 actionBases.Where(@base => @base.Id == rule.ActionId).Select(@base => @base).Single();
-            return new List<ActionBase> {actionBase};
+            return new List<ActionBase> { actionBase };
         }
 
         IEnumerable<ActionBase> GetModuleActions(IActionStateRule rule, IEnumerable<ActionBase> actionBases) {
             IEnumerable<string> assemblies =
-                Application.Modules.Where(@base => new Regex(rule.Module).IsMatch(@base.GetType().FullName)).Select(
+                Application.Modules.Where(@base => new Regex(rule.Module).IsMatch(@base.GetType().FullName + "")).Select(
                     @base => @base.GetType().Assembly.FullName);
             return actionBases.Where(@base => assemblies.Contains(@base.Controller.GetType().Assembly.FullName));
         }

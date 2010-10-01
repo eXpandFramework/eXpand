@@ -11,10 +11,4 @@ namespace Xpand.ExpressApp.Logic.DomainLogic {
             return Enum.GetValues(typeof(ExecutionContext)).OfType<ExecutionContext>().Select(context => context.ToString()).ToList();
         }
     }
-    [DomainLogic(typeof(IModelViewContext))]
-    public class ModelViewContextDomainLogic {
-        public static List<string> Get_ExecutionContexts(IModelViewContext modelViewContext) {
-            return Enum.GetValues(typeof(ExecutionContext)).OfType<ExecutionContext>().Select(context => context.ToString()).ToList();
-        }
-    }
 }

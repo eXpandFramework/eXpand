@@ -1,35 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.Logic.Model;
 using Xpand.ExpressApp.Logic.NodeGenerators;
-using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.Logic.NodeUpdaters {
     public abstract class LogicDefaultContextNodeUpdater : ModelNodesGeneratorUpdater<ExecutionContextNodeGenerator> {
         public override void UpdateNode(ModelNode node) {
             IModelExecutionContexts defaultModelExecutionContexts = GetDefaulModelExecutionContextsModelNode(node);
             if (defaultModelExecutionContexts != null) {
-                IEnumerable<ITypeInfo> implementors = XafTypesInfo.Instance.FindTypeInfo(typeof(IModelExecutionContext)).Implementors;
                 foreach (ExecutionContext executionContext in GetContexts(defaultModelExecutionContexts)) {
-                    AddNode(defaultModelExecutionContexts, executionContext, implementors, executionContext);
+                    var modelExecutionContext = defaultModelExecutionContexts.AddNode<IModelExecutionContext>();
+                    modelExecutionContext.Name=executionContext.ToString();
                 }
             }
         }
 
         IModelExecutionContexts GetDefaulModelExecutionContextsModelNode(ModelNode node)
         {
-            return GetModelLogicNode(node).GroupContexts.Where(
+            return GetModelLogicNode(node).ExecutionContextsGroup.Where(
                 context => context.Id == LogicDefaultGroupContextNodeUpdater.Default).SingleOrDefault();
         }
 
-        void AddNode(IModelNode modelNode, ExecutionContext executionContext, IEnumerable<ITypeInfo> implementors, ExecutionContext context) {
-            ITypeInfo typeInfo = implementors.Where(info => info.Type.Name=="IModel"+context).First();
-            modelNode.AddNode(typeInfo.Type, executionContext.ToString());
-        }
 
         IEnumerable<ExecutionContext> GetContexts(IModelExecutionContexts modelExecutionContexts)
         {

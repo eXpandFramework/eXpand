@@ -2,9 +2,9 @@
 using Xpand.ExpressApp.Logic.NodeGenerators;
 
 namespace Xpand.ExpressApp.Logic.Model {
-    [ModelNodesGenerator(typeof(ExecutionContextNodeGenerator))]
+    [ModelNodesGenerator(typeof(FrameTemplateContextNodeGenerator))]
     // ReSharper disable PossibleInterfaceMemberAmbiguity
-    public interface IModelExecutionContexts : IModelNode, IModelList<IModelExecutionContext>, IRule {
+    public interface IModelFrameTemplateContexts : IModelNode, IModelList<IModelFrameTemplateContext>, IRule {
         // ReSharper restore PossibleInterfaceMemberAmbiguity
     }
 }

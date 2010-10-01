@@ -82,6 +82,10 @@ namespace Xpand.ExpressApp.ConditionalDetailViews.Logic {
             }
         }
 
+        protected override IModelLogic GetModelLogic() {
+            return ((IModelApplicationConditionalDetailView)Application.Model).ConditionalDetailView;
+        }
+
         readonly Dictionary<IConditionalDetailViewRule, IModelView> defaultValuesRulesStorage = new Dictionary<IConditionalDetailViewRule, IModelView>();
         public override void ExecuteRule(LogicRuleInfo<IConditionalDetailViewRule> info, ExecutionContext executionContext) {
             if (info.Active && !info.InvertingCustomization) {
@@ -104,8 +108,5 @@ namespace Xpand.ExpressApp.ConditionalDetailViews.Logic {
             }
         }
 
-        protected override IModelGroupContexts GetModelGroupContexts(string executionContextGroup) {
-            return ((IModelApplicationConditionalDetailView)Application.Model).ConditionalDetailView.GroupContexts;
-        }
     }
 }
