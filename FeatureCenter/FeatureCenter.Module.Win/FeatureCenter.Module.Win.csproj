@@ -217,6 +217,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalControllerState.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.ConditionalDetailViews, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalDetailViews.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.ExceptionHandling, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.dll</HintPath>
@@ -440,6 +444,14 @@
     <Folder Include="PropertyEditors\StringPropertyEditors\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\DevExpress 2010.1\eXpressApp Framework\Sources\DevExpress.ExpressApp.Modules\DevExpress.ExpressApp.CloneObject\DevExpress.ExpressApp.CloneObject.csproj">
+      <Project>{9BAB6156-77C3-4EBA-826C-DB996971ABEC}</Project>
+      <Name>DevExpress.ExpressApp.CloneObject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\DevExpress 2010.1\eXpressApp Framework\Sources\DevExpress.ExpressApp.Modules\DevExpress.ExpressApp.ConditionalFormatting\DevExpress.ExpressApp.ConditionalFormatting.csproj">
+      <Project>{986CF73D-B047-41B5-AF8A-E3605DC80525}</Project>
+      <Name>DevExpress.ExpressApp.ConditionalFormatting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FeatureCenter.Base\FeatureCenter.Base.csproj">
       <Project>{782230D9-DFA4-4D7A-89A9-660A361B5A8A}</Project>
       <Name>FeatureCenter.Base</Name>

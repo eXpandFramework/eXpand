@@ -3,7 +3,7 @@
   <AdditionalViewControls>
     <GroupContexts>
       <ExecutionContexts Id="PivotConnectingWithCustomer" IsNewNode="True">
-        <ViewControlsCreated Name="ViewControlsCreated" IsNewNode="True" />
+        <ExecutionContext Name="ViewControlsCreated" IsNewNode="True" />
       </ExecutionContexts>
     </GroupContexts>
     <Rules>
@@ -14,7 +14,7 @@
     <ConditionalActionState>
       <GroupContexts>
         <ExecutionContexts Id="ConnectWithCustomer" IsNewNode="True">
-          <ViewControlsCreated Name="ViewControlsCreated" IsNewNode="True" Index="0" />
+          <ExecutionContext Name="ViewControlsCreated" IsNewNode="True" Index="0" />
         </ExecutionContexts>
       </GroupContexts>
       <Rules>

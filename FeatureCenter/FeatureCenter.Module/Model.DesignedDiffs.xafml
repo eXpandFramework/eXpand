@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="FeatureCenter" Logo="ExpressAppLogo">
+  <AdditionalViewControls>
+    <GroupContexts>
+      <ExecutionContexts Id="ConditionalControlAndMessage">
+        <ExecutionContext IsNewNode="True" Name="None" />
+      </ExecutionContexts>
+    </GroupContexts>
+  </AdditionalViewControls>
   <NavigationItems DefaultChildItemsDisplayStyle="List" NavigationStyle="TreeList">
     <Items>
       <Item Id="WorldCreator" Caption="WorldCreator">

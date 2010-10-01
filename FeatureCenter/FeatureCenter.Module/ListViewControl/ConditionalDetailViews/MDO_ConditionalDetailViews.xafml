@@ -3,10 +3,10 @@
   <ConditionalDetailView>
     <GroupContexts DefaultContext="CustomProcessSelectedItem">
       <ExecutionContexts Id="CurrentObjectChanged" IsNewNode="True">
-        <CurrentObjectChanged Name="CurrentObjectChanged" IsNewNode="True" />
+        <ExecutionContext Name="CurrentObjectChanged" IsNewNode="True" />
       </ExecutionContexts>
       <ExecutionContexts Id="CustomProcessSelectedItem" IsNewNode="True">
-        <CustomProcessSelectedItem Name="CustomProcessSelectedItem" IsNewNode="True" />
+        <ExecutionContext Name="CustomProcessSelectedItem" IsNewNode="True" />
       </ExecutionContexts>
       <ExecutionContexts Id="Default" Removed="True" />
     </GroupContexts>

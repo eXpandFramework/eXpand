@@ -4,8 +4,8 @@
     <ConditionalControllerState>
       <GroupContexts>
         <ExecutionContexts Id="ConditionalForeignKeyViolation" IsNewNode="True">
-          <ViewChanging Name="ViewChanging" IsNewNode="True" Index="0" />
-          <CurrentObjectChanged Name="CurrentObjectChanged" IsNewNode="True" Index="0" />
+          <ExecutionContext Name="ViewChanging" IsNewNode="True" Index="0" />
+          <ExecutionContext Name="CurrentObjectChanged" IsNewNode="True" Index="0" />
         </ExecutionContexts>
       </GroupContexts>
       <!--this is here due to a dx bug-->

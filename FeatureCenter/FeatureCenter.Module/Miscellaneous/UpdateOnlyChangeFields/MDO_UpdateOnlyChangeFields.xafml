@@ -3,7 +3,7 @@
   <AdditionalViewControls>
     <GroupContexts>
       <ExecutionContexts Id="UpdateOnlyChangeFields" IsNewNode="True">
-        <ObjectSpaceCommited Name="ObjectSpaceCommited" IsNewNode="True" />
+        <ExecutionContext Name="ObjectSpaceCommited" IsNewNode="True" />
       </ExecutionContexts>
     </GroupContexts>
   </AdditionalViewControls>

@@ -4,8 +4,8 @@
     <ConditionalActionState>
       <GroupContexts>
         <ExecutionContexts Id="ConditionalSaveDelete" IsNewNode="True">
-          <CurrentObjectChanged Name="CurrentObjectChanged" IsNewNode="True" Index="0" />
-          <ViewChanging Name="ViewChanging" IsNewNode="True" Index="0" />
+          <ExecutionContext Name="CurrentObjectChanged" IsNewNode="True" Index="0" />
+          <ExecutionContext Name="ViewChanging" IsNewNode="True" Index="0" />
         </ExecutionContexts>
       </GroupContexts>
       <Rules>
