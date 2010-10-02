@@ -276,6 +276,8 @@
     <Compile Include="ViewShortCutProccesor.cs" />
     <Compile Include="XpandObjectSpace.cs" />
     <Compile Include="SqlMultiDataStoreProxy.cs" />
+    <Compile Include="Xpo\IXPSimpleObjectExtensions.cs" />
+    <Compile Include="Xpo\MetaData\XpandCollectionMemberInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
