@@ -67,13 +67,13 @@ namespace Xpand.ExpressApp.Logic {
 
         protected virtual bool TemplateContextIsValid(LogicRuleInfo<TModelLogicRule> info) {
             var frameTemplateContext = info.Rule.FrameTemplateContext;
-            return frameTemplateContext != FrameTemplateContext.All? frameTemplateContext + "Context" == Frame.Context: TemplateContextGroupIsValid(info);
+            return frameTemplateContext != FrameTemplateContext.All ? frameTemplateContext + "Context" == Frame.Context : TemplateContextGroupIsValid(info);
         }
 
         bool TemplateContextGroupIsValid(LogicRuleInfo<TModelLogicRule> info) {
             var frameTemplateContextsGroup = GetModelLogic().FrameTemplateContextsGroup;
-            var modelFrameTemplateContextsGroup = frameTemplateContextsGroup.Where(templateContexts => templateContexts.Id==info.Rule.FrameTemplateContextGroup).FirstOrDefault();
-            return modelFrameTemplateContextsGroup == null ||modelFrameTemplateContextsGroup.Where(context => context.Name + "Context" == Frame.Context).FirstOrDefault() != null;
+            var modelFrameTemplateContextsGroup = frameTemplateContextsGroup.Where(templateContexts => templateContexts.Id == info.Rule.FrameTemplateContextGroup).FirstOrDefault();
+            return modelFrameTemplateContextsGroup == null || modelFrameTemplateContextsGroup.Where(context => context.Name + "Context" == Frame.Context).FirstOrDefault() != null;
         }
 
 
@@ -145,17 +145,17 @@ namespace Xpand.ExpressApp.Logic {
         }
         protected override void OnDeactivating() {
             base.OnDeactivating();
-            if (IsReady) {
-                ObjectSpace.Committed -= ObjectSpaceOnCommitted;
-                Frame.TemplateViewChanged -= FrameOnTemplateViewChanged;
-                View.ObjectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
-                View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
-                View.QueryCanChangeCurrentObject -= ViewOnQueryCanChangeCurrentObject;
-                View.ObjectSpace.Refreshing -= ObjectSpace_Refreshing;
-                View.ObjectSpace.Reloaded -= ObjectSpace_Reloaded;
-                if (View is XpandListView)
-                    Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem -= OnCustomProcessSelectedItem;
-            }
+            //            if (IsReady) {
+            ObjectSpace.Committed -= ObjectSpaceOnCommitted;
+            Frame.TemplateViewChanged -= FrameOnTemplateViewChanged;
+            View.ObjectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
+            View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
+            View.QueryCanChangeCurrentObject -= ViewOnQueryCanChangeCurrentObject;
+            View.ObjectSpace.Refreshing -= ObjectSpace_Refreshing;
+            View.ObjectSpace.Reloaded -= ObjectSpace_Reloaded;
+            if (View is XpandListView)
+                Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem -= OnCustomProcessSelectedItem;
+            //            }
         }
 
         void ViewOnQueryCanChangeCurrentObject(object sender, CancelEventArgs cancelEventArgs) {
@@ -237,7 +237,7 @@ namespace Xpand.ExpressApp.Logic {
             if (rule.View != null)
                 return viewId == rule.View.Id;
             var viewContextsGroup = GetModelLogic().ViewContextsGroup;
-            var modelViewContexts = viewContextsGroup.Where(contexts => contexts.Id==rule.ViewContextGroup).FirstOrDefault();
+            var modelViewContexts = viewContextsGroup.Where(contexts => contexts.Id == rule.ViewContextGroup).FirstOrDefault();
             return modelViewContexts == null ||
                    modelViewContexts.Where(context => context.Name == viewId).FirstOrDefault() != null;
         }
