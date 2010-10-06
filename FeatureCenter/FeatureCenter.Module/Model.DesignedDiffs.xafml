@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="FeatureCenter" Logo="ExpressAppLogo">
   <AdditionalViewControls>
-    <GroupContexts>
+    <ExecutionContextsGroup>
       <ExecutionContexts Id="ConditionalControlAndMessage">
         <ExecutionContext IsNewNode="True" Name="None" />
       </ExecutionContexts>
-    </GroupContexts>
+    </ExecutionContextsGroup>
   </AdditionalViewControls>
   <NavigationItems DefaultChildItemsDisplayStyle="List" NavigationStyle="TreeList">
     <Items>
