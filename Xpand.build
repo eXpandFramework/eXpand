@@ -227,6 +227,10 @@
 			Regex="(\d+\.\d+\.\d+\.\d+)"
 			ReplacementText="$(Version)"
 			/>
+			
+		<Time Format="yyyy-MM-dd HH:mm" Condition="$(BuildTime)==''">
+			<Output TaskParameter="FormattedTime" PropertyName="BuildTime" />
+		</Time>
 	</Target>
 
 </Project>
