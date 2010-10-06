@@ -18,15 +18,15 @@ namespace FeatureCenter.Module.Win.ListViewControl.RecursiveFiltering
         }
 
         ITreeNode ICategorizedItem.Category {
-            get { return RfCategory; }
-            set { RfCategory=value as RFCategory; }
+            get { return Category; }
+            set { Category=value as RFCategory; }
         }
         private RFCategory _rfCategory;
 
         [Association("RFCategory-RFCustomers")]
-        public RFCategory RfCategory {
+        public RFCategory Category {
             get { return _rfCategory; }
-            set { SetPropertyValue("RFCategory", ref _rfCategory, value); }
+            set { SetPropertyValue("Category", ref _rfCategory, value); }
         }
     }
 }

@@ -30,25 +30,25 @@ namespace FeatureCenter.Module.Win.ListViewControl.RecursiveFiltering
             for (int i = 0; i < customers.Count; i++) {
                 switch (i) {
                     case 0:
-                        customers[i].RfCategory=goodRfCategory;
+                        customers[i].Category=goodRfCategory;
                         break;
                     case 1:
-                        customers[i].RfCategory=veryGoodRfCategory;
+                        customers[i].Category=veryGoodRfCategory;
                         break;
                     case 2:
-                        customers[i].RfCategory=bestRfCategory;
+                        customers[i].Category=bestRfCategory;
                         break;
                     case 3:
-                        customers[i].RfCategory=badRfCategory;
+                        customers[i].Category=badRfCategory;
                         break;
                     case 4:
-                        customers[i].RfCategory=goodRfCategory;
+                        customers[i].Category=goodRfCategory;
                         break;
                     case 5:
-                        customers[i].RfCategory=veryGoodRfCategory;
+                        customers[i].Category=veryGoodRfCategory;
                         break;
                     case 6:
-                        customers[i].RfCategory=bestRfCategory;
+                        customers[i].Category=bestRfCategory;
                         break;
                 }
                 customers[i].Save();
