@@ -3,8 +3,8 @@ using FeatureCenter.Base;
 
 namespace ExternalApplication.Module.Win {
     
-    public class EternalOrder:OrderBase {
-        public EternalOrder(Session session) : base(session) {
+    public class ExternalOrder:OrderBase {
+        public ExternalOrder(Session session) : base(session) {
         }
         private ExternalCustomer _customer;
 

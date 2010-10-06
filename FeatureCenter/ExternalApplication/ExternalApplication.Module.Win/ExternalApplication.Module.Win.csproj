@@ -185,7 +185,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EternalOrder.cs" />
+    <Compile Include="ExternalOrder.cs" />
     <Compile Include="ExternalCustomer.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
