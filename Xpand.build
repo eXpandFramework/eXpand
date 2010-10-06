@@ -101,9 +101,6 @@
 		<Tokens Include="Version">
 			<ReplacementValue>$(Version)</ReplacementValue>
 		</Tokens>
-		<Tokens Include="BuildTime">
-			<ReplacementValue>$(BuildTime)</ReplacementValue>
-		</Tokens>
 	</ItemGroup>
 
 	
@@ -184,7 +181,7 @@
 	<!--For Continuous integration and automated releases-->
 	<Target Name="Release" DependsOnTargets="Clean;_Version;Build;Test;Report;Distrib;" />
 	
-	<Target Name="DeployUpdate">
+	<Target Name="DeployUpdate" >
 		<MakeDir Directories="$(DeploymentFolder);" />
 
 		<CreateItem Include="$(PackageDirectory)\*.zip">
@@ -192,10 +189,21 @@
 		</CreateItem>
 		<Copy SourceFiles="@(deploymentFiles)" DestinationFolder="$(DeploymentFolder)\%(deploymentFiles.SubFolder)%(deploymentFiles.RecursiveDir)" />
 
+		<!-- Hack because buildtime is dynamically
+		  http://social.msdn.microsoft.com/Forums/en-US/msbuild/thread/2c910802-e8c9-4bf1-bdb1-ef7835011eeb
+		-->
+		
+		<CreateItem Include="BuildTime" AdditionalMetadata="ReplacementValue=$(BuildTime)">
+			<Output TaskParameter="Include" ItemName="BuildTimeToken"/>
+		</CreateItem>
+	
+		<CreateItem Include="@(Tokens);@(BuildTimeToken);">
+			<Output TaskParameter="Include" ItemName="AllTokens"/>
+		</CreateItem>
 		
 		<!--Index-->
 		<Copy SourceFiles="Resource\Template\index.template" DestinationFolder="$(TempPath)" />
-		<TemplateFile Template="$(TempPath)\index.template" OutputFile="index.out" Tokens="@(Tokens)" />
+		<TemplateFile Template="$(TempPath)\index.template" OutputFile="index.out" Tokens="@(AllTokens)" />
 		<Copy SourceFiles="$(TempPath)\index.out" DestinationFiles="$(DeploymentFolder)\index.htm" />
 		
 	</Target>
@@ -228,7 +236,7 @@
 			ReplacementText="$(Version)"
 			/>
 			
-		<Time Format="yyyy-MM-dd HH:mm" Condition="$(BuildTime)==''">
+		<Time Format="yyyy-MM-dd HH:mm" >
 			<Output TaskParameter="FormattedTime" PropertyName="BuildTime" />
 		</Time>
 	</Target>
