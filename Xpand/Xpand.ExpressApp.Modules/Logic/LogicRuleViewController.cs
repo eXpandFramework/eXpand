@@ -15,8 +15,9 @@ namespace Xpand.ExpressApp.Logic {
         public static readonly string ActiveObjectTypeHasRules = "ObjectTypeHas" + typeof(TModelLogicRule).Name;
         object _previousObject;
 
+
         public virtual bool IsReady {
-            get { return Active.ResultValue && View != null && View.ObjectTypeInfo != null; }
+            get { return Active.ResultValue && View != null && View.ObjectTypeInfo != null && Name == "Xpand.ExpressApp.ConditionalControllerState.Logic.ControllerStateRuleController"; }
         }
 
         public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext, object currentObject) {
@@ -194,9 +195,8 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs args) {
-            if (!String.IsNullOrEmpty(args.PropertyName)) {
+            if (!String.IsNullOrEmpty(args.PropertyName) && View != null)
                 ForceExecution(ExecutionContext.ObjectChanged);
-            }
         }
 
         protected virtual void OnLogicRuleExecuting(LogicRuleExecutingEventArgs<TModelLogicRule> args) {
