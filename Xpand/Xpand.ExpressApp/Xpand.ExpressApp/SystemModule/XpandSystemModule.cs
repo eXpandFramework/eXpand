@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
@@ -21,7 +23,7 @@ namespace Xpand.ExpressApp.SystemModule {
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(XafApplication), "Resources.SystemModule.ico")]
-    public sealed class XpandSystemModule : XpandModuleBase {
+    public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter {
         static XpandSystemModule() {
             ParametersFactory.RegisterParameter(new MonthAgoParameter());
         }
@@ -72,6 +74,13 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelListView, IModelListViewLinq>();
             extenders.Add<IModelClass, IModelClassProccessViewShortcuts>();
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
+        }
+
+        public void ConvertXml(ConvertXmlParameters parameters) {
+            if (typeof(IModelMember).IsAssignableFrom(parameters.NodeType) ) {
+                if (parameters.Values.ContainsKey("IsRuntimeMember") && parameters.XmlNodeName == "Member"&&parameters.Values["IsRuntimeMember"].ToLower()=="true")
+                    parameters.NodeType = typeof (IModelRuntimeMember);
+            }
         }
     }
 

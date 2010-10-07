@@ -9,21 +9,6 @@ using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.NodeUpdaters {
-    public class ModelMemberGeneratorUpdater : ModelNodesGeneratorUpdater<ModelBOModelClassNodesGenerator> {
-        public override void UpdateNode(ModelNode node) {
-            var modelBoModel = (IModelBOModel)node;
-            foreach (var modelClass in modelBoModel) {
-                IEnumerable<CustomQueryPropertyAttribute> customQueryPropertyAttributes =
-                    LinqCollectionSourceHelper.GetQueryProperties(modelClass.TypeInfo.Type);
-                foreach (var customQueryPropertyAttribute in customQueryPropertyAttributes) {
-                    var modelRuntimeMember = modelClass.OwnMembers.AddNode<IModelRuntimeMember>(customQueryPropertyAttribute.Name);
-                    modelRuntimeMember.NonPersistent = true;
-                    modelRuntimeMember.Type = customQueryPropertyAttribute.Type;
-                }
-            }
-
-        }
-    }
     public class ModelListViewLinqColumnsNodesGeneratorUpdater : ModelNodesGeneratorUpdater<ModelListViewColumnsNodesGenerator> {
         public override void UpdateNode(ModelNode node) {
             var linqViewInfo = node.Parent as IModelListViewLinq;
