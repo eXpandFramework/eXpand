@@ -3,7 +3,7 @@
   <BOModel>
     <Class Name="FeatureCenter.Module.Customer">
       <OwnMembers>
-        <Member Name="MaxOfOrderTotals" IsNewNode="True" IsRuntimeMember="True" AliasExpression="Orders.Max(Total)" Type="System.Decimal" />
+        <CalculatedRuntimeMember Name="MaxOfOrderTotals" IsNewNode="True" IsRuntimeMember="True" AliasExpression="Orders.Max(Total)" Type="System.Decimal" />
       </OwnMembers>
     </Class>
   </BOModel>

@@ -8,24 +8,21 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Model;
-using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
+using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.Xpo.DB;
 
-namespace Xpand.ExpressApp.SystemModule
-{
+namespace Xpand.ExpressApp.SystemModule {
 
     [ToolboxItem(true)]
     [Description("Includes Controllers that represent basic features for XAF applications.")]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(XafApplication), "Resources.SystemModule.ico")]
-    public sealed class XpandSystemModule : XpandModuleBase
-    {
-        static XpandSystemModule()
-        {
+    public sealed class XpandSystemModule : XpandModuleBase {
+        static XpandSystemModule() {
             ParametersFactory.RegisterParameter(new MonthAgoParameter());
         }
 
@@ -34,25 +31,20 @@ namespace Xpand.ExpressApp.SystemModule
             AdditionalBusinessClasses.Add(typeof(XpoServerId));
         }
 
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo)
-        {
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            foreach (var persistentType in typesInfo.PersistentTypes)
-            {
+            foreach (var persistentType in typesInfo.PersistentTypes) {
                 IEnumerable<Attribute> attributes = GetAttributes(persistentType);
-                foreach (var attribute in attributes)
-                {
+                foreach (var attribute in attributes) {
                     persistentType.AddAttribute(attribute);
                 }
             }
         }
-        IEnumerable<Attribute> GetAttributes(ITypeInfo type)
-        {
+        IEnumerable<Attribute> GetAttributes(ITypeInfo type) {
             return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator)).Descendants.Select(typeInfo => (AttributeRegistrator)ReflectionHelper.CreateObject(typeInfo.Type)).SelectMany(registrator => registrator.GetAttributes(type));
         }
 
-        public override void Setup(XafApplication application)
-        {
+        public override void Setup(XafApplication application) {
             base.Setup(application);
             application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
             application.SetupComplete +=
@@ -63,23 +55,21 @@ namespace Xpand.ExpressApp.SystemModule
                 DictionaryHelper.AddFields(application.Model, application.ObjectSpaceProvider.XPDictionary);
         }
 
-        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters)
-        {
+        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new ModelListViewLinqNodesGeneratorUpdater());
             updaters.Add(new ModelListViewLinqColumnsNodesGeneratorUpdater());
+            updaters.Add(new ModelMemberGeneratorUpdater());
             updaters.Add(new ModelViewClonerUpdater());
             updaters.Add(new XpandNavigationItemNodeUpdater());
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelListView, IModelListViewPropertyPathFilters>();
             extenders.Add<IModelClass, IModelClassLoadWhenFiltered>();
             extenders.Add<IModelListView, IModelListViewLoadWhenFiltered>();
             extenders.Add<IModelListView, IModelListViewLinq>();
-            extenders.Add<IModelMember, IModelBOModelRuntimeMember>();
             extenders.Add<IModelClass, IModelClassProccessViewShortcuts>();
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
         }

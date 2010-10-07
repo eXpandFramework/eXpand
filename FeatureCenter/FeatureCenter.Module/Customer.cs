@@ -41,7 +41,8 @@ namespace FeatureCenter.Module {
             get { return (City + "").Length < 3 ? "Last week I was staying at " + City : null; }
         }
 
-        [CustomQueryProperties("DisplayableProperties", "Name_City;Orders_Last_OrderDate")]
+        [CustomQueryProperty("Name_City", typeof(string))]
+        [CustomQueryProperty("Orders_Last_OrderDate", typeof(DateTime))]
         public static IQueryable EmployeesLinq(Session session) {
             return new XPQuery<Customer>(session).Select(customer =>
                                                          new {

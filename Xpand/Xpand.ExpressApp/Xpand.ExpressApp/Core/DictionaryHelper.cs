@@ -11,24 +11,23 @@ using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.Core {
     public class DictionaryHelper {
-        private static IEnumerable<IModelMember> GetCustomFields(IModelApplication model) {
-            return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelBOModelRuntimeMember>().Where(member => member.IsRuntimeMember).Cast<IModelMember>();
+        private static IEnumerable<IModelRuntimeMember> GetCustomFields(IModelApplication model) {
+            return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelRuntimeMember>();
         }
 
         public static void AddFields(IModelApplication model, XPDictionary dictionary) {
-            foreach (IModelMember modelMember in GetCustomFields(model))
+            AddRuntimeMembers(model, dictionary);
+        }
+
+        static void AddRuntimeMembers(IModelApplication model, XPDictionary dictionary) {
+            foreach (IModelRuntimeMember modelRuntimeMember in GetCustomFields(model))
                 try {
-                    Type classType = modelMember.ModelClass.TypeInfo.Type;
+                    Type classType = modelRuntimeMember.ModelClass.TypeInfo.Type;
                     XPClassInfo typeInfo = dictionary.GetClassInfo(classType);
                     lock (typeInfo) {
-                        if (typeInfo.FindMember(modelMember.Name) == null) {
-                            var aliasExpression = ((IModelBOModelRuntimeMember)modelMember).AliasExpression;
-                            var memberInfo = string.IsNullOrEmpty(aliasExpression) ? 
-                                typeInfo.CreateMember(modelMember.Name, modelMember.Type) :
-                                typeInfo.CreateCalculabeMember(modelMember.Name, modelMember.Type, new Attribute[] { new PersistentAliasAttribute(aliasExpression) });
-                            if (modelMember.Size != 0)
-                                memberInfo.AddAttribute(new SizeAttribute(modelMember.Size));
-
+                        if (typeInfo.FindMember(modelRuntimeMember.Name) == null) {
+                            XPCustomMemberInfo memberInfo = GetMemberInfo(modelRuntimeMember, typeInfo);
+                            AddAttributes(modelRuntimeMember, memberInfo);
                             XafTypesInfo.Instance.RefreshInfo(classType);
                         }
                     }
@@ -36,12 +35,25 @@ namespace Xpand.ExpressApp.Core {
                     throw new Exception(
                         ExceptionLocalizerTemplate<SystemExceptionResourceLocalizer, ExceptionId>.GetExceptionMessage(
                             ExceptionId.ErrorOccursWhileAddingTheCustomProperty,
-                            modelMember.MemberInfo.MemberType,
-                            ((IModelClass)modelMember.Parent).Name,
-                            modelMember.Name,
+                            modelRuntimeMember.MemberInfo.MemberType,
+                            ((IModelClass)modelRuntimeMember.Parent).Name,
+                            modelRuntimeMember.Name,
                             exception.Message));
                 }
         }
 
+        static void AddAttributes(IModelRuntimeMember runtimeMember, XPCustomMemberInfo memberInfo) {
+            if (runtimeMember.Size != 0)
+                memberInfo.AddAttribute(new SizeAttribute(runtimeMember.Size));
+            if (runtimeMember.NonPersistent)
+                memberInfo.AddAttribute(new NonPersistentAttribute());
+        }
+
+        static XPCustomMemberInfo GetMemberInfo(IModelRuntimeMember modelMember, XPClassInfo typeInfo) {
+            return (modelMember is IModelCalculatedRuntimeMember)
+                       ? typeInfo.CreateCalculabeMember(modelMember.Name,modelMember.Type,
+                                                        new Attribute[] {new PersistentAliasAttribute(((IModelCalculatedRuntimeMember)modelMember).AliasExpression)})
+                       : typeInfo.CreateMember(modelMember.Name,modelMember.Type);
+        }
     }
 }
