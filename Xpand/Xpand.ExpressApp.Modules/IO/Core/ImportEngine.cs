@@ -10,7 +10,7 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-
+using DevExpress.Xpo.Metadata.Helpers;
 using Xpand.Persistent.Base.ImportExport;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo;
@@ -36,7 +36,6 @@ namespace Xpand.ExpressApp.IO.Core {
             return 0;
         }
         public void ImportObjects(Stream stream, UnitOfWork unitOfWork){
-            unitOfWork.PurgeDeletedObjects();
             Guard.ArgumentNotNull(stream,"Stream");
             stream.Position = 0;
             using (var streamReader = new StreamReader(stream)) {
@@ -116,7 +115,13 @@ namespace Xpand.ExpressApp.IO.Core {
                 var value = GetValue(valueConverter.StorageType, simpleElement);
                 return valueConverter.ConvertFromStorageType(value);
             }
-            return GetValue(xpMemberInfo.MemberType, simpleElement);
+            return GetValue(GetMemberType(xpMemberInfo), simpleElement);
+        }
+
+        Type GetMemberType(XPMemberInfo xpMemberInfo) {
+            return xpMemberInfo is ServiceField
+                       ? typeof (Nullable<>).MakeGenericType(new[] {xpMemberInfo.MemberType})
+                       : xpMemberInfo.MemberType;
         }
 
         object GetValue(Type type, XElement simpleElement) {
@@ -131,14 +136,9 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         XPBaseObject GetObject(UnitOfWork unitOfWork, ITypeInfo typeInfo, CriteriaOperator criteriaOperator) {
-            var xpBaseObject = unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, typeInfo.Type,
-                                                     criteriaOperator) as XPBaseObject;
-            if (xpBaseObject == null) {
-                xpBaseObject = unitOfWork.FindObject(typeInfo.Type, criteriaOperator) as XPBaseObject;
-                if (xpBaseObject != null && xpBaseObject.IsDeleted) {
-                    xpBaseObject.UnDelete();
-                }
-            }
+            var xpBaseObject = unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, unitOfWork.GetClassInfo(typeInfo.Type),
+                                                     criteriaOperator,true) as XPBaseObject ??
+                               unitOfWork.FindObject(unitOfWork.GetClassInfo(typeInfo.Type), criteriaOperator,true) as XPBaseObject;
             return xpBaseObject ?? (XPBaseObject)ReflectionHelper.CreateObject(typeInfo.Type, unitOfWork);
         }
 

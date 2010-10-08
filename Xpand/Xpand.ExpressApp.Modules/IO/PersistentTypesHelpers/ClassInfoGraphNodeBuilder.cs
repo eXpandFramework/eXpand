@@ -82,7 +82,6 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
 
         IEnumerable<IMemberInfo> GetMemberInfos(ITypeInfo typeInfo){
             _excludedMembers = new[] {
-                                         XPObject.Fields.GCRecord.PropertyName,
                                          XPObject.Fields.OptimisticLockField.PropertyName,
                                          XPObject.Fields.ObjectType.PropertyName
                                      };

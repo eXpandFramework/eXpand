@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -9,6 +10,7 @@ using System.Xml.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata.Helpers;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.IO.PersistentTypesHelpers;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
@@ -497,6 +499,28 @@ namespace Xpand.Tests.Xpand.IO
         It should_export_the_full_date_time = () => {
             var serializedObject = _root.SerializedObjects(typeof(DateTimePropertyObject)).ToList()[0];
             _dateTime.Ticks.ToString().ShouldEqual(serializedObject.Property("Date").Value);
+        };
+    }
+    [Subject(typeof(ExportEngine))]
+    public class When_object_property_is_null : With_Isolations {
+        static ObjectSpace _objectSpace;
+
+        static XDocument _document;
+        static Analysis _analysis;
+
+        Establish context = () => {
+            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _analysis = _objectSpace.CreateObject<Analysis>();
+            _objectSpace.CommitChanges();
+        };
+
+        Because of = () => {
+            _document = new ExportEngine().Export(new[] {_analysis}, _objectSpace.CreateObject<SerializationConfigurationGroup>());
+        };
+
+        It should_export_the_property_with_null_value = () => {
+            var element = _document.Root.SerializedObjects(typeof (Analysis)).First();
+            element.ObjectProperty(GCRecordField.StaticName).Value.ShouldEqual(string.Empty);
         };
     }
 }

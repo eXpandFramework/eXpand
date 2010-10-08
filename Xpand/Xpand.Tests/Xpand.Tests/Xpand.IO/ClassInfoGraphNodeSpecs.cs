@@ -6,6 +6,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using DevExpress.Xpo.Metadata.Helpers;
 using Xpand.ExpressApp.IO.PersistentTypesHelpers;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
@@ -312,5 +313,23 @@ namespace Xpand.Tests.Xpand.IO {
             () =>
             _serializationConfiguration.SerializationGraph.Where(node => node.Name == "PivotGridSettingsContent").Single
                 ().NodeType.ShouldEqual(NodeType.Simple);
+    }
+    [Subject(typeof(ClassInfoGraphNodeBuilder),"creating graphs")]
+    public class When_object_has_deferred_Deletion : With_Isolations {
+        static SerializationConfiguration _serializationConfiguration;
+
+        Establish context = () => {
+            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            _serializationConfiguration.TypeToSerialize = typeof(Analysis);
+            _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
+        };
+
+        Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+
+        It should_create_a_gcrecord_node =
+            () =>
+            _serializationConfiguration.SerializationGraph.Where(node => node.Name == GCRecordField.StaticName).
+                FirstOrDefault().ShouldNotBeNull();
     }
 }
