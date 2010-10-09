@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.Win.SystemModule
 
     public class AutoCommitListViewController : ViewController<XpandListView>, IModelExtender
     {
-        protected override void OnActivated()
+        protected override void OnViewControllersActivated()
         {
             base.OnActivated();
             var winDetailViewController = Frame.GetController<WinDetailViewController>();
