@@ -85,6 +85,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             if (control is ISupportAppeareance) {
                 ((ISupportAppeareance)control).BackColor = additionalViewControlsRule.Rule.BackColor;
                 ((ISupportAppeareance)control).Height = additionalViewControlsRule.Rule.Height;
+                ((ISupportAppeareance)control).ForeColor = additionalViewControlsRule.Rule.ForeColor;
+                ((ISupportAppeareance)control).FontStyle = additionalViewControlsRule.Rule.FontStyle;
             }
         }
     }

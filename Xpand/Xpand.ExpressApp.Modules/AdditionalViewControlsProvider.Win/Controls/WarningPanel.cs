@@ -33,6 +33,26 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
             }
         }
 
+        Color? ISupportAppeareance.ForeColor
+        {
+            get { return ForeColor; }
+            set
+            {
+                if (value.HasValue)
+                    ForeColor = value.Value;
+            }
+        }
+
+        FontStyle? ISupportAppeareance.FontStyle
+        {
+            get { return this.Font.Style; }
+            set
+            {
+                if (value.HasValue)
+                    Font = new Font(Font, value.Value);
+            }
+        }
+
         int? ISupportAppeareance.Height
         {
             get { return Height; }
