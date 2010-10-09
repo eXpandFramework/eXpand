@@ -12,7 +12,7 @@
         <ColumnInfo Id="Customer" Index="-1" />
       </Columns>
       <GridViewOptions>
-        <OptionsDetail EnableMasterViewMode="True" AllowExpandEmptyDetails="True" ShowDetailTabs="False" />
+        <OptionsDetail EnableMasterViewMode="True" AllowExpandEmptyDetails="True" />
         <OptionsView ShowDetailButtons="True" />
       </GridViewOptions>
     </ListView>

@@ -16,7 +16,7 @@ using CodeDomProvider = Xpand.Persistent.Base.PersistentMetaData.CodeDomProvider
 namespace Xpand.ExpressApp.WorldCreator.Core {
     public class CompileEngine {
         private const string STR_StrongKeys = "StrongKeys";
-        public const string XpandExtension = ".dll";
+        public const string XpandExtension = ".Xpand";
         readonly List<Assembly> CompiledAssemblies = new List<Assembly>();
 
 
@@ -34,13 +34,13 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 GenerateExecutable = false,
                 GenerateInMemory = true,
                 IncludeDebugInformation = false,
-                OutputAssembly = Path.Combine(path, persistentAssemblyInfo.Name + ".dll"),
+                OutputAssembly = Path.Combine(path, persistentAssemblyInfo.Name + XpandExtension),
             };
             if (action != null)
                 action.Invoke(compilerParams);
             AddReferences(compilerParams, path);
-//            if (File.Exists(compilerParams.OutputAssembly))
-//                File.Delete(compilerParams.OutputAssembly);
+            if (File.Exists(compilerParams.OutputAssembly))
+                File.Delete(compilerParams.OutputAssembly);
             return CompileCore(persistentAssemblyInfo, generateCode, compilerParams, codeProvider);
 
         }
