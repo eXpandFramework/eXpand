@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp {
-    public abstract class XpandModuleBase : ModuleBase {
+    public class XpandModuleBase : ModuleBase {
         static readonly object _lockObject = new object();
         static IValueManager<XafApplication> _instanceXafApplicationManager;
         static IValueManager<ModelApplicationCreatorProperties> _instanceModelApplicationCreatorPropertiesManager;
