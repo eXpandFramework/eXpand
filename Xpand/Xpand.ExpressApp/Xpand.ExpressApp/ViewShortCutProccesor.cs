@@ -62,6 +62,9 @@ namespace Xpand.ExpressApp {
 
         object GetObjectKey(ObjectSpace objectSpace, Type type, ViewShortcut shortcut) {
             object objectKey= null;
+            if (string.IsNullOrEmpty(shortcut.ObjectKey))
+                return objectKey;
+
             try {
                 objectKey = objectSpace.GetObjectKey(type,shortcut.ObjectKey);
             }
