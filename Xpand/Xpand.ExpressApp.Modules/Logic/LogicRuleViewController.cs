@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.Logic {
 
 
         public virtual bool IsReady {
-            get { return Active.ResultValue && View != null && View.ObjectTypeInfo != null && Name == "Xpand.ExpressApp.ConditionalControllerState.Logic.ControllerStateRuleController"; }
+            get { return Active.ResultValue && View != null && View.ObjectTypeInfo != null; }
         }
 
         public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext, object currentObject) {
