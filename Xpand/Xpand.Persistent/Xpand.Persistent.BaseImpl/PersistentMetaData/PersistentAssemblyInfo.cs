@@ -4,13 +4,13 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Enums;
 using Xpand.ExpressApp.WorldCreator.Core;
-using Xpand.Persistent.BaseImpl.PersistentMetaData;
-using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
+using Xpand.Persistent.BaseImpl.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Xpo.DB;
 
 [assembly: DataStore(typeof(PersistentAssemblyInfo), "WorldCreator")]
@@ -29,14 +29,15 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 
         StrongKeyFile _strongKeyFile;
 
-        const string Version="1.0.0.*";
+        
 
-        public PersistentAssemblyInfo(Session session) : base(session) {
+        public PersistentAssemblyInfo(Session session)
+            : base(session) {
         }
-
+        
         public override void AfterConstruction() {
             base.AfterConstruction();
-            Attributes.Add(new PersistentAssemblyVersionAttributeInfo(Session){Version = Version});
+            Attributes.Add(new PersistentAssemblyVersionAttributeInfo(Session));
         }
 
         [Index(4)]

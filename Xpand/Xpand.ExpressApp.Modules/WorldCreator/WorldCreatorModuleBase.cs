@@ -15,20 +15,19 @@ using Xpand.Xpo;
 using Xpand.Xpo.DB;
 
 namespace Xpand.ExpressApp.WorldCreator {
-    public abstract class WorldCreatorModuleBase:XpandModuleBase {
+    public abstract class WorldCreatorModuleBase : XpandModuleBase {
         string _connectionString;
-        List<Type> _dynamicModuleTypes=new List<Type>();
+        List<Type> _dynamicModuleTypes = new List<Type>();
 
-        public List<Type> DynamicModuleTypes{
+        public List<Type> DynamicModuleTypes {
             get { return _dynamicModuleTypes; }
         }
 
-        public override void Setup(ApplicationModulesManager moduleManager)
-        {
+        public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (Application == null||GetPath()== null)
+            if (Application == null || GetPath() == null)
                 return;
-            Application.SettingUp+=ApplicationOnSettingUp;
+            Application.SettingUp += ApplicationOnSettingUp;
             var businessClassesList = GetAdditionalClasses(moduleManager);
             WCTypesInfo.Instance.Register(businessClassesList);
             if (_connectionString != null) {
@@ -41,52 +40,50 @@ namespace Xpand.ExpressApp.WorldCreator {
                         SynchronizeTypes(unitOfWork);
                     }
                 }
-            }
-            else {
+            } else {
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => assembly.ManifestModule.ScopeName.EndsWith(CompileEngine.XpandExtension));
                 foreach (var assembly1 in assemblies) {
-                    moduleManager.AddModule(assembly1.GetTypes().Where(type => typeof (ModuleBase).IsAssignableFrom(type)).Single());
+                    moduleManager.AddModule(assembly1.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single());
                 }
             }
 
 
-            Application.SetupComplete +=ApplicationOnSetupComplete;
-            
+            Application.SetupComplete += ApplicationOnSetupComplete;
+
         }
 
 
         void RunUpdaters(Session session) {
             foreach (WorldCreatorUpdater worldCreatorUpdater in GetWorldCreatorUpdaters(session)) {
                 worldCreatorUpdater.Update();
-            }             
+            }
         }
 
         void SynchronizeTypes(UnitOfWork unitOfWork) {
             var xpObjectTypes = new XPCollection<XPObjectType>(unitOfWork);
             var moduleTypes = DynamicModuleTypes.Where(type => type.Assembly.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>().SingleOrDefault() != null);
             var dataStoreManager = new SqlMultiDataStoreProxy(_connectionString).DataStoreManager;
-            foreach (var moduleType in moduleTypes){
+            foreach (var moduleType in moduleTypes) {
                 var moduleBase = (ModuleBase)Activator.CreateInstance(moduleType);
                 var businessClass = moduleBase.BusinessClasses[0];
                 var connectionProvider = dataStoreManager.GetConnectionProvider(businessClass);
                 var session = new Session(new SimpleDataLayer(connectionProvider));
-                if (session.GetCount(typeof(XPObjectType))<xpObjectTypes.Count) {
+                if (session.GetCount(typeof(XPObjectType)) < xpObjectTypes.Count) {
                     session.Delete(new XPCollection<XPObjectType>(session));
                     foreach (var objectType in xpObjectTypes) {
                         session.Save(new XPObjectType(session, objectType.AssemblyName, objectType.TypeName));
                     }
                 }
-            }            
+            }
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             var session = Application.ObjectSpaceProvider.CreateUpdatingSession();
             mergeTypes(new UnitOfWork(session.DataLayer));
-            
+
         }
 
-        public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo)
-        {
+        public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             var existentTypesMemberCreator = new ExistentTypesMemberCreator();
             if (_connectionString != null) {
@@ -98,19 +95,19 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         IEnumerable<WorldCreatorUpdater> GetWorldCreatorUpdaters(Session session) {
-            return XafTypesInfo.Instance.FindTypeInfo(typeof (WorldCreatorUpdater)).Descendants.Select(
-                typeInfo => (WorldCreatorUpdater) ReflectionHelper.CreateObject(typeInfo.Type, session));
+            return XafTypesInfo.Instance.FindTypeInfo(typeof(WorldCreatorUpdater)).Descendants.Select(
+                typeInfo => (WorldCreatorUpdater)ReflectionHelper.CreateObject(typeInfo.Type, session));
         }
 
         ReflectionDictionary GetReflectionDictionary() {
             Type persistentAssemblyInfoType = GetAdditionalClasses(Application.Modules).Where(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1)).FirstOrDefault();
             if (persistentAssemblyInfoType == null)
                 throw new ArgumentNullException("No bussincess object that implements " +
-                                                typeof (IPersistentAssemblyInfo).FullName + " found");
+                                                typeof(IPersistentAssemblyInfo).FullName + " found");
             IEnumerable<Type> types = persistentAssemblyInfoType.Assembly.GetTypes().Where(type => type.Namespace.StartsWith(persistentAssemblyInfoType.Namespace));
             var reflectionDictionary = new ReflectionDictionary();
             foreach (var type in types) {
-                reflectionDictionary.QueryClassInfo(type);    
+                reflectionDictionary.QueryClassInfo(type);
             }
             return reflectionDictionary;
         }
@@ -121,18 +118,18 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         void CreateDataStore(SetupEventArgs setupEventArgs) {
             var objectSpaceProvider = setupEventArgs.SetupParameters.ObjectSpaceProvider as IXpandObjectSpaceProvider;
-            if (objectSpaceProvider== null)
+            if (objectSpaceProvider == null)
                 throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IXpandObjectSpaceProvider).FullName);
         }
 
-        void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork){
+        void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork) {
             unitOfWork.LockingOption = LockingOption.None;
             Type assemblyInfoType = WCTypesInfo.Instance.FindBussinessObjectType<IPersistentAssemblyInfo>();
             List<IPersistentAssemblyInfo> persistentAssemblyInfos =
                 new XPCollection(unitOfWork, assemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(info => !info.DoNotCompile &&
-                    moduleManager.Modules.Where(@base => @base.Name == "Dynamic" + info.Name + "Module").FirstOrDefault() ==null).ToList();
-            _dynamicModuleTypes = new CompileEngine().CompileModules(persistentAssemblyInfos,GetPath());
-            foreach (var definedModule in _dynamicModuleTypes){
+                    moduleManager.Modules.Where(@base => @base.Name == "Dynamic" + info.Name + "Module").FirstOrDefault() == null).ToList();
+            _dynamicModuleTypes = new CompileEngine().CompileModules(persistentAssemblyInfos, GetPath());
+            foreach (var definedModule in _dynamicModuleTypes) {
                 moduleManager.AddModule(definedModule);
             }
             unitOfWork.CommitChanges();
@@ -140,7 +137,7 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         public abstract string GetPath();
 
-        void mergeTypes(UnitOfWork unitOfWork){
+        void mergeTypes(UnitOfWork unitOfWork) {
             IEnumerable<Type> persistentTypes =
                 _dynamicModuleTypes.Select(type => type.Assembly).SelectMany(
                     assembly => assembly.GetTypes().Where(type => typeof(IXPSimpleObject).IsAssignableFrom(type)));
@@ -156,15 +153,13 @@ namespace Xpand.ExpressApp.WorldCreator {
             updaters.Add(new ImageSourcesUpdater(DynamicModuleTypes));
         }
 
-        public override void Setup(XafApplication application)
-        {
+        public override void Setup(XafApplication application) {
             base.Setup(application);
             application.CreateCustomObjectSpaceProvider +=
                 (sender, args) => _connectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
         }
 
-        string getConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args)
-        {
+        string getConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args) {
             return args.Connection != null ? args.Connection.ConnectionString : args.ConnectionString;
         }
     }

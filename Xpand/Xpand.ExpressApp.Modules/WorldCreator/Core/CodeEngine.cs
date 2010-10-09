@@ -52,7 +52,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         public static string CleanName(string name) {
             var regex = new Regex(@"[^\p{Ll}\p{Lu}\p{Lt}\p{Lo}\p{Nd}\p{Nl}\p{Mn}\p{Mc}\p{Cf}\p{Pc}\p{Lm}]");
-            string ret = regex.Replace(name+"", "");
+            string ret = regex.Replace(name + "", "");
             if (!(string.IsNullOrEmpty(ret)) && !char.IsLetter(ret, 0) && !System.CodeDom.Compiler.CodeDomProvider.CreateProvider("C#").IsValidIdentifier(ret))
                 ret = string.Concat("_", ret);
             return ret;
@@ -64,11 +64,11 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         static string GetAllMembersCode(IPersistentClassInfo persistentClassInfo, string code) {
             string allMemberGeneratedCode = GetMembersCode(persistentClassInfo.OwnMembers);
-            int anchorsFound=0;
-            for (int i = code.Length-1; i > -1; i--) {
+            int anchorsFound = 0;
+            for (int i = code.Length - 1; i > -1; i--) {
                 if (code[i] == '}' && anchorsFound < 2)
                     anchorsFound++;
-                if (anchorsFound==2) {
+                if (anchorsFound == 2) {
                     code = code.Substring(0, i) + allMemberGeneratedCode + code.Substring(i);
                     break;
                 }
@@ -82,18 +82,18 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
 
         static string GetAttributesCode(IPersistentTypeInfo persistentClassInfo) {
-            return (persistentClassInfo.TypeAttributes.Aggregate<IPersistentAttributeInfo, string>(null, (current, persistentAttributeInfo) => current + GenerateCode(persistentAttributeInfo) + Environment.NewLine)+"").TrimEnd(Environment.NewLine.ToCharArray());
+            return (persistentClassInfo.TypeAttributes.Aggregate<IPersistentAttributeInfo, string>(null, (current, persistentAttributeInfo) => current + GenerateCode(persistentAttributeInfo) + Environment.NewLine) + "").TrimEnd(Environment.NewLine.ToCharArray());
         }
 
 
 
-        static string GetMembersCode(IEnumerable<IPersistentMemberInfo> persistentMemberInfos){
+        static string GetMembersCode(IEnumerable<IPersistentMemberInfo> persistentMemberInfos) {
             Func<IPersistentMemberInfo, string> codeSelector = persistentMemberInfo => GenerateCode(persistentMemberInfo);
             Func<string, string, string> aggrecator = (current, code) => current + (code + Environment.NewLine);
             return persistentMemberInfos.Select(codeSelector).Aggregate(null, aggrecator);
         }
 
-        static string GetPropertyTypeCode(IPersistentMemberInfo persistentMemberInfo){
+        static string GetPropertyTypeCode(IPersistentMemberInfo persistentMemberInfo) {
             if (persistentMemberInfo is IPersistentCoreTypeMemberInfo)
                 return GetCorePropertyTypeCode(persistentMemberInfo);
             if (persistentMemberInfo is IPersistentReferenceMemberInfo)
@@ -114,8 +114,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         static string GetCorePropertyTypeCode(IPersistentMemberInfo persistentMemberInfo) {
             DBColumnType dbColumnType = ((IPersistentCoreTypeMemberInfo)persistentMemberInfo).DataType;
-            switch (dbColumnType)
-            {
+            switch (dbColumnType) {
                 case DBColumnType.Boolean:
                     return "bool";
                 case DBColumnType.Byte:
@@ -157,41 +156,53 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             }
         }
 
-        public static string GenerateCode(IPersistentAttributeCreator persistentAttributeCreator){
+        public static string GenerateCode(IPersistentAttributeCreator persistentAttributeCreator) {
             AttributeInfo attributeInfo = persistentAttributeCreator.Create();
             var attribute = (Attribute)ReflectionHelper.CreateObject(attributeInfo.Constructor.DeclaringType, attributeInfo.InitializedArgumentValues);
             Func<object, object> argSelector = GetArgumentCode;
-            string args = attributeInfo.InitializedArgumentValues.Length>0
+            string args = attributeInfo.InitializedArgumentValues.Length > 0
                               ? attributeInfo.InitializedArgumentValues.Select(argSelector).Aggregate
                               <object, string>(null, (current, o) => current + (o + ",")).TrimEnd(',')
                               : null;
             string assemblyDecleration = null;
-            if (persistentAttributeCreator is IPersistentAssemblyAttributeInfo)
+            if (persistentAttributeCreator is IPersistentAssemblyAttributeInfo) {
                 assemblyDecleration = "assembly: ";
-            return string.Format("[{0}{1}({2})]",assemblyDecleration, attribute.GetType().FullName, args);
+                if (persistentAttributeCreator is IPersistentAssemblyVersionAttributeInfo) {
+                    args = CalculateVersion(args);
+                }
+            }
+            return string.Format("[{0}{1}({2})]", assemblyDecleration, attribute.GetType().FullName, args);
+        }
+
+        static string CalculateVersion(string args) {
+            args = args.Replace(@"""", "").Replace("@","");
+            var version = new Version(args+".0.0");
+            var totalMinutes = (int)(DateTime.Now-DateTime.Today).TotalMinutes;
+            version = new Version(version.Major, version.Minor, DateTime.Today.DayOfYear, totalMinutes);
+            args = version.ToString();
+            return @""""+args+@"""";
         }
 
         static object GetArgumentCode(object argumentValue) {
             if (argumentValue is string)
                 return @"@""" + argumentValue + @"""";
             if (argumentValue is Type)
-                return "typeof("+ ((Type) argumentValue).FullName+")";
+                return "typeof(" + ((Type)argumentValue).FullName + ")";
             if (argumentValue is Enum)
-                return argumentValue.GetType().FullName+"."+argumentValue;
+                return argumentValue.GetType().FullName + "." + argumentValue;
             if (argumentValue is bool)
                 return argumentValue.ToString().ToLower();
             return argumentValue;
         }
 
-        static string GetAssemblyAttributesCode(IPersistentAssemblyInfo persistentAssemblyInfo)
-        {
+        static string GetAssemblyAttributesCode(IPersistentAssemblyInfo persistentAssemblyInfo) {
             string code = persistentAssemblyInfo.Attributes.Aggregate("", (current, assemblyAttributeInfo) => current + (GenerateCode(assemblyAttributeInfo) + Environment.NewLine));
             return code.TrimEnd(Environment.NewLine.ToCharArray());
         }
 
         public static string GenerateCode(IPersistentAssemblyInfo persistentAssemblyInfo) {
 
-            var usingsDictionary=new Dictionary<string, string>();
+            var usingsDictionary = new Dictionary<string, string>();
             string generateAssemblyCode = GetAssemblyAttributesCode(persistentAssemblyInfo) + Environment.NewLine +
                                   GetModuleCode(persistentAssemblyInfo.Name) + Environment.NewLine;
             var generatedClassCode = new StringBuilder();
@@ -199,7 +210,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             foreach (var persistentClassInfo in persistentAssemblyInfo.PersistentClassInfos) {
                 string code = GenerateCode(persistentClassInfo);
                 string usingsString = GetUsingsString(persistentAssemblyInfo, code);
-                code=code.Replace(usingsString,"");
+                code = code.Replace(usingsString, "");
                 code = code.Replace("\n", "\r\n");
                 if (!(usingsDictionary.ContainsKey(usingsString))) {
                     usingsDictionary.Add(usingsString, null);
@@ -212,25 +223,21 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         }
 
         static string GetUsingsString(IPersistentAssemblyInfo persistentAssemblyInfo, string code) {
-            var regex = new Regex(persistentAssemblyInfo.CodeDomProvider == CodeDomProvider.CSharp ? "(using [^;]*;\r\n)" : "(Imports [^\r\n]*\r\n)",RegexOptions.IgnorePatternWhitespace);
-            return regex.Matches(code).OfType<Match>().Aggregate("", (current, match) => current + match.Value+"\n");
+            var regex = new Regex(persistentAssemblyInfo.CodeDomProvider == CodeDomProvider.CSharp ? "(using [^;]*;\r\n)" : "(Imports [^\r\n]*\r\n)", RegexOptions.IgnorePatternWhitespace);
+            return regex.Matches(code).OfType<Match>().Aggregate("", (current, match) => current + match.Value + "\n");
         }
 
-        internal static string GetModuleCode(string assemblyName)
-        {
+        internal static string GetModuleCode(string assemblyName) {
             return "namespace " + assemblyName + "{public class Dynamic" + (assemblyName + "").Replace(".", "") + "Module:DevExpress.ExpressApp.ModuleBase{}}";
         }
 
-        static string GetCode(IPersistentReferenceMemberInfo key)
-        {
+        static string GetCode(IPersistentReferenceMemberInfo key) {
             var referenceMemberInfos = key.ReferenceClassInfo.OwnMembers.OfType<IPersistentReferenceMemberInfo>();
             string ret = null;
-            foreach (var referenceMemberInfo in referenceMemberInfos)
-            {
+            foreach (var referenceMemberInfo in referenceMemberInfos) {
                 string refPropertyName = CleanName(key.Name) + "." + CleanName(referenceMemberInfo.Name);
                 var persistentMemberInfo = referenceMemberInfo.ReferenceClassInfo.OwnMembers.Where(info => info.TypeAttributes.OfType<IPersistentKeyAttribute>().Count() > 0).SingleOrDefault();
-                if (persistentMemberInfo != null)
-                {
+                if (persistentMemberInfo != null) {
                     var refKeyName = CleanName(persistentMemberInfo.Name);
                     ret += @"if(" + refPropertyName + ".Session != Session){" +
                           refPropertyName + "=Session.GetObjectByKey<" + CleanName(referenceMemberInfo.ReferenceClassInfo.Name) + ">(" + refPropertyName + "." + refKeyName + ");"
@@ -242,9 +249,8 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         public static void SupportCompositeKeyPersistentObjects(IPersistentAssemblyInfo persistentAssemblyInfo, Func<ITemplateInfo, bool> templateInfoPredicate) {
             var keys = persistentAssemblyInfo.PersistentClassInfos.SelectMany(info => info.OwnMembers).OfType<IPersistentReferenceMemberInfo>().Where(memberInfo => memberInfo.ReferenceClassInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.Struct);
-            foreach (var key in keys)
-            {
-                
+            foreach (var key in keys) {
+
                 var templateInfo = key.Owner.TemplateInfos.Where(templateInfoPredicate).Single();
                 templateInfo.TemplateCode = @"protected override void OnLoaded() {
                                                 base.OnLoaded();
