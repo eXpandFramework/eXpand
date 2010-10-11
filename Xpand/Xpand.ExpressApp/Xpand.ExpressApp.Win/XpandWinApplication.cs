@@ -13,6 +13,7 @@ using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Win.Interfaces;
+using Xpand.ExpressApp.Win.ViewStrategies;
 
 namespace Xpand.ExpressApp.Win {
     public partial class XpandWinApplication : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication {
@@ -32,6 +33,13 @@ namespace Xpand.ExpressApp.Win {
             base.OnCustomProcessShortcut(args);
             new ViewShortCutProccesor(this).Proccess(args);
 
+        }
+
+        protected override ShowViewStrategyBase CreateShowViewStrategy() {
+            var showViewStrategyBase = base.CreateShowViewStrategy();
+            return showViewStrategyBase is ShowInMultipleWindowsStrategy
+                       ? new XpandShowInMultipleWindowsStrategy(this)
+                       : showViewStrategyBase;
         }
 
         void OnListViewCreating(object sender, ListViewCreatingEventArgs args) {

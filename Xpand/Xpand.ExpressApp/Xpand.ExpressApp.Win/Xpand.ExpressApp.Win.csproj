@@ -227,6 +227,7 @@
     <Compile Include="SystemModule\WinLogoutWindowController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ViewStrategies\XpandShowInSingleWindowStrategy.cs" />
     <Compile Include="XpandWinApplication.cs">
       <SubType>Component</SubType>
     </Compile>
