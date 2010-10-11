@@ -14,72 +14,66 @@ using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Win.Interfaces;
 
-namespace Xpand.ExpressApp.Win
-{
-    public partial class XpandWinApplication : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication
-    {
+namespace Xpand.ExpressApp.Win {
+    public partial class XpandWinApplication : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication {
         bool _isSharedModel;
 
-        protected override bool IsSharedModel
-        {
+        protected override bool IsSharedModel {
             get { return _isSharedModel; }
         }
         public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
 
-        public void OnCustomCreateListEditor(CreatingListEditorEventArgs e)
-        {
+        public void OnCustomCreateListEditor(CreatingListEditorEventArgs e) {
             EventHandler<CreatingListEditorEventArgs> handler = CustomCreateListEditor;
             if (handler != null) handler(this, e);
         }
 
-        protected override void OnCustomProcessShortcut(CustomProcessShortcutEventArgs args)
-        {
+        protected override void OnCustomProcessShortcut(CustomProcessShortcutEventArgs args) {
             base.OnCustomProcessShortcut(args);
             new ViewShortCutProccesor(this).Proccess(args);
 
         }
 
-        void OnListViewCreating(object sender, ListViewCreatingEventArgs args)
-        {
+        void OnListViewCreating(object sender, ListViewCreatingEventArgs args) {
             args.View = ViewFactory.CreateListView(this, args.ViewID, args.CollectionSource, args.IsRoot);
         }
+        protected override Window CreateWindowCore(TemplateContext context, ICollection<Controller> controllers, bool isMain, bool activateControllersImmediatelly) {
+            Tracing.Tracer.LogVerboseValue("WinApplication.CreateWindowCore.activateControllersImmediatelly", activateControllersImmediatelly);
+            return new XpandWinWindow(this, context, controllers, isMain, activateControllersImmediatelly);
+        }
+        protected override Window CreatePopupWindowCore(TemplateContext context, ICollection<Controller> controllers) {
+            return new XpandWinWindow(this, context, controllers, false, true);
+        }
 
-        void OnDetailViewCreating(object sender, DetailViewCreatingEventArgs args)
-        {
+        void OnDetailViewCreating(object sender, DetailViewCreatingEventArgs args) {
             args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.Obj, args.ObjectSpace, args.IsRoot);
         }
 
-        public ApplicationModelsManager ModelsManager
-        {
+        public ApplicationModelsManager ModelsManager {
             get { return modelsManager; }
         }
 
-        public override IModelTemplate GetTemplateCustomizationModel(IFrameTemplate template)
-        {
+        public override IModelTemplate GetTemplateCustomizationModel(IFrameTemplate template) {
             var list = new List<ModelApplicationBase>();
-            while (((ModelApplicationBase)Model).LastLayer.Id != "UserDiff" && ((ModelApplicationBase)Model).LastLayer.Id != AfterSetupLayerId)
-            {
+            while (((ModelApplicationBase)Model).LastLayer.Id != "UserDiff" && ((ModelApplicationBase)Model).LastLayer.Id != AfterSetupLayerId) {
                 var modelApplicationBase = ((ModelApplicationBase)Model).LastLayer;
                 list.Add(modelApplicationBase);
                 ((ModelApplicationBase)Model).RemoveLayer(modelApplicationBase);
             }
             var modelTemplate = base.GetTemplateCustomizationModel(template);
-            foreach (var modelApplicationBase in list)
-            {
+            foreach (var modelApplicationBase in list) {
                 ((ModelApplicationBase)Model).AddLayer(modelApplicationBase);
             }
             return modelTemplate;
         }
 
-        protected override ListEditor CreateListEditorCore(IModelListView modelListView, CollectionSourceBase collectionSource)
-        {
+        protected override ListEditor CreateListEditorCore(IModelListView modelListView, CollectionSourceBase collectionSource) {
             var creatingListEditorEventArgs = new CreatingListEditorEventArgs(modelListView, collectionSource);
             OnCustomCreateListEditor(creatingListEditorEventArgs);
             return creatingListEditorEventArgs.Handled ? creatingListEditorEventArgs.ListEditor : base.CreateListEditorCore(modelListView, collectionSource);
         }
 
-        public void Logout()
-        {
+        public void Logout() {
             Tracing.Tracer.LogSeparator("Application is being restarted");
 
 
@@ -91,8 +85,7 @@ namespace Xpand.ExpressApp.Win
             _isSharedModel = true;
             Setup();
             _isSharedModel = false;
-            if (SecuritySystem.Instance.NeedLogonParameters)
-            {
+            if (SecuritySystem.Instance.NeedLogonParameters) {
                 Tracing.Tracer.LogText("Logon With Parameters");
                 PopupWindowShowAction showLogonAction = CreateLogonAction();
                 showLogonAction.Cancel += showLogonAction_Cancel;
@@ -100,8 +93,7 @@ namespace Xpand.ExpressApp.Win
 
                 using (WinWindow popupWindow = helper.CreatePopupWindow(false))
                     ShowLogonWindow(popupWindow);
-            }
-            else
+            } else
                 Logon(null);
 
             ProcessStartupActions();
@@ -111,38 +103,39 @@ namespace Xpand.ExpressApp.Win
         }
 
 
-        void showLogonAction_Cancel(object sender, EventArgs e)
-        {
+        void showLogonAction_Cancel(object sender, EventArgs e) {
             Exit();
         }
 
 
 
 
-        public XpandWinApplication()
-        {
-            if (XpandModuleBase.Application==null)
-                Application.ThreadException+=(sender, args) => HandleException(args.Exception,this);
+        public XpandWinApplication() {
+            if (XpandModuleBase.Application == null)
+                Application.ThreadException += (sender, args) => HandleException(args.Exception, this);
             else {
-                Application.ThreadException += (sender, args) => HandleException(args.Exception, (XpandWinApplication) XpandModuleBase.Application);
+                Application.ThreadException += (sender, args) => HandleException(args.Exception, (XpandWinApplication)XpandModuleBase.Application);
             }
-            InitializeComponent();        
+            InitializeComponent();
             DetailViewCreating += OnDetailViewCreating;
             ListViewCreating += OnListViewCreating;
+            ListViewCreated += OnListViewCreated;
         }
 
-        public static void HandleException(Exception exception, XpandWinApplication xpandWinApplication){
+        void OnListViewCreated(object sender, ListViewCreatedEventArgs listViewCreatedEventArgs) {
+
+        }
+
+        public static void HandleException(Exception exception, XpandWinApplication xpandWinApplication) {
             xpandWinApplication.HandleException(exception);
         }
 
-        public XpandWinApplication(IContainer container)
-        {
+        public XpandWinApplication(IContainer container) {
             container.Add(this);
             InitializeComponent();
         }
 
-        protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)
-        {
+        protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             this.CreateCustomObjectSpaceprovider(args);
             base.OnCreateCustomObjectSpaceProvider(args);
         }
@@ -150,10 +143,8 @@ namespace Xpand.ExpressApp.Win
     }
 
 
-    public class ModelEditFormShowningEventArgs : HandledEventArgs
-    {
-        public ModelEditFormShowningEventArgs(ModelEditorForm modelEditorForm)
-        {
+    public class ModelEditFormShowningEventArgs : HandledEventArgs {
+        public ModelEditFormShowningEventArgs(ModelEditorForm modelEditorForm) {
             ModelEditorForm = modelEditorForm;
         }
 

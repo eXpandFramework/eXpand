@@ -233,6 +233,7 @@
     <Compile Include="XpandWinApplication.Designer.cs">
       <DependentUpon>XpandWinApplication.cs</DependentUpon>
     </Compile>
+    <Compile Include="XpandWinWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
