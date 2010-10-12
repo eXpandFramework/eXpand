@@ -23,9 +23,9 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
         protected override void OnActivated()
         {
             base.OnActivated();
-            if (IsReady&& View is XpandDetailView) {
+            if (IsReady&& View is DetailView) {
                 ResetInfoToLayoutMap();
-                var detailView = ((XpandDetailView) View);
+                var detailView = ((DetailView) View);
                 var winLayoutManager = ((WinLayoutManager) detailView.LayoutManager);
                 winLayoutManager.ItemCreated+=OnItemCreated;
                 winLayoutManager.Container.DefaultLayoutLoading -= Container_DefaultLayoutLoading;
@@ -46,9 +46,9 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
         protected override void OnDeactivating()
         {
             base.OnDeactivating();
-            if (IsReady&& View is XpandDetailView) {
+            if (IsReady&& View is DetailView) {
                 ResetInfoToLayoutMap();
-                ((WinLayoutManager)((XpandDetailView)View).LayoutManager).ItemCreated -= OnItemCreated;
+                ((WinLayoutManager)((DetailView)View).LayoutManager).ItemCreated -= OnItemCreated;
             }
         }
 

@@ -3,7 +3,7 @@ using Xpand.ExpressApp.IO.Observers;
 using Xpand.Persistent.Base.ImportExport;
 
 namespace Xpand.ExpressApp.IO.Controllers {
-    public class SerializationConfigurationDetailViewController:ViewController<XpandDetailView>
+    public class SerializationConfigurationDetailViewController:ViewController<DetailView>
     {
         public SerializationConfigurationDetailViewController() {
             TargetObjectType = typeof (ISerializationConfiguration);

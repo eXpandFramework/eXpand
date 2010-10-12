@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.Win.SystemModule
     public interface IModelPropertyEditorCursorPosition : IModelMemberCursorPosition
     {
     }
-    public class CursorPositionController : ViewController<XpandDetailView>,IModelExtender{
+    public class CursorPositionController : ViewController<DetailView>,IModelExtender{
         public const string CursorPosition = "CursorPosition";
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)

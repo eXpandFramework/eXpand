@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelPropertyEditorFocusControlByShortcut : IModelMemberFocusControlByShortcut
     {
     }
-    public class FocusControlByShortcutController:ViewController<XpandDetailView>,IModelExtender {
+    public class FocusControlByShortcutController:ViewController<DetailView>,IModelExtender {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelMember, IModelMemberFocusControlByShortcut>();
             extenders.Add<IModelPropertyEditor, IModelPropertyEditorFocusControlByShortcut>();

@@ -6,7 +6,7 @@ using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.WorldCreator.Controllers {
-    public class AssemblyToolsController:ViewController<XpandDetailView> {
+    public class AssemblyToolsController:ViewController<DetailView> {
         readonly SingleChoiceAction _singleChoiceAction;
         
 

@@ -11,7 +11,7 @@ using Xpand.ExpressApp.ModelDifference.Win.PropertyEditors;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.Controllers
 {
-    public class ModelEditorTemplateViewController : ViewController<XpandDetailView>
+    public class ModelEditorTemplateViewController : ViewController<DetailView>
     {
         public ModelEditorTemplateViewController()
         {
@@ -27,7 +27,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers
                 View.Closing -= View_Closing;
             }
 
-            if (view is XpandDetailView && typeof(ModelDifferenceObject).IsAssignableFrom(view.ObjectTypeInfo.Type))
+            if (view is DetailView && typeof(ModelDifferenceObject).IsAssignableFrom(view.ObjectTypeInfo.Type))
             {
                 view.Closing += View_Closing;
             }
@@ -50,10 +50,10 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers
 
         void View_Closing(object sender, System.EventArgs e)
         {
-            HideMainBarActions((XpandDetailView) sender);
+            HideMainBarActions((DetailView) sender);
         }
 
-        void HideMainBarActions(XpandDetailView xpandDetailView)
+        void HideMainBarActions(DetailView xpandDetailView)
         {
             var modelEditorViewController = xpandDetailView.GetItems<ModelEditorPropertyEditor>()[0].ModelEditorViewController;
             FieldInfo fieldInfo = modelEditorViewController.GetType().GetField("mainBarActions",

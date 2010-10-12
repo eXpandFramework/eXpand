@@ -12,7 +12,7 @@ using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.PivotChart.PivotedProperty
 {
-    public class PivotedPropertyController : ViewController<XpandDetailView>{
+    public class PivotedPropertyController : ViewController<DetailView>{
 
         protected override void OnActivated(){
             base.OnActivated();

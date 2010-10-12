@@ -6,7 +6,7 @@ using DevExpress.Persistent.Base;
 using System.Linq;
 
 namespace Xpand.ExpressApp.PivotChart.Core {
-    public abstract class AnalysisViewControllerBase : ViewController<XpandDetailView> {
+    public abstract class AnalysisViewControllerBase : ViewController<DetailView> {
         IList<AnalysisEditorBase> analysisEditors = new List<AnalysisEditorBase>();
 
         public IList<AnalysisEditorBase> AnalysisEditors {

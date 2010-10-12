@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.SystemModule
         
     }
     
-    public class ViewEditModeController : ViewController<XpandDetailView>, IModelExtender
+    public class ViewEditModeController : ViewController<DetailView>, IModelExtender
     {
 
         protected override void OnActivated()

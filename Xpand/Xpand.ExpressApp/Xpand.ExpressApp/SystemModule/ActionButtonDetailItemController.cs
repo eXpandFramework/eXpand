@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Actions;
 using Xpand.ExpressApp.Editors;
 
 namespace Xpand.ExpressApp.SystemModule {
-    public class ActionButtonDetailItemController : ViewController<XpandDetailView> {
+    public class ActionButtonDetailItemController : ViewController<DetailView> {
         protected override void OnActivated() {
             base.OnActivated();
             foreach (var actionButtonDetailItem in View.GetItems<ActionButtonDetailItem>()) {

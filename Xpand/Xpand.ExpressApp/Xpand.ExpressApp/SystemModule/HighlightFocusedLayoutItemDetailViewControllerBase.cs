@@ -35,12 +35,12 @@ namespace Xpand.ExpressApp.SystemModule
     }
 
 
-    public class HighlightFocusedLayoutItemDetailViewControllerBase : ViewController<XpandDetailView>, IModelExtender
+    public class HighlightFocusedLayoutItemDetailViewControllerBase : ViewController<DetailView>, IModelExtender
     {
         protected override void OnViewChanging(View view)
         {
             base.OnViewChanging(view);
-            var dv = view as XpandDetailView;
+            var dv = view as DetailView;
             if (dv != null)
                 Active["ActiveKeyHighlightFocusedEditor"] = ((IModelDetailViewHighlightFocusedItem)dv.Model).HighlightFocusedLayoutItem;
         }
