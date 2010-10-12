@@ -1,7 +1,8 @@
 ﻿using System;
 
 namespace Xpand.Persistent.Base.ImportExport {
-    public class SerializationKeyAttribute:Attribute {
-        
+    [AttributeUsage(AttributeTargets.Property)]
+    public class SerializationKeyAttribute : Attribute {
+
     }
 }
