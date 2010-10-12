@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp {
                     "A '{0}' node was passed while a '{1}' node was expected. Node id: '{2}'",
                     null, DetailView.InfoNodeName, viewId));
             }
-            return new DetailView((IModelDetailView) modelView, objectSpace, obj, xafApplication, isRoot);
+            return new XpandDetailView((IModelDetailView) modelView, objectSpace, obj, xafApplication, isRoot);
         }
     }
 }

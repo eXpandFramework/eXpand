@@ -112,6 +112,7 @@
     <Compile Include="IXpoModelDifference.cs" />
     <Compile Include="General\IObsoleteTreeNode.cs" />
     <Compile Include="General\IPictureItem.cs" />
+    <Compile Include="MemberLevelSecurity\IMemberLevelSecurityModule.cs" />
     <Compile Include="ModelDifference\AspectInfo.cs" />
     <Compile Include="ModelDifference\ResourceInfo.cs" />
     <Compile Include="ModelDifference\ResourceModelCollector.cs" />

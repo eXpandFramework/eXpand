@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.MemberLevelSecurity;
 
 namespace Xpand.ExpressApp {
     public class XpandDetailView : DetailView {
@@ -18,9 +20,15 @@ namespace Xpand.ExpressApp {
         protected override ViewItem CreateItem(IModelDetailViewItem info) {
             if (Application == null)
                 return null;
+            if (!IsMemberLelvelSecurityInstalled())
+                return base.CreateItem(info);
             Type objType = ObjectTypeInfo != null ? ObjectTypeInfo.Type : null;
             return Application.EditorFactory.CreateDetailViewEditor(false, info, objType, Application, ObjectSpace);
 
+        }
+
+        bool IsMemberLelvelSecurityInstalled() {
+            return Application.Modules.OfType<IMemberLevelSecurityModule>().FirstOrDefault()!=null;
         }
     }
 
