@@ -108,7 +108,9 @@
     <Compile Include="ImportExport\ISerializationConfigurationGroup.cs" />
     <Compile Include="ImportExport\IXmlFileChooser.cs" />
     <Compile Include="ImportExport\NodeType.cs" />
+    <Compile Include="ImportExport\SerializationKeyAttribute.cs" />
     <Compile Include="ImportExport\SerializationStrategy.cs" />
+    <Compile Include="ImportExport\SerializationStrategyAttribute.cs" />
     <Compile Include="IXpoModelDifference.cs" />
     <Compile Include="General\IObsoleteTreeNode.cs" />
     <Compile Include="General\IPictureItem.cs" />

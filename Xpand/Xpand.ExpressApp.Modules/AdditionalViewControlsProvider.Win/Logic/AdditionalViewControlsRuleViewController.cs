@@ -18,42 +18,48 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
-            Frame.ViewChanged+=FrameOnViewChanged;
+            Frame.ViewChanged += FrameOnViewChanged;
         }
-        protected override void OnActivated()
-        {
+        protected override void OnActivated() {
             base.OnActivated();
-            if (IsReady&& View is DetailView) {
+            if (IsReady && View is DetailView) {
                 ResetInfoToLayoutMap();
-                var detailView = ((DetailView) View);
-                var winLayoutManager = ((WinLayoutManager) detailView.LayoutManager);
-                winLayoutManager.ItemCreated+=OnItemCreated;
+                var detailView = ((DetailView)View);
+                var winLayoutManager = ((WinLayoutManager)detailView.LayoutManager);
+                winLayoutManager.ItemCreated += OnItemCreated;
+
+            }
+        }
+        protected override void OnViewControlsCreated() {
+            base.OnViewControlsCreated();
+            if (IsReady && View is DetailView) {
+                var detailView = ((DetailView)View);
+                var winLayoutManager = ((WinLayoutManager)detailView.LayoutManager);
                 winLayoutManager.Container.DefaultLayoutLoading -= Container_DefaultLayoutLoading;
             }
         }
-        protected void FillInfoToLayoutMap(ViewItem detailViewItem, IModelDetailViewLayoutElement itemModel, BaseLayoutItem layoutItem)
-        {
-            if (detailViewItem is AdditionalViewControlsItem)            {
+        protected void FillInfoToLayoutMap(ViewItem detailViewItem, IModelDetailViewLayoutElement itemModel, BaseLayoutItem layoutItem) {
+            if (detailViewItem is AdditionalViewControlsItem) {
                 var id = ((AdditionalViewControlsItem)detailViewItem).Model.Rule.Id;
                 if (RuleToLayoutMap.ContainsKey(id))
                     RuleToLayoutMap[id] = layoutItem;
                 else
                     RuleToLayoutMap.Add(id, layoutItem);
             }
-            
+
         }
 
-        protected override void OnDeactivating()
-        {
+        protected override void OnDeactivating() {
             base.OnDeactivating();
-            if (IsReady&& View is DetailView) {
+            if (IsReady && View is DetailView) {
                 ResetInfoToLayoutMap();
-                ((WinLayoutManager)((DetailView)View).LayoutManager).ItemCreated -= OnItemCreated;
+                var winLayoutManager = ((WinLayoutManager)((DetailView)View).LayoutManager);
+                winLayoutManager.ItemCreated -= OnItemCreated;
+                winLayoutManager.Container.DefaultLayoutLoading -= Container_DefaultLayoutLoading;
             }
         }
 
-        protected void ResetInfoToLayoutMap()
-        {
+        protected void ResetInfoToLayoutMap() {
             RuleToLayoutMap.Clear();
         }
 
@@ -61,18 +67,16 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
             ResetInfoToLayoutMap();
         }
 
-        protected Dictionary<string, BaseLayoutItem> RuleToLayoutMap
-        {
+        protected Dictionary<string, BaseLayoutItem> RuleToLayoutMap {
             get { return _infoToLayoutMapCore ?? (_infoToLayoutMapCore = new Dictionary<string, BaseLayoutItem>()); }
         }
 
         void OnItemCreated(object sender, ItemCreatedEventArgs itemCreatedEventArgs) {
-            FillInfoToLayoutMap(itemCreatedEventArgs.DetailViewItem, itemCreatedEventArgs.ModelLayoutElement,itemCreatedEventArgs.Item);
+            FillInfoToLayoutMap(itemCreatedEventArgs.DetailViewItem, itemCreatedEventArgs.ModelLayoutElement, itemCreatedEventArgs.Item);
         }
 
         void FrameOnViewChanged(object sender, ViewChangedEventArgs viewChangedEventArgs) {
-            if (Frame.View != null && Frame.View.IsControlCreated)
-            {
+            if (Frame.View != null && Frame.View.IsControlCreated) {
                 var control = Frame.View.Control as Control;
                 if (control != null) {
                     control.BringToFront();
@@ -80,9 +84,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
             }
         }
 
-        protected override void RemoveControl(IList controls, object firstOrDefault, LogicRuleInfo<IAdditionalViewControlsRule> info)
-        {
-            if (info.Rule.Position!=Position.DetailViewItem)
+        protected override void RemoveControl(IList controls, object firstOrDefault, LogicRuleInfo<IAdditionalViewControlsRule> info) {
+            if (info.Rule.Position != Position.DetailViewItem)
                 base.RemoveControl(controls, firstOrDefault, info);
         }
         protected override object GetControl(Type controlType, object o, LogicRuleInfo<IAdditionalViewControlsRule> info) {
@@ -90,7 +93,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
             if (control is ISupportLayoutManager) {
                 if (info.Rule.Position != Position.DetailViewItem)
                     throw new ArgumentException("Rule:" + info.Rule.Id + " position should be set to " + Position.DetailViewItem);
-                ((ISupportLayoutManager) control).LayoutItem = RuleToLayoutMap[info.Rule.Id];
+                ((ISupportLayoutManager)control).LayoutItem = RuleToLayoutMap[info.Rule.Id];
             }
             return control;
         }
@@ -99,16 +102,15 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
                                              AdditionalViewControlsProviderCalculator additionalViewControlsProviderCalculator,
                                              ExecutionContext executionContext) {
             base.InitializeControl(control, logicRuleInfo, additionalViewControlsProviderCalculator, executionContext);
-            var value = (Control) control;
-//            value.Visible = true;
-            if (logicRuleInfo.Rule.Position!=Position.DetailViewItem) {    
+            var value = (Control)control;
+            //            value.Visible = true;
+            if (logicRuleInfo.Rule.Position != Position.DetailViewItem) {
                 if (logicRuleInfo.Rule.Position == Position.Bottom)
-                    value.Dock=DockStyle.Bottom;
+                    value.Dock = DockStyle.Bottom;
                 else if (logicRuleInfo.Rule.Position == Position.Top)
-                    value.Dock=DockStyle.Top;
-            }
-            else {
-                value.Dock=DockStyle.Fill;
+                    value.Dock = DockStyle.Top;
+            } else {
+                value.Dock = DockStyle.Fill;
             }
         }
 

@@ -153,7 +153,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         It should_create_it = () => {
             var session = new Session(_objectSpace.Session.DataLayer);
-            _findObject = (XPBaseObject)session.FindObject(_customerType, new BinaryOperator("Oid", _guid));
+            _findObject = (XPBaseObject)session.FindObject(_customerType, new BinaryOperator("Oid", _guid), true);
             _findObject.ShouldNotBeNull();
         };
 
