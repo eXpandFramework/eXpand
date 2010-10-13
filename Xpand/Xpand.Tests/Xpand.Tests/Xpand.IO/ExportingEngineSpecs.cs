@@ -516,4 +516,27 @@ namespace Xpand.Tests.Xpand.IO {
             element.ObjectProperty(GCRecordField.StaticName).Value.ShouldEqual(string.Empty);
         };
     }
+    [Subject(typeof(ExportEngine))]
+    public class When_object_property_contains_quote:With_Isolations {
+        static ObjectSpace _objectSpace;
+
+        static XDocument _document;
+        static Analysis _analysis;
+
+        Establish context = () => {
+            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _analysis = _objectSpace.CreateObject<Analysis>();
+            _analysis.Name = @"te""st";
+            _objectSpace.CommitChanges();
+        };
+
+        Because of = () => {
+            _document = new ExportEngine().Export(new[] { _analysis }, _objectSpace.CreateObject<SerializationConfigurationGroup>());
+        };
+
+        It should_export_the_property_with_null_value = () => {
+            var element = _document.Root.SerializedObjects(typeof(Analysis)).First();
+            element.ObjectProperty("Name").Value.ShouldEqual(@"te""st");
+        };
+    }
 }
