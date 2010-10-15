@@ -4,36 +4,28 @@ using DevExpress.XtraTreeList.Columns;
 using Xpand.ExpressApp.Core.DynamicModel;
 using Xpand.ExpressApp.SystemModule;
 
-namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers
-{
-    public interface IModelTreeViewColumnMainOptions : IModelTreeViewColumnOptionsBase
-    {
+namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
+    public interface IModelTreeViewColumnMainOptions : IModelTreeViewColumnOptionsBase {
         IModelTreeViewColumnOptions TreeListColumnOptions { get; set; }
     }
 
-    public interface IModelTreeViewColumnOptionsBase : IModelNode
-    {
+    public interface IModelTreeViewColumnOptionsBase : IModelNode {
     }
 
-    public interface IModelTreeViewColumnOptions : IModelNode
-    {
+    public interface IModelTreeViewColumnOptions : IModelNode {
         IModelTreeViewOptionsColumn OptionsColumn { get; set; }
         FixedStyle? Fixed { get; set; }
     }
 
-    public interface IModelTreeViewOptionsColumn : IModelNode
-    {
+    public interface IModelTreeViewOptionsColumn : IModelNode {
     }
 
-    public class TreeListColumnOptionsController : OptionsController<IModelColumn>
-    {
-        protected override IEnumerable<DynamicModelType> GetDynamicModelTypes()
-        {
+    public class TreeListColumnOptionsController : OptionsController<IModelColumn> {
+        protected override IEnumerable<DynamicModelType> GetDynamicModelTypes() {
             yield return new DynamicModelType(typeof(IModelTreeViewOptionsColumn), typeof(TreeListOptionsColumn));
         }
 
-        protected override System.Type GetExtenderType()
-        {
+        protected override System.Type GetExtenderType() {
             return typeof(IModelTreeViewColumnMainOptions);
         }
     }

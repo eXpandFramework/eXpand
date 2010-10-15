@@ -1,17 +1,12 @@
 ﻿using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.TreeListEditors.Win;
-using Xpand.ExpressApp.Win.ListEditors;
 
-namespace Xpand.ExpressApp.TreeListEditors.Win.Core
-{
-    public class XpandTreeListEditorModelSynchronizerList : TreeListEditorModelSynchronizerList
-    {
+namespace Xpand.ExpressApp.TreeListEditors.Win.Core {
+    public class XpandTreeListEditorModelSynchronizerList : TreeListEditorModelSynchronizerList {
         public XpandTreeListEditorModelSynchronizerList(TreeListEditor treeListEditor, IModelListView model)
-            : base(treeListEditor, model)
-        {
+            : base(treeListEditor, model) {
             Add(new TreeListOptionsModelSynchronizer(treeListEditor.TreeList, model));
-            foreach (var modelColumn in model.Columns)
-            {
+            foreach (var modelColumn in model.Columns) {
                 Add(new TreeListColumnOptionsModelSynchronizer(treeListEditor.TreeList, modelColumn));
             }
         }

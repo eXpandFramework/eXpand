@@ -3,26 +3,21 @@ using DevExpress.XtraTreeList;
 using Xpand.ExpressApp.ListEditors;
 using Xpand.ExpressApp.TreeListEditors.Win.Controllers;
 
-namespace Xpand.ExpressApp.TreeListEditors.Win.Core
-{
-    public class TreeListOptionsModelSynchronizer : OptionsModelSynchronizer<object, IModelListView, IModelTreeViewOptionsBase>
-    {
+namespace Xpand.ExpressApp.TreeListEditors.Win.Core {
+    public class TreeListOptionsModelSynchronizer : OptionsModelSynchronizer<object, IModelListView, IModelTreeViewOptionsBase> {
         public TreeListOptionsModelSynchronizer(object control, IModelListView model)
-            : base(control, model)
-        {
+            : base(control, model) {
         }
 
-        protected override object GetControl()
-        {
+        protected override object GetControl() {
             return Control;
         }
 
-        protected override void ApplyModelCore()
-        {
+        protected override void ApplyModelCore() {
             base.ApplyModelCore();
 
             var control = (TreeList)Control;
-            var treeListModel = (Model as IModelTreeViewMainOptions).TreeListOptions;
+            var treeListModel = ((IModelTreeViewMainOptions) Model).TreeListOptions;
             if (!string.IsNullOrEmpty(treeListModel.PreviewFieldName))
                 control.PreviewFieldName = treeListModel.PreviewFieldName;
 
