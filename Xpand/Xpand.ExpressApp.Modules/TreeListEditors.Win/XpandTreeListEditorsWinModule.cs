@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using DevExpress.Utils;
+using Xpand.ExpressApp.TreeListEditors.Win.Core;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win {
     [Description(
@@ -9,6 +10,12 @@ namespace Xpand.ExpressApp.TreeListEditors.Win {
     public sealed partial class XpandTreeListEditorsWinModule : XpandModuleBase {
         public XpandTreeListEditorsWinModule() {
             InitializeComponent();
+        }
+
+        public override void AddGeneratorUpdaters(DevExpress.ExpressApp.Model.Core.ModelNodesGeneratorUpdaters updaters)
+        {
+            base.AddGeneratorUpdaters(updaters);
+            updaters.Add(new XpandTreeListEditorNodeGeneratorUpdater());
         }
     }
 }
