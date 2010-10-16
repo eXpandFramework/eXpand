@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
@@ -526,7 +527,7 @@ namespace Xpand.Tests.Xpand.IO {
         Establish context = () => {
             _objectSpace = ObjectSpaceInMemory.CreateNew();
             _analysis = _objectSpace.CreateObject<Analysis>();
-            _analysis.Name = @"te""st";
+            _analysis.Name = @"3211¬_M1";
             _objectSpace.CommitChanges();
         };
 
@@ -536,7 +537,18 @@ namespace Xpand.Tests.Xpand.IO {
 
         It should_export_the_property_with_null_value = () => {
             var element = _document.Root.SerializedObjects(typeof(Analysis)).First();
-            element.ObjectProperty("Name").Value.ShouldEqual(@"te""st");
+            element.ObjectProperty("Name").Value.ShouldEqual(@"3211¬_M1");
+
+            var xmlWriterSettings = new XmlWriterSettings {
+                OmitXmlDeclaration = true, Indent = true, NewLineChars = "\r\n", CloseOutput = true,
+            };
+            var outputFileName = new FileStream(@"c:\test2.xml", FileMode.Create,FileAccess.ReadWrite);
+            using (XmlWriter textWriter = XmlWriter.Create(outputFileName, xmlWriterSettings)) {
+                if (textWriter != null) {
+                    _document.Save(textWriter);
+                    textWriter.Close();
+                }
+            }
         };
     }
 }
