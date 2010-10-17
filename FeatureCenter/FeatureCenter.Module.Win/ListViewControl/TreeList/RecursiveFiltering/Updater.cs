@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
 
-namespace FeatureCenter.Module.Win.ListViewControl.RecursiveFiltering
+namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveFiltering
 {
     public class Updater:ModuleUpdater
     {

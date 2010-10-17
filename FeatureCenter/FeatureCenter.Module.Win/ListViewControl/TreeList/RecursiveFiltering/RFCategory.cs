@@ -3,7 +3,7 @@ using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
-namespace FeatureCenter.Module.Win.ListViewControl.RecursiveFiltering {
+namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveFiltering {
     public class RFCategory : BaseObject,ITreeNode {
         public RFCategory(Session session) : base(session) {
         }

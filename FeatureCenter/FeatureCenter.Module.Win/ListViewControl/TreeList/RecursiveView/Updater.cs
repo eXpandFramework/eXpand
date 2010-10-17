@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
-namespace FeatureCenter.Module.Win.ListViewControl.RecursiveView {
+namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView {
     public class Updater : ModuleUpdater
     {
         public Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) { }

@@ -9,6 +9,7 @@
         public const string HeaderWelcome = "Welcome";
         public const string DetailViewCotrol = "DetailView Cotrol/";
         public const string ListViewCotrol = "ListView Control/";
+        public const string TreeListView = "Tree ListView/";
         public const string HeaderPropertyPathFilters = "Property Path Filters";
         public const string HeaderNonPersistent = "Non Persistent Detail View";
 

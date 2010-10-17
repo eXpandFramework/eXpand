@@ -350,6 +350,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Updater.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ViewVariants\AttributeRegistrator.cs" />
     <Compile Include="Welcome\WelcomeObject.cs" />

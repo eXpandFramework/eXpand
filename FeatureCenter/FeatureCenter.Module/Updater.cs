@@ -1,10 +1,18 @@
 using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.FilterDataStore.Providers;
 
 namespace FeatureCenter.Module
 {
+    
     public class Updater : Xpand.Persistent.BaseImpl.Updater
     {
         public Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) { }

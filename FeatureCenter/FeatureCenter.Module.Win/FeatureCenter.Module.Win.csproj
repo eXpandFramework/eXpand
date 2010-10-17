@@ -391,9 +391,11 @@
     <Compile Include="ListViewControl\LoadWhenFiltered\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ListViewControl\RecursiveView\RVItem.cs" />
-    <Compile Include="ListViewControl\RecursiveView\RVCategory.cs" />
-    <Compile Include="ListViewControl\RecursiveView\Updater.cs" />
+    <Compile Include="ListViewControl\TreeList\RecursiveView\RVItem.cs" />
+    <Compile Include="ListViewControl\TreeList\RecursiveView\RVCategory.cs" />
+    <Compile Include="ListViewControl\TreeList\RecursiveView\Updater.cs" />
+    <Compile Include="ListViewControl\TreeList\TreeListOptions\OCategory.cs" />
+    <Compile Include="ListViewControl\TreeList\TreeListOptions\Updater.cs" />
     <Compile Include="Miscellaneous\ApplicationMultipleInstances\AMIObject.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -403,9 +405,9 @@
     <Compile Include="FooterMessagePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ListViewControl\RecursiveFiltering\RFCategory.cs" />
-    <Compile Include="ListViewControl\RecursiveFiltering\RFCustomer.cs" />
-    <Compile Include="ListViewControl\RecursiveFiltering\Updater.cs" />
+    <Compile Include="ListViewControl\TreeList\RecursiveFiltering\RFCategory.cs" />
+    <Compile Include="ListViewControl\TreeList\RecursiveFiltering\RFCustomer.cs" />
+    <Compile Include="ListViewControl\TreeList\RecursiveFiltering\Updater.cs" />
     <Compile Include="Navigation\LogOut\LOCustomer.cs" />
     <Compile Include="Captions.cs" />
     <Compile Include="Navigation\CursorPosition\AttributeRegistrator.cs" />
@@ -429,7 +431,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Updater.cs" />
+    <Compile Include="Updater.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WinModule.Designer.cs">
       <DependentUpon>WinModule.cs</DependentUpon>
     </Compile>
@@ -537,7 +541,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ListViewControl\RecursiveFiltering\MDO_RecursiveFiltering.xafml">
+    <EmbeddedResource Include="ListViewControl\TreeList\RecursiveFiltering\MDO_RecursiveFiltering.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -562,7 +566,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ListViewControl\RecursiveView\MDO_RecursiveView.xafml">
+    <EmbeddedResource Include="ListViewControl\TreeList\RecursiveView\MDO_RecursiveView.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ListViewControl\TreeList\TreeListOptions\MDO_TreeListOptions.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

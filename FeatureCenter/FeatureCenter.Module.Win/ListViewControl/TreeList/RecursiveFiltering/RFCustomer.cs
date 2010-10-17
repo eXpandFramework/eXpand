@@ -4,13 +4,13 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.Attributes;
 
-namespace FeatureCenter.Module.Win.ListViewControl.RecursiveFiltering
+namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveFiltering
 {
     [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Captions.HeaderRecursiveFiltering, "1=1", "1=1",
         Captions.ViewMessageRecursiveFiltering, Position.Bottom)]
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderRecursiveFiltering, "1=1", "1=1",
         Captions.HeaderRecursiveFiltering, Position.Top)]
-    [XpandNavigationItem(Module.Captions.ListViewCotrol + "RecursiveFiltering", "RFCustomer_ListView")]
+    [XpandNavigationItem(Module.Captions.ListViewCotrol + Module.Captions.TreeListView + "RecursiveFiltering", "RFCustomer_ListView")]
     [DisplayFeatureModel("RFCustomer_ListView", "RecursiveFiltering")]
     public class RFCustomer:CustomerBase,ICategorizedItem
     {

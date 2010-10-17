@@ -4,13 +4,13 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
 
-namespace FeatureCenter.Module.Win.ListViewControl.RecursiveView
+namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView
 {
     [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Captions.HeaderRecursiveView, "1=1", "1=1",
         Captions.ViewMessageRecursiveView, Position.Bottom)]
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderRecursiveView, "1=1", "1=1",
         Captions.HeaderRecursiveView, Position.Top)]
-    [XpandNavigationItem(Module.Captions.ListViewCotrol + "RecursiveView", "RVItem_ListView")]
+    [XpandNavigationItem(Module.Captions.ListViewCotrol + Module.Captions.TreeListView + "RecursiveView", "RVItem_ListView")]
     [DisplayFeatureModel("RVItem_ListView", "RecursiveView")]
     public class RVItem : BaseObject, ICategorizedItem
     {
