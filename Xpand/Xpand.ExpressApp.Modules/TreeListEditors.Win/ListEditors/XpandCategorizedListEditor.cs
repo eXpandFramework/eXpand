@@ -9,7 +9,7 @@ using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
 
-namespace Xpand.ExpressApp.TreeListEditors.Win {
+namespace Xpand.ExpressApp.TreeListEditors.Win.ListEditors {
     [ListEditor(typeof(ICategorizedItem))]
     public class XpandCategorizedListEditor : CategorizedListEditor {
         public XpandCategorizedListEditor(IModelListView info) : base(info) { }

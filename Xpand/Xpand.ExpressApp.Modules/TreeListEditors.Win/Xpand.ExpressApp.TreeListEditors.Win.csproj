@@ -158,7 +158,7 @@
     <Compile Include="Core\XpandTreeListEditorModelSynchronizerList.cs" />
     <Compile Include="Core\XpandTreeListEditorNodeGeneratorUpdater.cs" />
     <Compile Include="ListEditors\XpandTreeListEditor.cs" />
-    <Compile Include="XpandCategorizedListEditor.cs" />
+    <Compile Include="ListEditors\XpandCategorizedListEditor.cs" />
     <Compile Include="XpandTreeListEditorsWinModule.cs">
       <SubType>Component</SubType>
     </Compile>
