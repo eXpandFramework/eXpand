@@ -9,6 +9,8 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
+using Xpand.ExpressApp.Model;
+using System.Linq;
 
 
 namespace Xpand.ExpressApp.ModelDifference.Core {
@@ -60,7 +62,18 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             using (var application = GetApplication(_executableName, typesInfo)) {
                 XpandApplicationModulesManager modulesManager = GetModulesManager(typesInfo, application);
                 ApplicationModelsManager modelsManager = GetModelsManager(modulesManager);
-                return (ModelApplicationBase)GetModelApplication(modelsManager);
+                var masterModel = (ModelApplicationBase)GetModelApplication(modelsManager);
+                RemoveModelRunTimeMembers(masterModel);
+                return masterModel;
+            }
+        }
+
+        void RemoveModelRunTimeMembers(ModelApplicationBase masterModel) {
+            var modelRuntimeMembers = XpandModuleBase.Application.Model.BOModel.SelectMany(@class => @class.OwnMembers).OfType<IModelRuntimeMember>();
+            foreach (var modelRuntimeMember in modelRuntimeMembers) {
+                var modelClass = masterModel.Application.BOModel.GetClass(modelRuntimeMember.ModelClass.TypeInfo.Type);
+                var modelMember = modelClass.FindMember(modelRuntimeMember.Name);
+                modelClass.OwnMembers.Remove(modelMember);
             }
         }
 
@@ -93,7 +106,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         XpandApplicationModulesManager GetModulesManager(TypesInfo typesInfo, XafApplication application) {
             var modulesManager = CreateApplicationModulesManager(application,string.Empty,
                                                                  AppDomain.CurrentDomain.SetupInformation.ApplicationBase,typesInfo);
-
+            
             ReadModulesFromConfig(modulesManager, application);
 
             modulesManager.Load(typesInfo);
