@@ -211,7 +211,7 @@ namespace Xpand.ExpressApp.WizardUI.Win
 
             foreach (var item in ((XafWizardPage)e.Page).View.GetItems<PropertyEditor>())
             {
-                if (((Control)item.Control).Visible)
+                if (item.Control != null && ((Control)item.Control).Visible)
                 {
                     usedProperties.Add(item.PropertyName);
                     if (item is ListPropertyEditor)
