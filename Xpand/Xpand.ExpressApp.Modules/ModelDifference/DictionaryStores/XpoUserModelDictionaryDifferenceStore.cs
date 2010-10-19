@@ -11,6 +11,7 @@ using Xpand.ExpressApp.Security.Core;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base;
+using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores{
     public class XpoUserModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore{
@@ -78,7 +79,10 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores{
                 var space = Application.CreateObjectSpace();
                 IEnumerable<ModelDifferenceObject> differences = GetDifferences(space);
                 foreach (var difference in differences){
-                    difference.CreateAspectsCore(model);
+                    var master = new ModelApplicationBuilder(difference.PersistentApplication.ExecutableName).GetMasterModel();
+                    var diffsModel = difference.GetModel(master);
+                    new ModelXmlReader().ReadFromModel(diffsModel, model);
+                    difference.CreateAspectsCore(diffsModel);
                     space.SetModified(difference);
                 }
                 space.CommitChanges();
