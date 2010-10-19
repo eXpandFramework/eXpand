@@ -6,14 +6,14 @@ using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
     public interface IModelTreeViewColumnMainOptions : IModelTreeViewColumnOptionsBase {
-        IModelTreeViewColumnOptions TreeListColumnOptions { get; set; }
+        IModelTreeViewColumnOptions TreeListColumnOptions { get; }
     }
 
     public interface IModelTreeViewColumnOptionsBase : IModelNode {
     }
 
     public interface IModelTreeViewColumnOptions : IModelNode {
-        IModelTreeViewOptionsColumn OptionsColumn { get; set; }
+        IModelTreeViewOptionsColumn OptionsColumn { get; }
         FixedStyle? Fixed { get; set; }
     }
 

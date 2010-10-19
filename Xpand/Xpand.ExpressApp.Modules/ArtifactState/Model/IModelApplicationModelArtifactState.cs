@@ -3,6 +3,6 @@
 namespace Xpand.ExpressApp.ArtifactState.Model {
     public interface IModelApplicationModelArtifactState : IModelNode
     {
-        IModelArtifactState ModelArtifactState { get; set; }
+        IModelArtifactState ModelArtifactState { get; }
     }
 }

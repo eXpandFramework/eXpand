@@ -5,11 +5,13 @@ using Alignment = Xpand.NCarousel.Alignment;
 
 namespace Xpand.ExpressApp.NCarousel.Web
 {
-    public interface IModelListViewNCarousel:IModelNode {
-        IModelNCarousel NCarousel { get; set; }
+    public interface IModelListViewNCarousel : IModelNode
+    {
+        IModelNCarousel NCarousel { get; }
     }
 
-    public interface IModelNCarousel : IModelNode {
+    public interface IModelNCarousel : IModelNode
+    {
         bool AllowOverride { get; set; }
         bool HideImages { get; set; }
         string ContainerStyle { get; set; }
@@ -23,15 +25,16 @@ namespace Xpand.ExpressApp.NCarousel.Web
     }
     public sealed partial class NCarouselWebModule : ModuleBase
     {
-        
+
         public NCarouselWebModule()
         {
             InitializeComponent();
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
+        {
             base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelListView,IModelListViewNCarousel>();
+            extenders.Add<IModelListView, IModelListViewNCarousel>();
         }
     }
 }

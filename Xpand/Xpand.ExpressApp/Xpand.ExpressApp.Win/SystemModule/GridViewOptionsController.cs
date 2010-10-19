@@ -41,20 +41,20 @@ namespace Xpand.ExpressApp.Win.SystemModule
     }
     public interface IModelListViewMainViewOptions : IModelListViewMainViewOptionsBase
     {
-        IModelGridViewOptions GridViewOptions { get; set; }
+        IModelGridViewOptions GridViewOptions { get; }
     }
 
     public interface IModelGridViewOptions : IModelNode
     {
-        IModelGridViewOptionsBehaviour OptionsBehavior { get; set; }
-        IModelGridViewOptionsDetail OptionsDetail { get; set; }
-        IModelGridViewOptionsCustomization OptionsCustomization { get; set; }
-        IModelGridViewOptionsNavigation OptionsNavigation { get; set; }
-        IModelGridViewOptionsSelection OptionsSelection { get; set; }
-        IModelGridViewOptionsView OptionsView { get; set; }
-        IModelGridViewOptionsMenu OptionsMenu { get; set; }
-        IModelGridViewOptionsPrint OptionsPrint { get; set; }
-        IModelGridViewOptionsHint OptionsHint { set; get; }
+        IModelGridViewOptionsBehaviour OptionsBehavior { get; }
+        IModelGridViewOptionsDetail OptionsDetail { get; }
+        IModelGridViewOptionsCustomization OptionsCustomization { get; }
+        IModelGridViewOptionsNavigation OptionsNavigation { get; }
+        IModelGridViewOptionsSelection OptionsSelection { get; }
+        IModelGridViewOptionsView OptionsView { get; }
+        IModelGridViewOptionsMenu OptionsMenu { get; }
+        IModelGridViewOptionsPrint OptionsPrint { get; }
+        IModelGridViewOptionsHint OptionsHint { set; }
     }
 
     public interface IModelGridViewOptionsHint:IModelNode {

@@ -10,12 +10,12 @@ namespace Xpand.ExpressApp.Web.SystemModule
 {
     public interface IModelColumnOptions : IModelColumnOptionsBase
     {
-        IModelGridColumnOptions GridColumnOptions { get; set; }
+        IModelGridColumnOptions GridColumnOptions { get; }
     }
 
     public interface IModelGridColumnOptions : IModelNode
     {
-        IModelGridViewColumnSettings Settings { get; set; }
+        IModelGridViewColumnSettings Settings { get; }
     }
 
     public interface IModelGridViewColumnSettings:IModelNode {
@@ -41,7 +41,7 @@ namespace Xpand.ExpressApp.Web.SystemModule
     }
 
     public interface IModelColumnProperties : IModelNode {
-        IModelColumnPropertiesEdit PropertiesEdit { get; set; }
+        IModelColumnPropertiesEdit PropertiesEdit { get; }
     }
 
     public interface IModelColumnPropertiesEdit:IModelNode {

@@ -27,7 +27,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
     }
 
     public interface IModelTreeViewMainOptions : IModelTreeViewOptionsBase {
-        IModelTreeViewOptions TreeListOptions { get; set; }
+        IModelTreeViewOptions TreeListOptions { get; }
     }
 
     public interface IModelTreeViewOptionsBase : IModelNode {
@@ -37,12 +37,12 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
         string PreviewFieldName { get; set; }
         int? PreviewLineCount { get; set; }
         int? RowHeight { get; set; }
-        IModelTreeViewOptionsBehavior OptionsBehavior { get; set; }
-        IModelTreeViewListOptionsLayout OptionsLayout { get; set; }
-        IModelTreeViewListOptionsMenu OptionsMenu { get; set; }
-        IModelTreeViewListOptionsPrint OptionsPrint { get; set; }
-        IModelTreeViewListOptionsSelection OptionsSelection { get; set; }
-        IModelTreeViewListOptionsView OptionsView { get; set; }
+        IModelTreeViewOptionsBehavior OptionsBehavior { get; }
+        IModelTreeViewListOptionsLayout OptionsLayout { get; }
+        IModelTreeViewListOptionsMenu OptionsMenu { get; }
+        IModelTreeViewListOptionsPrint OptionsPrint { get; }
+        IModelTreeViewListOptionsSelection OptionsSelection { get; }
+        IModelTreeViewListOptionsView OptionsView { get; }
     }
 
     public class TreeListOptionsController : OptionsController<IModelListView> {

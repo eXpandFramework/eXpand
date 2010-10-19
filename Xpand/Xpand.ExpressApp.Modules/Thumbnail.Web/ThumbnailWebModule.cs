@@ -9,7 +9,7 @@ namespace Xpand.ExpressApp.Thumbnail.Web
 {
     public interface IModelListViewThumbnailWeb:IModelListView
     {
-        IModelThumbnailWeb ThumbnailWeb { get; set; }    
+        IModelThumbnailWeb ThumbnailWeb { get; }    
     }
 
     public interface IModelThumbnailWeb:IModelNode {
