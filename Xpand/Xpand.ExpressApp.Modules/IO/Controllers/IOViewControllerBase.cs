@@ -67,11 +67,15 @@ namespace Xpand.ExpressApp.IO.Controllers {
             var fileName = GetFilePath();
             if (fileName != null) {
                 var xmlWriterSettings = new XmlWriterSettings {
-                    OmitXmlDeclaration = true, Indent = true, NewLineChars = "\r\n", CloseOutput = true,
+                    OmitXmlDeclaration = true, Indent = true, NewLineChars = "\r\n", CloseOutput = true
                 };
                 using (XmlWriter textWriter = XmlWriter.Create(new FileStream(fileName, FileMode.Create), xmlWriterSettings)) {
-                    if (xDocument.Root != null)
-                        textWriter.WriteString(XmlCharacterWhitelist(xDocument.Root.Value));
+                    if (xDocument.Root != null) {
+                        var xmlDocument = new XmlDocument();
+                        xmlDocument.LoadXml(XmlCharacterWhitelist(xDocument.ToString()));
+                        xmlDocument.Save(textWriter);
+                    }
+
                     textWriter.Close();
                 }
             }
