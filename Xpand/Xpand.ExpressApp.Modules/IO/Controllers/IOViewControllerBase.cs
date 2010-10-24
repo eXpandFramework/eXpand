@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using DevExpress.ExpressApp;
@@ -8,8 +7,8 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.IO.Core;
+using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.ImportExport;
 
 namespace Xpand.ExpressApp.IO.Controllers {
@@ -57,44 +56,25 @@ namespace Xpand.ExpressApp.IO.Controllers {
 
         void AddDialogController(ShowViewParameters showViewParameters) {
             var dialogController = new DialogController();
-            dialogController.ViewClosing += (o, eventArgs) => Export(((View)o).CurrentObject);
+            dialogController.ViewClosing += (o, eventArgs) => export(((View)o).CurrentObject);
             showViewParameters.Controllers.Add(dialogController);
         }
 
 
-        void Export(object selectedObject) {
+        void export(object selectedObject) {
             XDocument xDocument = new ExportEngine().Export(View.SelectedObjects.OfType<XPBaseObject>(), ObjectSpace.GetObject((ISerializationConfigurationGroup)selectedObject));
             var fileName = GetFilePath();
             if (fileName != null) {
                 var xmlWriterSettings = new XmlWriterSettings {
-                    OmitXmlDeclaration = true, Indent = true, NewLineChars = "\r\n", CloseOutput = true
+                    OmitXmlDeclaration = true, Indent = true, NewLineChars = "\r\n", CloseOutput = true,
                 };
                 using (XmlWriter textWriter = XmlWriter.Create(new FileStream(fileName, FileMode.Create), xmlWriterSettings)) {
-                    if (xDocument.Root != null) {
-                        var xmlDocument = new XmlDocument();
-                        xmlDocument.LoadXml(XmlCharacterWhitelist(xDocument.ToString()));
-                        xmlDocument.Save(textWriter);
-                    }
-
+                    xDocument.Save(textWriter);
                     textWriter.Close();
                 }
             }
         }
 
-        string XmlCharacterWhitelist(string in_string) {
-            if (in_string == null) return null;
-            var sbOutput = new StringBuilder();
-            foreach (char ch in in_string) {
-                if ((ch >= 0x0020 && ch <= 0xD7FF) ||
-                    (ch >= 0xE000 && ch <= 0xFFFD) ||
-                    ch == 0x0009 ||
-                    ch == 0x000A ||
-                    ch == 0x000D) {
-                    sbOutput.Append(ch);
-                }
-            }
-            return sbOutput.ToString();
-        }
         protected abstract string GetFilePath();
 
         void Import(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
