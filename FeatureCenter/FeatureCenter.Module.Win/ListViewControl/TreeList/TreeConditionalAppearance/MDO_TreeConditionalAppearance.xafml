@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="FeatureCenter.Module.Win.ListViewControl.TreeList.TreeConditionalAppearance.TCACategory">
+      <AppearanceRules>
+        <AppearanceRule Id="Make_Bold_Groups" IsNewNode="True" FontStyle="Bold" Context="ListView" Criteria="FullName like 'Group %'" TargetItems="*" />
+      </AppearanceRules>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="TCACategory_ListView" EditorTypeName="Xpand.ExpressApp.TreeListEditors.Win.ListEditors.XpandTreeListEditor" />
+  </Views>
+</Application>

@@ -8,7 +8,7 @@ using Xpand.ExpressApp.Attributes;
 using IQueryable = System.Linq.IQueryable;
 
 namespace FeatureCenter.Module {
-    [DefaultClassOptions]
+
     public class Customer : CustomerBase {
         public Customer(Session session)
             : base(session) {

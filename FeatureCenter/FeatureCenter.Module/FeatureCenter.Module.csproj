@@ -349,9 +349,7 @@
     <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UpdateStatementController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Updater.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Updater.cs" />
     <Compile Include="ViewVariants\AttributeRegistrator.cs" />
     <Compile Include="Welcome\WelcomeObject.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\AttributeRegistrator.cs" />
