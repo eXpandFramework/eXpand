@@ -1,7 +1,5 @@
 ﻿using System.IO;
 using System.Linq;
-using System.Xml;
-using System.Xml.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
@@ -56,23 +54,15 @@ namespace Xpand.ExpressApp.IO.Controllers {
 
         void AddDialogController(ShowViewParameters showViewParameters) {
             var dialogController = new DialogController();
-            dialogController.ViewClosing += (o, eventArgs) => export(((View)o).CurrentObject);
+            dialogController.ViewClosing += (o, eventArgs) => Export(((View)o).CurrentObject);
             showViewParameters.Controllers.Add(dialogController);
         }
 
 
-        void export(object selectedObject) {
-            XDocument xDocument = new ExportEngine().Export(View.SelectedObjects.OfType<XPBaseObject>(), ObjectSpace.GetObject((ISerializationConfigurationGroup)selectedObject));
+        public virtual void Export(object selectedObject) {
             var fileName = GetFilePath();
-            if (fileName != null) {
-                var xmlWriterSettings = new XmlWriterSettings {
-                    OmitXmlDeclaration = true, Indent = true, NewLineChars = "\r\n", CloseOutput = true,
-                };
-                using (XmlWriter textWriter = XmlWriter.Create(new FileStream(fileName, FileMode.Create), xmlWriterSettings)) {
-                    xDocument.Save(textWriter);
-                    textWriter.Close();
-                }
-            }
+            var exportEngine = new ExportEngine();
+            exportEngine.Export(View.SelectedObjects.OfType<XPBaseObject>(), ObjectSpace.GetObject((ISerializationConfigurationGroup)selectedObject),fileName);
         }
 
         protected abstract string GetFilePath();
