@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -128,7 +129,7 @@ namespace Xpand.ExpressApp.IO.Core {
             if (type == typeof(byte[])){
                 return string.IsNullOrEmpty(simpleElement.Value) ? null : Convert.FromBase64String(simpleElement.Value);
             }
-            return XpandReflectionHelper.ChangeType(simpleElement.Value, type);
+            return XpandReflectionHelper.ChangeType(simpleElement.Value, type,CultureInfo.InvariantCulture);
         }
 
         ITypeInfo GetTypeInfo(XElement element) {

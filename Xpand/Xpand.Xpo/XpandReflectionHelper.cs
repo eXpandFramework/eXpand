@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Collections;
+using System.Globalization;
 using System.Reflection;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Exceptions;
 using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Helpers;
 
-namespace Xpand.Xpo
-{
+namespace Xpand.Xpo {
     /// <summary>
     /// Summary description for Reflector.
     /// </summary>
-    public class XpandReflectionHelper:Utils.XpandReflectionHelper {
+    public class XpandReflectionHelper : Utils.XpandReflectionHelper {
         private XpandReflectionHelper() {
         }
 
-
-        public static object ChangeType(object value, Type conversionType)
-        {
+        public static object ChangeType(object value, Type conversionType, CultureInfo cultureInfo) {
             if (value == DBNull.Value)
                 value = null;
-            if (value == null || value.Equals(""))
-            {
+            if (value == null || value.Equals("")) {
                 if (conversionType == typeof(DateTime))
                     return typeof(Nullable).IsAssignableFrom(conversionType) ? (object)null : DateTime.MinValue;
                 if (conversionType == typeof(int) || conversionType == typeof(double))
@@ -32,49 +29,44 @@ namespace Xpand.Xpo
                     return null;
                 if (conversionType.IsValueType)
                     return Activator.CreateInstance(conversionType);
-            }
-            else if (typeof(Enum).IsAssignableFrom(conversionType))
+            } else if (typeof(Enum).IsAssignableFrom(conversionType))
                 return Enum.Parse(conversionType, (string)value);
             else if ((value + "").IsGuid() && conversionType == typeof(Guid))
                 return new Guid(value.ToString());
             else if (value.GetType().Equals(conversionType))
                 return value;
-            else if (typeof(XPBaseObject).IsAssignableFrom(value.GetType()))
-            {
+            else if (typeof(XPBaseObject).IsAssignableFrom(value.GetType())) {
                 if (conversionType == typeof(int))
                     return ((XPBaseObject)value).ClassInfo.KeyProperty.GetValue(value);
                 if (conversionType == typeof(string))
                     return ((XPBaseObject)value).ClassInfo.KeyProperty.GetValue(value).ToString();
                 return value;
-            }
-            else if (conversionType == typeof(DateTime))
-            {
-                if ((value + "").Length > 0)
-                {
+            } else if (conversionType == typeof(DateTime)) {
+                if ((value + "").Length > 0) {
                     var val = (value + "").Val();
                     if (val > 0)
                         return new DateTime(val);
                 }
-            }
-            else if (value.GetType() != conversionType)
-            {
-                if (conversionType.IsGenericType)
-                {
+            } else if (value.GetType() != conversionType) {
+                if (conversionType.IsGenericType) {
                     return value;
                 }
             }
 
-            return Convert.ChangeType(value, conversionType);
+            return Convert.ChangeType(value, conversionType, cultureInfo);
+
+        }
+
+        public static object ChangeType(object value, Type conversionType) {
+            return ChangeType(value, conversionType, null);
         }
 
         /// <summary>
         /// uses <see cref="Convert.ChangeType(object,Type)"/>
         /// </summary>
         /// <returns></returns>
-        public static PropertyInfo GetPropertyInfo(Type type, string propertyName)
-        {
-            if (propertyName.IndexOf(".") > -1)
-            {
+        public static PropertyInfo GetPropertyInfo(Type type, string propertyName) {
+            if (propertyName.IndexOf(".") > -1) {
                 PropertyInfo info = type.GetProperty(propertyName.Split(".".ToCharArray())[0]);
                 return GetPropertyInfo(info.PropertyType, propertyName.Substring(propertyName.IndexOf(".") + 1));
             }
@@ -85,10 +77,8 @@ namespace Xpand.Xpo
                 throw new PropertyMissingException(type.FullName, propertyName);
             return propertyInfo;
         }
-        public static void SetProperty(string propertyName, object value, object o)
-        {
-            if (propertyName.IndexOf(".") > -1)
-            {
+        public static void SetProperty(string propertyName, object value, object o) {
+            if (propertyName.IndexOf(".") > -1) {
                 o = o.GetType().GetProperty(propertyName.Split(".".ToCharArray())[0]).GetValue(o, null);
                 SetProperty(propertyName.Substring(propertyName.IndexOf(".") + 1), value, o);
                 return;
@@ -98,10 +88,8 @@ namespace Xpand.Xpo
                 throw new PropertyMissingException(o.GetType().FullName, propertyName);
             propertyInfo.SetValue(o, ChangeType(value, propertyInfo.PropertyType), null);
         }
-        public static object GetPropertyInfoValue(string propertyName, object o, bool returnNullIfPropertyNotExists)
-        {
-            if (propertyName.IndexOf(".") > -1)
-            {
+        public static object GetPropertyInfoValue(string propertyName, object o, bool returnNullIfPropertyNotExists) {
+            if (propertyName.IndexOf(".") > -1) {
                 PropertyInfo info = o.GetType().GetProperty(propertyName.Split(".".ToCharArray())[0]);
                 if (returnNullIfPropertyNotExists && info == null)
                     return null;
@@ -116,8 +104,7 @@ namespace Xpand.Xpo
                 return null;
             return propertyInfo.GetIndexParameters().Length == 0 ? propertyInfo.GetValue(o, null) : null;
         }
-        public static object GetPropertyInfoValue(string propertyName, object o)
-        {
+        public static object GetPropertyInfoValue(string propertyName, object o) {
             return GetPropertyInfoValue(propertyName, o, false);
         }
 
@@ -213,5 +200,6 @@ namespace Xpand.Xpo
             }
             return memberInfos;
         }
+
     }
 }

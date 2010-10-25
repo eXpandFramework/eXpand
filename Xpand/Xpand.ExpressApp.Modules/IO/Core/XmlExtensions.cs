@@ -43,18 +43,10 @@ namespace Xpand.ExpressApp.IO.Core {
             return properties.Where(element => element.GetAttributeValue("name") == name).FirstOrDefault();
         }
 
-        public static XElement ObjectProperty(this XElement element, Type type) {
-            return element.Descendants("Property").Where(xElement =>
-                                                          xElement.GetAttributeValue("type") ==
-                                                          NodeType.Object.ToString().MakeFirstCharLower()).FirstOrDefault();
-        }
         public static XElement ObjectProperty(this XElement element, string name) {
             return element.Descendants("Property").Where(xElement =>xElement.GetAttributeValue("name") ==name).FirstOrDefault();
         }
 
-        public static XElement ObjectProperty(this IEnumerable<XElement> elements, Type type) {
-            return elements.Select(element => element.ObjectProperty(type)).FirstOrDefault();
-        }
 
         public static IEnumerable<XElement> SerializedObjects(this XElement element, Type type)
         {

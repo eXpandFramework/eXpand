@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -11,6 +12,7 @@ using System.Xml.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata.Helpers;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
@@ -180,7 +182,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         It should_create_a_property_with_name_same_as_referenced_object_type =
             () => {
-                _property = _root.SerializedObjects(_customer.GetType()).ObjectProperty(typeof(User));
+                _property = _root.SerializedObjects(_customer.GetType()).Single().ObjectProperty("User");
                 _property.ShouldNotBeNull();
             };
         It should_set_null_value_to_that_property = () => _property.Value.ShouldEqual(String.Empty);
@@ -544,11 +546,44 @@ namespace Xpand.Tests.Xpand.IO {
             };
             var outputFileName = new FileStream(@"c:\test2.xml", FileMode.Create,FileAccess.ReadWrite);
             using (XmlWriter textWriter = XmlWriter.Create(outputFileName, xmlWriterSettings)) {
-                if (textWriter != null) {
-                    _document.Save(textWriter);
-                    textWriter.Close();
-                }
+                _document.Save(textWriter);
+                textWriter.Close();
             }
         };
     }
+    [Subject(typeof(ExportEngine))]
+    public class When_object_property_is_IConvertable:With_Isolations {
+        static SerializationConfiguration _serializationConfiguration;
+
+        static XPBaseObject _customer;
+
+        static XDocument _document;
+
+        Establish context = () => {
+            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            PersistentAssemblyBuilder persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(objectSpace, GetUniqueAssemblyName());
+            IClassInfoHandler classInfoHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer" });
+            classInfoHandler.CreateSimpleMembers(DBColumnType.Double, info => new[]{"Cost"});
+            objectSpace.CommitChanges();
+            Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
+            var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
+            _serializationConfiguration = new SerializationConfiguration(objectSpace.Session) {
+                TypeToSerialize = customerType,
+                SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>()
+            };
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+            _customer = (XPBaseObject) objectSpace.CreateObject(customerType);
+            _customer.SetMemberValue("Cost",1.2);
+        };
+
+        Because of = () => {
+            _document = new ExportEngine().Export(new[] {_customer}, _serializationConfiguration.SerializationConfigurationGroup);
+        };
+        
+        It should_export_an_invariant_culture_formatted_value =
+            () =>
+            _document.Root.SerializedObjects(_customer.GetType()).Single().Property("Cost").Value.ShouldEqual(
+                (1.2).ToString(CultureInfo.InvariantCulture));
+    }
+
 }
