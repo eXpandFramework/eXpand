@@ -336,7 +336,28 @@ private const int GcRecord = 1;
                 SerializationStrategy.ShouldEqual(SerializationStrategy.SerializeAsObject);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder), "creating graphs")]
-    public class When_object_is_marked_with_serializationKeyAttribute : With_Isolations {
+    public class When_property_type_is_mark_with_serialializationStrategyAttribute : With_Isolations {
+        static SerializationConfiguration _serializationConfiguration;
+
+        Establish context = () => {
+            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            _serializationConfiguration.TypeToSerialize = typeof(Analysis);
+            _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
+            XafTypesInfo.Instance.RegisterEntity(typeof(User));
+            XafTypesInfo.Instance.FindTypeInfo(typeof (Analysis)).CreateMember("User", typeof (User));
+            XafTypesInfo.Instance.FindTypeInfo(typeof(User)).AddAttribute(new SerializationStrategyAttribute(SerializationStrategy.DoNotSerialize));
+        };
+
+        Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+
+        It should_create_a_node_with_serialize_strategy_the_same_as_the_type_attribute_strategy =
+            () =>
+            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "User").Single().
+                SerializationStrategy.ShouldEqual(SerializationStrategy.DoNotSerialize);
+    }
+    [Subject(typeof(ClassInfoGraphNodeBuilder), "creating graphs")]
+    public class When_property_is_marked_with_serializationKeyAttribute : With_Isolations {
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
@@ -355,5 +376,27 @@ private const int GcRecord = 1;
         It should_not_have_any_other_key_nodes =
             () => _serializationConfiguration.SerializationGraph.Where(node => node.Key).Count().ShouldEqual(1);
     }
+    [Subject(typeof(ClassInfoGraphNodeBuilder), "applying strategy")]
+    public class When_applying_a_serialization_strategy:With_Isolations {
+        static SerializationConfiguration _serializationConfiguration;
 
+        Establish context = () => {
+            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            XafTypesInfo.Instance.FindTypeInfo(typeof (Analysis)).CreateMember("User", typeof (User));
+            XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeof(Analysis)).CreateMember("Users", typeof(XPCollection),
+                                                                                                    false, new AssociationAttribute(typeof(User)));
+            _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            _serializationConfiguration.TypeToSerialize = typeof(Analysis);
+            _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+        };
+
+        Because of = () => new ClassInfoGraphNodeBuilder().ApplyStrategy(SerializationStrategy.DoNotSerialize,_serializationConfiguration.SerializationConfigurationGroup.SerializationConfigurations.Where(configuration => configuration.TypeToSerialize==typeof(User)).Single());
+        It should_apply_the_strategy_to_all_reference_properties =
+            () =>
+            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "User").Single().SerializationStrategy.ShouldEqual(SerializationStrategy.DoNotSerialize);
+
+        It should_apply_the_strategy_to_all_collection_properties =
+            () => _serializationConfiguration.SerializationGraph.Where(node => node.Name == "Users").Single().SerializationStrategy.ShouldEqual(SerializationStrategy.DoNotSerialize);
+    }
 }

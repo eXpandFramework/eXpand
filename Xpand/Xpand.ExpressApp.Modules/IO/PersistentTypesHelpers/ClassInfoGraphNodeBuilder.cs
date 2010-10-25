@@ -100,6 +100,12 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
         }
 
         SerializationStrategy GetSerializationStrategy(IMemberInfo memberInfo, SerializationStrategy serializationStrategy) {
+            if (memberInfo.MemberTypeInfo.IsPersistent) {
+                var attribute = memberInfo.MemberTypeInfo.FindAttribute<SerializationStrategyAttribute>();
+                if (attribute!= null) {
+                    return attribute.SerializationStrategy;
+                }
+            }
             var serializationStrategyAttribute = memberInfo.FindAttribute<SerializationStrategyAttribute>();
             return serializationStrategyAttribute != null ? serializationStrategyAttribute.SerializationStrategy : serializationStrategy;
         }
@@ -114,6 +120,15 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
 
         bool IsPersistent(IMemberInfo info) {
             return (info.IsPersistent || (info.IsList && info.ListElementTypeInfo.IsPersistent));
+        }
+
+        public void ApplyStrategy(SerializationStrategy serializationStrategy, ISerializationConfiguration serializationConfiguration) {
+            var serializationConfigurationGroup = serializationConfiguration.SerializationConfigurationGroup;
+            var infoGraphNodes = serializationConfigurationGroup.Configurations.SelectMany(configuration => configuration.SerializationGraph);
+            var classInfoGraphNodes = infoGraphNodes.Where(node => node.TypeName == serializationConfiguration.TypeToSerialize.Name);
+            foreach (var classInfoGraphNode in classInfoGraphNodes) {
+                classInfoGraphNode.SerializationStrategy=serializationStrategy;
+            }
         }
     }
 }

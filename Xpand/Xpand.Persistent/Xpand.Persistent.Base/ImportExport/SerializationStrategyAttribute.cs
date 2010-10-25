@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Xpand.Persistent.Base.ImportExport {
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property|AttributeTargets.Class)]
     public class SerializationStrategyAttribute : Attribute {
         readonly SerializationStrategy _serializationStrategy;
 
