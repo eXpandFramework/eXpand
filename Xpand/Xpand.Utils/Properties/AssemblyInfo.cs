@@ -35,12 +35,10 @@ using Xpand;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion(AssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(AssemblyInfo.Version)]
-namespace Xpand
-{
-    public class AssemblyInfo
-    {
-        public const string Version = "10.1.6.0";
+namespace Xpand {
+    public class AssemblyInfo {
+        public const string Version = "10.1.7.0";
 
-        
+
     }
 }
