@@ -40,4 +40,8 @@ namespace Xpand.ExpressApp {
     public interface ISupportModelsManager {
         ApplicationModelsManager ModelsManager { get; }
     }
+    public interface ISupportConfirmationRequired {
+        event CancelEventHandler ConfirmationRequired;
+    }
+
 }

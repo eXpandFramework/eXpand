@@ -6,17 +6,27 @@ using Xpand.ExpressApp.Core;
 
 
 namespace Xpand.ExpressApp.Web {
-    public abstract partial class XpandWebApplication : DevExpress.ExpressApp.Web.WebApplication, ISupportModelsManager {
+    public abstract partial class XpandWebApplication : DevExpress.ExpressApp.Web.WebApplication, ISupportModelsManager, ISupportConfirmationRequired {
         protected XpandWebApplication() {
             InitializeComponent();
             DetailViewCreating += OnDetailViewCreating;
             ListViewCreating += OnListViewCreating;
         }
+        public event CancelEventHandler ConfirmationRequired;
 
+        protected void OnConfirmationRequired(CancelEventArgs e) {
+            CancelEventHandler handler = ConfirmationRequired;
+            if (handler != null) handler(this, e);
+        }
         protected override void OnCustomProcessShortcut(CustomProcessShortcutEventArgs args) {
             base.OnCustomProcessShortcut(args);
             new ViewShortCutProccesor(this).Proccess(args);
 
+        }
+        public override ConfirmationResult AskConfirmation(ConfirmationType confirmationType) {
+            var cancelEventArgs = new CancelEventArgs();
+            OnConfirmationRequired(cancelEventArgs);
+            return !cancelEventArgs.Cancel ? ConfirmationResult.No : base.AskConfirmation(confirmationType);
         }
 
         void OnListViewCreating(object sender, ListViewCreatingEventArgs args) {

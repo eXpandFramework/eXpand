@@ -16,13 +16,20 @@ using Xpand.ExpressApp.Win.Interfaces;
 using Xpand.ExpressApp.Win.ViewStrategies;
 
 namespace Xpand.ExpressApp.Win {
-    public partial class XpandWinApplication : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication {
+
+    public partial class XpandWinApplication : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired {
         bool _isSharedModel;
 
         protected override bool IsSharedModel {
             get { return _isSharedModel; }
         }
         public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
+        public event CancelEventHandler ConfirmationRequired;
+
+        protected void OnConfirmationRequired(CancelEventArgs e) {
+            CancelEventHandler handler = ConfirmationRequired;
+            if (handler != null) handler(this, e);
+        }
 
         public void OnCustomCreateListEditor(CreatingListEditorEventArgs e) {
             EventHandler<CreatingListEditorEventArgs> handler = CustomCreateListEditor;
@@ -34,7 +41,11 @@ namespace Xpand.ExpressApp.Win {
             new ViewShortCutProccesor(this).Proccess(args);
 
         }
-
+        public override ConfirmationResult AskConfirmation(ConfirmationType confirmationType) {
+            var cancelEventArgs = new CancelEventArgs();
+            OnConfirmationRequired(cancelEventArgs);
+            return cancelEventArgs.Cancel ? ConfirmationResult.No : base.AskConfirmation(confirmationType);
+        }
         protected override ShowViewStrategyBase CreateShowViewStrategy() {
             var showViewStrategyBase = base.CreateShowViewStrategy();
             return showViewStrategyBase is ShowInMultipleWindowsStrategy

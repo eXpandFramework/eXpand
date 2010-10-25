@@ -1,12 +1,13 @@
-﻿using System.IO;
+﻿using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.Core;
+using Xpand.ExpressApp.IO.Core;
 using Xpand.Persistent.Base.ImportExport;
 
 namespace Xpand.ExpressApp.IO.Controllers {
@@ -62,16 +63,16 @@ namespace Xpand.ExpressApp.IO.Controllers {
         public virtual void Export(object selectedObject) {
             var fileName = GetFilePath();
             var exportEngine = new ExportEngine();
-            exportEngine.Export(View.SelectedObjects.OfType<XPBaseObject>(), ObjectSpace.GetObject((ISerializationConfigurationGroup)selectedObject),fileName);
+            exportEngine.Export(View.SelectedObjects.OfType<XPBaseObject>(), ObjectSpace.GetObject((ISerializationConfigurationGroup)selectedObject), fileName);
         }
 
         protected abstract string GetFilePath();
 
-        void Import(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
+        protected virtual void Import(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             ObjectSpace objectSpace = Application.CreateObjectSpace();
             object o = objectSpace.CreateObject(TypesInfo.Instance.XmlFileChooserType);
             singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace, o);
-            var dialogController = new DialogController();
+            var dialogController = new DialogController { SaveOnAccept = false };
             dialogController.AcceptAction.Execute += (sender1, args) => {
                 var memoryStream = new MemoryStream();
                 ((IXmlFileChooser)args.CurrentObject).FileData.SaveToStream(memoryStream);
@@ -79,8 +80,14 @@ namespace Xpand.ExpressApp.IO.Controllers {
                     new ImportEngine().ImportObjects(memoryStream, unitOfWork);
                 }
             };
+            ((ISupportConfirmationRequired)Application).ConfirmationRequired += OnConfirmationRequired;
+            dialogController.Frame.View.Closed += (sender, eventArgs) => ((ISupportConfirmationRequired)Application).ConfirmationRequired -= OnConfirmationRequired;
             singleChoiceActionExecuteEventArgs.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Add(dialogController);
+        }
+
+        void OnConfirmationRequired(object sender, CancelEventArgs cancelEventArgs) {
+            cancelEventArgs.Cancel = true;
         }
     }
 }
