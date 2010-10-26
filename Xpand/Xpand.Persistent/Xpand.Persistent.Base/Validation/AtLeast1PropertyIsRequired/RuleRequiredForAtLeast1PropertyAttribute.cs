@@ -8,12 +8,14 @@ namespace Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired {
         public RuleRequiredForAtLeast1PropertyAttribute(string id, string targetContextIDs, string targetProperties)
             : base(id, targetContextIDs) {
             Properties.TargetProperties = targetProperties;
+            SkipNullOrEmptyValues = false;
         }
 
         public RuleRequiredForAtLeast1PropertyAttribute(string id, DefaultContexts targetContexts,
                                                         string targetProperties)
             : base(id, targetContexts) {
             Properties.TargetProperties = targetProperties;
+            SkipNullOrEmptyValues = false;
         }
 
         protected override Type RuleType {
