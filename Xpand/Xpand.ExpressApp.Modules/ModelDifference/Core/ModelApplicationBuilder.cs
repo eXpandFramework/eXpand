@@ -73,7 +73,8 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             foreach (var modelRuntimeMember in modelRuntimeMembers) {
                 var modelClass = masterModel.Application.BOModel.GetClass(modelRuntimeMember.ModelClass.TypeInfo.Type);
                 var modelMember = modelClass.FindMember(modelRuntimeMember.Name);
-                modelClass.OwnMembers.Remove(modelMember);
+                if (!modelRuntimeMember.NonPersistent)
+                    modelClass.OwnMembers.Remove(modelMember);
             }
         }
 
