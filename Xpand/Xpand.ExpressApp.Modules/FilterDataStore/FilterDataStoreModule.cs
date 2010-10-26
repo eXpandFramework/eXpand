@@ -41,7 +41,7 @@ namespace Xpand.ExpressApp.FilterDataStore
         }
 
         void SubscribeToDataStoreProxyEvents() {
-            if (Application != null) {
+            if (Application != null && Application.ObjectSpaceProvider!=null) {
                 var objectSpaceProvider = (Application.ObjectSpaceProvider);
                 if (!(objectSpaceProvider is IXpandObjectSpaceProvider)){
                     throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IXpandObjectSpaceProvider).FullName);
