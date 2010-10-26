@@ -202,9 +202,6 @@
     <Reference Include="DevExpress.XtraWizard.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="InputSimulator">
-      <HintPath>..\..\_third_party_assemblies\InputSimulator.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
