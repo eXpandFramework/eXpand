@@ -125,9 +125,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelDifferenceAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ModelDifferenceAspNetModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
