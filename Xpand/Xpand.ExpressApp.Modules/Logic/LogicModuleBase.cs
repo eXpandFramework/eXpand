@@ -27,8 +27,8 @@ namespace Xpand.ExpressApp.Logic {
 
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            application.SetupComplete += (sender, args) => CollectRules(application);
-            application.LoggedOn += (o, eventArgs) => CollectRules(application);
+            application.SetupComplete += (sender, args) => CollectRules((XafApplication) sender);
+            application.LoggedOn += (o, eventArgs) => CollectRules((XafApplication) o);
         }
 
         public virtual void CollectRules(XafApplication xafApplication) {
