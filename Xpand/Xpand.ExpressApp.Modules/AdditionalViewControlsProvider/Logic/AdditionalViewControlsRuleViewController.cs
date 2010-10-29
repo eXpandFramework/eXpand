@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                     var calculator = new AdditionalViewControlsProviderCalculator(additionalViewControlsRule, info.View.ObjectTypeInfo.Type);
                     Type controlType = calculator.ControlsRule.ControlType;
                     IList controls = GetControls(viewSiteControl);
-                    if (info.Active) {
+                    if (info.Active&&ViewContextIsCorrect(info.Rule)) {
                         object o = FindControl(info, controlType, controls);
                         object control = GetControl(controlType, o, info);
                         ReflectionHelper.CreateObject(calculator.ControlsRule.DecoratorType, new[] { info.View, control, info.Rule });
@@ -40,6 +40,10 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                 }
             }
 
+        }
+
+        bool ViewContextIsCorrect(IAdditionalViewControlsRule rule) {
+            return rule.Position != Position.DetailViewItem || !(View is ListView);
         }
 
         protected virtual object GetControl(Type controlType, object o, LogicRuleInfo<IAdditionalViewControlsRule> info) {

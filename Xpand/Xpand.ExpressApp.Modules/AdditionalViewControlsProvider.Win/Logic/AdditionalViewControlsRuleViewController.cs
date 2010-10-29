@@ -93,7 +93,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
             if (control is ISupportLayoutManager) {
                 if (info.Rule.Position != Position.DetailViewItem)
                     throw new ArgumentException("Rule:" + info.Rule.Id + " position should be set to " + Position.DetailViewItem);
-                ((ISupportLayoutManager)control).LayoutItem = RuleToLayoutMap[info.Rule.Id];
+                if (RuleToLayoutMap.ContainsKey(info.Rule.Id))
+                    ((ISupportLayoutManager)control).LayoutItem = RuleToLayoutMap[info.Rule.Id];
             }
             return control;
         }
