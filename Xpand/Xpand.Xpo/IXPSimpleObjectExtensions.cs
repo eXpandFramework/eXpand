@@ -7,7 +7,7 @@ using Xpand.Xpo.MetaData;
 namespace Xpand.Xpo {
     public static class IXPSimpleObjectExtensions {
         public static XPCustomMemberInfo CreateCalculabeMember(this XPClassInfo classInfo, string propertyName, Type propertyType,  params Attribute[] attributes) {
-            var newMemberInfo = new XpandCalcMemberInfo(classInfo, propertyName, propertyType, null, false, false);
+            var newMemberInfo = new XpandCalcMemberInfo(classInfo, propertyName, propertyType, null, true, false);
             foreach (Attribute attribute in attributes)
                 newMemberInfo.AddAttribute(attribute);
             return newMemberInfo;

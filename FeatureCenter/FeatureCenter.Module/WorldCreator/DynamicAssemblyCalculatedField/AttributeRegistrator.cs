@@ -11,7 +11,7 @@ namespace FeatureCenter.Module.WorldCreator.DynamicAssemblyCalculatedField {
             if (typesInfo.Type.FullName != WorldCreatorUpdater.MasterDetailDynamicAssembly + "." + WorldCreatorUpdater.DMDCustomer) yield break;
             yield return new DisplayFeatureModelAttribute(DMDCustomerCalculatedField_ListView, "WCCalculatedFieldModelStore");
             yield return new CloneViewAttribute(CloneViewType.ListView, DMDCustomerCalculatedField_ListView);
-            yield return new XpandNavigationItemAttribute("WorldCreator/Calculated Field",DMDCustomerCalculatedField_ListView);
+            yield return new XpandNavigationItemAttribute("WorldCreator/Dynamic Assembly/Calculated Field",DMDCustomerCalculatedField_ListView);
         }
     }
 }

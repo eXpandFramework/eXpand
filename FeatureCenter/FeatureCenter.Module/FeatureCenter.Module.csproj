@@ -357,6 +357,8 @@
     <Compile Include="Updater.cs" />
     <Compile Include="ViewVariants\AttributeRegistrator.cs" />
     <Compile Include="Welcome\WelcomeObject.cs" />
+    <Compile Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\AttributeRegistrator.cs" />
+    <Compile Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\WorldCreatorUpdater.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\Updater.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\WCCalculatedFieldModelStore.cs" />
@@ -545,6 +547,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="RuntimeFields\OrphanedCollectionWithCode\MDO_OrphanedCollectionWithCode.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\MDO_ExistentAssemblyRuntimeOrphanedCollection.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

@@ -46,7 +46,7 @@ namespace Xpand.ExpressApp.Core {
         static void AddAttributes(IModelRuntimeMember runtimeMember, XPCustomMemberInfo memberInfo) {
             if (runtimeMember.Size != 0)
                 memberInfo.AddAttribute(new SizeAttribute(runtimeMember.Size));
-            if (runtimeMember is IModelRuntimeNonPersistentMebmer)
+            if (runtimeMember is IModelRuntimeNonPersistentMebmer && !(runtimeMember is IModelRuntimeCalculatedMember))
                 memberInfo.AddAttribute(new NonPersistentAttribute());
         }
 
@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.Core {
             if (modelMember is IModelRuntimeOrphanedColection)
                 return xpClassInfo.CreateCollection(modelMember.Name, modelMember.Type.GetGenericArguments()[0],
                                                     ((IModelRuntimeOrphanedColection) modelMember).Criteria);
-            else return xpClassInfo.CreateMember(modelMember.Name, modelMember.Type);
+            return xpClassInfo.CreateMember(modelMember.Name, modelMember.Type);
         }
     }
 }

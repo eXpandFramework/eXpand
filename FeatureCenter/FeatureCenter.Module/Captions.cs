@@ -57,6 +57,7 @@
         public const string HeaderExistentAssemblyRuntimeCalculatedField = "Existent Assembly Runtime Calculated Field";
         public const string HeaderOrphanedCollectionFromModel = "Orphaned Collection using model editor";
         public const string HeaderOrphanedCollectionWithCode = "Orphaned Collection With Code";
+        public const string HeaderExistentAssemblyRuntimeOrphanedCollection = "Existent Assembly Runtime Orphaned Collection";
 
 
         public const string ViewMessage = "ViewMessage";
@@ -114,6 +115,7 @@
         public const string ViewMessageRuntimeCalculatedFieldsFromModel = "The MaxOfOrderTotals field is a dynamically created caclulated property using the AliasExpression attribute of a runtime model member. See current differences using the model difference action (next to the refresh button)";
         public const string ViewMessageExistentAssemblyRuntimeCalculatedField = "The MinxOfOrderTotals field is a dynamically created caclulated property using the Extended Persistent Classes of WorldCreadtor";
         public const string ViewMessageOrphanedCollectionFromModel = "The OrderLines nested list view you see above displays the is bound to the customer instance. It is a runtime collection of orderlines that is filtered according to the currect customer. Use the the model difference action (next to the refresh button) to see the diffs you have to apply";
-        public const string ViewMessageOrphanedCollectionWithCode = "sdgfsdf";
+        public const string ViewMessageOrphanedCollectionWithCode = "The OrderLinesFromCode collection is a dynamically created collection property see CreateRuntimeOrphanedCollectionController at feature center on how to create such kind of properties";
+        public const string ViewMessageExistentAssemblyRuntimeOrphanedCollection = "The OrderLines nested list view you see above displays the is bound to the customer instance. It is a runtime collection of orderlines that is filtered according to the currect customer and has been created using worldcreator ExtendedOrphanedCollection class";
     }
 }

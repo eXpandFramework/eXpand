@@ -55,4 +55,5 @@ namespace Xpand.ExpressApp.Model {
             return ModelModelMemberEditorTypeLogic.Get_PropertyEditorType(modelRuntimeOrphanedColection);
         }
     }
+
 }

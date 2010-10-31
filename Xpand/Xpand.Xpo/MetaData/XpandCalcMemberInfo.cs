@@ -11,9 +11,9 @@ namespace Xpand.Xpo.MetaData {
         }
         public override object GetValue(object theObject) {
             var xpBaseObject = ((XPBaseObject)theObject);
-            if (!xpBaseObject.Session.IsObjectsLoading&&!xpBaseObject.Session.IsObjectsSaving)
-                return xpBaseObject.EvaluateAlias(_propertyName);
-            return base.GetValue(theObject);
+            return !xpBaseObject.Session.IsObjectsLoading && !xpBaseObject.Session.IsObjectsSaving
+                       ? xpBaseObject.EvaluateAlias(_propertyName)
+                       : base.GetValue(theObject);
         }
 
         protected override bool CanPersist {

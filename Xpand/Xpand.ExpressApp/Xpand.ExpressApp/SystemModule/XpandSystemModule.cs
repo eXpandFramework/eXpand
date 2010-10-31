@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -80,6 +79,9 @@ namespace Xpand.ExpressApp.SystemModule {
             if (typeof(IModelMember).IsAssignableFrom(parameters.NodeType) ) {
                 if (parameters.Values.ContainsKey("IsRuntimeMember") && parameters.XmlNodeName == "Member"&&parameters.Values["IsRuntimeMember"].ToLower()=="true")
                     parameters.NodeType = typeof (IModelRuntimeMember);
+            }
+            if (parameters.XmlNodeName=="CalculatedRuntimeMember") {
+                parameters.NodeType = typeof (IModelRuntimeCalculatedMember);
             }
         }
     }
