@@ -104,7 +104,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             if (persistentAssemblyInfoType == null)
                 throw new ArgumentNullException("No bussincess object that implements " +
                                                 typeof(IPersistentAssemblyInfo).FullName + " found");
-            IEnumerable<Type> types = persistentAssemblyInfoType.Assembly.GetTypes().Where(type => type.Namespace.StartsWith(persistentAssemblyInfoType.Namespace));
+            IEnumerable<Type> types = persistentAssemblyInfoType.Assembly.GetTypes().Where(type => (type.Namespace+"").StartsWith(persistentAssemblyInfoType.Namespace+""));
             var reflectionDictionary = new ReflectionDictionary();
             foreach (var type in types) {
                 reflectionDictionary.QueryClassInfo(type);

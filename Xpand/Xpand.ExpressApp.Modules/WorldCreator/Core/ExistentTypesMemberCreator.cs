@@ -8,6 +8,7 @@ using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Xpo;
+using Xpand.ExpressApp.Xpo;
 
 namespace Xpand.ExpressApp.WorldCreator.Core {
     public class ExistentTypesMemberCreator {
@@ -30,10 +31,19 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             IEnumerable<IExtendedMemberInfo> xpCollection = GetMembers(session, WCTypesInfo.Instance.FindBussinessObjectType<IExtendedCollectionMemberInfo>());
             var collection = xpCollection.Cast<IExtendedCollectionMemberInfo>();
             foreach (var info in collection) {
-                XPCustomMemberInfo member = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(info.Owner).CreateMember(info.Name, typeof(XPCollection), true);
+                XPCustomMemberInfo member = GetXPCustomMemberInfo(info);
                 CreateAttributes(info, member);
                 XafTypesInfo.Instance.RefreshInfo(info.Owner);
             }
+        }
+
+        XPCustomMemberInfo GetXPCustomMemberInfo(IExtendedCollectionMemberInfo info) {
+            var classInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(info.Owner);
+            if (!(info is IExtendedOrphanedCollection)) {
+                return classInfo.CreateMember(info.Name, typeof(XPCollection), true);
+            }
+            var extendedOrphanedCollection = ((IExtendedOrphanedCollection)info);
+            return classInfo.CreateCollection(info.Name, ReflectionHelper.FindType(extendedOrphanedCollection.ElementTypeFullName), extendedOrphanedCollection.Criteria);
         }
 
         public void CreateReferenceMembers(Session session) {

@@ -160,6 +160,7 @@
     <Compile Include="ImportExport\XmlFileChooser.cs" />
     <Compile Include="PersistentMetaData\CodeTemplate.cs" />
     <Compile Include="PersistentMetaData\CodeTemplateInfo.cs" />
+    <Compile Include="PersistentMetaData\ExtendedOrphanedCollection.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentVisibleInLookupListViewAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentVisibleInDetailViewAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAssemblyAttributeInfo.cs" />
