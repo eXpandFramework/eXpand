@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+    <BOModel>
+      <Class Name="FeatureCenter.Module.Customer">
+        <OwnMembers>
+          <RuntimeOrphanedColection Name="OrderLines" IsNewNode="True" CollectionType="FeatureCenter.Module.OrderLine" Criteria="Order.Customer.Oid='@This.Oid'"/>
+        </OwnMembers>
+      </Class>
+    </BOModel>
+    <Views>
+      <DetailView Id="RuntimeOrphanedCollection_DetailView">
+        <Items>
+          <PropertyEditor Id="Orders" Index="-1" />
+          <PropertyEditor Id="OrderLines" IsNewNode="True" PropertyName="OrderLines" />
+        </Items>
+        <Layout>
+          <LayoutGroup Id="Main" RelativeSize="100">
+            <LayoutGroup Id="SimpleEditors" RelativeSize="10">
+              <LayoutGroup Id="CustomerBase" Index="0" RelativeSize="100">
+                <LayoutItem Id="Name" RelativeSize="51" />
+                <LayoutItem Id="City" RelativeSize="48" />
+              </LayoutGroup>
+              <LayoutGroup Id="Customer" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="SizeableEditors" RelativeSize="89">
+              <LayoutItem Id="Description" Index="0" RelativeSize="5" />
+              <LayoutItem Id="OrderLines" IsNewNode="True" Index="1" RelativeSize="94" />
+              <LayoutItem Id="RuntimeMember" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Orders_Group" Removed="True" />
+          </LayoutGroup>
+        </Layout>
+      </DetailView>
+    </Views>
+</Application>

@@ -342,6 +342,7 @@
     <Compile Include="ListViewControl\PropertyPathFilters\PPOrderLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuntimeFields\FromModel\AttributeRegistrator.cs" />
+    <Compile Include="RuntimeFields\OrphanedCollection\AttributeRegistrator.cs" />
     <Compile Include="Security\MemberLevel\MLSCustomer.cs" />
     <Compile Include="Security\MemberLevel\Updater.cs" />
     <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs">
@@ -534,6 +535,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WorldCreator\DynamicAssemblyCalculatedField\WCCalculatedField.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuntimeFields\OrphanedCollection\MDO_OrphanedCollection.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
