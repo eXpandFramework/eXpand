@@ -20,8 +20,7 @@ namespace Xpand.ExpressApp.NodeUpdaters {
                         var memberInfo = modelClass.TypeInfo.CreateMember(customQueryPropertyAttribute.Name,customQueryPropertyAttribute.Type);
                         memberInfo.AddAttribute(new BrowsableAttribute(false));
                         memberInfo.AddAttribute(new NonPersistentAttribute());
-                        var modelRuntimeMember = modelClass.OwnMembers.AddNode<IModelRuntimeMember>(customQueryPropertyAttribute.Name);
-                        modelRuntimeMember.NonPersistent = true;
+                        var modelRuntimeMember = modelClass.OwnMembers.AddNode<IModelRuntimeNonPersistentMebmer>(customQueryPropertyAttribute.Name);
                         modelRuntimeMember.Type = customQueryPropertyAttribute.Type;
                     }
                 }

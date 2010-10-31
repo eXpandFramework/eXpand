@@ -115,7 +115,7 @@
     <Compile Include="Core\AttributeRegistrator.cs" />
     <Compile Include="Core\XpandApplicationModulesManager.cs" />
     <Compile Include="Core\CustomShowNavigationItemEventArgsExtensions.cs" />
-    <Compile Include="Core\DictionaryHelper.cs">
+    <Compile Include="Core\RuntimeMemberBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\DynamicModel\DynamicDouplicateTypesMapper.cs" />

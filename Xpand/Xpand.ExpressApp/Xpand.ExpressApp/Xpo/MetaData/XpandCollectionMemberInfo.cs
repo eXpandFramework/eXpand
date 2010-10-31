@@ -3,34 +3,32 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 
-namespace Xpand.ExpressApp.Xpo.MetaData
-{
-    public class XpandCollectionMemberInfo : XPCustomMemberInfo
-    {
-        readonly string _propertyName;
+namespace Xpand.ExpressApp.Xpo.MetaData {
+    public class XpandCollectionMemberInfo : XPCustomMemberInfo {
         readonly string _criteria;
 
         public XpandCollectionMemberInfo(XPClassInfo owner, string propertyName, Type propertyType, string criteria)
-            : base(owner, propertyName, propertyType, null, false, false)
-        {
-            _propertyName = propertyName;
+            : base(owner, propertyName, propertyType, null, true, true) {
             _criteria = criteria;
         }
 
-        public override object GetValue(object theObject)
-        {
+        public override object GetValue(object theObject) {
             var xpBaseObject = ((XPBaseObject)theObject);
-
-            if (base.GetStore(this).GetCustomPropertyValue(this) == null)
-            {
-                return Activator.CreateInstance(this.MemberType, new object[] { xpBaseObject.Session, new CriteriaWrapper(_criteria, xpBaseObject).CriteriaOperator });
-            }
-
-            return base.GetValue(theObject);
+            return base.GetStore(this).GetCustomPropertyValue(this) == null
+                       ? Activator.CreateInstance(MemberType,GetArguments(xpBaseObject))
+                       : base.GetValue(theObject);
         }
 
-        protected override bool CanPersist
-        {
+        object[] GetArguments(XPBaseObject xpBaseObject) {
+            if (!string.IsNullOrEmpty(_criteria))
+                return new object[] {
+                                    xpBaseObject.Session,
+                                    new CriteriaWrapper(_criteria, xpBaseObject).CriteriaOperator
+                                };
+            return new object[]{xpBaseObject.Session};
+        }
+
+        protected override bool CanPersist {
             get { return false; }
         }
     }

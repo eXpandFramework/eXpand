@@ -51,10 +51,10 @@ namespace Xpand.ExpressApp.SystemModule {
             application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
             application.SetupComplete +=
                 (sender, args) =>
-                DictionaryHelper.AddFields(application.Model, application.ObjectSpaceProvider.XPDictionary);
+                RuntimeMemberBuilder.AddFields(application.Model, application.ObjectSpaceProvider.XPDictionary);
             application.LoggedOn +=
                 (sender, args) =>
-                DictionaryHelper.AddFields(application.Model, application.ObjectSpaceProvider.XPDictionary);
+                RuntimeMemberBuilder.AddFields(application.Model, application.ObjectSpaceProvider.XPDictionary);
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {

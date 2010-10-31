@@ -8,9 +8,10 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Model;
 using Xpand.Xpo;
+using Xpand.ExpressApp.Xpo;
 
 namespace Xpand.ExpressApp.Core {
-    public class DictionaryHelper {
+    public class RuntimeMemberBuilder {
         private static IEnumerable<IModelRuntimeMember> GetCustomFields(IModelApplication model) {
             return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelRuntimeMember>();
         }
@@ -45,15 +46,18 @@ namespace Xpand.ExpressApp.Core {
         static void AddAttributes(IModelRuntimeMember runtimeMember, XPCustomMemberInfo memberInfo) {
             if (runtimeMember.Size != 0)
                 memberInfo.AddAttribute(new SizeAttribute(runtimeMember.Size));
-            if (runtimeMember.NonPersistent)
+            if (runtimeMember is IModelRuntimeNonPersistentMebmer)
                 memberInfo.AddAttribute(new NonPersistentAttribute());
         }
 
-        static XPCustomMemberInfo GetMemberInfo(IModelRuntimeMember modelMember, XPClassInfo typeInfo) {
-            return (modelMember is IModelCalculatedRuntimeMember)
-                       ? typeInfo.CreateCalculabeMember(modelMember.Name,modelMember.Type,
-                                                        new Attribute[] {new PersistentAliasAttribute(((IModelCalculatedRuntimeMember)modelMember).AliasExpression)})
-                       : typeInfo.CreateMember(modelMember.Name,modelMember.Type);
+        static XPCustomMemberInfo GetMemberInfo(IModelRuntimeMember modelMember, XPClassInfo xpClassInfo) {
+            if (modelMember is IModelRuntimeCalculatedMember)
+                return xpClassInfo.CreateCalculabeMember(modelMember.Name, modelMember.Type,
+                                                      new Attribute[] {new PersistentAliasAttribute(((IModelRuntimeCalculatedMember) modelMember).AliasExpression)});
+            if (modelMember is IModelRuntimeOrphanedColection)
+                return xpClassInfo.CreateCollection(modelMember.Name, modelMember.Type.GetGenericArguments()[0],
+                                                    ((IModelRuntimeOrphanedColection) modelMember).Criteria);
+            else return xpClassInfo.CreateMember(modelMember.Name, modelMember.Type);
         }
     }
 }
