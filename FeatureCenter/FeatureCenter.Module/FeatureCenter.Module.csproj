@@ -297,6 +297,10 @@
     <Compile Include="RuntimeFields\CalculatedWithCode\CreateRuntimeCalculatedFieldController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="RuntimeFields\OrphanedCollectionWithCode\AttributeRegistrator.cs" />
+    <Compile Include="RuntimeFields\OrphanedCollectionWithCode\CreateRuntimeOrphanedCollectionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="RuntimeFields\FromModel\AddRecordsToAddRuntimeFieldsFromModelObjectControler.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -342,7 +346,7 @@
     <Compile Include="ListViewControl\PropertyPathFilters\PPOrderLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuntimeFields\FromModel\AttributeRegistrator.cs" />
-    <Compile Include="RuntimeFields\OrphanedCollection\AttributeRegistrator.cs" />
+    <Compile Include="RuntimeFields\OrphanedCollectionFromModel\AttributeRegistrator.cs" />
     <Compile Include="Security\MemberLevel\MLSCustomer.cs" />
     <Compile Include="Security\MemberLevel\Updater.cs" />
     <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs">
@@ -537,7 +541,10 @@
     <EmbeddedResource Include="WorldCreator\DynamicAssemblyCalculatedField\WCCalculatedField.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RuntimeFields\OrphanedCollection\MDO_OrphanedCollection.xafml">
+    <EmbeddedResource Include="RuntimeFields\OrphanedCollectionFromModel\MDO_OrphanedCollectionFromModel.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuntimeFields\OrphanedCollectionWithCode\MDO_OrphanedCollectionWithCode.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

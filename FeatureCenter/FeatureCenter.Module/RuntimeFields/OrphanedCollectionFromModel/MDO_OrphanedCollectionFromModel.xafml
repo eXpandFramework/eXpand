@@ -8,7 +8,7 @@
       </Class>
     </BOModel>
     <Views>
-      <DetailView Id="RuntimeOrphanedCollection_DetailView">
+      <DetailView Id="RuntimeOrphanedCollectionFromModel_DetailView">
         <Items>
           <PropertyEditor Id="Orders" Index="-1" />
           <PropertyEditor Id="OrderLines" IsNewNode="True" PropertyName="OrderLines" />

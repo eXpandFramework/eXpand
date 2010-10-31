@@ -8,7 +8,7 @@ namespace Xpand.ExpressApp.Xpo.MetaData {
         readonly string _criteria;
 
         public XpandCollectionMemberInfo(XPClassInfo owner, string propertyName, Type propertyType, string criteria)
-            : base(owner, propertyName, propertyType, null, true, true) {
+            : base(owner, propertyName, propertyType, null, true, false) {
             _criteria = criteria;
         }
 
