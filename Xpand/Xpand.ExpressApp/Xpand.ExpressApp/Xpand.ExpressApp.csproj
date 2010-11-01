@@ -132,6 +132,7 @@
     <Compile Include="Core\TypesInfoExtensions.cs" />
     <Compile Include="Core\TypeValueConverter.cs" />
     <Compile Include="DataStoreProvider.cs" />
+    <Compile Include="Model\IModelMemberEx.cs" />
     <Compile Include="Model\IModelRuntimeMember.cs" />
     <Compile Include="Model\IModelProccessViewShortcuts.cs" />
     <Compile Include="NodeUpdaters\ModelMemberGeneratorUpdater.cs" />

@@ -54,9 +54,11 @@ namespace Xpand.ExpressApp.Core {
             if (modelMember is IModelRuntimeCalculatedMember)
                 return xpClassInfo.CreateCalculabeMember(modelMember.Name, modelMember.Type,
                                                       new Attribute[] {new PersistentAliasAttribute(((IModelRuntimeCalculatedMember) modelMember).AliasExpression)});
-            if (modelMember is IModelRuntimeOrphanedColection)
-                return xpClassInfo.CreateCollection(modelMember.Name, modelMember.Type.GetGenericArguments()[0],
-                                                    ((IModelRuntimeOrphanedColection) modelMember).Criteria);
+            if (modelMember is IModelRuntimeOrphanedColection) {
+                var modelRuntimeOrphanedColection = ((IModelRuntimeOrphanedColection) modelMember);
+                return xpClassInfo.CreateCollection(modelMember.Name, modelRuntimeOrphanedColection.CollectionType.TypeInfo.Type,
+                                                    modelRuntimeOrphanedColection.Criteria);
+            }
             return xpClassInfo.CreateMember(modelMember.Name, modelMember.Type);
         }
     }

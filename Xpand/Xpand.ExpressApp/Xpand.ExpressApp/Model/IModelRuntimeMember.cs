@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.Model {
     public interface IModelRuntimeNonPersistentMebmer:IModelRuntimeMember {
     }
 
-    public interface IModelRuntimeOrphanedColection : IModelRuntimeNonPersistentMebmer {
+    public interface IModelRuntimeOrphanedColection : IModelRuntimeNonPersistentMebmer,IModelMemberEx {
         [Category("eXpand")]
         string Criteria { get; set; }
         [Category("eXpand")]
@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.Model {
             return null;
         }
         public static Type Get_PropertyEditorType(IModelRuntimeOrphanedColection modelRuntimeOrphanedColection) {
-            if (modelRuntimeOrphanedColection.Name != null&&modelRuntimeOrphanedColection.Type!=null) {
+            if (modelRuntimeOrphanedColection.Name != null&& modelRuntimeOrphanedColection.Type!=null) {
                 var xpClassInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(modelRuntimeOrphanedColection.CollectionType.TypeInfo.Type);
                 if (xpClassInfo.FindMember(modelRuntimeOrphanedColection.Name)==null) {
                     xpClassInfo.CreateCollection(modelRuntimeOrphanedColection.Name, modelRuntimeOrphanedColection.CollectionType.TypeInfo.Type,

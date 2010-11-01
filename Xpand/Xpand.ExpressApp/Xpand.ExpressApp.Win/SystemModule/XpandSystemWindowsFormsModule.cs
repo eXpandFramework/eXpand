@@ -1,12 +1,9 @@
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Win;
 using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
-using Xpand.ExpressApp.Win.ListEditors;
-using Xpand.ExpressApp;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     [ToolboxItem(true)]

@@ -73,6 +73,7 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelListView, IModelListViewLinq>();
             extenders.Add<IModelClass, IModelClassProccessViewShortcuts>();
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
+            extenders.Add<IModelMember, IModelMemberEx>();
         }
 
         public void ConvertXml(ConvertXmlParameters parameters) {
