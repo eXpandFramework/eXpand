@@ -17,9 +17,9 @@ using Xpand.ExpressApp.Win.ViewStrategies;
 
 namespace Xpand.ExpressApp.Win {
 
-    public partial class XpandWinApplication : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired {
+    public partial class XpandWinApplication : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired, ISupportAfterViewShown {
         bool _isSharedModel;
-
+        public event EventHandler<ViewShownEventArgs> AfterViewShown;
         protected override bool IsSharedModel {
             get { return _isSharedModel; }
         }
@@ -29,6 +29,12 @@ namespace Xpand.ExpressApp.Win {
         protected void OnConfirmationRequired(CancelEventArgs e) {
             CancelEventHandler handler = ConfirmationRequired;
             if (handler != null) handler(this, e);
+        }
+
+        public virtual void OnAfterViewShown(Frame frame, Frame sourceFrame) {
+            if (AfterViewShown != null) {
+                AfterViewShown(this, new ViewShownEventArgs(frame, sourceFrame));
+            }
         }
 
         public void OnCustomCreateListEditor(CreatingListEditorEventArgs e) {

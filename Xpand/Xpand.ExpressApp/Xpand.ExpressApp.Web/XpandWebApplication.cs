@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
@@ -6,12 +7,21 @@ using Xpand.ExpressApp.Core;
 
 
 namespace Xpand.ExpressApp.Web {
-    public abstract partial class XpandWebApplication : DevExpress.ExpressApp.Web.WebApplication, ISupportModelsManager, ISupportConfirmationRequired {
+    public abstract partial class XpandWebApplication : DevExpress.ExpressApp.Web.WebApplication, ISupportModelsManager, ISupportConfirmationRequired,ISupportAfterViewShown {
         protected XpandWebApplication() {
             InitializeComponent();
             DetailViewCreating += OnDetailViewCreating;
             ListViewCreating += OnListViewCreating;
         }
+
+        public event EventHandler<ViewShownEventArgs> AfterViewShown;
+
+        public virtual void OnAfterViewShown(Frame frame, Frame sourceFrame) {
+            if (AfterViewShown != null) {
+                AfterViewShown(this, new ViewShownEventArgs(frame, sourceFrame));
+            }
+        }
+
         public event CancelEventHandler ConfirmationRequired;
 
         protected void OnConfirmationRequired(CancelEventArgs e) {
