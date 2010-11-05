@@ -98,9 +98,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores
 
         void CreateResourceModels(ModelApplicationBase model, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos)
         {
-            var resourcesLayerBuilder = new ResourcesLayerBuilder(ObjectSpace, Application, this);
-            resourcesLayerBuilder.AddLayers(ModelApplicationPrefix, loadedModelDifferenceObjectInfos, model);
-            resourcesLayerBuilder.AddLayers(RoleApplicationPrefix, loadedModelDifferenceObjectInfos, model);
+            var resourcesLayerBuilder = new ResourcesLayerBuilder(ObjectSpace, Application);
+            resourcesLayerBuilder.AddLayers(ModelApplicationPrefix, loadedModelDifferenceObjectInfos, model,this);
         }
 
         Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelApplications(ModelApplicationBase model)
@@ -122,7 +121,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores
             var reader = new ModelXmlReader();
             var model = ((ModelApplicationBase)Application.Model).CreatorInstance.CreateModelApplication();
 
-            foreach (var s in GetModelPaths().Where(s => Path.GetFileName(s).ToLower().StartsWith("model") && s.IndexOf(".User") == -1))
+            foreach (var s in GetModelPaths().Where(s => (Path.GetFileName(s)+"").ToLower().StartsWith("model") && s.IndexOf(".User") == -1))
             {
                 string replace = s.Replace(".xafml", "");
                 string aspect = string.Empty;
