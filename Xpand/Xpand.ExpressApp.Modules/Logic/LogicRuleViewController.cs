@@ -53,11 +53,13 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         LogicRuleInfo<TModelLogicRule> GetInfo(View view, object currentObject, TModelLogicRule rule, ExecutionContext executionContext, bool invertCustomization) {
-            LogicRuleInfo<TModelLogicRule> info = CalculateLogicRuleInfo(currentObject, rule);
-            if (info != null && ExecutionContextIsValid(executionContext, info) && TemplateContextIsValid(info) && ViewIsRoot(info)) {
-                info.InvertingCustomization = invertCustomization;
-                info.View = view;
-                return info;
+            if (ExecutionContextIsValid(executionContext, rule)) {
+                LogicRuleInfo<TModelLogicRule> info = CalculateLogicRuleInfo(currentObject, rule);
+                if (info != null && TemplateContextIsValid(info) && ViewIsRoot(info)) {
+                    info.InvertingCustomization = invertCustomization;
+                    info.View = view;
+                    return info;
+                }
             }
             return null;
         }
@@ -276,8 +278,9 @@ namespace Xpand.ExpressApp.Logic {
 
 
 
-        public virtual bool ExecutionContextIsValid(ExecutionContext executionContext, LogicRuleInfo<TModelLogicRule> logicRuleInfo) {
-            return (logicRuleInfo.ExecutionContext | executionContext) == logicRuleInfo.ExecutionContext;
+        public virtual bool ExecutionContextIsValid(ExecutionContext executionContext, TModelLogicRule logicRuleInfo) {
+            var context = CalculateCurrentExecutionContext(logicRuleInfo.ExecutionContextGroup);
+            return (context | executionContext) == context;
         }
     }
 }

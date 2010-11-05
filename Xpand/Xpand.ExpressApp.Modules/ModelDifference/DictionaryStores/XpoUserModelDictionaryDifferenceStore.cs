@@ -11,12 +11,11 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.ExpressApp.ModelDifference.Security;
 using Xpand.ExpressApp.Security.Core;
-using Xpand.ExpressApp.SystemModule;
 using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
     public class XpoUserModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore {
-        public const string RoleApplicationPrefix = "RDO_";
+
         public XpoUserModelDictionaryDifferenceStore(XafApplication application)
             : base(application) {
         }
@@ -40,10 +39,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         public override void Load(ModelApplicationBase model) {
             base.Load(model);
-            var resourcesLayerBuilder = new ResourcesLayerBuilder(ObjectSpace, Application);
-            ((ModelApplicationBase) XpandModuleBase.Application.Model).AddLayer(model);
-            resourcesLayerBuilder.AddLayers(RoleApplicationPrefix, ((IModelApplicationModule)XpandModuleBase.Application.Model).ModulesList, (ModelApplicationBase) XpandModuleBase.Application.Model);
-            ObjectSpace.CommitChanges();
+
             var modelDifferenceObjects = GetActiveDifferenceObjects().ToList();
             if (modelDifferenceObjects.Count() == 0) {
                 SaveDifference(model);

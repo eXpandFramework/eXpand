@@ -1,12 +1,11 @@
 using System;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Repository;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.NullAble.BooleanPropertyEditor {
-    [PropertyEditor(typeof(bool))]
+    
     public class BooleanHAlignFarPropertyEditor : DevExpress.ExpressApp.Win.Editors.BooleanPropertyEditor {
         public BooleanHAlignFarPropertyEditor(Type objectType, IModelMemberViewItem member)
             : base(objectType, member) {

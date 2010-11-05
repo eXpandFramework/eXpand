@@ -12,12 +12,9 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
 
-namespace Xpand.ExpressApp.ModelDifference.DictionaryStores
-{
-    internal class ModelDifferenceObjectInfo
-    {
-        public ModelDifferenceObjectInfo(ModelDifferenceObject modelDifferenceObject, ModelApplicationBase model)
-        {
+namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
+    internal class ModelDifferenceObjectInfo {
+        public ModelDifferenceObjectInfo(ModelDifferenceObject modelDifferenceObject, ModelApplicationBase model) {
             ModelDifferenceObject = modelDifferenceObject;
             Model = model;
         }
@@ -25,8 +22,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores
         public ModelDifferenceObject ModelDifferenceObject { get; set; }
         public ModelApplicationBase Model { get; set; }
     }
-    public class XpoModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore
-    {
+    public class XpoModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore {
         public const string ModelApplicationPrefix = "MDO_";
         public const string RoleApplicationPrefix = "RDO_";
         readonly string _path;
@@ -34,27 +30,23 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores
         public const string EnableDebuggerAttachedCheck = "EnableDebuggerAttachedCheck";
 
         public XpoModelDictionaryDifferenceStore(XafApplication application, string path, List<ModelApplicationFromStreamStoreBase> extraDiffStores)
-            : base(application)
-        {
+            : base(application) {
             _path = path;
             _extraDiffStores = extraDiffStores;
         }
 
-        internal bool UseModelFromPath()
-        {
+        internal bool UseModelFromPath() {
             return IsDebuggerAttached && debuggerAttachedEnabled();
         }
 
-        private bool debuggerAttachedEnabled()
-        {
+        private bool debuggerAttachedEnabled() {
             string setting = ConfigurationManager.AppSettings[EnableDebuggerAttachedCheck];
             if (string.IsNullOrEmpty(setting))
                 return false;
             return setting.ToLower() == "true";
         }
 
-        protected internal List<string> GetModelPaths()
-        {
+        protected internal List<string> GetModelPaths() {
             List<string> paths = Directory.GetFiles(_path).Where(
                 s => s.EndsWith(".xafml")).ToList();
             return paths;
@@ -62,28 +54,25 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores
 
 
 
-        public override void Load(ModelApplicationBase model)
-        {
+        public override void Load(ModelApplicationBase model) {
             var extraDiffStoresLayerBuilder = new ExtraDiffStoresLayerBuilder();
             var language = model.Application.PreferredLanguage;
-            if (UseModelFromPath()){
+            if (UseModelFromPath()) {
                 return;
             }
             var loadedModelDifferenceObjectInfos = GetLoadedModelDifferenceObjectInfos(model);
             extraDiffStoresLayerBuilder.AddLayers(loadedModelDifferenceObjectInfos, _extraDiffStores);
             CreateResourceModels(model, loadedModelDifferenceObjectInfos);
-            if (model.Application.PreferredLanguage != language){
+            if (model.Application.PreferredLanguage != language) {
                 Application.SetLanguage(model.Application.PreferredLanguage);
             }
             ObjectSpace.CommitChanges();
         }
 
-        Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelDifferenceObjectInfos(ModelApplicationBase model)
-        {
+        Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelDifferenceObjectInfos(ModelApplicationBase model) {
             Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos = GetLoadedModelApplications(model);
 
-            if (loadedModelDifferenceObjectInfos.Count() == 0)
-            {
+            if (loadedModelDifferenceObjectInfos.Count() == 0) {
                 var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo>();
                 var application = model.CreatorInstance.CreateModelApplication();
                 application.Id = XpandModuleBase.Application.Title;
@@ -96,16 +85,27 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores
         }
 
 
-        void CreateResourceModels(ModelApplicationBase model, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos)
-        {
-            var resourcesLayerBuilder = new ResourcesLayerBuilder(ObjectSpace, Application);
-            resourcesLayerBuilder.AddLayers(ModelApplicationPrefix, loadedModelDifferenceObjectInfos, model,this);
+        void CreateResourceModels(ModelApplicationBase model, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos) {
+            var resourcesLayerBuilder = new ResourcesLayerBuilder(ObjectSpace, Application, this);
+            resourcesLayerBuilder.AddLayers(ModelApplicationPrefix, loadedModelDifferenceObjectInfos, model);
+            CreateResourceRoleModels(resourcesLayerBuilder, loadedModelDifferenceObjectInfos, model);
         }
 
-        Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelApplications(ModelApplicationBase model)
-        {
-            if (UseModelFromPath())
-            {
+        void CreateResourceRoleModels(ResourcesLayerBuilder resourcesLayerBuilder, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos, ModelApplicationBase model) {
+            var roleMarker = model.CreatorInstance.CreateModelApplication();
+            roleMarker.Id = "RoleMarker";
+            model.AddLayerBeforeLast(roleMarker);
+            resourcesLayerBuilder.AddLayers(RoleApplicationPrefix, loadedModelDifferenceObjectInfos, model);
+            var lastLayer = model.LastLayer;
+            while (model.LastLayer.Id!="RoleMarker") {
+                model.RemoveLayer(model.LastLayer);
+            }
+            model.RemoveLayer(roleMarker);
+            model.AddLayer(lastLayer);
+        }
+
+        Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelApplications(ModelApplicationBase model) {
+            if (UseModelFromPath()) {
                 var loadedModel = LoadFromPath();
                 loadedModel.Id = "Loaded From Path";
                 var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo> { { loadedModel.Id, new ModelDifferenceObjectInfo(null, loadedModel) } };
@@ -116,13 +116,11 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores
 
         }
 
-        private ModelApplicationBase LoadFromPath()
-        {
+        private ModelApplicationBase LoadFromPath() {
             var reader = new ModelXmlReader();
             var model = ((ModelApplicationBase)Application.Model).CreatorInstance.CreateModelApplication();
 
-            foreach (var s in GetModelPaths().Where(s => (Path.GetFileName(s)+"").ToLower().StartsWith("model") && s.IndexOf(".User") == -1))
-            {
+            foreach (var s in GetModelPaths().Where(s => (Path.GetFileName(s)+"").ToLower().StartsWith("model") && s.IndexOf(".User") == -1)) {
                 string replace = s.Replace(".xafml", "");
                 string aspect = string.Empty;
                 if (replace.IndexOf("_") > -1)
@@ -133,24 +131,20 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores
             return model;
         }
 
-        public override DifferenceType DifferenceType
-        {
+        public override DifferenceType DifferenceType {
             get { return DifferenceType.Model; }
         }
 
-        public bool IsDebuggerAttached
-        {
+        public bool IsDebuggerAttached {
             get { return Debugger.IsAttached; }
         }
 
 
-        protected internal override ModelDifferenceObject GetActiveDifferenceObject(string name)
-        {
+        protected internal override ModelDifferenceObject GetActiveDifferenceObject(string name) {
             return new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName, name);
         }
 
-        protected internal override ModelDifferenceObject GetNewDifferenceObject(ObjectSpace session)
-        {
+        protected internal override ModelDifferenceObject GetNewDifferenceObject(ObjectSpace session) {
             return new ModelDifferenceObject(ObjectSpace.Session);
         }
     }
