@@ -34,10 +34,12 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            foreach (var persistentType in typesInfo.PersistentTypes) {
-                IEnumerable<Attribute> attributes = GetAttributes(persistentType);
-                foreach (var attribute in attributes) {
-                    persistentType.AddAttribute(attribute);
+            if (ModelApplicationCreator==null) {
+                foreach (var persistentType in typesInfo.PersistentTypes) {
+                    IEnumerable<Attribute> attributes = GetAttributes(persistentType);
+                    foreach (var attribute in attributes) {
+                        persistentType.AddAttribute(attribute);
+                    }
                 }
             }
         }
