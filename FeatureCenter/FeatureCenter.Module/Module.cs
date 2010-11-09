@@ -5,6 +5,7 @@ using DevExpress.Persistent.Base;
 using FeatureCenter.Module.ApplicationDifferences.ExternalApplication;
 using FeatureCenter.Module.ListViewControl.PropertyPathFilters;
 using FeatureCenter.Module.LowLevelFilterDataStore;
+using FeatureCenter.Module.WorldCreator;
 using FeatureCenter.Module.WorldCreator.DynamicAssemblyCalculatedField;
 using FeatureCenter.Module.WorldCreator.DynamicAssemblyMasterDetail;
 using FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail;
@@ -41,6 +42,7 @@ namespace FeatureCenter.Module {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new PropertyPathFiltersNodeUpdater(Application));
             updaters.Add(new DisableFiltersNodeUpdater());
+            updaters.Add(new ModelSystemTablesUpdater());
         }
     }
 }
