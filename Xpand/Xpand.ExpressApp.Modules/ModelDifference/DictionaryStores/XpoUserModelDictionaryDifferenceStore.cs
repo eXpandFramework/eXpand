@@ -72,25 +72,26 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                 userModelDifferenceObject.CreateAspectsCore(model);
                 base.OnDifferenceObjectSaving(userModelDifferenceObject, model);
             }
+            CombineModelFromPermission(model);
+        }
 
+        void CombineModelFromPermission(ModelApplicationBase model) {
             if (SecuritySystem.Instance is ISecurityComplex && SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false)) {
                 var space = Application.CreateObjectSpace();
-                IEnumerable<ModelDifferenceObject> differences = GetDifferences(space);
-                foreach (var difference in differences) {
-                    var master = new ModelApplicationBuilder(difference.PersistentApplication.ExecutableName).GetMasterModel();
-                    var diffsModel = difference.GetModel(master);
-                    new ModelXmlReader().ReadFromModel(diffsModel, model);
-                    difference.CreateAspectsCore(diffsModel);
-                    space.SetModified(difference);
-                }
+                ModelDifferenceObject difference = GetDifferenceFromPermission(space);
+                var master = new ModelApplicationBuilder(difference.PersistentApplication.ExecutableName).GetMasterModel();
+                var diffsModel = difference.GetModel(master);
+                new ModelXmlReader().ReadFromModel(diffsModel, model);
+                difference.CreateAspectsCore(diffsModel);
+                space.SetModified(difference);
                 space.CommitChanges();
             }
         }
 
-        private IEnumerable<ModelDifferenceObject> GetDifferences(ObjectSpace space) {
+        private ModelDifferenceObject GetDifferenceFromPermission(ObjectSpace space) {
             return new QueryModelDifferenceObject(space.Session).GetModelDifferences(
                 ((IUser)SecuritySystem.CurrentUser).Permissions.OfType<ModelCombinePermission>().Select(
-                    permission => permission.Difference));
+                    permission => permission.Difference)).Single();
         }
 
     }

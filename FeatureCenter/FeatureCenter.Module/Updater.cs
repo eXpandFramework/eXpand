@@ -1,7 +1,4 @@
 using System;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Actions;
-using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.FilterDataStore.Providers;
