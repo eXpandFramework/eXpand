@@ -35,7 +35,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
             if (IsReady && View is DetailView) {
                 var detailView = ((DetailView)View);
                 var winLayoutManager = ((WinLayoutManager)detailView.LayoutManager);
-                winLayoutManager.Container.DefaultLayoutLoading -= Container_DefaultLayoutLoading;
+                winLayoutManager.Container.DefaultLayoutLoading += Container_DefaultLayoutLoading;
             }
         }
         protected void FillInfoToLayoutMap(ViewItem detailViewItem, IModelDetailViewLayoutElement itemModel, BaseLayoutItem layoutItem) {
