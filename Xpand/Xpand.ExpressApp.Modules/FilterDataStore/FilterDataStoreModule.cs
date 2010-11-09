@@ -83,7 +83,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         public void UpdateData(IEnumerable<UpdateStatement> statements) {
             foreach (UpdateStatement statement in statements) {
-                traceStatement(statement, "UpdateData");
+                TraceStatement(statement, "UpdateData");
                 if (!IsSystemTable(statement.TableName)) {
                     List<QueryOperand> operands = statement.Operands.OfType<QueryOperand>().ToList();
                     for (int i = 0; i < operands.Count(); i++) {
@@ -99,20 +99,20 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         object GetModifyFilterValue(FilterProviderBase providerBase) {
             return providerBase.FilterValue is IList
-                       ? ((IList) providerBase.FilterValue).OfType<object>().FirstOrDefault()
+                       ? ((IList)providerBase.FilterValue).OfType<object>().FirstOrDefault()
                        : providerBase.FilterValue;
         }
 
 
         public void InsertData(IEnumerable<InsertStatement> statements) {
             foreach (InsertStatement statement in statements) {
-                traceStatement(statement, "InsertData");
+                TraceStatement(statement, "InsertData");
                 if (!IsSystemTable(statement.TableName)) {
                     List<QueryOperand> operands = statement.Operands.OfType<QueryOperand>().ToList();
                     for (int i = 0; i < operands.Count(); i++) {
                         FilterProviderBase providerBase =
                             FilterProviderManager.GetFilterProvider(operands[i].ColumnName, StatementContext.Insert);
-                        if (providerBase != null && !FilterIsShared(statement.TableName, providerBase.Name))
+                        if (providerBase != null && !FilterIsShared(statements, providerBase))
                             statement.Parameters[i].Value = GetModifyFilterValue(providerBase);
                     }
                 }
@@ -120,15 +120,20 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         }
 
+        bool FilterIsShared(IEnumerable<InsertStatement> statements, FilterProviderBase providerBase) {
+            return statements.Aggregate(false, (current, insertStatement) => current & FilterIsShared(insertStatement.TableName, providerBase.Name));
+        }
+
 
         public BaseStatement[] FilterData(SelectStatement[] statements) {
-            return statements.Select(statement => ApplyCondition(statement)).ToArray();
+            return statements.Select(ApplyCondition).ToArray();
         }
 
         public SelectStatement ApplyCondition(SelectStatement statement) {
+            //return statement;
             var extractor = new CriteriaOperatorExtractor();
             extractor.Extract(statement.Condition);
-            traceStatement(statement, "ApplyCondition");
+            TraceStatement(statement, "ApplyCondition");
 
             foreach (FilterProviderBase provider in FilterProviderManager.Providers) {
                 FilterProviderBase providerBase = FilterProviderManager.GetFilterProvider(provider.FilterMemberName, StatementContext.Select);
@@ -168,7 +173,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
                     => operand.NodeAlias).FirstOrDefault() ?? statement.Alias;
         }
 
-        private void traceStatement(JoinNode statement, string methodName) {
+        private void TraceStatement(JoinNode statement, string methodName) {
             Tracing.Tracer.LogVerboseSubSeparator("Filter DataStore -- " + methodName);
             Tracing.Tracer.LogVerboseValue("statement.TableName", statement.TableName);
             Tracing.Tracer.LogVerboseValue("statement", statement);

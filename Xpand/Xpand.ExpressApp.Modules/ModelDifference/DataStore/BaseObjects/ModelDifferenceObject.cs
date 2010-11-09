@@ -34,6 +34,9 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         public ModelDifferenceObject(Session session)
             : base(session) {
         }
+        public override string ToString() {
+            return persistentApplication != null ? persistentApplication.Name + " " + Name : base.ToString();
+        }
 
         [Association("ModelDifferenceObject-AspectObjects")]
         [Aggregated]
@@ -42,7 +45,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         public virtual IEnumerable<ModelApplicationBase> GetAllLayers(ModelApplicationBase master) {
-            return GetAllLayers(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(persistentApplication.UniqueName, null).Where(differenceObject => differenceObject.Oid != this.Oid), master);
+            return GetAllLayers(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(persistentApplication.UniqueName, null).Where(differenceObject => differenceObject.Oid != Oid), master);
         }
 
         protected IEnumerable<ModelApplicationBase> GetAllLayers(IEnumerable<ModelDifferenceObject> differenceObjects, ModelApplicationBase master) {
