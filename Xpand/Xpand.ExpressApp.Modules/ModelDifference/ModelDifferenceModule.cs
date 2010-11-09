@@ -45,9 +45,11 @@ namespace Xpand.ExpressApp.ModelDifference {
 
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            if (!(Application is ISupportModelsManager))
-                throw new NotImplementedException("Implement " + typeof(ISupportModelsManager).FullName + " at your " + Application.GetType().FullName);
-            application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;
+            if (application != null&&!DesignMode) {
+                if (!(application is ISupportModelsManager))
+                    throw new NotImplementedException("Implement " + typeof(ISupportModelsManager).FullName + " at your " + Application.GetType().FullName);
+                application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;
+            }
         }
 
         void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, DevExpress.ExpressApp.CreateCustomModelDifferenceStoreEventArgs args) {
