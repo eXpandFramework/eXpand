@@ -11,9 +11,9 @@ using DevExpress.Persistent.Base.Security;
 using Xpand.ExpressApp.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic {
-    public abstract class LogicModuleBase<TLogicRule, TLogicRule2> : XpandModuleBase,IRuleHolder,IRuleCollector
+    public abstract class LogicModuleBase<TLogicRule, TLogicRule2> : XpandModuleBase, IRuleHolder, IRuleCollector
         where TLogicRule : ILogicRule
-        where TLogicRule2 : ILogicRule{
+        where TLogicRule2 : ILogicRule {
         public event EventHandler RulesCollected;
 
         protected void OnRulesCollected(EventArgs e) {
@@ -27,18 +27,18 @@ namespace Xpand.ExpressApp.Logic {
 
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            application.SetupComplete += (sender, args) => CollectRules((XafApplication) sender);
-            application.LoggedOn += (o, eventArgs) => CollectRules((XafApplication) o);
+            application.SetupComplete += (sender, args) => CollectRules((XafApplication)sender);
+            application.LoggedOn += (o, eventArgs) => CollectRules((XafApplication)o);
         }
 
         public virtual void CollectRules(XafApplication xafApplication) {
             lock (LogicRuleManager<TLogicRule>.Instance) {
                 bool reloadPermissions = ReloadPermissions();
                 IModelLogic modelLogic = GetModelLogic(xafApplication.Model);
-                foreach (ITypeInfo typeInfo in XafTypesInfo.Instance.PersistentTypes){
+                foreach (ITypeInfo typeInfo in XafTypesInfo.Instance.PersistentTypes) {
                     LogicRuleManager<TLogicRule>.Instance[typeInfo] = null;
                     List<TLogicRule> modelLogicRules = CollectRulesFromModel(modelLogic, typeInfo).ToList();
-                    List<TLogicRule> permissionsLogicRules = CollectRulesFromPermissions(modelLogic, typeInfo,reloadPermissions).ToList();
+                    List<TLogicRule> permissionsLogicRules = CollectRulesFromPermissions(modelLogic, typeInfo, reloadPermissions).ToList();
                     modelLogicRules.AddRange(permissionsLogicRules);
                     LogicRuleManager<TLogicRule>.Instance[typeInfo] = modelLogicRules;
                 }
@@ -48,7 +48,7 @@ namespace Xpand.ExpressApp.Logic {
 
         bool ReloadPermissions() {
             if (SecuritySystem.Instance is ISecurityComplex)
-                if (SecuritySystem.CurrentUser != null){
+                if (SecuritySystem.CurrentUser != null) {
                     SecuritySystem.ReloadPermissions();
                     return true;
                 }
@@ -56,10 +56,10 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         protected virtual IEnumerable<TLogicRule> CollectRulesFromPermissions(IModelLogic modelLogic, ITypeInfo typeInfo, bool reloadPermissions) {
-            if (reloadPermissions){
+            if (reloadPermissions) {
                 IList<IPermission> permissions = ((IUser)SecuritySystem.CurrentUser).Permissions;
-                var rulesFromPermissions = permissions.OfType<TLogicRule>().Where(permission 
-                    =>permission.TypeInfo != null &&permission.TypeInfo.Type == typeInfo.Type).OfType<TLogicRule>();
+                var rulesFromPermissions = permissions.OfType<TLogicRule>().Where(permission
+                    => permission.TypeInfo != null && permission.TypeInfo.Type == typeInfo.Type).OfType<TLogicRule>();
                 return rulesFromPermissions.OrderBy(rule => rule.Index);
             }
             return new List<TLogicRule>();
@@ -67,9 +67,7 @@ namespace Xpand.ExpressApp.Logic {
 
         IEnumerable<TLogicRule> CollectRulesFromModel(IModelLogic modelLogic, ITypeInfo info) {
             return (modelLogic.Rules.Where(
-// ReSharper disable ConvertClosureToMethodGroup
-                ruleDefinition => info == ruleDefinition.ModelClass.TypeInfo).Select(rule => GetRuleObject(rule))).OfType<TLogicRule>();
-// ReSharper restore ConvertClosureToMethodGroup
+                ruleDefinition => info == ruleDefinition.ModelClass.TypeInfo).Select(GetRuleObject)).OfType<TLogicRule>();
         }
 
 
