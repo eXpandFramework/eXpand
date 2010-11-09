@@ -126,9 +126,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
 
         public BaseStatement[] FilterData(SelectStatement[] statements) {
-// ReSharper disable ConvertClosureToMethodGroup
-            return statements.Select(statement => ApplyCondition(statement)).ToArray();
-// ReSharper restore ConvertClosureToMethodGroup
+            return statements.Select(ApplyCondition).ToArray();
         }
 
         public SelectStatement ApplyCondition(SelectStatement statement) {
