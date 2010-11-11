@@ -77,9 +77,6 @@
     <Reference Include="DevExpress.Persistent.Base.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -155,6 +152,7 @@
   <ItemGroup>
     <Compile Include="ExceptionHandling\ExceptionObject.cs" />
     <Compile Include="ImportExport\ClassInfoGraphNode.cs" />
+    <Compile Include="ImportExport\XpandFileData.cs" />
     <Compile Include="ImportExport\SerializationConfiguration.cs" />
     <Compile Include="ImportExport\SerializationConfigurationGroup.cs" />
     <Compile Include="ImportExport\XmlFileChooser.cs" />
@@ -230,7 +228,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PersistentMetaData\DataStoreLogonObject.cs" />
     <Compile Include="PersistentMetaData\DataBase.cs" />
-    <Compile Include="Updater.cs" />
+    <Compile Include="Updater.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -302,6 +302,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpXPCalculatedPropertyMemberTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\DevExpress 2010.1\eXpressApp Framework\Sources\DevExpress.ExpressApp.Modules\DevExpress.ExpressApp.Security\DevExpress.ExpressApp.Security.csproj">
+      <Project>{25727F30-5C1A-43D9-A1F9-AEA8A087D746}</Project>
+      <Name>DevExpress.ExpressApp.Security</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

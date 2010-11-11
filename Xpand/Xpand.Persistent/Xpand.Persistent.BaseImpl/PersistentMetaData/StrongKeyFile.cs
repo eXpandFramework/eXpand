@@ -3,14 +3,14 @@ using System.ComponentModel;
 using System.IO;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [Persistent]
     [DefaultProperty("FileName")]
-    public class StrongKeyFile : BaseObject, IFileData, IEmptyCheckable {
+    public class StrongKeyFile : XpandCustomObject, IFileData, IEmptyCheckable {
 #if MediumTrust
 		private int size;
 		private string fileName = "";
@@ -19,7 +19,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 			set { size = value; }
 		}
 #else
-        [Persistent] int size;
+        [Persistent]
+        int size;
         string _fileName = "";
 
         public int Size {
@@ -28,8 +29,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 #endif
 
         public StrongKeyFile(Session session)
-            : base(session)
-        {
+            : base(session) {
         }
 
         public void LoadFromStream(string fileName, Stream stream) {
@@ -65,7 +65,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         [Persistent, Delayed,
-         ValueConverter(typeof (CompressionConverter)),
+         ValueConverter(typeof(CompressionConverter)),
          MemberDesignTimeVisibility(false)]
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
         public byte[] Content {

@@ -1,16 +1,17 @@
 using System.ComponentModel;
-using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [InterfaceRegistrator(typeof(ITemplateInfo))]
-    public class TemplateInfo : BaseObject,ITemplateInfo {
+    public class TemplateInfo : XpandCustomObject, ITemplateInfo {
         string _name;
         string _templateCode;
 
-        public TemplateInfo(Session session) : base(session) {
+        public TemplateInfo(Session session)
+            : base(session) {
         }
         private PersistentTypeInfo _persistentTypeInfo;
         [Browsable(false)]
@@ -40,5 +41,5 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         #endregion
     }
 
-    
+
 }

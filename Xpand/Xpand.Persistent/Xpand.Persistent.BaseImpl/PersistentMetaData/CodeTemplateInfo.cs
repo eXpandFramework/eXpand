@@ -1,17 +1,18 @@
 ﻿using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [InterfaceRegistrator(typeof(ICodeTemplateInfo))]
-    public class CodeTemplateInfo : BaseObject, ICodeTemplateInfo {
+    public class CodeTemplateInfo : XpandCustomObject, ICodeTemplateInfo {
         CodeTemplate _codeTemplate;
 
         TemplateInfo _templateInfo;
 
-        public CodeTemplateInfo(Session session) : base(session) {
+        public CodeTemplateInfo(Session session)
+            : base(session) {
         }
         [NonPersistent]
         [VisibleInListView(false)]
@@ -43,10 +44,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         }
         #endregion
         [Association("CodeTemplateInfo-PersistentTemplatedTypeInfos")]
-        public XPCollection<PersistentTemplatedTypeInfo> PersistentTemplatedTypeInfos
-        {
-            get
-            {
+        public XPCollection<PersistentTemplatedTypeInfo> PersistentTemplatedTypeInfos {
+            get {
                 return GetCollection<PersistentTemplatedTypeInfo>("PersistentTemplatedTypeInfos");
             }
         }

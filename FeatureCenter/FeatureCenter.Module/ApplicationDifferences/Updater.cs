@@ -1,6 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp.Security;
-using DevExpress.Persistent.BaseImpl;
+using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
@@ -22,16 +22,16 @@ namespace FeatureCenter.Module.ApplicationDifferences
             {
                 var modelDifferenceObject = new ModelDifferenceObject(Session).InitializeMembers(ModelCombine);
                 modelDifferenceObject.Save();
-                Role role = EnsureRoleExists(ModelCombine,GetPermissions);
-                User user = EnsureUserExists( ModelCombine, ModelCombine,role);
+                ICustomizableRole role = EnsureRoleExists(ModelCombine,GetPermissions);
+                IUserWithRoles user = EnsureUserExists( ModelCombine, ModelCombine,role);
                 role.AddPermission(new ModelCombinePermission(ApplicationModelCombineModifier.Allow) { Difference = ModelCombine });
                 role.Users.Add(user);
-                role.Save();
+                Session.Save(role);
             }
         }
-        protected override System.Collections.Generic.List<System.Security.IPermission> GetPermissions(Role role) {
-            var permissions = base.GetPermissions(role);
-            if (role.Name==ModelCombine)
+        protected override System.Collections.Generic.List<System.Security.IPermission> GetPermissions(ICustomizableRole customizableRole) {
+            var permissions = base.GetPermissions(customizableRole);
+            if (customizableRole.Name == ModelCombine)
                 permissions.Add(new EditModelPermission(ModelAccessModifier.Allow));
             return permissions;
         }
