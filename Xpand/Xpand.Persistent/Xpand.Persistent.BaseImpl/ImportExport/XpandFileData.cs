@@ -7,10 +7,10 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.Xpo;
 
-namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
+namespace Xpand.Persistent.BaseImpl.ImportExport {
     [Persistent]
     [DefaultProperty("FileName")]
-    public class StrongKeyFile : XpandCustomObject, IFileData, IEmptyCheckable {
+    public class XpandFileData : XpandCustomObject, IFileData, IEmptyCheckable {
 #if MediumTrust
 		private int size;
 		private string fileName = "";
@@ -20,27 +20,21 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 		}
 #else
         [Persistent]
-        int size;
-        string _fileName = "";
-
+        private int size;
+        private string fileName = "";
         public int Size {
             get { return size; }
         }
 #endif
-
-        public StrongKeyFile(Session session)
-            : base(session) {
-        }
-
+        public XpandFileData(Session session) : base(session) { }
         public void LoadFromStream(string fileName, Stream stream) {
             Guard.ArgumentNotNull(stream, "stream");
             Guard.ArgumentNotNullOrEmpty(fileName, "fileName");
             FileName = fileName;
-            var bytes = new byte[stream.Length];
+            byte[] bytes = new byte[stream.Length];
             stream.Read(bytes, 0, bytes.Length);
             Content = bytes;
         }
-
         public void SaveToStream(Stream stream) {
             if (string.IsNullOrEmpty(FileName)) {
                 throw new InvalidOperationException();
@@ -48,23 +42,21 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             stream.Write(Content, 0, Size);
             stream.Flush();
         }
-
         public void Clear() {
             Content = null;
             FileName = String.Empty;
         }
-
         public override string ToString() {
             return FileName;
         }
-
         [Size(260)]
         public string FileName {
-            get { return _fileName; }
-            set { SetPropertyValue("FileName", ref _fileName, value); }
+            get { return fileName; }
+            set {
+                SetPropertyValue<string>("FileName", ref fileName, value);
+            }
         }
-
-        [Persistent, Delayed,
+        [DevExpress.Xpo.Persistent, Delayed,
          ValueConverter(typeof(CompressionConverter)),
          MemberDesignTimeVisibility(false)]
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
@@ -72,8 +64,12 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             get { return GetDelayedPropertyValue<byte[]>("Content"); }
             set {
                 int oldSize = size;
-                size = value != null ? value.Length : 0;
-                SetDelayedPropertyValue("Content", value);
+                if (value != null) {
+                    size = value.Length;
+                } else {
+                    size = 0;
+                }
+                SetDelayedPropertyValue<byte[]>("Content", value);
                 OnChanged("Size", oldSize, size);
             }
         }

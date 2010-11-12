@@ -27,4 +27,11 @@
     </Items>
   </NavigationItems>
   <Options HighlightFocusedLayoutItem="False" />
+  <Views>
+    <ListView Id="ModelDifferenceObject_ListView">
+      <Columns>
+        <ColumnInfo Id="PersistentApplication" GroupIndex="1" />
+      </Columns>
+    </ListView>
+  </Views>
 </Application>
