@@ -13,4 +13,4 @@ set sdkDir=%ProgramFiles%\Microsoft SDKs\Windows\v7.0A
 IF NOT EXIST sdkDir set gacutil="%ProgramFiles%\Microsoft SDKs\Windows\v6.0A\Bin\gacutil.exe"
 
 
-set msbuild="%WinDir%\Microsoft.NET\Framework\v3.5\MSBuild.exe"
+set msbuild="%WinDir%\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe"
