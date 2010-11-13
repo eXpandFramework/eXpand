@@ -88,10 +88,12 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
 
         protected virtual void InitializeControl(object control, LogicRuleInfo<IAdditionalViewControlsRule> additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator, ExecutionContext context) {
             if (control is ISupportAppeareance) {
-                ((ISupportAppeareance)control).BackColor = additionalViewControlsRule.Rule.BackColor;
-                ((ISupportAppeareance)control).Height = additionalViewControlsRule.Rule.Height;
-                ((ISupportAppeareance)control).ForeColor = additionalViewControlsRule.Rule.ForeColor;
-                ((ISupportAppeareance)control).FontStyle = additionalViewControlsRule.Rule.FontStyle;
+                var supportAppeareance = ((ISupportAppeareance)control);
+                supportAppeareance.BackColor = additionalViewControlsRule.Rule.BackColor;
+                supportAppeareance.Height = additionalViewControlsRule.Rule.Height;
+                supportAppeareance.ForeColor = additionalViewControlsRule.Rule.ForeColor;
+                supportAppeareance.FontStyle = additionalViewControlsRule.Rule.FontStyle;
+                supportAppeareance.FontSize = additionalViewControlsRule.Rule.FontSize;
             }
         }
     }

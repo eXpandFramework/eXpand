@@ -19,6 +19,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
 
         [Category("Appearance")]
         int? Height { get; set; }
+
+        float? FontSize { get; set; }
     }
 
     public interface IAdditionalViewControlsRule : IConditionalLogicRule, ISupportAppeareance {
