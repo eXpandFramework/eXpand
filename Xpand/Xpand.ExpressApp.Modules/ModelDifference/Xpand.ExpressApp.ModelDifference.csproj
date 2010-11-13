@@ -134,7 +134,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NodeUpdaters\BOModelNodesUpdater.cs" />
     <Compile Include="Controllers\CloneObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -147,6 +146,7 @@
     <Compile Include="Controllers\SyncronizeApplicationModelDiffsController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="NodeUpdaters\BOModelNodesUpdater.cs" />
     <Compile Include="Core\ISupportMasterModel.cs" />
     <Compile Include="Core\ModelApplicationFromStreamStoreBase.cs" />
     <Compile Include="Core\ModelApplicationBuilder.cs" />
