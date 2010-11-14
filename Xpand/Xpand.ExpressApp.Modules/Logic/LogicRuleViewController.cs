@@ -172,7 +172,8 @@ namespace Xpand.ExpressApp.Logic {
 
         private void ObjectSpace_Reloaded(object sender, EventArgs e) {
             isRefreshing = false;
-            ForceExecution(ExecutionContext.ObjectSpaceReloaded);
+            if (View != null)
+                ForceExecution(ExecutionContext.ObjectSpaceReloaded);
         }
 
         private void ObjectSpace_Refreshing(object sender, CancelEventArgs e) {
