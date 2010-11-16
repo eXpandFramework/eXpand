@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (FilterProviderManager.Providers != null) {
+            if (FilterProviderManager.Providers != null&&ModelApplicationCreator==null) {
                 CreateMembers(typesInfo);
                 SubscribeToDataStoreProxyEvents();
                 foreach (var persistentType in typesInfo.PersistentTypes.Where(info => info.IsPersistent)) {
@@ -40,10 +40,6 @@ namespace Xpand.ExpressApp.FilterDataStore {
                     }
                 }
             }
-        }
-        public override void Setup(XafApplication application) {
-            base.Setup(application);
-            
         }
         void SubscribeToDataStoreProxyEvents() {
             if (Application != null && Application.ObjectSpaceProvider != null) {
