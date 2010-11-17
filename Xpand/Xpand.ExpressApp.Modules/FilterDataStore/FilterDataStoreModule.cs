@@ -30,9 +30,9 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
+            SubscribeToDataStoreProxyEvents();
             if (FilterProviderManager.Providers != null&&ModelApplicationCreator==null) {
                 CreateMembers(typesInfo);
-                SubscribeToDataStoreProxyEvents();
                 foreach (var persistentType in typesInfo.PersistentTypes.Where(info => info.IsPersistent)) {
                     var xpClassInfo = XafTypesInfo.XpoTypeInfoSource.GetEntityClassInfo(persistentType.Type);
                     if (xpClassInfo.TableName != null && xpClassInfo.ClassType != null) {
