@@ -20,7 +20,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.ConditionalG
                 yield return new MasterDetailAttribute("Customer_Orders_For_All_Other_Cities", "City!='Paris'", "ConditionalMasterDetailOrder_ListView", "Orders") { View = "ConditionalMasterDetailCustomer_ListView" };
                 yield return new CloneViewAttribute(CloneViewType.ListView, "ConditionalMasterDetailCustomer_ListView");
                 yield return new XpandNavigationItemAttribute("Controlling XtraGrid/Master Detail/Conditional Detail views", "ConditionalMasterDetailCustomer_ListView");
-                yield return new DisplayFeatureModelAttribute("ConditionalMasterDetailCustomer_ListView", "ConditionalDetailViews");
+                yield return new DisplayFeatureModelAttribute("ConditionalMasterDetailCustomer_ListView", "ConditionalGridDetailViews");
             }
             if (typesInfo.Type==typeof(WinOrder)) {
                 yield return new CloneViewAttribute(CloneViewType.ListView, "ConditionalMasterDetailOrderForParis_ListView");

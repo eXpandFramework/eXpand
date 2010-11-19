@@ -18,6 +18,8 @@ using Xpand.Xpo.Filtering;
 namespace Xpand.ExpressApp.FilterDataStore {
     public sealed partial class FilterDataStoreModule : XpandModuleBase {
         readonly Dictionary<string, Type> _tablesDictionary = new Dictionary<string, Type>();
+        bool _proxyEventsSubscribed;
+
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelClass, IModelClassDisabledDataStoreFilters>();
@@ -27,11 +29,16 @@ namespace Xpand.ExpressApp.FilterDataStore {
         public FilterDataStoreModule() {
             InitializeComponent();
         }
-
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
+            if (_proxyEventsSubscribed) {
+                SubscribeToDataStoreProxyEvents();
+            }
+        }
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            SubscribeToDataStoreProxyEvents();
             if (FilterProviderManager.Providers != null&&ModelApplicationCreator==null) {
+                SubscribeToDataStoreProxyEvents();
                 CreateMembers(typesInfo);
                 foreach (var persistentType in typesInfo.PersistentTypes.Where(info => info.IsPersistent)) {
                     var xpClassInfo = XafTypesInfo.XpoTypeInfoSource.GetEntityClassInfo(persistentType.Type);
@@ -50,6 +57,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
                 SqlDataStoreProxy proxy = ((IXpandObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
                 proxy.DataStoreModifyData += (o, args) => ModifyData(args.ModificationStatements);
                 proxy.DataStoreSelectData += Proxy_DataStoreSelectData;
+                _proxyEventsSubscribed = true;
             }
         }
 
