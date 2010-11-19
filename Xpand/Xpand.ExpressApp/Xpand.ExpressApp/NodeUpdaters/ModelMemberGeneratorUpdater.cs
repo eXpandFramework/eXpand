@@ -16,11 +16,11 @@ namespace Xpand.ExpressApp.NodeUpdaters {
                 IEnumerable<CustomQueryPropertyAttribute> customQueryPropertyAttributes =
                     LinqCollectionSourceHelper.GetQueryProperties(modelClass.TypeInfo.Type);
                 foreach (var customQueryPropertyAttribute in customQueryPropertyAttributes) {
-                    if (modelClass.TypeInfo.FindMember(customQueryPropertyAttribute.Name)==null) {
-                        var memberInfo = modelClass.TypeInfo.CreateMember(customQueryPropertyAttribute.Name,customQueryPropertyAttribute.Type);
+                    if (modelClass.TypeInfo.FindMember(customQueryPropertyAttribute.Name) == null) {
+                        var memberInfo = modelClass.TypeInfo.CreateMember(customQueryPropertyAttribute.Name, customQueryPropertyAttribute.Type);
                         memberInfo.AddAttribute(new BrowsableAttribute(false));
                         memberInfo.AddAttribute(new NonPersistentAttribute());
-                        var modelRuntimeMember = modelClass.OwnMembers.AddNode<IModelRuntimeNonPersistentMebmer>(customQueryPropertyAttribute.Name);
+                        var modelRuntimeMember = modelClass.OwnMembers.AddNode<IModelRuntimeNonPersistentMember>(customQueryPropertyAttribute.Name);
                         modelRuntimeMember.Type = customQueryPropertyAttribute.Type;
                     }
                 }

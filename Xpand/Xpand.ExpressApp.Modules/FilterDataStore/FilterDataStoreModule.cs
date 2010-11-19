@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
-using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.FilterDataStore.Core;
 using Xpand.ExpressApp.FilterDataStore.Model;
 using Xpand.Xpo.DB;
@@ -17,6 +17,7 @@ using Xpand.Xpo.Filtering;
 
 namespace Xpand.ExpressApp.FilterDataStore {
     public sealed partial class FilterDataStoreModule : XpandModuleBase {
+        readonly Dictionary<string, Type> _tablesDictionary = new Dictionary<string, Type>();
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelClass, IModelClassDisabledDataStoreFilters>();
@@ -26,14 +27,20 @@ namespace Xpand.ExpressApp.FilterDataStore {
         public FilterDataStoreModule() {
             InitializeComponent();
         }
+
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (FilterProviderManager.Providers != null) {
+            SubscribeToDataStoreProxyEvents();
+            if (FilterProviderManager.Providers != null&&ModelApplicationCreator==null) {
                 CreateMembers(typesInfo);
-                SubscribeToDataStoreProxyEvents();
+                foreach (var persistentType in typesInfo.PersistentTypes.Where(info => info.IsPersistent)) {
+                    var xpClassInfo = XafTypesInfo.XpoTypeInfoSource.GetEntityClassInfo(persistentType.Type);
+                    if (xpClassInfo.TableName != null && xpClassInfo.ClassType != null) {
+                        _tablesDictionary.Add(xpClassInfo.TableName, xpClassInfo.ClassType);
+                    }
+                }
             }
         }
-
         void SubscribeToDataStoreProxyEvents() {
             if (Application != null && Application.ObjectSpaceProvider != null) {
                 var objectSpaceProvider = (Application.ObjectSpaceProvider);
@@ -126,9 +133,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
 
         public BaseStatement[] FilterData(SelectStatement[] statements) {
-// ReSharper disable ConvertClosureToMethodGroup
-            return statements.Select(statement => ApplyCondition(statement)).ToArray();
-// ReSharper restore ConvertClosureToMethodGroup
+            return statements.Where(statement => !IsSystemTable(statement.TableName)).Select(ApplyCondition).ToArray();
         }
 
         public SelectStatement ApplyCondition(SelectStatement statement) {
@@ -141,7 +146,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
                 if (providerBase != null) {
                     Tracing.Tracer.LogVerboseValue("providerName", providerBase.Name);
                     IEnumerable<BinaryOperator> binaryOperators = GetBinaryOperators(extractor, providerBase);
-                    if (!FilterIsShared(statement.TableName, providerBase.Name) && binaryOperators.Count() == 0 && !IsSystemTable(statement.TableName)) {
+                    if (!FilterIsShared(statement.TableName, providerBase.Name) && binaryOperators.Count() == 0) {
                         string nodeAlias = GetNodeAlias(statement, providerBase);
                         ApplyCondition(statement, providerBase, nodeAlias);
                     }
@@ -194,17 +199,11 @@ namespace Xpand.ExpressApp.FilterDataStore {
             return ret;
         }
 
-        public string FindClassNameInDictionary(string tableName) {
-            return (from cl in Application.XPDictionary.Classes.Cast<XPClassInfo>()
-                    where cl.TableName == tableName && cl.ClassType != null
-                    select cl.ClassType.FullName).FirstOrDefault();
-        }
-
         public bool FilterIsShared(string tableName, string providerName) {
             bool ret = false;
-            string classNameInDictionary = FindClassNameInDictionary(tableName);
-            if (!string.IsNullOrEmpty(classNameInDictionary)) {
-                var classInfoNodeWrapper = Application.Model.BOModel[classNameInDictionary];
+
+            if (_tablesDictionary.ContainsKey(tableName)) {
+                var classInfoNodeWrapper = Application.Model.BOModel[_tablesDictionary[tableName].FullName];
                 if (classInfoNodeWrapper != null &&
                     ((IModelClassDisabledDataStoreFilters)classInfoNodeWrapper).DisabledDataStoreFilters.Where(
                         childNode => childNode.Name == providerName).FirstOrDefault() != null) ret = true;

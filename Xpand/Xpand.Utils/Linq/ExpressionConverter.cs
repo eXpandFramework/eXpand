@@ -4,39 +4,35 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Xpand.Utils.Linq {
-    public class ExpressionTransformer {
-        public Expression Transform(Type type, LambdaExpression expression) {
-            if (expression== null)
+    public class ExpressionConverter {
+        public Expression Convert(Type type, LambdaExpression expression) {
+            if (expression == null)
                 return null;
             if (expression.NodeType == ExpressionType.Lambda) {
                 var parameterExpressions = expression.Parameters.Select(parameterExpression => Expression.Parameter(type, parameterExpression.Name)).ToArray();
                 var parameter = parameterExpressions[0];
-                Expression transform = Transform(type, expression.Body, parameter);
+                Expression transform = Convert(type, expression.Body, parameter);
                 return Expression.Lambda(transform, parameterExpressions);
             }
             throw new NotImplementedException(expression.NodeType.ToString());
         }
-        public Expression Transform(Type type, Expression expression,ParameterExpression parameterExpression)
-        {
-            switch (expression.NodeType)
-            {
+        public Expression Convert(Type type, Expression expression, ParameterExpression parameterExpression) {
+            switch (expression.NodeType) {
                 case ExpressionType.OrElse:
                 case ExpressionType.AndAlso:
-                    return TransformCore(type, (BinaryExpression)expression, expression.NodeType,parameterExpression);
+                    return TransformCore(type, (BinaryExpression)expression, expression.NodeType, parameterExpression);
                 case ExpressionType.NotEqual:
                 case ExpressionType.Equal:
-                    return TransformCore(type, (BinaryExpression)expression,expression.NodeType, parameterExpression);
+                    return TransformCore(type, (BinaryExpression)expression, expression.NodeType, parameterExpression);
                 case ExpressionType.MemberAccess:
                     return MemberAccess(type, (MemberExpression)expression, parameterExpression);
                 case ExpressionType.Constant:
                     return Constant((ConstantExpression)expression);
                 case ExpressionType.Parameter:
-                    return Expression.Parameter(type, ((ParameterExpression) expression).Name);
+                    return Expression.Parameter(type, ((ParameterExpression)expression).Name);
             }
             throw new NotImplementedException(expression.NodeType.ToString());
         }
-
-
 
         Expression Constant(ConstantExpression expression) {
             return expression;
@@ -49,25 +45,23 @@ namespace Xpand.Utils.Linq {
             return memberAccess;
         }
 
-        BinaryExpression TransformCore(Type type, BinaryExpression expression, ExpressionType expressionType, ParameterExpression parameterExpression)
-        {
-            Expression left = Transform(type, expression.Left,parameterExpression);
-            Expression right = GetRight(expressionType,expression.Right,type,parameterExpression);
+        BinaryExpression TransformCore(Type type, BinaryExpression expression, ExpressionType expressionType, ParameterExpression parameterExpression) {
+            Expression left = Convert(type, expression.Left, parameterExpression);
+            Expression right = GetRight(expressionType, expression.Right, type, parameterExpression);
             MethodInfo methodInfo = GetMethodInfo(expressionType);
             return (BinaryExpression)methodInfo.Invoke(null, new[] { left, right });
         }
 
         Expression GetRight(ExpressionType expressionType, Expression right, Type type, ParameterExpression parameterExpression) {
-            
-            if (expressionType==ExpressionType.AndAlso||expressionType==ExpressionType.OrElse)
-                return Transform(type, right, parameterExpression);
+            if (expressionType == ExpressionType.AndAlso || expressionType == ExpressionType.OrElse)
+                return Convert(type, right, parameterExpression);
             if (expressionType == ExpressionType.Equal || expressionType == ExpressionType.NotEqual)
                 return right;
             throw new NotImplementedException(expressionType.ToString());
         }
 
         MethodInfo GetMethodInfo(ExpressionType expressionType) {
-            return typeof(Expression).GetMethod(expressionType.ToString(),new[]{typeof(Expression),typeof(Expression)});
+            return typeof(Expression).GetMethod(expressionType.ToString(), new[] { typeof(Expression), typeof(Expression) });
         }
     }
 }

@@ -1,11 +1,12 @@
-﻿using DevExpress.Persistent.BaseImpl;
-using DevExpress.Xpo;
+﻿using DevExpress.Xpo;
 using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [NonPersistent]
-    public class DataBase : BaseObject, IDataBase {
-        public DataBase(Session session) : base(session) {
+    public class DataBase : XpandCustomObject, IDataBase {
+        public DataBase(Session session)
+            : base(session) {
         }
         private string _name;
 

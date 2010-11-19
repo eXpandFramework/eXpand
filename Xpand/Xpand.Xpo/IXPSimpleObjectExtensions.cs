@@ -6,7 +6,17 @@ using Xpand.Xpo.MetaData;
 
 namespace Xpand.Xpo {
     public static class IXPSimpleObjectExtensions {
-        public static XPCustomMemberInfo CreateCalculabeMember(this XPClassInfo classInfo, string propertyName, Type propertyType,  params Attribute[] attributes) {
+
+        public static XpandCustomMemberInfo CreateCustomMember(this XPClassInfo classInfo, string propertyName, Type propertyType,
+                                                               bool nonPersistent, params Attribute[] attributes) {
+            var xpandCustomMemberInfo = new XpandCustomMemberInfo(classInfo, propertyName, propertyType, null,nonPersistent,false);
+            foreach (Attribute attribute in attributes)
+                xpandCustomMemberInfo.AddAttribute(attribute);
+            return xpandCustomMemberInfo;
+        }
+
+
+        public static XpandCalcMemberInfo CreateCalculabeMember(this XPClassInfo classInfo, string propertyName, Type propertyType, params Attribute[] attributes) {
             var newMemberInfo = new XpandCalcMemberInfo(classInfo, propertyName, propertyType, null, true, false);
             foreach (Attribute attribute in attributes)
                 newMemberInfo.AddAttribute(attribute);

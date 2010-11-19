@@ -1,4 +1,6 @@
 using System;
+using DevExpress.Persistent.Base.Security;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.FilterDataStore.Providers;
@@ -6,11 +8,12 @@ using Xpand.ExpressApp.FilterDataStore.Providers;
 namespace FeatureCenter.Module {
     public class Updater : Xpand.Persistent.BaseImpl.Updater {
         public Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) { }
-        protected override DevExpress.Persistent.BaseImpl.User EnsureUserExists(string userName, string firstName, DevExpress.Persistent.BaseImpl.Role role) {
-            var ensureUserExists = base.EnsureUserExists(userName, firstName, role);
+        protected override IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole customizableRole) {
+            var ensureUserExists = base.EnsureUserExists(userName, firstName, customizableRole);
             if (ensureUserExists.UserName == Admin)
-                UserFilterProvider.UpdaterUserKey = ensureUserExists.Oid;
+                UserFilterProvider.UpdaterUserKey = ((User) ensureUserExists).Oid;
             return ensureUserExists;
+
         }
 
         public override void UpdateDatabaseAfterUpdateSchema() {

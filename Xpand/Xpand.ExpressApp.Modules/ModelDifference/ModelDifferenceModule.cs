@@ -61,6 +61,7 @@ namespace Xpand.ExpressApp.ModelDifference {
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new BOModelNodesUpdater());
+            updaters.Add(new BOModelMemberNodesUpdater());
         }
 
     }

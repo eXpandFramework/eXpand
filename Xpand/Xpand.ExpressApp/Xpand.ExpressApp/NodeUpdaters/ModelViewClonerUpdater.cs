@@ -14,7 +14,8 @@ namespace Xpand.ExpressApp.NodeUpdaters {
                 var cloneViewAttributes = modelClass.TypeInfo.FindAttributes<CloneViewAttribute>().OrderBy(viewAttribute => viewAttribute.ViewType);
                 foreach (var cloneViewAttribute in cloneViewAttributes) {
                     IModelView modelView = GetModelView(modelClass, cloneViewAttribute);
-                    var cloneNodeFrom = ((ModelNode)node.Application.Views).CloneNodeFrom((ModelNode)modelView, cloneViewAttribute.ViewId);
+                    ModelNode cloneNodeFrom = ((ModelNode) node.Application.Views).CloneNodeFrom((ModelNode) modelView,
+                                                                                                 cloneViewAttribute.ViewId);
                     if (modelView is IModelListView&& !(string.IsNullOrEmpty(cloneViewAttribute.DetailView))) {
                         CloneViewAttribute attribute = cloneViewAttribute;
                         var modelDetailView = node.Application.Views.OfType<IModelDetailView>().Where(view => view.Id == attribute.DetailView).FirstOrDefault();

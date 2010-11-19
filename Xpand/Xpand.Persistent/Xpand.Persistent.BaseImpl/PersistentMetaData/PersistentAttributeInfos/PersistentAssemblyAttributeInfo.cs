@@ -1,14 +1,15 @@
 ﻿using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
+using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
-    public abstract class PersistentAssemblyAttributeInfo : BaseObject, IPersistentAssemblyAttributeInfo {
+    public abstract class PersistentAssemblyAttributeInfo : XpandCustomObject, IPersistentAssemblyAttributeInfo {
         PersistentAssemblyInfo _owner;
 
-        protected PersistentAssemblyAttributeInfo(Session session) : base(session) {
+        protected PersistentAssemblyAttributeInfo(Session session)
+            : base(session) {
         }
 
         [Persistent]

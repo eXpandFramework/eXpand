@@ -7,8 +7,9 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Model;
-using Xpand.Xpo;
 using Xpand.ExpressApp.Xpo;
+using Xpand.Xpo;
+using Xpand.Xpo.MetaData;
 
 namespace Xpand.ExpressApp.Core {
     public class RuntimeMemberBuilder {
@@ -27,7 +28,7 @@ namespace Xpand.ExpressApp.Core {
                     XPClassInfo typeInfo = dictionary.GetClassInfo(classType);
                     lock (typeInfo) {
                         if (typeInfo.FindMember(modelRuntimeMember.Name) == null) {
-                            XPCustomMemberInfo memberInfo = GetMemberInfo(modelRuntimeMember, typeInfo);
+                            XpandCustomMemberInfo memberInfo = GetMemberInfo(modelRuntimeMember, typeInfo);
                             AddAttributes(modelRuntimeMember, memberInfo);
                             XafTypesInfo.Instance.RefreshInfo(classType);
                         }
@@ -46,20 +47,20 @@ namespace Xpand.ExpressApp.Core {
         static void AddAttributes(IModelRuntimeMember runtimeMember, XPCustomMemberInfo memberInfo) {
             if (runtimeMember.Size != 0)
                 memberInfo.AddAttribute(new SizeAttribute(runtimeMember.Size));
-            if (runtimeMember is IModelRuntimeNonPersistentMebmer && !(runtimeMember is IModelRuntimeCalculatedMember))
+            if (runtimeMember is IModelRuntimeNonPersistentMember && !(runtimeMember is IModelRuntimeCalculatedMember))
                 memberInfo.AddAttribute(new NonPersistentAttribute());
         }
 
-        static XPCustomMemberInfo GetMemberInfo(IModelRuntimeMember modelMember, XPClassInfo xpClassInfo) {
+        static XpandCustomMemberInfo GetMemberInfo(IModelRuntimeMember modelMember, XPClassInfo xpClassInfo) {
             if (modelMember is IModelRuntimeCalculatedMember)
                 return xpClassInfo.CreateCalculabeMember(modelMember.Name, modelMember.Type,
-                                                      new Attribute[] {new PersistentAliasAttribute(((IModelRuntimeCalculatedMember) modelMember).AliasExpression)});
+                                                      new Attribute[] { new PersistentAliasAttribute(((IModelRuntimeCalculatedMember)modelMember).AliasExpression) });
             if (modelMember is IModelRuntimeOrphanedColection) {
-                var modelRuntimeOrphanedColection = ((IModelRuntimeOrphanedColection) modelMember);
+                var modelRuntimeOrphanedColection = ((IModelRuntimeOrphanedColection)modelMember);
                 return xpClassInfo.CreateCollection(modelMember.Name, modelRuntimeOrphanedColection.CollectionType.TypeInfo.Type,
                                                     modelRuntimeOrphanedColection.Criteria);
             }
-            return xpClassInfo.CreateMember(modelMember.Name, modelMember.Type);
+            return xpClassInfo.CreateCustomMember(modelMember.Name, modelMember.Type, modelMember is IModelRuntimeNonPersistentMember);
         }
     }
 }

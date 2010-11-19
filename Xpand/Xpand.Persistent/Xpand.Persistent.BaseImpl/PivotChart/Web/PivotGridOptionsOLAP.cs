@@ -1,11 +1,12 @@
-﻿using DevExpress.Persistent.BaseImpl;
-using DevExpress.Xpo;
+﻿using DevExpress.Xpo;
 using Xpand.Persistent.Base.PivotChart.Web;
+using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.PivotChart.Web {
     [NonPersistent]
-    public class PivotGridOptionsOLAP : BaseObject,IPivotGridOptionsOLAP {
-        public PivotGridOptionsOLAP(Session session) : base(session) {
+    public class PivotGridOptionsOLAP : XpandCustomObject, IPivotGridOptionsOLAP {
+        public PivotGridOptionsOLAP(Session session)
+            : base(session) {
         }
     }
 }
