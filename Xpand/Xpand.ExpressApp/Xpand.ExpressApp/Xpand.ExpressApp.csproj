@@ -107,6 +107,7 @@
   <ItemGroup>
     <Compile Include="Attributes\AllowEditAttribute.cs" />
     <Compile Include="Attributes\HideFromNewMenuAttribute.cs" />
+    <Compile Include="Attributes\NewObjectCreateGroupAttribute.cs" />
     <Compile Include="Attributes\XpandNavigationItemAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
@@ -137,6 +138,9 @@
     <Compile Include="Model\IModelProccessViewShortcuts.cs" />
     <Compile Include="NodeUpdaters\ModelMemberGeneratorUpdater.cs" />
     <Compile Include="SystemModule\CreateExpandAbleMembersViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\NewObjectCreateGroupController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Updater.cs" />
