@@ -114,6 +114,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\ReflectionExtensions.cs" />
     <Compile Include="Threading\DomainRunner.cs" />
+    <Compile Include="Threading\SingleInstance.cs" />
     <Compile Include="XpandReflectionHelper.cs" />
     <Compile Include="Testing\CoverageExcludeAttribute.cs" />
     <Compile Include="Threading\AsyncEnumeratorSyncHelper.cs" />
