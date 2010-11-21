@@ -3,6 +3,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Repository;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.NullAble.BooleanPropertyEditor{
     [PropertyEditor(typeof(bool?))]
@@ -17,7 +18,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.NullAble.BooleanPropertyEditor{
         protected override void SetupRepositoryItem(RepositoryItem item)
         {
             base.SetupRepositoryItem(item);
-            ((RepositoryItemBooleanEdit) item).AllowGrayed = true;
+            ((RepositoryItemBooleanEdit)item).AllowGrayed = MemberInfo.MemberType.IsNullableType();
         }
     }
 }

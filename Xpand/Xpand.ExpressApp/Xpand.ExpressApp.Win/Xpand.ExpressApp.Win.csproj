@@ -100,9 +100,9 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Utils, Version=10.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Xpo, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
