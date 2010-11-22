@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
+using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.Persistent.Base.General;
@@ -14,7 +15,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.ListEditors {
             : base(model) {
         }
 
-        protected override DevExpress.ExpressApp.Core.ModelSynchronizer CreateModelSynchronizer() {
+        protected override IModelSynchronizable CreateModelSynchronizer() {
             return new XpandTreeListEditorModelSynchronizerList(this, Model);
         }
 

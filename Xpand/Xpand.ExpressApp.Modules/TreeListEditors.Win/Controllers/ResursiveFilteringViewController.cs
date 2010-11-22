@@ -55,7 +55,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
             string keyName = XafTypesInfo.Instance.FindTypeInfo(memberType).KeyMember.Name;
             InOperator clone = inOperator.Clone();
             ((OperandProperty)clone.LeftOperand).PropertyName = keyName;
-            return new XPCollection(ObjectSpace.Session, memberType, clone);
+            return new XPCollection(((ObjectSpace)ObjectSpace).Session, memberType, clone);
         }
 
         private void FilterOnFilterChanged(object sender, FilterChangedEventArgs args) {
