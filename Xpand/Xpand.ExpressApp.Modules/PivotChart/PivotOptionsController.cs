@@ -46,7 +46,7 @@ namespace Xpand.ExpressApp.PivotChart
             var type = (Type)singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data;
             var persistentType = GetPersistentType(type);
             var pivotOption = objectSpace.CreateObject(persistentType);
-            XPClassInfo classInfo = ObjectSpace.Session.GetClassInfo(persistentType);
+            XPClassInfo classInfo = ((ObjectSpace)ObjectSpace).Session.GetClassInfo(persistentType);
 
             Synchonize(pivotOption, type, classInfo);
             var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;

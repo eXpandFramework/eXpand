@@ -9,7 +9,7 @@ using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.PivotChart.Core;
 
 namespace Xpand.ExpressApp.PivotChart.ShowInAnalysis {
-    public class ShowInAnalysisViewController : ViewController {
+    public class ShowInAnalysisViewController : ViewController<ObjectView> {
         readonly SingleChoiceAction showInAnalysisActionCore;
 
         public ShowInAnalysisViewController() {
@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.PivotChart.ShowInAnalysis {
         }
 
         protected void ShowInAnalysis(SingleChoiceActionExecuteEventArgs e) {
-            ObjectSpace os = Application.CreateObjectSpace();
+            var os = Application.CreateObjectSpace();
             var typeInfoContainer = (ITypeInfoContainer)Application.Modules.Where(@base => typeof(ITypeInfoContainer).IsAssignableFrom(@base.GetType())).Single();
             var report =
                 os.GetObjectByKey(typeInfoContainer.TypesInfo.AnalysisType, e.SelectedChoiceActionItem.Data) as IAnalysisInfo;
@@ -60,7 +60,7 @@ namespace Xpand.ExpressApp.PivotChart.ShowInAnalysis {
         }
 
         protected override void OnActivated() {
-            ObjectSpace os = Application.CreateObjectSpace();
+            var os = Application.CreateObjectSpace();
             List<object> reportList = InplaceAnalysisCacheController.GetAnalysisDataList(Application,View.ObjectTypeInfo.Type);
             var typeInfoContainer = (ITypeInfoContainer)Application.Modules.Where(@base => typeof(ITypeInfoContainer).IsAssignableFrom(@base.GetType())).Single();
             List<ChoiceActionItem> items = (from id in reportList

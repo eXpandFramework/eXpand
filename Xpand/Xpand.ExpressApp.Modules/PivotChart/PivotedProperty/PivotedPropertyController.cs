@@ -67,7 +67,7 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty
             if (string.IsNullOrEmpty(pivotedPropertyAttribute.AnalysisCriteria)) {
                 analysisInfo = (IAnalysisInfo) ObjectSpace.CreateObject(memberInfo.MemberType);
                 var pivotedType = View.ObjectTypeInfo.FindMember(pivotedPropertyAttribute.CollectionName).ListElementType;
-                ObjectSpace.Session.GetClassInfo(analysisInfo).GetMember(analysisInfo.GetPropertyName(x=>x.DataType)).SetValue(analysisInfo,pivotedType);
+                ((ObjectSpace)ObjectSpace).Session.GetClassInfo(analysisInfo).GetMember(analysisInfo.GetPropertyName(x=>x.DataType)).SetValue(analysisInfo,pivotedType);
             }
             else {
                 analysisInfo = ObjectSpace.FindObject(memberInfo.MemberType, CriteriaOperator.Parse(pivotedPropertyAttribute.AnalysisCriteria)) as IAnalysisInfo;
