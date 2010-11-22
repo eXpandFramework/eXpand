@@ -1,9 +1,10 @@
 using System.Linq;
-using DevExpress.ExpressApp.Utils;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.ExpressApp.Win.Templates;
@@ -11,7 +12,6 @@ using DevExpress.ExpressApp.Win.Templates.ActionContainers;
 using DevExpress.XtraBars;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
-using DevExpress.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.ViewVariants.Win {
     public class ChangeViewVariantActionViewController : ViewController<XpandListView>
@@ -47,7 +47,8 @@ namespace Xpand.ExpressApp.ViewVariants.Win {
 
         void RenameView() {
             var objectSpace = Application.CreateObjectSpace();
-            var viewCloner = new ViewCloner(objectSpace.Session){Caption = Frame.GetController<ChangeVariantController>().ChangeVariantAction.SelectedItem.Caption};
+            var viewCloner = objectSpace.CreateObject<ViewCloner>();
+            viewCloner.Caption = Frame.GetController<ChangeVariantController>().ChangeVariantAction.SelectedItem.Caption;
             var detailView = Application.CreateDetailView(objectSpace, viewCloner);
             detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.EXpandViewVariants, "RenameViewToolTip");
             var parameters = new ShowViewParameters(detailView) {TargetWindow = TargetWindow.NewModalWindow};

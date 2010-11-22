@@ -34,8 +34,8 @@ namespace Xpand.ExpressApp.ViewVariants
 
         private void cloneViewPopupWindowShowAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
         {
-            ObjectSpace objectSpace = Application.CreateObjectSpace();
-            DetailView detailView = Application.CreateDetailView(objectSpace, new ViewCloner(objectSpace.Session));
+            var objectSpace = Application.CreateObjectSpace();
+            DetailView detailView = Application.CreateDetailView(objectSpace, objectSpace.CreateObject<ViewCloner>());
             detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.EXpandViewVariants,"CreateViewCaption");
             e.View = detailView;
         }
@@ -56,7 +56,7 @@ namespace Xpand.ExpressApp.ViewVariants
             SingleChoiceAction changeVariantAction = changeVariantController.ChangeVariantAction;
             if (changeVariantController.Active.ResultValue)
             {
-                var choiceActionItem = new ChoiceActionItem(newVariantNode, newVariantNode.View);
+                var choiceActionItem = new ChoiceActionItem(newVariantNode.Caption, newVariantNode.View);
                 changeVariantAction.Items.Add(choiceActionItem);
                 changeVariantAction.SelectedItem=choiceActionItem;
             }
