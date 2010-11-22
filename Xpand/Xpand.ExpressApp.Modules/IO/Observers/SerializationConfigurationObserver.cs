@@ -8,7 +8,7 @@ namespace Xpand.ExpressApp.IO.Observers {
     public class SerializationConfigurationObserver:ObjectObserver<ISerializationConfiguration> {
         bool _serializing;
 
-        public SerializationConfigurationObserver(ObjectSpace objectSpace) : base(objectSpace) {
+        public SerializationConfigurationObserver(IObjectSpace objectSpace) : base(objectSpace) {
         }
         
         protected override void OnChanged(ObjectChangedEventArgs<ISerializationConfiguration> e)

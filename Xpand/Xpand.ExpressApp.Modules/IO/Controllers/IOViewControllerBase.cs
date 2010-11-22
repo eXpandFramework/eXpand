@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
         void ShowSerializationView(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             var groupObjectType = XafTypesInfo.Instance.FindBussinessObjectType<ISerializationConfigurationGroup>();
             var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
-            var objectSpace = Application.CreateObjectSpace();
+            var objectSpace = Application.CreateObjectSpace() as ObjectSpace;
             showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             showViewParameters.Context = TemplateContext.View;
             showViewParameters.CreateAllControllers = true;
@@ -69,7 +69,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
         protected abstract string GetFilePath();
 
         protected virtual void Import(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
-            ObjectSpace objectSpace = Application.CreateObjectSpace();
+            ObjectSpace objectSpace = Application.CreateObjectSpace() as ObjectSpace;
             object o = objectSpace.CreateObject(TypesInfo.Instance.XmlFileChooserType);
             singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace, o);
             var dialogController = new DialogController { SaveOnAccept = false };

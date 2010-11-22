@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
         public void Generate(ISerializationConfiguration serializationConfiguration) {
             var typeToSerialize = serializationConfiguration.TypeToSerialize;
             var castTypeToTypeInfo = XafTypesInfo.CastTypeToTypeInfo(typeToSerialize);
-            var objectSpace = ObjectSpace.FindObjectSpace(serializationConfiguration);
+            var objectSpace = ObjectSpace.FindObjectSpaceByObject(serializationConfiguration);
             _serializationConfigurationGroup = serializationConfiguration.SerializationConfigurationGroup;
             if (_serializationConfigurationGroup == null)
                 throw new NullReferenceException("_serializationConfigurationGroup");
@@ -33,7 +33,7 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
 
         }
 
-        IEnumerable<IClassInfoGraphNode> CreateGraph(ObjectSpace objectSpace, ITypeInfo typeToSerialize) {
+        IEnumerable<IClassInfoGraphNode> CreateGraph(IObjectSpace objectSpace, ITypeInfo typeToSerialize) {
             IEnumerable<IMemberInfo> memberInfos = GetMemberInfos(typeToSerialize);
             var classInfoGraphNodes = CreateGraphCore(memberInfos, objectSpace).ToList();
             ResetDefaultKeyWhenMultiple(classInfoGraphNodes);
@@ -48,7 +48,7 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
         }
 
 
-        IEnumerable<IClassInfoGraphNode> CreateGraphCore(IEnumerable<IMemberInfo> memberInfos, ObjectSpace objectSpace) {
+        IEnumerable<IClassInfoGraphNode> CreateGraphCore(IEnumerable<IMemberInfo> memberInfos, IObjectSpace objectSpace) {
             return memberInfos.Select(memberInfo => (!memberInfo.MemberTypeInfo.IsPersistent && !memberInfo.IsList) || memberInfo.MemberType == typeof(byte[])
                                                                                     ? CreateSimpleNode(memberInfo, objectSpace)
                                                                                     : CreateComplexNode(memberInfo, objectSpace)).ToList();
@@ -58,7 +58,7 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
             return memberInfo.IsList ? memberInfo.ListElementType : memberInfo.MemberType;
         }
 
-        IClassInfoGraphNode CreateComplexNode(IMemberInfo memberInfo, ObjectSpace objectSpace) {
+        IClassInfoGraphNode CreateComplexNode(IMemberInfo memberInfo, IObjectSpace objectSpace) {
             NodeType nodeType = memberInfo.MemberTypeInfo.IsPersistent ? NodeType.Object : NodeType.Collection;
             IClassInfoGraphNode classInfoGraphNode = CreateClassInfoGraphNode(objectSpace, memberInfo, nodeType);
             classInfoGraphNode.SerializationStrategy = GetSerializationStrategy(memberInfo, SerializationStrategy.SerializeAsObject);
@@ -67,8 +67,8 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
 
         }
 
-        void Generate(ObjectSpace objectSpace, Type typeToSerialize) {
-            if (!SerializationConfigurationQuery.ConfigurationExists(objectSpace.Session, typeToSerialize, _serializationConfigurationGroup)) {
+        void Generate(IObjectSpace objectSpace, Type typeToSerialize) {
+            if (!SerializationConfigurationQuery.ConfigurationExists(((ObjectSpace)objectSpace).Session, typeToSerialize, _serializationConfigurationGroup)) {
                 var serializationConfiguration =
                     (ISerializationConfiguration)
                     objectSpace.CreateObject(TypesInfo.Instance.SerializationConfigurationType);
@@ -80,7 +80,7 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
 
 
 
-        IClassInfoGraphNode CreateSimpleNode(IMemberInfo memberInfo, ObjectSpace objectSpace) {
+        IClassInfoGraphNode CreateSimpleNode(IMemberInfo memberInfo, IObjectSpace objectSpace) {
             return CreateClassInfoGraphNode(objectSpace, memberInfo, NodeType.Simple);
         }
 
@@ -89,7 +89,7 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
         }
 
 
-        IClassInfoGraphNode CreateClassInfoGraphNode(ObjectSpace objectSpace, IMemberInfo memberInfo, NodeType nodeType) {
+        IClassInfoGraphNode CreateClassInfoGraphNode(IObjectSpace objectSpace, IMemberInfo memberInfo, NodeType nodeType) {
             var classInfoGraphNode = (IClassInfoGraphNode)objectSpace.CreateObject(TypesInfo.Instance.ClassInfoGraphNodeType);
             classInfoGraphNode.Name = memberInfo.Name;
             classInfoGraphNode.SerializationStrategy = GetSerializationStrategy(memberInfo, classInfoGraphNode.SerializationStrategy);
