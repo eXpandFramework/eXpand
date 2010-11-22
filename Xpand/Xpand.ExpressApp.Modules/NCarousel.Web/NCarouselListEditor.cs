@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.NCarousel.Web {
 
 
         public override string[] RequiredProperties {
-            get { return Model.Columns.VisibleColumns.Select(column => column.PropertyName).ToArray(); }
+            get { return Model.Columns.GetVisibleColumns().Select(column => column.PropertyName).ToArray(); }
         }
 
         public override SelectionType SelectionType {
@@ -91,7 +91,7 @@ namespace Xpand.ExpressApp.NCarousel.Web {
 
         string GetDisplayText(IPictureItem pictureItem)
         {
-            string text = Model.Columns.VisibleColumns.Aggregate("", (current, modelColumn) => current + (modelColumn.ModelMember.MemberInfo.GetValue(pictureItem) + "<br>"));
+            string text = Model.Columns.GetVisibleColumns().Aggregate("", (current, modelColumn) => current + (modelColumn.ModelMember.MemberInfo.GetValue(pictureItem) + "<br>"));
             return text.TrimEnd("<br>".ToCharArray());
         }
 
