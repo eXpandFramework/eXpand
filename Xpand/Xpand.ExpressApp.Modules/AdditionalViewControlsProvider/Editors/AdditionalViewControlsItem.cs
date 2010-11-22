@@ -5,7 +5,7 @@ using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Model;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Editors {
-    public interface IModelAdditionalViewControlsItem : IModelDetailViewItem
+    public interface IModelAdditionalViewControlsItem : IModelViewItem
     {
         [DataSourceProperty("Application.AdditionalViewControls.Rules")]
         [Required]

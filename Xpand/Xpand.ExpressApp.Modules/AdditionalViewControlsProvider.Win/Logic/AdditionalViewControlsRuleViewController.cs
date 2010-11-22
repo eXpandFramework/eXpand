@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
                 winLayoutManager.Container.DefaultLayoutLoading += Container_DefaultLayoutLoading;
             }
         }
-        protected void FillInfoToLayoutMap(ViewItem detailViewItem, IModelDetailViewLayoutElement itemModel, BaseLayoutItem layoutItem) {
+        protected void FillInfoToLayoutMap(ViewItem detailViewItem, IModelViewLayoutElement itemModel, BaseLayoutItem layoutItem) {
             if (detailViewItem is AdditionalViewControlsItem) {
                 var id = ((AdditionalViewControlsItem)detailViewItem).Model.Rule.Id;
                 if (RuleToLayoutMap.ContainsKey(id))
