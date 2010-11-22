@@ -13,6 +13,6 @@ namespace Xpand.ExpressApp.Logic {
         [Description("Localizable. Specifies the description of the current rule.")]
         string Description { get; set; }
 
-        int Index { get; set; }
+        int? Index { get; set; }
     }
 }

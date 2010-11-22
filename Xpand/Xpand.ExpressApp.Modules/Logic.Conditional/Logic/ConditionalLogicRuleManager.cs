@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.Logic.Conditional.Logic {
             Type objectType = targetObject.GetType();
             var wrapper = new LocalizedCriteriaWrapper(objectType, criteria);
             wrapper.UpdateParametersValues(targetObject);
-            ObjectSpace objectSpace = ObjectSpace.FindObjectSpace(targetObject);
+            var objectSpace = ObjectSpace.FindObjectSpace(targetObject);
             EvaluatorContextDescriptor descriptor = objectSpace != null ? objectSpace.GetEvaluatorContextDescriptor(objectType) : new EvaluatorContextDescriptorDefault(objectType);
             var evaluator = new ExpressionEvaluator(descriptor, wrapper.CriteriaOperator);
             return evaluator.Fit(targetObject);

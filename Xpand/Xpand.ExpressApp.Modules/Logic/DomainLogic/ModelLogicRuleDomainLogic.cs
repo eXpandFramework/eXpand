@@ -25,14 +25,14 @@ namespace Xpand.ExpressApp.Logic.DomainLogic {
             var calculatedModelNodeList = new CalculatedModelNodeList<IModelView>();
             if (modelLogicRule.ModelClass == null)
                 return calculatedModelNodeList;
-            IEnumerable<IModelView> modelViews = modelLogicRule.Application.Views.Where(view => view.ModelClass == modelLogicRule.ModelClass);
+            IEnumerable<IModelObjectView> modelViews = modelLogicRule.Application.Views.OfType<IModelObjectView>().Where(view => view.ModelClass == modelLogicRule.ModelClass);
 
             if (modelLogicRule.ViewType != ViewType.Any)
                 modelViews =
                     modelViews.Where(modelView => (modelLogicRule.ViewType == ViewType.ListView
                              ? modelView is IModelListView
                              : modelView is IModelDetailView));
-            calculatedModelNodeList.AddRange(modelViews);
+            calculatedModelNodeList.AddRange(modelViews.Cast<IModelView>());
             return calculatedModelNodeList;
         }
     }

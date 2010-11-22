@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.Logic.Security {
         public bool? IsRootView { get; set; }
 
 
-        public int Index { get; set; }
+        public int? Index { get; set; }
 
         public ViewType ViewType { get; set; }
 

@@ -47,7 +47,7 @@ namespace Xpand.ExpressApp.Logic {
 
         public ITypeInfo TypeInfo { get; set; }
 
-        public int Index { get; set; }
+        public int? Index { get; set; }
         #endregion
     }
 }

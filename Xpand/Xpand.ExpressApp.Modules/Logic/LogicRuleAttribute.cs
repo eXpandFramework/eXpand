@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Logic {
         #region ILogicRule Members
         public string Id { get; set; }
         public string Description { get; set; }
-        public int Index { get; set; }
+        public int? Index { get; set; }
 
         public FrameTemplateContext FrameTemplateContext { get; set; }
 
