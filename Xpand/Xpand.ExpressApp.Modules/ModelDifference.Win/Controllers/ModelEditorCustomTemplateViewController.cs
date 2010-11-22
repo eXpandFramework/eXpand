@@ -16,10 +16,10 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
             Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem += CustomProcessSelectedItem;
         }
 
-        protected override void OnDeactivating() {
+        protected override void OnDeactivated() {
             Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem -= CustomProcessSelectedItem;
 
-            base.OnDeactivating();
+            base.OnDeactivated();
         }
 
         void CustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs e) {

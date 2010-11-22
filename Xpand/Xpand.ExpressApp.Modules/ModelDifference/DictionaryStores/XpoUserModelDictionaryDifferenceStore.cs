@@ -60,8 +60,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             }
         }
 
-        protected internal override ModelDifferenceObject GetNewDifferenceObject(ObjectSpace session) {
-            var aspectObject = new UserModelDifferenceObject(ObjectSpace.Session);
+        protected internal override ModelDifferenceObject GetNewDifferenceObject(IObjectSpace session) {
+            var aspectObject = session.CreateObject<UserModelDifferenceObject>();
             aspectObject.AssignToCurrentUser();
             return aspectObject;
         }
@@ -77,7 +77,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         void CombineModelFromPermission(ModelApplicationBase model) {
             if (SecuritySystem.Instance is ISecurityComplex && SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false)) {
-                var space = Application.CreateObjectSpace();
+                var space = Application.CreateObjectSpace() as ObjectSpace;
                 ModelDifferenceObject difference = GetDifferenceFromPermission(space);
                 var master = new ModelApplicationBuilder(difference.PersistentApplication.ExecutableName).GetMasterModel();
                 var diffsModel = difference.GetModel(master);

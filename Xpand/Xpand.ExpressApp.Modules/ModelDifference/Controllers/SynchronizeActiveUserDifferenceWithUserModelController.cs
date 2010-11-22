@@ -40,7 +40,7 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers
 
 
         public void CombineWithApplicationUserDiffs(ModelApplicationBase masterModel){
-            var userAspectObjectQuery = new QueryUserModelDifferenceObject(View.ObjectSpace.Session);
+            var userAspectObjectQuery = new QueryUserModelDifferenceObject(((ObjectSpace)View.ObjectSpace).Session);
             ModelDifferenceObject differenceObject = userAspectObjectQuery.GetActiveModelDifference(Application.GetType().FullName,null);
             if (ReferenceEquals(differenceObject, View.CurrentObject)) {
                 new ModelXmlReader().ReadFromModel(masterModel.LastLayer, ((ModelApplicationBase)Application.Model).LastLayer);

@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         protected XpoDictionaryDifferenceStore(XafApplication application) {
             _application = application;
-            _objectSpace = application.CreateObjectSpace();
+            _objectSpace = application.CreateObjectSpace() as ObjectSpace;
         }
 
         public XafApplication Application {
@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         public override void SaveDifference(ModelApplicationBase model) {
             if (model != null) {
-                _objectSpace = _application.CreateObjectSpace();
+                _objectSpace = _application.CreateObjectSpace() as ObjectSpace;
                 ModelDifferenceObject modelDifferenceObject =
                     GetActiveDifferenceObject(model.Id) ??
                     GetNewDifferenceObject(_objectSpace)
@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         protected internal abstract ModelDifferenceObject GetActiveDifferenceObject(string name);
 
-        protected internal abstract ModelDifferenceObject GetNewDifferenceObject(ObjectSpace objectSpace);
+        protected internal abstract ModelDifferenceObject GetNewDifferenceObject(IObjectSpace objectSpace);
 
         protected internal virtual void OnDifferenceObjectSaving(ModelDifferenceObject modelDifferenceObject, ModelApplicationBase model) {
             if (model.HasModification)

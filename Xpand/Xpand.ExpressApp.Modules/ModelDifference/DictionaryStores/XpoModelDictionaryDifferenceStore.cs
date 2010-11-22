@@ -144,8 +144,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             return new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName, name);
         }
 
-        protected internal override ModelDifferenceObject GetNewDifferenceObject(ObjectSpace session) {
-            return new ModelDifferenceObject(ObjectSpace.Session);
+        protected internal override ModelDifferenceObject GetNewDifferenceObject(IObjectSpace session) {
+            return session.CreateObject<ModelDifferenceObject>();
         }
     }
 }

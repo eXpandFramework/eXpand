@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
             }
         }
         protected virtual ModelDifferenceObject GetDifference(string applicationName, string name) {
-            return new QueryModelDifferenceObject(View.ObjectSpace.Session).GetActiveModelDifference(applicationName, name);
+            return new QueryModelDifferenceObject(((ObjectSpace)View.ObjectSpace).Session).GetActiveModelDifference(applicationName, name);
 
         }
 

@@ -16,8 +16,8 @@ namespace Xpand.ExpressApp.ModelDifference.Security.Controllers {
         }
 
         [CoverageExclude]
-        protected override void OnDeactivating() {
-            base.OnDeactivating();
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
             Frame.GetController<ShowNavigationItemController>().CustomShowNavigationItem -= ControllerOnCustomShowNavigationItem;
         }
 

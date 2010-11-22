@@ -13,11 +13,11 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Builders{
             return XafTypesInfo.Instance.PersistentTypes.Where(info => info.Type== security.RoleType).Single();
         }
 
-        public static bool CreateDynamicMembers(ISecurityComplex security)
+        public static void CreateDynamicMembers(ISecurityComplex security)
         {
-            return XafTypesInfo.Instance.CreateBothPartMembers(typeof(RoleModelDifferenceObject), 
+            XafTypesInfo.Instance.CreateBothPartMembers(typeof(RoleModelDifferenceObject), 
                 GetRoleTypeInfo(security).Type,
-                XafTypesInfo.XpoTypeInfoSource.XPDictionary, true) != null;
+                XafTypesInfo.XpoTypeInfoSource.XPDictionary, true);
         }
     }
 }

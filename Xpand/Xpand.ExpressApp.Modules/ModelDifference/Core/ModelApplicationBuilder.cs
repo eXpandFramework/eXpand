@@ -3,6 +3,7 @@ using System.Configuration;
 using System.IO;
 using System.Web.Configuration;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -28,7 +29,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         public ModelApplicationBuilder(string executableName) {
             _executableName = executableName;
         }
-        public XpandApplicationModulesManager CreateApplicationModulesManager(XafApplication application, string configFileName, string assembliesPath, ITypesInfo typesInfo) {
+        public ApplicationModulesManager CreateApplicationModulesManager(XafApplication application, string configFileName, string assembliesPath, ITypesInfo typesInfo) {
             if (!string.IsNullOrEmpty(configFileName)) {
                 bool isWebApplicationModel =
                     string.Compare(Path.GetFileNameWithoutExtension(configFileName), "web", true) == 0;
@@ -41,11 +42,14 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             }
             ReflectionHelper.AddResolvePath(assembliesPath);
             try {
-                var result = new XpandApplicationModulesManager(new XpandControllersManager(), assembliesPath, application.Security);
+                var result = new ApplicationModulesManager(new ControllersManager(), assembliesPath);
                 foreach (ModuleBase module in application.Modules) {
                     result.AddModule(module);
                 }
                 result.Security = application.Security;
+                if (this.GetModulesFromConfig(application) != null) {
+                    result.AddModuleFromAssemblies(this.GetModulesFromConfig(application));
+                }
                 return result;
             } finally {
                 ReflectionHelper.RemoveResolvePath(assembliesPath);
@@ -55,14 +59,11 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         public ModelApplicationBase GetMasterModel() {
             TypesInfo typesInfo = GetTypesInfo();
             using (var application = GetApplication(_executableName, typesInfo)) {
-                XpandApplicationModulesManager modulesManager = GetModulesManager(typesInfo, application);
-                ApplicationModelsManager modelsManager = GetModelsManager(modulesManager);
-                var masterModel = (ModelApplicationBase)GetModelApplication(modelsManager);
+                ApplicationModulesManager modulesManager = GetModulesManager(typesInfo, application);
+                var masterModel = (ModelApplicationBase)GetModelApplication(application, modulesManager);
                 return masterModel;
             }
         }
-
-
 
         TypesInfo GetTypesInfo() {
             var typesInfo = new TypesInfo();
@@ -74,26 +75,18 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return typesInfo;
         }
 
-        IModelApplication GetModelApplication(ApplicationModelsManager modelsManager) {
+        IModelApplication GetModelApplication(XafApplication application, ApplicationModulesManager modulesManager) {
             var modelApplicationCreator = XpandModuleBase.ModelApplicationCreator;
             XpandModuleBase.ModelApplicationCreator = null;
-            var modelApplication = modelsManager.CreateModelApplication();
+            var modelApplication = new DesignerModelFactory().CreateApplicationModel(application, modulesManager, null, null);
             AddAfterSetupLayer(modelApplication);
             XpandModuleBase.ModelApplicationCreator = modelApplicationCreator;
             return modelApplication;
         }
 
-        ApplicationModelsManager GetModelsManager(XpandApplicationModulesManager modulesManager) {
-            var controllersManager = modulesManager.ControllersManager;
-            var applicationModelsManager = new ApplicationModelsManager(modulesManager.Modules, controllersManager, modulesManager.DomainComponents);
-            return applicationModelsManager;
-        }
-
-        XpandApplicationModulesManager GetModulesManager(TypesInfo typesInfo, XafApplication application) {
+        ApplicationModulesManager GetModulesManager(TypesInfo typesInfo, XafApplication application) {
             var modulesManager = CreateApplicationModulesManager(application, string.Empty,
                                                                  AppDomain.CurrentDomain.SetupInformation.ApplicationBase, typesInfo);
-
-            ReadModulesFromConfig(modulesManager, application);
 
             modulesManager.Load(typesInfo);
             return modulesManager;
@@ -121,7 +114,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             }
         }
 
-        private void ReadModulesFromConfig(ApplicationModulesManager manager, XafApplication application) {
+        private string[] GetModulesFromConfig(XafApplication application) {
             Configuration config;
             if (application is IWinApplication) {
                 config = ConfigurationManager.OpenExeConfiguration(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + _executableName);
@@ -132,10 +125,11 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             }
 
             if (config.AppSettings.Settings["Modules"] != null) {
-                manager.AddModuleFromAssemblies(config.AppSettings.Settings["Modules"].Value.Split(';'));
+                return config.AppSettings.Settings["Modules"].Value.Split(';');
             }
-        }
 
+            return null;
+        }
 
         public ModelApplicationBase GetLayer(Type modelApplicationFromStreamStoreBaseType) {
             var masterModel = GetMasterModel();
@@ -146,7 +140,5 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             storeBase.Load(layer);
             return layer;
         }
-
-
     }
 }

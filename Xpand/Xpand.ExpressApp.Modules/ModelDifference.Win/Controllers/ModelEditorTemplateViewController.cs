@@ -46,8 +46,8 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
             FieldInfo fieldInfo = modelEditorViewController.GetType().GetField("mainBarActions",
                                                                                BindingFlags.Instance | BindingFlags.NonPublic);
             if (fieldInfo != null) {
-                var actions = (List<ActionBase>)fieldInfo.GetValue(modelEditorViewController);
-                foreach (var actionBase in Frame.Template.DefaultContainer.Actions.Where(actions.Contains)) {
+                var actions = (Dictionary<ActionBase, string>)fieldInfo.GetValue(modelEditorViewController);
+                foreach (var actionBase in Frame.Template.DefaultContainer.Actions.Where(actions.Keys.Contains)) {
                     actionBase.Active["Is Not ModelDiffs view"] = false;
                 }
             }

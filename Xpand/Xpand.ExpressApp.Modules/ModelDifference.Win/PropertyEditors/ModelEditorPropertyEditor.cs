@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
         ModelApplicationBuilder _modelApplicationBuilder;
         ModelApplicationBase _masterModel;
         ModelApplicationBase _currentObjectModel;
-        ObjectSpace _objectSpace;
+        IObjectSpace _objectSpace;
         #endregion
 
         #region Constructor
@@ -107,7 +107,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
         void ObjectSpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args) {
             if (ReferenceEquals(args.Object, CurrentObject)){
                 //var clone = _currentObjectModel.Clone();
-                new ModelValidator().ValidateModel(_currentObjectModel);
+                new ModelValidator().ValidateNode(_currentObjectModel);
                 ModelEditorViewController.SaveAction.Active["Not needed"] = true;
                 ModelEditorViewController.Save();
                 CurrentObject.CreateAspectsCore(_currentObjectModel);
@@ -132,7 +132,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         #region Methods
 
-        public void Setup(ObjectSpace objectSpace, XafApplication application)
+        public void Setup(IObjectSpace objectSpace, XafApplication application)
         {
             _objectSpace = objectSpace;
         }
