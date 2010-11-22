@@ -5,7 +5,7 @@ using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.WorldCreator.Observers {
     public class CodeTemplateObserver:ObjectObserver<ICodeTemplate> {
-        public CodeTemplateObserver(ObjectSpace objectSpace) : base(objectSpace) {
+        public CodeTemplateObserver(IObjectSpace objectSpace) : base(objectSpace) {
         }
         protected override void OnChanged(ObjectChangedEventArgs<ICodeTemplate> e)
         {

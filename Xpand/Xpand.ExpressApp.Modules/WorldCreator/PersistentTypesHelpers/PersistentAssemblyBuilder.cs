@@ -43,12 +43,12 @@ namespace Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
     public class PersistentAssemblyBuilder : Builder<IPersistentAssemblyInfo>, IPersistentAssemblyBuilder {
         readonly IPersistentAssemblyInfo _persistentAssemblyInfo;
         IEnumerable<IPersistentClassInfo> _persistentClassInfos;
-        readonly ObjectSpace _objectSpace;
+        readonly IObjectSpace _objectSpace;
 
         public PersistentAssemblyBuilder(IPersistentAssemblyInfo persistentAssemblyInfo)
         {
             _persistentAssemblyInfo = persistentAssemblyInfo;
-            _objectSpace = ObjectSpace.FindObjectSpace(persistentAssemblyInfo);
+            _objectSpace = DevExpress.ExpressApp.ObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
         }
 
         public IPersistentAssemblyInfo PersistentAssemblyInfo
@@ -68,7 +68,7 @@ namespace Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
         internal static PersistentAssemblyBuilder BuildAssembly(ObjectSpace objectSpace) {
             return BuildAssembly(objectSpace,GetUniqueAssemblyName());
         }
-        public ObjectSpace ObjectSpace
+        public IObjectSpace ObjectSpace
         {
             get { return _objectSpace; }
         }
@@ -79,7 +79,7 @@ namespace Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
         }
 
         
-        public static PersistentAssemblyBuilder BuildAssembly(ObjectSpace objectSpace, string name)
+        public static PersistentAssemblyBuilder BuildAssembly(IObjectSpace objectSpace, string name)
         {
             new PersistentReferenceMemberInfoObserver(objectSpace);
             new CodeTemplateInfoObserver(objectSpace);
@@ -94,7 +94,7 @@ namespace Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
         {
             _persistentClassInfos = classNames.Select(s =>
             {
-                var persistentClassInfo = (IPersistentClassInfo)(_objectSpace.Session.FindObject(WCTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>(), CriteriaOperator.Parse("Name=?", s)) ?? _objectSpace.CreateWCObject<IPersistentClassInfo>());
+                var persistentClassInfo = (IPersistentClassInfo)(_objectSpace.FindObject(WCTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>(), CriteriaOperator.Parse("Name=?", s)) ?? _objectSpace.CreateWCObject<IPersistentClassInfo>());
                 persistentClassInfo.Name = s;
                 persistentClassInfo.PersistentAssemblyInfo = _persistentAssemblyInfo;
                 _persistentAssemblyInfo.PersistentClassInfos.Add(persistentClassInfo);

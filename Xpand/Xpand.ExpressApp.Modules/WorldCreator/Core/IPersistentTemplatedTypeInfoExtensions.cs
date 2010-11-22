@@ -6,7 +6,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
     public static class IPersistentTemplatedTypeInfoExtensions {
         public static void SetDefaultTemplate(this IPersistentTemplatedTypeInfo persistentMemberInfo, TemplateType templateType)
         {
-            var objectSpace = ObjectSpace.FindObjectSpace(persistentMemberInfo);
+            var objectSpace = ObjectSpace.FindObjectSpaceByObject(persistentMemberInfo);
             persistentMemberInfo.CodeTemplateInfo =objectSpace.CreateWCObject<ICodeTemplateInfo>();
 
             ICodeTemplate defaultTemplate = CodeTemplateBuilder.CreateDefaultTemplate(templateType, persistentMemberInfo.Session,

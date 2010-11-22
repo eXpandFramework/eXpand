@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper
 
         void AssemblyToolsControllerOnToolExecuted(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             if ((string) singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data=="MapSqlDB") {
-                ObjectSpace space = Application.CreateObjectSpace();
+                var space = Application.CreateObjectSpace();
                 var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
                 showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 showViewParameters.CreatedView = Application.CreateDetailView(space, space.CreateObjectFromInterface<ISqlMapperInfo>());
@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper
         void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
             var persistentAssemblyInfo = (IPersistentAssemblyInfo)View.CurrentObject;
             ObjectSpace.CommitChanges();
-            var objectSpace = new ObjectSpace(new UnitOfWork(ObjectSpace.Session.DataLayer), XafTypesInfo.Instance);
+            var objectSpace = new ObjectSpace(new UnitOfWork(((ObjectSpace)ObjectSpace).Session.DataLayer), XafTypesInfo.Instance);
             CreateMappedAssemblyInfo(objectSpace, persistentAssemblyInfo, (ISqlMapperInfo)simpleActionExecuteEventArgs.CurrentObject);
             ObjectSpace.Refresh();
             ObjectSpace.SetModified(View.CurrentObject);

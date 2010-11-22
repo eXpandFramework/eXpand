@@ -48,11 +48,11 @@ namespace Xpand.ExpressApp.WorldCreator.Controllers
         void createInterfaces(CollectionSourceBase collectionSourceBase)
         {
             var iface = ((IInterfaceInfo)ObjectSpace.CreateObject(View.ObjectTypeInfo.Type));
-            ObjectSpace.Session.Delete(iface);
+            ObjectSpace.Delete(iface);
             string assemblyName = iface.GetPropertyInfo(x => x.Assembly).Name;
             string name = iface.GetPropertyInfo(x => x.Name).Name;
             foreach (Type type in getInterfaces()){
-                if (ObjectSpace.Session.FindObject(View.ObjectTypeInfo.Type,CriteriaOperator.Parse(string.Format("{0}=? AND {1}=?", assemblyName, name),
+                if (ObjectSpace.FindObject(View.ObjectTypeInfo.Type,CriteriaOperator.Parse(string.Format("{0}=? AND {1}=?", assemblyName, name),
                     new AssemblyName(type.Assembly.FullName + "").Name, type.FullName)) == null){
                     createInterfaceInfo(type, collectionSourceBase);
                 }
@@ -85,7 +85,7 @@ namespace Xpand.ExpressApp.WorldCreator.Controllers
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
-            extenders.Add<IModelApplication, IModelInterfaceSources>();
+            ////extenders.Add<IModelApplication, IModelInterfaceSources>();
         }
     }
 }

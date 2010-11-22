@@ -78,7 +78,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            var session = Application.ObjectSpaceProvider.CreateUpdatingSession();
+            var session = (Application.ObjectSpaceProvider.CreateUpdatingObjectSpace(false) as ObjectSpace).Session;
             mergeTypes(new UnitOfWork(session.DataLayer));
 
         }

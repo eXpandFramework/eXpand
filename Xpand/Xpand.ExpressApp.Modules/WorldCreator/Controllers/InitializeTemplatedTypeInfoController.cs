@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.WorldCreator.Controllers {
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            if (ObjectSpace.Session.IsNewObject(View.CurrentObject))
+            if (ObjectSpace.IsNewObject(View.CurrentObject))
                 ((IPersistentTemplatedTypeInfo)View.CurrentObject).Init(WCTypesInfo.Instance.FindBussinessObjectType<ICodeTemplate>());
 
         }

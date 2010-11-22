@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.WorldCreator.Observers
 {
     public class PersistentReferenceMemberInfoObserver:ObjectObserver<IPersistentReferenceMemberInfo>
     {
-        public PersistentReferenceMemberInfoObserver(ObjectSpace objectSpace) : base(objectSpace) {
+        public PersistentReferenceMemberInfoObserver(IObjectSpace objectSpace) : base(objectSpace) {
         }
         protected override void OnSaving(ObjectManipulatingEventArgs<IPersistentReferenceMemberInfo> e)
         {
@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.WorldCreator.Observers
         }
 
         void createTheManyPart(IPersistentReferenceMemberInfo persistentReferenceMemberInfo) {
-            IPersistentClassInfo classInfo = PersistentClassInfoQuery.Find(ObjectSpace.Session, persistentReferenceMemberInfo.ReferenceTypeFullName);
+            IPersistentClassInfo classInfo = PersistentClassInfoQuery.Find(((ObjectSpace)ObjectSpace).Session, persistentReferenceMemberInfo.ReferenceTypeFullName);
             string collectionPropertyName = persistentReferenceMemberInfo.Name + "s";
             if (classInfo != null&&classInfo.OwnMembers.Where(info => info.Name==collectionPropertyName).FirstOrDefault()==null) {
                 var associationAttribute =PersistentAttributeInfoQuery.Find<AssociationAttribute>(persistentReferenceMemberInfo);

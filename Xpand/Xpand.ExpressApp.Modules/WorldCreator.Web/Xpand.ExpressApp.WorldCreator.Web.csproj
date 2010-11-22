@@ -118,7 +118,6 @@
       <DependentUpon>WorldCreatorWebModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="WorldCreatorWebModule.resx">

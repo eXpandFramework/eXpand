@@ -7,8 +7,8 @@ using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 namespace Xpand.ExpressApp.WorldCreator.Core {
     public static class IPersistentMemberInfoExtensions {
         public static void CreateAssociation(this IPersistentMemberInfo persistentMemberInfo, string associationName) {
-            ObjectSpace objectSpace = ObjectSpace.FindObjectSpace(persistentMemberInfo);
-            var attribute =ObjectSpaceExtensions.CreateWCObject<IPersistentAssociationAttribute>(objectSpace);
+            var objectSpace = ObjectSpace.FindObjectSpaceByObject(persistentMemberInfo);
+            var attribute = ObjectSpaceExtensions.CreateWCObject<IPersistentAssociationAttribute>(objectSpace);
             attribute.AssociationName = associationName;
             persistentMemberInfo.TypeAttributes.Add(attribute);
         }
