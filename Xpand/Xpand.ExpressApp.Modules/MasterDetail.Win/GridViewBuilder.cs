@@ -5,16 +5,17 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.ExpressApp.Win.ListEditors;
+using DevExpress.Data.Details;
 
 namespace Xpand.ExpressApp.MasterDetail.Win
 {
     public class GridViewBuilder
     {
         readonly XafApplication _xafApplication;
-        readonly ObjectSpace _objectSpace;
+        readonly IObjectSpace _objectSpace;
         readonly Frame _masterFrame;
 
-        public GridViewBuilder(XafApplication xafApplication, ObjectSpace objectSpace, Frame masterFrame)
+        public GridViewBuilder(XafApplication xafApplication, IObjectSpace objectSpace, Frame masterFrame)
         {
             _xafApplication = xafApplication;
             _objectSpace = objectSpace;
@@ -70,6 +71,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win
                     {
                         eventArgs.Handled = true;
                         eventArgs.GridView = detailXafGridView;
+                        eventArgs.GridControl.DataSource = detailXafGridView.DataSource;
                     };
 
                 EventHandler[] listViewOnControlsCreated = { null };

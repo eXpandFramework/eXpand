@@ -5,8 +5,8 @@ using Xpand.ExpressApp;
 namespace Xpand.ExpressApp.MasterDetail.Win {
     public class ListViewBuilder {
         readonly ModelDetailRelationCalculator _modelDetailRelationCalculator;
-        readonly ObjectSpace _objectSpace;
-        public ListViewBuilder(ModelDetailRelationCalculator modelDetailRelationCalculator,ObjectSpace objectSpace) {
+        readonly IObjectSpace _objectSpace;
+        public ListViewBuilder(ModelDetailRelationCalculator modelDetailRelationCalculator,IObjectSpace objectSpace) {
             _modelDetailRelationCalculator = modelDetailRelationCalculator;
             _objectSpace = objectSpace;
         }
