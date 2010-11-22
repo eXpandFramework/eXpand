@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.Security.Controllers
         protected override void OnActivated()
         {
             base.OnActivated();
-            if (View.ObjectSpace.Session.IsNewObject(View.CurrentObject)){
+            if (View.ObjectSpace.IsNewObject(View.CurrentObject)){
                 var permission = new ObjectAccessPermission(typeof (object),ObjectAccess.AllAccess);
                 ((ICustomizableRole)View.CurrentObject).AddPermission(permission);
             }

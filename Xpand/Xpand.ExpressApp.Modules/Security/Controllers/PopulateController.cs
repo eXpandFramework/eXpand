@@ -8,7 +8,7 @@ using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Security.Controllers
 {
-    public abstract partial class PopulateController<T> : ViewController
+    public abstract partial class PopulateController<T> : ViewController<ObjectView>
     {
         private IModelMember modelMember;
 
@@ -23,9 +23,9 @@ namespace Xpand.ExpressApp.Security.Controllers
             base.OnActivated();
             populate();
         }
-        protected override void OnDeactivating()
+        protected override void OnDeactivated()
         {
-            base.OnDeactivating();
+            base.OnDeactivated();
             if (modelMember != null){
                 modelMember.PredefinedValues = string.Empty;
             }
