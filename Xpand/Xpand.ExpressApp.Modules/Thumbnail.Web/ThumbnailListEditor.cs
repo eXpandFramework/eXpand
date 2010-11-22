@@ -33,7 +33,7 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
 
         public override string[] RequiredProperties
         {
-            get { return Model.Columns.VisibleColumns.Select(wrapper => wrapper.PropertyName).ToArray(); }
+            get { return Model.Columns.GetVisibleColumns().Select(wrapper => wrapper.PropertyName).ToArray(); }
         }
 
 
@@ -65,7 +65,7 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
 
         string GetDisplayText(IPictureItem pictureItem)
         {
-            string text = Model.Columns.VisibleColumns.Aggregate("", (current, modelColumn) => current + (ObjectTypeInfo.FindMember(modelColumn.PropertyName).GetValue(pictureItem) + "<br>"));
+            string text = Model.Columns.GetVisibleColumns().Aggregate("", (current, modelColumn) => current + (ObjectTypeInfo.FindMember(modelColumn.PropertyName).GetValue(pictureItem) + "<br>"));
             return text.TrimEnd("<br>".ToCharArray());
         }
 
