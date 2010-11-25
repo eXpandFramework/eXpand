@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp {
 
         public void Proccess(CustomProcessShortcutEventArgs shortcutEventArgs) {
             var shortcut = shortcutEventArgs.Shortcut;
-            IModelDetailView modelDetailView = GetModelView(shortcut);
+            IModelDetailView modelDetailView = GetModelDetailView(shortcut);
             if ((modelDetailView != null&&IsEnable(modelDetailView))) {
                 shortcutEventArgs.Handled = true;
                 var objectSpace = _application.CreateObjectSpace();
@@ -79,7 +79,7 @@ namespace Xpand.ExpressApp {
             return obj;
         }
 
-        IModelDetailView GetModelView(ViewShortcut shortcut) {
+        IModelDetailView GetModelDetailView(ViewShortcut shortcut){
             return _application.Model.Views.OfType<IModelDetailView>().Where(v => v.Id == shortcut.ViewId).FirstOrDefault();
         }
 

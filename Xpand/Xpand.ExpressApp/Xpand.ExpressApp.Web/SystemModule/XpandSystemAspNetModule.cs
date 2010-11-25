@@ -4,7 +4,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Web.ListEditors;
-using Xpand.ExpressApp;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
     [ToolboxItem(true)]
@@ -24,6 +23,5 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             base.RegisterEditorDescriptors(editorDescriptors);
             editorDescriptors.Add(new ListEditorDescriptor(new EditorTypeRegistration(EditorAliases.GridListEditor, typeof(object), typeof(XpandASPxGridListEditor), true)));
         }
-
     }
 }

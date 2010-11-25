@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.Web
             new ViewShortCutProccesor(this).Proccess(args);
             
         }
-
+        
         void OnListViewCreating(object sender, ListViewCreatingEventArgs args)
         {
             args.View = ViewFactory.CreateListView(this, args.ViewID, args.CollectionSource, args.IsRoot);

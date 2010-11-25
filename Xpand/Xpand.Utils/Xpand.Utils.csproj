@@ -56,11 +56,14 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.TeamFoundation.VersionControl.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -76,6 +79,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Automation\FileAutomation.cs" />
+    <Compile Include="Automation\HelperAutomation.cs" />
+    <Compile Include="Automation\InteractivityAutomation.cs" />
+    <Compile Include="Automation\SystemAutomation.cs" />
+    <Compile Include="Automation\Wait.cs" />
+    <Compile Include="Automation\WaitAutomation.cs" />
+    <Compile Include="Win32\Win32Constants.cs" />
+    <Compile Include="Win32\Win32Declares.cs" />
+    <Compile Include="Win32\Win32Types.cs" />
+    <Compile Include="Automation\WindowAutomation.cs" />
     <Compile Include="DependentAssembly\DependentAttributeInspector.cs" />
     <Compile Include="DependentAssembly\DependentAssemblyPathResolver.cs" />
     <Compile Include="DependentAssembly\IDependentAssemblyInspector.cs" />
