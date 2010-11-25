@@ -140,6 +140,7 @@
     <Compile Include="Controllers\CombineDifferencesController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Core\ModelApplicationLoader.cs" />
     <Compile Include="NodeUpdaters\BOModelNodesUpdater.cs" />
     <Compile Include="Core\ISupportMasterModel.cs" />
     <Compile Include="Core\ModelApplicationFromStreamStoreBase.cs" />
