@@ -20,11 +20,10 @@ namespace Xpand.ExpressApp.Win.Editors
         {
         }
 
-
-
         protected override object CreateControlCore()
         {
             var button = new SimpleButton {Text = Caption};
+            button.Image = DevExpress.ExpressApp.Utils.ImageLoader.Instance.GetImageInfo((this.Model as IModelActionButton).ActionId.ImageName).Image;
             button.Click += (sender, args) => InvokeExecuted(args);
             return button;
         }

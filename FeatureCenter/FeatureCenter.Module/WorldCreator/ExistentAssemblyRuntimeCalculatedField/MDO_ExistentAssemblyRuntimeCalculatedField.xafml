@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="ExistentAssemblyRuntimeFields_DetailView">
+      <Items>
+        <PropertyEditor Id="MinOfOrderTotals" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="15">
+            <LayoutGroup Id="Customer" RelativeSize="38">
+              <LayoutItem Id="MaxOfOrderTotals" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="CustomerBase" RelativeSize="61">
+              <LayoutItem Id="Name" RelativeSize="47" />
+              <LayoutItem Id="City" RelativeSize="52" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="5">
+            <LayoutItem Id="Description" Index="0" RelativeSize="100" />
+            <LayoutItem Id="RuntimeMember" Removed="True" />
+          </LayoutGroup>
+          <LayoutItem Id="MinOfOrderTotals" IsNewNode="True" Index="2" RelativeSize="4" />
+          <LayoutGroup Id="Orders_Group" Direction="Vertical" Index="3" RelativeSize="74">
+            <LayoutItem Id="Orders" RelativeSize="92" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ExistentAssemblyRuntimeFields_ListView">
+      <Columns>
+        <ColumnInfo Id="MinOfOrderTotals" Index="5" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

@@ -25,14 +25,14 @@ namespace Xpand.ExpressApp {
             {
                 throw new ArgumentException(string.Format(
                     "A '{0}' node was passed while a '{1}' node was expected. Node id: '{2}'",
-                    DevExpress.ExpressApp.DetailView.InfoNodeName, DevExpress.ExpressApp.ListView.InfoNodeName, modelListView.Id));
+                    DetailView.InfoNodeName, ListView.InfoNodeName, modelListView.Id));
             }
             var result = new XpandListView(collectionSource, xafApplication, isRoot);
             result.SetInfo(modelListView);
             return result;
         }
 
-        public static XpandDetailView CreateDetailView(XafApplication xafApplication, string viewId, object obj,
+        public static DetailView CreateDetailView(XafApplication xafApplication, string viewId, object obj,
                                                   ObjectSpace objectSpace, bool isRoot) {
             if (obj != null) {
                 CheckDetailViewId(viewId, obj.GetType());
@@ -41,7 +41,7 @@ namespace Xpand.ExpressApp {
             if (!(modelView is IModelDetailView)) {
                 throw new ArgumentException(string.Format(
                     "A '{0}' node was passed while a '{1}' node was expected. Node id: '{2}'",
-                    null, DevExpress.ExpressApp.DetailView.InfoNodeName, viewId));
+                    null, DetailView.InfoNodeName, viewId));
             }
             return new XpandDetailView((IModelDetailView) modelView, objectSpace, obj, xafApplication, isRoot);
         }

@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         readonly XafApplication _xafApplication;
         readonly XpoModelDictionaryDifferenceStore _xpoModelDictionaryDifferenceStore;
 
-        public ResourcesLayerBuilder(ObjectSpace objectSpace,XafApplication xafApplication,XpoModelDictionaryDifferenceStore xpoModelDictionaryDifferenceStore) {
+        public ResourcesLayerBuilder(ObjectSpace objectSpace, XafApplication xafApplication, XpoModelDictionaryDifferenceStore xpoModelDictionaryDifferenceStore) {
             _objectSpace = objectSpace;
             _xafApplication = xafApplication;
             _xpoModelDictionaryDifferenceStore = xpoModelDictionaryDifferenceStore;
@@ -31,21 +31,19 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             var modelXmlReader = new ModelXmlReader();
             var assemblies = ((IModelApplicationModule)model.Application).ModulesList.Select(module => XafTypesInfo.Instance.FindTypeInfo(module.Name).AssemblyInfo.Assembly);
             var resourceModelCollector = new ResourceModelCollector();
-            foreach (var keyValuePair in resourceModelCollector.Collect(assemblies, modelApplicationPrefix)){
+            foreach (var keyValuePair in resourceModelCollector.Collect(assemblies, modelApplicationPrefix)) {
                 var modelDifferenceObjectInfo = GetModelDifferenceObjectInfo(modelApplicationPrefix, loadedModelDifferenceObjectInfos, keyValuePair.Key, model);
-                foreach (var aspectInfo in keyValuePair.Value.AspectInfos){
+                foreach (var aspectInfo in keyValuePair.Value.AspectInfos) {
                     modelXmlReader.ReadFromString(modelDifferenceObjectInfo.Model, aspectInfo.AspectName, aspectInfo.Xml);
                 }
                 modelDifferenceObjectInfo.ModelDifferenceObject.CreateAspects(modelDifferenceObjectInfo.Model);
             }
         }
-        ModelDifferenceObject CreateDifferenceObject(string resourceName, string prefix)
-        {
+        ModelDifferenceObject CreateDifferenceObject(string resourceName, string prefix) {
             ModelDifferenceObject modelDifferenceObject;
             if (prefix == XpoModelDictionaryDifferenceStore.ModelApplicationPrefix)
                 modelDifferenceObject = new ModelDifferenceObject(_objectSpace.Session);
-            else
-            {
+            else {
                 modelDifferenceObject = new RoleModelDifferenceObject(_objectSpace.Session);
                 Type roleType = ((ISecurityComplex)SecuritySystem.Instance).RoleType;
                 var criteriaParametersList = resourceName.Substring(0, resourceName.IndexOf("_"));
@@ -58,25 +56,20 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             return modelDifferenceObject;
         }
 
-        ModelDifferenceObject FindDifferenceObject(string resourceName, string prefix)
-        {
+        ModelDifferenceObject FindDifferenceObject(string resourceName, string prefix) {
             if (prefix == XpoModelDictionaryDifferenceStore.ModelApplicationPrefix)
                 return _xpoModelDictionaryDifferenceStore.GetActiveDifferenceObject(resourceName);
             return _objectSpace.Session.FindObject<RoleModelDifferenceObject>(o => o.Name == resourceName);
         }
 
-        ModelDifferenceObjectInfo GetModelDifferenceObjectInfo(string prefix, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos, string resourceName, ModelApplicationBase model)
-        {
+        ModelDifferenceObjectInfo GetModelDifferenceObjectInfo(string prefix, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos, string resourceName, ModelApplicationBase model) {
             ModelDifferenceObject activeDifferenceObject;
             ModelApplicationBase modelApplicationBase;
-            if (!loadedModelDifferenceObjectInfos.ContainsKey(resourceName))
-            {
+            if (!loadedModelDifferenceObjectInfos.ContainsKey(resourceName)) {
                 activeDifferenceObject = FindDifferenceObject(resourceName, prefix) ??
                                          CreateDifferenceObject(resourceName, prefix);
                 modelApplicationBase = activeDifferenceObject.GetModel(model);
-            }
-            else
-            {
+            } else {
                 var loadedModelDifferenceObjectInfo = loadedModelDifferenceObjectInfos[resourceName];
                 activeDifferenceObject = loadedModelDifferenceObjectInfo.ModelDifferenceObject;
                 modelApplicationBase = loadedModelDifferenceObjectInfo.Model;

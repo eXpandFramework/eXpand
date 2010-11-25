@@ -110,10 +110,6 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.Xpo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -132,6 +128,10 @@
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.Xpo, Version=10.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CloneObjectViewController.cs">
@@ -140,12 +140,8 @@
     <Compile Include="Controllers\CombineDifferencesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\SynchronizeActiveUserDifferenceWithUserModelController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\SyncronizeApplicationModelDiffsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Core\ModelApplicationLoader.cs" />
+    <Compile Include="NodeUpdaters\BOModelNodesUpdater.cs" />
     <Compile Include="Core\ISupportMasterModel.cs" />
     <Compile Include="Core\ModelApplicationFromStreamStoreBase.cs" />
     <Compile Include="Core\ModelApplicationBuilder.cs" />
@@ -168,12 +164,8 @@
     <Compile Include="DataStore\Queries\QueryRoleModelDifferenceObject.cs" />
     <Compile Include="DictionaryStores\ExtraDiffStoresLayerBuilder.cs" />
     <Compile Include="DictionaryStores\ResourcesLayerBuilder.cs" />
-    <Compile Include="ModelDifferenceBaseModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ModelDifferenceModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ModelDifferenceBaseModule.cs" />
+    <Compile Include="ModelDifferenceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Controllers\PopulateDifferenceObjectsController.cs">
       <SubType>Component</SubType>
@@ -222,6 +214,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

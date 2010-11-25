@@ -134,9 +134,7 @@
     <Compile Include="ChangeViewVariantActionViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandViewVariantsWin.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandViewVariantsWin.cs" />
     <Compile Include="XpandViewVariantsWin.Designer.cs">
       <DependentUpon>XpandViewVariantsWin.cs</DependentUpon>
     </Compile>

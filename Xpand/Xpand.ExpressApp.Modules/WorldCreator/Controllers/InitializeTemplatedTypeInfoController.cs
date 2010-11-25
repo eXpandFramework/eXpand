@@ -3,7 +3,7 @@ using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.WorldCreator.Controllers {
-    public class InitializeTemplatedTypeInfoController : ViewController<XpandDetailView> 
+    public class InitializeTemplatedTypeInfoController : ViewController<DetailView> 
     {
         public InitializeTemplatedTypeInfoController() {
             TargetObjectType = typeof(IPersistentTemplatedTypeInfo);

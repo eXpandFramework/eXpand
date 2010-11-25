@@ -61,7 +61,7 @@ namespace Xpand.ExpressApp.Core
         }
 
         static CriteriaOperator GetCriteriaOperator<T>(Type objectType, Expression<Func<T, bool>> expression, ObjectSpace objectSpace) {
-            var transform = new ExpressionTransformer().Transform(objectType, expression);
+            Expression transform = new ExpressionConverter().Convert(objectType, expression);
             var genericType = typeof(XPQuery<>).MakeGenericType(new[]{objectType});
             var xpquery = Activator.CreateInstance(genericType,new[]{objectSpace.Session});
             var innderType = typeof(Func<,>).MakeGenericType(new[]{objectType,typeof(bool)});

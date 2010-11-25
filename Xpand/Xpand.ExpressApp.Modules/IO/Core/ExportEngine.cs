@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Xml;
 using System.Xml.Linq;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -65,9 +68,15 @@ namespace Xpand.ExpressApp.IO.Core {
                 if (memberValue is string)
                     propertyElement.Add(new XCData(memberValue.ToString()));
                 else                {
-                    propertyElement.Value = memberValue + "";
+                    propertyElement.Value = GetInvariantValue(memberValue);
                 }
             }
+        }
+
+        string GetInvariantValue(object memberValue) {
+            double result;
+            var parse = Double.TryParse(memberValue+"",out result);
+            return parse ? ((IConvertible) memberValue).ToString(CultureInfo.InvariantCulture) : memberValue + "";
         }
 
         XElement GetPropertyElement(XElement serializedObjectElement, IClassInfoGraphNode classInfoGraphNode) {
@@ -123,6 +132,17 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
 
-
+        public void Export(IEnumerable<XPBaseObject> xpBaseObjects, ISerializationConfigurationGroup serializationConfigurationGroup, string fileName) {
+            var document = Export(xpBaseObjects, serializationConfigurationGroup);
+            if (fileName != null) {
+                var xmlWriterSettings = new XmlWriterSettings {
+                    OmitXmlDeclaration = true, Indent = true, NewLineChars = "\r\n", CloseOutput = true,
+                };
+                using (XmlWriter textWriter = XmlWriter.Create(new FileStream(fileName, FileMode.Create), xmlWriterSettings)) {
+                    document.Save(textWriter);
+                    textWriter.Close();
+                }
+            }
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp
                 var objectTypes = new Dictionary<object, string>();
                 using (var reader = ExecuteReader("select [Oid], [TypeName] from [XPObjectType] where [TypeName] like 'expand.%'", true))
                 {
-                    while (reader.Read())
+                    while (reader != null && reader.Read())
                     {
                         objectTypes.Add(reader[0], reader[1] as string);
                     }
@@ -38,7 +38,8 @@ namespace Xpand.ExpressApp
                 }
 
                 Type baseType = typeof(SimpleDataLayer).BaseType;
-                if (baseType != null) {
+                if (baseType != null)
+                {
                     var method = baseType.GetMethod("ClearStaticData", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
                     var datalayer = XpandModuleBase.Application.ObjectSpaceProvider.CreateObjectSpace().Session.DataLayer;
                     method.Invoke(datalayer, null);

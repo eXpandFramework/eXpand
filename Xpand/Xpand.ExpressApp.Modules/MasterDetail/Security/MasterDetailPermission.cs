@@ -14,12 +14,16 @@ namespace Xpand.ExpressApp.MasterDetail.Security
             return new MasterDetailPermission();
         }
 
-        public IModelListView ChildListView {
+        public string ChildListView { get; set; }
+
+        public string CollectionMember { get; set; }
+
+        IModelListView IMasterDetailRule.ChildListView {
             get { throw new NotImplementedException(); }
             set { throw new NotImplementedException(); }
         }
 
-        public IModelMember CollectionMember {
+        IModelMember IMasterDetailRule.CollectionMember {
             get { throw new NotImplementedException(); }
             set { throw new NotImplementedException(); }
         }

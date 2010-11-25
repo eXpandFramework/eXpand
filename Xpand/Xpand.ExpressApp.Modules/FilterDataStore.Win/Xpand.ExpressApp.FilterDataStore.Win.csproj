@@ -112,9 +112,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FilterDataStoreWindowsFormsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FilterDataStoreWindowsFormsModule.cs" />
     <Compile Include="FilterDataStoreWindowsFormsModule.Designer.cs">
       <DependentUpon>FilterDataStoreWindowsFormsModule.cs</DependentUpon>
     </Compile>

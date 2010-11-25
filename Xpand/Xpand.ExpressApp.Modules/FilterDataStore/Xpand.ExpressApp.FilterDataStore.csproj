@@ -121,9 +121,7 @@
     <Compile Include="Model\IModelFilterDataStoreSystemTable.cs" />
     <Compile Include="Model\IModelFilterDataStoreSystemTables.cs" />
     <Compile Include="Providers\UserFilterProvider.cs" />
-    <Compile Include="FilterDataStoreModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FilterDataStoreModule.cs" />
     <Compile Include="FilterDataStoreModule.Designer.cs">
       <DependentUpon>FilterDataStoreModule.cs</DependentUpon>
     </Compile>

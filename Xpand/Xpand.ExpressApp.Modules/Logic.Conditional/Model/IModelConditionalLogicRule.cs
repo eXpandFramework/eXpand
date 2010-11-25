@@ -10,7 +10,7 @@ namespace Xpand.ExpressApp.Logic.Conditional.Model {
         [Browsable(false)]
         T Attribute { get; set; }
     }
-
+    [ModelAbstractClass]
     public interface IModelConditionalLogicRule:IModelLogicRule,IConditionalLogicRule 
     {
         

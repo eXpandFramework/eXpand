@@ -2,7 +2,6 @@ using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
-using Xpand.ExpressApp;
 
 namespace Xpand.ExpressApp.ModelDifference{
     public abstract class ModelDifferenceBaseModule : XpandModuleBase 
@@ -18,10 +17,10 @@ namespace Xpand.ExpressApp.ModelDifference{
         public override void Setup(XafApplication application)
         {
             base.Setup(application);
-            application.LoggingOn += OnLoggingOn;
+            application.LoggingOn += (sender, args) => LoadModels();
         }
 
-        void OnLoggingOn(object sender, LogonEventArgs e)
+        public void LoadModels()
         {
             var customModelDifferenceStoreEventArgs = new CreateCustomModelDifferenceStoreEventArgs();
             OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);

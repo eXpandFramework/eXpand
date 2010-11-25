@@ -119,13 +119,15 @@
     <Compile Include="DomainLogic\LogicRuleExecutionContextGroupDomainLogic.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DomainLogic\ModelExecutionContextDomainLogic.cs">
+    <Compile Include="DomainLogic\ModelExecutionContextsGroupDefaultContextDomainLogic.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DomainLogic\ModelGroupContextsDefaultContextDomainLogic.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="DomainLogic\ModelFrameTemplateContextDomainLogic.cs" />
     <Compile Include="DomainLogic\ModelLogicRuleDomainLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DomainLogic\ModelExecutionContextDomainLogic.cs" />
+    <Compile Include="DomainLogic\ModelViewContextDomainLogic.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ExecutionContext.cs" />
@@ -169,17 +171,27 @@
     <Compile Include="LogicRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Model\IModelFrameTemplateContext.cs" />
+    <Compile Include="Model\IModelFrameTemplateContexts.cs" />
+    <Compile Include="Model\IModelFrameTemplateContextsGroup.cs" />
+    <Compile Include="Model\IModelViewContextsGroup.cs" />
+    <Compile Include="NodeGenerators\FrameTemplateContextNodeGenerator.cs" />
+    <Compile Include="NodeGenerators\FrameTemplateContextsGroupNodeGenerator.cs" />
+    <Compile Include="NodeGenerators\ViewContextsGroupNodeGenerator.cs" />
     <Compile Include="Model\IModelApplicationLogic.cs" />
     <Compile Include="Model\IModelExecutionContext.cs" />
-    <Compile Include="Model\IModelGroupContexts.cs" />
+    <Compile Include="Model\IModelExecutionContextsGroup.cs" />
     <Compile Include="Model\IModelExecutionContexts.cs" />
     <Compile Include="Model\IModelLogic.cs" />
     <Compile Include="Model\IModelLogicRule.cs" />
     <Compile Include="Model\IModelLogicRules.cs" />
+    <Compile Include="Model\IModelViewContext.cs" />
+    <Compile Include="Model\IModelViewContexts.cs" />
+    <Compile Include="NodeGenerators\ViewContextNodeGenerator.cs" />
     <Compile Include="NodeGenerators\ExecutionContextNodeGenerator.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="NodeGenerators\GroupContextsNodeGenerator.cs">
+    <Compile Include="NodeGenerators\ExecutionContextsGroupNodeGenerator.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="NodeGenerators\LogicRulesNodesGenerator.cs">

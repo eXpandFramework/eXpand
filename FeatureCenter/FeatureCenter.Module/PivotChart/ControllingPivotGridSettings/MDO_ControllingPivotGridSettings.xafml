@@ -8,11 +8,11 @@
   </AdditionalViewControls>
   <ModelArtifactState>
     <ConditionalActionState>
-      <GroupContexts>
+      <ExecutionContextsGroup>
         <ExecutionContexts Id="PivotChartContextGroup" IsNewNode="True">
-          <ViewControlsCreated Name="ViewControlsCreated" IsNewNode="True"/>
+          <ExecutionContext Name="ViewControlsCreated" IsNewNode="True"/>
         </ExecutionContexts>
-      </GroupContexts>
+      </ExecutionContextsGroup>
       <Rules>
         <ActionStateRule Id="Execute Bind Action" IsNewNode="True" ActionState="Executed" ActionId="BindMultiAnalysisData" ExecutionContextGroup="PivotChartContextGroup" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis"  />
       </Rules>

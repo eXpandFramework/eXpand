@@ -9,9 +9,10 @@
         public const string HeaderWelcome = "Welcome";
         public const string DetailViewCotrol = "DetailView Cotrol/";
         public const string ListViewCotrol = "ListView Control/";
+        public const string TreeListView = "Tree ListView/";
         public const string HeaderPropertyPathFilters = "Property Path Filters";
         public const string HeaderNonPersistent = "Non Persistent Detail View";
-        
+
         public const string HeaderMultipleDataStores = "Multiple DataStores";
         public const string HeaderActionButtonViewItem = "Action Button ViewItem";
         public const string HeaderControllingListViewSearch = "Controlling ListView Search";
@@ -51,11 +52,17 @@
         public const string HeaderNorthWind = "NorthWind";
         public const string HeaderRoleDifference = "Role Difference";
         public const string HeaderConditionalDetailViews = "Conditional DetailViews";
+        public const string HeaderRuntimeCalculatedFields = "Runtime Calculated Fields";
+        public const string HeaderRuntimeCalculatedFieldsFromModel = "Runtime Calculated Fields From Model";
+        public const string HeaderExistentAssemblyRuntimeCalculatedField = "Existent Assembly Runtime Calculated Field";
+        public const string HeaderOrphanedCollectionFromModel = "Orphaned Collection using model editor";
+        public const string HeaderOrphanedCollectionWithCode = "Orphaned Collection With Code";
+        public const string HeaderExistentAssemblyRuntimeOrphanedCollection = "Existent Assembly Runtime Orphaned Collection";
 
 
         public const string ViewMessage = "ViewMessage";
 
-        
+
 
         public const string ViewMessageNonPersistent = "This view demo how you can assign a non persistent object as a navigation item";
 
@@ -103,6 +110,12 @@
         public const string ViewMessageExceptionHandling = "Here you can see how you can apply the power full Microsoft Enterpise Logging module to log your exception. FeatureCenter has been configured to log your exceptions at a special log with the name FeatureCenter (see your windows event viewer) You can add more tracelisteners easy using MS EL config tool. There are listener avaliable that can log exceptions to database,xml,WMI,email etc\r\nAlso at your application config at the ConnectionStrings section there is one with the name ExceptionHandlingConnectionString. That is going to be used by eXpand to store your exceptions at database so you can analyze them at any time";
         public const string ViewMessageNorthWind = "In this view you can see the structure of the NorthWind database. This structure has been created by using the tools/mapdatabase action and is pointing to northwind database and not to the feature center. You can map any sql database you want to WC and edit/query/analyze or make reports on it";
         public const string ViewMessageRoleDifference = "In this view you can see how you can design role differences and apply them to a role by just adding an RDO prefix on your xafml file. Browse the source code for more info under the ApplicationDifferences/RoleDifference folder ";
-        public const string ViewMessageConditionalDetailViews = "In this view you can see how you can create conditional detail views. For example just double click on a customer that lives in Paris and then to another customer that lives in another town and note that their detailviews are different";        
+        public const string ViewMessageConditionalDetailViews = "In this view you can see how you can create conditional detail views. For example just double click on a customer that lives in Paris and then to another customer that lives in another town and note that their detailviews are different";
+        public const string ViewMessageRuntimeCalculatedFields = "The SumOfOrderTotals field is a dynamically created caclulated property see CreateRuntimeCalculatedFieldController at feature center on how to create such properties using code";
+        public const string ViewMessageRuntimeCalculatedFieldsFromModel = "The MaxOfOrderTotals field is a dynamically created caclulated property using the AliasExpression attribute of a runtime model member. See current differences using the model difference action (next to the refresh button)";
+        public const string ViewMessageExistentAssemblyRuntimeCalculatedField = "The MinxOfOrderTotals field is a dynamically created caclulated property using the Extended Persistent Classes of WorldCreadtor";
+        public const string ViewMessageOrphanedCollectionFromModel = "The OrderLines nested list view you see above displays the is bound to the customer instance. It is a runtime collection of orderlines that is filtered according to the currect customer. Use the the model difference action (next to the refresh button) to see the diffs you have to apply";
+        public const string ViewMessageOrphanedCollectionWithCode = "The OrderLinesFromCode collection is a dynamically created collection property see CreateRuntimeOrphanedCollectionController at feature center on how to create such kind of properties";
+        public const string ViewMessageExistentAssemblyRuntimeOrphanedCollection = "The OrderLines nested list view you see above displays the is bound to the customer instance. It is a runtime collection of orderlines that is filtered according to the currect customer and has been created using worldcreator ExtendedOrphanedCollection class";
     }
 }

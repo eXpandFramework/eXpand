@@ -1,7 +1,8 @@
-using Xpand.ExpressApp;
+
+using Xpand.Persistent.Base.MemberLevelSecurity;
 
 namespace Xpand.ExpressApp.MemberLevelSecurity {
-    public sealed partial class MemberLevelSecurityModule : XpandModuleBase {
+    public sealed partial class MemberLevelSecurityModule : XpandModuleBase, IMemberLevelSecurityModule {
         public MemberLevelSecurityModule() {
             InitializeComponent();
         }

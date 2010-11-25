@@ -106,8 +106,8 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         void ObjectSpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args) {
             if (ReferenceEquals(args.Object, CurrentObject)){
-                var clone = _currentObjectModel.Clone();
-                new ModelValidator().ValidateModel(clone);
+                //var clone = _currentObjectModel.Clone();
+                new ModelValidator().ValidateModel(_currentObjectModel);
                 ModelEditorViewController.SaveAction.Active["Not needed"] = true;
                 ModelEditorViewController.Save();
                 CurrentObject.CreateAspectsCore(_currentObjectModel);

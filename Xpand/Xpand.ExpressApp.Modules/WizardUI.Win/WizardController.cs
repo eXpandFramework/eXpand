@@ -8,9 +8,9 @@
 namespace Xpand.ExpressApp.WizardUI.Win
 {
     using System;
-    using System.Linq;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Linq;
     using System.Windows.Forms;
     using DevExpress.ExpressApp;
     using DevExpress.ExpressApp.Editors;
@@ -63,7 +63,7 @@ namespace Xpand.ExpressApp.WizardUI.Win
 
             if (Frame.Template != null && Frame.Template is WizardDetailViewForm)
             {
-                var modelWizard = (IModelDetailViewWizard)((DetailView) View).Model;
+                var modelWizard = (IModelDetailViewWizard)((DetailView)View).Model;
                 _WizardForm = Frame.Template as WizardDetailViewForm;
 
                 _WizardForm.WizardControl.CancelClick += WizardControl_CancelClick;
@@ -83,11 +83,12 @@ namespace Xpand.ExpressApp.WizardUI.Win
                         OnWizardPageDetailViewCreated();
                         detailView.CurrentObject = View.CurrentObject;
 
-                        var wizardPage = new XafWizardPage {
-                                                               View = detailView,
-                                                               Text = page.Caption,
-                                                               DescriptionText = page.Description
-                                                           };
+                        var wizardPage = new XafWizardPage
+                        {
+                            View = detailView,
+                            Text = page.Caption,
+                            DescriptionText = page.Description
+                        };
                         _WizardForm.WizardControl.Pages.Insert(finishPage, wizardPage);
                     }
 
@@ -206,17 +207,16 @@ namespace Xpand.ExpressApp.WizardUI.Win
             RuleValidationResult result;
             var validationResults = new RuleSetValidationResult();
             var usedProperties = new List<string>();
-            var resultsHighlightControllers = new List<ResultsHighlightController>
-                                              {Frame.GetController<ResultsHighlightController>()};
+            var resultsHighlightControllers = new List<ResultsHighlightController> { Frame.GetController<ResultsHighlightController>() };
 
             foreach (var item in ((XafWizardPage)e.Page).View.GetItems<PropertyEditor>())
             {
-                if (((Control)item.Control).Visible)
+                if (item.Control != null && ((Control)item.Control).Visible)
                 {
                     usedProperties.Add(item.PropertyName);
                     if (item is ListPropertyEditor)
                     {
-                        usedProperties.AddRange(((ListPropertyEditor) item).ListView.Editor.RequiredProperties.Select(property => property.TrimEnd('!')));
+                        usedProperties.AddRange(((ListPropertyEditor)item).ListView.Editor.RequiredProperties.Select(property => property.TrimEnd('!')));
 
                         var nestedController = ((ListPropertyEditor)item).Frame.GetController<ResultsHighlightController>();
                         if (nestedController != null)
@@ -274,7 +274,11 @@ namespace Xpand.ExpressApp.WizardUI.Win
             var controller = Frame.GetController<DetailViewController>();
             if (controller.SaveAndCloseAction.Active && controller.SaveAndCloseAction.Enabled)
             {
-                Frame.GetController<DetailViewController>().SaveAndCloseAction.DoExecute();   
+                Frame.GetController<DetailViewController>().SaveAndCloseAction.DoExecute();
+            }
+            else
+            {
+                Frame.GetController<CloseWindowController>().CloseAction.DoExecute();
             }
 
             if (_WizardForm.ShowRecordAfterCompletion)

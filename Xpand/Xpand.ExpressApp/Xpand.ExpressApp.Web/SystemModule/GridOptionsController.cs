@@ -8,20 +8,20 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
     public interface IModelListViewMainViewOptions : IModelListViewMainViewOptionsBase
     {
-        IModelGridViewOptions GridViewOptions { get; set; }
+        IModelGridViewOptions GridViewOptions { get; }
     }
     public interface IModelGridViewOptions : IModelNode
     {
         bool? EnableCallBacks { get; set; }
-        IModelGridViewSettings Settings { get; set; }
-        IModelGridViewSettingsBehavior SettingsBehavior { get; set; }
-        IModelGridViewSettingsPager SettingsPager { get; set; }
-        IModelGridViewSettingsEditing SettingsEditing { get; set; }
-        IModelGridViewSettingsText SettingsText { get; set; }
+        IModelGridViewSettings Settings { get; }
+        IModelGridViewSettingsBehavior SettingsBehavior { get; }
+        IModelGridViewSettingsPager SettingsPager { get; }
+        IModelGridViewSettingsEditing SettingsEditing { get; }
+        IModelGridViewSettingsText SettingsText { get; }
         IModelGridViewSettingsCookies SettingsCookies { get; set; }
-        IModelGridViewSettingsCustomizationWindow SettingsCustomizationWindow { get; set; }
-        IModelGridViewSettingsDetail SettingsDetail { get; set; }
-        IModelGridViewSettingsLoadingPanel SettingsLoadingPanel { get; set; }
+        IModelGridViewSettingsCustomizationWindow SettingsCustomizationWindow { get; }
+        IModelGridViewSettingsDetail SettingsDetail { get; }
+        IModelGridViewSettingsLoadingPanel SettingsLoadingPanel { get; }
     }
 
     public interface IModelGridViewSettingsLoadingPanel : IModelNode

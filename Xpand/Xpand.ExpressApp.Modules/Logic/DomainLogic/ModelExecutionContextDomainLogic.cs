@@ -1,15 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.Logic.Model;
 
-namespace Xpand.ExpressApp.Logic.DomainLogic
-{
+namespace Xpand.ExpressApp.Logic.DomainLogic {
     [DomainLogic(typeof(IModelExecutionContext))]
-    public class ModelExecutionContextDomainLogic
-    {
-        public static string Get_Name(IModelExecutionContext modelExecutionContext) {
-            string value = modelExecutionContext.GetType().Name.Replace("Model","");
-            return Enum.Parse(typeof(ExecutionContext),value).ToString();
+    public class ModelExecutionContextDomainLogic {
+        public static List<string> Get_ExecutionContexts(IModelExecutionContext modelExecutionContext) {
+            return Enum.GetValues(typeof(ExecutionContext)).OfType<ExecutionContext>().Select(context => context.ToString()).ToList();
         }
     }
 }

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="OCategory_ListView" EditorTypeName="Xpand.ExpressApp.TreeListEditors.Win.ListEditors.XpandTreeListEditor">
+      <Columns>
+        <ColumnInfo Id="FullName">
+          <TreeListColumnOptions>
+            <OptionsColumn AllowMove="False" FixedWidth="True" AllowSize="False" />
+          </TreeListColumnOptions>
+        </ColumnInfo>
+        <ColumnInfo Id="MoreInfo">
+          <TreeListColumnOptions>
+            <OptionsColumn AllowSort="False" />
+          </TreeListColumnOptions>
+        </ColumnInfo>
+        <ColumnInfo Id="MoreInfo2">
+          <TreeListColumnOptions>
+            <OptionsColumn AllowSort="False" />
+          </TreeListColumnOptions>
+        </ColumnInfo>
+      </Columns>
+      <TreeListOptions>
+        <OptionsView ShowHorzLines="True" ShowVertLines="True" />
+      </TreeListOptions>
+    </ListView>
+  </Views>
+</Application>

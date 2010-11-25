@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.Logic.Win
 
         protected virtual void ObjectSpace_Committed(object sender, EventArgs e){
             if (View != null && View.ObjectSpace != null && !View.ObjectSpace.IsDisposed){
-                if (!View.ObjectSpace.IsModified && (View.IsRoot || (!View.IsRoot && View is XpandDetailView)) &&
+                if (!View.ObjectSpace.IsModified && (View.IsRoot || (!View.IsRoot && View is DetailView)) &&
                     Application.Modules.OfType<IRuleHolder>().Any(holder => holder.HasRules(View))) {
                     View.ObjectSpace.Refresh();
                 }

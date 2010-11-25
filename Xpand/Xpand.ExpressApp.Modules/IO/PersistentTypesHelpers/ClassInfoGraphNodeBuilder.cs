@@ -1,96 +1,134 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using System.Linq;
 using Xpand.Persistent.Base.ImportExport;
 using TypesInfo = Xpand.ExpressApp.IO.Core.TypesInfo;
 
 namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
-    public class ClassInfoGraphNodeBuilder{
+    public class ClassInfoGraphNodeBuilder {
         string[] _excludedMembers;
         ISerializationConfigurationGroup _serializationConfigurationGroup;
 
-        public string[] ExcludedMembers{
+        public string[] ExcludedMembers {
             get { return _excludedMembers; }
         }
 
-        public void Generate(ISerializationConfiguration serializationConfiguration){
+        public void Generate(ISerializationConfiguration serializationConfiguration) {
             var typeToSerialize = serializationConfiguration.TypeToSerialize;
             var castTypeToTypeInfo = XafTypesInfo.CastTypeToTypeInfo(typeToSerialize);
             var objectSpace = ObjectSpace.FindObjectSpace(serializationConfiguration);
             _serializationConfigurationGroup = serializationConfiguration.SerializationConfigurationGroup;
-            if (_serializationConfigurationGroup== null)
+            if (_serializationConfigurationGroup == null)
                 throw new NullReferenceException("_serializationConfigurationGroup");
             foreach (var descendant in ReflectionHelper.FindTypeDescendants(castTypeToTypeInfo)) {
                 Generate(objectSpace, descendant.Type);
             }
-            foreach (IClassInfoGraphNode classInfoGraphNode in CreateGraph(objectSpace, castTypeToTypeInfo)){
+            foreach (IClassInfoGraphNode classInfoGraphNode in CreateGraph(objectSpace, castTypeToTypeInfo)) {
                 serializationConfiguration.SerializationGraph.Add(classInfoGraphNode);
             }
-            
+
         }
 
-        IEnumerable<IClassInfoGraphNode> CreateGraph(ObjectSpace objectSpace, ITypeInfo typeToSerialize){
+        IEnumerable<IClassInfoGraphNode> CreateGraph(ObjectSpace objectSpace, ITypeInfo typeToSerialize) {
             IEnumerable<IMemberInfo> memberInfos = GetMemberInfos(typeToSerialize);
-            return memberInfos.Select(memberInfo => (!memberInfo.MemberTypeInfo.IsPersistent && !memberInfo.IsList)||memberInfo.MemberType==typeof(byte[])
-                                                        ? AddSimpleNode(memberInfo, objectSpace)
-                                                        : AddComplexNode(memberInfo, objectSpace));
+            var classInfoGraphNodes = CreateGraphCore(memberInfos, objectSpace).ToList();
+            ResetDefaultKeyWhenMultiple(classInfoGraphNodes);
+            return classInfoGraphNodes;
+        }
+
+        void ResetDefaultKeyWhenMultiple(IEnumerable<IClassInfoGraphNode> classInfoGraphNodes) {
+            var nonDefaultKey = classInfoGraphNodes.Skip(1).Where(node => node.Key).FirstOrDefault();
+            if (nonDefaultKey != null) {
+                classInfoGraphNodes.Where(graphNode => graphNode.Key).First().Key= false;
+            }
+        }
+
+
+        IEnumerable<IClassInfoGraphNode> CreateGraphCore(IEnumerable<IMemberInfo> memberInfos, ObjectSpace objectSpace) {
+            return memberInfos.Select(memberInfo => (!memberInfo.MemberTypeInfo.IsPersistent && !memberInfo.IsList) || memberInfo.MemberType == typeof(byte[])
+                                                                                    ? CreateSimpleNode(memberInfo, objectSpace)
+                                                                                    : CreateComplexNode(memberInfo, objectSpace)).ToList();
         }
 
         Type GetSerializedType(IMemberInfo memberInfo) {
             return memberInfo.IsList ? memberInfo.ListElementType : memberInfo.MemberType;
         }
 
-        IClassInfoGraphNode AddComplexNode(IMemberInfo memberInfo, ObjectSpace objectSpace) {
-            NodeType nodeType=memberInfo.MemberTypeInfo.IsPersistent?NodeType.Object : NodeType.Collection;
-            IClassInfoGraphNode classInfoGraphNode = AddClassInfoGraphNode(objectSpace, memberInfo,nodeType);
-            classInfoGraphNode.SerializationStrategy = SerializationStrategy.SerializeAsObject;
+        IClassInfoGraphNode CreateComplexNode(IMemberInfo memberInfo, ObjectSpace objectSpace) {
+            NodeType nodeType = memberInfo.MemberTypeInfo.IsPersistent ? NodeType.Object : NodeType.Collection;
+            IClassInfoGraphNode classInfoGraphNode = CreateClassInfoGraphNode(objectSpace, memberInfo, nodeType);
+            classInfoGraphNode.SerializationStrategy = GetSerializationStrategy(memberInfo, SerializationStrategy.SerializeAsObject);
             Generate(objectSpace, ReflectionHelper.GetType(classInfoGraphNode.TypeName));
             return classInfoGraphNode;
 
         }
 
         void Generate(ObjectSpace objectSpace, Type typeToSerialize) {
-            if (!SerializationConfigurationQuery.ConfigurationExists(objectSpace.Session, typeToSerialize,_serializationConfigurationGroup)){
+            if (!SerializationConfigurationQuery.ConfigurationExists(objectSpace.Session, typeToSerialize, _serializationConfigurationGroup)) {
                 var serializationConfiguration =
                     (ISerializationConfiguration)
                     objectSpace.CreateObject(TypesInfo.Instance.SerializationConfigurationType);
-                serializationConfiguration.SerializationConfigurationGroup=_serializationConfigurationGroup;
-                serializationConfiguration.TypeToSerialize = typeToSerialize;                
+                serializationConfiguration.SerializationConfigurationGroup = _serializationConfigurationGroup;
+                serializationConfiguration.TypeToSerialize = typeToSerialize;
                 Generate(serializationConfiguration);
             }
         }
 
-        
 
-        IClassInfoGraphNode AddSimpleNode(IMemberInfo memberInfo, ObjectSpace objectSpace) {
-            IClassInfoGraphNode addClassInfoGraphNode = AddClassInfoGraphNode(objectSpace, memberInfo, NodeType.Simple);
-            addClassInfoGraphNode.Key = memberInfo.IsKey;
-            return addClassInfoGraphNode;
+
+        IClassInfoGraphNode CreateSimpleNode(IMemberInfo memberInfo, ObjectSpace objectSpace) {
+            return CreateClassInfoGraphNode(objectSpace, memberInfo, NodeType.Simple);
         }
 
-        IClassInfoGraphNode AddClassInfoGraphNode(ObjectSpace objectSpace, IMemberInfo memberInfo, NodeType nodeType) {
-            var classInfoGraphNode =(IClassInfoGraphNode)objectSpace.CreateObject(TypesInfo.Instance.ClassInfoGraphNodeType);
+        bool IsKey(IMemberInfo memberInfo) {
+            return memberInfo.IsKey || memberInfo.FindAttribute<SerializationKeyAttribute>() != null;
+        }
+
+
+        IClassInfoGraphNode CreateClassInfoGraphNode(ObjectSpace objectSpace, IMemberInfo memberInfo, NodeType nodeType) {
+            var classInfoGraphNode = (IClassInfoGraphNode)objectSpace.CreateObject(TypesInfo.Instance.ClassInfoGraphNodeType);
             classInfoGraphNode.Name = memberInfo.Name;
+            classInfoGraphNode.SerializationStrategy = GetSerializationStrategy(memberInfo, classInfoGraphNode.SerializationStrategy);
             classInfoGraphNode.TypeName = GetSerializedType(memberInfo).Name;
-            classInfoGraphNode.NodeType=nodeType;            
+            classInfoGraphNode.NodeType = nodeType;
+            classInfoGraphNode.Key = IsKey(memberInfo);
             return classInfoGraphNode;
         }
 
-        IEnumerable<IMemberInfo> GetMemberInfos(ITypeInfo typeInfo){
+        SerializationStrategy GetSerializationStrategy(IMemberInfo memberInfo, SerializationStrategy serializationStrategy) {
+            if (memberInfo.MemberTypeInfo.IsPersistent) {
+                var attribute = memberInfo.MemberTypeInfo.FindAttribute<SerializationStrategyAttribute>();
+                if (attribute!= null) {
+                    return attribute.SerializationStrategy;
+                }
+            }
+            var serializationStrategyAttribute = memberInfo.FindAttribute<SerializationStrategyAttribute>();
+            return serializationStrategyAttribute != null ? serializationStrategyAttribute.SerializationStrategy : serializationStrategy;
+        }
+
+        IEnumerable<IMemberInfo> GetMemberInfos(ITypeInfo typeInfo) {
             _excludedMembers = new[] {
-                                         XPObject.Fields.GCRecord.PropertyName,
                                          XPObject.Fields.OptimisticLockField.PropertyName,
                                          XPObject.Fields.ObjectType.PropertyName
                                      };
-            return typeInfo.Members.Where(info => IsPersistent(info) && !(_excludedMembers.Contains(info.Name)));
+            return typeInfo.Members.Where(info => IsPersistent(info) && !(_excludedMembers.Contains(info.Name))).OrderByDescending(memberInfo => memberInfo.IsKey);
         }
 
         bool IsPersistent(IMemberInfo info) {
             return (info.IsPersistent || (info.IsList && info.ListElementTypeInfo.IsPersistent));
+        }
+
+        public void ApplyStrategy(SerializationStrategy serializationStrategy, ISerializationConfiguration serializationConfiguration) {
+            var serializationConfigurationGroup = serializationConfiguration.SerializationConfigurationGroup;
+            var infoGraphNodes = serializationConfigurationGroup.Configurations.SelectMany(configuration => configuration.SerializationGraph);
+            var classInfoGraphNodes = infoGraphNodes.Where(node => node.TypeName == serializationConfiguration.TypeToSerialize.Name);
+            foreach (var classInfoGraphNode in classInfoGraphNodes) {
+                classInfoGraphNode.SerializationStrategy=serializationStrategy;
+            }
         }
     }
 }

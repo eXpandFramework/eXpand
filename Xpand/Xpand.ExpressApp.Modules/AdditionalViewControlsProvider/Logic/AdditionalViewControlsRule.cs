@@ -12,8 +12,11 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                 MessageProperty = additionalViewControlsRule.MessageProperty;
                 Position = additionalViewControlsRule.Position;
                 NotUseSameType = additionalViewControlsRule.NotUseSameType;
-                BackColor=additionalViewControlsRule.BackColor;
+                BackColor = additionalViewControlsRule.BackColor;
+                ForeColor = additionalViewControlsRule.ForeColor;
+                FontStyle = additionalViewControlsRule.FontStyle;
                 Height = additionalViewControlsRule.Height;
+                FontSize=additionalViewControlsRule.FontSize;
         }
         #region IAdditionalViewControlsRule Members
         public string Message { get; set; }
@@ -33,7 +36,13 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
 
         public Color? BackColor { get; set; }
 
+        public Color? ForeColor { get; set; }
+
+        public FontStyle? FontStyle { get; set; }
+
         public int? Height { get; set; }
+        public float? FontSize { get; set; }
+
 
         public object Control { get; set; }
         #endregion

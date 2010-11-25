@@ -6,7 +6,7 @@ using Xpand.ExpressApp.Attributes;
 
 namespace Xpand.ExpressApp.SystemModule
 {
-    public class AllowEditDetailViewController : ViewController<XpandDetailView>
+    public class AllowEditDetailViewController : ViewController<DetailView>
     {
         protected override void OnActivated()
         {

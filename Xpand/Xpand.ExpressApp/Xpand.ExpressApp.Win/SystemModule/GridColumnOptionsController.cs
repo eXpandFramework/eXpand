@@ -6,12 +6,12 @@ using Xpand.ExpressApp.Core.DynamicModel;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelColumnOptions : IModelColumnOptionsBase {
-        IModelGridColumnOptions GridColumnOptions { get; set; }
+        IModelGridColumnOptions GridColumnOptions { get; }
     }
 
     public interface IModelGridColumnOptions : IModelNode {
-        IModelGridColumnOptionsColumn OptionsColumn { get; set; }
-        IModelGridColumnOptionsColumnFilter OptionsFilter { get; set; }
+        IModelGridColumnOptionsColumn OptionsColumn { get; }
+        IModelGridColumnOptionsColumnFilter OptionsFilter { get; }
     }
 
     public interface IModelGridColumnOptionsColumn : IModelNode {

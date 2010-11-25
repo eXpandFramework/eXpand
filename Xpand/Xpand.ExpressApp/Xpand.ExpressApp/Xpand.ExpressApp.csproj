@@ -107,15 +107,16 @@
   <ItemGroup>
     <Compile Include="Attributes\AllowEditAttribute.cs" />
     <Compile Include="Attributes\HideFromNewMenuAttribute.cs" />
+    <Compile Include="Attributes\NewObjectCreateGroupAttribute.cs" />
     <Compile Include="Attributes\XpandNavigationItemAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
-    <Compile Include="Attributes\CustomQueryPropertiesAttribute.cs" />
+    <Compile Include="Attributes\CustomQueryPropertyAttribute.cs" />
     <Compile Include="Core\AttributeRegistrator.cs" />
     <Compile Include="Core\XpandApplicationModulesManager.cs" />
     <Compile Include="Core\CustomShowNavigationItemEventArgsExtensions.cs" />
-    <Compile Include="Core\DictionaryHelper.cs">
+    <Compile Include="Core\RuntimeMemberBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\DynamicModel\DynamicDouplicateTypesMapper.cs" />
@@ -132,12 +133,14 @@
     <Compile Include="Core\TypesInfoExtensions.cs" />
     <Compile Include="Core\TypeValueConverter.cs" />
     <Compile Include="DataStoreProvider.cs" />
-    <Compile Include="Model\IModelBOModelRuntimeMember.cs" />
+    <Compile Include="Model\IModelMemberEx.cs" />
+    <Compile Include="Model\IModelRuntimeMember.cs" />
     <Compile Include="Model\IModelProccessViewShortcuts.cs" />
-    <Compile Include="SystemModule\EditModeDetailViewController.cs">
+    <Compile Include="NodeUpdaters\ModelMemberGeneratorUpdater.cs" />
+    <Compile Include="SystemModule\CreateExpandAbleMembersViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\CreateExpandAbleMembersViewController.cs">
+    <Compile Include="SystemModule\NewObjectCreateGroupController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Updater.cs" />
@@ -250,9 +253,6 @@
     </Compile>
     <Compile Include="Core\DynamicModel\XpandPropertyInfo.cs" />
     <Compile Include="Core\DynamicModel\DynamicModelPropertiesSource.cs" />
-    <Compile Include="SystemModule\ShowNavigationItemController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\TrackNewObjectSavedController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -279,6 +279,8 @@
     <Compile Include="ViewShortCutProccesor.cs" />
     <Compile Include="XpandObjectSpace.cs" />
     <Compile Include="SqlMultiDataStoreProxy.cs" />
+    <Compile Include="Xpo\IXPSimpleObjectExtensions.cs" />
+    <Compile Include="Xpo\MetaData\XpandCollectionMemberInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
@@ -319,6 +321,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ExpressApp.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Images\XpandProgress.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

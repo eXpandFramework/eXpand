@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelPropertyEditorFocusControlByShortcut : IModelMemberFocusControlByShortcut
     {
     }
-    public class FocusControlByShortcutController:ViewController<XpandDetailView>,IModelExtender {
+    public class FocusControlByShortcutController:ViewController<DetailView>,IModelExtender {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelMember, IModelMemberFocusControlByShortcut>();
             extenders.Add<IModelPropertyEditor, IModelPropertyEditorFocusControlByShortcut>();
@@ -85,7 +85,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 var shortcut = ((IModelPropertyEditorFocusControlByShortcut) propertyEditor.Model).FocusShortcut;
                 if (!string.IsNullOrEmpty(shortcut))
                     _shortCuts.Add(ShortcutHelper.ParseBarShortcut(shortcut).Key,propertyEditor);
-                if (propertyEditor is ListPropertyEditor ) {
+                var listEditor = propertyEditor as ListPropertyEditor;
+                if (listEditor != null && listEditor.Frame != null) {
                     var listView = ((XpandListView)((ListPropertyEditor)propertyEditor).Frame.View);
                     var listViewInfoNodeWrapper = listView.Model;
                     if (listViewInfoNodeWrapper.MasterDetailMode == MasterDetailMode.ListViewAndDetailView)

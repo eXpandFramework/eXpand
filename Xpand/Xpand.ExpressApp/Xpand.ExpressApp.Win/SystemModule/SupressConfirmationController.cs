@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp.Win.SystemModule
             winDetailViewController = Frame.GetController<WinDetailViewController>();
             winDetailViewController.SuppressConfirmation = ((IModelViewSupressConfirmation)View.Model).SupressConfirmation;
 
-            if (View is XpandDetailView && ObjectSpace.IsNewObject(View.CurrentObject))
+            if (View is DetailView && ObjectSpace.IsNewObject(View.CurrentObject))
             {
                 ObjectSpace.ObjectChanged += ObjectSpace_ObjectChanged;
                 winDetailViewController.SuppressConfirmation = true;

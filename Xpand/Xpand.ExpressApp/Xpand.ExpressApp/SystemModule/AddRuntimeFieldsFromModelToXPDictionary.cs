@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.SystemModule
 
         private void ObjectSpaceOnCommitted(object sender, EventArgs args)
         {
-            DictionaryHelper.AddFields(Application.Model, XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+            RuntimeMemberBuilder.AddFields(Application.Model, XafTypesInfo.XpoTypeInfoSource.XPDictionary);
         }
     }
 }

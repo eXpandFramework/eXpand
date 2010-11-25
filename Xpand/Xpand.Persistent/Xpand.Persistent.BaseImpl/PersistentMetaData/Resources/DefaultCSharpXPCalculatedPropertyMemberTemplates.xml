@@ -1,0 +1,7 @@
+﻿    
+    $TYPEATTRIBUTES$
+    public $PROPERTYTYPE$ $PROPERTYNAME${
+      get{
+        return ($PROPERTYTYPE$)EvaluateAlias("$PROPERTYNAME$");
+      }
+    }

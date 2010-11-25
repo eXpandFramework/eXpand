@@ -9,6 +9,10 @@ namespace Xpand.ExpressApp.Logic {
         [Category("Behavior")]
         FrameTemplateContext FrameTemplateContext { get; set; }
         [Category("Behavior")]
+        [DataSourceProperty("FrameTemplateContexts")]
+        string FrameTemplateContextGroup { get; set; }
+
+        [Category("Behavior")]
         bool? IsRootView { get; set; }
 
         [Category("Behavior")]
@@ -30,7 +34,11 @@ namespace Xpand.ExpressApp.Logic {
         [DataSourceProperty("ExecutionContexts")]
         string ExecutionContextGroup { get; set; }
 
-        
+        [Category("Behavior")]
+        [DataSourceProperty("ViewContexts")]
+        string ViewContextGroup { get; set; }
+
+
         [Browsable(false)]
         ITypeInfo TypeInfo { get; set; }
     }

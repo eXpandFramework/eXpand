@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
+using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 
 namespace Xpand.ExpressApp.ModelDifference.Controllers{
@@ -47,16 +48,18 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers{
             var selectedObjects = View.SelectedObjects.OfType<ModelDifferenceObject>();
             CheckIfMixingApplications(selectedObjects);
             foreach (var differenceObject in selectedObjects) {
+                var masterModel = new ModelApplicationBuilder(differenceObject.PersistentApplication.ExecutableName).GetMasterModel();
+                var model = differenceObject.GetModel(masterModel);
                 foreach (var selectedModelAspectObject in selectedModelAspectObjects) {
-                    var selectedModel = selectedModelAspectObject.Model;
-                    for (int i = 0; i < selectedModelAspectObject.Model.AspectCount; i++) {
-                        var xml = new ModelXmlWriter().WriteToString(selectedModel, i);
-                        if (!(string.IsNullOrEmpty(xml))){
-                            new ModelXmlReader().ReadFromString(differenceObject.Model, selectedModel.GetAspect(i), xml);
-                            ObjectSpace.SetModified(differenceObject);
+                    foreach (var aspectObject in selectedModelAspectObject.AspectObjects) {
+                        var xml = aspectObject.Xml;
+                        if (!(string.IsNullOrEmpty(xml))) {
+                            new ModelXmlReader().ReadFromString(model, differenceObject.GetAspectName(aspectObject), xml);
                         }
                     }
                 }
+                ObjectSpace.Delete(differenceObject.AspectObjects);
+                differenceObject.CreateAspects(model);
             }
             ObjectSpace.CommitChanges();
         }

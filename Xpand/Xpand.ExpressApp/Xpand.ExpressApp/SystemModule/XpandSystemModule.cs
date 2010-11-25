@@ -7,6 +7,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
@@ -21,7 +22,7 @@ namespace Xpand.ExpressApp.SystemModule {
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(XafApplication), "Resources.SystemModule.ico")]
-    public sealed class XpandSystemModule : XpandModuleBase {
+    public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter {
         static XpandSystemModule() {
             ParametersFactory.RegisterParameter(new MonthAgoParameter());
         }
@@ -33,10 +34,12 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            foreach (var persistentType in typesInfo.PersistentTypes) {
-                IEnumerable<Attribute> attributes = GetAttributes(persistentType);
-                foreach (var attribute in attributes) {
-                    persistentType.AddAttribute(attribute);
+            if (ModelApplicationCreator==null) {
+                foreach (var persistentType in typesInfo.PersistentTypes) {
+                    IEnumerable<Attribute> attributes = GetAttributes(persistentType);
+                    foreach (var attribute in attributes) {
+                        persistentType.AddAttribute(attribute);
+                    }
                 }
             }
         }
@@ -49,16 +52,17 @@ namespace Xpand.ExpressApp.SystemModule {
             application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
             application.SetupComplete +=
                 (sender, args) =>
-                DictionaryHelper.AddFields(application.Model, application.ObjectSpaceProvider.XPDictionary);
+                RuntimeMemberBuilder.AddFields(application.Model, application.ObjectSpaceProvider.XPDictionary);
             application.LoggedOn +=
                 (sender, args) =>
-                DictionaryHelper.AddFields(application.Model, application.ObjectSpaceProvider.XPDictionary);
+                RuntimeMemberBuilder.AddFields(application.Model, application.ObjectSpaceProvider.XPDictionary);
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new ModelListViewLinqNodesGeneratorUpdater());
             updaters.Add(new ModelListViewLinqColumnsNodesGeneratorUpdater());
+            updaters.Add(new ModelMemberGeneratorUpdater());
             updaters.Add(new ModelViewClonerUpdater());
             updaters.Add(new XpandNavigationItemNodeUpdater());
         }
@@ -69,11 +73,19 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelClass, IModelClassLoadWhenFiltered>();
             extenders.Add<IModelListView, IModelListViewLoadWhenFiltered>();
             extenders.Add<IModelListView, IModelListViewLinq>();
-            extenders.Add<IModelMember, IModelBOModelRuntimeMember>();
             extenders.Add<IModelClass, IModelClassProccessViewShortcuts>();
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
-            extenders.Add<IModelClass, IModelClassViewModeDetailView>();
-            extenders.Add<IModelDetailView, IModelDetailViewViewModeDetailView>();
+            extenders.Add<IModelMember, IModelMemberEx>();
+        }
+
+        public void ConvertXml(ConvertXmlParameters parameters) {
+            if (typeof(IModelMember).IsAssignableFrom(parameters.NodeType) ) {
+                if (parameters.Values.ContainsKey("IsRuntimeMember") && parameters.XmlNodeName == "Member"&&parameters.Values["IsRuntimeMember"].ToLower()=="true")
+                    parameters.NodeType = typeof (IModelRuntimeMember);
+            }
+            if (parameters.XmlNodeName=="CalculatedRuntimeMember") {
+                parameters.NodeType = typeof (IModelRuntimeCalculatedMember);
+            }
         }
     }
 

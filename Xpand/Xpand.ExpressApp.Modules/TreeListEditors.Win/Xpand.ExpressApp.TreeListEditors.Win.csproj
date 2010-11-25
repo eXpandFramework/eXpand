@@ -92,6 +92,7 @@
     <Reference Include="DevExpress.XtraTreeList.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="Xpand.ExpressApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -129,6 +130,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\TreeListColumnOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\TreeListOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\HideICategorizedItemController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -146,7 +153,12 @@
     </Compile>
     <Compile Include="Controllers\TreeNodeExtensions.cs">
     </Compile>
-    <Compile Include="XpandCategorizedListEditor.cs" />
+    <Compile Include="Core\TreeListColumnOptionsModelSynchronizer.cs" />
+    <Compile Include="Core\TreeListOptionsModelSyncronizer.cs" />
+    <Compile Include="Core\XpandTreeListEditorModelSynchronizerList.cs" />
+    <Compile Include="Core\XpandTreeListEditorNodeGeneratorUpdater.cs" />
+    <Compile Include="ListEditors\XpandTreeListEditor.cs" />
+    <Compile Include="ListEditors\XpandCategorizedListEditor.cs" />
     <Compile Include="XpandTreeListEditorsWinModule.cs">
       <SubType>Component</SubType>
     </Compile>

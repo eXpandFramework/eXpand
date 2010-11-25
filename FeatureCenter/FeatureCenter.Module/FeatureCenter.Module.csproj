@@ -30,6 +30,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -292,7 +293,16 @@
     <Compile Include="PivotChart\InPlaceEdit\AttributeRegistrator.cs" />
     <Compile Include="PivotChart\PivotGroupInterval\AttributeRegistrator.cs" />
     <Compile Include="PivotChart\ShowInAnalysis\AttributeRegistrator.cs" />
-    <Compile Include="RuntimeFieldsFromModel\AddRecordsToAddRuntimeFieldsFromModelObjectControler.cs">
+    <Compile Include="RuntimeFields\CalculatedFromModel\AttributeRegistrator.cs" />
+    <Compile Include="RuntimeFields\CalculatedWithCode\AttributeRegistrator.cs" />
+    <Compile Include="RuntimeFields\CalculatedWithCode\CreateRuntimeCalculatedFieldController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RuntimeFields\OrphanedCollectionWithCode\AttributeRegistrator.cs" />
+    <Compile Include="RuntimeFields\OrphanedCollectionWithCode\CreateRuntimeOrphanedCollectionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RuntimeFields\FromModel\AddRecordsToAddRuntimeFieldsFromModelObjectControler.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ApplicationDifferences\ExternalApplication\ExternalApplicationKeyParameter.cs">
@@ -336,7 +346,8 @@
     <Compile Include="ListViewControl\PropertyPathFilters\PPOrder.cs" />
     <Compile Include="ListViewControl\PropertyPathFilters\PPOrderLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RuntimeFieldsFromModel\AttributeRegistrator.cs" />
+    <Compile Include="RuntimeFields\FromModel\AttributeRegistrator.cs" />
+    <Compile Include="RuntimeFields\OrphanedCollectionFromModel\AttributeRegistrator.cs" />
     <Compile Include="Security\MemberLevel\MLSCustomer.cs" />
     <Compile Include="Security\MemberLevel\Updater.cs" />
     <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs">
@@ -344,11 +355,18 @@
     <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UpdateStatementController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Updater.cs">
-    </Compile>
+    <Compile Include="Updater.cs" />
     <Compile Include="ViewVariants\AttributeRegistrator.cs" />
     <Compile Include="Welcome\WelcomeObject.cs" />
+    <Compile Include="WorldCreator\ModelSystemTablesUpdater.cs" />
+    <Compile Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\AttributeRegistrator.cs" />
+    <Compile Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\WorldCreatorUpdater.cs" />
+    <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\AttributeRegistrator.cs" />
+    <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\Updater.cs" />
+    <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\WCCalculatedFieldModelStore.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\AttributeRegistrator.cs" />
+    <Compile Include="WorldCreator\ExistentAssemblyRuntimeCalculatedField\AttributeRegistrator.cs" />
+    <Compile Include="WorldCreator\ExistentAssemblyRuntimeCalculatedField\WorldCreatorUpdater.cs" />
     <Compile Include="WorldCreator\NorthWind\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\DynamicAssemblyBuilder.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\Updater.cs" />
@@ -403,7 +421,7 @@
     <EmbeddedResource Include="PivotChart\HidePivot\MDO_HidePivot.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RuntimeFieldsFromModel\MDO_RuntimeFieldsFromModel.xafml">
+    <EmbeddedResource Include="RuntimeFields\FromModel\MDO_RuntimeFieldsFromModel.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="AdditionalViewControls\ConditionalControlAndMessage\MDO_ConditionalControlAndMessage.xafml">
@@ -515,6 +533,27 @@
     <EmbeddedResource Include="WorldCreator\ExistentAssemblyMasterDetail\ExisstentAssemblyMasterDetail.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="RuntimeFields\CalculatedWithCode\MDO_RuntimeFieldsCalculatedWithCode.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuntimeFields\CalculatedFromModel\MDO_CalculatedFromModel.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorldCreator\ExistentAssemblyRuntimeCalculatedField\MDO_ExistentAssemblyRuntimeCalculatedField.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorldCreator\DynamicAssemblyCalculatedField\WCCalculatedField.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuntimeFields\OrphanedCollectionFromModel\MDO_OrphanedCollectionFromModel.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuntimeFields\OrphanedCollectionWithCode\MDO_OrphanedCollectionWithCode.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\MDO_ExistentAssemblyRuntimeOrphanedCollection.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -554,6 +593,7 @@
       <Name>FeatureCenter.Base</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

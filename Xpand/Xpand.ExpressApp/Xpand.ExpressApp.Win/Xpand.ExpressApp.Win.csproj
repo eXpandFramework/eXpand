@@ -89,6 +89,10 @@
     <Reference Include="DevExpress.XtraLayout.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DevExpress 2010.1\Components\Sources\DevExpress.DLL\DevExpress.XtraNavBar.v10.1.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -158,7 +162,11 @@
     <Compile Include="SystemModule\CursorPositionController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Model\IModelRootNavigationItemsAutoSelectedGroupItem.cs" />
     <Compile Include="SystemModule\LoadWhenFilteredController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\WinSelectFirstNavigationItemController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\XpandSystemWindowsFormsModule.cs">
@@ -227,12 +235,14 @@
     <Compile Include="SystemModule\WinLogoutWindowController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ViewStrategies\XpandShowInSingleWindowStrategy.cs" />
     <Compile Include="XpandWinApplication.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="XpandWinApplication.Designer.cs">
       <DependentUpon>XpandWinApplication.cs</DependentUpon>
     </Compile>
+    <Compile Include="XpandWinWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

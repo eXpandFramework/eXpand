@@ -4,12 +4,16 @@ using DevExpress.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.Logic.Model {
     [ModelAbstractClass]
-// ReSharper disable PossibleInterfaceMemberAmbiguity
+    // ReSharper disable PossibleInterfaceMemberAmbiguity
     public interface IModelLogicRule : IModelNode, ILogicModelClassRule {
-// ReSharper restore PossibleInterfaceMemberAmbiguity
+        // ReSharper restore PossibleInterfaceMemberAmbiguity
         [Browsable(false)]
         IEnumerable<IModelView> Views { get; }
         [Browsable(false)]
         IEnumerable<string> ExecutionContexts { get; }
+        [Browsable(false)]
+        IEnumerable<string> FrameTemplateContexts { get; }
+        [Browsable(false)]
+        IEnumerable<string> ViewContexts { get; }
     }
 }

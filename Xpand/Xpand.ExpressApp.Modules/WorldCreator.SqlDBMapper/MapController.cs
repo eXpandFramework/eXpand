@@ -12,7 +12,7 @@ using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper
 {
-    public class MapController:ViewController<XpandDetailView>
+    public class MapController:ViewController<DetailView>
     {
         public MapController() {
             TargetObjectType = typeof (IPersistentAssemblyInfo);

@@ -257,6 +257,7 @@
     <Compile Include="Xpand.WorldCreator\TypesInfoSpecs.cs" />
     <Compile Include="Xpand.WorldCreator\XpoObjectMergerSpecs.cs" />
     <Compile Include="Xpand.Xpo\CriteriaOperatorExtractorFixture.cs" />
+    <Compile Include="Xpand.Xpo\DynamicCalcPropertySpecs.cs" />
     <Compile Include="Xpand.Xpo\PersistentMetaDataFixture.cs" />
     <Compile Include="Xpand.Xpo\PropertyPathParserFixture.cs" />
     <Compile Include="Xpand.Xpo\ValueConvertersSpecs.cs" />
@@ -316,6 +317,9 @@
     <EmbeddedResource Include="Xpand.IO\Resources\PersistentAssmeblyInfo.xml" />
     <EmbeddedResource Include="Xpand.IO\Resources\PivotContent.xml" />
     <EmbeddedResource Include="Xpand.IO\Resources\WithValueConverter.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Xpand.ModelDifference\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

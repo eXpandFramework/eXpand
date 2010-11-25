@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.SystemModule
 
     public interface IModelListViewPropertyPathFilters:IModelNode
     {
-        IModelPropertyPathFilters PropertyPathFilters { get; set; }
+        IModelPropertyPathFilters PropertyPathFilters { get; }
     }
     [ModelNodesGenerator(typeof(ModelPropertyPathFiltersNodesGenerator))]
     public interface IModelPropertyPathFilters : IModelNode, IModelList<IModelPropertyPathFilter>

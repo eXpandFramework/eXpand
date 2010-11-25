@@ -33,17 +33,14 @@ namespace Xpand.ExpressApp.WizardUI.Win
         }
     }
 
-    [DisplayProperty("Caption"), KeyProperty("ID"), ModelDisplayName("WizardPage"), ModelPersistentName("WizardPage")]
+    [DisplayProperty("Caption"), ModelDisplayName("WizardPage"), ModelPersistentName("WizardPage")]
     public interface IModelDetailViewWizardPage : IModelNode
     {
-        [Required]
-        string ID { get; set; }
-
         [Localizable(true)]
         string Caption { get; set; }
 
         [Browsable(false)]
-        CalculatedModelNodeList<IModelDetailView> DetailViews { get; }
+        IModelList<IModelDetailView> DetailViews { get; }
 
         [Required, DataSourceProperty("DetailViews"), ModelPersistentName("ViewID")]
         IModelDetailView DetailView { get; set; }
@@ -69,7 +66,7 @@ namespace Xpand.ExpressApp.WizardUI.Win
                 return views;
             }
 
-            views.AddRange(wizardPage.Application.Views.OfType<IModelDetailView>().Where(modelView => modelView.ModelClass != null && modelView.ModelClass.TypeInfo.IsAssignableFrom(parentView.ModelClass.TypeInfo) && !modelView.ModelClass.TypeInfo.IsAbstract));
+            views.AddRange(wizardPage.Application.Views.OfType<IModelDetailView>().Where(modelView => modelView.ModelClass != null && modelView.ModelClass.TypeInfo != null && modelView.ModelClass.TypeInfo.IsAssignableFrom(parentView.ModelClass.TypeInfo) && !modelView.ModelClass.TypeInfo.IsAbstract));
 
             return views;
         }

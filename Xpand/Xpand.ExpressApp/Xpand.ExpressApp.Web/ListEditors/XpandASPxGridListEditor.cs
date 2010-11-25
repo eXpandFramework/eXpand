@@ -1,7 +1,9 @@
 ﻿using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Editors;
 
 namespace Xpand.ExpressApp.Web.ListEditors
 {
+    [ListEditor(typeof(object))]
     public class XpandASPxGridListEditor : DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor
     {
         public XpandASPxGridListEditor(IModelListView info) : base(info) {

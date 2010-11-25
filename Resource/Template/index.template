@@ -27,17 +27,11 @@
 
 <h2>eXpand Framework</h2>
 <ul>
-<li><a href="${BinaryPackage}">Download binaries</a> (DLL, PDB, XML).</li>
-<li><a href="${SourcePackage}">Download sources</a> (C#, VS2008 solution).</li>
+<li><a href="${BinaryPackage}" onclick="pageTracker._trackPageview('${BinaryPackage}')">Download binaries</a> (DLL, PDB, XML).</li>
+<li><a href="${SourcePackage}" onclick="pageTracker._trackPageview('${BinaryPackage}')">Download sources</a> (C#, VS2008 solution).</li>
 </ul>
 
 
-<h2>Links</h2>
-<ul>
-<li><a href="http://code.google.com/p/expandframework/">Home page of the eXpand Framework</a></li>
-<li><a href="http://github.com/apobekiaris/eXpand/">Sourcecode</a></li>
-
-</ul>
 <p><sub><em>Build ${Version} released on ${BuildTime}.</em></sub></p>
 <p>&copy;2010 eXpand. All rights reserved</p>
 </body>

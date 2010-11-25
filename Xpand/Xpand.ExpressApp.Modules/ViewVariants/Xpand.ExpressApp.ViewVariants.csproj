@@ -125,9 +125,7 @@
     <Compile Include="CloneViewController.Designer.cs">
       <DependentUpon>CloneViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="XpandViewVariantsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandViewVariantsModule.cs" />
     <Compile Include="XpandViewVariantsModule.Designer.cs">
       <DependentUpon>XpandViewVariantsModule.cs</DependentUpon>
     </Compile>

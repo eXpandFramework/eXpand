@@ -1,39 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
-using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using FeatureCenter.Base;
+using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData;
 
 namespace FeatureCenter.Module.WorldCreator.DynamicAssemblyMasterDetail {
-    public class DynamicAssemblyBuilder
-    {
+    public class DynamicAssemblyBuilder {
         readonly Session _session;
 
         public DynamicAssemblyBuilder(Session session) {
             _session = session;
         }
 
-        List<ITemplateInfo> GetTemplateInfos(IPersistentClassInfo info, string customer, string order)
-        {
-            if (info.Name.ToLower().EndsWith("order"))
-            {
+        List<ITemplateInfo> GetTemplateInfos(IPersistentClassInfo info, string customer, string order) {
+            if (info.Name.ToLower().EndsWith("order")) {
                 return GetOrderTemplateInfo(info, customer);
             }
-            if (info.Name.ToLower().EndsWith("orderline"))
-            {
+            if (info.Name.ToLower().EndsWith("orderline")) {
                 return GetOrderLineTemplateInfo(info, order);
             }
             return new List<ITemplateInfo>();
 
         }
 
-        List<ITemplateInfo> GetOrderLineTemplateInfo(IPersistentClassInfo info, string order)
-        {
+        List<ITemplateInfo> GetOrderLineTemplateInfo(IPersistentClassInfo info, string order) {
             string code = @"protected override void SetOrder(" + typeof(IOrder).FullName + @" order){
                                " + order + @" = (" + order + @")order;
                         }
@@ -43,8 +37,7 @@ namespace FeatureCenter.Module.WorldCreator.DynamicAssemblyMasterDetail {
             return new List<ITemplateInfo> { new TemplateInfo(info.Session) { TemplateCode = code } };
         }
 
-        List<ITemplateInfo> GetOrderTemplateInfo(IPersistentClassInfo info, string customer)
-        {
+        List<ITemplateInfo> GetOrderTemplateInfo(IPersistentClassInfo info, string customer) {
             string code = @"protected override void SetCustomer(" + typeof(ICustomer).FullName + @" customer){
                                " + customer + @" = (" + customer + @")customer;
                         }
@@ -54,27 +47,22 @@ namespace FeatureCenter.Module.WorldCreator.DynamicAssemblyMasterDetail {
             return new List<ITemplateInfo> { new TemplateInfo(info.Session) { TemplateCode = code } };
         }
 
-        IEnumerable<IPersistentClassInfo> GetReferenceMembers(IPersistentClassInfo classInfo, string customer, string order, string orderLine)
-        {
-            if (classInfo.Name == order)
-            {
+        IEnumerable<IPersistentClassInfo> GetReferenceMembers(IPersistentClassInfo classInfo, string customer, string order, string orderLine) {
+            if (classInfo.Name == order) {
                 return new List<IPersistentClassInfo> { classInfo.PersistentAssemblyInfo.PersistentClassInfos.Where(info => info.Name == customer).Single() };
             }
-            if (classInfo.Name == orderLine)
-            {
+            if (classInfo.Name == orderLine) {
                 return new List<IPersistentClassInfo> { classInfo.PersistentAssemblyInfo.PersistentClassInfos.Where(info => info.Name == order).Single() };
             }
             return new List<IPersistentClassInfo>();
         }
 
 
-        IEnumerable<string> GetClassNames(string customer, string order, string orderLine)
-        {
+        IEnumerable<string> GetClassNames(string customer, string order, string orderLine) {
             return new[] { customer, order, orderLine };
         }
 
-        Type GetInheritance(IPersistentClassInfo info)
-        {
+        Type GetInheritance(IPersistentClassInfo info) {
             if (info.Name.ToLower().IndexOf("customer") > -1)
                 return typeof(CustomerBase);
             if (info.Name.ToLower().EndsWith("order"))
@@ -82,19 +70,16 @@ namespace FeatureCenter.Module.WorldCreator.DynamicAssemblyMasterDetail {
             return typeof(OrderLineBase);
         }
 
-        public void Build(string customer, string order, string orderLine, string masterDetailDynamicAssembly)
-        {
+        public IPersistentAssemblyInfo Build(string customer, string order, string orderLine, string masterDetailDynamicAssembly) {
             var unitOfWork = new UnitOfWork(_session.DataLayer);
             var objectSpace = new ObjectSpace(unitOfWork, XafTypesInfo.Instance);
-
-            if (objectSpace.Session.FindObject<PersistentAssemblyInfo>(CriteriaOperator.Parse("Name=?", masterDetailDynamicAssembly)) == null)
-            {
-                IClassInfoHandler classInfoHandler = PersistentAssemblyBuilder.BuildAssembly(objectSpace, masterDetailDynamicAssembly).CreateClasses(GetClassNames(customer, order, orderLine));
-                classInfoHandler.CreateTemplateInfos(persistentClassInfo => GetTemplateInfos(persistentClassInfo, customer, order));
-                classInfoHandler.SetInheritance(info => GetInheritance(info));
-                classInfoHandler.CreateReferenceMembers(classInfo => GetReferenceMembers(classInfo, customer, order, orderLine), true);
-                objectSpace.CommitChanges();
-            }
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(objectSpace, masterDetailDynamicAssembly);
+            IClassInfoHandler classInfoHandler = persistentAssemblyBuilder.CreateClasses(GetClassNames(customer, order, orderLine));
+            classInfoHandler.CreateTemplateInfos(persistentClassInfo => GetTemplateInfos(persistentClassInfo, customer, order));
+            classInfoHandler.SetInheritance(info => GetInheritance(info));
+            classInfoHandler.CreateReferenceMembers(classInfo => GetReferenceMembers(classInfo, customer, order, orderLine), true);
+            objectSpace.CommitChanges();
+            return persistentAssemblyBuilder.PersistentAssemblyInfo;
         }
 
     }

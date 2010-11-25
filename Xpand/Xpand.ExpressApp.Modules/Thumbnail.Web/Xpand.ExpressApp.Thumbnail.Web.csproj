@@ -162,9 +162,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ThumbnailWebModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ThumbnailWebModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThumbnailControl.cs" />
     <Compile Include="ThumbnailListEditor.cs" />

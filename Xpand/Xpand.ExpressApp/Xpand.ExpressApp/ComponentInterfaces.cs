@@ -6,38 +6,40 @@ using DevExpress.ExpressApp.Model;
 
 namespace Xpand.ExpressApp {
 
-    public interface ISupportCustomListEditorCreation
-    {
+    public interface ISupportCustomListEditorCreation {
         event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
     }
-    public class CreatingListEditorEventArgs : HandledEventArgs
-    {
+    public class CreatingListEditorEventArgs : HandledEventArgs {
         readonly IModelListView _modelListView;
         readonly CollectionSourceBase _collectionSource;
 
-        public CreatingListEditorEventArgs(IModelListView modelListView, CollectionSourceBase collectionSource)
-        {
+        public CreatingListEditorEventArgs(IModelListView modelListView, CollectionSourceBase collectionSource) {
             _modelListView = modelListView;
             _collectionSource = collectionSource;
         }
 
-        public IModelListView ModelListView
-        {
+        public IModelListView ModelListView {
             get { return _modelListView; }
         }
 
-        public CollectionSourceBase CollectionSource
-        {
+        public CollectionSourceBase CollectionSource {
             get { return _collectionSource; }
         }
 
         public ListEditor ListEditor { get; set; }
     }
 
-    public interface IWinApplication
-    {
+    public interface IWinApplication {
     }
     public interface ISupportModelsManager {
         ApplicationModelsManager ModelsManager { get; }
     }
+    public interface ISupportConfirmationRequired {
+        event CancelEventHandler ConfirmationRequired;
+    }
+    public interface ISupportAfterViewShown {
+        event EventHandler<ViewShownEventArgs> AfterViewShown;
+        void OnAfterViewShown(Frame frame, Frame sourceFrame);
+    }
+
 }

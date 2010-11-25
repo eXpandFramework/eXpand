@@ -1,6 +1,5 @@
 ﻿namespace Xpand.Persistent.Base.ImportExport {
-    public interface IClassInfoGraphNode 
-    {
+    public interface IClassInfoGraphNode {
         NodeType NodeType { get; set; }
         string Name { get; set; }
         ISerializationConfiguration SerializationConfiguration { get; set; }

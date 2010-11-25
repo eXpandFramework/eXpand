@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="RuntimeOrphanedCollectionWithCode_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="8">
+            <LayoutGroup Id="CustomerBase" RelativeSize="100">
+              <LayoutItem Id="Name" RelativeSize="51" />
+              <LayoutItem Id="City" RelativeSize="48" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="91">
+            <LayoutItem Id="Description" RelativeSize="4" />
+            <LayoutItem Id="OrderLinesFromCode" IsNewNode="True" Index="1" RelativeSize="95" />
+          </LayoutGroup>
+          <LayoutGroup Id="Orders_Group" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -6,6 +6,7 @@ using DevExpress.XtraEditors.Repository;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.NullAble.BooleanPropertyEditor{
     [PropertyEditor(typeof(bool?))]
+    [PropertyEditor(typeof(bool))]
     public class XpandBooleanPropertyEditor : DevExpress.ExpressApp.Win.Editors.BooleanPropertyEditor
     {
         public XpandBooleanPropertyEditor(Type objectType, IModelMemberViewItem model)

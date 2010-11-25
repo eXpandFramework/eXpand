@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp {
-    public abstract class XpandModuleBase : ModuleBase {
+    public class XpandModuleBase : ModuleBase {
         static readonly object _lockObject = new object();
         static IValueManager<XafApplication> _instanceXafApplicationManager;
         static IValueManager<ModelApplicationCreatorProperties> _instanceModelApplicationCreatorPropertiesManager;
@@ -15,13 +15,18 @@ namespace Xpand.ExpressApp {
             get { return _instanceModelApplicationCreatorPropertiesManager.Value; }
         }
         public static ModelApplicationCreator ModelApplicationCreator {
-            get { return _instanceModelApplicationCreatorManager.Value; }
-            set { _instanceModelApplicationCreatorManager.Value = value; }
+            get {
+                return _instanceModelApplicationCreatorManager != null ? _instanceModelApplicationCreatorManager.Value : null;
+            }
+            set {
+                if (_instanceModelApplicationCreatorManager != null)
+                    _instanceModelApplicationCreatorManager.Value = value;
+            }
         }
 
         public new static XafApplication Application {
             get {
-                return _instanceXafApplicationManager.Value;
+                return _instanceXafApplicationManager != null ? _instanceXafApplicationManager.Value : null;
             }
         }
 

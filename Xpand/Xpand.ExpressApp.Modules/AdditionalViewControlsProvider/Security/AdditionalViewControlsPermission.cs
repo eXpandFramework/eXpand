@@ -23,7 +23,10 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security {
         public bool NotUseSameType { get; set; }
 
         public Color? BackColor { get; set; }
+        public Color? ForeColor { get; set; }
+        public FontStyle? FontStyle { get; set; }
         public int? Height { get; set; }
+        public float? FontSize { get; set; }
         #endregion
         public override IPermission Copy() {
             return new AdditionalViewControlsPermission();

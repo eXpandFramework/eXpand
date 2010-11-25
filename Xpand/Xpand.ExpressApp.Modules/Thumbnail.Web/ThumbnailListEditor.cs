@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Utils;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Thumbnail.Web {
+    [ListEditor(typeof(IPictureItem))]
     public class ThumbnailListEditor : ListEditor {
         public const string SelectedId = "selectedId";
         ThumbnailControl control;

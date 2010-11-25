@@ -71,13 +71,14 @@
     <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DevExpress 2010.1\eXpressApp Framework\Sources\DevExpress.DLL\DevExpress.ExpressApp.Security.v10.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -155,11 +156,15 @@
   <ItemGroup>
     <Compile Include="ExceptionHandling\ExceptionObject.cs" />
     <Compile Include="ImportExport\ClassInfoGraphNode.cs" />
+    <Compile Include="ImportExport\XpandFileData.cs" />
     <Compile Include="ImportExport\SerializationConfiguration.cs" />
     <Compile Include="ImportExport\SerializationConfigurationGroup.cs" />
     <Compile Include="ImportExport\XmlFileChooser.cs" />
     <Compile Include="PersistentMetaData\CodeTemplate.cs" />
     <Compile Include="PersistentMetaData\CodeTemplateInfo.cs" />
+    <Compile Include="PersistentMetaData\ExtendedOrphanedCollection.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentVisibleInLookupListViewAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentVisibleInDetailViewAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAssemblyAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAssemblyDataStoreAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAssemblyVersionAttributeInfo.cs" />
@@ -176,6 +181,8 @@
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentDefaultClassOptionsAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentPersistentAliasAttribute.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentVisibleInListViewAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentXpandNavigationItemAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentPersistentAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentPivotedPropertyAttribute.cs" />
@@ -225,7 +232,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PersistentMetaData\DataStoreLogonObject.cs" />
     <Compile Include="PersistentMetaData\DataBase.cs" />
-    <Compile Include="Updater.cs" />
+    <Compile Include="Updater.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -294,6 +303,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpXPOneToOnePropertyMemberTemplates.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpXPCalculatedPropertyMemberTemplates.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

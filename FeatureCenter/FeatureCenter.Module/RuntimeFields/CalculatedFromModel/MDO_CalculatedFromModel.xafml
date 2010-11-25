@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="FeatureCenter.Module.Customer">
+      <OwnMembers>
+        <RuntimeCalculatedMember Name="MaxOfOrderTotals" IsNewNode="True" AliasExpression="Orders.Max(Total)" Type="System.Decimal" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="RuntimeCalculatedFieldsFromModelFromModel_DetailView">
+      <Items>
+        <PropertyEditor Id="MaxOfOrderTotals" IsNewNode="True" PropertyName="MaxOfOrderTotals" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="8">
+            <LayoutGroup Id="CustomerBase" RelativeSize="100">
+              <LayoutItem Id="Name" RelativeSize="51" />
+              <LayoutItem Id="City" RelativeSize="48" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="7">
+            <LayoutItem Id="Description" RelativeSize="47" />
+            <LayoutItem Id="MaxOfOrderTotals" IsNewNode="True" Index="1" RelativeSize="52" />
+          </LayoutGroup>
+          <LayoutGroup Id="Orders_Group" Direction="Vertical" RelativeSize="83">
+            <LayoutItem Id="Orders" RelativeSize="94" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuntimeCalculatedFieldsFromModelFromModel_ListView">
+      <Columns>
+        <ColumnInfo Id="Max Of Order Totals" IsNewNode="True" PropertyName="MaxOfOrderTotals" Index="5" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

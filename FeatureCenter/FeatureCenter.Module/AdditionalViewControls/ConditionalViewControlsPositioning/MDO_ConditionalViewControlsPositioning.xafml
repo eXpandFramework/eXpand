@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <AdditionalViewControls>
-    <GroupContexts>
+    <ExecutionContextsGroup>
       <ExecutionContexts Id="ConditionalViewControlsPositioning" IsNewNode="True">
-        <ObjectChanged Name="ObjectChanged" IsNewNode="True" />
-        <ViewControlAdding Name="ViewControlAdding" IsNewNode="True" />
+        <ExecutionContext Name="ObjectChanged" IsNewNode="True" />
+        <ExecutionContext Name="ViewControlAdding" IsNewNode="True" />
       </ExecutionContexts>
-    </GroupContexts>
+    </ExecutionContextsGroup>
     <Rules>
       <!--This is due to Dx bug-->
       <AdditionalViewControlsRule Id="Conditional View Controls Positioning For Customer Name" ExecutionContextGroup="ConditionalViewControlsPositioning" />

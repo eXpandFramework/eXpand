@@ -11,15 +11,6 @@
       <MasterDetailRule Id="DMDOrder_OrderLines" IsNewNode="True" TypeInfo="MasterDetailDynamicAssembly.DMDOrder" CollectionMember="DMDOrderLines" ChildListView="DMDOrderLine_ListView" NormalCriteria="1=1" />
     </Rules>
   </MasterDetail>
-  <NavigationItems>
-    <Items>
-      <Item Id="WorldCreator">
-        <Items>
-          <Item Id="Dynamic assembly Master detail" IsNewNode="True" ViewId="DMDCustomer_ListView" Caption="Master detail" />
-        </Items>
-      </Item>
-    </Items>
-  </NavigationItems>
   <Views>
     <ListView Id="DMDCustomer_ListView">
       <GridViewOptions>

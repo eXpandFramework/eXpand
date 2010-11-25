@@ -196,7 +196,7 @@ namespace Xpand.Tests.Xpand.WorldCreator
         Establish context = () => {
             _info = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _info.Name = "a6";
-            _info.Attributes.OfType<PersistentAssemblyVersionAttributeInfo>().Single().Version =new Version(2, 2, 2, 2).ToString();
+            
         };
 
         Because of = () => {
@@ -206,7 +206,7 @@ namespace Xpand.Tests.Xpand.WorldCreator
         It should_compile_with_no_error = () => _info.CompileErrors.ShouldBeNull();
 
         It should_have_version_set =
-            () => (_compileModule.Assembly.FullName + "").IndexOf("2.2.2.2").ShouldBeGreaterThan(-1);
+            () => (_compileModule.Assembly.FullName + "").IndexOf("1.0.").ShouldBeGreaterThan(-1);
     }
 
     [Subject(typeof(CompileEngine))]

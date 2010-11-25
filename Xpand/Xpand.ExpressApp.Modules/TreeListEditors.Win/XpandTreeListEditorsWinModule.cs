@@ -1,25 +1,31 @@
+using System;
 using System.ComponentModel;
-using DevExpress.ExpressApp.Editors;
-using DevExpress.Persistent.Base.General;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Updating;
 using DevExpress.Utils;
+using Xpand.ExpressApp.TreeListEditors.Win.Core;
 
-namespace Xpand.ExpressApp.TreeListEditors.Win
-{
+namespace Xpand.ExpressApp.TreeListEditors.Win {
     [Description(
         "Includes Property Editors and Controllers to DevExpress.ExpressApp.TreeListEditors.Win Module.Enables recursive filtering"
         ), ToolboxTabName("eXpressApp"), EditorBrowsable(EditorBrowsableState.Always), Browsable(true),
      ToolboxItem(true)]
-    public sealed partial class XpandTreeListEditorsWinModule : XpandModuleBase
-    {
-        public XpandTreeListEditorsWinModule()
-        {
+    public sealed partial class XpandTreeListEditorsWinModule : XpandModuleBase, IModelXmlConverter {
+        public XpandTreeListEditorsWinModule() {
             InitializeComponent();
         }
-        protected override void RegisterEditorDescriptors(System.Collections.Generic.List<EditorDescriptor> editorDescriptors)
+
+        public override void AddGeneratorUpdaters(DevExpress.ExpressApp.Model.Core.ModelNodesGeneratorUpdaters updaters)
         {
-            base.RegisterEditorDescriptors(editorDescriptors);
-            editorDescriptors.Add(new ListEditorDescriptor(new AliasAndEditorTypeRegistration(EditorAliases.CategorizedListEditor, typeof(ICategorizedItem), true, typeof(XpandCategorizedListEditor), true)));
+            base.AddGeneratorUpdaters(updaters);
+            updaters.Add(new XpandTreeListEditorNodeGeneratorUpdater());
         }
 
+        public void ConvertXml(ConvertXmlParameters parameters) {
+            if (typeof(IModelListView).IsAssignableFrom(parameters.NodeType) && parameters.Values.ContainsKey("EditorTypeName")) {
+                if (parameters.Values["EditorTypeName"] == "Xpand.ExpressApp.TreeListEditors.Win.XpandCategorizedListEditor")
+                    parameters.Values["EditorTypeName"] ="Xpand.ExpressApp.TreeListEditors.Win.ListEditor.XpandCategorizedListEditor";
+            }
+        }
     }
 }

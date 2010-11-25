@@ -30,6 +30,7 @@
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <OutputPath>..\..\FeatureCenter.Win\bin\Debug\</OutputPath>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
   </PropertyGroup>

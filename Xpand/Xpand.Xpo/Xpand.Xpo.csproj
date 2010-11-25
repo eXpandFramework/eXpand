@@ -124,6 +124,9 @@
     <Compile Include="DB\MultiDataStore.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IXPSimpleObjectExtensions.cs" />
+    <Compile Include="MetaData\XpandCalcMemberInfo.cs" />
+    <Compile Include="MetaData\XpandCustomMemberInfo.cs" />
     <Compile Include="XpandCustomObject.cs" />
     <Compile Include="FunctionOperators\ContainsFunction.cs" />
     <Compile Include="ISupportChangedMembers.cs" />
