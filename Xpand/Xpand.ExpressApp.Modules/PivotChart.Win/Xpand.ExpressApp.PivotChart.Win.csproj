@@ -153,20 +153,32 @@
     <Compile Include="Editors\AnalysisControlWin.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Options\PivotOptionsController.cs" />
-    <Compile Include="PivotedProperty\PivotCustomSortController.cs" />
-    <Compile Include="PivotedProperty\PivotedPropertyController.cs" />
+    <Compile Include="Options\PivotOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PivotedProperty\PivotCustomSortController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PivotedProperty\PivotedPropertyController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PropertyEditors\AnalysisEditorWin.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AnalysisControlVisibilityController.cs" />
+    <Compile Include="AnalysisControlVisibilityController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Options\PivotGridOptionMapper.cs" />
     <Compile Include="Core\TypesInfo.cs" />
-    <Compile Include="XpandPivotChartWinModule.cs" />
+    <Compile Include="XpandPivotChartWinModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XpandPivotChartWinModule.Designer.cs">
       <DependentUpon>XpandPivotChartWinModule.cs</DependentUpon>
     </Compile>
-    <Compile Include="PivotGridInplaceEditorsController.cs" />
+    <Compile Include="PivotGridInplaceEditorsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs">
     </Compile>

@@ -129,7 +129,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConditionalActionStateModule.cs" />
+    <Compile Include="ConditionalActionStateModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DomainLogic\ActionStateRuleDomainLogic.cs" />
     <Compile Include="Logic\ActionState.cs" />
     <Compile Include="Logic\ActionStateRule.cs" />

@@ -129,7 +129,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConditionalControllerStateModule.cs" />
+    <Compile Include="ConditionalControllerStateModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DomainLogic\ControllerStateRuleDomainLogic.cs" />
     <Compile Include="Logic\ControllerState.cs" />
     <Compile Include="Logic\ControllerStateRule.cs" />
@@ -146,7 +148,9 @@
     <Compile Include="Security\ControllerStateRulePermission.cs">
     </Compile>
     <Compile Include="Security\ControllerTypeConverter.cs" />
-    <Compile Include="Security\UpdateTypeConverterController.cs" />
+    <Compile Include="Security\UpdateTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>

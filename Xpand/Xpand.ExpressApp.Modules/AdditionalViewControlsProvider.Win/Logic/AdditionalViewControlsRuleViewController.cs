@@ -104,7 +104,6 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
                                              ExecutionContext executionContext) {
             base.InitializeControl(control, logicRuleInfo, additionalViewControlsProviderCalculator, executionContext);
             var value = (Control)control;
-            //            value.Visible = true;
             if (logicRuleInfo.Rule.Position != Position.DetailViewItem) {
                 if (logicRuleInfo.Rule.Position == Position.Bottom)
                     value.Dock = DockStyle.Bottom;

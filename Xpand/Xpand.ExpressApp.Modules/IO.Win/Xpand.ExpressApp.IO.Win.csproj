@@ -129,11 +129,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\IOViewController.cs" />
+    <Compile Include="Controllers\IOViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\IOViewController.Designer.cs">
       <DependentUpon>IOViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="IOWinModule.cs" />
+    <Compile Include="IOWinModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="IOWinModule.Designer.cs">
       <DependentUpon>IOWinModule.cs</DependentUpon>
     </Compile>

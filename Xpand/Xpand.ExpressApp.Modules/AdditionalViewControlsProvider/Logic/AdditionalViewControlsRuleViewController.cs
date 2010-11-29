@@ -23,19 +23,19 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                     IAdditionalViewControlsRule additionalViewControlsRule = info.Rule;
                     var calculator = new AdditionalViewControlsProviderCalculator(additionalViewControlsRule, info.View.ObjectTypeInfo.Type);
                     Type controlType = calculator.ControlsRule.ControlType;
-                    IList controls = GetControls(viewSiteControl);
+                    ICollection controls = GetControls(viewSiteControl);
                     if (info.Active&&ViewContextIsCorrect(info.Rule)) {
                         object o = FindControl(info, controlType, controls);
                         object control = GetControl(controlType, o, info);
                         ReflectionHelper.CreateObject(calculator.ControlsRule.DecoratorType, new[] { info.View, control, info.Rule });
                         if (info.Rule.NotUseSameType || o == null) {
-                            AddControl(control, controls);
+                            AddControl(control, controls,info);
                             InitializeControl(control, info, calculator, executionContext);
                         }
                         ((AdditionalViewControlsRule)info.Rule).Control = control;
                     } else {
                         object control = ((AdditionalViewControlsRule)info.Rule).Control;
-                        controls.Remove(control);
+                        controls.GetType().GetMethod("Remove").Invoke(controls,new[]{control});
                     }
                 }
             }
@@ -50,7 +50,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             return o ?? Activator.CreateInstance(controlType);
         }
 
-        object GetContainerControl(IViewSiteTemplate viewSiteTemplate, IAdditionalViewControlsRule rule) {
+        protected object GetContainerControl(IViewSiteTemplate viewSiteTemplate, IAdditionalViewControlsRule rule) {
             if (rule.Position == Position.DetailViewItem && View is DetailView) {
                 var modelAdditionalViewControlsItem = ((DetailView)View).Items.OfType<AdditionalViewControlsItem>().Where(item => item.Model.Rule.Id == rule.Id).FirstOrDefault();
                 return modelAdditionalViewControlsItem != null ? modelAdditionalViewControlsItem.Control : null;
@@ -58,11 +58,11 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             return viewSiteTemplate.ViewSiteControl;
         }
 
-        IList GetControls(object viewSiteControl) {
-            return ((IList)viewSiteControl.GetType().GetProperty("Controls").GetValue(viewSiteControl, null));
+        ICollection GetControls(object viewSiteControl) {
+            return (ICollection) (viewSiteControl.GetType().GetProperty("Controls").GetValue(viewSiteControl, null));
         }
 
-        object FindControl(LogicRuleInfo<IAdditionalViewControlsRule> info, Type controlType, IList controls) {
+        object FindControl(LogicRuleInfo<IAdditionalViewControlsRule> info, Type controlType, ICollection controls) {
             if (info.Rule.NotUseSameType && info.Active)
                 return null;
             object firstOrDefault = controls.OfType<object>().Where(o => controlType == o.GetType()).FirstOrDefault();
@@ -73,7 +73,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             controls.Remove(firstOrDefault);
         }
 
-        protected virtual void AddControl(object control, IEnumerable controls) {
+        protected virtual void AddControl(object control, object controls, LogicRuleInfo<IAdditionalViewControlsRule> info) {
             controls.GetType().GetMethod("Add").Invoke(controls, new[] { control });
         }
 

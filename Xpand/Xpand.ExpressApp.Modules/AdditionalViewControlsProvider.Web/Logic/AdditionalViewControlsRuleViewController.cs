@@ -1,25 +1,32 @@
-﻿using System;
-using System.Web.UI;
+﻿using System.Web.UI;
+using System.Web.UI.WebControls;
+using DevExpress.ExpressApp.Templates;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Logic {
-    public class AdditionalViewControlsRuleViewController : AdditionalViewControlsProvider.Logic.AdditionalViewControlsRuleViewController{
+    public class AdditionalViewControlsRuleViewController : AdditionalViewControlsProvider.Logic.AdditionalViewControlsRuleViewController {
+        protected override void AddControl(object control, object controls, LogicRuleInfo<IAdditionalViewControlsRule> info) {
 
-        protected override void InitializeControl(object control, LogicRuleInfo<IAdditionalViewControlsRule> logicRuleInfo, AdditionalViewControlsProviderCalculator additionalViewControlsProviderCalculator, ExecutionContext executionContext)
-        {
-            throw new NotImplementedException();
+            var tableCell = (TableCell)GetContainerControl((IViewSiteTemplate)Frame.Template, info.Rule);
+            var tableRow = ((TableRow)tableCell.Parent);
+            var row = new TableRow();
+            var tableRowCollection = ((Table)tableRow.Parent).Rows;
+            var cellCollection = row.Cells;
+            ((Control)control).Visible = true;
+            var cell = new TableCell();
+            cell.Controls.Add((Control)control);
+            cellCollection.Add(cell);
+            switch (info.Rule.Position) {
+                case Position.Top: {
+                        tableRowCollection.AddAt(0, row);
+                        break;
+                    }
+                default:
+                    tableRowCollection.Add(row);
+                    break;
+            }
 
-//            ControlCollection collection = ((Control)viewSiteControl).Controls;
-//            ((Control)control).Visible = true;
-//            switch (additionalViewControlsRule.Rule.Position) {
-//                case Position.Top:
-//                    collection.AddAt(0, ((Control)control));
-//                    break;
-//                default:
-//                    collection.Add(((Control)control));
-//                    break;
-//            }
         }
     }
 }

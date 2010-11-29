@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Core;
 
 
 namespace Xpand.ExpressApp.Web {
-    public abstract partial class XpandWebApplication : DevExpress.ExpressApp.Web.WebApplication, ISupportModelsManager, ISupportConfirmationRequired,ISupportAfterViewShown {
+    public partial class XpandWebApplication : DevExpress.ExpressApp.Web.WebApplication, ISupportModelsManager, ISupportConfirmationRequired,ISupportAfterViewShown {
         protected XpandWebApplication() {
             InitializeComponent();
             DetailViewCreating += OnDetailViewCreating;
