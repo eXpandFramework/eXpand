@@ -1,8 +1,6 @@
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.Persistent.Base;
-using FeatureCenter.Module.ApplicationDifferences.ExternalApplication;
 using FeatureCenter.Module.ListViewControl.PropertyPathFilters;
 using FeatureCenter.Module.LowLevelFilterDataStore;
 using FeatureCenter.Module.WorldCreator;
@@ -18,7 +16,7 @@ namespace FeatureCenter.Module {
     public sealed partial class FeatureCenterModule : XpandModuleBase {
         public FeatureCenterModule() {
             InitializeComponent();
-            ParametersFactory.RegisterParameter(new ExternalApplicationKeyParameter());
+            
         }
 
         void ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs createCustomModelDifferenceStoreEventArgs) {

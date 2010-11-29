@@ -73,7 +73,7 @@
     <Reference Include="DevExpress.ExpressApp.ConditionalFormatting.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v10.1">
@@ -82,7 +82,7 @@
     <Reference Include="DevExpress.ExpressApp.Objects.v10.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v10.1, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.v10.1">
@@ -238,7 +238,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDifferences\AttributeRegistrator.cs" />
-    <Compile Include="ApplicationDifferences\ExternalApplication\AttributeRegistrator.cs" />
     <Compile Include="ApplicationDifferences\RoleDifference\AttributeRegistrator.cs" />
     <Compile Include="DetailViewControl\ActionButtonViewItem\ActionButtonViewItemController.cs">
       <SubType>Component</SubType>
@@ -305,13 +304,6 @@
     <Compile Include="RuntimeFields\FromModel\AddRecordsToAddRuntimeFieldsFromModelObjectControler.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ApplicationDifferences\ExternalApplication\ExternalApplicationKeyParameter.cs">
-    </Compile>
-    <Compile Include="ApplicationDifferences\ExternalApplication\ExternalApplicationModelStore.cs" />
-    <Compile Include="ApplicationDifferences\ExternalApplication\StartExternalApplicationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ApplicationDifferences\ExternalApplication\Updater.cs" />
     <Compile Include="ApplicationDifferences\Updater.cs" />
     <Compile Include="Captions.cs" />
     <Compile Include="Customer.cs" />
@@ -408,9 +400,6 @@
     <EmbeddedResource Include="ImportExport\AnalysisObjects\AnalysisObjectsConfiguration.xml" />
     <EmbeddedResource Include="ImportExport\AnalysisObjects\AnalysisObjects.xml" />
     <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetail.xml" />
-    <EmbeddedResource Include="ApplicationDifferences\ExternalApplication\MDO_ExternalApplication.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Images\Demo_Welcome.png" />
     <EmbeddedResource Include="Images\Demo_Welcome_32x32.png" />
   </ItemGroup>
@@ -522,9 +511,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="HideToolBar\DetailView\MDO_HideDetailViewToolBar.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ApplicationDifferences\ExternalApplication\ExternalApplication.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WorldCreator\DynamicAssemblyMasterDetail\WC3LevelMasterDetail.xafml">

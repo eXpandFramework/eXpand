@@ -4,7 +4,9 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.SystemModule;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
+using FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication;
 using Xpand.ExpressApp.AdditionalViewControlsProvider;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
@@ -23,6 +25,7 @@ namespace FeatureCenter.Module.Win
         public FeatureCenterWindowsFormsModule()
         {
             InitializeComponent();
+            ParametersFactory.RegisterParameter(new ExternalApplicationKeyParameter());
         }
         public override void Setup(ApplicationModulesManager moduleManager)
         {
