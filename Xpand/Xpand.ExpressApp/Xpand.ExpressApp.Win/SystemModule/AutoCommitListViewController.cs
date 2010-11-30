@@ -28,9 +28,9 @@ namespace Xpand.ExpressApp.Win.SystemModule
                 View.QueryCanChangeCurrentObject += ViewOnQueryCanChangeCurrentObject;
             }
         }
-        protected override void OnDeactivating()
+        protected override void OnDeactivated()
         {
-            base.OnDeactivating();
+            base.OnDeactivated();
             var winDetailViewController = Frame.GetController<WinDetailViewController>();
             if (winDetailViewController != null && ((IModelListViewAutoCommitListView)View.Model).AutoCommitListView)
             {

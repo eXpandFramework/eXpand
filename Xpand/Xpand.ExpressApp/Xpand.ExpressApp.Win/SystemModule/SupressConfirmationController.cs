@@ -17,12 +17,12 @@ namespace Xpand.ExpressApp.Win.SystemModule
         
     }
 
-    public class SupressConfirmationController : ViewController, IModelExtender
+    public class SupressConfirmationController : ViewController<ObjectView>, IModelExtender
     {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
             extenders.Add<IModelClass, IModelClassSupressConfirmation>();
-            extenders.Add<IModelView, IModelViewSupressConfirmation>();
+            extenders.Add<IModelObjectView, IModelViewSupressConfirmation>();
             
         }
 
@@ -41,10 +41,10 @@ namespace Xpand.ExpressApp.Win.SystemModule
             }
         }
 
-        protected override void OnDeactivating()
+        protected override void OnDeactivated()
         {
             ObjectSpace.ObjectChanged -= ObjectSpace_ObjectChanged;
-            base.OnDeactivating();
+            base.OnDeactivated();
         }
 
         private void ObjectSpace_ObjectChanged(object sender, ObjectChangedEventArgs e)

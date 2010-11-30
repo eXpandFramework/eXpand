@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.Win.Editors
         }
 
         public ActionButtonDetailItem(
-            IModelDetailViewItem model, Type objectType)
+            IModelViewItem model, Type objectType)
             : base(model, objectType)
         {
         }

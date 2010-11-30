@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
+using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Editors;
@@ -23,6 +23,8 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         private bool _hidePopupMenu;
         public event EventHandler<CustomGridViewCreateEventArgs> CustomGridViewCreate;
         public event EventHandler<CustomGridCreateEventArgs> CustomGridCreate;
+        private CollectionSourceBase collectionSource;
+
         public new void AssignDataSourceToControl(object dataSource) {
             base.AssignDataSourceToControl(dataSource);
         }
@@ -61,11 +63,11 @@ namespace Xpand.ExpressApp.Win.ListEditors {
 
         object GetFocusedRowObject(DevExpress.ExpressApp.Win.Editors.XafGridView view) {
             if (view is XpandXafGridView && ((XpandXafGridView)view).Window == null)
-                return XtraGridUtils.GetFocusedRowObject(view);
+                return _GetFocusedRowObject.Invoke(null, new object[] { collectionSource, view });
             int rowHandle = view.FocusedRowHandle;
             if (!((!view.IsDataRow(rowHandle) && !view.IsNewItemRow(rowHandle))))
                 return view.GetRow(rowHandle);
-            return XtraGridUtils.GetFocusedRowObject(view);
+            return _GetFocusedRowObject.Invoke(null, new object[] { collectionSource, view });
         }
 
         DevExpress.ExpressApp.Win.Editors.XafGridView GetFocusedGridView(DevExpress.ExpressApp.Win.Editors.XafGridView view) {
@@ -84,9 +86,13 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             if (handler != null) handler(this, e);
         }
 
+        private MethodInfo _GetFocusedRowObject;
+        private MethodInfo _GetRow;
 
         public XpandGridListEditor(IModelListView model)
             : base(model) {
+                _GetFocusedRowObject = typeof(XtraGridUtils).GetMethod("GetFocusedRowObject", BindingFlags.Static | BindingFlags.NonPublic, null, new Type[] { typeof(CollectionSource), typeof(GridView) }, null);
+                _GetRow = typeof(XtraGridUtils).GetMethod("GetRow", BindingFlags.Static | BindingFlags.NonPublic, null, new Type[] { typeof(CollectionSource), typeof(GridView), typeof(int) }, null);
         }
         public XpandGridListEditor() : this(null) { }
 
@@ -99,7 +105,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         #endregion
 
         protected override DevExpress.ExpressApp.Win.Editors.XafGridView CreateGridViewCore() {
-            var gridViewCreatingEventArgs = new CustomGridViewCreateEventArgs();
+            var gridViewCreatingEventArgs = new CustomGridViewCreateEventArgs(this.Grid);
             OnCustomGridViewCreate(gridViewCreatingEventArgs);
             DevExpress.ExpressApp.Win.Editors.XafGridView gridViewCore = gridViewCreatingEventArgs.Handled ? gridViewCreatingEventArgs.GridView : new XpandXafGridView(this);
             return gridViewCore;
@@ -107,7 +113,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
 
 
         public event EventHandler<CustomGetSelectedObjectsArgs> CustomGetSelectedObjects;
-        protected override ModelSynchronizer CreateModelSynchronizer() {
+        protected override IModelSynchronizable CreateModelSynchronizer() {
             return new GridListEditorSynchronizer(this, Model);
         }
         private void OnCustomGetSelectedObjects(CustomGetSelectedObjectsArgs e) {
@@ -128,10 +134,18 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         }
         IList GetSelectedObjects(GridView focusedView) {
             int[] selectedRows = focusedView.GetSelectedRows();
+            ArrayList selectedObjects = new ArrayList();
             if ((selectedRows != null) && (selectedRows.Length > 0)) {
-                IEnumerable<object> objects = selectedRows.Where(rowHandle => rowHandle > -1).Select(rowHandle
-                                                                                                     => focusedView.GetRow(rowHandle)).Where(obj => obj != null);
-                return objects.ToList();
+                foreach (int rowHandle in selectedRows) {
+                    if (rowHandle >= 0) {
+                        object obj = _GetRow.Invoke(null, new object[] { collectionSource, focusedView, rowHandle });
+                        if (obj != null) {
+                            selectedObjects.Add(obj);
+                        }
+                    }
+                }
+
+                return (object[])selectedObjects.ToArray(typeof(object));
             }
             return new List<object>();
         }
@@ -161,6 +175,11 @@ namespace Xpand.ExpressApp.Win.ListEditors {
 
 
         #endregion
+
+        public override void Setup(CollectionSourceBase collectionSource, XafApplication application) {
+            base.Setup(collectionSource, application);
+            this.collectionSource = collectionSource;
+        }
     }
 
     public class CustomGridCreateEventArgs : HandledEventArgs {
@@ -168,12 +187,24 @@ namespace Xpand.ExpressApp.Win.ListEditors {
     }
 
     public class GridListEditorSynchronizer : DevExpress.ExpressApp.Win.Editors.GridListEditorSynchronizer {
+        private ModelSynchronizerList modelSynchronizerList;
         public GridListEditorSynchronizer(DevExpress.ExpressApp.Win.Editors.GridListEditor gridListEditor, IModelListView model)
             : base(gridListEditor, model) {
-            Add(new GridViewOptionsModelSynchronizer(gridListEditor.GridView, model));
+                modelSynchronizerList = new ModelSynchronizerList();
+                modelSynchronizerList.Add(new GridViewOptionsModelSynchronizer(gridListEditor.GridView, model));
             foreach (var modelColumn in model.Columns) {
-                Add(new ColumnOptionsModelSynchronizer(gridListEditor.GridView, modelColumn));
+                modelSynchronizerList.Add(new ColumnOptionsModelSynchronizer(gridListEditor.GridView, modelColumn));
             }
+        }
+
+        protected override void ApplyModelCore() {
+            base.ApplyModelCore();
+            modelSynchronizerList.ApplyModel();
+        }
+
+        public override void SynchronizeModel() {
+            base.SynchronizeModel();
+            modelSynchronizerList.SynchronizeModel();
         }
     }
 
@@ -191,7 +222,13 @@ namespace Xpand.ExpressApp.Win.ListEditors {
 
 
     public class CustomGridViewCreateEventArgs : HandledEventArgs {
+        public CustomGridViewCreateEventArgs(GridControl gridControl)
+        {
+            GridControl = gridControl;
+        }
+
         public XpandXafGridView GridView { get; set; }
+        public GridControl GridControl { get; private set; }
     }
 
 

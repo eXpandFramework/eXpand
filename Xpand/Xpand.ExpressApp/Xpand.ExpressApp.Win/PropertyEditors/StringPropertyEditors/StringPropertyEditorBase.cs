@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors{
             return repositoryItemComboBox;
         }
 
-        public void Setup(ObjectSpace objectSpace, XafApplication application)
+        public void Setup(IObjectSpace objectSpace, XafApplication application)
         {
             if (helper == null)
                 helper = new LookupEditorHelper(application, objectSpace, ObjectTypeInfo, Model);
