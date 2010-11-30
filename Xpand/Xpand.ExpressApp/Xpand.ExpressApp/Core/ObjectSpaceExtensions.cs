@@ -70,7 +70,7 @@ namespace Xpand.ExpressApp.Core
             return (CriteriaOperator) methodInfo.Invoke(xpquery, new[] { transform });
         }
 
-        public static T CreateObjectFromInterface<T>(this ObjectSpace objectSpace) {
+        public static T CreateObjectFromInterface<T>(this IObjectSpace objectSpace) {
             var findBussinessObjectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
             return (T)objectSpace.CreateObject(findBussinessObjectType);
         }

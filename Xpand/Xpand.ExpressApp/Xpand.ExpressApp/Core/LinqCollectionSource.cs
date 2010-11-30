@@ -22,11 +22,11 @@ namespace Xpand.ExpressApp.Core
 
         protected override object CreateCollection()
         {
-            ((XPQueryBase)Query).Session = ObjectSpace.Session;
+            ((XPQueryBase)Query).Session = ((ObjectSpace)ObjectSpace).Session;
             return ConvertQueryToCollection(Query);
         }
-        public LinqCollectionSource(ObjectSpace objectSpace, Type objectType) : base(objectSpace, objectType) { }
-        public LinqCollectionSource(ObjectSpace objectSpace, Type objectType, IQueryable query)
+        public LinqCollectionSource(IObjectSpace objectSpace, Type objectType) : base(objectSpace, objectType) { }
+        public LinqCollectionSource(IObjectSpace objectSpace, Type objectType, IQueryable query)
             : base(objectSpace, objectType)
         {
             Query = query;

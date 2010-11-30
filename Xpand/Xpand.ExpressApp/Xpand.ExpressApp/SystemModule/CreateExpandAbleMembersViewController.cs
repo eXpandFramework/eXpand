@@ -26,11 +26,11 @@ namespace Xpand.ExpressApp.SystemModule {
         protected override void OnActivated() {
             base.OnActivated();
             if (((IModelDetailViewCreateExpandAbleMembers) View.Model).CreateExpandAbleMembers)
-                ConstractExpandObjectMembers(View.ObjectSpace.Session);
+                ConstractExpandObjectMembers();
         }
 
-        public virtual void ConstractExpandObjectMembers(Session session) {
-            if (View.CurrentObject != null && session.IsNewObject(View.CurrentObject)) {
+        public virtual void ConstractExpandObjectMembers() {
+            if (View.CurrentObject != null && View.ObjectSpace.IsNewObject(View.CurrentObject)) {
                 foreach (var memberInfo in View.ObjectTypeInfo.Members) {
                     var expandObjectMembersAttribute = memberInfo.FindAttribute<ExpandObjectMembersAttribute>();
                     if (expandObjectMembersAttribute != null &&

@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.Core
             var listViewInfo = ((XafApplication)sender).FindModelView(e.ListViewID) as IModelListViewLinq;
             if (listViewInfo == null) return;
             if (string.IsNullOrEmpty(listViewInfo.XPQueryMethod)) return;
-            IQueryable query = InvokeMethod(e.ObjectType, listViewInfo.XPQueryMethod, e.ObjectSpace.Session);
+            IQueryable query = InvokeMethod(e.ObjectType, listViewInfo.XPQueryMethod, ((ObjectSpace)e.ObjectSpace).Session);
             if (query == null) return;
             e.CollectionSource = new LinqCollectionSource(e.ObjectSpace, e.ObjectType, query);
         }

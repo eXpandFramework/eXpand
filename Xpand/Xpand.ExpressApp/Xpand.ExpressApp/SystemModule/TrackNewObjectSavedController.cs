@@ -52,7 +52,7 @@ namespace Xpand.ExpressApp.SystemModule
         {
             if (objectManipulatingEventArgs.Object == View.CurrentObject)
             {
-                isNewObject = View.ObjectSpace.Session.IsNewObject(View.CurrentObject);
+                isNewObject = View.ObjectSpace.IsNewObject(View.CurrentObject);
             }
         }
     }

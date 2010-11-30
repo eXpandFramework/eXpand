@@ -1,8 +1,8 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
-using Xpand.ExpressApp.Enums;
 using Xpand.ExpressApp.Attributes;
+using Xpand.ExpressApp.Enums;
 
 namespace Xpand.ExpressApp.SystemModule
 {
@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.SystemModule
         {
             if (allowEditAttribute.AllowEditEnum == AllowEditEnum.Always)
                 return allowEditAttribute.AllowEdit;
-            if (ObjectSpace.Session.IsNewObject(View.CurrentObject))
+            if (ObjectSpace.IsNewObject(View.CurrentObject))
             {
                 if (allowEditAttribute.AllowEditEnum == AllowEditEnum.NewObject)
                     return allowEditAttribute.AllowEdit;

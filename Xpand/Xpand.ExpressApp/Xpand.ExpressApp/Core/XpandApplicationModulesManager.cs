@@ -93,9 +93,6 @@ namespace Xpand.ExpressApp.Core
                 {
                     try
                     {
-#pragma warning disable 0618
-                        module.CustomizeXPDictionary(XafTypesInfo.XpoTypeInfoSource.XPDictionary);
-#pragma warning restore 0618
                         module.CustomizeTypesInfo(typesInfo);
                     }
                     catch (Exception e)
@@ -109,9 +106,6 @@ namespace Xpand.ExpressApp.Core
                 {
                     try
                     {
-#pragma warning disable 0618
-                        controller.CustomizeXPDictionary(XafTypesInfo.XpoTypeInfoSource.XPDictionary);
-#pragma warning restore 0618
                         controller.CustomizeTypesInfo(typesInfo);
                     }
                     catch (Exception e)
@@ -120,9 +114,6 @@ namespace Xpand.ExpressApp.Core
                             string.Format("Exception occurs while the '{0}' customizes XPDictionary: {1}", controller.GetType().FullName, e.Message), e);
                     }
                 }
-#pragma warning disable 0618
-                OnCustomizeXPDictionary(XafTypesInfo.XpoTypeInfoSource.XPDictionary);
-#pragma warning restore 0618
                 OnCustomizeTypesInfo(XafTypesInfo.Instance);
             }
         }

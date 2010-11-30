@@ -45,7 +45,7 @@ namespace Xpand.ExpressApp.SystemModule
         void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs)
         {
             GroupOperator groupOperator = GetCriteria();
-            var count = (int)View.ObjectSpace.Session.Evaluate(View.ObjectTypeInfo.Type, CriteriaOperator.Parse("Count()"), groupOperator);
+            var count = (int)((ObjectSpace)View.ObjectSpace).Session.Evaluate(View.ObjectTypeInfo.Type, CriteriaOperator.Parse("Count()"), groupOperator);
             var objects = ObjectSpace.GetObjects(View.ObjectTypeInfo.Type, groupOperator);
             CreateOrderProviderSource(objects);
             if (count > 0)

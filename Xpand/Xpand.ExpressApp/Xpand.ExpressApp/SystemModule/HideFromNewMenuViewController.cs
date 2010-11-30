@@ -9,7 +9,7 @@ using Xpand.ExpressApp.Attributes;
 
 namespace Xpand.ExpressApp.SystemModule
 {
-    public class HideFromNewMenuViewController : ViewController
+    public class HideFromNewMenuViewController : ViewController<ObjectView>
     {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();

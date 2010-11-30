@@ -5,7 +5,7 @@ using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.Editors {
     
-    public interface IModelActionButton : IModelDetailViewItem
+    public interface IModelActionButton : IModelViewItem
     {
         [DataSourceProperty("Application.ActionDesign.Actions")]
         [Required]
@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.Editors {
         protected ActionButtonDetailItem(Type objectType, string id) : base(objectType, id) {
         }
 
-        protected ActionButtonDetailItem(IModelDetailViewItem model, Type objectType)
+        protected ActionButtonDetailItem(IModelViewItem model, Type objectType)
             : base(objectType, model != null ? model.Id : string.Empty)
         {
             _model = (IModelActionButton) model;
@@ -27,7 +27,7 @@ namespace Xpand.ExpressApp.Editors {
 
         public event EventHandler Executed;
 
-        public IModelDetailViewItem Model
+        public IModelViewItem Model
         {
             get
             {

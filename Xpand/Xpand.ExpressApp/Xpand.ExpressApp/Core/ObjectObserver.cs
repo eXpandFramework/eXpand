@@ -45,7 +45,7 @@ namespace Xpand.ExpressApp.Core {
             if (handler != null) handler(this, e);
         }
 
-        protected ObjectObserver(ObjectSpace objectSpace)
+        protected ObjectObserver(IObjectSpace objectSpace)
         {
             objectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
             objectSpace.ObjectDeleted += ObjectSpaceOnObjectDeleted;
@@ -55,8 +55,8 @@ namespace Xpand.ExpressApp.Core {
             _objectSpace=objectSpace;
 
         }
-        private readonly ObjectSpace _objectSpace;
-        public ObjectSpace ObjectSpace
+        private readonly IObjectSpace _objectSpace;
+        public IObjectSpace ObjectSpace
         {
             get { return _objectSpace; }
         }

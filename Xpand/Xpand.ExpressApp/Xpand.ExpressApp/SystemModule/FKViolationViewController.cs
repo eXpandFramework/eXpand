@@ -16,12 +16,12 @@ namespace Xpand.ExpressApp.SystemModule
     {
     }
 
-    public class FKViolationViewController : ViewController, IModelExtender
+    public class FKViolationViewController : ViewController<ObjectView>, IModelExtender
     {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
         {
             extenders.Add<IModelClass, IModelClassEnableFKViolations>();
-            extenders.Add<IModelView, IModelViewEnableFKViolations>();
+            extenders.Add<IModelObjectView, IModelViewEnableFKViolations>();
         }
 
         protected override void OnActivated()
@@ -30,9 +30,9 @@ namespace Xpand.ExpressApp.SystemModule
             if (((IModelViewEnableFKViolations)View.Model).EnableFKViolations)
                 ObjectSpace.ObjectDeleting += ObjectSpace_OnObjectDeleting;
         }
-        protected override void OnDeactivating()
+        protected override void OnDeactivated()
         {
-            base.OnDeactivating();
+            base.OnDeactivated();
             if (((IModelViewEnableFKViolations)View.Model).EnableFKViolations)
                 ObjectSpace.ObjectDeleting -= ObjectSpace_OnObjectDeleting;
         }
@@ -40,7 +40,7 @@ namespace Xpand.ExpressApp.SystemModule
         {
             foreach (var o in e.Objects)
             {
-                var count = ObjectSpace.Session.CollectReferencingObjects(o).Count;
+                var count = ((ObjectSpace)ObjectSpace).Session.CollectReferencingObjects(o).Count;
                 if (count > 0)
                 {
                     var result = new RuleSetValidationResult();

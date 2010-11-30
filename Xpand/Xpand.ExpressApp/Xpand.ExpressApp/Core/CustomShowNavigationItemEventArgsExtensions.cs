@@ -1,5 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.Core
@@ -9,9 +10,11 @@ namespace Xpand.ExpressApp.Core
         public static bool FitToObjectType(this CustomShowNavigationItemEventArgs args, XafApplication application,Type objectType)
         {
             var viewShortcut = args.ActionArguments.SelectedChoiceActionItem.Data as ViewShortcut;
-            if (viewShortcut != null && 
-                application.Model.Views[viewShortcut.ViewId].ModelClass.TypeInfo.FullName == objectType.FullName)
-                return true;
+            if (viewShortcut != null) {
+                var view = application.Model.Views[viewShortcut.ViewId] as IModelObjectView;
+                return view != null && view.ModelClass.TypeInfo.FullName == objectType.FullName;
+            }
+
             return false;
         }
     }

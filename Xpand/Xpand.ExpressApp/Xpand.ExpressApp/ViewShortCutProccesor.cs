@@ -46,12 +46,12 @@ namespace Xpand.ExpressApp {
             return ((IModelDetailViewProccessViewShortcuts)modelDetailView).ViewShortcutProccesor;
         }
 
-        object GetObject(ViewShortcut shortcut, IModelDetailView modelDetailView, ObjectSpace objectSpace) {
+        object GetObject(ViewShortcut shortcut, IModelDetailView modelDetailView, IObjectSpace objectSpace) {
             object objectKey = GetObjectKey(shortcut, modelDetailView.ModelClass.TypeInfo.Type, objectSpace);
             return GetObjectCore(modelDetailView, objectKey, objectSpace);
         }
 
-        object GetObjectKey(ViewShortcut shortcut, Type type, ObjectSpace objectSpace) {
+        object GetObjectKey(ViewShortcut shortcut, Type type, IObjectSpace objectSpace) {
             var objectKey = GetObjectKey(objectSpace, type, shortcut);
             if (objectKey != null)
                 return objectKey;
@@ -60,7 +60,7 @@ namespace Xpand.ExpressApp {
                             : CriteriaWrapper.ParseCriteriaWithReadOnlyParameters(shortcut.ObjectKey, type);
         }
 
-        object GetObjectKey(ObjectSpace objectSpace, Type type, ViewShortcut shortcut) {
+        object GetObjectKey(IObjectSpace objectSpace, Type type, ViewShortcut shortcut) {
             object objectKey = null;
             if (string.IsNullOrEmpty(shortcut.ObjectKey))
                 return objectKey;
@@ -72,7 +72,7 @@ namespace Xpand.ExpressApp {
             return objectKey;
         }
 
-        protected virtual object GetObjectCore(IModelDetailView modelView, object objectKey, ObjectSpace objectSpace) {
+        protected virtual object GetObjectCore(IModelDetailView modelView, object objectKey, IObjectSpace objectSpace) {
             Type type = modelView.ModelClass.TypeInfo.Type;
             object obj;
 
@@ -92,7 +92,7 @@ namespace Xpand.ExpressApp {
 
         void OnAfterViewShown(object sender, ViewShownEventArgs e) {
             if (_detailView == null) return;
-            ObjectSpace objectSpace = _application.ObjectSpaceProvider.CreateObjectSpace();
+            IObjectSpace objectSpace = _application.ObjectSpaceProvider.CreateObjectSpace();
             IList objects = objectSpace.GetObjects(_detailView.ObjectTypeInfo.Type);
             var standaloneOrderProvider = new StandaloneOrderProvider(objectSpace, objects);
             var orderProviderSource = new OrderProviderSource { OrderProvider = standaloneOrderProvider };

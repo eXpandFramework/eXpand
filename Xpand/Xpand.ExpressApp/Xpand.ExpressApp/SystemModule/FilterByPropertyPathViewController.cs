@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -14,8 +15,6 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Filtering;
-
-using System.ComponentModel;
 using Xpand.Xpo;
 using Xpand.Xpo.Parser;
 
@@ -142,7 +141,7 @@ namespace Xpand.ExpressApp.SystemModule
             _filtersByPropertyPathWrappers = new Dictionary<string, FiltersByCollectionWrapper>();
             foreach (IModelPropertyPathFilter childNode in ((IModelListViewPropertyPathFilters)View.Model).PropertyPathFilters)
                 _filtersByPropertyPathWrappers.Add(childNode.Id,new FiltersByCollectionWrapper(View.ObjectTypeInfo, childNode,
-                        ObjectSpace.Session.GetClassInfo(View.ObjectTypeInfo.Type)));
+                        ((ObjectSpace)ObjectSpace).Session.GetClassInfo(View.ObjectTypeInfo.Type)));
         }
 
 
@@ -190,7 +189,7 @@ namespace Xpand.ExpressApp.SystemModule
             CriteriaOperator criteriaOperator = CriteriaOperator.Parse(filtersByCollectionWrapper.PropertyPathFilter);
             if (!(ReferenceEquals(criteriaOperator, null))){
                 new FilterWithObjectsProcessor(View.ObjectSpace).Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
-                var criterion = new PropertyPathParser(View.ObjectSpace.Session.GetClassInfo(View.ObjectTypeInfo.Type)).Parse(filtersByCollectionWrapper.PropertyPath, criteriaOperator.ToString());
+                var criterion = new PropertyPathParser(((ObjectSpace)View.ObjectSpace).Session.GetClassInfo(View.ObjectTypeInfo.Type)).Parse(filtersByCollectionWrapper.PropertyPath, criteriaOperator.ToString());
                 View.CollectionSource.Criteria[filtersByCollectionWrapper.ID] = criterion;
                 return criteriaOperator;
             }

@@ -33,9 +33,9 @@ namespace Xpand.ExpressApp.SystemModule
             extenders.Add<IModelOptions, IConnectionInfoStatusMessage>();
         }
 
-        protected override void OnDeactivating()
+        protected override void OnDeactivated()
         {
-            base.OnDeactivating();
+            base.OnDeactivated();
             var controller = Frame.GetController<WindowTemplateController>();
             if (((IConnectionInfoStatusMessage)Application.Model.Options).ConnectionInfoMessage)
                 controller.CustomizeWindowStatusMessages -= controller_CustomizeWindowStatusMessages;
@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp.SystemModule
 
         void controller_CustomizeWindowStatusMessages(object sender, CustomizeWindowStatusMessagesEventArgs e)
         {
-            var dbConnection = Application.ObjectSpaceProvider.CreateUpdatingReadOnlySession().Connection;
+            var dbConnection = ((ObjectSpace)Application.ObjectSpaceProvider.CreateUpdatingObjectSpace(false)).Session.Connection;
             e.StatusMessages.Add(string.Format("({0} - {1})", ((SqlConnection)dbConnection).DataSource, dbConnection.Database));
         }
 

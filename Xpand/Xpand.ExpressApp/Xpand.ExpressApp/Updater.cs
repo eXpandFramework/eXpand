@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -41,10 +42,11 @@ namespace Xpand.ExpressApp
                 if (baseType != null)
                 {
                     var method = baseType.GetMethod("ClearStaticData", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-                    var datalayer = XpandModuleBase.Application.ObjectSpaceProvider.CreateObjectSpace().Session.DataLayer;
+                    var datalayer = ((ObjectSpace)XpandModuleBase.Application.ObjectSpaceProvider.CreateObjectSpace()).Session.DataLayer;
                     method.Invoke(datalayer, null);
-                    method.Invoke(Session.DataLayer, null);
-                    Session.DropIdentityMap();
+                    var session = ((ObjectSpace)ObjectSpace).Session;
+                    method.Invoke(session.DataLayer, null);
+                    session.DropIdentityMap();
                 }
             }
         }
