@@ -31,8 +31,8 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
             protectMembers();
         }
 
-        protected override void OnDeactivating() {
-            base.OnDeactivating();
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
             View.CurrentObjectChanged -= View_CurrentObjectChanged;
         }
 
@@ -55,16 +55,16 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
                 foreach (string name in propertyNames) {
                     Initialize(name);
                     bool canRead = GetCanRead(name);
-                    ReplaceEditorControl(!canRead? controlStorage[name].ProtectedControl: controlStorage[name].DefaultControl, controlStorage[name]);
+                    ReplaceEditorControl(!canRead ? controlStorage[name].ProtectedControl : controlStorage[name].DefaultControl, controlStorage[name]);
                 }
             }
         }
 
         bool GetCanRead(string name) {
             bool canRead = DataManipulationRight.CanRead(View.ObjectTypeInfo.Type, name, View.CurrentObject, null);
-            bool fit = ((MemberLevelObjectAccessComparer)ObjectAccessComparerBase.CurrentComparer).Fit(View.CurrentObject,MemberOperation.Read);
+            bool fit = ((MemberLevelObjectAccessComparer)ObjectAccessComparerBase.CurrentComparer).Fit(View.CurrentObject, MemberOperation.Read);
             if (fit)
-                return canRead ;
+                return canRead;
             return true;
         }
 
@@ -76,7 +76,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
 
                 bool enabled = newControl.Enabled;
 
-                if (controlHelper.LayoutControlItem.Owner!=null)
+                if (controlHelper.LayoutControlItem.Owner != null)
                     controlHelper.LayoutControlItem.Owner.BeginUpdate();
                 controlHelper.LayoutControlItem.BeginInit();
 
@@ -103,9 +103,9 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
             if (controlStorage[name].DefaultControl == null) {
                 var item = View.FindItem(name) as PropertyEditor;
                 if (item != null) {
-                    controlStorage[name].DefaultControl =(Control) item.Control;
+                    controlStorage[name].DefaultControl = (Control)item.Control;
                     var protectedContentEdit = new ProtectedContentEdit();
-                    ((RepositoryItemProtectedContentTextEdit) protectedContentEdit.Properties).ProtectedContentText =
+                    ((RepositoryItemProtectedContentTextEdit)protectedContentEdit.Properties).ProtectedContentText =
                         Application.Model.ProtectedContentText;
                     controlStorage[name].ProtectedControl = protectedContentEdit;
                 }
@@ -124,7 +124,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
         LayoutControlItem FindLayoutControlItemByControlHash(int hash, string name) {
             foreach (object obj in (((LayoutControl)(View.Control))).Items)
                 if (obj is LayoutControlItem) {
-                    var item = (LayoutControlItem) obj;
+                    var item = (LayoutControlItem)obj;
                     if (item.Control != null && item.Control.GetHashCode() == hash) {
                         controlStorage[name].LayoutControlItem = item;
                         return controlStorage[name].LayoutControlItem;

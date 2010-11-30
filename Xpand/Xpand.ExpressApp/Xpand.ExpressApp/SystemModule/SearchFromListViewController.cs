@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
@@ -14,8 +13,8 @@ namespace Xpand.ExpressApp.SystemModule {
                 OnCustomGetFullTextSearchProperties;
         }
 
-        protected override void OnDeactivating() {
-            base.OnDeactivating();
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
             Frame.GetController<FilterController>().CustomGetFullTextSearchProperties -=
                 OnCustomGetFullTextSearchProperties;
         }
@@ -23,7 +22,7 @@ namespace Xpand.ExpressApp.SystemModule {
         void OnCustomGetFullTextSearchProperties(object sender,
                                                  CustomGetFullTextSearchPropertiesEventArgs
                                                      customGetFullTextSearchPropertiesEventArgs) {
-            var filterController = ((FilterController) sender);
+            var filterController = ((FilterController)sender);
             var fullTextSearchProperties =
                 new List<string>(filterController.GetFullTextSearchProperties());
             GetProperties(SearchMemberMode.Exclude, s => fullTextSearchProperties.Remove(s));
@@ -38,11 +37,11 @@ namespace Xpand.ExpressApp.SystemModule {
 
 
         void GetProperties(SearchMemberMode searchMemberMode, Action<string> action) {
-            var listView = ((XpandListView) View);
+            var listView = ((XpandListView)View);
             IEnumerable<string> enumerable = listView.Model.Columns.OfType
                 <IModelColumnSearchMode>().Where(
                     wrapper => wrapper.SearchMemberMode == searchMemberMode).Select(
-                        nodeWrapper => ((IModelColumn) nodeWrapper).PropertyName);
+                        nodeWrapper => ((IModelColumn)nodeWrapper).PropertyName);
             foreach (string s in enumerable) {
                 action.Invoke(s);
             }

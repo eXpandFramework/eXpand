@@ -91,7 +91,6 @@
     </Reference>
     <Reference Include="DevExpress.XtraNavBar.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="Xpand.ExpressApp, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -137,7 +136,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PropertyEditors\NullAble\BooleanPropertyEditor\BooleanHAlignFarPropertyEditor.cs" />
-    <Compile Include="Interfaces\ILogOut.cs" />
     <Compile Include="ListEditors\XpandGridListEditor.cs">
     </Compile>
     <Compile Include="ListEditors\IPopupMenuHider.cs" />
@@ -230,9 +228,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\WindowHintController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\WinLogoutWindowController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ViewStrategies\XpandShowInSingleWindowStrategy.cs" />

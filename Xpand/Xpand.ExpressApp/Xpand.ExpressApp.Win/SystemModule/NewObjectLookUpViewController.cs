@@ -32,9 +32,9 @@ namespace Xpand.ExpressApp.Win.SystemModule
                 Frame.GetController<NewObjectViewController>().NewObjectAction.DoExecute(null);
         }
 
-        protected override void OnDeactivating()
+        protected override void OnDeactivated()
         {
-            base.OnDeactivating();
+            base.OnDeactivated();
             if (Frame.Template is ILookupPopupFrameTemplate && View.Control is GridControl)
                 ((GridControl)View.Control).KeyDown -= grid_KeyDown;
         }

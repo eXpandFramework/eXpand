@@ -28,13 +28,13 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 showNavigationItemController.ShowNavigationItemAction.SelectedItemChanged += ShowNavigationItemAction_SelectedItemChanged;
             }
         }
-        protected override void OnDeactivating() {
+        protected override void OnDeactivated() {
             Frame.TemplateChanged -= Frame_TemplateChanged;
             if (showNavigationItemController != null) {
                 showNavigationItemController.ShowNavigationItemAction.SelectedItemChanged -= ShowNavigationItemAction_SelectedItemChanged;
                 showNavigationItemController = null;
             }
-            base.OnDeactivating();
+            base.OnDeactivated();
         }
         private void ShowNavigationItemAction_SelectedItemChanged(object sender, EventArgs e) {
             isLocked = true;

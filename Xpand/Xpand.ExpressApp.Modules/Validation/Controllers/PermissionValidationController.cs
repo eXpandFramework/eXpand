@@ -3,40 +3,33 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base.Security;
 
-namespace Xpand.ExpressApp.Validation.Controllers
-{
-    public partial class PermissionValidationController : ViewController
-    {
+namespace Xpand.ExpressApp.Validation.Controllers {
+    public partial class PermissionValidationController : ViewController {
         private PersistenceValidationController persistenceValidationController;
 
-        public PermissionValidationController()
-        {
+        public PermissionValidationController() {
             InitializeComponent();
             RegisterActions(components);
             TargetObjectType = typeof(IPersistentPermission);
             TargetViewType = ViewType.DetailView;
         }
 
-        private void controller_ContextValidating(object sender, ContextValidatingEventArgs e)
-        {
+        private void controller_ContextValidating(object sender, ContextValidatingEventArgs e) {
             IPermission permission = ((IPersistentPermission)View.CurrentObject).Permission;
             if (!e.TargetObjects.Contains(permission))
                 e.TargetObjects.Add(permission);
         }
 
-        protected override void OnActivated()
-        {
+        protected override void OnActivated() {
             base.OnActivated();
             persistenceValidationController = Frame.GetController<PersistenceValidationController>();
             if (persistenceValidationController != null)
                 persistenceValidationController.ContextValidating += controller_ContextValidating;
         }
 
-        protected override void OnDeactivating()
-        {
-            base.OnDeactivating();
-            if (persistenceValidationController != null)
-            {
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            if (persistenceValidationController != null) {
                 persistenceValidationController.ContextValidating -= controller_ContextValidating;
                 persistenceValidationController = null;
             }

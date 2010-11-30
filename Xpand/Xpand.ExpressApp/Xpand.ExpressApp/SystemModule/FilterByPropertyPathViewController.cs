@@ -18,26 +18,21 @@ using Xpand.ExpressApp.Filtering;
 using Xpand.Xpo;
 using Xpand.Xpo.Parser;
 
-namespace Xpand.ExpressApp.SystemModule
-{
+namespace Xpand.ExpressApp.SystemModule {
 
-    public interface IModelListViewPropertyPathFilters:IModelNode
-    {
+    public interface IModelListViewPropertyPathFilters : IModelNode {
         IModelPropertyPathFilters PropertyPathFilters { get; }
     }
     [ModelNodesGenerator(typeof(ModelPropertyPathFiltersNodesGenerator))]
-    public interface IModelPropertyPathFilters : IModelNode, IModelList<IModelPropertyPathFilter>
-    {
+    public interface IModelPropertyPathFilters : IModelNode, IModelList<IModelPropertyPathFilter> {
     }
 
-    public class ModelPropertyPathFiltersNodesGenerator : ModelNodesGeneratorBase
-    {
+    public class ModelPropertyPathFiltersNodesGenerator : ModelNodesGeneratorBase {
         protected override void GenerateNodesCore(ModelNode node) {
-            
+
         }
     }
-    public interface IModelPropertyPathFilter : IModelNode
-    {
+    public interface IModelPropertyPathFilter : IModelNode {
         [Required, ModelPersistentName("ID")]
         string Id { get; set; }
         [Required]
@@ -48,32 +43,27 @@ namespace Xpand.ExpressApp.SystemModule
         IModelListView PropertyPathListViewId { get; set; }
     }
 
-    public abstract class FilterByPropertyPathViewController : ViewController<XpandListView>
-    {
+    public abstract class FilterByPropertyPathViewController : ViewController<XpandListView> {
         private Dictionary<string, FiltersByCollectionWrapper> _filtersByPropertyPathWrappers;
         readonly SingleChoiceAction _filterSingleChoiceAction;
 
-        public Dictionary<string, FiltersByCollectionWrapper> FiltersByPropertyPathWrappers
-        {
+        public Dictionary<string, FiltersByCollectionWrapper> FiltersByPropertyPathWrappers {
             get { return _filtersByPropertyPathWrappers; }
         }
 
-        protected FilterByPropertyPathViewController()
-        {
+        protected FilterByPropertyPathViewController() {
             _filterSingleChoiceAction = new SingleChoiceAction(this, "_filterSingleChoiceAction",
-                                                               PredefinedCategory.Search) {Caption = "Search By"};
-            _filterSingleChoiceAction.Execute+=createFilterSingleChoiceAction_Execute;
-            _filterSingleChoiceAction.ItemType=SingleChoiceActionItemType.ItemIsOperation;
+                                                               PredefinedCategory.Search) { Caption = "Search By" };
+            _filterSingleChoiceAction.Execute += createFilterSingleChoiceAction_Execute;
+            _filterSingleChoiceAction.ItemType = SingleChoiceActionItemType.ItemIsOperation;
             TargetViewNesting = Nesting.Root;
         }
 
-        public SingleChoiceAction FilterSingleChoiceAction
-        {
+        public SingleChoiceAction FilterSingleChoiceAction {
             get { return _filterSingleChoiceAction; }
         }
 
-        protected override void OnActivated()
-        {
+        protected override void OnActivated() {
             _filterSingleChoiceAction.Items.Clear();
             if (((IModelListViewPropertyPathFilters)View.Model).PropertyPathFilters == null)
                 return;
@@ -88,40 +78,32 @@ namespace Xpand.ExpressApp.SystemModule
             Frame.TemplateViewChanged += FrameOnTemplateViewChanged;
         }
 
-        void FrameOnTemplateViewChanged(object sender, EventArgs eventArgs)
-        {
+        void FrameOnTemplateViewChanged(object sender, EventArgs eventArgs) {
             ApplyFilterString();
         }
 
-        protected override void OnDeactivating()
-        {
-            base.OnDeactivating();
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
             Frame.TemplateViewChanged -= FrameOnTemplateViewChanged;
         }
 
-        public bool HasFilters
-        {
-            get
-            {
+        public bool HasFilters {
+            get {
                 return FiltersByPropertyPathWrappers.Count() > 0;
             }
         }
 
-        private void setUpFilterAction(bool active)
-        {
+        private void setUpFilterAction(bool active) {
             _filterSingleChoiceAction.Active["PropertyPath is valid"] = active;
-            foreach (var pair in _filtersByPropertyPathWrappers)
-            {
-                if (pair.Value.BinaryOperatorLastMemberClassType != null)
-                {
+            foreach (var pair in _filtersByPropertyPathWrappers) {
+                if (pair.Value.BinaryOperatorLastMemberClassType != null) {
                     var caption = CaptionHelper.GetClassCaption(pair.Value.BinaryOperatorLastMemberClassType.FullName);
                     _filterSingleChoiceAction.Items.Add(new ChoiceActionItem(caption, pair.Value));
                 }
             }
         }
 
-        private void checkIfAdditionalViewControlsModuleIsRegister()
-        {
+        private void checkIfAdditionalViewControlsModuleIsRegister() {
             bool found = false;
             for (int i = 0; i < View.Model.Application.NodeCount; i++) {
                 IModelNode modelNode = View.Model.Application.GetNode(i);
@@ -131,22 +113,20 @@ namespace Xpand.ExpressApp.SystemModule
                 }
             }
 
-            if (!(found)){
+            if (!(found)) {
                 throw new UserFriendlyException(new Exception("AdditionalViewControlsProvider module not found"));
             }
         }
 
-        private void getFilterWrappers()
-        {
+        private void getFilterWrappers() {
             _filtersByPropertyPathWrappers = new Dictionary<string, FiltersByCollectionWrapper>();
             foreach (IModelPropertyPathFilter childNode in ((IModelListViewPropertyPathFilters)View.Model).PropertyPathFilters)
-                _filtersByPropertyPathWrappers.Add(childNode.Id,new FiltersByCollectionWrapper(View.ObjectTypeInfo, childNode,
+                _filtersByPropertyPathWrappers.Add(childNode.Id, new FiltersByCollectionWrapper(View.ObjectTypeInfo, childNode,
                         ((ObjectSpace)ObjectSpace).Session.GetClassInfo(View.ObjectTypeInfo.Type)));
         }
 
 
-        private void ApplyFilterString()
-        {
+        private void ApplyFilterString() {
             string text = _filtersByPropertyPathWrappers
                 .Select(pair => ApplyFilterString(pair.Value))
                 .Where(filterString => !string.IsNullOrEmpty(filterString))
@@ -165,16 +145,14 @@ namespace Xpand.ExpressApp.SystemModule
 
         protected abstract void AddFilterPanel(string text, object viewSiteControl);
 
-        private string ApplyFilterString(FiltersByCollectionWrapper filtersByCollectionWrapper)
-        {
+        private string ApplyFilterString(FiltersByCollectionWrapper filtersByCollectionWrapper) {
             View.CollectionSource.Criteria[filtersByCollectionWrapper.ID] = null;
             CriteriaOperator criteriaOperator = SetCollectionSourceCriteria(filtersByCollectionWrapper);
             return GetHintPanelText(filtersByCollectionWrapper, criteriaOperator);
         }
 
-        private string GetHintPanelText(FiltersByCollectionWrapper filtersByCollectionWrapper, CriteriaOperator criteriaOperator)
-        {
-            if (!(ReferenceEquals(criteriaOperator, null))){
+        private string GetHintPanelText(FiltersByCollectionWrapper filtersByCollectionWrapper, CriteriaOperator criteriaOperator) {
+            if (!(ReferenceEquals(criteriaOperator, null))) {
                 var wrapper = new LocalizedCriteriaWrapper(filtersByCollectionWrapper.BinaryOperatorLastMemberClassType, criteriaOperator);
                 wrapper.UpdateParametersValues();
                 CriteriaOperator userFriendlyFilter = CriteriaOperator.Clone(wrapper.CriteriaOperator);
@@ -184,10 +162,9 @@ namespace Xpand.ExpressApp.SystemModule
             return null;
         }
 
-        private CriteriaOperator SetCollectionSourceCriteria(FiltersByCollectionWrapper filtersByCollectionWrapper)
-        {
+        private CriteriaOperator SetCollectionSourceCriteria(FiltersByCollectionWrapper filtersByCollectionWrapper) {
             CriteriaOperator criteriaOperator = CriteriaOperator.Parse(filtersByCollectionWrapper.PropertyPathFilter);
-            if (!(ReferenceEquals(criteriaOperator, null))){
+            if (!(ReferenceEquals(criteriaOperator, null))) {
                 new FilterWithObjectsProcessor(View.ObjectSpace).Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
                 var criterion = new PropertyPathParser(((ObjectSpace)View.ObjectSpace).Session.GetClassInfo(View.ObjectTypeInfo.Type)).Parse(filtersByCollectionWrapper.PropertyPath, criteriaOperator.ToString());
                 View.CollectionSource.Criteria[filtersByCollectionWrapper.ID] = criterion;
@@ -196,20 +173,17 @@ namespace Xpand.ExpressApp.SystemModule
             return criteriaOperator;
         }
 
-        private void DialogControllerOnAccepting(object sender, DialogControllerAcceptingEventArgs args)
-        {
+        private void DialogControllerOnAccepting(object sender, DialogControllerAcceptingEventArgs args) {
             View view = ((DialogController)sender).Frame.View;
             SynchronizeInfo(view);
-            
+
         }
 
-        protected virtual void SynchronizeInfo(View view)
-        {
+        protected virtual void SynchronizeInfo(View view) {
             throw new NotImplementedException();
         }
 
-        private void AcceptFilter(FiltersByCollectionWrapper filtersByCollectionWrapper)
-        {
+        private void AcceptFilter(FiltersByCollectionWrapper filtersByCollectionWrapper) {
             IModelListView nodeWrapper = GetNodeMemberSearchWrapper(filtersByCollectionWrapper);
             filtersByCollectionWrapper.PropertyPathFilter = GetActiveFilter(nodeWrapper);
             ApplyFilterString();
@@ -220,8 +194,7 @@ namespace Xpand.ExpressApp.SystemModule
 
         protected abstract void SetActiveFilter(IModelListView modelListView, string filter);
 
-        private IModelListView GetNodeMemberSearchWrapper(FiltersByCollectionWrapper filtersByCollectionWrapper)
-        {
+        private IModelListView GetNodeMemberSearchWrapper(FiltersByCollectionWrapper filtersByCollectionWrapper) {
             var nodeWrapper = Application.Model.Views.OfType<IModelListView>().Where(
                 wrapper => wrapper.Id == filtersByCollectionWrapper.CriteriaPathListViewId).FirstOrDefault();
             if (nodeWrapper == null)
@@ -229,8 +202,7 @@ namespace Xpand.ExpressApp.SystemModule
             return nodeWrapper;
         }
 
-        private void createFilterSingleChoiceAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e)
-        {
+        private void createFilterSingleChoiceAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
             var filtersByCollectionWrapper = ((FiltersByCollectionWrapper)e.SelectedChoiceActionItem.Data);
 
             IModelListView memberSearchWrapper = GetNodeMemberSearchWrapper(filtersByCollectionWrapper);
@@ -253,47 +225,38 @@ namespace Xpand.ExpressApp.SystemModule
         }
     }
 
-    public class FiltersByCollectionWrapper
-    {
+    public class FiltersByCollectionWrapper {
         private readonly ITypeInfo objectTypeInfo;
         private readonly IModelPropertyPathFilter propertyPathFilter;
         private readonly XPClassInfo classInfo;
         private string containsOperatorXpMemberInfoName;
         private Type binaryOperatorLastMemberClassType;
 
-        public FiltersByCollectionWrapper(ITypeInfo objectTypeInfo, IModelPropertyPathFilter propertyPathFilter, XPClassInfo classInfo)
-        {
+        public FiltersByCollectionWrapper(ITypeInfo objectTypeInfo, IModelPropertyPathFilter propertyPathFilter, XPClassInfo classInfo) {
             this.objectTypeInfo = objectTypeInfo;
             this.propertyPathFilter = propertyPathFilter;
             this.classInfo = classInfo;
         }
 
-        public string PropertyPath
-        {
+        public string PropertyPath {
             get { return propertyPathFilter.PropertyPath; }
         }
 
-        public string ID
-        {
+        public string ID {
             get { return propertyPathFilter.Id; }
         }
-        public string PropertyPathFilter
-        {
+        public string PropertyPathFilter {
             get { return propertyPathFilter.PropertyPathFilter; }
             set { propertyPathFilter.PropertyPathFilter = value; }
         }
 
-        public string CriteriaPathListViewId
-        {
+        public string CriteriaPathListViewId {
             get { return propertyPathFilter.PropertyPathListViewId.Id; }
         }
 
-        public Type BinaryOperatorLastMemberClassType
-        {
-            get
-            {
-                if (binaryOperatorLastMemberClassType == null)
-                {
+        public Type BinaryOperatorLastMemberClassType {
+            get {
+                if (binaryOperatorLastMemberClassType == null) {
                     var xpMemberInfo = XpandReflectionHelper.GetXpMemberInfo(classInfo, PropertyPath);
                     if (xpMemberInfo != null)
                         return binaryOperatorLastMemberClassType = xpMemberInfo.IsCollection ? xpMemberInfo.CollectionElementType.ClassType : xpMemberInfo.ReferenceType.ClassType;
@@ -304,12 +267,9 @@ namespace Xpand.ExpressApp.SystemModule
 
         }
 
-        public string ContainsOperatorXpMemberInfoName
-        {
-            get
-            {
-                if (containsOperatorXpMemberInfoName == null && BinaryOperatorLastMemberClassType != null)
-                {
+        public string ContainsOperatorXpMemberInfoName {
+            get {
+                if (containsOperatorXpMemberInfoName == null && BinaryOperatorLastMemberClassType != null) {
                     containsOperatorXpMemberInfoName = PropertyPath.IndexOf(".") > -1
                                                            ? objectTypeInfo.FindMember(PropertyPath.Substring(0, PropertyPath.IndexOf("."))).Name
                                                            : PropertyPath;

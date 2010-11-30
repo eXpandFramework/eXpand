@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -12,17 +11,12 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
-using Xpand.ExpressApp.Win.Interfaces;
 using Xpand.ExpressApp.Win.ViewStrategies;
 
 namespace Xpand.ExpressApp.Win {
 
-    public partial class XpandWinApplication : WinApplication, ILogOut, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired, ISupportAfterViewShown {
-        bool _isSharedModel;
+    public partial class XpandWinApplication : WinApplication,  ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired, ISupportAfterViewShown {
         public event EventHandler<ViewShownEventArgs> AfterViewShown;
-        protected override bool IsSharedModel {
-            get { return _isSharedModel; }
-        }
         public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
         public event CancelEventHandler ConfirmationRequired;
 
@@ -98,39 +92,8 @@ namespace Xpand.ExpressApp.Win {
             return creatingListEditorEventArgs.Handled ? creatingListEditorEventArgs.ListEditor : base.CreateListEditorCore(modelListView, collectionSource);
         }
 
-        public void Logout() {
-            Tracing.Tracer.LogSeparator("Application is being restarted");
 
 
-            ShowViewStrategy.CloseAllWindows();
-            if (!ignoreUserModelDiffs)
-                SaveModelChanges();
-            Security.Logoff();
-            Tracing.Tracer.LogSeparator("Application is now restarting");
-            _isSharedModel = true;
-            Setup();
-            _isSharedModel = false;
-            if (SecuritySystem.Instance.NeedLogonParameters) {
-                Tracing.Tracer.LogText("Logon With Parameters");
-                PopupWindowShowAction showLogonAction = CreateLogonAction();
-                showLogonAction.Cancel += showLogonAction_Cancel;
-                var helper = new PopupWindowShowActionHelper(showLogonAction);
-
-                using (WinWindow popupWindow = helper.CreatePopupWindow(false))
-                    ShowLogonWindow(popupWindow);
-            } else
-                Logon(null);
-
-            ProcessStartupActions();
-            ShowStartupWindow();
-            SplashScreen.Stop();
-            Tracing.Tracer.LogSeparator("Application running");
-        }
-
-
-        void showLogonAction_Cancel(object sender, EventArgs e) {
-            Exit();
-        }
 
 
 

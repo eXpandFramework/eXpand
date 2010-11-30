@@ -7,46 +7,36 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraEditors;
 using Xpand.ExpressApp.SystemModule;
-using Xpand.ExpressApp.Win.Interfaces;
-using Xpand.ExpressApp;
 
-namespace Xpand.ExpressApp.Win.SystemModule
-{
-    public interface IModelOptionsNotifyIconOptions : IModelNode
-    {
+namespace Xpand.ExpressApp.Win.SystemModule {
+    public interface IModelOptionsNotifyIconOptions : IModelNode {
         [Category("eXpand")]
         [Description("Add a tray icon with a popup menu")]
         bool NotifyIcon { get; set; }
     }
 
-    public class NotifyIconController : WindowController, IModelExtender
-    {
+    public class NotifyIconController : WindowController, IModelExtender {
         static bool iconVisible;
         public NotifyIconController() {
-            TargetWindowType=WindowType.Main;
+            TargetWindowType = WindowType.Main;
         }
 
-        protected override void OnFrameAssigned()
-        {
+        protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             if (!iconVisible)
                 Frame.TemplateChanged += FrameOnTemplateChanged;
         }
 
-        private void FrameOnTemplateChanged(object sender, EventArgs args)
-        {
-            if (Frame.Context == TemplateContext.ApplicationWindow && ((IModelOptionsNotifyIconOptions)Application.Model.Options).NotifyIcon)
-            {
+        private void FrameOnTemplateChanged(object sender, EventArgs args) {
+            if (Frame.Context == TemplateContext.ApplicationWindow && ((IModelOptionsNotifyIconOptions)Application.Model.Options).NotifyIcon) {
                 var form = Frame.Template as XtraForm;
-                if (form != null)
-                {
+                if (form != null) {
                     IContainer container = new Container();
 
                     var strip = new ContextMenuStrip(container);
                     strip.Items.Add(GetMenuItem("Maximize", (o, eventArgs) => changeFormVisibility(form)));
                     strip.Items.Add(GetMenuItem("Minimize", (o, eventArgs) => changeFormVisibility(form)));
-                    if (Application is ILogOut)
-                        strip.Items.Add(GetMenuItem("LogOut", (o, eventArgs) => ((ILogOut)Application).Logout()));
+                    strip.Items.Add(GetMenuItem("LogOut", (o, eventArgs) => ((IWinApplication)Application).LogOff()));
                     strip.Items.Add(GetMenuItem("Exit", (o, eventArgs) => XpandModuleBase.Application.Exit()));
 
                     var notifyIcon1 = new NotifyIcon(container) { Visible = true, ContextMenuStrip = strip };
@@ -57,36 +47,31 @@ namespace Xpand.ExpressApp.Win.SystemModule
             }
         }
 
-        private ToolStripMenuItem GetMenuItem(string text, EventHandler clickHandler)
-        {
+        private ToolStripMenuItem GetMenuItem(string text, EventHandler clickHandler) {
             var item = new ToolStripMenuItem(text);
             item.Click += clickHandler;
             return item;
         }
 
 
-        private void changeFormVisibility(XtraForm form)
-        {
+        private void changeFormVisibility(XtraForm form) {
             if (form.Visible)
                 form.Hide();
             else
                 form.Show();
         }
 
-        private void setIcon(NotifyIcon notifyIcon1)
-        {
-            string path = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath), "ExpressApp.ico");
+        private void setIcon(NotifyIcon notifyIcon1) {
+            string path = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath)+"", "ExpressApp.ico");
             if (File.Exists(path))
                 notifyIcon1.Icon = new Icon(path);
-            else
-            {
+            else {
                 Stream resourceStream = typeof(XpandSystemModule).Assembly.GetManifestResourceStream("Xpand.ExpressApp.Resources.ExpressApp.ico");
                 if (resourceStream != null) notifyIcon1.Icon = new Icon(resourceStream);
             }
         }
 
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelOptions, IModelOptionsNotifyIconOptions>();
         }
     }

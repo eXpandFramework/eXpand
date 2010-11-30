@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Logic.Security;
 namespace Xpand.ExpressApp.Logic {
     public class FillRulesFromPermissionsController : ViewController {
         public FillRulesFromPermissionsController() {
-            TargetObjectType = typeof (IPersistentPermission);
+            TargetObjectType = typeof(IPersistentPermission);
         }
 
         protected override void OnActivated() {
@@ -16,8 +16,8 @@ namespace Xpand.ExpressApp.Logic {
             ObjectSpace.ObjectSaved += ObjectSpaceOnObjectSaved;
         }
 
-        protected override void OnDeactivating() {
-            base.OnDeactivating();
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
             ObjectSpace.ObjectDeleted -= ObjectSpaceOnObjectDeleted;
             ObjectSpace.ObjectSaved -= ObjectSpaceOnObjectSaved;
         }

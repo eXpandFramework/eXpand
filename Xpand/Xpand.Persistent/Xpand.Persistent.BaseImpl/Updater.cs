@@ -6,15 +6,16 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.Base.Security;
-using DevExpress.Xpo;
 
 namespace Xpand.Persistent.BaseImpl {
     public abstract class Updater : ModuleUpdater {
         public const string Administrators = "Administrators";
         public const string UserRole = "UserRole";
         public const string Admin = "Admin";
-        protected Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) { }
 
+
+        protected Updater(ObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) {
+        }
 
         protected virtual List<IPermission> GetPermissions(ICustomizableRole role) {
             var permissions = new List<IPermission>();
@@ -32,32 +33,32 @@ namespace Xpand.Persistent.BaseImpl {
 
             ICustomizableRole userRole = EnsureRoleExists(UserRole, GetPermissions);
             EnsureUserExists("user", "user", userRole);
+            ObjectSpace.CommitChanges();
         }
 
 
         protected virtual IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole role) {
-            var user = (IUserWithRoles)Session.FindObject(SecuritySystem.UserType, new BinaryOperator("UserName", userName));
+            var user = (IUserWithRoles)ObjectSpace.Session.FindObject(SecuritySystem.UserType, new BinaryOperator("UserName", userName));
             if (user == null) {
-                user = (IUserWithRoles)Activator.CreateInstance(SecuritySystem.UserType, Session);
+                user = (IUserWithRoles)ObjectSpace.CreateObject(SecuritySystem.UserType);
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(SecuritySystem.UserType);
                 typeInfo.FindMember("UserName").SetValue(user, userName);
                 typeInfo.FindMember("FirstName").SetValue(user, userName);
                 user.Roles.Add(role);
-                Session.Save(user);
             }
             return user;
         }
 
         protected virtual ICustomizableRole EnsureRoleExists(string roleName, Func<ICustomizableRole, List<IPermission>> permissionAddFunc) {
-            var role = (ICustomizableRole)Session.FindObject(((ISecurityComplex)SecuritySystem.Instance).RoleType, new BinaryOperator("Name", roleName));
+            var role = (ICustomizableRole)ObjectSpace.Session.FindObject(((ISecurityComplex)SecuritySystem.Instance).RoleType, new BinaryOperator("Name", roleName));
             if (role == null) {
-                role = (ICustomizableRole)Activator.CreateInstance(((ISecurityComplex)SecuritySystem.Instance).RoleType, Session);
+                role = (ICustomizableRole)ObjectSpace.CreateObject(((ISecurityComplex)SecuritySystem.Instance).RoleType);
                 role.Name = roleName;
                 role.AddPermission(new ObjectAccessPermission(typeof(object), ObjectAccess.AllAccess));
                 foreach (var permission in permissionAddFunc.Invoke(role)) {
                     role.AddPermission(permission);
                 }
-                Session.Save(role);
+                ObjectSpace.Session.Save(role);
             }
 
             return role;

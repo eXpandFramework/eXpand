@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
-using System.Linq;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.NCarousel.Web {
     [ListEditor(typeof(IPictureItem))]
     public class NCarouselListEditor : ListEditor {
-        public const string     SelectedId = "selectedId";
+        public const string SelectedId = "selectedId";
         NCarousel control;
 
-        public NCarouselListEditor(IModelListView modelListView) : base(modelListView) {
+        public NCarouselListEditor(IModelListView modelListView)
+            : base(modelListView) {
         }
 
         public override object FocusedObject { get; set; }
@@ -40,9 +41,9 @@ namespace Xpand.ExpressApp.NCarousel.Web {
 
 
         protected override object CreateControlsCore() {
-            control = new NCarousel {ID = Model.Id};
+            control = new NCarousel { ID = Model.Id };
             control.RequestText += ControlOnRequestText;
-            control.Click+=ControlOnClick;
+            control.Click += ControlOnClick;
             InitCarousel();
             return control;
         }
@@ -55,10 +56,10 @@ namespace Xpand.ExpressApp.NCarousel.Web {
 
 
         void InitCarousel() {
-            IModelNCarousel modelNCarousel = ((IModelListViewNCarousel) Model).NCarousel;
+            IModelNCarousel modelNCarousel = ((IModelListViewNCarousel)Model).NCarousel;
 
             control.UseNoImage = modelNCarousel.UseNoImage;
-            control.Css.AllowOverride =modelNCarousel.AllowOverride;
+            control.Css.AllowOverride = modelNCarousel.AllowOverride;
             control.Alignment = modelNCarousel.Alignment;
             control.HideImages = modelNCarousel.HideImages;
             string container = modelNCarousel.ContainerStyle;
@@ -75,7 +76,7 @@ namespace Xpand.ExpressApp.NCarousel.Web {
                 control.Css.Previous = button;
                 control.Css.Next = button;
             }
-            
+
         }
 
         protected override void AssignDataSourceToControl(Object dataSource) {
@@ -89,8 +90,7 @@ namespace Xpand.ExpressApp.NCarousel.Web {
         }
 
 
-        string GetDisplayText(IPictureItem pictureItem)
-        {
+        string GetDisplayText(IPictureItem pictureItem) {
             string text = Model.Columns.GetVisibleColumns().Aggregate("", (current, modelColumn) => current + (modelColumn.ModelMember.MemberInfo.GetValue(pictureItem) + "<br>"));
             return text.TrimEnd("<br>".ToCharArray());
         }
@@ -108,8 +108,8 @@ namespace Xpand.ExpressApp.NCarousel.Web {
 
         }
 
-        public override void SynchronizeInfo() {
-        }
+        public override void SynchronizeModel() {
 
+        }
     }
 }

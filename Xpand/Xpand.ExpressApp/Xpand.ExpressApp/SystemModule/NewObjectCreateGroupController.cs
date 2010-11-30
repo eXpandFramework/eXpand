@@ -54,7 +54,8 @@ namespace Xpand.ExpressApp.SystemModule {
 
         void AddItemCore(ChoiceActionItem choiceActionItem, ITypeInfo groupedType) {
             Type type = groupedType.Type;
-            var actionItem = new ChoiceActionItem(Application.Model.BOModel.GetClass(type), type);
+            var modelClass = Application.Model.BOModel.GetClass(type);
+            var actionItem = new ChoiceActionItem(type.Name, type) { Caption = modelClass.Caption,ImageName = modelClass.ImageName};
             choiceActionItem.Items.Add(actionItem);
         }
 

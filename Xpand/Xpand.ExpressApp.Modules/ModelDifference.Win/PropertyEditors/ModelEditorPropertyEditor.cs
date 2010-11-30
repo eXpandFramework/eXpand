@@ -142,7 +142,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
             var allLayers = CurrentObject.GetAllLayers(_masterModel);
             _currentObjectModel = allLayers.Where(@base => @base.Id == CurrentObject.Name).Single();
             _masterModel.AddLayers(allLayers.ToArray());
-            var controller = new ModelEditorViewController((IModelApplication)_masterModel, null, null);
+            var controller = new ModelEditorViewController((IModelApplication)_masterModel, null);
             _masterModel.CurrentAspectProvider.CurrentAspect = aspect;
             controller.SetControl(Control);
             controller.Modifying += Model_Modifying;

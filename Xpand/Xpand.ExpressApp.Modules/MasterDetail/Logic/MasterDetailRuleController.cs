@@ -10,8 +10,8 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
     public class MasterDetailRuleController : ConditionalLogicRuleViewController<IMasterDetailRule> {
         readonly List<IMasterDetailRule> _masterDetailRules = new List<IMasterDetailRule>();
 
-        protected override void OnDeactivating() {
-            base.OnDeactivating();
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
             _masterDetailRules.Clear();
         }
 

@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.ListEditors {
         }
 
         private void treeList_NodeCellStyle(object sender, DevExpress.XtraTreeList.GetCustomNodeCellStyleEventArgs e) {
-            OnViewItemCreated(new ViewItemCreatedEventArgs(e.Column.FieldName, new AppearanceViewElelemt(e.Appearance, e), ((ObjectTreeListNode)e.Node).Object));
+            OnCustomizeAppearance(new CustomizeAppearanceEventArgs(e.Column.FieldName, new AppearanceObjectAdapter(e.Appearance, e), ((ObjectTreeListNode)e.Node).Object));
         }
     }
 

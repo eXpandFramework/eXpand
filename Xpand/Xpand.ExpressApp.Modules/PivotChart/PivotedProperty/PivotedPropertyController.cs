@@ -1,57 +1,54 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Editors;
 using Xpand.Utils.Helpers;
 
-namespace Xpand.ExpressApp.PivotChart.PivotedProperty
-{
-    public class PivotedPropertyController : ViewController<DetailView>{
+namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
+    public class PivotedPropertyController : ViewController<DetailView> {
 
-        protected override void OnActivated(){
+        protected override void OnActivated() {
             base.OnActivated();
             IEnumerable<IMemberInfo> memberInfos = GetMemberInfos();
-            if (memberInfos.Count()>0){
+            if (memberInfos.Count() > 0) {
                 AttachControllers(memberInfos);
             }
-            
-            View.CurrentObjectChanged+=ViewOnCurrentObjectChanged;
+
+            View.CurrentObjectChanged += ViewOnCurrentObjectChanged;
         }
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             var memberInfos = GetMemberInfos();
-            foreach (var memberInfo in memberInfos){
+            foreach (var memberInfo in memberInfos) {
                 BindMember(memberInfo);
             }
             var analysisEditorBases = View.GetItems<ISupportValueReading>();
             foreach (var analysisEditorBase in analysisEditorBases) {
-                analysisEditorBase.ValueReading+=AnalysisEditorBaseOnValueReading;
+                analysisEditorBase.ValueReading += AnalysisEditorBaseOnValueReading;
             }
         }
 
         void AnalysisEditorBaseOnValueReading(object sender, EventArgs eventArgs) {
-            var analysisEditorBase = ((AnalysisEditorBase) sender);
-            if (analysisEditorBase.PropertyValue== null) {
-                IMemberInfo memberInfo = analysisEditorBase.MemberInfo.GetPath().Where(info => info.Name!="Self").ToList().Single();
+            var analysisEditorBase = ((AnalysisEditorBase)sender);
+            if (analysisEditorBase.PropertyValue == null) {
+                IMemberInfo memberInfo = analysisEditorBase.MemberInfo.GetPath().Where(info => info.Name != "Self").ToList().Single();
                 BindMember(memberInfo);
             }
         }
 
-        protected override void OnDeactivating()
-        {
-            base.OnDeactivating();
-            View.CurrentObjectChanged-=ViewOnCurrentObjectChanged;
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
         }
         void ViewOnCurrentObjectChanged(object sender, EventArgs eventArgs) {
             var memberInfos = GetMemberInfos();
-            foreach (var memberInfo in memberInfos)
-            {
+            foreach (var memberInfo in memberInfos) {
                 BindMember(memberInfo);
             }
         }
@@ -65,24 +62,23 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty
             var pivotedPropertyAttribute = memberInfo.FindAttribute<PivotedPropertyAttribute>();
             IAnalysisInfo analysisInfo;
             if (string.IsNullOrEmpty(pivotedPropertyAttribute.AnalysisCriteria)) {
-                analysisInfo = (IAnalysisInfo) ObjectSpace.CreateObject(memberInfo.MemberType);
+                analysisInfo = (IAnalysisInfo)ObjectSpace.CreateObject(memberInfo.MemberType);
                 var pivotedType = View.ObjectTypeInfo.FindMember(pivotedPropertyAttribute.CollectionName).ListElementType;
-                ((ObjectSpace)ObjectSpace).Session.GetClassInfo(analysisInfo).GetMember(analysisInfo.GetPropertyName(x=>x.DataType)).SetValue(analysisInfo,pivotedType);
-            }
-            else {
+                ((ObjectSpace)ObjectSpace).Session.GetClassInfo(analysisInfo).GetMember(analysisInfo.GetPropertyName(x => x.DataType)).SetValue(analysisInfo, pivotedType);
+            } else {
                 analysisInfo = ObjectSpace.FindObject(memberInfo.MemberType, CriteriaOperator.Parse(pivotedPropertyAttribute.AnalysisCriteria)) as IAnalysisInfo;
-                if (analysisInfo== null)
-                    throw new UserFriendlyException(new Exception("Could not find a "+memberInfo.MemberType.Name+" object that can fit "+pivotedPropertyAttribute.AnalysisCriteria));
+                if (analysisInfo == null)
+                    throw new UserFriendlyException(new Exception("Could not find a " + memberInfo.MemberType.Name + " object that can fit " + pivotedPropertyAttribute.AnalysisCriteria));
             }
-            memberInfo.SetValue(View.CurrentObject,analysisInfo);
+            memberInfo.SetValue(View.CurrentObject, analysisInfo);
         }
 
 
         protected virtual void AttachControllers(IEnumerable<IMemberInfo> memberInfos) {
             var assignCustomAnalysisDataSourceDetailViewController = AttachAssignCustomAnalysisDataSourceDetailViewController();
-            assignCustomAnalysisDataSourceDetailViewController.ApplyingCollectionCriteria+=ApplyingCollectionCriteria;
-            assignCustomAnalysisDataSourceDetailViewController.DatasourceCreating+=DatasourceCreating;
-            
+            assignCustomAnalysisDataSourceDetailViewController.ApplyingCollectionCriteria += ApplyingCollectionCriteria;
+            assignCustomAnalysisDataSourceDetailViewController.DatasourceCreating += DatasourceCreating;
+
             ActivateController<AnalysisDataBindController>();
         }
 
@@ -96,10 +92,10 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty
         }
 
         IMemberInfo GetMemberInfo(AnalysisEditorArgs criteriaOperatorArgs) {
-            return View.ObjectTypeInfo.FindMember(criteriaOperatorArgs.AnalysisEditorBase.MemberInfo.Name.Replace(".Self",""));
+            return View.ObjectTypeInfo.FindMember(criteriaOperatorArgs.AnalysisEditorBase.MemberInfo.Name.Replace(".Self", ""));
         }
 
-        void  ActivateController<TController>() where TController:ViewController{
+        void ActivateController<TController>() where TController : ViewController {
             var dataBindController = Frame.GetController<TController>();
             dataBindController.Active.Clear();
             dataBindController.Active[""] = true;
@@ -109,19 +105,19 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty
         protected virtual AssignCustomAnalysisDataSourceDetailViewController AttachAssignCustomAnalysisDataSourceDetailViewController() {
 
             var assignCustomAnalysisDataSourceDetailViewController = new AssignCustomAnalysisDataSourceDetailViewController {
-                                                                         TargetObjectType =View.ObjectTypeInfo.Type
-                                                                     };
+                TargetObjectType = View.ObjectTypeInfo.Type
+            };
             assignCustomAnalysisDataSourceDetailViewController.SetView(View);
             Frame.RegisterController(assignCustomAnalysisDataSourceDetailViewController);
-            return assignCustomAnalysisDataSourceDetailViewController; 
+            return assignCustomAnalysisDataSourceDetailViewController;
         }
 
         CriteriaOperator GetCriteria(IMemberInfo memberInfo) {
             IMemberInfo collectionMemberInfo = GetCollectionMemberInfo(memberInfo);
-            if (collectionMemberInfo.AssociatedMemberInfo!= null)
+            if (collectionMemberInfo.AssociatedMemberInfo != null)
                 return CriteriaOperator.Parse(string.Format("{0}.{1}=?", memberInfo.Owner.Name,
                                                             collectionMemberInfo.ListElementTypeInfo.KeyMember.Name),
-                                              (Guid) ObjectSpace.GetKeyValue(View.CurrentObject));
+                                              (Guid)ObjectSpace.GetKeyValue(View.CurrentObject));
             return null;
         }
 
@@ -132,7 +128,7 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty
 
         IEnumerable GetOrphanCollection(IMemberInfo memberInfo) {
             var collectionMemberInfo = GetCollectionMemberInfo(memberInfo);
-            if (collectionMemberInfo.AssociatedMemberInfo== null)
+            if (collectionMemberInfo.AssociatedMemberInfo == null)
                 return (IEnumerable)collectionMemberInfo.GetValue(View.CurrentObject);
             return null;
         }

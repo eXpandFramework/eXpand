@@ -3,31 +3,25 @@ using DevExpress.ExpressApp;
 using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base;
 
-namespace Xpand.ExpressApp.SystemModule
-{
+namespace Xpand.ExpressApp.SystemModule {
 
-    public class AddRuntimeFieldsFromModelToXPDictionary : ViewController, IModelExtender
-    {
-        public AddRuntimeFieldsFromModelToXPDictionary()
-        {
+    public class AddRuntimeFieldsFromModelToXPDictionary : ViewController, IModelExtender {
+        public AddRuntimeFieldsFromModelToXPDictionary() {
             TargetObjectType = typeof(IXpoModelDifference);
         }
 
 
-        protected override void OnActivated()
-        {
+        protected override void OnActivated() {
             base.OnActivated();
             View.ObjectSpace.Committed += ObjectSpaceOnCommitted;
         }
 
-        protected override void OnDeactivating()
-        {
-            base.OnDeactivating();
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
             View.ObjectSpace.Committed -= ObjectSpaceOnCommitted;
         }
 
-        private void ObjectSpaceOnCommitted(object sender, EventArgs args)
-        {
+        private void ObjectSpaceOnCommitted(object sender, EventArgs args) {
             RuntimeMemberBuilder.AddFields(Application.Model, XafTypesInfo.XpoTypeInfoSource.XPDictionary);
         }
     }

@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Linq;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
-using System.Linq;
 using AnalysisViewControllerBase = Xpand.ExpressApp.PivotChart.Core.AnalysisViewControllerBase;
 
 namespace Xpand.ExpressApp.PivotChart {
@@ -14,14 +14,14 @@ namespace Xpand.ExpressApp.PivotChart {
         readonly SimpleAction unbindDataAction;
 
         public AnalysisDataBindController() {
-            
-            bindDataAction = new SimpleAction(this, BindMultiAnalysisData,PredefinedCategory.RecordEdit);
+
+            bindDataAction = new SimpleAction(this, BindMultiAnalysisData, PredefinedCategory.RecordEdit);
             bindDataAction.Execute += bindDataAction_Execute;
             bindDataAction.Caption = "Bind Analysis Data";
             bindDataAction.SelectionDependencyType = SelectionDependencyType.RequireSingleObject;
             bindDataAction.ImageName = "MenuBar_BindAnalysisData";
             bindDataAction.PaintStyle = ActionItemPaintStyle.CaptionAndImage;
-            
+
             unbindDataAction = new SimpleAction(this, Unbindmultianalysisdata, PredefinedCategory.RecordEdit);
             unbindDataAction.Execute += unbindDataAction_Execute;
             unbindDataAction.Caption = "Unbind Analysis Data";
@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.PivotChart {
         public SimpleAction UnbindDataAction {
             get { return unbindDataAction; }
         }
-        
+
         void bindDataAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
             BindDataToControl();
         }
@@ -77,8 +77,8 @@ namespace Xpand.ExpressApp.PivotChart {
         }
 
         protected virtual void UpdateBindUnbindActionsState() {
-            bindDataAction.Active["IsDataSourceReady"] = !IsDataSourceReady ;
-            unbindDataAction.Active["IsDataSourceReady"] = IsDataSourceReady ;
+            bindDataAction.Active["IsDataSourceReady"] = !IsDataSourceReady;
+            unbindDataAction.Active["IsDataSourceReady"] = IsDataSourceReady;
         }
 
         protected override void Dispose(bool disposing) {
@@ -88,14 +88,13 @@ namespace Xpand.ExpressApp.PivotChart {
             }
             base.Dispose(disposing);
         }
-        protected override void OnFrameAssigned()
-        {
+        protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             Frame.GetController<DevExpress.ExpressApp.PivotChart.AnalysisDataBindController>().Active[GetType().FullName] = false;
         }
         protected override void OnActivated() {
             base.OnActivated();
-            
+
             SubscribeToEvents();
             foreach (AnalysisEditorBase analysisEditor in AnalysisEditors) {
                 analysisEditor.IsDataSourceReady = false;
@@ -103,9 +102,9 @@ namespace Xpand.ExpressApp.PivotChart {
             UpdateBindUnbindActionsState();
         }
 
-        protected override void OnDeactivating() {
+        protected override void OnDeactivated() {
             UnsubscribeFromEvents();
-            base.OnDeactivating();
+            base.OnDeactivated();
         }
     }
 }

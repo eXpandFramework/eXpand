@@ -30,6 +30,7 @@ namespace Xpand.ExpressApp {
     }
 
     public interface IWinApplication {
+        void LogOff();
     }
     public interface ISupportModelsManager {
         ApplicationModelsManager ModelsManager { get; }

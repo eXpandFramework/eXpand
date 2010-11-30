@@ -1,14 +1,14 @@
 using System;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.Xpo;
 
-namespace Xpand.ExpressApp.HideMember
-{
-    public class Updater : ModuleUpdater
-    {
-        public Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) { }
-        public override void UpdateDatabaseAfterUpdateSchema()
-        {
+namespace Xpand.ExpressApp.MemberLevelSecurity.Web {
+    public class Updater : ModuleUpdater {
+        public Updater(ObjectSpace objectSpace, Version currentDBVersion)
+            : base(objectSpace, currentDBVersion) {
+        }
+
+        public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
         }
     }

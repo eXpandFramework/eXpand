@@ -49,8 +49,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
 
         }
 
-        protected override void OnDeactivating() {
-            base.OnDeactivating();
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
             if (IsReady && View is DetailView) {
                 ResetInfoToLayoutMap();
                 var winLayoutManager = ((WinLayoutManager)((DetailView)View).LayoutManager);

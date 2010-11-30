@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
-using System.Linq;
 
 namespace Xpand.ExpressApp.PivotChart.Core {
     public abstract class AnalysisViewControllerBase : ViewController<DetailView> {
@@ -14,11 +14,11 @@ namespace Xpand.ExpressApp.PivotChart.Core {
         }
 
         protected AnalysisViewControllerBase() {
-            TargetObjectType = typeof (IAnalysisInfo);
+            TargetObjectType = typeof(IAnalysisInfo);
         }
 
         protected bool IsDataSourceReady {
-            get { return analysisEditors.Where(@base => !@base.IsDataSourceReady).Count()==0; }
+            get { return analysisEditors.Where(@base => !@base.IsDataSourceReady).Count() == 0; }
         }
 
         void analysisEditor_IsDataSourceReadyChanged(object sender, EventArgs e) {
@@ -34,19 +34,18 @@ namespace Xpand.ExpressApp.PivotChart.Core {
             InitAnalysisEditor();
             if (View.IsControlCreated) {
                 OnAnalysisControlCreated();
-            }
-            else {
+            } else {
                 View.ControlsCreated += View_ControlsCreated;
             }
         }
 
-        protected override void OnDeactivating() {
+        protected override void OnDeactivated() {
             foreach (AnalysisEditorBase analysisEditor in analysisEditors) {
                 analysisEditor.IsDataSourceReadyChanged -= analysisEditor_IsDataSourceReadyChanged;
             }
             View.ControlsCreated -= View_ControlsCreated;
             analysisEditors = null;
-            base.OnDeactivating();
+            base.OnDeactivated();
         }
 
         protected virtual void InitAnalysisEditor() {
@@ -55,14 +54,14 @@ namespace Xpand.ExpressApp.PivotChart.Core {
 
         protected virtual void OnAnalysisControlCreated() {
             UpdateActionState();
-            foreach (AnalysisEditorBase analysisEditor in analysisEditors){
+            foreach (AnalysisEditorBase analysisEditor in analysisEditors) {
                 IAnalysisControl analysisControl = analysisEditor.Control;
                 if (!(((ISupportPivotGridFieldBuilder)analysisControl).FieldBuilder is PivotGridFieldBuilder)) {
                     var pivotGridFieldBuilder = new PivotGridFieldBuilder(analysisControl);
                     pivotGridFieldBuilder.SetModel(Application.Model);
                     ((ISupportPivotGridFieldBuilder)analysisControl).FieldBuilder = pivotGridFieldBuilder;
                 }
-                analysisEditor.IsDataSourceReadyChanged +=analysisEditor_IsDataSourceReadyChanged;
+                analysisEditor.IsDataSourceReadyChanged += analysisEditor_IsDataSourceReadyChanged;
             }
         }
 

@@ -4,26 +4,21 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Web.ASPxEditors;
 using Xpand.ExpressApp.Editors;
 
-namespace Xpand.ExpressApp.Web.Editors
-{
+namespace Xpand.ExpressApp.Web.Editors {
     [DetailViewItem(typeof(IModelActionButton))]
-    public class ActionButtonDetailItem : ExpressApp.Editors.ActionButtonDetailItem
-    {
+    public class ActionButtonDetailItem : ExpressApp.Editors.ActionButtonDetailItem {
         public ActionButtonDetailItem(Type objectType, string id)
-            : base(objectType, id)
-        {
+            : base(objectType, id) {
         }
 
         public ActionButtonDetailItem(
-            IModelDetailViewItem model, Type objectType)
-            : base(model, objectType)
-        {
+            IModelViewItem model, Type objectType)
+            : base(model, objectType) {
         }
-        protected override object CreateControlCore()
-        {
-            var button = new ASPxButton {Text = Caption};
+        protected override object CreateControlCore() {
+            var button = new ASPxButton { Text = Caption };
             button.Click += (sender, args) => InvokeExecuted(args);
-            
+
             return button;
         }
     }

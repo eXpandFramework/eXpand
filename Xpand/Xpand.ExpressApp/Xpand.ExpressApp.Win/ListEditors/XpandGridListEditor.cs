@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Reflection;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Editors;
@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         private bool _hidePopupMenu;
         public event EventHandler<CustomGridViewCreateEventArgs> CustomGridViewCreate;
         public event EventHandler<CustomGridCreateEventArgs> CustomGridCreate;
-        private CollectionSourceBase collectionSource;
+        private CollectionSourceBase _collectionSourceBase;
 
         public new void AssignDataSourceToControl(object dataSource) {
             base.AssignDataSourceToControl(dataSource);
@@ -63,11 +63,11 @@ namespace Xpand.ExpressApp.Win.ListEditors {
 
         object GetFocusedRowObject(DevExpress.ExpressApp.Win.Editors.XafGridView view) {
             if (view is XpandXafGridView && ((XpandXafGridView)view).Window == null)
-                return _GetFocusedRowObject.Invoke(null, new object[] { collectionSource, view });
+                return XtraGridUtils.GetFocusedRowObject(_collectionSourceBase, view);
             int rowHandle = view.FocusedRowHandle;
             if (!((!view.IsDataRow(rowHandle) && !view.IsNewItemRow(rowHandle))))
                 return view.GetRow(rowHandle);
-            return _GetFocusedRowObject.Invoke(null, new object[] { collectionSource, view });
+            return XtraGridUtils.GetFocusedRowObject(_collectionSourceBase, view);
         }
 
         DevExpress.ExpressApp.Win.Editors.XafGridView GetFocusedGridView(DevExpress.ExpressApp.Win.Editors.XafGridView view) {
@@ -86,13 +86,13 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             if (handler != null) handler(this, e);
         }
 
-        private MethodInfo _GetFocusedRowObject;
-        private MethodInfo _GetRow;
+//        private readonly MethodInfo _getFocusedRowObject;
+//        private readonly MethodInfo _getRow;
 
         public XpandGridListEditor(IModelListView model)
             : base(model) {
-                _GetFocusedRowObject = typeof(XtraGridUtils).GetMethod("GetFocusedRowObject", BindingFlags.Static | BindingFlags.NonPublic, null, new Type[] { typeof(CollectionSource), typeof(GridView) }, null);
-                _GetRow = typeof(XtraGridUtils).GetMethod("GetRow", BindingFlags.Static | BindingFlags.NonPublic, null, new Type[] { typeof(CollectionSource), typeof(GridView), typeof(int) }, null);
+//                _getFocusedRowObject = typeof(XtraGridUtils).GetMethod("GetFocusedRowObject", BindingFlags.Static | BindingFlags.NonPublic, null, new[] { typeof(CollectionSource), typeof(GridView) }, null);
+//                _getRow = typeof(XtraGridUtils).GetMethod("GetRow", BindingFlags.Static | BindingFlags.NonPublic, null, new[] { typeof(CollectionSource), typeof(GridView), typeof(int) }, null);
         }
         public XpandGridListEditor() : this(null) { }
 
@@ -105,7 +105,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         #endregion
 
         protected override DevExpress.ExpressApp.Win.Editors.XafGridView CreateGridViewCore() {
-            var gridViewCreatingEventArgs = new CustomGridViewCreateEventArgs(this.Grid);
+            var gridViewCreatingEventArgs = new CustomGridViewCreateEventArgs(Grid);
             OnCustomGridViewCreate(gridViewCreatingEventArgs);
             DevExpress.ExpressApp.Win.Editors.XafGridView gridViewCore = gridViewCreatingEventArgs.Handled ? gridViewCreatingEventArgs.GridView : new XpandXafGridView(this);
             return gridViewCore;
@@ -134,26 +134,17 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         }
         IList GetSelectedObjects(GridView focusedView) {
             int[] selectedRows = focusedView.GetSelectedRows();
-            ArrayList selectedObjects = new ArrayList();
             if ((selectedRows != null) && (selectedRows.Length > 0)) {
-                foreach (int rowHandle in selectedRows) {
-                    if (rowHandle >= 0) {
-                        object obj = _GetRow.Invoke(null, new object[] { collectionSource, focusedView, rowHandle });
-                        if (obj != null) {
-                            selectedObjects.Add(obj);
-                        }
-                    }
-                }
-
-                return (object[])selectedObjects.ToArray(typeof(object));
+                IEnumerable<object> objects = selectedRows.Where(rowHandle => rowHandle > -1).Select(focusedView.GetRow).Where(obj => obj != null);
+                return objects.ToList();
             }
             return new List<object>();
         }
 
         protected override void ProcessMouseClick(EventArgs e) {
-            var view = Grid.FocusedView as XpandXafGridView;
+            var view = ((XpandXafGridView)Grid.FocusedView);
             if (view.FocusedRowHandle >= 0) {
-                DXMouseEventArgs mouseArgs = DXMouseEventArgs.GetMouseArgs(this.Grid, e);
+                DXMouseEventArgs mouseArgs = DXMouseEventArgs.GetMouseArgs(Grid, e);
                 GridHitInfo info = GridView.CalcHitInfo(mouseArgs.Location);
                 if (info.InRow && (info.HitTest == GridHitTest.RowDetail)) {
                     mouseArgs.Handled = true;
@@ -178,7 +169,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
 
         public override void Setup(CollectionSourceBase collectionSource, XafApplication application) {
             base.Setup(collectionSource, application);
-            this.collectionSource = collectionSource;
+            _collectionSourceBase = collectionSource;
         }
     }
 
@@ -187,11 +178,11 @@ namespace Xpand.ExpressApp.Win.ListEditors {
     }
 
     public class GridListEditorSynchronizer : DevExpress.ExpressApp.Win.Editors.GridListEditorSynchronizer {
-        private ModelSynchronizerList modelSynchronizerList;
+        private readonly ModelSynchronizerList modelSynchronizerList;
         public GridListEditorSynchronizer(DevExpress.ExpressApp.Win.Editors.GridListEditor gridListEditor, IModelListView model)
             : base(gridListEditor, model) {
-                modelSynchronizerList = new ModelSynchronizerList();
-                modelSynchronizerList.Add(new GridViewOptionsModelSynchronizer(gridListEditor.GridView, model));
+                modelSynchronizerList = new ModelSynchronizerList
+                                        {new GridViewOptionsModelSynchronizer(gridListEditor.GridView, model)};
             foreach (var modelColumn in model.Columns) {
                 modelSynchronizerList.Add(new ColumnOptionsModelSynchronizer(gridListEditor.GridView, modelColumn));
             }

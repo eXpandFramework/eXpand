@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
     public class ModelApplicationLoader {
         public void EnableModel(Expression<Func<ModelDifferenceObject, bool>> persistentCriteriaEvaluationBehavior, IEnumerable<string> modelsToUnload) {
             var winApplication = XpandModuleBase.Application;
-            using (ObjectSpace objectSpace = winApplication.CreateObjectSpace()) {
+            using (var objectSpace = (ObjectSpace) winApplication.CreateObjectSpace()) {
                 var modelDifferenceObject = objectSpace.Session.FindObject(persistentCriteriaEvaluationBehavior);
                 var modelApplicationBase = (ModelApplicationBase)winApplication.Model;
                 var modelApplicationBases = RemoveLayers(modelApplicationBase, modelsToUnload).Reverse().ToList();
