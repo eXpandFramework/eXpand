@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using System.Linq;
 using Xpand.Persistent.Base.General;
 using Xpand.Xpo;
 
@@ -35,7 +35,7 @@ namespace FeatureCenter.Module
 
         void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
             var objectSpace = Application.CreateObjectSpace();
-            var modelDifferenceObject = objectSpace.Session.FindObject<ModelDifferenceObject>(o => o.Name == GetModelName() && o.PersistentApplication.UniqueName == Application.GetType().FullName);
+            var modelDifferenceObject = ((ObjectSpace)objectSpace).Session.FindObject<ModelDifferenceObject>(o => o.Name == GetModelName() && o.PersistentApplication.UniqueName == Application.GetType().FullName);
             simpleActionExecuteEventArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace,modelDifferenceObject);
         }
 

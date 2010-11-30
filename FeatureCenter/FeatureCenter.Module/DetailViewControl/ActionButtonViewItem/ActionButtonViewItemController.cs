@@ -29,7 +29,7 @@ namespace FeatureCenter.Module.DetailViewControl.ActionButtonViewItem {
 
 
         void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
-            DateTime dateTime = new XPQuery<MDSOrderLine>(ObjectSpace.Session).Max(line => line.OrderLineDate);
+            DateTime dateTime = new XPQuery<MDSOrderLine>(((ObjectSpace)ObjectSpace).Session).Max(line => line.OrderLineDate);
             ((Customer) View.CurrentObject).BirthDate=dateTime;
         }
     }

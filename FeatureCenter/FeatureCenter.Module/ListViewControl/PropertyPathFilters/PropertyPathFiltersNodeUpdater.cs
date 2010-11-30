@@ -21,7 +21,7 @@ namespace FeatureCenter.Module.ListViewControl.PropertyPathFilters {
             if (IsDefaultPPCustomerListView(modelPropertyPathFilters)) {
                 var modelPropertyPathFilter = modelPropertyPathFilters.AddNode<IModelPropertyPathFilter>("Filter by OrderLineDate");
                 if (_xafApplication != null) {
-                    Session session = _xafApplication.ObjectSpaceProvider.CreateObjectSpace().Session;
+                    Session session = ((ObjectSpace)_xafApplication.ObjectSpaceProvider.CreateObjectSpace()).Session;
                     modelPropertyPathFilter.PropertyPathFilter =new XPQuery<PPOrderLine>(session).TransformExpression(
                         line => line.OrderLineDate > GetDateTime(session)).ToString();
                 }
