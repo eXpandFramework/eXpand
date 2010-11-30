@@ -64,64 +64,64 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.EasyTest.WinAdapter.v10.1">
+    <Reference Include="DevExpress.ExpressApp.EasyTest.WinAdapter.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.OfficeSkins.v10.1">
+    <Reference Include="DevExpress.OfficeSkins.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v10.1">
+    <Reference Include="DevExpress.Utils.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.BonusSkins.v10.1">
+    <Reference Include="DevExpress.BonusSkins.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v10.1">
+    <Reference Include="DevExpress.Data.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v10.1">
+    <Reference Include="DevExpress.ExpressApp.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Images.v10.1">
+    <Reference Include="DevExpress.ExpressApp.Images.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v10.1">
+    <Reference Include="DevExpress.ExpressApp.Objects.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v10.1">
+    <Reference Include="DevExpress.ExpressApp.Security.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v10.1">
+    <Reference Include="DevExpress.ExpressApp.Validation.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.Win.v10.1">
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v10.1">
+    <Reference Include="DevExpress.ExpressApp.Win.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v10.1">
+    <Reference Include="DevExpress.Persistent.Base.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v10.1">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.1">
+    <Reference Include="DevExpress.Xpo.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v10.1">
+    <Reference Include="DevExpress.XtraGrid.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v10.1">
+    <Reference Include="DevExpress.XtraBars.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v10.1">
+    <Reference Include="DevExpress.XtraEditors.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v10.1">
+    <Reference Include="DevExpress.XtraLayout.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v10.1">
+    <Reference Include="DevExpress.XtraNavBar.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp, Version=10.1.5.179, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">

@@ -62,67 +62,67 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Utils.v10.1">
+    <Reference Include="DevExpress.Utils.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Data.v10.1">
+    <Reference Include="DevExpress.Data.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v10.1">
+    <Reference Include="DevExpress.ExpressApp.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v10.1">
+    <Reference Include="DevExpress.ExpressApp.Objects.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v10.1">
+    <Reference Include="DevExpress.ExpressApp.Security.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v10.1">
+    <Reference Include="DevExpress.ExpressApp.Validation.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.Win.v10.1">
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v10.1">
+    <Reference Include="DevExpress.ExpressApp.Win.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v10.1">
+    <Reference Include="DevExpress.Persistent.Base.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v10.1">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.1">
+    <Reference Include="DevExpress.Xpo.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v10.1">
+    <Reference Include="DevExpress.XtraGrid.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v10.1">
+    <Reference Include="DevExpress.XtraEditors.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v10.1">
+    <Reference Include="DevExpress.XtraLayout.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v10.1">
+    <Reference Include="DevExpress.XtraNavBar.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v10.1">
+    <Reference Include="DevExpress.XtraBars.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>

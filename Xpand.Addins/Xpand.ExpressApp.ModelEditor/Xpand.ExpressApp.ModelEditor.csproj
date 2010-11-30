@@ -96,27 +96,27 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v10.1">
+    <Reference Include="DevExpress.Data.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Utils.v10.1">
+    <Reference Include="DevExpress.Utils.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.1">
+    <Reference Include="DevExpress.Xpo.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v10.1">
+    <Reference Include="DevExpress.XtraBars.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v10.1">
+    <Reference Include="DevExpress.XtraEditors.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v10.1">
+    <Reference Include="DevExpress.XtraTreeList.v10.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -152,14 +152,14 @@
     <Compile Include="PathInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Win.v10.1">
-      <Name>DevExpress.ExpressApp.Win.v10.1</Name>
+    <Reference Include="DevExpress.ExpressApp.Win.v10.2">
+      <Name>DevExpress.ExpressApp.Win.v10.2</Name>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v10.1">
-      <Name>DevExpress.ExpressApp.v10.1</Name>
+    <Reference Include="DevExpress.ExpressApp.v10.2">
+      <Name>DevExpress.ExpressApp.v10.2</Name>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v10.1">
-      <Name>DevExpress.Persistent.Base.v10.1</Name>
+    <Reference Include="DevExpress.Persistent.Base.v10.2">
+      <Name>DevExpress.Persistent.Base.v10.2</Name>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.Persistent.Base, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
