@@ -1,5 +1,6 @@
-﻿using DevExpress.ExpressApp.Model;
+﻿using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.Web.ListEditors
 {
@@ -8,7 +9,7 @@ namespace Xpand.ExpressApp.Web.ListEditors
     {
         public XpandASPxGridListEditor(IModelListView info) : base(info) {
         }
-        protected override DevExpress.ExpressApp.Core.ModelSynchronizer CreateModelSynchronizer()
+        protected override IModelSynchronizable CreateModelSynchronizer()
         {
             return new XpandASPxGridListEditorSynchronizer(this, Model);
         }
