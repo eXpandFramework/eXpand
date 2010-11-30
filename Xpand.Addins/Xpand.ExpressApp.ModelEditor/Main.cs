@@ -1,18 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using System.IO;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Core;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
-using DevExpress.ExpressApp.Utils;
-using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.ModelDifference;
-using System.Linq;
 
 
 namespace Xpand.ExpressApp.ModelEditor {
@@ -37,9 +37,13 @@ namespace Xpand.ExpressApp.ModelEditor {
 		        Tracing.Tracer.LogText(pathInfo.ToString());
                 Tracing.Tracer.LogSeparator("PathInfo");
 		        CheckAssemblyFile(pathInfo);
-		        ApplicationModulesManager applicationModulesManager = GetApplicationModulesManager(pathInfo);
-		        ModelApplicationBase modelApplication = GetModelApplication(applicationModulesManager, pathInfo);
-		        ModelEditorViewController controller = GetController(pathInfo, applicationModulesManager, modelApplication);
+                DesignerModelFactory dmf = new DesignerModelFactory();
+                string assemblyPath = Path.GetDirectoryName(pathInfo.AssemblyPath);
+                FileModelStore fileModelStore = dmf.CreateModuleModelStore(Path.GetDirectoryName(pathInfo.LocalPath));
+                var module = dmf.CreateModuleFromFile(pathInfo.AssemblyPath, assemblyPath);
+                ApplicationModulesManager applicationModulesManager = dmf.CreateModulesManager(module, assemblyPath);
+		        ModelApplicationBase modelApplication = GetModelApplication(dmf, module, applicationModulesManager, fileModelStore, pathInfo);
+                ModelEditorViewController controller = new ModelEditorViewController((IModelApplication)modelApplication, fileModelStore);
 		        modelEditorForm = new ModelEditorForm(controller,new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor"));
 		        modelEditorForm.Disposed +=(sender, eventArgs) => ((IModelEditorSettings) modelEditorForm).ModelEditorSaveSettings();
 		        modelEditorForm.SetCaption(Path.GetFileName(pathInfo.LocalPath));
@@ -52,26 +56,10 @@ namespace Xpand.ExpressApp.ModelEditor {
 			
 		}
 
-	    static ModelEditorViewController GetController(PathInfo pathInfo, ApplicationModulesManager applicationModulesManager, ModelApplicationBase modelApplication) {
-	        var storePath = Path.GetDirectoryName(pathInfo.LocalPath);
-	        var fileModelStore = new FileModelStore(storePath, Path.GetFileNameWithoutExtension(pathInfo.LocalPath));
-	        fileModelStore.Load(modelApplication.LastLayer);
-	        var unusableStore = new FileModelStore(storePath, ModelStoreBase.UnusableDiffDefaultName);
-	        return new ModelEditorViewController((IModelApplication)modelApplication, fileModelStore, unusableStore,applicationModulesManager.Modules);
-	    }
-
-        static ModelApplicationBase GetModelApplication(ApplicationModulesManager applicationModulesManager, PathInfo pathInfo){
-	        var modelManager = new ApplicationModelsManager(applicationModulesManager.Modules, applicationModulesManager.ControllersManager, applicationModulesManager.DomainComponents);
-            var modelApplication = (ModelApplicationBase) modelManager.CreateModelApplication();
-            AddLayers(modelApplication, applicationModulesManager, pathInfo);
+        static ModelApplicationBase GetModelApplication(DesignerModelFactory dmf, ModuleBase module, ApplicationModulesManager modulesManager, FileModelStore fileModelStore, PathInfo pathInfo){
+            var modelApplication =  (ModelApplicationBase)dmf.CreateApplicationModel(module, modulesManager, fileModelStore);
+            ////AddLayers(modelApplication, modulesManager, pathInfo);
 	        return modelApplication;
-	    }
-
-	    static ApplicationModulesManager GetApplicationModulesManager(PathInfo pathInfo) {
-	        var designerModelFactory = new DesignerModelFactory();
-	        ApplicationModulesManager applicationModulesManager = designerModelFactory.CreateModelManager(pathInfo.AssemblyPath, string.Empty);
-	        applicationModulesManager.Load();
-	        return applicationModulesManager;
 	    }
 
 	    static void CheckAssemblyFile(PathInfo pathInfo) {

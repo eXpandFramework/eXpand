@@ -81,7 +81,7 @@ namespace XpandAddIns
             var associatedClass = (Class) @class.Clone();
             if (avaliabiltity==Avaliabiltity.XpoOnePart)
             {
-                var property1 = new Property(associatedClass.FullName,associatedClass._Name);
+                var property1 = new Property(associatedClass.FullName,associatedClass.Name);
                 property1.Attributes.Add(CreateOtherPartAssociationAttribute());
                 associatedClass.AddNode(property1);
                 CodeRush.Documents.ActiveTextDocument.Replace(((IElement)@class).FirstRange, CodeRush.Language.GenerateElement(associatedClass), "add property",
