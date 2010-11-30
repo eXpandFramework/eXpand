@@ -7,30 +7,16 @@
 
 namespace Xpand.ExpressApp.WizardUI.Win.Templates
 {
-    using System.Collections.Generic;
     using System.Windows.Forms;
     using DevExpress.ExpressApp.Model;
-    using DevExpress.ExpressApp.Templates;
     using DevExpress.ExpressApp.Utils;
     using DevExpress.ExpressApp.Win.Templates;
-    using DevExpress.XtraEditors;
-    using DevExpress.XtraEditors.Controls;
     using DevExpress.XtraWizard;
 
     /// <summary>
     /// DetailView Template for Wizard Control
     /// </summary>
-    public partial class WizardDetailViewForm : XtraFormTemplateBase
-    {
-        #region Members
-
-        /// <summary>
-        /// PanelControl for the DetailView
-        /// </summary>
-        private readonly PanelControl _ViewSitePanel = new PanelControl { Dock = DockStyle.Fill, BorderStyle = BorderStyles.NoBorder };
-
-        #endregion
-
+    public partial class WizardDetailViewForm : XtraFormTemplateBase {
         #region Constructor
 
         /// <summary>
@@ -39,7 +25,6 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates
         public WizardDetailViewForm()
         {
             InitializeComponent();
-            Initialize(null, new List<IActionContainer>(), new IActionContainer[0], _ViewSitePanel, null);
 
             showRecordAfterCompletion.Text = CaptionHelper.GetLocalizedText("Texts", "WizardShowRecordAfterFinish");
         }
@@ -80,10 +65,9 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates
             {
                 return base.GetFormStateNode();
             }
-            IModelFormState state = ModelTemplate.FormStates[View.Id] ??
-                                    ModelTemplate.FormStates.AddNode<IModelFormState>(View.Id);
 
-            return state;
+            return ModelTemplate.FormStates[View.Id] ??
+                                    ModelTemplate.FormStates.AddNode<IModelFormState>(View.Id);
         }
 
         #endregion

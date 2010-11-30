@@ -15,16 +15,16 @@ namespace Xpand.ExpressApp.WizardUI.Win
             Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Executed += Action_Executed;
         }
 
-        protected override void OnDeactivating()
+        protected override void OnDeactivated()
         {
             Frame.GetController<NewObjectViewController>().NewObjectAction.Executed -= Action_Executed;
             Frame.GetController<NewObjectViewController>().ObjectCreated -= ObjectCreated;
             Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Executed -= Action_Executed;
 
-            base.OnDeactivating();
+            base.OnDeactivated();
         }
 
-        ObjectSpace objectSpace;
+        IObjectSpace objectSpace;
         object newObject;
 
         private void ObjectCreated(object sender, ObjectCreatedEventArgs e)

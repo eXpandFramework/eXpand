@@ -283,7 +283,7 @@ namespace Xpand.ExpressApp.WizardUI.Win
 
             if (_WizardForm.ShowRecordAfterCompletion)
             {
-                ObjectSpace os = Application.CreateObjectSpace();
+                var os = Application.CreateObjectSpace();
 
                 var showViewParameter = new ShowViewParameters
                 {
