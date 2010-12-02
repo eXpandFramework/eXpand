@@ -5,40 +5,32 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.ExpressApp.Win.ListEditors;
-using DevExpress.Data.Details;
 
-namespace Xpand.ExpressApp.MasterDetail.Win
-{
-    public class GridViewBuilder
-    {
+namespace Xpand.ExpressApp.MasterDetail.Win {
+    public class GridViewBuilder {
         readonly XafApplication _xafApplication;
         readonly IObjectSpace _objectSpace;
         readonly Frame _masterFrame;
 
-        public GridViewBuilder(XafApplication xafApplication, IObjectSpace objectSpace, Frame masterFrame)
-        {
+        public GridViewBuilder(XafApplication xafApplication, IObjectSpace objectSpace, Frame masterFrame) {
             _xafApplication = xafApplication;
             _objectSpace = objectSpace;
             _masterFrame = masterFrame;
         }
 
-        public XpandXafGridView GetLevelDefaultView(XpandXafGridView masterGridView, int rowHandle, int relationIndex, IModelListView masterModelListView, List<IMasterDetailRule> masterDetailRules)
-        {
+        public XpandXafGridView GetLevelDefaultView(XpandXafGridView masterGridView, int rowHandle, int relationIndex, IModelListView masterModelListView, List<IMasterDetailRule> masterDetailRules) {
             return GetLevelDefaultViewCore(masterModelListView, masterGridView, rowHandle, relationIndex, masterDetailRules);
         }
 
-        XpandXafGridView GetLevelDefaultViewCore(IModelListView masterModelListView, XpandXafGridView masterGridView, int rowHandle, int relationIndex, List<IMasterDetailRule> masterDetailRules)
-        {
+        XpandXafGridView GetLevelDefaultViewCore(IModelListView masterModelListView, XpandXafGridView masterGridView, int rowHandle, int relationIndex, List<IMasterDetailRule> masterDetailRules) {
             var modelDetailRelationCalculator = new ModelDetailRelationCalculator(masterModelListView, masterGridView, masterDetailRules);
             bool isRelationSet = modelDetailRelationCalculator.IsRelationSet(rowHandle, relationIndex);
-            if (isRelationSet)
-            {
+            if (isRelationSet) {
                 IModelListView childModelListView = modelDetailRelationCalculator.GetChildModelListView(rowHandle, relationIndex);
-                DevExpress.ExpressApp.ListView listView = GetListView(modelDetailRelationCalculator, rowHandle, relationIndex, childModelListView);
+                ListView listView = GetListView(modelDetailRelationCalculator, rowHandle, relationIndex, childModelListView);
                 XpandXafGridView defaultXpandXafGridView = null;
                 EventHandler[] listViewOnControlsCreated = { null };
-                listViewOnControlsCreated[0] = (sender, args) =>
-                {
+                listViewOnControlsCreated[0] = (sender, args) => {
                     defaultXpandXafGridView = (XpandXafGridView)((GridListEditor)((XpandListView)sender).Editor).GridView;
                     listView.ControlsCreated -= listViewOnControlsCreated[0];
                 };
@@ -49,34 +41,29 @@ namespace Xpand.ExpressApp.MasterDetail.Win
             return null;
         }
 
-        DevExpress.ExpressApp.ListView GetListView(ModelDetailRelationCalculator modelDetailRelationCalculator, int rowHandle, int relationIndex, IModelListView childModelListView)
-        {
+        ListView GetListView(ModelDetailRelationCalculator modelDetailRelationCalculator, int rowHandle, int relationIndex, IModelListView childModelListView) {
             var listViewBuilder = new ListViewBuilder(modelDetailRelationCalculator, _objectSpace);
             return listViewBuilder.CreateListView(childModelListView, rowHandle, relationIndex);
         }
 
 
-        public void ModifyInstanceGridView(XpandXafGridView masterGridView, int rowHandle, int relationIndex, IModelListView masterModelListView, List<IMasterDetailRule> masterDetailRules)
-        {
+        public void ModifyInstanceGridView(XpandXafGridView masterGridView, int rowHandle, int relationIndex, IModelListView masterModelListView, List<IMasterDetailRule> masterDetailRules) {
             var modelDetailRelationCalculator = new ModelDetailRelationCalculator(masterModelListView, masterGridView, masterDetailRules);
             bool isRelationSet = modelDetailRelationCalculator.IsRelationSet(rowHandle, relationIndex);
-            if (isRelationSet)
-            {
+            if (isRelationSet) {
                 IModelListView childModelListView = modelDetailRelationCalculator.GetChildModelListView(rowHandle, relationIndex);
                 Window window = _xafApplication.CreateWindow(TemplateContext.View, null, true, false);
-                DevExpress.ExpressApp.ListView listView = GetListView(modelDetailRelationCalculator, rowHandle, relationIndex, childModelListView);
+                ListView listView = GetListView(modelDetailRelationCalculator, rowHandle, relationIndex, childModelListView);
                 var detailXafGridView = (XpandXafGridView)masterGridView.GetDetailView(rowHandle, relationIndex);
-                ((ExpressApp.Win.ListEditors.XpandGridListEditor)listView.Editor).CustomGridViewCreate +=
-                    (o, eventArgs) =>
-                    {
+                ((XpandGridListEditor)listView.Editor).CustomGridViewCreate +=
+                    (o, eventArgs) => {
                         eventArgs.Handled = true;
                         eventArgs.GridView = detailXafGridView;
                         eventArgs.GridControl.DataSource = detailXafGridView.DataSource;
                     };
 
                 EventHandler[] listViewOnControlsCreated = { null };
-                listViewOnControlsCreated[0] = (sender, args) =>
-                {
+                listViewOnControlsCreated[0] = (sender, args) => {
                     detailXafGridView.MasterFrame = masterGridView.MasterFrame ?? _masterFrame;
                     detailXafGridView.Window = window;
                     detailXafGridView.GridControl = masterGridView.GridControl;

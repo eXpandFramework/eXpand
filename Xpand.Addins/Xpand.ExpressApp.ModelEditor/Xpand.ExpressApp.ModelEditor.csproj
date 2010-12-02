@@ -149,6 +149,7 @@
     <Compile Include="Main.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ModelControllerBuilder.cs" />
     <Compile Include="PathInfo.cs" />
   </ItemGroup>
   <ItemGroup>
