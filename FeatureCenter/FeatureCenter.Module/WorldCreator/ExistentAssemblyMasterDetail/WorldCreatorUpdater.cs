@@ -7,12 +7,11 @@ using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Xpo;
 
 namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail {
-    public class WorldCreatorUpdater : Xpand.ExpressApp.WorldCreator.WorldCreatorUpdater
-    {
-        public WorldCreatorUpdater(Session session) : base(session) {
+    public class WorldCreatorUpdater : Xpand.ExpressApp.WorldCreator.WorldCreatorUpdater {
+        public WorldCreatorUpdater(Session session)
+            : base(session) {
         }
-        public override void Update()
-        {
+        public override void Update() {
             if (Session.FindObject<ExtendedCoreTypeMemberInfo>(info => info.Owner == typeof(EAMDCustomer)) != null) return;
             CreateCoreMemders();
             var extendedReferenceMemberInfo = new ExtendedReferenceMemberInfo(Session) { Name = "Customer", ReferenceType = typeof(EAMDCustomer), Owner = typeof(EAMDOrder) };
@@ -22,7 +21,7 @@ namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail {
             var extendedCollectionMemberInfo = new ExtendedCollectionMemberInfo(Session) { Name = "Orders", Owner = typeof(EAMDCustomer) };
             extendedCollectionMemberInfo.TypeAttributes.Add(new PersistentAssociationAttribute(Session) { AssociationName = "Customer-Orders", ElementType = typeof(EAMDOrder) });
             extendedCollectionMemberInfo.Save();
-            
+
         }
 
         void CreateCoreMemders() {
@@ -36,10 +35,9 @@ namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail {
             CreateCoreMember("Total", typeof(EAMDOrder), DBColumnType.Decimal);
         }
 
-        void CreateCoreMember(string name, Type owner, DBColumnType dataType, params PersistentAttributeInfo[] persistentAttributeInfos)
-        {
-            
-            var extendedCoreTypeMemberInfo = new ExtendedCoreTypeMemberInfo(Session){Name = name,Owner = owner,DataType = dataType};
+        void CreateCoreMember(string name, Type owner, DBColumnType dataType, params PersistentAttributeInfo[] persistentAttributeInfos) {
+
+            var extendedCoreTypeMemberInfo = new ExtendedCoreTypeMemberInfo(Session) { Name = name, Owner = owner, DataType = dataType };
             if (persistentAttributeInfos != null)
                 foreach (var persistentAttributeInfo in persistentAttributeInfos) {
                     extendedCoreTypeMemberInfo.TypeAttributes.Add(persistentAttributeInfo);

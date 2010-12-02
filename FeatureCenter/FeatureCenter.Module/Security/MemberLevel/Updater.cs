@@ -1,30 +1,27 @@
 ﻿using System;
+using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Xpo;
 using Xpand.ExpressApp.MemberLevelSecurity;
-
-using System.Linq;
 using Xpand.Xpo;
 
-namespace FeatureCenter.Module.Security.MemberLevel
-{
-    public class Updater:Module.Updater
-    {
-        public Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) {
+namespace FeatureCenter.Module.Security.MemberLevel {
+    public class Updater : Module.Updater {
+        public Updater(ObjectSpace objectSpace, Version currentDBVersion)
+            : base(objectSpace, currentDBVersion) {
         }
-        public override void UpdateDatabaseAfterUpdateSchema()
-        {
+
+        public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            var role = Session.FindObject<Role>(o => o.Name=="Administrators");
+            var role = ObjectSpace.Session.FindObject<Role>(o => o.Name == "Administrators");
             MemberAccessPermission memberAccessPermission = role.Permissions.OfType<MemberAccessPermission>().FirstOrDefault();
             if (memberAccessPermission == null) {
-                var accessPermission = new MemberAccessPermission(typeof (MLSCustomer), "Name", MemberOperation.Read,ObjectAccessModifier.Deny){Criteria = "City='Paris'"};
+                var accessPermission = new MemberAccessPermission(typeof(MLSCustomer), "Name", MemberOperation.Read, ObjectAccessModifier.Deny) { Criteria = "City='Paris'" };
                 role.AddPermission(accessPermission);
-                role.Save();
-                accessPermission = new MemberAccessPermission(typeof (MLSCustomer), "Name", MemberOperation.Write,ObjectAccessModifier.Deny){Criteria = "City='New York'"};
+                accessPermission = new MemberAccessPermission(typeof(MLSCustomer), "Name", MemberOperation.Write, ObjectAccessModifier.Deny) { Criteria = "City='New York'" };
                 role.AddPermission(accessPermission);
-                role.Save();
+                ObjectSpace.CommitChanges();
             }
         }
     }

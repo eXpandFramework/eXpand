@@ -140,7 +140,9 @@
     <Compile Include="Controllers\CodeTemplateObserverController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\CreateMembersFromInterfacesController.cs" />
+    <Compile Include="Controllers\CreateMembersFromInterfacesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\InitializeTemplatedTypeInfoController.cs">
       <SubType>Component</SubType>
     </Compile>

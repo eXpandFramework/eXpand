@@ -1,13 +1,15 @@
 using System;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base.Security;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Xpo;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.FilterDataStore.Providers;
 
 namespace FeatureCenter.Module {
     public class Updater : Xpand.Persistent.BaseImpl.Updater {
-        public Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) { }
+        public Updater(ObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) {
+        }
+
         protected override IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole customizableRole) {
             var ensureUserExists = base.EnsureUserExists(userName, firstName, customizableRole);
             if (ensureUserExists.UserName == Admin)
@@ -20,7 +22,7 @@ namespace FeatureCenter.Module {
             base.UpdateDatabaseAfterUpdateSchema();
             InitializeSecurity();
 
-            new DummyDataBuilder(Session).CreateObjects();
+            new DummyDataBuilder(ObjectSpace).CreateObjects();
         }
 
     }

@@ -1,11 +1,14 @@
 using System;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.Xpo;
 
 namespace FeatureCenter.Module.Win {
 
     public class Updater : ModuleUpdater {
-        public Updater(Session session, Version currentDBVersion) : base(session, currentDBVersion) { }
+        public Updater(ObjectSpace objectSpace, Version currentDBVersion)
+            : base(objectSpace, currentDBVersion) {
+        }
+
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
 

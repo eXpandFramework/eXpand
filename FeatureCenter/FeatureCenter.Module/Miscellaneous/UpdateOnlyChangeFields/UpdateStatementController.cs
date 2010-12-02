@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
@@ -7,28 +8,25 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata.Helpers;
 using Xpand.ExpressApp;
-using System.Linq;
 using Xpand.Xpo.DB;
 
 namespace FeatureCenter.Module.Miscellaneous.UpdateOnlyChangeFields {
-    public class UpdateStatementController:ViewController<DetailView> {
+    public class UpdateStatementController : ViewController<DetailView> {
         SqlDataStoreProxy _sqlDataStoreProxy;
         SimpleAction _saveAction;
 
         public UpdateStatementController() {
-            TargetObjectType = typeof (UOCFCustomer);
+            TargetObjectType = typeof(UOCFCustomer);
         }
-        protected override void OnActivated()
-        {
+        protected override void OnActivated() {
             base.OnActivated();
             _sqlDataStoreProxy = ((IXpandObjectSpaceProvider)Application.ObjectSpaceProvider).DataStoreProvider.Proxy;
             _saveAction = Frame.GetController<DetailViewController>().SaveAction;
-            _saveAction.Executing+=SaveActionOnExecuting;
-            _saveAction.Executed+=SaveActionOnExecuted;
+            _saveAction.Executing += SaveActionOnExecuting;
+            _saveAction.Executed += SaveActionOnExecuted;
         }
-        protected override void OnDeactivating()
-        {
-            base.OnDeactivating();
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
             _saveAction.Executing -= SaveActionOnExecuting;
             _saveAction.Executed -= SaveActionOnExecuted;
         }
@@ -42,15 +40,15 @@ namespace FeatureCenter.Module.Miscellaneous.UpdateOnlyChangeFields {
         }
 
         void SqlDataStoreProxyOnDataStoreModifyData(object sender, DataStoreModifyDataEventArgs dataStoreModifyDataEventArgs) {
-            var updateStatement = (UpdateStatement) dataStoreModifyDataEventArgs.ModificationStatements[0];
-            List<QueryOperand> queryOperands = updateStatement.Operands.OfType<QueryOperand>().Where(value => value.ColumnName!=GCRecordField.StaticName&&value.ColumnName!=OptimisticLockingAttribute.DefaultFieldName).ToList();
+            var updateStatement = (UpdateStatement)dataStoreModifyDataEventArgs.ModificationStatements[0];
+            List<QueryOperand> queryOperands = updateStatement.Operands.OfType<QueryOperand>().Where(value => value.ColumnName != GCRecordField.StaticName && value.ColumnName != OptimisticLockingAttribute.DefaultFieldName).ToList();
             string s = "";
             for (int i = 0; i < queryOperands.Count; i++) {
-                s += queryOperands[i].ColumnName+"="+ updateStatement.Parameters[i].Value +" AND ";
+                s += queryOperands[i].ColumnName + "=" + updateStatement.Parameters[i].Value + " AND ";
             }
             s = s.TrimEnd(" AND ".ToCharArray());
-            
-            ((UOCFCustomer)View.CurrentObject).ModificationStatements = "THIS IS COMES FROM THE DATALAYER :---->"+s;
+
+            ((UOCFCustomer)View.CurrentObject).ModificationStatements = "THIS IS COMES FROM THE DATALAYER :---->" + s;
         }
     }
 }

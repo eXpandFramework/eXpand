@@ -39,7 +39,7 @@ namespace FeatureCenter.Module.WorldCreator.DynamicAssemblyMasterDetail {
 
                 persistentCoreTypeMemberInfo.CodeTemplateInfo = codeTemplateInfo;
                 persistentClassInfo.OwnMembers.Add(persistentCoreTypeMemberInfo);
-                ObjectSpace.FindObjectSpace(persistentClassInfo).CommitChanges();
+                ObjectSpace.FindObjectSpaceByObject(persistentClassInfo).CommitChanges();
             }
         }
 
