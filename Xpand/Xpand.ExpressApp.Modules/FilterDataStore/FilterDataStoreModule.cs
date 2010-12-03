@@ -7,7 +7,6 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
-using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.FilterDataStore.Core;
@@ -98,7 +97,6 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         public void UpdateData(IEnumerable<UpdateStatement> statements) {
             foreach (UpdateStatement statement in statements) {
-                TraceStatement(statement, "UpdateData");
                 if (!IsSystemTable(statement.TableName)) {
                     List<QueryOperand> operands = statement.Operands.OfType<QueryOperand>().ToList();
                     for (int i = 0; i < operands.Count(); i++) {
@@ -121,7 +119,6 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         public void InsertData(IEnumerable<InsertStatement> statements) {
             foreach (InsertStatement statement in statements) {
-                TraceStatement(statement, "InsertData");
                 if (!IsSystemTable(statement.TableName)) {
                     List<QueryOperand> operands = statement.Operands.OfType<QueryOperand>().ToList();
                     for (int i = 0; i < operands.Count(); i++) {
@@ -147,12 +144,10 @@ namespace Xpand.ExpressApp.FilterDataStore {
         public SelectStatement ApplyCondition(SelectStatement statement) {
             var extractor = new CriteriaOperatorExtractor();
             extractor.Extract(statement.Condition);
-            TraceStatement(statement, "ApplyCondition");
 
             foreach (FilterProviderBase provider in FilterProviderManager.Providers) {
                 FilterProviderBase providerBase = FilterProviderManager.GetFilterProvider(provider.FilterMemberName, StatementContext.Select);
                 if (providerBase != null) {
-                    Tracing.Tracer.LogVerboseValue("providerName", providerBase.Name);
                     IEnumerable<BinaryOperator> binaryOperators = GetBinaryOperators(extractor, providerBase);
                     if (!FilterIsShared(statement.TableName, providerBase.Name) && binaryOperators.Count() == 0) {
                         string nodeAlias = GetNodeAlias(statement, providerBase);
@@ -171,7 +166,6 @@ namespace Xpand.ExpressApp.FilterDataStore {
                 statement.Condition &= criteriaOperator;
             } else
                 statement.Condition &= new QueryOperand(providerBase.FilterMemberName, nodeAlias) == (providerBase.FilterValue == null ? null : providerBase.FilterValue.ToString());
-            Tracing.Tracer.LogVerboseValue("new_statement", statement);
         }
 
         IEnumerable<BinaryOperator> GetBinaryOperators(CriteriaOperatorExtractor extractor, FilterProviderBase providerBase) {
@@ -187,13 +181,6 @@ namespace Xpand.ExpressApp.FilterDataStore {
                     => operand.NodeAlias).FirstOrDefault() ?? statement.Alias;
         }
 
-        private void TraceStatement(JoinNode statement, string methodName) {
-            Tracing.Tracer.LogVerboseSubSeparator("Filter DataStore -- " + methodName);
-            Tracing.Tracer.LogVerboseValue("statement.TableName", statement.TableName);
-            Tracing.Tracer.LogVerboseValue("statement", statement);
-            Tracing.Tracer.LogVerboseValue("FilterProviderManager.Providers.Count", FilterProviderManager.Providers.Count);
-        }
-
 
         private bool IsSystemTable(string name) {
             bool ret = false;
@@ -202,8 +189,6 @@ namespace Xpand.ExpressApp.FilterDataStore {
                 if (systemTable.Name == name)
                     ret = true;
             }
-
-            Tracing.Tracer.LogVerboseValue("IsSystemTable", ret);
             return ret;
         }
 
@@ -216,7 +201,6 @@ namespace Xpand.ExpressApp.FilterDataStore {
                     ((IModelClassDisabledDataStoreFilters)classInfoNodeWrapper).DisabledDataStoreFilters.Where(
                         childNode => childNode.Name == providerName).FirstOrDefault() != null) ret = true;
             }
-            Tracing.Tracer.LogVerboseValue("FilterIsShared", ret);
             return ret;
         }
     }
