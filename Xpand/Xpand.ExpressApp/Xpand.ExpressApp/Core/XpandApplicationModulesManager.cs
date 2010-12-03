@@ -11,17 +11,19 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.Core {
+    [Obsolete("", true)]
     public class XpandControllersManager : ControllersManager {
         public new ReadOnlyCollection<Controller> Controllers {
             get { return base.Controllers; }
         }
 
     }
+    [Obsolete("", true)]
     public class XpandApplicationModulesManager : ApplicationModulesManager {
 
 
         private XpandControllersManager _xpandControllersManager;
-        //        private ModuleList _modules;
+
         private readonly ISecurity security;
         private bool isLoaded;
         private string _assembliesPath;
@@ -29,11 +31,6 @@ namespace Xpand.ExpressApp.Core {
         private readonly List<Assembly> scannedForModuleAssemblies = new List<Assembly>();
         private static readonly object lockObject = new object();
         private readonly Dictionary<Assembly, Assembly> assemblyHash = new Dictionary<Assembly, Assembly>();
-        //        public new ModuleList Modules
-        //        {
-        //            get { return _modules; }
-        //            set { _modules = value; }
-        //        }
 
         public new XpandControllersManager ControllersManager {
             get { return _xpandControllersManager; }
@@ -203,7 +200,5 @@ namespace Xpand.ExpressApp.Core {
             }
             return null;
         }
-
-
     }
 }

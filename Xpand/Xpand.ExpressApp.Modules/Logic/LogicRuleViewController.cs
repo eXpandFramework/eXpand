@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.Logic {
 
 
         public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext) {
-            ForceExecution(isReady, view, invertCustomization, executionContext, view.CurrentObject);
+            ForceExecution(isReady, view, invertCustomization, executionContext,view==null?null: view.CurrentObject);
         }
 
         protected virtual IEnumerable<LogicRuleInfo<TModelLogicRule>> GetContextValidLogicRuleInfos(View view, IEnumerable<TModelLogicRule> modelLogicRules, object currentObject, ExecutionContext executionContext, bool invertCustomization) {
@@ -113,7 +113,7 @@ namespace Xpand.ExpressApp.Logic {
         void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
             var supportViewControlAdding = (Frame.Template) as ISupportViewChanged;
             if (supportViewControlAdding != null)
-                supportViewControlAdding.ViewChanged += (o, args) => ForceExecution(ExecutionContext.ViewControlAdding);
+                supportViewControlAdding.ViewChanged += (o, args) => ForceExecution(ExecutionContext.ViewControlAdding,args.View);
         }
 
         protected override void OnActivated() {

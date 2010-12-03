@@ -8,6 +8,7 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.ModelDifference.Core {
+    
     public class ModelApplicationLoader {
         public void EnableModel(Expression<Func<ModelDifferenceObject, bool>> persistentCriteriaEvaluationBehavior, IEnumerable<string> modelsToUnload) {
             var winApplication = XpandModuleBase.Application;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
@@ -11,23 +12,17 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using System.Linq;
 
-namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
-{
+namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
     [PropertyEditor(typeof(ModelApplicationBase))]
-    public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexPropertyEditor, ISupportMasterModel {
+    public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexPropertyEditor {
         #region Members
-        public event EventHandler ModelCreated;
 
-        protected void OnModelCreated(EventArgs e) {
-            EventHandler handler = ModelCreated;
-            if (handler != null) handler(this, e);
-        }
+
 
 
         private ModelEditorViewController _controller;
-        ModelApplicationBuilder _modelApplicationBuilder;
+        ModelLoader _loader;
         ModelApplicationBase _masterModel;
         ModelApplicationBase _currentObjectModel;
         IObjectSpace _objectSpace;
@@ -36,8 +31,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
         #region Constructor
 
         public ModelEditorPropertyEditor(Type objectType, IModelMemberViewItem model)
-            : base(objectType, model)
-        {
+            : base(objectType, model) {
         }
 
         #endregion
@@ -48,20 +42,17 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
             get { return _masterModel; }
         }
 
-        public new ModelDifferenceObject CurrentObject
-        {
+        public new ModelDifferenceObject CurrentObject {
             get { return base.CurrentObject as ModelDifferenceObject; }
             set { base.CurrentObject = value; }
         }
 
-        public new ModelEditorControl Control
-        {
+        public new ModelEditorControl Control {
             get { return (ModelEditorControl)base.Control; }
         }
 
 
-        public ModelEditorViewController ModelEditorViewController
-        {
+        public ModelEditorViewController ModelEditorViewController {
             get { return _controller ?? (_controller = GetModelEditorController(CaptionHelper.DefaultLanguage)); }
         }
 
@@ -70,8 +61,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
 
         #region Overrides
 
-        protected override void ReadValueCore()
-        {
+        protected override void ReadValueCore() {
             base.ReadValueCore();
             if (_controller == null) {
                 _controller = GetModelEditorController(CaptionHelper.DefaultLanguage);
@@ -79,33 +69,33 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
         }
 
 
-        protected override void OnCurrentObjectChanged(){
-            _modelApplicationBuilder = new ModelApplicationBuilder(CurrentObject.PersistentApplication.ExecutableName);
-            _masterModel = _modelApplicationBuilder.GetMasterModel();
+        protected override void OnCurrentObjectChanged() {
+            _loader = new ModelLoader(CurrentObject.PersistentApplication.ExecutableName);
+            _masterModel = _loader.GetMasterModel();
             base.OnCurrentObjectChanged();
         }
 
 
 
         protected override object CreateControlCore() {
-            View.Closing+=ViewOnClosing;
-            CurrentObject.Changed+=CurrentObjectOnChanged;
-            _objectSpace.ObjectSaving+=ObjectSpaceOnObjectSaving;
+            View.Closing += ViewOnClosing;
+            CurrentObject.Changed += CurrentObjectOnChanged;
+            _objectSpace.ObjectSaving += ObjectSpaceOnObjectSaving;
             var modelEditorControl = new ModelEditorControl(new SettingsStorageOnDictionary());
             return modelEditorControl;
         }
 
 
         void CurrentObjectOnChanged(object sender, ObjectChangeEventArgs objectChangeEventArgs) {
-            if (objectChangeEventArgs.PropertyName=="XmlContent") {
+            if (objectChangeEventArgs.PropertyName == "XmlContent") {
                 var aspect = _masterModel.CurrentAspect;
-                _masterModel = _modelApplicationBuilder.GetMasterModel();
+                _masterModel = _loader.GetMasterModel();
                 _controller = GetModelEditorController(aspect);
             }
         }
 
         void ObjectSpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args) {
-            if (ReferenceEquals(args.Object, CurrentObject)){
+            if (ReferenceEquals(args.Object, CurrentObject)) {
                 //var clone = _currentObjectModel.Clone();
                 new ModelValidator().ValidateNode(_currentObjectModel);
                 ModelEditorViewController.SaveAction.Active["Not needed"] = true;
@@ -116,24 +106,22 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
         }
 
         void ViewOnClosing(object sender, EventArgs eventArgs) {
-            _objectSpace.ObjectSaving-=ObjectSpaceOnObjectSaving;
+            _objectSpace.ObjectSaving -= ObjectSpaceOnObjectSaving;
         }
 
         #endregion
 
         #region Eventhandler
 
-        private void Model_Modifying(object sender, CancelEventArgs e)
-        {
+        private void Model_Modifying(object sender, CancelEventArgs e) {
             View.ObjectSpace.SetModified(CurrentObject);
         }
 
-#endregion
+        #endregion
 
         #region Methods
 
-        public void Setup(IObjectSpace objectSpace, XafApplication application)
-        {
+        public void Setup(IObjectSpace objectSpace, XafApplication application) {
             _objectSpace = objectSpace;
         }
 
@@ -148,7 +136,6 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors
             controller.Modifying += Model_Modifying;
             controller.SaveAction.Active["Not needed"] = false;
             controller.ChangeAspectAction.ExecuteCompleted += ChangeAspectActionOnExecuteCompleted;
-            OnModelCreated(EventArgs.Empty);
             return controller;
         }
 

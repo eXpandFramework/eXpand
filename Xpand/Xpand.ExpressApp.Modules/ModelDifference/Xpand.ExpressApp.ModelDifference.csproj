@@ -141,6 +141,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\ModelApplicationLoader.cs" />
+    <Compile Include="Core\ModelLoader.cs" />
     <Compile Include="NodeUpdaters\BOModelNodesUpdater.cs" />
     <Compile Include="Core\ISupportMasterModel.cs" />
     <Compile Include="Core\ModelApplicationFromStreamStoreBase.cs" />

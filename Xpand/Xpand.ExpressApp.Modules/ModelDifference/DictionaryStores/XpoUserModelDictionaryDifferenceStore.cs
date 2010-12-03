@@ -77,9 +77,9 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         void CombineModelFromPermission(ModelApplicationBase model) {
             if (SecuritySystem.Instance is ISecurityComplex && SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false)) {
-                var space = Application.CreateObjectSpace() as ObjectSpace;
-                ModelDifferenceObject difference = GetDifferenceFromPermission(space);
-                var master = new ModelApplicationBuilder(difference.PersistentApplication.ExecutableName).GetMasterModel();
+                var space = Application.CreateObjectSpace() ;
+                ModelDifferenceObject difference = GetDifferenceFromPermission((ObjectSpace) space);
+                var master = new ModelLoader(difference.PersistentApplication.ExecutableName).GetMasterModel();
                 var diffsModel = difference.GetModel(master);
                 new ModelXmlReader().ReadFromModel(diffsModel, model);
                 difference.CreateAspectsCore(diffsModel);

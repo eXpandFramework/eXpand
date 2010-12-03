@@ -13,6 +13,7 @@ using Xpand.ExpressApp.Core;
 
 
 namespace Xpand.ExpressApp.ModelDifference.Core {
+    
     public class XpoTypeInfoSource : DevExpress.ExpressApp.DC.Xpo.XpoTypeInfoSource {
         public XpoTypeInfoSource(TypesInfo typesInfo)
             : base(typesInfo) {
@@ -22,6 +23,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return base.GetFirstRegisteredTypeForEntity(from);
         }
     }
+    [Obsolete("User ModelLoader", true)]
     public class ModelApplicationBuilder {
         readonly string _executableName;
 
@@ -47,8 +49,8 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                     result.AddModule(module);
                 }
                 result.Security = application.Security;
-                if (this.GetModulesFromConfig(application) != null) {
-                    result.AddModuleFromAssemblies(this.GetModulesFromConfig(application));
+                if (GetModulesFromConfig(application) != null) {
+                    result.AddModuleFromAssemblies(GetModulesFromConfig(application));
                 }
                 return result;
             } finally {
