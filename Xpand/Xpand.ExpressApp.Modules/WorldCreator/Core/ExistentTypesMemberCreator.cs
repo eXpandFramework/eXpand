@@ -13,9 +13,12 @@ using Xpand.ExpressApp.Xpo;
 namespace Xpand.ExpressApp.WorldCreator.Core {
     public class ExistentTypesMemberCreator {
         public void CreateMembers(Session session) {
-            CreateCollectionMembers(session);
-            CreateReferenceMembers(session);
-            CreateCoreMembers(session);
+            var types = CreateCollectionMembers(session);
+            types.AddRange(CreateReferenceMembers(session));
+            types.AddRange(CreateCoreMembers(session));
+            foreach (var type in types) {
+                XafTypesInfo.Instance.RefreshInfo(type);
+            }
         }
 
         public IEnumerable<IExtendedMemberInfo> GetMembers(Session session, Type infoType) {
@@ -27,14 +30,16 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             return XafTypesInfo.Instance.FindTypeInfo(info.Owner).FindMember(info.Name) != null;
         }
 
-        public void CreateCollectionMembers(Session session) {
+        public List<Type> CreateCollectionMembers(Session session) {
             IEnumerable<IExtendedMemberInfo> xpCollection = GetMembers(session, WCTypesInfo.Instance.FindBussinessObjectType<IExtendedCollectionMemberInfo>());
             var collection = xpCollection.Cast<IExtendedCollectionMemberInfo>();
+            var types = new List<Type>();
             foreach (var info in collection) {
                 XPCustomMemberInfo member = GetXPCustomMemberInfo(info);
                 CreateAttributes(info, member);
-                XafTypesInfo.Instance.RefreshInfo(info.Owner);
+                types.Add(info.Owner);
             }
+            return types;
         }
 
         XPCustomMemberInfo GetXPCustomMemberInfo(IExtendedCollectionMemberInfo info) {
@@ -46,24 +51,28 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             return classInfo.CreateCollection(info.Name, ReflectionHelper.FindType(extendedOrphanedCollection.ElementTypeFullName), extendedOrphanedCollection.Criteria);
         }
 
-        public void CreateReferenceMembers(Session session) {
+        public List<Type> CreateReferenceMembers(Session session) {
+            var types = new List<Type>();
             var xpCollection = GetMembers(session, WCTypesInfo.Instance.FindBussinessObjectType<IExtendedReferenceMemberInfo>());
             foreach (var info in xpCollection.Cast<IExtendedReferenceMemberInfo>()) {
                 var referenceType = info.ReferenceType;
                 var member = GetMember(info, referenceType);
                 CreateAttributes(info, member);
-                XafTypesInfo.Instance.RefreshInfo(info.Owner);
+                types.Add(referenceType);
             }
+            return types;
         }
 
-        public void CreateCoreMembers(Session session){
+        public List<Type> CreateCoreMembers(Session session){
+            var types = new List<Type>();
             var memberInfos = GetMembers(session, WCTypesInfo.Instance.FindBussinessObjectType<IExtendedCoreTypeMemberInfo>());
             foreach (var info in memberInfos.Cast<IExtendedCoreTypeMemberInfo>()){
                 var referenceType = Type.GetType("System." + info.DataType, true);
                 var member = GetMember(info,referenceType);
                 CreateAttributes(info, member);
-                XafTypesInfo.Instance.RefreshInfo(info.Owner);
+                types.Add(info.Owner);
             }
+            return types;
         }
 
         XPCustomMemberInfo GetMember(IExtendedMemberInfo info, Type referenceType) {
