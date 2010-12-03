@@ -30,6 +30,10 @@ namespace Xpand.ExpressApp {
             }
         }
 
+        protected XafApplication BaseApplication
+        {
+            get { return base.Application; }
+        }
 
         public BusinessClassesList GetAdditionalClasses(ApplicationModulesManager manager) {
             var moduleList = manager.Modules;

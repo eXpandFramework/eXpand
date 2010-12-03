@@ -100,7 +100,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         ReflectionDictionary GetReflectionDictionary() {
-            Type persistentAssemblyInfoType = GetAdditionalClasses(Application.Modules).Where(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1)).FirstOrDefault();
+            Type persistentAssemblyInfoType = GetAdditionalClasses(BaseApplication.Modules).Where(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1)).FirstOrDefault();
             if (persistentAssemblyInfoType == null)
                 throw new ArgumentNullException("No bussincess object that implements " +
                                                 typeof(IPersistentAssemblyInfo).FullName + " found");
