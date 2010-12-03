@@ -75,6 +75,12 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             CombineModelFromPermission(model);
         }
 
+        public override void SaveDifference(ModelApplicationBase model)
+        {
+            if (SecuritySystem.CurrentUser != null)
+                base.SaveDifference(model);
+        }
+
         void CombineModelFromPermission(ModelApplicationBase model) {
             if (SecuritySystem.Instance is ISecurityComplex && SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false)) {
                 var space = Application.CreateObjectSpace() ;

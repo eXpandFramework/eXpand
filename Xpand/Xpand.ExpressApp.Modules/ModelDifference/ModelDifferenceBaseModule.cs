@@ -3,8 +3,9 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
 
-namespace Xpand.ExpressApp.ModelDifference{
-    public abstract class ModelDifferenceBaseModule : XpandModuleBase 
+namespace Xpand.ExpressApp.ModelDifference
+{
+    public abstract class ModelDifferenceBaseModule : XpandModuleBase
     {
         protected internal abstract bool? PersistentApplicationModelUpdated { get; set; }
         public event EventHandler<CreateCustomModelDifferenceStoreEventArgs> CreateCustomModelDifferenceStore;
@@ -18,6 +19,13 @@ namespace Xpand.ExpressApp.ModelDifference{
         {
             base.Setup(application);
             application.LoggingOn += (sender, args) => LoadModels();
+            application.LoggedOff += (sender, args) =>
+            {
+                while (((ModelApplicationBase)application.Model).LastLayer.Id != "After Setup")
+                {
+                    ((ModelApplicationBase)application.Model).RemoveLayer(((ModelApplicationBase)application.Model).LastLayer);
+                }
+            };
         }
 
         public void LoadModels()
@@ -25,7 +33,7 @@ namespace Xpand.ExpressApp.ModelDifference{
             var customModelDifferenceStoreEventArgs = new CreateCustomModelDifferenceStoreEventArgs();
             OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);
             if (!customModelDifferenceStoreEventArgs.Handled)
-                new XpoModelDictionaryDifferenceStore(Application,  GetPath(), customModelDifferenceStoreEventArgs.ExtraDiffStores).Load((ModelApplicationBase) Application.Model);            
+                new XpoModelDictionaryDifferenceStore(Application, GetPath(), customModelDifferenceStoreEventArgs.ExtraDiffStores).Load((ModelApplicationBase)Application.Model);
         }
 
         public abstract string GetPath();
