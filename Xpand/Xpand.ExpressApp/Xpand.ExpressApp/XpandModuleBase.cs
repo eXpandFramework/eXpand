@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp {
         static IValueManager<ModelApplicationCreatorProperties> _instanceModelApplicationCreatorPropertiesManager;
         static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
 
-        public static ModelApplicationCreatorProperties ModelApplicationCreatorProperties{
+        public static ModelApplicationCreatorProperties ModelApplicationCreatorProperties {
             get { return _instanceModelApplicationCreatorPropertiesManager.Value; }
         }
         public static ModelApplicationCreator ModelApplicationCreator {
@@ -30,8 +30,7 @@ namespace Xpand.ExpressApp {
             }
         }
 
-        protected XafApplication BaseApplication
-        {
+        protected XafApplication BaseApplication {
             get { return base.Application; }
         }
 
@@ -41,32 +40,29 @@ namespace Xpand.ExpressApp {
             businessClassesList.AddRange(moduleList.SelectMany(moduleBase => moduleBase.BusinessClassAssemblies.GetBusinessClasses()));
             return businessClassesList;
         }
-        public BusinessClassesList GetAdditionalClasses(ModuleList moduleList)
-        {
+        public BusinessClassesList GetAdditionalClasses(ModuleList moduleList) {
             var businessClassesList = new BusinessClassesList(moduleList.SelectMany(@base => @base.AdditionalBusinessClasses));
             businessClassesList.AddRange(moduleList.SelectMany(moduleBase => moduleBase.BusinessClassAssemblies.GetBusinessClasses()));
             return businessClassesList;
         }
 
-        protected override void CustomizeModelApplicationCreatorProperties(ModelApplicationCreatorProperties creatorProperties)
-        {
+        protected override void CustomizeModelApplicationCreatorProperties(ModelApplicationCreatorProperties creatorProperties) {
             base.CustomizeModelApplicationCreatorProperties(creatorProperties);
-            lock (_lockObject){
+            lock (_lockObject) {
                 if (_instanceModelApplicationCreatorPropertiesManager == null)
                     _instanceModelApplicationCreatorPropertiesManager = ValueManager.CreateValueManager<ModelApplicationCreatorProperties>();
-                if (_instanceModelApplicationCreatorPropertiesManager.Value == null || _instanceModelApplicationCreatorPropertiesManager.Value!=creatorProperties)
+                if (_instanceModelApplicationCreatorPropertiesManager.Value == null || _instanceModelApplicationCreatorPropertiesManager.Value != creatorProperties)
                     _instanceModelApplicationCreatorPropertiesManager.Value = creatorProperties;
             }
         }
-        public override void Setup(ApplicationModulesManager moduleManager)
-        {
+        public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             InitializeInstanceXafApplicationManager();
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
             InitializeInstanceXafApplicationManager();
-            application.SetupComplete+=ApplicationOnSetupComplete;
+            application.SetupComplete += ApplicationOnSetupComplete;
         }
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
@@ -74,7 +70,7 @@ namespace Xpand.ExpressApp {
         }
 
         void InitializeInstanceXafApplicationManager() {
-            lock (_lockObject){
+            lock (_lockObject) {
                 if (_instanceXafApplicationManager == null)
                     _instanceXafApplicationManager = ValueManager.CreateValueManager<XafApplication>();
                 if (_instanceXafApplicationManager.Value == null)
