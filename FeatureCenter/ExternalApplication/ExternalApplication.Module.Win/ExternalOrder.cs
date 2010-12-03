@@ -8,7 +8,7 @@ namespace ExternalApplication.Module.Win {
         }
         private ExternalCustomer _customer;
 
-        [Association("ExternalCustomer-EternalOrders")]
+        
         public ExternalCustomer Customer {
             get { return _customer; }
             set { SetPropertyValue("Customer", ref _customer, value); }

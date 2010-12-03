@@ -19,8 +19,9 @@ namespace FeatureCenter.Base {
                 var dummyDataAttribute = typeInfo.FindAttribute<DummyDataAttribute>();
                 if (dummyDataAttribute != null && dummyDataAttribute.Exclude) continue;
                 CreateObjects(typeInfo);
+                _objectSpace.CommitChanges();
             }
-            _objectSpace.CommitChanges();
+            
         }
 
         void CreateObjects(ITypeInfo typeInfo) {
@@ -30,14 +31,14 @@ namespace FeatureCenter.Base {
             int i = 0;
             foreach (string name in GetCustomerNames()) {
                 i++;
-                var customer = (ICustomer)ReflectionHelper.CreateObject(typeInfo.Type, new object[] { _objectSpace });
+                var customer = (ICustomer)ReflectionHelper.CreateObject(typeInfo.Type, new object[] { _objectSpace.Session });
                 customer.Name = name;
                 customer.City = citynames.Count >= i ? citynames[i - 1] : citynames[rand.Next(citynames.Count - 1)];
                 customer.Description = "Here is some description for " + customer.Name;
                 ITypeInfo ordersTypeInfo = GetOrdersTypeInfo(typeInfo);
                 if (ordersTypeInfo != null)
                     CreateOrders(customer, ordersTypeInfo);
-                customer.Save();
+             
             }
         }
 
@@ -50,25 +51,24 @@ namespace FeatureCenter.Base {
                 ITypeInfo orderLineTypeInfo = GetOrderLineTypeInfo(ordersTypeInfo);
                 if (orderLineTypeInfo != null)
                     CreateOrderLine(articles, rand, order, artprice, orderLineTypeInfo);
-                order.Save();
+             
             }
         }
 
         void CreateOrderLine(string[] articles, Random rand, IOrder order, Dictionary<string, float> artprice, ITypeInfo orderLineTypeInfo) {
             for (int j = 0; j < rand.Next(2, 8); j++) {
-                var line = (IOrderLine)ReflectionHelper.CreateObject(orderLineTypeInfo.Type, new object[] { _objectSpace });
+                var line = (IOrderLine)ReflectionHelper.CreateObject(orderLineTypeInfo.Type, new object[] { _objectSpace.Session });
                 line.Order = order;
                 line.Article = articles[rand.Next(articles.Length)];
                 line.UnitPrice = artprice[line.Article];
                 line.Quantity = rand.Next(1, 4);
                 line.OrderLineDate = DateTime.Now.AddDays((-rand.Next(365 * 3)));
-                line.Save();
                 order.Total += line.TotalPrice;
             }
         }
 
         IOrder GetOrder(Random rand, ICustomer customer, int counter, ITypeInfo ordersTypeInfo) {
-            var order = (IOrder)ReflectionHelper.CreateObject(ordersTypeInfo.Type, new object[] { _objectSpace });
+            var order = (IOrder)ReflectionHelper.CreateObject(ordersTypeInfo.Type, new object[] { _objectSpace.Session });
             order.Customer = customer;
             order.OrderDate = DateTime.Now.AddDays((-rand.Next(365 * 3)));
             order.Reference = String.Format("ORD{0}", counter + 1000);
