@@ -75,16 +75,15 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             CombineModelFromPermission(model);
         }
 
-        public override void SaveDifference(ModelApplicationBase model)
-        {
+        public override void SaveDifference(ModelApplicationBase model) {
             if (SecuritySystem.CurrentUser != null)
                 base.SaveDifference(model);
         }
 
         void CombineModelFromPermission(ModelApplicationBase model) {
             if (SecuritySystem.Instance is ISecurityComplex && SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false)) {
-                var space = Application.CreateObjectSpace() ;
-                ModelDifferenceObject difference = GetDifferenceFromPermission((ObjectSpace) space);
+                var space = Application.CreateObjectSpace();
+                ModelDifferenceObject difference = GetDifferenceFromPermission((ObjectSpace)space);
                 var master = new ModelLoader(difference.PersistentApplication.ExecutableName).GetMasterModel();
                 var diffsModel = difference.GetModel(master);
                 new ModelXmlReader().ReadFromModel(diffsModel, model);

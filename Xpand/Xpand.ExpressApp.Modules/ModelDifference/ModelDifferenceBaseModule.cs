@@ -3,33 +3,21 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
 
-namespace Xpand.ExpressApp.ModelDifference
-{
-    public abstract class ModelDifferenceBaseModule : XpandModuleBase
-    {
+namespace Xpand.ExpressApp.ModelDifference {
+    public abstract class ModelDifferenceBaseModule : XpandModuleBase {
         protected internal abstract bool? PersistentApplicationModelUpdated { get; set; }
         public event EventHandler<CreateCustomModelDifferenceStoreEventArgs> CreateCustomModelDifferenceStore;
 
-        public void OnCreateCustomModelDifferenceStore(CreateCustomModelDifferenceStoreEventArgs e)
-        {
+        public void OnCreateCustomModelDifferenceStore(CreateCustomModelDifferenceStoreEventArgs e) {
             EventHandler<CreateCustomModelDifferenceStoreEventArgs> handler = CreateCustomModelDifferenceStore;
             if (handler != null) handler(this, e);
         }
-        public override void Setup(XafApplication application)
-        {
+        public override void Setup(XafApplication application) {
             base.Setup(application);
-            application.LoggingOn += (sender, args) => LoadModels();
-            application.LoggedOff += (sender, args) =>
-            {
-                while (((ModelApplicationBase)application.Model).LastLayer.Id != "After Setup")
-                {
-                    ((ModelApplicationBase)application.Model).RemoveLayer(((ModelApplicationBase)application.Model).LastLayer);
-                }
-            };
+            application.SetupComplete += (sender, args) => LoadModels();
         }
 
-        public void LoadModels()
-        {
+        public void LoadModels() {
             var customModelDifferenceStoreEventArgs = new CreateCustomModelDifferenceStoreEventArgs();
             OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);
             if (!customModelDifferenceStoreEventArgs.Handled)
