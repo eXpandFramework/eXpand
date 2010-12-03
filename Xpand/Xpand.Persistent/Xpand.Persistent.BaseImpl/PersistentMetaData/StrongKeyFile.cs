@@ -5,12 +5,12 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.Xpo;
+using Xpand.Persistent.Base;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [Persistent]
     [DefaultProperty("FileName")]
-    public class StrongKeyFile : XpandCustomObject, IFileData, IEmptyCheckable {
+    public class StrongKeyFile : XpandBaseCustomObject, IFileData, IEmptyCheckable {
 #if MediumTrust
 		private int size;
 		private string fileName = "";

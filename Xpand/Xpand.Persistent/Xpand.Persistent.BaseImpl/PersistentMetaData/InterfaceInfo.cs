@@ -6,15 +6,15 @@ using System.Reflection;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.PersistentMetaData;
-using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "Name,Assembly")]
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
     [InterfaceRegistrator(typeof(IInterfaceInfo))]
-    public class InterfaceInfo : XpandCustomObject, IInterfaceInfo {
+    public class InterfaceInfo : XpandBaseCustomObject, IInterfaceInfo {
         string _assembly;
         string _name;
 

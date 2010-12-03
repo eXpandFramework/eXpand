@@ -1,10 +1,10 @@
 ﻿using DevExpress.Xpo;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.PersistentMetaData;
-using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [NonPersistent]
-    public class DataBase : XpandCustomObject, IDataBase {
+    public class DataBase : XpandBaseCustomObject, IDataBase {
         public DataBase(Session session)
             : base(session) {
         }

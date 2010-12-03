@@ -3,12 +3,10 @@ using System.ComponentModel;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 
-namespace Xpand.Xpo
-{
+namespace Xpand.Xpo {
     [Serializable]
     [NonPersistent]
-    public abstract class XpandCustomObject : XPCustomObject, ISupportChangedMembers
-    {
+    public abstract class XpandCustomObject : XPCustomObject, ISupportChangedMembers {
 #if MediumTrust
 		private Guid oid = Guid.Empty;
 		[Browsable(false), Key(true), NonCloneable]
@@ -20,8 +18,7 @@ namespace Xpand.Xpo
         [Persistent("Oid"), Key(true), Browsable(false), MemberDesignTimeVisibility(false)]
         private Guid oid = Guid.Empty;
         [PersistentAlias("oid"), Browsable(false)]
-        public Guid Oid
-        {
+        public Guid Oid {
             get { return oid; }
         }
 #endif
@@ -29,34 +26,27 @@ namespace Xpand.Xpo
         private XPMemberInfo defaultPropertyMemberInfo;
         ChangedMemberCollector _changedMemberCollector;
 
-        protected override void OnSaving()
-        {
+        protected override void OnSaving() {
             base.OnSaving();
             if (TrucateStrings)
                 trucateStrings();
-            if (!(Session is NestedUnitOfWork) && Session.IsNewObject(this) && oid == Guid.Empty)
-            {
+            if (!(Session is NestedUnitOfWork) && Session.IsNewObject(this) && oid == Guid.Empty) {
                 oid = XpoDefault.NewGuid();
             }
         }
 
 
-        public override string ToString()
-        {
-            if (!isDefaultPropertyAttributeInit)
-            {
+        public override string ToString() {
+            if (!isDefaultPropertyAttributeInit) {
                 var attrib = ClassInfo.FindAttributeInfo(typeof(DefaultPropertyAttribute)) as DefaultPropertyAttribute;
-                if (attrib != null)
-                {
+                if (attrib != null) {
                     defaultPropertyMemberInfo = ClassInfo.FindMember(attrib.Name);
                 }
                 isDefaultPropertyAttributeInit = true;
             }
-            if (defaultPropertyMemberInfo != null)
-            {
+            if (defaultPropertyMemberInfo != null) {
                 object obj = defaultPropertyMemberInfo.GetValue(this);
-                if (obj != null)
-                {
+                if (obj != null) {
                     return obj.ToString();
                 }
             }
@@ -65,24 +55,22 @@ namespace Xpand.Xpo
 
 
         public const string CancelTriggerObjectChangedName = "CancelTriggerObjectChanged";
-        protected XpandCustomObject(Session session) : base(session) {
+        protected XpandCustomObject(Session session)
+            : base(session) {
             _changedMemberCollector = _changedMemberCollector ?? new ChangedMemberCollector(this);
         }
 
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]
-        public bool IsNewObject
-        {
+        public bool IsNewObject {
             get { return Session.IsNewObject(this); }
         }
-        public override void AfterConstruction()
-        {
-            _changedMemberCollector = _changedMemberCollector??new ChangedMemberCollector(this);
+        public override void AfterConstruction() {
+            _changedMemberCollector = _changedMemberCollector ?? new ChangedMemberCollector(this);
             base.AfterConstruction();
         }
 
-        protected override void TriggerObjectChanged(ObjectChangeEventArgs args)
-        {
+        protected override void TriggerObjectChanged(ObjectChangeEventArgs args) {
             if (!CancelTriggerObjectChanged)
                 base.TriggerObjectChanged(args);
         }
@@ -97,40 +85,31 @@ namespace Xpand.Xpo
         [MemberDesignTimeVisibility(false)]
         public bool TrucateStrings { get; set; }
 
-        private void trucateStrings()
-        {
-            foreach (XPMemberInfo xpMemberInfo in ClassInfo.PersistentProperties)
-            {
-                if (xpMemberInfo.MemberType == typeof(string))
-                {
+        private void trucateStrings() {
+            foreach (XPMemberInfo xpMemberInfo in ClassInfo.PersistentProperties) {
+                if (xpMemberInfo.MemberType == typeof(string)) {
                     var value = xpMemberInfo.GetValue(this) as string;
-                    if (value != null)
-                    {
+                    if (value != null) {
                         value = TruncateValue(xpMemberInfo, value);
                         xpMemberInfo.SetValue(this, value);
                     }
                 }
             }
         }
-        protected override void OnSaved()
-        {
+        protected override void OnSaved() {
             base.OnSaved();
             _changedMemberCollector.Collect();
         }
-        protected override void OnChanged(string propertyName, object oldValue, object newValue)
-        {
+        protected override void OnChanged(string propertyName, object oldValue, object newValue) {
             base.OnChanged(propertyName, oldValue, newValue);
             _changedMemberCollector.Collect(propertyName);
         }
-        string TruncateValue(XPMemberInfo xpMemberInfo, string value)
-        {
-            if (xpMemberInfo.HasAttribute(typeof(SizeAttribute)))
-            {
+        string TruncateValue(XPMemberInfo xpMemberInfo, string value) {
+            if (xpMemberInfo.HasAttribute(typeof(SizeAttribute))) {
                 int size = ((SizeAttribute)xpMemberInfo.GetAttributeInfo(typeof(SizeAttribute))).Size;
                 if (size > -1 && value.Length > size)
                     value = value.Substring(0, size - 1);
-            }
-            else if (value.Length > 99)
+            } else if (value.Length > 99)
                 value = value.Substring(0, 99);
             return value;
         }

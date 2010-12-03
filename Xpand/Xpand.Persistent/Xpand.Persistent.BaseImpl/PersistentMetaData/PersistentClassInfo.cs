@@ -6,14 +6,13 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.WorldCreator.Core;
-using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-
 using Xpand.ExpressApp.Core;
+using Xpand.ExpressApp.WorldCreator.Core;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.Validation.FromIPropertyValueValidator;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Utils.Helpers;
-using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [InterfaceRegistrator(typeof(IPersistentClassInfo))]
@@ -30,17 +29,17 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         PersistentAssemblyInfo _persistentAssemblyInfo;
 
 
-        public PersistentClassInfo(Session session) : base(session) {
+        public PersistentClassInfo(Session session)
+            : base(session) {
         }
-        public override void AfterConstruction()
-        {
+        public override void AfterConstruction() {
             base.AfterConstruction();
-            BaseType = typeof (XpandCustomObject);
+            BaseType = typeof(XpandBaseCustomObject);
         }
         [Index(0)]
         [Size(SizeAttribute.Unlimited)]
-        [ValueConverter(typeof (TypeValueConverter))]
-        [TypeConverter(typeof (MyLocalizedClassInfoTypeConverter))]
+        [ValueConverter(typeof(TypeValueConverter))]
+        [TypeConverter(typeof(MyLocalizedClassInfoTypeConverter))]
         public Type BaseType {
             get { return _baseType; }
             set {
@@ -57,10 +56,9 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _baseClassInfo; }
             set {
                 SetPropertyValue("BaseClassInfo", ref _baseClassInfo, value);
-                if (_baseClassInfo != null && _baseClassInfo.PersistentAssemblyInfo != null){
+                if (_baseClassInfo != null && _baseClassInfo.PersistentAssemblyInfo != null) {
                     _baseTypeFullName = _baseClassInfo.PersistentAssemblyInfo.Name + "." + _baseClassInfo.Name;
-                }
-                else if (_baseClassInfo == null && _baseType == null)
+                } else if (_baseClassInfo == null && _baseType == null)
                     _baseTypeFullName = null;
             }
         }
@@ -68,8 +66,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Index(2)]
         [RuleFromIPropertyValueValidator(null, DefaultContexts.Save)]
         [Size(SizeAttribute.Unlimited)]
-        [ValueConverter(typeof (TypeValueConverter))]
-        [TypeConverter(typeof (LocalizedClassInfoTypeConverter))]
+        [ValueConverter(typeof(TypeValueConverter))]
+        [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         public Type MergedObjectType {
             get { return _mergedObjectType; }
             set {
@@ -86,10 +84,9 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _mergedClassInfo; }
             set {
                 SetPropertyValue("MergedClassInfo", ref _mergedClassInfo, value);
-                if (_mergedClassInfo != null && _mergedClassInfo.PersistentAssemblyInfo != null){
+                if (_mergedClassInfo != null && _mergedClassInfo.PersistentAssemblyInfo != null) {
                     _mergedObjectFullName = _mergedClassInfo.PersistentAssemblyInfo.Name + "." + _mergedClassInfo.Name;
-                }
-                else if (_mergedClassInfo == null && _mergedObjectType == null)
+                } else if (_mergedClassInfo == null && _mergedObjectType == null)
                     _mergedObjectFullName = null;
             }
         }
@@ -161,7 +158,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
                     return false;
                 }
                 if (TypeAttributes.Where(info => info is PersistentMapInheritanceAttribute).FirstOrDefault() == null) {
-                    errorMessageTemplate = typeof (PersistentMapInheritanceAttribute).Name + " is required";
+                    errorMessageTemplate = typeof(PersistentMapInheritanceAttribute).Name + " is required";
                     return false;
                 }
             }
@@ -170,7 +167,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         #endregion
     }
 
-    public class MyLocalizedClassInfoTypeConverter:LocalizedClassInfoTypeConverter {
+    public class MyLocalizedClassInfoTypeConverter : LocalizedClassInfoTypeConverter {
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context) {
             var typeInfos = XafTypesInfo.Instance.FindTypeInfo(typeof(PersistentBase)).Descendants;
             var list = (from typeInfo in typeInfos where typeInfo.Type != null select typeInfo.Type).ToList();

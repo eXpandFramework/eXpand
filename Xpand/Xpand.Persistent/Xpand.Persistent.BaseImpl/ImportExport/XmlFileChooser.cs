@@ -1,11 +1,11 @@
 ﻿using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.ImportExport;
-using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.ImportExport {
     [NonPersistent]
-    public class XmlFileChooser : XpandCustomObject, IXmlFileChooser {
+    public class XmlFileChooser : XpandBaseCustomObject, IXmlFileChooser {
         XpandFileData _fileData;
 
         public XmlFileChooser(Session session)

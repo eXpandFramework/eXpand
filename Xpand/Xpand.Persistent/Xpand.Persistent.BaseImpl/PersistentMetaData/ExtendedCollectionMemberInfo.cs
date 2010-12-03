@@ -5,8 +5,9 @@ using Xpand.Persistent.Base.PersistentMetaData;
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [NavigationItem("WorldCreator")]
     [InterfaceRegistrator(typeof(IExtendedCollectionMemberInfo))]
-    public class ExtendedCollectionMemberInfo:ExtendedMemberInfo,IExtendedCollectionMemberInfo {
-        public ExtendedCollectionMemberInfo(Session session) : base(session) {
+    public class ExtendedCollectionMemberInfo : ExtendedMemberInfo, IExtendedCollectionMemberInfo {
+        public ExtendedCollectionMemberInfo(Session session)
+            : base(session) {
         }
     }
 }

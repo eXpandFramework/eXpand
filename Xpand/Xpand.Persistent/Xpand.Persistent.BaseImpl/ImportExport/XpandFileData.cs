@@ -5,12 +5,12 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.Xpo;
+using Xpand.Persistent.Base;
 
 namespace Xpand.Persistent.BaseImpl.ImportExport {
     [Persistent]
     [DefaultProperty("FileName")]
-    public class XpandFileData : XpandCustomObject, IFileData, IEmptyCheckable {
+    public class XpandFileData : XpandBaseCustomObject, IFileData, IEmptyCheckable {
 #if MediumTrust
 		private int size;
 		private string fileName = "";
@@ -21,7 +21,7 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
 #else
         [Persistent]
         private int size;
-        private string fileName = "";
+        private string _fileName = "";
         public int Size {
             get { return size; }
         }
@@ -31,7 +31,7 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
             Guard.ArgumentNotNull(stream, "stream");
             Guard.ArgumentNotNullOrEmpty(fileName, "fileName");
             FileName = fileName;
-            byte[] bytes = new byte[stream.Length];
+            var bytes = new byte[stream.Length];
             stream.Read(bytes, 0, bytes.Length);
             Content = bytes;
         }
@@ -51,12 +51,12 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
         }
         [Size(260)]
         public string FileName {
-            get { return fileName; }
+            get { return _fileName; }
             set {
-                SetPropertyValue<string>("FileName", ref fileName, value);
+                SetPropertyValue("FileName", ref _fileName, value);
             }
         }
-        [DevExpress.Xpo.Persistent, Delayed,
+        [Persistent, Delayed,
          ValueConverter(typeof(CompressionConverter)),
          MemberDesignTimeVisibility(false)]
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
@@ -64,12 +64,8 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
             get { return GetDelayedPropertyValue<byte[]>("Content"); }
             set {
                 int oldSize = size;
-                if (value != null) {
-                    size = value.Length;
-                } else {
-                    size = 0;
-                }
-                SetDelayedPropertyValue<byte[]>("Content", value);
+                size = value != null ? value.Length : 0;
+                SetDelayedPropertyValue("Content", value);
                 OnChanged("Size", oldSize, size);
             }
         }

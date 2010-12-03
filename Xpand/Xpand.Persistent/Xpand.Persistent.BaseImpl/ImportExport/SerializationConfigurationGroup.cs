@@ -3,14 +3,14 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.ImportExport;
-using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.ImportExport {
     [DefaultClassOptions]
     [NavigationItem("ImportExport")]
     [DefaultProperty("Name")]
-    public class SerializationConfigurationGroup : XpandCustomObject, ISerializationConfigurationGroup {
+    public class SerializationConfigurationGroup : XpandBaseCustomObject, ISerializationConfigurationGroup {
         private string _name;
 
         public SerializationConfigurationGroup(Session session)

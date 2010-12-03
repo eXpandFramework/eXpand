@@ -102,6 +102,10 @@
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ViewVariants.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.Persistent.Base, Version=10.1.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Utils, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>

@@ -5,14 +5,14 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [DefaultProperty("Name")]
-    public abstract class PersistentTypeInfo : XpandCustomObject, IPersistentTypeInfo {
+    public abstract class PersistentTypeInfo : XpandBaseCustomObject, IPersistentTypeInfo {
         public event EventHandler<ObjectCreatedEventArgs> AfterConstructed;
 
         public void InvokeAfterConstructed(ObjectCreatedEventArgs e) {

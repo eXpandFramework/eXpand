@@ -1,9 +1,10 @@
 ﻿using DevExpress.Xpo;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.PivotChart;
-using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.PivotChart {
-    public class PivotOptionsCustomization : XpandCustomObject, IPivotOptionsCustomization {
+    [NonPersistent]
+    public class PivotOptionsCustomization : XpandBaseCustomObject, IPivotOptionsCustomization {
         public PivotOptionsCustomization(Session session)
             : base(session) {
         }

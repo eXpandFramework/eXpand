@@ -1,12 +1,11 @@
 using System.ComponentModel;
 using System.Reflection;
 using DevExpress.Xpo;
-
-using Xpand.Xpo;
+using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.ViewVariants {
     [NonPersistent]
-    public class ViewCloner : XpandCustomObject {
+    public class ViewCloner : XpandBaseCustomObject {
         string caption;
 
         string clonedViewName;

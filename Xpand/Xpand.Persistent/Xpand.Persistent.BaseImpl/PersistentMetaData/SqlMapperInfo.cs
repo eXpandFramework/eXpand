@@ -1,7 +1,7 @@
 ﻿using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.PersistentMetaData;
-using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [InterfaceRegistrator(typeof(IDataStoreLogonObject))]
@@ -29,7 +29,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         }
     }
     [NonPersistent]
-    public class MapperInfo : XpandCustomObject, IMapperInfo {
+    public class MapperInfo : XpandBaseCustomObject, IMapperInfo {
         public MapperInfo(Session session)
             : base(session) {
         }

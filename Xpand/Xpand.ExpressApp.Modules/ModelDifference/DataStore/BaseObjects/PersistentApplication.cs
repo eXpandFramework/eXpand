@@ -2,12 +2,10 @@ using System.ComponentModel;
 using System.Reflection;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-
-using Xpand.ExpressApp;
-using Xpand.Xpo;
+using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
-    public class PersistentApplication : XpandCustomObject{
+    public class PersistentApplication : XpandBaseCustomObject {
         string _name;
         string executableName;
         string uniqueName;

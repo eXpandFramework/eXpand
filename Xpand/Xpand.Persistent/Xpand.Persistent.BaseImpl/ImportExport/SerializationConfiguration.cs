@@ -5,13 +5,13 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.ImportExport;
-using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.ImportExport {
     [DefaultProperty("TypeToSerialize")]
     [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "TypeToSerialize,SerializationConfigurationGroup")]
-    public class SerializationConfiguration : XpandCustomObject, ISerializationConfiguration {
+    public class SerializationConfiguration : XpandBaseCustomObject, ISerializationConfiguration {
         private Type _typeToSerialize;
         public SerializationConfiguration(Session session) : base(session) { }
         private SerializationConfigurationGroup _serializationConfigurationGroup;

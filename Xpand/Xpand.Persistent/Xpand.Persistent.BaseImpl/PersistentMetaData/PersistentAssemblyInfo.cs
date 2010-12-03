@@ -6,11 +6,11 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Enums;
 using Xpand.ExpressApp.WorldCreator.Core;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using Xpand.Xpo;
 using Xpand.Xpo.DB;
 
 [assembly: DataStore(typeof(PersistentAssemblyInfo), "WorldCreator")]
@@ -19,7 +19,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [NavigationItem("WorldCreator")]
     [InterfaceRegistrator(typeof(IPersistentAssemblyInfo))]
     [DefaultProperty("Name")]
-    public class PersistentAssemblyInfo : XpandCustomObject, IPersistentAssemblyInfo {
+    public class PersistentAssemblyInfo : XpandBaseCustomObject, IPersistentAssemblyInfo {
         CodeDomProvider _codeDomProvider;
         string _compileErrors;
         int _compileOrder;

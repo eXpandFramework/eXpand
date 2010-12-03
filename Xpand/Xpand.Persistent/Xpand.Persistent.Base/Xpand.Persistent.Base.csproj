@@ -185,6 +185,7 @@
     <Compile Include="Validation\FromIPropertyValueValidator\RuleFromIPropertyValueValidatorProperties.cs" />
     <Compile Include="Validation\IRuleMultiPropertiesValues.cs" />
     <Compile Include="Validation\RuleMultiPropertiesValues.cs" />
+    <Compile Include="XpandBaseCustomObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

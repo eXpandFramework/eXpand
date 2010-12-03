@@ -1,11 +1,10 @@
 ﻿using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-
-using Xpand.Xpo;
+using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [RuleCombinationOfPropertiesIsUnique("AspectObject_Name_MDO",DefaultContexts.Save,"Name,ModelDifferenceObject" )]
-    public class AspectObject:XpandCustomObject {
+    public class AspectObject:XpandBaseCustomObject {
         public AspectObject(Session session) : base(session) {
         }
         private string _name;

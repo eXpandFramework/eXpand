@@ -1,12 +1,12 @@
 ﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.PersistentMetaData;
-using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [InterfaceRegistrator(typeof(ICodeTemplateInfo))]
-    public class CodeTemplateInfo : XpandCustomObject, ICodeTemplateInfo {
+    public class CodeTemplateInfo : XpandBaseCustomObject, ICodeTemplateInfo {
         CodeTemplate _codeTemplate;
 
         TemplateInfo _templateInfo;

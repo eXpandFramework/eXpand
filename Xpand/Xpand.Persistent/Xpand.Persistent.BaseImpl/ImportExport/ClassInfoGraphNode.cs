@@ -6,15 +6,15 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ConditionalControllerState.Logic;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.ImportExport;
-using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.ImportExport {
     [Custom("DefaultListViewMasterDetailMode", "ListViewAndDetailView")]
     [ControllerStateRule("ClassInfoGraphNode+NewObjectViewController", typeof(NewObjectViewController), "1=1", "1=1", ControllerState.Disabled)]
     [ControllerStateRule("ClassInfoGraphNode+DeleteObjectsViewController", typeof(DeleteObjectsViewController), "1=1", "1=1", ControllerState.Disabled)]
     [DefaultProperty("Name")]
-    public class ClassInfoGraphNode : XpandCustomObject, IClassInfoGraphNode {
+    public class ClassInfoGraphNode : XpandBaseCustomObject, IClassInfoGraphNode {
 
         private string name;
         private SerializationConfiguration serializationConfiguration;
