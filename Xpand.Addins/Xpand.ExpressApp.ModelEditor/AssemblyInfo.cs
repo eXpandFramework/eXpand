@@ -37,11 +37,10 @@
 #endregion Copyright (c) 2000-2009 Developer Express Inc.
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
-[assembly: AssemblyTitle("eXpand.ExpressApp.ModelEditor")]
+[assembly: AssemblyTitle("Xpand.ExpressApp.ModelEditor")]
 [assembly: AssemblyDescription("eXpand.ExpressApp.ModelEditor")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("eXpand.ExpressApp.ModelEditor")]
+[assembly: AssemblyProduct("Xpand.ExpressApp.ModelEditor")]
 [assembly: AssemblyVersion(Xpand.AssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(Xpand.AssemblyInfo.Version)]
 

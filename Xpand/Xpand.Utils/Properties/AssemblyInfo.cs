@@ -6,11 +6,11 @@ using Xpand;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("eXpand.Utils")]
+[assembly: AssemblyTitle("Xpand.Utils")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("eXpand.Utils")]
+[assembly: AssemblyProduct("Xpand.Utils")]
 [assembly: AssemblyCopyright("Copyright © 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -37,7 +37,7 @@ using Xpand;
 [assembly: AssemblyFileVersion(AssemblyInfo.Version)]
 namespace Xpand {
     public class AssemblyInfo {
-        public const string Version = "10.1.8.0";
+        public const string Version = "10.2.3.0";
 
 
     }
