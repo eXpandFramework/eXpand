@@ -3,13 +3,11 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base.Security;
 
-namespace Xpand.ExpressApp.Validation.Controllers {
-    public partial class PermissionValidationController : ViewController {
+namespace Xpand.ExpressApp.Validation {
+    public class PermissionValidationController : ViewController {
         private PersistenceValidationController persistenceValidationController;
 
         public PermissionValidationController() {
-            InitializeComponent();
-            RegisterActions(components);
             TargetObjectType = typeof(IPersistentPermission);
             TargetViewType = ViewType.DetailView;
         }

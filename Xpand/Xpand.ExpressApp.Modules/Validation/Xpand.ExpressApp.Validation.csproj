@@ -98,11 +98,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\PermissionValidationController.cs">
+    <Compile Include="ActionExecuteValidationController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\PermissionValidationController.Designer.cs">
-      <DependentUpon>PermissionValidationController.cs</DependentUpon>
+    <Compile Include="PermissionValidationController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="XpandValidationModule.cs">
       <SubType>Component</SubType>
@@ -150,6 +150,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
