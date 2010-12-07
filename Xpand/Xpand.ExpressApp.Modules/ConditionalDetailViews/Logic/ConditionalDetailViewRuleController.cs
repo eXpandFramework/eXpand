@@ -71,8 +71,8 @@ namespace Xpand.ExpressApp.ConditionalDetailViews.Logic {
             public IModelView PreviousModel { get; set; }
             public IConditionalDetailViewRule ConditionalDetailViewRule { get; set; }
         }
-        protected override void OnDeactivating() {
-            base.OnDeactivating();
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
             if (IsReady) {
                 if (View is XpandListView)
                     Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem += OnCustomProcessSelectedItem;

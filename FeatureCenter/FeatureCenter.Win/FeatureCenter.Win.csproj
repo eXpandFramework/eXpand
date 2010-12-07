@@ -190,9 +190,6 @@
     <Reference Include="DevExpress.XtraNavBar.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPivotGrid.v10.2.Core">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.XtraPivotGrid.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

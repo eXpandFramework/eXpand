@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using DevExpress.CodeRush.Core;
 using DevExpress.DXCore.Controls.XtraEditors;
 
@@ -7,7 +8,7 @@ namespace XpandAddIns
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private readonly System.ComponentModel.IContainer components;
+        private System.ComponentModel.IContainer components;
 
         public Options() {
             /// <summary>
@@ -34,6 +35,7 @@ namespace XpandAddIns
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            components=new Container();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.textEdit1 = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
             this.labelControl1 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
