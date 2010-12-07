@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.Logic {
         CurrentObjectChanged = 16,
         ViewControlsCreated = 32,
         ControllerActivated = 64,
-        ViewControlAdding = 128,
+        ViewChanged = 128,
         TemplateViewChanged = 256,
         ObjectSpaceCommited=512,
         CustomProcessSelectedItem=1024

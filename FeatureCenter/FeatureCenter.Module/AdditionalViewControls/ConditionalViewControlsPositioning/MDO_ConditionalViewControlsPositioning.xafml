@@ -4,7 +4,7 @@
     <ExecutionContextsGroup>
       <ExecutionContexts Id="ConditionalViewControlsPositioning" IsNewNode="True">
         <ExecutionContext Name="ObjectChanged" IsNewNode="True" />
-        <ExecutionContext Name="ViewControlAdding" IsNewNode="True" />
+        <ExecutionContext Name="ViewChanged" IsNewNode="True" />
       </ExecutionContexts>
     </ExecutionContextsGroup>
     <Rules>

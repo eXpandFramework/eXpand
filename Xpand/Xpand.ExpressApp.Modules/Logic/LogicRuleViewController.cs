@@ -111,9 +111,9 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
-            var supportViewControlAdding = (Frame.Template) as ISupportViewChanged;
-            if (supportViewControlAdding != null)
-                supportViewControlAdding.ViewChanged += (o, args) => ForceExecution(ExecutionContext.ViewControlAdding,args.View);
+            var supportViewChanged = (Frame.Template) as ISupportViewChanged;
+            if (supportViewChanged != null)
+                supportViewChanged.ViewChanged += (o, args) => ForceExecution(ExecutionContext.ViewChanged,args.View);
         }
 
         protected override void OnActivated() {

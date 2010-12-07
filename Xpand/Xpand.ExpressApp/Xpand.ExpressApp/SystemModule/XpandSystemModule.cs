@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (ModelApplicationCreator==null) {
+            if (ModelApplicationCreator == null) {
                 foreach (var persistentType in typesInfo.PersistentTypes) {
                     IEnumerable<Attribute> attributes = GetAttributes(persistentType);
                     foreach (var attribute in attributes) {
@@ -79,12 +79,12 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public void ConvertXml(ConvertXmlParameters parameters) {
-            if (typeof(IModelMember).IsAssignableFrom(parameters.NodeType) ) {
-                if (parameters.Values.ContainsKey("IsRuntimeMember") && parameters.XmlNodeName == "Member"&&parameters.Values["IsRuntimeMember"].ToLower()=="true")
-                    parameters.NodeType = typeof (IModelRuntimeMember);
+            if (typeof(IModelMember).IsAssignableFrom(parameters.NodeType)) {
+                if (parameters.Values.ContainsKey("IsRuntimeMember") && parameters.XmlNodeName == "Member" && parameters.Values["IsRuntimeMember"].ToLower() == "true")
+                    parameters.NodeType = typeof(IModelRuntimeMember);
             }
-            if (parameters.XmlNodeName=="CalculatedRuntimeMember") {
-                parameters.NodeType = typeof (IModelRuntimeCalculatedMember);
+            if (parameters.XmlNodeName == "CalculatedRuntimeMember") {
+                parameters.NodeType = typeof(IModelRuntimeCalculatedMember);
             }
         }
     }
