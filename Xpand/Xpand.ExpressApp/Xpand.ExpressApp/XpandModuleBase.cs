@@ -1,6 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
@@ -75,6 +78,10 @@ namespace Xpand.ExpressApp {
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             InitializeInstanceXafApplicationManager();
+            var type = typesInfo.FindTypeInfo(typeof(IModelMember)).FindMember("Type") as BaseInfo;
+            var attribute = type.FindAttribute<ReadOnlyAttribute>();
+            if (attribute != null)
+                type.RemoveAttribute(attribute);
         }
 
         void InitializeInstanceXafApplicationManager() {
