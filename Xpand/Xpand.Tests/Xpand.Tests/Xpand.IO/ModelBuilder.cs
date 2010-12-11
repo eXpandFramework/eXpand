@@ -12,19 +12,19 @@ using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.Tests.Xpand.IO {
-    public interface IModelTypeHandler<T1, T2>
+    public interface IModelTypeHandler<out T1, out T2>
     {
         ITypeHandler<T1, T2> OneToMany();
         ITypeHandler<T1, T2> ManyToMany();
     }
-    public interface ITypeHandler<T1, T2>
+    public interface ITypeHandler<out T1, out T2>
     {
         Type T1Type { get; }
         Type T2Type { get; }
         IModelInstancesHandler<T1, T2> CreateInstances();
         ObjectSpace ObjectSpace { get; }
     }
-    public interface IModelInstancesHandler<T1, T2>
+    public interface IModelInstancesHandler<out T1, out T2>
     {
         T1 T1instance { get; }
         T2 T2Instance { get; }
@@ -99,7 +99,7 @@ namespace Xpand.Tests.Xpand.IO {
         }
 
         PersistentAssemblyBuilder GetPersistentAssemblyBuilder() {
-            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _objectSpace = (ObjectSpace) ObjectSpaceInMemory.CreateNew();
             return PersistentAssemblyBuilder.BuildAssembly(_objectSpace, "a" + Guid.NewGuid().ToString().Replace("-", ""));
         }
 

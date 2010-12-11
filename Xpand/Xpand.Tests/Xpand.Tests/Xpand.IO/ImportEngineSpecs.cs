@@ -83,7 +83,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         Establish context = () => {
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.WithValueConverter.xml");
-            _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            _objectSpace = (ObjectSpace)new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
         };
 
         Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork)_objectSpace.Session);
@@ -104,7 +104,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         Establish context = () => {
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.ExistentNaturalKeyObject.xml");
-            _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            _objectSpace = (ObjectSpace)new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             persistentAssemblyBuilder.CreateClasses(new[] { "Customer" }).CreateSimpleMembers<string>(info => new[] { "Name" });
             _objectSpace.CommitChanges();
@@ -133,7 +133,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         Establish context = () => {
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.ExistentNaturalKeyObject.xml");
-            _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            _objectSpace = (ObjectSpace)new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             persistentAssemblyBuilder.CreateClasses(new[] { "Customer" }).CreateSimpleMembers<string>(info => new[] { "Name" });
             _objectSpace.CommitChanges();
@@ -196,7 +196,7 @@ namespace Xpand.Tests.Xpand.IO {
         static Session _session;
 
         Establish context = () => {
-            ObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew();
+            var objectSpace = (ObjectSpace)ObjectSpaceInMemory.CreateNew();
             _session = objectSpace.Session;
             var analysis = objectSpace.CreateObject<Analysis>();
             Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.PivotContent.xml");
@@ -223,7 +223,7 @@ namespace Xpand.Tests.Xpand.IO {
             var modelBuilder = ModelBuilder<ICustomer, IOrder>.Build();
             modelBuilder.OneToMany();
             _persistentAssemblyInfo = modelBuilder.PersistentAssemblyBuilder.PersistentAssemblyInfo;
-            _objectSpace = ObjectSpace.FindObjectSpace(_persistentAssemblyInfo);
+            _objectSpace = (ObjectSpace)ObjectSpace.FindObjectSpaceByObject(_persistentAssemblyInfo);
             var configuration = new SerializationConfiguration(_persistentAssemblyInfo.Session) {
                 TypeToSerialize = typeof(PersistentAssemblyInfo),
                 SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
@@ -253,7 +253,7 @@ namespace Xpand.Tests.Xpand.IO {
         static MemoryStream _memoryStream;
 
         Establish context = () => {
-            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _objectSpace = (ObjectSpace)ObjectSpaceInMemory.CreateNew();
             PersistentAssemblyBuilder persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             persistentAssemblyBuilder.CreateClasses(new[] { "TestClass" }).CreateSimpleMembers<string>(info => new[] { "TestProperty" });
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
@@ -289,7 +289,7 @@ namespace Xpand.Tests.Xpand.IO {
         static Stream _manifestResourceStream;
 
         Establish context = () => {
-            _unitOfWork = new UnitOfWork(ObjectSpaceInMemory.CreateNew().Session.DataLayer);
+            _unitOfWork = new UnitOfWork(((ObjectSpace) ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.ModelDifferenceObject.xml");
 
         };
@@ -307,7 +307,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         Establish context = () => {
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.ObjectWithImageProperty.xml");
-            _unitOfWork = new UnitOfWork(ObjectSpaceInMemory.CreateNew().Session.DataLayer);
+            _unitOfWork = new UnitOfWork(((ObjectSpace) ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
         };
 
         Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _unitOfWork);
@@ -332,7 +332,7 @@ namespace Xpand.Tests.Xpand.IO {
                   </SerializedObject>
                 </SerializedObjects>";
             _memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xml));
-            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _objectSpace = (ObjectSpace) ObjectSpaceInMemory.CreateNew();
             _unitOfWork = new UnitOfWork(_objectSpace.Session.DataLayer);
         };
 
@@ -348,7 +348,7 @@ namespace Xpand.Tests.Xpand.IO {
         static UnitOfWork _unitOfWork;
 
         Establish context = () => {
-            _unitOfWork = new UnitOfWork(ObjectSpaceInMemory.CreateNew().Session.DataLayer);
+            _unitOfWork = new UnitOfWork(((ObjectSpace) ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
             new Analysis(_unitOfWork) { Name = "target" };
             _unitOfWork.CommitChanges();
 
@@ -373,7 +373,7 @@ namespace Xpand.Tests.Xpand.IO {
         static UnitOfWork _unitOfWork;
 
         Establish context = () => {
-            _unitOfWork = new UnitOfWork(ObjectSpaceInMemory.CreateNew().Session.DataLayer);
+            _unitOfWork = new UnitOfWork(((ObjectSpace) ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
             var analysis = new Analysis(_unitOfWork) { Name = "target" };
             analysis.Delete();
             _unitOfWork.CommitChanges();

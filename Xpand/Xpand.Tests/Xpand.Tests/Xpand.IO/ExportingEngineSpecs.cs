@@ -157,7 +157,7 @@ namespace Xpand.Tests.Xpand.IO {
         static XPBaseObject _customer;
 
         Establish context = () => {
-            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            var objectSpace = ((ObjectSpace) ObjectSpaceInMemory.CreateNew());
 
             PersistentAssemblyBuilder persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(objectSpace, GetUniqueAssemblyName());
             IClassInfoHandler classInfoHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer" });
@@ -284,7 +284,7 @@ namespace Xpand.Tests.Xpand.IO {
 
 
         Establish context = () => {
-            var objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            var objectSpace = ((ObjectSpace) new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace());
             _differenceObject = Isolate.Fake.Instance<ModelDifferenceObject>(Members.CallOriginal, ConstructorWillBe.Called, objectSpace.Session);
             //            _differenceObject.Model=new Dictionary(new DictionaryNode("dictionaryXmlValue"),new Schema(new DictionaryNode("shemaNode")));
             _serializationConfiguration = new SerializationConfiguration(objectSpace.Session) { TypeToSerialize = _differenceObject.GetType() };
@@ -310,10 +310,10 @@ namespace Xpand.Tests.Xpand.IO {
         static XPBaseObject _customer;
 
         Establish context = () => {
-            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _objectSpace = (ObjectSpace) ObjectSpaceInMemory.CreateNew();
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             persistentAssemblyBuilder.CreateClasses(new[] { "Customer" });
-            _objectSpace = persistentAssemblyBuilder.ObjectSpace;
+            _objectSpace = (ObjectSpace) persistentAssemblyBuilder.ObjectSpace;
             _objectSpace.CommitChanges();
             Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
@@ -338,10 +338,10 @@ namespace Xpand.Tests.Xpand.IO {
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
-            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _objectSpace = (ObjectSpace) ObjectSpaceInMemory.CreateNew();
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             persistentAssemblyBuilder.CreateClasses(new[] { "Customer" });
-            _objectSpace = persistentAssemblyBuilder.ObjectSpace;
+            _objectSpace = (ObjectSpace) persistentAssemblyBuilder.ObjectSpace;
             _objectSpace.CommitChanges();
             Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
@@ -380,11 +380,11 @@ namespace Xpand.Tests.Xpand.IO {
                 SerializationConfigurationGroup = new SerializationConfigurationGroup(session)
             };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
-            ObjectSpace.FindObjectSpace(_persistentAssemblyInfo).CommitChanges();
+            ObjectSpace.FindObjectSpaceByObject(_persistentAssemblyInfo).CommitChanges();
         };
 
         Because of = () => {
-            _root = new ExportEngine().Export(new[] { _persistentAssemblyInfo }.OfType<XPBaseObject>(), ObjectSpace.FindObjectSpace(_persistentAssemblyInfo).CreateObject<SerializationConfigurationGroup>()).Root;
+            _root = new ExportEngine().Export(new[] { _persistentAssemblyInfo }.OfType<XPBaseObject>(), ObjectSpace.FindObjectSpaceByObject(_persistentAssemblyInfo).CreateObject<SerializationConfigurationGroup>()).Root;
         };
 
         It should_contain_serialized_element_of_persistentAssemblyInfo_type =
@@ -411,7 +411,7 @@ namespace Xpand.Tests.Xpand.IO {
         static Analysis _analysis;
 
         Establish context = () => {
-            ObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew();
+            var objectSpace = (ObjectSpace) ObjectSpaceInMemory.CreateNew();
             _analysis = objectSpace.CreateObject<Analysis>();
             Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.PivotContent.xml");
             if (manifestResourceStream != null) {
@@ -421,7 +421,7 @@ namespace Xpand.Tests.Xpand.IO {
         };
 
         Because of = () => {
-            var xDocument = new ExportEngine().Export(new List<XPBaseObject> { _analysis }, ObjectSpace.FindObjectSpace(_analysis).CreateObject<SerializationConfigurationGroup>());
+            var xDocument = new ExportEngine().Export(new List<XPBaseObject> { _analysis }, ObjectSpace.FindObjectSpaceByObject(_analysis).CreateObject<SerializationConfigurationGroup>());
             xDocument.Save(@"c:\my.xml");
             _root = xDocument.Root;
         };
@@ -444,7 +444,7 @@ namespace Xpand.Tests.Xpand.IO {
         static ImagePropertyObject _imagePropertyObject;
 
         Establish context = () => {
-            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _objectSpace = (ObjectSpace) ObjectSpaceInMemory.CreateNew();
             _imagePropertyObject = _objectSpace.CreateObject<ImagePropertyObject>();
             var bitmap = new Bitmap(1, 1);
             bitmap.SetPixel(0, 0, Color.Red);
@@ -481,7 +481,7 @@ namespace Xpand.Tests.Xpand.IO {
         static DateTime _dateTime;
 
         Establish context = () => {
-            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _objectSpace = (ObjectSpace) ObjectSpaceInMemory.CreateNew();
             _dateTime = DateTime.Now;
             _dateTimePropertyObject = _objectSpace.CreateObject<DateTimePropertyObject>();
             _dateTimePropertyObject.Date = _dateTime;
@@ -505,7 +505,7 @@ namespace Xpand.Tests.Xpand.IO {
         static Analysis _analysis;
 
         Establish context = () => {
-            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _objectSpace = (ObjectSpace) ObjectSpaceInMemory.CreateNew();
             _analysis = _objectSpace.CreateObject<Analysis>();
             _objectSpace.CommitChanges();
         };
@@ -527,7 +527,7 @@ namespace Xpand.Tests.Xpand.IO {
         static Analysis _analysis;
 
         Establish context = () => {
-            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _objectSpace = (ObjectSpace) ObjectSpaceInMemory.CreateNew();
             _analysis = _objectSpace.CreateObject<Analysis>();
             _analysis.Name = @"3211¬_M1";
             _objectSpace.CommitChanges();
@@ -560,7 +560,7 @@ namespace Xpand.Tests.Xpand.IO {
         static XDocument _document;
 
         Establish context = () => {
-            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            var objectSpace = ((ObjectSpace) ObjectSpaceInMemory.CreateNew());
             PersistentAssemblyBuilder persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(objectSpace, GetUniqueAssemblyName());
             IClassInfoHandler classInfoHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer" });
             classInfoHandler.CreateSimpleMembers(DBColumnType.Double, info => new[]{"Cost"});

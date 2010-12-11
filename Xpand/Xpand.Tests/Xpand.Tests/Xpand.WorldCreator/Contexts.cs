@@ -110,7 +110,7 @@ namespace Xpand.Tests.Xpand.WorldCreator
         protected static UnitOfWork UnitOfWork;
         Establish context = () =>
         {
-            ObjectSpace = ObjectSpaceInMemory.CreateNew();
+            ObjectSpace = (ObjectSpace) ObjectSpaceInMemory.CreateNew();
             UnitOfWork = (UnitOfWork) ObjectSpace.Session;   
         };
         

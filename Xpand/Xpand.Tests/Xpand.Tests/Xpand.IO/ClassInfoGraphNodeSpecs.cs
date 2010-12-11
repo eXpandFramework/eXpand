@@ -100,7 +100,7 @@ namespace Xpand.Tests.Xpand.IO {
         static ObjectSpace _objectSpace;
 
         Establish context = () => {
-            _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            _objectSpace = (ObjectSpace) new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer", "DerivedCustomer" });
             classHandler.SetInheritance(info => info.Name == "DerivedCustomer" ? persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0] : null);
@@ -232,7 +232,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         Establish context = () => {
 
-            _objectSpace = ObjectSpaceInMemory.CreateNew();
+            _objectSpace = (ObjectSpace) ObjectSpaceInMemory.CreateNew();
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "CustomerSelfRef" });
             var persistentClassInfo = persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0];
@@ -265,7 +265,7 @@ private const int GcRecord = 1;
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         Establish context = () => {
-            _objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            _objectSpace = (ObjectSpace) new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
             _persistentAssemblyInfo = (PersistentAssemblyInfo)_objectSpace.CreateObject(typeof(PersistentAssemblyInfo));
             _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) {
                 TypeToSerialize = _persistentAssemblyInfo.GetType(),
