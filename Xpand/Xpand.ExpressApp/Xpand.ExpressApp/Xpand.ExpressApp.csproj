@@ -146,6 +146,9 @@
     <Compile Include="SystemModule\NewObjectCreateGroupController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\PopulateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Updater.cs" />
     <Compile Include="XpandDetailView.cs" />
     <Compile Include="Editors\ActionButtonDetailItem.cs">

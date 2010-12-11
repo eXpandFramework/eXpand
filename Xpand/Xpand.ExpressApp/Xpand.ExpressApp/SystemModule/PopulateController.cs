@@ -6,32 +6,24 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using Xpand.Utils.Helpers;
 
-namespace Xpand.ExpressApp.Security.Controllers
-{
-    public abstract partial class PopulateController<T> : ViewController<ObjectView>
-    {
+namespace Xpand.ExpressApp.SystemModule {
+    public abstract class PopulateController<T> : ViewController<ObjectView> {
         private IModelMember modelMember;
 
-        protected PopulateController()
-        {
-            InitializeComponent();
-            RegisterActions(components);
-            TargetObjectType = typeof (T);
+        protected PopulateController() {
+            TargetObjectType = typeof(T);
         }
-        protected override void OnActivated()
-        {
+        protected override void OnActivated() {
             base.OnActivated();
             populate();
         }
-        protected override void OnDeactivated()
-        {
+        protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (modelMember != null){
+            if (modelMember != null) {
                 modelMember.PredefinedValues = string.Empty;
             }
         }
-        protected virtual void populate()
-        {
+        protected virtual void populate() {
             LambdaExpression lambdaExpression = GetPropertyName();
             var propertyInfo = ReflectionExtensions.GetExpression(lambdaExpression) as PropertyInfo;
             if (propertyInfo != null)
@@ -39,7 +31,7 @@ namespace Xpand.ExpressApp.Security.Controllers
                     (View.Model.ModelClass.AllMembers.Where(
                         wrapper =>
                         wrapper.Name == propertyInfo.Name)).FirstOrDefault();
-            if (modelMember != null){
+            if (modelMember != null) {
                 modelMember.PredefinedValues = GetPredefinedValues(modelMember);
             }
         }

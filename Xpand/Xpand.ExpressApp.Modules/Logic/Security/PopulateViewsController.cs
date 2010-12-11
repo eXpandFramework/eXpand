@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Security.Controllers;
+using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.Logic.Security {
     public class PopulateViewsController : PopulateController<LogicRulePermission> {

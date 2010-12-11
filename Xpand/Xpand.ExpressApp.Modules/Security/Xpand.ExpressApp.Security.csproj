@@ -121,12 +121,6 @@
     <Compile Include="Controllers\DefaultRolePermissionsController.Designer.cs">
       <DependentUpon>DefaultRolePermissionsController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\PopulateController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\PopulateController.Designer.cs">
-      <DependentUpon>PopulateController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Core\SecuritySystemExtensions.cs" />
     <Compile Include="XpandSecurityModule.cs">
       <SubType>Component</SubType>
