@@ -7,9 +7,7 @@ using Xpand.ExpressApp.SystemModule;
 namespace Xpand.ExpressApp.ConditionalActionState.Security {
     public class PopulateActionsController : PopulateController<ActionStateRulePermission> {
         protected override string GetPredefinedValues(IModelMember wrapper) {
-            string ret = Application.Model.ActionDesign.Actions.Aggregate("", (current, action) => current + (action.Id + ";"));
-            ret = ret.TrimEnd(';');
-            return ret;
+            return Application.Model.ActionDesign.Actions.Aggregate("", (current, action) => current + (action.Id + ";")).TrimEnd(';');
         }
 
         protected override Expression<Func<ActionStateRulePermission, object>> GetPropertyName() {

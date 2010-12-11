@@ -59,16 +59,21 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         bool GetttingNonAppModels(IEnumerable<ModelDifferenceObject> differenceObjects) {
             return differenceObjects.Where(o => o is UserModelDifferenceObject || o is RoleModelDifferenceObject).Count() > 0;
         }
-
+        [ImmediatePostData]
         [VisibleInListView(false)]
         [VisibleInDetailView(false)]
         [NonPersistent]
         [NonCloneable]
         public string PreferredAspect {
-            get { return _preferredAspect; }
+            get { return _preferredAspect??CaptionHelper.DefaultLanguage; }
             set {
                 SetPropertyValue("PreferredAspect", ref _preferredAspect, value);
-                _currentModel.CurrentAspectProvider.CurrentAspect = value;
+            }
+        }
+        protected override void OnChanged(string propertyName, object oldValue, object newValue) {
+            base.OnChanged(propertyName, oldValue, newValue);
+            if (propertyName=="PreferredAspect") {
+                
             }
         }
         public ModelApplicationBase GetModel(ModelApplicationBase master) {
@@ -150,15 +155,22 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         [NonPersistent, VisibleInListView(false)]
         public string XmlContent {
             get {
-                if (_currentModel != null) return _currentModel.Xml;
-                return null;
+                return _currentModel != null ? _currentModel.Xml : GetActiveAspect(PreferredAspect).Xml;
             }
             set {
                 var currentModel = _currentModel;
-                if (currentModel == null) throw new ArgumentNullException();
-                var aspectObject = GetActiveAspect(currentModel);
+                AspectObject aspectObject;
+                string aspectObjectName;
+                if (currentModel != null) {
+                    aspectObject = GetActiveAspect(currentModel);
+                    aspectObjectName = currentModel.CurrentAspect;
+                }
+                else {
+                    aspectObject = GetActiveAspect(PreferredAspect);
+                    aspectObjectName = PreferredAspect;
+                }
                 if (aspectObject == null) {
-                    aspectObject = new AspectObject(Session) { Name = currentModel.CurrentAspect };
+                    aspectObject = new AspectObject(Session) { Name = aspectObjectName };
                     AspectObjects.Add(aspectObject);
                 }
                 aspectObject.Xml = value;
@@ -166,6 +178,9 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             }
         }
 
+        AspectObject GetActiveAspect(string preferredAspect) {
+            return AspectObjects.Where(o => o.Name == preferredAspect).SingleOrDefault();
+        }
         #endregion
         protected override void OnSaving() {
             base.OnSaving();
