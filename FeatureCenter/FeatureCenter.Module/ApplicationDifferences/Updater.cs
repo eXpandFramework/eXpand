@@ -1,10 +1,12 @@
 ﻿using System;
+using System.IO;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base.Security;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.ExpressApp.ModelDifference.Security;
+using Xpand.Xpo.Collections;
 
 namespace FeatureCenter.Module.ApplicationDifferences {
 
@@ -25,6 +27,12 @@ namespace FeatureCenter.Module.ApplicationDifferences {
                 role.Users.Add(user);
                 ObjectSpace.CommitChanges();
             }
+            var modelDifferenceObjects = new XpandXPCollection<ModelDifferenceObject>(ObjectSpace.Session,o => o.PersistentApplication.Name=="FeatureCenter");
+            foreach (var modelDifferenceObject in modelDifferenceObjects) {
+                modelDifferenceObject.PersistentApplication.Name =
+                    Path.GetFileNameWithoutExtension(modelDifferenceObject.PersistentApplication.ExecutableName);
+            }
+            ObjectSpace.CommitChanges();
         }
         protected override System.Collections.Generic.List<System.Security.IPermission> GetPermissions(ICustomizableRole customizableRole) {
             var permissions = base.GetPermissions(customizableRole);

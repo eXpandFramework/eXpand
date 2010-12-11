@@ -67,6 +67,9 @@
     <Reference Include="DevExpress.ExpressApp.CloneObject.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -247,6 +250,9 @@
     <Compile Include="AdditionalViewControls\ConditionalViewControlsPositioning\AttributeRegistrator.cs" />
     <Compile Include="ExpandAbleMembers\EAMCustomer.cs" />
     <Compile Include="ExpandAbleMembers\EAMOrder.cs" />
+    <Compile Include="FeatureCenterModuleBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ImportExport\AnalysisObjects\AttributeRegistrator.cs" />
     <Compile Include="ImportExport\DynamicAssemblyMasterDetail\AttributeRegistrator.cs" />
     <Compile Include="ListViewControl\ConditionalDetailViews\AttributeRegistrator.cs" />

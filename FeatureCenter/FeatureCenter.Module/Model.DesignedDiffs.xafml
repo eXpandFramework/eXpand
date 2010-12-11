@@ -2,6 +2,16 @@
 <Application Title="FeatureCenter" Logo="ExpressAppLogo">
   <NavigationItems DefaultChildItemsDisplayStyle="List" NavigationStyle="TreeList">
     <Items>
+      <Item Id="Application Differences">
+        <Items>
+          <Item Id="ModelDifferenceObject_ListView" ImageName="MenuBar_EditModel" />
+        </Items>
+      </Item>
+      <Item Id="Default">
+        <Items>
+          <Item Id="ModelDifferenceObject_ListView" Removed="True" />
+        </Items>
+      </Item>
       <Item Id="WorldCreator" Caption="WorldCreator">
         <Items>
           <Item Id="Admin" IsNewNode="True" Caption="Admin">
@@ -27,11 +37,4 @@
     </Items>
   </NavigationItems>
   <Options HighlightFocusedLayoutItem="False" />
-  <Views>
-    <ListView Id="ModelDifferenceObject_ListView">
-      <Columns>
-        <ColumnInfo Id="PersistentApplication" GroupIndex="1" />
-      </Columns>
-    </ListView>
-  </Views>
 </Application>

@@ -7,8 +7,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.SystemModule;
 
 namespace FeatureCenter.Module.ListViewControl.PropertyPathFilters {
-    public class PropertyPathFiltersNodeUpdater : ModelNodesGeneratorUpdater<ModelPropertyPathFiltersNodesGenerator>
-    {
+    public class PropertyPathFiltersNodeUpdater : ModelNodesGeneratorUpdater<ModelPropertyPathFiltersNodesGenerator> {
         readonly XafApplication _xafApplication;
 
         public PropertyPathFiltersNodeUpdater(XafApplication xafApplication) {
@@ -16,17 +15,17 @@ namespace FeatureCenter.Module.ListViewControl.PropertyPathFilters {
         }
 
         public override void UpdateNode(ModelNode node) {
-            
+
             var modelPropertyPathFilters = ((IModelPropertyPathFilters)node);
             if (IsDefaultPPCustomerListView(modelPropertyPathFilters)) {
                 var modelPropertyPathFilter = modelPropertyPathFilters.AddNode<IModelPropertyPathFilter>("Filter by OrderLineDate");
                 if (_xafApplication != null) {
                     Session session = ((ObjectSpace)_xafApplication.ObjectSpaceProvider.CreateObjectSpace()).Session;
-                    modelPropertyPathFilter.PropertyPathFilter =new XPQuery<PPOrderLine>(session).TransformExpression(
+                    modelPropertyPathFilter.PropertyPathFilter = new XPQuery<PPOrderLine>(session).TransformExpression(
                         line => line.OrderLineDate > GetDateTime(session)).ToString();
                 }
                 modelPropertyPathFilter.PropertyPath = string.Format("{0}.{1}", "Orders", "OrderLines");
-                modelPropertyPathFilter.PropertyPathListViewId =node.Application.BOModel.GetClass(typeof (PPOrderLine)).DefaultListView;
+                modelPropertyPathFilter.PropertyPathListViewId = node.Application.BOModel.GetClass(typeof(PPOrderLine)).DefaultListView;
             }
         }
 
@@ -36,7 +35,7 @@ namespace FeatureCenter.Module.ListViewControl.PropertyPathFilters {
         }
 
         bool IsDefaultPPCustomerListView(IModelPropertyPathFilters modelPropertyPathFilters) {
-            return modelPropertyPathFilters.Parent==modelPropertyPathFilters.Application.BOModel.GetClass(typeof(PPCustomer)).DefaultListView;
+            return modelPropertyPathFilters.Parent == modelPropertyPathFilters.Application.BOModel.GetClass(typeof(PPCustomer)).DefaultListView;
         }
 
 
