@@ -8,11 +8,13 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.NodeUpdaters;
+using Xpand.ExpressApp.TranslatorProviders;
 using Xpand.Xpo.DB;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -25,6 +27,7 @@ namespace Xpand.ExpressApp.SystemModule {
     public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter {
         static XpandSystemModule() {
             ParametersFactory.RegisterParameter(new MonthAgoParameter());
+            TranslatorProvider.RegisterProvider(new GoogleTranslatorProvider());
         }
 
         public XpandSystemModule() {

@@ -155,6 +155,7 @@
     <Compile Include="SystemModule\PopulateController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="TranslatorProviders\GoogleTranslatorProvider.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="XpandDetailView.cs" />
     <Compile Include="Editors\ActionButtonDetailItem.cs">
