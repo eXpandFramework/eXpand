@@ -31,6 +31,11 @@ namespace Xpand.ExpressApp.SystemModule {
             AdditionalBusinessClasses.Add(typeof(XpoSequencer));
             AdditionalBusinessClasses.Add(typeof(XpoServerId));
         }
+        protected override List<Type> DeclaredBusinessClasses {
+            get {
+                return new List<Type>();
+            }
+        }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);

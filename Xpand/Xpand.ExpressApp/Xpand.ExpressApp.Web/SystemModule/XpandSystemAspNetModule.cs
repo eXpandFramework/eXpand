@@ -1,9 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using Xpand.ExpressApp.SystemModule;
-using Xpand.ExpressApp.Web.ListEditors;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
     [ToolboxItem(true)]
@@ -17,5 +17,11 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         public XpandSystemAspNetModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
         }
+        protected override List<Type> DeclaredBusinessClasses {
+            get {
+                return new List<Type>();
+            }
+        }
+
     }
 }

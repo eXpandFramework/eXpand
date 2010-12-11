@@ -52,14 +52,14 @@ namespace Xpand.ExpressApp.SystemModule {
                     typeToCreateOn,
                     memberInfo.Owner.Type,
                     associationAttribute.Name,
-                    XafTypesInfo.XpoTypeInfoSource.XPDictionary,
+                    XpandModuleBase.Dictiorary,
                     providedAssociationAttribute.ProvidedPropertyName ?? memberInfo.Owner.Type.Name + "s", false);
             } else {
                 xpCustomMemberInfo = typesInfo.CreateMember(
                     typeToCreateOn,
                     memberInfo.Owner.Type,
                     associationAttribute.Name,
-                    XafTypesInfo.XpoTypeInfoSource.XPDictionary,
+                    XpandModuleBase.Dictiorary,
                     providedAssociationAttribute.ProvidedPropertyName ?? memberInfo.Owner.Type.Name, false);
             }
 

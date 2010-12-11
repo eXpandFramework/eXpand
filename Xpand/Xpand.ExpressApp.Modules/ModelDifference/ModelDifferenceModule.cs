@@ -30,12 +30,12 @@ namespace Xpand.ExpressApp.ModelDifference {
 
                 UserDifferenceObjectBuilder.CreateDynamicMembers(Application.Security.UserType);
             } else {
-                createDesignTimeCollection(typesInfo, typeof(UserModelDifferenceObject), "Users");
-                createDesignTimeCollection(typesInfo, typeof(RoleModelDifferenceObject), "Roles");
+                CreateDesignTimeCollection(typesInfo, typeof(UserModelDifferenceObject), "Users");
+                CreateDesignTimeCollection(typesInfo, typeof(RoleModelDifferenceObject), "Roles");
             }
         }
 
-        private void createDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName) {
+        private void CreateDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName) {
             XPClassInfo info = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(classType);
             if (info.FindMember(propertyName) == null) {
                 info.CreateMember(propertyName, typeof(XPCollection), true);

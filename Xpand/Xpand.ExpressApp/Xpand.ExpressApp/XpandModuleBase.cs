@@ -3,6 +3,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo.Metadata;
 
 namespace Xpand.ExpressApp {
     public class XpandModuleBase : ModuleBase {
@@ -10,6 +11,7 @@ namespace Xpand.ExpressApp {
         static IValueManager<XafApplication> _instanceXafApplicationManager;
         static IValueManager<ModelApplicationCreatorProperties> _instanceModelApplicationCreatorPropertiesManager;
         static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
+        public static object Control;
 
         public static ModelApplicationCreatorProperties ModelApplicationCreatorProperties {
             get { return _instanceModelApplicationCreatorPropertiesManager.Value; }
@@ -32,6 +34,12 @@ namespace Xpand.ExpressApp {
 
         protected XafApplication BaseApplication {
             get { return base.Application; }
+        }
+
+        static XPDictionary _dictiorary=XafTypesInfo.XpoTypeInfoSource.XPDictionary;
+        public static XPDictionary Dictiorary {
+            get { return _dictiorary; }
+            set { _dictiorary = value; }
         }
 
         public BusinessClassesList GetAdditionalClasses(ApplicationModulesManager manager) {

@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
 
 
         private ModelEditorViewController _controller;
-        ModelLoader _loader;
+        ModelLoader _modelLoader;
         ModelApplicationBase _masterModel;
         ModelApplicationBase _currentObjectModel;
         IObjectSpace _objectSpace;
@@ -70,8 +70,8 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
 
 
         protected override void OnCurrentObjectChanged() {
-            _loader = new ModelLoader(CurrentObject.PersistentApplication.ExecutableName);
-            _masterModel = _loader.GetMasterModel();
+            _modelLoader = new ModelLoader(CurrentObject.PersistentApplication.ExecutableName);
+            _masterModel = _modelLoader.GetMasterModel();
             base.OnCurrentObjectChanged();
         }
 
@@ -89,7 +89,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         void CurrentObjectOnChanged(object sender, ObjectChangeEventArgs objectChangeEventArgs) {
             if (objectChangeEventArgs.PropertyName == "XmlContent") {
                 var aspect = _masterModel.CurrentAspect;
-                _masterModel = _loader.GetMasterModel();
+                _masterModel = _modelLoader.GetMasterModel();
                 _controller = GetModelEditorController(aspect);
             }
         }

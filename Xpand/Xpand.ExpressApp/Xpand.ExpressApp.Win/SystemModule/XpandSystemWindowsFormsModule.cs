@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
@@ -22,6 +24,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelRootNavigationItems, IModelRootNavigationItemsAutoSelectedGroupItem>();
+        }
+        protected override List<Type> DeclaredBusinessClasses {
+            get {
+                return new List<Type>();
+            }
         }
     }
 }

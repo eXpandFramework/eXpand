@@ -1,27 +1,24 @@
 using System.ComponentModel;
 using System.Web;
 
-namespace Xpand.ExpressApp.ModelDifference.Web
-{
+namespace Xpand.ExpressApp.ModelDifference.Web {
     [ToolboxItemFilter("Xaf.Platform.Web")]
-    public sealed class ModelDifferenceAspNetModule : ModelDifferenceBaseModule
-    {
+    public sealed class ModelDifferenceAspNetModule : ModelDifferenceBaseModule {
         private bool? persistentApplicationModelUpdated;
 
-        public ModelDifferenceAspNetModule()
-        {
+        public ModelDifferenceAspNetModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
             RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
         }
 
-        protected override bool? PersistentApplicationModelUpdated{
-            get{
+        protected override bool? ModelsLoaded {
+            get {
                 bool result;
-                bool.TryParse(HttpContext.Current.Application["persistentApplicationModelUpdated"] + "", out result);
+                bool.TryParse(HttpContext.Current.Application["ModelsLoaded"] + "", out result);
                 persistentApplicationModelUpdated = result;
                 return persistentApplicationModelUpdated;
             }
-            set { HttpContext.Current.Application["persistentApplicationModelUpdated"] = value; }
+            set { HttpContext.Current.Application["ModelsLoaded"] = value; }
         }
 
         public override string GetPath() {

@@ -5,7 +5,7 @@ using Xpand.ExpressApp.ModelDifference.DictionaryStores;
 
 namespace Xpand.ExpressApp.ModelDifference {
     public abstract class ModelDifferenceBaseModule : XpandModuleBase {
-        protected internal abstract bool? PersistentApplicationModelUpdated { get; set; }
+        protected internal abstract bool? ModelsLoaded { get; set; }
         public event EventHandler<CreateCustomModelDifferenceStoreEventArgs> CreateCustomModelDifferenceStore;
 
         public void OnCreateCustomModelDifferenceStore(CreateCustomModelDifferenceStoreEventArgs e) {
@@ -14,7 +14,11 @@ namespace Xpand.ExpressApp.ModelDifference {
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            application.SetupComplete += (sender, args) => LoadModels();
+            application.LoggingOn += (sender, args) => {
+                if ((ModelsLoaded.HasValue&& !ModelsLoaded.Value))
+                    LoadModels();
+                ModelsLoaded = true;
+            };
         }
 
         public void LoadModels() {

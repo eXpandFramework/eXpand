@@ -13,7 +13,7 @@ using Xpand.ExpressApp.Core;
 
 
 namespace Xpand.ExpressApp.ModelDifference.Core {
-    
+
     public class XpoTypeInfoSource : DevExpress.ExpressApp.DC.Xpo.XpoTypeInfoSource {
         public XpoTypeInfoSource(TypesInfo typesInfo)
             : base(typesInfo) {
@@ -71,6 +71,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             var typesInfo = new TypesInfo();
             typesInfo.AddSource(new ReflectionTypeInfoSource());
             var xpoSource = new XpoTypeInfoSource(typesInfo);
+            typesInfo.Source = xpoSource;
             typesInfo.AddSource(xpoSource);
             typesInfo.AddSource(new DynamicTypeInfoSource());
             typesInfo.SetRedirectStrategy((@from, info) => xpoSource.GetFirstRegisteredTypeForEntity(from) ?? from);
@@ -85,12 +86,19 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             XpandModuleBase.ModelApplicationCreator = modelApplicationCreator;
             return modelApplication;
         }
+        public class TypesInfo : DevExpress.ExpressApp.DC.TypesInfo {
+
+            public XpoTypeInfoSource Source { get; set; }
+
+
+        }
 
         ApplicationModulesManager GetModulesManager(TypesInfo typesInfo, XafApplication application) {
             var modulesManager = CreateApplicationModulesManager(application, string.Empty,
                                                                  AppDomain.CurrentDomain.SetupInformation.ApplicationBase, typesInfo);
-
+            XpandModuleBase.Dictiorary=typesInfo.Source.XPDictionary;
             modulesManager.Load(typesInfo);
+            XpandModuleBase.Dictiorary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
             return modulesManager;
         }
 
