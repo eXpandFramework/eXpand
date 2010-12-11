@@ -42,9 +42,12 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         bool IsDefaultModel() {
-            ListView listView = Frame.GetController<LinkToListViewController>().Link.ListView;
-            if (listView != null)
-                return listView.DetailViewId == View.Model.Id;
+            Link link = Frame.GetController<LinkToListViewController>().Link;
+            if (link != null) {
+                ListView listView = link.ListView;
+                if (listView != null)
+                    return listView.DetailViewId == View.Model.Id;
+            }
             return false;
         }
     }

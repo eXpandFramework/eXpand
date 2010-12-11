@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Xpo;
@@ -59,7 +60,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         ModelDifferenceObject FindDifferenceObject(string resourceName, string prefix) {
             if (prefix == XpoModelDictionaryDifferenceStore.ModelApplicationPrefix)
                 return _xpoModelDictionaryDifferenceStore.GetActiveDifferenceObject(resourceName);
-            return _objectSpace.Session.FindObject<RoleModelDifferenceObject>(o => o.Name == resourceName);
+            return new QueryRoleModelDifferenceObject(_objectSpace.Session).GetActiveModelDifference(resourceName);
         }
 
         ModelDifferenceObjectInfo GetModelDifferenceObjectInfo(string prefix, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos, string resourceName, ModelApplicationBase model) {

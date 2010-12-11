@@ -3,7 +3,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using Xpand.ExpressApp;
 using Xpand.Persistent.Base;
 using Xpand.Utils.Linq;
 
@@ -55,7 +54,11 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries{
         }
 
         static Expression<Func<TDifferenceObject, bool>> IsActiveExpressionCore() {
-            return o => o.DifferenceType==DifferenceType.Model;
+            if (typeof(TDifferenceObject)==typeof(ModelDifferenceObject))
+                return o => o.DifferenceType==DifferenceType.Model;
+            if (typeof(TDifferenceObject)==typeof(UserModelDifferenceObject))
+                return o => o.DifferenceType==DifferenceType.User;
+            return o => o.DifferenceType==DifferenceType.Role;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries
                 return roleAspectObjects.OfType<RoleModelDifferenceObject>().Where(aspectObject => aspectObject.Fit(criteria.ToString())).AsQueryable();
             }
 
-            return new List<RoleModelDifferenceObject>().AsQueryable();
+            return base.GetActiveModelDifferences(applicationName, name).OfType<RoleModelDifferenceObject>().AsQueryable();
         }
     }
 }
