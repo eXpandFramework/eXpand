@@ -14,6 +14,8 @@ namespace Xpand.ExpressApp.Logic {
         ViewChanged = 128,
         TemplateViewChanged = 256,
         ObjectSpaceCommited=512,
-        CustomProcessSelectedItem=1024
+        CustomProcessSelectedItem=1024,
+        ControlsCreating=2048,
+        ViewOnSelectionChanged=4096
     }
 }

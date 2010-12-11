@@ -55,8 +55,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
             }
         }
 
-        float? ISupportAppeareance.FontSize {
-            get { return Font.Size; }
+        int? ISupportAppeareance.FontSize {
+            get { return (int?) Font.Size; }
             set {
                 if (value.HasValue) {
                     Font = new Font(Font.FontFamily, value.Value, Font.Style);

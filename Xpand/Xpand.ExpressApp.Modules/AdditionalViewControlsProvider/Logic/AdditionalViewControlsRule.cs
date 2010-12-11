@@ -41,7 +41,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         public FontStyle? FontStyle { get; set; }
 
         public int? Height { get; set; }
-        public float? FontSize { get; set; }
+        public int? FontSize { get; set; }
 
 
         public object Control { get; set; }

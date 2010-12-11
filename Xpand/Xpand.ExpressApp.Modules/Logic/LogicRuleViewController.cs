@@ -119,6 +119,7 @@ namespace Xpand.ExpressApp.Logic {
         protected override void OnActivated() {
             base.OnActivated();
             if (IsReady) {
+                View.SelectionChanged+=ViewOnSelectionChanged;
                 ObjectSpace.Committed += ObjectSpaceOnCommitted;
                 Frame.TemplateViewChanged += FrameOnTemplateViewChanged;
                 ForceExecution(ExecutionContext.ControllerActivated);
@@ -130,6 +131,10 @@ namespace Xpand.ExpressApp.Logic {
                 if (View is XpandListView)
                     Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem += OnCustomProcessSelectedItem;
             }
+        }
+
+        void ViewOnSelectionChanged(object sender, EventArgs eventArgs) {
+            ForceExecution(ExecutionContext.ViewOnSelectionChanged);
         }
 
 
@@ -149,6 +154,7 @@ namespace Xpand.ExpressApp.Logic {
         protected override void OnDeactivated() {
             base.OnDeactivated();
             //            if (IsReady) {
+            View.SelectionChanged -= ViewOnSelectionChanged;
             ObjectSpace.Committed -= ObjectSpaceOnCommitted;
             Frame.TemplateViewChanged -= FrameOnTemplateViewChanged;
             View.ObjectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
