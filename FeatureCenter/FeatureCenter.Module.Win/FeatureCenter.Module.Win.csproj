@@ -395,6 +395,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ApplicationDifferences\ExternalApplication\Updater.cs" />
+    <Compile Include="ConditionalViewControlsPositioning\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\MasterDetail\AutoExpandNewRow\AttributeRegistrator.cs" />
     <Compile Include="ListViewControl\LoadWhenFiltered\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
@@ -595,6 +596,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ApplicationDifferences\ExternalApplication\MDO_ExternalApplication.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ConditionalViewControlsPositioning\MDO_ConditionalViewControlsPositioning.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
