@@ -3,11 +3,10 @@
   <AdditionalViewControls>
     <ExecutionContextsGroup>
       <ExecutionContexts Id="ConditionalControlAndMessage" IsNewNode="True">
-        <ExecutionContext Name="CurrentObjectChanged" IsNewNode="True" />
+        <ExecutionContext Name="ViewOnSelectionChanged" IsNewNode="True" />
       </ExecutionContexts>
     </ExecutionContextsGroup>
     <Rules>
-      <!--This is due to Dx bug-->
       <AdditionalViewControlsRule Id="Conditional Additional View Control And Message" ExecutionContextGroup="ConditionalControlAndMessage" />
     </Rules>
   </AdditionalViewControls>

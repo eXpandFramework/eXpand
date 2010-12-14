@@ -247,7 +247,6 @@
     </Compile>
     <Compile Include="DetailViewControl\ActionButtonViewItem\AttributeRegistrator.cs" />
     <Compile Include="AdditionalViewControls\ConditionalControlAndMessage\AttributeRegistrator.cs" />
-    <Compile Include="AdditionalViewControls\ConditionalViewControlsPositioning\AttributeRegistrator.cs" />
     <Compile Include="ExpandAbleMembers\EAMCustomer.cs" />
     <Compile Include="ExpandAbleMembers\EAMOrder.cs" />
     <Compile Include="FeatureCenterModuleBase.cs">
@@ -420,9 +419,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="AdditionalViewControls\ConditionalControlAndMessage\MDO_ConditionalControlAndMessage.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AdditionalViewControls\ConditionalViewControlsPositioning\MDO_ConditionalViewControlsPositioning.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DetailViewControl\DisableEditDetailView\MDO_DisableEditDetailView.xafml">
