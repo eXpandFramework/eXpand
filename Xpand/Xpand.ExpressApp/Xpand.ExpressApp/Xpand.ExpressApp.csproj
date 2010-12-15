@@ -143,12 +143,6 @@
     <Compile Include="SystemModule\AssignMasterDetailToNestedViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\EditModeDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\ListViewViewModeDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\NewObjectCreateGroupController.cs">
       <SubType>Component</SubType>
     </Compile>

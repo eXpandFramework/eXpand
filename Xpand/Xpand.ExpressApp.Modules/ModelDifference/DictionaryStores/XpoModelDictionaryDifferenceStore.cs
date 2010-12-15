@@ -27,12 +27,14 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         public const string RoleApplicationPrefix = "RDO_";
         readonly string _path;
         readonly List<ModelApplicationFromStreamStoreBase> _extraDiffStores;
+        readonly bool _loadResources;
         public const string EnableDebuggerAttachedCheck = "EnableDebuggerAttachedCheck";
 
-        public XpoModelDictionaryDifferenceStore(XafApplication application, string path, List<ModelApplicationFromStreamStoreBase> extraDiffStores)
+        public XpoModelDictionaryDifferenceStore(XafApplication application, string path, List<ModelApplicationFromStreamStoreBase> extraDiffStores, bool loadResources)
             : base(application) {
             _path = path;
             _extraDiffStores = extraDiffStores;
+            _loadResources = loadResources;
         }
 
         internal bool UseModelFromPath() {
@@ -62,7 +64,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             }
             var loadedModelDifferenceObjectInfos = GetLoadedModelDifferenceObjectInfos(model);
             extraDiffStoresLayerBuilder.AddLayers(loadedModelDifferenceObjectInfos, _extraDiffStores);
-            CreateResourceModels(model, loadedModelDifferenceObjectInfos);
+            if (_loadResources)
+                CreateResourceModels(model, loadedModelDifferenceObjectInfos);
             if (model.Application.PreferredLanguage != language) {
                 Application.SetLanguage(model.Application.PreferredLanguage);
             }

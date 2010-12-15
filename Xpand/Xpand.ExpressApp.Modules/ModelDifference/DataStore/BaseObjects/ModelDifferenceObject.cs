@@ -155,7 +155,9 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         [NonPersistent, VisibleInListView(false)]
         public string XmlContent {
             get {
-                return _currentModel != null ? _currentModel.Xml : GetActiveAspect(PreferredAspect).Xml;
+                if (_currentModel != null) return _currentModel.Xml;
+                var aspectObject = GetActiveAspect(PreferredAspect);
+                return aspectObject != null ? aspectObject.Xml : null;
             }
             set {
                 var currentModel = _currentModel;
