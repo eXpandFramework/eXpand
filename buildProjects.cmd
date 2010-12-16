@@ -30,6 +30,8 @@ call buildproject.cmd Xpand.ExpressApp.ViewVariants ".\Xpand\Xpand.ExpressApp.Mo
 call buildproject.cmd Xpand.ExpressApp.MasterDetail ".\Xpand\Xpand.ExpressApp.Modules\MasterDetail\Xpand.ExpressApp.MasterDetail.csproj"
 call buildproject.cmd Xpand.ExpressApp.MasterDetail.Win ".\Xpand\Xpand.ExpressApp.Modules\MasterDetail.Win\Xpand.ExpressApp.MasterDetail.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.ViewVariants.Win ".\Xpand\Xpand.ExpressApp.Modules\ViewVariants.Win\Xpand.ExpressApp.ViewVariants.Win.csproj"
+call buildproject.cmd Xpand.ExpressApp.TreeListEditors ".\Xpand\Xpand.ExpressApp.Modules\TreeListEditors\Xpand.ExpressApp.TreeListEditors.csproj"
+call buildproject.cmd Xpand.ExpressApp.TreeListEditors.Web ".\Xpand\Xpand.ExpressApp.Modules\TreeListEditors.Web\Xpand.ExpressApp.TreeListEditors.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.TreeListEditors.Win ".\Xpand\Xpand.ExpressApp.Modules\TreeListEditors.Win\Xpand.ExpressApp.TreeListEditors.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.ExceptionHandling ".\Xpand\Xpand.ExpressApp.Modules\ExceptionHandling\Xpand.ExpressApp.ExceptionHandling.csproj"
 call buildproject.cmd Xpand.ExpressApp.ExceptionHandling.Win ".\Xpand\Xpand.ExpressApp.Modules\ExceptionHandling.Win\Xpand.ExpressApp.ExceptionHandling.Win.csproj"

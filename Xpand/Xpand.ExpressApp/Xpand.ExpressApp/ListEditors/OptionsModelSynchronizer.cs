@@ -8,25 +8,19 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 
-namespace Xpand.ExpressApp.ListEditors
-{
-    public abstract class OptionsModelSynchronizer<T,V,TModelOptionsType> : ModelSynchronizer<T, V> where V:IModelNode
-    {
+namespace Xpand.ExpressApp.ListEditors {
+    public abstract class OptionsModelSynchronizer<T, V, TModelOptionsType> : ModelSynchronizer<T, V> where V : IModelNode {
         protected OptionsModelSynchronizer(T control, V model)
-            : base(control, model)
-        {
+            : base(control, model) {
         }
 
-        IModelNode GetOptionNode(IModelNode modelListViewMainViewOptionsInterfaceType)
-        {
+        IModelNode GetOptionNode(IModelNode modelListViewMainViewOptionsInterfaceType) {
             Type modelListViewMainViewOptionsType = GetModelOptionsType();
             IModelNode modelNode;
-            for (int i = 0; i < modelListViewMainViewOptionsInterfaceType.NodeCount; i++)
-            {
+            for (int i = 0; i < modelListViewMainViewOptionsInterfaceType.NodeCount; i++) {
                 modelNode = modelListViewMainViewOptionsInterfaceType.GetNode(i);
                 var id = modelNode.GetValue<string>("Id");
-                if (id == modelListViewMainViewOptionsType.GetProperties()[0].Name)
-                {
+                if (id == modelListViewMainViewOptionsType.GetProperties()[0].Name) {
                     return modelNode;
                 }
             }
@@ -39,22 +33,17 @@ namespace Xpand.ExpressApp.ListEditors
             return ReflectionHelper.FindTypeDescendants(findTypeInfo).Where(info => info.Type.IsInterface).Single().Type;
         }
 
-        void DelegateValuesFromModelToControl(IModelNode optionsNode, IEnumerable<PropertyInfo> propertyInfos, MethodInfo getValueMethodInfo, object control)
-        {
-            for (int i = 0; i < optionsNode.NodeCount; i++)
-            {
+        void DelegateValuesFromModelToControl(IModelNode optionsNode, IEnumerable<PropertyInfo> propertyInfos, MethodInfo getValueMethodInfo, object control) {
+            for (int i = 0; i < optionsNode.NodeCount; i++) {
                 var modelNode = optionsNode.GetNode(i);
                 var id = modelNode.GetValue<string>("Id");
                 PropertyInfo propertyInfo = propertyInfos.FirstOrDefault(info => info.Name == id);
-                if (propertyInfo != null)
-                {
+                if (propertyInfo != null) {
                     object value = propertyInfo.GetValue(control, null);
                     var properties = propertyInfo.PropertyType.GetProperties().Where(info => info.GetSetMethod() != null);
-                    foreach (PropertyInfo property in properties)
-                    {
+                    foreach (PropertyInfo property in properties) {
                         PropertyInfo info = modelNode.GetType().GetProperty(property.Name);
-                        if (info != null)
-                        {
+                        if (info != null) {
                             MethodInfo genericMethod = getValueMethodInfo.MakeGenericMethod(info.PropertyType);
                             object invoke = genericMethod.Invoke(modelNode, new object[] { property.Name });
                             if (invoke != null)
@@ -64,8 +53,7 @@ namespace Xpand.ExpressApp.ListEditors
                 }
             }
         }
-        protected override void ApplyModelCore()
-        {
+        protected override void ApplyModelCore() {
             var modelListViewMainViewOptionsInterfaceType = ((IModelNode)Model);
             object control = GetControl();
             var propertyInfos = control.GetType().GetProperties();
@@ -76,8 +64,7 @@ namespace Xpand.ExpressApp.ListEditors
 
         protected abstract object GetControl();
 
-        public override void SynchronizeModel()
-        {
+        public override void SynchronizeModel() {
 
         }
     }

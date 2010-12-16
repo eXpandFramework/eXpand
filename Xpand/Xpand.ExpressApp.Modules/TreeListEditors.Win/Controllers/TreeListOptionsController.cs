@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.XtraTreeList;
 using Xpand.ExpressApp.Core.DynamicModel;
 using Xpand.ExpressApp.SystemModule;
@@ -30,8 +30,6 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
         IModelTreeViewOptions TreeListOptions { get; }
     }
 
-    public interface IModelTreeViewOptionsBase : IModelNode {
-    }
 
     public interface IModelTreeViewOptions : IModelNode {
         string PreviewFieldName { get; set; }
@@ -45,7 +43,14 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
         IModelTreeViewListOptionsView OptionsView { get; }
     }
 
-    public class TreeListOptionsController : OptionsController<IModelListView> {
+    public class TreeListOptionsController : OptionsController {
+        protected override List<ModelExtenderPair> GetModelExtenderPairs() {
+            return new List<ModelExtenderPair> {
+                                                   new ModelExtenderPair(typeof (IModelListView), typeof (IModelTreeViewMainOptions)),
+                                                   new ModelExtenderPair(typeof (IModelRootNavigationItems), typeof (IModelTreeViewMainOptions))
+                                               };
+        }
+
         protected override IEnumerable<DynamicModelType> GetDynamicModelTypes() {
             yield return new DynamicModelType(typeof(IModelTreeViewOptionsBehavior), typeof(TreeListOptionsBehavior));
             yield return new DynamicModelType(typeof(IModelTreeViewListOptionsLayout), typeof(OptionsLayoutTreeList));
@@ -55,8 +60,5 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
             yield return new DynamicModelType(typeof(IModelTreeViewListOptionsView), typeof(TreeListOptionsView), null, null, new DynamicDouplicateTypesMapper());
         }
 
-        protected override Type GetExtenderType() {
-            return typeof(IModelTreeViewMainOptions);
-        }
     }
 }

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}</ProjectGuid>
+    <ProjectGuid>{7FC6A30C-7375-4EB2-A6E9-A597B941B45F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xpand.ExpressApp.TreeListEditors.Win</RootNamespace>
-    <AssemblyName>Xpand.ExpressApp.TreeListEditors.Win</AssemblyName>
+    <RootNamespace>Xpand.ExpressApp.TreeListEditors.Web</RootNamespace>
+    <AssemblyName>Xpand.ExpressApp.TreeListEditors.Web</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -59,9 +59,6 @@
     <Reference Include="DevExpress.Data.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.ExpressApp.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -71,28 +68,20 @@
     <Reference Include="DevExpress.ExpressApp.Validation.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.Persistent.Base.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Utils.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Web.ASPxEditors.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxTreeList.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpo.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraGrid.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="Xpand.ExpressApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -100,10 +89,6 @@
     <Reference Include="Xpand.ExpressApp.TreeListEditors, Version=10.2.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Win, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Xpand.Persistent.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -134,55 +119,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\TreeListColumnOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controllers\TreeListOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\HideICategorizedItemController.cs">
+    <Compile Include="Controllers\TreeNavigationOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\HideICategorizedItemController.Designer.cs">
-      <DependentUpon>HideICategorizedItemController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\ResursiveFilteringViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\ResursiveFilteringViewController.Designer.cs">
-      <DependentUpon>ResursiveFilteringViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\TreeListInplaceEditViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\TreeNodeExtensions.cs">
-    </Compile>
-    <Compile Include="Core\TreeListColumnOptionsModelSynchronizer.cs" />
     <Compile Include="Core\TreeListOptionsModelSyncronizer.cs" />
     <Compile Include="Core\XpandTreeListEditorModelSynchronizerList.cs" />
-    <Compile Include="Core\XpandTreeListEditorNodeGeneratorUpdater.cs" />
-    <Compile Include="ListEditors\XpandTreeListEditor.cs" />
-    <Compile Include="ListEditors\XpandCategorizedListEditor.cs" />
-    <Compile Include="XpandTreeListEditorsWinModule.cs">
+    <Compile Include="ListEditors\XpandASPxTreeListEditor.cs" />
+    <Compile Include="XpandTreeListEditorsAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandTreeListEditorsWinModule.Designer.cs">
-      <DependentUpon>XpandTreeListEditorsWinModule.cs</DependentUpon>
+    <Compile Include="XpandTreeListEditorsAspNetModule.Designer.cs">
+      <DependentUpon>XpandTreeListEditorsAspNetModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XpandTreeListEditorsWinModule.resx">
-      <DependentUpon>XpandTreeListEditorsWinModule.cs</DependentUpon>
+    <EmbeddedResource Include="XpandTreeListEditorsAspNetModule.resx">
+      <DependentUpon>XpandTreeListEditorsAspNetModule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\ResursiveFilteringViewController.resx">
-      <DependentUpon>ResursiveFilteringViewController.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +173,17 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\DevExpress 2010.2\eXpressApp Framework\Sources\DevExpress.ExpressApp.Modules\DevExpress.ExpressApp.TreeListEditors.Web\DevExpress.ExpressApp.TreeListEditors.Web.csproj">
+      <Project>{55BD6362-856B-4174-9D39-AF27965EE11D}</Project>
+      <Name>DevExpress.ExpressApp.TreeListEditors.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\DevExpress 2010.2\eXpressApp Framework\Sources\DevExpress.ExpressApp\DevExpress.ExpressApp.Web\DevExpress.ExpressApp.Web.csproj">
+      <Project>{930F5A3A-965E-41D9-9D91-F0779189C3A0}</Project>
+      <Name>DevExpress.ExpressApp.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

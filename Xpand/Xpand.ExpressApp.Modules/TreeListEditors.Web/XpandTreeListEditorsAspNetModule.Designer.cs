@@ -1,5 +1,7 @@
-namespace Xpand.ExpressApp.TreeListEditors.Win {
-    partial class XpandTreeListEditorsWinModule {
+namespace Xpand.ExpressApp.TreeListEditors.Web
+{
+    partial class XpandTreeListEditorsAspNetModule
+    {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -9,8 +11,10 @@ namespace Xpand.ExpressApp.TreeListEditors.Win {
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
-            if (disposing && (components != null)) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -22,8 +26,9 @@ namespace Xpand.ExpressApp.TreeListEditors.Win {
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditorsWindowsFormsModule));
+        private void InitializeComponent()
+        {
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.TreeListEditors.Web.TreeListEditorsAspNetModule));
             this.RequiredModuleTypes.Add(typeof(XpandTreeListEditorsModule));
         }
 

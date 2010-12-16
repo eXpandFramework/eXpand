@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.ListEditors;
 
@@ -6,9 +6,9 @@ namespace Xpand.ExpressApp.SystemModule {
     public interface IModelListViewMainViewOptionsBase : IModelNode {
     }
 
-    public abstract class GridOptionsController:OptionsController<IModelListView> {
-        protected override Type GetExtenderType() {
-            return OptionsModelSynchronizer<object, IModelNode, IModelListViewMainViewOptionsBase>.GetModelOptionsType();
+    public abstract class GridOptionsController : OptionsController {
+        protected override List<ModelExtenderPair> GetModelExtenderPairs() {
+            return new List<ModelExtenderPair> { new ModelExtenderPair(typeof(IModelListView), OptionsModelSynchronizer<object, IModelNode, IModelListViewMainViewOptionsBase>.GetModelOptionsType()) };
         }
     }
 }

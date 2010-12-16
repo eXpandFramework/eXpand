@@ -20,13 +20,14 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
     public interface IModelTreeViewOptionsColumn : IModelNode {
     }
 
-    public class TreeListColumnOptionsController : OptionsController<IModelColumn> {
+    public class TreeListColumnOptionsController : OptionsController {
+        protected override List<ModelExtenderPair> GetModelExtenderPairs() {
+            return new List<ModelExtenderPair> { new ModelExtenderPair(typeof(IModelColumn), typeof(IModelTreeViewColumnMainOptions)) };
+        }
+
         protected override IEnumerable<DynamicModelType> GetDynamicModelTypes() {
             yield return new DynamicModelType(typeof(IModelTreeViewOptionsColumn), typeof(TreeListOptionsColumn));
         }
 
-        protected override System.Type GetExtenderType() {
-            return typeof(IModelTreeViewColumnMainOptions);
-        }
     }
 }
