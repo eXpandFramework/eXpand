@@ -140,6 +140,9 @@
     <Compile Include="Controllers\CombineDifferencesController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\LogOffController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Core\ModelApplicationLoader.cs" />
     <Compile Include="Core\ModelLoader.cs" />
     <Compile Include="NodeUpdaters\BOModelNodesUpdater.cs" />

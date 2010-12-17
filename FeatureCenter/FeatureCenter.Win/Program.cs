@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win;
 using DevExpress.Persistent.Base;
@@ -33,6 +34,7 @@ namespace FeatureCenter.Win
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
 #endif
+            TypeGenerator.IsDebug = true;
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null)
             {
                 winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;

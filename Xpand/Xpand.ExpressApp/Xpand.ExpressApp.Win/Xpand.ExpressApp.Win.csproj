@@ -234,9 +234,6 @@
     <Compile Include="XpandWinApplication.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandWinApplication.Designer.cs">
-      <DependentUpon>XpandWinApplication.cs</DependentUpon>
-    </Compile>
     <Compile Include="XpandWinWindow.cs" />
   </ItemGroup>
   <ItemGroup>

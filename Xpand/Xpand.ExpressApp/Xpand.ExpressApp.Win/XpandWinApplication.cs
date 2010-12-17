@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Templates;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
@@ -15,14 +16,39 @@ using Xpand.ExpressApp.Win.ViewStrategies;
 
 namespace Xpand.ExpressApp.Win {
 
-    public partial class XpandWinApplication : WinApplication,  ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired, ISupportAfterViewShown {
+    public class XpandWinApplication : WinApplication, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportCreateLogonParameterStore {
+        public XpandWinApplication() {
+            if (XpandModuleBase.Application == null)
+                Application.ThreadException += (sender, args) => HandleException(args.Exception, this);
+            else {
+                Application.ThreadException += (sender, args) => HandleException(args.Exception, (XpandWinApplication)XpandModuleBase.Application);
+            }
+            DetailViewCreating += OnDetailViewCreating;
+            ListViewCreating += OnListViewCreating;
+            ListViewCreated += OnListViewCreated;
+
+
+        }
+
+        public new SettingsStorage CreateLogonParameterStoreCore() {
+            return base.CreateLogonParameterStoreCore();
+        }
+        public new void Start() {
+            if (SecuritySystem.LogonParameters != null) ReadLastLogonParameters(SecuritySystem.LogonParameters);
+            base.Start();
+        }
+
         public event EventHandler<ViewShownEventArgs> AfterViewShown;
+
         public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
+
         public event CancelEventHandler ConfirmationRequired;
+
 
         protected void OnConfirmationRequired(CancelEventArgs e) {
             CancelEventHandler handler = ConfirmationRequired;
             if (handler != null) handler(this, e);
+
         }
 
         public virtual void OnAfterViewShown(Frame frame, Frame sourceFrame) {
@@ -41,11 +67,13 @@ namespace Xpand.ExpressApp.Win {
             new ViewShortCutProccesor(this).Proccess(args);
 
         }
+
         public override ConfirmationResult AskConfirmation(ConfirmationType confirmationType) {
             var cancelEventArgs = new CancelEventArgs();
             OnConfirmationRequired(cancelEventArgs);
             return cancelEventArgs.Cancel ? ConfirmationResult.No : base.AskConfirmation(confirmationType);
         }
+
         protected override ShowViewStrategyBase CreateShowViewStrategy() {
             var showViewStrategyBase = base.CreateShowViewStrategy();
             return showViewStrategyBase is ShowInMultipleWindowsStrategy
@@ -56,10 +84,12 @@ namespace Xpand.ExpressApp.Win {
         void OnListViewCreating(object sender, ListViewCreatingEventArgs args) {
             args.View = ViewFactory.CreateListView(this, args.ViewID, args.CollectionSource, args.IsRoot);
         }
+
         protected override Window CreateWindowCore(TemplateContext context, ICollection<Controller> controllers, bool isMain, bool activateControllersImmediatelly) {
             Tracing.Tracer.LogVerboseValue("WinApplication.CreateWindowCore.activateControllersImmediatelly", activateControllersImmediatelly);
             return new XpandWinWindow(this, context, controllers, isMain, activateControllersImmediatelly);
         }
+
         protected override Window CreatePopupWindowCore(TemplateContext context, ICollection<Controller> controllers) {
             return new XpandWinWindow(this, context, controllers, false, true);
         }
@@ -93,23 +123,6 @@ namespace Xpand.ExpressApp.Win {
         }
 
 
-
-
-
-
-
-        public XpandWinApplication() {
-            if (XpandModuleBase.Application == null)
-                Application.ThreadException += (sender, args) => HandleException(args.Exception, this);
-            else {
-                Application.ThreadException += (sender, args) => HandleException(args.Exception, (XpandWinApplication)XpandModuleBase.Application);
-            }
-            InitializeComponent();
-            DetailViewCreating += OnDetailViewCreating;
-            ListViewCreating += OnListViewCreating;
-            ListViewCreated += OnListViewCreated;
-        }
-
         void OnListViewCreated(object sender, ListViewCreatedEventArgs listViewCreatedEventArgs) {
 
         }
@@ -120,7 +133,6 @@ namespace Xpand.ExpressApp.Win {
 
         public XpandWinApplication(IContainer container) {
             container.Add(this);
-            InitializeComponent();
         }
 
         protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {

@@ -1,5 +1,7 @@
 
 
+using Xpand.ExpressApp.Security.AuthenticationProviders;
+
 namespace FeatureCenter.Win
 {
     partial class FeatureCenterWindowsFormsApplication
@@ -55,7 +57,7 @@ namespace FeatureCenter.Win
             this.treeListEditorsModuleBase1 = new DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase();
             this.treeListEditorsWindowsFormsModule1 = new DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditorsWindowsFormsModule();
             this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityComplex();
-            this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
+            this.authenticationStandard1 = new XpandAuthenticationStandard();
             this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
             this.logicModule1 = new Xpand.ExpressApp.Logic.LogicModule();
             this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
@@ -122,7 +124,7 @@ namespace FeatureCenter.Win
             // 
             // authenticationStandard1
             // 
-            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
+            
             // 
             // reportsModule1
             // 

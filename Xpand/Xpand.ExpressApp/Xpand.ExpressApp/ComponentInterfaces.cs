@@ -3,6 +3,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Utils;
 
 namespace Xpand.ExpressApp {
 
@@ -32,6 +33,10 @@ namespace Xpand.ExpressApp {
     public interface IWinApplication {
         void LogOff();
     }
+    public interface ISupportCreateLogonParameterStore {
+        SettingsStorage CreateLogonParameterStoreCore();
+    }
+
     public interface ISupportModelsManager {
         ApplicationModelsManager ModelsManager { get; }
     }

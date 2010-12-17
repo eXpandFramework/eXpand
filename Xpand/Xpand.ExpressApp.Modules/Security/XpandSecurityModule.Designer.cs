@@ -1,3 +1,5 @@
+using DevExpress.ExpressApp.Security;
+
 namespace Xpand.ExpressApp.Security {
     partial class XpandSecurityModule {
         /// <summary> 
@@ -23,6 +25,7 @@ namespace Xpand.ExpressApp.Security {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.RequiredModuleTypes.Add(typeof(SecurityModule));
         }
 
         #endregion

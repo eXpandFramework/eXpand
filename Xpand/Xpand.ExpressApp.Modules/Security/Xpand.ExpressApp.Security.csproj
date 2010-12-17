@@ -80,6 +80,7 @@
     <Reference Include="DevExpress.Xpo.v10.2.Linq, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="Xpand.ExpressApp, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -115,11 +116,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticationProviders\AutoAuthenticationStandard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AuthenticationProviders\XpandLogonParameters.cs" />
+    <Compile Include="AuthenticationProviders\XpandAuthenticationStandard.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\DefaultRolePermissionsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\DefaultRolePermissionsController.Designer.cs">
       <DependentUpon>DefaultRolePermissionsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\RememberMeController.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\SecuritySystemExtensions.cs" />
     <Compile Include="XpandSecurityModule.cs">

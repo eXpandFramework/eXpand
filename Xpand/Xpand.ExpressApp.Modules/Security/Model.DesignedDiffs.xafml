@@ -1,23 +1,36 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-	<SchemaModules IsNewNode="True">
-		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.1.2.5458" IsNewNode="True" />
-		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.1.2.5458" IsNewNode="True" />
-		<SchemaModule Name="SystemModule" Version="9.1.2.5458" IsNewNode="True" />
-	</SchemaModules>
-	<Views>
-		<DetailView ID="AllObjectAllAccessPermission_DetailView">
-			<Layout>
-				<LayoutGroup ID="Main">
-					<LayoutGroup ID="SimpleEditors">
-						<LayoutGroup ID="ObjectAccessPermission">
-							<LayoutGroup ID="ObjectAccessPermission_col1">
-								<LayoutItem ID="ObjectType" Removed="True" />
-							</LayoutGroup>
-						</LayoutGroup>
-					</LayoutGroup>
-				</LayoutGroup>
-			</Layout>
-		</DetailView>
-	</Views>
+  <SchemaModules IsNewNode="True">
+    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" IsNewNode="True" Version="9.1.2.5458" />
+    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" IsNewNode="True" Version="9.1.2.5458" />
+    <SchemaModule Name="SystemModule" IsNewNode="True" Version="9.1.2.5458" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="XpandLogonParameters_DetailView">
+      <Items>
+        <StaticImage Id="LogonImage" ImageName="Security_Image" SizeMode="AutoSize" IsNewNode="True" VerticalAlign="Middle" />
+        <StaticText Id="LogonText" Text="Welcome! Please enter your user name and password below." IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="RootGroup" IsNewNode="True" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100">
+            <LayoutGroup Id="ImageGroup" IsNewNode="True" ShowCaption="False" Caption="ImageGroup(3)" Index="0" RelativeSize="6">
+              <LayoutItem Id="LogonImage" IsNewNode="True" ShowCaption="False" ViewItem="LogonImage" Index="0" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EditorsGroup" IsNewNode="True" ShowCaption="False" Index="1" RelativeSize="93">
+              <LayoutGroup Id="Text" IsNewNode="True" ShowCaption="False" Caption="Text(6)" Index="0" RelativeSize="4">
+                <LayoutItem Id="LogonText" IsNewNode="True" ShowCaption="False" ViewItem="LogonText" Index="0" RelativeSize="100" />
+              </LayoutGroup>
+              <LayoutGroup Id="Editors" IsNewNode="True" ShowCaption="False" Index="1" RelativeSize="95">
+                <LayoutItem Id="UserName" IsNewNode="True" ViewItem="UserName" Index="0" RelativeSize="3" />
+                <LayoutItem Id="Password" IsNewNode="True" ViewItem="Password" Index="1" RelativeSize="3" />
+                <LayoutItem Id="RememberMe" IsNewNode="True" ShowCaption="True" ViewItem="RememberMe" Index="2" RelativeSize="92" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SimpleEditors" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
 </Application>

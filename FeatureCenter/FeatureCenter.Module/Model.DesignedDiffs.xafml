@@ -37,4 +37,32 @@
     </Items>
   </NavigationItems>
   <Options HighlightFocusedLayoutItem="False" />
+  <Views>
+    <DetailView Id="EAMOrder_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="28">
+            <LayoutGroup Id="EAMOrder" RelativeSize="60">
+              <LayoutGroup Id="Item1" IsNewNode="True" ShowCaption="True" Caption="THIS IS A CUSTOMER PROPERTY MARKED WITH  ExpandObjectMembers attribute" CaptionLocation="Top" Index="0" RelativeSize="100">
+                <LayoutItem Id="Customer.Name" IsNewNode="True" ViewItem="Customer.Name" Index="0" RelativeSize="25" />
+                <LayoutItem Id="Customer.City" IsNewNode="True" ViewItem="Customer.City" Index="1" RelativeSize="19" />
+                <LayoutItem Id="Customer.Description" IsNewNode="True" ViewItem="Customer.Description" Index="2" RelativeSize="25" />
+              </LayoutGroup>
+              <LayoutItem Id="Customer.City" Removed="True" />
+              <LayoutItem Id="Customer.Name" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="OrderBase" RelativeSize="39">
+              <LayoutItem Id="Reference" RelativeSize="33" />
+              <LayoutItem Id="OrderDate" RelativeSize="29" />
+              <LayoutItem Id="Total" RelativeSize="37" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Customer.EAMOrders_Group" Direction="Vertical" Index="1" RelativeSize="71">
+            <LayoutItem Id="Customer.EAMOrders" RelativeSize="93" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
 </Application>

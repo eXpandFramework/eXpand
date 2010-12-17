@@ -3,7 +3,7 @@
   <AdditionalViewControls>
     <Rules>
       <AdditionalViewControlsRule Id="Header Importing Analysis" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Importing Analysis Objects" Position="Top" />
-      <AdditionalViewControlsRule Id="ViewMessage Importing Analysis" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how to IO engine to import analysis objects" Position="Bottom" />
+      <AdditionalViewControlsRule Id="ViewMessage Importing Analysis" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="All these analysis objects have been imported using IO engine. Check source code ImportExport\AnalysisObjects to find out how" Position="Bottom" />
     </Rules>
   </AdditionalViewControls>
 </Application>

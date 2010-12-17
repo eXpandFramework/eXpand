@@ -12,7 +12,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 actionButtonDetailItem.Executed += ActionButtonDetailItemOnExecuted;
                 var modelActionButton = ((IModelActionButton)actionButtonDetailItem.Model);
                 var id = modelActionButton.ActionId.Id;
-                var actionBase = Frame.Template.GetContainers().Select(container => container.Actions).SelectMany(bases => bases).Where(@base => @base.Id == id).First();
+                var actionBase = Frame.Template.GetContainers().Select(container => container.Actions).SelectMany(bases => bases).Where(@base => @base.Id == id).FirstOrDefault();
                 if (actionBase != null)
                     actionBase.Active["ShowInContainer"] = modelActionButton.ShowInContainer;
             }

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
 
 
 namespace Xpand.ExpressApp.Web {
-    public partial class XpandWebApplication : DevExpress.ExpressApp.Web.WebApplication, ISupportModelsManager, ISupportConfirmationRequired,ISupportAfterViewShown {
+    public partial class XpandWebApplication : DevExpress.ExpressApp.Web.WebApplication, ISupportModelsManager, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportCreateLogonParameterStore {
         protected XpandWebApplication() {
             InitializeComponent();
             DetailViewCreating += OnDetailViewCreating;
@@ -38,7 +39,7 @@ namespace Xpand.ExpressApp.Web {
             OnConfirmationRequired(cancelEventArgs);
             return !cancelEventArgs.Cancel ? ConfirmationResult.No : base.AskConfirmation(confirmationType);
         }
-        
+
         void OnListViewCreating(object sender, ListViewCreatingEventArgs args) {
             args.View = ViewFactory.CreateListView(this, args.ViewID, args.CollectionSource, args.IsRoot);
         }
@@ -67,5 +68,8 @@ namespace Xpand.ExpressApp.Web {
         }
 
 
+        public new SettingsStorage CreateLogonParameterStoreCore() {
+            return base.CreateLogonParameterStoreCore();
+        }
     }
 }
