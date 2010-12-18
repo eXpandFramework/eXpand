@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
@@ -61,15 +62,17 @@ namespace Xpand.ExpressApp.IO.Controllers {
 
 
         public virtual void Export(object selectedObject) {
-            var fileName = GetFilePath();
             var exportEngine = new ExportEngine();
-            exportEngine.Export(View.SelectedObjects.OfType<XPBaseObject>(), ObjectSpace.GetObject((ISerializationConfigurationGroup)selectedObject), fileName);
+            var document = exportEngine.Export(View.SelectedObjects.OfType<XPBaseObject>(), ObjectSpace.GetObject((ISerializationConfigurationGroup)selectedObject));
+            Save(document);
         }
 
-        protected abstract string GetFilePath();
+        protected abstract void Save(XDocument document);
+
+        
 
         protected virtual void Import(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
-            ObjectSpace objectSpace = Application.CreateObjectSpace() as ObjectSpace;
+            var objectSpace = ((ObjectSpace)Application.CreateObjectSpace());
             object o = objectSpace.CreateObject(TypesInfo.Instance.XmlFileChooserType);
             singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace, o);
             var dialogController = new DialogController { SaveOnAccept = false };

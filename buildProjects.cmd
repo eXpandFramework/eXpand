@@ -42,6 +42,7 @@ call buildproject.cmd Xpand.ExpressApp.WorldCreator.Win ".\Xpand\Xpand.ExpressAp
 call buildproject.cmd Xpand.ExpressApp.WorldCreator.Web ".\Xpand\Xpand.ExpressApp.Modules\WorldCreator.Web\Xpand.ExpressApp.WorldCreator.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.IO ".\Xpand\Xpand.ExpressApp.Modules\IO\Xpand.ExpressApp.IO.csproj"
 call buildproject.cmd Xpand.ExpressApp.IO.Win ".\Xpand\Xpand.ExpressApp.Modules\IO.Win\Xpand.ExpressApp.IO.Win.csproj"
+call buildproject.cmd Xpand.ExpressApp.IO.Web ".\Xpand\Xpand.ExpressApp.Modules\IO.Web\Xpand.ExpressApp.IO.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.PivotChart ".\Xpand\Xpand.ExpressApp.Modules\PivotChart\Xpand.ExpressApp.PivotChart.csproj"
 call buildproject.cmd Xpand.ExpressApp.PivotChart.Win ".\Xpand\Xpand.ExpressApp.Modules\PivotChart.Win\Xpand.ExpressApp.PivotChart.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.PivotChart.Web ".\Xpand\Xpand.ExpressApp.Modules\PivotChart.Web\Xpand.ExpressApp.PivotChart.Web.csproj"
