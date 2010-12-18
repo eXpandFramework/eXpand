@@ -2,7 +2,7 @@
 <Application>
   <Validation>
     <Rules>
-      <RuleUniqueValue Id="FDSSCustomer_Unique_Name" IsNewNode="True" TargetType="FeatureCenter.Module.LowLevelFilterDataStore.SkinFilter.FDSSCustomer" TargetContextIDs="Save" TargetPropertyName="Name" />
+      <RuleUniqueValue Id="FDSUCustomer_Unique_Name" IsNewNode="True" TargetType="FeatureCenter.Module.LowLevelFilterDataStore.UserFilter.FDSUCustomer" TargetContextIDs="Save" TargetPropertyName="Name" />
     </Rules>
   </Validation>
 </Application>

@@ -410,6 +410,8 @@
     <Compile Include="ListViewControl\TreeList\TreeConditionalAppearance\Updater.cs" />
     <Compile Include="ListViewControl\TreeList\TreeListOptions\OCategory.cs" />
     <Compile Include="ListViewControl\TreeList\TreeListOptions\Updater.cs" />
+    <Compile Include="LowLevelFilterDataStore\DisableFiltersNodeUpdater.cs" />
+    <Compile Include="LowLevelFilterDataStore\SkinFilter\FDSSCustomer.cs" />
     <Compile Include="Miscellaneous\ApplicationMultipleInstances\AMIObject.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -618,6 +620,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModelGroup.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="LowLevelFilterDataStore\SkinFilter\MDO_SkinFilter.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

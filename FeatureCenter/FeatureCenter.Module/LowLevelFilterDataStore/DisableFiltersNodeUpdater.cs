@@ -1,10 +1,10 @@
-﻿using DevExpress.ExpressApp.Model;
+﻿using System;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.FilterDataStore.Core;
 using Xpand.ExpressApp.FilterDataStore.Model;
 using Xpand.ExpressApp.FilterDataStore.NodeGenerators;
 using FeatureCenter.Module.LowLevelFilterDataStore.ContinentFilter;
-using FeatureCenter.Module.LowLevelFilterDataStore.SkinFilter;
 using FeatureCenter.Module.LowLevelFilterDataStore.UserFilter;
 
 namespace FeatureCenter.Module.LowLevelFilterDataStore {
@@ -12,8 +12,6 @@ namespace FeatureCenter.Module.LowLevelFilterDataStore {
         public override void UpdateNode(ModelNode node) {
             foreach (FilterProviderBase provider in FilterProviderManager.Providers) {
                 if (((IModelClass) node.Parent).TypeInfo.Type==typeof(FDSCCustomer)&&provider.Name=="ContinentFilterProvider")
-                    continue;
-                if (((IModelClass)node.Parent).TypeInfo.Type == typeof(FDSSCustomer) && provider.Name == "SkinFilterProvider")
                     continue;
                 if (((IModelClass)node.Parent).TypeInfo.Type == typeof(FDSUCustomer) && provider.Name == "UserFilterProvider")
                     continue;
