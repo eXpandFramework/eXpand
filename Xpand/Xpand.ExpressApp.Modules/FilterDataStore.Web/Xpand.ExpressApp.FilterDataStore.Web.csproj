@@ -5,25 +5,25 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{02553832-9700-485B-ADF7-D1B7B3F4AF55}</ProjectGuid>
+    <ProjectGuid>{AF839B22-487B-46EC-B09C-E0772EC060C1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xpand.ExpressApp.FilterDataStore</RootNamespace>
-    <AssemblyName>Xpand.ExpressApp.FilterDataStore</AssemblyName>
-    <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
+    <RootNamespace>Xpand.ExpressApp.FilterDataStore.Web</RootNamespace>
+    <AssemblyName>Xpand.ExpressApp.FilterDataStore.Web</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <PublishUrl>http://localhost/Xpand.ExpressApp.SkinToDataStore/</PublishUrl>
+    <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
@@ -48,7 +48,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -70,18 +70,21 @@
     <Reference Include="DevExpress.Persistent.Base.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Utils.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Xpo.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="System.Web" />
+    <Reference Include="Xpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.FilterDataStore, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="Xpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Xpand.Xpo, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -97,52 +100,33 @@
       <Name>System.Data</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\FilterProviderCollection.cs" />
-    <Compile Include="Core\FilterProviderManager.cs" />
-    <Compile Include="Core\FilterProviderBase.cs" />
-    <Compile Include="Core\FilterProviderConfiguration.cs" />
-    <Compile Include="Core\StatementContext.cs" />
-    <Compile Include="DomainLogic\ModelDisabledDataStoreFilterDomainLogic.cs" />
-    <Compile Include="FilterDataStoreModuleBase.cs">
+    <Compile Include="FilterDataStoreAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Model\IModelClassDisabledDataStoreFilters.cs" />
-    <Compile Include="NodeGenerators\ModelDisabledDataStoreFiltersNodesGenerator.cs" />
-    <Compile Include="NodeGenerators\ModelSystemTablesNodesGenerator.cs" />
-    <Compile Include="Model\IModelDisabledDataStoreFilter.cs" />
-    <Compile Include="Model\IModelDisabledDataStoreFilters.cs" />
-    <Compile Include="Model\IModelApplicationFilterDataStore.cs" />
-    <Compile Include="Model\IModelFilterDataStoreSystemTable.cs" />
-    <Compile Include="Model\IModelFilterDataStoreSystemTables.cs" />
-    <Compile Include="Providers\UserFilterProvider.cs" />
-    <Compile Include="FilterDataStoreModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="FilterDataStoreModule.Designer.cs">
-      <DependentUpon>FilterDataStoreModule.cs</DependentUpon>
+    <Compile Include="FilterDataStoreAspNetModule.Designer.cs">
+      <DependentUpon>FilterDataStoreAspNetModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FilterDataStoreModule.resx">
-      <DependentUpon>FilterDataStoreModule.cs</DependentUpon>
+    <EmbeddedResource Include="FilterDataStoreAspNetModule.resx">
+      <DependentUpon>FilterDataStoreAspNetModule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -153,7 +137,7 @@
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
       <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>true</Install>
+      <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
       <Visible>False</Visible>
@@ -168,7 +152,12 @@
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
