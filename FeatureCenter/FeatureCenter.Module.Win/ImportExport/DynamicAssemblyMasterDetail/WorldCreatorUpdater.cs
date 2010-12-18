@@ -1,13 +1,10 @@
 ﻿using DevExpress.Xpo;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
-
 using Xpand.Xpo;
 
-namespace FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail
-{
-    public class WorldCreatorUpdater:Xpand.ExpressApp.WorldCreator.WorldCreatorUpdater
-    {
+namespace FeatureCenter.Module.Win.ImportExport.DynamicAssemblyMasterDetail {
+    public class WorldCreatorUpdater : Xpand.ExpressApp.WorldCreator.WorldCreatorUpdater {
         public const string MasterDetailDynamicAssembly = "IOMasterDetailDynamicAssembly";
 
         public const string DMDCustomer = "IODMDCustomer";
@@ -15,12 +12,13 @@ namespace FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail
 
         public const string DMDOrderLine = "IODMDOrderLine";
 
-        public WorldCreatorUpdater(Session session) : base(session) {
+        public WorldCreatorUpdater(Session session)
+            : base(session) {
         }
 
 
         public override void Update() {
-            if (Session.FindObject<PersistentAssemblyInfo>(info => info.Name==MasterDetailDynamicAssembly) == null){
+            if (Session.FindObject<PersistentAssemblyInfo>(info => info.Name == MasterDetailDynamicAssembly) == null) {
                 var importEngine = new ImportEngine();
                 using (var unitOfWork = new UnitOfWork(Session.DataLayer)) {
                     importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetail.xml");

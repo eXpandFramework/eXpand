@@ -253,7 +253,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ImportExport\AnalysisObjects\AttributeRegistrator.cs" />
-    <Compile Include="ImportExport\DynamicAssemblyMasterDetail\AttributeRegistrator.cs" />
     <Compile Include="ListViewControl\ConditionalDetailViews\AttributeRegistrator.cs" />
     <Compile Include="Miscellaneous\ConnectionInfoStatus\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\DetailView\AttributeRegistrator.cs" />
@@ -278,8 +277,6 @@
     <Compile Include="HideToolBar\ListView\AttributeRegistrator.cs" />
     <Compile Include="HideToolBar\NestedListView\AttributeRegistrator.cs" />
     <Compile Include="DetailViewControl\HighlightFocusedLayoutItem\AttributeRegistrator.cs" />
-    <Compile Include="ImportExport\DynamicAssemblyMasterDetail\Updater.cs" />
-    <Compile Include="ImportExport\DynamicAssemblyMasterDetail\WorldCreatorUpdater.cs" />
     <Compile Include="ImportExport\UpdateMembers\UMCustomer.cs" />
     <Compile Include="ImportExport\UpdateMembers\Updater.cs" />
     <Compile Include="Miscellaneous\LinqQuery\AttributeRegistrator.cs" />
@@ -399,12 +396,8 @@
     </Content>
     <EmbeddedResource Include="WorldCreator\NorthWind\NorthWind.xml" />
     <EmbeddedResource Include="ImportExport\UpdateMembers\UpdateMembersGroup.xml" />
-    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModelGroup.xml" />
-    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModel.xml" />
-    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailGroup.xml" />
     <EmbeddedResource Include="ImportExport\AnalysisObjects\AnalysisObjectsConfiguration.xml" />
     <EmbeddedResource Include="ImportExport\AnalysisObjects\AnalysisObjects.xml" />
-    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetail.xml" />
     <EmbeddedResource Include="Images\Demo_Welcome.png" />
     <EmbeddedResource Include="Images\Demo_Welcome_32x32.png" />
   </ItemGroup>

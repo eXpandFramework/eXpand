@@ -397,6 +397,9 @@
     <Compile Include="ApplicationDifferences\ExternalApplication\Updater.cs" />
     <Compile Include="ConditionalViewControlsPositioning\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\MasterDetail\AutoExpandNewRow\AttributeRegistrator.cs" />
+    <Compile Include="ImportExport\DynamicAssemblyMasterDetail\AttributeRegistrator.cs" />
+    <Compile Include="ImportExport\DynamicAssemblyMasterDetail\Updater.cs" />
+    <Compile Include="ImportExport\DynamicAssemblyMasterDetail\WorldCreatorUpdater.cs" />
     <Compile Include="ListViewControl\LoadWhenFiltered\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -603,6 +606,18 @@
     <EmbeddedResource Include="ConditionalViewControlsPositioning\MDO_ConditionalViewControlsPositioning.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetail.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailGroup.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModel.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModelGroup.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,10 +4,9 @@ using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.Persistent.BaseImpl.ImportExport;
-
 using Xpand.Xpo;
 
-namespace FeatureCenter.Module.ImportExport.DynamicAssemblyMasterDetail {
+namespace FeatureCenter.Module.Win.ImportExport.DynamicAssemblyMasterDetail {
     public class Updater : ModuleUpdater {
         public Updater(ObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {

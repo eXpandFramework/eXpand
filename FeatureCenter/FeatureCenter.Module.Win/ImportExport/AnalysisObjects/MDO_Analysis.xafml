@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application>
-  <AdditionalViewControls>
-    <Rules>
-      <AdditionalViewControlsRule Id="Header Importing Analysis" ControlType="FeatureCenter.Module.Win.ApplicationCaption"/>
-      <AdditionalViewControlsRule Id="ViewMessage Importing Analysis" ControlType="FeatureCenter.Module.Win.FooterMessagePanel" />
-    </Rules>
-  </AdditionalViewControls>
-</Application>
