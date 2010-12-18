@@ -12,8 +12,11 @@ namespace FeatureCenter.Module {
 
         protected override IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole customizableRole) {
             var ensureUserExists = base.EnsureUserExists(userName, firstName, customizableRole);
-            if (ensureUserExists.UserName == Admin)
+            if (ensureUserExists.UserName == Admin) {
+                ((User) ensureUserExists).SetPassword("Admin");
+                ObjectSpace.CommitChanges();
                 UserFilterProvider.UpdaterUserKey = ((User) ensureUserExists).Oid;
+            }
             return ensureUserExists;
 
         }

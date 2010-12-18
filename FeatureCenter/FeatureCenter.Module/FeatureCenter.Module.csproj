@@ -318,7 +318,6 @@
     <Compile Include="LowLevelFilterDataStore\ContinentFilter\FDSCCustomer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LowLevelFilterDataStore\SkinFilter\FDSSCustomer.cs" />
     <Compile Include="LowLevelFilterDataStore\UserFilter\FDSUCustomer.cs" />
     <Compile Include="LowLevelFilterDataStore\UserFilter\Updater.cs" />
     <Compile Include="Navigation\HideFromNewMenuObject.cs" />
@@ -430,9 +429,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Miscellaneous\ForeignKeyViolation\MDO_ForeignKeyViolation.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LowLevelFilterDataStore\SkinFilter\MDO_SkinFilter.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LowLevelFilterDataStore\UserFilter\MDO_UserFilter.xafml">

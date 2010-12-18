@@ -48,19 +48,39 @@
                 <LayoutItem Id="Customer.City" IsNewNode="True" ViewItem="Customer.City" Index="1" RelativeSize="19" />
                 <LayoutItem Id="Customer.Description" IsNewNode="True" ViewItem="Customer.Description" Index="2" RelativeSize="25" />
               </LayoutGroup>
-              <LayoutItem Id="Customer.City" Removed="True" />
-              <LayoutItem Id="Customer.Name" Removed="True" />
+              <LayoutItem Id="Customer.City" Removed="True" ViewItem="Customer.City" />
+              <LayoutItem Id="Customer.Name" Removed="True" ViewItem="Customer.Name" />
             </LayoutGroup>
             <LayoutGroup Id="OrderBase" RelativeSize="39">
-              <LayoutItem Id="Reference" RelativeSize="33" />
-              <LayoutItem Id="OrderDate" RelativeSize="29" />
-              <LayoutItem Id="Total" RelativeSize="37" />
+              <LayoutItem Id="Reference" RelativeSize="33" ViewItem="Reference" />
+              <LayoutItem Id="OrderDate" RelativeSize="29" ViewItem="OrderDate" />
+              <LayoutItem Id="Total" RelativeSize="37" ViewItem="Total" />
             </LayoutGroup>
           </LayoutGroup>
           <LayoutGroup Id="Customer.EAMOrders_Group" Direction="Vertical" Index="1" RelativeSize="71">
-            <LayoutItem Id="Customer.EAMOrders" RelativeSize="93" />
+            <LayoutItem Id="Customer.EAMOrders" RelativeSize="93" ViewItem="Customer.EAMOrders" />
           </LayoutGroup>
           <LayoutGroup Id="SizeableEditors" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="XpandLogonParameters_DetailView">
+      <Items>
+        <StaticText Id="CredentialsText" IsNewNode="True" Text="User :Admin , Pass:Admin" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="RootGroup">
+            <LayoutGroup Id="ImageGroup" RelativeSize="12" />
+            <LayoutGroup Id="EditorsGroup" RelativeSize="87">
+              <LayoutGroup Id="Editors">
+                <LayoutItem Id="CredentialsText" IsNewNode="True" ShowCaption="False" ViewItem="CredentialsText" Index="0" RelativeSize="3" />
+                <LayoutItem Id="UserName" Index="1" />
+                <LayoutItem Id="Password" Index="2" />
+                <LayoutItem Id="RememberMe" Index="3" RelativeSize="89" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>

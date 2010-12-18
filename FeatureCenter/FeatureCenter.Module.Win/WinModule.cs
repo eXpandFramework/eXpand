@@ -2,11 +2,13 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication;
+using FeatureCenter.Module.Win.LowLevelFilterDataStore;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
 using Xpand.ExpressApp.ExceptionHandling.Win;
@@ -37,6 +39,11 @@ namespace FeatureCenter.Module.Win {
         void ExceptionHandlingWinModuleOnCustomHandleException(object sender, CustomHandleExceptionEventArgs customHandleExceptionEventArgs) {
             customHandleExceptionEventArgs.Handled = IsExculded(customHandleExceptionEventArgs.Exception);
         }
+        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
+            base.AddGeneratorUpdaters(updaters);
+            updaters.Add(new DisableFiltersNodeUpdater());
+        }
+
 
         bool IsExculded(Exception exception) {
             return (exception is ValidationException) ||
