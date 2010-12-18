@@ -6,17 +6,15 @@ using Xpand.ExpressApp.Logic.NodeUpdaters;
 
 namespace Xpand.ExpressApp.ConditionalDetailViews.NodeUpdaters {
     public class ConditionalDetailViewRulesNodeUpdater :
-        LogicRulesNodeUpdater<IConditionalDetailViewRule, IModelConditionalDetailViewRule, IModelApplicationConditionalDetailView>
-    {
-        
+        LogicRulesNodeUpdater<IConditionalDetailViewRule, IModelConditionalDetailViewRule, IModelApplicationConditionalDetailView> {
+
 
 
         protected override void SetAttribute(IModelConditionalDetailViewRule rule, IConditionalDetailViewRule attribute) {
-            rule.Attribute=attribute;
+            rule.Attribute = attribute;
         }
 
-        protected override Expression<Func<IModelApplicationConditionalDetailView, object>> ExecuteExpression()
-        {
+        protected override Expression<Func<IModelApplicationConditionalDetailView, object>> ExecuteExpression() {
             return controls => controls.ConditionalDetailView;
         }
     }

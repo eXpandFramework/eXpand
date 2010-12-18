@@ -2,16 +2,16 @@
 <Application>
   <ConditionalDetailView>
     <ExecutionContextsGroup DefaultContext="CustomProcessSelectedItem">
-      <ExecutionContexts Id="CurrentObjectChanged" IsNewNode="True">
-        <ExecutionContext Name="CurrentObjectChanged" IsNewNode="True" />
-      </ExecutionContexts>
       <ExecutionContexts Id="CustomProcessSelectedItem" IsNewNode="True">
         <ExecutionContext Name="CustomProcessSelectedItem" IsNewNode="True" />
       </ExecutionContexts>
       <ExecutionContexts Id="Default" Removed="True" />
+      <ExecutionContexts Id="ViewOnSelectionChanged" IsNewNode="True">
+        <ExecutionContext Name="ViewOnSelectionChanged" IsNewNode="True" />
+      </ExecutionContexts>
     </ExecutionContextsGroup>
     <Rules>
-      <ConditionalDetailViewRule Id="Paris_DetailViews_Copy_When_CurrentObjectChanged" IsNewNode="True" ViewType="DetailView" TypeInfo="FeatureCenter.Module.Customer" NormalCriteria="City='Paris'" DetailView="ConditionalDetailViews_DetailView" View="ConditionalDetailViewsDefault_DetailView" ExecutionContextGroup="CurrentObjectChanged" />
+      <ConditionalDetailViewRule Id="Paris_DetailViews_Copy_When_CurrentObjectChanged" IsNewNode="True" ViewType="DetailView" TypeInfo="FeatureCenter.Module.Customer" NormalCriteria="City='Paris'" DetailView="ConditionalDetailViews_DetailView" View="ConditionalDetailViewsDefault_DetailView" ExecutionContextGroup="ViewOnSelectionChanged" />
       <ConditionalDetailViewRule Id="Paris_DetailViews_When_CustomProcessSelectedItem" IsNewNode="True" TypeInfo="FeatureCenter.Module.Customer" View="ConditionalDetailViews_ListView" NormalCriteria="City='Paris'" DetailView="ConditionalDetailViews_DetailView" ExecutionContextGroup="CustomProcessSelectedItem" />
     </Rules>
   </ConditionalDetailView>
@@ -21,12 +21,12 @@
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="8">
             <LayoutGroup Id="CustomerBase" RelativeSize="100">
-              <LayoutItem Id="Name" RelativeSize="51" />
-              <LayoutItem Id="City" RelativeSize="48" />
+              <LayoutItem Id="Name" RelativeSize="51" ViewItem="Name" />
+              <LayoutItem Id="City" RelativeSize="48" ViewItem="City" />
             </LayoutGroup>
           </LayoutGroup>
           <LayoutGroup Id="SizeableEditors" RelativeSize="91">
-            <LayoutItem Id="Description" RelativeSize="100" />
+            <LayoutItem Id="Description" RelativeSize="100" ViewItem="Description" />
           </LayoutGroup>
           <LayoutGroup Id="Orders_Group" Removed="True" />
         </LayoutGroup>
