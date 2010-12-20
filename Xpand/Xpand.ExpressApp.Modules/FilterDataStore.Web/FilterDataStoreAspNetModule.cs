@@ -10,8 +10,9 @@ namespace Xpand.ExpressApp.FilterDataStore.Web {
         }
         protected override bool? ProxyEventsSubscribed {
             get {
-                bool result;
-                bool.TryParse(HttpContext.Current.Application["ProxyEventsSubscribed"] + "", out result);
+                bool result = false;
+                if (HttpContext.Current != null)
+                    bool.TryParse(HttpContext.Current.Application["ProxyEventsSubscribed"] + "", out result);
                 _proxyEventsSubscribed = result;
                 return _proxyEventsSubscribed;
             }
