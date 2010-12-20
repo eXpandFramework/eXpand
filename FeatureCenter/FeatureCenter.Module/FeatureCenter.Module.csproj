@@ -254,7 +254,6 @@
     </Compile>
     <Compile Include="ImportExport\AnalysisObjects\AttributeRegistrator.cs" />
     <Compile Include="ListViewControl\ConditionalDetailViews\AttributeRegistrator.cs" />
-    <Compile Include="Miscellaneous\ConnectionInfoStatus\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\DetailView\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\FullTextForMemoFields\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\ListView\AttributeRegistrator.cs" />
@@ -414,9 +413,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DetailViewControl\DisableEditDetailView\MDO_DisableEditDetailView.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Miscellaneous\ConnectionInfoStatus\MDO_ConnectionInfoStatus.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DetailViewControl\ActionButtonViewItem\MDO_ActionButtonViewItem.xafml">

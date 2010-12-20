@@ -7,15 +7,16 @@ using Xpand.ExpressApp.FilterDataStore.Providers;
 
 namespace FeatureCenter.Module {
     public class Updater : Xpand.Persistent.BaseImpl.Updater {
-        public Updater(ObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) {
+        public Updater(ObjectSpace objectSpace, Version currentDBVersion)
+            : base(objectSpace, currentDBVersion) {
         }
 
         protected override IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole customizableRole) {
             var ensureUserExists = base.EnsureUserExists(userName, firstName, customizableRole);
             if (ensureUserExists.UserName == Admin) {
-                ((User) ensureUserExists).SetPassword("Admin");
+                ((User)ensureUserExists).SetPassword("Admin");
                 ObjectSpace.CommitChanges();
-                UserFilterProvider.UpdaterUserKey = ((User) ensureUserExists).Oid;
+                UserFilterProvider.UpdaterUserKey = ((User)ensureUserExists).Oid;
             }
             return ensureUserExists;
 
