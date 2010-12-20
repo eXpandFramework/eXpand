@@ -52,6 +52,7 @@
 			.\Xpand\Xpand.ExpressApp.Modules\ModelDifference.Web\Xpand.ExpressApp.ModelDifference.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\FilterDataStore\Xpand.ExpressApp.FilterDataStore.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\FilterDataStore.Win\Xpand.ExpressApp.FilterDataStore.Win.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\FilterDataStore.Web\Xpand.ExpressApp.FilterDataStore.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\ArtifactState\Xpand.ExpressApp.ArtifactState.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\ConditionalActionState\Xpand.ExpressApp.ConditionalActionState.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\ConditionalControllerState\Xpand.ExpressApp.ConditionalControllerState.csproj;
@@ -62,6 +63,8 @@
 			.\Xpand\Xpand.ExpressApp.Modules\MasterDetail\Xpand.ExpressApp.MasterDetail.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\MasterDetail.Win\Xpand.ExpressApp.MasterDetail.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\ViewVariants.Win\Xpand.ExpressApp.ViewVariants.Win.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\TreeListEditors\Xpand.ExpressApp.TreeListEditors.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\TreeListEditors.Web\Xpand.ExpressApp.TreeListEditors.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\TreeListEditors.Win\Xpand.ExpressApp.TreeListEditors.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\ExceptionHandling\Xpand.ExpressApp.ExceptionHandling.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\ExceptionHandling.Win\Xpand.ExpressApp.ExceptionHandling.Win.csproj;
@@ -72,6 +75,7 @@
 			.\Xpand\Xpand.ExpressApp.Modules\WorldCreator.Web\Xpand.ExpressApp.WorldCreator.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\IO\Xpand.ExpressApp.IO.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\IO.Win\Xpand.ExpressApp.IO.Win.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\IO.Web\Xpand.ExpressApp.IO.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart\Xpand.ExpressApp.PivotChart.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart.Win\Xpand.ExpressApp.PivotChart.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart.Web\Xpand.ExpressApp.PivotChart.Web.csproj;
