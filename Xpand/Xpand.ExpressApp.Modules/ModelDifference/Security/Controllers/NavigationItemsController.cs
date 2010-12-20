@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.ModelDifference.Security.Controllers {
         }
 
         protected internal virtual void ControllerOnCustomShowNavigationItem(object sender, CustomShowNavigationItemEventArgs args) {
-            if (args.FitToObjectType(Application, typeof(ModelDifferenceObject))) {
+            if (args.FitToObjectType(Application, typeof(ModelDifferenceObject))&&SecuritySystem.Instance is ISecurityComplex) {
                 SecuritySystem.ReloadPermissions();
                 if (!SecuritySystemExtensions.IsGranted(new EditModelPermission(ModelAccessModifier.Allow), false)) {
                     args.Handled = true;

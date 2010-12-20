@@ -61,8 +61,13 @@ namespace Xpand.ExpressApp.Core{
             return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, true);
         }
 
+        public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, bool refreshTypesInfo,
+                                                          string propertyName) {
+            return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary,propertyName, refreshTypesInfo);
+        }
+
         public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, bool refreshTypesInfo) {
-            return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, typeOfCollection.Name + "s", refreshTypesInfo);
+            return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, refreshTypesInfo, typeOfCollection.Name + "s");
         }
 
         public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string collectionName) {
@@ -94,20 +99,46 @@ namespace Xpand.ExpressApp.Core{
             return CreateBothPartMembers(typesinfo, typeToCreateOn, otherPartMember, xpDictionary, isManyToMany, Guid.NewGuid().ToString());
         }
 
-        public static List<XPCustomMemberInfo> CreateBothPartMembers(this ITypesInfo typesinfo, Type typeToCreateOn, Type otherPartMember, XPDictionary xpDictionary, bool isManyToMany, string association) {
+        public static List<XPCustomMemberInfo> CreateBothPartMembers(this ITypesInfo typesinfo, Type typeToCreateOn, Type otherPartMember, XPDictionary xpDictionary, bool isManyToMany, string association,
+                                                                     string createOnPropertyName, string otherPartPropertyName) {
             var infos = new List<XPCustomMemberInfo>();
-            XPCustomMemberInfo member = null;
-            if (isManyToMany)
-                member = CreateCollection(typesinfo, typeToCreateOn, otherPartMember, association, xpDictionary, false);
-            else
-                member = CreateMember(typesinfo, otherPartMember, typeToCreateOn, association, xpDictionary, false);
+            XPCustomMemberInfo member = isManyToMany
+                                            ? CreateCollection(typesinfo, typeToCreateOn, otherPartMember, association,
+                                                               xpDictionary, false,createOnPropertyName)
+                                            : CreateMember(typesinfo, typeToCreateOn, otherPartMember, association, xpDictionary, createOnPropertyName,false);
 
             if (member != null) {
                 infos.Add(member);
-                if (isManyToMany)
-                    member = CreateCollection(typesinfo, otherPartMember, typeToCreateOn, association, xpDictionary, false);
-                else
-                    member = CreateCollection(typesinfo, typeToCreateOn, otherPartMember, association, xpDictionary, false);
+                member = isManyToMany
+                             ? CreateCollection(typesinfo, otherPartMember, typeToCreateOn, association, xpDictionary,
+                                                false,otherPartPropertyName)
+                             : CreateCollection(typesinfo, typeToCreateOn, otherPartMember, association, xpDictionary,
+                                                false, otherPartPropertyName);
+
+                if (member != null)
+                    infos.Add(member);
+            }
+
+            typesinfo.RefreshInfo(typeToCreateOn);
+            typesinfo.RefreshInfo(otherPartMember);
+            return infos;
+
+        }
+
+        public static List<XPCustomMemberInfo> CreateBothPartMembers(this ITypesInfo typesinfo, Type typeToCreateOn, Type otherPartMember, XPDictionary xpDictionary, bool isManyToMany, string association) {
+
+            var infos = new List<XPCustomMemberInfo>();
+            XPCustomMemberInfo member = isManyToMany
+                                            ? CreateCollection(typesinfo, typeToCreateOn, otherPartMember, association, xpDictionary, false)
+                                            : CreateMember(typesinfo, otherPartMember, typeToCreateOn, association, xpDictionary, false);
+
+            if (member != null) {
+                infos.Add(member);
+                member = isManyToMany
+                             ? CreateCollection(typesinfo, otherPartMember, typeToCreateOn, association, xpDictionary,
+                                                false)
+                             : CreateCollection(typesinfo, typeToCreateOn, otherPartMember, association, xpDictionary,
+                                                false);
 
                 if (member != null)
                     infos.Add(member);

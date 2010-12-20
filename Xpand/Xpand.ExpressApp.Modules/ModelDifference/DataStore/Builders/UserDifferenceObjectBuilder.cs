@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Builders{
 
         public static void CreateDynamicMembers(Type userType){
             if (userType != null){
-                XafTypesInfo.Instance.CreateBothPartMembers(userType, typeof(UserModelDifferenceObject), XafTypesInfo.XpoTypeInfoSource.XPDictionary, true, "UsersUserModelDiff");
+                XafTypesInfo.Instance.CreateBothPartMembers(userType, typeof(UserModelDifferenceObject), XafTypesInfo.XpoTypeInfoSource.XPDictionary, true, "UsersUserModelDiff", "UserModels", "Users");
             }
         }
     }
