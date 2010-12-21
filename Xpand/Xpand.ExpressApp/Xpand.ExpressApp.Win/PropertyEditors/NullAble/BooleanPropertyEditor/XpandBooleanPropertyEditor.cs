@@ -15,7 +15,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.NullAble.BooleanPropertyEditor {
 
         protected override void SetupRepositoryItem(RepositoryItem item) {
             base.SetupRepositoryItem(item);
-            ((RepositoryItemBooleanEdit)item).AllowGrayed = MemberInfo.MemberType.IsNullableType();
+            if (item is RepositoryItemBooleanEdit)
+                ((RepositoryItemBooleanEdit)item).AllowGrayed = MemberInfo.MemberType.IsNullableType();
         }
     }
 }
