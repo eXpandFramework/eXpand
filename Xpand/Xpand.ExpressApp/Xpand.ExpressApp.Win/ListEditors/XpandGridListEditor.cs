@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
                 return result;
             }
             set {
-                if ((value != null) && (GridView != null) && (DataSource != null)) {
+                if (value != null && value != DBNull.Value && GridView != null && DataSource != null) {
                     var focusedView = GridView;
                     XtraGridUtils.SelectRowByHandle(focusedView, focusedView.GetRowHandle(List.IndexOf(value)));
                     if (XtraGridUtils.HasValidRowHandle(focusedView)) {

@@ -3,36 +3,31 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 
-namespace Xpand.ExpressApp.SystemModule
-{
+namespace Xpand.ExpressApp.SystemModule {
 
-    public interface IModelClassEditMode : IModelNode
-    {
+    public interface IModelClassEditMode : IModelNode {
         [Category("eXpand")]
         [Description("Control detail view default edit mode")]
         ViewEditMode? ViewEditMode { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelClassEditMode), "ModelClass")]
-    public interface IModelDetailViewEditMode : IModelClassEditMode
-    {
-        
-    }
-    
-    public class ViewEditModeController : ViewController<DetailView>, IModelExtender
-    {
+    public interface IModelViewEditMode : IModelClassEditMode {
 
-        protected override void OnActivated()
-        {
+    }
+
+    public class ViewEditModeController : ViewController<DetailView>, IModelExtender {
+
+        protected override void OnActivated() {
             base.OnActivated();
-            var viewEditMode = ((IModelDetailViewEditMode)View.Model).ViewEditMode;
+            var viewEditMode = ((IModelViewEditMode)View.Model).ViewEditMode;
             if (viewEditMode.HasValue)
                 View.ViewEditMode = viewEditMode.Value;
         }
 
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelClass, IModelClassEditMode>();
-            extenders.Add<IModelDetailView, IModelDetailViewEditMode>();
+            extenders.Add<IModelListView, IModelViewEditMode>();
+            extenders.Add<IModelDetailView, IModelViewEditMode>();
         }
     }
 }
