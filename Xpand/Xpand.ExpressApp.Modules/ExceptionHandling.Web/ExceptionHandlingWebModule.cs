@@ -1,26 +1,21 @@
-using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web;
 
-namespace Xpand.ExpressApp.ExceptionHandling.Web
-{
-    public sealed partial class ExceptionHandlingWebModule : ExceptionHandlingModule
-    {
-        public ExceptionHandlingWebModule()
-        {
+namespace Xpand.ExpressApp.ExceptionHandling.Web {
+    public sealed partial class ExceptionHandlingWebModule : ExceptionHandlingModule {
+        public ExceptionHandlingWebModule() {
             InitializeComponent();
         }
 
-        public override void Setup(XafApplication application)
-        {
+        public override void Setup(XafApplication application) {
             base.Setup(application);
-            ErrorHandling.CustomSendMailMessage+=ErrorHandlingOnCustomSendMailMessage;
+            ErrorHandling.CustomSendErrorNotification +=ErrorHandlingOnCustomSendErrorNotification;
         }
 
-        private void ErrorHandlingOnCustomSendMailMessage(object sender, CustomSendMailMessageEventArgs args)
-        {
-            Log(HttpContext.Current.Server.GetLastError().GetBaseException());
+        void ErrorHandlingOnCustomSendErrorNotification(object sender, CustomSendErrorNotificationEventArgs customSendErrorNotificationEventArgs) {
+            Log(customSendErrorNotificationEventArgs.Exception);
         }
+
 
     }
 }

@@ -2,10 +2,8 @@ using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 
-namespace Xpand.ExpressApp.ExceptionHandling.Win
-{
-    public sealed partial class ExceptionHandlingWinModule : ExceptionHandlingModule
-    {
+namespace Xpand.ExpressApp.ExceptionHandling.Win {
+    public sealed partial class ExceptionHandlingWinModule : ExceptionHandlingModule {
         public event EventHandler<CustomHandleExceptionEventArgs> CustomHandleException;
 
         void OnCustomHandleException(CustomHandleExceptionEventArgs e) {
@@ -13,19 +11,16 @@ namespace Xpand.ExpressApp.ExceptionHandling.Win
             if (handler != null) handler(this, e);
         }
 
-        public ExceptionHandlingWinModule()
-        {
+        public ExceptionHandlingWinModule() {
             InitializeComponent();
         }
 
-        public override void Setup(XafApplication application)
-        {
+        public override void Setup(XafApplication application) {
             base.Setup(application);
             ((WinApplication)application).CustomHandleException += OnCustomHandleException;
         }
 
-        private void OnCustomHandleException(object sender, CustomHandleExceptionEventArgs args)
-        {
+        private void OnCustomHandleException(object sender, CustomHandleExceptionEventArgs args) {
             var exception = args.Exception;
             var customHandleExceptionEventArgs = new CustomHandleExceptionEventArgs(exception);
             OnCustomHandleException(customHandleExceptionEventArgs);

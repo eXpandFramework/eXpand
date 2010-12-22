@@ -7,7 +7,6 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using Microsoft.Practices.EnterpriseLibrary.Logging.Configuration;
-using Xpand.ExpressApp;
 using Xpand.Persistent.Base.ExceptionHandling;
 
 namespace Xpand.ExpressApp.ExceptionHandling {
