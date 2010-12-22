@@ -1,9 +1,7 @@
-using System;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Utils;
-using Xpand.ExpressApp.TreeListEditors.Win.Core;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win {
     [Description(
@@ -15,11 +13,6 @@ namespace Xpand.ExpressApp.TreeListEditors.Win {
             InitializeComponent();
         }
 
-        public override void AddGeneratorUpdaters(DevExpress.ExpressApp.Model.Core.ModelNodesGeneratorUpdaters updaters)
-        {
-            base.AddGeneratorUpdaters(updaters);
-            updaters.Add(new XpandTreeListEditorNodeGeneratorUpdater());
-        }
 
         public void ConvertXml(ConvertXmlParameters parameters) {
             if (typeof(IModelListView).IsAssignableFrom(parameters.NodeType) && parameters.Values.ContainsKey("EditorTypeName")) {
