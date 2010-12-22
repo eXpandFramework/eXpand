@@ -280,7 +280,6 @@
     <Compile Include="ImportExport\UpdateMembers\Updater.cs" />
     <Compile Include="Miscellaneous\LinqQuery\AttributeRegistrator.cs" />
     <Compile Include="ListViewControl\LoadWhenFiltered\AttributeRegistrator.cs" />
-    <Compile Include="Miscellaneous\LookUpListSearch\AttributeRegistrator.cs" />
     <Compile Include="ModelArtifact\ConditionalForeignKeyKViolationAndShowDetailView\AttributeRegistrator.cs" />
     <Compile Include="ModelArtifact\ConditionalSaveDelete\AttributeRegistrator.cs" />
     <Compile Include="Navigation\AttributeRegistrator.cs" />
@@ -480,9 +479,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ModelArtifact\ConditionalForeignKeyKViolationAndShowDetailView\MDO_ConditionalForeignKeyViolationAndShowDetailView.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Miscellaneous\LookUpListSearch\MDO_LookUpListSearch.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ListViewControl\LoadWhenFiltered\MDO_LoadWhenFiltered.xafml">

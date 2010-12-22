@@ -425,6 +425,7 @@
     <Compile Include="ListViewControl\TreeList\RecursiveFiltering\RFCustomer.cs" />
     <Compile Include="ListViewControl\TreeList\RecursiveFiltering\Updater.cs" />
     <Compile Include="Miscellaneous\ConnectionInfoStatus\AttributeRegistrator.cs" />
+    <Compile Include="Miscellaneous\LookUpListSearch\AttributeRegistrator.cs" />
     <Compile Include="Navigation\LogOut\LOCustomer.cs" />
     <Compile Include="Captions.cs" />
     <Compile Include="Navigation\CursorPosition\AttributeRegistrator.cs" />
@@ -629,6 +630,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Miscellaneous\ConnectionInfoStatus\MDO_ConnectionInfoStatus.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Miscellaneous\LookUpListSearch\MDO_LookUpListSearch.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
