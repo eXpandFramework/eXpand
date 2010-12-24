@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         public void AddLayers(string modelApplicationPrefix, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos, ModelApplicationBase model) {
             var modelXmlReader = new ModelXmlReader();
-            var assemblies = ((IModelApplicationModule)model.Application).ModulesList.Select(module => XafTypesInfo.Instance.FindTypeInfo(module.Name).AssemblyInfo.Assembly);
+            var assemblies = XpandModuleBase.Application.Modules.Select(module => module.GetType().Assembly);
             var resourceModelCollector = new ResourceModelCollector();
             foreach (var keyValuePair in resourceModelCollector.Collect(assemblies, modelApplicationPrefix)) {
                 var modelDifferenceObjectInfo = GetModelDifferenceObjectInfo(modelApplicationPrefix, loadedModelDifferenceObjectInfos, keyValuePair.Key, model);

@@ -94,7 +94,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 Tracing.Tracer.LogError(e);
             } finally {
                 if (compileAssemblyFromSource != null) {
-                    SetErrors(compileAssemblyFromSource, persistentAssemblyInfo);
+                    SetErrors(compileAssemblyFromSource, persistentAssemblyInfo,compilerParams);
                 }
                 if (Directory.Exists(STR_StrongKeys))
                     Directory.Delete(STR_StrongKeys, true);
@@ -102,7 +102,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             return null;
         }
 
-        static void SetErrors(CompilerResults compileAssemblyFromSource, IPersistentAssemblyInfo persistentAssemblyInfo) {
+        static void SetErrors(CompilerResults compileAssemblyFromSource, IPersistentAssemblyInfo persistentAssemblyInfo, CompilerParameters compilerParams) {
             persistentAssemblyInfo.CompileErrors = null;
             persistentAssemblyInfo.CompileErrors =
                 compileAssemblyFromSource.Errors.Cast<CompilerError>().Aggregate(
@@ -110,6 +110,10 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             if (!string.IsNullOrEmpty(persistentAssemblyInfo.CompileErrors)) {
                 Tracing.Tracer.LogSeparator("Compilization error of " + persistentAssemblyInfo.Name);
                 Tracing.Tracer.LogText(persistentAssemblyInfo.CompileErrors);
+                Tracing.Tracer.LogSeparator("Referenced Assemblies:");
+                foreach (var reference in compilerParams.ReferencedAssemblies) {
+                    Tracing.Tracer.LogVerboseText(reference);
+                }   
             }
         }
 
@@ -131,7 +135,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
 
         bool IsCodeDomCompiled(Assembly assembly1) {
-            return assembly1.ManifestModule.Name == "<Unknown>";
+            return assembly1.ManifestModule.ScopeName.EndsWith(XpandExtension);
         }
 
 
