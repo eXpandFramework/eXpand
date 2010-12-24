@@ -100,6 +100,7 @@
     <Compile Include="Converters\ValueConverters\UnitValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\UriValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\XpandUtcDateTimeConverter.cs" />
+    <Compile Include="DB\SchemaColumnSizeUpdater.cs" />
     <Compile Include="DB\XpoSequencer.cs" />
     <Compile Include="DB\DataStoreAttribute.cs" />
     <Compile Include="DB\XpoServerId.cs" />

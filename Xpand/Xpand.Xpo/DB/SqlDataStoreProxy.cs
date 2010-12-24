@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -8,7 +9,7 @@ namespace Xpand.Xpo.DB
     public class SqlDataStoreProxy : ISqlDataStoreProxy {
         private readonly IDataLayer dataLayerCore;
         private readonly ISqlDataStore dataStoreCore;
-
+        protected readonly List<ISchemaUpdater> schemaUpdaters = new List<ISchemaUpdater> { new SchemaColumnSizeUpdater() };
         protected SqlDataStoreProxy() {
         }
         #region IDataStore Members
@@ -19,6 +20,10 @@ namespace Xpand.Xpo.DB
 
         public static implicit operator ConnectionProviderSql(SqlDataStoreProxy proxy){
             return proxy.dataStoreCore as ConnectionProviderSql;
+        }
+
+        public ISqlDataStore DataStore {
+            get { return dataStoreCore; }
         }
 
         public AutoCreateOption AutoCreateOption{
@@ -35,7 +40,15 @@ namespace Xpand.Xpo.DB
             OnDataStoreSelectData(args);
             return args.SelectedData ?? dataLayerCore.SelectData(args.SelectStatements);
         }
+
+        public void RegisterSchenameUpdater(ISchemaUpdater schemaUpdater) {
+            schemaUpdaters.Add(schemaUpdater);
+        }
+
         public virtual UpdateSchemaResult UpdateSchema(bool dontCreateIfFirstTableNotExist, params DBTable[] tables){
+            foreach (var schemaUpdater in schemaUpdaters) {
+                schemaUpdater.Update(this, new DataStoreUpdateSchemaEventArgs(dontCreateIfFirstTableNotExist, tables));
+            }
             var args = new DataStoreUpdateSchemaEventArgs(dontCreateIfFirstTableNotExist, tables);
             OnDataStoreUpdateSchema(args);
             return dataStoreCore.UpdateSchema(false, args.Tables);
@@ -59,6 +72,7 @@ namespace Xpand.Xpo.DB
         public event EventHandler<DataStoreModifyDataEventArgs> DataStoreModifyData;
         public event EventHandler<DataStoreSelectDataEventArgs> DataStoreSelectData;
         public event EventHandler<DataStoreUpdateSchemaEventArgs> DataStoreUpdateSchema;
+
         public IDbConnection Connection {
             get { return dataStoreCore.Connection; }
         }

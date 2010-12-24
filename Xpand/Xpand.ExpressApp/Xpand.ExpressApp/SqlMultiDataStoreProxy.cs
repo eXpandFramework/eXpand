@@ -94,9 +94,12 @@ namespace Xpand.ExpressApp {
         }
         public override UpdateSchemaResult UpdateSchema(bool dontCreateIfFirstTableNotExist, params DBTable[] tables){
             foreach (KeyValuePair<IDataStore, List<DBTable>> dataStore in _dataStoreManager.GetDataStores(tables)){
-                IDataStore store = dataStore.Key;
+                var store = (ConnectionProviderSql) dataStore.Key;
                 List<DBTable> dbTables = dataStore.Value;
                 store.UpdateSchema(false, dbTables.ToArray());
+                foreach (var schemaUpdater in schemaUpdaters) {
+                    schemaUpdater.Update(store, new DataStoreUpdateSchemaEventArgs(dontCreateIfFirstTableNotExist, tables));
+                }
             }
             return UpdateSchemaResult.SchemaExists;
         }
