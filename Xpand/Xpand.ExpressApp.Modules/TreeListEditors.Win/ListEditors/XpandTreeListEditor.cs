@@ -5,7 +5,7 @@ using Xpand.ExpressApp.TreeListEditors.Win.Core;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win.ListEditors {
     [ListEditor(typeof(ITreeNode), true)]
-    public class XpandTreeListEditor : DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditor {
+    public class XpandTreeListEditor : DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditor, ITreeListEditor {
         public XpandTreeListEditor(DevExpress.ExpressApp.Model.IModelListView model)
             : base(model) {
         }
