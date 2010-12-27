@@ -14,6 +14,7 @@ using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Xpo;
 using Xpand.Xpo.DB;
 
+
 namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
         string _connectionString;
@@ -34,10 +35,12 @@ namespace Xpand.ExpressApp.WorldCreator {
                 var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
                 using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
                     using (var session = new Session(dataLayer)) {
-                        RunUpdaters(session);
                         var unitOfWork = new UnitOfWork(session.DataLayer);
+                        var typeSynchronizer = new TypeSynchronizer();
+                        typeSynchronizer.SynchronizeTypes(_connectionString);
+                        RunUpdaters(session);
                         AddDynamicModules(moduleManager, unitOfWork);
-                        SynchronizeTypes(unitOfWork);
+//                        SynchronizeTypes(unitOfWork);
                     }
                 }
             } else {
@@ -61,17 +64,38 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         void SynchronizeTypes(UnitOfWork unitOfWork) {
             var xpObjectTypes = new XPCollection<XPObjectType>(unitOfWork);
-            var moduleTypes = DynamicModuleTypes.Where(type => type.Assembly.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>().SingleOrDefault() != null);
-            var dataStoreManager = new SqlMultiDataStoreProxy(_connectionString).DataStoreManager;
-            foreach (var moduleType in moduleTypes) {
-                var moduleBase = (ModuleBase)Activator.CreateInstance(moduleType);
-                var businessClass = moduleBase.BusinessClasses[0];
-                var connectionProvider = dataStoreManager.GetConnectionProvider(businessClass);
-                var session = new Session(new SimpleDataLayer(connectionProvider));
-                if (session.GetCount(typeof(XPObjectType)) < xpObjectTypes.Count) {
-                    session.Delete(new XPCollection<XPObjectType>(session));
-                    foreach (var objectType in xpObjectTypes) {
-                        session.Save(new XPObjectType(session, objectType.AssemblyName, objectType.TypeName));
+            var dataStoreManager = new SqlMultiDataStoreProxy(_connectionString);
+            foreach (var xpObjectType in xpObjectTypes) {
+                var type = ReflectionHelper.FindType(xpObjectType.TypeName);
+                if (type != null) {
+                    var connectionString = dataStoreManager.DataStoreManager.GetConnectionString(type);
+                    var sqlDataStoreProxy = new SqlDataStoreProxy(connectionString);
+                    var xpoObjectHacker = new XpoObjectHacker();
+                    XPObjectType type1 = xpObjectType;
+                    var simpleDataLayer = new SimpleDataLayer(sqlDataStoreProxy);
+                    var session = new Session(simpleDataLayer);
+                    bool sync = false;
+                    sqlDataStoreProxy.DataStoreModifyData += (sender, args) => {
+                        var insertStatement = args.ModificationStatements.OfType<InsertStatement>().Where(statement => statement.TableName == typeof(XPObjectType).Name).SingleOrDefault();
+                        if (insertStatement != null && !sync) {
+                            sync = true;
+                            xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, simpleDataLayer, type1.Oid);
+                            ModificationResult modificationResult = null;
+                            try {
+                                modificationResult = sqlDataStoreProxy.ModifyData(insertStatement);
+                            }
+                            catch (Exception e) {
+                                Console.WriteLine(e);
+                            }
+                            args.ModificationResult = modificationResult;
+                            args.ModificationResult.Identities = new[] { new ParameterValue { Value = type1.Oid }, };
+                        }
+                    };
+
+                    if (session.FindObject<XPObjectType>(objectType => objectType.TypeName == type1.TypeName) == null) {
+                        var objectType = new XPObjectType(session, xpObjectType.AssemblyName, xpObjectType.TypeName);
+                        session.Save(objectType);
+
                     }
                 }
             }

@@ -2,30 +2,31 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Linq;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
-using System.Linq;
 
 namespace Xpand.Xpo.DB {
     public class DataStoreManager {
         public const string STR_Default = "Default";
-        readonly Dictionary<string,ReflectionDictionary> _reflectionDictionaries=new Dictionary<string, ReflectionDictionary>();
-        readonly Dictionary<string,SimpleDataLayer> _simpleDataLayers=new Dictionary<string, SimpleDataLayer>();
-        readonly Dictionary<string, List<string>> _tables=new Dictionary<string, List<string>>();
+        readonly Dictionary<string, ReflectionDictionary> _reflectionDictionaries = new Dictionary<string, ReflectionDictionary>();
+        readonly Dictionary<string, SimpleDataLayer> _simpleDataLayers = new Dictionary<string, SimpleDataLayer>();
+        readonly Dictionary<string, List<string>> _tables = new Dictionary<string, List<string>>();
         readonly string _connectionString;
         readonly IEnumerable<DataStoreAttribute> _dataStoreAttributes;
 
         public DataStoreManager(string connectionString) {
             _connectionString = connectionString;
+
             _dataStoreAttributes = GetDataStoreAttributes();
         }
 
 
-        public string GetKey(Type type){
+        public string GetKey(Type type) {
             var nameSpace = (type.Namespace + "");
             var dataStoreAttribute = _dataStoreAttributes.Where(attribute => nameSpace.StartsWith(attribute.NameSpace)).SingleOrDefault();
-            return dataStoreAttribute == null ? STR_Default : (dataStoreAttribute.DataStoreNameSuffix??dataStoreAttribute.ConnectionString);
+            return dataStoreAttribute == null ? STR_Default : (dataStoreAttribute.DataStoreNameSuffix ?? dataStoreAttribute.ConnectionString);
         }
 
         string GetKey(XPClassInfo xpClassInfo) {
@@ -40,7 +41,7 @@ namespace Xpand.Xpo.DB {
             }
         }
 
-        IEnumerable<string> GetIntermediateTableNames(XPClassInfo classInfo){
+        IEnumerable<string> GetIntermediateTableNames(XPClassInfo classInfo) {
             return classInfo.CollectionProperties.OfType<XPMemberInfo>().Where(info => info.IntermediateClass != null).Select(memberInfo => memberInfo.IntermediateClass.TableName);
         }
         public ReflectionDictionary GetDictionary(Type type) {
@@ -50,11 +51,10 @@ namespace Xpand.Xpo.DB {
 
         XPClassInfo GetXPClassInfo(Type type) {
             var xpClassInfos = _reflectionDictionaries.Select(pair => pair.Value).SelectMany(dictionary => dictionary.Classes.OfType<XPClassInfo>());
-            return xpClassInfos.Where(info => info.ClassType==type).Single();
+            return xpClassInfos.Where(info => info.ClassType == type).Single();
         }
 
-        public ReflectionDictionary GetDictionary(XPClassInfo xpClassInfo)
-        {
+        public ReflectionDictionary GetDictionary(XPClassInfo xpClassInfo) {
             string key = GetKey(xpClassInfo);
             var reflectionDictionary = GetDictionary(key);
             if (xpClassInfo.IsPersistent)
@@ -66,9 +66,9 @@ namespace Xpand.Xpo.DB {
             if (!_reflectionDictionaries.ContainsKey(key)) {
                 var reflectionDictionary = new ReflectionDictionary();
                 _reflectionDictionaries.Add(key, reflectionDictionary);
-                var simpleDataLayer = new SimpleDataLayer(reflectionDictionary,GetConnectionProvider(key));
+                var simpleDataLayer = new SimpleDataLayer(reflectionDictionary, GetConnectionProvider(key));
                 _simpleDataLayers.Add(key, simpleDataLayer);
-                _tables.Add(key,new List<string>());
+                _tables.Add(key, new List<string>());
             }
             return _reflectionDictionaries[key];
         }
@@ -82,29 +82,28 @@ namespace Xpand.Xpo.DB {
             return GetConnectionString(key);
         }
 
-        public string GetConnectionString(string key )
-        {
-            if (key==STR_Default)
+
+        public string GetConnectionString(string key) {
+            if (key == STR_Default)
                 return _connectionString;
             if (key.StartsWith(DataStoreBase.XpoProviderTypeParameterName))
                 return key;
             ConnectionStringSettings connectionStringSettings =
                 ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", key)];
-            if (connectionStringSettings != null){
+            if (connectionStringSettings != null) {
                 return connectionStringSettings.ConnectionString;
             }
             IDataStore connectionProvider = XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.DatabaseAndSchema);
-            if (connectionProvider is ConnectionProviderSql)
-            {
+            if (connectionProvider is ConnectionProviderSql) {
                 IDbConnection dbConnection = ((ConnectionProviderSql)connectionProvider).Connection;
                 return _connectionString == null ? AccessConnectionProvider.GetConnectionString(key)
-                                              : _connectionString.Replace(dbConnection.Database, dbConnection.Database + key+".mdb");
+                                              : _connectionString.Replace(dbConnection.Database, dbConnection.Database + key + ".mdb");
 
             }
             throw new NoNullAllowedException(string.Format("{0}ConnectionString not found ", key));
         }
 
-        public IDataStore GetConnectionProvider(string key){
+        public IDataStore GetConnectionProvider(string key) {
             string connectionString = GetConnectionString(key);
             return XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
         }
@@ -117,17 +116,16 @@ namespace Xpand.Xpo.DB {
             get { return _simpleDataLayers; }
         }
 
-        public Dictionary<IDataStore, List<DBTable>> GetDataStores(DBTable[] dbTables){
-            var dictionary = _simpleDataLayers.Select(pair => 
+        public Dictionary<IDataStore, List<DBTable>> GetDataStores(DBTable[] dbTables) {
+            var dictionary = _simpleDataLayers.Select(pair =>
                                                       pair.Value.ConnectionProvider).ToDictionary(dataStore => dataStore, dataStore => new List<DBTable>());
             foreach (var dbTable in dbTables) {
                 if (dbTable.Name == "XPObjectType")
                     foreach (var simpleDataLayer in _simpleDataLayers) {
                         dictionary[simpleDataLayer.Value.ConnectionProvider].Add(dbTable);
-                    }
-                else
+                    } else
                     dictionary[_simpleDataLayers[GetKey(dbTable.Name)].ConnectionProvider].Add(dbTable);
-               
+
             }
             return dictionary;
         }
@@ -136,13 +134,14 @@ namespace Xpand.Xpo.DB {
             var keyValuePairs = _tables.Where(valuePair => valuePair.Value.Contains(tableName));
             string key = STR_Default;
             if (keyValuePairs.Count() > 0)
-                key=keyValuePairs.ToList()[0].Key;
+                key = keyValuePairs.ToList()[0].Key;
             return key;
         }
 
         public Type GetType(string typeName) {
             var types = _reflectionDictionaries.Select(pair => pair.Value).SelectMany(dictionary => dictionary.Classes.OfType<XPClassInfo>()).Select(classInfo => classInfo.ClassType);
-            return types.Where(type => type.Name==typeName).SingleOrDefault();
+            return types.Where(type => type.Name == typeName).SingleOrDefault();
         }
+
     }
 }

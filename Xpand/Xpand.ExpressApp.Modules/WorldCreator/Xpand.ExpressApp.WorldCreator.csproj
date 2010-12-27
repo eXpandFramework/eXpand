@@ -162,6 +162,7 @@
     <Compile Include="PersistentTypesHelpers\PersistentAttributeInfoQuery.cs" />
     <Compile Include="NodeUpdaters\ShowOwnerForExtendedMembersUpdater.cs" />
     <Compile Include="Core\WCTypesInfo.cs" />
+    <Compile Include="TypeSynchronizer.cs" />
     <Compile Include="WorldCreatorModule.cs">
       <SubType>Component</SubType>
     </Compile>
