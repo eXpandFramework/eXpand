@@ -231,7 +231,6 @@
     <Compile Include="Xpand.ExpressApp\RuleRequiredForAtLeast1PropertyFixture.cs" />
     <Compile Include="Xpand.ExpressApp\TypesInfoFixture.cs" />
     <Compile Include="Xpand.IO\AllObjectsSpecs.cs" />
-    <Compile Include="Xpand.IO\Class1.cs" />
     <Compile Include="Xpand.IO\ClassInfoGraphNodeSpecs.cs" />
     <Compile Include="Xpand.IO\Contexts.cs" />
     <Compile Include="Xpand.IO\ExportingEngineSpecs.cs" />
