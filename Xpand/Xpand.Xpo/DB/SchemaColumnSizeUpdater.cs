@@ -1,6 +1,5 @@
 ﻿
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using DevExpress.Xpo.DB;
@@ -18,15 +17,10 @@ namespace Xpand.Xpo.DB {
                 }
             }
             try {
-                //                var result = base.ProcessUpdateSchema(skipIfFirstTableNotExists, tables);
-
                 if (dataStoreUpdateSchemaEventArgs.UpdateSchemaResult == UpdateSchemaResult.SchemaExists)
                     UpdateColumnSize(dataStoreUpdateSchemaEventArgs.Tables, sqlDataStore);
-
                 if (weStartedTran)
                     sqlDataStore.ExplicitCommitTransaction();
-
-
             } catch {
                 if (weStartedTran)
                     sqlDataStore.ExplicitRollbackTransaction();
@@ -48,8 +42,8 @@ namespace Xpand.Xpo.DB {
                         if ((actualColumn.Size < column.Size) || (column.Size == DevExpress.Xpo.SizeAttribute.Unlimited)) {
                             sqlDataStore.ExecSql(new Query(GetSql(table, sqlDataStore, column)));
                         } else {
-//                            Debug.Fail("The size of a DB column will not be decreased." +
-//                                       " So changing the SizeAttribute of a column to have a smaller size than previously specified will have no effect.");
+                            //                            Debug.Fail("The size of a DB column will not be decreased." +
+                            //                                       " So changing the SizeAttribute of a column to have a smaller size than previously specified will have no effect.");
                         }
                     }
                 }
