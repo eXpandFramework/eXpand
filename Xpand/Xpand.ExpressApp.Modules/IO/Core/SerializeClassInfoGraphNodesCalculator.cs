@@ -16,27 +16,24 @@ namespace Xpand.ExpressApp.IO.Core {
             _serializationConfigurationGroup = serializationConfigurationGroup;
         }
 
-        ISerializationConfiguration GetConfiguration(Session session, Type type)
-        {
+        ISerializationConfiguration GetConfiguration(Session session, Type type) {
             var serializationConfigurationType = TypesInfo.Instance.SerializationConfigurationType;
             ISerializationConfiguration configuration;
             var findObject = session.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, serializationConfigurationType,
                                                 SerializationConfigurationQuery.GetCriteria(type, _serializationConfigurationGroup));
             if (findObject != null)
                 configuration = (ISerializationConfiguration)findObject;
-            else
-            {
+            else {
                 configuration =
                     (ISerializationConfiguration)ReflectionHelper.CreateObject(serializationConfigurationType, session);
-                configuration.SerializationConfigurationGroup=_serializationConfigurationGroup;
+                configuration.SerializationConfigurationGroup = _serializationConfigurationGroup;
                 configuration.TypeToSerialize = type;
                 new ClassInfoGraphNodeBuilder().Generate(configuration);
             }
             return configuration;
         }
 
-        public IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(XPBaseObject theObject, string typeName)
-        {
+        public IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(XPBaseObject theObject, string typeName) {
             var type = ReflectionHelper.GetType(typeName);
             ISerializationConfiguration configuration = GetConfiguration(theObject.Session, type);
             return GetSerializedClassInfoGraphNodes(configuration);
@@ -47,13 +44,12 @@ namespace Xpand.ExpressApp.IO.Core {
             return GetSerializedClassInfoGraphNodes(configuration);
         }
 
-        IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(ISerializationConfiguration serializationConfiguration)
-        {
+        IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(ISerializationConfiguration serializationConfiguration) {
             return ((IEnumerable)((XPBaseObject)serializationConfiguration).GetMemberValue(serializationConfiguration.GetPropertyName(x => x.SerializationGraph))).
                 OfType<IClassInfoGraphNode>().Where(
                     node => (node.NodeType == NodeType.Simple && node.SerializationStrategy != SerializationStrategy.DoNotSerialize) ||
                             node.NodeType != NodeType.Simple).OrderBy(graphNode => graphNode.NodeType);
         }
-        
+
     }
 }

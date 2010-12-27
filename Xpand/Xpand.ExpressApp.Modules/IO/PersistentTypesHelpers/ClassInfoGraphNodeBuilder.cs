@@ -119,7 +119,7 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
         }
 
         bool IsPersistent(IMemberInfo info) {
-            return (info.IsPersistent || (info.IsList && info.ListElementTypeInfo.IsPersistent));
+            return (info.IsPersistent || (info.IsList &&info.ListElementTypeInfo != null&&info.ListElementTypeInfo.IsPersistent));
         }
 
         public void ApplyStrategy(SerializationStrategy serializationStrategy, ISerializationConfiguration serializationConfiguration) {

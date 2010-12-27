@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -100,7 +101,7 @@ namespace Xpand.Tests.Xpand.IO {
         static ObjectSpace _objectSpace;
 
         Establish context = () => {
-            _objectSpace = (ObjectSpace) new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            _objectSpace = (ObjectSpace)new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer", "DerivedCustomer" });
             classHandler.SetInheritance(info => info.Name == "DerivedCustomer" ? persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0] : null);
@@ -232,7 +233,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         Establish context = () => {
 
-            _objectSpace = (ObjectSpace) ObjectSpaceInMemory.CreateNew();
+            _objectSpace = (ObjectSpace)ObjectSpaceInMemory.CreateNew();
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "CustomerSelfRef" });
             var persistentClassInfo = persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0];
@@ -259,13 +260,13 @@ namespace Xpand.Tests.Xpand.IO {
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
     public class When_creating_a_graph_for_a_persistent_assembly : With_Isolations {
-private const int GcRecord = 1;
+        private const int GcRecord = 1;
         static ObjectSpace _objectSpace;
         static SerializationConfiguration _serializationConfiguration;
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         Establish context = () => {
-            _objectSpace = (ObjectSpace) new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            _objectSpace = (ObjectSpace)new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
             _persistentAssemblyInfo = (PersistentAssemblyInfo)_objectSpace.CreateObject(typeof(PersistentAssemblyInfo));
             _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) {
                 TypeToSerialize = _persistentAssemblyInfo.GetType(),
@@ -278,7 +279,7 @@ private const int GcRecord = 1;
 
         It should_generate_it =
             () => _serializationConfiguration.SerializationGraph.Count().ShouldEqual(
-                _persistentAssemblyInfo.ClassInfo.PersistentProperties.OfType<XPMemberInfo>().Count()+GcRecord);
+                _persistentAssemblyInfo.ClassInfo.PersistentProperties.OfType<XPMemberInfo>().Count() + GcRecord);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
     public class When_creating_a_graph_with_a_byte_array_property : With_Isolations {
@@ -345,7 +346,7 @@ private const int GcRecord = 1;
             _serializationConfiguration.TypeToSerialize = typeof(Analysis);
             _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
             XafTypesInfo.Instance.RegisterEntity(typeof(User));
-            XafTypesInfo.Instance.FindTypeInfo(typeof (Analysis)).CreateMember("User", typeof (User));
+            XafTypesInfo.Instance.FindTypeInfo(typeof(Analysis)).CreateMember("User", typeof(User));
             XafTypesInfo.Instance.FindTypeInfo(typeof(User)).AddAttribute(new SerializationStrategyAttribute(SerializationStrategy.DoNotSerialize));
         };
 
@@ -377,12 +378,12 @@ private const int GcRecord = 1;
             () => _serializationConfiguration.SerializationGraph.Where(node => node.Key).Count().ShouldEqual(1);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder), "applying strategy")]
-    public class When_applying_a_serialization_strategy:With_Isolations {
+    public class When_applying_a_serialization_strategy : With_Isolations {
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
             var objectSpace = ObjectSpaceInMemory.CreateNew();
-            XafTypesInfo.Instance.FindTypeInfo(typeof (Analysis)).CreateMember("User", typeof (User));
+            XafTypesInfo.Instance.FindTypeInfo(typeof(Analysis)).CreateMember("User", typeof(User));
             XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeof(Analysis)).CreateMember("Users", typeof(XPCollection),
                                                                                                     false, new AssociationAttribute(typeof(User)));
             _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
@@ -391,12 +392,39 @@ private const int GcRecord = 1;
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
         };
 
-        Because of = () => new ClassInfoGraphNodeBuilder().ApplyStrategy(SerializationStrategy.DoNotSerialize,_serializationConfiguration.SerializationConfigurationGroup.SerializationConfigurations.Where(configuration => configuration.TypeToSerialize==typeof(User)).Single());
+        Because of = () => new ClassInfoGraphNodeBuilder().ApplyStrategy(SerializationStrategy.DoNotSerialize, _serializationConfiguration.SerializationConfigurationGroup.SerializationConfigurations.Where(configuration => configuration.TypeToSerialize == typeof(User)).Single());
         It should_apply_the_strategy_to_all_reference_properties =
             () =>
             _serializationConfiguration.SerializationGraph.Where(node => node.Name == "User").Single().SerializationStrategy.ShouldEqual(SerializationStrategy.DoNotSerialize);
 
         It should_apply_the_strategy_to_all_collection_properties =
             () => _serializationConfiguration.SerializationGraph.Where(node => node.Name == "Users").Single().SerializationStrategy.ShouldEqual(SerializationStrategy.DoNotSerialize);
+    }
+
+    public class When_property_is_a_non_XPCollection : With_Isolations {
+        static SerializationConfiguration _serializationConfiguration;
+
+        public class ObjectWithIBindingListCollection : BaseObject {
+            public ObjectWithIBindingListCollection(Session session)
+                : base(session) {
+            }
+
+            private readonly IBindingList _collection = new BindingList<ObjectWithIBindingListCollection>();
+            public IBindingList Collection {
+                get { return _collection; }
+            }
+        }
+
+        Establish context = () => {
+            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            _serializationConfiguration.TypeToSerialize = typeof(ObjectWithIBindingListCollection);
+            _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
+        };
+
+        Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+
+        It should_not_create_node_for_that_property =
+            () => _serializationConfiguration.SerializationGraph.Where(node => node.Name == "Collection").FirstOrDefault().ShouldBeNull();
     }
 }
