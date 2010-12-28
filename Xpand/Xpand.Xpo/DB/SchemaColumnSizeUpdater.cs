@@ -40,7 +40,9 @@ namespace Xpand.Xpo.DB {
                     var actualColumn = actualTable.Columns.Find(col => string.Compare(col.Name, sqlDataStore.ComposeSafeColumnName(dbColumn.Name), true) == 0);
                     if (NeedsAltering(column, actualColumn)) {
                         if ((actualColumn.Size < column.Size) || (column.Size == DevExpress.Xpo.SizeAttribute.Unlimited)) {
-                            sqlDataStore.ExecSql(new Query(GetSql(table, sqlDataStore, column)));
+                            var sql = GetSql(table, sqlDataStore, column);
+                            System.Diagnostics.Trace.WriteLineIf(new System.Diagnostics.TraceSwitch("XPO", "").TraceInfo, sql);
+                            sqlDataStore.ExecSql(new Query(sql));
                         } else {
                             //                            Debug.Fail("The size of a DB column will not be decreased." +
                             //                                       " So changing the SizeAttribute of a column to have a smaller size than previously specified will have no effect.");
