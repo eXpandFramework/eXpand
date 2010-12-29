@@ -8,19 +8,18 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Helpers;
 
-namespace Xpand.ExpressApp.Core{
-    public static class TypesInfoExtensions{
-        public static Type FindBussinessObjectType<T>(this ITypesInfo typesInfo)  
-        {
+namespace Xpand.ExpressApp.Core {
+    public static class TypesInfoExtensions {
+        public static Type FindBussinessObjectType<T>(this ITypesInfo typesInfo) {
             if (!(typeof(T).IsInterface))
-                throw new ArgumentException(typeof(T).FullName +" should be an interface");
-//            var implementors = typesInfo.FindTypeInfo(typeof(T)).Implementors.Where(info => info.IsPersistent);
+                throw new ArgumentException(typeof(T).FullName + " should be an interface");
+            //            var implementors = typesInfo.FindTypeInfo(typeof(T)).Implementors.Where(info => info.IsPersistent);
             var implementors = typesInfo.FindTypeInfo(typeof(T)).Implementors;
             var objectType = implementors.FirstOrDefault();
-            if (objectType== null)
-                throw new ArgumentException("No bussincess object that implements "+typeof(T).FullName+" found");
+            if (objectType == null)
+                throw new ArgumentException("No bussincess object that implements " + typeof(T).FullName + " found");
             if (implementors.Count() > 1) {
-                var typeInfos = implementors.Where(implementor => !(typeof (T).IsAssignableFrom(implementor.Base.Type)));
+                var typeInfos = implementors.Where(implementor => !(typeof(T).IsAssignableFrom(implementor.Base.Type)));
                 foreach (ITypeInfo implementor in typeInfos) {
                     return implementor.Type;
                 }
@@ -61,9 +60,15 @@ namespace Xpand.ExpressApp.Core{
             return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, true);
         }
 
+        static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, bool refreshTypesInfo,
+                                                          string propertyName, bool isManyToMany) {
+            return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary,
+                                    propertyName, refreshTypesInfo,isManyToMany);
+        }
+
         public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, bool refreshTypesInfo,
                                                           string propertyName) {
-            return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary,propertyName, refreshTypesInfo);
+            return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, propertyName, refreshTypesInfo,false);
         }
 
         public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, bool refreshTypesInfo) {
@@ -74,24 +79,27 @@ namespace Xpand.ExpressApp.Core{
             return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, collectionName, true);
         }
 
-        public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string collectionName, bool refreshTypesInfo)
-        {
+        static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string collectionName, bool refreshTypesInfo,
+                                                          bool isManyToMany) {
             XPCustomMemberInfo member = null;
-            if (typeIsRegister(typeInfo, typeToCreateOn))
-            {
+            if (typeIsRegister(typeInfo, typeToCreateOn)) {
                 XPClassInfo xpClassInfo = dictionary.GetClassInfo(typeToCreateOn);
-                if (xpClassInfo.FindMember(collectionName)== null){
+                if (xpClassInfo.FindMember(collectionName) == null) {
                     member = xpClassInfo.CreateMember(collectionName, typeof(XPCollection), true);
-                    member.AddAttribute(new AssociationAttribute(associationName, typeOfCollection){UseAssociationNameAsIntermediateTableName =true});
+                    member.AddAttribute(new AssociationAttribute(associationName, typeOfCollection) { UseAssociationNameAsIntermediateTableName = isManyToMany });
 
                     if (refreshTypesInfo)
                         typeInfo.RefreshInfo(typeToCreateOn);
                 }
             }
             return member;
+
+        }
+        public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string collectionName, bool refreshTypesInfo) {
+            return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary,collectionName,refreshTypesInfo,false);
         }
 
-        public static List<XPCustomMemberInfo> CreateBothPartMembers(this ITypesInfo typesInfo, Type typeToCreateOn, Type otherPartType, XPDictionary dictionary){
+        public static List<XPCustomMemberInfo> CreateBothPartMembers(this ITypesInfo typesInfo, Type typeToCreateOn, Type otherPartType, XPDictionary dictionary) {
             return CreateBothPartMembers(typesInfo, typeToCreateOn, otherPartType, dictionary, false);
         }
 
@@ -104,14 +112,14 @@ namespace Xpand.ExpressApp.Core{
             var infos = new List<XPCustomMemberInfo>();
             XPCustomMemberInfo member = isManyToMany
                                             ? CreateCollection(typesinfo, typeToCreateOn, otherPartMember, association,
-                                                               xpDictionary, false,createOnPropertyName)
-                                            : CreateMember(typesinfo, typeToCreateOn, otherPartMember, association, xpDictionary, createOnPropertyName,false);
+                                                               xpDictionary, false, createOnPropertyName,true)
+                                            : CreateMember(typesinfo, typeToCreateOn, otherPartMember, association, xpDictionary, createOnPropertyName, false);
 
             if (member != null) {
                 infos.Add(member);
                 member = isManyToMany
                              ? CreateCollection(typesinfo, otherPartMember, typeToCreateOn, association, xpDictionary,
-                                                false,otherPartPropertyName)
+                                                false, otherPartPropertyName,true)
                              : CreateCollection(typesinfo, typeToCreateOn, otherPartMember, association, xpDictionary,
                                                 false, otherPartPropertyName);
 
@@ -150,19 +158,16 @@ namespace Xpand.ExpressApp.Core{
             return infos;
         }
 
-        public static ITypeInfo FindTypeInfo<T>(this ITypesInfo typesInfo)
-        {
+        public static ITypeInfo FindTypeInfo<T>(this ITypesInfo typesInfo) {
             return typesInfo.FindTypeInfo(typeof(T));
         }
 
-        public static void AddAttribute<T>(this ITypeInfo typeInfo, Expression<Func<T, object>> expression,Attribute attribute)
-        {
+        public static void AddAttribute<T>(this ITypeInfo typeInfo, Expression<Func<T, object>> expression, Attribute attribute) {
             IMemberInfo controlTypeMemberInfo = typeInfo.FindMember(expression);
             controlTypeMemberInfo.AddAttribute(attribute);
         }
 
-        public static IMemberInfo FindMember<T>(this ITypeInfo typesInfo, Expression<Func<T, object>> expression)
-        {
+        public static IMemberInfo FindMember<T>(this ITypeInfo typesInfo, Expression<Func<T, object>> expression) {
             MemberInfo memberInfo = ReflectionExtensions.GetExpression(expression);
             return typesInfo.FindMember(memberInfo.Name);
         }
