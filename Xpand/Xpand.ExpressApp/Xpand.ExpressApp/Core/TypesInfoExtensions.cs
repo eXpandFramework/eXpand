@@ -82,7 +82,7 @@ namespace Xpand.ExpressApp.Core{
                 XPClassInfo xpClassInfo = dictionary.GetClassInfo(typeToCreateOn);
                 if (xpClassInfo.FindMember(collectionName)== null){
                     member = xpClassInfo.CreateMember(collectionName, typeof(XPCollection), true);
-                    member.AddAttribute(new AssociationAttribute(associationName, typeOfCollection));
+                    member.AddAttribute(new AssociationAttribute(associationName, typeOfCollection){UseAssociationNameAsIntermediateTableName =true});
 
                     if (refreshTypesInfo)
                         typeInfo.RefreshInfo(typeToCreateOn);
