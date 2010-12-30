@@ -64,6 +64,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="Parent_ListView" MasterDetailMode="ListViewAndDetailView" />
     <DetailView Id="XpandLogonParameters_DetailView">
       <Items>
         <StaticText Id="CredentialsText" IsNewNode="True" Text="User :Admin , Pass:Admin" />
@@ -75,9 +76,9 @@
             <LayoutGroup Id="EditorsGroup" RelativeSize="87">
               <LayoutGroup Id="Editors">
                 <LayoutItem Id="CredentialsText" IsNewNode="True" ShowCaption="False" ViewItem="CredentialsText" Index="0" RelativeSize="3" />
-                <LayoutItem Id="UserName" Index="1" />
-                <LayoutItem Id="Password" Index="2" />
-                <LayoutItem Id="RememberMe" Index="3" RelativeSize="89" />
+                <LayoutItem Id="UserName" Index="1" ViewItem="UserName" />
+                <LayoutItem Id="Password" Index="2" ViewItem="Password" />
+                <LayoutItem Id="RememberMe" Index="3" RelativeSize="89" ViewItem="RememberMe" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>

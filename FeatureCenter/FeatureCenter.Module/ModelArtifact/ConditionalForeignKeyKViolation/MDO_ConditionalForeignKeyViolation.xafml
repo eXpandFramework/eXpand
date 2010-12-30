@@ -5,13 +5,11 @@
       <ExecutionContextsGroup>
         <ExecutionContexts Id="ConditionalForeignKeyViolation" IsNewNode="True">
           <ExecutionContext Name="ViewChanging" IsNewNode="True" Index="0" />
-          <ExecutionContext Name="CurrentObjectChanged" IsNewNode="True" Index="0" />
+          <ExecutionContext Name="ViewOnSelectionChanged" IsNewNode="True" Index="0" />
         </ExecutionContexts>
       </ExecutionContextsGroup>
-      <!--this is here due to a dx bug-->
       <Rules>
         <ControllerStateRule Id="ConditionalForeignKeyViolation" ExecutionContextGroup="ConditionalForeignKeyViolation" />
-        <ControllerStateRule Id="ConditionalShowDetailView" ExecutionContextGroup="ConditionalForeignKeyViolation" />
       </Rules>
     </ConditionalControllerState>
   </ModelArtifactState>

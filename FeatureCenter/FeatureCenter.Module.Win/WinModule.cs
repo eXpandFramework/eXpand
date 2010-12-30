@@ -28,12 +28,13 @@ namespace FeatureCenter.Module.Win {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             var modelDifferenceBaseModule = (ModelDifferenceBaseModule)moduleManager.Modules.Where(
-                    mbase => typeof(ModelDifferenceBaseModule).IsAssignableFrom(mbase.GetType())).Single();
-            modelDifferenceBaseModule.CreateCustomModelDifferenceStore += ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore;
+                    mbase => typeof(ModelDifferenceBaseModule).IsAssignableFrom(mbase.GetType())).FirstOrDefault();
+            if (modelDifferenceBaseModule != null)
+                modelDifferenceBaseModule.CreateCustomModelDifferenceStore += ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore;
             var exceptionHandlingWinModule =
                 (ExceptionHandlingWinModule)moduleManager.Modules.FindModule(typeof(ExceptionHandlingWinModule));
-            exceptionHandlingWinModule.CustomHandleException += ExceptionHandlingWinModuleOnCustomHandleException;
-
+            if (exceptionHandlingWinModule != null)
+                exceptionHandlingWinModule.CustomHandleException += ExceptionHandlingWinModuleOnCustomHandleException;
         }
 
         void ExceptionHandlingWinModuleOnCustomHandleException(object sender, CustomHandleExceptionEventArgs customHandleExceptionEventArgs) {

@@ -280,7 +280,7 @@
     <Compile Include="ImportExport\UpdateMembers\Updater.cs" />
     <Compile Include="Miscellaneous\LinqQuery\AttributeRegistrator.cs" />
     <Compile Include="ListViewControl\LoadWhenFiltered\AttributeRegistrator.cs" />
-    <Compile Include="ModelArtifact\ConditionalForeignKeyKViolationAndShowDetailView\AttributeRegistrator.cs" />
+    <Compile Include="ModelArtifact\ConditionalForeignKeyKViolation\AttributeRegistrator.cs" />
     <Compile Include="ModelArtifact\ConditionalSaveDelete\AttributeRegistrator.cs" />
     <Compile Include="Navigation\AttributeRegistrator.cs" />
     <Compile Include="PivotChart\ConnectWithCustomer\CAWOrder.cs" />
@@ -478,9 +478,6 @@
     <EmbeddedResource Include="ModelArtifact\ConditionalSaveDelete\MDO_ConditionalSaveDelete.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModelArtifact\ConditionalForeignKeyKViolationAndShowDetailView\MDO_ConditionalForeignKeyViolationAndShowDetailView.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="ListViewControl\LoadWhenFiltered\MDO_LoadWhenFiltered.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -523,6 +520,10 @@
     <EmbeddedResource Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\MDO_ExistentAssemblyRuntimeOrphanedCollection.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="Model.DesignedDiffs.Localization.el.xafml" />
+    <None Include="ModelArtifact\ConditionalForeignKeyKViolation\MDO_ConditionalForeignKeyViolation.xafml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
