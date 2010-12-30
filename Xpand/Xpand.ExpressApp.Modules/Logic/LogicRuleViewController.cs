@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext, object currentObject) {
-            if (isReady) {
+            if (isReady && view != null) {
                 var modelLogicRules = GetValidModelLogicRules(view);
                 var logicRuleInfos = GetContextValidLogicRuleInfos(view, modelLogicRules, currentObject, executionContext, invertCustomization);
                 foreach (var logicRuleInfo in logicRuleInfos) {
