@@ -13,19 +13,19 @@ using Xpand.Persistent.Base.ModelDifference;
 namespace Xpand.ExpressApp.ModelEditor {
     public class ModelControllerBuilder {
         public ModelEditorViewController GetController(PathInfo pathInfo) {
-            ApplicationModulesManager applicationModulesManager = GetApplicationModulesManager(pathInfo);
-            ModelApplicationBase modelApplication = GetModelApplication(applicationModulesManager, pathInfo);
-            return GetController(pathInfo, modelApplication);
-        }
-        ModelEditorViewController GetController(PathInfo pathInfo, ModelApplicationBase modelApplication) {
             var storePath = Path.GetDirectoryName(pathInfo.LocalPath);
             var fileModelStore = new FileModelStore(storePath, Path.GetFileNameWithoutExtension(pathInfo.LocalPath));
+            var applicationModulesManager = GetApplicationModulesManager(pathInfo);
+            var modelApplication = GetModelApplication(applicationModulesManager, pathInfo, fileModelStore);
+            return GetController(fileModelStore, modelApplication);
+        }
+        ModelEditorViewController GetController(FileModelStore fileModelStore, ModelApplicationBase modelApplication) {
             fileModelStore.Load(modelApplication.LastLayer);
             return new ModelEditorViewController((IModelApplication)modelApplication, fileModelStore);
         }
 
-        ModelApplicationBase GetModelApplication(ApplicationModulesManager applicationModulesManager, PathInfo pathInfo) {
-            var modelsManager = new ApplicationModelsManager(applicationModulesManager.Modules, applicationModulesManager.ControllersManager, applicationModulesManager.DomainComponents);
+        ModelApplicationBase GetModelApplication(ApplicationModulesManager applicationModulesManager, PathInfo pathInfo, FileModelStore fileModelStore) {
+            var modelsManager = new ApplicationModelsManager(applicationModulesManager.Modules, applicationModulesManager.ControllersManager, applicationModulesManager.DomainComponents, null, fileModelStore.GetAspects());
             var modelApplication = (ModelApplicationBase)modelsManager.CreateModel(modelsManager.CreateApplicationCreator(), null, false);
             AddLayers(modelApplication, applicationModulesManager, pathInfo);
             return modelApplication;
