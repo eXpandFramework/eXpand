@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Builders {
         public static void CreateDynamicMembers(ISecurityComplex security) {
             XafTypesInfo.Instance.CreateBothPartMembers(
                 GetRoleTypeInfo(security).Type, typeof(RoleModelDifferenceObject),
-                XafTypesInfo.XpoTypeInfoSource.XPDictionary, true, "RoleRoles_RoleModelDifferenceObjectRoleModelDifferenceObjects", "RoleModels", "Roles");
+                XafTypesInfo.XpoTypeInfoSource.XPDictionary, true, "RoleRoles_RoleModelDifferenceObjectRoleModelDifferenceObjects", "RoleModelDifferenceObjects", "Roles");
         }
     }
 }
