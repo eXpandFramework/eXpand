@@ -13,11 +13,6 @@ namespace Xpand.ExpressApp.SystemModule {
     public interface IModelViewEnableFKViolations : IModelClassEnableFKViolations {
     }
 
-    public class MyClass:ViewController {
-        protected override void OnActivated() {
-            base.OnActivated();
-        }
-    }
     public class FKViolationViewController : ViewController, IModelExtender {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelClass, IModelClassEnableFKViolations>();
