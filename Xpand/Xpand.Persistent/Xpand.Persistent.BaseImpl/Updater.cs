@@ -37,16 +37,22 @@ namespace Xpand.Persistent.BaseImpl {
         }
 
 
-        protected virtual IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole role) {
-            var user = (IUserWithRoles)ObjectSpace.Session.FindObject(SecuritySystem.UserType, new BinaryOperator("UserName", userName));
+        protected virtual IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole role,Type userType) {
+            var type = userType;
+            var user = (IUserWithRoles)ObjectSpace.Session.FindObject(type, new BinaryOperator("UserName", userName));
             if (user == null) {
-                user = (IUserWithRoles)ObjectSpace.CreateObject(SecuritySystem.UserType);
-                var typeInfo = XafTypesInfo.Instance.FindTypeInfo(SecuritySystem.UserType);
+                user = (IUserWithRoles)ObjectSpace.CreateObject(type);
+                var typeInfo = XafTypesInfo.Instance.FindTypeInfo(type);
                 typeInfo.FindMember("UserName").SetValue(user, userName);
-                typeInfo.FindMember("FirstName").SetValue(user, userName);
+                var memberInfo = typeInfo.FindMember("FirstName");
+                if (memberInfo != null) memberInfo.SetValue(user, userName);
                 user.Roles.Add(role);
             }
             return user;
+        }
+
+        protected virtual IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole role) {
+            return EnsureUserExists(userName, firstName, role, SecuritySystem.UserType);
         }
 
         protected virtual ICustomizableRole EnsureRoleExists(string roleName, Func<ICustomizableRole, List<IPermission>> permissionAddFunc) {
@@ -58,7 +64,6 @@ namespace Xpand.Persistent.BaseImpl {
                 foreach (var permission in permissionAddFunc.Invoke(role)) {
                     role.AddPermission(permission);
                 }
-                ObjectSpace.Session.Save(role);
             }
 
             return role;
