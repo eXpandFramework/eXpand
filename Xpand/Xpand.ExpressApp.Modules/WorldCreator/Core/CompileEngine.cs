@@ -119,7 +119,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         void AddReferences(CompilerParameters compilerParams, string path) {
             Func<Assembly, bool> isNotDynamic = assembly1 => !(assembly1 is AssemblyBuilder) && !CompiledAssemblies.Contains(assembly1) &&
-                assembly1.EntryPoint == null && !IsCodeDomCompiled(assembly1) && assembly1.ManifestModule.Name.ToLower().IndexOf("mscorlib.resources") == -1 && !string.IsNullOrEmpty(assembly1.Location);
+                assembly1.EntryPoint == null && !IsCodeDomCompiled(assembly1) && assembly1.ManifestModule.Name.ToLower().IndexOf("mscorlib.resources") == -1 && !string.IsNullOrEmpty(GetAssemblyLocation(assembly1));
             Func<Assembly, string> assemblyNameSelector = assembly => new AssemblyName(assembly.FullName + "").Name + ".dll";
             compilerParams.ReferencedAssemblies.AddRange(
                 AppDomain.CurrentDomain.GetAssemblies().Where(isNotDynamic).Select(assemblyNameSelector).ToArray());
@@ -148,7 +148,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         }
 
         static string GetAssemblyLocation(Assembly assembly) {
-            return @"""" + ((assembly is AssemblyBuilder) ? null : (!string.IsNullOrEmpty(assembly.Location) ? Path.GetDirectoryName(assembly.Location) : null)) + @"""";
+            return @"""" + ((assembly is AssemblyBuilder || assembly.GetType().FullName.Equals("System.Reflection.Emit.InternalAssemblyBuilder")) ? null : (!string.IsNullOrEmpty(assembly.Location) ? Path.GetDirectoryName(assembly.Location) : null)) + @"""";
         }
 
 
