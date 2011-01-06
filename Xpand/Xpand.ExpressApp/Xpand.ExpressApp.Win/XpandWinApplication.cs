@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
+using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Win.ViewStrategies;
 
 namespace Xpand.ExpressApp.Win {
@@ -34,7 +35,7 @@ namespace Xpand.ExpressApp.Win {
             return base.CreateLogonParameterStoreCore();
         }
         public new void Start() {
-            if (SecuritySystem.LogonParameters != null) ReadLastLogonParameters(SecuritySystem.LogonParameters);
+            if (SecuritySystem.LogonParameters is IXpandLogonParameters) ReadLastLogonParameters(SecuritySystem.LogonParameters);
             base.Start();
         }
 
