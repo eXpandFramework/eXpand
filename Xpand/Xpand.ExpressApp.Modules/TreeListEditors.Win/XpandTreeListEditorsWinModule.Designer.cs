@@ -25,6 +25,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win {
         private void InitializeComponent() {
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditorsWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(XpandTreeListEditorsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule));
         }
 
         #endregion
