@@ -8,26 +8,23 @@ using DevExpress.Xpo.DB.Helpers;
 namespace Xpand.Xpo.DB {
     public class SchemaColumnSizeUpdater : ISchemaUpdater {
         public void Update(ConnectionProviderSql connectionProviderSql, DataStoreUpdateSchemaEventArgs dataStoreUpdateSchemaEventArgs) {
-            var sqlDataStore = connectionProviderSql;
-            bool weStartedTran = false;
-            if (sqlDataStore.CanCreateSchema) {
-                if (sqlDataStore.Transaction == null) {
-                    sqlDataStore.ExplicitBeginTransaction();
-                    weStartedTran = true;
+            lock (connectionProviderSql.SyncRoot)
+            {
+                if (!connectionProviderSql.CanCreateSchema)
+                    return;
+
+                try
+                {
+                    if (dataStoreUpdateSchemaEventArgs.UpdateSchemaResult == UpdateSchemaResult.SchemaExists)
+                        UpdateColumnSize(dataStoreUpdateSchemaEventArgs.Tables, connectionProviderSql);
+                }
+                catch (System.Exception e)
+                {
+                    System.Diagnostics.Trace.TraceError(e.ToString());
                 }
             }
-            try {
-                if (dataStoreUpdateSchemaEventArgs.UpdateSchemaResult == UpdateSchemaResult.SchemaExists)
-                    UpdateColumnSize(dataStoreUpdateSchemaEventArgs.Tables, sqlDataStore);
-                if (weStartedTran)
-                    sqlDataStore.ExplicitCommitTransaction();
-            } catch {
-                if (weStartedTran)
-                    sqlDataStore.ExplicitRollbackTransaction();
-                throw;
-            }
-
         }
+
         private void UpdateColumnSize(IEnumerable<DBTable> tables, ConnectionProviderSql sqlDataStore) {
             foreach (var table in tables) {
                 DBTable actualTable = null;
