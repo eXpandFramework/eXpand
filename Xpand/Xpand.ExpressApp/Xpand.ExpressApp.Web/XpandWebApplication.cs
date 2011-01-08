@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
 
 
 namespace Xpand.ExpressApp.Web {
-    public partial class XpandWebApplication : DevExpress.ExpressApp.Web.WebApplication, ISupportModelsManager, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportCreateLogonParameterStore {
+    public partial class XpandWebApplication : WebApplication, ISupportModelsManager, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportCreateLogonParameterStore {
         protected XpandWebApplication() {
             InitializeComponent();
             DetailViewCreating += OnDetailViewCreating;
             ListViewCreating += OnListViewCreating;
+        }
+        protected override void OnLoggedOn(LogonEventArgs args) {
+            base.OnLoggedOn(args);
+            ((ShowViewStrategy)ShowViewStrategy).CollectionsEditMode = DevExpress.ExpressApp.Editors.ViewEditMode.Edit;
         }
 
         public event EventHandler<ViewShownEventArgs> AfterViewShown;
