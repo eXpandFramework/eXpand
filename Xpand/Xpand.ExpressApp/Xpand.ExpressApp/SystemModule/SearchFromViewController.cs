@@ -24,6 +24,15 @@ namespace Xpand.ExpressApp.SystemModule {
     public interface IModelColumnSearchMode : IModelMemberSearchMode {
 
     }
+
+    public interface IModelClassSearchMemberMode {
+        [Category("eXpand")]
+        FullTextSearchTargetPropertiesMode? FullTextSearchTargetPropertiesMode { get; set; } 
+    }
+    [ModelInterfaceImplementor(typeof(IModelClassSearchMemberMode), "ModelClass")]
+    public interface IModelListViewSearchMemberMode:IModelClassSearchMemberMode {
+        
+    }
     public class XpandSearchCriteriaBuilder : SearchCriteriaBuilder {
         readonly List<IMemberInfo> _excludedColumns;
         readonly List<IMemberInfo> _inculdedColumns;
@@ -68,6 +77,8 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelMember, IModelMemberSearchMode>();
             extenders.Add<IModelPropertyEditor, IModelPropertyEditorSearchMode>();
             extenders.Add<IModelColumn, IModelColumnSearchMode>();
+            extenders.Add<IModelClass, IModelClassSearchMemberMode>();
+            extenders.Add<IModelListView, IModelListViewSearchMemberMode>();
         }
         private string[] GetShownProperties(XpandSearchCriteriaBuilder criteriaBuilder) {
             var visibleProperties = new List<string>();
@@ -89,7 +100,7 @@ namespace Xpand.ExpressApp.SystemModule {
         protected virtual ICollection<String> GetFullTextSearchProperties(XpandSearchCriteriaBuilder criteriaBuilder) {
 
             criteriaBuilder.IncludeNonPersistentMembers = false;
-            var fullTextSearchTargetPropertiesMode = Frame.GetController<FilterController>().FullTextSearchTargetPropertiesMode;
+            FullTextSearchTargetPropertiesMode fullTextSearchTargetPropertiesMode = GetFullTextSearchTargetPropertiesMode();
             switch (fullTextSearchTargetPropertiesMode) {
                 case FullTextSearchTargetPropertiesMode.AllSearchableMembers:
                     criteriaBuilder.FillSearchProperties();
@@ -109,6 +120,13 @@ namespace Xpand.ExpressApp.SystemModule {
             return criteriaBuilder.SearchProperties;
         }
 
+        FullTextSearchTargetPropertiesMode GetFullTextSearchTargetPropertiesMode() {
+            var fullTextSearchTargetPropertiesMode = Frame.GetController<FilterController>().FullTextSearchTargetPropertiesMode;
+            var textSearchTargetPropertiesMode = ((IModelListViewSearchMemberMode) View.Model).FullTextSearchTargetPropertiesMode;
+            if (textSearchTargetPropertiesMode.HasValue)
+                fullTextSearchTargetPropertiesMode = textSearchTargetPropertiesMode.Value;
+            return fullTextSearchTargetPropertiesMode;
+        }
     }
 
 }

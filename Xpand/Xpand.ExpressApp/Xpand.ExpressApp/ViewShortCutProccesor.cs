@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
 using Xpand.ExpressApp.Model;
 
 
@@ -37,7 +38,7 @@ namespace Xpand.ExpressApp {
 
         bool CanCreate(ITypeInfo typeInfo) {
             if (!(typeInfo.IsPersistent)) {
-                return typeInfo.Type.GetConstructor(Type.EmptyTypes) != null;
+                return (typeInfo.Type.GetConstructor(Type.EmptyTypes) != null) || (typeInfo.Type.GetConstructor(new[] { typeof(Session) }) != null);
             }
             return true;
         }
@@ -85,7 +86,7 @@ namespace Xpand.ExpressApp {
                         ((ISupportAfterViewShown)_application).AfterViewShown += OnAfterViewShown;
                 }
             } else {
-                obj = Activator.CreateInstance(type);
+                obj = (type.GetConstructor(new[] { typeof(Session) })!=null)  ? objectSpace.CreateObject(type) : Activator.CreateInstance(type);
             }
             return obj;
         }

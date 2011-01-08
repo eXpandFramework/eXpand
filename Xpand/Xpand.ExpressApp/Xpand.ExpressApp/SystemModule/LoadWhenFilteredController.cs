@@ -7,60 +7,50 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 
-namespace Xpand.ExpressApp.SystemModule
-{
-    public interface IModelClassLoadWhenFiltered:IModelNode
-    {
+namespace Xpand.ExpressApp.SystemModule {
+    public interface IModelClassLoadWhenFiltered : IModelNode {
         [Category("eXpand")]
         [Description("Only loads listview records when a filter is present")]
-        bool LoadWhenFiltered { get; set; }    
+        bool LoadWhenFiltered { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelClassLoadWhenFiltered), "ModelClass")]
-    public interface IModelListViewLoadWhenFiltered : IModelClassLoadWhenFiltered
-    {
+    public interface IModelListViewLoadWhenFiltered : IModelClassLoadWhenFiltered {
     }
 
-    public abstract class LoadWhenFilteredController:ViewController<XpandListView>
-    {
+    public abstract class LoadWhenFilteredController : ViewController<XpandListView> {
         protected const string LoadWhenFiltered = "LoadWhenFiltered";
-        protected override void OnViewControlsCreated()
-        {
+        protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            
-            if (IsReady())
-            {
+
+            if (IsReady()) {
                 var filterController = Frame.GetController<FilterController>();
                 filterController.FullTextFilterAction.Execute += FullTextFilterAction_Execute;
-                View.CollectionSource.Criteria[LoadWhenFiltered]=GetDoNotLoadWhenFilterExistsCriteria();
+                View.CollectionSource.Criteria[LoadWhenFiltered] = GetDoNotLoadWhenFilterExistsCriteria();
             }
         }
 
-        protected bool IsReady()
-        {
+        protected bool IsReady() {
             var modelListViewGridViewOptions = ((IModelListViewLoadWhenFiltered)View.Model);
-            return modelListViewGridViewOptions.LoadWhenFiltered &&string.IsNullOrEmpty(GetActiveFilter());
+            return modelListViewGridViewOptions.LoadWhenFiltered && string.IsNullOrEmpty(GetActiveFilter());
         }
 
         protected abstract string GetActiveFilter();
 
-        void FullTextFilterAction_Execute(object sender, ParametrizedActionExecuteEventArgs e)
-        {
+        void FullTextFilterAction_Execute(object sender, ParametrizedActionExecuteEventArgs e) {
             if (string.IsNullOrEmpty(e.ParameterCurrentValue as string))
-                View.CollectionSource.Criteria[LoadWhenFiltered]=GetDoNotLoadWhenFilterExistsCriteria();
+                View.CollectionSource.Criteria[LoadWhenFiltered] = GetDoNotLoadWhenFilterExistsCriteria();
             else
                 ClearDoNotLoadWhenFilterExistsCriteria();
         }
 
-        protected BinaryOperator GetDoNotLoadWhenFilterExistsCriteria()
-        {
+        protected BinaryOperator GetDoNotLoadWhenFilterExistsCriteria() {
             IMemberInfo memberInfo = View.ObjectTypeInfo.KeyMember;
             Type memberType = memberInfo.MemberType;
             object o = memberType.IsValueType ? Activator.CreateInstance(memberType) : null;
             return new BinaryOperator(memberInfo.Name, o);
         }
 
-        protected void ClearDoNotLoadWhenFilterExistsCriteria()
-        {
+        protected void ClearDoNotLoadWhenFilterExistsCriteria() {
             View.CollectionSource.Criteria[LoadWhenFiltered] = null;
         }
 

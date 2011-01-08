@@ -19,8 +19,9 @@ namespace Xpand.Persistent.BaseImpl {
 
         protected virtual List<IPermission> GetPermissions(ICustomizableRole role) {
             var permissions = new List<IPermission>();
-            if (role.Name != Administrators)
+            if (role.Name != Administrators) {
                 permissions.Add(new ObjectAccessPermission(((ISecurityComplex)SecuritySystem.Instance).RoleType, ObjectAccess.AllAccess, ObjectAccessModifier.Deny));
+            }
             else {
                 permissions.Add(new EditModelPermission(ModelAccessModifier.Allow));
             }
