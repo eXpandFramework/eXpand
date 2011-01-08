@@ -29,6 +29,7 @@ namespace Xpand.ExpressApp.FilterDataStore.Web
         private void InitializeComponent()
         {
             this.RequiredModuleTypes.Add(typeof(FilterDataStoreModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule));
         }
 
         #endregion

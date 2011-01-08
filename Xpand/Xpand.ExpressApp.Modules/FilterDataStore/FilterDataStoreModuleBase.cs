@@ -15,7 +15,11 @@ using Xpand.Xpo.Filtering;
 
 namespace Xpand.ExpressApp.FilterDataStore {
     public abstract class FilterDataStoreModuleBase:XpandModuleBase {
-        readonly Dictionary<string, Type> _tablesDictionary = new Dictionary<string, Type>();
+        static FilterDataStoreModuleBase() {
+            _tablesDictionary = new Dictionary<string, Type>();
+        }
+
+        static readonly Dictionary<string, Type> _tablesDictionary ;
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (ProxyEventsSubscribed.HasValue&&ProxyEventsSubscribed.Value) {
