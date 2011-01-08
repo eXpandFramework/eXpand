@@ -46,6 +46,7 @@ namespace FeatureCenter.Module {
         public static IQueryable EmployeesLinq(Session session) {
             return new XPQuery<Customer>(session).Select(customer =>
                                                          new {
+                                                             customer.Oid,
                                                              Name_City = customer.Name + " " + customer.City,
                                                              Orders_Last_OrderDate = customer.Orders.Max(order => order.OrderDate)
                                                          });
