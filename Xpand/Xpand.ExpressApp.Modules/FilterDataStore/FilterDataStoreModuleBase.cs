@@ -6,6 +6,7 @@ using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.FilterDataStore.Core;
@@ -172,7 +173,14 @@ namespace Xpand.ExpressApp.FilterDataStore {
         string GetNodeAlias(SelectStatement statement, FilterProviderBase providerBase) {
             return statement.Operands.OfType<QueryOperand>().Where(operand
                 => operand.ColumnName == providerBase.FilterMemberName).Select(operand
-                    => operand.NodeAlias).FirstOrDefault() ?? statement.Alias;
+                    => operand.NodeAlias).FirstOrDefault() ?? GetNodeAlias(statement, providerBase.FilterMemberName);
+        }
+
+        string GetNodeAlias(SelectStatement statement, string filterMemberName) {
+            if (GetModelClass(statement.TableName).OwnMembers.Where(member => member.Name==filterMemberName).FirstOrDefault()==null) {
+                return statement.SubNodes[0].Alias;
+            }
+            return statement.Alias;
         }
 
 
@@ -190,12 +198,15 @@ namespace Xpand.ExpressApp.FilterDataStore {
             bool ret = false;
 
             if (_tablesDictionary.ContainsKey(tableName)) {
-                var classInfoNodeWrapper = Application.Model.BOModel[_tablesDictionary[tableName].FullName];
-                if (classInfoNodeWrapper != null &&
-                    ((IModelClassDisabledDataStoreFilters)classInfoNodeWrapper).DisabledDataStoreFilters.Where(
+                IModelClass modelClass = GetModelClass(tableName);
+                if (modelClass != null &&((IModelClassDisabledDataStoreFilters)modelClass).DisabledDataStoreFilters.Where(
                         childNode => childNode.Name == providerName).FirstOrDefault() != null) ret = true;
             }
             return ret;
+        }
+
+        IModelClass GetModelClass(string tableName) {
+            return Application.Model.BOModel[_tablesDictionary[tableName].FullName];
         }
     }
 }
