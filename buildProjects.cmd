@@ -20,7 +20,7 @@ call buildproject.cmd Xpand.ExpressApp.ModelDifference.Win ".\Xpand\Xpand.Expres
 call buildproject.cmd Xpand.ExpressApp.ModelDifference.Web ".\Xpand\Xpand.ExpressApp.Modules\ModelDifference.Web\Xpand.ExpressApp.ModelDifference.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.FilterDataStore ".\Xpand\Xpand.ExpressApp.Modules\FilterDataStore\Xpand.ExpressApp.FilterDataStore.csproj"
 call buildproject.cmd Xpand.ExpressApp.FilterDataStore.Win ".\Xpand\Xpand.ExpressApp.Modules\FilterDataStore.Win\Xpand.ExpressApp.FilterDataStore.Win.csproj"
-call buildproject.cmd Xpand.ExpressApp.FilterDataStore.Web ".\Xpand\Xpand.ExpressApp.Modules\FilterDataStore.Win\Xpand.ExpressApp.FilterDataStore.Web.csproj"
+call buildproject.cmd Xpand.ExpressApp.FilterDataStore.Web ".\Xpand\Xpand.ExpressApp.Modules\FilterDataStore.Web\Xpand.ExpressApp.FilterDataStore.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.ArtifactState ".\Xpand\Xpand.ExpressApp.Modules\ArtifactState\Xpand.ExpressApp.ArtifactState.csproj"
 call buildproject.cmd Xpand.ExpressApp.ConditionalActionState ".\Xpand\Xpand.ExpressApp.Modules\ConditionalActionState\Xpand.ExpressApp.ConditionalActionState.csproj"
 call buildproject.cmd Xpand.ExpressApp.ConditionalControllerState ".\Xpand\Xpand.ExpressApp.Modules\ConditionalControllerState\Xpand.ExpressApp.ConditionalControllerState.csproj"
