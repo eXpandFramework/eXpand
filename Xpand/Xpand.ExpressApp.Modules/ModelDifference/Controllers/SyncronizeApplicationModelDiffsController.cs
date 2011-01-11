@@ -8,7 +8,7 @@ using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 
 namespace Xpand.ExpressApp.ModelDifference.Controllers {
     public interface IModelOptionsApplicationModelDiffs : IModelOptions {
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         [Description("When an active model difference is saved then it will be combined with application model difference")]
         [Category("eXpand.ModelDifference")]
         bool SynchronizeApplicationModelDiffs { get; set; }
@@ -27,8 +27,8 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
                 ObjectSpace.ObjectSaving += ObjectSpaceOnObjectSaving;
         }
 
-        protected override void OnDeactivating() {
-            base.OnDeactivating();
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
             if (_synchronizeApplicationModelDiffs)
                 ObjectSpace.ObjectSaved -= ObjectSpaceOnObjectSaving;
         }
