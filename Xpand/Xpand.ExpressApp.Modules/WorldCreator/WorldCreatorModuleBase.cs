@@ -26,11 +26,11 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
+            var businessClassesList = GetAdditionalClasses(moduleManager);
+            WCTypesInfo.Instance.Register(businessClassesList);
             if (Application == null || GetPath() == null)
                 return;
             Application.SettingUp += ApplicationOnSettingUp;
-            var businessClassesList = GetAdditionalClasses(moduleManager);
-            WCTypesInfo.Instance.Register(businessClassesList);
             if (_connectionString != null) {
                 var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
                 using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
@@ -80,13 +80,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                         if (insertStatement != null && !sync) {
                             sync = true;
                             xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, simpleDataLayer, type1.Oid);
-                            ModificationResult modificationResult = null;
-                            try {
-                                modificationResult = sqlDataStoreProxy.ModifyData(insertStatement);
-                            }
-                            catch (Exception e) {
-                                Console.WriteLine(e);
-                            }
+                            ModificationResult modificationResult = sqlDataStoreProxy.ModifyData(insertStatement);
                             args.ModificationResult = modificationResult;
                             args.ModificationResult.Identities = new[] { new ParameterValue { Value = type1.Oid }, };
                         }
