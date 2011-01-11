@@ -29,9 +29,12 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         protected override void OnActivated() {
-            if (((IModelListViewFilterControlSettings)View.Model).FilterControlPosition != Forms.DockStyle.None)
+            if (((IModelListViewFilterControlSettings)View.Model).FilterControlPosition !=
+Forms.DockStyle.None) {
                 View.ControlsCreated +=
                     (sender, args) => ((Forms.Control)View.Control).HandleCreated += gridControl_HandleCreated;
+                Frame.ViewChanged += Frame_ViewChanged;
+            }
         }
 
         private Editors.XpandFilterControl _xpandFilterControl;
@@ -62,26 +65,43 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 SourceControl = gridControl
             };
             OnCustomAssignFilterControlSourceControl(e);
-            gridControl = _xpandFilterControl.SourceControl as GridControl;
-            if (gridControl != null) {
-                if (!gridControl.FormsUseDefaultLookAndFeel)
-                    _xpandFilterControl.LookAndFeel.Assign(gridControl.LookAndFeel);
-                _xpandFilterControl.FilterCriteria = GetCriteriaFromView();
-            }
+            gridControl = (GridControl) _xpandFilterControl.SourceControl ;
+            if (!gridControl.FormsUseDefaultLookAndFeel)
+                _xpandFilterControl.LookAndFeel.Assign(gridControl.LookAndFeel);
+            _xpandFilterControl.FilterCriteria = GetCriteriaFromView();
 
-            var accept = new SimpleButton { Text = CaptionHelper.GetLocalizedText("eXpand", "AcceptFilter") };
+            var accept = new SimpleButton {
+                Text = CaptionHelper.GetLocalizedText("eXpand",
+                    "AcceptFilter")
+            };
             accept.Click += ((o, args) => _xpandFilterControl.ApplyFilter());
             accept.Dock = Forms.DockStyle.Bottom;
             _xpandFilterControl.Controls.Add(accept);
 
-            ((Forms.Control)sender).Parent.Controls.Add(_xpandFilterControl);
+            if (gridControl.Parent != null) {
+                gridControl.Parent.Controls.Add(_xpandFilterControl);
+            } else {
+                gridControl.ParentChanged += gridControl_ParentChanged;
+            }
             OnFilterControlCreated(EventArgs.Empty);
+        }
+        void gridControl_ParentChanged(object sender, EventArgs e) {
+            var gridControl = (GridControl)sender;
+            gridControl.ParentChanged -= gridControl_ParentChanged;
+            if (gridControl.Parent != null) {
+                gridControl.Parent.Controls.Add(_xpandFilterControl);
+            }
+        }
+        void Frame_ViewChanged(object sender, ViewChangedEventArgs e) {
+            var control = ((GridControl)View.Control);
+            control.BringToFront();
         }
 
         private CriteriaOperator GetCriteriaFromView() {
-            var criteriaWrapper = new CriteriaWrapper(View.ObjectTypeInfo.Type, ((IModelListViewWin)View.Model).ActiveFilterString, false);
+            var criteriaWrapper = new CriteriaWrapper(View.ObjectTypeInfo.Type,
+((IModelListViewWin)View.Model).ActiveFilterString, false);
             new FilterWithObjectsProcessor(ObjectSpace).Process(criteriaWrapper.CriteriaOperator,
-                                                                FilterWithObjectsProcessorMode.StringToObject);
+            FilterWithObjectsProcessorMode.StringToObject);
             return criteriaWrapper.CriteriaOperator;
         }
     }
