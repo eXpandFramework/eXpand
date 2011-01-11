@@ -1,9 +1,8 @@
 ﻿using System;
 
 namespace Xpand.ExpressApp.Attributes {
-    [AttributeUsage(AttributeTargets.Method,AllowMultiple = true)]
-    public sealed class CustomQueryPropertyAttribute : Attribute
-    {
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    public sealed class CustomQueryPropertyAttribute : Attribute {
         readonly string _name;
         readonly Type _type;
         public string Name { get { return _name; } }
