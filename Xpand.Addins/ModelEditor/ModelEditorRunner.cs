@@ -28,7 +28,7 @@ namespace XpandAddIns.ModelEditor {
                 return;
             }
 
-            string arguments = String.Format("'{0}' '{1}' '{2}'", Path.GetFullPath(assemblyPath), fullPath, projectWrapper.LocalPath);
+            string arguments = String.Format("\"{0}\" \"{2}\" \"{1}\"", Path.GetFullPath(assemblyPath), fullPath, projectWrapper.LocalPath);
             if (File.Exists(path))
                 Process.Start(path, arguments);
             else
