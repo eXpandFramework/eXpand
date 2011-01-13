@@ -1,7 +1,5 @@
 ﻿
-namespace Xpand.ExpressApp.Security
-{
-    public interface IXpandLogonParameters
-    {
+namespace Xpand.ExpressApp.Security {
+    public interface IXpandLogonParameters {
     }
 }

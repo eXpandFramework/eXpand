@@ -5,8 +5,7 @@ using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.Security.AuthenticationProviders {
     [NonPersistent]
-    public class XpandLogonParameters : AuthenticationStandardLogonParameters, ICustomObjectSerialize, IXpandLogonParameters
-    {
+    public class XpandLogonParameters : AuthenticationStandardLogonParameters, ICustomObjectSerialize, IXpandLogonParameters {
         [Index(2)]
         public bool RememberMe { get; set; }
 

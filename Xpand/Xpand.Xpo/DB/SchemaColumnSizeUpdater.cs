@@ -8,18 +8,14 @@ using DevExpress.Xpo.DB.Helpers;
 namespace Xpand.Xpo.DB {
     public class SchemaColumnSizeUpdater : ISchemaUpdater {
         public void Update(ConnectionProviderSql connectionProviderSql, DataStoreUpdateSchemaEventArgs dataStoreUpdateSchemaEventArgs) {
-            lock (connectionProviderSql.SyncRoot)
-            {
+            lock (connectionProviderSql.SyncRoot) {
                 if (!connectionProviderSql.CanCreateSchema)
                     return;
 
-                try
-                {
+                try {
                     if (dataStoreUpdateSchemaEventArgs.UpdateSchemaResult == UpdateSchemaResult.SchemaExists)
                         UpdateColumnSize(dataStoreUpdateSchemaEventArgs.Tables, connectionProviderSql);
-                }
-                catch (System.Exception e)
-                {
+                } catch (System.Exception e) {
                     System.Diagnostics.Trace.TraceError(e.ToString());
                 }
             }
@@ -40,9 +36,6 @@ namespace Xpand.Xpo.DB {
                             var sql = GetSql(table, sqlDataStore, column);
                             System.Diagnostics.Trace.WriteLineIf(new System.Diagnostics.TraceSwitch("XPO", "").TraceInfo, sql);
                             sqlDataStore.ExecSql(new Query(sql));
-                        } else {
-                            //                            Debug.Fail("The size of a DB column will not be decreased." +
-                            //                                       " So changing the SizeAttribute of a column to have a smaller size than previously specified will have no effect.");
                         }
                     }
                 }

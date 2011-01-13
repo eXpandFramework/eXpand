@@ -7,27 +7,23 @@ namespace Xpand.ExpressApp.Attributes {
         ListView,
         LookupListView
     }
-    [AttributeUsage(AttributeTargets.Class|AttributeTargets.Method,AllowMultiple = true)]
-    public class CloneViewAttribute : Attribute,ISupportViewId
-    {
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+    public class CloneViewAttribute : Attribute, ISupportViewId {
         readonly CloneViewType _viewType;
         readonly string _viewId;
 
-        public CloneViewAttribute(CloneViewType viewType, string viewId)
-        {
+        public CloneViewAttribute(CloneViewType viewType, string viewId) {
             _viewType = viewType;
             _viewId = viewId;
         }
 
 
-        public string ViewId
-        {
+        public string ViewId {
             get { return _viewId; }
         }
 
 
-        public CloneViewType ViewType
-        {
+        public CloneViewType ViewType {
             get { return _viewType; }
         }
 
