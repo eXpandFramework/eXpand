@@ -9,26 +9,26 @@ using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 
-namespace Xpand.ExpressApp.ModelDifference.Controllers{
-    public class CombineDifferencesController : ViewController<ListView>{
+namespace Xpand.ExpressApp.ModelDifference.Controllers {
+    public class CombineDifferencesController : ViewController<ListView> {
 
-        public CombineDifferencesController(){
-            var combineAction = new SimpleAction(this,"Combine",PredefinedCategory.ObjectsCreation);
-            combineAction.Execute+=combineSimpleAction_Execute;
-            TargetObjectType = typeof (ModelDifferenceObject);
+        public CombineDifferencesController() {
+            var combineAction = new SimpleAction(this, "Combine", PredefinedCategory.ObjectsCreation);
+            combineAction.Execute += combineSimpleAction_Execute;
+            TargetObjectType = typeof(ModelDifferenceObject);
         }
 
 
 
-        private void combineSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e){
+        private void combineSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
             var modelDifferenceObjects = e.SelectedObjects.OfType<ModelDifferenceObject>();
             CheckIfMixingApplications(modelDifferenceObjects);
-            e.ShowViewParameters.CreatedView = Application.CreateListView(Application.CreateObjectSpace(),typeof (ModelDifferenceObject),true);
-            e.ShowViewParameters.TargetWindow=TargetWindow.NewModalWindow;
+            e.ShowViewParameters.CreatedView = Application.CreateListView(Application.CreateObjectSpace(), typeof(ModelDifferenceObject), true);
+            e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             var dialogController = new DialogController();
             e.ShowViewParameters.Controllers.Add(dialogController);
-            dialogController.AcceptAction.Execute+=AcceptActionOnExecute;
-            
+            dialogController.AcceptAction.Execute += AcceptActionOnExecute;
+
         }
 
         void CheckIfMixingApplications(IEnumerable<ModelDifferenceObject> modelDifferenceObjects) {
@@ -37,24 +37,27 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers{
         }
 
         void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs e) {
-            var modelDifferenceObjects = e.SelectedObjects.Cast<ModelDifferenceObject>();
-            List<ModelDifferenceObject> selectedModelAspectObjects =modelDifferenceObjects.ToList();
-            CombineAndSave(selectedModelAspectObjects);
+
+            CombineAndSave(e.SelectedObjects.OfType<ModelDifferenceObject>().Select(o => View.ObjectSpace.GetObject(o)).ToList());
         }
 
 
 
-        public void CombineAndSave(List<ModelDifferenceObject> selectedModelAspectObjects){
+        public void CombineAndSave(List<ModelDifferenceObject> selectedModelAspectObjects) {
             var selectedObjects = View.SelectedObjects.OfType<ModelDifferenceObject>();
             CheckIfMixingApplications(selectedObjects);
-            foreach (var differenceObject in selectedObjects) {
+            foreach (var differenceObject in selectedModelAspectObjects) {
                 var masterModel = new ModelLoader(differenceObject.PersistentApplication.ExecutableName).GetMasterModel();
                 var model = differenceObject.GetModel(masterModel);
-                foreach (var selectedModelAspectObject in selectedModelAspectObjects) {
+                foreach (var selectedModelAspectObject in selectedObjects) {
                     foreach (var aspectObject in selectedModelAspectObject.AspectObjects) {
                         var xml = aspectObject.Xml;
                         if (!(string.IsNullOrEmpty(xml))) {
-                            new ModelXmlReader().ReadFromString(model, differenceObject.GetAspectName(aspectObject), xml);
+                            var aspectName = differenceObject.GetAspectName(aspectObject);
+                            if (aspectName != "" && model.Aspects.Where(s => s == aspectName).FirstOrDefault() == null) {
+                                model.AddAspect(aspectName);
+                            }
+                            new ModelXmlReader().ReadFromString(model, aspectName, xml);
                         }
                     }
                 }
