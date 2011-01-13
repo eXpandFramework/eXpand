@@ -20,6 +20,8 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
 
         public static FilterProviderCollection Providers {
             get {
+                if (ValueManager.Value == null)
+                    Initialize();
                 return ValueManager.Value;
             }
         }
@@ -41,7 +43,8 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
                 var qc =ConfigurationManager.GetSection("FilterProvider") as FilterProviderConfiguration;
 
                 if (qc == null)
-                    return;
+                    throw new ConfigurationErrorsException(
+                        "FilterProvider section not found in your application configuration file");
                 if (qc.DefaultProvider == null)
                     throw new ProviderException("You must specify a valid default provider.");
                 ValueManager.Value = new FilterProviderCollection();

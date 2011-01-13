@@ -18,6 +18,7 @@ namespace Xpand.ExpressApp.FilterDataStore.NodeGenerators {
             node.AddNode<IModelFilterDataStoreSystemTable>("XPWeakReference");
             node.AddNode<IModelFilterDataStoreSystemTable>("ModuleInfo");
             node.AddNode<IModelFilterDataStoreSystemTable>("User");
+            node.AddNode<IModelFilterDataStoreSystemTable>("SimpleUser");
             node.AddNode<IModelFilterDataStoreSystemTable>("Party");
             node.AddNode<IModelFilterDataStoreSystemTable>("Person");
             node.AddNode<IModelFilterDataStoreSystemTable>("Role");

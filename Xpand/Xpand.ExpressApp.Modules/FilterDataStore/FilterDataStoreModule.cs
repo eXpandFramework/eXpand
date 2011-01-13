@@ -7,10 +7,6 @@ namespace Xpand.ExpressApp.FilterDataStore {
         public FilterDataStoreModule() {
             InitializeComponent();
         }
-        public override void Setup(DevExpress.ExpressApp.ApplicationModulesManager moduleManager) {
-            base.Setup(moduleManager);
-            FilterProviderManager.Initialize();
-        }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelClass, IModelClassDisabledDataStoreFilters>();

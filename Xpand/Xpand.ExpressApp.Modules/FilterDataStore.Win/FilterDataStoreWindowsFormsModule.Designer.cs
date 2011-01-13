@@ -28,6 +28,7 @@ namespace Xpand.ExpressApp.FilterDataStore.Win
         /// </summary>
         private void InitializeComponent()
         {
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(FilterDataStoreModule));
         }
 

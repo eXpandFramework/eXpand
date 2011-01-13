@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
+using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.FilterDataStore.Core;
 using Xpand.ExpressApp.FilterDataStore.Model;
 using Xpand.Xpo.DB;
@@ -50,11 +51,19 @@ namespace Xpand.ExpressApp.FilterDataStore {
                 foreach (var persistentType in typesInfo.PersistentTypes.Where(info => info.IsPersistent)) {
                     var xpClassInfo = XafTypesInfo.XpoTypeInfoSource.GetEntityClassInfo(persistentType.Type);
                     if (xpClassInfo.TableName != null && xpClassInfo.ClassType != null) {
-                        _tablesDictionary.Add(xpClassInfo.TableName, xpClassInfo.ClassType);
+                        if (!IsMappedToParent(xpClassInfo))
+                            _tablesDictionary.Add(xpClassInfo.TableName, xpClassInfo.ClassType);
                     }
                 }
             }
         }
+
+        bool IsMappedToParent(XPClassInfo xpClassInfo) {
+            var attributeInfo = xpClassInfo.FindAttributeInfo(typeof(MapInheritanceAttribute));
+            return attributeInfo != null &&
+                   ((MapInheritanceAttribute) attributeInfo).MapType == MapInheritanceType.ParentTable;
+        }
+
         void CreateMembers(ITypesInfo typesInfo) {
             foreach (FilterProviderBase provider in FilterProviderManager.Providers) {
                 FilterProviderBase provider1 = provider;
