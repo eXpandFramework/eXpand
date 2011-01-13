@@ -1,7 +1,5 @@
-namespace XpandAddIns.Enums
-{
-    public enum ConfigurationProperty
-    {
+namespace XpandAddIns.Enums {
+    public enum ConfigurationProperty {
         OutputPath
     }
 }

@@ -1,7 +1,5 @@
-namespace XpandAddIns.Enums
-{
-    public enum SolutionProperty
-    {
+namespace XpandAddIns.Enums {
+    public enum SolutionProperty {
         StartupProject
     }
 }

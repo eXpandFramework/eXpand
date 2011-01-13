@@ -1,7 +1,5 @@
-namespace XpandAddIns.Enums
-{
-    public enum ProjectProperty
-    {
+namespace XpandAddIns.Enums {
+    public enum ProjectProperty {
         FullPath,
         OutputFileName
     }

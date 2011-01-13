@@ -33,7 +33,6 @@ namespace Xpand.ExpressApp.ModelEditor {
             Application.ThreadException += OnException;
 
             try {
-
                 var pathInfo = new PathInfo(args);
                 Tracing.Tracer.LogSeparator("PathInfo");
                 Tracing.Tracer.LogText(pathInfo.ToString());

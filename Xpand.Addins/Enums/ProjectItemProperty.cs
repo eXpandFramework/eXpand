@@ -1,5 +1,5 @@
-namespace XpandAddIns.Enums{
-    public enum ProjectItemProperty{
+namespace XpandAddIns.Enums {
+    public enum ProjectItemProperty {
         Extension,
         FileName,
         CustomToolOutput,

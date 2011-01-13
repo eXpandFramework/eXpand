@@ -6,29 +6,24 @@ using DevExpress.CodeRush.Core;
 
 namespace XpandAddIns.ModelEditor {
     public class ModelEditorRunner {
-        public void Start(ProjectWrapper projectWrapper)
-        {
+        public void Start(ProjectWrapper projectWrapper) {
             string outputFileName = projectWrapper.OutPutFileName;
             if (outputFileName.ToLower().EndsWith(".exe"))
                 outputFileName += ".config";
-            using (var storage = new DecoupledStorage(typeof(Options)))
-            {
+            using (var storage = new DecoupledStorage(typeof(Options))) {
                 string path = storage.ReadString(Options.GetPageName(), "modelEditorPath");
-                if (!String.IsNullOrEmpty(path))
-                {
+                if (!String.IsNullOrEmpty(path)) {
                     StartMEProcess(projectWrapper, outputFileName, path);
                     return;
                 }
                 const string modeleditorpathPathIsEmpty = "ModelEditorPath path is empty";
                 MessageBox.Show(modeleditorpathPathIsEmpty);
-            }    
+            }
         }
-        void StartMEProcess(ProjectWrapper projectWrapper, string outputFileName, string path)
-        {
+        void StartMEProcess(ProjectWrapper projectWrapper, string outputFileName, string path) {
             var fullPath = projectWrapper.FullPath;
             string assemblyPath = Path.Combine(fullPath, Path.Combine(projectWrapper.OutputPath, outputFileName));
-            if (!File.Exists(assemblyPath))
-            {
+            if (!File.Exists(assemblyPath)) {
                 MessageBox.Show(String.Format(@"Assembly {0} not found", assemblyPath), null, MessageBoxButtons.OK);
                 return;
             }
