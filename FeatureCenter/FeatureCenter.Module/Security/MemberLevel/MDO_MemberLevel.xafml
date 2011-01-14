@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Application>
-  <Views>
-    <ListView Id="MLSCustomer_ListView" AllowEdit="True" MasterDetailMode="ListViewAndDetailView" />
-  </Views>
-</Application>
