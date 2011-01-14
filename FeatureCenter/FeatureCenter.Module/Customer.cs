@@ -41,16 +41,24 @@ namespace FeatureCenter.Module {
             get { return (City + "").Length < 3 ? "Last week I was staying at " + City : null; }
         }
 
+
         [CustomQueryProperty("Name_City", typeof(string))]
         [CustomQueryProperty("Orders_Last_OrderDate", typeof(DateTime))]
         public static IQueryable EmployeesLinq(Session session) {
             return new XPQuery<Customer>(session).Select(customer =>
-                                                         new {
-                                                             customer.Oid,
+                                                         new CustomerOrdersProxy {
+                                                             Oid=customer.Oid,
                                                              Name_City = customer.Name + " " + customer.City,
                                                              Orders_Last_OrderDate = customer.Orders.Max(order => order.OrderDate)
                                                          });
         }
+        [NonPersistent]
+        public class CustomerOrdersProxy {
+            public Guid Oid { get; set; }
 
+            public string Name_City { get; set; }
+
+            public DateTime Orders_Last_OrderDate { get; set; }
+        }
     }
 }
