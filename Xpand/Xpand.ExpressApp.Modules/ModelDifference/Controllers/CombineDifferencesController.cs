@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.ModelDifference.Controllers {
     public class CombineDifferencesController : ViewController<ListView> {
@@ -54,7 +55,7 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
                         var xml = aspectObject.Xml;
                         if (!(string.IsNullOrEmpty(xml))) {
                             var aspectName = differenceObject.GetAspectName(aspectObject);
-                            if (aspectName != "" && model.Aspects.Where(s => s == aspectName).FirstOrDefault() == null) {
+                            if (aspectName != "" && !(model.HasAspect(aspectName))) {
                                 model.AddAspect(aspectName);
                             }
                             new ModelXmlReader().ReadFromString(model, aspectName, xml);
