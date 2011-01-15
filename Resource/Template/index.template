@@ -28,7 +28,7 @@
 <h2>eXpand Framework</h2>
 <ul>
 <li><a href="${BinaryPackage}" onclick="pageTracker._trackPageview('${BinaryPackage}')">Download binaries</a> (DLL, PDB, XML).</li>
-<li><a href="${SourcePackage}" onclick="pageTracker._trackPageview('${BinaryPackage}')">Download sources</a> (C#, VS2008 solution).</li>
+<li><a href="${SourcePackage}" onclick="pageTracker._trackPageview('${BinaryPackage}')">Download sources</a> (C#, VS2008&VS2010 solution).</li>
 </ul>
 
 

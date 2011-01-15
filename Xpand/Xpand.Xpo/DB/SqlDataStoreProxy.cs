@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
+using DevExpress.Xpo.Helpers;
 
 namespace Xpand.Xpo.DB
 {
     public class SqlDataStoreProxy : ISqlDataStoreProxy {
-        private readonly IDataLayer dataLayerCore;
+        private readonly BaseDataLayer dataLayerCore;
         private readonly ISqlDataStore dataStoreCore;
         protected readonly List<ISchemaUpdater> schemaUpdaters = new List<ISchemaUpdater> { new SchemaColumnSizeUpdater() };
         protected SqlDataStoreProxy() {
@@ -79,6 +80,10 @@ namespace Xpand.Xpo.DB
 
         public IDbCommand CreateCommand() {
             return dataStoreCore.CreateCommand();
+        }
+
+        object ICommandChannel.Do(string command, object args) {
+            return ((ICommandChannel)dataLayerCore).Do(command, args);
         }
     }
 }
