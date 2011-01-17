@@ -6,19 +6,19 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base;
 using Xpand.Utils.Linq;
 
-namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries{
-    public abstract class QueryDifferenceObject<TDifferenceObject> : IQueryDifferenceObject<TDifferenceObject> where TDifferenceObject:ModelDifferenceObject{
+namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
+    public abstract class QueryDifferenceObject<TDifferenceObject> : IQueryDifferenceObject<TDifferenceObject> where TDifferenceObject : ModelDifferenceObject {
         private readonly Session _session;
 
-        protected QueryDifferenceObject(Session session){
+        protected QueryDifferenceObject(Session session) {
             _session = session;
         }
 
-        public Session Session{
+        public Session Session {
             get { return _session; }
         }
 
-        public virtual IQueryable<TDifferenceObject> GetActiveModelDifferences(string uniqueApplicationName, string name){
+        public virtual IQueryable<TDifferenceObject> GetActiveModelDifferences(string uniqueApplicationName, string name) {
             var differenceObjects = new XPQuery<TDifferenceObject>(_session);
             IQueryable<TDifferenceObject> differences = GetDifferences(differenceObjects, uniqueApplicationName, name);
             if (typeof(TDifferenceObject) == typeof(ModelDifferenceObject))
@@ -26,8 +26,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries{
             return differences;
         }
 
-        protected IQueryable<TDifferenceObject> GetDifferences(IOrderedQueryable<TDifferenceObject> differenceObjects, string uniqueApplicationName, string name)
-        {
+        protected IQueryable<TDifferenceObject> GetDifferences(IOrderedQueryable<TDifferenceObject> differenceObjects, string uniqueApplicationName, string name) {
             IQueryable<TDifferenceObject> queryable = differenceObjects.Where(IsActiveExpressionCore(uniqueApplicationName));
             if (!(string.IsNullOrEmpty(name))) {
                 queryable = queryable.Where(o => o.Name == name);
@@ -43,22 +42,20 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries{
         static Expression<Func<TDifferenceObject, bool>> IsActiveExpressionCore(string uniqueApplicationName) {
             return o => o.PersistentApplication.UniqueName == uniqueApplicationName && o.Disabled == false;
         }
-        public virtual TDifferenceObject GetActiveModelDifference(string name)
-        {
-            return GetActiveModelDifference(XpandModuleBase.Application.GetType().FullName,name);
+        public virtual TDifferenceObject GetActiveModelDifference(string name) {
+            return GetActiveModelDifference(XpandModuleBase.Application.GetType().FullName, name);
         }
 
-        public virtual TDifferenceObject GetActiveModelDifference(string applicationName, string name)
-        {
-            return GetActiveModelDifferences(applicationName,name).Where(IsActiveExpressionCore()).FirstOrDefault();
+        public virtual TDifferenceObject GetActiveModelDifference(string applicationName, string name) {
+            return GetActiveModelDifferences(applicationName, name).Where(IsActiveExpressionCore()).FirstOrDefault();
         }
 
         static Expression<Func<TDifferenceObject, bool>> IsActiveExpressionCore() {
-            if (typeof(TDifferenceObject)==typeof(ModelDifferenceObject))
-                return o => o.DifferenceType==DifferenceType.Model;
-            if (typeof(TDifferenceObject)==typeof(UserModelDifferenceObject))
-                return o => o.DifferenceType==DifferenceType.User;
-            return o => o.DifferenceType==DifferenceType.Role;
+            if (typeof(TDifferenceObject) == typeof(ModelDifferenceObject))
+                return o => o.DifferenceType == DifferenceType.Model;
+            if (typeof(TDifferenceObject) == typeof(UserModelDifferenceObject))
+                return o => o.DifferenceType == DifferenceType.User;
+            return o => o.DifferenceType == DifferenceType.Role;
         }
     }
 }

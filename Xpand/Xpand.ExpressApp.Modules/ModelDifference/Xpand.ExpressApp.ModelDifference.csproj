@@ -143,7 +143,10 @@
     <Compile Include="Controllers\LogOffController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\SyncronizeApplicationModelDiffsController.cs">
+    <Compile Include="Controllers\CombineActiveUserDiffsWithLastLayerController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ReloadApplicationModelController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\ModelApplicationLoader.cs" />

@@ -9,17 +9,17 @@ using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 
-namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries
-{
-    public class QueryRoleModelDifferenceObject:QueryDifferenceObject<RoleModelDifferenceObject>
-    {
-        public QueryRoleModelDifferenceObject(Session session) : base(session){
+namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
+    public class QueryRoleModelDifferenceObject : QueryDifferenceObject<RoleModelDifferenceObject> {
+        public QueryRoleModelDifferenceObject(Session session)
+            : base(session) {
         }
-
-        public override IQueryable<RoleModelDifferenceObject> GetActiveModelDifferences(string applicationName, string name){
+        public override RoleModelDifferenceObject GetActiveModelDifference(string applicationName, string name) {
+            throw new NotImplementedException();
+        }
+        public override IQueryable<RoleModelDifferenceObject> GetActiveModelDifferences(string applicationName, string name) {
             var userWithRoles = SecuritySystem.CurrentUser as IUserWithRoles;
-            if (userWithRoles != null)
-            {
+            if (userWithRoles != null) {
                 IEnumerable<object> collection =
                     userWithRoles.Roles.Cast<XPBaseObject>().Select(role => role.ClassInfo.KeyProperty.GetValue(role));
                 Type roleType = ((ISecurityComplex)SecuritySystem.Instance).RoleType;

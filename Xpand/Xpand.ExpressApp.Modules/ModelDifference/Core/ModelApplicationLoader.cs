@@ -10,10 +10,10 @@ using Xpand.Xpo;
 namespace Xpand.ExpressApp.ModelDifference.Core {
     
     public class ModelApplicationLoader {
-        public void EnableModel(Expression<Func<ModelDifferenceObject, bool>> persistentCriteriaEvaluationBehavior, IEnumerable<string> modelsToUnload) {
+        public void EnableModel(Expression<Func<ModelDifferenceObject, bool>> expression, IEnumerable<string> modelsToUnload) {
             var winApplication = XpandModuleBase.Application;
             using (var objectSpace = (ObjectSpace) winApplication.CreateObjectSpace()) {
-                var modelDifferenceObject = objectSpace.Session.FindObject(persistentCriteriaEvaluationBehavior);
+                var modelDifferenceObject = objectSpace.Session.FindObject(expression);
                 var modelApplicationBase = (ModelApplicationBase)winApplication.Model;
                 var modelApplicationBases = RemoveLayers(modelApplicationBase, modelsToUnload).Reverse().ToList();
                 GetModelUnSafe(modelApplicationBase, modelDifferenceObject);
@@ -21,6 +21,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             }
         
         }
+
         void GetModelUnSafe(ModelApplicationBase modelApplicationBase, ModelDifferenceObject modelDifferenceObject) {
             var afterSetupLayer = GetAfterSetupLayer(modelApplicationBase);
             modelApplicationBase.AddLayer(afterSetupLayer);
