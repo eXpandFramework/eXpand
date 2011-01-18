@@ -1,10 +1,14 @@
 
+using System;
+using System.Collections.Generic;
 using System.Web;
 
 namespace Xpand.ExpressApp.FilterDataStore.Web {
     public sealed partial class FilterDataStoreAspNetModule : FilterDataStoreModuleBase {
         bool _proxyEventsSubscribed;
-
+        static FilterDataStoreAspNetModule() {
+            _tablesDictionary=new Dictionary<string, Type>();
+        }
         public FilterDataStoreAspNetModule() {
             InitializeComponent();
         }

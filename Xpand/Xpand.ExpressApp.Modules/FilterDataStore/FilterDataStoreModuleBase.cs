@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
             _tablesDictionary = new Dictionary<string, Type>();
         }
 
-        static readonly Dictionary<string, Type> _tablesDictionary ;
+        protected static Dictionary<string, Type> _tablesDictionary ;
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (ProxyEventsSubscribed.HasValue&&ProxyEventsSubscribed.Value) {
