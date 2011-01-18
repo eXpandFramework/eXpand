@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.ModelDifference.Web {
             RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
         }
 
-        protected override bool? ModelsLoaded {
+        public override bool? ModelsLoaded {
             get {
                 bool result;
                 bool.TryParse(HttpContext.Current.Application["ModelsLoaded"] + "", out result);
