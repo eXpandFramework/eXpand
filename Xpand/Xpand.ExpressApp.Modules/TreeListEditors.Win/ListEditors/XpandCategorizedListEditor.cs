@@ -66,7 +66,8 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.ListEditors {
             }
         }
         public override void Dispose() {
-            CategoriesListView.CurrentObjectChanged -= CategoriesListView_SelectionChanged;
+            if (CategoriesListView != null)
+                CategoriesListView.CurrentObjectChanged -= CategoriesListView_SelectionChanged;
             locker.LockedChanged -= locker_LockedChanged;
             base.Dispose();
         }
