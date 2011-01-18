@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win.SystemModule;
@@ -9,7 +10,9 @@ namespace Xpand.ExpressApp.FilterDataStore.Win {
     public sealed partial class FilterDataStoreWindowsFormsModule : FilterDataStoreModuleBase {
         public FilterDataStoreWindowsFormsModule() {
             InitializeComponent();
+            _tablesDictionary = new Dictionary<string, Type>();
         }
+        
         public override void Setup(XafApplication application) {
             base.Setup(application);
             if (FilterProviderManager.IsRegistered)

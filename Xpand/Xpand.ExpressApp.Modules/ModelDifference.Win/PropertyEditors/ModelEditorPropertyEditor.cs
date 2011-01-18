@@ -80,9 +80,16 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         protected override object CreateControlCore() {
             View.Closing += ViewOnClosing;
             CurrentObject.Changed += CurrentObjectOnChanged;
-            _objectSpace.ObjectSaving += ObjectSpaceOnObjectSaving;
+            _objectSpace.Committing +=ObjectSpaceOnCommitting;
             var modelEditorControl = new ModelEditorControl(new SettingsStorageOnDictionary());
             return modelEditorControl;
+        }
+
+        void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
+            new ModelValidator().ValidateNode(_currentObjectModel);
+            if (ModelEditorViewController.SaveAction.Enabled)
+                ModelEditorViewController.SaveAction.DoExecute();
+            CurrentObject.CreateAspectsCore(_currentObjectModel);
         }
 
 
@@ -94,19 +101,9 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             }
         }
 
-        void ObjectSpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args) {
-            if (ReferenceEquals(args.Object, CurrentObject)) {
-                //var clone = _currentObjectModel.Clone();
-                new ModelValidator().ValidateNode(_currentObjectModel);
-                ModelEditorViewController.SaveAction.Active["Not needed"] = true;
-                ModelEditorViewController.Save();
-                CurrentObject.CreateAspectsCore(_currentObjectModel);
-                ModelEditorViewController.SaveAction.Active["Not needed"] = false;
-            }
-        }
 
         void ViewOnClosing(object sender, EventArgs eventArgs) {
-            _objectSpace.ObjectSaving -= ObjectSpaceOnObjectSaving;
+            _objectSpace.Committing-=ObjectSpaceOnCommitting;
         }
 
         #endregion
@@ -131,12 +128,27 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             _currentObjectModel = allLayers.Where(@base => @base.Id == CurrentObject.Name).Single();
             _masterModel.AddLayers(allLayers.ToArray());
             var controller = new ModelEditorViewController((IModelApplication)_masterModel, null);
+            controller.CurrentAspectChanged+=ControllerOnCurrentAspectChanged;
+            controller.SaveAction.ExecuteCompleted+=SaveActionOnExecuteCompleted;
             _masterModel.CurrentAspectProvider.CurrentAspect = aspect;
             controller.SetControl(Control);
             controller.Modifying += Model_Modifying;
-            controller.SaveAction.Active["Not needed"] = false;
             controller.ChangeAspectAction.ExecuteCompleted += ChangeAspectActionOnExecuteCompleted;
             return controller;
+        }
+
+        void SaveActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
+            _objectSpace.CommitChanges();
+        }
+
+        void ControllerOnCurrentAspectChanged(object sender, EventArgs eventArgs) {
+            var modelDifferenceObject = ((ModelDifferenceObject) View.CurrentObject);
+            if (modelDifferenceObject.AspectObjects.Where(o => o.Name==_controller.CurrentAspect).FirstOrDefault()==null) {
+                modelDifferenceObject.Model.AddAspect(_controller.CurrentAspect);
+                var aspectObject = _objectSpace.CreateObject<AspectObject>();
+                aspectObject.Name = _controller.CurrentAspect;
+                modelDifferenceObject.AspectObjects.Add(aspectObject);
+            }
         }
 
         void ChangeAspectActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {

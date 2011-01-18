@@ -14,9 +14,6 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
         public QueryRoleModelDifferenceObject(Session session)
             : base(session) {
         }
-        public override RoleModelDifferenceObject GetActiveModelDifference(string applicationName, string name) {
-            throw new NotImplementedException();
-        }
         public override IQueryable<RoleModelDifferenceObject> GetActiveModelDifferences(string applicationName, string name) {
             var userWithRoles = SecuritySystem.CurrentUser as IUserWithRoles;
             if (userWithRoles != null) {

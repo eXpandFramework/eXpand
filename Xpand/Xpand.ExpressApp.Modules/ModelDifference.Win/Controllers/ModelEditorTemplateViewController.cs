@@ -3,8 +3,10 @@ using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.ExpressApp.Win.Templates;
 using DevExpress.ExpressApp.Win.Templates.ActionContainers;
+using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.Win.PropertyEditors;
@@ -70,8 +72,14 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         }
 
         private void SetTemplate() {
+            
+            var modelEditorViewController = View.GetItems<ModelEditorPropertyEditor>()[0].ModelEditorViewController;
+            modelEditorViewController.SaveAction.Caption="test";
+            modelEditorViewController.SetTemplate(Frame.Template);
+            var barManagerHolder = ((IBarManagerHolder)Frame.Template);
+            barManagerHolder.BarManager.Items.OfType<BarButtonItem>().Where(item => item.Caption.IndexOf("test") > -1).Single().Visibility = BarItemVisibility.Never;
 
-            View.GetItems<ModelEditorPropertyEditor>()[0].ModelEditorViewController.SetTemplate(Frame.Template);
+//            var barButtonItems = barManagerHolder.BarManager.Items.OfType<BarButtonItem>().Where(item => item.Caption.IndexOf("test") > -1).ToList();
         }
     }
 }
