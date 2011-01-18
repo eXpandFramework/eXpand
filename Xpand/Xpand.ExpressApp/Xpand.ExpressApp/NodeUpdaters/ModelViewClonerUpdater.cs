@@ -23,7 +23,6 @@ namespace Xpand.ExpressApp.NodeUpdaters {
                             throw new NullReferenceException(attribute.DetailView);
                         ((IModelListView)cloneNodeFrom).DetailView = modelDetailView;
                     }
-                    node.Application.Views.Add((IModelView)cloneNodeFrom);    
                 }
             }
         }
