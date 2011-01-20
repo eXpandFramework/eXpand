@@ -9,11 +9,11 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.IO;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using Xpand.Tests.Xpand.WorldCreator;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.Tests.Xpand.IO {
     public abstract class With_Customer_Orders : With_Isolations {

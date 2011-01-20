@@ -98,6 +98,7 @@
     <Compile Include="ExceptionHandling\IExceptionObject.cs" />
     <Compile Include="General\DataStoreAttribute.cs" />
     <Compile Include="General\ISupportViewId.cs" />
+    <Compile Include="General\ObjectSpaceExtensions.cs" />
     <Compile Include="General\PictureItemEventArgs.cs" />
     <Compile Include="General\RelationType.cs" />
     <Compile Include="General\RequestTextPictureItemEventArgs.cs" />

@@ -5,9 +5,8 @@ using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Linq;
-using Xpand.Persistent.Base.General;
 
-namespace Xpand.ExpressApp.Core {
+namespace Xpand.Persistent.Base.General {
     public static class ObjectSpaceExtensions {
         public static bool NeedReload(this ObjectSpace objectSpace, object currentObject) {
             XPMemberInfo optimisticLockFieldInfo;

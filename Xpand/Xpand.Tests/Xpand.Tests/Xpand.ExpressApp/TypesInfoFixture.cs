@@ -7,7 +7,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using MbUnit.Framework;
 using TypeMock.ArrangeActAssert;
-using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.Tests.Xpand.ExpressApp {
     /// <summary>

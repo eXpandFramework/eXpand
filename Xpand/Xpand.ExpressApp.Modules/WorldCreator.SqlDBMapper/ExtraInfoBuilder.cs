@@ -2,14 +2,12 @@
 using DevExpress.ExpressApp;
 using Microsoft.SqlServer.Management.Smo;
 using Xpand.ExpressApp.WorldCreator.Core;
-using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
+using Xpand.Persistent.Base.General;
 
-namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper
-{
-    public class ExtraInfoBuilder
-    {
+namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
+    public class ExtraInfoBuilder {
         public const string SupportPersistentObjectsAsAPartOfACompositeKey = "Support Persistent objects as a part of a composite key";
         readonly ObjectSpace _objectSpace;
         readonly AttributeMapper _attributeMapper;
@@ -19,8 +17,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper
             _objectSpace = objectSpace;
         }
 
-        public void CreateCollection(IPersistentReferenceMemberInfo persistentReferenceMemberInfo, IPersistentClassInfo owner)
-        {
+        public void CreateCollection(IPersistentReferenceMemberInfo persistentReferenceMemberInfo, IPersistentClassInfo owner) {
             var persistentCollectionMemberInfo = _objectSpace.CreateWCObject<IPersistentCollectionMemberInfo>();
             persistentReferenceMemberInfo.ReferenceClassInfo.OwnMembers.Add(persistentCollectionMemberInfo);
             persistentCollectionMemberInfo.Name = persistentReferenceMemberInfo.Owner.Name + persistentReferenceMemberInfo.Name + "s";
@@ -32,31 +29,28 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper
             persistentAssociationAttribute.AssociationName = persistentReferenceMemberInfo.TypeAttributes.OfType<IPersistentAssociationAttribute>().Single().AssociationName;
         }
 
-        public void CreateExtraInfos(Table table, IPersistentClassInfo persistentClassInfo,IMapperInfo mapperInfo){
-            var persistentAttributeInfos = _attributeMapper.Create(table, persistentClassInfo,mapperInfo);
-            foreach (var persistentAttributeInfo in persistentAttributeInfos){
+        public void CreateExtraInfos(Table table, IPersistentClassInfo persistentClassInfo, IMapperInfo mapperInfo) {
+            var persistentAttributeInfos = _attributeMapper.Create(table, persistentClassInfo, mapperInfo);
+            foreach (var persistentAttributeInfo in persistentAttributeInfos) {
                 persistentClassInfo.TypeAttributes.Add(persistentAttributeInfo);
             }
             var count = table.Columns.OfType<Column>().Where(column => column.InPrimaryKey).Count();
-            if (count>0) {
+            if (count > 0) {
                 var templateInfo = _objectSpace.CreateObjectFromInterface<ITemplateInfo>();
                 templateInfo.Name = SupportPersistentObjectsAsAPartOfACompositeKey;
                 persistentClassInfo.TemplateInfos.Add(templateInfo);
             }
         }
-        
-        public void CreateExtraInfos(Column column, IPersistentMemberInfo persistentMemberInfo, ForeignKeyCalculator foreignKeyCalculator)
-        {
+
+        public void CreateExtraInfos(Column column, IPersistentMemberInfo persistentMemberInfo, ForeignKeyCalculator foreignKeyCalculator) {
             var persistentReferenceMemberInfo = (IPersistentReferenceMemberInfo)persistentMemberInfo;
-            if (persistentMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPOneToOnePropertyMember){
-                CreateTemplateInfo(persistentReferenceMemberInfo, column,foreignKeyCalculator);
-            }
-            else if (!column.InPrimaryKey && persistentMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPReadWritePropertyMember)
+            if (persistentMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPOneToOnePropertyMember) {
+                CreateTemplateInfo(persistentReferenceMemberInfo, column, foreignKeyCalculator);
+            } else if (!column.InPrimaryKey && persistentMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPReadWritePropertyMember)
                 CreateCollection(persistentReferenceMemberInfo, persistentReferenceMemberInfo.Owner);
 
         }
-        void CreateTemplateInfo(IPersistentReferenceMemberInfo persistentReferenceMemberInfo, Column column, ForeignKeyCalculator _foreignKeyCalculator)
-        {
+        void CreateTemplateInfo(IPersistentReferenceMemberInfo persistentReferenceMemberInfo, Column column, ForeignKeyCalculator _foreignKeyCalculator) {
             var table = (Table)column.Parent;
             var database = table.Parent;
             var foreignKey = _foreignKeyCalculator.GetForeignKey(database, column.Name, table.Name);
