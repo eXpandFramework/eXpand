@@ -102,6 +102,8 @@
     <Compile Include="General\RelationType.cs" />
     <Compile Include="General\RequestTextPictureItemEventArgs.cs" />
     <Compile Include="General\ReservedMember.cs" />
+    <Compile Include="General\SequenceGenerator.cs" />
+    <Compile Include="General\TypesInfoExtensions.cs" />
     <Compile Include="General\ValueConverters\ImageCompressionValueConverter.cs" />
     <Compile Include="ImportExport\IClassInfoGraphNode.cs" />
     <Compile Include="ImportExport\ISerializationConfiguration.cs" />
@@ -221,6 +223,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="General\Sequencer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

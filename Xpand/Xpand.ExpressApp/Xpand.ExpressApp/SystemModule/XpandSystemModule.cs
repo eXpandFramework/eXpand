@@ -15,7 +15,7 @@ using Xpand.ExpressApp.Core.ReadOnlyParameters;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.TranslatorProviders;
-using Xpand.Xpo.DB;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.SystemModule {
 
@@ -30,10 +30,6 @@ namespace Xpand.ExpressApp.SystemModule {
             TranslatorProvider.RegisterProvider(new GoogleTranslatorProvider());
         }
 
-        public XpandSystemModule() {
-            AdditionalBusinessClasses.Add(typeof(XpoSequencer));
-            AdditionalBusinessClasses.Add(typeof(XpoServerId));
-        }
         protected override List<Type> DeclaredBusinessClasses {
             get {
                 return new List<Type>();
@@ -43,6 +39,7 @@ namespace Xpand.ExpressApp.SystemModule {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (ModelApplicationCreator == null) {
+                SequenceGenerator.Initialize(Application);
                 foreach (var persistentType in typesInfo.PersistentTypes) {
                     IEnumerable<Attribute> attributes = GetAttributes(persistentType);
                     foreach (var attribute in attributes) {
@@ -65,6 +62,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 (sender, args) =>
                 RuntimeMemberBuilder.AddFields(application.Model, ((ObjectSpaceProvider)application.ObjectSpaceProvider).XPDictionary);
         }
+
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);

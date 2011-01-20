@@ -2,6 +2,7 @@
 using DevExpress.Xpo;
 
 namespace Xpand.Xpo.DB {
+    [Obsolete("Use SequenceGenerator", true)]
     public sealed class XpoServerId : XPLiteObject {
         static readonly object SyncRoot = new object();
         [Key(false)]

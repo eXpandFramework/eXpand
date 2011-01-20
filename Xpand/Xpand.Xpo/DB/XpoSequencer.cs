@@ -5,6 +5,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB.Exceptions;
 
 namespace Xpand.Xpo.DB {
+    [Obsolete("Use SequenceGenerator", true)]
     public sealed class XpoSequencer : XPBaseObject {
         
         [Key(true)]

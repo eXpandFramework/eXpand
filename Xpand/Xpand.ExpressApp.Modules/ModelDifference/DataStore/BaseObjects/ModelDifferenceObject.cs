@@ -13,8 +13,8 @@ using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
+using Xpand.Persistent.Base.General;
 using Xpand.Xpo;
-using Xpand.Xpo.DB;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [RuleCombinationOfPropertiesIsUnique("MDO_Unique_Name_Application", DefaultContexts.Save, "Name,PersistentApplication")]
@@ -187,7 +187,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         protected override void OnSaving() {
             base.OnSaving();
             if (Session.IsNewObject(this)) {
-                CombineOrder = XpoServerId.GetNextUniqueValue(this);
+                combineOrder = (int) SequenceGenerator.GenerateSequence(this);
             }
         }
         public override void AfterConstruction() {
