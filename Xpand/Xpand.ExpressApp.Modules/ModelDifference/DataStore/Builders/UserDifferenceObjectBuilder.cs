@@ -1,8 +1,8 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base.Security;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.Builders {
     public class UserDifferenceObjectBuilder {

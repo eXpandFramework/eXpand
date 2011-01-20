@@ -8,7 +8,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Helpers;
 
-namespace Xpand.ExpressApp.Core {
+namespace Xpand.Persistent.Base.General {
     public static class TypesInfoExtensions {
         public static Type FindBussinessObjectType<T>(this ITypesInfo typesInfo) {
             if (!(typeof(T).IsInterface))
@@ -63,12 +63,12 @@ namespace Xpand.ExpressApp.Core {
         static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, bool refreshTypesInfo,
                                                           string propertyName, bool isManyToMany) {
             return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary,
-                                    propertyName, refreshTypesInfo,isManyToMany);
+                                    propertyName, refreshTypesInfo, isManyToMany);
         }
 
         public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, bool refreshTypesInfo,
                                                           string propertyName) {
-            return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, propertyName, refreshTypesInfo,false);
+            return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, propertyName, refreshTypesInfo, false);
         }
 
         public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, bool refreshTypesInfo) {
@@ -96,7 +96,7 @@ namespace Xpand.ExpressApp.Core {
 
         }
         public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string collectionName, bool refreshTypesInfo) {
-            return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary,collectionName,refreshTypesInfo,false);
+            return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, collectionName, refreshTypesInfo, false);
         }
 
         public static List<XPCustomMemberInfo> CreateBothPartMembers(this ITypesInfo typesInfo, Type typeToCreateOn, Type otherPartType, XPDictionary dictionary) {
@@ -112,14 +112,14 @@ namespace Xpand.ExpressApp.Core {
             var infos = new List<XPCustomMemberInfo>();
             XPCustomMemberInfo member = isManyToMany
                                             ? CreateCollection(typesinfo, typeToCreateOn, otherPartMember, association,
-                                                               xpDictionary, false, createOnPropertyName,true)
+                                                               xpDictionary, false, createOnPropertyName, true)
                                             : CreateMember(typesinfo, typeToCreateOn, otherPartMember, association, xpDictionary, createOnPropertyName, false);
 
             if (member != null) {
                 infos.Add(member);
                 member = isManyToMany
                              ? CreateCollection(typesinfo, otherPartMember, typeToCreateOn, association, xpDictionary,
-                                                false, otherPartPropertyName,true)
+                                                false, otherPartPropertyName, true)
                              : CreateCollection(typesinfo, typeToCreateOn, otherPartMember, association, xpDictionary,
                                                 false, otherPartPropertyName);
 

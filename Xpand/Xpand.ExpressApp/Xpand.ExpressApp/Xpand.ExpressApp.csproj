@@ -130,7 +130,6 @@
     <Compile Include="Core\ObjectObserver.cs" />
     <Compile Include="Core\ObjectSpaceExtensions.cs" />
     <Compile Include="Core\ReadOnlyParameters\MonthAgoParameter.cs" />
-    <Compile Include="Core\TypesInfoExtensions.cs" />
     <Compile Include="Core\TypeValueConverter.cs" />
     <Compile Include="DataStoreProvider.cs" />
     <Compile Include="Model\IModelMemberEx.cs" />

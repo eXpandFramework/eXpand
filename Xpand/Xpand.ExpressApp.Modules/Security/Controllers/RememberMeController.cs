@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Utils;
 
 namespace Xpand.ExpressApp.Security.Controllers {
     public class RememberMeController : WindowController {
-        bool _isLoggingOff;
+        
 
         public RememberMeController() {
             TargetWindowType = WindowType.Main;
@@ -17,7 +17,6 @@ namespace Xpand.ExpressApp.Security.Controllers {
 
 
         void ApplicationOnLoggingOff(object sender, LoggingOffEventArgs loggingOffEventArgs) {
-            _isLoggingOff = true;
             if (HttpContext.Current != null) {
                 var httpCookie = HttpContext.Current.Response.Cookies[Application.ApplicationName + "RememberMe"];
                 if (httpCookie != null) httpCookie.Expires = DateTime.Now.AddDays(-1);

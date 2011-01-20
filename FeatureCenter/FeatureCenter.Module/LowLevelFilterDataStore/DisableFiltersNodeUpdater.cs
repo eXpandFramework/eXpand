@@ -9,7 +9,7 @@ using Xpand.ExpressApp.FilterDataStore.NodeGenerators;
 namespace FeatureCenter.Module.LowLevelFilterDataStore {
     public class DisableFiltersNodeUpdater : ModelNodesGeneratorUpdater<ModelDisabledDataStoreFiltersNodesGenerator> {
         public override void UpdateNode(ModelNode node) {
-            if (FilterProviderManager.Providers != null)
+            if (FilterProviderManager.IsRegistered)
                 foreach (FilterProviderBase provider in FilterProviderManager.Providers) {
                     if (((IModelClass)node.Parent).TypeInfo.Type == typeof(FDSCCustomer) && provider.Name == "ContinentFilterProvider")
                         continue;

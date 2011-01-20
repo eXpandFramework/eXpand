@@ -8,12 +8,12 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.ExceptionHandling;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ExceptionHandling {
     public static class ExceptionObjectBuilder {
-        public static IExceptionObject Create(Session session, Exception exception,XafApplication application) {
+        public static IExceptionObject Create(Session session, Exception exception, XafApplication application) {
             var findBussinessObjectType = XafTypesInfo.Instance.FindBussinessObjectType<IExceptionObject>();
             var exceptionObject = (IExceptionObject)ReflectionHelper.CreateObject(findBussinessObjectType, new[] { session });
             if (application != null)
@@ -26,30 +26,28 @@ namespace Xpand.ExpressApp.ExceptionHandling {
             exceptionObject.Screenshot = GetScreenShot();
             exceptionObject.ThreadID = Thread.CurrentThread.Name;
             exceptionObject.Time = DateTime.Now.TimeOfDay;
-            var user = ((User) SecuritySystem.CurrentUser);
+            var user = ((User)SecuritySystem.CurrentUser);
             if (user != null)
-                exceptionObject.UserId = (Guid) session.GetKeyValue(user);
+                exceptionObject.UserId = (Guid)session.GetKeyValue(user);
             exceptionObject.TracingLastEntries = Tracing.Tracer.GetLastEntriesAsString();
             var windowsIdentity = WindowsIdentity.GetCurrent();
             if (windowsIdentity != null) exceptionObject.WindowsID = windowsIdentity.Name;
             if (exception.InnerException != null)
-                exceptionObject.InnerExceptionObjects.Add(Create(session, exception.InnerException,application));
+                exceptionObject.InnerExceptionObjects.Add(Create(session, exception.InnerException, application));
             return exceptionObject;
         }
-        private static Image ResizeImage(Bitmap image, int maxWidth, int maxHeight)
-        {
-            Size resizedDimensions =GetDimensions(maxWidth, maxHeight, ref image);
+        private static Image ResizeImage(Bitmap image, int maxWidth, int maxHeight) {
+            Size resizedDimensions = GetDimensions(maxWidth, maxHeight, ref image);
             return new Bitmap(image, resizedDimensions);
         }
-        private static Size GetDimensions(int maxWidth, int maxHeight, ref Bitmap bitmap)
-        {
+        private static Size GetDimensions(int maxWidth, int maxHeight, ref Bitmap bitmap) {
             int height = bitmap.Height;
             int width = bitmap.Width;
-            if (height <= maxHeight && width <= maxWidth){
+            if (height <= maxHeight && width <= maxWidth) {
                 return new Size(width, height);
             }
             var multiplier = (float)maxWidth / width;
-            if ((height * multiplier) <= maxHeight){
+            if ((height * multiplier) <= maxHeight) {
                 height = (int)(height * multiplier);
                 return new Size(maxWidth, height);
             }
@@ -58,8 +56,7 @@ namespace Xpand.ExpressApp.ExceptionHandling {
 
             return new Size(width, maxHeight);
         }
-        static Image GetScreenShot()
-        {
+        static Image GetScreenShot() {
             var image = new Bitmap(
                 Screen.PrimaryScreen.Bounds.Width,
                 Screen.PrimaryScreen.Bounds.Height,

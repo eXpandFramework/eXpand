@@ -1,15 +1,15 @@
 ﻿using System;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.WorldCreator.Core;
 using Microsoft.SqlServer.Management.Smo;
-using System.Linq;
 using Xpand.ExpressApp.Core;
+using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
-    public class DbMapper
-    {
+    public class DbMapper {
         readonly ObjectSpace _objectSpace;
         readonly IPersistentAssemblyInfo _persistentAssemblyInfo;
         IDataStoreLogonObject _dataStoreLogonObject;
@@ -22,18 +22,18 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
 
         public void Map(Database database, IMapperInfo mapperInfo) {
             var attributeMapper = new AttributeMapper(_objectSpace);
-            var tableMapper = new TableMapper(_objectSpace,database,attributeMapper);
+            var tableMapper = new TableMapper(_objectSpace, database, attributeMapper);
             var dataTypeMapper = new DataTypeMapper();
             var columnMapper = new ColumnMapper(dataTypeMapper, attributeMapper);
-            Tracing.Tracer.LogSeparator("DBMapper Start mapping database "+database.Name);
-            foreach (Table table in database.Tables.OfType<Table>().Where(table => !(table.IsSystemObject))){
-                Tracing.Tracer.LogValue("Table",table.Name);
-                IPersistentClassInfo persistentClassInfo = tableMapper.Create(table, _persistentAssemblyInfo,mapperInfo);
+            Tracing.Tracer.LogSeparator("DBMapper Start mapping database " + database.Name);
+            foreach (Table table in database.Tables.OfType<Table>().Where(table => !(table.IsSystemObject))) {
+                Tracing.Tracer.LogValue("Table", table.Name);
+                IPersistentClassInfo persistentClassInfo = tableMapper.Create(table, _persistentAssemblyInfo, mapperInfo);
                 foreach (Column column in table.Columns) {
                     columnMapper.Create(column, persistentClassInfo);
                 }
             }
-            _dataStoreLogonObject = (IDataStoreLogonObject) ReflectionHelper.CreateObject(XafTypesInfo.Instance.FindBussinessObjectType<IDataStoreLogonObject>(), new object[] { _persistentAssemblyInfo.Session, _dataStoreLogonObject });
+            _dataStoreLogonObject = (IDataStoreLogonObject)ReflectionHelper.CreateObject(XafTypesInfo.Instance.FindBussinessObjectType<IDataStoreLogonObject>(), new object[] { _persistentAssemblyInfo.Session, _dataStoreLogonObject });
             attributeMapper.Create(_persistentAssemblyInfo, _dataStoreLogonObject);
             Func<ITemplateInfo, bool> templateInfoPredicate = info => info.Name == ExtraInfoBuilder.SupportPersistentObjectsAsAPartOfACompositeKey;
             CodeEngine.SupportCompositeKeyPersistentObjects(_persistentAssemblyInfo, templateInfoPredicate);

@@ -2,8 +2,8 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.Builders {
     public class RoleDifferenceObjectBuilder {
