@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.Metadata;
 using ITypeInfo = DevExpress.ExpressApp.DC.ITypeInfo;
@@ -13,59 +14,79 @@ namespace Xpand.Persistent.Base.General {
 
         long NextSequence { get; set; }
     }
+    public interface ISequenceReleased {
+        ISequenceObject SequenceObject { get; set; }
+        long Sequence { get; set; }
+    }
 
     public class SequenceGenerator : IDisposable {
+        
+        public const int MaxGenerationAttemptsCount = 10;
+        public const int MinGenerationAttemptsDelay = 100;
         private readonly ExplicitUnitOfWork _explicitUnitOfWork;
         private ISequenceObject _sequence;
+
         static SequenceGenerator() {
             _sequenceObjectType = XafTypesInfo.Instance.FindBussinessObjectType<ISequenceObject>();
         }
 
         public SequenceGenerator() {
-            _explicitUnitOfWork = new ExplicitUnitOfWork(DefaultDataLayer);
-            
-            var sequences = new XPCollection(_explicitUnitOfWork, _sequenceObjectType);
-            int count = 3;
+
+
+
+            int count = MaxGenerationAttemptsCount;
             while (true) {
                 try {
+                    _explicitUnitOfWork = new ExplicitUnitOfWork(DefaultDataLayer);
+                    var sequences = new XPCollection(_explicitUnitOfWork, _sequenceObjectType);
                     foreach (XPBaseObject seq in sequences)
                         seq.Save();
                     _explicitUnitOfWork.FlushChanges();
                     break;
                 } catch (LockingException) {
+                    Close();
                     count--;
                     if (count <= 0)
                         throw;
+                    Thread.Sleep(MinGenerationAttemptsDelay * count);
                 }
             }
         }
+
         public void Accept() {
             _explicitUnitOfWork.CommitChanges();
         }
+
         public long GetNextSequence(ITypeInfo typeInfo) {
             if (typeInfo == null)
                 throw new ArgumentNullException("typeInfo");
-            return GetNextSequence(XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeInfo.Type));
+            return GetNextSequence(XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeInfo.Type), null);
         }
-        public long GetNextSequence(XPClassInfo classInfo) {
+
+        long GetNextSequence(XPClassInfo classInfo, string preFix) {
             if (classInfo == null)
                 throw new ArgumentNullException("classInfo");
-            _sequence = (ISequenceObject) _explicitUnitOfWork.GetObjectByKey(_sequenceObjectType,classInfo.FullName, true);
-            if (_sequence == null) {
-                throw new InvalidOperationException(string.Format("Sequence for the {0} type was not found.", classInfo.FullName));
-            }
+            var objectByKey = _explicitUnitOfWork.GetObjectByKey(_sequenceObjectType, preFix + classInfo.FullName, true);
+            _sequence = objectByKey != null ? (ISequenceObject)objectByKey : CreateSequenceObject(preFix + classInfo.FullName, _explicitUnitOfWork);
             long nextId = _sequence.NextSequence;
             _sequence.NextSequence++;
             _explicitUnitOfWork.FlushChanges();
             return nextId;
         }
+
+        public long GetNextSequence(XPClassInfo classInfo) {
+            return GetNextSequence(classInfo, null);
+        }
+
         public void Close() {
             if (_explicitUnitOfWork != null)
                 _explicitUnitOfWork.Dispose();
         }
+
         public void Dispose() {
             Close();
         }
+
         static IDataLayer defaultDataLayer;
         static readonly Type _sequenceObjectType;
 
@@ -81,33 +102,19 @@ namespace Xpand.Persistent.Base.General {
         public static void RegisterSequences(IEnumerable<ITypeInfo> persistentTypes) {
             if (persistentTypes != null)
                 using (var unitOfWork = new UnitOfWork(DefaultDataLayer)) {
-                    var sequenceList = new XPCollection(unitOfWork,_sequenceObjectType);
-                    var typeToExistsMap = new Dictionary<string, bool>();
-                    foreach (ISequenceObject seq in sequenceList) {
-                        typeToExistsMap[seq.TypeName] = true;
-                    }
+                    var typeToExistsMap = GetTypeToExistsMap(unitOfWork);
                     foreach (ITypeInfo typeInfo in persistentTypes) {
                         if (typeToExistsMap.ContainsKey(typeInfo.FullName)) continue;
-                        CreateSequenceObject(typeInfo.FullName,unitOfWork);
+                        CreateSequenceObject(typeInfo.FullName, unitOfWork);
                     }
                     unitOfWork.CommitChanges();
                 }
         }
 
-        static void CreateSequenceObject(string fullName, UnitOfWork unitOfWork) {
-            var sequenceObject = (ISequenceObject)Activator.CreateInstance(_sequenceObjectType, new object[] { unitOfWork });
-            sequenceObject.TypeName = fullName;
-            sequenceObject.NextSequence = 0;
-        }
-
         public static void RegisterSequences(IEnumerable<XPClassInfo> persistentClasses) {
             if (persistentClasses != null)
                 using (var unitOfWork = new UnitOfWork(DefaultDataLayer)) {
-                    var sequenceList = new XPCollection(unitOfWork,_sequenceObjectType);
-                    var typeToExistsMap = new Dictionary<string, bool>();
-                    foreach (ISequenceObject seq in sequenceList) {
-                        typeToExistsMap[seq.TypeName] = true;
-                    }
+                    var typeToExistsMap = GetTypeToExistsMap(unitOfWork);
                     foreach (XPClassInfo classInfo in persistentClasses) {
                         if (typeToExistsMap.ContainsKey(classInfo.FullName)) continue;
                         CreateSequenceObject(classInfo.FullName, unitOfWork);
@@ -116,30 +123,67 @@ namespace Xpand.Persistent.Base.General {
                 }
         }
 
+        static Dictionary<string, bool> GetTypeToExistsMap(UnitOfWork unitOfWork) {
+            var sequenceList = new XPCollection(unitOfWork, _sequenceObjectType);
+            var typeToExistsMap = new Dictionary<string, bool>();
+            foreach (ISequenceObject seq in sequenceList) {
+                typeToExistsMap[seq.TypeName] = true;
+            }
+            return typeToExistsMap;
+        }
+
+        static ISequenceObject CreateSequenceObject(string fullName, UnitOfWork unitOfWork) {
+            var sequenceObject = (ISequenceObject)Activator.CreateInstance(_sequenceObjectType, new object[] { unitOfWork });
+            sequenceObject.TypeName = fullName;
+            sequenceObject.NextSequence = 0;
+            return sequenceObject;
+        }
+
         static SequenceGenerator _sequenceGenerator;
-        public static long GenerateSequence(XPBaseObject baseObject) {
-            if (_sequenceGenerator==null)
-                _sequenceGenerator=new SequenceGenerator();
-            long nextSequence = _sequenceGenerator.GetNextSequence(baseObject.ClassInfo);
+
+        public static long GenerateSequence(XPBaseObject baseObject, string preFix) {
+            if (_sequenceGenerator == null)
+                _sequenceGenerator = new SequenceGenerator();
+            long nextSequence = _sequenceGenerator.GetNextSequence(baseObject.ClassInfo, preFix);
             Session session = baseObject.Session;
             if (!(session is NestedUnitOfWork)) {
-                SessionManipulationEventHandler[] sessionOnAfterCommitTransaction= {null};
+                SessionManipulationEventHandler[] sessionOnAfterCommitTransaction = { null };
                 sessionOnAfterCommitTransaction[0] = (sender, args) => {
-                    if (_sequenceGenerator!=null) {
-                        _sequenceGenerator.Accept();
-                        _sequenceGenerator.Dispose();
-                        _sequenceGenerator = null;
+                    if (_sequenceGenerator != null) {
+                        try {
+                            _sequenceGenerator.Accept();
+                        } finally {
+                            session.AfterCommitTransaction -= sessionOnAfterCommitTransaction[0];
+                            _sequenceGenerator.Dispose();
+                            _sequenceGenerator = null;
+                        }
                     }
-                    session.AfterCommitTransaction-=sessionOnAfterCommitTransaction[0];
+
                 };
-                session.AfterCommitTransaction +=sessionOnAfterCommitTransaction[0];
+                session.AfterCommitTransaction += sessionOnAfterCommitTransaction[0];
             }
             return nextSequence;
         }
 
+
+        public static long GenerateSequence(XPBaseObject baseObject) {
+            return GenerateSequence(baseObject, null);
+        }
+
         public static void Initialize(XafApplication xafApplication) {
-            DefaultDataLayer = XpoDefault.GetDataLayer(xafApplication.Connection == null ? xafApplication.ConnectionString : xafApplication.Connection.ConnectionString, DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
+            DefaultDataLayer = XpoDefault.GetDataLayer(xafApplication.Connection == null ? xafApplication.ConnectionString
+                        : xafApplication.Connection.ConnectionString, AutoCreateOption.DatabaseAndSchema);
             RegisterSequences(XafTypesInfo.Instance.PersistentTypes);
+        }
+
+        public static void ReleaseSequence(XPBaseObject xpBaseObject, string prefix, long sequence) {
+            var objectSpace = (ObjectSpace) ObjectSpace.FindObjectSpaceByObject(xpBaseObject);
+            var sequenceObject = objectSpace.GetObjectByKey(_sequenceObjectType,prefix+xpBaseObject.ClassInfo.FullName) as ISequenceObject;
+            if (sequenceObject!=null) {
+                var objectFromInterface = objectSpace.CreateObjectFromInterface<ISequenceReleased>();
+                objectFromInterface.Sequence = sequence;
+                objectFromInterface.SequenceObject = sequenceObject;
+            }
         }
     }
 }

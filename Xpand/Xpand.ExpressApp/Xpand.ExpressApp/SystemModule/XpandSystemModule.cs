@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.SystemModule {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (ModelApplicationCreator == null) {
-                SequenceGenerator.Initialize(Application);
+                InitializeSequenceGenerator();
                 foreach (var persistentType in typesInfo.PersistentTypes) {
                     IEnumerable<Attribute> attributes = GetAttributes(persistentType);
                     foreach (var attribute in attributes) {
@@ -48,6 +48,19 @@ namespace Xpand.ExpressApp.SystemModule {
                 }
             }
         }
+
+        void InitializeSequenceGenerator() {
+            try {
+                if (Application != null) 
+                    SequenceGenerator.Initialize(Application);
+            }
+            catch (Exception e) {
+                if (e.InnerException != null)
+                    throw e.InnerException;
+                throw;
+            }
+        }
+
         IEnumerable<Attribute> GetAttributes(ITypeInfo type) {
             return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator)).Descendants.Select(typeInfo => (AttributeRegistrator)ReflectionHelper.CreateObject(typeInfo.Type)).SelectMany(registrator => registrator.GetAttributes(type));
         }
