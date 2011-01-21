@@ -75,15 +75,20 @@ namespace Xpand.ExpressApp {
             InitializeInstanceXafApplicationManager();
             application.SetupComplete += ApplicationOnSetupComplete;
         }
-        public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             InitializeInstanceXafApplicationManager();
-            var type = typesInfo.FindTypeInfo(typeof(IModelMember)).FindMember("Type") as BaseInfo;
+            var type = (BaseInfo)typesInfo.FindTypeInfo(typeof(IModelMember)).FindMember("Type");
             var attribute = type.FindAttribute<ReadOnlyAttribute>();
             if (attribute != null)
                 type.RemoveAttribute(attribute);
         }
-
+        protected override void Dispose(bool disposing) {
+            base.Dispose(disposing);
+            _instanceXafApplicationManager = null;
+            _instanceModelApplicationCreatorManager = null;
+            _instanceXafApplicationManager = null;
+        }
         void InitializeInstanceXafApplicationManager() {
             lock (_lockObject) {
                 if (_instanceXafApplicationManager == null)
