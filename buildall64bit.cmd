@@ -1,5 +1,5 @@
 @echo on
-
+set ProgramFiles=%ProgramFiles(x86)%
 call defines.bat
 
 if exist Xpand.Key\Xpand.snk goto build

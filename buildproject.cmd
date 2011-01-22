@@ -3,7 +3,6 @@ echo Not found %2 - Skipped!
 goto end
 
 :build
-
 echo Building %1...
 %gacutil% -u %1,processorArchitecture=msil /silent
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% %2
