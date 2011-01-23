@@ -5,22 +5,28 @@ using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
+using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using ITypeInfo = DevExpress.ExpressApp.DC.ITypeInfo;
 
 namespace Xpand.Persistent.Base.General {
     public interface ISequenceObject {
         string TypeName { get; set; }
-
         long NextSequence { get; set; }
+        IList<ISequenceReleasedObject> SequenceReleasedObjects { get; }
     }
-    public interface ISequenceReleased {
+
+    public interface ISupportSequenceObject:IXPClassInfoProvider,ISessionProvider {
+        long Sequence { get; set; }
+        string Prefix { get;  }
+    }
+    public interface ISequenceReleasedObject {
         ISequenceObject SequenceObject { get; set; }
         long Sequence { get; set; }
     }
 
     public class SequenceGenerator : IDisposable {
-        
+
         public const int MaxGenerationAttemptsCount = 10;
         public const int MinGenerationAttemptsDelay = 100;
         private readonly ExplicitUnitOfWork _explicitUnitOfWork;
@@ -141,11 +147,11 @@ namespace Xpand.Persistent.Base.General {
 
         static SequenceGenerator _sequenceGenerator;
 
-        public static long GenerateSequence(XPBaseObject baseObject, string preFix) {
+        public static long GenerateSequence(ISupportSequenceObject supportSequenceObject) {
             if (_sequenceGenerator == null)
                 _sequenceGenerator = new SequenceGenerator();
-            long nextSequence = _sequenceGenerator.GetNextSequence(baseObject.ClassInfo, preFix);
-            Session session = baseObject.Session;
+            long nextSequence = _sequenceGenerator.GetNextSequence(supportSequenceObject.ClassInfo, supportSequenceObject.Prefix);
+            Session session = supportSequenceObject.Session;
             if (!(session is NestedUnitOfWork)) {
                 SessionManipulationEventHandler[] sessionOnAfterCommitTransaction = { null };
                 sessionOnAfterCommitTransaction[0] = (sender, args) => {
@@ -166,9 +172,6 @@ namespace Xpand.Persistent.Base.General {
         }
 
 
-        public static long GenerateSequence(XPBaseObject baseObject) {
-            return GenerateSequence(baseObject, null);
-        }
 
         public static void Initialize(XafApplication xafApplication) {
             DefaultDataLayer = XpoDefault.GetDataLayer(xafApplication.Connection == null ? xafApplication.ConnectionString
@@ -176,12 +179,12 @@ namespace Xpand.Persistent.Base.General {
             RegisterSequences(XafTypesInfo.Instance.PersistentTypes);
         }
 
-        public static void ReleaseSequence(XPBaseObject xpBaseObject, string prefix, long sequence) {
-            var objectSpace = (ObjectSpace) ObjectSpace.FindObjectSpaceByObject(xpBaseObject);
-            var sequenceObject = objectSpace.GetObjectByKey(_sequenceObjectType,prefix+xpBaseObject.ClassInfo.FullName) as ISequenceObject;
-            if (sequenceObject!=null) {
-                var objectFromInterface = objectSpace.CreateObjectFromInterface<ISequenceReleased>();
-                objectFromInterface.Sequence = sequence;
+        public static void ReleaseSequence(ISupportSequenceObject supportSequenceObject) {
+            var objectSpace = (ObjectSpace)ObjectSpace.FindObjectSpaceByObject(supportSequenceObject);
+            var sequenceObject = objectSpace.GetObjectByKey(_sequenceObjectType, supportSequenceObject.Prefix + supportSequenceObject.ClassInfo.FullName) as ISequenceObject;
+            if (sequenceObject != null) {
+                var objectFromInterface = objectSpace.CreateObjectFromInterface<ISequenceReleasedObject>();
+                objectFromInterface.Sequence = supportSequenceObject.Sequence;
                 objectFromInterface.SequenceObject = sequenceObject;
             }
         }

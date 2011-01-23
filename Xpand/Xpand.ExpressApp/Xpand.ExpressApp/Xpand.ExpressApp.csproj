@@ -108,6 +108,7 @@
     <Compile Include="Attributes\AllowEditAttribute.cs" />
     <Compile Include="Attributes\HideFromNewMenuAttribute.cs" />
     <Compile Include="Attributes\NewObjectCreateGroupAttribute.cs" />
+    <Compile Include="Attributes\SequencePropertyAttribute.cs" />
     <Compile Include="Attributes\XpandNavigationItemAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Core\ReadOnlyParameters\MonthAgoParameter.cs" />
     <Compile Include="Core\TypeValueConverter.cs" />
     <Compile Include="DataStoreProvider.cs" />
+    <Compile Include="Editors\ReleaseSequencePopupWindowHelper.cs" />
     <Compile Include="Model\IModelMemberEx.cs" />
     <Compile Include="Model\IModelRuntimeMember.cs" />
     <Compile Include="Model\IModelProccessViewShortcuts.cs" />

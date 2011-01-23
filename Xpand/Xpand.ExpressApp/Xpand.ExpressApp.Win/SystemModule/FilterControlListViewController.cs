@@ -93,8 +93,8 @@ Forms.DockStyle.None) {
             }
         }
         void Frame_ViewChanged(object sender, ViewChangedEventArgs e) {
-            var control = ((GridControl)View.Control);
-            control.BringToFront();
+            var control = (View.Control) as GridControl;
+            if (control != null) control.BringToFront();
         }
 
         private CriteriaOperator GetCriteriaFromView() {

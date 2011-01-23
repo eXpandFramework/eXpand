@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [RuleCombinationOfPropertiesIsUnique("MDO_Unique_Name_Application", DefaultContexts.Save, "Name,PersistentApplication")]
     [CreatableItem(false), NavigationItem("Default"), HideFromNewMenu]
     [Custom("Caption", Caption), Custom("IsClonable", "True"), VisibleInReports(false)]
-    public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference {
+    public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference,ISupportSequenceObject {
         public const string Caption = "Application Difference";
         DifferenceType _differenceType;
         bool _disabled;
@@ -249,6 +249,15 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
         AspectObject GetActiveAspect(ModelApplicationBase modelApplicationBase) {
             return AspectObjects.Where(o => o.Name == GetAspectName(modelApplicationBase.CurrentAspect)).FirstOrDefault();
+        }
+
+        long ISupportSequenceObject.Sequence {
+            get { return combineOrder; }
+            set { combineOrder=(int) value; }
+        }
+
+        string ISupportSequenceObject.Prefix {
+            get { return null; }
         }
     }
 }
