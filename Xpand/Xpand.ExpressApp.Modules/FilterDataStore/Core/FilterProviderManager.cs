@@ -8,6 +8,7 @@ using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.FilterDataStore.Core {
     public static class FilterProviderManager {
+        private const string FilterProvider = "FilterProvider";
 
         private static IValueManager<FilterProviderCollection> _valueManager;
         private static IValueManager<FilterProviderCollection> ValueManager {
@@ -26,6 +27,11 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
             }
         }
 
+        public static bool IsRegistered {
+            get { return (ConfigurationManager.GetSection(FilterProvider) as FilterProviderConfiguration)!=null; }
+            
+        }
+
         public static FilterProviderBase GetFilterProvider(string filterMemberName, StatementContext modify) {
             FilterProviderBase provider = Providers.Cast<FilterProviderBase>().Where(
                 probase => probase.FilterMemberName == filterMemberName && (probase.StatementContext == modify || probase.StatementContext == StatementContext.Both)).FirstOrDefault();
@@ -40,7 +46,7 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
 
         internal static void Initialize() {
             try {
-                var qc =ConfigurationManager.GetSection("FilterProvider") as FilterProviderConfiguration;
+                var qc =ConfigurationManager.GetSection(FilterProvider) as FilterProviderConfiguration;
 
                 if (qc == null)
                     throw new ConfigurationErrorsException(
@@ -56,5 +62,9 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
                 throw;
             }
         }
+
+        
+       
+        
     }
 }

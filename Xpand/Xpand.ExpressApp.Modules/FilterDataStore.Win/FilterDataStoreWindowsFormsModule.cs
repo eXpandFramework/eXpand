@@ -12,7 +12,8 @@ namespace Xpand.ExpressApp.FilterDataStore.Win {
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            application.SetupComplete += ApplicationOnSetupComplete;
+            if (FilterProviderManager.IsRegistered)
+                application.SetupComplete += ApplicationOnSetupComplete;
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {

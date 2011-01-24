@@ -45,7 +45,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (FilterProviderManager.Providers != null) {
+            if (FilterProviderManager.IsRegistered&& FilterProviderManager.Providers != null) {
                 SubscribeToDataStoreProxyEvents();
                 CreateMembers(typesInfo);
                 foreach (var persistentType in typesInfo.PersistentTypes.Where(info => info.IsPersistent)) {
