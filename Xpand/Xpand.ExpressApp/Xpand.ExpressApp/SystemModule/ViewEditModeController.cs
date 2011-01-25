@@ -20,8 +20,14 @@ namespace Xpand.ExpressApp.SystemModule {
         protected override void OnActivated() {
             base.OnActivated();
             var viewEditMode = ((IModelViewEditMode)View.Model).ViewEditMode;
-            if (viewEditMode.HasValue)
+            if (viewEditMode.HasValue) {
                 View.ViewEditMode = viewEditMode.Value;
+                UpdateViewAllowEditState();
+            }
+        }
+
+        protected virtual void UpdateViewAllowEditState() {
+            View.AllowEdit["ViewEditMode"] = View.ViewEditMode == ViewEditMode.Edit;
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
