@@ -8,6 +8,8 @@ using DevExpress.Xpo.DB.Helpers;
 namespace Xpand.Xpo.DB {
     public class SchemaColumnSizeUpdater : ISchemaUpdater {
         public void Update(ConnectionProviderSql connectionProviderSql, DataStoreUpdateSchemaEventArgs dataStoreUpdateSchemaEventArgs) {
+            if (connectionProviderSql is AccessConnectionProvider)
+                return;
             lock (connectionProviderSql.SyncRoot) {
                 if (!connectionProviderSql.CanCreateSchema)
                     return;
@@ -51,7 +53,7 @@ namespace Xpand.Xpo.DB {
         }
 
         bool NeedsAltering(DBColumn column, DBColumn actualColumn) {
-            return (actualColumn != null) &&
+            return (actualColumn != null) && 
                    (actualColumn.ColumnType == DBColumnType.String) &&
                    (actualColumn.Size != column.Size) &&
                    (column.DBTypeName != string.Format("varchar({0})", actualColumn.Size));
