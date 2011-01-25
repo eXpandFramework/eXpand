@@ -107,7 +107,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             }
         }
 
-
+        
         public int CombineOrder {
             get { return combineOrder; }
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref combineOrder, value); }

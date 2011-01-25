@@ -3,7 +3,6 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
 
@@ -27,7 +26,7 @@ namespace Xpand.Persistent.BaseImpl {
         }
 
         IList<ISequenceReleasedObject> ISequenceObject.SequenceReleasedObjects {
-            get { return new ListConverter<ISequenceReleasedObject,SequenceReleasedObject>(XpandReleasedSequences); }
+            get { return new ListConverter<ISequenceReleasedObject, SequenceReleasedObject>(XpandReleasedSequences); }
         }
 
         [Association("SequenceObject-XpandReleasedSequences")]
@@ -39,8 +38,8 @@ namespace Xpand.Persistent.BaseImpl {
         }
     }
 
-    [DefaultClassOptions]
-    [Appearance("Hide_NewAction_for_SequenceReleasedObject",AppearanceItemType.Action, "1=1",TargetItems = "New",Visibility = ViewItemVisibility.Hide)]
+
+    [Appearance("Hide_NewAction_for_SequenceReleasedObject", AppearanceItemType.Action, "1=1", TargetItems = "New", Visibility = ViewItemVisibility.Hide)]
     public class SequenceReleasedObject : XpandBaseCustomObject, ISequenceReleasedObject {
         public SequenceReleasedObject(Session session)
             : base(session) {

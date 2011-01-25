@@ -33,10 +33,11 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
             base.OnViewControlsCreated();
             var combineLastLayerWithActiveUserDiffsOnLoad = ((IModelOptionsApplicationModelDiffs)Application.Model.Options).CombineLastLayerWithActiveUserDiffsOnLoad;
             var userModelDifferenceObject = ((UserModelDifferenceObject) View.CurrentObject);
-            if (combineLastLayerWithActiveUserDiffsOnLoad && ReferenceEquals(GetDifference(Application.GetType().FullName,userModelDifferenceObject.Name), userModelDifferenceObject)) {
-                var lastLayer = ((ModelApplicationBase)Application.Model).LastLayer;
-                userModelDifferenceObject.CreateAspectsCore(lastLayer);
-            }
+            if (userModelDifferenceObject != null)
+                if (combineLastLayerWithActiveUserDiffsOnLoad && ReferenceEquals(GetDifference(Application.GetType().FullName,userModelDifferenceObject.Name), userModelDifferenceObject)) {
+                    var lastLayer = ((ModelApplicationBase)Application.Model).LastLayer;
+                    userModelDifferenceObject.CreateAspectsCore(lastLayer);
+                }
         }
         protected override void OnDeactivated() {
             base.OnDeactivated();
