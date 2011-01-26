@@ -42,7 +42,18 @@ namespace Xpand.ExpressApp.Win {
         public event EventHandler<ViewShownEventArgs> AfterViewShown;
 
         public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
+        public event EventHandler<CustomCreateApplicationModulesManagerEventArgs> CustomCreateApplicationModulesManager;
 
+        protected void OnCustomCreateApplicationModulesManager(CustomCreateApplicationModulesManagerEventArgs e) {
+            EventHandler<CustomCreateApplicationModulesManagerEventArgs> handler = CustomCreateApplicationModulesManager;
+            if (handler != null) handler(this, e);
+        }
+        protected override ApplicationModulesManager CreateApplicationModulesManager(DevExpress.ExpressApp.Core.ControllersManager controllersManager) {
+            var applicationModulesManager = base.CreateApplicationModulesManager(controllersManager);
+            var customCreateApplicationModulesManagerEventArgs = new CustomCreateApplicationModulesManagerEventArgs(applicationModulesManager);
+            OnCustomCreateApplicationModulesManager(customCreateApplicationModulesManagerEventArgs);
+            return customCreateApplicationModulesManagerEventArgs.Handled ? customCreateApplicationModulesManagerEventArgs.ApplicationModulesManager : applicationModulesManager;
+        }
         public event CancelEventHandler ConfirmationRequired;
 
 
@@ -141,6 +152,18 @@ namespace Xpand.ExpressApp.Win {
             base.OnCreateCustomObjectSpaceProvider(args);
         }
 
+    }
+
+    public class CustomCreateApplicationModulesManagerEventArgs : HandledEventArgs {
+        readonly ApplicationModulesManager _applicationModulesManager;
+
+        public CustomCreateApplicationModulesManagerEventArgs(ApplicationModulesManager applicationModulesManager) {
+            _applicationModulesManager = applicationModulesManager;
+        }
+
+        public ApplicationModulesManager ApplicationModulesManager {
+            get { return _applicationModulesManager; }
+        }
     }
 
 

@@ -126,6 +126,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Logic\IAdditionalViewControlsRule.cs" />
+    <Compile Include="Logic\PessimisticLockingMessageAttribute.cs" />
     <Compile Include="Logic\Position.cs" />
     <Compile Include="Model\IModelAdditionalViewControlsRule.cs" />
     <Compile Include="Model\IModelApplicationAdditionalViewControls.cs" />

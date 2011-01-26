@@ -167,6 +167,12 @@
     <Compile Include="SystemModule\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\PessimisticLockingViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\PromtOnExitController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\ViewEditModeController.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -155,6 +155,10 @@
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Security.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Win, Version=10.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.WorldCreator, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -228,6 +232,7 @@
     <Compile Include="CleanupAfterEveryContextInAssembly.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Xpand.ExpressApp\PessimisticLockingSpecs.cs" />
     <Compile Include="Xpand.ExpressApp\RuleRequiredForAtLeast1PropertyFixture.cs" />
     <Compile Include="Xpand.ExpressApp\TypesInfoFixture.cs" />
     <Compile Include="Xpand.IO\AllObjectsSpecs.cs" />

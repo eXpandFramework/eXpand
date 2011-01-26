@@ -47,6 +47,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
 
         [Category("Data")]
         [Description("The type of the control that will be used to decorate the inserted control")]
+        [Localizable(true)]
         string Message { get; set; }
 
         [Category("Behavior")]
