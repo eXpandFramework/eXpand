@@ -280,6 +280,8 @@
     <Compile Include="ImportExport\UpdateMembers\Updater.cs" />
     <Compile Include="Miscellaneous\LinqQuery\AttributeRegistrator.cs" />
     <Compile Include="ListViewControl\LoadWhenFiltered\AttributeRegistrator.cs" />
+    <Compile Include="Miscellaneous\Sequence\AttributeRegistrator.cs" />
+    <Compile Include="Miscellaneous\Sequence\SequenceCustomer.cs" />
     <Compile Include="ModelArtifact\ConditionalForeignKeyKViolation\AttributeRegistrator.cs" />
     <Compile Include="ModelArtifact\ConditionalSaveDelete\AttributeRegistrator.cs" />
     <Compile Include="Navigation\AttributeRegistrator.cs" />
@@ -520,7 +522,6 @@
     <EmbeddedResource Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\MDO_ExistentAssemblyRuntimeOrphanedCollection.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="Model.DesignedDiffs.Localization.el.xafml" />
     <None Include="ModelArtifact\ConditionalForeignKeyKViolation\MDO_ConditionalForeignKeyViolation.xafml">
       <SubType>Designer</SubType>
     </None>
