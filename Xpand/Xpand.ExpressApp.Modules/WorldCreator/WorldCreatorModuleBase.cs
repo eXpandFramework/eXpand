@@ -19,6 +19,7 @@ namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
         string _connectionString;
         List<Type> _dynamicModuleTypes = new List<Type>();
+        
 
         public List<Type> DynamicModuleTypes {
             get { return _dynamicModuleTypes; }
@@ -40,7 +41,8 @@ namespace Xpand.ExpressApp.WorldCreator {
                         typeSynchronizer.SynchronizeTypes(_connectionString);
                         RunUpdaters(session);
                         AddDynamicModules(moduleManager, unitOfWork);
-//                        SynchronizeTypes(unitOfWork);
+
+                        //                        SynchronizeTypes(unitOfWork);
                     }
                 }
             } else {
@@ -100,9 +102,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             mergeTypes(new UnitOfWork(session.DataLayer));
 
         }
-
-        public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
-            base.CustomizeTypesInfo(typesInfo);
+        protected override BusinessClassesList GetBusinessClassesCore() {
             var existentTypesMemberCreator = new ExistentTypesMemberCreator();
             if (_connectionString != null) {
                 var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
@@ -110,6 +110,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                 var session = new Session(simpleDataLayer);
                 existentTypesMemberCreator.CreateMembers(session);
             }
+            return base.GetBusinessClassesCore();
         }
 
         IEnumerable<WorldCreatorUpdater> GetWorldCreatorUpdaters(Session session) {
@@ -120,8 +121,8 @@ namespace Xpand.ExpressApp.WorldCreator {
         ReflectionDictionary GetReflectionDictionary() {
             Type persistentAssemblyInfoType = GetAdditionalClasses(BaseApplication.Modules).Where(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1)).FirstOrDefault();
             if (persistentAssemblyInfoType == null)
-                throw new ArgumentNullException("No bussincess object that implements " +
-                                                typeof(IPersistentAssemblyInfo).FullName + " found");
+                throw new ArgumentNullException("Add a business object that implements " +
+                                                typeof(IPersistentAssemblyInfo).FullName + " at your AdditionalBusinessClasses (module.designer.cs)");
             IEnumerable<Type> types = persistentAssemblyInfoType.Assembly.GetTypes().Where(type => (type.Namespace + "").StartsWith(persistentAssemblyInfoType.Namespace + ""));
             var reflectionDictionary = new ReflectionDictionary();
             foreach (var type in types) {

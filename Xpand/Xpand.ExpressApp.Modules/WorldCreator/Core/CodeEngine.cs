@@ -104,7 +104,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         }
 
         static string CleanFullName(string fullName) {
-            var list = fullName.Split('.').ToList();
+            var list = (fullName+"").Split('.').ToList();
             var name = list.Last();
             list.Remove(name);
             name = CleanName(name);
