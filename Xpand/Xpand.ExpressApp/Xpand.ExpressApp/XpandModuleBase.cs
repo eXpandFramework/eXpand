@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -77,12 +76,16 @@ namespace Xpand.ExpressApp {
             InitializeInstanceXafApplicationManager();
             application.SetupComplete += ApplicationOnSetupComplete;
         }
-
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
+        public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             InitializeInstanceXafApplicationManager();
             var type = (BaseInfo)typesInfo.FindTypeInfo(typeof(IModelMember)).FindMember("Type");
-            var attribute = type.FindAttribute<ReadOnlyAttribute>();
+            var attribute = type.FindAttribute<ModelReadOnlyAttribute>();
+            if (attribute != null)
+                type.RemoveAttribute(attribute);
+
+            type = typesInfo.FindTypeInfo(typeof(IModelBOModelClassMembers)) as BaseInfo;
+            attribute = type.FindAttribute<ModelReadOnlyAttribute>();
             if (attribute != null)
                 type.RemoveAttribute(attribute);
         }
