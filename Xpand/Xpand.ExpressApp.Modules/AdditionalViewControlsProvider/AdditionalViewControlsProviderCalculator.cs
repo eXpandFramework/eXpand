@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Reflection;
-using DevExpress.Persistent.Base;
+using DevExpress.ExpressApp;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
@@ -87,8 +87,10 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
         void UpdateAdditionalText() {
             if (_controlsRule != null &&!string.IsNullOrEmpty(_controlsRule.MessageProperty)){
                 if (CurrentObject != null)
-                    AdditionalText =
-                        (string) ReflectionHelper.GetMemberValue(CurrentObject, _controlsRule.MessageProperty);
+                {
+                    var memberInfo = XafTypesInfo.Instance.FindTypeInfo(CurrentObject.GetType()).FindMember(_controlsRule.MessageProperty);
+                    AdditionalText = memberInfo != null ? memberInfo.GetValue(CurrentObject) as string : null;
+                }
                 else {
                     PropertyInfo propertyInfo = _objectType.GetProperty(_controlsRule.MessageProperty,BindingFlags.Static);
                     if (propertyInfo!= null)

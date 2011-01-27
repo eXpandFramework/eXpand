@@ -76,12 +76,24 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
         }
 
         void FrameOnViewChanged(object sender, ViewChangedEventArgs viewChangedEventArgs) {
-            if (Frame.View != null && Frame.View.IsControlCreated) {
-                var control = Frame.View.Control as Control;
-                if (control != null) {
-                    control.BringToFront();
-                }
+            if (Frame.View != null) {
+                if (Frame.View.IsControlCreated)
+                    BringViewControlToFront(Frame.View.Control as Control);
+                else
+                    Frame.View.ControlsCreated += View_ControlsCreated;
             }
+        }
+
+        void View_ControlsCreated(object sender, EventArgs e)
+        {
+            Frame.View.ControlsCreated -= View_ControlsCreated;
+            BringViewControlToFront(Frame.View.Control as Control);
+        }
+
+        void BringViewControlToFront(Control control)
+        {
+            if (control != null)
+                control.BringToFront();
         }
 
         protected override void RemoveControl(IList controls, object firstOrDefault, LogicRuleInfo<IAdditionalViewControlsRule> info) {
