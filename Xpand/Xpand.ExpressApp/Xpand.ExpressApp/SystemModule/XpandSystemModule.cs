@@ -52,7 +52,7 @@ namespace Xpand.ExpressApp.SystemModule {
         void InitializeSequenceGenerator() {
             try {
                 if (Application != null) 
-                    SequenceGenerator.Initialize(Application);
+                    SequenceGenerator.Initialize(ConnectionString);
             }
             catch (Exception e) {
                 if (e.InnerException != null)

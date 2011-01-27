@@ -173,9 +173,8 @@ namespace Xpand.Persistent.Base.General {
 
 
 
-        public static void Initialize(XafApplication xafApplication) {
-            DefaultDataLayer = XpoDefault.GetDataLayer(xafApplication.Connection == null ? xafApplication.ConnectionString
-                        : xafApplication.Connection.ConnectionString, AutoCreateOption.DatabaseAndSchema);
+        public static void Initialize(string connectionString) {
+            DefaultDataLayer = XpoDefault.GetDataLayer(connectionString, AutoCreateOption.DatabaseAndSchema);
             RegisterSequences(XafTypesInfo.Instance.PersistentTypes);
         }
 

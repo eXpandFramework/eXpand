@@ -40,6 +40,8 @@ namespace Xpand.ExpressApp {
         }
 
         static XPDictionary _dictiorary=XafTypesInfo.XpoTypeInfoSource.XPDictionary;
+        protected string ConnectionString;
+
         public static XPDictionary Dictiorary {
             get { return _dictiorary; }
             set { _dictiorary = value; }
@@ -74,7 +76,13 @@ namespace Xpand.ExpressApp {
             base.Setup(application);
             InitializeInstanceXafApplicationManager();
             application.SetupComplete += ApplicationOnSetupComplete;
+            application.CreateCustomObjectSpaceProvider +=
+                (sender, args) => ConnectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
         }
+        string getConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args) {
+            return args.Connection != null ? args.Connection.ConnectionString : args.ConnectionString;
+        }
+
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             InitializeInstanceXafApplicationManager();

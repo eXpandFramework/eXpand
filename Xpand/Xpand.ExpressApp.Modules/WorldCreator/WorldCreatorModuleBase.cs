@@ -17,7 +17,7 @@ using Xpand.Xpo.DB;
 
 namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
-        string _connectionString;
+        
         List<Type> _dynamicModuleTypes = new List<Type>();
         
 
@@ -32,13 +32,13 @@ namespace Xpand.ExpressApp.WorldCreator {
             if (Application == null || GetPath() == null)
                 return;
             Application.SettingUp += ApplicationOnSettingUp;
-            if (_connectionString != null) {
-                var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
+            if (ConnectionString != null) {
+                var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(ConnectionString, GetReflectionDictionary());
                 using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
                     using (var session = new Session(dataLayer)) {
                         var unitOfWork = new UnitOfWork(session.DataLayer);
                         var typeSynchronizer = new TypeSynchronizer();
-                        typeSynchronizer.SynchronizeTypes(_connectionString);
+                        typeSynchronizer.SynchronizeTypes(ConnectionString);
                         RunUpdaters(session);
                         AddDynamicModules(moduleManager, unitOfWork);
 
@@ -66,7 +66,7 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         void SynchronizeTypes(UnitOfWork unitOfWork) {
             var xpObjectTypes = new XPCollection<XPObjectType>(unitOfWork);
-            var dataStoreManager = new SqlMultiDataStoreProxy(_connectionString);
+            var dataStoreManager = new SqlMultiDataStoreProxy(ConnectionString);
             foreach (var xpObjectType in xpObjectTypes) {
                 var type = ReflectionHelper.FindType(xpObjectType.TypeName);
                 if (type != null) {
@@ -104,8 +104,8 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
         protected override BusinessClassesList GetBusinessClassesCore() {
             var existentTypesMemberCreator = new ExistentTypesMemberCreator();
-            if (_connectionString != null) {
-                var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
+            if (ConnectionString != null) {
+                var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(ConnectionString, GetReflectionDictionary());
                 var simpleDataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy);
                 var session = new Session(simpleDataLayer);
                 existentTypesMemberCreator.CreateMembers(session);
@@ -161,7 +161,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                 _dynamicModuleTypes.Select(type => type.Assembly).SelectMany(
                     assembly => assembly.GetTypes().Where(type => typeof(IXPSimpleObject).IsAssignableFrom(type)));
             IDbCommand dbCommand =
-                ((ISqlDataStore)XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.DatabaseAndSchema)).CreateCommand();
+                ((ISqlDataStore)XpoDefault.GetConnectionProvider(ConnectionString, AutoCreateOption.DatabaseAndSchema)).CreateCommand();
             new XpoObjectMerger().MergeTypes(unitOfWork, persistentTypes.ToList(), dbCommand);
         }
 
@@ -172,14 +172,6 @@ namespace Xpand.ExpressApp.WorldCreator {
             updaters.Add(new ImageSourcesUpdater(DynamicModuleTypes));
         }
 
-        public override void Setup(XafApplication application) {
-            base.Setup(application);
-            application.CreateCustomObjectSpaceProvider +=
-                (sender, args) => _connectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
-        }
 
-        string getConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args) {
-            return args.Connection != null ? args.Connection.ConnectionString : args.ConnectionString;
-        }
     }
 }
