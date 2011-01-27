@@ -187,7 +187,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         protected override void OnSaving() {
             base.OnSaving();
             if (Session.IsNewObject(this)) {
-                combineOrder = (int) SequenceGenerator.GenerateSequence(this);
+                SequenceGenerator.GenerateSequence(this);
             }
         }
         public override void AfterConstruction() {

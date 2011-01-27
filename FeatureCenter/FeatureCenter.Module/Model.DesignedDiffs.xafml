@@ -1,37 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="FeatureCenter" Logo="ExpressAppLogo">
+<Application Logo="ExpressAppLogo">
   <NavigationItems DefaultChildItemsDisplayStyle="List" NavigationStyle="TreeList">
     <Items>
       <Item Id="Application Differences">
         <Items>
           <Item Id="ModelDifferenceObject_ListView" ImageName="MenuBar_EditModel" />
-        </Items>
-      </Item>
-      <Item Id="Default">
-        <Items>
-          <Item Id="ModelDifferenceObject_ListView" Removed="True" />
-        </Items>
-      </Item>
-      <Item Id="WorldCreator" Caption="WorldCreator">
-        <Items>
-          <Item Id="Admin" IsNewNode="True" Caption="Admin">
-            <Items IsNewNode="True">
-              <Item Id="CodeTemplate_ListView" IsNewNode="True" ViewId="CodeTemplate_ListView" ObjectKey="" />
-              <Item Id="ExtendedCollectionMemberInfo_ListView" IsNewNode="True" ViewId="ExtendedCollectionMemberInfo_ListView" ObjectKey="" />
-              <Item Id="ExtendedCoreTypeMemberInfo_ListView" IsNewNode="True" ViewId="ExtendedCoreTypeMemberInfo_ListView" ObjectKey="" />
-              <Item Id="ExtendedOrphanedCollection_ListView" IsNewNode="True" ViewId="ExtendedOrphanedCollection_ListView" ObjectKey="" />
-              <Item Id="ExtendedReferenceMemberInfo_ListView" IsNewNode="True" ViewId="ExtendedReferenceMemberInfo_ListView" ObjectKey="" />
-              <Item Id="InterfaceInfo_ListView" IsNewNode="True" ViewId="InterfaceInfo_ListView" ObjectKey="" />
-              <Item Id="PersistentAssemblyInfo_ListView" IsNewNode="True" ViewId="PersistentAssemblyInfo_ListView" ObjectKey="" />
-            </Items>
-          </Item>
-          <Item Id="CodeTemplate_ListView" Removed="True" />
-          <Item Id="ExtendedCollectionMemberInfo_ListView" Removed="True" />
-          <Item Id="ExtendedCoreTypeMemberInfo_ListView" Removed="True" />
-          <Item Id="ExtendedOrphanedCollection_ListView" Removed="True" />
-          <Item Id="ExtendedReferenceMemberInfo_ListView" Removed="True" />
-          <Item Id="InterfaceInfo_ListView" Removed="True" />
-          <Item Id="PersistentAssemblyInfo_ListView" Removed="True" />
         </Items>
       </Item>
     </Items>
@@ -64,7 +37,6 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Parent_ListView" MasterDetailMode="ListViewAndDetailView" />
     <DetailView Id="XpandLogonParameters_DetailView">
       <Items>
         <StaticText Id="CredentialsText" IsNewNode="True" Text="User :Admin , Pass:Admin" />

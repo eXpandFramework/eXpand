@@ -58,6 +58,7 @@
         public const string HeaderOrphanedCollectionFromModel = "Orphaned Collection using model editor";
         public const string HeaderOrphanedCollectionWithCode = "Orphaned Collection With Code";
         public const string HeaderExistentAssemblyRuntimeOrphanedCollection = "Existent Assembly Runtime Orphaned Collection";
+        public const string HeaderSequence = "Sequence Numbers";
 
 
         public const string ViewMessage = "ViewMessage";
@@ -117,5 +118,6 @@
         public const string ViewMessageOrphanedCollectionFromModel = "The OrderLines nested list view you see above displays the is bound to the customer instance. It is a runtime collection of orderlines that is filtered according to the currect customer. Use the the model difference action (next to the refresh button) to see the diffs you have to apply";
         public const string ViewMessageOrphanedCollectionWithCode = "The OrderLinesFromCode collection is a dynamically created collection property see CreateRuntimeOrphanedCollectionController at feature center on how to create such kind of properties";
         public const string ViewMessageExistentAssemblyRuntimeOrphanedCollection = "The OrderLines nested list view you see above displays the is bound to the customer instance. It is a runtime collection of orderlines that is filtered according to the currect customer and has been created using worldcreator ExtendedOrphanedCollection class";
+        public const string ViewMessageSequence = "In this view you can see how easy it is to implement sequence numbers (Id property). The sequence generation is done according to SeqEnum. You can also try to open a SequenceOrder object. There the generation is done with the respect to the parent customer object";
     }
 }

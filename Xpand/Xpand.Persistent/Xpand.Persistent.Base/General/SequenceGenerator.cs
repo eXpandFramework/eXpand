@@ -16,9 +16,9 @@ namespace Xpand.Persistent.Base.General {
         IList<ISequenceReleasedObject> SequenceReleasedObjects { get; }
     }
 
-    public interface ISupportSequenceObject:IXPClassInfoProvider,ISessionProvider {
+    public interface ISupportSequenceObject : IXPClassInfoProvider, ISessionProvider {
         long Sequence { get; set; }
-        string Prefix { get;  }
+        string Prefix { get; }
     }
     public interface ISequenceReleasedObject {
         ISequenceObject SequenceObject { get; set; }
@@ -138,7 +138,7 @@ namespace Xpand.Persistent.Base.General {
             return typeToExistsMap;
         }
 
-        static ISequenceObject CreateSequenceObject(string fullName, UnitOfWork unitOfWork) {
+        public static ISequenceObject CreateSequenceObject(string fullName, UnitOfWork unitOfWork) {
             var sequenceObject = (ISequenceObject)Activator.CreateInstance(_sequenceObjectType, new object[] { unitOfWork });
             sequenceObject.TypeName = fullName;
             sequenceObject.NextSequence = 0;
@@ -147,7 +147,7 @@ namespace Xpand.Persistent.Base.General {
 
         static SequenceGenerator _sequenceGenerator;
 
-        public static long GenerateSequence(ISupportSequenceObject supportSequenceObject) {
+        public static void GenerateSequence(ISupportSequenceObject supportSequenceObject) {
             if (_sequenceGenerator == null)
                 _sequenceGenerator = new SequenceGenerator();
             long nextSequence = _sequenceGenerator.GetNextSequence(supportSequenceObject.ClassInfo, supportSequenceObject.Prefix);
@@ -168,7 +168,7 @@ namespace Xpand.Persistent.Base.General {
                 };
                 session.AfterCommitTransaction += sessionOnAfterCommitTransaction[0];
             }
-            return nextSequence;
+            supportSequenceObject.Sequence = nextSequence;
         }
 
 
