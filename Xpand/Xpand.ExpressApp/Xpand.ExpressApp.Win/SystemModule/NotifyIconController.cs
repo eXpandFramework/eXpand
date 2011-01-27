@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.XtraEditors;
 using Xpand.ExpressApp.SystemModule;
 
@@ -16,6 +17,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     }
 
     public class NotifyIconController : WindowController, IModelExtender {
+
         static bool iconVisible;
         public NotifyIconController() {
             TargetWindowType = WindowType.Main;
@@ -34,10 +36,10 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                     IContainer container = new Container();
 
                     var strip = new ContextMenuStrip(container);
-                    strip.Items.Add(GetMenuItem("Maximize", (o, eventArgs) => changeFormVisibility(form)));
-                    strip.Items.Add(GetMenuItem("Minimize", (o, eventArgs) => changeFormVisibility(form)));
-                    strip.Items.Add(GetMenuItem("LogOut", (o, eventArgs) => ((IWinApplication)Application).LogOff()));
-                    strip.Items.Add(GetMenuItem("Exit", (o, eventArgs) => XpandModuleBase.Application.Exit()));
+                    strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Maximize"), (o, eventArgs) => changeFormVisibility(form)));
+                    strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Minimize"), (o, eventArgs) => changeFormVisibility(form)));
+                    strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "LogOut"), (o, eventArgs) => ((IWinApplication)Application).LogOff()));
+                    strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Exit"), (o, eventArgs) => XpandModuleBase.Application.Exit()));
 
                     var notifyIcon1 = new NotifyIcon(container) { Visible = true, ContextMenuStrip = strip };
                     setIcon(notifyIcon1);
@@ -62,7 +64,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         private void setIcon(NotifyIcon notifyIcon1) {
-            string path = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath)+"", "ExpressApp.ico");
+            string path = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "", "ExpressApp.ico");
             if (File.Exists(path))
                 notifyIcon1.Icon = new Icon(path);
             else {

@@ -71,7 +71,7 @@ Forms.DockStyle.None) {
             _xpandFilterControl.FilterCriteria = GetCriteriaFromView();
 
             var accept = new SimpleButton {
-                Text = CaptionHelper.GetLocalizedText("eXpand",
+                Text = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin,
                     "AcceptFilter")
             };
             accept.Click += ((o, args) => _xpandFilterControl.ApplyFilter());

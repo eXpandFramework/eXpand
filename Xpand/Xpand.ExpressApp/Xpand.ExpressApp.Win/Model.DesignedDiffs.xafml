@@ -1,8 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Localization>
-    <LocalizationGroup Name="eXpand" IsNewNode="True">
+    <LocalizationGroup Name="Xpand.Win" IsNewNode="True">
       <LocalizationItem Name="AcceptFilter" IsNewNode="True" Value="Accept Filter" />
+      <LocalizationItem Name="Exit" IsNewNode="True" Value="Exit" />
+      <LocalizationItem Name="LogOut" IsNewNode="True" Value="LogOut" />
+      <LocalizationItem Name="Maximize" IsNewNode="True" Value="Maximize" />
+      <LocalizationItem Name="Minimize" IsNewNode="True" Value="Minimize" />
     </LocalizationGroup>
   </Localization>
 </Application>
