@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
         string currentAdditionalText;
         object currentObject;
 
-        public AdditionalViewControlsProviderCalculator(IAdditionalViewControlsRule controlsRule,Type objectType) {
+        public AdditionalViewControlsProviderCalculator(IAdditionalViewControlsRule controlsRule, Type objectType) {
             _controlsRule = controlsRule;
             _objectType = objectType;
         }
@@ -47,7 +47,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
                 if ((_controlsRule == null)) {
                     return "";
                 }
-                string result = _controlsRule.Message;
+                string result =_controlsRule.MessageProperty==null? _controlsRule.Message:null;
                 if (!string.IsNullOrEmpty(AdditionalText)) {
                     if (!string.IsNullOrEmpty(result)) {
                         result += "\r\n---\r\n";
@@ -65,8 +65,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
         #endregion
         void supportNotifyPropertyChanged_PropertyChanged(object sender, PropertyChangedEventArgs e) {
             if ((_controlsRule != null) &&
-                ((e.PropertyName == _controlsRule.MessageProperty) && e.PropertyName!=null))
-            {
+                ((e.PropertyName == _controlsRule.MessageProperty) && e.PropertyName != null)) {
                 UpdateAdditionalText();
             }
         }
@@ -85,19 +84,21 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
         }
 
         void UpdateAdditionalText() {
-            if (_controlsRule != null &&!string.IsNullOrEmpty(_controlsRule.MessageProperty)){
-                if (CurrentObject != null)
-                {
+            if (_controlsRule != null && !string.IsNullOrEmpty(_controlsRule.MessageProperty)) {
+                if (CurrentObject != null) {
                     var memberInfo = XafTypesInfo.Instance.FindTypeInfo(CurrentObject.GetType()).FindMember(_controlsRule.MessageProperty);
-                    AdditionalText = memberInfo != null ? memberInfo.GetValue(CurrentObject) as string : null;
+                    if (memberInfo != null) {
+                        memberInfo.SetValue(CurrentObject, _controlsRule.Message);
+                        AdditionalText = memberInfo.GetValue(CurrentObject) as string;
+                    }
+                    else 
+                        AdditionalText = null;
+                } else {
+                    PropertyInfo propertyInfo = _objectType.GetProperty(_controlsRule.MessageProperty, BindingFlags.Static);
+                    if (propertyInfo != null)
+                        AdditionalText = propertyInfo.GetValue(null, null) as string;
                 }
-                else {
-                    PropertyInfo propertyInfo = _objectType.GetProperty(_controlsRule.MessageProperty,BindingFlags.Static);
-                    if (propertyInfo!= null)
-                        AdditionalText =propertyInfo.GetValue(null, null) as string;
-                }
-            }
-            else
+            } else
                 AdditionalText = "";
         }
 

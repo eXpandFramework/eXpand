@@ -4,19 +4,25 @@ using DevExpress.ExpressApp.Model.Core;
 
 namespace Xpand.ExpressApp.Core {
     public static class ModelApplicationBaseExtensions {
+        public static void RemoveLayer(this ModelApplicationBase application, string id) {
+            RefreshLayers(application, @base => @base.Id==id?null:@base);
+        }
+
         public static void ReplaceLayer(this ModelApplicationBase application, ModelApplicationBase layer) {
-            var modelApplicationBases=new List<ModelApplicationBase>();
+            RefreshLayers(application, @base => application.LastLayer.Id == layer.Id ? layer : @base);
+        }
+
+        static void RefreshLayers(ModelApplicationBase application,  Func<ModelApplicationBase, ModelApplicationBase> func) {
+            var modelApplicationBases = new List<ModelApplicationBase>();
             var lastLayer = application.LastLayer;
             application.RemoveLayer(lastLayer);
-            var afterSetup =application.LastLayer;
+            var afterSetup = application.LastLayer;
             application.RemoveLayer(afterSetup);
             while (application.LastLayer.Id != "Unchanged Master Part") {
-                ModelApplicationBase modelApplicationBase;
-                if (application.LastLayer.Id == layer.Id) 
-                    modelApplicationBase = layer;
-                else
-                    modelApplicationBase = application.LastLayer;
-                modelApplicationBases.Add(modelApplicationBase);
+                ModelApplicationBase modelApplicationBase = application.LastLayer;
+                modelApplicationBase = func.Invoke(modelApplicationBase);
+                if (modelApplicationBase!=null)
+                    modelApplicationBases.Add(modelApplicationBase);
                 application.RemoveLayer(application.LastLayer);
             }
             modelApplicationBases.Reverse();
@@ -25,6 +31,7 @@ namespace Xpand.ExpressApp.Core {
             }
             application.AddLayer(afterSetup);
             application.AddLayer(lastLayer);
+
         }
 
         public static void AddLayerBeforeLast(this ModelApplicationBase application, ModelApplicationBase layer) {

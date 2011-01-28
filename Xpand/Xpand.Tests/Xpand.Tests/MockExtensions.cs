@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using TypeMock.ArrangeActAssert;
+using Xpand.ExpressApp;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.Persistent.BaseImpl.ImportExport;
 using Xpand.Tests.Xpand.ExpressApp;
@@ -55,12 +56,16 @@ namespace Xpand.Tests {
             Isolate.Swap.NextInstance<DefaultSkinListGenerator>().With(defaultSkinListGenerator);
             var application = Isolate.Fake.Instance<XafApplication>(Members.CallOriginal, ConstructorWillBe.Called);
             RegisterControllers(application, controllers);
+            var xpandModuleBase = Isolate.Fake.Instance<XpandModuleBase>(Members.CallOriginal, ConstructorWillBe.Called);
+            xpandModuleBase.Setup(application);
+//            Isolate.WhenCalled(() => XpandModuleBase.Application).WillReturn(application);
             var objectSpaceProvider = Isolate.Fake.Instance<IObjectSpaceProvider>();
             Isolate.WhenCalled(() => objectSpaceProvider.TypesInfo).WillReturn(XafTypesInfo.Instance);
             application.CreateCustomObjectSpaceProvider += (sender, args) => args.ObjectSpaceProvider = objectSpaceProvider;
             RegisterDomainComponents(application, domaincomponentType);
             application.Setup();
             Isolate.WhenCalled(() => application.CreateObjectSpace()).WillReturn(ObjectSpaceInMemory.CreateNew(dataSet));
+            
             return application;
         }
 

@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
-
+using Xpand.ExpressApp.Attributes;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp {
@@ -11,7 +11,11 @@ namespace Xpand.ExpressApp {
             : base(unitOfWork, typesInfo) {
         }
 
-
+        protected override void SetModified(object obj, ObjectChangedEventArgs args) {
+            if (session.GetClassInfo(args.Object).FindMember(args.PropertyName) is ISupportCancelModification)
+                return;
+            base.SetModified(obj, args);
+        }
         public new Action<ResolveSessionEventArgs> AsyncServerModeSourceDismissSession {
             get { return base.AsyncServerModeSourceDismissSession; }
             set { base.AsyncServerModeSourceDismissSession = value; }

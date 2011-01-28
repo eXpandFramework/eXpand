@@ -3,33 +3,34 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Attributes;
 
 namespace Xpand.ExpressApp.SystemModule {
-    public abstract class PessimisticLockingViewController : ViewController {
+    public abstract class PessimisticLockingViewController : ViewController<DetailView> {
         PessimisticLocker _pessimisticLocker;
-        readonly SimpleAction _grabOwnerShipAction;
+        readonly SimpleAction _unlockObjectShipAction;
         public const string PessimisticLocking = "PessimisticLocking";
         public const string LockedUser = "LockedUser";
 
         protected PessimisticLockingViewController() {
-            _grabOwnerShipAction = new SimpleAction(this, "GrabOwnerShip", PredefinedCategory.RecordEdit);
-            _grabOwnerShipAction.Execute+=SimpleActionOnExecute;
-            _grabOwnerShipAction.SelectionDependencyType=SelectionDependencyType.RequireSingleObject;
-            _grabOwnerShipAction.Active[PessimisticLocking] = false;
+            _unlockObjectShipAction = new SimpleAction(this, "UnLockObject", PredefinedCategory.RecordEdit){Caption = "UnLock"};
+            _unlockObjectShipAction.Execute+=SimpleActionOnExecute;
+            _unlockObjectShipAction.SelectionDependencyType=SelectionDependencyType.RequireSingleObject;
+            _unlockObjectShipAction.Active[PessimisticLocking] = false;
         }
 
-        public SimpleAction GrabOwnerShipAction {
-            get { return _grabOwnerShipAction; }
+        public SimpleAction UnlockObjectShipAction {
+            get { return _unlockObjectShipAction; }
         }
 
         void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
-            _pessimisticLocker.Unlock(true);
+            _pessimisticLocker.UnLock(true);
             View.AllowEdit[PessimisticLocking] = true;
-            _grabOwnerShipAction.Active[PessimisticLocking] = false;
+            _unlockObjectShipAction.Active[PessimisticLocking] = false;
         }
 
         protected override void OnActivated() {
@@ -42,13 +43,13 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         void ViewOnAllowEditChanged(object sender, EventArgs eventArgs) {
-            _grabOwnerShipAction.Active[PessimisticLocking] = !View.AllowEdit[PessimisticLocking];
+            _unlockObjectShipAction.Active[PessimisticLocking] = !View.AllowEdit[PessimisticLocking];
         }
 
         protected void UpdateViewAllowEditState() {
             var lockedUser = View.ObjectTypeInfo.FindMember(LockedUser).GetValue(View.CurrentObject);
             View.AllowEdit[PessimisticLocking] = (ReferenceEquals(lockedUser, ObjectSpace.GetObject(SecuritySystem.CurrentUser))||lockedUser==null);
-            _grabOwnerShipAction.Active[PessimisticLocking] = !View.AllowEdit[PessimisticLocking];
+            _unlockObjectShipAction.Active[PessimisticLocking] = !View.AllowEdit[PessimisticLocking];
         }
 
         protected virtual void SubscribeToEvents() {
@@ -60,33 +61,40 @@ namespace Xpand.ExpressApp.SystemModule {
             View.Closing += ViewOnClosing;
         }
 
-        public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
+            if (XpandModuleBase.Application != null && XpandModuleBase.Application.Security != null) {
+                CreatePessimisticLockingField(typesInfo);
+            }
+        }
+
+        void CreatePessimisticLockingField(ITypesInfo typesInfo) {
             var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<PessimisticLockingAttribute>() != null);
             foreach (var typeInfo in typeInfos) {
                 typeInfo.AddAttribute(new OptimisticLockingAttribute(false));
                 var memberInfo = typeInfo.FindMember(LockedUser);
                 if (memberInfo == null) {
-                    memberInfo = typeInfo.CreateMember(LockedUser, SecuritySystem.UserType);
+                    memberInfo = typeInfo.CreateMember(LockedUser, XpandModuleBase.Application.Security.UserType);
                     memberInfo.AddAttribute(new BrowsableAttribute(false));
                 }
             }
         }
+
         void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs) {
-            _pessimisticLocker.Unlock();
+            _pessimisticLocker.UnLock();
         }
 
         void ViewOnClosing(object sender, EventArgs eventArgs) {
-            _pessimisticLocker.Unlock();
+            _pessimisticLocker.UnLock();
         }
 
         void ViewOnQueryCanChangeCurrentObject(object sender, CancelEventArgs cancelEventArgs) {
-            _pessimisticLocker.Unlock();
+            _pessimisticLocker.UnLock();
         }
 
 
         void ObjectSpaceOnRollingBack(object sender, CancelEventArgs cancelEventArgs) {
-            _pessimisticLocker.Unlock();
+            _pessimisticLocker.UnLock();
         }
 
         void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
@@ -106,9 +114,14 @@ namespace Xpand.ExpressApp.SystemModule {
         public bool IsLocked {
             get {
                 if (!_isLocked.HasValue) {
-                    var keyValue = _session.GetKeyValue(_currentObject);
-                    var objectByKey = _session.GetObjectByKey(_currentObject.GetType(), keyValue, true);
-                    _isLocked = new bool?(LockingMemberInfo.GetValue(objectByKey) != null);
+                    if (_currentObject != null) {
+                        var keyValue = _session.GetKeyValue(_currentObject);
+                        var objectByKey = _session.GetObjectByKey(_currentObject.GetType(), keyValue, true);
+                        _isLocked = new bool?(LockingMemberInfo.GetValue(objectByKey) != null);
+                    }
+                    else {
+                        _isLocked = false;
+                    }
                 }
                 return _isLocked.Value;
             }
@@ -124,11 +137,10 @@ namespace Xpand.ExpressApp.SystemModule {
             return _session.GetObjectByKey(currentObject.GetType(), keyValue, true);
         }
 
-        public void Unlock(bool force) {
+        public void UnLock(bool force) {
             if (force) {
                 UnLockCore();
-            }
-            else if (LockingMemberInfo.GetValue(_currentObject) == GetCurrentUser())
+            } else if (_currentObject!=null&&LockingMemberInfo.GetValue(_currentObject) == GetCurrentUser())
                 UnLockCore();
         }
 
@@ -138,12 +150,12 @@ namespace Xpand.ExpressApp.SystemModule {
             _session.Save(_currentObject);
         }
 
-        public void Unlock() {
-            Unlock(false);
+        public void UnLock() {
+            UnLock(false);
         }
 
         public void Lock() {
-            if (LockingMemberInfo.GetValue(_currentObject) == null) {
+            if (_currentObject!=null&&LockingMemberInfo.GetValue(_currentObject) == null) {
                 object user = GetCurrentUser();
                 LockingMemberInfo.SetValue(_currentObject, user);
                 _session.Save(_currentObject);
