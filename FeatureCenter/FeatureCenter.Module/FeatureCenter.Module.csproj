@@ -280,6 +280,8 @@
     <Compile Include="ImportExport\UpdateMembers\Updater.cs" />
     <Compile Include="Miscellaneous\LinqQuery\AttributeRegistrator.cs" />
     <Compile Include="ListViewControl\LoadWhenFiltered\AttributeRegistrator.cs" />
+    <Compile Include="Miscellaneous\PessimisticLocking\AttributeRegistrator.cs" />
+    <Compile Include="Miscellaneous\PessimisticLocking\PLCustomer.cs" />
     <Compile Include="Miscellaneous\Sequence\AttributeRegistrator.cs" />
     <Compile Include="Miscellaneous\Sequence\SequenceCustomer.cs" />
     <Compile Include="ModelArtifact\ConditionalForeignKeyKViolation\AttributeRegistrator.cs" />

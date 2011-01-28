@@ -5,11 +5,15 @@ using System.Windows.Forms;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC.Xpo;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Utils;
+using Xpand.ExpressApp.ModelDifference;
+using Xpand.ExpressApp.ModelDifference.Win;
+using Xpand.ExpressApp.Core;
 
 namespace FeatureCenter.Win
 {
@@ -19,7 +23,7 @@ namespace FeatureCenter.Win
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main() {
+        static void Main(string[] cmdargs) {
             
 #if EASYTEST
 			DevExpress.ExpressApp.EasyTest.WinAdapter.RemotingRegistration.Register(4100);
@@ -28,7 +32,7 @@ namespace FeatureCenter.Win
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EditModelPermission.AlwaysGranted = Debugger.IsAttached;
-            FeatureCenterWindowsFormsApplication winApplication = new FeatureCenterWindowsFormsApplication();
+            var winApplication = new FeatureCenterWindowsFormsApplication();
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
@@ -42,6 +46,10 @@ namespace FeatureCenter.Win
             try
             {
                 winApplication.Setup();
+                winApplication.LoggingOn += (sender, args) => {
+                    if (cmdargs.Length > 0)
+                        ((ModelApplicationBase) winApplication.Model).RemoveLayer(cmdargs[0]);
+                };
                 winApplication.Start();
             }
             catch (Exception e)
@@ -49,5 +57,7 @@ namespace FeatureCenter.Win
                 winApplication.HandleException(e);
             }
         }
+
+        
     }
 }

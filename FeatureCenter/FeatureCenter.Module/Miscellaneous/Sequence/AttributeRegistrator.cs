@@ -6,6 +6,7 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Miscellaneous.Sequence {
+
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         private const string SequenceCustomer_DetailView = "SequenceCustomer_DetailView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
