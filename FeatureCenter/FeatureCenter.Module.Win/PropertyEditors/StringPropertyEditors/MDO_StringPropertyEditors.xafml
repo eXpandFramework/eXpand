@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="FeatureCenter.Module.Win.PropertyEditors.StringPropertyEditors.SPECustomer">
+      <OwnMembers>
+        <Member Name="Predefine" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.StringPropertyEditor" PredefinedValues="Test1;Test2" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="StringPropertyEditors_DetailView">
+      <Items>
+        <PropertyEditor Id="City" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.StringLookupPropertyEditor" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" TextAlignMode="UseParentOptions" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" TextAlignMode="UseParentOptions" RelativeSize="12">
+            <LayoutGroup Id="SPECustomer" Caption="Predefine" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" TextAlignMode="UseParentOptions" RelativeSize="38">
+              <LayoutItem Id="Predefine" TextAlignMode="UseParentOptions" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Predefine" />
+            </LayoutGroup>
+            <LayoutGroup Id="CustomerBase" Caption="CustomerBase" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" TextAlignMode="UseParentOptions" RelativeSize="61">
+              <LayoutItem Id="Name" TextAlignMode="UseParentOptions" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="47" ViewItem="Name" />
+              <LayoutItem Id="City" TextAlignMode="UseParentOptions" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="52" ViewItem="City" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Orders_Group" Caption="Orders" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" TextAlignMode="UseParentOptions" Direction="Vertical" RelativeSize="87" Index="1">
+            <LayoutItem Id="Orders" TextAlignMode="UseParentOptions" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="94" ViewItem="Orders" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" Caption="Description" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" TextAlignMode="UseParentOptions" Direction="Horizontal" RelativeSize="43" Removed="True">
+            <LayoutItem Id="Description" ViewItem="Description" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

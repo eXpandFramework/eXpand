@@ -13,7 +13,7 @@ namespace FeatureCenter.Module.Win.PropertyEditors.NullAble {
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderNullAble, "1=1", "1=1",
         Captions.HeaderNullAble, Position.Top, ViewType = ViewType.DetailView)]
     [AdditionalViewControlsRule("NullAblePropertyEditors", "1=1", "1=1", null, Position.Bottom, MessageProperty = "ModificationStatements")]
-    [XpandNavigationItem(Module.Captions.Miscellaneous + "Null Able properites", "PENACustomer_ListView")]
+    [XpandNavigationItem(Module.Captions.PropertyEditors + "Null Able properties", "PENACustomer_ListView")]
     [DisplayFeatureModel("PENACustomer_DetailView", "NullAblePropertyEditors")]
     [ActionStateRule("HideSaveAndClose_For_NullablePropertyEditors","SaveAndClose","1=1",null,ActionState.Hidden)]
     public class PENACustomer : BaseObject, ISupportModificationStatements {

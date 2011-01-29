@@ -20,6 +20,8 @@
         public const string HeaderTreeListOptions = "TreeList Options";
         public const string HeaderTreeConditionalAppearance = "Tree Conditional Appearance";
         public const string HeaderNullAble = "NullAble properties";
+        public const string HeaderStringPropertyEditors = "String PropertyEditors";
+        public const string HeaderChooseFromListCollectionEditor = "Choose From List Collection Editor";
 
         public const string ViewMessageAutoCommitListView = "Make a a change to one record and navigate to next one so the changes you have make to saved automatically";
         public const string ViewMessageApplicationMultipleInstances = "FeatureCenter has been set up using Options/ApplicationMultipleInstances attribute to not to allow multi instances. To test it just click on the show another instance action. This feature does not work in debug mode";
@@ -44,5 +46,8 @@
         public const string ViewMessageTreeListOptions = "Here you see how to control the treelist options, For examplt note the vertical and horizontal lines visibility, or the FixedWidth of the FullName column or the Not AllowSort for the other 2 columns";
         public const string ViewMessageTreeConditionalAppearance = "In this view you see how you can apply the Conditional Appearence module over to a treelist editor. For examble note that all rows that fit the criteria 'FullName like 'Group %'' are bold";
         public const string ViewMessageNullAble = "Create a new record , execute the Save action and see the databayer senting null values to the database";
+        public const string ViewMessageStringPropertyEditors = "When you use the model predifines attribute you may want to disable editor edit see (predifined property)";
+        public const string ViewMessageStringPropertyEditors1 = "To create a lookup for a property that is not a reference object see the editor of the City property";
+        public const string ViewMessageChooseFromListCollectionEditor = "Check the property editor of the Orders property. Assign this editor to a generic collection and it will retreive all items of that generic type, and list them in the combo box.it will then look at what items are in the collection and set the checkstate.if the checkstate of an item changes, it will be added or removed from the collection.";
     }
 }

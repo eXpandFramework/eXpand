@@ -445,8 +445,11 @@
     <Compile Include="ControllingXtraGrid\MasterDetail\AtAnyLevel\OrdersNewItemRowPosition.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PropertyEditors\ChooseFromListCollectionEditor\AttributeRegistrator.cs" />
     <Compile Include="PropertyEditors\NullAble\PENACustomer.cs" />
     <Compile Include="Miscellaneous\TrayIcon\TICustomer.cs" />
+    <Compile Include="PropertyEditors\StringPropertyEditors\AttributeRegistrator.cs" />
+    <Compile Include="PropertyEditors\StringPropertyEditors\SPECustomer.cs" />
     <Compile Include="WinCustomer.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
@@ -472,7 +475,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PropertyEditors\StringPropertyEditors\" />
+    <EmbeddedResource Include="PropertyEditors\StringPropertyEditors\MDO_StringPropertyEditors.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FeatureCenter.Base\FeatureCenter.Base.csproj">
@@ -648,6 +653,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PropertyEditors\NullAble\MDO_NullAblePropertyEditors.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PropertyEditors\ChooseFromListCollectionEditor\MDO_ChooseFromListCollectionEditor.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

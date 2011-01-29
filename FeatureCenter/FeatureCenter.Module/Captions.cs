@@ -3,6 +3,7 @@
         public const string HeaderUpdateMembers = "Update Members";
         public const string Importexport = "ImportExport/";
         public const string Miscellaneous = "Miscellaneous/";
+        public const string PropertyEditors = "PropertyEditors/";
         public const string Security = "Security/";
         public const string MemberLevelSecurity = "Member Level";
         public const string Header = "Header";
