@@ -47,7 +47,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
                 if ((_controlsRule == null)) {
                     return "";
                 }
-                string result =_controlsRule.MessageProperty==null? _controlsRule.Message:null;
+                string result = _controlsRule.MessageProperty == null ? _controlsRule.Message : null;
                 if (!string.IsNullOrEmpty(AdditionalText)) {
                     if (!string.IsNullOrEmpty(result)) {
                         result += "\r\n---\r\n";
@@ -88,10 +88,10 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
                 if (CurrentObject != null) {
                     var memberInfo = XafTypesInfo.Instance.FindTypeInfo(CurrentObject.GetType()).FindMember(_controlsRule.MessageProperty);
                     if (memberInfo != null) {
-                        memberInfo.SetValue(CurrentObject, _controlsRule.Message);
+                        if (!string.IsNullOrEmpty(_controlsRule.Message))
+                            memberInfo.SetValue(CurrentObject, _controlsRule.Message);
                         AdditionalText = memberInfo.GetValue(CurrentObject) as string;
-                    }
-                    else 
+                    } else
                         AdditionalText = null;
                 } else {
                     PropertyInfo propertyInfo = _objectType.GetProperty(_controlsRule.MessageProperty, BindingFlags.Static);
