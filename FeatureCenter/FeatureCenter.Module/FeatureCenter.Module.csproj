@@ -284,6 +284,7 @@
     <Compile Include="Miscellaneous\PessimisticLocking\PLCustomer.cs" />
     <Compile Include="Miscellaneous\Sequence\AttributeRegistrator.cs" />
     <Compile Include="Miscellaneous\Sequence\SequenceCustomer.cs" />
+    <Compile Include="ISupportModificationStatements.cs" />
     <Compile Include="ModelArtifact\ConditionalForeignKeyKViolation\AttributeRegistrator.cs" />
     <Compile Include="ModelArtifact\ConditionalSaveDelete\AttributeRegistrator.cs" />
     <Compile Include="Navigation\AttributeRegistrator.cs" />
@@ -347,7 +348,7 @@
     <Compile Include="Security\MemberLevel\Updater.cs" />
     <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs">
     </Compile>
-    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UpdateStatementController.cs">
+    <Compile Include="DisplayUpdateStatementController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Updater.cs" />
@@ -527,6 +528,9 @@
     <None Include="ModelArtifact\ConditionalForeignKeyKViolation\MDO_ConditionalForeignKeyViolation.xafml">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="WhatsNew\MDO_WhatsNew.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

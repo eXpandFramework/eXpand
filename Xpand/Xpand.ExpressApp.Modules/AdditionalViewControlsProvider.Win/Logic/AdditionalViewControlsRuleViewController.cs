@@ -84,14 +84,12 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
             }
         }
 
-        void View_ControlsCreated(object sender, EventArgs e)
-        {
+        void View_ControlsCreated(object sender, EventArgs e) {
             Frame.View.ControlsCreated -= View_ControlsCreated;
             BringViewControlToFront(Frame.View.Control as Control);
         }
 
-        void BringViewControlToFront(Control control)
-        {
+        void BringViewControlToFront(Control control) {
             if (control != null)
                 control.BringToFront();
         }

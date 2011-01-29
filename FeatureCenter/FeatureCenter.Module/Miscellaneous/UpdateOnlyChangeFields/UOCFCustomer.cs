@@ -12,10 +12,10 @@ namespace FeatureCenter.Module.Miscellaneous.UpdateOnlyChangeFields {
         Captions.ViewMessageUpdateOnlyChangeFields, Position.Bottom, ViewType = ViewType.DetailView)]
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderUpdateOnlyChangeFields, "1=1", "1=1",
         Captions.HeaderUpdateOnlyChangeFields, Position.Top, ViewType = ViewType.DetailView)]
-    [AdditionalViewControlsRule("UpdateOnlyChangeFields", "1=1", "1=1", null, Position.Bottom, MessageProperty = "ModificationStatements")]
+    [AdditionalViewControlsRule("UpdateOnlyChangeFields", "1=1", "1=1", null, Position.Bottom, MessageProperty = "ModificationStatements",NotUseSameType = true)]
     [XpandNavigationItem(Captions.Miscellaneous+"Update Only Changed Fields", "UOCFCustomer_DetailView")]
     [DisplayFeatureModel("UOCFCustomer_DetailView", "UpdateOnlyChangeFields")]
-    public class UOCFCustomer : CustomerBase,ISupportChangedMembers {
+    public class UOCFCustomer : CustomerBase,ISupportChangedMembers, ISupportModificationStatements {
         ChangedMemberCollector _changedMemberCollector;
 
 

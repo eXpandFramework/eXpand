@@ -2,14 +2,14 @@
 <Application>
   <AdditionalViewControls>
     <ExecutionContextsGroup>
-      <ExecutionContexts Id="UpdateOnlyChangeFields" IsNewNode="True">
+      <ExecutionContexts Id="NullAblePropertyEditors" IsNewNode="True">
         <ExecutionContext Name="ObjectSpaceCommited" IsNewNode="True" />
       </ExecutionContexts>
     </ExecutionContextsGroup>
   </AdditionalViewControls>
   <AdditionalViewControls>
     <Rules>
-      <AdditionalViewControlsRule Id="UpdateOnlyChangeFields" ExecutionContextGroup="UpdateOnlyChangeFields" />
+      <AdditionalViewControlsRule Id="NullAblePropertyEditors" ExecutionContextGroup="NullAblePropertyEditors" />
     </Rules>
   </AdditionalViewControls>
 </Application>
