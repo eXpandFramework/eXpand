@@ -22,12 +22,12 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
     [PropertyEditor(typeof(IList<>), false)]
     public class ChooseFromListCollectionEditor : WinPropertyEditor {
         private CheckedComboBoxEdit comboControl;
-        
+
 
 
         public ChooseFromListCollectionEditor(Type objectType, IModelMemberViewItem info)
             : base(objectType, info) {
-            ControlBindingProperty = "EditValue";
+
         }
 
         #region Read what objects we've already go in out destination collection, and set the check state

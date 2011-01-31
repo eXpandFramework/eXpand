@@ -33,7 +33,6 @@ call clearProject.bat Xpand.ExpressApp.ModelArtifactState
 call clearProject.bat Xpand.ExpressApp.ModelArtifactState.Win
 call clearProject.bat Xpand.ExpressApp.WizardUI.Win
 call clearProject.bat Xpand.ExpressApp.ViewVariants
-call clearProject.bat Xpand.ExpressApp.ViewVariants.Win
 call clearProject.bat Xpand.Persistent.BaseImpl
 call clearProject.bat Xpand.ExpressApp.WorldCreator
 call clearProject.bat Xpand.ExpressApp.WorldCreator.Win
