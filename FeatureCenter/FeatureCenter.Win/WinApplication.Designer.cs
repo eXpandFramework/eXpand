@@ -81,7 +81,6 @@ namespace FeatureCenter.Win
             this.modelArtifactStateWindowsFormsModule1 = new Xpand.ExpressApp.ModelArtifactState.Win.ModelArtifactStateWindowsFormsModule();
             this.modelDifferenceWindowsFormsModule1 = new Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule();
             this.xpandTreeListEditorsWinModule1 = new Xpand.ExpressApp.TreeListEditors.Win.XpandTreeListEditorsWinModule();
-            this.xpandViewVariantsWin1 = new Xpand.ExpressApp.ViewVariants.Win.XpandViewVariantsWin();
             this.xpandSystemWindowsFormsModule1 = new Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule();
             this.wizardUIWindowsFormsModule1 = new Xpand.ExpressApp.WizardUI.Win.WizardUIWindowsFormsModule();
             this.worldCreatorWinModule1 = new Xpand.ExpressApp.WorldCreator.Win.WorldCreatorWinModule();
@@ -179,7 +178,6 @@ namespace FeatureCenter.Win
             this.Modules.Add(this.modelArtifactStateWindowsFormsModule1);
             this.Modules.Add(this.modelDifferenceWindowsFormsModule1);
             this.Modules.Add(this.xpandTreeListEditorsWinModule1);
-            this.Modules.Add(this.xpandViewVariantsWin1);
             this.Modules.Add(this.xpandSystemWindowsFormsModule1);
             this.Modules.Add(this.wizardUIWindowsFormsModule1);
             this.Modules.Add(this.worldCreatorWinModule1);
@@ -257,7 +255,6 @@ namespace FeatureCenter.Win
         private Xpand.ExpressApp.ModelArtifactState.Win.ModelArtifactStateWindowsFormsModule modelArtifactStateWindowsFormsModule1;
         private Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule modelDifferenceWindowsFormsModule1;
         private Xpand.ExpressApp.TreeListEditors.Win.XpandTreeListEditorsWinModule xpandTreeListEditorsWinModule1;
-        private Xpand.ExpressApp.ViewVariants.Win.XpandViewVariantsWin xpandViewVariantsWin1;
         private Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule xpandSystemWindowsFormsModule1;
         private Xpand.ExpressApp.WizardUI.Win.WizardUIWindowsFormsModule wizardUIWindowsFormsModule1;
         private Xpand.ExpressApp.WorldCreator.Win.WorldCreatorWinModule worldCreatorWinModule1;

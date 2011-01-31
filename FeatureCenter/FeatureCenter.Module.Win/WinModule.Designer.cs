@@ -50,7 +50,6 @@ namespace FeatureCenter.Module.Win
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelArtifactState.Win.ModelArtifactStateWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.TreeListEditors.Win.XpandTreeListEditorsWinModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ViewVariants.Win.XpandViewVariantsWin));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WizardUI.Win.WizardUIWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WorldCreator.Win.WorldCreatorWinModule));

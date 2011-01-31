@@ -350,10 +350,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ViewVariants.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ViewVariants.Win, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ViewVariants.Win.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.JScript" />
     <Reference Include="Microsoft.mshtml" />
     <Reference Include="System">
