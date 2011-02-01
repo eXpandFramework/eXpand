@@ -1,6 +1,7 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -32,6 +33,7 @@ namespace Xpand.ExpressApp.Logic.Security {
         public int? Index { get; set; }
 
         public ViewType ViewType { get; set; }
+        public ViewEditMode? ViewEditMode { get; set; }
 
         IModelView ILogicRule.View { get; set; }
 

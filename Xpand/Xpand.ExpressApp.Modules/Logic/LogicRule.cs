@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.Logic {
@@ -15,6 +16,7 @@ namespace Xpand.ExpressApp.Logic {
             TypeInfo = logicRule.TypeInfo;
             View = logicRule.View;
             ViewType = logicRule.ViewType;
+            ViewEditMode=logicRule.ViewEditMode;
             ViewContextGroup = logicRule.ViewContextGroup;
             FrameTemplateContextGroup=logicRule.FrameTemplateContextGroup;
         }
@@ -24,6 +26,7 @@ namespace Xpand.ExpressApp.Logic {
         public string ExecutionContextGroup { get; set; }
 
         public string ViewContextGroup { get; set; }
+        public ViewEditMode? ViewEditMode { get; set; }
 
 
         public FrameTemplateContext FrameTemplateContext { get; set; }

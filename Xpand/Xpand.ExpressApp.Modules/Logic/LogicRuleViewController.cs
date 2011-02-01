@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using Xpand.ExpressApp.Logic.Model;
@@ -221,25 +222,32 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         protected class ViewInfo {
-            public ViewInfo(string viewId, bool isDetailView, bool isRoot, ITypeInfo objectTypeInfo) {
+            public ViewInfo(string viewId, bool isDetailView, bool isRoot, ITypeInfo objectTypeInfo,ViewEditMode? viewEditMode) {
                 ViewId = viewId;
                 IsDetailView = isDetailView;
                 IsRoot = isRoot;
                 ObjectTypeInfo = objectTypeInfo;
+                ViewEditMode = viewEditMode;
             }
 
             public string ViewId { get; set; }
             public bool IsDetailView { get; set; }
             public bool IsRoot { get; set; }
             public ITypeInfo ObjectTypeInfo { get; set; }
+            public ViewEditMode? ViewEditMode { get; set; }
         }
         protected virtual bool IsValidRule(TModelLogicRule rule, ViewInfo viewInfo) {
             return (IsValidViewId(viewInfo.ViewId, rule)) &&
-                   IsValidViewType(viewInfo, rule) && IsValidNestedType(rule, viewInfo) && IsValidTypeInfo(viewInfo, rule);
+                   IsValidViewType(viewInfo, rule) && IsValidNestedType(rule, viewInfo) && IsValidTypeInfo(viewInfo, rule)&&IsValidViewEditMode(viewInfo,rule);
+        }
+
+        protected virtual bool IsValidViewEditMode(ViewInfo viewInfo, TModelLogicRule rule) {
+            return !rule.ViewEditMode.HasValue || viewInfo.ViewEditMode == rule.ViewEditMode;
         }
 
         protected virtual bool IsValidRule(TModelLogicRule rule, View view) {
-            return view != null && IsValidRule(rule, new ViewInfo(view.Id, view is DetailView, view.IsRoot, view.ObjectTypeInfo));
+            var viewEditMode = view is DetailView?((DetailView)view).ViewEditMode : (ViewEditMode?) null;
+            return view != null && IsValidRule(rule, new ViewInfo(view.Id, view is DetailView, view.IsRoot, view.ObjectTypeInfo, viewEditMode));
         }
 
         bool IsValidViewId(string viewId, TModelLogicRule rule) {

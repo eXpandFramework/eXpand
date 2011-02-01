@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 
@@ -38,6 +39,8 @@ namespace Xpand.ExpressApp.Logic {
         [DataSourceProperty("ViewContexts")]
         string ViewContextGroup { get; set; }
 
+        [Category("Behavior")]
+        ViewEditMode? ViewEditMode { get; set; }
 
         [Browsable(false)]
         ITypeInfo TypeInfo { get; set; }

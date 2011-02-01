@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Logic.TypeConverters;
 
@@ -20,6 +21,7 @@ namespace Xpand.ExpressApp.Logic {
 
 
         public ViewType ViewType { get; set; }
+        public ViewEditMode? ViewEditMode { get; set; }
         public string View { get; set; }
         [TypeConverter(typeof(StringToModelViewConverter))]
         IModelView ILogicRule.View { get; set; }
