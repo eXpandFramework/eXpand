@@ -16,7 +16,7 @@
   </AdditionalViewControls>
   <NavigationItems>
     <Items>
-      <Item Id="WhatsNew" IsNewNode="True" Caption="Whats New">
+      <Item Id="WhatsNew" IsNewNode="True" Caption="Whats New" Index="0">
         <Items IsNewNode="True">
           <Item Id="Miscellaneous" IsNewNode="True">
             <Items IsNewNode="True">
