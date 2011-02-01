@@ -17,13 +17,17 @@ namespace Xpand.ExpressApp.SystemModule {
 
     public class ViewEditModeController : ViewController<DetailView>, IModelExtender {
 
-        protected override void OnActivated() {
-            base.OnActivated();
+        protected override void OnViewControlsCreated() {
+            base.OnViewControlsCreated();
             var viewEditMode = ((IModelViewEditMode)View.Model).ViewEditMode;
-            if (viewEditMode.HasValue && !(ObjectSpace.IsNewObject(View.CurrentObject))) {
-                View.ViewEditMode = viewEditMode.Value;
+            if (viewEditMode.HasValue && !(ObjectSpace.IsNewObject(View.CurrentObject))&&View.ViewEditMode==ViewEditMode.View) {
+                UpdateViewEditModeState(viewEditMode.Value);
                 UpdateViewAllowEditState();
             }
+        }
+
+        protected virtual void UpdateViewEditModeState(ViewEditMode viewEditMode) {
+            View.ViewEditMode = viewEditMode;
         }
 
         protected virtual void UpdateViewAllowEditState() {
