@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Editors;
 using Xpand.ExpressApp.PivotChart.Win.Editors;
 
 namespace Xpand.ExpressApp.PivotChart.Win.PropertyEditors {
-    [PropertyEditor(typeof (IAnalysisInfo), true)]
+    [PropertyEditor(typeof(IAnalysisInfo), true)]
     public class AnalysisEditorWin : DevExpress.ExpressApp.PivotChart.Win.AnalysisEditorWin, ISupportValueReading {
         public AnalysisEditorWin(Type objectType, IModelMemberViewItem model) : base(objectType, model) { }
         public event EventHandler ValueReading;
@@ -18,16 +18,15 @@ namespace Xpand.ExpressApp.PivotChart.Win.PropertyEditors {
         }
 
         public new AnalysisControlWin Control {
-            get { return (AnalysisControlWin) base.Control; }
+            get { return (AnalysisControlWin)base.Control; }
         }
-        protected override void ReadValueCore()
-        {
+        protected override void ReadValueCore() {
             OnValueReading(new EventArgs());
             base.ReadValueCore();
         }
-        
+
         void analysisControl_HandleCreated(object sender, EventArgs e) {
-            if (CurrentObject is IAnalysisInfo&& ((IAnalysisInfo) CurrentObject).DataType!= null)
+            if (CurrentObject is IAnalysisInfo && ((IAnalysisInfo)CurrentObject).DataType != null)
                 ReadValue();
             else if (!(CurrentObject is IAnalysisInfo))
                 ReadValue();

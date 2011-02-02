@@ -1,4 +1,5 @@
 ﻿using System;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
@@ -7,13 +8,13 @@ using DevExpress.XtraCharts.Native;
 using Xpand.ExpressApp.PivotChart.Web.Editors;
 
 namespace Xpand.ExpressApp.PivotChart.Web.PropertyEditors {
+    [PropertyEditor(typeof(IAnalysisInfo), true)]
     public class AnalysisEditorWeb : DevExpress.ExpressApp.PivotChart.Web.AnalysisEditorWeb {
         public AnalysisEditorWeb(Type objectType, IModelMemberViewItem info)
-            : base(objectType, info)
-        {
+            : base(objectType, info) {
         }
         public new AnalysisControlWeb Control {
-            get { return (AnalysisControlWeb) base.Control; }
+            get { return (AnalysisControlWeb)base.Control; }
         }
 
         protected override IAnalysisControl CreateAnalysisControl() {
@@ -25,19 +26,17 @@ namespace Xpand.ExpressApp.PivotChart.Web.PropertyEditors {
 
         void AnalysisControlOnPreRender(object sender, EventArgs eventArgs) {
             Control.ChartTypeComboBox.SelectedIndex =
-                (int) SeriesViewFactory.GetViewType(Control.Chart.SeriesTemplate.View);
-        }
-        public new IAnalysisInfo CurrentObject
-        {
-            get { return (IAnalysisInfo)base.CurrentObject; }
-            set { base.CurrentObject = value; }
+                (int)SeriesViewFactory.GetViewType(Control.Chart.SeriesTemplate.View);
         }
 
         void AnalysisControlOnLoad(object sender, EventArgs eventArgs) {
-            ((IPopupFilterControlOwner) Control.PivotGrid).SettingsLoadingPanel.Enabled =((IModelPropertyEditorLoadingPanel) Model).LoadingPanel;
-            if (CurrentObject.DataType!= null){
-//                ReadValue();
-//                Control.DataBind();
+            ((IPopupFilterControlOwner)Control.PivotGrid).SettingsLoadingPanel.Enabled = ((IModelPropertyEditorLoadingPanel)Model).LoadingPanel;
+            if (CurrentObject is IAnalysisInfo && ((IAnalysisInfo)CurrentObject).DataType != null) {
+                ReadValue();
+                Control.DataBind();
+            } else if (!(CurrentObject is IAnalysisInfo)) {
+                ReadValue();
+                Control.DataBind();
             }
         }
     }

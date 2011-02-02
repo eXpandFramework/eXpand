@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.XtraPivotGrid;
-using Xpand.ExpressApp.PivotChart.Win.Core;
 using Xpand.ExpressApp.PivotChart.Win.Editors;
 
 namespace Xpand.ExpressApp.PivotChart.Win.Options {

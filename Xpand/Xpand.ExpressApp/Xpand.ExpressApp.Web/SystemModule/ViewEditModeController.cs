@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DevExpress.ExpressApp.Web.SystemModule;
+﻿using DevExpress.ExpressApp.Web.SystemModule;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
     public class ViewEditModeController : ExpressApp.SystemModule.ViewEditModeController {

@@ -58,7 +58,7 @@ namespace Xpand.ExpressApp.PivotChart {
                 InvokeApplyingCollectionCriteria(criteriaOperatorArgs);
                 e.DataSource = analysisEditorArgs.Handled
                                    ? analysisEditorArgs.DataSource
-                                   : View.ObjectSpace.CreateCollection(e.AnalysisInfo.DataType,
+                                   : ObjectSpace.CreateCollection(e.AnalysisInfo.DataType,
                                                                        userCriteria & criteriaOperatorArgs.Criteria &_criteriaOperator);
                 e.Handled = true;
                 InvokeDataSourceCreated(analysisEditorArgs);
