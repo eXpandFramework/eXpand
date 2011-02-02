@@ -2,8 +2,8 @@
 <Application>
   <AdditionalViewControls>
     <Rules>
-      <AdditionalViewControlsRule Id="Header Importing Analysis" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Importing Analysis Objects" Position="Top" />
-      <AdditionalViewControlsRule Id="ViewMessage Importing Analysis" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="All these analysis objects have been imported using IO engine. Check source code ImportExport\AnalysisObjects to find out how" Position="Bottom" />
+      <AdditionalViewControlsRule Id="Header Importing Analysis" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Importing Analysis Objects" Position="Top" ViewId="IOAnalysis_ListView" ViewType="ListView"/>
+      <AdditionalViewControlsRule Id="ViewMessage Importing Analysis" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="All these analysis objects have been imported using IO engine. Check source code ImportExport\AnalysisObjects to find out how" Position="Bottom" ViewId="IOAnalysis_ListView" ViewType="ListView"/>
     </Rules>
   </AdditionalViewControls>
 </Application>

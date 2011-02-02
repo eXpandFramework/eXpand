@@ -53,7 +53,7 @@ namespace FeatureCenter.Module.Miscellaneous.Sequence {
             base.OnDeleting();
             SequenceGenerator.ReleaseSequence(this);
         }
-
+        [Persistent]
         long ISupportSequenceObject.Sequence {
             get { return _sequence; }
             set {
@@ -62,6 +62,7 @@ namespace FeatureCenter.Module.Miscellaneous.Sequence {
             }
         }
         private SeqEnum _seqEnum;
+        
         long _sequence;
 
         public SeqEnum SeqEnum {

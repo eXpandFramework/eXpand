@@ -3,7 +3,7 @@
   <AdditionalViewControls>
     <Rules>
       <AdditionalViewControlsRule Id="Header Pivot PivotGroupInterval" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Pivot Group Interval" NormalCriteria="Name='PivotGroupInterval'" Position="Top" ViewType="DetailView" />
-      <AdditionalViewControlsRule Id="ViewMessage Pivot PivotGroupInterval" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how you can control the group interval for your date fields. Here you see orderline grouped by year" NormalCriteria="Name='PivotGroupInterval'" Position="Bottom" ViewType="DetailView"/>
+      <AdditionalViewControlsRule Id="ViewMessage Pivot PivotGroupInterval" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how you can control the group interval for your date fields. Here you see orderline grouped by year" NormalCriteria="Name='PivotGroupInterval'" Position="Bottom" ViewType="DetailView" />
     </Rules>
   </AdditionalViewControls>
   <BOModel>
@@ -13,4 +13,7 @@
       </OwnMembers>
     </Class>
   </BOModel>
+  <Views>
+    <DetailView Id="PivotGroupInterval_DetailView1" ViewEditMode="Edit" />
+  </Views>
 </Application>

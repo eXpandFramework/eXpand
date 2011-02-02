@@ -2,12 +2,12 @@
 <Application>
   <AdditionalViewControls>
     <Rules>
-      <AdditionalViewControlsRule Id="Header HideChart" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Hide Chart" NormalCriteria="Name='HideChart'" Position="Top" ViewType="DetailView"/>
-      <AdditionalViewControlsRule Id="ViewMessage HideChart" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how you can hide the chart control" NormalCriteria="Name='HideChart'" Position="Bottom" ViewType="DetailView"/>
+      <AdditionalViewControlsRule Id="Header HideChart" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Hide Chart" NormalCriteria="Name='HideChart'" Position="Top" ViewType="DetailView" />
+      <AdditionalViewControlsRule Id="ViewMessage HideChart" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how you can hide the chart control" NormalCriteria="Name='HideChart'" Position="Bottom" ViewType="DetailView" />
     </Rules>
   </AdditionalViewControls>
   <Views>
-    <DetailView Id="HideChart_DetailView">
+    <DetailView Id="HideChart_DetailView" ViewEditMode="Edit">
       <Items>
         <PropertyEditor Id="Self" AnalysisControlVisibility="Pivot" />
       </Items>
