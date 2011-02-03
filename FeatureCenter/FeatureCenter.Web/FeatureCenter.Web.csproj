@@ -219,10 +219,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.MemberLevelSecurity.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.MemberLevelSecurity.Web, Version=10.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.MemberLevelSecurity.Web.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.ModelArtifactState">
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
     </Reference>

@@ -1,5 +1,4 @@
 using System;
-using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Web;
 
@@ -40,7 +39,7 @@ namespace FeatureCenter.Web.ApplicationCode {
         private Module.Web.FeatureCenterAspNetModule featureCenterAspNetModule1;
 
         private Xpand.ExpressApp.ExceptionHandling.Web.ExceptionHandlingWebModule exceptionHandlingWebModule1;
-        private Xpand.ExpressApp.MemberLevelSecurity.Web.MemberLevelSecurityAspNetModule memberLevelSecurityAspNetModule1;
+
         private DevExpress.ExpressApp.PivotChart.Web.PivotChartAspNetModule pivotChartAspNetModule1;
         private Xpand.ExpressApp.PivotChart.Web.XpandPivotChartAspNetModule xpandPivotChartAspNetModule1;
         private Xpand.ExpressApp.Thumbnail.Web.ThumbnailWebModule thumbnailWebModule1;
@@ -115,7 +114,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.featureCenterAspNetModule1 = new FeatureCenter.Module.Web.FeatureCenterAspNetModule();
 
             this.exceptionHandlingWebModule1 = new Xpand.ExpressApp.ExceptionHandling.Web.ExceptionHandlingWebModule();
-            this.memberLevelSecurityAspNetModule1 = new Xpand.ExpressApp.MemberLevelSecurity.Web.MemberLevelSecurityAspNetModule();
+
             this.pivotChartAspNetModule1 = new DevExpress.ExpressApp.PivotChart.Web.PivotChartAspNetModule();
             this.xpandPivotChartAspNetModule1 = new Xpand.ExpressApp.PivotChart.Web.XpandPivotChartAspNetModule();
             this.thumbnailWebModule1 = new Xpand.ExpressApp.Thumbnail.Web.ThumbnailWebModule();
@@ -145,7 +144,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             // 
             // authenticationStandard1
             // 
-            
+
             // 
             // viewVariantsModule1
             // 
@@ -192,7 +191,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.Modules.Add(this.featureCenterModule1);
 
             this.Modules.Add(this.exceptionHandlingWebModule1);
-            this.Modules.Add(this.memberLevelSecurityAspNetModule1);
+
             this.Modules.Add(this.pivotChartAspNetModule1);
             this.Modules.Add(this.xpandPivotChartAspNetModule1);
             this.Modules.Add(this.thumbnailWebModule1);

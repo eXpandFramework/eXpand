@@ -2,7 +2,6 @@ using DevExpress.ExpressApp.FileAttachments.Web;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Web;
 using Xpand.ExpressApp.ExceptionHandling.Web;
 using Xpand.ExpressApp.FilterDataStore.Web;
-using Xpand.ExpressApp.MemberLevelSecurity.Web;
 using Xpand.ExpressApp.TreeListEditors.Web;
 using Xpand.ExpressApp.Web.SystemModule;
 using Xpand.ExpressApp.WorldCreator.Web;
@@ -49,7 +48,6 @@ namespace FeatureCenter.Module.Web {
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Scheduler.Web.SchedulerAspNetModule));
             this.RequiredModuleTypes.Add(typeof(AdditionalViewControlsProviderAspNetModule));
             this.RequiredModuleTypes.Add(typeof(ExceptionHandlingWebModule));
-            this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityAspNetModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.PivotChart.Web.XpandPivotChartAspNetModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelDifference.Web.ModelDifferenceAspNetModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Thumbnail.Web.ThumbnailWebModule));
