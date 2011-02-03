@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp {
             insertStatement.IdentityParameter = null;
             insertStatement.Parameters.Add(new ParameterValue(3) { Value = value });
             var oidQueryOperand = insertStatement.Operands.OfType<QueryOperand>().Where(operand => operand.ColumnName == "Oid").FirstOrDefault();
-            if (oidQueryOperand == null)
+            if (ReferenceEquals(oidQueryOperand,null))
                 insertStatement.Operands.Add(new QueryOperand { ColumnName = "Oid", ColumnType = DBColumnType.Int32 });
             return identityParameter;
         }

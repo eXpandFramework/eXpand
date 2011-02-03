@@ -125,9 +125,6 @@
     </Compile>
     <Compile Include="MemberLevelObjectAccessComparer.cs">
     </Compile>
-    <Compile Include="MemberLevelSecurityDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="MemberLevelSecurityModule.cs">
       <SubType>Component</SubType>
     </Compile>

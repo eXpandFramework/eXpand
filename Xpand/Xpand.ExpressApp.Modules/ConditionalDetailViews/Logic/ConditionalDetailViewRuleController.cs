@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.ConditionalDetailViews.Model;
@@ -50,7 +51,8 @@ namespace Xpand.ExpressApp.ConditionalDetailViews.Logic {
             var startUpInfoController = new StartUpInfoController(true);
             var viewId = Application.FindDetailViewId(o, View);
             var conditionalDetailViewRules = LogicRuleManager<IConditionalDetailViewRule>.Instance[View.ObjectTypeInfo];
-            var validModelLogicRules = conditionalDetailViewRules.Where(rule => IsValidRule(rule, new ViewInfo(viewId, true, true, View.ObjectTypeInfo)));
+            var viewEditMode = (View is DetailView?((DetailView)View).ViewEditMode : (ViewEditMode?) null);
+            var validModelLogicRules = conditionalDetailViewRules.Where(rule => IsValidRule(rule, new ViewInfo(viewId, true, true, View.ObjectTypeInfo, viewEditMode)));
             foreach (var validModelLogicRule in validModelLogicRules) {
                 startUpInfoController.PreviousModel = validModelLogicRule.View;
                 startUpInfoController.ConditionalDetailViewRule = validModelLogicRule;
