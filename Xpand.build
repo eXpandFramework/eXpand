@@ -43,7 +43,6 @@
 			.\Xpand\Xpand.ExpressApp.Modules\Logic.Conditional\Xpand.ExpressApp.Logic.Conditional.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\MemberLevelSecurity\Xpand.ExpressApp.MemberLevelSecurity.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\MemberLevelSecurity.Win\Xpand.ExpressApp.MemberLevelSecurity.Win.csproj;
-			.\Xpand\Xpand.ExpressApp.Modules\MemberLevelSecurity.Web\Xpand.ExpressApp.MemberLevelSecurity.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\AdditionalViewControlsProvider\Xpand.ExpressApp.AdditionalViewControlsProvider.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\AdditionalViewControlsProvider.Win\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\AdditionalViewControlsProvider.Web\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.csproj;

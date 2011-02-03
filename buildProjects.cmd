@@ -11,7 +11,6 @@ call buildproject.cmd Xpand.ExpressApp.Logic.Win ".\Xpand\Xpand.ExpressApp.Modul
 call buildproject.cmd Xpand.ExpressApp.Logic.Conditional ".\Xpand\Xpand.ExpressApp.Modules\Logic.Conditional\Xpand.ExpressApp.Logic.Conditional.csproj"
 call buildproject.cmd Xpand.ExpressApp.MemberLevelSecurity ".\Xpand\Xpand.ExpressApp.Modules\MemberLevelSecurity\Xpand.ExpressApp.MemberLevelSecurity.csproj"
 call buildproject.cmd Xpand.ExpressApp.MemberLevelSecurity.Win ".\Xpand\Xpand.ExpressApp.Modules\MemberLevelSecurity.Win\Xpand.ExpressApp.MemberLevelSecurity.Win.csproj"
-call buildproject.cmd Xpand.ExpressApp.MemberLevelSecurity.Web ".\Xpand\Xpand.ExpressApp.Modules\MemberLevelSecurity.Web\Xpand.ExpressApp.MemberLevelSecurity.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.AdditionalViewControlsProvider ".\Xpand\Xpand.ExpressApp.Modules\AdditionalViewControlsProvider\Xpand.ExpressApp.AdditionalViewControlsProvider.csproj"
 call buildproject.cmd Xpand.ExpressApp.AdditionalViewControlsProvider.Win ".\Xpand\Xpand.ExpressApp.Modules\AdditionalViewControlsProvider.Win\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.AdditionalViewControlsProvider.Web ".\Xpand\Xpand.ExpressApp.Modules\AdditionalViewControlsProvider.Web\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.csproj"
