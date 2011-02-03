@@ -1,0 +1,34 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" %>
+<%@ Register TagPrefix="dxm" Namespace="DevExpress.Web.ASPxMenu" Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" %>
+<dxm:ASPxMenu runat="server"
+    CssFilePath="~/App_Themes/Aqua/{0}/styles.css" SpriteCssFilePath="~/App_Themes/Aqua/{0}/sprite.css" CssPostfix="Aqua"
+    GutterImageSpacing="7px" ShowPopOutImages="True" AutoSeparators="RootOnly">
+    <ItemStyle VerticalAlign="Middle" PopOutImageSpacing="18px" DropDownButtonSpacing="12px" ToolbarPopOutImageSpacing="5px" ToolbarDropDownButtonSpacing="5px"></ItemStyle>
+    <SubMenuStyle GutterWidth="0px"></SubMenuStyle>
+    <RootItemSubMenuOffset FirstItemX="-1" X="-1" FirstItemY="-1" Y="-1"/>
+    <LoadingPanelImage Url="~/App_Themes/Aqua/Web/Loading.gif"></LoadingPanelImage>
+</dxm:ASPxMenu>
+<dxm:ASPxMenu runat="server" SkinID="MenuToolBar" CssFilePath="{0}/styles.css" ItemSpacing="0px" GutterImageSpacing="7px" ShowPopOutImages="True" 
+    CssPostfix="Aqua" SpriteCssFilePath="{0}/sprite.css" SeparatorWidth="1px" SeparatorColor="#AECAF0" 
+    AutoSeparators="None" Width="100%" ItemAutoWidth="False">
+    <Border BorderStyle="Solid" BorderWidth="1px" BorderColor="#AECAF0" />
+    <SubMenuStyle BackColor="#F9F9F9" GutterWidth="0px" SeparatorColor="#AECAF0" ></SubMenuStyle>
+    <RootItemSubMenuOffset FirstItemX="-1" X="-1" FirstItemY="-1" Y="-1"/>
+    <ItemStyle VerticalAlign="Middle" ImageSpacing="5px" PopOutImageSpacing="18px" DropDownButtonSpacing="12px"></ItemStyle>
+    <SubMenuItemStyle ImageSpacing="7px"></SubMenuItemStyle>
+    <LoadingPanelImage Url="Web/Loading.gif"></LoadingPanelImage>
+</dxm:ASPxMenu>
+<dxm:ASPxMenu runat="server" SkinID="MenuButtons" SpriteCssFilePath="{0}/sprite.css" CssFilePath="{0}/styles.css" SeparatorColor="Transparent"
+    AutoSeparators="RootOnly" ItemSpacing="0px" ShowPopOutImages="True" CssPostfix="Aqua" CssClass="menuButtons_Aqua">
+    <Border BorderWidth="0px"/>
+    <SubMenuStyle GutterWidth="0px"></SubMenuStyle>
+    <ItemStyle DropDownButtonSpacing="11px"></ItemStyle>
+    <RootItemSubMenuOffset X="-1" LastItemX="-1" FirstItemX="-1"></RootItemSubMenuOffset>
+    <SubMenuItemStyle Wrap="False"></SubMenuItemStyle>
+    <LoadingPanelImage Url="Web/Loading.gif"></LoadingPanelImage>
+</dxm:ASPxMenu>
+<dxm:ASPxMenu runat="server" SkinID="MenuLinks" CssFilePath="{0}/styles.css" ItemSpacing="0px" GutterImageSpacing="7px" ShowPopOutImages="True" 
+    CssPostfix="Aqua" SpriteCssFilePath="{0}/sprite.css" SeparatorWidth="1px" SeparatorColor="#AECAF0" 
+    EnableDefaultAppearance="False" CssClass="menuLinks_Aqua">
+    <LoadingPanelImage Url="Web/Loading.gif"></LoadingPanelImage>
+</dxm:ASPxMenu>

@@ -1,0 +1,7 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" %>
+<%@ Register TagPrefix="dxrp" Namespace="DevExpress.Web.ASPxRoundPanel" Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" %>
+<%@ Register TagPrefix="dxcp" Namespace="DevExpress.Web.ASPxCallbackPanel" Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" %>
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" Namespace="DevExpress.Web.ASPxPanel" TagPrefix="dx" %>
+<dxcp:ASPxCallbackPanel runat="server" CssFilePath="~/App_Themes/Aqua/{0}/styles.css" CssPostfix="Aqua" LoadingPanelImagePosition="Top">
+    <LoadingPanelImage Url="~/App_Themes/Aqua/Web/Loading.gif"></LoadingPanelImage>
+</dxcp:ASPxCallbackPanel>

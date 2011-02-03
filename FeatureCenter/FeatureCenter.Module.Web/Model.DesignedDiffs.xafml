@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="FeatureCenter.Web">
+  <NavigationItems>
+    <Items>
+      <Item Id="ImportExport">
+        <Items>
+          <Item Id="SerializationConfigurationGroup_ListView" Caption="Serialization Configuration Group" />
+        </Items>
+      </Item>
+      <Item Id="Security" Removed="True" />
+      <Item Id="WorldCreator">
+        <Items>
+          <Item Id="Existent Assembly">
+            <Items>
+              <Item Id="Master Detail" Removed="True" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Views>
+    <DetailView Id="ActionButtonViewItem_DetailView" ViewEditMode="Edit" />
+    <ListView Id="ConditionalControlAndMessage_ListView" ImageName=" None" Caption="">
+      <GridViewOptions EnableCallBacks="False" />
+    </ListView>
+    <DetailView Id="ControllingSearchCustomer_DetailView" ViewEditMode="Edit" />
+    <DetailView Id="DisableEditDetailView_DetailView" ViewEditMode="Edit" />
+    <DetailView Id="ExceptionHandling_DetailView" ViewEditMode="Edit">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="710780e3-012f-4c67-890d-7adf25c1bbed" ShowCaption="False" RelativeSize="5">
+            <LayoutGroup Id="ae7ff017-f534-4410-8c32-d044a5459fce" ShowCaption="False" Caption="ae7ff017-f534-4410-8c32-d044a5459fce(3)" RelativeSize="100">
+              <LayoutItem Id="Throw Validation" IsNewNode="True" ViewItem="Throw Validation" Index="1" RelativeSize="50" />
+              <LayoutItem Id="Show EL Config Tool" Removed="True" ViewItem="Show EL Config Tool" />
+            </LayoutGroup>
+            <LayoutItem Id="Throw Validation" Removed="True" ViewItem="Throw Validation" />
+          </LayoutGroup>
+          <LayoutGroup Id="Exceptions_Group" RelativeSize="94">
+            <LayoutItem Id="Exceptions" RelativeSize="95" ViewItem="Exceptions" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ExceptionHandlingObject_Exceptions_ListView" ViewEditMode="Edit" />
+    <DetailView Id="HighlightFocusedLayoutItem_DetailView" ViewEditMode="Edit" />
+    <ListView Id="ModelDifferenceObject_ListView" Criteria="PersistentApplication.Name='FeatureCenter.Web'" />
+    <DetailView Id="UOCFCustomer_DetailView" ViewEditMode="Edit" />
+    <DetailView Id="XmlFileChooser_DetailView" ViewEditMode="Edit" />
+  </Views>
+</Application>

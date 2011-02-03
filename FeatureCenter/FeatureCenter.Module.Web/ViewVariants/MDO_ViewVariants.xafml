@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="Hong Kong Customers" FilterExpression="[City] = 'Hong Kong'" GroupSummary="" >
+    </ListView>
+    <ListView Id="London Customers" FilterExpression="[City] = 'London'" GroupSummary="" >
+    </ListView>
+    <ListView Id="New York Customers" FilterExpression="[City] = 'New York'" GroupSummary="" >
+    </ListView>
+    <ListView Id="Paris Customers" FilterExpression="[City] = 'Paris'" GroupSummary="" >
+    </ListView>
+  </Views>
+</Application>
