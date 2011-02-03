@@ -85,7 +85,9 @@
 			.\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj;
 			.\FeatureCenter\FeatureCenter.Module\FeatureCenter.Module.csproj;
 			.\FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj;
+			.\FeatureCenter\FeatureCenter.Module.Web\FeatureCenter.Module.Web.csproj;
 			.\FeatureCenter\FeatureCenter.Win\FeatureCenter.Win.csproj;
+			.\FeatureCenter\FeatureCenter.Web\FeatureCenter.Web.csproj;
 			.\FeatureCenter\ExternalApplication\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj;
 			.\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj;
 			.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj;
