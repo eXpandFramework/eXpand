@@ -1,19 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-  <AdditionalViewControls>
-    <Rules>
-      <AdditionalViewControlsRule Id="Header View Variants1" IsNewNode="True" Message="View Variants" Position="Top" TypeInfo="FeatureCenter.Module.Customer" View="ViewVariants_ListView" />
-      <AdditionalViewControlsRule Id="Header View Variants2" IsNewNode="True" Message="View Variants" Position="Top" TypeInfo="FeatureCenter.Module.Customer" View="Hong Kong Customers" />
-      <AdditionalViewControlsRule Id="Header View Variants3" IsNewNode="True" Message="View Variants" Position="Top" TypeInfo="FeatureCenter.Module.Customer" View="London Customers" />
-      <AdditionalViewControlsRule Id="Header View Variants4" IsNewNode="True" Message="View Variants" Position="Top" TypeInfo="FeatureCenter.Module.Customer" View="Paris Customers" />
-      <AdditionalViewControlsRule Id="Header View Variants5" IsNewNode="True" Message="View Variants" Position="Top" TypeInfo="FeatureCenter.Module.Customer" View="New York Customers" />
-      <AdditionalViewControlsRule Id="ViewMessage Header View Variants1" IsNewNode="True" Message="Here you can see how you can allow end users to create views at runtime with out giving them access to model editor" Position="Bottom" TypeInfo="FeatureCenter.Module.Customer" View="ViewVariants_ListView" />
-      <AdditionalViewControlsRule Id="ViewMessage Header View Variants2" IsNewNode="True" Message="Here you can see how you can allow end users to create views at runtime with out giving them access to model editor" Position="Bottom" TypeInfo="FeatureCenter.Module.Customer" View="Hong Kong Customers" />
-      <AdditionalViewControlsRule Id="ViewMessage Header View Variants3" IsNewNode="True" Message="Here you can see how you can allow end users to create views at runtime with out giving them access to model editor" Position="Bottom" TypeInfo="FeatureCenter.Module.Customer" View="London Customers" />
-      <AdditionalViewControlsRule Id="ViewMessage Header View Variants4" IsNewNode="True" Message="Here you can see how you can allow end users to create views at runtime with out giving them access to model editor" Position="Bottom" TypeInfo="FeatureCenter.Module.Customer" View="Paris Customers" />
-      <AdditionalViewControlsRule Id="ViewMessage Header View Variants5" IsNewNode="True" Message="Here you can see how you can allow end users to create views at runtime with out giving them access to model editor" Position="Bottom" TypeInfo="FeatureCenter.Module.Customer" View="New York Customers" />
-    </Rules>
-  </AdditionalViewControls>
   <NavigationItems>
     <Items>
       <Item Id="WhatsNew" IsNewNode="True" Caption="Whats New" Index="0">
@@ -28,46 +14,5 @@
       </Item>
     </Items>
   </NavigationItems>
-  <Views>
-    <ListView Id="Hong Kong Customers" IsNewNode="True" IsClonable="True" ActiveFilterString="[City] = 'Hong Kong'" GroupSummary="" IsActiveFilterEnabled="True" ClassName="FeatureCenter.Module.Customer">
-      <Columns IsNewNode="True">
-        <ColumnInfo Id="BirthDate" IsNewNode="True" PropertyName="BirthDate" Index="-1" Width="70" />
-        <ColumnInfo Id="Description" IsNewNode="True" PropertyName="Description" Index="-1" Width="70" />
-        <ColumnInfo Id="Name" IsNewNode="True" PropertyName="Name" Index="0" Width="400" SortIndex="0" SortOrder="Ascending" />
-        <ColumnInfo Id="City" IsNewNode="True" PropertyName="City" Index="1" Width="70" />
-      </Columns>
-    </ListView>
-    <ListView Id="London Customers" IsNewNode="True" IsClonable="True" ActiveFilterString="[City] = 'London'" GroupSummary="" IsActiveFilterEnabled="True" ClassName="FeatureCenter.Module.Customer">
-      <Columns IsNewNode="True">
-        <ColumnInfo Id="BirthDate" IsNewNode="True" PropertyName="BirthDate" Index="-1" Width="70" />
-        <ColumnInfo Id="Description" IsNewNode="True" PropertyName="Description" Index="-1" Width="70" />
-        <ColumnInfo Id="Name" IsNewNode="True" PropertyName="Name" Index="0" Width="400" SortIndex="0" SortOrder="Ascending" />
-        <ColumnInfo Id="City" IsNewNode="True" PropertyName="City" Index="1" Width="70" />
-      </Columns>
-    </ListView>
-    <ListView Id="New York Customers" IsNewNode="True" IsClonable="True" ActiveFilterString="[City] = 'New York'" GroupSummary="" IsActiveFilterEnabled="True" ClassName="FeatureCenter.Module.Customer">
-      <Columns IsNewNode="True">
-        <ColumnInfo Id="BirthDate" IsNewNode="True" PropertyName="BirthDate" Index="-1" Width="70" />
-        <ColumnInfo Id="Description" IsNewNode="True" PropertyName="Description" Index="-1" Width="70" />
-        <ColumnInfo Id="Name" IsNewNode="True" PropertyName="Name" Index="0" Width="400" SortIndex="0" SortOrder="Ascending" />
-        <ColumnInfo Id="City" IsNewNode="True" PropertyName="City" Index="1" Width="70" />
-      </Columns>
-    </ListView>
-    <ListView Id="Paris Customers" IsNewNode="True" IsClonable="True" ActiveFilterString="[City] = 'Paris'" GroupSummary="" IsActiveFilterEnabled="True" ClassName="FeatureCenter.Module.Customer">
-      <Columns IsNewNode="True">
-        <ColumnInfo Id="BirthDate" IsNewNode="True" PropertyName="BirthDate" Index="-1" Width="70" />
-        <ColumnInfo Id="Description" IsNewNode="True" PropertyName="Description" Index="-1" Width="70" />
-        <ColumnInfo Id="Name" IsNewNode="True" PropertyName="Name" Index="0" Width="400" SortIndex="0" SortOrder="Ascending" />
-        <ColumnInfo Id="City" IsNewNode="True" PropertyName="City" Index="1" Width="70" />
-      </Columns>
-    </ListView>
-    <ListView Id="ViewVariants_ListView" ActiveFilterString="" GroupSummary="" IsClonable="True">
-      <Variants Current="">
-        <Variant Id="Hong Kong Customers" IsNewNode="True" Caption="Hong Kong Customers" ViewID="Hong Kong Customers" />
-        <Variant Id="London Customers" IsNewNode="True" Caption="London Customers" ViewID="London Customers" />
-        <Variant Id="New York Customers" IsNewNode="True" Caption="New York Customers" ViewID="New York Customers" />
-        <Variant Id="Paris Customers" IsNewNode="True" Caption="Paris Customers" ViewID="Paris Customers" />
-      </Variants>
-    </ListView>
-  </Views>
+  
 </Application>

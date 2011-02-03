@@ -1,6 +1,4 @@
-﻿using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
-using DevExpress.Xpo;
+﻿using DevExpress.Xpo;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General;
@@ -11,8 +9,8 @@ namespace FeatureCenter.Module.Miscellaneous.Sequence {
         One
     }
 
-    public class SeqOder : OrderBase,ISupportSequenceObject {
-        public SeqOder(Session session)
+    public class SeqOrder : OrderBase, ISupportSequenceObject {
+        public SeqOrder(Session session)
             : base(session) {
         }
         private SequenceCustomer _sequenceCustomer;
@@ -29,7 +27,7 @@ namespace FeatureCenter.Module.Miscellaneous.Sequence {
             SequenceCustomer = (SequenceCustomer)customer;
 
         }
-        
+
         protected override ICustomer GetCustomer() {
             return _sequenceCustomer;
         }
@@ -58,11 +56,11 @@ namespace FeatureCenter.Module.Miscellaneous.Sequence {
             get { return _sequence; }
             set {
                 _sequence = value;
-                OrderId= ((ISupportSequenceObject) this).Prefix+value;
+                OrderId = ((ISupportSequenceObject)this).Prefix + value;
             }
         }
         private SeqEnum _seqEnum;
-        
+
         long _sequence;
 
         public SeqEnum SeqEnum {
@@ -74,14 +72,14 @@ namespace FeatureCenter.Module.Miscellaneous.Sequence {
             }
         }
         string ISupportSequenceObject.Prefix {
-            get { 
+            get {
                 return SequenceCustomer.SeqEnum.ToString();
             }
-            
+
         }
     }
 
-    
+
     [Custom("ViewEditMode", "View")]
     public class SequenceCustomer : CustomerBase, ISupportSequenceObject {
 
@@ -98,7 +96,7 @@ namespace FeatureCenter.Module.Miscellaneous.Sequence {
             SequenceGenerator.ReleaseSequence(this);
         }
 
-        
+
         private int _id;
         [SequenceProperty]
         public int Id {

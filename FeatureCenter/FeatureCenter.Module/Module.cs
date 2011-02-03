@@ -1,16 +1,12 @@
-using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using FeatureCenter.Module.ListViewControl.PropertyPathFilters;
 using FeatureCenter.Module.LowLevelFilterDataStore;
-using FeatureCenter.Module.Miscellaneous.Sequence;
 using FeatureCenter.Module.WorldCreator;
 using FeatureCenter.Module.WorldCreator.DynamicAssemblyCalculatedField;
-using FeatureCenter.Module.WorldCreator.DynamicAssemblyMasterDetail;
 using FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail;
 using Xpand.ExpressApp;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.ModelDifference;
 using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifference.CreateCustomModelDifferenceStoreEventArgs;
 
@@ -24,7 +20,7 @@ namespace FeatureCenter.Module {
 
         void ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs createCustomModelDifferenceStoreEventArgs) {
             createCustomModelDifferenceStoreEventArgs.AddExtraDiffStore(new ExistentAssemblyMasterDetailModelStore());
-            createCustomModelDifferenceStoreEventArgs.AddExtraDiffStore(new WC3LevelMasterDetailModelStore());
+            
             createCustomModelDifferenceStoreEventArgs.AddExtraDiffStore(new WCCalculatedFieldModelStore());
         }
 

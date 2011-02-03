@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Updating;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 
-namespace FeatureCenter.Module.WorldCreator.DynamicAssemblyMasterDetail {
+namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
     public class Updater : ModuleUpdater {
         public Updater(ObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {

@@ -360,15 +360,9 @@
     <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\Updater.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\WCCalculatedFieldModelStore.cs" />
-    <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyRuntimeCalculatedField\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyRuntimeCalculatedField\WorldCreatorUpdater.cs" />
     <Compile Include="WorldCreator\NorthWind\AttributeRegistrator.cs" />
-    <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\DynamicAssemblyBuilder.cs" />
-    <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\Updater.cs" />
-    <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\WC3LevelMasterDetailModelStore.cs" />
-    <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\WorldCreatorUpdater.cs">
-    </Compile>
     <Compile Include="WorldCreator\ExistentAssemblyMasterDetail\EAMDCustomer.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyMasterDetail\EAMDOrder.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyMasterDetail\ExistentAssemblyMasterDetailModelStore.cs" />
@@ -496,9 +490,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="HideToolBar\DetailView\MDO_HideDetailViewToolBar.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WorldCreator\DynamicAssemblyMasterDetail\WC3LevelMasterDetail.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WorldCreator\ExistentAssemblyMasterDetail\ExisstentAssemblyMasterDetail.xafml">

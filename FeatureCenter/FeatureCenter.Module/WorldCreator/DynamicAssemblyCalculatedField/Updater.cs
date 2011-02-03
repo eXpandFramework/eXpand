@@ -6,6 +6,7 @@ using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 
 namespace FeatureCenter.Module.WorldCreator.DynamicAssemblyCalculatedField {
     public class Updater : ModuleUpdater {
+        
         public Updater(ObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {
         }

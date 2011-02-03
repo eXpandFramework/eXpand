@@ -8,7 +8,7 @@ using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 
-namespace FeatureCenter.Module.WorldCreator.DynamicAssemblyMasterDetail {
+namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
     public class DynamicAssemblyBuilder {
         readonly Session _session;
 
