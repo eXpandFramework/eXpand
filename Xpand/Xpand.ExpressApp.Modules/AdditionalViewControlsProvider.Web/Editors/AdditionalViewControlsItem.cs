@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Windows.Forms;
+using System.Web.UI.WebControls;
 using DevExpress.ExpressApp.Editors;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Editors;
 
-namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Editors {
+namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Editors {
+
     [DetailViewItem(typeof(IModelAdditionalViewControlsItem))]
     public class AdditionalViewControlsItem : AdditionalViewControlsProvider.Editors.AdditionalViewControlsItem {
 
@@ -16,8 +17,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Editors {
         }
 
         protected override object CreateControlCore() {
-            var panel = new Panel();
-            return panel;
+            return new Panel();
         }
     }
 }

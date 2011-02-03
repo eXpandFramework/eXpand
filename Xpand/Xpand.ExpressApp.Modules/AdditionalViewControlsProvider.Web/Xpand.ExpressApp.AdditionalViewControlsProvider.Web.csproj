@@ -132,6 +132,9 @@
     <Compile Include="AdditionalViewControlsProviderAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\HintPanelBase.cs" />
+    <Compile Include="Controls\WarningPanel.cs" />
+    <Compile Include="Editors\AdditionalViewControlsItem.cs" />
     <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>

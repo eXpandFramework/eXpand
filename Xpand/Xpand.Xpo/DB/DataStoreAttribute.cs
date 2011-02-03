@@ -1,9 +1,8 @@
 ﻿using System;
 
 namespace Xpand.Xpo.DB {
-    [AttributeUsage(AttributeTargets.Assembly,AllowMultiple = true)]
-    public class DataStoreAttribute:Attribute
-    {
+    [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
+    public class DataStoreAttribute : Attribute {
         protected string _connectionString;
         readonly Type _nameSpaceType;
         readonly string _dataStoreNameSuffix;
@@ -13,8 +12,7 @@ namespace Xpand.Xpo.DB {
             _dataStoreNameSuffix = dataStoreNameSuffix;
         }
 
-        public string ConnectionString
-        {
+        public string ConnectionString {
             get { return _connectionString; }
         }
         public string NameSpace {

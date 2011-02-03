@@ -1,4 +1,6 @@
 ﻿using System.Web.UI;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Web.Layout;
 using DevExpress.Web.ASPxCallbackPanel;
 using DevExpress.Web.ASPxGlobalEvents;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
@@ -12,29 +14,42 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Logic {
     }
 
     public class AdditionalViewControlsRuleViewController : AdditionalViewControlsProvider.Logic.AdditionalViewControlsRuleViewController {
+        
         protected override void AddControl(object control, object controls, LogicRuleInfo<IAdditionalViewControlsRule> info) {
-            var supportAdditionalViewControls = Frame.Template as ISupportAdditionalViewControls;
-            if (supportAdditionalViewControls!=null) {
-                var asPxCallbackPanel = supportAdditionalViewControls.TopPanel;
-                if (info.Rule.Position == Position.Bottom)
-                    asPxCallbackPanel = supportAdditionalViewControls.BottomPanel;
-                var control1 = ((Control)control);
-                control1.Visible = info.Active;
-                asPxCallbackPanel.Controls.Add(control1);
-                ModifyClientEvent(supportAdditionalViewControls.AsPxGlobalEvents, info);
+            base.AddControl(control, controls, info);
+            if (info.Rule.Position!=Position.DetailViewItem) {
+                var supportAdditionalViewControls = Frame.Template as ISupportAdditionalViewControls;
+                if (supportAdditionalViewControls != null) {
+                    var asPxCallbackPanel = supportAdditionalViewControls.TopPanel;
+                    if (info.Rule.Position == Position.Bottom)
+                        asPxCallbackPanel = supportAdditionalViewControls.BottomPanel;
+                    var control1 = ((Control)control);
+                    control1.Visible = info.Active;
+                    asPxCallbackPanel.Controls.Add(control1);
+                    ModifyClientEvent(supportAdditionalViewControls.AsPxGlobalEvents, info);
+                }
             }
 
         }
+        protected override void OnActivated() {
+            base.OnActivated();
+            if (IsReady && View is DetailView) {
+                ResetInfoToLayoutMap();
+                var detailView = ((DetailView)View);
+                var winLayoutManager = ((WebLayoutManager)detailView.LayoutManager);
+                winLayoutManager.ItemCreated += OnItemCreated;
+            }
+        }
+
+        void OnItemCreated(object sender, ItemCreatedEventArgs itemCreatedEventArgs) {
+            FillInfoToLayoutMap(itemCreatedEventArgs.DetailViewItem, itemCreatedEventArgs.ModelLayoutElement, itemCreatedEventArgs.DetailViewItem);
+        }
+
 
         void ModifyClientEvent(ASPxGlobalEvents asPxGlobalEvents, LogicRuleInfo<IAdditionalViewControlsRule> info) {
-            if (info.Active)
-                asPxGlobalEvents.ClientSideEvents.EndCallback =
-                    "function(s, e) { DXUpdateSplitterSize();DXMoveFooter(); if(s != TopCallBackPanel&&s != BottomCallBackPanel) {TopCallBackPanel.PerformCallback();BottomCallBackPanel.PerformCallback();};  }";
-            else {
-                asPxGlobalEvents.ClientSideEvents.EndCallback =
-                    "function(s, e) { DXUpdateSplitterSize();DXMoveFooter(); }";
-            }
+            asPxGlobalEvents.ClientSideEvents.EndCallback = info.Active
+                                                                ? "function(s, e) { DXUpdateSplitterSize();DXMoveFooter(); if(s != TopCallBackPanel&&s != BottomCallBackPanel) {TopCallBackPanel.PerformCallback();BottomCallBackPanel.PerformCallback();};  }"
+                                                                : "function(s, e) { DXUpdateSplitterSize();DXMoveFooter(); }";
         }
-
     }
 }

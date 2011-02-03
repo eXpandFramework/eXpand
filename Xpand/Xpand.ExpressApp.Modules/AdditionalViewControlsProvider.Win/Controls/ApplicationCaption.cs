@@ -7,10 +7,9 @@ using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
     [AdditionalViewControl]
-    public class ApplicationCaption : ApplicationCaption8_1
-    {
+    public class ApplicationCaption : ApplicationCaption8_1 {
         public ApplicationCaption() {
-            
+
             Dock = DockStyle.Bottom;
             TabIndex = 0;
             TabStop = false;
