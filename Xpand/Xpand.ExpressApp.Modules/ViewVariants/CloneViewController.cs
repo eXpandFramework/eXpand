@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.SystemModule;
@@ -39,7 +40,7 @@ namespace Xpand.ExpressApp.ViewVariants {
 
         void ViewVariantsChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             if (ReferenceEquals(singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data, Clone1)) {
-                CloneView(singleChoiceActionExecuteEventArgs, sender);
+                CloneView(singleChoiceActionExecuteEventArgs);
             } else if (ReferenceEquals(singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data, Rename)) {
                 RenameView();
             } else if (ReferenceEquals(singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data, Delete)) {
@@ -47,14 +48,15 @@ namespace Xpand.ExpressApp.ViewVariants {
             }
         }
 
-        void CloneView(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs, object sender) {
+        void CloneView(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             var objectSpace = Application.CreateObjectSpace();
             DetailView detailView = Application.CreateDetailView(objectSpace, objectSpace.CreateObject<ViewCloner>());
+            detailView.ViewEditMode=ViewEditMode.Edit;
             detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.EXpandViewVariants, "CreateViewCaption");
             singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = detailView;
             singleChoiceActionExecuteEventArgs.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             var dialogController = new DialogController();
-            dialogController.Accepting += (o, args) => CloneView((ViewCloner)((DialogController)sender).Frame.View.CurrentObject);
+            dialogController.Accepting += (o, args) => CloneView((ViewCloner)((DialogController)o).Frame.View.CurrentObject);
             singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Add(dialogController);
         }
 
@@ -63,6 +65,7 @@ namespace Xpand.ExpressApp.ViewVariants {
             var viewCloner = objectSpace.CreateObject<ViewCloner>();
             viewCloner.Caption = Frame.GetController<ChangeVariantController>().ChangeVariantAction.SelectedItem.Caption;
             var detailView = Application.CreateDetailView(objectSpace, viewCloner);
+            detailView.ViewEditMode=ViewEditMode.Edit;
             detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.EXpandViewVariants, "RenameViewToolTip");
             var parameters = new ShowViewParameters(detailView) { TargetWindow = TargetWindow.NewModalWindow };
             var controller = new DialogController();
