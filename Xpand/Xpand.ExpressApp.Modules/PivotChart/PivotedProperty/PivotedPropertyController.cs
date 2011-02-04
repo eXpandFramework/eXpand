@@ -92,7 +92,8 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
         }
 
         IMemberInfo GetMemberInfo(AnalysisEditorArgs criteriaOperatorArgs) {
-            return View.ObjectTypeInfo.FindMember(criteriaOperatorArgs.AnalysisEditorBase.MemberInfo.Name.Replace(".Self", ""));
+            var analysisEditorBase = criteriaOperatorArgs.AnalysisEditorBase;
+            return analysisEditorBase.View.ObjectTypeInfo.FindMember(analysisEditorBase.MemberInfo.Name.Replace(".Self", ""));
         }
 
         void ActivateController<TController>() where TController : ViewController {
@@ -114,23 +115,23 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
 
         CriteriaOperator GetCriteria(IMemberInfo memberInfo) {
             IMemberInfo collectionMemberInfo = GetCollectionMemberInfo(memberInfo);
-            if (collectionMemberInfo.AssociatedMemberInfo != null)
-                return CriteriaOperator.Parse(string.Format("{0}.{1}=?", memberInfo.Owner.Name,
-                                                            collectionMemberInfo.ListElementTypeInfo.KeyMember.Name),
-                                              (Guid)ObjectSpace.GetKeyValue(View.CurrentObject));
-            return null;
+            return collectionMemberInfo != null && collectionMemberInfo.AssociatedMemberInfo != null
+                       ? CriteriaOperator.Parse(string.Format("{0}.{1}=?", memberInfo.Owner.Name,
+                                                              collectionMemberInfo.ListElementTypeInfo.KeyMember.Name),
+                                                (Guid) ObjectSpace.GetKeyValue(View.CurrentObject))
+                       : null;
         }
 
         IMemberInfo GetCollectionMemberInfo(IMemberInfo memberInfo) {
             var pivotedPropertyAttribute = memberInfo.FindAttribute<PivotedPropertyAttribute>();
-            return View.ObjectTypeInfo.FindMember(pivotedPropertyAttribute.CollectionName);
+            return View != null ? View.ObjectTypeInfo.FindMember(pivotedPropertyAttribute.CollectionName) : null;
         }
 
         IEnumerable GetOrphanCollection(IMemberInfo memberInfo) {
             var collectionMemberInfo = GetCollectionMemberInfo(memberInfo);
-            if (collectionMemberInfo.AssociatedMemberInfo == null)
-                return (IEnumerable)collectionMemberInfo.GetValue(View.CurrentObject);
-            return null;
+            return collectionMemberInfo != null && collectionMemberInfo.AssociatedMemberInfo == null
+                       ? (IEnumerable) collectionMemberInfo.GetValue(View.CurrentObject)
+                       : null;
         }
     }
 }
