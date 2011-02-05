@@ -148,11 +148,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider, Version=10.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider, Version=10.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Web, Version=10.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Web, Version=10.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll</HintPath>
     </Reference>
@@ -263,7 +263,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FooterPanel.cs" />
-    <Compile Include="WebModule.cs" />
+    <Compile Include="ImageEditors\PictureObject.cs" />
+    <Compile Include="ImageEditors\PictureMasterObject.cs" />
+    <Compile Include="ImageEditors\Updater.cs" />
+    <Compile Include="WebModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs">
       <SubType>Component</SubType>
@@ -282,6 +287,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FeatureCenter.Base\FeatureCenter.Base.csproj">
+      <Project>{782230D9-DFA4-4D7A-89A9-660A361B5A8A}</Project>
+      <Name>FeatureCenter.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FeatureCenter.Module\FeatureCenter.Module.csproj">
       <Project>{3BAE5F2C-B03E-4EE6-ABFE-DF4CD04DEBA5}</Project>
       <Name>FeatureCenter.Module</Name>
@@ -306,6 +315,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ViewVariants\MDO_ViewVariants.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ImageEditors\MDO_NCarousel.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

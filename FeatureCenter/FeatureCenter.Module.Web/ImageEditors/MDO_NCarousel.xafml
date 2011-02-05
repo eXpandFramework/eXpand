@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+  <Views>
+    <DetailView ID="PictureMasterObject_DetailView">
+      <Layout Width="1081" Height="774">
+        <LayoutGroup ID="Main" RelativeSize="100">
+          <LayoutGroup ID="SimpleEditors" RelativeSize="100">
+            <LayoutGroup ID="MasterObject" RelativeSize="100">
+              <LayoutGroup ID="35626e15-4e5f-4362-8671-0606233f1e27" ShowCaption="False" Caption="35626e15-4e5f-4362-8671-0606233f1e27(5)" CaptionLocation="" CaptionHorizontalAlignment="" CaptionVerticalAlignment="" CaptionWordWrap="" TextAlignMode="" Direction="Horizontal" Index="1" RelativeSize="48" IsNewNode="True">
+                <LayoutGroup ID="Item1" ShowCaption="True" Caption="Horizontal Carousels" Direction="Vertical" Index="1" RelativeSize="51" TextAlignMode="AlignLocal" IsNewNode="True">
+                  <LayoutItem ID="HorizontalPicObjects" ShowCaption="False" Index="0" RelativeSize="25" IsNewNode="True" />
+                  <LayoutItem ID="HorizontalPicObjectsStyleModified" ShowCaption="False" Index="1" RelativeSize="31" IsNewNode="True" />
+                  <LayoutItem ID="HorizontalPicObjectsWithNoImage" ShowCaption="False" Index="2" RelativeSize="33" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup ID="Item2" ShowCaption="True" Caption="Vertial Carousel" TextAlignMode="AlignLocal" CaptionLocation="Top" Direction="Horizontal" Index="0" RelativeSize="48" IsNewNode="True">
+                  <LayoutItem ID="VerticalPicObjects" ShowCaption="False" Index="1" RelativeSize="28" IsNewNode="True" />
+                  <LayoutItem ID="VerticalPicObjectsStyleModified" ShowCaption="False" Index="2" RelativeSize="36" IsNewNode="True" />
+                  <LayoutItem ID="VerticalPicObjectsWithNoImage" ShowCaption="False" TextAlignMode="AutoSize" Index="0" RelativeSize="31" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutItem ID="NormalThumbNailEditor" ShowCaption="True" Index="2" RelativeSize="47" TextAlignMode="AutoSize" CaptionLocation="Top" IsNewNode="True" />
+              <LayoutItem ID="Title" RelativeSize="4" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup ID="Tabs" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView ID="PictureMasterObject_HorizontalPicObjects_ListView" HideToolBar="True">
+      <NCarousel UseNoImage="False" IsNewNode="True" />
+    </ListView>
+    <ListView ID="PictureMasterObject_HorizontalPicObjectsStyleModified_ListView" HideToolBar="True">
+      <NCarousel Alignment="Horizontal" ButtonStyle="top: 60px;" ClipStyle="width:  380px;height: 135px;" ContainerStyle="-moz-border-radius: 10px;background: #F0F6F9;border: 2px solid #346F97;width: 400px;height:130px;padding: 20px 40px;" ItemStyle="width: 100px;height: 120px;" UseNoImage="True" IsNewNode="True" />
+    </ListView>
+    <ListView ID="PictureMasterObject_HorizontalPicObjectsWithNoImage_ListView" HideToolBar="True">
+      <NCarousel HideImages="True" AllowOverride="True" IsNewNode="True" />
+    </ListView>
+    <ListView ID="PictureMasterObject_NormalThumbNailEditor_ListView" EditorTypeName="Thumbnail.Web.ThumbnailListEditor" ThumbNailEditorDisplayStyle="" HideToolBar="True" HideImages="True" />
+    <ListView ID="PictureMasterObject_VerticalPicObjects_ListView" HideToolBar="True">
+      <NCarousel Alignment="Vertical" IsNewNode="True" />
+    </ListView>
+    <ListView ID="PictureMasterObject_VerticalPicObjectsStyleModified_ListView" HideToolBar="True">
+      <NCarousel Alignment="Vertical" ContainerStyle="-moz-border-radius: 10px;background: #F0F6F9;border: 1px solid #346F97;width: 95px;height: 400px;padding:30px;" ClipStyle="width:  80px;height: 390px;" ItemStyle="width: 100px;height: 120px;" ButtonStyle="left: 56px;" IsNewNode="True" />
+    </ListView>
+    <ListView ID="PictureMasterObject_VerticalPicObjectsWithNoImage_ListView" HideToolBar="True">
+      <NCarousel Alignment="Vertical" HideImages="True" AllowOverride="True" IsNewNode="True" />
+    </ListView>
+  </Views>
+</Application>
