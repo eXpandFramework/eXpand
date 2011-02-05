@@ -11,12 +11,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         bool GuessAutoFilterRowValuesFromFilter { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelClassGuessAutoFilterRowValuesFromFilter), "ModelClass")]
-    public interface IModelListViewGuessAutoFilterRowValuesFromFilter : IModelClassGuessAutoFilterRowValuesFromFilter
-    {
+    public interface IModelListViewGuessAutoFilterRowValuesFromFilter : IModelClassGuessAutoFilterRowValuesFromFilter {
     }
 
     public class GuessAutoFilterRowValuesFromFilterController : ListViewController<GridListEditor>, IModelExtender {
-        
+
 
         #region IModelExtender Members
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
@@ -27,7 +26,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         protected override void OnViewControlsCreated() {
             var modelListViewGridViewOptions = ((IModelListViewGuessAutoFilterRowValuesFromFilter)View.Model);
             if (modelListViewGridViewOptions.GuessAutoFilterRowValuesFromFilter) {
-                XpandXafGridView mainView = ((ListEditors.XpandGridListEditor)View.Editor).GridView;
+                XpandXafGridView mainView = ((XpandGridListEditor)View.Editor).GridView;
                 mainView.GuessAutoFilterRowValuesFromFilter();
             }
         }
