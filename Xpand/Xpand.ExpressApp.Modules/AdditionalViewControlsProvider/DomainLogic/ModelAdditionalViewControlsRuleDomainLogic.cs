@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -39,7 +40,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.DomainLogic {
         }
 
         static Func<TypeDecorator, bool> PredicatePosition(Position position) {
-            return decorator => position != Position.DetailViewItem || decorator.Position == position;
+            return decorator => decorator.Position == Position.DetailViewItem ? decorator.Position == position : true;
         }
 
         static IEnumerable<TypeDecorator> GetTypeDecorators() {

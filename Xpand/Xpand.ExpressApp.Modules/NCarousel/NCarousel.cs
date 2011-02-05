@@ -9,27 +9,26 @@ using System.Web.UI.WebControls;
 using Xpand.Utils.Web;
 
 namespace Xpand.NCarousel {
-    public class NCarousel : WebControl, INamingContainer
-    {
+    public class NCarousel : WebControl, INamingContainer {
         public NCarousel() {
-            Css=new NCarouselCss();
+            Css = new NCarouselCss();
         }
 
         [DefaultValue(null)]
         public NCarouselCss Css {
             get {
                 object css = ViewState["Css"];
-                return css != null ? (NCarouselCss) css : null;
+                return css != null ? (NCarouselCss)css : null;
             }
             set { ViewState["Css"] = value; }
         }
-                
-        
+
+
         [DefaultValue(false)]
         public bool HideImages {
             get {
                 object hideImages = ViewState["HideImages"];
-                return hideImages != null && (bool) hideImages;
+                return hideImages != null && (bool)hideImages;
             }
             set {
                 ViewState["HideImages"] = value;
@@ -41,28 +40,28 @@ namespace Xpand.NCarousel {
         public Alignment Alignment {
             get {
                 object alignment = ViewState["Alignment"];
-                return alignment != null ? (Alignment) alignment : Alignment.Horizontal;
+                return alignment != null ? (Alignment)alignment : Alignment.Horizontal;
             }
             set {
                 ViewState["Alignment"] = value;
-                Css.SetDefaultValues(value,HideImages);
+                Css.SetDefaultValues(value, HideImages);
             }
-        }        
-        
+        }
+
         protected override void OnInit(EventArgs e) {
             base.OnInit(e);
             if (string.IsNullOrEmpty(CssClass))
                 CssClass = Css.ClassName;
 
-            ClientScriptProxy.Current.RegisterCssResource(this, typeof(NCarousel), "eXpand.NCarousel.Resources.Skins.skin.css");
-            ClientScriptProxy.Current.RegisterCssBlock(this, typeof(NCarousel), ClientID + "css", GetCssScript());
-            ClientScriptProxy.Current.RegisterClientScriptResource(this, typeof(NCarousel), "eXpand.NCarousel.Resources.jquery-1.4.2.min.js", ScriptRenderModes.HeaderTop);
-            ClientScriptProxy.Current.RegisterClientScriptResource(this, typeof(NCarousel), "eXpand.NCarousel.Resources.jquery.jcarousel.min.js", ScriptRenderModes.HeaderTop);
-            ClientScriptProxy.Current.RegisterClientScriptResource(this, typeof(NCarousel), "eXpand.NCarousel.Resources.NCarousel.js", ScriptRenderModes.HeaderTop);
-            
+            var clientScriptProxy = ClientScriptProxy.Current;
+            clientScriptProxy.RegisterCssResource(this, typeof(NCarousel), "Xpand.NCarousel.Resources.Skins.skin.css");
+            clientScriptProxy.RegisterCssBlock(this, typeof(NCarousel), ClientID + "css", GetCssScript());
+            clientScriptProxy.RegisterClientScriptResource(this, typeof(NCarousel), "Xpand.NCarousel.Resources.jquery-1.4.2.min.js", ScriptRenderModes.HeaderTop);
+            clientScriptProxy.RegisterClientScriptResource(this, typeof(NCarousel), "Xpand.NCarousel.Resources.jquery.jcarousel.min.js", ScriptRenderModes.HeaderTop);
+            clientScriptProxy.RegisterClientScriptResource(this, typeof(NCarousel), "Xpand.NCarousel.Resources.NCarousel.js", ScriptRenderModes.HeaderTop);
+
         }
-        protected override void CreateChildControls()
-        {
+        protected override void CreateChildControls() {
             base.CreateChildControls();
             ClientScriptProxy.Current.RegisterClientScriptBlock(this, typeof(NCarousel), ClientID + "jscript", GetJScript(), true, ScriptRenderModes.Header);
         }
@@ -75,7 +74,7 @@ namespace Xpand.NCarousel {
             var next = "#" + ID + "div ." + CssClass + " .jcarousel-next{" + Css.Next + "}" + Environment.NewLine;
             var previous = "#" + ID + "div ." + CssClass + " .jcarousel-prev{" + Css.Previous + "}" + Environment.NewLine;
 
-            return container+item+clip+next+previous;
+            return container + item + clip + next + previous;
         }
 
         string GetJScript() {
@@ -84,19 +83,17 @@ namespace Xpand.NCarousel {
             return string.Format(
                     "{0}{2}jQuery(document).ready(function() {{jQuery('#" + ClientID + "').jcarousel({{vertical:" + vertical +
                     ",size: {1},itemLoadCallback: {{onBeforeAnimation: mycarousel_itemLoadCallback}}}});}});",
-                    script,  Items.Count, Environment.NewLine);
+                    script, Items.Count, Environment.NewLine);
         }
 
         protected override HtmlTextWriterTag TagKey {
             get { return HtmlTextWriterTag.Ul; }
         }
-        private readonly List<NCarouselItem> _items=new List<NCarouselItem>();
-        public List<NCarouselItem> Items
-        {
+        private readonly List<NCarouselItem> _items = new List<NCarouselItem>();
+        public List<NCarouselItem> Items {
             get { return _items; }
         }
-        protected override void Render(HtmlTextWriter writer)
-        {
+        protected override void Render(HtmlTextWriter writer) {
             var sb = new StringBuilder();
             var sw = new StringWriter(sb);
             var htmlWriter = new HtmlTextWriter(sw);
@@ -106,8 +103,8 @@ namespace Xpand.NCarousel {
 
         }
         string GetItems() {
-            return Items.Aggregate<NCarouselItem, string>(null,(current, nCarouselItem) =>
-                                                          current + (@"{url:""" + (HideImages?null:nCarouselItem.Url) + @""",alt:""" + nCarouselItem.Alt + @""", text:""" + nCarouselItem.Text + @"""},"));
+            return Items.Aggregate<NCarouselItem, string>(null, (current, nCarouselItem) =>
+                                                          current + (@"{url:""" + (HideImages ? null : nCarouselItem.Url) + @""",alt:""" + nCarouselItem.Alt + @""", text:""" + nCarouselItem.Text + @"""},"));
         }
 
     }

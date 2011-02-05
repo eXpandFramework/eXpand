@@ -57,7 +57,7 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
-    background: transparent url(<%=WebResource("eXpand.NCarousel.Resources.Skins.next-horizontal.png")%>) no-repeat 0 0;
+    background: transparent url(<%=WebResource("Xpand.NCarousel.Resources.Skins.next-horizontal.png")%>) no-repeat 0 0;
 }
 
 .jcarousel-skin-tango .jcarousel-next-horizontal:hover {
@@ -82,7 +82,7 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
-    background: transparent url(<%=WebResource("eXpand.NCarousel.Resources.Skins.prev-horizontal.png")%>) no-repeat 0 0;
+    background: transparent url(<%=WebResource("Xpand.NCarousel.Resources.Skins.prev-horizontal.png")%>) no-repeat 0 0;
 }
 
 .jcarousel-skin-tango .jcarousel-prev-horizontal:hover {
@@ -110,7 +110,7 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
-    background: transparent url(<%=WebResource("eXpand.NCarousel.Resources.Skins.next-vertical.png")%>) no-repeat 0 0;
+    background: transparent url(<%=WebResource("Xpand.NCarousel.Resources.Skins.next-vertical.png")%>) no-repeat 0 0;
 }
 
 .jcarousel-skin-tango .jcarousel-next-vertical:hover {
@@ -135,7 +135,7 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
-    background: transparent url(<%=WebResource("eXpand.NCarousel.Resources.Skins.prev-vertical.png")%>) no-repeat 0 0;
+    background: transparent url(<%=WebResource("Xpand.NCarousel.Resources.Skins.prev-vertical.png")%>) no-repeat 0 0;
 }
 
 .jcarousel-skin-tango .jcarousel-prev-vertical:hover {

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using DevExpress.ExpressApp.Utils;
-using System.ComponentModel;
+using DevExpress.ExpressApp.Web;
 using Xpand.NCarousel;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Web;
@@ -27,8 +28,7 @@ namespace Xpand.ExpressApp.NCarousel.Web {
 
         public event EventHandler<PictureItemEventArgs> Click;
 
-        public void OnClick(PictureItemEventArgs e)
-        {
+        public void OnClick(PictureItemEventArgs e) {
             EventHandler<PictureItemEventArgs> handler = Click;
             if (handler != null) handler(this, e);
         }
@@ -36,8 +36,7 @@ namespace Xpand.ExpressApp.NCarousel.Web {
             if (DataSource == null) return null;
             return DataSource.Cast<IPictureItem>().FirstOrDefault(item => item.ID == id);
         }
-        protected override void CreateChildControls()
-        {
+        protected override void CreateChildControls() {
             Refresh();
             base.CreateChildControls();
         }
@@ -45,8 +44,7 @@ namespace Xpand.ExpressApp.NCarousel.Web {
         public void Refresh() {
             Controls.Clear();
             if (Page != null) {
-                foreach (IPictureItem pictureItem in ListHelper.GetList(DataSource))
-                {
+                foreach (IPictureItem pictureItem in ListHelper.GetList(DataSource)) {
                     var requestTextPictureItemEventArgs = new RequestTextPictureItemEventArgs(pictureItem);
                     OnRequestText(requestTextPictureItemEventArgs);
                     var displayText = requestTextPictureItemEventArgs.Text;
@@ -57,15 +55,15 @@ namespace Xpand.ExpressApp.NCarousel.Web {
 
             }
         }
-        private string GetDataItemFunctionBody(string key)
-        {
+        private string GetDataItemFunctionBody(string key) {
             var options = new PostBackOptions(this, key);
-            return ((Page)HttpContext.Current.Handler).ClientScript.GetPostBackEventReference(options).Replace("'", "&#39;");
+// ReSharper disable PossibleNullReferenceException
+            return ((Page) ((WebWindowTemplateHttpHandler) HttpContext.Current.Handler).ActualHandler).ClientScript.GetPostBackEventReference(options).Replace("'", "&#39;");
+// ReSharper restore PossibleNullReferenceException
         }
         public event EventHandler<RequestTextPictureItemEventArgs> RequestText;
 
-        public void OnRequestText(RequestTextPictureItemEventArgs e)
-        {
+        public void OnRequestText(RequestTextPictureItemEventArgs e) {
             EventHandler<RequestTextPictureItemEventArgs> handler = RequestText;
             if (handler != null) handler(this, e);
         }
@@ -74,17 +72,16 @@ namespace Xpand.ExpressApp.NCarousel.Web {
         public bool UseNoImage {
             get {
                 object useNoImage = ViewState["UseNoImage"];
-                return useNoImage != null && (bool) useNoImage;
+                return useNoImage != null && (bool)useNoImage;
             }
             set { ViewState["UseNoImage"] = value; }
         }
-        
-        Uri GetUrl(IPictureItem pictureItem)
-        {
+
+        Uri GetUrl(IPictureItem pictureItem) {
             var url = pictureItem.Image != null ? HttpContext.Current.Request.Url.AbsoluteUri + "&imageid=" + pictureItem.ID : pictureItem.ImagePath;
             if (!(string.IsNullOrEmpty(url)))
                 return new Uri(url);
-            if (UseNoImage){
+            if (UseNoImage) {
                 var webResourceUrl = ClientScriptProxy.Current.GetWebResourceUrl(GetType(), "Xpand.ExpressApp.NCarousel.Web.Resources.noimage.jpg");
                 webResourceUrl = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "") + webResourceUrl;
                 return new Uri(webResourceUrl);
@@ -103,6 +100,8 @@ namespace Xpand.ExpressApp.NCarousel.Web {
         }
 
         protected override void OnInit(EventArgs e) {
+            ClientScriptProxy.Current.Page =
+                (Page) ((WebWindowTemplateHttpHandler) HttpContext.Current.Handler).ActualHandler;
             base.OnInit(e);
 
             string id = HttpContext.Current.Request.QueryString["imageid"];
