@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using FeatureCenter.Base;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
 
@@ -14,6 +15,7 @@ namespace FeatureCenter.Module.Miscellaneous.PessimisticLocking {
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderPessimisticLocking, "1=1", "1=1", Captions.HeaderPessimisticLocking, Position.Top) { ViewType = ViewType.DetailView, View = PessimisticLocking_DetailView };
             yield return new XpandNavigationItemAttribute(Captions.Miscellaneous + "PessimisticLocking", PessimisticLocking_DetailView, "Name='Benjamin CISCO'");
             yield return new CloneViewAttribute(CloneViewType.DetailView, PessimisticLocking_DetailView);
+            yield return new WhatsNewAttribute("2/2/2011");
         }
     }
 }

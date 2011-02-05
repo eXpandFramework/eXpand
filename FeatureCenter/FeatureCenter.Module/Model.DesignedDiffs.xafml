@@ -2,6 +2,7 @@
 <Application Logo="ExpressAppLogo">
   <NavigationItems DefaultChildItemsDisplayStyle="List" NavigationStyle="TreeList">
     <Items>
+      <Item Id="Whats New" Index="0" />
       <Item Id="Application Differences">
         <Items>
           <Item Id="ModelDifferenceObject_ListView" ImageName="MenuBar_EditModel" />

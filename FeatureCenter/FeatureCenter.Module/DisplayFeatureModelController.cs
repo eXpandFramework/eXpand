@@ -71,6 +71,19 @@ namespace FeatureCenter.Module
     public class RequestingModelNameArgs:EventArgs {
         public string ModelName { get; set; }
     }
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    public class WhatsNewAttribute : Attribute {
+        private readonly string _date;
+
+        public WhatsNewAttribute(string date) {
+            _date = date;
+        }
+
+        public string Date {
+            get { return _date; }
+        }
+
+    }
 
     [AttributeUsage(AttributeTargets.Class,AllowMultiple = true)]
     public class DisplayFeatureModelAttribute:Attribute,ISupportViewId {

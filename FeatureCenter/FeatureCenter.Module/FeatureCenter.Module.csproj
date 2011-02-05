@@ -519,9 +519,6 @@
     <None Include="ModelArtifact\ConditionalForeignKeyKViolation\MDO_ConditionalForeignKeyViolation.xafml">
       <SubType>Designer</SubType>
     </None>
-    <EmbeddedResource Include="WhatsNew\MDO_WhatsNew.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

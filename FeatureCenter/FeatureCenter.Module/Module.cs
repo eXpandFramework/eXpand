@@ -1,12 +1,15 @@
+using System;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
+using FeatureCenter.Base;
 using FeatureCenter.Module.ListViewControl.PropertyPathFilters;
 using FeatureCenter.Module.LowLevelFilterDataStore;
 using FeatureCenter.Module.WorldCreator;
 using FeatureCenter.Module.WorldCreator.DynamicAssemblyCalculatedField;
 using FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail;
 using Xpand.ExpressApp;
+using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.ModelDifference;
 using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifference.CreateCustomModelDifferenceStoreEventArgs;
 
@@ -22,6 +25,14 @@ namespace FeatureCenter.Module {
             createCustomModelDifferenceStoreEventArgs.AddExtraDiffStore(new ExistentAssemblyMasterDetailModelStore());
             
             createCustomModelDifferenceStoreEventArgs.AddExtraDiffStore(new WCCalculatedFieldModelStore());
+        }
+        public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
+            base.CustomizeTypesInfo(typesInfo);
+            var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<WhatsNewAttribute>()!=null).OrderBy(typeInfo => DateTime.Parse(typeInfo.FindAttribute<WhatsNewAttribute>().Date));
+            foreach (var typeInfo in typeInfos) {
+                var xpandNavigationItemAttribute = typeInfo.FindAttribute<XpandNavigationItemAttribute>();
+                typeInfo.AddAttribute(new XpandNavigationItemAttribute("Whats New/"+xpandNavigationItemAttribute.Path,xpandNavigationItemAttribute.ViewId,xpandNavigationItemAttribute.ObjectKey ));
+            }
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
