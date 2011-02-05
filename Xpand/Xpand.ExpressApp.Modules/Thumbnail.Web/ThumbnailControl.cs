@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.ComponentModel;
+using DevExpress.ExpressApp.Web;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Web;
 using Image = System.Drawing.Image;
@@ -75,6 +76,7 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
             Controls.Clear();
             if (Page != null) {
                 int i = 0;
+                ClientScriptProxy.Current.Page =(Page) ((WebWindowTemplateHttpHandler) HttpContext.Current.Handler).ActualHandler;
                 string noImageUrl = ClientScriptProxy.Current.GetWebResourceUrl(GetType(), "Xpand.ExpressApp.Thumbnail.Web.Resources.noimage.jpg");
                 if (DataSource != null)
                     foreach (IPictureItem item in DataSource) {
