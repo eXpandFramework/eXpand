@@ -111,7 +111,7 @@
 		</Tokens>
 	</ItemGroup>
 
-	<UsingTask TaskName="MSBuild.ExtensionPack.FileSystem.File" AssemblyFile="Resource\build\MSBuild.ExtensionPack.dll" />
+	<UsingTask TaskName="MSBuild.ExtensionPack.FileSystem.File" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />
 	
 	<Target Name="ReplaceKey">
 		<CreateItem Include="**\*.csproj;**\*.config;**\*.skin" Exclude=".git;Build;">
