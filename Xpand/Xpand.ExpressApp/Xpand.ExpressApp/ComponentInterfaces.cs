@@ -33,6 +33,10 @@ namespace Xpand.ExpressApp {
     public interface IWinApplication {
         void LogOff();
     }
+    public interface ISupportFullConnectionString {
+        string ConnectionString { get; set; }
+    }
+
     public interface ISupportCreateLogonParameterStore {
         SettingsStorage CreateLogonParameterStoreCore();
     }

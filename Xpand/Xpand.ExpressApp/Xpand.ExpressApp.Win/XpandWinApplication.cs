@@ -17,7 +17,7 @@ using Xpand.ExpressApp.Win.ViewStrategies;
 
 namespace Xpand.ExpressApp.Win {
 
-    public class XpandWinApplication : WinApplication, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportCreateLogonParameterStore {
+    public class XpandWinApplication : WinApplication, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportCreateLogonParameterStore, ISupportFullConnectionString {
         public XpandWinApplication() {
             if (XpandModuleBase.Application == null)
                 Application.ThreadException += (sender, args) => HandleException(args.Exception, this);
@@ -27,9 +27,10 @@ namespace Xpand.ExpressApp.Win {
             DetailViewCreating += OnDetailViewCreating;
             ListViewCreating += OnListViewCreating;
             ListViewCreated += OnListViewCreated;
-
-
         }
+
+        
+        string ISupportFullConnectionString.ConnectionString { get; set; }
 
         public new SettingsStorage CreateLogonParameterStoreCore() {
             return base.CreateLogonParameterStoreCore();

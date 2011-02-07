@@ -35,11 +35,13 @@ namespace Xpand.ExpressApp.SystemModule {
                 return new List<Type>();
             }
         }
-
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
+            Application.LoggingOn += (sender, args) => InitializeSequenceGenerator();
+        }
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (ModelApplicationCreator == null) {
-                InitializeSequenceGenerator();
                 foreach (var persistentType in typesInfo.PersistentTypes) {
                     IEnumerable<Attribute> attributes = GetAttributes(persistentType);
                     foreach (var attribute in attributes) {
@@ -52,7 +54,7 @@ namespace Xpand.ExpressApp.SystemModule {
         void InitializeSequenceGenerator() {
             try {
                 if (Application != null) 
-                    SequenceGenerator.Initialize(ConnectionString);
+                    SequenceGenerator.Initialize(((ISupportFullConnectionString) Application).ConnectionString);
             }
             catch (Exception e) {
                 if (e.InnerException != null)
@@ -60,6 +62,8 @@ namespace Xpand.ExpressApp.SystemModule {
                 throw;
             }
         }
+
+        
 
         IEnumerable<Attribute> GetAttributes(ITypeInfo type) {
             return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator)).Descendants.Select(typeInfo => (AttributeRegistrator)ReflectionHelper.CreateObject(typeInfo.Type)).SelectMany(registrator => registrator.GetAttributes(type));

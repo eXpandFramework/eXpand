@@ -12,15 +12,14 @@ namespace Xpand.ExpressApp.ModelDifference {
             EventHandler<CreateCustomModelDifferenceStoreEventArgs> handler = CreateCustomModelDifferenceStore;
             if (handler != null) handler(this, e);
         }
-        public override void Setup(XafApplication application) {
-            base.Setup(application);
-            application.LoggingOn += (sender, args) => {
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
+            Application.LoggingOn += (sender, args) => {
                 if (ModelsLoaded.HasValue)
                     LoadModels(!ModelsLoaded.Value);
                 ModelsLoaded = true;
             };
         }
-
         public void LoadModels(bool loadResources) {
             var customModelDifferenceStoreEventArgs = new CreateCustomModelDifferenceStoreEventArgs();
             OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);
