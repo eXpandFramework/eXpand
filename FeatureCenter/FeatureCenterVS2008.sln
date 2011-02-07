@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2010
+# Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Module", "FeatureCenter.Module\FeatureCenter.Module.csproj", "{2FE9D002-F5ED-46AC-860D-1ADF67573F0C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Module.Win", "FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj", "{A75E4F29-14BF-4291-89CF-F80DEB2B5F43}"
@@ -12,6 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalApplication.Module.Win", "ExternalApplication\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj", "{A986B220-63AF-44A6-98D5-7F55E1E2FA03}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalApplication.Win", "ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj", "{F40D575E-A391-4156-B2FC-9E01627C033D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Module.Web", "FeatureCenter.Module.Web\FeatureCenter.Module.Web.csproj", "{B1EBEB7A-C156-4476-9AF2-65C5F5221F4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Web", "FeatureCenter.Web\FeatureCenter.Web.csproj", "{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,6 +86,16 @@ Global
 		{F40D575E-A391-4156-B2FC-9E01627C033D}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{F40D575E-A391-4156-B2FC-9E01627C033D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F40D575E-A391-4156-B2FC-9E01627C033D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1EBEB7A-C156-4476-9AF2-65C5F5221F4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1EBEB7A-C156-4476-9AF2-65C5F5221F4E}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1EBEB7A-C156-4476-9AF2-65C5F5221F4E}.DebugTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1EBEB7A-C156-4476-9AF2-65C5F5221F4E}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{B1EBEB7A-C156-4476-9AF2-65C5F5221F4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}.DebugTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
