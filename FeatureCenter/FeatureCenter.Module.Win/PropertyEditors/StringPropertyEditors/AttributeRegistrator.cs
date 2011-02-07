@@ -17,6 +17,7 @@ namespace FeatureCenter.Module.Win.PropertyEditors.StringPropertyEditors {
             yield return new CloneViewAttribute(CloneViewType.DetailView, "StringPropertyEditors_DetailView");
             yield return new XpandNavigationItemAttribute(Module.Captions.PropertyEditors + "String editors", "StringPropertyEditors_DetailView");
             yield return new DisplayFeatureModelAttribute("StringPropertyEditors_DetailView");
+            yield return new WhatsNewAttribute("28/1/2011");
         }
     }
 }

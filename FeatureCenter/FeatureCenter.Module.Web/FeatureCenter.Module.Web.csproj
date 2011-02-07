@@ -262,6 +262,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Captions.cs" />
     <Compile Include="FooterPanel.cs" />
     <Compile Include="ImageEditors\PictureObject.cs" />
     <Compile Include="ImageEditors\PictureMasterObject.cs" />

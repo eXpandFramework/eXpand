@@ -1,5 +1,7 @@
-﻿using DevExpress.Persistent.BaseImpl;
+﻿using DevExpress.ExpressApp;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Web.ImageEditors {
@@ -7,6 +9,10 @@ namespace FeatureCenter.Module.Web.ImageEditors {
     [DisplayFeatureModelAttribute("PictureMasterObject_ListView", "NCarousel")]
     [XpandNavigationItem("ImageEditors/NCarousel", "PictureMasterObject_DetailView","Title='masterobject'")]
     [WhatsNewAttribute("4/2/2011")]
+    [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Captions.HeaderNCarousel, "1=1", "1=1",
+        Captions.ViewMessageNCarousel, Position.Bottom, ViewType = ViewType.DetailView)]
+    [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderNCarousel, "1=1", "1=1",
+        Captions.HeaderNCarousel, Position.Top, ViewType = ViewType.DetailView)]
     public class PictureMasterObject : BaseObject {
         string _title;
 

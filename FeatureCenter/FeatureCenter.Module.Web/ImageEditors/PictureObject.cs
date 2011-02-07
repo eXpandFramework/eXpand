@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General;
 
@@ -12,6 +14,10 @@ namespace FeatureCenter.Module.Web.ImageEditors {
     [XpandNavigationItem("ImageEditors/Thumbnails", "PictureObject_ListView")]
     [WhatsNew("5/2/2011")]
     [DefaultProperty("Title")]
+    [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Captions.HeaderThumbnail, "1=1", "1=1",
+        Captions.ViewMessageThumbnail, Position.Bottom, ViewType = ViewType.ListView,Nesting = Nesting.Root)]
+    [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderThumbnail, "1=1", "1=1",
+        Captions.HeaderThumbnail, Position.Top, ViewType = ViewType.ListView,Nesting = Nesting.Root)]
     public class PictureObject : BaseObject, IPictureItem {
         PictureMasterObject _horizantalMasterObject;
         PictureMasterObject _horizontalMasterObjectStyleModified;

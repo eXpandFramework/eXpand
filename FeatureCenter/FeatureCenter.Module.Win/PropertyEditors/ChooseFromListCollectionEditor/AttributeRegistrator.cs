@@ -16,6 +16,7 @@ namespace FeatureCenter.Module.Win.PropertyEditors.ChooseFromListCollectionEdito
             yield return new CloneViewAttribute(CloneViewType.DetailView, ChooseFromListCollectionEditor_DetailView);
             yield return new XpandNavigationItemAttribute(Module.Captions.PropertyEditors + "List editors", ChooseFromListCollectionEditor_DetailView);
             yield return new DisplayFeatureModelAttribute(ChooseFromListCollectionEditor_DetailView);
+            yield return new WhatsNewAttribute("28/1/2011");
         }
     }
 }

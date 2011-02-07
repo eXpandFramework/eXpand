@@ -16,6 +16,7 @@ namespace FeatureCenter.Module.Win.PropertyEditors.NullAble {
     [XpandNavigationItem(Module.Captions.PropertyEditors + "Null Able properties", "PENACustomer_ListView")]
     [DisplayFeatureModel("PENACustomer_DetailView", "NullAblePropertyEditors")]
     [ActionStateRule("HideSaveAndClose_For_NullablePropertyEditors","SaveAndClose","1=1",null,ActionState.Hidden)]
+    [WhatsNew("28/1/2011")]
     public class PENACustomer : BaseObject, ISupportModificationStatements {
         public PENACustomer(Session session)
             : base(session) {

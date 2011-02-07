@@ -9,7 +9,7 @@ using Xpand.ExpressApp.Core;
 
 
 namespace Xpand.ExpressApp.Web {
-    public partial class XpandWebApplication : WebApplication, ISupportModelsManager, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportCreateLogonParameterStore {
+    public partial class XpandWebApplication : WebApplication, ISupportModelsManager, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportCreateLogonParameterStore, ISupportFullConnectionString {
         protected XpandWebApplication() {
             InitializeComponent();
             DetailViewCreating += OnDetailViewCreating;
@@ -19,7 +19,15 @@ namespace Xpand.ExpressApp.Web {
             base.OnLoggedOn(args);
             ((ShowViewStrategy)ShowViewStrategy).CollectionsEditMode = DevExpress.ExpressApp.Editors.ViewEditMode.Edit;
         }
-
+        private string _connectionString;
+        public new string ConnectionString {
+            get { return _connectionString; }
+            set {
+                _connectionString = value;
+                ((ISupportFullConnectionString)this).ConnectionString = value;
+            }
+        }
+        string ISupportFullConnectionString.ConnectionString { get; set; }
         public event EventHandler<ViewShownEventArgs> AfterViewShown;
 
         public virtual void OnAfterViewShown(Frame frame, Frame sourceFrame) {
