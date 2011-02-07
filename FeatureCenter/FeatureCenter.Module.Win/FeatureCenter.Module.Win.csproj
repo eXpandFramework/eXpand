@@ -402,8 +402,6 @@
     <Compile Include="ListViewControl\TreeList\RecursiveView\RVItem.cs" />
     <Compile Include="ListViewControl\TreeList\RecursiveView\RVCategory.cs" />
     <Compile Include="ListViewControl\TreeList\RecursiveView\Updater.cs" />
-    <Compile Include="ListViewControl\TreeList\TreeConditionalAppearance\TCACategory.cs" />
-    <Compile Include="ListViewControl\TreeList\TreeConditionalAppearance\Updater.cs" />
     <Compile Include="ListViewControl\TreeList\TreeListOptions\OCategory.cs" />
     <Compile Include="ListViewControl\TreeList\TreeListOptions\Updater.cs" />
     <Compile Include="LowLevelFilterDataStore\DisableFiltersNodeUpdater.cs" />
@@ -597,11 +595,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ListViewControl\TreeList\TreeListOptions\MDO_TreeListOptions.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ListViewControl\TreeList\TreeConditionalAppearance\MDO_TreeConditionalAppearance.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
