@@ -14,6 +14,7 @@
 	<meta http-equiv="Expires" content="0" />
 </head>
 <body onload="OnLoad()" class="VerticalTemplate">
+<link href="skin.css" rel="stylesheet" type="text/css" />
     <div id="PageContent" class="PageContent">
     <script src="MoveFooter.js" type="text/javascript"></script>
 	<form id="form1" runat="server">

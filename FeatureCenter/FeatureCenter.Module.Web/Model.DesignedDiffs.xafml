@@ -45,6 +45,7 @@
     <ListView Id="ExceptionHandlingObject_Exceptions_ListView" ViewEditMode="Edit" />
     <DetailView Id="HighlightFocusedLayoutItem_DetailView" ViewEditMode="Edit" />
     <ListView Id="ModelDifferenceObject_ListView" Criteria="PersistentApplication.Name='FeatureCenter.Web'" />
+    
     <DetailView Id="UOCFCustomer_DetailView" ViewEditMode="Edit" />
     <DetailView Id="XmlFileChooser_DetailView" ViewEditMode="Edit" />
   </Views>

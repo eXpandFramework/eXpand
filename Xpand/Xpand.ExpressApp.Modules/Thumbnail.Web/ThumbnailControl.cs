@@ -78,9 +78,15 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
                 int i = 0;
                 ClientScriptProxy.Current.Page =(Page) ((WebWindowTemplateHttpHandler) HttpContext.Current.Handler).ActualHandler;
                 string noImageUrl = ClientScriptProxy.Current.GetWebResourceUrl(GetType(), "Xpand.ExpressApp.Thumbnail.Web.Resources.noimage.jpg");
-                if (DataSource != null)
+                if (DataSource != null) {
+                    var rootTable = new Table();
+                    Controls.Add(rootTable);
+                    var tableRow = new TableRow();
+                    var tableCell = new TableCell();
+                    tableRow.Cells.Add(tableCell);
+                    rootTable.Rows.Add(tableRow);
                     foreach (IPictureItem item in DataSource) {
-                        Table table = CreateTable();
+                        Table table = CreateTable(tableCell.Controls);
                         var img = new System.Web.UI.WebControls.Image { ID = ID + "_" + (i++) };
                         var requestTextPictureItemEventArgs = new RequestTextPictureItemEventArgs(item);
                         OnRequestText(requestTextPictureItemEventArgs);
@@ -88,6 +94,7 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
                         CreateImageRow(img, table);
                         CreateTextRow(item, requestTextPictureItemEventArgs.Text, table);
                     }
+                }
             }
         }
 
@@ -103,10 +110,10 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
             table.Rows[0].Cells.Add(cell);
         }
 
-        Table CreateTable() {
+        Table CreateTable(ControlCollection controls) {
             var table = new Table();
             table.Style["display"] = DisplayStyle;
-            Controls.Add(table);
+            controls.Add(table);
             table.BorderWidth = 0;
             table.CellPadding = 5;
             table.CellSpacing = 0;

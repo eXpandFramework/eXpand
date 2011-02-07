@@ -4,10 +4,13 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.Web.ImageEditors {
-    [DefaultClassOptions]
+    [DisplayFeatureModel("PictureObject_ListView", "Thumbnail")]
+    [XpandNavigationItem("ImageEditors/Thumbnails", "PictureObject_ListView")]
+    [WhatsNew("5/2/2011")]
     [DefaultProperty("Title")]
     public class PictureObject : BaseObject, IPictureItem {
         PictureMasterObject _horizantalMasterObject;
@@ -20,13 +23,8 @@ namespace FeatureCenter.Module.Web.ImageEditors {
             : base(session) {
         }
         private PictureMasterObject _verticalMasterObjectWithNoImage;
-        private PictureMasterObject _normalMasterThumbNailObject;
-        [VisibleInListView(false)]
-        [Association("MasterObject-NormalThumbNailEditor")]
-        public PictureMasterObject NormalMasterThumbNailObject {
-            get { return _normalMasterThumbNailObject; }
-            set { SetPropertyValue("NormalMasterThumbNailObject", ref _normalMasterThumbNailObject, value); }
-        }
+        
+        
         [VisibleInListView(false)]
         [Association("MasterObject-VerticalPicObjectsWithNoImage")]
         public PictureMasterObject VerticalMasterObjectWithNoImage {

@@ -53,10 +53,5 @@ namespace FeatureCenter.Module.Web.ImageEditors {
             get { return GetCollection<PictureObject>("VerticalPicObjectsWithNoImage"); }
         }
 
-        [Aggregated]
-        [Association("MasterObject-NormalThumbNailEditor")]
-        public XPCollection<PictureObject> NormalThumbNailEditor {
-            get { return GetCollection<PictureObject>("NormalThumbNailEditor"); }
-        }
     }
 }

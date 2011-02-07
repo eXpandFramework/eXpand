@@ -27,8 +27,6 @@ namespace FeatureCenter.Module.Web.ImageEditors {
                 masterObject.VerticalPicObjectsStyleModified.AddRange(GetAlbums());
                 masterObject.HorizontalPicObjectsWithNoImage.AddRange(GetAlbums());
                 masterObject.VerticalPicObjectsWithNoImage.AddRange(GetAlbums());
-                masterObject.NormalThumbNailEditor.AddRange(GetAlbums(4));
-                masterObject.NormalThumbNailEditor[0].ImagePath = "";
                 ObjectSpace.CommitChanges();
             }
         }

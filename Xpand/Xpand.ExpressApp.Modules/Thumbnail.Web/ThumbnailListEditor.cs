@@ -14,9 +14,10 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
     public class ThumbnailListEditor : ListEditor {
         public const string SelectedId = "selectedId";
         ThumbnailControl control;
-        
 
-        public ThumbnailListEditor(IModelListView modelListView) : base(modelListView) {
+
+        public ThumbnailListEditor(IModelListView modelListView)
+            : base(modelListView) {
         }
 
         public override object FocusedObject { get; set; }
@@ -31,8 +32,7 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
         }
 
 
-        public override string[] RequiredProperties
-        {
+        public override string[] RequiredProperties {
             get { return Model.Columns.GetVisibleColumns().Select(wrapper => wrapper.PropertyName).ToArray(); }
         }
 
@@ -43,15 +43,15 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
 
 
         protected override object CreateControlsCore() {
-            IModelThumbnailWeb modelThumbnailWeb = ((IModelListViewThumbnailWeb) Model).ThumbnailWeb;
+            IModelThumbnailWeb modelThumbnailWeb = ((IModelListViewThumbnailWeb)Model).ThumbnailWeb;
             control = new ThumbnailControl {
-                                               ID = "thumbnail_control",
-                                               DisplayStyle =modelThumbnailWeb.DisplayStyle,
-                                               HideImages = modelThumbnailWeb.HideImages
+                ID = "thumbnail_control",
+                DisplayStyle = modelThumbnailWeb.DisplayStyle,
+                HideImages = modelThumbnailWeb.HideImages
 
-                                           };
-            control.Click+=ControlOnClick;
-            control.RequestText+=ControlOnRequestText;
+            };
+            control.Click += ControlOnClick;
+            control.RequestText += ControlOnRequestText;
             return control;
         }
 
@@ -63,8 +63,7 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
 
 
 
-        string GetDisplayText(IPictureItem pictureItem)
-        {
+        string GetDisplayText(IPictureItem pictureItem) {
             string text = Model.Columns.GetVisibleColumns().Aggregate("", (current, modelColumn) => current + (ObjectTypeInfo.FindMember(modelColumn.PropertyName).GetValue(pictureItem) + "<br>"));
             return text.TrimEnd("<br>".ToCharArray());
         }
@@ -95,7 +94,7 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
             }
         }
         public override void SynchronizeModel() {
-            
+
         }
 
     }

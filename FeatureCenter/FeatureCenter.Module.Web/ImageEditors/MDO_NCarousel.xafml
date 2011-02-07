@@ -35,7 +35,7 @@
     <ListView ID="PictureMasterObject_HorizontalPicObjectsWithNoImage_ListView" HideToolBar="True">
       <NCarousel HideImages="True" AllowOverride="True" IsNewNode="True" />
     </ListView>
-    <ListView ID="PictureMasterObject_NormalThumbNailEditor_ListView" EditorTypeName="Thumbnail.Web.ThumbnailListEditor" ThumbNailEditorDisplayStyle="" HideToolBar="True" HideImages="True" />
+    
     <ListView ID="PictureMasterObject_VerticalPicObjects_ListView" HideToolBar="True">
       <NCarousel Alignment="Vertical" IsNewNode="True" />
     </ListView>
