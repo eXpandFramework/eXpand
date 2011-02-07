@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.Win {
             ListViewCreated += OnListViewCreated;
         }
 
-        
+
         string ISupportFullConnectionString.ConnectionString { get; set; }
 
         public new SettingsStorage CreateLogonParameterStoreCore() {

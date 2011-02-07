@@ -34,15 +34,14 @@ namespace Xpand.ExpressApp.WorldCreator {
             _connectionString = ((ISupportFullConnectionString) Application).ConnectionString;
             if (_connectionString != null) {
                 var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
+                var typeSynchronizer = new TypeSynchronizer();
+                typeSynchronizer.SynchronizeTypes(_connectionString);
                 using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
                     using (var session = new Session(dataLayer)) {
-                        var unitOfWork = new UnitOfWork(session.DataLayer);
-                        var typeSynchronizer = new TypeSynchronizer();
-                        typeSynchronizer.SynchronizeTypes(_connectionString);
-                        RunUpdaters(session);
-                        AddDynamicModules(moduleManager, unitOfWork);
-
-                        //                        SynchronizeTypes(unitOfWork);
+                        using (var unitOfWork = new UnitOfWork(session.DataLayer)) {
+                            RunUpdaters(session);
+                            AddDynamicModules(moduleManager, unitOfWork);
+                        }
                     }
                 }
             } else {
@@ -64,38 +63,6 @@ namespace Xpand.ExpressApp.WorldCreator {
             }
         }
 
-//        void SynchronizeTypes(UnitOfWork unitOfWork) {
-//            var xpObjectTypes = new XPCollection<XPObjectType>(unitOfWork);
-//            var dataStoreManager = new SqlMultiDataStoreProxy(ConnectionString);
-//            foreach (var xpObjectType in xpObjectTypes) {
-//                var type = ReflectionHelper.FindType(xpObjectType.TypeName);
-//                if (type != null) {
-//                    var connectionString = dataStoreManager.DataStoreManager.GetConnectionString(type);
-//                    var sqlDataStoreProxy = new SqlDataStoreProxy(connectionString);
-//                    var xpoObjectHacker = new XpoObjectHacker();
-//                    XPObjectType type1 = xpObjectType;
-//                    var simpleDataLayer = new SimpleDataLayer(sqlDataStoreProxy);
-//                    var session = new Session(simpleDataLayer);
-//                    bool sync = false;
-//                    sqlDataStoreProxy.DataStoreModifyData += (sender, args) => {
-//                        var insertStatement = args.ModificationStatements.OfType<InsertStatement>().Where(statement => statement.TableName == typeof(XPObjectType).Name).SingleOrDefault();
-//                        if (insertStatement != null && !sync) {
-//                            sync = true;
-//                            xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, simpleDataLayer, type1.Oid);
-//                            ModificationResult modificationResult = sqlDataStoreProxy.ModifyData(insertStatement);
-//                            args.ModificationResult = modificationResult;
-//                            args.ModificationResult.Identities = new[] { new ParameterValue { Value = type1.Oid }, };
-//                        }
-//                    };
-//
-//                    if (session.FindObject<XPObjectType>(objectType => objectType.TypeName == type1.TypeName) == null) {
-//                        var objectType = new XPObjectType(session, xpObjectType.AssemblyName, xpObjectType.TypeName);
-//                        session.Save(objectType);
-//
-//                    }
-//                }
-//            }
-//        }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             var session = (((ObjectSpace)Application.ObjectSpaceProvider.CreateUpdatingObjectSpace(false))).Session;
