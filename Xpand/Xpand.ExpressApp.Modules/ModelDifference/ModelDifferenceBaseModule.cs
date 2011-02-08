@@ -14,12 +14,14 @@ namespace Xpand.ExpressApp.ModelDifference {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            Application.LoggingOn += (sender, args) => {
-                if (ModelsLoaded.HasValue)
-                    LoadModels(!ModelsLoaded.Value);
-                ModelsLoaded = true;
-            };
+            if (Application != null)
+                Application.LoggingOn += (sender, args) => {
+                    if (ModelsLoaded.HasValue)
+                        LoadModels(!ModelsLoaded.Value);
+                    ModelsLoaded = true;
+                };
         }
+
         public void LoadModels(bool loadResources) {
             var customModelDifferenceStoreEventArgs = new CreateCustomModelDifferenceStoreEventArgs();
             OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);

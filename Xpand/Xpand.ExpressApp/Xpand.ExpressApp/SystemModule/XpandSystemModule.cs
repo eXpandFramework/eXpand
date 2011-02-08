@@ -37,8 +37,9 @@ namespace Xpand.ExpressApp.SystemModule {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            Application.LoggingOn += (sender, args) => InitializeSequenceGenerator();
+            if (Application != null) Application.LoggingOn += (sender, args) => InitializeSequenceGenerator();
         }
+
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (ModelApplicationCreator == null) {
