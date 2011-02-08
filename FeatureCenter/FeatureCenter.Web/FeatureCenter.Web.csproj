@@ -207,6 +207,12 @@
     </Reference>
     <Reference Include="Xpand.ExpressApp.FilterDataStore">
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.FilterDataStore.Web, Version=10.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.Web.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.ExpressApp.IO">
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.IO.dll</HintPath>
