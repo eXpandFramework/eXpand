@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.ViewVariants {
     public interface IModelListViewViewClonable : IModelClassViewClonable {
     }
 
-    public class CloneViewController : ViewController<XpandListView>, IModelExtender {
+    public class ModifyVariantsController : ViewController<XpandListView>, IModelExtender {
         private const string IsClonable = "IsClonable";
         private const string Rename = "Rename";
         private const string Clone1 = "Clone";
@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.ViewVariants {
         IModelView _rootView;
         readonly SingleChoiceAction _viewVariantsChoiceAction;
 
-        public CloneViewController() {
+        public ModifyVariantsController() {
             _viewVariantsChoiceAction = new SingleChoiceAction(this, "ModifyViewVariants", PredefinedCategory.View);
             _viewVariantsChoiceAction.Execute += ViewVariantsChoiceActionOnExecute;
             _viewVariantsChoiceAction.ItemType = SingleChoiceActionItemType.ItemIsOperation;
@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.ViewVariants {
         void CloneView(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             var objectSpace = Application.CreateObjectSpace();
             DetailView detailView = Application.CreateDetailView(objectSpace, objectSpace.CreateObject<ViewCloner>());
-            detailView.ViewEditMode=ViewEditMode.Edit;
+            detailView.ViewEditMode = ViewEditMode.Edit;
             detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.EXpandViewVariants, "CreateViewCaption");
             singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = detailView;
             singleChoiceActionExecuteEventArgs.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
@@ -65,7 +65,7 @@ namespace Xpand.ExpressApp.ViewVariants {
             var viewCloner = objectSpace.CreateObject<ViewCloner>();
             viewCloner.Caption = Frame.GetController<ChangeVariantController>().ChangeVariantAction.SelectedItem.Caption;
             var detailView = Application.CreateDetailView(objectSpace, viewCloner);
-            detailView.ViewEditMode=ViewEditMode.Edit;
+            detailView.ViewEditMode = ViewEditMode.Edit;
             detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.EXpandViewVariants, "RenameViewToolTip");
             var parameters = new ShowViewParameters(detailView) { TargetWindow = TargetWindow.NewModalWindow };
             var controller = new DialogController();
@@ -76,7 +76,7 @@ namespace Xpand.ExpressApp.ViewVariants {
         private void RenameViewActionOnExecute(object sender, SimpleActionExecuteEventArgs args) {
             var viewCloner = ((ViewCloner)args.CurrentObject);
             string id = View.Id;
-            Frame.GetController<CloneViewController>().CloneView(viewCloner);
+            Frame.GetController<ModifyVariantsController>().CloneView(viewCloner);
             DeleteViewCore(id);
             var changeVariantController = Frame.GetController<ChangeVariantController>();
             changeVariantController.RefreshVariantsAction();
@@ -86,13 +86,11 @@ namespace Xpand.ExpressApp.ViewVariants {
         }
 
         void DeleteView() {
-            //            if (MessageBox.Show(CaptionHelper.GetLocalizedText(XpandViewVariantsModule.EXpandViewVariants, "DeleteViewConfirmation"), null, MessageBoxButtons.YesNo) == DialogResult.Yes) {
             var variantInfo = (VariantInfo)Frame.GetController<ChangeVariantController>().ChangeVariantAction.SelectedItem.Data;
             DeleteViewCore(variantInfo.ViewID);
             var changeVariantController = Frame.GetController<ChangeVariantController>();
             changeVariantController.ChangeVariantAction.DoExecute(changeVariantController.ChangeVariantAction.SelectedItem);
             View.Refresh();
-            //            }
         }
         private void DeleteViewCore(string viewId) {
             IModelView modelView = RemoveVariantNode(viewId);
@@ -143,7 +141,10 @@ namespace Xpand.ExpressApp.ViewVariants {
         protected override void OnActivated() {
             base.OnActivated();
             _rootView = Application.Model.Views[View.CreateShortcut().ViewId];
-            _viewVariantsChoiceAction.Active[IsClonable] = ((IModelListViewViewClonable)_rootView).IsClonable;
+        }
+        protected override void OnViewControllersActivated() {
+            base.OnViewControllersActivated();
+            _viewVariantsChoiceAction.Active[IsClonable] = ((IModelListViewViewClonable)_rootView).IsClonable && Frame.GetController<ChangeVariantController>().ChangeVariantAction.Active;
         }
 
         private IModelVariant GetNewVariantNode(ViewCloner viewCloner) {

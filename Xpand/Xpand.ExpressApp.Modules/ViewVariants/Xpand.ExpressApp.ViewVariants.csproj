@@ -123,7 +123,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CloneViewController.cs">
+    <Compile Include="ModifyVariantsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="XpandViewVariantsModule.cs">
