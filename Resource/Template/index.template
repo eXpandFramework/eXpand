@@ -33,7 +33,6 @@
 
 
 <p><sub><em>Build ${Version} released on ${BuildTime}.</em></sub></p>
-<p><span style="color:red">Due to a bug Xpand FeatureCenter can run only if you use your sources and recompile them against DX 10.2.3</span><p>
 <p>&copy;2010 eXpand. All rights reserved</p>
 </body>
 </html>

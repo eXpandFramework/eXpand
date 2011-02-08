@@ -76,7 +76,7 @@ namespace Xpand.ExpressApp {
             InitializeInstanceXafApplicationManager();
             application.SetupComplete += ApplicationOnSetupComplete;
         }
-        public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             InitializeInstanceXafApplicationManager();
             var type = (BaseInfo)typesInfo.FindTypeInfo(typeof(IModelMember)).FindMember("Type");
@@ -84,7 +84,7 @@ namespace Xpand.ExpressApp {
             if (attribute != null)
                 type.RemoveAttribute(attribute);
 
-            type = typesInfo.FindTypeInfo(typeof(IModelBOModelClassMembers)) as BaseInfo;
+            type = (BaseInfo) typesInfo.FindTypeInfo(typeof(IModelBOModelClassMembers));
             attribute = type.FindAttribute<ModelReadOnlyAttribute>();
             if (attribute != null)
                 type.RemoveAttribute(attribute);
