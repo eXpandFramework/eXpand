@@ -4,6 +4,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Attributes;
 
@@ -13,12 +14,23 @@ namespace Xpand.ExpressApp.SystemModule {
             base.OnFrameAssigned();
             Frame.Disposing += FrameOnDisposing;
             Frame.GetController<NewObjectViewController>().CollectDescendantTypes += OnCollectDescendantTypes;
+            Frame.GetController<PermissionsController>().CollectDescendantPermissionTypes += OnCollectDescendantPermissionTypes;
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             Frame.GetController<NewObjectViewController>().CollectDescendantTypes -= OnCollectDescendantTypes;
+            Frame.GetController<PermissionsController>().CollectDescendantPermissionTypes -= OnCollectDescendantPermissionTypes;
         }
 
+        void OnCollectDescendantPermissionTypes(object sender, CollectTypesEventArgs collectTypesEventArgs) {
+            List<ITypeInfo> removeGroupedTypes = RemoveGroupedTypes(collectTypesEventArgs.Types).ToList();
+            ChoiceActionItemCollection choiceActionItemCollection = Frame.GetController<NewObjectViewController>().NewObjectAction.Items;
+            foreach (var removeGroupedType in removeGroupedTypes.ToList()) {
+                string[] strings = removeGroupedType.FindAttribute<NewObjectCreateGroupAttribute>().GroupPath.Split('/');
+                AddItem(choiceActionItemCollection, strings.ToList(), removeGroupedType);
+
+            }
+        }
         void OnCollectDescendantTypes(object sender, CollectTypesEventArgs collectTypesEventArgs) {
             List<ITypeInfo> removeGroupedTypes = RemoveGroupedTypes(collectTypesEventArgs.Types).ToList();
             ChoiceActionItemCollection choiceActionItemCollection = Frame.GetController<NewObjectViewController>().NewObjectAction.Items;
