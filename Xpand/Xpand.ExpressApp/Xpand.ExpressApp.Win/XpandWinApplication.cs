@@ -30,7 +30,11 @@ namespace Xpand.ExpressApp.Win {
         }
 
 
-        string ISupportFullConnectionString.ConnectionString { get; set; }
+        string _connectionString;
+        string ISupportFullConnectionString.ConnectionString {
+            get { return _connectionString; }
+            set { _connectionString = value; }
+        }
 
         public new SettingsStorage CreateLogonParameterStoreCore() {
             return base.CreateLogonParameterStoreCore();

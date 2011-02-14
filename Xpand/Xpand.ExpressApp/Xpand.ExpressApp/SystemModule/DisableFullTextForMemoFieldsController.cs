@@ -5,41 +5,33 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Filtering;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Xpo;
-using DevExpress.ExpressApp.Model;
 
-namespace Xpand.ExpressApp.SystemModule
-{
-    public interface IModelClassDisableFullTextForMemoFields
-    {
+namespace Xpand.ExpressApp.SystemModule {
+    public interface IModelClassDisableFullTextForMemoFields {
         [Category("eXpand")]
         [Description("Remove all fields marked with unlimited size attribute from full text")]
         bool DisableFullTextForMemoFields { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelClassDisableFullTextForMemoFields), "ModelClass")]
-    public interface IModelListViewDisableFullTextForMemoFields : IModelClassDisableFullTextForMemoFields
-    {
+    public interface IModelListViewDisableFullTextForMemoFields : IModelClassDisableFullTextForMemoFields {
     }
 
-    public class DisableFullTextForMemoFieldsController : ViewController<XpandListView>, IModelExtender
-    {
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
+    public class DisableFullTextForMemoFieldsController : ViewController<XpandListView>, IModelExtender {
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelClass, IModelClassDisableFullTextForMemoFields>();
             extenders.Add<IModelListView, IModelListViewDisableFullTextForMemoFields>();
         }
 
-        protected override void OnActivated()
-        {
+        protected override void OnActivated() {
             base.OnActivated();
             Frame.GetController<FilterController>().CustomBuildCriteria += OnCustomBuildCriteria;
         }
 
-        void OnCustomBuildCriteria(object sender, CustomBuildCriteriaEventArgs customBuildCriteriaEventArgs)
-        {
-            if (View != null && ((IModelListViewDisableFullTextForMemoFields)View.Model).DisableFullTextForMemoFields)
-            {
+        void OnCustomBuildCriteria(object sender, CustomBuildCriteriaEventArgs customBuildCriteriaEventArgs) {
+            if (View != null && ((IModelListViewDisableFullTextForMemoFields)View.Model).DisableFullTextForMemoFields) {
                 var filterController = Frame.GetController<FilterController>();
                 var members = removeUnlimitedSizeMembers(filterController.GetFullTextSearchProperties(), View.ObjectTypeInfo);
                 customBuildCriteriaEventArgs.Criteria = new SearchCriteriaBuilder(
@@ -51,8 +43,7 @@ namespace Xpand.ExpressApp.SystemModule
         }
 
 
-        private ICollection<string> removeUnlimitedSizeMembers(IEnumerable<string> properties, ITypeInfo typeInfo)
-        {
+        private ICollection<string> removeUnlimitedSizeMembers(IEnumerable<string> properties, ITypeInfo typeInfo) {
             return (from property in properties
                     let attribute = typeInfo.FindMember(property).FindAttribute<SizeAttribute>()
                     where (attribute != null && attribute.Size != SizeAttribute.Unlimited) || attribute == null
