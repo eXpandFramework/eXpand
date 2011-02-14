@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
@@ -12,7 +14,7 @@ using Xpand.Xpo.DB;
 
 namespace Xpand.ExpressApp {
     public class SqlMultiDataStoreProxy : SqlDataStoreProxy {
-        readonly XpoObjectHacker _xpoObjectHacker=new XpoObjectHacker();
+        readonly XpoObjectHacker _xpoObjectHacker = new XpoObjectHacker();
         readonly DataStoreManager _dataStoreManager;
 
         protected SqlMultiDataStoreProxy() {
@@ -42,43 +44,35 @@ namespace Xpand.ExpressApp {
         }
 
         public override ModificationResult ModifyData(params ModificationStatement[] dmlStatements) {
-            var modificationResultIdentities = new List<ParameterValue>();
             var dataStoreModifyDataEventArgs = new DataStoreModifyDataEventArgs(dmlStatements);
             OnDataStoreModifyData(dataStoreModifyDataEventArgs);
-            foreach (ModificationStatement stm in dataStoreModifyDataEventArgs.ModificationStatements) {
-                if (stm.TableName == typeof(XPObjectType).Name) {
-                    ModifyXPObjectTypeData(stm, modificationResultIdentities);
-                } else {
-                    ModifyData(stm, modificationResultIdentities);
+            var name = typeof(XPObjectType).Name;
+            var insertStatement = dataStoreModifyDataEventArgs.ModificationStatements.OfType<InsertStatement>().Where(statement => statement.TableName == name).FirstOrDefault();
+            var modificationResult = new ModificationResult();
+            if (insertStatement != null) {
+                modificationResult = ModifyXPObjectTable(dmlStatements, insertStatement, modificationResult);
+            } else {
+                var key = _dataStoreManager.GetKey(dmlStatements[0].TableName);
+                modificationResult = _dataStoreManager.SimpleDataLayers[key].ModifyData(dmlStatements);
+            }
+            if (modificationResult != null) return modificationResult;
+            throw new NotImplementedException();
+        }
+
+        ModificationResult ModifyXPObjectTable(ModificationStatement[] dmlStatements, InsertStatement insertStatement, ModificationResult modificationResult) {
+            foreach (var simpleDataLayer in _dataStoreManager.SimpleDataLayers) {
+                var dataLayer = simpleDataLayer.Value;
+                if (!TypeExists(dataLayer, insertStatement)) {
+                    if (!IsMainLayer(dataLayer.Connection)) {
+                        _xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, _dataStoreManager.SimpleDataLayers[DataStoreManager.STR_Default]);
+                    }
+                    var modifyData = dataLayer.ModifyData(dmlStatements);
+                    if (modifyData.Identities.Count() > 0)
+                        modificationResult = modifyData;
                 }
             }
-            return new ModificationResult(modificationResultIdentities);
+            return modificationResult;
         }
-
-        void ModifyData(ModificationStatement stm, List<ParameterValue> modificationResultIdentities) {
-            string key = _dataStoreManager.GetKey(stm.TableName);
-            ModificationResult modificationResult = _dataStoreManager.SimpleDataLayers[key].ModifyData(stm);
-            if (modificationResult != null) {
-                modificationResultIdentities.AddRange(modificationResult.Identities);
-            }
-        }
-
-        void ModifyXPObjectTypeData(ModificationStatement modificationStatement, List<ParameterValue> modificationResultIdentities) {
-            var insertStatement = (InsertStatement)modificationStatement;
-            foreach (var parameterValues in _dataStoreManager.SimpleDataLayers.Select(pair
-                => pair.Value).Select(dataLayer => ModifyXPObjectTypeDataCore(dataLayer, insertStatement)).Where(values => values != null)) {
-                modificationResultIdentities.AddRange(parameterValues);
-            }
-        }
-
-        ParameterValue[] ModifyXPObjectTypeDataCore(SimpleDataLayer dataLayer, InsertStatement insertStatement) {
-            if (TypeExists(dataLayer, insertStatement)) return null;
-            if (!IsMainLayer(dataLayer.Connection)) {
-                _xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement,_dataStoreManager.SimpleDataLayers[DataStoreManager.STR_Default]);
-            }
-            return dataLayer.ModifyData(insertStatement).Identities;
-        }
-
 
 
         bool TypeExists(SimpleDataLayer dataLayer, InsertStatement stm1) {
