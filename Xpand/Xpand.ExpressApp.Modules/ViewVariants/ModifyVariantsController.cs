@@ -52,7 +52,7 @@ namespace Xpand.ExpressApp.ViewVariants {
             var objectSpace = Application.CreateObjectSpace();
             DetailView detailView = Application.CreateDetailView(objectSpace, objectSpace.CreateObject<ViewCloner>());
             detailView.ViewEditMode = ViewEditMode.Edit;
-            detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.EXpandViewVariants, "CreateViewCaption");
+            detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.XpandViewVariants, "CreateViewCaption");
             singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = detailView;
             singleChoiceActionExecuteEventArgs.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             var dialogController = new DialogController();
@@ -66,7 +66,7 @@ namespace Xpand.ExpressApp.ViewVariants {
             viewCloner.Caption = Frame.GetController<ChangeVariantController>().ChangeVariantAction.SelectedItem.Caption;
             var detailView = Application.CreateDetailView(objectSpace, viewCloner);
             detailView.ViewEditMode = ViewEditMode.Edit;
-            detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.EXpandViewVariants, "RenameViewToolTip");
+            detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.XpandViewVariants, "RenameViewToolTip");
             var parameters = new ShowViewParameters(detailView) { TargetWindow = TargetWindow.NewModalWindow };
             var controller = new DialogController();
             controller.AcceptAction.Execute += RenameViewActionOnExecute;

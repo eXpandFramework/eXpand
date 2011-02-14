@@ -9,7 +9,7 @@ namespace Xpand.ExpressApp.ViewVariants
      ToolboxTabName("eXpressApp"), EditorBrowsable(EditorBrowsableState.Always), Browsable(true), ToolboxItem(true)]
     public sealed partial class XpandViewVariantsModule : XpandModuleBase
     {
-        public const string EXpandViewVariants = "eXpand.ViewVariants";
+        public const string XpandViewVariants = "eXpand.ViewVariants";
         public XpandViewVariantsModule()
         {
             InitializeComponent();
