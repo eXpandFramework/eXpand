@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.ModelDifference.NodeUpdaters {
     public class BOModelMemberNodesUpdater : ModelNodesGeneratorUpdater<ModelBOModelMemberNodesGenerator> {
         public override void UpdateNode(ModelNode node) {
             var modelBoModelClassMembers = ((IModelBOModelClassMembers)node);
-            var xpClassInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.QueryClassInfo(((IModelClass)modelBoModelClassMembers.Parent).TypeInfo.Type);
+            var xpClassInfo = XpandModuleBase.Dictiorary.QueryClassInfo(((IModelClass)modelBoModelClassMembers.Parent).TypeInfo.Type);
             if (xpClassInfo == null) return;
             for (int index = modelBoModelClassMembers.Count - 1; index > -1; index--) {
                 var modelClassMember = modelBoModelClassMembers[index];

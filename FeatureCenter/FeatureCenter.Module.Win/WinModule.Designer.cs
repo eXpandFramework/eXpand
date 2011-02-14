@@ -35,6 +35,7 @@ namespace FeatureCenter.Module.Win
             // FeatureCenterWindowsFormsModule
             // 
             this.RequiredModuleTypes.Add(typeof(FeatureCenter.Module.FeatureCenterModule));
+            this.RequiredModuleTypes.Add(typeof(ScriptRecorderWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule));

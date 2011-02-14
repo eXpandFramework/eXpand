@@ -386,7 +386,9 @@
     <EmbeddedResource Include="LowLevelFilterDataStore\ContinentFilter\MDO_ContinentFilter.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Content Include="Functional Tests\Config.xml" />
+    <Content Include="Functional Tests\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ImportExport\UpdateMembers\UpdateMembers.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
