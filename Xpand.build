@@ -21,6 +21,7 @@
 		<ArtifactDirectory Condition="$(ArtifactDirectory)==''">$(BuildPath)\Artifact</ArtifactDirectory>
 		<PackageDirectory Condition="$(PackageDirectory)==''">$(BuildPath)\_Package\$(Version)</PackageDirectory>
 		<DeploymentFolder Condition="$(DeploymentFolder)==''">$(BuildPath)\_DeploymentFolder\</DeploymentFolder>
+		
 		<!--
 			Derived configuration properties
 		-->
@@ -111,7 +112,8 @@
 		</Tokens>
 	</ItemGroup>
 
-	<UsingTask TaskName="MSBuild.ExtensionPack.FileSystem.File" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />
+	<UsingTask TaskName="MSBuild.ExtensionPack.FileSystem.File" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />	
+	<UsingTask TaskName="Mash2.MSBuild.Tasks.Twitter" AssemblyFile="Resource\build\Mash2\Mash2.MSBuild.Tasks.dll" />
 	
 	<Target Name="ReplaceKey">
 		<CreateItem Include="**\*.csproj;**\*.config;**\*.skin" Exclude=".git;Build;">
@@ -229,6 +231,8 @@
 		<TemplateFile Template="$(TempPath)\index.template" OutputFile="index.out" Tokens="@(AllTokens)" />
 		<Copy SourceFiles="$(TempPath)\index.out" DestinationFiles="$(DeploymentFolder)\index.htm" />
 		
+		
+		<CallTarget Targets="Twitter" />
 	</Target>
 	
 	<Target Name="Distrib" DependsOnTargets="Clean;Build;Copy;Config;">
@@ -250,6 +254,14 @@
 		Condition="$(DeployUpdate)=='true'" 
 		-->
 		<CallTarget Targets="DeployUpdate" />
+	</Target>
+	
+	<Target Name="Twitter" >
+		<Mash2.MSBuild.Tasks.Twitter Message="new version $(Version) of #expandframework is available here: http://goo.gl/g9wRy #XAF @devexpress" 
+			ConsumerKey="$(TwitterConsumerKey)" 
+			ConsumerSecret="$(TwitterConsumerSecret)" 
+			AccessToken="$(TwitterAccessToken)" 
+			AccessTokenSecret="$(TwitterAccessTokenSecret)" />
 	</Target>
 	
 	<Target Name="_Version">
