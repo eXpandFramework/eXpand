@@ -15,7 +15,7 @@ using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
-        
+
         List<Type> _dynamicModuleTypes = new List<Type>();
         string _connectionString;
 
@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             if (Application == null || GetPath() == null)
                 return;
             Application.SettingUp += ApplicationOnSettingUp;
-            _connectionString = ((ISupportFullConnectionString) Application).ConnectionString;
+            _connectionString = ((ISupportFullConnectionString)Application).ConnectionString;
             if (_connectionString != null) {
                 var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
                 var typeSynchronizer = new TypeSynchronizer();

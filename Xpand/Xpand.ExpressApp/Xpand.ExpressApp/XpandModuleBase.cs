@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -32,6 +33,7 @@ namespace Xpand.ExpressApp {
             get {
                 return _instanceXafApplicationManager != null ? _instanceXafApplicationManager.Value : null;
             }
+            set { _instanceXafApplicationManager.Value = value; }
         }
 
         protected XafApplication BaseApplication {
@@ -39,13 +41,13 @@ namespace Xpand.ExpressApp {
         }
 
         static XPDictionary _dictiorary=XafTypesInfo.XpoTypeInfoSource.XPDictionary;
-        
+        static List<object> _storeManagers;
+
 
         public static XPDictionary Dictiorary {
             get { return _dictiorary; }
             set { _dictiorary = value; }
         }
-
         public BusinessClassesList GetAdditionalClasses(ApplicationModulesManager manager) {
             var moduleList = manager.Modules;
             var businessClassesList = new BusinessClassesList(moduleList.SelectMany(@base => @base.AdditionalBusinessClasses));
@@ -91,10 +93,27 @@ namespace Xpand.ExpressApp {
         }
         protected override void Dispose(bool disposing) {
             base.Dispose(disposing);
-            _instanceXafApplicationManager = null;
-            _instanceModelApplicationCreatorManager = null;
-            _instanceXafApplicationManager = null;
+            DisposeManagers();
         }
+
+        public static void ReStoreManagers() {
+            _instanceXafApplicationManager.Value = (XafApplication) _storeManagers[0];
+            _instanceModelApplicationCreatorManager.Value = (ModelApplicationCreator) _storeManagers[1];
+            _instanceModelApplicationCreatorPropertiesManager.Value =(ModelApplicationCreatorProperties) _storeManagers[2];
+        }
+
+
+        public static  void DisposeManagers() {
+            _storeManagers = new List<object>{
+                                                     _instanceXafApplicationManager.Value,
+                                                     _instanceModelApplicationCreatorManager.Value,
+                                                     _instanceModelApplicationCreatorPropertiesManager.Value
+                                                 };
+            _instanceXafApplicationManager.Value = null;
+            _instanceModelApplicationCreatorManager.Value = null;
+            _instanceModelApplicationCreatorPropertiesManager.Value = null;
+        }
+
         void InitializeInstanceXafApplicationManager() {
             lock (_lockObject) {
                 if (_instanceXafApplicationManager == null)

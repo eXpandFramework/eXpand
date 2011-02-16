@@ -24,13 +24,22 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         public ModelApplicationBase GetMasterModel() {
             ITypesInfo typesInfo = GetTypesInfo(_executableName);
             var xafApplication = GetApplication(_executableName, typesInfo);
+            XpandModuleBase.DisposeManagers();
+//            var execAppInstance = XpandModuleBase.Application;
+            //XpandModuleBase.Application = xafApplication;
             var assembliesPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
             string path = Path.Combine(assembliesPath, _executableName);
             string config = path + ".config";
             if (File.Exists(assembliesPath + "web.config"))
                 config = Path.Combine(assembliesPath, "web.config");
+            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
+                ((ISupportFullConnectionString) xafApplication).ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            }
             var modulesManager = CreateModulesManager(xafApplication, config, assembliesPath, typesInfo);
-            return GetModelApplication(xafApplication, config, modulesManager);
+//            XpandModuleBase.Application = execAppInstance;
+            var modelApplicationBase = GetModelApplication(xafApplication, config, modulesManager);
+            XpandModuleBase.ReStoreManagers();
+            return modelApplicationBase;
         }
 
         ApplicationModulesManager CreateModulesManager(XafApplication application, string configFileName, string assembliesPath, ITypesInfo typesInfo) {

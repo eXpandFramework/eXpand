@@ -16,8 +16,9 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             var types = CreateCollectionMembers(session);
             types.AddRange(CreateReferenceMembers(session));
             types.AddRange(CreateCoreMembers(session));
+            
             foreach (var type in types) {
-                XafTypesInfo.Instance.RefreshInfo(type);
+                XpandModuleBase.Application.ObjectSpaceProvider.TypesInfo.RefreshInfo(type);
             }
         }
 
