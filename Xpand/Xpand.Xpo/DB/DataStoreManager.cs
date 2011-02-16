@@ -109,7 +109,8 @@ namespace Xpand.Xpo.DB {
         }
 
         IEnumerable<DataStoreAttribute> GetDataStoreAttributes() {
-            return AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>());
+            var dataStoreAttributes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>());
+            return dataStoreAttributes.Where(attribute => (attribute.ConnectionString != null || ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", attribute.DataStoreNameSuffix)]!=null));
         }
 
         public Dictionary<string, SimpleDataLayer> SimpleDataLayers {
