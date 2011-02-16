@@ -118,6 +118,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Editors\ActionButtonDetailItem.cs" />
+    <Compile Include="PropertyEditors\NoHyperlinkLookupEdit.cs" />
     <Compile Include="PropertyEditors\ReleasedSequencePropertyEditor.cs" />
     <Compile Include="ListEditors\XpandASPxGridListEditor.cs">
       <SubType>Code</SubType>
