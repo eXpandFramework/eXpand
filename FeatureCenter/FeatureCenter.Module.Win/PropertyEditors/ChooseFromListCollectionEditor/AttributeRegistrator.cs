@@ -14,9 +14,10 @@ namespace FeatureCenter.Module.Win.PropertyEditors.ChooseFromListCollectionEdito
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderChooseFromListCollectionEditor, "1=1", "1=1",
                 Captions.HeaderChooseFromListCollectionEditor, Position.Top) { View = ChooseFromListCollectionEditor_DetailView };
             yield return new CloneViewAttribute(CloneViewType.DetailView, ChooseFromListCollectionEditor_DetailView);
-            yield return new XpandNavigationItemAttribute(Module.Captions.PropertyEditors + "List editors", ChooseFromListCollectionEditor_DetailView);
+            var xpandNavigationItemAttribute = new XpandNavigationItemAttribute(Module.Captions.PropertyEditors + "List editors", ChooseFromListCollectionEditor_DetailView);
+            yield return xpandNavigationItemAttribute;
             yield return new DisplayFeatureModelAttribute(ChooseFromListCollectionEditor_DetailView);
-            yield return new WhatsNewAttribute("28/1/2011");
+            yield return new WhatsNewAttribute("28/1/2011",xpandNavigationItemAttribute);
         }
     }
 }

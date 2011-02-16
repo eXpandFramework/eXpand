@@ -4,6 +4,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
+using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base.General;
 using Xpand.Xpo;
@@ -74,9 +75,15 @@ namespace FeatureCenter.Module
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class WhatsNewAttribute : Attribute {
         private readonly string _date;
+        readonly XpandNavigationItemAttribute _xpandNavigationItemAttribute;
 
-        public WhatsNewAttribute(string date) {
+        public WhatsNewAttribute(string date,XpandNavigationItemAttribute xpandNavigationItemAttribute) {
             _date = date;
+            _xpandNavigationItemAttribute = xpandNavigationItemAttribute;
+        }
+
+        public XpandNavigationItemAttribute XpandNavigationItemAttribute {
+            get { return _xpandNavigationItemAttribute; }
         }
 
         public string Date {

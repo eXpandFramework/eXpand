@@ -441,6 +441,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor\AttributeRegistrator.cs" />
+    <Compile Include="PropertyEditors\NullAble\AttributeRegistrator.cs" />
     <Compile Include="PropertyEditors\NullAble\PENACustomer.cs" />
     <Compile Include="Miscellaneous\TrayIcon\TICustomer.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\AttributeRegistrator.cs" />

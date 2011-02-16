@@ -264,6 +264,7 @@
   <ItemGroup>
     <Compile Include="Captions.cs" />
     <Compile Include="FooterPanel.cs" />
+    <Compile Include="ImageEditors\AttributeRegistrator.cs" />
     <Compile Include="ImageEditors\PictureObject.cs" />
     <Compile Include="ImageEditors\PictureMasterObject.cs" />
     <Compile Include="ImageEditors\Updater.cs" />

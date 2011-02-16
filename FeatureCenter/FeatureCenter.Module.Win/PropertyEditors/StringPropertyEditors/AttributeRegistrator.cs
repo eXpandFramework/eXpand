@@ -15,9 +15,10 @@ namespace FeatureCenter.Module.Win.PropertyEditors.StringPropertyEditors {
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderStringPropertyEditors, "1=1", "1=1",
                 Captions.HeaderStringPropertyEditors, Position.Top) { View = "StringPropertyEditors_DetailView" };
             yield return new CloneViewAttribute(CloneViewType.DetailView, "StringPropertyEditors_DetailView");
-            yield return new XpandNavigationItemAttribute(Module.Captions.PropertyEditors + "String editors", "StringPropertyEditors_DetailView");
+            var xpandNavigationItemAttribute = new XpandNavigationItemAttribute(Module.Captions.PropertyEditors + "String editors", "StringPropertyEditors_DetailView");
+            yield return xpandNavigationItemAttribute;
             yield return new DisplayFeatureModelAttribute("StringPropertyEditors_DetailView");
-            yield return new WhatsNewAttribute("28/1/2011");
+            yield return new WhatsNewAttribute("28/1/2011",xpandNavigationItemAttribute);
         }
     }
 }

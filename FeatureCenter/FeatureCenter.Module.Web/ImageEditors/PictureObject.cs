@@ -6,18 +6,15 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.Web.ImageEditors {
     [DisplayFeatureModel("PictureObject_ListView", "Thumbnail")]
-    [XpandNavigationItem("ImageEditors/Thumbnails", "PictureObject_ListView")]
-    [WhatsNew("5/2/2011")]
     [DefaultProperty("Title")]
     [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Captions.HeaderThumbnail, "1=1", "1=1",
-        Captions.ViewMessageThumbnail, Position.Bottom, ViewType = ViewType.ListView,Nesting = Nesting.Root)]
+        Captions.ViewMessageThumbnail, Position.Bottom, ViewType = ViewType.ListView, Nesting = Nesting.Root)]
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderThumbnail, "1=1", "1=1",
-        Captions.HeaderThumbnail, Position.Top, ViewType = ViewType.ListView,Nesting = Nesting.Root)]
+        Captions.HeaderThumbnail, Position.Top, ViewType = ViewType.ListView, Nesting = Nesting.Root)]
     public class PictureObject : BaseObject, IPictureItem {
         PictureMasterObject _horizantalMasterObject;
         PictureMasterObject _horizontalMasterObjectStyleModified;
@@ -29,8 +26,8 @@ namespace FeatureCenter.Module.Web.ImageEditors {
             : base(session) {
         }
         private PictureMasterObject _verticalMasterObjectWithNoImage;
-        
-        
+
+
         [VisibleInListView(false)]
         [Association("MasterObject-VerticalPicObjectsWithNoImage")]
         public PictureMasterObject VerticalMasterObjectWithNoImage {
