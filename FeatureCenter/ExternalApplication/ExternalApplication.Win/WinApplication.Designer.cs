@@ -34,27 +34,46 @@ namespace ExternalApplication.Win
             this.module5 = new DevExpress.ExpressApp.Validation.ValidationModule();
             this.module6 = new DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule();
             this.module7 = new DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule();
-
             this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
-            this.securitySimple1 = new DevExpress.ExpressApp.Security.SecuritySimple();
-            this.authenticationActiveDirectory1 = new DevExpress.ExpressApp.Security.AuthenticationActiveDirectory();
             this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
+            this.cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();
+            this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
+            this.modelDifferenceModule1 = new Xpand.ExpressApp.ModelDifference.ModelDifferenceModule();
+            this.modelDifferenceWindowsFormsModule1 = new Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule();
+            this.xpandSystemWindowsFormsModule1 = new Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule();
+            this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
+            
+            this.conditionalEditorStateModuleBase1 = new DevExpress.ExpressApp.ConditionalEditorState.ConditionalEditorStateModuleBase();
+            this.conditionalEditorStateWindowsFormsModule1 = new DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule();
+            this.fileAttachmentsWindowsFormsModule1 = new DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule();
+            
+            this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityComplex();
+            this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
-            // securitySimple1
+            // module5
             // 
-            this.securitySimple1.Authentication = this.authenticationActiveDirectory1;
-            this.securitySimple1.UserType = typeof(DevExpress.Persistent.BaseImpl.SimpleUser);
-            // 
-            // authenticationActiveDirectory1
-            // 
-            this.authenticationActiveDirectory1.CreateUserAutomatically = true;
-            this.authenticationActiveDirectory1.UserType = typeof(DevExpress.Persistent.BaseImpl.SimpleUser);
+            this.module5.AllowValidationDetailsAccess = true;
             // 
             // sqlConnection1
             // 
-            this.sqlConnection1.ConnectionString = "Data Source=(local);Initial Catalog=ExternalApplication;Integrated Security=SSPI;Pooling=false";
+            this.sqlConnection1.ConnectionString = "Data Source=(local);Initial Catalog=ExternalApplication;Integrated Security=SSPI;" +
+                "Pooling=false";
             this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            // 
+            // modelDifferenceWindowsFormsModule1
+            // 
+            this.modelDifferenceWindowsFormsModule1.ModelsLoaded = false;
+            // 
+            // securityComplex1
+            // 
+            this.securityComplex1.Authentication = this.authenticationStandard1;
+            this.securityComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.Role);
+            this.securityComplex1.UserType = typeof(DevExpress.Persistent.BaseImpl.User);
+            // 
+            // authenticationStandard1
+            // 
+            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
             // 
             // ExternalApplicationWindowsFormsApplication
             // 
@@ -62,12 +81,23 @@ namespace ExternalApplication.Win
             this.Connection = this.sqlConnection1;
             this.Modules.Add(this.module1);
             this.Modules.Add(this.module2);
+            this.Modules.Add(this.cloneObjectModule1);
+            this.Modules.Add(this.xpandSystemModule1);
+            this.Modules.Add(this.modelDifferenceModule1);
+            this.Modules.Add(this.modelDifferenceWindowsFormsModule1);
+            this.Modules.Add(this.xpandSystemWindowsFormsModule1);
+            this.Modules.Add(this.xpandValidationModule1);
+            
+            this.Modules.Add(this.conditionalEditorStateModuleBase1);
+            this.Modules.Add(this.conditionalEditorStateWindowsFormsModule1);
+            this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
+            
             this.Modules.Add(this.module4);
             this.Modules.Add(this.module5);
             this.Modules.Add(this.module6);
             this.Modules.Add(this.module7);
             this.Modules.Add(this.securityModule1);
-            this.Security = this.securitySimple1;
+            this.Security = this.securityComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.ExternalApplicationWindowsFormsApplication_DatabaseVersionMismatch);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
@@ -82,8 +112,19 @@ namespace ExternalApplication.Win
         private DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule module6;
         private DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule module7;
         private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
-        private DevExpress.ExpressApp.Security.SecuritySimple securitySimple1;
-        private DevExpress.ExpressApp.Security.AuthenticationActiveDirectory authenticationActiveDirectory1;
         private System.Data.SqlClient.SqlConnection sqlConnection1;
+        private DevExpress.ExpressApp.CloneObject.CloneObjectModule cloneObjectModule1;
+        private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
+        private Xpand.ExpressApp.ModelDifference.ModelDifferenceModule modelDifferenceModule1;
+        private Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule modelDifferenceWindowsFormsModule1;
+        private Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule xpandSystemWindowsFormsModule1;
+        private Xpand.ExpressApp.Validation.XpandValidationModule xpandValidationModule1;
+        
+        private DevExpress.ExpressApp.ConditionalEditorState.ConditionalEditorStateModuleBase conditionalEditorStateModuleBase1;
+        private DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule conditionalEditorStateWindowsFormsModule1;
+        private DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule fileAttachmentsWindowsFormsModule1;
+        
+        private DevExpress.ExpressApp.Security.SecurityComplex securityComplex1;
+        private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
     }
 }

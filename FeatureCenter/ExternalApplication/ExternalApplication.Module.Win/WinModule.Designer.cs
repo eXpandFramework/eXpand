@@ -3,6 +3,7 @@ using Xpand.ExpressApp.ModelDifference;
 using Xpand.ExpressApp.ModelDifference.Win;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.SystemModule;
+using Xpand.ExpressApp.WorldCreator.Win;
 
 namespace ExternalApplication.Module.Win
 {
@@ -44,6 +45,7 @@ namespace ExternalApplication.Module.Win
             this.RequiredModuleTypes.Add(typeof(XpandSystemModule));
             this.RequiredModuleTypes.Add(typeof(XpandSystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Validation.XpandValidationModule));
+            this.RequiredModuleTypes.Add(typeof(WorldCreatorWinModule));
         }
 
         #endregion

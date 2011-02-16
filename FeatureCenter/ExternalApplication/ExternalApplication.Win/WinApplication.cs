@@ -1,29 +1,22 @@
 using System;
 using Xpand.ExpressApp.Win;
 
-namespace ExternalApplication.Win
-{
-    public partial class ExternalApplicationWindowsFormsApplication : XpandWinApplication
-    {
-        public ExternalApplicationWindowsFormsApplication()
-        {
+namespace ExternalApplication.Win {
+    public partial class ExternalApplicationWindowsFormsApplication : XpandWinApplication {
+        public ExternalApplicationWindowsFormsApplication() {
             InitializeComponent();
         }
 
-        private void ExternalApplicationWindowsFormsApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e)
-        {
+        private void ExternalApplicationWindowsFormsApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST
 			e.Updater.Update();
 			e.Handled = true;
 #else
-//            if (System.Diagnostics.Debugger.IsAttached)
-            if (true)
-            {
+            //            if (System.Diagnostics.Debugger.IsAttached)
+            if (true) {
                 e.Updater.Update();
                 e.Handled = true;
-            }
-            else
-            {
+            } else {
                 throw new InvalidOperationException(
                     "The application cannot connect to the specified database, because the latter doesn't exist or its version is older than that of the application.\r\n" +
                     "This error occurred  because the automatic database update was disabled when the application was started without debugging.\r\n" +
