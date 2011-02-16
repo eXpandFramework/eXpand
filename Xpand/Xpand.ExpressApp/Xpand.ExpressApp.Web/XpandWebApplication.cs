@@ -9,7 +9,7 @@ using Xpand.ExpressApp.Core;
 
 
 namespace Xpand.ExpressApp.Web {
-    public partial class XpandWebApplication : WebApplication, ISupportModelsManager, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportCreateLogonParameterStore, ISupportFullConnectionString {
+    public partial class XpandWebApplication : WebApplication, ISupportModelsManager, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportLogonParameterStore, ISupportFullConnectionString {
         protected XpandWebApplication() {
             InitializeComponent();
             DetailViewCreating += OnDetailViewCreating;
@@ -77,5 +77,10 @@ namespace Xpand.ExpressApp.Web {
         public new SettingsStorage CreateLogonParameterStoreCore() {
             return base.CreateLogonParameterStoreCore();
         }
+
+        public new void WriteLastLogonParameters(DetailView view, object logonObject) {
+            base.WriteLastLogonParameters(view, logonObject);
+        }
+
     }
 }

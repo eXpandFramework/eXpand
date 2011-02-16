@@ -1,5 +1,8 @@
 ﻿
+using DevExpress.ExpressApp.Utils;
+
 namespace Xpand.ExpressApp.Security {
-    public interface IXpandLogonParameters {
+    public interface IXpandLogonParameters : ICustomObjectSerialize {
+        bool RememberMe { get; set; }
     }
 }

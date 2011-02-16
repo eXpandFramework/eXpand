@@ -6,6 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win;
 using DevExpress.Utils;
+using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.Model;
 
@@ -25,6 +26,18 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         public override void ExtendModelInterfaces(DevExpress.ExpressApp.Model.ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelRootNavigationItems, IModelRootNavigationItemsAutoSelectedGroupItem>();
+        }
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
+            Application.LogonFailed += (o, eventArgs) => {
+                var logonParameters = SecuritySystem.LogonParameters as IXpandLogonParameters;
+                if (logonParameters != null && logonParameters.RememberMe) {
+                    eventArgs.Handled = true;
+                    logonParameters.RememberMe = false;
+                    ((ISupportLogonParameterStore)Application).WriteLastLogonParameters(null, SecuritySystem.LogonParameters);
+                }
+
+            };
         }
         protected override List<Type> DeclaredBusinessClasses {
             get {

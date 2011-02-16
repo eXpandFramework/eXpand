@@ -17,7 +17,7 @@ using Xpand.ExpressApp.Win.ViewStrategies;
 
 namespace Xpand.ExpressApp.Win {
 
-    public class XpandWinApplication : WinApplication, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportCreateLogonParameterStore, ISupportFullConnectionString {
+    public class XpandWinApplication : WinApplication, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportLogonParameterStore, ISupportFullConnectionString {
         public XpandWinApplication() {
             if (XpandModuleBase.Application == null)
                 Application.ThreadException += (sender, args) => HandleException(args.Exception, this);
@@ -30,15 +30,21 @@ namespace Xpand.ExpressApp.Win {
         }
 
 
-        string _connectionString;
-        string ISupportFullConnectionString.ConnectionString {
-            get { return _connectionString; }
-            set { _connectionString = value; }
-        }
+        string ISupportFullConnectionString.ConnectionString { get; set; }
 
         public new SettingsStorage CreateLogonParameterStoreCore() {
             return base.CreateLogonParameterStoreCore();
         }
+
+        public new void WriteLastLogonParameters(DetailView view, object logonObject) {
+            base.WriteLastLogonParameters(view, logonObject) ;
+        }
+
+        protected override LogonController CreateLogonController() {
+            var logonController = base.CreateLogonController();
+            return logonController;
+        }
+
         public new void Start() {
             if (SecuritySystem.LogonParameters is IXpandLogonParameters) ReadLastLogonParameters(SecuritySystem.LogonParameters);
             base.Start();

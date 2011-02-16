@@ -37,8 +37,9 @@ namespace Xpand.ExpressApp {
         string ConnectionString { get; set; }
     }
 
-    public interface ISupportCreateLogonParameterStore {
+    public interface ISupportLogonParameterStore {
         SettingsStorage CreateLogonParameterStoreCore();
+        void WriteLastLogonParameters(DetailView view, object logonObject);
     }
 
     public interface ISupportModelsManager {

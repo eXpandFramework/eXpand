@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(SecuritySystem.LogonParameters.GetType());
                 var memberInfo = typeInfo.FindMember("RememberMe");
                 if (memberInfo != null) memberInfo.SetValue(SecuritySystem.LogonParameters, false);
-                var logonParameterStoreCore = ((ISupportCreateLogonParameterStore) sender).CreateLogonParameterStoreCore();
+                var logonParameterStoreCore = ((ISupportLogonParameterStore) sender).CreateLogonParameterStoreCore();
                 ObjectSerializer.WriteObjectPropertyValues(null, logonParameterStoreCore, SecuritySystem.LogonParameters);
             }
 
