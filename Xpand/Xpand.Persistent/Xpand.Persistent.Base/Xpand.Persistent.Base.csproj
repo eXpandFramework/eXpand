@@ -106,6 +106,7 @@
     <Compile Include="General\SequenceGenerator.cs" />
     <Compile Include="General\TypesInfoExtensions.cs" />
     <Compile Include="General\ValueConverters\ImageCompressionValueConverter.cs" />
+    <Compile Include="General\SessionLessPersistentAttribute.cs" />
     <Compile Include="ImportExport\IClassInfoGraphNode.cs" />
     <Compile Include="ImportExport\ISerializationConfiguration.cs" />
     <Compile Include="ImportExport\ISerializationConfigurationGroup.cs" />
@@ -225,9 +226,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Logo.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="General\Sequencer\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

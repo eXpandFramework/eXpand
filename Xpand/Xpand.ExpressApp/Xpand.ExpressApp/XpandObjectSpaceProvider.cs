@@ -7,7 +7,7 @@ using DevExpress.Xpo.DB;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp {
-    public class XpandObjectSpaceProvider : ObjectSpaceProvider, IXpandObjectSpaceProvider {
+    public class XpandObjectSpaceProvider : ObjectSpaceProvider, IXpandObjectSpaceProvider, IObjectSpaceProvider {
 
         public IXpoDataStoreProxy DataStoreProvider { get; set; }
 
@@ -22,6 +22,10 @@ namespace Xpand.ExpressApp {
                 AsyncServerModeSourceDismissSession = AsyncServerModeSourceDismissSession
             };
             return objectSpace;
+        }
+
+        IObjectSpace IObjectSpaceProvider.CreateUpdatingObjectSpace(Boolean allowUpdateSchema) {
+            return CreateObjectSpace();
         }
 
         private void AsyncServerModeSourceResolveSession(ResolveSessionEventArgs args) {

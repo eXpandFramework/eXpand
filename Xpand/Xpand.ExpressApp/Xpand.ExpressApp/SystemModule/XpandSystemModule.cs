@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
 using Xpand.ExpressApp.Model;
@@ -44,11 +45,15 @@ namespace Xpand.ExpressApp.SystemModule {
             base.CustomizeTypesInfo(typesInfo);
             if (ModelApplicationCreator == null) {
                 foreach (var persistentType in typesInfo.PersistentTypes) {
-                    IEnumerable<Attribute> attributes = GetAttributes(persistentType);
-                    foreach (var attribute in attributes) {
-                        persistentType.AddAttribute(attribute);
-                    }
+                    CreateAttributeRegistratorAttributes(persistentType);
                 }
+            }
+        }
+
+        void CreateAttributeRegistratorAttributes(ITypeInfo persistentType) {
+            IEnumerable<Attribute> attributes = GetAttributes(persistentType);
+            foreach (var attribute in attributes) {
+                persistentType.AddAttribute(attribute);
             }
         }
 

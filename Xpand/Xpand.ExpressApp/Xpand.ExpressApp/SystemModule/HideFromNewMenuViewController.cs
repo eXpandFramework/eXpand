@@ -7,10 +7,8 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Attributes;
 
-namespace Xpand.ExpressApp.SystemModule
-{
-    public class HideFromNewMenuViewController : ViewController<ObjectView>
-    {
+namespace Xpand.ExpressApp.SystemModule {
+    public class HideFromNewMenuViewController : ViewController<ObjectView> {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             foreach (ITypeInfo type in GetHiddenTypes()) {
@@ -25,8 +23,7 @@ namespace Xpand.ExpressApp.SystemModule
             }
         }
 
-        public List<ITypeInfo> GetHiddenTypes()
-        {
+        public List<ITypeInfo> GetHiddenTypes() {
             var objects = new List<ITypeInfo>();
             if (View.ObjectTypeInfo.FindAttribute<HideFromNewMenuAttribute>() != null)
                 objects.Add(View.ObjectTypeInfo);

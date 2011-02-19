@@ -2,13 +2,37 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Attributes;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp {
+
     public class XpandObjectSpace : ObjectSpace {
         public XpandObjectSpace(UnitOfWork unitOfWork, ITypesInfo typesInfo)
             : base(unitOfWork, typesInfo) {
+        }
+        public override object CreateObject(Type type) {
+            try {
+                return base.CreateObject(type);
+            }
+            catch (ObjectCreatingException) {
+                if (!(type.IsInterface)) {
+                    XPClassInfo classInfo = FindXPClassInfo(type);
+                    var newObject = classInfo.CreateNewObject(session);
+                    SetModified(newObject);
+                    return newObject;
+                }
+                throw;
+            }
+        }
+
+        private XPClassInfo FindXPClassInfo(Type type) {
+            ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(type);
+            if (XafTypesInfo.XpoTypeInfoSource.TypeIsKnown(type)) {
+                return XafTypesInfo.XpoTypeInfoSource.GetEntityClassInfo(typeInfo.Type);
+            }
+            return null;
         }
 
         protected override void SetModified(object obj, ObjectChangedEventArgs args) {
@@ -29,4 +53,5 @@ namespace Xpand.ExpressApp {
             return new XpandUnitOfWork(dataLayer);
         }
     }
+
 }
