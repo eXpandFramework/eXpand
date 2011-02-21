@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         void HandleCustomAttribute(IMemberInfo memberInfo) {
-            var customAttributes = memberInfo.FindAttributes<Attribute>().OfType<ICustomAttribute>();
+            var customAttributes = memberInfo.FindAttributes<Attribute>().OfType<ICustomAttribute>().ToList();
             foreach (var customAttribute in customAttributes) {
                 for (int index = 0; index < customAttribute.Name.Split(';').Length; index++) {
                     string s = customAttribute.Name.Split(';')[index];
