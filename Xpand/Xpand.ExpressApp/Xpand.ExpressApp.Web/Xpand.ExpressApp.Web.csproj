@@ -141,7 +141,9 @@
     <Compile Include="SystemModule\ViewEditModeController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\WebToolTipsController.cs" />
+    <Compile Include="SystemModule\WebToolTipsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\XpandSystemAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
