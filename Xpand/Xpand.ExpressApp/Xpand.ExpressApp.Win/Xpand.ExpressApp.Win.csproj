@@ -180,6 +180,7 @@
     <Compile Include="SystemModule\WinSelectFirstNavigationItemController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\WinToolTipsController.cs" />
     <Compile Include="SystemModule\XpandSystemWindowsFormsModule.cs">
       <SubType>Component</SubType>
     </Compile>

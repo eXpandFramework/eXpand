@@ -113,6 +113,7 @@
     <Compile Include="Attributes\NewObjectCreateGroupAttribute.cs" />
     <Compile Include="Attributes\PessimisticLockingAttribute.cs" />
     <Compile Include="Attributes\SequencePropertyAttribute.cs" />
+    <Compile Include="Attributes\TooltipAttribute.cs" />
     <Compile Include="Attributes\XpandNavigationItemAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\NumericFormatAttribute.cs" />
@@ -161,6 +162,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\PopulateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ToolTipsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="TranslatorProviders\GoogleTranslatorProvider.cs" />
