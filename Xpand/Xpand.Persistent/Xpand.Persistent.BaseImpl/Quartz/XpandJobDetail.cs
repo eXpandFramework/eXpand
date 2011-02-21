@@ -2,6 +2,7 @@
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Core;
 using Xpand.Xpo;
 
@@ -63,6 +64,7 @@ namespace Xpand.Persistent.BaseImpl.Quartz {
             }
         }
         private bool _requestsRecovery;
+        [Tooltip("Whether or not the the IScheduler should re-Execute the IJob if a 'recovery' or 'fail-over' situation is encountered.")]
         public bool RequestsRecovery {
             get {
                 return _requestsRecovery;

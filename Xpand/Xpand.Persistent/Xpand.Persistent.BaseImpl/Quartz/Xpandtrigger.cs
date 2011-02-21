@@ -26,14 +26,14 @@ namespace Xpand.Persistent.BaseImpl.Quartz {
                 SetPropertyValue("Group", ref _group, value);
             }
         }
-        private object _job;
-        [Association("object-XpandTriggers")]
-        public object Job {
+        
+        private string _jobName;
+        public string JobName {
             get {
-                return _job;
+                return _jobName;
             }
             set {
-                SetPropertyValue("Job", ref _job, value);
+                SetPropertyValue("JobName", ref _jobName, value);
             }
         }
         private string _jobGroup;
