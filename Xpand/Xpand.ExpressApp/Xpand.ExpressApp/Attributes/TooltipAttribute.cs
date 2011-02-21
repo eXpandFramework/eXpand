@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Xpand.ExpressApp.Attributes {
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property|AttributeTargets.Field)]
     public class TooltipAttribute : Attribute,ICustomAttribute {
         readonly string _value;
 
@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Attributes {
             get { return "Tooltip"; }
         }
 
-        string ICustomAttribute.Value {
+        public string Value {
             get { return _value; }
         }
     }
