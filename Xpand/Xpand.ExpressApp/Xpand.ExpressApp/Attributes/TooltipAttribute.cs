@@ -2,15 +2,20 @@
 
 namespace Xpand.ExpressApp.Attributes {
     [AttributeUsage(AttributeTargets.Property)]
-    public class TooltipAttribute :Attribute {
-        readonly string toolTip;
+    public class TooltipAttribute : Attribute,ICustomAttribute {
+        readonly string _value;
 
-        public TooltipAttribute(string toolTip) {
-            this.toolTip = toolTip;
+        public TooltipAttribute(string value) {
+            _value = value;
         }
 
-        public string ToolTip {
-            get { return toolTip; }
+
+        string ICustomAttribute.Name {
+            get { return "Tooltip"; }
+        }
+
+        string ICustomAttribute.Value {
+            get { return _value; }
         }
     }
 }

@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="Attributes\AllowEditAttribute.cs" />
     <Compile Include="Attributes\HideFromNewMenuAttribute.cs" />
+    <Compile Include="Attributes\ICustomAttribute.cs" />
     <Compile Include="Attributes\NewObjectCreateGroupAttribute.cs" />
     <Compile Include="Attributes\PessimisticLockingAttribute.cs" />
     <Compile Include="Attributes\SequencePropertyAttribute.cs" />

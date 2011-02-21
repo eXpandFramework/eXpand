@@ -1,10 +1,9 @@
+using System;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
-using Xpand.ExpressApp.Editors;
 
 namespace Xpand.ExpressApp.SystemModule {
     public class CustomAttibutesController : WindowController {
@@ -12,25 +11,17 @@ namespace Xpand.ExpressApp.SystemModule {
             base.CustomizeTypesInfo(typesInfo);
             var memberInfos = typesInfo.PersistentTypes.SelectMany(info => info.OwnMembers);
             foreach (var memberInfo in memberInfos) {
-                HandleNumericFormatAttribute(memberInfo);
-                HandleSequencePropertyAttribute(memberInfo);
+                HandleCustomAttribute(memberInfo);
             }
         }
 
-        void HandleSequencePropertyAttribute(IMemberInfo memberInfo) {
-            var sequencePropertyAttribute = memberInfo.FindAttribute<SequencePropertyAttribute>();
-            if (sequencePropertyAttribute != null) {
-                var typeInfo = ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(typeof(IReleasedSequencePropertyEditor))).SingleOrDefault();
-                if (typeInfo != null)
-                    memberInfo.AddAttribute(new CustomAttribute("PropertyEditorType", typeInfo.FullName));
-            }
-        }
-
-        void HandleNumericFormatAttribute(IMemberInfo memberInfo) {
-            var numericFormatAttribute = memberInfo.FindAttribute<NumericFormatAttribute>();
-            if (numericFormatAttribute != null) {
-                memberInfo.AddAttribute(new CustomAttribute("EditMaskAttribute", "f0"));
-                memberInfo.AddAttribute(new CustomAttribute("DisplayFormatAttribute", "#"));
+        void HandleCustomAttribute(IMemberInfo memberInfo) {
+            var customAttributes = memberInfo.FindAttributes<Attribute>().OfType<ICustomAttribute>();
+            foreach (var customAttribute in customAttributes) {
+                for (int index = 0; index < customAttribute.Name.Split(';').Length; index++) {
+                    string s = customAttribute.Name.Split(';')[index];
+                    memberInfo.AddAttribute(new CustomAttribute(s, customAttribute.Value.Split(';')[index]));
+                }
             }
         }
     }

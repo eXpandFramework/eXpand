@@ -3,6 +3,16 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
+    public interface IModelMemberToolTip : IModelNode {
+        [Localizable(true)]
+        [Description("Specifies the tooltip for the current property.")]
+        [Category("eXpand")]
+        string ToolTip { get; set; }
+    }
+    [ModelInterfaceImplementor(typeof(IModelMemberToolTip), "ModelMember")]
+    public interface IModelPropertyEditorTooltip : IModelMemberToolTip {
+    }
+
     public class ToolTipsController : ViewController, IModelExtender {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
@@ -16,12 +26,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelMember, IModelMemberToolTip>();
+            extenders.Add<IModelPropertyEditor, IModelPropertyEditorTooltip>();
         }
-    }
-    public interface IModelMemberToolTip : IModelNode {
-        [Localizable(true)]
-        [Description("Specifies the tooltip for the current property.")]
-        [Category("eXpand")]
-        string ToolTip { get; set; }
     }
 }
