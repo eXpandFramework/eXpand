@@ -9,12 +9,12 @@ using Xpand.Xpo;
 namespace Xpand.ExpressApp {
 
     public class XpandObjectSpace : ObjectSpace {
-        public Func<object,object> ObjectAction;
+        public Func<object,object> GetObjectAction;
         public XpandObjectSpace(UnitOfWork unitOfWork, ITypesInfo typesInfo)
             : base(unitOfWork, typesInfo) {
         }
         public override object GetObject(object objectFromDifferentObjectSpace) {
-            return ObjectAction!=null ? ObjectAction.Invoke(objectFromDifferentObjectSpace) : base.GetObject(objectFromDifferentObjectSpace);
+            return GetObjectAction!=null ? GetObjectAction.Invoke(objectFromDifferentObjectSpace) : base.GetObject(objectFromDifferentObjectSpace);
         }
 
 

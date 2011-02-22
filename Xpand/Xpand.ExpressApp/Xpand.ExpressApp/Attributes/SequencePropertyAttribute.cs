@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Editors;
 
@@ -12,7 +13,10 @@ namespace Xpand.ExpressApp.Attributes {
         }
 
         string ICustomAttribute.Value {
-            get { return ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(typeof(IReleasedSequencePropertyEditor))).SingleOrDefault().FullName; }
+            get {
+                ITypeInfo typeInfo = ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(typeof(IReleasedSequencePropertyEditor))).SingleOrDefault();
+                return typeInfo != null ? typeInfo.FullName : "";
+            }
         }
     }
 }

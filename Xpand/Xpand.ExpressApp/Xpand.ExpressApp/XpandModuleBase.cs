@@ -106,11 +106,13 @@ namespace Xpand.ExpressApp {
         public static  void DisposeManagers() {
             _storeManagers = new List<object>{
                                                      _instanceXafApplicationManager.Value,
-                                                     _instanceModelApplicationCreatorManager.Value,
                                                      _instanceModelApplicationCreatorPropertiesManager.Value
                                                  };
+            if (_instanceModelApplicationCreatorManager!=null) {
+                _storeManagers.Add(_instanceModelApplicationCreatorManager.Value);
+                _instanceModelApplicationCreatorManager.Value = null;
+            }
             _instanceXafApplicationManager.Value = null;
-            _instanceModelApplicationCreatorManager.Value = null;
             _instanceModelApplicationCreatorPropertiesManager.Value = null;
         }
 

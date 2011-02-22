@@ -15,9 +15,9 @@ namespace Xpand.ExpressApp {
             }
             set {
                 if (value!=null&& XafTypesInfo.Instance.FindTypeInfo(value.GetType()).FindAttribute<SessionLessPersistentAttribute>()!=null)
-                    ((XpandObjectSpace) ObjectSpace).ObjectAction = o => o;
+                    ((XpandObjectSpace) ObjectSpace).GetObjectAction = o => o;
                 base.CurrentObject = value;
-                ((XpandObjectSpace) ObjectSpace).ObjectAction = null;
+                ((XpandObjectSpace) ObjectSpace).GetObjectAction = null;
             }
         }
         public XpandDetailView(IModelDetailView info, IObjectSpace objectSpace, object obj, XafApplication application, bool isRoot)

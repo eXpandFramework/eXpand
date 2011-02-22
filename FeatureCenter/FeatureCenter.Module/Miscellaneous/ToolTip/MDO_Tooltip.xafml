@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="Tooltip_DetailView">
+      <Items>
+        <PropertyEditor Id="Name" ToolTip="This is a test tooltip" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

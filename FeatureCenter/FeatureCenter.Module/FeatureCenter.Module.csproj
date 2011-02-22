@@ -285,6 +285,7 @@
     <Compile Include="Miscellaneous\Sequence\AttributeRegistrator.cs" />
     <Compile Include="Miscellaneous\Sequence\SequenceCustomer.cs" />
     <Compile Include="ISupportModificationStatements.cs" />
+    <Compile Include="Miscellaneous\ToolTip\AttributeRegistrator.cs" />
     <Compile Include="ModelArtifact\ConditionalForeignKeyKViolation\AttributeRegistrator.cs" />
     <Compile Include="ModelArtifact\ConditionalSaveDelete\AttributeRegistrator.cs" />
     <Compile Include="Navigation\AttributeRegistrator.cs" />
@@ -516,6 +517,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\MDO_ExistentAssemblyRuntimeOrphanedCollection.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Miscellaneous\ToolTip\MDO_Tooltip.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="ModelArtifact\ConditionalForeignKeyKViolation\MDO_ConditionalForeignKeyViolation.xafml">
