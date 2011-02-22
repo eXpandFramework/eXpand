@@ -141,14 +141,15 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         static string GetReferenceLocations() {
             Func<Assembly, string> locationSelector = GetAssemblyLocation;
-            Func<string, bool> pathIsValid = s => s.Length > 2;
+            Func<string, bool> pathIsValid = s => !string.IsNullOrEmpty(s) && s.Length > 2;
             string referenceLocations = AppDomain.CurrentDomain.GetAssemblies().Select(locationSelector).Distinct().
                 Where(pathIsValid).Aggregate<string, string>(null, (current, type) => current + (type + ",")).TrimEnd(',');
             return referenceLocations;
         }
 
         static string GetAssemblyLocation(Assembly assembly) {
-            return @"""" + ((assembly is AssemblyBuilder || assembly.GetType().FullName.Equals("System.Reflection.Emit.InternalAssemblyBuilder")) ? null : (!string.IsNullOrEmpty(assembly.Location) ? Path.GetDirectoryName(assembly.Location) : null)) + @"""";
+            var location = ((assembly is AssemblyBuilder || assembly.GetType().FullName.Equals("System.Reflection.Emit.InternalAssemblyBuilder")) ? null : (!string.IsNullOrEmpty(assembly.Location) ? Path.GetDirectoryName(assembly.Location) : null));
+            return location != null ? (String.Format(@"""{0}""", location)) : null;
         }
 
 
