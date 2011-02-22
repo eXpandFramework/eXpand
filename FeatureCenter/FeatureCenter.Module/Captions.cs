@@ -61,6 +61,7 @@
         public const string HeaderExistentAssemblyRuntimeOrphanedCollection = "Existent Assembly Runtime Orphaned Collection";
         public const string HeaderSequence = "Sequence Numbers";
         public const string HeaderPessimisticLocking = "Pessimistic Locking";
+        public const string HeaderTooltip = "Tooltip";
 
 
         public const string ViewMessage = "ViewMessage";
@@ -122,5 +123,6 @@
         public const string ViewMessageExistentAssemblyRuntimeOrphanedCollection = "The OrderLines nested list view you see above displays the is bound to the customer instance. It is a runtime collection of orderlines that is filtered according to the currect customer and has been created using worldcreator ExtendedOrphanedCollection class";
         public const string ViewMessageSequence = "In this view you can see how easy it is to implement sequence numbers (Id property). The sequence generation is done according to SeqEnum. You can also try to open a SequenceOrder object. There the generation is done with the respect to the parent customer object";
         public const string ViewMessagePessimisticLocking = "Use the edit action and make a change to the current object, then use the New Instance action, login as a different user and come back to this view. A message informing you about the locking will be displayed";
+        public const string ViewMessageTooltip = "You can set tooltips for the the propertyeditor either from the model or by decorating your property with the Tooltip attribute. Using the model you have greater flexibility. For instance i have set a tooltip for only this view for Name field. Move your over the Name field to see it in action";
     }
 }
