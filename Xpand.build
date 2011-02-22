@@ -232,7 +232,7 @@
 		<Copy SourceFiles="$(TempPath)\index.out" DestinationFiles="$(DeploymentFolder)\index.htm" />
 		
 		
-		<CallTarget Targets="Twitter" />
+		<CallTarget Targets="Twitter" Condition="$(TwitterConsumerKey)!=''"  />
 	</Target>
 	
 	<Target Name="Distrib" DependsOnTargets="Clean;Build;Copy;Config;">
