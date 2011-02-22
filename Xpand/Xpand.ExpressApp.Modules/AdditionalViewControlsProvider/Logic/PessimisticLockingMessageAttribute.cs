@@ -19,10 +19,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         public override object GetValue(object theObject) {
             var typeInfo = XafTypesInfo.Instance.FindTypeInfo(theObject.GetType());
             var memberValue = typeInfo.FindMember(PessimisticLockingViewController.LockedUser).GetValue(theObject);
-            if (_theValue != null) {
-                return memberValue != null ? string.Format(_theValue, memberValue) : null;
-            }
-            return null;
+            return _theValue != null ? (memberValue != null ? string.Format(_theValue, memberValue) : null) : null;
         }
         public override void SetValue(object theObject, object theValue) {
             _theValue = theValue as string;

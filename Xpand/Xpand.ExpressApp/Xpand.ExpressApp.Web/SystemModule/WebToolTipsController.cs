@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                     if (columnWrapper is ASPxGridViewColumnWrapper) {
                         GridViewDataColumnWithInfo column =
                             ((ASPxGridViewColumnWrapper)columnWrapper).Column;
-                        column.ToolTip = GetToolTip(column.Model.ModelMember);
+                        column.ToolTip = TooltipCalculator.GetToolTip(column.Model);
                     }
                 }
             }
@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         protected override void SetDetailViewToolTips() {
             foreach (PropertyEditor editor in ((DetailView)View).GetItems<PropertyEditor>()) {
                 if (editor.Control != null && (editor.Control is WebControl))
-                    ((WebControl)(editor.Control)).ToolTip = GetToolTip(editor.Model.ModelMember);
+                    ((WebControl)(editor.Control)).ToolTip = TooltipCalculator.GetToolTip(editor.Model);
             }
         }
     }
