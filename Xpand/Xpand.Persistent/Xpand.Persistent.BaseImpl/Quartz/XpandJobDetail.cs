@@ -1,4 +1,5 @@
 ﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -24,7 +25,18 @@ namespace Xpand.Persistent.BaseImpl.Quartz {
                 SetPropertyValue("Name", ref _name, value);
             }
         }
+        [Tooltip("Whether or not the IJob implements the interface IStatefulJob.")]
+        public virtual bool Stateful {
+            get {
+                if (_jobType == null) {
+                    return false;
+                }
+                return (XafTypesInfo.Instance.FindTypeInfo("Quartz.IStatefulJob").Type.IsAssignableFrom(_jobType));
+            }
+        }
+
         private string _group;
+        [Tooltip(@"Get or sets the group of this IJob. If null, ""DEFAULT"" will be used. ")]
         public string Group {
             get {
                 return _group;
@@ -74,6 +86,7 @@ namespace Xpand.Persistent.BaseImpl.Quartz {
             }
         }
         private bool _volatile;
+        [Tooltip("Whether or not the IJob should not be persisted in the IJobStore for re-use after program restarts. If not explicitly set, the default value is false. ")]
         public bool Volatile {
             get {
                 return _volatile;
@@ -83,6 +96,7 @@ namespace Xpand.Persistent.BaseImpl.Quartz {
             }
         }
         private bool _durable;
+        [Tooltip("Whether or not the IJob should remain stored after it is orphaned (no Triggers point to it). If not explicitly set, the default value is false. ")]
         public bool Durable {
             get {
                 return _durable;
