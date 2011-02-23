@@ -234,10 +234,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PersistentMetaData\DataStoreLogonObject.cs" />
     <Compile Include="PersistentMetaData\DataBase.cs" />
-    <Compile Include="Quartz\XpandJobDataMap.cs" />
-    <Compile Include="Quartz\XpandJobDetail.cs" />
-    <Compile Include="Quartz\XpandSimpleTrigger.cs" />
-    <Compile Include="Quartz\XpandTrigger.cs" />
     <Compile Include="SequenceObject.cs" />
     <Compile Include="Updater.cs">
       <SubType>Code</SubType>
