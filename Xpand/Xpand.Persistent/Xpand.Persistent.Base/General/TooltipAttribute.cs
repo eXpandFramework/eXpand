@@ -1,8 +1,9 @@
 ﻿using System;
 
-namespace Xpand.ExpressApp.Attributes {
-    [AttributeUsage(AttributeTargets.Property|AttributeTargets.Field)]
-    public class TooltipAttribute : Attribute,ICustomAttribute {
+namespace Xpand.Persistent.Base.General {
+
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+    public class TooltipAttribute : Attribute, ICustomAttribute {
         readonly string _value;
 
         public TooltipAttribute(string value) {

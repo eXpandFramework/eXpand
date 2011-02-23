@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.SystemModule {
     public class CustomAttibutesController : WindowController {

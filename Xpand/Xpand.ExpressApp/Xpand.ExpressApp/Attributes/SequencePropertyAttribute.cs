@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Editors;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Attributes {
     [AttributeUsage(AttributeTargets.Property)]

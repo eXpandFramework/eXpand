@@ -97,6 +97,7 @@
     <Compile Include="DifferenceType.cs" />
     <Compile Include="ExceptionHandling\IExceptionObject.cs" />
     <Compile Include="General\DataStoreAttribute.cs" />
+    <Compile Include="General\ICustomAttribute.cs" />
     <Compile Include="General\ISupportViewId.cs" />
     <Compile Include="General\ObjectSpaceExtensions.cs" />
     <Compile Include="General\PictureItemEventArgs.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="General\RequestTextPictureItemEventArgs.cs" />
     <Compile Include="General\ReservedMember.cs" />
     <Compile Include="General\SequenceGenerator.cs" />
+    <Compile Include="General\TooltipAttribute.cs" />
     <Compile Include="General\TypesInfoExtensions.cs" />
     <Compile Include="General\ValueConverters\ImageCompressionValueConverter.cs" />
     <Compile Include="General\SessionLessPersistentAttribute.cs" />

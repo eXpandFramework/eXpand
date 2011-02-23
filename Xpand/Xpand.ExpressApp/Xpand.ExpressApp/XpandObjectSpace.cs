@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp {
         }
 
         protected override void SetModified(object obj, ObjectChangedEventArgs args) {
-            if (session.GetClassInfo(args.Object).FindMember(args.PropertyName) is ISupportCancelModification)
+            if (args.Object != null && session.GetClassInfo(args.Object).FindMember(args.PropertyName) is ISupportCancelModification)
                 return;
             base.SetModified(obj, args);
         }
