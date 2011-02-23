@@ -98,7 +98,9 @@
     <Compile Include="ExceptionHandling\IExceptionObject.cs" />
     <Compile Include="General\DataStoreAttribute.cs" />
     <Compile Include="General\ICustomAttribute.cs" />
+    <Compile Include="General\IFastManyToMany .cs" />
     <Compile Include="General\ISupportViewId.cs" />
+    <Compile Include="General\ManyToManyCollectionHelper.cs" />
     <Compile Include="General\ObjectSpaceExtensions.cs" />
     <Compile Include="General\PictureItemEventArgs.cs" />
     <Compile Include="General\RelationType.cs" />

@@ -142,6 +142,7 @@
     <Compile Include="Model\IModelProccessViewShortcuts.cs" />
     <Compile Include="NodeUpdaters\ModelMemberGeneratorUpdater.cs" />
     <Compile Include="Security\IXpandLogonParameters.cs" />
+    <Compile Include="SystemModule\HideNewActionInNestedListViewController.cs" />
     <Compile Include="SystemModule\NewObjectSessionLessPersistentObject.cs">
       <SubType>Component</SubType>
     </Compile>
