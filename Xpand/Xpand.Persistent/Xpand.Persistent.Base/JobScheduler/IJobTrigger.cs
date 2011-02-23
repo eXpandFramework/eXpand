@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Xpand.Persistent.Base.JobScheduler {
-    public interface IXpandTrigger {
+    public interface IJobDetails  {
+        IList<IJobDetail> JobDetails { get; }
+    }
+
+    public interface IJobTrigger:IJobDetails {
         string Name { get; set; }
         string Group { get; set; }
-
-
-        string JobName { get; set; }
-
-        string JobGroup { get; set; }
 
         string Description { get; set; }
 

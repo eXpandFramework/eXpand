@@ -250,7 +250,9 @@
     <Compile Include="Xpand.IO\ExportingSpecs_of_DerivedObjects.cs" />
     <Compile Include="Xpand.IO\ImportEngineSpecs.cs" />
     <Compile Include="Xpand.IO\ModelBuilder.cs" />
+    <Compile Include="Xpand.JobScheduler\Contexts.cs" />
     <Compile Include="Xpand.JobScheduler\JobDetailSpecs.cs" />
+    <Compile Include="Xpand.JobScheduler\JobTriggerSpecs.cs" />
     <Compile Include="Xpand.Utils\Contexts.cs" />
     <Compile Include="Xpand.Utils\ExpressionTransformerSpecs.cs" />
     <Compile Include="Xpand.Utils\NotificationExtensionsFixture.cs" />

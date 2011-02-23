@@ -2,7 +2,7 @@ using System;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.Persistent.Base.JobScheduler {
-    public interface IXpandSimpleTrigger : IXpandTrigger {
+    public interface IXpandSimpleTrigger : IJobTrigger {
         SimpleTriggerMisfireInstruction MisfireInstruction { get; set; }
 
         int RepeatCount { get; set; }

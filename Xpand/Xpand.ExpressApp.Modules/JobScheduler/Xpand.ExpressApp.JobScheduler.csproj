@@ -126,7 +126,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JobDetailController.cs">
+    <Compile Include="CreateJobDetailController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="JobSchedulerController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="JobSchedulerModule.cs">
@@ -135,6 +138,7 @@
     <Compile Include="JobSchedulerModule.Designer.cs">
       <DependentUpon>JobSchedulerModule.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>

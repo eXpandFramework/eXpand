@@ -170,6 +170,7 @@
     <Compile Include="ImportExport\SerializationConfiguration.cs" />
     <Compile Include="ImportExport\SerializationConfigurationGroup.cs" />
     <Compile Include="ImportExport\XmlFileChooser.cs" />
+    <Compile Include="JobScheduler\JobDetailTriggerLink.cs" />
     <Compile Include="JobScheduler\JobTypeClassInfoConverter.cs" />
     <Compile Include="PersistentMetaData\CodeTemplate.cs" />
     <Compile Include="PersistentMetaData\CodeTemplateInfo.cs" />
@@ -247,7 +248,7 @@
     <Compile Include="JobScheduler\XpandJobDataMap.cs" />
     <Compile Include="JobScheduler\XpandJobDetail.cs" />
     <Compile Include="JobScheduler\XpandSimpleTrigger.cs" />
-    <Compile Include="JobScheduler\XpandTrigger.cs" />
+    <Compile Include="JobScheduler\XpandJobTrigger.cs" />
     <Compile Include="SequenceObject.cs" />
     <Compile Include="Updater.cs">
       <SubType>Code</SubType>

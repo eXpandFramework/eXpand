@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using TypeMock.ArrangeActAssert;
 using Xpand.ExpressApp;
 using Xpand.ExpressApp.IO.Core;
-using Xpand.ExpressApp.JobScheduler;
 using Xpand.Persistent.BaseImpl.ImportExport;
 
 namespace Xpand.Tests {
@@ -51,15 +51,14 @@ namespace Xpand.Tests {
             return typesInfo;
         }
 
-        public static XafApplication XafApplicationInstance(this IFaker faker, Type domaincomponentType, Action<DetailView> viewAction,Action<Window> windowAction, params Controller[] controllers) {
-            var jobDetailController = new JobDetailController();
+        public static XafApplication XafApplicationInstance(this IFaker faker, Type domaincomponentType, Action<DetailView> viewAction, Action<Window> windowAction, params Controller[] controllers) {
             var dataSet = new DataSet();
             IObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew(dataSet);
-            XafApplication application = Isolate.Fake.XafApplicationInstance(domaincomponentType, dataSet, new Controller[] { jobDetailController });
+            XafApplication application = Isolate.Fake.XafApplicationInstance(domaincomponentType, dataSet, controllers);
             object o = objectSpace.CreateObject(domaincomponentType);
             var detailView = application.CreateDetailView(objectSpace, o);
             viewAction.Invoke(detailView);
-            var window = application.CreateWindow(TemplateContext.View, new List<Controller> { jobDetailController }, true);
+            var window = application.CreateWindow(TemplateContext.View, controllers, true);
             windowAction.Invoke(window);
             window.SetView(detailView);
             return application;
@@ -68,33 +67,38 @@ namespace Xpand.Tests {
 
         public static XafApplication XafApplicationInstance(this IFaker faker, Type domaincomponentType, DataSet dataSet, params Controller[] controllers) {
             var defaultSkinListGenerator = Isolate.Fake.Instance<DefaultSkinListGenerator>();
-            
+            var editorsFactory = new EditorsFactory();
+#pragma warning disable 612,618
+            Isolate.WhenCalled(() => editorsFactory.CreateListEditor(null, null, null)).WillReturn(new GridListEditor());
+#pragma warning restore 612,618
+            Isolate.Swap.AllInstances<EditorsFactory>().With(editorsFactory);
+
             Isolate.Swap.NextInstance<DefaultSkinListGenerator>().With(defaultSkinListGenerator);
             var application = Isolate.Fake.Instance<XafApplication>(Members.CallOriginal, ConstructorWillBe.Called);
             RegisterControllers(application, controllers);
             var xpandModuleBase = Isolate.Fake.Instance<XpandModuleBase>(Members.CallOriginal, ConstructorWillBe.Called);
             xpandModuleBase.Setup(application);
-//            Isolate.WhenCalled(() => XpandModuleBase.Application).WillReturn(application);
+            //            Isolate.WhenCalled(() => XpandModuleBase.Application).WillReturn(application);
             var objectSpaceProvider = Isolate.Fake.Instance<IObjectSpaceProvider>();
             Isolate.WhenCalled(() => objectSpaceProvider.TypesInfo).WillReturn(XafTypesInfo.Instance);
             application.CreateCustomObjectSpaceProvider += (sender, args) => args.ObjectSpaceProvider = objectSpaceProvider;
             RegisterDomainComponents(application, domaincomponentType);
             application.Setup();
             Isolate.WhenCalled(() => application.CreateObjectSpace()).WillReturn(ObjectSpaceInMemory.CreateNew(dataSet));
-            
+
             return application;
         }
 
         static void RegisterDomainComponents(XafApplication application, Type domaincomponentType) {
             XafTypesInfo.Instance.RegisterEntity(domaincomponentType);
             application.SettingUp +=
-                (o, eventArgs) => ((BusinessClassesList) eventArgs.SetupParameters.DomainComponents).Add(domaincomponentType);
+                (o, eventArgs) => ((BusinessClassesList)eventArgs.SetupParameters.DomainComponents).Add(domaincomponentType);
         }
 
         static void RegisterControllers(XafApplication application, params Controller[] controllers) {
-            var methodInfo = application.GetType().GetMethod("CreateApplicationModulesManager",BindingFlags.NonPublic|BindingFlags.Instance);
-            Isolate.NonPublic.WhenCalled(application,"CreateApplicationModulesManager").DoInstead(context => {
-                ((ControllersManager) context.Parameters[0]).RegisterController(controllers);
+            var methodInfo = application.GetType().GetMethod("CreateApplicationModulesManager", BindingFlags.NonPublic | BindingFlags.Instance);
+            Isolate.NonPublic.WhenCalled(application, "CreateApplicationModulesManager").DoInstead(context => {
+                ((ControllersManager)context.Parameters[0]).RegisterController(controllers);
                 return methodInfo.Invoke(application, new[] { context.Parameters[0] });
             });
         }

@@ -5,7 +5,6 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler {
@@ -15,7 +14,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         Executed
     }
 
-    public class JobListenerTrigger : XpandCustomObject, ISupportJobDetails {
+    public class JobListenerTrigger : XpandCustomObject {
         public JobListenerTrigger(Session session)
             : base(session) {
         }

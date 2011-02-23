@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
@@ -22,8 +24,8 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         [Tooltip(@"Instructs the IScheduler that upon a mis-fire situation, the CronTrigger wants to have it's next-fire-time updated to the next time in the schedule after the current time (taking into account any associated ICalendar, but it does not want to be fired now.")]
         CronTriggerDoNothing,
     }
-    public abstract class XpandTrigger : XpandCustomObject, IXpandTrigger {
-        protected XpandTrigger(Session session)
+    public abstract class XpandJobTrigger : XpandCustomObject, IJobTrigger {
+        protected XpandJobTrigger(Session session)
             : base(session) {
         }
         private string _name;
@@ -44,27 +46,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("Group", ref _group, value);
             }
         }
-        
-        private string _jobName;
-        [Tooltip("Get or set the name of the associated JobDetail. ")]
-        public string JobName {
-            get {
-                return _jobName;
-            }
-            set {
-                SetPropertyValue("JobName", ref _jobName, value);
-            }
-        }
-        private string _jobGroup;
-        [Tooltip("Gets or sets the name of the associated JobDetail's group. If set with null, Scheduler.DefaultGroup will be used. ")]
-        public string JobGroup {
-            get {
-                return _jobGroup;
-            }
-            set {
-                SetPropertyValue("JobGroup", ref _jobGroup, value);
-            }
-        }
+
         private string _description;
         [Size(SizeAttribute.Unlimited)]
         public string Description {
@@ -104,7 +86,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("Volatile", ref _volatile, value);
             }
         }
-        
+
 
         private DateTime? _endTimeUtc;
         [Tooltip("Returns the date/time on which the trigger must stop firing. This defines the final boundary for trigger firings 舒 the trigger will not fire after to this date and time. If this value is null, no end time boundary is assumed, and the trigger can continue indefinitely. Sets the date/time on which the trigger must stop firing. This defines the final boundary for trigger firings 舒 the trigger will not fire after to this date and time. If this value is null, no end time boundary is assumed, and the trigger can continue indefinitely. ")]
@@ -138,6 +120,20 @@ Setting a value in the past may cause a new trigger to compute a first fire time
                 SetPropertyValue("Priority", ref _priority, value);
             }
         }
-    }
+        [Association("JobDetailTriggerLink-JobDetails")]
+        protected IList<JobDetailTriggerLink> Links {
+            get {
+                return GetList<JobDetailTriggerLink>("Links");
+            }
+        }
+        [ManyToManyAlias("Links", "JobDetail")]
+        public IList<XpandJobDetail> JobDetails {
+            get { return GetList<XpandJobDetail>("JobDetails"); }
+        }
 
+        IList<IJobDetail> IJobDetails.JobDetails {
+            get { return new ListConverter<IJobDetail, XpandJobDetail>(JobDetails); }
+        }
+
+    }
 }

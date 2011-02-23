@@ -1,14 +1,13 @@
 ﻿using System;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.JobScheduler;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler {
-//    [DefaultClassOptions]
+    [DefaultClassOptions]
     [System.ComponentModel.DisplayName("SimpleTrigger")]
-    public class XpandSimpleTrigger : XpandTrigger, ISupportJobDetails, IXpandSimpleTrigger {
+    public class XpandSimpleTrigger : XpandJobTrigger, IXpandSimpleTrigger {
         public XpandSimpleTrigger(Session session)
             : base(session) {
         }
@@ -60,12 +59,6 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
             }
             set {
                 SetPropertyValue("FinalFireTimeUtc", ref _finalFireTimeUtc, value);
-            }
-        }
-        [ProvidedAssociation("XpandSimpleTrigger-JobDetails", RelationType.ManyToMany)]
-        public XPCollection<XpandJobDetail> JobDetails {
-            get {
-                return GetCollection<XpandJobDetail>("JobDetails");
             }
         }
     }

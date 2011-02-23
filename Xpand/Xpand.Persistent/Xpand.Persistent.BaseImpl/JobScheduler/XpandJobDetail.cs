@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Quartz;
 using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.JobScheduler;
@@ -11,9 +13,9 @@ using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler {
 
-//    [DefaultClassOptions]
+    [DefaultClassOptions]
     [System.ComponentModel.DisplayName("JobDetail")]
-    public class XpandJobDetail : XpandCustomObject, IXpandJobDetail {
+    public class XpandJobDetail : XpandCustomObject, IJobDetail {
         public XpandJobDetail(Session session)
             : base(session) {
         }
@@ -34,7 +36,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 if (_jobType == null) {
                     return false;
                 }
-                return (XafTypesInfo.Instance.FindTypeInfo("Quartz.IStatefulJob").Type.IsAssignableFrom(_jobType));
+                return (XafTypesInfo.Instance.FindTypeInfo(typeof(IStatefulJob)).Type.IsAssignableFrom(_jobType));
             }
         }
 
@@ -110,6 +112,20 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("Durable", ref _durable, value);
             }
         }
-
+        [Association("JobDetailTriggerLink-Triggers")]
+        protected IList<JobDetailTriggerLink> Links {
+            get {
+                return GetList<JobDetailTriggerLink>("Links");
+            }
+        }
+        [ManyToManyAlias("Links", "JobTrigger")]
+        public IList<XpandJobTrigger> JobTriggers {
+            get { return GetList<XpandJobTrigger>("JobTriggers"); }
+        }
+        IList<IJobTrigger> IJobDetail.JobTriggers {
+            get {
+                return new ListConverter<IJobTrigger, XpandJobTrigger>(JobTriggers);
+            }
+        }
     }
 }
