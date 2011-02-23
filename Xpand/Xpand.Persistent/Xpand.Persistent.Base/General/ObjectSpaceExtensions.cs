@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -8,6 +9,11 @@ using Xpand.Utils.Linq;
 
 namespace Xpand.Persistent.Base.General {
     public static class ObjectSpaceExtensions {
+        public static IList<ClassType> GetObjects<ClassType>(this IObjectSpace objectSpace,Expression<Func<ClassType,bool>> expression) {
+            CriteriaOperator criteriaOperator = new XPQuery<ClassType>(((ObjectSpace) objectSpace).Session).TransformExpression(expression);
+            return objectSpace.GetObjects<ClassType>(criteriaOperator);
+        }
+
         public static bool NeedReload(this ObjectSpace objectSpace, object currentObject) {
             XPMemberInfo optimisticLockFieldInfo;
             XPClassInfo classInfo = GetClassInfo(objectSpace, currentObject, out optimisticLockFieldInfo);

@@ -1,4 +1,5 @@
 ﻿using System;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Attributes {
     public class NumericFormatAttribute : Attribute, ICustomAttribute {
