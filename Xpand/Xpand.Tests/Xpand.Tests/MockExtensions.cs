@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using DevExpress.ExpressApp;
@@ -10,8 +11,8 @@ using DevExpress.Xpo;
 using TypeMock.ArrangeActAssert;
 using Xpand.ExpressApp;
 using Xpand.ExpressApp.IO.Core;
+using Xpand.ExpressApp.JobScheduler;
 using Xpand.Persistent.BaseImpl.ImportExport;
-using Xpand.Tests.Xpand.ExpressApp;
 
 namespace Xpand.Tests {
     public static class MockExtensions {
@@ -50,6 +51,21 @@ namespace Xpand.Tests {
             return typesInfo;
         }
 
+        public static XafApplication XafApplicationInstance(this IFaker faker, Type domaincomponentType, Action<DetailView> viewAction,Action<Window> windowAction, params Controller[] controllers) {
+            var jobDetailController = new JobDetailController();
+            var dataSet = new DataSet();
+            IObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew(dataSet);
+            XafApplication application = Isolate.Fake.XafApplicationInstance(domaincomponentType, dataSet, new Controller[] { jobDetailController });
+            object o = objectSpace.CreateObject(domaincomponentType);
+            var detailView = application.CreateDetailView(objectSpace, o);
+            viewAction.Invoke(detailView);
+            var window = application.CreateWindow(TemplateContext.View, new List<Controller> { jobDetailController }, true);
+            windowAction.Invoke(window);
+            window.SetView(detailView);
+            return application;
+
+        }
+
         public static XafApplication XafApplicationInstance(this IFaker faker, Type domaincomponentType, DataSet dataSet, params Controller[] controllers) {
             var defaultSkinListGenerator = Isolate.Fake.Instance<DefaultSkinListGenerator>();
             
@@ -72,7 +88,7 @@ namespace Xpand.Tests {
         static void RegisterDomainComponents(XafApplication application, Type domaincomponentType) {
             XafTypesInfo.Instance.RegisterEntity(domaincomponentType);
             application.SettingUp +=
-                (o, eventArgs) => ((BusinessClassesList) eventArgs.SetupParameters.DomainComponents).Add(typeof (PessimisticLockObject));
+                (o, eventArgs) => ((BusinessClassesList) eventArgs.SetupParameters.DomainComponents).Add(domaincomponentType);
         }
 
         static void RegisterControllers(XafApplication application, params Controller[] controllers) {

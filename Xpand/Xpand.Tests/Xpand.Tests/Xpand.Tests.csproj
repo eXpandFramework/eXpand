@@ -106,6 +106,10 @@
     <Reference Include="DevExpress.XtraGrid.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Quartz, Version=1.0.3.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Quartz.dll</HintPath>
+    </Reference>
     <Reference Include="TypeMock, Version=6.0.4.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\_third_party_assemblies\TypeMock.dll</HintPath>
@@ -129,6 +133,10 @@
     <Reference Include="Xpand.ExpressApp.IO.Win, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.JobScheduler, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.ModelArtifactState, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -242,6 +250,7 @@
     <Compile Include="Xpand.IO\ExportingSpecs_of_DerivedObjects.cs" />
     <Compile Include="Xpand.IO\ImportEngineSpecs.cs" />
     <Compile Include="Xpand.IO\ModelBuilder.cs" />
+    <Compile Include="Xpand.JobScheduler\JobDetailSpecs.cs" />
     <Compile Include="Xpand.Utils\Contexts.cs" />
     <Compile Include="Xpand.Utils\ExpressionTransformerSpecs.cs" />
     <Compile Include="Xpand.Utils\NotificationExtensionsFixture.cs" />
