@@ -243,6 +243,7 @@
     <Compile Include="CleanupAfterEveryContextInAssembly.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="With_Application.cs" />
     <Compile Include="Xpand.ExpressApp\PessimisticLockingSpecs.cs" />
     <Compile Include="Xpand.ExpressApp\RuleRequiredForAtLeast1PropertyFixture.cs" />
     <Compile Include="Xpand.ExpressApp\TypesInfoFixture.cs" />

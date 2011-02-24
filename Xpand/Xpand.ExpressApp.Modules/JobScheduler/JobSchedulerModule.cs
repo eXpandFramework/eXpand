@@ -1,9 +1,7 @@
-using System;
+using System.Collections.Specialized;
 using DevExpress.ExpressApp;
 using Quartz;
-using Quartz.Core;
-using Quartz.Impl;
-using Xpand.Persistent.Base.JobScheduler;
+using Xpand.ExpressApp.JobScheduler.Qaurtz;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public sealed partial class JobSchedulerModule : XpandModuleBase {
@@ -14,48 +12,33 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory();
-            _scheduler = (XpandScheduler) stdSchedulerFactory.GetScheduler();
+            var properties = new NameValueCollection();
+
+            properties["quartz.scheduler.instanceName"] = "TestScheduler";
+            properties["quartz.scheduler.instanceId"] = "instance_one";
+            properties["quartz.threadPool.type"] = "Quartz.Simpl.SimpleThreadPool, Quartz";
+            properties["quartz.threadPool.threadCount"] = "5";
+            properties["quartz.threadPool.threadPriority"] = "Normal";
+            properties["quartz.jobStore.misfireThreshold"] = "60000";
+            properties["quartz.jobStore.type"] = "Quartz.Impl.AdoJobStore.JobStoreTX, Quartz";
+            properties["quartz.jobStore.useProperties"] = "false";
+            properties["quartz.jobStore.dataSource"] = "default";
+            properties["quartz.jobStore.tablePrefix"] = "QRTZ_";
+            properties["quartz.jobStore.clustered"] = "true";
+
+            properties["quartz.jobStore.lockHandler.type"] = "Quartz.Impl.AdoJobStore.UpdateLockRowSemaphore, Quartz";
+
+            properties["quartz.dataSource.default.connectionString"] = "Server=(local);Database=quartz1;Trusted_Connection=True;";
+            properties["quartz.dataSource.default.provider"] = "SqlServer-20";
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(properties);
+            _scheduler = (XpandScheduler)stdSchedulerFactory.GetScheduler();
+
+            _scheduler.Start();
         }
         XpandScheduler _scheduler;
 
         public XpandScheduler Scheduler {
             get { return _scheduler; }
-        }
-    }
-
-    public class XpandSchedulerFactory : StdSchedulerFactory {
-        protected override IScheduler Instantiate(QuartzSchedulerResources resources, QuartzScheduler quartzScheduler) {
-            var schedulingContext = new SchedulingContext { InstanceId = resources.InstanceId };
-            IScheduler stdScheduler = new XpandScheduler(quartzScheduler, schedulingContext, resources, schedulingContext);
-            
-            return stdScheduler;
-        }
-    }
-
-    public class XpandScheduler:StdScheduler {
-        readonly QuartzSchedulerResources _resources;
-        readonly SchedulingContext _schedulingContext;
-
-        public XpandScheduler(QuartzScheduler sched, SchedulingContext schedCtxt, QuartzSchedulerResources resources, SchedulingContext schedulingContext) : base(sched, schedCtxt) {
-            _resources = resources;
-            _schedulingContext = schedulingContext;
-        }
-
-        public SchedulingContext SchedulingContext {
-            get { return _schedulingContext; }
-        }
-
-        public QuartzSchedulerResources Resources {
-            get { return _resources; }
-        }
-
-        public JobDetail GetJobDetail(IJobDetail jobDetail) {
-            return GetJobDetail(jobDetail.Name,jobDetail.Group);
-        }
-
-        public void TriggerJob(IJobDetail jobDetail) {
-            TriggerJob(jobDetail.Name,jobDetail.Group);
         }
     }
 }

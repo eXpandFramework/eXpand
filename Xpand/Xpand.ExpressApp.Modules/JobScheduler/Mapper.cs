@@ -4,26 +4,30 @@ using Xpand.Persistent.Base.JobScheduler;
 
 namespace Xpand.ExpressApp.JobScheduler {
     internal class Mapper {
+
         public static SimpleTrigger GetSimpleTrigger(IJobTrigger xpandSimpleTrigger, string jobName, string jobgroup) {
             var trigger = xpandSimpleTrigger as IXpandSimpleTrigger;
             if (trigger != null) {
-                var simpleTrigger = new SimpleTrigger(trigger.Name, trigger.Group) {
-                    EndTimeUtc = trigger.EndTimeUtc,
-                    MisfireInstruction = (int)trigger.MisfireInstruction,
-                    Volatile = trigger.Volatile,
-                    RepeatInterval = trigger.RepeatInterval,
-                    Priority = (int)trigger.Priority,
-                    CalendarName = trigger.CalendarName,
-                    JobDataMap = new JobDataMap(),
-                    StartTimeUtc = TriggerUtils.GetEvenMinuteDate(DateTime.UtcNow),
-                    RepeatCount = trigger.RepeatCount,
-                    Description = trigger.Description,
-                    JobName = jobName,
-                    JobGroup = jobgroup
-                };
+                var simpleTrigger = new SimpleTrigger(trigger.Name, trigger.Group);
+                AssignTrigger(simpleTrigger, trigger, jobName,jobgroup);
                 return simpleTrigger;
             }
             return null;
+        }
+
+        public static void AssignTrigger(SimpleTrigger jobTrigger,IXpandSimpleTrigger trigger, string jobName, string jobgroup) {
+            jobTrigger.EndTimeUtc = trigger.EndTimeUtc;
+            jobTrigger.MisfireInstruction = (int)trigger.MisfireInstruction;
+            jobTrigger.Volatile = trigger.Volatile;
+            jobTrigger.RepeatInterval = trigger.RepeatInterval;
+            jobTrigger.Priority = (int)trigger.Priority;
+            jobTrigger.CalendarName = trigger.CalendarName;
+            jobTrigger.JobDataMap = new JobDataMap();
+            jobTrigger.StartTimeUtc = TriggerUtils.GetEvenMinuteDate(DateTime.UtcNow);
+            jobTrigger.RepeatCount = trigger.RepeatCount;
+            jobTrigger.Description = trigger.Description;
+            jobTrigger.JobName = jobName;
+            jobTrigger.JobGroup = jobgroup;
         }
 
 
@@ -52,7 +56,5 @@ namespace Xpand.ExpressApp.JobScheduler {
             };
 
         }
-
-
     }
 }

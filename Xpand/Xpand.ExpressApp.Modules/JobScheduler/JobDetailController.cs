@@ -8,10 +8,10 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.JobScheduler;
 
 namespace Xpand.ExpressApp.JobScheduler {
-    public class CreateJobDetailController : SupportSchedulerController {
+    public class JobDetailController : SupportSchedulerController {
         JobDetail _currentJobDetail;
 
-        public CreateJobDetailController() {
+        public JobDetailController() {
             TargetObjectType = typeof(IJobDetail);
         }
 
@@ -30,9 +30,8 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         void ViewOnCurrentObjectChanged(object sender, EventArgs eventArgs) {
-            IScheduler scheduler = Application.FindModule<JobSchedulerModule>().Scheduler;
             var detail = ((IJobDetail)View.CurrentObject);
-            _currentJobDetail = scheduler.GetJobDetail(detail.Name, detail.Group);
+            if (detail != null) _currentJobDetail = Scheduler.GetJobDetail(detail.Name, detail.Group);
         }
 
         void ObjectSpaceOnObjectDeleted(object sender, ObjectsManipulatingEventArgs objectsManipulatingEventArgs) {
@@ -41,19 +40,23 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
-            var xpandJobDetail = ((IJobDetail)View.CurrentObject);
-            ObjectSpace.GetNewObjectsToSave<IJobDetail>().ToList().ForEach(AddJob);
-            ObjectSpace.GetObjectsToUdate<IJobDetail>().ToList().ForEach(UpdateJob);
-            _currentJobDetail = Scheduler.GetJobDetail(xpandJobDetail.Name, xpandJobDetail.Group);
+            var jobDetail = ((IJobDetail)View.CurrentObject);
+            if (jobDetail!=null) {
+                ObjectSpace.GetNewObjectsToSave<IJobDetail>().ToList().ForEach(AddJob);
+                ObjectSpace.GetObjectsToUpdate<IJobDetail>().ToList().ForEach(UpdateJob);
+                _currentJobDetail = Scheduler.GetJobDetail(jobDetail.Name, jobDetail.Group);
+            }
         }
 
         void UpdateJob(IJobDetail xpandJobDetail) {
-            var triggers = Scheduler.GetTriggersOfJob(_currentJobDetail.Name, _currentJobDetail.Group).ToList();
-            Scheduler.DeleteJob(_currentJobDetail.Name, _currentJobDetail.Group);
-            AddJob(xpandJobDetail);
-            foreach (var trigger in triggers) {
-                trigger.JobGroup = xpandJobDetail.Group;
-                Scheduler.ScheduleJob(trigger);
+            if (_currentJobDetail != null) {
+                var triggers = Scheduler.GetTriggersOfJob(_currentJobDetail.Name, _currentJobDetail.Group).ToList();
+                Scheduler.DeleteJob(_currentJobDetail.Name, _currentJobDetail.Group);
+                AddJob(xpandJobDetail);
+                foreach (var trigger in triggers) {
+                    trigger.JobGroup = xpandJobDetail.Group;
+                    Scheduler.ScheduleJob(trigger);
+                }
             }
         }
 

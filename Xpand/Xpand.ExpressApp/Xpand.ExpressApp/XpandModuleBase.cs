@@ -41,7 +41,7 @@ namespace Xpand.ExpressApp {
         }
 
         static XPDictionary _dictiorary=XafTypesInfo.XpoTypeInfoSource.XPDictionary;
-        static List<object> _storeManagers;
+        static List<object> _storeManagers=new List<object>();
 
 
         public static XPDictionary Dictiorary {

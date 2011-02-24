@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using DevExpress.ExpressApp;
-using Machine.Specifications;
 using Quartz;
 using TypeMock.ArrangeActAssert;
 using Xpand.ExpressApp.JobScheduler;
+using Xpand.ExpressApp.JobScheduler.Qaurtz;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
     [JobType(typeof(DummyJob))]
-    public class DummyJobListener:IJobListener {
+    public class DummyJobListener : IJobListener {
         public void JobToBeExecuted(JobExecutionContext context) {
             throw new NotImplementedException();
         }
@@ -37,43 +36,41 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         }
     }
-    public abstract class With_Application<T> where T : With_Application<T> {
-        protected static XpandJobDetail JobDetail;
-        protected static IObjectSpace ObjectSpace;
-        protected static DetailView DetailView;
-        protected static XafApplication Application;
-        static T _instance;
+
+
+
+    public abstract class With_Job_Scheduler_XpandJobDetail_Application<T> : With_Job_Scheduler_Application<T, XpandJobDetail> where T : With_Job_Scheduler_XpandJobDetail_Application<T> {
+        protected override void ViewCreated(DetailView detailView) {
+            base.ViewCreated(detailView);
+            ObjectSpace = detailView.ObjectSpace;
+            Object.JobType = typeof(DummyJob);
+            Object.Name = "name";
+            Object.Group = "group";
+        }
+
+    }
+    public abstract class With_Job_Scheduler_Application<T, TObject> : With_Application<T, TObject> where T : With_Job_Scheduler_Application<T, TObject> {
         protected static XpandScheduler Scheduler;
-
-        internal Establish Context = () => {
-            _instance = Activator.CreateInstance<T>();
-            XafTypesInfo.Instance.FindTypeInfo(typeof (DummyJobListener));
-            Application = Isolate.Fake.XafApplicationInstance(typeof(XpandJobDetail), Instance.ViewCreated, Instance.WindowCreated,
-                                                                             Instance.GetControllers().ToArray());
-        };
-
-        protected virtual void WindowCreated(Window window) {
+        protected override void WindowCreated(Window window) {
+            base.WindowCreated(window);
             var jobSchedulerModule = new JobSchedulerModule();
+            var scheduler = new XpandSchedulerFactory().GetScheduler();
+            Isolate.WhenCalled(() => jobSchedulerModule.Scheduler).WillReturn((XpandScheduler) scheduler);
             jobSchedulerModule.Setup(new ApplicationModulesManager());
             Scheduler = jobSchedulerModule.Scheduler;
             window.Application.Modules.Add(jobSchedulerModule);
         }
-        protected virtual List<Controller> GetControllers() {
-            return new List<Controller> { new CreateJobDetailController(), new JobSchedulerController() };
+        protected override System.Collections.Generic.List<Controller> GetControllers() {
+            var controllers = base.GetControllers();
+            controllers.Add(new JobDetailController());
+            controllers.Add(new JobSchedulerController());
+            controllers.Add(new JobTriggerController());
+            return controllers;
         }
 
-        public static T Instance {
-            get { return _instance; }
+        protected override void Initialize() {
+            base.Initialize();
+            XafTypesInfo.Instance.FindTypeInfo(typeof(DummyJobListener));
         }
-
-        protected virtual void ViewCreated(DetailView detailView) {
-            DetailView = detailView;
-            ObjectSpace = detailView.ObjectSpace;
-            JobDetail = (XpandJobDetail)detailView.CurrentObject;
-            JobDetail.JobType = typeof(DummyJob);
-            JobDetail.Name = "name";
-            JobDetail.Group = "group";
-        }
-
     }
 }

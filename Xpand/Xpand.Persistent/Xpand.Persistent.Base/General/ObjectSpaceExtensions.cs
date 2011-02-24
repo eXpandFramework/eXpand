@@ -20,7 +20,7 @@ namespace Xpand.Persistent.Base.General {
         public static IEnumerable<ClassType> GetNewObjectsToSave<ClassType>(this IObjectSpace objectSpace) {
             return objectSpace.GetObjectsToSave(true).OfType<ClassType>().Where(type => objectSpace.IsNewObject(type));
         }
-        public static IEnumerable<ClassType> GetObjectsToUdate<ClassType>(this IObjectSpace objectSpace) {
+        public static IEnumerable<ClassType> GetObjectsToUpdate<ClassType>(this IObjectSpace objectSpace) {
             return objectSpace.GetObjectsToSave(true).OfType<ClassType>().Where(type => !objectSpace.IsNewObject(type));
         }
 

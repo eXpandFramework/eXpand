@@ -126,7 +126,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreateJobDetailController.cs">
+    <Compile Include="JobDetailController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="JobSchedulerController.cs">
@@ -138,12 +138,17 @@
     <Compile Include="JobSchedulerModule.Designer.cs">
       <DependentUpon>JobSchedulerModule.cs</DependentUpon>
     </Compile>
+    <Compile Include="JobTriggerController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Mapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SupportSchedulerController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Updater.cs" />
+    <Compile Include="Qaurtz\XpandScheduler.cs" />
+    <Compile Include="Qaurtz\XpandSchedulerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="JobSchedulerModule.resx">

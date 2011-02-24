@@ -120,7 +120,7 @@ Setting a value in the past may cause a new trigger to compute a first fire time
                 SetPropertyValue("Priority", ref _priority, value);
             }
         }
-        [Association("JobDetailTriggerLink-JobDetails")]
+        [Association("JobDetailTriggerLink-JobDetails"),Aggregated]
         protected IList<JobDetailTriggerLink> Links {
             get {
                 return GetList<JobDetailTriggerLink>("Links");

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 namespace Xpand.Persistent.Base.JobScheduler {
-    public interface IJobDetail {
+    public interface IJobDetail  {
         string Name { get; set; }
         bool Stateful { get; }
         string Group { get; set; }

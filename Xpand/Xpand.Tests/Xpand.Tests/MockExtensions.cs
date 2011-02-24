@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using DevExpress.ExpressApp;
@@ -13,6 +15,7 @@ using TypeMock.ArrangeActAssert;
 using Xpand.ExpressApp;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.Persistent.BaseImpl.ImportExport;
+using System.Linq;
 
 namespace Xpand.Tests {
     public static class MockExtensions {
@@ -51,11 +54,11 @@ namespace Xpand.Tests {
             return typesInfo;
         }
 
-        public static XafApplication XafApplicationInstance(this IFaker faker, Type domaincomponentType, Action<DetailView> viewAction, Action<Window> windowAction, params Controller[] controllers) {
+        public static XafApplication XafApplicationInstance(this IFaker faker, Func<IList<Type>> func, Action<DetailView> viewAction, Action<Window> windowAction, params Controller[] controllers) {
             var dataSet = new DataSet();
             IObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew(dataSet);
-            XafApplication application = Isolate.Fake.XafApplicationInstance(domaincomponentType, dataSet, controllers);
-            object o = objectSpace.CreateObject(domaincomponentType);
+            XafApplication application = Isolate.Fake.XafApplicationInstance(func, dataSet, controllers);
+            object o = objectSpace.CreateObject(func.Invoke().ToList().First());
             var detailView = application.CreateDetailView(objectSpace, o);
             viewAction.Invoke(detailView);
             var window = application.CreateWindow(TemplateContext.View, controllers, true);
@@ -65,7 +68,7 @@ namespace Xpand.Tests {
 
         }
 
-        public static XafApplication XafApplicationInstance(this IFaker faker, Type domaincomponentType, DataSet dataSet, params Controller[] controllers) {
+        public static XafApplication XafApplicationInstance(this IFaker faker, Func<IList<Type>> func, DataSet dataSet, params Controller[] controllers) {
             var defaultSkinListGenerator = Isolate.Fake.Instance<DefaultSkinListGenerator>();
             var editorsFactory = new EditorsFactory();
 #pragma warning disable 612,618
@@ -82,17 +85,17 @@ namespace Xpand.Tests {
             var objectSpaceProvider = Isolate.Fake.Instance<IObjectSpaceProvider>();
             Isolate.WhenCalled(() => objectSpaceProvider.TypesInfo).WillReturn(XafTypesInfo.Instance);
             application.CreateCustomObjectSpaceProvider += (sender, args) => args.ObjectSpaceProvider = objectSpaceProvider;
-            RegisterDomainComponents(application, domaincomponentType);
+            RegisterDomainComponents(application, func);
             application.Setup();
             Isolate.WhenCalled(() => application.CreateObjectSpace()).WillReturn(ObjectSpaceInMemory.CreateNew(dataSet));
 
             return application;
         }
 
-        static void RegisterDomainComponents(XafApplication application, Type domaincomponentType) {
-            XafTypesInfo.Instance.RegisterEntity(domaincomponentType);
+        static void RegisterDomainComponents(XafApplication application, Func<IList<Type>>func) {
+            func.Invoke().ToList().ForEach(type => XafTypesInfo.Instance.RegisterEntity(type));
             application.SettingUp +=
-                (o, eventArgs) => ((BusinessClassesList)eventArgs.SetupParameters.DomainComponents).Add(domaincomponentType);
+                (o, eventArgs) => func.Invoke().ToList().ForEach(type => ((BusinessClassesList)eventArgs.SetupParameters.DomainComponents).Add(type));
         }
 
         static void RegisterControllers(XafApplication application, params Controller[] controllers) {

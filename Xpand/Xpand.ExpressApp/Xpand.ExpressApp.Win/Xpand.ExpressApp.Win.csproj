@@ -231,7 +231,7 @@
     <Compile Include="SystemModule\RemoveNavigationItemsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\RollBackObjectChangesOnCurrentObjectChangeController.cs">
+    <Compile Include="SystemModule\XpandWinDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\SearchFromDetailViewController.cs">

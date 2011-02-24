@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -51,7 +52,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
             var pessimisticViewController = new PessimisticLockingViewController();
 
             ViewEditModeController = new ViewEditModeController();
-            Application = Isolate.Fake.XafApplicationInstance(typeof(PessimisticLockObject), DataSet, new Controller[] { pessimisticViewController ,ViewEditModeController});
+            Application = Isolate.Fake.XafApplicationInstance(() => new List<Type> { typeof(PessimisticLockObject) }, DataSet, new Controller[] { pessimisticViewController, ViewEditModeController });
             ObjectSpace = Application.CreateObjectSpace();
             PessimisticLockObject = ObjectSpace.CreateObject<PessimisticLockObject>();
             var secondObjectSpace = ObjectSpaceInMemory.CreateNew(DataSet);
