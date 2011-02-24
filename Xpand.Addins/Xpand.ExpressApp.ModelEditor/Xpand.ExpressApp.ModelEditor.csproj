@@ -140,8 +140,16 @@
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.Utils, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelDifference\AspectInfo.cs" />
+    <Compile Include="ModelDifference\ResourceInfo.cs" />
+    <Compile Include="ModelDifference\ResourceModelCollector.cs" />
+    <Compile Include="ModelDifference\ResourcesModelStore.cs" />
     <Content Include="App.ico" />
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -161,15 +169,6 @@
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v10.2">
       <Name>DevExpress.Persistent.Base.v10.2</Name>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.Utils, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Core">
