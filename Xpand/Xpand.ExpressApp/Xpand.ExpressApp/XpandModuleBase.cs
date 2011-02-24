@@ -98,8 +98,8 @@ namespace Xpand.ExpressApp {
 
         public static void ReStoreManagers() {
             _instanceXafApplicationManager.Value = (XafApplication) _storeManagers[0];
-            _instanceModelApplicationCreatorManager.Value = (ModelApplicationCreator) _storeManagers[1];
-            _instanceModelApplicationCreatorPropertiesManager.Value =(ModelApplicationCreatorProperties) _storeManagers[2];
+            _instanceModelApplicationCreatorManager.Value = (ModelApplicationCreator) _storeManagers[2];
+            _instanceModelApplicationCreatorPropertiesManager.Value =(ModelApplicationCreatorProperties) _storeManagers[1];
         }
 
 
