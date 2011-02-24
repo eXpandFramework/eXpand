@@ -29,16 +29,18 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            Application.LogonFailed += (o, eventArgs) => {
-                var logonParameters = SecuritySystem.LogonParameters as IXpandLogonParameters;
-                if (logonParameters != null && logonParameters.RememberMe) {
-                    eventArgs.Handled = true;
-                    logonParameters.RememberMe = false;
-                    ((ISupportLogonParameterStore)Application).WriteLastLogonParameters(null, SecuritySystem.LogonParameters);
-                }
+            if (Application != null)
+                Application.LogonFailed += (o, eventArgs) => {
+                    var logonParameters = SecuritySystem.LogonParameters as IXpandLogonParameters;
+                    if (logonParameters != null && logonParameters.RememberMe) {
+                        eventArgs.Handled = true;
+                        logonParameters.RememberMe = false;
+                        ((ISupportLogonParameterStore)Application).WriteLastLogonParameters(null, SecuritySystem.LogonParameters);
+                    }
 
-            };
+                };
         }
+
         protected override List<Type> DeclaredBusinessClasses {
             get {
                 return new List<Type>();
