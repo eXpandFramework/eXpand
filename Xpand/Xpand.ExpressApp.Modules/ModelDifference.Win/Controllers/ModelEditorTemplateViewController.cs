@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
@@ -39,7 +40,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
             }
         }
 
-        void View_Closing(object sender, System.EventArgs e) {
+        void View_Closing(object sender, EventArgs e) {
             HideMainBarActions((DetailView)sender);
         }
 
@@ -66,20 +67,19 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
             }
         }
 
-        private void RibbonTransformer_Transformed(object sender, System.EventArgs e) {
+        private void RibbonTransformer_Transformed(object sender, EventArgs e) {
             ((ClassicToRibbonTransformer)sender).Transformed -= RibbonTransformer_Transformed;
             SetTemplate();
         }
 
         private void SetTemplate() {
-            
+
             var modelEditorViewController = View.GetItems<ModelEditorPropertyEditor>()[0].ModelEditorViewController;
-            modelEditorViewController.SaveAction.Caption="test";
+            var caption = Guid.NewGuid().ToString();
+            modelEditorViewController.SaveAction.Caption = caption;
             modelEditorViewController.SetTemplate(Frame.Template);
             var barManagerHolder = ((IBarManagerHolder)Frame.Template);
-            barManagerHolder.BarManager.Items.OfType<BarButtonItem>().Where(item => item.Caption.IndexOf("test") > -1).Single().Visibility = BarItemVisibility.Never;
-
-//            var barButtonItems = barManagerHolder.BarManager.Items.OfType<BarButtonItem>().Where(item => item.Caption.IndexOf("test") > -1).ToList();
+            barManagerHolder.BarManager.Items.OfType<BarButtonItem>().Where(item => item.Caption.IndexOf(caption) > -1).Single().Visibility = BarItemVisibility.Never;
         }
     }
 }
