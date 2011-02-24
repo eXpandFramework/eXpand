@@ -170,6 +170,7 @@
     <Compile Include="ImportExport\SerializationConfiguration.cs" />
     <Compile Include="ImportExport\SerializationConfigurationGroup.cs" />
     <Compile Include="ImportExport\XmlFileChooser.cs" />
+    <Compile Include="JobScheduler\JobDetailJobListenerTriggerLink.cs" />
     <Compile Include="JobScheduler\JobDetailTriggerLink.cs" />
     <Compile Include="JobScheduler\JobTypeClassInfoConverter.cs" />
     <Compile Include="PersistentMetaData\CodeTemplate.cs" />

@@ -113,18 +113,33 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
             }
         }
         [Association("JobDetailTriggerLink-Triggers")]
-        protected IList<JobDetailTriggerLink> Links {
+        protected IList<JobDetailTriggerLink> TriggerLinks {
             get {
-                return GetList<JobDetailTriggerLink>("Links");
+                return GetList<JobDetailTriggerLink>("TriggerLinks");
             }
         }
-        [ManyToManyAlias("Links", "JobTrigger")]
+        [ManyToManyAlias("TriggerLinks", "JobTrigger")]
         public IList<XpandJobTrigger> JobTriggers {
             get { return GetList<XpandJobTrigger>("JobTriggers"); }
         }
         IList<IJobTrigger> IJobDetail.JobTriggers {
             get {
                 return new ListConverter<IJobTrigger, XpandJobTrigger>(JobTriggers);
+            }
+        }
+        [Association("JobDetailJobListenerTriggerLink-JobListeners")]
+        protected IList<JobDetailJobListenerTriggerLink> JobListenerTriggerLinks {
+            get {
+                return GetList<JobDetailJobListenerTriggerLink>("JobListenerTriggerLinks");
+            }
+        }
+        [ManyToManyAlias("JobListenerTriggerLinks", "JobListenerTrigger")]
+        public IList<JobListenerTrigger> JobListenerTriggers {
+            get { return GetList<JobListenerTrigger>("JobListenerTriggers"); }
+        }
+        IList<IJobListenerTrigger> IJobDetail.JobListenerTriggers {
+            get {
+                return new ListConverter<IJobListenerTrigger, JobListenerTrigger>(JobListenerTriggers);
             }
         }
     }

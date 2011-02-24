@@ -5,30 +5,59 @@ using Machine.Specifications;
 using Quartz;
 using TypeMock.ArrangeActAssert;
 using Xpand.ExpressApp.JobScheduler;
+using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
+    [JobType(typeof(DummyJob))]
+    public class DummyJobListener:IJobListener {
+        public void JobToBeExecuted(JobExecutionContext context) {
+            throw new NotImplementedException();
+        }
+
+        public void JobExecutionVetoed(JobExecutionContext context) {
+            throw new NotImplementedException();
+        }
+
+        public void JobWasExecuted(JobExecutionContext context, JobExecutionException jobException) {
+            throw new NotImplementedException();
+        }
+
+        public string Name {
+            get { return GetType().Name; }
+        }
+    }
     public class DummyJob : IJob {
         public void Execute(JobExecutionContext context) {
 
         }
     }
+    public class DummyJob2 : IJob {
+        public void Execute(JobExecutionContext context) {
 
-    public class With_Application<T> where T : With_Application<T> {
+        }
+    }
+    public abstract class With_Application<T> where T : With_Application<T> {
         protected static XpandJobDetail JobDetail;
         protected static IObjectSpace ObjectSpace;
+        protected static DetailView DetailView;
+        protected static XafApplication Application;
         static T _instance;
-        protected static IScheduler Scheduler;
+        protected static XpandScheduler Scheduler;
 
-        Establish context = () => {
+        internal Establish Context = () => {
             _instance = Activator.CreateInstance<T>();
+            XafTypesInfo.Instance.FindTypeInfo(typeof (DummyJobListener));
+            Application = Isolate.Fake.XafApplicationInstance(typeof(XpandJobDetail), Instance.ViewCreated, Instance.WindowCreated,
+                                                                             Instance.GetControllers().ToArray());
+        };
+
+        protected virtual void WindowCreated(Window window) {
             var jobSchedulerModule = new JobSchedulerModule();
             jobSchedulerModule.Setup(new ApplicationModulesManager());
             Scheduler = jobSchedulerModule.Scheduler;
-            Isolate.Fake.XafApplicationInstance(typeof(XpandJobDetail), view => Instance.InitObject(view), window => window.Application.Modules.Add(jobSchedulerModule),
-                                                Instance.GetControllers().ToArray());
-        };
-
+            window.Application.Modules.Add(jobSchedulerModule);
+        }
         protected virtual List<Controller> GetControllers() {
             return new List<Controller> { new CreateJobDetailController(), new JobSchedulerController() };
         }
@@ -37,7 +66,8 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             get { return _instance; }
         }
 
-        protected virtual void InitObject(DetailView detailView) {
+        protected virtual void ViewCreated(DetailView detailView) {
+            DetailView = detailView;
             ObjectSpace = detailView.ObjectSpace;
             JobDetail = (XpandJobDetail)detailView.CurrentObject;
             JobDetail.JobType = typeof(DummyJob);

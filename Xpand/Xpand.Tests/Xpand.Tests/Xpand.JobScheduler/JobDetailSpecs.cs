@@ -32,8 +32,8 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         };
 
         Because of = () => ObjectSpace.CommitChanges();
-        protected override void InitObject(DetailView detailView) {
-            base.InitObject(detailView);
+        protected override void ViewCreated(DetailView detailView) {
+            base.ViewCreated(detailView);
             var xpandJobTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
             xpandJobTrigger.Name = "trigger";
             JobDetail.JobTriggers.Add(xpandJobTrigger);

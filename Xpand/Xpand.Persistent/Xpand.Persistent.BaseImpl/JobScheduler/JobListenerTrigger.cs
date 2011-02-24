@@ -1,20 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Core;
-using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler {
-    public enum JobListenerEvent {
-        Executing,
-        Vetoed,
-        Executed
-    }
 
-    public class JobListenerTrigger : XpandCustomObject {
+    public class JobListenerTrigger : XpandCustomObject, IJobListenerTrigger {
         public JobListenerTrigger(Session session)
             : base(session) {
         }
@@ -40,12 +36,20 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("JobType", ref _jobType, value);
             }
         }
-        [ProvidedAssociation("JobListenerTrigger-JobDetails", RelationType.ManyToMany)]
-        public XPCollection<XpandJobDetail> JobDetails {
+
+        [Association("JobListenerTrigger-JobDetailJobListenerTriggerLinks"), AggregatedAttribute]
+        protected IList<JobDetailJobListenerTriggerLink> Links {
             get {
-                return GetCollection<XpandJobDetail>("JobDetails");
+                return GetList<JobDetailJobListenerTriggerLink>("Links");
             }
         }
+        [ManyToManyAlias("Links", "JobDetail")]
+        public IList<XpandJobDetail> JobDetails {
+            get { return GetList<XpandJobDetail>("JobDetails"); }
+        }
 
+        IList<IJobDetail> IJobDetails.JobDetails {
+            get { return new ListConverter<IJobDetail, XpandJobDetail>(JobDetails); }
+        }
     }
 }

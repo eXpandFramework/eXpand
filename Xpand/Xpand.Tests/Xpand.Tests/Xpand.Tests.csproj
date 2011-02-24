@@ -138,6 +138,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Logic, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.ModelArtifactState, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
@@ -180,10 +184,9 @@
       <HintPath>..\..\..\Xpand.Dll\Xpand.Persistent.Base.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.Persistent.BaseImpl, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.BaseImpl, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Xpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -252,6 +255,7 @@
     <Compile Include="Xpand.IO\ModelBuilder.cs" />
     <Compile Include="Xpand.JobScheduler\Contexts.cs" />
     <Compile Include="Xpand.JobScheduler\JobDetailSpecs.cs" />
+    <Compile Include="Xpand.JobScheduler\JobListenerTriggerSpecs.cs" />
     <Compile Include="Xpand.JobScheduler\JobTriggerSpecs.cs" />
     <Compile Include="Xpand.Utils\Contexts.cs" />
     <Compile Include="Xpand.Utils\ExpressionTransformerSpecs.cs" />
@@ -314,12 +318,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj">
-      <Project>{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}</Project>
-      <Name>Xpand.ExpressApp.Logic</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Xpand.IO\Resources\1toMany.xml" />

@@ -33,7 +33,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
             set { JobTrigger=value as XpandJobTrigger; }
         }
 
-        IJobDetail IJobDetailTriggerLink.JobDetail {
+        IJobDetail ISupportJobDetail.JobDetail {
             get { return JobDetail; }
             set { JobDetail=value as XpandJobDetail; }
         }

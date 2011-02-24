@@ -12,5 +12,6 @@ namespace Xpand.Persistent.Base.JobScheduler {
         bool Volatile { get; set; }
         bool Durable { get; set; }
         IList<IJobTrigger> JobTriggers { get; }
+        IList<IJobListenerTrigger> JobListenerTriggers { get; }
     }
 }
