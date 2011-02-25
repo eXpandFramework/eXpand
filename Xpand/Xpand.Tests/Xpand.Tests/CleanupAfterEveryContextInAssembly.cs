@@ -4,8 +4,7 @@ using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
 
 namespace Xpand.Tests {
-    public class CleanupAfterEveryContextInAssembly : ICleanupAfterEveryContextInAssembly
-    {
+    public class CleanupAfterEveryContextInAssembly : ICleanupAfterEveryContextInAssembly {
         public void AfterContextCleanup() {
             Isolate.CleanUp();
             ReflectionHelper.Reset();

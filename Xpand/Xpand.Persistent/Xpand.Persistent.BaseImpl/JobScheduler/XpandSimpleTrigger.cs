@@ -7,11 +7,23 @@ using Xpand.Persistent.Base.JobScheduler;
 namespace Xpand.Persistent.BaseImpl.JobScheduler {
     [DefaultClassOptions]
     [System.ComponentModel.DisplayName("SimpleTrigger")]
-    public class XpandSimpleTrigger : XpandJobTrigger, IXpandSimpleTrigger {
+    public class XpandSimpleTrigger : XpandJobTrigger, ISimpleTrigger {
         public XpandSimpleTrigger(Session session)
             : base(session) {
         }
         private SimpleTriggerMisfireInstruction _misfireInstruction;
+
+        void ISimpleTrigger.SetFinalFireTimeUtc(DateTime? dateTime) {
+            _finalFireTimeUtc=dateTime;
+            if (dateTime != null) 
+                StartTimeUtc = dateTime.Value;
+        }
+
+        [DisplayDateAndTime]
+        public DateTime Now {
+            get { return DateTime.UtcNow; }
+        }
+        
         [Tooltip("Get or set the instruction the IScheduler should be given for handling misfire situations for this Trigger- the concrete Trigger type that you are using will have defined a set of additional MISFIRE_INSTRUCTION_XXX constants that may be passed to this method. ")]
         public SimpleTriggerMisfireInstruction MisfireInstruction {
             get {
@@ -51,14 +63,14 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("TimesTriggered", ref _timesTriggered, value);
             }
         }
+        [Persistent("FinalFireTimeUtc")]
         private DateTime? _finalFireTimeUtc;
         [Tooltip("Returns the final UTC time at which the SimpleTrigger will fire, if repeatCount is RepeatIndefinitely, null will be returned. Note that the return time may be in the past. ")]
+        
+        [DisplayDateAndTime]
         public DateTime? FinalFireTimeUtc {
             get {
                 return _finalFireTimeUtc;
-            }
-            set {
-                SetPropertyValue("FinalFireTimeUtc", ref _finalFireTimeUtc, value);
             }
         }
     }

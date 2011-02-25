@@ -2,7 +2,8 @@ using System;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.Persistent.Base.JobScheduler {
-    public interface IXpandSimpleTrigger : IJobTrigger {
+    public interface ISimpleTrigger : IJobTrigger {
+        void SetFinalFireTimeUtc(DateTime? dateTime);
         SimpleTriggerMisfireInstruction MisfireInstruction { get; set; }
 
         int RepeatCount { get; set; }
@@ -12,7 +13,8 @@ namespace Xpand.Persistent.Base.JobScheduler {
 
         int TimesTriggered { get; set; }
 
-        DateTime? FinalFireTimeUtc { get; set; }
+        DateTime? FinalFireTimeUtc { get; }
+        
     }
     public enum SimpleTriggerMisfireInstruction {
         InstructionNotSet,

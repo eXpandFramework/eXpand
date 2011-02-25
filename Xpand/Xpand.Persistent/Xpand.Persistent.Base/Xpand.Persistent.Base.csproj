@@ -97,6 +97,7 @@
     <Compile Include="DifferenceType.cs" />
     <Compile Include="ExceptionHandling\IExceptionObject.cs" />
     <Compile Include="General\DataStoreAttribute.cs" />
+    <Compile Include="General\DisplayDateAndTime.cs" />
     <Compile Include="General\ICustomAttribute.cs" />
     <Compile Include="General\IFastManyToMany .cs" />
     <Compile Include="General\ISupportViewId.cs" />
@@ -127,7 +128,7 @@
     <Compile Include="JobScheduler\IJobDetailTriggerLink.cs" />
     <Compile Include="JobScheduler\IJobListenerTrigger.cs" />
     <Compile Include="JobScheduler\ISupportJobDetail.cs" />
-    <Compile Include="JobScheduler\IXpandSimpleTrigger.cs" />
+    <Compile Include="JobScheduler\ISimpleTrigger.cs" />
     <Compile Include="JobScheduler\IJobTrigger.cs" />
     <Compile Include="JobScheduler\JobTypeAttribute.cs" />
     <Compile Include="MemberLevelSecurity\IMemberLevelSecurityModule.cs" />

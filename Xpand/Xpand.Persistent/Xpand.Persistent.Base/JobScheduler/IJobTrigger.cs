@@ -8,8 +8,6 @@ namespace Xpand.Persistent.Base.JobScheduler {
 
     public interface IJobTrigger:IJobDetails {
         string Name { get; set; }
-        string Group { get; set; }
-
         string Description { get; set; }
 
         string CalendarName { get; set; }
@@ -21,6 +19,7 @@ namespace Xpand.Persistent.Base.JobScheduler {
         DateTime StartTimeUtc { get; set; }
 
         TriggerPriority Priority { get; set; }
+        
     }
     public enum TriggerPriority {
         Default = 5

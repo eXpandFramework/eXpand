@@ -8,7 +8,7 @@ using Xpand.Persistent.Base.JobScheduler;
 namespace Xpand.ExpressApp.JobScheduler {
     public class JobTriggerController : SupportSchedulerController {
         public JobTriggerController() {
-            TargetObjectType = typeof(IXpandSimpleTrigger);
+            TargetObjectType = typeof(ISimpleTrigger);
         }
         protected override void OnActivated() {
             base.OnActivated();
@@ -19,19 +19,19 @@ namespace Xpand.ExpressApp.JobScheduler {
             ObjectSpace.Committing -= ObjectSpaceOnCommitting;
         }
         void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
-            ObjectSpace.GetObjectsToUpdate<IXpandSimpleTrigger>().ToList().ForEach(UpdateTriggers);
+            ObjectSpace.GetObjectsToUpdate<ISimpleTrigger>().ToList().ForEach(UpdateTriggers);
         }
 
-        void UpdateTriggers(IXpandSimpleTrigger obj) {
+        void UpdateTriggers(ISimpleTrigger obj) {
             obj.JobDetails.Select(detail => Scheduler.GetJobDetail(detail)).ToList().ForEach(
                 jobDetail =>Scheduler.GetTriggersOfJob(jobDetail.Name, jobDetail.Group).OfType<SimpleTrigger>().ToList().ForEach(
                     Update(obj)));
         }
 
-        Action<SimpleTrigger> Update(IXpandSimpleTrigger obj) {
+        Action<SimpleTrigger> Update(ISimpleTrigger obj) {
             return trigger => {
-                Mapper.AssignTrigger(trigger, obj, trigger.JobName, trigger.JobGroup);
-                Scheduler.Resources.JobStore.StoreTrigger(Scheduler.SchedulingContext, trigger, false);
+                Mapper.AssignTrigger(trigger, obj, trigger.JobName, TypesInfo.FindTypeInfo(trigger.JobGroup).Type);
+                Scheduler.StoreTrigger(trigger);
             };
         }
     }

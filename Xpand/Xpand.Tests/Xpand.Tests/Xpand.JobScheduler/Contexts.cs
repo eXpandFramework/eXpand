@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading;
 using DevExpress.ExpressApp;
+using Machine.Specifications;
 using Quartz;
 using TypeMock.ArrangeActAssert;
 using Xpand.ExpressApp.JobScheduler;
@@ -45,7 +47,6 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             ObjectSpace = detailView.ObjectSpace;
             Object.JobType = typeof(DummyJob);
             Object.Name = "name";
-            Object.Group = "group";
         }
 
     }
@@ -56,14 +57,14 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             var jobSchedulerModule = new JobSchedulerModule();
             var scheduler = new XpandSchedulerFactory().GetScheduler();
             Isolate.WhenCalled(() => jobSchedulerModule.Scheduler).WillReturn((XpandScheduler) scheduler);
-            jobSchedulerModule.Setup(new ApplicationModulesManager());
-            Scheduler = jobSchedulerModule.Scheduler;
+//            jobSchedulerModule.Setup(new ApplicationModulesManager());
+            Scheduler = (XpandScheduler) scheduler;
             window.Application.Modules.Add(jobSchedulerModule);
         }
         protected override System.Collections.Generic.List<Controller> GetControllers() {
             var controllers = base.GetControllers();
             controllers.Add(new JobDetailController());
-            controllers.Add(new JobSchedulerController());
+            controllers.Add(new JobTriggerLinkController());
             controllers.Add(new JobTriggerController());
             return controllers;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -15,7 +16,8 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
 
     [DefaultClassOptions]
     [System.ComponentModel.DisplayName("JobDetail")]
-    public class XpandJobDetail : XpandCustomObject, IJobDetail {
+    [Appearance("Disable_Name_For_XpandJobDetail_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Name", Enabled = false)]
+    public class XpandJobDetail : XpandCustomObject, IJobDetail,IFastManyToMany {
         public XpandJobDetail(Session session)
             : base(session) {
         }
@@ -40,16 +42,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
             }
         }
 
-        private string _group;
-        [Tooltip(@"Get or sets the group of this IJob. If null, ""DEFAULT"" will be used. ")]
-        public string Group {
-            get {
-                return _group;
-            }
-            set {
-                SetPropertyValue("Group", ref _group, value);
-            }
-        }
+        
         private string _description;
         [Size(SizeAttribute.Unlimited)]
         public string Description {
@@ -102,16 +95,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("Volatile", ref _volatile, value);
             }
         }
-        private bool _durable;
-        [Tooltip("Whether or not the IJob should remain stored after it is orphaned (no Triggers point to it). If not explicitly set, the default value is false. ")]
-        public bool Durable {
-            get {
-                return _durable;
-            }
-            set {
-                SetPropertyValue("Durable", ref _durable, value);
-            }
-        }
+        
         [Association("JobDetailTriggerLink-Triggers")]
         protected IList<JobDetailTriggerLink> TriggerLinks {
             get {

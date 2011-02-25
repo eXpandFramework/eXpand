@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -24,11 +25,13 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         [Tooltip(@"Instructs the IScheduler that upon a mis-fire situation, the CronTrigger wants to have it's next-fire-time updated to the next time in the schedule after the current time (taking into account any associated ICalendar, but it does not want to be fired now.")]
         CronTriggerDoNothing,
     }
-    public abstract class XpandJobTrigger : XpandCustomObject, IJobTrigger {
+    [Appearance("Disable_Name_For_XpandJobTrigger_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false",TargetItems = "Name",Enabled = false)]
+    public abstract class XpandJobTrigger : XpandCustomObject, IJobTrigger,IFastManyToMany {
         protected XpandJobTrigger(Session session)
             : base(session) {
         }
         private string _name;
+        [RuleRequiredField]
         public string Name {
             get {
                 return _name;
@@ -37,15 +40,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("Name", ref _name, value);
             }
         }
-        private string _group;
-        public string Group {
-            get {
-                return _group;
-            }
-            set {
-                SetPropertyValue("Group", ref _group, value);
-            }
-        }
+        
 
         private string _description;
         [Size(SizeAttribute.Unlimited)]
@@ -90,6 +85,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
 
         private DateTime? _endTimeUtc;
         [Tooltip("Returns the date/time on which the trigger must stop firing. This defines the final boundary for trigger firings 舒 the trigger will not fire after to this date and time. If this value is null, no end time boundary is assumed, and the trigger can continue indefinitely. Sets the date/time on which the trigger must stop firing. This defines the final boundary for trigger firings 舒 the trigger will not fire after to this date and time. If this value is null, no end time boundary is assumed, and the trigger can continue indefinitely. ")]
+        [DisplayDateAndTime]
         public DateTime? EndTimeUtc {
             get {
                 return _endTimeUtc;
@@ -103,6 +99,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
 Remarks:
 Setting a value in the past may cause a new trigger to compute a first fire time that is in the past, which may cause an immediate misfire of the trigger.")]
         [RuleRequiredField]
+        [DisplayDateAndTime]
         public DateTime StartTimeUtc {
             get {
                 return _startTimeUtc;
@@ -120,6 +117,8 @@ Setting a value in the past may cause a new trigger to compute a first fire time
                 SetPropertyValue("Priority", ref _priority, value);
             }
         }
+        
+
         [Association("JobDetailTriggerLink-JobDetails"),Aggregated]
         protected IList<JobDetailTriggerLink> Links {
             get {

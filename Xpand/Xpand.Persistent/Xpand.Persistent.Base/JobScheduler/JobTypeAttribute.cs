@@ -1,6 +1,7 @@
 ﻿using System;
 
 namespace Xpand.Persistent.Base.JobScheduler {
+    [AttributeUsage(AttributeTargets.Class,AllowMultiple = false)]
     public class JobTypeAttribute : Attribute {
         readonly Type _type;
 
@@ -9,7 +10,9 @@ namespace Xpand.Persistent.Base.JobScheduler {
         }
 
         public Type Type {
-            get { return _type; }
+            get {
+                return _type;
+            }
         }
     }
 }
