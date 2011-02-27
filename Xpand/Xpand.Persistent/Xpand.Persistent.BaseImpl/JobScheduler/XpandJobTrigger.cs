@@ -7,6 +7,7 @@ using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Xpo;
+using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler {
     public enum NthIncludedDayTriggerMisfireInstruction {
@@ -71,16 +72,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("JobDataMap", ref _jobDataMap, value);
             }
         }
-        private bool _volatile;
-        [Tooltip("Whether or not the Trigger should be persisted in the IJobStore for re-use after program restarts. ")]
-        public bool Volatile {
-            get {
-                return _volatile;
-            }
-            set {
-                SetPropertyValue("Volatile", ref _volatile, value);
-            }
-        }
+        
 
 
         private DateTime? _endTimeUtc;
@@ -98,8 +90,9 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         [Tooltip(@"The time at which the trigger's scheduling should start. May or may not be the first actual fire time of the trigger, depending upon the type of trigger and the settings of the other properties of the trigger. However the first actual first time will not be before this date. 
 Remarks:
 Setting a value in the past may cause a new trigger to compute a first fire time that is in the past, which may cause an immediate misfire of the trigger.")]
-        [RuleRequiredField]
+//        [RuleRequiredField]
         [DisplayDateAndTime]
+        [ValueConverter(typeof(SqlDateTimeOverFlowValueConverter))]
         public DateTime StartTimeUtc {
             get {
                 return _startTimeUtc;
@@ -120,12 +113,12 @@ Setting a value in the past may cause a new trigger to compute a first fire time
         
 
         [Association("JobDetailTriggerLink-JobDetails"),Aggregated]
-        protected IList<JobDetailTriggerLink> Links {
+        protected IList<JobDetailTriggerLink> JobDetailTriggerLinks {
             get {
-                return GetList<JobDetailTriggerLink>("Links");
+                return GetList<JobDetailTriggerLink>("JobDetailTriggerLinks");
             }
         }
-        [ManyToManyAlias("Links", "JobDetail")]
+        [ManyToManyAlias("JobDetailTriggerLinks", "JobDetail")]
         public IList<XpandJobDetail> JobDetails {
             get { return GetList<XpandJobDetail>("JobDetails"); }
         }

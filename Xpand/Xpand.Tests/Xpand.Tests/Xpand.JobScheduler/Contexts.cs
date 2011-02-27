@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using DevExpress.ExpressApp;
 using Machine.Specifications;
 using Quartz;
@@ -10,6 +9,23 @@ using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
+    public class With_Scheduler {
+        protected static JobDetail JobDetail;
+        protected static int JobExecutedCount;
+        protected static XpandScheduler Scheduler;
+
+        Establish context = () => {
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory();
+            Scheduler = (XpandScheduler)stdSchedulerFactory.GetScheduler();
+            JobDetail = new JobDetail("jb", typeof(DummyJob).FullName, typeof(DummyJob));
+            Scheduler.StoreJob(JobDetail);
+
+            var dummyJob = new DummyJob();
+            Isolate.Swap.NextInstance<DummyJob>().With(dummyJob);
+            Isolate.WhenCalled(() => dummyJob.Execute(null)).DoInstead(callContext => JobExecutedCount++);
+        };
+    }
+
     [JobType(typeof(DummyJob))]
     public class DummyJobListener : IJobListener {
         public void JobToBeExecuted(JobExecutionContext context) {
@@ -45,7 +61,8 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         protected override void ViewCreated(DetailView detailView) {
             base.ViewCreated(detailView);
             ObjectSpace = detailView.ObjectSpace;
-            Object.JobType = typeof(DummyJob);
+            Object.Job = ObjectSpace.CreateObject<XpandJob>();
+            Object.Job.JobType = typeof(DummyJob);
             Object.Name = "name";
         }
 
@@ -56,9 +73,9 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             base.WindowCreated(window);
             var jobSchedulerModule = new JobSchedulerModule();
             var scheduler = new XpandSchedulerFactory().GetScheduler();
-            Isolate.WhenCalled(() => jobSchedulerModule.Scheduler).WillReturn((XpandScheduler) scheduler);
-//            jobSchedulerModule.Setup(new ApplicationModulesManager());
-            Scheduler = (XpandScheduler) scheduler;
+            Isolate.WhenCalled(() => jobSchedulerModule.Scheduler).WillReturn((XpandScheduler)scheduler);
+            //            jobSchedulerModule.Setup(new ApplicationModulesManager());
+            Scheduler = (XpandScheduler)scheduler;
             window.Application.Modules.Add(jobSchedulerModule);
         }
         protected override System.Collections.Generic.List<Controller> GetControllers() {

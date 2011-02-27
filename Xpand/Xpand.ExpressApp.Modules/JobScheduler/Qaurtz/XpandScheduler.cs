@@ -6,7 +6,7 @@ using Quartz.Spi;
 using Xpand.Persistent.Base.JobScheduler;
 
 namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
-    
+
     public class XpandScheduler : StdScheduler {
         readonly QuartzSchedulerResources _resources;
         readonly SchedulingContext _schedulingContext;
@@ -25,35 +25,35 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
         QuartzSchedulerResources Resources {
             get { return _resources; }
         }
-        
+
         public IJobStore JobStore {
             get { return Resources.JobStore; }
         }
 
         public override void Start() {
             base.Start();
-            if (GetJobListener(typeof(XpandJobListener).Name)==null)
+            if (GetJobListener(typeof(XpandJobListener).Name) == null)
                 AddJobListener(new XpandJobListener());
         }
 
         public JobDetail GetJobDetail(IJobDetail jobDetail) {
-            return GetJobDetail(jobDetail.Name, jobDetail.JobType) ;
+            return GetJobDetail(jobDetail.Name, jobDetail.Job.JobType);
         }
 
         public void TriggerJob(IJobDetail jobDetail) {
-            TriggerJob(jobDetail.Name, jobDetail.JobType.FullName);
+            TriggerJob(jobDetail.Name, jobDetail.Job.JobType.FullName);
         }
 
         public Trigger[] GetTriggersOfJob(IJobDetail jobDetail) {
-            return GetTriggersOfJob(jobDetail.Name, jobDetail.JobType.FullName);
+            return GetTriggersOfJob(jobDetail.Name, jobDetail.Job.JobType.FullName);
         }
 
         public virtual bool DeleteJob(IJobDetail jobDetail) {
-            return DeleteJob(jobDetail.Name, jobDetail.JobType.FullName);
+            return DeleteJob(jobDetail.Name, jobDetail.Job.JobType.FullName);
         }
 
-        public bool UnscheduleJob(string triggerName, Type jobType) {
-            return UnscheduleJob(triggerName, jobType.FullName);
+        public bool UnscheduleJob(string triggerName, Type jobType, string jobName) {
+            return UnscheduleJob(triggerName, Mapper.GetGroup(jobName,jobType));
         }
 
         public void StoreJob(IJobDetail xpandJobDetail) {
@@ -64,6 +64,7 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
         }
 
         public void StoreJob(JobDetail jobDetail) {
+            jobDetail.Durable = true;
             Resources.JobStore.StoreJob(SchedulingContext, jobDetail, true);
         }
 

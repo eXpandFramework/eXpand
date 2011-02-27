@@ -18,17 +18,18 @@ namespace Xpand.ExpressApp.JobScheduler {
         public static void AssignTrigger(SimpleTrigger jobTrigger, ISimpleTrigger trigger, string jobName, Type type) {
             jobTrigger.EndTimeUtc = trigger.EndTimeUtc;
             jobTrigger.MisfireInstruction = (int)trigger.MisfireInstruction;
-            jobTrigger.Volatile = trigger.Volatile;
-            jobTrigger.RepeatInterval = trigger.RepeatInterval;
+            if (trigger.RepeatInterval.HasValue)
+                jobTrigger.RepeatInterval = trigger.RepeatInterval.Value;
             jobTrigger.Priority = (int)trigger.Priority;
             jobTrigger.CalendarName = trigger.CalendarName;
             jobTrigger.JobDataMap = new JobDataMap();
-            jobTrigger.StartTimeUtc = DateTime.UtcNow;
-            jobTrigger.RepeatCount = trigger.RepeatCount;
+            jobTrigger.StartTimeUtc = trigger.StartTimeUtc;
+            if (trigger.RepeatCount.HasValue)
+                jobTrigger.RepeatCount = trigger.RepeatCount.Value;
             jobTrigger.Description = trigger.Description;
             jobTrigger.JobName = jobName;
             jobTrigger.JobGroup = type.FullName;
-            jobTrigger.Group = type.FullName + "." + jobName;
+            jobTrigger.Group = GetGroup(jobName, type);
             trigger.SetFinalFireTimeUtc(jobTrigger.FinalFireTimeUtc);
         }
 
@@ -43,12 +44,15 @@ namespace Xpand.ExpressApp.JobScheduler {
         public static void AssignJobDetail(JobDetail jobDetail, IJobDetail xpandJobDetail) {
             jobDetail.Name = xpandJobDetail.Name;
             jobDetail.Description = xpandJobDetail.Description;
-            jobDetail.Group = xpandJobDetail.JobType.FullName;
-            jobDetail.JobType = xpandJobDetail.JobType;
+            jobDetail.Group = xpandJobDetail.Job.JobType.FullName;
+            jobDetail.JobType = xpandJobDetail.Job.JobType;
             jobDetail.RequestsRecovery = xpandJobDetail.RequestsRecovery;
             jobDetail.Volatile = xpandJobDetail.Volatile;
         }
 
-        
+
+        public static string GetGroup(string jobName, Type jobType) {
+            return string.Format("{0}.{1}", jobType.FullName, jobName);
+        }
     }
 }

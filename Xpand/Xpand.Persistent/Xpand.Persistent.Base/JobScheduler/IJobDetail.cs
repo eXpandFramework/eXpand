@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Xpand.Persistent.Base.JobScheduler {
@@ -6,7 +5,7 @@ namespace Xpand.Persistent.Base.JobScheduler {
         string Name { get; set; }
         bool Stateful { get; }
         string Description { get; set; }
-        Type JobType { get; set; }
+        IXpandJob Job { get; set; }
         bool RequestsRecovery { get; set; }
         bool Volatile { get; set; }
         IList<IJobTrigger> JobTriggers { get; }

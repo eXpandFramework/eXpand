@@ -6,10 +6,10 @@ namespace Xpand.Persistent.Base.JobScheduler {
         void SetFinalFireTimeUtc(DateTime? dateTime);
         SimpleTriggerMisfireInstruction MisfireInstruction { get; set; }
 
-        int RepeatCount { get; set; }
+        int? RepeatCount { get; set; }
 
 
-        TimeSpan RepeatInterval { get; set; }
+        TimeSpan? RepeatInterval { get; set; }
 
         int TimesTriggered { get; set; }
 

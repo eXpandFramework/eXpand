@@ -15,7 +15,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
                 _jobDetail.ShouldNotBeNull();
             };
 
-        It should_have_as_group_the_jobtype_plus_the_name_of_the_job_Detail = () => _jobDetail.Group.ShouldEqual(Object.JobType.FullName);
+        It should_have_as_group_the_jobtype_plus_the_name_of_the_job_Detail = () => _jobDetail.Group.ShouldEqual(Object.Job.JobType.FullName);
 
         It should_have_a_new_job_listener = () => {
             Scheduler.GetJobDetail(Object).JobListenerNames.First().ShouldEqual("DummyJobListener");

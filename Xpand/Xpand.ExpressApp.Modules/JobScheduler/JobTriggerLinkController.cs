@@ -40,12 +40,12 @@ namespace Xpand.ExpressApp.JobScheduler {
 
         void AddJobListeners(IJobDetailJobListenerTriggerLink link) {
             List<IJobDetail> jobDetails = GetRelatedJobDetails(link.JobListenerTrigger.JobType);
-            jobDetails.ForEach(detail => GetListenerDataMap(detail, AddJobListener, link.JobDetail.Name, link.JobDetail.JobType, link.JobListenerTrigger.Event));
+            jobDetails.ForEach(detail => GetListenerDataMap(detail, AddJobListener, link.JobDetail.Name, link.JobDetail.Job.JobType, link.JobListenerTrigger.Event));
         }
 
         List<IJobDetail> GetRelatedJobDetails(Type jobType) {
             var type = TypesInfo.FindBussinessObjectType<IJobDetail>();
-            var criteriaOperator = CriteriaOperator.Parse("JobType=?", jobType);
+            var criteriaOperator = CriteriaOperator.Parse("Job.JobType=?", jobType);
             return ObjectSpace.GetObjects(type, criteriaOperator).OfType<IJobDetail>().ToList();
         }
 
@@ -56,7 +56,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         void UnscheduleJob(JobDetailInfo jobDetailInfo) {
-            Scheduler.UnscheduleJob(jobDetailInfo.TriggerName, jobDetailInfo.JobType);
+            Scheduler.UnscheduleJob(jobDetailInfo.TriggerName, jobDetailInfo.JobType,jobDetailInfo.JobName);
         }
 
         void Save() {
@@ -87,7 +87,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         void ScheduleJob(IJobDetailTriggerLink link) {
-            var simpleTrigger = Mapper.GetSimpleTrigger(link.JobTrigger, link.JobDetail.Name, link.JobDetail.JobType);
+            var simpleTrigger = Mapper.GetSimpleTrigger(link.JobTrigger, link.JobDetail.Name, link.JobDetail.Job.JobType);
             Scheduler.ScheduleJob(simpleTrigger);
         }
     }
@@ -109,8 +109,8 @@ namespace Xpand.ExpressApp.JobScheduler {
                 JobType = jobListenerTrigger.JobType;
                 _listenerEvent = jobListenerTrigger.Event;
             }
-            else JobType = supportJobDetail.JobDetail.JobType;
-            OriginType = supportJobDetail.JobDetail.JobType;
+            else JobType = supportJobDetail.JobDetail.Job.JobType;
+            OriginType = supportJobDetail.JobDetail.Job.JobType;
         }
 
         public JobListenerEvent ListenerEvent {

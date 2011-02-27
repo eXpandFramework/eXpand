@@ -123,6 +123,7 @@
     <Compile Include="IXpoModelDifference.cs" />
     <Compile Include="General\IObsoleteTreeNode.cs" />
     <Compile Include="General\IPictureItem.cs" />
+    <Compile Include="JobScheduler\IXpandJob.cs" />
     <Compile Include="JobScheduler\IJobDetail.cs" />
     <Compile Include="JobScheduler\IJobDetailJobListenerTriggerLink.cs" />
     <Compile Include="JobScheduler\IJobDetailTriggerLink.cs" />

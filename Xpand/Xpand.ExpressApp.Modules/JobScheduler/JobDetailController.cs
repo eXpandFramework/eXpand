@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         Func<ITypeInfo, bool> IsRelatedTo(IJobDetail jobDetail) {
             return info => {
                 var jobTypeAttribute = info.FindAttribute<JobTypeAttribute>();
-                return jobTypeAttribute != null && jobTypeAttribute.Type == jobDetail.JobType;
+                return jobTypeAttribute != null && jobTypeAttribute.Type == jobDetail.Job.JobType;
             };
         }
 

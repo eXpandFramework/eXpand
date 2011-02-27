@@ -14,7 +14,8 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         Establish context = () => {
             ObjectSpace.CommitChanges();
             var xpandJobDetail = ObjectSpace.CreateObject<XpandJobDetail>();
-            xpandJobDetail.JobType = typeof(DummyJob2);
+            xpandJobDetail.Job = ObjectSpace.CreateObject<XpandJob>();
+            xpandJobDetail.Job.JobType = typeof(DummyJob2);
             xpandJobDetail.Name = "name2";
             var jobListenerTrigger = ObjectSpace.CreateObject<JobListenerTrigger>();
             jobListenerTrigger.JobType = typeof(DummyJob);
@@ -37,7 +38,8 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         Establish context = () => {
             ObjectSpace.CommitChanges();
             var xpandJobDetail = ObjectSpace.CreateObject<XpandJobDetail>();
-            xpandJobDetail.JobType = typeof(DummyJob2);
+            xpandJobDetail.Job = ObjectSpace.CreateObject<XpandJob>();
+            xpandJobDetail.Job.JobType = typeof(DummyJob2);
             xpandJobDetail.Name = "name2";
             var jobListenerTrigger = ObjectSpace.CreateObject<JobListenerTrigger>();
             jobListenerTrigger.JobType = typeof(DummyJob);

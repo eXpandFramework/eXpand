@@ -5,7 +5,7 @@ using Machine.Specifications;
 using Quartz;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 
-namespace Xpand.Tests.Xpand.JobScheduler {
+namespace Xpand.Tests.Xpand.JobScheduler{
     public class When_JobTrigger_is_linked_with_jobdetail : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_is_linked_with_jobdetail> {
         static XpandSimpleTrigger _xpandSimpleTrigger;
 
@@ -28,7 +28,8 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         Establish context = () => {
             var jobDetail = ObjectSpace.CreateObject<XpandJobDetail>();
             jobDetail.Name = "jb2";
-            jobDetail.JobType = typeof (DummyJob);
+            jobDetail.Job = ObjectSpace.CreateObject<XpandJob>();
+            jobDetail.Job.JobType = typeof(DummyJob);
 
             var xpandSimpleTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
             xpandSimpleTrigger.Name = "trigger";
@@ -38,13 +39,19 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         Because of = () => ObjectSpace.CommitChanges();
 
         It should_add_one_trigger_with_trigger_group_same_as_first_jobdetail_group_plus_name =
-            () => Scheduler.GetTrigger("trigger", typeof (DummyJob).FullName +"."+ Object.Name).ShouldNotBeNull();
+            () => Scheduler.GetTrigger("trigger", typeof(DummyJob).FullName + "." + Object.Name).ShouldNotBeNull();
         It should_add_one_trigger_with_trigger_group_same_as_second_jobdetail_group_plus_name =
-            () => Scheduler.GetTrigger("trigger", typeof (DummyJob).FullName +".jb2").ShouldNotBeNull();
+            () => Scheduler.GetTrigger("trigger", typeof(DummyJob).FullName + ".jb2").ShouldNotBeNull();
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
     public class When_JobTrigger_is_deleted : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_is_deleted> {
         static IObjectSpace _objectSpace;
+
+        protected override System.Collections.Generic.IList<Type> GetDomaincomponentTypes() {
+            var domaincomponentTypes = base.GetDomaincomponentTypes();
+            domaincomponentTypes.Add(typeof(XpandSimpleTrigger));
+            return domaincomponentTypes;
+        }
 
         Establish context = () => {
 
@@ -59,12 +66,6 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             Window.SetView(detailView);
             _objectSpace.Delete(xpandSimpleTrigger);
         };
-
-        protected override System.Collections.Generic.IList<Type> GetDomaincomponentTypes() {
-            var domaincomponentTypes = base.GetDomaincomponentTypes();
-            domaincomponentTypes.Add(typeof(XpandSimpleTrigger));
-            return domaincomponentTypes;
-        }
 
         Because of = () => _objectSpace.CommitChanges();
 

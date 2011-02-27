@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
@@ -7,7 +6,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Quartz;
-using Xpand.ExpressApp.Core;
+using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Xpo;
@@ -17,7 +16,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
     [DefaultClassOptions]
     [System.ComponentModel.DisplayName("JobDetail")]
     [Appearance("Disable_Name_For_XpandJobDetail_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Name", Enabled = false)]
-    public class XpandJobDetail : XpandCustomObject, IJobDetail,IFastManyToMany {
+    public class XpandJobDetail : XpandCustomObject, IJobDetail, IFastManyToMany {
         public XpandJobDetail(Session session)
             : base(session) {
         }
@@ -35,14 +34,14 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         [Tooltip("Whether or not the IJob implements the interface IStatefulJob.")]
         public virtual bool Stateful {
             get {
-                if (_jobType == null) {
+                if (_job == null) {
                     return false;
                 }
-                return (XafTypesInfo.Instance.FindTypeInfo(typeof(IStatefulJob)).Type.IsAssignableFrom(_jobType));
+                return (XafTypesInfo.Instance.FindTypeInfo(typeof(IStatefulJob)).Type.IsAssignableFrom(_job.JobType));
             }
         }
 
-        
+
         private string _description;
         [Size(SizeAttribute.Unlimited)]
         public string Description {
@@ -53,18 +52,22 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("Description", ref _description, value);
             }
         }
-        private Type _jobType;
+        private XpandJob _job;
+        [ProvidedAssociation("XpandJob-XpandJobDetails")]
         [RuleRequiredField]
-        [ValueConverter(typeof(TypeValueConverter))]
-        [TypeConverter(typeof(JobTypeClassInfoConverter))]
-        public Type JobType {
+        public XpandJob Job {
             get {
-                return _jobType;
+                return _job;
             }
             set {
-                SetPropertyValue("JobType", ref _jobType, value);
+                SetPropertyValue("Job", ref _job, value);
             }
         }
+        IXpandJob IJobDetail.Job {
+            get { return _job; }
+            set { _job=value as XpandJob; }
+        }
+
         private XpandJobDataMap _jobDataMap;
         [Browsable(false)]
         public XpandJobDataMap JobDataMap {
@@ -95,7 +98,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("Volatile", ref _volatile, value);
             }
         }
-        
+
         [Association("JobDetailTriggerLink-Triggers")]
         protected IList<JobDetailTriggerLink> TriggerLinks {
             get {

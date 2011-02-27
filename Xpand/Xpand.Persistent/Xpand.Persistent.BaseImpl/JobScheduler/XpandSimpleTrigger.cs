@@ -1,8 +1,10 @@
 ﻿using System;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.JobScheduler;
+using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler {
     [DefaultClassOptions]
@@ -15,11 +17,11 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         public override void AfterConstruction() {
             base.AfterConstruction();
             Name = "tr";
-            StartTimeUtc=DateTime.UtcNow;
+            StartTimeUtc = DateTime.UtcNow;
         }
         void ISimpleTrigger.SetFinalFireTimeUtc(DateTime? dateTime) {
-            _finalFireTimeUtc=dateTime;
-            if (dateTime != null) 
+            _finalFireTimeUtc = dateTime;
+            if (dateTime != null)
                 StartTimeUtc = dateTime.Value;
         }
 
@@ -27,7 +29,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         public DateTime Now {
             get { return DateTime.UtcNow; }
         }
-        
+
         [Tooltip("Get or set the instruction the IScheduler should be given for handling misfire situations for this Trigger- the concrete Trigger type that you are using will have defined a set of additional MISFIRE_INSTRUCTION_XXX constants that may be passed to this method. ")]
         public SimpleTriggerMisfireInstruction MisfireInstruction {
             get {
@@ -37,9 +39,10 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("MisfireInstruction", ref _misfireInstruction, value);
             }
         }
-        private int _repeatCount;
+        private int? _repeatCount;
         [Tooltip("Get or set thhe number of times the SimpleTrigger should repeat, after which it will be automatically deleted. ")]
-        public int RepeatCount {
+        [RuleRequiredField(TargetCriteria = "RepeatInterval is not null")]
+        public int? RepeatCount {
             get {
                 return _repeatCount;
             }
@@ -47,9 +50,10 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("RepeatCount", ref _repeatCount, value);
             }
         }
-        private TimeSpan _repeatInterval;
+        private TimeSpan? _repeatInterval;
+        [RuleRequiredField(TargetCriteria = "RepeatCount is not null")]
         [Tooltip("Get or set the the time interval at which the SimpleTrigger should repeat. ")]
-        public TimeSpan RepeatInterval {
+        public TimeSpan? RepeatInterval {
             get {
                 return _repeatInterval;
             }
@@ -68,9 +72,10 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
             }
         }
         [Persistent("FinalFireTimeUtc")]
+        [ValueConverter(typeof(SqlDateTimeOverFlowValueConverter))]
         private DateTime? _finalFireTimeUtc;
         [Tooltip("Returns the final UTC time at which the SimpleTrigger will fire, if repeatCount is RepeatIndefinitely, null will be returned. Note that the return time may be in the past. ")]
-        
+
         [DisplayDateAndTime]
         public DateTime? FinalFireTimeUtc {
             get {

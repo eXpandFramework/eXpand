@@ -173,6 +173,7 @@
     <Compile Include="JobScheduler\JobDetailJobListenerTriggerLink.cs" />
     <Compile Include="JobScheduler\JobDetailTriggerLink.cs" />
     <Compile Include="JobScheduler\JobTypeClassInfoConverter.cs" />
+    <Compile Include="JobScheduler\XpandJob.cs" />
     <Compile Include="PersistentMetaData\CodeTemplate.cs" />
     <Compile Include="PersistentMetaData\CodeTemplateInfo.cs" />
     <Compile Include="PersistentMetaData\ExtendedOrphanedCollection.cs" />
