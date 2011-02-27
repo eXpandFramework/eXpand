@@ -12,7 +12,11 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
             : base(session) {
         }
         private SimpleTriggerMisfireInstruction _misfireInstruction;
-
+        public override void AfterConstruction() {
+            base.AfterConstruction();
+            Name = "tr";
+            StartTimeUtc=DateTime.UtcNow;
+        }
         void ISimpleTrigger.SetFinalFireTimeUtc(DateTime? dateTime) {
             _finalFireTimeUtc=dateTime;
             if (dateTime != null) 

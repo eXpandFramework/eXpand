@@ -2,18 +2,18 @@ using System.Collections.Specialized;
 using DevExpress.ExpressApp;
 using Quartz;
 using Xpand.ExpressApp.JobScheduler.Qaurtz;
+using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.JobScheduler {
-    public sealed partial class JobSchedulerModule : XpandModuleBase {
+    public sealed class JobSchedulerModule : XpandModuleBase {
 
         public JobSchedulerModule() {
-            InitializeComponent();
+            RequiredModuleTypes.Add(typeof(XpandSystemModule));
 
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             var properties = new NameValueCollection();
-
             properties["quartz.scheduler.instanceName"] = "TestScheduler";
             properties["quartz.scheduler.instanceId"] = "instance_one";
             properties["quartz.threadPool.type"] = "Quartz.Simpl.SimpleThreadPool, Quartz";

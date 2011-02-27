@@ -76,12 +76,10 @@
     <Reference Include="DevExpress.ExpressApp.Validation.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.Persistent.Base.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Utils.v10.2, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpo.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -126,6 +124,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DisposeScheduler.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="JobDataMapKeyCalculator.cs" />
     <Compile Include="JobDetailController.cs">
       <SubType>Component</SubType>
@@ -135,9 +136,6 @@
     </Compile>
     <Compile Include="JobSchedulerModule.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="JobSchedulerModule.Designer.cs">
-      <DependentUpon>JobSchedulerModule.cs</DependentUpon>
     </Compile>
     <Compile Include="JobTriggerController.cs">
       <SubType>Component</SubType>
@@ -151,12 +149,6 @@
     <Compile Include="Updater.cs" />
     <Compile Include="Qaurtz\XpandScheduler.cs" />
     <Compile Include="Qaurtz\XpandSchedulerFactory.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="JobSchedulerModule.resx">
-      <DependentUpon>JobSchedulerModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

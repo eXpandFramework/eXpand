@@ -7,6 +7,8 @@ using Xpand.Persistent.Base.JobScheduler;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public class JobTriggerController : SupportSchedulerController {
+        bool _refreshingLinks;
+
         public JobTriggerController() {
             TargetObjectType = typeof(ISimpleTrigger);
         }
@@ -23,6 +25,23 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         void UpdateTriggers(ISimpleTrigger obj) {
+            UpdateExistingTriggers(obj);
+            CreateNewTriggers(obj);
+        }
+
+        void CreateNewTriggers(ISimpleTrigger obj) {
+            if (!_refreshingLinks) {
+                _refreshingLinks = true;
+                var jobDetails = obj.JobDetails.Where(detail1 => Scheduler.GetTriggersOfJob(detail1).Count()==0).ToList();
+                jobDetails.ForEach(detail => obj.JobDetails.Remove(detail));
+                ObjectSpace.CommitChanges();
+                jobDetails.ForEach(jobDetail => obj.JobDetails.Add(jobDetail));
+                ObjectSpace.CommitChanges();
+                _refreshingLinks = false;
+            }
+        }
+
+        void UpdateExistingTriggers(ISimpleTrigger obj) {
             obj.JobDetails.Select(detail => Scheduler.GetJobDetail(detail)).ToList().ForEach(
                 jobDetail =>Scheduler.GetTriggersOfJob(jobDetail.Name, jobDetail.Group).OfType<SimpleTrigger>().ToList().ForEach(
                     Update(obj)));

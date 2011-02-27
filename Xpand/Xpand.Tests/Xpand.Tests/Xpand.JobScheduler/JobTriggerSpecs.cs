@@ -22,10 +22,27 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         It should_calculate_the_FinalFireTimeUtc = () => _xpandSimpleTrigger.FinalFireTimeUtc.ShouldNotBeNull();
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
-
-
     }
 
+    public class When_2_jobtriggers_are_linked_with_jobdetail : With_Job_Scheduler_XpandJobDetail_Application<When_2_jobtriggers_are_linked_with_jobdetail> {
+        Establish context = () => {
+            var jobDetail = ObjectSpace.CreateObject<XpandJobDetail>();
+            jobDetail.Name = "jb2";
+            jobDetail.JobType = typeof (DummyJob);
+
+            var xpandSimpleTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
+            xpandSimpleTrigger.Name = "trigger";
+            xpandSimpleTrigger.JobDetails.Add(Object);
+            xpandSimpleTrigger.JobDetails.Add(jobDetail);
+        };
+        Because of = () => ObjectSpace.CommitChanges();
+
+        It should_add_one_trigger_with_trigger_group_same_as_first_jobdetail_group_plus_name =
+            () => Scheduler.GetTrigger("trigger", typeof (DummyJob).FullName +"."+ Object.Name).ShouldNotBeNull();
+        It should_add_one_trigger_with_trigger_group_same_as_second_jobdetail_group_plus_name =
+            () => Scheduler.GetTrigger("trigger", typeof (DummyJob).FullName +".jb2").ShouldNotBeNull();
+        It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
+    }
     public class When_JobTrigger_is_deleted : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_is_deleted> {
         static IObjectSpace _objectSpace;
 

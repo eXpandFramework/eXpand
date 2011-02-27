@@ -29,7 +29,13 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
         public IJobStore JobStore {
             get { return Resources.JobStore; }
         }
-        
+
+        public override void Start() {
+            base.Start();
+            if (GetJobListener(typeof(XpandJobListener).Name)==null)
+                AddJobListener(new XpandJobListener());
+        }
+
         public JobDetail GetJobDetail(IJobDetail jobDetail) {
             return GetJobDetail(jobDetail.Name, jobDetail.JobType) ;
         }

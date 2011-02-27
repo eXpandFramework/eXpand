@@ -28,6 +28,7 @@ namespace Xpand.ExpressApp.JobScheduler {
             jobTrigger.Description = trigger.Description;
             jobTrigger.JobName = jobName;
             jobTrigger.JobGroup = type.FullName;
+            jobTrigger.Group = type.FullName + "." + jobName;
             trigger.SetFinalFireTimeUtc(jobTrigger.FinalFireTimeUtc);
         }
 
