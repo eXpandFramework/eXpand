@@ -52,8 +52,12 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
             return DeleteJob(jobDetail.Name, jobDetail.Job.JobType.FullName);
         }
 
+        public bool UnscheduleJob(string triggerName, Type jobType, string jobName, string jobGroup) {
+            return UnscheduleJob(triggerName, Mapper.GetGroup(jobName, jobType, jobGroup));
+        }
+
         public bool UnscheduleJob(string triggerName, Type jobType, string jobName) {
-            return UnscheduleJob(triggerName, Mapper.GetGroup(jobName,jobType));
+            return UnscheduleJob(triggerName, jobType,jobName,null);
         }
 
         public void StoreJob(IJobDetail xpandJobDetail) {

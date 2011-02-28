@@ -24,12 +24,38 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
+    public class When_new_Job_detail_with_group_assigned_saved : With_Job_Scheduler_XpandJobDetail_Application<When_new_Job_detail_with_group_assigned_saved> {
+        Establish context = () => {
+            var jobSchedulerGroup = ObjectSpace.FindObject<JobSchedulerGroup>(null);
+            Object.Group = jobSchedulerGroup;
+        };
+
+        protected override void ViewCreated(DetailView detailView) {
+            base.ViewCreated(detailView);
+            var objectSpace = Application.CreateObjectSpace();
+            var jobSchedulerGroup = objectSpace.CreateObject<JobSchedulerGroup>();
+            jobSchedulerGroup.Name = "gr";
+            var xpandSimpleTrigger = objectSpace.CreateObject<XpandSimpleTrigger>();
+            xpandSimpleTrigger.JobSchedulerGroups.Add(jobSchedulerGroup);
+            objectSpace.CommitChanges();
+        }
+        Because of = () => ObjectSpace.CommitChanges();
+
+        It should_create_triggers_for_that_group = () => Scheduler.GetTriggersOfJob(Object).Count().ShouldEqual(1);
+
+        It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
+    }
     //TODO:check DB if triggers are removed when job is deleted 
     public class When_Job_detail_Deleted : With_Job_Scheduler_XpandJobDetail_Application<When_Job_detail_Deleted> {
 
-        Establish context = () => ObjectSpace.CommitChanges();
+        Establish context = () => {
+            var xpandSimpleTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
+            xpandSimpleTrigger.JobDetails.Add(Object);
+            ObjectSpace.CommitChanges();
+            ObjectSpace.Delete(Object);
+        };
 
-        Because of = () => ObjectSpace.Delete(Object);
+        Because of = () => ObjectSpace.CommitChanges();
 
         It should_remove_it_from_the_scheduler =
             () => Scheduler.GetJobDetail(Object).ShouldBeNull();

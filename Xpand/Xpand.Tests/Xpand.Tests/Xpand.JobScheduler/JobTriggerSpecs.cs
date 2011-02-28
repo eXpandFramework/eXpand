@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
 using Machine.Specifications;
 using Quartz;
+using Xpand.ExpressApp.JobScheduler;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 
 namespace Xpand.Tests.Xpand.JobScheduler{
@@ -105,6 +107,69 @@ namespace Xpand.Tests.Xpand.JobScheduler{
                 ShouldEqual("test");
 
         It should_calculate_the_FinalFireTimeUtc = () => _xpandSimpleTrigger.FinalFireTimeUtc.ShouldNotBeNull();
+        It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
+    }
+
+    public class When_JobTrigger_is_linked_with_a_group_that_has_2jobs : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_is_linked_with_a_group_that_has_2jobs> {
+        static XpandJobDetail _xpandJobDetail;
+
+        protected override System.Collections.Generic.IList<Type> GetDomaincomponentTypes() {
+            var domaincomponentTypes = base.GetDomaincomponentTypes();
+            domaincomponentTypes.Add(typeof(XpandSimpleTrigger));
+            return domaincomponentTypes;
+        }
+
+        Establish context = () => {
+            var jobSchedulerGroup = ObjectSpace.CreateObject<JobSchedulerGroup>();
+            jobSchedulerGroup.Name = "gr";
+            Object.Group=jobSchedulerGroup;
+            ObjectSpace.CommitChanges();
+            _xpandJobDetail = (XpandJobDetail) new Cloner().CloneTo(Object, typeof (XpandJobDetail));
+            _xpandJobDetail.Name = "jb1";
+            DetailView.CurrentObject=_xpandJobDetail;
+            ObjectSpace.CommitChanges();
+            var xpandSimpleTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
+            DetailView.CurrentObject = xpandSimpleTrigger;
+            xpandSimpleTrigger.Name = "trigger";
+            xpandSimpleTrigger.JobSchedulerGroups.Add(jobSchedulerGroup);
+        };
+
+        Because of = () => ObjectSpace.CommitChanges();
+
+        It should_schedule_a_trigger_for_job1 = () => Scheduler.GetTriggersOfJob(Object).Count().ShouldEqual(1);
+        It should_schedule_a_trigger_for_job2 = () => Scheduler.GetTriggersOfJob(_xpandJobDetail).Count().ShouldEqual(1);
+        It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
+    }
+    public class When_JobTrigger_is_unlinked_with_a_group_that_has_2jobs : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_is_unlinked_with_a_group_that_has_2jobs> {
+        static XpandJobDetail _xpandJobDetail;
+
+        protected override System.Collections.Generic.IList<Type> GetDomaincomponentTypes() {
+            var domaincomponentTypes = base.GetDomaincomponentTypes();
+            domaincomponentTypes.Add(typeof(XpandSimpleTrigger));
+            return domaincomponentTypes;
+        }
+
+        Establish context = () => {
+            var jobSchedulerGroup = ObjectSpace.CreateObject<JobSchedulerGroup>();
+            jobSchedulerGroup.Name = "gr";
+            Object.Group=jobSchedulerGroup;
+            ObjectSpace.CommitChanges();
+            _xpandJobDetail = (XpandJobDetail) new Cloner().CloneTo(Object, typeof (XpandJobDetail));
+            _xpandJobDetail.Name = "jb1";
+            DetailView.CurrentObject=_xpandJobDetail;
+            ObjectSpace.CommitChanges();
+            var xpandSimpleTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
+            DetailView.CurrentObject = xpandSimpleTrigger;
+            xpandSimpleTrigger.Name = "trigger";
+            xpandSimpleTrigger.JobSchedulerGroups.Add(jobSchedulerGroup);
+            ObjectSpace.CommitChanges();
+            xpandSimpleTrigger.JobSchedulerGroups.Remove(jobSchedulerGroup);
+        };
+
+        Because of = () => ObjectSpace.CommitChanges();
+
+        It should_schedule_a_trigger_for_job1 = () => Scheduler.GetTriggersOfJob(Object).Count().ShouldEqual(0);
+        It should_schedule_a_trigger_for_job2 = () => Scheduler.GetTriggersOfJob(_xpandJobDetail).Count().ShouldEqual(0);
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
 }

@@ -5,17 +5,18 @@ using Xpand.Persistent.Base.JobScheduler;
 namespace Xpand.ExpressApp.JobScheduler {
     public class Mapper {
 
-        public static SimpleTrigger GetSimpleTrigger(IJobTrigger xpandSimpleTrigger, string jobName, Type jobType) {
+        public static SimpleTrigger GetSimpleTrigger(IJobTrigger xpandSimpleTrigger, string jobName, Type jobType,
+                                                     string jobGroup) {
             var trigger = xpandSimpleTrigger as ISimpleTrigger;
             if (trigger != null) {
                 var simpleTrigger = new SimpleTrigger(trigger.Name, jobType.FullName);
-                AssignTrigger(simpleTrigger, trigger, jobName, jobType);
+                AssignTrigger(simpleTrigger, trigger, jobName, jobType, jobGroup);
                 return simpleTrigger;
             }
             return null;
         }
 
-        public static void AssignTrigger(SimpleTrigger jobTrigger, ISimpleTrigger trigger, string jobName, Type type) {
+        public static void AssignTrigger(SimpleTrigger jobTrigger, ISimpleTrigger trigger, string jobName, Type type, string jobGroup) {
             jobTrigger.EndTimeUtc = trigger.EndTimeUtc;
             jobTrigger.MisfireInstruction = (int)trigger.MisfireInstruction;
             if (trigger.RepeatInterval.HasValue)
@@ -29,7 +30,7 @@ namespace Xpand.ExpressApp.JobScheduler {
             jobTrigger.Description = trigger.Description;
             jobTrigger.JobName = jobName;
             jobTrigger.JobGroup = type.FullName;
-            jobTrigger.Group = GetGroup(jobName, type);
+            jobTrigger.Group = GetGroup(jobName, type,jobGroup);
             trigger.SetFinalFireTimeUtc(jobTrigger.FinalFireTimeUtc);
         }
 
@@ -51,8 +52,11 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
 
-        public static string GetGroup(string jobName, Type jobType) {
-            return string.Format("{0}.{1}", jobType.FullName, jobName);
+        public static string GetGroup(string jobName, Type jobType, string jobGroup) {
+            var format = string.Format("{0}.{1}", jobType.FullName, jobName);
+            if (!(string.IsNullOrEmpty(jobGroup)))
+                format += "." + jobGroup;
+            return format;
         }
     }
 }

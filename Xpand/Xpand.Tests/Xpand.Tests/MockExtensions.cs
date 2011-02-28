@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
@@ -54,17 +53,17 @@ namespace Xpand.Tests {
             return typesInfo;
         }
 
-        public static XafApplication XafApplicationInstance(this IFaker faker, Func<IList<Type>> func, Action<DetailView> viewAction, Action<Window> windowAction, params Controller[] controllers) {
+        public static void XafApplicationInstance(this IFaker faker, Action<XafApplication> action, Func<IList<Type>> func, Action<DetailView> viewAction, Action<Window> windowAction, params Controller[] controllers) {
             var dataSet = new DataSet();
             IObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew(dataSet);
             XafApplication application = Isolate.Fake.XafApplicationInstance(func, dataSet, controllers);
+            action.Invoke(application);
             object o = objectSpace.CreateObject(func.Invoke().ToList().First());
             var detailView = application.CreateDetailView(objectSpace, o);
             viewAction.Invoke(detailView);
             var window = application.CreateWindow(TemplateContext.View, controllers, true);
             windowAction.Invoke(window);
             window.SetView(detailView);
-            return application;
 
         }
 
@@ -81,7 +80,6 @@ namespace Xpand.Tests {
             RegisterControllers(application, controllers);
             var xpandModuleBase = Isolate.Fake.Instance<XpandModuleBase>(Members.CallOriginal, ConstructorWillBe.Called);
             xpandModuleBase.Setup(application);
-            //            Isolate.WhenCalled(() => XpandModuleBase.Application).WillReturn(application);
             var objectSpaceProvider = Isolate.Fake.Instance<IObjectSpaceProvider>();
             Isolate.WhenCalled(() => objectSpaceProvider.TypesInfo).WillReturn(XafTypesInfo.Instance);
             application.CreateCustomObjectSpaceProvider += (sender, args) => args.ObjectSpaceProvider = objectSpaceProvider;

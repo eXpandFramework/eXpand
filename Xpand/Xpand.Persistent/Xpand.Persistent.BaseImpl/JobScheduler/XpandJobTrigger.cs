@@ -26,8 +26,8 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         [Tooltip(@"Instructs the IScheduler that upon a mis-fire situation, the CronTrigger wants to have it's next-fire-time updated to the next time in the schedule after the current time (taking into account any associated ICalendar, but it does not want to be fired now.")]
         CronTriggerDoNothing,
     }
-    [Appearance("Disable_Name_For_XpandJobTrigger_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false",TargetItems = "Name",Enabled = false)]
-    public abstract class XpandJobTrigger : XpandCustomObject, IJobTrigger,IFastManyToMany {
+    [Appearance("Disable_Name_For_XpandJobTrigger_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Name", Enabled = false)]
+    public abstract class XpandJobTrigger : XpandCustomObject, IJobTrigger, IFastManyToMany {
         protected XpandJobTrigger(Session session)
             : base(session) {
         }
@@ -41,7 +41,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("Name", ref _name, value);
             }
         }
-        
+
 
         private string _description;
         [Size(SizeAttribute.Unlimited)]
@@ -72,7 +72,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("JobDataMap", ref _jobDataMap, value);
             }
         }
-        
+
 
 
         private DateTime? _endTimeUtc;
@@ -90,7 +90,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         [Tooltip(@"The time at which the trigger's scheduling should start. May or may not be the first actual fire time of the trigger, depending upon the type of trigger and the settings of the other properties of the trigger. However the first actual first time will not be before this date. 
 Remarks:
 Setting a value in the past may cause a new trigger to compute a first fire time that is in the past, which may cause an immediate misfire of the trigger.")]
-//        [RuleRequiredField]
+        //        [RuleRequiredField]
         [DisplayDateAndTime]
         [ValueConverter(typeof(SqlDateTimeOverFlowValueConverter))]
         public DateTime StartTimeUtc {
@@ -110,9 +110,9 @@ Setting a value in the past may cause a new trigger to compute a first fire time
                 SetPropertyValue("Priority", ref _priority, value);
             }
         }
-        
 
-        [Association("JobDetailTriggerLink-JobDetails"),Aggregated]
+
+        [Association("JobDetailTriggerLink-JobDetails"), Aggregated]
         protected IList<JobDetailTriggerLink> JobDetailTriggerLinks {
             get {
                 return GetList<JobDetailTriggerLink>("JobDetailTriggerLinks");
@@ -127,5 +127,15 @@ Setting a value in the past may cause a new trigger to compute a first fire time
             get { return new ListConverter<IJobDetail, XpandJobDetail>(JobDetails); }
         }
 
+        [Association("JobSchedulerGroupTriggerLink-JobSchedulerGroups"), Aggregated]
+        protected IList<JobSchedulerGroupTriggerLink> JobSchedulerGroupTriggerLinks {
+            get {
+                return GetList<JobSchedulerGroupTriggerLink>("JobSchedulerGroupTriggerLinks");
+            }
+        }
+        [ManyToManyAlias("JobSchedulerGroupTriggerLinks", "JobSchedulerGroup")]
+        public IList<JobSchedulerGroup> JobSchedulerGroups {
+            get { return GetList<JobSchedulerGroup>("JobSchedulerGroups"); }
+        }
     }
 }

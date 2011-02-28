@@ -69,14 +69,11 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     }
     public abstract class With_Job_Scheduler_Application<T, TObject> : With_Application<T, TObject> where T : With_Job_Scheduler_Application<T, TObject> {
         protected static XpandScheduler Scheduler;
+        JobSchedulerModule _jobSchedulerModule;
+        
         protected override void WindowCreated(Window window) {
             base.WindowCreated(window);
-            var jobSchedulerModule = new JobSchedulerModule();
-            var scheduler = new XpandSchedulerFactory().GetScheduler();
-            Isolate.WhenCalled(() => jobSchedulerModule.Scheduler).WillReturn((XpandScheduler)scheduler);
-            //            jobSchedulerModule.Setup(new ApplicationModulesManager());
-            Scheduler = (XpandScheduler)scheduler;
-            window.Application.Modules.Add(jobSchedulerModule);
+            window.Application.Modules.Add(_jobSchedulerModule);
         }
         protected override System.Collections.Generic.List<Controller> GetControllers() {
             var controllers = base.GetControllers();
@@ -85,9 +82,13 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             controllers.Add(new JobTriggerController());
             return controllers;
         }
-
         protected override void Initialize() {
             base.Initialize();
+            _jobSchedulerModule = new JobSchedulerModule();
+            Isolate.Swap.AllInstances<JobSchedulerModule>().With(_jobSchedulerModule);
+            var scheduler = new XpandSchedulerFactory().GetScheduler();
+            Isolate.WhenCalled(() => _jobSchedulerModule.Scheduler).WillReturn((XpandScheduler)scheduler);
+            Scheduler = (XpandScheduler)scheduler;
             XafTypesInfo.Instance.FindTypeInfo(typeof(DummyJobListener));
         }
     }

@@ -16,6 +16,8 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
     [DefaultClassOptions]
     [System.ComponentModel.DisplayName("JobDetail")]
     [Appearance("Disable_Name_For_XpandJobDetail_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Name", Enabled = false)]
+    [Appearance("Disable_Job_For_XpandJobDetail_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Job", Enabled = false)]
+    [Appearance("Disable_Group_For_XpandJobDetail_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Group", Enabled = false)]
     public class XpandJobDetail : XpandCustomObject, IJobDetail, IFastManyToMany {
         public XpandJobDetail(Session session)
             : base(session) {
@@ -34,14 +36,11 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         [Tooltip("Whether or not the IJob implements the interface IStatefulJob.")]
         public virtual bool Stateful {
             get {
-                if (_job == null) {
-                    return false;
-                }
-                return (XafTypesInfo.Instance.FindTypeInfo(typeof(IStatefulJob)).Type.IsAssignableFrom(_job.JobType));
+                return _job != null && (XafTypesInfo.Instance.FindTypeInfo(typeof(IStatefulJob)).Type.IsAssignableFrom(_job.JobType));
             }
         }
 
-
+        
         private string _description;
         [Size(SizeAttribute.Unlimited)]
         public string Description {
@@ -99,7 +98,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
             }
         }
 
-        [Association("JobDetailTriggerLink-Triggers")]
+        [Association("JobDetailTriggerLink-Triggers"), Aggregated]
         protected IList<JobDetailTriggerLink> TriggerLinks {
             get {
                 return GetList<JobDetailTriggerLink>("TriggerLinks");
@@ -114,7 +113,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 return new ListConverter<IJobTrigger, XpandJobTrigger>(JobTriggers);
             }
         }
-        [Association("JobDetailJobListenerTriggerLink-JobListeners")]
+        [Association("JobDetailJobListenerTriggerLink-JobListeners"),Aggregated]
         protected IList<JobDetailJobListenerTriggerLink> JobListenerTriggerLinks {
             get {
                 return GetList<JobDetailJobListenerTriggerLink>("JobListenerTriggerLinks");
@@ -124,6 +123,21 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         public IList<JobListenerTrigger> JobListenerTriggers {
             get { return GetList<JobListenerTrigger>("JobListenerTriggers"); }
         }
+        private JobSchedulerGroup _group;
+        [ProvidedAssociation("JobSchedulerGroup-XpandJobDetails")]
+        public JobSchedulerGroup Group {
+            get {
+                return _group;
+            }
+            set {
+                SetPropertyValue("Group", ref _group, value);
+            }
+        }
+        IJobSchedulerGroup IJobDetail.Group {
+            get { return Group; }
+            set { Group=value as JobSchedulerGroup; }
+        }
+
         IList<IJobListenerTrigger> IJobDetail.JobListenerTriggers {
             get {
                 return new ListConverter<IJobListenerTrigger, JobListenerTrigger>(JobListenerTriggers);

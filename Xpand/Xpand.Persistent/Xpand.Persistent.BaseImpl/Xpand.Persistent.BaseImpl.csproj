@@ -172,6 +172,8 @@
     <Compile Include="ImportExport\XmlFileChooser.cs" />
     <Compile Include="JobScheduler\JobDetailJobListenerTriggerLink.cs" />
     <Compile Include="JobScheduler\JobDetailTriggerLink.cs" />
+    <Compile Include="JobScheduler\JobSchedulerGroup.cs" />
+    <Compile Include="JobScheduler\JobSchedulerGroupTriggerLink.cs" />
     <Compile Include="JobScheduler\JobTypeClassInfoConverter.cs" />
     <Compile Include="JobScheduler\XpandJob.cs" />
     <Compile Include="PersistentMetaData\CodeTemplate.cs" />

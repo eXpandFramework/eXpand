@@ -15,7 +15,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             var objectSpace = ObjectSpaceInMemory.CreateNew();
             var xpandSimpleTrigger = objectSpace.CreateObject<XpandSimpleTrigger>();
             xpandSimpleTrigger.Name = "tr";
-            var simpleTrigger = Mapper.GetSimpleTrigger(xpandSimpleTrigger, "jb", typeof(DummyJob));
+            var simpleTrigger = Mapper.GetSimpleTrigger(xpandSimpleTrigger, "jb", typeof(DummyJob),null);
 
             simpleTrigger.StartTimeUtc = DateTime.UtcNow;
             
@@ -26,19 +26,8 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         Because of = () => Thread.Sleep(5000);
 
         It should_execute_the_job = () => JobExecutedCount.ShouldEqual(1);
+
+        It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
 
-    public class MyClass : With_Scheduler {
-        Establish context = () => {
-            Scheduler.Start();
-            var simpleTrigger = new SimpleTrigger("tr",typeof(DummyJob).FullName)
-                                {JobName = JobDetail.Name,JobGroup = JobDetail.Group, RepeatCount = 2,RepeatInterval = TimeSpan.FromSeconds(.1)};
-            simpleTrigger.StartTimeUtc = DateTime.UtcNow;
-            Scheduler.ScheduleJob(simpleTrigger);
-            
-        };
-        Because of = () => Thread.Sleep(5000);
-
-        It should_execute_the_job_twice = () => JobExecutedCount.ShouldEqual(2);
-    }
 }

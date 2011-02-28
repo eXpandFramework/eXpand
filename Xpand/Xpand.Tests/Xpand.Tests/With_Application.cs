@@ -18,12 +18,16 @@ namespace Xpand.Tests {
         Establish Context = () => {
             _instance = Activator.CreateInstance<T>();
             Instance.Initialize();
-            Application = Isolate.Fake.XafApplicationInstance(() => Instance.GetDomaincomponentTypes(), Instance.ViewCreated, Instance.WindowCreated,
+            Isolate.Fake.XafApplicationInstance(Instance.ApplicationCreated, () => Instance.GetDomaincomponentTypes(), Instance.ViewCreated, Instance.WindowCreated,
                                                                              Instance.GetControllers().ToArray());
         };
 
         protected virtual IList<Type> GetDomaincomponentTypes() {
             return new List<Type> { typeof(TObject)}; 
+        }
+
+        protected virtual void ApplicationCreated(XafApplication application) {
+            Application = application;
         }
 
         protected virtual void WindowCreated(Window window) {

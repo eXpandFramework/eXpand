@@ -1,5 +1,5 @@
 namespace Xpand.Persistent.Base.JobScheduler {
-    public interface ISupportJobDetail {
+    public interface ISupportJobDetail:ISupportSchedulerLink {
         IJobDetail JobDetail { get; set; }
     }
 }
