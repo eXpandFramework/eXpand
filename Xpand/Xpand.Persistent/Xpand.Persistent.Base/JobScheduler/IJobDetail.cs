@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Xpand.Persistent.Base.JobScheduler.Triggers;
 
 namespace Xpand.Persistent.Base.JobScheduler {
-    public interface IJobDetail  {
+    public interface IJobDetail {
         string Name { get; set; }
         bool Stateful { get; }
         string Description { get; set; }

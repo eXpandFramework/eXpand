@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
-using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.CustomAttributes;
 
 namespace Xpand.ExpressApp.SystemModule {
     public interface IModelMemberToolTip : IModelNode {
@@ -26,11 +26,11 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public string GetToolTip(IModelMemberViewItem member, object editValue) {
-            return GetToolTip(member) + ConcatOtherToolTips(member,editValue);
+            return GetToolTip(member) + ConcatOtherToolTips(member, editValue);
         }
 
         public string ConcatOtherToolTips(IModelMemberViewItem model, object editValue) {
-            return model.ModelMember.Type.IsEnum && _currentObject != null ? GetToolTipCore(model,editValue) : null;
+            return model.ModelMember.Type.IsEnum && _currentObject != null ? GetToolTipCore(model, editValue) : null;
         }
 
         string GetToolTipCore(IModelMemberViewItem model, object editValue) {
@@ -47,13 +47,13 @@ namespace Xpand.ExpressApp.SystemModule {
         protected TooltipCalculator TooltipCalculator;
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            TooltipCalculator=new TooltipCalculator(View.CurrentObject);
+            TooltipCalculator = new TooltipCalculator(View.CurrentObject);
             if (View is ListView) SetListViewToolTips();
             if (View is DetailView) SetDetailViewToolTips();
         }
         protected virtual void SetListViewToolTips() { }
         protected virtual void SetDetailViewToolTips() { }
-        
+
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelMember, IModelMemberToolTip>();
             extenders.Add<IModelPropertyEditor, IModelPropertyEditorTooltip>();

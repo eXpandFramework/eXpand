@@ -8,7 +8,10 @@ using DevExpress.Xpo;
 using Quartz;
 using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.JobScheduler;
+using Xpand.Persistent.Base.JobScheduler.Triggers;
+using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
 using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler {
@@ -40,7 +43,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
             }
         }
 
-        
+
         private string _description;
         [Size(SizeAttribute.Unlimited)]
         public string Description {
@@ -64,7 +67,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         }
         IXpandJob IJobDetail.Job {
             get { return _job; }
-            set { _job=value as XpandJob; }
+            set { _job = value as XpandJob; }
         }
 
         private XpandJobDataMap _jobDataMap;
@@ -113,7 +116,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 return new ListConverter<IJobTrigger, XpandJobTrigger>(JobTriggers);
             }
         }
-        [Association("JobDetailJobListenerTriggerLink-JobListeners"),Aggregated]
+        [Association("JobDetailJobListenerTriggerLink-JobListeners"), Aggregated]
         protected IList<JobDetailJobListenerTriggerLink> JobListenerTriggerLinks {
             get {
                 return GetList<JobDetailJobListenerTriggerLink>("JobListenerTriggerLinks");
@@ -135,7 +138,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         }
         IJobSchedulerGroup IJobDetail.Group {
             get { return Group; }
-            set { Group=value as JobSchedulerGroup; }
+            set { Group = value as JobSchedulerGroup; }
         }
 
         IList<IJobListenerTrigger> IJobDetail.JobListenerTriggers {

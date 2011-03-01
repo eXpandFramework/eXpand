@@ -3,14 +3,14 @@ using System.ComponentModel;
 using System.Linq;
 using Quartz;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.JobScheduler;
+using Xpand.Persistent.Base.JobScheduler.Triggers;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public class JobTriggerController : SupportSchedulerController {
         bool _refreshingLinks;
 
         public JobTriggerController() {
-            TargetObjectType = typeof(ISimpleTrigger);
+            TargetObjectType = typeof(IJobTrigger);
         }
         protected override void OnActivated() {
             base.OnActivated();
@@ -21,18 +21,18 @@ namespace Xpand.ExpressApp.JobScheduler {
             ObjectSpace.Committing -= ObjectSpaceOnCommitting;
         }
         void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
-            ObjectSpace.GetObjectsToUpdate<ISimpleTrigger>().ToList().ForEach(UpdateTriggers);
+            ObjectSpace.GetObjectsToUpdate<IJobTrigger>().ToList().ForEach(UpdateTriggers);
         }
 
-        void UpdateTriggers(ISimpleTrigger obj) {
-            UpdateExistingTriggers(obj);
+        void UpdateTriggers(IJobTrigger obj) {
+            RescheduleJobs(obj);
             CreateNewTriggers(obj);
         }
 
-        void CreateNewTriggers(ISimpleTrigger obj) {
+        void CreateNewTriggers(IJobTrigger obj) {
             if (!_refreshingLinks) {
                 _refreshingLinks = true;
-                var jobDetails = obj.JobDetails.Where(detail1 => Scheduler.GetTriggersOfJob(detail1).Count()==0).ToList();
+                var jobDetails = obj.JobDetails.Where(detail1 => !Scheduler.HasTriggers(detail1)).ToList();
                 jobDetails.ForEach(detail => obj.JobDetails.Remove(detail));
                 ObjectSpace.CommitChanges();
                 jobDetails.ForEach(jobDetail => obj.JobDetails.Add(jobDetail));
@@ -41,16 +41,16 @@ namespace Xpand.ExpressApp.JobScheduler {
             }
         }
 
-        void UpdateExistingTriggers(ISimpleTrigger obj) {
+        void RescheduleJobs(IJobTrigger obj) {
             obj.JobDetails.Select(detail => Scheduler.GetJobDetail(detail)).ToList().ForEach(
-                jobDetail =>Scheduler.GetTriggersOfJob(jobDetail.Name, jobDetail.Group).OfType<SimpleTrigger>().ToList().ForEach(
-                    Update(obj)));
+                jobDetail => Scheduler.GetTriggersOfJob(jobDetail.Name, jobDetail.Group).OfType<Trigger>().ToList().ForEach(
+                    RescheduleJob(obj)));
         }
 
-        Action<SimpleTrigger> Update(ISimpleTrigger obj) {
+        Action<Trigger> RescheduleJob(IJobTrigger obj) {
             return trigger => {
                 Mapper.AssignQuartzTrigger(trigger, obj, trigger.JobName, TypesInfo.FindTypeInfo(trigger.JobGroup).Type, null);
-                Scheduler.StoreTrigger(trigger);
+                Scheduler.RescheduleJob(trigger);
             };
         }
     }

@@ -30,14 +30,14 @@ namespace Xpand.ExpressApp.JobScheduler {
 
             properties["quartz.dataSource.default.connectionString"] = "Server=(local);Database=quartz1;Trusted_Connection=True;";
             properties["quartz.dataSource.default.provider"] = "SqlServer-20";
-            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(properties);
-            _scheduler = (XpandScheduler)stdSchedulerFactory.GetScheduler();
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(properties,Application.ObjectSpaceProvider.TypesInfo);
+            _scheduler = (IXpandScheduler)stdSchedulerFactory.GetScheduler();
 
             _scheduler.Start();
         }
-        XpandScheduler _scheduler;
+        IXpandScheduler _scheduler;
 
-        public XpandScheduler Scheduler {
+        public IXpandScheduler Scheduler {
             get { return _scheduler; }
         }
     }

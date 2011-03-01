@@ -7,6 +7,7 @@ using DevExpress.ExpressApp;
 using Quartz.Util;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.JobScheduler;
+using Xpand.Persistent.Base.JobScheduler.Triggers;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public class JobTriggerLinkController : SupportSchedulerController {
@@ -89,8 +90,8 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         void UnscheduleJob(JobDetailTriggerInfo jobTriggerInfo) {
-            var jobGroup = jobTriggerInfo is JobGroupInfo?((JobGroupInfo)jobTriggerInfo).Group:null;
-            Scheduler.UnscheduleJob(jobTriggerInfo.TriggerName, jobTriggerInfo.JobType, jobTriggerInfo.JobName,jobGroup);
+            var jobGroup = jobTriggerInfo is JobGroupInfo ? ((JobGroupInfo)jobTriggerInfo).Group : null;
+            Scheduler.UnscheduleJob(jobTriggerInfo.TriggerName, jobTriggerInfo.JobType, jobTriggerInfo.JobName, jobGroup);
         }
 
         void Save() {
@@ -102,16 +103,12 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         void ScheduleJob(IJobDetailTriggerLink link) {
-            var simpleTrigger = Mapper.CreateTrigger(link.JobTrigger, link.JobDetail.Name, link.JobDetail.Job.JobType, null);
-            Scheduler.ScheduleJob(simpleTrigger);
+            Scheduler.ScheduleJob(link.JobTrigger, link.JobDetail, Mapper,null);
         }
 
         void ScheduleGroup(IJobSchedulerGroupTriggerLink link) {
             var relatedJobDetails = GetRelatedJobDetails(() => ForTheSameGroup(link));
-            relatedJobDetails.ForEach(detail => {
-                var simpleTrigger = Mapper.CreateTrigger(link.Trigger, detail.Name, detail.Job.JobType, link.JobSchedulerGroup.Name);
-                Scheduler.ScheduleJob(simpleTrigger);
-            });
+            relatedJobDetails.ForEach(detail => Scheduler.ScheduleJob(link.Trigger, detail, Mapper,link.JobSchedulerGroup.Name));
         }
 
         CriteriaOperator ForTheSameGroup(IJobSchedulerGroupTriggerLink link) {
@@ -155,7 +152,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         readonly Type _originType;
 
         public JobListenerInfo(string jobName, Type jobType, JobListenerEvent listenerEvent, Type originType)
-            : base(jobName, jobType,null) {
+            : base(jobName, jobType, null) {
             _listenerEvent = listenerEvent;
             _originType = originType;
         }
@@ -173,7 +170,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         readonly string _group;
 
         public JobGroupInfo(string jobName, Type jobType, string group, string triggerName)
-            : base(jobName, jobType,triggerName) {
+            : base(jobName, jobType, triggerName) {
             _group = group;
         }
 
@@ -187,7 +184,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         string TriggerName { get; }
     }
 
-    internal  class JobDetailTriggerInfo {
+    internal class JobDetailTriggerInfo {
         readonly Type _jobType;
         readonly string _triggerName;
         //        readonly LinkType _linkType;

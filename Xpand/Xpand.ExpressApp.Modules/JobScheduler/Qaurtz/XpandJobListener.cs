@@ -1,7 +1,7 @@
 ﻿using System;
 using Quartz;
 using Quartz.Util;
-using Xpand.Persistent.Base.JobScheduler;
+using Xpand.Persistent.Base.JobScheduler.Triggers;
 
 namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
     public class XpandJobListener : IJobListener {

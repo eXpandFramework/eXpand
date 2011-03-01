@@ -5,6 +5,7 @@ using DevExpress.Persistent.Base;
 using Machine.Specifications;
 using Quartz;
 using Xpand.Persistent.BaseImpl.JobScheduler;
+using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_JobTrigger_is_linked_with_jobdetail : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_is_linked_with_jobdetail> {

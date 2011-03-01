@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Globalization;
+using DevExpress.XtraScheduler.Native;
 using Quartz;
 using Xpand.Persistent.Base.JobScheduler;
+using Xpand.Persistent.Base.JobScheduler.Triggers;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public class Mapper {
-
-        public static Trigger CreateTrigger(IJobTrigger jobTrigger, string jobName, Type jobType,
+        public Trigger CreateTrigger(IJobTrigger jobTrigger, string jobName, Type jobType,
                                                      string jobGroup) {
             Trigger trigger = CreateTriggerCore(jobTrigger, jobType);
             AssignQuartzTrigger(trigger, jobTrigger, jobName, jobType, jobGroup);
             return trigger;
         }
 
-        static Trigger CreateTriggerCore(IJobTrigger jobTrigger,  Type jobType) {
+        Trigger CreateTriggerCore(IJobTrigger jobTrigger, Type jobType) {
             if (jobTrigger is ISimpleTrigger)
                 return new SimpleTrigger(jobTrigger.Name, jobType.FullName);
             if (jobTrigger is ICronTrigger)
@@ -24,7 +25,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
 
-        static void AssignQuartzTrigger(SimpleTrigger jobTrigger, ISimpleTrigger trigger) {
+        void AssignQuartzTrigger(SimpleTrigger jobTrigger, ISimpleTrigger trigger) {
             jobTrigger.MisfireInstruction = (int)trigger.MisfireInstruction;
             if (trigger.RepeatInterval.HasValue)
                 jobTrigger.RepeatInterval = trigger.RepeatInterval.Value;
@@ -33,48 +34,53 @@ namespace Xpand.ExpressApp.JobScheduler {
             trigger.SetFinalFireTimeUtc(jobTrigger.FinalFireTimeUtc);
         }
 
-        public static void AssignQuartzTrigger(Trigger jobTrigger, IJobTrigger trigger, string jobName, Type type, string jobGroup) {
+        public void AssignQuartzTrigger(Trigger jobTrigger, IJobTrigger trigger, string jobName, Type type, string jobGroup) {
             jobTrigger.EndTimeUtc = trigger.EndTimeUtc;
-            
             jobTrigger.Priority = (int)trigger.Priority;
-            jobTrigger.CalendarName = trigger.CalendarName;
+            jobTrigger.CalendarName = GetCalendarName(trigger);
             jobTrigger.JobDataMap = new JobDataMap();
             jobTrigger.StartTimeUtc = trigger.StartTimeUtc;
             jobTrigger.Description = trigger.Description;
             jobTrigger.JobName = jobName;
             jobTrigger.JobGroup = type.FullName;
-            jobTrigger.Group = GetGroup(jobName, type,jobGroup);
+            jobTrigger.Group = GetGroup(jobName, type, jobGroup);
             if (jobTrigger is SimpleTrigger)
-                AssignQuartzTrigger((SimpleTrigger) jobTrigger,(ISimpleTrigger)trigger);
+                AssignQuartzTrigger((SimpleTrigger)jobTrigger, (ISimpleTrigger)trigger);
             else if (jobTrigger is CronTrigger)
                 AssignQuartzTrigger((CronTrigger)jobTrigger, (ICronTrigger)trigger);
             else if (jobTrigger is NthIncludedDayTrigger)
                 AssignQuartzTrigger((NthIncludedDayTrigger)jobTrigger, (INthIncludedDayTrigger)trigger);
         }
 
-        static void AssignQuartzTrigger(NthIncludedDayTrigger nthIncludedDayTrigger, INthIncludedDayTrigger trigger) {
-            nthIncludedDayTrigger.N = trigger.N;
-            nthIncludedDayTrigger.IntervalType = (int) trigger.IntervalType;
-            nthIncludedDayTrigger.FireAtTime = string.Format(CultureInfo.InvariantCulture, "{0:00}:{1:00}:{2:00}", trigger.FireAtTime.Hours, trigger.FireAtTime.Minutes, trigger.FireAtTime.Seconds);
-            nthIncludedDayTrigger.NextFireCutoffInterval = trigger.NextFireCutoffInterval;
-            nthIncludedDayTrigger.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(trigger.TimeZone.ToString());
-            nthIncludedDayTrigger.TriggerCalendarFirstDayOfWeek = trigger.TriggerCalendarFirstDayOfWeek;
-            nthIncludedDayTrigger.TriggerCalendarWeekRule=trigger.TriggerCalendarWeekRule;
+        string GetCalendarName(IJobTrigger trigger) {
+            return trigger.Calendar != null ? trigger.Calendar.Name : null;
         }
 
-        static void AssignQuartzTrigger(CronTrigger cronTrigger, ICronTrigger trigger) {
+        void AssignQuartzTrigger(NthIncludedDayTrigger nthIncludedDayTrigger, INthIncludedDayTrigger trigger) {
+            nthIncludedDayTrigger.MisfireInstruction = (int)trigger.MisfireInstruction;
+            nthIncludedDayTrigger.N = trigger.N;
+            nthIncludedDayTrigger.IntervalType = (int)trigger.IntervalType;
+            nthIncludedDayTrigger.FireAtTime = string.Format(CultureInfo.InvariantCulture, "{0:00}:{1:00}:{2:00}", trigger.FireAtTime.Hours, trigger.FireAtTime.Minutes, trigger.FireAtTime.Seconds);
+            nthIncludedDayTrigger.NextFireCutoffInterval = trigger.NextFireCutoffInterval;
+            nthIncludedDayTrigger.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(trigger.TimeZone));
+            nthIncludedDayTrigger.TriggerCalendarFirstDayOfWeek = trigger.TriggerCalendarFirstDayOfWeek;
+            nthIncludedDayTrigger.TriggerCalendarWeekRule = trigger.TriggerCalendarWeekRule;
+        }
+
+        void AssignQuartzTrigger(CronTrigger cronTrigger, ICronTrigger trigger) {
+            cronTrigger.MisfireInstruction = (int)trigger.MisfireInstruction;
             cronTrigger.CronExpressionString = trigger.CronExpression;
             cronTrigger.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(trigger.TimeZone.ToString());
         }
 
 
-        public static JobDetail CreateJobDetail(IJobDetail xpandJobDetail) {
+        public JobDetail CreateJobDetail(IJobDetail xpandJobDetail) {
             var jobDetail = new JobDetail();
             AssignQuartzJobDetail(jobDetail, xpandJobDetail);
             return jobDetail;
         }
 
-        public static void AssignQuartzJobDetail(JobDetail jobDetail, IJobDetail xpandJobDetail) {
+        public void AssignQuartzJobDetail(JobDetail jobDetail, IJobDetail xpandJobDetail) {
             jobDetail.Name = xpandJobDetail.Name;
             jobDetail.Description = xpandJobDetail.Description;
             jobDetail.Group = xpandJobDetail.Job.JobType.FullName;
@@ -84,7 +90,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
 
-        public static string GetGroup(string jobName, Type jobType, string jobGroup) {
+        public string GetGroup(string jobName, Type jobType, string jobGroup) {
             var format = string.Format("{0}.{1}", jobType.FullName, jobName);
             if (!(string.IsNullOrEmpty(jobGroup)))
                 format += "." + jobGroup;

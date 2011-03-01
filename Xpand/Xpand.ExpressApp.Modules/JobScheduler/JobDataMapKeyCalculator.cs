@@ -3,16 +3,16 @@ using System.Linq;
 using Quartz;
 using Quartz.Util;
 using Xpand.ExpressApp.JobScheduler.Qaurtz;
-using Xpand.Persistent.Base.JobScheduler;
+using Xpand.Persistent.Base.JobScheduler.Triggers;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public class JobDataMapKeyCalculator {
-        
 
-        public List<Key> GetListenerNames(JobDataMap jobDataMap,JobListenerEvent jobListenerEvent) {
-            var jobData = jobDataMap[XpandScheduler.TriggerJobListenersOn+jobListenerEvent] as string;
-            if (jobData!=null) {
-                var listenerNames = jobData .Split(';').ToList();
+
+        public List<Key> GetListenerNames(JobDataMap jobDataMap, JobListenerEvent jobListenerEvent) {
+            var jobData = jobDataMap[XpandScheduler.TriggerJobListenersOn + jobListenerEvent] as string;
+            if (jobData != null) {
+                var listenerNames = jobData.Split(';').ToList();
                 return listenerNames.Select(name => name.Split('|')).Select(strings => new Key(strings[0], strings[1])).ToList();
             }
             return new List<Key>();

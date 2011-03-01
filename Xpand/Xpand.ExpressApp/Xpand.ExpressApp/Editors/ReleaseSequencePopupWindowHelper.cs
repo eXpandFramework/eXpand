@@ -7,8 +7,6 @@ using DevExpress.ExpressApp.SystemModule;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Editors {
-    public interface IReleasedSequencePropertyEditor {
-    }
 
     public abstract class ReleaseSequencePopupWindowHelper {
         XafApplication _application;

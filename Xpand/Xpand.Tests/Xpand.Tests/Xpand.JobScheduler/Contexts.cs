@@ -12,11 +12,11 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     public class With_Scheduler {
         protected static JobDetail JobDetail;
         protected static int JobExecutedCount;
-        protected static XpandScheduler Scheduler;
+        protected static IXpandScheduler Scheduler;
 
         Establish context = () => {
-            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory();
-            Scheduler = (XpandScheduler)stdSchedulerFactory.GetScheduler();
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(XafTypesInfo.Instance);
+            Scheduler = (IXpandScheduler)stdSchedulerFactory.GetScheduler();
             JobDetail = new JobDetail("jb", typeof(DummyJob).FullName, typeof(DummyJob));
             Scheduler.StoreJob(JobDetail);
 
@@ -68,9 +68,9 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
     }
     public abstract class With_Job_Scheduler_Application<T, TObject> : With_Application<T, TObject> where T : With_Job_Scheduler_Application<T, TObject> {
-        protected static XpandScheduler Scheduler;
+        protected static IXpandScheduler Scheduler;
         JobSchedulerModule _jobSchedulerModule;
-        
+
         protected override void WindowCreated(Window window) {
             base.WindowCreated(window);
             window.Application.Modules.Add(_jobSchedulerModule);
@@ -86,9 +86,9 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             base.Initialize();
             _jobSchedulerModule = new JobSchedulerModule();
             Isolate.Swap.AllInstances<JobSchedulerModule>().With(_jobSchedulerModule);
-            var scheduler = new XpandSchedulerFactory().GetScheduler();
-            Isolate.WhenCalled(() => _jobSchedulerModule.Scheduler).WillReturn((XpandScheduler)scheduler);
-            Scheduler = (XpandScheduler)scheduler;
+            IScheduler scheduler = new XpandSchedulerFactory(XafTypesInfo.Instance).GetScheduler();
+            Isolate.WhenCalled(() => _jobSchedulerModule.Scheduler).WillReturn((IXpandScheduler)scheduler);
+            Scheduler = (IXpandScheduler)scheduler;
             XafTypesInfo.Instance.FindTypeInfo(typeof(DummyJobListener));
         }
     }

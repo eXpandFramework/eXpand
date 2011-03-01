@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using Xpand.Persistent.Base.JobScheduler.Calendars;
+
+namespace Xpand.Persistent.Base.JobScheduler.Triggers {
+    public interface IJobDetails {
+        IList<IJobDetail> JobDetails { get; }
+    }
+
+    public interface IJobTrigger : IJobDetails {
+        string Name { get; set; }
+        string Description { get; set; }
+
+        ITriggerCalendar Calendar { get; set; }
+
+        DateTime? EndTimeUtc { get; set; }
+
+        DateTime StartTimeUtc { get; set; }
+
+        TriggerPriority Priority { get; set; }
+
+    }
+    public enum TriggerPriority {
+        Default = 5
+    }
+
+}

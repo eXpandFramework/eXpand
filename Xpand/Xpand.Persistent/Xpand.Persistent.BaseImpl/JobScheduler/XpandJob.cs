@@ -35,7 +35,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         }
         protected override void OnChanged(string propertyName, object oldValue, object newValue) {
             base.OnChanged(propertyName, oldValue, newValue);
-            if (JobType!=null&& string.IsNullOrEmpty(Name))
+            if (JobType != null && string.IsNullOrEmpty(Name))
                 Name = JobType.Name;
         }
     }

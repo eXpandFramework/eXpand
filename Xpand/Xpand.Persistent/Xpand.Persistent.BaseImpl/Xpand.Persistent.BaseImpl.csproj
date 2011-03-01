@@ -74,6 +74,7 @@
     <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Kpi.v10.2, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Security.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -173,14 +174,22 @@
     <Compile Include="ImportExport\SerializationConfiguration.cs" />
     <Compile Include="ImportExport\SerializationConfigurationGroup.cs" />
     <Compile Include="ImportExport\XmlFileChooser.cs" />
-    <Compile Include="JobScheduler\JobDetailJobListenerTriggerLink.cs" />
-    <Compile Include="JobScheduler\JobDetailTriggerLink.cs" />
+    <Compile Include="XpandDateRange.cs" />
+    <Compile Include="JobScheduler\Calendars\XpandAnnualCalendar.cs" />
+    <Compile Include="JobScheduler\Calendars\XpandCronCalendar.cs" />
+    <Compile Include="JobScheduler\Calendars\XpandDailyCalendar.cs" />
+    <Compile Include="JobScheduler\Calendars\XpandHolidayCalendar.cs" />
+    <Compile Include="JobScheduler\Calendars\XpandMonthlyCalendar.cs" />
+    <Compile Include="JobScheduler\Calendars\XpandWeeklyCalendar.cs" />
+    <Compile Include="JobScheduler\Triggers\JobDetailJobListenerTriggerLink.cs" />
+    <Compile Include="JobScheduler\Triggers\JobDetailTriggerLink.cs" />
     <Compile Include="JobScheduler\JobSchedulerGroup.cs" />
-    <Compile Include="JobScheduler\JobSchedulerGroupTriggerLink.cs" />
+    <Compile Include="JobScheduler\Triggers\JobSchedulerGroupTriggerLink.cs" />
     <Compile Include="JobScheduler\JobTypeClassInfoConverter.cs" />
-    <Compile Include="JobScheduler\XpandNthIncludedDayTrigger.cs" />
-    <Compile Include="JobScheduler\XpandCronTrigger.cs" />
+    <Compile Include="JobScheduler\Triggers\XpandNthIncludedDayTrigger.cs" />
+    <Compile Include="JobScheduler\Triggers\XpandCronTrigger.cs" />
     <Compile Include="JobScheduler\XpandJob.cs" />
+    <Compile Include="JobScheduler\Calendars\XpandTriggerCalendar.cs" />
     <Compile Include="PersistentMetaData\CodeTemplate.cs" />
     <Compile Include="PersistentMetaData\CodeTemplateInfo.cs" />
     <Compile Include="PersistentMetaData\ExtendedOrphanedCollection.cs" />
@@ -253,11 +262,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PersistentMetaData\DataStoreLogonObject.cs" />
     <Compile Include="PersistentMetaData\DataBase.cs" />
-    <Compile Include="JobScheduler\JobListenerTrigger.cs" />
+    <Compile Include="JobScheduler\Triggers\JobListenerTrigger.cs" />
     <Compile Include="JobScheduler\XpandJobDataMap.cs" />
     <Compile Include="JobScheduler\XpandJobDetail.cs" />
-    <Compile Include="JobScheduler\XpandSimpleTrigger.cs" />
-    <Compile Include="JobScheduler\XpandJobTrigger.cs" />
+    <Compile Include="JobScheduler\Triggers\XpandSimpleTrigger.cs" />
+    <Compile Include="JobScheduler\Triggers\XpandJobTrigger.cs" />
     <Compile Include="SequenceObject.cs" />
     <Compile Include="Updater.cs">
       <SubType>Code</SubType>
@@ -334,6 +343,7 @@
   <ItemGroup>
     <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpXPCalculatedPropertyMemberTemplates.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

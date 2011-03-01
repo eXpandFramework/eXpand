@@ -10,6 +10,7 @@ using Quartz;
 using Xpand.ExpressApp.JobScheduler.Qaurtz;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.JobScheduler;
+using Xpand.Persistent.Base.JobScheduler.Triggers;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public class JobDetailController : SupportSchedulerController {
@@ -91,8 +92,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         void ScheduleJob(IJobTrigger trigger) {
             var jobDetail = View.CurrentObject as IJobDetail;
             if (jobDetail != null) {
-                var simpleTrigger = Mapper.CreateTrigger(trigger, jobDetail.Name, jobDetail.Job.JobType, jobDetail.Group.Name);
-                Scheduler.ScheduleJob(simpleTrigger);
+                Scheduler.ScheduleJob(trigger, jobDetail, Mapper,jobDetail.Group.Name );
             }
         }
 
