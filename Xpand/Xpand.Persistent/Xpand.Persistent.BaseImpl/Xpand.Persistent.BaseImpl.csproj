@@ -89,6 +89,9 @@
     <Reference Include="DevExpress.Xpo.v10.2.Linq, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v10.2.Core, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="Quartz, Version=1.0.3.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\OpenSource\Quartz.NET-1.0.3\build\2.0\Debug\Quartz\Quartz.dll</HintPath>
@@ -175,6 +178,8 @@
     <Compile Include="JobScheduler\JobSchedulerGroup.cs" />
     <Compile Include="JobScheduler\JobSchedulerGroupTriggerLink.cs" />
     <Compile Include="JobScheduler\JobTypeClassInfoConverter.cs" />
+    <Compile Include="JobScheduler\XpandNthIncludedDayTrigger.cs" />
+    <Compile Include="JobScheduler\XpandCronTrigger.cs" />
     <Compile Include="JobScheduler\XpandJob.cs" />
     <Compile Include="PersistentMetaData\CodeTemplate.cs" />
     <Compile Include="PersistentMetaData\CodeTemplateInfo.cs" />

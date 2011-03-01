@@ -91,7 +91,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         void ScheduleJob(IJobTrigger trigger) {
             var jobDetail = View.CurrentObject as IJobDetail;
             if (jobDetail != null) {
-                var simpleTrigger = Mapper.GetSimpleTrigger(trigger, jobDetail.Name, jobDetail.Job.JobType, jobDetail.Group.Name);
+                var simpleTrigger = Mapper.CreateTrigger(trigger, jobDetail.Name, jobDetail.Job.JobType, jobDetail.Group.Name);
                 Scheduler.ScheduleJob(simpleTrigger);
             }
         }

@@ -102,14 +102,14 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         void ScheduleJob(IJobDetailTriggerLink link) {
-            var simpleTrigger = Mapper.GetSimpleTrigger(link.JobTrigger, link.JobDetail.Name, link.JobDetail.Job.JobType, null);
+            var simpleTrigger = Mapper.CreateTrigger(link.JobTrigger, link.JobDetail.Name, link.JobDetail.Job.JobType, null);
             Scheduler.ScheduleJob(simpleTrigger);
         }
 
         void ScheduleGroup(IJobSchedulerGroupTriggerLink link) {
             var relatedJobDetails = GetRelatedJobDetails(() => ForTheSameGroup(link));
             relatedJobDetails.ForEach(detail => {
-                var simpleTrigger = Mapper.GetSimpleTrigger(link.Trigger, detail.Name, detail.Job.JobType, link.JobSchedulerGroup.Name);
+                var simpleTrigger = Mapper.CreateTrigger(link.Trigger, detail.Name, detail.Job.JobType, link.JobSchedulerGroup.Name);
                 Scheduler.ScheduleJob(simpleTrigger);
             });
         }

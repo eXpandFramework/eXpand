@@ -62,7 +62,7 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
 
         public void StoreJob(IJobDetail xpandJobDetail) {
             var jobDetail = GetJobDetail(xpandJobDetail) ?? Mapper.CreateJobDetail(xpandJobDetail);
-            Mapper.AssignJobDetail(jobDetail, xpandJobDetail);
+            Mapper.AssignQuartzJobDetail(jobDetail, xpandJobDetail);
             jobDetail.Durable = true;
             Resources.JobStore.StoreJob(SchedulingContext, jobDetail, true);
         }

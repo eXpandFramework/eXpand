@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.JobScheduler {
 
         Action<SimpleTrigger> Update(ISimpleTrigger obj) {
             return trigger => {
-                Mapper.AssignTrigger(trigger, obj, trigger.JobName, TypesInfo.FindTypeInfo(trigger.JobGroup).Type, null);
+                Mapper.AssignQuartzTrigger(trigger, obj, trigger.JobName, TypesInfo.FindTypeInfo(trigger.JobGroup).Type, null);
                 Scheduler.StoreTrigger(trigger);
             };
         }

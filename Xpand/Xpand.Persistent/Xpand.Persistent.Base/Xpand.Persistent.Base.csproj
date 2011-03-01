@@ -71,6 +71,9 @@
     <Reference Include="DevExpress.Xpo.v10.2.Linq, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v10.2.Core, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="Xpand.Utils, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -123,8 +126,10 @@
     <Compile Include="IXpoModelDifference.cs" />
     <Compile Include="General\IObsoleteTreeNode.cs" />
     <Compile Include="General\IPictureItem.cs" />
+    <Compile Include="JobScheduler\ICronTrigger.cs" />
     <Compile Include="JobScheduler\IJobSchedulerGroup.cs" />
     <Compile Include="JobScheduler\IJobSchedulerGroupTriggerLink.cs" />
+    <Compile Include="JobScheduler\INthIncludedDayTrigger.cs" />
     <Compile Include="JobScheduler\ISupportSchedulerLink.cs" />
     <Compile Include="JobScheduler\IXpandJob.cs" />
     <Compile Include="JobScheduler\IJobDetail.cs" />

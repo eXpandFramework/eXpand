@@ -2,8 +2,6 @@
 using System.Threading;
 using DevExpress.ExpressApp;
 using Machine.Specifications;
-using Quartz;
-using TypeMock.ArrangeActAssert;
 using Xpand.ExpressApp.JobScheduler;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 
@@ -15,7 +13,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             var objectSpace = ObjectSpaceInMemory.CreateNew();
             var xpandSimpleTrigger = objectSpace.CreateObject<XpandSimpleTrigger>();
             xpandSimpleTrigger.Name = "tr";
-            var simpleTrigger = Mapper.GetSimpleTrigger(xpandSimpleTrigger, "jb", typeof(DummyJob),null);
+            var simpleTrigger = Mapper.CreateTrigger(xpandSimpleTrigger, "jb", typeof(DummyJob),null);
 
             simpleTrigger.StartTimeUtc = DateTime.UtcNow;
             

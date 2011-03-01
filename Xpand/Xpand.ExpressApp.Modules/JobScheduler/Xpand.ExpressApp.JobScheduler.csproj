@@ -83,6 +83,7 @@
     <Reference Include="DevExpress.Xpo.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v10.2.Core, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="Quartz">
       <HintPath>D:\OpenSource\Quartz.NET-1.0.3\build\2.0\Debug\Quartz\Quartz.dll</HintPath>
     </Reference>

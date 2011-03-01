@@ -4,10 +4,9 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using Machine.Specifications;
 using Quartz;
-using Xpand.ExpressApp.JobScheduler;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 
-namespace Xpand.Tests.Xpand.JobScheduler{
+namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_JobTrigger_is_linked_with_jobdetail : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_is_linked_with_jobdetail> {
         static XpandSimpleTrigger _xpandSimpleTrigger;
 
@@ -122,11 +121,11 @@ namespace Xpand.Tests.Xpand.JobScheduler{
         Establish context = () => {
             var jobSchedulerGroup = ObjectSpace.CreateObject<JobSchedulerGroup>();
             jobSchedulerGroup.Name = "gr";
-            Object.Group=jobSchedulerGroup;
+            Object.Group = jobSchedulerGroup;
             ObjectSpace.CommitChanges();
-            _xpandJobDetail = (XpandJobDetail) new Cloner().CloneTo(Object, typeof (XpandJobDetail));
+            _xpandJobDetail = (XpandJobDetail)new Cloner().CloneTo(Object, typeof(XpandJobDetail));
             _xpandJobDetail.Name = "jb1";
-            DetailView.CurrentObject=_xpandJobDetail;
+            DetailView.CurrentObject = _xpandJobDetail;
             ObjectSpace.CommitChanges();
             var xpandSimpleTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
             DetailView.CurrentObject = xpandSimpleTrigger;
@@ -152,11 +151,11 @@ namespace Xpand.Tests.Xpand.JobScheduler{
         Establish context = () => {
             var jobSchedulerGroup = ObjectSpace.CreateObject<JobSchedulerGroup>();
             jobSchedulerGroup.Name = "gr";
-            Object.Group=jobSchedulerGroup;
+            Object.Group = jobSchedulerGroup;
             ObjectSpace.CommitChanges();
-            _xpandJobDetail = (XpandJobDetail) new Cloner().CloneTo(Object, typeof (XpandJobDetail));
+            _xpandJobDetail = (XpandJobDetail)new Cloner().CloneTo(Object, typeof(XpandJobDetail));
             _xpandJobDetail.Name = "jb1";
-            DetailView.CurrentObject=_xpandJobDetail;
+            DetailView.CurrentObject = _xpandJobDetail;
             ObjectSpace.CommitChanges();
             var xpandSimpleTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
             DetailView.CurrentObject = xpandSimpleTrigger;
