@@ -60,7 +60,7 @@ namespace Xpand.ExpressApp.JobScheduler {
             if (supportJobDetail is IJobDetailJobListenerTriggerLink) {
                 var jobListenerTrigger = ((IJobDetailJobListenerTriggerLink)supportJobDetail).JobListenerTrigger;
                 jobType = jobListenerTrigger.JobType;
-                return new List<JobDetailTriggerInfo> { new ListenerInfo(supportJobDetail.JobDetail.Name, jobType, jobListenerTrigger.Event, supportJobDetail.JobDetail.Job.JobType) };
+                return new List<JobDetailTriggerInfo> { new ListenerInfo(supportJobDetail.JobDetail.Name, jobType, jobListenerTrigger.Event, supportJobDetail.JobDetail.Job.JobType, jobListenerTrigger.Group) };
             }
             return new List<JobDetailTriggerInfo> { new JobDetailTriggerInfo(supportJobDetail.JobDetail.Name, jobType, ((IJobDetailTriggerLink)supportJobDetail).JobTrigger.Name) };
         }
@@ -70,7 +70,7 @@ namespace Xpand.ExpressApp.JobScheduler {
             Delete();
         }
         void AddTriggerListeners(IJobTriggerTriggerListenerTriggerLink link) {
-            List<IJobDetail> jobDetails = GetRelatedJobDetails(ForTheSameJobType(link.TriggerListenerTrigger.JobType));
+            List<IJobDetail> jobDetails = GetRelatedJobDetails(ForTheSameJobTypeOrGroup(link.TriggerListenerTrigger.JobType,link.TriggerListenerTrigger.Group));
             var calculateTriggerListenerNames = CalculateTriggerListenerNames(link.TriggerListenerTrigger.Event);
             var triggerListenersKeys = CreateTriggerListenersKeys(link.TriggerListenerTrigger.Event);
             jobDetails.ForEach(detail => GetListenerDataMap(detail, AddListener, detail.Name, detail.Job.JobType, calculateTriggerListenerNames, triggerListenersKeys));
@@ -85,7 +85,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         void AddJobListeners(IJobDetailJobListenerTriggerLink link) {
-            List<IJobDetail> jobDetails = GetRelatedJobDetails(ForTheSameJobType(link.JobListenerTrigger.JobType));
+            List<IJobDetail> jobDetails = GetRelatedJobDetails(ForTheSameJobTypeOrGroup(link.JobListenerTrigger.JobType, link.JobListenerTrigger.Group));
             var calculateJobListenerNames = CalculateJobListenerNames(link.JobListenerTrigger.Event);
             var listenersKeyAction = CreateJobListenersKeys(link.JobListenerTrigger.Event);
             jobDetails.ForEach(detail => GetListenerDataMap(detail, AddListener, link.JobDetail.Name, link.JobDetail.Job.JobType, calculateJobListenerNames, listenersKeyAction));
@@ -99,8 +99,8 @@ namespace Xpand.ExpressApp.JobScheduler {
             return (map, calculator) => calculator.GetJobListenerNames(map, listenerEvent);
         }
 
-        Func<CriteriaOperator> ForTheSameJobType(Type type) {
-            return () => CriteriaOperator.Parse("Job.JobType=?", type);
+        Func<CriteriaOperator> ForTheSameJobTypeOrGroup(Type type, IJobSchedulerGroup group) {
+            return () => CriteriaOperator.Parse("Job.JobType=? OR (Group Is Not Null AND Group=?)", type,group);
         }
 
         List<IJobDetail> GetRelatedJobDetails(Func<CriteriaOperator> action) {
@@ -109,7 +109,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         void Delete() {
-            supportJobDetails.OfType<ListenerInfo>().ToList().ForEach(RemoveJobListeners);
+            supportJobDetails.OfType<ListenerInfo>().ToList().ForEach(RemoveListeners);
             supportJobDetails.OfType<JobDetailTriggerInfo>().ToList().ForEach(UnscheduleJob);
             supportJobDetails.Clear();
         }
@@ -143,8 +143,8 @@ namespace Xpand.ExpressApp.JobScheduler {
             return CriteriaOperator.Parse("Group.Name=?", link.JobSchedulerGroup.Name);
         }
 
-        void RemoveJobListeners(ListenerInfo listenerInfo) {
-            List<IJobDetail> jobDetails = GetRelatedJobDetails(ForTheSameJobType(listenerInfo.JobType));
+        void RemoveListeners(ListenerInfo listenerInfo) {
+            List<IJobDetail> jobDetails = GetRelatedJobDetails(ForTheSameJobTypeOrGroup(listenerInfo.JobType, listenerInfo.Group));
             Func<JobDataMap, JobDataMapKeyCalculator, List<Key>> calculateJobListenerNames;
             Action<JobDataMap, List<Key>, JobDataMapKeyCalculator> listenersKeyAction;
             if (listenerInfo.ListenerEvent is JobListenerEvent) {
@@ -190,15 +190,21 @@ namespace Xpand.ExpressApp.JobScheduler {
     internal class ListenerInfo : JobDetailTriggerInfo {
         readonly Enum _listenerEvent;
         readonly Type _originType;
+        readonly IJobSchedulerGroup _group;
 
-        public ListenerInfo(string jobName, Type jobType, Enum listenerEvent, Type originType)
+        public ListenerInfo(string jobName, Type jobType, Enum listenerEvent, Type originType,IJobSchedulerGroup group)
             : base(jobName, jobType, null) {
             _listenerEvent = listenerEvent;
             _originType = originType;
+            _group = group;
         }
 
         public Enum ListenerEvent {
             get { return _listenerEvent; }
+        }
+
+        public IJobSchedulerGroup Group {
+            get { return _group; }
         }
 
         public Type OriginType {

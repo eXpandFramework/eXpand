@@ -90,16 +90,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("RequestsRecovery", ref _requestsRecovery, value);
             }
         }
-        private bool _volatile;
-        [Tooltip("Whether or not the IJob should not be persisted in the IJobStore for re-use after program restarts. If not explicitly set, the default value is false. ")]
-        public bool Volatile {
-            get {
-                return _volatile;
-            }
-            set {
-                SetPropertyValue("Volatile", ref _volatile, value);
-            }
-        }
+        
 
         [Association("JobDetailTriggerLink-Triggers"), Aggregated]
         protected IList<JobDetailTriggerLink> TriggerLinks {

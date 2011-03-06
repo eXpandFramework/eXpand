@@ -1,10 +1,11 @@
 ﻿using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler {
-    public class JobSchedulerGroup : XpandCustomObject, IJobSchedulerGroup {
+    public class JobSchedulerGroup : XpandCustomObject, IJobSchedulerGroup,IFastManyToMany {
         public JobSchedulerGroup(Session session)
             : base(session) {
         }
