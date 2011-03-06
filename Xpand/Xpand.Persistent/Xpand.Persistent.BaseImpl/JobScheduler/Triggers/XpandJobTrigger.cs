@@ -135,9 +135,25 @@ Setting a value in the past may cause a new trigger to compute a first fire time
                 return GetList<JobSchedulerGroupTriggerLink>("JobSchedulerGroupTriggerLinks");
             }
         }
+
         [ManyToManyAlias("JobSchedulerGroupTriggerLinks", "JobSchedulerGroup")]
         public IList<JobSchedulerGroup> JobSchedulerGroups {
             get { return GetList<JobSchedulerGroup>("JobSchedulerGroups"); }
+        }
+
+        [Association("XpandJobTrigger-JobTriggerTriggerListenerTriggerLinks"), AggregatedAttribute]
+        protected IList<JobTriggerTriggerListenerTriggerLink> JobTriggerTriggerListenerTriggerLinks {
+            get {
+                return GetList<JobTriggerTriggerListenerTriggerLink>("JobTriggerTriggerListenerTriggerLinks");
+            }
+        }
+        [ManyToManyAlias("JobTriggerTriggerListenerTriggerLinks", "TriggerListenerTrigger")]
+        public IList<TriggerListenerTrigger> TriggerListenerTriggers {
+            get { return GetList<TriggerListenerTrigger>("TriggerListenerTriggers"); }
+        }
+
+        IList<ITriggerListenerTrigger> IJobTrigger.TriggerListenerTriggers {
+            get { return new ListConverter<ITriggerListenerTrigger,TriggerListenerTrigger>(TriggerListenerTriggers); }
         }
     }
 }

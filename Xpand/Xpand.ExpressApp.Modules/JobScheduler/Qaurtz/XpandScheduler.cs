@@ -25,6 +25,7 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
         DateTime? RescheduleJob(Trigger trigger);
         bool HasTriggers(IJobDetail jobDetail);
         DateTime ScheduleJob(IJobTrigger jobTrigger, IJobDetail jobDetail, Mapper mapper, string groupName);
+        void StoreTrigger(IJobTrigger jobTrigger, IJobDetail jobDetail, Mapper mapper, string groupName);
     }
 
     public class XpandScheduler : StdScheduler, IXpandScheduler {
@@ -32,6 +33,7 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
         readonly SchedulingContext _schedulingContext;
         readonly Mapper _mapper;
         public const string TriggerJobListenersOn = "TriggerJobListenersOn";
+        public const string TriggerTriggerJobListenersOn = "TriggerTriggerJobListenersOn";
 
         public XpandScheduler(QuartzScheduler sched, SchedulingContext schedCtxt, QuartzSchedulerResources resources, SchedulingContext schedulingContext)
             : base(sched, schedCtxt) {
@@ -56,6 +58,8 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
             base.Start();
             if (GetJobListener(typeof(XpandJobListener).Name) == null)
                 AddJobListener(new XpandJobListener());
+            if (GetTriggerListener(typeof(XpandTriggerListener).Name) == null)
+                AddTriggerListener(new XpandTriggerListener());
         }
 
         public JobDetail GetJobDetail(IJobDetail jobDetail) {
@@ -111,9 +115,19 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
         }
 
         public DateTime ScheduleJob(IJobTrigger jobTrigger, IJobDetail jobDetail, Mapper mapper, string groupName) {
-            var trigger = mapper.CreateTrigger(jobTrigger, jobDetail.Name, jobDetail.Job.JobType, groupName);
-            CalendarBuilder.Build(jobTrigger, this);
+            Trigger trigger = GetTrigger(mapper, jobTrigger, groupName, jobDetail.Name,jobDetail.Job.JobType);
             return ScheduleJob(trigger);
+        }
+
+        public void StoreTrigger(IJobTrigger jobTrigger, IJobDetail jobDetail, Mapper mapper, string groupName) {
+            Trigger trigger = GetTrigger(mapper, jobTrigger, groupName, jobDetail.Name, jobDetail.Job.JobType);
+            StoreTrigger(trigger);
+        }
+
+        Trigger GetTrigger(Mapper mapper, IJobTrigger jobTrigger, string groupName, string jobName,Type jobType) {
+            var trigger = mapper.CreateTrigger(jobTrigger, jobName, jobType, groupName);
+            CalendarBuilder.Build(jobTrigger, this);
+            return trigger;
         }
     }
 }

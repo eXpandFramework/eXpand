@@ -19,7 +19,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
         public override void AfterConstruction() {
             base.AfterConstruction();
             _daysExcluded = new List<DayOfWeek> { DayOfWeek.Sunday, DayOfWeek.Saturday };
-            _daysIncdulded = new List<DayOfWeek> { DayOfWeek.Sunday, DayOfWeek.Saturday };
+            _daysIncluded = new List<DayOfWeek>();
         }
 
         [Persistent("DaysOfWeekExcluded")]
@@ -34,11 +34,11 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
         [Persistent("DaysOfWeekIncluded")]
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(SerializableObjectConverter))]
-        private List<DayOfWeek> _daysIncdulded;
+        private List<DayOfWeek> _daysIncluded;
         [PropertyEditor(typeof(IChooseFromListCollectionEditor))]
         [DataSourceProperty("AllDaysOfWeek")]
         public List<DayOfWeek> DaysOfWeekIncluded {
-            get { return _daysIncdulded; }
+            get { return _daysIncluded; }
         }
         [Browsable(false)]
         public List<DayOfWeek> AllDaysOfWeek {

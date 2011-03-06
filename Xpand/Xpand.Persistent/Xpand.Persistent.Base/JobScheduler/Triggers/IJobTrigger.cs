@@ -5,6 +5,7 @@ using Xpand.Persistent.Base.JobScheduler.Calendars;
 namespace Xpand.Persistent.Base.JobScheduler.Triggers {
     public interface IJobDetails {
         IList<IJobDetail> JobDetails { get; }
+        
     }
 
     public interface IJobTrigger : IJobDetails {
@@ -18,6 +19,7 @@ namespace Xpand.Persistent.Base.JobScheduler.Triggers {
         DateTime StartTimeUtc { get; set; }
 
         TriggerPriority Priority { get; set; }
+        IList<ITriggerListenerTrigger> TriggerListenerTriggers { get; }
 
     }
     public enum TriggerPriority {

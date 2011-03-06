@@ -142,6 +142,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor.cs" />
+    <Compile Include="PropertyEditors\DurationPropertyEditor.cs" />
     <Compile Include="PropertyEditors\NullAble\BooleanPropertyEditor\BooleanHAlignFarPropertyEditor.cs" />
     <Compile Include="ListEditors\XpandGridListEditor.cs">
     </Compile>

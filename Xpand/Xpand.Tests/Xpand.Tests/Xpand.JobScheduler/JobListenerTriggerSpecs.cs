@@ -1,5 +1,4 @@
-﻿using DevExpress.ExpressApp;
-using Machine.Specifications;
+﻿using Machine.Specifications;
 using Quartz;
 using Quartz.Spi;
 using TypeMock.ArrangeActAssert;
@@ -60,7 +59,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
 
-    public class When_an_XPand_Listener_is_executed {
+    public class When_an_Xpand_JobListener_is_executed {
         static IXpandScheduler _scheduler;
         static JobExecutionContext _jobExecutionContext;
         static bool _triggered;
@@ -68,12 +67,12 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         Establish context = () => {
             _xpandJobListener = new XpandJobListener();
-            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(XafTypesInfo.Instance);
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory();
             _scheduler = (IXpandScheduler)stdSchedulerFactory.GetScheduler();
             _scheduler.Start();
             var jobDetail = new JobDetail { Name = "name", Group = "group" };
             var jobDataMapKeyCalculator = new JobDataMapKeyCalculator();
-            jobDataMapKeyCalculator.CreateListenersKey(jobDetail.JobDataMap, JobListenerEvent.Executed, jobDetail.Key);
+            jobDataMapKeyCalculator.CreateJobListenersKey(jobDetail.JobDataMap, JobListenerEvent.Executed, jobDetail.Key);
             var triggerFiredBundle = new TriggerFiredBundle(jobDetail, Isolate.Fake.Instance<Trigger>(), null, false, null, null, null, null);
             _jobExecutionContext = new JobExecutionContext(_scheduler, triggerFiredBundle, null);
             Isolate.WhenCalled(() => _scheduler.TriggerJob(null, null)).DoInstead(callContext => _triggered = true);

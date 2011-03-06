@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Threading;
 using DevExpress.ExpressApp;
-using DevExpress.Schedule;
 using Machine.Specifications;
-using Quartz;
 using Quartz.Impl.Calendar;
 using Xpand.ExpressApp.JobScheduler;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 using Xpand.Persistent.BaseImpl.JobScheduler.Calendars;
 using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
-using System.Linq;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_trigger_time_pass : With_Scheduler {
@@ -70,6 +67,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             () => _calendar.IsDayExcluded(DateTime.Today.AddDays(1)).ShouldBeTrue();
         It should_add_the_included_dates_to_the_scheduler_calendar =
             () => _calendar.IsDayExcluded(DateTime.Today.AddDays(2)).ShouldBeFalse();
+        It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
     public class When_Job_with_Holiday_calendar_scheduled : With_Scheduler {
         static HolidayCalendar _calendar;
@@ -104,7 +102,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         It should_add_the_excluded_dates_to_the_scheduler_calendar =
             () => _calendar.ExcludedDates.Contains(DateTime.Today.AddDays(1));
-        
+        It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
     public class When_Job_with_Weekcly_calendar_scheduled : With_Scheduler {
         static WeeklyCalendar _calendar;
@@ -130,7 +128,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         };
 
-        Because of = () => Scheduler.ScheduleJob(_simpleTrigger, _jobDetail, new Mapper(), null);
+        Because of = () => Scheduler.StoreTrigger(_simpleTrigger,_jobDetail, new Mapper(), null);
 
         It should_add_an_weekcly_Calendar_to_the_scheduler =
             () => {
@@ -139,10 +137,10 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             };
 
         It should_add_the_excluded_dates_to_the_scheduler_calendar =
-            () => _calendar.IsDayExcluded(DayOfWeek.Friday).ShouldBeFalse();
+            () => _calendar.IsDayExcluded(DayOfWeek.Friday).ShouldBeTrue();
         It should_add_the_included_dates_to_the_scheduler_calendar =
             () => _calendar.IsDayExcluded(DayOfWeek.Monday).ShouldBeFalse();
-
+        It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
 
 }

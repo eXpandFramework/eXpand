@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
         }
 
         void TriggerJobs(IScheduler scheduler, JobDataMap jobDataMap, JobListenerEvent jobListenerEvent) {
-            jobDataMapKeyCalculator.GetListenerNames(jobDataMap, jobListenerEvent).ForEach(TriggerJobsCore(scheduler));
+            jobDataMapKeyCalculator.GetJobListenerNames(jobDataMap, jobListenerEvent).ForEach(TriggerJobsCore(scheduler));
         }
 
         Action<Key> TriggerJobsCore(IScheduler scheduler) {

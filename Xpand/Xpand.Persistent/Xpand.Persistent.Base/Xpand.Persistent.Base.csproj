@@ -141,6 +141,7 @@
     <Compile Include="JobScheduler\Triggers\ICronTrigger.cs" />
     <Compile Include="JobScheduler\IJobSchedulerGroup.cs" />
     <Compile Include="JobScheduler\Triggers\IJobSchedulerGroupTriggerLink.cs" />
+    <Compile Include="JobScheduler\Triggers\IJobTriggerTriggerListenerTriggerLink.cs" />
     <Compile Include="JobScheduler\Triggers\INthIncludedDayTrigger.cs" />
     <Compile Include="JobScheduler\ISupportSchedulerLink.cs" />
     <Compile Include="JobScheduler\IXpandJob.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="JobScheduler\Triggers\ISimpleTrigger.cs" />
     <Compile Include="JobScheduler\Triggers\IJobTrigger.cs" />
     <Compile Include="JobScheduler\JobTypeAttribute.cs" />
+    <Compile Include="JobScheduler\Triggers\ITriggerListenerTrigger.cs" />
     <Compile Include="MemberLevelSecurity\IMemberLevelSecurityModule.cs" />
     <Compile Include="ModelDifference\AspectInfo.cs" />
     <Compile Include="ModelDifference\ResourceInfo.cs" />

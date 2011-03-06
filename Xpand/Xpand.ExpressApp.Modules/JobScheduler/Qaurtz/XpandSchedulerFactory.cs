@@ -1,20 +1,15 @@
 ﻿using System.Collections.Specialized;
-using DevExpress.ExpressApp.DC;
 using Quartz;
 using Quartz.Core;
 using Quartz.Impl;
 
 namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
     public class XpandSchedulerFactory : StdSchedulerFactory {
-        readonly ITypesInfo _typesInfo;
-
-        public XpandSchedulerFactory(NameValueCollection props, ITypesInfo typesInfo)
+        public XpandSchedulerFactory(NameValueCollection props)
             : base(props) {
-            _typesInfo = typesInfo;
         }
 
-        public XpandSchedulerFactory(ITypesInfo typesInfo) {
-            _typesInfo = typesInfo;
+        public XpandSchedulerFactory() {
         }
 
         protected override IScheduler Instantiate(QuartzSchedulerResources resources, QuartzScheduler quartzScheduler) {

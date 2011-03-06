@@ -2,6 +2,7 @@
 using System.Globalization;
 using DevExpress.XtraScheduler.Native;
 using Quartz;
+using Xpand.ExpressApp.JobScheduler.Qaurtz;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
 
@@ -15,12 +16,18 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         Trigger CreateTriggerCore(IJobTrigger jobTrigger, Type jobType) {
-            if (jobTrigger is ISimpleTrigger)
-                return new SimpleTrigger(jobTrigger.Name, jobType.FullName);
+            Trigger trigger = null;
+            if (jobTrigger is ISimpleTrigger) 
+                trigger = new SimpleTrigger(jobTrigger.Name, jobType.FullName);
             if (jobTrigger is ICronTrigger)
-                return new CronTrigger(jobTrigger.Name, jobType.FullName);
+                trigger = new CronTrigger(jobTrigger.Name, jobType.FullName);
             if (jobTrigger is INthIncludedDayTrigger)
-                return new NthIncludedDayTrigger(jobTrigger.Name, jobType.FullName);
+                trigger = new NthIncludedDayTrigger(jobTrigger.Name, jobType.FullName);
+
+            if (trigger != null) {
+                trigger.AddTriggerListener(new XpandTriggerListener().Name);
+                return trigger;
+            }
             throw new NotImplementedException(jobTrigger.GetType().FullName);
         }
 

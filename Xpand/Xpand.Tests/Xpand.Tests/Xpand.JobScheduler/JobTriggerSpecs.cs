@@ -9,6 +9,7 @@ using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_JobTrigger_is_linked_with_jobdetail : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_is_linked_with_jobdetail> {
+        static Trigger[] _triggersOfJob;
         static XpandSimpleTrigger _xpandSimpleTrigger;
 
         Establish context = () => {
@@ -19,9 +20,14 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         Because of = () => ObjectSpace.CommitChanges();
 
-        It should_schedule_the_job = () => Scheduler.GetTriggersOfJob(Object).Length.ShouldEqual(1);
+        It should_schedule_the_job = () => {
+            _triggersOfJob = Scheduler.GetTriggersOfJob(Object);
+            _triggersOfJob.Length.ShouldEqual(1);
+        };
 
         It should_calculate_the_FinalFireTimeUtc = () => _xpandSimpleTrigger.FinalFireTimeUtc.ShouldNotBeNull();
+
+        It should_add_an_xpandtriggerListerner_to_it = () => _triggersOfJob[0].TriggerListenerNames.Count().ShouldEqual(1);
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }

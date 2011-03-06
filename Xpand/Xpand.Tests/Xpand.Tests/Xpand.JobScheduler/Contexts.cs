@@ -15,7 +15,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         protected static IXpandScheduler Scheduler;
 
         Establish context = () => {
-            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(XafTypesInfo.Instance);
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory();
             Scheduler = (IXpandScheduler)stdSchedulerFactory.GetScheduler();
             JobDetail = new JobDetail("jb", typeof(DummyJob).FullName, typeof(DummyJob));
             Scheduler.StoreJob(JobDetail);
@@ -86,7 +86,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             base.Initialize();
             _jobSchedulerModule = new JobSchedulerModule();
             Isolate.Swap.AllInstances<JobSchedulerModule>().With(_jobSchedulerModule);
-            IScheduler scheduler = new XpandSchedulerFactory(XafTypesInfo.Instance).GetScheduler();
+            IScheduler scheduler = new XpandSchedulerFactory().GetScheduler();
             Isolate.WhenCalled(() => _jobSchedulerModule.Scheduler).WillReturn((IXpandScheduler)scheduler);
             Scheduler = (IXpandScheduler)scheduler;
             XafTypesInfo.Instance.FindTypeInfo(typeof(DummyJobListener));
