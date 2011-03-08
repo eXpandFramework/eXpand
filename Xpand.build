@@ -257,7 +257,7 @@
 	</Target>
 	
 	<Target Name="Twitter" >
-		<Mash2.MSBuild.Tasks.Twitter Message="new version $(Version) of #expandframework is available here: http://goo.gl/g9wRy #XAF @devexpress" 
+		<Mash2.MSBuild.Tasks.Twitter Message="new version $(Version) of expandframework is available here: http://goo.gl/g9wRy #XAF @devexpress" 
 			ConsumerKey="$(TwitterConsumerKey)" 
 			ConsumerSecret="$(TwitterConsumerSecret)" 
 			AccessToken="$(TwitterAccessToken)" 
