@@ -25,8 +25,6 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             ITypesInfo typesInfo = GetTypesInfo(_executableName);
             var xafApplication = GetApplication(_executableName, typesInfo);
             XpandModuleBase.DisposeManagers();
-//            var execAppInstance = XpandModuleBase.Application;
-            //XpandModuleBase.Application = xafApplication;
             var assembliesPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
             string path = Path.Combine(assembliesPath, _executableName);
             string config = path + ".config";
@@ -36,7 +34,6 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 ((ISupportFullConnectionString) xafApplication).ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
             var modulesManager = CreateModulesManager(xafApplication, config, assembliesPath, typesInfo);
-//            XpandModuleBase.Application = execAppInstance;
             var modelApplicationBase = GetModelApplication(xafApplication, config, modulesManager);
             XpandModuleBase.ReStoreManagers();
             return modelApplicationBase;
@@ -67,7 +64,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 if (typesInfo is TypesInfo)
                     XpandModuleBase.Dictiorary = ((TypesInfo)typesInfo).Source.XPDictionary;
 
-                result.Load(typesInfo);
+                result.Load(typesInfo,typesInfo!=XafTypesInfo.Instance);
                 return result;
             } finally {
                 XpandModuleBase.Dictiorary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
