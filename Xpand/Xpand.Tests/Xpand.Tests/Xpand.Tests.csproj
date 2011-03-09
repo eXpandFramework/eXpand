@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.Tests</RootNamespace>
     <AssemblyName>Xpand.Tests</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
@@ -34,6 +34,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -106,17 +107,24 @@
     <Reference Include="DevExpress.XtraGrid.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\..\..\..\..\Users\Administrator\Desktop\EmailTemplate\lib\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="Quartz, Version=1.0.3.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Quartz.dll</HintPath>
     </Reference>
-    <Reference Include="TypeMock, Version=6.0.4.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
+    <Reference Include="TypeMock, Version=6.0.7.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\_third_party_assemblies\TypeMock.dll</HintPath>
     </Reference>
-    <Reference Include="Typemock.ArrangeActAssert, Version=6.0.4.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
+    <Reference Include="Typemock.ArrangeActAssert, Version=6.0.7.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\_third_party_assemblies\Typemock.ArrangeActAssert.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.EmailTemplateEngine, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.EmailTemplateEngine.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp, Version=10.1.5.176, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -137,6 +145,10 @@
     <Reference Include="Xpand.ExpressApp.JobScheduler, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.JobScheduler.Jobs, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.Jobs.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Logic, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -244,6 +256,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="With_Application.cs" />
+    <Compile Include="Xpand.EmailTemplateEngine\EmailSenderSpecs.cs" />
+    <Compile Include="Xpand.EmailTemplateEngine\EmailSubSystemSpecs.cs" />
+    <Compile Include="Xpand.EmailTemplateEngine\EmailTemplateEngineSpecs.cs" />
+    <Compile Include="Xpand.EmailTemplateEngine\MailTemplates.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailTemplates.resx</DependentUpon>
+    </Compile>
     <Compile Include="Xpand.ExpressApp\PessimisticLockingSpecs.cs" />
     <Compile Include="Xpand.ExpressApp\RuleRequiredForAtLeast1PropertyFixture.cs" />
     <Compile Include="Xpand.ExpressApp\TypesInfoFixture.cs" />
@@ -258,7 +278,13 @@
     <Compile Include="Xpand.JobScheduler\JobDetailSpecs.cs" />
     <Compile Include="Xpand.JobScheduler\JobListenerTriggerSpecs.cs" />
     <Compile Include="Xpand.JobScheduler\JobTriggerSpecs.cs" />
+    <Compile Include="Xpand.JobScheduler\SchedulerResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchedulerResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Xpand.JobScheduler\SchedulerSpecs.cs" />
+    <Compile Include="Xpand.JobScheduler\SendThresholdCalculationEmailJobSpecs.cs" />
     <Compile Include="Xpand.JobScheduler\TriggerListenerSpecs.cs" />
     <Compile Include="Xpand.Utils\Contexts.cs" />
     <Compile Include="Xpand.Utils\ExpressionTransformerSpecs.cs" />
@@ -323,6 +349,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Xpand.EmailTemplateEngine\MailTemplates.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MailTemplates.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Xpand.IO\Resources\1toMany.xml" />
     <EmbeddedResource Include="Xpand.IO\Resources\Analysis.xml" />
     <EmbeddedResource Include="Xpand.IO\Resources\ExistentKeyObject.xml" />
@@ -334,6 +364,10 @@
     <EmbeddedResource Include="Xpand.IO\Resources\PersistentAssmeblyInfo.xml" />
     <EmbeddedResource Include="Xpand.IO\Resources\PivotContent.xml" />
     <EmbeddedResource Include="Xpand.IO\Resources\WithValueConverter.xml" />
+    <EmbeddedResource Include="Xpand.JobScheduler\SchedulerResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SchedulerResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Xpand.ModelDifference\" />

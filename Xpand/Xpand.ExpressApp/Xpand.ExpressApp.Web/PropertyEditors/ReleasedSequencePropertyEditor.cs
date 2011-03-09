@@ -12,8 +12,8 @@ using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.ExpressApp.Web.TestScripts;
 using DevExpress.Persistent.Base;
 using DevExpress.Web.ASPxEditors;
-using Xpand.ExpressApp.Editors;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.CustomAttributes;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     public class ReleaseSequencePopupWindowHelper : ExpressApp.Editors.ReleaseSequencePopupWindowHelper {

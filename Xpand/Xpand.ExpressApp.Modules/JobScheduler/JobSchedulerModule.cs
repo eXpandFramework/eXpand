@@ -1,27 +1,33 @@
 using System.Collections.Specialized;
+using System.Linq;
+using System.Reflection;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Validation;
 using Quartz;
 using Xpand.ExpressApp.JobScheduler.Qaurtz;
 using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public sealed class JobSchedulerModule : XpandModuleBase {
 
         public JobSchedulerModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
+            RequiredModuleTypes.Add(typeof(ValidationModule));
 
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             var properties = new NameValueCollection();
-            properties["quartz.scheduler.instanceName"] = "TestScheduler";
-            properties["quartz.scheduler.instanceId"] = "instance_one";
+            properties["quartz.scheduler.instanceName"] = Application.Title;
+            properties["quartz.scheduler.instanceId"] = Assembly.GetAssembly(Application.GetType()).ManifestModule.Name;
             properties["quartz.threadPool.type"] = "Quartz.Simpl.SimpleThreadPool, Quartz";
             properties["quartz.threadPool.threadCount"] = "5";
             properties["quartz.threadPool.threadPriority"] = "Normal";
             properties["quartz.jobStore.misfireThreshold"] = "60000";
             properties["quartz.jobStore.type"] = "Quartz.Impl.AdoJobStore.JobStoreTX, Quartz";
-            properties["quartz.jobStore.useProperties"] = "false";
             properties["quartz.jobStore.dataSource"] = "default";
             properties["quartz.jobStore.tablePrefix"] = "QRTZ_";
             properties["quartz.jobStore.clustered"] = "true";
@@ -32,7 +38,7 @@ namespace Xpand.ExpressApp.JobScheduler {
             properties["quartz.dataSource.default.provider"] = "SqlServer-20";
             ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(properties);
             _scheduler = (IXpandScheduler)stdSchedulerFactory.GetScheduler();
-
+            ((XpandScheduler) _scheduler).Application = Application;
             _scheduler.Start();
         }
         IXpandScheduler _scheduler;
@@ -40,5 +46,6 @@ namespace Xpand.ExpressApp.JobScheduler {
         public IXpandScheduler Scheduler {
             get { return _scheduler; }
         }
+
     }
 }

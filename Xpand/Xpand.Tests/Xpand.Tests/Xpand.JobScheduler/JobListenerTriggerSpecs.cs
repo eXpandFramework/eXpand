@@ -18,6 +18,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             xpandJobDetail.Job = ObjectSpace.CreateObject<XpandJob>();
             xpandJobDetail.Job.JobType = typeof(DummyJob2);
             xpandJobDetail.Name = "name2";
+            xpandJobDetail.JobDetailDataMap = ObjectSpace.CreateObject<DummyDetailDataMap>();
             var jobListenerTrigger = ObjectSpace.CreateObject<JobListenerTrigger>();
             jobListenerTrigger.JobType = typeof(DummyJob);
             xpandJobDetail.JobListenerTriggers.Add(jobListenerTrigger);
@@ -42,6 +43,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             xpandJobDetail.Job = ObjectSpace.CreateObject<XpandJob>();
             xpandJobDetail.Job.JobType = typeof(DummyJob2);
             xpandJobDetail.Name = "name2";
+            xpandJobDetail.JobDetailDataMap = ObjectSpace.CreateObject<DummyDetailDataMap>();
             var jobListenerTrigger = ObjectSpace.CreateObject<JobListenerTrigger>();
             jobListenerTrigger.JobType = typeof(DummyJob);
             xpandJobDetail.JobListenerTriggers.Add(jobListenerTrigger);
@@ -71,8 +73,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             _scheduler = (IXpandScheduler)stdSchedulerFactory.GetScheduler();
             _scheduler.Start();
             var jobDetail = new JobDetail { Name = "name", Group = "group" };
-            var jobDataMapKeyCalculator = new JobDataMapKeyCalculator();
-            jobDataMapKeyCalculator.CreateJobListenersKey(jobDetail.JobDataMap, JobListenerEvent.Executed, jobDetail.Key);
+            jobDetail.JobDataMap.CreateJobListenersKey(JobListenerEvent.Executed, jobDetail.Key);
             var triggerFiredBundle = new TriggerFiredBundle(jobDetail, Isolate.Fake.Instance<Trigger>(), null, false, null, null, null, null);
             _jobExecutionContext = new JobExecutionContext(_scheduler, triggerFiredBundle, null);
             Isolate.WhenCalled(() => _scheduler.TriggerJob(null, null)).DoInstead(callContext => _triggered = true);

@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 
 namespace Xpand.ExpressApp {
@@ -26,6 +27,14 @@ namespace Xpand.ExpressApp {
             set {
                 if (_instanceModelApplicationCreatorManager != null)
                     _instanceModelApplicationCreatorManager.Value = value;
+            }
+        }
+
+        protected void CreateDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName) {
+            XPClassInfo info = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(classType);
+            if (info.FindMember(propertyName) == null) {
+                info.CreateMember(propertyName, typeof(XPCollection), true);
+                typesInfo.RefreshInfo(classType);
             }
         }
 

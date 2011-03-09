@@ -35,10 +35,7 @@ namespace Xpand.ExpressApp {
 
         private XPClassInfo FindXPClassInfo(Type type) {
             ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(type);
-            if (XafTypesInfo.XpoTypeInfoSource.TypeIsKnown(type)) {
-                return XafTypesInfo.XpoTypeInfoSource.GetEntityClassInfo(typeInfo.Type);
-            }
-            return null;
+            return XafTypesInfo.XpoTypeInfoSource.TypeIsKnown(type) ? XafTypesInfo.XpoTypeInfoSource.GetEntityClassInfo(typeInfo.Type) : null;
         }
 
         protected override void SetModified(object obj, ObjectChangedEventArgs args) {

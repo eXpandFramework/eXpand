@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using Machine.Specifications;
@@ -38,7 +39,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             jobDetail.Name = "jb2";
             jobDetail.Job = ObjectSpace.CreateObject<XpandJob>();
             jobDetail.Job.JobType = typeof(DummyJob);
-
+            jobDetail.JobDetailDataMap = ObjectSpace.CreateObject<DummyDetailDataMap>();
             var xpandSimpleTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
             xpandSimpleTrigger.Name = "trigger";
             xpandSimpleTrigger.JobDetails.Add(Object);
@@ -66,6 +67,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             var xpandSimpleTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
             xpandSimpleTrigger.Name = "trigger";
             xpandSimpleTrigger.JobDetails.Add(Object);
+
             ObjectSpace.CommitChanges();
             Scheduler.GetTriggersOfJob(Object).Count().ShouldEqual(1);
             _objectSpace = Application.CreateObjectSpace();
@@ -85,12 +87,17 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         static XpandSimpleTrigger _xpandSimpleTrigger;
         static IObjectSpace _objectSpace;
 
+        protected override System.Collections.Generic.IList<Type> GetDomaincomponentTypes() {
+            var domaincomponentTypes = base.GetDomaincomponentTypes();
+            domaincomponentTypes.Add(typeof(XpandSimpleTrigger));
+            return domaincomponentTypes;
+        }
+
         Establish context = () => {
             _xpandSimpleTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
             _xpandSimpleTrigger.Name = "trigger";
             _xpandSimpleTrigger.JobDetails.Add(Object);
             ObjectSpace.CommitChanges();
-            Scheduler.GetTriggersOfJob(Object).Count().ShouldEqual(1);
             _objectSpace = Application.CreateObjectSpace();
             _xpandSimpleTrigger = _objectSpace.GetObject(_xpandSimpleTrigger);
             var detailView = Application.CreateDetailView(_objectSpace, _xpandSimpleTrigger);
@@ -99,23 +106,42 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         };
 
-        protected override System.Collections.Generic.IList<Type> GetDomaincomponentTypes() {
-            var domaincomponentTypes = base.GetDomaincomponentTypes();
-            domaincomponentTypes.Add(typeof(XpandSimpleTrigger));
-            return domaincomponentTypes;
-        }
-
         Because of = () => _objectSpace.CommitChanges();
 
-        It should_remove_the_trigger_from_the_scheduler_jobs =
-            () =>
-            Scheduler.GetTriggersOfJob(Object).OfType<SimpleTrigger>().First().Description.
-                ShouldEqual("test");
+        It should_update_the_trigger = () => Scheduler.GetTriggersOfJob(Object).OfType<SimpleTrigger>().First().Description.ShouldEqual("test");
 
         It should_calculate_the_FinalFireTimeUtc = () => _xpandSimpleTrigger.FinalFireTimeUtc.ShouldNotBeNull();
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
 
+    public class When_JobTrigger_that_does_not_exist_in_the_scheduler_db_gets_updated : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_that_does_not_exist_in_the_scheduler_db_gets_updated> {
+        static XpandSimpleTrigger _xpandSimpleTrigger;
+        static IObjectSpace _objectSpace;
+        protected override System.Collections.Generic.IList<Type> GetDomaincomponentTypes() {
+            var domaincomponentTypes = base.GetDomaincomponentTypes();
+            domaincomponentTypes.Add(typeof(XpandSimpleTrigger));
+            return domaincomponentTypes;
+        }
+        Establish context = () => {
+            _xpandSimpleTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
+            _xpandSimpleTrigger.Name = "trigger";
+            _xpandSimpleTrigger.JobDetails.Add(Object);
+            ObjectSpace.CommitChanges();
+            Scheduler.Start();
+            Scheduler.TriggerJob(Object);
+            Thread.Sleep(1000);
+            _objectSpace = Application.CreateObjectSpace();
+            _xpandSimpleTrigger = _objectSpace.GetObject(_xpandSimpleTrigger);
+            var detailView = Application.CreateDetailView(_objectSpace, _xpandSimpleTrigger);
+            Window.SetView(detailView);
+            _xpandSimpleTrigger.Description = "test";
+        };
+        Because of = () => _objectSpace.CommitChanges();
+        It should_update_the_trigger = () => Scheduler.GetTriggersOfJob(Object).OfType<SimpleTrigger>().First().Description.ShouldEqual("test");
+
+        It should_calculate_the_FinalFireTimeUtc = () => _xpandSimpleTrigger.FinalFireTimeUtc.ShouldNotBeNull();
+        It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
+    }
     public class When_JobTrigger_is_linked_with_a_group_that_has_2jobs : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_is_linked_with_a_group_that_has_2jobs> {
         static XpandJobDetail _xpandJobDetail;
 

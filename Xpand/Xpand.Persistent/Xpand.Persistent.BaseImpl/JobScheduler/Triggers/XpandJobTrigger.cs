@@ -65,17 +65,6 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
         }
 
 
-        private XpandJobDataMap _jobDataMap;
-        public XpandJobDataMap JobDataMap {
-            get {
-                return _jobDataMap;
-            }
-            set {
-                SetPropertyValue("JobDataMap", ref _jobDataMap, value);
-            }
-        }
-
-
 
         private DateTime? _endTimeUtc;
         [Tooltip("Returns the date/time on which the trigger must stop firing. This defines the final boundary for trigger firings 舒 the trigger will not fire after to this date and time. If this value is null, no end time boundary is assumed, and the trigger can continue indefinitely. Sets the date/time on which the trigger must stop firing. This defines the final boundary for trigger firings 舒 the trigger will not fire after to this date and time. If this value is null, no end time boundary is assumed, and the trigger can continue indefinitely. ")]

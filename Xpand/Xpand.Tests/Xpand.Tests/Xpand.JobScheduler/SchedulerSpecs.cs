@@ -2,8 +2,9 @@
 using System.Threading;
 using DevExpress.ExpressApp;
 using Machine.Specifications;
+using Quartz;
 using Quartz.Impl.Calendar;
-using Xpand.ExpressApp.JobScheduler;
+using Xpand.ExpressApp.JobScheduler.Qaurtz;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 using Xpand.Persistent.BaseImpl.JobScheduler.Calendars;
 using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
@@ -16,8 +17,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             var objectSpace = ObjectSpaceInMemory.CreateNew();
             var xpandSimpleTrigger = objectSpace.CreateObject<XpandSimpleTrigger>();
             xpandSimpleTrigger.Name = "tr";
-            var mapper = new Mapper();
-            var simpleTrigger = mapper.CreateTrigger(xpandSimpleTrigger, "jb", typeof(DummyJob), null);
+            var simpleTrigger = xpandSimpleTrigger.CreateTrigger("jb", typeof(DummyJob), null);
 
             simpleTrigger.StartTimeUtc = DateTime.UtcNow;
             
@@ -55,7 +55,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         };
 
-        Because of = () => Scheduler.ScheduleJob(_simpleTrigger, _jobDetail, new Mapper(), null);
+        Because of = () => Scheduler.ScheduleJob(_simpleTrigger, _jobDetail, null);
 
         It should_add_an_annualCalendar_to_the_scheduler =
             () => {
@@ -92,7 +92,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         };
 
-        Because of = () => Scheduler.ScheduleJob(_simpleTrigger, _jobDetail, new Mapper(), null);
+        Because of = () => Scheduler.ScheduleJob(_simpleTrigger, _jobDetail, null);
 
         It should_add_an_holidayCalendar_to_the_scheduler =
             () => {
@@ -128,7 +128,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         };
 
-        Because of = () => Scheduler.StoreTrigger(_simpleTrigger,_jobDetail, new Mapper(), null);
+        Because of = () => Scheduler.StoreTrigger(_simpleTrigger,_jobDetail, null);
 
         It should_add_an_weekcly_Calendar_to_the_scheduler =
             () => {
@@ -143,4 +143,32 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
 
+    public class DummyStateFullJob:IStatefulJob {
+        int _state;
+
+
+        public void Execute(JobExecutionContext context) {
+            var data = context.JobDetail.JobDataMap;
+            data.Put("excount", data.GetInt("excount")+1);
+            if (data.GetInt("excount") == 3)
+                SameInstance = true;
+        }
+
+        public static bool SameInstance { get; set; }
+    }
+    public class When_a_statefull_job_is_executed_from_the_same_trigger {
+
+        Establish context = () => {
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory();
+            var scheduler = (IXpandScheduler) stdSchedulerFactory.GetScheduler();
+            var jobDetail = new JobDetail("jb", null, typeof(DummyStateFullJob));
+            var simpleTrigger = new SimpleTrigger("trigger1", null, "jb", null, DateTime.UtcNow, null, 2, TimeSpan.FromSeconds(1));
+            scheduler.ScheduleJob(jobDetail, simpleTrigger);
+            scheduler.Start();
+        };
+
+        Because of = () => Thread.Sleep(5000);
+
+        It should_persist_its_jobdata = () => DummyStateFullJob.SameInstance.ShouldBeTrue();
+    }
 }

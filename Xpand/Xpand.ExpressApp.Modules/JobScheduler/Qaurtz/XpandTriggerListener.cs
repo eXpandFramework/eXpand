@@ -5,7 +5,7 @@ using Xpand.Persistent.Base.JobScheduler.Triggers;
 
 namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
     public class XpandTriggerListener : ITriggerListener {
-        readonly JobDataMapKeyCalculator jobDataMapKeyCalculator=new JobDataMapKeyCalculator();
+        
 
         public string Name {
             get { return typeof(XpandTriggerListener).Name; }
@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
             TriggerJobs(context.Scheduler, context.JobDetail.JobDataMap, TriggerListenerEvent.Complete);
         }
         void TriggerJobs(IScheduler scheduler, JobDataMap jobDataMap, TriggerListenerEvent jobListenerEvent) {
-            jobDataMapKeyCalculator.GetTriggerListenerNames(jobDataMap, jobListenerEvent).ForEach(TriggerJobsCore(scheduler));
+            jobDataMap.GetTriggerListenerNames(jobListenerEvent).ForEach(TriggerJobsCore(scheduler));
         }
 
         Action<Key> TriggerJobsCore(IScheduler scheduler) {

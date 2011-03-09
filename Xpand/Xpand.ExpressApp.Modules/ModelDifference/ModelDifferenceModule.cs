@@ -3,8 +3,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
-using DevExpress.Xpo;
-using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Builders;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
@@ -26,26 +24,19 @@ namespace Xpand.ExpressApp.ModelDifference {
 
             if (Application != null && Application.Security != null) {
                 if (Application.Security is ISecurityComplex)
-                    RoleDifferenceObjectBuilder.CreateDynamicMembers((ISecurityComplex)Application.Security);
+                    RoleDifferenceObjectBuilder.CreateDynamicRoleMember((ISecurityComplex)Application.Security);
 
-                UserDifferenceObjectBuilder.CreateDynamicMembers(Application.Security.UserType);
+                UserDifferenceObjectBuilder.CreateDynamicUserMember(Application.Security.UserType);
             } else {
                 CreateDesignTimeCollection(typesInfo, typeof(UserModelDifferenceObject), "Users");
                 CreateDesignTimeCollection(typesInfo, typeof(RoleModelDifferenceObject), "Roles");
             }
         }
 
-        private void CreateDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName) {
-            XPClassInfo info = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(classType);
-            if (info.FindMember(propertyName) == null) {
-                info.CreateMember(propertyName, typeof(XPCollection), true);
-                typesInfo.RefreshInfo(classType);
-            }
-        }
 
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            if (application != null&&!DesignMode) {
+            if (application != null && !DesignMode) {
                 if (!(application is ISupportModelsManager))
                     throw new NotImplementedException("Implement " + typeof(ISupportModelsManager).FullName + " at your " + Application.GetType().FullName);
                 application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;

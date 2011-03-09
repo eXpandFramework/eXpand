@@ -65,8 +65,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             _scheduler = (IXpandScheduler)stdSchedulerFactory.GetScheduler();
             _scheduler.Start();
             var jobDetail = new JobDetail { Name = "name", Group = "group" };
-            var jobDataMapKeyCalculator = new JobDataMapKeyCalculator();
-            jobDataMapKeyCalculator.CreateTriggerListenersKey(jobDetail.JobDataMap, TriggerListenerEvent.Fired, jobDetail.Key);
+            jobDetail.JobDataMap.CreateTriggerListenersKey(TriggerListenerEvent.Fired, jobDetail.Key);
             var triggerFiredBundle = new TriggerFiredBundle(jobDetail, Isolate.Fake.Instance<Trigger>(), null, false, null, null, null, null);
             _jobExecutionContext = new JobExecutionContext(_scheduler, triggerFiredBundle, null);
             Isolate.WhenCalled(() => _scheduler.TriggerJob(null, null)).DoInstead(callContext => _triggered = true);

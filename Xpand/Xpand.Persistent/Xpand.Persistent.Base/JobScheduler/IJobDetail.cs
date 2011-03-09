@@ -11,5 +11,6 @@ namespace Xpand.Persistent.Base.JobScheduler {
         IList<IJobTrigger> JobTriggers { get; }
         IList<IJobListenerTrigger> JobListenerTriggers { get; }
         IJobSchedulerGroup Group { get; set; }
+        IDataMap JobDataMap { get; set; }
     }
 }

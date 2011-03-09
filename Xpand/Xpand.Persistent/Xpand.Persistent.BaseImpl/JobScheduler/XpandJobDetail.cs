@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
@@ -21,6 +23,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
     [Appearance("Disable_Name_For_XpandJobDetail_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Name", Enabled = false)]
     [Appearance("Disable_Job_For_XpandJobDetail_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Job", Enabled = false)]
     [Appearance("Disable_Group_For_XpandJobDetail_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Group", Enabled = false)]
+    [Appearance("Disable_JobDataMap_For_XpandJobDetail_When_Job_is_Null", AppearanceItemType.ViewItem, "Job Is Null", TargetItems = "JobDataMap", Enabled = false)]
     public class XpandJobDetail : XpandCustomObject, IJobDetail, IFastManyToMany {
         public XpandJobDetail(Session session)
             : base(session) {
@@ -57,6 +60,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         private XpandJob _job;
         [ProvidedAssociation("XpandJob-XpandJobDetails")]
         [RuleRequiredField]
+        [ImmediatePostData]
         public XpandJob Job {
             get {
                 return _job;
@@ -70,16 +74,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
             set { _job = value as XpandJob; }
         }
 
-        private XpandJobDataMap _jobDataMap;
-        [Browsable(false)]
-        public XpandJobDataMap JobDataMap {
-            get {
-                return _jobDataMap;
-            }
-            set {
-                SetPropertyValue("JobDataMap", ref _jobDataMap, value);
-            }
-        }
+
         private bool _requestsRecovery;
         [Tooltip("Whether or not the the IScheduler should re-Execute the IJob if a 'recovery' or 'fail-over' situation is encountered.")]
         public bool RequestsRecovery {
@@ -90,7 +85,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("RequestsRecovery", ref _requestsRecovery, value);
             }
         }
-        
+
 
         [Association("JobDetailTriggerLink-Triggers"), Aggregated]
         protected IList<JobDetailTriggerLink> TriggerLinks {
@@ -127,6 +122,40 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("Group", ref _group, value);
             }
         }
+        private XpandJobDetailDataMap _jobDetailDataMap;
+        [RuleRequiredField]
+        [DataSourceProperty("JobDetailDataMaps")]
+        [NewObjectCollectCreatableItemTypesDataSourceAttribute("JobDetailDataMapTypes")]
+        public XpandJobDetailDataMap JobDetailDataMap {
+            get {
+                return _jobDetailDataMap;
+            }
+            set {
+                SetPropertyValue("JobDataMap", ref _jobDetailDataMap, value);
+            }
+        }
+
+        [Browsable(false)]
+        public XPCollection<XpandJobDetailDataMap> JobDetailDataMaps {
+            get {
+                return Job == null
+                           ? new XPCollection<XpandJobDetailDataMap>(Session, false)
+                           : new XPCollection<XpandJobDetailDataMap>(Session,DataMapTypeAttribute.GetCriteria<JobDetailDataMapTypeAttribute>(Session, Job.JobType));
+            }
+        }
+        [Browsable(false)]
+        public List<Type> JobDetailDataMapTypes {
+            get {
+                return Job==null ? new List<Type>() : XafTypesInfo.Instance.FindTypeInfo(Job.JobType).FindAttributes<JobDetailDataMapTypeAttribute>().Select(attribute => attribute.Type).ToList();
+            }
+        }
+        
+        IDataMap IJobDetail.JobDataMap {
+            get { return JobDetailDataMap; }
+            set { JobDetailDataMap = value as XpandJobDetailDataMap; }
+        }
+
+
         IJobSchedulerGroup IJobDetail.Group {
             get { return Group; }
             set { Group = value as JobSchedulerGroup; }

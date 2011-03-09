@@ -108,6 +108,7 @@
     <Compile Include="General\ISupportViewId.cs" />
     <Compile Include="General\ManyToManyCollectionHelper.cs" />
     <Compile Include="General\CustomAttributes\NumericFormatAttribute.cs" />
+    <Compile Include="General\NewObjectCollectCreatableItemTypesDataSourceAttribute.cs" />
     <Compile Include="General\ObjectSpaceExtensions.cs" />
     <Compile Include="General\PictureItemEventArgs.cs" />
     <Compile Include="General\CustomAttributes\PropertyEditorAttribute.cs" />
@@ -138,6 +139,9 @@
     <Compile Include="JobScheduler\Calendars\IMonthlyCalendar.cs" />
     <Compile Include="JobScheduler\Calendars\ITriggerCalendar.cs" />
     <Compile Include="JobScheduler\Calendars\IWeeklyCalendar.cs" />
+    <Compile Include="JobScheduler\DataMapTypeAttribute.cs" />
+    <Compile Include="JobScheduler\IDataMap.cs" />
+    <Compile Include="JobScheduler\NonDataMapMember.cs" />
     <Compile Include="JobScheduler\Triggers\ICronTrigger.cs" />
     <Compile Include="JobScheduler\IJobSchedulerGroup.cs" />
     <Compile Include="JobScheduler\Triggers\IJobSchedulerGroupTriggerLink.cs" />

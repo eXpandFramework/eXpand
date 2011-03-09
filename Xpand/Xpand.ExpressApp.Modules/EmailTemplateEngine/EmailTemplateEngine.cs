@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Threading;
 using System.Web.Razor;
 using Microsoft.CSharp;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.EmailTemplateEngine {
     public class EmailTemplateEngine : IEmailTemplateEngine {
@@ -120,7 +121,8 @@ namespace Xpand.EmailTemplateEngine {
             using (var codeProvider = new CSharpCodeProvider()) {
                 var compilerParameter = new CompilerParameters(referencedAssemblies, assemblyName, false) {
                     GenerateInMemory = true,
-                    CompilerOptions = "/optimize"
+                    CompilerOptions = "/optimize",
+                    IncludeDebugInformation = true
                 };
 
                 var compilerResults = codeProvider.CompileAssemblyFromDom(compilerParameter, templateResults.Select(r => r.GeneratedCode).ToArray());

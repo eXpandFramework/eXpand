@@ -74,6 +74,7 @@
     <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalFormatting.v10.2, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Kpi.v10.2, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Security.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -176,6 +177,7 @@
     <Compile Include="ImportExport\XmlFileChooser.cs" />
     <Compile Include="JobScheduler\Triggers\JobTriggerTriggerListenerTriggerLink.cs" />
     <Compile Include="JobScheduler\Triggers\TriggerListenerTrigger.cs" />
+    <Compile Include="JobScheduler\XpandDataMap.cs" />
     <Compile Include="XpandDateRange.cs" />
     <Compile Include="JobScheduler\Calendars\XpandAnnualCalendar.cs" />
     <Compile Include="JobScheduler\Calendars\XpandCronCalendar.cs" />
@@ -265,7 +267,6 @@
     <Compile Include="PersistentMetaData\DataStoreLogonObject.cs" />
     <Compile Include="PersistentMetaData\DataBase.cs" />
     <Compile Include="JobScheduler\Triggers\JobListenerTrigger.cs" />
-    <Compile Include="JobScheduler\XpandJobDataMap.cs" />
     <Compile Include="JobScheduler\XpandJobDetail.cs" />
     <Compile Include="JobScheduler\Triggers\XpandSimpleTrigger.cs" />
     <Compile Include="JobScheduler\Triggers\XpandJobTrigger.cs" />

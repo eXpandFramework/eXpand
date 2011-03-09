@@ -1,5 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.BaseImpl;
+using DevExpress.Xpo;
 using Machine.Specifications;
 using Quartz;
 using TypeMock.ArrangeActAssert;
@@ -44,6 +46,12 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             get { return GetType().Name; }
         }
     }
+
+    public class DummyDataMapObject:BaseObject {
+        public DummyDataMapObject(Session session) : base(session) {
+        }
+    }
+    [JobDetailDataMapType(typeof(DummyDataMapObject))]
     public class DummyJob : IJob {
         public void Execute(JobExecutionContext context) {
 
@@ -55,6 +63,10 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         }
     }
 
+    public class DummyDetailDataMap:XpandJobDetailDataMap {
+        public DummyDetailDataMap(Session session) : base(session) {
+        }
+    }
 
 
     public abstract class With_Job_Scheduler_XpandJobDetail_Application<T> : With_Job_Scheduler_Application<T, XpandJobDetail> where T : With_Job_Scheduler_XpandJobDetail_Application<T> {
@@ -63,6 +75,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             ObjectSpace = detailView.ObjectSpace;
             Object.Job = ObjectSpace.CreateObject<XpandJob>();
             Object.Job.JobType = typeof(DummyJob);
+            Object.JobDetailDataMap = ObjectSpace.CreateObject<DummyDetailDataMap>();
             Object.Name = "name";
         }
 
@@ -70,7 +83,10 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     public abstract class With_Job_Scheduler_Application<T, TObject> : With_Application<T, TObject> where T : With_Job_Scheduler_Application<T, TObject> {
         protected static IXpandScheduler Scheduler;
         JobSchedulerModule _jobSchedulerModule;
-
+        protected override void ViewCreated(DetailView detailView) {
+            base.ViewCreated(detailView);
+            ((XpandScheduler)Scheduler).Application = Application;
+        }
         protected override void WindowCreated(Window window) {
             base.WindowCreated(window);
             window.Application.Modules.Add(_jobSchedulerModule);

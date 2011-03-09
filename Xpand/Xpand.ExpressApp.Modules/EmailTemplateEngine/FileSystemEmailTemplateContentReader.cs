@@ -1,8 +1,25 @@
-namespace Xpand.EmailTemplateEngine {
-    using System;
-    using System.Globalization;
-    using System.IO;
+using System;
+using System.Globalization;
+using System.IO;
+using System.Text;
 
+namespace Xpand.EmailTemplateEngine {
+    public class StreamEmailTemplateContentReader:IEmailTemplateContentReader {
+        readonly Stream _stream;
+
+        public StreamEmailTemplateContentReader(Stream stream) {
+            _stream = stream;
+        }
+
+        public StreamEmailTemplateContentReader(string template)
+            : this(new MemoryStream(Encoding.UTF8.GetBytes(template))) {
+        }
+
+        public string Read(string templateName, string suffix) {
+            _stream.Position = 0;
+            return new StreamReader(_stream).ReadToEnd();
+        }
+    }
     public class FileSystemEmailTemplateContentReader : IEmailTemplateContentReader {
         public FileSystemEmailTemplateContentReader()
             : this("templates", ".cshtml") {
@@ -16,7 +33,7 @@ namespace Xpand.EmailTemplateEngine {
             }
 
             if (!Directory.Exists(templateDirectory)) {
-                throw new DirectoryNotFoundException(string.Format(CultureInfo.CurrentCulture, "\"{0}\" does not exist.", templateDirectory));
+                throw new DirectoryNotFoundException(string.Format(CultureInfo.CurrentCulture, "\"{0}\" does not exist.",templateDirectory));
             }
 
             TemplateDirectory = templateDirectory;
@@ -26,12 +43,12 @@ namespace Xpand.EmailTemplateEngine {
         protected string TemplateDirectory { get; private set; }
 
         protected string FileExtension { get; private set; }
-
+        #region IEmailTemplateContentReader Members
         public string Read(string templateName, string suffix) {
             Invariant.IsNotBlank(templateName, "templateName");
 
-            var content = string.Empty;
-            var path = BuildPath(templateName, suffix);
+            string content = string.Empty;
+            string path = BuildPath(templateName, suffix);
 
             if (File.Exists(path)) {
                 content = File.ReadAllText(path);
@@ -39,9 +56,9 @@ namespace Xpand.EmailTemplateEngine {
 
             return content;
         }
-
+        #endregion
         protected virtual string BuildPath(string templateName, string suffix) {
-            var fileName = templateName;
+            string fileName = templateName;
 
             if (!string.IsNullOrWhiteSpace(suffix)) {
                 fileName += "." + suffix;
@@ -51,7 +68,7 @@ namespace Xpand.EmailTemplateEngine {
                 fileName += FileExtension;
             }
 
-            var path = Path.Combine(TemplateDirectory, fileName);
+            string path = Path.Combine(TemplateDirectory, fileName);
 
             return path;
         }

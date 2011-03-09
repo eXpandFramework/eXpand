@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         void ObjectSpaceOnObjectDeleting(object sender, ObjectsManipulatingEventArgs objectsManipulatingEventArgs) {
-            _jobDetailsToBeDeleted.AddRange(objectsManipulatingEventArgs.Objects.OfType<IJobDetail>().Select(detail => Scheduler.GetJobDetail(detail)));
+            _jobDetailsToBeDeleted.AddRange(objectsManipulatingEventArgs.Objects.OfType<IJobDetail>().Select(detail => Scheduler.GetJobDetail(detail)).Where(jobDetail => jobDetail!=null));
         }
 
         IEnumerable<IJobListener> GetListeners(IJobDetail jobDetail) {
@@ -92,7 +92,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         void ScheduleJob(IJobTrigger trigger) {
             var jobDetail = View.CurrentObject as IJobDetail;
             if (jobDetail != null) {
-                Scheduler.ScheduleJob(trigger, jobDetail, Mapper,jobDetail.Group.Name );
+                Scheduler.ScheduleJob(trigger, jobDetail,jobDetail.Group.Name );
             }
         }
 

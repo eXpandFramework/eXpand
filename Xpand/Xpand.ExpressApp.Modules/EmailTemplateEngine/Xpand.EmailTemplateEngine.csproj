@@ -55,6 +55,10 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.Razor">
@@ -86,7 +90,6 @@
     <Compile Include="EmailTemplate.cs" />
     <Compile Include="EmailTemplateEngine.cs" />
     <Compile Include="EmailTemplateModelWrapper.cs" />
-    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="FileSystemEmailTemplateContentReader.cs" />
     <Compile Include="IEmailSender.cs" />
     <Compile Include="IEmailTemplate.cs" />
