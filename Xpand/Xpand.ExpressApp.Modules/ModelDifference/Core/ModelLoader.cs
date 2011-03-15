@@ -63,11 +63,12 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 }
                 if (typesInfo is TypesInfo)
                     XpandModuleBase.Dictiorary = ((TypesInfo)typesInfo).Source.XPDictionary;
-
+                XpandModuleBase.TypesInfo = typesInfo;
                 result.Load(typesInfo,typesInfo!=XafTypesInfo.Instance);
                 return result;
             } finally {
                 XpandModuleBase.Dictiorary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
+                XpandModuleBase.TypesInfo = XafTypesInfo.Instance;
                 ReflectionHelper.RemoveResolvePath(assembliesPath);
             }
 

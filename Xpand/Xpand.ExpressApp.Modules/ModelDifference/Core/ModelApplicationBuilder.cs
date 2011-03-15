@@ -96,9 +96,17 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         ApplicationModulesManager GetModulesManager(TypesInfo typesInfo, XafApplication application) {
             var modulesManager = CreateApplicationModulesManager(application, string.Empty,
                                                                  AppDomain.CurrentDomain.SetupInformation.ApplicationBase, typesInfo);
-            XpandModuleBase.Dictiorary=typesInfo.Source.XPDictionary;
-            modulesManager.Load(typesInfo);
-            XpandModuleBase.Dictiorary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
+            try
+            {
+                XpandModuleBase.Dictiorary = typesInfo.Source.XPDictionary;
+                XpandModuleBase.TypesInfo = typesInfo;
+                modulesManager.Load(typesInfo);
+            }
+            finally
+            {
+                XpandModuleBase.Dictiorary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
+                XpandModuleBase.TypesInfo = XafTypesInfo.Instance;
+            }
             return modulesManager;
         }
 

@@ -50,13 +50,21 @@ namespace Xpand.ExpressApp {
         }
 
         static XPDictionary _dictiorary=XafTypesInfo.XpoTypeInfoSource.XPDictionary;
-        static List<object> _storeManagers=new List<object>();
+        static ITypesInfo _typesInfo = XafTypesInfo.Instance;
+        static List<object> _storeManagers;
 
 
         public static XPDictionary Dictiorary {
             get { return _dictiorary; }
             set { _dictiorary = value; }
         }
+
+        public static ITypesInfo TypesInfo
+        {
+            get { return _typesInfo; }
+            set { _typesInfo = value; }
+        }
+
         public BusinessClassesList GetAdditionalClasses(ApplicationModulesManager manager) {
             var moduleList = manager.Modules;
             var businessClassesList = new BusinessClassesList(moduleList.SelectMany(@base => @base.AdditionalBusinessClasses));

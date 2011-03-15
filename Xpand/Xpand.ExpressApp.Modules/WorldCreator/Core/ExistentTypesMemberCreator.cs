@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using Xpand.ExpressApp.Xpo;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Xpo;
-using Xpand.ExpressApp.Xpo;
 
 namespace Xpand.ExpressApp.WorldCreator.Core {
     public class ExistentTypesMemberCreator {
@@ -18,7 +17,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             types.AddRange(CreateCoreMembers(session));
             
             foreach (var type in types) {
-                XpandModuleBase.Application.ObjectSpaceProvider.TypesInfo.RefreshInfo(type);
+                XpandModuleBase.TypesInfo.RefreshInfo(type);
             }
         }
 
@@ -28,7 +27,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         }
 
         private bool memberExists(IExtendedMemberInfo info) {
-            return XafTypesInfo.Instance.FindTypeInfo(info.Owner).FindMember(info.Name) != null;
+            return XpandModuleBase.TypesInfo.FindTypeInfo(info.Owner).FindMember(info.Name) != null;
         }
 
         public List<Type> CreateCollectionMembers(Session session) {
@@ -44,7 +43,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         }
 
         XPCustomMemberInfo GetXPCustomMemberInfo(IExtendedCollectionMemberInfo info) {
-            var classInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(info.Owner);
+            var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(info.Owner);
             if (!(info is IExtendedOrphanedCollection)) {
                 return classInfo.CreateMember(info.Name, typeof(XPCollection), true);
             }
@@ -77,7 +76,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         }
 
         XPCustomMemberInfo GetMember(IExtendedMemberInfo info, Type referenceType) {
-            var classInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(info.Owner);
+            var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(info.Owner);
             return info.TypeAttributes.OfType<IPersistentPersistentAliasAttribute>().FirstOrDefault() == null
                        ? classInfo.CreateMember(info.Name, referenceType)
                        : classInfo.CreateCalculabeMember(info.Name, referenceType);
