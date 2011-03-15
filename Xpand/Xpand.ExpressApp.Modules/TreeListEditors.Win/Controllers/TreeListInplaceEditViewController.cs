@@ -24,8 +24,6 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
                     treeList.OptionsBehavior.Editable = true;
                     treeList.OptionsBehavior.ImmediateEditor = false;
                 }
-                treeList.OptionsView.EnableAppearanceEvenRow = true;
-                treeList.OptionsView.EnableAppearanceOddRow = true;
             }
         }
         protected override void OnDeactivated() {
