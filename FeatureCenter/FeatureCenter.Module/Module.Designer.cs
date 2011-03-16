@@ -2,6 +2,7 @@ using DevExpress.ExpressApp.ScriptRecorder;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ConditionalDetailViews;
+using Xpand.ExpressApp.JobScheduler;
 using Xpand.ExpressApp.MemberLevelSecurity;
 using Xpand.ExpressApp.WorldCreator.SqlDBMapper;
 using Xpand.Persistent.BaseImpl.ExceptionHandling;
@@ -70,6 +71,8 @@ namespace FeatureCenter.Module
             this.RequiredModuleTypes.Add(typeof(WorldCreatorSqlDBMapperModule));
             this.RequiredModuleTypes.Add(typeof(ConditionalDetailViewModule));
             this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityModule));
+            this.RequiredModuleTypes.Add(typeof(JobSchedulerModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule));
         }
 
         #endregion

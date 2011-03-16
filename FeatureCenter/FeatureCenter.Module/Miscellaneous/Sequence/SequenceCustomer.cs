@@ -2,6 +2,7 @@
 using FeatureCenter.Base;
 using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.CustomAttributes;
 
 namespace FeatureCenter.Module.Miscellaneous.Sequence {
     public enum SeqEnum {
