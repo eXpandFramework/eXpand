@@ -3,12 +3,10 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Editors;
-using Xpand.Persistent.Base.General;
 
-namespace Xpand.ExpressApp.Attributes {
+namespace Xpand.Persistent.Base.General.CustomAttributes {
     [AttributeUsage(AttributeTargets.Property)]
-    public class SequencePropertyAttribute:Attribute,ICustomAttribute {
+    public class SequencePropertyAttribute : Attribute, ICustomAttribute {
         string ICustomAttribute.Name {
             get { return "PropertyEditorType"; }
         }
@@ -19,5 +17,9 @@ namespace Xpand.ExpressApp.Attributes {
                 return typeInfo != null ? typeInfo.FullName : "";
             }
         }
+
     }
+    public interface IReleasedSequencePropertyEditor {
+    }
+
 }

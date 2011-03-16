@@ -10,7 +10,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Builders {
             userModelDifferenceObject.Name = string.Format("AutoCreated for {0} {1}", ((IAuthenticationStandardUser)SecuritySystem.CurrentUser).UserName, DateTime.Now);
         }
 
-        public static void CreateDynamicMembers(Type userType) {
+        public static void CreateDynamicUserMember(Type userType) {
             if (userType != null) {
                 XafTypesInfo.Instance.CreateBothPartMembers(userType, typeof(UserModelDifferenceObject),
                                                             XafTypesInfo.XpoTypeInfoSource.XPDictionary, true,

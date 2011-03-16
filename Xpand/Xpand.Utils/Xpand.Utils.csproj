@@ -84,6 +84,8 @@
     <Compile Include="Automation\SystemAutomation.cs" />
     <Compile Include="Automation\Wait.cs" />
     <Compile Include="Automation\WaitAutomation.cs" />
+    <Compile Include="Helpers\DateTimeUtils.cs" />
+    <Compile Include="Helpers\EnumerableExtensions.cs" />
     <Compile Include="Win32\Win32Constants.cs" />
     <Compile Include="Win32\Win32Declares.cs" />
     <Compile Include="Win32\Win32Types.cs" />

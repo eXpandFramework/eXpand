@@ -1,7 +1,6 @@
 ﻿using System;
-using Xpand.Persistent.Base.General;
 
-namespace Xpand.ExpressApp.Attributes {
+namespace Xpand.Persistent.Base.General.CustomAttributes {
     public class NumericFormatAttribute : Attribute, ICustomAttribute {
         string ICustomAttribute.Name {
             get { return "EditMaskAttribute;DisplayFormatAttribute"; }

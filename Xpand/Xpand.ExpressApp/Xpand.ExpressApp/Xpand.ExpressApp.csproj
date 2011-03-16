@@ -112,10 +112,8 @@
     <Compile Include="Attributes\HideFromNewMenuAttribute.cs" />
     <Compile Include="Attributes\NewObjectCreateGroupAttribute.cs" />
     <Compile Include="Attributes\PessimisticLockingAttribute.cs" />
-    <Compile Include="Attributes\SequencePropertyAttribute.cs" />
     <Compile Include="Attributes\XpandNavigationItemAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
-    <Compile Include="Attributes\NumericFormatAttribute.cs" />
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
     <Compile Include="Attributes\CustomQueryPropertyAttribute.cs" />
     <Compile Include="Core\AttributeRegistrator.cs" />
@@ -141,7 +139,11 @@
     <Compile Include="Model\IModelRuntimeMember.cs" />
     <Compile Include="Model\IModelProccessViewShortcuts.cs" />
     <Compile Include="NodeUpdaters\ModelMemberGeneratorUpdater.cs" />
+    <Compile Include="PropertyEditors\IChooseFromListCollectionEditor.cs" />
     <Compile Include="Security\IXpandLogonParameters.cs" />
+    <Compile Include="SystemModule\UpdateFastManyToManyActionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\NewObjectSessionLessPersistentObject.cs">
       <SubType>Component</SubType>
     </Compile>

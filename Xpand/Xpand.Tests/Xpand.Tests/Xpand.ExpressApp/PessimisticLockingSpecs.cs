@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -6,6 +7,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
+using Xpand.ExpressApp;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.SystemModule;
 using PessimisticLockingViewController = Xpand.ExpressApp.Win.SystemModule.PessimisticLockingViewController;
@@ -49,9 +51,9 @@ namespace Xpand.Tests.Xpand.ExpressApp {
         Establish context = () => {
             DataSet = new DataSet();
             var pessimisticViewController = new PessimisticLockingViewController();
-
+            Isolate.WhenCalled(XpandModuleBase.DisposeManagers).IgnoreCall();
             ViewEditModeController = new ViewEditModeController();
-            Application = Isolate.Fake.XafApplicationInstance(typeof(PessimisticLockObject), DataSet, new Controller[] { pessimisticViewController ,ViewEditModeController});
+            Application = Isolate.Fake.XafApplicationInstance(() => new List<Type> { typeof(PessimisticLockObject) }, DataSet, new Controller[] { pessimisticViewController, ViewEditModeController });
             ObjectSpace = Application.CreateObjectSpace();
             PessimisticLockObject = ObjectSpace.CreateObject<PessimisticLockObject>();
             var secondObjectSpace = ObjectSpaceInMemory.CreateNew(DataSet);

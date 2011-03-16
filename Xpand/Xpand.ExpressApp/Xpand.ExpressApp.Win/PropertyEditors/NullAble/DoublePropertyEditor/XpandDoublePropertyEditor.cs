@@ -6,8 +6,8 @@ using DevExpress.Utils;
 using DevExpress.XtraEditors.Repository;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.NullAble.DoublePropertyEditor {
-    [PropertyEditor(typeof(double))]
-    [PropertyEditor(typeof(double?))]
+    [PropertyEditor(typeof(double),true)]
+    [PropertyEditor(typeof(double?),true)]
     public class XpandDoublePropertyEditor : DevExpress.ExpressApp.Win.Editors.DoublePropertyEditor {
         public XpandDoublePropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {

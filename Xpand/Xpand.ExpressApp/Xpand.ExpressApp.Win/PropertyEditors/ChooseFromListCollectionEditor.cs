@@ -7,10 +7,10 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
-using DevExpress.Xpo;
-using DevExpress.Xpo.Metadata.Helpers;
+using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using Xpand.ExpressApp.PropertyEditors;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
     /// <summary>
@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
     /// if the checkstate of an item changes, it will be added or removed from the collection.  
     /// </summary>
     [PropertyEditor(typeof(IList<>), false)]
-    public class ChooseFromListCollectionEditor : WinPropertyEditor {
+    public class ChooseFromListCollectionEditor : WinPropertyEditor, IChooseFromListCollectionEditor {
         private CheckedComboBoxEdit comboControl;
 
 
@@ -55,20 +55,21 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
                     new Exception("ChooseFromListCollectionEditor.WriteValueCore: Cannot get the destination list as an XPCollection."));
             }
 
-            foreach (CheckedListBoxItem item in comboControl.Properties.Items) {
+            foreach (CheckedListBoxItemWrapper item in comboControl.Properties.Items) {
                 switch (item.CheckState) {
                     case CheckState.Checked:
-                        if (!destinationList.Contains(item.Value)) {
-                            destinationList.Add(item.Value);
+                        if (!destinationList.Contains(item.O)) {
+                            destinationList.Add(item.O);
                         }
                         break;
                     case CheckState.Unchecked:
-                        if (destinationList.Contains(item.Value)) {
-                            destinationList.Remove(item.Value);
+                        if (destinationList.Contains(item.O)) {
+                            destinationList.Remove(item.O);
                         }
                         break;
                 }
             }
+            View.ObjectSpace.SetModified(CurrentObject);
         }
         #endregion
 
@@ -116,7 +117,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// <param name="e"></param>
         void ComboControlCustomDisplayText(object sender, CustomDisplayTextEventArgs e) {
             string captionText = string.Empty;
-            foreach (CheckedListBoxItem item in comboControl.Properties.Items) {
+            foreach (CheckedListBoxItemWrapper item in comboControl.Properties.Items) {
                 if (item.CheckState == CheckState.Checked) {
                     if (captionText.Length > 0) captionText += ", ";
                     captionText += string.Format("{0}", item);
@@ -134,8 +135,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         private void SetCheckedItems(IEnumerable destinationList) {
             ClearCheckMarks();
             comboControl.Properties.Items.BeginUpdate();
-            foreach (IXPSimpleObject o in destinationList) {
-                CheckedListBoxItem found = FindComboItem(o);
+            foreach (var o in destinationList) {
+                CheckedListBoxItemWrapper found = FindComboItem(o);
                 if (found != null) {
                     found.CheckState = CheckState.Checked;
                 }
@@ -151,7 +152,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// </summary>
         private void ClearCheckMarks() {
             comboControl.Properties.Items.BeginUpdate();
-            foreach (CheckedListBoxItem item in comboControl.Properties.Items) {
+            foreach (CheckedListBoxItemWrapper item in comboControl.Properties.Items) {
                 item.CheckState = CheckState.Unchecked;
             }
             comboControl.Properties.Items.EndUpdate();
@@ -165,8 +166,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// </summary>
         /// <param name="containingThisObject"></param>
         /// <returns></returns>
-        private CheckedListBoxItem FindComboItem(IXPDictionaryProvider containingThisObject) {
-            return comboControl.Properties.Items.Cast<CheckedListBoxItem>().FirstOrDefault(item => item.Value == containingThisObject);
+        private CheckedListBoxItemWrapper FindComboItem(object containingThisObject) {
+            return comboControl.Properties.Items.OfType<CheckedListBoxItemWrapper>().FirstOrDefault(item => Equals(item.O, containingThisObject));
         }
 
         #endregion
@@ -176,15 +177,29 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// load combo box with available items to select.
         /// </summary>
         private void PopulateCheckComboBox() {
-            var availableItems = (IEnumerable)MemberInfo.GetValue(CurrentObject);
             comboControl.Properties.Items.BeginUpdate();
-            foreach (IXPSimpleObject o in availableItems) {
-                var newItem = new CheckedListBoxItem(o, false);
-                comboControl.Properties.Items.Add(newItem);
-            }
+            GetAvaliableItems().OfType<object>().Select(o => new CheckedListBoxItemWrapper(string.Format(Model.DisplayFormat,o), o,false)).ToList().ForEach(item => comboControl.Properties.Items.Add(item));
             comboControl.Properties.Items.EndUpdate();
         }
 
+        class CheckedListBoxItemWrapper:CheckedListBoxItem {
+            readonly object _o;
+
+            public CheckedListBoxItemWrapper(string formatedValue, object o, bool isChecked):base(formatedValue,isChecked) {
+                _o = o;
+            }
+
+            public object O {
+                get { return _o; }
+            }
+        }
+        IEnumerable GetAvaliableItems() {
+            var dataSourcePropertyAttribute = MemberInfo.FindAttribute<DataSourcePropertyAttribute>();
+            if (dataSourcePropertyAttribute!=null) {
+                return (IEnumerable) MemberInfo.Owner.FindMember(dataSourcePropertyAttribute.DataSourceProperty).GetValue(CurrentObject);
+            }
+            return new List<object>();
+        }
         #endregion
     }
 }

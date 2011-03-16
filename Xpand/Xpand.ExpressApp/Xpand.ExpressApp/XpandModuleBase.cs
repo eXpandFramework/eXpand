@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 
 namespace Xpand.ExpressApp {
@@ -29,6 +30,14 @@ namespace Xpand.ExpressApp {
             }
         }
 
+        protected void CreateDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName) {
+            XPClassInfo info = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(classType);
+            if (info.FindMember(propertyName) == null) {
+                info.CreateMember(propertyName, typeof(XPCollection), true);
+                typesInfo.RefreshInfo(classType);
+            }
+        }
+
         public new static XafApplication Application {
             get {
                 return _instanceXafApplicationManager != null ? _instanceXafApplicationManager.Value : null;
@@ -41,7 +50,7 @@ namespace Xpand.ExpressApp {
         }
 
         static XPDictionary _dictiorary=XafTypesInfo.XpoTypeInfoSource.XPDictionary;
-        static List<object> _storeManagers;
+        static List<object> _storeManagers=new List<object>();
 
 
         public static XPDictionary Dictiorary {

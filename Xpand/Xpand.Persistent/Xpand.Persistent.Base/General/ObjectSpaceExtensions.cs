@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -9,8 +10,22 @@ using Xpand.Utils.Linq;
 
 namespace Xpand.Persistent.Base.General {
     public static class ObjectSpaceExtensions {
-        public static IList<ClassType> GetObjects<ClassType>(this IObjectSpace objectSpace,Expression<Func<ClassType,bool>> expression) {
-            CriteriaOperator criteriaOperator = new XPQuery<ClassType>(((ObjectSpace) objectSpace).Session).TransformExpression(expression);
+        public static IEnumerable<ClassType> GetNonDeletedObjectsToSave<ClassType>(this IObjectSpace objectSpace) {
+            return objectSpace.GetObjectsToSave(true).OfType<ClassType>().Where(type => !(objectSpace.IsDeletedObject(type)));
+        }
+        public static IEnumerable<ClassType> GetDeletedObjectsToSave<ClassType>(this IObjectSpace objectSpace) {
+            return objectSpace.GetObjectsToSave(true).OfType<ClassType>().Where(type => (objectSpace.IsDeletedObject(type)));
+        }
+
+        public static IEnumerable<ClassType> GetNewObjectsToSave<ClassType>(this IObjectSpace objectSpace) {
+            return objectSpace.GetObjectsToSave(true).OfType<ClassType>().Where(type => objectSpace.IsNewObject(type));
+        }
+        public static IEnumerable<ClassType> GetObjectsToUpdate<ClassType>(this IObjectSpace objectSpace) {
+            return objectSpace.GetObjectsToSave(true).OfType<ClassType>().Where(type => !objectSpace.IsNewObject(type));
+        }
+
+        public static IList<ClassType> GetObjects<ClassType>(this IObjectSpace objectSpace, Expression<Func<ClassType, bool>> expression) {
+            CriteriaOperator criteriaOperator = new XPQuery<ClassType>(((ObjectSpace)objectSpace).Session).TransformExpression(expression);
             return objectSpace.GetObjects<ClassType>(criteriaOperator);
         }
 

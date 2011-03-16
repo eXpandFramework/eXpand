@@ -14,16 +14,16 @@ using DevExpress.XtraEditors.Drawing;
 using DevExpress.XtraEditors.Registrator;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.ViewInfo;
-using Xpand.ExpressApp.Editors;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.CustomAttributes;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
 
-    [PropertyEditor(typeof(string), false)]
-    [PropertyEditor(typeof(int), false)]
-    [PropertyEditor(typeof(double), false)]
-    [PropertyEditor(typeof(float), false)]
-    [PropertyEditor(typeof(long), false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(string), false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(int), false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(double), false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(float), false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(long), false)]
     public class ReleasedSequencePropertyEditor : DXPropertyEditor, IComplexPropertyEditor, IReleasedSequencePropertyEditor {
         public ReleasedSequencePropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
@@ -140,7 +140,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         object IGridInplaceEdit.GridEditingObject { get; set; }
     }
 
-    public class ReleaseSequencePopupWindowHelper:ExpressApp.Editors.ReleaseSequencePopupWindowHelper {
+    public class ReleaseSequencePopupWindowHelper : ExpressApp.Editors.ReleaseSequencePopupWindowHelper {
         protected override void ShowObjectCore() {
             var helper = new PopupWindowShowActionHelper(ShowObjectAction);
             helper.ShowPopupWindow();

@@ -12,7 +12,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Builders {
             return XafTypesInfo.Instance.PersistentTypes.Where(info => info.Type == security.RoleType).Single();
         }
 
-        public static void CreateDynamicMembers(ISecurityComplex security) {
+        public static void CreateDynamicRoleMember(ISecurityComplex security) {
             XafTypesInfo.Instance.CreateBothPartMembers(
                 GetRoleTypeInfo(security).Type, typeof(RoleModelDifferenceObject),
                 XafTypesInfo.XpoTypeInfoSource.XPDictionary, true, "RoleRoles_RoleModelDifferenceObjectRoleModelDifferenceObjects", "RoleModelDifferenceObjects", "Roles");

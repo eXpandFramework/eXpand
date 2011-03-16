@@ -92,6 +92,12 @@
     <Reference Include="DevExpress.XtraNavBar.v10.2, Version=10.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v10.2, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v10.2.Core, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="Xpand.ExpressApp, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -136,6 +142,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor.cs" />
+    <Compile Include="PropertyEditors\DurationPropertyEditor.cs" />
     <Compile Include="PropertyEditors\NullAble\BooleanPropertyEditor\BooleanHAlignFarPropertyEditor.cs" />
     <Compile Include="ListEditors\XpandGridListEditor.cs">
     </Compile>
@@ -152,6 +159,8 @@
     <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditorBase.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringLookupPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\TimeSpan.cs" />
+    <Compile Include="PropertyEditors\TimeZonePropertyEditor.cs" />
     <Compile Include="SystemModule\ApplicationMultiInstancesController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -166,6 +175,9 @@
     </Compile>
     <Compile Include="Model\IModelRootNavigationItemsAutoSelectedGroupItem.cs" />
     <Compile Include="SystemModule\LoadWhenFilteredController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\NewObjectCollectCreatableItemTypesDataSource.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\PessimisticLockingViewController.cs">
@@ -231,7 +243,7 @@
     <Compile Include="SystemModule\RemoveNavigationItemsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\RollBackObjectChangesOnCurrentObjectChangeController.cs">
+    <Compile Include="SystemModule\XpandWinDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\SearchFromDetailViewController.cs">
