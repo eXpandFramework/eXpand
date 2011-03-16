@@ -49,21 +49,17 @@ namespace Xpand.ExpressApp {
             get { return base.Application; }
         }
 
-        static XPDictionary _dictiorary=XafTypesInfo.XpoTypeInfoSource.XPDictionary;
-        static ITypesInfo _typesInfo = XafTypesInfo.Instance;
         static List<object> _storeManagers;
 
-
-        public static XPDictionary Dictiorary {
-            get { return _dictiorary; }
-            set { _dictiorary = value; }
+        static XpandModuleBase() {
+            Dictiorary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
+            TypesInfo = XafTypesInfo.Instance;
         }
 
-        public static ITypesInfo TypesInfo
-        {
-            get { return _typesInfo; }
-            set { _typesInfo = value; }
-        }
+
+        public static XPDictionary Dictiorary { get; set; }
+
+        public static ITypesInfo TypesInfo { get; set; }
 
         public BusinessClassesList GetAdditionalClasses(ApplicationModulesManager manager) {
             var moduleList = manager.Modules;
@@ -103,7 +99,7 @@ namespace Xpand.ExpressApp {
             if (attribute != null)
                 type.RemoveAttribute(attribute);
 
-            type = (BaseInfo) typesInfo.FindTypeInfo(typeof(IModelBOModelClassMembers));
+            type = (BaseInfo)typesInfo.FindTypeInfo(typeof(IModelBOModelClassMembers));
             attribute = type.FindAttribute<ModelReadOnlyAttribute>();
             if (attribute != null)
                 type.RemoveAttribute(attribute);
@@ -114,23 +110,23 @@ namespace Xpand.ExpressApp {
         }
 
         public static void ReStoreManagers() {
-            _instanceXafApplicationManager.Value = (XafApplication) _storeManagers[0];
-            _instanceModelApplicationCreatorManager.Value = (ModelApplicationCreator) _storeManagers[2];
-            _instanceModelApplicationCreatorPropertiesManager.Value =(ModelApplicationCreatorProperties) _storeManagers[1];
+            _instanceXafApplicationManager.Value = (XafApplication)_storeManagers[0];
+            _instanceModelApplicationCreatorManager.Value = (ModelApplicationCreator)_storeManagers[2];
+            _instanceModelApplicationCreatorPropertiesManager.Value = (ModelApplicationCreatorProperties)_storeManagers[1];
         }
 
 
-        public static  void DisposeManagers() {
+        public static void DisposeManagers() {
             _storeManagers = new List<object>();
-            if (_instanceXafApplicationManager!=null) {
+            if (_instanceXafApplicationManager != null) {
                 _storeManagers.Add(_instanceXafApplicationManager.Value);
                 _instanceXafApplicationManager.Value = null;
             }
-            if (_instanceModelApplicationCreatorPropertiesManager!=null) {
+            if (_instanceModelApplicationCreatorPropertiesManager != null) {
                 _storeManagers.Add(_instanceModelApplicationCreatorPropertiesManager.Value);
                 _instanceModelApplicationCreatorPropertiesManager.Value = null;
             }
-            if (_instanceModelApplicationCreatorManager!=null) {
+            if (_instanceModelApplicationCreatorManager != null) {
                 _storeManagers.Add(_instanceModelApplicationCreatorManager.Value);
                 _instanceModelApplicationCreatorManager.Value = null;
             }
