@@ -53,6 +53,10 @@ call clearProject.bat Xpand.ExpressApp.MasterDetail
 call clearProject.bat Xpand.ExpressApp.MasterDetail.Win
 call clearProject.bat Xpand.ExpressApp.WorldCreator.SqlDBMapper
 call clearProject.bat Xpand.ExpressApp.ConditionalDetailViews
+call clearProject.bat Xpand.ExpressApp.EmailTemplateEngine
+call clearProject.bat Xpand.ExpressApp.JobScheduler
+call clearProject.bat Xpand.ExpressApp.JobScheduler.Jobs
+
 
 rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Common.dll
 rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Configuration.Design.DLL

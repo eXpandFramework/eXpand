@@ -1,3 +1,4 @@
+call buildproject.cmd Xpand.ExpressApp.EmailTemplateEngine ".\Xpand\Xpand.ExpressApp.Modules\EmailTemplateEngine\Xpand.EmailTemplateEngine.csproj"
 call buildproject.cmd Xpand.Utils ".\Xpand\Xpand.Utils\Xpand.Utils.csproj"
 call buildproject.cmd Xpand.Xpo ".\Xpand\Xpand.Xpo\Xpand.Xpo.csproj"
 call buildproject.cmd Xpand.Persistent.Base ".\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj"
@@ -49,7 +50,9 @@ call buildproject.cmd Xpand.NCarousel ".\Xpand\Xpand.ExpressApp.Modules\NCarouse
 call buildproject.cmd Xpand.ExpressApp.NCarousel.Web ".\Xpand\Xpand.ExpressApp.Modules\NCarousel.Web\Xpand.ExpressApp.NCarousel.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.Thumbnail.Web ".\Xpand\Xpand.ExpressApp.Modules\Thumbnail.Web\Xpand.ExpressApp.Thumbnail.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.ConditionalDetailViews ".\Xpand\Xpand.ExpressApp.Modules\ConditionalDetailViews\Xpand.ExpressApp.ConditionalDetailViews.csproj"
+call buildproject.cmd Xpand.ExpressApp.JobScheduler ".\Xpand\Xpand.ExpressApp.Modules\JobScheduler\Xpand.ExpressApp.JobScheduler.csproj"
 call buildproject.cmd Xpand.Persistent.BaseImpl ".\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj"
+call buildproject.cmd Xpand.ExpressApp.JobScheduler.Jobs ".\Xpand\Xpand.ExpressApp.Modules\JobScheduler.Jobs\Xpand.ExpressApp.JobScheduler.Jobs.csproj"
 
 
 echo Building FeatureCenter.Base...
