@@ -2,7 +2,7 @@
 
 namespace Xpand.Persistent.Base.General.CustomAttributes {
 
-    [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property|AttributeTargets.Field, AllowMultiple = false)]
     public class TooltipAttribute : Attribute, ICustomAttribute {
         readonly string _value;
 

@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Quartz.Impl.Calendar;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.PropertyEditors;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
 using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
-    [Tooltip(@"This implementation of the Calendar excludes a set of days of the month. You may use it to exclude every 1. of each month for example. But you may define any day of a month. ")]
+    [AdditionalViewControlsRule("XpandMonthlyCalendarHelp", "1=1", "1=1",
+        @"This implementation of the Calendar excludes a set of days of the month. You may use it to exclude every 1. of each month for example. But you may define any day of a month. "
+        , Position.Top, ViewType = ViewType.DetailView)]
     public class XpandMonthlyCalendar : XpandTriggerCalendar, IMonthlyCalendar {
         public XpandMonthlyCalendar(Session session)
             : base(session) {

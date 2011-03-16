@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Quartz.Impl.Calendar;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.PropertyEditors;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
 using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
-    [Tooltip(@"This implementation of the Calendar excludes a set of days of the week. You may use it to exclude weekends for example. But you may define any day of the week.")]
+    [AdditionalViewControlsRule("XpandWeeklyCalendarHelp", "1=1", "1=1",
+        @"This implementation of the Calendar excludes a set of days of the week. You may use it to exclude weekends for example. But you may define any day of the week.", Position.Top, ViewType = ViewType.DetailView)]
     public class XpandWeeklyCalendar : XpandTriggerCalendar, IWeeklyCalendar {
         public XpandWeeklyCalendar(Session session)
             : base(session) {

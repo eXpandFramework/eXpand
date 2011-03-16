@@ -7,7 +7,7 @@ using Xpand.Persistent.Base.JobScheduler.Triggers;
 using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
-    [DefaultClassOptions]
+    [NavigationItem("JobScheduler")]
     [System.ComponentModel.DisplayName("SimpleTrigger")]
     public class XpandSimpleTrigger : XpandJobTrigger, ISimpleTrigger {
         public XpandSimpleTrigger(Session session)

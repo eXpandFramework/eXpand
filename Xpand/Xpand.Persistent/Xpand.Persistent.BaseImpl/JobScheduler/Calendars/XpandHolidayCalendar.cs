@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Quartz.Impl.Calendar;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.PropertyEditors;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
@@ -12,10 +14,10 @@ using Xpand.Utils.Helpers;
 using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
-    [Tooltip(@"Summary:
+    [AdditionalViewControlsRule("XpandHolidayCalendarHelp", "1=1", "1=1", @"Summary:
 This implementation of the Calendar stores a list of holidays (full days that are excluded from scheduling). 
 Remarks:
-The implementation DOES take the year into consideration, so if you want to exclude July 4th for the next 10 years, you need to add 10 entries to the exclude list. ")]
+The implementation DOES take the year into consideration, so if you want to exclude July 4th for the next 10 years, you need to add 10 entries to the exclude list. ", Position.Top, ViewType = ViewType.DetailView)]
     public class XpandHolidayCalendar : XpandTriggerCalendar, IHolidayCalendar {
 
         public XpandHolidayCalendar(Session session)

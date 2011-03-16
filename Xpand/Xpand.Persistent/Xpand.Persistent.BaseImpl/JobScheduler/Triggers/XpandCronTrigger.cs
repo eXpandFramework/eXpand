@@ -5,7 +5,7 @@ using DevExpress.XtraScheduler;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
-    [DefaultClassOptions]
+    [NavigationItem("JobScheduler")]
     [System.ComponentModel.DisplayName("CronTrigger")]
     public class XpandCronTrigger : XpandJobTrigger, ICronTrigger {
         public XpandCronTrigger(Session session)

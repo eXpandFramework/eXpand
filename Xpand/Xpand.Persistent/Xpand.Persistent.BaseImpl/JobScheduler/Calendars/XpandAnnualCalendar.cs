@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Quartz.Impl.Calendar;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.PropertyEditors;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
@@ -12,8 +14,7 @@ using Xpand.Utils.Helpers;
 using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
-    [Tooltip(@"This implementation of the Calendar excludes a set of days of the year. You may use it to exclude bank holidays which are on the same date every year. ")]
-    [DefaultClassOptions]
+    [AdditionalViewControlsRule("XpandAnnualCalendarHelp", "1=1", "1=1", @"This implementation of the Calendar excludes a set of days of the year. You may use it to exclude bank holidays which are on the same date every year. ", Position.Top, ViewType = ViewType.DetailView)]
     public class XpandAnnualCalendar : XpandTriggerCalendar, IAnnualCalendar {
         public XpandAnnualCalendar(Session session)
             : base(session) {

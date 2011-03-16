@@ -7,7 +7,7 @@ using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
-    [DefaultClassOptions]
+    [NavigationItem("JobScheduler")]
     [System.ComponentModel.DisplayName("NthIncludedDayTrigger")]
     public class XpandNthIncludedDayTrigger : XpandJobTrigger, INthIncludedDayTrigger {
         public XpandNthIncludedDayTrigger(Session session)

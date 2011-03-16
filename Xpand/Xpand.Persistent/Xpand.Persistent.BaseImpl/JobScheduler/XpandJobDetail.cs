@@ -18,7 +18,7 @@ using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler {
 
-    [DefaultClassOptions]
+    [NavigationItem("JobScheduler")]
     [System.ComponentModel.DisplayName("JobDetail")]
     [Appearance("Disable_Name_For_XpandJobDetail_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Name", Enabled = false)]
     [Appearance("Disable_Job_For_XpandJobDetail_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Job", Enabled = false)]
