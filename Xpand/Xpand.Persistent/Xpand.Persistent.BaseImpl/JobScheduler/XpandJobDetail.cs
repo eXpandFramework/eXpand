@@ -17,14 +17,13 @@ using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
 using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler {
-
-    [NavigationItem("JobScheduler")]
     [System.ComponentModel.DisplayName("JobDetail")]
     [Appearance("Disable_Name_For_XpandJobDetail_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Name", Enabled = false)]
     [Appearance("Disable_Job_For_XpandJobDetail_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Job", Enabled = false)]
     [Appearance("Disable_Group_For_XpandJobDetail_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Group", Enabled = false)]
     [Appearance("Disable_JobDataMap_For_XpandJobDetail_When_Job_is_Null", AppearanceItemType.ViewItem, "Job Is Null", TargetItems = "JobDataMap", Enabled = false)]
-    public class XpandJobDetail : XpandCustomObject, IJobDetail, IFastManyToMany {
+    [NavigationItem("JobScheduler")]
+    public class XpandJobDetail : XpandCustomObject, IJobDetail, IFastManyToMany, IRequireSchedulerInitialization {
         public XpandJobDetail(Session session)
             : base(session) {
         }
@@ -140,16 +139,16 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
             get {
                 return Job == null
                            ? new XPCollection<XpandJobDetailDataMap>(Session, false)
-                           : new XPCollection<XpandJobDetailDataMap>(Session,DataMapTypeAttribute.GetCriteria<JobDetailDataMapTypeAttribute>(Session, Job.JobType));
+                           : new XPCollection<XpandJobDetailDataMap>(Session, DataMapTypeAttribute.GetCriteria<JobDetailDataMapTypeAttribute>(Session, Job.JobType));
             }
         }
         [Browsable(false)]
         public List<Type> JobDetailDataMapTypes {
             get {
-                return Job==null ? new List<Type>() : XafTypesInfo.Instance.FindTypeInfo(Job.JobType).FindAttributes<JobDetailDataMapTypeAttribute>().Select(attribute => attribute.Type).ToList();
+                return Job == null ? new List<Type>() : XafTypesInfo.Instance.FindTypeInfo(Job.JobType).FindAttributes<JobDetailDataMapTypeAttribute>().Select(attribute => attribute.Type).ToList();
             }
         }
-        
+
         IDataMap IJobDetail.JobDataMap {
             get { return JobDetailDataMap; }
             set { JobDetailDataMap = value as XpandJobDetailDataMap; }

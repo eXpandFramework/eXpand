@@ -18,6 +18,8 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs.SendEmail {
             }
         }
         private string _emailTemplate;
+        [Custom("PropertyEditorType", "DevExpress.ExpressApp.HtmlPropertyEditor.Web.ASPxHtmlPropertyEditor")]
+        [Custom("PropertyEditorType", "DevExpress.ExpressApp.HtmlPropertyEditor.Win.HtmlPropertyEditor")]
         [Size(SizeAttribute.Unlimited)]
         public string EmailTemplate {
             get {

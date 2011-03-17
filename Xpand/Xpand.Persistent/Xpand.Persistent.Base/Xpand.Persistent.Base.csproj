@@ -141,6 +141,7 @@
     <Compile Include="JobScheduler\Calendars\IWeeklyCalendar.cs" />
     <Compile Include="JobScheduler\DataMapTypeAttribute.cs" />
     <Compile Include="JobScheduler\IDataMap.cs" />
+    <Compile Include="JobScheduler\IRequireSchedulerInitialization.cs" />
     <Compile Include="JobScheduler\NonDataMapMember.cs" />
     <Compile Include="JobScheduler\Triggers\ICronTrigger.cs" />
     <Compile Include="JobScheduler\IJobSchedulerGroup.cs" />

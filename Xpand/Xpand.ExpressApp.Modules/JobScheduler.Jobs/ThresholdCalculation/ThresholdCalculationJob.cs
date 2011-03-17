@@ -21,13 +21,13 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation {
             var application = ((IXpandScheduler)context.Scheduler).Application;
             var objectSpaceProvider = application.ObjectSpaceProvider;
             var jobDataMap = context.JobDetail.JobDataMap;
-            var typeInfo = objectSpaceProvider.TypesInfo.FindTypeInfo((Type)jobDataMap.Get(DataType));
+            var typeInfo = objectSpaceProvider.TypesInfo.FindTypeInfo((Type)jobDataMap.Get<ThresholdJobDetailDataMap>(DataType));
             object count;
             using (var unitOfWork = new UnitOfWork(((ObjectSpaceProvider)objectSpaceProvider).WorkingDataLayer)) {
-                count = unitOfWork.GetCount(typeInfo.Type,CriteriaOperator.Parse(jobDataMap.GetString(Criteria)));
+                count = unitOfWork.GetCount(typeInfo.Type, CriteriaOperator.Parse(jobDataMap.GetString<ThresholdJobDetailDataMap>(Criteria)));
             }
             log.Info("EXECUTING:ThresholdCalculationJob:"+count);
-            jobDataMap.Put(ThresholdCalcCount, count);
+            jobDataMap.Put<ThresholdJobDetailDataMap>(ThresholdCalcCount, count);
         }
     }
 

@@ -3,6 +3,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ConditionalDetailViews;
 using Xpand.ExpressApp.JobScheduler;
+using Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation;
 using Xpand.ExpressApp.MemberLevelSecurity;
 using Xpand.ExpressApp.WorldCreator.SqlDBMapper;
 using Xpand.Persistent.BaseImpl.ExceptionHandling;
@@ -48,6 +49,7 @@ namespace FeatureCenter.Module
             // 
             AdditionalBusinessClassAssemblies.Add(System.Reflection.Assembly.GetAssembly(typeof(global::DevExpress.Persistent.BaseImpl.Analysis)));
             AdditionalBusinessClassAssemblies.Add(System.Reflection.Assembly.GetAssembly(typeof(global::Xpand.Persistent.BaseImpl.Updater)));
+            AdditionalBusinessClassAssemblies.Add(typeof(ThresholdCalculationJob).Assembly);
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));

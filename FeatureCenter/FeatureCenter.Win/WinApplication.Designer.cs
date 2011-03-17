@@ -57,7 +57,7 @@ namespace FeatureCenter.Win
             this.treeListEditorsModuleBase1 = new DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase();
             this.treeListEditorsWindowsFormsModule1 = new DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditorsWindowsFormsModule();
             this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityComplex();
-            this.authenticationStandard1 = new XpandAuthenticationStandard();
+            this.authenticationStandard1 = new Xpand.ExpressApp.Security.AuthenticationProviders.XpandAuthenticationStandard();
             this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
             this.logicModule1 = new Xpand.ExpressApp.Logic.LogicModule();
             this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
@@ -93,6 +93,10 @@ namespace FeatureCenter.Win
             this.masterDetailWindowsModule1 = new Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule();
             this.scriptRecorderWindowsFormsModule1 = new DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule();
             this.memberLevelSecurityModuleWin1 = new Xpand.ExpressApp.MemberLevelSecurity.Win.MemberLevelSecurityModuleWin();
+            this.jobSchedulerModule1 = new Xpand.ExpressApp.JobScheduler.JobSchedulerModule();
+            this.jobSchedulerJobsModule1 = new Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule();
+            this.xpandTreeListEditorsModule1 = new Xpand.ExpressApp.TreeListEditors.XpandTreeListEditorsModule();
+            this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // module5
@@ -102,7 +106,7 @@ namespace FeatureCenter.Win
             // sqlConnection1
             // 
             this.sqlConnection1.ConnectionString = "Data Source=(local);Initial Catalog=FeatureCenter;Integrated Security=SSPI;Poolin" +
-                "g=false";
+    "g=false";
             this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // viewVariantsModule1
@@ -117,18 +121,21 @@ namespace FeatureCenter.Win
             // securityComplex1
             // 
             this.securityComplex1.Authentication = this.authenticationStandard1;
-            this.securityComplex1.IsGrantedForNonExistentPermission = false;
             this.securityComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.Role);
             this.securityComplex1.UserType = typeof(DevExpress.Persistent.BaseImpl.User);
             // 
             // authenticationStandard1
             // 
-            
+            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
             // 
             // reportsModule1
             // 
             this.reportsModule1.EnableInplaceReports = true;
             this.reportsModule1.ReportDataType = typeof(DevExpress.ExpressApp.Reports.ReportData);
+            // 
+            // modelDifferenceWindowsFormsModule1
+            // 
+            this.modelDifferenceWindowsFormsModule1.ModelsLoaded = false;
             // 
             // FeatureCenterWindowsFormsApplication
             // 
@@ -149,6 +156,7 @@ namespace FeatureCenter.Win
             this.Modules.Add(this.conditionalActionStateModule1);
             this.Modules.Add(this.modelArtifactStateModule1);
             this.Modules.Add(this.modelDifferenceModule1);
+            this.Modules.Add(this.securityModule1);
             this.Modules.Add(this.xpandSecurityModule1);
             this.Modules.Add(this.xpandViewVariantsModule1);
             this.Modules.Add(this.worldCreatorModule1);
@@ -163,6 +171,8 @@ namespace FeatureCenter.Win
             this.Modules.Add(this.worldCreatorSqlDBMapperModule1);
             this.Modules.Add(this.conditionalDetailViewModule1);
             this.Modules.Add(this.memberLevelSecurityModule1);
+            this.Modules.Add(this.jobSchedulerModule1);
+            this.Modules.Add(this.jobSchedulerJobsModule1);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.conditionalEditorStateWindowsFormsModule1);
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
@@ -177,8 +187,9 @@ namespace FeatureCenter.Win
             this.Modules.Add(this.module7);
             this.Modules.Add(this.modelArtifactStateWindowsFormsModule1);
             this.Modules.Add(this.modelDifferenceWindowsFormsModule1);
-            this.Modules.Add(this.xpandTreeListEditorsWinModule1);
+            this.Modules.Add(this.xpandTreeListEditorsModule1);
             this.Modules.Add(this.xpandSystemWindowsFormsModule1);
+            this.Modules.Add(this.xpandTreeListEditorsWinModule1);
             this.Modules.Add(this.wizardUIWindowsFormsModule1);
             this.Modules.Add(this.worldCreatorWinModule1);
             this.Modules.Add(this.ioWinModule1);
@@ -190,8 +201,8 @@ namespace FeatureCenter.Win
             this.Modules.Add(this.masterDetailWindowsModule1);
             this.Modules.Add(this.scriptRecorderWindowsFormsModule1);
             this.Modules.Add(this.memberLevelSecurityModuleWin1);
+            this.Modules.Add(this.conditionalAppearanceModule1);
             this.Modules.Add(this.module4);
-            this.Modules.Add(this.securityModule1);
             this.Security = this.securityComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.FeatureCenterWindowsFormsApplication_DatabaseVersionMismatch);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
@@ -229,9 +240,8 @@ namespace FeatureCenter.Win
         private DevExpress.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule schedulerWindowsFormsModule1;
         private DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase treeListEditorsModuleBase1;
         private DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditorsWindowsFormsModule treeListEditorsWindowsFormsModule1;
-        
+
         private DevExpress.ExpressApp.Security.SecurityComplex securityComplex1;
-        private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
         private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
         private Xpand.ExpressApp.Logic.LogicModule logicModule1;
         private Xpand.ExpressApp.Validation.XpandValidationModule xpandValidationModule1;
@@ -267,5 +277,10 @@ namespace FeatureCenter.Win
         private Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule masterDetailWindowsModule1;
         private DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule scriptRecorderWindowsFormsModule1;
         private Xpand.ExpressApp.MemberLevelSecurity.Win.MemberLevelSecurityModuleWin memberLevelSecurityModuleWin1;
+        private Xpand.ExpressApp.JobScheduler.JobSchedulerModule jobSchedulerModule1;
+        private Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule jobSchedulerJobsModule1;
+        private Xpand.ExpressApp.TreeListEditors.XpandTreeListEditorsModule xpandTreeListEditorsModule1;
+        private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
+        private XpandAuthenticationStandard authenticationStandard1;
     }
 }

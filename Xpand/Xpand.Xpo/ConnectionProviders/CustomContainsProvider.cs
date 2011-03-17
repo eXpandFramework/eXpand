@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
@@ -42,8 +43,7 @@ namespace Xpand.Xpo.ConnectionProviders {
             }
         }
 
-        private void UpdateColumnSize(DBTable[] tables) {
-            // HACK: (FN) This is a temporary solution for http://www.devexpress.com/issue=S132075
+        private void UpdateColumnSize(IEnumerable<DBTable> tables) {
             foreach (var table in tables) {
                 DBTable actualTable = null;
                 foreach (var column in from col in table.Columns where col.ColumnType == DBColumnType.String select col) {

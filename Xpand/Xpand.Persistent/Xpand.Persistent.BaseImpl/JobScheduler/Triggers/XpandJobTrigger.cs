@@ -16,7 +16,7 @@ using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
     [Appearance("Disable_Name_For_XpandJobTrigger_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Name", Enabled = false)]
-    public abstract class XpandJobTrigger : XpandCustomObject, IJobTrigger, IFastManyToMany {
+    public abstract class XpandJobTrigger : XpandCustomObject, IJobTrigger, IFastManyToMany,IRequireSchedulerInitialization {
         protected XpandJobTrigger(Session session)
             : base(session) {
         }

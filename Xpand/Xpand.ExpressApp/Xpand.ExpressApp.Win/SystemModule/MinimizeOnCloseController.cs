@@ -6,33 +6,26 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraEditors;
 
-namespace Xpand.ExpressApp.Win.SystemModule
-{
-    public interface IModelOptionsMinimizeOnCloseOptions : IModelNode
-    {
+namespace Xpand.ExpressApp.Win.SystemModule {
+    public interface IModelOptionsMinimizeOnCloseOptions : IModelNode {
         [Category("eXpand")]
         [Description("Minimize application on closing instead of closing")]
         bool MinimizeOnClose { get; set; }
     }
 
-    public class MinimizeOnCloseController : WindowController, IModelExtender
-    {
+    public class MinimizeOnCloseController : WindowController, IModelExtender {
         private static bool editing;
 
-        protected override void OnFrameAssigned()
-        {
+        protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             Frame.TemplateChanged += FrameOnTemplateChanged;
         }
 
-        private void FrameOnTemplateChanged(object sender, EventArgs args)
-        {
+        private void FrameOnTemplateChanged(object sender, EventArgs args) {
             if (Frame.Context == TemplateContext.ApplicationWindow &&
-                ((IModelOptionsMinimizeOnCloseOptions)Application.Model.Options).MinimizeOnClose)
-            {
+                ((IModelOptionsMinimizeOnCloseOptions)Application.Model.Options).MinimizeOnClose) {
                 var form = Frame.Template as XtraForm;
-                if (form != null)
-                {
+                if (form != null) {
                     form.FormClosing += FormOnFormClosing;
                     SimpleAction action =
                     Frame.GetController<DevExpress.ExpressApp.Win.SystemModule.EditModelController>().EditModelAction;
@@ -42,10 +35,8 @@ namespace Xpand.ExpressApp.Win.SystemModule
             }
         }
 
-        private void FormOnFormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (!editing && e.CloseReason == CloseReason.UserClosing)
-            {
+        private void FormOnFormClosing(object sender, FormClosingEventArgs e) {
+            if (!editing && e.CloseReason == CloseReason.UserClosing) {
                 if (Application != null)
                     e.Cancel = ((IModelOptionsMinimizeOnCloseOptions)Application.Model.Options).MinimizeOnClose;
 
@@ -54,8 +45,7 @@ namespace Xpand.ExpressApp.Win.SystemModule
             }
         }
 
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelOptions, IModelOptionsMinimizeOnCloseOptions>();
         }
     }

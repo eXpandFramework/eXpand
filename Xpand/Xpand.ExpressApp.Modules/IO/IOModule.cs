@@ -1,21 +1,16 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
-using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.IO.NodeUpdaters;
 
-namespace Xpand.ExpressApp.IO
-{
-    public sealed partial class IOModule : XpandModuleBase
-    {
+namespace Xpand.ExpressApp.IO {
+    public sealed partial class IOModule : XpandModuleBase {
 
-        public IOModule()
-        {
+        public IOModule() {
             InitializeComponent();
         }
-        public override void Setup(ApplicationModulesManager moduleManager)
-        {
+        public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            TypesInfo.Instance.AddTypes(GetAdditionalClasses(moduleManager));
+            Core.TypesInfo.Instance.AddTypes(GetAdditionalClasses(moduleManager));
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {

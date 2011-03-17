@@ -1,5 +1,5 @@
-call buildproject.cmd Xpand.ExpressApp.EmailTemplateEngine ".\Xpand\Xpand.ExpressApp.Modules\EmailTemplateEngine\Xpand.EmailTemplateEngine.csproj"
 call buildproject.cmd Xpand.Utils ".\Xpand\Xpand.Utils\Xpand.Utils.csproj"
+call buildproject.cmd Xpand.ExpressApp.EmailTemplateEngine ".\Xpand\Xpand.ExpressApp.Modules\EmailTemplateEngine\Xpand.EmailTemplateEngine.csproj"
 call buildproject.cmd Xpand.Xpo ".\Xpand\Xpand.Xpo\Xpand.Xpo.csproj"
 call buildproject.cmd Xpand.Persistent.Base ".\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj"
 call buildproject.cmd Xpand.ExpressApp ".\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj"

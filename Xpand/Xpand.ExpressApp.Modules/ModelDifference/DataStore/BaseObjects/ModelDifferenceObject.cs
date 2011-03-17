@@ -215,7 +215,6 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             var applicationBase = GetModel(master);
             new ModelXmlReader().ReadFromModel(applicationBase, model);
             CreateAspectsCore(model);
-            //TODO:check this
             if (applicationBase != null) master.RemoveLayer(applicationBase);
         }
 

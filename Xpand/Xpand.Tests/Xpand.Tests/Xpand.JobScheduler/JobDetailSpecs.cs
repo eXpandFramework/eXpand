@@ -46,7 +46,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
-    //TODO:check DB if triggers are removed when job is deleted 
+    
     public class When_Job_detail_Deleted : With_Job_Scheduler_XpandJobDetail_Application<When_Job_detail_Deleted> {
 
         Establish context = () => {

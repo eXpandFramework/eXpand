@@ -107,6 +107,10 @@
     <Reference Include="DevExpress.Xpo.v10.2.Linq">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Quartz, Version=1.0.3.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\_third_party_assemblies\Quartz.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
@@ -262,6 +266,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ImportExport\AnalysisObjects\AttributeRegistrator.cs" />
+    <Compile Include="JobScheduler\CreateEmailTemplateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ListViewControl\ConditionalDetailViews\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\DetailView\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\FullTextForMemoFields\AttributeRegistrator.cs" />
@@ -531,6 +538,7 @@
     <EmbeddedResource Include="Miscellaneous\ToolTip\MDO_Tooltip.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="JobScheduler\SendWelcomeMail.html.cshtml" />
     <None Include="ModelArtifact\ConditionalForeignKeyKViolation\MDO_ConditionalForeignKeyViolation.xafml">
       <SubType>Designer</SubType>
     </None>

@@ -22,7 +22,10 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
         }
 
         Action<Key> TriggerJobsCore(IXpandScheduler scheduler, JobDataMap jobDataMap) {
-            return key => scheduler.TriggerJob(key.Name, key.Group,jobDataMap);
+            return key => {
+                if (scheduler.GetJobDetail(key.Name, key.Group) != null)
+                    scheduler.TriggerJob(key.Name, key.Group, jobDataMap);
+            };
         }
 
         public string Name {

@@ -6,7 +6,7 @@ using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.JobScheduler.Jobs.SendEmail {
-    public class SerializeEmailsController:ViewController {
+    public class SerializeEmailsController:ViewController<DetailView> {
         public SerializeEmailsController() {
             TargetObjectType = typeof (SendEmailJobDetailDataMap);
         }

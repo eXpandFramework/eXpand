@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.JobScheduler {
             ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(properties);
             _scheduler = (IXpandScheduler)stdSchedulerFactory.GetScheduler();
             ((XpandScheduler) _scheduler).Application = Application;
-            _scheduler.Start();
+//            _scheduler.Start();
         }
         IXpandScheduler _scheduler;
 
