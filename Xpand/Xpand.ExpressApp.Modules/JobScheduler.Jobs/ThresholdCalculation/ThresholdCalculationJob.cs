@@ -11,12 +11,12 @@ using Xpand.Xpo;
 namespace Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation {
     [System.ComponentModel.DisplayName("ThresholdJob")]
     [JobDetailDataMapType(typeof(ThresholdJobDetailDataMap))]
-    public class ThresholdCalculationJob : IStatefulJob {
+    public class ThresholdCalculationJob : IJob {
         public const string ThresholdCalcCount = "ThresholdCalcCount";
         public const string DataType = "DataType";
         public const string Criteria = "Criteria";
         readonly ILog log = LogManager.GetLogger(typeof(ThresholdCalculationJob));
-        public void Execute(JobExecutionContext context) {
+        public void Execute(IJobExecutionContext context) {
             log.Info("EXECUTING:ThresholdCalculationJob");
             var application = ((IXpandScheduler)context.Scheduler).Application;
             var objectSpaceProvider = application.ObjectSpaceProvider;

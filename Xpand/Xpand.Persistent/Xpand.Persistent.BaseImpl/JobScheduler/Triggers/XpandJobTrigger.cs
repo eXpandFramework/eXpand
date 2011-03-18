@@ -16,7 +16,7 @@ using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
     [Appearance("Disable_Name_For_XpandJobTrigger_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Name", Enabled = false)]
-    public abstract class XpandJobTrigger : XpandCustomObject, IJobTrigger, IFastManyToMany,IRequireSchedulerInitialization {
+    public abstract class XpandJobTrigger : XpandCustomObject, IXpandJobTrigger, IFastManyToMany, IRequireSchedulerInitialization {
         protected XpandJobTrigger(Session session)
             : base(session) {
         }
@@ -59,7 +59,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
                 SetPropertyValue("Calendar", ref _calendar, value);
             }
         }
-        ITriggerCalendar IJobTrigger.Calendar {
+        ITriggerCalendar IXpandJobTrigger.Calendar {
             get { return Calendar; }
             set { Calendar = value as XpandTriggerCalendar; }
         }
@@ -92,6 +92,7 @@ Setting a value in the past may cause a new trigger to compute a first fire time
                 SetPropertyValue("StartTimeUtc", ref _startTimeUtc, value);
             }
         }
+
         private TriggerPriority _priority;
         public TriggerPriority Priority {
             get {
@@ -114,8 +115,8 @@ Setting a value in the past may cause a new trigger to compute a first fire time
             get { return GetList<XpandJobDetail>("JobDetails"); }
         }
 
-        IList<IJobDetail> IJobDetails.JobDetails {
-            get { return new ListConverter<IJobDetail, XpandJobDetail>(JobDetails); }
+        IList<IXpandJobDetail> IJobDetails.JobDetails {
+            get { return new ListConverter<IXpandJobDetail, XpandJobDetail>(JobDetails); }
         }
 
         [Association("JobSchedulerGroupTriggerLink-JobSchedulerGroups"), Aggregated]
@@ -141,8 +142,8 @@ Setting a value in the past may cause a new trigger to compute a first fire time
             get { return GetList<TriggerListenerTrigger>("TriggerListenerTriggers"); }
         }
 
-        IList<ITriggerListenerTrigger> IJobTrigger.TriggerListenerTriggers {
-            get { return new ListConverter<ITriggerListenerTrigger,TriggerListenerTrigger>(TriggerListenerTriggers); }
+        IList<ITriggerListenerTrigger> IXpandJobTrigger.TriggerListenerTriggers {
+            get { return new ListConverter<ITriggerListenerTrigger, TriggerListenerTrigger>(TriggerListenerTriggers); }
         }
     }
 }

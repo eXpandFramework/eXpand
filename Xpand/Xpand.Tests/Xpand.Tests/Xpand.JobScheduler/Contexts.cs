@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Specialized;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Machine.Specifications;
 using Quartz;
+using Quartz.Impl;
 using TypeMock.ArrangeActAssert;
 using Xpand.ExpressApp.JobScheduler;
 using Xpand.ExpressApp.JobScheduler.Qaurtz;
@@ -12,14 +14,14 @@ using Xpand.Persistent.BaseImpl.JobScheduler;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
     public class With_Scheduler {
-        protected static JobDetail JobDetail;
+        protected static IJobDetail JobDetail;
         protected static int JobExecutedCount;
         protected static IXpandScheduler Scheduler;
 
         Establish context = () => {
-            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory();
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(SchedulerConfig.GetProperties());
             Scheduler = (IXpandScheduler)stdSchedulerFactory.GetScheduler();
-            JobDetail = new JobDetail("jb", typeof(DummyJob).FullName, typeof(DummyJob));
+            JobDetail = new JobDetailImpl("jb", typeof(DummyJob).FullName, typeof(DummyJob));
             Scheduler.StoreJob(JobDetail);
 
             var dummyJob = new DummyJob();
@@ -28,17 +30,17 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         };
     }
 
-    [JobType(typeof(DummyJob))]
+    
     public class DummyJobListener : IJobListener {
-        public void JobToBeExecuted(JobExecutionContext context) {
+        public void JobToBeExecuted(IJobExecutionContext context) {
             throw new NotImplementedException();
         }
 
-        public void JobExecutionVetoed(JobExecutionContext context) {
+        public void JobExecutionVetoed(IJobExecutionContext context) {
             throw new NotImplementedException();
         }
 
-        public void JobWasExecuted(JobExecutionContext context, JobExecutionException jobException) {
+        public void JobWasExecuted(IJobExecutionContext context, JobExecutionException jobException) {
             throw new NotImplementedException();
         }
 
@@ -53,12 +55,12 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     }
     [JobDetailDataMapType(typeof(DummyDataMapObject))]
     public class DummyJob : IJob {
-        public void Execute(JobExecutionContext context) {
+        public void Execute(IJobExecutionContext context) {
 
         }
     }
     public class DummyJob2 : IJob {
-        public void Execute(JobExecutionContext context) {
+        public void Execute(IJobExecutionContext context) {
 
         }
     }
@@ -102,10 +104,28 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             base.Initialize();
             _jobSchedulerModule = new JobSchedulerModule();
             Isolate.Swap.AllInstances<JobSchedulerModule>().With(_jobSchedulerModule);
-            IScheduler scheduler = new XpandSchedulerFactory().GetScheduler();
+            var properties = SchedulerConfig.GetProperties();
+            IScheduler scheduler = new XpandSchedulerFactory(properties).GetScheduler();
             Isolate.WhenCalled(() => _jobSchedulerModule.Scheduler).WillReturn((IXpandScheduler)scheduler);
             Scheduler = (IXpandScheduler)scheduler;
             XafTypesInfo.Instance.FindTypeInfo(typeof(DummyJobListener));
         }
+
     }
+
+    internal class SchedulerConfig {
+        public static NameValueCollection GetProperties() {
+            var properties = new NameValueCollection();
+            properties["quartz.checkConfiguration"] = "False";
+            properties["quartz.scheduler.instanceName"] = "PriorityExampleScheduler";
+            // Set thread count to 1 to force Triggers scheduled for the same time to 
+            // to be ordered by priority.
+            properties["quartz.threadPool.threadCount"] = "1";
+            properties["quartz.threadPool.type"] = "Quartz.Simpl.SimpleThreadPool, Quartz";
+            properties["quartz.jobStore.type"] = "Quartz.Simpl.RAMJobStore, Quartz";
+            return properties;
+        }
+
+    }
+
 }

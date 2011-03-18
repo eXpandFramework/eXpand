@@ -1,8 +1,8 @@
 ﻿using Machine.Specifications;
 using Quartz;
+using Quartz.Impl;
 using Quartz.Spi;
 using TypeMock.ArrangeActAssert;
-using Xpand.ExpressApp.JobScheduler;
 using Xpand.ExpressApp.JobScheduler.Qaurtz;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
 using Xpand.Persistent.BaseImpl.JobScheduler;
@@ -63,20 +63,22 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
     public class When_an_Xpand_JobListener_is_executed {
         static IXpandScheduler _scheduler;
-        static JobExecutionContext _jobExecutionContext;
+        static IJobExecutionContext _jobExecutionContext;
         static bool _triggered;
         static XpandJobListener _xpandJobListener;
 
         Establish context = () => {
             _xpandJobListener = new XpandJobListener();
-            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory();
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(SchedulerConfig.GetProperties());
             _scheduler = (IXpandScheduler)stdSchedulerFactory.GetScheduler();
             _scheduler.Start();
-            var jobDetail = new JobDetail { Name = "name", Group = "group" };
+            var jobDetail = new JobDetailImpl { Name = "name", Group = "group" };
             jobDetail.JobDataMap.CreateJobListenersKey(JobListenerEvent.Executed, jobDetail.Key);
-            var triggerFiredBundle = new TriggerFiredBundle(jobDetail, Isolate.Fake.Instance<Trigger>(), null, false, null, null, null, null);
-            _jobExecutionContext = new JobExecutionContext(_scheduler, triggerFiredBundle, null);
+            var triggerFiredBundle = new TriggerFiredBundle(jobDetail, Isolate.Fake.Instance<IOperableTrigger>(), null, false, null, null, null, null);
+            _jobExecutionContext = new JobExecutionContextImpl(_scheduler, triggerFiredBundle, null);
             Isolate.WhenCalled(() => _scheduler.TriggerJob(null, null)).DoInstead(callContext => _triggered = true);
+            var jobKey = Isolate.Fake.Instance<JobKey>();
+            Isolate.WhenCalled(() => _scheduler.GetJobDetail(jobKey)).ReturnRecursiveFake();
         };
 
         Because of = () => _xpandJobListener.JobWasExecuted(_jobExecutionContext, null);

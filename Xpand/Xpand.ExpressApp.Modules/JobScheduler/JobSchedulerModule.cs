@@ -1,14 +1,11 @@
 using System.Collections.Specialized;
-using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Validation;
 using Quartz;
+using Quartz.Impl.Matchers;
 using Xpand.ExpressApp.JobScheduler.Qaurtz;
 using Xpand.ExpressApp.SystemModule;
-using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public sealed class JobSchedulerModule : XpandModuleBase {
@@ -38,8 +35,10 @@ namespace Xpand.ExpressApp.JobScheduler {
             properties["quartz.dataSource.default.provider"] = "SqlServer-20";
             ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(properties);
             _scheduler = (IXpandScheduler)stdSchedulerFactory.GetScheduler();
+            _scheduler.ListenerManager.AddJobListener(new XpandJobListener(), EverythingMatcher<JobKey>.AllJobs());
+            _scheduler.ListenerManager.AddTriggerListener(new XpandTriggerListener(), EverythingMatcher<JobKey>.AllTriggers());
             ((XpandScheduler) _scheduler).Application = Application;
-//            _scheduler.Start();
+            _scheduler.Start();
         }
         IXpandScheduler _scheduler;
 

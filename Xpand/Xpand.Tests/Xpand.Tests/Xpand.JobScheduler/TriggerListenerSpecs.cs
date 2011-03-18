@@ -1,9 +1,9 @@
 ﻿
 using Machine.Specifications;
 using Quartz;
+using Quartz.Impl;
 using Quartz.Spi;
 using TypeMock.ArrangeActAssert;
-using Xpand.ExpressApp.JobScheduler;
 using Xpand.ExpressApp.JobScheduler.Qaurtz;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
 using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
@@ -25,7 +25,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             var detail = Scheduler.GetJobDetail(Object);
             var jobData = detail.JobDataMap[XpandScheduler.TriggerTriggerJobListenersOn + TriggerListenerEvent.Fired];
             jobData.ShouldNotBeNull();
-            jobData.ShouldEqual(detail.Name + "|" + detail.Group);
+            jobData.ShouldEqual(detail.Key.Name + "|" + detail.Key.Group);
         };
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
@@ -48,26 +48,26 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             var detail = Scheduler.GetJobDetail(Object);
             var jobData = detail.JobDataMap[XpandScheduler.TriggerTriggerJobListenersOn + TriggerListenerEvent.Fired];
             jobData.ShouldNotBeNull();
-            jobData.ShouldEqual(detail.Name + "|" + detail.Group);
+            jobData.ShouldEqual(detail.Key.Name + "|" + detail.Key.Group);
         };
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
     public class When_an_Xpand_TriggerListener_is_executed {
         static IXpandScheduler _scheduler;
-        static JobExecutionContext _jobExecutionContext;
+        static IJobExecutionContext _jobExecutionContext;
         static bool _triggered;
         static XpandTriggerListener _xpandJobListener;
 
         Establish context = () => {
             _xpandJobListener = new XpandTriggerListener();
-            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory();
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(SchedulerConfig.GetProperties());
             _scheduler = (IXpandScheduler)stdSchedulerFactory.GetScheduler();
             _scheduler.Start();
-            var jobDetail = new JobDetail { Name = "name", Group = "group" };
+            var jobDetail = new JobDetailImpl { Name = "name", Group = "group" };
             jobDetail.JobDataMap.CreateTriggerListenersKey(TriggerListenerEvent.Fired, jobDetail.Key);
-            var triggerFiredBundle = new TriggerFiredBundle(jobDetail, Isolate.Fake.Instance<Trigger>(), null, false, null, null, null, null);
-            _jobExecutionContext = new JobExecutionContext(_scheduler, triggerFiredBundle, null);
+            var triggerFiredBundle = new TriggerFiredBundle(jobDetail, Isolate.Fake.Instance<IOperableTrigger>(), null, false, null, null, null, null);
+            _jobExecutionContext = new JobExecutionContextImpl(_scheduler, triggerFiredBundle, null);
             Isolate.WhenCalled(() => _scheduler.TriggerJob(null, null)).DoInstead(callContext => _triggered = true);
         };
 

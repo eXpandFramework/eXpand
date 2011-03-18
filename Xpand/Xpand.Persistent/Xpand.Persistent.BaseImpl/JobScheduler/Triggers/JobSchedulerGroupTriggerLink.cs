@@ -34,7 +34,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
             set { JobSchedulerGroup = value as JobSchedulerGroup; }
         }
 
-        IJobTrigger IJobSchedulerGroupTriggerLink.Trigger {
+        IXpandJobTrigger IJobSchedulerGroupTriggerLink.Trigger {
             get { return Trigger; }
             set { Trigger = value as XpandJobTrigger; }
         }

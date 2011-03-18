@@ -29,12 +29,12 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
                 SetPropertyValue("JobTrigger", ref _jobTrigger, value);
             }
         }
-        IJobTrigger IJobDetailTriggerLink.JobTrigger {
+        IXpandJobTrigger IJobDetailTriggerLink.JobTrigger {
             get { return JobTrigger; }
             set { JobTrigger = value as XpandJobTrigger; }
         }
 
-        IJobDetail ISupportJobDetail.JobDetail {
+        IXpandJobDetail ISupportJobDetail.JobDetail {
             get { return JobDetail; }
             set { JobDetail = value as XpandJobDetail; }
         }

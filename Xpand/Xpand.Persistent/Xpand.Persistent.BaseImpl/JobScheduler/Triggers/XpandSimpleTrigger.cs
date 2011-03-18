@@ -9,15 +9,15 @@ using Xpand.Xpo.Converters.ValueConverters;
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
     [NavigationItem("JobScheduler")]
     [System.ComponentModel.DisplayName("SimpleTrigger")]
-    public class XpandSimpleTrigger : XpandJobTrigger, ISimpleTrigger {
+    public class XpandSimpleTrigger : XpandJobTrigger, IXpandSimpleTrigger {
         public XpandSimpleTrigger(Session session)
             : base(session) {
         }
         private SimpleTriggerMisfireInstruction _misfireInstruction;
-        void ISimpleTrigger.SetFinalFireTimeUtc(DateTime? dateTime) {
+        void IXpandSimpleTrigger.SetFinalFireTimeUtc(DateTimeOffset? dateTime) {
             _finalFireTimeUtc = dateTime;
             if (dateTime != null)
-                StartTimeUtc = dateTime.Value;
+                StartTimeUtc = dateTime.Value.DateTime;
         }
 
         [DisplayDateAndTime]
@@ -67,12 +67,12 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
             }
         }
         [Persistent("FinalFireTimeUtc")]
-        [ValueConverter(typeof(SqlDateTimeOverFlowValueConverter))]
-        private DateTime? _finalFireTimeUtc;
+        [ValueConverter(typeof(SqlDateTimeOffSetOverFlowValueConverter))]
+        private DateTimeOffset? _finalFireTimeUtc;
         [Tooltip("Returns the final UTC time at which the SimpleTrigger will fire, if repeatCount is RepeatIndefinitely, null will be returned. Note that the return time may be in the past. ")]
 
         [DisplayDateAndTime]
-        public DateTime? FinalFireTimeUtc {
+        public DateTimeOffset? FinalFireTimeUtc {
             get {
                 return _finalFireTimeUtc;
             }

@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using Machine.Specifications;
 using Quartz;
+using Quartz.Impl.Triggers;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_JobTrigger_is_linked_with_jobdetail : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_is_linked_with_jobdetail> {
-        static Trigger[] _triggersOfJob;
+        static IList<ITrigger> _triggersOfJob;
         static XpandSimpleTrigger _xpandSimpleTrigger;
 
         Establish context = () => {
@@ -23,12 +25,11 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         It should_schedule_the_job = () => {
             _triggersOfJob = Scheduler.GetTriggersOfJob(Object);
-            _triggersOfJob.Length.ShouldEqual(1);
+            _triggersOfJob.Count.ShouldEqual(1);
         };
 
         It should_calculate_the_FinalFireTimeUtc = () => _xpandSimpleTrigger.FinalFireTimeUtc.ShouldNotBeNull();
 
-        It should_add_an_xpandtriggerListerner_to_it = () => _triggersOfJob[0].TriggerListenerNames.Count().ShouldEqual(1);
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
@@ -48,15 +49,15 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         Because of = () => ObjectSpace.CommitChanges();
 
         It should_add_one_trigger_with_trigger_group_same_as_first_jobdetail_group_plus_name =
-            () => Scheduler.GetTrigger("trigger", typeof(DummyJob).FullName + "." + Object.Name).ShouldNotBeNull();
+            () => Scheduler.GetTrigger(new TriggerKey("trigger", typeof(DummyJob).FullName + "." + Object.Name)).ShouldNotBeNull();
         It should_add_one_trigger_with_trigger_group_same_as_second_jobdetail_group_plus_name =
-            () => Scheduler.GetTrigger("trigger", typeof(DummyJob).FullName + ".jb2").ShouldNotBeNull();
+            () => Scheduler.GetTrigger(new TriggerKey("trigger", typeof(DummyJob).FullName + ".jb2")).ShouldNotBeNull();
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
     public class When_JobTrigger_is_deleted : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_is_deleted> {
         static IObjectSpace _objectSpace;
 
-        protected override System.Collections.Generic.IList<Type> GetDomaincomponentTypes() {
+        protected override IList<Type> GetDomaincomponentTypes() {
             var domaincomponentTypes = base.GetDomaincomponentTypes();
             domaincomponentTypes.Add(typeof(XpandSimpleTrigger));
             return domaincomponentTypes;
@@ -87,7 +88,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         static XpandSimpleTrigger _xpandSimpleTrigger;
         static IObjectSpace _objectSpace;
 
-        protected override System.Collections.Generic.IList<Type> GetDomaincomponentTypes() {
+        protected override IList<Type> GetDomaincomponentTypes() {
             var domaincomponentTypes = base.GetDomaincomponentTypes();
             domaincomponentTypes.Add(typeof(XpandSimpleTrigger));
             return domaincomponentTypes;
@@ -108,7 +109,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         Because of = () => _objectSpace.CommitChanges();
 
-        It should_update_the_trigger = () => Scheduler.GetTriggersOfJob(Object).OfType<SimpleTrigger>().First().Description.ShouldEqual("test");
+        It should_update_the_trigger = () => Scheduler.GetTriggersOfJob(Object).OfType<SimpleTriggerImpl>().First().Description.ShouldEqual("test");
 
         It should_calculate_the_FinalFireTimeUtc = () => _xpandSimpleTrigger.FinalFireTimeUtc.ShouldNotBeNull();
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
@@ -117,7 +118,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_JobTrigger_that_does_not_exist_in_the_scheduler_db_gets_updated : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_that_does_not_exist_in_the_scheduler_db_gets_updated> {
         static XpandSimpleTrigger _xpandSimpleTrigger;
         static IObjectSpace _objectSpace;
-        protected override System.Collections.Generic.IList<Type> GetDomaincomponentTypes() {
+        protected override IList<Type> GetDomaincomponentTypes() {
             var domaincomponentTypes = base.GetDomaincomponentTypes();
             domaincomponentTypes.Add(typeof(XpandSimpleTrigger));
             return domaincomponentTypes;
@@ -137,7 +138,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             _xpandSimpleTrigger.Description = "test";
         };
         Because of = () => _objectSpace.CommitChanges();
-        It should_update_the_trigger = () => Scheduler.GetTriggersOfJob(Object).OfType<SimpleTrigger>().First().Description.ShouldEqual("test");
+        It should_update_the_trigger = () => Scheduler.GetTriggersOfJob(Object).OfType<SimpleTriggerImpl>().First().Description.ShouldEqual("test");
 
         It should_calculate_the_FinalFireTimeUtc = () => _xpandSimpleTrigger.FinalFireTimeUtc.ShouldNotBeNull();
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
@@ -145,7 +146,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_JobTrigger_is_linked_with_a_group_that_has_2jobs : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_is_linked_with_a_group_that_has_2jobs> {
         static XpandJobDetail _xpandJobDetail;
 
-        protected override System.Collections.Generic.IList<Type> GetDomaincomponentTypes() {
+        protected override IList<Type> GetDomaincomponentTypes() {
             var domaincomponentTypes = base.GetDomaincomponentTypes();
             domaincomponentTypes.Add(typeof(XpandSimpleTrigger));
             return domaincomponentTypes;
@@ -175,7 +176,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_JobTrigger_is_unlinked_with_a_group_that_has_2jobs : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_is_unlinked_with_a_group_that_has_2jobs> {
         static XpandJobDetail _xpandJobDetail;
 
-        protected override System.Collections.Generic.IList<Type> GetDomaincomponentTypes() {
+        protected override IList<Type> GetDomaincomponentTypes() {
             var domaincomponentTypes = base.GetDomaincomponentTypes();
             domaincomponentTypes.Add(typeof(XpandSimpleTrigger));
             return domaincomponentTypes;

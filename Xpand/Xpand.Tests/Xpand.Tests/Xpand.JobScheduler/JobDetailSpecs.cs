@@ -7,7 +7,7 @@ using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_new_Job_detail_saved : With_Job_Scheduler_XpandJobDetail_Application<When_new_Job_detail_saved> {
-        static JobDetail _jobDetail;
+        static IJobDetail _jobDetail;
         Because of = () => ObjectSpace.CommitChanges();
 
         It should_add_a_new_job_detail_to_the_scheduler =
@@ -16,12 +16,8 @@ namespace Xpand.Tests.Xpand.JobScheduler {
                 _jobDetail.ShouldNotBeNull();
             };
 
-        It should_have_as_group_the_jobtype_plus_the_name_of_the_job_Detail = () => _jobDetail.Group.ShouldEqual(Object.Job.JobType.FullName);
+        It should_have_as_group_the_jobtype_plus_the_name_of_the_job_Detail = () => _jobDetail.Key.Group.ShouldEqual(Object.Job.JobType.FullName);
 
-        It should_have_a_new_job_listener = () => {
-            Scheduler.GetJobDetail(Object).JobListenerNames.First().ShouldEqual("DummyJobListener");
-            Scheduler.GetJobListener("DummyJobListener").ShouldNotBeNull();
-        };
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
@@ -62,7 +58,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             () => Scheduler.GetJobDetail(Object).ShouldBeNull();
 
         It should_remove_the_listener_from_the_scheduler =
-            () => Scheduler.GetTriggerListener("DummyJobListener").ShouldBeNull();
+            () => Scheduler.ListenerManager.GetTriggerListener("DummyJobListener").ShouldBeNull();
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
     public class When_Job_detail_updated : With_Job_Scheduler_XpandJobDetail_Application<When_Job_detail_updated> {
@@ -84,7 +80,6 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             () => Scheduler.GetJobDetail(Object).Description.ShouldEqual("new_description");
 
         It should_have_the_same_number_of_triggers = () => Scheduler.GetTriggersOfJob(Object).Count().ShouldEqual(1);
-        It should_have_the_same_number_of_listeners = () => Scheduler.GetJobDetail(Object).JobListenerNames.Count().ShouldBeGreaterThan(0);
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
@@ -99,7 +94,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         Because of = () => ObjectSpace.CommitChanges();
 
-        It should_add_one_trigger_to_the_Schedule_job = () => Scheduler.GetTriggersOfJob(Object).Length.ShouldEqual(1);
+        It should_add_one_trigger_to_the_Schedule_job = () => Scheduler.GetTriggersOfJob(Object).Count.ShouldEqual(1);
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
@@ -116,7 +111,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         Because of = () => ObjectSpace.CommitChanges();
 
-        It should_remove_the_trigger_from_the_schedule_job = () => Scheduler.GetTriggersOfJob(Object).Length.ShouldEqual(0);
+        It should_remove_the_trigger_from_the_schedule_job = () => Scheduler.GetTriggersOfJob(Object).Count.ShouldEqual(0);
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }

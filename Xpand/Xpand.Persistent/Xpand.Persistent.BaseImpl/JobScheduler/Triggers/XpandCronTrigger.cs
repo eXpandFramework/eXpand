@@ -7,7 +7,7 @@ using Xpand.Persistent.Base.JobScheduler.Triggers;
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
     [NavigationItem("JobScheduler")]
     [System.ComponentModel.DisplayName("CronTrigger")]
-    public class XpandCronTrigger : XpandJobTrigger, ICronTrigger {
+    public class XpandCronTrigger : XpandJobTrigger, IXpandCronTrigger {
         public XpandCronTrigger(Session session)
             : base(session) {
         }

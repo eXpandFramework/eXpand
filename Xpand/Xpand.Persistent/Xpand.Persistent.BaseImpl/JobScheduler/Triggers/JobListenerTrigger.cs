@@ -67,8 +67,8 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
             get { return GetList<XpandJobDetail>("JobDetails"); }
         }
 
-        IList<IJobDetail> IJobDetails.JobDetails {
-            get { return new ListConverter<IJobDetail, XpandJobDetail>(JobDetails); }
+        IList<IXpandJobDetail> IJobDetails.JobDetails {
+            get { return new ListConverter<IXpandJobDetail, XpandJobDetail>(JobDetails); }
         }
     }
 }

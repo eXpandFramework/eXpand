@@ -13,8 +13,7 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
         }
 
         protected override IScheduler Instantiate(QuartzSchedulerResources resources, QuartzScheduler quartzScheduler) {
-            var schedulingContext = new SchedulingContext { InstanceId = resources.InstanceId };
-            return new XpandScheduler(quartzScheduler, schedulingContext, resources, schedulingContext);
+            return new XpandScheduler(quartzScheduler, resources);
         }
 
     }

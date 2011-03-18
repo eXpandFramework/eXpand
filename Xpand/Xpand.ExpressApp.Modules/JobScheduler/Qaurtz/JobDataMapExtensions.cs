@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp.DC;
 using Quartz;
-using Quartz.Util;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
 
@@ -98,33 +97,33 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
         }
 
 
-        public static List<Key> GetJobListenerNames(this JobDataMap jobDataMap, JobListenerEvent jobListenerEvent) {
+        public static List<JobKey> GetJobListenerNames(this JobDataMap jobDataMap, JobListenerEvent jobListenerEvent) {
             return jobDataMap.GetListenerNames(XpandScheduler.TriggerJobListenersOn, jobListenerEvent);
         }
 
-        static List<Key> GetListenerNames(this JobDataMap jobDataMap, string triggerJobListenersOn, Enum listenerEvent) {
+        static List<JobKey> GetListenerNames(this JobDataMap jobDataMap, string triggerJobListenersOn, Enum listenerEvent) {
             var jobData = jobDataMap[triggerJobListenersOn + listenerEvent] as string;
             if (jobData != null) {
                 var listenerNames = jobData.Split(';').ToList();
-                return listenerNames.Select(name => name.Split('|')).Select(strings => new Key(strings[0], strings.Length > 1 ? strings[1] : "")).ToList();
+                return listenerNames.Select(name => name.Split('|')).Select(strings => new JobKey(strings[0], strings.Length > 1 ? strings[1] : "")).ToList();
             }
-            return new List<Key>();
+            return new List<JobKey>();
         }
 
 
-        public static void CreateJobListenersKey(this JobDataMap jobDataMap, JobListenerEvent listenerEvent, params Key[] args) {
+        public static void CreateJobListenersKey(this JobDataMap jobDataMap, JobListenerEvent listenerEvent, params JobKey[] args) {
             jobDataMap.CreateListenersKeys(XpandScheduler.TriggerJobListenersOn, listenerEvent, args);
         }
 
-        static void CreateListenersKeys(this JobDataMap jobDataMap, string s, Enum listenerEvent, IEnumerable<Key> args) {
-            jobDataMap[s + listenerEvent] = (args.Aggregate<Key, string>(null, (current, key) => current + (key.Name + "|" + key.Group + ";")) + "").Trim(';');
+        static void CreateListenersKeys(this JobDataMap jobDataMap, string s, Enum listenerEvent, IEnumerable<JobKey> args) {
+            jobDataMap[s + listenerEvent] = (args.Aggregate<JobKey, string>(null, (current, key) => current + (key.Name + "|" + key.Group + ";")) + "").Trim(';');
         }
 
-        public static List<Key> GetTriggerListenerNames(this JobDataMap jobDataMap, TriggerListenerEvent triggerListenerEvent) {
+        public static List<JobKey> GetTriggerListenerNames(this JobDataMap jobDataMap, TriggerListenerEvent triggerListenerEvent) {
             return GetListenerNames(jobDataMap, XpandScheduler.TriggerTriggerJobListenersOn, triggerListenerEvent);
         }
 
-        public static void CreateTriggerListenersKey(this JobDataMap jobDataMap, TriggerListenerEvent listenerEvent, params Key[] keys) {
+        public static void CreateTriggerListenersKey(this JobDataMap jobDataMap, TriggerListenerEvent listenerEvent, params JobKey[] keys) {
             jobDataMap.CreateListenersKeys(XpandScheduler.TriggerTriggerJobListenersOn, listenerEvent, keys);
         }
 

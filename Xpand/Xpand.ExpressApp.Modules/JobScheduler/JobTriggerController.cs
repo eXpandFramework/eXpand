@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using Quartz;
+using Quartz.Spi;
 using Xpand.ExpressApp.JobScheduler.Qaurtz;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.JobScheduler;
@@ -11,7 +11,7 @@ using Xpand.Utils.Helpers;
 namespace Xpand.ExpressApp.JobScheduler {
     public class JobTriggerController : SupportSchedulerController {
         public JobTriggerController() {
-            TargetObjectType = typeof(IJobTrigger);
+            TargetObjectType = typeof(IXpandJobTrigger);
         }
 
         protected override void OnActivated() {
@@ -23,32 +23,32 @@ namespace Xpand.ExpressApp.JobScheduler {
             ObjectSpace.Committing -= ObjectSpaceOnCommitting;
         }
         void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
-            ObjectSpace.GetObjectsToUpdate<IJobTrigger>().ToList().ForEach(UpdateTriggers);
+            ObjectSpace.GetObjectsToUpdate<IXpandJobTrigger>().ToList().ForEach(UpdateTriggers);
         }
 
-        void UpdateTriggers(IJobTrigger obj) {
+        void UpdateTriggers(IXpandJobTrigger obj) {
             StoreTriggers(obj);
             CreateNewTriggers(obj);
         }
 
-        void CreateNewTriggers(IJobTrigger jobTrigger) {
+        void CreateNewTriggers(IXpandJobTrigger jobTrigger) {
             jobTrigger.JobDetails.Where(detail1 => !Scheduler.HasTriggers(detail1)).Each(CreateTrigger(jobTrigger));
         }
 
-        Action<IJobDetail> CreateTrigger(IJobTrigger jobTrigger) {
+        Action<IXpandJobDetail> CreateTrigger(IXpandJobTrigger jobTrigger) {
             return detail => Scheduler.ScheduleJob(jobTrigger, detail, detail.Group != null ? detail.Group.Name : null);
         }
 
 
-        void StoreTriggers(IJobTrigger jobTrigger) {
+        void StoreTriggers(IXpandJobTrigger jobTrigger) {
             jobTrigger.JobDetails.Select(detail => Scheduler.GetJobDetail(detail)).ToList().ForEach(
-                jobDetail => Scheduler.GetTriggersOfJob(jobDetail.Name, jobDetail.Group).OfType<Trigger>().ToList().ForEach(
+                jobDetail => Scheduler.GetTriggersOfJob(jobDetail.Key).OfType<IOperableTrigger>().ToList().ForEach(
                     StoreTrigger(jobTrigger)));
         }
 
-        Action<Trigger> StoreTrigger(IJobTrigger jobTrigger) {
+        Action<IOperableTrigger> StoreTrigger(IXpandJobTrigger jobTrigger) {
             return trigger => {
-                trigger.AssignQuartzTrigger(jobTrigger, trigger.JobName, TypesInfo.FindTypeInfo(trigger.JobGroup).Type, null);
+                trigger.AssignQuartzTrigger(jobTrigger, trigger.JobKey.Name, TypesInfo.FindTypeInfo(trigger.JobKey.Group).Type, null);
                 Scheduler.StoreTrigger(trigger);
             };
         }

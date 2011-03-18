@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs.SendEmail {
     [JobDetailDataMapType(typeof(SendEmailJobDetailDataMap))]
     [JobDataMapType(typeof(SendEmailJobDataMap))]
     public class SendThresholdCalculationEmailJob : IJob {
-        public void Execute(JobExecutionContext context) {
+        public void Execute(IJobExecutionContext context) {
             var jobDataMap = context.MergedJobDataMap;
             var count = jobDataMap.GetInt<ThresholdJobDetailDataMap>(ThresholdCalculationJob.ThresholdCalcCount);
             if (count > 0) {

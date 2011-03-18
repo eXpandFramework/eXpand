@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using Quartz;
 using Quartz.Core;
@@ -9,42 +10,36 @@ using Xpand.Persistent.Base.JobScheduler.Triggers;
 
 namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
     public interface IXpandScheduler : IScheduler {
-        SchedulingContext SchedulingContext { get; }
         IJobStore JobStore { get; }
         XafApplication Application { get; }
-        JobDetail GetJobDetail(IJobDetail jobDetail);
-        void TriggerJob(IJobDetail jobDetail);
-        Trigger[] GetTriggersOfJob(IJobDetail jobDetail);
-        bool DeleteJob(IJobDetail jobDetail);
+        IJobDetail GetJobDetail(IXpandJobDetail jobDetail);
+        void TriggerJob(IXpandJobDetail jobDetail);
+        IList<ITrigger> GetTriggersOfJob(IXpandJobDetail jobDetail);
+        bool DeleteJob(IXpandJobDetail jobDetail);
         bool UnscheduleJob(string triggerName, Type jobType, string jobName, string jobGroup);
         bool UnscheduleJob(string triggerName, Type jobType, string jobName);
-        JobDetail StoreJob(IJobDetail xpandJobDetail);
-        void StoreJob(JobDetail jobDetail);
-        void StoreTrigger(Trigger simpleTrigger);
-        JobDetail GetJobDetail(string jobDetail, Type jobGroup);
+        IJobDetail StoreJob(IXpandJobDetail xpandJobDetail);
+        void StoreJob(IJobDetail jobDetail);
+        void StoreTrigger(IOperableTrigger simpleTrigger);
+        JobDetailImpl GetJobDetail(string jobDetail, Type jobGroup);
 
 
-        DateTime? RescheduleJob(Trigger trigger);
-        bool HasTriggers(IJobDetail jobDetail);
-        DateTime ScheduleJob(IJobTrigger jobTrigger, IJobDetail jobDetail, string groupName);
-        void StoreTrigger(IJobTrigger jobTrigger, IJobDetail jobDetail, string groupName);
+        DateTimeOffset? RescheduleJob(IOperableTrigger trigger);
+        bool HasTriggers(IXpandJobDetail jobDetail);
+        DateTimeOffset ScheduleJob(IXpandJobTrigger jobTrigger, IXpandJobDetail jobDetail, string groupName);
+        void StoreTrigger(IXpandJobTrigger jobTrigger, IXpandJobDetail jobDetail, string groupName);
     }
 
     public class XpandScheduler : StdScheduler, IXpandScheduler {
         readonly QuartzSchedulerResources _resources;
-        readonly SchedulingContext _schedulingContext;
         public const string TriggerJobListenersOn = "TriggerJobListenersOn";
         public const string TriggerTriggerJobListenersOn = "TriggerTriggerJobListenersOn";
 
-        public XpandScheduler(QuartzScheduler sched, SchedulingContext schedCtxt, QuartzSchedulerResources resources, SchedulingContext schedulingContext)
-            : base(sched, schedCtxt) {
+        public XpandScheduler(QuartzScheduler sched, QuartzSchedulerResources resources)
+            : base(sched) {
             _resources = resources;
-            _schedulingContext = schedulingContext;
         }
 
-        public SchedulingContext SchedulingContext {
-            get { return _schedulingContext; }
-        }
 
         QuartzSchedulerResources Resources {
             get { return _resources; }
@@ -58,38 +53,38 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
 
         public override void Start() {
             base.Start();
-            if (GetJobListener(typeof(XpandJobListener).Name) == null)
-                AddJobListener(new XpandJobListener());
-            if (GetTriggerListener(typeof(XpandTriggerListener).Name) == null)
-                AddTriggerListener(new XpandTriggerListener());
+            if (ListenerManager.GetJobListener(typeof(XpandJobListener).Name) == null)
+                ListenerManager.AddJobListener(new XpandJobListener());
+            if (ListenerManager.GetTriggerListener(typeof(XpandTriggerListener).Name) == null)
+                ListenerManager.AddTriggerListener(new XpandTriggerListener());
         }
 
-        public JobDetail GetJobDetail(IJobDetail jobDetail) {
+        public IJobDetail GetJobDetail(IXpandJobDetail jobDetail) {
             return GetJobDetail(jobDetail.Name, jobDetail.Job.JobType);
         }
 
-        public void TriggerJob(IJobDetail jobDetail) {
-            TriggerJob(jobDetail.Name, jobDetail.Job.JobType.FullName);
+        public void TriggerJob(IXpandJobDetail jobDetail) {
+            TriggerJob(new JobKey(jobDetail.Name, jobDetail.Job.JobType.FullName));
         }
 
-        public Trigger[] GetTriggersOfJob(IJobDetail jobDetail) {
-            return GetTriggersOfJob(jobDetail.Name, jobDetail.Job.JobType.FullName);
+        public IList<ITrigger> GetTriggersOfJob(IXpandJobDetail jobDetail) {
+            return GetTriggersOfJob(new JobKey(jobDetail.Name, jobDetail.Job.JobType.FullName));
         }
 
-        public virtual bool DeleteJob(IJobDetail jobDetail) {
-            return DeleteJob(jobDetail.Name, jobDetail.Job.JobType.FullName);
+        public virtual bool DeleteJob(IXpandJobDetail jobDetail) {
+            return DeleteJob(new JobKey(jobDetail.Name, jobDetail.Job.JobType.FullName));
         }
 
         public bool UnscheduleJob(string triggerName, Type jobType, string jobName, string jobGroup) {
-            return UnscheduleJob(triggerName, TriggerExtensions.GetGroup(jobName, jobType, jobGroup));
+            return UnscheduleJob(new TriggerKey(triggerName, TriggerExtensions.GetGroup(jobName, jobType, jobGroup)));
         }
 
         public bool UnscheduleJob(string triggerName, Type jobType, string jobName) {
             return UnscheduleJob(triggerName, jobType, jobName, null);
         }
 
-        public JobDetail StoreJob(IJobDetail xpandJobDetail) {
-            var jobDetail = GetJobDetail(xpandJobDetail) ?? xpandJobDetail.CreateQuartzJobDetail();
+        public IJobDetail StoreJob(IXpandJobDetail xpandJobDetail) {
+            var jobDetail = (JobDetailImpl)(GetJobDetail(xpandJobDetail) ?? xpandJobDetail.CreateQuartzJobDetail());
             jobDetail.AssignXpandJobDetail(xpandJobDetail);
             var typeInfo = Application.ObjectSpaceProvider.TypesInfo.FindTypeInfo(xpandJobDetail.JobDataMap.GetType());
             jobDetail.AssignDataMap(typeInfo, xpandJobDetail.JobDataMap);
@@ -101,42 +96,47 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
             return jobDetail;
         }
 
-        void StoreJobCore(JobDetail jobDetail) {
-            jobDetail.Durable = true;
-            Resources.JobStore.StoreJob(SchedulingContext, jobDetail, true);
+        public void StoreJob(IJobDetail jobDetail) {
+            StoreJobCore((JobDetailImpl) jobDetail);
         }
 
-        public void StoreJob(JobDetail jobDetail) {
+
+        void StoreJobCore(JobDetailImpl jobDetail) {
+            jobDetail.Durable = true;
+            Resources.JobStore.StoreJob(jobDetail, true);
+        }
+
+        public void StoreJob(JobDetailImpl jobDetail) {
             StoreJobCore(jobDetail);
         }
 
-        public void StoreTrigger(Trigger simpleTrigger) {
-            Resources.JobStore.StoreTrigger(SchedulingContext, simpleTrigger, true);
+        public void StoreTrigger(IOperableTrigger simpleTrigger) {
+            Resources.JobStore.StoreTrigger(simpleTrigger, true);
         }
 
-        public JobDetail GetJobDetail(string jobDetail, Type jobGroup) {
-            return GetJobDetail(jobDetail, jobGroup.FullName);
+        public JobDetailImpl GetJobDetail(string jobDetail, Type jobGroup) {
+            return (JobDetailImpl)GetJobDetail(new JobKey(jobDetail, jobGroup.FullName));
         }
 
-        public DateTime? RescheduleJob(Trigger trigger) {
-            return base.RescheduleJob(trigger.Name, trigger.Group, trigger);
+        public DateTimeOffset? RescheduleJob(IOperableTrigger trigger) {
+            return base.RescheduleJob(trigger.Key, trigger);
         }
 
-        public bool HasTriggers(IJobDetail jobDetail) {
-            return GetTriggersOfJob(jobDetail).Length > 0;
+        public bool HasTriggers(IXpandJobDetail jobDetail) {
+            return GetTriggersOfJob(jobDetail).Count > 0;
         }
 
-        public DateTime ScheduleJob(IJobTrigger jobTrigger, IJobDetail jobDetail, string groupName) {
-            Trigger trigger = GetTrigger(jobTrigger, groupName, jobDetail.Name, jobDetail.Job.JobType);
+        public DateTimeOffset ScheduleJob(IXpandJobTrigger jobTrigger, IXpandJobDetail jobDetail, string groupName) {
+            IOperableTrigger trigger = GetTrigger(jobTrigger, groupName, jobDetail.Name, jobDetail.Job.JobType);
             return ScheduleJob(trigger);
         }
 
-        public void StoreTrigger(IJobTrigger jobTrigger, IJobDetail jobDetail, string groupName) {
-            Trigger trigger = GetTrigger(jobTrigger, groupName, jobDetail.Name, jobDetail.Job.JobType);
+        public void StoreTrigger(IXpandJobTrigger jobTrigger, IXpandJobDetail jobDetail, string groupName) {
+            IOperableTrigger trigger = GetTrigger(jobTrigger, groupName, jobDetail.Name, jobDetail.Job.JobType);
             StoreTrigger(trigger);
         }
 
-        Trigger GetTrigger(IJobTrigger jobTrigger, string groupName, string jobName, Type jobType) {
+        IOperableTrigger GetTrigger(IXpandJobTrigger jobTrigger, string groupName, string jobName, Type jobType) {
             var trigger = jobTrigger.CreateTrigger(jobName, jobType, groupName);
             CalendarBuilder.Build(jobTrigger, this);
             return trigger;

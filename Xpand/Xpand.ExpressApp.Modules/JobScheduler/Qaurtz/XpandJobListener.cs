@@ -1,19 +1,18 @@
 ﻿using System;
 using Quartz;
-using Quartz.Util;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
 
 namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
     public class XpandJobListener : IJobListener {
-        public void JobToBeExecuted(JobExecutionContext context) {
+        public void JobToBeExecuted(IJobExecutionContext context) {
             TriggerJobs((IXpandScheduler) context.Scheduler, context.JobDetail.JobDataMap, JobListenerEvent.Executing);
         }
 
-        public void JobExecutionVetoed(JobExecutionContext context) {
+        public void JobExecutionVetoed(IJobExecutionContext context) {
             TriggerJobs((IXpandScheduler) context.Scheduler, context.JobDetail.JobDataMap, JobListenerEvent.Vetoed);
         }
 
-        public void JobWasExecuted(JobExecutionContext context, JobExecutionException jobException) {
+        public void JobWasExecuted(IJobExecutionContext context, JobExecutionException jobException) {
             TriggerJobs((IXpandScheduler) context.Scheduler, context.JobDetail.JobDataMap, JobListenerEvent.Executed);
         }
 
@@ -21,10 +20,10 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
             jobDataMap.GetJobListenerNames(jobListenerEvent).ForEach(TriggerJobsCore(scheduler, jobDataMap));
         }
 
-        Action<Key> TriggerJobsCore(IXpandScheduler scheduler, JobDataMap jobDataMap) {
+        Action<JobKey> TriggerJobsCore(IXpandScheduler scheduler, JobDataMap jobDataMap) {
             return key => {
-                if (scheduler.GetJobDetail(key.Name, key.Group) != null)
-                    scheduler.TriggerJob(key.Name, key.Group, jobDataMap);
+                if (scheduler.GetJobDetail(new JobKey(key.Name, key.Group)) != null)
+                    scheduler.TriggerJob(new JobKey(key.Name, key.Group),jobDataMap);
             };
         }
 

@@ -16,7 +16,7 @@ using Xpand.Xpo;
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
     [Appearance("Disable_JobType_For_TriggerListenerTrigger_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "JobType", Enabled = false)]
     [Appearance("Disable_Group_For_TriggerListenerTrigger_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Group", Enabled = false)]
-    public class TriggerListenerTrigger : XpandCustomObject, ITriggerListenerTrigger,IFastManyToMany {
+    public class TriggerListenerTrigger : XpandCustomObject, ITriggerListenerTrigger, IFastManyToMany {
         public TriggerListenerTrigger(Session session)
             : base(session) {
         }
@@ -62,8 +62,8 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
             get { return GetList<XpandJobTrigger>("JobTriggers"); }
         }
 
-        IList<IJobTrigger> ITriggerListenerTrigger.JobTriggers {
-            get { return new ListConverter<IJobTrigger, XpandJobTrigger>(JobTriggers); }
+        IList<IXpandJobTrigger> ITriggerListenerTrigger.JobTriggers {
+            get { return new ListConverter<IXpandJobTrigger, XpandJobTrigger>(JobTriggers); }
         }
 
         [Association("TriggerListenerTrigger-JobTriggerTriggerListenerTriggerLinks"), AggregatedAttribute]

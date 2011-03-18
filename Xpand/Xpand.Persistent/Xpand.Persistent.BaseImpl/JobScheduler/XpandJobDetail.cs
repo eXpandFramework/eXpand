@@ -23,7 +23,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
     [Appearance("Disable_Group_For_XpandJobDetail_ExistingObjects", AppearanceItemType.ViewItem, "IsNewObject=false", TargetItems = "Group", Enabled = false)]
     [Appearance("Disable_JobDataMap_For_XpandJobDetail_When_Job_is_Null", AppearanceItemType.ViewItem, "Job Is Null", TargetItems = "JobDataMap", Enabled = false)]
     [NavigationItem("JobScheduler")]
-    public class XpandJobDetail : XpandCustomObject, IJobDetail, IFastManyToMany, IRequireSchedulerInitialization {
+    public class XpandJobDetail : XpandCustomObject, IXpandJobDetail, IFastManyToMany, IRequireSchedulerInitialization {
         public XpandJobDetail(Session session)
             : base(session) {
         }
@@ -68,7 +68,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("Job", ref _job, value);
             }
         }
-        IXpandJob IJobDetail.Job {
+        IXpandJob IXpandJobDetail.Job {
             get { return _job; }
             set { _job = value as XpandJob; }
         }
@@ -96,9 +96,9 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         public IList<XpandJobTrigger> JobTriggers {
             get { return GetList<XpandJobTrigger>("JobTriggers"); }
         }
-        IList<IJobTrigger> IJobDetail.JobTriggers {
+        IList<IXpandJobTrigger> IXpandJobDetail.JobTriggers {
             get {
-                return new ListConverter<IJobTrigger, XpandJobTrigger>(JobTriggers);
+                return new ListConverter<IXpandJobTrigger, XpandJobTrigger>(JobTriggers);
             }
         }
         [Association("JobDetailJobListenerTriggerLink-JobListeners"), Aggregated]
@@ -149,18 +149,18 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
             }
         }
 
-        IDataMap IJobDetail.JobDataMap {
+        IDataMap IXpandJobDetail.JobDataMap {
             get { return JobDetailDataMap; }
             set { JobDetailDataMap = value as XpandJobDetailDataMap; }
         }
 
 
-        IJobSchedulerGroup IJobDetail.Group {
+        IJobSchedulerGroup IXpandJobDetail.Group {
             get { return Group; }
             set { Group = value as JobSchedulerGroup; }
         }
 
-        IList<IJobListenerTrigger> IJobDetail.JobListenerTriggers {
+        IList<IJobListenerTrigger> IXpandJobDetail.JobListenerTriggers {
             get {
                 return new ListConverter<IJobListenerTrigger, JobListenerTrigger>(JobListenerTriggers);
             }

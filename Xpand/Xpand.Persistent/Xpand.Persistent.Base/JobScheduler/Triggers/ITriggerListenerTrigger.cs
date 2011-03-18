@@ -6,7 +6,7 @@ namespace Xpand.Persistent.Base.JobScheduler.Triggers {
         Type JobType { get; set; }
         IJobSchedulerGroup Group { get; set; }
         TriggerListenerEvent Event { get; set; }
-        IList<IJobTrigger> JobTriggers { get; }
+        IList<IXpandJobTrigger> JobTriggers { get; }
     }
     public enum TriggerListenerEvent {
         Fired,

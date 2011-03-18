@@ -30,12 +30,12 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
 
         ITriggerListenerTrigger IJobTriggerTriggerListenerTriggerLink.TriggerListenerTrigger {
             get { return TriggerListenerTrigger; }
-            set { TriggerListenerTrigger=value as TriggerListenerTrigger; }
+            set { TriggerListenerTrigger = value as TriggerListenerTrigger; }
         }
 
-        IJobTrigger IJobTriggerTriggerListenerTriggerLink.JobTrigger {
+        IXpandJobTrigger IJobTriggerTriggerListenerTriggerLink.JobTrigger {
             get { return JobTrigger; }
-            set { JobTrigger=value as XpandJobTrigger; }
+            set { JobTrigger = value as XpandJobTrigger; }
         }
 
     }

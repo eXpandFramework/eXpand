@@ -10,16 +10,6 @@ using DevExpress.XtraEditors;
 using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.JobScheduler {
-    public class StartSchedulerController:ViewController {
-        public StartSchedulerController() {
-            var simpleAction = new SimpleAction(this,"StartScheduler",PredefinedCategory.OpenObject);
-            simpleAction.Execute+=SimpleActionOnExecute;
-        }
-
-        void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
-            Application.FindModule<JobSchedulerModule>().Scheduler.Start();
-        }
-    }
     public class DisposeScheduler:WindowController {
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();

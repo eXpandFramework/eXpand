@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DevExpress.ExpressApp;
-using DevExpress.Xpo;
+﻿using DevExpress.ExpressApp;
 using Machine.Specifications;
 using Quartz;
 using Quartz.Spi;
@@ -15,7 +10,7 @@ using Xpand.ExpressApp.JobScheduler.Qaurtz;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_SendThresholdCalculationEmail_Job_is_executed {
-        static JobExecutionContext _jobExecutionContext;
+        static IJobExecutionContext _jobExecutionContext;
         static SendThresholdCalculationEmailJob _sendThresholdCalculationEmailJob;
 
         Establish context = () => {
@@ -33,13 +28,13 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             xpandJobDataMap.EmailTemplate = SchedulerResource.EmailTemplate;
 
             
-            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory();
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(SchedulerConfig.GetProperties());
             var scheduler = (IXpandScheduler) stdSchedulerFactory.GetScheduler();
             Isolate.WhenCalled(() => scheduler.Application.ObjectSpaceProvider.TypesInfo).WillReturn(XafTypesInfo.Instance);
             var storeJob = scheduler.StoreJob(xpandJobDetail);
             storeJob.JobDataMap.Add(ThresholdCalculationJob.ThresholdCalcCount, 2);
 
-            _jobExecutionContext = new JobExecutionContext(null, new TriggerFiredBundle(storeJob, Isolate.Fake.Instance<Trigger>(), null, false, null, null, null, null),
+            _jobExecutionContext = new JobExecutionContextImpl(null, new TriggerFiredBundle(storeJob, Isolate.Fake.Instance<IOperableTrigger>(), null, false, null, null, null, null),
                                                               _sendThresholdCalculationEmailJob);
         };
 

@@ -18,7 +18,7 @@ namespace Xpand.Persistent.Base.JobScheduler.Triggers {
         NthIncludedDayDoNothing,
     }
 
-    public interface INthIncludedDayTrigger : IJobTrigger {
+    public interface INthIncludedDayTrigger : IXpandJobTrigger {
         int N { get; set; }
         NthIncludedDayIntervalType IntervalType { get; set; }
 
