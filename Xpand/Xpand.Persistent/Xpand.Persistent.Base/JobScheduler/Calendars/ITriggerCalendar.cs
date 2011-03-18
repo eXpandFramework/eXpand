@@ -9,6 +9,7 @@ namespace Xpand.Persistent.Base.JobScheduler.Calendars {
 
         [Size(SizeAttribute.Unlimited)]
         string Description { get; set; }
-        Type CalendarType { get; }
+
+        string CalendarTypeFullName { get; }
     }
 }

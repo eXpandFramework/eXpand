@@ -1,8 +1,6 @@
-﻿using System;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Quartz.Impl.Calendar;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
 
@@ -23,8 +21,8 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
             }
         }
 
-        Type ITriggerCalendar.CalendarType {
-            get { return typeof(CronCalendar); }
+        string ITriggerCalendar.CalendarTypeFullName {
+            get { return "Quartz.Impl.Calendar.CronCalendar"; }
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.JobScheduler {
             _scheduler.ListenerManager.AddJobListener(new XpandJobListener(), EverythingMatcher<JobKey>.AllJobs());
             _scheduler.ListenerManager.AddTriggerListener(new XpandTriggerListener(), EverythingMatcher<JobKey>.AllTriggers());
             ((XpandScheduler) _scheduler).Application = Application;
-            _scheduler.Start();
+//            _scheduler.Start();
         }
         IXpandScheduler _scheduler;
 

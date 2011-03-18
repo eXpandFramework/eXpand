@@ -5,7 +5,6 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Quartz.Impl.Calendar;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.PropertyEditors;
 using Xpand.Persistent.Base.General.CustomAttributes;
@@ -50,8 +49,8 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
             }
         }
 
-        Type ITriggerCalendar.CalendarType {
-            get { return typeof(WeeklyCalendar); }
+        string ITriggerCalendar.CalendarTypeFullName {
+            get { return "Quartz.Impl.Calendar.WeeklyCalendar"; }
         }
 
     }

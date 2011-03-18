@@ -5,7 +5,6 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Quartz.Impl.Calendar;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.PropertyEditors;
 using Xpand.Persistent.Base.General.CustomAttributes;
@@ -23,8 +22,8 @@ The implementation DOES take the year into consideration, so if you want to excl
         public XpandHolidayCalendar(Session session)
             : base(session) {
         }
-        Type ITriggerCalendar.CalendarType {
-            get { return typeof(HolidayCalendar); }
+        string ITriggerCalendar.CalendarTypeFullName {
+            get { return "Quartz.Impl.Calendar.HolidayCalendar"; }
         }
         public override void AfterConstruction() {
             base.AfterConstruction();

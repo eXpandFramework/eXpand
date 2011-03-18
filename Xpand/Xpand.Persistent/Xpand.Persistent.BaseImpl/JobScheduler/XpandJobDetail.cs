@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Quartz;
 using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
@@ -36,12 +35,6 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
             }
             set {
                 SetPropertyValue("Name", ref _name, value);
-            }
-        }
-        [Tooltip("Whether or not the IJob implements the interface IStatefulJob.")]
-        public virtual bool Stateful {
-            get {
-                return _job != null && (XafTypesInfo.Instance.FindTypeInfo(typeof(IStatefulJob)).Type.IsAssignableFrom(_job.JobType));
             }
         }
 

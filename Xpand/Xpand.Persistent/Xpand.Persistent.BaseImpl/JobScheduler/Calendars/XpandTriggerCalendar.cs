@@ -47,7 +47,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
             }
         }
 
-        Type ITriggerCalendar.CalendarType {
+        string ITriggerCalendar.CalendarTypeFullName {
             get { throw new NotImplementedException(); }
         }
     }

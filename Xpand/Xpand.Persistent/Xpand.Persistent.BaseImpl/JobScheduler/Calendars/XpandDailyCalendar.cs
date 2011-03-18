@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -19,8 +18,8 @@ Note when using DailyCalendar, it behaves on the same principals as, for example
         public XpandDailyCalendar(Session session)
             : base(session) {
         }
-        Type ITriggerCalendar.CalendarType {
-            get { return typeof(Quartz.Impl.Calendar.DailyCalendar); }
+        string ITriggerCalendar.CalendarTypeFullName {
+            get { return "Quartz.Impl.Calendar.DailyCalendar"; }
         }
         private bool _invertTimeRange;
         [Tooltip("Indicates whether the time range represents an inverted time range ")]

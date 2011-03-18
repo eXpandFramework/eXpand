@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.XtraScheduler.Native;
 using Quartz;
 using Quartz.Impl.Calendar;
@@ -11,7 +12,7 @@ namespace Xpand.ExpressApp.JobScheduler {
     internal static class CalendarBuilder {
         public static void Build(IXpandJobTrigger trigger, IXpandScheduler scheduler) {
             if (trigger.Calendar != null) {
-                var calendar = (ICalendar)Activator.CreateInstance(trigger.Calendar.CalendarType);
+                var calendar = (ICalendar)Activator.CreateInstance(XafTypesInfo.Instance.FindTypeInfo(trigger.Calendar.CalendarTypeFullName).Type);
                 Initialize(calendar, trigger);
                 scheduler.AddCalendar(trigger.Calendar.Name, calendar, true, true);
             }
