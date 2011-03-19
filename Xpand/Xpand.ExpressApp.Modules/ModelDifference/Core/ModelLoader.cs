@@ -13,30 +13,92 @@ using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.ModelDifference.Core {
+    public class ApplicationBuilder {
+        Func<string, ITypesInfo> _buildTypesInfoSystem = BuildTypesInfoSystem();
+        string _moduleName;
+        string _assembliesPath;
 
-    public class ModelLoader {
-        readonly string _executableName;
-
-        public ModelLoader(string executableName) {
-            _executableName = executableName;
+        ApplicationBuilder() {
         }
 
-        public ModelApplicationBase GetMasterModel() {
-            ITypesInfo typesInfo = GetTypesInfo(_executableName);
-            var xafApplication = GetApplication(_executableName, typesInfo);
-            XpandModuleBase.DisposeManagers();
-            var assembliesPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-            string path = Path.Combine(assembliesPath, _executableName);
-            string config = path + ".config";
-            if (File.Exists(assembliesPath + "web.config"))
-                config = Path.Combine(assembliesPath, "web.config");
-            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
-                ((ISupportFullConnectionString) xafApplication).ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        public static ApplicationBuilder Create() {
+            return new ApplicationBuilder();
+        }
+
+        static Func<string, ITypesInfo> BuildTypesInfoSystem() {
+            return moduleName => TypesInfoBuilder.Create()
+                                     .FromModule(moduleName)
+                                     .Build();
+        }
+        public ApplicationBuilder UsingTypesInfo(Func<string,ITypesInfo> buildTypesInfoSystem) {
+            _buildTypesInfoSystem = buildTypesInfoSystem;
+            return this;
+        }
+
+        public ApplicationBuilder FromModule(string moduleName) {
+            _moduleName = moduleName;
+            return this;
+        }
+
+        public XafApplication Build() {
+            string assemblyPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+            try {
+                var typesInfo = _buildTypesInfoSystem.Invoke(_moduleName);
+                ReflectionHelper.AddResolvePath(assemblyPath);
+                var assembly = ReflectionHelper.GetAssembly(Path.GetFileNameWithoutExtension(_moduleName), assemblyPath);
+                var assemblyInfo = typesInfo.FindAssemblyInfo(assembly);
+                typesInfo.LoadTypes(assembly);
+                var findTypeInfo = typesInfo.FindTypeInfo(typeof(XafApplication));
+                var findTypeDescendants = ReflectionHelper.FindTypeDescendants(assemblyInfo, findTypeInfo, false);
+                var xafApplication = ((XafApplication) Enumerator.GetFirst(findTypeDescendants).CreateInstance(new object[0]));
+                if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
+                    ((ISupportFullConnectionString)xafApplication).ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                }
+                XpandModuleBase.DisposeManagers();
+                string config = GetConfigPath();
+                var modulesManager = CreateModulesManager(xafApplication, config, _assembliesPath, typesInfo);
+                BuildModel(xafApplication, config, modulesManager);
+                XpandModuleBase.ReStoreManagers();
+                return xafApplication;
+            } finally {
+                ReflectionHelper.RemoveResolvePath(assemblyPath);
             }
-            var modulesManager = CreateModulesManager(xafApplication, config, assembliesPath, typesInfo);
-            var modelApplicationBase = GetModelApplication(xafApplication, config, modulesManager);
-            XpandModuleBase.ReStoreManagers();
-            return modelApplicationBase;
+        }
+        void BuildModel(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager) {
+            var modelsManager = new ApplicationModelsManager(applicationModulesManager.Modules, applicationModulesManager.ControllersManager, applicationModulesManager.DomainComponents, application.ResourcesExportedToModel, GetAspects(configFileName));
+            var modelApplication = (ModelApplicationBase)modelsManager.CreateModel(modelsManager.CreateApplicationCreator(), null, false);
+            var modelApplicationBase = modelApplication.CreatorInstance.CreateModelApplication();
+            modelApplicationBase.Id = "After Setup";
+            modelApplication.AddLayer(modelApplicationBase);
+            return;
+        }
+        private string[] GetModulesFromConfig(XafApplication application) {
+            Configuration config;
+            if (application is IWinApplication) {
+                config = ConfigurationManager.OpenExeConfiguration(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + _moduleName);
+            } else {
+                var mapping = new WebConfigurationFileMap();
+                mapping.VirtualDirectories.Add("/Dummy", new VirtualDirectoryMapping(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, true));
+                config = WebConfigurationManager.OpenMappedWebConfiguration(mapping, "/Dummy");
+            }
+
+            if (config.AppSettings.Settings["Modules"] != null) {
+                return config.AppSettings.Settings["Modules"].Value.Split(';');
+            }
+
+            return null;
+        }
+        private IEnumerable<string> GetAspects(string configFileName) {
+            if (!string.IsNullOrEmpty(configFileName) && configFileName.EndsWith(".config")) {
+                var exeConfigurationFileMap = new ExeConfigurationFileMap { ExeConfigFilename = configFileName };
+                Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(exeConfigurationFileMap, ConfigurationUserLevel.None);
+                KeyValueConfigurationElement languagesElement = configuration.AppSettings.Settings["Languages"];
+                if (languagesElement != null) {
+                    string languages = languagesElement.Value;
+                    return languages.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                }
+            }
+            return null;
         }
 
         ApplicationModulesManager CreateModulesManager(XafApplication application, string configFileName, string assembliesPath, ITypesInfo typesInfo) {
@@ -61,10 +123,10 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 if (!string.IsNullOrEmpty(configFileName)) {
                     result.AddModuleFromAssemblies(GetModulesFromConfig(application));
                 }
-                if (typesInfo is TypesInfo)
-                    XpandModuleBase.Dictiorary = ((TypesInfo)typesInfo).Source.XPDictionary;
+                if (typesInfo is TypesInfoBuilder.TypesInfo)
+                    XpandModuleBase.Dictiorary = ((TypesInfoBuilder.TypesInfo)typesInfo).Source.XPDictionary;
                 XpandModuleBase.TypesInfo = typesInfo;
-                result.Load(typesInfo,typesInfo!=XafTypesInfo.Instance);
+                result.Load(typesInfo, typesInfo != XafTypesInfo.Instance);
                 return result;
             } finally {
                 XpandModuleBase.Dictiorary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
@@ -74,25 +136,34 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         }
 
-        private string[] GetModulesFromConfig(XafApplication application) {
-            Configuration config;
-            if (application is IWinApplication) {
-                config = ConfigurationManager.OpenExeConfiguration(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + _executableName);
-            } else {
-                var mapping = new WebConfigurationFileMap();
-                mapping.VirtualDirectories.Add("/Dummy", new VirtualDirectoryMapping(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, true));
-                config = WebConfigurationManager.OpenMappedWebConfiguration(mapping, "/Dummy");
-            }
-
-            if (config.AppSettings.Settings["Modules"] != null) {
-                return config.AppSettings.Settings["Modules"].Value.Split(';');
-            }
-
-            return null;
+        string GetConfigPath() {
+            string path = Path.Combine(_assembliesPath, _moduleName);
+            string config = path + ".config";
+            if (File.Exists(_assembliesPath + "web.config"))
+                config = Path.Combine(_assembliesPath, "web.config");
+            return config;
         }
 
-        ITypesInfo GetTypesInfo(string executableName) {
-            return executableName == Assembly.GetAssembly(XpandModuleBase.Application.GetType()).ManifestModule.Name
+        public ApplicationBuilder WithAssembliesPath(string assembliesPath) {
+            _assembliesPath = assembliesPath;
+            return this;
+        }
+    }
+
+    public class TypesInfoBuilder {
+        string _moduleName;
+
+        public static TypesInfoBuilder Create() {
+            return new TypesInfoBuilder();
+        }
+
+        public TypesInfoBuilder FromModule(string moduleName) {
+            _moduleName = moduleName;
+            return this;
+        }
+
+        public ITypesInfo Build() {
+            return _moduleName == Assembly.GetAssembly(XpandModuleBase.Application.GetType()).ManifestModule.Name
                        ? XafTypesInfo.Instance
                        : GetTypesInfo();
         }
@@ -110,26 +181,25 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         }
 
         public class TypesInfo : DevExpress.ExpressApp.DC.TypesInfo {
-
             public DevExpress.ExpressApp.DC.Xpo.XpoTypeInfoSource Source { get; set; }
-
-
         }
 
-        private XafApplication GetApplication(string executableName, ITypesInfo typesInfo) {
-            string assemblyPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-            try {
-                ReflectionHelper.AddResolvePath(assemblyPath);
-                var assembly = ReflectionHelper.GetAssembly(Path.GetFileNameWithoutExtension(executableName), assemblyPath);
-                var assemblyInfo = typesInfo.FindAssemblyInfo(assembly);
-                typesInfo.LoadTypes(assembly);
-                var findTypeInfo = typesInfo.FindTypeInfo(typeof(XafApplication));
-                var findTypeDescendants = ReflectionHelper.FindTypeDescendants(assemblyInfo, findTypeInfo, false);
-                return Enumerator.GetFirst(findTypeDescendants).CreateInstance(new object[0]) as XafApplication;
-            } finally {
-                ReflectionHelper.RemoveResolvePath(assemblyPath);
-            }
+    }
+    public class ModelLoader {
+        readonly string _executableName;
+
+        public ModelLoader(string executableName) {
+            _executableName = executableName;
         }
+
+        public ModelApplicationBase GetMasterModel() {
+            var xafApplication =ApplicationBuilder.Create().
+                FromModule(_executableName).
+                WithAssembliesPath(AppDomain.CurrentDomain.SetupInformation.ApplicationBase).
+                Build();
+            return (ModelApplicationBase) xafApplication.Model;
+        }
+
         public ModelApplicationBase GetLayer(Type modelApplicationFromStreamStoreBaseType) {
             var masterModel = GetMasterModel();
             var layer = masterModel.CreatorInstance.CreateModelApplication();
@@ -140,26 +210,6 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return layer;
         }
 
-        ModelApplicationBase GetModelApplication(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager) {
-            var modelsManager = new ApplicationModelsManager(applicationModulesManager.Modules, applicationModulesManager.ControllersManager, applicationModulesManager.DomainComponents, application.ResourcesExportedToModel, GetAspects(configFileName));
-            var modelApplication = (ModelApplicationBase)modelsManager.CreateModel(modelsManager.CreateApplicationCreator(), null, false);
-            var modelApplicationBase = modelApplication.CreatorInstance.CreateModelApplication();
-            modelApplicationBase.Id = "After Setup";
-            modelApplication.AddLayer(modelApplicationBase);
-            return modelApplication;
-        }
 
-        private IEnumerable<string> GetAspects(string configFileName) {
-            if (!string.IsNullOrEmpty(configFileName) && configFileName.EndsWith(".config")) {
-                var exeConfigurationFileMap = new ExeConfigurationFileMap {ExeConfigFilename = configFileName};
-                Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(exeConfigurationFileMap, ConfigurationUserLevel.None);
-                KeyValueConfigurationElement languagesElement = configuration.AppSettings.Settings["Languages"];
-                if (languagesElement != null) {
-                    string languages = languagesElement.Value;
-                    return languages.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                }
-            }
-            return null;
-        }
     }
 }
