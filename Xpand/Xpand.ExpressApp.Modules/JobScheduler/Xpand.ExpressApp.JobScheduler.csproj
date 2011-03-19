@@ -147,13 +147,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalendarBuilder.cs" />
-    <Compile Include="DisposeScheduler.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Qaurtz\JobDataMapExtensions.cs" />
     <Compile Include="JobDetailController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="QuartzExtensions\JobDataMapExtensions.cs" />
     <Compile Include="JobTriggerLinkController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -164,10 +161,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Qaurtz\TriggerExtensions.cs" />
-    <Compile Include="Qaurtz\JobDetailExtensions.cs" />
-    <Compile Include="Qaurtz\XpandTriggerListener.cs" />
-    <Compile Include="Qaurtz\XpandJobListener.cs" />
+    <Compile Include="QuartzExtensions\SchedulerExtensions.cs" />
+    <Compile Include="QuartzExtensions\TriggerExtensions.cs" />
+    <Compile Include="QuartzExtensions\JobDetailExtensions.cs" />
+    <Compile Include="QuartzExtensions\XpandJobListener.cs" />
+    <Compile Include="QuartzExtensions\XpandTriggerListener.cs" />
     <Compile Include="RequireSchedulerInitializationController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -175,8 +173,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Updater.cs" />
-    <Compile Include="Qaurtz\XpandScheduler.cs" />
-    <Compile Include="Qaurtz\XpandSchedulerFactory.cs" />
+    <Compile Include="QuartzExtensions\XpandScheduler.cs" />
+    <Compile Include="QuartzExtensions\XpandSchedulerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

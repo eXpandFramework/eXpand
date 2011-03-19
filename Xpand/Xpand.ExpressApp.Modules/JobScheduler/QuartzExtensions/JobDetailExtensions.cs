@@ -5,7 +5,7 @@ using Quartz.Impl;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Utils.Helpers;
 
-namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
+namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
     public static class JobDetailExtensions {
         public static void AssignXpandJobDetail(this JobDetailImpl jobDetail, IXpandJobDetail xpandJobDetail) {
             jobDetail.Name = xpandJobDetail.Name;

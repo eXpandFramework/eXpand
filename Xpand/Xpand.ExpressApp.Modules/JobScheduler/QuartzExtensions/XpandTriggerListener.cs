@@ -1,7 +1,9 @@
 ﻿using Quartz;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
 
-namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
+namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
+    ///<summary>
+    ///</summary>
     public class XpandTriggerListener : ITriggerListener {
         
 

@@ -5,8 +5,8 @@ using Quartz.Spi;
 using TypeMock.ArrangeActAssert;
 using Xpand.ExpressApp.JobScheduler.Jobs.SendEmail;
 using Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation;
+using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 using Xpand.Persistent.BaseImpl.JobScheduler;
-using Xpand.ExpressApp.JobScheduler.Qaurtz;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_SendThresholdCalculationEmail_Job_is_executed {
@@ -28,10 +28,9 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             xpandJobDataMap.EmailTemplate = SchedulerResource.EmailTemplate;
 
             
-            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(SchedulerConfig.GetProperties());
-            var scheduler = (IXpandScheduler) stdSchedulerFactory.GetScheduler();
-            Isolate.WhenCalled(() => scheduler.Application.ObjectSpaceProvider.TypesInfo).WillReturn(XafTypesInfo.Instance);
-            var storeJob = scheduler.StoreJob(xpandJobDetail);
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(SchedulerConfig.GetProperties(),Isolate.Fake.Instance<XafApplication>());
+            var scheduler = stdSchedulerFactory.GetScheduler();
+            var storeJob = scheduler.StoreJob(xpandJobDetail,XafTypesInfo.Instance);
             storeJob.JobDataMap.Add(ThresholdCalculationJob.ThresholdCalcCount, 2);
 
             _jobExecutionContext = new JobExecutionContextImpl(null, new TriggerFiredBundle(storeJob, Isolate.Fake.Instance<IOperableTrigger>(), null, false, null, null, null, null),

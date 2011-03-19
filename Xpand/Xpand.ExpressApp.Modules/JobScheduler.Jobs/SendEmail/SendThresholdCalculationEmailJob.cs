@@ -7,7 +7,7 @@ using DevExpress.ExpressApp.Utils;
 using Quartz;
 using Xpand.EmailTemplateEngine;
 using Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation;
-using Xpand.ExpressApp.JobScheduler.Qaurtz;
+using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Utils.Helpers;
 

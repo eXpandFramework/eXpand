@@ -8,7 +8,7 @@ using Quartz;
 using Quartz.Impl;
 using TypeMock.ArrangeActAssert;
 using Xpand.ExpressApp.JobScheduler;
-using Xpand.ExpressApp.JobScheduler.Qaurtz;
+using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 
@@ -16,11 +16,12 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     public class With_Scheduler {
         protected static IJobDetail JobDetail;
         protected static int JobExecutedCount;
-        protected static IXpandScheduler Scheduler;
+        protected static IScheduler Scheduler;
 
         Establish context = () => {
-            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(SchedulerConfig.GetProperties());
-            Scheduler = (IXpandScheduler)stdSchedulerFactory.GetScheduler();
+            new JobSchedulerModule();
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(SchedulerConfig.GetProperties(), Isolate.Fake.Instance<XafApplication>());
+            Scheduler = stdSchedulerFactory.GetScheduler();
             JobDetail = new JobDetailImpl("jb", typeof(DummyJob).FullName, typeof(DummyJob));
             Scheduler.StoreJob(JobDetail);
 
@@ -83,12 +84,8 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
     }
     public abstract class With_Job_Scheduler_Application<T, TObject> : With_Application<T, TObject> where T : With_Job_Scheduler_Application<T, TObject> {
-        protected static IXpandScheduler Scheduler;
+        protected static IScheduler Scheduler;
         JobSchedulerModule _jobSchedulerModule;
-        protected override void ViewCreated(DetailView detailView) {
-            base.ViewCreated(detailView);
-            ((XpandScheduler)Scheduler).Application = Application;
-        }
         protected override void WindowCreated(Window window) {
             base.WindowCreated(window);
             window.Application.Modules.Add(_jobSchedulerModule);
@@ -105,9 +102,9 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             _jobSchedulerModule = new JobSchedulerModule();
             Isolate.Swap.AllInstances<JobSchedulerModule>().With(_jobSchedulerModule);
             var properties = SchedulerConfig.GetProperties();
-            IScheduler scheduler = new XpandSchedulerFactory(properties).GetScheduler();
-            Isolate.WhenCalled(() => _jobSchedulerModule.Scheduler).WillReturn((IXpandScheduler)scheduler);
-            Scheduler = (IXpandScheduler)scheduler;
+            IScheduler scheduler = new XpandSchedulerFactory(properties,Application).GetScheduler();
+            Isolate.WhenCalled(() => _jobSchedulerModule.Scheduler).WillReturn(scheduler);
+            Scheduler = scheduler;
             XafTypesInfo.Instance.FindTypeInfo(typeof(DummyJobListener));
         }
 

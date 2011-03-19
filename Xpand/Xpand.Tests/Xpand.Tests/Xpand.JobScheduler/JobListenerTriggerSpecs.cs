@@ -1,9 +1,10 @@
-﻿using Machine.Specifications;
+﻿using DevExpress.ExpressApp;
+using Machine.Specifications;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
 using TypeMock.ArrangeActAssert;
-using Xpand.ExpressApp.JobScheduler.Qaurtz;
+using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
@@ -30,7 +31,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         It should_set_the_datamap_joblisteners_key_value = () => {
             var jobDetail = Scheduler.GetJobDetail("name2", typeof(DummyJob2));
-            Scheduler.GetJobDetail(Object).JobDataMap[XpandScheduler.TriggerJobListenersOn + JobListenerEvent.Executing].ShouldEqual(jobDetail.Name + "|" + jobDetail.Group);
+            Scheduler.GetJobDetail(Object).JobDataMap[SchedulerExtensions.TriggerJobListenersOn + JobListenerEvent.Executing].ShouldEqual(jobDetail.Name + "|" + jobDetail.Group);
         };
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
@@ -55,22 +56,22 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         Because of = () => ObjectSpace.CommitChanges();
 
         It should_remove_the_datamap_joblisteners_key_value =
-            () => Scheduler.GetJobDetail(Object).JobDataMap[XpandScheduler.TriggerJobListenersOn + JobListenerEvent.Executing].ShouldEqual("");
+            () => Scheduler.GetJobDetail(Object).JobDataMap[SchedulerExtensions.TriggerJobListenersOn + JobListenerEvent.Executing].ShouldEqual("");
 
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
 
     public class When_an_Xpand_JobListener_is_executed {
-        static IXpandScheduler _scheduler;
+        static IScheduler _scheduler;
         static IJobExecutionContext _jobExecutionContext;
         static bool _triggered;
         static XpandJobListener _xpandJobListener;
 
         Establish context = () => {
             _xpandJobListener = new XpandJobListener();
-            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(SchedulerConfig.GetProperties());
-            _scheduler = (IXpandScheduler)stdSchedulerFactory.GetScheduler();
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(SchedulerConfig.GetProperties(), Isolate.Fake.Instance<XafApplication>());
+            _scheduler = stdSchedulerFactory.GetScheduler();
             _scheduler.Start();
             var jobDetail = new JobDetailImpl { Name = "name", Group = "group" };
             jobDetail.JobDataMap.CreateJobListenersKey(JobListenerEvent.Executed, jobDetail.Key);

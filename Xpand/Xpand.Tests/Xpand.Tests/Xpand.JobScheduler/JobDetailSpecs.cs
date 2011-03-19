@@ -4,6 +4,7 @@ using Machine.Specifications;
 using Quartz;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
+using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_new_Job_detail_saved : With_Job_Scheduler_XpandJobDetail_Application<When_new_Job_detail_saved> {

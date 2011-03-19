@@ -6,7 +6,7 @@ using Quartz.Impl.Triggers;
 using Quartz.Spi;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
 
-namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
+namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
     public static class TriggerExtensions {
         public static void AssignQuartzTrigger(this SimpleTriggerImpl jobTrigger, IXpandSimpleTrigger trigger) {
             jobTrigger.MisfireInstruction = (int)trigger.MisfireInstruction;

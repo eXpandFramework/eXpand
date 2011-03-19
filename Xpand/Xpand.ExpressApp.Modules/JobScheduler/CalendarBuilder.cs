@@ -4,13 +4,12 @@ using DevExpress.ExpressApp;
 using DevExpress.XtraScheduler.Native;
 using Quartz;
 using Quartz.Impl.Calendar;
-using Xpand.ExpressApp.JobScheduler.Qaurtz;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
 
 namespace Xpand.ExpressApp.JobScheduler {
     internal static class CalendarBuilder {
-        public static void Build(IXpandJobTrigger trigger, IXpandScheduler scheduler) {
+        public static void Build(IXpandJobTrigger trigger, IScheduler scheduler) {
             if (trigger.Calendar != null) {
                 var calendar = (ICalendar)Activator.CreateInstance(XafTypesInfo.Instance.FindTypeInfo(trigger.Calendar.CalendarTypeFullName).Type);
                 Initialize(calendar, trigger);

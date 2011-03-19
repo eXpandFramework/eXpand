@@ -4,7 +4,7 @@ using DevExpress.ExpressApp;
 using Machine.Specifications;
 using Quartz;
 using Quartz.Impl.Calendar;
-using Xpand.ExpressApp.JobScheduler.Qaurtz;
+using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 using Xpand.Persistent.BaseImpl.JobScheduler.Calendars;
 using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
@@ -117,8 +117,8 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             _xpandWeeklyCalendar.Name = "annualCalendarName";
             _simpleTrigger.Calendar = _xpandWeeklyCalendar;
             _simpleTrigger.Name = "tr";
-            _xpandWeeklyCalendar.DaysOfWeekExcluded.Add(DayOfWeek.Friday);
-            _xpandWeeklyCalendar.DaysOfWeekIncluded.Add(DayOfWeek.Monday);
+            _xpandWeeklyCalendar.DaysOfWeekExcluded.Add(DateTime.Today.AddDays(1).DayOfWeek);
+            _xpandWeeklyCalendar.DaysOfWeekIncluded.Add(DateTime.Today.DayOfWeek);
             _jobDetail = objectSpace.CreateObject<XpandJobDetail>();
             _jobDetail.Name = "jb";
             var xpandJob = objectSpace.CreateObject<XpandJob>();
@@ -137,9 +137,9 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             };
 
         It should_add_the_excluded_dates_to_the_scheduler_calendar =
-            () => _calendar.IsDayExcluded(DayOfWeek.Friday).ShouldBeTrue();
+            () => _calendar.IsDayExcluded(DateTime.Today.AddDays(1).DayOfWeek).ShouldBeTrue();
         It should_add_the_included_dates_to_the_scheduler_calendar =
-            () => _calendar.IsDayExcluded(DayOfWeek.Monday).ShouldBeFalse();
+            () => _calendar.IsDayExcluded(DateTime.Today.DayOfWeek).ShouldBeFalse();
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
 

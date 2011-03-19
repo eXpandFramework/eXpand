@@ -6,7 +6,7 @@ using Quartz;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
 
-namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
+namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
     public static class JobDataMapExtensions {
         public static object Put<T>(this JobDataMap jobDataMap, object key,object val) where T : IDataMap {
             return jobDataMap.Put(GetKey<T>(key), val);
@@ -98,7 +98,7 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
 
 
         public static List<JobKey> GetJobListenerNames(this JobDataMap jobDataMap, JobListenerEvent jobListenerEvent) {
-            return jobDataMap.GetListenerNames(XpandScheduler.TriggerJobListenersOn, jobListenerEvent);
+            return jobDataMap.GetListenerNames(SchedulerExtensions.TriggerJobListenersOn, jobListenerEvent);
         }
 
         static List<JobKey> GetListenerNames(this JobDataMap jobDataMap, string triggerJobListenersOn, Enum listenerEvent) {
@@ -112,7 +112,7 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
 
 
         public static void CreateJobListenersKey(this JobDataMap jobDataMap, JobListenerEvent listenerEvent, params JobKey[] args) {
-            jobDataMap.CreateListenersKeys(XpandScheduler.TriggerJobListenersOn, listenerEvent, args);
+            jobDataMap.CreateListenersKeys(SchedulerExtensions.TriggerJobListenersOn, listenerEvent, args);
         }
 
         static void CreateListenersKeys(this JobDataMap jobDataMap, string s, Enum listenerEvent, IEnumerable<JobKey> args) {
@@ -120,11 +120,11 @@ namespace Xpand.ExpressApp.JobScheduler.Qaurtz {
         }
 
         public static List<JobKey> GetTriggerListenerNames(this JobDataMap jobDataMap, TriggerListenerEvent triggerListenerEvent) {
-            return GetListenerNames(jobDataMap, XpandScheduler.TriggerTriggerJobListenersOn, triggerListenerEvent);
+            return GetListenerNames(jobDataMap, SchedulerExtensions.TriggerTriggerJobListenersOn, triggerListenerEvent);
         }
 
         public static void CreateTriggerListenersKey(this JobDataMap jobDataMap, TriggerListenerEvent listenerEvent, params JobKey[] keys) {
-            jobDataMap.CreateListenersKeys(XpandScheduler.TriggerTriggerJobListenersOn, listenerEvent, keys);
+            jobDataMap.CreateListenersKeys(SchedulerExtensions.TriggerTriggerJobListenersOn, listenerEvent, keys);
         }
 
     }

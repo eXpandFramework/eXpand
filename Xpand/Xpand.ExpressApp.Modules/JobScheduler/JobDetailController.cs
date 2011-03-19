@@ -7,6 +7,7 @@ using Quartz;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
+using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public class JobDetailController : SupportSchedulerController {
@@ -45,7 +46,7 @@ namespace Xpand.ExpressApp.JobScheduler {
 
 
         void Save(IXpandJobDetail detail) {
-            Scheduler.StoreJob(detail);
+            Scheduler.StoreJob(detail,Application.ObjectSpaceProvider.TypesInfo);
             if (ObjectSpace.IsNewObject(detail)) {
                 IJobDetail job = Scheduler.GetJobDetail(detail);
                 Scheduler.StoreJob(job);

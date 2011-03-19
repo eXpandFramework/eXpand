@@ -4,7 +4,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using Quartz;
-using Xpand.ExpressApp.JobScheduler.Qaurtz;
+using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Xpo;
 

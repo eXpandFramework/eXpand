@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using Quartz.Spi;
-using Xpand.ExpressApp.JobScheduler.Qaurtz;
+using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
