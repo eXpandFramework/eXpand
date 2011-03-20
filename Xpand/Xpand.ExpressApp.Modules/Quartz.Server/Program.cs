@@ -12,11 +12,12 @@ namespace Xpand.Quartz.Server {
         /// </summary>
         /// <param name="args"></param>
         public static void Main(string[] args) {
+            var application = XafApplicationFactory.GetApplication("../FeatureCenter/FeatureCenter.Win/bin/debug/FeatureCenter.Win.exe");
             RunConfiguration cfg = RunnerConfigurator.New(x => {
                 x.ConfigureService<QuartzServer>(s => {
                     s.Named("quartz.server");
                     s.HowToBuildService(builder => {
-                                                var server = new QuartzServer();
+                                                var server = new QuartzServer(application);
                                                 server.Initialize();
                                                 return server;
                                             });

@@ -1,6 +1,9 @@
 using System;
+using System.Configuration;
+using System.IO;
 using Common.Logging;
 using DevExpress.ExpressApp;
+using Xpand.ExpressApp.ModelDifference.Core;
 
 namespace Xpand.Quartz.Server {
     /// <summary>
@@ -26,8 +29,18 @@ namespace Xpand.Quartz.Server {
     }
 
     public class XafApplicationFactory {
-        public static XafApplication GetApplication() {
-            return null;
-        } 
+        public static XafApplication GetApplication(string modulePath) {
+            var fullPath = Path.GetFullPath(modulePath);
+            var moduleName = Path.GetFileName(fullPath);
+            var directoryName = Path.GetDirectoryName(fullPath);
+            var xafApplication = ApplicationBuilder.Create()
+                .UsingTypesInfo(s => XafTypesInfo.Instance)
+                .FromModule(moduleName)
+                .FromAssembliesPath(directoryName)
+                .Build();
+            xafApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            xafApplication.Setup();
+            return xafApplication;
+        }
     }
 }

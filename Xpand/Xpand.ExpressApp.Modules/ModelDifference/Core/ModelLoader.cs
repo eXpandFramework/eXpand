@@ -14,6 +14,7 @@ using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.ModelDifference.Core {
     public class ApplicationBuilder {
+        string _assemblyPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
         Func<string, ITypesInfo> _buildTypesInfoSystem = BuildTypesInfoSystem();
         string _moduleName;
 
@@ -29,6 +30,11 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                                      .FromModule(moduleName)
                                      .Build();
         }
+
+        public ApplicationBuilder FromAssembliesPath(string path) {
+            _assemblyPath = path;
+            return this;
+        }
         public ApplicationBuilder UsingTypesInfo(Func<string, ITypesInfo> buildTypesInfoSystem) {
             _buildTypesInfoSystem = buildTypesInfoSystem;
             return this;
@@ -40,11 +46,11 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         }
 
         public XafApplication Build() {
-            string assemblyPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+            
             try {
                 var typesInfo = _buildTypesInfoSystem.Invoke(_moduleName);
-                ReflectionHelper.AddResolvePath(assemblyPath);
-                var assembly = ReflectionHelper.GetAssembly(Path.GetFileNameWithoutExtension(_moduleName), assemblyPath);
+                ReflectionHelper.AddResolvePath(_assemblyPath);
+                var assembly = ReflectionHelper.GetAssembly(Path.GetFileNameWithoutExtension(_moduleName), _assemblyPath);
                 var assemblyInfo = typesInfo.FindAssemblyInfo(assembly);
                 typesInfo.LoadTypes(assembly);
                 var findTypeInfo = typesInfo.FindTypeInfo(typeof(XafApplication));
@@ -55,12 +61,12 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 }
                 return xafApplication;
             } finally {
-                ReflectionHelper.RemoveResolvePath(assemblyPath);
+                ReflectionHelper.RemoveResolvePath(_assemblyPath);
             }
         }
     }
 
-    internal class TypesInfoBuilder {
+    public class TypesInfoBuilder {
         string _moduleName;
 
         public static TypesInfoBuilder Create() {
@@ -73,8 +79,10 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         }
 
         public ITypesInfo Build() {
-            return _moduleName == Assembly.GetAssembly(XpandModuleBase.Application.GetType()).ManifestModule.Name
-                       ? XafTypesInfo.Instance
+            return XpandModuleBase.Application != null
+                       ? (_moduleName == Assembly.GetAssembly(XpandModuleBase.Application.GetType()).ManifestModule.Name
+                              ? XafTypesInfo.Instance
+                              : GetTypesInfo())
                        : GetTypesInfo();
         }
 

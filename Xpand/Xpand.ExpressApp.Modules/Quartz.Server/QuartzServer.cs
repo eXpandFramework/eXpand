@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using Common.Logging;
+using DevExpress.ExpressApp;
 using Quartz;
 using Quartz.Impl.Matchers;
 using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
@@ -13,12 +14,14 @@ namespace Xpand.Quartz.Server {
         private readonly ILog logger;
         private ISchedulerFactory schedulerFactory;
         private IScheduler scheduler;
+        readonly XafApplication _application;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="QuartzServer"/> class.
         /// </summary>
-        public QuartzServer() {
+        public QuartzServer(XafApplication application) {
             logger = LogManager.GetLogger(GetType());
+            _application = application;
         }
 
         /// <summary>
@@ -58,7 +61,7 @@ namespace Xpand.Quartz.Server {
         /// </summary>
         /// <returns></returns>
         protected virtual ISchedulerFactory CreateSchedulerFactory() {
-            return new XpandSchedulerFactory(XafApplicationFactory.GetApplication());
+            return new XpandSchedulerFactory(_application);
         }
 
         /// <summary>
