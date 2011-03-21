@@ -184,7 +184,8 @@
 		<CreateItem Include="$(XpandPath)\Xpand.*.dll;" >
 			<Output ItemName="fxAssemblies" TaskParameter="Include"/>
 		</CreateItem>
-	
+	<!--
+	Disabled for now
 		<FxCop 
 			TargetAssemblies="@(fxAssemblies)"
 			ToolPath="Resource/Tool/FxCop" 
@@ -202,7 +203,7 @@
 			AnalysisReportFileName="$(ArtifactDirectory)/fxcop-report.xml" 			
 		/> 
 		<Message Text="##teamcity[importData id='FxCop' file='$(ArtifactDirectory)/fxcop-report.xml']" />
-
+	-->
 	</Target>
 	
 	<Target Name="Integrate" DependsOnTargets="Clean;Test;Report;" />
