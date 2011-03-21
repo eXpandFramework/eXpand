@@ -36,6 +36,7 @@
 	<ItemGroup>
 		<ProjectFiles Include="
 			.\Xpand\Xpand.Utils\Xpand.Utils.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\EmailTemplateEngine\Xpand.EmailTemplateEngine.csproj;
 			.\Xpand\Xpand.Xpo\Xpand.Xpo.csproj;
 			.\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj;
 			.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj;
@@ -86,7 +87,9 @@
 			.\Xpand\Xpand.ExpressApp.Modules\NCarousel.Web\Xpand.ExpressApp.NCarousel.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Thumbnail.Web\Xpand.ExpressApp.Thumbnail.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\ConditionalDetailViews\Xpand.ExpressApp.ConditionalDetailViews.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\JobScheduler\Xpand.ExpressApp.JobScheduler.csproj;
 			.\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\JobScheduler.Jobs\Xpand.ExpressApp.JobScheduler.Jobs.csproj;
 			.\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj;
 			.\FeatureCenter\FeatureCenter.Module\FeatureCenter.Module.csproj;
 			.\FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj;
