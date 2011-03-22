@@ -93,7 +93,7 @@ Setting a value in the past may cause a new trigger to compute a first fire time
             }
         }
 
-        private TriggerPriority _priority;
+        private TriggerPriority _priority=TriggerPriority.Default;
         public TriggerPriority Priority {
             get {
                 return _priority;

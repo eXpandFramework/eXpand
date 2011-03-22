@@ -61,6 +61,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
                 SetPropertyValue("Job", ref _job, value);
             }
         }
+        
         IXpandJob IXpandJobDetail.Job {
             get { return _job; }
             set { _job = value as XpandJob; }
