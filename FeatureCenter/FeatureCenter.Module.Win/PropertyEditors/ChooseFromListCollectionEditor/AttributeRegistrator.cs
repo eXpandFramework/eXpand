@@ -8,7 +8,7 @@ namespace FeatureCenter.Module.Win.PropertyEditors.ChooseFromListCollectionEdito
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         private const string ChooseFromListCollectionEditor_DetailView = "ChooseFromListCollectionEditor_DetailView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
-            if (typesInfo.Type != typeof(WinCustomer)) yield break;
+            if (!Object.ReferenceEquals(typesInfo.Type, typeof(WinCustomer))) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderChooseFromListCollectionEditor, "1=1", "1=1",
                 Captions.ViewMessageChooseFromListCollectionEditor, Position.Bottom) { View = ChooseFromListCollectionEditor_DetailView, NotUseSameType = true };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderChooseFromListCollectionEditor, "1=1", "1=1",

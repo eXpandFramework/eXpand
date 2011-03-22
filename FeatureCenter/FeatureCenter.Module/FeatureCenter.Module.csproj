@@ -111,7 +111,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\_third_party_assemblies\Quartz.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp, Version=10.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
@@ -314,6 +314,8 @@
     <Compile Include="PivotChart\InPlaceEdit\AttributeRegistrator.cs" />
     <Compile Include="PivotChart\PivotGroupInterval\AttributeRegistrator.cs" />
     <Compile Include="PivotChart\ShowInAnalysis\AttributeRegistrator.cs" />
+    <Compile Include="PropertyEditor\CascadingEditors\AttributeRegistrator.cs" />
+    <Compile Include="PropertyEditor\CascadingEditors\CascadingPropertyEditorObject.cs" />
     <Compile Include="RuntimeFields\CalculatedFromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\CalculatedWithCode\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\CalculatedWithCode\CreateRuntimeCalculatedFieldController.cs">

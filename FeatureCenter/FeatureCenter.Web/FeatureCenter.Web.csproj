@@ -186,6 +186,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Web, Version=10.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.ArtifactState, Version=10.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ArtifactState.dll</HintPath>
@@ -394,10 +398,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Xpand\Xpand.ExpressApp.Modules\AdditionalViewControlsProvider.Web\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.csproj">
-      <Project>{D33DA85F-C92D-4A13-9880-B6A5343B957D}</Project>
-      <Name>Xpand.ExpressApp.AdditionalViewControlsProvider.Web</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FeatureCenter.Module.Web\FeatureCenter.Module.Web.csproj">
       <Project>{B1EBEB7A-C156-4476-9AF2-65C5F5221F4E}</Project>
       <Name>FeatureCenter.Module.Web</Name>
