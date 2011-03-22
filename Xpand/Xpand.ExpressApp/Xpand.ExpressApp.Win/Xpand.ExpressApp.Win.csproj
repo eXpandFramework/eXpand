@@ -156,6 +156,7 @@
     <Compile Include="PropertyEditors\ReleasedSequencePropertyEditor.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PropertyEditors\SerializableObjectPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditorBase.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringLookupPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditor.cs" />
