@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Validation;
 using Quartz;
@@ -16,7 +18,13 @@ namespace Xpand.ExpressApp.JobScheduler {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(Application);
-            _scheduler = stdSchedulerFactory.GetScheduler();
+            try {
+                _scheduler = stdSchedulerFactory.GetScheduler();
+            }
+            catch (Exception) {
+                if (!Debugger.IsAttached)
+                    throw;
+            }
         }
         IScheduler _scheduler;
 
