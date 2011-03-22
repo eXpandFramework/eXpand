@@ -147,7 +147,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.IO.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.JobScheduler, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.JobScheduler, Version=10.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.dll</HintPath>
     </Reference>
