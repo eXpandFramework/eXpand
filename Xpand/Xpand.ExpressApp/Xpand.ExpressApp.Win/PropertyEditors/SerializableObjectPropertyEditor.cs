@@ -10,13 +10,13 @@ using Xpand.ExpressApp.PropertyEditors;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
     [PropertyEditor(typeof(object), false)]
-    public class SerializableObjectPropertyEditor : WinPropertyEditor, IComplexPropertyEditor, ISerializableObjectPropertyEditor {
+    public class SerializableObjectPropertyEditor : WinPropertyEditor, IComplexPropertyEditor, ISerializableObjectPropertyEditor, ISupportEditControl {
         public SerializableObjectPropertyEditor(Type objectType, IModelMemberViewItem modelMemberViewItem)
             : base(objectType, modelMemberViewItem) {
             SerializableObjectPropertyEditorBuilder.Create()
                 .WithApplication(() => _application)
                 .WithPropertyEditor(this).
-                Build();
+                Build(editor => editor.Control);
         }
 
 
@@ -97,6 +97,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         #endregion
+        ISupportControl ISupportEditControl.GetControl() {
+            return (ISupportControl) Control;
+        }
     }
 
 }
