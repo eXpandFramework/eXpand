@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Web;
 using DevExpress.ExpressApp.Utils;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.TranslatorProviders {
     public class GoogleTranslatorProvider : TranslatorProviderBase {
@@ -65,7 +66,7 @@ namespace Xpand.ExpressApp.TranslatorProviders {
             Uri serviceUri = new Uri("http://ajax.googleapis.com/ajax/services/language/translate");
             UTF8Encoding encoding = new UTF8Encoding();
             string postData = "v=1.0";
-            postData += ("&q=" + HttpUtility.UrlEncode(text));
+            postData += ("&q=" + text.XMLEncode());
             postData += ("&langpair=" + sourceLanguageCode + "|" + desinationLanguageCode);
             byte[] data = encoding.GetBytes(postData);
             System.Net.HttpWebRequest httpRequest =
@@ -147,7 +148,7 @@ namespace Xpand.ExpressApp.TranslatorProviders {
             if (responseStatus == "200") {
                 string translatedText = GetPropertyValueFromJson(jsonText, "translatedText");
                 string unicodeDecodedText = DecodeASCIIToUnicode(translatedText);
-                return HttpUtility.HtmlDecode(unicodeDecodedText);
+                return unicodeDecodedText.XMLDecode();
             } else return text;
         }
         #endregion
