@@ -122,7 +122,6 @@ namespace Xpand.EmailTemplateEngine {
                 var compilerParameter = new CompilerParameters(referencedAssemblies, assemblyName, false) {
                     GenerateInMemory = true,
                     CompilerOptions = "/optimize",
-                    IncludeDebugInformation = true
                 };
 
                 var compilerResults = codeProvider.CompileAssemblyFromDom(compilerParameter, templateResults.Select(r => r.GeneratedCode).ToArray());
