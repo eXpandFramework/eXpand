@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
         [DefaultValue(true)]
         bool CombineLastLayerWithActiveUserDiffsOnLoad { get; set; }
     }
-    public class CombineActiveUserDiffsWithLastLayerController : ViewController, IModelExtender {
+    public class CombineActiveUserDiffsWithLastLayerController : ViewController<DetailView>, IModelExtender {
         bool _combineActiveUserDiffsWithLastLayerOnSave;
 
         public CombineActiveUserDiffsWithLastLayerController() {
