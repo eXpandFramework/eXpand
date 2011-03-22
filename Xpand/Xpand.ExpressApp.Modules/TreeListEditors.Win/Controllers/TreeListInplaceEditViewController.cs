@@ -1,6 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.TreeListEditors.Win;
 using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.ExpressApp.Win.Core;
@@ -19,9 +20,13 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
                 if (View.Model.AllowEdit) {
                     foreach (RepositoryItem ri in treeList.RepositoryItems)
                         ri.ReadOnly = false;
+                    foreach (TreeListColumnWrapper columnWrapper in treeListEditor.Columns) {
+                        IModelColumn modelColumn = View.Model.Columns[columnWrapper.PropertyName];
+                        if (modelColumn != null)
+                            columnWrapper.Column.OptionsColumn.AllowEdit = modelColumn.AllowEdit;
+                    }
                     treeList.CellValueChanged += treeList_CellValueChanged;
                     treeList.ShownEditor += treeList_ShownEditor;
-                    treeList.OptionsBehavior.Editable = true;
                     treeList.OptionsBehavior.ImmediateEditor = false;
                 }
             }
