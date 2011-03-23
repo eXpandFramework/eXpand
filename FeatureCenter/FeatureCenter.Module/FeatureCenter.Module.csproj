@@ -316,6 +316,7 @@
     <Compile Include="PivotChart\ShowInAnalysis\AttributeRegistrator.cs" />
     <Compile Include="PropertyEditor\CascadingEditors\AttributeRegistrator.cs" />
     <Compile Include="PropertyEditor\CascadingEditors\CascadingPropertyEditorObject.cs" />
+    <Compile Include="PropertyEditor\CascadingEditors\Updater.cs" />
     <Compile Include="RuntimeFields\CalculatedFromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\CalculatedWithCode\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\CalculatedWithCode\CreateRuntimeCalculatedFieldController.cs">
@@ -540,7 +541,6 @@
     <EmbeddedResource Include="Miscellaneous\ToolTip\MDO_Tooltip.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="JobScheduler\SendWelcomeMail.html.cshtml" />
     <None Include="ModelArtifact\ConditionalForeignKeyKViolation\MDO_ConditionalForeignKeyViolation.xafml">
       <SubType>Designer</SubType>
     </None>

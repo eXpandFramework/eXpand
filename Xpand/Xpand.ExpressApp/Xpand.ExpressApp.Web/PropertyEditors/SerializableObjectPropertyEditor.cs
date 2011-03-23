@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Web.Editors.ASPx;
 using Xpand.ExpressApp.PropertyEditors;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
+
     [PropertyEditor(typeof(object),false)]
     public class SerializableObjectPropertyEditor : ASPxPropertyEditor, IComplexPropertyEditor, ISerializableObjectPropertyEditor,ISupportEditControl {
         XafApplication _application;
@@ -22,18 +23,21 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
                 .Build(propertyEditor => ((TableEx) propertyEditor.Control).Rows[0].Cells[1].Controls[0]);
         }
 
-        internal class Panel:System.Web.UI.WebControls.Panel,ISupportControl {
+        internal class Panel : System.Web.UI.WebControls.Panel, ISupportControl {
             Control _control;
+
 
             public object Control {
                 get { return _control; }
                 set {
-                    _control = (Control) value;
+                    _control = (Control)value;
+                    _control.ID = "txt";
                     Controls.Clear();
                     Controls.Add(_control);
                 }
             }
         }
+
         protected override void ReadValueCore() {
         }
 
@@ -41,6 +45,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             _editModePanel = new Panel();
             return _editModePanel;
         }
+
 
         public void Setup(IObjectSpace objectSpace, XafApplication application) {
             _application = application;

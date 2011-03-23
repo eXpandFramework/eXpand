@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.PropertyEditors {
         }
 
         void OnValueStoring(object sender, ValueStoringEventArgs valueStoringEventArgs) {
-            _propertyEditor.PropertyValue = param.CurrentValue;
+            _propertyEditor.PropertyValue = _parameter.CurrentValue;
         }
 
         void OnCurrentObjectChanged(object sender, EventArgs eventArgs) {
@@ -45,8 +45,8 @@ namespace Xpand.ExpressApp.PropertyEditors {
         void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
             UpdateEditor(((ISupportEditControl)_propertyEditor).GetControl());
         }
-        Parameter param;
-        PropertyEditor detailViewItems;
+        Parameter _parameter;
+        PropertyEditor _detailViewItems;
         Func<XafApplication> _getApplicationAction;
         Func<PropertyEditor,object> _findControl;
 
@@ -55,25 +55,25 @@ namespace Xpand.ExpressApp.PropertyEditors {
                 return;
             bool isChanged = false;
             var memberType = GetMemberType() ?? typeof(object);
-            bool editObjectChanged = (param != null) && (param.Type != memberType);
+            bool editObjectChanged = (_parameter != null) && (_parameter.Type != memberType);
             if (_propertyEditor.CurrentObject != null) {
-                if ((param == null) || (editObjectChanged) || supportControl.Control==null) {
+                if ((_parameter == null) || (editObjectChanged) || supportControl.Control==null) {
                     var application = _getApplicationAction.Invoke();
                     isChanged = true;
-                    param = new Parameter(memberType.Name, memberType);
-                    var paramList = new ParameterList { param };
+                    _parameter = new Parameter(memberType.Name, memberType);
+                    var paramList = new ParameterList { _parameter };
                     ParametersObject parametersObject = ParametersObject.CreateBoundObject(paramList);
                     DetailView detailView = parametersObject.CreateDetailView(application.CreateObjectSpace(), application, true);
                     detailView.ViewEditMode = GetViewEditMode();
-                    detailViewItems = ((PropertyEditor)detailView.Items[0]);
-                    detailViewItems.CreateControl();
-                    detailViewItems.ControlValueChanged += detailViewItems_ControlValueChanged;
+                    _detailViewItems = ((PropertyEditor)detailView.Items[0]);
+                    _detailViewItems.CreateControl();
+                    _detailViewItems.ControlValueChanged += detailViewItems_ControlValueChanged;
                 }
-                param.CurrentValue = _propertyEditor.PropertyValue;
+                _parameter.CurrentValue = _propertyEditor.PropertyValue;
             }
-            if ((isChanged || (supportControl.Control == null)) && (detailViewItems != null)) {
-                detailViewItems.Refresh();
-                supportControl.Control = _findControl.Invoke(detailViewItems);
+            if ((isChanged || (supportControl.Control == null)) && (_detailViewItems != null)) {
+                _detailViewItems.Refresh();
+                supportControl.Control = _findControl.Invoke(_detailViewItems);
             }
         }
 
@@ -88,7 +88,7 @@ namespace Xpand.ExpressApp.PropertyEditors {
         }
 
         void detailViewItems_ControlValueChanged(object sender, EventArgs e) {
-            _propertyEditor.PropertyValue = detailViewItems.ControlValue;
+            _propertyEditor.PropertyValue = _detailViewItems.ControlValue;
         }
 
         public SerializableObjectPropertyEditorBuilder WithApplication(Func<XafApplication> getApplicationAction) {
