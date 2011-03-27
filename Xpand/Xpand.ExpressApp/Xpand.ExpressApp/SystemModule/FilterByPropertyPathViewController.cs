@@ -68,12 +68,12 @@ namespace Xpand.ExpressApp.SystemModule {
             if (((IModelListViewPropertyPathFilters)View.Model).PropertyPathFilters == null)
                 return;
 
-            getFilterWrappers();
+            GetFilterWrappers();
 
             if (HasFilters)
-                checkIfAdditionalViewControlsModuleIsRegister();
+                CheckIfAdditionalViewControlsModuleIsRegister();
 
-            setUpFilterAction(HasFilters);
+            SetUpFilterAction(HasFilters);
             ApplyFilterString();
             Frame.TemplateViewChanged += FrameOnTemplateViewChanged;
         }
@@ -93,7 +93,7 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
-        private void setUpFilterAction(bool active) {
+        private void SetUpFilterAction(bool active) {
             _filterSingleChoiceAction.Active["PropertyPath is valid"] = active;
             foreach (var pair in _filtersByPropertyPathWrappers) {
                 if (pair.Value.BinaryOperatorLastMemberClassType != null) {
@@ -103,7 +103,7 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
-        private void checkIfAdditionalViewControlsModuleIsRegister() {
+        private void CheckIfAdditionalViewControlsModuleIsRegister() {
             bool found = false;
             for (int i = 0; i < View.Model.Application.NodeCount; i++) {
                 IModelNode modelNode = View.Model.Application.GetNode(i);
@@ -118,7 +118,7 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
-        private void getFilterWrappers() {
+        private void GetFilterWrappers() {
             _filtersByPropertyPathWrappers = new Dictionary<string, FiltersByCollectionWrapper>();
             foreach (IModelPropertyPathFilter childNode in ((IModelListViewPropertyPathFilters)View.Model).PropertyPathFilters)
                 _filtersByPropertyPathWrappers.Add(childNode.Id, new FiltersByCollectionWrapper(View.ObjectTypeInfo, childNode,

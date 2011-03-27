@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public virtual void ConstractExpandObjectMembers() {
-            if (View.CurrentObject != null && View.ObjectSpace.IsNewObject(View.CurrentObject)) {
+            if (View.CurrentObject != null && (View.ObjectSpace.IsNewObject(View.CurrentObject)||!View.ObjectTypeInfo.IsPersistent)) {
                 foreach (var memberInfo in View.ObjectTypeInfo.Members) {
                     var expandObjectMembersAttribute = memberInfo.FindAttribute<ExpandObjectMembersAttribute>();
                     if (expandObjectMembersAttribute != null &&

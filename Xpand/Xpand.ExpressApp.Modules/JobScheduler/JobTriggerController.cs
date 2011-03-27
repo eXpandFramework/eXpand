@@ -10,6 +10,12 @@ using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public class JobTriggerController : SupportSchedulerController {
+        public event EventHandler<CancelEventArgs> Committing;
+
+        protected virtual void OnCommitting(CancelEventArgs e) {
+            EventHandler<CancelEventArgs> handler = Committing;
+            if (handler != null) handler(this, e);
+        }
         public JobTriggerController() {
             TargetObjectType = typeof(IXpandJobTrigger);
         }
@@ -23,7 +29,10 @@ namespace Xpand.ExpressApp.JobScheduler {
             ObjectSpace.Committing -= ObjectSpaceOnCommitting;
         }
         void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
-            ObjectSpace.GetObjectsToUpdate<IXpandJobTrigger>().ToList().ForEach(UpdateTriggers);
+            var eventArgs = new CancelEventArgs();
+            OnCommitting(eventArgs);
+            if (!eventArgs.Cancel)
+                ObjectSpace.GetObjectsToUpdate<IXpandJobTrigger>().ToList().ForEach(UpdateTriggers);
         }
 
         void UpdateTriggers(IXpandJobTrigger obj) {
@@ -41,7 +50,7 @@ namespace Xpand.ExpressApp.JobScheduler {
 
 
         void StoreTriggers(IXpandJobTrigger jobTrigger) {
-            jobTrigger.JobDetails.Select(detail => Scheduler.GetJobDetail(detail)).ToList().ForEach(
+            jobTrigger.JobDetails.Select(detail => Scheduler.GetJobDetail(detail)).Where(detail1 => detail1!=null).ToList().ForEach(
                 jobDetail => Scheduler.GetTriggersOfJob(jobDetail.Key).OfType<IOperableTrigger>().ToList().ForEach(
                     StoreTrigger(jobTrigger)));
         }

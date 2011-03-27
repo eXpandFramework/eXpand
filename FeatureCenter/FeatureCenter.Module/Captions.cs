@@ -51,6 +51,7 @@
         public const string HeaderViewVariants = "View Variants";
         public const string HeaderExceptionHandling = "Exception Handling";
         public const string HeaderNorthWind = "NorthWind";
+        public const string HeaderQuartz = "Quartz";
         public const string HeaderRoleDifference = "Role Difference";
         public const string HeaderConditionalDetailViews = "Conditional DetailViews";
         public const string HeaderRuntimeCalculatedFields = "Runtime Calculated Fields";
@@ -114,6 +115,7 @@
         public const string ViewMessageViewVariants = "Here you can see how you can allow end users to create views at runtime with out giving them access to model editor. Note the viewvariants single choise actions 2 buttons on the right that allow you to edit delete a view and the clone view action";
         public const string ViewMessageExceptionHandling = "Here you can see how you can apply the power full Microsoft Enterpise Logging module to log your exception. FeatureCenter has been configured to log your exceptions at a special log with the name FeatureCenter (see your windows event viewer) You can add more tracelisteners easy using MS EL config tool. There are listener avaliable that can log exceptions to database,xml,WMI,email etc\r\nAlso at your application config at the ConnectionStrings section there is one with the name ExceptionHandlingConnectionString. That is going to be used by eXpand to store your exceptions at database so you can analyze them at any time";
         public const string ViewMessageNorthWind = "In this view you can see the structure of the NorthWind database. This structure has been created by using the tools/mapdatabase action and is pointing to northwind database and not to the feature center. You can map any sql database you want to WC and edit/query/analyze or make reports on it";
+        public const string ViewMessageQuartz = "In this view you can see the structure of the Quartz database. This structure has been created by using the tools/mapdatabase action and is pointing to northwind database and not to the feature center. You can map any sql database you want to WC and edit/query/analyze or make reports on it";
         public const string ViewMessageRoleDifference = "In this view you can see how you can design role differences and apply them to a role by just adding an RDO prefix on your xafml file. Browse the source code for more info under the ApplicationDifferences/RoleDifference folder. To test the feature just login as another user and come back to this view to see that the layout is totally different ";
         public const string ViewMessageConditionalDetailViews = "In this view you can see how you can create conditional detail views. For example just double click on a customer that lives in Paris and then to another customer that lives in another town and note that their detailviews are different";
         public const string ViewMessageRuntimeCalculatedFields = "The SumOfOrderTotals field is a dynamically created caclulated property see CreateRuntimeCalculatedFieldController at feature center on how to create such properties using code";

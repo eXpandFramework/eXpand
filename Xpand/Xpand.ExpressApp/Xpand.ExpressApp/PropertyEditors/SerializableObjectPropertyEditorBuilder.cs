@@ -1,5 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -33,7 +34,8 @@ namespace Xpand.ExpressApp.PropertyEditors {
         }
 
         void OnCurrentObjectChanged(object sender, EventArgs eventArgs) {
-            _propertyEditor.View.ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
+            IObjectSpace objectSpace = ObjectSpace.FindObjectSpaceByObject(_propertyEditor.CurrentObject);
+            objectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
             UpdateEditor(((ISupportEditControl)_propertyEditor).GetControl());
         }
         public void Build(Func<PropertyEditor,object> findControl) {
@@ -84,7 +86,13 @@ namespace Xpand.ExpressApp.PropertyEditors {
         }
 
         Type GetMemberType() {
-            return (Type)_propertyEditor.View.ObjectTypeInfo.FindMember(_propertyEditor.MemberInfo.FindAttribute<PropertyEditorProperty>().PropertyName).GetValue(_propertyEditor.CurrentObject);
+            string propertyName = _propertyEditor.MemberInfo.FindAttribute<PropertyEditorProperty>().PropertyName;
+            object ownerInstance = _propertyEditor.MemberInfo.GetOwnerInstance(_propertyEditor.CurrentObject);
+            if (ownerInstance != null) {
+                IMemberInfo memberInfo = XafTypesInfo.Instance.FindTypeInfo(ownerInstance.GetType()).FindMember(propertyName);
+                return (Type)memberInfo.GetValue(ownerInstance);
+            }
+            return null;
         }
 
         void detailViewItems_ControlValueChanged(object sender, EventArgs e) {

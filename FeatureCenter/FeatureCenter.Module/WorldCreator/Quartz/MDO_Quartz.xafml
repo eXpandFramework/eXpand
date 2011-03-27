@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="Quartz_DetailView" >
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="4">
+            <LayoutItem Id="Name" IsNewNode="True" Index="0" RelativeSize="100" />
+            <LayoutGroup Id="PersistentAssemblyInfo" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" Direction="Horizontal" RelativeSize="95">
+            <LayoutItem Id="PersistentClassInfos" IsNewNode="True" ShowCaption="False" Index="0" RelativeSize="50" />
+            <LayoutItem Id="GeneratedCode" ShowCaption="False" Index="1" RelativeSize="50" />
+            <LayoutItem Id="CompileErrors" Removed="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

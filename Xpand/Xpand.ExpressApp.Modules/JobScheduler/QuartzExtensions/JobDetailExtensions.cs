@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
             return jobDetail;
         }
         static Func<IMemberInfo, int, bool> CanBeMapped() {
-            return (info, i) => info.IsPersistent && info.IsPublic && !info.IsReadOnly && info.MemberType.IsSerializable && info.FindAttribute<NonDataMapMember>() == null;
+            return (info, i) => (info.IsPersistent && info.IsPublic && !info.IsReadOnly && info.MemberType.IsSerializable && info.FindAttribute<NonDataMapMember>() == null) || (info.MemberTypeInfo.IsPersistent);
         }
 
         public static void AssignDataMap(this JobDetailImpl jobDetail, ITypeInfo typeInfo, IDataMap jobDataMap) {

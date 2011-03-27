@@ -81,6 +81,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
 
 
         [Association("JobDetailTriggerLink-Triggers"), Aggregated]
+        [VisibleInDetailView(false)]
         protected IList<JobDetailTriggerLink> TriggerLinks {
             get {
                 return GetList<JobDetailTriggerLink>("TriggerLinks");
@@ -96,6 +97,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
             }
         }
         [Association("JobDetailJobListenerTriggerLink-JobListeners"), Aggregated]
+        [VisibleInDetailView(false)]
         protected IList<JobDetailJobListenerTriggerLink> JobListenerTriggerLinks {
             get {
                 return GetList<JobDetailJobListenerTriggerLink>("JobListenerTriggerLinks");

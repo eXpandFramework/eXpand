@@ -148,7 +148,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         }
 
         static string GetAssemblyLocation(Assembly assembly) {
-            var location = ((assembly is AssemblyBuilder || assembly.GetType().FullName.Equals("System.Reflection.Emit.InternalAssemblyBuilder")) ? null : (!string.IsNullOrEmpty(assembly.Location) ? Path.GetDirectoryName(assembly.Location) : null));
+            var location = ((assembly is AssemblyBuilder || (assembly.GetType().FullName+"").Equals("System.Reflection.Emit.InternalAssemblyBuilder")) ? null : (!string.IsNullOrEmpty(assembly.Location) ? Path.GetDirectoryName(assembly.Location) : null));
             return location != null ? (String.Format(@"""{0}""", location)) : null;
         }
 
@@ -159,8 +159,6 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
             foreach (IPersistentAssemblyInfo persistentAssemblyInfo in persistentAssemblyInfos.OrderByDescending(info => info.CompileOrder)) {
                 string fileName = Path.Combine(path, persistentAssemblyInfo.Name);
-//                                if (File.Exists(fileName + XpandExtension))
-//                                    File.Delete(fileName + XpandExtension);
                 persistentAssemblyInfo.CompileErrors = null;
                 Type compileModule = CompileModule(persistentAssemblyInfo, path);
 

@@ -112,13 +112,16 @@ namespace Xpand.ExpressApp.WorldCreator {
             unitOfWork.LockingOption = LockingOption.None;
             Type assemblyInfoType = WCTypesInfo.Instance.FindBussinessObjectType<IPersistentAssemblyInfo>();
             List<IPersistentAssemblyInfo> persistentAssemblyInfos =
-                new XPCollection(unitOfWork, assemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(info => !info.DoNotCompile &&
-                    moduleManager.Modules.Where(@base => @base.Name == "Dynamic" + info.Name + "Module").FirstOrDefault() == null).ToList();
+                new XPCollection(unitOfWork, assemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(IsValidAssemblyInfo(moduleManager)).ToList();
             _dynamicModuleTypes = new CompileEngine().CompileModules(persistentAssemblyInfos, GetPath());
             foreach (var definedModule in _dynamicModuleTypes) {
                 moduleManager.AddModule(definedModule);
             }
             unitOfWork.CommitChanges();
+        }
+
+        Func<IPersistentAssemblyInfo, bool> IsValidAssemblyInfo(ApplicationModulesManager moduleManager) {
+            return info => !info.DoNotCompile &&moduleManager.Modules.Where(@base => @base.Name == "Dynamic" + info.Name + "Module").FirstOrDefault() == null;
         }
 
         public abstract string GetPath();

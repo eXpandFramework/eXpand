@@ -121,7 +121,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         void Save() {
-            var customNonDeletedObjectsToSaveArgs = new CustomNonDeletedObjectsToSaveArgs(ObjectSpace.GetNonDeletedObjectsToSave<object>());
+            var customNonDeletedObjectsToSaveArgs = new CustomNonDeletedObjectsToSaveArgs(ObjectSpace.GetNonDeletedObjectsToSave<object>().ToList());
             OnCustomNonDeletedObjectsToSave(customNonDeletedObjectsToSaveArgs);
             customNonDeletedObjectsToSaveArgs.Objects.OfType<IJobTriggerTriggerListenerTriggerLink>().ToList().ForEach(AddTriggerListeners);
             customNonDeletedObjectsToSaveArgs.Objects.OfType<IJobDetailJobListenerTriggerLink>().ToList().ForEach(AddJobListeners);
@@ -179,11 +179,11 @@ namespace Xpand.ExpressApp.JobScheduler {
     }
 
     public class CustomNonDeletedObjectsToSaveArgs : HandledEventArgs {
-        public CustomNonDeletedObjectsToSaveArgs(IEnumerable<object> objects) {
+        public CustomNonDeletedObjectsToSaveArgs(IList<object> objects) {
             Objects = objects;
         }
 
-        public IEnumerable<object> Objects { get; set; }
+        public IList<object> Objects { get; set; }
     }
 
 

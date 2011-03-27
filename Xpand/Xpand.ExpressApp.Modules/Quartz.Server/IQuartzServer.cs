@@ -1,4 +1,5 @@
 using System;
+using DevExpress.ExpressApp;
 
 namespace Xpand.Quartz.Server {
     /// <summary>
@@ -9,7 +10,7 @@ namespace Xpand.Quartz.Server {
         /// Initializes the instance of <see cref="IQuartzServer"/>.
         /// Initialization will only be called once in server's lifetime.
         /// </summary>
-        void Initialize();
+        void Initialize(XafApplication application);
 
         /// <summary>
         /// Starts this instance.

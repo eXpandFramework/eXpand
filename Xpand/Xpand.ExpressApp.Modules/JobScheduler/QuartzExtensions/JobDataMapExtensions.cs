@@ -33,6 +33,10 @@ namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
             jobDataMap.Put(GetKey<T>(key), val);
         }
 
+        public static E GetEnum<T, E>(this JobDataMap jobDataMap, object key) where T : IDataMap {
+            return (E)jobDataMap.Get<T>(key);
+        }
+
         public static string GetString<T>(this JobDataMap jobDataMap, object key) where T : IDataMap {
             return jobDataMap.GetString(GetKey<T>(key));
         }
@@ -93,7 +97,11 @@ namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
         }
 
         public static void MapValue(this JobDataMap jobDataMap, object currentObject, IMemberInfo info) {
-            jobDataMap.Put(string.Format("{0}:{1}", currentObject.GetType().Name, info.Name), info.GetValue(currentObject));
+            jobDataMap.Put(string.Format("{0}:{1}", currentObject.GetType().Name, info.Name), GetValue(currentObject, info));
+        }
+
+        static object GetValue(object currentObject, IMemberInfo info) {
+            return info.MemberTypeInfo.IsPersistent ? info.MemberTypeInfo.KeyMember.GetValue(info.GetValue(currentObject)) : info.GetValue(currentObject);
         }
 
 

@@ -251,7 +251,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             var keys = persistentAssemblyInfo.PersistentClassInfos.SelectMany(info => info.OwnMembers).OfType<IPersistentReferenceMemberInfo>().Where(memberInfo => memberInfo.ReferenceClassInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.Struct);
             foreach (var key in keys) {
 
-                var templateInfo = key.Owner.TemplateInfos.Where(templateInfoPredicate).Single();
+                var templateInfo = key.Owner.TemplateInfos.Where(templateInfoPredicate).First();
                 templateInfo.TemplateCode = @"protected override void OnLoaded() {
                                                 base.OnLoaded();
                                                 " + GetCode(key) + @"

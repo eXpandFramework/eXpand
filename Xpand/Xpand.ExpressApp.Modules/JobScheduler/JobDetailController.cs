@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.Data.Filtering;
@@ -11,6 +12,12 @@ using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public class JobDetailController : SupportSchedulerController {
+        public event EventHandler<CancelEventArgs> Committing;
+
+        protected virtual void OnCommitting(CancelEventArgs e) {
+            EventHandler<CancelEventArgs> handler = Committing;
+            if (handler != null) handler(this, e);
+        }
 
         readonly List<IJobDetail> _jobDetailsToBeDeleted = new List<IJobDetail>();
 
@@ -35,9 +42,13 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
-            ObjectSpace.GetNonDeletedObjectsToSave<IXpandJobDetail>().ToList().ForEach(Save);
-            _jobDetailsToBeDeleted.ForEach(DeleteFromScheduler);
-            _jobDetailsToBeDeleted.Clear();
+            var eventArgs = new CancelEventArgs();
+            OnCommitting(eventArgs);
+            if (!eventArgs.Cancel) {
+                ObjectSpace.GetNonDeletedObjectsToSave<IXpandJobDetail>().ToList().ForEach(Save);
+                _jobDetailsToBeDeleted.ForEach(DeleteFromScheduler);
+                _jobDetailsToBeDeleted.Clear();
+            }
         }
 
         void DeleteFromScheduler(IJobDetail obj) {

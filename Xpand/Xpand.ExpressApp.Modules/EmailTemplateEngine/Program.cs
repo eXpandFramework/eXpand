@@ -1,6 +1,4 @@
 
-using System.Net;
-
 namespace Xpand.EmailTemplateEngine {
     using System;
     using System.IO;
@@ -15,9 +13,9 @@ namespace Xpand.EmailTemplateEngine {
                 CreateClientFactory = () => new SmtpClientWrapper(CreateSmtpClientWhichDropsInLocalFileSystem())
             };
 
-            EmailSubsystem subsystem = new EmailSubsystem("apostolis.bekiaris@gmail.com", templateEngine, sender);
+            var subsystem = new EmailSubsystem("myself@domain.com", templateEngine, sender);
 
-            subsystem.SendWelcomeMail("Jon Smith", "~!Agc2d#7", "apostolis.bekiaris@gmail.com");
+            subsystem.SendWelcomeMail("Jon Smith", "~!Agc2d#7", "myself@domain.com");
 
             Console.WriteLine("Mail delivered, check the outbox folder.");
             Console.Read();
@@ -31,15 +29,13 @@ namespace Xpand.EmailTemplateEngine {
             }
 
             var smtpClientWhichDropsInLocalFileSystem = new SmtpClient {
-                                                                           DeliveryMethod = SmtpDeliveryMethod.Network,
-                                                                           PickupDirectoryLocation = outbox,
-                                                                           Host = "smtp.gmail.com",
-                                                                           EnableSsl = true,
-                                                                           Port = 587,
-                                                                           UseDefaultCredentials = true
-                                                                       };
-            smtpClientWhichDropsInLocalFileSystem.Credentials = new NetworkCredential("apostolis.bekiaris@gmail.com",
-                                                                                      "4451@p0m");
+                DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory,
+                PickupDirectoryLocation = outbox,
+                Host = "smtp.gmail.com",
+                EnableSsl = true,
+                Port = 587,
+                UseDefaultCredentials = true
+            };
             return smtpClientWhichDropsInLocalFileSystem;
         }
     }

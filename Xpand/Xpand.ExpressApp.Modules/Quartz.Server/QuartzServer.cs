@@ -14,22 +14,22 @@ namespace Xpand.Quartz.Server {
         private readonly ILog logger;
         private ISchedulerFactory schedulerFactory;
         private IScheduler scheduler;
-        readonly XafApplication _application;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="QuartzServer"/> class.
         /// </summary>
-        public QuartzServer(XafApplication application) {
+        public QuartzServer() {
             logger = LogManager.GetLogger(GetType());
-            _application = application;
         }
+
 
         /// <summary>
         /// Initializes the instance of the <see cref="QuartzServer"/> class.
         /// </summary>
-        public virtual void Initialize() {
+        public virtual void Initialize(XafApplication application) {
             try {
-                schedulerFactory = CreateSchedulerFactory();
+                schedulerFactory = CreateSchedulerFactory(application);
                 scheduler = GetScheduler();
                 scheduler.ListenerManager.AddJobListener(new XpandJobListener(), EverythingMatcher<JobKey>.AllJobs());
                 scheduler.ListenerManager.AddTriggerListener(new XpandTriggerListener(), EverythingMatcher<JobKey>.AllTriggers());
@@ -60,8 +60,8 @@ namespace Xpand.Quartz.Server {
         /// for all schedulers on this instance.
         /// </summary>
         /// <returns></returns>
-        protected virtual ISchedulerFactory CreateSchedulerFactory() {
-            return new XpandSchedulerFactory(_application);
+        protected virtual ISchedulerFactory CreateSchedulerFactory(XafApplication application) {
+            return new XpandSchedulerFactory(application);
         }
 
         /// <summary>

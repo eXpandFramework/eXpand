@@ -40,7 +40,13 @@ namespace Xpand.Quartz.Server {
                 .Build();
             xafApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             xafApplication.Setup();
+            var objectSpaceProvider = ((ObjectSpaceProvider) xafApplication.ObjectSpaceProvider);
+            if (objectSpaceProvider.WorkingDataLayer==null) {
+                using (objectSpaceProvider.CreateObjectSpace()) {
+                }
+            }
             return xafApplication;
         }
+
     }
 }

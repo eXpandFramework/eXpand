@@ -242,8 +242,6 @@
     </Reference>
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>
@@ -374,6 +372,8 @@
     <Compile Include="Updater.cs" />
     <Compile Include="ViewVariants\AttributeRegistrator.cs" />
     <Compile Include="Welcome\WelcomeObject.cs" />
+    <Compile Include="WorldCreator\Quartz\AttributeRegistrator.cs" />
+    <Compile Include="WorldCreator\Quartz\WorldCreatorUpdater.cs" />
     <Compile Include="WorldCreator\ModelSystemTablesUpdater.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\WorldCreatorUpdater.cs" />
@@ -400,6 +400,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="WorldCreator\Quartz\NorthWind.xml" />
     <EmbeddedResource Include="ControllingSearch\DetailView\MDO_ControllingDetailViewSearch.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -544,6 +545,9 @@
     <None Include="ModelArtifact\ConditionalForeignKeyKViolation\MDO_ConditionalForeignKeyViolation.xafml">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="WorldCreator\Quartz\MDO_Quartz.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

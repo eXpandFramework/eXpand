@@ -9,6 +9,7 @@ namespace Xpand.Quartz.Server {
         private const string PrefixServerConfiguration = "quartz.server";
         private const string KeyServiceName = PrefixServerConfiguration + ".serviceName";
         private const string KeyServiceDisplayName = PrefixServerConfiguration + ".serviceDisplayName";
+        private const string KeyXafApplicationPath = PrefixServerConfiguration + ".xafApplicationPath";
         private const string KeyServiceDescription = PrefixServerConfiguration + ".serviceDescription";
         private const string KeyServerImplementationType = PrefixServerConfiguration + ".type";
 
@@ -40,6 +41,9 @@ namespace Xpand.Quartz.Server {
         /// <value>The display name of the service.</value>
         public static string ServiceDisplayName {
             get { return GetConfigurationOrDefault(KeyServiceDisplayName, DefaultServiceDisplayName); }
+        }
+        public static string XafApplicationPath {
+            get { return GetConfigurationOrDefault(KeyXafApplicationPath, null); }
         }
 
         /// <summary>

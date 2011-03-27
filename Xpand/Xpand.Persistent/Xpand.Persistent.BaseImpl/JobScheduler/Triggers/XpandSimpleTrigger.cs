@@ -16,8 +16,6 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
         private SimpleTriggerMisfireInstruction _misfireInstruction;
         void IXpandSimpleTrigger.SetFinalFireTimeUtc(DateTimeOffset? dateTime) {
             _finalFireTimeUtc = dateTime;
-            if (dateTime != null)
-                StartTimeUtc = dateTime.Value.DateTime;
         }
 
         [DisplayDateAndTime]
