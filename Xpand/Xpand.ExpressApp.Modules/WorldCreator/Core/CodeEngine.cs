@@ -174,6 +174,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             return string.Format("[{0}{1}({2})]", assemblyDecleration, attribute.GetType().FullName, args);
         }
 
+/*
         static string CalculateVersion(string args) {
             args = args.Replace(@"""", "").Replace("@","");
             var version = new Version(args+".0.0");
@@ -182,6 +183,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             args = version.ToString();
             return @""""+args+@"""";
         }
+*/
 
         static object GetArgumentCode(object argumentValue) {
             if (argumentValue is string)
@@ -250,8 +252,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         public static void SupportCompositeKeyPersistentObjects(IPersistentAssemblyInfo persistentAssemblyInfo, Func<ITemplateInfo, bool> templateInfoPredicate) {
             var keys = persistentAssemblyInfo.PersistentClassInfos.SelectMany(info => info.OwnMembers).OfType<IPersistentReferenceMemberInfo>().Where(memberInfo => memberInfo.ReferenceClassInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.Struct);
             foreach (var key in keys) {
-
-                var templateInfo = key.Owner.TemplateInfos.Where(templateInfoPredicate).First();
+                var templateInfo = key.Owner.TemplateInfos.Where(templateInfoPredicate).Single();
                 templateInfo.TemplateCode = @"protected override void OnLoaded() {
                                                 base.OnLoaded();
                                                 " + GetCode(key) + @"
