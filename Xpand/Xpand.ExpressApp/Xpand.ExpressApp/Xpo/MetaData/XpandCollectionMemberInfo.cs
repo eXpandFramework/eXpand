@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.Xpo.MetaData {
         public override object GetValue(object theObject) {
             var xpBaseObject = ((XPBaseObject)theObject);
             return base.GetStore(this).GetCustomPropertyValue(this) == null
-                       ? Activator.CreateInstance(MemberType,GetArguments(xpBaseObject))
+                       ? Activator.CreateInstance(MemberType, GetArguments(xpBaseObject))
                        : base.GetValue(theObject);
         }
 
@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.Xpo.MetaData {
                                     xpBaseObject.Session,
                                     new CriteriaWrapper(_criteria, xpBaseObject).CriteriaOperator
                                 };
-            return new object[]{xpBaseObject.Session};
+            return new object[] { xpBaseObject.Session };
         }
 
         protected override bool CanPersist {
