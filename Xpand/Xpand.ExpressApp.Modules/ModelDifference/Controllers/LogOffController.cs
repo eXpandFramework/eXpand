@@ -1,5 +1,4 @@
-﻿using System;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 
 namespace Xpand.ExpressApp.ModelDifference.Controllers {
@@ -9,10 +8,12 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
         }
         protected override void OnActivated() {
             base.OnActivated();
-            Application.LoggedOff += ApplicationOnLoggedOff;
+            Application.LoggingOff +=ApplicationOnLoggingOff;
         }
 
-        void ApplicationOnLoggedOff(object sender, EventArgs eventArgs) {
+        void ApplicationOnLoggingOff(object sender, LoggingOffEventArgs loggingOffEventArgs) {
+            if (!loggingOffEventArgs.CanCancel)
+                return;
             var modelApplicationBase = ((ModelApplicationBase)((XafApplication)sender).Model);
             var lastLayer = modelApplicationBase.LastLayer;
             while (lastLayer.Id != "Unchanged Master Part") {
@@ -23,5 +24,6 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
             afterSetupLayer.Id = "After Setup";
             modelApplicationBase.AddLayer(afterSetupLayer);
         }
+
     }
 }
