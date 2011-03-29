@@ -393,7 +393,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ApplicationDifferences\ExternalApplication\Updater.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="ConditionalViewControlsPositioning\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\MasterDetail\AutoExpandNewRow\AttributeRegistrator.cs" />
     <Compile Include="ImportExport\DynamicAssemblyMasterDetail\AttributeRegistrator.cs" />
