@@ -17,6 +17,8 @@ namespace Xpand.ExpressApp.Security.Controllers {
 
 
         void ApplicationOnLoggingOff(object sender, LoggingOffEventArgs loggingOffEventArgs) {
+            if (!loggingOffEventArgs.CanCancel)
+                return;
             if (HttpContext.Current != null) {
                 var httpCookie = HttpContext.Current.Response.Cookies[Application.ApplicationName + "RememberMe"];
                 if (httpCookie != null) httpCookie.Expires = DateTime.Now.AddDays(-1);

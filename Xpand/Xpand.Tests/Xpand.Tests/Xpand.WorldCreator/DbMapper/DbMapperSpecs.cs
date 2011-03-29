@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DevExpress.Xpo;
-using Xpand.Persistent.BaseImpl.PersistentMetaData;
-using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Machine.Specifications;
 using Microsoft.SqlServer.Management.Smo;
 using TypeMock.ArrangeActAssert;
-using System.Linq;
 using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
-namespace Xpand.Tests.Xpand.WorldCreator.DbMapper
-{
+namespace Xpand.Tests.Xpand.WorldCreator.DbMapper {
     [Subject(typeof(global::Xpand.ExpressApp.WorldCreator.SqlDBMapper.DbMapper))]
-    public class When_mapping_a_database_to_an_assembly:With_DataBase
-    {
+    public class When_mapping_a_database_to_an_assembly : With_DataBase {
         static DataStoreLogonObject _dataStoreLogonObject;
         static PersistentAssemblyDataStoreAttributeInfo _persistentAssemblyDataStoreAttributeInfo;
         static PersistentClassInfo _persistentClassInfo2;
@@ -21,9 +19,9 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper
 
         Establish context = () => {
             _database = Isolate.Fake.Instance<Database>();
-            Table table1 = GetTable("table1","column1");
-            Table table2 = GetTable("table2","column2");
-            Isolate.WhenCalled(() => _database.Tables).WillReturnCollectionValuesOf(new List<Table>{table1,table2});
+            Table table1 = GetTable("table1", "column1");
+            Table table2 = GetTable("table2", "column2");
+            Isolate.WhenCalled(() => _database.Tables).WillReturnCollectionValuesOf(new List<Table> { table1, table2 });
             _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _dataStoreLogonObject = ObjectSpace.CreateObject<DataStoreLogonObject>();
             _dataStoreLogonObject.DataBase = ObjectSpace.CreateObject<DataBase>();
@@ -35,9 +33,9 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper
             var column = Isolate.Fake.Instance<Column>();
             Isolate.WhenCalled(() => column.InPrimaryKey).WillReturn(true);
             Isolate.WhenCalled(() => column.Parent).WillReturn(table1);
-            column.DataType.SqlDataType=SqlDataType.Int;
+            column.DataType.SqlDataType = SqlDataType.Int;
             column.Name = columnName;
-            Isolate.WhenCalled(() => table1.Columns).WillReturnCollectionValuesOf(new List<Column>{column});
+            Isolate.WhenCalled(() => table1.Columns).WillReturnCollectionValuesOf(new List<Column> { column });
             return table1;
         }
 
@@ -55,14 +53,14 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper
 
         It should_create_memberinfos_for_each_classinfo = () => {
             _persistentClassInfo2.OwnMembers.Count.ShouldEqual(1);
-            _persistentClassInfo2.OwnMembers.Where(info => info.Name=="column2").FirstOrDefault().ShouldNotBeNull();
+            _persistentClassInfo2.OwnMembers.Where(info => info.Name == "column2").FirstOrDefault().ShouldNotBeNull();
             _persistentClassInfo1.OwnMembers.Count.ShouldEqual(1);
-            _persistentClassInfo1.OwnMembers.Where(info => info.Name=="column1").FirstOrDefault().ShouldNotBeNull();
+            _persistentClassInfo1.OwnMembers.Where(info => info.Name == "column1").FirstOrDefault().ShouldNotBeNull();
         };
 
         It should_have_a_persistent_datastore_attribute = () => {
             _persistentAssemblyDataStoreAttributeInfo = _persistentAssemblyInfo.Attributes.OfType<PersistentAssemblyDataStoreAttributeInfo>().SingleOrDefault();
-            _persistentAssemblyDataStoreAttributeInfo.ShouldNotBeNull();            
+            _persistentAssemblyDataStoreAttributeInfo.ShouldNotBeNull();
         };
 
         It should_have_as_datastorelogon_object_the_one_that_points_to_the_mapped_database =

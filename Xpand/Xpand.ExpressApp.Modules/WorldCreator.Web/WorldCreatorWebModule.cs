@@ -1,10 +1,8 @@
 using System.Web;
 
 namespace Xpand.ExpressApp.WorldCreator.Web {
-    public sealed partial class WorldCreatorWebModule : WorldCreatorModuleBase
-    {
-        public WorldCreatorWebModule()
-        {
+    public sealed partial class WorldCreatorWebModule : WorldCreatorModuleBase {
+        public WorldCreatorWebModule() {
             InitializeComponent();
         }
 

@@ -63,7 +63,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (XpandModuleBase.Application != null && XpandModuleBase.Application.Security != null) {
+            if (Application != null && Application.Security != null) {
                 CreatePessimisticLockingField(typesInfo);
             }
         }
@@ -74,7 +74,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 typeInfo.AddAttribute(new OptimisticLockingAttribute(false));
                 var memberInfo = typeInfo.FindMember(LockedUser);
                 if (memberInfo == null) {
-                    memberInfo = typeInfo.CreateMember(LockedUser, XpandModuleBase.Application.Security.UserType);
+                    memberInfo = typeInfo.CreateMember(LockedUser, Application.Security.UserType);
                     memberInfo.AddAttribute(new BrowsableAttribute(false));
                 }
             }

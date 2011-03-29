@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp {
                     Type baseType = typeof(SimpleDataLayer).BaseType;
                     if (baseType != null) {
                         var method = baseType.GetMethod("ClearStaticData", BindingFlags.Instance | BindingFlags.NonPublic);
-                        var datalayer = ((ObjectSpace)XpandModuleBase.Application.ObjectSpaceProvider.CreateObjectSpace()).Session.DataLayer;
+                        var datalayer = ObjectSpace.Session.DataLayer;
                         method.Invoke(datalayer, null);
                         var session = ObjectSpace.Session;
                         method.Invoke(session.DataLayer, null);

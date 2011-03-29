@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                     strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Maximize"), (o, eventArgs) => changeFormVisibility(form)));
                     strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Minimize"), (o, eventArgs) => changeFormVisibility(form)));
                     strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "LogOut"), (o, eventArgs) => ((IWinApplication)Application).LogOff()));
-                    strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Exit"), (o, eventArgs) => XpandModuleBase.Application.Exit()));
+                    strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Exit"), (o, eventArgs) => Application.Exit()));
 
                     var notifyIcon1 = new NotifyIcon(container) { Visible = true, ContextMenuStrip = strip };
                     setIcon(notifyIcon1);

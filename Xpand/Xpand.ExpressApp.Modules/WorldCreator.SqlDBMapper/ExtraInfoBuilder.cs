@@ -4,7 +4,6 @@ using Microsoft.SqlServer.Management.Smo;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
-using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class ExtraInfoBuilder {
@@ -36,7 +35,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
             }
             var count = table.Columns.OfType<Column>().Where(column => column.InPrimaryKey).Count();
             if (count > 0) {
-                var templateInfo = _objectSpace.CreateObjectFromInterface<ITemplateInfo>();
+                var templateInfo = (ITemplateInfo) _objectSpace.CreateObject(WCTypesInfo.Instance.FindBussinessObjectType(typeof (ITemplateInfo)));
                 templateInfo.Name = SupportPersistentObjectsAsAPartOfACompositeKey;
                 persistentClassInfo.TemplateInfos.Add(templateInfo);
             }

@@ -1,22 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.WorldCreator.SqlDBMapper;
-using Xpand.Persistent.BaseImpl.PersistentMetaData;
-using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Machine.Specifications;
 using Microsoft.SqlServer.Management.Smo;
 using TypeMock.ArrangeActAssert;
-
-using System.Linq;
+using Xpand.ExpressApp.WorldCreator.SqlDBMapper;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
+using Xpand.Persistent.BaseImpl.PersistentMetaData;
+using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Xpo;
 
-namespace Xpand.Tests.Xpand.WorldCreator.DbMapper
-{
+namespace Xpand.Tests.Xpand.WorldCreator.DbMapper {
     [Subject(typeof(TableMapper))]
-    public class When_mapping_a_table : With_table
-    {
+    public class When_mapping_a_table : With_table {
         static PersistentPersistentAttribute _persistentPersistentAttribute;
         static AttributeMapper _attributeMapper;
         static IPersistentClassInfo _persistentClassInfo;
@@ -29,8 +26,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper
             Isolate.WhenCalled(() => _attributeMapper.Create(_table, null, null)).WillReturn(new List<IPersistentAttributeInfo> { _persistentPersistentAttribute });
         };
 
-        Because of = () =>
-        {
+        Because of = () => {
             _persistentClassInfo = new TableMapper(ObjectSpace, _database, _attributeMapper).Create(_table, _persistentAssemblyInfo, Isolate.Fake.Instance<IMapperInfo>());
         };
 
@@ -49,13 +45,13 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper
             () => _persistentClassInfo.TypeAttributes[0].ShouldEqual(_persistentPersistentAttribute);
     }
     [Subject(typeof(TableMapper))]
-    public class When_a_persistent_class_info_with_the_same_table_name_exists_and_create_that_table:With_table {
+    public class When_a_persistent_class_info_with_the_same_table_name_exists_and_create_that_table : With_table {
         static PersistentClassInfo _info;
         static IPersistentClassInfo _persistentClassInfo;
 
         Establish context = () => {
             Isolate.WhenCalled(() => _table.Name).WillReturn("test");
-            _info = new PersistentClassInfo(UnitOfWork) {Name = _table.Name};
+            _info = new PersistentClassInfo(UnitOfWork) { Name = _table.Name };
         };
 
         Because of = () => {
@@ -65,9 +61,9 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper
         It should_return_the_classinfo_from_the_datastore = () => _persistentClassInfo.ShouldEqual(_info);
     }
     [Subject(typeof(TableMapper))]
-    public class When_creating_a_table_that_has_foreigh_keys:With_table {
+    public class When_creating_a_table_that_has_foreigh_keys : With_table {
         private const string RefName = "RefName";
-        
+
 
         Establish context = () => {
             _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
@@ -75,8 +71,8 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper
             var refTable = AddTable(RefName);
             AddPrimaryKey(refTable);
             var foreignKey = Isolate.Fake.Instance<ForeignKey>();
-            Isolate.WhenCalled(() => foreignKey.ReferencedTable).WillReturn(refTable.Name);            
-            Isolate.WhenCalled(() => _table.ForeignKeys).WillReturnCollectionValuesOf(new List<ForeignKey>{foreignKey});
+            Isolate.WhenCalled(() => foreignKey.ReferencedTable).WillReturn(refTable.Name);
+            Isolate.WhenCalled(() => _table.ForeignKeys).WillReturnCollectionValuesOf(new List<ForeignKey> { foreignKey });
         };
 
         Because of = () => new TableMapper(ObjectSpace, _database, new AttributeMapper(ObjectSpace)).Create(_table, _persistentAssemblyInfo, Isolate.Fake.Instance<IMapperInfo>());
@@ -87,7 +83,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper
                                                      info => info.Name == RefName).ShouldNotBeNull();
     }
     [Subject(typeof(TableMapper))]
-    public class When_mapping_a_table_that_has_more_than_one_primary_keys:With_table {
+    public class When_mapping_a_table_that_has_more_than_one_primary_keys : With_table {
         static PersistentClassInfo _persistentClassInfo;
 
         Establish context = () => {
@@ -95,12 +91,11 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper
             Isolate.WhenCalled(() => pk1.InPrimaryKey).WillReturn(true);
             var pk2 = Isolate.Fake.Instance<Column>();
             Isolate.WhenCalled(() => pk2.InPrimaryKey).WillReturn(true);
-            Isolate.WhenCalled(() => _table.Columns).WillReturnCollectionValuesOf(new List<Column>{pk1,pk2});
+            Isolate.WhenCalled(() => _table.Columns).WillReturnCollectionValuesOf(new List<Column> { pk1, pk2 });
         };
 
         Because of = () => new TableMapper(ObjectSpace, _database, new AttributeMapper(ObjectSpace)).Create(_table, _persistentAssemblyInfo, Isolate.Fake.Instance<IMapperInfo>());
-        It should_add_an_empty_templateinfo_with_name_Support_Persistemt_Objects_as_part_of_a_composite_key = () =>
-        {
+        It should_add_an_empty_templateinfo_with_name_Support_Persistemt_Objects_as_part_of_a_composite_key = () => {
             var templateInfo = _persistentAssemblyInfo.PersistentClassInfos[0].TemplateInfos.SingleOrDefault();
             templateInfo.ShouldNotBeNull();
             templateInfo.Name.ShouldEqual(ExtraInfoBuilder.SupportPersistentObjectsAsAPartOfACompositeKey);
@@ -112,6 +107,6 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper
 
         It should_set_the_template_of_the_classInfo_to_struct = () => _persistentClassInfo.CodeTemplateInfo.CodeTemplate.TemplateType.ShouldEqual(TemplateType.Struct);
 
-        
+
     }
 }
