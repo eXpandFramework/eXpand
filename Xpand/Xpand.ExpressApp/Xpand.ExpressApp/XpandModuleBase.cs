@@ -12,7 +12,6 @@ using DevExpress.Xpo.Metadata;
 namespace Xpand.ExpressApp {
     public class XpandModuleBase : ModuleBase {
         static readonly object _lockObject = new object();
-        static IValueManager<XafApplication> _instanceXafApplicationManager;
         static IValueManager<ModelApplicationCreatorProperties> _instanceModelApplicationCreatorPropertiesManager;
         static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
         public static object Control;
@@ -38,16 +37,6 @@ namespace Xpand.ExpressApp {
             }
         }
 
-        public new static XafApplication Application {
-            get {
-                return _instanceXafApplicationManager != null ? _instanceXafApplicationManager.Value : null;
-            }
-            set { _instanceXafApplicationManager.Value = value; }
-        }
-
-        protected XafApplication BaseApplication {
-            get { return base.Application; }
-        }
 
         static List<object> _storeManagers;
 
@@ -84,16 +73,16 @@ namespace Xpand.ExpressApp {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            InitializeInstanceXafApplicationManager();
+            OnApplicationInitialized(Application);
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            InitializeInstanceXafApplicationManager();
+            OnApplicationInitialized(application);
             application.SetupComplete += ApplicationOnSetupComplete;
         }
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            InitializeInstanceXafApplicationManager();
+            OnApplicationInitialized(Application);
             var type = (BaseInfo)typesInfo.FindTypeInfo(typeof(IModelMember)).FindMember("Type");
             var attribute = type.FindAttribute<ModelReadOnlyAttribute>();
             if (attribute != null)
@@ -110,18 +99,13 @@ namespace Xpand.ExpressApp {
         }
 
         public static void ReStoreManagers() {
-            _instanceXafApplicationManager.Value = (XafApplication)_storeManagers[0];
-            _instanceModelApplicationCreatorManager.Value = (ModelApplicationCreator)_storeManagers[2];
-            _instanceModelApplicationCreatorPropertiesManager.Value = (ModelApplicationCreatorProperties)_storeManagers[1];
+            _instanceModelApplicationCreatorManager.Value = (ModelApplicationCreator)_storeManagers[1];
+            _instanceModelApplicationCreatorPropertiesManager.Value = (ModelApplicationCreatorProperties)_storeManagers[0];
         }
 
 
         public static void DisposeManagers() {
             _storeManagers = new List<object>();
-            if (_instanceXafApplicationManager != null) {
-                _storeManagers.Add(_instanceXafApplicationManager.Value);
-                _instanceXafApplicationManager.Value = null;
-            }
             if (_instanceModelApplicationCreatorPropertiesManager != null) {
                 _storeManagers.Add(_instanceModelApplicationCreatorPropertiesManager.Value);
                 _instanceModelApplicationCreatorPropertiesManager.Value = null;
@@ -132,13 +116,7 @@ namespace Xpand.ExpressApp {
             }
         }
 
-        void InitializeInstanceXafApplicationManager() {
-            lock (_lockObject) {
-                if (_instanceXafApplicationManager == null)
-                    _instanceXafApplicationManager = ValueManager.CreateValueManager<XafApplication>();
-                if (_instanceXafApplicationManager.Value == null)
-                    _instanceXafApplicationManager.Value = base.Application;
-            }
+        protected virtual void OnApplicationInitialized(XafApplication xafApplication) {
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {

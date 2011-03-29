@@ -15,7 +15,7 @@ using Xpand.ExpressApp.Core;
 namespace Xpand.ExpressApp.ModelDifference.Core {
     public class ApplicationBuilder {
         string _assemblyPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-        Func<string, ITypesInfo> _buildTypesInfoSystem = BuildTypesInfoSystem();
+        Func<string, ITypesInfo> _buildTypesInfoSystem = BuildTypesInfoSystem(true);
         string _moduleName;
 
         ApplicationBuilder() {
@@ -25,10 +25,10 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return new ApplicationBuilder();
         }
 
-        static Func<string, ITypesInfo> BuildTypesInfoSystem() {
+        static Func<string, ITypesInfo> BuildTypesInfoSystem(bool tryToUseCurrentTypesInfo) {
             return moduleName => TypesInfoBuilder.Create()
                                      .FromModule(moduleName)
-                                     .Build();
+                                     .Build(tryToUseCurrentTypesInfo);
         }
 
         public ApplicationBuilder FromAssembliesPath(string path) {
@@ -78,9 +78,9 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return this;
         }
 
-        public ITypesInfo Build() {
-            return XpandModuleBase.Application != null
-                       ? (_moduleName == Assembly.GetAssembly(XpandModuleBase.Application.GetType()).ManifestModule.Name
+        public ITypesInfo Build(bool tryToUseCurrentTypesInfo) {
+            return tryToUseCurrentTypesInfo
+                       ? (_moduleName == Assembly.GetEntryAssembly().ManifestModule.Name
                               ? XafTypesInfo.Instance
                               : GetTypesInfo())
                        : GetTypesInfo();
@@ -223,10 +223,10 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             _moduleName = moduleName;
         }
 
-        public ModelApplicationBase GetMasterModel() {
+        public ModelApplicationBase GetMasterModel(bool tryToUseCurrentTypesInfo) {
             var typesInfo = TypesInfoBuilder.Create()
                 .FromModule(_moduleName)
-                .Build();
+                .Build(tryToUseCurrentTypesInfo);
             var xafApplication = ApplicationBuilder.Create().
                 UsingTypesInfo(s => typesInfo).
                 FromModule(_moduleName).
@@ -241,8 +241,8 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return modelApplicationBase;
         }
 
-        public ModelApplicationBase GetLayer(Type modelApplicationFromStreamStoreBaseType) {
-            var masterModel = GetMasterModel();
+        public ModelApplicationBase GetLayer(Type modelApplicationFromStreamStoreBaseType, bool tryToUseCurrentTypesInfo) {
+            var masterModel = GetMasterModel(tryToUseCurrentTypesInfo);
             var layer = masterModel.CreatorInstance.CreateModelApplication();
 
             masterModel.AddLayerBeforeLast(layer);

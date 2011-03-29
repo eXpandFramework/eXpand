@@ -14,9 +14,9 @@ namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail {
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
             string name = typeof(ExistentAssemblyMasterDetailModelStore).Name;
-            if (new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(name) == null) {
+            if (new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(name, FeatureCenterModule.Application) == null) {
                 ModelDifferenceObject modelDifferenceObject =
-                    new ModelDifferenceObject(ObjectSpace.Session).InitializeMembers(name);
+                    new ModelDifferenceObject(ObjectSpace.Session).InitializeMembers(name, FeatureCenterModule.Application);
                 modelDifferenceObject.Name = name;
                 ObjectSpace.CommitChanges();
             }

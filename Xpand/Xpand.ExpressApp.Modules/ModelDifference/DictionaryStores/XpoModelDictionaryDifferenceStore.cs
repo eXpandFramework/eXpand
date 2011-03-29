@@ -78,9 +78,9 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             if (loadedModelDifferenceObjectInfos.Count() == 0) {
                 var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo>();
                 var application = model.CreatorInstance.CreateModelApplication();
-                application.Id = XpandModuleBase.Application.Title;
+                application.Id = Application.Title;
                 model.AddLayerBeforeLast(application);
-                var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(application.Id);
+                var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(application.Id,Application);
                 modelDifferenceObjectInfos.Add(application.Id, new ModelDifferenceObjectInfo(modelDifferenceObject, application));
                 loadedModelDifferenceObjectInfos = modelDifferenceObjectInfos;
             }

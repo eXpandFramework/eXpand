@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.PivotChart.Core {
             base.Setup(moduleManager);
             TypesInfo.AddTypes(GetAdditionalClasses(moduleManager));
         }
-        public abstract TypesInfo TypesInfo { get; }
+        public new abstract TypesInfo TypesInfo { get; }
 
 
         void CreateMembers(ITypesInfo typesInfo, Type optionsType, Type persistentType) {

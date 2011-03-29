@@ -10,8 +10,14 @@ using Xpand.Xpo;
 namespace Xpand.ExpressApp.ModelDifference.Core {
     
     public class ModelApplicationLoader {
+        readonly XafApplication _application;
+
+        public ModelApplicationLoader(XafApplication application) {
+            _application = application;
+        }
+
         public void EnableModel(Expression<Func<ModelDifferenceObject, bool>> expression, IEnumerable<string> modelsToUnload) {
-            var winApplication = XpandModuleBase.Application;
+            var winApplication = _application;
             using (var objectSpace = (ObjectSpace) winApplication.CreateObjectSpace()) {
                 var modelDifferenceObject = objectSpace.Session.FindObject(expression);
                 var modelApplicationBase = (ModelApplicationBase)winApplication.Model;
@@ -37,7 +43,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
 
         void AddLayers(IEnumerable<ModelApplicationBase> modelApplicationBases) {
-            var applicationBase = ((ModelApplicationBase)XpandModuleBase.Application.Model);
+            var applicationBase = ((ModelApplicationBase)_application.Model);
             foreach (ModelApplicationBase modelApplicationBase in modelApplicationBases) {
                 applicationBase.AddLayer(modelApplicationBase);
             }

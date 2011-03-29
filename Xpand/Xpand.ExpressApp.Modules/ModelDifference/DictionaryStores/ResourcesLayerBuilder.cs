@@ -10,9 +10,7 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
-using Xpand.ExpressApp.SystemModule;
 using Xpand.Persistent.Base.ModelDifference;
-using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
     internal class ResourcesLayerBuilder {
@@ -30,7 +28,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         public void AddLayers(string modelApplicationPrefix, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos, ModelApplicationBase model) {
             var modelXmlReader = new ModelXmlReader();
-            var assemblies = XpandModuleBase.Application.Modules.Select(module => module.GetType().Assembly);
+            var assemblies = _xafApplication.Modules.Select(module => module.GetType().Assembly);
             var resourceModelCollector = new ResourceModelCollector();
             foreach (var keyValuePair in resourceModelCollector.Collect(assemblies, modelApplicationPrefix)) {
                 var modelDifferenceObjectInfo = GetModelDifferenceObjectInfo(modelApplicationPrefix, loadedModelDifferenceObjectInfos, keyValuePair.Key, model);
@@ -60,7 +58,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         ModelDifferenceObject FindDifferenceObject(string resourceName, string prefix) {
             if (prefix == XpoModelDictionaryDifferenceStore.ModelApplicationPrefix)
                 return _xpoModelDictionaryDifferenceStore.GetActiveDifferenceObject(resourceName);
-            return new QueryRoleModelDifferenceObject(_objectSpace.Session).GetActiveModelDifference(resourceName);
+            return new QueryRoleModelDifferenceObject(_objectSpace.Session).GetActiveModelDifference(resourceName,_xafApplication);
         }
 
         ModelDifferenceObjectInfo GetModelDifferenceObjectInfo(string prefix, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos, string resourceName, ModelApplicationBase model) {

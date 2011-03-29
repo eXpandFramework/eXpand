@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
@@ -206,8 +207,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             return this;
         }
 
-        public ModelDifferenceObject InitializeMembers(string name) {
-            return InitializeMembers(name, XpandModuleBase.Application.Title, XpandModuleBase.Application.GetType().FullName);
+        public ModelDifferenceObject InitializeMembers(string name,XafApplication application) {
+            return InitializeMembers(name, application.Title, application.GetType().FullName);
         }
 
 

@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         protected internal override ModelDifferenceObject GetActiveDifferenceObject(string name) {
-            return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName, null);
+            return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName, Application);
         }
 
         protected internal IQueryable<ModelDifferenceObject> GetActiveDifferenceObjects() {
@@ -84,7 +84,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             if (SecuritySystem.Instance is ISecurityComplex && SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false)) {
                 var space = Application.CreateObjectSpace();
                 ModelDifferenceObject difference = GetDifferenceFromPermission((ObjectSpace)space);
-                var master = new ModelLoader(difference.PersistentApplication.ExecutableName).GetMasterModel();
+                var master = new ModelLoader(difference.PersistentApplication.ExecutableName).GetMasterModel(true);
                 var diffsModel = difference.GetModel(master);
                 new ModelXmlReader().ReadFromModel(diffsModel, model);
                 difference.CreateAspectsCore(diffsModel);

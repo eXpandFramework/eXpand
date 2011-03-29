@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
 
         ListView GetListView(ModelDetailRelationCalculator modelDetailRelationCalculator, int rowHandle, int relationIndex, IModelListView childModelListView) {
             var listViewBuilder = new ListViewBuilder(modelDetailRelationCalculator, _objectSpace);
-            return listViewBuilder.CreateListView(childModelListView, rowHandle, relationIndex);
+            return listViewBuilder.CreateListView(childModelListView, rowHandle, relationIndex,_xafApplication);
         }
 
 

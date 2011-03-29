@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base;
@@ -42,8 +43,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
         static Expression<Func<TDifferenceObject, bool>> IsActiveExpressionCore(string uniqueApplicationName) {
             return o => o.PersistentApplication.UniqueName == uniqueApplicationName && o.Disabled == false;
         }
-        public virtual TDifferenceObject GetActiveModelDifference(string name) {
-            return GetActiveModelDifference(XpandModuleBase.Application.GetType().FullName, name);
+        public virtual TDifferenceObject GetActiveModelDifference(string name,XafApplication application) {
+            return GetActiveModelDifference(application.GetType().FullName, name);
         }
 
         public virtual TDifferenceObject GetActiveModelDifference(string applicationName, string name) {

@@ -1,14 +1,14 @@
 ﻿using DevExpress.Xpo;
 using FeatureCenter.Base;
 
-namespace FeatureCenter.Module
-{
-    
+namespace FeatureCenter.Module {
+
 
     public class Order : OrderBase {
         Customer _customer;
 
-        public Order(Session session) : base(session) {
+        public Order(Session session)
+            : base(session) {
         }
 
         [Association("Customer-Orders")]
@@ -23,7 +23,7 @@ namespace FeatureCenter.Module
         }
 
         protected override void SetCustomer(ICustomer customer) {
-            Customer = (Customer) customer;
+            Customer = (Customer)customer;
         }
 
         protected override ICustomer GetCustomer() {

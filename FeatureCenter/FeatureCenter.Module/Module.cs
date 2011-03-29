@@ -15,6 +15,8 @@ using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifferen
 
 namespace FeatureCenter.Module {
     public sealed partial class FeatureCenterModule : XpandModuleBase {
+        static XafApplication _application;
+
         public FeatureCenterModule() {
             InitializeComponent();
             
@@ -34,7 +36,14 @@ namespace FeatureCenter.Module {
                 typeInfo.AddAttribute(new XpandNavigationItemAttribute("Whats New/"+xpandNavigationItemAttribute.Path,xpandNavigationItemAttribute.ViewId,xpandNavigationItemAttribute.ObjectKey ));
             }
         }
-
+        
+        public new static XafApplication Application {
+            get { return _application; }
+        }
+        protected override void OnApplicationInitialized(XafApplication xafApplication) {
+            base.OnApplicationInitialized(xafApplication);
+            _application = xafApplication;
+        }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
 

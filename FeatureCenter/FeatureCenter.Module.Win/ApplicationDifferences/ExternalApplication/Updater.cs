@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 using Xpand.ExpressApp.ModelDifference.Core;
@@ -19,7 +20,8 @@ namespace FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication {
                 var modelDifferenceObject = new ModelDifferenceObject(ObjectSpace.Session).InitializeMembers("ExternalApplication", "ExternalApplication", uniqueName);
                 modelDifferenceObject.PersistentApplication.ExecutableName = "ExternalApplication.Win.exe";
                 var modelApplicationBuilder = new ModelLoader(modelDifferenceObject.PersistentApplication.ExecutableName);
-                var model = modelApplicationBuilder.GetLayer(typeof(ExternalApplicationModelStore));
+                var model = modelApplicationBuilder.GetLayer(typeof(ExternalApplicationModelStore),false);
+                Debug.Print("");
                 modelDifferenceObject.CreateAspects(model);
                 ObjectSpace.CommitChanges();
             }

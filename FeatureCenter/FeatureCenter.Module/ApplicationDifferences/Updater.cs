@@ -19,8 +19,8 @@ namespace FeatureCenter.Module.ApplicationDifferences {
 
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            if (new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(ModelCombine) == null) {
-                new ModelDifferenceObject(ObjectSpace.Session).InitializeMembers(ModelCombine);
+            if (new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(ModelCombine, FeatureCenterModule.Application) == null) {
+                new ModelDifferenceObject(ObjectSpace.Session).InitializeMembers(ModelCombine, FeatureCenterModule.Application);
                 ICustomizableRole role = EnsureRoleExists(ModelCombine, GetPermissions);
                 IUserWithRoles user = EnsureUserExists(ModelCombine, ModelCombine, role);
                 role.AddPermission(new ModelCombinePermission(ApplicationModelCombineModifier.Allow) { Difference = ModelCombine });

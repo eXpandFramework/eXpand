@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         void CreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e) {
             var xafApplication = (XafApplication)sender;
             xafApplication.CreateCustomTemplate -= CreateCustomTemplate;
-            var template = new ModelEditorDetailViewForm();
+            var template = new ModelEditorDetailViewForm {Application = () => Application};
             var supportClassicToRibbonTransform = template as ISupportClassicToRibbonTransform;
             if (xafApplication.Model != null && xafApplication.Model.Options is IModelOptionsWin) {
                 supportClassicToRibbonTransform.FormStyle = ((IModelOptionsWin)xafApplication.Model.Options).FormStyle;

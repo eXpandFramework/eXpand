@@ -18,15 +18,18 @@ using Xpand.ExpressApp.Win.ViewStrategies;
 namespace Xpand.ExpressApp.Win {
 
     public class XpandWinApplication : WinApplication, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportLogonParameterStore, ISupportFullConnectionString {
+        static XpandWinApplication _application;
         public XpandWinApplication() {
-            if (XpandModuleBase.Application == null)
+            if (_application == null)
                 Application.ThreadException += (sender, args) => HandleException(args.Exception, this);
             else {
-                Application.ThreadException += (sender, args) => HandleException(args.Exception, (XpandWinApplication)XpandModuleBase.Application);
+                Application.ThreadException += (sender, args) => HandleException(args.Exception, _application);
             }
             DetailViewCreating += OnDetailViewCreating;
             ListViewCreating += OnListViewCreating;
             ListViewCreated += OnListViewCreated;
+            if (_application==null)
+                _application = this;
         }
 
 

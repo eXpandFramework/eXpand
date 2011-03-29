@@ -12,10 +12,11 @@ namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
 
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
+
             string name = typeof(WC3LevelMasterDetailModelStore).Name;
-            if (new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(name) == null) {
+            if (new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(name, FeatureCenterModule.Application) == null) {
                 ModelDifferenceObject modelDifferenceObject =
-                    new ModelDifferenceObject(ObjectSpace.Session).InitializeMembers(name);
+                    new ModelDifferenceObject(ObjectSpace.Session).InitializeMembers(name, FeatureCenterModule.Application);
                 modelDifferenceObject.Name = name;
                 ObjectSpace.CommitChanges();
             }
