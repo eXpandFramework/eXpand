@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Validation;
+using DevExpress.Persistent.Base;
 using Quartz;
 using Quartz.Impl.Calendar;
 using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
@@ -26,9 +27,9 @@ namespace Xpand.ExpressApp.JobScheduler {
                 IScheduler scheduler = stdSchedulerFactory.AllSchedulers.SingleOrDefault();
                 _scheduler = scheduler ?? stdSchedulerFactory.GetScheduler();
             }
-            catch (Exception) {
+            catch (Exception e) {
                 if (!Debugger.IsAttached)
-                    throw;  
+                    Tracing.Tracer.LogError(e);
             }
         }
         IScheduler _scheduler;

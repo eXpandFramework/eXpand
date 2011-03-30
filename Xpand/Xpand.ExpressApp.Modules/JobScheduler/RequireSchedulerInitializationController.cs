@@ -1,6 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using System.Linq;
+using Quartz;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Logic;
 using Xpand.Persistent.Base.JobScheduler;
@@ -31,9 +32,17 @@ namespace Xpand.ExpressApp.JobScheduler {
 
         void OnLogicRuleExecuting(object sender, LogicRuleExecutingEventArgs<IAdditionalViewControlsRule> logicRuleExecutingEventArgs) {
             if (logicRuleExecutingEventArgs.LogicRuleInfo.Rule.TypeInfo.Implements<IRequireSchedulerInitialization>()) {
-                logicRuleExecutingEventArgs.LogicRuleInfo.Active =!Application.FindModule<JobSchedulerModule>().Scheduler.IsStarted;
-                View.AllowEdit["SchedulerNotStarted"] = !logicRuleExecutingEventArgs.LogicRuleInfo.Active;
+                View.AllowEdit["SchedulerNotStarted"] = GetScedulerState(logicRuleExecutingEventArgs.LogicRuleInfo);
             }
+        }
+
+        bool GetScedulerState(LogicRuleInfo<IAdditionalViewControlsRule> logicRuleInfo) {
+            IScheduler scheduler = Application.FindModule<JobSchedulerModule>().Scheduler;
+            if (scheduler!=null) {
+                logicRuleInfo.Active =!scheduler.IsStarted;
+                return !logicRuleInfo.Active;
+            }
+            return false;
         }
     }
 }

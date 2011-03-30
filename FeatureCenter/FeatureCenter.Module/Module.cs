@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
@@ -19,12 +18,12 @@ namespace FeatureCenter.Module {
 
         public FeatureCenterModule() {
             InitializeComponent();
-            
+
         }
 
         void ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs createCustomModelDifferenceStoreEventArgs) {
             createCustomModelDifferenceStoreEventArgs.AddExtraDiffStore(new ExistentAssemblyMasterDetailModelStore());
-            
+
             createCustomModelDifferenceStoreEventArgs.AddExtraDiffStore(new WCCalculatedFieldModelStore());
         }
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
@@ -33,10 +32,10 @@ namespace FeatureCenter.Module {
             foreach (var typeInfo in typeInfos) {
                 var whatsNewAttribute = typeInfo.FindAttribute<WhatsNewAttribute>();
                 var xpandNavigationItemAttribute = whatsNewAttribute.XpandNavigationItemAttribute;
-                typeInfo.AddAttribute(new XpandNavigationItemAttribute("Whats New/"+xpandNavigationItemAttribute.Path,xpandNavigationItemAttribute.ViewId,xpandNavigationItemAttribute.ObjectKey ));
+                typeInfo.AddAttribute(new XpandNavigationItemAttribute("Whats New/" + xpandNavigationItemAttribute.Path, xpandNavigationItemAttribute.ViewId, xpandNavigationItemAttribute.ObjectKey));
             }
         }
-        
+
         public new static XafApplication Application {
             get { return _application; }
         }
