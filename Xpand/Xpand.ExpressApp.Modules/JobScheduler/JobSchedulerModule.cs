@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.JobScheduler {
             }
             catch (Exception) {
                 if (!Debugger.IsAttached)
-                    throw;
+                    throw;  
             }
         }
         IScheduler _scheduler;

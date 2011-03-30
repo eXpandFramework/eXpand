@@ -1,4 +1,5 @@
 ﻿using System;
+using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.ModelEditor {
     public class PathInfo {
@@ -6,6 +7,7 @@ namespace Xpand.ExpressApp.ModelEditor {
         readonly string _localPath;
 
         public PathInfo(string[] args) {
+            Tracing.Tracer.LogValue("PathInfo", args);
             AssemblyPath = args[0].TrimStart(Convert.ToChar("\"")).TrimEnd(Convert.ToChar("\""));
             _fullPath = args[2].TrimStart(Convert.ToChar("\"")).TrimEnd(Convert.ToChar("\""));
             _localPath = args[1].TrimStart(Convert.ToChar("\"")).TrimEnd(Convert.ToChar("\""));
