@@ -1,14 +1,16 @@
 ﻿using System.Data.SqlClient;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using Xpand.ExpressApp.WorldCreator.Controllers;
-using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
+using System.Linq;
 
 namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class MapController : ViewController<DetailView> {
@@ -30,7 +32,8 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
                 var space = Application.CreateObjectSpace();
                 var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
                 showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                showViewParameters.CreatedView = Application.CreateDetailView(space, space.CreateObject(WCTypesInfo.Instance.FindBussinessObjectType(typeof(ISqlMapperInfo))));
+                ITypeInfo typeInfo = ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(typeof(ISqlMapperInfo))).Single();
+                showViewParameters.CreatedView = Application.CreateDetailView(space, space.CreateObject(typeInfo.Type));
                 var dialogController = new DialogController();
                 dialogController.AcceptAction.Execute += AcceptActionOnExecute;
                 showViewParameters.Controllers.Add(dialogController);

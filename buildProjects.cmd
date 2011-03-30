@@ -54,7 +54,8 @@ call buildproject.cmd Xpand.ExpressApp.JobScheduler ".\Xpand\Xpand.ExpressApp.Mo
 call buildproject.cmd Xpand.Persistent.BaseImpl ".\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj"
 call buildproject.cmd Xpand.ExpressApp.JobScheduler.Jobs ".\Xpand\Xpand.ExpressApp.Modules\JobScheduler.Jobs\Xpand.ExpressApp.JobScheduler.Jobs.csproj"
 
-
+echo Building Xpand.Quartz.Server...
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Xpand\Xpand.ExpressApp.Modules\Quartz.Server\Xpand.Quartz.Server.csproj"
 echo Building FeatureCenter.Base...
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj"
 echo Building FeatureCenter.Module...

@@ -90,6 +90,7 @@
 			.\Xpand\Xpand.ExpressApp.Modules\JobScheduler\Xpand.ExpressApp.JobScheduler.csproj;
 			.\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\JobScheduler.Jobs\Xpand.ExpressApp.JobScheduler.Jobs.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Quartz.Server\Xpand.Quartz.Server.csproj;
 			.\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj;
 			.\FeatureCenter\FeatureCenter.Module\FeatureCenter.Module.csproj;
 			.\FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj;
