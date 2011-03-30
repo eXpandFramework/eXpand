@@ -102,10 +102,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Reference Include="Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\2.0\Common.Logging.dll</HintPath>
+      <HintPath>..\..\..\_third_party_assemblies\Common.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging.Log4Net">
-      <HintPath>..\..\lib\2.0\Common.Logging.Log4Net.dll</HintPath>
+      <HintPath>..\..\..\_third_party_assemblies\Common.Logging.Log4Net.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v10.2, Version=10.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -132,7 +132,7 @@
       <Name>System.XML</Name>
     </Reference>
     <Reference Include="Topshelf">
-      <HintPath>..\..\lib\other\Topshelf.dll</HintPath>
+      <HintPath>..\..\..\_third_party_assemblies\Topshelf.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.JobScheduler, Version=10.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
