@@ -4,11 +4,13 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Validation;
+using DevExpress.ExpressApp.Validation.AllContextsView;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.Validation {
     public class ActionExecuteValidationController : ViewController {
+        
 
 
         public event EventHandler<CustomGetAggregatedObjectsToValidateEventArgs> CustomGetAggregatedObjectsToValidate;
@@ -24,6 +26,8 @@ namespace Xpand.ExpressApp.Validation {
             args.Exception.MessageHeader = ValidationExceptionLocalizer.GetExceptionMessage(ValidationExceptionId.DeleteErrorMessageHeader);
             args.Exception.ObjectHeaderFormat = ValidationExceptionLocalizer.GetExceptionMessage(ValidationExceptionId.DeleteErrorMessageObjectFormat);
         }
+
+
         protected override void OnDeactivated() {
             base.OnDeactivated();
             var actionBases = Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions);
@@ -31,6 +35,7 @@ namespace Xpand.ExpressApp.Validation {
                 action.Executed -= ActionOnExecuted;
             }
         }
+
 
         protected override void OnActivated() {
             base.OnActivated();
@@ -41,14 +46,16 @@ namespace Xpand.ExpressApp.Validation {
         }
 
         void ActionOnExecuted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
-            ValidationTargetObjectSelector deleteSelector = new ActionExecuteContextTargetObjectSelector();
-            SubscribeSelectorEvents(deleteSelector);
-            var selectedObjects = ((SimpleActionExecuteEventArgs) actionBaseEventArgs).SelectedObjects;
-            var context = actionBaseEventArgs.Action.Id;
+            if (View.ObjectTypeInfo.Type!=typeof(ValidationResults)) {
+                ValidationTargetObjectSelector deleteSelector = new ActionExecuteContextTargetObjectSelector();
+                SubscribeSelectorEvents(deleteSelector);
+                var selectedObjects = ((SimpleActionExecuteEventArgs)actionBaseEventArgs).SelectedObjects;
+                var context = actionBaseEventArgs.Action.Id;
 
-            var deleteContextArgs = new ContextValidatingEventArgs(context, new ArrayList(selectedObjects));
-            OnContextValidating(deleteContextArgs);
-            Validator.RuleSet.ValidateAll(deleteContextArgs.TargetObjects, context, CustomizeDeleteValidationException);
+                var deleteContextArgs = new ContextValidatingEventArgs(context, new ArrayList(selectedObjects));
+                OnContextValidating(deleteContextArgs);
+                Validator.RuleSet.ValidateAll(deleteContextArgs.TargetObjects, context, CustomizeDeleteValidationException);   
+            }
         }
 
         private void OnSelectorCustomGetAggregatedObjectsToValidate(object sender, CustomGetAggregatedObjectsToValidateEventArgs args) {
