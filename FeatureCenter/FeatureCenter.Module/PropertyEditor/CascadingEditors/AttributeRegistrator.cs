@@ -14,7 +14,7 @@ namespace FeatureCenter.Module.PropertyEditor.CascadingEditors {
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderCascadingEditors, "1=1", "1=1", Captions.ViewMessageCascadingEditors, Position.Bottom) { ViewType = ViewType.ListView };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderCascadingEditors, "1=1", "1=1",
                 Captions.HeaderCascadingEditors, Position.Top);
-            yield return new WhatsNewAttribute("23/3/2011", xpandNavigationItemAttribute);
+            yield return new WhatsNewAttribute(new DateTime(2011, 3, 23), xpandNavigationItemAttribute);
         }
     }
 }

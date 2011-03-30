@@ -74,10 +74,10 @@ namespace FeatureCenter.Module
     }
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class WhatsNewAttribute : Attribute {
-        private readonly string _date;
+        private readonly DateTime _date;
         readonly XpandNavigationItemAttribute _xpandNavigationItemAttribute;
 
-        public WhatsNewAttribute(string date,XpandNavigationItemAttribute xpandNavigationItemAttribute) {
+        public WhatsNewAttribute(DateTime date, XpandNavigationItemAttribute xpandNavigationItemAttribute) {
             _date = date;
             _xpandNavigationItemAttribute = xpandNavigationItemAttribute;
         }
@@ -86,7 +86,7 @@ namespace FeatureCenter.Module
             get { return _xpandNavigationItemAttribute; }
         }
 
-        public string Date {
+        public DateTime Date {
             get { return _date; }
         }
 

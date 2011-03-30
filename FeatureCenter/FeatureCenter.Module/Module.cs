@@ -29,7 +29,7 @@ namespace FeatureCenter.Module {
         }
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<WhatsNewAttribute>()!=null).OrderBy(typeInfo => DateTime.Parse(typeInfo.FindAttribute<WhatsNewAttribute>().Date));
+            var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<WhatsNewAttribute>() != null).OrderBy(typeInfo => typeInfo.FindAttribute<WhatsNewAttribute>().Date);
             foreach (var typeInfo in typeInfos) {
                 var whatsNewAttribute = typeInfo.FindAttribute<WhatsNewAttribute>();
                 var xpandNavigationItemAttribute = whatsNewAttribute.XpandNavigationItemAttribute;

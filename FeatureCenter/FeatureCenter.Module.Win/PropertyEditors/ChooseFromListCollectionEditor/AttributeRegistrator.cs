@@ -17,7 +17,7 @@ namespace FeatureCenter.Module.Win.PropertyEditors.ChooseFromListCollectionEdito
             var xpandNavigationItemAttribute = new XpandNavigationItemAttribute(Module.Captions.PropertyEditors + "List editors", ChooseFromListCollectionEditor_DetailView);
             yield return xpandNavigationItemAttribute;
             yield return new DisplayFeatureModelAttribute(ChooseFromListCollectionEditor_DetailView);
-            yield return new WhatsNewAttribute("28/1/2011",xpandNavigationItemAttribute);
+            yield return new WhatsNewAttribute(new DateTime(2011, 1, 28), xpandNavigationItemAttribute);
         }
     }
 }

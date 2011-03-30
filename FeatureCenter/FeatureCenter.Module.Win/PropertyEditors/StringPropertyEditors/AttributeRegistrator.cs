@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Attributes;
 namespace FeatureCenter.Module.Win.PropertyEditors.StringPropertyEditors {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
-            if (typesInfo.Type != typeof(SPECustomer)) yield break;
+            if (!Object.Equals(typesInfo.Type, typeof (SPECustomer))) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderStringPropertyEditors, "1=1", "1=1",
                 Captions.ViewMessageStringPropertyEditors, Position.Bottom) { View = "StringPropertyEditors_DetailView", NotUseSameType = true };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderStringPropertyEditors + "1", "1=1", "1=1",
@@ -18,7 +18,7 @@ namespace FeatureCenter.Module.Win.PropertyEditors.StringPropertyEditors {
             var xpandNavigationItemAttribute = new XpandNavigationItemAttribute(Module.Captions.PropertyEditors + "String editors", "StringPropertyEditors_DetailView");
             yield return xpandNavigationItemAttribute;
             yield return new DisplayFeatureModelAttribute("StringPropertyEditors_DetailView");
-            yield return new WhatsNewAttribute("28/1/2011",xpandNavigationItemAttribute);
+            yield return new WhatsNewAttribute(new DateTime(2011, 1, 28), xpandNavigationItemAttribute);
         }
     }
 }
