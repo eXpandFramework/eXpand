@@ -19,6 +19,8 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
+            if (Application==null)
+                return;
             ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(Application);
             try {
                 IScheduler scheduler = stdSchedulerFactory.AllSchedulers.SingleOrDefault();
