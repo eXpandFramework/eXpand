@@ -61,7 +61,7 @@ namespace FeatureCenter.Module {
             this.RequiredModuleTypes.Add(typeof(WorldCreatorSqlDBMapperModule));
             this.RequiredModuleTypes.Add(typeof(ConditionalDetailViewModule));
             this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityModule));
-            this.RequiredModuleTypes.Add(typeof(JobSchedulerModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.JobSchedulerModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule));
         }
 
