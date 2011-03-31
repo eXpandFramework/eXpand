@@ -14,12 +14,12 @@ namespace Xpand.Xpo.DB {
         readonly Dictionary<string, SimpleDataLayer> _simpleDataLayers = new Dictionary<string, SimpleDataLayer>();
         readonly Dictionary<string, List<string>> _tables = new Dictionary<string, List<string>>();
         readonly string _connectionString;
-        readonly IEnumerable<DataStoreAttribute> _dataStoreAttributes;
+        readonly IList<DataStoreAttribute> _dataStoreAttributes;
 
         public DataStoreManager(string connectionString) {
             _connectionString = connectionString;
 
-            _dataStoreAttributes = GetDataStoreAttributes();
+            _dataStoreAttributes = GetDataStoreAttributes().ToList();
         }
 
 
@@ -110,7 +110,7 @@ namespace Xpand.Xpo.DB {
 
         IEnumerable<DataStoreAttribute> GetDataStoreAttributes() {
             var dataStoreAttributes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>());
-            return dataStoreAttributes.Where(attribute => (attribute.ConnectionString != null || ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", attribute.DataStoreNameSuffix)]!=null));
+            return dataStoreAttributes.Where(attribute => (attribute.ConnectionString != null || ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", attribute.DataStoreNameSuffix)]!=null)).ToList();
         }
 
         public Dictionary<string, SimpleDataLayer> SimpleDataLayers {
