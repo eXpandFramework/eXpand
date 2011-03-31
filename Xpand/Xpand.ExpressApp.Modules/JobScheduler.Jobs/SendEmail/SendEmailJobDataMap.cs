@@ -4,7 +4,6 @@ using Xpand.Persistent.BaseImpl.JobScheduler;
 
 namespace Xpand.ExpressApp.JobScheduler.Jobs.SendEmail {
     [CreatableItem]
-
     public class SendEmailJobDataMap:XpandJobDataMap {
         public SendEmailJobDataMap(Session session) : base(session) {
         }

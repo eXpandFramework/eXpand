@@ -157,6 +157,7 @@
     <Compile Include="SendEmail\SerializeEmailsController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SendEmail\ThresholdCalculationEmailSubsystem.cs" />
     <Compile Include="ThresholdCalculation\ThresholdCalculationJob.cs" />
     <Compile Include="ThresholdCalculation\ThresholdJobDetailDataMap.cs" />
   </ItemGroup>
