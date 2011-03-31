@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using DevExpress.ExpressApp;
 using Topshelf;
 using Topshelf.Configuration;
@@ -27,6 +28,7 @@ namespace Xpand.Quartz.Server {
                     s.WhenContinued(server => server.Resume());
                     s.WhenStopped(server => server.Stop());
                 });
+                x.SetEventTimeout(TimeSpan.FromMinutes(2));
                 x.RunAsLocalSystem();
 
                 x.SetDescription(Configuration.ServiceDescription);
