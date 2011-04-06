@@ -9,7 +9,7 @@ using DevExpress.Xpo.Metadata;
 
 namespace Xpand.Xpo.DB {
     public class DataStoreManager {
-        public const string STR_Default = "Default";
+        public const string StrDefault = "Default";
         readonly Dictionary<string, ReflectionDictionary> _reflectionDictionaries = new Dictionary<string, ReflectionDictionary>();
         readonly Dictionary<string, SimpleDataLayer> _simpleDataLayers = new Dictionary<string, SimpleDataLayer>();
         readonly Dictionary<string, List<string>> _tables = new Dictionary<string, List<string>>();
@@ -26,7 +26,7 @@ namespace Xpand.Xpo.DB {
         public string GetKey(Type type) {
             var nameSpace = (type.Namespace + "");
             var dataStoreAttribute = _dataStoreAttributes.Where(attribute => nameSpace.StartsWith(attribute.NameSpace)).SingleOrDefault();
-            return dataStoreAttribute == null ? STR_Default : (dataStoreAttribute.DataStoreNameSuffix ?? dataStoreAttribute.ConnectionString);
+            return dataStoreAttribute == null ? StrDefault : (dataStoreAttribute.DataStoreNameSuffix ?? dataStoreAttribute.ConnectionString);
         }
 
         string GetKey(XPClassInfo xpClassInfo) {
@@ -84,7 +84,7 @@ namespace Xpand.Xpo.DB {
 
 
         public string GetConnectionString(string key) {
-            if (key == STR_Default)
+            if (key == StrDefault)
                 return _connectionString;
             if (key.StartsWith(DataStoreBase.XpoProviderTypeParameterName))
                 return key;
@@ -97,7 +97,7 @@ namespace Xpand.Xpo.DB {
             if (connectionProvider is ConnectionProviderSql) {
                 IDbConnection dbConnection = ((ConnectionProviderSql)connectionProvider).Connection;
                 return _connectionString == null ? AccessConnectionProvider.GetConnectionString(key)
-                                              : _connectionString.Replace(dbConnection.Database, dbConnection.Database + key + ".mdb");
+                                              : _connectionString.Replace(dbConnection.Database, String.Format("{0}{1}.mdb", dbConnection.Database, key));
 
             }
             throw new NoNullAllowedException(string.Format("{0}ConnectionString not found ", key));
@@ -110,7 +110,7 @@ namespace Xpand.Xpo.DB {
 
         IEnumerable<DataStoreAttribute> GetDataStoreAttributes() {
             var dataStoreAttributes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>());
-            return dataStoreAttributes.Where(attribute => (attribute.ConnectionString != null || ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", attribute.DataStoreNameSuffix)]!=null)).ToList();
+            return dataStoreAttributes.Where(attribute => (attribute.ConnectionString != null || ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", attribute.DataStoreNameSuffix)] != null)).ToList();
         }
 
         public Dictionary<string, SimpleDataLayer> SimpleDataLayers {
@@ -133,7 +133,7 @@ namespace Xpand.Xpo.DB {
 
         public string GetKey(string tableName) {
             var keyValuePairs = _tables.Where(valuePair => valuePair.Value.Contains(tableName));
-            string key = STR_Default;
+            string key = StrDefault;
             if (keyValuePairs.Count() > 0)
                 key = keyValuePairs.ToList()[0].Key;
             return key;
