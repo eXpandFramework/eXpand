@@ -2,12 +2,11 @@ using System;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base.Security;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Xpo;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.FilterDataStore.Providers;
 
 namespace FeatureCenter.Module {
-  
+
     public class Updater : Xpand.Persistent.BaseImpl.Updater {
         public Updater(ObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {

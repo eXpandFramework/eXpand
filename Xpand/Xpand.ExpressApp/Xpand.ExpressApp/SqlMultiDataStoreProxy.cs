@@ -64,7 +64,7 @@ namespace Xpand.ExpressApp {
                 var dataLayer = simpleDataLayer.Value;
                 if (!TypeExists(dataLayer, insertStatement)) {
                     if (!IsMainLayer(dataLayer.Connection)) {
-                        _xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, _dataStoreManager.SimpleDataLayers[DataStoreManager.STR_Default]);
+                        _xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, _dataStoreManager.SimpleDataLayers[DataStoreManager.StrDefault]);
                     }
                     var modifyData = dataLayer.ModifyData(dmlStatements);
                     if (modifyData.Identities.Count() > 0)

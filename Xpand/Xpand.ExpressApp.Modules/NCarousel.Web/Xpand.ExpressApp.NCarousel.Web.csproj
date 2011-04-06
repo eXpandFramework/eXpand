@@ -73,9 +73,6 @@
     <Reference Include="DevExpress.Persistent.Base.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v10.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.Xpo.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

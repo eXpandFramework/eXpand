@@ -6,7 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
+using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.ExceptionHandling;
 using Xpand.Persistent.Base.General;
@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.ExceptionHandling {
             exceptionObject.Screenshot = GetScreenShot();
             exceptionObject.ThreadID = Thread.CurrentThread.Name;
             exceptionObject.Time = DateTime.Now.TimeOfDay;
-            var user = ((User)SecuritySystem.CurrentUser);
+            var user = ((IUser)SecuritySystem.CurrentUser);
             if (user != null)
                 exceptionObject.UserId = (Guid)session.GetKeyValue(user);
             exceptionObject.TracingLastEntries = Tracing.Tracer.GetLastEntriesAsString();
@@ -57,24 +57,13 @@ namespace Xpand.ExpressApp.ExceptionHandling {
             return new Size(width, maxHeight);
         }
         static Image GetScreenShot() {
-            var image = new Bitmap(
-                Screen.PrimaryScreen.Bounds.Width,
-                Screen.PrimaryScreen.Bounds.Height,
-                PixelFormat.Format24bppRgb);
-
-            var graphics = Graphics.FromImage(image);
-
-            graphics.CopyFromScreen(
-                Screen.PrimaryScreen.Bounds.X,
-                Screen.PrimaryScreen.Bounds.Y,
-                0,
-                0,
-                Screen.PrimaryScreen.Bounds.Size,
-                CopyPixelOperation.SourceCopy);
-
-            graphics.Dispose();
-
-            return ResizeImage(image, 600, 600);
+            using (var image = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, PixelFormat.Format24bppRgb))
+            {
+                var graphics = Graphics.FromImage(image);
+                graphics.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
+                graphics.Dispose();
+                return ResizeImage(image, 600, 600);
+            }
         }
 
     }
