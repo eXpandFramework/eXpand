@@ -66,10 +66,11 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
         }
 
         void BringViewControlToFront(Control control) {
-            if (control != null)
+            if (control != null && control.Parent != null)
                 control.BringToFront();
+            else
+                control.ParentChanged += control_ParentChanged;
         }
-
 
         protected override void InitializeControl(object control, LogicRuleInfo<IAdditionalViewControlsRule> logicRuleInfo,
                                              AdditionalViewControlsProviderCalculator additionalViewControlsProviderCalculator,
@@ -84,6 +85,13 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
             } else {
                 value.Dock = DockStyle.Fill;
             }
+        }
+
+        void control_ParentChanged(object sender, EventArgs e)
+        {
+            var control = sender as Control;
+            control.ParentChanged -= control_ParentChanged;
+            control.BringToFront();
         }
 
     }

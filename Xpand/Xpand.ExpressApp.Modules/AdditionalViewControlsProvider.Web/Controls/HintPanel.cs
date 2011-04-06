@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Controls {
-    [AdditionalViewControl]
-    public class HintPanel : HintPanelBase {
+
+    public class HintPanel : HintPanelBase, IAdditionalViewControl {
+        public IAdditionalViewControlsRule Rule {get;set;}
     }
 
 }

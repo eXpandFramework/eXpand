@@ -1,12 +1,10 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.Utils.Frames;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
-    [AdditionalViewControl]
-    public class HintPanel : NotePanel8_1, ISupportAppeareance {
+    public class HintPanel : NotePanel8_1, ISupportAppeareance, IAdditionalViewControl {
         public HintPanel() {
             BackColor = Color.LightGoldenrodYellow;
             Dock = DockStyle.Bottom;
@@ -59,5 +57,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
             }
         }
         #endregion
+
+        public IAdditionalViewControlsRule Rule { get; set; }
     }
 }

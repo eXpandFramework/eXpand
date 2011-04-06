@@ -111,7 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdditionalViewControlAttribute.cs" />
+    <Compile Include="IAdditionalViewControl.cs" />
     <Compile Include="AdditionalViewControlsModule.cs">
       <SubType>Component</SubType>
     </Compile>

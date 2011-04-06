@@ -44,18 +44,19 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                     var calculator = new AdditionalViewControlsProviderCalculator(additionalViewControlsRule, info.View.ObjectTypeInfo.Type);
                     Type controlType = calculator.ControlsRule.ControlType;
                     ICollection controls = GetControls(viewSiteControl);
+                    IAdditionalViewControl additionalViewControl = FindControl((AdditionalViewControlsRule)info.Rule, controls);
                     if (info.Active && ViewContextIsCorrect(info.Rule)) {
-                        object o = FindControl(info, controlType, controls);
-                        object control = GetControl(controlType, o, info);
-                        ReflectionHelper.CreateObject(calculator.ControlsRule.DecoratorType, new[] { info.View, control, info.Rule });
-                        if (info.Rule.NotUseSameType || o == null) {
+
+                        var control = GetControl(controlType, additionalViewControl, info);
+                        control.Rule = info.Rule;
+                        ReflectionHelper.CreateObject(calculator.ControlsRule.DecoratorType, new[] { info.View, (object)control, info.Rule });
+                        if (additionalViewControl == null) {
                             AddControl(control, controls, info);
                             InitializeControl(control, info, calculator, executionContext);
                         }
-                        ((AdditionalViewControlsRule)info.Rule).Control = control;
-                    } else {
-                        object control = ((AdditionalViewControlsRule)info.Rule).Control;
-                        controls.GetType().GetMethod("Remove").Invoke(controls, new[] { control });
+                    }
+                    else if (additionalViewControl != null) {
+                        controls.GetType().GetMethod("Remove").Invoke(controls, new[] { additionalViewControl });
                     }
                 }
             }
@@ -66,8 +67,9 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             return rule.Position != Position.DetailViewItem || !(View is ListView);
         }
 
-        protected virtual object GetControl(Type controlType, object o, LogicRuleInfo<IAdditionalViewControlsRule> info) {
-            var control = o ?? Activator.CreateInstance(controlType);
+        protected virtual IAdditionalViewControl GetControl(Type controlType, IAdditionalViewControl additionalViewControl, LogicRuleInfo<IAdditionalViewControlsRule> info)
+        {
+            var control = additionalViewControl ?? Activator.CreateInstance(controlType) as IAdditionalViewControl;
             if (control is ISupportLayoutManager) {
                 if (info.Rule.Position != Position.DetailViewItem)
                     throw new ArgumentException("Rule with Id:" + info.Rule.Id + " position should be set to " + Position.DetailViewItem);
@@ -89,11 +91,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             return (ICollection)(viewSiteControl.GetType().GetProperty("Controls").GetValue(viewSiteControl, null));
         }
 
-        object FindControl(LogicRuleInfo<IAdditionalViewControlsRule> info, Type controlType, ICollection controls) {
-            if (info.Rule.NotUseSameType && info.Active)
-                return null;
-            object firstOrDefault = controls.OfType<object>().Where(o => controlType == o.GetType()).FirstOrDefault();
-            return firstOrDefault;
+        IAdditionalViewControl FindControl(IAdditionalViewControlsRule rule, ICollection controls) {
+            return controls.OfType<IAdditionalViewControl>().Where(o => o.Rule.Id == rule.Id).FirstOrDefault();
         }
 
         protected virtual void RemoveControl(IList controls, object firstOrDefault, LogicRuleInfo<IAdditionalViewControlsRule> info) {

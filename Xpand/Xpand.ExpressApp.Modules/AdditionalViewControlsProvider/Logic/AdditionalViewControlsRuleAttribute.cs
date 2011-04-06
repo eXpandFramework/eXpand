@@ -21,8 +21,6 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         public string MessageProperty { get; set; }
         public string Message { get; set; }
         public Position Position { get; set; }
-        public bool NotUseSameType { get; set; }
-
         public Color? BackColor { get; set; }
         public Color? ForeColor { get; set; }
         public FontStyle? FontStyle { get; set; }

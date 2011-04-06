@@ -5,8 +5,7 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Editors;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
-    [AdditionalViewControl]
-    public sealed class WarningPanel : NotePanel8_1, ISupportLayoutManager, ISupportAppeareance {
+    public sealed class WarningPanel : NotePanel8_1, ISupportLayoutManager, ISupportAppeareance, IAdditionalViewControl {
         public WarningPanel() {
             BackColor = Color.LightGoldenrodYellow;
             Dock = DockStyle.Bottom;
@@ -60,5 +59,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
                 }
             }
         }
+
+        public IAdditionalViewControlsRule Rule { get; set; }
     }
 }

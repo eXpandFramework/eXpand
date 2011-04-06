@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.DomainLogic {
         }
 
         static IEnumerable<ITypeInfo> FindTypeDescendants(TypeDecorator decorator) {
-            return ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(decorator.ControlType), true).Where(info => info.FindAttribute<AdditionalViewControlAttribute>() != null);
+            return ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(decorator.ControlType), true).Where(info => info.Implements<IAdditionalViewControl>() != null);
         }
 
         public static TypeDecorator GetTypeDecorator(Position position) {

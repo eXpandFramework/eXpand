@@ -3,11 +3,11 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using DevExpress.Utils.Frames;
+using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
-    [AdditionalViewControl]
-    public class ApplicationCaption : ApplicationCaption8_1 {
+    public class ApplicationCaption : ApplicationCaption8_1, IAdditionalViewControl {
         public ApplicationCaption() {
 
             Dock = DockStyle.Bottom;
@@ -25,5 +25,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
                 throw new NullReferenceException();
             }
         }
+
+        public IAdditionalViewControlsRule Rule { get; set; }
     }
 }
