@@ -17,11 +17,17 @@ namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
 
         List<Type> _dynamicModuleTypes = new List<Type>();
-        string _connectionString;
-
 
         public List<Type> DynamicModuleTypes {
             get { return _dynamicModuleTypes; }
+        }
+
+        public static string FullConnectionString {
+            get 
+            {
+                var application = Application as ISupportFullConnectionString;
+                return application != null ? application.ConnectionString : null; 
+            }
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
@@ -31,11 +37,8 @@ namespace Xpand.ExpressApp.WorldCreator {
             if (Application == null || GetPath() == null)
                 return;
             Application.SettingUp += ApplicationOnSettingUp;
-            _connectionString = ((ISupportFullConnectionString)Application).ConnectionString;
-            if (_connectionString != null) {
-                var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
-                var typeSynchronizer = new TypeSynchronizer();
-                typeSynchronizer.SynchronizeTypes(_connectionString);
+            if (FullConnectionString != null) {
+                var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(FullConnectionString, GetReflectionDictionary());
                 using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
                     using (var session = new Session(dataLayer)) {
                         using (var unitOfWork = new UnitOfWork(session.DataLayer)) {
@@ -71,8 +74,8 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
         protected override BusinessClassesList GetBusinessClassesCore() {
             var existentTypesMemberCreator = new ExistentTypesMemberCreator();
-            if (_connectionString != null) {
-                var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(_connectionString, GetReflectionDictionary());
+            if (FullConnectionString != null) {
+                var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(FullConnectionString, GetReflectionDictionary());
                 var simpleDataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy);
                 var session = new Session(simpleDataLayer);
                 existentTypesMemberCreator.CreateMembers(session);
@@ -131,7 +134,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                 _dynamicModuleTypes.Select(type => type.Assembly).SelectMany(
                     assembly => assembly.GetTypes().Where(type => typeof(IXPSimpleObject).IsAssignableFrom(type)));
             IDbCommand dbCommand =
-                ((ISqlDataStore)XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.DatabaseAndSchema)).CreateCommand();
+                ((ISqlDataStore)XpoDefault.GetConnectionProvider(FullConnectionString, AutoCreateOption.DatabaseAndSchema)).CreateCommand();
             new XpoObjectMerger().MergeTypes(unitOfWork, persistentTypes.ToList(), dbCommand);
         }
 
