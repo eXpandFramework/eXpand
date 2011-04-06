@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraGrid.Views.Base;
 
@@ -59,8 +58,8 @@ namespace Xpand.ExpressApp.Win.ListEditors {
                 base.AssignColumns(cv, true);
             } else {
                 Columns.Clear();
-                var columnsListEditorModelSynchronizer = new ColumnsListEditorModelSynchronizer(_gridListEditor, _gridListEditor.Model);
-                columnsListEditorModelSynchronizer.ApplyModel();
+                ////var columnsListEditorModelSynchronizer = new ColumnsListEditorModelSynchronizer(_gridListEditor, _gridListEditor.Model);
+                ////columnsListEditorModelSynchronizer.ApplyModel();
                 var gridColumns = _gridListEditor.GridView.Columns.OfType<XafGridColumn>();
                 foreach (var column in gridColumns) {
                     var xpandXafGridColumn = new XpandXafGridColumn(column.TypeInfo, _gridListEditor);
