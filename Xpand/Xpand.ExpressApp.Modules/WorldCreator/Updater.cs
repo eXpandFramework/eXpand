@@ -8,8 +8,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             : base(objectSpace, currentDBVersion) {
         }
 
-        public override void UpdateDatabaseAfterUpdateSchema()
-        {
+        public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
 
             if (CurrentDBVersion == new Version(0, 0, 0, 0)) {

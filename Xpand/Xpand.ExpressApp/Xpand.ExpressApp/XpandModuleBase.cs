@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -39,10 +40,18 @@ namespace Xpand.ExpressApp {
 
 
         static List<object> _storeManagers;
+        private static readonly Assembly _entryAssembly;
 
         static XpandModuleBase() {
             Dictiorary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
             TypesInfo = XafTypesInfo.Instance;
+            _entryAssembly = TypesInfo.FindTypeInfo(typeof(XafTypesInfo)).AssemblyInfo.Assembly;
+        }
+
+        public static Assembly EntryAssembly {
+            get {
+                return _entryAssembly;
+            }
         }
 
 

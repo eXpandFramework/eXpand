@@ -10,7 +10,7 @@ namespace FeatureCenter.Module.Win.PropertyEditors.ChooseFromListCollectionEdito
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (!Object.ReferenceEquals(typesInfo.Type, typeof(WinCustomer))) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderChooseFromListCollectionEditor, "1=1", "1=1",
-                Captions.ViewMessageChooseFromListCollectionEditor, Position.Bottom) { View = ChooseFromListCollectionEditor_DetailView, NotUseSameType = true };
+                Captions.ViewMessageChooseFromListCollectionEditor, Position.Bottom) { View = ChooseFromListCollectionEditor_DetailView };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderChooseFromListCollectionEditor, "1=1", "1=1",
                 Captions.HeaderChooseFromListCollectionEditor, Position.Top) { View = ChooseFromListCollectionEditor_DetailView };
             yield return new CloneViewAttribute(CloneViewType.DetailView, ChooseFromListCollectionEditor_DetailView);

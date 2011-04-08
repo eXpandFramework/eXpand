@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -31,7 +30,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.DomainLogic {
         }
 
         static IEnumerable<ITypeInfo> FindTypeDescendants(TypeDecorator decorator) {
-            return ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(decorator.ControlType), true).Where(info => info.Implements<IAdditionalViewControl>() != null);
+            return ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(decorator.ControlType), true).Where(info => info.Implements<IAdditionalViewControl>());
         }
 
         public static TypeDecorator GetTypeDecorator(Position position) {

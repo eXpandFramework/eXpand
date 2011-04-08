@@ -9,9 +9,9 @@ namespace FeatureCenter.Module.Win.PropertyEditors.StringPropertyEditors {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (!Object.Equals(typesInfo.Type, typeof (SPECustomer))) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderStringPropertyEditors, "1=1", "1=1",
-                Captions.ViewMessageStringPropertyEditors, Position.Bottom) { View = "StringPropertyEditors_DetailView", NotUseSameType = true };
+                Captions.ViewMessageStringPropertyEditors, Position.Bottom) { View = "StringPropertyEditors_DetailView" };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderStringPropertyEditors + "1", "1=1", "1=1",
-                Captions.ViewMessageStringPropertyEditors1, Position.Bottom) { View = "StringPropertyEditors_DetailView", NotUseSameType = true };
+                Captions.ViewMessageStringPropertyEditors1, Position.Bottom) { View = "StringPropertyEditors_DetailView" };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderStringPropertyEditors, "1=1", "1=1",
                 Captions.HeaderStringPropertyEditors, Position.Top) { View = "StringPropertyEditors_DetailView" };
             yield return new CloneViewAttribute(CloneViewType.DetailView, "StringPropertyEditors_DetailView");

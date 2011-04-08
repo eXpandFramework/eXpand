@@ -15,7 +15,7 @@ using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
-
+        private static string _connectionString;
         List<Type> _dynamicModuleTypes = new List<Type>();
 
         public List<Type> DynamicModuleTypes {
@@ -23,13 +23,14 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         public static string FullConnectionString {
-            get 
-            {
-                var application = Application as ISupportFullConnectionString;
-                return application != null ? application.ConnectionString : null; 
+            get {
+                return _connectionString;
             }
         }
-
+        protected override void OnApplicationInitialized(XafApplication xafApplication) {
+            _connectionString = ((ISupportFullConnectionString)xafApplication).ConnectionString;
+            base.OnApplicationInitialized(xafApplication);
+        }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             var businessClassesList = GetAdditionalClasses(moduleManager);
@@ -124,7 +125,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         Func<IPersistentAssemblyInfo, bool> IsValidAssemblyInfo(ApplicationModulesManager moduleManager) {
-            return info => !info.DoNotCompile &&moduleManager.Modules.Where(@base => @base.Name == "Dynamic" + info.Name + "Module").FirstOrDefault() == null;
+            return info => !info.DoNotCompile && moduleManager.Modules.Where(@base => @base.Name == "Dynamic" + info.Name + "Module").FirstOrDefault() == null;
         }
 
         public abstract string GetPath();

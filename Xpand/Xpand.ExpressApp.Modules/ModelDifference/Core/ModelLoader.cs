@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Reflection;
 using System.Web.Configuration;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
@@ -80,7 +79,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         public ITypesInfo Build(bool tryToUseCurrentTypesInfo) {
             return tryToUseCurrentTypesInfo
-                       ? (_moduleName == Assembly.GetEntryAssembly().ManifestModule.Name
+                       ? (_moduleName == XpandModuleBase.EntryAssembly.ManifestModule.Name
                               ? XafTypesInfo.Instance
                               : GetTypesInfo())
                        : GetTypesInfo();

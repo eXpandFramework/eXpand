@@ -45,7 +45,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         #endregion
         public override void AfterConstruction() {
             base.AfterConstruction();
-            ExecutableName = Assembly.GetEntryAssembly().ManifestModule.Name;
+            ExecutableName = XpandModuleBase.EntryAssembly.ManifestModule.Name;
         }
     }
 }
