@@ -30,9 +30,13 @@ namespace Xpand.ExpressApp {
         public ListEditor ListEditor { get; set; }
     }
 
-    public interface IWinApplication {
+    public interface IWinApplication:IXafApplication {
         void LogOff();
     }
+
+    public interface IXafApplication {
+    }
+
     public interface ISupportFullConnectionString {
         string ConnectionString { get; set; }
     }

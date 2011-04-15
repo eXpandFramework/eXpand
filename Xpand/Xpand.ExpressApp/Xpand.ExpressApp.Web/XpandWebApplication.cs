@@ -9,7 +9,7 @@ using Xpand.ExpressApp.Core;
 
 
 namespace Xpand.ExpressApp.Web {
-    public partial class XpandWebApplication : WebApplication, ISupportModelsManager, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportLogonParameterStore, ISupportFullConnectionString {
+    public partial class XpandWebApplication : WebApplication, ISupportModelsManager, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportLogonParameterStore, ISupportFullConnectionString, IXafApplication{
         protected XpandWebApplication() {
             InitializeComponent();
             DetailViewCreating += OnDetailViewCreating;

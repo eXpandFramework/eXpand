@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -12,6 +11,7 @@ using DevExpress.Xpo.Metadata;
 
 namespace Xpand.ExpressApp {
     public class XpandModuleBase : ModuleBase {
+        public static string ManifestModuleName;
         static readonly object _lockObject = new object();
         static IValueManager<ModelApplicationCreatorProperties> _instanceModelApplicationCreatorPropertiesManager;
         static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
@@ -40,19 +40,13 @@ namespace Xpand.ExpressApp {
 
 
         static List<object> _storeManagers;
-        private static readonly Assembly _entryAssembly;
+        
 
         static XpandModuleBase() {
             Dictiorary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
             TypesInfo = XafTypesInfo.Instance;
-            _entryAssembly = TypesInfo.FindTypeInfo(typeof(XafTypesInfo)).AssemblyInfo.Assembly;
         }
 
-        public static Assembly EntryAssembly {
-            get {
-                return _entryAssembly;
-            }
-        }
 
 
         public static XPDictionary Dictiorary { get; set; }
@@ -86,6 +80,8 @@ namespace Xpand.ExpressApp {
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
+            if (ManifestModuleName == null)
+                ManifestModuleName = application.GetType().Assembly.ManifestModule.Name;
             OnApplicationInitialized(application);
             application.SetupComplete += ApplicationOnSetupComplete;
         }

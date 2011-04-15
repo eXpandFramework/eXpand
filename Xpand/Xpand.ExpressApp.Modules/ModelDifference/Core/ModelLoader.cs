@@ -79,10 +79,12 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         public ITypesInfo Build(bool tryToUseCurrentTypesInfo) {
             return tryToUseCurrentTypesInfo
-                       ? (_moduleName == XpandModuleBase.EntryAssembly.ManifestModule.Name
-                              ? XafTypesInfo.Instance
-                              : GetTypesInfo())
+                       ? (UseCurrentTypesInfo()? XafTypesInfo.Instance: GetTypesInfo())
                        : GetTypesInfo();
+        }
+
+        bool UseCurrentTypesInfo() {
+            return _moduleName == XpandModuleBase.ManifestModuleName;
         }
 
         TypesInfo GetTypesInfo() {
