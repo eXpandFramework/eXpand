@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                     var calculator = new AdditionalViewControlsProviderCalculator(additionalViewControlsRule, info.View.ObjectTypeInfo.Type);
                     Type controlType = calculator.ControlsRule.ControlType;
                     ICollection controls = GetControls(viewSiteControl);
-                    IAdditionalViewControl additionalViewControl = FindControl((AdditionalViewControlsRule)info.Rule, controls);
+                    IAdditionalViewControl additionalViewControl = FindControl(info.Rule, controls);
                     if (info.Active && ViewContextIsCorrect(info.Rule)) {
 
                         var control = GetControl(controlType, additionalViewControl, info);

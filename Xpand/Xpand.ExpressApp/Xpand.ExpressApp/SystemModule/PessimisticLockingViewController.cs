@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -61,24 +59,7 @@ namespace Xpand.ExpressApp.SystemModule {
             View.Closing += ViewOnClosing;
         }
 
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
-            base.CustomizeTypesInfo(typesInfo);
-            if (Application != null && Application.Security != null) {
-                CreatePessimisticLockingField(typesInfo);
-            }
-        }
 
-        void CreatePessimisticLockingField(ITypesInfo typesInfo) {
-            var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<PessimisticLockingAttribute>() != null);
-            foreach (var typeInfo in typeInfos) {
-                typeInfo.AddAttribute(new OptimisticLockingAttribute(false));
-                var memberInfo = typeInfo.FindMember(LockedUser);
-                if (memberInfo == null) {
-                    memberInfo = typeInfo.CreateMember(LockedUser, Application.Security.UserType);
-                    memberInfo.AddAttribute(new BrowsableAttribute(false));
-                }
-            }
-        }
 
         void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs) {
             _pessimisticLocker.UnLock();

@@ -10,6 +10,8 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
+using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
 using Xpand.ExpressApp.Model;
@@ -45,6 +47,20 @@ namespace Xpand.ExpressApp.SystemModule {
             if (ModelApplicationCreator == null) {
                 foreach (var persistentType in typesInfo.PersistentTypes) {
                     CreateAttributeRegistratorAttributes(persistentType);
+                }
+            }
+            if (Application != null && Application.Security != null) {
+                CreatePessimisticLockingField(typesInfo);
+            }
+        }
+        void CreatePessimisticLockingField(ITypesInfo typesInfo) {
+            var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<PessimisticLockingAttribute>() != null);
+            foreach (var typeInfo in typeInfos) {
+                typeInfo.AddAttribute(new OptimisticLockingAttribute(false));
+                var memberInfo = typeInfo.FindMember(PessimisticLockingViewController.LockedUser);
+                if (memberInfo == null) {
+                    memberInfo = typeInfo.CreateMember(PessimisticLockingViewController.LockedUser, Application.Security.UserType);
+                    memberInfo.AddAttribute(new BrowsableAttribute(false));
                 }
             }
         }

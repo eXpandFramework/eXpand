@@ -33,7 +33,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         void FrameOnViewChanging(object sender, ViewChangingEventArgs viewChangingEventArgs) {
-            if (viewChangingEventArgs.View != null) {
+            if (!(viewChangingEventArgs.View is DashboardView)) {
                 var viewEditMode = ((IModelViewEditMode) viewChangingEventArgs.View.Model).ViewEditMode;
                 if (viewEditMode.HasValue&&viewChangingEventArgs.View is ListView) {
                     var showViewStrategy = ((ShowViewStrategy)Application.ShowViewStrategy);

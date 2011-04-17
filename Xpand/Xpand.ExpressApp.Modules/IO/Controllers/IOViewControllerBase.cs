@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.Persistent.Base.ImportExport;
 using Xpand.Persistent.Base.General;

@@ -11,7 +11,7 @@ using Xpand.Xpo;
 
 namespace FeatureCenter.Module
 {
-    public class DisplayFeatureModelController:ViewController
+    public class DisplayFeatureModelController:ViewController<ObjectView>
     {
         public event EventHandler<RequestingModelNameArgs> RequestingModelName;
 
