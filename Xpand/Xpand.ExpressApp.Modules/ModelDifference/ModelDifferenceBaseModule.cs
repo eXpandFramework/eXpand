@@ -2,6 +2,7 @@ using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
+using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.ModelDifference {
     public abstract class ModelDifferenceBaseModule : XpandModuleBase {
@@ -23,6 +24,7 @@ namespace Xpand.ExpressApp.ModelDifference {
         }
 
         public void LoadModels(bool loadResources) {
+            ((ModelApplicationBase) Application.Model).ReInitLayers();
             var customModelDifferenceStoreEventArgs = new CreateCustomModelDifferenceStoreEventArgs();
             OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);
             if (!customModelDifferenceStoreEventArgs.Handled)

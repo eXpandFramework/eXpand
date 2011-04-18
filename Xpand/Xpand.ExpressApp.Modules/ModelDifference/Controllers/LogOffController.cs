@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
+using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.ModelDifference.Controllers {
     public class LogOffController : WindowController {
@@ -15,14 +16,8 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
             if (!loggingOffEventArgs.CanCancel)
                 return;
             var modelApplicationBase = ((ModelApplicationBase)((XafApplication)sender).Model);
-            var lastLayer = modelApplicationBase.LastLayer;
-            while (lastLayer.Id != "Unchanged Master Part") {
-                modelApplicationBase.RemoveLayer(lastLayer);
-                lastLayer = modelApplicationBase.LastLayer;
-            }
-            var afterSetupLayer = modelApplicationBase.CreatorInstance.CreateModelApplication();
-            afterSetupLayer.Id = "After Setup";
-            modelApplicationBase.AddLayer(afterSetupLayer);
+            modelApplicationBase.ReInitLayers();
+            
         }
 
     }

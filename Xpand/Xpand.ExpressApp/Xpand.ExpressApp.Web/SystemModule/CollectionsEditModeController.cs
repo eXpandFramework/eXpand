@@ -6,16 +6,16 @@ using DevExpress.ExpressApp.Web;
 using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
-    public class CollectionsEditModeController : ViewEditModeController{
+    public class CollectionsEditModeController : ViewEditModeController {
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
-            Frame.ViewChanging+=FrameOnViewChanging;
+            Frame.ViewChanging += FrameOnViewChanging;
         }
 
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            if (((ShowViewStrategy) Application.ShowViewStrategy).CollectionsEditMode==ViewEditMode.View) {
+            if (((ShowViewStrategy)Application.ShowViewStrategy).CollectionsEditMode == ViewEditMode.View) {
                 var detailView = View;
                 foreach (ListPropertyEditor listPropertyEditor in detailView.GetItems<ListPropertyEditor>()) {
                     var control = listPropertyEditor.Control as Control;
@@ -28,14 +28,14 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         bool GetViewEditMode(ListPropertyEditor listPropertyEditor) {
             var modelPropertyEditor = ((IModelPropertyEditor)listPropertyEditor.Model);
-            var viewEditMode = ((IModelViewEditMode) modelPropertyEditor.View).ViewEditMode;
+            var viewEditMode = ((IModelViewEditMode)modelPropertyEditor.View).ViewEditMode;
             return viewEditMode.HasValue && viewEditMode.Value == ViewEditMode.Edit;
         }
 
         void FrameOnViewChanging(object sender, ViewChangingEventArgs viewChangingEventArgs) {
-            if (!(viewChangingEventArgs.View is DashboardView)) {
-                var viewEditMode = ((IModelViewEditMode) viewChangingEventArgs.View.Model).ViewEditMode;
-                if (viewEditMode.HasValue&&viewChangingEventArgs.View is ListView) {
+            if (!(viewChangingEventArgs.View is DashboardView) && viewChangingEventArgs.View != null) {
+                var viewEditMode = ((IModelViewEditMode)viewChangingEventArgs.View.Model).ViewEditMode;
+                if (viewEditMode.HasValue && viewChangingEventArgs.View is ListView) {
                     var showViewStrategy = ((ShowViewStrategy)Application.ShowViewStrategy);
                     showViewStrategy.CollectionsEditMode = viewEditMode.Value;
                 }

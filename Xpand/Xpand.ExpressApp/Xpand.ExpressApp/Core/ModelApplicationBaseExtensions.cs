@@ -42,7 +42,18 @@ namespace Xpand.ExpressApp.Core {
             application.AddLayer(layer);
             application.AddLayer(lastLayer);
         }
-        
+
+        public static void ReInitLayers(this ModelApplicationBase modelApplicationBase) {
+            var lastLayer = modelApplicationBase.LastLayer;
+            while (lastLayer.Id != "Unchanged Master Part") {
+                modelApplicationBase.RemoveLayer(lastLayer);
+                lastLayer = modelApplicationBase.LastLayer;
+            }
+            var afterSetupLayer = modelApplicationBase.CreatorInstance.CreateModelApplication();
+            afterSetupLayer.Id = "After Setup";
+            modelApplicationBase.AddLayer(afterSetupLayer);
+        }
+
         public static bool HasAspect(this ModelApplicationBase modelApplicationBase, string aspectName) {
             for (int i = 0; i < modelApplicationBase.AspectCount; i++) {
                 if (modelApplicationBase.GetAspect(i)==aspectName)

@@ -54,8 +54,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                             AddControl(control, controls, info);
                             InitializeControl(control, info, calculator, executionContext);
                         }
-                    }
-                    else if (additionalViewControl != null) {
+                    } else if (additionalViewControl != null) {
                         controls.GetType().GetMethod("Remove").Invoke(controls, new[] { additionalViewControl });
                     }
                 }
@@ -67,8 +66,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             return rule.Position != Position.DetailViewItem || !(View is ListView);
         }
 
-        protected virtual IAdditionalViewControl GetControl(Type controlType, IAdditionalViewControl additionalViewControl, LogicRuleInfo<IAdditionalViewControlsRule> info)
-        {
+        protected virtual IAdditionalViewControl GetControl(Type controlType, IAdditionalViewControl additionalViewControl, LogicRuleInfo<IAdditionalViewControlsRule> info) {
             var control = additionalViewControl ?? Activator.CreateInstance(controlType) as IAdditionalViewControl;
             if (control is ISupportLayoutManager) {
                 if (info.Rule.Position != Position.DetailViewItem)
