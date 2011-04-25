@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public string ConcatOtherToolTips(IModelMemberViewItem model, object editValue) {
-            return model.ModelMember.Type.IsEnum && _currentObject != null ? GetToolTipCore(model, editValue) : null;
+            return model.ModelMember.Type.IsEnum && _currentObject != null && editValue != null ? GetToolTipCore(model, editValue) : null;
         }
 
         string GetToolTipCore(IModelMemberViewItem model, object editValue) {
