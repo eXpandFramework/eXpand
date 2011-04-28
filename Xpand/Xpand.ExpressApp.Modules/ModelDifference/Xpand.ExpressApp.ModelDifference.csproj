@@ -140,9 +140,6 @@
     <Compile Include="Controllers\CombineDifferencesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\LogOffController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controllers\CombineActiveUserDiffsWithLastLayerController.cs">
       <SubType>Component</SubType>
     </Compile>
