@@ -28,6 +28,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
                     treeList.CellValueChanged += treeList_CellValueChanged;
                     treeList.ShownEditor += treeList_ShownEditor;
                     treeList.OptionsBehavior.ImmediateEditor = false;
+                    treeList.OptionsBehavior.Editable = true;
                 }
             }
         }
