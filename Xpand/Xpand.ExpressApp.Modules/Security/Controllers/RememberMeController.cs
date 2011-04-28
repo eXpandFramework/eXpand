@@ -14,7 +14,11 @@ namespace Xpand.ExpressApp.Security.Controllers {
             base.OnActivated();
             Application.LoggingOff += ApplicationOnLoggingOff;
         }
-
+        protected override void OnDeactivated()
+        {
+            base.OnDeactivated();
+            Application.LoggingOff -= ApplicationOnLoggingOff;
+        }
 
         void ApplicationOnLoggingOff(object sender, LoggingOffEventArgs loggingOffEventArgs) {
             if (!loggingOffEventArgs.CanCancel)
