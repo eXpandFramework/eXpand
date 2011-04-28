@@ -32,9 +32,9 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
             
         }
 
-        public static FilterProviderBase GetFilterProvider(string filterMemberName, StatementContext modify) {
+        public static FilterProviderBase GetFilterProvider(string tableName, string filterMemberName, StatementContext modify) {
             FilterProviderBase provider = Providers.Cast<FilterProviderBase>().Where(
-                probase => probase.FilterMemberName == filterMemberName && (probase.StatementContext == modify || probase.StatementContext == StatementContext.Both)).FirstOrDefault();
+                probase => (probase.ObjectType == null || probase.ObjectType.Name == tableName) && probase.FilterMemberName == filterMemberName && (probase.StatementContext == modify || probase.StatementContext == StatementContext.Both)).FirstOrDefault();
             if (provider != null && HasFilterValue(provider) && !provider.UseFilterValueWhenNull)
                 return null;
             return provider;

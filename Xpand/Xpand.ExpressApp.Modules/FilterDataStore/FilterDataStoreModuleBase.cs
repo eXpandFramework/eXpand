@@ -68,7 +68,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
             foreach (FilterProviderBase provider in FilterProviderManager.Providers) {
                 FilterProviderBase provider1 = provider;
                 foreach (ITypeInfo typeInfo in typesInfo.PersistentTypes.Where(
-                    typeInfo => !(typeInfo.IsAbstract) && typeInfo.FindMember(provider1.FilterMemberName) == null && typeInfo.IsPersistent)) {
+                    typeInfo => (provider1.ObjectType == null || provider1.ObjectType == typeInfo.Type) && typeInfo.FindMember(provider1.FilterMemberName) == null && typeInfo.IsPersistent)) {
                     CreateMember(typeInfo, provider);
                 }
             }
@@ -105,7 +105,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
                     List<QueryOperand> operands = statement.Operands.OfType<QueryOperand>().ToList();
                     for (int i = 0; i < operands.Count(); i++) {
                         int index = i;
-                        FilterProviderBase providerBase = FilterProviderManager.GetFilterProvider(operands[index].ColumnName, StatementContext.Update);
+                        FilterProviderBase providerBase = FilterProviderManager.GetFilterProvider(statement.TableName, operands[index].ColumnName, StatementContext.Update);
                         if (providerBase != null && !FilterIsShared(statement.TableName, providerBase.Name))
                             statement.Parameters[i].Value = GetModifyFilterValue(providerBase);
                     }
@@ -127,7 +127,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
                     List<QueryOperand> operands = statement.Operands.OfType<QueryOperand>().ToList();
                     for (int i = 0; i < operands.Count(); i++) {
                         FilterProviderBase providerBase =
-                            FilterProviderManager.GetFilterProvider(operands[i].ColumnName, StatementContext.Insert);
+                            FilterProviderManager.GetFilterProvider(statement.TableName, operands[i].ColumnName, StatementContext.Insert);
                         if (providerBase != null && !FilterIsShared(statements, providerBase))
                             statement.Parameters[i].Value = GetModifyFilterValue(providerBase);
                     }
@@ -150,7 +150,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
             extractor.Extract(statement.Condition);
 
             foreach (FilterProviderBase provider in FilterProviderManager.Providers) {
-                FilterProviderBase providerBase = FilterProviderManager.GetFilterProvider(provider.FilterMemberName, StatementContext.Select);
+                FilterProviderBase providerBase = FilterProviderManager.GetFilterProvider(statement.TableName, provider.FilterMemberName, StatementContext.Select);
                 if (providerBase != null) {
                     IEnumerable<BinaryOperator> binaryOperators = GetBinaryOperators(extractor, providerBase);
                     if (!FilterIsShared(statement.TableName, providerBase.Name) && binaryOperators.Count() == 0) {
@@ -186,7 +186,8 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         string GetNodeAlias(SelectStatement statement, string filterMemberName) {
-            if (GetModelClass(statement.TableName).OwnMembers.Where(member => member.Name==filterMemberName).FirstOrDefault()==null) {
+            if (XafTypesInfo.Instance.FindTypeInfo(_tablesDictionary[statement.TableName].FullName).OwnMembers.Where(member => member.Name == filterMemberName).FirstOrDefault() == null)
+            {
                 return statement.SubNodes[0].Alias;
             }
             return statement.Alias;
@@ -195,6 +196,8 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         private bool IsSystemTable(string name) {
             bool ret = false;
+            if (Application == null || Application.Model == null)
+                return ret;
 
             foreach (IModelFilterDataStoreSystemTable systemTable in ((IModelApplicationFilterDataStore)Application.Model).FilterDataStoreSystemTables) {
                 if (systemTable.Name == name)

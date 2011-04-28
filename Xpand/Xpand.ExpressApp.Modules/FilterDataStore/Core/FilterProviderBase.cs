@@ -39,5 +39,6 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
         public abstract bool FilterMemberIndexed { get; set; }
         public abstract bool UseFilterValueWhenNull { get; set; }
         public abstract Type FilterMemberType { get; set; }
+        public virtual Type ObjectType { get; set; }
     }
 }
