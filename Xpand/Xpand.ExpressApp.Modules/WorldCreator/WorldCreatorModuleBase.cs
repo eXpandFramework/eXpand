@@ -28,6 +28,8 @@ namespace Xpand.ExpressApp.WorldCreator {
             }
         }
         protected override void OnApplicationInitialized(XafApplication xafApplication) {
+            if (xafApplication == null)
+                return;
             _connectionString = ((ISupportFullConnectionString)xafApplication).ConnectionString;
             base.OnApplicationInitialized(xafApplication);
         }
