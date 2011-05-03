@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Attributes;
-using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -15,55 +14,63 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            IEnumerable<IMemberInfo> memberInfos =
-                typesInfo.PersistentTypes.SelectMany(typeInfo => typeInfo.OwnMembers);
-            foreach (var memberInfo in memberInfos.Where(memberInfo => memberInfo.FindAttribute<ProvidedAssociationAttribute>() != null)) {
-                var providedAssociationAttribute = memberInfo.FindAttribute<ProvidedAssociationAttribute>();
+            foreach (var memberInfo in GetDecoratedMembers(typesInfo)) {
+                var providedAssociationAttribute = (ProvidedAssociationAttribute) memberInfo.FindAttributeInfo(typeof(ProvidedAssociationAttribute));
                 AssociationAttribute associationAttribute = GetAssociationAttribute(memberInfo, providedAssociationAttribute);
                 XPCustomMemberInfo customMemberInfo = CreateMemberInfo(typesInfo, memberInfo, providedAssociationAttribute, associationAttribute);
-                if (!(string.IsNullOrEmpty(providedAssociationAttribute.AttributesFactoryProperty)))
-                    foreach (var attribute in GetAttributes(providedAssociationAttribute.AttributesFactoryProperty, memberInfo.Owner)) {
-                        customMemberInfo.AddAttribute(attribute);
-                    }
+                AddExtraAttributes(memberInfo, providedAssociationAttribute, customMemberInfo);
             }
         }
 
-        AssociationAttribute GetAssociationAttribute(IMemberInfo memberInfo, ProvidedAssociationAttribute providedAssociationAttribute) {
-            var associationAttribute = memberInfo.FindAttribute<AssociationAttribute>();
+        void AddExtraAttributes(XPMemberInfo memberInfo, ProvidedAssociationAttribute providedAssociationAttribute, XPCustomMemberInfo customMemberInfo) {
+            if (!(string.IsNullOrEmpty(providedAssociationAttribute.AttributesFactoryProperty)))
+                foreach (var attribute in GetAttributes(providedAssociationAttribute.AttributesFactoryProperty, memberInfo.Owner)) {
+                    customMemberInfo.AddAttribute(attribute);
+                }
+        }
+
+        IEnumerable<XPMemberInfo> GetDecoratedMembers(ITypesInfo typesInfo) {
+            IEnumerable<XPMemberInfo> memberInfos =
+                typesInfo.PersistentTypes.SelectMany(typeInfo => XpandModuleBase.Dictiorary.GetClassInfo(typeInfo.Type).OwnMembers);
+            return memberInfos.Where(memberInfo => memberInfo.HasAttribute(typeof(ProvidedAssociationAttribute)));
+        }
+
+        AssociationAttribute GetAssociationAttribute(XPMemberInfo memberInfo, ProvidedAssociationAttribute providedAssociationAttribute) {
+            var associationAttribute = memberInfo.FindAttributeInfo(typeof(AssociationAttribute)) as AssociationAttribute;
             if (associationAttribute == null && !string.IsNullOrEmpty(providedAssociationAttribute.AssociationName))
                 associationAttribute = new AssociationAttribute(providedAssociationAttribute.AssociationName);
             else if (associationAttribute == null)
                 throw new NullReferenceException(memberInfo + " has no association attribute");
-            return associationAttribute;
+            return  associationAttribute;
         }
 
-        IEnumerable<Attribute> GetAttributes(string attributesFactoryProperty, ITypeInfo owner) {
-            PropertyInfo memberInfo = owner.Type.GetProperty(attributesFactoryProperty);
+        IEnumerable<Attribute> GetAttributes(string attributesFactoryProperty, XPClassInfo owner) {
+            PropertyInfo memberInfo = owner.ClassType.GetProperty(attributesFactoryProperty);
             return memberInfo != null ? (IEnumerable<Attribute>)memberInfo.GetValue(null, null) : new List<Attribute>();
         }
 
-        private XPCustomMemberInfo CreateMemberInfo(ITypesInfo typesInfo, IMemberInfo memberInfo, ProvidedAssociationAttribute providedAssociationAttribute, AssociationAttribute associationAttribute) {
-            var typeToCreateOn = getTypeToCreateOn(memberInfo, associationAttribute);
+        private XPCustomMemberInfo CreateMemberInfo(ITypesInfo typesInfo, XPMemberInfo memberInfo, ProvidedAssociationAttribute providedAssociationAttribute, AssociationAttribute associationAttribute) {
+            var typeToCreateOn = GetTypeToCreateOn(memberInfo, associationAttribute);
             if (typeToCreateOn == null)
                 throw new NotImplementedException();
             XPCustomMemberInfo xpCustomMemberInfo;
-            if (!(memberInfo.IsList) || (memberInfo.IsList && providedAssociationAttribute.RelationType == RelationType.ManyToMany)) {
+            if (!(memberInfo.IsCollection) || (memberInfo.IsCollection && providedAssociationAttribute.RelationType == RelationType.ManyToMany)) {
                 xpCustomMemberInfo = typesInfo.CreateCollection(
                     typeToCreateOn,
-                    memberInfo.Owner.Type,
+                    memberInfo.Owner.ClassType, 
                     associationAttribute.Name,
                     XpandModuleBase.Dictiorary,
-                    providedAssociationAttribute.ProvidedPropertyName ?? memberInfo.Owner.Type.Name + "s", false);
+                    providedAssociationAttribute.ProvidedPropertyName ?? memberInfo.Owner.ClassType.Name + "s", false);
             } else {
                 xpCustomMemberInfo = typesInfo.CreateMember(
                     typeToCreateOn,
-                    memberInfo.Owner.Type,
+                    memberInfo.Owner.ClassType, 
                     associationAttribute.Name,
                     XpandModuleBase.Dictiorary,
-                    providedAssociationAttribute.ProvidedPropertyName ?? memberInfo.Owner.Type.Name, false);
+                    providedAssociationAttribute.ProvidedPropertyName ?? memberInfo.Owner.ClassType.Name, false);
             }
 
-            if (!string.IsNullOrEmpty(providedAssociationAttribute.AssociationName) && memberInfo.FindAttribute<AssociationAttribute>() == null)
+            if (!string.IsNullOrEmpty(providedAssociationAttribute.AssociationName) && !memberInfo.HasAttribute(typeof(AssociationAttribute)))
                 memberInfo.AddAttribute(new AssociationAttribute(providedAssociationAttribute.AssociationName));
 
             typesInfo.RefreshInfo(typeToCreateOn);
@@ -71,10 +78,12 @@ namespace Xpand.ExpressApp.SystemModule {
             return xpCustomMemberInfo;
         }
 
-        private Type getTypeToCreateOn(IMemberInfo memberInfo, AssociationAttribute associationAttribute) {
-            if (!memberInfo.MemberType.IsGenericType)
-                return string.IsNullOrEmpty(associationAttribute.ElementTypeName) ? memberInfo.MemberType : Type.GetType(associationAttribute.ElementTypeName);
-            return memberInfo.MemberType.GetGenericArguments()[0];
+        private Type GetTypeToCreateOn(XPMemberInfo memberInfo, AssociationAttribute associationAttribute) {
+            return !memberInfo.MemberType.IsGenericType
+                       ? (string.IsNullOrEmpty(associationAttribute.ElementTypeName)
+                              ? memberInfo.MemberType
+                              : Type.GetType(associationAttribute.ElementTypeName))
+                       : memberInfo.MemberType.GetGenericArguments()[0];
         }
     }
 }
