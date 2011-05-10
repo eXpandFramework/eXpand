@@ -69,6 +69,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\_third_party_assemblies\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Chart.v10.2, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.ExpressApp.CloneObject.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -93,6 +94,7 @@
     <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Kpi.v10.2, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.PivotChart.v10.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

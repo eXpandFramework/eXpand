@@ -442,6 +442,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor\AttributeRegistrator.cs" />
+    <Compile Include="PropertyEditors\DurationPropertyEdit\AttributeRegistrator.cs" />
+    <Compile Include="PropertyEditors\DurationPropertyEdit\DurationEditTestObject.cs" />
     <Compile Include="PropertyEditors\NullAble\AttributeRegistrator.cs" />
     <Compile Include="PropertyEditors\NullAble\PENACustomer.cs" />
     <Compile Include="Miscellaneous\TrayIcon\TICustomer.cs" />
@@ -660,6 +662,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="WorldCreator\DynamicAssemblyMasterDetail\WC3LevelMasterDetail.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="PropertyEditors\DurationPropertyEdit\MDO_DurationPropertyEdit.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

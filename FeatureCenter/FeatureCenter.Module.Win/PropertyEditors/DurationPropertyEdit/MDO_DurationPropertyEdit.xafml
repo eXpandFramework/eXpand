@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <AdditionalViewControls>
+    <ExecutionContextsGroup>
+      <ExecutionContexts Id="DurationPropertyEdit" IsNewNode="True">
+        <ExecutionContext Name="ObjectSpaceCommited" IsNewNode="True" />
+      </ExecutionContexts>
+    </ExecutionContextsGroup>
+  </AdditionalViewControls>
+  <AdditionalViewControls>
+    <Rules>
+      <AdditionalViewControlsRule Id="DurationPropertyEdit" ExecutionContextGroup="DurationPropertyEdit" />
+    </Rules>
+  </AdditionalViewControls>
+  <Views>
+    <DetailView Id="DurationEditTestObject_DetailView">
+      <Items>
+        <PropertyEditor Id="Duration" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.DurationPropertyEditor" />
+        <PropertyEditor Id="Duration2" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.DurationPropertyEditor" />
+      </Items>
+      
+    </DetailView>
+  </Views>
+        
+</Application>

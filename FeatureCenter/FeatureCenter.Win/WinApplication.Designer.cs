@@ -97,6 +97,7 @@ namespace FeatureCenter.Win
             this.jobSchedulerJobsModule1 = new Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule();
             this.xpandTreeListEditorsModule1 = new Xpand.ExpressApp.TreeListEditors.XpandTreeListEditorsModule();
             this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
+            this.kpiModule1 = new DevExpress.ExpressApp.Kpi.KpiModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // module5
@@ -105,8 +106,8 @@ namespace FeatureCenter.Win
             // 
             // sqlConnection1
             // 
-            this.sqlConnection1.ConnectionString = "Data Source=(local);Initial Catalog=FeatureCenter;Integrated Security=SSPI;Poolin" +
-    "g=false";
+            this.sqlConnection1.ConnectionString = "Data Source=.\\sql8;Initial Catalog=FeatureCenter;Integrated Security=SSPI;Pooling" +
+                "=false";
             this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // viewVariantsModule1
@@ -173,6 +174,7 @@ namespace FeatureCenter.Win
             this.Modules.Add(this.memberLevelSecurityModule1);
             this.Modules.Add(this.jobSchedulerModule1);
             this.Modules.Add(this.jobSchedulerJobsModule1);
+            this.Modules.Add(this.kpiModule1);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.conditionalEditorStateWindowsFormsModule1);
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
@@ -282,5 +284,6 @@ namespace FeatureCenter.Win
         private Xpand.ExpressApp.TreeListEditors.XpandTreeListEditorsModule xpandTreeListEditorsModule1;
         private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
         private XpandAuthenticationStandard authenticationStandard1;
+        private DevExpress.ExpressApp.Kpi.KpiModule kpiModule1;
     }
 }
