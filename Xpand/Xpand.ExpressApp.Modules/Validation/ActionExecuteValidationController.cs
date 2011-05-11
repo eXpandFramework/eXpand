@@ -9,7 +9,10 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.Validation {
-    public class ActionExecuteValidationController : ViewController<ObjectView> {
+    public class ActionExecuteValidationController : ObjectViewController {
+        
+
+
         public event EventHandler<CustomGetAggregatedObjectsToValidateEventArgs> CustomGetAggregatedObjectsToValidate;
         public event EventHandler<NeedToValidateObjectEventArgs> NeedToValidateObject;
 
