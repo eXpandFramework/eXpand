@@ -56,9 +56,9 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         void SetMemberValue(XPBaseObject selectedObject, IClassInfoGraphNode classInfoGraphNode, XElement propertyElement) {
-            var memberValue = selectedObject.GetMemberValue(classInfoGraphNode.Name);
             var xpMemberInfo = selectedObject.ClassInfo.FindMember(classInfoGraphNode.Name);
             if (xpMemberInfo != null ) {
+                var memberValue = selectedObject.GetMemberValue(classInfoGraphNode.Name);
                 if (xpMemberInfo.Converter != null)
                     memberValue = (xpMemberInfo.Converter.ConvertToStorageType(memberValue));
                 if (memberValue is byte[])
