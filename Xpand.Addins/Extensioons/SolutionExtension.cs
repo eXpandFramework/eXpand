@@ -7,6 +7,11 @@ using Project = EnvDTE.Project;
 namespace XpandAddIns.Extensioons {
     public static class SolutionExtension {
 
+        public static Project FindProjectFromUniqueName(this Solution solution, string projectName) {
+            DevExpress.CodeRush.Core.Project single = CodeRush.Solution.AllProjects.Where(project1 => project1.UniqueName==projectName).Single();
+            return CodeRush.Solution.FindEnvDTEProject(single.Name);
+        }
+
         public static Project FindProject(this Solution solution, string projectName) {
             DevExpress.CodeRush.Core.Project single = CodeRush.Solution.AllProjects.Where(project => project.Name == projectName).Single();
             return CodeRush.Solution.FindEnvDTEProject(single.Name);

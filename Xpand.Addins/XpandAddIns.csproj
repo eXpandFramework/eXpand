@@ -137,6 +137,7 @@
     <Compile Include="Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
+    <Compile Include="OptionsStorageExtensions.cs" />
     <Compile Include="PlugIn1.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -146,6 +147,8 @@
     <Compile Include="Extensioons\ProjectExtensions.cs" />
     <Compile Include="ModelEditor\ProjectWrapper.cs" />
     <Compile Include="ModelEditor\ProjectWrapperBuilder.cs" />
+    <Compile Include="ProjectLoader.cs" />
+    <Compile Include="ProjectPathBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensioons\SolutionExtension.cs" />
     <Compile Include="Enums\SolutionProperty.cs" />
@@ -165,6 +168,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Options.resx">
       <DependentUpon>Options.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PlugIn1.resx">
       <DependentUpon>PlugIn1.cs</DependentUpon>

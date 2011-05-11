@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using DevExpress.CodeRush.Core;
 
 namespace XpandAddIns.ModelEditor {
     public class ModelEditorRunner {
@@ -10,15 +9,15 @@ namespace XpandAddIns.ModelEditor {
             string outputFileName = projectWrapper.OutPutFileName;
             if (outputFileName.ToLower().EndsWith(".exe"))
                 outputFileName += ".config";
-            using (var storage = new DecoupledStorage(typeof(Options))) {
-                string path = storage.ReadString(Options.GetPageName(), "modelEditorPath");
-                if (!String.IsNullOrEmpty(path)) {
-                    StartMEProcess(projectWrapper, outputFileName, path);
-                    return;
-                }
-                const string modeleditorpathPathIsEmpty = "ModelEditorPath path is empty";
-                MessageBox.Show(modeleditorpathPathIsEmpty);
+            
+            string path = Options.ReadString(Options.ModelEditorPath);
+            if (!String.IsNullOrEmpty(path)) {
+                StartMEProcess(projectWrapper, outputFileName, path);
+                return;
             }
+            const string modeleditorpathPathIsEmpty = "ModelEditorPath path is empty";
+            MessageBox.Show(modeleditorpathPathIsEmpty);
+            
         }
         void StartMEProcess(ProjectWrapper projectWrapper, string outputFileName, string path) {
             var fullPath = projectWrapper.FullPath;
