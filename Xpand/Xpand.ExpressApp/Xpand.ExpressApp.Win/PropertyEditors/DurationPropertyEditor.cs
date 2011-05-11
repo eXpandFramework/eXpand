@@ -7,7 +7,7 @@ using DevExpress.XtraEditors.Mask;
 using DevExpress.XtraEditors.Repository;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
-    [PropertyEditor(typeof (TimeSpan))]
+    [PropertyEditor(typeof (TimeSpan), false)]
     public class DurationPropertyEditor : DXPropertyEditor {
         public DurationPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
