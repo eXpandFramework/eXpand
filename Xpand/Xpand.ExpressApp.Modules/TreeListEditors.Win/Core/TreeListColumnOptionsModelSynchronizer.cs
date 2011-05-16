@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.TreeListEditors.Win;
 using DevExpress.XtraTreeList;
 using DevExpress.XtraTreeList.Columns;
 using Xpand.ExpressApp.ListEditors;
@@ -12,7 +13,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Core {
         }
 
         protected override object GetControl() {
-            return ((TreeList)Control).Columns.OfType<TreeListColumn>().Where(column => column.Name == Model.PropertyName).Single();
+            return ((TreeList)Control).Columns.OfType<TreeListColumn>().Where(column => ((TreeListColumnTag)column.Tag).Model.Id == Model.Id).Single();
         }
 
         protected override void ApplyModelCore() {
