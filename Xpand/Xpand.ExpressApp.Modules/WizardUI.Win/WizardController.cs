@@ -204,12 +204,22 @@ namespace Xpand.ExpressApp.WizardUI.Win
         /// <param name="e">WizardCommandButtonClick EventArgs</param>
         private void WizardControl_NextClick(object sender, WizardCommandButtonClickEventArgs e)
         {
+            e.Handled = !this.Validate(e.Page as XafWizardPage);
+        }
+
+        /// <summary>
+        /// Fires after the next button has been clicked
+        /// </summary>
+        /// <param name="sender">Wizard Control</param>
+        /// <param name="e">WizardCommandButtonClick EventArgs</param>
+        private bool Validate(XafWizardPage page)
+        {
             RuleValidationResult result;
             var validationResults = new RuleSetValidationResult();
             var usedProperties = new List<string>();
             var resultsHighlightControllers = new List<ResultsHighlightController> { Frame.GetController<ResultsHighlightController>() };
 
-            foreach (var item in ((XafWizardPage)e.Page).View.GetItems<PropertyEditor>())
+            foreach (var item in page.View.GetItems<PropertyEditor>())
             {
                 if (item.Control != null && ((Control)item.Control).Visible)
                 {
@@ -227,7 +237,8 @@ namespace Xpand.ExpressApp.WizardUI.Win
                 }
             }
 
-            foreach (var obj in ObjectSpace.ModifiedObjects)
+            var modifiedObjects = page.View.ObjectTypeInfo.IsPersistent ? ObjectSpace.ModifiedObjects : new List<object>() { page.View.CurrentObject };
+            foreach (var obj in modifiedObjects)
             {
                 IList<IRule> rules = Validator.RuleSet.GetRules(obj, ContextIdentifier.Save);
                 foreach (IRule rule in rules)
@@ -256,10 +267,7 @@ namespace Xpand.ExpressApp.WizardUI.Win
                 }
             }
 
-            if (validationResults.State == ValidationState.Invalid)
-            {
-                e.Handled = true;
-            }
+            return validationResults.State == ValidationState.Valid;
         }
 
         /// <summary>
@@ -269,6 +277,12 @@ namespace Xpand.ExpressApp.WizardUI.Win
         /// <param name="e">Cancel EventArgs</param>
         private void WizardControl_FinishClick(object sender, CancelEventArgs e)
         {
+            if (!View.ObjectTypeInfo.IsPersistent && !Validate(_WizardForm.WizardControl.SelectedPage as XafWizardPage))
+            {
+                e.Cancel = true;
+                return;
+            }
+
             UpdateControllers(View);
             var currentObject = View.CurrentObject;
             var controller = Frame.GetController<DetailViewController>();
