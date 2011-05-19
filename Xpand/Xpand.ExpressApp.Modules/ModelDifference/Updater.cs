@@ -13,7 +13,7 @@ using Xpand.Utils.GeneralDataStructures;
 
 namespace Xpand.ExpressApp.ModelDifference {
     public class Updater : ModuleUpdater {
-        public Updater(ObjectSpace objectSpace, Version currentDBVersion)
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {
         }
 
@@ -27,7 +27,7 @@ namespace Xpand.ExpressApp.ModelDifference {
                     }
                 }
 
-                using (var uow = new UnitOfWork(ObjectSpace.Session.DataLayer)) {
+                using (var uow = new UnitOfWork(((ObjectSpace)ObjectSpace).Session.DataLayer)) {
                     foreach (var differenceObject in differenceObjects) {
                         var modelDifferenceObject = uow.GetObjectByKey<ModelDifferenceObject>(differenceObject.Key);
                         var serializableDictionary = new SerializableDictionary<string, string>();

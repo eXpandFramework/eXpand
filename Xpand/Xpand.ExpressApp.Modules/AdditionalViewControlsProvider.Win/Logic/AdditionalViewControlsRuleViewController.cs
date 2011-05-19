@@ -48,7 +48,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
 
 
         void OnItemCreated(object sender, ItemCreatedEventArgs itemCreatedEventArgs) {
-            FillInfoToLayoutMap(itemCreatedEventArgs.DetailViewItem, itemCreatedEventArgs.ModelLayoutElement, itemCreatedEventArgs.Item);
+            FillInfoToLayoutMap(itemCreatedEventArgs.ViewItem, itemCreatedEventArgs.ModelLayoutElement, itemCreatedEventArgs.Item);
         }
 
         void FrameOnViewChanged(object sender, ViewChangedEventArgs viewChangedEventArgs) {

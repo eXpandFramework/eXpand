@@ -81,7 +81,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             View.Closing += ViewOnClosing;
             CurrentObject.Changed += CurrentObjectOnChanged;
             _objectSpace.Committing +=ObjectSpaceOnCommitting;
-            var modelEditorControl = new ModelEditorControl(new SettingsStorageOnDictionary());
+            var modelEditorControl = new ModelEditorControl(new NullSettingsStorage());
             return modelEditorControl;
         }
 

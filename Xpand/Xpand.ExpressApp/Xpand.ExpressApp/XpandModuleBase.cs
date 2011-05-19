@@ -13,13 +13,9 @@ namespace Xpand.ExpressApp {
     public class XpandModuleBase : ModuleBase {
         public static string ManifestModuleName;
         static readonly object _lockObject = new object();
-        static IValueManager<ModelApplicationCreatorProperties> _instanceModelApplicationCreatorPropertiesManager;
         static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
         public static object Control;
 
-        public static ModelApplicationCreatorProperties ModelApplicationCreatorProperties {
-            get { return _instanceModelApplicationCreatorPropertiesManager.Value; }
-        }
         public static ModelApplicationCreator ModelApplicationCreator {
             get {
                 return _instanceModelApplicationCreatorManager != null ? _instanceModelApplicationCreatorManager.Value : null;
@@ -65,15 +61,6 @@ namespace Xpand.ExpressApp {
             return businessClassesList;
         }
 
-        protected override void CustomizeModelApplicationCreatorProperties(ModelApplicationCreatorProperties creatorProperties) {
-            base.CustomizeModelApplicationCreatorProperties(creatorProperties);
-            lock (_lockObject) {
-                if (_instanceModelApplicationCreatorPropertiesManager == null)
-                    _instanceModelApplicationCreatorPropertiesManager = ValueManager.CreateValueManager<ModelApplicationCreatorProperties>();
-                if (_instanceModelApplicationCreatorPropertiesManager.Value == null || _instanceModelApplicationCreatorPropertiesManager.Value != creatorProperties)
-                    _instanceModelApplicationCreatorPropertiesManager.Value = creatorProperties;
-            }
-        }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             OnApplicationInitialized(Application);
@@ -105,16 +92,11 @@ namespace Xpand.ExpressApp {
 
         public static void ReStoreManagers() {
             _instanceModelApplicationCreatorManager.Value = (ModelApplicationCreator)_storeManagers[1];
-            _instanceModelApplicationCreatorPropertiesManager.Value = (ModelApplicationCreatorProperties)_storeManagers[0];
         }
 
 
         public static void DisposeManagers() {
             _storeManagers = new List<object>();
-            if (_instanceModelApplicationCreatorPropertiesManager != null) {
-                _storeManagers.Add(_instanceModelApplicationCreatorPropertiesManager.Value);
-                _instanceModelApplicationCreatorPropertiesManager.Value = null;
-            }
             if (_instanceModelApplicationCreatorManager != null) {
                 _storeManagers.Add(_instanceModelApplicationCreatorManager.Value);
                 _instanceModelApplicationCreatorManager.Value = null;

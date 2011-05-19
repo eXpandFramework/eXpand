@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Editors;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Editors;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Editors {
-    [DetailViewItem(typeof(IModelAdditionalViewControlsItem))]
+    [ViewItem(typeof(IModelAdditionalViewControlsItem))]
     public class AdditionalViewControlsItem : AdditionalViewControlsProvider.Editors.AdditionalViewControlsItem {
 
         public AdditionalViewControlsItem(Type objectType, string id)

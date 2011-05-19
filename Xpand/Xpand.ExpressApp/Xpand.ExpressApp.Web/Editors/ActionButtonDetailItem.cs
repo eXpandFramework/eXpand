@@ -5,7 +5,7 @@ using DevExpress.Web.ASPxEditors;
 using Xpand.ExpressApp.Editors;
 
 namespace Xpand.ExpressApp.Web.Editors {
-    [DetailViewItem(typeof(IModelActionButton))]
+    [ViewItem(typeof(IModelActionButton))]
     public class ActionButtonDetailItem : ExpressApp.Editors.ActionButtonDetailItem {
         public ActionButtonDetailItem(Type objectType, string id)
             : base(objectType, id) {

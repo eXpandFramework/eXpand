@@ -6,7 +6,7 @@ namespace Xpand.ExpressApp.PivotChart {
 
 
     public class Updater : ModuleUpdater {
-        public Updater(ObjectSpace objectSpace, Version currentDBVersion)
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {
         }
 

@@ -6,7 +6,7 @@ using Xpand.ExpressApp.Editors;
 
 namespace Xpand.ExpressApp.Win.Editors
 {
-    [DetailViewItem(typeof(IModelActionButton))]
+    [ViewItem(typeof(IModelActionButton))]
     public class ActionButtonDetailItem : ExpressApp.Editors.ActionButtonDetailItem
     {
         public ActionButtonDetailItem(Type objectType, string id)

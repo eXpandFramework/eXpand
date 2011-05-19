@@ -1,5 +1,4 @@
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Validation;
 using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 using Xpand.Persistent.Base.Validation.FromIPropertyValueValidator;
@@ -13,10 +12,12 @@ namespace Xpand.ExpressApp.Validation
             InitializeComponent();
         }
 
-        protected override void CustomizeModelApplicationCreatorProperties(ModelApplicationCreatorProperties creatorProperties) {
-            base.CustomizeModelApplicationCreatorProperties(creatorProperties);
-            creatorProperties.RegisterObject(typeof(IModelRuleBase), typeof(RuleRequiredForAtLeast1Property), typeof(IRuleRequiredForAtLeast1PropertyProperties));
-            creatorProperties.RegisterObject(typeof(IModelRuleBase), typeof(RuleFromIPropertyValueValidator), typeof(IRuleFromIPropertyValueValidatorProperties));
+        public override void Setup(ApplicationModulesManager moduleManager)
+        {
+            base.Setup(moduleManager);
+            var registrator = new ValidationRulesRegistrator(moduleManager);
+            registrator.RegisterRule(typeof(RuleRequiredForAtLeast1Property), typeof(IRuleRequiredForAtLeast1PropertyProperties));
+            registrator.RegisterRule(typeof(RuleFromIPropertyValueValidator), typeof(IRuleFromIPropertyValueValidatorProperties));
         }
     }
 }

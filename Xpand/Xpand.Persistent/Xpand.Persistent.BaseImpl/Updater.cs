@@ -13,9 +13,11 @@ namespace Xpand.Persistent.BaseImpl {
         public const string UserRole = "UserRole";
         public const string Admin = "Admin";
 
-
-        protected Updater(ObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) {
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
+            : base(objectSpace, currentDBVersion)
+        {   
         }
+         
 
         protected virtual List<IPermission> GetPermissions(ICustomizableRole role) {
             var permissions = new List<IPermission>();
@@ -40,7 +42,7 @@ namespace Xpand.Persistent.BaseImpl {
 
         protected virtual IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole role,Type userType) {
             var type = userType;
-            var user = (IUserWithRoles)ObjectSpace.Session.FindObject(type, new BinaryOperator("UserName", userName));
+            var user = (IUserWithRoles)((ObjectSpace)ObjectSpace).Session.FindObject(type, new BinaryOperator("UserName", userName));
             if (user == null) {
                 user = (IUserWithRoles)ObjectSpace.CreateObject(type);
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(type);
@@ -57,7 +59,7 @@ namespace Xpand.Persistent.BaseImpl {
         }
 
         protected virtual ICustomizableRole EnsureRoleExists(string roleName, Func<ICustomizableRole, List<IPermission>> permissionAddFunc) {
-            var role = (ICustomizableRole)ObjectSpace.Session.FindObject(((ISecurityComplex)SecuritySystem.Instance).RoleType, new BinaryOperator("Name", roleName));
+            var role = (ICustomizableRole)((ObjectSpace)ObjectSpace).Session.FindObject(((ISecurityComplex)SecuritySystem.Instance).RoleType, new BinaryOperator("Name", roleName));
             if (role == null) {
                 role = (ICustomizableRole)ObjectSpace.CreateObject(((ISecurityComplex)SecuritySystem.Instance).RoleType);
                 role.Name = roleName;

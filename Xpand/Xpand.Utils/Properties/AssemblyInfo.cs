@@ -37,6 +37,8 @@ using Xpand;
 [assembly: AssemblyFileVersion(AssemblyInfo.Version)]
 namespace Xpand {
     public class AssemblyInfo {
-        public const string Version = "10.2.8.0";
+        public const string Version = "11.1.2.0";
+
+
     }
 }

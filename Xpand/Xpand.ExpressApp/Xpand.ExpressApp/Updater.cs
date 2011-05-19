@@ -8,9 +8,11 @@ using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp {
     public class Updater : ModuleUpdater {
-        public Updater(ObjectSpace objectSpace, Version currentDBVersion)
-            : base(objectSpace, currentDBVersion) {
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
+            : base(objectSpace, currentDBVersion)
+        {
         }
+         
         public override void UpdateDatabaseBeforeUpdateSchema() {
             base.UpdateDatabaseBeforeUpdateSchema();
             if (CurrentDBVersion < new Version(10, 1, 6)) {
@@ -39,9 +41,9 @@ namespace Xpand.ExpressApp {
                     Type baseType = typeof(SimpleDataLayer).BaseType;
                     if (baseType != null) {
                         var method = baseType.GetMethod("ClearStaticData", BindingFlags.Instance | BindingFlags.NonPublic);
-                        var datalayer = ObjectSpace.Session.DataLayer;
+                        var datalayer = ((ObjectSpace)ObjectSpace).Session.DataLayer;
                         method.Invoke(datalayer, null);
-                        var session = ObjectSpace.Session;
+                        var session = ((ObjectSpace)ObjectSpace).Session;
                         method.Invoke(session.DataLayer, null);
                         session.DropIdentityMap();
                     }

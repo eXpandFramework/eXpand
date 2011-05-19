@@ -160,7 +160,7 @@ namespace Xpand.ExpressApp.ViewVariants {
         }
 
         IModelListView GetClonedView(string caption) {
-            var clonedView = (IModelListView)(((ModelNode)View.Model.Parent)).CloneNodeFrom((ModelNode)View.Model, caption);
+            var clonedView = ((ModelNode)View.Model).Clone(caption) as IModelListView;
             var modelViewVariants = ((IModelViewVariants)clonedView);
             modelViewVariants.Variants.Current = null;
             modelViewVariants.Variants.Clear();
