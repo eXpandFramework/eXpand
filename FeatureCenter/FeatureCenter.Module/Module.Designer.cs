@@ -1,6 +1,7 @@
 using DevExpress.ExpressApp.Kpi;
 using DevExpress.ExpressApp.ScriptRecorder;
 using Xpand.ExpressApp.ConditionalDetailViews;
+using Xpand.ExpressApp.ImportWiz;
 using Xpand.ExpressApp.JobScheduler;
 using Xpand.ExpressApp.MemberLevelSecurity;
 using Xpand.ExpressApp.WorldCreator.SqlDBMapper;
@@ -65,6 +66,7 @@ namespace FeatureCenter.Module {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.JobSchedulerModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule));
             this.RequiredModuleTypes.Add(typeof(KpiModule));
+            this.RequiredModuleTypes.Add(typeof(ImportWizModule));
         }
 
         #endregion
