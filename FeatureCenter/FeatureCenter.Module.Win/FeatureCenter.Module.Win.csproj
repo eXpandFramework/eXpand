@@ -249,6 +249,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.Win.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.ImportWiz.Win, Version=10.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="Xpand.ExpressApp.IO, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.IO.dll</HintPath>
@@ -398,6 +399,9 @@
     <Compile Include="ImportExport\DynamicAssemblyMasterDetail\AttributeRegistrator.cs" />
     <Compile Include="ImportExport\DynamicAssemblyMasterDetail\Updater.cs" />
     <Compile Include="ImportExport\DynamicAssemblyMasterDetail\WorldCreatorUpdater.cs" />
+    <Compile Include="ImportExport\ImportWizard\AttributeRegistrator.cs" />
+    <Compile Include="ImportExport\ImportWizard\TestGroupObject.cs" />
+    <Compile Include="ImportExport\ImportWizard\TestImportObject.cs" />
     <Compile Include="ListViewControl\LoadWhenFiltered\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -665,7 +669,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="ImportExport\ImportWizard\MDO_ImportWizard.xafml" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PropertyEditors\DurationPropertyEdit\MDO_DurationPropertyEdit.xafml">
       <SubType>Designer</SubType>
