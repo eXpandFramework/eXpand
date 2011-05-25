@@ -382,13 +382,13 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             PrieviewRowCountSpinEdit.Enabled = ((CheckEdit)sender).Checked;
             _Sheet.ColumnHeaderRow = ((CheckEdit)sender).Checked
                                          ?
-                                             (int?)HeaderRowSpinEdit.Value
-                                         : null;
+                                            decimal.ToInt32(HeaderRowSpinEdit.Value)
+                                         : (int?) null;
             _Sheet.PreviewRowCount = ((CheckEdit)sender).Checked
                                          ?
-                                             (int?)PrieviewRowCountSpinEdit.Value
+                                             decimal.ToInt32(PrieviewRowCountSpinEdit.Value)
                                          :
-                                             null;
+                                             (int?) null;
             AssignDataSource();
 
         }
@@ -399,7 +399,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void HeaderRowSpinEdit_EditValueChanged(object sender, EventArgs e) {
-            _Sheet.ColumnHeaderRow = (int)((SpinEdit)sender).EditValue;
+            _Sheet.ColumnHeaderRow = decimal.ToInt32(((SpinEdit)sender).Value);
             AssignDataSource();
         }
 
@@ -458,7 +458,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         }
 
         private void PrieviewRowCountSpinEdit_EditValueChanged(object sender, EventArgs e) {
-            _Sheet.PreviewRowCount = (int)((SpinEdit)sender).EditValue;
+            _Sheet.PreviewRowCount = decimal.ToInt32(((SpinEdit)sender).Value);
             AssignDataSource();
         }
 
@@ -590,7 +590,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
             var rowCount = Sheet.Rows().Count();
             if (Sheet.ColumnHeaderRow != null)
-                rowCount = (int)(rowCount - Sheet.ColumnHeaderRow);
+                rowCount = (int) (rowCount - Sheet.ColumnHeaderRow);
 
             _FrmProgress = new ProgressForm("Import excell rows progress...", rowCount, "Processing record {0} of {1} ");
             _FrmProgress.CancelClick += FrmProgressCancelClick;
