@@ -26,6 +26,7 @@ namespace Xpand.ExpressApp.SystemModule {
             IEnumerable<DynamicModelType> dynamicModelTypes = GetDynamicModelTypes().ToList();
             foreach (var dynamicModelType in dynamicModelTypes) {
                 extenders.Add(dynamicModelType.BaseTypeCore, dynamicModelType);
+                extenders.Add(dynamicModelType.BaseTypeCore, dynamicModelType);
             }
         }
 

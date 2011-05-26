@@ -71,8 +71,8 @@ namespace Xpand.ExpressApp.Core.DynamicModel {
 
         public override string FullName {
             get {
-                string s = (BaseTypeCore.FullName + "");
-                return s.Remove(s.Length - BaseTypeCore.Name.Length) + Name;
+                string fullName = BaseTypeCore.FullName + "";
+                return fullName.Remove(fullName.Length - BaseTypeCore.Name.Length) + Name;
             }
         }
 

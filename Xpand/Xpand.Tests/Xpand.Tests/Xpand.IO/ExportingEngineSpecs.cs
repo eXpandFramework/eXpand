@@ -31,7 +31,7 @@ using ObjectSpaceProvider = DevExpress.ExpressApp.ObjectSpaceProvider;
 
 namespace Xpand.Tests.Xpand.IO {
     [Subject(typeof(ExportEngine))]
-    public class When_Exporting_1_Customer_with_1_ref_User_2_Orders_and_user_not_serialized : With_Customer_Orders {
+    public class When_Exporting_1_Customer_with_1_ref_User_2_Orders_and_user_not_serialized : With_Customer_Orders {o 11
         private const int GcRecord = 1;
         static SerializationConfiguration _serializationConfiguration;
         static XPBaseObject _order2;
