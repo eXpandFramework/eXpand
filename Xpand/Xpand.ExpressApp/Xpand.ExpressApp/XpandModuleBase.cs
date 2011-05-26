@@ -91,7 +91,7 @@ namespace Xpand.ExpressApp {
         }
 
         public static void ReStoreManagers() {
-            _instanceModelApplicationCreatorManager.Value = (ModelApplicationCreator)_storeManagers[1];
+            _instanceModelApplicationCreatorManager.Value = (ModelApplicationCreator)_storeManagers[0];
         }
 
 

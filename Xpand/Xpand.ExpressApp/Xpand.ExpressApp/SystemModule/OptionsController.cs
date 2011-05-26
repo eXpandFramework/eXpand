@@ -19,15 +19,13 @@ namespace Xpand.ExpressApp.SystemModule {
 
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            foreach (var modelExtenderPair in GetModelExtenderPairs())
-            {
+            foreach (var modelExtenderPair in GetModelExtenderPairs()) {
                 extenders.Add(modelExtenderPair.InterfaceType, modelExtenderPair.ExtenderType);
             }
-            
+
             IEnumerable<DynamicModelType> dynamicModelTypes = GetDynamicModelTypes().ToList();
-            foreach (var dynamicModelType in dynamicModelTypes)
-            {
-                extenders.Add(dynamicModelType.BaseType, dynamicModelType);
+            foreach (var dynamicModelType in dynamicModelTypes) {
+                extenders.Add(dynamicModelType.BaseTypeCore, dynamicModelType);
             }
         }
 

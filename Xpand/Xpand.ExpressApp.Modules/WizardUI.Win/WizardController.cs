@@ -159,22 +159,23 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                 if (wizardPage.View != null) {
                     wizardPage.View.SynchronizeInfo();
                     wizardPage.View.Dispose();
+                    OnWizardPageDetailViewCreating();
+                    wizardPage.View = Application.CreateDetailView(ObjectSpace, wizardPage.View.Id, false);
+                    OnWizardPageDetailViewCreated();
+                    wizardPage.View.CurrentObject = View.CurrentObject;
+
+                    wizardPage.View.ErrorMessages.Clear();
+                    ((Control)((IViewSiteTemplate)Frame.Template).ViewSiteControl).Parent = page;
+
+                    UpdateControllers(wizardPage.View);
+
+                    Frame.Template.SetView(wizardPage.View);
+                    if (!View.ErrorMessages.IsEmpty) {
+                        wizardPage.View.ErrorMessages.LoadMessages(View.ErrorMessages);
+                    }
                 }
 
-                OnWizardPageDetailViewCreating();
-                wizardPage.View = Application.CreateDetailView(ObjectSpace, wizardPage.View.Id, false);
-                OnWizardPageDetailViewCreated();
-                wizardPage.View.CurrentObject = View.CurrentObject;
-
-                wizardPage.View.ErrorMessages.Clear();
-                ((Control)((IViewSiteTemplate)Frame.Template).ViewSiteControl).Parent = page;
-
-                UpdateControllers(wizardPage.View);
-
-                Frame.Template.SetView(wizardPage.View);
-                if (!View.ErrorMessages.IsEmpty) {
-                    wizardPage.View.ErrorMessages.LoadMessages(View.ErrorMessages);
-                }
+                
             }
         }
 

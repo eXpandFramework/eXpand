@@ -56,31 +56,35 @@ namespace Xpand.ExpressApp.Core.DynamicModel {
         }
 
         public override Type BaseType {
+            get { return null; }
+        }
+
+        public Type BaseTypeCore {
             get { return baseTypeCore; }
         }
 
         public override Assembly Assembly {
-            get { return BaseType.Assembly; }
+            get { return BaseTypeCore.Assembly; }
         }
 
         public override string AssemblyQualifiedName {
-            get { return BaseType.AssemblyQualifiedName; }
+            get { return BaseTypeCore.AssemblyQualifiedName; }
         }
 
         public override string FullName {
-            get { return BaseType.FullName.Remove(BaseType.FullName.Length - BaseType.Name.Length) + Name; }
+            get { return BaseTypeCore.FullName.Remove(BaseTypeCore.FullName.Length - BaseTypeCore.Name.Length) + Name; }
         }
 
         public override Module Module {
-            get { return BaseType.Module; }
+            get { return BaseTypeCore.Module; }
         }
 
         public override string Namespace {
-            get { return BaseType.Namespace; }
+            get { return BaseTypeCore.Namespace; }
         }
 
         public override Type UnderlyingSystemType {
-            get { return BaseType.UnderlyingSystemType; }
+            get { return BaseTypeCore.UnderlyingSystemType; }
         }
 
         void AfterInitSource() {
@@ -132,12 +136,12 @@ namespace Xpand.ExpressApp.Core.DynamicModel {
         public override bool Equals(object obj) {
             var type = obj as DynamicModelType;
             if (type != null)
-                return type.Name == Name && type.BaseType == BaseType && type.Assembly == Assembly;
+                return type.Name == Name && type.BaseTypeCore == BaseTypeCore && type.Assembly == Assembly;
             return base.Equals(obj);
         }
 
         public override int GetHashCode() {
-            return Name.GetHashCode() ^ BaseType.GetHashCode() ^ Assembly.GetHashCode();
+            return Name.GetHashCode() ^ BaseTypeCore.GetHashCode() ^ Assembly.GetHashCode();
         }
 
         protected override TypeAttributes GetAttributeFlagsImpl() {
@@ -151,31 +155,31 @@ namespace Xpand.ExpressApp.Core.DynamicModel {
         }
 
         public override ConstructorInfo[] GetConstructors(BindingFlags bindingAttr) {
-            return BaseType.GetConstructors(bindingAttr);
+            return BaseTypeCore.GetConstructors(bindingAttr);
         }
 
         public override Type GetElementType() {
-            return BaseType.GetElementType();
+            return BaseTypeCore.GetElementType();
         }
 
         public override EventInfo GetEvent(string name, BindingFlags bindingAttr) {
-            return BaseType.GetEvent(name, bindingAttr);
+            return BaseTypeCore.GetEvent(name, bindingAttr);
         }
 
         public override EventInfo[] GetEvents(BindingFlags bindingAttr) {
-            return BaseType.GetEvents(bindingAttr);
+            return BaseTypeCore.GetEvents(bindingAttr);
         }
 
         public override FieldInfo GetField(string name, BindingFlags bindingAttr) {
-            return BaseType.GetField(name, bindingAttr);
+            return BaseTypeCore.GetField(name, bindingAttr);
         }
 
         public override FieldInfo[] GetFields(BindingFlags bindingAttr) {
-            return BaseType.GetFields(bindingAttr);
+            return BaseTypeCore.GetFields(bindingAttr);
         }
 
         public override MemberInfo[] GetMembers(BindingFlags bindingAttr) {
-            return BaseType.GetMembers(bindingAttr);
+            return BaseTypeCore.GetMembers(bindingAttr);
         }
 
         protected override MethodInfo GetMethodImpl(string name, BindingFlags bindingAttr, Binder binder,
@@ -185,7 +189,7 @@ namespace Xpand.ExpressApp.Core.DynamicModel {
         }
 
         public override MethodInfo[] GetMethods(BindingFlags bindingAttr) {
-            return BaseType.GetMethods(bindingAttr);
+            return BaseTypeCore.GetMethods(bindingAttr);
         }
 
         public override Type GetNestedType(string name, BindingFlags bindingAttr) {
@@ -245,11 +249,11 @@ namespace Xpand.ExpressApp.Core.DynamicModel {
         }
 
         public override Type GetInterface(string name, bool ignoreCase) {
-            return BaseType.GetInterface(name, ignoreCase);
+            return BaseTypeCore.GetInterface(name, ignoreCase);
         }
 
         public override Type[] GetInterfaces() {
-            return BaseType.GetInterfaces();
+            return BaseTypeCore.GetInterfaces();
         }
     }
 }
