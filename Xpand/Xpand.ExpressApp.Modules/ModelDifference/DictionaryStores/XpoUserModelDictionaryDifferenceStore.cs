@@ -29,16 +29,18 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         protected internal IQueryable<ModelDifferenceObject> GetActiveDifferenceObjects() {
-            var allLayers =
-                new List<ModelDifferenceObject>(new QueryRoleModelDifferenceObject(ObjectSpace.Session)
-                    .GetActiveModelDifferences(Application.GetType().FullName, null).Cast<ModelDifferenceObject>());
+            return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName, null).Cast<ModelDifferenceObject>();
+        }
 
-            allLayers.AddRange(new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName, null).Cast<ModelDifferenceObject>());
-            return allLayers.AsQueryable();
+        protected internal IQueryable<ModelDifferenceObject> GetActiveRoleDifferenceObjects() {
+            return new QueryRoleModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName, null).Cast<ModelDifferenceObject>();
         }
 
         public override void Load(ModelApplicationBase model) {
             base.Load(model);
+
+            foreach (var roleModel in this.GetActiveRoleDifferenceObjects())
+                roleModel.GetModel(base.Application.Model as ModelApplicationBase);
 
             var modelDifferenceObjects = GetActiveDifferenceObjects().ToList();
             if (modelDifferenceObjects.Count() == 0) {
