@@ -156,6 +156,11 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         private void UpdateCurrentView(BaseWizardPage page) {
             if (page is XafWizardPage) {
                 var wizardPage = page as XafWizardPage;
+                if (wizardPage.View != null) {
+                    wizardPage.View.SynchronizeInfo();
+                    wizardPage.View.Dispose();
+                }
+
                 OnWizardPageDetailViewCreating();
                 wizardPage.View = Application.CreateDetailView(ObjectSpace, wizardPage.View.Id, false);
                 OnWizardPageDetailViewCreated();
