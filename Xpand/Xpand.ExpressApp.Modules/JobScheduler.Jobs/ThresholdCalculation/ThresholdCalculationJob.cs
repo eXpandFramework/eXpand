@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation {
     [JobDetailDataMapType(typeof(ThresholdJobDetailDataMap))]
     public class ThresholdCalculationJob : IJob {
         public const string ThresholdCalcCount = "ThresholdCalcCount";
-        
+
         readonly ILog log = LogManager.GetLogger(typeof(ThresholdCalculationJob));
         public void Execute(IJobExecutionContext context) {
             log.Info("EXECUTING:ThresholdCalculationJob");

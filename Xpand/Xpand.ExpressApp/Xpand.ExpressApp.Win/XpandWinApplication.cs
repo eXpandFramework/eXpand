@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.Win {
             DetailViewCreating += OnDetailViewCreating;
             ListViewCreating += OnListViewCreating;
             ListViewCreated += OnListViewCreated;
-            if (_application==null)
+            if (_application == null)
                 _application = this;
         }
 
@@ -40,7 +40,7 @@ namespace Xpand.ExpressApp.Win {
         }
 
         public new void WriteLastLogonParameters(DetailView view, object logonObject) {
-            base.WriteLastLogonParameters(view, logonObject) ;
+            base.WriteLastLogonParameters(view, logonObject);
         }
 
         protected override LogonController CreateLogonController() {
