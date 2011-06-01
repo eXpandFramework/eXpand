@@ -126,6 +126,7 @@
     <Compile Include="Extensioons\ConfiguartionExtensions.cs" />
     <Compile Include="Enums\ConfigurationProperty.cs" />
     <Compile Include="Enums\ProjectProperty.cs" />
+    <Compile Include="Extensioons\DteExtensions.cs" />
     <Compile Include="Extensioons\ElementExtensions.cs" />
     <Compile Include="Extensioons\ProjectItemExtensions.cs" />
     <Compile Include="Extensioons\PropertyExtensions.cs" />

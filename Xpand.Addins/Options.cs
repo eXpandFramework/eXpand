@@ -76,6 +76,9 @@ namespace XpandAddIns {
             public string RootPath { get; set; }
             public string ProjectRegex { get; set; }
             public int Count { get; set; }
+            public override string ToString() {
+                return "RootPath:"+RootPath+" ProjectRegex="+ProjectRegex+" Count="+Count;
+            }
         }
         public class ConnectionString {
             public string Name { get; set; }
@@ -135,15 +138,15 @@ namespace XpandAddIns {
             var gridView = ((GridView) gridControl2.MainView);
             for (int i = 0; i < gridView.RowCount; i++) {
                 var codeInfo = (SourceCodeInfo) gridView.GetRow(i);
-                StoreProjectPaths(codeInfo);
+                StoreProjectPaths(codeInfo,i);
             }
             gridControl2.RefreshDataSource();
         }
-        void StoreProjectPaths(SourceCodeInfo sourceCodeInfo) {
+        void StoreProjectPaths(SourceCodeInfo sourceCodeInfo,int index) {
             var projectPaths = Directory.GetFiles(sourceCodeInfo.RootPath, "*.csproj", SearchOption.AllDirectories).Where(s => Regex.IsMatch(s, sourceCodeInfo.ProjectRegex));
             IEnumerable<string> paths = projectPaths.Select(s1 => s1+"|"+GetOutPutPath(s1));
             sourceCodeInfo.Count = paths.Count();
-            Storage.WriteStrings(ProjectPaths, sourceCodeInfo.ProjectRegex, paths.ToArray());
+            Storage.WriteStrings(ProjectPaths, index+"_"+sourceCodeInfo.ProjectRegex, paths.ToArray());
         }
 
         string GetOutPutPath(string projectPath) {

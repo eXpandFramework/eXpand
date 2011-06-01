@@ -39,14 +39,16 @@ namespace XpandAddIns
             this.events = new DevExpress.DXCore.PlugInCore.DXCoreEvents(this.components);
             this.dropDataBase = new DevExpress.CodeRush.Core.Action(this.components);
             this.actionHint1 = new DevExpress.CodeRush.PlugInCore.ActionHint(this.components);
-            this.loadProjects = new DevExpress.CodeRush.Core.Action(this.components);
+            this.loadProjectFromReferenceItem = new DevExpress.CodeRush.Core.Action(this.components);
+            this.loadProjectFromObjectBrowser = new DevExpress.CodeRush.Core.Action(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dropDataBase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.actionHint1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.loadProjects)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loadProjectFromReferenceItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loadProjectFromObjectBrowser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // convertProject
@@ -106,25 +108,39 @@ namespace XpandAddIns
             this.actionHint1.ResetDisplayCountOnStartup = true;
             this.actionHint1.Text = "DataBase Dropped !!!";
             // 
-            // loadProjects
+            // loadProjectFromReferenceItem
             // 
-            this.loadProjects.ActionName = "loadProjects";
-            this.loadProjects.ButtonText = "Load Project/s";
-            this.loadProjects.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
-            this.loadProjects.Image = ((System.Drawing.Bitmap)(resources.GetObject("loadProjects.Image")));
-            this.loadProjects.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
-            this.loadProjects.ParentMenu = "Reference Item";
-            this.loadProjects.ToolbarItem.ButtonIsPressed = false;
-            this.loadProjects.ToolbarItem.Caption = null;
-            this.loadProjects.ToolbarItem.Image = null;
-            this.loadProjects.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.loadProjects_Execute);
+            this.loadProjectFromReferenceItem.ActionName = "loadProjectFromReferenceItem";
+            this.loadProjectFromReferenceItem.ButtonText = "Load Project/s";
+            this.loadProjectFromReferenceItem.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+            this.loadProjectFromReferenceItem.Image = ((System.Drawing.Bitmap)(resources.GetObject("loadProjectFromReferenceItem.Image")));
+            this.loadProjectFromReferenceItem.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+            this.loadProjectFromReferenceItem.ParentMenu = "Reference Item";
+            this.loadProjectFromReferenceItem.ToolbarItem.ButtonIsPressed = false;
+            this.loadProjectFromReferenceItem.ToolbarItem.Caption = null;
+            this.loadProjectFromReferenceItem.ToolbarItem.Image = null;
+            this.loadProjectFromReferenceItem.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.loadProjects_Execute);
+            // 
+            // loadProjectFromObjectBrowser
+            // 
+            this.loadProjectFromObjectBrowser.ActionName = "loadProjectFromObjectBrowser";
+            this.loadProjectFromObjectBrowser.ButtonText = "Load Project/s";
+            this.loadProjectFromObjectBrowser.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+            this.loadProjectFromObjectBrowser.Image = ((System.Drawing.Bitmap)(resources.GetObject("loadProjectFromObjectBrowser.Image")));
+            this.loadProjectFromObjectBrowser.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+            this.loadProjectFromObjectBrowser.ParentMenu = "Object Browser Objects Pane1";
+            this.loadProjectFromObjectBrowser.ToolbarItem.ButtonIsPressed = false;
+            this.loadProjectFromObjectBrowser.ToolbarItem.Caption = null;
+            this.loadProjectFromObjectBrowser.ToolbarItem.Image = null;
+            this.loadProjectFromObjectBrowser.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.loadProjects_Execute);
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dropDataBase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.actionHint1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.loadProjects)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loadProjectFromReferenceItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loadProjectFromObjectBrowser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -137,6 +153,7 @@ namespace XpandAddIns
         private DevExpress.DXCore.PlugInCore.DXCoreEvents events;
         private DevExpress.CodeRush.Core.Action dropDataBase;
         private DevExpress.CodeRush.PlugInCore.ActionHint actionHint1;
-        private DevExpress.CodeRush.Core.Action loadProjects;
+        private DevExpress.CodeRush.Core.Action loadProjectFromReferenceItem;
+        private DevExpress.CodeRush.Core.Action loadProjectFromObjectBrowser;
     }
 }

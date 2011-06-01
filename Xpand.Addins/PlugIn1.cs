@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
+using DevExpress.CodeRush.Diagnostics.Commands;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
 using DevExpress.DXCore.Controls.Xpo;
@@ -146,11 +147,19 @@ namespace XpandAddIns {
         }
 
         private void loadProjects_Execute(ExecuteEventArgs ea) {
+            string constants = Constants.vsext_wk_SProjectWindow;
+            if (ea.Action.ParentMenu=="Object Browser Objects Pane")
+                constants = Constants.vsWindowKindObjectBrowser;
             ProjectElement activeProject = CodeRush.Source.ActiveProject;
             if (activeProject != null) {
                 var projectLoader = new ProjectLoader();
-                var assemblyReferences = activeProject.AssemblyReferences.OfType<AssemblyReference>();
-                projectLoader.Load(assemblyReferences);
+                var selectedAssemblyReferences = activeProject.GetSelectedAssemblyReferences(constants);
+                projectLoader.Load(selectedAssemblyReferences, constants);
+            }
+            else {
+                actionHint1.Text = "Active project not found. Please open a code file";
+                Rectangle rectangle = Screen.PrimaryScreen.Bounds;
+                actionHint1.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
             }
         }
 
@@ -164,6 +173,9 @@ namespace XpandAddIns {
                         string outputPath = dteProject.FindOutputPath();
                         if (File.Exists(outputPath))
                             Process.Start("gacutil.exe", "/i " + @"""" + outputPath + @""" /f");
+                    }
+                    else {
+                        Log.Send("GagUtl Project Not Found:",dteProject.FileName);
                     }
                 }
             }
@@ -179,7 +191,10 @@ namespace XpandAddIns {
         static Func<string, bool> MatchProjectName(Project project) {
             string fileName = Path.GetFileName(project.FileName)+"";
             string pattern = Options.ReadString(Options.GacUtilRegex);
-            return s => s == project.FileName && (!string.IsNullOrEmpty(pattern)&& !Regex.IsMatch(fileName, pattern));
+            return s => {
+                string s1 = s.Split('|')[0];
+                return s1 == project.FileName && (!string.IsNullOrEmpty(pattern) && !Regex.IsMatch(fileName, pattern));
+            };
         }
 
         private void events_DocumentSaved(DocumentEventArgs ea) {
