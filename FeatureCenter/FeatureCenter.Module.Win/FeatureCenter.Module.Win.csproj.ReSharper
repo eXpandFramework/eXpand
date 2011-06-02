@@ -1,0 +1,6 @@
+<Configuration>
+  <NamespaceFolders>
+    <SkipFolder>A75E4F29-14BF-4291-89CF-F80DEB2B5F43/d:ImportExport/d:ImportWizard</SkipFolder>
+    <SkipFolder>A75E4F29-14BF-4291-89CF-F80DEB2B5F43/d:PropertyEditors/d:DurationPropertyEdit</SkipFolder>
+  </NamespaceFolders>
+</Configuration>

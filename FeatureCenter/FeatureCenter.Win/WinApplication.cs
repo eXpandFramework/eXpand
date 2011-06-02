@@ -19,7 +19,7 @@ namespace FeatureCenter.Win
 //            return new ShowInSingleWindowStrategy(this);
 //        }
 
-        private void FeatureCenterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e)
+        private void FeatureCenterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e)
         {
 #if EASYTEST
 			e.Updater.Update();

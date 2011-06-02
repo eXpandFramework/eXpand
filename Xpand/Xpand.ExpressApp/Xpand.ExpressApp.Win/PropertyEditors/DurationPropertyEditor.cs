@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -17,12 +18,22 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             return new StringEdit();
         }
 
+        const string Days = @"(D(ays?)?)";
+        const string Hours = @"(H((ours?)|(rs?))?)";
+        const string Minutes = @"(M((inutes?)|(ins?))?)";
+        const string Seconds = @"(S((econds?)|(ecs?))?)";
+
+        readonly string Mask =
+            string.Format(@"\s*((\d?\d?\d?\s*{0}))?\s*((\d?\d?\s*{1}))?\s*((\d?\d?\s*{2}))?\s*"
+                        , Days
+                        , Hours
+                        , Minutes);
+
         protected override void SetupRepositoryItem(RepositoryItem item) {
             base.SetupRepositoryItem(item);
 
             ((RepositoryItemStringEdit) item).Mask.MaskType = MaskType.RegEx;
-            ((RepositoryItemStringEdit) item).Mask.EditMask
-                = @"\s*((\d?\d?\d?\s*(d(ays?)?)))?\s*((\d?\d?\s*(h(ours)?)?))?\s*(\d?\d?\s*(m(in(utes)?)?)?)?";
+            ((RepositoryItemStringEdit)item).Mask.EditMask = Mask;
 
             if (Control == null) return;
 
@@ -55,11 +66,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             const string Quantity = "quantity";
             const string Unit = "unit";
 
-            const string Days = @"(d(ays?)?)";
-            const string Hours = @"(h((ours?)|(rs?))?)";
-            const string Minutes = @"(m((inutes?)|(ins?))?)";
-            const string Seconds = @"(s((econds?)|(ecs?))?)";
-
             var timeSpanRegex = new Regex(
                 string.Format(@"\s*(?<{0}>\d+)\s*(?<{1}>({2}|{3}|{4}|{5}|\Z))",
                               Quantity, Unit, Days, Hours, Minutes, Seconds),
@@ -88,19 +94,29 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             return ts;
         }
 
-        public static string DecodeTimeSpan(TimeSpan timeSpan) {
-            string time = string.Empty;
+        /// <summary>
+        /// Convers timeSpan to a readable String like : 2 days 4 hours 25 minutes  
+        /// </summary>
+        /// <param name="timeSpan"></param>
+        /// <returns>Text</returns>
+        public static string DecodeTimeSpan(TimeSpan timeSpan)
+        {
+            var time = string.Empty;
 
             if (timeSpan.Days > 0)
-                time = timeSpan.Days + " Days";
-
+                time = timeSpan.Days + " Day" + (timeSpan.Days > 1 ? "s" : "");
 
             if (timeSpan.Hours > 0)
-                time += (time != string.Empty ? " " : "") + timeSpan.Hours + " Hours";
-
+                time += (time != string.Empty ? " " : "") + timeSpan.Hours + " Hour"
+                        + (timeSpan.Hours.ToString().ToCharArray().Last() != '1' ? "s" : "");
 
             if (timeSpan.Minutes > 0)
-                time += (time != string.Empty ? " " : "") + timeSpan.Minutes + " Minutes";
+                time += (time != string.Empty ? " " : "") + timeSpan.Minutes + " Minute"
+                    + (timeSpan.Minutes.ToString().ToCharArray().Last() != '1' ? "s" : "");
+
+            if (timeSpan.Seconds > 0)
+                time += (time != string.Empty ? " " : "") + timeSpan.Seconds + " Second"
+                    + (timeSpan.Seconds.ToString().ToCharArray().Last() != '1' ? "s" : ""); ;
 
             return time;
         }

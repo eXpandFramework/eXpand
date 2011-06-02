@@ -1,4 +1,5 @@
 using DevExpress.ExpressApp.ScriptRecorder.Win;
+using Xpand.ExpressApp.ImportWiz.Win;
 using Xpand.ExpressApp.MemberLevelSecurity.Win;
 
 namespace FeatureCenter.Module.Win
@@ -62,6 +63,7 @@ namespace FeatureCenter.Module.Win
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule));
             this.RequiredModuleTypes.Add(typeof(ScriptRecorderWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityModuleWin));
+            this.RequiredModuleTypes.Add(typeof(ImportWizWinModule));
         }
 
         #endregion
