@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
@@ -17,11 +15,10 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         public XpandSystemAspNetModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
         }
-        protected override List<Type> DeclaredBusinessClasses {
-            get {
-                return new List<Type>();
-            }
-        }
-
+        //        protected override List<Type> DeclaredBusinessClasses {
+        //            get {
+        //                return new List<Type>();
+        //            }
+        //        }
     }
 }

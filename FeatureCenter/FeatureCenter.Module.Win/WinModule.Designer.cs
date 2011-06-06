@@ -1,11 +1,9 @@
 using DevExpress.ExpressApp.ScriptRecorder.Win;
-using Xpand.ExpressApp.ImportWiz.Win;
+using Xpand.ExpressApp.ImportWizard.Win;
 using Xpand.ExpressApp.MemberLevelSecurity.Win;
 
-namespace FeatureCenter.Module.Win
-{
-    partial class FeatureCenterWindowsFormsModule
-    {
+namespace FeatureCenter.Module.Win {
+    partial class FeatureCenterWindowsFormsModule {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -15,10 +13,8 @@ namespace FeatureCenter.Module.Win
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -30,8 +26,7 @@ namespace FeatureCenter.Module.Win
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             // 
             // FeatureCenterWindowsFormsModule
             // 
@@ -63,7 +58,7 @@ namespace FeatureCenter.Module.Win
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule));
             this.RequiredModuleTypes.Add(typeof(ScriptRecorderWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityModuleWin));
-            this.RequiredModuleTypes.Add(typeof(ImportWizWinModule));
+            this.RequiredModuleTypes.Add(typeof(ImportWizardWindowsFormsModule));
         }
 
         #endregion

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Xpand.ExpressApp.ImportWiz")]
+[assembly: AssemblyTitle("Xpand.ExpressApp.ImportWizard")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("-")]
-[assembly: AssemblyProduct("Xpand.ExpressApp.ImportWiz")]
+[assembly: AssemblyProduct("Xpand.ExpressApp.ImportWizard")]
 [assembly: AssemblyCopyright("Copyright � - 2007")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

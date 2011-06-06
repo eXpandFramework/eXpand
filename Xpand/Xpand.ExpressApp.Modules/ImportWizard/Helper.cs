@@ -8,46 +8,37 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 
-namespace Xpand.ExpressApp.ImportWiz
-{
-    public static class Helper
-    {
+namespace Xpand.ExpressApp.ImportWizard {
+    public static class Helper {
 
         /// <summary>
         /// Copied from DevExpress.ExpressApp.SystemModule.NewObjectViewController
         /// </summary>
         /// <param name="vc">ViewController</param>
-        public static CollectionSourceBase GetCurrentCollectionSource(this ViewController vc)
-        {
+        public static CollectionSourceBase GetCurrentCollectionSource(this ViewController vc) {
             PropertyCollectionSourceLink propertyCollectionSourceLink = null;
             CollectionSourceBase result = null;
             if (vc.View is ListView)
                 result = ((ListView)vc.View).CollectionSource;
-            else
-            {
+            else {
                 var linkToListViewController = vc.Frame.GetController<LinkToListViewController>();
                 var hasLink = (linkToListViewController != null) && (linkToListViewController.Link != null);
-                if (hasLink)
-                {
+                if (hasLink) {
                     if (linkToListViewController.Link.ListView != null)
                         result = linkToListViewController.Link.ListView.CollectionSource;
                     propertyCollectionSourceLink = linkToListViewController.Link.PropertyCollectionSourceLink;
                 }
             }
-            if (result == null)
-            {
-                if (propertyCollectionSourceLink != null)
-                {
+            if (result == null) {
+                if (propertyCollectionSourceLink != null) {
                     throw new NotImplementedException("Bad Extention method for ViewController. See TP.Shell.XAF.Module.Win.Extentions.GetCurrentCollectionSource for details. ");
-                    //result = propertyCollectionSourceLink.GetPropertyCollectionSource(Application, vc.ObjectSpace);
                 }
             }
             return result;
         }
 
 
-        public static XPBaseObject GetXpObjectByKeyValue(ObjectSpace oSpace, string value, Type type)
-        {
+        public static XPBaseObject GetXpObjectByKeyValue(ObjectSpace oSpace, string value, Type type) {
             if (string.IsNullOrEmpty(value))
                 return null;
 
@@ -92,8 +83,7 @@ namespace Xpand.ExpressApp.ImportWiz
         }
 
 
-        public static XPBaseObject GetXpObjectByKeyValue(UnitOfWork uow, string value, Type type, string prop)
-        {
+        public static XPBaseObject GetXpObjectByKeyValue(UnitOfWork uow, string value, Type type, string prop) {
             if (string.IsNullOrEmpty(value))
                 return null;
 

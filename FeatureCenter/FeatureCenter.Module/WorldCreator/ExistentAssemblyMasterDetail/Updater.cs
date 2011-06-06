@@ -7,16 +7,17 @@ using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail {
 
     public class Updater : ModuleUpdater {
-        public Updater(ObjectSpace objectSpace, Version currentDBVersion)
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {
         }
 
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
             string name = typeof(ExistentAssemblyMasterDetailModelStore).Name;
-            if (new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(name, FeatureCenterModule.Application) == null) {
+            var session = ((ObjectSpace)ObjectSpace).Session;
+            if (new QueryModelDifferenceObject(session).GetActiveModelDifference(name, FeatureCenterModule.Application) == null) {
                 ModelDifferenceObject modelDifferenceObject =
-                    new ModelDifferenceObject(ObjectSpace.Session).InitializeMembers(name, FeatureCenterModule.Application);
+                    new ModelDifferenceObject(session).InitializeMembers(name, FeatureCenterModule.Application);
                 modelDifferenceObject.Name = name;
                 ObjectSpace.CommitChanges();
             }

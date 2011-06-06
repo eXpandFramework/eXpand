@@ -1,7 +1,7 @@
 
 
-namespace Xpand.ExpressApp.ImportWiz.Win {
-    partial class ImportWizWinModule
+namespace Xpand.ExpressApp.ImportWizard.Win {
+    partial class ImportWizardWindowsFormsModule
     {
         /// <summary> 
         /// Required designer variable.

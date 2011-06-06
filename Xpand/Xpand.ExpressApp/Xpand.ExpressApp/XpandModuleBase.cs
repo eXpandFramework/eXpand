@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp {
 
 
         static List<object> _storeManagers;
-        
+
 
         static XpandModuleBase() {
             Dictiorary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
@@ -50,14 +50,12 @@ namespace Xpand.ExpressApp {
         public static ITypesInfo TypesInfo { get; set; }
 
         public BusinessClassesList GetAdditionalClasses(ApplicationModulesManager manager) {
-            var moduleList = manager.Modules;
-            var businessClassesList = new BusinessClassesList(moduleList.SelectMany(@base => @base.AdditionalBusinessClasses));
-            businessClassesList.AddRange(moduleList.SelectMany(moduleBase => moduleBase.BusinessClassAssemblies.GetBusinessClasses()));
-            return businessClassesList;
+            return GetAdditionalClasses(manager.Modules);
         }
         public BusinessClassesList GetAdditionalClasses(ModuleList moduleList) {
             var businessClassesList = new BusinessClassesList(moduleList.SelectMany(@base => @base.AdditionalBusinessClasses));
-            businessClassesList.AddRange(moduleList.SelectMany(moduleBase => moduleBase.BusinessClassAssemblies.GetBusinessClasses()));
+            businessClassesList.AddRange(
+                moduleList.SelectMany(moduleBase => moduleBase.BusinessClassAssemblies.GetBusinessClasses()));
             return businessClassesList;
         }
 

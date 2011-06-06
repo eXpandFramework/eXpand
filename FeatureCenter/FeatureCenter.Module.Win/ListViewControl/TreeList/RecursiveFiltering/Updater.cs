@@ -5,25 +5,27 @@ using DevExpress.Xpo;
 
 namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveFiltering {
     public class Updater : ModuleUpdater {
-        public Updater(ObjectSpace objectSpace, Version currentDBVersion)
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {
         }
 
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
 
-            if (ObjectSpace.Session.FindObject<RFCategory>(null) == null) {
-                var goodCategory = new RFCategory(ObjectSpace.Session) { Name = "Good" };
-                var veryGoodCategory = new RFCategory(ObjectSpace.Session) { Name = "Very Good", Parent = goodCategory };
-                var bestCategory = new RFCategory(ObjectSpace.Session) { Name = "Best", Parent = veryGoodCategory };
-                var badCategory = new RFCategory(ObjectSpace.Session) { Name = "Bad" };
+            var session = ((ObjectSpace)ObjectSpace).Session;
+            if (session.FindObject<RFCategory>(null) == null) {
+                var goodCategory = new RFCategory(session) { Name = "Good" };
+                var veryGoodCategory = new RFCategory(session) { Name = "Very Good", Parent = goodCategory };
+                var bestCategory = new RFCategory(session) { Name = "Best", Parent = veryGoodCategory };
+                var badCategory = new RFCategory(session) { Name = "Bad" };
                 AssignCategory(goodCategory, veryGoodCategory, bestCategory, badCategory);
                 ObjectSpace.CommitChanges();
             }
         }
 
         void AssignCategory(RFCategory goodRfCategory, RFCategory veryGoodRfCategory, RFCategory bestRfCategory, RFCategory badRfCategory) {
-            var customers = new XPCollection<RFCustomer>(ObjectSpace.Session);
+            var session = ((ObjectSpace)ObjectSpace).Session;
+            var customers = new XPCollection<RFCustomer>(session);
             for (int i = 0; i < customers.Count; i++) {
                 switch (i) {
                     case 0:

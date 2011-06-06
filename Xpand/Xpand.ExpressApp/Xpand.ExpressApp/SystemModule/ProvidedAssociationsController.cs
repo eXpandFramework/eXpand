@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.SystemModule {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             foreach (var memberInfo in GetDecoratedMembers(typesInfo)) {
-                var providedAssociationAttribute = (ProvidedAssociationAttribute) memberInfo.FindAttributeInfo(typeof(ProvidedAssociationAttribute));
+                var providedAssociationAttribute = (ProvidedAssociationAttribute)memberInfo.FindAttributeInfo(typeof(ProvidedAssociationAttribute));
                 AssociationAttribute associationAttribute = GetAssociationAttribute(memberInfo, providedAssociationAttribute);
                 XPCustomMemberInfo customMemberInfo = CreateMemberInfo(typesInfo, memberInfo, providedAssociationAttribute, associationAttribute);
                 AddExtraAttributes(memberInfo, providedAssociationAttribute, customMemberInfo);
@@ -31,7 +31,10 @@ namespace Xpand.ExpressApp.SystemModule {
 
         IEnumerable<XPMemberInfo> GetDecoratedMembers(ITypesInfo typesInfo) {
             IEnumerable<XPMemberInfo> memberInfos =
-                typesInfo.PersistentTypes.SelectMany(typeInfo => XpandModuleBase.Dictiorary.GetClassInfo(typeInfo.Type).OwnMembers);
+                typesInfo.PersistentTypes.SelectMany(typeInfo => {
+                    XPClassInfo xpClassInfo = XpandModuleBase.Dictiorary.QueryClassInfo(typeInfo.Type);
+                    return xpClassInfo != null ? xpClassInfo.OwnMembers : new List<XPMemberInfo>();
+                });
             return memberInfos.Where(memberInfo => memberInfo.HasAttribute(typeof(ProvidedAssociationAttribute)));
         }
 
@@ -41,7 +44,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 associationAttribute = new AssociationAttribute(providedAssociationAttribute.AssociationName);
             else if (associationAttribute == null)
                 throw new NullReferenceException(memberInfo + " has no association attribute");
-            return  associationAttribute;
+            return associationAttribute;
         }
 
         IEnumerable<Attribute> GetAttributes(string attributesFactoryProperty, XPClassInfo owner) {
@@ -57,14 +60,14 @@ namespace Xpand.ExpressApp.SystemModule {
             if (!(memberInfo.IsCollection) || (memberInfo.IsCollection && providedAssociationAttribute.RelationType == RelationType.ManyToMany)) {
                 xpCustomMemberInfo = typesInfo.CreateCollection(
                     typeToCreateOn,
-                    memberInfo.Owner.ClassType, 
+                    memberInfo.Owner.ClassType,
                     associationAttribute.Name,
                     XpandModuleBase.Dictiorary,
                     providedAssociationAttribute.ProvidedPropertyName ?? memberInfo.Owner.ClassType.Name + "s", false);
             } else {
                 xpCustomMemberInfo = typesInfo.CreateMember(
                     typeToCreateOn,
-                    memberInfo.Owner.ClassType, 
+                    memberInfo.Owner.ClassType,
                     associationAttribute.Name,
                     XpandModuleBase.Dictiorary,
                     providedAssociationAttribute.ProvidedPropertyName ?? memberInfo.Owner.ClassType.Name, false);

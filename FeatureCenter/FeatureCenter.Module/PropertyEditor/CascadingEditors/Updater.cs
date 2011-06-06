@@ -5,7 +5,7 @@ using Xpand.Xpo;
 
 namespace FeatureCenter.Module.PropertyEditor.CascadingEditors {
     public class Updater : Module.Updater {
-        public Updater(ObjectSpace objectSpace, Version currentDBVersion)
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {
         }
 

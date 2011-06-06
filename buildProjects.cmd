@@ -53,6 +53,8 @@ call buildproject.cmd Xpand.ExpressApp.ConditionalDetailViews ".\Xpand\Xpand.Exp
 call buildproject.cmd Xpand.ExpressApp.JobScheduler ".\Xpand\Xpand.ExpressApp.Modules\JobScheduler\Xpand.ExpressApp.JobScheduler.csproj"
 call buildproject.cmd Xpand.Persistent.BaseImpl ".\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj"
 call buildproject.cmd Xpand.ExpressApp.JobScheduler.Jobs ".\Xpand\Xpand.ExpressApp.Modules\JobScheduler.Jobs\Xpand.ExpressApp.JobScheduler.Jobs.csproj"
+call buildproject.cmd Xpand.ExpressApp.ImportWizard ".\Xpand\Xpand.ExpressApp.Modules\ImportWizard\Xpand.ExpressApp.ImportWizard.csproj"
+call buildproject.cmd Xpand.ExpressApp.ImportWizard.Win ".\Xpand\Xpand.ExpressApp.Modules\ImportWizard.Win\Xpand.ExpressApp.ImportWizard.Win.csproj"
 
 echo Building Xpand.Quartz.Server...
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Xpand\Xpand.ExpressApp.Modules\Quartz.Server\Xpand.Quartz.Server.csproj"

@@ -1,7 +1,7 @@
 
 
-namespace Xpand.ExpressApp.ImportWiz {
-    partial class ImportWizModule
+namespace Xpand.ExpressApp.ImportWizard {
+    partial class ImportWizardModule
     {
         /// <summary> 
         /// Required designer variable.

@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.PropertyEditors {
             objectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
             UpdateEditor(((ISupportEditControl)_propertyEditor).GetControl());
         }
-        public void Build(Func<PropertyEditor,object> findControl) {
+        public void Build(Func<PropertyEditor, object> findControl) {
             _findControl = findControl;
             _propertyEditor.CurrentObjectChanged += OnCurrentObjectChanged;
             _propertyEditor.ValueStoring += OnValueStoring;
@@ -47,22 +47,47 @@ namespace Xpand.ExpressApp.PropertyEditors {
         void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
             UpdateEditor(((ISupportEditControl)_propertyEditor).GetControl());
         }
-        Parameter _parameter;
+        MyParameter _parameter;
         PropertyEditor _detailViewItems;
         Func<XafApplication> _getApplicationAction;
-        Func<PropertyEditor,object> _findControl;
+        Func<PropertyEditor, object> _findControl;
 
+        sealed class MyParameter : ParameterBase {
+            private object currentValue;
+
+            public MyParameter(string name, Type valueType, object value = null)
+                : base(name, valueType) {
+                Visible = false;
+                currentValue = value;
+            }
+            protected override void SetCurrentValue(object value) {
+                currentValue = value;
+            }
+            protected override object GetCurrentValue() { return currentValue; }
+            public override bool IsReadOnly {
+                get { return false; }
+            }
+            public object CurrentValue {
+                get { return currentValue; }
+                set {
+                    currentValue = value;
+                    if ((currentValue is DateTime) && ((DateTime)currentValue == DateTime.MinValue)) {
+                        currentValue = null;
+                    }
+                }
+            }
+        }
         void UpdateEditor(ISupportControl supportControl) {
-            if (supportControl==null)
+            if (supportControl == null)
                 return;
             bool isChanged = false;
             var memberType = GetMemberType() ?? typeof(object);
             bool editObjectChanged = (_parameter != null) && (_parameter.Type != memberType);
             if (_propertyEditor.CurrentObject != null) {
-                if ((_parameter == null) || (editObjectChanged) || supportControl.Control==null) {
+                if ((_parameter == null) || (editObjectChanged) || supportControl.Control == null) {
                     var application = _getApplicationAction.Invoke();
                     isChanged = true;
-                    _parameter = new Parameter(memberType.Name, memberType);
+                    _parameter = new MyParameter(memberType.Name, memberType);
                     var paramList = new ParameterList { _parameter };
                     ParametersObject parametersObject = ParametersObject.CreateBoundObject(paramList);
                     DetailView detailView = parametersObject.CreateDetailView(application.CreateObjectSpace(), application, true);

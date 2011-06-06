@@ -5,8 +5,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.Demos;
 using DevExpress.Xpo;
 
-namespace Xpand.ExpressApp.ImportWiz.LongOperation
-{
+namespace Xpand.ExpressApp.ImportWizard.LongOperation {
     public abstract class LongOperationController : ViewController {
         private IProgressControl progressControl;
         private AsyncOperation waitLongOperationCompleted;
@@ -15,12 +14,11 @@ namespace Xpand.ExpressApp.ImportWiz.LongOperation
         private void DoWork(DevExpress.ExpressApp.Demos.LongOperation longOperation) {
             try {
                 DoWorkCore(longOperation);
-            }
-            catch(Exception) {
+            } catch (Exception) {
                 longOperation.TerminateAsync();
                 progressControl.Dispose();
                 throw;
-                
+
             }
         }
         private void WorkCompleted(object state) {
@@ -45,23 +43,23 @@ namespace Xpand.ExpressApp.ImportWiz.LongOperation
         protected abstract IProgressControl CreateProgressControl();
 
         protected virtual void OnOperationStarted() {
-            if(OperationStarted != null) {
+            if (OperationStarted != null) {
                 OperationStarted(this, EventArgs.Empty);
             }
         }
         protected virtual void OnOperationCompleted() {
             View.ObjectSpace.Refresh();
-            if(OperationCompleted != null) {
+            if (OperationCompleted != null) {
                 OperationCompleted(this, EventArgs.Empty);
             }
         }
         protected void StartLongOperation(List<string> strings) {
-            
+
             waitLongOperationCompleted = AsyncOperationManager.CreateOperation(null);
-            var longOperation = new DevExpress.ExpressApp.Demos.LongOperation(DoWork) {CancellingTimeoutMilliSeconds = 2000};
+            var longOperation = new DevExpress.ExpressApp.Demos.LongOperation(DoWork) { CancellingTimeoutMilliSeconds = 2000 };
             longOperation.CancellingTimeoutExpired += LongOperation_CancellingTimeoutExpired;
             longOperation.Completed += LongOperation_Completed;
-            
+
             ChangedProps = strings;
             progressControl = CreateProgressControl();
             progressControl.ShowProgress(longOperation);
@@ -73,31 +71,25 @@ namespace Xpand.ExpressApp.ImportWiz.LongOperation
 
         #region Session struff
 
-        public UnitOfWork CreateUpdatingSession()
-        {
+        public UnitOfWork CreateUpdatingSession() {
             var session = new UnitOfWork(((ObjectSpace)ObjectSpace).Session.DataLayer);
             OnUpdatingSessionCreated(session);
             return session;
         }
 
-        public void CommitUpdatingSession(UnitOfWork session)
-        {
+        public void CommitUpdatingSession(UnitOfWork session) {
             session.CommitChanges();
             OnUpdatingSessionCommitted(session);
         }
 
-        protected virtual void OnUpdatingSessionCommitted(UnitOfWork session)
-        {
-            if (UpdatingSessionCommitted != null)
-            {
+        protected virtual void OnUpdatingSessionCommitted(UnitOfWork session) {
+            if (UpdatingSessionCommitted != null) {
                 UpdatingSessionCommitted(this, new SessionEventArgs(session));
             }
         }
 
-        protected virtual void OnUpdatingSessionCreated(UnitOfWork session)
-        {
-            if (UpdatingSessionCreated != null)
-            {
+        protected virtual void OnUpdatingSessionCreated(UnitOfWork session) {
+            if (UpdatingSessionCreated != null) {
                 UpdatingSessionCreated(this, new SessionEventArgs(session));
             }
         }
@@ -116,7 +108,8 @@ namespace Xpand.ExpressApp.ImportWiz.LongOperation
         public BatchCreationOptionsAttribute(int objectsCount) {
             ObjectsCount = objectsCount;
         }
-        public BatchCreationOptionsAttribute(int objectsCount, int commitInterval) : this(objectsCount) {
+        public BatchCreationOptionsAttribute(int objectsCount, int commitInterval)
+            : this(objectsCount) {
             CommitInterval = commitInterval;
         }
 

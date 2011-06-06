@@ -8,13 +8,14 @@ using Xpand.Xpo;
 
 namespace FeatureCenter.Module.Security.MemberLevel {
     public class Updater : Module.Updater {
-        public Updater(ObjectSpace objectSpace, Version currentDBVersion)
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {
         }
 
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            var role = ObjectSpace.Session.FindObject<Role>(o => o.Name == "Administrators");
+            var session = ((ObjectSpace)ObjectSpace).Session;
+            var role = session.FindObject<Role>(o => o.Name == "Administrators");
             MemberAccessPermission memberAccessPermission = role.Permissions.OfType<MemberAccessPermission>().FirstOrDefault();
             if (memberAccessPermission == null) {
                 var accessPermission = new MemberAccessPermission(typeof(MLSCustomer), "Name", MemberOperation.Read, ObjectAccessModifier.Deny) { Criteria = "City='Paris'" };

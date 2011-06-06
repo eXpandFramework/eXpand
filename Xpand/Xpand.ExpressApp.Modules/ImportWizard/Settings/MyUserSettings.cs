@@ -1,24 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 
-namespace Xpand.ExpressApp.ImportWiz.Settings
-{
+namespace Xpand.ExpressApp.ImportWizard.Settings {
 
-    public class MyUserSettings : ApplicationSettingsBase
-    {
+    public class MyUserSettings : ApplicationSettingsBase {
         [UserScopedSetting]
-        public List<string> MRUItems
-        {
-            get
-            {
+        public List<string> MRUItems {
+            get {
                 return ((List<string>)this["MRUItems"]);
             }
-            set
-            {
+            set {
                 this["MRUItems"] = value;
             }
         }
-       
+
     }
 
 }

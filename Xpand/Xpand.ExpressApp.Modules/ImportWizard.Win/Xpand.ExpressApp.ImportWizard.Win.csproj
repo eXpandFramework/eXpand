@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{32A12C8A-B9C9-4D7C-AF10-AE2CA89550F6}</ProjectGuid>
+    <ProjectGuid>{6CCA3D25-5AFA-4C26-9DE7-31CDE8F239EB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xpand.ExpressApp.ImportWiz</RootNamespace>
-    <AssemblyName>Xpand.ExpressApp.ImportWiz</AssemblyName>
+    <RootNamespace>Xpand.ExpressApp.ImportWizard.Win</RootNamespace>
+    <AssemblyName>Xpand.ExpressApp.ImportWizard.Win</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -55,24 +55,42 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v10.2, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Printing.v11.1.Core, Version=11.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Demos.v10.2, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v11.1, Version=11.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v10.2">
+    <Reference Include="DevExpress.ExpressApp.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v10.2, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v11.1, Version=11.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v11.1, Version=11.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v11.1, Version=11.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v11.1, Version=11.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraWizard.v11.1, Version=11.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.0.3930.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="Xpand.ExpressApp, Version=11.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ImportWizard, Version=11.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ImportWizard.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -95,41 +113,47 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ImportWizViewControllerBase.cs">
+    <Compile Include="Controllers\ImportWizViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\ImportWizViewControllerBase.Designer.cs">
-      <DependentUpon>ImportWizViewControllerBase.cs</DependentUpon>
+    <Compile Include="Controllers\ImportWizViewController.Designer.cs">
+      <DependentUpon>ImportWizViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\DynamicClass.cs" />
-    <Compile Include="Core\ImportMap.cs" />
-    <Compile Include="Core\MappableProperty.cs" />
-    <Compile Include="Core\Mapping.cs" />
-    <Compile Include="Core\OpenXMLExtentions.cs" />
-    <Compile Include="Core\PersistentObject1.cs" />
-    <Compile Include="Core\TransposeEnumerableExtension.cs" />
-    <Compile Include="Helper.cs" />
-    <Compile Include="ImportWizModule.cs">
+    <Compile Include="Forms\ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProgressForm.designer.cs">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportWizardWindowsFormsModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ImportWizModule.Designer.cs">
-      <DependentUpon>ImportWizModule.cs</DependentUpon>
+    <Compile Include="ImportWizardWindowsFormsModule.Designer.cs">
+      <DependentUpon>ImportWizardWindowsFormsModule.cs</DependentUpon>
     </Compile>
-    <Compile Include="LongOperation\LongOperationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="LongOperation\SessionEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\MyUserSettings.cs" />
     <Compile Include="Updater.cs" />
+    <Compile Include="Wizard\ExcelImportWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizard\ExcelImportWizard.designer.cs">
+      <DependentUpon>ExcelImportWizard.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\ImportWizViewControllerBase.resx">
-      <DependentUpon>ImportWizViewControllerBase.cs</DependentUpon>
+    <EmbeddedResource Include="Controllers\ImportWizViewController.resx">
+      <DependentUpon>ImportWizViewController.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImportWizModule.resx">
-      <DependentUpon>ImportWizModule.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ProgressForm.resx">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportWizardWindowsFormsModule.resx">
+      <DependentUpon>ImportWizardWindowsFormsModule.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Wizard\ExcelImportWizard.resx">
+      <DependentUpon>ExcelImportWizard.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -168,9 +192,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Images\Import.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

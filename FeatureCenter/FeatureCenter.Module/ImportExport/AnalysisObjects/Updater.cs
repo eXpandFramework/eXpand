@@ -10,7 +10,8 @@ using Xpand.Xpo;
 
 namespace FeatureCenter.Module.ImportExport.AnalysisObjects {
     public class Updater : ModuleUpdater {
-        public Updater(ObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) {
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
+            : base(objectSpace, currentDBVersion) {
         }
 
         public override void UpdateDatabaseAfterUpdateSchema() {
@@ -19,9 +20,10 @@ namespace FeatureCenter.Module.ImportExport.AnalysisObjects {
         }
 
         void Import() {
-            if (ObjectSpace.Session.FindObject<Analysis>(analysis => analysis.Name == "Controlling Grid Settings") == null) {
+            var session = ((ObjectSpace)ObjectSpace).Session;
+            if (session.FindObject<Analysis>(analysis => analysis.Name == "Controlling Grid Settings") == null) {
                 var importEngine = new ImportEngine();
-                using (var unitOfWork = new UnitOfWork(ObjectSpace.Session.DataLayer)) {
+                using (var unitOfWork = new UnitOfWork(session.DataLayer)) {
                     Stream stream = GetType().Assembly.GetManifestResourceStream(GetType(), "AnalysisObjects.xml");
                     importEngine.ImportObjects(stream, unitOfWork);
                     stream = GetType().Assembly.GetManifestResourceStream(GetType(), "AnalysisObjectsConfiguration.xml");
@@ -29,6 +31,5 @@ namespace FeatureCenter.Module.ImportExport.AnalysisObjects {
                 }
             }
         }
-
     }
 }

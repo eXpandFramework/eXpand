@@ -1,12 +1,9 @@
 using System;
 using DevExpress.Xpo;
 
-namespace Xpand.ExpressApp.ImportWiz.LongOperation
-{
-    public class SessionEventArgs : EventArgs
-    {
-        public SessionEventArgs(UnitOfWork session)
-        {
+namespace Xpand.ExpressApp.ImportWizard.LongOperation {
+    public class SessionEventArgs : EventArgs {
+        public SessionEventArgs(UnitOfWork session) {
             Session = session;
         }
 

@@ -14,7 +14,7 @@ public partial class NestedFrameControl : System.Web.UI.UserControl, IFrameTempl
     protected override void OnPreRender(EventArgs e) {
         base.OnPreRender(e);
         if (ToolBar != null) {
-            ToolBar.Visible = ShowActionsToolbar;
+            ToolBar.Visible = actionsToolbarVisibility == ActionsToolbarVisibility.Hide ? false : true;
         }
     }
     public NestedFrameControl() {
@@ -56,14 +56,13 @@ public partial class NestedFrameControl : System.Web.UI.UserControl, IFrameTempl
     }
 
     #region IActionBarVisibilityManager Members
-
-    private bool showActionsToolbar = true;
-    public bool ShowActionsToolbar {
+    private ActionsToolbarVisibility actionsToolbarVisibility = ActionsToolbarVisibility.Default;
+    public ActionsToolbarVisibility ActionsToolbarVisibility {
         get {
-            return showActionsToolbar;
+            return actionsToolbarVisibility;
         }
         set {
-            showActionsToolbar = value;
+            actionsToolbarVisibility = value;
         }
     }
     #endregion

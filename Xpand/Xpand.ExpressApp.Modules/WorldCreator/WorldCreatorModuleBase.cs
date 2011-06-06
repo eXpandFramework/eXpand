@@ -75,7 +75,8 @@ namespace Xpand.ExpressApp.WorldCreator {
             mergeTypes(new UnitOfWork(session.DataLayer));
 
         }
-        protected override BusinessClassesList GetBusinessClassesCore() {
+
+        protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             var existentTypesMemberCreator = new ExistentTypesMemberCreator();
             if (FullConnectionString != null) {
                 var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(FullConnectionString, GetReflectionDictionary());
@@ -83,7 +84,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                 var session = new Session(simpleDataLayer);
                 existentTypesMemberCreator.CreateMembers(session);
             }
-            return base.GetBusinessClassesCore();
+            return base.GetDeclaredExportedTypes();
         }
 
         IEnumerable<WorldCreatorUpdater> GetWorldCreatorUpdaters(Session session) {

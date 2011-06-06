@@ -40,7 +40,6 @@ public partial class ErrorPage : System.Web.UI.Page {
             ApplicationTitle.Text = "No application";
         }
         Header.Title = "Application Error - " + ApplicationTitle.Text;
-        Copyright.Text = GetApplicationInfoString();
 
         ErrorInfo errorInfo = ErrorHandling.GetApplicationError();
         if (errorInfo != null) {
@@ -64,7 +63,6 @@ public partial class ErrorPage : System.Web.UI.Page {
         } else {
             ErrorPanel.Visible = false;
         }
-        WebWindow.PatchIEForPNGImages(this);
     }
     #region Web Form Designer generated code
     override protected void OnInit(EventArgs e) {

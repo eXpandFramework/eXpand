@@ -1,4 +1,4 @@
-namespace Xpand.ExpressApp.ImportWiz.Win.Forms
+namespace Xpand.ExpressApp.ImportWizard.Win.Forms
 {
     partial class ProgressForm
     {

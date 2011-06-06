@@ -32,11 +32,11 @@ namespace Xpand.ExpressApp.SystemModule {
             TranslatorProvider.RegisterProvider(new GoogleTranslatorProvider());
         }
 
-        protected override List<Type> DeclaredBusinessClasses {
-            get {
-                return new List<Type>();
-            }
-        }
+        //        protected override List<Type> DeclaredBusinessClasses {
+        //            get {
+        //                return new List<Type>();
+        //            }
+        //        }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (Application != null) Application.LoggingOn += (sender, args) => InitializeSequenceGenerator();
@@ -74,17 +74,16 @@ namespace Xpand.ExpressApp.SystemModule {
 
         void InitializeSequenceGenerator() {
             try {
-                if (Application != null) 
-                    SequenceGenerator.Initialize(((ISupportFullConnectionString) Application).ConnectionString);
-            }
-            catch (Exception e) {
+                if (Application != null)
+                    SequenceGenerator.Initialize(((ISupportFullConnectionString)Application).ConnectionString);
+            } catch (Exception e) {
                 if (e.InnerException != null)
                     throw e.InnerException;
                 throw;
             }
         }
 
-        
+
 
         IEnumerable<Attribute> GetAttributes(ITypeInfo type) {
             return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator)).Descendants.Select(typeInfo => (AttributeRegistrator)ReflectionHelper.CreateObject(typeInfo.Type)).SelectMany(registrator => registrator.GetAttributes(type));

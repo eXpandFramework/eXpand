@@ -8,7 +8,7 @@ using Xpand.ExpressApp.FilterDataStore.Providers;
 namespace FeatureCenter.Module {
 
     public class Updater : Xpand.Persistent.BaseImpl.Updater {
-        public Updater(ObjectSpace objectSpace, Version currentDBVersion)
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {
         }
 
@@ -27,7 +27,7 @@ namespace FeatureCenter.Module {
             base.UpdateDatabaseAfterUpdateSchema();
             InitializeSecurity();
 
-            new DummyDataBuilder(ObjectSpace).CreateObjects();
+            new DummyDataBuilder((ObjectSpace)ObjectSpace).CreateObjects();
         }
 
     }

@@ -1,16 +1,12 @@
 using System.Linq;
 using DevExpress.Xpo;
 
-namespace Xpand.ExpressApp.ImportWiz.Core
-{
+namespace Xpand.ExpressApp.ImportWizard.Core {
     [Persistent]
-    public class ImportMap : XPObject
-    {
+    public class ImportMap : XPObject {
         [NonPersistent]
-        public string Columns
-        {
-            get
-            {
+        public string Columns {
+            get {
                 const string delimeter = ";";
                 return Mappings.Count > 0 ?
                     Mappings
@@ -26,34 +22,29 @@ namespace Xpand.ExpressApp.ImportWiz.Core
         [Association("Sheet-Mappings")]
         [DisplayName("Mappings")]
         [Aggregated]
-        public XPCollection<Mapping> Mappings
-        {
+        public XPCollection<Mapping> Mappings {
             get { return GetCollection<Mapping>("Mappings"); }
         }
 
         private string _Description;
 
         [DisplayName("Description"), Size(SizeAttribute.Unlimited)]
-        public string Description
-        {
+        public string Description {
             get { return _Description; }
             set { SetPropertyValue("Description", ref _Description, value); }
         }
 
 
 
-        public override string ToString()
-        {
+        public override string ToString() {
             return string.Format("{0} - {1}", Description, Columns);
         }
 
         public ImportMap(Session session)
-            : base(session)
-        {
+            : base(session) {
         }
 
-        public ImportMap()
-        {
+        public ImportMap() {
         }
     }
 }

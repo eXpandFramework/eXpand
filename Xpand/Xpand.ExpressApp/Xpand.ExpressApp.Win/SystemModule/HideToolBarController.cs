@@ -1,5 +1,4 @@
-﻿using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Templates;
+﻿using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.XtraBars;
 using Xpand.ExpressApp.SystemModule;
@@ -10,10 +9,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             base.OnViewControlsCreated();
             var template = Frame.Template as IBarManagerHolder;
             if (template != null && template.BarManager != null && ((IModelViewHideViewToolBar)View.Model).HideToolBar.HasValue)
-                SetToolbarVisibility(template, !((IModelViewHideViewToolBar) View.Model).HideToolBar.Value);
+                SetToolbarVisibility(template, !((IModelViewHideViewToolBar)View.Model).HideToolBar.Value);
         }
-        protected override void OnDeactivated()
-        {
+        protected override void OnDeactivated() {
             base.OnDeactivated();
             var template = Frame.Template as IBarManagerHolder;
             if (template != null && template.BarManager != null && ((IModelViewHideViewToolBar)View.Model).HideToolBar.HasValue)
@@ -29,7 +27,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             }
 
             if (template is ISupportActionsToolbarVisibility)
-                ((ISupportActionsToolbarVisibility)template).ShowActionsToolbar = visible;
+                ((ISupportActionsToolbarVisibility)template).ActionsToolbarVisibility = visible ? ActionsToolbarVisibility.Show : ActionsToolbarVisibility.Hide;
         }
     }
 }

@@ -13,18 +13,16 @@ namespace Xpand.Persistent.BaseImpl {
         public const string UserRole = "UserRole";
         public const string Admin = "Admin";
 
-        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
-            : base(objectSpace, currentDBVersion)
-        {   
+        protected Updater(IObjectSpace objectSpace, Version currentDBVersion)
+            : base(objectSpace, currentDBVersion) {
         }
-         
+
 
         protected virtual List<IPermission> GetPermissions(ICustomizableRole role) {
             var permissions = new List<IPermission>();
             if (role.Name != Administrators) {
                 permissions.Add(new ObjectAccessPermission(((ISecurityComplex)SecuritySystem.Instance).RoleType, ObjectAccess.AllAccess, ObjectAccessModifier.Deny));
-            }
-            else {
+            } else {
                 permissions.Add(new EditModelPermission(ModelAccessModifier.Allow));
             }
             return permissions;
@@ -40,7 +38,7 @@ namespace Xpand.Persistent.BaseImpl {
         }
 
 
-        protected virtual IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole role,Type userType) {
+        protected virtual IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole role, Type userType) {
             var type = userType;
             var user = (IUserWithRoles)((ObjectSpace)ObjectSpace).Session.FindObject(type, new BinaryOperator("UserName", userName));
             if (user == null) {

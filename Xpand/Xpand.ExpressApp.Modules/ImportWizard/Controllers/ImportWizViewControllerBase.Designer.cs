@@ -1,4 +1,4 @@
-namespace Xpand.ExpressApp.ImportWiz.Controllers
+namespace Xpand.ExpressApp.ImportWizard.Controllers
 {
     partial class ImportWizViewControllerBase
     {

@@ -6,7 +6,7 @@ using DevExpress.Persistent.BaseImpl;
 
 namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView {
     public class Updater : ModuleUpdater {
-        public Updater(ObjectSpace objectSpace, Version currentDBVersion)
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {
         }
 
@@ -18,9 +18,10 @@ namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView {
             ObjectSpace.CommitChanges();
         }
         private RVCategory CreateCategory(string name, HCategory parent) {
-            var category = ObjectSpace.Session.FindObject<RVCategory>(new BinaryOperator("Name", name));
+            var session = ((ObjectSpace)ObjectSpace).Session;
+            var category = session.FindObject<RVCategory>(new BinaryOperator("Name", name));
             if (category == null) {
-                category = new RVCategory(ObjectSpace.Session) { Name = name, Parent = parent };
+                category = new RVCategory(session) { Name = name, Parent = parent };
                 CreateCategorizedItem("Item1", category);
                 CreateCategorizedItem("Item2", category);
             }
@@ -28,9 +29,10 @@ namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView {
         }
         private void CreateCategorizedItem(string name, RVCategory category) {
             string realName = name + " - " + category.Name;
-            var item = ObjectSpace.Session.FindObject<RVItem>(new BinaryOperator("Name", realName));
+            var session = ((ObjectSpace)ObjectSpace).Session;
+            var item = session.FindObject<RVItem>(new BinaryOperator("Name", realName));
             if (item == null) {
-                new RVItem(ObjectSpace.Session) { Name = realName, Category = category };
+                new RVItem(session) { Name = realName, Category = category };
             }
         }
     }

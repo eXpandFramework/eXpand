@@ -1,9 +1,7 @@
-using Xpand.ExpressApp.ImportWiz.Core;
+using Xpand.ExpressApp.ImportWizard.Core;
 
-namespace Xpand.ExpressApp.ImportWiz.Win.Wizard
-{
-    partial class ExcelImportWizard
-    {
+namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
+    partial class ExcelImportWizard {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -13,10 +11,8 @@ namespace Xpand.ExpressApp.ImportWiz.Win.Wizard
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -28,8 +24,7 @@ namespace Xpand.ExpressApp.ImportWiz.Win.Wizard
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();

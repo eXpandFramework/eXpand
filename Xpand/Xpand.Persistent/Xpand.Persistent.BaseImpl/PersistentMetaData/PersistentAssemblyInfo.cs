@@ -44,7 +44,6 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Index(4)]
         [FileTypeFilter("Strong Keys", 1, "*.snk")]
         [Aggregated, ExpandObjectMembers(ExpandObjectMembers.Never)]
-        [Obsolete]
         public StrongKeyFile StrongKeyFile {
             get { return _strongKeyFile; }
             set { SetPropertyValue("StrongKeyFile", ref _strongKeyFile, value); }
@@ -53,7 +52,6 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Index(6)]
         [Custom("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
-        [Browsable(false)]
         public string GeneratedCode {
             get {
                 return CodeEngine.GenerateCode(this);
