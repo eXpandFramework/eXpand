@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using DevExpress.ExpressApp.Model.Core;
 
 namespace Xpand.ExpressApp.Core.DynamicModel {
     public sealed class DynamicModelType : Type {

@@ -53,7 +53,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         protected override IEnumerable<DynamicModelType> GetDynamicModelTypes() {
             yield return new DynamicModelType(typeof(IModelGridViewSettings), typeof(ASPxGridViewSettings));
             yield return new DynamicModelType(typeof(IModelGridViewSettingsBehavior), typeof(ASPxGridViewBehaviorSettings));
-            yield return new DynamicModelType(typeof(IModelGridViewSettingsPager), typeof(ASPxGridViewBehaviorSettings));
+            yield return new DynamicModelType(typeof(IModelGridViewSettingsPager), typeof(ASPxGridViewPagerSettings));
             yield return new DynamicModelType(typeof(IModelGridViewSettingsEditing), typeof(ASPxGridViewEditingSettings));
             yield return new DynamicModelType(typeof(IModelGridViewSettingsText), typeof(ASPxGridViewTextSettings));
             yield return new DynamicModelType(typeof(IModelGridViewSettingsCookies), typeof(ASPxGridViewCookiesSettings));
