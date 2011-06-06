@@ -63,10 +63,14 @@ namespace Xpand.Persistent.Base.General {
             _explicitUnitOfWork.CommitChanges();
         }
 
-        public long GetNextSequence(ITypeInfo typeInfo) {
+        public long GetNextSequence(ITypeInfo typeInfo, string prefix) {
             if (typeInfo == null)
                 throw new ArgumentNullException("typeInfo");
-            return GetNextSequence(XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeInfo.Type), null);
+            return GetNextSequence(XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeInfo.Type), prefix);
+        }
+
+        public long GetNextSequence(ITypeInfo typeInfo) {
+            return GetNextSequence(typeInfo, null);
         }
 
         long GetNextSequence(XPClassInfo classInfo, string preFix) {
@@ -147,10 +151,10 @@ namespace Xpand.Persistent.Base.General {
 
         static SequenceGenerator _sequenceGenerator;
 
-        public static void GenerateSequence(ISupportSequenceObject supportSequenceObject) {
+        public static void GenerateSequence(ISupportSequenceObject supportSequenceObject, ITypeInfo typeInfo) {
             if (_sequenceGenerator == null)
                 _sequenceGenerator = new SequenceGenerator();
-            long nextSequence = _sequenceGenerator.GetNextSequence(supportSequenceObject.ClassInfo, supportSequenceObject.Prefix);
+            long nextSequence = _sequenceGenerator.GetNextSequence(typeInfo, supportSequenceObject.Prefix);
             Session session = supportSequenceObject.Session;
             if (!(session is NestedUnitOfWork)) {
                 SessionManipulationEventHandler[] sessionOnAfterCommitTransaction = { null };
@@ -169,6 +173,10 @@ namespace Xpand.Persistent.Base.General {
                 session.AfterCommitTransaction += sessionOnAfterCommitTransaction[0];
             }
             supportSequenceObject.Sequence = nextSequence;
+        }
+
+        public static void GenerateSequence(ISupportSequenceObject supportSequenceObject) {
+            GenerateSequence(supportSequenceObject, XafTypesInfo.Instance.FindTypeInfo(supportSequenceObject.ClassInfo.FullName));
         }
 
 
