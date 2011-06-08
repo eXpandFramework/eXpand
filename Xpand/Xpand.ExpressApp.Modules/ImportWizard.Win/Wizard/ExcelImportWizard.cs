@@ -303,7 +303,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         private void gridControl2_DataSourceChanged() {
             //Banded Grid Control that prepared data for mapping
 
-            var bands = ((BandedGridView) MappingGrid.MainView).Bands;
+            var bands = ((BandedGridView)MappingGrid.MainView).Bands;
             var cols = (MappingGrid.MainView as BandedGridView).Columns;
 
             LookUpEdit.DataSource = MappableColumns;//.ToList();
@@ -383,12 +383,12 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             _Sheet.ColumnHeaderRow = ((CheckEdit)sender).Checked
                                          ?
                                             decimal.ToInt32(HeaderRowSpinEdit.Value)
-                                         : (int?) null;
+                                         : (int?)null;
             _Sheet.PreviewRowCount = ((CheckEdit)sender).Checked
                                          ?
                                              decimal.ToInt32(PrieviewRowCountSpinEdit.Value)
                                          :
-                                             (int?) null;
+                                             (int?)null;
             AssignDataSource();
 
         }
@@ -576,8 +576,8 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private static void LookUpEdit_Closed(object sender, ClosedEventArgs e) {
-            ((GridControl) ((LookUpEdit) sender).Parent).MainView.PostEditor();
-            ((GridControl) (sender as LookUpEdit).Parent).MainView.UpdateCurrentRow();
+            ((GridControl)((LookUpEdit)sender).Parent).MainView.PostEditor();
+            ((GridControl)(sender as LookUpEdit).Parent).MainView.UpdateCurrentRow();
         }
 
         #region Import Data
@@ -590,7 +590,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
             var rowCount = Sheet.Rows().Count();
             if (Sheet.ColumnHeaderRow != null)
-                rowCount = (int) (rowCount - Sheet.ColumnHeaderRow);
+                rowCount = (int)(rowCount - Sheet.ColumnHeaderRow);
 
             _FrmProgress = new ProgressForm("Import excell rows progress...", rowCount, "Processing record {0} of {1} ");
             _FrmProgress.CancelClick += FrmProgressCancelClick;
@@ -756,7 +756,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
                             if (val != null) {
                                 //if simple property
-                                if (prop.ReferenceType == null) {
+                                if (prop.ReferenceType == null && !prop.MemberType.IsEnum) {
                                     var isNullable = prop.MemberType.IsGenericType && prop.MemberType.GetGenericTypeDefinition() == typeof(Nullable<>);
                                     object convertedValue = null;
 
@@ -780,8 +780,9 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                                             if (rez) convertedValue = number;
                                         }
                                     } else {
-
-                                        if (prop.MemberType == typeof(char))
+                                        if (prop.MemberType.IsEnum) {
+                                            prop.SetValue(newObj, Enum.Parse(prop.MemberType, val.Value));
+                                        } else if (prop.MemberType == typeof(char))
                                             convertedValue = Convert.ChangeType(GetQString(val.Value), prop.MemberType);
                                         else if (prop.MemberType == typeof(Guid))
                                             convertedValue = new Guid(GetQString(val.Value));
