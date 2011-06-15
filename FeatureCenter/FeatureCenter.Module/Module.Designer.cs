@@ -1,4 +1,3 @@
-using DevExpress.ExpressApp.Kpi;
 using DevExpress.ExpressApp.ScriptRecorder;
 using Xpand.ExpressApp.ConditionalDetailViews;
 using Xpand.ExpressApp.ImportWizard;
@@ -65,7 +64,6 @@ namespace FeatureCenter.Module {
             this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.JobSchedulerModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule));
-            this.RequiredModuleTypes.Add(typeof(KpiModule));
             this.RequiredModuleTypes.Add(typeof(ImportWizardModule));
         }
 
