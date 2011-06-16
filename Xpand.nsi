@@ -20,6 +20,11 @@ RequestExecutionLevel admin
 # MUI Symbol Definitions
 !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\orange-install.ico"
 !define MUI_FINISHPAGE_NOAUTOCLOSE
+!define MUI_STARTMENUPAGE_REGISTRY_ROOT HKLM
+!define MUI_STARTMENUPAGE_NODISABLE
+!define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
+!define MUI_STARTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
+!define MUI_STARTMENUPAGE_DEFAULTFOLDER "${APP_NAME}"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\orange-uninstall.ico"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 !define MUI_WELCOMEFINISHPAGE_BITMAP "Resource\Installer\PageImage.bmp"
@@ -37,6 +42,7 @@ var gacutilPath
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "License.txt"
 !insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_STARTMENU Application $StartMenuGroup
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 !insertmacro MUI_UNPAGE_CONFIRM
@@ -61,12 +67,17 @@ VIAddVersionKey /LANG=${LANG_ENGLISH} CompanyName "${COMPANY}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} CompanyWebsite "${URL}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} FileVersion "${VERSION}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} FileDescription ""
-VIAddVersionKey /LANG=${LANG_ENGLISH} LegalCopyright ""
-InstallDirRegKey HKLM "${REGKEY}" Path
+VIAddVersionKey /LANG=${LANG_ENGLISH} LegalCopyright "© 2011"
 ShowUninstDetails show
 BrandingText "${APP_NAME} Install System v ${VERSION}"
 
 # Installer sections
+!macro CREATE_SMGROUP_SHORTCUT NAME PATH
+    Push "${NAME}"
+    Push "${PATH}"
+    Call CreateSMGroupShortcut
+!macroend
+
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
@@ -78,8 +89,13 @@ Section -post SEC0001
     WriteRegStr HKLM "${REGKEY}" Path $INSTDIR
     SetOutPath $INSTDIR
     WriteUninstaller $INSTDIR\uninstall.exe
+    
+    !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     SetOutPath $SMPROGRAMS\$StartMenuGroup
+    !insertmacro CREATE_SMGROUP_SHORTCUT "Dll list" $INSTDIR\XpandDllList.txt
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^UninstallLink).lnk" $INSTDIR\uninstall.exe
+    !insertmacro MUI_STARTMENU_WRITE_END    
+    
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "${VERSION}"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" Publisher "${COMPANY}"
@@ -123,7 +139,14 @@ done${UNSECTION_ID}:
 !insertmacro SET_GACUTIL_PATH "un."
 
 # Uninstaller sections
+!macro DELETE_SMGROUP_SHORTCUT NAME
+    Push "${NAME}"
+    Call un.DeleteSMGroupShortcut
+!macroend
+
+# Uninstaller sections
 Section /o -un.Main UNSEC0000
+    !insertmacro DELETE_SMGROUP_SHORTCUT "Dll list"
     RmDir /r /REBOOTOK $INSTDIR
     DeleteRegValue HKLM "${REGKEY}\Components" Main
 SectionEnd
@@ -137,25 +160,29 @@ Section -un.post UNSEC0001
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\$(^UninstallLink).lnk"
     Delete /REBOOTOK $INSTDIR\uninstall.exe
+    DeleteRegValue HKLM "${REGKEY}" StartMenuGroup
     DeleteRegValue HKLM "${REGKEY}" Path
     DeleteRegKey /IfEmpty HKLM "${REGKEY}\Components"
     DeleteRegKey /IfEmpty HKLM "${REGKEY}"
     RmDir /REBOOTOK $SMPROGRAMS\$StartMenuGroup
     RmDir /REBOOTOK $INSTDIR
+    Push $R0
+    StrCpy $R0 $StartMenuGroup 1
+    StrCmp $R0 ">" no_smgroup
+no_smgroup:
+    Pop $R0
 SectionEnd
 
 # Installer functions
 Function .onInit
     InitPluginsDir
-    StrCpy $StartMenuGroup eXpandFramework
     call SetGacutilPath
 FunctionEnd
 
 # Uninstaller functions
 Function un.onInit
-    
     ReadRegStr $INSTDIR HKLM "${REGKEY}" Path
-    StrCpy $StartMenuGroup eXpandFramework
+    !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuGroup
     call un.SetGacutilPath
     !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
 FunctionEnd
@@ -244,4 +271,30 @@ Function un.DllsFromGAC
     Ende:
     StrCmp $0 "1" 0 +2
     DetailPrint "uninstall assamblies from the GAC failed"
+FunctionEnd
+
+Function CreateSMGroupShortcut
+    Exch $R0 ;PATH
+    Exch
+    Exch $R1 ;NAME
+    Push $R2
+    StrCpy $R2 $StartMenuGroup 1
+    StrCmp $R2 ">" no_smgroup
+    SetOutPath $SMPROGRAMS\$StartMenuGroup
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$R1.lnk" $R0
+no_smgroup:
+    Pop $R2
+    Pop $R1
+    Pop $R0
+FunctionEnd
+
+Function un.DeleteSMGroupShortcut
+    Exch $R1 ;NAME
+    Push $R2
+    StrCpy $R2 $StartMenuGroup 1
+    StrCmp $R2 ">" no_smgroup
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\$R1.lnk"
+no_smgroup:
+    Pop $R2
+    Pop $R1
 FunctionEnd
