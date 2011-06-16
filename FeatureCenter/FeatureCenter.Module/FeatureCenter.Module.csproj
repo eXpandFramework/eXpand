@@ -62,6 +62,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.Kpi.v11.1, Version=11.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\DevExpress 2011.1\eXpressApp Framework\Sources\DevExpress.DLL\DevExpress.ExpressApp.Kpi.v11.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Printing.v11.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -72,12 +76,6 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v11.1, Version=11.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v11.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalFormatting.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v11.1, Version=11.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">

@@ -33,7 +33,6 @@ namespace FeatureCenter.Module.Win {
             this.RequiredModuleTypes.Add(typeof(FeatureCenter.Module.FeatureCenterModule));
             this.RequiredModuleTypes.Add(typeof(ScriptRecorderWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.HtmlPropertyEditor.Win.HtmlPropertyEditorWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.PivotChart.Win.PivotChartWindowsFormsModule));

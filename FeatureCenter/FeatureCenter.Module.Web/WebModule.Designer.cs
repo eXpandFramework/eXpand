@@ -35,7 +35,6 @@ namespace FeatureCenter.Module.Web {
             // FeatureCenterAspNetModule
             // 
             this.RequiredModuleTypes.Add(typeof(FeatureCenter.Module.FeatureCenterModule));
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalEditorState.Web.ConditionalEditorStateAspNetModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.HtmlPropertyEditor.Web.HtmlPropertyEditorAspNetModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.PivotChart.Web.PivotChartAspNetModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Reports.Web.ReportsAspNetModule));

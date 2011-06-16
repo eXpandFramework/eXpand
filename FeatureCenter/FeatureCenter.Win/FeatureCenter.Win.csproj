@@ -75,15 +75,6 @@
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v11.1, Version=11.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v11.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.Win.v11.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalFormatting.v11.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.ExpressApp.EasyTest.WinAdapter.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

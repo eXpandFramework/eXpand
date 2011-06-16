@@ -2,10 +2,8 @@
 
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 
-namespace FeatureCenter.Win
-{
-    partial class FeatureCenterWindowsFormsApplication
-    {
+namespace FeatureCenter.Win {
+    partial class FeatureCenterWindowsFormsApplication {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -15,10 +13,8 @@ namespace FeatureCenter.Win
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -30,8 +26,7 @@ namespace FeatureCenter.Win
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule();
             this.module3 = new FeatureCenter.Module.FeatureCenterModule();
@@ -42,10 +37,9 @@ namespace FeatureCenter.Win
             this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
             this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
             this.cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();
-            this.conditionalFormattingModule1 = new DevExpress.ExpressApp.ConditionalFormatting.ConditionalFormattingModule();
+
             this.viewVariantsModule1 = new DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule();
-            this.conditionalEditorStateModuleBase1 = new DevExpress.ExpressApp.ConditionalEditorState.ConditionalEditorStateModuleBase();
-            this.conditionalEditorStateWindowsFormsModule1 = new DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule();
+
             this.fileAttachmentsWindowsFormsModule1 = new DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule();
             this.htmlPropertyEditorWindowsFormsModule1 = new DevExpress.ExpressApp.HtmlPropertyEditor.Win.HtmlPropertyEditorWindowsFormsModule();
             this.pivotChartModuleBase1 = new DevExpress.ExpressApp.PivotChart.PivotChartModuleBase();
@@ -145,10 +139,10 @@ namespace FeatureCenter.Win
             this.Modules.Add(this.module2);
             this.Modules.Add(this.module6);
             this.Modules.Add(this.cloneObjectModule1);
-            this.Modules.Add(this.conditionalFormattingModule1);
+
             this.Modules.Add(this.module5);
             this.Modules.Add(this.viewVariantsModule1);
-            this.Modules.Add(this.conditionalEditorStateModuleBase1);
+
             this.Modules.Add(this.xpandSystemModule1);
             this.Modules.Add(this.logicModule1);
             this.Modules.Add(this.xpandValidationModule1);
@@ -174,7 +168,7 @@ namespace FeatureCenter.Win
             this.Modules.Add(this.jobSchedulerModule1);
             this.Modules.Add(this.jobSchedulerJobsModule1);
             this.Modules.Add(this.module3);
-            this.Modules.Add(this.conditionalEditorStateWindowsFormsModule1);
+
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
             this.Modules.Add(this.htmlPropertyEditorWindowsFormsModule1);
             this.Modules.Add(this.pivotChartWindowsFormsModule1);
@@ -221,21 +215,19 @@ namespace FeatureCenter.Win
         private DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule module7;
         private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
         private System.Data.SqlClient.SqlConnection sqlConnection1;
-        
+
         private DevExpress.ExpressApp.CloneObject.CloneObjectModule cloneObjectModule1;
-        private DevExpress.ExpressApp.ConditionalFormatting.ConditionalFormattingModule conditionalFormattingModule1;
+
         private DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule viewVariantsModule1;
-        
-        private DevExpress.ExpressApp.ConditionalEditorState.ConditionalEditorStateModuleBase conditionalEditorStateModuleBase1;
-        
-        private DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule conditionalEditorStateWindowsFormsModule1;
+
+
         private DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule fileAttachmentsWindowsFormsModule1;
         private DevExpress.ExpressApp.HtmlPropertyEditor.Win.HtmlPropertyEditorWindowsFormsModule htmlPropertyEditorWindowsFormsModule1;
         private DevExpress.ExpressApp.PivotChart.PivotChartModuleBase pivotChartModuleBase1;
         private DevExpress.ExpressApp.PivotChart.Win.PivotChartWindowsFormsModule pivotChartWindowsFormsModule1;
         private DevExpress.ExpressApp.Printing.Win.PrintingWindowsFormsModule printingWindowsFormsModule1;
         private DevExpress.ExpressApp.Reports.Win.ReportsWindowsFormsModule reportsWindowsFormsModule1;
-        
+
         private DevExpress.ExpressApp.Scheduler.SchedulerModuleBase schedulerModuleBase1;
         private DevExpress.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule schedulerWindowsFormsModule1;
         private DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase treeListEditorsModuleBase1;
