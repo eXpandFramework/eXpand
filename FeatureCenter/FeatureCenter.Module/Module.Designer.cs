@@ -1,3 +1,4 @@
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ScriptRecorder;
 using Xpand.ExpressApp.ConditionalDetailViews;
 using Xpand.ExpressApp.ImportWizard;
@@ -36,9 +37,10 @@ namespace FeatureCenter.Module {
             // 
             // Solution1Module
             // 
-            AdditionalBusinessClassAssemblies.Add(System.Reflection.Assembly.GetAssembly(typeof(global::DevExpress.Persistent.BaseImpl.Analysis)));
-            AdditionalBusinessClassAssemblies.Add(System.Reflection.Assembly.GetAssembly(typeof(global::Xpand.Persistent.BaseImpl.Updater)));
-            AdditionalBusinessClassAssemblies.Add(System.Reflection.Assembly.GetAssembly(typeof(global::Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation.ThresholdSeverity)));
+            
+
+            
+
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));

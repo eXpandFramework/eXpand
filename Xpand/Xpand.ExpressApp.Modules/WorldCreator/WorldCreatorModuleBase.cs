@@ -93,7 +93,8 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         ReflectionDictionary GetReflectionDictionary() {
-            Type persistentAssemblyInfoType = GetAdditionalClasses(Application.Modules).Where(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1)).FirstOrDefault();
+            BusinessClassesList businessClassesList = GetAdditionalClasses(Application.Modules);
+            Type persistentAssemblyInfoType = businessClassesList.Where(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1)).FirstOrDefault();
             if (persistentAssemblyInfoType == null)
                 throw new ArgumentNullException("Add a business object that implements " +
                                                 typeof(IPersistentAssemblyInfo).FullName + " at your AdditionalBusinessClasses (module.designer.cs)");

@@ -53,9 +53,14 @@ namespace Xpand.ExpressApp {
             return GetAdditionalClasses(manager.Modules);
         }
         public BusinessClassesList GetAdditionalClasses(ModuleList moduleList) {
+#pragma warning disable 612,618
             var businessClassesList = new BusinessClassesList(moduleList.SelectMany(@base => @base.AdditionalBusinessClasses));
             businessClassesList.AddRange(
                 moduleList.SelectMany(moduleBase => moduleBase.BusinessClassAssemblies.GetBusinessClasses()));
+#pragma warning restore 612,618
+
+            businessClassesList.AddRange(moduleList.SelectMany(@base => @base.AdditionalExportedTypes));
+
             return businessClassesList;
         }
 
