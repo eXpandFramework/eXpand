@@ -15,10 +15,17 @@ RequestExecutionLevel admin
 !define COMPANY eXpandFramework
 !define URL http://www.expandframework.com
 
+!define MicrosoftSDKsREGKEY "SOFTWARE\Microsoft\Microsoft SDKs\Windows"
+
 # MUI Symbol Definitions
-!define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install-colorful.ico"
+!define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\orange-install.ico"
 !define MUI_FINISHPAGE_NOAUTOCLOSE
-!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall-colorful.ico"
+!define MUI_STARTMENUPAGE_REGISTRY_ROOT HKLM
+!define MUI_STARTMENUPAGE_NODISABLE
+!define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
+!define MUI_STARTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
+!define MUI_STARTMENUPAGE_DEFAULTFOLDER "${APP_NAME}"
+!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\orange-uninstall.ico"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 !define MUI_WELCOMEFINISHPAGE_BITMAP "Resource\Installer\PageImage.bmp"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "Resource\Installer\PageImage.bmp"
@@ -29,9 +36,13 @@ RequestExecutionLevel admin
 
 # Variables
 Var StartMenuGroup
+var gacutilPath
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
+!insertmacro MUI_PAGE_LICENSE "License.txt"
+!insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_STARTMENU Application $StartMenuGroup
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 !insertmacro MUI_UNPAGE_CONFIRM
@@ -46,6 +57,8 @@ InstallDir $PROGRAMFILES\eXpandFramework
 CRCCheck on
 XPStyle on
 ShowInstDetails show
+InstallDirRegKey HKLM "${REGKEY}" Path
+ShowUninstDetails show
 
 VIProductVersion "${VERSION}.0.0"
 VIAddVersionKey /LANG=${LANG_ENGLISH} ProductName "${APP_NAME}"
@@ -54,12 +67,17 @@ VIAddVersionKey /LANG=${LANG_ENGLISH} CompanyName "${COMPANY}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} CompanyWebsite "${URL}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} FileVersion "${VERSION}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} FileDescription ""
-VIAddVersionKey /LANG=${LANG_ENGLISH} LegalCopyright ""
-InstallDirRegKey HKLM "${REGKEY}" Path
+VIAddVersionKey /LANG=${LANG_ENGLISH} LegalCopyright "© 2011"
 ShowUninstDetails show
 BrandingText "${APP_NAME} Install System v ${VERSION}"
 
 # Installer sections
+!macro CREATE_SMGROUP_SHORTCUT NAME PATH
+    Push "${NAME}"
+    Push "${PATH}"
+    Call CreateSMGroupShortcut
+!macroend
+
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
@@ -71,8 +89,13 @@ Section -post SEC0001
     WriteRegStr HKLM "${REGKEY}" Path $INSTDIR
     SetOutPath $INSTDIR
     WriteUninstaller $INSTDIR\uninstall.exe
+    
+    !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     SetOutPath $SMPROGRAMS\$StartMenuGroup
+    !insertmacro CREATE_SMGROUP_SHORTCUT "Dll list" $INSTDIR\XpandDllList.txt
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^UninstallLink).lnk" $INSTDIR\uninstall.exe
+    !insertmacro MUI_STARTMENU_WRITE_END    
+    
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "${VERSION}"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" Publisher "${COMPANY}"
@@ -84,22 +107,8 @@ Section -post SEC0001
     
     # add To display an assembly in the Add Reference dialog box http://msdn.microsoft.com/en-us/library/wkze6zky.aspx
     WriteRegStr HKLM "SOFTWARE\Microsoft\.NETFramework\v3.0\AssemblyFoldersEx\Xpand" "" "$INSTDIR\Xpand.DLL"
-
-    #!execute "$INSTDIR\gacinstall.cmd"
-    #ExecShell start "$INSTDIR\Tools\gacutil.exe $INSTDIR\Xpand.DLL\Xpand.ExpressApp.IO.dll" /WAIT SW_HIDE
     
-    # get all eXpand Dll's from the $INSTDIR and put into XpandDllList.txt 
-    Push "$INSTDIR\XpandDllList.txt" # output file
-    Push "Xpand*.dll" # filter
-    Push "$INSTDIR\Xpand.DLL" # folder to search in
-    Call MakeFileList
-    
-    # install all eXpand Dll's to the GAC 
-    ExecWait '"$INSTDIR\Tools\gacutil.exe" /il "$INSTDIR\XpandDllList.txt" /f' $0
-    
-    StrCmp $0 "1" 0 +2
-    DetailPrint "install assamblies to the GAC failed"
-    
+    call DllsToGAC
 SectionEnd
 
 # Macro for selecting uninstaller sections
@@ -115,9 +124,29 @@ done${UNSECTION_ID}:
     Pop $R0
 !macroend
 
+!macro SET_GACUTIL_PATH un
+    Function ${un}SetGacutilPath
+        ReadRegStr $0 HKLM "${MicrosoftSDKsREGKEY}" "CurrentInstallFolder"
+        StrCpy $gacutilPath "$0Bin\NETFX 4.0 Tools\gacutil.exe"
+        IfFileExists $gacutilPath +4 0
+          StrCmp "${un}" "un." 0 +2
+            MessageBox MB_OK "gacutil.exe not found! The DLLs can not be installed into the GAC."
+            MessageBox MB_OK "gacutil.exe not found! The DLLs can not be uninstalled from the GAC."
+    FunctionEnd
+!macroend
+
+!insertmacro SET_GACUTIL_PATH ""
+!insertmacro SET_GACUTIL_PATH "un."
+
+# Uninstaller sections
+!macro DELETE_SMGROUP_SHORTCUT NAME
+    Push "${NAME}"
+    Call un.DeleteSMGroupShortcut
+!macroend
+
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
-    CopyFiles /FILESONLY "$INSTDIR\Tools\gacutil.exe" $TEMP
+    !insertmacro DELETE_SMGROUP_SHORTCUT "Dll list"
     RmDir /r /REBOOTOK $INSTDIR
     DeleteRegValue HKLM "${REGKEY}\Components" Main
 SectionEnd
@@ -126,38 +155,35 @@ Section -un.post UNSEC0001
     # remove To display an assembly in the Add Reference dialog box http://msdn.microsoft.com/en-us/library/wkze6zky.aspx
     DeleteRegKey HKLM "SOFTWARE\Microsoft\.NETFramework\v3.0\AssemblyFoldersEx\Xpand"
 
-    # get all eXpand Dll's from the GAC and put into tempDllList.txt 
-    ExecWait '"$TEMP\gacutil.exe" /l | find /i "Xpand." > "$TEMP\tempDllList.txt"'
-
-    # install all eXpand Dll's to the GAC 
-    ExecWait '"$TEMP\gacutil.exe" /ul "$TEMP\tempDllList.txt" /f' $0
-    
-    StrCmp $0 "1" 0 +2
-    DetailPrint "uninstall assamblies from the GAC failed"
-    
-    Delete "$$TEMP\tempDllList.txt"
-    Delete "$TEMP\gacutil.exe"
+    call un.DllsFromGAC
     
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\$(^UninstallLink).lnk"
     Delete /REBOOTOK $INSTDIR\uninstall.exe
+    DeleteRegValue HKLM "${REGKEY}" StartMenuGroup
     DeleteRegValue HKLM "${REGKEY}" Path
     DeleteRegKey /IfEmpty HKLM "${REGKEY}\Components"
     DeleteRegKey /IfEmpty HKLM "${REGKEY}"
     RmDir /REBOOTOK $SMPROGRAMS\$StartMenuGroup
     RmDir /REBOOTOK $INSTDIR
+    Push $R0
+    StrCpy $R0 $StartMenuGroup 1
+    StrCmp $R0 ">" no_smgroup
+no_smgroup:
+    Pop $R0
 SectionEnd
 
 # Installer functions
 Function .onInit
     InitPluginsDir
-    StrCpy $StartMenuGroup eXpandFramework
+    call SetGacutilPath
 FunctionEnd
 
 # Uninstaller functions
 Function un.onInit
     ReadRegStr $INSTDIR HKLM "${REGKEY}" Path
-    StrCpy $StartMenuGroup eXpandFramework
+    !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuGroup
+    call un.SetGacutilPath
     !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
 FunctionEnd
 
@@ -196,4 +222,79 @@ Function MakeFileList
     Pop $R2
     Pop $R1
     Pop $R0
+FunctionEnd
+
+Function DllsToGAC
+    IfFileExists $gacutilPath +3 0
+      StrCpy $0 "1"
+      Goto Ende
+      
+    # get all eXpand Dll's from the $INSTDIR and put into XpandDllList.txt 
+    Push "$INSTDIR\XpandDllList.txt" # output file
+    Push "Xpand*.dll" # filter
+    Push "$INSTDIR\Xpand.DLL" # folder to search in
+    Call MakeFileList
+    
+    # install all eXpand Dll's to the GAC 
+    ExecWait '"$gacutilPath" /il "$INSTDIR\XpandDllList.txt" /f' $0
+    
+    Ende:
+    StrCmp $0 "1" 0 +2
+    DetailPrint "install assamblies into the GAC failed"
+FunctionEnd
+
+Function un.DllsFromGAC
+    IfFileExists $gacutilPath +3 0
+      StrCpy $0 "1"
+      Goto Ende
+    
+    CreateDirectory "$TEMP\${APP_NAME}"
+    
+    StrCpy $3 "$TEMP\${APP_NAME}\getDlls.cmd"
+    Delete $3
+    
+    StrCpy $1 "$TEMP\${APP_NAME}\tempDllList.txt"
+    
+    FileOpen $0 "$3" w
+    # get all eXpand Dll's from the GAC and put into tempDllList.txt 
+    FileWrite $0 '"$gacutilPath" /l | find /i "Xpand." > "$1"' 
+    FileClose $0
+
+    #ExecWait '"$gacutilPath" /l | find /i "Xpand." > "$1"'
+    ExecWait "$3"
+
+    # uninstall all eXpand Dll's to the GAC 
+    ExecWait '"$gacutilPath" /ul "$1" /f' $0
+    
+    RMDir /r "$TEMP\${APP_NAME}"
+    
+    Ende:
+    StrCmp $0 "1" 0 +2
+    DetailPrint "uninstall assamblies from the GAC failed"
+FunctionEnd
+
+Function CreateSMGroupShortcut
+    Exch $R0 ;PATH
+    Exch
+    Exch $R1 ;NAME
+    Push $R2
+    StrCpy $R2 $StartMenuGroup 1
+    StrCmp $R2 ">" no_smgroup
+    SetOutPath $SMPROGRAMS\$StartMenuGroup
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$R1.lnk" $R0
+no_smgroup:
+    Pop $R2
+    Pop $R1
+    Pop $R0
+FunctionEnd
+
+Function un.DeleteSMGroupShortcut
+    Exch $R1 ;NAME
+    Push $R2
+    StrCpy $R2 $StartMenuGroup 1
+    StrCmp $R2 ">" no_smgroup
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\$R1.lnk"
+no_smgroup:
+    Pop $R2
+    Pop $R1
 FunctionEnd
