@@ -40,7 +40,6 @@ namespace XpandAddIns
             this.dropDataBase = new DevExpress.CodeRush.Core.Action(this.components);
             this.actionHint1 = new DevExpress.CodeRush.PlugInCore.ActionHint(this.components);
             this.loadProjectFromReferenceItem = new DevExpress.CodeRush.Core.Action(this.components);
-            this.loadProjectFromObjectBrowser = new DevExpress.CodeRush.Core.Action(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).BeginInit();
@@ -48,7 +47,6 @@ namespace XpandAddIns
             ((System.ComponentModel.ISupportInitialize)(this.dropDataBase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.actionHint1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadProjectFromReferenceItem)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.loadProjectFromObjectBrowser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // convertProject
@@ -120,19 +118,6 @@ namespace XpandAddIns
             this.loadProjectFromReferenceItem.ToolbarItem.Caption = null;
             this.loadProjectFromReferenceItem.ToolbarItem.Image = null;
             this.loadProjectFromReferenceItem.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.loadProjects_Execute);
-            // 
-            // loadProjectFromObjectBrowser
-            // 
-            this.loadProjectFromObjectBrowser.ActionName = "loadProjectFromObjectBrowser";
-            this.loadProjectFromObjectBrowser.ButtonText = "Load Project/s";
-            this.loadProjectFromObjectBrowser.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
-            this.loadProjectFromObjectBrowser.Image = ((System.Drawing.Bitmap)(resources.GetObject("loadProjectFromObjectBrowser.Image")));
-            this.loadProjectFromObjectBrowser.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
-            this.loadProjectFromObjectBrowser.ParentMenu = "Object Browser Objects Pane1";
-            this.loadProjectFromObjectBrowser.ToolbarItem.ButtonIsPressed = false;
-            this.loadProjectFromObjectBrowser.ToolbarItem.Caption = null;
-            this.loadProjectFromObjectBrowser.ToolbarItem.Image = null;
-            this.loadProjectFromObjectBrowser.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.loadProjects_Execute);
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).EndInit();
@@ -140,7 +125,6 @@ namespace XpandAddIns
             ((System.ComponentModel.ISupportInitialize)(this.dropDataBase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.actionHint1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadProjectFromReferenceItem)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.loadProjectFromObjectBrowser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -154,6 +138,5 @@ namespace XpandAddIns
         private DevExpress.CodeRush.Core.Action dropDataBase;
         private DevExpress.CodeRush.PlugInCore.ActionHint actionHint1;
         private DevExpress.CodeRush.Core.Action loadProjectFromReferenceItem;
-        private DevExpress.CodeRush.Core.Action loadProjectFromObjectBrowser;
     }
 }
