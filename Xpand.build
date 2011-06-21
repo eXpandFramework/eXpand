@@ -21,6 +21,7 @@
 		<ArtifactDirectory Condition="$(ArtifactDirectory)==''">$(BuildPath)\Artifact</ArtifactDirectory>
 		<PackageDirectory Condition="$(PackageDirectory)==''">$(BuildPath)\_Package\$(Version)</PackageDirectory>
 		<DeploymentFolder Condition="$(DeploymentFolder)==''">$(BuildPath)\_DeploymentFolder\</DeploymentFolder>
+		<InstallerFolder Condition="$(InstallerFolder)==''">$(BuildPath)\Installer</InstallerFolder>
 		
 		<!--
 			Derived configuration properties
@@ -212,6 +213,28 @@
 	<Target Name="Integrate" DependsOnTargets="Clean;Test;Report;" />
 	<!--For Continuous integration and automated releases-->
 	<Target Name="Release" DependsOnTargets="Clean;_Version;Build;Test;Report;Distrib;" />
+	
+	<Target Name="Installer">
+		<MakeDir Directories="$(InstallerFolder);" />
+		
+		<CreateItem Include="$(XpandPath)\Xpand.*.dll;" ><!--Exclude="$(XpandPath)\*.locked" -->
+			<Output ItemName="files" TaskParameter="Include"/>
+		</CreateItem>
+		<Copy SourceFiles="@(files)" DestinationFolder="$(InstallerFolder)\Xpand.DLL" />
+		
+		<Exec Command="Resource\Tool\NSIS\makensis.exe Xpand.nsi %*" />
+		
+		<CreateItem Include="setup.exe" ><!--Exclude="$(XpandPath)\*.locked" -->
+			<Output ItemName="setupFiles" TaskParameter="Include"/>
+		</CreateItem>
+		
+		<Copy
+            SourceFiles="@(setupFiles)"
+            DestinationFolder="$(PackageDirectory)"
+        />
+		
+		<Delete Files="@(setupFiles)" />
+	</Target>
 	
 	<Target Name="DeployUpdate" >
 		<MakeDir Directories="$(DeploymentFolder);" />
