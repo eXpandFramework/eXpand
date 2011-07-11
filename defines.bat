@@ -1,5 +1,5 @@
 @echo off
-set dxver=v10.2
+set dxver=v11.1
 set configuration=Debug
 set vsver=vs2010
 rem uncomment the line bellow if you not use vs2010
