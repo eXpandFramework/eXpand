@@ -1,5 +1,5 @@
-<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v11.1, Version=11.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
-<%@ Register TagPrefix="dxdv" Namespace="DevExpress.Web.ASPxDataView" Assembly="DevExpress.Web.v11.1, Version=11.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v11.1, Version=11.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxdv" Namespace="DevExpress.Web.ASPxDataView" Assembly="DevExpress.Web.v11.1, Version=11.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
 <dxdv:ASPxDataView runat="server" ItemSpacing="23px" CssFilePath="~/App_Themes/Aqua/{0}/styles.css" PagerPanelSpacing="0px" 
     CssPostfix="Aqua" SpriteCssFilePath="~/App_Themes/Aqua/{0}/sprite.css" LoadingPanelImagePosition="Top">
     <PagerSettings CurrentPageNumberFormat="{0}"></PagerSettings>

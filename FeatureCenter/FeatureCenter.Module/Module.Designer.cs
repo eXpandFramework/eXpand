@@ -1,5 +1,6 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ScriptRecorder;
+using DevExpress.ExpressApp.StateMachine;
 using Xpand.ExpressApp.ConditionalDetailViews;
 using Xpand.ExpressApp.ImportWizard;
 using Xpand.ExpressApp.JobScheduler;
@@ -67,6 +68,7 @@ namespace FeatureCenter.Module {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.JobSchedulerModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule));
             this.RequiredModuleTypes.Add(typeof(ImportWizardModule));
+            this.RequiredModuleTypes.Add(typeof(StateMachineModule));
         }
 
         #endregion
