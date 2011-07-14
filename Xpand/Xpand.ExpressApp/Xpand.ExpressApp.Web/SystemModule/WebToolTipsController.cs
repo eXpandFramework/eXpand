@@ -18,7 +18,6 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 }
             }
         }
-
         protected override void SetDetailViewToolTips() {
             foreach (PropertyEditor editor in ((DetailView)View).GetItems<PropertyEditor>()) {
                 if (editor.Control != null && (editor.Control is WebControl))

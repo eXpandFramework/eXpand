@@ -8,27 +8,23 @@ using Xpand.ExpressApp.MasterDetail.NodeUpdaters;
 using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.MasterDetail {
-    public class MasterDetailModule : LogicModuleBase<IMasterDetailRule, MasterDetailRule>
-    {
+    public class MasterDetailModule : LogicModuleBase<IMasterDetailRule, MasterDetailRule> {
         public MasterDetailModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(LogicModule));
         }
         #region IModelExtender Members
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelApplication, IModelApplicationMasterDetail>();
         }
-        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters)
-        {
+        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new MasterDetailDefaultGroupContextNodeUpdater());
             updaters.Add(new MasterDetailRulesNodeUpdater());
             updaters.Add(new MasterDetailDefaultContextNodeUpdater());
         }
         #endregion
-        protected override IModelLogic GetModelLogic(IModelApplication applicationModel)
-        {
+        protected override IModelLogic GetModelLogic(IModelApplication applicationModel) {
             return ((IModelApplicationMasterDetail)applicationModel).MasterDetail;
         }
     }
