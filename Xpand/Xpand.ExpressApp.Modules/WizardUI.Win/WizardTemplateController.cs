@@ -1,6 +1,6 @@
 ﻿using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.WizardUI.Win
 {
@@ -45,6 +45,9 @@ namespace Xpand.ExpressApp.WizardUI.Win
             else if (e.ShowViewParameters.CreatedView == null && e.Action.Controller is NewObjectViewController)
             {
                 controller = e.Action.Controller as NewObjectViewController;
+                if (controller.NewObjectAction.SelectedItem == null)
+                    return;
+
                 var viewID = this.Application.GetDetailViewId(controller.NewObjectAction.SelectedItem.Data as System.Type);
                 modelWizard = this.Application.Model.Views[viewID] as IModelDetailViewWizard;
             }
