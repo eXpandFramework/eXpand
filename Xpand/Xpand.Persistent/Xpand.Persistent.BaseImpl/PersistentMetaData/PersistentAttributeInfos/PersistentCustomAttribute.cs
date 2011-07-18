@@ -21,8 +21,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             set { SetPropertyValue("Value", ref _value, value); }
         }
 
-        public override AttributeInfo Create() {
-            return new AttributeInfo(typeof (CustomAttribute).GetConstructor(new[] {typeof (string), typeof (string)}),
+        public override AttributeInfoAttribute Create() {
+            return new AttributeInfoAttribute(typeof (CustomAttribute).GetConstructor(new[] {typeof (string), typeof (string)}),
                                      PropertyName, Value);
         }
     }

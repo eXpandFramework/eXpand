@@ -16,9 +16,9 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         public void SynchronizeTypes(string connectionString) {
-            using (var session = new Session {ConnectionString = connectionString}) {
+            using (var session = new Session { ConnectionString = connectionString }) {
                 using (var types = new XPCollection<XPObjectType>(session)) {
-                    IEnumerable<XPObjectType> xpObjectTypes = types.ToList().Where(objectType => ReflectionHelper.FindType(objectType.TypeName) != null);
+                    IEnumerable<XPObjectType> xpObjectTypes = types.Where(objectType => ReflectionHelper.FindType(objectType.TypeName) != null).ToList();
                     var sqlMultiDataStoreProxy = new SqlMultiDataStoreProxy(connectionString);
                     foreach (var connstring in GetConnectionStrings(sqlMultiDataStoreProxy.DataStoreManager, xpObjectTypes, connectionString)) {
                         if (connstring != connectionString) {
@@ -50,7 +50,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                             var modificationResult = sqlDataStoreProxy.ModifyData(insertStatement);
                             sync = false;
                             args.ModificationResult = modificationResult;
-                            args.ModificationResult.Identities = new[] { new ParameterValue { Value = oid[0] }, };
+                            args.ModificationResult.Identities = new[] { new ParameterValue { Value = oid[0] } };
                         }
                     };
                     foreach (var xpObjectType in xpObjectTypes) {

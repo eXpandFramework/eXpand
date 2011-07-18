@@ -23,13 +23,13 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             get { return _connectionString; }
             set { SetPropertyValue("ConnectionString", ref _connectionString, value); }
         }
-        public override AttributeInfo Create() {
+        public override AttributeInfoAttribute Create() {
             var constructorInfo = typeof(DataStoreAttribute).GetConstructor(new[]{typeof(string),typeof(string)});
             string initializedArgumentValues = null;
             if (PersistentClassInfo.PersistentAssemblyInfo != null)
                 initializedArgumentValues = PersistentClassInfo.PersistentAssemblyInfo.Name+"."+PersistentClassInfo.Name;
             Guard.ArgumentNotNull(ConnectionString, "ConnectionString");
-            return new AttributeInfo(constructorInfo, _connectionString,initializedArgumentValues);
+            return new AttributeInfoAttribute(constructorInfo, _connectionString,initializedArgumentValues);
         }
         
         [NonPersistent]

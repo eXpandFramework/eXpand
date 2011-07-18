@@ -142,6 +142,7 @@
     <Compile Include="PropertyEditors\IChooseFromListCollectionEditor.cs" />
     <Compile Include="PropertyEditors\ISerializableObjectPropertyEditor.cs" />
     <Compile Include="PropertyEditors\IStringLookupPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\IStringPropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializableObjectPropertyEditorBuilder.cs" />
     <Compile Include="Security\IXpandLogonParameters.cs" />
     <Compile Include="SystemModule\UpdateFastManyToManyActionsController.cs">

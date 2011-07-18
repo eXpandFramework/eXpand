@@ -137,6 +137,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyEditors\SerializableObjectPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringLookupPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\StringPropertyEditor.cs" />
     <Compile Include="PropertyEditors\UriEditor.cs" />
     <Compile Include="SystemModule\CollectionsEditModeController.cs">
       <SubType>Component</SubType>

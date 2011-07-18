@@ -16,8 +16,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             get { return "Aggregated"; }
         }
         
-        public override AttributeInfo Create() {
-            return new AttributeInfo(typeof(AggregatedAttribute).GetConstructor(new Type[0]),new object[0]);
+        public override AttributeInfoAttribute Create() {
+            return new AttributeInfoAttribute(typeof(AggregatedAttribute).GetConstructor(new Type[0]),new object[0]);
         }
     }
 }

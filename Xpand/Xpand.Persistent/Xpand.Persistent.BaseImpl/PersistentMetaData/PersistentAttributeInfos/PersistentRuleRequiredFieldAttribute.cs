@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.ExpressApp.PropertyEditors;
+using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
@@ -12,7 +14,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         string _iD;
 
 
-        public PersistentRuleRequiredFieldAttribute(Session session) : base(session) {
+        public PersistentRuleRequiredFieldAttribute(Session session)
+            : base(session) {
         }
 
         public string ID {
@@ -23,19 +26,30 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]
         public string DefaultProperty {
-            get { return string.Format("{0}: {1}", typeof (RuleRequiredFieldAttribute).Name, ID); }
+            get { return string.Format("{0}: {1}", typeof(RuleRequiredFieldAttribute).Name, ID); }
         }
-
+        [RuleRequiredField]
         public string Context {
             get { return _context; }
             set { SetPropertyValue("Context", ref _context, value); }
         }
-
-        public override AttributeInfo Create() {
+        private string _targetCriteria;
+        
+        [Size(SizeAttribute.Unlimited)]
+        [AttributeInfo]
+        public string TargetCriteria {
+            get {
+                return _targetCriteria;
+            }
+            set {
+                SetPropertyValue("TargetCriteria", ref _targetCriteria, value);
+            }
+        }
+        public override AttributeInfoAttribute Create() {
             return
-                new AttributeInfo(
-                    typeof (RuleRequiredFieldAttribute).GetConstructor(new[] {typeof (string), typeof (string)}), ID,
-                    Context);
+                new AttributeInfoAttribute(
+                    typeof(RuleRequiredFieldAttribute).GetConstructor(new[] { typeof(string), typeof(string) }), ID,
+                    Context){Instance=this};
         }
     }
 }

@@ -29,8 +29,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
                 SetPropertyValue("Size", ref _size, value);
             }
         }
-        public override AttributeInfo Create() {
-            return new AttributeInfo(typeof(SizeAttribute).GetConstructor(new[] { typeof(int) }),Size);
+        public override AttributeInfoAttribute Create() {
+            return new AttributeInfoAttribute(typeof(SizeAttribute).GetConstructor(new[] { typeof(int) }),Size);
         }
     }
 }

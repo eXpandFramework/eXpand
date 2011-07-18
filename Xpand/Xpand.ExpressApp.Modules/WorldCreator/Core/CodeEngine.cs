@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -88,7 +90,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
 
         static string GetMembersCode(IEnumerable<IPersistentMemberInfo> persistentMemberInfos) {
-            Func<IPersistentMemberInfo, string> codeSelector = persistentMemberInfo => GenerateCode(persistentMemberInfo);
+            Func<IPersistentMemberInfo, string> codeSelector = GenerateCode;
             Func<string, string, string> aggrecator = (current, code) => current + (code + Environment.NewLine);
             return persistentMemberInfos.Select(codeSelector).Aggregate(null, aggrecator);
         }
@@ -104,7 +106,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         }
 
         static string CleanFullName(string fullName) {
-            var list = (fullName+"").Split('.').ToList();
+            var list = (fullName + "").Split('.').ToList();
             var name = list.Last();
             list.Remove(name);
             name = CleanName(name);
@@ -157,11 +159,11 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         }
 
         public static string GenerateCode(IPersistentAttributeCreator persistentAttributeCreator) {
-            AttributeInfo attributeInfo = persistentAttributeCreator.Create();
-            var attribute = (Attribute)ReflectionHelper.CreateObject(attributeInfo.Constructor.DeclaringType, attributeInfo.InitializedArgumentValues);
+            AttributeInfoAttribute attributeInfoAttribute = persistentAttributeCreator.Create();
+            var attribute = (Attribute)ReflectionHelper.CreateObject(attributeInfoAttribute.Constructor.DeclaringType, attributeInfoAttribute.InitializedArgumentValues);
             Func<object, object> argSelector = GetArgumentCode;
-            string args = attributeInfo.InitializedArgumentValues.Length > 0
-                              ? attributeInfo.InitializedArgumentValues.Select(argSelector).Aggregate
+            string args = attributeInfoAttribute.InitializedArgumentValues.Length > 0
+                              ? attributeInfoAttribute.InitializedArgumentValues.Select(argSelector).Aggregate
                               <object, string>(null, (current, o) => current + (o + ",")).TrimEnd(',')
                               : null;
             string assemblyDecleration = null;
@@ -171,19 +173,29 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                     ////args = CalculateVersion(args);
                 }
             }
-            return string.Format("[{0}{1}({2})]", assemblyDecleration, attribute.GetType().FullName, args);
+            string properties = GetPropertiesCode(attributeInfoAttribute);
+            return string.Format("[{0}{1}({2}){3}]", assemblyDecleration, attribute.GetType().FullName, args, properties);
         }
 
-/*
-        static string CalculateVersion(string args) {
-            args = args.Replace(@"""", "").Replace("@","");
-            var version = new Version(args+".0.0");
-            var totalMinutes = (int)(DateTime.Now-DateTime.Today).TotalMinutes;
-            version = new Version(version.Major, version.Minor, DateTime.Today.DayOfYear, totalMinutes);
-            args = version.ToString();
-            return @""""+args+@"""";
+        static string GetPropertiesCode(AttributeInfoAttribute attributeInfoAttribute) {
+            if (attributeInfoAttribute.Instance == null)
+                return null;
+            var typeInfo = XafTypesInfo.CastTypeToTypeInfo(attributeInfoAttribute.Instance.GetType());
+            var memberInfos = typeInfo.Members.Where(info => info.FindAttribute<AttributeInfoAttribute>() != null);
+            string code = memberInfos.Aggregate<IMemberInfo, string>(null, (current, memberInfo) => current + (memberInfo.Name + "=" + GetArgumentCode(memberInfo.GetValue(attributeInfoAttribute.Instance)) + ",")).TrimEnd(',');
+            return string.Format("{{{0}}}", code);
         }
-*/
+
+        /*
+                static string CalculateVersion(string args) {
+                    args = args.Replace(@"""", "").Replace("@","");
+                    var version = new Version(args+".0.0");
+                    var totalMinutes = (int)(DateTime.Now-DateTime.Today).TotalMinutes;
+                    version = new Version(version.Major, version.Minor, DateTime.Today.DayOfYear, totalMinutes);
+                    args = version.ToString();
+                    return @""""+args+@"""";
+                }
+        */
 
         static object GetArgumentCode(object argumentValue) {
             if (argumentValue is string)

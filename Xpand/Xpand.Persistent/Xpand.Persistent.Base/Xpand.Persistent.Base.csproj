@@ -181,7 +181,7 @@
     <Compile Include="PersistentMetaData\IPersistentTemplatedTypeInfo.cs" />
     <Compile Include="PersistentMetaData\ISqlMapperInfo.cs" />
     <Compile Include="PersistentMetaData\ITemplateInfo.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\AttributeInfo.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\AttributeInfoAttribute.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssemblyDataStoreAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssemblyVersionAttributeInfo.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssociationAttribute.cs" />

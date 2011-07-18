@@ -15,9 +15,9 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             set { SetPropertyValue("MapInheritanceType", ref _mapInheritanceType, value); }
         }
 
-        public override AttributeInfo Create() {
+        public override AttributeInfoAttribute Create() {
             return
-                new AttributeInfo(typeof (MapInheritanceAttribute).GetConstructor(new[] {typeof (MapInheritanceType)}),
+                new AttributeInfoAttribute(typeof (MapInheritanceAttribute).GetConstructor(new[] {typeof (MapInheritanceType)}),
                                   MapInheritanceType);
         }
     }

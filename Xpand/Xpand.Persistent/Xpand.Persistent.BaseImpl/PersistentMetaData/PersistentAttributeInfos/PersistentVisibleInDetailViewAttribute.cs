@@ -24,9 +24,9 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
                 SetPropertyValue("Visible", ref _visible, value);
             }
         }
-        public override AttributeInfo Create() {
+        public override AttributeInfoAttribute Create() {
             return
-                new AttributeInfo(typeof(VisibleInDetailViewAttribute).GetConstructor(new[] { typeof(bool) }), Visible);
+                new AttributeInfoAttribute(typeof(VisibleInDetailViewAttribute).GetConstructor(new[] { typeof(bool) }), Visible);
         }
     }
 }

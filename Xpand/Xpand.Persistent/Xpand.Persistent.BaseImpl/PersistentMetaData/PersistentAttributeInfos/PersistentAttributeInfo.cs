@@ -16,7 +16,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             get { return GetType().Name + ": " + ToString(); }
         }
 
-        public abstract AttributeInfo Create();
+        public abstract AttributeInfoAttribute Create();
 
         IPersistentTypeInfo IPersistentAttributeInfo.Owner {
             get { return Owner; }

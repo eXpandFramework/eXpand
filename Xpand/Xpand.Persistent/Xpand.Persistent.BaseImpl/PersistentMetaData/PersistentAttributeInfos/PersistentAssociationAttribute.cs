@@ -64,18 +64,18 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         }
 
 
-        public override AttributeInfo Create() {
+        public override AttributeInfoAttribute Create() {
             if (!string.IsNullOrEmpty(ElementTypeFullName))
                 return GetElementTypeDefinedAttributeInfo();
             ConstructorInfo constructorInfo = typeof (AssociationAttribute).GetConstructor(new[] {typeof (string)});
-            return new AttributeInfo(constructorInfo, AssociationName);
+            return new AttributeInfoAttribute(constructorInfo, AssociationName);
         }
 
-        AttributeInfo GetElementTypeDefinedAttributeInfo() {
+        AttributeInfoAttribute GetElementTypeDefinedAttributeInfo() {
             var type = ReflectionHelper.GetType(ElementTypeFullName);
             ConstructorInfo constructorInfo =
                 typeof (AssociationAttribute).GetConstructor(new[] {typeof (string), typeof (string), typeof (string)});
-            return new AttributeInfo(constructorInfo, AssociationName,  type);
+            return new AttributeInfoAttribute(constructorInfo, AssociationName,  type);
         }
     }
 }

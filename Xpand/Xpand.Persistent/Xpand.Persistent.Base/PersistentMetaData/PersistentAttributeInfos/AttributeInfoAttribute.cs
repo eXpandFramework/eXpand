@@ -1,13 +1,16 @@
+using System;
 using System.Reflection;
 
 namespace Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos {
-    public class AttributeInfo {
+    public class AttributeInfoAttribute : Attribute {
         private readonly object[] _initializedArgumentValues;
         private readonly ConstructorInfo _constructor;
 
-        public AttributeInfo(ConstructorInfo constructorInfo, params object[] initializedArgumentValues)
-        {
-            _constructor=constructorInfo;
+        public AttributeInfoAttribute() {
+        }
+
+        public AttributeInfoAttribute(ConstructorInfo constructorInfo, params object[] initializedArgumentValues) {
+            _constructor = constructorInfo;
             _initializedArgumentValues = initializedArgumentValues;
         }
 
@@ -20,7 +23,9 @@ namespace Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos {
             get {
                 return _constructor;
             }
-            
+
         }
+
+        public object Instance { get; set; }
     }
 }
