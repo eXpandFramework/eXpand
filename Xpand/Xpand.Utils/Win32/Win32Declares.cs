@@ -57,7 +57,7 @@ namespace Xpand.Utils.Win32 {
             /// <param name="nPos">[in] Specifies the zero-based relative position of the menu item whose identifier is to be retrieved</param>
             /// <returns>The return value is the identifier of the specified menu item. If the menu item identifier is NULL or if the specified item opens a submenu, the return value is -1. </returns>
             [DllImport("user32.dll")]
-            public static extern int GetMenuItemID(int hMenu, int nPos);
+            public static extern int GetMenuItemID(IntPtr hMenu, int nPos);
 
             /// <summary>
             /// The GetMenu function retrieves a handle to the menu assigned to the specified window. 
@@ -65,7 +65,7 @@ namespace Xpand.Utils.Win32 {
             /// <param name="hwnd">[in] Handle to the window whose menu handle is to be retrieved</param>
             /// <returns>The return value is a handle to the menu. If the specified window has no menu, the return value is NULL. If the window is a child window, the return value is undefined</returns>
             [DllImport("user32.dll")]
-            public static extern int GetMenu(IntPtr hwnd);
+            public static extern IntPtr GetMenu(IntPtr hwnd);
 
             /// <summary>
             /// The GetSubMenu function retrieves a handle to the drop-down menu or submenu activated by the specified menu item. 
@@ -74,7 +74,7 @@ namespace Xpand.Utils.Win32 {
             /// <param name="nPos">[in] Specifies the zero-based relative position in the specified menu of an item that activates a drop-down menu or submenu.</param>
             /// <returns>If the function succeeds, the return value is a handle to the drop-down menu or submenu activated by the menu item. If the menu item does not activate a drop-down menu or submenu, the return value is NULL. </returns>
             [DllImport("user32.dll")]
-            public static extern int GetSubMenu(int hMenu, int nPos);
+            public static extern IntPtr GetSubMenu(IntPtr hMenu, int nPos);
         }
 
         public class Message {

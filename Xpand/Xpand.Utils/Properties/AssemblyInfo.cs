@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security;
 using Xpand;
 
 // General Information about an assembly is controlled through the following 
@@ -35,6 +36,7 @@ using Xpand;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion(AssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(AssemblyInfo.Version)]
+[assembly: AllowPartiallyTrustedCallers]
 namespace Xpand {
     public class AssemblyInfo {
         public const string Version = "11.1.5.0";

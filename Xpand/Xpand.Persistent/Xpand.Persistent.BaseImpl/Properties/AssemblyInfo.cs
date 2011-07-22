@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 
 // General Information about an assembly is controlled through the following 
@@ -37,3 +38,4 @@ using Xpand.Persistent.BaseImpl.PersistentMetaData;
 [assembly: AssemblyFileVersion(Xpand.AssemblyInfo.Version)]
 
 
+[assembly: AllowPartiallyTrustedCallers]
