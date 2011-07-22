@@ -172,6 +172,9 @@
     <Compile Include="RequireSchedulerInitializationController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ShutDownSchedulerController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SupportSchedulerController.cs">
       <SubType>Component</SubType>
     </Compile>

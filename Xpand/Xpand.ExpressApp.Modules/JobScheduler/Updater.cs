@@ -1,6 +1,7 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
+using Quartz.Impl;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public class Updater : ModuleUpdater {
