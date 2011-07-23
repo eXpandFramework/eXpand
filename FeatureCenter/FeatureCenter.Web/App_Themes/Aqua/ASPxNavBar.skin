@@ -1,5 +1,5 @@
-<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v11.1, Version=11.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
-<%@ Register TagPrefix="dxnb" Namespace="DevExpress.Web.ASPxNavBar" Assembly="DevExpress.Web.v11.1, Version=11.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxnb" Namespace="DevExpress.Web.ASPxNavBar" Assembly="DevExpress.Web.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
 <dxnb:ASPxNavBar runat="server" CssPostfix="Aqua" CssFilePath="~/App_Themes/Aqua/{0}/styles.css" SpriteCssFilePath="~/App_Themes/Aqua/{0}/sprite.css"> 
     <LoadingPanelImage Url="~/App_Themes/Aqua/Web/nbLoading.gif" />
 </dxnb:ASPxNavBar>

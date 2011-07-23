@@ -153,7 +153,11 @@ namespace Xpand.Persistent.Base.General {
 
         public static void GenerateSequence(ISupportSequenceObject supportSequenceObject, ITypeInfo typeInfo) {
             if (_sequenceGenerator == null)
-                _sequenceGenerator = new SequenceGenerator();
+                try {
+                    _sequenceGenerator = new SequenceGenerator();
+                } catch (NullReferenceException) {
+                    return;
+                }
             long nextSequence = _sequenceGenerator.GetNextSequence(typeInfo, supportSequenceObject.Prefix);
             Session session = supportSequenceObject.Session;
             if (!(session is NestedUnitOfWork)) {

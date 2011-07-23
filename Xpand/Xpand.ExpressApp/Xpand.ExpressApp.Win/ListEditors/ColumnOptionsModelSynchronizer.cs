@@ -5,11 +5,9 @@ using Xpand.ExpressApp.ListEditors;
 using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.Win.ListEditors {
-    public class ColumnOptionsModelSynchronizer : OptionsModelSynchronizer<object, IModelColumn, IModelColumnOptionsBase>
-    {
+    public class ColumnOptionsModelSynchronizer : OptionsModelSynchronizer<object, IModelColumn, IModelColumnOptionsBase> {
         public ColumnOptionsModelSynchronizer(object control, IModelColumn model)
-            : base(control, model)
-        {
+            : base(control, model) {
         }
 
         protected override object GetControl() {

@@ -34,7 +34,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             set { SetPropertyValue("Context", ref _context, value); }
         }
         private string _targetCriteria;
-        
+
         [Size(SizeAttribute.Unlimited)]
         [AttributeInfo]
         public string TargetCriteria {
@@ -49,7 +49,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             return
                 new AttributeInfoAttribute(
                     typeof(RuleRequiredFieldAttribute).GetConstructor(new[] { typeof(string), typeof(string) }), ID,
-                    Context){Instance=this};
+                    Context) { Instance = this };
         }
     }
 }
