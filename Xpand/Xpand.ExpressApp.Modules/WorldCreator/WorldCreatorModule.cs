@@ -1,10 +1,23 @@
-
 using System.ComponentModel;
+using DevExpress.ExpressApp;
+using System.Linq;
+using Xpand.ExpressApp.Security;
+using Xpand.ExpressApp.Validation;
 
 namespace Xpand.ExpressApp.WorldCreator {
-    
+
     [ToolboxItem(false)]
     public sealed class WorldCreatorModule : XpandModuleBase {
+        public WorldCreatorModule() {
+            RequiredModuleTypes.Add(typeof(XpandValidationModule));
+            RequiredModuleTypes.Add(typeof(XpandSecurityModule));
+        }
+
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
+            AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
+        }
+
     }
 
 }

@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Win.SystemModule;
+using Xpand.ExpressApp.Win.SystemModule;
 
 namespace Xpand.ExpressApp.ModelDifference.Win {
     [ToolboxBitmap(typeof(ModelDifferenceWindowsFormsModule))]
@@ -10,7 +10,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
     public sealed class ModelDifferenceWindowsFormsModule : ModelDifferenceBaseModule {
         public ModelDifferenceWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
-            RequiredModuleTypes.Add(typeof(SystemWindowsFormsModule));
+            RequiredModuleTypes.Add(typeof(XpandSystemWindowsFormsModule));
         }
         public static ModelApplicationCreator ApplicationCreator { get; set; }
         private bool? _modelsLoaded = false;

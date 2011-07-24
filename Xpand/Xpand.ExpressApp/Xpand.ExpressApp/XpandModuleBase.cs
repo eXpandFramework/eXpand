@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -15,6 +17,30 @@ namespace Xpand.ExpressApp {
         static readonly object _lockObject = new object();
         static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
         public static object Control;
+        static Assembly _baseImplAssembly;
+
+        public static Assembly BaseImplAssembly {
+            get {
+                if (_baseImplAssembly == null) {
+                    var baseImplName = ConfigurationManager.AppSettings["Baseimpl"];
+                    if (String.IsNullOrEmpty(baseImplName)) {
+                        _baseImplAssembly = Assembly.Load("Xpand.Persistent.BaseImpl");
+                        if (_baseImplAssembly == null)
+                            throw new NullReferenceException("BaseImpl not found please reference it in your front end project");
+                        TypesInfo.LoadTypes(_baseImplAssembly);
+                    }
+                }
+                return _baseImplAssembly;
+            }
+        }
+
+        public static Type LoadFromBaseImpl(string typeName) {
+            if (BaseImplAssembly != null) {
+                var typeInfo = TypesInfo.FindTypeInfo(typeName);
+                return typeInfo != null ? typeInfo.Type : null;
+            }
+            return null;
+        }
 
         public static ModelApplicationCreator ModelApplicationCreator {
             get {
@@ -24,6 +50,11 @@ namespace Xpand.ExpressApp {
                 if (_instanceModelApplicationCreatorManager != null)
                     _instanceModelApplicationCreatorManager.Value = value;
             }
+        }
+
+        protected void AddToAdditionalExportedTypes(string nameSpaceName) {
+            var types = BaseImplAssembly.GetTypes().Where(type1 => (type1.Namespace + "").StartsWith(nameSpaceName));
+            AdditionalExportedTypes.AddRange(types);
         }
 
         protected void CreateDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName) {

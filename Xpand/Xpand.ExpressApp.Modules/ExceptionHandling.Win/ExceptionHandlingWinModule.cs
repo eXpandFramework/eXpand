@@ -10,6 +10,8 @@ namespace Xpand.ExpressApp.ExceptionHandling.Win {
     public sealed partial class ExceptionHandlingWinModule : ExceptionHandlingModule {
         public event EventHandler<CustomHandleExceptionEventArgs> CustomHandleException;
 
+        
+
         void OnCustomHandleException(CustomHandleExceptionEventArgs e) {
             EventHandler<CustomHandleExceptionEventArgs> handler = CustomHandleException;
             if (handler != null) handler(this, e);

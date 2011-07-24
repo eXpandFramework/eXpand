@@ -90,6 +90,10 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Validation, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Persistent.Base, Version=0.0.9311.9, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>

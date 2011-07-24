@@ -25,7 +25,6 @@ call buildproject.cmd Xpand.ExpressApp.ArtifactState ".\Xpand\Xpand.ExpressApp.M
 call buildproject.cmd Xpand.ExpressApp.ConditionalActionState ".\Xpand\Xpand.ExpressApp.Modules\ConditionalActionState\Xpand.ExpressApp.ConditionalActionState.csproj"
 call buildproject.cmd Xpand.ExpressApp.ConditionalControllerState ".\Xpand\Xpand.ExpressApp.Modules\ConditionalControllerState\Xpand.ExpressApp.ConditionalControllerState.csproj"
 call buildproject.cmd Xpand.ExpressApp.ModelArtifactState ".\Xpand\Xpand.ExpressApp.Modules\ModelArtifactState\Xpand.ExpressApp.ModelArtifactState.csproj"
-call buildproject.cmd Xpand.ExpressApp.ModelArtifactState.Win ".\Xpand\Xpand.ExpressApp.Modules\ModelArtifactState.Win\Xpand.ExpressApp.ModelArtifactState.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.WizardUI.Win ".\Xpand\Xpand.ExpressApp.Modules\WizardUI.Win\Xpand.ExpressApp.WizardUI.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.ViewVariants ".\Xpand\Xpand.ExpressApp.Modules\ViewVariants\Xpand.ExpressApp.ViewVariants.csproj"
 call buildproject.cmd Xpand.ExpressApp.MasterDetail ".\Xpand\Xpand.ExpressApp.Modules\MasterDetail\Xpand.ExpressApp.MasterDetail.csproj"

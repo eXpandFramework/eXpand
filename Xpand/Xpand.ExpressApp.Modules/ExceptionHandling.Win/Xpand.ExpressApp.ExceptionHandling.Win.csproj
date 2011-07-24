@@ -89,6 +89,10 @@
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Win, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Utils, Version=0.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>

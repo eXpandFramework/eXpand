@@ -91,6 +91,14 @@
     <Reference Include="DevExpress.XtraWizard.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Xpand.ExpressApp, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Win, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Utils, Version=0.0.0.9, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>

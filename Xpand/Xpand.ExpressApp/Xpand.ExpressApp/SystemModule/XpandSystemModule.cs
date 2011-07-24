@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Design;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Updating;
@@ -28,8 +26,11 @@ namespace Xpand.ExpressApp.SystemModule {
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(XafApplication), "Resources.SystemModule.ico")]
     public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter {
-        bool _sequenceObjectTypeInitialized;
-        Type _sequenceObjectType;
+
+
+        public XpandSystemModule() {
+            SequenceObjectType = LoadFromBaseImpl("Xpand.Persistent.BaseImpl.SequenceObject");
+        }
 
         static XpandSystemModule() {
             ParametersFactory.RegisterParameter(new MonthAgoParameter());
@@ -45,31 +46,10 @@ namespace Xpand.ExpressApp.SystemModule {
             base.Setup(moduleManager);
             if (Application != null) Application.LoggingOn += (sender, args) => InitializeSequenceGenerator();
         }
-        [TypeConverter(typeof(BusinessClassTypeConverter<ISequenceObject>))]
-        public Type SequenceObjectType {
-            get { return _sequenceObjectType; }
-            set {
-                _sequenceObjectTypeInitialized = true;
-                _sequenceObjectType = value;
-            }
-        }
 
-        protected override IEnumerable<Type> GetDeclaredExportedTypes() {
-            if (!_sequenceObjectTypeInitialized) {
-                Assembly.Load("Xpand.Persistent.BaseImpl");
-                Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-                foreach (Assembly assembly in assemblies) {
-                    string assemblyName = ReflectionHelper.GetAssemblyName(assembly);
-                    if (assemblyName.IndexOf("BaseImpl") > -1) {
-                        _sequenceObjectType = assembly.GetType("Xpand.Persistent.BaseImpl.SequenceObject");
-                    }
-                }
-            }
-            if (_sequenceObjectType == null) {
-                return new Type[0];
-            }
-            return new[] { _sequenceObjectType };
-        }
+        [Browsable(false)]
+        internal Type SequenceObjectType { get; set; }
+
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);

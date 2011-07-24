@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.DC;
 using System.Linq;
+using Xpand.ExpressApp.Win.SystemModule;
 
 namespace Xpand.ExpressApp.WizardUI.Win {
 
@@ -73,6 +74,9 @@ namespace Xpand.ExpressApp.WizardUI.Win {
     [ToolboxItemFilter("Xaf.Platform.Win")]
     [Description("Contains an RibbonDetailView Template with an Wizard Control on it.")]
     public sealed class WizardUIWindowsFormsModule : ModuleBase {
+        public WizardUIWindowsFormsModule() {
+            RequiredModuleTypes.Add(typeof(XpandSystemWindowsFormsModule));
+        }
         #region Methods
         /// <summary>
         /// Initializes the Module
