@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.PivotChart.Core;
 using Xpand.ExpressApp.PivotChart.Win.Options;
@@ -7,7 +9,8 @@ using AnalysisPropertyEditorNodeUpdater = Xpand.ExpressApp.PivotChart.Win.Core.A
 using TypesInfo = Xpand.ExpressApp.PivotChart.Core.TypesInfo;
 
 namespace Xpand.ExpressApp.PivotChart.Win {
-
+    [ToolboxBitmap(typeof(XpandPivotChartWinModule))]
+    [ToolboxItem(true)]
     public sealed partial class XpandPivotChartWinModule : XpandPivotChartModuleBase {
         public XpandPivotChartWinModule() {
             InitializeComponent();

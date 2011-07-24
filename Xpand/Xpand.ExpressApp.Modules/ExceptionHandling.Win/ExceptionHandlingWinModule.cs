@@ -1,8 +1,12 @@
 using System;
+using System.ComponentModel;
+using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 
 namespace Xpand.ExpressApp.ExceptionHandling.Win {
+    [ToolboxBitmap(typeof(ExceptionHandlingWinModule))]
+    [ToolboxItem(true)]
     public sealed partial class ExceptionHandlingWinModule : ExceptionHandlingModule {
         public event EventHandler<CustomHandleExceptionEventArgs> CustomHandleException;
 

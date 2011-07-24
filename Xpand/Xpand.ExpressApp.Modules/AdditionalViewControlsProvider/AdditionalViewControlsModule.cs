@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
@@ -11,6 +12,8 @@ using Xpand.ExpressApp.Logic.Model;
 using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
+    [ToolboxBitmap(typeof(AdditionalViewControlsModule))]
+    [ToolboxItem(false)]
     public sealed class AdditionalViewControlsModule : LogicModuleBase<IAdditionalViewControlsRule, AdditionalViewControlsRule>, IModelExtender {
         public AdditionalViewControlsModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));

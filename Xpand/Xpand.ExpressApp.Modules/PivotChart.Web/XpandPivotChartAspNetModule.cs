@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using System.Web.UI.WebControls;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -11,6 +13,8 @@ using AnalysisPropertyEditorNodeUpdater = Xpand.ExpressApp.PivotChart.Web.Core.A
 using TypesInfo = Xpand.ExpressApp.PivotChart.Core.TypesInfo;
 
 namespace Xpand.ExpressApp.PivotChart.Web {
+    [ToolboxBitmap(typeof(XpandPivotChartAspNetModule))]
+    [ToolboxItem(true)]
     public sealed partial class XpandPivotChartAspNetModule : XpandPivotChartModuleBase {
         public XpandPivotChartAspNetModule() {
             InitializeComponent();

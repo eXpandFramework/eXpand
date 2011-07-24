@@ -71,25 +71,19 @@ namespace Xpand.ExpressApp.IO.Core {
         void ImportComplexProperties(XElement element, UnitOfWork nestedUnitOfWork, Action<XPBaseObject, XElement> instance, NodeType nodeType) {
             IEnumerable<XElement> objectElements = GetObjectRefElements(element, nodeType);
             foreach (XElement objectElement in objectElements) {
-                XPBaseObject xpBaseObject = null;
-                try {
-                    ITypeInfo typeInfo = GetTypeInfo(objectElement);
-                    var refObjectKeyCriteria = GetObjectKeyCriteria(typeInfo, objectElement.Descendants("Key"));
-                    if (objectElement.GetAttributeValue("strategy") == SerializationStrategy.SerializeAsObject.ToString()) {
-                        var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement();
-                        if (findObjectFromRefenceElement != null) {
-                            xpBaseObject = CreateObject(findObjectFromRefenceElement, nestedUnitOfWork,
-                                                        typeInfo, refObjectKeyCriteria);
-                            instance.Invoke(xpBaseObject, objectElement);
-                        }
-                    } else {
-                        xpBaseObject = GetObject(nestedUnitOfWork, typeInfo, refObjectKeyCriteria);
+                XPBaseObject xpBaseObject;
+                ITypeInfo typeInfo = GetTypeInfo(objectElement);
+                var refObjectKeyCriteria = GetObjectKeyCriteria(typeInfo, objectElement.Descendants("Key"));
+                if (objectElement.GetAttributeValue("strategy") == SerializationStrategy.SerializeAsObject.ToString()) {
+                    var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement();
+                    if (findObjectFromRefenceElement != null) {
+                        xpBaseObject = CreateObject(findObjectFromRefenceElement, nestedUnitOfWork,
+                                                    typeInfo, refObjectKeyCriteria);
                         instance.Invoke(xpBaseObject, objectElement);
                     }
-                } catch (Exception e) {
-                    var newException = new Exception(objectElement.Name + "-" + xpBaseObject, e);
-                    Tracing.Tracer.LogError(newException);
-                    throw newException;
+                } else {
+                    xpBaseObject = GetObject(nestedUnitOfWork, typeInfo, refObjectKeyCriteria);
+                    instance.Invoke(xpBaseObject, objectElement);
                 }
 
             }
@@ -105,17 +99,11 @@ namespace Xpand.ExpressApp.IO.Core {
 
         void ImportSimpleProperties(XElement element, XPBaseObject xpBaseObject) {
             foreach (XElement simpleElement in element.Properties(NodeType.Simple)) {
-                try {
-                    string propertyName = simpleElement.GetAttributeValue("name");
-                    XPMemberInfo xpMemberInfo = xpBaseObject.ClassInfo.FindMember(propertyName);
-                    if (xpMemberInfo != null) {
-                        object value = GetValue(simpleElement, xpMemberInfo);
-                        xpBaseObject.SetMemberValue(propertyName, value);
-                    }
-                } catch (Exception e) {
-                    var newException = new Exception(simpleElement.Name + "-" + xpBaseObject, e);
-                    Tracing.Tracer.LogError(newException);
-                    throw newException;
+                string propertyName = simpleElement.GetAttributeValue("name");
+                XPMemberInfo xpMemberInfo = xpBaseObject.ClassInfo.FindMember(propertyName);
+                if (xpMemberInfo != null) {
+                    object value = GetValue(simpleElement, xpMemberInfo);
+                    xpBaseObject.SetMemberValue(propertyName, value);
                 }
             }
         }

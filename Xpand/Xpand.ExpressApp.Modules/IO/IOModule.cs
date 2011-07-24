@@ -1,8 +1,10 @@
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.IO.NodeUpdaters;
 
 namespace Xpand.ExpressApp.IO {
+    [ToolboxItem(false)]
     public sealed partial class IOModule : XpandModuleBase {
 
         public IOModule() {

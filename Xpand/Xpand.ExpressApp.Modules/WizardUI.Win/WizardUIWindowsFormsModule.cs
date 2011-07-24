@@ -13,29 +13,25 @@ using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.DC;
 using System.Linq;
 
-namespace Xpand.ExpressApp.WizardUI.Win
-{
+namespace Xpand.ExpressApp.WizardUI.Win {
 
-    public interface IModelDetailViewWizard : IModelNode
-    {
+    public interface IModelDetailViewWizard : IModelNode {
         IModelDetailViewWizardPages Wizard { get; }
     }
     [ModelNodesGenerator(typeof(DetailViewWizardPagesNodesGenerator))]
-    public interface IModelDetailViewWizardPages : IModelNode, IModelList<IModelDetailViewWizardPage>
-    {
+    public interface IModelDetailViewWizardPages : IModelNode, IModelList<IModelDetailViewWizardPage> {
         bool ShowInWizard { get; set; }
         bool ShowCompletionWizardPage { get; set; }
     }
 
-    public class DetailViewWizardPagesNodesGenerator:ModelNodesGeneratorBase {
+    public class DetailViewWizardPagesNodesGenerator : ModelNodesGeneratorBase {
         protected override void GenerateNodesCore(ModelNode node) {
-            
+
         }
     }
 
     [DisplayProperty("Caption"), ModelDisplayName("WizardPage"), ModelPersistentName("WizardPage")]
-    public interface IModelDetailViewWizardPage : IModelNode
-    {
+    public interface IModelDetailViewWizardPage : IModelNode {
         [Localizable(true)]
         string Caption { get; set; }
 
@@ -50,19 +46,15 @@ namespace Xpand.ExpressApp.WizardUI.Win
     }
 
     [DomainLogic(typeof(IModelDetailViewWizardPage))]
-    public static class ModelDetailViewWizardPageLogic
-    {
-        public static CalculatedModelNodeList<IModelDetailView> Get_DetailViews(IModelDetailViewWizardPage wizardPage)
-        {
+    public static class ModelDetailViewWizardPageLogic {
+        public static CalculatedModelNodeList<IModelDetailView> Get_DetailViews(IModelDetailViewWizardPage wizardPage) {
             var views = new CalculatedModelNodeList<IModelDetailView>();
-            if (wizardPage.Parent == null)
-            {
+            if (wizardPage.Parent == null) {
                 return views;
             }
 
             var parentView = wizardPage.Parent.Parent as IModelDetailView;
-            if (parentView == null || parentView.ModelClass == null)
-            {
+            if (parentView == null || parentView.ModelClass == null) {
                 return views;
             }
 
@@ -80,22 +72,19 @@ namespace Xpand.ExpressApp.WizardUI.Win
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxItemFilter("Xaf.Platform.Win")]
     [Description("Contains an RibbonDetailView Template with an Wizard Control on it.")]
-    public sealed class WizardUIWindowsFormsModule : ModuleBase
-    {
+    public sealed class WizardUIWindowsFormsModule : ModuleBase {
         #region Methods
         /// <summary>
         /// Initializes the Module
         /// </summary>
         /// <param name="application">XafApplication Object</param>
-        public override void Setup(XafApplication application)
-        {
+        public override void Setup(XafApplication application) {
             base.Setup(application);
 
             application.CreateCustomTemplate += Application_CreateCustomTemplate;
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelDetailView, IModelDetailViewWizard>();
         }
@@ -105,10 +94,8 @@ namespace Xpand.ExpressApp.WizardUI.Win
         /// </summary>
         /// <param name="sender">XafApplication Object</param>
         /// <param name="e">CreateCustomTemplate EventArgs</param>
-        private void Application_CreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e)
-        {
-            if (e.Context == "WizardDetailViewForm")
-            {
+        private void Application_CreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e) {
+            if (e.Context == "WizardDetailViewForm") {
                 e.Template = new Templates.WizardDetailViewForm();
             }
         }

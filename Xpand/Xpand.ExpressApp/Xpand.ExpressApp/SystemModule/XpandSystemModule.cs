@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Design;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Updating;
@@ -21,12 +23,14 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.SystemModule {
 
-    [ToolboxItem(true)]
-    [Description("Includes Controllers that represent basic features for XAF applications.")]
+    [ToolboxItem(false)]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(XafApplication), "Resources.SystemModule.ico")]
     public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter {
+        bool _sequenceObjectTypeInitialized;
+        Type _sequenceObjectType;
+
         static XpandSystemModule() {
             ParametersFactory.RegisterParameter(new MonthAgoParameter());
             TranslatorProvider.RegisterProvider(new GoogleTranslatorProvider());
@@ -40,6 +44,31 @@ namespace Xpand.ExpressApp.SystemModule {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (Application != null) Application.LoggingOn += (sender, args) => InitializeSequenceGenerator();
+        }
+        [TypeConverter(typeof(BusinessClassTypeConverter<ISequenceObject>))]
+        public Type SequenceObjectType {
+            get { return _sequenceObjectType; }
+            set {
+                _sequenceObjectTypeInitialized = true;
+                _sequenceObjectType = value;
+            }
+        }
+
+        protected override IEnumerable<Type> GetDeclaredExportedTypes() {
+            if (!_sequenceObjectTypeInitialized) {
+                Assembly.Load("Xpand.Persistent.BaseImpl");
+                Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+                foreach (Assembly assembly in assemblies) {
+                    string assemblyName = ReflectionHelper.GetAssemblyName(assembly);
+                    if (assemblyName.IndexOf("BaseImpl") > -1) {
+                        _sequenceObjectType = assembly.GetType("Xpand.Persistent.BaseImpl.SequenceObject");
+                    }
+                }
+            }
+            if (_sequenceObjectType == null) {
+                return new Type[0];
+            }
+            return new[] { _sequenceObjectType };
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
@@ -75,7 +104,7 @@ namespace Xpand.ExpressApp.SystemModule {
         void InitializeSequenceGenerator() {
             try {
                 if (Application != null)
-                    SequenceGenerator.Initialize(((ISupportFullConnectionString)Application).ConnectionString);
+                    SequenceGenerator.Initialize(((ISupportFullConnectionString)Application).ConnectionString, SequenceObjectType);
             } catch (Exception e) {
                 if (e.InnerException != null)
                     throw e.InnerException;

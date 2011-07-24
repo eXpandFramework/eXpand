@@ -10,7 +10,6 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(XpandWebApplication), "Resources.WebSystemModule.ico")]
-    [ToolboxItemFilter("Xaf.Platform.Web")]
     public sealed class XpandSystemAspNetModule : XpandModuleBase {
         public XpandSystemAspNetModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));

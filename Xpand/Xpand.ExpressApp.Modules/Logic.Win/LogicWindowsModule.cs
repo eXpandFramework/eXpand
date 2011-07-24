@@ -1,12 +1,10 @@
-using DevExpress.ExpressApp;
-using Xpand.ExpressApp;
+using System.ComponentModel;
 
-namespace Xpand.ExpressApp.Logic.Win
-{
-    public sealed partial class LogicWindowsModule : XpandModuleBase
-    {
-        public LogicWindowsModule()
-        {
+namespace Xpand.ExpressApp.Logic.Win {
+    
+    [ToolboxItem(false)]
+    public sealed partial class LogicWindowsModule : XpandModuleBase {
+        public LogicWindowsModule() {
             InitializeComponent();
         }
     }

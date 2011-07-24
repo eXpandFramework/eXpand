@@ -1,5 +1,7 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
@@ -10,6 +12,8 @@ using Xpand.ExpressApp.SystemModule;
 using System.Linq;
 
 namespace Xpand.ExpressApp.JobScheduler {
+    [ToolboxBitmap(typeof(JobSchedulerModule))]
+    [ToolboxItem(true)]
     public sealed class JobSchedulerModule : XpandModuleBase {
 
         public JobSchedulerModule() {

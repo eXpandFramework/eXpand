@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
@@ -5,6 +6,7 @@ using Xpand.ExpressApp.PivotChart.AnalysisControlVisibility;
 using Xpand.ExpressApp.PivotChart.Security;
 
 namespace Xpand.ExpressApp.PivotChart {
+    [ToolboxItem(false)]
     public sealed partial class XpandPivotChartModule : XpandModuleBase {
 
         public XpandPivotChartModule() {

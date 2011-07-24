@@ -1,8 +1,12 @@
+using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Win.SystemModule;
 
 namespace Xpand.ExpressApp.ModelDifference.Win {
+    [ToolboxBitmap(typeof(ModelDifferenceWindowsFormsModule))]
+    [ToolboxItem(true)]
     public sealed class ModelDifferenceWindowsFormsModule : ModelDifferenceBaseModule {
         public ModelDifferenceWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(ModelDifferenceModule));

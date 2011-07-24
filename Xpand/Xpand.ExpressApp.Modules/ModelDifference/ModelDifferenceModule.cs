@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel;
+using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
@@ -11,6 +13,7 @@ using Xpand.ExpressApp.SystemModule;
 
 
 namespace Xpand.ExpressApp.ModelDifference {
+    [ToolboxItem(false)]
     public sealed class ModelDifferenceModule : XpandModuleBase {
         XpoUserModelDictionaryDifferenceStore _xpoUserModelDictionaryDifferenceStore;
 
