@@ -72,7 +72,7 @@ namespace FeatureCenter.Win {
             this.conditionalDetailViewModule1 = new Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule();
             this.memberLevelSecurityModule1 = new Xpand.ExpressApp.MemberLevelSecurity.MemberLevelSecurityModule();
             this.reportsModule1 = new DevExpress.ExpressApp.Reports.ReportsModule();
-            this.modelArtifactStateWindowsFormsModule1 = new Xpand.ExpressApp.ModelArtifactState.Win.ModelArtifactStateWindowsFormsModule();
+
             this.modelDifferenceWindowsFormsModule1 = new Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule();
             this.xpandTreeListEditorsWinModule1 = new Xpand.ExpressApp.TreeListEditors.Win.XpandTreeListEditorsWinModule();
             this.xpandSystemWindowsFormsModule1 = new Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule();
@@ -179,7 +179,7 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.schedulerWindowsFormsModule1);
             this.Modules.Add(this.treeListEditorsWindowsFormsModule1);
             this.Modules.Add(this.module7);
-            this.Modules.Add(this.modelArtifactStateWindowsFormsModule1);
+
             this.Modules.Add(this.modelDifferenceWindowsFormsModule1);
             this.Modules.Add(this.xpandTreeListEditorsModule1);
             this.Modules.Add(this.xpandSystemWindowsFormsModule1);
@@ -254,7 +254,6 @@ namespace FeatureCenter.Win {
         private Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule conditionalDetailViewModule1;
         private Xpand.ExpressApp.MemberLevelSecurity.MemberLevelSecurityModule memberLevelSecurityModule1;
         private DevExpress.ExpressApp.Reports.ReportsModule reportsModule1;
-        private Xpand.ExpressApp.ModelArtifactState.Win.ModelArtifactStateWindowsFormsModule modelArtifactStateWindowsFormsModule1;
         private Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule modelDifferenceWindowsFormsModule1;
         private Xpand.ExpressApp.TreeListEditors.Win.XpandTreeListEditorsWinModule xpandTreeListEditorsWinModule1;
         private Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule xpandSystemWindowsFormsModule1;
