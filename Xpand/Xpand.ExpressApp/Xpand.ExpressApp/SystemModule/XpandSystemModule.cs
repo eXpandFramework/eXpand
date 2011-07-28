@@ -29,7 +29,11 @@ namespace Xpand.ExpressApp.SystemModule {
 
 
         public XpandSystemModule() {
-            SequenceObjectType = LoadFromBaseImpl("Xpand.Persistent.BaseImpl.SequenceObject");
+            try {
+                SequenceObjectType = LoadFromBaseImpl("Xpand.Persistent.BaseImpl.SequenceObject");
+            } catch (Exception) {
+
+            }
         }
 
         static XpandSystemModule() {

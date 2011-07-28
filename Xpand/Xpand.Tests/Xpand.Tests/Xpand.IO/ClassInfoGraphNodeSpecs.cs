@@ -17,6 +17,7 @@ using Xpand.Persistent.Base.ImportExport;
 using Xpand.Persistent.BaseImpl.ImportExport;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Xpo;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.Tests.Xpand.IO {
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
@@ -237,8 +238,7 @@ namespace Xpand.Tests.Xpand.IO {
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "CustomerSelfRef" });
             var persistentClassInfo = persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0];
-            classHandler.CreateRefenenceMember(persistentClassInfo, "Parent", persistentClassInfo);
-            classHandler.CreateCollectionMember(persistentClassInfo, "Collection", persistentClassInfo);
+            classHandler.CreateRefenenceMember(persistentClassInfo, "Parent1", persistentClassInfo, false);
 
             _objectSpace.CommitChanges();
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
@@ -378,14 +378,14 @@ namespace Xpand.Tests.Xpand.IO {
             () => _serializationConfiguration.SerializationGraph.Where(node => node.Key).Count().ShouldEqual(1);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder), "applying strategy")]
-    public class When_applying_a_serialization_strategy : With_Isolations {
+    public class When_applying_a_serialization_strategy_to_a_reference_property : With_Isolations {
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
             var objectSpace = ObjectSpaceInMemory.CreateNew();
-            XafTypesInfo.Instance.FindTypeInfo(typeof(Analysis)).CreateMember("User", typeof(User));
-            XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeof(Analysis)).CreateMember("Users", typeof(XPCollection),
-                                                                                                    false, new AssociationAttribute(typeof(User)));
+            XafTypesInfo.Instance.RegisterEntity(typeof(User));
+            XafTypesInfo.Instance.RegisterEntity(typeof(Analysis));
+            XafTypesInfo.Instance.CreateBothPartMembers(typeof(Analysis), typeof(User), XafTypesInfo.XpoTypeInfoSource.XPDictionary);
             _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
             _serializationConfiguration.TypeToSerialize = typeof(Analysis);
             _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
@@ -395,10 +395,29 @@ namespace Xpand.Tests.Xpand.IO {
         Because of = () => new ClassInfoGraphNodeBuilder().ApplyStrategy(SerializationStrategy.DoNotSerialize, _serializationConfiguration.SerializationConfigurationGroup.SerializationConfigurations.Where(configuration => configuration.TypeToSerialize == typeof(User)).Single());
         It should_apply_the_strategy_to_all_reference_properties =
             () =>
-            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "User").Single().SerializationStrategy.ShouldEqual(SerializationStrategy.DoNotSerialize);
+            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "Users").Single().SerializationStrategy.ShouldEqual(SerializationStrategy.DoNotSerialize);
+    }
+    [Subject(typeof(ClassInfoGraphNodeBuilder), "applying strategy")]
+    public class When_applying_a_serialization_and_reference_exists : With_Isolations {
+        static SerializationConfiguration _serializationConfiguration;
 
-        It should_apply_the_strategy_to_all_collection_properties =
-            () => _serializationConfiguration.SerializationGraph.Where(node => node.Name == "Users").Single().SerializationStrategy.ShouldEqual(SerializationStrategy.DoNotSerialize);
+        Establish context = () => {
+            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            XafTypesInfo.Instance.RegisterEntity(typeof(User));
+            XafTypesInfo.Instance.RegisterEntity(typeof(Analysis));
+            XafTypesInfo.Instance.CreateBothPartMembers(typeof(Analysis), typeof(User), XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+            _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            _serializationConfiguration.TypeToSerialize = typeof(User);
+            _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
+            new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
+        };
+
+        Because of = () => new ClassInfoGraphNodeBuilder().ApplyStrategy(SerializationStrategy.DoNotSerialize, _serializationConfiguration.SerializationConfigurationGroup.SerializationConfigurations.Where(configuration => configuration.TypeToSerialize == typeof(Analysis)).Single());
+        It should_apply_the_strategy_to_all_reference_properties =
+            () =>
+            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "Analysis").Single().SerializationStrategy.ShouldEqual(SerializationStrategy.DoNotSerialize);
+
+
     }
 
     public class When_property_is_a_non_XPCollection : With_Isolations {

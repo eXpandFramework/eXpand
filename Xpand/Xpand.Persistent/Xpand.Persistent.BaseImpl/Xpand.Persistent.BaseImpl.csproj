@@ -175,6 +175,7 @@
   <ItemGroup>
     <Compile Include="ExceptionHandling\ExceptionObject.cs" />
     <Compile Include="ImportExport\ClassInfoGraphNode.cs" />
+    <Compile Include="ImportExport\IOError.cs" />
     <Compile Include="ImportExport\XpandFileData.cs" />
     <Compile Include="ImportExport\SerializationConfiguration.cs" />
     <Compile Include="ImportExport\SerializationConfigurationGroup.cs" />

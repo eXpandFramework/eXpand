@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [RuleCombinationOfPropertiesIsUnique("MDO_Unique_Name_Application", DefaultContexts.Save, "Name,PersistentApplication")]
     [CreatableItem(false), NavigationItem("Default"), HideFromNewMenu]
     [Custom("Caption", Caption), Custom("IsClonable", "True"), VisibleInReports(false)]
-    public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference,ISupportSequenceObject {
+    public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference, ISupportSequenceObject {
         public const string Caption = "Application Difference";
         DifferenceType _differenceType;
         bool _disabled;
@@ -50,9 +50,10 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         protected IEnumerable<ModelApplicationBase> GetAllLayers(IEnumerable<ModelDifferenceObject> differenceObjects, ModelApplicationBase master) {
-            if (GetttingNonAppModels(differenceObjects))
-                differenceObjects = differenceObjects.Where(o => o.CombineOrder < CombineOrder);
-            var modelApplicationBases = differenceObjects.Distinct().Select(differenceObject => differenceObject.GetModel(master));
+            var modelDifferenceObjects = differenceObjects.ToList();
+            if (GetttingNonAppModels(modelDifferenceObjects))
+                modelDifferenceObjects = modelDifferenceObjects.Where(o => o.CombineOrder < CombineOrder).ToList();
+            var modelApplicationBases = modelDifferenceObjects.Distinct().Select(differenceObject => differenceObject.GetModel(master));
             modelApplicationBases = modelApplicationBases.Concat(new List<ModelApplicationBase> { GetModel(master) });
             return modelApplicationBases;
         }
@@ -66,15 +67,15 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         [NonPersistent]
         [NonCloneable]
         public string PreferredAspect {
-            get { return _preferredAspect??CaptionHelper.DefaultLanguage; }
+            get { return _preferredAspect ?? CaptionHelper.DefaultLanguage; }
             set {
                 SetPropertyValue("PreferredAspect", ref _preferredAspect, value);
             }
         }
         protected override void OnChanged(string propertyName, object oldValue, object newValue) {
             base.OnChanged(propertyName, oldValue, newValue);
-            if (propertyName=="PreferredAspect") {
-                
+            if (propertyName == "PreferredAspect") {
+
             }
         }
         public ModelApplicationBase GetModel(ModelApplicationBase master) {
@@ -108,7 +109,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             }
         }
 
-        
+
         public int CombineOrder {
             get { return combineOrder; }
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref combineOrder, value); }
@@ -167,8 +168,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
                 if (currentModel != null) {
                     aspectObject = GetActiveAspect(currentModel);
                     aspectObjectName = currentModel.CurrentAspect;
-                }
-                else {
+                } else {
                     aspectObject = GetActiveAspect(PreferredAspect);
                     aspectObjectName = PreferredAspect;
                 }
@@ -207,7 +207,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             return this;
         }
 
-        public ModelDifferenceObject InitializeMembers(string name,XafApplication application) {
+        public ModelDifferenceObject InitializeMembers(string name, XafApplication application) {
             return InitializeMembers(name, application.Title, application.GetType().FullName);
         }
 
@@ -253,7 +253,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
         long ISupportSequenceObject.Sequence {
             get { return combineOrder; }
-            set { combineOrder=(int) value; }
+            set { combineOrder = (int)value; }
         }
 
         string ISupportSequenceObject.Prefix {

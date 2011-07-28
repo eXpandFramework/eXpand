@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SerializedObjects>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="collection" name="Roles1" isKey="false">
+      <SerializedObjectRef type="Role" strategy="SerializeAsObject">
+        <Key name="oid">c7a08d8c-2ebb-4879-829c-2113072b8f52</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="Role">
+    <Property type="simple" name="oid" isKey="true">c7a08d8c-2ebb-4879-829c-2113072b8f52</Property>
+
+  </SerializedObject>
+
+</SerializedObjects>

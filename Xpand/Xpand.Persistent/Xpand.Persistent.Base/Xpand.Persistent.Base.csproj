@@ -127,6 +127,8 @@
     <Compile Include="General\ValueConverters\ImageCompressionValueConverter.cs" />
     <Compile Include="General\SessionLessPersistentAttribute.cs" />
     <Compile Include="ImportExport\IClassInfoGraphNode.cs" />
+    <Compile Include="ImportExport\FailReason.cs" />
+    <Compile Include="ImportExport\IIOError.cs" />
     <Compile Include="ImportExport\ISerializationConfiguration.cs" />
     <Compile Include="ImportExport\ISerializationConfigurationGroup.cs" />
     <Compile Include="ImportExport\IXmlFileChooser.cs" />

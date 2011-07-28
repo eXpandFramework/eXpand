@@ -6,12 +6,14 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using DevExpress.Xpo.Metadata.Helpers;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ImportExport;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo;
@@ -19,17 +21,24 @@ using Xpand.Xpo;
 namespace Xpand.ExpressApp.IO.Core {
     public class ImportEngine {
         readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object> importedObjecs = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object>();
+        UnitOfWork _unitOfWork;
 
         public int ImportObjects(XDocument document, UnitOfWork unitOfWork) {
+            _unitOfWork = unitOfWork;
             if (document.Root != null) {
                 foreach (XElement element in document.Root.Nodes().OfType<XElement>()) {
                     using (var nestedUnitOfWork = unitOfWork.BeginNestedUnitOfWork()) {
                         ITypeInfo typeInfo = GetTypeInfo(element);
-                        IEnumerable<XElement> elements = element.Descendants("Property");
-                        var xElements = elements.Where(xElement => xElement.GetAttributeValue("isKey").MakeFirstCharUpper() == true.ToString());
-                        CriteriaOperator objectKeyCriteria = GetObjectKeyCriteria(typeInfo, xElements);
-                        CreateObject(element, nestedUnitOfWork, typeInfo, objectKeyCriteria);
-                        nestedUnitOfWork.CommitChanges();
+                        if (typeInfo != null) {
+                            IEnumerable<XElement> elements = element.Descendants("Property");
+                            var xElements =
+                                elements.Where(
+                                    xElement =>
+                                    xElement.GetAttributeValue("isKey").MakeFirstCharUpper() == true.ToString());
+                            CriteriaOperator objectKeyCriteria = GetObjectKeyCriteria(typeInfo, xElements);
+                            CreateObject(element, nestedUnitOfWork, typeInfo, objectKeyCriteria);
+                            nestedUnitOfWork.CommitChanges();
+                        }
                     }
                 }
                 unitOfWork.CommitChanges();
@@ -68,28 +77,53 @@ namespace Xpand.ExpressApp.IO.Core {
                                         baseObject), NodeType.Collection);
         }
 
+        private void HandleErrorComplex(XElement objectElement, ITypeInfo typeInfo, Action action) {
+            var memberInfo = typeInfo.FindMember(objectElement.Parent.GetAttributeValue("name"));
+            if (memberInfo != null) {
+                action.Invoke();
+            } else {
+                HandleError(objectElement, FailReason.PropertyNotFound);
+            }
+        }
         void ImportComplexProperties(XElement element, UnitOfWork nestedUnitOfWork, Action<XPBaseObject, XElement> instance, NodeType nodeType) {
             IEnumerable<XElement> objectElements = GetObjectRefElements(element, nodeType);
             foreach (XElement objectElement in objectElements) {
-                XPBaseObject xpBaseObject;
                 ITypeInfo typeInfo = GetTypeInfo(objectElement);
-                var refObjectKeyCriteria = GetObjectKeyCriteria(typeInfo, objectElement.Descendants("Key"));
-                if (objectElement.GetAttributeValue("strategy") == SerializationStrategy.SerializeAsObject.ToString()) {
-                    var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement();
-                    if (findObjectFromRefenceElement != null) {
-                        xpBaseObject = CreateObject(findObjectFromRefenceElement, nestedUnitOfWork,
-                                                    typeInfo, refObjectKeyCriteria);
-                        instance.Invoke(xpBaseObject, objectElement);
+                if (typeInfo != null) {
+                    var refObjectKeyCriteria = GetObjectKeyCriteria(typeInfo, objectElement.Descendants("Key"));
+                    XPBaseObject xpBaseObject;
+                    XElement element1 = objectElement;
+                    if (objectElement.GetAttributeValue("strategy") ==
+                        SerializationStrategy.SerializeAsObject.ToString()) {
+                        var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement();
+                        if (findObjectFromRefenceElement != null) {
+                            HandleErrorComplex(objectElement, typeInfo, () => {
+                                xpBaseObject = CreateObject(findObjectFromRefenceElement, nestedUnitOfWork, typeInfo, refObjectKeyCriteria);
+                                instance.Invoke(xpBaseObject, element1);
+                            });
+                        }
+                    } else {
+                        HandleErrorComplex(objectElement, typeInfo, () => {
+                            xpBaseObject = GetObject(nestedUnitOfWork, typeInfo, refObjectKeyCriteria);
+                            instance.Invoke(xpBaseObject, element1);
+                        });
                     }
-                } else {
-                    xpBaseObject = GetObject(nestedUnitOfWork, typeInfo, refObjectKeyCriteria);
-                    instance.Invoke(xpBaseObject, objectElement);
                 }
-
             }
         }
 
-
+        void HandleError(XElement element, FailReason failReason) {
+            var errorInfoObject =
+                (IIOError)Activator.CreateInstance(XafTypesInfo.Instance.FindBussinessObjectType<IIOError>(), _unitOfWork);
+            var firstOrDefault = element.Ancestors("SerializedObject").FirstOrDefault();
+            if (firstOrDefault != null && firstOrDefault != element) {
+                errorInfoObject.InnerXml = element.ToString();
+                errorInfoObject.ElementXml = firstOrDefault.ToString();
+            } else {
+                errorInfoObject.ElementXml = element.ToString();
+            }
+            errorInfoObject.Reason = failReason;
+        }
 
 
         IEnumerable<XElement> GetObjectRefElements(XElement element, NodeType nodeType) {
@@ -104,13 +138,14 @@ namespace Xpand.ExpressApp.IO.Core {
                 if (xpMemberInfo != null) {
                     object value = GetValue(simpleElement, xpMemberInfo);
                     xpBaseObject.SetMemberValue(propertyName, value);
+                } else {
+                    HandleError(simpleElement, FailReason.PropertyNotFound);
                 }
             }
         }
 
         object GetValue(XElement simpleElement, XPMemberInfo xpMemberInfo) {
             var valueConverter = xpMemberInfo.Converter;
-
             if (valueConverter != null) {
                 var value = GetValue(valueConverter.StorageType, simpleElement);
                 return valueConverter.ConvertFromStorageType(value);
@@ -132,7 +167,10 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         ITypeInfo GetTypeInfo(XElement element) {
-            return ReflectionHelper.FindTypeInfoByName(element.GetAttributeValue("type"));
+            var typeInfo = ReflectionHelper.FindTypeInfoByName(element.GetAttributeValue("type"));
+            if (typeInfo == null)
+                HandleError(element, FailReason.TypeNotFound);
+            return typeInfo;
         }
 
         XPBaseObject GetObject(UnitOfWork unitOfWork, ITypeInfo typeInfo, CriteriaOperator criteriaOperator) {
