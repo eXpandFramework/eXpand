@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.JobScheduler {
 
         void WindowOnDisposing(object sender, EventArgs eventArgs) {
             var scheduler = Application.FindModule<JobSchedulerModule>().Scheduler;
-            if (!scheduler.IsStarted && !scheduler.IsShutdown) {
+            if (scheduler != null && (!scheduler.IsStarted && !scheduler.IsShutdown)) {
                 scheduler.Shutdown();
             }
         }

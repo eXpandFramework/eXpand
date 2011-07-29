@@ -94,7 +94,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 Tracing.Tracer.LogError(e);
             } finally {
                 if (compileAssemblyFromSource != null) {
-                    SetErrors(compileAssemblyFromSource, persistentAssemblyInfo,compilerParams);
+                    SetErrors(compileAssemblyFromSource, persistentAssemblyInfo, compilerParams);
                 }
                 if (Directory.Exists(STR_StrongKeys))
                     Directory.Delete(STR_StrongKeys, true);
@@ -113,7 +113,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 Tracing.Tracer.LogSeparator("Referenced Assemblies:");
                 foreach (var reference in compilerParams.ReferencedAssemblies) {
                     Tracing.Tracer.LogVerboseText(reference);
-                }   
+                }
             }
         }
 
@@ -148,7 +148,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         }
 
         static string GetAssemblyLocation(Assembly assembly) {
-            var location = ((assembly is AssemblyBuilder || (assembly.GetType().FullName+"").Equals("System.Reflection.Emit.InternalAssemblyBuilder")) ? null : (!string.IsNullOrEmpty(assembly.Location) ? Path.GetDirectoryName(assembly.Location) : null));
+            var location = ((assembly is AssemblyBuilder || (assembly.GetType().FullName + "").Equals("System.Reflection.Emit.InternalAssemblyBuilder")) ? null : (!string.IsNullOrEmpty(assembly.Location) ? Path.GetDirectoryName(assembly.Location) : null));
             return location != null ? (String.Format(@"""{0}""", location)) : null;
         }
 
