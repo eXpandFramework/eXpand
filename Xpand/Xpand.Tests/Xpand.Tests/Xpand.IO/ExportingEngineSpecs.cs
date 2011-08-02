@@ -601,9 +601,9 @@ namespace Xpand.Tests.Xpand.IO {
                 : base(session) {
             }
             private MyEnum? _myEnum;
-// ReSharper disable MemberHidesStaticFromOuterClass
+            // ReSharper disable MemberHidesStaticFromOuterClass
             public MyEnum? MyEnum {
-// ReSharper restore MemberHidesStaticFromOuterClass
+                // ReSharper restore MemberHidesStaticFromOuterClass
                 get {
                     return _myEnum;
                 }
@@ -637,8 +637,7 @@ namespace Xpand.Tests.Xpand.IO {
             serializationConfiguration.SerializationConfigurationGroup =
                 objectSpace.CreateObject<SerializationConfigurationGroup>();
             new ClassInfoGraphNodeBuilder().Generate(serializationConfiguration);
-            XDocument document = new ExportEngine().Export(new[] { _pEnumClass },
-                                                           serializationConfiguration.SerializationConfigurationGroup);
+            XDocument document = new ExportEngine().Export(new[] { _pEnumClass },serializationConfiguration.SerializationConfigurationGroup);
             return document;
         }
 

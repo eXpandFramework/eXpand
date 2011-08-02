@@ -424,6 +424,7 @@
     <Reference Include="Xpand.Persistent.BaseImpl, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.Utils, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
