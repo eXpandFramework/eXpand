@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -102,7 +103,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         It should_have_2_ref_properties_with_serialized_strategy_and_value_under_orders_property_collection_element = () => {
             var serializedObjectRefs = _ordersElement.SerializedObjectRefs(_order1.GetType());
-            var objectRefs = serializedObjectRefs.SerializedObjectRefs(SerializationStrategy.SerializeAsObject);
+            var objectRefs = serializedObjectRefs.SerializedObjectRefs(SerializationStrategy.SerializeAsObject).ToList();
             var count = objectRefs.Count();
             count.ShouldEqual(2);
             objectRefs.Where(xElement => xElement.Value == _order1.GetMemberValue("Oid").ToString()).FirstOrDefault().ShouldNotBeNull();
@@ -586,4 +587,69 @@ namespace Xpand.Tests.Xpand.IO {
                 (1.2).ToString(CultureInfo.InvariantCulture));
     }
 
+    public class When_Enum_values_already_existis_in_the_db : With_Isolations {
+        static ObjectSpace _objectSpace;
+        static XDocument _exportRecords;
+        static PEnumClass _pEnumClass;
+
+        public enum MyEnum {
+            Val1, Val2
+        }
+
+        public class PEnumClass : BaseObject {
+            public PEnumClass(Session session)
+                : base(session) {
+            }
+            private MyEnum? _myEnum;
+// ReSharper disable MemberHidesStaticFromOuterClass
+            public MyEnum? MyEnum {
+// ReSharper restore MemberHidesStaticFromOuterClass
+                get {
+                    return _myEnum;
+                }
+                set {
+                    SetPropertyValue("MyEnum", ref _myEnum, value);
+                }
+            }
+        }
+
+        Establish context = () => {
+            _objectSpace = CreateRecords();
+            _exportRecords = ExportRecords(_objectSpace);
+            _objectSpace = (ObjectSpace)ObjectSpaceInMemory.CreateNew();
+            new ImportEngine().ImportObjects(_exportRecords, (UnitOfWork)_objectSpace.Session);
+            var pEnumClass = _objectSpace.FindObject<PEnumClass>(null);
+            pEnumClass.MyEnum = null;
+            _objectSpace.CommitChanges();
+        };
+
+        Because of = () => {
+            new ImportEngine().ImportObjects(_exportRecords, (UnitOfWork)_objectSpace.Session);
+            ((UnitOfWork)_objectSpace.Session).CommitChanges();
+            _objectSpace.CommitChanges();
+        };
+
+        It should_should = () => _objectSpace.FindObject<PEnumClass>(null).MyEnum.ShouldEqual(MyEnum.Val2);
+
+        static XDocument ExportRecords(ObjectSpace objectSpace) {
+            ISerializationConfiguration serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            serializationConfiguration.TypeToSerialize = typeof(PEnumClass);
+            serializationConfiguration.SerializationConfigurationGroup =
+                objectSpace.CreateObject<SerializationConfigurationGroup>();
+            new ClassInfoGraphNodeBuilder().Generate(serializationConfiguration);
+            XDocument document = new ExportEngine().Export(new[] { _pEnumClass },
+                                                           serializationConfiguration.SerializationConfigurationGroup);
+            return document;
+        }
+
+        static ObjectSpace CreateRecords() {
+            var dataSet = new DataSet();
+            var objectSpace = ((ObjectSpace)ObjectSpaceInMemory.CreateNew(dataSet));
+
+            _pEnumClass = objectSpace.CreateObject<PEnumClass>();
+            _pEnumClass.MyEnum = MyEnum.Val2;
+            objectSpace.CommitChanges();
+            return objectSpace;
+        }
+    }
 }
