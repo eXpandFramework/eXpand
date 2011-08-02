@@ -22,6 +22,14 @@ namespace Xpand.ExpressApp.IO.Core {
     public class ImportEngine {
         readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object> importedObjecs = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object>();
         UnitOfWork _unitOfWork;
+        readonly bool _createErrorObjects;
+
+        public ImportEngine(bool createErrorObjects) {
+            _createErrorObjects = createErrorObjects;
+        }
+
+        public ImportEngine() {
+        }
 
         public int ImportObjects(XDocument document, UnitOfWork unitOfWork) {
             _unitOfWork = unitOfWork;
@@ -113,16 +121,18 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         void HandleError(XElement element, FailReason failReason) {
-            var errorInfoObject =
-                (IIOError)Activator.CreateInstance(XafTypesInfo.Instance.FindBussinessObjectType<IIOError>(), _unitOfWork);
-            var firstOrDefault = element.Ancestors("SerializedObject").FirstOrDefault();
-            if (firstOrDefault != null && firstOrDefault != element) {
-                errorInfoObject.InnerXml = element.ToString();
-                errorInfoObject.ElementXml = firstOrDefault.ToString();
-            } else {
-                errorInfoObject.ElementXml = element.ToString();
+            if (_createErrorObjects) {
+                var errorInfoObject =
+                    (IIOError)Activator.CreateInstance(XafTypesInfo.Instance.FindBussinessObjectType<IIOError>(), _unitOfWork);
+                var firstOrDefault = element.Ancestors("SerializedObject").FirstOrDefault();
+                if (firstOrDefault != null && firstOrDefault != element) {
+                    errorInfoObject.InnerXml = element.ToString();
+                    errorInfoObject.ElementXml = firstOrDefault.ToString();
+                } else {
+                    errorInfoObject.ElementXml = element.ToString();
+                }
+                errorInfoObject.Reason = failReason;
             }
-            errorInfoObject.Reason = failReason;
         }
 
 

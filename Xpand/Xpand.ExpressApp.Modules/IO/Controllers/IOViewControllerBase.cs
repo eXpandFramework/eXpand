@@ -80,7 +80,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
                 var memoryStream = new MemoryStream();
                 ((IXmlFileChooser)args.CurrentObject).FileData.SaveToStream(memoryStream);
                 using (var unitOfWork = new UnitOfWork(objectSpace.Session.DataLayer)) {
-                    new ImportEngine().ImportObjects(memoryStream, unitOfWork);
+                    new ImportEngine(((IModelOptionIO)Application.Model).LogErrors).ImportObjects(memoryStream, unitOfWork);
                 }
             };
             ((ISupportConfirmationRequired)Application).ConfirmationRequired += OnConfirmationRequired;

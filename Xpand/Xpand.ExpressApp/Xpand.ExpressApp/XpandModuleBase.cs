@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp {
         public static object Control;
         static Assembly _baseImplAssembly;
 
-        public static Assembly BaseImplAssembly {
+        public Assembly BaseImplAssembly {
             get {
                 if (_baseImplAssembly == null) {
                     var baseImplName = ConfigurationManager.AppSettings["Baseimpl"];
@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp {
             }
         }
 
-        public static Type LoadFromBaseImpl(string typeName) {
+        public Type LoadFromBaseImpl(string typeName) {
             if (BaseImplAssembly != null) {
                 var typeInfo = TypesInfo.FindTypeInfo(typeName);
                 return typeInfo != null ? typeInfo.Type : null;
@@ -53,8 +53,10 @@ namespace Xpand.ExpressApp {
         }
 
         protected void AddToAdditionalExportedTypes(string nameSpaceName) {
-            var types = BaseImplAssembly.GetTypes().Where(type1 => (type1.Namespace + "").StartsWith(nameSpaceName));
-            AdditionalExportedTypes.AddRange(types);
+            if (!DesignMode) {
+                var types = BaseImplAssembly.GetTypes().Where(type1 => (type1.Namespace + "").StartsWith(nameSpaceName));
+                AdditionalExportedTypes.AddRange(types);
+            }
         }
 
         protected void CreateDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName) {
