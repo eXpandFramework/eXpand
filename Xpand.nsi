@@ -12,6 +12,9 @@ RequestExecutionLevel admin
 !ifndef VERSION
    !define VERSION 1.0
 !endif
+!ifndef DEVEXVERSION
+   !define DEVEXVERSION "v10.2"
+!endif
 !define COMPANY eXpandFramework
 !define URL http://www.expandframework.com
 
@@ -81,7 +84,8 @@ BrandingText "${APP_NAME} Install System v ${VERSION}"
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File /r Build\Installer\*
+    File /r /x Xpand.DesignExperience Build\Installer\*
+    call InstallProjectTemplates
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
 SectionEnd
 
@@ -156,6 +160,7 @@ Section -un.post UNSEC0001
     DeleteRegKey HKLM "SOFTWARE\Microsoft\.NETFramework\v3.0\AssemblyFoldersEx\Xpand"
 
     call un.DllsFromGAC
+    call un.InstallProjectTemplates
     
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\$(^UninstallLink).lnk"
@@ -271,6 +276,59 @@ Function un.DllsFromGAC
     Ende:
     StrCmp $0 "1" 0 +2
     DetailPrint "uninstall assamblies from the GAC failed"
+FunctionEnd
+
+Function InstallProjectTemplatesFiles
+    Push $R0
+    Exch
+    Pop $R0
+    File "/oname=$R0ProjectTemplates\CSharp\eXpressApp Framework\XpandFullSolutionCS.${DevExVersion}.zip" "Build\Installer\Xpand.DesignExperience\vs_templates\cs\XpandFullSolutionCS.${DevExVersion}.zip"
+    File "/oname=$R0ProjectTemplates\VisualBasic\eXpressApp Framework\XpandWinSoultionVB.${DevExVersion}.zip" "Build\Installer\Xpand.DesignExperience\vs_templates\vb\XpandWinSoultionVB.${DevExVersion}.zip"
+    Pop $R0
+FunctionEnd
+
+Function un.InstallProjectTemplatesFiles
+    Push $R0
+    Exch
+    Pop $R0
+    Delete "$0ProjectTemplates\CSharp\eXpressApp Framework\XpandFullSolutionCS.${DevExVersion}.zip"
+    Delete "$0ProjectTemplates\VisualBasic\eXpressApp Framework\XpandWinSoultionVB.${DevExVersion}.zip"
+    Pop $R0
+FunctionEnd
+
+Function InstallProjectTemplates
+    Push $0
+    ReadRegStr $0 HKLM "Software\Microsoft\VisualStudio\9.0" "InstallDir"
+    StrCmp $0 "" +4 0
+    Push $0
+    call InstallProjectTemplatesFiles
+    WriteRegStr HKLM "${REGKEY}" "VS9Path" $0
+        
+    ReadRegStr $0 HKLM "Software\Microsoft\VisualStudio\10.0" "InstallDir"
+    StrCmp $0 "" +4 0
+    Push $0
+    call InstallProjectTemplatesFiles
+    WriteRegStr HKLM "${REGKEY}" "VS10Path" $0
+    Pop $0
+FunctionEnd
+
+Function un.InstallProjectTemplates
+    Push $0
+
+    ReadRegStr $0 HKLM "${REGKEY}" VS9Path
+    StrCmp $0 "" +3 0
+    Push $0
+    call un.InstallProjectTemplatesFiles
+    
+    ReadRegStr $0 HKLM "${REGKEY}" VS10Path
+    StrCmp $0 "" +3 0
+    Push $0
+    call un.InstallProjectTemplatesFiles
+    
+    Pop $0
+    
+    DeleteRegValue HKLM "${REGKEY}" VS9Path
+    DeleteRegValue HKLM "${REGKEY}" VS10Path
 FunctionEnd
 
 Function CreateSMGroupShortcut
