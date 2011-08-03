@@ -120,18 +120,25 @@ namespace Xpand.ExpressApp.IO.Core {
             }
         }
 
+
         void HandleError(XElement element, FailReason failReason) {
+            string innerXml = null;
+            string elementXml;
+            var firstOrDefault = element.Ancestors("SerializedObject").FirstOrDefault();
+            if (firstOrDefault != null && firstOrDefault != element) {
+                innerXml = element.ToString();
+                elementXml = firstOrDefault.ToString();
+            } else {
+                elementXml = element.ToString();
+            }
             if (_createErrorObjects) {
                 var errorInfoObject =
                     (IIOError)Activator.CreateInstance(XafTypesInfo.Instance.FindBussinessObjectType<IIOError>(), _unitOfWork);
-                var firstOrDefault = element.Ancestors("SerializedObject").FirstOrDefault();
-                if (firstOrDefault != null && firstOrDefault != element) {
-                    errorInfoObject.InnerXml = element.ToString();
-                    errorInfoObject.ElementXml = firstOrDefault.ToString();
-                } else {
-                    errorInfoObject.ElementXml = element.ToString();
-                }
                 errorInfoObject.Reason = failReason;
+                errorInfoObject.ElementXml = elementXml;
+                errorInfoObject.InnerXml = innerXml;
+            } else {
+                throw new UserFriendlyException(new Exception("ImportFailed", new Exception("ELEMENTXML=" + elementXml + " INNERXML=" + innerXml)));
             }
         }
 
@@ -156,7 +163,7 @@ namespace Xpand.ExpressApp.IO.Core {
 
         object GetValue(XElement simpleElement, XPMemberInfo xpMemberInfo) {
             var valueConverter = xpMemberInfo.Converter;
-            if (valueConverter != null) {
+            if (valueConverter != null && !(valueConverter is EnumsConverter)) {
                 var value = GetValue(valueConverter.StorageType, simpleElement);
                 return valueConverter.ConvertFromStorageType(value);
             }

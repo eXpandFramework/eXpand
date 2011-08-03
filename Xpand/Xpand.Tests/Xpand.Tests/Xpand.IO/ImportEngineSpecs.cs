@@ -289,7 +289,7 @@ namespace Xpand.Tests.Xpand.IO {
         static Stream _manifestResourceStream;
 
         Establish context = () => {
-            _unitOfWork = new UnitOfWork(((ObjectSpace) ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
+            _unitOfWork = new UnitOfWork(((ObjectSpace)ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.ModelDifferenceObject.xml");
 
         };
@@ -307,7 +307,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         Establish context = () => {
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.ObjectWithImageProperty.xml");
-            _unitOfWork = new UnitOfWork(((ObjectSpace) ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
+            _unitOfWork = new UnitOfWork(((ObjectSpace)ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
         };
 
         Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _unitOfWork);
@@ -332,7 +332,7 @@ namespace Xpand.Tests.Xpand.IO {
                   </SerializedObject>
                 </SerializedObjects>";
             _memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xml));
-            _objectSpace = (ObjectSpace) ObjectSpaceInMemory.CreateNew();
+            _objectSpace = (ObjectSpace)ObjectSpaceInMemory.CreateNew();
             _unitOfWork = new UnitOfWork(_objectSpace.Session.DataLayer);
         };
 
@@ -348,7 +348,7 @@ namespace Xpand.Tests.Xpand.IO {
         static UnitOfWork _unitOfWork;
 
         Establish context = () => {
-            _unitOfWork = new UnitOfWork(((ObjectSpace) ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
+            _unitOfWork = new UnitOfWork(((ObjectSpace)ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
             new Analysis(_unitOfWork) { Name = "target" };
             _unitOfWork.CommitChanges();
 
@@ -373,7 +373,7 @@ namespace Xpand.Tests.Xpand.IO {
         static UnitOfWork _unitOfWork;
 
         Establish context = () => {
-            _unitOfWork = new UnitOfWork(((ObjectSpace) ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
+            _unitOfWork = new UnitOfWork(((ObjectSpace)ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
             var analysis = new Analysis(_unitOfWork) { Name = "target" };
             analysis.Delete();
             _unitOfWork.CommitChanges();
@@ -390,5 +390,41 @@ namespace Xpand.Tests.Xpand.IO {
         Because of = () => new ImportEngine().ImportObjects(_memoryStream, _unitOfWork);
         It should_match_deleted_state_of_source =
             () => _unitOfWork.FindObject<Analysis>(null).ShouldNotBeNull();
+    }
+    [Subject(typeof(ImportEngine))]
+    public class When_nullable_enum_property_with_null_value {
+        static UnitOfWork _unitOfWork;
+
+        public enum MyEnum {
+            Val1, Val2
+        }
+
+        static Stream _manifestResourceStream;
+
+        public class PEnumClass : BaseObject {
+            public PEnumClass(Session session)
+                : base(session) {
+            }
+            private When_Enum_values_already_existis_in_the_db.MyEnum? _myEnum;
+            // ReSharper disable MemberHidesStaticFromOuterClass
+            public When_Enum_values_already_existis_in_the_db.MyEnum? MyEnum {
+                // ReSharper restore MemberHidesStaticFromOuterClass
+                get {
+                    return _myEnum;
+                }
+                set {
+                    SetPropertyValue("MyEnum", ref _myEnum, value);
+                }
+            }
+        }
+
+        Establish context = () => {
+            _unitOfWork = new UnitOfWork(((ObjectSpace)ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.NullAbleEnum.xml");
+        };
+
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _unitOfWork);
+
+        It should_import_null_value = () => _unitOfWork.FindObject<PEnumClass>(null).MyEnum.ShouldBeNull();
     }
 }

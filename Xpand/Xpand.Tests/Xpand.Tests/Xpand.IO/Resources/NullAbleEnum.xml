@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SerializedObjects>
+  <SerializedObject type="PEnumClass">
+    <Property type="simple" name="oid" isKey="true">2a07f16c-8ecb-4be3-b30d-90bb34d8c5fd</Property>
+    <Property type="simple" name="MyEnum" isKey="false"></Property>
+  </SerializedObject>
+
+
+</SerializedObjects>

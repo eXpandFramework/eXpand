@@ -315,6 +315,7 @@
     <Compile Include="Xpand.WorldCreator\ScriptValidatorSpecs.cs" />
     <Compile Include="Xpand.WorldCreator\TypesInfoSpecs.cs" />
     <Compile Include="Xpand.WorldCreator\XpoObjectMergerSpecs.cs" />
+    <Compile Include="Xpand.Xpo\ChangeTypeSpecs.cs" />
     <Compile Include="Xpand.Xpo\CriteriaOperatorExtractorFixture.cs" />
     <Compile Include="Xpand.Xpo\DynamicCalcPropertySpecs.cs" />
     <Compile Include="Xpand.Xpo\PersistentMetaDataFixture.cs" />
@@ -399,6 +400,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Xpand.IO\Resources\NonExistentAllTypesOfProperties.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xpand.IO\Resources\NullAbleEnum.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
