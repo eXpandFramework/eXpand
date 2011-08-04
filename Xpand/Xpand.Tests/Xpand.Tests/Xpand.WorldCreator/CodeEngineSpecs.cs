@@ -5,13 +5,13 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
 using Machine.Specifications;
 using System.Linq;
 using Xpand.Persistent.Base.PersistentMetaData;
-using Xpand.Xpo;
 
 namespace Xpand.Tests.Xpand.WorldCreator {
 
@@ -125,7 +125,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
         Because of = () => { _generateCode = CodeEngine.GenerateCode(_persistentClassInfo); };
 
-        It should_use_default_Base_type = () => _generateCode.IndexOf(typeof(XpandCustomObject).FullName + "").ShouldBeGreaterThan(-1);
+        It should_use_default_Base_type = () => _generateCode.IndexOf(typeof(XpandBaseCustomObject).FullName + "").ShouldBeGreaterThan(-1);
     }
     [Subject(typeof(CodeEngine))]
     public class When_generating_code_from_persistentClassinfo_with_baseclassinfo_defined : With_In_Memory_DataStore {

@@ -182,31 +182,36 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 return null;
             var typeInfo = XafTypesInfo.CastTypeToTypeInfo(attributeInfoAttribute.Instance.GetType());
             var memberInfos = typeInfo.Members.Where(info => info.FindAttribute<AttributeInfoAttribute>() != null);
-            string code = memberInfos.Aggregate<IMemberInfo, string>(null, (current, memberInfo) => current + (memberInfo.Name + "=" + GetArgumentCode(memberInfo.GetValue(attributeInfoAttribute.Instance)) + ",")).TrimEnd(',');
+            Func<string, IMemberInfo, string> func = (current, memberInfo)
+                => current + (memberInfo.Name + "=" + GetArgumentCodeCore(memberInfo.MemberType, memberInfo.GetValue(attributeInfoAttribute.Instance)) + ",");
+            string code = memberInfos.Aggregate(null, func).TrimEnd(',');
             return string.Format("{{{0}}}", code);
         }
 
-        /*
-                static string CalculateVersion(string args) {
-                    args = args.Replace(@"""", "").Replace("@","");
-                    var version = new Version(args+".0.0");
-                    var totalMinutes = (int)(DateTime.Now-DateTime.Today).TotalMinutes;
-                    version = new Version(version.Major, version.Minor, DateTime.Today.DayOfYear, totalMinutes);
-                    args = version.ToString();
-                    return @""""+args+@"""";
-                }
-        */
-
-        static object GetArgumentCode(object argumentValue) {
-            if (argumentValue is string)
+        private static object GetArgumentCodeCore(Type type, object argumentValue) {
+            if (type == typeof(string))
                 return @"@""" + argumentValue + @"""";
-            if (argumentValue is Type)
+            if (type == typeof(Type))
                 return "typeof(" + ((Type)argumentValue).FullName + ")";
-            if (argumentValue is Enum)
+            if (typeof(Enum).IsAssignableFrom(type))
                 return argumentValue.GetType().FullName + "." + argumentValue;
-            if (argumentValue is bool)
+            if (type == typeof(bool))
                 return argumentValue.ToString().ToLower();
             return argumentValue;
+        }
+        /*
+            static string CalculateVersion(string args) {
+                args = args.Replace(@"""", "").Replace("@","");
+                var version = new Version(args+".0.0");
+                var totalMinutes = (int)(DateTime.Now-DateTime.Today).TotalMinutes;
+                version = new Version(version.Major, version.Minor, DateTime.Today.DayOfYear, totalMinutes);
+                args = version.ToString();
+                return @""""+args+@"""";
+            }
+    */
+
+        static object GetArgumentCode(object argumentValue) {
+            return argumentValue != null ? GetArgumentCodeCore(argumentValue.GetType(), argumentValue) : null;
         }
 
         static string GetAssemblyAttributesCode(IPersistentAssemblyInfo persistentAssemblyInfo) {
