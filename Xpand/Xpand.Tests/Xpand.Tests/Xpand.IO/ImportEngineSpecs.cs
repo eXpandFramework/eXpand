@@ -414,8 +414,15 @@ namespace Xpand.Tests.Xpand.IO {
                 }
                 set {
                     SetPropertyValue("MyEnum", ref _myEnum, value);
+                    
+
                 }
             }
+
+            
+            
+            
+
         }
 
         Establish context = () => {
