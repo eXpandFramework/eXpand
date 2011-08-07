@@ -26,9 +26,9 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
             this.WizardControl = new DevExpress.XtraWizard.WizardControl();
             this.welcomeWizardPage1 = new DevExpress.XtraWizard.WelcomeWizardPage();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
@@ -137,7 +137,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.welcomeWizardPage1.Controls.Add(this.FileSelectEdit);
             this.welcomeWizardPage1.IntroductionText = "Please select excel file to import...\r\n";
             this.welcomeWizardPage1.Name = "welcomeWizardPage1";
-            this.welcomeWizardPage1.Size = new System.Drawing.Size(768, 398);
+            this.welcomeWizardPage1.Size = new System.Drawing.Size(768, 400);
             this.welcomeWizardPage1.Text = "Please select excel file to import...";
             // 
             // labelControl2
@@ -233,7 +233,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.ExcelSheetPreviewGrid.Location = new System.Drawing.Point(4, 84);
             this.ExcelSheetPreviewGrid.MainView = this.ExcelSheetPreviewGridView;
             this.ExcelSheetPreviewGrid.Name = "ExcelSheetPreviewGrid";
-            this.ExcelSheetPreviewGrid.Size = new System.Drawing.Size(761, 311);
+            this.ExcelSheetPreviewGrid.Size = new System.Drawing.Size(761, 313);
             this.ExcelSheetPreviewGrid.TabIndex = 12;
             this.ExcelSheetPreviewGrid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.ExcelSheetPreviewGridView});
@@ -276,7 +276,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.wizardPage1.Controls.Add(this.ImportMapLookUp);
             this.wizardPage1.Controls.Add(this.MappingGrid);
             this.wizardPage1.Name = "wizardPage1";
-            this.wizardPage1.Size = new System.Drawing.Size(768, 398);
+            this.wizardPage1.Size = new System.Drawing.Size(768, 400);
             this.wizardPage1.Text = "Map Excel columns to object Fields";
             // 
             // ResetButton
@@ -321,12 +321,12 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.ImportMapLookUp.Properties.NullText = "Select existing Column Mapping...";
             this.ImportMapLookUp.Properties.ValueMember = "Oid";
             this.ImportMapLookUp.Size = new System.Drawing.Size(370, 20);
-            toolTipTitleItem1.Text = "Saved Mappings";
-            toolTipItem1.LeftIndent = 6;
-            toolTipItem1.Text = "You can selec a column mapping used for previous Imports. ";
-            superToolTip1.Items.Add(toolTipTitleItem1);
-            superToolTip1.Items.Add(toolTipItem1);
-            this.ImportMapLookUp.SuperTip = superToolTip1;
+            toolTipTitleItem2.Text = "Saved Mappings";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "You can selec a column mapping used for previous Imports. ";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            this.ImportMapLookUp.SuperTip = superToolTip2;
             this.ImportMapLookUp.TabIndex = 2;
             this.ImportMapLookUp.EditValueChanged += new System.EventHandler(this.ImportMapLookUp_EditValueChanged);
             // 
@@ -341,7 +341,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.MappingGrid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.LookUpEdit,
             this.repositoryItemGridLookUpEdit});
-            this.MappingGrid.Size = new System.Drawing.Size(768, 330);
+            this.MappingGrid.Size = new System.Drawing.Size(768, 332);
             this.MappingGrid.TabIndex = 1;
             this.MappingGrid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.MappingBandedGridView});
@@ -392,7 +392,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.LookUpEdit.NullText = "---";
             this.LookUpEdit.ValidateOnEnterKey = true;
             this.LookUpEdit.ValueMember = "Name";
-            this.LookUpEdit.Closed += new DevExpress.XtraEditors.Controls.ClosedEventHandler(LookUpEdit_Closed);
+            this.LookUpEdit.Closed += new DevExpress.XtraEditors.Controls.ClosedEventHandler(this.LookUpEdit_Closed);
             this.LookUpEdit.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.LookUpEdit_ButtonClick);
             // 
             // repositoryItemGridLookUpEdit
@@ -408,7 +408,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             // 
             // mappablePropertyBindingSource
             // 
-            this.mappablePropertyBindingSource.DataSource = typeof(MappableProperty);
+            this.mappablePropertyBindingSource.DataSource = typeof(Xpand.ExpressApp.ImportWizard.Core.MappableProperty);
             this.mappablePropertyBindingSource.CurrentChanged += new System.EventHandler(this.mappablePropertyBindingSource_CurrentChanged);
             // 
             // repositoryItemGridLookUpEdit1View
@@ -451,7 +451,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             // completionWizardPage1
             // 
             this.completionWizardPage1.Name = "completionWizardPage1";
-            this.completionWizardPage1.Size = new System.Drawing.Size(768, 398);
+            this.completionWizardPage1.Size = new System.Drawing.Size(768, 400);
             // 
             // wizardPage2
             // 
@@ -461,7 +461,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.wizardPage2.Controls.Add(this.labelControl3);
             this.wizardPage2.Controls.Add(this.ImportMapDescriptionEdit);
             this.wizardPage2.Name = "wizardPage2";
-            this.wizardPage2.Size = new System.Drawing.Size(768, 398);
+            this.wizardPage2.Size = new System.Drawing.Size(768, 400);
             this.wizardPage2.Text = "Save mapping ?";
             // 
             // SaveLabel
@@ -478,7 +478,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.radioGroup2.Location = new System.Drawing.Point(3, 23);
             this.radioGroup2.Name = "radioGroup2";
             this.radioGroup2.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(true, "Yes"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(true, "Yes1"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(false, "No")});
             this.radioGroup2.Size = new System.Drawing.Size(186, 31);
             this.radioGroup2.TabIndex = 3;
@@ -508,7 +508,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.wizardPage3.Controls.Add(this.ResultsMemoEdit);
             this.wizardPage3.Controls.Add(this.ImportButton);
             this.wizardPage3.Name = "wizardPage3";
-            this.wizardPage3.Size = new System.Drawing.Size(768, 398);
+            this.wizardPage3.Size = new System.Drawing.Size(768, 400);
             // 
             // ResultsMemoEdit
             // 
@@ -519,14 +519,14 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.ResultsMemoEdit.Name = "ResultsMemoEdit";
             this.ResultsMemoEdit.Properties.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.ResultsMemoEdit.Properties.WordWrap = false;
-            this.ResultsMemoEdit.Size = new System.Drawing.Size(768, 286);
+            this.ResultsMemoEdit.Size = new System.Drawing.Size(768, 288);
             this.ResultsMemoEdit.TabIndex = 1;
             // 
             // ImportButton
             // 
             this.ImportButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.ImportButton.Location = new System.Drawing.Point(174, 292);
+            this.ImportButton.Location = new System.Drawing.Point(174, 294);
             this.ImportButton.Name = "ImportButton";
             this.ImportButton.Size = new System.Drawing.Size(425, 95);
             this.ImportButton.TabIndex = 0;
@@ -553,15 +553,15 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             // 
             // importMapBindingSource
             // 
-            this.importMapBindingSource.DataSource = typeof(ImportMap);
+            this.importMapBindingSource.DataSource = typeof(Xpand.ExpressApp.ImportWizard.Core.ImportMap);
             // 
             // importMapBindingSource1
             // 
-            this.importMapBindingSource1.DataSource = typeof(ImportMap);
+            this.importMapBindingSource1.DataSource = typeof(Xpand.ExpressApp.ImportWizard.Core.ImportMap);
             // 
             // mappingBindingSource
             // 
-            this.mappingBindingSource.DataSource = typeof(Mapping);
+            this.mappingBindingSource.DataSource = typeof(Xpand.ExpressApp.ImportWizard.Core.Mapping);
             // 
             // ExcelImportWizard
             // 
