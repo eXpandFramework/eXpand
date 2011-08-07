@@ -26,7 +26,7 @@ namespace Xpand.Tests.Xpand.IO {
         };
 
         Because of = () => {
-            _exception = Catch.Exception(() => new ImportEngine().ImportObjects(_manifestResourceStream, _unitOfWork));
+            _exception = Catch.Exception(() => new ImportEngine(true).ImportObjects(_manifestResourceStream, _unitOfWork));
         };
 
         It should_not_throw_any_exceptions = () => _exception.ShouldBeNull();
@@ -56,7 +56,7 @@ namespace Xpand.Tests.Xpand.IO {
         };
 
         Because of = () => {
-            _exception = Catch.Exception(() => new ImportEngine().ImportObjects(_manifestResourceStream, _unitOfWork));
+            _exception = Catch.Exception(() => new ImportEngine(true).ImportObjects(_manifestResourceStream, _unitOfWork));
         };
 
         It should_not_throw_any_exceptions = () => _exception.ShouldBeNull();
@@ -84,7 +84,7 @@ namespace Xpand.Tests.Xpand.IO {
         };
 
         Because of = () => {
-            _exception = Catch.Exception(() => new ImportEngine().ImportObjects(_manifestResourceStream, _unitOfWork));
+            _exception = Catch.Exception(() => new ImportEngine(true).ImportObjects(_manifestResourceStream, _unitOfWork));
         };
 
         It should_not_throw_any_exceptions = () => _exception.ShouldBeNull();
@@ -112,7 +112,7 @@ namespace Xpand.Tests.Xpand.IO {
         };
 
         Because of = () => {
-            _exception = Catch.Exception(() => new ImportEngine().ImportObjects(_manifestResourceStream, _unitOfWork));
+            _exception = Catch.Exception(() => new ImportEngine(true).ImportObjects(_manifestResourceStream, _unitOfWork));
         };
 
         It should_not_throw_any_exceptions = () => _exception.ShouldBeNull();
@@ -140,7 +140,7 @@ namespace Xpand.Tests.Xpand.IO {
         };
 
         Because of = () => {
-            _exception = Catch.Exception(() => new ImportEngine().ImportObjects(_manifestResourceStream, _unitOfWork));
+            _exception = Catch.Exception(() => new ImportEngine(true).ImportObjects(_manifestResourceStream, _unitOfWork));
         };
 
         It should_not_throw_any_exceptions = () => _exception.ShouldBeNull();
@@ -168,7 +168,7 @@ namespace Xpand.Tests.Xpand.IO {
         };
 
         Because of = () => {
-            _exception = Catch.Exception(() => new ImportEngine().ImportObjects(_manifestResourceStream, _unitOfWork));
+            _exception = Catch.Exception(() => new ImportEngine(true).ImportObjects(_manifestResourceStream, _unitOfWork));
         };
 
         It should_not_throw_any_exceptions = () => _exception.ShouldBeNull();

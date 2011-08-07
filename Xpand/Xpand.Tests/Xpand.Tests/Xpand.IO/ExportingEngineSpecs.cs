@@ -592,26 +592,7 @@ namespace Xpand.Tests.Xpand.IO {
         static XDocument _exportRecords;
         static PEnumClass _pEnumClass;
 
-        public enum MyEnum {
-            Val1, Val2
-        }
 
-        public class PEnumClass : BaseObject {
-            public PEnumClass(Session session)
-                : base(session) {
-            }
-            private MyEnum? _myEnum;
-            // ReSharper disable MemberHidesStaticFromOuterClass
-            public MyEnum? MyEnum {
-                // ReSharper restore MemberHidesStaticFromOuterClass
-                get {
-                    return _myEnum;
-                }
-                set {
-                    SetPropertyValue("MyEnum", ref _myEnum, value);
-                }
-            }
-        }
 
         Establish context = () => {
             _objectSpace = CreateRecords();

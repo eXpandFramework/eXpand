@@ -27,7 +27,7 @@ namespace Xpand.ExpressApp.IO.Core {
         public Type SerializationConfigurationGroupType { get; private set; }
         public Type XmlFileChooserType { get; private set; }
 
-        public void AddTypes(IEnumerable<Type> types) {
+        public void RegisterTypes(IList<Type> types) {
 
 
             SerializationConfigurationGroupType = GetInfoType(types, typeof(ISerializationConfigurationGroup));

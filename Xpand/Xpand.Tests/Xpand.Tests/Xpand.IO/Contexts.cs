@@ -10,14 +10,17 @@ using DevExpress.Xpo.Metadata;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
 using Xpand.ExpressApp.IO;
+using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
+using Xpand.Persistent.BaseImpl.ImportExport;
 using Xpand.Tests.Xpand.WorldCreator;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.Tests.Xpand.IO {
     public abstract class With_Customer_Orders : With_Isolations {
         protected static Session Session;
+        protected static Type CompileModule;
         protected static Type OrderType;
         protected static ObjectSpace ObjectSpace;
         protected static Type CustomerType;
@@ -32,10 +35,12 @@ namespace Xpand.Tests.Xpand.IO {
             classHandler.CreateReferenceMembers(info => info.Name == "Order" ? info.PersistentAssemblyInfo.PersistentClassInfos.Where(classInfo => classInfo.Name == "Customer") : null, true);
             classHandler.CreateSimpleMembers<string>(persistentClassInfo => persistentClassInfo.Name == "Customer" ? new[] { "Name" } : null);
             ObjectSpace.CommitChanges();
-            Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
-            CustomerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
-            OrderType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Order").Single();
+            CompileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder.PersistentAssemblyInfo, Path.GetDirectoryName(Application.ExecutablePath));
+            CustomerType = CompileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
+            OrderType = CompileModule.Assembly.GetTypes().Where(type => type.Name == "Order").Single();
             XafTypesInfo.Instance.CreateCollection(typeof(User), CustomerType, "User", XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+            
+            
         };
     }
     public interface IOrder {
@@ -73,6 +78,7 @@ namespace Xpand.Tests.Xpand.IO {
     }
 
     public abstract class With_Isolations : With_WC_types {
+
         public static string GetUniqueAssemblyName() {
             return "a" + Guid.NewGuid().ToString().Replace("-", "");
         }
@@ -82,7 +88,31 @@ namespace Xpand.Tests.Xpand.IO {
         Establish context = () => {
             IOArtifacts = () => new[] { typeof(IOModule) };
             Isolate.Fake.IOTypesInfo();
+            Type type1 = typeof (IOError);
+            var types =type1.Assembly.GetTypes().Where(type => (type.Namespace + "").StartsWith(type1.Namespace + "")).ToList();
+            TypesInfo.Instance.RegisterTypes(types.ToList());
+            foreach (var type in types) {
+                XafTypesInfo.Instance.RegisterEntity(type);
+            }
         };
+    }
+    public enum MyEnum {
+        Val1, Val2
+    }
+
+    public class PEnumClass : BaseObject {
+        public PEnumClass(Session session)
+            : base(session) {
+        }
+        private MyEnum? _myEnum;
+        public MyEnum? MyEnum {
+            get {
+                return _myEnum;
+            }
+            set {
+                SetPropertyValue("MyEnum", ref _myEnum, value);
+            }
+        }
     }
 
 }

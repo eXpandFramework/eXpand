@@ -95,10 +95,11 @@ namespace Xpand.ExpressApp.IO.Core {
         }
         void ImportComplexProperties(XElement element, UnitOfWork nestedUnitOfWork, Action<XPBaseObject, XElement> instance, NodeType nodeType) {
             IEnumerable<XElement> objectElements = GetObjectRefElements(element, nodeType);
+            ITypeInfo typeInfo = GetTypeInfo(element);
             foreach (XElement objectElement in objectElements) {
-                ITypeInfo typeInfo = GetTypeInfo(objectElement);
-                if (typeInfo != null) {
-                    var refObjectKeyCriteria = GetObjectKeyCriteria(typeInfo, objectElement.Descendants("Key"));
+                ITypeInfo memberTypeInfo = GetTypeInfo(objectElement);
+                if (memberTypeInfo != null) {
+                    var refObjectKeyCriteria = GetObjectKeyCriteria(memberTypeInfo, objectElement.Descendants("Key"));
                     XPBaseObject xpBaseObject;
                     XElement element1 = objectElement;
                     if (objectElement.GetAttributeValue("strategy") ==
@@ -106,13 +107,13 @@ namespace Xpand.ExpressApp.IO.Core {
                         var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement();
                         if (findObjectFromRefenceElement != null) {
                             HandleErrorComplex(objectElement, typeInfo, () => {
-                                xpBaseObject = CreateObject(findObjectFromRefenceElement, nestedUnitOfWork, typeInfo, refObjectKeyCriteria);
+                                xpBaseObject = CreateObject(findObjectFromRefenceElement, nestedUnitOfWork, memberTypeInfo, refObjectKeyCriteria);
                                 instance.Invoke(xpBaseObject, element1);
                             });
                         }
                     } else {
                         HandleErrorComplex(objectElement, typeInfo, () => {
-                            xpBaseObject = GetObject(nestedUnitOfWork, typeInfo, refObjectKeyCriteria);
+                            xpBaseObject = GetObject(nestedUnitOfWork, memberTypeInfo, refObjectKeyCriteria);
                             instance.Invoke(xpBaseObject, element1);
                         });
                     }

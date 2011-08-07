@@ -39,9 +39,10 @@ namespace Xpand.Tests.Xpand.IO {
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.1toMany.xml");
             if (_manifestResourceStream != null)
                 _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
+
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork)ObjectSpace.Session);
+        Because of = () => new ImportEngine(true).ImportObjects(_manifestResourceStream, (UnitOfWork)ObjectSpace.Session);
 
         It should_create_1_new_customer_object = () => {
             _customer = ObjectSpace.FindObject(CustomerType, null) as XPBaseObject;
@@ -395,35 +396,9 @@ namespace Xpand.Tests.Xpand.IO {
     public class When_nullable_enum_property_with_null_value {
         static UnitOfWork _unitOfWork;
 
-        public enum MyEnum {
-            Val1, Val2
-        }
 
         static Stream _manifestResourceStream;
 
-        public class PEnumClass : BaseObject {
-            public PEnumClass(Session session)
-                : base(session) {
-            }
-            private When_Enum_values_already_existis_in_the_db.MyEnum? _myEnum;
-            // ReSharper disable MemberHidesStaticFromOuterClass
-            public When_Enum_values_already_existis_in_the_db.MyEnum? MyEnum {
-                // ReSharper restore MemberHidesStaticFromOuterClass
-                get {
-                    return _myEnum;
-                }
-                set {
-                    SetPropertyValue("MyEnum", ref _myEnum, value);
-                    
-
-                }
-            }
-
-            
-            
-            
-
-        }
 
         Establish context = () => {
             _unitOfWork = new UnitOfWork(((ObjectSpace)ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
