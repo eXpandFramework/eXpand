@@ -34,6 +34,8 @@ namespace Xpand.ExpressApp.SystemModule {
             } catch (Exception) {
 
             }
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
         }
 
         static XpandSystemModule() {

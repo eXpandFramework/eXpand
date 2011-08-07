@@ -174,7 +174,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 }
             }
             string properties = GetPropertiesCode(attributeInfoAttribute);
-            return string.Format("[{0}{1}({2}){3}]", assemblyDecleration, attribute.GetType().FullName, args, properties);
+            return string.Format("[{0}{1}({2}{3})]", assemblyDecleration, attribute.GetType().FullName, args, properties);
         }
 
         static string GetPropertiesCode(AttributeInfoAttribute attributeInfoAttribute) {
@@ -185,13 +185,13 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             Func<string, IMemberInfo, string> func = (current, memberInfo)
                 => current + (memberInfo.Name + "=" + GetArgumentCodeCore(memberInfo.MemberType, memberInfo.GetValue(attributeInfoAttribute.Instance)) + ",");
             string code = memberInfos.Aggregate(null, func).TrimEnd(',');
-            return string.Format("{{{0}}}", code);
+            return string.IsNullOrEmpty(code) ? null : string.Format(",{0}", code);
         }
 
         private static object GetArgumentCodeCore(Type type, object argumentValue) {
             if (type == typeof(string))
                 return @"@""" + argumentValue + @"""";
-            if (type == typeof(Type))
+            if (typeof(Type).IsAssignableFrom(type))
                 return "typeof(" + ((Type)argumentValue).FullName + ")";
             if (typeof(Enum).IsAssignableFrom(type))
                 return argumentValue.GetType().FullName + "." + argumentValue;

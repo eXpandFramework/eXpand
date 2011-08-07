@@ -10,6 +10,12 @@ using Xpand.Utils.Linq;
 
 namespace Xpand.Persistent.Base.General {
     public static class ObjectSpaceExtensions {
+
+        public static void RollBackSilent(this IObjectSpace objectSpace) {
+            objectSpace.ConfirmationRequired += (sender, args) => args.ConfirmationResult = ConfirmationResult.No;
+            objectSpace.Rollback();
+        }
+
         public static IEnumerable<ClassType> GetNonDeletedObjectsToSave<ClassType>(this IObjectSpace objectSpace) {
             return objectSpace.GetObjectsToSave(true).OfType<ClassType>().Where(type => !(objectSpace.IsDeletedObject(type)));
         }
@@ -66,7 +72,7 @@ namespace Xpand.Persistent.Base.General {
         public static T FindObject<T>(this ObjectSpace objectSpace, Expression<Func<T, bool>> expression, PersistentCriteriaEvaluationBehavior persistentCriteriaEvaluationBehavior) {
             var objectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
             CriteriaOperator criteriaOperator = GetCriteriaOperator(objectType, expression, objectSpace);
-            bool inTransaction = persistentCriteriaEvaluationBehavior == PersistentCriteriaEvaluationBehavior.InTransaction ? true : false;
+            bool inTransaction = persistentCriteriaEvaluationBehavior == PersistentCriteriaEvaluationBehavior.InTransaction;
             return (T)objectSpace.FindObject(objectType, criteriaOperator, inTransaction);
         }
 

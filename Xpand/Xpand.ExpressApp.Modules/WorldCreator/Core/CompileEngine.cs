@@ -48,12 +48,16 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             return CompileModule(persistentAssemblyBuilder.PersistentAssemblyInfo, true, path);
         }
 
+
+        static void RegisterPersistentTypes(Type compileModule) {
+            foreach (var type in compileModule.Assembly.GetTypes()) {
+                XafTypesInfo.Instance.RegisterEntity(type);
+            }
+        }
         public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo, bool registerPersistentTypes, string path) {
             Type compileModule = CompileModule(persistentAssemblyInfo, path);
             if (registerPersistentTypes && compileModule != null)
-                foreach (var type in compileModule.Assembly.GetTypes()) {
-                    XafTypesInfo.Instance.RegisterEntity(type);
-                }
+                RegisterPersistentTypes(compileModule);
             return compileModule;
         }
 
