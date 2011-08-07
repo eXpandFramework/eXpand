@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Machine.Specifications;
+﻿using Machine.Specifications;
 using Xpand.Xpo;
 
 namespace Xpand.Tests.Xpand.Xpo {

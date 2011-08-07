@@ -43,7 +43,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
-    
+
     public class When_Job_detail_Deleted : With_Job_Scheduler_XpandJobDetail_Application<When_Job_detail_Deleted> {
 
         Establish context = () => {

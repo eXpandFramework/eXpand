@@ -316,17 +316,26 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
     public class When_persistent_attribute_member_is_marked_with_attributeinfo : With_In_Memory_DataStore {
         static PersistentRuleRequiredFieldAttribute _persistentRuleRequiredFieldAttribute;
+        static PersistentRuleRequiredFieldAttribute _persistentRuleRequiredFieldAttribute1;
         static string _generateCode;
+        static string _generateCode1;
 
 
         Establish context = () => {
             _persistentRuleRequiredFieldAttribute = new PersistentRuleRequiredFieldAttribute(UnitOfWork) { ID = "id", Context = "Save", TargetCriteria = "TargetCriteria" };
+            _persistentRuleRequiredFieldAttribute1 = new PersistentRuleRequiredFieldAttribute(UnitOfWork) { ID = "id", Context = "Save" };
         };
 
         Because of = () => {
             _generateCode = CodeEngine.GenerateCode(_persistentRuleRequiredFieldAttribute);
+            _generateCode1 = CodeEngine.GenerateCode(_persistentRuleRequiredFieldAttribute1);
         };
 
-        It should_generate_extra_properties = () => _generateCode.ShouldEqual(@"[DevExpress.Persistent.Validation.RuleRequiredFieldAttribute(@""id"",@""Save""){TargetCriteria=@""TargetCriteria""}]");
+        It should_generate_extra_properties = () => {
+            _generateCode.ShouldEqual(
+                @"[DevExpress.Persistent.Validation.RuleRequiredFieldAttribute(@""id"",@""Save"",TargetCriteria=@""TargetCriteria"")]");
+            _generateCode1.ShouldEqual(
+                @"[DevExpress.Persistent.Validation.RuleRequiredFieldAttribute(@""id"",@""Save"",TargetCriteria=@"""")]");
+        };
     }
 }

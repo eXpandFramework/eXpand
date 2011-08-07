@@ -13,14 +13,14 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_trigger_time_pass : With_Scheduler {
 
         Establish context = () => {
-            
+
             var objectSpace = ObjectSpaceInMemory.CreateNew();
             var xpandSimpleTrigger = objectSpace.CreateObject<XpandSimpleTrigger>();
             xpandSimpleTrigger.Name = "tr";
             var simpleTrigger = xpandSimpleTrigger.CreateTrigger("jb", typeof(DummyJob), null);
 
             simpleTrigger.StartTimeUtc = DateTime.UtcNow;
-            
+
             Scheduler.ScheduleJob(simpleTrigger);
             Scheduler.Start();
         };
@@ -104,6 +104,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             () => _calendar.ExcludedDates.Contains(DateTime.Today.AddDays(1));
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
+    [Ignore]
     public class When_Job_with_Weekcly_calendar_scheduled : With_Scheduler {
         static WeeklyCalendar _calendar;
         static XpandSimpleTrigger _simpleTrigger;
@@ -117,7 +118,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             _xpandWeeklyCalendar.Name = "annualCalendarName";
             _simpleTrigger.Calendar = _xpandWeeklyCalendar;
             _simpleTrigger.Name = "tr";
-            _xpandWeeklyCalendar.DaysOfWeekExcluded.Add(DateTime.Today.AddDays(1).DayOfWeek);
+            _xpandWeeklyCalendar.DaysOfWeekExcluded.Add(DateTime.Today.AddDays(2).DayOfWeek);
             _xpandWeeklyCalendar.DaysOfWeekIncluded.Add(DateTime.Today.DayOfWeek);
             _jobDetail = objectSpace.CreateObject<XpandJobDetail>();
             _jobDetail.Name = "jb";
@@ -128,7 +129,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         };
 
-        Because of = () => Scheduler.StoreTrigger(_simpleTrigger,_jobDetail, null);
+        Because of = () => Scheduler.StoreTrigger(_simpleTrigger, _jobDetail, null);
 
         It should_add_an_weekcly_Calendar_to_the_scheduler =
             () => {
@@ -143,13 +144,13 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
 
-    public class DummyStateFullJob:IJob {
+    public class DummyStateFullJob : IJob {
         int _state;
 
 
         public void Execute(IJobExecutionContext context) {
             var data = context.JobDetail.JobDataMap;
-            data.Put("excount", data.GetInt("excount")+1);
+            data.Put("excount", data.GetInt("excount") + 1);
             if (data.GetInt("excount") == 3)
                 SameInstance = true;
         }
