@@ -89,6 +89,8 @@ namespace Xpand.ExpressApp.SystemModule {
 
         void InitializeSequenceGenerator() {
             try {
+                if (SequenceObjectType == null)
+                    throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
                 if (Application != null)
                     SequenceGenerator.Initialize(((ISupportFullConnectionString)Application).ConnectionString, SequenceObjectType);
             } catch (Exception e) {
