@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -31,7 +33,13 @@ namespace Xpand.ExpressApp.IO.Core {
         public ImportEngine() {
         }
 
-        public int ImportObjects(XDocument document, UnitOfWork unitOfWork) {
+        public int ImportObjects(string xml, UnitOfWork unitOfWork) {
+            var xmlTextReader = new XmlTextReader(new MemoryStream(Encoding.UTF8.GetBytes(xml))) { WhitespaceHandling = WhitespaceHandling.Significant };
+            var document = XDocument.Load(xmlTextReader, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo);
+            return ImportObjects(document, unitOfWork);
+        }
+
+        int ImportObjects(XDocument document, UnitOfWork unitOfWork) {
             _unitOfWork = unitOfWork;
             if (document.Root != null) {
                 foreach (XElement element in document.Root.Nodes().OfType<XElement>()) {
@@ -56,7 +64,7 @@ namespace Xpand.ExpressApp.IO.Core {
         public void ImportObjects(Stream stream, UnitOfWork unitOfWork) {
             Guard.ArgumentNotNull(stream, "Stream");
             stream.Position = 0;
-            using (var streamReader = new StreamReader(stream)) {
+            using (var streamReader = new XmlTextReader(stream) { WhitespaceHandling = WhitespaceHandling.Significant }) {
                 var xDocument = XDocument.Load(streamReader, LoadOptions.SetLineInfo | LoadOptions.PreserveWhitespace);
                 ImportObjects(xDocument, unitOfWork);
             }

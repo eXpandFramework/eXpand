@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -598,14 +599,14 @@ namespace Xpand.Tests.Xpand.IO {
             _objectSpace = CreateRecords();
             _exportRecords = ExportRecords(_objectSpace);
             _objectSpace = (ObjectSpace)ObjectSpaceInMemory.CreateNew();
-            new ImportEngine().ImportObjects(_exportRecords, (UnitOfWork)_objectSpace.Session);
+            new ImportEngine().ImportObjects(_exportRecords.ToString(), (UnitOfWork)_objectSpace.Session);
             var pEnumClass = _objectSpace.FindObject<PEnumClass>(null);
             pEnumClass.MyEnum = null;
             _objectSpace.CommitChanges();
         };
 
         Because of = () => {
-            new ImportEngine().ImportObjects(_exportRecords, (UnitOfWork)_objectSpace.Session);
+            new ImportEngine().ImportObjects(_exportRecords.ToString(), (UnitOfWork)_objectSpace.Session);
             ((UnitOfWork)_objectSpace.Session).CommitChanges();
             _objectSpace.CommitChanges();
         };
@@ -618,7 +619,7 @@ namespace Xpand.Tests.Xpand.IO {
             serializationConfiguration.SerializationConfigurationGroup =
                 objectSpace.CreateObject<SerializationConfigurationGroup>();
             new ClassInfoGraphNodeBuilder().Generate(serializationConfiguration);
-            XDocument document = new ExportEngine().Export(new[] { _pEnumClass },serializationConfiguration.SerializationConfigurationGroup);
+            XDocument document = new ExportEngine().Export(new[] { _pEnumClass }, serializationConfiguration.SerializationConfigurationGroup);
             return document;
         }
 
@@ -631,5 +632,42 @@ namespace Xpand.Tests.Xpand.IO {
             objectSpace.CommitChanges();
             return objectSpace;
         }
+    }
+
+    class When : With_Isolations {
+        static PEnumClass _pEnumClass;
+
+        static ObjectSpace CreateRecords() {
+            var dataSet = new DataSet();
+            var objectSpace = ((ObjectSpace)ObjectSpaceInMemory.CreateNew(dataSet));
+
+            _pEnumClass = objectSpace.CreateObject<PEnumClass>();
+            _pEnumClass.LongProperty = @"[TatukGIS] 
+CodePage=1252 
+OutCodePage=1252 ";
+            objectSpace.CommitChanges();
+            return objectSpace;
+        }
+        Establish context = () => {
+            ObjectSpace objectSpace = CreateRecords();
+            ISerializationConfiguration serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            serializationConfiguration.TypeToSerialize = typeof(PEnumClass);
+            serializationConfiguration.SerializationConfigurationGroup =
+                objectSpace.CreateObject<SerializationConfigurationGroup>();
+            new ClassInfoGraphNodeBuilder().Generate(serializationConfiguration);
+            XDocument xDocument = new ExportEngine().Export(new List<XPBaseObject> { _pEnumClass }, serializationConfiguration.SerializationConfigurationGroup);
+
+            _pEnumClass.Delete();
+            objectSpace.CommitChanges();
+            var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xDocument.ToString()));
+            new ImportEngine(false).ImportObjects(memoryStream, (UnitOfWork)objectSpace.Session);
+
+            var pEnumClass = objectSpace.FindObject<PEnumClass>(null);
+            Debug.Print("");
+
+        };
+
+        Because of = () => { };
+        It should_should = () => { };
     }
 }

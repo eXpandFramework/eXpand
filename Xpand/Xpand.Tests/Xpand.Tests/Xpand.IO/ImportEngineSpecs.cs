@@ -209,7 +209,7 @@ namespace Xpand.Tests.Xpand.IO {
             document = new ExportEngine().Export(new List<XPBaseObject> { analysis }, objectSpace.CreateObject<SerializationConfigurationGroup>());
         };
 
-        Because of = () => new ImportEngine().ImportObjects(document, (UnitOfWork)_session);
+        Because of = () => new ImportEngine().ImportObjects(document.ToString(), (UnitOfWork)_session);
 
         It should_import_correct_bytes = () => _session.FindObject<Analysis>(null).PivotGridSettingsContent.ShouldEqual(_pivotGridSettingsContent);
     }
@@ -235,7 +235,7 @@ namespace Xpand.Tests.Xpand.IO {
             _document = new ExportEngine().Export(new[] { _persistentAssemblyInfo }.OfType<XPBaseObject>(), configuration.SerializationConfigurationGroup);
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_document, (UnitOfWork)_objectSpace.Session);
+        Because of = () => new ImportEngine().ImportObjects(_document.ToString(), (UnitOfWork)_objectSpace.Session);
 
         It should_create_a_persistent_assemblyInfo = () => {
             _persistentAssemblyInfo = _objectSpace.FindObject<PersistentAssemblyInfo>(null);

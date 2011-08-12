@@ -104,6 +104,16 @@ namespace Xpand.Tests.Xpand.IO {
         public PEnumClass(Session session)
             : base(session) {
         }
+        private string _longProperty;
+        [Size(SizeAttribute.Unlimited)]
+        public string LongProperty {
+            get {
+                return _longProperty;
+            }
+            set {
+                SetPropertyValue("LongProperty", ref _longProperty, value);
+            }
+        }
         private MyEnum? _myEnum;
         public MyEnum? MyEnum {
             get {
