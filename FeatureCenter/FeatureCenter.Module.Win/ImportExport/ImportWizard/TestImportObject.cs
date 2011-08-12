@@ -23,7 +23,15 @@ namespace FeatureCenter.Module.Win.ImportExport.ImportWizard {
             set { SetPropertyValue("Name", ref _Name, value); }
         }
 
-
+        private DateTime _date;
+        public DateTime Date {
+            get {
+                return _date;
+            }
+            set {
+                SetPropertyValue("Date", ref _date, value);
+            }
+        }
         private int _Age;
 
         [DisplayName("Age")]

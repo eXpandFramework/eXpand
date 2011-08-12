@@ -390,7 +390,9 @@
     <EmbeddedResource Include="Xpand.IO\Resources\NonExistentObject.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Xpand.IO\Resources\NonExistentObjectProperty.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\NonExistentObjectProperty.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Xpand.IO\Resources\NonExistentSimpleProperty.xml" />
@@ -406,6 +408,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Xpand.IO\Resources\NullAbleEnum.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xpand.IO\Resources\NullValuesImport.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

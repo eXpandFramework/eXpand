@@ -29,6 +29,7 @@ using Xpand.Persistent.BaseImpl.ImportExport;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Xpo;
+using Xpand.Xpo.Converters.ValueConverters;
 using ObjectSpaceProvider = DevExpress.ExpressApp.ObjectSpaceProvider;
 
 namespace Xpand.Tests.Xpand.IO {
@@ -638,16 +639,15 @@ namespace Xpand.Tests.Xpand.IO {
         static PEnumClass _pEnumClass;
 
         static ObjectSpace CreateRecords() {
+            XafTypesInfo.Instance.RegisterEntity(typeof(PEnumClass));
             var dataSet = new DataSet();
-            var objectSpace = ((ObjectSpace)ObjectSpaceInMemory.CreateNew(dataSet));
+            var objectSpace = new ObjectSpace(new UnitOfWork());
 
             _pEnumClass = objectSpace.CreateObject<PEnumClass>();
-            _pEnumClass.LongProperty = @"[TatukGIS] 
-CodePage=1252 
-OutCodePage=1252 ";
             objectSpace.CommitChanges();
             return objectSpace;
         }
+
         Establish context = () => {
             ObjectSpace objectSpace = CreateRecords();
             ISerializationConfiguration serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
@@ -662,7 +662,7 @@ OutCodePage=1252 ";
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xDocument.ToString()));
             new ImportEngine(false).ImportObjects(memoryStream, (UnitOfWork)objectSpace.Session);
 
-            var pEnumClass = objectSpace.FindObject<PEnumClass>(null);
+            _pEnumClass.Reload();
             Debug.Print("");
 
         };

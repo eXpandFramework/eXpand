@@ -108,22 +108,25 @@ namespace Xpand.ExpressApp.IO.Core {
                 ITypeInfo memberTypeInfo = GetTypeInfo(objectElement);
                 if (memberTypeInfo != null) {
                     var refObjectKeyCriteria = GetObjectKeyCriteria(memberTypeInfo, objectElement.Descendants("Key"));
-                    XPBaseObject xpBaseObject;
-                    XElement element1 = objectElement;
-                    if (objectElement.GetAttributeValue("strategy") ==
-                        SerializationStrategy.SerializeAsObject.ToString()) {
-                        var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement();
-                        if (findObjectFromRefenceElement != null) {
+                    if (refObjectKeyCriteria != null) {
+                        XPBaseObject xpBaseObject;
+                        XElement element1 = objectElement;
+                        if (objectElement.GetAttributeValue("strategy") ==
+                            SerializationStrategy.SerializeAsObject.ToString()) {
+                            var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement();
+                            if (findObjectFromRefenceElement != null) {
+                                HandleErrorComplex(objectElement, typeInfo, () => {
+                                    xpBaseObject = CreateObject(findObjectFromRefenceElement, nestedUnitOfWork,
+                                                                memberTypeInfo, refObjectKeyCriteria);
+                                    instance.Invoke(xpBaseObject, element1);
+                                });
+                            }
+                        } else {
                             HandleErrorComplex(objectElement, typeInfo, () => {
-                                xpBaseObject = CreateObject(findObjectFromRefenceElement, nestedUnitOfWork, memberTypeInfo, refObjectKeyCriteria);
+                                xpBaseObject = GetObject(nestedUnitOfWork, memberTypeInfo, refObjectKeyCriteria);
                                 instance.Invoke(xpBaseObject, element1);
                             });
                         }
-                    } else {
-                        HandleErrorComplex(objectElement, typeInfo, () => {
-                            xpBaseObject = GetObject(nestedUnitOfWork, memberTypeInfo, refObjectKeyCriteria);
-                            instance.Invoke(xpBaseObject, element1);
-                        });
                     }
                 }
             }

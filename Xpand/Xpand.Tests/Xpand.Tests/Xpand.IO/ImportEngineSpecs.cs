@@ -409,4 +409,32 @@ namespace Xpand.Tests.Xpand.IO {
 
         It should_import_null_value = () => _unitOfWork.FindObject<PEnumClass>(null).MyEnum.ShouldBeNull();
     }
+    [Subject(typeof(ImportEngine))]
+    public class When_reference_property_is_null_and_has_serialialize_as_value : With_Customer_Orders {
+        static XPBaseObject _order1;
+        static User _user;
+        static XPBaseObject _customer;
+
+        static Stream _manifestResourceStream;
+
+        Establish context = () => {
+            _user = (User)ObjectSpace.CreateObject(typeof(User));
+            _user.SetMemberValue("oid", new Guid("{B11AFD0E-6B2B-44cf-A986-96909A93291A}"));
+            ObjectSpace.Session.GetClassInfo(OrderType).CreateMember("Ammount", typeof(int));
+            ObjectSpace.CommitChanges();
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.NullValuesImport.xml");
+            if (_manifestResourceStream != null)
+                _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
+
+        };
+        Because of = () => new ImportEngine(true).ImportObjects(_manifestResourceStream, (UnitOfWork)ObjectSpace.Session);
+
+        It should_remain_null_the_property_value = () => {
+            _customer = (XPBaseObject)ObjectSpace.FindObject(CustomerType, null);
+            _customer.GetMemberValue("User").ShouldEqual(null);
+        };
+
+
+    }
+
 }

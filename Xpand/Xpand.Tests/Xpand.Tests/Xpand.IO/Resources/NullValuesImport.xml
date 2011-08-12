@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SerializedObjects>
+  <SerializedObject type="Customer">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">B11AFD0E-6B2B-44cf-A986-96909A93291D</Property>
+    <Property type="simple" name="Name">Apostolis</Property>
+    <Property type="object" name="User">
+      <SerializedObjectRef type="User" strategy="SerializeAsValue"/>
+    </Property>
+    <Property type="collection" name="Orders">
+      <SerializedObjectRef type="Order" strategy="SerializeAsObject">
+        <Key name="oid">B11AFD0E-6B2B-44cf-A986-96909A93291E</Key>
+      </SerializedObjectRef>
+      <SerializedObjectRef type="Order" strategy="SerializeAsObject">
+        <Key name="oid">B11AFD0E-6B2B-44cf-A986-96909A93291F</Key>
+      </SerializedObjectRef>
+    </Property>
+  </SerializedObject>
+  <SerializedObject type="Order">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">B11AFD0E-6B2B-44cf-A986-96909A93291F</Property>
+    <Property type="simple" name="Ammount">100</Property>
+  </SerializedObject>
+  <SerializedObject type="Order">
+    <Property type="simple" name="oid" isKey="true" isNaturalKey="true">B11AFD0E-6B2B-44cf-A986-96909A93291E</Property>
+    <Property type="simple" name="Ammount">200</Property>
+  </SerializedObject>
+</SerializedObjects>
+

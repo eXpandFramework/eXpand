@@ -16,6 +16,7 @@ using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using Xpand.Persistent.BaseImpl.ImportExport;
 using Xpand.Tests.Xpand.WorldCreator;
 using Xpand.Persistent.Base.General;
+using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.Tests.Xpand.IO {
     public abstract class With_Customer_Orders : With_Isolations {
@@ -103,6 +104,16 @@ namespace Xpand.Tests.Xpand.IO {
     public class PEnumClass : BaseObject {
         public PEnumClass(Session session)
             : base(session) {
+        }
+        private DateTime _date;
+        [ValueConverter(typeof(SqlDateTimeOverFlowValueConverter))]
+        public DateTime Date {
+            get {
+                return _date;
+            }
+            set {
+                SetPropertyValue("Date", ref _date, value);
+            }
         }
         private string _longProperty;
         [Size(SizeAttribute.Unlimited)]
