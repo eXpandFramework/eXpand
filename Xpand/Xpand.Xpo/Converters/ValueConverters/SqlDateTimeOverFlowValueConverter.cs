@@ -2,37 +2,37 @@
 using DevExpress.Xpo.Metadata;
 
 namespace Xpand.Xpo.Converters.ValueConverters {
-    public class SqlDateTimeOverFlowValueConverter:ValueConverter {
+    public class SqlDateTimeOverFlowValueConverter : ValueConverter {
         public override Type StorageType {
             get { return typeof(DateTime); }
         }
 
         public override object ConvertToStorageType(object value) {
-            if (value!= null) {
+            if (value != null) {
                 var dateTime = new DateTime(1753, 1, 1);
-                if (dateTime>(DateTime) value) {
-                    var time = ((DateTime) value).TimeOfDay;
+                if (dateTime > (DateTime)value) {
+                    var time = ((DateTime)value).TimeOfDay;
                     DateTime storageType = dateTime.AddTicks(time.Ticks);
                     return storageType;
                 }
                 dateTime = new DateTime(9999, 12, 31);
-                if (dateTime<(DateTime) value)
+                if (dateTime < (DateTime)value)
                     return dateTime;
             }
             return value;
         }
 
         public override object ConvertFromStorageType(object value) {
-            return value;
+            return value != null && (DateTime)value == new DateTime(1753, 1, 1) ? DateTime.MinValue : value;
         }
     }
-    public class SqlDateTimeOffSetOverFlowValueConverter:ValueConverter {
+    public class SqlDateTimeOffSetOverFlowValueConverter : ValueConverter {
         public override Type StorageType {
             get { return typeof(DateTime); }
         }
 
         public override object ConvertToStorageType(object value) {
-            if (value!= null) {
+            if (value != null) {
                 var dateTime = new DateTimeOffset(new DateTime(1753, 1, 1));
                 if (dateTime > (DateTimeOffset)value) {
                     var time = ((DateTimeOffset)value).TimeOfDay;
@@ -46,7 +46,7 @@ namespace Xpand.Xpo.Converters.ValueConverters {
         }
 
         public override object ConvertFromStorageType(object value) {
-            return value != null ? (object) new DateTimeOffset((DateTime) value) : null;
+            return value != null ? (object)new DateTimeOffset((DateTime)value) : null;
         }
     }
 }

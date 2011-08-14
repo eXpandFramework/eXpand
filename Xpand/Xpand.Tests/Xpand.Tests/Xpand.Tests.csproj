@@ -395,7 +395,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Xpand.IO\Resources\NonExistentSimpleProperty.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\NonExistentSimpleProperty.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Xpand.IO\Resources\NonExistentObjectsProperty.xml" />

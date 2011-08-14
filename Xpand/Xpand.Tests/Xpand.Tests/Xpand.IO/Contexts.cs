@@ -106,7 +106,7 @@ namespace Xpand.Tests.Xpand.IO {
             : base(session) {
         }
         private DateTime _date;
-        [ValueConverter(typeof(SqlDateTimeOverFlowValueConverter))]
+        [ValueConverter(typeof(XpandUtcDateTimeConverter))]
         public DateTime Date {
             get {
                 return _date;
