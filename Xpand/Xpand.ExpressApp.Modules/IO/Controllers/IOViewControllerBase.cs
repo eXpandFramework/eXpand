@@ -81,7 +81,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
                 var xmlFileChooser = ((IXmlFileChooser)args.CurrentObject);
                 xmlFileChooser.FileData.SaveToStream(memoryStream);
                 using (var unitOfWork = new UnitOfWork(objectSpace.Session.DataLayer)) {
-                    new ImportEngine(xmlFileChooser.LogErrors).ImportObjects(memoryStream, unitOfWork);
+                    new ImportEngine().ImportObjects(memoryStream, new ObjectSpace(unitOfWork));
                 }
             };
             ((ISupportConfirmationRequired)Application).ConfirmationRequired += OnConfirmationRequired;

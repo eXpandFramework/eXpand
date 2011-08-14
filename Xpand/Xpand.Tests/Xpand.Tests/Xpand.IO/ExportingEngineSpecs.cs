@@ -29,7 +29,6 @@ using Xpand.Persistent.BaseImpl.ImportExport;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Xpo;
-using Xpand.Xpo.Converters.ValueConverters;
 using ObjectSpaceProvider = DevExpress.ExpressApp.ObjectSpaceProvider;
 
 namespace Xpand.Tests.Xpand.IO {
@@ -600,14 +599,14 @@ namespace Xpand.Tests.Xpand.IO {
             _objectSpace = CreateRecords();
             _exportRecords = ExportRecords(_objectSpace);
             _objectSpace = (ObjectSpace)ObjectSpaceInMemory.CreateNew();
-            new ImportEngine().ImportObjects(_exportRecords.ToString(), (UnitOfWork)_objectSpace.Session);
+            new ImportEngine().ImportObjects(_exportRecords.ToString(), _objectSpace);
             var pEnumClass = _objectSpace.FindObject<PEnumClass>(null);
             pEnumClass.MyEnum = null;
             _objectSpace.CommitChanges();
         };
 
         Because of = () => {
-            new ImportEngine().ImportObjects(_exportRecords.ToString(), (UnitOfWork)_objectSpace.Session);
+            new ImportEngine().ImportObjects(_exportRecords.ToString(), _objectSpace);
             ((UnitOfWork)_objectSpace.Session).CommitChanges();
             _objectSpace.CommitChanges();
         };
@@ -640,7 +639,6 @@ namespace Xpand.Tests.Xpand.IO {
 
         static ObjectSpace CreateRecords() {
             XafTypesInfo.Instance.RegisterEntity(typeof(PEnumClass));
-            var dataSet = new DataSet();
             var objectSpace = new ObjectSpace(new UnitOfWork());
 
             _pEnumClass = objectSpace.CreateObject<PEnumClass>();
@@ -660,7 +658,7 @@ namespace Xpand.Tests.Xpand.IO {
             _pEnumClass.Delete();
             objectSpace.CommitChanges();
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xDocument.ToString()));
-            new ImportEngine(false).ImportObjects(memoryStream, (UnitOfWork)objectSpace.Session);
+            new ImportEngine(false).ImportObjects(memoryStream, objectSpace);
 
             _pEnumClass.Reload();
             Debug.Print("");

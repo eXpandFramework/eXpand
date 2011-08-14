@@ -87,6 +87,9 @@ namespace Xpand.Tests.Xpand.IO {
         protected static Func<Type[]> IOArtifacts;
 
         Establish context = () => {
+            XafTypesInfo.Instance.RegisterEntity(typeof(PEnumClass));
+            XafTypesInfo.Instance.RegisterEntity(typeof(DateTimePropertyObject));
+            XafTypesInfo.Instance.RegisterEntity(typeof(ImagePropertyObject));
             IOArtifacts = () => new[] { typeof(IOModule) };
             Isolate.Fake.IOTypesInfo();
             Type type1 = typeof (IOError);

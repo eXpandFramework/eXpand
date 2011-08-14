@@ -18,9 +18,9 @@ namespace FeatureCenter.Module.Win.ImportExport.DynamicAssemblyMasterDetail {
             if (session.FindObject<SerializationConfigurationGroup>(@group => @group.Name == "Dynamic Assembly Master Detail") == null) {
                 var importEngine = new ImportEngine();
                 using (var unitOfWork = new UnitOfWork(session.DataLayer)) {
-                    importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailGroup.xml");
-                    importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailModel.xml");
-                    importEngine.ImportObjects(unitOfWork, GetType(), "DynamicAssemblyMasterDetailModelGroup.xml");
+                    importEngine.ImportObjects(new ObjectSpace(unitOfWork), GetType(), "DynamicAssemblyMasterDetailGroup.xml");
+                    importEngine.ImportObjects(new ObjectSpace(unitOfWork), GetType(), "DynamicAssemblyMasterDetailModel.xml");
+                    importEngine.ImportObjects(new ObjectSpace(unitOfWork), GetType(), "DynamicAssemblyMasterDetailModelGroup.xml");
                 }
             }
         }

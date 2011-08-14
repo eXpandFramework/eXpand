@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.IO;
+using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
@@ -18,7 +19,7 @@ namespace FeatureCenter.Module.WorldCreator.Quartz {
                 if (manifestResourceStream != null) {
                     string connectionString = ConfigurationManager.ConnectionStrings["Quartz"].ConnectionString;
                     var readToEnd = new StreamReader(manifestResourceStream).ReadToEnd().Replace(@"XpoProvider=MSSqlServer;data source=.\SQLEXPRESS;integrated security=SSPI;initial catalog=Quartz", connectionString);
-                    new ImportEngine().ImportObjects(readToEnd, unitOfWork);
+                    new ImportEngine().ImportObjects(readToEnd, new ObjectSpace(unitOfWork));
                 }
 
             }

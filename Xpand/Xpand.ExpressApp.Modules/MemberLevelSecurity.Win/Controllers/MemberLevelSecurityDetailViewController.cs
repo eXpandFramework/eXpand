@@ -116,9 +116,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
 
         int FindControlHashByPropertyName(string name) {
             var item = View.FindItem(name);
-            if (item != null)
-                return item.Control.GetHashCode();
-            return 0;
+            return item != null && item.Control != null ? item.Control.GetHashCode() : 0;
         }
 
         LayoutControlItem FindLayoutControlItemByControlHash(int hash, string name) {

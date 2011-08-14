@@ -110,6 +110,7 @@
     <Compile Include="General\IDateRange.cs" />
     <Compile Include="General\IFastManyToMany .cs" />
     <Compile Include="General\ISupportViewId.cs" />
+    <Compile Include="General\IXpandObjectSpace.cs" />
     <Compile Include="General\ManyToManyCollectionHelper.cs" />
     <Compile Include="General\CustomAttributes\NumericFormatAttribute.cs" />
     <Compile Include="General\NewObjectCollectCreatableItemTypesDataSourceAttribute.cs" />
