@@ -36,7 +36,6 @@ namespace Xpand.ExpressApp.WizardUI.Win
         private void Action_Executed(object sender, ActionBaseEventArgs e)
         {
             IModelDetailViewWizard modelWizard = null;
-            NewObjectViewController controller = null;
 
             if (e.ShowViewParameters.CreatedView != null)
             {
@@ -44,11 +43,7 @@ namespace Xpand.ExpressApp.WizardUI.Win
             }
             else if (e.ShowViewParameters.CreatedView == null && e.Action.Controller is NewObjectViewController)
             {
-                controller = e.Action.Controller as NewObjectViewController;
-                if (controller.NewObjectAction.SelectedItem == null)
-                    return;
-
-                var viewID = this.Application.GetDetailViewId(controller.NewObjectAction.SelectedItem.Data as System.Type);
+                var viewID = this.Application.GetDetailViewId((e as SingleChoiceActionExecuteEventArgs).SelectedChoiceActionItem.Data as System.Type);
                 modelWizard = this.Application.Model.Views[viewID] as IModelDetailViewWizard;
             }
 
@@ -57,9 +52,7 @@ namespace Xpand.ExpressApp.WizardUI.Win
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 e.ShowViewParameters.Context = "WizardDetailViewForm";
                 if (e.ShowViewParameters.CreatedView == null)
-                {
-                    e.ShowViewParameters.CreatedView = this.Application.CreateDetailView(objectSpace, newObject, controller.View);
-                }
+                    e.ShowViewParameters.CreatedView = this.Application.CreateDetailView(objectSpace, newObject, this.View);
             }
 
             objectSpace = null;
