@@ -46,14 +46,12 @@ namespace Xpand.ExpressApp.IO.Core {
                     using (IObjectSpace nestedObjectSpace = objectSpace.CreateNestedObjectSpace()) {
                         ITypeInfo typeInfo = GetTypeInfo(element);
                         if (typeInfo != null) {
-                            IEnumerable<XElement> elements = element.Descendants("Property");
-                            var xElements =
-                                elements.Where(
-                                    xElement =>
-                                    xElement.GetAttributeValue("isKey").MakeFirstCharUpper() == true.ToString());
-                            CriteriaOperator objectKeyCriteria = GetObjectKeyCriteria(typeInfo, xElements);
-                            CreateObject(element, nestedObjectSpace, typeInfo, objectKeyCriteria);
-                            nestedObjectSpace.CommitChanges();
+                            var keys = GetKeys(element);
+                            CriteriaOperator objectKeyCriteria = GetObjectKeyCriteria(typeInfo, keys);
+                            if (objectKeyCriteria != null) {
+                                CreateObject(element, nestedObjectSpace, typeInfo, objectKeyCriteria);
+                                nestedObjectSpace.CommitChanges();
+                            }
                         }
                     }
                 }
@@ -61,6 +59,14 @@ namespace Xpand.ExpressApp.IO.Core {
             }
             return 0;
         }
+
+        static IEnumerable<XElement> GetKeys(XElement element) {
+            IEnumerable<XElement> elements = element.Descendants("Property");
+            var xElements =
+                elements.Where(xElement => xElement.GetAttributeValue("isKey").MakeFirstCharUpper() == true.ToString());
+            return xElements;
+        }
+
         public void ImportObjects(Stream stream, IObjectSpace objectSpace) {
             Guard.ArgumentNotNull(stream, "Stream");
             stream.Position = 0;
@@ -108,26 +114,24 @@ namespace Xpand.ExpressApp.IO.Core {
                 ITypeInfo memberTypeInfo = GetTypeInfo(objectElement);
                 if (memberTypeInfo != null) {
                     var refObjectKeyCriteria = GetObjectKeyCriteria(memberTypeInfo, objectElement.Descendants("Key"));
-                    if (refObjectKeyCriteria != null) {
-                        XPBaseObject xpBaseObject;
-                        XElement element1 = objectElement;
-                        if (objectElement.GetAttributeValue("strategy") ==
-                            SerializationStrategy.SerializeAsObject.ToString()) {
-                            var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement();
-                            if (findObjectFromRefenceElement != null) {
-                                HandleErrorComplex(objectElement, typeInfo, () => {
-                                    xpBaseObject = CreateObject(findObjectFromRefenceElement, nestedObjectSpace,
-                                                                memberTypeInfo, refObjectKeyCriteria);
-                                    instance.Invoke(xpBaseObject, element1);
-                                });
-                            }
-                        } else {
+                    XPBaseObject xpBaseObject;
+                    XElement element1 = objectElement;
+                    if (objectElement.GetAttributeValue("strategy") ==
+                        SerializationStrategy.SerializeAsObject.ToString()) {
+                        var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement();
+                        if (findObjectFromRefenceElement != null) {
                             HandleErrorComplex(objectElement, typeInfo, () => {
-                                xpBaseObject = GetObject(memberTypeInfo, refObjectKeyCriteria);
+                                xpBaseObject = CreateObject(findObjectFromRefenceElement, nestedObjectSpace, memberTypeInfo, refObjectKeyCriteria);
                                 instance.Invoke(xpBaseObject, element1);
                             });
                         }
+                    } else {
+                        HandleErrorComplex(objectElement, typeInfo, () => {
+                            xpBaseObject = GetObject(memberTypeInfo, refObjectKeyCriteria);
+                            instance.Invoke(xpBaseObject, element1);
+                        });
                     }
+
                 }
             }
         }
@@ -203,11 +207,14 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         XPBaseObject GetObject(ITypeInfo typeInfo, CriteriaOperator criteriaOperator) {
-            var unitOfWork = ((UnitOfWork) ((ObjectSpace) _objectSpace).Session);
-            var xpBaseObject = unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, unitOfWork.GetClassInfo(typeInfo.Type),
-                                                     criteriaOperator, true) as XPBaseObject ??
-                               unitOfWork.FindObject(unitOfWork.GetClassInfo(typeInfo.Type), criteriaOperator, true) as XPBaseObject;
-            return xpBaseObject ?? (XPBaseObject)ReflectionHelper.CreateObject(typeInfo.Type, unitOfWork);
+            if (criteriaOperator != null) {
+                var unitOfWork = ((UnitOfWork)((ObjectSpace)_objectSpace).Session);
+                var xpBaseObject = unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, unitOfWork.GetClassInfo(typeInfo.Type),
+                                                         criteriaOperator, true) as XPBaseObject ??
+                                   unitOfWork.FindObject(unitOfWork.GetClassInfo(typeInfo.Type), criteriaOperator, true) as XPBaseObject;
+                return xpBaseObject ?? (XPBaseObject)ReflectionHelper.CreateObject(typeInfo.Type, unitOfWork);
+            }
+            return null;
         }
 
         CriteriaOperator GetObjectKeyCriteria(ITypeInfo typeInfo, IEnumerable<XElement> xElements) {

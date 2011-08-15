@@ -158,6 +158,7 @@ namespace Xpand.Tests.Xpand.IO {
         It should_have_the_reason_of_the_fail = () => _ioError.Reason.ShouldEqual(FailReason.PropertyNotFound);
         It should_have_element_description = () => _ioError.InnerXml.ShouldNotBeNull();
         It should_have_the_parent_element_description = () => _ioError.ElementXml.ShouldNotBeNull();
+
     }
     public class When_collection_and_simple_and_object_property_names_does_not_exist : ExceptionHandlingSpecsBase {
         static Exception _exception;
