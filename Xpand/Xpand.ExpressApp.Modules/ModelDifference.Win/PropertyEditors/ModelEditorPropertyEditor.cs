@@ -53,8 +53,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
 
 
         public ModelEditorViewController ModelEditorViewController {
-            get 
-            {
+            get {
                 if (_controller == null)
                     CreateModelEditorController();
 
@@ -83,16 +82,13 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             return modelEditorControl;
         }
 
-        private void modelEditorControl_OnDisposing(object sender, EventArgs e)
-        {
+        private void modelEditorControl_OnDisposing(object sender, EventArgs e) {
             this.Control.OnDisposing -= new EventHandler(modelEditorControl_OnDisposing);
             this.DisposeController();
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            try
-            {
+        protected override void Dispose(bool disposing) {
+            try {
                 if (CurrentObject != null)
                     CurrentObject.Changed -= CurrentObjectOnChanged;
 
@@ -100,17 +96,13 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
                     _objectSpace.Committing -= ObjectSpaceOnCommitting;
                     _objectSpace = null;
                 }
-            }
-            finally
-            {
+            } finally {
                 base.Dispose(disposing);
             }
         }
 
-        private void DisposeController()
-        {
-            if (_controller != null)
-            {
+        private void DisposeController() {
+            if (_controller != null) {
                 _controller.CurrentAspectChanged -= ControllerOnCurrentAspectChanged;
                 _controller.SaveAction.ExecuteCompleted -= SaveActionOnExecuteCompleted;
                 _controller.Modifying -= Model_Modifying;
@@ -138,7 +130,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
 
 
         void ViewOnClosing(object sender, EventArgs eventArgs) {
-            _objectSpace.Committing-=ObjectSpaceOnCommitting;
+            _objectSpace.Committing -= ObjectSpaceOnCommitting;
         }
 
         #endregion
@@ -186,7 +178,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         }
 
         void ControllerOnCurrentAspectChanged(object sender, EventArgs eventArgs) {
-            var modelDifferenceObject = ((ModelDifferenceObject) View.CurrentObject);
+            var modelDifferenceObject = ((ModelDifferenceObject)View.CurrentObject);
             if (modelDifferenceObject.AspectObjects.Where(o => o.Name == ModelEditorViewController.CurrentAspect).FirstOrDefault() == null) {
                 modelDifferenceObject.Model.AddAspect(ModelEditorViewController.CurrentAspect);
                 var aspectObject = _objectSpace.CreateObject<AspectObject>();

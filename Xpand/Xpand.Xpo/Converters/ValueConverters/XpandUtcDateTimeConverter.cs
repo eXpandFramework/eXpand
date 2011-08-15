@@ -1,4 +1,6 @@
-﻿namespace Xpand.Xpo.Converters.ValueConverters {
+﻿using System;
+
+namespace Xpand.Xpo.Converters.ValueConverters {
     public class XpandUtcDateTimeConverter : DevExpress.Xpo.Metadata.UtcDateTimeConverter {
         public override object ConvertToStorageType(object value) {
             object convertToStorageType = base.ConvertToStorageType(value);
@@ -7,7 +9,7 @@
         public override object ConvertFromStorageType(object value) {
             object fromStorageType = new SqlDateTimeOverFlowValueConverter().ConvertFromStorageType(value);
             object convertFromStorageType = base.ConvertFromStorageType(fromStorageType);
-            return convertFromStorageType;
+            return convertFromStorageType != null && ((DateTime)convertFromStorageType).Date == new DateTime(0001, 1, 1) ? null : convertFromStorageType;
         }
     }
 }

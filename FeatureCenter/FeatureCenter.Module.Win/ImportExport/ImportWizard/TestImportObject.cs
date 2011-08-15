@@ -1,6 +1,7 @@
 ﻿using System;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using Xpand.Xpo.Converters.ValueConverters;
 
 namespace FeatureCenter.Module.Win.ImportExport.ImportWizard {
 
@@ -24,6 +25,7 @@ namespace FeatureCenter.Module.Win.ImportExport.ImportWizard {
         }
 
         private DateTime _date;
+        [ValueConverter(typeof(XpandUtcDateTimeConverter))]
         public DateTime Date {
             get {
                 return _date;
