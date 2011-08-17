@@ -31,8 +31,8 @@ namespace Xpand.ExpressApp.SystemModule {
         public XpandSystemModule() {
             try {
                 SequenceObjectType = LoadFromBaseImpl("Xpand.Persistent.BaseImpl.SequenceObject");
-            } catch (Exception) {
-
+            } catch (Exception e) {
+                Tracing.Tracer.LogError(e);
             }
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
