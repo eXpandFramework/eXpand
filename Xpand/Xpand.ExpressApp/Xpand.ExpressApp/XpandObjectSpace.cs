@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp {
         public override object GetObject(object objectFromDifferentObjectSpace) {
             return GetObjectAction != null ? GetObjectAction.Invoke(objectFromDifferentObjectSpace) : base.GetObject(objectFromDifferentObjectSpace);
         }
-        
+
         public object FindObject(Type objectType, DevExpress.Data.Filtering.CriteriaOperator criteria, bool inTransaction,
                                  bool selectDeleted) {
             CheckIsDisposed();
@@ -65,7 +65,8 @@ namespace Xpand.ExpressApp {
     }
 
     public class NestedXpandObjectSpace : NestedObjectSpace {
-        public NestedXpandObjectSpace(IObjectSpace parentObjectSpace) : base(parentObjectSpace) {
+        public NestedXpandObjectSpace(IObjectSpace parentObjectSpace)
+            : base(parentObjectSpace) {
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp {
                 if (_baseImplAssembly == null) {
                     var baseImplName = ConfigurationManager.AppSettings["Baseimpl"];
                     if (String.IsNullOrEmpty(baseImplName)) {
-                        _baseImplAssembly = Assembly.Load("Xpand.Persistent.BaseImpl");
+                        _baseImplAssembly = Assembly.Load("Xpand.Persistent.BaseImpl, Version=*, Culture=neutral, PublicKeyToken=*");
                         if (_baseImplAssembly == null)
                             throw new NullReferenceException("BaseImpl not found please reference it in your front end project");
                         TypesInfo.LoadTypes(_baseImplAssembly);

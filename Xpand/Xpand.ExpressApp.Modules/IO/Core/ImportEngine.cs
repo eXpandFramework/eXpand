@@ -114,17 +114,17 @@ namespace Xpand.ExpressApp.IO.Core {
                 ITypeInfo memberTypeInfo = GetTypeInfo(objectElement);
                 if (memberTypeInfo != null) {
                     var refObjectKeyCriteria = GetObjectKeyCriteria(memberTypeInfo, objectElement.Descendants("Key"));
-                    XPBaseObject xpBaseObject;
+                    XPBaseObject xpBaseObject = null;
                     XElement element1 = objectElement;
                     if (objectElement.GetAttributeValue("strategy") ==
                         SerializationStrategy.SerializeAsObject.ToString()) {
                         var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement();
-                        if (findObjectFromRefenceElement != null) {
-                            HandleErrorComplex(objectElement, typeInfo, () => {
+                        HandleErrorComplex(objectElement, typeInfo, () => {
+                            if (findObjectFromRefenceElement != null)
                                 xpBaseObject = CreateObject(findObjectFromRefenceElement, nestedObjectSpace, memberTypeInfo, refObjectKeyCriteria);
-                                instance.Invoke(xpBaseObject, element1);
-                            });
-                        }
+                            instance.Invoke(xpBaseObject, element1);
+                        });
+
                     } else {
                         HandleErrorComplex(objectElement, typeInfo, () => {
                             xpBaseObject = GetObject(memberTypeInfo, refObjectKeyCriteria);

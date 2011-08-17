@@ -436,7 +436,7 @@ namespace Xpand.Tests.Xpand.IO {
 
     }
     [Subject(typeof(ImportEngine))]
-    public class When_updating_a_ref_property_with_a_null_value : With_Customer_Orders {
+    public class When_updating_a_ref_property_with_a_null_value_and_serializeasvalue : With_Customer_Orders {
         static XPBaseObject _order1;
         static User _user;
         static XPBaseObject _customer;
@@ -455,6 +455,40 @@ namespace Xpand.Tests.Xpand.IO {
             new ImportEngine(true).ImportObjects(_manifestResourceStream, ObjectSpace);
 
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.NullValuesImport.xml");
+            if (_manifestResourceStream != null)
+                _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
+
+        };
+
+        Because of = () => new ImportEngine(true).ImportObjects(_manifestResourceStream, ObjectSpace);
+
+        It should_null_the_ref_property_value = () => {
+            _customer = (XPBaseObject)ObjectSpace.FindObject(CustomerType, null);
+            _customer.GetMemberValue("User").ShouldBeNull();
+        };
+
+
+    }
+    [Subject(typeof(ImportEngine))]
+    public class When_updating_a_ref_property_with_a_null_value_and_serializeasobject : With_Customer_Orders {
+        static XPBaseObject _order1;
+        static User _user;
+        static XPBaseObject _customer;
+
+        static Stream _manifestResourceStream;
+
+        Establish context = () => {
+            _user = (User)ObjectSpace.CreateObject(typeof(User));
+            _user.SetMemberValue("oid", new Guid("{B11AFD0E-6B2B-44cf-A986-96909A93291A}"));
+            ObjectSpace.Session.GetClassInfo(OrderType).CreateMember("Ammount", typeof(int));
+            ObjectSpace.CommitChanges();
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.NotNullRefValuesImport.xml");
+            if (_manifestResourceStream != null)
+                _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
+
+            new ImportEngine(true).ImportObjects(_manifestResourceStream, ObjectSpace);
+
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.NullValuesImportAsObject.xml");
             if (_manifestResourceStream != null)
                 _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
 
