@@ -22,6 +22,7 @@
 		<PackageDirectory Condition="$(PackageDirectory)==''">$(BuildPath)\_Package\$(Version)</PackageDirectory>
 		<DeploymentFolder Condition="$(DeploymentFolder)==''">$(BuildPath)\_DeploymentFolder\</DeploymentFolder>
 		<InstallerFolder Condition="$(InstallerFolder)==''">$(BuildPath)\Installer</InstallerFolder>
+		<XpandDesignExperiencePath>$(MSBuildProjectDirectory)\Xpand.DesignExperience</XpandDesignExperiencePath>
 		
 		<!--
 			Derived configuration properties
@@ -216,12 +217,16 @@
 	
 	<Target Name="Installer">
 		<MakeDir Directories="$(InstallerFolder);" />
-		
+				
 		<CreateItem Include="$(XpandPath)\Xpand.*.dll;" ><!--Exclude="$(XpandPath)\*.locked" -->
 			<Output ItemName="files" TaskParameter="Include"/>
 		</CreateItem>
 		<Copy SourceFiles="@(files)" DestinationFolder="$(InstallerFolder)\Xpand.DLL" />
 		
+		<CreateItem Include="$(XpandDesignExperiencePath)\**\*.*">
+			<Output ItemName="XpandDesignExperienceFiles" TaskParameter="Include"/>
+		</CreateItem>
+		<Copy SourceFiles="@(XpandDesignExperienceFiles)" DestinationFolder="$(InstallerFolder)\Xpand.DesignExperience\%(XpandDesignExperienceFiles.SubFolder)%(XpandDesignExperienceFiles.RecursiveDir)" />		
 		<Exec Command="Resource\Tool\NSIS\makensis.exe Xpand.nsi %*" />
 		
 		<CreateItem Include="setup.exe" ><!--Exclude="$(XpandPath)\*.locked" -->
