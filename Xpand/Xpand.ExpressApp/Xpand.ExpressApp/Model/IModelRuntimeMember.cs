@@ -3,10 +3,10 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Model.DomainLogics;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Xpo;
+using DevExpress.Utils;
 
 namespace Xpand.ExpressApp.Model {
     public interface IModelRuntimeMember : IModelMember {
@@ -41,18 +41,26 @@ namespace Xpand.ExpressApp.Model {
 
             return null;
         }
-        public static Type Get_PropertyEditorType(IModelRuntimeOrphanedColection modelRuntimeOrphanedColection) {
-            if (modelRuntimeOrphanedColection.Name != null && modelRuntimeOrphanedColection.Type != null) {
-                var xpClassInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(modelRuntimeOrphanedColection.CollectionType.TypeInfo.Type);
-                if (xpClassInfo.FindMember(modelRuntimeOrphanedColection.Name) == null) {
-                    xpClassInfo.CreateCollection(modelRuntimeOrphanedColection.Name, modelRuntimeOrphanedColection.CollectionType.TypeInfo.Type,
-                                                 modelRuntimeOrphanedColection.Criteria);
-                    XafTypesInfo.Instance.RefreshInfo(xpClassInfo.ClassType);
-                    var memberInfo = modelRuntimeOrphanedColection.CollectionType.TypeInfo.FindMember(modelRuntimeOrphanedColection.Name);
-                    modelRuntimeOrphanedColection.SetValue("MemberInfo", memberInfo);
+
+        public static IMemberInfo Get_MemberInfo(IModelRuntimeOrphanedColection modelRuntimeOrphanedColection) {
+            Guard.ArgumentNotNull(modelRuntimeOrphanedColection.ModelClass, "modelMember.ModelClass");
+            Guard.ArgumentNotNull(modelRuntimeOrphanedColection.ModelClass.TypeInfo, "modelMember.ModelClass.TypeInfo");
+            IMemberInfo info = modelRuntimeOrphanedColection.ModelClass.TypeInfo.FindMember(modelRuntimeOrphanedColection.Name);
+            if (info == null) {
+                if (!string.IsNullOrEmpty(modelRuntimeOrphanedColection.Name) && modelRuntimeOrphanedColection.Type != null) {
+                    var xpClassInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(modelRuntimeOrphanedColection.ModelClass.TypeInfo.Type);
+                    if (xpClassInfo.FindMember(modelRuntimeOrphanedColection.Name) == null) {
+                        xpClassInfo.CreateCollection(modelRuntimeOrphanedColection.Name, modelRuntimeOrphanedColection.CollectionType.TypeInfo.Type, modelRuntimeOrphanedColection.Criteria);
+                        ((BaseInfo)modelRuntimeOrphanedColection.ModelClass.TypeInfo).Store.RefreshInfo(modelRuntimeOrphanedColection.ModelClass.TypeInfo.Type);
+                        info = modelRuntimeOrphanedColection.ModelClass.TypeInfo.FindMember(modelRuntimeOrphanedColection.Name);
+                    }
                 }
             }
-            return ModelModelMemberEditorTypeLogic.Get_PropertyEditorType(modelRuntimeOrphanedColection);
+
+            if (info != null)
+                modelRuntimeOrphanedColection.SetValue("MemberInfo", info);
+
+            return info;
         }
     }
 
