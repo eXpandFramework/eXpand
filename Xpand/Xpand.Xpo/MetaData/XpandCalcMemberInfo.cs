@@ -7,9 +7,10 @@ namespace Xpand.Xpo.MetaData {
         readonly string _propertyName;
 
         public XpandCalcMemberInfo(XPClassInfo owner, string propertyName, Type propertyType, XPClassInfo referenceType, bool nonPersistent, bool nonPublic)
-            : base(owner, propertyName, propertyType, referenceType, nonPersistent, nonPublic) {
+            : base(owner, propertyName, propertyType, referenceType, nonPersistent, nonPublic, true) {
             _propertyName = propertyName;
         }
+
         public override object GetValue(object theObject) {
             var xpBaseObject = ((XPBaseObject)theObject);
             return !xpBaseObject.Session.IsObjectsLoading && !xpBaseObject.Session.IsObjectsSaving
