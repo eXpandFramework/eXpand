@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
     [PropertyEditor(typeof(ModelApplicationBase))]
@@ -157,6 +158,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             var allLayers = CurrentObject.GetAllLayers(_masterModel);
             _currentObjectModel = allLayers.Where(@base => @base.Id == CurrentObject.Name).Single();
             _masterModel.AddLayers(allLayers.ToArray());
+            RuntimeMemberBuilder.AddFields((IModelApplication)_masterModel, XpandModuleBase.Dictiorary);
 
             this.DisposeController();
 
