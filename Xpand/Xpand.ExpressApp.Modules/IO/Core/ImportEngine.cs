@@ -21,13 +21,14 @@ using Xpand.Utils.Helpers;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.IO.Core {
+
     public class ImportEngine {
         readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object> importedObjecs = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object>();
         IObjectSpace _objectSpace;
-        readonly bool _createErrorObjects;
+        readonly ErrorHandling _errorHandling;
 
-        public ImportEngine(bool createErrorObjects) {
-            _createErrorObjects = createErrorObjects;
+        public ImportEngine(ErrorHandling errorHandling) {
+            _errorHandling = errorHandling;
         }
 
         public ImportEngine() {
@@ -147,14 +148,14 @@ namespace Xpand.ExpressApp.IO.Core {
             } else {
                 elementXml = element.ToString();
             }
-            if (_createErrorObjects) {
+            if (_errorHandling == ErrorHandling.CreateErrorObjects) {
                 var errorInfoObject =
                     (IIOError)_objectSpace.CreateObject(XafTypesInfo.Instance.FindBussinessObjectType<IIOError>());
                 errorInfoObject.Reason = failReason;
                 errorInfoObject.ElementXml = elementXml;
                 errorInfoObject.InnerXml = innerXml;
-            } else {
-                throw new UserFriendlyException(new Exception("ImportFailed", new Exception("ELEMENTXML=" + elementXml + " INNERXML=" + innerXml)));
+            } else if (_errorHandling == ErrorHandling.ThrowException) {
+                throw new UserFriendlyException(new Exception("ImportFailed", new Exception("Reason=" + failReason + "ELEMENTXML=" + elementXml + " INNERXML=" + innerXml)));
             }
         }
 

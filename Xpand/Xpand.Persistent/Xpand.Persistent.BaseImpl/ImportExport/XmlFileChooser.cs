@@ -18,14 +18,14 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
             get { return _fileData; }
             set { SetPropertyValue("FileData", ref _fileData, value); }
         }
-        private bool _logErrors = true;
+        private ErrorHandling _errorHandling = ErrorHandling.CreateErrorObjects;
         [Tooltip("If false will raise an exception")]
-        public bool LogErrors {
+        public ErrorHandling ErrorHandling {
             get {
-                return _logErrors;
+                return _errorHandling;
             }
             set {
-                SetPropertyValue("LogErrors", ref _logErrors, value);
+                SetPropertyValue("ErrorHandling", ref _errorHandling, value);
             }
         }
         #region IXmlFileChooser Members

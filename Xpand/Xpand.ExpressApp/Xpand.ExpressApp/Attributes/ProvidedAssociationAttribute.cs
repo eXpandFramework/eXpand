@@ -11,19 +11,19 @@ namespace Xpand.ExpressApp.Attributes {
 
 
         public ProvidedAssociationAttribute(string associationName)
-            : this(associationName,null)
-        {
+            : this(associationName, null) {
         }
 
-        public ProvidedAssociationAttribute(string associationName,string providedPropertyName)
-            : this(associationName,providedPropertyName, RelationType.Undefined, null) {
+        public ProvidedAssociationAttribute(string associationName, string providedPropertyName)
+            : this(associationName, providedPropertyName, RelationType.Undefined, null) {
         }
 
-        public ProvidedAssociationAttribute(string associationName,RelationType relationType) : this(associationName,null, relationType, null) {
+        public ProvidedAssociationAttribute(string associationName, RelationType relationType)
+            : this(associationName, null, relationType, null) {
         }
 
 
-        public ProvidedAssociationAttribute(string associationName,string providedPropertyName, RelationType relationType,
+        public ProvidedAssociationAttribute(string associationName, string providedPropertyName, RelationType relationType,
                                             string attributesFactory) {
             _associationName = associationName;
             _relationType = relationType;

@@ -1,8 +1,14 @@
 using DevExpress.Persistent.Base;
 
 namespace Xpand.Persistent.Base.ImportExport {
+    public enum ErrorHandling {
+        DoNothing,
+        CreateErrorObjects,
+        ThrowException
+    }
+
     public interface IXmlFileChooser {
         IFileData FileData { get; set; }
-        bool LogErrors { get; }
+        ErrorHandling ErrorHandling { get; }
     }
 }
