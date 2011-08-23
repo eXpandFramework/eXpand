@@ -658,7 +658,7 @@ namespace Xpand.Tests.Xpand.IO {
             _pEnumClass.Delete();
             objectSpace.CommitChanges();
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xDocument.ToString()));
-            new ImportEngine(false).ImportObjects(memoryStream, objectSpace);
+            new ImportEngine(ErrorHandling.ThrowException).ImportObjects(memoryStream, objectSpace);
 
             _pEnumClass.Reload();
             Debug.Print("");
