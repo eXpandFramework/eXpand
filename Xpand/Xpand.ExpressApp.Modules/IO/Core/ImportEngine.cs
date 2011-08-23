@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.IO.Core {
                         if (typeInfo != null) {
                             var keys = GetKeys(element);
                             CriteriaOperator objectKeyCriteria = GetObjectKeyCriteria(typeInfo, keys);
-                            if (objectKeyCriteria != null) {
+                            if (!ReferenceEquals(objectKeyCriteria,null)) {
                                 CreateObject(element, nestedObjectSpace, typeInfo, objectKeyCriteria);
                                 nestedObjectSpace.CommitChanges();
                             }
