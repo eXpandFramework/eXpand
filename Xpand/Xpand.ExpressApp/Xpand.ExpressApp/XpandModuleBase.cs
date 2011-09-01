@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp {
         static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
         public static object Control;
         static Assembly _baseImplAssembly;
-        protected bool XpandDesignMode {
+        protected bool RuntimeMode {
             get { return Application != null && Application.Security != null; }
         }
 

@@ -12,7 +12,7 @@ namespace Xpand.ExpressApp.IO {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (!XpandDesignMode) {
+            if (RuntimeMode) {
                 AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.ImportExport");
                 Core.TypesInfo.Instance.RegisterTypes(GetAdditionalClasses(moduleManager));
             }
