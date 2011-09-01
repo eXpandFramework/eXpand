@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.MemberLevelSecurity {
@@ -35,7 +36,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
         public string Name {
             get { return ToString(); }
         }
-        
+
         [TypeConverter(typeof(PermissionTargetBusinessClassListConverter))]
         public Type ObjectType {
             get { return GetDesignModeItem().ObjectType; }
@@ -46,7 +47,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
             get { return GetDesignModeItem().MemberName; }
             set { GetDesignModeItem().MemberName = value; }
         }
-
+        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.NotEquals, MemberOperation.NotAssigned)]
         public MemberOperation Operation {
             get { return GetDesignModeItem().Operation; }
             set { GetDesignModeItem().Operation = value; }
