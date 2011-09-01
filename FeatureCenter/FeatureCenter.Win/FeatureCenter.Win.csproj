@@ -70,12 +70,16 @@
       <HintPath>..\..\_third_party_assemblies\Common.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Chart.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
     <Reference Include="DevExpress.ExpressApp.CloneObject.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.Win.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Demos.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
     <Reference Include="DevExpress.ExpressApp.EasyTest.WinAdapter.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -85,6 +89,7 @@
     <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Kpi.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.PivotChart.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -112,6 +117,7 @@
     <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.TreeListEditors.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -226,6 +232,7 @@
     <Reference Include="DevExpress.XtraWizard.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.0.3930.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Quartz, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
@@ -281,6 +288,8 @@
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.Win.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.ImportWizard, Version=11.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.ExpressApp.ImportWizard.Win, Version=11.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="Xpand.ExpressApp.IO, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.IO.dll</HintPath>
