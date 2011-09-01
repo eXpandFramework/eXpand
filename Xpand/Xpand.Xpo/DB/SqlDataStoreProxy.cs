@@ -5,8 +5,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Helpers;
 
-namespace Xpand.Xpo.DB
-{
+namespace Xpand.Xpo.DB {
     public class SqlDataStoreProxy : ISqlDataStoreProxy {
         private readonly BaseDataLayer dataLayerCore;
         private readonly ISqlDataStore dataStoreCore;
@@ -14,12 +13,12 @@ namespace Xpand.Xpo.DB
         protected SqlDataStoreProxy() {
         }
         #region IDataStore Members
-        public SqlDataStoreProxy(string connectionString){
-            dataStoreCore = (ISqlDataStore) XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
+        public SqlDataStoreProxy(string connectionString) {
+            dataStoreCore = (ISqlDataStore)XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
             dataLayerCore = new SimpleDataLayer(dataStoreCore);
         }
 
-        public static implicit operator ConnectionProviderSql(SqlDataStoreProxy proxy){
+        public static implicit operator ConnectionProviderSql(SqlDataStoreProxy proxy) {
             return proxy.dataStoreCore as ConnectionProviderSql;
         }
 
@@ -27,16 +26,16 @@ namespace Xpand.Xpo.DB
             get { return dataStoreCore; }
         }
 
-        public AutoCreateOption AutoCreateOption{
+        public AutoCreateOption AutoCreateOption {
             get { return AutoCreateOption.DatabaseAndSchema; }
         }
-        public virtual ModificationResult ModifyData(params ModificationStatement[] dmlStatements){
+        public virtual ModificationResult ModifyData(params ModificationStatement[] dmlStatements) {
             var args = new DataStoreModifyDataEventArgs(dmlStatements);
             OnDataStoreModifyData(args);
-            return args.ModificationResult?? dataLayerCore.ModifyData(args.ModificationStatements);
+            return args.ModificationResult ?? dataLayerCore.ModifyData(args.ModificationStatements);
         }
 
-        public virtual SelectedData SelectData(params SelectStatement[] selects){
+        public virtual SelectedData SelectData(params SelectStatement[] selects) {
             var args = new DataStoreSelectDataEventArgs(selects);
             OnDataStoreSelectData(args);
             return args.SelectedData ?? dataLayerCore.SelectData(args.SelectStatements);
@@ -46,7 +45,7 @@ namespace Xpand.Xpo.DB
             schemaUpdaters.Add(schemaUpdater);
         }
 
-        public virtual UpdateSchemaResult UpdateSchema(bool dontCreateIfFirstTableNotExist, params DBTable[] tables){
+        public virtual UpdateSchemaResult UpdateSchema(bool dontCreateIfFirstTableNotExist, params DBTable[] tables) {
             foreach (var schemaUpdater in schemaUpdaters) {
                 schemaUpdater.Update(this, new DataStoreUpdateSchemaEventArgs(dontCreateIfFirstTableNotExist, tables));
             }
@@ -55,17 +54,17 @@ namespace Xpand.Xpo.DB
             return dataStoreCore.UpdateSchema(false, args.Tables);
         }
         #endregion
-        protected void OnDataStoreModifyData(DataStoreModifyDataEventArgs args){
+        protected void OnDataStoreModifyData(DataStoreModifyDataEventArgs args) {
             if (DataStoreModifyData != null) {
                 DataStoreModifyData(this, args);
             }
         }
-        protected void OnDataStoreSelectData(DataStoreSelectDataEventArgs args){
+        protected void OnDataStoreSelectData(DataStoreSelectDataEventArgs args) {
             if (DataStoreSelectData != null) {
                 DataStoreSelectData(this, args);
             }
         }
-        protected void OnDataStoreUpdateSchema(DataStoreUpdateSchemaEventArgs args){
+        protected void OnDataStoreUpdateSchema(DataStoreUpdateSchemaEventArgs args) {
             if (DataStoreUpdateSchema != null) {
                 DataStoreUpdateSchema(this, args);
             }
