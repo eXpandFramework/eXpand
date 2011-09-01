@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<Application >
+  <Views>
+    <DetailView Id="ScheduledWorkflow_DetailView">
+      <Layout>
+        <TabbedGroup Id="Item1" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+          <LayoutGroup Id="Main" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+            <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" RelativeSize="35" IsNewNode="True">
+              <LayoutGroup Id="ScheduledWorkflow" ShowCaption="True" Caption="Scheduled Workflow" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutGroup Id="ScheduledWorkflow_col1" ShowCaption="False" Index="0" RelativeSize="48" IsNewNode="True">
+                  <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="17" IsNewNode="True" />
+                  <LayoutItem Id="IsActive" ViewItem="IsActive" Index="1" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="RuntASAPIfScheduledStartIsMissed" ViewItem="RuntASAPIfScheduledStartIsMissed" Index="2" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="StartMode" ViewItem="StartMode" Index="3" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="StartTime" ViewItem="StartTime" Index="4" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="RecurEveryDays" ViewItem="RecurEveryDays" Index="5" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="RecurEveryWeeks" ViewItem="RecurEveryWeeks" Index="6" RelativeSize="17" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="ScheduledWorkflow_col2" ShowCaption="False" Index="1" RelativeSize="48" IsNewNode="True">
+                  <LayoutItem Id="Moday" ViewItem="Moday" Index="0" RelativeSize="17" IsNewNode="True" />
+                  <LayoutItem Id="Tuesday" ViewItem="Tuesday" Index="1" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="Wednesday" ViewItem="Wednesday" Index="2" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="Thursday" ViewItem="Thursday" Index="3" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="Friday" ViewItem="Friday" Index="4" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="Saturday" ViewItem="Saturday" Index="5" RelativeSize="13" IsNewNode="True" />
+                  <LayoutItem Id="Sunday" ViewItem="Sunday" Index="6" RelativeSize="17" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="LaunchHistoryItems_Group" ShowCaption="True" Caption="Launch History Items" Index="1" RelativeSize="64" IsNewNode="True">
+              <LayoutItem Id="LaunchHistoryItems" ViewItem="LaunchHistoryItems" Index="0" RelativeSize="91" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="1" RelativeSize="100" Caption="Xaml" IsNewNode="True">
+            <LayoutItem Id="Xaml" ViewItem="Xaml" Index="0" RelativeSize="100" IsNewNode="True" />
+          </LayoutGroup>
+        </TabbedGroup>
+        <LayoutGroup Id="Main" Removed="True" />
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

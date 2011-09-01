@@ -5,6 +5,7 @@ using Xpand.ExpressApp.ConditionalDetailViews;
 using Xpand.ExpressApp.ImportWizard;
 using Xpand.ExpressApp.JobScheduler;
 using Xpand.ExpressApp.MemberLevelSecurity;
+using Xpand.ExpressApp.Workflow;
 using Xpand.ExpressApp.WorldCreator.SqlDBMapper;
 
 namespace FeatureCenter.Module {
@@ -38,9 +39,9 @@ namespace FeatureCenter.Module {
             // 
             // Solution1Module
             // 
-            
 
-            
+
+
 
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule));
@@ -69,6 +70,7 @@ namespace FeatureCenter.Module {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule));
             this.RequiredModuleTypes.Add(typeof(ImportWizardModule));
             this.RequiredModuleTypes.Add(typeof(StateMachineModule));
+            this.RequiredModuleTypes.Add(typeof(XpandWorkFlowModule));
         }
 
         #endregion

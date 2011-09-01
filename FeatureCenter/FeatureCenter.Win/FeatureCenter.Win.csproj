@@ -130,6 +130,8 @@
     <Reference Include="DevExpress.ExpressApp.Win.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Workflow.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Workflow.Win.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.OfficeSkins.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -169,6 +171,8 @@
     <Reference Include="DevExpress.Persistent.BaseImpl.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Workflow.Activities.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Reference Include="DevExpress.Workflow.Activities.v11.1.Design, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
     <Reference Include="DevExpress.Xpo.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -235,10 +239,20 @@
     <Reference Include="DocumentFormat.OpenXml, Version=2.0.3930.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="Quartz, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\_third_party_assemblies\Quartz.dll</HintPath>
     </Reference>
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Core.Presentation" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="Xpand.EmailTemplateEngine, Version=10.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -415,6 +429,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WizardUI.Win.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Workflow, Version=11.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="Xpand.ExpressApp.WorldCreator, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>

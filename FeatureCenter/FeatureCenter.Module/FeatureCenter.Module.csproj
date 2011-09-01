@@ -203,6 +203,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ViewVariants.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Workflow, Version=11.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Workflow.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.WorldCreator, Version=10.1.5.178, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>

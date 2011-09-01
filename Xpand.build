@@ -92,6 +92,7 @@
 			.\Xpand\Xpand.ExpressApp.Modules\Quartz.Server\Xpand.Quartz.Server.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\ImportWizard\Xpand.ExpressApp.ImportWizard.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\ImportWizard.Win\Xpand.ExpressApp.ImportWizard.Win.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Workflow\Xpand.ExpressApp.Workflow.csproj;
 			.\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj;
 			.\FeatureCenter\FeatureCenter.Module\FeatureCenter.Module.csproj;
 			.\FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj;
