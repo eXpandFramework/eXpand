@@ -12,8 +12,10 @@ namespace Xpand.ExpressApp.IO {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.ImportExport");
-            Core.TypesInfo.Instance.RegisterTypes(GetAdditionalClasses(moduleManager));
+            if (!XpandDesignMode) {
+                AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.ImportExport");
+                Core.TypesInfo.Instance.RegisterTypes(GetAdditionalClasses(moduleManager));
+            }
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
