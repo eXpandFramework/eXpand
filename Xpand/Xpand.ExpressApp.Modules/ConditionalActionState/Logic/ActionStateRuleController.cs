@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
@@ -47,6 +48,8 @@ namespace Xpand.ExpressApp.ConditionalActionState.Logic {
         }
 
         void ExecuteAction(ActionBase actionBase) {
+            if (!(actionBase is SimpleAction))
+                throw new NotSupportedException(actionBase.GetType().ToString());
             var simpleAction = ((SimpleAction)actionBase);
             if (simpleAction.Active && simpleAction.Enabled) {
                 simpleAction.DoExecute();
