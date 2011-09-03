@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.IO.Core {
                         if (typeInfo != null) {
                             var keys = GetKeys(element);
                             CriteriaOperator objectKeyCriteria = GetObjectKeyCriteria(typeInfo, keys);
-                            if (!ReferenceEquals(objectKeyCriteria,null)) {
+                            if (!ReferenceEquals(objectKeyCriteria, null)) {
                                 CreateObject(element, nestedObjectSpace, typeInfo, objectKeyCriteria);
                                 nestedObjectSpace.CommitChanges();
                             }
@@ -208,7 +208,7 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         XPBaseObject GetObject(ITypeInfo typeInfo, CriteriaOperator criteriaOperator) {
-            if (criteriaOperator != null) {
+            if (!ReferenceEquals(criteriaOperator, null)) {
                 var unitOfWork = ((UnitOfWork)((ObjectSpace)_objectSpace).Session);
                 var xpBaseObject = unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, unitOfWork.GetClassInfo(typeInfo.Type),
                                                          criteriaOperator, true) as XPBaseObject ??

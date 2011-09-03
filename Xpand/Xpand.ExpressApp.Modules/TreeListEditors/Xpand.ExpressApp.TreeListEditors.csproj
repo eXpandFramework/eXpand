@@ -82,15 +82,15 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="Xpand.ExpressApp, Version=10.2.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
+    <Reference Include="Xpand.Persistent.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.Utils, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Utils, Version=0.0.0.7, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -118,9 +118,7 @@
     <Compile Include="IModelTreeViewOptionsBase.cs" />
     <Compile Include="ITreeListEditor.cs" />
     <Compile Include="XpandTreeListEditorServerModeUpdater.cs" />
-    <Compile Include="XpandTreeListEditorsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandTreeListEditorsModule.cs" />
     <Compile Include="XpandTreeListEditorsModule.Designer.cs">
       <DependentUpon>XpandTreeListEditorsModule.cs</DependentUpon>
     </Compile>

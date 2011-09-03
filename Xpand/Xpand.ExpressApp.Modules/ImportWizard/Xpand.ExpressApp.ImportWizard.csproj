@@ -74,11 +74,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\_third_party_assemblies\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -112,9 +112,7 @@
     <Compile Include="Core\OpenXMLExtentions.cs" />
     <Compile Include="Core\TransposeEnumerableExtension.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="ImportWizardModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ImportWizardModule.cs" />
     <Compile Include="ImportWizardModule.Designer.cs">
       <DependentUpon>ImportWizardModule.cs</DependentUpon>
     </Compile>

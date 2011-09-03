@@ -97,19 +97,19 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="Xpand.ExpressApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
+    <Reference Include="Xpand.ExpressApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.TreeListEditors, Version=10.2.3.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.TreeListEditors, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=x86">
+    <Reference Include="Xpand.Persistent.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.Utils, Version=0.0.0.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Utils, Version=0.0.0.7, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -134,18 +134,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\TreeListOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\TreeListOptionsController.cs" />
     <Compile Include="Controllers\TreeNavigationOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\TreeListOptionsModelSyncronizer.cs" />
     <Compile Include="Core\XpandTreeListEditorModelSynchronizerList.cs" />
     <Compile Include="ListEditors\XpandASPxTreeListEditor.cs" />
-    <Compile Include="XpandTreeListEditorsAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandTreeListEditorsAspNetModule.cs" />
     <Compile Include="XpandTreeListEditorsAspNetModule.Designer.cs">
       <DependentUpon>XpandTreeListEditorsAspNetModule.cs</DependentUpon>
     </Compile>
