@@ -13,7 +13,7 @@ RequestExecutionLevel admin
    !define VERSION 1.0
 !endif
 !ifndef DEVEXVERSION
-   !define DEVEXVERSION "v10.2"
+   !define DEVEXVERSION "v11.1"
 !endif
 !define COMPANY eXpandFramework
 !define URL http://www.expandframework.com
