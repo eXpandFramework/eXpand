@@ -21,27 +21,10 @@ namespace Xpand.ExpressApp.ModelDifference {
                         LoadModels(!ModelsLoaded.Value);
                     ModelsLoaded = true;
                 };
-                Application.LoggedOff += Application_LoggedOff;
-                Application.Disposed += Application_Disposed;
             }
         }
 
-        void Application_Disposed(object sender, EventArgs e) {
-            ((XafApplication)sender).Disposed -= Application_Disposed;
-            ((XafApplication)sender).LoggedOff -= Application_LoggedOff;
-        }
 
-        void Application_LoggedOff(object sender, EventArgs e) {
-            var modelApplicationBase = ((ModelApplicationBase)((XafApplication)sender).Model);
-            var lastLayer = modelApplicationBase.LastLayer;
-            while (lastLayer.Id != "Unchanged Master Part") {
-                modelApplicationBase.RemoveLayer(lastLayer);
-                lastLayer = modelApplicationBase.LastLayer;
-            }
-            var afterSetupLayer = modelApplicationBase.CreatorInstance.CreateModelApplication();
-            afterSetupLayer.Id = "After Setup";
-            modelApplicationBase.AddLayer(afterSetupLayer);
-        }
 
         public void LoadModels(bool loadResources) {
             ((ModelApplicationBase)Application.Model).ReInitLayers();
@@ -49,6 +32,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);
             if (!customModelDifferenceStoreEventArgs.Handled)
                 new XpoModelDictionaryDifferenceStore(Application, GetPath(), customModelDifferenceStoreEventArgs.ExtraDiffStores, loadResources).Load((ModelApplicationBase)Application.Model);
+            RuntimeMemberBuilder.AddFields(Application.Model, ((ObjectSpaceProvider)Application.ObjectSpaceProvider).XPDictionary);
         }
 
         public abstract string GetPath();

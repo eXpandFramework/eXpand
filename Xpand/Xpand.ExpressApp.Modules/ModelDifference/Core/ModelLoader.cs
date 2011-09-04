@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Reflection;
 using System.Web.Configuration;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
@@ -154,6 +155,8 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         }
         ModelApplicationBase BuildModel(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager) {
             var modelsManager = new ApplicationModelsManager(applicationModulesManager.Modules, applicationModulesManager.ControllersManager, applicationModulesManager.DomainComponents, application.ResourcesExportedToModel, GetAspects(configFileName));
+            var assemblyFile = application.GetType().GetMethod("GetModelAssemblyFilePath", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(application, null) as string;
+            modelsManager.GetType().GetProperty("ModelAssemblyFile", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(modelsManager, assemblyFile, null);
             var modelApplication = (ModelApplicationBase)modelsManager.CreateModel(modelsManager.CreateApplicationCreator(), null, false);
             var modelApplicationBase = modelApplication.CreatorInstance.CreateModelApplication();
             modelApplicationBase.Id = "After Setup";

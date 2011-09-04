@@ -1,5 +1,7 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
@@ -10,6 +12,8 @@ using Xpand.ExpressApp.SystemModule;
 using System.Linq;
 
 namespace Xpand.ExpressApp.JobScheduler {
+    [ToolboxBitmap(typeof(JobSchedulerModule))]
+    [ToolboxItem(true)]
     public sealed class JobSchedulerModule : XpandModuleBase {
 
         public JobSchedulerModule() {
@@ -20,20 +24,18 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (Application==null)
+            if (Application == null)
                 return;
             ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(Application);
             try {
                 IScheduler scheduler = stdSchedulerFactory.AllSchedulers.SingleOrDefault();
                 _scheduler = scheduler ?? stdSchedulerFactory.GetScheduler();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 if (!Debugger.IsAttached)
                     Tracing.Tracer.LogError(e);
             }
         }
         IScheduler _scheduler;
-
         public IScheduler Scheduler {
             get { return _scheduler; }
         }

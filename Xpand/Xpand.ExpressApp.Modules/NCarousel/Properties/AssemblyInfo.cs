@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security;
 
 
 // General Information about an assembly is controlled through the following 
@@ -42,3 +43,4 @@ using System.Runtime.InteropServices;
 [assembly: System.Web.UI.WebResource("Xpand.NCarousel.Resources.Skins.next-vertical.png", "image/png")]
 [assembly: System.Web.UI.WebResource("Xpand.NCarousel.Resources.Skins.prev-horizontal.png", "image/png")]
 [assembly: System.Web.UI.WebResource("Xpand.NCarousel.Resources.Skins.prev-vertical.png", "image/png")]
+[assembly: AllowPartiallyTrustedCallers]

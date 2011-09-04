@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Drawing;
 using DevExpress.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.Thumbnail.Web {
@@ -11,7 +12,8 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
         string DisplayStyle { get; set; }
         bool HideImages { get; set; }
     }
-
+    [ToolboxBitmap(typeof(ThumbnailWebModule))]
+    [ToolboxItem(true)]
     public sealed class ThumbnailWebModule : XpandModuleBase {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -9,43 +8,41 @@ using DevExpress.Persistent.Base;
 using AnalysisViewControllerBase = Xpand.ExpressApp.PivotChart.Core.AnalysisViewControllerBase;
 
 namespace Xpand.ExpressApp.PivotChart.AnalysisControlVisibility {
-    public interface IModelMemberAnalysisControlVisibility:IModelNode {
+    public interface IModelMemberAnalysisControlVisibility : IModelNode {
         [Category("eXpand.PivotChart")]
         [Description("Controls the visibility of Analysis control")]
-        AnalysisControlVisibility AnalysisControlVisibility { get; set; }    
+        AnalysisControlVisibility AnalysisControlVisibility { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelMemberAnalysisControlVisibility), "ModelMember")]
-    public interface IModelPropertyEditorAnalysisControlVisibility : IModelMemberAnalysisControlVisibility{
+    public interface IModelPropertyEditorAnalysisControlVisibility : IModelMemberAnalysisControlVisibility {
     }
 
-    public abstract class AnalysisControlVisibilityControllerBase<TAnalysisEditor,TAnalysisControl> : AnalysisViewControllerBase
-        where TAnalysisEditor : AnalysisEditorBase where TAnalysisControl: class, IAnalysisControl{
+    public abstract class AnalysisControlVisibilityControllerBase<TAnalysisEditor, TAnalysisControl> : AnalysisViewControllerBase
+        where TAnalysisEditor : AnalysisEditorBase
+        where TAnalysisControl : class, IAnalysisControl {
         public const string AnalysisControlVisibilityAttributeName = "AnalysisControlVisibility";
 
         protected AnalysisControlVisibilityControllerBase() {
-            TargetObjectType = typeof (IAnalysisInfo);
+            TargetObjectType = typeof(IAnalysisInfo);
         }
-        
-        IAnalysisControl GetAnalysisControl(IModelPropertyEditor modelPropertyEditor)
-        {
+
+        IAnalysisControl GetAnalysisControl(IModelPropertyEditor modelPropertyEditor) {
             try {
                 return AnalysisEditors.Where(@base => @base.PropertyName == modelPropertyEditor.PropertyName).OfType<TAnalysisEditor>().Single().Control;
-            }
-            catch (InvalidOperationException) {
+            } catch (InvalidOperationException) {
                 throw new UserFriendlyException(
-                    new Exception("Use " + typeof (TAnalysisEditor).FullName + " as your default property editor for " +
-                                  typeof (IAnalysisInfo).Name));
+                    new Exception(String.Format("Use {0} as your default property editor for {1}", typeof(TAnalysisEditor).FullName, typeof(IAnalysisInfo).Name)));
             }
         }
 
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            IEnumerable<IModelPropertyEditorAnalysisControlVisibility> modelPropertyEditorAnalysisControlVisibilitys =
+            var modelPropertyEditorAnalysisControlVisibilitys =
                 View.Model.Items.OfType<IModelPropertyEditorAnalysisControlVisibility>().Where(
                     item => item.AnalysisControlVisibility != AnalysisControlVisibility.Default);
             foreach (var controlVisibility in modelPropertyEditorAnalysisControlVisibilitys) {
-                var analysisControl = GetAnalysisControl((IModelPropertyEditor) controlVisibility) as TAnalysisControl;
+                var analysisControl = GetAnalysisControl((IModelPropertyEditor)controlVisibility) as TAnalysisControl;
                 if (analysisControl == null) continue;
                 switch (controlVisibility.AnalysisControlVisibility) {
                     case AnalysisControlVisibility.Pivot:
@@ -66,5 +63,5 @@ namespace Xpand.ExpressApp.PivotChart.AnalysisControlVisibility {
 
 
         #endregion
-        }
+    }
 }

@@ -2,10 +2,8 @@
 
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 
-namespace FeatureCenter.Win
-{
-    partial class FeatureCenterWindowsFormsApplication
-    {
+namespace FeatureCenter.Win {
+    partial class FeatureCenterWindowsFormsApplication {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -15,10 +13,8 @@ namespace FeatureCenter.Win
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -30,8 +26,7 @@ namespace FeatureCenter.Win
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule();
             this.module3 = new FeatureCenter.Module.FeatureCenterModule();
@@ -42,10 +37,7 @@ namespace FeatureCenter.Win
             this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
             this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
             this.cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();
-            this.conditionalFormattingModule1 = new DevExpress.ExpressApp.ConditionalFormatting.ConditionalFormattingModule();
             this.viewVariantsModule1 = new DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule();
-            this.conditionalEditorStateModuleBase1 = new DevExpress.ExpressApp.ConditionalEditorState.ConditionalEditorStateModuleBase();
-            this.conditionalEditorStateWindowsFormsModule1 = new DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule();
             this.fileAttachmentsWindowsFormsModule1 = new DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule();
             this.htmlPropertyEditorWindowsFormsModule1 = new DevExpress.ExpressApp.HtmlPropertyEditor.Win.HtmlPropertyEditorWindowsFormsModule();
             this.pivotChartModuleBase1 = new DevExpress.ExpressApp.PivotChart.PivotChartModuleBase();
@@ -78,7 +70,6 @@ namespace FeatureCenter.Win
             this.conditionalDetailViewModule1 = new Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule();
             this.memberLevelSecurityModule1 = new Xpand.ExpressApp.MemberLevelSecurity.MemberLevelSecurityModule();
             this.reportsModule1 = new DevExpress.ExpressApp.Reports.ReportsModule();
-            this.modelArtifactStateWindowsFormsModule1 = new Xpand.ExpressApp.ModelArtifactState.Win.ModelArtifactStateWindowsFormsModule();
             this.modelDifferenceWindowsFormsModule1 = new Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule();
             this.xpandTreeListEditorsWinModule1 = new Xpand.ExpressApp.TreeListEditors.Win.XpandTreeListEditorsWinModule();
             this.xpandSystemWindowsFormsModule1 = new Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule();
@@ -97,7 +88,156 @@ namespace FeatureCenter.Win
             this.jobSchedulerJobsModule1 = new Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule();
             this.xpandTreeListEditorsModule1 = new Xpand.ExpressApp.TreeListEditors.XpandTreeListEditorsModule();
             this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
+            this.kpiModule1 = new DevExpress.ExpressApp.Kpi.KpiModule();
+            this.importWizardModule1 = new Xpand.ExpressApp.ImportWizard.ImportWizardModule();
+            this.stateMachineModule1 = new DevExpress.ExpressApp.StateMachine.StateMachineModule();
+
+            this.importWizardWindowsFormsModule1 = new Xpand.ExpressApp.ImportWizard.Win.ImportWizardWindowsFormsModule();
+            this.workflowModule1 = new DevExpress.ExpressApp.Workflow.WorkflowModule();
+            this.xpandWorkFlowModule1 = new Xpand.ExpressApp.Workflow.XpandWorkFlowModule();
+            this.workflowWindowsFormsModule1 = new DevExpress.ExpressApp.Workflow.Win.WorkflowWindowsFormsModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            // 
+            // module3
+            // 
+
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.BaseObject));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.Address));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.DimensionPropertiesList));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.Analysis));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.OidInitializationMode));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.AuditDataItemPersistent));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.AuditedObjectWeakReference));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.Country));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.State));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.Event));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.FileAttachmentBase));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.FileData));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.HCategory));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.ServerPrefix));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.OidGenerator));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.DistributedIdGeneratorHelper));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.Note));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.Party));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.Organization));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.PersistentPermission));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.Person));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.PhoneNumber));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.PhoneType));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.PropertyBag));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.PropertyBagDescriptor));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.PropertyDescriptor));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.PropertyValue));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.Resource));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.RoleBase));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.Role));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.SimpleUser));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.BasicUser));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.Task));
+            this.module3.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.User));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.ExceptionHandling.ExceptionObject));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.ImportExport.ClassInfoGraphNode));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.ImportExport.IOError));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.ImportExport.XpandFileData));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.ImportExport.SerializationConfiguration));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.ImportExport.SerializationConfigurationGroup));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.ImportExport.XmlFileChooser));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Triggers.JobTriggerTriggerListenerTriggerLink));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Triggers.TriggerListenerTrigger));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.XpandDataMap));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.XpandJobDetailDataMap));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.XpandJobDataMap));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.XpandDateRange));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Calendars.XpandTriggerCalendar));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Calendars.XpandAnnualCalendar));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Calendars.XpandCronCalendar));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Calendars.XpandDailyCalendar));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Calendars.XpandHolidayCalendar));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Calendars.XpandMonthlyCalendar));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Calendars.XpandWeeklyCalendar));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Triggers.JobDetailJobListenerTriggerLink));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Triggers.JobDetailTriggerLink));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.JobSchedulerGroup));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Triggers.JobSchedulerGroupTriggerLink));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.JobTypeClassInfoConverter));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Triggers.XpandJobTrigger));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Triggers.XpandNthIncludedDayTrigger));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Triggers.XpandCronTrigger));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.XpandJob));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.TemplateInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.CodeTemplate));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.CodeTemplateInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentTypeInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.ExtendedMemberInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.ExtendedCollectionMemberInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.ExtendedOrphanedCollection));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAttributeInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentVisibleInLookupListViewAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentVisibleInDetailViewAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAssemblyAttributeInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAssemblyDataStoreAttributeInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAssemblyVersionAttributeInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentKeyAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentMapInheritanceAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAggregatedAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentCustomAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentDefaultClassOptionsAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentPersistentAliasAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentVisibleInListViewAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentXpandNavigationItemAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentPersistentAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentPivotedPropertyAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentRuleRequiredFieldAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentSizeAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentValueConverter));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentTemplatedTypeInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.DataStoreLogonObject));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.SqlMapperInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.MapperInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.StrongKeyFile));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.ExtendedCoreTypeMemberInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.ExtendedReferenceMemberInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.InterfaceInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAssemblyInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAssociationAttribute));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentClassInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.MyLocalizedClassInfoTypeConverter));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentMemberInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentCollectionMemberInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentCoreTypeMemberInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentReferenceMemberInfo));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.Web.PivotGridOptionsOLAP));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.PivotOptionsBehavior));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.PivotOptionsChartDataSource));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.PivotOptionsCustomization));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.PivotOptionsData));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.PivotOptionsDataField));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.PivotOptionsFilterPopup));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.PivotOptionsHint));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.PivotOptionsMenu));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.PivotOptionsSelection));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.PivotOptionsView));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.Web.PivotGridWebOptionsChartDataSource));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.Web.PivotGridWebOptionsCustomization));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.Web.PivotGridWebOptionsLoadingPanel));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.Web.PivotGridWebOptionsPager));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PivotChart.Web.PivotGridWebOptionsView));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.PersistentMetaData.DataBase));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Triggers.JobListenerTrigger));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.XpandJobDetail));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.JobScheduler.Triggers.XpandSimpleTrigger));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.SequenceObject));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.SequenceReleasedObject));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.Persistent.BaseImpl.Updater));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.SendEmail.SendEmailJobDataMap));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.SendEmail.SendEmailJobDetailDataMap));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.SendEmail.SendThresholdCalculationEmailJob));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.SendEmail.SerializeEmailsController));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.SendEmail.ThresholdCalculationEmailSubsystem));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation.ThresholdCalculationJob));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation.ThresholdSeverity));
+            this.module3.AdditionalExportedTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation.ThresholdJobDetailDataMap));
             // 
             // module5
             // 
@@ -106,7 +246,7 @@ namespace FeatureCenter.Win
             // sqlConnection1
             // 
             this.sqlConnection1.ConnectionString = "Data Source=(local);Initial Catalog=FeatureCenter;Integrated Security=SSPI;Poolin" +
-    "g=false";
+                "g=false";
             this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // viewVariantsModule1
@@ -137,6 +277,19 @@ namespace FeatureCenter.Win
             // 
             this.modelDifferenceWindowsFormsModule1.ModelsLoaded = false;
             // 
+            // stateMachineModule1
+            // 
+            this.stateMachineModule1.StateMachineStorageType = typeof(DevExpress.ExpressApp.StateMachine.Xpo.XpoStateMachine);
+            // 
+            // workflowModule1
+            // 
+            this.workflowModule1.RunningWorkflowInstanceInfoType = typeof(DevExpress.ExpressApp.Workflow.Xpo.XpoRunningWorkflowInstanceInfo);
+            this.workflowModule1.StartWorkflowRequestType = typeof(DevExpress.ExpressApp.Workflow.Xpo.XpoStartWorkflowRequest);
+            this.workflowModule1.UserActivityVersionType = typeof(DevExpress.ExpressApp.Workflow.Versioning.XpoUserActivityVersion);
+            this.workflowModule1.WorkflowControlCommandRequestType = typeof(DevExpress.ExpressApp.Workflow.Xpo.XpoWorkflowInstanceControlCommandRequest);
+            this.workflowModule1.WorkflowDefinitionType = typeof(DevExpress.ExpressApp.Workflow.Xpo.XpoWorkflowDefinition);
+            this.workflowModule1.WorkflowInstanceType = typeof(DevExpress.Workflow.Xpo.XpoWorkflowInstance);
+            // 
             // FeatureCenterWindowsFormsApplication
             // 
             this.ApplicationName = "FeatureCenter";
@@ -145,10 +298,9 @@ namespace FeatureCenter.Win
             this.Modules.Add(this.module2);
             this.Modules.Add(this.module6);
             this.Modules.Add(this.cloneObjectModule1);
-            this.Modules.Add(this.conditionalFormattingModule1);
             this.Modules.Add(this.module5);
             this.Modules.Add(this.viewVariantsModule1);
-            this.Modules.Add(this.conditionalEditorStateModuleBase1);
+            this.Modules.Add(this.securityModule1);
             this.Modules.Add(this.xpandSystemModule1);
             this.Modules.Add(this.logicModule1);
             this.Modules.Add(this.xpandValidationModule1);
@@ -156,7 +308,6 @@ namespace FeatureCenter.Win
             this.Modules.Add(this.conditionalActionStateModule1);
             this.Modules.Add(this.modelArtifactStateModule1);
             this.Modules.Add(this.modelDifferenceModule1);
-            this.Modules.Add(this.securityModule1);
             this.Modules.Add(this.xpandSecurityModule1);
             this.Modules.Add(this.xpandViewVariantsModule1);
             this.Modules.Add(this.worldCreatorModule1);
@@ -173,8 +324,13 @@ namespace FeatureCenter.Win
             this.Modules.Add(this.memberLevelSecurityModule1);
             this.Modules.Add(this.jobSchedulerModule1);
             this.Modules.Add(this.jobSchedulerJobsModule1);
+            this.Modules.Add(this.kpiModule1);
+            this.Modules.Add(this.importWizardModule1);
+            this.Modules.Add(this.conditionalAppearanceModule1);
+            this.Modules.Add(this.stateMachineModule1);
+            this.Modules.Add(this.workflowModule1);
+            this.Modules.Add(this.xpandWorkFlowModule1);
             this.Modules.Add(this.module3);
-            this.Modules.Add(this.conditionalEditorStateWindowsFormsModule1);
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
             this.Modules.Add(this.htmlPropertyEditorWindowsFormsModule1);
             this.Modules.Add(this.pivotChartWindowsFormsModule1);
@@ -185,10 +341,9 @@ namespace FeatureCenter.Win
             this.Modules.Add(this.schedulerWindowsFormsModule1);
             this.Modules.Add(this.treeListEditorsWindowsFormsModule1);
             this.Modules.Add(this.module7);
-            this.Modules.Add(this.modelArtifactStateWindowsFormsModule1);
+            this.Modules.Add(this.xpandSystemWindowsFormsModule1);
             this.Modules.Add(this.modelDifferenceWindowsFormsModule1);
             this.Modules.Add(this.xpandTreeListEditorsModule1);
-            this.Modules.Add(this.xpandSystemWindowsFormsModule1);
             this.Modules.Add(this.xpandTreeListEditorsWinModule1);
             this.Modules.Add(this.wizardUIWindowsFormsModule1);
             this.Modules.Add(this.worldCreatorWinModule1);
@@ -201,7 +356,8 @@ namespace FeatureCenter.Win
             this.Modules.Add(this.masterDetailWindowsModule1);
             this.Modules.Add(this.scriptRecorderWindowsFormsModule1);
             this.Modules.Add(this.memberLevelSecurityModuleWin1);
-            this.Modules.Add(this.conditionalAppearanceModule1);
+            this.Modules.Add(this.importWizardWindowsFormsModule1);
+            this.Modules.Add(this.workflowWindowsFormsModule1);
             this.Modules.Add(this.module4);
             this.Security = this.securityComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.FeatureCenterWindowsFormsApplication_DatabaseVersionMismatch);
@@ -221,21 +377,19 @@ namespace FeatureCenter.Win
         private DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule module7;
         private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
         private System.Data.SqlClient.SqlConnection sqlConnection1;
-        
+
         private DevExpress.ExpressApp.CloneObject.CloneObjectModule cloneObjectModule1;
-        private DevExpress.ExpressApp.ConditionalFormatting.ConditionalFormattingModule conditionalFormattingModule1;
+
         private DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule viewVariantsModule1;
-        
-        private DevExpress.ExpressApp.ConditionalEditorState.ConditionalEditorStateModuleBase conditionalEditorStateModuleBase1;
-        
-        private DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule conditionalEditorStateWindowsFormsModule1;
+
+
         private DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule fileAttachmentsWindowsFormsModule1;
         private DevExpress.ExpressApp.HtmlPropertyEditor.Win.HtmlPropertyEditorWindowsFormsModule htmlPropertyEditorWindowsFormsModule1;
         private DevExpress.ExpressApp.PivotChart.PivotChartModuleBase pivotChartModuleBase1;
         private DevExpress.ExpressApp.PivotChart.Win.PivotChartWindowsFormsModule pivotChartWindowsFormsModule1;
         private DevExpress.ExpressApp.Printing.Win.PrintingWindowsFormsModule printingWindowsFormsModule1;
         private DevExpress.ExpressApp.Reports.Win.ReportsWindowsFormsModule reportsWindowsFormsModule1;
-        
+
         private DevExpress.ExpressApp.Scheduler.SchedulerModuleBase schedulerModuleBase1;
         private DevExpress.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule schedulerWindowsFormsModule1;
         private DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase treeListEditorsModuleBase1;
@@ -262,7 +416,6 @@ namespace FeatureCenter.Win
         private Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule conditionalDetailViewModule1;
         private Xpand.ExpressApp.MemberLevelSecurity.MemberLevelSecurityModule memberLevelSecurityModule1;
         private DevExpress.ExpressApp.Reports.ReportsModule reportsModule1;
-        private Xpand.ExpressApp.ModelArtifactState.Win.ModelArtifactStateWindowsFormsModule modelArtifactStateWindowsFormsModule1;
         private Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule modelDifferenceWindowsFormsModule1;
         private Xpand.ExpressApp.TreeListEditors.Win.XpandTreeListEditorsWinModule xpandTreeListEditorsWinModule1;
         private Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule xpandSystemWindowsFormsModule1;
@@ -282,5 +435,12 @@ namespace FeatureCenter.Win
         private Xpand.ExpressApp.TreeListEditors.XpandTreeListEditorsModule xpandTreeListEditorsModule1;
         private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
         private XpandAuthenticationStandard authenticationStandard1;
+        private DevExpress.ExpressApp.Kpi.KpiModule kpiModule1;
+        private Xpand.ExpressApp.ImportWizard.ImportWizardModule importWizardModule1;
+        private DevExpress.ExpressApp.StateMachine.StateMachineModule stateMachineModule1;
+        private Xpand.ExpressApp.ImportWizard.Win.ImportWizardWindowsFormsModule importWizardWindowsFormsModule1;
+        private DevExpress.ExpressApp.Workflow.WorkflowModule workflowModule1;
+        private Xpand.ExpressApp.Workflow.XpandWorkFlowModule xpandWorkFlowModule1;
+        private DevExpress.ExpressApp.Workflow.Win.WorkflowWindowsFormsModule workflowWindowsFormsModule1;
     }
 }

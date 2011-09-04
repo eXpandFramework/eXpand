@@ -2,10 +2,10 @@ using System;
 using Machine.Specifications;
 using Moq;
 using Xpand.EmailTemplateEngine;
-using Xpand.Tests.Xpand.EmailTemplateEngine;
-using arg = Machine.Specifications.It;
+using It = Machine.Specifications.It;
 
-namespace Xpand.Tests.Xpand.EmailTemplateEngines {
+namespace Xpand.Tests.Xpand.EmailTemplateEngine {
+
     [Subject(typeof(global::Xpand.EmailTemplateEngine.EmailTemplateEngine))]
     public class When_trying_to_execute_with_blank_template_name {
         static Exception exception;
@@ -16,7 +16,7 @@ namespace Xpand.Tests.Xpand.EmailTemplateEngines {
             exception = Catch.Exception(() => emailTemplateEngine.Execute(string.Empty));
         };
 
-        arg should_throw_exception = () => exception.ShouldBeOfType<ArgumentException>();
+        It should_throw_exception = () => exception.ShouldBeOfType<ArgumentException>();
     }
 
     public abstract class EmailTemplateEngineWhenExecutingSpec {
@@ -53,15 +53,15 @@ namespace Xpand.Tests.Xpand.EmailTemplateEngines {
 
         protected static Email email;
 
-        arg should_set_form_address = () => email.From.ShouldMatch(From);
+        It should_set_form_address = () => email.From.ShouldMatch(From);
 
-        arg should_set_to_address = () => email.To.ShouldContain(To);
+        It should_set_to_address = () => email.To.ShouldContain(To);
 
-        arg should_set_cc_address = () => email.CC.ShouldContain(CC);
+        It should_set_cc_address = () => email.CC.ShouldContain(CC);
 
-        arg should_set_bcc_address = () => email.Bcc.ShouldContain(Bcc);
+        It should_set_bcc_address = () => email.Bcc.ShouldContain(Bcc);
 
-        arg should_set_subject = () => email.Subject.ShouldMatch(Subject);
+        It should_set_subject = () => email.Subject.ShouldMatch(Subject);
     }
 
     [Subject(typeof(global::Xpand.EmailTemplateEngine.EmailTemplateEngine))]
@@ -78,13 +78,13 @@ namespace Xpand.Tests.Xpand.EmailTemplateEngines {
 
         Behaves_like<EmailTemplateExecutingBehavior> template_execution;
 
-        arg should_set_html_body_variables = () => {
+        It should_set_html_body_variables = () => {
             email.HtmlBody.ShouldContain(EmailTemplateExecutingBehavior.Name);
             email.HtmlBody.ShouldContain(EmailTemplateExecutingBehavior.Password);
             email.HtmlBody.ShouldContain(EmailTemplateExecutingBehavior.LogOnUrl);
         };
 
-        arg should_set_text_body_variables = () => {
+        It should_set_text_body_variables = () => {
             email.TextBody.ShouldContain(EmailTemplateExecutingBehavior.Name);
             email.TextBody.ShouldContain(EmailTemplateExecutingBehavior.Password);
             email.TextBody.ShouldContain(EmailTemplateExecutingBehavior.LogOnUrl);
@@ -105,13 +105,13 @@ namespace Xpand.Tests.Xpand.EmailTemplateEngines {
 
         Behaves_like<EmailTemplateExecutingBehavior> template_execution;
 
-        arg should_set_html_body_variables = () => {
+        It should_set_html_body_variables = () => {
             email.HtmlBody.ShouldContain(EmailTemplateExecutingBehavior.Name);
             email.HtmlBody.ShouldContain(EmailTemplateExecutingBehavior.Password);
             email.HtmlBody.ShouldContain(EmailTemplateExecutingBehavior.LogOnUrl);
         };
 
-        arg should_not_set_text_body = () => email.TextBody.ShouldBeNull();
+        It should_not_set_text_body = () => email.TextBody.ShouldBeNull();
     }
 
     [Subject(typeof(global::Xpand.EmailTemplateEngine.EmailTemplateEngine))]
@@ -128,12 +128,12 @@ namespace Xpand.Tests.Xpand.EmailTemplateEngines {
 
         Behaves_like<EmailTemplateExecutingBehavior> template_execution;
 
-        arg should_set_text_body_variables = () => {
+        It should_set_text_body_variables = () => {
             email.TextBody.ShouldContain(EmailTemplateExecutingBehavior.Name);
             email.TextBody.ShouldContain(EmailTemplateExecutingBehavior.Password);
             email.TextBody.ShouldContain(EmailTemplateExecutingBehavior.LogOnUrl);
         };
 
-        arg should_not_set_html_body = () => email.HtmlBody.ShouldBeNull();
+        It should_not_set_html_body = () => email.HtmlBody.ShouldBeNull();
     }
 }

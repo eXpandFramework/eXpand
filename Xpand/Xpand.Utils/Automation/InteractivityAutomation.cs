@@ -41,7 +41,7 @@ namespace Xpand.Utils.Automation {
         }
         #region ClickMenu
         public static void ClickMenu(IntPtr windowHandle, int[] menuPos) {
-            int menuRoot = Win32Declares.Menu.GetMenu(windowHandle);
+            IntPtr menuRoot = Win32Declares.Menu.GetMenu(windowHandle);
             for (int i = 0; i < menuPos.Length - 1; i++) {
                 menuRoot = Win32Declares.Menu.GetSubMenu(menuRoot, menuPos[i]);
             }

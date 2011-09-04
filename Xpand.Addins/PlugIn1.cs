@@ -109,10 +109,9 @@ namespace XpandAddIns {
 
         private void DropDatabase(string connectionString, string name) {
             string error = null;
-            IDataStore provider;
             string database = name;
             try {
-                provider = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None);
+                IDataStore provider = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None);
                 if (provider is MSSqlConnectionProvider)
                     database = DropSqlServerDatabase(connectionString);
                 else if (provider is AccessConnectionProvider) {
@@ -121,7 +120,8 @@ namespace XpandAddIns {
                 } else {
                     throw new NotImplementedException(provider.GetType().FullName);
                 }
-            } catch (UnableToOpenDatabaseException) {
+            }
+            catch (UnableToOpenDatabaseException) {
                 error = "UnableToOpenDatabase " + database;
             } catch (Exception e) {
                 Trace.WriteLine(e.ToString());
@@ -154,7 +154,7 @@ namespace XpandAddIns {
             if (activeProject != null) {
                 var projectLoader = new ProjectLoader();
                 var selectedAssemblyReferences = activeProject.GetSelectedAssemblyReferences(constants);
-                projectLoader.Load(selectedAssemblyReferences, constants);
+                projectLoader.Load(selectedAssemblyReferences.ToList(), constants);
             }
             else {
                 actionHint1.Text = "Active project not found. Please open a code file";

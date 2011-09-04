@@ -31,7 +31,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         };
     }
 
-    
+
     public class DummyJobListener : IJobListener {
         public void JobToBeExecuted(IJobExecutionContext context) {
             throw new NotImplementedException();
@@ -50,8 +50,9 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         }
     }
 
-    public class DummyDataMapObject:BaseObject {
-        public DummyDataMapObject(Session session) : base(session) {
+    public class DummyDataMapObject : BaseObject {
+        public DummyDataMapObject(Session session)
+            : base(session) {
         }
     }
     [JobDetailDataMapType(typeof(DummyDataMapObject))]
@@ -66,8 +67,9 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         }
     }
 
-    public class DummyDetailDataMap:XpandJobDetailDataMap {
-        public DummyDetailDataMap(Session session) : base(session) {
+    public class DummyDetailDataMap : XpandJobDetailDataMap {
+        public DummyDetailDataMap(Session session)
+            : base(session) {
         }
     }
 
@@ -102,7 +104,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             _jobSchedulerModule = new JobSchedulerModule();
             Isolate.Swap.AllInstances<JobSchedulerModule>().With(_jobSchedulerModule);
             var properties = SchedulerConfig.GetProperties();
-            IScheduler scheduler = new XpandSchedulerFactory(properties,Application).GetScheduler();
+            IScheduler scheduler = new XpandSchedulerFactory(properties, Application).GetScheduler();
             Isolate.WhenCalled(() => _jobSchedulerModule.Scheduler).WillReturn(scheduler);
             Scheduler = scheduler;
             XafTypesInfo.Instance.FindTypeInfo(typeof(DummyJobListener));

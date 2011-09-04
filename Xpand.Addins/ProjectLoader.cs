@@ -37,7 +37,7 @@ namespace XpandAddIns {
         }
 
 
-        public void Load(IEnumerable<AssemblyReference> assemblyReferences, string constants) {
+        public void Load(IList<AssemblyReference> assemblyReferences, string constants) {
             Log.Send("References Count:"+assemblyReferences.Count());
             var sourceCodeInfos = Options.GetSourceCodeInfos();
             for (int i = 0; i < sourceCodeInfos.Count; i++) {
@@ -47,7 +47,7 @@ namespace XpandAddIns {
             CodeRush.ApplicationObject.Solution.CollapseAllFolders();
         }
 
-        void LoadProject(Options.SourceCodeInfo sourceCodeInfo, IEnumerable<AssemblyReference> assemblyReferences, int i1) {
+        void LoadProject(Options.SourceCodeInfo sourceCodeInfo, IList<AssemblyReference> assemblyReferences, int i1) {
             var readStrings = Options.Storage.ReadStrings(Options.ProjectPaths, i1+"_"+sourceCodeInfo.ProjectRegex);
             Log.Send("ProjectsCount:"+readStrings.Count());
             for (int i = 0; i < readStrings.Count(); i++) {

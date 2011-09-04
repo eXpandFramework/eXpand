@@ -32,9 +32,6 @@ namespace Xpand.Persistent.Base.General {
         private readonly ExplicitUnitOfWork _explicitUnitOfWork;
         private ISequenceObject _sequence;
 
-        static SequenceGenerator() {
-            _sequenceObjectType = XafTypesInfo.Instance.FindBussinessObjectType<ISequenceObject>();
-        }
 
         public SequenceGenerator() {
 
@@ -98,7 +95,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         static IDataLayer defaultDataLayer;
-        static readonly Type _sequenceObjectType;
+        static Type _sequenceObjectType;
 
         public static IDataLayer DefaultDataLayer {
             get {
@@ -153,7 +150,11 @@ namespace Xpand.Persistent.Base.General {
 
         public static void GenerateSequence(ISupportSequenceObject supportSequenceObject, ITypeInfo typeInfo) {
             if (_sequenceGenerator == null)
-                _sequenceGenerator = new SequenceGenerator();
+                try {
+                    _sequenceGenerator = new SequenceGenerator();
+                } catch (NullReferenceException) {
+                    return;
+                }
             long nextSequence = _sequenceGenerator.GetNextSequence(typeInfo, supportSequenceObject.Prefix);
             Session session = supportSequenceObject.Session;
             if (!(session is NestedUnitOfWork)) {
@@ -181,7 +182,8 @@ namespace Xpand.Persistent.Base.General {
 
 
 
-        public static void Initialize(string connectionString) {
+        public static void Initialize(string connectionString, Type sequenceObjectType) {
+            _sequenceObjectType = sequenceObjectType;
             DefaultDataLayer = XpoDefault.GetDataLayer(connectionString, AutoCreateOption.DatabaseAndSchema);
             RegisterSequences(XafTypesInfo.Instance.PersistentTypes);
         }

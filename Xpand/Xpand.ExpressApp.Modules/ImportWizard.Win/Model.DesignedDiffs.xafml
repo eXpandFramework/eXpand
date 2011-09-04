@@ -1,2 +1,28 @@
-<?xml version="1.0" ?>
-<Application />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Localization>
+    <LocalizationGroup Name="eXpand.ImportWizard.Win" IsNewNode="True">
+      <LocalizationItem Name="Create custom column mapping" Value="Create custom column mapping" IsNewNode="True" />
+      <LocalizationItem Name="Do you want to save mapping?" Value="Do you want to save mapping?" IsNewNode="True" />
+      <LocalizationItem Name="Enter description for custom import map..." Value="Enter description for custom import map..." IsNewNode="True" />
+      <LocalizationItem Name="GuestMappings" Value="GuestMappings" IsNewNode="True" />
+      <LocalizationItem Name="Header Rows" Value="Header Rows" IsNewNode="True" />
+      <LocalizationItem Name="Import Data" Value="Import Data" IsNewNode="True" />
+      <LocalizationItem Name="Import data from Excel" Value="Import data from Excel" IsNewNode="True" />
+      <LocalizationItem Name="Import map description" Value="Import map description" IsNewNode="True" />
+      <LocalizationItem Name="Map To..." Value="Map To..." IsNewNode="True" />
+      <LocalizationItem Name="No" Value="No" IsNewNode="True" />
+      <LocalizationItem Name="Please Select File to import..." Value="Please Select File to import..." IsNewNode="True" />
+      <LocalizationItem Name="PreView Rows" Value="PreView Rows" IsNewNode="True" />
+      <LocalizationItem Name="Reset Mappings" Value="Reset Mappings" IsNewNode="True" />
+      <LocalizationItem Name="Save mapping ?" Value="Save mapping ?" IsNewNode="True" />
+      <LocalizationItem Name="Select Excel Sheet..." Value="Select Excel Sheet..." IsNewNode="True" />
+      <LocalizationItem Name="Select existing column mapping..." Value="Select existing column mapping..." IsNewNode="True" />
+      <LocalizationItem Name="Use existing column mapping" Value="Use existing column mapping" IsNewNode="True" />
+      <LocalizationItem Name="welcomeWizardPage1_text" Value="Please select excel file to import..." IsNewNode="True" />
+      <LocalizationItem Name="wizardpage1_text" Value="Map Excel columns to object Fields" IsNewNode="True" />
+      <LocalizationItem Name="wizardpage3_text" Value="" IsNewNode="True" />
+      <LocalizationItem Name="Yes" Value="Yes" IsNewNode="True" />
+    </LocalizationGroup>
+  </Localization>
+</Application>

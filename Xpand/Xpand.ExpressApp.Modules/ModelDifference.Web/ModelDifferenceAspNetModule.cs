@@ -1,8 +1,10 @@
 using System.ComponentModel;
+using System.Drawing;
 using System.Web;
 
 namespace Xpand.ExpressApp.ModelDifference.Web {
-    [ToolboxItemFilter("Xaf.Platform.Web")]
+    [ToolboxBitmap(typeof(ModelDifferenceAspNetModule))]
+    [ToolboxItem(true)]
     public sealed class ModelDifferenceAspNetModule : ModelDifferenceBaseModule {
         private bool? persistentApplicationModelUpdated;
 

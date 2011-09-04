@@ -57,6 +57,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
                 var detailXafGridView = (XpandXafGridView)masterGridView.GetDetailView(rowHandle, relationIndex);
                 ((XpandGridListEditor)listView.Editor).CustomGridViewCreate +=
                     (o, eventArgs) => {
+                        (o as XpandGridListEditor).DataSource = detailXafGridView.DataSource;
                         eventArgs.Handled = true;
                         eventArgs.GridView = detailXafGridView;
                         eventArgs.GridControl.DataSource = detailXafGridView.DataSource;

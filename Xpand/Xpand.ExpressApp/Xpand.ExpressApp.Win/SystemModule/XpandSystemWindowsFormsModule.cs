@@ -15,7 +15,6 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(WinApplication), "Resources.WinSystemModule.ico")]
-    [ToolboxItemFilter("Xaf.Platform.Win")]
     public sealed class XpandSystemWindowsFormsModule : XpandModuleBase {
         public const string XpandWin = "Xpand.Win";
         public XpandSystemWindowsFormsModule() {

@@ -1,8 +1,10 @@
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.IO.NodeUpdaters;
 
 namespace Xpand.ExpressApp.IO {
+    [ToolboxItem(false)]
     public sealed partial class IOModule : XpandModuleBase {
 
         public IOModule() {
@@ -10,7 +12,10 @@ namespace Xpand.ExpressApp.IO {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            Core.TypesInfo.Instance.AddTypes(GetAdditionalClasses(moduleManager));
+            if (RuntimeMode) {
+                AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.ImportExport");
+                Core.TypesInfo.Instance.RegisterTypes(GetAdditionalClasses(moduleManager));
+            }
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {

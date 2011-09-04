@@ -93,7 +93,7 @@ namespace Xpand.Tests {
         static void RegisterDomainComponents(XafApplication application, Func<IList<Type>>func) {
             func.Invoke().ToList().ForEach(type => XafTypesInfo.Instance.RegisterEntity(type));
             application.SettingUp +=
-                (o, eventArgs) => func.Invoke().ToList().ForEach(type => ((BusinessClassesList)eventArgs.SetupParameters.DomainComponents).Add(type));
+                (o, eventArgs) => func.Invoke().ToList().ForEach(type => ((ExportedTypeCollection)eventArgs.SetupParameters.DomainComponents).Add(type));
         }
 
         static void RegisterControllers(XafApplication application, params Controller[] controllers) {

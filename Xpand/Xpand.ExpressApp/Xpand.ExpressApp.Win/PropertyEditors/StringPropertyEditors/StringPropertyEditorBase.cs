@@ -14,6 +14,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
 
         protected StringPropertyEditorBase(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
+            ImmediatePostData = model.ImmediatePostData;
         }
 
         protected override void SetupRepositoryItem(RepositoryItem item) {

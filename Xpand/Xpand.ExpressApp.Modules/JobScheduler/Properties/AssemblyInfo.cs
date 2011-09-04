@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -31,3 +32,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion(Xpand.AssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(Xpand.AssemblyInfo.Version)]
 
+[assembly: AllowPartiallyTrustedCallers]
+[assembly: SecurityRules(SecurityRuleSet.Level1)]

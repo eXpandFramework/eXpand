@@ -17,6 +17,7 @@ using Xpand.ExpressApp.IO.PersistentTypesHelpers;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
+using Xpand.Persistent.Base.ImportExport;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.ImportExport;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
@@ -39,9 +40,10 @@ namespace Xpand.Tests.Xpand.IO {
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.1toMany.xml");
             if (_manifestResourceStream != null)
                 _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
+
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork)ObjectSpace.Session);
+        Because of = () => new ImportEngine(ErrorHandling.CreateErrorObjects).ImportObjects(_manifestResourceStream, ObjectSpace);
 
         It should_create_1_new_customer_object = () => {
             _customer = ObjectSpace.FindObject(CustomerType, null) as XPBaseObject;
@@ -86,7 +88,7 @@ namespace Xpand.Tests.Xpand.IO {
             _objectSpace = (ObjectSpace)new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork)_objectSpace.Session);
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _objectSpace);
 
         It should_iumport_the_converter_from_storage_value = () => {
             //            var persistentApplication = _objectSpace.FindObject<PersistentApplication>(null);
@@ -116,7 +118,7 @@ namespace Xpand.Tests.Xpand.IO {
             _objectSpace.CommitChanges();
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork)_objectSpace.Session);
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _objectSpace);
 
         It should_not_create_it = () => _objectSpace.GetObjectsCount(_customerType, null).ShouldEqual(1);
         It should_overide_its_values = () => _customer.GetMemberValue("Name").ShouldEqual("newName");
@@ -149,7 +151,7 @@ namespace Xpand.Tests.Xpand.IO {
             _objectSpace.Session.DropIdentityMap();
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork)_objectSpace.Session);
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _objectSpace);
 
         It should_create_it = () => {
             var session = new Session(_objectSpace.Session.DataLayer);
@@ -175,7 +177,7 @@ namespace Xpand.Tests.Xpand.IO {
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.ManyToMany.xml");
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, (UnitOfWork)_objectSpace.Session);
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _objectSpace);
 
         It should_create_1_customer = () => _objectSpace.GetObjectsCount(_customerType, null).ShouldEqual(1);
         It should_create_2_orders = () => _objectSpace.GetObjectsCount(_orderType, null).ShouldEqual(2);
@@ -208,7 +210,7 @@ namespace Xpand.Tests.Xpand.IO {
             document = new ExportEngine().Export(new List<XPBaseObject> { analysis }, objectSpace.CreateObject<SerializationConfigurationGroup>());
         };
 
-        Because of = () => new ImportEngine().ImportObjects(document, (UnitOfWork)_session);
+        Because of = () => new ImportEngine().ImportObjects(document.ToString(), new ObjectSpace((UnitOfWork)_session));
 
         It should_import_correct_bytes = () => _session.FindObject<Analysis>(null).PivotGridSettingsContent.ShouldEqual(_pivotGridSettingsContent);
     }
@@ -234,7 +236,7 @@ namespace Xpand.Tests.Xpand.IO {
             _document = new ExportEngine().Export(new[] { _persistentAssemblyInfo }.OfType<XPBaseObject>(), configuration.SerializationConfigurationGroup);
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_document, (UnitOfWork)_objectSpace.Session);
+        Because of = () => new ImportEngine().ImportObjects(_document.ToString(), _objectSpace);
 
         It should_create_a_persistent_assemblyInfo = () => {
             _persistentAssemblyInfo = _objectSpace.FindObject<PersistentAssemblyInfo>(null);
@@ -271,7 +273,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         Because of = () => {
             var unitOfWork = new UnitOfWork(_objectSpace.Session.DataLayer);
-            new ImportEngine().ImportObjects(_memoryStream, unitOfWork);
+            new ImportEngine().ImportObjects(_memoryStream, _objectSpace);
             unitOfWork.CommitChanges();
         };
 
@@ -289,13 +291,13 @@ namespace Xpand.Tests.Xpand.IO {
         static Stream _manifestResourceStream;
 
         Establish context = () => {
-            _unitOfWork = new UnitOfWork(((ObjectSpace) ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
+            _unitOfWork = new UnitOfWork(((ObjectSpace)ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("eXpand.Tests.eXpand.IO.Resources.ModelDifferenceObject.xml");
 
         };
 
         Because of = () => {
-            _exception = Catch.Exception(() => new ImportEngine().ImportObjects(_manifestResourceStream, _unitOfWork));
+            _exception = Catch.Exception(() => new ImportEngine().ImportObjects(_manifestResourceStream, new ObjectSpace(_unitOfWork)));
         };
 
         It should_raize_no_errors = () => _exception.ShouldBeNull();
@@ -307,10 +309,10 @@ namespace Xpand.Tests.Xpand.IO {
 
         Establish context = () => {
             _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.ObjectWithImageProperty.xml");
-            _unitOfWork = new UnitOfWork(((ObjectSpace) ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
+            _unitOfWork = new UnitOfWork(((ObjectSpace)ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, _unitOfWork);
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, new ObjectSpace(_unitOfWork));
 
         It should_create_the_serialized_image = () => {
             var findObject = _unitOfWork.FindObject<ImagePropertyObject>(null);
@@ -321,7 +323,6 @@ namespace Xpand.Tests.Xpand.IO {
     [Subject(typeof(ImportEngine))]
     public class When_an_object_has_a_datetime_property : With_Isolations {
         static ObjectSpace _objectSpace;
-        static UnitOfWork _unitOfWork;
         static MemoryStream _memoryStream;
 
         Establish context = () => {
@@ -332,11 +333,10 @@ namespace Xpand.Tests.Xpand.IO {
                   </SerializedObject>
                 </SerializedObjects>";
             _memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xml));
-            _objectSpace = (ObjectSpace) ObjectSpaceInMemory.CreateNew();
-            _unitOfWork = new UnitOfWork(_objectSpace.Session.DataLayer);
+            _objectSpace = (ObjectSpace)ObjectSpaceInMemory.CreateNew();
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_memoryStream, _unitOfWork);
+        Because of = () => new ImportEngine().ImportObjects(_memoryStream, _objectSpace);
 
         It should_deserialize_full_date =
             () =>
@@ -348,7 +348,7 @@ namespace Xpand.Tests.Xpand.IO {
         static UnitOfWork _unitOfWork;
 
         Establish context = () => {
-            _unitOfWork = new UnitOfWork(((ObjectSpace) ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
+            _unitOfWork = new UnitOfWork(((ObjectSpace)ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
             new Analysis(_unitOfWork) { Name = "target" };
             _unitOfWork.CommitChanges();
 
@@ -361,7 +361,7 @@ namespace Xpand.Tests.Xpand.IO {
             _memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xml));
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_memoryStream, _unitOfWork);
+        Because of = () => new ImportEngine().ImportObjects(_memoryStream, new ObjectSpace(_unitOfWork));
 
         It should_match_deleted_state_of_source =
             () => _unitOfWork.FindObject<Analysis>(null, true).IsDeleted.ShouldEqual(true);
@@ -373,7 +373,7 @@ namespace Xpand.Tests.Xpand.IO {
         static UnitOfWork _unitOfWork;
 
         Establish context = () => {
-            _unitOfWork = new UnitOfWork(((ObjectSpace) ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
+            _unitOfWork = new UnitOfWork(((ObjectSpace)ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
             var analysis = new Analysis(_unitOfWork) { Name = "target" };
             analysis.Delete();
             _unitOfWork.CommitChanges();
@@ -387,8 +387,122 @@ namespace Xpand.Tests.Xpand.IO {
             _memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xml));
         };
 
-        Because of = () => new ImportEngine().ImportObjects(_memoryStream, _unitOfWork);
+        Because of = () => new ImportEngine().ImportObjects(_memoryStream, new ObjectSpace(_unitOfWork));
         It should_match_deleted_state_of_source =
             () => _unitOfWork.FindObject<Analysis>(null).ShouldNotBeNull();
     }
+    [Subject(typeof(ImportEngine))]
+    public class When_nullable_enum_property_with_null_value {
+        static UnitOfWork _unitOfWork;
+
+
+        static Stream _manifestResourceStream;
+
+
+        Establish context = () => {
+            XafTypesInfo.Instance.RegisterEntity(typeof(PEnumClass));
+            _unitOfWork = new UnitOfWork(((ObjectSpace)ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.NullAbleEnum.xml");
+        };
+
+        Because of = () => new ImportEngine().ImportObjects(_manifestResourceStream, new ObjectSpace(_unitOfWork));
+
+        It should_import_null_value = () => _unitOfWork.FindObject<PEnumClass>(null).MyEnum.ShouldBeNull();
+    }
+    [Subject(typeof(ImportEngine))]
+    public class When_reference_property_is_null_and_has_serialialize_as_value : With_Customer_Orders {
+        static XPBaseObject _order1;
+        static User _user;
+        static XPBaseObject _customer;
+
+        static Stream _manifestResourceStream;
+
+        Establish context = () => {
+            _user = (User)ObjectSpace.CreateObject(typeof(User));
+            _user.SetMemberValue("oid", new Guid("{B11AFD0E-6B2B-44cf-A986-96909A93291A}"));
+            ObjectSpace.Session.GetClassInfo(OrderType).CreateMember("Ammount", typeof(int));
+            ObjectSpace.CommitChanges();
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.NullValuesImport.xml");
+            if (_manifestResourceStream != null)
+                _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
+
+        };
+        Because of = () => new ImportEngine(ErrorHandling.CreateErrorObjects).ImportObjects(_manifestResourceStream, ObjectSpace);
+
+        It should_remain_null_the_property_value = () => {
+            _customer = (XPBaseObject)ObjectSpace.FindObject(CustomerType, null);
+            _customer.GetMemberValue("User").ShouldEqual(null);
+        };
+
+
+    }
+    [Subject(typeof(ImportEngine))]
+    public class When_updating_a_ref_property_with_a_null_value_and_serializeasvalue : With_Customer_Orders {
+        static XPBaseObject _order1;
+        static User _user;
+        static XPBaseObject _customer;
+
+        static Stream _manifestResourceStream;
+
+        Establish context = () => {
+            _user = (User)ObjectSpace.CreateObject(typeof(User));
+            _user.SetMemberValue("oid", new Guid("{B11AFD0E-6B2B-44cf-A986-96909A93291A}"));
+            ObjectSpace.Session.GetClassInfo(OrderType).CreateMember("Ammount", typeof(int));
+            ObjectSpace.CommitChanges();
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.NotNullRefValuesImport.xml");
+            if (_manifestResourceStream != null)
+                _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
+
+            new ImportEngine(ErrorHandling.CreateErrorObjects).ImportObjects(_manifestResourceStream, ObjectSpace);
+
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.NullValuesImport.xml");
+            if (_manifestResourceStream != null)
+                _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
+
+        };
+
+        Because of = () => new ImportEngine(ErrorHandling.CreateErrorObjects).ImportObjects(_manifestResourceStream, ObjectSpace);
+
+        It should_null_the_ref_property_value = () => {
+            _customer = (XPBaseObject)ObjectSpace.FindObject(CustomerType, null);
+            _customer.GetMemberValue("User").ShouldBeNull();
+        };
+
+
+    }
+    [Subject(typeof(ImportEngine))]
+    public class When_updating_a_ref_property_with_a_null_value_and_serializeasobject : With_Customer_Orders {
+        static XPBaseObject _order1;
+        static User _user;
+        static XPBaseObject _customer;
+
+        static Stream _manifestResourceStream;
+
+        Establish context = () => {
+            _user = (User)ObjectSpace.CreateObject(typeof(User));
+            _user.SetMemberValue("oid", new Guid("{B11AFD0E-6B2B-44cf-A986-96909A93291A}"));
+            ObjectSpace.Session.GetClassInfo(OrderType).CreateMember("Ammount", typeof(int));
+            ObjectSpace.CommitChanges();
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.NotNullRefValuesImport.xml");
+            if (_manifestResourceStream != null)
+                _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
+
+            new ImportEngine(ErrorHandling.CreateErrorObjects).ImportObjects(_manifestResourceStream, ObjectSpace);
+
+            _manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Xpand.Tests.Xpand.IO.Resources.NullValuesImportAsObject.xml");
+            if (_manifestResourceStream != null)
+                _manifestResourceStream = new MemoryStream(Encoding.UTF8.GetBytes(new StreamReader(_manifestResourceStream).ReadToEnd().Replace("B11AFD0E-6B2B-44cf-A986-96909A93291A", _user.Oid.ToString())));
+
+        };
+
+        Because of = () => new ImportEngine(ErrorHandling.CreateErrorObjects).ImportObjects(_manifestResourceStream, ObjectSpace);
+
+        It should_null_the_ref_property_value = () => {
+            _customer = (XPBaseObject)ObjectSpace.FindObject(CustomerType, null);
+            _customer.GetMemberValue("User").ShouldBeNull();
+        };
+
+
+    }
+
 }

@@ -25,9 +25,9 @@ namespace FeatureCenter.Module.ImportExport.AnalysisObjects {
                 var importEngine = new ImportEngine();
                 using (var unitOfWork = new UnitOfWork(session.DataLayer)) {
                     Stream stream = GetType().Assembly.GetManifestResourceStream(GetType(), "AnalysisObjects.xml");
-                    importEngine.ImportObjects(stream, unitOfWork);
+                    importEngine.ImportObjects(stream, new ObjectSpace(unitOfWork));
                     stream = GetType().Assembly.GetManifestResourceStream(GetType(), "AnalysisObjectsConfiguration.xml");
-                    importEngine.ImportObjects(stream, unitOfWork);
+                    importEngine.ImportObjects(stream, new ObjectSpace(unitOfWork));
                 }
             }
         }

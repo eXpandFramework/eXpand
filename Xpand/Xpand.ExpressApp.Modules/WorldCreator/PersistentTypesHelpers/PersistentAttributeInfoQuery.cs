@@ -7,7 +7,7 @@ using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 namespace Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
     public static class PersistentAttributeInfoQuery {
         public static TAttribute Find<TAttribute>(IPersistentMemberInfo persistentMemberInfo) where TAttribute : Attribute{
-            AttributeInfo firstOrDefault =
+            AttributeInfoAttribute firstOrDefault =
                 persistentMemberInfo.TypeAttributes.Select(info => info.Create()).Where(
                     attributeInfo => attributeInfo.Constructor.DeclaringType == typeof (TAttribute)).FirstOrDefault();
             if (firstOrDefault!= null)

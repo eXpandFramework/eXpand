@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
         protected virtual void populate() {
-            LambdaExpression lambdaExpression = GetPropertyName();
+            var lambdaExpression = GetPropertyName();
             var propertyInfo = ReflectionExtensions.GetExpression(lambdaExpression) as PropertyInfo;
             if (propertyInfo != null)
                 modelMember =

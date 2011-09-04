@@ -16,15 +16,15 @@ using Xpand.Xpo.DB;
 using Xpand.Xpo.Filtering;
 
 namespace Xpand.ExpressApp.FilterDataStore {
-    public abstract class FilterDataStoreModuleBase:XpandModuleBase {
+    public abstract class FilterDataStoreModuleBase : XpandModuleBase {
         static FilterDataStoreModuleBase() {
             _tablesDictionary = new Dictionary<string, Type>();
         }
 
-        protected static Dictionary<string, Type> _tablesDictionary ;
+        protected static Dictionary<string, Type> _tablesDictionary;
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (ProxyEventsSubscribed.HasValue&&ProxyEventsSubscribed.Value) {
+            if (ProxyEventsSubscribed.HasValue && ProxyEventsSubscribed.Value) {
                 SubscribeToDataStoreProxyEvents();
             }
         }
@@ -45,7 +45,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (FilterProviderManager.IsRegistered&& FilterProviderManager.Providers != null) {
+            if (FilterProviderManager.IsRegistered && FilterProviderManager.Providers != null) {
                 SubscribeToDataStoreProxyEvents();
                 CreateMembers(typesInfo);
                 foreach (var persistentType in typesInfo.PersistentTypes.Where(info => info.IsPersistent)) {
@@ -61,7 +61,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
         bool IsMappedToParent(XPClassInfo xpClassInfo) {
             var attributeInfo = xpClassInfo.FindAttributeInfo(typeof(MapInheritanceAttribute));
             return attributeInfo != null &&
-                   ((MapInheritanceAttribute) attributeInfo).MapType == MapInheritanceType.ParentTable;
+                   ((MapInheritanceAttribute)attributeInfo).MapType == MapInheritanceType.ParentTable;
         }
 
         void CreateMembers(ITypesInfo typesInfo) {
@@ -95,7 +95,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         public void ModifyData(ModificationStatement[] statements) {
-            InsertData(statements.OfType<InsertStatement>());
+            InsertData(statements.OfType<InsertStatement>().ToList());
             UpdateData(statements.OfType<UpdateStatement>());
         }
 
@@ -121,7 +121,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
 
-        public void InsertData(IEnumerable<InsertStatement> statements) {
+        public void InsertData(IList<InsertStatement> statements) {
             foreach (InsertStatement statement in statements) {
                 if (!IsSystemTable(statement.TableName)) {
                     List<QueryOperand> operands = statement.Operands.OfType<QueryOperand>().ToList();
@@ -186,8 +186,10 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         string GetNodeAlias(SelectStatement statement, string filterMemberName) {
-            if (XafTypesInfo.Instance.FindTypeInfo(_tablesDictionary[statement.TableName].FullName).OwnMembers.Where(member => member.Name == filterMemberName).FirstOrDefault() == null)
-            {
+            if (!_tablesDictionary.ContainsKey(statement.TableName))
+                throw new ArgumentException(statement.TableName);
+            var fullName = _tablesDictionary[statement.TableName].FullName;
+            if (XafTypesInfo.Instance.FindTypeInfo(fullName).OwnMembers.Where(member => member.Name == filterMemberName).FirstOrDefault() == null) {
                 return statement.SubNodes[0].Alias;
             }
             return statement.Alias;
@@ -197,7 +199,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
         private bool IsSystemTable(string name) {
             bool ret = false;
             if (Application == null || Application.Model == null)
-                return ret;
+                return false;
 
             foreach (IModelFilterDataStoreSystemTable systemTable in ((IModelApplicationFilterDataStore)Application.Model).FilterDataStoreSystemTables) {
                 if (systemTable.Name == name)
@@ -211,7 +213,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
             if (_tablesDictionary.ContainsKey(tableName)) {
                 IModelClass modelClass = GetModelClass(tableName);
-                if (modelClass != null &&((IModelClassDisabledDataStoreFilters)modelClass).DisabledDataStoreFilters.Where(
+                if (modelClass != null && ((IModelClassDisabledDataStoreFilters)modelClass).DisabledDataStoreFilters.Where(
                         childNode => childNode.Name == providerName).FirstOrDefault() != null) ret = true;
             }
             return ret;

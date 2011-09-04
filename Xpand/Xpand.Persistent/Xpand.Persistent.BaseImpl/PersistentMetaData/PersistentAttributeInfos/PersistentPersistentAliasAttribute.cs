@@ -23,9 +23,9 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             }
         }
 
-        public override AttributeInfo Create() {
+        public override AttributeInfoAttribute Create() {
             return
-                new AttributeInfo(typeof(PersistentAliasAttribute).GetConstructor(new[] { typeof(string) }),
+                new AttributeInfoAttribute(typeof(PersistentAliasAttribute).GetConstructor(new[] { typeof(string) }),
                                   AliasExpression);
         }
     }

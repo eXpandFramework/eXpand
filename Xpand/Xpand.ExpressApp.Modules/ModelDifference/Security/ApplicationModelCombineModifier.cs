@@ -1,6 +1,5 @@
-namespace Xpand.ExpressApp.ModelDifference.Security{
-    public enum ApplicationModelCombineModifier
-    {
-        Allow,Deny
+namespace Xpand.ExpressApp.ModelDifference.Security {
+    public enum ApplicationModelCombineModifier {
+        Allow, Deny
     }
 }

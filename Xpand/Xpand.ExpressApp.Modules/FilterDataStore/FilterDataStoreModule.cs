@@ -1,8 +1,9 @@
-﻿using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.FilterDataStore.Core;
+﻿using System.ComponentModel;
+using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.FilterDataStore.Model;
 
 namespace Xpand.ExpressApp.FilterDataStore {
+    [ToolboxItem(false)]
     public sealed partial class FilterDataStoreModule : XpandModuleBase {
         public FilterDataStoreModule() {
             InitializeComponent();

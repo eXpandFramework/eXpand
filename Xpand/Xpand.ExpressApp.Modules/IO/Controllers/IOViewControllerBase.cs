@@ -78,9 +78,10 @@ namespace Xpand.ExpressApp.IO.Controllers {
             var dialogController = new DialogController { SaveOnAccept = false };
             dialogController.AcceptAction.Execute += (sender1, args) => {
                 var memoryStream = new MemoryStream();
-                ((IXmlFileChooser)args.CurrentObject).FileData.SaveToStream(memoryStream);
+                var xmlFileChooser = ((IXmlFileChooser)args.CurrentObject);
+                xmlFileChooser.FileData.SaveToStream(memoryStream);
                 using (var unitOfWork = new UnitOfWork(objectSpace.Session.DataLayer)) {
-                    new ImportEngine().ImportObjects(memoryStream, unitOfWork);
+                    new ImportEngine(xmlFileChooser.ErrorHandling).ImportObjects(memoryStream, new ObjectSpace(unitOfWork));
                 }
             };
             ((ISupportConfirmationRequired)Application).ConfirmationRequired += OnConfirmationRequired;

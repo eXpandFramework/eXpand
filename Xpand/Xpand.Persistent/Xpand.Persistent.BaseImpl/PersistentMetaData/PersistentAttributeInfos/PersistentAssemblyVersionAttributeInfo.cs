@@ -25,10 +25,10 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             }
         }
 
-        public override AttributeInfo Create() {
+        public override AttributeInfoAttribute Create() {
             ConstructorInfo constructorInfo =
                 typeof(AssemblyVersionAttribute).GetConstructor(new[] { typeof(string) });
-            return new AttributeInfo(constructorInfo, new object[] { Version });
+            return new AttributeInfoAttribute(constructorInfo, new object[] { Version });
         }
     }
 }

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SerializedObjects>
+  <SerializedObject type="ModelDifferenceObject">
+    <Property type="simple" name="oid" isKey="true">2a07f16c-8ecb-4be3-b30d-90bb34d8c5fa</Property>
+    <Property type="simple" name="DateCreated1" isKey="false">13/2/2010 12:02:54 μμ</Property>
+  </SerializedObject>
+
+</SerializedObjects>

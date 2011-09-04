@@ -48,6 +48,9 @@ namespace Xpand.Xpo {
                         return new DateTime(val);
                 }
             } else if (value.GetType() != conversionType) {
+                if (conversionType.IsNullableType()) {
+                    return ChangeType(value, conversionType.GetGenericArguments()[0], cultureInfo);
+                }
                 if (conversionType.IsGenericType) {
                     return value;
                 }

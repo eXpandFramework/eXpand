@@ -78,7 +78,7 @@
     <Reference Include="DevExpress.DXCore.Parser, Version=10.2.3.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.Utils, Version=10.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Utils, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
@@ -132,12 +132,16 @@
     <Compile Include="Extensioons\PropertyExtensions.cs" />
     <Compile Include="ModelEditor\GridBinder.cs" />
     <Compile Include="ModelEditor\ModelEditorRunner.cs" />
-    <Compile Include="Options.cs" />
+    <Compile Include="Options.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
     <Compile Include="OptionsStorageExtensions.cs" />
-    <Compile Include="PlugIn1.cs" />
+    <Compile Include="PlugIn1.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PlugIn1.Designer.cs">
       <DependentUpon>PlugIn1.cs</DependentUpon>
     </Compile>
@@ -155,7 +159,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ReverseLineReader.cs" />
-    <Compile Include="ModelEditor\METoolWindow.cs" />
+    <Compile Include="ModelEditor\METoolWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ModelEditor\METoolWindow.Designer.cs">
       <DependentUpon>METoolWindow.cs</DependentUpon>
     </Compile>

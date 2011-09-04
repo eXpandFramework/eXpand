@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel;
+using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
@@ -11,6 +13,7 @@ using Xpand.ExpressApp.SystemModule;
 
 
 namespace Xpand.ExpressApp.ModelDifference {
+    [ToolboxItem(false)]
     public sealed class ModelDifferenceModule : XpandModuleBase {
         XpoUserModelDictionaryDifferenceStore _xpoUserModelDictionaryDifferenceStore;
 
@@ -22,7 +25,7 @@ namespace Xpand.ExpressApp.ModelDifference {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
 
-            if (Application != null && Application.Security != null) {
+            if (RuntimeMode) {
                 if (Application.Security is ISecurityComplex)
                     RoleDifferenceObjectBuilder.CreateDynamicRoleMember((ISecurityComplex)Application.Security);
 
@@ -38,7 +41,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             base.Setup(application);
             if (application != null && !DesignMode) {
                 if (!(application is ISupportModelsManager))
-                    throw new NotImplementedException("Implement " + typeof(ISupportModelsManager).FullName + " at your " + Application.GetType().FullName);
+                    throw new NotImplementedException("Implement " + typeof(ISupportModelsManager).FullName + " at your " + Application.GetType().FullName + " descenant");
                 application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;
             }
         }

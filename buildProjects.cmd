@@ -25,7 +25,6 @@ call buildproject.cmd Xpand.ExpressApp.ArtifactState ".\Xpand\Xpand.ExpressApp.M
 call buildproject.cmd Xpand.ExpressApp.ConditionalActionState ".\Xpand\Xpand.ExpressApp.Modules\ConditionalActionState\Xpand.ExpressApp.ConditionalActionState.csproj"
 call buildproject.cmd Xpand.ExpressApp.ConditionalControllerState ".\Xpand\Xpand.ExpressApp.Modules\ConditionalControllerState\Xpand.ExpressApp.ConditionalControllerState.csproj"
 call buildproject.cmd Xpand.ExpressApp.ModelArtifactState ".\Xpand\Xpand.ExpressApp.Modules\ModelArtifactState\Xpand.ExpressApp.ModelArtifactState.csproj"
-call buildproject.cmd Xpand.ExpressApp.ModelArtifactState.Win ".\Xpand\Xpand.ExpressApp.Modules\ModelArtifactState.Win\Xpand.ExpressApp.ModelArtifactState.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.WizardUI.Win ".\Xpand\Xpand.ExpressApp.Modules\WizardUI.Win\Xpand.ExpressApp.WizardUI.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.ViewVariants ".\Xpand\Xpand.ExpressApp.Modules\ViewVariants\Xpand.ExpressApp.ViewVariants.csproj"
 call buildproject.cmd Xpand.ExpressApp.MasterDetail ".\Xpand\Xpand.ExpressApp.Modules\MasterDetail\Xpand.ExpressApp.MasterDetail.csproj"
@@ -55,6 +54,7 @@ call buildproject.cmd Xpand.Persistent.BaseImpl ".\Xpand\Xpand.Persistent\Xpand.
 call buildproject.cmd Xpand.ExpressApp.JobScheduler.Jobs ".\Xpand\Xpand.ExpressApp.Modules\JobScheduler.Jobs\Xpand.ExpressApp.JobScheduler.Jobs.csproj"
 call buildproject.cmd Xpand.ExpressApp.ImportWizard ".\Xpand\Xpand.ExpressApp.Modules\ImportWizard\Xpand.ExpressApp.ImportWizard.csproj"
 call buildproject.cmd Xpand.ExpressApp.ImportWizard.Win ".\Xpand\Xpand.ExpressApp.Modules\ImportWizard.Win\Xpand.ExpressApp.ImportWizard.Win.csproj"
+call buildproject.cmd Xpand.ExpressApp.Workflow ".\Xpand\Xpand.ExpressApp.Modules\Workflow\Xpand.ExpressApp.Workflow.csproj"
 
 echo Building Xpand.Quartz.Server...
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Xpand\Xpand.ExpressApp.Modules\Quartz.Server\Xpand.Quartz.Server.csproj"

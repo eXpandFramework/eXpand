@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.ArtifactState.Model;
@@ -8,6 +9,8 @@ using Xpand.ExpressApp.Logic.Model;
 using Xpand.ExpressApp.Validation;
 
 namespace Xpand.ExpressApp.ConditionalControllerState {
+    
+    [ToolboxItem(false)]
     public sealed class ConditionalControllerStateModule : LogicModuleBase<IControllerStateRule, ControllerStateRule>{
         public ConditionalControllerStateModule() {
             RequiredModuleTypes.Add(typeof (XpandValidationModule));

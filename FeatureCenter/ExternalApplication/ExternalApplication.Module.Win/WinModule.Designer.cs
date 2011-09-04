@@ -38,7 +38,7 @@ namespace ExternalApplication.Module.Win
             // 
             // ExternalApplicationWindowsFormsModule
             // 
-            AdditionalBusinessClassAssemblies.Add(typeof(Xpand.Persistent.BaseImpl.ImportExport.ClassInfoGraphNode).Assembly);
+            
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
             this.RequiredModuleTypes.Add(typeof(ModelDifferenceWindowsFormsModule));

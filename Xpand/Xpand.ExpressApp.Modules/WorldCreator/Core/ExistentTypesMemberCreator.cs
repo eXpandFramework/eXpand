@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             var types = CreateCollectionMembers(session);
             types.AddRange(CreateReferenceMembers(session));
             types.AddRange(CreateCoreMembers(session));
-            
+
             foreach (var type in types) {
                 XpandModuleBase.TypesInfo.RefreshInfo(type);
             }
@@ -23,11 +23,12 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         public IEnumerable<IExtendedMemberInfo> GetMembers(Session session, Type infoType) {
             IEnumerable<IExtendedMemberInfo> extendedMemberInfos = new XPCollection(session, infoType).Cast<IExtendedMemberInfo>();
-            return extendedMemberInfos.Where(info => !memberExists(info));
+            return extendedMemberInfos.Where(info => !MemberExists(info));
         }
 
-        private bool memberExists(IExtendedMemberInfo info) {
-            return XpandModuleBase.TypesInfo.FindTypeInfo(info.Owner).FindMember(info.Name) != null;
+        private bool MemberExists(IExtendedMemberInfo info) {
+            var typeInfo = XpandModuleBase.TypesInfo.FindTypeInfo(info.Owner);
+            return typeInfo != null && typeInfo.FindMember(info.Name) != null;
         }
 
         public List<Type> CreateCollectionMembers(Session session) {
@@ -36,19 +37,24 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             var types = new List<Type>();
             foreach (var info in collection) {
                 XPCustomMemberInfo member = GetXPCustomMemberInfo(info);
-                CreateAttributes(info, member);
-                types.Add(info.Owner);
+                if (member != null) {
+                    CreateAttributes(info, member);
+                    types.Add(info.Owner);
+                }
             }
             return types;
         }
 
         XPCustomMemberInfo GetXPCustomMemberInfo(IExtendedCollectionMemberInfo info) {
-            var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(info.Owner);
-            if (!(info is IExtendedOrphanedCollection)) {
-                return classInfo.CreateMember(info.Name, typeof(XPCollection), true);
+            if (info.Owner != null) {
+                var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(info.Owner);
+                if (!(info is IExtendedOrphanedCollection)) {
+                    return classInfo.CreateMember(info.Name, typeof(XPCollection), true);
+                }
+                var extendedOrphanedCollection = ((IExtendedOrphanedCollection)info);
+                return classInfo.CreateCollection(info.Name, ReflectionHelper.FindType(extendedOrphanedCollection.ElementTypeFullName), extendedOrphanedCollection.Criteria);
             }
-            var extendedOrphanedCollection = ((IExtendedOrphanedCollection)info);
-            return classInfo.CreateCollection(info.Name, ReflectionHelper.FindType(extendedOrphanedCollection.ElementTypeFullName), extendedOrphanedCollection.Criteria);
+            return null;
         }
 
         public List<Type> CreateReferenceMembers(Session session) {
@@ -57,33 +63,40 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             foreach (var info in xpCollection.Cast<IExtendedReferenceMemberInfo>()) {
                 var referenceType = info.ReferenceType;
                 var member = GetMember(info, referenceType);
-                CreateAttributes(info, member);
-                types.Add(referenceType);
+                if (member != null) {
+                    CreateAttributes(info, member);
+                    types.Add(referenceType);
+                }
             }
             return types;
         }
 
-        public List<Type> CreateCoreMembers(Session session){
+        public List<Type> CreateCoreMembers(Session session) {
             var types = new List<Type>();
             var memberInfos = GetMembers(session, WCTypesInfo.Instance.FindBussinessObjectType<IExtendedCoreTypeMemberInfo>());
-            foreach (var info in memberInfos.Cast<IExtendedCoreTypeMemberInfo>()){
+            foreach (var info in memberInfos.Cast<IExtendedCoreTypeMemberInfo>()) {
                 var referenceType = Type.GetType("System." + info.DataType, true);
-                var member = GetMember(info,referenceType);
-                CreateAttributes(info, member);
-                types.Add(info.Owner);
+                var member = GetMember(info, referenceType);
+                if (member != null) {
+                    CreateAttributes(info, member);
+                    types.Add(info.Owner);
+                }
             }
             return types;
         }
 
         XPCustomMemberInfo GetMember(IExtendedMemberInfo info, Type referenceType) {
-            var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(info.Owner);
-            return info.TypeAttributes.OfType<IPersistentPersistentAliasAttribute>().FirstOrDefault() == null
-                       ? classInfo.CreateMember(info.Name, referenceType)
-                       : classInfo.CreateCalculabeMember(info.Name, referenceType);
+            if (info.Owner != null) {
+                var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(info.Owner);
+                return info.TypeAttributes.OfType<IPersistentPersistentAliasAttribute>().FirstOrDefault() == null
+                           ? classInfo.CreateMember(info.Name, referenceType)
+                           : classInfo.CreateCalculabeMember(info.Name, referenceType);
+            }
+            return null;
         }
 
         public void CreateAttributes(IExtendedMemberInfo extendedMemberInfo, XPCustomMemberInfo memberInfo) {
-            foreach (AttributeInfo attributeInfo in extendedMemberInfo.TypeAttributes.Select(typeAttribute => typeAttribute.Create())) {
+            foreach (AttributeInfoAttribute attributeInfo in extendedMemberInfo.TypeAttributes.Select(typeAttribute => typeAttribute.Create())) {
                 memberInfo.AddAttribute((Attribute)ReflectionHelper.CreateObject(attributeInfo.Constructor.DeclaringType, attributeInfo.InitializedArgumentValues));
             }
         }

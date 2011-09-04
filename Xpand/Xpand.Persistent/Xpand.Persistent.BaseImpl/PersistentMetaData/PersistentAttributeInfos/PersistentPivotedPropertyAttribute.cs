@@ -28,9 +28,9 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             set { SetPropertyValue("AssociatedMemberName", ref _associatedMemberName, value); }
         }
 
-        public override AttributeInfo Create() {
+        public override AttributeInfoAttribute Create() {
             return
-                new AttributeInfo(
+                new AttributeInfoAttribute(
                     typeof (PivotedPropertyAttribute).GetConstructor(new[] {typeof (string), typeof (string),typeof(string)}),
                     CollectionName, Criteria,AssociatedMemberName);
         }

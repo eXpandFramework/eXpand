@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Drawing;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Utils;
@@ -6,8 +7,9 @@ using DevExpress.Utils;
 namespace Xpand.ExpressApp.TreeListEditors.Win {
     [Description(
         "Includes Property Editors and Controllers to DevExpress.ExpressApp.TreeListEditors.Win Module.Enables recursive filtering"
-        ), ToolboxTabName("eXpressApp"), EditorBrowsable(EditorBrowsableState.Always), Browsable(true),
-     ToolboxItem(true)]
+        ), ToolboxTabName("eXpressApp"), EditorBrowsable(EditorBrowsableState.Always)]
+    [ToolboxBitmap(typeof(XpandTreeListEditorsWinModule))]
+    [ToolboxItem(true)]
     public sealed partial class XpandTreeListEditorsWinModule : XpandModuleBase, IModelXmlConverter {
         public XpandTreeListEditorsWinModule() {
             InitializeComponent();

@@ -10,13 +10,13 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         PersistentClassInfo _owner;
 
 
-        protected PersistentMemberInfo(Session session) : base(session) {
+        protected PersistentMemberInfo(Session session)
+            : base(session) {
         }
         [VisibleInDetailView(false)]
         [VisibleInListView(true)]
         [Custom("GroupIndex", "0")]
-        public string TypeInfoName
-        {
+        public string TypeInfoName {
             get { return GetType().Name.Replace("Persistent", ""); }
         }
         [VisibleInListView(false)]

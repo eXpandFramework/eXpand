@@ -1,7 +1,5 @@
-namespace Xpand.ExpressApp.ViewVariants
-{
-    partial class XpandViewVariantsModule
-    {
+namespace Xpand.ExpressApp.ViewVariants {
+    partial class XpandViewVariantsModule {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@ namespace Xpand.ExpressApp.ViewVariants
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,12 +22,12 @@ namespace Xpand.ExpressApp.ViewVariants
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             // 
             // 
             // 
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.SystemModule.XpandSystemModule));
 
         }
 

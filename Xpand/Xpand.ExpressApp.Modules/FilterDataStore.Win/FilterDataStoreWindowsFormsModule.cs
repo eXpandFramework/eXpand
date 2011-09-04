@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win.SystemModule;
@@ -7,6 +9,8 @@ using Xpand.ExpressApp.FilterDataStore.Core;
 using Xpand.ExpressApp.FilterDataStore.Win.Providers;
 
 namespace Xpand.ExpressApp.FilterDataStore.Win {
+    [ToolboxBitmap(typeof(FilterDataStoreWindowsFormsModule))]
+    [ToolboxItem(true)]
     public sealed partial class FilterDataStoreWindowsFormsModule : FilterDataStoreModuleBase {
         public FilterDataStoreWindowsFormsModule() {
             InitializeComponent();

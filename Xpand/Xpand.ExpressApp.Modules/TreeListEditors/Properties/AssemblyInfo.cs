@@ -1,14 +1,15 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Xpand.ExpressApp.TreeListEditors.Win")]
+[assembly: AssemblyTitle("Xpand.ExpressApp.TreeListEditors")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("-")]
-[assembly: AssemblyProduct("Xpand.ExpressApp.TreeListEditors.Win")]
+[assembly: AssemblyProduct("Xpand.ExpressApp.TreeListEditors")]
 [assembly: AssemblyCopyright("Copyright � - 2007")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -31,3 +32,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion(Xpand.AssemblyInfo.Version)]
 
 
+[assembly: AllowPartiallyTrustedCallers]

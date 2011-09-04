@@ -6,12 +6,14 @@ using System.Linq;
 using System.Security;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.MemberLevelSecurity {
-    
+
 
     [NonPersistent]
+    [DefaultProperty("Name")]
     public class MemberAccessPermission : PermissionBase {
         internal readonly MemberAccessItemList items = new MemberAccessItemList();
 
@@ -31,7 +33,11 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
             Modifier = modifier;
         }
 
-        [TypeConverter(typeof (PermissionTargetBusinessClassListConverter))]
+        public string Name {
+            get { return ToString(); }
+        }
+
+        [TypeConverter(typeof(PermissionTargetBusinessClassListConverter))]
         public Type ObjectType {
             get { return GetDesignModeItem().ObjectType; }
             set { GetDesignModeItem().ObjectType = value; }
@@ -41,7 +47,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
             get { return GetDesignModeItem().MemberName; }
             set { GetDesignModeItem().MemberName = value; }
         }
-
+        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.NotEquals, MemberOperation.NotAssigned)]
         public MemberOperation Operation {
             get { return GetDesignModeItem().Operation; }
             set { GetDesignModeItem().Operation = value; }
@@ -72,23 +78,22 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
         }
 
         public override IPermission Union(IPermission target) {
-            var result = (MemberAccessPermission) Copy();
-            var memberAccessPermissionItems = ((MemberAccessPermission) target).CloneItems();
+            var result = (MemberAccessPermission)Copy();
+            var memberAccessPermissionItems = ((MemberAccessPermission)target).CloneItems();
             foreach (var memberAccessPermissionItem in memberAccessPermissionItems) {
-                result.items.Add(memberAccessPermissionItem);    
+                result.items.Add(memberAccessPermissionItem);
             }
-            
+
             return result;
         }
 
         public override bool IsSubsetOf(IPermission target) {
             if (base.IsSubsetOf(target)) {
                 var memberAccessPermissionItem = items[0];
-                foreach (MemberAccessPermissionItem targetItem in ((MemberAccessPermission) target).items) {
+                foreach (MemberAccessPermissionItem targetItem in ((MemberAccessPermission)target).items) {
                     if (targetItem.ObjectType == memberAccessPermissionItem.ObjectType
                         && targetItem.MemberName == memberAccessPermissionItem.MemberName
-                        && targetItem.Operation == memberAccessPermissionItem.Operation)
-                    {
+                        && targetItem.Operation == memberAccessPermissionItem.Operation) {
                         return targetItem.Modifier == memberAccessPermissionItem.Modifier;
                     }
                 }
@@ -103,8 +108,8 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
             itemElement.AddAttribute("Operation", Operation.ToString());
             itemElement.AddAttribute("ObjectType", (ObjectType != null) ? ObjectType.ToString() : "");
             itemElement.AddAttribute("Modifier", Modifier.ToString());
-            itemElement.AddAttribute("MemberName", MemberName+"");
-            itemElement.AddAttribute("Criteria", Criteria+"");
+            itemElement.AddAttribute("MemberName", MemberName + "");
+            itemElement.AddAttribute("Criteria", Criteria + "");
             result.AddChild(itemElement);
             return result;
         }
@@ -115,156 +120,142 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
                 if (element.Children.Count != 1) {
                     throw new InvalidOperationException();
                 }
-                var childElement = (SecurityElement) element.Children[0];
+                var childElement = (SecurityElement)element.Children[0];
                 ObjectType = ReflectionHelper.FindType(childElement.Attributes["ObjectType"].ToString());
                 Operation =
                     (MemberOperation)
-                    Enum.Parse(typeof (MemberOperation), childElement.Attributes["Operation"].ToString());
+                    Enum.Parse(typeof(MemberOperation), childElement.Attributes["Operation"].ToString());
                 Modifier =
                     (ObjectAccessModifier)
-                    Enum.Parse(typeof (ObjectAccessModifier), childElement.Attributes["Modifier"].ToString());
+                    Enum.Parse(typeof(ObjectAccessModifier), childElement.Attributes["Modifier"].ToString());
                 MemberName = childElement.Attributes["MemberName"].ToString();
                 Criteria = childElement.Attributes["Criteria"].ToString();
             }
         }
 
         public override string ToString() {
-            return ((ObjectType != null) ? ObjectType.Name : "N/A") + "." + MemberName + " - " + Modifier + " " +Operation+" "+Criteria;
+            var s = ((ObjectType != null) ? ObjectType.Name : "N/A") + "." + MemberName + " - " + Modifier + " " + Operation + " " + Criteria;
+            return s;
         }
 
         public override IPermission Copy() {
             var result = new MemberAccessPermission();
             var memberAccessPermissionItems = CloneItems();
             foreach (var memberAccessPermissionItem in memberAccessPermissionItems) {
-                result.items.Add(memberAccessPermissionItem);    
+                result.items.Add(memberAccessPermissionItem);
             }
             return result;
         }
 
 
     }
-    public class MemberAccessItemList : IEnumerable<MemberAccessPermissionItem>
-    {
+    public class MemberAccessItemList : IEnumerable<MemberAccessPermissionItem> {
         internal List<MemberAccessPermissionItem> items = new List<MemberAccessPermissionItem>();
         public MemberAccessItemList() { }
-        public MemberAccessItemList(MemberAccessItemList itemList)
-        {
+        public MemberAccessItemList(MemberAccessItemList itemList) {
             Add(itemList);
         }
-        public void Add(MemberAccessPermissionItem item)
-        {
-            if (item == null)
-            {
+        public void Add(MemberAccessPermissionItem item) {
+            if (item == null) {
                 throw new ArgumentNullException();
             }
             items.Add(item);
         }
-        public void Remove(MemberAccessPermissionItem item)
-        {
+        public void Remove(MemberAccessPermissionItem item) {
             if (item != null)
                 items.Remove(item);
         }
-        public void Add(MemberAccessItemList itemList)
-        {
-            foreach (MemberAccessPermissionItem item in itemList)
-            {
+        public void Add(MemberAccessItemList itemList) {
+            foreach (MemberAccessPermissionItem item in itemList) {
                 Add(item);
             }
         }
 
-        public MemberAccessPermissionItem FindAccessItem(Type objectType, ObjectAccess access)
-        {
+        public MemberAccessPermissionItem FindAccessItem(Type objectType, ObjectAccess access) {
             return null;
-//            Type currentType = objectType;
-//            while (true)
-//            {
-//                bool needToCheckPersistentBaseObjectTypePermission = true;
-//                if (currentType != null && currentType.BaseType != null &&
-//                    PermissionTargetBusinessClassListConverter.PersistentBaseObjectType.IsAssignableFrom(currentType.BaseType))
-//                {
-//                    needToCheckPersistentBaseObjectTypePermission = false;
-//                }
-//                if (needToCheckPersistentBaseObjectTypePermission && PermissionTargetBusinessClassListConverter.PersistentBaseObjectType.IsAssignableFrom(currentType))
-//                {
-//                    ParticularAccessItem persistentBaseObjectItem = FindExactItem(PermissionTargetBusinessClassListConverter.PersistentBaseObjectType, access);
-//                    if (persistentBaseObjectItem != null)
-//                    {
-//                        return persistentBaseObjectItem;
-//                    }
-//                }
-//                ParticularAccessItem item = FindExactItem(currentType, access);
-//                if (item != null)
-//                {
-//                    return item;
-//                }
-//                if ((currentType != null) && currentType.IsInterface)
-//                {
-//                    currentType = typeof(object);
-//                }
-//                else
-//                {
-//                    if ((currentType == null) || (currentType == typeof(object)))
-//                    {
-//                        break;
-//                    }
-//                    currentType = currentType.BaseType;
-//                }
-//            }
-//            return null;
+            //            Type currentType = objectType;
+            //            while (true)
+            //            {
+            //                bool needToCheckPersistentBaseObjectTypePermission = true;
+            //                if (currentType != null && currentType.BaseType != null &&
+            //                    PermissionTargetBusinessClassListConverter.PersistentBaseObjectType.IsAssignableFrom(currentType.BaseType))
+            //                {
+            //                    needToCheckPersistentBaseObjectTypePermission = false;
+            //                }
+            //                if (needToCheckPersistentBaseObjectTypePermission && PermissionTargetBusinessClassListConverter.PersistentBaseObjectType.IsAssignableFrom(currentType))
+            //                {
+            //                    ParticularAccessItem persistentBaseObjectItem = FindExactItem(PermissionTargetBusinessClassListConverter.PersistentBaseObjectType, access);
+            //                    if (persistentBaseObjectItem != null)
+            //                    {
+            //                        return persistentBaseObjectItem;
+            //                    }
+            //                }
+            //                ParticularAccessItem item = FindExactItem(currentType, access);
+            //                if (item != null)
+            //                {
+            //                    return item;
+            //                }
+            //                if ((currentType != null) && currentType.IsInterface)
+            //                {
+            //                    currentType = typeof(object);
+            //                }
+            //                else
+            //                {
+            //                    if ((currentType == null) || (currentType == typeof(object)))
+            //                    {
+            //                        break;
+            //                    }
+            //                    currentType = currentType.BaseType;
+            //                }
+            //            }
+            //            return null;
         }
-//        public void PackItems()
-//        {
-//            if (items.Count > 1)
-//            {
-//                var result = new ObjectAccessItemList();
-//                foreach (ParticularAccessItem item in items)
-//                {
-//                    ParticularAccessItem resultItem = result.FindExactItem(item.ObjectType, item.Access);
-//                    if (resultItem == null)
-//                    {
-//                        result.Add(item);
-//                    }
-//                    else
-//                    {
-//                        if (item.Modifier == ObjectAccessModifier.Deny)
-//                        {
-//                            resultItem.Modifier = ObjectAccessModifier.Deny;
-//                        }
-//                    }
-//                }
-//                items.Clear();
-//                foreach (ParticularAccessItem item in result.items)
-//                {
-//                    Add(item);
-//                }
-//            }
-//        }
-        public bool IsEmpty
-        {
+        //        public void PackItems()
+        //        {
+        //            if (items.Count > 1)
+        //            {
+        //                var result = new ObjectAccessItemList();
+        //                foreach (ParticularAccessItem item in items)
+        //                {
+        //                    ParticularAccessItem resultItem = result.FindExactItem(item.ObjectType, item.Access);
+        //                    if (resultItem == null)
+        //                    {
+        //                        result.Add(item);
+        //                    }
+        //                    else
+        //                    {
+        //                        if (item.Modifier == ObjectAccessModifier.Deny)
+        //                        {
+        //                            resultItem.Modifier = ObjectAccessModifier.Deny;
+        //                        }
+        //                    }
+        //                }
+        //                items.Clear();
+        //                foreach (ParticularAccessItem item in result.items)
+        //                {
+        //                    Add(item);
+        //                }
+        //            }
+        //        }
+        public bool IsEmpty {
             get { return items.Count == 0; }
         }
-        public int Count
-        {
+        public int Count {
             get { return items.Count; }
         }
-        public void Clear()
-        {
+        public void Clear() {
             items.Clear();
         }
-        public MemberAccessPermissionItem this[int index]
-        {
+        public MemberAccessPermissionItem this[int index] {
             get { return items[index]; }
         }
-        IEnumerator<MemberAccessPermissionItem> IEnumerable<MemberAccessPermissionItem>.GetEnumerator()
-        {
+        IEnumerator<MemberAccessPermissionItem> IEnumerable<MemberAccessPermissionItem>.GetEnumerator() {
             return items.GetEnumerator();
         }
-        IEnumerator IEnumerable.GetEnumerator()
-        {
+        IEnumerator IEnumerable.GetEnumerator() {
             return items.GetEnumerator();
         }
-        public MemberAccessPermissionItem[] ToArray()
-        {
+        public MemberAccessPermissionItem[] ToArray() {
             return items.ToArray();
         }
     }

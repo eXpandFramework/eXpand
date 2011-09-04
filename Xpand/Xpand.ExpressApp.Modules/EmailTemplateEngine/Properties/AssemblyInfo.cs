@@ -36,3 +36,4 @@ using System.Security;
 [assembly: AssemblyVersion(Xpand.AssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(Xpand.AssemblyInfo.Version)]
 [assembly: SecurityRules(SecurityRuleSet.Level1, SkipVerificationInFullTrust = true)]
+[assembly: AllowPartiallyTrustedCallers]

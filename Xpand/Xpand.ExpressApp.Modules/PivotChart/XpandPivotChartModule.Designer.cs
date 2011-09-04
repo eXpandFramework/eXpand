@@ -1,8 +1,8 @@
 using DevExpress.ExpressApp.PivotChart;
+using Xpand.ExpressApp.Validation;
 
 namespace Xpand.ExpressApp.PivotChart {
-    partial class XpandPivotChartModule
-    {
+    partial class XpandPivotChartModule {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -12,10 +12,8 @@ namespace Xpand.ExpressApp.PivotChart {
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -27,10 +25,10 @@ namespace Xpand.ExpressApp.PivotChart {
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             this.RequiredModuleTypes.Add(typeof(PivotChartModuleBase));
-            
+            this.RequiredModuleTypes.Add(typeof(XpandValidationModule));
+
         }
 
         #endregion

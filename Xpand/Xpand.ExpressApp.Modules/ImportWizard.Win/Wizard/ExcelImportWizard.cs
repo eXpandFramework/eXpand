@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using DevExpress.XtraEditors;
@@ -17,6 +18,7 @@ using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.BandedGrid;
+using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraWizard;
 using DocumentFormat.OpenXml.Packaging;
@@ -62,6 +64,26 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             col = gridLookUpEdit2View.Columns.ColumnByFieldName("Oid");
             if (col != null)
                 col.Visible = false;
+
+            Localize();
+        }
+
+        void Localize() {
+            WizardControl.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Import data from Excel");
+            ImportButton.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Import Data");
+            wizardPage3.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "wizardpage3_text");
+            wizardPage2.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Save mapping ?");
+            radioGroup2.Properties.Items[0].Description = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Yes");
+            radioGroup2.Properties.Items[1].Description = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "No");
+            labelControl3.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Import map description");
+            ImportMapDescriptionEdit.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Enter description for custom import map...");
+            MappingRadioGroup.Properties.Items[0].Description = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Use existing column mapping");
+            MappingRadioGroup.Properties.Items[1].Description = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Create custom column mapping");
+            ImportMapLookUp.Properties.NullText =
+                CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Select existing column mapping...");
+            GuesMappingButton.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "GuestMappings");
+            ResetButton.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Reset Mappings");
+            MapTo.Caption = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Map To...");
         }
 
 
@@ -303,7 +325,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         private void gridControl2_DataSourceChanged() {
             //Banded Grid Control that prepared data for mapping
 
-            var bands = ((BandedGridView) MappingGrid.MainView).Bands;
+            var bands = ((BandedGridView)MappingGrid.MainView).Bands;
             var cols = (MappingGrid.MainView as BandedGridView).Columns;
 
             LookUpEdit.DataSource = MappableColumns;//.ToList();
@@ -383,12 +405,12 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             _Sheet.ColumnHeaderRow = ((CheckEdit)sender).Checked
                                          ?
                                             decimal.ToInt32(HeaderRowSpinEdit.Value)
-                                         : (int?) null;
+                                         : (int?)null;
             _Sheet.PreviewRowCount = ((CheckEdit)sender).Checked
                                          ?
                                              decimal.ToInt32(PrieviewRowCountSpinEdit.Value)
                                          :
-                                             (int?) null;
+                                             (int?)null;
             AssignDataSource();
 
         }
@@ -575,9 +597,10 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void LookUpEdit_Closed(object sender, ClosedEventArgs e) {
-            ((GridControl) ((LookUpEdit) sender).Parent).MainView.PostEditor();
-            ((GridControl) (sender as LookUpEdit).Parent).MainView.UpdateCurrentRow();
+        private void LookUpEdit_Closed(object sender, ClosedEventArgs e) {
+            BaseView mainView = ((GridControl)((LookUpEdit)sender).Parent).MainView;
+            mainView.PostEditor();
+            mainView.UpdateCurrentRow();
         }
 
         #region Import Data
@@ -590,7 +613,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
             var rowCount = Sheet.Rows().Count();
             if (Sheet.ColumnHeaderRow != null)
-                rowCount = (int) (rowCount - Sheet.ColumnHeaderRow);
+                rowCount = (int)(rowCount - Sheet.ColumnHeaderRow);
 
             _FrmProgress = new ProgressForm("Import excell rows progress...", rowCount, "Processing record {0} of {1} ");
             _FrmProgress.CancelClick += FrmProgressCancelClick;
@@ -756,7 +779,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
                             if (val != null) {
                                 //if simple property
-                                if (prop.ReferenceType == null) {
+                                if (prop.ReferenceType == null && !prop.MemberType.IsEnum) {
                                     var isNullable = prop.MemberType.IsGenericType && prop.MemberType.GetGenericTypeDefinition() == typeof(Nullable<>);
                                     object convertedValue = null;
 
@@ -780,8 +803,9 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                                             if (rez) convertedValue = number;
                                         }
                                     } else {
-
-                                        if (prop.MemberType == typeof(char))
+                                        if (prop.MemberType.IsEnum) {
+                                            prop.SetValue(newObj, Enum.Parse(prop.MemberType, val.Value));
+                                        } else if (prop.MemberType == typeof(char))
                                             convertedValue = Convert.ChangeType(GetQString(val.Value), prop.MemberType);
                                         else if (prop.MemberType == typeof(Guid))
                                             convertedValue = new Guid(GetQString(val.Value));

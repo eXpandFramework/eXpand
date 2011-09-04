@@ -140,7 +140,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 text = "(" + text + ")";
 
             var frameTemplate = Frame.Template as IViewSiteTemplate;
-            if (frameTemplate != null) AddFilterPanel(text, frameTemplate.ViewSiteControl);
+            if (frameTemplate != null && frameTemplate.ViewSiteControl != null) AddFilterPanel(text, frameTemplate.ViewSiteControl);
         }
 
         protected abstract void AddFilterPanel(string text, object viewSiteControl);
@@ -170,7 +170,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 View.CollectionSource.Criteria[filtersByCollectionWrapper.ID] = criterion;
                 return criteriaOperator;
             }
-            return criteriaOperator;
+            return null;
         }
 
         private void DialogControllerOnAccepting(object sender, DialogControllerAcceptingEventArgs args) {
@@ -212,7 +212,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
             SetActiveFilter(memberSearchWrapper, filtersByCollectionWrapper.PropertyPathFilter);
 
-            DevExpress.ExpressApp.ListView listView = Application.CreateListView(memberSearchWrapper.Id, newCollectionSource, false);
+            ListView listView = Application.CreateListView(memberSearchWrapper.Id, newCollectionSource, false);
 
             e.ShowViewParameters.CreatedView = listView;
             e.ShowViewParameters.Context = TemplateContext.PopupWindow;

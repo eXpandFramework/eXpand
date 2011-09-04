@@ -6,35 +6,30 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace Xpand.Utils
-{
-    public class XpandReflectionHelper
-    {
+namespace Xpand.Utils {
+    public class XpandReflectionHelper {
         static readonly Random random = new Random();
-        public static void Shuffle<T>(IList<T> list)
-        {
-            list.OrderBy(arg => random.Next()).Take(list.Count());
+        public static List<T> Shuffle<T>(IList<T> list) {
+            return list.OrderBy(arg => random.Next()).Take(list.Count()).ToList();
         }
+
         /// <summary>
         /// searches a type for all properties that included in another type
         /// </summary>
         /// <param name="className">the type to be searched</param>
         /// <param name="interfaceType">all properties found must implemented at this type also</param>
         /// <returns></returns>
-        public static PropertyInfo[] GetProperties(Type className, Type interfaceType)
-        {
+        public static PropertyInfo[] GetProperties(Type className, Type interfaceType) {
             var retList = new ArrayList();
             PropertyInfo[] properties = className.GetProperties();
             #region interfacePropertiesList
             var interfacePropertiesList = new ArrayList();
             PropertyInfo[] interfaceProperties = interfaceType.GetProperties();
-            foreach (PropertyInfo property in interfaceProperties)
-            {
+            foreach (PropertyInfo property in interfaceProperties) {
                 interfacePropertiesList.Add(property.Name);
             }
             #endregion
-            foreach (PropertyInfo property in properties)
-            {
+            foreach (PropertyInfo property in properties) {
                 if (interfacePropertiesList.Contains(property.Name))
                     retList.Add(property);
             }
@@ -42,11 +37,9 @@ namespace Xpand.Utils
             retList.CopyTo(propertyInfos);
             return propertyInfos;
         }
-        public static MemberInfo FindMethod(Type containerType, Type decorationAttributeType)
-        {
+        public static MemberInfo FindMethod(Type containerType, Type decorationAttributeType) {
             MethodInfo[] methods = containerType.GetMethods();
-            foreach (MethodInfo method in methods)
-            {
+            foreach (MethodInfo method in methods) {
                 object[] attributes = method.GetCustomAttributes(decorationAttributeType, false);
                 if (attributes.Length > 0)
                     return method;
@@ -54,16 +47,18 @@ namespace Xpand.Utils
             throw new MissingMethodException(containerType.Name, decorationAttributeType.Name);
         }
 
-        public static object CreateGenerik(string name, params Type[] types)
-        {
+        public static object CreateGenerik(string name, params Type[] types) {
             name = Regex.Replace(name, @"`[\d]", "", RegexOptions.Singleline | RegexOptions.IgnoreCase);
             string t = name + "`" + types.Length;
-            Type generic = Type.GetType(t).MakeGenericType(types);
-            return Activator.CreateInstance(generic);
+            var type = Type.GetType(t);
+            if (type != null) {
+                Type generic = type.MakeGenericType(types);
+                return Activator.CreateInstance(generic);
+            }
+            return null;
         }
 
-        public static PropertyInfo[] GetPropertiesAssignAbleFrom(Type className, Type assignAbleFrom)
-        {
+        public static PropertyInfo[] GetPropertiesAssignAbleFrom(Type className, Type assignAbleFrom) {
             var arrayList = new ArrayList();
             PropertyInfo[] propertyInfos = className.GetProperties();
             foreach (PropertyInfo info in propertyInfos)
@@ -75,10 +70,9 @@ namespace Xpand.Utils
             return infos;
         }
 
-        public static IEnumerable<PropertyInfo> GetExplicitProperties(Type attributeType)
-        {
+        public static IEnumerable<PropertyInfo> GetExplicitProperties(Type attributeType) {
             var explicitProperties = new List<PropertyInfo>();
-            while (attributeType.BaseType!=typeof(object)) {
+            while (attributeType != null && attributeType.BaseType != typeof(object)) {
                 explicitProperties.AddRange(from prop in attributeType.GetProperties(
                  BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)
                                             let getAccessor = prop.GetGetMethod(true)

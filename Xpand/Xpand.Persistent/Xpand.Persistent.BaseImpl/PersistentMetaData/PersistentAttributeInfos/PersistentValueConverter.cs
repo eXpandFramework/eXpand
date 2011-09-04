@@ -18,9 +18,9 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             set { SetPropertyValue("ConverterType", ref _converterType, value); }
         }
 
-        public override AttributeInfo Create() {
+        public override AttributeInfoAttribute Create() {
             ConstructorInfo constructorInfo = typeof (ValueConverterAttribute).GetConstructor(new[] {typeof (Type)});
-            return new AttributeInfo(constructorInfo, ConverterType);
+            return new AttributeInfoAttribute(constructorInfo, ConverterType);
         }
     }
 }

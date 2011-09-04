@@ -1,9 +1,11 @@
-using DevExpress.ExpressApp.Kpi;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ScriptRecorder;
+using DevExpress.ExpressApp.StateMachine;
 using Xpand.ExpressApp.ConditionalDetailViews;
 using Xpand.ExpressApp.ImportWizard;
 using Xpand.ExpressApp.JobScheduler;
 using Xpand.ExpressApp.MemberLevelSecurity;
+using Xpand.ExpressApp.Workflow;
 using Xpand.ExpressApp.WorldCreator.SqlDBMapper;
 
 namespace FeatureCenter.Module {
@@ -37,15 +39,16 @@ namespace FeatureCenter.Module {
             // 
             // Solution1Module
             // 
-            AdditionalBusinessClassAssemblies.Add(System.Reflection.Assembly.GetAssembly(typeof(global::DevExpress.Persistent.BaseImpl.Analysis)));
-            AdditionalBusinessClassAssemblies.Add(System.Reflection.Assembly.GetAssembly(typeof(global::Xpand.Persistent.BaseImpl.Updater)));
-            AdditionalBusinessClassAssemblies.Add(System.Reflection.Assembly.GetAssembly(typeof(global::Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation.ThresholdSeverity)));
+
+
+
+
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalFormatting.ConditionalFormattingModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.ValidationModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Kpi.KpiModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.SystemModule.XpandSystemModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelDifference.ModelDifferenceModule));
@@ -65,8 +68,9 @@ namespace FeatureCenter.Module {
             this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.JobSchedulerModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule));
-            this.RequiredModuleTypes.Add(typeof(KpiModule));
             this.RequiredModuleTypes.Add(typeof(ImportWizardModule));
+            this.RequiredModuleTypes.Add(typeof(StateMachineModule));
+            this.RequiredModuleTypes.Add(typeof(XpandWorkFlowModule));
         }
 
         #endregion

@@ -16,10 +16,10 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
             get { return _mapTo; }
             set { SetPropertyValue("MapTo", ref _mapTo, value); }
         }
-        public override AttributeInfo Create()
+        public override AttributeInfoAttribute Create()
         {
             return
-                new AttributeInfo(typeof(PersistentAttribute).GetConstructor(new[] { typeof(string) }),
+                new AttributeInfoAttribute(typeof(PersistentAttribute).GetConstructor(new[] { typeof(string) }),
                                   MapTo);
         }
     }

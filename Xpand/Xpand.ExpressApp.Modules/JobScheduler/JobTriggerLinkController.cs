@@ -52,7 +52,7 @@ namespace Xpand.ExpressApp.JobScheduler {
 
         IEnumerable<JobDetailTriggerInfo> CreateJobDetailInfosCore(IJobSchedulerGroupTriggerLink jobSchedulerGroupTriggerLink) {
             var jobDetails = ObjectSpace.GetObjects(View.ObjectTypeInfo.Type, ForTheSameGroup(jobSchedulerGroupTriggerLink)).OfType<IXpandJobDetail>();
-            return jobDetails.Select(detail => new JobGroupInfo(detail.Name, detail.Job.JobType, detail.Group.Name, jobSchedulerGroupTriggerLink.Trigger.Name)).OfType<JobDetailTriggerInfo>();
+            return jobDetails.Select(detail => new JobGroupInfo(detail.Name, detail.Job.JobType, detail.Group.Name, jobSchedulerGroupTriggerLink.Trigger.Name));
         }
 
         IEnumerable<JobDetailTriggerInfo> CreateJobDetailInfosCore(ISupportJobDetail supportJobDetail) {
@@ -110,7 +110,7 @@ namespace Xpand.ExpressApp.JobScheduler {
 
         void Delete() {
             supportJobDetails.OfType<ListenerInfo>().ToList().ForEach(RemoveListeners);
-            supportJobDetails.OfType<JobDetailTriggerInfo>().ToList().ForEach(UnscheduleJob);
+            supportJobDetails.ToList().ForEach(UnscheduleJob);
             supportJobDetails.Clear();
         }
 

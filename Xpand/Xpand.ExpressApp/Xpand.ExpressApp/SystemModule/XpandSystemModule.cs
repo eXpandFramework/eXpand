@@ -21,12 +21,23 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.SystemModule {
 
-    [ToolboxItem(true)]
-    [Description("Includes Controllers that represent basic features for XAF applications.")]
+    [ToolboxItem(false)]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(XafApplication), "Resources.SystemModule.ico")]
     public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter {
+
+
+        public XpandSystemModule() {
+            try {
+                SequenceObjectType = LoadFromBaseImpl("Xpand.Persistent.BaseImpl.SequenceObject");
+            } catch (Exception e) {
+                Tracing.Tracer.LogError(e);
+            }
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
+        }
+
         static XpandSystemModule() {
             ParametersFactory.RegisterParameter(new MonthAgoParameter());
             TranslatorProvider.RegisterProvider(new GoogleTranslatorProvider());
@@ -41,6 +52,10 @@ namespace Xpand.ExpressApp.SystemModule {
             base.Setup(moduleManager);
             if (Application != null) Application.LoggingOn += (sender, args) => InitializeSequenceGenerator();
         }
+
+        [Browsable(false)]
+        internal Type SequenceObjectType { get; set; }
+
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
@@ -74,8 +89,10 @@ namespace Xpand.ExpressApp.SystemModule {
 
         void InitializeSequenceGenerator() {
             try {
+                if (SequenceObjectType == null)
+                    throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
                 if (Application != null)
-                    SequenceGenerator.Initialize(((ISupportFullConnectionString)Application).ConnectionString);
+                    SequenceGenerator.Initialize(((ISupportFullConnectionString)Application).ConnectionString, SequenceObjectType);
             } catch (Exception e) {
                 if (e.InnerException != null)
                     throw e.InnerException;

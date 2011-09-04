@@ -27,7 +27,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             set { SetPropertyValue("Owner", ref _owner, value); }
         }
         #region IPersistentAssemblyAttributeInfo Members
-        public abstract AttributeInfo Create();
+        public abstract AttributeInfoAttribute Create();
 
         IPersistentAssemblyInfo IPersistentAssemblyAttributeInfo.Owner {
             get { return Owner; }

@@ -20,8 +20,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             get { return "DefaultClassOptions"; }
         }
         
-        public override AttributeInfo Create() {
-            return new AttributeInfo(typeof(DefaultClassOptionsAttribute).GetConstructor(new Type[0]));
+        public override AttributeInfoAttribute Create() {
+            return new AttributeInfoAttribute(typeof(DefaultClassOptionsAttribute).GetConstructor(new Type[0]));
         }
     }
 }

@@ -29,7 +29,8 @@ namespace Xpand.ExpressApp.ConditionalDetailViews.Logic {
             var previousModelController = Frame.GetController<StartUpInfoController>();
             if (previousModelController != null) {
                 _previousModel = previousModelController.PreviousModel;
-                defaultValuesRulesStorage.Add(previousModelController.ConditionalDetailViewRule, previousModelController.PreviousModel);
+                if (previousModelController.ConditionalDetailViewRule != null)
+                    defaultValuesRulesStorage.Add(previousModelController.ConditionalDetailViewRule, previousModelController.PreviousModel);
             }
         }
 
@@ -51,7 +52,7 @@ namespace Xpand.ExpressApp.ConditionalDetailViews.Logic {
             var startUpInfoController = new StartUpInfoController(true);
             var viewId = Application.FindDetailViewId(o, View);
             var conditionalDetailViewRules = LogicRuleManager<IConditionalDetailViewRule>.Instance[View.ObjectTypeInfo];
-            var viewEditMode = (View is DetailView?((DetailView)View).ViewEditMode : (ViewEditMode?) null);
+            var viewEditMode = (View is DetailView ? ((DetailView)View).ViewEditMode : (ViewEditMode?)null);
             var validModelLogicRules = conditionalDetailViewRules.Where(rule => IsValidRule(rule, new ViewInfo(viewId, true, true, View.ObjectTypeInfo, viewEditMode)));
             foreach (var validModelLogicRule in validModelLogicRules) {
                 startUpInfoController.PreviousModel = validModelLogicRule.View;

@@ -51,7 +51,8 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         protected void ClearDoNotLoadWhenFilterExistsCriteria() {
-            View.CollectionSource.Criteria[LoadWhenFiltered] = null;
+            if (!ReferenceEquals(View.CollectionSource.Criteria[LoadWhenFiltered], null))
+                View.CollectionSource.Criteria[LoadWhenFiltered] = null;
         }
 
     }

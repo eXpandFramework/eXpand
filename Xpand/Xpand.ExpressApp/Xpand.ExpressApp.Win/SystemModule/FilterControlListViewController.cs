@@ -2,9 +2,11 @@
 using System.ComponentModel;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
@@ -62,10 +64,14 @@ Forms.DockStyle.None) {
             _xpandFilterControl = new Editors.XpandFilterControl {
                 Height = 150,
                 Dock = ((IModelListViewFilterControlSettings)View.Model).FilterControlPosition,
-                SourceControl = gridControl
+                SourceControl = gridControl,
+                UseMenuForOperandsAndOperators = false,
+                AllowAggregateEditing = FilterControlAllowAggregateEditing.AggregateWithCondition
             };
+            IFilterColumnCollectionHelper helper = new FilterColumnCollectionHelper(Application, ObjectSpace, View.ObjectTypeInfo);
+            _xpandFilterControl.SetFilterColumnsCollection(new MemberInfoFilterColumnCollection(helper));
             OnCustomAssignFilterControlSourceControl(e);
-            gridControl = (GridControl) _xpandFilterControl.SourceControl ;
+            gridControl = (GridControl)_xpandFilterControl.SourceControl;
             if (!gridControl.FormsUseDefaultLookAndFeel)
                 _xpandFilterControl.LookAndFeel.Assign(gridControl.LookAndFeel);
             _xpandFilterControl.FilterCriteria = GetCriteriaFromView();
@@ -93,8 +99,10 @@ Forms.DockStyle.None) {
             }
         }
         void Frame_ViewChanged(object sender, ViewChangedEventArgs e) {
-            var control = (View.Control) as GridControl;
-            if (control != null) control.BringToFront();
+            if (View != null) {
+                var control = (View.Control) as GridControl;
+                if (control != null) control.BringToFront();
+            }
         }
 
         private CriteriaOperator GetCriteriaFromView() {

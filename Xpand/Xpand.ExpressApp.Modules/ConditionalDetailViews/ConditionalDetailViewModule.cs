@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using System.Drawing;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.ConditionalDetailViews.Logic;
@@ -7,22 +9,19 @@ using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.Model;
 using Xpand.ExpressApp.SystemModule;
 
-namespace Xpand.ExpressApp.ConditionalDetailViews
-{
-    public sealed class ConditionalDetailViewModule : LogicModuleBase<IConditionalDetailViewRule, ConditionalDetailViewRule>
-    {
-        public ConditionalDetailViewModule()
-        {
+namespace Xpand.ExpressApp.ConditionalDetailViews {
+    [ToolboxBitmap(typeof(ConditionalDetailViewModule))]
+    [ToolboxItem(true)]
+    public sealed class ConditionalDetailViewModule : LogicModuleBase<IConditionalDetailViewRule, ConditionalDetailViewRule> {
+        public ConditionalDetailViewModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(LogicModule));
         }
         #region IModelExtender Members
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelApplication, IModelApplicationConditionalDetailView>();
         }
-        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters)
-        {
+        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new ConditionalDetailViewDefaultGroupContextNodeUpdater());
             updaters.Add(new ConditionalDetailViewRulesNodeUpdater());
@@ -30,8 +29,7 @@ namespace Xpand.ExpressApp.ConditionalDetailViews
         }
         #endregion
 
-        protected override IModelLogic GetModelLogic(IModelApplication applicationModel)
-        {
+        protected override IModelLogic GetModelLogic(IModelApplication applicationModel) {
             return ((IModelApplicationConditionalDetailView)applicationModel).ConditionalDetailView;
         }
     }
