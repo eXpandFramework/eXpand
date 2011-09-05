@@ -26,9 +26,11 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
         }
 
         public override bool IsMemberModificationDenied(object targetObject, IMemberInfo memberInfo) {
-            bool firstOrDefault = memberInfo.GetPath().Select(info => !SecuritySystemExtensions.IsGranted(
-                        new MemberAccessPermission(info.Owner.Type, info.Name, MemberOperation.Write), true)).Where(b => b).FirstOrDefault();
-            if (firstOrDefault) {
+            var objectType = targetObject.GetType();
+            IMemberInfo firstOrDefault = memberInfo.GetPath().Where(info => !SecuritySystemExtensions.IsGranted(
+                    new MemberAccessPermission(objectType, info.Name, MemberOperation.Write), true)).FirstOrDefault();
+
+            if (firstOrDefault != null) {
                 return Fit(targetObject, memberInfo, MemberOperation.Write);
             }
             var securityComplex = ((SecurityBase)SecuritySystem.Instance);

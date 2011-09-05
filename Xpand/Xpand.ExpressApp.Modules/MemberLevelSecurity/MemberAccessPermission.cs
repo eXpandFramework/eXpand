@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Security;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
@@ -91,7 +92,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
             if (base.IsSubsetOf(target)) {
                 var memberAccessPermissionItem = items[0];
                 foreach (MemberAccessPermissionItem targetItem in ((MemberAccessPermission)target).items) {
-                    if (targetItem.ObjectType == memberAccessPermissionItem.ObjectType
+                    if (CheckType(memberAccessPermissionItem, targetItem)
                         && targetItem.MemberName == memberAccessPermissionItem.MemberName
                         && targetItem.Operation == memberAccessPermissionItem.Operation) {
                         return targetItem.Modifier == memberAccessPermissionItem.Modifier;
@@ -100,6 +101,12 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
                 return true;
             }
             return false;
+        }
+
+        static bool CheckType(MemberAccessPermissionItem memberAccessPermissionItem, MemberAccessPermissionItem targetItem) {
+            return (targetItem.ObjectType == memberAccessPermissionItem.ObjectType ||
+                    (XafTypesInfo.Instance.FindTypeInfo(targetItem.ObjectType).IsDomainComponent &&
+                     targetItem.ObjectType.IsAssignableFrom(memberAccessPermissionItem.ObjectType)));
         }
 
         public override SecurityElement ToXml() {
