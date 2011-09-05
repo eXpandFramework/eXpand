@@ -9,19 +9,16 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using System.Linq;
 
-namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers
-{
-    public class MemberLevelSecurityListViewViewController : ViewController<XpandListView>
-    {
+namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
+    public class MemberLevelSecurityListViewViewController : ViewController<XpandListView> {
         private GridControl gridControl;
 
 
-        protected override void OnViewControlsCreated()
-        {
+        protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             gridControl = (View.Control) as GridControl;
             if (gridControl != null) {
-                XafGridView xafGridView = ((GridListEditor) (View).Editor).GridView;
+                XafGridView xafGridView = ((GridListEditor)(View).Editor).GridView;
                 xafGridView.CustomRowCellEdit += CustomRowCellEdit;
                 xafGridView.ShowingEditor += XafGridViewOnShowingEditor;
             }
@@ -35,16 +32,13 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers
             cancelEventArgs.Cancel = canNotWrite;
         }
 
-
-
         bool CanNotRead(string propertyName, object currentObject) {
-            bool content = !(View.ObjectTypeInfo.FindMember(propertyName) == null || DataManipulationRight.CanRead(View.ObjectTypeInfo.Type, propertyName, null,View.CollectionSource));
-            var fit=((MemberLevelObjectAccessComparer)ObjectAccessComparerBase.CurrentComparer).Fit(currentObject,MemberOperation.Read);
+            bool content = !(View.ObjectTypeInfo.FindMember(propertyName) == null || DataManipulationRight.CanRead(View.ObjectTypeInfo.Type, propertyName, null, View.CollectionSource));
+            var fit = ((MemberLevelObjectAccessComparer)ObjectAccessComparerBase.CurrentComparer).Fit(currentObject, View.ObjectTypeInfo.FindMember(propertyName), MemberOperation.Read);
             return content && fit;
         }
 
-        private void CustomRowCellEdit(object sender, CustomRowCellEditEventArgs e)
-        {
+        private void CustomRowCellEdit(object sender, CustomRowCellEditEventArgs e) {
             if (View == null) return;
             var gridView = ((GridView)sender);
             var baseObject = gridView.GetRow(e.RowHandle);
@@ -53,11 +47,11 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers
             IMemberInfo memberInfo = View.ObjectTypeInfo.FindMember(e.Column.FieldName);
             IModelColumn modelColumn = GetModelColumn(memberInfo);
             if (modelColumn != null)
-                e.RepositoryItem = ((GridListEditor)View.Editor).RepositoryFactory.CreateRepositoryItem(canNotRead , modelColumn, View.ObjectTypeInfo.Type);
+                e.RepositoryItem = ((GridListEditor)View.Editor).RepositoryFactory.CreateRepositoryItem(canNotRead, modelColumn, View.ObjectTypeInfo.Type);
         }
 
         IModelColumn GetModelColumn(IMemberInfo memberInfo) {
-            return View.Model.Columns.Where(column =>column.ModelMember!=null&& column.ModelMember.MemberInfo == memberInfo).SingleOrDefault();
+            return View.Model.Columns.Where(column => column.ModelMember != null && column.ModelMember.MemberInfo == memberInfo).SingleOrDefault();
         }
 
         bool CanNotWrite(string fieldName, object baseObject) {

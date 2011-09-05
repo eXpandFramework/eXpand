@@ -19,8 +19,6 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
             TargetObjectType = typeof(ModelDifferenceObject);
         }
 
-
-
         private void combineSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
             var modelDifferenceObjects = e.SelectedObjects.OfType<ModelDifferenceObject>();
             CheckIfMixingApplications(modelDifferenceObjects);
@@ -29,23 +27,20 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
             var dialogController = new DialogController();
             e.ShowViewParameters.Controllers.Add(dialogController);
             dialogController.AcceptAction.Execute += AcceptActionOnExecute;
-
         }
 
         void CheckIfMixingApplications(IEnumerable<ModelDifferenceObject> modelDifferenceObjects) {
-            if (modelDifferenceObjects.GroupBy(o => o.PersistentApplication.UniqueName).Count() > 1)
+            var differenceObjects = modelDifferenceObjects;
+            if (differenceObjects.GroupBy(o => o.PersistentApplication.UniqueName).Count() > 1)
                 throw new NotSupportedException("Mixing applications is not supporrted");
         }
 
         void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs e) {
-
             CombineAndSave(e.SelectedObjects.OfType<ModelDifferenceObject>().Select(o => View.ObjectSpace.GetObject(o)).ToList());
         }
 
-
-
         public void CombineAndSave(List<ModelDifferenceObject> selectedModelAspectObjects) {
-            var selectedObjects = View.SelectedObjects.OfType<ModelDifferenceObject>();
+            var selectedObjects = View.SelectedObjects.OfType<ModelDifferenceObject>().ToList();
             CheckIfMixingApplications(selectedObjects);
             foreach (var differenceObject in selectedModelAspectObjects) {
                 var masterModel = new ModelLoader(differenceObject.PersistentApplication.ExecutableName).GetMasterModel(true);

@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
         protected override void OnActivated() {
             base.OnActivated();
-            populate();
+            Populate();
         }
         protected override void OnDeactivated() {
             base.OnDeactivated();
@@ -23,14 +23,11 @@ namespace Xpand.ExpressApp.SystemModule {
                 modelMember.PredefinedValues = string.Empty;
             }
         }
-        protected virtual void populate() {
+        protected virtual void Populate() {
             var lambdaExpression = GetPropertyName();
             var propertyInfo = ReflectionExtensions.GetExpression(lambdaExpression) as PropertyInfo;
             if (propertyInfo != null)
-                modelMember =
-                    (View.Model.ModelClass.AllMembers.Where(
-                        wrapper =>
-                        wrapper.Name == propertyInfo.Name)).FirstOrDefault();
+                modelMember = (View.Model.ModelClass.AllMembers.Where(wrapper => wrapper.Name == propertyInfo.Name)).FirstOrDefault();
             if (modelMember != null) {
                 modelMember.PredefinedValues = GetPredefinedValues(modelMember);
             }
