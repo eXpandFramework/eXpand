@@ -129,7 +129,9 @@
     <Compile Include="ModifyVariantsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandViewVariantsModule.cs" />
+    <Compile Include="XpandViewVariantsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XpandViewVariantsModule.Designer.cs">
       <DependentUpon>XpandViewVariantsModule.cs</DependentUpon>
     </Compile>
