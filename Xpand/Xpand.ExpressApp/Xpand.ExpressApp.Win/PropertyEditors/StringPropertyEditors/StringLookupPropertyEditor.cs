@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraEditors;
@@ -11,7 +12,12 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
     [PropertyEditor(typeof(string), false)]
     public class StringLookupPropertyEditor : StringPropertyEditorBase, IStringLookupPropertyEditor {
         private List<ComboBoxItem> comboBoxItems;
+        public event EventHandler<HandledEventArgs> ItemsCalculating;
 
+        protected virtual void OnItemsCalculating(HandledEventArgs e) {
+            EventHandler<HandledEventArgs> handler = ItemsCalculating;
+            if (handler != null) handler(this, e);
+        }
         public StringLookupPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
         }
@@ -19,7 +25,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
         protected override List<ComboBoxItem> ComboBoxItems {
             get {
                 if (comboBoxItems == null) {
-                    comboBoxItems=new List<ComboBoxItem>();
+                    comboBoxItems = new List<ComboBoxItem>();
                     ComboBoxItemsBuilder.Create()
                         .WithPropertyEditor(this)
                         .Build((enumerable, b) => {
@@ -28,6 +34,10 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
                             else {
                                 CreateItems(enumerable, comboBoxItems);
                             }
+                        }, () => {
+                            var handledEventArgs = new HandledEventArgs();
+                            OnItemsCalculating(handledEventArgs);
+                            return handledEventArgs.Handled;
                         });
                 }
                 return comboBoxItems;

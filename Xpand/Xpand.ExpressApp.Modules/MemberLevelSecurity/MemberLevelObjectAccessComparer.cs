@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
         }
 
         public override bool IsMemberModificationDenied(object targetObject, IMemberInfo memberInfo) {
-            var objectType = targetObject.GetType();
+            var objectType = targetObject == null ? memberInfo.Owner.Type : targetObject.GetType();
             IMemberInfo firstOrDefault = memberInfo.GetPath().Where(info => !SecuritySystemExtensions.IsGranted(
                     new MemberAccessPermission(objectType, info.Name, MemberOperation.Write), true)).FirstOrDefault();
 
