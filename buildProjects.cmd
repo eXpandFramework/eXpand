@@ -55,6 +55,7 @@ call buildproject.cmd Xpand.ExpressApp.JobScheduler.Jobs ".\Xpand\Xpand.ExpressA
 call buildproject.cmd Xpand.ExpressApp.ImportWizard ".\Xpand\Xpand.ExpressApp.Modules\ImportWizard\Xpand.ExpressApp.ImportWizard.csproj"
 call buildproject.cmd Xpand.ExpressApp.ImportWizard.Win ".\Xpand\Xpand.ExpressApp.Modules\ImportWizard.Win\Xpand.ExpressApp.ImportWizard.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.Workflow ".\Xpand\Xpand.ExpressApp.Modules\Workflow\Xpand.ExpressApp.Workflow.csproj"
+call buildproject.cmd Xpand.ExpressApp.StateMachine ".\Xpand\Xpand.ExpressApp.Modules\StateMachine\Xpand.ExpressApp.StateMachine.csproj"
 
 echo Building Xpand.Quartz.Server...
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Xpand\Xpand.ExpressApp.Modules\Quartz.Server\Xpand.Quartz.Server.csproj"

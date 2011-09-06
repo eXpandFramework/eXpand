@@ -87,7 +87,7 @@ namespace Xpand.ExpressApp.PropertyEditors {
                 if ((_parameter == null) || (editObjectChanged) || supportControl.Control == null) {
                     var application = _getApplicationAction.Invoke();
                     isChanged = true;
-                    _parameter = new MyParameter(memberType.Name, memberType);
+                    _parameter = new MyParameter(memberType.Name, memberType) { Visible = true };
                     var paramList = new ParameterList { _parameter };
                     ParametersObject parametersObject = ParametersObject.CreateBoundObject(paramList);
                     DetailView detailView = parametersObject.CreateDetailView(application.CreateObjectSpace(), application, true);

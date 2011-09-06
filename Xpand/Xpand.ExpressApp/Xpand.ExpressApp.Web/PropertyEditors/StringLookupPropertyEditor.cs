@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Web.UI.WebControls;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -12,6 +13,13 @@ using System.Linq;
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     [PropertyEditor(typeof(string), false)]
     public class StringLookupPropertyEditor : ASPxPropertyEditor, IComplexPropertyEditor, IStringLookupPropertyEditor {
+        public event EventHandler<HandledEventArgs> ItemsCalculating;
+
+        protected virtual void OnItemsCalculating(HandledEventArgs e) {
+            EventHandler<HandledEventArgs> handler = ItemsCalculating;
+            if (handler != null) handler(this, e);
+        }
+
         protected LookupEditorHelper helper;
         Label _viewModeLabelControl;
 
@@ -21,7 +29,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         protected override void Dispose(bool disposing) {
             base.Dispose(disposing);
             if (disposing) {
-                if (_viewModeLabelControl!=null) {
+                if (_viewModeLabelControl != null) {
                     _viewModeLabelControl.Dispose();
                     _viewModeLabelControl = null;
                 }
@@ -33,8 +41,8 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             return _viewModeLabelControl;
         }
         protected override WebControl CreateEditModeControlCore() {
-            var asPxComboBox = new ASPxComboBox {ReadOnly = !AllowEdit, AutoPostBack = Model.ImmediatePostData};
-            asPxComboBox.ValueChanged+=AsPxComboBoxOnValueChanged;
+            var asPxComboBox = new ASPxComboBox { ReadOnly = !AllowEdit, AutoPostBack = Model.ImmediatePostData };
+            asPxComboBox.ValueChanged += AsPxComboBoxOnValueChanged;
             RenderHelper.SetupASPxWebControl(asPxComboBox);
             return asPxComboBox;
         }
@@ -45,12 +53,16 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
 
         protected override void SetupControl(WebControl control) {
             base.SetupControl(control);
-            if (ViewEditMode==ViewEditMode.Edit) {
-                ListEditItemCollection items = ((ASPxComboBox) control).Items;
+            if (ViewEditMode == ViewEditMode.Edit) {
+                ListEditItemCollection items = ((ASPxComboBox)control).Items;
                 items.Clear();
                 ComboBoxItemsBuilder.Create()
                 .WithPropertyEditor(this)
-                .Build((enumerable, b) => items.AddRange(enumerable.Select(s => new ListEditItem(s)).ToList()));
+                .Build((enumerable, b) => items.AddRange(enumerable.Select(s => new ListEditItem(s)).ToList()), () => {
+                    var handledEventArgs = new HandledEventArgs();
+                    OnItemsCalculating(handledEventArgs);
+                    return handledEventArgs.Handled;
+                });
             }
         }
 

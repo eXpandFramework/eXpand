@@ -134,7 +134,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExceptionHandlingModule.cs" />
+    <Compile Include="ExceptionHandlingModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ExceptionHandlingModule.Designer.cs">
       <DependentUpon>ExceptionHandlingModule.cs</DependentUpon>
     </Compile>

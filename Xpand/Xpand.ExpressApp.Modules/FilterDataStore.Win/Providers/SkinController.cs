@@ -5,14 +5,11 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.SystemModule;
 using Xpand.ExpressApp.FilterDataStore.Core;
 
-namespace Xpand.ExpressApp.FilterDataStore.Win.Providers
-{
-    public class SkinController:ViewController
-    {
-        protected override void OnActivated()
-        {
+namespace Xpand.ExpressApp.FilterDataStore.Win.Providers {
+    public class SkinController : ViewController {
+        protected override void OnActivated() {
             base.OnActivated();
-            Frame.GetController<ChooseSkinController>().ChooseSkinAction.ExecuteCompleted+=ChooseSkinActionOnExecuteCompleted;
+            Frame.GetController<ChooseSkinController>().ChooseSkinAction.ExecuteCompleted += ChooseSkinActionOnExecuteCompleted;
         }
 
         void ChooseSkinActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {

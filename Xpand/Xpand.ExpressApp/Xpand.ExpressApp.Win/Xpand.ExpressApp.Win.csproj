@@ -182,7 +182,9 @@
     <Compile Include="SystemModule\AutoCommitListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\AutoExpandNewRowController.cs" />
+    <Compile Include="SystemModule\AutoExpandNewRowController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\CursorPositionController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -190,35 +192,57 @@
     <Compile Include="SystemModule\FilterControlController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\LoadWhenFilteredController.cs" />
+    <Compile Include="SystemModule\LoadWhenFilteredController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\NewObjectCollectCreatableItemTypesDataSource.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\PessimisticLockingViewController.cs" />
+    <Compile Include="SystemModule\PessimisticLockingViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\PromtOnExitController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ViewEditModeController.cs" />
+    <Compile Include="SystemModule\ViewEditModeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\WinSelectFirstNavigationItemController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\WinToolTipsController.cs" />
-    <Compile Include="SystemModule\XpandSystemWindowsFormsModule.cs" />
-    <Compile Include="SystemModule\FilterByPropertyPathViewController.cs" />
+    <Compile Include="SystemModule\WinToolTipsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\XpandSystemWindowsFormsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\FilterControlListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FocusControlByShortcutController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\GridColumnOptionsController.cs" />
-    <Compile Include="SystemModule\GridViewOptionsController.cs" />
-    <Compile Include="SystemModule\GuessAutoFilterRowValuesFromFilterController.cs" />
+    <Compile Include="SystemModule\GridColumnOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\GridViewOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\GuessAutoFilterRowValuesFromFilterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\HideGridPopUpMenuViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\HideToolBarController.cs" />
-    <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.cs" />
+    <Compile Include="SystemModule\HideToolBarController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\LoadWithWindowsController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -237,11 +261,15 @@
     <Compile Include="SystemModule\XpandWinDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\SearchFromDetailViewController.cs" />
+    <Compile Include="SystemModule\SearchFromDetailViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\SupressConfirmationController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ViewEditValueChangedFiringModeController.cs" />
+    <Compile Include="SystemModule\ViewEditValueChangedFiringModeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\WindowHintController.cs">
       <SubType>Component</SubType>
     </Compile>

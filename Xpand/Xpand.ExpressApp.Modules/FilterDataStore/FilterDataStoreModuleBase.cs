@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
         protected static Dictionary<string, Type> _tablesDictionary;
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (ProxyEventsSubscribed.HasValue && ProxyEventsSubscribed.Value) {
+            if (FilterProviderManager.IsRegistered && ProxyEventsSubscribed.HasValue && ProxyEventsSubscribed.Value) {
                 SubscribeToDataStoreProxyEvents();
             }
         }

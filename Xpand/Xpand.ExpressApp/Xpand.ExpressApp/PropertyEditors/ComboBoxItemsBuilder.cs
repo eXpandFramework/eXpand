@@ -8,10 +8,11 @@ using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.PropertyEditors {
     public class ComboBoxItemsBuilder {
+
         PropertyEditor _propertyEditor;
 
         public static ComboBoxItemsBuilder Create() {
-            return new ComboBoxItemsBuilder() ;
+            return new ComboBoxItemsBuilder();
         }
 
         public ComboBoxItemsBuilder WithPropertyEditor(PropertyEditor propertyEditor) {
@@ -19,10 +20,10 @@ namespace Xpand.ExpressApp.PropertyEditors {
             return this;
         }
 
-        public void Build(Action<IEnumerable<string>, bool> itemsCalculated) {
+        public void Build(Action<IEnumerable<string>, bool> itemsCalculated, Func<bool> itemsCalculating) {
             var dataSourcePropertyAttribute = _propertyEditor.MemberInfo.FindAttribute<DataSourcePropertyAttribute>();
-            if (dataSourcePropertyAttribute != null) 
-                BuildFromDatasource(dataSourcePropertyAttribute, itemsCalculated);
+            if (dataSourcePropertyAttribute != null)
+                BuildFromDatasource(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating);
             else
                 GroupBuild(itemsCalculated);
         }
@@ -30,21 +31,28 @@ namespace Xpand.ExpressApp.PropertyEditors {
         void GroupBuild(Action<IEnumerable<string>, bool> itemsCalculated) {
             var xpView = new XPView(((ObjectSpace)_propertyEditor.View.ObjectSpace).Session, _propertyEditor.MemberInfo.GetOwnerInstance(_propertyEditor.CurrentObject).GetType());
             xpView.AddProperty(_propertyEditor.PropertyName, _propertyEditor.PropertyName, true);
-            itemsCalculated.Invoke(xpView.OfType<ViewRecord>().Select(record => record[0]).OfType<string>(),false);
+            itemsCalculated.Invoke(xpView.OfType<ViewRecord>().Select(record => record[0]).OfType<string>(), false);
         }
 
-        void BuildFromDatasource(DataSourcePropertyAttribute dataSourcePropertyAttribute, Action<IEnumerable<string>, bool> itemsCalculated) {
+        void BuildFromDatasource(DataSourcePropertyAttribute dataSourcePropertyAttribute, Action<IEnumerable<string>, bool> itemsCalculated, Func<bool> itemsCalculating) {
             CompositeView compositeView = _propertyEditor.View;
-            if (compositeView!=null) {
+            if (compositeView != null) {
                 compositeView.ObjectSpace.ObjectChanged += (sender, args) => {
-                    var comboBoxItems = GetComboBoxItems(dataSourcePropertyAttribute);
-                    itemsCalculated.Invoke(comboBoxItems,true);
+                    var invoke = itemsCalculating.Invoke();
+                    if (!invoke) {
+                        var comboBoxItems = GetComboBoxItemsCore(dataSourcePropertyAttribute);
+                        itemsCalculated.Invoke(comboBoxItems, true);
+                    }
                 };
-                itemsCalculated.Invoke(GetComboBoxItems(dataSourcePropertyAttribute),false);
+                var b = itemsCalculating.Invoke();
+                if (!b) {
+                    var boxItems = GetComboBoxItemsCore(dataSourcePropertyAttribute);
+                    itemsCalculated.Invoke(boxItems, false);
+                }
             }
         }
 
-        IEnumerable<string> GetComboBoxItems(DataSourcePropertyAttribute dataSourcePropertyAttribute) {
+        IEnumerable<string> GetComboBoxItemsCore(DataSourcePropertyAttribute dataSourcePropertyAttribute) {
             return ((IEnumerable<string>)_propertyEditor.View.ObjectTypeInfo.FindMember(dataSourcePropertyAttribute.DataSourceProperty).GetValue(_propertyEditor.CurrentObject));
         }
 

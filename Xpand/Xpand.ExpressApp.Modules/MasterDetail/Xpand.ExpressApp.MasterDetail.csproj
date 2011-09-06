@@ -127,11 +127,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MasterDetailModule.cs" />
+    <Compile Include="MasterDetailModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Logic\IMasterDetailRule.cs" />
     <Compile Include="Logic\MasterDetailAttribute.cs" />
     <Compile Include="Logic\MasterDetailRule.cs" />
-    <Compile Include="Logic\MasterDetailRuleController.cs" />
+    <Compile Include="Logic\MasterDetailRuleController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DomainLogic\MasterDetailRuleDomainLogic.cs" />
     <Compile Include="Model\IModelApplicationMasterDetail.cs" />
     <Compile Include="Model\IModelLogicMasterDetail.cs" />
