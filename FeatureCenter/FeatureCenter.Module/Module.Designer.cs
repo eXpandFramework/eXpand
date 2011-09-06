@@ -71,6 +71,7 @@ namespace FeatureCenter.Module {
             this.RequiredModuleTypes.Add(typeof(ImportWizardModule));
             this.RequiredModuleTypes.Add(typeof(StateMachineModule));
             this.RequiredModuleTypes.Add(typeof(XpandWorkFlowModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.StateMachine.XpandStateMachineModule));
         }
 
         #endregion
