@@ -105,6 +105,7 @@
 			.\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj;
 			.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj;
 			.\Xpand.Addins\XpandAddIns.csproj;
+			.\Xpand\Xpand.Tests\Xpand.Tests\Xpand.Tests.csproj;
 			" />	
 	</ItemGroup>
 	
