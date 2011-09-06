@@ -214,7 +214,7 @@
 	
 	<Target Name="Integrate" DependsOnTargets="Clean;Test;Report;" />
 	<!--For Continuous integration and automated releases-->
-	<Target Name="Release" DependsOnTargets="Clean;_Version;Build;Test;Report;Distrib;" />
+	<Target Name="Release" DependsOnTargets="Clean;_Version;Build;Test;Report;" />
 	
 	<Target Name="Installer">
 		<MakeDir Directories="$(InstallerFolder);" />
