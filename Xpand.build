@@ -245,7 +245,7 @@
 	<Target Name="DeployUpdate" >
 		<MakeDir Directories="$(DeploymentFolder);" />
 
-		<CreateItem Include="$(PackageDirectory)\*.zip">
+		<CreateItem Include="$(PackageDirectory)\*.*;">
 			<Output ItemName="deploymentFiles" TaskParameter="Include" />
 		</CreateItem>
 		<Copy SourceFiles="@(deploymentFiles)" DestinationFolder="$(DeploymentFolder)\%(deploymentFiles.SubFolder)%(deploymentFiles.RecursiveDir)" />
@@ -271,7 +271,7 @@
 		<CallTarget Targets="Twitter" Condition="$(TwitterConsumerKey)!=''"  />
 	</Target>
 	
-	<Target Name="Distrib" DependsOnTargets="Clean;Build;Copy;Config;">
+	<Target Name="Distrib" >
 		<MakeDir Directories="$(PackageDirectory);" />
 
 		<!-- Source.zip -->

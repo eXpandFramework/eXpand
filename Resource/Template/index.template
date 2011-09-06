@@ -28,7 +28,8 @@
 <h2>eXpand Framework</h2>
 <ul>
 <li><a href="${BinaryPackage}" onclick="pageTracker._trackPageview('${BinaryPackage}')">Download binaries</a> (DLL, PDB, XML).</li>
-<li><a href="${SourcePackage}" onclick="pageTracker._trackPageview('${BinaryPackage}')">Download sources</a> (C#, VS2008&VS2010 solution).<br/><sub><em>To recompile scripts you need to have installed .Net4 (VS2008 OR VS2010). Edit defines.bat to set your VS version, default is VS2010</sub></em></li>
+<li><a href="${SourcePackage}" onclick="pageTracker._trackPageview('${SourcePackage}')">Download sources</a> (C#, VS2008&VS2010 solution).<br/><sub><em>To recompile scripts you need to have installed .Net4 (VS2008 OR VS2010). Edit defines.bat to set your VS version, default is VS2010</sub></em></li>
+<li><a href="setup.exe" onclick="pageTracker._trackPageview('setup.exe')">Download installer</a> (setup.exe).</li>
 </ul>
 
 
