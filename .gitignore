@@ -1,0 +1,12 @@
+
+/Build
+*.suo
+/StyleCopViolations.xml
+bin
+obj
+publish
+*.user
+*.Cache
+*.crunchsolution.cache
+*.crunchsolution.local.xml
+*.crunchproject.local.xml
