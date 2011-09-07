@@ -19,8 +19,6 @@ namespace Xpand.ExpressApp.StateMachine {
 
     [NonPersistent]
     public class StateMachineTransitionPermission : PermissionBase {
-        IObjectSpace _objectSpace;
-
         public override IPermission Copy() {
             return new StateMachineTransitionPermission(Modifier, StateCaption, StateMachineName);
         }
@@ -46,23 +44,21 @@ namespace Xpand.ExpressApp.StateMachine {
         [ImmediatePostData]
         public string StateMachineName { get; set; }
 
-        [DataSourceProperty("PropertyNames")]
         [PropertyEditor(typeof(IStringLookupPropertyEditor))]
+        [DataSourceProperty("StateCaptions")]
         public string StateCaption { get; set; }
 
+        IObjectSpace _objectSpace;
         [Browsable(false)]
-        public IList<string> PropertyNames {
+        public IList<string> StateCaptions {
             get {
-                if (_objectSpace != null)
-                    return _objectSpace.GetObjects<XpoState>(state => state.StateMachine.Name == StateMachineName).Select(
-                        state => state.Caption).ToList();
-                return new List<string>();
+                return _objectSpace != null? _objectSpace.GetObjects<XpoState>(state => state.StateMachine.Name == StateMachineName).Select(state => state.Caption).ToList(): new List<string>();
             }
         }
 
         public void SyncInfo(IObjectSpace objectSpace, string machineName) {
             StateMachineName = machineName;
-            _objectSpace=objectSpace;
+            _objectSpace = objectSpace;
         }
     }
 }
