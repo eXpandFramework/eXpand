@@ -16,9 +16,11 @@ namespace Xpand.ExpressApp.ModelDifference.Web {
 
         public override bool? ModelsLoaded {
             get {
-                bool result;
-                bool.TryParse(HttpContext.Current.Application["ModelsLoaded"] + "", out result);
-                persistentApplicationModelUpdated = result;
+                if (HttpContext.Current != null) {
+                    bool result;
+                    bool.TryParse(HttpContext.Current.Application["ModelsLoaded"] + "", out result);
+                    persistentApplicationModelUpdated = result;
+                }
                 return persistentApplicationModelUpdated;
             }
             set { HttpContext.Current.Application["ModelsLoaded"] = value; }
