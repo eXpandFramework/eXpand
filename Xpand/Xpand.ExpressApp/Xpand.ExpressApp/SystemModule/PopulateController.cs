@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.Utils.Helpers;
@@ -50,6 +51,11 @@ namespace Xpand.ExpressApp.SystemModule {
         string GetPropertyName(Expression<Func<T, object>> lambdaExpression) {
             var propertyInfo = ReflectionExtensions.GetExpression(lambdaExpression) as PropertyInfo;
             return propertyInfo != null ? propertyInfo.Name : null;
+        }
+
+        protected PropertyEditor GetPropertyEditor(Expression<Func<T, object>> expression) {
+            var propertyName = GetPropertyName(expression);
+            return View.GetItems<PropertyEditor>().Where(editor => editor.PropertyName == propertyName).SingleOrDefault();
         }
 
         protected abstract string GetPredefinedValues(IModelMember wrapper);
