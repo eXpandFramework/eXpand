@@ -35,7 +35,7 @@ namespace Xpand.Tests.Xpand.Xpo {
     }
     [Subject(typeof(XpandUtcDateTimeConverter), "Convert From Storage")]
     public class When_datetime_is_null {
-        static DateTime _convertFromStorageType;
+        static DateTime? _convertFromStorageType;
         static DateTime _minValue;
 
         Establish context = () => {
@@ -43,9 +43,9 @@ namespace Xpand.Tests.Xpand.Xpo {
         };
 
         Because of = () => {
-            _convertFromStorageType = (DateTime)new XpandUtcDateTimeConverter().ConvertFromStorageType(_minValue);
+            _convertFromStorageType = (DateTime?)new XpandUtcDateTimeConverter().ConvertFromStorageType(_minValue);
         };
 
-        It should_not_convert_it_to_anaything = () => _convertFromStorageType.Year.ShouldEqual(0001);
+        It should_not_convert_it_to_anaything = () => _convertFromStorageType.ShouldBeNull();
     }
 }
