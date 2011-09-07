@@ -49,6 +49,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             }
 
             CombineWithActiveDifferenceObjects(model, modelDifferenceObjects);
+
+            RuntimeMemberBuilder.AddFields(model.Application, XafTypesInfo);
         }
 
         void CombineWithActiveDifferenceObjects(ModelApplicationBase model, IEnumerable<ModelDifferenceObject> modelDifferenceObjects) {
