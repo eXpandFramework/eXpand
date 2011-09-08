@@ -39,8 +39,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         public override void Load(ModelApplicationBase model) {
             base.Load(model);
 
-            foreach (var roleModel in this.GetActiveRoleDifferenceObjects())
-                roleModel.GetModel(base.Application.Model as ModelApplicationBase);
+            foreach (var roleModel in GetActiveRoleDifferenceObjects())
+                roleModel.GetModel(Application.Model as ModelApplicationBase);
 
             var modelDifferenceObjects = GetActiveDifferenceObjects().ToList();
             if (modelDifferenceObjects.Count() == 0) {
@@ -49,6 +49,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             }
 
             CombineWithActiveDifferenceObjects(model, modelDifferenceObjects);
+
+            RuntimeMemberBuilder.AddFields(Application.Model, XpandModuleBase.Dictiorary);
         }
 
         void CombineWithActiveDifferenceObjects(ModelApplicationBase model, IEnumerable<ModelDifferenceObject> modelDifferenceObjects) {

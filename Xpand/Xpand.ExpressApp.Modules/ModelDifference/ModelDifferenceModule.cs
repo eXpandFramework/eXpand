@@ -5,6 +5,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
+using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Builders;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
@@ -41,7 +42,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             base.Setup(application);
             if (application != null && !DesignMode) {
                 if (!(application is ISupportModelsManager))
-                    throw new NotImplementedException("Implement " + typeof(ISupportModelsManager).FullName + " at your " + Application.GetType().FullName + " descenant");
+                    throw new NotImplementedException("Implement " + typeof(ISupportModelsManager).FullName + " at your " + Application.GetType().FullName + " descenant or derive from XpandWinApplication or XpandWebApplication");
                 application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;
             }
         }

@@ -3,6 +3,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
+using Xpand.ExpressApp;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
@@ -49,7 +50,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
         It should_find_that_member_through_xpdictionary =
             () => {
-                memberInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeof(User)).FindMember("Test");
+                memberInfo = XpandModuleBase.Dictiorary.GetClassInfo(typeof(User)).FindMember("Test");
                 memberInfo.ShouldNotBeNull();
             };
 
@@ -76,7 +77,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
         It should_find_that_member_through_xpdictionary =
             () => {
-                memberInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeof(User)).FindMember("Test");
+                memberInfo = XpandModuleBase.Dictiorary.GetClassInfo(typeof(User)).FindMember("Test");
                 memberInfo.ShouldNotBeNull();
             };
 
@@ -101,7 +102,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
         It should_find_that_member_through_xpdictionary =
             () => {
-                memberInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeof(User)).FindMember("Test");
+                memberInfo = XpandModuleBase.Dictiorary.GetClassInfo(typeof(User)).FindMember("Test");
                 memberInfo.ShouldNotBeNull();
             };
 

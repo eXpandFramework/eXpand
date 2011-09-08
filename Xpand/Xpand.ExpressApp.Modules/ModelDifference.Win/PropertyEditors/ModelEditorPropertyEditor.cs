@@ -79,13 +79,13 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             CurrentObject.Changed += CurrentObjectOnChanged;
             _objectSpace.Committing += ObjectSpaceOnCommitting;
             var modelEditorControl = new ModelEditorControl(new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor"));
-            modelEditorControl.OnDisposing += new EventHandler(modelEditorControl_OnDisposing);
+            modelEditorControl.OnDisposing += modelEditorControl_OnDisposing;
             return modelEditorControl;
         }
 
         private void modelEditorControl_OnDisposing(object sender, EventArgs e) {
-            this.Control.OnDisposing -= new EventHandler(modelEditorControl_OnDisposing);
-            this.DisposeController();
+            Control.OnDisposing -= modelEditorControl_OnDisposing;
+            DisposeController();
         }
 
         protected override void Dispose(bool disposing) {
@@ -128,12 +128,6 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
                 CreateModelEditorController(aspect);
             }
         }
-
-
-        void ViewOnClosing(object sender, EventArgs eventArgs) {
-            _objectSpace.Committing -= ObjectSpaceOnCommitting;
-        }
-
         #endregion
 
         #region Eventhandler
@@ -151,16 +145,17 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         }
 
         private void CreateModelEditorController() {
-            CreateModelEditorController(CaptionHelper.DefaultLanguage);
+            const string defaultLanguage = CaptionHelper.DefaultLanguage;
+            CreateModelEditorController(defaultLanguage);
         }
 
         private void CreateModelEditorController(string aspect) {
-            var allLayers = CurrentObject.GetAllLayers(_masterModel);
+            var allLayers = CurrentObject.GetAllLayers(_masterModel).ToList();
             _currentObjectModel = allLayers.Where(@base => @base.Id == CurrentObject.Name).Single();
             _masterModel.AddLayers(allLayers.ToArray());
             RuntimeMemberBuilder.AddFields((IModelApplication)_masterModel, XpandModuleBase.Dictiorary);
 
-            this.DisposeController();
+            DisposeController();
 
             _controller = new ModelEditorViewController((IModelApplication)_masterModel, null);
             _controller.SetControl(Control);
