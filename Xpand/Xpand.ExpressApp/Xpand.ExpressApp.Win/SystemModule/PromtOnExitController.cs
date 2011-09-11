@@ -2,8 +2,11 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
+using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.XtraEditors;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
@@ -13,14 +16,34 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     }
     public class PromtOnExitController : WindowController, IModelExtender {
         static bool enableEventHandling = true;
+        bool _editing;
+
+        protected override void OnActivated() {
+            base.OnActivated();
+            var editModelAction = Frame.GetController<EditModelController>().EditModelAction;
+            editModelAction.Executing += EditModelActionOnExecuting;
+            editModelAction.ExecuteCompleted += EditModelActionOnExecuteCompleted;
+        }
+
+        void EditModelActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
+            _editing = false;
+        }
+
+        void EditModelActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
+            _editing = true;
+        }
+
 
         void OnWindowClosing(Object sender, CancelEventArgs e) {
+            if (_editing) {
+                return;
+            }
             if (!enableEventHandling) return;
             var ea = (FormClosingEventArgs)e;
             if (ea.CloseReason == CloseReason.UserClosing && Window.IsMain) {
-                bool yes = XtraMessageBox.Show("You are about to exit the application. Do you want to proceed?", "Exit",
-                                               MessageBoxButtons.YesNo, MessageBoxIcon.Information) ==
-                           DialogResult.Yes;
+                var promptOnExitTitle = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitTitle");
+                var promptOnExitMessage = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitMessage");
+                bool yes = XtraMessageBox.Show(promptOnExitMessage, promptOnExitTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes;
                 e.Cancel = !yes;
                 if (yes) {
                     enableEventHandling = false;

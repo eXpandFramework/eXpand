@@ -6,6 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 using Quartz;
+using Quartz.Impl;
 using Quartz.Impl.Calendar;
 using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 using Xpand.ExpressApp.SystemModule;
@@ -33,6 +34,12 @@ namespace Xpand.ExpressApp.JobScheduler {
             } catch (Exception e) {
                 if (!Debugger.IsAttached)
                     Tracing.Tracer.LogError(e);
+            }
+        }
+        protected override void Dispose(bool disposing) {
+            base.Dispose(disposing);
+            if (disposing && Scheduler is StdScheduler) {
+                Scheduler.Shutdown();
             }
         }
         IScheduler _scheduler;

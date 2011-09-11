@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Security;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.StateMachine.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.PropertyEditors;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using PermissionBase = Xpand.ExpressApp.Security.Permissions.PermissionBase;
-using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.StateMachine {
     public enum StateMachineTransitionModifier {
@@ -19,8 +15,6 @@ namespace Xpand.ExpressApp.StateMachine {
 
     [NonPersistent]
     public class StateMachineTransitionPermission : PermissionBase {
-        IObjectSpace _objectSpace;
-
         public override IPermission Copy() {
             return new StateMachineTransitionPermission(Modifier, StateCaption, StateMachineName);
         }
@@ -46,23 +40,17 @@ namespace Xpand.ExpressApp.StateMachine {
         [ImmediatePostData]
         public string StateMachineName { get; set; }
 
-        [DataSourceProperty("PropertyNames")]
         [PropertyEditor(typeof(IStringLookupPropertyEditor))]
+        [DataSourceProperty("StateCaptions")]
         public string StateCaption { get; set; }
 
+        IList<string> _stateCaptions = new List<string>();
         [Browsable(false)]
-        public IList<string> PropertyNames {
-            get {
-                if (_objectSpace != null)
-                    return _objectSpace.GetObjects<XpoState>(state => state.StateMachine.Name == StateMachineName).Select(
-                        state => state.Caption).ToList();
-                return new List<string>();
-            }
-        }
+        public IList<string> StateCaptions {get {return _stateCaptions;}}
 
-        public void SyncInfo(IObjectSpace objectSpace, string machineName) {
+        public void SyncStateCaptions(IList<string> stateCaptions, string machineName) {
             StateMachineName = machineName;
-            _objectSpace=objectSpace;
+            _stateCaptions = stateCaptions;
         }
     }
 }

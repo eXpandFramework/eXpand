@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.Utils.Helpers;
@@ -27,10 +28,10 @@ namespace Xpand.ExpressApp.SystemModule {
         }
         protected virtual void Populate(Func<IModelMember, string> collect) {
             var name = PropertyName;
-            var model = ((ModelApplicationBase)Application.Model);
-            ModelApplicationBase lastLayer = model.LastLayer;
-            model.RemoveLayer(lastLayer);
             if (name != null) {
+                var model = ((ModelApplicationBase)Application.Model);
+                ModelApplicationBase lastLayer = model.LastLayer;
+                model.RemoveLayer(lastLayer);
                 IModelMember modelMember = View.Model.ModelClass.AllMembers.Where(wrapper => wrapper.Name == name).FirstOrDefault();
                 if (modelMember != null) {
                     string invoke = collect.Invoke(modelMember);
@@ -39,7 +40,6 @@ namespace Xpand.ExpressApp.SystemModule {
                 model.AddLayer(lastLayer);
             }
         }
-
 
         protected string PropertyName {
             get {
@@ -53,6 +53,10 @@ namespace Xpand.ExpressApp.SystemModule {
             return propertyInfo != null ? propertyInfo.Name : null;
         }
 
+        protected PropertyEditor GetPropertyEditor(Expression<Func<T, object>> expression) {
+            var propertyName = GetPropertyName(expression);
+            return View.GetItems<PropertyEditor>().Where(editor => editor.PropertyName == propertyName).SingleOrDefault();
+        }
 
         protected abstract string GetPredefinedValues(IModelMember wrapper);
 

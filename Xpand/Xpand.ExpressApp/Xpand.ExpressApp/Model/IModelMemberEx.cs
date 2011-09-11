@@ -12,12 +12,21 @@ namespace Xpand.ExpressApp.Model {
         new Type Type { get; set; }
     }
 
-    public class ModelTypeVisibilityCalculator:IModelIsVisible {
+    public interface IModelColumnUnbound : IModelColumn {
+        [Description("Specifies the current property type."), Category("Data")]
+        [TypeConverter(typeof(StringToTypeConverterExtended))]
+        [ModelBrowsable(typeof(ModelPropertyEditorTypeVisibilityCalculator))]
+        new Type PropertyEditorType { get; set; }
+    }
+
+    public class ModelTypeVisibilityCalculator : IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName) {
-            if (propertyName=="Type"&&node is IModelRuntimeOrphanedColection) {
-                return false;
-            }
-            return true;
+            return !(node is IModelRuntimeOrphanedColection) || propertyName != "Type";
+        }
+    }
+    public class ModelPropertyEditorTypeVisibilityCalculator : IModelIsVisible {
+        public bool IsVisible(IModelNode node, string propertyName) {
+            return !(node is IModelColumnUnbound) || propertyName != "PropertyEditorType";
         }
     }
 }

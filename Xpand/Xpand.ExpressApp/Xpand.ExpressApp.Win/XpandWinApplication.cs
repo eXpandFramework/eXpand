@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
-using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Security;
@@ -181,11 +180,4 @@ namespace Xpand.ExpressApp.Win {
     }
 
 
-    public class ModelEditFormShowningEventArgs : HandledEventArgs {
-        public ModelEditFormShowningEventArgs(ModelEditorForm modelEditorForm) {
-            ModelEditorForm = modelEditorForm;
-        }
-
-        public ModelEditorForm ModelEditorForm { get; set; }
-    }
 }
