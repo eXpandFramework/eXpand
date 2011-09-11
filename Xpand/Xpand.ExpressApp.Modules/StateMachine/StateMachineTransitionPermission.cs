@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Security;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.StateMachine.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.PropertyEditors;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using PermissionBase = Xpand.ExpressApp.Security.Permissions.PermissionBase;
-using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.StateMachine {
     public enum StateMachineTransitionModifier {
@@ -48,21 +44,13 @@ namespace Xpand.ExpressApp.StateMachine {
         [DataSourceProperty("StateCaptions")]
         public string StateCaption { get; set; }
 
-        IObjectSpace _objectSpace;
-        IList<string> _stateCaptions;
-
+        IList<string> _stateCaptions = new List<string>();
         [Browsable(false)]
-        public IList<string> StateCaptions {
-            get {
-                return _objectSpace != null ? _stateCaptions : new List<string>();
-            }
-        }
+        public IList<string> StateCaptions {get {return _stateCaptions;}}
 
-        public void SyncInfo(IObjectSpace objectSpace, string machineName) {
-            _objectSpace = objectSpace;
+        public void SyncStateCaptions(IList<string> stateCaptions, string machineName) {
             StateMachineName = machineName;
-            _stateCaptions = _objectSpace.GetObjects<XpoState>(state => state.StateMachine.Name == StateMachineName).Select(
-                    state => state.Caption).ToList().AsReadOnly();
+            _stateCaptions = stateCaptions;
         }
     }
 }

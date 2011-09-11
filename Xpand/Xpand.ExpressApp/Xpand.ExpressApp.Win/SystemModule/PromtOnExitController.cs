@@ -20,16 +20,22 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         protected override void OnActivated() {
             base.OnActivated();
-            Frame.GetController<EditModelController>().EditModelAction.Execute += EditModelActionOnExecute;
+            var editModelAction = Frame.GetController<EditModelController>().EditModelAction;
+            editModelAction.Executing += EditModelActionOnExecuting;
+            editModelAction.ExecuteCompleted += EditModelActionOnExecuteCompleted;
         }
 
-        void EditModelActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
+        void EditModelActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
+            _editing = false;
+        }
+
+        void EditModelActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
             _editing = true;
         }
 
+
         void OnWindowClosing(Object sender, CancelEventArgs e) {
             if (_editing) {
-                _editing = false;
                 return;
             }
             if (!enableEventHandling) return;

@@ -16,9 +16,8 @@ namespace Xpand.ExpressApp.ListEditors {
 
         IModelNode GetOptionNode(IModelNode modelListViewMainViewOptionsInterfaceType) {
             Type modelListViewMainViewOptionsType = GetModelOptionsType();
-            IModelNode modelNode;
             for (int i = 0; i < modelListViewMainViewOptionsInterfaceType.NodeCount; i++) {
-                modelNode = modelListViewMainViewOptionsInterfaceType.GetNode(i);
+                IModelNode modelNode = modelListViewMainViewOptionsInterfaceType.GetNode(i);
                 var id = modelNode.GetValue<string>("Id");
                 if (id == modelListViewMainViewOptionsType.GetProperties()[0].Name) {
                     return modelNode;
@@ -33,7 +32,7 @@ namespace Xpand.ExpressApp.ListEditors {
             return ReflectionHelper.FindTypeDescendants(findTypeInfo).Where(info => info.Type.IsInterface).Single().Type;
         }
 
-        void DelegateValuesFromModelToControl(IModelNode optionsNode, IEnumerable<PropertyInfo> propertyInfos, MethodInfo getValueMethodInfo, object control) {
+        void DelegateValuesFromModelToControl(IModelNode optionsNode, IList<PropertyInfo> propertyInfos, MethodInfo getValueMethodInfo, object control) {
             for (int i = 0; i < optionsNode.NodeCount; i++) {
                 var modelNode = optionsNode.GetNode(i);
                 var id = modelNode.GetValue<string>("Id");

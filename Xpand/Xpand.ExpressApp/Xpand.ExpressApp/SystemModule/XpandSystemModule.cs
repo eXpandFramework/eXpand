@@ -43,11 +43,6 @@ namespace Xpand.ExpressApp.SystemModule {
             TranslatorProvider.RegisterProvider(new GoogleTranslatorProvider());
         }
 
-        //        protected override List<Type> DeclaredBusinessClasses {
-        //            get {
-        //                return new List<Type>();
-        //            }
-        //        }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (Application != null) Application.LoggingOn += (sender, args) => InitializeSequenceGenerator();

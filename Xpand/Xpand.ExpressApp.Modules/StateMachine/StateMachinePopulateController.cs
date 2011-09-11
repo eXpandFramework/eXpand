@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.StateMachine.Xpo;
 using Xpand.ExpressApp.PropertyEditors;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.Utils.Helpers;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.StateMachine {
     public class StateMachinePopulateController : PopulateController<StateMachineTransitionPermission> {
@@ -21,8 +24,15 @@ namespace Xpand.ExpressApp.StateMachine {
             var propertyEditor = GetPropertyEditor(permission => permission.StateMachineName);
             if (propertyEditor != null && View.IsControlCreated) {
                 var stateMachineTransitionPermission = ((StateMachineTransitionPermission)View.CurrentObject);
-                stateMachineTransitionPermission.SyncInfo(ObjectSpace, propertyEditor.ControlValue as string);
+                var readOnlyCollection = GetStateCaptions(propertyEditor);
+                stateMachineTransitionPermission.SyncStateCaptions(readOnlyCollection, propertyEditor.ControlValue as string);
             }
+        }
+
+        ReadOnlyCollection<string> GetStateCaptions(PropertyEditor propertyEditor) {
+            var stateMachineName = propertyEditor.ControlValue as string;
+            return ObjectSpace.GetObjects<XpoState>(state => state.StateMachine.Name == stateMachineName).Select(
+                    state => state.Caption).ToList().AsReadOnly();
         }
 
 
