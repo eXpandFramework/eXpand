@@ -106,6 +106,7 @@
 			.\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj;
 			.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj;
 			.\Xpand.Addins\XpandAddIns.csproj;
+			.\Xpand\Xpand.Tests\Xpand.Tests\Xpand.Tests.csproj;
 			" />	
 	</ItemGroup>
 	
@@ -214,7 +215,7 @@
 	
 	<Target Name="Integrate" DependsOnTargets="Clean;Test;Report;" />
 	<!--For Continuous integration and automated releases-->
-	<Target Name="Release" DependsOnTargets="Clean;_Version;Build;Test;Report;Distrib;" />
+	<Target Name="Release" DependsOnTargets="Clean;_Version;Build;Test;Report;" />
 	
 	<Target Name="Installer">
 		<MakeDir Directories="$(InstallerFolder);" />
@@ -245,7 +246,7 @@
 	<Target Name="DeployUpdate" >
 		<MakeDir Directories="$(DeploymentFolder);" />
 
-		<CreateItem Include="$(PackageDirectory)\*.zip">
+		<CreateItem Include="$(PackageDirectory)\*.*;">
 			<Output ItemName="deploymentFiles" TaskParameter="Include" />
 		</CreateItem>
 		<Copy SourceFiles="@(deploymentFiles)" DestinationFolder="$(DeploymentFolder)\%(deploymentFiles.SubFolder)%(deploymentFiles.RecursiveDir)" />
@@ -271,7 +272,7 @@
 		<CallTarget Targets="Twitter" Condition="$(TwitterConsumerKey)!=''"  />
 	</Target>
 	
-	<Target Name="Distrib" DependsOnTargets="Clean;Build;Copy;Config;">
+	<Target Name="Distrib" >
 		<MakeDir Directories="$(PackageDirectory);" />
 
 		<!-- Source.zip -->
