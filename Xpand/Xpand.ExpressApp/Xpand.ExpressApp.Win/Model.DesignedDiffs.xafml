@@ -2,11 +2,13 @@
 <Application>
   <Localization>
     <LocalizationGroup Name="Xpand.Win" IsNewNode="True">
-      <LocalizationItem Name="AcceptFilter" IsNewNode="True" Value="Accept Filter" />
-      <LocalizationItem Name="Exit" IsNewNode="True" Value="Exit" />
-      <LocalizationItem Name="LogOut" IsNewNode="True" Value="LogOut" />
-      <LocalizationItem Name="Maximize" IsNewNode="True" Value="Maximize" />
-      <LocalizationItem Name="Minimize" IsNewNode="True" Value="Minimize" />
+      <LocalizationItem Name="AcceptFilter" Value="Accept Filter" IsNewNode="True" />
+      <LocalizationItem Name="Exit" Value="Exit" IsNewNode="True" />
+      <LocalizationItem Name="LogOut" Value="LogOut" IsNewNode="True" />
+      <LocalizationItem Name="Maximize" Value="Maximize" IsNewNode="True" />
+      <LocalizationItem Name="Minimize" Value="Minimize" IsNewNode="True" />
+      <LocalizationItem Name="PromptOnExitMessage" Value="You are about to exit the application. Do you want to proceed?" IsNewNode="True" />
+      <LocalizationItem Name="PromptOnExitTitle" Value="Exit" IsNewNode="True" />
     </LocalizationGroup>
   </Localization>
 </Application>

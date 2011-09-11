@@ -2,8 +2,11 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
+using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.XtraEditors;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
@@ -13,14 +16,28 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     }
     public class PromtOnExitController : WindowController, IModelExtender {
         static bool enableEventHandling = true;
+        bool _editing;
+
+        protected override void OnActivated() {
+            base.OnActivated();
+            Frame.GetController<EditModelController>().EditModelAction.Execute += EditModelActionOnExecute;
+        }
+
+        void EditModelActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
+            _editing = true;
+        }
 
         void OnWindowClosing(Object sender, CancelEventArgs e) {
+            if (_editing) {
+                _editing = false;
+                return;
+            }
             if (!enableEventHandling) return;
             var ea = (FormClosingEventArgs)e;
             if (ea.CloseReason == CloseReason.UserClosing && Window.IsMain) {
-                bool yes = XtraMessageBox.Show("You are about to exit the application. Do you want to proceed?", "Exit",
-                                               MessageBoxButtons.YesNo, MessageBoxIcon.Information) ==
-                           DialogResult.Yes;
+                var promptOnExitTitle = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitTitle");
+                var promptOnExitMessage = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitMessage");
+                bool yes = XtraMessageBox.Show(promptOnExitMessage, promptOnExitTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes;
                 e.Cancel = !yes;
                 if (yes) {
                     enableEventHandling = false;
