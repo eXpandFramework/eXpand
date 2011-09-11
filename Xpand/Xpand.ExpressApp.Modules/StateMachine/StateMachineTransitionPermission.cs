@@ -49,16 +49,20 @@ namespace Xpand.ExpressApp.StateMachine {
         public string StateCaption { get; set; }
 
         IObjectSpace _objectSpace;
+        IList<string> _stateCaptions;
+
         [Browsable(false)]
         public IList<string> StateCaptions {
             get {
-                return _objectSpace != null? _objectSpace.GetObjects<XpoState>(state => state.StateMachine.Name == StateMachineName).Select(state => state.Caption).ToList(): new List<string>();
+                return _objectSpace != null ? _stateCaptions : new List<string>();
             }
         }
 
         public void SyncInfo(IObjectSpace objectSpace, string machineName) {
-            StateMachineName = machineName;
             _objectSpace = objectSpace;
+            StateMachineName = machineName;
+            _stateCaptions = _objectSpace.GetObjects<XpoState>(state => state.StateMachine.Name == StateMachineName).Select(
+                    state => state.Caption).ToList().AsReadOnly();
         }
     }
 }
