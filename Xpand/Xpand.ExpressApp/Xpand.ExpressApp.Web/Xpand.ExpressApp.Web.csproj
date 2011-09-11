@@ -142,6 +142,9 @@
     <Compile Include="SystemModule\CollectionsEditModeController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\ColumnUnboundExpressionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\PessimisticLockingViewController.cs">
       <SubType>Component</SubType>
     </Compile>

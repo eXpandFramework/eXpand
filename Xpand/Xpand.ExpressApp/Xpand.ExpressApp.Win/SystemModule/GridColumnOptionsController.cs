@@ -10,6 +10,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     }
 
     public interface IModelGridColumnOptions : IModelNode {
+        bool ShowUnboundExpressionMenu { get; set; }
+        string UnboundExpression { get; set; }
         IModelGridColumnOptionsColumn OptionsColumn { get; }
         IModelGridColumnOptionsColumnFilter OptionsFilter { get; }
     }
