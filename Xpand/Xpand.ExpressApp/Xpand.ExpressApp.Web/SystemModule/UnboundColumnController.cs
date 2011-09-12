@@ -3,13 +3,16 @@ using System.Linq;
 using DevExpress.Data;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
-using DevExpress.ExpressApp.Web.Editors.Standard;
-using DevExpress.Web.ASPxGridView;
 using Xpand.ExpressApp.Model;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
-    public class ColumnUnboundExpressionController : ViewController<ListView> {
+    public class UnboundColumnController : ViewController<ListView> {
+        protected override void OnActivated() {
+            base.OnActivated();
+            if (GridListEditor != null)
+                GridListEditor.ColumnCreated += GridListEditorOnColumnCreated;
+        }
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
@@ -32,17 +35,16 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         //            options.UnboundExpression = column.UnboundExpression;
         //        }
 
-        void SyncFromModel(IModelGridColumnOptions modelColumnOptions, GridViewColumn column) {
-            //            column.UnboundType = UnboundColumnType.Object;
-            //            column.OptionsColumn.AllowEdit = false;
-            //            column.ShowUnboundExpressionMenu = modelColumnOptions.ShowUnboundExpressionMenu;
-            //            column.UnboundExpression = modelColumnOptions.UnboundExpression;
+        void SyncFromModel(IModelColumnUnbound modelColumnUnbound, GridViewDataColumnWithInfo column) {
+            column.UnboundType = UnboundColumnType.Object;
+            //                        column.ShowUnboundExpressionMenu = modelColumnOptions.ShowUnboundExpressionMenu;
+            column.UnboundExpression = modelColumnUnbound.UnboundExpression;
+            column.FieldName = modelColumnUnbound.Id;
         }
 
-        void ForEachColumnLink(Action<IModelGridColumnOptions, GridViewColumn> action) {
+        void ForEachColumnLink(Action<IModelColumnUnbound, GridViewDataColumnWithInfo> action) {
             var modelColumnUnbounds = View.Model.Columns.OfType<IModelColumnUnbound>();
-            modelColumnUnbounds.Each(unbound => action.Invoke(((IModelColumnOptions)unbound).GridColumnOptions,
-                                                                  GridListEditor.Grid.Columns[unbound.PropertyName]));
+            modelColumnUnbounds.Each(unbound => action.Invoke(unbound, (GridViewDataColumnWithInfo)GridListEditor.Grid.Columns[unbound.PropertyName]));
         }
     }
 }

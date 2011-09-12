@@ -13,7 +13,7 @@ namespace Xpand.Persistent.Base.General.CustomAttributes {
 
         string ICustomAttribute.Value {
             get {
-                ITypeInfo typeInfo = ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(typeof(IReleasedSequencePropertyEditor))).SingleOrDefault();
+                ITypeInfo typeInfo = ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(typeof(IReleasedSequencePropertyEditor))).FirstOrDefault();
                 return typeInfo != null ? typeInfo.FullName : "";
             }
         }
