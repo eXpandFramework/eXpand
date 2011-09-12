@@ -250,7 +250,11 @@
 			<Output ItemName="deploymentFiles" TaskParameter="Include" />
 		</CreateItem>
 		<Copy SourceFiles="@(deploymentFiles)" DestinationFolder="$(DeploymentFolder)\%(deploymentFiles.SubFolder)%(deploymentFiles.RecursiveDir)" />
-
+	
+		<Time Format="yyyy-MM-dd HH:mm" >
+			<Output TaskParameter="FormattedTime" PropertyName="BuildTime" />
+		</Time>
+		
 		<!-- Hack because buildtime is dynamically
 		  http://social.msdn.microsoft.com/Forums/en-US/msbuild/thread/2c910802-e8c9-4bf1-bdb1-ef7835011eeb
 		-->
