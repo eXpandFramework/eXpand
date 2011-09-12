@@ -186,7 +186,7 @@
     <Compile Include="SystemModule\AutoExpandNewRowController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ColumnUnboundExpressionController.cs">
+    <Compile Include="SystemModule\UnboundColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\CursorPositionController.cs">

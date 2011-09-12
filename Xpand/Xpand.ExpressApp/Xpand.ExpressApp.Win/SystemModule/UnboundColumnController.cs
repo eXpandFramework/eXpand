@@ -8,7 +8,7 @@ using Xpand.ExpressApp.Model;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
-    public class ColumnUnboundExpressionController : ViewController<ListView> {
+    public class UnboundColumnController : ViewController<ListView> {
         protected override void OnActivated() {
             base.OnActivated();
             if (GridListEditor != null)
@@ -30,7 +30,6 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             if (GridListEditor != null) {
-                ForEachColumnLink(SyncFromModel);
                 GridListEditor.GridView.ColumnUnbountExpressionChanged += GridViewOnColumnUnbountExpressionChanged;
             }
         }
@@ -47,13 +46,6 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             options.UnboundExpression = column.UnboundExpression;
         }
 
-        void SyncFromModel(IModelColumnUnbound modelColumnOptions, XafGridColumn column) {
-            column.UnboundType = UnboundColumnType.Object;
-            column.OptionsColumn.AllowEdit = false;
-            column.ShowUnboundExpressionMenu = modelColumnOptions.ShowUnboundExpressionMenu;
-            column.UnboundExpression = modelColumnOptions.UnboundExpression;
-
-        }
 
         void ForEachColumnLink(Action<IModelColumnUnbound, XafGridColumn> action) {
             View.Model.Columns.OfType<IModelColumnUnbound>().Each(unbound => action.Invoke(unbound, (XafGridColumn)GridListEditor.GridView.Columns[unbound.Id]));
