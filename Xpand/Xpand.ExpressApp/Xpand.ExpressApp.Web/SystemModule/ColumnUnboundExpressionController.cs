@@ -27,6 +27,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             get { return View.Editor as ASPxGridListEditor; }
         }
 
+
         //        void SyncFromControl(IModelGridColumnOptions options, GridColumn column) {
         //            options.UnboundExpression = column.UnboundExpression;
         //        }

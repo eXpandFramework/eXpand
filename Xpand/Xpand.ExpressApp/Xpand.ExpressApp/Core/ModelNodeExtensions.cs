@@ -14,6 +14,6 @@ namespace Xpand.ExpressApp.Core {
         public static IModelNode AddNode(this IModelNode modelNode, Type type, string id) {
             return (IModelNode)_methodInfo.MakeGenericMethod(new[] { type }).Invoke(modelNode, new object[] { id });
         }
-        public static 
+     
     }
 }

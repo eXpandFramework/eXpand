@@ -1,7 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.Persistent.Base;
+using Xpand.ExpressApp.PropertyEditors;
+using System.Linq;
 
 namespace Xpand.ExpressApp.Model {
     [ModelAbstractClass]
@@ -13,12 +17,28 @@ namespace Xpand.ExpressApp.Model {
     }
 
     public interface IModelColumnUnbound : IModelColumn {
-        [Description("Specifies the current property type."), Category("Data")]
         [TypeConverter(typeof(StringToTypeConverterExtended))]
         [ModelBrowsable(typeof(ModelPropertyEditorTypeVisibilityCalculator))]
         new Type PropertyEditorType { get; set; }
+
+        [ModelBrowsable(typeof(ModelPropertyEditorTypeVisibilityCalculator))]
+        new string PropertyName { get; set; }
+        [Category("eXpand")]
+        bool ShowUnboundExpressionMenu { get; set; }
+        [Category("eXpand")]
+        string UnboundExpression { get; set; }
     }
 
+    [DomainLogic(typeof(IModelColumnUnbound))]
+    public class IModelColumnUnboundLogic {
+        public static string Get_PropertyName(IModelColumnUnbound columnUnbound) {
+            return ((IModelListView)columnUnbound.Parent.Parent).ModelClass.KeyProperty;
+        }
+
+        public static Type Get_PropertyEditorType(IModelColumnUnbound columnUnbound) {
+            return ReflectionHelper.FindTypeDescendants(XpandModuleBase.TypesInfo.FindTypeInfo(typeof(IStringPropertyEditor))).Single().Type;
+        }
+    }
     public class ModelTypeVisibilityCalculator : IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName) {
             return !(node is IModelRuntimeOrphanedColection) || propertyName != "Type";
@@ -26,7 +46,7 @@ namespace Xpand.ExpressApp.Model {
     }
     public class ModelPropertyEditorTypeVisibilityCalculator : IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName) {
-            return !(node is IModelColumnUnbound) || propertyName != "PropertyEditorType";
+            return propertyName != "PropertyEditorType" && propertyName != "PropertyName";
         }
     }
 }
