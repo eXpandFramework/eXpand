@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             if (ea.CloseReason == CloseReason.UserClosing && Window.IsMain) {
                 var promptOnExitTitle = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitTitle");
                 var promptOnExitMessage = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitMessage");
-                bool yes = XtraMessageBox.Show(promptOnExitMessage, promptOnExitTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes;
+                bool yes = XtraMessageBox.Show(promptOnExitMessage, promptOnExitTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
                 e.Cancel = !yes;
                 if (yes) {
                     enableEventHandling = false;
