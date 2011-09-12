@@ -3,13 +3,29 @@ using System.Linq;
 using DevExpress.Data;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win.Editors;
-using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using Xpand.ExpressApp.Model;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public class ColumnUnboundExpressionController : ViewController<ListView> {
+        protected override void OnActivated() {
+            base.OnActivated();
+            if (GridListEditor != null)
+                GridListEditor.ColumnCreated += GridListEditorOnColumnCreated;
+        }
+
+        void GridListEditorOnColumnCreated(object sender, ColumnCreatedEventArgs columnCreatedEventArgs) {
+            var modelColumnUnbound = (columnCreatedEventArgs.ColumnInfo as IModelColumnUnbound);
+            if (modelColumnUnbound != null) {
+                var column = (XafGridColumn)columnCreatedEventArgs.Column;
+                column.FieldName = modelColumnUnbound.Id;
+                column.UnboundType = UnboundColumnType.Object;
+                column.OptionsColumn.AllowEdit = false;
+                column.ShowUnboundExpressionMenu = modelColumnUnbound.ShowUnboundExpressionMenu;
+                column.UnboundExpression = modelColumnUnbound.UnboundExpression;
+            }
+        }
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
@@ -27,21 +43,20 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             get { return View.Editor as GridListEditor; }
         }
 
-        void SyncFromControl(IModelGridColumnOptions options, GridColumn column) {
+        void SyncFromControl(IModelColumnUnbound options, XafGridColumn column) {
             options.UnboundExpression = column.UnboundExpression;
         }
 
-        void SyncFromModel(IModelGridColumnOptions modelColumnOptions, GridColumn column) {
+        void SyncFromModel(IModelColumnUnbound modelColumnOptions, XafGridColumn column) {
             column.UnboundType = UnboundColumnType.Object;
             column.OptionsColumn.AllowEdit = false;
             column.ShowUnboundExpressionMenu = modelColumnOptions.ShowUnboundExpressionMenu;
             column.UnboundExpression = modelColumnOptions.UnboundExpression;
+
         }
 
-        void ForEachColumnLink(Action<IModelGridColumnOptions, GridColumn> action) {
-            var modelColumnUnbounds = View.Model.Columns.OfType<IModelColumnUnbound>();
-            modelColumnUnbounds.Each(unbound => action.Invoke(((IModelColumnOptions)unbound).GridColumnOptions,
-                                                                  GridListEditor.GridView.Columns[unbound.PropertyName]));
+        void ForEachColumnLink(Action<IModelColumnUnbound, XafGridColumn> action) {
+            View.Model.Columns.OfType<IModelColumnUnbound>().Each(unbound => action.Invoke(unbound, (XafGridColumn)GridListEditor.GridView.Columns[unbound.Id]));
         }
     }
 }
