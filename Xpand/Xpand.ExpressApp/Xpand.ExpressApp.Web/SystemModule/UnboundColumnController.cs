@@ -1,7 +1,10 @@
-using System;
+﻿using System;
 using System.Linq;
 using DevExpress.Data;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Core;
+using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using Xpand.ExpressApp.Model;
 using Xpand.Utils.Helpers;
@@ -11,40 +14,47 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         protected override void OnActivated() {
             base.OnActivated();
             if (GridListEditor != null)
-                GridListEditor.ColumnCreated += GridListEditorOnColumnCreated;
+                GridListEditor.CreateCustomModelSynchronizer += GridListEditorOnCreateCustomModelSynchronizer;
         }
 
-        protected override void OnViewControlsCreated() {
-            base.OnViewControlsCreated();
-            if (GridListEditor != null) {
-                ForEachColumnLink(SyncFromModel);
-                //                GridListEditor.Grid.ColumnUnbountExpressionChanged += GridViewOnColumnUnbountExpressionChanged;
-            }
+        void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs createCustomModelSynchronizerEventArgs) {
+            createCustomModelSynchronizerEventArgs.ModelSynchronizer = new UnboundColumnSynchronizer(GridListEditor, View.Model);
         }
-
-        //        void GridViewOnColumnUnbountExpressionChanged(object sender, ColumnEventArgs columnEventArgs) {
-        //            ForEachColumnLink(SyncFromControl);
-        //        }
 
         public ASPxGridListEditor GridListEditor {
             get { return View.Editor as ASPxGridListEditor; }
         }
+    }
 
-
-        //        void SyncFromControl(IModelGridColumnOptions options, GridColumn column) {
-        //            options.UnboundExpression = column.UnboundExpression;
-        //        }
-
-        void SyncFromModel(IModelColumnUnbound modelColumnUnbound, GridViewDataColumnWithInfo column) {
-            column.UnboundType = UnboundColumnType.Object;
-            //                        column.ShowUnboundExpressionMenu = modelColumnOptions.ShowUnboundExpressionMenu;
-            column.UnboundExpression = modelColumnUnbound.UnboundExpression;
-            column.FieldName = modelColumnUnbound.Id;
+    public class UnboundColumnSynchronizer : ModelSynchronizer<ASPxGridListEditor, IModelListView> {
+        public UnboundColumnSynchronizer(ASPxGridListEditor control, IModelListView model)
+            : base(control, model) {
+        }
+        void ApplyModelCore(GridViewDataColumnWithInfo columnWithInfo) {
+            var modelColumn = (IModelColumnUnbound)columnWithInfo.Model;
+            columnWithInfo.FieldName = modelColumn.Id;
+            columnWithInfo.UnboundType = UnboundColumnType.Object;
+            columnWithInfo.UnboundExpression = modelColumn.UnboundExpression;
         }
 
-        void ForEachColumnLink(Action<IModelColumnUnbound, GridViewDataColumnWithInfo> action) {
-            var modelColumnUnbounds = View.Model.Columns.OfType<IModelColumnUnbound>();
-            modelColumnUnbounds.Each(unbound => action.Invoke(unbound, (GridViewDataColumnWithInfo)GridListEditor.Grid.Columns[unbound.PropertyName]));
+        protected override void ApplyModelCore() {
+            ForEachColumnLink(ApplyModelCore);
         }
+
+        public override void SynchronizeModel() {
+            ForEachColumnLink(SynchronizeModel);
+        }
+
+        void SynchronizeModel(GridViewDataColumnWithInfo columnWithInfo) {
+            ((IModelColumnUnbound)columnWithInfo.Model).UnboundExpression = columnWithInfo.UnboundExpression;
+        }
+
+        void ForEachColumnLink(Action<GridViewDataColumnWithInfo> action) {
+            Model.Columns.OfType<IModelColumnUnbound>().Each(unbound => {
+                var xafGridColumn = Control.Grid.Columns[unbound.PropertyName] as GridViewDataColumnWithInfo;
+                if (xafGridColumn != null) action.Invoke(xafGridColumn);
+            });
+        }
+
     }
 }

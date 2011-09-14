@@ -17,15 +17,25 @@ namespace Xpand.ExpressApp.Model {
     }
 
     public interface IModelColumnUnbound : IModelColumn {
+
         [TypeConverter(typeof(StringToTypeConverterExtended))]
         [ModelBrowsable(typeof(ModelPropertyEditorTypeVisibilityCalculator))]
         new Type PropertyEditorType { get; set; }
 
         [ModelBrowsable(typeof(ModelPropertyEditorTypeVisibilityCalculator))]
         new string PropertyName { get; set; }
+
+        [Localizable(true)]
+        [Description("Specifies the caption of the current Property Editor.")]
+        [Category("eXpand")]
+        [Required]
+        new string Caption { get; set; }
+
         [Category("eXpand")]
         bool ShowUnboundExpressionMenu { get; set; }
+
         [Category("eXpand")]
+        [Required]
         string UnboundExpression { get; set; }
     }
 

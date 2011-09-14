@@ -14,16 +14,18 @@ namespace Xpand.ExpressApp.Web.ListEditors {
         }
         protected override void ApplyModelCore() {
             base.ApplyModelCore();
+            return;
             var modelColumnUnbound = Model as IModelColumnUnbound;
             if (modelColumnUnbound != null) {
                 var columnWithInfo = ((GridViewDataColumnWithInfo)GetControl());
-                columnWithInfo.UnboundType = UnboundColumnType.Object;
-                columnWithInfo.UnboundExpression = modelColumnUnbound.UnboundExpression;
+                columnWithInfo.UnboundType = UnboundColumnType.Integer;
+                columnWithInfo.UnboundExpression = "1+1";
                 columnWithInfo.FieldName = modelColumnUnbound.Id;
             }
         }
         public override void SynchronizeModel() {
             base.SynchronizeModel();
+            return;
             var modelColumnUnbound = Model as IModelColumnUnbound;
             if (modelColumnUnbound != null) {
                 var columnWithInfo = ((GridViewDataColumnWithInfo)GetControl());
