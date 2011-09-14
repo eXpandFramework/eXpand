@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="UnboundColumn_ListView">
+      <Columns>
+        <ColumnUnbound Id="UnboundColumn" Caption="UnboundColumn" UnboundExpression="Name+' is located at '+ City" ShowUnboundExpressionMenu="True" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

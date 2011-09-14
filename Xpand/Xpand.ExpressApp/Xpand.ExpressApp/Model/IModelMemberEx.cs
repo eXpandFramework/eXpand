@@ -46,7 +46,8 @@ namespace Xpand.ExpressApp.Model {
         }
 
         public static Type Get_PropertyEditorType(IModelColumnUnbound columnUnbound) {
-            return ReflectionHelper.FindTypeDescendants(XpandModuleBase.TypesInfo.FindTypeInfo(typeof(IStringPropertyEditor))).First().Type;
+            ITypeInfo typeInfo = ReflectionHelper.FindTypeDescendants(XpandModuleBase.TypesInfo.FindTypeInfo(typeof(IStringPropertyEditor))).FirstOrDefault();
+            return typeInfo != null ? typeInfo.Type : null;
         }
     }
     public class ModelTypeVisibilityCalculator : IModelIsVisible {
