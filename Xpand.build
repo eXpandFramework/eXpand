@@ -231,7 +231,7 @@
 		<Copy SourceFiles="@(XpandDesignExperienceFiles)" DestinationFolder="$(InstallerFolder)\Xpand.DesignExperience\%(XpandDesignExperienceFiles.SubFolder)%(XpandDesignExperienceFiles.RecursiveDir)" />		
 		<Exec Command="Resource\Tool\NSIS\makensis.exe Xpand.nsi %*" />
 		
-		<CreateItem Include="setup.exe" ><!--Exclude="$(XpandPath)\*.locked" -->
+		<CreateItem Include="setup-$(Version).exe" ><!--Exclude="$(XpandPath)\*.locked" -->
 			<Output ItemName="setupFiles" TaskParameter="Include"/>
 		</CreateItem>
 		
