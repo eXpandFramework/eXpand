@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     }
     public class PromtOnExitController : WindowController, IModelExtender {
         static bool enableEventHandling = true;
-        bool _editing;
+        volatile bool _editing;
 
         protected override void OnActivated() {
             base.OnActivated();
@@ -40,7 +40,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             }
             if (!enableEventHandling) return;
             var ea = (FormClosingEventArgs)e;
-            if (ea.CloseReason == CloseReason.UserClosing && Window.IsMain) {
+            if ((ea.CloseReason == CloseReason.UserClosing && Window.IsMain)) {
                 var promptOnExitTitle = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitTitle");
                 var promptOnExitMessage = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitMessage");
                 bool yes = XtraMessageBox.Show(promptOnExitMessage, promptOnExitTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
@@ -48,13 +48,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 if (yes) {
                     enableEventHandling = false;
                     ((WinWindow)sender).Close();
-                    enableEventHandling = true;
                 }
-                e.Cancel = true;
             }
-            if (ea.CloseReason == CloseReason.MdiFormClosing && !Window.IsMain) {
-                e.Cancel = true;
-            }
+            
         }
 
         void OnWindowClosed(object sender, EventArgs e) {
