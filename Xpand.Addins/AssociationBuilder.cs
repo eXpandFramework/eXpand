@@ -34,32 +34,6 @@ namespace XpandAddIns {
             }
             return null;
         }
-        //        bool IsBrowsable(Member member)
-        //        {
-        //            if (member == null)
-        //                return false;
-        //            if (member.AttributeCount == 0)
-        //                return false;
-        //
-        //            for (int i = 0; i < member.AttributeCount; i++)
-        //            {
-        //                DevExpress.CodeRush.StructuralParser.Attribute attribute = member.Attributes as DevExpress.CodeRush.StructuralParser.Attribute;
-        //                if (attribute == null)
-        //                    continue;
-        //
-        //                ITypeElement attributeType = attribute.GetDeclaration(false) as ITypeElement;
-        //                if (attributeType == null)
-        //                    continue;
-        //
-        //                if (attributeType.FullName == "MyNameSpace.Browsable" && attribute.ArgumentCount > 1)
-        //                {
-        //                    PrimitiveExpression firstArgument = attribute.Arguments[0] as PrimitiveExpression;
-        //                    if (firstArgument != null && firstArgument.IsBooleanLiteral && firstArgument.TestValueAsBool)
-        //                        return true;
-        //                }
-        //            }
-        //            return false;
-        //        }
         public Attribute CreateOtherPartAssociationAttribute() {
             return (Attribute)property.FindAttribute(typeof(AssociationAttribute)).Clone();
         }

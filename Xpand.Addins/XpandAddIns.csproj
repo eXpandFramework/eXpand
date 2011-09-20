@@ -129,7 +129,6 @@
     <Compile Include="Extensions\DteExtensions.cs" />
     <Compile Include="Extensions\ElementExtensions.cs" />
     <Compile Include="Extensions\ProjectItemExtensions.cs" />
-    <Compile Include="Extensions\PropertyExtensions.cs" />
     <Compile Include="ModelEditor\GridBinder.cs" />
     <Compile Include="ModelEditor\ModelEditorRunner.cs" />
     <Compile Include="Options.cs">
@@ -180,6 +179,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ModelEditor\METoolWindow.resx">
       <DependentUpon>METoolWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
