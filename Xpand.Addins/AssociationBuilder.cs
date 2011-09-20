@@ -1,7 +1,7 @@
 ﻿using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.StructuralParser;
 using DevExpress.DXCore.Controls.Xpo;
-using XpandAddIns.Extensioons;
+using XpandAddIns.Extensions;
 using Attribute = DevExpress.CodeRush.StructuralParser.Attribute;
 
 namespace XpandAddIns {

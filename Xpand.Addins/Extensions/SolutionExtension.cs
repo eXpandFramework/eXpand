@@ -4,7 +4,7 @@ using EnvDTE;
 using XpandAddIns.Enums;
 using Project = EnvDTE.Project;
 
-namespace XpandAddIns.Extensioons {
+namespace XpandAddIns.Extensions {
     public static class SolutionExtension {
 
         public static Project FindProjectFromUniqueName(this Solution solution, string projectName) {

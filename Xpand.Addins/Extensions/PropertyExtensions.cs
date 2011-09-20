@@ -1,5 +1,5 @@
 ﻿
-namespace XpandAddIns.Extensioons {
+namespace XpandAddIns.Extensions {
     public static class PropertyExtensions {
         //        public static bool Is(this Property property,Type type)
         //        {
