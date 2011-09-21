@@ -179,7 +179,7 @@
 		-->
 	</Target>
 		
-	<Target Name="Test" DependsOnTargets="Build;Copy" > 
+	<Target Name="Test" DependsOnTargets="Clean;Build;Copy" > 
 		<TypeMockStart/>
 		<Exec ContinueOnError="true" Command="Resource\Machine.Specifications\mspec-clr4.exe Build\Temp\Xpand.Tests.dll"/>
 		<TypeMockStop/>
@@ -219,7 +219,7 @@
 	
 	<Target Name="Integrate" DependsOnTargets="Clean;Test;Report;" />
 	<!--For Continuous integration and automated releases-->
-	<Target Name="Release" DependsOnTargets="Clean;_Version;Build;Test;Report;" />
+	<Target Name="Release" DependsOnTargets="Clean;_Version;Build;Report;" />
 	
 	<Target Name="Installer">
 		<MakeDir Directories="$(InstallerFolder);" />
