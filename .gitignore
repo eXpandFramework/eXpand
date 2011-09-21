@@ -10,3 +10,5 @@ publish
 *.crunchsolution.cache
 *.crunchsolution.local.xml
 *.crunchproject.local.xml
+/Resource/Machine.Specifications/*.Xpand
+/Resource/Machine.Specifications/*.XpandValidating
