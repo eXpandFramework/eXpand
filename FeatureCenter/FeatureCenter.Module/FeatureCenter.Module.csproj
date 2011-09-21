@@ -377,6 +377,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuntimeFields\FromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\OrphanedCollectionFromModel\AttributeRegistrator.cs" />
+    <Compile Include="RuntimeFields\UnboundColumn\AttributeRegistrator.cs" />
     <Compile Include="Security\MemberLevel\MLSCustomer.cs" />
     <Compile Include="Security\MemberLevel\Updater.cs" />
     <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs">
@@ -561,6 +562,9 @@
       <SubType>Designer</SubType>
     </None>
     <EmbeddedResource Include="WorldCreator\Quartz\MDO_Quartz.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuntimeFields\UnboundColumn\MDO_UnboundColumn.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

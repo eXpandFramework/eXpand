@@ -30,14 +30,17 @@ namespace Xpand.ExpressApp.SystemModule {
             var name = PropertyName;
             if (name != null) {
                 var model = ((ModelApplicationBase)Application.Model);
-                ModelApplicationBase lastLayer = model.LastLayer;
+                var lastLayer = model.LastLayer;
                 model.RemoveLayer(lastLayer);
-                IModelMember modelMember = View.Model.ModelClass.AllMembers.Where(wrapper => wrapper.Name == name).FirstOrDefault();
-                if (modelMember != null) {
-                    string invoke = collect.Invoke(modelMember);
-                    modelMember.PredefinedValues = invoke;
-                }
+                PopulateCore(collect, name);
                 model.AddLayer(lastLayer);
+            }
+        }
+
+        private void PopulateCore(Func<IModelMember, string> collect, string propertyName) {
+            IModelMember modelMember = View.Model.ModelClass.AllMembers.FirstOrDefault(member => member.Name == propertyName);
+            if (modelMember != null) {
+                modelMember.PredefinedValues = collect.Invoke(modelMember);
             }
         }
 

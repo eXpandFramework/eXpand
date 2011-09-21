@@ -155,6 +155,7 @@
     <Compile Include="ListEditors\XpandXafGridColumn.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Model\ModelExtensions.cs" />
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor.cs" />
     <Compile Include="PropertyEditors\DurationPropertyEditor.cs" />
     <Compile Include="PropertyEditors\NullAble\BooleanPropertyEditor\BooleanHAlignFarPropertyEditor.cs" />
@@ -183,6 +184,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\AutoExpandNewRowController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\UnboundColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\CursorPositionController.cs">

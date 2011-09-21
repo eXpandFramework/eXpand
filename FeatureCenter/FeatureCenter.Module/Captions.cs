@@ -64,6 +64,7 @@
         public const string HeaderPessimisticLocking = "Pessimistic Locking";
         public const string HeaderTooltip = "Tooltip";
         public const string HeaderCascadingEditors = "Cascading Editors";
+        public const string HeaderRuntimeUnboundColumn = "UnboundColumn";
 
 
         public const string ViewMessage = "ViewMessage";
@@ -128,5 +129,6 @@
         public const string ViewMessagePessimisticLocking = "Use the edit action and make a change to the current object, then use the New Instance action, login as a different user and come back to this view. A message informing you about the locking will be displayed";
         public const string ViewMessageTooltip = "You can set tooltips for the the propertyeditor either from the model or by decorating your property with the Tooltip attribute. Using the model you have greater flexibility. For instance i have set a tooltip for only this view for Name field. Move your over the Name field to see it in action";
         public const string ViewMessageCascadingEditors = "By decorating your properties with some attributes you can control the editor rendering and datasource";
+        public const string ViewMessageRuntimeUnboundColumn = "Right click on the header of the Unbound Column and choose Expression Editor to change the expression.";
     }
 }

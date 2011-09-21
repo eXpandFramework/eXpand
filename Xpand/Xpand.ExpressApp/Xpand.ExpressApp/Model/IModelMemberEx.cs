@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 
@@ -12,12 +13,37 @@ namespace Xpand.ExpressApp.Model {
         new Type Type { get; set; }
     }
 
-    public class ModelTypeVisibilityCalculator:IModelIsVisible {
+    public interface IModelColumnUnbound : IModelColumn {
+        [Category("eXpand")]
+        bool ShowUnboundExpressionMenu { get; set; }
+        [Category("eXpand")]
+        [Required]
+        string UnboundExpression { get; set; }
+
+        [ModelBrowsable(typeof(ModelPropertyEditorTypeVisibilityCalculator))]
+        new string PropertyName { get; set; }
+        [Localizable(true)]
+        [Description("Specifies the caption of the current Property Editor.")]
+        [Category("eXpand")]
+        [Required]
+        new string Caption { get; set; }
+    }
+    public class ModelPropertyEditorTypeVisibilityCalculator : IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName) {
-            if (propertyName=="Type"&&node is IModelRuntimeOrphanedColection) {
-                return false;
-            }
-            return true;
+            return propertyName != "PropertyEditorType" && propertyName != "PropertyName";
         }
     }
+
+    [DomainLogic(typeof(IModelColumnUnbound))]
+    public class IModelColumnUnboundLogic {
+        public static string Get_PropertyName(IModelColumnUnbound columnUnbound) {
+            return ((IModelListView)columnUnbound.Parent.Parent).ModelClass.KeyProperty;
+        }
+    }
+    public class ModelTypeVisibilityCalculator : IModelIsVisible {
+        public bool IsVisible(IModelNode node, string propertyName) {
+            return !(node is IModelRuntimeOrphanedColection) || propertyName != "Type";
+        }
+    }
+
 }
