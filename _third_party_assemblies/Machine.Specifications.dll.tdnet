@@ -1,5 +1,5 @@
 <TestRunner>
-       <FriendlyName>Machine.Specifications 0.5.0-no SHA</FriendlyName>
+       <FriendlyName>Machine.Specifications 0.5.2-98b543c</FriendlyName>
        <AssemblyPath>Machine.Specifications.TDNetRunner.dll</AssemblyPath>
        <TypeName>Machine.Specifications.TDNetRunner.SpecificationRunner</TypeName>
 </TestRunner>
