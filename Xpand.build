@@ -2,9 +2,11 @@
 <Project DefaultTargets="integrate" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
+		<TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
     </PropertyGroup>
 
 	<Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
+	<Import Project="Resource\TypeMock\TypeMock.MSBuild.Tasks"/>
 	<!--
 	<Import Project="Resource\Build\NCoverExplorer.MSBuildTasks.targets"/>
 	<Import Project="Resource\Build\Microsoft.StyleCop.Targets" />
@@ -178,7 +180,9 @@
 	</Target>
 		
 	<Target Name="Test" DependsOnTargets="Build;Copy" > 
-		<!-- TODO: placeholder for now-->
+		<TypeMockStart/>
+		<Exec ContinueOnError="true" Command="Resource\Machine.Specifications\mspec-clr4.exe Build\Temp\Xpand.Tests.dll"/>
+		<TypeMockStop/>
 	</Target>
 
 	<Target Name="Config">
