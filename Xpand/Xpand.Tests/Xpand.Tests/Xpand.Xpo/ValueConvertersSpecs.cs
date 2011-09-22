@@ -9,7 +9,7 @@ namespace Xpand.Tests.Xpand.Xpo {
         static DateTime _dateTime;
 
         Establish context = () => {
-            _dateTime = new DateTime(1752, 1, 1, 1, 1, 1);
+            _dateTime = new DateTime(1752, 1, 1, 1, 1, 1).ToUniversalTime();
         };
         Because of = () => {
             _convertToStorageType = (DateTime)new SqlDateTimeOverFlowValueConverter().ConvertToStorageType(_dateTime);
@@ -24,7 +24,7 @@ namespace Xpand.Tests.Xpand.Xpo {
         static DateTime _dateTime;
 
         Establish context = () => {
-            _dateTime = new DateTime(1752, 1, 1, 1, 1, 1);
+            _dateTime = new DateTime(1752, 1, 1, 1, 1, 1).ToUniversalTime();
         };
         Because of = () => {
             _convertToStorageType = (DateTime)new XpandUtcDateTimeConverter().ConvertToStorageType(_dateTime);

@@ -17,7 +17,7 @@ using DevExpress.DXCore.Controls.Xpo.DB;
 using DevExpress.DXCore.Controls.Xpo.DB.Exceptions;
 using EnvDTE;
 using XpandAddIns.Enums;
-using XpandAddIns.Extensioons;
+using XpandAddIns.Extensions;
 using Configuration = System.Configuration.Configuration;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
 using Process = System.Diagnostics.Process;

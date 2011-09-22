@@ -1,7 +1,7 @@
 ﻿using System;
 using DevExpress.CodeRush.StructuralParser;
 
-namespace XpandAddIns.Extensioons {
+namespace XpandAddIns.Extensions {
     public static class AttributeElementExtensions {
         public static bool Is(this IAttributeElement attributeElement, Type type) {
             string fullName = attributeElement.GetDeclaration(false).FullName;

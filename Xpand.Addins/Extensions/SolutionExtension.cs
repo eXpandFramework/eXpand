@@ -4,7 +4,7 @@ using EnvDTE;
 using XpandAddIns.Enums;
 using Project = EnvDTE.Project;
 
-namespace XpandAddIns.Extensioons {
+namespace XpandAddIns.Extensions {
     public static class SolutionExtension {
 
         public static Project FindProjectFromUniqueName(this Solution solution, string projectName) {
@@ -27,9 +27,6 @@ namespace XpandAddIns.Extensioons {
             UIHierarchyItem rootItem = UIHSolutionExplorer.UIHierarchyItems.Item(1);
             rootItem.DTE.SuppressUI = true;
             Collapse(rootItem);
-            // Select the solution node, or else when you click 
-            // on the solution window 
-            // scrollbar, it will synchronize the open document 
             rootItem.Select(vsUISelectionType.vsUISelectionTypeSelect);
             rootItem.DTE.SuppressUI = false;
         }

@@ -4,7 +4,7 @@ using EnvDTE;
 using XpandAddIns.Enums;
 using Project = EnvDTE.Project;
 
-namespace XpandAddIns.Extensioons {
+namespace XpandAddIns.Extensions {
     public static class ProjectExtensions {
         public static string FindOutputPath(this Project project) {
             var path2 = project.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath).Value+"";

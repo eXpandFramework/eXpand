@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.Workflow {
     [DefaultClassOptions]
     [NavigationItem("Workflow")]
     [Appearance("WeekDays", "StartMode <> 'Weekly'",
-        TargetItems = "RecurEveryWeeks;Moday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday",
+        TargetItems = "RecurEveryWeeks;Monday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday",
         Visibility = ViewItemVisibility.Hide)]
     public class ScheduledWorkflow : XpandCustomObject, IWorkflowDefinition {
         public ScheduledWorkflow(Session session)
@@ -59,9 +59,9 @@ namespace Xpand.ExpressApp.Workflow {
             set { SetPropertyValue("RecurEveryWeeks", value); }
         }
 
-        public bool Moday {
-            get { return GetPropertyValue<bool>("Moday"); }
-            set { SetPropertyValue("Moday", value); }
+        public bool Monday {
+            get { return GetPropertyValue<bool>("Monday"); }
+            set { SetPropertyValue("Monday", value); }
         }
 
         [Association]
@@ -90,7 +90,9 @@ namespace Xpand.ExpressApp.Workflow {
         }
 
         public bool Saturday {
-            get { return GetPropertyValue<bool>("Moday"); }
+            get {
+                return GetPropertyValue<bool>("Saturday");
+            }
             set { SetPropertyValue("Saturday", value); }
         }
 

@@ -6,7 +6,7 @@ using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.Diagnostics.General;
 using DevExpress.CodeRush.StructuralParser;
 using EnvDTE;
-using XpandAddIns.Extensioons;
+using XpandAddIns.Extensions;
 using Project = EnvDTE.Project;
 
 namespace XpandAddIns {

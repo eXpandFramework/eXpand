@@ -2,7 +2,7 @@
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.StructuralParser;
 
-namespace XpandAddIns.Extensioons {
+namespace XpandAddIns.Extensions {
     public static class ElementExtensions {
 
         public static bool Is(this IElement element, Type type) {

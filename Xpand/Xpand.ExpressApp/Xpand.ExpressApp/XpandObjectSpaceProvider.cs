@@ -7,7 +7,7 @@ using DevExpress.Xpo.DB;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp {
-    public class XpandObjectSpaceProvider : ObjectSpaceProvider, IXpandObjectSpaceProvider, IObjectSpaceProvider {
+    public class XpandObjectSpaceProvider : ObjectSpaceProvider, IXpandObjectSpaceProvider {
 
         public IXpoDataStoreProxy DataStoreProvider { get; set; }
 

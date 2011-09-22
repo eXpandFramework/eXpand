@@ -11,6 +11,7 @@ using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.NodeUpdaters;
 using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.ExpressApp.Core;
 
 
 namespace Xpand.ExpressApp.WorldCreator {
@@ -35,6 +36,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
+            Application.CheckObjectSpaceProviderType<IXpandObjectSpaceProvider>();
             var businessClassesList = GetAdditionalClasses(moduleManager);
             WCTypesInfo.Instance.Register(businessClassesList);
             if (Application == null || GetPath() == null)
@@ -63,6 +65,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
 
+
         void RunUpdaters(Session session) {
             foreach (WorldCreatorUpdater worldCreatorUpdater in GetWorldCreatorUpdaters(session)) {
                 worldCreatorUpdater.Update();
@@ -78,7 +81,7 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             var existentTypesMemberCreator = new ExistentTypesMemberCreator();
-            if (FullConnectionString != null) {
+            if (FullConnectionString != null && Application.CheckObjectSpaceProviderType<IXpandObjectSpaceProvider>(false)) {
                 var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(FullConnectionString, GetReflectionDictionary());
                 var simpleDataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy);
                 var session = new Session(simpleDataLayer);

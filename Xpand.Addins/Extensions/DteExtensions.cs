@@ -4,7 +4,7 @@ using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.StructuralParser;
 using EnvDTE;
 
-namespace XpandAddIns.Extensioons {
+namespace XpandAddIns.Extensions {
     public static class DteExtensions {
         public static IEnumerable<AssemblyReference> GetSelectedAssemblyReferences(this ProjectElement projectElement, string constants) {
             var assemblyReferences = projectElement.AssemblyReferences.OfType<AssemblyReference>();

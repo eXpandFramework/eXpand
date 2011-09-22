@@ -6,6 +6,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
+using Xpand.ExpressApp;
 using Xpand.ExpressApp.WorldCreator;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
@@ -115,6 +116,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
             XafTypesInfo.Reset();
             XafTypesInfo.HardReset();
             XafTypesInfo.XpoTypeInfoSource.ResetDictionary();
+            XpandModuleBase.Dictiorary=XafTypesInfo.XpoTypeInfoSource.XPDictionary;
             foreach (var type in typeof(User).Assembly.GetTypes()) {
                 XafTypesInfo.Instance.RegisterEntity(type);
             }

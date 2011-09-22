@@ -59,6 +59,10 @@
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DevExpress 2011.1\eXpressApp Framework\Sources\DevExpress.DLL\DevExpress.ExpressApp.Security.v11.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.Workflow.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\DevExpress 2011.1\eXpressApp Framework\Sources\DevExpress.DLL\DevExpress.ExpressApp.Workflow.v11.1.dll</HintPath>
@@ -89,6 +93,7 @@
     <Reference Include="DevExpress.Xpo.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="Xpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -134,6 +139,10 @@
     <Compile Include="ScheduledWorkflowLaunchHistory.cs" />
     <Compile Include="ScheduledWorkflowProviderService.cs" />
     <Compile Include="ScheduledWorkflowStartService.cs" />
+    <Compile Include="WorkflowServerAuthentication.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WorkflowServerStarter.cs" />
     <Compile Include="XpandWorkFlowModule.cs">
       <SubType>Component</SubType>
     </Compile>
