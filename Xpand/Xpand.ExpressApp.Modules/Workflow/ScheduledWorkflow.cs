@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text.RegularExpressions;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Workflow;
@@ -92,7 +91,6 @@ namespace Xpand.ExpressApp.Workflow {
 
         public bool Saturday {
             get {
-                Regex.Replace("","","")
                 return GetPropertyValue<bool>("Saturday");
             }
             set { SetPropertyValue("Saturday", value); }
