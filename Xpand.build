@@ -170,7 +170,13 @@
 			<Output ItemName="files" TaskParameter="Include"/>
 		</CreateItem>
 		<Copy SourceFiles="@(files)" DestinationFolder="$(TempPath)" />
-	
+
+		<CreateItem Include="Xpand.Key\Xpand.snk;" ><!--Exclude="$(XpandPath)\*.locked" -->
+			<Output ItemName="keyFiles" TaskParameter="Include"/>
+		</CreateItem>
+		<Copy SourceFiles="@(keyFiles)" DestinationFolder="$(BuildPath)\Xpand.Key" />
+
+		
 		<!-- TODO: All Tests 
 		<CreateItem Include="Xpand\Xpand.Tests\**\bin\$(Configuration)\*.*" Exclude="Xpand\Xpand.Tests\**\bin\$(Configuration)\*.xml;Xpand\Xpand.Tests\**\bin\$(Configuration)\*.pdb;">
 			<Output ItemName="TestFiles" TaskParameter="Include"/>
