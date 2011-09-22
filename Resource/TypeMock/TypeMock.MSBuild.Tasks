@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="TypeMock.MSBuild.TypeMockRegister" AssemblyFile="TypeMock.MSBuild.dll" />
+  <UsingTask TaskName="TypeMock.MSBuild.TypeMockStart" AssemblyFile="TypeMock.MSBuild.dll" />
+  <UsingTask TaskName="TypeMock.MSBuild.TypeMockStop" AssemblyFile="TypeMock.MSBuild.dll" />
+</Project>
