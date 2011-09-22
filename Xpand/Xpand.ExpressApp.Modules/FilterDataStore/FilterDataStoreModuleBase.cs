@@ -14,6 +14,7 @@ using Xpand.ExpressApp.FilterDataStore.Core;
 using Xpand.ExpressApp.FilterDataStore.Model;
 using Xpand.Xpo.DB;
 using Xpand.Xpo.Filtering;
+using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.FilterDataStore {
     public abstract class FilterDataStoreModuleBase : XpandModuleBase {
@@ -24,6 +25,8 @@ namespace Xpand.ExpressApp.FilterDataStore {
         protected static Dictionary<string, Type> _tablesDictionary;
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
+            //            if (RuntimeMode)
+            //                Application.CheckObjectSpaceProviderType<IXpandObjectSpaceProvider>();
             if (FilterProviderManager.IsRegistered && ProxyEventsSubscribed.HasValue && ProxyEventsSubscribed.Value) {
                 SubscribeToDataStoreProxyEvents();
             }
@@ -45,6 +48,8 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
+            if (RuntimeMode)
+                if (Application != null) Application.CheckObjectSpaceProviderType<IXpandObjectSpaceProvider>();
             if (FilterProviderManager.IsRegistered && FilterProviderManager.Providers != null) {
                 SubscribeToDataStoreProxyEvents();
                 CreateMembers(typesInfo);
