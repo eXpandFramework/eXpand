@@ -30,15 +30,15 @@ namespace Xpand.Tests.Xpand.Xpo
 
         Establish context = () =>
         {
-            _dateTime = new DateTime(1752, 1, 1, 1, 1, 1).ToUniversalTime();
+            _dateTime = new DateTime(1752, 1, 1, 1, 1, 1);
         };
         Because of = () =>
         {
             _convertToStorageType = (DateTime)new XpandUtcDateTimeConverter().ConvertToStorageType(_dateTime);
         };
-        It should_convert_it_1_1_1753 = () => _convertToStorageType.Date.ToShortDateString().ShouldEqual("1/1/1753");
+        It should_convert_it_1_1_1753 = () => _convertToStorageType.Date.ShouldEqual(new DateTime(1753, 1, 1));
 
-        It should_add_the_time_of_day_to_it = () => _convertToStorageType.ToUniversalTime().TimeOfDay.ToString().ShouldEqual("21:01:01");
+        It should_add_the_time_of_day_to_it = () => _convertToStorageType.TimeOfDay.ShouldEqual(new TimeSpan(0, 1, 1));
     }
     [Subject(typeof(XpandUtcDateTimeConverter), "Convert From Storage")]
     public class When_datetime_is_null
