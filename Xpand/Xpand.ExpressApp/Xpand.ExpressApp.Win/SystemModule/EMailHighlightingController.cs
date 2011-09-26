@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         [Category("eXpand")]
         bool IsEmail { get; set; }
     }
-    [ModelInterfaceImplementor(typeof(IModelMemberCursorPosition), "ModelMember")]
+    [ModelInterfaceImplementor(typeof(IModelMemberIsEmail), "ModelMember")]
     public interface IModelPropertyEditorIsEmail : IModelMemberIsEmail {
     }
     public partial class EMailHighlightingController : ViewController<DetailView>, IModelExtender {
