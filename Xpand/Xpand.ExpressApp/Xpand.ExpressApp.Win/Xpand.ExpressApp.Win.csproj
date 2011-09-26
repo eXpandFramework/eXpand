@@ -186,6 +186,12 @@
     <Compile Include="SystemModule\AutoExpandNewRowController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\EMailHighlightingController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\EMailHighlightingController.Designer.cs">
+      <DependentUpon>EMailHighlightingController.cs</DependentUpon>
+    </Compile>
     <Compile Include="SystemModule\UnboundColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -286,6 +292,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemModule\EMailHighlightingController.resx">
+      <DependentUpon>EMailHighlightingController.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
