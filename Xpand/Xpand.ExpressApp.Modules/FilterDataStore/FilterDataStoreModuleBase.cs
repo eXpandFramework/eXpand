@@ -23,10 +23,18 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         protected static Dictionary<string, Type> _tablesDictionary;
+        public override void Setup(XafApplication application) {
+            base.Setup(application);
+            application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
+        }
+
+        private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
+            if (createCustomObjectSpaceProviderEventArgs.ObjectSpaceProvider is IXpandObjectSpaceProvider)
+                Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs);
+        }
+
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            //            if (RuntimeMode)
-            //                Application.CheckObjectSpaceProviderType<IXpandObjectSpaceProvider>();
             if (FilterProviderManager.IsRegistered && ProxyEventsSubscribed.HasValue && ProxyEventsSubscribed.Value) {
                 SubscribeToDataStoreProxyEvents();
             }
@@ -48,8 +56,6 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (RuntimeMode)
-                if (Application != null) Application.CheckObjectSpaceProviderType<IXpandObjectSpaceProvider>();
             if (FilterProviderManager.IsRegistered && FilterProviderManager.Providers != null) {
                 SubscribeToDataStoreProxyEvents();
                 CreateMembers(typesInfo);

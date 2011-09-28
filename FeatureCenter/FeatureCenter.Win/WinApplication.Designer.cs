@@ -91,11 +91,13 @@ namespace FeatureCenter.Win {
             this.kpiModule1 = new DevExpress.ExpressApp.Kpi.KpiModule();
             this.importWizardModule1 = new Xpand.ExpressApp.ImportWizard.ImportWizardModule();
             this.stateMachineModule1 = new DevExpress.ExpressApp.StateMachine.StateMachineModule();
-
             this.importWizardWindowsFormsModule1 = new Xpand.ExpressApp.ImportWizard.Win.ImportWizardWindowsFormsModule();
             this.workflowModule1 = new DevExpress.ExpressApp.Workflow.WorkflowModule();
             this.xpandWorkFlowModule1 = new Xpand.ExpressApp.Workflow.XpandWorkFlowModule();
             this.workflowWindowsFormsModule1 = new DevExpress.ExpressApp.Workflow.Win.WorkflowWindowsFormsModule();
+            this.xpandStateMachineModule1 = new Xpand.ExpressApp.StateMachine.XpandStateMachineModule();
+            this.conditionalEditorStateModuleBase1 = new DevExpress.ExpressApp.ConditionalEditorState.ConditionalEditorStateModuleBase();
+            this.conditionalEditorStateWindowsFormsModule1 = new DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // module3
@@ -238,6 +240,8 @@ namespace FeatureCenter.Win {
             this.module3.AdditionalExportedTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation.ThresholdCalculationJob));
             this.module3.AdditionalExportedTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation.ThresholdSeverity));
             this.module3.AdditionalExportedTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation.ThresholdJobDetailDataMap));
+
+
             // 
             // module5
             // 
@@ -288,6 +292,7 @@ namespace FeatureCenter.Win {
             this.workflowModule1.UserActivityVersionType = typeof(DevExpress.ExpressApp.Workflow.Versioning.XpoUserActivityVersion);
             this.workflowModule1.WorkflowControlCommandRequestType = typeof(DevExpress.ExpressApp.Workflow.Xpo.XpoWorkflowInstanceControlCommandRequest);
             this.workflowModule1.WorkflowDefinitionType = typeof(DevExpress.ExpressApp.Workflow.Xpo.XpoWorkflowDefinition);
+            this.workflowModule1.WorkflowInstanceKeyType = typeof(DevExpress.Workflow.Xpo.XpoInstanceKey);
             this.workflowModule1.WorkflowInstanceType = typeof(DevExpress.Workflow.Xpo.XpoWorkflowInstance);
             // 
             // FeatureCenterWindowsFormsApplication
@@ -330,6 +335,7 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.stateMachineModule1);
             this.Modules.Add(this.workflowModule1);
             this.Modules.Add(this.xpandWorkFlowModule1);
+            this.Modules.Add(this.xpandStateMachineModule1);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
             this.Modules.Add(this.htmlPropertyEditorWindowsFormsModule1);
@@ -346,6 +352,8 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.xpandTreeListEditorsModule1);
             this.Modules.Add(this.xpandTreeListEditorsWinModule1);
             this.Modules.Add(this.wizardUIWindowsFormsModule1);
+            this.Modules.Add(this.conditionalEditorStateModuleBase1);
+            this.Modules.Add(this.conditionalEditorStateWindowsFormsModule1);
             this.Modules.Add(this.worldCreatorWinModule1);
             this.Modules.Add(this.ioWinModule1);
             this.Modules.Add(this.exceptionHandlingWinModule1);
@@ -442,5 +450,8 @@ namespace FeatureCenter.Win {
         private DevExpress.ExpressApp.Workflow.WorkflowModule workflowModule1;
         private Xpand.ExpressApp.Workflow.XpandWorkFlowModule xpandWorkFlowModule1;
         private DevExpress.ExpressApp.Workflow.Win.WorkflowWindowsFormsModule workflowWindowsFormsModule1;
+        private Xpand.ExpressApp.StateMachine.XpandStateMachineModule xpandStateMachineModule1;
+        private DevExpress.ExpressApp.ConditionalEditorState.ConditionalEditorStateModuleBase conditionalEditorStateModuleBase1;
+        private DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule conditionalEditorStateWindowsFormsModule1;
     }
 }
