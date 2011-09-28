@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Xpo", "..\Xpand\Xpand
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.FilterDataStore", "..\Xpand\Xpand.ExpressApp.Modules\FilterDataStore\Xpand.ExpressApp.FilterDataStore.csproj", "{02553832-9700-485B-ADF7-D1B7B3F4AF55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.StateMachine", "..\Xpand\Xpand.ExpressApp.Modules\StateMachine\Xpand.ExpressApp.StateMachine.csproj", "{5F9E1E64-7384-475E-99A6-50407FAF329A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -214,6 +216,16 @@ Global
 		{02553832-9700-485B-ADF7-D1B7B3F4AF55}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{02553832-9700-485B-ADF7-D1B7B3F4AF55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02553832-9700-485B-ADF7-D1B7B3F4AF55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.DebugGAC|Any CPU.Build.0 = Debug|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.DebugTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.DebugTest|Any CPU.Build.0 = Debug|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
