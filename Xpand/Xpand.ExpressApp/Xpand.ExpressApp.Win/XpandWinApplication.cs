@@ -10,7 +10,6 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Win.ViewStrategies;
 
@@ -160,10 +159,6 @@ namespace Xpand.ExpressApp.Win {
             container.Add(this);
         }
 
-        protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            this.CreateCustomObjectSpaceprovider(args);
-            base.OnCreateCustomObjectSpaceProvider(args);
-        }
 
     }
 

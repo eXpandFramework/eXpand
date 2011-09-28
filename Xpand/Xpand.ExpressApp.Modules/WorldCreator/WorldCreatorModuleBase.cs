@@ -8,6 +8,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
+using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.NodeUpdaters;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -20,6 +21,14 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         public List<Type> DynamicModuleTypes {
             get { return _dynamicModuleTypes; }
+        }
+        public override void Setup(XafApplication application) {
+            base.Setup(application);
+            application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
+        }
+        private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
+            if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProvider is IXpandObjectSpaceProvider))
+                Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs);
         }
 
         public static string FullConnectionString {

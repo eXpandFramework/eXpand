@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
-            if (createCustomObjectSpaceProviderEventArgs.ObjectSpaceProvider is IXpandObjectSpaceProvider)
+            if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProvider is IXpandObjectSpaceProvider))
                 Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs);
         }
 

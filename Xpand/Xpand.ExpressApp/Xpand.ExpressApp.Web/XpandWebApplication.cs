@@ -5,11 +5,10 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Core;
 
 
 namespace Xpand.ExpressApp.Web {
-    public partial class XpandWebApplication : WebApplication, ISupportModelsManager, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportLogonParameterStore, ISupportFullConnectionString, IXafApplication{
+    public partial class XpandWebApplication : WebApplication, ISupportModelsManager, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportLogonParameterStore, ISupportFullConnectionString, IXafApplication {
         protected XpandWebApplication() {
             InitializeComponent();
             DetailViewCreating += OnDetailViewCreating;
@@ -19,7 +18,7 @@ namespace Xpand.ExpressApp.Web {
             base.OnLoggedOn(args);
             ((ShowViewStrategy)ShowViewStrategy).CollectionsEditMode = DevExpress.ExpressApp.Editors.ViewEditMode.Edit;
         }
-        
+
         string ISupportFullConnectionString.ConnectionString { get; set; }
         public event EventHandler<ViewShownEventArgs> AfterViewShown;
 
@@ -63,10 +62,6 @@ namespace Xpand.ExpressApp.Web {
             get { return modelsManager; }
         }
 
-        protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            this.CreateCustomObjectSpaceprovider(args);
-            base.OnCreateCustomObjectSpaceProvider(args);
-        }
 
         protected XpandWebApplication(IContainer container) {
             container.Add(this);

@@ -10,8 +10,7 @@ namespace Xpand.ExpressApp.Core {
 
         public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
             ((ISupportFullConnectionString)xafApplication).ConnectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
-            if (DataStoreManager.GetDataStoreAttributes().FirstOrDefault() != null)
-                args.ObjectSpaceProvider = new XpandObjectSpaceProvider(new MultiDataStoreProvider(args.ConnectionString));
+            args.ObjectSpaceProvider = new XpandObjectSpaceProvider(new MultiDataStoreProvider(args.ConnectionString));
         }
 
         static string getConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args) {

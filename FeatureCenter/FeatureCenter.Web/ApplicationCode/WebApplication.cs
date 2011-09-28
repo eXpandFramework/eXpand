@@ -1,4 +1,6 @@
 using System;
+using DevExpress.ExpressApp;
+using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Web;
 
@@ -73,6 +75,11 @@ namespace FeatureCenter.Web.ApplicationCode {
                     "for more detailed information. If this doesn't help, please contact our Support Team at http://www.devexpress.com/Support/Center/");
             }
 #endif
+        }
+
+        protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)
+        {
+            this.CreateCustomObjectSpaceprovider(args);
         }
 
         private void InitializeComponent() {
