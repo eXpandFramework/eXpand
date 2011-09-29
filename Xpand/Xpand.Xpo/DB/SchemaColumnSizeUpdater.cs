@@ -43,17 +43,19 @@ namespace Xpand.Xpo.DB {
                 }
             }
         }
-
         string GetSql(DBTable table, ConnectionProviderSql sqlDataStore, DBColumn column) {
             return string.Format(CultureInfo.InvariantCulture,
-                                 "alter table {0} alter column {1} {2}",
+                                 "alter table {0} {3} {1} {2}",
                                  sqlDataStore.FormatTableSafe(table),
                                  sqlDataStore.FormatColumnSafe(column.Name),
-                                 sqlDataStore.GetSqlCreateColumnFullAttributes(table, column));
+                                 sqlDataStore.GetSqlCreateColumnFullAttributes(table, column),
+                                 sqlDataStore is BaseOracleConnectionProvider ? "modify" : "alter column");
         }
 
+
+
         bool NeedsAltering(DBColumn column, DBColumn actualColumn) {
-            return (actualColumn != null) && 
+            return (actualColumn != null) &&
                    (actualColumn.ColumnType == DBColumnType.String) &&
                    (actualColumn.Size != column.Size) &&
                    (column.DBTypeName != string.Format("varchar({0})", actualColumn.Size));

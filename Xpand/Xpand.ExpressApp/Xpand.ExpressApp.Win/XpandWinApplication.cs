@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Win.ViewStrategies;
+using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.Win {
 
@@ -40,7 +41,10 @@ namespace Xpand.ExpressApp.Win {
         public new void WriteLastLogonParameters(DetailView view, object logonObject) {
             base.WriteLastLogonParameters(view, logonObject);
         }
-
+        protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+            //            this.CreateCustomObjectSpaceprovider(args);
+            base.OnCreateCustomObjectSpaceProvider(args);
+        }
         protected override LogonController CreateLogonController() {
             var logonController = base.CreateLogonController();
             return logonController;
