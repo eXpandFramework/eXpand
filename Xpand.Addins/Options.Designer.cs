@@ -82,8 +82,6 @@ namespace XpandAddIns
             // 
             // publicTokenTextEdit
             // 
-            this.publicTokenTextEdit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.publicTokenTextEdit.Location = new System.Drawing.Point(122, 80);
             this.publicTokenTextEdit.Name = "publicTokenTextEdit";
             this.publicTokenTextEdit.Size = new System.Drawing.Size(152, 22);
@@ -99,7 +97,6 @@ namespace XpandAddIns
             // 
             // modelEditorPathButtonEdit
             // 
-            this.modelEditorPathButtonEdit.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.modelEditorPathButtonEdit.Location = new System.Drawing.Point(123, 24);
             this.modelEditorPathButtonEdit.Name = "modelEditorPathButtonEdit";
             this.modelEditorPathButtonEdit.Properties.Buttons.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton[] {
@@ -118,7 +115,6 @@ namespace XpandAddIns
             // 
             // projectConverterPathButtonEdit
             // 
-            this.projectConverterPathButtonEdit.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.projectConverterPathButtonEdit.Location = new System.Drawing.Point(122, 52);
             this.projectConverterPathButtonEdit.Name = "projectConverterPathButtonEdit";
             this.projectConverterPathButtonEdit.Properties.Buttons.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton[] {
@@ -311,7 +307,6 @@ namespace XpandAddIns
             // 
             // formatOnSaveCheckEdit
             // 
-            this.formatOnSaveCheckEdit.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.formatOnSaveCheckEdit.Location = new System.Drawing.Point(292, 80);
             this.formatOnSaveCheckEdit.Name = "formatOnSaveCheckEdit";
             this.formatOnSaveCheckEdit.Properties.Caption = "Format On Save";
