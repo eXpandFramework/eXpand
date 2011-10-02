@@ -2,7 +2,7 @@
 <MetricsData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LastLoadedTestDate>0001-01-01T00:00:00</LastLoadedTestDate>
   <Data>
-    <DataPerDate Date="2011-10-02T00:00:00+03:00" ProductionMinutes="1.262783333333334" ManualTestingMinutes="0.16955" CreatingUnitTestsMinutes="0" RunningUnitTestsMinutes="0" FailedTestsCount="0" />
+    <DataPerDate Date="2011-10-03T00:00:00+03:00" ProductionMinutes="3.4985833333333365" ManualTestingMinutes="4.6482666666666672" CreatingUnitTestsMinutes="0" RunningUnitTestsMinutes="0" FailedTestsCount="0" />
   </Data>
   <Solution>C:\eXpandFrameWork\eXpand\Xpand.Addins\XpandAddIns.sln</Solution>
   <UnsolvedTests />

@@ -21,9 +21,10 @@ namespace XpandAddIns.ModelEditor {
             events.ProjectRemoved += project1 => removeProjectWrappers(ProjectWrapperBuilder.GetProjectWrappers(new List<Project> { project1 }));
         }
         private void removeProjectWrappers(IEnumerable<ProjectWrapper> projectWrappers) {
+            var list = (BindingList<ProjectWrapper>)_gridControl.DataSource;
             foreach (var projectWrapper in projectWrappers) {
-                var list = (BindingList<ProjectWrapper>)_gridControl.DataSource;
-                list.Remove(projectWrapper);
+                var singleWrapper = list.Single(wrapper => wrapper.UniqueName==projectWrapper.UniqueName);
+                list.Remove(singleWrapper);
             }
             _gridControl.RefreshDataSource();
 
