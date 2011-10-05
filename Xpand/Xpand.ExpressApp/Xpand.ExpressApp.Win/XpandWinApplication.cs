@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.Win {
             base.WriteLastLogonParameters(view, logonObject);
         }
         protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            //            this.CreateCustomObjectSpaceprovider(args);
+            this.CreateCustomObjectSpaceprovider(args);
             base.OnCreateCustomObjectSpaceProvider(args);
         }
         protected override LogonController CreateLogonController() {

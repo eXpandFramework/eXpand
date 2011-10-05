@@ -5,6 +5,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
+using Xpand.ExpressApp.Core;
 
 
 namespace Xpand.ExpressApp.Web {
@@ -18,7 +19,10 @@ namespace Xpand.ExpressApp.Web {
             base.OnLoggedOn(args);
             ((ShowViewStrategy)ShowViewStrategy).CollectionsEditMode = DevExpress.ExpressApp.Editors.ViewEditMode.Edit;
         }
-
+        protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+            this.CreateCustomObjectSpaceprovider(args);
+            base.OnCreateCustomObjectSpaceProvider(args);
+        }
         string ISupportFullConnectionString.ConnectionString { get; set; }
         public event EventHandler<ViewShownEventArgs> AfterViewShown;
 

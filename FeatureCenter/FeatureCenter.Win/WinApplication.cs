@@ -16,9 +16,6 @@ namespace FeatureCenter.Win {
         //        protected override ShowViewStrategyBase CreateShowViewStrategy() {
         //            return new ShowInSingleWindowStrategy(this);
         //        }
-        protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            this.CreateCustomObjectSpaceprovider(args);
-        }
 
         private void FeatureCenterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST

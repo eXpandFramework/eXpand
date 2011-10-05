@@ -99,7 +99,7 @@ Forms.DockStyle.None) {
             }
         }
         void Frame_ViewChanged(object sender, ViewChangedEventArgs e) {
-            if (View != null) {
+            if (View != null && View.IsControlCreated) {
                 var control = (View.Control) as GridControl;
                 if (control != null) control.BringToFront();
             }
