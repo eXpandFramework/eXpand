@@ -149,6 +149,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\ColumnOptionsModelSynchronizer.cs" />
+    <Compile Include="ListEditors\LayoutViewGridListEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ListEditors\XpandXafGridView.cs">
       <SubType>Component</SubType>
     </Compile>
