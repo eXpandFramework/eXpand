@@ -227,10 +227,10 @@
 	<!--For Continuous integration and automated releases-->
 	<Target Name="Release" DependsOnTargets="Clean;_Version;Build;Report;" />
 	
-	<Target Name="Installer">
+	<Target	Name="Installer">
 		<MakeDir Directories="$(InstallerFolder);" />
 				
-		<CreateItem Include="$(XpandPath)\Xpand.*.dll;" ><!--Exclude="$(XpandPath)\*.locked" -->
+		<CreateItem Include="$(XpandPath)\Xpand.*.dll;" >
 			<Output ItemName="files" TaskParameter="Include"/>
 		</CreateItem>
 		<Copy SourceFiles="@(files)" DestinationFolder="$(InstallerFolder)\Xpand.DLL" />
@@ -240,16 +240,16 @@
 		</CreateItem>
 		<Copy SourceFiles="@(XpandDesignExperienceFiles)" DestinationFolder="$(InstallerFolder)\Xpand.DesignExperience\%(XpandDesignExperienceFiles.SubFolder)%(XpandDesignExperienceFiles.RecursiveDir)" />		
 		<Exec Command="Resource\Tool\NSIS\makensis.exe Xpand.nsi %*" />
-		
+
 		<CreateItem Include="setup.exe" ><!--Exclude="$(XpandPath)\*.locked" -->
 			<Output ItemName="setupFiles" TaskParameter="Include"/>
 		</CreateItem>
 		
 		<Copy
             SourceFiles="@(setupFiles)"
-            DestinationFolder="$(PackageDirectory)"
+            DestinationFiles="$(PackageDirectory)\eXpandFramework-$(Version).exe"
         />
-		
+
 		<Delete Files="@(setupFiles)" />
 	</Target>
 	
