@@ -29,7 +29,7 @@
 <ul>
 <li><a href="${BinaryPackage}" onclick="pageTracker._trackPageview('${BinaryPackage}')">Download binaries</a> (DLL, PDB, XML).</li>
 <li><a href="${SourcePackage}" onclick="pageTracker._trackPageview('${SourcePackage}')">Download sources</a> (C#, VS2008&VS2010 solution).<br/><sub><em>To recompile scripts you need to have installed .Net4 (VS2008 OR VS2010). Edit defines.bat to set your VS version, default is VS2010</sub></em></li>
-<li><a href="setup.exe" onclick="pageTracker._trackPageview('setup.exe')">Download installer</a> (setup.exe).</li>
+<li><a href="eXpandFramework-${Version}.exe" onclick="pageTracker._trackPageview('eXpandFramework-${Version}.exe')">Download installer</a> (eXpandFramework-${Version}.exe).</li>
 </ul>
 
 Tip: To update Xpand version if you are using the binaries just override the old ones. For this to work you need to set the Specific Version attribute to false for all Xpand Assemblies.
