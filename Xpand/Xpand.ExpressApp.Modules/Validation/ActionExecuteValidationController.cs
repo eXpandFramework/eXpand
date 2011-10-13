@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Validation;
@@ -10,7 +9,7 @@ using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.Validation {
     public class ActionExecuteValidationController : ObjectViewController {
-        
+
 
 
         public event EventHandler<CustomGetAggregatedObjectsToValidateEventArgs> CustomGetAggregatedObjectsToValidate;
@@ -30,23 +29,25 @@ namespace Xpand.ExpressApp.Validation {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            var actionBases = Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions);
-            foreach (var action in actionBases) {
-                action.Executed -= ActionOnExecuted;
+            foreach (var controller in Frame.Controllers) {
+                foreach (var action in controller.Actions) {
+                    action.Executed -= ActionOnExecuted;
+                }
             }
         }
 
 
         protected override void OnActivated() {
             base.OnActivated();
-            var actionBases = Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions);
-            foreach (var action in actionBases) {
-                action.Executed += ActionOnExecuted;
+            foreach (var controller in Frame.Controllers) {
+                foreach (var action in controller.Actions) {
+                    action.Executed += ActionOnExecuted;
+                }
             }
         }
 
         void ActionOnExecuted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
-            if (View.ObjectTypeInfo.Type!=typeof(ValidationResults)) {
+            if (View.ObjectTypeInfo.Type != typeof(ValidationResults)) {
                 ValidationTargetObjectSelector deleteSelector = new ActionExecuteContextTargetObjectSelector();
                 SubscribeSelectorEvents(deleteSelector);
                 var selectedObjects = ((SimpleActionExecuteEventArgs)actionBaseEventArgs).SelectedObjects;
@@ -54,7 +55,7 @@ namespace Xpand.ExpressApp.Validation {
 
                 var deleteContextArgs = new ContextValidatingEventArgs(context, new ArrayList(selectedObjects));
                 OnContextValidating(deleteContextArgs);
-                Validator.RuleSet.ValidateAll(deleteContextArgs.TargetObjects, context, CustomizeDeleteValidationException);   
+                Validator.RuleSet.ValidateAll(deleteContextArgs.TargetObjects, context, CustomizeDeleteValidationException);
             }
         }
 
