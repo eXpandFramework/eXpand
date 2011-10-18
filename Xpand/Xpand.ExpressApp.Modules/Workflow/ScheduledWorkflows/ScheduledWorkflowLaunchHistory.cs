@@ -2,7 +2,7 @@
 using DevExpress.Xpo;
 using Xpand.Xpo;
 
-namespace Xpand.ExpressApp.Workflow {
+namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
     public class ScheduledWorkflowLaunchHistory : XpandCustomObject {
         public ScheduledWorkflowLaunchHistory(Session session) : base(session) { }
         public DateTime LaunchedOn {

@@ -4,7 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Workflow;
 using DevExpress.ExpressApp.Workflow.CommonServices;
 
-namespace Xpand.ExpressApp.Workflow {
+namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
     public class ScheduledWorkflowDefinitionProvider : WorkflowDefinitionProvider {
         public ScheduledWorkflowDefinitionProvider(Type workflowDefinitionType) : base(workflowDefinitionType) { }
         public ScheduledWorkflowDefinitionProvider(Type workflowDefinitionType, IObjectSpaceProvider objectSpaceProvider) : base(workflowDefinitionType, objectSpaceProvider) { }

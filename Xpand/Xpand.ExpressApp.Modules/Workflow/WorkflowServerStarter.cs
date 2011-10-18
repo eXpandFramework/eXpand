@@ -1,18 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Workflow.CommonServices;
 using DevExpress.ExpressApp.Workflow.Server;
-using DevExpress.ExpressApp.Workflow.Versioning;
 using DevExpress.ExpressApp.Workflow.Xpo;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Base.Security;
-using Xpand.Utils.Helpers;
+using DevExpress.Data.Filtering;
+using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
+using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
 
 namespace Xpand.ExpressApp.Workflow {
+
+
+    [Serializable]
+    public class ExceptionEventArgs : EventArgs {
+        public ExceptionEventArgs(string message) {
+            Message = message;
+        }
+        public string Message { get; private set; }
+    }
+
     public class WorkflowServerStarter : MarshalByRefObject {
         private class ServerApplication : XafApplication {
             protected override DevExpress.ExpressApp.Layout.LayoutManager CreateLayoutManagerCore(bool simple) {
@@ -25,12 +33,12 @@ namespace Xpand.ExpressApp.Workflow {
         private static WorkflowServerStarter starter;
         private WorkflowServer server;
         private AppDomain domain;
-        public void Start(string connectionString, string applicationName, List<ModuleBase> moduleBases) {
+        public void Start(string connectionString, string applicationName) {
             try {
                 domain = AppDomain.CreateDomain("ServerDomain");
                 starter = (WorkflowServerStarter)domain.CreateInstanceAndUnwrap(
                     System.Reflection.Assembly.GetEntryAssembly().FullName, typeof(WorkflowServerStarter).FullName + "");
-                starter.Start_(connectionString, applicationName, moduleBases);
+                starter.Start_(connectionString, applicationName);
                 starter.OnCustomHandleException_ += starter_OnCustomHandleException_;
             } catch (Exception e) {
                 Tracing.Tracer.LogError(e);
@@ -50,9 +58,9 @@ namespace Xpand.ExpressApp.Workflow {
                 AppDomain.Unload(domain);
             }
         }
-        private void Start_(string connectionString, string applicationName, IEnumerable<ModuleBase> moduleBases) {
+        private void Start_(string connectionString, string applicationName) {
             var serverApplication = new ServerApplication();
-            moduleBases.Each(@base => serverApplication.Modules.Add(@base));
+            //            moduleBases.Each(@base => serverApplication.Modules.Add(@base));
             serverApplication.ApplicationName = applicationName;
             serverApplication.ConnectionString = connectionString;
             Type securityType = typeof(SecurityComplex).MakeGenericType(new[] { SecuritySystem.UserType, ((ISecurityComplex)SecuritySystem.Instance).RoleType });
@@ -64,11 +72,12 @@ namespace Xpand.ExpressApp.Workflow {
 
             IObjectSpaceProvider objectSpaceProvider = serverApplication.ObjectSpaceProvider;
 
-            server = new WorkflowServer(ConfigurationManager.AppSettings["WorkflowServerUrl"], objectSpaceProvider, objectSpaceProvider);
+            server = new XpandWorkflowServer(ConfigurationManager.AppSettings["WorkflowServerUrl"], objectSpaceProvider, objectSpaceProvider);
             server.CustomizeHost += delegate(object sender, CustomizeHostEventArgs e) {
                 e.WorkflowInstanceStoreBehavior.RunnableInstancesDetectionPeriod = TimeSpan.FromSeconds(2);
             };
-            server.WorkflowDefinitionProvider = new WorkflowVersionedDefinitionProvider<XpoWorkflowDefinition, XpoUserActivityVersion>(objectSpaceProvider, null);
+            //            server.WorkflowDefinitionProvider = new WorkflowVersionedDefinitionProvider<XpoWorkflowDefinition, XpoUserActivityVersion>(objectSpaceProvider, null);
+            server.WorkflowDefinitionProvider = new XpandWorkflowDefinitionProvider(typeof(XpoWorkflowDefinition), new List<Type> { typeof(ScheduledWorkflow), typeof(ObjectChangedWorkflow) });
             server.StartWorkflowListenerService.DelayPeriod = TimeSpan.FromSeconds(5);
             server.StartWorkflowByRequestService.RequestsDetectionPeriod = TimeSpan.FromSeconds(5);
             server.RefreshWorkflowDefinitionsService.DelayPeriod = TimeSpan.FromSeconds(30);
@@ -85,12 +94,4 @@ namespace Xpand.ExpressApp.Workflow {
         public event EventHandler<ExceptionEventArgs> OnCustomHandleException_;
         public event EventHandler<ExceptionEventArgs> OnCustomHandleException;
     }
-    [Serializable]
-    public class ExceptionEventArgs : EventArgs {
-        public ExceptionEventArgs(string message) {
-            Message = message;
-        }
-        public string Message { get; private set; }
-    }
-
 }

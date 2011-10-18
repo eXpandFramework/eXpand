@@ -61,11 +61,9 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Workflow.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="DevExpress.Printing.v11.1.Core">
       <SpecificVersion>False</SpecificVersion>
@@ -85,21 +83,41 @@
     <Reference Include="DevExpress.Persistent.Base.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Workflow.Activities.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Workflow.Activities.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=6ac0c67e507a249c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      
-    </Reference>
-    <Reference Include="DevExpress.Workflow.Activities.v11.1.Design, Version=11.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      
+      <HintPath>..\..\..\..\..\DevExpress 2011.1\eXpressApp Framework\Sources\DevExpress.DLL\DevExpress.Workflow.Activities.v11.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Xpo.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.Xaml" />
     <Reference Include="Xpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ArtifactState, Version=11.1.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ArtifactState.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ConditionalControllerState, Version=11.1.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalControllerState.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Logic, Version=11.1.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Logic.Conditional, Version=11.1.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelArtifactState, Version=11.1.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security, Version=0.0.0.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -138,14 +156,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ScheduledWorkflow.cs" />
-    <Compile Include="ScheduledWorkflowLaunchHistory.cs" />
-    <Compile Include="ScheduledWorkflowProviderService.cs" />
-    <Compile Include="ScheduledWorkflowStartService.cs" />
+    <Compile Include="IXpandWorkflowDefinition.cs" />
+    <Compile Include="ObjectChangedWorkflows\ObjectChangedWorkflow.cs" />
+    <Compile Include="ObjectChangedWorkflows\ObjectChangedWorkflowStartService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WorkflowStartService.cs" />
+    <Compile Include="ObjectChangedWorkflows\StartWorkflowOnObjectChangeService.cs" />
+    <Compile Include="XpandWorkflowDefinitionProvider.cs" />
+    <Compile Include="ScheduledWorkflows\ScheduledWorkflow.cs" />
+    <Compile Include="ScheduledWorkflows\ScheduledWorkflowLaunchHistory.cs" />
+    <Compile Include="ScheduledWorkflows\ScheduledWorkflowStartService.cs" />
+    <Compile Include="ObjectChangedWorkflows\StartWorkflowOnObjectChangeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WorkflowServerAuthentication.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WorkflowServerStarter.cs" />
     <Compile Include="XpandWorkFlowModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -154,6 +181,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
+    <Compile Include="ObjectChangedWorkflows\ObjectChangedXpoStartWorkflowRequest.cs" />
+    <Compile Include="XpandWorkflowServer.cs" />
+    <Compile Include="ObjectChangedWorkflows\ObjectChangedStartWorkflowService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="XpandWorkFlowModule.resx">

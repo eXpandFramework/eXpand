@@ -9,7 +9,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.Xpo;
 
-namespace Xpand.ExpressApp.Workflow {
+namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
     public enum StartMode {
         OneTime,
         Daily,
@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.Workflow {
     [Appearance("WeekDays", "StartMode <> 'Weekly'",
         TargetItems = "RecurEveryWeeks;Monday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday",
         Visibility = ViewItemVisibility.Hide)]
-    public class ScheduledWorkflow : XpandCustomObject, IWorkflowDefinition {
+    public class ScheduledWorkflow : XpandCustomObject, IXpandWorkflowDefinition {
         public ScheduledWorkflow(Session session)
             : base(session) {
         }
