@@ -32,12 +32,12 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         protected IEnumerable<TModelLogicRule> GetValidModelLogicRules(View view) {
-            return LogicRuleManager<TModelLogicRule>.Instance[view.ObjectTypeInfo].Where(rule => IsValidRule(rule, view));
+            return LogicRuleManager<TModelLogicRule>.Instance[view.ObjectTypeInfo].Where(rule => IsValidRule(rule, view)).OrderBy(rule => rule.Index);
         }
 
 
         public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext) {
-            ForceExecution(isReady, view, invertCustomization, executionContext,view==null?null: view.CurrentObject);
+            ForceExecution(isReady, view, invertCustomization, executionContext, view == null ? null : view.CurrentObject);
         }
 
         protected virtual IEnumerable<LogicRuleInfo<TModelLogicRule>> GetContextValidLogicRuleInfos(View view, IEnumerable<TModelLogicRule> modelLogicRules, object currentObject, ExecutionContext executionContext, bool invertCustomization) {
@@ -114,13 +114,13 @@ namespace Xpand.ExpressApp.Logic {
         void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
             var supportViewChanged = (Frame.Template) as ISupportViewChanged;
             if (supportViewChanged != null)
-                supportViewChanged.ViewChanged += (o, args) => ForceExecution(ExecutionContext.ViewChanged,args.View);
+                supportViewChanged.ViewChanged += (o, args) => ForceExecution(ExecutionContext.ViewChanged, args.View);
         }
 
         protected override void OnActivated() {
             base.OnActivated();
             if (IsReady) {
-                View.SelectionChanged+=ViewOnSelectionChanged;
+                View.SelectionChanged += ViewOnSelectionChanged;
                 ObjectSpace.Committed += ObjectSpaceOnCommitted;
                 Frame.TemplateViewChanged += FrameOnTemplateViewChanged;
                 ForceExecution(ExecutionContext.ControllerActivated);
@@ -222,7 +222,7 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         protected class ViewInfo {
-            public ViewInfo(string viewId, bool isDetailView, bool isRoot, ITypeInfo objectTypeInfo,ViewEditMode? viewEditMode) {
+            public ViewInfo(string viewId, bool isDetailView, bool isRoot, ITypeInfo objectTypeInfo, ViewEditMode? viewEditMode) {
                 ViewId = viewId;
                 IsDetailView = isDetailView;
                 IsRoot = isRoot;
@@ -238,7 +238,7 @@ namespace Xpand.ExpressApp.Logic {
         }
         protected virtual bool IsValidRule(TModelLogicRule rule, ViewInfo viewInfo) {
             return (IsValidViewId(viewInfo.ViewId, rule)) &&
-                   IsValidViewType(viewInfo, rule) && IsValidNestedType(rule, viewInfo) && IsValidTypeInfo(viewInfo, rule)&&IsValidViewEditMode(viewInfo,rule);
+                   IsValidViewType(viewInfo, rule) && IsValidNestedType(rule, viewInfo) && IsValidTypeInfo(viewInfo, rule) && IsValidViewEditMode(viewInfo, rule);
         }
 
         protected virtual bool IsValidViewEditMode(ViewInfo viewInfo, TModelLogicRule rule) {
@@ -246,7 +246,7 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         protected virtual bool IsValidRule(TModelLogicRule rule, View view) {
-            var viewEditMode = view is DetailView?((DetailView)view).ViewEditMode : (ViewEditMode?) null;
+            var viewEditMode = view is DetailView ? ((DetailView)view).ViewEditMode : (ViewEditMode?)null;
             return view != null && IsValidRule(rule, new ViewInfo(view.Id, view is DetailView, view.IsRoot, view.ObjectTypeInfo, viewEditMode));
         }
 
