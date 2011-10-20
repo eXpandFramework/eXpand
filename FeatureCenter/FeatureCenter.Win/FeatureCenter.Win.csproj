@@ -42,7 +42,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -394,9 +394,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.StateMachine, Version=11.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" >
-	<SpecificVersion>False</SpecificVersion>
-	  <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.StateMachine.dll</HintPath>
+    <Reference Include="Xpand.ExpressApp.StateMachine, Version=11.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.StateMachine.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.TreeListEditors">
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.dll</HintPath>
@@ -487,6 +487,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WorkflowServerStarter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="XpandWinSolution.ico" />

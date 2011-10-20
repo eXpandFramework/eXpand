@@ -1,9 +1,12 @@
 using System;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Workflow.Xpo;
 using DevExpress.Persistent.Base.Security;
 using DevExpress.Persistent.BaseImpl;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.FilterDataStore.Providers;
+using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
 
 namespace FeatureCenter.Module {
 
@@ -25,8 +28,20 @@ namespace FeatureCenter.Module {
 
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
+            
+            var o = ((ObjectSpace)ObjectSpace).Session.FindObject<ObjectChangedXpoStartWorkflowRequest>(null);
+            var count = ObjectSpace.GetObjects<XpoStartWorkflowRequest>().Count;
+            count = ObjectSpace.GetObjects<ObjectChangedWorkflow>().Count;
             InitializeSecurity();
-
+            var workflowServiceUser = ObjectSpace.FindObject<User>(new BinaryOperator("UserName", "WorkflowService"));
+            if (workflowServiceUser == null) {
+                workflowServiceUser = ObjectSpace.CreateObject<User>();
+                workflowServiceUser.UserName = "WorkflowService";
+                workflowServiceUser.FirstName = "WorkflowService";
+                var role = ObjectSpace.FindObject<Role>(CriteriaOperator.Parse("Name=?", Administrators));
+                workflowServiceUser.Roles.Add(role);
+            }
+            ObjectSpace.CommitChanges();
             new DummyDataBuilder((ObjectSpace)ObjectSpace).CreateObjects();
         }
 

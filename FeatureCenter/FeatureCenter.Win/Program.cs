@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -13,6 +14,7 @@ using DevExpress.ExpressApp.Workflow.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using Xpand.ExpressApp.Core;
+using Xpand.ExpressApp.Workflow;
 
 namespace FeatureCenter.Win {
 
@@ -42,7 +44,15 @@ namespace FeatureCenter.Win {
             }
             try {
 
-                
+                //                WorkflowServerStarter starter = null;
+                //                winApplication.LoggedOn += delegate {
+                //                    if (starter == null) {
+                //                        starter = new WorkflowServerStarter();
+                //                        starter.OnCustomHandleException += (sender1, args1) => MessageBox.Show(args1.Message);
+                //
+                //                        starter.Start(winApplication.ConnectionString, winApplication.ApplicationName);
+                //                    }
+                //                };
 
                 winApplication.Setup();
                 winApplication.LoggingOn += (sender, args) => {
