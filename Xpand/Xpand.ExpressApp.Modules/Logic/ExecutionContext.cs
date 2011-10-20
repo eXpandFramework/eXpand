@@ -2,8 +2,7 @@
 
 namespace Xpand.ExpressApp.Logic {
     [Flags]
-    public enum ExecutionContext
-    {
+    public enum ExecutionContext {
         None = 0,
         ViewChanging = 2,
         ObjectChanged = 4,
@@ -13,9 +12,10 @@ namespace Xpand.ExpressApp.Logic {
         ControllerActivated = 64,
         ViewChanged = 128,
         TemplateViewChanged = 256,
-        ObjectSpaceCommited=512,
-        CustomProcessSelectedItem=1024,
-        ControlsCreating=2048,
-        ViewOnSelectionChanged=4096
+        ObjectSpaceCommited = 512,
+        CustomProcessSelectedItem = 1024,
+        ControlsCreating = 2048,
+        ViewOnSelectionChanged = 4096,
+        NotifyPropertyObjectChanged = 8192
     }
 }

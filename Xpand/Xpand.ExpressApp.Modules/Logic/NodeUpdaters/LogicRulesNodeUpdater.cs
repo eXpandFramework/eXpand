@@ -17,15 +17,14 @@ namespace Xpand.ExpressApp.Logic.NodeUpdaters {
         ModelNodesGeneratorUpdater<LogicRulesNodesGenerator>
         where TLogicRule : ILogicRule
         where TModelLogicRule : IModelLogicRule
-        where TRootModelNode : IModelNode
-    {
+        where TRootModelNode : IModelNode {
         IEnumerable<PropertyInfo> _explicitProperties;
 
         void AddRules(ModelNode node, IEnumerable<TLogicRule> attributes, IModelClass modelClass) {
             foreach (TLogicRule attribute in attributes) {
                 var rule = node.AddNode<TModelLogicRule>(attribute.Id);
                 SetAttribute(rule, attribute);
-                ((IModelNode) rule).Index = attribute.Index;
+                ((IModelNode)rule).Index = attribute.Index;
                 rule.ModelClass = modelClass;
                 rule.TypeInfo = modelClass.TypeInfo;
                 ConvertModelNodes(attribute, rule);
@@ -34,11 +33,11 @@ namespace Xpand.ExpressApp.Logic.NodeUpdaters {
 
 
         void ConvertModelNodes(TLogicRule attribute, TModelLogicRule rule) {
-            if (_explicitProperties== null)
+            if (_explicitProperties == null)
                 _explicitProperties = XpandReflectionHelper.GetExplicitProperties(attribute.GetType());
-            foreach (PropertyInfo explicitProperty in _explicitProperties){
+            foreach (PropertyInfo explicitProperty in _explicitProperties) {
                 object[] customAttributes = explicitProperty.GetCustomAttributes(typeof(TypeConverterAttribute), false);
-                if (customAttributes.Length > 0){
+                if (customAttributes.Length > 0) {
                     var converter = (TypeConverter)ReflectionHelper.CreateObject(Type.GetType(((TypeConverterAttribute)customAttributes[0]).ConverterTypeName), new object[] { rule.Application });
                     string name = explicitProperty.Name.Substring(explicitProperty.Name.LastIndexOf(".") + 1);
                     PropertyInfo propertyInfo = attribute.GetType().GetProperty(name);

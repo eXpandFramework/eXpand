@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -37,13 +38,11 @@ namespace Xpand.ExpressApp.PropertyEditors {
         void BuildFromDatasource(DataSourcePropertyAttribute dataSourcePropertyAttribute, Action<IEnumerable<string>, bool> itemsCalculated, Func<bool> itemsCalculating) {
             CompositeView compositeView = _propertyEditor.View;
             if (compositeView != null) {
-                compositeView.ObjectSpace.ObjectChanged += (sender, args) => {
-                    var invoke = itemsCalculating.Invoke();
-                    if (!invoke) {
-                        var comboBoxItems = GetComboBoxItemsCore(dataSourcePropertyAttribute);
-                        itemsCalculated.Invoke(comboBoxItems, true);
-                    }
-                };
+                if (_propertyEditor.ObjectTypeInfo.IsPersistent) {
+                    compositeView.ObjectSpace.ObjectChanged += (sender, args) => BuildFromDatasourceCore(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, args.PropertyName);
+                } else {
+                    ((INotifyPropertyChanged)_propertyEditor.CurrentObject).PropertyChanged += (sender, args) => BuildFromDatasourceCore(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, args.PropertyName);
+                }
                 var b = itemsCalculating.Invoke();
                 if (!b) {
                     var boxItems = GetComboBoxItemsCore(dataSourcePropertyAttribute);
@@ -51,6 +50,17 @@ namespace Xpand.ExpressApp.PropertyEditors {
                 }
             }
         }
+
+        void BuildFromDatasourceCore(DataSourcePropertyAttribute dataSourcePropertyAttribute, Action<IEnumerable<string>, bool> itemsCalculated, Func<bool> itemsCalculating, string propertyName) {
+            if (_propertyEditor.PropertyName != propertyName) {
+                var invoke = itemsCalculating.Invoke();
+                if (!invoke) {
+                    var comboBoxItems = GetComboBoxItemsCore(dataSourcePropertyAttribute);
+                    itemsCalculated.Invoke(comboBoxItems, true);
+                }
+            }
+        }
+
 
         IEnumerable<string> GetComboBoxItemsCore(DataSourcePropertyAttribute dataSourcePropertyAttribute) {
             return ((IEnumerable<string>)_propertyEditor.View.ObjectTypeInfo.FindMember(dataSourcePropertyAttribute.DataSourceProperty).GetValue(_propertyEditor.CurrentObject));

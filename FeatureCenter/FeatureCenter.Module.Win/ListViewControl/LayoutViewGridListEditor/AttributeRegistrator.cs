@@ -13,8 +13,11 @@ namespace FeatureCenter.Module.Win.ListViewControl.LayoutViewGridListEditor {
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Module.Captions.HeaderLayoutViewGridListEditor, "1=1", "1=1",
                 Module.Captions.ViewMessageLayoutViewGridListEditor, Position.Bottom) { View = LayoutViewGridListEditor_ListView };
             yield return new CloneViewAttribute(CloneViewType.ListView, LayoutViewGridListEditor_ListView);
-            yield return new XpandNavigationItemAttribute(Module.Captions.ListViewCotrol + "LayoutView GridListEditor", LayoutViewGridListEditor_ListView);
+
+            var xpandNavigationItemAttribute = new XpandNavigationItemAttribute(Module.Captions.ListViewCotrol + "LayoutView GridListEditor", LayoutViewGridListEditor_ListView);
+            yield return xpandNavigationItemAttribute;
             yield return new DisplayFeatureModelAttribute(LayoutViewGridListEditor_ListView);
+            yield return new WhatsNewAttribute(new DateTime(2011, 10, 15), xpandNavigationItemAttribute);
         }
     }
 }

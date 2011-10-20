@@ -12,20 +12,18 @@ namespace Xpand.ExpressApp.Logic.NodeUpdaters {
             if (defaultModelExecutionContexts != null) {
                 foreach (ExecutionContext executionContext in GetContexts(defaultModelExecutionContexts)) {
                     var modelExecutionContext = defaultModelExecutionContexts.AddNode<IModelExecutionContext>();
-                    modelExecutionContext.Name=executionContext.ToString();
+                    modelExecutionContext.Name = executionContext.ToString();
                 }
             }
         }
 
-        IModelExecutionContexts GetDefaulModelExecutionContextsModelNode(ModelNode node)
-        {
+        IModelExecutionContexts GetDefaulModelExecutionContextsModelNode(ModelNode node) {
             return GetModelLogicNode(node).ExecutionContextsGroup.Where(
                 context => context.Id == LogicDefaultGroupContextNodeUpdater.Default).SingleOrDefault();
         }
 
 
-        IEnumerable<ExecutionContext> GetContexts(IModelExecutionContexts modelExecutionContexts)
-        {
+        IEnumerable<ExecutionContext> GetContexts(IModelExecutionContexts modelExecutionContexts) {
             List<ExecutionContext> executionContexts = GetExecutionContexts();
             return executionContexts.Where(executionContext => modelExecutionContexts.GetNode<IModelExecutionContext>(executionContext.ToString()) == null);
         }

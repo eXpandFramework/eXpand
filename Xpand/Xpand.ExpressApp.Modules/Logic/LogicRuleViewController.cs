@@ -188,11 +188,20 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         private void ViewOnCurrentObjectChanged(object sender, EventArgs args) {
-            if (_previousObject != null && !(ObjectSpace.IsDisposedObject(_previousObject)))
+            if (_previousObject != null && !(ObjectSpace.IsDisposedObject(_previousObject))) {
                 InvertExecution(View, ExecutionContext.CurrentObjectChanged, _previousObject);
+                if (_previousObject is INotifyPropertyChanged)
+                    ((INotifyPropertyChanged)_previousObject).PropertyChanged -= OnPropertyChanged;
+            }
             if (!isRefreshing) {
                 ForceExecution(ExecutionContext.CurrentObjectChanged);
+                if (View.CurrentObject is INotifyPropertyChanged)
+                    ((INotifyPropertyChanged)View.CurrentObject).PropertyChanged += OnPropertyChanged;
             }
+        }
+
+        void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs) {
+            ForceExecution(ExecutionContext.NotifyPropertyObjectChanged);
         }
 
 

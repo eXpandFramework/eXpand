@@ -1,13 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Security;
 using DevExpress.ExpressApp;
-
+using DevExpress.Xpo;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo;
+using System.Linq;
 
 namespace Xpand.ExpressApp.Security.Permissions {
     public abstract class PermissionBase : DevExpress.ExpressApp.Security.PermissionBase {
+        IEnumerable<PropertyInfo> _propertyInfos;
+
+        protected PermissionBase() {
+            EnumerateProperties();
+        }
+
+        void EnumerateProperties() {
+            _propertyInfos = GetType().GetProperties().Where(info => info.GetSetMethod() != null && info.GetCustomAttributes(typeof(NonPersistentAttribute), true).Count() == 0);
+        }
+
+
         public override SecurityElement ToXml() {
             return AllToXml();
         }
@@ -15,9 +28,12 @@ namespace Xpand.ExpressApp.Security.Permissions {
             base.FromXml(e);
             AllFromXml(e);
         }
+        public override string ToString() {
+            return _propertyInfos.Aggregate<PropertyInfo, string>(null, (current, propertyInfo) => current + (propertyInfo.GetValue(this, null) + ", ")).TrimEnd(", ".ToCharArray());
+        }
 
         protected void AllFromXml(SecurityElement e) {
-            foreach (var propertyInfo in GetType().GetProperties())
+            foreach (var propertyInfo in _propertyInfos)
                 propertyInfo.SetValue(this, ChangeType(propertyInfo, e), null);
         }
 
@@ -31,7 +47,7 @@ namespace Xpand.ExpressApp.Security.Permissions {
 
         protected SecurityElement AllToXml() {
             SecurityElement result = base.ToXml();
-            foreach (var propertyInfo in GetType().GetProperties())
+            foreach (var propertyInfo in _propertyInfos)
                 result.AddAttribute(propertyInfo.Name, (propertyInfo.GetValue(this, null) + "").XMLEncode());
             return result;
         }
