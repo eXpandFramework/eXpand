@@ -10,7 +10,17 @@ using System.Linq;
 using Xpand.ExpressApp.ConditionalControllerState.Logic;
 
 namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
-
+    public class StartWorkFlowController : ViewController<ObjectView> {
+        public StartWorkFlowController() {
+            Active[ControllerStateRuleController.ActiveObjectTypeHasRules] = false;
+        }
+        protected override void OnActivated() {
+            base.OnActivated();
+        }
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+        }
+    }
     public class StartWorkflowOnObjectChangeController : ViewController<ObjectView> {
         protected override void OnActivated() {
             base.OnActivated();

@@ -118,7 +118,6 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Workflow.Win.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="DevExpress.Utils.v11.1">
       <SpecificVersion>False</SpecificVersion>
@@ -404,6 +403,7 @@
     <Compile Include="ImportExport\ImportWizard\AttributeRegistrator.cs" />
     <Compile Include="ImportExport\ImportWizard\TestGroupObject.cs" />
     <Compile Include="ImportExport\ImportWizard\TestImportObject.cs" />
+    <Compile Include="ListViewControl\LayoutViewGridListEditor\AttributeRegistrator.cs" />
     <Compile Include="ListViewControl\LoadWhenFiltered\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -666,6 +666,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="WorldCreator\DynamicAssemblyMasterDetail\WC3LevelMasterDetail.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="ListViewControl\LayoutViewGridListEditor\MDO_LayoutViewGridListEditor.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

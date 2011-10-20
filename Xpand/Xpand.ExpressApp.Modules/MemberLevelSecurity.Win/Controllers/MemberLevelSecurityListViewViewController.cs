@@ -17,8 +17,9 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             gridControl = (View.Control) as GridControl;
-            if (gridControl != null) {
-                XafGridView xafGridView = ((GridListEditor)(View).Editor).GridView;
+            var gridListEditor = View.Editor as GridListEditor;
+            if (gridControl != null && gridListEditor != null) {
+                XafGridView xafGridView = gridListEditor.GridView;
                 xafGridView.CustomRowCellEdit += CustomRowCellEdit;
                 xafGridView.ShowingEditor += XafGridViewOnShowingEditor;
             }
