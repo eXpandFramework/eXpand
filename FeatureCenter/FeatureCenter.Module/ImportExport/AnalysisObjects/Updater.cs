@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.IO.Core;
@@ -9,13 +8,14 @@ using Xpand.ExpressApp.IO.Core;
 using Xpand.Xpo;
 
 namespace FeatureCenter.Module.ImportExport.AnalysisObjects {
-    public class Updater : ModuleUpdater {
-        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
-            : base(objectSpace, currentDBVersion) {
+    public class Updater : FCUpdater {
+
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater)
+            : base(objectSpace, currentDBVersion, updater) {
         }
 
+
         public override void UpdateDatabaseAfterUpdateSchema() {
-            base.UpdateDatabaseAfterUpdateSchema();
             Import();
         }
 

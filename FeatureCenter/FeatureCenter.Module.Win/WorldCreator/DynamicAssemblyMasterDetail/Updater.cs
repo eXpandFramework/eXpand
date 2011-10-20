@@ -1,13 +1,12 @@
 ﻿using System;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Updating;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 
 namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
-    public class Updater : ModuleUpdater {
-        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
-            : base(objectSpace, currentDBVersion) {
+    public class Updater : FCUpdater {
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater)
+            : base(objectSpace, currentDBVersion, updater) {
         }
 
         public override void UpdateDatabaseAfterUpdateSchema() {
