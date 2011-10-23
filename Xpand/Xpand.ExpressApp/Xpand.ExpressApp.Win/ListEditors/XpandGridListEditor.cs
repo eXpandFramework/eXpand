@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         public new XpandXafGridView GridView {
             get { return (XpandXafGridView)base.GridView; }
         }
-
+        
 
         public override object FocusedObject {
             get {

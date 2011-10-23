@@ -66,6 +66,7 @@
         public const string HeaderCascadingEditors = "Cascading Editors";
         public const string HeaderRuntimeUnboundColumn = "UnboundColumn";
         public const string HeaderLayoutViewGridListEditor = "LayoutView GridListEditor";
+        public const string HeaderValidation = "Validation Warnings";
 
 
         public const string ViewMessage = "ViewMessage";
@@ -132,5 +133,6 @@
         public const string ViewMessageCascadingEditors = "By decorating your properties with some attributes you can control the editor rendering and datasource";
         public const string ViewMessageRuntimeUnboundColumn = "Right click on the header of the Unbound Column and choose Expression Editor to change the expression.";
         public const string ViewMessageLayoutViewGridListEditor = "This is a demo of the Grid Layout View";
+        public const string ViewMessageValidation = "Modify a property of this listview and choose save to see a compination of warnings and normal rules in action. You can watch a similar behaviour for the detail view of this object";
     }
 }

@@ -3,10 +3,19 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win.Editors;
+using DevExpress.XtraEditors.DXErrorProvider;
+using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 
 namespace Xpand.ExpressApp.Win.ListEditors {
     public class XpandXafGridView : XafGridView {
+        public event EventHandler<ErrorTypeEventArgs> QueryErrorType;
+
+        protected void OnQueryErrorType(ErrorTypeEventArgs e) {
+            EventHandler<ErrorTypeEventArgs> handler = QueryErrorType;
+            if (handler != null) handler(this, e);
+        }
+
         readonly GridListEditor _gridListEditor;
         private static readonly object instanceCreated = new object();
 
@@ -20,6 +29,13 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         protected virtual void OnInstanceCreated(GridViewInstanceCreatedArgs e) {
             var handler = (EventHandler<GridViewInstanceCreatedArgs>)Events[instanceCreated];
             if (handler != null) handler(this, e);
+        }
+
+        protected override ErrorType GetColumnErrorType(int rowHandle, GridColumn column) {
+            var columnErrorType = base.GetColumnErrorType(rowHandle, column);
+            var errorTypeEventArgs = new ErrorTypeEventArgs(columnErrorType, rowHandle, column);
+            OnQueryErrorType(errorTypeEventArgs);
+            return errorTypeEventArgs.ErrorType;
         }
 
         [Description("Provides the ability to customize cell merging behavior."), Category("Merge")]
@@ -69,5 +85,26 @@ namespace Xpand.ExpressApp.Win.ListEditors {
                 }
             }
         }
+    }
+
+    public class ErrorTypeEventArgs : EventArgs {
+        readonly int _rowHandle;
+        readonly GridColumn _column;
+
+        public ErrorTypeEventArgs(ErrorType errorType, int rowHandle, GridColumn column) {
+            _rowHandle = rowHandle;
+            _column = column;
+            ErrorType = errorType;
+        }
+
+        public int RowHandle {
+            get { return _rowHandle; }
+        }
+
+        public GridColumn Column {
+            get { return _column; }
+        }
+
+        public ErrorType ErrorType { get; set; }
     }
 }

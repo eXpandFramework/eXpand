@@ -12,6 +12,7 @@ call clearProject.bat Xpand.ExpressApp.Win
 call clearProject.bat Xpand.ExpressApp.Web
 call clearProject.bat Xpand.ExpressApp.Security
 call clearProject.bat Xpand.ExpressApp.Validation
+call clearProject.bat Xpand.ExpressApp.Validation.Win
 call clearProject.bat Xpand.ExpressApp.Logic
 call clearProject.bat Xpand.ExpressApp.Logic.Win
 call clearProject.bat Xpand.ExpressApp.Logic.Conditional

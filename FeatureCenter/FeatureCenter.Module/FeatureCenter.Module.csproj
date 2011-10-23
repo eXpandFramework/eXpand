@@ -391,6 +391,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Updater.cs" />
+    <Compile Include="Validation\AttributeRegistrator.cs" />
+    <Compile Include="Validation\WarningCustomer.cs" />
     <Compile Include="ViewVariants\AttributeRegistrator.cs" />
     <Compile Include="Welcome\WelcomeObject.cs" />
     <Compile Include="WorldCreator\Quartz\AttributeRegistrator.cs" />
@@ -570,6 +572,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="RuntimeFields\UnboundColumn\MDO_UnboundColumn.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Validation\MDO_Validation.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

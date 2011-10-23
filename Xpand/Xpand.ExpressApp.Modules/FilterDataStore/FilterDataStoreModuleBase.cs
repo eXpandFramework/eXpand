@@ -102,12 +102,15 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         private void Proxy_DataStoreSelectData(object sender, DataStoreSelectDataEventArgs e) {
-            FilterData(e.SelectStatements);
+            if (_tablesDictionary.Count>0)
+                FilterData(e.SelectStatements);
         }
 
         public void ModifyData(ModificationStatement[] statements) {
-            InsertData(statements.OfType<InsertStatement>().ToList());
-            UpdateData(statements.OfType<UpdateStatement>());
+            if (_tablesDictionary.Count > 0) {
+                InsertData(statements.OfType<InsertStatement>().ToList());
+                UpdateData(statements.OfType<UpdateStatement>());
+            }
         }
 
         public void UpdateData(IEnumerable<UpdateStatement> statements) {

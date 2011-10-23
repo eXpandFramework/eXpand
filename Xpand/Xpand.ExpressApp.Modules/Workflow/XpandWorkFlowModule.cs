@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Reflection;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Design;
-using DevExpress.ExpressApp.Workflow;
 using System.Linq;
 using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
 
@@ -17,7 +14,11 @@ namespace Xpand.ExpressApp.Workflow {
             InitializeComponent();
             AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(GetType().Assembly));
         }
-
-
+        protected override IEnumerable<Type> GetDeclaredExportedTypes() {
+            var declaredExportedTypes = base.GetDeclaredExportedTypes().ToList();
+            declaredExportedTypes.Add(typeof(ObjectChangedWorkflow));
+            declaredExportedTypes.Add(typeof(ScheduledWorkflows.ScheduledWorkflow));
+            return declaredExportedTypes;
+        }
     }
 }

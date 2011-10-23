@@ -29,18 +29,17 @@ namespace FeatureCenter.Module {
 
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            initializeSecurity = InitializeSecurity();
-            if (initializeSecurity) {
-                var workflowServiceUser = ObjectSpace.FindObject<User>(new BinaryOperator("UserName", "WorkflowService"));
-                if (workflowServiceUser == null) {
-                    workflowServiceUser = ObjectSpace.CreateObject<User>();
-                    workflowServiceUser.UserName = "WorkflowService";
-                    workflowServiceUser.FirstName = "WorkflowService";
-                    var role = ObjectSpace.FindObject<Role>(CriteriaOperator.Parse("Name=?", Administrators));
-                    workflowServiceUser.Roles.Add(role);
-                    ObjectSpace.CommitChanges();
-                    new DummyDataBuilder((ObjectSpace)ObjectSpace).CreateObjects();
-                }
+            InitializeSecurity();
+            var workflowServiceUser = ObjectSpace.FindObject<User>(new BinaryOperator("UserName", "WorkflowService"));
+            if (workflowServiceUser == null) {
+                workflowServiceUser = ObjectSpace.CreateObject<User>();
+                workflowServiceUser.UserName = "WorkflowService";
+                workflowServiceUser.FirstName = "WorkflowService";
+                var role = ObjectSpace.FindObject<Role>(CriteriaOperator.Parse("Name=?", Administrators));
+                workflowServiceUser.Roles.Add(role);
+                ObjectSpace.CommitChanges();
+                new DummyDataBuilder((ObjectSpace)ObjectSpace).CreateObjects();
+
                 var updaters = ReflectionHelper.FindTypeDescendants(XafTypesInfo.CastTypeToTypeInfo(typeof(FCUpdater)));
                 foreach (var findTypeDescendant in updaters) {
                     var updater = (FCUpdater)Activator.CreateInstance(findTypeDescendant.Type, ObjectSpace, CurrentDBVersion, this);

@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B2BC7237-E245-4619-A041-841CBB395E10}</ProjectGuid>
+    <ProjectGuid>{84F8D818-91BC-48DB-9B6C-7E71A82CA635}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <RootNamespace>Xpand.ExpressApp.Validation</RootNamespace>
-    <AssemblyName>Xpand.ExpressApp.Validation</AssemblyName>
+    <RootNamespace>Xpand.ExpressApp.Validation.Win</RootNamespace>
+    <AssemblyName>Xpand.ExpressApp.Validation.Win</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -55,14 +55,17 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=6ac0c67e507a249c, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Win.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=6ac0c67e507a249c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\DevExpress 2011.1\eXpressApp Framework\Sources\DevExpress.DLL\DevExpress.ExpressApp.v11.1.dll</HintPath>
+      <HintPath>..\..\..\..\..\DevExpress 2011.1\eXpressApp Framework\Sources\DevExpress.DLL\DevExpress.ExpressApp.Win.v11.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Printing.v11.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Data.v11.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Objects.v11.1">
@@ -74,10 +77,35 @@
     <Reference Include="DevExpress.Persistent.Base.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Utils.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=6ac0c67e507a249c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DevExpress 2011.1\Components\Sources\DevExpress.DLL\DevExpress.Utils.v11.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Xpo.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraEditors.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=6ac0c67e507a249c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DevExpress 2011.1\Components\Sources\DevExpress.DLL\DevExpress.XtraEditors.v11.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=6ac0c67e507a249c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DevExpress 2011.1\Components\Sources\DevExpress.DLL\DevExpress.XtraGrid.v11.1.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="Xpand.ExpressApp, Version=11.1.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Validation, Version=11.1.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Win, Version=11.1.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Persistent.Base, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -103,29 +131,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionExecuteValidationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PermissionValidationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="RuleWarningAttribute.cs" />
     <Compile Include="WarningController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WarningGeneratorUpdater.cs" />
-    <Compile Include="XpandValidationModule.cs">
+    <Compile Include="XpandValidationWinModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandValidationModule.Designer.cs">
-      <DependentUpon>XpandValidationModule.cs</DependentUpon>
+    <Compile Include="XpandValidationWinModule.Designer.cs">
+      <DependentUpon>XpandValidationWinModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XpandValidationModule.resx">
-      <DependentUpon>XpandValidationModule.cs</DependentUpon>
+    <EmbeddedResource Include="XpandValidationWinModule.resx">
+      <DependentUpon>XpandValidationWinModule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -161,7 +181,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

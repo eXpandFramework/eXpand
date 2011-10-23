@@ -59,6 +59,7 @@ namespace FeatureCenter.Module.Win {
             this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityModuleWin));
             this.RequiredModuleTypes.Add(typeof(ImportWizardWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Workflow.Win.WorkflowWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Validation.Win.XpandValidationWinModule));
         }
 
         #endregion
