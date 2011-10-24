@@ -215,7 +215,7 @@ namespace Xpand.ExpressApp.Logic {
 
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs args) {
             if (!String.IsNullOrEmpty(args.PropertyName) && View != null)
-                ForceExecution(ExecutionContext.ObjectChanged);
+                ForceExecution(ExecutionContext.ObjectSpaceObjectChanged);
         }
 
         protected virtual void OnLogicRuleExecuting(LogicRuleExecutingEventArgs<TModelLogicRule> args) {

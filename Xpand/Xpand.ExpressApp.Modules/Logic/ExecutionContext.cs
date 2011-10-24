@@ -5,7 +5,7 @@ namespace Xpand.ExpressApp.Logic {
     public enum ExecutionContext {
         None = 0,
         ViewChanging = 2,
-        ObjectChanged = 4,
+        ObjectSpaceObjectChanged = 4,
         ObjectSpaceReloaded = 8,
         CurrentObjectChanged = 16,
         ViewControlsCreated = 32,
