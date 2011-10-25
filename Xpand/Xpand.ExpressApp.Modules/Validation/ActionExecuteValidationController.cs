@@ -9,23 +9,20 @@ using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.Validation {
     public class ActionExecuteValidationController : ObjectViewController {
-
-
-
         public event EventHandler<CustomGetAggregatedObjectsToValidateEventArgs> CustomGetAggregatedObjectsToValidate;
         public event EventHandler<NeedToValidateObjectEventArgs> NeedToValidateObject;
+        public event EventHandler<ContextValidatingEventArgs> ContextValidating;
 
         protected virtual void OnContextValidating(ContextValidatingEventArgs args) {
             if (ContextValidating != null) {
                 ContextValidating(this, args);
             }
         }
-        public event EventHandler<ContextValidatingEventArgs> ContextValidating;
+
         private void CustomizeDeleteValidationException(ValidationCompletedEventArgs args) {
             args.Exception.MessageHeader = ValidationExceptionLocalizer.GetExceptionMessage(ValidationExceptionId.DeleteErrorMessageHeader);
             args.Exception.ObjectHeaderFormat = ValidationExceptionLocalizer.GetExceptionMessage(ValidationExceptionId.DeleteErrorMessageObjectFormat);
         }
-
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
@@ -35,7 +32,6 @@ namespace Xpand.ExpressApp.Validation {
                 }
             }
         }
-
 
         protected override void OnActivated() {
             base.OnActivated();
@@ -52,10 +48,9 @@ namespace Xpand.ExpressApp.Validation {
                 SubscribeSelectorEvents(deleteSelector);
                 var selectedObjects = ((SimpleActionExecuteEventArgs)actionBaseEventArgs).SelectedObjects;
                 var context = actionBaseEventArgs.Action.Id;
-
-                var deleteContextArgs = new ContextValidatingEventArgs(context, new ArrayList(selectedObjects));
-                OnContextValidating(deleteContextArgs);
-                Validator.RuleSet.ValidateAll(deleteContextArgs.TargetObjects, context, CustomizeDeleteValidationException);
+                var contextValidatingEventArgs = new ContextValidatingEventArgs(context, new ArrayList(selectedObjects));
+                OnContextValidating(contextValidatingEventArgs);
+                Validator.RuleSet.ValidateAll(contextValidatingEventArgs.TargetObjects, context, CustomizeDeleteValidationException);
             }
         }
 

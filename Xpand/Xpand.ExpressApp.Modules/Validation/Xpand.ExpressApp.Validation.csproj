@@ -78,6 +78,10 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="Xpand.ExpressApp, Version=11.1.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Persistent.Base, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -109,7 +113,7 @@
     <Compile Include="PermissionValidationController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RuleWarningAttribute.cs" />
+    <Compile Include="RuleErrorTypeAttribute.cs" />
     <Compile Include="WarningController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -161,7 +165,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Images\DevExpress.XtraEditors.Images.Warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\DevExpress.XtraEditors.Images.Information.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

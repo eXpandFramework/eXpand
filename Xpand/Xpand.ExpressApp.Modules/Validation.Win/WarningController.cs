@@ -2,65 +2,74 @@ using System.Collections.Generic;
 using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Validation.AllContextsView;
 using DevExpress.ExpressApp.Win.Editors;
+using DevExpress.Persistent.Validation;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.DXErrorProvider;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.Win.ListEditors;
 using System.Linq;
 
 namespace Xpand.ExpressApp.Validation.Win {
 
     public class WarningController : Validation.WarningController {
-        static readonly Image _errorImage;
-
-        static WarningController() {
-            _errorImage = DevExpress.Utils.ResourceImageHelper.CreateImageFromResources("DevExpress.XtraEditors.Images.Warning.png", typeof(DXErrorProvider).Assembly);
-        }
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             if (ListEditor != null) {
                 ListEditor.GridView.QueryErrorType += GridViewOnQueryErrorType;
+                if (HasNonCriticalRulesForControlValueChangedContext())
+                    ListEditor.GridView.CellValueChanged += GridViewOnCellValueChanged;
             }
         }
-        protected override List<PropertyEditor> CollectPropertyEditors(IEnumerable<DevExpress.Persistent.Validation.RuleSetValidationResultItem> result) {
-            var propertyEditors = base.CollectPropertyEditors(result);
-            foreach (var baseEdit in propertyEditors.Select(editor => editor.Control).OfType<BaseEdit>()) {
-                baseEdit.ErrorIcon = _errorImage;
+
+        void GridViewOnCellValueChanged(object sender, CellValueChangedEventArgs cellValueChangedEventArgs) {
+            var row = ((GridView)sender).GetRow(cellValueChangedEventArgs.RowHandle);
+            ValidateControlValueChangedContext(row);
+        }
+
+        protected override Dictionary<PropertyEditor, RuleType> CollectPropertyEditors(IEnumerable<RuleSetValidationResultItem> result, RuleType ruleType) {
+            var propertyEditors = base.CollectPropertyEditors(result, ruleType);
+            foreach (var keyValuePair in propertyEditors.Where(IsNotCritical)) {
+                ((BaseEdit)keyValuePair.Key.Control).ErrorIcon = CreateImageFromResources(keyValuePair.Value);
             }
             return propertyEditors;
         }
 
+        private bool IsNotCritical(KeyValuePair<PropertyEditor, RuleType> pair) {
+            return pair.Value != RuleType.Critical && pair.Key.Control is BaseEdit;
+        }
+
+        Image CreateImageFromResources(RuleType ruleType) {
+            return ImageLoader.Instance.GetEnumValueImageInfo(ruleType).Image;
+        }
+
         void GridViewOnQueryErrorType(object sender, ErrorTypeEventArgs errorTypeEventArgs) {
-            if (errorTypeEventArgs.Column != null && errorTypeEventArgs.ErrorType == ErrorType.Critical) {
+            var enumDescriptor = new EnumDescriptor(typeof(ErrorType));
+            var critical = (ErrorType)enumDescriptor.ParseCaption(RuleType.Critical.ToString());
+            if (errorTypeEventArgs.Column != null && errorTypeEventArgs.ErrorType == critical) {
                 if (View.ObjectTypeInfo.Type != typeof(DisplayableValidationResultItem)) {
                     var xafGridColumn = ((XafGridColumn)errorTypeEventArgs.Column);
-                    errorTypeEventArgs.ErrorType = GetErrorType(xafGridColumn.PropertyName);
+                    var caption = GetRuleType(xafGridColumn.PropertyName).ToString();
+                    errorTypeEventArgs.ErrorType = (ErrorType)enumDescriptor.ParseCaption(caption);
                 } else {
                     var resultItem = (DisplayableValidationResultItem)((XafGridView)sender).GetRow(errorTypeEventArgs.RowHandle);
-                    var warning = ((IModelRuleBaseWarning)((IModelApplicationValidation)Application.Model).Validation.Rules[resultItem.Rule.Id]);
-                    errorTypeEventArgs.ErrorType = warning.IsWarning ? ErrorType.Warning : ErrorType.Critical;
+                    var warning = ((IModelRuleBaseRuleType)((IModelApplicationValidation)Application.Model).Validation.Rules[resultItem.Rule.Id]);
+                    errorTypeEventArgs.ErrorType = (ErrorType)enumDescriptor.ParseCaption(warning.RuleType.ToString());
                 }
             }
         }
 
-        ErrorType GetErrorType(string propertyName) {
-            if (!ErrorTypes.ContainsKey(propertyName))
-                ErrorTypes.Add(propertyName, ErrorType.Critical);
-            return ErrorTypes[propertyName];
+        RuleType GetRuleType(string propertyName) {
+            return (from pair in Dictionary let ruleSetValidationResultItem = pair.Value.Where(item => item.Rule.UsedProperties.Contains(propertyName)).FirstOrDefault() where ruleSetValidationResultItem != null select pair.Key).FirstOrDefault();
         }
 
         public XpandGridListEditor ListEditor {
             get { return View is ListView ? ((ListView)View).Editor as XpandGridListEditor : null; }
         }
-
-
-
-        //        protected override IEnumerable<string> GetUsedColumnNames(IRule rule) {
-        //            return ListEditor.GridView != null ? rule.UsedProperties.Select(usedProperty => ((XafGridColumn)ListEditor.GridView.Columns.ColumnByFieldName(usedProperty)).PropertyName).Where(column => column != null).ToList() : new List<string>();
-        //        }
-
     }
 }
