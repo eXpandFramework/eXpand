@@ -8,13 +8,16 @@ using Xpand.Xpo;
 
 namespace Xpand.ExpressApp {
     public class XpandObjectSpaceProvider : ObjectSpaceProvider, IXpandObjectSpaceProvider {
+        readonly bool _dataCache;
 
         public IXpoDataStoreProxy DataStoreProvider { get; set; }
 
-        public XpandObjectSpaceProvider(IXpoDataStoreProxy provider)
+        public XpandObjectSpaceProvider(IXpoDataStoreProxy provider, bool dataCache)
             : base(provider) {
+            _dataCache = dataCache;
             DataStoreProvider = provider;
         }
+
 
         protected override IObjectSpace CreateObjectSpaceCore(UnitOfWork unitOfWork, ITypesInfo typesInfo) {
             var objectSpace = new XpandObjectSpace(new XpandUnitOfWork(unitOfWork.DataLayer), typesInfo) {
@@ -39,6 +42,14 @@ namespace Xpand.ExpressApp {
             if (toDispose != null) {
                 toDispose.Dispose();
             }
+        }
+        protected override IDataLayer CreateWorkingDataLayer(IDataStore workingDataStore) {
+            if (_dataCache) {
+                var cacheRoot = new DataCacheRoot(workingDataStore);
+                var cacheNode = new DataCacheNode(cacheRoot);
+                return new SimpleDataLayer(XPDictionary, cacheNode);
+            }
+            return base.CreateWorkingDataLayer(workingDataStore);
         }
 
         private UnitOfWork CreateUnitOfWork(IDataStore dataStore, IEnumerable<IDisposable> disposableObjects) {

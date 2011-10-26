@@ -26,7 +26,7 @@ namespace FeatureCenter.Module {
         }
 
         public virtual void UpdateDatabaseAfterUpdateSchema() {
-            throw new NotImplementedException();
+            //            throw new NotImplementedException();
         }
     }
 }

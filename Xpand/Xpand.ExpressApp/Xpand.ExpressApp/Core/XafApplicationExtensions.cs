@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.Configuration;
+using DevExpress.ExpressApp;
 using Xpand.Xpo.DB;
 using System.Linq;
 
@@ -10,7 +11,7 @@ namespace Xpand.ExpressApp.Core {
 
         public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
             ((ISupportFullConnectionString)xafApplication).ConnectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
-            args.ObjectSpaceProvider = new XpandObjectSpaceProvider(new MultiDataStoreProvider(args.ConnectionString));
+            args.ObjectSpaceProvider = new XpandObjectSpaceProvider(new MultiDataStoreProvider(args.ConnectionString), ConfigurationManager.AppSettings["DataCache"] == "Client");
         }
 
         static string getConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args) {
