@@ -301,7 +301,7 @@
 		<Zip Files="@(_SourceFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Source-$(Version).zip" Flatten="false" />
 		
 		<!-- Lib.zip -->
-		<CreateItem Include="$(TempPath)\*.*;" Exclude="$(TempPath)\DevExpress*;">
+		<CreateItem Include="$(TempPath)\*.*;" Exclude="$(TempPath)\DevExpress*;$(TempPath)\EmailModule*">
 			<Output ItemName="_libFiles" TaskParameter="Include" />
 		</CreateItem>
 		<Zip Files="@(_libFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Lib-$(Version).zip" Flatten="true" />
