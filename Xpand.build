@@ -295,7 +295,7 @@
 		<MakeDir Directories="$(PackageDirectory);" />
 
 		<!-- Source.zip -->
-		<CreateItem Include="**\*.*" Exclude="Resource\Tool\**\*.*;Build\**\*.*;Resource\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*;Xpand.DLL\**\*.*">
+		<CreateItem Include="**\*.*" Exclude="Resource\Tool\**\*.*;Build\**\*.*;Resource\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates">
 			<Output ItemName="_SourceFiles" TaskParameter="Include" />
 		</CreateItem>
 		<Zip Files="@(_SourceFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Source-$(Version).zip" Flatten="false" />
