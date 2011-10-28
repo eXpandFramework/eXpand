@@ -9,8 +9,6 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Validation;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.DXErrorProvider;
-using DevExpress.XtraGrid.Views.Base;
-using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.Win.ListEditors;
 using System.Linq;
 
@@ -22,14 +20,7 @@ namespace Xpand.ExpressApp.Validation.Win {
             base.OnViewControlsCreated();
             if (ListEditor != null) {
                 ListEditor.GridView.QueryErrorType += GridViewOnQueryErrorType;
-                if (HasNonCriticalRulesForControlValueChangedContext())
-                    ListEditor.GridView.CellValueChanged += GridViewOnCellValueChanged;
             }
-        }
-
-        void GridViewOnCellValueChanged(object sender, CellValueChangedEventArgs cellValueChangedEventArgs) {
-            var row = ((GridView)sender).GetRow(cellValueChangedEventArgs.RowHandle);
-            ValidateControlValueChangedContext(row);
         }
 
         protected override Dictionary<PropertyEditor, RuleType> CollectPropertyEditors(IEnumerable<RuleSetValidationResultItem> result, RuleType ruleType) {

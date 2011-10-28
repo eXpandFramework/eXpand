@@ -17,20 +17,19 @@ namespace Xpand.ExpressApp.Validation {
     }
 
     public abstract class WarningController : ViewController<ObjectView> {
-        public const string ControlValueChanged = "ControlValueChanged";
+        public const string ObjectSpaceObjectChanged = "ObjectSpaceObjectChanged";
         protected Dictionary<RuleType, IEnumerable<RuleSetValidationResultItem>> Dictionary = new Dictionary<RuleType, IEnumerable<RuleSetValidationResultItem>>();
         protected override void OnActivated() {
             base.OnActivated();
             Validator.RuleSet.ValidationCompleted += RuleSetOnValidationCompleted;
-
+            if (HasNonCriticalRulesForControlValueChangedContext()) {
+                ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
+            }
         }
-        protected override void OnViewControlsCreated() {
-            base.OnViewControlsCreated();
-            if (View is DetailView && HasNonCriticalRulesForControlValueChangedContext()) {
-                IList<PropertyEditor> propertyEditors = View.GetItems<PropertyEditor>();
-                foreach (PropertyEditor propertyEditor in propertyEditors) {
-                    propertyEditor.ControlValueChanged += PropertyEditorOnControlValueChanged;
-                }
+
+        void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
+            if (!string.IsNullOrEmpty(objectChangedEventArgs.PropertyName)) {
+                ValidateControlValueChangedContext(objectChangedEventArgs.Object);
             }
         }
 
@@ -39,17 +38,11 @@ namespace Xpand.ExpressApp.Validation {
         }
 
         Func<IModelRuleBaseRuleType, bool> IsTypeInfoCriticalRuleForControlValueChangedContext() {
-            return type => type.RuleType != RuleType.Critical && ((IRuleBaseProperties)type).TargetType == View.ObjectTypeInfo.Type && ((IRuleBaseProperties)type).TargetContextIDs.Contains(ControlValueChanged);
-        }
-
-        void PropertyEditorOnControlValueChanged(object sender, EventArgs eventArgs) {
-            var propertyEditor = ((PropertyEditor)sender);
-            var currentObject = propertyEditor.CurrentObject;
-            ValidateControlValueChangedContext(currentObject);
+            return type => type.RuleType != RuleType.Critical && ((IRuleBaseProperties)type).TargetType == View.ObjectTypeInfo.Type && ((IRuleBaseProperties)type).TargetContextIDs.Contains(ObjectSpaceObjectChanged);
         }
 
         protected void ValidateControlValueChangedContext(object currentObject) {
-            Validator.RuleSet.ValidateAll(new List<object> { currentObject }, ControlValueChanged);
+            Validator.RuleSet.ValidateAll(new List<object> { currentObject }, ObjectSpaceObjectChanged);
         }
 
         protected override void OnDeactivated() {

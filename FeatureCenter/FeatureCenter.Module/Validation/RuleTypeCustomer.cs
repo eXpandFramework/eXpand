@@ -1,4 +1,5 @@
-﻿using DevExpress.Persistent.Validation;
+﻿using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Validation;
 
@@ -35,8 +36,9 @@ namespace FeatureCenter.Module.Validation {
         private string _infoOnControlValueChanged;
 
         [RuleValueComparison("RuleStringComparison_InfoOnControlValueChanged_for_Warning_Customer",
-            WarningController.ControlValueChanged, ValueComparisonType.NotEquals, "value")]
+            WarningController.ObjectSpaceObjectChanged, ValueComparisonType.NotEquals, "value")]
         [RuleErrorType("RuleStringComparison_InfoOnControlValueChanged_for_Warning_Customer", RuleType.Information)]
+        [ImmediatePostData]
         public string InfoOnControlValueChanged {
             get { return _infoOnControlValueChanged; }
             set { SetPropertyValue("InfoOnControlValueChanged", ref _infoOnControlValueChanged, value); }
