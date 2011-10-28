@@ -295,13 +295,13 @@
 		<MakeDir Directories="$(PackageDirectory);" />
 
 		<!-- Source.zip -->
-		<CreateItem Include="**\*.*" Exclude="Resource\Tool\**\*.*;Build\**\*.*;Resource\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*;Xpand.DLL\**\*.*">
+		<CreateItem Include="**\*.*" Exclude="Resource\Tool\**\*.*;Build\**\*.*;Resource\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;**\*typemock*">
 			<Output ItemName="_SourceFiles" TaskParameter="Include" />
 		</CreateItem>
 		<Zip Files="@(_SourceFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Source-$(Version).zip" Flatten="false" />
 		
 		<!-- Lib.zip -->
-		<CreateItem Include="$(TempPath)\*.*;" Exclude="$(TempPath)\DevExpress*;">
+		<CreateItem Include="$(TempPath)\*.*;" Exclude="$(TempPath)\DevExpress*;$(TempPath)\EmailModule*">
 			<Output ItemName="_libFiles" TaskParameter="Include" />
 		</CreateItem>
 		<Zip Files="@(_libFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Lib-$(Version).zip" Flatten="true" />
