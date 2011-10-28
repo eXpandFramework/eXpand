@@ -8,13 +8,12 @@ using Xpand.Xpo;
 
 namespace Xpand.ExpressApp {
     public class XpandObjectSpaceProvider : ObjectSpaceProvider, IXpandObjectSpaceProvider {
-        readonly bool _dataCache;
+
 
         public IXpoDataStoreProxy DataStoreProvider { get; set; }
 
-        public XpandObjectSpaceProvider(IXpoDataStoreProxy provider, bool dataCache)
+        public XpandObjectSpaceProvider(IXpoDataStoreProxy provider)
             : base(provider) {
-            _dataCache = dataCache;
             DataStoreProvider = provider;
         }
 
@@ -43,13 +42,17 @@ namespace Xpand.ExpressApp {
                 toDispose.Dispose();
             }
         }
+        public event EventHandler<CreatingWorkingDataLayerArgs> CreatingWorkingDataLayer;
+
+        protected void OnCreatingWorkingDataLayer(CreatingWorkingDataLayerArgs e) {
+            EventHandler<CreatingWorkingDataLayerArgs> handler = CreatingWorkingDataLayer;
+            if (handler != null) handler(this, e);
+        }
+
         protected override IDataLayer CreateWorkingDataLayer(IDataStore workingDataStore) {
-            if (_dataCache) {
-                var cacheRoot = new DataCacheRoot(workingDataStore);
-                var cacheNode = new DataCacheNode(cacheRoot);
-                return new SimpleDataLayer(XPDictionary, cacheNode);
-            }
-            return base.CreateWorkingDataLayer(workingDataStore);
+            var creatingWorkingDataLayerArgs = new CreatingWorkingDataLayerArgs(workingDataStore);
+            OnCreatingWorkingDataLayer(creatingWorkingDataLayerArgs);
+            return creatingWorkingDataLayerArgs.DataLayer ?? base.CreateWorkingDataLayer(workingDataStore);
         }
 
         private UnitOfWork CreateUnitOfWork(IDataStore dataStore, IEnumerable<IDisposable> disposableObjects) {
@@ -62,5 +65,19 @@ namespace Xpand.ExpressApp {
             disposableObjectsList.Add(dataLayer);
             return new XpandUnitOfWork(dataLayer, disposableObjectsList.ToArray());
         }
+    }
+
+    public class CreatingWorkingDataLayerArgs : EventArgs {
+        readonly IDataStore _workingDataStore;
+
+        public CreatingWorkingDataLayerArgs(IDataStore workingDataStore) {
+            _workingDataStore = workingDataStore;
+        }
+
+        public IDataStore WorkingDataStore {
+            get { return _workingDataStore; }
+        }
+
+        public IDataLayer DataLayer { get; set; }
     }
 }

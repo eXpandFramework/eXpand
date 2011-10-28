@@ -1,14 +1,18 @@
-﻿using Xpand.Xpo.DB;
+﻿using DevExpress.Xpo.DB;
+using Xpand.Xpo.DB;
 
 namespace Xpand.ExpressApp {
     public class MultiDataStoreProvider:DataStoreProvider {
-        SqlMultiDataStoreProxy _sqlMultiDataStoreProxy;
+        MultiDataStoreProxy _multiDataStoreProxy;
 
         public MultiDataStoreProvider(string connectionString) : base(connectionString) {
         }
 
-        public override SqlDataStoreProxy Proxy{
-            get { return _sqlMultiDataStoreProxy ?? (_sqlMultiDataStoreProxy = new SqlMultiDataStoreProxy(ConnectionString)); }
+        public MultiDataStoreProvider(IDataStore connectionString) : base(connectionString) {
+        }
+
+        public override DataStoreProxy Proxy{
+            get { return _multiDataStoreProxy ?? (_multiDataStoreProxy = new MultiDataStoreProxy(ConnectionString)); }
         }
     }
 }

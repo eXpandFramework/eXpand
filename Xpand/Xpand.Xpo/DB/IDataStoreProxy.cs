@@ -3,11 +3,11 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Helpers;
 
 namespace Xpand.Xpo.DB {
-    public interface ISqlDataStoreProxy : ISqlDataStore,ICommandChannel {
+    public interface IDataStoreProxy : IDataStore, ICommandChannel {
         event EventHandler<DataStoreModifyDataEventArgs> DataStoreModifyData;
         event EventHandler<DataStoreSelectDataEventArgs> DataStoreSelectData;
         event EventHandler<DataStoreUpdateSchemaEventArgs> DataStoreUpdateSchema;
-        ISqlDataStore DataStore { get;  }
+        IDataStore DataStore { get; }
     }
 
     public interface ISchemaUpdater {

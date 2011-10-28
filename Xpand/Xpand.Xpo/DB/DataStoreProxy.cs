@@ -6,23 +6,28 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Helpers;
 
 namespace Xpand.Xpo.DB {
-    public class SqlDataStoreProxy : ISqlDataStoreProxy {
+    public class DataStoreProxy : IDataStoreProxy {
         private readonly BaseDataLayer dataLayerCore;
-        private readonly ISqlDataStore dataStoreCore;
+        private readonly IDataStore dataStoreCore;
         protected readonly List<ISchemaUpdater> schemaUpdaters = new List<ISchemaUpdater> { new SchemaColumnSizeUpdater() };
-        protected SqlDataStoreProxy() {
+        protected DataStoreProxy() {
         }
         #region IDataStore Members
-        public SqlDataStoreProxy(string connectionString) {
-            dataStoreCore = (ISqlDataStore)XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
+        public DataStoreProxy(string connectionString) {
+            dataStoreCore = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
             dataLayerCore = new SimpleDataLayer(dataStoreCore);
         }
 
-        public static implicit operator ConnectionProviderSql(SqlDataStoreProxy proxy) {
+        public DataStoreProxy(IDataStore dataStore) {
+            dataStoreCore = dataStore;
+            dataLayerCore = new SimpleDataLayer(dataStoreCore);
+        }
+
+        public static implicit operator ConnectionProviderSql(DataStoreProxy proxy) {
             return proxy.dataStoreCore as ConnectionProviderSql;
         }
 
-        public ISqlDataStore DataStore {
+        public IDataStore DataStore {
             get { return dataStoreCore; }
         }
 
@@ -74,11 +79,14 @@ namespace Xpand.Xpo.DB {
         public event EventHandler<DataStoreUpdateSchemaEventArgs> DataStoreUpdateSchema;
 
         public IDbConnection Connection {
-            get { return dataStoreCore.Connection; }
+            get {
+                var sqlDataStore = (dataStoreCore as ISqlDataStore);
+                return sqlDataStore != null ? sqlDataStore.Connection : null;
+            }
         }
 
         public IDbCommand CreateCommand() {
-            return dataStoreCore.CreateCommand();
+            return ((ISqlDataStore)dataStoreCore).CreateCommand();
         }
 
         object ICommandChannel.Do(string command, object args) {

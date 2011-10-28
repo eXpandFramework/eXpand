@@ -45,7 +45,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
                 if (!(objectSpaceProvider is IXpandObjectSpaceProvider)) {
                     throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IXpandObjectSpaceProvider).FullName);
                 }
-                SqlDataStoreProxy proxy = ((IXpandObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
+                DataStoreProxy proxy = ((IXpandObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
                 proxy.DataStoreModifyData += (o, args) => ModifyData(args.ModificationStatements);
                 proxy.DataStoreSelectData += Proxy_DataStoreSelectData;
                 ProxyEventsSubscribed = true;

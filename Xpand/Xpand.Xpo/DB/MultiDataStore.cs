@@ -71,7 +71,7 @@ namespace Xpand.Xpo.DB {
 
         public SimpleDataLayer GetDataLayer(XPDictionary xpDictionary, MultiDataStore multiDataStore,Type type) {
             string connectionString = multiDataStore.DataStoreManager.GetConnectionString(type);
-            var xpoDataStoreProxy = new SqlDataStoreProxy(connectionString);
+            var xpoDataStoreProxy = new DataStoreProxy(connectionString);
             xpoDataStoreProxy.DataStoreModifyData+=(o, eventArgs) => multiDataStore.ModifyData(eventArgs);            
             xpoDataStoreProxy.DataStoreSelectData+=(sender1, dataEventArgs) => {
                 if (multiDataStore.DataStoreManager.SimpleDataLayers.Count>1&&IsQueryingXPObjectType(dataEventArgs)) {

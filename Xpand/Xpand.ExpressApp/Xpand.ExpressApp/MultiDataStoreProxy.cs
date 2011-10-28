@@ -12,19 +12,19 @@ using Xpand.Xpo.DB;
 
 
 namespace Xpand.ExpressApp {
-    public class SqlMultiDataStoreProxy : SqlDataStoreProxy {
+    public class MultiDataStoreProxy : DataStoreProxy {
         readonly XpoObjectHacker _xpoObjectHacker = new XpoObjectHacker();
         readonly DataStoreManager _dataStoreManager;
 
-        protected SqlMultiDataStoreProxy() {
+        protected MultiDataStoreProxy() {
         }
 
-        public SqlMultiDataStoreProxy(string connectionString)
+        public MultiDataStoreProxy(string connectionString)
             : this(connectionString, XafTypesInfo.XpoTypeInfoSource.XPDictionary) {
 
         }
 
-        public SqlMultiDataStoreProxy(string connectionString, XPDictionary xpDictionary)
+        public MultiDataStoreProxy(string connectionString, XPDictionary xpDictionary)
             : base(connectionString) {
             _dataStoreManager = new DataStoreManager(connectionString);
             FillDictionaries(xpDictionary);
@@ -84,7 +84,7 @@ namespace Xpand.ExpressApp {
         }
 
         bool IsMainLayer(IDbConnection connection) {
-            return connection.ConnectionString == Connection.ConnectionString;
+            return connection == null || connection.ConnectionString == Connection.ConnectionString;
         }
 
         public override SelectedData SelectData(params SelectStatement[] selects) {
@@ -102,12 +102,14 @@ namespace Xpand.ExpressApp {
 
         public override UpdateSchemaResult UpdateSchema(bool dontCreateIfFirstTableNotExist, params DBTable[] tables) {
             foreach (KeyValuePair<IDataStore, List<DBTable>> dataStore in _dataStoreManager.GetDataStores(tables)) {
-                var store = (ConnectionProviderSql)dataStore.Key;
-                List<DBTable> dbTables = dataStore.Value;
-                if (!IsMainLayer(store.Connection))
-                    _xpoObjectHacker.EnsureIsNotIdentity(dbTables);
-                store.UpdateSchema(false, dbTables.ToArray());
-                RunExtraUpdaters(tables, store, dontCreateIfFirstTableNotExist);
+                var store = dataStore.Key as ConnectionProviderSql;
+                if (store != null) {
+                    List<DBTable> dbTables = dataStore.Value;
+                    if (!IsMainLayer(store.Connection))
+                        _xpoObjectHacker.EnsureIsNotIdentity(dbTables);
+                    store.UpdateSchema(false, dbTables.ToArray());
+                    RunExtraUpdaters(tables, store, dontCreateIfFirstTableNotExist);
+                }
             }
             return UpdateSchemaResult.SchemaExists;
         }

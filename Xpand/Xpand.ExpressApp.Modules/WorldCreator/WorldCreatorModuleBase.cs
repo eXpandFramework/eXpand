@@ -52,7 +52,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                 return;
             Application.SettingUp += ApplicationOnSettingUp;
             if (FullConnectionString != null) {
-                var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(FullConnectionString, GetReflectionDictionary());
+                var xpoMultiDataStoreProxy = new MultiDataStoreProxy(FullConnectionString, GetReflectionDictionary());
                 using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
                     using (var session = new Session(dataLayer)) {
                         using (var unitOfWork = new UnitOfWork(session.DataLayer)) {
@@ -91,7 +91,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             var existentTypesMemberCreator = new ExistentTypesMemberCreator();
             if (FullConnectionString != null) {
-                var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(FullConnectionString, GetReflectionDictionary());
+                var xpoMultiDataStoreProxy = new MultiDataStoreProxy(FullConnectionString, GetReflectionDictionary());
                 var simpleDataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy);
                 var session = new Session(simpleDataLayer);
                 existentTypesMemberCreator.CreateMembers(session);

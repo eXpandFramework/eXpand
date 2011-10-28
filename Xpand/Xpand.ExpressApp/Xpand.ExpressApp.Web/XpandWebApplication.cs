@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
+using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Core;
 
 
@@ -23,6 +26,7 @@ namespace Xpand.ExpressApp.Web {
             this.CreateCustomObjectSpaceprovider(args);
             base.OnCreateCustomObjectSpaceProvider(args);
         }
+
         string ISupportFullConnectionString.ConnectionString { get; set; }
         public event EventHandler<ViewShownEventArgs> AfterViewShown;
 
@@ -81,5 +85,16 @@ namespace Xpand.ExpressApp.Web {
             base.WriteLastLogonParameters(view, logonObject);
         }
 
+        DataCacheNode IXafApplication.GetDataCacheRoot(IDataStore dataStore) {
+            if ((ConfigurationManager.AppSettings["DataCache"] + "").Contains("Client")) {
+                var cacheNode = HttpContext.Current.Application["DataStore"] as DataCacheNode;
+                if (cacheNode == null) {
+                    var _cacheRoot = new DataCacheRoot(dataStore);
+                    cacheNode = new DataCacheNode(_cacheRoot);
+                }
+                return cacheNode;
+            }
+            return null;
+        }
     }
 }

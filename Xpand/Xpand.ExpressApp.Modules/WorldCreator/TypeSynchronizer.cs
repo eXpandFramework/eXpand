@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             using (var session = new Session { ConnectionString = connectionString }) {
                 using (var types = new XPCollection<XPObjectType>(session)) {
                     IEnumerable<XPObjectType> xpObjectTypes = types.Where(objectType => ReflectionHelper.FindType(objectType.TypeName) != null).ToList();
-                    var sqlMultiDataStoreProxy = new SqlMultiDataStoreProxy(connectionString);
+                    var sqlMultiDataStoreProxy = new MultiDataStoreProxy(connectionString);
                     foreach (var connstring in GetConnectionStrings(sqlMultiDataStoreProxy.DataStoreManager, xpObjectTypes, connectionString)) {
                         if (connstring != connectionString) {
                             SynchronizeTypes(connstring, xpObjectTypes);
@@ -35,7 +35,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         void SynchronizeTypes(string connectionString, IEnumerable<XPObjectType> xpObjectTypes) {
-            var sqlDataStoreProxy = new SqlDataStoreProxy(connectionString);
+            var sqlDataStoreProxy = new DataStoreProxy(connectionString);
             using (var simpleDataLayer = new SimpleDataLayer(sqlDataStoreProxy)) {
                 using (var session = new Session(simpleDataLayer)) {
                     var xpoObjectHacker = new XpoObjectHacker();
