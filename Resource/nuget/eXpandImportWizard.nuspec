@@ -12,11 +12,11 @@
     <summary>Import Wizard Module example / eXpand Framework</summary>
   </metadata>
   <files>
-    <file src="..\..\Build\Temp\Xpand.ExpressApp.ImportWizard.dll" target="lib\Xpand.ExpressApp.ImportWizard.dll" />
-    <file src="..\..\Build\Temp\Xpand.ExpressApp.ImportWizard.pdb" target="lib\Xpand.ExpressApp.ImportWizard.pdb" />
-    <file src="..\..\Build\Temp\Xpand.ExpressApp.ImportWizard.Win.dll" target="lib\Xpand.ExpressApp.ImportWizard.Win.dll" />
-    <file src="..\..\Build\Temp\Xpand.ExpressApp.ImportWizard.Win.pdb" target="lib\Xpand.ExpressApp.ImportWizard.Win.pdb" />
-    <file src="..\..\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
-    <file src="..\..\Build\Temp\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.ImportWizard.dll" target="lib\Xpand.ExpressApp.ImportWizard.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.ImportWizard.pdb" target="lib\Xpand.ExpressApp.ImportWizard.pdb" />
+    <file src="\Build\Temp\Xpand.ExpressApp.ImportWizard.Win.dll" target="lib\Xpand.ExpressApp.ImportWizard.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.ImportWizard.Win.pdb" target="lib\Xpand.ExpressApp.ImportWizard.Win.pdb" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
+    <file src="\Build\Temp\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
   </files>
 </package>
