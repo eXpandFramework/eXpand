@@ -226,8 +226,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
         private void InitWizPage1() {
             //MappeablePropertiesCollection.AddRange(MappableColumns.ToList());
-            LookUpEdit.DataSource = MappableColumns;//.ToList();
-            LookUpEdit.DisplayMember = "Name";
+            
 
             repositoryItemGridLookUpEdit.DataSource = MappableColumns;//.ToList();
             repositoryItemGridLookUpEdit.DisplayMember = "Name";
@@ -326,9 +325,10 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             //Banded Grid Control that prepared data for mapping
 
             var bands = ((BandedGridView)MappingGrid.MainView).Bands;
-            var cols = (MappingGrid.MainView as BandedGridView).Columns;
+            var bandedGridView = MappingGrid.MainView as BandedGridView;
 
-            LookUpEdit.DataSource = MappableColumns;//.ToList();
+            if (bandedGridView == null) return;
+            var cols = bandedGridView.Columns;
 
             foreach (BandedGridColumn col in cols) {
                 if (col.AbsoluteIndex != 0 && col.AbsoluteIndex != cols.Count - 1) {
@@ -376,10 +376,13 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             } else {
                 try {
                     ExcelDocument = SpreadsheetDocument.Open(edit.Text, false);
-                    SheetSelectEdit.Properties.DataSource =
-                        ExcelDocument.Sheets()
+
+                    var sheets = ExcelDocument.Sheets()
                         .Select(p => p.OXmlSheet.Name)
                         .ToList();
+                    SheetSelectEdit.Properties.DataSource = sheets;
+                    if (sheets.Count == 1)
+                        SheetSelectEdit.EditValue = sheets.FirstOrDefault();
 
                     ImportMapDescriptionEdit.Text = (new FileInfo(edit.Text)).Name;
                 } catch {
@@ -471,13 +474,13 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LookUpEdit_ButtonClick(object sender, ButtonPressedEventArgs e) {
-            if (e.Button.Index != 1) return;
+        //private void LookUpEdit_ButtonClick(object sender, ButtonPressedEventArgs e) {
+        //    if (e.Button.Index != 1) return;
 
-            ((LookUpEdit)sender).EditValue = null;
-            ((GridControl)((LookUpEdit)sender).Parent).MainView.PostEditor();
-            ((GridControl)((LookUpEdit)sender).Parent).MainView.UpdateCurrentRow();
-        }
+        //    ((LookUpEdit)sender).EditValue = null;
+        //    ((GridControl)((LookUpEdit)sender).Parent).MainView.PostEditor();
+        //    ((GridControl)((LookUpEdit)sender).Parent).MainView.UpdateCurrentRow();
+
 
         private void PrieviewRowCountSpinEdit_EditValueChanged(object sender, EventArgs e) {
             _Sheet.PreviewRowCount = decimal.ToInt32(((SpinEdit)sender).Value);
@@ -590,18 +593,6 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             InitWizPage1();
         }
 
-        /// <summary>
-        /// Performs post editor 
-        /// Needed so datasource would be updated imediately 
-        /// (by default it happens when user navigates to another record)
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LookUpEdit_Closed(object sender, ClosedEventArgs e) {
-            BaseView mainView = ((GridControl)((LookUpEdit)sender).Parent).MainView;
-            mainView.PostEditor();
-            mainView.UpdateCurrentRow();
-        }
 
         #region Import Data
 
@@ -788,8 +779,8 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                                     if (isNullable) {
                                         if (prop.StorageType == typeof(int)) {
                                             int number;
-                                            var rez = Int32.TryParse(val.Value, out number);
-                                            if (rez) convertedValue = number;
+                                            if (val.Value != String.Empty && Int32.TryParse(val.Value, out number))
+                                                convertedValue = number;
 
                                         } else if (prop.StorageType == typeof(DateTime)) {
                                             if (val.Value != string.Empty) {
@@ -807,7 +798,13 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                                             prop.SetValue(newObj, Enum.Parse(prop.MemberType, val.Value));
                                         } else if (prop.MemberType == typeof(char))
                                             convertedValue = Convert.ChangeType(GetQString(val.Value), prop.MemberType);
-                                        else if (prop.MemberType == typeof(Guid))
+                                        else if (prop.StorageType == typeof(int)) {
+                                            int number;
+                                            if (val.Value != String.Empty && Int32.TryParse(val.Value, out number))
+                                                convertedValue = number;
+                                            else
+                                                convertedValue = 0;
+                                        } else if (prop.MemberType == typeof(Guid))
                                             convertedValue = new Guid(GetQString(val.Value));
                                         else if (prop.StorageType == typeof(DateTime)) {
                                             if (val.Value != string.Empty) {
@@ -834,7 +831,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                                     }
 
                                     if (convertedValue != null) {
-                                        if (convertedValue.GetType() == typeof(double))
+                                        if (convertedValue is double)
                                             convertedValue = Math.Round((double)convertedValue, 2, MidpointRounding.ToEven);
 
                                         prop.SetValue(newObj, convertedValue);
@@ -855,7 +852,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                             }
 
                         } catch (Exception E) {
-                            message = string.Format("Error processing record {0}. {1}", i, E);
+                            message = string.Format("Error processing record {0}. {1}", i-1, E);
                             _BgWorker.ReportProgress(0, message);
                         }
 
@@ -866,7 +863,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                 }
 
                 objectSpace.CommitChanges();
-                message = string.Format("Importing record {0} succesfull.", i);
+                message = string.Format("Importing record {0} succesfull.", i-1);
                 _BgWorker.ReportProgress(1, message);
                 Application.DoEvents();
             }
@@ -892,6 +889,35 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         }
 
         private void mappablePropertyBindingSource_CurrentChanged(object sender, EventArgs e) {
+
+        }
+        /// <summary>
+        /// Clear the MapsTo column Cell
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void repositoryItemGridLookUpEdit_ButtonClick(object sender, ButtonPressedEventArgs e) {
+            if (e.Button.Index != 1) return;
+            
+            ((GridLookUpEdit)sender).EditValue = null;
+            ((GridControl)((GridLookUpEdit)sender).Parent).MainView.PostEditor();
+            ((GridControl)((GridLookUpEdit)sender).Parent).MainView.UpdateCurrentRow();
+        }
+
+        /// <summary>
+        /// Performs post editor 
+        /// Needed so datasource would be updated imediately 
+        /// (by default it happens when user navigates to another record)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void repositoryItemGridLookUpEdit_Closed(object sender, ClosedEventArgs e) {
+            BaseView mainView = ((GridControl)((GridLookUpEdit)sender).Parent).MainView;
+            mainView.PostEditor();
+            mainView.UpdateCurrentRow();
+        }
+
+        private void repositoryItemGridLookUpEdit_CloseUp(object sender, CloseUpEventArgs e) {
 
         }
 
