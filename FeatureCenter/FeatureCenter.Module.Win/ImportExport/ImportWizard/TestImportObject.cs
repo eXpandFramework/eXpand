@@ -34,14 +34,22 @@ namespace FeatureCenter.Module.Win.ImportExport.ImportWizard {
                 SetPropertyValue("Date", ref _date, value);
             }
         }
-        private int _Age;
-
+        private int? _Age;
+        
         [DisplayName("Age")]
-        public int Age {
+        public int? Age {
             get { return _Age; }
             set { SetPropertyValue("Age", ref _Age, value); }
         }
 
+
+        private int _IntNum;
+
+        [DisplayName("IntNum")]
+        public int IntNum {
+            get { return _IntNum; }
+            set { SetPropertyValue("IntNum", ref _IntNum, value); }
+        }
 
         private TestGroupObject _Group;
 
