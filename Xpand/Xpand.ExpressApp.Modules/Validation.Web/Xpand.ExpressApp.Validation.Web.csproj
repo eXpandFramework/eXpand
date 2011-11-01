@@ -55,7 +55,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Web.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=6ac0c67e507a249c, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Web.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=6ac0c67e507a249c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Printing.v11.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -128,9 +130,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WarningController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="WarningController.cs" />
     <Compile Include="XpandValidationWebModule.cs">
       <SubType>Component</SubType>
     </Compile>
