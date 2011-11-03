@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>eXpandImportWizard</id>
+    <id>testexpand</id>
     <version>11.1</version>
     <title>DevExpress eXpand Framework ImportWizard Module</title>
     <authors>eXpand</authors>
