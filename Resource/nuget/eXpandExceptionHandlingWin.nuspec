@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>eXpandExceptionHandlingWin</id>
+    <version>11.1</version>
+    <title>DevExpress eXpand Framework ExceptionHandling Module (Win)</title>
+    <authors>eXpand</authors>
+    <owners>eXpand</owners>
+    <iconUrl>http://www.expressapp.ru/expand/expand.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ExceptionHandling Module (Win) / eXpand Framework</description>
+    <summary>ExceptionHandling Module (Win) / eXpand Framework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand</tags>
+  </metadata>
+  <files>
+    <file src="lib\Xpand.ExpressApp.ExceptionHandling.dll" target="lib\Xpand.ExpressApp.ExceptionHandling.dll" />
+    <file src="lib\Xpand.ExpressApp.ExceptionHandling.Win.dll" target="lib\Xpand.ExpressApp.ExceptionHandling.Win.dll" />
+    <file src="lib\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
+    <file src="lib\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
+  </files>
+</package>

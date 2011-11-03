@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>eXpandWizardWin</id>
+    <version>11.1</version>
+    <title>DevExpress eXpand Framework Wizard Module (Win)</title>
+    <authors>eXpand</authors>
+    <owners>eXpand</owners>
+    <iconUrl>http://www.expressapp.ru/expand/expand.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Wizard Module (Win) / eXpand Framework</description>
+    <summary>Wizard Module (Win) / eXpand Framework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand</tags>
+  </metadata>
+  <files>
+    <file src="lib\Xpand.ExpressApp.ImportWizard.dll" target="lib\Xpand.ExpressApp.ImportWizard.dll" />
+    <file src="lib\Xpand.ExpressApp.ImportWizard.Win.dll" target="lib\Xpand.ExpressApp.ImportWizard.Win.dll" />
+    <file src="lib\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
+    <file src="lib\Xpand.ExpressApp.WizardUI.Win.dll" target="lib\Xpand.ExpressApp.WizardUI.Win.dll" />
+    <file src="lib\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
+  </files>
+</package>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>eXpandIOWin</id>
+    <version>11.1</version>
+    <title>DevExpress eXpand Framework IO Module (Win)</title>
+    <authors>eXpand</authors>
+    <owners>eXpand</owners>
+    <iconUrl>http://www.expressapp.ru/expand/expand.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>IO Module (Win) / eXpand Framework</description>
+    <summary>IO Module (Win) / eXpand Framework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand</tags>
+  </metadata>
+  <files>
+    <file src="lib\Xpand.ExpressApp.IO.dll" target="lib\Xpand.ExpressApp.IO.dll" />
+    <file src="lib\Xpand.ExpressApp.IO.Win.dll" target="lib\Xpand.ExpressApp.IO.Win.dll" />
+    <file src="lib\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
+    <file src="lib\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
+  </files>
+</package>

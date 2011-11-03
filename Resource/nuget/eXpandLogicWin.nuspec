@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>eXpandLogicWin</id>
+    <version>11.1</version>
+    <title>DevExpress eXpand Framework Logic Module (Win)</title>
+    <authors>eXpand</authors>
+    <owners>eXpand</owners>
+    <iconUrl>http://www.expressapp.ru/expand/expand.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Logic Module (Win) / eXpand Framework</description>
+    <summary>Logic Module (Win) / eXpand Framework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand</tags>
+  </metadata>
+  <files>
+    <file src="lib\Xpand.ExpressApp.Logic.Conditional.dll" target="lib\Xpand.ExpressApp.Logic.Conditional.dll" />
+    <file src="lib\Xpand.ExpressApp.Logic.dll" target="lib\Xpand.ExpressApp.Logic.dll" />
+    <file src="lib\Xpand.ExpressApp.Logic.Win.dll" target="lib\Xpand.ExpressApp.Logic.Win.dll" />
+    <file src="lib\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
+    <file src="lib\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
+  </files>
+</package>
