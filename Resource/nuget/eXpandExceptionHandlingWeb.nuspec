@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand</tags>
   </metadata>
   <files>
-    <file src="lib\Xpand.ExpressApp.ExceptionHandling.dll" target="lib\Xpand.ExpressApp.ExceptionHandling.dll" />
-    <file src="lib\Xpand.ExpressApp.ExceptionHandling.Web.dll" target="lib\Xpand.ExpressApp.ExceptionHandling.Web.dll" />
-    <file src="lib\Xpand.ExpressApp.Web.dll" target="lib\Xpand.ExpressApp.Web.dll" />
-    <file src="lib\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.dll" target="lib\Xpand.ExpressApp.ExceptionHandling.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.Web.dll" target="lib\Xpand.ExpressApp.ExceptionHandling.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Web.dll" target="lib\Xpand.ExpressApp.Web.dll" />
+    <file src="\Build\Temp\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
   </files>
 </package>

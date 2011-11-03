@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand</tags>
   </metadata>
   <files>
-    <file src="lib\Xpand.ExpressApp.MemberLevelSecurity.dll" target="lib\Xpand.ExpressApp.MemberLevelSecurity.dll" />
-    <file src="lib\Xpand.ExpressApp.MemberLevelSecurity.Win.dll" target="lib\Xpand.ExpressApp.MemberLevelSecurity.Win.dll" />
-    <file src="lib\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
-    <file src="lib\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.MemberLevelSecurity.dll" target="lib\Xpand.ExpressApp.MemberLevelSecurity.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.MemberLevelSecurity.Win.dll" target="lib\Xpand.ExpressApp.MemberLevelSecurity.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
+    <file src="\Build\Temp\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
   </files>
 </package>
