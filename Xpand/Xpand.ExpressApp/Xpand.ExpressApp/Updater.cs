@@ -9,13 +9,12 @@ using DevExpress.Xpo;
 namespace Xpand.ExpressApp {
     public class Updater : ModuleUpdater {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion)
-            : base(objectSpace, currentDBVersion)
-        {
+            : base(objectSpace, currentDBVersion) {
         }
-         
+
         public override void UpdateDatabaseBeforeUpdateSchema() {
             base.UpdateDatabaseBeforeUpdateSchema();
-            if (CurrentDBVersion < new Version(10, 1, 6)) {
+            if (CurrentDBVersion < new Version(10, 1, 6) && CurrentDBVersion > new Version(0, 0, 0, 0)) {
 
                 try {
                     var objectTypes = new Dictionary<object, string>();
@@ -47,9 +46,8 @@ namespace Xpand.ExpressApp {
                         method.Invoke(session.DataLayer, null);
                         session.DropIdentityMap();
                     }
-                }
-                catch (Exception) {
-                    
+                } catch (Exception) {
+
                 }
             }
         }
