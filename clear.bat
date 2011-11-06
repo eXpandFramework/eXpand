@@ -13,6 +13,7 @@ call clearProject.bat Xpand.ExpressApp.Web
 call clearProject.bat Xpand.ExpressApp.Security
 call clearProject.bat Xpand.ExpressApp.Validation
 call clearProject.bat Xpand.ExpressApp.Validation.Win
+call clearProject.bat Xpand.ExpressApp.Validation.Web
 call clearProject.bat Xpand.ExpressApp.Logic
 call clearProject.bat Xpand.ExpressApp.Logic.Win
 call clearProject.bat Xpand.ExpressApp.Logic.Conditional
@@ -27,6 +28,9 @@ call clearProject.bat Xpand.ExpressApp.ModelDifference.Win
 call clearProject.bat Xpand.ExpressApp.ModelDifference.Web
 call clearProject.bat Xpand.ExpressApp.FilterDataStore
 call clearProject.bat Xpand.ExpressApp.FilterDataStore.Win
+call clearProject.bat Xpand.ExpressApp.FilterDataStore.Web
+call clearProject.bat Xpand.ExpressApp.ImportWizard
+call clearProject.bat Xpand.ExpressApp.ImportWizard.Win
 call clearProject.bat Xpand.ExpressApp.ConditionalControllerState
 call clearProject.bat Xpand.ExpressApp.ConditionalActionState
 call clearProject.bat Xpand.ExpressApp.ArtifactState
@@ -38,12 +42,15 @@ call clearProject.bat Xpand.Persistent.BaseImpl
 call clearProject.bat Xpand.ExpressApp.WorldCreator
 call clearProject.bat Xpand.ExpressApp.WorldCreator.Win
 call clearProject.bat Xpand.ExpressApp.WorldCreator.Web
-call clearProject.bat Xpand.ExpressApp.ExceptionHandling
-call clearProject.bat Xpand.ExpressApp.ExceptionHandling.Win
-call clearProject.bat Xpand.ExpressApp.ExceptionHandling.Web
+call clearProject4.bat Xpand.ExpressApp.ExceptionHandling
+call clearProject4.bat Xpand.ExpressApp.ExceptionHandling.Win
+call clearProject4.bat Xpand.ExpressApp.ExceptionHandling.Web
+call clearProject.bat Xpand.ExpressApp.TreeListEditors
+call clearProject.bat Xpand.ExpressApp.TreeListEditors.Web
 call clearProject.bat Xpand.ExpressApp.TreeListEditors.Win
 call clearProject.bat Xpand.ExpressApp.IO
 call clearProject.bat Xpand.ExpressApp.IO.Win
+call clearProject.bat Xpand.ExpressApp.IO.Web
 call clearProject.bat Xpand.ExpressApp.PivotChart
 call clearProject.bat Xpand.ExpressApp.PivotChart.Win
 call clearProject.bat Xpand.ExpressApp.PivotChart.Web
@@ -55,9 +62,9 @@ call clearProject.bat Xpand.ExpressApp.MasterDetail.Win
 call clearProject.bat Xpand.ExpressApp.WorldCreator.SqlDBMapper
 call clearProject.bat Xpand.ExpressApp.ConditionalDetailViews
 call clearProject.bat Xpand.ExpressApp.EmailTemplateEngine
-call clearProject.bat Xpand.ExpressApp.JobScheduler
-call clearProject.bat Xpand.ExpressApp.JobScheduler.Jobs
-call clearProject.bat Xpand.ExpressApp.Workflow
+call clearProject4.bat Xpand.ExpressApp.JobScheduler
+call clearProject4.bat Xpand.ExpressApp.JobScheduler.Jobs
+call clearProject4.bat Xpand.ExpressApp.Workflow
 call clearProject.bat Xpand.ExpressApp.StateMachine
 
 rd /s /q %GACPATH%Microsoft.Practices.EnterpriseLibrary.Common.dll

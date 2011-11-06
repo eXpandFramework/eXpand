@@ -49,6 +49,7 @@
 			.\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Validation\Xpand.ExpressApp.Validation.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Validation.Win\Xpand.ExpressApp.Validation.Win.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Validation.Web\Xpand.ExpressApp.Validation.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Logic.Win\Xpand.ExpressApp.Logic.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Logic.Conditional\Xpand.ExpressApp.Logic.Conditional.csproj;
