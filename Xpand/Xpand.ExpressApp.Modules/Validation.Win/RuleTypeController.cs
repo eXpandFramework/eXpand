@@ -14,7 +14,7 @@ using System.Linq;
 
 namespace Xpand.ExpressApp.Validation.Win {
 
-    public class WarningController : Validation.WarningController {
+    public class RuleTypeController : Validation.RuleTypeController {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();

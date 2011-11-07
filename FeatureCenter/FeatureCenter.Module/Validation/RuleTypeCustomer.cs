@@ -36,7 +36,7 @@ namespace FeatureCenter.Module.Validation {
         private string _infoOnControlValueChanged;
 
         [RuleValueComparison("RuleStringComparison_InfoOnControlValueChanged_for_Warning_Customer",
-            WarningController.ObjectSpaceObjectChanged, ValueComparisonType.NotEquals, "value")]
+            RuleTypeController.ObjectSpaceObjectChanged, ValueComparisonType.NotEquals, "value")]
         [RuleErrorType("RuleStringComparison_InfoOnControlValueChanged_for_Warning_Customer", RuleType.Information)]
         [ImmediatePostData]
         public string InfoOnControlValueChanged {

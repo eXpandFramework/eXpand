@@ -114,7 +114,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="RuleErrorTypeAttribute.cs" />
-    <Compile Include="WarningController.cs">
+    <Compile Include="RuleTypeController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WarningGeneratorUpdater.cs" />
