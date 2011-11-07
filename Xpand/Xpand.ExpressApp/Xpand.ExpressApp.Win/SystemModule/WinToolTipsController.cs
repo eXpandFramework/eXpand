@@ -12,7 +12,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             if (editor != null) {
                 foreach (ColumnWrapper columnWrapper in editor.Columns) {
                     XafGridColumn column = ((XafGridColumnWrapper)columnWrapper).Column;
-                    column.ToolTip = TooltipCalculator.GetToolTip(column.Model);
+                    if (TooltipCalculator.HasToolTip(column.Model))
+                        column.ToolTip = TooltipCalculator.GetToolTip(column.Model);
                 }
             }
         }
@@ -25,9 +26,13 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                     IModelMemberViewItem modelMemberViewItem = editor.Model;
                     var baseEdit = ((BaseEdit)(editor.Control));
                     if (modelMemberViewItem.ModelMember.MemberInfo.MemberType.IsEnum) {
-                        baseEdit.EditValueChanged += (sender, args) => baseEdit.ToolTip = TooltipCalculator.GetToolTip(modelMemberViewItem, baseEdit.EditValue);
+                        baseEdit.EditValueChanged += (sender, args) => {
+                            if (TooltipCalculator.HasToolTip(modelMemberViewItem))
+                                baseEdit.ToolTip = TooltipCalculator.GetToolTip(modelMemberViewItem, baseEdit.EditValue);
+                        };
                     }
-                    baseEdit.ToolTip = TooltipCalculator.GetToolTip(modelMemberViewItem);
+                    if (TooltipCalculator.HasToolTip(modelMemberViewItem))
+                        baseEdit.ToolTip = TooltipCalculator.GetToolTip(modelMemberViewItem);
                 }
             }
         }
