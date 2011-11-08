@@ -138,7 +138,7 @@ namespace FeatureCenter.Win {
             // 
             // modelDifferenceWindowsFormsModule1
             // 
-            this.modelDifferenceWindowsFormsModule1.ModelsLoaded = false;
+
             // 
             // stateMachineModule1
             // 

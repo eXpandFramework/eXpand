@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
             return Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
         }
 
-        public override bool? ModelsLoaded {
+        protected override bool? ModelsLoaded {
             get { return _modelsLoaded; }
             set { _modelsLoaded = value; }
         }

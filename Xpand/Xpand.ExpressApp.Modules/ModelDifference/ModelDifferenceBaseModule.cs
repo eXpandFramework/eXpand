@@ -6,7 +6,7 @@ using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.ModelDifference {
     public abstract class ModelDifferenceBaseModule : XpandModuleBase {
-        public abstract bool? ModelsLoaded { get; set; }
+        protected abstract bool? ModelsLoaded { get; set; }
         public event EventHandler<CreateCustomModelDifferenceStoreEventArgs> CreateCustomModelDifferenceStore;
 
         public void OnCreateCustomModelDifferenceStore(CreateCustomModelDifferenceStoreEventArgs e) {

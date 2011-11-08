@@ -1,7 +1,5 @@
-namespace ExternalApplication.Win
-{
-    partial class ExternalApplicationWindowsFormsApplication
-    {
+namespace ExternalApplication.Win {
+    partial class ExternalApplicationWindowsFormsApplication {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@ namespace ExternalApplication.Win
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,8 +22,7 @@ namespace ExternalApplication.Win
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule();
             this.module4 = new ExternalApplication.Module.Win.ExternalApplicationWindowsFormsModule();
@@ -42,11 +37,11 @@ namespace ExternalApplication.Win
             this.modelDifferenceWindowsFormsModule1 = new Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule();
             this.xpandSystemWindowsFormsModule1 = new Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule();
             this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
-            
+
             this.conditionalEditorStateModuleBase1 = new DevExpress.ExpressApp.ConditionalEditorState.ConditionalEditorStateModuleBase();
             this.conditionalEditorStateWindowsFormsModule1 = new DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule();
             this.fileAttachmentsWindowsFormsModule1 = new DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule();
-            
+
             this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityComplex();
             this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -63,7 +58,7 @@ namespace ExternalApplication.Win
             // 
             // modelDifferenceWindowsFormsModule1
             // 
-            this.modelDifferenceWindowsFormsModule1.ModelsLoaded = false;
+
             // 
             // securityComplex1
             // 
@@ -87,11 +82,11 @@ namespace ExternalApplication.Win
             this.Modules.Add(this.modelDifferenceWindowsFormsModule1);
             this.Modules.Add(this.xpandSystemWindowsFormsModule1);
             this.Modules.Add(this.xpandValidationModule1);
-            
+
             this.Modules.Add(this.conditionalEditorStateModuleBase1);
             this.Modules.Add(this.conditionalEditorStateWindowsFormsModule1);
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
-            
+
             this.Modules.Add(this.module4);
             this.Modules.Add(this.module5);
             this.Modules.Add(this.module6);
@@ -119,11 +114,11 @@ namespace ExternalApplication.Win
         private Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule modelDifferenceWindowsFormsModule1;
         private Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule xpandSystemWindowsFormsModule1;
         private Xpand.ExpressApp.Validation.XpandValidationModule xpandValidationModule1;
-        
+
         private DevExpress.ExpressApp.ConditionalEditorState.ConditionalEditorStateModuleBase conditionalEditorStateModuleBase1;
         private DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule conditionalEditorStateWindowsFormsModule1;
         private DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule fileAttachmentsWindowsFormsModule1;
-        
+
         private DevExpress.ExpressApp.Security.SecurityComplex securityComplex1;
         private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
     }
