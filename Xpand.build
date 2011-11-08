@@ -334,6 +334,7 @@
 	</Target>
 	
 	<Target Name="NuGet">
+		<MakeDir Directories="$(BuildPath)\NuGet" />
 		<!-- Package -->
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandAdditionalViewControlsProviderWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandAdditionalViewControlsProviderWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
