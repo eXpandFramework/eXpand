@@ -18,12 +18,7 @@ namespace Xpand.ExpressApp.Core {
             ((ISupportFullConnectionString)xafApplication).ConnectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
             var connectionProvider = XpoDefault.GetConnectionProvider(args.ConnectionString, AutoCreateOption.DatabaseAndSchema);
             IDataStore dataStore = ((IXafApplication)xafApplication).GetDataCacheRoot(connectionProvider);
-            if (dataStore != null)
-                args.ObjectSpaceProvider = new XpandObjectSpaceProvider(new MultiDataStoreProvider(dataStore));
-            else {
-                
-                args.ObjectSpaceProvider = new XpandObjectSpaceProvider(new MultiDataStoreProvider(args.ConnectionString));
-            }
+            args.ObjectSpaceProvider = dataStore != null ? new XpandObjectSpaceProvider(new MultiDataStoreProvider(dataStore)) : new XpandObjectSpaceProvider(new MultiDataStoreProvider(args.ConnectionString));
         }
 
         static string getConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args) {

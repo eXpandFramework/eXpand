@@ -319,12 +319,6 @@
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.Win.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ImportWizard, Version=11.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ImportWizard.Win, Version=11.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.IO, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.IO.dll</HintPath>
@@ -548,6 +542,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Xpand\Xpand.ExpressApp.Modules\ImportWizard.Win\Xpand.ExpressApp.ImportWizard.Win.csproj">
+      <Project>{6CCA3D25-5AFA-4C26-9DE7-31CDE8F239EB}</Project>
+      <Name>Xpand.ExpressApp.ImportWizard.Win</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Xpand\Xpand.ExpressApp.Modules\ImportWizard\Xpand.ExpressApp.ImportWizard.csproj">
+      <Project>{C0BAAF0F-9FE6-4D7D-98DC-D163EEC7B87E}</Project>
+      <Name>Xpand.ExpressApp.ImportWizard</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj">
       <Project>{A75E4F29-14BF-4291-89CF-F80DEB2B5F43}</Project>
       <Name>FeatureCenter.Module.Win</Name>
