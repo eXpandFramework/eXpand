@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.Logic.Conditional.Logic {
             wrapper.UpdateParametersValues(targetObject);
             var objectSpace = ObjectSpace.FindObjectSpaceByObject(targetObject);
             EvaluatorContextDescriptor descriptor = objectSpace != null ? objectSpace.GetEvaluatorContextDescriptor(objectType) : new EvaluatorContextDescriptorDefault(objectType);
-            var evaluator = new ExpressionEvaluator(descriptor, wrapper.CriteriaOperator);
+            var evaluator = new ExpressionEvaluator(descriptor, wrapper.CriteriaOperator, XafTypesInfo.XpoTypeInfoSource.XPDictionary.CustomFunctionOperators);
             return evaluator.Fit(targetObject);
         }
 
