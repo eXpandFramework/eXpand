@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>eXpandJobShedulerWeb</id>
+    <version>11.1</version>
+    <title>DevExpress eXpand Framework JobSheduler Module (Web)</title>
+    <authors>eXpand</authors>
+    <owners>eXpand</owners>
+    <iconUrl>http://www.expressapp.ru/expand/expand.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>JobSheduler Module (Web) / eXpand Framework</description>
+    <summary>JobSheduler Module (Web) / eXpand Framework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand</tags>
+  </metadata>
+  <files>
+    <file src="\Build\Temp\Xpand.ExpressApp.JobScheduler.dll" target="lib\Xpand.ExpressApp.JobScheduler.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.JobScheduler.Jobs.dll" target="lib\Xpand.ExpressApp.JobScheduler.Jobs.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Web.dll" target="lib\Xpand.ExpressApp.Web.dll" />
+    <file src="\Build\Temp\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
+  </files>
+</package>
