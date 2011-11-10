@@ -8,7 +8,7 @@ using DevExpress.Xpo.DB.Helpers;
 namespace Xpand.Xpo.DB {
     public class SchemaColumnSizeUpdater : ISchemaUpdater {
         public void Update(ConnectionProviderSql connectionProviderSql, DataStoreUpdateSchemaEventArgs dataStoreUpdateSchemaEventArgs) {
-            if (connectionProviderSql is AccessConnectionProvider)
+            if (connectionProviderSql == null || connectionProviderSql is AccessConnectionProvider)
                 return;
             lock (connectionProviderSql.SyncRoot) {
                 if (!connectionProviderSql.CanCreateSchema)
