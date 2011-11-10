@@ -68,7 +68,7 @@
     <Reference Include="DevExpress.Persistent.BaseImpl.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v11.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Utils, Version=10.1.5.178, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
