@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.ConditionalEditorState;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -21,10 +21,9 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
         private SerializationStrategy serializationStrategy;
         public ClassInfoGraphNode(Session session) : base(session) { }
 
-        [EditorStateRule("RuleObjectCanNotBeKey", "Key", ViewType.Any)]
-        public EditorState RuleObjectCanNotBeKey(out bool active) {
-            active = XafTypesInfo.Instance.PersistentTypes.Where(info => info.Name == TypeName).Count() > 0;
-            return EditorState.Disabled;
+        [Appearance("RuleObjectCanNotBeKey", AppearanceItemType.ViewItem, null, Enabled = false, TargetItems = "Key")]
+        public bool RuleObjectCanNotBeKey() {
+            return XafTypesInfo.Instance.PersistentTypes.Where(info => info.Name == TypeName).Count() > 0;
         }
 
         private NodeType _nodeType;

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.ConditionalEditorState;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -10,7 +9,7 @@ using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [InterfaceRegistrator(typeof(IDataStoreLogonObject))]
-    [EditorStateRule("DataStoreLogonObject_UserName", "UserName,PassWord", EditorState.Disabled, "Authentication=0", ViewType.DetailView)]
+    [Appearance("DataStoreLogonObject_UserName", AppearanceItemType.ViewItem, "Authentication=0", Enabled = false, TargetItems = "UserName,PassWord")]
     [NonPersistent]
     public class DataStoreLogonObject : XpandBaseCustomObject, IDataStoreLogonObject {
         public DataStoreLogonObject(Session session)
