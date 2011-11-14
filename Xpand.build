@@ -333,7 +333,7 @@
 		</Time>
 	</Target>
 	
-	<Target Name="NuGet">
+	<Target Name="NuGetPackage">
 		<MakeDir Directories="$(BuildPath)\NuGet" />
 		<!-- Package -->
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandAdditionalViewControlsProviderWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
@@ -371,6 +371,9 @@
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandWorkFlowWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandWorldCreatorWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandWorldCreatorWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
+	</Target>
+	
+	<Target Name="NuGet" DependsOnTargets="NuGetPackage">
 		<!-- Publish -->
 
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandAdditionalViewControlsProviderWeb.$(Version).nupkg $(NuGetApiKey)"/>
