@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>testexpand</id>
+    <id>eXpandImportWizardWin2</id>
     <version>11.1</version>
-    <title>DevExpress eXpand Framework ImportWizard Module</title>
+    <title>DevExpress eXpand Framework ImportWizard Module (Win)</title>
     <authors>eXpand</authors>
     <owners>eXpand</owners>
-    <iconUrl>http://cdn5.iconfinder.com/data/icons/ie_Financial_set/32/15.png</iconUrl>
+    <iconUrl>http://www.expressapp.ru/expand/expand.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Import Wizard Module example / eXpand Framework</description>
-    <summary>Import Wizard Module example / eXpand Framework</summary>
+    <description>ImportWizard Module (Win) / eXpand Framework</description>
+    <summary>ImportWizard Module (Win) / eXpand Framework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand</tags>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.ImportWizard.dll" target="lib\Xpand.ExpressApp.ImportWizard.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.ImportWizard.pdb" target="lib\Xpand.ExpressApp.ImportWizard.pdb" />
     <file src="\Build\Temp\Xpand.ExpressApp.ImportWizard.Win.dll" target="lib\Xpand.ExpressApp.ImportWizard.Win.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.ImportWizard.Win.pdb" target="lib\Xpand.ExpressApp.ImportWizard.Win.pdb" />
     <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
     <file src="\Build\Temp\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
   </files>
