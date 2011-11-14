@@ -1,6 +1,39 @@
-<?xml version="1.0" ?>
-<Application >
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
   <Views>
+    <DetailView Id="ObjectChangedWorkflow_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="">
+            <TabbedGroup Id="Item1" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutGroup Id="Item2" ShowCaption="True" Caption="Properties" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="4" IsNewNode="True" />
+                <LayoutGroup Id="298a7a08-607d-45fd-a2a3-0afb64d2986a" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" RelativeSize="95" IsNewNode="True">
+                  <LayoutGroup Id="e9d48505-aa21-46ce-a66f-1854e46ecdba" ShowCaption="False" Caption="" Index="0" RelativeSize="50" IsNewNode="True">
+                    <LayoutItem Id="TargetObjectType" ViewItem="TargetObjectType" Index="0" RelativeSize="3" IsNewNode="True" />
+                    <LayoutItem Id="ExecutionDomain" ViewItem="ExecutionDomain" Index="1" RelativeSize="96" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="00a257f7-c5f2-4022-9a5c-3b9654921f92" ShowCaption="False" Caption="" Index="1" RelativeSize="50" IsNewNode="True">
+                    <LayoutItem Id="PropertyName" ViewItem="PropertyName" Index="0" RelativeSize="3" IsNewNode="True" />
+                    <LayoutItem Id="IsActive" ViewItem="IsActive" Index="1" RelativeSize="96" IsNewNode="True" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="1" RelativeSize="100" Caption="Designer" IsNewNode="True">
+                <LayoutItem Id="Xaml" ViewItem="Xaml" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+              </LayoutGroup>
+            </TabbedGroup>
+            <LayoutGroup Id="ObjectChangedWorkflow" Index="2" RelativeSize="88" Direction="Horizontal" Removed="True">
+              <LayoutGroup Id="ObjectChangedWorkflow_col1" Removed="True" />
+              <LayoutGroup Id="ObjectChangedWorkflow_col2" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="82" ImageName="" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="Xaml" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="ScheduledWorkflow_DetailView">
       <Layout>
         <TabbedGroup Id="Item1" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
