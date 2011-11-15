@@ -384,7 +384,7 @@
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandExceptionHandlingWin.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandFilterDatastoreWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandFilterDatastoreWin.$(Version).nupkg $(NuGetApiKey)"/>
-		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandImportWizardWin.$(Version).nupkg $(NuGetApiKey)"/>
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandImportWizardWin2.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandIOWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandIOWin.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandJobShedulerWeb.$(Version).nupkg $(NuGetApiKey)"/>
