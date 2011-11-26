@@ -18,5 +18,15 @@
     <file src="\Build\Temp\Xpand.ExpressApp.JobScheduler.Jobs.dll" target="lib\Xpand.ExpressApp.JobScheduler.Jobs.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
     <file src="\Build\Temp\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
+	
+	<file src="\Build\Temp\Xpand.ExpressApp.dll" target="lib\Xpand.ExpressApp.dll" />
+	<file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />
+	<file src="\Build\Temp\Xpand.ExpressApp.Logic.dll" target="lib\Xpand.ExpressApp.Logic.dll" />
+	<file src="\Build\Temp\Xpand.ExpressApp.Logic.Conditional.dll" target="lib\Xpand.ExpressApp.Logic.Conditional.dll" />
+	<file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
+	<file src="\Build\Temp\Xpand.ExpressApp.dll" target="lib\Xpand.ExpressApp.dll" />
+	<file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
+	<file src="\Build\Temp\Xpand.Xpo.dll" target="lib\Xpand.Xpo.dll" />
+	<file src="\Build\Temp\Xpand.EmailTemplateEngine.dll" target="lib\Xpand.EmailTemplateEngine.dll" />
   </files>
 </package>

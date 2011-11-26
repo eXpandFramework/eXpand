@@ -14,10 +14,12 @@
     <tags>DevExpress, eXpand</tags>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.ImportWizard.dll" target="lib\Xpand.ExpressApp.ImportWizard.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.ImportWizard.Win.dll" target="lib\Xpand.ExpressApp.ImportWizard.Win.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.WizardUI.Win.dll" target="lib\Xpand.ExpressApp.WizardUI.Win.dll" />
     <file src="\Build\Temp\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
+	
+	<file src="\Build\Temp\Xpand.ExpressApp.dll" target="lib\Xpand.ExpressApp.dll" />
+	<file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
+	<file src="\Build\Temp\Xpand.Xpo.dll" target="lib\Xpand.Xpo.dll" />
   </files>
 </package>
