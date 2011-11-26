@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandSecurityWeb</id>
-    <version>11.1.8.19</version>
+    <version>11.1</version>
     <title>DevExpress eXpand Framework Security Module (Web)</title>
     <authors>eXpand</authors>
     <owners>eXpand</owners>
