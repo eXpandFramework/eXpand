@@ -6,12 +6,12 @@
 //-----------------------------------------------------------------------
 
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
-using DevExpress.ExpressApp.DC;
-using System.Linq;
 using Xpand.ExpressApp.Win.SystemModule;
 
 namespace Xpand.ExpressApp.WizardUI.Win {
@@ -59,7 +59,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                 return views;
             }
 
-            views.AddRange(wizardPage.Application.Views.OfType<IModelDetailView>().Where(modelView => modelView.ModelClass != null && modelView.ModelClass.TypeInfo != null && modelView.ModelClass.TypeInfo.IsAssignableFrom(parentView.ModelClass.TypeInfo) && !modelView.ModelClass.TypeInfo.IsAbstract));
+            views.AddRange(wizardPage.Application.Views.OfType<IModelDetailView>().Where(modelView => modelView.ModelClass == parentView.ModelClass));
 
             return views;
         }

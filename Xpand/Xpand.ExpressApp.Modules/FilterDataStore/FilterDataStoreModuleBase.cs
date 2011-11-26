@@ -14,6 +14,7 @@ using Xpand.ExpressApp.FilterDataStore.Core;
 using Xpand.ExpressApp.FilterDataStore.Model;
 using Xpand.Xpo.DB;
 using Xpand.Xpo.Filtering;
+using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.FilterDataStore {
     public abstract class FilterDataStoreModuleBase : XpandModuleBase {
@@ -22,6 +23,16 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         protected static Dictionary<string, Type> _tablesDictionary;
+        public override void Setup(XafApplication application) {
+            base.Setup(application);
+            application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
+        }
+
+        private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
+            if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProvider is IXpandObjectSpaceProvider))
+                Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs);
+        }
+
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (FilterProviderManager.IsRegistered && ProxyEventsSubscribed.HasValue && ProxyEventsSubscribed.Value) {
@@ -34,7 +45,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
                 if (!(objectSpaceProvider is IXpandObjectSpaceProvider)) {
                     throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IXpandObjectSpaceProvider).FullName);
                 }
-                SqlDataStoreProxy proxy = ((IXpandObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
+                DataStoreProxy proxy = ((IXpandObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
                 proxy.DataStoreModifyData += (o, args) => ModifyData(args.ModificationStatements);
                 proxy.DataStoreSelectData += Proxy_DataStoreSelectData;
                 ProxyEventsSubscribed = true;
@@ -91,12 +102,15 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         private void Proxy_DataStoreSelectData(object sender, DataStoreSelectDataEventArgs e) {
-            FilterData(e.SelectStatements);
+            if (_tablesDictionary.Count>0)
+                FilterData(e.SelectStatements);
         }
 
         public void ModifyData(ModificationStatement[] statements) {
-            InsertData(statements.OfType<InsertStatement>().ToList());
-            UpdateData(statements.OfType<UpdateStatement>());
+            if (_tablesDictionary.Count > 0) {
+                InsertData(statements.OfType<InsertStatement>().ToList());
+                UpdateData(statements.OfType<UpdateStatement>());
+            }
         }
 
         public void UpdateData(IEnumerable<UpdateStatement> statements) {

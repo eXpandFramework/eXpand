@@ -9,6 +9,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelMemberFilterControl : IModelNode {
         [Category("eXpand")]
         [Description("Controls the ViewMode of the CriteriaProperty Editor")]
+        [DefaultValue(FilterEditorViewMode.TextAndVisual)]
         FilterEditorViewMode FilterEditorViewMode { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelMemberFilterControl), "ModelMember")]

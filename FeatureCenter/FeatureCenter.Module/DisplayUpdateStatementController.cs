@@ -12,7 +12,7 @@ using Xpand.Xpo.DB;
 
 namespace FeatureCenter.Module {
     public class DisplayUpdateStatementController : ViewController<DetailView> {
-        SqlDataStoreProxy _sqlDataStoreProxy;
+        DataStoreProxy _dataStoreProxy;
         SimpleAction _saveAction;
 
         public DisplayUpdateStatementController() {
@@ -20,7 +20,7 @@ namespace FeatureCenter.Module {
         }
         protected override void OnActivated() {
             base.OnActivated();
-            _sqlDataStoreProxy = ((IXpandObjectSpaceProvider)Application.ObjectSpaceProvider).DataStoreProvider.Proxy;
+            _dataStoreProxy = ((IXpandObjectSpaceProvider)Application.ObjectSpaceProvider).DataStoreProvider.Proxy;
             _saveAction = Frame.GetController<DetailViewController>().SaveAction;
             _saveAction.Executing += SaveActionOnExecuting;
             _saveAction.Executed += SaveActionOnExecuted;
@@ -31,15 +31,15 @@ namespace FeatureCenter.Module {
             _saveAction.Executed -= SaveActionOnExecuted;
         }
         void SaveActionOnExecuted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
-            _sqlDataStoreProxy.DataStoreModifyData -= SqlDataStoreProxyOnDataStoreModifyData;
+            _dataStoreProxy.DataStoreModifyData -= DataStoreProxyOnDataStoreModifyData;
         }
 
         void SaveActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
 
-            _sqlDataStoreProxy.DataStoreModifyData += SqlDataStoreProxyOnDataStoreModifyData;
+            _dataStoreProxy.DataStoreModifyData += DataStoreProxyOnDataStoreModifyData;
         }
 
-        void SqlDataStoreProxyOnDataStoreModifyData(object sender, DataStoreModifyDataEventArgs dataStoreModifyDataEventArgs) {
+        void DataStoreProxyOnDataStoreModifyData(object sender, DataStoreModifyDataEventArgs dataStoreModifyDataEventArgs) {
             var modificationStatement = dataStoreModifyDataEventArgs.ModificationStatements[0];
             List<QueryOperand> queryOperands = modificationStatement.Operands.OfType<QueryOperand>().Where(value => value.ColumnName != GCRecordField.StaticName && value.ColumnName != OptimisticLockingAttribute.DefaultFieldName).ToList();
 

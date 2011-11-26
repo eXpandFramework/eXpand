@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.ModelDifference.Web {
             RequiredModuleTypes.Add(typeof(ExpressApp.Web.SystemModule.XpandSystemAspNetModule));
         }
 
-        public override bool? ModelsLoaded {
+        protected override bool? ModelsLoaded {
             get {
                 if (HttpContext.Current != null) {
                     bool result;

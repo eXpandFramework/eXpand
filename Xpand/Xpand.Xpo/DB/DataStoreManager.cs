@@ -14,12 +14,13 @@ namespace Xpand.Xpo.DB {
         readonly Dictionary<string, SimpleDataLayer> _simpleDataLayers = new Dictionary<string, SimpleDataLayer>();
         readonly Dictionary<string, List<string>> _tables = new Dictionary<string, List<string>>();
         readonly string _connectionString;
-        readonly IList<DataStoreAttribute> _dataStoreAttributes;
+        static IList<DataStoreAttribute> _dataStoreAttributes;
+
 
         public DataStoreManager(string connectionString) {
             _connectionString = connectionString;
-
-            _dataStoreAttributes = GetDataStoreAttributes().ToList();
+            if (_dataStoreAttributes == null)
+                _dataStoreAttributes = GetDataStoreAttributes().ToList();
         }
 
 
@@ -108,7 +109,7 @@ namespace Xpand.Xpo.DB {
             return XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
         }
 
-        IEnumerable<DataStoreAttribute> GetDataStoreAttributes() {
+        public static IEnumerable<DataStoreAttribute> GetDataStoreAttributes() {
             var dataStoreAttributes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>());
             return dataStoreAttributes.Where(attribute => (attribute.ConnectionString != null || ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", attribute.DataStoreNameSuffix)] != null)).ToList();
         }
@@ -132,10 +133,10 @@ namespace Xpand.Xpo.DB {
         }
 
         public string GetKey(string tableName) {
-            var keyValuePairs = _tables.Where(valuePair => valuePair.Value.Contains(tableName));
+            var keyValuePairs = _tables.Where(valuePair => valuePair.Value.Contains(tableName)).ToList();
             string key = StrDefault;
             if (keyValuePairs.Count() > 0)
-                key = keyValuePairs.ToList()[0].Key;
+                key = keyValuePairs[0].Key;
             return key;
         }
 

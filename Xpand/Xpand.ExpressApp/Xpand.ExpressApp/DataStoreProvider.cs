@@ -5,12 +5,17 @@ using Xpand.Xpo.DB;
 
 namespace Xpand.ExpressApp {
     public class DataStoreProvider : IXpoDataStoreProxy {
-        private readonly SqlDataStoreProxy proxyCore;
+        private readonly DataStoreProxy proxyCore;
         private readonly string connectionStringCore;
         public DataStoreProvider(string connectionString) {
             connectionStringCore = connectionString;
-            proxyCore = new SqlDataStoreProxy(connectionString);
+            proxyCore = new DataStoreProxy(connectionString);
         }
+
+        public DataStoreProvider(IDataStore dataStore) {
+            proxyCore = new DataStoreProxy(dataStore);
+        }
+
         public string ConnectionString {
             get { return connectionStringCore; }
         }
@@ -25,7 +30,7 @@ namespace Xpand.ExpressApp {
         public XPDictionary XPDictionary {
             get { return null; }
         }
-        public virtual SqlDataStoreProxy Proxy {
+        public virtual DataStoreProxy Proxy {
             get {
                 return proxyCore;
             }

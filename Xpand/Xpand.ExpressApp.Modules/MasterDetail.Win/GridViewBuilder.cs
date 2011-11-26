@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
 
         ListView GetListView(ModelDetailRelationCalculator modelDetailRelationCalculator, int rowHandle, int relationIndex, IModelListView childModelListView) {
             var listViewBuilder = new ListViewBuilder(modelDetailRelationCalculator, _objectSpace);
-            return listViewBuilder.CreateListView(childModelListView, rowHandle, relationIndex,_xafApplication);
+            return listViewBuilder.CreateListView(childModelListView, rowHandle, relationIndex, _xafApplication);
         }
 
 
@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
                 var detailXafGridView = (XpandXafGridView)masterGridView.GetDetailView(rowHandle, relationIndex);
                 ((XpandGridListEditor)listView.Editor).CustomGridViewCreate +=
                     (o, eventArgs) => {
-                        (o as XpandGridListEditor).DataSource = detailXafGridView.DataSource;
+                        ((XpandGridListEditor)o).DataSource = detailXafGridView.DataSource;
                         eventArgs.Handled = true;
                         eventArgs.GridView = detailXafGridView;
                         eventArgs.GridControl.DataSource = detailXafGridView.DataSource;

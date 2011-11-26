@@ -7,6 +7,8 @@ call buildproject.cmd Xpand.ExpressApp.Win ".\Xpand\Xpand.ExpressApp\Xpand.Expre
 call buildproject.cmd Xpand.ExpressApp.Web ".\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Web\Xpand.ExpressApp.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.Security ".\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj"
 call buildproject.cmd Xpand.ExpressApp.Validation ".\Xpand\Xpand.ExpressApp.Modules\Validation\Xpand.ExpressApp.Validation.csproj"
+call buildproject.cmd Xpand.ExpressApp.Validation.Win ".\Xpand\Xpand.ExpressApp.Modules\Validation.Win\Xpand.ExpressApp.Validation.Win.csproj"
+call buildproject.cmd Xpand.ExpressApp.Validation.Web ".\Xpand\Xpand.ExpressApp.Modules\Validation.Web\Xpand.ExpressApp.Validation.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.Logic ".\Xpand\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj"
 call buildproject.cmd Xpand.ExpressApp.Logic.Win ".\Xpand\Xpand.ExpressApp.Modules\Logic.Win\Xpand.ExpressApp.Logic.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.Logic.Conditional ".\Xpand\Xpand.ExpressApp.Modules\Logic.Conditional\Xpand.ExpressApp.Logic.Conditional.csproj"

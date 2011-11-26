@@ -64,6 +64,9 @@
         public const string HeaderPessimisticLocking = "Pessimistic Locking";
         public const string HeaderTooltip = "Tooltip";
         public const string HeaderCascadingEditors = "Cascading Editors";
+        public const string HeaderRuntimeUnboundColumn = "UnboundColumn";
+        public const string HeaderLayoutViewGridListEditor = "LayoutView GridListEditor";
+        public const string HeaderValidation = "Validation Warnings";
 
 
         public const string ViewMessage = "ViewMessage";
@@ -128,5 +131,8 @@
         public const string ViewMessagePessimisticLocking = "Use the edit action and make a change to the current object, then use the New Instance action, login as a different user and come back to this view. A message informing you about the locking will be displayed";
         public const string ViewMessageTooltip = "You can set tooltips for the the propertyeditor either from the model or by decorating your property with the Tooltip attribute. Using the model you have greater flexibility. For instance i have set a tooltip for only this view for Name field. Move your over the Name field to see it in action";
         public const string ViewMessageCascadingEditors = "By decorating your properties with some attributes you can control the editor rendering and datasource";
+        public const string ViewMessageRuntimeUnboundColumn = "Right click on the header of the Unbound Column and choose Expression Editor to change the expression.";
+        public const string ViewMessageLayoutViewGridListEditor = "This is a demo of the Grid Layout View";
+        public const string ViewMessageValidation = "Modify a property of this listview and choose save to see a compination of warnings and normal rules in action. Change InfoOnControlValueChanged to value to watch a rule evaluated in ControlValueChanged context. You can open the detail view to watch a similar behaviour";
     }
 }

@@ -3,7 +3,7 @@
   <AdditionalViewControls>
     <ExecutionContextsGroup>
       <ExecutionContexts Id="ConditionalViewControlsPositioning" IsNewNode="True">
-        <ExecutionContext Name="ObjectChanged" IsNewNode="True" />
+        <ExecutionContext Name="ObjectSpaceObjectChanged" IsNewNode="True" />
         <ExecutionContext Name="ViewChanged" IsNewNode="True" />
       </ExecutionContexts>
     </ExecutionContextsGroup>

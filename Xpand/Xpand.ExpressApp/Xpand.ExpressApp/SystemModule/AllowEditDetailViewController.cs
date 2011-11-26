@@ -21,8 +21,13 @@ namespace Xpand.ExpressApp.SystemModule {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            foreach (var propertyEditor in View.GetItems<PropertyEditor>()) {
-                var allowEditAttribute = propertyEditor.ObjectTypeInfo.FindMember(propertyEditor.PropertyName).FindAttribute<AllowEditAttribute>();
+            foreach (var propertyEditor in View.GetItems<PropertyEditor>())
+            {
+                var member = propertyEditor.ObjectTypeInfo.FindMember(propertyEditor.PropertyName);
+                if (member == null)
+                    return;
+
+                var allowEditAttribute = member.FindAttribute<AllowEditAttribute>();
                 if (allowEditAttribute != null)
                     propertyEditor.AllowEdit[typeof(AllowEditAttribute).FullName] = GetAllowEdit(allowEditAttribute, propertyEditor.AllowEdit);
             }

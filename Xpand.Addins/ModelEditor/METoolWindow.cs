@@ -16,7 +16,7 @@ namespace XpandAddIns.ModelEditor {
 
         // DXCore-generated code...
         #region InitializePlugIn
-        // ReSharper disable RedundantOverridenMember
+        
         public override void InitializePlugIn() {
             base.InitializePlugIn();
             GridBinder.Init(gridControl1, events);
@@ -42,19 +42,7 @@ namespace XpandAddIns.ModelEditor {
         }
 
 
-        // ReSharper restore RedundantOverridenMember
-        #endregion
-        #region FinalizePlugIn
-        // ReSharper disable RedundantOverridenMember
-        public override void FinalizePlugIn() {
-            //
-            // TODO: Add your finalization code here.
-            //
-
-            base.FinalizePlugIn();
-        }
-
-        // ReSharper restore RedundantOverridenMember
+        
         #endregion
         private void OpenModelEditor(ProjectWrapper projectWrapper) {
             new ModelEditorRunner().Start(projectWrapper);

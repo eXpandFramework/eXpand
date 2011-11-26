@@ -7,13 +7,14 @@ using Xpand.ExpressApp.MemberLevelSecurity;
 using Xpand.Xpo;
 
 namespace FeatureCenter.Module.Security.MemberLevel {
-    public class Updater : Module.Updater {
-        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
-            : base(objectSpace, currentDBVersion) {
+    public class Updater : FCUpdater {
+
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater) : base(objectSpace, currentDBVersion,updater) {
         }
 
+
+
         public override void UpdateDatabaseAfterUpdateSchema() {
-            base.UpdateDatabaseAfterUpdateSchema();
             var session = ((ObjectSpace)ObjectSpace).Session;
             var role = session.FindObject<Role>(o => o.Name == "Administrators");
             MemberAccessPermission memberAccessPermission = role.Permissions.OfType<MemberAccessPermission>().FirstOrDefault();

@@ -14,7 +14,15 @@ namespace Xpand.ExpressApp.StateMachine {
     }
 
     [NonPersistent]
-    public class StateMachineTransitionPermission : PermissionBase {
+    public class StateMachineTransitionPermission : PermissionBase, INotifyPropertyChanged {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        protected void OnPropertyChanged(PropertyChangedEventArgs e) {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, e);
+        }
+
         public override IPermission Copy() {
             return new StateMachineTransitionPermission(Modifier, StateCaption, StateMachineName);
         }
@@ -37,19 +45,34 @@ namespace Xpand.ExpressApp.StateMachine {
         }
 
         public StateMachineTransitionModifier Modifier { get; set; }
+        string _stateMachineName;
+
         [ImmediatePostData]
-        public string StateMachineName { get; set; }
+        public string StateMachineName {
+            get { return _stateMachineName; }
+            set {
+                _stateMachineName = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("StateMachineName"));
+            }
+        }
+
+        string _stateCaption;
 
         [PropertyEditor(typeof(IStringLookupPropertyEditor))]
         [DataSourceProperty("StateCaptions")]
-        public string StateCaption { get; set; }
+        public string StateCaption {
+            get { return _stateCaption; }
+            set {
+                _stateCaption = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("StateCaption"));
+            }
+        }
 
         IList<string> _stateCaptions = new List<string>();
         [Browsable(false)]
-        public IList<string> StateCaptions {get {return _stateCaptions;}}
+        public IList<string> StateCaptions { get { return _stateCaptions; } }
 
         public void SyncStateCaptions(IList<string> stateCaptions, string machineName) {
-            StateMachineName = machineName;
             _stateCaptions = stateCaptions;
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Validation;
@@ -10,51 +9,48 @@ using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.Validation {
     public class ActionExecuteValidationController : ObjectViewController {
-        
-
-
         public event EventHandler<CustomGetAggregatedObjectsToValidateEventArgs> CustomGetAggregatedObjectsToValidate;
         public event EventHandler<NeedToValidateObjectEventArgs> NeedToValidateObject;
+        public event EventHandler<ContextValidatingEventArgs> ContextValidating;
 
         protected virtual void OnContextValidating(ContextValidatingEventArgs args) {
             if (ContextValidating != null) {
                 ContextValidating(this, args);
             }
         }
-        public event EventHandler<ContextValidatingEventArgs> ContextValidating;
+
         private void CustomizeDeleteValidationException(ValidationCompletedEventArgs args) {
             args.Exception.MessageHeader = ValidationExceptionLocalizer.GetExceptionMessage(ValidationExceptionId.DeleteErrorMessageHeader);
             args.Exception.ObjectHeaderFormat = ValidationExceptionLocalizer.GetExceptionMessage(ValidationExceptionId.DeleteErrorMessageObjectFormat);
         }
 
-
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            var actionBases = Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions);
-            foreach (var action in actionBases) {
-                action.Executed -= ActionOnExecuted;
+            foreach (var controller in Frame.Controllers) {
+                foreach (var action in controller.Actions) {
+                    action.Executed -= ActionOnExecuted;
+                }
             }
         }
 
-
         protected override void OnActivated() {
             base.OnActivated();
-            var actionBases = Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions);
-            foreach (var action in actionBases) {
-                action.Executed += ActionOnExecuted;
+            foreach (var controller in Frame.Controllers) {
+                foreach (var action in controller.Actions) {
+                    action.Executed += ActionOnExecuted;
+                }
             }
         }
 
         void ActionOnExecuted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
-            if (View.ObjectTypeInfo.Type!=typeof(ValidationResults)) {
+            if (View.ObjectTypeInfo.Type != typeof(ValidationResults)) {
                 ValidationTargetObjectSelector deleteSelector = new ActionExecuteContextTargetObjectSelector();
                 SubscribeSelectorEvents(deleteSelector);
                 var selectedObjects = ((SimpleActionExecuteEventArgs)actionBaseEventArgs).SelectedObjects;
                 var context = actionBaseEventArgs.Action.Id;
-
-                var deleteContextArgs = new ContextValidatingEventArgs(context, new ArrayList(selectedObjects));
-                OnContextValidating(deleteContextArgs);
-                Validator.RuleSet.ValidateAll(deleteContextArgs.TargetObjects, context, CustomizeDeleteValidationException);   
+                var contextValidatingEventArgs = new ContextValidatingEventArgs(context, new ArrayList(selectedObjects));
+                OnContextValidating(contextValidatingEventArgs);
+                Validator.RuleSet.ValidateAll(contextValidatingEventArgs.TargetObjects, context, CustomizeDeleteValidationException);
             }
         }
 

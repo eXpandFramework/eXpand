@@ -8,6 +8,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
+using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.NodeUpdaters;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -21,6 +22,14 @@ namespace Xpand.ExpressApp.WorldCreator {
         public List<Type> DynamicModuleTypes {
             get { return _dynamicModuleTypes; }
         }
+        public override void Setup(XafApplication application) {
+            base.Setup(application);
+            application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
+        }
+        private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
+            if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProvider is IXpandObjectSpaceProvider))
+                Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs);
+        }
 
         public static string FullConnectionString {
             get {
@@ -33,6 +42,8 @@ namespace Xpand.ExpressApp.WorldCreator {
             _connectionString = ((ISupportFullConnectionString)xafApplication).ConnectionString;
             base.OnApplicationInitialized(xafApplication);
         }
+
+
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             var businessClassesList = GetAdditionalClasses(moduleManager);
@@ -41,7 +52,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                 return;
             Application.SettingUp += ApplicationOnSettingUp;
             if (FullConnectionString != null) {
-                var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(FullConnectionString, GetReflectionDictionary());
+                var xpoMultiDataStoreProxy = new MultiDataStoreProxy(FullConnectionString, GetReflectionDictionary());
                 using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
                     using (var session = new Session(dataLayer)) {
                         using (var unitOfWork = new UnitOfWork(session.DataLayer)) {
@@ -63,6 +74,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
 
+
         void RunUpdaters(Session session) {
             foreach (WorldCreatorUpdater worldCreatorUpdater in GetWorldCreatorUpdaters(session)) {
                 worldCreatorUpdater.Update();
@@ -79,7 +91,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             var existentTypesMemberCreator = new ExistentTypesMemberCreator();
             if (FullConnectionString != null) {
-                var xpoMultiDataStoreProxy = new SqlMultiDataStoreProxy(FullConnectionString, GetReflectionDictionary());
+                var xpoMultiDataStoreProxy = new MultiDataStoreProxy(FullConnectionString, GetReflectionDictionary());
                 var simpleDataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy);
                 var session = new Session(simpleDataLayer);
                 existentTypesMemberCreator.CreateMembers(session);

@@ -639,7 +639,8 @@ namespace Xpand.Tests.Xpand.IO {
 
         static ObjectSpace CreateRecords() {
             XafTypesInfo.Instance.RegisterEntity(typeof(PEnumClass));
-            var objectSpace = new ObjectSpace(new UnitOfWork());
+            var dataSet = new DataSet();
+            var objectSpace = ((ObjectSpace)ObjectSpaceInMemory.CreateNew(dataSet));
 
             _pEnumClass = objectSpace.CreateObject<PEnumClass>();
             objectSpace.CommitChanges();

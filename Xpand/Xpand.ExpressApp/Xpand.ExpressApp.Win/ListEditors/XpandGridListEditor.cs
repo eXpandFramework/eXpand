@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         public new XpandXafGridView GridView {
             get { return (XpandXafGridView)base.GridView; }
         }
-
+        
 
         public override object FocusedObject {
             get {
@@ -86,13 +86,9 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             if (handler != null) handler(this, e);
         }
 
-//        private readonly MethodInfo _getFocusedRowObject;
-//        private readonly MethodInfo _getRow;
 
         public XpandGridListEditor(IModelListView model)
             : base(model) {
-//                _getFocusedRowObject = typeof(XtraGridUtils).GetMethod("GetFocusedRowObject", BindingFlags.Static | BindingFlags.NonPublic, null, new[] { typeof(CollectionSource), typeof(GridView) }, null);
-//                _getRow = typeof(XtraGridUtils).GetMethod("GetRow", BindingFlags.Static | BindingFlags.NonPublic, null, new[] { typeof(CollectionSource), typeof(GridView), typeof(int) }, null);
         }
         public XpandGridListEditor() : this(null) { }
 
@@ -181,8 +177,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         private readonly ModelSynchronizerList modelSynchronizerList;
         public GridListEditorSynchronizer(DevExpress.ExpressApp.Win.Editors.GridListEditor gridListEditor, IModelListView model)
             : base(gridListEditor, model) {
-                modelSynchronizerList = new ModelSynchronizerList
-                                        {new GridViewOptionsModelSynchronizer(gridListEditor.GridView, model)};
+            modelSynchronizerList = new ModelSynchronizerList { new GridViewOptionsModelSynchronizer(gridListEditor.GridView, model) };
             foreach (var modelColumn in model.Columns) {
                 modelSynchronizerList.Add(new ColumnOptionsModelSynchronizer(gridListEditor.GridView, modelColumn));
             }
@@ -213,8 +208,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
 
 
     public class CustomGridViewCreateEventArgs : HandledEventArgs {
-        public CustomGridViewCreateEventArgs(GridControl gridControl)
-        {
+        public CustomGridViewCreateEventArgs(GridControl gridControl) {
             GridControl = gridControl;
         }
 

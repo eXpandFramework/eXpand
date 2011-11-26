@@ -1,2 +1,16 @@
-<?xml version="1.0" ?>
-<Application />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Localization>
+    <LocalizationGroup Name="Enums">
+      <LocalizationGroup Name="Xpand.ExpressApp.Validation.RuleType" Value="RuleType" IsNewNode="True">
+        <LocalizationItem Name="Critical" Value="Critical" Index="0" IsNewNode="True" />
+        <LocalizationItem Name="Information" Value="Information" Index="1" IsNewNode="True" />
+        <LocalizationItem Name="Warning" Value="Warning" Index="2" IsNewNode="True" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+  </Localization>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="11.1.8.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemModule" Version="11.1.8.0" IsNewNode="True" />
+  </SchemaModules>
+</Application>

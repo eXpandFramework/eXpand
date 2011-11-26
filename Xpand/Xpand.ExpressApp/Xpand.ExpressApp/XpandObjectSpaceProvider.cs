@@ -7,7 +7,8 @@ using DevExpress.Xpo.DB;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp {
-    public class XpandObjectSpaceProvider : ObjectSpaceProvider, IXpandObjectSpaceProvider, IObjectSpaceProvider {
+    public class XpandObjectSpaceProvider : ObjectSpaceProvider, IXpandObjectSpaceProvider {
+
 
         public IXpoDataStoreProxy DataStoreProvider { get; set; }
 
@@ -15,6 +16,7 @@ namespace Xpand.ExpressApp {
             : base(provider) {
             DataStoreProvider = provider;
         }
+
 
         protected override IObjectSpace CreateObjectSpaceCore(UnitOfWork unitOfWork, ITypesInfo typesInfo) {
             var objectSpace = new XpandObjectSpace(new XpandUnitOfWork(unitOfWork.DataLayer), typesInfo) {
@@ -40,6 +42,18 @@ namespace Xpand.ExpressApp {
                 toDispose.Dispose();
             }
         }
+        public event EventHandler<CreatingWorkingDataLayerArgs> CreatingWorkingDataLayer;
+
+        protected void OnCreatingWorkingDataLayer(CreatingWorkingDataLayerArgs e) {
+            EventHandler<CreatingWorkingDataLayerArgs> handler = CreatingWorkingDataLayer;
+            if (handler != null) handler(this, e);
+        }
+
+        protected override IDataLayer CreateWorkingDataLayer(IDataStore workingDataStore) {
+            var creatingWorkingDataLayerArgs = new CreatingWorkingDataLayerArgs(workingDataStore);
+            OnCreatingWorkingDataLayer(creatingWorkingDataLayerArgs);
+            return creatingWorkingDataLayerArgs.DataLayer ?? base.CreateWorkingDataLayer(workingDataStore);
+        }
 
         private UnitOfWork CreateUnitOfWork(IDataStore dataStore, IEnumerable<IDisposable> disposableObjects) {
             var disposableObjectsList = new List<IDisposable>();
@@ -51,5 +65,19 @@ namespace Xpand.ExpressApp {
             disposableObjectsList.Add(dataLayer);
             return new XpandUnitOfWork(dataLayer, disposableObjectsList.ToArray());
         }
+    }
+
+    public class CreatingWorkingDataLayerArgs : EventArgs {
+        readonly IDataStore _workingDataStore;
+
+        public CreatingWorkingDataLayerArgs(IDataStore workingDataStore) {
+            _workingDataStore = workingDataStore;
+        }
+
+        public IDataStore WorkingDataStore {
+            get { return _workingDataStore; }
+        }
+
+        public IDataLayer DataLayer { get; set; }
     }
 }

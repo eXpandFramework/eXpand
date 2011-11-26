@@ -1,15 +1,15 @@
-﻿using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.ConditionalEditorState;
+﻿using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
-    [EditorStateRule("Hide templateInfo name", "CodeTemplateInfo.TemplateInfo.Name", EditorState.Hidden, null,
-        ViewType.DetailView)]
+    [Appearance("Hide templateInfo name", AppearanceItemType.ViewItem, null, TargetItems = "CodeTemplateInfo.TemplateInfo.Name", Visibility = ViewItemVisibility.Hide)]
     public class PersistentTemplatedTypeInfo : PersistentTypeInfo, IPersistentTemplatedTypeInfo {
         CodeTemplateInfo _codeTemplateInfo;
 
-        public PersistentTemplatedTypeInfo(Session session) : base(session) {
+        public PersistentTemplatedTypeInfo(Session session)
+            : base(session) {
         }
 
 

@@ -4,18 +4,21 @@ using DevExpress.Persistent.BaseImpl;
 using Xpand.Xpo;
 
 namespace FeatureCenter.Module.LowLevelFilterDataStore.UserFilter {
-    public class Updater : Module.Updater {
-        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
-            : base(objectSpace, currentDBVersion) {
+    public class Updater:FCUpdater {
+        
+
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater) : base(objectSpace, currentDBVersion, updater) {
+            
         }
 
-        public override void UpdateDatabaseAfterUpdateSchema() {
-            base.UpdateDatabaseAfterUpdateSchema();
+        
+
+        public void UpdateDatabaseAfterUpdateSchema(Xpand.Persistent.BaseImpl.Updater updater) {
 
             var session = ((ObjectSpace)ObjectSpace).Session;
-            var findObject = session.FindObject<Role>(role => role.Name == Administrators);
+            var findObject = session.FindObject<Role>(role => role.Name == Xpand.Persistent.BaseImpl.Updater.Administrators);
             if (findObject == null) throw new NotImplementedException();
-            EnsureUserExists("filterbyuser", "filterbyuser", findObject);
+            updater.EnsureUserExists("filterbyuser", "filterbyuser", findObject);
         }
     }
 }

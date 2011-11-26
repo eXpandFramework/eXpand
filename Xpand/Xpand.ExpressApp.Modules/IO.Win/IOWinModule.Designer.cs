@@ -33,6 +33,7 @@ namespace Xpand.ExpressApp.IO.Win {
             this.RequiredModuleTypes.Add(typeof(IOModule));
             this.RequiredModuleTypes.Add(typeof(TreeListEditorsWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(XpandTreeListEditorsWinModule));
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule));
         }
 
         #endregion

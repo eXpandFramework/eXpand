@@ -3,9 +3,6 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.PropertyEditors;
-using System.Linq;
 
 namespace Xpand.ExpressApp.Model {
     [ModelAbstractClass]
@@ -17,26 +14,24 @@ namespace Xpand.ExpressApp.Model {
     }
 
     public interface IModelColumnUnbound : IModelColumn {
-
-        [TypeConverter(typeof(StringToTypeConverterExtended))]
-        [ModelBrowsable(typeof(ModelPropertyEditorTypeVisibilityCalculator))]
-        new Type PropertyEditorType { get; set; }
+        [Category("eXpand")]
+        bool ShowUnboundExpressionMenu { get; set; }
+        [Category("eXpand")]
+        [Required]
+        string UnboundExpression { get; set; }
 
         [ModelBrowsable(typeof(ModelPropertyEditorTypeVisibilityCalculator))]
         new string PropertyName { get; set; }
-
         [Localizable(true)]
         [Description("Specifies the caption of the current Property Editor.")]
         [Category("eXpand")]
         [Required]
         new string Caption { get; set; }
-
-        [Category("eXpand")]
-        bool ShowUnboundExpressionMenu { get; set; }
-
-        [Category("eXpand")]
-        [Required]
-        string UnboundExpression { get; set; }
+    }
+    public class ModelPropertyEditorTypeVisibilityCalculator : IModelIsVisible {
+        public bool IsVisible(IModelNode node, string propertyName) {
+            return propertyName != "PropertyEditorType" && propertyName != "PropertyName";
+        }
     }
 
     [DomainLogic(typeof(IModelColumnUnbound))]
@@ -44,19 +39,11 @@ namespace Xpand.ExpressApp.Model {
         public static string Get_PropertyName(IModelColumnUnbound columnUnbound) {
             return ((IModelListView)columnUnbound.Parent.Parent).ModelClass.KeyProperty;
         }
-
-        public static Type Get_PropertyEditorType(IModelColumnUnbound columnUnbound) {
-            return ReflectionHelper.FindTypeDescendants(XpandModuleBase.TypesInfo.FindTypeInfo(typeof(IStringPropertyEditor))).First().Type;
-        }
     }
     public class ModelTypeVisibilityCalculator : IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName) {
             return !(node is IModelRuntimeOrphanedColection) || propertyName != "Type";
         }
     }
-    public class ModelPropertyEditorTypeVisibilityCalculator : IModelIsVisible {
-        public bool IsVisible(IModelNode node, string propertyName) {
-            return propertyName != "PropertyEditorType" && propertyName != "PropertyName";
-        }
-    }
+
 }

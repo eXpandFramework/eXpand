@@ -18,7 +18,7 @@ namespace Xpand.Persistent.BaseImpl {
         }
 
 
-        protected virtual List<IPermission> GetPermissions(ICustomizableRole role) {
+        public virtual List<IPermission> GetPermissions(ICustomizableRole role) {
             var permissions = new List<IPermission>();
             if (role.Name != Administrators) {
                 permissions.Add(new ObjectAccessPermission(((ISecurityComplex)SecuritySystem.Instance).RoleType, ObjectAccess.AllAccess, ObjectAccessModifier.Deny));
@@ -28,17 +28,19 @@ namespace Xpand.Persistent.BaseImpl {
             return permissions;
         }
 
-        protected virtual void InitializeSecurity() {
+        protected virtual bool InitializeSecurity() {
             ICustomizableRole admins = EnsureRoleExists(Administrators, GetPermissions);
             EnsureUserExists(Admin, "Administrator", admins);
-
+            if (!ObjectSpace.IsNewObject(admins))
+                return false;
             ICustomizableRole userRole = EnsureRoleExists(UserRole, GetPermissions);
             EnsureUserExists("user", "user", userRole);
             ObjectSpace.CommitChanges();
+            return true;
         }
 
 
-        protected virtual IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole role, Type userType) {
+        public virtual IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole role, Type userType) {
             var type = userType;
             var user = (IUserWithRoles)((ObjectSpace)ObjectSpace).Session.FindObject(type, new BinaryOperator("UserName", userName));
             if (user == null) {
@@ -52,11 +54,11 @@ namespace Xpand.Persistent.BaseImpl {
             return user;
         }
 
-        protected virtual IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole role) {
+        public virtual IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole role) {
             return EnsureUserExists(userName, firstName, role, SecuritySystem.UserType);
         }
 
-        protected virtual ICustomizableRole EnsureRoleExists(string roleName, Func<ICustomizableRole, List<IPermission>> permissionAddFunc) {
+        public virtual ICustomizableRole EnsureRoleExists(string roleName, Func<ICustomizableRole, List<IPermission>> permissionAddFunc) {
             var role = (ICustomizableRole)((ObjectSpace)ObjectSpace).Session.FindObject(((ISecurityComplex)SecuritySystem.Instance).RoleType, new BinaryOperator("Name", roleName));
             if (role == null) {
                 role = (ICustomizableRole)ObjectSpace.CreateObject(((ISecurityComplex)SecuritySystem.Instance).RoleType);

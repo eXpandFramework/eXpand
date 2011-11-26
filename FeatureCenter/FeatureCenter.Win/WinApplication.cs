@@ -5,33 +5,27 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp;
 using Xpand.ExpressApp.Win;
+using Xpand.ExpressApp.Core;
 
-namespace FeatureCenter.Win
-{
-    public partial class FeatureCenterWindowsFormsApplication : XpandWinApplication
-    {
-        public FeatureCenterWindowsFormsApplication()
-        {
+namespace FeatureCenter.Win {
+    public partial class FeatureCenterWindowsFormsApplication : XpandWinApplication {
+        public FeatureCenterWindowsFormsApplication() {
             InitializeComponent();
         }
 
-//        protected override ShowViewStrategyBase CreateShowViewStrategy() {
-//            return new ShowInSingleWindowStrategy(this);
-//        }
+        //        protected override ShowViewStrategyBase CreateShowViewStrategy() {
+        //            return new ShowInSingleWindowStrategy(this);
+        //        }
 
-        private void FeatureCenterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e)
-        {
+        private void FeatureCenterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            if (true)
-            {
+            if (true) {
                 e.Updater.Update();
                 e.Handled = true;
-            }
-            else
-            {
+            } else {
                 throw new InvalidOperationException(
                     "The application cannot connect to the specified database, because the latter doesn't exist or its version is older than that of the application.\r\n" +
                     "The automatic update is disabled, because the application was started without debugging.\r\n" +

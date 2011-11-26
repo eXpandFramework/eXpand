@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -10,14 +11,18 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Core;
+using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Win.ViewStrategies;
+using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.Win {
 
     public class XpandWinApplication : WinApplication, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportLogonParameterStore, ISupportFullConnectionString {
         static XpandWinApplication _application;
+        DataCacheNode _cacheNode;
+
+
         public XpandWinApplication() {
             if (_application == null)
                 Application.ThreadException += (sender, args) => HandleException(args.Exception, this);
@@ -41,11 +46,12 @@ namespace Xpand.ExpressApp.Win {
         public new void WriteLastLogonParameters(DetailView view, object logonObject) {
             base.WriteLastLogonParameters(view, logonObject);
         }
-
-        protected override LogonController CreateLogonController() {
-            var logonController = base.CreateLogonController();
-            return logonController;
+        protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+            this.CreateCustomObjectSpaceprovider(args);
+            base.OnCreateCustomObjectSpaceProvider(args);
         }
+
+
 
         public new void Start() {
             if (SecuritySystem.LogonParameters is IXpandLogonParameters) ReadLastLogonParameters(SecuritySystem.LogonParameters);
@@ -160,11 +166,18 @@ namespace Xpand.ExpressApp.Win {
             container.Add(this);
         }
 
-        protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            this.CreateCustomObjectSpaceprovider(args);
-            base.OnCreateCustomObjectSpaceProvider(args);
-        }
 
+
+        DataCacheNode IXafApplication.GetDataCacheRoot(IDataStore dataStore) {
+            if ((ConfigurationManager.AppSettings["DataCache"] + "").Contains("Client")) {
+                if (_cacheNode == null) {
+                    var _cacheRoot = new DataCacheRoot(dataStore);
+                    _cacheNode = new DataCacheNode(_cacheRoot);
+                }
+                return _cacheNode;
+            }
+            return null;
+        }
     }
 
     public class CustomCreateApplicationModulesManagerEventArgs : HandledEventArgs {

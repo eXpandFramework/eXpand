@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="RuleTypeCustomer_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="">
+            <LayoutGroup Id="RuleTypeCustomer" RelativeSize="11" ImageName="">
+              <LayoutItem Id="WarningProperty" RelativeSize="38" ViewItem="WarningProperty" />
+              <LayoutItem Id="Information" RelativeSize="28" ViewItem="Information" />
+              <LayoutItem Id="InfoOnControlValueChanged" RelativeSize="32" ViewItem="InfoOnControlValueChanged" />
+            </LayoutGroup>
+            <LayoutGroup Id="CustomerBase" RelativeSize="88" ImageName="" Caption="CustomerBase">
+              <LayoutItem Id="Name" RelativeSize="100" ViewItem="Name" />
+              <LayoutItem Id="City" RelativeSize="95" ViewItem="City" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Orders_Group" RelativeSize="76" Caption="Orders" ImageName="" Removed="True">
+            <LayoutItem Id="Orders" ViewItem="Orders" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="81" ImageName="" Direction="Horizontal" Caption="Description" Removed="True">
+            <LayoutItem Id="Description" ViewItem="Description" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuleTypeCustomer_ListView" AllowEdit="True">
+      <Columns>
+        <ColumnInfo Id="BirthDate" Removed="True" />
+        <ColumnInfo Id="City" Removed="True" />
+        <ColumnInfo Id="Description" Removed="True" />
+        <ColumnInfo Id="SumOfOrderTotals" Removed="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

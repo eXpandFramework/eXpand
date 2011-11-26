@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Diagnostics;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Updating;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 
 namespace FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication {
-    public class Updater : ModuleUpdater {
-        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
-            : base(objectSpace, currentDBVersion) {
+    public class Updater : FCUpdater {
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater)
+            : base(objectSpace, currentDBVersion,updater) {
         }
 
         public override void UpdateDatabaseAfterUpdateSchema() {
@@ -22,7 +20,6 @@ namespace FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication {
                 modelDifferenceObject.PersistentApplication.ExecutableName = "ExternalApplication.Win.exe";
                 var modelApplicationBuilder = new ModelLoader(modelDifferenceObject.PersistentApplication.ExecutableName);
                 var model = modelApplicationBuilder.GetLayer(typeof(ExternalApplicationModelStore), false);
-                Debug.Print("");
                 modelDifferenceObject.CreateAspects(model);
                 ObjectSpace.CommitChanges();
             }

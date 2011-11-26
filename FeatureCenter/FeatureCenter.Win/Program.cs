@@ -1,21 +1,23 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Forms;
-
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Win;
+using DevExpress.ExpressApp.Workflow.CommonServices;
+using DevExpress.ExpressApp.Workflow.Server;
+using DevExpress.ExpressApp.Workflow.Versioning;
+using DevExpress.ExpressApp.Workflow.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Utils;
-using Xpand.ExpressApp.ModelDifference;
-using Xpand.ExpressApp.ModelDifference.Win;
 using Xpand.ExpressApp.Core;
+using Xpand.ExpressApp.Workflow;
 
 namespace FeatureCenter.Win {
+
     static class Program {
         /// <summary>
         /// The main entry point for the application.
@@ -41,6 +43,17 @@ namespace FeatureCenter.Win {
                 winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
             try {
+
+                //                WorkflowServerStarter starter = null;
+                //                winApplication.LoggedOn += delegate {
+                //                    if (starter == null) {
+                //                        starter = new WorkflowServerStarter();
+                //                        starter.OnCustomHandleException += (sender1, args1) => MessageBox.Show(args1.Message);
+                //
+                //                        starter.Start(winApplication.ConnectionString, winApplication.ApplicationName);
+                //                    }
+                //                };
+
                 winApplication.Setup();
                 winApplication.LoggingOn += (sender, args) => {
                     if (cmdargs.Length > 0)
@@ -54,4 +67,6 @@ namespace FeatureCenter.Win {
 
 
     }
+
+
 }

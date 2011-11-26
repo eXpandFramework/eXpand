@@ -11,7 +11,7 @@ using Xpand.ExpressApp.Logic.Model;
 namespace Xpand.ExpressApp.ConditionalControllerState.Logic {
     public class ControllerStateRuleController : ConditionalLogicRuleViewController<IControllerStateRule> {
         protected void ChangeState(LogicRuleInfo<IControllerStateRule> info) {
-            Frame.GetController(info.Rule.ControllerType).Active[ActiveObjectTypeHasRules] = !info.Active;
+            Frame.GetController(info.Rule.ControllerType).Active[ActiveObjectTypeHasRules] = info.Rule.ControllerState==ControllerState.Enabled;
         }
 
         void ChangeStateOnModules(LogicRuleInfo<IControllerStateRule> info) {

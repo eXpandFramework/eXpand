@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.Xpo.DB;
 
 namespace Xpand.ExpressApp {
 
@@ -30,11 +31,12 @@ namespace Xpand.ExpressApp {
         public ListEditor ListEditor { get; set; }
     }
 
-    public interface IWinApplication:IXafApplication {
+    public interface IWinApplication : IXafApplication {
         void LogOff();
     }
 
     public interface IXafApplication {
+        DataCacheNode GetDataCacheRoot(IDataStore dataStore);
     }
 
     public interface ISupportFullConnectionString {

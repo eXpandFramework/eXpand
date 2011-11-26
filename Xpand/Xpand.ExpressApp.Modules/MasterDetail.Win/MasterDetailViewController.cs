@@ -20,7 +20,13 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
         protected override void OnDeactivated() {
             base.OnDeactivated();
             var editor = View.Editor as XpandGridListEditor;
-            if (editor != null && editor.Grid != null) {
+            if (editor == null)
+                return;
+
+            if (editor.Grid != null) {
+                editor.Grid.ViewRegistered -= Grid_ViewRegistered;
+                editor.Grid.ViewRemoved -= Grid_ViewRemoved;
+
                 if (editor.GridView == editor.Grid.MainView) {
                     List<XpandXafGridView> gridViews = editor.Grid.Views.OfType<XpandXafGridView>().ToList();
                     for (int i = gridViews.Count() - 1; i > -1; i--) {
@@ -29,6 +35,15 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
                             ((WinWindow)xpandXafGridView.Window).Form.Close();
                     }
                 }
+            }
+
+            if (editor.GridView != null) {
+                editor.GridView.MasterRowGetRelationCount -= ViewOnMasterRowGetRelationCount;
+                editor.GridView.MasterRowGetRelationName -= ViewOnMasterRowGetRelationName;
+                editor.GridView.MasterRowGetRelationDisplayCaption -= MasterRowGetRelationDisplayCaption;
+                editor.GridView.MasterRowGetChildList -= ViewOnMasterRowGetChildList;
+                editor.GridView.MasterRowEmpty -= ViewOnMasterRowEmpty;
+                editor.GridView.MasterRowGetLevelDefaultView -= ViewOnMasterRowGetLevelDefaultView;
             }
         }
 

@@ -1,12 +1,11 @@
 ﻿using System;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
 
 namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveFiltering {
-    public class Updater : ModuleUpdater {
-        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
-            : base(objectSpace, currentDBVersion) {
+    public class Updater : FCUpdater {
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater)
+            : base(objectSpace, currentDBVersion,updater) {
         }
 
         public override void UpdateDatabaseAfterUpdateSchema() {

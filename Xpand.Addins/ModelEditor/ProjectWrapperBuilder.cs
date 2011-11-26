@@ -3,7 +3,7 @@ using System.Linq;
 using DevExpress.CodeRush.Core;
 using EnvDTE;
 using XpandAddIns.Enums;
-using XpandAddIns.Extensioons;
+using XpandAddIns.Extensions;
 using Project = EnvDTE.Project;
 
 namespace XpandAddIns.ModelEditor {

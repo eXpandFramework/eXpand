@@ -21,6 +21,10 @@ namespace Xpand.ExpressApp.SystemModule {
             _currentObject = currentObject;
         }
 
+        public bool HasToolTip(IModelMemberViewItem member) {
+            return !string.IsNullOrEmpty(GetToolTip(member));
+        }
+
         public string GetToolTip(IModelMemberViewItem member) {
             return ((IModelMemberToolTip)member).ToolTip;
         }

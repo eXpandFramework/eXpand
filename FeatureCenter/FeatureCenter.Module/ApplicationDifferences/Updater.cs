@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Security;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base.Security;
@@ -10,20 +12,21 @@ using Xpand.Xpo.Collections;
 
 namespace FeatureCenter.Module.ApplicationDifferences {
 
-    public class Updater : Xpand.Persistent.BaseImpl.Updater {
+    public class Updater : FCUpdater {
         private const string ModelCombine = "ModelCombine";
 
-        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
-            : base(objectSpace, currentDBVersion) {
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater)
+            : base(objectSpace, currentDBVersion, updater) {
         }
 
+
+
         public override void UpdateDatabaseAfterUpdateSchema() {
-            base.UpdateDatabaseAfterUpdateSchema();
             var session = ((ObjectSpace)ObjectSpace).Session;
             if (new QueryModelDifferenceObject(session).GetActiveModelDifference(ModelCombine, FeatureCenterModule.Application) == null) {
                 new ModelDifferenceObject(session).InitializeMembers(ModelCombine, FeatureCenterModule.Application);
-                ICustomizableRole role = EnsureRoleExists(ModelCombine, GetPermissions);
-                IUserWithRoles user = EnsureUserExists(ModelCombine, ModelCombine, role);
+                ICustomizableRole role = Updater.EnsureRoleExists(ModelCombine, customizableRole => GetPermissions(customizableRole, Updater));
+                IUserWithRoles user = Updater.EnsureUserExists(ModelCombine, ModelCombine, role);
                 role.AddPermission(new ModelCombinePermission(ApplicationModelCombineModifier.Allow) { Difference = ModelCombine });
                 role.Users.Add(user);
                 ObjectSpace.CommitChanges();
@@ -35,8 +38,8 @@ namespace FeatureCenter.Module.ApplicationDifferences {
             }
             ObjectSpace.CommitChanges();
         }
-        protected override System.Collections.Generic.List<System.Security.IPermission> GetPermissions(ICustomizableRole customizableRole) {
-            var permissions = base.GetPermissions(customizableRole);
+        protected List<IPermission> GetPermissions(ICustomizableRole customizableRole, Xpand.Persistent.BaseImpl.Updater updater) {
+            var permissions = updater.GetPermissions(customizableRole);
             if (customizableRole.Name == ModelCombine)
                 permissions.Add(new EditModelPermission(ModelAccessModifier.Allow));
             return permissions;

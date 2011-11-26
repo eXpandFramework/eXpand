@@ -5,9 +5,9 @@ using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.BaseImpl;
 
 namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView {
-    public class Updater : ModuleUpdater {
-        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
-            : base(objectSpace, currentDBVersion) {
+    public class Updater : FCUpdater {
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater)
+            : base(objectSpace, currentDBVersion,updater) {
         }
 
         public override void UpdateDatabaseAfterUpdateSchema() {

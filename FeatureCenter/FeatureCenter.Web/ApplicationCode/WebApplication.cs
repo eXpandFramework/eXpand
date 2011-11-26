@@ -1,4 +1,6 @@
 using System;
+using DevExpress.ExpressApp;
+using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Web;
 
@@ -45,7 +47,7 @@ namespace FeatureCenter.Web.ApplicationCode {
         private Xpand.ExpressApp.NCarousel.Web.NCarouselWebModule nCarouselWebModule1;
         private Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule xpandSystemAspNetModule1;
         private DevExpress.ExpressApp.FileAttachments.Web.FileAttachmentsAspNetModule fileAttachmentsAspNetModule1;
-        
+
         private Xpand.ExpressApp.WorldCreator.Web.WorldCreatorWebModule worldCreatorWebModule1;
         private DevExpress.ExpressApp.Validation.ValidationModule module5;
 
@@ -75,6 +77,7 @@ namespace FeatureCenter.Web.ApplicationCode {
 #endif
         }
 
+
         private void InitializeComponent() {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
@@ -86,7 +89,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.authenticationStandard1 = new XpandAuthenticationStandard();
             this.featureCenterModule1 = new FeatureCenter.Module.FeatureCenterModule();
             this.cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();
-            
+
             this.viewVariantsModule1 = new DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule();
             this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
             this.logicModule1 = new Xpand.ExpressApp.Logic.LogicModule();
@@ -119,7 +122,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.nCarouselWebModule1 = new Xpand.ExpressApp.NCarousel.Web.NCarouselWebModule();
             this.xpandSystemAspNetModule1 = new Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule();
             this.fileAttachmentsAspNetModule1 = new DevExpress.ExpressApp.FileAttachments.Web.FileAttachmentsAspNetModule();
-            
+
             this.worldCreatorWebModule1 = new Xpand.ExpressApp.WorldCreator.Web.WorldCreatorWebModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
@@ -162,7 +165,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.Modules.Add(this.module6);
             this.Modules.Add(this.securityModule1);
             this.Modules.Add(this.cloneObjectModule1);
-            
+
             this.Modules.Add(this.viewVariantsModule1);
             this.Modules.Add(this.xpandSystemModule1);
             this.Modules.Add(this.logicModule1);
@@ -195,7 +198,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.Modules.Add(this.nCarouselWebModule1);
             this.Modules.Add(this.xpandSystemAspNetModule1);
             this.Modules.Add(this.fileAttachmentsAspNetModule1);
-            
+
             this.Modules.Add(this.worldCreatorWebModule1);
             this.Modules.Add(this.featureCenterAspNetModule1);
             this.Security = this.securityComplex1;

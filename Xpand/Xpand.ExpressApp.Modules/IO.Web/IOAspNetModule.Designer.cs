@@ -27,6 +27,7 @@ namespace Xpand.ExpressApp.IO.Web {
         private void InitializeComponent() {
             this.RequiredModuleTypes.Add(typeof(IOModule));
             this.RequiredModuleTypes.Add(typeof(TreeListEditorsAspNetModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.FileAttachments.Web.FileAttachmentsAspNetModule));
         }
 
         #endregion
