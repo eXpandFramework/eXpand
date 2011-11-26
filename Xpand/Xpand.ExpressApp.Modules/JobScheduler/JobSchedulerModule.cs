@@ -11,6 +11,7 @@ using Quartz.Impl.Calendar;
 using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 using Xpand.ExpressApp.SystemModule;
 using System.Linq;
+using Xpand.ExpressApp.Validation;
 
 namespace Xpand.ExpressApp.JobScheduler {
     [ToolboxBitmap(typeof(JobSchedulerModule))]
@@ -20,6 +21,7 @@ namespace Xpand.ExpressApp.JobScheduler {
         public JobSchedulerModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));
+            RequiredModuleTypes.Add(typeof(XpandValidationModule));
             RequiredModuleTypes.Add(typeof(AdditionalViewControlsProvider.AdditionalViewControlsModule));
             XafTypesInfo.Instance.LoadTypes(typeof(AnnualCalendar).Assembly);
         }
@@ -27,6 +29,8 @@ namespace Xpand.ExpressApp.JobScheduler {
             base.Setup(moduleManager);
             if (Application == null)
                 return;
+            if (RuntimeMode)
+                AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.JobScheduler");
             ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(Application);
             try {
                 IScheduler scheduler = stdSchedulerFactory.AllSchedulers.SingleOrDefault();
@@ -36,6 +40,7 @@ namespace Xpand.ExpressApp.JobScheduler {
                     Tracing.Tracer.LogError(e);
             }
         }
+
         protected override void Dispose(bool disposing) {
             base.Dispose(disposing);
             if (disposing && Scheduler is StdScheduler) {

@@ -41,7 +41,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
 
         IDataMap IXpandJob.DataMap {
             get { return JobDataMap; }
-            set { JobDataMap=value as XpandJobDataMap; }
+            set { JobDataMap = value as XpandJobDataMap; }
         }
 
         protected override void OnChanged(string propertyName, object oldValue, object newValue) {
