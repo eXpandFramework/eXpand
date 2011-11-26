@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandConditionalDetailViewsWin</id>
-    <version>11.1</version>
+    <version>11.1.8.19</version>
     <title>DevExpress eXpand Framework ConditionalDetailViews Module (Win)</title>
     <authors>eXpand</authors>
     <owners>eXpand</owners>
@@ -17,5 +17,11 @@
     <file src="\Build\Temp\Xpand.ExpressApp.ConditionalDetailViews.dll" target="lib\Xpand.ExpressApp.ConditionalDetailViews.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
     <file src="\Build\Temp\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
+
+	<file src="\Build\Temp\Xpand.ExpressApp.dll" target="lib\Xpand.ExpressApp.dll" />
+	<file src="\Build\Temp\Xpand.ExpressApp.Logic.dll" target="lib\Xpand.ExpressApp.Logic.dll" />
+	<file src="\Build\Temp\Xpand.ExpressApp.Logic.Conditional.dll" target="lib\Xpand.ExpressApp.Logic.Conditional.dll" />
+	<file src="\Build\Temp\Xpand.Xpo.dll" target="lib\Xpand.Xpo.dll" />
+	<file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
   </files>
 </package>
