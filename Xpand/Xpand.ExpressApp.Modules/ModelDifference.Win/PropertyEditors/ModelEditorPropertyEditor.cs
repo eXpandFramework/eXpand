@@ -69,7 +69,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
 
         protected override void OnCurrentObjectChanged() {
             _modelLoader = new ModelLoader(CurrentObject.PersistentApplication.ExecutableName);
-            _masterModel = _modelLoader.GetMasterModel(true);
+            _masterModel = _modelLoader.GetMasterModel(false);
             base.OnCurrentObjectChanged();
         }
 
@@ -124,7 +124,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         void CurrentObjectOnChanged(object sender, ObjectChangeEventArgs objectChangeEventArgs) {
             if (objectChangeEventArgs.PropertyName == "XmlContent") {
                 var aspect = _masterModel.CurrentAspect;
-                _masterModel = _modelLoader.GetMasterModel(true);
+                _masterModel = _modelLoader.GetMasterModel(false);
                 CreateModelEditorController(aspect);
             }
         }

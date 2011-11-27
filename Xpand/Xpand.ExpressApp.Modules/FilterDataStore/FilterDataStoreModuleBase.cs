@@ -102,7 +102,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         private void Proxy_DataStoreSelectData(object sender, DataStoreSelectDataEventArgs e) {
-            if (_tablesDictionary.Count>0)
+            if (_tablesDictionary.Count > 0)
                 FilterData(e.SelectStatements);
         }
 
@@ -200,8 +200,14 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         string GetNodeAlias(SelectStatement statement, string filterMemberName) {
-            if (!_tablesDictionary.ContainsKey(statement.TableName))
-                throw new ArgumentException(statement.TableName);
+            if (!_tablesDictionary.ContainsKey(statement.TableName)) {
+                var classInfo = Application.Model.BOModel.Select(mclass => XafTypesInfo.XpoTypeInfoSource.XPDictionary.QueryClassInfo(mclass.TypeInfo.Type)).Where(info => info != null && info.TableName == statement.TableName).FirstOrDefault();
+                if (classInfo != null)
+                    _tablesDictionary.Add(classInfo.TableName, classInfo.ClassType);
+                else
+                    throw new ArgumentException(statement.TableName);
+            }
+
             var fullName = _tablesDictionary[statement.TableName].FullName;
             if (XafTypesInfo.Instance.FindTypeInfo(fullName).OwnMembers.Where(member => member.Name == filterMemberName).FirstOrDefault() == null) {
                 return statement.SubNodes[0].Alias;

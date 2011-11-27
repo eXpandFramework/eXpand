@@ -46,7 +46,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         }
 
         public XafApplication Build() {
-            
+
             try {
                 var typesInfo = _buildTypesInfoSystem.Invoke(_moduleName);
                 ReflectionHelper.AddResolvePath(_assemblyPath);
@@ -80,7 +80,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         public ITypesInfo Build(bool tryToUseCurrentTypesInfo) {
             return tryToUseCurrentTypesInfo
-                       ? (UseCurrentTypesInfo()? XafTypesInfo.Instance: GetTypesInfo())
+                       ? (UseCurrentTypesInfo() ? XafTypesInfo.Instance : GetTypesInfo())
                        : GetTypesInfo();
         }
 

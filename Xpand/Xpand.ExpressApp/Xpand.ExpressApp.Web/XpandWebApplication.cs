@@ -9,6 +9,8 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Core;
+using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Web.SystemModule;
 
 
 namespace Xpand.ExpressApp.Web {
@@ -21,6 +23,10 @@ namespace Xpand.ExpressApp.Web {
         protected override void OnLoggedOn(LogonEventArgs args) {
             base.OnLoggedOn(args);
             ((ShowViewStrategy)ShowViewStrategy).CollectionsEditMode = DevExpress.ExpressApp.Editors.ViewEditMode.Edit;
+        }
+        protected override ModuleTypeList GetDefaultModuleTypes() {
+            var result = new List<Type>(base.GetDefaultModuleTypes()) { typeof(XpandSystemModule), typeof(XpandSystemAspNetModule) };
+            return new ModuleTypeList(result.ToArray());
         }
         protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             this.CreateCustomObjectSpaceprovider(args);

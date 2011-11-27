@@ -18,10 +18,50 @@ namespace Xpand.ExpressApp {
         static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
         public static object Control;
         static Assembly _baseImplAssembly;
+        private readonly Boolean isModuleBase;
+
+        public XpandModuleBase() {
+            isModuleBase = (GetType() == typeof(ModuleBase));
+            if (isModuleBase) return;
+        }
+
         protected bool RuntimeMode {
             get { return Application != null && Application.Security != null; }
         }
 
+        [Obsolete("Use the \'GetDeclaredExportedTypes()\' method instead.")]
+        protected override BusinessClassesList GetBusinessClassesCore() {
+            if (IsLoadingExternalModel()) {
+                var resultBusinessClasses = new ExternalModelBusinessClassesList();
+                resultBusinessClasses.AddRange(DeclaredBusinessClasses, false, RequiredTypeEntry.ReasonDeclaredInModule);
+                return resultBusinessClasses;
+            }
+            return base.GetBusinessClassesCore();
+        }
+
+        bool IsLoadingExternalModel() {
+            return TypesInfo != XafTypesInfo.Instance;
+        }
+
+        class ExternalModelBusinessClassesList : BusinessClassesList {
+            private bool EntityFilterPredicate(ITypeInfo info) {
+                return info.IsDomainComponent;
+            }
+
+            private IEnumerable<Type> CollectRequiredTypes(ITypeInfo typeInfo) {
+                return (from required in typeInfo.GetRequiredTypes(EntityFilterPredicate) where required.IsDomainComponent select required.Type).ToList();
+            }
+
+            protected override void InsertItem(int index, Type item) {
+                ITypeInfo typeInfo = TypesInfo.FindTypeInfo(item);
+                if (!Items.Contains(item) && typeInfo.IsDomainComponent) {
+                    base.InsertItem(index, item);
+                    foreach (Type type in CollectRequiredTypes(typeInfo).Where(type => !Items.Contains(type))) {
+                        Items.Add(type);
+                    }
+                }
+            }
+        }
         public Assembly BaseImplAssembly {
             get {
                 if (_baseImplAssembly == null) {
@@ -35,6 +75,36 @@ namespace Xpand.ExpressApp {
                 }
                 return _baseImplAssembly;
             }
+        }
+        private List<Type> declaredBusinessClasses;
+        [Obsolete("Use the \'GetDeclaredExportedTypes()\' method instead.")]
+        protected override List<Type> DeclaredBusinessClasses {
+            get {
+                //                return base.DeclaredBusinessClasses;
+                if (declaredBusinessClasses == null) {
+                    declaredBusinessClasses = new List<Type>();
+                    if (!isModuleBase && AutomaticCollectDomainComponents) {
+                        declaredBusinessClasses.AddRange(CollectExportedTypesFromAssembly(GetType().Assembly));
+                    }
+                }
+                return declaredBusinessClasses;
+            }
+        }
+
+        public static IEnumerable<Type> CollectExportedTypesFromAssembly(Assembly assembly) {
+            var typesList = new ExportedTypeCollection();
+            try {
+                TypesInfo.LoadTypes(assembly);
+                if (assembly == typeof(XPObject).Assembly) {
+                    typesList.AddRange(DevExpress.ExpressApp.InfoGenerators.XPObjectModelLoader.XPBaseClasses);
+                } else {
+                    typesList.AddRange(assembly.GetTypes());
+                }
+            } catch (Exception e) {
+                throw new InvalidOperationException(
+                    String.Format("Exception occurs while ensure classes from assembly {0}\r\n{1}", assembly.FullName, e.Message), e);
+            }
+            return typesList;
         }
 
         public Type LoadFromBaseImpl(string typeName) {

@@ -13,6 +13,8 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Security;
+using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Win.SystemModule;
 using Xpand.ExpressApp.Win.ViewStrategies;
 using Xpand.ExpressApp.Core;
 
@@ -36,6 +38,10 @@ namespace Xpand.ExpressApp.Win {
                 _application = this;
         }
 
+        protected override ModuleTypeList GetDefaultModuleTypes() {
+            var result = new List<Type>(base.GetDefaultModuleTypes()) { typeof(XpandSystemModule), typeof(XpandSystemWindowsFormsModule) };
+            return new ModuleTypeList(result.ToArray());
+        }
 
         string ISupportFullConnectionString.ConnectionString { get; set; }
 
