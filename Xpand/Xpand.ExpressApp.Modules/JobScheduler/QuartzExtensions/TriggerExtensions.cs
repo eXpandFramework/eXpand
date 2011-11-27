@@ -44,7 +44,6 @@ namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
                 trigger = new NthIncludedDayTrigger(jobTrigger.Name, jobType.FullName);
 
             if (trigger != null) {
-//                trigger.AddTriggerListener(new XpandTriggerListener().Name);
                 return trigger;
             }
             throw new NotImplementedException(jobTrigger.GetType().FullName);
@@ -56,12 +55,12 @@ namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
             jobTrigger.JobDataMap = new JobDataMap();
             jobTrigger.StartTimeUtc = trigger.StartTimeUtc;
             jobTrigger.Description = trigger.Description;
-            jobTrigger.JobKey=new JobKey(jobName,type.FullName);
+            jobTrigger.JobKey = new JobKey(jobName, type.FullName);
             jobTrigger.Key = new TriggerKey(jobTrigger.Key.Name, GetGroup(jobName, type, jobGroup));
             if (jobTrigger is SimpleTriggerImpl)
                 ((SimpleTriggerImpl)jobTrigger).AssignQuartzTrigger((IXpandSimpleTrigger)trigger);
             else if (jobTrigger is CronTriggerImpl)
-                ((CronTriggerImpl)jobTrigger).AssignQuartzTrigger((ICronTrigger)trigger);
+                ((CronTriggerImpl)jobTrigger).AssignQuartzTrigger((IXpandCronTrigger)trigger);
             else if (jobTrigger is NthIncludedDayTrigger)
                 ((NthIncludedDayTrigger)jobTrigger).AssignQuartzTrigger((INthIncludedDayTrigger)trigger);
         }
@@ -77,10 +76,13 @@ namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
             nthIncludedDayTrigger.TriggerCalendarWeekRule = trigger.TriggerCalendarWeekRule;
         }
 
-        public static void AssignQuartzTrigger(this CronTriggerImpl cronTrigger, ICronTrigger trigger) {
-            cronTrigger.MisfireInstruction = trigger.MisfireInstruction;
-            cronTrigger.CronExpressionString = trigger.CronExpressionString;
-            cronTrigger.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(trigger.TimeZone.ToString());
+        public static void AssignQuartzTrigger(this CronTriggerImpl cronTrigger, IXpandCronTrigger trigger) {
+            cronTrigger.MisfireInstruction = (int)trigger.MisfireInstruction;
+            cronTrigger.CronExpressionString = trigger.CronExpression;
+            // http://devexpress.com/Support/Center/p/S133718.aspx?searchtext=timezoneid+number
+            // Fetches the Windows name of the specified Scheduler time zone from the registry.
+            String timeZoneKey = RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(trigger.TimeZone);
+            cronTrigger.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(timeZoneKey);
         }
 
 
