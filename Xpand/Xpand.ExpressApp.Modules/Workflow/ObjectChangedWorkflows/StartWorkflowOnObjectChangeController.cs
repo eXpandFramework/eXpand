@@ -22,6 +22,21 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         }
     }
     public class StartWorkflowOnObjectChangeController : ViewController<ObjectView> {
+        void CreateServerRequest(ObjectChangedEventArgs objectChangedEventArgs, ObjectChangedWorkflow objectChangedWorkflow, object targetObjectKey, ITypeInfo typeInfo) {
+            var request = ObjectSpace.CreateObject<ObjectChangedXpoStartWorkflowRequest>();
+            request.TargetWorkflowUniqueId = objectChangedWorkflow.GetUniqueId();
+            request.TargetObjectType = typeInfo.Type;
+            request.TargetObjectKey = targetObjectKey;
+            request.PropertyName = objectChangedEventArgs.PropertyName;
+            request.OldValue = GetOldValue(objectChangedEventArgs);
+        }
+
+        void InvokeOnClient(ObjectChangedEventArgs objectChangedEventArgs, ObjectChangedWorkflow objectChangedWorkflow, object targetObjectKey) {
+            Activity activity = ActivityXamlServices.Load(new StringReader(objectChangedWorkflow.Xaml));
+            var dictionary = ObjectChangedStartWorkflowService.Dictionary(targetObjectKey, objectChangedEventArgs.PropertyName, objectChangedEventArgs.OldValue);
+            WorkflowInvoker.Invoke(activity, dictionary);
+        }
+
         protected override void OnActivated() {
             base.OnActivated();
             if (TypeHasWorkflows()) {
@@ -41,20 +56,8 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
             }
         }
 
-        void CreateServerRequest(ObjectChangedEventArgs objectChangedEventArgs, ObjectChangedWorkflow objectChangedWorkflow, object targetObjectKey, ITypeInfo typeInfo) {
-            var request = ObjectSpace.CreateObject<ObjectChangedXpoStartWorkflowRequest>();
-            request.TargetWorkflowUniqueId = objectChangedWorkflow.GetUniqueId();
-            request.TargetObjectType = typeInfo.Type;
-            request.TargetObjectKey = targetObjectKey;
-            request.PropertyName = objectChangedEventArgs.PropertyName;
-            request.OldValue = GetOldValue(objectChangedEventArgs);
-        }
+ 
 
-        void InvokeOnClient(ObjectChangedEventArgs objectChangedEventArgs, ObjectChangedWorkflow objectChangedWorkflow, object targetObjectKey) {
-            Activity activity = ActivityXamlServices.Load(new StringReader(objectChangedWorkflow.Xaml));
-            var dictionary = ObjectChangedStartWorkflowService.Dictionary(targetObjectKey, objectChangedEventArgs.PropertyName, objectChangedEventArgs.OldValue);
-            WorkflowInvoker.Invoke(activity, dictionary);
-        }
 
         void StartWorkFlows(object sender, CancelEventArgs cancelEventArgs) {
             foreach (ObjectChangedWorkflow objectChangedWorkflow in GetObjectChangedWorkflows()) {

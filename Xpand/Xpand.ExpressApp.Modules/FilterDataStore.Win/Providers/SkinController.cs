@@ -13,10 +13,12 @@ namespace Xpand.ExpressApp.FilterDataStore.Win.Providers {
         }
 
         void ChooseSkinActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
-            SkinFilterProvider skinFilterProvider = FilterProviderManager.Providers.OfType<SkinFilterProvider>().FirstOrDefault();
-            if (skinFilterProvider != null) {
-                skinFilterProvider.FilterValue = ((IModelApplicationOptionsSkin)Application.Model.Options).Skin;
-                Frame.GetController<RefreshController>().RefreshAction.DoExecute();
+            if (FilterProviderManager.IsRegistered) {
+                SkinFilterProvider skinFilterProvider = FilterProviderManager.Providers.OfType<SkinFilterProvider>().FirstOrDefault();
+                if (skinFilterProvider != null) {
+                    skinFilterProvider.FilterValue = ((IModelApplicationOptionsSkin)Application.Model.Options).Skin;
+                    Frame.GetController<RefreshController>().RefreshAction.DoExecute();
+                }
             }
         }
     }
