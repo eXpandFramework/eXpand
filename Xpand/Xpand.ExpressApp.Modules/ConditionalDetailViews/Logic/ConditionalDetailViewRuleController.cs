@@ -96,7 +96,7 @@ namespace Xpand.ExpressApp.ConditionalDetailViews.Logic {
                     _ruleForCustomProcessSelectedItem = info.Rule;
                 else if (executionContext == ExecutionContext.CurrentObjectChanged) {
                     _previousModel = View.Model;
-                    View.SetInfo(info.Rule.DetailView);
+                    View.SetModel(info.Rule.DetailView);
                     if (!defaultValuesRulesStorage.ContainsKey(info.Rule))
                         defaultValuesRulesStorage.Add(info.Rule, info.Rule.View);
                     info.Rule.View = info.Rule.DetailView;
@@ -104,7 +104,7 @@ namespace Xpand.ExpressApp.ConditionalDetailViews.Logic {
             } else if (info.InvertingCustomization) {
                 if (executionContext == ExecutionContext.CurrentObjectChanged) {
                     if (_previousModel != null && _previousModel != View.Model) {
-                        View.SetInfo(_previousModel);
+                        View.SetModel(_previousModel);
                         info.Rule.View = _previousModel;
                     }
                 }

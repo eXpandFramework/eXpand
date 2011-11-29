@@ -16,8 +16,8 @@ namespace Xpand.ExpressApp.PivotChart.Web.Options {
             _dictionary.Add(typeof(PivotGridWebOptionsChartDataSource), instance.PivotGridWebOptionsChartDataSourceType);
             _dictionary.Add(typeof(PivotGridWebOptionsCustomization), instance.PivotGridWebOptionsCustomizationType);
             _dictionary.Add(typeof(PivotGridWebOptionsLoadingPanel), instance.PivotGridWebOptionsLoadingPanelType);
-            _dictionary.Add(typeof (PivotGridOptionsData), instance.PivotOptionsDataType);
-            _dictionary.Add(typeof (PivotGridOptionsDataField), instance.PivotOptionsDataFieldType);
+            _dictionary.Add(typeof(PivotGridOptionsData), instance.PivotOptionsDataType);
+            _dictionary.Add(typeof(PivotGridOptionsDataField), instance.PivotOptionsDataFieldType);
             _dictionary.Add(typeof(PivotGridOptionsOLAP), instance.PivotGridOptionsOLAPType);
             _dictionary.Add(typeof(PivotGridWebOptionsPager), instance.PivotGridWebOptionsPagerType);
             _dictionary.Add(typeof(PivotGridWebOptionsView), instance.PivotGridWebOptionsViewType);
@@ -35,7 +35,7 @@ namespace Xpand.ExpressApp.PivotChart.Web.Options {
         public static PivotGridOptionMapper Instance {
             get {
                 if (_instanceManager == null) {
-                    _instanceManager = ValueManager.CreateValueManager<PivotGridOptionMapper>();
+                    _instanceManager = ValueManager.GetValueManager<PivotGridOptionMapper>("Pivot_Web_PivotGridOptionMapper");
                 }
                 return _instanceManager.Value ?? (_instanceManager.Value = new PivotGridOptionMapper());
             }

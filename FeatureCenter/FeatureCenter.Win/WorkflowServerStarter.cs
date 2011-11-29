@@ -8,9 +8,6 @@ using DevExpress.ExpressApp.Workflow.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.BaseImpl;
-using FeatureCenter.Module.Win;
-using Xpand.ExpressApp;
-using Xpand.ExpressApp.Win;
 using Xpand.ExpressApp.Workflow;
 using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
 using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
@@ -89,12 +86,13 @@ namespace FeatureCenter.Win {
             server.RefreshWorkflowDefinitionsService.DelayPeriod = TimeSpan.FromSeconds(30);
 
             server.Start();
-            server.CustomHandleException += delegate(object sender, DevExpress.ExpressApp.Workflow.ServiceModel.CustomHandleServiceExceptionEventArgs e) {
+            server.CustomHandleException += (sender, e) => {
                 Tracing.Tracer.LogError(e.Exception);
                 if (OnCustomHandleException_ != null) {
                     OnCustomHandleException_(this, new ExceptionEventArgs("Exception occurs:\r\n\r\n" + e.Exception.Message + "\r\n\r\n'" + e.Service.GetType() + "' service"));
                 }
                 e.Handled = true;
+
             };
         }
         public event EventHandler<ExceptionEventArgs> OnCustomHandleException_;

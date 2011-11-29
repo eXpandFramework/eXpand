@@ -96,7 +96,7 @@ namespace Xpand.ExpressApp {
             try {
                 TypesInfo.LoadTypes(assembly);
                 if (assembly == typeof(XPObject).Assembly) {
-                    typesList.AddRange(DevExpress.ExpressApp.InfoGenerators.XPObjectModelLoader.XPBaseClasses);
+                    typesList.AddRange(DevExpress.ExpressApp.DC.Xpo.XpoTypeInfoSource.XpoBaseClasses);
                 } else {
                     typesList.AddRange(assembly.GetTypes());
                 }
@@ -218,7 +218,7 @@ namespace Xpand.ExpressApp {
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             lock (_lockObject) {
                 if (_instanceModelApplicationCreatorManager == null)
-                    _instanceModelApplicationCreatorManager = ValueManager.CreateValueManager<ModelApplicationCreator>();
+                    _instanceModelApplicationCreatorManager = ValueManager.GetValueManager<ModelApplicationCreator>("instanceModelApplicationCreatorManager");
                 if (_instanceModelApplicationCreatorManager.Value == null)
                     _instanceModelApplicationCreatorManager.Value = ((ModelApplicationBase)Application.Model).CreatorInstance;
             }

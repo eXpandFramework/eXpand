@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
             get {
                 return _valueManager ??
                        (_valueManager =
-                        DevExpress.Persistent.Base.ValueManager.CreateValueManager<FilterProviderCollection>());
+                        DevExpress.Persistent.Base.ValueManager.GetValueManager<FilterProviderCollection>("FilterProviderManager"));
             }
         }
 

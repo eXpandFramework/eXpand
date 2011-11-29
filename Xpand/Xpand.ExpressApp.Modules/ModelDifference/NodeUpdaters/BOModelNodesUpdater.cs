@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.ModelDifference.NodeUpdaters {
                 var modelClassMember = modelBoModelClassMembers[index];
                 var xpandCustomMemberInfo = xpClassInfo.FindMember(modelClassMember.Name) as XpandCustomMemberInfo;
                 if (xpandCustomMemberInfo != null) {
-                    modelBoModelClassMembers.Remove(modelClassMember);
+                    modelClassMember.Remove();
                     var propertyNode = GetPropertyNode(xpandCustomMemberInfo, modelClassMember.ModelClass);
                     CreateMemberNode(modelClassMember.ModelClass, modelClassMember.MemberInfo, propertyNode);
                 }
@@ -48,14 +48,14 @@ namespace Xpand.ExpressApp.ModelDifference.NodeUpdaters {
 
         IModelMember GetCollectionNode(XPCustomMemberInfo memberInfo, IModelClass modelClass) {
             var modelRuntimeOrphanedColection = modelClass.OwnMembers.AddNode<IModelRuntimeOrphanedColection>(memberInfo.Name);
-            modelRuntimeOrphanedColection.CollectionType =modelClass.Application.BOModel[memberInfo.MemberType.GetGenericArguments()[0].FullName];
-            modelRuntimeOrphanedColection.Criteria = ((XpandCollectionMemberInfo) memberInfo).Criteria;
+            modelRuntimeOrphanedColection.CollectionType = modelClass.Application.BOModel[memberInfo.MemberType.GetGenericArguments()[0].FullName];
+            modelRuntimeOrphanedColection.Criteria = ((XpandCollectionMemberInfo)memberInfo).Criteria;
             return modelRuntimeOrphanedColection;
         }
 
         IModelMember GetCalcNode(XPCustomMemberInfo memberInfo, IModelClass modelClass) {
             var modelRuntimeCalculatedMember = modelClass.OwnMembers.AddNode<IModelRuntimeCalculatedMember>(memberInfo.Name);
-            modelRuntimeCalculatedMember.AliasExpression =((PersistentAliasAttribute) memberInfo.FindAttributeInfo(typeof (PersistentAliasAttribute))).AliasExpression;
+            modelRuntimeCalculatedMember.AliasExpression = ((PersistentAliasAttribute)memberInfo.FindAttributeInfo(typeof(PersistentAliasAttribute))).AliasExpression;
             return modelRuntimeCalculatedMember;
         }
 
@@ -66,10 +66,10 @@ namespace Xpand.ExpressApp.ModelDifference.NodeUpdaters {
             if (indexAttribute != null) {
                 propertyNode.Index = (int)indexAttribute.Value;
             }
-            const BindingFlags bindingFlags = BindingFlags.NonPublic|BindingFlags.Instance;
-            var methodInfo = typeof(ModelNode).GetMethod("SetSerializedValue",bindingFlags);
+            const BindingFlags bindingFlags = BindingFlags.NonPublic | BindingFlags.Instance;
+            var methodInfo = typeof(ModelNode).GetMethod("SetSerializedValue", bindingFlags);
             foreach (CustomAttribute attribute in memberInfo.FindAttributes<CustomAttribute>()) {
-                methodInfo.Invoke(propertyNode, new object[] {attribute.Name, attribute.Value});
+                methodInfo.Invoke(propertyNode, new object[] { attribute.Name, attribute.Value });
             }
             var exportedAttributeValues = new Dictionary<string, object>();
             foreach (ModelExportedValuesAttribute attribute in memberInfo.FindAttributes<ModelExportedValuesAttribute>()) {
@@ -87,7 +87,7 @@ namespace Xpand.ExpressApp.ModelDifference.NodeUpdaters {
             var boModel = ((IModelBOModel)node);
             var classNode = boModel[typeof(RoleModelDifferenceObject).FullName];
             if (SecuritySystem.UserType != null && !(SecuritySystem.Instance is ISecurityComplex) && classNode != null) {
-                node.Remove((ModelNode)classNode);
+                (classNode).Remove();
             }
         }
     }

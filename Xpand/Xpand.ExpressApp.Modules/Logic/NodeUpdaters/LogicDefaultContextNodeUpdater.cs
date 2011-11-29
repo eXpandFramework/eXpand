@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.Logic.NodeUpdaters {
 
         IEnumerable<ExecutionContext> GetContexts(IModelExecutionContexts modelExecutionContexts) {
             List<ExecutionContext> executionContexts = GetExecutionContexts();
-            return executionContexts.Where(executionContext => modelExecutionContexts.GetNode<IModelExecutionContext>(executionContext.ToString()) == null);
+            return executionContexts.Where(executionContext => modelExecutionContexts[executionContext.ToString()] == null);
         }
 
         protected abstract List<ExecutionContext> GetExecutionContexts();

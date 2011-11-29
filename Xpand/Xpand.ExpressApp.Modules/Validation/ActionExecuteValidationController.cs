@@ -5,7 +5,6 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Validation.AllContextsView;
 using DevExpress.Persistent.Validation;
-using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.Validation {
     public class ActionExecuteValidationController : ObjectViewController {
@@ -73,7 +72,8 @@ namespace Xpand.ExpressApp.Validation {
 
     }
     public class ActionExecuteContextTargetObjectSelector : ValidationTargetObjectSelector {
-        protected override bool NeedToValidateObject(Session session, object targetObject) {
+
+        protected override bool NeedToValidateObject(IObjectSpace objectSpace, object targetObject) {
             return true;
         }
     }

@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.StateMachine {
         }
 
         void OnTransitionExecuting(object sender, ExecuteTransitionEventArgs executeTransitionEventArgs) {
-            var states = executeTransitionEventArgs.StateMachine.States.OfType<XpoState>();
+            var states = executeTransitionEventArgs.Transition.TargetState.StateMachine.States.OfType<XpoState>();
             foreach (var state in states) {
                 if (IsNotGranted(state))
                     throw new UserFriendlyException("Permissions are not granted for transitioning to the " + state.Caption);

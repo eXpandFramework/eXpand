@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.Logic {
         public static LogicRuleManager<TLogicRule> Instance {
             get {
                 if (instanceManager == null) {
-                    instanceManager = ValueManager.CreateValueManager<LogicRuleManager<TLogicRule>>();
+                    instanceManager = ValueManager.GetValueManager<LogicRuleManager<TLogicRule>>("LogicRuleManager");
                 }
                 return instanceManager.Value ?? (instanceManager.Value = new LogicRuleManager<TLogicRule>());
             }

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.XtraGrid;
@@ -12,7 +11,7 @@ using Xpand.ExpressApp.Win.ListEditors;
 
 
 namespace Xpand.ExpressApp.MasterDetail.Win {
-    public class MasterDetailViewController : ListViewController<XpandGridListEditor>, IModelExtender {
+    public class MasterDetailViewController : ListViewController<XpandGridListEditor> {
         private List<IMasterDetailRule> MasterDetailRules {
             get { return Frame.GetController<MasterDetailRuleController>().MasterDetailRules; }
         }
@@ -104,5 +103,6 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
             if (window != null && window.Form != null)
                 window.Form.Close();
         }
+
     }
 }

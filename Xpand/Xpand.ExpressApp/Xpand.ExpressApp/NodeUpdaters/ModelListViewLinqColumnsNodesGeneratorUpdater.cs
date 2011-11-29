@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.NodeUpdaters {
 
         void AddQueryColumns(IModelListView listViewInfo, IEnumerable<CustomQueryPropertyAttribute> customQueryPropertyAttributes) {
             foreach (CustomQueryPropertyAttribute queryPropertyAttribute in customQueryPropertyAttributes) {
-                var col = listViewInfo.Columns.GetNode<IModelColumn>(queryPropertyAttribute.Name);
+                var col = listViewInfo.Columns[queryPropertyAttribute.Name];
                 if (col == null) {
                     col = listViewInfo.Columns.AddNode<IModelColumn>(queryPropertyAttribute.Name);
                     col.PropertyName = queryPropertyAttribute.Name;
@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.NodeUpdaters {
                 IModelColumn col = listViewInfo.Columns[i];
                 var names = customQueryPropertyAttributes.Select(attribute => attribute.Name).ToArray();
                 if (Array.IndexOf(names, col.Id) < 0) {
-                    listViewInfo.Columns.Remove(col);
+                    col.Remove();
                 }
             }
         }

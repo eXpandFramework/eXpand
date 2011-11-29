@@ -94,11 +94,11 @@ namespace Xpand.ExpressApp.ViewVariants {
         }
         private void DeleteViewCore(string viewId) {
             IModelView modelView = RemoveVariantNode(viewId);
-            Application.Model.Views.Remove(Application.Model.Views[viewId]);
+            Application.Model.Views[viewId].Remove();
             var changeVariantAction = Frame.GetController<ChangeVariantController>().ChangeVariantAction;
             changeVariantAction.Items.Remove(changeVariantAction.SelectedItem);
             changeVariantAction.SelectedItem = changeVariantAction.Items.Where(item => item.Caption == modelView.Id).SingleOrDefault();
-            View.SetInfo(modelView);
+            View.SetModel(modelView);
         }
 
 
@@ -107,7 +107,7 @@ namespace Xpand.ExpressApp.ViewVariants {
             IModelView modelView = Application.Model.Views[viewShortcut.ViewId];
             IModelVariants modelVariants = ((IModelViewVariants)modelView).Variants;
             IModelVariant modelVariant = modelVariants.Where(variant => variant.View.Id == viewId).Single();
-            modelVariants.Remove(modelVariant);
+            modelVariant.Remove();
             if (modelVariants.Count > 0) {
                 modelVariants.Current = modelVariants[0];
                 return modelVariants.Current.View;
@@ -121,7 +121,7 @@ namespace Xpand.ExpressApp.ViewVariants {
         public void CloneView(ViewCloner viewCloner) {
             var newVariantNode = GetNewVariantNode(viewCloner);
             ActivateVariant(newVariantNode);
-            View.SetInfo(newVariantNode.View);
+            View.SetModel(newVariantNode.View);
         }
 
         void ActivateVariant(IModelVariant newVariantNode) {
@@ -160,10 +160,10 @@ namespace Xpand.ExpressApp.ViewVariants {
         }
 
         IModelListView GetClonedView(string caption) {
-            var clonedView = ((ModelNode)View.Model).Clone(caption) as IModelListView;
+            var clonedView = ((IModelListView)((ModelNode)View.Model).Clone(caption));
             var modelViewVariants = ((IModelViewVariants)clonedView);
             modelViewVariants.Variants.Current = null;
-            modelViewVariants.Variants.Clear();
+            modelViewVariants.Variants.ClearNodes();
             return clonedView;
         }
 

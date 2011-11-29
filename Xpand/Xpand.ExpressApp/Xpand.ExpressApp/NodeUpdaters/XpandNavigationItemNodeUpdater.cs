@@ -36,8 +36,8 @@ namespace Xpand.ExpressApp.NodeUpdaters {
 
         IModelNavigationItem GetNavigationItem(IModelNavigationItems navigationItems, string id, string objectKey) {
             IModelNavigationItem navigationItem;
-            if (navigationItems.GetNode<IModelNavigationItem>(id) != null)
-                navigationItem = navigationItems.GetNode<IModelNavigationItem>(id);
+            if (navigationItems[id] != null)
+                navigationItem = navigationItems[id];
             else {
                 navigationItem = navigationItems.AddNode<IModelNavigationItem>(id);
                 navigationItem.Caption = id;

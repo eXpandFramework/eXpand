@@ -119,7 +119,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
 
                 foreach (BaseWizardPage page in _WizardForm.WizardControl.Pages) {
                     if (page is XafWizardPage) {
-                        ((XafWizardPage)page).View.SynchronizeInfo();
+                        ((XafWizardPage)page).View.SaveModel();
                         ((XafWizardPage)page).View.Dispose();
                     }
                 }
@@ -157,7 +157,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
             if (page is XafWizardPage) {
                 var wizardPage = page as XafWizardPage;
                 if (wizardPage.View != null) {
-                    wizardPage.View.SynchronizeInfo();
+                    wizardPage.View.SaveModel();
                     wizardPage.View.Dispose();
                     OnWizardPageDetailViewCreating();
                     wizardPage.View = Application.CreateDetailView(ObjectSpace, wizardPage.View.Id, false);

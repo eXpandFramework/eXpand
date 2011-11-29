@@ -35,7 +35,7 @@ namespace Xpand.ExpressApp.PivotChart.Win.Options {
         public static PivotGridOptionMapper Instance {
             get {
                 if (_instanceManager == null) {
-                    _instanceManager = ValueManager.CreateValueManager<PivotGridOptionMapper>();
+                    _instanceManager = ValueManager.GetValueManager<PivotGridOptionMapper>("PivotGridOptionMapper");
                 }
                 return _instanceManager.Value ?? (_instanceManager.Value = new PivotGridOptionMapper());
             }

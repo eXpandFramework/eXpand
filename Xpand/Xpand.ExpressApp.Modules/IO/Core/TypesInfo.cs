@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.IO.Core {
         public static TypesInfo Instance {
             get {
                 if (instanceManager == null) {
-                    instanceManager = ValueManager.CreateValueManager<TypesInfo>();
+                    instanceManager = ValueManager.GetValueManager<TypesInfo>("IO_TypesInfo");
                 }
                 return instanceManager.Value ?? (instanceManager.Value = new TypesInfo());
             }

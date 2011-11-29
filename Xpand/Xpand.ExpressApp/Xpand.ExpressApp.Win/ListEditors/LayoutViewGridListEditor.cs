@@ -69,6 +69,7 @@ using DevExpress.XtraGrid.Views.Layout;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.XtraGrid.Views.Layout.ViewInfo;
 using DevExpress.XtraPrinting;
+using System.Linq;
 
 namespace Xpand.ExpressApp.Win.ListEditors {
     public class XafLayoutView : LayoutView {
@@ -203,9 +204,9 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         }
         protected override FilterCustomDialog CreateCustomFilterDialog(GridColumn column) {
             if (!OptionsFilter.UseNewCustomFilterDialog) {
-                return new XafFilterCustomDialog(column);
+                return new FilterCustomDialog(column);
             }
-            return new XafFilterCustomDialog2(column, Columns);
+            return new FilterCustomDialog2(column, Columns);
         }
         protected internal void CancelCurrentRowEdit() {
             if ((gridController != null) && !gridController.IsDisposed
@@ -685,7 +686,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         new string Settings { get; set; }
     }
     [ListEditor(typeof(object), false)]
-    public class LayoutViewListEditor : ColumnsListEditor, /*Removed: ISupportNewItemRowPosition, IGridListEditorTestable, ISupportFooter, ISupportConditionalFormatting,*/IControlOrderProvider, IDXPopupMenuHolder, IComplexListEditor, IPrintableSource, ILookupListEditor, IHtmlFormattingSupport, IFocusedElementCaptionProvider, ILookupEditProvider, IExportableEditor, ISupportAppearanceCustomization {
+    public class LayoutViewListEditor : ColumnsListEditor, /*Removed: ISupportNewItemRowPosition, IGridListEditorTestable, ISupportFooter, ISupportConditionalFormatting,*/IControlOrderProvider, IDXPopupMenuHolder, IComplexListEditor, IPrintableSource, ILookupListEditor, IHtmlFormattingSupport, IFocusedElementCaptionProvider, ILookupEditProvider, IExportable, ISupportAppearanceCustomization {
         private RepositoryEditorsFactory repositoryFactory;
         private bool readOnlyEditors;
         private GridControl grid;
@@ -1087,7 +1088,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             if (column is XafLayoutViewColumn) {
                 IModelColumn columnInfo = Model.Columns[((XafLayoutViewColumn)column).Model.Id];
                 if (columnInfo != null) {
-                    Model.Columns.Remove(columnInfo);
+                    columnInfo.Remove();
                 }
             }
         }
@@ -1625,19 +1626,25 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         }
         #endregion
         #region IExportableEditor Members
-        public IList<PrintingSystemCommand> ExportTypes {
+
+        public List<ExportTarget> SupportedExportFormats {
             get {
-                IList<PrintingSystemCommand> exportTypes = new List<PrintingSystemCommand>();
-                exportTypes.Add(PrintingSystemCommand.ExportXls);
-                exportTypes.Add(PrintingSystemCommand.ExportHtm);
-                exportTypes.Add(PrintingSystemCommand.ExportTxt);
-                exportTypes.Add(PrintingSystemCommand.ExportMht);
-                exportTypes.Add(PrintingSystemCommand.ExportPdf);
-                exportTypes.Add(PrintingSystemCommand.ExportRtf);
-                exportTypes.Add(PrintingSystemCommand.ExportGraphic);
-                return exportTypes;
+                IList<ExportTarget> exportTypes = new List<ExportTarget>();
+                exportTypes.Add(ExportTarget.Xls);
+                exportTypes.Add(ExportTarget.Html);
+                exportTypes.Add(ExportTarget.Text);
+                exportTypes.Add(ExportTarget.Mht);
+                exportTypes.Add(ExportTarget.Pdf);
+                exportTypes.Add(ExportTarget.Rtf);
+                exportTypes.Add(ExportTarget.Image);
+                return exportTypes.ToList();
             }
         }
+
+        public void OnExporting() {
+            
+        }
+
         public IPrintable Printable {
             get { return printable; }
             set {
@@ -1647,6 +1654,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
                 }
             }
         }
+
         public event EventHandler<PrintableChangedEventArgs> PrintableChanged;
         #endregion
         #region ILookupEditProvider Members

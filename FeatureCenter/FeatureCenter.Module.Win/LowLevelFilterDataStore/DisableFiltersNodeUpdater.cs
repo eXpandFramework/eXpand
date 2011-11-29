@@ -7,7 +7,8 @@ namespace FeatureCenter.Module.Win.LowLevelFilterDataStore {
     public class DisableFiltersNodeUpdater : ModelNodesGeneratorUpdater<ModelDisabledDataStoreFiltersNodesGenerator> {
         public override void UpdateNode(ModelNode node) {
             if (((IModelClass)node.Parent).TypeInfo.Type == typeof(FDSSCustomer)) {
-                node.Remove(node.GetNode("SkinFilterProvider"));
+                IModelNode modelNode = node.GetNode("SkinFilterProvider");
+                modelNode.Remove();
             }
         }
     }

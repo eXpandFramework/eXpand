@@ -1,4 +1,5 @@
-using DevExpress.ExpressApp.ConditionalEditorState.Web;
+using DevExpress.ExpressApp.ConditionalAppearance;
+
 using DevExpress.ExpressApp.FileAttachments.Web;
 
 namespace Xpand.ExpressApp.WorldCreator.Web {
@@ -32,7 +33,7 @@ namespace Xpand.ExpressApp.WorldCreator.Web {
         {
             this.RequiredModuleTypes.Add(typeof(FileAttachmentsAspNetModule));
             this.RequiredModuleTypes.Add(typeof(WorldCreatorModule));
-            this.RequiredModuleTypes.Add(typeof(ConditionalEditorStateAspNetModule));
+            this.RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
         }
 
         #endregion

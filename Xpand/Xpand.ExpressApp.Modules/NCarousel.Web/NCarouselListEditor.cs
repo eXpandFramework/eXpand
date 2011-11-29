@@ -107,9 +107,8 @@ namespace Xpand.ExpressApp.NCarousel.Web {
         public override void Refresh() {
 
         }
-
-        public override void SynchronizeModel() {
-
+        public override void SaveModel() {
+            
         }
     }
 }

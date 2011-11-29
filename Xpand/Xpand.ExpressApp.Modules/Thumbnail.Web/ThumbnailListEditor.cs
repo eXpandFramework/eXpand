@@ -93,9 +93,9 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
                 control.Refresh();
             }
         }
-        public override void SynchronizeModel() {
 
+        public override void SaveModel() {
+            
         }
-
     }
 }

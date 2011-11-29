@@ -43,7 +43,7 @@ namespace FeatureCenter.Win {
             this.htmlPropertyEditorWindowsFormsModule1 = new DevExpress.ExpressApp.HtmlPropertyEditor.Win.HtmlPropertyEditorWindowsFormsModule();
             this.pivotChartModuleBase1 = new DevExpress.ExpressApp.PivotChart.PivotChartModuleBase();
             this.pivotChartWindowsFormsModule1 = new DevExpress.ExpressApp.PivotChart.Win.PivotChartWindowsFormsModule();
-            this.printingWindowsFormsModule1 = new DevExpress.ExpressApp.Printing.Win.PrintingWindowsFormsModule();
+
             this.reportsWindowsFormsModule1 = new DevExpress.ExpressApp.Reports.Win.ReportsWindowsFormsModule();
             this.schedulerModuleBase1 = new DevExpress.ExpressApp.Scheduler.SchedulerModuleBase();
             this.schedulerWindowsFormsModule1 = new DevExpress.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule();
@@ -96,8 +96,7 @@ namespace FeatureCenter.Win {
             this.workflowModule1 = new DevExpress.ExpressApp.Workflow.WorkflowModule();
             this.workflowWindowsFormsModule1 = new DevExpress.ExpressApp.Workflow.Win.WorkflowWindowsFormsModule();
             this.xpandStateMachineModule1 = new Xpand.ExpressApp.StateMachine.XpandStateMachineModule();
-            this.conditionalEditorStateModuleBase1 = new DevExpress.ExpressApp.ConditionalEditorState.ConditionalEditorStateModuleBase();
-            this.conditionalEditorStateWindowsFormsModule1 = new DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule();
+
 
             this.xpandWorkFlowModule2 = new Xpand.ExpressApp.Workflow.XpandWorkFlowModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -207,7 +206,7 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
             this.Modules.Add(this.htmlPropertyEditorWindowsFormsModule1);
             this.Modules.Add(this.pivotChartWindowsFormsModule1);
-            this.Modules.Add(this.printingWindowsFormsModule1);
+
             this.Modules.Add(this.reportsModule1);
             this.Modules.Add(this.reportsWindowsFormsModule1);
             this.Modules.Add(this.schedulerModuleBase1);
@@ -219,8 +218,7 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.xpandTreeListEditorsModule1);
             this.Modules.Add(this.xpandTreeListEditorsWinModule1);
             this.Modules.Add(this.wizardUIWindowsFormsModule1);
-            this.Modules.Add(this.conditionalEditorStateModuleBase1);
-            this.Modules.Add(this.conditionalEditorStateWindowsFormsModule1);
+
             this.Modules.Add(this.worldCreatorWinModule1);
             this.Modules.Add(this.ioWinModule1);
             this.Modules.Add(this.exceptionHandlingWinModule1);
@@ -262,7 +260,7 @@ namespace FeatureCenter.Win {
         private DevExpress.ExpressApp.HtmlPropertyEditor.Win.HtmlPropertyEditorWindowsFormsModule htmlPropertyEditorWindowsFormsModule1;
         private DevExpress.ExpressApp.PivotChart.PivotChartModuleBase pivotChartModuleBase1;
         private DevExpress.ExpressApp.PivotChart.Win.PivotChartWindowsFormsModule pivotChartWindowsFormsModule1;
-        private DevExpress.ExpressApp.Printing.Win.PrintingWindowsFormsModule printingWindowsFormsModule1;
+
         private DevExpress.ExpressApp.Reports.Win.ReportsWindowsFormsModule reportsWindowsFormsModule1;
 
         private DevExpress.ExpressApp.Scheduler.SchedulerModuleBase schedulerModuleBase1;
@@ -317,8 +315,7 @@ namespace FeatureCenter.Win {
         private DevExpress.ExpressApp.Workflow.WorkflowModule workflowModule1;
         private DevExpress.ExpressApp.Workflow.Win.WorkflowWindowsFormsModule workflowWindowsFormsModule1;
         private Xpand.ExpressApp.StateMachine.XpandStateMachineModule xpandStateMachineModule1;
-        private DevExpress.ExpressApp.ConditionalEditorState.ConditionalEditorStateModuleBase conditionalEditorStateModuleBase1;
-        private DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule conditionalEditorStateWindowsFormsModule1;
+
 
         private Xpand.ExpressApp.Workflow.XpandWorkFlowModule xpandWorkFlowModule2;
     }

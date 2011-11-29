@@ -96,31 +96,31 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Printing.v11.1.Core">
+    <Reference Include="DevExpress.Printing.v11.2.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Data.v11.1">
+    <Reference Include="DevExpress.Data.v11.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Utils.v11.1">
+    <Reference Include="DevExpress.Utils.v11.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v11.1">
+    <Reference Include="DevExpress.Xpo.v11.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v11.1">
+    <Reference Include="DevExpress.XtraBars.v11.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v11.1">
+    <Reference Include="DevExpress.XtraEditors.v11.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v11.1">
+    <Reference Include="DevExpress.XtraTreeList.v11.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
@@ -165,14 +165,14 @@
     <Compile Include="PathInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Win.v11.1">
-      <Name>DevExpress.ExpressApp.Win.v11.1</Name>
+    <Reference Include="DevExpress.ExpressApp.Win.v11.2">
+      <Name>DevExpress.ExpressApp.Win.v11.2</Name>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v11.1">
-      <Name>DevExpress.ExpressApp.v11.1</Name>
+    <Reference Include="DevExpress.ExpressApp.v11.2">
+      <Name>DevExpress.ExpressApp.v11.2</Name>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v11.1">
-      <Name>DevExpress.Persistent.Base.v11.1</Name>
+    <Reference Include="DevExpress.Persistent.Base.v11.2">
+      <Name>DevExpress.Persistent.Base.v11.2</Name>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Core">

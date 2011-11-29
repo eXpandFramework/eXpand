@@ -9,7 +9,7 @@ namespace Xpand.ExpressApp.PivotChart.Web.Core {
         public static TypesInfo Instance {
             get {
                 if (instanceManager == null) {
-                    instanceManager = ValueManager.CreateValueManager<TypesInfo>();
+                    instanceManager = ValueManager.GetValueManager<TypesInfo>("Pivot_Web_TypesInfo");
                 }
                 return instanceManager.Value ?? (instanceManager.Value = new TypesInfo());
             }

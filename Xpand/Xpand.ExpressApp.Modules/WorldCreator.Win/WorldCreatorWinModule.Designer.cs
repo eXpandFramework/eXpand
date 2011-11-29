@@ -1,4 +1,3 @@
-using DevExpress.ExpressApp.ConditionalEditorState.Win;
 using DevExpress.ExpressApp.FileAttachments.Win;
 
 namespace Xpand.ExpressApp.WorldCreator.Win {
@@ -31,7 +30,6 @@ namespace Xpand.ExpressApp.WorldCreator.Win {
         private void InitializeComponent()
         {
             RequiredModuleTypes.Add(typeof(WorldCreatorModule));
-            RequiredModuleTypes.Add(typeof(ConditionalEditorStateWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(FileAttachmentsWindowsFormsModule));
         }
 

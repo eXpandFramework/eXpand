@@ -3,20 +3,15 @@ using System.Collections.Generic;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.PivotChart;
 
-namespace Xpand.ExpressApp.PivotChart.Win.Core
-{
-    public class TypesInfo:PivotChart.Core.TypesInfo
-    {
+namespace Xpand.ExpressApp.PivotChart.Win.Core {
+    public class TypesInfo : PivotChart.Core.TypesInfo {
         static IValueManager<TypesInfo> instanceManager;
 
 
-        public static TypesInfo Instance
-        {
-            get
-            {
-                if (instanceManager == null)
-                {
-                    instanceManager = ValueManager.CreateValueManager<TypesInfo>();
+        public static TypesInfo Instance {
+            get {
+                if (instanceManager == null) {
+                    instanceManager = ValueManager.GetValueManager<TypesInfo>("Pivot_Win_TypesInfo");
                 }
                 return instanceManager.Value ?? (instanceManager.Value = new TypesInfo());
             }
@@ -25,7 +20,7 @@ namespace Xpand.ExpressApp.PivotChart.Win.Core
         public Type PivotOptionsMenuType { get; set; }
         public Type PivotOptionsHintType { get; set; }
         public Type PivotOptionsFilterPopupType { get; set; }
-        
+
         public Type PivotOptionsCustomizationType { get; set; }
         public Type PivotOptionsChartDataSourceType { get; set; }
         public Type PivotOptionsBehaviorType { get; set; }

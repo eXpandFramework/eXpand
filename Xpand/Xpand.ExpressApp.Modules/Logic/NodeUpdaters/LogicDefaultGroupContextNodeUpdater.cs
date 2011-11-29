@@ -9,7 +9,7 @@ namespace Xpand.ExpressApp.Logic.NodeUpdaters {
 
         public override void UpdateNode(ModelNode node) {
             IModelExecutionContextsGroup m = GetModelLogicNode(node).ExecutionContextsGroup;
-            if (m.GetNode<IModelExecutionContexts>(Default) != null) return;
+            if (m[Default] != null) return;
             m.AddNode<IModelExecutionContexts>(Default);
         }
 

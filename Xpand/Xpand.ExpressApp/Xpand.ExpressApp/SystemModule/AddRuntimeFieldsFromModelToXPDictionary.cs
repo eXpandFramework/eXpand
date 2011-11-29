@@ -5,7 +5,7 @@ using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.SystemModule {
 
-    public class AddRuntimeFieldsFromModelToXPDictionary : ViewController, IModelExtender {
+    public class AddRuntimeFieldsFromModelToXPDictionary : ViewController {
         public AddRuntimeFieldsFromModelToXPDictionary() {
             TargetObjectType = typeof(IXpoModelDifference);
         }
