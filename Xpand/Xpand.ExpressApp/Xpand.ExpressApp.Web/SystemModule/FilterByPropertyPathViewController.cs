@@ -25,10 +25,12 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         protected override void AddFilterPanel(string text, object viewSiteControl) {
-            ControlCollection collection = ((Control)viewSiteControl).Controls;
-            var filterPanel = new FilterPanel();
-            filterPanel.Label.Text = text;
-            collection.Add(filterPanel);
+            if (!string.IsNullOrEmpty(text)) {
+                ControlCollection collection = ((Control)viewSiteControl).Controls;
+                var filterPanel = new FilterPanel();
+                filterPanel.Label.Text = text;
+                collection.Add(filterPanel);
+            }
         }
 
         protected override string GetActiveFilter(DevExpress.ExpressApp.Model.IModelListView modelListView) {
