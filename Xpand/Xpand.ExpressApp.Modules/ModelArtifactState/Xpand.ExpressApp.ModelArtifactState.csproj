@@ -133,9 +133,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelArtifactStateModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ModelArtifactStateModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs">
     </Compile>

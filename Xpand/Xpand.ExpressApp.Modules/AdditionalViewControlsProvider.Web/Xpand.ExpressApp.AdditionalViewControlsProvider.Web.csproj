@@ -132,26 +132,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdditionalViewControlsProviderAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="AdditionalViewControlsProviderAspNetModule.cs" />
     <Compile Include="Controls\HintPanelBase.cs" />
     <Compile Include="Controls\WarningPanel.cs" />
     <Compile Include="Editors\AdditionalViewControlsItem.cs" />
-    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs" />
     <Compile Include="Decorators\WebHintPanelDecorator.cs" />
     <Compile Include="Controls\HintPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\ControlTypeConverter.cs" />
     <Compile Include="Security\DecoratorTypeConverter.cs" />
-    <Compile Include="Security\UpdateControlTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Security\UpdateDecoratorTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Security\UpdateControlTypeTypeConverterController.cs" />
+    <Compile Include="Security\UpdateDecoratorTypeTypeConverterController.cs" />
     <Compile Include="Updater.cs">
     </Compile>
   </ItemGroup>

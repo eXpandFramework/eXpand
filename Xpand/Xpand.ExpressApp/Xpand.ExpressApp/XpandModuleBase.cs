@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
@@ -12,6 +13,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 
 namespace Xpand.ExpressApp {
+    [ToolboxItem(false)]
     public class XpandModuleBase : ModuleBase {
         public static string ManifestModuleName;
         static readonly object _lockObject = new object();

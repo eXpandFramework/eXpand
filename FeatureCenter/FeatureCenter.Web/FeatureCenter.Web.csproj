@@ -353,9 +353,7 @@
     <Compile Include="NestedFrameControl.ascx.designer.cs">
       <DependentUpon>NestedFrameControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ApplicationCode\WebApplication.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ApplicationCode\WebApplication.cs" />
     <Compile Include="Dialog.aspx.cs">
       <DependentUpon>Dialog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
+using Xpand.ExpressApp.Web.SystemModule;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web {
     [ToolboxBitmap(typeof(AdditionalViewControlsProviderAspNetModule))]
@@ -7,6 +8,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web {
     public class AdditionalViewControlsProviderAspNetModule : XpandModuleBase {
         public AdditionalViewControlsProviderAspNetModule() {
             RequiredModuleTypes.Add(typeof(AdditionalViewControlsModule));
+            RequiredModuleTypes.Add(typeof(XpandSystemAspNetModule));
         }
 
     }

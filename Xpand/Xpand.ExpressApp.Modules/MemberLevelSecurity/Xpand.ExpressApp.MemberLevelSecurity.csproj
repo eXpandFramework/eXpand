@@ -125,15 +125,11 @@
     </Compile>
     <Compile Include="MemberLevelObjectAccessComparer.cs">
     </Compile>
-    <Compile Include="MemberLevelSecurityModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="MemberLevelSecurityModule.cs" />
     <Compile Include="MemberLevelSecurityModule.Designer.cs">
       <DependentUpon>MemberLevelSecurityModule.cs</DependentUpon>
     </Compile>
-    <Compile Include="MemberLevelSecurityModuleBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="MemberLevelSecurityModuleBase.cs" />
     <Compile Include="MemberOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />

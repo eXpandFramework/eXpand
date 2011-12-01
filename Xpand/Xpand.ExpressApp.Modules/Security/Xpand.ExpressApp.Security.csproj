@@ -133,9 +133,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\SecuritySystemExtensions.cs" />
-    <Compile Include="XpandSecurityModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandSecurityModule.cs" />
     <Compile Include="XpandSecurityModule.Designer.cs">
       <DependentUpon>XpandSecurityModule.cs</DependentUpon>
     </Compile>

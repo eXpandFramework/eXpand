@@ -137,12 +137,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\TreeListColumnOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\TreeListOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\TreeListColumnOptionsController.cs" />
+    <Compile Include="Controllers\TreeListOptionsController.cs" />
     <Compile Include="Controllers\HideICategorizedItemController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -165,9 +161,7 @@
     <Compile Include="Core\XpandTreeListEditorModelSynchronizerList.cs" />
     <Compile Include="ListEditors\XpandTreeListEditor.cs" />
     <Compile Include="ListEditors\XpandCategorizedListEditor.cs" />
-    <Compile Include="XpandTreeListEditorsWinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandTreeListEditorsWinModule.cs" />
     <Compile Include="XpandTreeListEditorsWinModule.Designer.cs">
       <DependentUpon>XpandTreeListEditorsWinModule.cs</DependentUpon>
     </Compile>

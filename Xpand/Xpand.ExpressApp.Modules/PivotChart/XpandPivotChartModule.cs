@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -17,15 +18,16 @@ namespace Xpand.ExpressApp.PivotChart {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
+            AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PivotChart");
             try {
                 var assembly = Assembly.Load("DevExpress.Persistent.BaseImpl" + XafAssemblyInfo.VersionSuffix);
                 TypesInfo.LoadTypes(assembly);
-                var typeInfo = TypesInfo.FindTypeInfo("DevExpress.Persistent.BaseImpl.Analysis").Type;
-                AdditionalExportedTypes.Add(typeInfo);
-                AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PivotChart");
-            } catch (Exception) {
-
+            } catch (FileNotFoundException) {
+                throw new TypeLoadException("Please make sure DevExpress.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
             }
+            var typeInfo = TypesInfo.FindTypeInfo("DevExpress.Persistent.BaseImpl.Analysis").Type;
+            AdditionalExportedTypes.Add(typeInfo);
+
         }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);

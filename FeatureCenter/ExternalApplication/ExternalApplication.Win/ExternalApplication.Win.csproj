@@ -212,9 +212,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="WinApplication.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="WinApplication.cs" />
     <Compile Include="WinApplication.Designer.cs">
       <DependentUpon>WinApplication.cs</DependentUpon>
     </Compile>

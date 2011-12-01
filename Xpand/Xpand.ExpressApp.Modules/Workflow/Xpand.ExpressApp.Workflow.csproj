@@ -172,9 +172,7 @@
     <Compile Include="WorkflowServerAuthentication.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandWorkFlowModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandWorkFlowModule.cs" />
     <Compile Include="XpandWorkFlowModule.Designer.cs">
       <DependentUpon>XpandWorkFlowModule.cs</DependentUpon>
     </Compile>

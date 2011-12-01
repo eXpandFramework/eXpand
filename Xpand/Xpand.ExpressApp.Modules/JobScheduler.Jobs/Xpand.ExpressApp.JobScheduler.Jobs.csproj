@@ -150,9 +150,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JobSchedulerJobsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="JobSchedulerJobsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendEmail\SendEmailJobDataMap.cs" />
     <Compile Include="SendEmail\SendEmailJobDetailDataMap.cs" />

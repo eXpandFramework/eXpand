@@ -115,9 +115,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WorldCreatorWebModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="WorldCreatorWebModule.cs" />
     <Compile Include="WorldCreatorWebModule.Designer.cs">
       <DependentUpon>WorldCreatorWebModule.cs</DependentUpon>
     </Compile>

@@ -170,16 +170,10 @@
     <Compile Include="DataStore\Queries\QueryRoleModelDifferenceObject.cs" />
     <Compile Include="DictionaryStores\ExtraDiffStoresLayerBuilder.cs" />
     <Compile Include="DictionaryStores\ResourcesLayerBuilder.cs" />
-    <Compile Include="ModelDifferenceBaseModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ModelDifferenceModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ModelDifferenceBaseModule.cs" />
+    <Compile Include="ModelDifferenceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\Controllers\PopulateDifferenceObjectsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Security\Controllers\PopulateDifferenceObjectsController.cs" />
     <Compile Include="Security\ModelCombinePermission.cs" />
     <Compile Include="Security\ApplicationModelCombineModifier.cs" />
     <Compile Include="Security\Controllers\NavigationItemsController.cs">

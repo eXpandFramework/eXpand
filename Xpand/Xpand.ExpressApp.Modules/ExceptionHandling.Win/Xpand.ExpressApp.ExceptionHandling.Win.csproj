@@ -120,9 +120,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExceptionHandlingWinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ExceptionHandlingWinModule.cs" />
     <Compile Include="ExceptionHandlingWinModule.Designer.cs">
       <DependentUpon>ExceptionHandlingWinModule.cs</DependentUpon>
     </Compile>

@@ -131,12 +131,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\IOViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="IOAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\IOViewController.cs" />
+    <Compile Include="IOAspNetModule.cs" />
     <Compile Include="IOAspNetModule.Designer.cs">
       <DependentUpon>IOAspNetModule.cs</DependentUpon>
     </Compile>

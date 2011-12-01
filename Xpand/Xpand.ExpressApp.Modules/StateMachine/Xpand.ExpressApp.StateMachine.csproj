@@ -130,16 +130,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StateMachinePopulateController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="StateMachinePopulateController.cs" />
     <Compile Include="StateMachineTransitionPermission.cs" />
     <Compile Include="StatePermissionController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandStateMachineModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandStateMachineModule.cs" />
     <Compile Include="XpandStateMachineModule.Designer.cs">
       <DependentUpon>XpandStateMachineModule.cs</DependentUpon>
     </Compile>
