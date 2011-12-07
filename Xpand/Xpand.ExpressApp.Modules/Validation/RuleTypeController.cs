@@ -47,7 +47,8 @@ namespace Xpand.ExpressApp.Validation {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
+            if (Validator.RuleSet!=null)
+                Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
         }
 
         void RuleSetOnValidationCompleted(object sender, ValidationCompletedEventArgs validationCompletedEventArgs) {
