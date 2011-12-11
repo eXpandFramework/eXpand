@@ -20,8 +20,10 @@ namespace Xpand.ExpressApp.PivotChart {
             base.Setup(moduleManager);
             AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PivotChart");
             try {
-                var assembly = Assembly.Load("DevExpress.Persistent.BaseImpl" + XafAssemblyInfo.VersionSuffix);
-                TypesInfo.LoadTypes(assembly);
+                if (RuntimeMode) {
+                    var assembly = Assembly.Load("DevExpress.Persistent.BaseImpl" + XafAssemblyInfo.VersionSuffix);
+                    TypesInfo.LoadTypes(assembly);
+                }
             } catch (FileNotFoundException) {
                 throw new TypeLoadException("Please make sure DevExpress.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
             }
