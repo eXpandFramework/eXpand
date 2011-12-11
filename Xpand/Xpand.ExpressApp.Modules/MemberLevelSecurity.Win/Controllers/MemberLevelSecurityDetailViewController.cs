@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Xpo;
 using DevExpress.XtraLayout;
+using Xpand.ExpressApp.Security.Core;
 
 namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
     public class MemberLevelSecurityDetailViewController : ViewController<DetailView> {
@@ -22,8 +23,10 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            View.ControlsCreated += View_OnControlsCreated;
-            View.CurrentObjectChanged += View_CurrentObjectChanged;
+            if (!((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem()) {
+                View.ControlsCreated += View_OnControlsCreated;
+                View.CurrentObjectChanged += View_CurrentObjectChanged;
+            }
         }
 
 
@@ -33,7 +36,10 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            View.CurrentObjectChanged -= View_CurrentObjectChanged;
+            if (!((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem()) {
+                View.ControlsCreated -= View_OnControlsCreated;
+                View.CurrentObjectChanged -= View_CurrentObjectChanged;
+            }
         }
 
 
