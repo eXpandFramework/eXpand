@@ -366,7 +366,9 @@
     <Compile Include="ImportExport\AnalysisObjects\Updater.cs" />
     <Compile Include="ListViewControl\PropertyPathFilters\PropertyPathFiltersNodeUpdater.cs" />
     <Compile Include="ListViewControl\PropertyPathFilters\PPCustomer.cs" />
-    <Compile Include="Module.cs" />
+    <Compile Include="Module.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Module.Designer.cs">
       <DependentUpon>Module.cs</DependentUpon>
     </Compile>
@@ -468,7 +470,7 @@
     <EmbeddedResource Include="LowLevelFilterDataStore\UserFilter\MDO_UserFilter.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ApplicationDifferences\RoleDifference\RDO_Administrators_RoleDifference.xafml">
+    <EmbeddedResource Include="ApplicationDifferences\RoleDifference\RDO_Administrator_RoleDifference.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Functional Tests\Sample.ets" />
@@ -612,6 +614,10 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
+if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

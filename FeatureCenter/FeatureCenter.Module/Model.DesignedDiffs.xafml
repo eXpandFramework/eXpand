@@ -1,10 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Logo="ExpressAppLogo">
+  <BOModel>
+
+  </BOModel>
   <NavigationItems DefaultChildItemsDisplayStyle="List" NavigationStyle="TreeList">
     <Items>
       <Item Id="Whats New" Index="0">
         <Items>
-          <Item Id="@9f7696bb-bd05-496d-9ad2-f24465132b69" IsNewNode="True" ViewId="@fffb4128-5bef-4f0c-8e9a-131bfc4d50fb" />
+          <Item Id="@9f7696bb-bd05-496d-9ad2-f24465132b69" ViewId="@fffb4128-5bef-4f0c-8e9a-131bfc4d50fb" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="Application Differences">
@@ -16,30 +19,18 @@
   </NavigationItems>
   <Options HighlightFocusedLayoutItem="False" />
   <Views>
-    <DashboardView Id="@fffb4128-5bef-4f0c-8e9a-131bfc4d50fb" IsNewNode="True">
-      <Items IsNewNode="True">
-        <DashboardViewItem Id="@9b8422c5-b591-4cd0-8469-88ffed9cbb89" IsNewNode="True" ViewId="Address_ListView" />
-        <DashboardViewItem Id="@c81b2c7d-cdce-458e-a060-c09e175b6a8e" IsNewNode="True" ViewId="Address_DetailView" />
-      </Items>
-      <Layout IsNewNode="True">
-        <LayoutGroup Id="Main" IsNewNode="True">
-          <LayoutItem Id="@9b8422c5-b591-4cd0-8469-88ffed9cbb89" IsNewNode="True" Index="0" />
-          <LayoutItem Id="@c81b2c7d-cdce-458e-a060-c09e175b6a8e" IsNewNode="True" Index="1" />
-        </LayoutGroup>
-      </Layout>
-    </DashboardView>
     <DetailView Id="EAMOrder_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="28">
             <LayoutGroup Id="EAMOrder" RelativeSize="60">
-              <LayoutGroup Id="Item1" IsNewNode="True" ShowCaption="True" Caption="THIS IS A CUSTOMER PROPERTY MARKED WITH  ExpandObjectMembers attribute" CaptionLocation="Top" Index="0" RelativeSize="100">
-                <LayoutItem Id="Customer.Name" IsNewNode="True" ViewItem="Customer.Name" Index="0" RelativeSize="25" />
-                <LayoutItem Id="Customer.City" IsNewNode="True" ViewItem="Customer.City" Index="1" RelativeSize="19" />
-                <LayoutItem Id="Customer.Description" IsNewNode="True" ViewItem="Customer.Description" Index="2" RelativeSize="25" />
+              <LayoutGroup Id="Item1" ShowCaption="True" Caption="THIS IS A CUSTOMER PROPERTY MARKED WITH  ExpandObjectMembers attribute" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Customer.Name" ViewItem="Customer.Name" Index="0" RelativeSize="25" IsNewNode="True" />
+                <LayoutItem Id="Customer.City" ViewItem="Customer.City" Index="1" RelativeSize="19" IsNewNode="True" />
+                <LayoutItem Id="Customer.Description" ViewItem="Customer.Description" Index="2" RelativeSize="25" IsNewNode="True" />
               </LayoutGroup>
-              <LayoutItem Id="Customer.City" Removed="True" ViewItem="Customer.City" />
-              <LayoutItem Id="Customer.Name" Removed="True" ViewItem="Customer.Name" />
+              <LayoutItem Id="Customer.City" ViewItem="Customer.City" Removed="True" />
+              <LayoutItem Id="Customer.Name" ViewItem="Customer.Name" Removed="True" />
             </LayoutGroup>
             <LayoutGroup Id="OrderBase" RelativeSize="39">
               <LayoutItem Id="Reference" RelativeSize="33" ViewItem="Reference" />
@@ -56,18 +47,21 @@
     </DetailView>
     <DetailView Id="XpandLogonParameters_DetailView">
       <Items>
-        <StaticText Id="CredentialsText" IsNewNode="True" Text="User :Admin , Pass:Admin" />
+        <StaticText Id="CredentialsText" Text="User :Admin , Pass:Admin" IsNewNode="True" />
       </Items>
       <Layout>
-        <LayoutGroup Id="Main">
-          <LayoutGroup Id="RootGroup">
-            <LayoutGroup Id="ImageGroup" RelativeSize="12" />
-            <LayoutGroup Id="EditorsGroup" RelativeSize="87">
-              <LayoutGroup Id="Editors">
-                <LayoutItem Id="CredentialsText" IsNewNode="True" ShowCaption="False" ViewItem="CredentialsText" Index="0" RelativeSize="3" />
-                <LayoutItem Id="UserName" Index="1" ViewItem="UserName" />
-                <LayoutItem Id="Password" Index="2" ViewItem="Password" />
-                <LayoutItem Id="RememberMe" Index="3" RelativeSize="89" ViewItem="RememberMe" />
+        <LayoutGroup Id="Main" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="RootGroup" Caption="RootGroup" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="ImageGroup" RelativeSize="11" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Direction="Vertical">
+              <LayoutItem Id="LogonImage" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="LogonImage" />
+            </LayoutGroup>
+            <LayoutGroup Id="EditorsGroup" RelativeSize="88" Caption="EditorsGroup" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Direction="Vertical">
+              <LayoutGroup Id="Text" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Direction="Vertical" RelativeSize="3" />
+              <LayoutGroup Id="Editors" RelativeSize="96" ImageName="">
+                <LayoutItem Id="CredentialsText" ShowCaption="False" ViewItem="CredentialsText" Index="0" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="UserName" Index="1" RelativeSize="2" ViewItem="UserName" />
+                <LayoutItem Id="Password" Index="2" RelativeSize="2" ViewItem="Password" />
+                <LayoutItem Id="RememberMe" Index="4" RelativeSize="88" ViewItem="RememberMe" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
