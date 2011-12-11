@@ -78,6 +78,11 @@
     <Reference Include="DevExpress.Xpo.v11.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_third_party_assemblies\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Xpand.ExpressApp, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -125,7 +130,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExceptionHandlingModule.cs" />
+    <Compile Include="ExceptionHandlingModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ExceptionHandlingModule.Designer.cs">
       <DependentUpon>ExceptionHandlingModule.cs</DependentUpon>
     </Compile>
