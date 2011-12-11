@@ -1,6 +1,7 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
 using Xpand.ExpressApp.Core;
 
@@ -17,8 +18,11 @@ namespace Xpand.ExpressApp.ModelDifference {
             base.Setup(moduleManager);
             if (Application != null) {
                 Application.LoggingOn += (sender, args) => {
-                    if (ModelsLoaded.HasValue)
+                    if (ModelsLoaded.HasValue) {
+                        SecurityModule.StrictSecurityStrategyBehavior = false;
                         LoadModels(!ModelsLoaded.Value);
+                        SecurityModule.StrictSecurityStrategyBehavior = true;
+                    }
                     ModelsLoaded = true;
                 };
             }

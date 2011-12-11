@@ -88,20 +88,26 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             if (SecuritySystem.Instance is ISecurityComplex && SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false)) {
                 var space = Application.CreateObjectSpace();
                 ModelDifferenceObject difference = GetDifferenceFromPermission((ObjectSpace)space);
-                var master = new ModelLoader(difference.PersistentApplication.ExecutableName).GetMasterModel(true);
-                var diffsModel = difference.GetModel(master);
-                new ModelXmlReader().ReadFromModel(diffsModel, model);
-                difference.CreateAspectsCore(diffsModel);
+                //TODO: remove this check check it against an xpand app with no permission to see whats going on
+                if (difference != null) {
+                    var master = new ModelLoader(difference.PersistentApplication.ExecutableName).GetMasterModel(true);
+                    var diffsModel = difference.GetModel(master);
+                    new ModelXmlReader().ReadFromModel(diffsModel, model);
+                    difference.CreateAspectsCore(diffsModel);
+                }
                 space.SetModified(difference);
                 space.CommitChanges();
             }
         }
 
         private ModelDifferenceObject GetDifferenceFromPermission(ObjectSpace space) {
-            return new QueryModelDifferenceObject(space.Session).GetModelDifferences(
-                ((IUser)SecuritySystem.CurrentUser).Permissions.OfType<ModelCombinePermission>().Select(
-                    permission => permission.Difference)).Single();
+            return new QueryModelDifferenceObject(space.Session).GetModelDifferences(GetNames()).SingleOrDefault();
         }
 
+        private IEnumerable<string> GetNames() {
+            return ((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem()
+                       ? ((SecurityUser)SecuritySystem.CurrentUser).GetPermissions().OfType<ModelCombinePermission>().Select(permission => permission.Difference)
+                       : ((IUser)SecuritySystem.CurrentUser).Permissions.OfType<ModelCombinePermission>().Select(permission => permission.Difference);
+        }
     }
 }
