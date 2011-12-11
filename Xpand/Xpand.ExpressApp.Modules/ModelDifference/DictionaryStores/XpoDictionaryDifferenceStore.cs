@@ -1,5 +1,6 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base;
 
@@ -47,7 +48,9 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         protected internal virtual void OnDifferenceObjectSaving(ModelDifferenceObject modelDifferenceObject, ModelApplicationBase model) {
             if (model.HasModification)
                 ObjectSpace.SetModified(modelDifferenceObject);
+            SecurityModule.StrictSecurityStrategyBehavior = false;
             ObjectSpace.CommitChanges();
+            SecurityModule.StrictSecurityStrategyBehavior = true;
         }
     }
 }
