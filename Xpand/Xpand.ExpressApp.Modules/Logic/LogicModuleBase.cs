@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.Security;
 using Xpand.ExpressApp.Logic.Model;
+using Xpand.ExpressApp.Security.Core;
 
 namespace Xpand.ExpressApp.Logic {
     public abstract class LogicModuleBase<TLogicRule, TLogicRule2> : XpandModuleBase, IRuleHolder, IRuleCollector
@@ -57,10 +58,10 @@ namespace Xpand.ExpressApp.Logic {
 
         protected virtual IEnumerable<TLogicRule> CollectRulesFromPermissions(IModelLogic modelLogic, ITypeInfo typeInfo, bool reloadPermissions) {
             if (reloadPermissions) {
-                IList<IPermission> permissions = ((IUser)SecuritySystem.CurrentUser).Permissions;
-                var rulesFromPermissions = permissions.OfType<TLogicRule>().Where(permission
-                    => permission.TypeInfo != null && permission.TypeInfo.Type == typeInfo.Type).OfType<TLogicRule>();
-                return rulesFromPermissions.OrderBy(rule => rule.Index);
+                if (!((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem()) {
+                    IList<IPermission> permissions = ((IUser)SecuritySystem.CurrentUser).Permissions;
+                    return permissions.OfType<TLogicRule>().Where(permission => permission.TypeInfo != null && permission.TypeInfo.Type == typeInfo.Type).OrderBy(rule => rule.Index);
+                }
             }
             return new List<TLogicRule>();
         }
