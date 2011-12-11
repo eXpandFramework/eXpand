@@ -1,5 +1,6 @@
 
 
+using FeatureCenter.Module;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
 
@@ -43,14 +44,11 @@ namespace FeatureCenter.Win {
             this.htmlPropertyEditorWindowsFormsModule1 = new DevExpress.ExpressApp.HtmlPropertyEditor.Win.HtmlPropertyEditorWindowsFormsModule();
             this.pivotChartModuleBase1 = new DevExpress.ExpressApp.PivotChart.PivotChartModuleBase();
             this.pivotChartWindowsFormsModule1 = new DevExpress.ExpressApp.PivotChart.Win.PivotChartWindowsFormsModule();
-
             this.reportsWindowsFormsModule1 = new DevExpress.ExpressApp.Reports.Win.ReportsWindowsFormsModule();
             this.schedulerModuleBase1 = new DevExpress.ExpressApp.Scheduler.SchedulerModuleBase();
             this.schedulerWindowsFormsModule1 = new DevExpress.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule();
             this.treeListEditorsModuleBase1 = new DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase();
             this.treeListEditorsWindowsFormsModule1 = new DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditorsWindowsFormsModule();
-            this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityComplex();
-            this.authenticationStandard1 = new Xpand.ExpressApp.Security.AuthenticationProviders.XpandAuthenticationStandard();
             this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
             this.logicModule1 = new Xpand.ExpressApp.Logic.LogicModule();
             this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
@@ -96,9 +94,10 @@ namespace FeatureCenter.Win {
             this.workflowModule1 = new DevExpress.ExpressApp.Workflow.WorkflowModule();
             this.workflowWindowsFormsModule1 = new DevExpress.ExpressApp.Workflow.Win.WorkflowWindowsFormsModule();
             this.xpandStateMachineModule1 = new Xpand.ExpressApp.StateMachine.XpandStateMachineModule();
-
-
             this.xpandWorkFlowModule2 = new Xpand.ExpressApp.Workflow.XpandWorkFlowModule();
+            this.xpandValidationWinModule1 = new Xpand.ExpressApp.Validation.Win.XpandValidationWinModule();
+            this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityComplex();
+            this.authenticationStandard1 = new XpandAuthenticationStandard();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // module5
@@ -120,24 +119,10 @@ namespace FeatureCenter.Win {
             // 
             this.pivotChartModuleBase1.ShowAdditionalNavigation = false;
             // 
-            // securityComplex1
-            // 
-            this.securityComplex1.Authentication = this.authenticationStandard1;
-            this.securityComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.Role);
-            this.securityComplex1.UserType = typeof(DevExpress.Persistent.BaseImpl.User);
-            // 
-            // authenticationStandard1
-            // 
-            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
-            // 
             // reportsModule1
             // 
             this.reportsModule1.EnableInplaceReports = true;
             this.reportsModule1.ReportDataType = typeof(DevExpress.ExpressApp.Reports.ReportData);
-            // 
-            // modelDifferenceWindowsFormsModule1
-            // 
-
             // 
             // stateMachineModule1
             // 
@@ -153,13 +138,15 @@ namespace FeatureCenter.Win {
             this.workflowModule1.WorkflowInstanceKeyType = typeof(DevExpress.Workflow.Xpo.XpoInstanceKey);
             this.workflowModule1.WorkflowInstanceType = typeof(DevExpress.Workflow.Xpo.XpoWorkflowInstance);
             // 
-            // xpandWorkFlowModule1
+            // securityComplex1
             // 
-
+            this.securityComplex1.Authentication = this.authenticationStandard1;
+            this.securityComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.Role);
+            this.securityComplex1.UserType = typeof(DevExpress.Persistent.BaseImpl.User);
             // 
-            // xpandWorkFlowModule2
+            // authenticationStandard1
             // 
-
+            this.authenticationStandard1.LogonParametersType = typeof(XpandLogonParameters);
             // 
             // FeatureCenterWindowsFormsApplication
             // 
@@ -206,7 +193,6 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
             this.Modules.Add(this.htmlPropertyEditorWindowsFormsModule1);
             this.Modules.Add(this.pivotChartWindowsFormsModule1);
-
             this.Modules.Add(this.reportsModule1);
             this.Modules.Add(this.reportsWindowsFormsModule1);
             this.Modules.Add(this.schedulerModuleBase1);
@@ -218,7 +204,6 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.xpandTreeListEditorsModule1);
             this.Modules.Add(this.xpandTreeListEditorsWinModule1);
             this.Modules.Add(this.wizardUIWindowsFormsModule1);
-
             this.Modules.Add(this.worldCreatorWinModule1);
             this.Modules.Add(this.ioWinModule1);
             this.Modules.Add(this.exceptionHandlingWinModule1);
@@ -231,6 +216,7 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.memberLevelSecurityModuleWin1);
             this.Modules.Add(this.importWizardWindowsFormsModule1);
             this.Modules.Add(this.workflowWindowsFormsModule1);
+            this.Modules.Add(this.xpandValidationWinModule1);
             this.Modules.Add(this.module4);
             this.Security = this.securityComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.FeatureCenterWindowsFormsApplication_DatabaseVersionMismatch);
@@ -267,8 +253,6 @@ namespace FeatureCenter.Win {
         private DevExpress.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule schedulerWindowsFormsModule1;
         private DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase treeListEditorsModuleBase1;
         private DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditorsWindowsFormsModule treeListEditorsWindowsFormsModule1;
-
-        private DevExpress.ExpressApp.Security.SecurityComplex securityComplex1;
         private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
         private Xpand.ExpressApp.Logic.LogicModule logicModule1;
         private Xpand.ExpressApp.Validation.XpandValidationModule xpandValidationModule1;
@@ -307,7 +291,6 @@ namespace FeatureCenter.Win {
         private Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule jobSchedulerJobsModule1;
         private Xpand.ExpressApp.TreeListEditors.XpandTreeListEditorsModule xpandTreeListEditorsModule1;
         private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
-        private XpandAuthenticationStandard authenticationStandard1;
         private DevExpress.ExpressApp.Kpi.KpiModule kpiModule1;
         private Xpand.ExpressApp.ImportWizard.ImportWizardModule importWizardModule1;
         private DevExpress.ExpressApp.StateMachine.StateMachineModule stateMachineModule1;
@@ -318,5 +301,8 @@ namespace FeatureCenter.Win {
 
 
         private Xpand.ExpressApp.Workflow.XpandWorkFlowModule xpandWorkFlowModule2;
+        private Xpand.ExpressApp.Validation.Win.XpandValidationWinModule xpandValidationWinModule1;
+        private DevExpress.ExpressApp.Security.SecurityComplex securityComplex1;
+        private XpandAuthenticationStandard authenticationStandard1;
     }
 }

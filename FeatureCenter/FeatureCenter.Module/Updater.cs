@@ -1,6 +1,7 @@
 using System;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.Security;
 using DevExpress.Persistent.BaseImpl;
@@ -11,32 +12,61 @@ namespace FeatureCenter.Module {
 
     public class Updater : Xpand.Persistent.BaseImpl.Updater {
         protected bool initializeSecurity;
+        private Type _userType = typeof(SecurityUser);
+        private Type _roleType = typeof(SecurityRole);
+        private static bool? _isNewSecuritySystem = true;
 
         public Updater(IObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {
         }
 
-        public override IUserWithRoles EnsureUserExists(string userName, string firstName, ICustomizableRole customizableRole) {
+        public override object EnsureUserExists(string userName, string firstName, object customizableRole) {
             var ensureUserExists = base.EnsureUserExists(userName, firstName, customizableRole);
-            if (ensureUserExists.UserName == Admin) {
-                ((User)ensureUserExists).SetPassword("Admin");
-                ObjectSpace.CommitChanges();
-                UserFilterProvider.UpdaterUserKey = ((User)ensureUserExists).Oid;
+            if (!IsNewSecuritySystem) {
+                if (((IUser)ensureUserExists).UserName == Admin) {
+                    ((User)ensureUserExists).SetPassword("Admin");
+                    ObjectSpace.CommitChanges();
+                    UserFilterProvider.UpdaterUserKey = ((User)ensureUserExists).Oid;
+                }
+            } else {
+                if (((SecurityUser)ensureUserExists).UserName == Admin) {
+                    ((SecurityUser)ensureUserExists).SetPassword("Admin");
+                    ObjectSpace.CommitChanges();
+                    UserFilterProvider.UpdaterUserKey = ((SecurityUser)ensureUserExists).Oid;
+                }
             }
             return ensureUserExists;
-
         }
-
+        public override Type UserType {
+            get {
+                return _userType ?? base.UserType;
+            }
+        }
+        public override Type RoleType {
+            get {
+                return _roleType ?? base.RoleType;
+            }
+        }
+        public override bool IsNewSecuritySystem {
+            get {
+                return _isNewSecuritySystem ?? base.IsNewSecuritySystem;
+            }
+        }
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
             InitializeSecurity();
-            var workflowServiceUser = ObjectSpace.FindObject<User>(new BinaryOperator("UserName", "WorkflowService"));
+            _userType = typeof(User);
+            _roleType = typeof(Role);
+            _isNewSecuritySystem = false;
+            InitializeSecurity();
+            _userType = null;
+            _roleType = null;
+            _isNewSecuritySystem = null;
+            var workflowServiceUser = ObjectSpace.FindObject(SecuritySystem.UserType, new BinaryOperator("UserName", "WorkflowService"));
             if (workflowServiceUser == null) {
-                workflowServiceUser = ObjectSpace.CreateObject<User>();
-                workflowServiceUser.UserName = "WorkflowService";
-                workflowServiceUser.FirstName = "WorkflowService";
-                var role = ObjectSpace.FindObject<Role>(CriteriaOperator.Parse("Name=?", Administrators));
-                workflowServiceUser.Roles.Add(role);
+                CriteriaOperator criteriaOperator = CriteriaOperator.Parse("Name=?", SecurityStrategy.AdministratorRoleName);
+                CreateworkflowServiceUser(ObjectSpace.FindObject<Role>(criteriaOperator));
+                CreateworkflowServiceUser(ObjectSpace.FindObject<SecurityRole>(criteriaOperator));
                 ObjectSpace.CommitChanges();
                 new DummyDataBuilder((ObjectSpace)ObjectSpace).CreateObjects();
 
@@ -49,5 +79,18 @@ namespace FeatureCenter.Module {
 
         }
 
+
+        private void CreateworkflowServiceUser(SecurityRole securityRole) {
+            var workflowServiceUser = ObjectSpace.CreateObject<SecurityUser>();
+            workflowServiceUser.UserName = "WorkflowService";
+            workflowServiceUser.Roles.Add(securityRole);
+        }
+
+        private void CreateworkflowServiceUser(Role role) {
+            var workflowServiceUser = ObjectSpace.CreateObject<User>();
+            workflowServiceUser.UserName = "WorkflowService";
+            workflowServiceUser.FirstName = "WorkflowService";
+            workflowServiceUser.Roles.Add(role);
+        }
     }
 }

@@ -1,9 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.BaseImpl;
+using FeatureCenter.Module;
+using Xpand.ExpressApp.Security;
+using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Win;
 using Xpand.ExpressApp.Core;
 

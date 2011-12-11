@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base.Security;
@@ -25,10 +24,13 @@ namespace FeatureCenter.Module.ApplicationDifferences {
             var session = ((ObjectSpace)ObjectSpace).Session;
             if (new QueryModelDifferenceObject(session).GetActiveModelDifference(ModelCombine, FeatureCenterModule.Application) == null) {
                 new ModelDifferenceObject(session).InitializeMembers(ModelCombine, FeatureCenterModule.Application);
-                ICustomizableRole role = Updater.EnsureRoleExists(ModelCombine, customizableRole => GetPermissions(customizableRole, Updater));
-                IUserWithRoles user = Updater.EnsureUserExists(ModelCombine, ModelCombine, role);
-                role.AddPermission(new ModelCombinePermission(ApplicationModelCombineModifier.Allow) { Difference = ModelCombine });
-                role.Users.Add(user);
+                var role = Updater.EnsureRoleExists(ModelCombine, customizableRole => GetPermissions(customizableRole, Updater));
+                var user = Updater.EnsureUserExists(ModelCombine, ModelCombine, role);
+                if (!Updater.IsNewSecuritySystem)
+                    ((ICustomizableRole)role).Users.Add((IUser)user);
+                else {
+                    ((SecurityRole)role).Users.Add((SecurityUserWithRolesBase)user);
+                }
                 ObjectSpace.CommitChanges();
             }
             var modelDifferenceObjects = new XpandXPCollection<ModelDifferenceObject>(session, o => o.PersistentApplication.Name == "FeatureCenter");
@@ -38,11 +40,32 @@ namespace FeatureCenter.Module.ApplicationDifferences {
             }
             ObjectSpace.CommitChanges();
         }
-        protected List<IPermission> GetPermissions(ICustomizableRole customizableRole, Xpand.Persistent.BaseImpl.Updater updater) {
+        protected List<object> GetPermissions(object customizableRole, Xpand.Persistent.BaseImpl.Updater updater) {
             var permissions = updater.GetPermissions(customizableRole);
-            if (customizableRole.Name == ModelCombine)
-                permissions.Add(new EditModelPermission(ModelAccessModifier.Allow));
+            if (!updater.IsNewSecuritySystem) {
+                if (((ICustomizableRole)customizableRole).Name == ModelCombine) {
+                    permissions.Add(new EditModelPermission(ModelAccessModifier.Allow));
+                    permissions.Add(new ModelCombinePermission(ApplicationModelCombineModifier.Allow) { Difference = ModelCombine });
+                }
+            } else {
+                GetPermissions(permissions, ((SecurityRole)customizableRole));
+            }
             return permissions;
+        }
+
+        private void GetPermissions(List<object> permissions, SecurityRole securityRole) {
+            if (securityRole.Name == ModelCombine) {
+                var modelPermission = ObjectSpace.CreateObject<ModelOperationPermissionData>();
+                modelPermission.Save();
+                securityRole.BeginUpdate();
+                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Read);
+                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Write);
+                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Create);
+                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Delete);
+                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Navigate);
+                securityRole.EndUpdate();
+                permissions.Add(modelPermission);
+            }
         }
     }
 }
