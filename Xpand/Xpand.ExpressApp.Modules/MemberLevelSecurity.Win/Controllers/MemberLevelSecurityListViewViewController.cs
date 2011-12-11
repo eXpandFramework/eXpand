@@ -8,6 +8,7 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using System.Linq;
+using Xpand.ExpressApp.Security.Core;
 
 namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
     public class MemberLevelSecurityListViewViewController : ViewController<XpandListView> {
@@ -16,12 +17,14 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            gridControl = (View.Control) as GridControl;
-            var gridListEditor = View.Editor as GridListEditor;
-            if (gridControl != null && gridListEditor != null) {
-                XafGridView xafGridView = gridListEditor.GridView;
-                xafGridView.CustomRowCellEdit += CustomRowCellEdit;
-                xafGridView.ShowingEditor += XafGridViewOnShowingEditor;
+            if (!((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem()) {
+                gridControl = (View.Control) as GridControl;
+                var gridListEditor = View.Editor as GridListEditor;
+                if (gridControl != null && gridListEditor != null) {
+                    XafGridView xafGridView = gridListEditor.GridView;
+                    xafGridView.CustomRowCellEdit += CustomRowCellEdit;
+                    xafGridView.ShowingEditor += XafGridViewOnShowingEditor;
+                }
             }
         }
 
