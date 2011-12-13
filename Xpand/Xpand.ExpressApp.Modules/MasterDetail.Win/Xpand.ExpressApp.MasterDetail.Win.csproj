@@ -159,9 +159,13 @@
     <Compile Include="LevelDefaultViewInfoCreation.cs" />
     <Compile Include="ListView.cs" />
     <Compile Include="ListViewBuilder.cs" />
-    <Compile Include="MasterDetailViewController.cs" />
+    <Compile Include="MasterDetailViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ModelDetailRelationCalculator.cs" />
-    <Compile Include="MasterDetailWindowsModule.cs" />
+    <Compile Include="MasterDetailWindowsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>

@@ -62,16 +62,21 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
 
         void ViewOnMasterRowGetChildList(object sender, MasterRowGetChildListEventArgs e) {
             object row = ((XpandXafGridView)sender).GetRow(e.RowHandle);
-            e.ChildList = (IList)MasterDetailRules[e.RelationIndex].CollectionMember.MemberInfo.GetValue(row);
+            if (e.RelationIndex>-1)
+                e.ChildList = (IList)MasterDetailRules[e.RelationIndex].CollectionMember.MemberInfo.GetValue(row);
         }
 
         void ViewOnMasterRowGetRelationName(object sender, MasterRowGetRelationNameEventArgs e) {
-            e.RelationName = MasterDetailRules[e.RelationIndex].CollectionMember.Name;
+            if (e.RelationIndex > -1)
+                e.RelationName = MasterDetailRules[e.RelationIndex].CollectionMember.Name;
         }
 
         void MasterRowGetRelationDisplayCaption(object sender, MasterRowGetRelationNameEventArgs e) {
-            var masterDetailRule = MasterDetailRules[e.RelationIndex];
-            e.RelationName = CaptionHelper.GetMemberCaption(masterDetailRule.TypeInfo, masterDetailRule.CollectionMember.Name);
+            if (e.RelationIndex>-1){
+                var masterDetailRule = MasterDetailRules[e.RelationIndex];
+                e.RelationName = CaptionHelper.GetMemberCaption(masterDetailRule.TypeInfo,
+                                                                masterDetailRule.CollectionMember.Name);
+            }
         }
 
 
@@ -80,14 +85,23 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
         }
 
         void ViewOnMasterRowGetLevelDefaultView(object sender, MasterRowGetLevelDefaultViewEventArgs e) {
-            var gridViewBuilder = new GridViewBuilder(Application, ObjectSpace, Frame);
-            var levelDefaultView = gridViewBuilder.GetLevelDefaultView((XpandXafGridView)sender, e.RowHandle, e.RelationIndex, View.Model, MasterDetailRules);
-            e.DefaultView = levelDefaultView;
+            if (e.RelationIndex > -1) {
+                var gridViewBuilder = new GridViewBuilder(Application, ObjectSpace, Frame);
+                var levelDefaultView = gridViewBuilder.GetLevelDefaultView((XpandXafGridView) sender, e.RowHandle,
+                                                                           e.RelationIndex, View.Model,
+                                                                           MasterDetailRules);
+                e.DefaultView = levelDefaultView;
+            }
         }
 
-        void ViewOnMasterRowEmpty(object sender, MasterRowEmptyEventArgs eventArgs) {
-            var modelDetailRelationCalculator = new ModelDetailRelationCalculator(View.Model, (XpandXafGridView)sender, MasterDetailRules);
-            eventArgs.IsEmpty = !modelDetailRelationCalculator.IsRelationSet(eventArgs.RowHandle, eventArgs.RelationIndex);
+        void ViewOnMasterRowEmpty(object sender, MasterRowEmptyEventArgs e) {
+            if (e.RelationIndex > -1) {
+                var modelDetailRelationCalculator = new ModelDetailRelationCalculator(View.Model,
+                                                                                      (XpandXafGridView) sender,
+                                                                                      MasterDetailRules);
+                e.IsEmpty =
+                    !modelDetailRelationCalculator.IsRelationSet(e.RowHandle, e.RelationIndex);
+            }
         }
 
         void Grid_ViewRegistered(object sender, ViewOperationEventArgs e) {
