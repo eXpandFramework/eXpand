@@ -533,10 +533,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\DevExpress 2011.2\eXpressApp Framework\Sources\DevExpress.ExpressApp.Modules\DevExpress.ExpressApp.Security\DevExpress.ExpressApp.Security.csproj">
-      <Project>{25727F30-5C1A-43D9-A1F9-AEA8A087D746}</Project>
-      <Name>DevExpress.ExpressApp.Security</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj">
       <Project>{A75E4F29-14BF-4291-89CF-F80DEB2B5F43}</Project>
       <Name>FeatureCenter.Module.Win</Name>
