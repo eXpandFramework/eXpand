@@ -128,7 +128,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LogicWindowsModule.cs" />
+    <Compile Include="LogicWindowsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="LogicWindowsModule.Designer.cs">
       <DependentUpon>LogicWindowsModule.cs</DependentUpon>
     </Compile>

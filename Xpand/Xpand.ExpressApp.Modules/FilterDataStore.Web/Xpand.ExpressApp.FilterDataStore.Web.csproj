@@ -118,7 +118,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FilterDataStoreAspNetModule.cs" />
+    <Compile Include="FilterDataStoreAspNetModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FilterDataStoreAspNetModule.Designer.cs">
       <DependentUpon>FilterDataStoreAspNetModule.cs</DependentUpon>
     </Compile>

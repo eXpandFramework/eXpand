@@ -118,7 +118,9 @@
     <Compile Include="IModelTreeViewOptionsBase.cs" />
     <Compile Include="ITreeListEditor.cs" />
     <Compile Include="XpandTreeListEditorServerModeUpdater.cs" />
-    <Compile Include="XpandTreeListEditorsModule.cs" />
+    <Compile Include="XpandTreeListEditorsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XpandTreeListEditorsModule.Designer.cs">
       <DependentUpon>XpandTreeListEditorsModule.cs</DependentUpon>
     </Compile>

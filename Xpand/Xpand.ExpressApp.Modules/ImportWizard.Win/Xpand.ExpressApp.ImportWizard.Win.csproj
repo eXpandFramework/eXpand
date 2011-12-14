@@ -118,7 +118,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ImportWizViewController.cs" />
+    <Compile Include="Controllers\ImportWizViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\ImportWizViewController.Designer.cs">
       <DependentUpon>ImportWizViewController.cs</DependentUpon>
     </Compile>
@@ -128,7 +130,9 @@
     <Compile Include="Forms\ProgressForm.designer.cs">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImportWizardWindowsFormsModule.cs" />
+    <Compile Include="ImportWizardWindowsFormsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ImportWizardWindowsFormsModule.Designer.cs">
       <DependentUpon>ImportWizardWindowsFormsModule.cs</DependentUpon>
     </Compile>

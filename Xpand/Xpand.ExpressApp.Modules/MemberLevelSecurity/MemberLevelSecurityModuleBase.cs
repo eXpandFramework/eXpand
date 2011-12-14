@@ -1,14 +1,13 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using Xpand.ExpressApp.Security.Core;
+using DevExpress.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.MemberLevelSecurity {
     public abstract class MemberLevelSecurityModuleBase : XpandModuleBase {
         static bool _comparerIsLock;
-        public override void Setup(XafApplication application) {
-            base.Setup(application);
-            if (!DesignMode && !_comparerIsLock && SecuritySystem.Instance is ISecurityComplex &&
-                !((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem()) {
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
+            if (!DesignMode && !_comparerIsLock && typeof(IUser).IsAssignableFrom(Application.Security.UserType)) {
                 ObjectAccessComparerBase.SetCurrentComparer(new MemberLevelObjectAccessComparer());
                 _comparerIsLock = true;
             }
