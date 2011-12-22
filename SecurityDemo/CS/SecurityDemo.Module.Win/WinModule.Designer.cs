@@ -1,0 +1,53 @@
+using Xpand.ExpressApp.Win;
+
+namespace SecurityDemo.Module.Win
+{
+    partial class SecurityDemoWindowsFormsModule
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Component Designer generated code
+
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            // 
+            // SecurityDemoWindowsFormsModule
+            // 
+            this.RequiredModuleTypes.Add(typeof(SecurityDemo.Module.SecurityDemoModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.AdditionalViewControlsProvider.Win.AdditionalViewControlsProviderWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ExceptionHandling.Win.ExceptionHandlingWinModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ImportWizard.Win.ImportWizardWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.IO.Win.IOWinModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.PivotChart.Win.XpandPivotChartWinModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.TreeListEditors.Win.XpandTreeListEditorsWinModule));
+
+        }
+
+        #endregion
+    }
+}

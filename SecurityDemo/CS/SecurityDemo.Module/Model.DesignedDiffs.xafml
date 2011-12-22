@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="SecurityDemo" Logo="ExpressAppLogo" PreferredLanguage="(Default language)">
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="11.2.1.0" IsNewNode="True" />
+  </SchemaModules>
+	<Views>
+    <ListView Id="ObjectLevelSecurityObject_ListView" AllowEdit="True" />
+    <DetailView Id="MemberLevelSecurityObject_DetailView">
+			<Layout>
+				<LayoutGroup Id="Main">
+					<LayoutGroup Id="SimpleEditors">
+						<LayoutGroup Id="SecurityDemoBaseObject" Index="0" />
+						<LayoutGroup Id="MemberLevelSecurityObject" Index="1" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<DetailView Id="ObjectLevelSecurityObject_DetailView">
+			<Layout>
+				<LayoutGroup Id="Main">
+					<LayoutGroup Id="SimpleEditors">
+						<LayoutGroup Id="SecurityDemoBaseObject" Index="0" />
+						<LayoutGroup Id="ObjectLevelSecurityObject" Index="1" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<DetailView Id="FullAccessObject_DetailView">
+			<Layout>
+				<LayoutGroup Id="Main">
+					<LayoutGroup Id="SimpleEditors">
+						<LayoutGroup Id="SecurityDemoBaseObject" Index="0" />
+						<LayoutGroup Id="ClassLevelBaseObject" Index="1" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<DetailView Id="IrremovableObject_DetailView">
+			<Layout>
+				<LayoutGroup Id="Main">
+					<LayoutGroup Id="SimpleEditors">
+						<LayoutGroup Id="SecurityDemoBaseObject" Index="0" />
+						<LayoutGroup Id="ClassLevelBaseObject" Index="1" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<DetailView Id="ProtectedContentObject_DetailView">
+			<Layout>
+				<LayoutGroup Id="Main">
+					<LayoutGroup Id="SimpleEditors">
+						<LayoutGroup Id="SecurityDemoBaseObject" Index="0" />
+						<LayoutGroup Id="ClassLevelBaseObject" Index="1" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<DetailView Id="ReadOnlyObject_DetailView">
+			<Layout>
+				<LayoutGroup Id="Main">
+					<LayoutGroup Id="SimpleEditors">
+						<LayoutGroup Id="SecurityDemoBaseObject" Index="0" />
+						<LayoutGroup Id="ClassLevelBaseObject" Index="1" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<DetailView Id="UncreatableObject_DetailView">
+			<Layout>
+				<LayoutGroup Id="Main">
+					<LayoutGroup Id="SimpleEditors">
+						<LayoutGroup Id="SecurityDemoBaseObject" Index="0" />
+						<LayoutGroup Id="ClassLevelBaseObject" Index="1" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+    <DetailView Id="SecurityDemoUser_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="15">
+            <LayoutGroup Id="SecurityUserBase" RelativeSize="100">
+              <LayoutItem Id="UserName" Index="0" RelativeSize="39" />
+              <LayoutItem Id="IsActive" Index="1" RelativeSize="26" />
+              <LayoutItem Id="ChangePasswordOnFirstLogon" Index="2" RelativeSize="34" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Roles_Group" TextAlignMode="AlignLocal" Direction="Vertical" Index="1" RelativeSize="84">
+            <LayoutItem Id="Roles" RelativeSize="92" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>
