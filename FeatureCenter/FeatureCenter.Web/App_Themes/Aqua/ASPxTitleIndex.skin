@@ -1,5 +1,5 @@
-<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v11.2, Version=11.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
-<%@ Register TagPrefix="dxti" Namespace="DevExpress.Web.ASPxTitleIndex" Assembly="DevExpress.Web.v11.2, Version=11.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v11.2, Version=11.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxti" Namespace="DevExpress.Web.ASPxTitleIndex" Assembly="DevExpress.Web.v11.2, Version=11.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
 <dxti:ASPxTitleIndex runat="server" CssFilePath="~/App_Themes/Aqua/{0}/styles.css" SpriteCssFilePath="~/App_Themes/Aqua/{0}/sprite.css" 
     FilterBoxSpacing="30px" CssPostfix="Aqua" GroupSpacing="50px" IndexPanelSpacing="0px" LoadingPanelImagePosition="Top" 
     BackToTopSpacing="3px">

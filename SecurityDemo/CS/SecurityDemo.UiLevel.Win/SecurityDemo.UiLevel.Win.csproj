@@ -74,9 +74,9 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v11.2, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v11.2, Version=11.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\DevExpress 2011.2\eXpressApp Framework\Bin\Framework\DevExpress.Persistent.BaseImpl.v11.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.Printing.v11.2.Core">
       <SpecificVersion>False</SpecificVersion>

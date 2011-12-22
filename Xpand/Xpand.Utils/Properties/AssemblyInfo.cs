@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -39,7 +39,7 @@ using Xpand;
 [assembly: AllowPartiallyTrustedCallers]
 namespace Xpand {
     public class AssemblyInfo {
-        public const string Version = "11.2.5.0";
+        public const string Version = "11.2.6.0";
 
 
     }
