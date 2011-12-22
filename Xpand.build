@@ -108,6 +108,10 @@
 			.\FeatureCenter\FeatureCenter.Web\FeatureCenter.Web.csproj;
 			.\FeatureCenter\ExternalApplication\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj;
 			.\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj;
+			.\SecurityDemo\CS\SecurityDemo.Module\SecurityDemo.Module.csproj;
+			.\SecurityDemo\CS\SecurityDemo.Module.Win\SecurityDemo.Module.Win.csproj;
+			.\SecurityDemo\CS\SecurityDemo.UiLevel.Win\SecurityDemo.UiLevel.Win.csproj;
+			.\SecurityDemo\CS\SecurityDemo.Win\SecurityDemo.Win.csproj;
 			.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj;
 			.\Xpand.Addins\XpandAddIns.csproj;
 			.\Xpand\Xpand.Tests\Xpand.Tests\Xpand.Tests.csproj;
