@@ -1,4 +1,5 @@
-﻿using System.Activities;
+﻿using System;
+using System.Activities;
 using System.Activities.XamlIntegration;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,6 +8,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using System.Linq;
+using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.ConditionalControllerState.Logic;
 
 namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
@@ -14,12 +16,7 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         public StartWorkFlowController() {
             Active[ControllerStateRuleController.ActiveObjectTypeHasRules] = false;
         }
-        protected override void OnActivated() {
-            base.OnActivated();
-        }
-        protected override void OnDeactivated() {
-            base.OnDeactivated();
-        }
+        
     }
     public class StartWorkflowOnObjectChangeController : ViewController<ObjectView> {
         void CreateServerRequest(ObjectChangedEventArgs objectChangedEventArgs, ObjectChangedWorkflow objectChangedWorkflow, object targetObjectKey, ITypeInfo typeInfo) {
@@ -79,7 +76,13 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         }
 
         bool TypeHasWorkflows() {
-            return ObjectSpace.GetObjectsCount(typeof(ObjectChangedWorkflow), CriteriaOperator.Parse("TargetObjectType=?", View.ObjectTypeInfo.Type)) > 0;
+            try {
+                return ObjectSpace.GetObjectsCount(typeof(ObjectChangedWorkflow), CriteriaOperator.Parse("TargetObjectType=?", View.ObjectTypeInfo.Type)) > 0;
+            }
+            catch (Exception e) {
+                Tracing.Tracer.LogError(e);
+                return false;
+            }
         }
 
         readonly List<ObjectChangedEventArgs> _objectChangedEventArgses = new List<ObjectChangedEventArgs>();

@@ -1,6 +1,9 @@
-﻿using DevExpress.ExpressApp;
+﻿using System;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
+using Xpand.ExpressApp.MiddleTier;
 
 namespace Xpand.ExpressApp.Core {
     public static class XafApplicationExtensions {
@@ -14,6 +17,15 @@ namespace Xpand.ExpressApp.Core {
             return new SimpleDataLayer(XafTypesInfo.XpoTypeInfoSource.XPDictionary, cacheNode);
         }
 
+        public static string GetConnectionString(this XafApplication xafApplication) {
+
+            if (xafApplication is ServerApplication && !(xafApplication is ISupportFullConnectionString))
+                throw new NotImplementedException("Use " + typeof (XpandServerApplication) + " insted of " +
+                                                  xafApplication.GetType());
+            var connectionString = ((ISupportFullConnectionString) xafApplication).ConnectionString;
+            return connectionString;
+
+        }
         public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
             var connectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
             ((ISupportFullConnectionString)xafApplication).ConnectionString = connectionString;

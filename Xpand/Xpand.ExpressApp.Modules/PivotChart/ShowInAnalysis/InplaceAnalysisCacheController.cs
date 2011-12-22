@@ -45,8 +45,8 @@ namespace Xpand.ExpressApp.PivotChart.ShowInAnalysis {
                 var result = new List<object>();
                 if (targetObjectTypeNames.Count > 0) {
                     IList reports = objectSpace.CreateCollection(_typeInfoContainer.TypesInfo.AnalysisType,
-                                                                 new InOperator("DataType", targetObjectTypeNames));
-                    result.AddRange(reports.Cast<object>().Select(report => objectSpace.GetKeyValue(report)));
+                                                                 new InOperator("ObjectTypeName", targetObjectTypeNames));
+                    result.AddRange(reports.Cast<object>().Select(objectSpace.GetKeyValue));
                 }
                 analysisCache.Add(targetObjectType, result);
                 return result;

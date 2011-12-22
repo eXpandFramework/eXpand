@@ -23,7 +23,8 @@ namespace Xpand.ExpressApp.ExceptionHandling.Win {
 
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            ((WinApplication)application).CustomHandleException += OnCustomHandleException;
+            if (application is WinApplication)
+                ((WinApplication)application).CustomHandleException += OnCustomHandleException;
         }
 
         private void OnCustomHandleException(object sender, CustomHandleExceptionEventArgs args) {

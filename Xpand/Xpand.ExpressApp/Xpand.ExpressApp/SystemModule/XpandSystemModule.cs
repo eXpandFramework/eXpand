@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Updating;
@@ -82,12 +83,12 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
-        void InitializeSequenceGenerator() {
+        public void InitializeSequenceGenerator() {
             try {
                 if (SequenceObjectType == null)
                     throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
-                if (Application != null)
-                    SequenceGenerator.Initialize(((ISupportFullConnectionString)Application).ConnectionString, SequenceObjectType);
+                if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is MiddleTierClientObjectSpaceProvider))
+                    SequenceGenerator.Initialize((Application.GetConnectionString()), SequenceObjectType);
             } catch (Exception e) {
                 if (e.InnerException != null)
                     throw e.InnerException;
@@ -106,10 +107,10 @@ namespace Xpand.ExpressApp.SystemModule {
             application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
             application.SetupComplete +=
                 (sender, args) =>
-                RuntimeMemberBuilder.AddFields(application.Model, ((ObjectSpaceProvider)application.ObjectSpaceProvider).XPDictionary);
+                RuntimeMemberBuilder.AddFields(application.Model, Dictiorary);
             application.LoggedOn +=
                 (sender, args) =>
-                RuntimeMemberBuilder.AddFields(application.Model, ((ObjectSpaceProvider)application.ObjectSpaceProvider).XPDictionary);
+                RuntimeMemberBuilder.AddFields(application.Model, Dictiorary);
         }
 
 

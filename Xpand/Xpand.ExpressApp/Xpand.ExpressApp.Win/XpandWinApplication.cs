@@ -53,11 +53,13 @@ namespace Xpand.ExpressApp.Win {
             base.WriteLastLogonParameters(view, logonObject);
         }
         protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            this.CreateCustomObjectSpaceprovider(args);
+            CreateXpandObjectSpaceProvider(args);
             base.OnCreateCustomObjectSpaceProvider(args);
         }
 
-
+        protected virtual void CreateXpandObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+            this.CreateCustomObjectSpaceprovider(args);
+        }
 
         public new void Start() {
             if (SecuritySystem.LogonParameters is IXpandLogonParameters) ReadLastLogonParameters(SecuritySystem.LogonParameters);
