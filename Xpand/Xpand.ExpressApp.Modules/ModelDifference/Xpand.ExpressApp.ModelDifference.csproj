@@ -180,6 +180,7 @@
     <Compile Include="Security\Controllers\PopulateDifferenceObjectsController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Security\Extensions.cs" />
     <Compile Include="Security\ModelCombinePermission.cs" />
     <Compile Include="Security\ApplicationModelCombineModifier.cs" />
     <Compile Include="Security\Controllers\NavigationItemsController.cs">

@@ -1,7 +1,6 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
 using Xpand.ExpressApp.Core;
 
@@ -19,9 +18,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             if (Application != null) {
                 Application.LoggingOn += (sender, args) => {
                     if (ModelsLoaded.HasValue) {
-                        SecurityModule.StrictSecurityStrategyBehavior = false;
                         LoadModels(!ModelsLoaded.Value);
-                        SecurityModule.StrictSecurityStrategyBehavior = true;
                     }
                     ModelsLoaded = true;
                 };
@@ -36,7 +33,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);
             if (!customModelDifferenceStoreEventArgs.Handled)
                 new XpoModelDictionaryDifferenceStore(Application, GetPath(), customModelDifferenceStoreEventArgs.ExtraDiffStores, loadResources).Load((ModelApplicationBase)Application.Model);
-            RuntimeMemberBuilder.AddFields(Application.Model, ((ObjectSpaceProvider)Application.ObjectSpaceProvider).XPDictionary);
+            RuntimeMemberBuilder.AddFields(Application.Model, Dictiorary);
         }
 
         public abstract string GetPath();
