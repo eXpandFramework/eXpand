@@ -52,13 +52,15 @@ namespace Xpand.ExpressApp.Win {
         public new void WriteLastLogonParameters(DetailView view, object logonObject) {
             base.WriteLastLogonParameters(view, logonObject);
         }
+        
         protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            CreateXpandObjectSpaceProvider(args);
             base.OnCreateCustomObjectSpaceProvider(args);
+            if (args.ObjectSpaceProvider==null)
+                this.CreateCustomObjectSpaceprovider(args);
         }
 
         protected virtual void CreateXpandObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            this.CreateCustomObjectSpaceprovider(args);
+            
         }
 
         public new void Start() {
@@ -176,7 +178,7 @@ namespace Xpand.ExpressApp.Win {
 
 
 
-        DataCacheNode IXafApplication.GetDataCacheRoot(IDataStore dataStore) {
+        IDataStore IXafApplication.GetDataStore(IDataStore dataStore) {
             if ((ConfigurationManager.AppSettings["DataCache"] + "").Contains("Client")) {
                 if (_cacheNode == null) {
                     var _cacheRoot = new DataCacheRoot(dataStore);
@@ -185,6 +187,10 @@ namespace Xpand.ExpressApp.Win {
                 return _cacheNode;
             }
             return null;
+        }
+
+        string IXafApplication.RaiseEstablishingConnection() {
+            return this.GetConnectionString();
         }
     }
 

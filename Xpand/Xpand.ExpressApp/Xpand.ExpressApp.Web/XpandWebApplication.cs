@@ -29,8 +29,9 @@ namespace Xpand.ExpressApp.Web {
             return new ModuleTypeList(result.ToArray());
         }
         protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            this.CreateCustomObjectSpaceprovider(args);
             base.OnCreateCustomObjectSpaceProvider(args);
+            if (args.ObjectSpaceProvider == null)
+                this.CreateCustomObjectSpaceprovider(args);
         }
 
         string ISupportFullConnectionString.ConnectionString { get; set; }
@@ -91,7 +92,7 @@ namespace Xpand.ExpressApp.Web {
             base.WriteLastLogonParameters(view, logonObject);
         }
 
-        DataCacheNode IXafApplication.GetDataCacheRoot(IDataStore dataStore) {
+        IDataStore IXafApplication.GetDataStore(IDataStore dataStore) {
             if ((ConfigurationManager.AppSettings["DataCache"] + "").Contains("Client")) {
                 var cacheNode = HttpContext.Current.Application["DataStore"] as DataCacheNode;
                 if (cacheNode == null) {
@@ -101,6 +102,10 @@ namespace Xpand.ExpressApp.Web {
                 return cacheNode;
             }
             return null;
+        }
+
+        string IXafApplication.RaiseEstablishingConnection() {
+            return this.GetConnectionString();
         }
     }
 }

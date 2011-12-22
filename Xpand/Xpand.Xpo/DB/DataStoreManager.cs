@@ -11,7 +11,7 @@ namespace Xpand.Xpo.DB {
     public class DataStoreManager {
         public const string StrDefault = "Default";
         readonly Dictionary<string, ReflectionDictionary> _reflectionDictionaries = new Dictionary<string, ReflectionDictionary>();
-        readonly Dictionary<string, SimpleDataLayer> _simpleDataLayers = new Dictionary<string, SimpleDataLayer>();
+        readonly Dictionary<string, DataStoreManagerSimpleDataLayer> _simpleDataLayers = new Dictionary<string, DataStoreManagerSimpleDataLayer>();
         readonly Dictionary<string, List<string>> _tables = new Dictionary<string, List<string>>();
         readonly string _connectionString;
         readonly IList<DataStoreAttribute> _dataStoreAttributes;
@@ -66,7 +66,7 @@ namespace Xpand.Xpo.DB {
             if (!_reflectionDictionaries.ContainsKey(key)) {
                 var reflectionDictionary = new ReflectionDictionary();
                 _reflectionDictionaries.Add(key, reflectionDictionary);
-                var simpleDataLayer = new SimpleDataLayer(reflectionDictionary, GetConnectionProvider(key));
+                var simpleDataLayer = new DataStoreManagerSimpleDataLayer(reflectionDictionary, GetConnectionProvider(key),key==StrDefault);
                 _simpleDataLayers.Add(key, simpleDataLayer);
                 _tables.Add(key, new List<string>());
             }
@@ -113,7 +113,7 @@ namespace Xpand.Xpo.DB {
             return dataStoreAttributes.Where(attribute => (attribute.ConnectionString != null || ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", attribute.DataStoreNameSuffix)] != null)).ToList();
         }
 
-        public Dictionary<string, SimpleDataLayer> SimpleDataLayers {
+        public Dictionary<string, DataStoreManagerSimpleDataLayer> SimpleDataLayers {
             get { return _simpleDataLayers; }
         }
 
@@ -144,5 +144,20 @@ namespace Xpand.Xpo.DB {
             return types.Where(type => type.Name == typeName).SingleOrDefault();
         }
 
+    }
+
+    public class DataStoreManagerSimpleDataLayer:SimpleDataLayer {
+        readonly bool _isMainLayer;
+
+        public DataStoreManagerSimpleDataLayer(IDataStore provider) : base(provider) {
+        }
+
+        public DataStoreManagerSimpleDataLayer(XPDictionary dictionary, IDataStore provider, bool isMainLayer) : base(dictionary, provider) {
+            _isMainLayer = isMainLayer;
+        }
+
+        public bool IsMainLayer {
+            get { return _isMainLayer; }
+        }
     }
 }

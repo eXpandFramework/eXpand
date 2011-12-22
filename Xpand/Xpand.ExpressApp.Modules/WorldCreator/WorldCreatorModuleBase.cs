@@ -126,7 +126,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         void CreateDataStore(SetupEventArgs setupEventArgs) {
             var objectSpaceProvider = setupEventArgs.SetupParameters.ObjectSpaceProvider as IXpandObjectSpaceProvider;
             if (objectSpaceProvider == null)
-                throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IXpandObjectSpaceProvider).FullName);
+                throw new NotImplementedException("WorldCreator ObjectSpaceProvider does not implement " + typeof(IXpandObjectSpaceProvider).FullName);
         }
 
         void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork) {
@@ -151,9 +151,11 @@ namespace Xpand.ExpressApp.WorldCreator {
             IEnumerable<Type> persistentTypes =
                 _dynamicModuleTypes.Select(type => type.Assembly).SelectMany(
                     assembly => assembly.GetTypes().Where(type => typeof(IXPSimpleObject).IsAssignableFrom(type)));
-            IDbCommand dbCommand =
-                ((ISqlDataStore)XpoDefault.GetConnectionProvider(FullConnectionString, AutoCreateOption.DatabaseAndSchema)).CreateCommand();
-            new XpoObjectMerger().MergeTypes(unitOfWork, persistentTypes.ToList(), dbCommand);
+            var sqlDataStore = XpoDefault.GetConnectionProvider(FullConnectionString, AutoCreateOption.DatabaseAndSchema) as ISqlDataStore;
+            if (sqlDataStore != null) {
+                IDbCommand dbCommand =sqlDataStore.CreateCommand();
+                new XpoObjectMerger().MergeTypes(unitOfWork, persistentTypes.ToList(), dbCommand);
+            }
         }
 
 

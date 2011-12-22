@@ -36,7 +36,8 @@ namespace Xpand.ExpressApp {
     }
 
     public interface IXafApplication {
-        DataCacheNode GetDataCacheRoot(IDataStore dataStore);
+        IDataStore GetDataStore(IDataStore dataStore);
+        string RaiseEstablishingConnection();
     }
 
     public interface ISupportFullConnectionString {

@@ -46,8 +46,11 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (Application != null) Application.LoggingOn += (sender, args) => InitializeSequenceGenerator();
+            if (Application != null) {
+                Application.LoggingOn += (sender, args) => InitializeSequenceGenerator();
+            }
         }
+
 
         [Browsable(false)]
         internal Type SequenceObjectType { get; set; }
@@ -87,8 +90,11 @@ namespace Xpand.ExpressApp.SystemModule {
             try {
                 if (SequenceObjectType == null)
                     throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
-                if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is MiddleTierClientObjectSpaceProvider))
-                    SequenceGenerator.Initialize((Application.GetConnectionString()), SequenceObjectType);
+                if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is MiddleTierClientObjectSpaceProvider)) {
+                    var connectionString = ((IXafApplication)Application).RaiseEstablishingConnection();
+                    ((ISupportFullConnectionString) Application).ConnectionString = connectionString;
+                    SequenceGenerator.Initialize(connectionString, SequenceObjectType);
+                }
             } catch (Exception e) {
                 if (e.InnerException != null)
                     throw e.InnerException;

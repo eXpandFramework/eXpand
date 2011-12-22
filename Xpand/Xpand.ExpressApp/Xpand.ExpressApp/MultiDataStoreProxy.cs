@@ -62,7 +62,7 @@ namespace Xpand.ExpressApp {
             foreach (var simpleDataLayer in _dataStoreManager.SimpleDataLayers) {
                 var dataLayer = simpleDataLayer.Value;
                 if (!TypeExists(dataLayer, insertStatement)) {
-                    if (!IsMainLayer(dataLayer.Connection)) {
+                    if (!dataLayer.IsMainLayer) {
                         _xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, _dataStoreManager.SimpleDataLayers[DataStoreManager.StrDefault]);
                     }
                     var modifyData = dataLayer.ModifyData(dmlStatements);
@@ -74,8 +74,8 @@ namespace Xpand.ExpressApp {
         }
 
 
-        bool TypeExists(SimpleDataLayer dataLayer, InsertStatement stm1) {
-            if (IsMainLayer(dataLayer.Connection))
+        bool TypeExists(DataStoreManagerSimpleDataLayer dataLayer, InsertStatement stm1) {
+            if (dataLayer.IsMainLayer)
                 return false;
             var session = new Session(dataLayer) { IdentityMapBehavior = IdentityMapBehavior.Strong };
             var value = stm1.Parameters.ToList()[0].Value as string;
@@ -84,14 +84,15 @@ namespace Xpand.ExpressApp {
         }
 
         bool IsMainLayer(IDbConnection connection) {
-            return connection == null || connection.ConnectionString == Connection.ConnectionString;
+            return (connection == null || Connection == null) || connection.ConnectionString == Connection.ConnectionString;
         }
 
         public override SelectedData SelectData(params SelectStatement[] selects) {
             var resultSet = new List<SelectStatementResult>();
             List<SelectedData> selectedDatas = selects.Select(stm => {
                 OnDataStoreSelectData(new DataStoreSelectDataEventArgs(new[] { stm }));
-                return _dataStoreManager.SimpleDataLayers[_dataStoreManager.GetKey(stm.TableName)].SelectData(stm);
+                var simpleDataLayer = _dataStoreManager.SimpleDataLayers[_dataStoreManager.GetKey(stm.TableName)];
+                return simpleDataLayer.SelectData(stm);
             }).ToList();
             foreach (SelectedData selectedData in selectedDatas.Where(
                 selectedData => selectedData != null)) {
@@ -105,6 +106,8 @@ namespace Xpand.ExpressApp {
                 var store = dataStore.Key as ConnectionProviderSql;
                 if (store != null) {
                     List<DBTable> dbTables = dataStore.Value;
+                    if (Connection==null)
+                        throw new NullReferenceException();
                     if (!IsMainLayer(store.Connection))
                         _xpoObjectHacker.EnsureIsNotIdentity(dbTables);
                     store.UpdateSchema(false, dbTables.ToArray());
