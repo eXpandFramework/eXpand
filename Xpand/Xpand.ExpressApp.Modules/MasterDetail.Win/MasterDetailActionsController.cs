@@ -6,9 +6,9 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
+using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.ExpressApp.Win.ListEditors;
-using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.MasterDetail.Win {
     public class MasterDetailActionsController : ViewController<ListView> {
@@ -117,9 +117,8 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
         }
 
         void PushExecutionToNestedFrame(Controller sender, ActionBase actionBase, Action cancelAction) {
-            var xpandGridListEditor = GridListEditor;
-            var xpandXafGridView = (XpandXafGridView)xpandGridListEditor.Grid.FocusedView;
-            if (xpandXafGridView.MasterFrame != null) {
+            var xpandXafGridView = GridListEditor != null ? (XpandXafGridView)GridListEditor.Grid.FocusedView : null;
+            if (xpandXafGridView != null && xpandXafGridView.MasterFrame != null) {
                 Controller controller = xpandXafGridView.Window.GetController(sender.GetType());
                 if (controller != sender) {
                     cancelAction.Invoke();
@@ -159,7 +158,10 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
             var gridControl = (View.Editor.Control as GridControl);
             if (gridControl == null)
                 return;
-            var xpandXafGridView = ((XpandXafGridView)gridControl.MainView);
+            var xpandXafGridView = gridControl.MainView as XpandXafGridView;
+            if (xpandXafGridView == null)
+                return;
+
             Frame masterFrame = xpandXafGridView.MasterFrame;
             if (masterFrame != null) {
                 BoolList boolList = GetBoolList(masterFrame, actionBase, func);
