@@ -7,7 +7,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
         static bool _comparerIsLock;
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (!DesignMode && !_comparerIsLock && typeof(IUser).IsAssignableFrom(Application.Security.UserType)) {
+            if (RuntimeMode && !_comparerIsLock && typeof(IUser).IsAssignableFrom(Application.Security.UserType)) {
                 ObjectAccessComparerBase.SetCurrentComparer(new MemberLevelObjectAccessComparer());
                 _comparerIsLock = true;
             }

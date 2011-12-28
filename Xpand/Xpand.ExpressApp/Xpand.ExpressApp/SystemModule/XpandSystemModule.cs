@@ -53,7 +53,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
 
         [Browsable(false)]
-        internal Type SequenceObjectType { get; set; }
+        public Type SequenceObjectType { get; set; }
 
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
