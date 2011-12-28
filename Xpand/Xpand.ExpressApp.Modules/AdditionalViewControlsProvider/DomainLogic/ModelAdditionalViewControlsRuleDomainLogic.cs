@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.DomainLogic {
             return ReflectionHelper.FindTypeDescendants(typeInfo);
         }
         public static List<Type> Get_ControlTypes(IModelAdditionalViewControlsRule modelAdditionalViewControlsRule) {
-            TypeDecorator decorator = GetTypeDecorator(modelAdditionalViewControlsRule.Position);
+            TypeDecorator decorator = GetTypeDecorator(modelAdditionalViewControlsRule.DecoratorType, modelAdditionalViewControlsRule.Position);
             return decorator != null ? FindTypeDescendants(decorator).Select(info => info.Type).ToList()
                        : new List<Type> { typeof(NotAvaliableInThisPlatform) };
         }
@@ -33,18 +33,17 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.DomainLogic {
             return ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(decorator.ControlType), true).Where(info => info.Implements<IAdditionalViewControl>());
         }
 
-        public static TypeDecorator GetTypeDecorator(Position position) {
-            IEnumerable<TypeDecorator> typeDecorators = GetTypeDecorators();
+        public static TypeDecorator GetTypeDecorator(Type decorator,Position position) {
+            IEnumerable<TypeDecorator> typeDecorators = GetTypeDecorators(new List<ITypeInfo>{XafTypesInfo.CastTypeToTypeInfo(decorator)});
             return typeDecorators.Where(PredicatePosition(position)).FirstOrDefault();
         }
 
         static Func<TypeDecorator, bool> PredicatePosition(Position position) {
-            return decorator => decorator.Position == Position.DetailViewItem ? decorator.Position == position : true;
+            return decorator => decorator.Position != Position.DetailViewItem || decorator.Position == position;
         }
 
-        static IEnumerable<TypeDecorator> GetTypeDecorators() {
-            IEnumerable<ITypeInfo> descendants = GetDecorators();
-            return descendants.Select(TypeDecoratorAttributes()).Cast<TypeDecorator[]>().SelectMany(decorators => decorators);
+        static IEnumerable<TypeDecorator> GetTypeDecorators(IEnumerable<ITypeInfo> descenants) {
+            return descenants.Select(TypeDecoratorAttributes()).Cast<TypeDecorator[]>().SelectMany(decorators => decorators);
         }
 
 

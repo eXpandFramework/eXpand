@@ -7,7 +7,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.DomainLogic {
     [DomainLogic(typeof(IAdditionalViewControlsRule))]
     public class AdditionalViewControlsRuleDomainLogic {
         public static Type Get_ControlType(IAdditionalViewControlsRule additionalViewControlsRule) {
-            TypeDecorator decorator = ModelAdditionalViewControlsRuleDomainLogic.GetTypeDecorator(additionalViewControlsRule.Position);
+            TypeDecorator decorator = ModelAdditionalViewControlsRuleDomainLogic.GetTypeDecorator(additionalViewControlsRule.DecoratorType,additionalViewControlsRule.Position);
             return decorator != null ? decorator.DefaultType : typeof(NotAvaliableInThisPlatform);
         }
 

@@ -133,7 +133,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             unitOfWork.LockingOption = LockingOption.None;
             Type assemblyInfoType = WCTypesInfo.Instance.FindBussinessObjectType<IPersistentAssemblyInfo>();
             List<IPersistentAssemblyInfo> persistentAssemblyInfos =
-                new XPCollection(unitOfWork, assemblyInfoType).Cast<IPersistentAssemblyInfo>().Where(IsValidAssemblyInfo(moduleManager)).ToList();
+                new XPCollection(unitOfWork, assemblyInfoType).OfType<IPersistentAssemblyInfo>().Where(IsValidAssemblyInfo(moduleManager)).ToList();
             _dynamicModuleTypes = new CompileEngine().CompileModules(persistentAssemblyInfos, GetPath());
             foreach (var definedModule in _dynamicModuleTypes) {
                 moduleManager.AddModule(definedModule);
