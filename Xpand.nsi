@@ -309,7 +309,10 @@ Function InstallProjectTemplates
     Push $0
     call InstallProjectTemplatesFiles
     WriteRegStr HKLM "${REGKEY}" "VS10Path" $0
-    Pop $0
+	
+	ExecWait  "$0devenv.exe /InstallVSTemplates"	
+    
+	Pop $0
 FunctionEnd
 
 Function un.InstallProjectTemplates
