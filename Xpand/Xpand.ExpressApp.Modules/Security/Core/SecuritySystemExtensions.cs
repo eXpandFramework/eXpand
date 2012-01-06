@@ -1,4 +1,5 @@
-﻿using System.Security;
+﻿using System.Collections.Generic;
+using System.Security;
 using System.Security.Permissions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
@@ -18,6 +19,15 @@ namespace Xpand.ExpressApp.Security.Core {
             }
             return SecuritySystem.IsGranted(permission);
         }
+        public static List<IOperationPermission> GetPermissions(this ISecurityUserWithRoles securityUserWithRoles) {
+            var permissions = new List<IOperationPermission>();
+            foreach (ISecurityRole securityRole in securityUserWithRoles.Roles) {
+                IList<IOperationPermission> operationPermissions = securityRole.GetPermissions();
+                permissions.AddRange(operationPermissions);
+            }
+            return permissions;
+        }
+
         public static bool IsNewSecuritySystem(this ISecurityComplex security) {
             return typeof(ISecurityRole).IsAssignableFrom(((ISecurityComplex)SecuritySystem.Instance).RoleType);
         }

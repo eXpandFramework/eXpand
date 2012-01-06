@@ -6,7 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.Base.Security;
-using Xpand.ExpressApp.Security;
+using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Core;
 using System.Linq;
 
@@ -53,14 +53,12 @@ namespace Xpand.Persistent.BaseImpl {
 
         public void EnsureAnonymousUser() {
             if (IsNewSecuritySystem) {
-                var anonymousUser = ObjectSpace.FindObject<SecurityUser>(
-                    new BinaryOperator("UserName", SecurityStrategy.AnonymousUserName));
+                var anonymousUser = (ISecurityUser)ObjectSpace.FindObject(UserType, new BinaryOperator("UserName", SecurityStrategy.AnonymousUserName));
                 if (anonymousUser == null) {
-                    anonymousUser = ObjectSpace.CreateObject<SecurityUser>();
-                    anonymousUser.UserName = SecurityStrategy.AnonymousUserName;
+                    anonymousUser = (ISecurityUser)ObjectSpace.CreateObject(UserType);
+                    ((XPBaseObject)anonymousUser).SetMemberValue("UserName", SecurityStrategy.AnonymousUserName);
                     anonymousUser.IsActive = true;
-                    anonymousUser.SetPassword("");
-                    anonymousUser.Save();
+                    ((IAuthenticationStandardUser)anonymousUser).SetPassword("");
                 }
             }
         }
@@ -86,15 +84,14 @@ namespace Xpand.Persistent.BaseImpl {
         }
 
         private object EnsureUserExists(string userName, object role) {
-            var securityUser = ObjectSpace.FindObject<SecurityUser>(new BinaryOperator("UserName", userName));
+            var securityUser = ObjectSpace.FindObject(UserType, new BinaryOperator("UserName", userName)) as ISecurityUser;
             if (securityUser == null) {
-                var strategyRole = (SecurityStrategyRole)role;
-                securityUser = ObjectSpace.CreateObject<SecurityUser>();
-                securityUser.UserName = userName;
+                var strategyRole = role;
+                securityUser = (ISecurityUser)ObjectSpace.CreateObject(UserType);
+                ((XPBaseObject)securityUser).SetMemberValue("UserName", userName);
                 securityUser.IsActive = true;
-                securityUser.SetPassword("");
-                securityUser.Roles.Add(strategyRole);
-                securityUser.Save();
+                ((IAuthenticationStandardUser)securityUser).SetPassword("");
+                ((ISecurityUserWithRoles)securityUser).Roles.Add((ISecurityRole)strategyRole);
             }
             return securityUser;
         }
