@@ -123,6 +123,9 @@
     <Compile Include="AuthenticationProviders\XpandAuthenticationStandard.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\FilterCustomPermissionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\DefaultRolePermissionsController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -133,6 +136,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\SecuritySystemExtensions.cs" />
+    <Compile Include="Permissions\XpandPermissionData.cs" />
     <Compile Include="XpandSecurityModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -144,13 +148,16 @@
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="XpandSecurityModule.resx">
       <DependentUpon>XpandSecurityModule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

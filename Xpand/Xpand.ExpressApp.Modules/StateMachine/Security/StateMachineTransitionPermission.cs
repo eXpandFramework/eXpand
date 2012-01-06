@@ -4,17 +4,17 @@ using System.Security;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.PropertyEditors;
+using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base.General.CustomAttributes;
-using PermissionBase = Xpand.ExpressApp.Security.Permissions.PermissionBase;
 
-namespace Xpand.ExpressApp.StateMachine {
+namespace Xpand.ExpressApp.StateMachine.Security {
     public enum StateMachineTransitionModifier {
         Allow,
         Deny
     }
 
     [NonPersistent]
-    public class StateMachineTransitionPermission : PermissionBase, INotifyPropertyChanged {
+    public class StateMachineTransitionPermission : PermissionBase, INotifyPropertyChanged, IStateMachineTransitionPermission {
         public event PropertyChangedEventHandler PropertyChanged;
 
 

@@ -181,6 +181,13 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Security\Extensions.cs" />
+    <Compile Include="Security\Improved\ModelCombinePermission.cs" />
+    <Compile Include="Security\Improved\ModelCombineOperationPermissionData.cs" />
+    <Compile Include="Security\Improved\ModelCombinePermissionRequest.cs" />
+    <Compile Include="Security\Improved\ModelCombineRequestProcessor.cs" />
+    <Compile Include="Security\Improved\PopulateDifferenceObjectsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Security\ModelCombinePermission.cs" />
     <Compile Include="Security\ApplicationModelCombineModifier.cs" />
     <Compile Include="Security\Controllers\NavigationItemsController.cs">

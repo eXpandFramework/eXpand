@@ -80,7 +80,6 @@
     <Reference Include="DevExpress.Xpo.v11.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    
     <Reference Include="Xpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -136,6 +135,8 @@
     <Compile Include="NodeUpdaters\ArtifactStateRulesNodeUpdater.cs" />
     <Compile Include="Security\ArtifactStateRulePermission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\Improved\ArtifactStateOperationPermissionData.cs" />
+    <Compile Include="Security\Improved\ArtifactStateRulePermission.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

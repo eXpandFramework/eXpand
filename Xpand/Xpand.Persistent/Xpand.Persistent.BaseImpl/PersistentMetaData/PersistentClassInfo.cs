@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -39,7 +38,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Index(0)]
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
-        [TypeConverter(typeof(MyLocalizedClassInfoTypeConverter))]
+        [TypeConverter(typeof(XpandLocalizedClassInfoTypeConverter))]
         public Type BaseType {
             get { return _baseType; }
             set {
@@ -167,13 +166,4 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         #endregion
     }
 
-    public class MyLocalizedClassInfoTypeConverter : LocalizedClassInfoTypeConverter {
-        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context) {
-            var typeInfos = XafTypesInfo.Instance.FindTypeInfo(typeof(PersistentBase)).Descendants;
-            var list = (from typeInfo in typeInfos where typeInfo.Type != null select typeInfo.Type).ToList();
-            list.Sort(this);
-            list.Insert(0, null);
-            return new StandardValuesCollection(list);
-        }
-    }
 }

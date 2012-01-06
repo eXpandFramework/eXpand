@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
@@ -8,6 +9,7 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Builders;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
+using Xpand.ExpressApp.ModelDifference.Security.Improved;
 using Xpand.ExpressApp.SystemModule;
 
 
@@ -19,6 +21,8 @@ namespace Xpand.ExpressApp.ModelDifference {
         public ModelDifferenceModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
+            RequiredModuleTypes.Add(typeof(ExpressApp.Security.XpandSecurityModule));
+//            AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(ModelDifferenceObject))));
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
@@ -39,10 +43,15 @@ namespace Xpand.ExpressApp.ModelDifference {
         public override void Setup(XafApplication application) {
             base.Setup(application);
             if (application != null && RuntimeMode) {
+                application.SetupComplete+=ApplicationOnSetupComplete;
                 if (!(application is ISupportModelsManager))
                     throw new NotImplementedException("Implement " + typeof(ISupportModelsManager).FullName + " at your " + Application.GetType().FullName + " or derive from XpandWinApplication or XpandWebApplication");
                 application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;
             }
+        }
+
+        void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
+            ((SecurityStrategy) SecuritySystem.Instance).RequestProcessors.Register(new ModelCombineRequestProcessor());
         }
 
         void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, DevExpress.ExpressApp.CreateCustomModelDifferenceStoreEventArgs args) {

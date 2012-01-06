@@ -1,30 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <SchemaModules IsNewNode="True">
-    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" IsNewNode="True" Version="9.1.2.5458" />
-    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" IsNewNode="True" Version="9.1.2.5458" />
-    <SchemaModule Name="SystemModule" IsNewNode="True" Version="9.1.2.5458" />
+    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.1.2.5458" IsNewNode="True" />
+    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.1.2.5458" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="9.1.2.5458" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <DetailView Id="SecurityRole_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="8" ImageName="" Caption="SimpleEditors" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="SecurityStrategyRole" ImageName="" Caption="SecurityStrategyRole" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="Name" RelativeSize="51" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Name" />
+              <LayoutItem Id="CanEditModel" RelativeSize="48" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="CanEditModel" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="91" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="Permissions" RelativeSize="100" ImageName="Action_Grant" Caption="Permissions" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="Permissions" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Permissions" />
+            </LayoutGroup>
+            <LayoutGroup Id="Users" RelativeSize="100" Caption="Users" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="Users" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Users" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="2" RelativeSize="100" Caption="PersistentPermissions" IsNewNode="True">
+              <LayoutItem Id="PersistentPermissions" ViewItem="PersistentPermissions" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="XpandLogonParameters_DetailView">
       <Items>
-        <StaticImage Id="LogonImage" ImageName="Security_Image" SizeMode="AutoSize" IsNewNode="True" VerticalAlign="Middle" />
+        <StaticImage Id="LogonImage" ImageName="Security_Image" SizeMode="AutoSize" VerticalAlign="Middle" IsNewNode="True" />
         <StaticText Id="LogonText" Text="Welcome! Please enter your user name and password below." IsNewNode="True" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="RootGroup" IsNewNode="True" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100">
-            <LayoutGroup Id="ImageGroup" IsNewNode="True" ShowCaption="False" Caption="ImageGroup(3)" Index="0" RelativeSize="6">
-              <LayoutItem Id="LogonImage" IsNewNode="True" ShowCaption="False" ViewItem="LogonImage" Index="0" RelativeSize="100" />
+          <LayoutGroup Id="RootGroup" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
+            <LayoutGroup Id="ImageGroup" ShowCaption="False" Caption="ImageGroup(3)" Index="0" RelativeSize="6" IsNewNode="True">
+              <LayoutItem Id="LogonImage" ShowCaption="False" ViewItem="LogonImage" Index="0" RelativeSize="100" IsNewNode="True" />
             </LayoutGroup>
-            <LayoutGroup Id="EditorsGroup" IsNewNode="True" ShowCaption="False" Index="1" RelativeSize="93">
-              <LayoutGroup Id="Text" IsNewNode="True" ShowCaption="False" Caption="Text(6)" Index="0" RelativeSize="4">
-                <LayoutItem Id="LogonText" IsNewNode="True" ShowCaption="False" ViewItem="LogonText" Index="0" RelativeSize="100" />
+            <LayoutGroup Id="EditorsGroup" ShowCaption="False" Index="1" RelativeSize="93" IsNewNode="True">
+              <LayoutGroup Id="Text" ShowCaption="False" Caption="Text(6)" Index="0" RelativeSize="4" IsNewNode="True">
+                <LayoutItem Id="LogonText" ShowCaption="False" ViewItem="LogonText" Index="0" RelativeSize="100" IsNewNode="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Editors" IsNewNode="True" ShowCaption="False" Index="1" RelativeSize="95">
-                <LayoutItem Id="UserName" IsNewNode="True" ViewItem="UserName" Index="0" RelativeSize="3" />
-                <LayoutItem Id="Password" IsNewNode="True" ViewItem="Password" Index="1" RelativeSize="3" />
-                <LayoutItem Id="RememberMe" IsNewNode="True" ShowCaption="True" ViewItem="RememberMe" Index="2" RelativeSize="92" />
+              <LayoutGroup Id="Editors" ShowCaption="False" Index="1" RelativeSize="95" IsNewNode="True">
+                <LayoutItem Id="UserName" ViewItem="UserName" Index="0" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="Password" ViewItem="Password" Index="1" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="RememberMe" ViewItem="RememberMe" Index="2" RelativeSize="92" IsNewNode="True" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>

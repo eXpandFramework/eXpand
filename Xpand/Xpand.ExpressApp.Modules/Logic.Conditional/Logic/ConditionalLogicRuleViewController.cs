@@ -1,20 +1,29 @@
-﻿using DevExpress.Persistent.Base;
+﻿using System;
+using System.Collections.Generic;
+using DevExpress.ExpressApp.DC;
+using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Logic.Conditional.Security;
 
 namespace Xpand.ExpressApp.Logic.Conditional.Logic {
     public abstract class ConditionalLogicRuleViewController<TConditionalLogicRule> :
-        LogicRuleViewController<TConditionalLogicRule> where TConditionalLogicRule : IConditionalLogicRule{
-        protected override LogicRuleInfo<TConditionalLogicRule> CalculateLogicRuleInfo(object targetObject,TConditionalLogicRule logicRule) {
-            LogicRuleInfo<TConditionalLogicRule> calculateLogicRuleInfo = base.CalculateLogicRuleInfo(targetObject,logicRule);
+        LogicRuleViewController<TConditionalLogicRule> where TConditionalLogicRule : IConditionalLogicRule {
+        protected override LogicRuleInfo<TConditionalLogicRule> CalculateLogicRuleInfo(object targetObject, TConditionalLogicRule logicRule) {
+            LogicRuleInfo<TConditionalLogicRule> calculateLogicRuleInfo = base.CalculateLogicRuleInfo(targetObject, logicRule);
             ConditionalLogicRuleManager<TConditionalLogicRule>.CalculateLogicRuleInfo(calculateLogicRuleInfo);
             return calculateLogicRuleInfo;
         }
-        public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            var typeDescendants = ReflectionHelper.FindTypeDescendants(typesInfo.FindTypeInfo(typeof(ConditionalLogicRulePermission)));
-            foreach (var typeInfo in typeDescendants) {
-                typeInfo.AddAttribute(new NewObjectCreateGroupAttribute("Conditional"));
+            AddNewObjectCreateGroup(typesInfo, new List<Type> { typeof(ConditionalLogicRulePermission), typeof(Security.Improved.ConditionalLogicOperationPermissionData) });
+        }
+
+        void AddNewObjectCreateGroup(ITypesInfo typesInfo, IEnumerable<Type> types) {
+            foreach (var type in types) {
+                var typeDescendants = ReflectionHelper.FindTypeDescendants(typesInfo.FindTypeInfo(type));
+                foreach (var typeInfo in typeDescendants) {
+                    typeInfo.AddAttribute(new NewObjectCreateGroupAttribute("Conditional"));
+                }
             }
         }
     }

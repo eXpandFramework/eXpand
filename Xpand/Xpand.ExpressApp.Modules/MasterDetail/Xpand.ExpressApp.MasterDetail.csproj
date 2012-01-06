@@ -144,6 +144,8 @@
     <Compile Include="NodeUpdaters\MasterDetailDefaultGroupContextNodeUpdater.cs" />
     <Compile Include="NodeUpdaters\MasterDetailRulesNodeUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\Improved\MasterDetailOperationPermissionData.cs" />
+    <Compile Include="Security\Improved\MasterDetailPermission.cs" />
     <Compile Include="Security\MasterDetailPermission.cs" />
   </ItemGroup>
   <ItemGroup>

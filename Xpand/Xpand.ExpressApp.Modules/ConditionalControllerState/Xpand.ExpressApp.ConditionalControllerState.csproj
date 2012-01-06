@@ -55,6 +55,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.Security.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DevExpress 2011.2\eXpressApp Framework\Bin\Framework\DevExpress.ExpressApp.Security.v11.2.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Printing.v11.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -151,6 +155,11 @@
     <Compile Include="Security\ControllerStateRulePermission.cs">
     </Compile>
     <Compile Include="Security\ControllerTypeConverter.cs" />
+    <Compile Include="Security\Improved\ControllerStateOperationPermissionData.cs" />
+    <Compile Include="Security\Improved\ControllerStateRulePermission.cs" />
+    <Compile Include="Security\Improved\UpdateTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Security\UpdateTypeConverterController.cs">
       <SubType>Component</SubType>
     </Compile>

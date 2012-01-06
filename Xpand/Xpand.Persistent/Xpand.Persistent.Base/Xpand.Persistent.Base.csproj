@@ -167,6 +167,7 @@
     <Compile Include="ModelDifference\ResourceInfo.cs" />
     <Compile Include="ModelDifference\ResourceModelCollector.cs" />
     <Compile Include="ModelDifference\ResourcesModelStore.cs" />
+    <Compile Include="XpandLocalizedClassInfoTypeConverter.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplate.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplateInfo.cs" />
     <Compile Include="PersistentMetaData\IExtendedCollectionMemberInfo.cs" />

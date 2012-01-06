@@ -13,9 +13,9 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security {
         public Type ControlType { get; set; }
         [RuleRequiredField]
         public Type DecoratorType { get; set; }
-       
+
         #region IAdditionalViewControlsRule Members
-        
+
         public string Message { get; set; }
         public string MessageProperty { get; set; }
         public Position Position { get; set; }

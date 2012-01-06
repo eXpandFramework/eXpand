@@ -55,6 +55,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.Security.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DevExpress 2011.2\eXpressApp Framework\Bin\Framework\DevExpress.ExpressApp.Security.v11.2.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Printing.v11.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -150,6 +154,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\ActionStateRulePermission.cs">
     </Compile>
+    <Compile Include="Security\Improved\ActionStateOperationPermissionData.cs" />
+    <Compile Include="Security\Improved\ActionStateRulePermission.cs" />
+    <Compile Include="Security\Improved\PopulateActionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Security\PopulateActionsController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -192,6 +201,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

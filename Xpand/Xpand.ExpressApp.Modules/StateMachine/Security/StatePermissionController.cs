@@ -5,8 +5,10 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.StateMachine;
 using DevExpress.ExpressApp.StateMachine.Xpo;
+using Xpand.ExpressApp.Security.Core;
+using Xpand.ExpressApp.StateMachine.Security.Improved;
 
-namespace Xpand.ExpressApp.StateMachine {
+namespace Xpand.ExpressApp.StateMachine.Security {
     public interface IModelOptionsStateMachine {
         bool PermissionsForActionState { get; set; }
     }
@@ -30,7 +32,14 @@ namespace Xpand.ExpressApp.StateMachine {
         }
 
         bool IsNotGranted(XpoState state) {
-            return IsNotGranted(new StateMachineTransitionPermission(StateMachineTransitionModifier.Deny, state.Caption, state.StateMachine.Name));
+            if (!((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem())
+                return IsNotGranted(new StateMachineTransitionPermission(StateMachineTransitionModifier.Deny, state.Caption, state.StateMachine.Name));
+            var stateMachineTransitionPermission = new Improved.StateMachineTransitionPermission {
+                Modifier = StateMachineTransitionModifier.Deny,
+                StateCaption = state.Caption,
+                StateMachineName = state.StateMachine.Name
+            };
+            return !SecuritySystem.IsGranted(new StateMachineTransitionOperationRequest(stateMachineTransitionPermission));
         }
 
         static bool IsNotGranted(IPermission permission) {

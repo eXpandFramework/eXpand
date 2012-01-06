@@ -2,14 +2,12 @@
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ArtifactState.Security;
-using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.ConditionalActionState.Logic;
 using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 
 namespace Xpand.ExpressApp.ConditionalActionState.Security {
     [RuleRequiredForAtLeast1Property(null, DefaultContexts.Save, "Module,ActionId")]
     [NonPersistent]
-    [NewObjectCreateGroup("Conditional")]
     public class ActionStateRulePermission : ArtifactStateRulePermission, IActionStateRule {
         #region IActionStateRule Members
         public virtual string ActionId { get; set; }

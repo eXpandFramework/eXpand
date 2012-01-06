@@ -202,6 +202,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.Xpo, Version=11.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationServerStarterBase.cs" />
@@ -269,6 +270,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Xpand\Xpand.ExpressApp.Modules\Logic.Conditional\Xpand.ExpressApp.Logic.Conditional.csproj">
+      <Project>{68239940-CDB3-4644-8FD4-74805FD73279}</Project>
+      <Name>Xpand.ExpressApp.Logic.Conditional</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -130,11 +130,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StateMachinePopulateController.cs">
+    <Compile Include="Security\Improved\StateMachineTransitionRequestProcessor.cs" />
+    <Compile Include="Security\Improved\StateMachineTransitionOperationRequest.cs" />
+    <Compile Include="Security\IStateMachineTransitionPermission.cs" />
+    <Compile Include="Security\Improved\StateMachineTransitionOperationPermissionData.cs" />
+    <Compile Include="Security\Improved\StateMachineTransitionPermission.cs" />
+    <Compile Include="Security\StateMachinePopulateController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="StateMachineTransitionPermission.cs" />
-    <Compile Include="StatePermissionController.cs">
+    <Compile Include="Security\StateMachineTransitionPermission.cs" />
+    <Compile Include="Security\StatePermissionController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="XpandStateMachineModule.cs">

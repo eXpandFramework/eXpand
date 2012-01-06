@@ -10,8 +10,10 @@ using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.ExpressApp.ModelDifference.Security;
+using Xpand.ExpressApp.ModelDifference.Security.Improved;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base;
+using ModelCombinePermission = Xpand.ExpressApp.ModelDifference.Security.ModelCombinePermission;
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
     public class XpoUserModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore {
@@ -85,19 +87,22 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         void CombineModelFromPermission(ModelApplicationBase model) {
-            if (SecuritySystem.Instance is ISecurityComplex && SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false)) {
+            if (SecuritySystem.Instance is ISecurityComplex && IsGranted()) {
                 var space = Application.CreateObjectSpace();
                 ModelDifferenceObject difference = GetDifferenceFromPermission((ObjectSpace)space);
-                //TODO: remove this check check it against an xpand app with no permission to see whats going on
-                if (difference != null) {
-                    var master = new ModelLoader(difference.PersistentApplication.ExecutableName).GetMasterModel(true);
-                    var diffsModel = difference.GetModel(master);
-                    new ModelXmlReader().ReadFromModel(diffsModel, model);
-                    difference.CreateAspectsCore(diffsModel);
-                }
+                var master = new ModelLoader(difference.PersistentApplication.ExecutableName).GetMasterModel(true);
+                var diffsModel = difference.GetModel(master);
+                new ModelXmlReader().ReadFromModel(diffsModel, model);
+                difference.CreateAspectsCore(diffsModel);
                 space.SetModified(difference);
                 space.CommitChanges();
             }
+        }
+
+        static bool IsGranted() {
+            if (((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem())
+                return SecuritySystem.IsGranted(new ModelCombinePermissionRequest(ApplicationModelCombineModifier.Allow));
+            return SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false);
         }
 
         private ModelDifferenceObject GetDifferenceFromPermission(ObjectSpace space) {
@@ -106,7 +111,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         private IEnumerable<string> GetNames() {
             return ((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem()
-                       ? ((SecurityUser)SecuritySystem.CurrentUser).GetPermissions().OfType<ModelCombinePermission>().Select(permission => permission.Difference)
+                       ? ((SecurityUser)SecuritySystem.CurrentUser).GetPermissions().OfType<Security.Improved.ModelCombinePermission>().Select(permission => permission.Difference)
                        : ((IUser)SecuritySystem.CurrentUser).Permissions.OfType<ModelCombinePermission>().Select(permission => permission.Difference);
         }
     }

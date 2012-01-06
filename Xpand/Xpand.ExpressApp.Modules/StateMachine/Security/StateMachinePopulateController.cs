@@ -12,8 +12,8 @@ using Xpand.ExpressApp.SystemModule;
 using Xpand.Utils.Helpers;
 using Xpand.Persistent.Base.General;
 
-namespace Xpand.ExpressApp.StateMachine {
-    public class StateMachinePopulateController : PopulateController<StateMachineTransitionPermission> {
+namespace Xpand.ExpressApp.StateMachine.Security {
+    public class StateMachinePopulateController : PopulateController<IStateMachineTransitionPermission> {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             var stringLookupPropertyEditor = GetPropertyEditor(permission => permission.StateCaption) as IStringLookupPropertyEditor;
@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.StateMachine {
         void StringLookupPropertyEditorOnItemsCalculating(object sender, HandledEventArgs handledEventArgs) {
             var propertyEditor = GetPropertyEditor(permission => permission.StateMachineName);
             if (propertyEditor != null && View.IsControlCreated) {
-                var stateMachineTransitionPermission = ((StateMachineTransitionPermission)View.CurrentObject);
+                var stateMachineTransitionPermission = ((IStateMachineTransitionPermission)View.CurrentObject);
                 var readOnlyCollection = GetStateCaptions(propertyEditor);
                 stateMachineTransitionPermission.SyncStateCaptions(readOnlyCollection, propertyEditor.ControlValue as string);
             }
@@ -41,7 +41,7 @@ namespace Xpand.ExpressApp.StateMachine {
             return xpoStateMachines.Select(machine => machine.Name).AggregateWith(";");
         }
 
-        protected override Expression<Func<StateMachineTransitionPermission, object>> GetPropertyName() {
+        protected override Expression<Func<IStateMachineTransitionPermission, object>> GetPropertyName() {
             return permission => permission.StateMachineName;
         }
     }

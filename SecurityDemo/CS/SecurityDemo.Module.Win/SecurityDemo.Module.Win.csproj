@@ -318,6 +318,18 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Xpand\Xpand.ExpressApp.Modules\Logic.Conditional\Xpand.ExpressApp.Logic.Conditional.csproj">
+      <Project>{68239940-CDB3-4644-8FD4-74805FD73279}</Project>
+      <Name>Xpand.ExpressApp.Logic.Conditional</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Xpand\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj">
+      <Project>{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}</Project>
+      <Name>Xpand.ExpressApp.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj">
+      <Project>{B964E541-EBA2-4971-B104-A99ABBD95D36}</Project>
+      <Name>Xpand.ExpressApp.Security</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SecurityDemo.Module\SecurityDemo.Module.csproj">
       <Project>{ABDFB762-3B14-4B19-82EC-F5BDDB7C42A9}</Project>
       <Name>SecurityDemo.Module</Name>

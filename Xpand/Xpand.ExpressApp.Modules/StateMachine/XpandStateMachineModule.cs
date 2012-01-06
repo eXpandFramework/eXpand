@@ -1,5 +1,9 @@
+using System;
 using System.ComponentModel;
 using System.Drawing;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
+using Xpand.ExpressApp.StateMachine.Security.Improved;
 
 namespace Xpand.ExpressApp.StateMachine {
 
@@ -9,6 +13,13 @@ namespace Xpand.ExpressApp.StateMachine {
         public XpandStateMachineModule() {
             InitializeComponent();
         }
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
+            Application.SetupComplete += ApplicationOnSetupComplete;
+        }
 
+        void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
+            ((SecurityStrategy)SecuritySystem.Instance).RequestProcessors.Register(new StateMachineTransitionRequestProcessor());
+        }
     }
 }

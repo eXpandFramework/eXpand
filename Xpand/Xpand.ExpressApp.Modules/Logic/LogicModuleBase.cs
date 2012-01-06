@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -58,12 +58,16 @@ namespace Xpand.ExpressApp.Logic {
 
         protected virtual IEnumerable<TLogicRule> CollectRulesFromPermissions(IModelLogic modelLogic, ITypeInfo typeInfo, bool reloadPermissions) {
             if (reloadPermissions) {
-                if (!((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem()) {
-                    IList<IPermission> permissions = ((IUser)SecuritySystem.CurrentUser).Permissions;
-                    return permissions.OfType<TLogicRule>().Where(permission => permission.TypeInfo != null && permission.TypeInfo.Type == typeInfo.Type).OrderBy(rule => rule.Index);
-                }
+                var permissions = GetPermissions();
+                return permissions.OfType<TLogicRule>().Where(permission => permission.TypeInfo != null && permission.TypeInfo.Type == typeInfo.Type).OrderBy(rule => rule.Index);
             }
             return new List<TLogicRule>();
+        }
+
+        static IEnumerable GetPermissions() {
+            if (!((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem())
+                return ((IUser)SecuritySystem.CurrentUser).Permissions.ToList();
+            return ((SecurityUser)SecuritySystem.CurrentUser).GetPermissions();
         }
 
         IEnumerable<TLogicRule> CollectRulesFromModel(IModelLogic modelLogic, ITypeInfo info) {

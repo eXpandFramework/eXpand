@@ -55,6 +55,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.Security.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DevExpress 2011.2\eXpressApp Framework\Bin\Framework\DevExpress.ExpressApp.Security.v11.2.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Printing.v11.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -92,6 +96,10 @@
     <Reference Include="Xpand.ExpressApp.Security, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.Persistent.Base, Version=11.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Utils, Version=10.1.5.176, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -139,6 +147,14 @@
     <Compile Include="NodeUpdaters\AdditionalViewControlsRulesNodeUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\AdditionalViewControlsPermission.cs" />
+    <Compile Include="Security\Improved\AdditionalViewControlsOperationPermissionData.cs" />
+    <Compile Include="Security\Improved\AdditionalViewControlsPermission.cs" />
+    <Compile Include="Security\Improved\UpdateControlTypeTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Security\Improved\UpdateDecoratorTypeTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Security\UpdateControlTypeTypeConverterController.cs">
       <SubType>Component</SubType>
     </Compile>
