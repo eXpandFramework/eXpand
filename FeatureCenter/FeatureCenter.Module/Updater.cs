@@ -12,9 +12,6 @@ namespace FeatureCenter.Module {
 
     public class Updater : Xpand.Persistent.BaseImpl.Updater {
         protected bool initializeSecurity;
-        private Type _userType = typeof(SecurityUser);
-        private Type _roleType = typeof(SecurityRole);
-        private static bool? _isNewSecuritySystem = true;
 
         public Updater(IObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {
@@ -37,31 +34,13 @@ namespace FeatureCenter.Module {
             }
             return ensureUserExists;
         }
-        public override Type UserType {
-            get {
-                return _userType ?? base.UserType;
-            }
-        }
-        public override Type RoleType {
-            get {
-                return _roleType ?? base.RoleType;
-            }
-        }
-        public override bool IsNewSecuritySystem {
-            get {
-                return _isNewSecuritySystem ?? base.IsNewSecuritySystem;
-            }
-        }
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
             InitializeSecurity();
-            _userType = typeof(User);
-            _roleType = typeof(Role);
-            _isNewSecuritySystem = false;
+
+
             InitializeSecurity();
-            _userType = null;
-            _roleType = null;
-            _isNewSecuritySystem = null;
+
             var workflowServiceUser = ObjectSpace.FindObject(SecuritySystem.UserType, new BinaryOperator("UserName", "WorkflowService"));
             if (workflowServiceUser == null) {
                 CriteriaOperator criteriaOperator = CriteriaOperator.Parse("Name=?", SecurityStrategy.AdministratorRoleName);
