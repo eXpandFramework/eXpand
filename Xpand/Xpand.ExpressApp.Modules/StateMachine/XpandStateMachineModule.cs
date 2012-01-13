@@ -19,7 +19,8 @@ namespace Xpand.ExpressApp.StateMachine {
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            ((SecurityStrategy)SecuritySystem.Instance).RequestProcessors.Register(new StateMachineTransitionRequestProcessor());
+            if (SecuritySystem.Instance is SecurityStrategy)
+                ((SecurityStrategy)SecuritySystem.Instance).RequestProcessors.Register(new StateMachineTransitionRequestProcessor());
         }
     }
 }

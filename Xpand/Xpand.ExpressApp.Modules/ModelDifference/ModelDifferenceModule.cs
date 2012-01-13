@@ -51,7 +51,8 @@ namespace Xpand.ExpressApp.ModelDifference {
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            ((SecurityStrategy) SecuritySystem.Instance).RequestProcessors.Register(new ModelCombineRequestProcessor());
+            if (SecuritySystem.Instance is SecurityStrategy)
+                ((SecurityStrategy) SecuritySystem.Instance).RequestProcessors.Register(new ModelCombineRequestProcessor());
         }
 
         void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, DevExpress.ExpressApp.CreateCustomModelDifferenceStoreEventArgs args) {
