@@ -15,7 +15,8 @@ namespace Xpand.ExpressApp.StateMachine {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            Application.SetupComplete += ApplicationOnSetupComplete;
+            if (RuntimeMode)
+                Application.SetupComplete += ApplicationOnSetupComplete;
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
