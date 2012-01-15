@@ -7,13 +7,12 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.Logic {
-    public class LogicRuleManager<TLogicRule> : ILogicRuleManager<TLogicRule> 
-    {
+    public class LogicRuleManager<TLogicRule> : ILogicRuleManager<TLogicRule> {
         public const BindingFlags MethodRuleBindingFlags =
             BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public |
             BindingFlags.NonPublic;
 
-        
+
 
 
 
@@ -39,10 +38,18 @@ namespace Xpand.ExpressApp.Logic {
             get {
                 lock (rules) {
                     List<TLogicRule> result = GetEmptyRules();
-                    while (typeInfo != null && typeInfo.Type != typeof (object)) {
+                    if (typeInfo.IsDomainComponent && typeInfo.IsInterface) {
+                        var types = ValueManager.GetValueManager<Dictionary<Type, Type>>("XpandDC").Value;
+                        if (!types.ContainsKey(typeInfo.Type))
+                            throw new ArgumentException("Please register your domain components using XpandModuleBase static RegisterEntity method");
+                        var typeToTypeInfo = XafTypesInfo.CastTypeToTypeInfo(types[typeInfo.Type]);
+                        result.AddRange(GetTypeRules(typeToTypeInfo));
+                    }
+                    while (typeInfo != null && typeInfo.Type != typeof(object)) {
                         result.AddRange(GetTypeRules(typeInfo));
                         typeInfo = typeInfo.Base;
                     }
+
                     return result;
                 }
             }

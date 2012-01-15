@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
+using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic {
@@ -58,6 +59,9 @@ namespace Xpand.ExpressApp.Logic {
                 LogicRuleInfo<TModelLogicRule> info = CalculateLogicRuleInfo(currentObject, rule);
                 if (info != null && TemplateContextIsValid(info) && ViewIsRoot(info)) {
                     info.InvertingCustomization = invertCustomization;
+                    if (info.InvertingCustomization) {
+                        info.Active = !info.Active;
+                    }
                     info.View = view;
                     return info;
                 }
@@ -269,7 +273,13 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         bool IsValidTypeInfo(ViewInfo viewInfo, TModelLogicRule rule) {
-            return ((rule.TypeInfo != null && rule.TypeInfo.IsAssignableFrom(viewInfo.ObjectTypeInfo)) || rule.TypeInfo == null);
+            return (((rule.TypeInfo != null && rule.TypeInfo.IsAssignableFrom(viewInfo.ObjectTypeInfo)) || IsValidDCTypeInfo(viewInfo, rule)) || rule.TypeInfo == null);
+        }
+
+        bool IsValidDCTypeInfo(ViewInfo viewInfo, TModelLogicRule rule) {
+            if (viewInfo.ObjectTypeInfo.IsDomainComponent)
+                return ValueManager.GetValueManager<Dictionary<Type, Type>>("XpandDC").Value[viewInfo.ObjectTypeInfo.Type] == rule.TypeInfo.Type;
+            return true;
         }
 
         private bool IsValidNestedType(TModelLogicRule rule, ViewInfo viewInfo) {

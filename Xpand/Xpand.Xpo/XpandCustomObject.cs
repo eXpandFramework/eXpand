@@ -15,11 +15,12 @@ namespace Xpand.Xpo {
 			set { oid = value; }
 		}
 #else
-        [Persistent("Oid"), Key(true), Browsable(false), MemberDesignTimeVisibility(false)]
+
         private Guid oid = Guid.Empty;
-        [PersistentAlias("oid"), Browsable(false)]
+        [Persistent("Oid"), Key(true), Browsable(false), MemberDesignTimeVisibility(false)]
         public Guid Oid {
             get { return oid; }
+            set { oid = value; }
         }
 #endif
         private bool isDefaultPropertyAttributeInit;

@@ -23,12 +23,13 @@ namespace Xpand.ExpressApp.PivotChart {
                 if (RuntimeMode) {
                     var assembly = Assembly.Load("DevExpress.Persistent.BaseImpl" + XafAssemblyInfo.VersionSuffix);
                     TypesInfo.LoadTypes(assembly);
+                    var typeInfo = TypesInfo.FindTypeInfo("DevExpress.Persistent.BaseImpl.Analysis").Type;
+                    AdditionalExportedTypes.Add(typeInfo);
                 }
             } catch (FileNotFoundException) {
                 throw new TypeLoadException("Please make sure DevExpress.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
             }
-            var typeInfo = TypesInfo.FindTypeInfo("DevExpress.Persistent.BaseImpl.Analysis").Type;
-            AdditionalExportedTypes.Add(typeInfo);
+
 
         }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
