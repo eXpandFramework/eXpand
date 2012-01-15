@@ -353,7 +353,7 @@ namespace Xpand.Tests.Xpand.IO {
                 SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
             };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
-            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "oid").Single().SerializationStrategy = SerializationStrategy.DoNotSerialize;
+            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "Oid").Single().SerializationStrategy = SerializationStrategy.DoNotSerialize;
         };
 
         Because of = () => {
