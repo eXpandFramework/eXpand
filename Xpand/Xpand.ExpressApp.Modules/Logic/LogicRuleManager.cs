@@ -38,10 +38,10 @@ namespace Xpand.ExpressApp.Logic {
             get {
                 lock (rules) {
                     List<TLogicRule> result = GetEmptyRules();
-                    if (typeInfo.IsDomainComponent && typeInfo.IsInterface) {
+                    if (IsValidDomainComponent(typeInfo)) {
                         var types = ValueManager.GetValueManager<Dictionary<Type, Type>>("XpandDC").Value;
                         if (!types.ContainsKey(typeInfo.Type))
-                            throw new ArgumentException("Please register your domain components using XpandModuleBase static RegisterEntity method");
+                            throw new ArgumentException("Please register your domain components using XpandModuleBase static RegisterEntity method", typeInfo.Type.FullName);
                         var typeToTypeInfo = XafTypesInfo.CastTypeToTypeInfo(types[typeInfo.Type]);
                         result.AddRange(GetTypeRules(typeToTypeInfo));
                     }
@@ -58,6 +58,11 @@ namespace Xpand.ExpressApp.Logic {
                     rules[typeInfo] = value;
                 }
             }
+        }
+
+        bool IsValidDomainComponent(ITypeInfo typeInfo) {
+            var ns = typeInfo.Type.Namespace + "";
+            return !ns.StartsWith("DevExpress") && (typeInfo.IsDomainComponent && typeInfo.IsInterface);
         }
         #endregion
         IEnumerable<TLogicRule> GetTypeRules(ITypeInfo typeInfo) {
