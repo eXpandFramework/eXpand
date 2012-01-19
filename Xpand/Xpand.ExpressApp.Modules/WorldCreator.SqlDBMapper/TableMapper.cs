@@ -1,5 +1,4 @@
-﻿using System;
-using DevExpress.Data.Filtering;
+﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -27,7 +26,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
 
             var persistentClassInfo = CreateCore(table, persistentAssemblyInfo, mapperInfo);
             foreach (ForeignKey foreignKey in table.ForeignKeys) {
-                CreateCore(_database.Tables[foreignKey.ReferencedTable, foreignKey.ReferencedTableSchema], persistentAssemblyInfo, mapperInfo);
+                CreateCore(_database.GetTable(foreignKey.ReferencedTable, foreignKey.ReferencedTableSchema), persistentAssemblyInfo, mapperInfo);
             }
             return persistentClassInfo;
         }
@@ -64,5 +63,11 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
             return persistentClassInfo;
         }
 
+    }
+
+    public static class Extensions {
+        public static Table GetTable(this Database database, string name, string schema) {
+            return !string.IsNullOrEmpty(schema) ? database.Tables[name, schema] : database.Tables[name];
+        }
     }
 }

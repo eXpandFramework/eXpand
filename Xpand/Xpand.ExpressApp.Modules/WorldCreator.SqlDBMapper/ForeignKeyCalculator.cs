@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
         }
 
         public ForeignKey GetRefTableForeignKey(ForeignKey foreignKey, string referencedColumn) {
-            return foreignKey.Parent.Parent.Tables[foreignKey.ReferencedTable, foreignKey.ReferencedTableSchema].ForeignKeys.OfType<ForeignKey>().Where(
+            return foreignKey.Parent.Parent.GetTable(foreignKey.ReferencedTable, foreignKey.ReferencedTableSchema).ForeignKeys.OfType<ForeignKey>().Where(
                 key => key.ReferencedTable == foreignKey.Parent.Name && key.Columns.OfType<ForeignKeyColumn>().Any(column => column.ReferencedColumn == referencedColumn)).FirstOrDefault();
         }
         public string GetForeignKeyName(string name, Table table) {
@@ -28,8 +28,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
         }
 
         public ForeignKey GetForeignKey(Database database, string columnName, Table tableName) {
-
-            Table table = database.Tables[tableName.Name, tableName.Schema];
+            Table table = database.GetTable(tableName.Name, tableName.Schema);
             string name = table.Columns[columnName].Name;
             var foreignKey = (from ForeignKey key in table.ForeignKeys
                               from ForeignKeyColumn column in key.Columns
