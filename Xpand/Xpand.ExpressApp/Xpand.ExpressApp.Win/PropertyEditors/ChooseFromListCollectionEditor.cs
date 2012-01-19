@@ -36,10 +36,12 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// Read items in the destination list, and set the check value
         /// </summary>
         protected override void ReadValueCore() {
-            comboControl.EditValueChanged -= ComboControlEditValueChanged;
             var destinationList = PropertyValue as IEnumerable;
-            SetCheckedItems(destinationList);
-            comboControl.EditValueChanged += ComboControlEditValueChanged;
+            if (destinationList != null) {
+                comboControl.EditValueChanged -= ComboControlEditValueChanged;
+                SetCheckedItems(destinationList);
+                comboControl.EditValueChanged += ComboControlEditValueChanged;
+            }
         }
 
         #endregion
@@ -178,14 +180,15 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// </summary>
         private void PopulateCheckComboBox() {
             comboControl.Properties.Items.BeginUpdate();
-            GetAvaliableItems().OfType<object>().Select(o => new CheckedListBoxItemWrapper(string.Format(Model.DisplayFormat,o), o,false)).ToList().ForEach(item => comboControl.Properties.Items.Add(item));
+            GetAvaliableItems().OfType<object>().Select(o => new CheckedListBoxItemWrapper(string.Format(Model.DisplayFormat, o), o, false)).ToList().ForEach(item => comboControl.Properties.Items.Add(item));
             comboControl.Properties.Items.EndUpdate();
         }
 
-        class CheckedListBoxItemWrapper:CheckedListBoxItem {
+        class CheckedListBoxItemWrapper : CheckedListBoxItem {
             readonly object _o;
 
-            public CheckedListBoxItemWrapper(string formatedValue, object o, bool isChecked):base(formatedValue,isChecked) {
+            public CheckedListBoxItemWrapper(string formatedValue, object o, bool isChecked)
+                : base(formatedValue, isChecked) {
                 _o = o;
             }
 
@@ -195,8 +198,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
         IEnumerable GetAvaliableItems() {
             var dataSourcePropertyAttribute = MemberInfo.FindAttribute<DataSourcePropertyAttribute>();
-            if (dataSourcePropertyAttribute!=null) {
-                return (IEnumerable) MemberInfo.Owner.FindMember(dataSourcePropertyAttribute.DataSourceProperty).GetValue(CurrentObject);
+            if (dataSourcePropertyAttribute != null) {
+                return (IEnumerable)MemberInfo.Owner.FindMember(dataSourcePropertyAttribute.DataSourceProperty).GetValue(CurrentObject);
             }
             return new List<object>();
         }

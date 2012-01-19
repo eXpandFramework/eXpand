@@ -9,7 +9,8 @@ using Xpand.ExpressApp.PropertyEditors;
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     [PropertyEditor(typeof(IList<>), false)]
     public class ChooseFromListCollectionEditor : WebPropertyEditor, IChooseFromListCollectionEditor {
-        public ChooseFromListCollectionEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model) {
+        public ChooseFromListCollectionEditor(Type objectType, IModelMemberViewItem model)
+            : base(objectType, model) {
         }
 
         protected override object GetControlValueCore() {
