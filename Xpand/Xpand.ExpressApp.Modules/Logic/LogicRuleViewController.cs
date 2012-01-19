@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
-using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic {
@@ -277,8 +276,15 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         bool IsValidDCTypeInfo(ViewInfo viewInfo, TModelLogicRule rule) {
-            if (viewInfo.ObjectTypeInfo.IsDomainComponent)
-                return ValueManager.GetValueManager<Dictionary<Type, Type>>("XpandDC").Value[viewInfo.ObjectTypeInfo.Type] == rule.TypeInfo.Type;
+            if (viewInfo.ObjectTypeInfo.IsDomainComponent) {
+                var entityType = XafTypesInfo.XpoTypeInfoSource.GetGeneratedEntityType(viewInfo.ObjectTypeInfo.Type);
+                var types = new List<Type> { entityType };
+                while (entityType != null && entityType != typeof(object)) {
+                    entityType = entityType.BaseType;
+                    types.Add(entityType);
+                }
+                return types.Contains(rule.TypeInfo.Type);
+            }
             return true;
         }
 

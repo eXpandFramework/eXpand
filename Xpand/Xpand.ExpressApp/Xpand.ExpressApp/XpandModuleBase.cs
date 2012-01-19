@@ -23,22 +23,10 @@ namespace Xpand.ExpressApp {
         private readonly Boolean isModuleBase;
 
         public XpandModuleBase() {
-            if (ValueManager.GetValueManager<Dictionary<Type, Type>>("XpandDC").Value == null)
-                ValueManager.GetValueManager<Dictionary<Type, Type>>("XpandDC").Value = new Dictionary<Type, Type>();
+            
             isModuleBase = (GetType() == typeof(ModuleBase));
             if (isModuleBase) return;
         }
-
-        public static void RegisterEntity(string name, Type interfaceType) {
-            RegisterEntity(name, interfaceType, typeof(DCBaseObject));
-        }
-
-        public static void RegisterEntity(string name, Type interfaceType, Type baseClass) {
-            var dictionary = ValueManager.GetValueManager<Dictionary<Type, Type>>("XpandDC").Value;
-            dictionary.Add(interfaceType, baseClass);
-            XafTypesInfo.Instance.RegisterEntity(name, interfaceType, baseClass);
-        }
-
 
         protected bool RuntimeMode {
             get { return Application != null && Application.Security != null; }

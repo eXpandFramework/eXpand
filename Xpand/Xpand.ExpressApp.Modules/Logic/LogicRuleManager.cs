@@ -19,10 +19,10 @@ namespace Xpand.ExpressApp.Logic {
         static IValueManager<LogicRuleManager<TLogicRule>>
             instanceManager;
 
-        readonly Dictionary<ITypeInfo, List<TLogicRule>> rules;
+        readonly Dictionary<Type, List<TLogicRule>> rules;
 
         protected LogicRuleManager() {
-            rules = new Dictionary<ITypeInfo, List<TLogicRule>>();
+            rules = new Dictionary<Type, List<TLogicRule>>();
         }
 
         public static LogicRuleManager<TLogicRule> Instance {
@@ -37,35 +37,31 @@ namespace Xpand.ExpressApp.Logic {
         public List<TLogicRule> this[ITypeInfo typeInfo] {
             get {
                 lock (rules) {
-                    List<TLogicRule> result = GetEmptyRules();
-                    if (IsValidDomainComponent(typeInfo)) {
-                        var types = ValueManager.GetValueManager<Dictionary<Type, Type>>("XpandDC").Value;
-                        if (!types.ContainsKey(typeInfo.Type))
-                            throw new ArgumentException("Please register your domain components using XpandModuleBase static RegisterEntity method", typeInfo.Type.FullName);
-                        var typeToTypeInfo = XafTypesInfo.CastTypeToTypeInfo(types[typeInfo.Type]);
-                        result.AddRange(GetTypeRules(typeToTypeInfo));
+                    var type = typeInfo.Type;
+                    if (typeInfo.IsDomainComponent && typeInfo.IsInterface) {
+                        type = XafTypesInfo.XpoTypeInfoSource.GetGeneratedEntityType(type);
                     }
-                    while (typeInfo != null && typeInfo.Type != typeof(object)) {
-                        result.AddRange(GetTypeRules(typeInfo));
-                        typeInfo = typeInfo.Base;
-                    }
-
-                    return result;
+                    return GetLogicRules(type);
                 }
             }
             set {
                 lock (rules) {
-                    rules[typeInfo] = value;
+                    rules[typeInfo.Type] = value;
                 }
             }
         }
 
-        bool IsValidDomainComponent(ITypeInfo typeInfo) {
-            var ns = typeInfo.Type.Namespace + "";
-            return !ns.StartsWith("DevExpress") && (typeInfo.IsDomainComponent && typeInfo.IsInterface);
+        List<TLogicRule> GetLogicRules(Type type) {
+            List<TLogicRule> result = GetEmptyRules();
+            while (type != null && type != typeof(object)) {
+                result.AddRange(GetTypeRules(type));
+                type = type.BaseType;
+            }
+
+            return result;
         }
         #endregion
-        IEnumerable<TLogicRule> GetTypeRules(ITypeInfo typeInfo) {
+        IEnumerable<TLogicRule> GetTypeRules(Type typeInfo) {
             List<TLogicRule> result;
             if (!rules.TryGetValue(typeInfo, out result)) {
                 result = GetEmptyRules();
