@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -86,7 +87,7 @@ namespace Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
 
         public IClassInfoHandler CreateClasses(IEnumerable<string> classNames) {
             _persistentClassInfos = classNames.Select(s => {
-                var persistentClassInfo = (IPersistentClassInfo)(((ObjectSpace) _objectSpace).Session.FindObject(WCTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>(), CriteriaOperator.Parse("Name=?", s)) ?? _objectSpace.CreateWCObject<IPersistentClassInfo>());
+                var persistentClassInfo = (IPersistentClassInfo)(((ObjectSpace)_objectSpace).Session.FindObject(WCTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>(), CriteriaOperator.Parse("Name=?", s)) ?? _objectSpace.CreateWCObject<IPersistentClassInfo>());
                 persistentClassInfo.Name = s;
                 persistentClassInfo.PersistentAssemblyInfo = _persistentAssemblyInfo;
                 _persistentAssemblyInfo.PersistentClassInfos.Add(persistentClassInfo);
@@ -188,6 +189,9 @@ namespace Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
         void IClassInfoHandler.CreateTemplateInfos(Func<IPersistentClassInfo, List<ITemplateInfo>> func) {
             foreach (var persistentClassInfo in _persistentClassInfos) {
                 List<ITemplateInfo> templateInfos = func.Invoke(persistentClassInfo);
+                if (templateInfos.Count > 1)
+                    Debug.Print("");
+
                 foreach (var templateInfo in templateInfos) {
                     persistentClassInfo.TemplateInfos.Add(templateInfo);
                 }

@@ -3,7 +3,6 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using Microsoft.SqlServer.Management.Smo;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.General;

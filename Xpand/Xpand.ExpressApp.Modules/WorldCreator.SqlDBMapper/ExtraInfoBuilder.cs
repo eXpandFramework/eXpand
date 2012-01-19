@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using DevExpress.ExpressApp;
 using Microsoft.SqlServer.Management.Smo;
 using Xpand.ExpressApp.WorldCreator.Core;
@@ -35,9 +36,11 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
             }
             var count = table.Columns.OfType<Column>().Where(column => column.InPrimaryKey).Count();
             if (count > 0) {
-                var templateInfo = (ITemplateInfo) _objectSpace.CreateObject(WCTypesInfo.Instance.FindBussinessObjectType(typeof (ITemplateInfo)));
-                templateInfo.Name = SupportPersistentObjectsAsAPartOfACompositeKey;
-                persistentClassInfo.TemplateInfos.Add(templateInfo);
+                if (persistentClassInfo.TemplateInfos.FirstOrDefault(info => info.Name==SupportPersistentObjectsAsAPartOfACompositeKey)==null) {
+                    var templateInfo = (ITemplateInfo)_objectSpace.CreateObject(WCTypesInfo.Instance.FindBussinessObjectType(typeof(ITemplateInfo)));
+                    templateInfo.Name = SupportPersistentObjectsAsAPartOfACompositeKey;
+                    persistentClassInfo.TemplateInfos.Add(templateInfo);
+                }
             }
         }
 
@@ -52,13 +55,12 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
         void CreateTemplateInfo(IPersistentReferenceMemberInfo persistentReferenceMemberInfo, Column column, ForeignKeyCalculator _foreignKeyCalculator) {
             var table = (Table)column.Parent;
             var database = table.Parent;
-            var foreignKey = _foreignKeyCalculator.GetForeignKey(database, column.Name, table.Name);
+            var foreignKey = _foreignKeyCalculator.GetForeignKey(database, column.Name, table);
             var templateInfo = _objectSpace.CreateWCObject<ITemplateInfo>();
             templateInfo.Name = persistentReferenceMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType.ToString();
             templateInfo.TemplateCode =
                 _foreignKeyCalculator.GetRefTableForeignKey(foreignKey, column.Name).Columns.OfType<ForeignKeyColumn>().
                     Where(keyColumn => keyColumn.ReferencedColumn == column.Name).Single().Name;
-
             persistentReferenceMemberInfo.TemplateInfos.Add(templateInfo);
         }
 
