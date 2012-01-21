@@ -9,6 +9,7 @@ using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Core;
 using System.Linq;
+using Xpand.ExpressApp.ModelDifference.Security;
 
 namespace Xpand.Persistent.BaseImpl {
     public abstract class Updater : ModuleUpdater {
@@ -21,7 +22,7 @@ namespace Xpand.Persistent.BaseImpl {
 
 
         public virtual List<object> GetPermissions(object role) {
-            return !IsNewSecuritySystem ? GetPermissions((ICustomizableRole)role, new List<object>()) : GetPermissions(((SecurityRole)role), new List<object>());
+            return !IsNewSecuritySystem ? GetPermissions((ICustomizableRole)role, new List<object>()) : GetPermissions(((ISecurityRole)role), new List<object>());
         }
 
         private List<object> GetPermissions(ICustomizableRole role, List<object> permissions) {
@@ -39,7 +40,10 @@ namespace Xpand.Persistent.BaseImpl {
 
 
         protected virtual bool InitializeSecurity() {
-            EnsureAnonymousUser();
+            if (IsNewSecuritySystem) {
+                var anonymousRole = (ISecurityRole)EnsureRoleExists(SecurityStrategy.AnonymousUserName, GetPermissions);
+                EnsureAnonymousUser(anonymousRole);
+            }
             var admins = EnsureRoleExists(SecurityStrategy.AdministratorRoleName, GetPermissions);
             EnsureUserExists(Admin, "Administrator", admins);
             if (!ObjectSpace.IsNewObject(admins))
@@ -51,15 +55,15 @@ namespace Xpand.Persistent.BaseImpl {
 
         }
 
-        public void EnsureAnonymousUser() {
-            if (IsNewSecuritySystem) {
-                var anonymousUser = (ISecurityUser)ObjectSpace.FindObject(UserType, new BinaryOperator("UserName", SecurityStrategy.AnonymousUserName));
-                if (anonymousUser == null) {
-                    anonymousUser = (ISecurityUser)ObjectSpace.CreateObject(UserType);
-                    ((XPBaseObject)anonymousUser).SetMemberValue("UserName", SecurityStrategy.AnonymousUserName);
-                    anonymousUser.IsActive = true;
-                    ((IAuthenticationStandardUser)anonymousUser).SetPassword("");
-                }
+        public virtual void EnsureAnonymousUser(ISecurityRole anonymousRole) {
+            var anonymousUser = (ISecurityUser)ObjectSpace.FindObject(UserType, new BinaryOperator("UserName", SecurityStrategy.AnonymousUserName));
+            if (anonymousUser == null) {
+                anonymousUser = (ISecurityUser)ObjectSpace.CreateObject(UserType);
+                var baseObject = ((XPBaseObject)anonymousUser);
+                baseObject.SetMemberValue("UserName", SecurityStrategy.AnonymousUserName);
+                anonymousUser.IsActive = true;
+                ((IAuthenticationStandardUser)anonymousUser).SetPassword("");
+                ((XPBaseCollection)baseObject.GetMemberValue("Roles")).BaseAdd(anonymousRole);
             }
         }
 
@@ -88,10 +92,11 @@ namespace Xpand.Persistent.BaseImpl {
             if (securityUser == null) {
                 var strategyRole = role;
                 securityUser = (ISecurityUser)ObjectSpace.CreateObject(UserType);
-                ((XPBaseObject)securityUser).SetMemberValue("UserName", userName);
+                var baseObject = ((XPBaseObject)securityUser);
+                baseObject.SetMemberValue("UserName", userName);
                 securityUser.IsActive = true;
                 ((IAuthenticationStandardUser)securityUser).SetPassword("");
-                ((ISecurityUserWithRoles)securityUser).Roles.Add((ISecurityRole)strategyRole);
+                ((XPBaseCollection)baseObject.GetMemberValue("Roles")).BaseAdd(strategyRole);
             }
             return securityUser;
         }
@@ -104,18 +109,22 @@ namespace Xpand.Persistent.BaseImpl {
             get { return SecuritySystem.UserType; }
         }
 
-        private List<object> GetPermissions(SecurityRole securityRole, List<object> permissions) {
+        private List<object> GetPermissions(ISecurityRole securityRole, List<object> permissions) {
             if (securityRole.Name == SecurityStrategy.AdministratorRoleName) {
                 var modelPermission = ObjectSpace.CreateObject<ModelOperationPermissionData>();
                 modelPermission.Save();
-                securityRole.BeginUpdate();
-                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Read);
-                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Write);
-                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Create);
-                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Delete);
-                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Navigate);
-                securityRole.EndUpdate();
+                ((ISupportUpdate)securityRole).BeginUpdate();
+                ((XPBaseObject)securityRole).GetMemberValue("Permissions");
+                var descriptorsList = (TypePermissionDescriptorsList)((XPBaseObject)securityRole).GetMemberValue("Permissions");
+                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Read);
+                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Write);
+                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Create);
+                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Delete);
+                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Navigate);
+                ((ISupportUpdate)securityRole).EndUpdate();
                 permissions.Add(modelPermission);
+            } else if (securityRole.Name == SecurityStrategy.AnonymousUserName) {
+                securityRole.GrantPermissionsForModelDifferenceObjects();
             }
             return permissions;
         }
