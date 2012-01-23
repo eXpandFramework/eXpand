@@ -97,6 +97,7 @@ Section -post SEC0001
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     SetOutPath $SMPROGRAMS\$StartMenuGroup
     !insertmacro CREATE_SMGROUP_SHORTCUT "Dll list" $INSTDIR\XpandDllList.txt
+    !insertmacro CREATE_SMGROUP_SHORTCUT "Source" $INSTDIR\Source.zip
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^UninstallLink).lnk" $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_END    
     
