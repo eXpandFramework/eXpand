@@ -237,7 +237,7 @@ Function DllsToGAC
       
     # get all eXpand Dll's from the $INSTDIR and put into XpandDllList.txt 
     Push "$INSTDIR\XpandDllList.txt" # output file
-    Push "Xpand*.dll" # filter
+    Push "*.dll" # filter
     Push "$INSTDIR\Xpand.DLL" # folder to search in
     Call MakeFileList
     
