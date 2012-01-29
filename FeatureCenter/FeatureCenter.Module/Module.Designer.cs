@@ -6,6 +6,7 @@ using Xpand.ExpressApp.ImportWizard;
 using Xpand.ExpressApp.JobScheduler;
 using Xpand.ExpressApp.MemberLevelSecurity;
 using Xpand.ExpressApp.Workflow;
+using Xpand.ExpressApp.WorldCreator.DBMapper;
 using Xpand.ExpressApp.WorldCreator.SqlDBMapper;
 
 namespace FeatureCenter.Module {
@@ -54,6 +55,7 @@ namespace FeatureCenter.Module {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule));
             this.RequiredModuleTypes.Add(typeof(ScriptRecorderModuleBase));
             this.RequiredModuleTypes.Add(typeof(WorldCreatorSqlDBMapperModule));
+            this.RequiredModuleTypes.Add(typeof(WorldCreatorDBMapperModule));
             this.RequiredModuleTypes.Add(typeof(ConditionalDetailViewModule));
             this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.JobSchedulerModule));

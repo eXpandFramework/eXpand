@@ -193,6 +193,10 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator.DBMapper, Version=11.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.DBMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.WorldCreator.SqlDBMapper, Version=10.1.5.176, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -311,6 +315,12 @@
     <Compile Include="Xpand.WorldCreator\ExistentTypeSpecs.cs" />
     <Compile Include="Xpand.WorldCreator\InterfaceInfoSpecs.cs" />
     <Compile Include="Xpand.WorldCreator\Interfaces.cs" />
+    <Compile Include="Xpand.WorldCreator\Mapper\AssemblyGeneratorSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\Mapper\ClassAttributeGeneratorSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\Mapper\MemberAttributeGeneratorSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\Mapper\ClassGeneratorSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\Mapper\MapperContexts.cs" />
+    <Compile Include="Xpand.WorldCreator\Mapper\MemberGeneratorSpecs.cs" />
     <Compile Include="Xpand.WorldCreator\ScriptValidatorSpecs.cs" />
     <Compile Include="Xpand.WorldCreator\TypesInfoSpecs.cs" />
     <Compile Include="Xpand.WorldCreator\XpoObjectMergerSpecs.cs" />

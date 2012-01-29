@@ -8,12 +8,49 @@ using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [HideFromNewMenu]
+    [InterfaceRegistrator(typeof(IPersistentAssemblyDataStoreAttribute))]
+    public class PersistentAssemblyDataStoreAttribute : PersistentAssemblyAttributeInfo, IPersistentAssemblyDataStoreAttribute {
+        public PersistentAssemblyDataStoreAttribute(Session session)
+            : base(session) {
+        }
+
+        public override AttributeInfoAttribute Create() {
+            var constructorInfo = typeof(DataStoreAttribute).GetConstructor(new[] { typeof(string), typeof(string) });
+            string initializedArgumentValues = null;
+            if (PersistentClassInfo.PersistentAssemblyInfo != null)
+                initializedArgumentValues = PersistentClassInfo.PersistentAssemblyInfo.Name + "." + PersistentClassInfo.Name;
+            Guard.ArgumentNotNull(ConnectionString, "ConnectionString");
+            return new AttributeInfoAttribute(constructorInfo, _connectionString, initializedArgumentValues);
+        }
+
+        IPersistentClassInfo IPersistentAssemblyDataStoreAttribute.PersistentClassInfo {
+            get { return _persistentClassInfo; }
+            set { PersistentClassInfo = value as PersistentClassInfo; }
+        }
+        private string _connectionString;
+        [Size(SizeAttribute.Unlimited)]
+        public string ConnectionString {
+            get {
+                return _connectionString;
+            }
+            set {
+                SetPropertyValue("ConnectionString", ref _connectionString, value);
+            }
+        }
+        private PersistentClassInfo _persistentClassInfo;
+        public PersistentClassInfo PersistentClassInfo {
+            get { return _persistentClassInfo; }
+            set { SetPropertyValue("PersistentClassInfo", ref _persistentClassInfo, value); }
+        }
+    }
+    [HideFromNewMenu]
     [InterfaceRegistrator(typeof(IPersistentAssemblyDataStoreAttributeInfo))]
     public class PersistentAssemblyDataStoreAttributeInfo : PersistentAssemblyAttributeInfo, IPersistentAssemblyDataStoreAttributeInfo {
-        public PersistentAssemblyDataStoreAttributeInfo(Session session) : base(session) {
+        public PersistentAssemblyDataStoreAttributeInfo(Session session)
+            : base(session) {
         }
-        
-        
+
+
         private DataStoreLogonObject _dataStoreLogon;
         private string _connectionString;
 
@@ -24,14 +61,14 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             set { SetPropertyValue("ConnectionString", ref _connectionString, value); }
         }
         public override AttributeInfoAttribute Create() {
-            var constructorInfo = typeof(DataStoreAttribute).GetConstructor(new[]{typeof(string),typeof(string)});
+            var constructorInfo = typeof(DataStoreAttribute).GetConstructor(new[] { typeof(string), typeof(string) });
             string initializedArgumentValues = null;
             if (PersistentClassInfo.PersistentAssemblyInfo != null)
-                initializedArgumentValues = PersistentClassInfo.PersistentAssemblyInfo.Name+"."+PersistentClassInfo.Name;
+                initializedArgumentValues = PersistentClassInfo.PersistentAssemblyInfo.Name + "." + PersistentClassInfo.Name;
             Guard.ArgumentNotNull(ConnectionString, "ConnectionString");
-            return new AttributeInfoAttribute(constructorInfo, _connectionString,initializedArgumentValues);
+            return new AttributeInfoAttribute(constructorInfo, _connectionString, initializedArgumentValues);
         }
-        
+
         [NonPersistent]
         public DataStoreLogonObject DataStoreLogon {
             get { return _dataStoreLogon; }
@@ -41,19 +78,18 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             }
         }
         private PersistentClassInfo _persistentClassInfo;
-        public PersistentClassInfo PersistentClassInfo
-        {
+        public PersistentClassInfo PersistentClassInfo {
             get { return _persistentClassInfo; }
             set { SetPropertyValue("PersistentClassInfo", ref _persistentClassInfo, value); }
         }
         IPersistentClassInfo IPersistentAssemblyDataStoreAttributeInfo.PersistentClassInfo {
             get { return PersistentClassInfo; }
-            set { PersistentClassInfo=value as PersistentClassInfo; }
+            set { PersistentClassInfo = value as PersistentClassInfo; }
         }
 
         IDataStoreLogonObject IPersistentAssemblyDataStoreAttributeInfo.DataStoreLogon {
             get { return DataStoreLogon; }
-            set { DataStoreLogon=value as DataStoreLogonObject; }
+            set { DataStoreLogon = value as DataStoreLogonObject; }
         }
     }
 }

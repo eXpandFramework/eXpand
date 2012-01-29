@@ -8,13 +8,11 @@ namespace Xpand.Persistent.Base.PersistentMetaData {
     }
 
     public static class IDataStoreLogonObjectExtensions {
-        public static string GetConnectionString(this IDataStoreLogonObject dataStoreLogonObject)
-        {
+        public static string GetConnectionString(this IDataStoreLogonObject dataStoreLogonObject) {
             return new MSSqlProviderFactory().GetConnectionString(GetParamsDict(dataStoreLogonObject));
         }
 
-        static Dictionary<string, string> GetParamsDict(IDataStoreLogonObject dataStoreLogonObject)
-        {
+        static Dictionary<string, string> GetParamsDict(IDataStoreLogonObject dataStoreLogonObject) {
 
             var parameters = new Dictionary<string, string>();
             if (dataStoreLogonObject.UserName != null)

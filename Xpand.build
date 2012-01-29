@@ -80,6 +80,7 @@
 			.\Xpand\Xpand.ExpressApp.Modules\ExceptionHandling.Web\Xpand.ExpressApp.ExceptionHandling.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\WorldCreator\Xpand.ExpressApp.WorldCreator.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\WorldCreator.SqlDBMapper\Xpand.ExpressApp.WorldCreator.SqlDBMapper.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\WorldCreator.DBMapper\Xpand.ExpressApp.WorldCreator.DBMapper.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\WorldCreator.Win\Xpand.ExpressApp.WorldCreator.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\WorldCreator.Web\Xpand.ExpressApp.WorldCreator.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\IO\Xpand.ExpressApp.IO.csproj;

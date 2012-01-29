@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo.DB;
 using Microsoft.SqlServer.Management.Smo;
@@ -12,7 +11,7 @@ using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class AttributeMapper {
-        readonly ForeignKeyCalculator _foreignKeyCalculator=new ForeignKeyCalculator();
+        readonly ForeignKeyCalculator _foreignKeyCalculator = new ForeignKeyCalculator();
         readonly ObjectSpace _objectSpace;
 
 
@@ -22,29 +21,29 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
 
 
 
-        public List<IPersistentAttributeInfo> Create(Column column,IPersistentMemberInfo owner,DataTypeMapper dataTypeMapper) {
+        public List<IPersistentAttributeInfo> Create(Column column, IPersistentMemberInfo owner, DataTypeMapper dataTypeMapper) {
             var persistentAttributeInfos = new List<IPersistentAttributeInfo>();
-            
-            if (owner.CodeTemplateInfo.CodeTemplate.TemplateType==TemplateType.XPOneToOnePropertyMember)
+
+            if (owner.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPOneToOnePropertyMember)
                 return persistentAttributeInfos;
-            if (column.InPrimaryKey){
+            if (column.InPrimaryKey) {
                 if (owner.Owner.CodeTemplateInfo.CodeTemplate.TemplateType != TemplateType.Struct) {
                     persistentAttributeInfos.Add(GetPersistentKeyAttribute(column));
                 }
             }
-            if (!column.Nullable && !column.InPrimaryKey){
+            if (!column.Nullable && !column.InPrimaryKey) {
                 persistentAttributeInfos.Add(GetPersistentRuleRequiredFieldAttribute(column));
             }
-            if (dataTypeMapper.GetDataType(column) == DBColumnType.String){
+            if (dataTypeMapper.GetDataType(column) == DBColumnType.String) {
                 persistentAttributeInfos.Add(GetPersistentSizeAttribute(column));
             }
-            if (IsSimpleForeignKey(column) || ((IsCompoundPrimaryKey(owner, column)&&column.IsForeignKey)))
+            if (IsSimpleForeignKey(column) || ((IsCompoundPrimaryKey(owner, column) && column.IsForeignKey)))
                 persistentAttributeInfos.Add(GetPersistentAssociationAttribute(column));
-//            if (owner.Owner.CodeTemplateInfo.CodeTemplate.TemplateType!=TemplateType.Struct)
+            //            if (owner.Owner.CodeTemplateInfo.CodeTemplate.TemplateType!=TemplateType.Struct)
 
             var persistentPersistentAttribute = GetPersistentPersistentAttribute(column.Name);
-            if (IsSimpleForeignKey(column)&&IsCompoundForeignKey(column))
-                persistentPersistentAttribute.MapTo=String.Empty;
+            if (IsSimpleForeignKey(column) && IsCompoundForeignKey(column))
+                persistentPersistentAttribute.MapTo = String.Empty;
             persistentAttributeInfos.Add(persistentPersistentAttribute);
             return persistentAttributeInfos;
         }
@@ -78,7 +77,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
             var persistentRuleRequiredFieldAttribute = _objectSpace.CreateWCObject<IPersistentRuleRequiredFieldAttribute>();
             persistentRuleRequiredFieldAttribute.Context = DefaultContexts.Save.ToString();
             persistentRuleRequiredFieldAttribute.ID = "RuleRequired for " + column.Name + " at " +
-                                                      ((Table) column.Parent).Name;
+                                                      ((Table)column.Parent).Name;
             return persistentRuleRequiredFieldAttribute;
         }
 
@@ -93,14 +92,14 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
             get { return _objectSpace; }
         }
 
-        public List<IPersistentAttributeInfo> Create(Table table, IPersistentClassInfo owner,IMapperInfo mapperInfo) {
+        public List<IPersistentAttributeInfo> Create(Table table, IPersistentClassInfo owner, IMapperInfo mapperInfo) {
             var persistentAttributeInfos = new List<IPersistentAttributeInfo>();
-            if (owner.TypeAttributes.OfType<IPersistentPersistentAttribute>().FirstOrDefault()== null)
+            if (owner.TypeAttributes.OfType<IPersistentPersistentAttribute>().FirstOrDefault() == null)
                 persistentAttributeInfos.Add(GetPersistentPersistentAttribute(table.Name));
-            if (!(string.IsNullOrEmpty(mapperInfo.NavigationPath)) && owner.TypeAttributes.OfType<IPersistentNavigationItemAttribute>().FirstOrDefault() == null){
+            if (!(string.IsNullOrEmpty(mapperInfo.NavigationPath)) && owner.TypeAttributes.OfType<IPersistentNavigationItemAttribute>().FirstOrDefault() == null) {
                 var persistentNavigationItemAttribute = ObjectSpace.CreateWCObject<IPersistentNavigationItemAttribute>();
                 var cleanName = CodeEngine.CleanName(owner.Name);
-                persistentNavigationItemAttribute.Path = mapperInfo.NavigationPath+"/"+cleanName;
+                persistentNavigationItemAttribute.Path = mapperInfo.NavigationPath + "/" + cleanName;
                 persistentNavigationItemAttribute.ViewId = cleanName + "_ListView";
                 persistentAttributeInfos.Add(persistentNavigationItemAttribute);
             }
@@ -114,10 +113,10 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
         }
 
         public void Create(IPersistentAssemblyInfo persistentAssemblyInfo, IDataStoreLogonObject dataStoreLogonObject) {
-            if (persistentAssemblyInfo.PersistentClassInfos.Count()>0) {
+            if (persistentAssemblyInfo.PersistentClassInfos.Count() > 0) {
                 var persistentAssemblyDataStoreAttributeInfo = _objectSpace.CreateWCObject<IPersistentAssemblyDataStoreAttributeInfo>();
                 persistentAssemblyDataStoreAttributeInfo.DataStoreLogon = dataStoreLogonObject;
-                persistentAssemblyDataStoreAttributeInfo.PersistentClassInfo =persistentAssemblyInfo.PersistentClassInfos[0];
+                persistentAssemblyDataStoreAttributeInfo.PersistentClassInfo = persistentAssemblyInfo.PersistentClassInfos[0];
                 persistentAssemblyInfo.Attributes.Add(persistentAssemblyDataStoreAttributeInfo);
             }
         }

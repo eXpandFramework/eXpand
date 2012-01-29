@@ -3,4 +3,5 @@ namespace Xpand.Persistent.Base.PersistentMetaData {
     {
         IMapperInfo MapperInfo { get; set; }
     }
+
 }

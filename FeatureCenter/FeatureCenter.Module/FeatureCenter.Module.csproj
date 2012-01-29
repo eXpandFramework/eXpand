@@ -215,6 +215,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator.DBMapper, Version=11.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Xpand.ExpressApp.WorldCreator.DBMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.WorldCreator.SqlDBMapper, Version=10.1.5.179, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.SqlDBMapper.dll</HintPath>

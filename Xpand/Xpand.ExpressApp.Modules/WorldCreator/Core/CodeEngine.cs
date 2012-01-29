@@ -9,10 +9,11 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.WorldCreator.Core {
     public static class CodeEngine {
-
+        public const string SupportPersistentObjectsAsAPartOfACompositeKey = "SupportPersistentObjectsAsAPartOfACompositeKey";
         public static string GenerateCode(IPersistentMemberInfo persistentMemberInfo) {
             if (persistentMemberInfo.CodeTemplateInfo.TemplateInfo != null) {
                 string code = persistentMemberInfo.CodeTemplateInfo.TemplateInfo.TemplateCode;
@@ -250,7 +251,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             return "namespace " + assemblyName + "{public class Dynamic" + (assemblyName + "").Replace(".", "") + "Module:DevExpress.ExpressApp.ModuleBase{}}";
         }
 
-        static string GetCode(IPersistentReferenceMemberInfo key) {
+        public static string GetCode(IPersistentReferenceMemberInfo key) {
             var referenceMemberInfos = key.ReferenceClassInfo.OwnMembers.OfType<IPersistentReferenceMemberInfo>();
             string ret = null;
             foreach (var referenceMemberInfo in referenceMemberInfos) {
@@ -275,6 +276,27 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                                                 base.OnLoaded();
                                                 " + GetCode(key) + @"
                                             }";
+
+            }
+
+        }
+        public static void SupportCompositeKeyPersistentObjects(IPersistentAssemblyInfo persistentAssemblyInfo) {
+            var keys = persistentAssemblyInfo.PersistentClassInfos.SelectMany(info => info.OwnMembers).OfType<IPersistentReferenceMemberInfo>().Where(memberInfo => memberInfo.ReferenceClassInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.Struct);
+            var dictionary = new Dictionary<IPersistentClassInfo, ITemplateInfo>();
+            var objectSpace = ObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
+            foreach (var key in keys) {
+                if (!dictionary.ContainsKey(key.Owner)) {
+                    var info = objectSpace.CreateObjectFromInterface<ITemplateInfo>();
+                    info.Name = SupportPersistentObjectsAsAPartOfACompositeKey;
+                    key.Owner.TemplateInfos.Add(info);
+                    dictionary.Add(key.Owner, info);
+                }
+                ITemplateInfo templateInfo = dictionary[key.Owner];
+                templateInfo.TemplateCode = @"protected override void OnLoaded() {
+                                                base.OnLoaded();
+                                                " + GetCode(key) + @"
+                                            }";
+
 
             }
 

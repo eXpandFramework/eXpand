@@ -172,6 +172,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper {
             _persistentStructClassInfo.OwnMembers.OfType<IPersistentReferenceMemberInfo>().FirstOrDefault().
                 ShouldNotBeNull();
     }
+
     [Subject(typeof(ColumnMapper), "Create MemberInfo")]
     public class When_column_foreign_key_reference_column_is_foreignkey_to_this_column : With_ForeignKey_Column {
         static ITemplateInfo _templateInfo;

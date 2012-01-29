@@ -39,6 +39,7 @@ call buildproject.cmd Xpand.ExpressApp.ExceptionHandling.Win ".\Xpand\Xpand.Expr
 call buildproject.cmd Xpand.ExpressApp.ExceptionHandling.Web ".\Xpand\Xpand.ExpressApp.Modules\ExceptionHandling.Web\Xpand.ExpressApp.ExceptionHandling.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.WorldCreator ".\Xpand\Xpand.ExpressApp.Modules\WorldCreator\Xpand.ExpressApp.WorldCreator.csproj"
 call buildproject.cmd Xpand.ExpressApp.WorldCreator.SqlDBMapper ".\Xpand\Xpand.ExpressApp.Modules\WorldCreator.SqlDBMapper\Xpand.ExpressApp.WorldCreator.SqlDBMapper.csproj"
+call buildproject.cmd Xpand.ExpressApp.WorldCreator.DBMapper ".\Xpand\Xpand.ExpressApp.Modules\WorldCreator.DBMapper\Xpand.ExpressApp.WorldCreator.DBMapper.csproj"
 call buildproject.cmd Xpand.ExpressApp.WorldCreator.Win ".\Xpand\Xpand.ExpressApp.Modules\WorldCreator.Win\Xpand.ExpressApp.WorldCreator.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.WorldCreator.Web ".\Xpand\Xpand.ExpressApp.Modules\WorldCreator.Web\Xpand.ExpressApp.WorldCreator.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.IO ".\Xpand\Xpand.ExpressApp.Modules\IO\Xpand.ExpressApp.IO.csproj"
