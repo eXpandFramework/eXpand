@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp.Security;
 
 namespace Xpand.ExpressApp.StateMachine.Security.Improved {
+    [Serializable]
     public class StateMachineTransitionOperationRequest : OperationPermissionRequestBase, IStateMachineTransitionPermission {
         public StateMachineTransitionOperationRequest(IStateMachineTransitionPermission permission)
             : base(StateMachineTransitionPermission.OperationName) {
