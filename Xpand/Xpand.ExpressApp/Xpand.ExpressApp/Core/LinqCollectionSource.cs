@@ -16,7 +16,9 @@ namespace Xpand.ExpressApp.Core {
         }
 
         public IQueryable Query { get; set; }
+        protected override void ApplyCriteriaCore(DevExpress.Data.Filtering.CriteriaOperator criteria) {
 
+        }
         protected override object CreateCollection() {
             ((XPQueryBase)Query).Session = ((ObjectSpace)ObjectSpace).Session;
             return ConvertQueryToCollection(Query);
