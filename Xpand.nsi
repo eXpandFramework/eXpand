@@ -97,6 +97,7 @@ Section -post SEC0001
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     SetOutPath $SMPROGRAMS\$StartMenuGroup
     !insertmacro CREATE_SMGROUP_SHORTCUT "Dll list" $INSTDIR\XpandDllList.txt
+    !insertmacro CREATE_SMGROUP_SHORTCUT "Source" $INSTDIR\Source.zip
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^UninstallLink).lnk" $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_END    
     
@@ -236,7 +237,7 @@ Function DllsToGAC
       
     # get all eXpand Dll's from the $INSTDIR and put into XpandDllList.txt 
     Push "$INSTDIR\XpandDllList.txt" # output file
-    Push "Xpand*.dll" # filter
+    Push "*.dll" # filter
     Push "$INSTDIR\Xpand.DLL" # folder to search in
     Call MakeFileList
     
