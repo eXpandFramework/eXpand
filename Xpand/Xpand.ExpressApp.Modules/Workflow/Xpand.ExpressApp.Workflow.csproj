@@ -183,6 +183,7 @@
     <Compile Include="ObjectChangedWorkflows\ObjectChangedXpoStartWorkflowRequest.cs" />
     <Compile Include="XpandWorkflowServer.cs" />
     <Compile Include="ObjectChangedWorkflows\ObjectChangedStartWorkflowService.cs" />
+    <Compile Include="XpandWorkflowVersionedDefinitionProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="XpandWorkFlowModule.resx">
