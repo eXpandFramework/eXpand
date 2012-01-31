@@ -45,13 +45,15 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         }
 
         void HideMainBarActions(DetailView xpandDetailView) {
-            var modelEditorViewController = xpandDetailView.GetItems<ModelEditorPropertyEditor>()[0].ModelEditorViewController;
-            FieldInfo fieldInfo = modelEditorViewController.GetType().GetField("mainBarActions",
-                                                                               BindingFlags.Instance | BindingFlags.NonPublic);
-            if (fieldInfo != null) {
-                var actions = (Dictionary<ActionBase, string>)fieldInfo.GetValue(modelEditorViewController);
-                foreach (var actionBase in Frame.Template.DefaultContainer.Actions.Where(actions.Keys.Contains)) {
-                    actionBase.Active["Is Not ModelDiffs view"] = false;
+            var modelEditorPropertyEditors = xpandDetailView.GetItems<ModelEditorPropertyEditor>();
+            if (modelEditorPropertyEditors.Count > 0) {
+                var modelEditorViewController = modelEditorPropertyEditors[0].ModelEditorViewController;
+                FieldInfo fieldInfo = modelEditorViewController.GetType().GetField("mainBarActions", BindingFlags.Instance | BindingFlags.NonPublic);
+                if (fieldInfo != null) {
+                    var actions = (Dictionary<ActionBase, string>)fieldInfo.GetValue(modelEditorViewController);
+                    foreach (var actionBase in Frame.Template.DefaultContainer.Actions.Where(actions.Keys.Contains)) {
+                        actionBase.Active["Is Not ModelDiffs view"] = false;
+                    }
                 }
             }
         }
@@ -73,13 +75,16 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         }
 
         private void SetTemplate() {
-
-            var modelEditorViewController = View.GetItems<ModelEditorPropertyEditor>()[0].ModelEditorViewController;
-            var caption = Guid.NewGuid().ToString();
-            modelEditorViewController.SaveAction.Caption = caption;
-            modelEditorViewController.SetTemplate(Frame.Template);
-            var barManagerHolder = ((IBarManagerHolder)Frame.Template);
-            barManagerHolder.BarManager.Items.OfType<BarButtonItem>().Where(item => item.Caption.IndexOf(caption) > -1).Single().Visibility = BarItemVisibility.Never;
+            var modelEditorPropertyEditors = View.GetItems<ModelEditorPropertyEditor>();
+            if (modelEditorPropertyEditors.Count > 0) {
+                var modelEditorViewController = modelEditorPropertyEditors[0].ModelEditorViewController;
+                var caption = Guid.NewGuid().ToString();
+                modelEditorViewController.SaveAction.Caption = caption;
+                modelEditorViewController.SetTemplate(Frame.Template);
+                var barManagerHolder = ((IBarManagerHolder)Frame.Template);
+                barManagerHolder.BarManager.Items.OfType<BarButtonItem>().Where(
+                    item => item.Caption.IndexOf(caption) > -1).Single().Visibility = BarItemVisibility.Never;
+            }
         }
     }
 }

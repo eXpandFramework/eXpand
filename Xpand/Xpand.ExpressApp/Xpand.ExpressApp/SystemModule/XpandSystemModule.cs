@@ -27,8 +27,6 @@ namespace Xpand.ExpressApp.SystemModule {
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(XafApplication), "Resources.SystemModule.ico")]
     public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter {
-
-
         public XpandSystemModule() {
             try {
                 SequenceObjectType = LoadFromBaseImpl("Xpand.Persistent.BaseImpl.SequenceObject");

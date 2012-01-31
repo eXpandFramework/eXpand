@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
@@ -16,7 +14,6 @@ using Xpand.ExpressApp;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation;
 using Xpand.ExpressApp.ModelDifference;
-using Xpand.ExpressApp.Security.AuthenticationProviders;
 using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifference.CreateCustomModelDifferenceStoreEventArgs;
 
 
@@ -25,11 +22,7 @@ namespace FeatureCenter.Module {
         static XafApplication _application;
 
         public FeatureCenterModule() {
-            IList<Type> exportedTypesFromAssembly = ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(Analysis))).ToList();
-            //            exportedTypesFromAssembly.Remove(typeof(User));
-            //            exportedTypesFromAssembly.Remove(typeof(Role));
-            //            exportedTypesFromAssembly.Remove(typeof(RoleBase));
-            AdditionalExportedTypes.AddRange(exportedTypesFromAssembly);
+            AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(Analysis))));
             AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(Xpand.Persistent.BaseImpl.Updater))));
             AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(SecurityUser))));
             AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(ThresholdSeverity))));

@@ -144,6 +144,7 @@
     <Compile Include="PropertyEditors\IStringLookupPropertyEditor.cs" />
     <Compile Include="PropertyEditors\IStringPropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializableObjectPropertyEditorBuilder.cs" />
+    <Compile Include="Security\Extensions.cs" />
     <Compile Include="Security\IXpandLogonParameters.cs" />
     <Compile Include="SystemModule\UpdateFastManyToManyActionsController.cs">
       <SubType>Component</SubType>

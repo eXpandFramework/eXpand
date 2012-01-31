@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
@@ -6,15 +7,16 @@ using DevExpress.Data.Filtering;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.ModelDifference.Security;
+using Xpand.ExpressApp.Security;
+using Xpand.Persistent.BaseImpl;
 
-namespace SecurityDemo.Module
-{
-    public class Updater : ModuleUpdater
-    {
+namespace SecurityDemo.Module {
+    public class Updater : ModuleUpdater {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) { }
 
-		public override void UpdateDatabaseAfterUpdateSchema() {
-			base.UpdateDatabaseAfterUpdateSchema();
+        public override void UpdateDatabaseAfterUpdateSchema() {
+
+            base.UpdateDatabaseAfterUpdateSchema();
 
             CreateSecurityDemoObjects();
             CreateAnonymousAccess();
@@ -23,7 +25,7 @@ namespace SecurityDemo.Module
             SecurityRole administratorRole = CreateAdministratorRole();
 
             SecurityDemoUser userAdmin = ObjectSpace.FindObject<SecurityDemoUser>(new BinaryOperator("UserName", "Sam"));
-            if(userAdmin == null) {
+            if (userAdmin == null) {
                 userAdmin = ObjectSpace.CreateObject<SecurityDemoUser>();
                 userAdmin.UserName = "Sam";
                 userAdmin.IsActive = true;
@@ -36,51 +38,51 @@ namespace SecurityDemo.Module
             SecurityRole securityDemoRole = CreateSecurityDemoRole();
 
             SecurityDemoUser userJohn = ObjectSpace.FindObject<SecurityDemoUser>(new BinaryOperator("UserName", "John"));
-			if(userJohn == null) {
+            if (userJohn == null) {
                 userJohn = ObjectSpace.CreateObject<SecurityDemoUser>();
-				userJohn.UserName = "John";
+                userJohn.UserName = "John";
                 userJohn.IsActive = true;
                 userJohn.Roles.Add(defaultRole);
                 userJohn.Roles.Add(securityDemoRole);
-				userJohn.Save();
-			}
+                userJohn.Save();
+            }
 
             ObjectSpace.CommitChanges();
-		}
+        }
 
         private void CreateSecurityDemoObjects() {
             FullAccessObject fullAccessObject = ObjectSpace.FindObject<FullAccessObject>(new BinaryOperator("Name", "Fully Accessible Object"));
-            if(fullAccessObject == null) {
+            if (fullAccessObject == null) {
                 fullAccessObject = ObjectSpace.CreateObject<FullAccessObject>();
                 fullAccessObject.Name = "Fully Accessible Object";
                 fullAccessObject.Save();
             }
             ProtectedContentObject protectedContentObject = ObjectSpace.FindObject<ProtectedContentObject>(new BinaryOperator("Name", "Protected Object"));
-            if(protectedContentObject == null) {
+            if (protectedContentObject == null) {
                 protectedContentObject = ObjectSpace.CreateObject<ProtectedContentObject>();
                 protectedContentObject.Name = "Protected Object";
                 protectedContentObject.Save();
             }
             ReadOnlyObject readOnlyObject = ObjectSpace.FindObject<ReadOnlyObject>(new BinaryOperator("Name", "Read-Only Object"));
-            if(readOnlyObject == null) {
+            if (readOnlyObject == null) {
                 readOnlyObject = ObjectSpace.CreateObject<ReadOnlyObject>();
                 readOnlyObject.Name = "Read-Only Object";
                 readOnlyObject.Save();
             }
             IrremovableObject irremovableObject = ObjectSpace.FindObject<IrremovableObject>(new BinaryOperator("Name", "Protected Deletion Object"));
-            if(irremovableObject == null) {
+            if (irremovableObject == null) {
                 irremovableObject = ObjectSpace.CreateObject<IrremovableObject>();
                 irremovableObject.Name = "Protected Deletion Object";
                 irremovableObject.Save();
             }
             UncreatableObject uncreatableObject = ObjectSpace.FindObject<UncreatableObject>(new BinaryOperator("Name", "Protected Creation Object"));
-            if(uncreatableObject == null) {
+            if (uncreatableObject == null) {
                 uncreatableObject = ObjectSpace.CreateObject<UncreatableObject>();
                 uncreatableObject.Name = "Protected Creation Object";
                 uncreatableObject.Save();
             }
             MemberLevelSecurityObject memberLevelSecurityObject = ObjectSpace.FindObject<MemberLevelSecurityObject>(new BinaryOperator("Name", "Member-Level Protected Object"));
-            if(memberLevelSecurityObject == null) {
+            if (memberLevelSecurityObject == null) {
                 memberLevelSecurityObject = ObjectSpace.CreateObject<MemberLevelSecurityObject>();
                 memberLevelSecurityObject.Name = "Member-Level Protected Object";
                 memberLevelSecurityObject.ProtectedContentProperty = "Secure Property Value";
@@ -97,25 +99,25 @@ namespace SecurityDemo.Module
                 memberLevelSecurityObject.Save();
             }
             ObjectLevelSecurityObject fullAccessObjectObject = ObjectSpace.FindObject<ObjectLevelSecurityObject>(new BinaryOperator("Name", "Fully Accessible Object"));
-            if(fullAccessObjectObject == null) {
+            if (fullAccessObjectObject == null) {
                 fullAccessObjectObject = ObjectSpace.CreateObject<ObjectLevelSecurityObject>();
                 fullAccessObjectObject.Name = "Fully Accessible Object";
                 fullAccessObjectObject.Save();
             }
             ObjectLevelSecurityObject protectedContentObjectObject = ObjectSpace.FindObject<ObjectLevelSecurityObject>(new BinaryOperator("Name", "Protected Object"));
-            if(protectedContentObjectObject == null) {
+            if (protectedContentObjectObject == null) {
                 protectedContentObjectObject = ObjectSpace.CreateObject<ObjectLevelSecurityObject>();
                 protectedContentObjectObject.Name = "Protected Object";
                 protectedContentObjectObject.Save();
             }
             ObjectLevelSecurityObject readOnlyObjectObject = ObjectSpace.FindObject<ObjectLevelSecurityObject>(new BinaryOperator("Name", "Read-Only Object"));
-            if(readOnlyObjectObject == null) {
+            if (readOnlyObjectObject == null) {
                 readOnlyObjectObject = ObjectSpace.CreateObject<ObjectLevelSecurityObject>();
                 readOnlyObjectObject.Name = "Read-Only Object";
                 readOnlyObjectObject.Save();
             }
             ObjectLevelSecurityObject irremovableObjectObject = ObjectSpace.FindObject<ObjectLevelSecurityObject>(new BinaryOperator("Name", "Protected Deletion Object"));
-            if(irremovableObjectObject == null) {
+            if (irremovableObjectObject == null) {
                 irremovableObjectObject = ObjectSpace.CreateObject<ObjectLevelSecurityObject>();
                 irremovableObjectObject.Name = "Protected Deletion Object";
                 irremovableObjectObject.Save();
@@ -124,7 +126,7 @@ namespace SecurityDemo.Module
 
         private SecurityRole CreateSecurityDemoRole() {
             SecurityRole securityDemoRole = ObjectSpace.FindObject<SecurityRole>(new BinaryOperator("Name", "Demo"));
-            if(securityDemoRole == null) {
+            if (securityDemoRole == null) {
                 securityDemoRole = ObjectSpace.CreateObject<SecurityRole>();
                 securityDemoRole.Name = "Demo";
 
@@ -213,7 +215,7 @@ namespace SecurityDemo.Module
                 memberLevelReferencedObject2Permission.Save();
                 securityDemoRole.PersistentPermissions.Add(memberLevelReferencedObject2Permission);
 
-                
+
 
                 // Object Operation Permissions
                 TypeOperationPermissionData navigateObjectLevelSecurityObjectPermission = ObjectSpace.CreateObject<TypeOperationPermissionData>();
@@ -268,7 +270,7 @@ namespace SecurityDemo.Module
 
         private SecurityRole CreateAdministratorRole() {
             SecurityRole administratorRole = ObjectSpace.FindObject<SecurityRole>(new BinaryOperator("Name", "Administrator"));
-            if(administratorRole == null) {
+            if (administratorRole == null) {
                 administratorRole = ObjectSpace.CreateObject<SecurityRole>();
                 administratorRole.Name = "Administrator";
                 ModelOperationPermissionData modelPermission = ObjectSpace.CreateObject<ModelOperationPermissionData>();
@@ -290,7 +292,7 @@ namespace SecurityDemo.Module
 
         private SecurityRole CreateDefaultRole() {
             SecurityRole defaultRole = ObjectSpace.FindObject<SecurityRole>(new BinaryOperator("Name", "Default"));
-            if(defaultRole == null) {
+            if (defaultRole == null) {
                 defaultRole = ObjectSpace.CreateObject<SecurityRole>();
                 defaultRole.Name = "Default";
                 TypeOperationPermissionData changePasswordOnLogonPermission = ObjectSpace.CreateObject<TypeOperationPermissionData>();
@@ -358,19 +360,20 @@ namespace SecurityDemo.Module
 
         private void CreateAnonymousAccess() {
             SecurityRole anonymousRole = ObjectSpace.FindObject<SecurityRole>(new BinaryOperator("Name", SecurityStrategy.AnonymousUserName));
-            if(anonymousRole == null) {
+            if (anonymousRole == null) {
                 anonymousRole = ObjectSpace.CreateObject<SecurityRole>();
                 anonymousRole.Name = SecurityStrategy.AnonymousUserName;
                 anonymousRole.BeginUpdate();
                 anonymousRole.Permissions[typeof(SecurityDemoUser)].Grant(SecurityOperations.Write);
                 anonymousRole.Permissions[typeof(SecurityDemoUser)].Grant(SecurityOperations.Read);
+                anonymousRole.GrantPermissionsObjects(new List<Type> { typeof(SequenceObject) });
                 anonymousRole.GrantPermissionsForModelDifferenceObjects();
                 anonymousRole.EndUpdate();
                 anonymousRole.Save();
             }
 
             SecurityDemoUser anonymousUser = ObjectSpace.FindObject<SecurityDemoUser>(new BinaryOperator("UserName", SecurityStrategy.AnonymousUserName));
-            if(anonymousUser == null) {
+            if (anonymousUser == null) {
                 anonymousUser = ObjectSpace.CreateObject<SecurityDemoUser>();
                 anonymousUser.UserName = SecurityStrategy.AnonymousUserName;
                 anonymousUser.IsActive = true;

@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ServiceModel;
 using System.Threading;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.MiddleTier;
+using DevExpress.ExpressApp.MiddleTier.Wcf;
+using DevExpress.ExpressApp.Security;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
@@ -34,13 +38,10 @@ namespace Xpand.Persistent.Base.General {
 
 
         public SequenceGenerator() {
-
-
-
             int count = MaxGenerationAttemptsCount;
             while (true) {
                 try {
-                    _explicitUnitOfWork = new ExplicitUnitOfWork(DefaultDataLayer);
+                    _explicitUnitOfWork = GetExplicitUnitOfWork();
                     var sequences = new XPCollection(_explicitUnitOfWork, _sequenceObjectType);
                     foreach (XPBaseObject seq in sequences)
                         seq.Save();
@@ -54,6 +55,19 @@ namespace Xpand.Persistent.Base.General {
                     Thread.Sleep(MinGenerationAttemptsDelay * count);
                 }
             }
+        }
+        static UnitOfWork GetUnitOfWork() {
+            var dataLayer = GetDataLayer();
+            if (dataLayer is IDataLayer)
+                return new UnitOfWork((IDataLayer)dataLayer);
+            return new UnitOfWork((IObjectLayer)dataLayer);
+        }
+
+        static ExplicitUnitOfWork GetExplicitUnitOfWork() {
+            var dataLayer = GetDataLayer();
+            if (dataLayer is IDataLayer)
+                return new ExplicitUnitOfWork((IDataLayer)dataLayer);
+            return new ExplicitUnitOfWork((IObjectLayer)dataLayer);
         }
 
         public void Accept() {
@@ -94,21 +108,23 @@ namespace Xpand.Persistent.Base.General {
             Close();
         }
 
-        static IDataLayer defaultDataLayer;
         static Type _sequenceObjectType;
-
-        public static IDataLayer DefaultDataLayer {
-            get {
-                if (defaultDataLayer == null)
-                    throw new NullReferenceException("DefaultDataLayer");
-                return defaultDataLayer;
+        private static object GetDataLayer() {
+            if (DefaultDataLayer != null) {
+                return DefaultDataLayer;
             }
-            set { defaultDataLayer = value; }
+            if (DefaultObjectLayer != null)
+                return DefaultObjectLayer;
+            throw new NullReferenceException("DefaultLayer");
         }
+
+        static IDataLayer DefaultDataLayer { get; set; }
+
+        static IObjectLayer DefaultObjectLayer { get; set; }
 
         public static void RegisterSequences(IEnumerable<ITypeInfo> persistentTypes) {
             if (persistentTypes != null)
-                using (var unitOfWork = new UnitOfWork(DefaultDataLayer)) {
+                using (var unitOfWork = GetUnitOfWork()) {
                     var typeToExistsMap = GetTypeToExistsMap(unitOfWork);
                     foreach (ITypeInfo typeInfo in persistentTypes) {
                         if (typeToExistsMap.ContainsKey(typeInfo.FullName)) continue;
@@ -118,9 +134,10 @@ namespace Xpand.Persistent.Base.General {
                 }
         }
 
+
         public static void RegisterSequences(IEnumerable<XPClassInfo> persistentClasses) {
             if (persistentClasses != null)
-                using (var unitOfWork = new UnitOfWork(DefaultDataLayer)) {
+                using (var unitOfWork = GetUnitOfWork()) {
                     var typeToExistsMap = GetTypeToExistsMap(unitOfWork);
                     foreach (XPClassInfo classInfo in persistentClasses) {
                         if (typeToExistsMap.ContainsKey(classInfo.FullName)) continue;
@@ -169,7 +186,6 @@ namespace Xpand.Persistent.Base.General {
                             _sequenceGenerator = null;
                         }
                     }
-
                 };
                 session.AfterCommitTransaction += sessionOnAfterCommitTransaction[0];
             }
@@ -180,11 +196,19 @@ namespace Xpand.Persistent.Base.General {
             GenerateSequence(supportSequenceObject, XafTypesInfo.Instance.FindTypeInfo(supportSequenceObject.ClassInfo.FullName));
         }
 
-
-
         public static void Initialize(string connectionString, Type sequenceObjectType) {
             _sequenceObjectType = sequenceObjectType;
-            DefaultDataLayer = XpoDefault.GetDataLayer(connectionString, AutoCreateOption.DatabaseAndSchema);
+            IDataService dataService = null;
+            if (connectionString.StartsWith("http")) {
+                dataService = new WcfApplicationDataClient(MiddleTierHelper.TransportConnectionsProvider.CreateDefaultBinding(), new EndpointAddress(connectionString + "/" + ApplicationDataService.ServiceName));
+            } else if (connectionString.StartsWith("tcp")) {
+                MiddleTierHelper.TransportConnectionsProvider.RegisterDefaultChannel();
+                dataService = (IDataService)Activator.GetObject(typeof(IDataService), connectionString);
+            }
+            var clientObjectLayer = new SerializableObjectLayerMiddleTierClient(SecuritySystem.Instance as IClientInfoProvider, dataService);
+            var objectLayer = new SerializableObjectLayerClient(clientObjectLayer, XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+
+            DefaultObjectLayer = objectLayer;
             RegisterSequences(XafTypesInfo.Instance.PersistentTypes);
         }
 
