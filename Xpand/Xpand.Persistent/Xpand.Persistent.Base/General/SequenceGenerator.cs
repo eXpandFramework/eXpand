@@ -198,18 +198,29 @@ namespace Xpand.Persistent.Base.General {
 
         public static void Initialize(string connectionString, Type sequenceObjectType) {
             _sequenceObjectType = sequenceObjectType;
-            IDataService dataService = null;
-            if (connectionString.StartsWith("http")) {
-                dataService = new WcfApplicationDataClient(MiddleTierHelper.TransportConnectionsProvider.CreateDefaultBinding(), new EndpointAddress(connectionString + "/" + ApplicationDataService.ServiceName));
-            } else if (connectionString.StartsWith("tcp")) {
-                MiddleTierHelper.TransportConnectionsProvider.RegisterDefaultChannel();
-                dataService = (IDataService)Activator.GetObject(typeof(IDataService), connectionString);
-            }
-            var clientObjectLayer = new SerializableObjectLayerMiddleTierClient(SecuritySystem.Instance as IClientInfoProvider, dataService);
-            var objectLayer = new SerializableObjectLayerClient(clientObjectLayer, XafTypesInfo.XpoTypeInfoSource.XPDictionary);
-
-            DefaultObjectLayer = objectLayer;
+            SetupObjectLayer(connectionString);
+            if (DefaultObjectLayer == null)
+                DefaultDataLayer = XpoDefault.GetDataLayer(connectionString, AutoCreateOption.DatabaseAndSchema);
             RegisterSequences(XafTypesInfo.Instance.PersistentTypes);
+        }
+
+        static void SetupObjectLayer(string connectionString) {
+            if (connectionString.StartsWith("http") || connectionString.StartsWith("tcp")) {
+                IDataService dataService = null;
+                if (connectionString.StartsWith("http")) {
+                    dataService = new WcfApplicationDataClient(
+                        MiddleTierHelper.TransportConnectionsProvider.CreateDefaultBinding(),
+                        new EndpointAddress(connectionString + "/" + ApplicationDataService.ServiceName));
+                } else if (connectionString.StartsWith("tcp")) {
+                    MiddleTierHelper.TransportConnectionsProvider.RegisterDefaultChannel();
+                    dataService = (IDataService)Activator.GetObject(typeof(IDataService), connectionString);
+                }
+                var clientObjectLayer = new SerializableObjectLayerMiddleTierClient(SecuritySystem.Instance as IClientInfoProvider,
+                                                                                    dataService);
+                var objectLayer = new SerializableObjectLayerClient(clientObjectLayer, XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+
+                DefaultObjectLayer = objectLayer;
+            }
         }
 
         public static void ReleaseSequence(ISupportSequenceObject supportSequenceObject) {
