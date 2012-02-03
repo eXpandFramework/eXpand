@@ -551,6 +551,10 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             this.cancelEdit = cancelEdit;
         }
         #region IAppearanceEnabled Members
+        public void ResetEnabled() {
+
+        }
+
         public bool Enabled {
             get { return !cancelEdit.Cancel; }
             set { cancelEdit.Cancel = !value; }
@@ -1642,7 +1646,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         }
 
         public void OnExporting() {
-            
+
         }
 
         public IPrintable Printable {
