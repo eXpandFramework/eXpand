@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 var count = ((ObjectSpace)ObjectSpace).Session.CollectReferencingObjects(o).Count;
                 if (count > 0) {
                     var result = new RuleSetValidationResult();
-                    var messageTemplate = "Cannot be deleted " + count + " referemces found";
+                    var messageTemplate = "Cannot be deleted " + count + " references found";
                     result.AddResult(new RuleSetValidationResultItem(o, ContextIdentifier.Delete, null,
                                                                      new RuleValidationResult(null, this, ValidationState.Invalid,
                                                                                               messageTemplate)));

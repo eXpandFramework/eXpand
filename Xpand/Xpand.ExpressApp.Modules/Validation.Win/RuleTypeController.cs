@@ -49,8 +49,10 @@ namespace Xpand.ExpressApp.Validation.Win {
                     errorTypeEventArgs.ErrorType = (ErrorType)enumDescriptor.ParseCaption(caption);
                 } else {
                     var resultItem = (DisplayableValidationResultItem)((XafGridView)sender).GetRow(errorTypeEventArgs.RowHandle);
-                    var warning = ((IModelRuleBaseRuleType)((IModelApplicationValidation)Application.Model).Validation.Rules[resultItem.Rule.Id]);
-                    errorTypeEventArgs.ErrorType = (ErrorType)enumDescriptor.ParseCaption(warning.RuleType.ToString());
+                    if (resultItem.Rule != null) {
+                        var warning = ((IModelRuleBaseRuleType)((IModelApplicationValidation)Application.Model).Validation.Rules[resultItem.Rule.Id]);
+                        errorTypeEventArgs.ErrorType = (ErrorType)enumDescriptor.ParseCaption(warning.RuleType.ToString());
+                    }
                 }
             }
         }
