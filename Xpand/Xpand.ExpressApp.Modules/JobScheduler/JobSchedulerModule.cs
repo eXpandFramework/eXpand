@@ -29,8 +29,14 @@ namespace Xpand.ExpressApp.JobScheduler {
             base.Setup(moduleManager);
             if (Application == null)
                 return;
-            if (RuntimeMode)
+            if (RuntimeMode) {
                 AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.JobScheduler");
+                Application.LoggedOn += ApplicationOnLoggedOn;
+            }
+
+        }
+
+        void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {
             ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(Application);
             try {
                 IScheduler scheduler = stdSchedulerFactory.AllSchedulers.SingleOrDefault();
