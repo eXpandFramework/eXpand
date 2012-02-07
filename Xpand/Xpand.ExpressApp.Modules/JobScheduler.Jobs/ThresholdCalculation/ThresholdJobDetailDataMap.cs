@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation {
             }
         }
         private string _criteria;
-        [CriteriaObjectTypeMember("DataType")]
+        [CriteriaOptionsAttribute("DataType")]
         [EditorAlias(EditorAliases.CriteriaPropertyEditor)]
         public string Criteria {
             get {

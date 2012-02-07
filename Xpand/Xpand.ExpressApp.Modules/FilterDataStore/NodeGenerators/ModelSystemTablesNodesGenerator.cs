@@ -5,6 +5,8 @@ using Xpand.ExpressApp.FilterDataStore.Model;
 namespace Xpand.ExpressApp.FilterDataStore.NodeGenerators {
     public class ModelSystemTablesNodesGenerator : ModelNodesGeneratorBase {
         protected override void GenerateNodesCore(ModelNode node) {
+            node.AddNode<IModelFilterDataStoreSystemTable>("SecurityRole");
+            node.AddNode<IModelFilterDataStoreSystemTable>("SecurityUser");
             node.AddNode<IModelFilterDataStoreSystemTable>("PropertyBag");
             node.AddNode<IModelFilterDataStoreSystemTable>("PropertyBagDescriptor");
             node.AddNode<IModelFilterDataStoreSystemTable>("PropertyDescriptor");

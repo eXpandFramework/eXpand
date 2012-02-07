@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.Model {
         [Required]
         [Category("eXpand")]
         [Description("Using an expression here it will force the creation of a calculated property insted of a normal one")]
-        [CriteriaObjectTypeMember("ModelClass.TypeInfo")]
+        [CriteriaOptionsAttribute("ModelClass.TypeInfo")]
         [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafApplication.CurrentVersion, typeof(System.Drawing.Design.UITypeEditor))]
         string AliasExpression { get; set; }
     }
@@ -27,7 +27,7 @@ namespace Xpand.ExpressApp.Model {
 
     public interface IModelRuntimeOrphanedColection : IModelRuntimeNonPersistentMember, IModelMemberEx {
         [Category("eXpand")]
-        [CriteriaObjectTypeMember("ModelClass.TypeInfo")]
+        [CriteriaOptionsAttribute("ModelClass.TypeInfo")]
         [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafApplication.CurrentVersion, typeof(System.Drawing.Design.UITypeEditor))]
         string Criteria { get; set; }
         [Category("eXpand")]

@@ -566,7 +566,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         }
         #endregion
     }
-    internal class AppearanceObjectAdapterWithReset : AppearanceObjectAdapter, IAppearanceReset {
+    internal class AppearanceObjectAdapterWithReset : AppearanceObjectAdapter {
         private AppearanceObject appearanceObject;
         public AppearanceObjectAdapterWithReset(AppearanceObject appearanceObject, object data)
             : base(appearanceObject, data) {
@@ -690,7 +690,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         new string Settings { get; set; }
     }
     [ListEditor(typeof(object), false)]
-    public class LayoutViewListEditor : ColumnsListEditor, /*Removed: ISupportNewItemRowPosition, IGridListEditorTestable, ISupportFooter, ISupportConditionalFormatting,*/IControlOrderProvider, IDXPopupMenuHolder, IComplexListEditor, IPrintableSource, ILookupListEditor, IHtmlFormattingSupport, IFocusedElementCaptionProvider, ILookupEditProvider, IExportable, ISupportAppearanceCustomization {
+    public class LayoutViewListEditor : ColumnsListEditor, /*Removed: ISupportNewItemRowPosition, IGridListEditorTestable, ISupportFooter, ISupportConditionalFormatting,*/IControlOrderProvider, IDXPopupMenuHolder, IComplexListEditor, IExportable, ILookupListEditor, IHtmlFormattingSupport, IFocusedElementCaptionProvider, ILookupEditProvider, ISupportAppearanceCustomization {
         private RepositoryEditorsFactory repositoryFactory;
         private bool readOnlyEditors;
         private GridControl grid;
@@ -768,8 +768,10 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         }
         private void layoutView_CustomCreateFilterColumnCollection(object sender, CustomCreateFilterColumnCollectionEventArgs e) {
             if (collectionSource != null) {
+#pragma warning disable 612,618
                 IFilterColumnCollectionHelper helper = new FilterColumnCollectionHelper(application, collectionSource.ObjectSpace, collectionSource.ObjectTypeInfo);
                 e.FilterColumnCollection = new MemberInfoFilterColumnCollection(helper);
+#pragma warning restore 612,618
             }
         }
         private void UnsubscribeLayoutViewEvents() {

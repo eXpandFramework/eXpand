@@ -38,8 +38,7 @@ namespace ExternalApplication.Win {
             this.xpandSystemWindowsFormsModule1 = new Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule();
             this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
 
-            this.conditionalEditorStateModuleBase1 = new DevExpress.ExpressApp.ConditionalEditorState.ConditionalEditorStateModuleBase();
-            this.conditionalEditorStateWindowsFormsModule1 = new DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule();
+            
             this.fileAttachmentsWindowsFormsModule1 = new DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule();
 
             this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityComplex();
@@ -83,8 +82,7 @@ namespace ExternalApplication.Win {
             this.Modules.Add(this.xpandSystemWindowsFormsModule1);
             this.Modules.Add(this.xpandValidationModule1);
 
-            this.Modules.Add(this.conditionalEditorStateModuleBase1);
-            this.Modules.Add(this.conditionalEditorStateWindowsFormsModule1);
+            
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
 
             this.Modules.Add(this.module4);
@@ -115,8 +113,7 @@ namespace ExternalApplication.Win {
         private Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule xpandSystemWindowsFormsModule1;
         private Xpand.ExpressApp.Validation.XpandValidationModule xpandValidationModule1;
 
-        private DevExpress.ExpressApp.ConditionalEditorState.ConditionalEditorStateModuleBase conditionalEditorStateModuleBase1;
-        private DevExpress.ExpressApp.ConditionalEditorState.Win.ConditionalEditorStateWindowsFormsModule conditionalEditorStateWindowsFormsModule1;
+        
         private DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule fileAttachmentsWindowsFormsModule1;
 
         private DevExpress.ExpressApp.Security.SecurityComplex securityComplex1;
