@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         IEnumerable<XPMemberInfo> GetDecoratedMembers(ITypesInfo typesInfo) {
             IEnumerable<XPMemberInfo> memberInfos =
-                typesInfo.PersistentTypes.Where(info => !info.IsDomainComponent).SelectMany(typeInfo => {
+                typesInfo.PersistentTypes.Where(info => (info.IsInterface && !info.IsDomainComponent) || !info.IsInterface).SelectMany(typeInfo => {
                     XPClassInfo xpClassInfo = XpandModuleBase.Dictiorary.QueryClassInfo(typeInfo.Type);
                     return xpClassInfo != null ? xpClassInfo.OwnMembers : new List<XPMemberInfo>();
                 });
