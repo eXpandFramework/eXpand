@@ -52,15 +52,11 @@ namespace Xpand.ExpressApp.Win {
         public new void WriteLastLogonParameters(DetailView view, object logonObject) {
             base.WriteLastLogonParameters(view, logonObject);
         }
-        
+
         protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             base.OnCreateCustomObjectSpaceProvider(args);
-            if (args.ObjectSpaceProvider==null)
+            if (args.ObjectSpaceProvider == null)
                 this.CreateCustomObjectSpaceprovider(args);
-        }
-
-        protected virtual void CreateXpandObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            
         }
 
         public new void Start() {

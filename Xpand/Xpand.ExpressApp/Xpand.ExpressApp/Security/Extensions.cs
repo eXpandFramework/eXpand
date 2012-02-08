@@ -12,8 +12,12 @@ namespace Xpand.ExpressApp.Security {
             foreach (var type in types) {
                 TypeOperationPermissionDescriptor descriptor =
                     ((TypePermissionDescriptorsList)((XPBaseObject)securityRole).GetMemberValue("Permissions"))[type];
-                if (descriptor != null)
+                if (descriptor != null) {
+                    descriptor.Grant(SecurityOperations.Create);
                     descriptor.Grant(SecurityOperations.Write);
+                    descriptor.Grant(SecurityOperations.Read);
+                    descriptor.Grant(SecurityOperations.Delete);
+                }
             }
         }
 
