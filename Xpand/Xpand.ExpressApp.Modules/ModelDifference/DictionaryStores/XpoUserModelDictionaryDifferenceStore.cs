@@ -111,7 +111,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         private IEnumerable<string> GetNames() {
             return ((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem()
-                       ? ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions().OfType<ModelCombinePermission>().Select(permission => permission.Difference)
+                       ? ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions().OfType<Security.Improved.ModelCombinePermission>().Select(permission => permission.Difference)
                        : ((IUser)SecuritySystem.CurrentUser).Permissions.OfType<ModelCombinePermission>().Select(permission => permission.Difference);
         }
 
