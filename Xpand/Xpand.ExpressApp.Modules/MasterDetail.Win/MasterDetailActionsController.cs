@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
         protected override void OnActivated() {
             base.OnActivated();
             if (IsMasterDetail) {
-                foreach (var controller in Frame.Controllers) {
+                foreach (var controller in Frame.Controllers.Values.OfType<ViewController>()) {
                     foreach (var action in controller.Actions) {
                         if (action is SimpleAction) {
                             Controller controller1 = controller;
@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
             }
         }
 
-        
+
 
         public Dictionary<GridView, Dictionary<string, BoolList>> ActiveChildBoolLists {
             get { return _activeChildBoolLists; }
@@ -54,7 +54,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
 
         void ChildGridControlOnFocusedViewChanged(object sender, ViewFocusEventArgs viewFocusEventArgs) {
             if (Frame != null) {
-                foreach (var controller in Frame.Controllers) {
+                foreach (var controller in Frame.Controllers.Values.OfType<ViewController>()) {
                     foreach (var action in controller.Actions) {
                         if (viewFocusEventArgs.View != GridListEditor.GridView.GridControl.MainView && _activeChildBoolLists.Count() > 0) {
                             var gridView = (GridView)viewFocusEventArgs.View;
@@ -74,7 +74,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
         }
 
         void StoreStates() {
-            foreach (var controller in Frame.Controllers) {
+            foreach (var controller in Frame.Controllers.Values.OfType<ViewController>()) {
                 foreach (var action in controller.Actions) {
                     StoreStatesCore(action, _activeBoolLists, action.Active);
                     StoreStatesCore(action, _enabledBoolLists, action.Enabled);
@@ -84,7 +84,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
 
         void MasterGridOnFocusedViewChanged(object sender, ViewFocusEventArgs viewFocusEventArgs) {
             if (GridListEditor != null && GridListEditor.Grid.MainView == viewFocusEventArgs.View) {
-                foreach (Controller controller in Frame.Controllers) {
+                foreach (var controller in Frame.Controllers.Values.OfType<ViewController>()) {
                     foreach (ActionBase action in controller.Actions) {
                         RestoreStates(action, action.Active, _activeBoolLists);
                         RestoreStates(action, action.Enabled, _enabledBoolLists);
@@ -131,20 +131,24 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
             base.OnFrameAssigned();
             bool _disposing = false;
             Frame.Disposing += (sender, args) => _disposing = true;
-            foreach (var controller in Frame.Controllers) {
+            foreach (var controller in Frame.Controllers.Values.OfType<ViewController>()) {
+                //                if (controller is ViewController) {
                 foreach (var action in controller.Actions) {
                     if (!IsExcluded(action)) {
                         ActionBase action1 = action;
                         action.Enabled.Changed += (sender, args) => {
                             if (!(_disposing))
-                                SyncState(action1, (BoolList)sender, simpleAction => simpleAction.Enabled, _enableChildBoolLists);
+                                SyncState(action1, (BoolList)sender, simpleAction => simpleAction.Enabled,
+                                          _enableChildBoolLists);
                         };
                         action.Active.Changed += (sender, args) => {
                             if (!_disposing)
-                                SyncState(action1, (BoolList)sender, simpleAction => simpleAction.Active, _activeChildBoolLists);
+                                SyncState(action1, (BoolList)sender, simpleAction => simpleAction.Active,
+                                          _activeChildBoolLists);
                         };
                     }
                 }
+                //                }
             }
         }
 
@@ -187,7 +191,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
         }
 
         static BoolList GetBoolList(Frame masterFrame, ActionBase sender, Func<ActionBase, BoolList> func) {
-            foreach (var controller in masterFrame.Controllers) {
+            foreach (var controller in masterFrame.Controllers.Values.OfType<ViewController>()) {
                 foreach (var action in controller.Actions) {
                     if (action.Id == sender.Id)
                         return func.Invoke(action);
