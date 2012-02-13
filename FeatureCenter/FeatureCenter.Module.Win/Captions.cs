@@ -48,6 +48,6 @@
         public const string ViewMessageNullAble = "Create a new record , execute the Save action and see the databayer senting null values to the database";
         public const string ViewMessageStringPropertyEditors = "When you use the model predifines attribute you may want to disable editor edit see (predifined property)";
         public const string ViewMessageStringPropertyEditors1 = "To create a lookup for a property that is not a reference object see the editor of the City property";
-        public const string ViewMessageChooseFromListCollectionEditor = "Check the property editor of the Orders property. Assign this editor to a generic collection and it will retreive all items of that generic type, and list them in the combo box.it will then look at what items are in the collection and set the checkstate.if the checkstate of an item changes, it will be added or removed from the collection.";
+        public const string ViewMessageChooseFromListCollectionEditor = "Check the property editor of the DatesExcluded property. It is designed to list all objects inside a persistent collection in a combobox.";
     }
 }

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.BaseImpl.JobScheduler.Calendars;
 
 namespace FeatureCenter.Module.Win.PropertyEditors.ChooseFromListCollectionEditor {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         private const string ChooseFromListCollectionEditor_DetailView = "ChooseFromListCollectionEditor_DetailView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
-            if (!Object.ReferenceEquals(typesInfo.Type, typeof(WinCustomer))) yield break;
+            if (!ReferenceEquals(typesInfo.Type, typeof(XpandHolidayCalendar))) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderChooseFromListCollectionEditor, "1=1", "1=1",
                 Captions.ViewMessageChooseFromListCollectionEditor, Position.Bottom) { View = ChooseFromListCollectionEditor_DetailView };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderChooseFromListCollectionEditor, "1=1", "1=1",

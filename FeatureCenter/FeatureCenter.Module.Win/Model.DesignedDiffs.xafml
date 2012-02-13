@@ -1,4 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <AdditionalViewControls>
+    <Rules>
+      <AdditionalViewControlsRule Id="XpandHolidayCalendarHelp" View="XpandHolidayCalendar_DetailView" />
+    </Rules>
+  </AdditionalViewControls>
   <Options Skin="Black" ApplicationMultiInstances="True" />
+  <Views>
+    <DetailView Id="ChooseFromListCollectionEditor_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" TextAlignMode="AlignLocal">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="XpandTriggerCalendar" RelativeSize="100" Caption="XpandTriggerCalendar" ImageName="">
+              <LayoutItem Id="Name" ViewItem="Name" RelativeSize="100" />
+              <LayoutItem Id="TimeZone" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutItem Id="DatesExcluded" ShowCaption="False" TextAlignMode="AutoSize" ViewItem="DatesExcluded" Index="1" RelativeSize="94" IsNewNode="True" />
+          <TabbedGroup Id="Tabs" Index="2" RelativeSize="91" Removed="True">
+            <LayoutGroup Id="XpandJobTriggers" TextAlignMode="AlignLocal" RelativeSize="100" ImageName="BO_Unknown" Index="0">
+              <LayoutItem Id="XpandJobTriggers" TextAlignMode="AutoSize" ViewItem="XpandJobTriggers" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="DatesExcluded" TextAlignMode="UseParentOptions" RelativeSize="0" ImageName="" Direction="Horizontal" Removed="True">
+              <LayoutItem Id="DatesExcluded" Removed="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
 </Application>
