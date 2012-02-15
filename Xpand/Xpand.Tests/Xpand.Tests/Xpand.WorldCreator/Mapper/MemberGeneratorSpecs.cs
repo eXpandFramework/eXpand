@@ -141,30 +141,98 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             _persistentMemberInfos = new MemberGenerator(_generatorHelper.DbTable, _generatorHelper.ClassGeneratorInfos).Create().Select(info => info.PersistentMemberInfo).ToList();
         };
 
-        It should_create_a_collection_to_the_referenced_classInfo =
-            () => _refPersistentClassInfo.OwnMembers.OfType<PersistentCollectionMemberInfo>().Single().Owner.ShouldEqual(_generatorHelper.PersistentClassInfo);
+        //        It should_create_a_collection_to_the_referenced_classInfo =
+        //            () => _refPersistentClassInfo.OwnMembers.OfType<PersistentCollectionMemberInfo>().Single().Owner.ShouldEqual(_generatorHelper.PersistentClassInfo);
 
         It should_create_a_reference_member_to_the_struct_classinfo =
             () => _persistentMemberInfos.OfType<IPersistentReferenceMemberInfo>().First().Owner.ShouldEqual(_generatorHelper.StructPersistentClassInfo);
     }
 
-    [Subject(typeof(MemberGenerator), "Create MemberInfo")]
-    public class When_column_is_primary_key_and_is_foreign_key_to_another_table_primary_key : With_In_Memory_DataStore {
+    [Subject(typeof(MemberGenerator), "One to one to the key member")]
+    public class When_column_is_primary_key_and_foreign_key_to_a_table_that_has_its_primary_key_as_foreign_key_back_to_the_primary_table : With_In_Memory_DataStore {
+        static IPersistentReferenceMemberInfo _persistentReferenceMemberInfo;
+        static RefMemberGeneratorHelper _refMemberGeneratorHelper;
+        static IPersistentCoreTypeMemberInfo _persistentCoreTypeMemberInfo;
+
+        Establish context = () => {
+            _refMemberGeneratorHelper = new RefMemberGeneratorHelper(ObjectSpace);
+            DBTable refDbTable = _refMemberGeneratorHelper.RefDbTable;
+            refDbTable.ForeignKeys.Add(new DBForeignKey(refDbTable.PrimaryKey.Columns, "Oid", new StringCollection { "Oid" }));
+            _refMemberGeneratorHelper.DbTable.ForeignKeys.Add(new DBForeignKey(_refMemberGeneratorHelper.DbTable.PrimaryKey.Columns, refDbTable.Name, new StringCollection { "Oid" }));
+        };
+
+        Because of = () => {
+            var persistentMemberInfos = new MemberGenerator(_refMemberGeneratorHelper.DbTable, _refMemberGeneratorHelper.ClassGeneratorInfos).Create().Select(info => info.PersistentMemberInfo);
+            _persistentCoreTypeMemberInfo = persistentMemberInfos.OfType<IPersistentCoreTypeMemberInfo>().FirstOrDefault();
+            _persistentReferenceMemberInfo = persistentMemberInfos.OfType<IPersistentReferenceMemberInfo>().FirstOrDefault();
+        };
+
+        It should_return_a_core_typeinfo = () => _persistentCoreTypeMemberInfo.ShouldNotBeNull();
+        It should_return_a_ref_typeinfo = () => _persistentReferenceMemberInfo.ShouldNotBeNull();
+        It should_have_an_one_to_one_readOnly_templates = () => _persistentReferenceMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType.ShouldEqual(TemplateType.XPOneToOneReadOnlyPropertyMember);
+    }
+    [Subject(typeof(MemberGenerator), "Compund One to one to the key member")]
+    public class When_column_is_combound_primary_key_and_foreign_key_to_a_table_that_has_its_primary_key_as_foreign_key_back_to_the_primary_table : With_In_Memory_DataStore {
+        static IPersistentReferenceMemberInfo _persistentReferenceMemberInfo;
+        static RefMemberGeneratorHelper _refMemberGeneratorHelper;
+        static IPersistentCoreTypeMemberInfo _persistentCoreTypeMemberInfo;
+
+        Establish context = () => {
+
+            _refMemberGeneratorHelper = new RefMemberGeneratorHelper(ObjectSpace);
+            Setup(_refMemberGeneratorHelper.DbTable, _refMemberGeneratorHelper.RefDbTable);
+            Setup(_refMemberGeneratorHelper.RefDbTable, _refMemberGeneratorHelper.DbTable);
+            var persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            persistentClassInfo.Name = _refMemberGeneratorHelper.DbTable.Name + ClassGenerator.KeyStruct;
+            persistentClassInfo.PersistentAssemblyInfo = (PersistentAssemblyInfo)_refMemberGeneratorHelper.PersistentAssemblyInfo;
+            persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
+            _refMemberGeneratorHelper.ClassGeneratorInfos.Add(persistentClassInfo.Name, new ClassGeneratorInfo(persistentClassInfo, null));
+        };
+
+        static void Setup(DBTable refTable, DBTable mainTable) {
+            var dbColumns = new List<DBColumn>();
+            var dbColumn = new DBColumn { Name = "Oid2" };
+            dbColumns.Add(dbColumn);
+            dbColumns.Add(mainTable.GetColumn("Oid"));
+            mainTable.PrimaryKey = new DBPrimaryKey(dbColumns);
+            mainTable.Columns.Add(dbColumn);
+            mainTable.AddForeignKey(new DBForeignKey(dbColumns, refTable.Name, new StringCollection { "Oid", "Oid2" }));
+        }
+
+        Because of = () => {
+            var persistentMemberInfos = new MemberGenerator(_refMemberGeneratorHelper.DbTable, _refMemberGeneratorHelper.ClassGeneratorInfos).Create().Select(info => info.PersistentMemberInfo);
+            _persistentCoreTypeMemberInfo = persistentMemberInfos.OfType<IPersistentCoreTypeMemberInfo>().FirstOrDefault();
+            _persistentReferenceMemberInfo = persistentMemberInfos.OfType<IPersistentReferenceMemberInfo>().LastOrDefault();
+        };
+
+        It should_return_a_core_typeinfo = () => _persistentCoreTypeMemberInfo.ShouldNotBeNull();
+        It should_return_a_ref_typeinfo = () => _persistentReferenceMemberInfo.ShouldNotBeNull();
+        It should_have_an_one_to_one_readOnly_templates = () => _persistentReferenceMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType.ShouldEqual(TemplateType.XPOneToOneReadOnlyPropertyMember);
+    }
+    [Subject(typeof(MemberGenerator), "One to one")]
+    public class When_column_is_foreign_key_to_a_table_that_has_a_foreign_key_back_to_the_primary_table : With_In_Memory_DataStore {
         static RefMemberGeneratorHelper _refMemberGeneratorHelper;
         static IPersistentReferenceMemberInfo _persistentReferenceMemberInfo;
 
         Establish context = () => {
             _refMemberGeneratorHelper = new RefMemberGeneratorHelper(ObjectSpace);
-            _refMemberGeneratorHelper.DbTable.PrimaryKey = new DBPrimaryKey(new[] { _refMemberGeneratorHelper.RefColumn });
+            var dbColumn = new DBColumn("ref2", true, "int", 0, DBColumnType.Int32);
+            _refMemberGeneratorHelper.RefDbTable.Columns.Add(dbColumn);
+            _refMemberGeneratorHelper.RefDbTable.AddForeignKey(new DBForeignKey(new[] { dbColumn }, _refMemberGeneratorHelper.DbTable.Name, new StringCollection { "Oid" }));
         };
 
         Because of = () => {
             _persistentReferenceMemberInfo = new MemberGenerator(_refMemberGeneratorHelper.DbTable, _refMemberGeneratorHelper.ClassGeneratorInfos).Create().Select(info => info.PersistentMemberInfo).OfType<IPersistentReferenceMemberInfo>().First();
         };
-
         It should_return_a_referenced_typeinfo = () => _persistentReferenceMemberInfo.ShouldNotBeNull();
 
-        It should_have_as_referenced_class_info_the_class_info_of_the_foreign_key_table =
-            () => _persistentReferenceMemberInfo.ReferenceClassInfo.ShouldEqual(_refMemberGeneratorHelper.RefPersistentClassInfo);
+        It should_have_an_one_to_one_template =
+            () =>
+            _persistentReferenceMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType.ShouldEqual(
+                TemplateType.XPOneToOnePropertyMember);
     }
+}
+
+class When_column_is_primary_key_and_Foreign {
+
 }

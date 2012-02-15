@@ -18,12 +18,14 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         string _elementTypeFullName;
 
 
-        public PersistentAssociationAttribute(Session session) : base(session) {
+        public PersistentAssociationAttribute(Session session)
+            : base(session) {
         }
 
 
         [VisibleInListView(true)]
         [RuleRequiredField(null, DefaultContexts.Save)]
+        [Size(SizeAttribute.Unlimited)]
         public string AssociationName {
             get { return _associationName; }
             set { SetPropertyValue("AssociationName", ref _associationName, value); }
@@ -31,8 +33,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
 
 
         [Size(SizeAttribute.Unlimited)]
-        [ValueConverter(typeof (TypeValueConverter))]
-        [TypeConverter(typeof (LocalizedClassInfoTypeConverter))]
+        [ValueConverter(typeof(TypeValueConverter))]
+        [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         public Type ElementType {
             get { return _elementType; }
             set {
@@ -48,10 +50,9 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             get { return _elementClassInfo; }
             set {
                 SetPropertyValue("ElementClassInfo", ref _elementClassInfo, value);
-                if (_elementClassInfo != null && _elementClassInfo.PersistentAssemblyInfo != null){
+                if (_elementClassInfo != null && _elementClassInfo.PersistentAssemblyInfo != null) {
                     _elementTypeFullName = _elementClassInfo.PersistentAssemblyInfo.Name + "." + _elementClassInfo.Name;
-                }
-                else if (_elementClassInfo == null && _elementType == null)
+                } else if (_elementClassInfo == null && _elementType == null)
                     _elementTypeFullName = null;
             }
         }
@@ -67,15 +68,15 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         public override AttributeInfoAttribute Create() {
             if (!string.IsNullOrEmpty(ElementTypeFullName))
                 return GetElementTypeDefinedAttributeInfo();
-            ConstructorInfo constructorInfo = typeof (AssociationAttribute).GetConstructor(new[] {typeof (string)});
+            ConstructorInfo constructorInfo = typeof(AssociationAttribute).GetConstructor(new[] { typeof(string) });
             return new AttributeInfoAttribute(constructorInfo, AssociationName);
         }
 
         AttributeInfoAttribute GetElementTypeDefinedAttributeInfo() {
             var type = ReflectionHelper.GetType(ElementTypeFullName);
             ConstructorInfo constructorInfo =
-                typeof (AssociationAttribute).GetConstructor(new[] {typeof (string), typeof (string), typeof (string)});
-            return new AttributeInfoAttribute(constructorInfo, AssociationName,  type);
+                typeof(AssociationAttribute).GetConstructor(new[] { typeof(string), typeof(string), typeof(string) });
+            return new AttributeInfoAttribute(constructorInfo, AssociationName, type);
         }
     }
 }

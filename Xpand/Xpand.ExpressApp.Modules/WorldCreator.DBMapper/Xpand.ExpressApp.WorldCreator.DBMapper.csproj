@@ -129,7 +129,7 @@
     <Compile Include="ClassAtrributeGenerator.cs" />
     <Compile Include="ClassGenerator.cs" />
     <Compile Include="LogonObject.cs" />
-    <Compile Include="MapController.cs">
+    <Compile Include="MapperLogonController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MemberAttributeGenerator.cs" />

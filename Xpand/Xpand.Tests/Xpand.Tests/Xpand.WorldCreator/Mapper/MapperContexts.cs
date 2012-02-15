@@ -82,15 +82,19 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
 
         public RefMemberGeneratorHelper(IObjectSpace objectSpace)
             : base(objectSpace) {
-            DbTable.PrimaryKey = new DBPrimaryKey(new[] { new DBColumn("Oid", false, "int", 0, DBColumnType.Int32) });
+            var column = new DBColumn("Oid", false, "int", 0, DBColumnType.Int32);
+            DbTable.PrimaryKey = new DBPrimaryKey(new[] { column });
             var dbColumn = new DBColumn { Name = "DBColumn", ColumnType = DBColumnType.Int32 };
             DbTable.Columns.Add(dbColumn);
+            DbTable.Columns.Add(column);
             var refDbColumn = new DBColumn { Name = "refDbColumn", ColumnType = DBColumnType.Int32, IsKey = true };
             DbTable.Columns.Add(refDbColumn);
-
             var primaryKeyTableKeyColumns = new StringCollection { "Oid" };
-            _refDbTable.Columns.Add(new DBColumn("Oid", true, "int", 0, DBColumnType.Int32));
             DbTable.ForeignKeys.Add(new DBForeignKey(new List<DBColumn> { refDbColumn }, _refDbTable.Name, primaryKeyTableKeyColumns));
+
+            var item = new DBColumn("Oid", true, "int", 0, DBColumnType.Int32);
+            _refDbTable.Columns.Add(item);
+            _refDbTable.PrimaryKey=new DBPrimaryKey(new[]{item});
             _refPersistentClassInfo = objectSpace.CreateObject<PersistentClassInfo>();
             _refPersistentClassInfo.Name = RefDbTable.Name;
             PersistentAssemblyInfo.PersistentClassInfos.Add(_refPersistentClassInfo);

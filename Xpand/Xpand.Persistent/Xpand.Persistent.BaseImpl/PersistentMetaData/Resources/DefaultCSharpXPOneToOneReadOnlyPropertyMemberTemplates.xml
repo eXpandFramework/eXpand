@@ -1,0 +1,7 @@
+﻿    
+    $TYPEATTRIBUTES$
+    public $PROPERTYTYPE$ $PROPERTYNAME${
+      get{
+          return Session.GetObjectByKey<$PROPERTYTYPE$>(ClassInfo.KeyProperty.GetValue(this));
+      }
+    }

@@ -8,6 +8,7 @@ using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.ExpressApp.WorldCreator.DBMapper {
     public class MemberAttributeGenerator {
+
         readonly IPersistentMemberInfo _persistentMemberInfo;
         readonly DBColumn _column;
         readonly bool _isPrimaryKey;
@@ -30,6 +31,8 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         }
 
         public void Create() {
+            if (IsOneToOne())
+                return;
             var isCompoundPrimaryKey = IsCompoundPrimaryKey();
             var persistentAttributeInfos = _persistentMemberInfo.TypeAttributes;
             if (!isCompoundPrimaryKey && _column.ColumnType == DBColumnType.String) {
@@ -38,12 +41,17 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             if (_isPrimaryKey && _persistentMemberInfo.Owner.CodeTemplateInfo.CodeTemplate.TemplateType != TemplateType.Struct) {
                 persistentAttributeInfos.Add(GetPersistentKeyAttribute());
             }
-            if (IsSimpleForeignKey() || ((isCompoundPrimaryKey && IsForeignKey())))
+            if ((IsSimpleForeignKey() && !isCompoundPrimaryKey) || ((isCompoundPrimaryKey && IsForeignKey())))
                 persistentAttributeInfos.Add(GetPersistentAssociationAttribute());
             var persistentPersistentAttribute = GetPersistentPersistentAttribute();
             if (((IsCompoundForeignKey())) || isCompoundPrimaryKey)
                 persistentPersistentAttribute.MapTo = String.Empty;
             persistentAttributeInfos.Add(persistentPersistentAttribute);
+        }
+
+        bool IsOneToOne() {
+            TemplateType templateType = _persistentMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType;
+            return templateType == TemplateType.XPOneToOnePropertyMember || templateType == TemplateType.XPOneToOneReadOnlyPropertyMember;
         }
 
         bool IsForeignKey() {
@@ -67,8 +75,6 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         }
 
         bool IsSimpleForeignKey() {
-            if (IsCompoundPrimaryKey())
-                return false;
             return _dbTable.ForeignKeys.Where(key => key.Columns.Count == 1 && key.Columns.Contains(_column.Name)).FirstOrDefault() != null;
         }
 

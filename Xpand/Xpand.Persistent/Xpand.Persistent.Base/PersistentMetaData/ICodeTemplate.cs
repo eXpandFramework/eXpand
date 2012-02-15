@@ -16,6 +16,7 @@
         InterfaceReadWriteMember,
         Struct,
         ReadWriteMember,
-        FieldMember
+        FieldMember,
+        XPOneToOneReadOnlyPropertyMember
     }
 }

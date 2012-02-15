@@ -1,17 +1,46 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.ComponentModel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
-using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.WorldCreator.Controllers;
 using Xpand.Persistent.Base.PersistentMetaData;
 using System.Linq;
 
 namespace Xpand.ExpressApp.WorldCreator.DBMapper {
     public class MapController : ViewController<DetailView> {
-        public MapController() {
+        readonly IPersistentAssemblyInfo _assemblyInfo;
+
+        public MapController()
+            : this(false, null) {
+        }
+
+        public MapController(bool active, IPersistentAssemblyInfo assemblyInfo) {
+            _assemblyInfo = assemblyInfo;
+            Active[""] = active;
+            TargetObjectType = typeof(LogonObject);
+        }
+        protected override void OnActivated() {
+            base.OnActivated();
+            ObjectSpace.Committing += ObjectSpaceOnCommitting;
+        }
+
+        void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
+            var objectSpace = new ObjectSpace(new UnitOfWork(((ObjectSpace)ObjectSpace).Session.DataLayer), XafTypesInfo.Instance);
+            Frame nestedFrame = View.GetItems<ListPropertyEditor>().Single().Frame;
+            var listEditor = ((ListView)nestedFrame.View).Editor;
+            string[] selectedTables = listEditor.GetSelectedObjects().OfType<DataTable>().Select(table => table.Name).ToArray();
+            CreateMappedAssemblyInfo(objectSpace, _assemblyInfo, (LogonObject)View.CurrentObject, selectedTables);
+        }
+        void CreateMappedAssemblyInfo(ObjectSpace objectSpace, IPersistentAssemblyInfo persistentAssemblyInfo, LogonObject logonObject, string[] selectedTables) {
+            new AssemblyGenerator(logonObject, objectSpace.GetObject(persistentAssemblyInfo), selectedTables).Create();
+            objectSpace.CommitChanges();
+        }
+
+    }
+    public class MapperLogonController : ViewController<DetailView> {
+        public MapperLogonController() {
             TargetObjectType = typeof(IPersistentAssemblyInfo);
 
         }
@@ -26,32 +55,20 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
 
         void AssemblyToolsControllerOnToolExecuted(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             if ((string)singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data == "MapDB") {
+                ObjectSpace.CommitChanges();
                 var space = Application.CreateObjectSpace();
                 var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
                 showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-
                 showViewParameters.CreatedView = Application.CreateDetailView(space, space.CreateObject(typeof(LogonObject)));
                 var dialogController = new DialogController { SaveOnAccept = true };
                 dialogController.AcceptAction.Execute += AcceptActionOnExecute;
                 showViewParameters.Controllers.Add(dialogController);
+                showViewParameters.Controllers.Add(new MapController(true, (IPersistentAssemblyInfo)View.CurrentObject));
             }
         }
 
         void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
-            var persistentAssemblyInfo = (IPersistentAssemblyInfo)View.CurrentObject;
-            ObjectSpace.CommitChanges();
-            var objectSpace = new ObjectSpace(new UnitOfWork(((ObjectSpace)ObjectSpace).Session.DataLayer), XafTypesInfo.Instance);
-            CreateMappedAssemblyInfo(objectSpace, persistentAssemblyInfo, (LogonObject)simpleActionExecuteEventArgs.CurrentObject);
             ObjectSpace.Refresh();
-            ObjectSpace.SetModified(View.CurrentObject);
-        }
-
-
-
-        void CreateMappedAssemblyInfo(ObjectSpace objectSpace, IPersistentAssemblyInfo persistentAssemblyInfo, LogonObject logonObject) {
-
-            new AssemblyGenerator(logonObject, objectSpace.GetObject(persistentAssemblyInfo)).Create();
-            objectSpace.CommitChanges();
         }
     }
 }

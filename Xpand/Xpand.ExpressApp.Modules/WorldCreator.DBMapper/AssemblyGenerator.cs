@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -11,41 +10,38 @@ using System.Linq;
 
 namespace Xpand.ExpressApp.WorldCreator.DBMapper {
     public class AssemblyGenerator {
-        readonly IDataStoreSchemaExplorer _dataStoreSchemaExplorer;
         readonly IPersistentAssemblyInfo _persistentAssemblyInfo;
         readonly IObjectSpace _objectSpace;
         readonly LogonObject _logonObject;
+        readonly DBTable[] _storageTables;
 
 
-        public AssemblyGenerator(LogonObject logonObject, IPersistentAssemblyInfo persistentAssemblyInfo) {
-            var connectionProvider = XpoDefault.GetConnectionProvider(logonObject.ConnectionString, AutoCreateOption.None);
-            _dataStoreSchemaExplorer = (IDataStoreSchemaExplorer)connectionProvider;
+        public AssemblyGenerator(LogonObject logonObject, IPersistentAssemblyInfo persistentAssemblyInfo, string[] tables) {
             _persistentAssemblyInfo = persistentAssemblyInfo;
+            var dataStoreSchemaExplorer = ((IDataStoreSchemaExplorer)XpoDefault.GetConnectionProvider(logonObject.ConnectionString, AutoCreateOption.None));
+            _storageTables = dataStoreSchemaExplorer.GetStorageTables(tables);
             _logonObject = logonObject;
             _objectSpace = ObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
         }
 
         public void Create() {
-            var storageTables = GetStorageTables();
-            Dictionary<string, ClassGeneratorInfo> generatorInfos = new ClassGenerator(_persistentAssemblyInfo, storageTables).CreateAll().ToDictionary(classGeneratorInfo => classGeneratorInfo.PersistentClassInfo.Name);
+            Dictionary<string, ClassGeneratorInfo> generatorInfos = new ClassGenerator(_persistentAssemblyInfo, _storageTables).CreateAll().ToDictionary(classGeneratorInfo => classGeneratorInfo.PersistentClassInfo.Name);
             foreach (var classGeneratorInfo in generatorInfos.Where(pair => pair.Value.PersistentClassInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.Class)) {
                 var generatorInfo = classGeneratorInfo.Value;
                 new ClassAtrributeGenerator(generatorInfo, _logonObject.NavigationPath).Create().Each(info => generatorInfo.PersistentClassInfo.TypeAttributes.Add(info));
                 var memberGeneratorInfos = new MemberGenerator(classGeneratorInfo.Value.DbTable, generatorInfos).Create();
-                var list = classGeneratorInfo.Value.PersistentClassInfo.OwnMembers.Select(info => info.Name).ToList();
                 memberGeneratorInfos.Each(info => new MemberAttributeGenerator(info, generatorInfo).Create());
-                Debug.Print(classGeneratorInfo.Value.DbTable.Name);
+            }
+            var oneToOneMemberInfos = _persistentAssemblyInfo.PersistentClassInfos.SelectMany(info => info.OwnMembers.OfType<IPersistentReferenceMemberInfo>()).Where(info => info.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPOneToOnePropertyMember);
+            foreach (var oneToOneMemberInfo in oneToOneMemberInfos) {
+                var codeTemplate = _objectSpace.CreateWCObject<ICodeTemplate>();
+                codeTemplate.TemplateCode = oneToOneMemberInfo.ReferenceClassInfo.OwnMembers.OfType<IPersistentReferenceMemberInfo>().Where(info => info.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPOneToOnePropertyMember).Single().Name;
+                oneToOneMemberInfo.TemplateInfos.Add(codeTemplate);
             }
             CodeEngine.SupportCompositeKeyPersistentObjects(_persistentAssemblyInfo);
             CreateAssemblyAttributes();
         }
 
-        DBTable[] GetStorageTables() {
-            var systemTalbes = new List<string> { "sysdiagrams", "xpobjecttype" };
-            var tableNames = _dataStoreSchemaExplorer.GetStorageTablesList().Where(s => !systemTalbes.Contains(s.ToLower()));
-            var storageTables = _dataStoreSchemaExplorer.GetStorageTables(tableNames.ToArray()).Where(table => table.PrimaryKey != null).ToArray();
-            return storageTables;
-        }
 
         void CreateAssemblyAttributes() {
             if (_persistentAssemblyInfo.PersistentClassInfos.Count() > 0) {

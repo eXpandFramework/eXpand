@@ -8,8 +8,9 @@ using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [InterfaceRegistrator(typeof(IPersistentNavigationItemAttribute))]
     [DefaultProperty("Path")]
-    public class PersistentXpandNavigationItemAttribute:PersistentAttributeInfo, IPersistentNavigationItemAttribute {
-        public PersistentXpandNavigationItemAttribute(Session session) : base(session) {
+    public class PersistentXpandNavigationItemAttribute : PersistentAttributeInfo, IPersistentNavigationItemAttribute {
+        public PersistentXpandNavigationItemAttribute(Session session)
+            : base(session) {
         }
         private string _viewId;
         public string ViewId {
@@ -24,13 +25,14 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         }
         private string _path;
         [RuleRequiredField]
+        [Size(SizeAttribute.Unlimited)]
         public string Path {
             get { return _path; }
             set { SetPropertyValue("Path", ref _path, value); }
         }
         public override AttributeInfoAttribute Create() {
             var constructorInfo = typeof(XpandNavigationItemAttribute).GetConstructor(new[] { typeof(string), typeof(string), typeof(string) });
-            return new AttributeInfoAttribute(constructorInfo,new object[]{Path,ViewId,ObjectKey});
+            return new AttributeInfoAttribute(constructorInfo, new object[] { Path, ViewId, ObjectKey });
         }
     }
 }

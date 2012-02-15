@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Machine.Specifications;
-using TypeMock.ArrangeActAssert;
 using Xpand.ExpressApp.WorldCreator.DBMapper;
-using Xpand.ExpressApp.WorldCreator.SqlDBMapper;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.ExpressApp.WorldCreator.Core;
 using System;
-using Xpand.Tests.Xpand.WorldCreator.DbMapper;
 
 namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
     [Ignore("not implemented")]
@@ -48,6 +46,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
                 persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
                 persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
                 _persistentMemberInfo.Owner = persistentClassInfo;
+                _persistentMemberInfo.SetDefaultTemplate(TemplateType.XPReadWritePropertyMember);
                 _dbTable = new DBTable();
                 _dbTable.Columns.Add(_column);
             };
@@ -70,6 +69,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
                 persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
                 persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
                 _persistentCoreTypeMemberInfo.Owner = persistentClassInfo;
+                _persistentCoreTypeMemberInfo.SetDefaultTemplate(TemplateType.XPReadWritePropertyMember);
                 _dbTable = new DBTable();
                 _dbTable.Columns.Add(_column);
                 _dbTable.PrimaryKey = new DBPrimaryKey(new[] { _column });
@@ -95,6 +95,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
             _persistentCoreTypeMemberInfo.Owner = persistentClassInfo;
+            _persistentCoreTypeMemberInfo.SetDefaultTemplate(TemplateType.XPReadWritePropertyMember);
             _dbTable = new DBTable();
             _dbTable.Columns.Add(_column);
             _dbTable.PrimaryKey = new DBPrimaryKey(new[] { _column });
@@ -127,6 +128,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             persistentClassInfo.Name = "persistentClassInfo";
             persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
             _persistentReferenceMemberInfo.Owner = persistentClassInfo;
+            _persistentReferenceMemberInfo.SetDefaultTemplate(TemplateType.XPReadWritePropertyMember);
             _dbTable = new DBTable();
             _dbTable.Columns.Add(_column);
             _dbTable.ForeignKeys.Add(new DBForeignKey(new[] { _column }, "", new StringCollection()));
@@ -159,6 +161,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             referenceClassInfo.PersistentAssemblyInfo = persistentClassInfo.PersistentAssemblyInfo;
             referenceClassInfo.SetDefaultTemplate(TemplateType.Struct);
             _persistentReferenceMemberInfo.ReferenceClassInfo = referenceClassInfo;
+            _persistentReferenceMemberInfo.SetDefaultTemplate(TemplateType.XPReadWritePropertyMember);
             _column = new DBColumn("col", false, "int", 0, DBColumnType.Int32);
             _dbTable = new DBTable();
             _dbTable.Columns.Add(_column);
@@ -200,6 +203,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
             _persistentReferenceMemberInfo.Owner = persistentClassInfo;
             _persistentReferenceMemberInfo.Owner.CodeTemplateInfo.CodeTemplate.TemplateType = TemplateType.Struct;
+            _persistentReferenceMemberInfo.SetDefaultTemplate(TemplateType.XPReadWritePropertyMember);
             var referenceClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
             referenceClassInfo.PersistentAssemblyInfo = persistentClassInfo.PersistentAssemblyInfo;
             referenceClassInfo.SetDefaultTemplate(TemplateType.Class);
@@ -216,21 +220,29 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
 
         It should_map_it_to_an_empty_string = () => _persistentPersistentAttribute.MapTo.ShouldEqual(String.Empty);
     }
-    [Ignore("not implemented")]
-    public class When_owner_is_one_to_one : With_ForeignKey_Column {
-        static List<IPersistentAttributeInfo> _persistentAttributeInfos;
-        static IPersistentMemberInfo _persistentMemberInfo;
+
+    public class When_owner_is_one_to_one : With_In_Memory_DataStore {
+        static XPCollection<PersistentAttributeInfo> _persistentAttributeInfos;
+        static PersistentReferenceMemberInfo _persistentMemberInfo;
 
         Establish context = () => {
-            _persistentMemberInfo = Isolate.Fake.Instance<IPersistentMemberInfo>();
-            _persistentMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType = TemplateType.XPOneToOnePropertyMember;
+            _persistentMemberInfo = ObjectSpace.CreateObject<PersistentReferenceMemberInfo>();
+            var persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
+            _persistentMemberInfo.Owner = persistentClassInfo;
+            _persistentMemberInfo.ReferenceClassInfo = persistentClassInfo;
+            _persistentMemberInfo.SetDefaultTemplate(TemplateType.XPOneToOnePropertyMember);
+            _persistentAttributeInfos = _persistentMemberInfo.TypeAttributes;
+
+            var dbColumn = new DBColumn();
+            var dbTable = new DBTable();
+            dbTable.ForeignKeys.Add(new DBForeignKey(new[] { dbColumn }, "RefTable", new StringCollection()));
         };
 
-        Because of = () => {
-            _persistentAttributeInfos = new AttributeMapper(ObjectSpace).Create(_column, _persistentMemberInfo, new DataTypeMapper());
-        };
+        Because of = () => new MemberAttributeGenerator(new MemberGeneratorInfo(_persistentMemberInfo, new DBColumn()), new ClassGeneratorInfo(_persistentMemberInfo.Owner, new DBTable())).Create();
 
-        It should_not_create_any_attribute = () => _persistentAttributeInfos.Count.ShouldEqual(0);
+        It should_not_create_any_attribute = () => _persistentAttributeInfos.OfType<IPersistentAssociationAttribute>().Count().ShouldEqual(0);
     }
 
     public class When_column_is_mapped : With_In_Memory_DataStore {
@@ -245,6 +257,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
             persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
             _persistentCoreTypeMemberInfo.Owner = persistentClassInfo;
+            _persistentCoreTypeMemberInfo.SetDefaultTemplate(TemplateType.XPReadWritePropertyMember);
             _column = new DBColumn("col", false, "int", 0, DBColumnType.Int32);
             _dbTable = new DBTable();
             _dbTable.Columns.Add(_column);

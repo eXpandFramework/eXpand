@@ -63,7 +63,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             _logonObject = ObjectSpace.CreateObject<LogonObject>();
         };
 
-        Because of = () => new AssemblyGenerator(_logonObject, _persistentAssemblyInfo).Create();
+        Because of = () => new AssemblyGenerator(_logonObject, _persistentAssemblyInfo,new[]{""}).Create();
 
         It should_generate_classes_for_all_tables = () => {
             _persistentClassInfos = _persistentAssemblyInfo.PersistentClassInfos;
