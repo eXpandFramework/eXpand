@@ -134,7 +134,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             _generatorHelper.DbTable.PrimaryKey.Columns.Add(refColumn.Name);
             _generatorHelper.DbTable.Columns.Add(refColumn);
             _generatorHelper.DbTable.ForeignKeys.Add(new DBForeignKey(new[] { refColumn }, "RefTable", new StringCollection { "Oid" }));
-            _generatorHelper.ClassGeneratorInfos.Add("RefTable", new ClassGeneratorInfo(_refPersistentClassInfo, new DBTable("RefTable")));
+            _generatorHelper.ClassGeneratorInfos.Add("RefTable", new ClassGeneratorInfo(_refPersistentClassInfo, new DBTable("RefTable") { PrimaryKey = new DBPrimaryKey() }));
         };
 
         Because of = () => {

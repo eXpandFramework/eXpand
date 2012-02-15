@@ -38,11 +38,13 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             if (!isCompoundPrimaryKey && _column.ColumnType == DBColumnType.String) {
                 persistentAttributeInfos.Add(GetPersistentSizeAttribute());
             }
-            if (_isPrimaryKey && _persistentMemberInfo.Owner.CodeTemplateInfo.CodeTemplate.TemplateType != TemplateType.Struct) {
-                persistentAttributeInfos.Add(GetPersistentKeyAttribute());
+            if (_persistentMemberInfo.Owner.CodeTemplateInfo.CodeTemplate.TemplateType != TemplateType.Struct) {
+                if (_isPrimaryKey) {
+                    persistentAttributeInfos.Add(GetPersistentKeyAttribute());
+                }
+                if ((IsSimpleForeignKey() && !isCompoundPrimaryKey) || ((isCompoundPrimaryKey && IsForeignKey())))
+                    persistentAttributeInfos.Add(GetPersistentAssociationAttribute());
             }
-            if ((IsSimpleForeignKey() && !isCompoundPrimaryKey) || ((isCompoundPrimaryKey && IsForeignKey())))
-                persistentAttributeInfos.Add(GetPersistentAssociationAttribute());
             var persistentPersistentAttribute = GetPersistentPersistentAttribute();
             if (((IsCompoundForeignKey())) || isCompoundPrimaryKey)
                 persistentPersistentAttribute.MapTo = String.Empty;

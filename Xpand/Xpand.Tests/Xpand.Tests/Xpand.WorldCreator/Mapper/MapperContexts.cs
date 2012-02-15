@@ -60,7 +60,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             _structPersistentClassInfo.Name = "MainTable" + TableMapper.KeyStruct;
             _structPersistentClassInfo.PersistentAssemblyInfo = (PersistentAssemblyInfo)PersistentAssemblyInfo;
             _structPersistentClassInfo.SetDefaultTemplate(TemplateType.Struct);
-            ClassGeneratorInfos.Add(_structPersistentClassInfo.Name,new ClassGeneratorInfo(StructPersistentClassInfo, DbTable));
+            ClassGeneratorInfos.Add(_structPersistentClassInfo.Name, new ClassGeneratorInfo(StructPersistentClassInfo, DbTable));
         }
 
         public PersistentClassInfo StructPersistentClassInfo {
@@ -78,7 +78,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
     public class RefMemberGeneratorHelper : ClassGeneratorHelper {
         readonly DBTable _refDbTable = new DBTable("RefDbTable");
         readonly PersistentClassInfo _refPersistentClassInfo;
-        
+
 
         public RefMemberGeneratorHelper(IObjectSpace objectSpace)
             : base(objectSpace) {
@@ -89,18 +89,18 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             DbTable.Columns.Add(column);
             var refDbColumn = new DBColumn { Name = "refDbColumn", ColumnType = DBColumnType.Int32, IsKey = true };
             DbTable.Columns.Add(refDbColumn);
-            var primaryKeyTableKeyColumns = new StringCollection { "Oid" };
+            var primaryKeyTableKeyColumns = new StringCollection { "refDbColumn" };
             DbTable.ForeignKeys.Add(new DBForeignKey(new List<DBColumn> { refDbColumn }, _refDbTable.Name, primaryKeyTableKeyColumns));
 
             var item = new DBColumn("Oid", true, "int", 0, DBColumnType.Int32);
             _refDbTable.Columns.Add(item);
-            _refDbTable.PrimaryKey=new DBPrimaryKey(new[]{item});
+            _refDbTable.PrimaryKey = new DBPrimaryKey(new[] { item });
             _refPersistentClassInfo = objectSpace.CreateObject<PersistentClassInfo>();
             _refPersistentClassInfo.Name = RefDbTable.Name;
             PersistentAssemblyInfo.PersistentClassInfos.Add(_refPersistentClassInfo);
             _refPersistentClassInfo.SetDefaultTemplate(TemplateType.Class);
 
-            
+
             ClassGeneratorInfos.Add(_refPersistentClassInfo.Name, new ClassGeneratorInfo(_refPersistentClassInfo, RefDbTable));
         }
 

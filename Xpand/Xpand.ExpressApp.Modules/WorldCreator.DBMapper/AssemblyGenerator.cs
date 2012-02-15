@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         public AssemblyGenerator(LogonObject logonObject, IPersistentAssemblyInfo persistentAssemblyInfo, string[] tables) {
             _persistentAssemblyInfo = persistentAssemblyInfo;
             var dataStoreSchemaExplorer = ((IDataStoreSchemaExplorer)XpoDefault.GetConnectionProvider(logonObject.ConnectionString, AutoCreateOption.None));
-            _storageTables = dataStoreSchemaExplorer.GetStorageTables(tables);
+            _storageTables = dataStoreSchemaExplorer.GetStorageTables(tables).Where(table => table.PrimaryKey != null).ToArray();
             _logonObject = logonObject;
             _objectSpace = ObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
         }

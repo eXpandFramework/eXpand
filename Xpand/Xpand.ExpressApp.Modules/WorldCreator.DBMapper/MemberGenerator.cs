@@ -77,10 +77,9 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         }
 
         bool IsOneToOneOnTheKey(DBColumn dbColumn) {
-            var keys = _dbTable.ForeignKeys.Where(key => key.PrimaryKeyTable != _dbTable.Name && key.Columns.Contains(dbColumn.Name)).Select(key => key.PrimaryKeyTable);
-            var tables = keys.Select(s => _classInfos[ClassGenerator.GetTableName(s)].DbTable);
-            var dbForeignKeys = tables.SelectMany(table => table.ForeignKeys).Where(key => key.PrimaryKeyTable == _dbTable.Name && key.PrimaryKeyTableKeyColumns.OfType<string>().All(s => _dbTable.PrimaryKey.Columns.Contains(s)));
-            return dbForeignKeys.Any(dbForeignKey => dbForeignKeys.FirstOrDefault() != null);
+            IEnumerable<DBForeignKey> foreignKeys = _dbTable.ForeignKeys.Where(key => key.PrimaryKeyTable != _dbTable.Name && key.Columns.Contains(dbColumn.Name));
+            var keies = foreignKeys.Select(key => new { FK = key, PrimaryTable = _classInfos[ClassGenerator.GetTableName(key.PrimaryKeyTable)].DbTable });
+            return (from key in keies let type = key.FK.PrimaryKeyTableKeyColumns.OfType<string>() where type.All(s => key.PrimaryTable.PrimaryKey.Columns.Contains(s)) select key).Any();
         }
 
         MemberGeneratorInfo CreateMember(DBColumn dbColumn, IPersistentClassInfo persistentClassInfo = null, TemplateType coreTemplateType = TemplateType.XPReadWritePropertyMember, TemplateType refTemplateType = TemplateType.XPReadWritePropertyMember) {
@@ -104,17 +103,20 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
 
         MemberGeneratorInfo CreateFkMember(DBColumn dbColumn, IPersistentClassInfo persistentClassInfo,
                                            TemplateType coreTemplateType, TemplateType refTemplateType) {
-            var foreignKey = _dbTable.ForeignKeys.Where(key => key.Columns.Contains(dbColumn.Name)).Single();
-            if (foreignKey.PrimaryKeyTable != "XPObjectType") {
-                var tableName = ClassGenerator.GetTableName(foreignKey.PrimaryKeyTable);
-                if (_classInfos.ContainsKey(tableName)) {
-                    var classGeneratorInfo = _classInfos[tableName];
-                    return new MemberGeneratorInfo(CreatePersistentReferenceMemberInfo(dbColumn.Name, persistentClassInfo,
-                                                                classGeneratorInfo.PersistentClassInfo, GetTemplateType(refTemplateType, classGeneratorInfo)), dbColumn);
-                }
-                return new MemberGeneratorInfo(CreatePersistentCoreTypeMemberInfo(dbColumn, persistentClassInfo, coreTemplateType), dbColumn);
+            //            if (_dbTable.ForeignKeys.Where(key => key.Columns.Contains(dbColumn.Name)).Count() > 1)
+            //                Debug.Print("");
+
+            var foreignKey = _dbTable.ForeignKeys.Where(key => key.Columns.Contains(dbColumn.Name)).First(key => key.PrimaryKeyTable != "XPObjectType");
+            
+            var tableName = ClassGenerator.GetTableName(foreignKey.PrimaryKeyTable);
+            if (_classInfos.ContainsKey(tableName)) {
+                var classGeneratorInfo = _classInfos[tableName];
+                return new MemberGeneratorInfo(CreatePersistentReferenceMemberInfo(dbColumn.Name, persistentClassInfo,
+                                                            classGeneratorInfo.PersistentClassInfo, GetTemplateType(refTemplateType, classGeneratorInfo)), dbColumn);
             }
-            return new MemberGeneratorInfo(null, null);
+            return new MemberGeneratorInfo(CreatePersistentCoreTypeMemberInfo(dbColumn, persistentClassInfo, coreTemplateType), dbColumn);
+            //            }
+            //            return new MemberGeneratorInfo(null, null);
         }
 
 
@@ -152,7 +154,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
                 persistentClassInfo = _classInfos[ClassGenerator.GetTableName(_dbTable.Name)].PersistentClassInfo;
             persistentClassInfo.OwnMembers.Add(persistentReferenceMemberInfo);
             persistentReferenceMemberInfo.SetDefaultTemplate(templateType);
-            if (templateType != TemplateType.XPOneToOnePropertyMember && templateType != TemplateType.XPOneToOneReadOnlyPropertyMember && persistentReferenceClassInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.Class)
+            if (templateType != TemplateType.XPOneToOnePropertyMember && templateType != TemplateType.XPOneToOneReadOnlyPropertyMember && persistentClassInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.Class && persistentReferenceClassInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.Class)
                 CreateCollection(persistentReferenceMemberInfo, persistentClassInfo);
             return persistentReferenceMemberInfo;
         }
