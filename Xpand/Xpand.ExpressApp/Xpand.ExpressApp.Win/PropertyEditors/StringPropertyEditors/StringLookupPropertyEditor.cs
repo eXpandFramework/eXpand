@@ -29,10 +29,12 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
                     ComboBoxItemsBuilder.Create()
                         .WithPropertyEditor(this)
                         .Build((enumerable, b) => {
-                            if (b)
-                                CreateItems(enumerable, ((ComboBoxEdit)Control).Properties.Items);
-                            else {
-                                CreateItems(enumerable, comboBoxItems);
+                            if (enumerable != null) {
+                                if (b)
+                                    CreateItems(enumerable, ((ComboBoxEdit)Control).Properties.Items);
+                                else {
+                                    CreateItems(enumerable, comboBoxItems);
+                                }
                             }
                         }, () => {
                             var handledEventArgs = new HandledEventArgs();

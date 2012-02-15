@@ -347,7 +347,9 @@
     <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpXPCalculatedPropertyMemberTemplates.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpXPOneToOneReadOnlyPropertyMemberTemplates.xml" />
+    <EmbeddedResource Include="PersistentMetaData\Resources\DefaultCSharpXPOneToOneReadOnlyPropertyMemberTemplates.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
