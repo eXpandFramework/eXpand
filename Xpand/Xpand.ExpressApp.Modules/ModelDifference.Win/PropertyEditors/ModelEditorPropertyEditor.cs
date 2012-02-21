@@ -10,9 +10,9 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Xpo;
+using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
     [PropertyEditor(typeof(ModelApplicationBase))]
@@ -152,6 +152,9 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         private void CreateModelEditorController(string aspect) {
             var allLayers = CurrentObject.GetAllLayers(_masterModel).ToList();
             _currentObjectModel = allLayers.Where(@base => @base.Id == CurrentObject.Name).Single();
+            foreach (var layer in allLayers)
+                _masterModel.RemoveLayer(layer);
+
             _masterModel.AddLayers(allLayers.ToArray());
             RuntimeMemberBuilder.AddFields((IModelApplication)_masterModel, XpandModuleBase.Dictiorary);
 
