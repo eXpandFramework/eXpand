@@ -55,7 +55,9 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 typesInfo.LoadTypes(assembly);
                 var findTypeInfo = typesInfo.FindTypeInfo(typeof(XafApplication));
                 var findTypeDescendants = ReflectionHelper.FindTypeDescendants(assemblyInfo, findTypeInfo, false);
+                var instance = SecuritySystem.Instance;
                 var xafApplication = ((XafApplication)Enumerator.GetFirst(findTypeDescendants).CreateInstance(new object[0]));
+                SecuritySystem.SetInstance(instance);
                 if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
                     ((ISupportFullConnectionString)xafApplication).ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                 }
