@@ -12,7 +12,7 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.Tests.Xpand.ExpressApp {
     [Subject(typeof(PessimisticLockingViewController))]
     public class When_Object_Change : With_Application {
-        
+
         Because of = () => {
             Info.PessimisticLockObject.PropertyName = "dfgfd";
             Info.ObjectSpace.ReloadObject(Info.PessimisticLockObject);

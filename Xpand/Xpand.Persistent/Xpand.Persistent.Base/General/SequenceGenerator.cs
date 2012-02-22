@@ -91,16 +91,16 @@ namespace Xpand.Persistent.Base.General {
             Close();
         }
 
-        static IDataLayer defaultDataLayer;
+        static IDataLayer _defaultDataLayer;
         static Type _sequenceObjectType;
 
         public static IDataLayer DefaultDataLayer {
             get {
-                if (defaultDataLayer == null)
+                if (_defaultDataLayer == null)
                     throw new NullReferenceException("DefaultDataLayer");
-                return defaultDataLayer;
+                return _defaultDataLayer;
             }
-            set { defaultDataLayer = value; }
+            set { _defaultDataLayer = value; }
         }
 
         public static void RegisterSequences(IEnumerable<ITypeInfo> persistentTypes) {
@@ -146,7 +146,7 @@ namespace Xpand.Persistent.Base.General {
         static SequenceGenerator _sequenceGenerator;
 
         public static void GenerateSequence(ISupportSequenceObject supportSequenceObject, ITypeInfo typeInfo) {
-            if (defaultDataLayer == null)
+            if (_defaultDataLayer == null)
                 return;
             if (_sequenceGenerator == null)
                 _sequenceGenerator = new SequenceGenerator();
@@ -184,6 +184,8 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static void ReleaseSequence(ISupportSequenceObject supportSequenceObject) {
+            if (_defaultDataLayer == null)
+                return;
             var objectSpace = (ObjectSpace)ObjectSpace.FindObjectSpaceByObject(supportSequenceObject);
             var sequenceObject = objectSpace.GetObjectByKey(_sequenceObjectType, supportSequenceObject.Prefix + supportSequenceObject.ClassInfo.FullName) as ISequenceObject;
             if (sequenceObject != null) {

@@ -11,7 +11,6 @@ using Xpand.ExpressApp;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win;
-using Xpand.Persistent.BaseImpl;
 using PessimisticLockingViewController = Xpand.ExpressApp.Win.SystemModule.PessimisticLockingViewController;
 using ViewEditModeController = Xpand.ExpressApp.Win.SystemModule.ViewEditModeController;
 
@@ -56,7 +55,10 @@ namespace Xpand.Tests.Xpand.ExpressApp {
             return info.PessimisticLockObject == null ? info.ObjectSpace.CreateObject<PessimisticLockObject>() : info.ObjectSpace.GetObjectByKey<PessimisticLockObject>(info.PessimisticLockObject.Oid);
         }
         private TestPessimisticLockingInfo TestSetupCore(TestPessimisticLockingInfo info) {
-            var systemModule = new XpandSystemModule {SequenceObjectType = typeof(SequenceObject)};
+            var systemModule = new XpandSystemModule();
+// ReSharper disable ConvertClosureToMethodGroup
+            Isolate.WhenCalled(() => systemModule.InitializeSequenceGenerator()).IgnoreCall();
+// ReSharper restore ConvertClosureToMethodGroup
             Modules.Add(systemModule);
             Setup("TestApplication", _objectSpaceProvider);
             info.ObjectSpace = CreateObjectSpace();
