@@ -74,12 +74,11 @@ namespace Xpand.ExpressApp.ConditionalDetailViews.Logic {
             public IModelView PreviousModel { get; set; }
             public IConditionalDetailViewRule ConditionalDetailViewRule { get; set; }
         }
+
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (IsReady) {
-                if (View is XpandListView)
-                    Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem += OnCustomProcessSelectedItem;
-            }
+            if (View is XpandListView)
+                Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem += OnCustomProcessSelectedItem;
             foreach (var defaultValuePair in defaultValuesRulesStorage) {
                 defaultValuePair.Key.View = defaultValuePair.Value;
             }
@@ -90,6 +89,7 @@ namespace Xpand.ExpressApp.ConditionalDetailViews.Logic {
         }
 
         readonly Dictionary<IConditionalDetailViewRule, IModelView> defaultValuesRulesStorage = new Dictionary<IConditionalDetailViewRule, IModelView>();
+
         public override void ExecuteRule(LogicRuleInfo<IConditionalDetailViewRule> info, ExecutionContext executionContext) {
             if (info.Active && !info.InvertingCustomization) {
                 if (executionContext == ExecutionContext.CustomProcessSelectedItem)
@@ -100,6 +100,8 @@ namespace Xpand.ExpressApp.ConditionalDetailViews.Logic {
                     if (!defaultValuesRulesStorage.ContainsKey(info.Rule))
                         defaultValuesRulesStorage.Add(info.Rule, info.Rule.View);
                     info.Rule.View = info.Rule.DetailView;
+                } else if (executionContext == ExecutionContext.ViewShowing) {
+                    info.View.SetModel(info.Rule.DetailView);
                 }
             } else if (info.InvertingCustomization) {
                 if (executionContext == ExecutionContext.CurrentObjectChanged) {

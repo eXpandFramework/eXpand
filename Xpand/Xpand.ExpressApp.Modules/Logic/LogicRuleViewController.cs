@@ -15,6 +15,7 @@ namespace Xpand.ExpressApp.Logic {
         private bool isRefreshing;
         public static readonly string ActiveObjectTypeHasRules = "ObjectTypeHas" + typeof(TModelLogicRule).Name;
         object _previousObject;
+        XafApplication _application;
 
 
         public virtual bool IsReady {
@@ -94,12 +95,6 @@ namespace Xpand.ExpressApp.Logic {
         public event EventHandler<LogicRuleExecutedEventArgs<TModelLogicRule>> LogicRuleExecuted;
 
 
-        private void FrameOnViewChanging(object sender, EventArgs args) {
-            if (View != null) InvertExecution(View, ExecutionContext.ViewChanging);
-            var view = ((ViewChangingEventArgs)args).View;
-            Active[ActiveObjectTypeHasRules] = LogicRuleManager<TModelLogicRule>.HasRules(view);
-            ForceExecution(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view, false, ExecutionContext.ViewChanging);
-        }
         void InvertExecution(View view, ExecutionContext executionContext, object currentObject) {
             ForceExecution(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view, true, executionContext, currentObject);
         }
@@ -112,6 +107,36 @@ namespace Xpand.ExpressApp.Logic {
             base.OnFrameAssigned();
             Frame.ViewChanging += FrameOnViewChanging;
             Frame.TemplateChanged += FrameOnTemplateChanged;
+            if (_application == null) {
+                _application = Application;
+                _application.ViewShowing += ApplicationOnViewShowing;
+            }
+        }
+
+        void ApplicationOnViewShowing(object sender, ViewShowingEventArgs viewShowingEventArgs) {
+            if (Application != null)
+                ForceExecutioning(viewShowingEventArgs.View, ExecutionContext.ViewShowing);
+        }
+
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
+                Frame.ViewChanging -= FrameOnViewChanging;
+                Frame.TemplateChanged -= FrameOnTemplateChanged;
+                if (_application != null) {
+                    _application.ViewShowing -= ApplicationOnViewShowing;
+                }
+            }
+            base.Dispose(disposing);
+        }
+        void FrameOnViewChanging(object sender, ViewChangingEventArgs args) {
+            ForceExecutioning(args.View, ExecutionContext.ViewChanging);
+        }
+
+        void ForceExecutioning(View view, ExecutionContext executionContext) {
+            if (View != null) InvertExecution(View, executionContext);
+            Active[ActiveObjectTypeHasRules] = LogicRuleManager<TModelLogicRule>.HasRules(view);
+            ForceExecution(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view, false,
+                           executionContext);
         }
 
         void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
@@ -136,6 +161,7 @@ namespace Xpand.ExpressApp.Logic {
                     Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem += OnCustomProcessSelectedItem;
             }
         }
+
 
         void ViewOnSelectionChanged(object sender, EventArgs eventArgs) {
             ForceExecution(ExecutionContext.ViewOnSelectionChanged);

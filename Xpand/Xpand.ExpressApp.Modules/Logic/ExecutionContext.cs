@@ -16,6 +16,7 @@ namespace Xpand.ExpressApp.Logic {
         CustomProcessSelectedItem = 1024,
         ControlsCreating = 2048,
         ViewOnSelectionChanged = 4096,
-        NotifyPropertyObjectChanged = 8192
+        NotifyPropertyObjectChanged = 8192,
+        ViewShowing=16384
     }
 }
