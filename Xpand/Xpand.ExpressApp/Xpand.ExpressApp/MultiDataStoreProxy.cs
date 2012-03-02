@@ -106,7 +106,7 @@ namespace Xpand.ExpressApp {
                 var store = dataStore.Key as ConnectionProviderSql;
                 if (store != null) {
                     List<DBTable> dbTables = dataStore.Value;
-                    if (Connection==null)
+                    if (Connection == null)
                         throw new NullReferenceException();
                     if (!IsMainLayer(store.Connection))
                         _xpoObjectHacker.EnsureIsNotIdentity(dbTables);

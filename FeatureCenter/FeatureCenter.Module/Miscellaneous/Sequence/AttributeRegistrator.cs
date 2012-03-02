@@ -10,7 +10,7 @@ namespace FeatureCenter.Module.Miscellaneous.Sequence {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         private const string SequenceCustomer_DetailView = "SequenceCustomer_DetailView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
-            if (!Object.Equals(typesInfo.Type, typeof (SequenceCustomer))) yield break;
+            if (!Equals(typesInfo.Type, typeof (SequenceCustomer))) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderSequence, "1=1", "1=1", Captions.ViewMessageSequence, Position.Bottom) { ViewType = ViewType.DetailView, View = SequenceCustomer_DetailView };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderSequence, "1=1", "1=1", Captions.HeaderSequence, Position.Top) { ViewType = ViewType.DetailView, View = SequenceCustomer_DetailView };
             var xpandNavigationItemAttribute = new XpandNavigationItemAttribute(Captions.Miscellaneous + "Sequence Numbers", SequenceCustomer_DetailView, "Name='Benjamin CISCO'");

@@ -40,14 +40,14 @@ namespace FeatureCenter.Module {
 
 
             InitializeSecurity();
-
+            new DummyDataBuilder((ObjectSpace)ObjectSpace).CreateObjects();
             var workflowServiceUser = ObjectSpace.FindObject(SecuritySystem.UserType, new BinaryOperator("UserName", "WorkflowService"));
             if (workflowServiceUser == null) {
                 CriteriaOperator criteriaOperator = CriteriaOperator.Parse("Name=?", SecurityStrategy.AdministratorRoleName);
                 CreateworkflowServiceUser(ObjectSpace.FindObject<Role>(criteriaOperator));
                 CreateworkflowServiceUser(ObjectSpace.FindObject<SecurityRole>(criteriaOperator));
                 ObjectSpace.CommitChanges();
-                new DummyDataBuilder((ObjectSpace)ObjectSpace).CreateObjects();
+                
 
                 var updaters = ReflectionHelper.FindTypeDescendants(XafTypesInfo.CastTypeToTypeInfo(typeof(FCUpdater)));
                 foreach (var findTypeDescendant in updaters) {
