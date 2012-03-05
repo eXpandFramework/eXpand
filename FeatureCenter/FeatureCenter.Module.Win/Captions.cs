@@ -1,5 +1,6 @@
 ﻿namespace FeatureCenter.Module.Win {
     public class Captions : Module.Captions {
+        public const string HeaderWizard = "Wizard";
         public const string HeaderAutoCommitListView = "Auto Commit ListView";
         public const string HeaderApplicationMultipleInstances = "Application Multiple Instances";
         public const string HeaderControlXtraGrid = "Controlling XtraGrid at Runtime";
@@ -48,6 +49,7 @@
         public const string ViewMessageNullAble = "Create a new record , execute the Save action and see the databayer senting null values to the database";
         public const string ViewMessageStringPropertyEditors = "When you use the model predifines attribute you may want to disable editor edit see (predifined property)";
         public const string ViewMessageStringPropertyEditors1 = "To create a lookup for a property that is not a reference object see the editor of the City property";
+        public const string ViewMessageWizard = "sdfsdfsd";
         public const string ViewMessageChooseFromListCollectionEditor = "Check the property editor of the DatesExcluded property. It is designed to list all objects inside a persistent collection in a combobox.";
     }
 }

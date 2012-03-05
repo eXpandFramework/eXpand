@@ -12,8 +12,8 @@
         <LayoutGroup Id="Main" TextAlignMode="AlignLocal">
           <LayoutGroup Id="SimpleEditors">
             <LayoutGroup Id="XpandTriggerCalendar" RelativeSize="100" Caption="XpandTriggerCalendar" ImageName="">
-              <LayoutItem Id="Name" ViewItem="Name" RelativeSize="100" />
-              <LayoutItem Id="TimeZone" Removed="True" />
+              <LayoutItem Id="Name" RelativeSize="100" ViewItem="Name" />
+              <LayoutItem Id="TimeZone" ViewItem="TimeZone" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
           <LayoutItem Id="DatesExcluded" ShowCaption="False" TextAlignMode="AutoSize" ViewItem="DatesExcluded" Index="1" RelativeSize="94" IsNewNode="True" />
@@ -22,9 +22,32 @@
               <LayoutItem Id="XpandJobTriggers" TextAlignMode="AutoSize" ViewItem="XpandJobTriggers" RelativeSize="100" />
             </LayoutGroup>
             <LayoutGroup Id="DatesExcluded" TextAlignMode="UseParentOptions" RelativeSize="0" ImageName="" Direction="Horizontal" Removed="True">
-              <LayoutItem Id="DatesExcluded" Removed="True" />
+              <LayoutItem Id="DatesExcluded" ViewItem="DatesExcluded" Removed="True" />
             </LayoutGroup>
           </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Wizard_DetailView">
+      <Wizard ShowInWizard="True">
+        <WizardPage Id="@ee9b5d02-e933-4fa7-8c6e-bc63097cbd13" ViewID="Wizard_DetailView1" IsNewNode="True" />
+      </Wizard>
+    </DetailView>
+    <DetailView Id="Wizard_DetailView1">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="8" ImageName="">
+            <LayoutGroup Id="CustomerBase" RelativeSize="100" ImageName="">
+              <LayoutItem Id="Name" ViewItem="Name" RelativeSize="51" />
+              <LayoutItem Id="City" ViewItem="City" RelativeSize="48" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="91" ImageName="">
+            <LayoutItem Id="Description" ViewItem="Description" RelativeSize="100" />
+          </LayoutGroup>
+          <LayoutGroup Id="Orders_Group" RelativeSize="87" Caption="Orders" ImageName="" Removed="True">
+            <LayoutItem Id="Orders" Removed="True" />
+          </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
