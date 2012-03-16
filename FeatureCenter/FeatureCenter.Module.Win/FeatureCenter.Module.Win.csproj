@@ -469,6 +469,7 @@
     <Compile Include="ControllingXtraGrid\ColumnsOptions\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\XtraGridViewOptions\AttributeRegistrator.cs" />
     <Compile Include="Wizard\AttributeRegistrator.cs" />
+    <Compile Include="Wizard\WizardCustomer.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\DynamicAssemblyBuilder.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\Updater.cs" />
@@ -672,7 +673,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Wizard\MDO_ConnectionInfoStatus.xafml">
+    <EmbeddedResource Include="Wizard\MDO_Wizard.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

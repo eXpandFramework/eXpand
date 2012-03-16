@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
 
@@ -10,15 +11,17 @@ namespace Xpand.ExpressApp.WizardUI.Win {
             Frame.GetController<NewObjectViewController>().NewObjectAction.Executed += Action_Executed;
             Frame.GetController<NewObjectViewController>().ObjectCreated += ObjectCreated;
             Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Executed += Action_Executed;
+            Frame.GetController<ShowNavigationItemController>().ShowNavigationItemAction.Executed += Action_Executed;
         }
 
         protected override void OnDeactivated() {
             Frame.GetController<NewObjectViewController>().NewObjectAction.Executed -= Action_Executed;
             Frame.GetController<NewObjectViewController>().ObjectCreated -= ObjectCreated;
             Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Executed -= Action_Executed;
-
+            Frame.GetController<ShowNavigationItemController>().ShowNavigationItemAction.Executed -= Action_Executed;
             base.OnDeactivated();
         }
+
 
         IObjectSpace _objectSpace;
         object _newObject;
@@ -34,7 +37,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
             if (e.ShowViewParameters.CreatedView != null) {
                 modelWizard = e.ShowViewParameters.CreatedView.Model as IModelDetailViewWizard;
             } else if (e.ShowViewParameters.CreatedView == null && e.Action.Controller is NewObjectViewController) {
-                var viewID = Application.GetDetailViewId(((SingleChoiceActionExecuteEventArgs)e).SelectedChoiceActionItem.Data as System.Type);
+                var viewID = Application.GetDetailViewId(((SingleChoiceActionExecuteEventArgs)e).SelectedChoiceActionItem.Data as Type);
                 modelWizard = Application.Model.Views[viewID] as IModelDetailViewWizard;
             }
 

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Options ConnectionInfoMessage="True" />
+  <Views>
+    <DetailView Id="WizardCustomer_DetailView">
+      <Wizard ShowInWizard="True">
+        <WizardPage Id="@ee9b5d02-e933-4fa7-8c6e-bc63097cbd13" ViewID="WizardCustomer_DetailView1" Index="1" IsNewNode="True" />
+        <WizardPage Id="@4561c2af-898c-4ff7-9e83-3c52be5851c0" ViewID="WizardCustomer_DetailView2" Index="2" IsNewNode="True" />
+      </Wizard>
+    </DetailView>
+    <DetailView Id="WizardCustomer_DetailView1">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="" Caption="Main" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" TextAlignMode="UseParentOptions">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="8" ImageName="" Caption="SimpleEditors" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" TextAlignMode="UseParentOptions">
+            <LayoutGroup Id="CustomerBase" RelativeSize="100" ImageName="" Caption="CustomerBase" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" TextAlignMode="UseParentOptions">
+              <LayoutItem Id="Name" RelativeSize="51" ViewItem="Name" TextAlignMode="UseParentOptions" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" />
+              <LayoutItem Id="City" RelativeSize="48" ViewItem="City" TextAlignMode="UseParentOptions" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="91" ImageName="" Caption="Description" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" TextAlignMode="UseParentOptions" Direction="Horizontal">
+            <LayoutItem Id="Description" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="Orders_Group" RelativeSize="87" Caption="Orders" ImageName="" Removed="True">
+            <LayoutItem Id="Orders" ViewItem="Orders" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="WizardCustomer_DetailView2">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SizeableEditors" RelativeSize="100" ImageName="" Index="0">
+            <LayoutItem Id="Description" ViewItem="Description" RelativeSize="100" />
+          </LayoutGroup>
+          <LayoutGroup Id="Orders_Group" RelativeSize="87" Caption="Orders" ImageName="" Removed="True">
+            <LayoutItem Id="Orders" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SimpleEditors" RelativeSize="94" ImageName="" Direction="Horizontal" Removed="True">
+            <LayoutGroup Id="CustomerBase" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>
