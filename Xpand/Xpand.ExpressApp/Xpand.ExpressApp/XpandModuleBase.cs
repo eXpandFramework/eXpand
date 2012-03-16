@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp {
         private readonly Boolean isModuleBase;
 
         public XpandModuleBase() {
-            
+
             isModuleBase = (GetType() == typeof(ModuleBase));
             if (isModuleBase) return;
         }
@@ -68,13 +68,15 @@ namespace Xpand.ExpressApp {
         public Assembly BaseImplAssembly {
             get {
                 if (_baseImplAssembly == null) {
+                    var assemblyString = "Xpand.Persistent.BaseImpl, Version=*, Culture=neutral, PublicKeyToken=*";
                     var baseImplName = ConfigurationManager.AppSettings["Baseimpl"];
-                    if (String.IsNullOrEmpty(baseImplName)) {
-                        _baseImplAssembly = Assembly.Load("Xpand.Persistent.BaseImpl, Version=*, Culture=neutral, PublicKeyToken=*");
-                        if (_baseImplAssembly == null)
-                            throw new NullReferenceException("BaseImpl not found please reference it in your front end project");
-                        TypesInfo.LoadTypes(_baseImplAssembly);
+                    if (!String.IsNullOrEmpty(baseImplName)) {
+                        assemblyString = baseImplName;
                     }
+                    _baseImplAssembly = Assembly.Load(assemblyString);
+                    if (_baseImplAssembly == null)
+                        throw new NullReferenceException("BaseImpl not found please reference it in your front end project");
+                    TypesInfo.LoadTypes(_baseImplAssembly);
                 }
                 return _baseImplAssembly;
             }
@@ -83,7 +85,6 @@ namespace Xpand.ExpressApp {
         [Obsolete("Use the \'GetDeclaredExportedTypes()\' method instead.")]
         protected override List<Type> DeclaredBusinessClasses {
             get {
-                //                return base.DeclaredBusinessClasses;
                 if (declaredBusinessClasses == null) {
                     declaredBusinessClasses = new List<Type>();
                     if (!isModuleBase && AutomaticCollectDomainComponents) {
