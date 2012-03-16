@@ -17,6 +17,7 @@ namespace Xpand.ExpressApp.Logic {
         ControlsCreating = 2048,
         ViewOnSelectionChanged = 4096,
         NotifyPropertyObjectChanged = 8192,
-        ViewShowing=16384
+        ViewShowing=16384,
+        ViewCreating=32768
     }
 }
