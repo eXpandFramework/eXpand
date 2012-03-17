@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -8,7 +9,6 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Validation;
-using System.Linq;
 
 namespace Xpand.ExpressApp.Validation {
     public interface IModelRuleBaseRuleType : IModelNode {
@@ -92,7 +92,7 @@ namespace Xpand.ExpressApp.Validation {
         bool IsOfRuleType(RuleSetValidationResultItem resultItem, RuleType ruleType) {
             IModelValidationRules modelValidationRules = ((IModelApplicationValidation)Application.Model).Validation.Rules;
             var modelRuleBaseWarning = ((IModelRuleBaseRuleType)modelValidationRules.OfType<ModelNode>().SingleOrDefault(node => node.Id == resultItem.Rule.Id));
-            return modelRuleBaseWarning != null && modelRuleBaseWarning.RuleType == ruleType;
+            return (modelRuleBaseWarning == null && ruleType == RuleType.Critical) || (modelRuleBaseWarning != null && modelRuleBaseWarning.RuleType == ruleType);
         }
 
     }

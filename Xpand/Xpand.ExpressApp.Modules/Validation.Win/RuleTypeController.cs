@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Utils;
@@ -10,7 +11,6 @@ using DevExpress.Persistent.Validation;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.DXErrorProvider;
 using Xpand.ExpressApp.Win.ListEditors;
-using System.Linq;
 
 namespace Xpand.ExpressApp.Validation.Win {
 
@@ -51,6 +51,7 @@ namespace Xpand.ExpressApp.Validation.Win {
                     var resultItem = (DisplayableValidationResultItem)((XafGridView)sender).GetRow(errorTypeEventArgs.RowHandle);
                     if (resultItem.Rule != null) {
                         var warning = ((IModelRuleBaseRuleType)((IModelApplicationValidation)Application.Model).Validation.Rules[resultItem.Rule.Id]);
+                    if (warning != null)
                         errorTypeEventArgs.ErrorType = (ErrorType)enumDescriptor.ParseCaption(warning.RuleType.ToString());
                     }
                 }
