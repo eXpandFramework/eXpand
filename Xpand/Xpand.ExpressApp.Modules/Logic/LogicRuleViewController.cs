@@ -246,7 +246,7 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs) {
-            ForceExecution(ExecutionContext.NotifyPropertyObjectChanged);
+            ForceExecution(IsReady, View, false, ExecutionContext.NotifyPropertyObjectChanged, sender);
         }
 
 
