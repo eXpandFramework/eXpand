@@ -10,6 +10,7 @@ namespace Xpand.ExpressApp.Model {
         [Description("Specifies the current property type."), Category("Data")]
         [TypeConverter(typeof(StringToTypeConverterExtended))]
         [ModelBrowsable(typeof(ModelTypeVisibilityCalculator))]
+        [Required]
         new Type Type { get; set; }
     }
 

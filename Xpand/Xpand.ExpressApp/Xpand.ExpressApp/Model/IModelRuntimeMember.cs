@@ -10,7 +10,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Xpo;
 
 namespace Xpand.ExpressApp.Model {
-    public interface IModelRuntimeMember : IModelMember {
+    public interface IModelRuntimeMember : IModelMemberEx {
     }
 
     public interface IModelRuntimeCalculatedMember : IModelRuntimeNonPersistentMember {
