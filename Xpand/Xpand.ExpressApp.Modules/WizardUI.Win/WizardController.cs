@@ -136,8 +136,10 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         /// <param name="sender">Wizard Control</param>
         /// <param name="e">WizardPageChanged EventArgs</param>
         private void WizardControl_SelectedPageChanged(object sender, WizardPageChangedEventArgs e) {
-            ((WizardControl)sender).SelectedPageChanged -= WizardControl_SelectedPageChanged;
-            UpdateCurrentView(e.Page);
+            if (_WizardForm.WizardControl.Pages.IndexOf(e.Page) == 0 && e.Direction == Direction.Forward)
+                UpdateCurrentView(e.Page);
+
+            FocusDefaultItem();
         }
 
         /// <summary>
@@ -170,13 +172,15 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                     UpdateControllers(wizardPage.View);
 
                     Frame.Template.SetView(wizardPage.View);
-                    if (!View.ErrorMessages.IsEmpty) {
+                    if (!View.ErrorMessages.IsEmpty)
                         wizardPage.View.ErrorMessages.LoadMessages(View.ErrorMessages);
-                    }
                 }
-
-                
             }
+        }
+
+        private void FocusDefaultItem() {
+            var focusController = Frame.GetController<FocusDefaultDetailViewItemController>();
+            focusController.GetType().GetMethod("FocusDefaultItemControl", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).Invoke(focusController, null);
         }
 
         /// <summary>
