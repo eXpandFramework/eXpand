@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (Application != null && !(DesignMode)) {
+            if (Application != null && Application.Title != "devenv") {
                 InitializeSequenceGenerator();
             }
         }
