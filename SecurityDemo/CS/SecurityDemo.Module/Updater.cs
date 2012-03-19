@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.Xpo;
 using DevExpress.Data.Filtering;
-using DevExpress.Persistent.BaseImpl;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.ModelDifference.Security;
 using Xpand.ExpressApp.Security;
@@ -140,6 +138,7 @@ namespace SecurityDemo.Module {
                 fullAccessPermission.AllowWrite = true;
                 fullAccessPermission.Save();
                 securityDemoRole.PersistentPermissions.Add(fullAccessPermission);
+                
                 TypeOperationPermissionData protectedContentPermission = ObjectSpace.CreateObject<TypeOperationPermissionData>();
                 protectedContentPermission.TargetType = typeof(ProtectedContentObject);
                 protectedContentPermission.AllowNavigate = true;
@@ -262,6 +261,8 @@ namespace SecurityDemo.Module {
                 irremovableObjectPermission.AllowWrite = true;
                 irremovableObjectPermission.Save();
                 securityDemoRole.PersistentPermissions.Add(irremovableObjectPermission);
+
+                securityDemoRole.GrantPermissionsForModelDifferenceObjects();
 
                 securityDemoRole.Save();
             }
