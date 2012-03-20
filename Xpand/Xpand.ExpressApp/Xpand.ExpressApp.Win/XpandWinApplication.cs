@@ -10,6 +10,8 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
+using DevExpress.ExpressApp.Win.Core.ModelEditor;
+using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Security;
@@ -36,6 +38,17 @@ namespace Xpand.ExpressApp.Win {
             ListViewCreated += OnListViewCreated;
             if (_application == null)
                 _application = this;
+        }
+
+        protected override Form CreateModelEditorForm() {
+            var controller = new ModelEditorViewController(Model, CreateUserModelDifferenceStore());
+            ModelDifferenceStore modelDifferencesStore = CreateModelDifferenceStore();
+            if (modelDifferencesStore != null) {
+                var modulesDiffStoreInfo = new List<ModuleDiffStoreInfo>
+                                           {new ModuleDiffStoreInfo(null, modelDifferencesStore, "Model")};
+                controller.SetModuleDiffStore(modulesDiffStoreInfo);
+            }
+            return new ModelEditorForm(controller,new SettingsStorageOnModel(((IModelApplicationModelEditor) Model).ModelEditorSettings));
         }
 
         protected override ModuleTypeList GetDefaultModuleTypes() {
@@ -201,6 +214,4 @@ namespace Xpand.ExpressApp.Win {
             get { return _applicationModulesManager; }
         }
     }
-
-
 }
