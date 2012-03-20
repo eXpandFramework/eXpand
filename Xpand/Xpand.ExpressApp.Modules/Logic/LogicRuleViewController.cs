@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
@@ -22,14 +23,19 @@ namespace Xpand.ExpressApp.Logic {
             get { return Active.ResultValue && View != null && View.ObjectTypeInfo != null; }
         }
 
-        public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext, object currentObject) {
+        public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext, object currentObject,
+                                           ActionBase action) {
             if (isReady && view != null) {
                 var modelLogicRules = GetValidModelLogicRules(view);
-                var logicRuleInfos = GetContextValidLogicRuleInfos(view, modelLogicRules, currentObject, executionContext, invertCustomization);
+                var logicRuleInfos = GetContextValidLogicRuleInfos(view, modelLogicRules, currentObject, executionContext, invertCustomization, action);
                 foreach (var logicRuleInfo in logicRuleInfos) {
                     ForceExecutionCore(logicRuleInfo, executionContext);
                 }
             }
+        }
+
+        public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext, object currentObject) {
+            ForceExecution(isReady, view, invertCustomization, executionContext, currentObject, null);
         }
 
         protected IEnumerable<TModelLogicRule> GetValidModelLogicRules(View view) {
@@ -40,8 +46,8 @@ namespace Xpand.ExpressApp.Logic {
             ForceExecution(isReady, view, invertCustomization, executionContext, view == null ? null : view.CurrentObject);
         }
 
-        protected virtual IEnumerable<LogicRuleInfo<TModelLogicRule>> GetContextValidLogicRuleInfos(View view, IEnumerable<TModelLogicRule> modelLogicRules, object currentObject, ExecutionContext executionContext, bool invertCustomization) {
-            return modelLogicRules.Select(rule => GetInfo(view, currentObject, rule, executionContext, invertCustomization)).Where(info => info != null);
+        protected virtual IEnumerable<LogicRuleInfo<TModelLogicRule>> GetContextValidLogicRuleInfos(View view, IEnumerable<TModelLogicRule> modelLogicRules, object currentObject, ExecutionContext executionContext, bool invertCustomization, ActionBase action) {
+            return modelLogicRules.Select(rule => GetInfo(view, currentObject, rule, executionContext, invertCustomization, action)).Where(info => info != null);
         }
 
         void ForceExecutionCore(LogicRuleInfo<TModelLogicRule> logicRuleInfo, ExecutionContext executionContext) {
@@ -53,9 +59,9 @@ namespace Xpand.ExpressApp.Logic {
             OnLogicRuleExecuted(new LogicRuleExecutedEventArgs<TModelLogicRule>(logicRuleInfo, executionContext));
         }
 
-        LogicRuleInfo<TModelLogicRule> GetInfo(View view, object currentObject, TModelLogicRule rule, ExecutionContext executionContext, bool invertCustomization) {
-            if (ExecutionContextIsValid(executionContext, rule)) {
-                LogicRuleInfo<TModelLogicRule> info = CalculateLogicRuleInfo(currentObject, rule);
+        LogicRuleInfo<TModelLogicRule> GetInfo(View view, object currentObject, TModelLogicRule rule, ExecutionContext executionContext, bool invertCustomization, ActionBase action) {
+            if (action != null || ExecutionContextIsValid(executionContext, rule)) {
+                LogicRuleInfo<TModelLogicRule> info = CalculateLogicRuleInfo(currentObject, rule, action);
                 if (info != null && TemplateContextIsValid(info) && ViewIsRoot(info)) {
                     info.InvertingCustomization = invertCustomization;
                     if (info.InvertingCustomization) {
@@ -160,6 +166,15 @@ namespace Xpand.ExpressApp.Logic {
         protected override void OnActivated() {
             base.OnActivated();
             if (IsReady) {
+                var actions = GetActions();
+                foreach (var action in actions) {
+                    if (action is SimpleAction)
+                        ((SimpleAction)action).Execute += ActionOnExecuted;
+                    else if (action is SingleChoiceAction)
+                        ((SingleChoiceAction)action).Execute += ActionOnExecuted;
+                    else if (action is ParametrizedAction)
+                        ((ParametrizedAction)action).Execute += ActionOnExecuted;
+                }
                 View.SelectionChanged += ViewOnSelectionChanged;
                 ObjectSpace.Committed += ObjectSpaceOnCommitted;
                 Frame.TemplateViewChanged += FrameOnTemplateViewChanged;
@@ -172,6 +187,27 @@ namespace Xpand.ExpressApp.Logic {
                 if (View is XpandListView)
                     Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem += OnCustomProcessSelectedItem;
             }
+        }
+
+        IEnumerable<ActionBase> GetActions() {
+            var modelActionExecutionContextGroup = GetModelLogic().ActionExecutionContextGroup;
+            var actionContexts =
+                (modelActionExecutionContextGroup.SelectMany(@group => @group,
+                                                             (@group, executionContext) => executionContext.Name)).ToList();
+
+            var actions =
+                Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions).Where(
+                    @base => actionContexts.Contains(@base.Id));
+            return actions;
+        }
+
+        void ActionOnExecuted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
+            ForceExecution(actionBaseEventArgs);
+        }
+
+        void ForceExecution(ActionBaseEventArgs args) {
+            Active[ActiveObjectTypeHasRules] = LogicRuleManager<TModelLogicRule>.HasRules(args.ShowViewParameters.CreatedView.ObjectTypeInfo);
+            ForceExecution(IsReady, args.ShowViewParameters.CreatedView, false, ExecutionContext.None, args.ShowViewParameters.CreatedView.CurrentObject, args.Action);
         }
 
 
@@ -195,7 +231,15 @@ namespace Xpand.ExpressApp.Logic {
         }
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            //            if (IsReady) {
+            var actions = GetActions();
+            foreach (var action in actions) {
+                if (action is SimpleAction)
+                    ((SimpleAction)action).Execute -= ActionOnExecuted;
+                else if (action is SingleChoiceAction)
+                    ((SingleChoiceAction)action).Execute -= ActionOnExecuted;
+                else if (action is ParametrizedAction)
+                    ((ParametrizedAction)action).Execute -= ActionOnExecuted;
+            }
             View.SelectionChanged -= ViewOnSelectionChanged;
             if (ObjectSpace != null) {
                 ObjectSpace.Committed -= ObjectSpaceOnCommitted;
@@ -210,7 +254,6 @@ namespace Xpand.ExpressApp.Logic {
 
             if (View is XpandListView)
                 Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem -= OnCustomProcessSelectedItem;
-            //            }
         }
 
         void ViewOnQueryCanChangeCurrentObject(object sender, CancelEventArgs cancelEventArgs) {
@@ -338,13 +381,16 @@ namespace Xpand.ExpressApp.Logic {
             return (rule.ViewType == ViewType.Any || (viewInfo.IsDetailView ? rule.ViewType == ViewType.DetailView : rule.ViewType == ViewType.ListView));
         }
 
-        protected virtual LogicRuleInfo<TModelLogicRule> CalculateLogicRuleInfo(object targetObject, TModelLogicRule modelLogicRule) {
+        protected virtual LogicRuleInfo<TModelLogicRule> CalculateLogicRuleInfo(object targetObject, TModelLogicRule modelLogicRule, ActionBase action) {
             var logicRuleInfo = (LogicRuleInfo<TModelLogicRule>)Activator.CreateInstance(typeof(LogicRuleInfo<TModelLogicRule>));
             logicRuleInfo.Active = true;
             logicRuleInfo.Object = targetObject;
             logicRuleInfo.Rule = modelLogicRule;
-
-            logicRuleInfo.ExecutionContext = CalculateCurrentExecutionContext(modelLogicRule.ExecutionContextGroup);
+            if (action == null)
+                logicRuleInfo.ExecutionContext = CalculateCurrentExecutionContext(modelLogicRule.ExecutionContextGroup);
+            else {
+                logicRuleInfo.Action = action;
+            }
             return logicRuleInfo;
         }
 

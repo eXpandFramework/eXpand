@@ -43,6 +43,7 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
         public string ID { get; set; }
 
         public string ExecutionContextGroup { get; set; }
+        public string ActionExecutionContextGroup { get; set; }
         public string ViewContextGroup { get; set; }
         public string FrameTemplateContextGroup { get; set; }
         public FrameTemplateContext FrameTemplateContext { get; set; }

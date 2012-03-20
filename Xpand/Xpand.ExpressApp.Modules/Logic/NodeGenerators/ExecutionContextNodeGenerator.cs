@@ -6,4 +6,9 @@ namespace Xpand.ExpressApp.Logic.NodeGenerators {
         protected override void GenerateNodesCore(ModelNode node) {
         }
     }
+    public class ActionExecutionContextNodeGenerator : ModelNodesGeneratorBase {
+        protected override void GenerateNodesCore(ModelNode node) {
+        }
+    }
+
 }

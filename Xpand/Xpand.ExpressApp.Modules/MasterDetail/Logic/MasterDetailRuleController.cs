@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.Conditional.Logic;
 using Xpand.ExpressApp.Logic.Model;
@@ -19,8 +20,8 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
             return ((IModelApplicationMasterDetail)Application.Model).MasterDetail;
         }
 
-        protected override IEnumerable<LogicRuleInfo<IMasterDetailRule>> GetContextValidLogicRuleInfos(View view, IEnumerable<IMasterDetailRule> modelLogicRules, object currentObject, ExecutionContext executionContext, bool invertCustomization) {
-            var contextValidLogicRuleInfos = base.GetContextValidLogicRuleInfos(view, modelLogicRules, currentObject, executionContext, invertCustomization);
+        protected override IEnumerable<LogicRuleInfo<IMasterDetailRule>> GetContextValidLogicRuleInfos(View view, IEnumerable<IMasterDetailRule> modelLogicRules, object currentObject, ExecutionContext executionContext, bool invertCustomization, ActionBase action) {
+            var contextValidLogicRuleInfos = base.GetContextValidLogicRuleInfos(view, modelLogicRules, currentObject, executionContext, invertCustomization, action);
             if (contextValidLogicRuleInfos.Count() > 0)
                 _masterDetailRules.Clear();
             return contextValidLogicRuleInfos;

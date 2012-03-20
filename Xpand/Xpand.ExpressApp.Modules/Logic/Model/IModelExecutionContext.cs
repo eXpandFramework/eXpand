@@ -13,4 +13,14 @@ namespace Xpand.ExpressApp.Logic.Model {
         [Browsable(false)]
         IEnumerable<string> ExecutionContexts { get; }
     }
+    [KeyProperty("Name")]
+    [DisplayProperty("Name")]
+    public interface IModelActionExecutionContext : IModelNode {
+        [DataSourceProperty("ExecutionContexts")]
+        [Required]
+        string Name { get; set; }
+        [Browsable(false)]
+        IEnumerable<string> ExecutionContexts { get; }
+    }
+
 }

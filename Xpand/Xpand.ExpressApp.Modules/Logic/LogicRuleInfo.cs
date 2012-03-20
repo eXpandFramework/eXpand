@@ -1,10 +1,11 @@
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 
 namespace Xpand.ExpressApp.Logic {
     /// <summary>
     /// A helper class that is used to store the information about the artifact
     /// </summary>
-    public class LogicRuleInfo<TLogicRule> : ILogicRuleInfo<TLogicRule> where TLogicRule:ILogicRule{
+    public class LogicRuleInfo<TLogicRule> : ILogicRuleInfo<TLogicRule> where TLogicRule : ILogicRule {
 
         /// <summary>
         /// Represents a string that describes the current rule.
@@ -27,5 +28,7 @@ namespace Xpand.ExpressApp.Logic {
         public View View { get; set; }
 
         public ExecutionContext ExecutionContext { get; set; }
+
+        public ActionBase Action { get; set; }
     }
 }
