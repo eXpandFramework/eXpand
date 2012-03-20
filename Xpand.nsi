@@ -152,6 +152,7 @@ done${UNSECTION_ID}:
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
     !insertmacro DELETE_SMGROUP_SHORTCUT "Dll list"
+	!insertmacro DELETE_SMGROUP_SHORTCUT "Source"
     RmDir /r /REBOOTOK $INSTDIR
     DeleteRegValue HKLM "${REGKEY}\Components" Main
 SectionEnd
