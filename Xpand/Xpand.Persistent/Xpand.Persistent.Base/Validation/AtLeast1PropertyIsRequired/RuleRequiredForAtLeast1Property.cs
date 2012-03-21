@@ -40,8 +40,6 @@ namespace Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired {
         }
 
         protected override bool IsValidInternal(object target, out string errorMessageTemplate) {
-            errorMessageTemplate = "Test message from my rule!!!";
-            return false;
             Dictionary<string, object> values = GetValues(target);
             int emptyFound = values.Count(value => RuleSet.IsEmptyValue(TargetObject, value.Key, value.Value));
             errorMessageTemplate = Properties.MessageTemplateMustNotBeEmpty;

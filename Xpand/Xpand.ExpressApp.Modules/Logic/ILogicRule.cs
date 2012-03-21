@@ -8,7 +8,7 @@ using DevExpress.Persistent.Validation;
 
 namespace Xpand.ExpressApp.Logic {
 
-
+    [RuleCriteria("testrule1", DefaultContexts.Save, "(Not IsNullOrEmpty(ExecutionContextGroup)) OR (Not IsNullOrEmpty(ActionExecutionContextGroup))", SkipNullOrEmptyValues = false, CustomMessageTemplate = "At least one of ExecutionContextGroup, ActionExecutionContextGroup should not be null")]
     public interface ILogicRule : IRule {
         [Category("Behavior")]
         FrameTemplateContext FrameTemplateContext { get; set; }
