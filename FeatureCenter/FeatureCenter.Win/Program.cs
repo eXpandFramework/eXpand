@@ -26,7 +26,7 @@ namespace FeatureCenter.Win {
         static void Main(string[] cmdargs) {
 
 #if EASYTEST
-			DevExpress.ExpressApp.EasyTest.WinAdapter.RemotingRegistration.Register(4100);
+			DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
 #endif
 
             Application.EnableVisualStyles();
