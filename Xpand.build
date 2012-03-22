@@ -372,6 +372,8 @@
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandNCarouselWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandPivotChartWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandPivotChartWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandDBMapperWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandDBMapperWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandSqlDbMapperWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandSqlDbMapperWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandThumbnailWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
@@ -412,6 +414,8 @@
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandNCarouselWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandPivotChartWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandPivotChartWin.$(Version).nupkg $(NuGetApiKey)"/>
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandDBMapperWeb.$(Version).nupkg $(NuGetApiKey)"/>
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandDBMapperWin.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandSqlDbMapperWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandSqlDbMapperWin.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandThumbnailWeb.$(Version).nupkg $(NuGetApiKey)"/>
