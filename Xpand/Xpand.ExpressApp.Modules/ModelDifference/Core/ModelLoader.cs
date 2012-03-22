@@ -7,6 +7,7 @@ using System.Web.Configuration;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -238,11 +239,19 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 FromModule(_moduleName).
                 Build();
             XpandModuleBase.DisposeManagers();
-            ModelApplicationBase modelApplicationBase = ModelBuilder.Create()
-                .UsingTypesInfo(typesInfo)
-                .FromModule(_moduleName)
-                .WithApplication(xafApplication)
-                .Build();
+            ModelApplicationBase modelApplicationBase;
+            try {
+                modelApplicationBase = ModelBuilder.Create()
+                    .UsingTypesInfo(typesInfo)
+                    .FromModule(_moduleName)
+                    .WithApplication(xafApplication)
+                    .Build();
+            } catch (CompilerErrorException e) {
+                Tracing.Tracer.LogSeparator("CompilerErrorException");
+                Tracing.Tracer.LogError(e);
+                Tracing.Tracer.LogValue("Source Code", e.SourceCode);
+                throw;
+            }
             XpandModuleBase.ReStoreManagers();
             return modelApplicationBase;
         }
