@@ -131,6 +131,8 @@
     <Compile Include="Core\TypeValueConverter.cs" />
     <Compile Include="DataStoreProvider.cs" />
     <Compile Include="Editors\ReleaseSequencePopupWindowHelper.cs" />
+    <Compile Include="MessageBox\GenericMessageBox.cs" />
+    <Compile Include="MessageBox\MessageBoxTextMessage.cs" />
     <Compile Include="MiddleTier\XpandServerApplication.cs">
       <SubType>Component</SubType>
     </Compile>

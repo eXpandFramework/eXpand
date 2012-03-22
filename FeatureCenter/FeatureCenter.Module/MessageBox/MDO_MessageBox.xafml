@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <NavigationItems StartupNavigationItem="Welcome" />
+  <Views>
+    <DetailView Id="ShowMessageBoxObject_DetailView">
+      <Items>
+        <ActionButton Id="ShowOkAndCancel" ActionId="ShowOkAndCancel" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" Caption="Main" IsNewNode="True">
+          <LayoutItem Id="ShowOkAndCancel" Index="0" ViewItem="ShowOkAndCancel" RelativeSize="100" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="WelcomeObject_DetailView">
+      <Items>
+        <StaticText Id="Welcome_Static" Text="This demo has been designed to help you quickly get acquainted with the eXpand Framework and start using it effectively. &#xD;&#xA;If you are new to the eXpand Framework, you can get a glimpse of various features offered by it. Each individual demo shows off some particular XAF feature and comes with a description of that functionality.&#xD;&#xA;If you are a seasoned XAF developer, this demo can prove valuable to you too. You can refer to this demo's source code to see how some specific behavior can be implemented.&#xD;&#xA;&#xD;&#xA; To navigate through the individual demos, use the tree view on the left. Also for each view there is a special model configuration, you can see it through the model difference action (next to the refresh button). You can execute this action and examine the differences that are applied to show this feature." IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Index="0" RelativeSize="100" Caption="Main" Direction="Vertical" IsNewNode="True">
+          <LayoutItem Id="Welcome_Static" ShowCaption="False" Index="0" RelativeSize="100" ViewItem="Welcome_Static" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

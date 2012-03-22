@@ -9,7 +9,6 @@ using FeatureCenter.Base;
 using Xpand.ExpressApp.FilterDataStore.Providers;
 
 namespace FeatureCenter.Module {
-
     public class Updater : Xpand.Persistent.BaseImpl.Updater {
         protected bool initializeSecurity;
 
@@ -47,7 +46,7 @@ namespace FeatureCenter.Module {
                 CreateworkflowServiceUser(ObjectSpace.FindObject<Role>(criteriaOperator));
                 CreateworkflowServiceUser(ObjectSpace.FindObject<SecurityRole>(criteriaOperator));
                 ObjectSpace.CommitChanges();
-                
+
 
                 var updaters = ReflectionHelper.FindTypeDescendants(XafTypesInfo.CastTypeToTypeInfo(typeof(FCUpdater)));
                 foreach (var findTypeDescendant in updaters) {

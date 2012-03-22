@@ -15,6 +15,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
+using Xpand.ExpressApp.MessageBox;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.TranslatorProviders;
@@ -40,6 +41,9 @@ namespace Xpand.ExpressApp.SystemModule {
         static XpandSystemModule() {
             ParametersFactory.RegisterParameter(new MonthAgoParameter());
             TranslatorProvider.RegisterProvider(new GoogleTranslatorProvider());
+        }
+        protected override IEnumerable<Type> GetDeclaredExportedTypes() {
+            return new List<Type>(base.GetDeclaredExportedTypes()) {typeof (MessageBoxTextMessage)};
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
