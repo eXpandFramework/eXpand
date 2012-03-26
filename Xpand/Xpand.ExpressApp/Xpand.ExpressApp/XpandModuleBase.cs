@@ -29,7 +29,10 @@ namespace Xpand.ExpressApp {
         }
 
         protected bool RuntimeMode {
-            get { return Application != null && Application.Security != null; }
+            get {
+                return Application != null && Application.Title != "devenv";
+                //                return Application != null && Application.Security != null;
+            }
         }
 
         [Obsolete("Use the \'GetDeclaredExportedTypes()\' method instead.")]
@@ -75,8 +78,7 @@ namespace Xpand.ExpressApp {
                     }
                     _baseImplAssembly = Assembly.Load(assemblyString);
                     if (_baseImplAssembly == null)
-                        throw new NullReferenceException("BaseImpl not found please reference it in your front end project");
-                    TypesInfo.LoadTypes(_baseImplAssembly);
+                        throw new NullReferenceException("BaseImpl not found please reference it in your front end project and set its Copy Local=true");
                 }
                 return _baseImplAssembly;
             }
@@ -129,8 +131,16 @@ namespace Xpand.ExpressApp {
             }
         }
 
+        protected void AddToAdditionalExportedTypes(string[] types) {
+            if (RuntimeMode) {
+                var types1 = BaseImplAssembly.GetTypes().Where(type1 =>types.Contains(type1.FullName));
+                AdditionalExportedTypes.AddRange(types1);
+            }
+
+        }
+
         protected void AddToAdditionalExportedTypes(string nameSpaceName) {
-            if (!DesignMode) {
+            if (RuntimeMode) {
                 var types = BaseImplAssembly.GetTypes().Where(type1 => (type1.Namespace + "").StartsWith(nameSpaceName));
                 AdditionalExportedTypes.AddRange(types);
             }
