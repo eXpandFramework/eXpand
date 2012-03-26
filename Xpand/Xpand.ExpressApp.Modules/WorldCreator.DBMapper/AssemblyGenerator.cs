@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             _objectSpace = ObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
         }
 
-        static IDataStoreSchemaExplorer GetDataStoreSchemaExplorer(IDataStoreSchemaExplorer dataStoreSchemaExplorer) {
+        static public IDataStoreSchemaExplorer GetDataStoreSchemaExplorer(IDataStoreSchemaExplorer dataStoreSchemaExplorer) {
             if (dataStoreSchemaExplorer is MSSqlConnectionProvider) {
                 var msSqlConnectionProvider = ((MSSqlConnectionProvider)dataStoreSchemaExplorer);
                 dataStoreSchemaExplorer = new Xpand.Xpo.ConnectionProviders.MSSqlConnectionProvider(msSqlConnectionProvider.Connection, msSqlConnectionProvider.AutoCreateOption);
