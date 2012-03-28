@@ -26,6 +26,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelImportWizard));
             DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
@@ -107,8 +108,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.WizardControl.Controls.Add(this.completionWizardPage1);
             this.WizardControl.Controls.Add(this.wizardPage2);
             this.WizardControl.Controls.Add(this.wizardPage3);
-            this.WizardControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.WizardControl.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.WizardControl, "WizardControl");
             this.WizardControl.Name = "WizardControl";
             this.WizardControl.Pages.AddRange(new DevExpress.XtraWizard.BaseWizardPage[] {
             this.welcomeWizardPage1,
@@ -116,8 +116,6 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.wizardPage2,
             this.wizardPage3,
             this.completionWizardPage1});
-            this.WizardControl.Size = new System.Drawing.Size(828, 560);
-            this.WizardControl.Text = "Import Data from Excel";
             this.WizardControl.WizardStyle = DevExpress.XtraWizard.WizardStyle.WizardAero;
             this.WizardControl.SelectedPageChanged += new DevExpress.XtraWizard.WizardPageChangedEventHandler(this.WizardControl_SelectedPageChanged);
             this.WizardControl.SelectedPageChanging += new DevExpress.XtraWizard.WizardPageChangingEventHandler(this.WizardControl_SelectedPageChanging);
@@ -133,28 +131,17 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.welcomeWizardPage1.Controls.Add(this.ExcelSheetPreviewGrid);
             this.welcomeWizardPage1.Controls.Add(this.labelControl1);
             this.welcomeWizardPage1.Controls.Add(this.FileSelectEdit);
-            this.welcomeWizardPage1.IntroductionText = "Please select excel file to import...\r\n";
+            resources.ApplyResources(this.welcomeWizardPage1, "welcomeWizardPage1");
             this.welcomeWizardPage1.Name = "welcomeWizardPage1";
-            this.welcomeWizardPage1.Size = new System.Drawing.Size(768, 398);
-            this.welcomeWizardPage1.Text = "Please select excel file to import...";
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(344, 55);
+            resources.ApplyResources(this.labelControl2, "labelControl2");
             this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(74, 13);
-            this.labelControl2.TabIndex = 17;
-            this.labelControl2.Text = "PreView Rows: ";
             // 
             // PrieviewRowCountSpinEdit
             // 
-            this.PrieviewRowCountSpinEdit.EditValue = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.PrieviewRowCountSpinEdit.Enabled = false;
-            this.PrieviewRowCountSpinEdit.Location = new System.Drawing.Point(420, 52);
+            resources.ApplyResources(this.PrieviewRowCountSpinEdit, "PrieviewRowCountSpinEdit");
             this.PrieviewRowCountSpinEdit.Name = "PrieviewRowCountSpinEdit";
             this.PrieviewRowCountSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -168,19 +155,11 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             0,
             0,
             0});
-            this.PrieviewRowCountSpinEdit.Size = new System.Drawing.Size(48, 20);
-            this.PrieviewRowCountSpinEdit.TabIndex = 16;
             this.PrieviewRowCountSpinEdit.EditValueChanged += new System.EventHandler(this.PrieviewRowCountSpinEdit_EditValueChanged);
             // 
             // HeaderRowSpinEdit
             // 
-            this.HeaderRowSpinEdit.EditValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.HeaderRowSpinEdit.Enabled = false;
-            this.HeaderRowSpinEdit.Location = new System.Drawing.Point(261, 52);
+            resources.ApplyResources(this.HeaderRowSpinEdit, "HeaderRowSpinEdit");
             this.HeaderRowSpinEdit.Name = "HeaderRowSpinEdit";
             this.HeaderRowSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -194,45 +173,31 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             0,
             0,
             0});
-            this.HeaderRowSpinEdit.Size = new System.Drawing.Size(52, 20);
-            this.HeaderRowSpinEdit.TabIndex = 15;
             this.HeaderRowSpinEdit.EditValueChanged += new System.EventHandler(this.HeaderRowSpinEdit_EditValueChanged);
             // 
             // SheetSelectEdit
             // 
-            this.SheetSelectEdit.Enabled = false;
-            this.SheetSelectEdit.Location = new System.Drawing.Point(21, 52);
+            resources.ApplyResources(this.SheetSelectEdit, "SheetSelectEdit");
             this.SheetSelectEdit.Name = "SheetSelectEdit";
             this.SheetSelectEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.SheetSelectEdit.Properties.NullText = "Select Excel Sheet...";
-            this.SheetSelectEdit.Size = new System.Drawing.Size(142, 20);
-            this.SheetSelectEdit.TabIndex = 14;
+            new DevExpress.XtraEditors.Controls.EditorButton(((DevExpress.XtraEditors.Controls.ButtonPredefines)(resources.GetObject("SheetSelectEdit.Properties.Buttons"))))});
+            this.SheetSelectEdit.Properties.NullText = resources.GetString("SheetSelectEdit.Properties.NullText");
             this.SheetSelectEdit.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.SheetSelectEdit_ListChanged);
             this.SheetSelectEdit.EditValueChanged += new System.EventHandler(this.SheetSelectEdit_EditValueChanged);
             this.SheetSelectEdit.EnabledChanged += new System.EventHandler(this.SheetSelectEdit_EnabledChanged);
             // 
             // HeaderRowCheck
             // 
-            this.HeaderRowCheck.Enabled = false;
-            this.HeaderRowCheck.Location = new System.Drawing.Point(169, 53);
+            resources.ApplyResources(this.HeaderRowCheck, "HeaderRowCheck");
             this.HeaderRowCheck.Name = "HeaderRowCheck";
-            this.HeaderRowCheck.Properties.Caption = "Header Row";
-            this.HeaderRowCheck.Size = new System.Drawing.Size(86, 19);
-            this.HeaderRowCheck.TabIndex = 13;
+            this.HeaderRowCheck.Properties.Caption = resources.GetString("HeaderRowCheck.Properties.Caption");
             this.HeaderRowCheck.CheckedChanged += new System.EventHandler(this.HeaderRowCheck_CheckedChanged);
             // 
             // ExcelSheetPreviewGrid
             // 
-            this.ExcelSheetPreviewGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExcelSheetPreviewGrid.Enabled = false;
-            this.ExcelSheetPreviewGrid.Location = new System.Drawing.Point(4, 84);
+            resources.ApplyResources(this.ExcelSheetPreviewGrid, "ExcelSheetPreviewGrid");
             this.ExcelSheetPreviewGrid.MainView = this.ExcelSheetPreviewGridView;
             this.ExcelSheetPreviewGrid.Name = "ExcelSheetPreviewGrid";
-            this.ExcelSheetPreviewGrid.Size = new System.Drawing.Size(761, 311);
-            this.ExcelSheetPreviewGrid.TabIndex = 12;
             this.ExcelSheetPreviewGrid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.ExcelSheetPreviewGridView});
             // 
@@ -246,23 +211,18 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(4, 19);
+            resources.ApplyResources(this.labelControl1, "labelControl1");
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(50, 13);
-            this.labelControl1.TabIndex = 11;
-            this.labelControl1.Text = "FileName: ";
             // 
             // FileSelectEdit
             // 
             this.FileSelectEdit.AllowDrop = true;
-            this.FileSelectEdit.Location = new System.Drawing.Point(70, 16);
+            resources.ApplyResources(this.FileSelectEdit, "FileSelectEdit");
             this.FileSelectEdit.Name = "FileSelectEdit";
             this.FileSelectEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(((DevExpress.XtraEditors.Controls.ButtonPredefines)(resources.GetObject("FileSelectEdit.Properties.Buttons")))),
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.FileSelectEdit.Properties.NullText = "Please Select File to import...";
-            this.FileSelectEdit.Size = new System.Drawing.Size(493, 20);
-            this.FileSelectEdit.TabIndex = 10;
+            this.FileSelectEdit.Properties.NullText = resources.GetString("FileSelectEdit.Properties.NullText");
             this.FileSelectEdit.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.FileSelectEdit_ButtonClick);
             this.FileSelectEdit.EditValueChanged += new System.EventHandler(this.FileSelectEdit_EditValueChanged);
             // 
@@ -274,72 +234,56 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.wizardPage1.Controls.Add(this.ImportMapLookUp);
             this.wizardPage1.Controls.Add(this.MappingGrid);
             this.wizardPage1.Name = "wizardPage1";
-            this.wizardPage1.Size = new System.Drawing.Size(768, 398);
-            this.wizardPage1.Text = "Map Excel columns to object Fields";
+            resources.ApplyResources(this.wizardPage1, "wizardPage1");
             // 
             // ResetButton
             // 
-            this.ResetButton.Location = new System.Drawing.Point(461, 36);
+            resources.ApplyResources(this.ResetButton, "ResetButton");
             this.ResetButton.Name = "ResetButton";
-            this.ResetButton.Size = new System.Drawing.Size(96, 23);
-            this.ResetButton.TabIndex = 5;
-            this.ResetButton.Text = "Reset Mappings";
             this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
             // 
             // GuesMappingButton
             // 
-            this.GuesMappingButton.Location = new System.Drawing.Point(196, 36);
+            resources.ApplyResources(this.GuesMappingButton, "GuesMappingButton");
             this.GuesMappingButton.Name = "GuesMappingButton";
-            this.GuesMappingButton.Size = new System.Drawing.Size(110, 23);
-            this.GuesMappingButton.TabIndex = 4;
-            this.GuesMappingButton.Text = "GuestMappings";
             this.GuesMappingButton.Click += new System.EventHandler(this.GuesMappingButton_Click);
             // 
             // MappingRadioGroup
             // 
-            this.MappingRadioGroup.Location = new System.Drawing.Point(4, 7);
+            resources.ApplyResources(this.MappingRadioGroup, "MappingRadioGroup");
             this.MappingRadioGroup.Name = "MappingRadioGroup";
             this.MappingRadioGroup.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Use existing column mapping", false),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Create custom column mapping")});
-            this.MappingRadioGroup.Size = new System.Drawing.Size(183, 55);
-            this.MappingRadioGroup.TabIndex = 3;
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(((object)(resources.GetObject("MappingRadioGroup.Properties.Items"))), resources.GetString("MappingRadioGroup.Properties.Items1"), ((bool)(resources.GetObject("MappingRadioGroup.Properties.Items2")))),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(((object)(resources.GetObject("MappingRadioGroup.Properties.Items3"))), resources.GetString("MappingRadioGroup.Properties.Items4"))});
             this.MappingRadioGroup.SelectedIndexChanged += new System.EventHandler(this.MappingRadioGroup_SelectedIndexChanged_1);
             // 
             // ImportMapLookUp
             // 
-            this.ImportMapLookUp.Location = new System.Drawing.Point(193, 8);
+            resources.ApplyResources(this.ImportMapLookUp, "ImportMapLookUp");
             this.ImportMapLookUp.Name = "ImportMapLookUp";
             this.ImportMapLookUp.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            new DevExpress.XtraEditors.Controls.EditorButton(((DevExpress.XtraEditors.Controls.ButtonPredefines)(resources.GetObject("ImportMapLookUp.Properties.Buttons"))))});
             this.ImportMapLookUp.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Description", 120, "Description"),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Columns", "Columns", 360, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Far)});
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo(resources.GetString("ImportMapLookUp.Properties.Columns"), ((int)(resources.GetObject("ImportMapLookUp.Properties.Columns1"))), resources.GetString("ImportMapLookUp.Properties.Columns2")),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo(resources.GetString("ImportMapLookUp.Properties.Columns3"), resources.GetString("ImportMapLookUp.Properties.Columns4"), ((int)(resources.GetObject("ImportMapLookUp.Properties.Columns5"))), ((DevExpress.Utils.FormatType)(resources.GetObject("ImportMapLookUp.Properties.Columns6"))), resources.GetString("ImportMapLookUp.Properties.Columns7"), ((bool)(resources.GetObject("ImportMapLookUp.Properties.Columns8"))), ((DevExpress.Utils.HorzAlignment)(resources.GetObject("ImportMapLookUp.Properties.Columns9"))))});
             this.ImportMapLookUp.Properties.DisplayMember = "Description";
-            this.ImportMapLookUp.Properties.NullText = "Select existing Column Mapping...";
+            this.ImportMapLookUp.Properties.NullText = resources.GetString("ImportMapLookUp.Properties.NullText");
             this.ImportMapLookUp.Properties.ValueMember = "Oid";
-            this.ImportMapLookUp.Size = new System.Drawing.Size(370, 20);
-            toolTipTitleItem1.Text = "Saved Mappings";
+            resources.ApplyResources(toolTipTitleItem1, "toolTipTitleItem1");
             toolTipItem1.LeftIndent = 6;
-            toolTipItem1.Text = "You can selec a column mapping used for previous Imports. ";
+            resources.ApplyResources(toolTipItem1, "toolTipItem1");
             superToolTip1.Items.Add(toolTipTitleItem1);
             superToolTip1.Items.Add(toolTipItem1);
             this.ImportMapLookUp.SuperTip = superToolTip1;
-            this.ImportMapLookUp.TabIndex = 2;
             this.ImportMapLookUp.EditValueChanged += new System.EventHandler(this.ImportMapLookUp_EditValueChanged);
             // 
             // MappingGrid
             // 
-            this.MappingGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.MappingGrid.Location = new System.Drawing.Point(0, 68);
+            resources.ApplyResources(this.MappingGrid, "MappingGrid");
             this.MappingGrid.MainView = this.MappingBandedGridView;
             this.MappingGrid.Name = "MappingGrid";
             this.MappingGrid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemGridLookUpEdit});
-            this.MappingGrid.Size = new System.Drawing.Size(768, 330);
-            this.MappingGrid.TabIndex = 1;
             this.MappingGrid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.MappingBandedGridView});
             // 
@@ -355,32 +299,24 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             // 
             // ColName
             // 
-            this.ColName.Caption = "Column Name";
-            this.ColName.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.ColName.Name = "ColName";
+            resources.ApplyResources(this.ColName, "ColName");
             // 
             // Values
             // 
-            this.Values.Caption = "Values";
-            this.Values.Name = "Values";
-            this.Values.Width = 654;
+            resources.ApplyResources(this.Values, "Values");
             // 
             // MapTo
             // 
-            this.MapTo.Caption = "MapTo...";
-            this.MapTo.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
-            this.MapTo.Name = "MapTo";
-            this.MapTo.Width = 196;
+            resources.ApplyResources(this.MapTo, "MapTo");
             // 
             // repositoryItemGridLookUpEdit
             // 
-            this.repositoryItemGridLookUpEdit.AutoHeight = false;
+            resources.ApplyResources(this.repositoryItemGridLookUpEdit, "repositoryItemGridLookUpEdit");
             this.repositoryItemGridLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Close)});
+            new DevExpress.XtraEditors.Controls.EditorButton(((DevExpress.XtraEditors.Controls.ButtonPredefines)(resources.GetObject("repositoryItemGridLookUpEdit.Buttons")))),
+            new DevExpress.XtraEditors.Controls.EditorButton(((DevExpress.XtraEditors.Controls.ButtonPredefines)(resources.GetObject("repositoryItemGridLookUpEdit.Buttons1"))))});
             this.repositoryItemGridLookUpEdit.DataSource = this.mappablePropertyBindingSource;
             this.repositoryItemGridLookUpEdit.Name = "repositoryItemGridLookUpEdit";
-            this.repositoryItemGridLookUpEdit.NullText = "-";
             this.repositoryItemGridLookUpEdit.ValidateOnEnterKey = true;
             this.repositoryItemGridLookUpEdit.View = this.repositoryItemGridLookUpEdit1View;
             this.repositoryItemGridLookUpEdit.CloseUp += new DevExpress.XtraEditors.Controls.CloseUpEventHandler(this.repositoryItemGridLookUpEdit_CloseUp);
@@ -407,32 +343,26 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             // 
             // NameColumn
             // 
-            this.NameColumn.Caption = "Name";
+            resources.ApplyResources(this.NameColumn, "NameColumn");
             this.NameColumn.FieldName = "Name";
             this.NameColumn.Name = "NameColumn";
-            this.NameColumn.Visible = true;
-            this.NameColumn.VisibleIndex = 0;
             // 
             // DisplayNameColumn
             // 
-            this.DisplayNameColumn.Caption = "DisplayName";
+            resources.ApplyResources(this.DisplayNameColumn, "DisplayNameColumn");
             this.DisplayNameColumn.FieldName = "DisplayName";
             this.DisplayNameColumn.Name = "DisplayNameColumn";
-            this.DisplayNameColumn.Visible = true;
-            this.DisplayNameColumn.VisibleIndex = 1;
             // 
             // Mapped
             // 
-            this.Mapped.Caption = "Mapped";
+            resources.ApplyResources(this.Mapped, "Mapped");
             this.Mapped.FieldName = "Mapped";
             this.Mapped.Name = "Mapped";
-            this.Mapped.Visible = true;
-            this.Mapped.VisibleIndex = 2;
             // 
             // completionWizardPage1
             // 
             this.completionWizardPage1.Name = "completionWizardPage1";
-            this.completionWizardPage1.Size = new System.Drawing.Size(768, 398);
+            resources.ApplyResources(this.completionWizardPage1, "completionWizardPage1");
             // 
             // wizardPage2
             // 
@@ -442,46 +372,34 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.wizardPage2.Controls.Add(this.labelControl3);
             this.wizardPage2.Controls.Add(this.ImportMapDescriptionEdit);
             this.wizardPage2.Name = "wizardPage2";
-            this.wizardPage2.Size = new System.Drawing.Size(768, 398);
-            this.wizardPage2.Text = "Save mapping ?";
+            resources.ApplyResources(this.wizardPage2, "wizardPage2");
             // 
             // SaveLabel
             // 
-            this.SaveLabel.Location = new System.Drawing.Point(3, 4);
+            resources.ApplyResources(this.SaveLabel, "SaveLabel");
             this.SaveLabel.Name = "SaveLabel";
-            this.SaveLabel.Size = new System.Drawing.Size(186, 13);
-            this.SaveLabel.TabIndex = 4;
-            this.SaveLabel.Text = "Do You Want to save import mapping ?";
             // 
             // radioGroup2
             // 
-            this.radioGroup2.EditValue = true;
-            this.radioGroup2.Location = new System.Drawing.Point(3, 23);
+            resources.ApplyResources(this.radioGroup2, "radioGroup2");
             this.radioGroup2.Name = "radioGroup2";
             this.radioGroup2.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(true, "Yes1"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(false, "No")});
-            this.radioGroup2.Size = new System.Drawing.Size(186, 31);
-            this.radioGroup2.TabIndex = 3;
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(((object)(resources.GetObject("radioGroup2.Properties.Items"))), resources.GetString("radioGroup2.Properties.Items1")),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(((object)(resources.GetObject("radioGroup2.Properties.Items2"))), resources.GetString("radioGroup2.Properties.Items3"))});
             this.radioGroup2.EditValueChanged += new System.EventHandler(this.radioGroup2_EditValueChanged);
             // 
             // labelControl3
             // 
-            this.labelControl3.Location = new System.Drawing.Point(3, 60);
+            resources.ApplyResources(this.labelControl3, "labelControl3");
             this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(114, 13);
-            this.labelControl3.TabIndex = 1;
-            this.labelControl3.Text = "Import Map description:";
             // 
             // ImportMapDescriptionEdit
             // 
-            this.ImportMapDescriptionEdit.Location = new System.Drawing.Point(4, 79);
+            resources.ApplyResources(this.ImportMapDescriptionEdit, "ImportMapDescriptionEdit");
             this.ImportMapDescriptionEdit.Name = "ImportMapDescriptionEdit";
             this.ImportMapDescriptionEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.ImportMapDescriptionEdit.Properties.NullText = "Enter desription for custom import map...";
+            this.ImportMapDescriptionEdit.Properties.NullText = resources.GetString("ImportMapDescriptionEdit.Properties.NullText");
             this.ImportMapDescriptionEdit.Properties.ValidateOnEnterKey = true;
-            this.ImportMapDescriptionEdit.Size = new System.Drawing.Size(559, 20);
-            this.ImportMapDescriptionEdit.TabIndex = 0;
             this.ImportMapDescriptionEdit.TextChanged += new System.EventHandler(this.textEdit1_TextChanged);
             // 
             // wizardPage3
@@ -489,40 +407,28 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.wizardPage3.Controls.Add(this.ResultsMemoEdit);
             this.wizardPage3.Controls.Add(this.ImportButton);
             this.wizardPage3.Name = "wizardPage3";
-            this.wizardPage3.Size = new System.Drawing.Size(768, 398);
+            resources.ApplyResources(this.wizardPage3, "wizardPage3");
             // 
             // ResultsMemoEdit
             // 
-            this.ResultsMemoEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.ResultsMemoEdit.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.ResultsMemoEdit, "ResultsMemoEdit");
             this.ResultsMemoEdit.Name = "ResultsMemoEdit";
             this.ResultsMemoEdit.Properties.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.ResultsMemoEdit.Properties.WordWrap = false;
-            this.ResultsMemoEdit.Size = new System.Drawing.Size(768, 286);
-            this.ResultsMemoEdit.TabIndex = 1;
             // 
             // ImportButton
             // 
-            this.ImportButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.ImportButton.Location = new System.Drawing.Point(174, 292);
+            resources.ApplyResources(this.ImportButton, "ImportButton");
             this.ImportButton.Name = "ImportButton";
-            this.ImportButton.Size = new System.Drawing.Size(425, 95);
-            this.ImportButton.TabIndex = 0;
-            this.ImportButton.Text = "Import Data";
             this.ImportButton.Click += new System.EventHandler(this.ImportButton_Click);
             // 
             // gridLookUpEdit1
             // 
-            this.gridLookUpEdit1.Location = new System.Drawing.Point(355, 71);
+            resources.ApplyResources(this.gridLookUpEdit1, "gridLookUpEdit1");
             this.gridLookUpEdit1.Name = "gridLookUpEdit1";
             this.gridLookUpEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            new DevExpress.XtraEditors.Controls.EditorButton(((DevExpress.XtraEditors.Controls.ButtonPredefines)(resources.GetObject("gridLookUpEdit1.Properties.Buttons"))))});
             this.gridLookUpEdit1.Properties.View = this.gridLookUpEdit2View;
-            this.gridLookUpEdit1.Size = new System.Drawing.Size(202, 20);
-            this.gridLookUpEdit1.TabIndex = 17;
             // 
             // gridLookUpEdit2View
             // 
@@ -546,12 +452,10 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             // 
             // ExcelImportWizard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(828, 560);
             this.Controls.Add(this.WizardControl);
             this.Name = "ExcelImportWizard";
-            this.Text = "ExcelImportWizard";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ExcelImportWizard_FormClosing);
             this.Load += new System.EventHandler(this.ExcelImportWizard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.WizardControl)).EndInit();
