@@ -77,9 +77,10 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         }
 
         bool IsOneToOneOnTheKey(DBColumn dbColumn) {
-            IEnumerable<DBForeignKey> foreignKeys = _dbTable.ForeignKeys.Where(key => key.PrimaryKeyTable != _dbTable.Name && key.Columns.Contains(dbColumn.Name));
-            var keies = foreignKeys.Select(key => new { FK = key, PrimaryTable = _classInfos[ClassGenerator.GetTableName(key.PrimaryKeyTable)].DbTable });
-            return (from key in keies let type = key.FK.PrimaryKeyTableKeyColumns.OfType<string>() where type.All(s => key.PrimaryTable.PrimaryKey.Columns.Contains(s)) select key).Any();
+            IEnumerable<DBForeignKey> foreignPKeys = _dbTable.ForeignKeys.Where(key => _dbTable.PrimaryKey.Columns.Contains(dbColumn.Name) && key.PrimaryKeyTable != _dbTable.Name && key.Columns.Contains(dbColumn.Name));
+            var keies = foreignPKeys.Select(key => new { FK = key, PrimaryTable = _classInfos[ClassGenerator.GetTableName(key.PrimaryKeyTable)].DbTable });
+            return keies.Where(arg => arg.PrimaryTable.PrimaryKey.Columns.OfType<string>().All(s => arg.FK.PrimaryKeyTableKeyColumns.OfType<string>().Contains(s))).Any();
+            return (from key in keies let phColumns = key.FK.PrimaryKeyTableKeyColumns.OfType<string>() where phColumns.All(s => _dbTable.PrimaryKey.Columns.Contains(s)) select key).Any();
         }
 
         MemberGeneratorInfo CreateMember(DBColumn dbColumn, IPersistentClassInfo persistentClassInfo = null, TemplateType coreTemplateType = TemplateType.XPReadWritePropertyMember, TemplateType refTemplateType = TemplateType.XPReadWritePropertyMember) {
@@ -107,7 +108,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             //                Debug.Print("");
 
             var foreignKey = _dbTable.ForeignKeys.Where(key => key.Columns.Contains(dbColumn.Name)).First(key => key.PrimaryKeyTable != "XPObjectType");
-            
+
             var tableName = ClassGenerator.GetTableName(foreignKey.PrimaryKeyTable);
             if (_classInfos.ContainsKey(tableName)) {
                 var classGeneratorInfo = _classInfos[tableName];

@@ -12,13 +12,11 @@ using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Xpo.DB;
 
 [assembly: DataStore(typeof(ExceptionObject), "ExceptionHandling")]
-namespace Xpand.Persistent.BaseImpl.ExceptionHandling
-{
-    
+namespace Xpand.Persistent.BaseImpl.ExceptionHandling {
+
     [HideFromNewMenu]
     [DeferredDeletion(false)]
-    public class ExceptionObject : XPLiteObject, IExceptionObject
-    {
+    public class ExceptionObject : XPLiteObject, IExceptionObject {
 
         private int _iD;
         #region Members
@@ -34,14 +32,12 @@ namespace Xpand.Persistent.BaseImpl.ExceptionHandling
         #endregion
         #region Constructor
         public ExceptionObject(Session session)
-            : base(session)
-        {
+            : base(session) {
         }
 
         [Browsable(false)]
         [Key(true)]
-        public int ID
-        {
+        public int ID {
             get { return _iD; }
             set { SetPropertyValue("ID", ref _iD, value); }
         }
@@ -51,71 +47,61 @@ namespace Xpand.Persistent.BaseImpl.ExceptionHandling
             get { return _date; }
             set { SetPropertyValue("Date", ref _date, value); }
         }
-        public TimeSpan Time
-        {
+        public TimeSpan Time {
             get { return _time; }
             set { SetPropertyValue("Time", ref _time, value); }
         }
-        public Guid UserId
-        {
+        public Guid UserId {
             get { return _userId; }
             set { SetPropertyValue("UserId", ref _userId, value); }
         }
 
         Guid IExceptionObject.UserId {
             get { return UserId; }
-            set { UserId=value ; }
+            set { UserId = value; }
         }
 
         private string _tracingLastEntries;
         [Size(SizeAttribute.Unlimited)]
-        public string TracingLastEntries
-        {
+        public string TracingLastEntries {
             get { return _tracingLastEntries; }
             set { SetPropertyValue("TracingLastEntries", ref _tracingLastEntries, value); }
         }
-        public string WindowsID
-        {
+        public string WindowsID {
             get { return _windowsId; }
             set { SetPropertyValue("WindowsID", ref _windowsId, value); }
         }
 
-        public string ComputerName
-        {
+        public string ComputerName {
             get { return _computerName; }
             set { SetPropertyValue("ComputerName", ref _computerName, value); }
         }
 
-        public string Application
-        {
+        public string Application {
             get { return _application; }
             set { SetPropertyValue("Application", ref _application, value); }
         }
 
-        public string ThreadID
-        {
+        public string ThreadID {
             get { return _threadId; }
             set { SetPropertyValue("ThreadID", ref _threadId, value); }
         }
 
 
         [Size(SizeAttribute.Unlimited)]
-        public string Message
-        {
+        public string Message {
             get { return _message; }
             set { SetPropertyValue("Message", ref _message, value); }
         }
 
         [Size(SizeAttribute.Unlimited)]
-        public string FullException
-        {
+        public string FullException {
             get { return _fullException; }
             set { SetPropertyValue("FullException", ref _fullException, value); }
         }
 
         [Size(SizeAttribute.Unlimited), Delayed, ValueConverter(typeof(ImageCompressionValueConverter))]
-        public Image Screenshot
-        {
+        public Image Screenshot {
             get { return GetDelayedPropertyValue<Image>("Screenshot"); }
             set { SetDelayedPropertyValue("Screenshot", value); }
         }
@@ -126,37 +112,31 @@ namespace Xpand.Persistent.BaseImpl.ExceptionHandling
         }
 
         IList<IExceptionObject> IExceptionObject.InnerExceptionObjects {
-            get { return new ListConverter<IExceptionObject,ExceptionObject>(InnerExceptionObjects); }
+            get { return new ListConverter<IExceptionObject, ExceptionObject>(InnerExceptionObjects); }
         }
         #endregion
-        string ITreeNode.Name
-        {
+        string ITreeNode.Name {
             get { return Message; }
         }
         private ExceptionObject _parentExceptionObject;
 
         [Association("ExceptionObject-ExceptionObjects")]
-        public ExceptionObject ParentExceptionObject
-        {
+        public ExceptionObject ParentExceptionObject {
             get { return _parentExceptionObject; }
             set { SetPropertyValue("ParentExceptionObject", ref _parentExceptionObject, value); }
         }
-        ITreeNode ITreeNode.Parent
-        {
+        ITreeNode ITreeNode.Parent {
             get { return _parentExceptionObject; }
         }
         [Association("ExceptionObject-ExceptionObjects")]
         [Aggregated]
-        public XPCollection<ExceptionObject> InnerExceptionObjects
-        {
-            get
-            {
+        public XPCollection<ExceptionObject> InnerExceptionObjects {
+            get {
                 return GetCollection<ExceptionObject>("InnerExceptionObjects");
             }
         }
-        IBindingList ITreeNode.Children
-        {
-            get { return  InnerExceptionObjects; }
+        IBindingList ITreeNode.Children {
+            get { return InnerExceptionObjects; }
         }
     }
 }

@@ -17,20 +17,24 @@ namespace Xpand.ExpressApp.ExceptionHandling {
             InitializeComponent();
         }
 
-
+        public override void Setup(XafApplication application) {
+            base.Setup(application);
+            if (RuntimeMode)
+                AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.ExceptionHandling");
+        }
         protected void Log(Exception exception) {
-            if (IsEnabled() ) {
+            if (IsEnabled()) {
                 if (EmailTraceListenersAreValid()) {
                     string asString = Tracing.Tracer.GetLastEntriesAsString();
                     Logger.Write(asString);
                 }
                 var connectionStringSettingsCollection = ConfigurationManager.ConnectionStrings;
-                var connectionStringSettings = connectionStringSettingsCollection.OfType<ConnectionStringSettings>().Where(settings => settings.Name=="ExceptionHandlingConnectionString").FirstOrDefault();
-                if (connectionStringSettings!= null) {
+                var connectionStringSettings = connectionStringSettingsCollection.OfType<ConnectionStringSettings>().Where(settings => settings.Name == "ExceptionHandlingConnectionString").FirstOrDefault();
+                if (connectionStringSettings != null) {
                     if (XafTypesInfo.Instance.FindTypeInfo(typeof(IExceptionObject)).Implementors.Count() == 0) return;
                     var session = new Session(
-                        new SimpleDataLayer(XpoDefault.GetConnectionProvider(connectionStringSettings.ConnectionString,AutoCreateOption.DatabaseAndSchema)));
-                    var exceptionObject = ExceptionObjectBuilder.Create(session,exception,Application);
+                        new SimpleDataLayer(XpoDefault.GetConnectionProvider(connectionStringSettings.ConnectionString, AutoCreateOption.DatabaseAndSchema)));
+                    var exceptionObject = ExceptionObjectBuilder.Create(session, exception, Application);
                     session.Save(exceptionObject);
                 }
             }
@@ -38,7 +42,7 @@ namespace Xpand.ExpressApp.ExceptionHandling {
 
         bool EmailTraceListenersAreValid() {
             var loggingSettings = (LoggingSettings)ConfigurationManager.GetSection("loggingConfiguration");
-            return loggingSettings.TraceListeners.OfType<EmailTraceListenerData>().Where(data => data.FromAddress == "user@domain.com" || data.SmtpServer=="mail.mail.com").FirstOrDefault() == null;
+            return loggingSettings.TraceListeners.OfType<EmailTraceListenerData>().Where(data => data.FromAddress == "user@domain.com" || data.SmtpServer == "mail.mail.com").FirstOrDefault() == null;
         }
 
 

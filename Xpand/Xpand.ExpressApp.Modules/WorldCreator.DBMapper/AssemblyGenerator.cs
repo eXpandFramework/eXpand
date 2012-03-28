@@ -19,9 +19,24 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         public AssemblyGenerator(LogonObject logonObject, IPersistentAssemblyInfo persistentAssemblyInfo, string[] tables) {
             _persistentAssemblyInfo = persistentAssemblyInfo;
             var dataStoreSchemaExplorer = ((IDataStoreSchemaExplorer)XpoDefault.GetConnectionProvider(logonObject.ConnectionString, AutoCreateOption.None));
+            dataStoreSchemaExplorer = GetDataStoreSchemaExplorer(dataStoreSchemaExplorer);
             _storageTables = dataStoreSchemaExplorer.GetStorageTables(tables).Where(table => table.PrimaryKey != null).ToArray();
             _logonObject = logonObject;
             _objectSpace = ObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
+        }
+
+        static IDataStoreSchemaExplorer GetDataStoreSchemaExplorer(IDataStoreSchemaExplorer dataStoreSchemaExplorer) {
+            if (dataStoreSchemaExplorer is MSSqlConnectionProvider) {
+                var msSqlConnectionProvider = ((MSSqlConnectionProvider)dataStoreSchemaExplorer);
+                dataStoreSchemaExplorer = new Xpand.Xpo.ConnectionProviders.MSSqlConnectionProvider(msSqlConnectionProvider.Connection, msSqlConnectionProvider.AutoCreateOption);
+            } else if (dataStoreSchemaExplorer is OracleConnectionProvider) {
+                var msSqlConnectionProvider = ((OracleConnectionProvider)dataStoreSchemaExplorer);
+                dataStoreSchemaExplorer = new Xpand.Xpo.ConnectionProviders.OracleConnectionProvider(msSqlConnectionProvider.Connection, msSqlConnectionProvider.AutoCreateOption);
+            } else if (dataStoreSchemaExplorer is MySqlConnectionProvider) {
+                var msSqlConnectionProvider = ((MySqlConnectionProvider)dataStoreSchemaExplorer);
+                dataStoreSchemaExplorer = new Xpand.Xpo.ConnectionProviders.MySqlConnectionProvider(msSqlConnectionProvider.Connection, msSqlConnectionProvider.AutoCreateOption);
+            }
+            return dataStoreSchemaExplorer;
         }
 
         public void Create() {
