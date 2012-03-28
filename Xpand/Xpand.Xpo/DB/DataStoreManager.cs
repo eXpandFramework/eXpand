@@ -8,6 +8,37 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 
 namespace Xpand.Xpo.DB {
+    public class DataStoreInfo {
+        readonly List<DBTable> _dbTables = new List<DBTable>();
+        bool _isLegacy = true;
+
+        public List<DBTable> DbTables {
+            get { return _dbTables; }
+        }
+
+        public bool IsLegacy {
+            get { return _isLegacy; }
+            set { _isLegacy = value; }
+        }
+    }
+
+    public struct KeyInfo {
+        readonly bool _isLegacy;
+        readonly string _key;
+
+        public KeyInfo(bool isLegacy, string key) {
+            _isLegacy = isLegacy;
+            _key = key;
+        }
+
+        public bool IsLegacy {
+            get { return _isLegacy; }
+        }
+
+        public string Key {
+            get { return _key; }
+        }
+    }
     public class DataStoreManager {
         public const string StrDefault = "Default";
         readonly Dictionary<string, ReflectionDictionary> _reflectionDictionaries = new Dictionary<string, ReflectionDictionary>();
@@ -23,14 +54,14 @@ namespace Xpand.Xpo.DB {
         }
 
 
-        public string GetKey(Type type) {
+        public KeyInfo GetKeyInfo(Type type) {
             var nameSpace = (type.Namespace + "");
             var dataStoreAttribute = _dataStoreAttributes.Where(attribute => nameSpace.StartsWith(attribute.NameSpace)).SingleOrDefault();
-            return dataStoreAttribute == null ? StrDefault : (dataStoreAttribute.DataStoreNameSuffix ?? dataStoreAttribute.ConnectionString);
+            return dataStoreAttribute == null ? new KeyInfo(false, StrDefault) : new KeyInfo(dataStoreAttribute.IsLegacy, (dataStoreAttribute.DataStoreNameSuffix ?? dataStoreAttribute.ConnectionString));
         }
 
-        string GetKey(XPClassInfo xpClassInfo) {
-            return GetKey(xpClassInfo.ClassType);
+        KeyInfo GetKeyInfo(XPClassInfo xpClassInfo) {
+            return GetKeyInfo(xpClassInfo.ClassType);
         }
 
         void AddTableNames(XPClassInfo xpClassInfo, string key) {
@@ -55,30 +86,30 @@ namespace Xpand.Xpo.DB {
         }
 
         public ReflectionDictionary GetDictionary(XPClassInfo xpClassInfo) {
-            string key = GetKey(xpClassInfo);
-            var reflectionDictionary = GetDictionary(key);
+            KeyInfo keyInfo = GetKeyInfo(xpClassInfo);
+            var reflectionDictionary = GetDictionary(keyInfo);
             if (xpClassInfo.IsPersistent)
-                AddTableNames(xpClassInfo, key);
+                AddTableNames(xpClassInfo, keyInfo.Key);
             return reflectionDictionary;
         }
 
-        ReflectionDictionary GetDictionary(string key) {
-            if (!_reflectionDictionaries.ContainsKey(key)) {
+        ReflectionDictionary GetDictionary(KeyInfo keyInfo) {
+            if (!_reflectionDictionaries.ContainsKey(keyInfo.Key)) {
                 var reflectionDictionary = new ReflectionDictionary();
-                _reflectionDictionaries.Add(key, reflectionDictionary);
-                var simpleDataLayer = new DataStoreManagerSimpleDataLayer(reflectionDictionary, GetConnectionProvider(key),key==StrDefault);
-                _simpleDataLayers.Add(key, simpleDataLayer);
-                _tables.Add(key, new List<string>());
+                _reflectionDictionaries.Add(keyInfo.Key, reflectionDictionary);
+                var simpleDataLayer = new DataStoreManagerSimpleDataLayer(reflectionDictionary, GetConnectionProvider(keyInfo.Key), keyInfo.Key == StrDefault, keyInfo.IsLegacy);
+                _simpleDataLayers.Add(keyInfo.Key, simpleDataLayer);
+                _tables.Add(keyInfo.Key, new List<string>());
             }
-            return _reflectionDictionaries[key];
+            return _reflectionDictionaries[keyInfo.Key];
         }
 
         public IDataStore GetConnectionProvider(Type type) {
-            return GetConnectionProvider(GetKey(type));
+            return GetConnectionProvider(GetKeyInfo(type).Key);
         }
 
         public string GetConnectionString(Type type) {
-            string key = GetKey(type);
+            string key = GetKeyInfo(type).Key;
             return GetConnectionString(key);
         }
 
@@ -117,21 +148,32 @@ namespace Xpand.Xpo.DB {
             get { return _simpleDataLayers; }
         }
 
-        public Dictionary<IDataStore, List<DBTable>> GetDataStores(DBTable[] dbTables) {
-            var dictionary = _simpleDataLayers.Select(pair =>
-                                                      pair.Value.ConnectionProvider).ToDictionary(dataStore => dataStore, dataStore => new List<DBTable>());
-            foreach (var dbTable in dbTables) {
-                if (dbTable.Name == "XPObjectType")
-                    foreach (var simpleDataLayer in _simpleDataLayers) {
-                        dictionary[simpleDataLayer.Value.ConnectionProvider].Add(dbTable);
-                    } else
-                    dictionary[_simpleDataLayers[GetKey(dbTable.Name)].ConnectionProvider].Add(dbTable);
 
+        public Dictionary<IDataStore, DataStoreInfo> GetDataStores(DBTable[] dbTables) {
+            Dictionary<IDataStore, DataStoreInfo> dataStoreInfos =
+                _simpleDataLayers.ToDictionary(keyValuePair => keyValuePair.Value.ConnectionProvider, keyValuePair =>
+                                               new DataStoreInfo { IsLegacy = keyValuePair.Value.IsLegacy });
+            foreach (var dbTable in dbTables) {
+                if (dbTable.Name == "XPObjectType") {
+                    foreach (var simpleDataLayer in _simpleDataLayers) {
+                        var dataStoreInfo = dataStoreInfos[simpleDataLayer.Value.ConnectionProvider];
+                        dataStoreInfo.DbTables.Add(dbTable);
+                        //                        dataStoreInfo.IsLegacy = simpleDataLayer.Value.IsLegacy;
+                    }
+                } else {
+                    var key = GetKeyInfo(dbTable.Name);
+                    var dataStoreManagerSimpleDataLayer = _simpleDataLayers[key];
+                    var dataStoreInfo = dataStoreInfos[dataStoreManagerSimpleDataLayer.ConnectionProvider];
+                    dataStoreInfo.DbTables.Add(dbTable);
+                    //                    dataStoreInfo.IsLegacy = dataStoreManagerSimpleDataLayer.IsLegacy;
+                }
             }
-            return dictionary;
+            return dataStoreInfos;
         }
 
-        public string GetKey(string tableName) {
+        public string GetKeyInfo(string tableName) {
+            if (tableName == typeof(XPObjectType).Name)
+                return StrDefault;
             var keyValuePairs = _tables.Where(valuePair => valuePair.Value.Contains(tableName)).ToList();
             string key = StrDefault;
             if (keyValuePairs.Count() > 0)
@@ -146,14 +188,19 @@ namespace Xpand.Xpo.DB {
 
     }
 
-    public class DataStoreManagerSimpleDataLayer:SimpleDataLayer {
+    public class DataStoreManagerSimpleDataLayer : SimpleDataLayer {
         readonly bool _isMainLayer;
+        readonly bool _isLegacy;
 
-        public DataStoreManagerSimpleDataLayer(IDataStore provider) : base(provider) {
+
+        public DataStoreManagerSimpleDataLayer(XPDictionary dictionary, IDataStore provider, bool isMainLayer, bool isLegacy)
+            : base(dictionary, provider) {
+            _isMainLayer = isMainLayer;
+            _isLegacy = isLegacy;
         }
 
-        public DataStoreManagerSimpleDataLayer(XPDictionary dictionary, IDataStore provider, bool isMainLayer) : base(dictionary, provider) {
-            _isMainLayer = isMainLayer;
+        public bool IsLegacy {
+            get { return _isLegacy; }
         }
 
         public bool IsMainLayer {

@@ -6,10 +6,21 @@ namespace Xpand.Xpo.DB {
         protected string _connectionString;
         readonly Type _nameSpaceType;
         readonly string _dataStoreNameSuffix;
+        readonly bool _isLegacy;
 
         public DataStoreAttribute(Type nameSpaceType, string dataStoreNameSuffix) {
             _nameSpaceType = nameSpaceType;
             _dataStoreNameSuffix = dataStoreNameSuffix;
+        }
+
+        public DataStoreAttribute(Type nameSpaceType, string dataStoreNameSuffix, bool isLegacy) {
+            _nameSpaceType = nameSpaceType;
+            _dataStoreNameSuffix = dataStoreNameSuffix;
+            _isLegacy = isLegacy;
+        }
+
+        public bool IsLegacy {
+            get { return _isLegacy; }
         }
 
         public string ConnectionString {
