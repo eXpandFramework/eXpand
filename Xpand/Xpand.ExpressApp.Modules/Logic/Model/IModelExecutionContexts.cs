@@ -7,4 +7,10 @@ namespace Xpand.ExpressApp.Logic.Model {
     public interface IModelExecutionContexts : IModelNode, IModelList<IModelExecutionContext>, IRule {
         // ReSharper restore PossibleInterfaceMemberAmbiguity
     }
+    [ModelNodesGenerator(typeof(ActionExecutionContextNodeGenerator))]
+    // ReSharper disable PossibleInterfaceMemberAmbiguity
+    public interface IModelActionExecutionContexts : IModelNode, IModelList<IModelActionExecutionContext>, IRule {
+        // ReSharper restore PossibleInterfaceMemberAmbiguity
+    }
+
 }

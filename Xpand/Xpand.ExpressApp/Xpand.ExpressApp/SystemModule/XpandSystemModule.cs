@@ -15,6 +15,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
+using Xpand.ExpressApp.MessageBox;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.TranslatorProviders;
@@ -28,11 +29,6 @@ namespace Xpand.ExpressApp.SystemModule {
     [ToolboxBitmap(typeof(XafApplication), "Resources.SystemModule.ico")]
     public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter {
         public XpandSystemModule() {
-            try {
-                SequenceObjectType = LoadFromBaseImpl("Xpand.Persistent.BaseImpl.SequenceObject");
-            } catch (Exception e) {
-                Tracing.Tracer.LogError(e);
-            }
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
         }
@@ -41,10 +37,13 @@ namespace Xpand.ExpressApp.SystemModule {
             ParametersFactory.RegisterParameter(new MonthAgoParameter());
             TranslatorProvider.RegisterProvider(new GoogleTranslatorProvider());
         }
+        protected override IEnumerable<Type> GetDeclaredExportedTypes() {
+            return new List<Type>(base.GetDeclaredExportedTypes()) { typeof(MessageBoxTextMessage) };
+        }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (Application != null && Application.Title != "devenv") {
+            if (RuntimeMode) {
                 InitializeSequenceGenerator();
             }
         }
@@ -109,6 +108,13 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void Setup(XafApplication application) {
             base.Setup(application);
+            try {
+                AddToAdditionalExportedTypes(new[] { "Xpand.Persistent.BaseImpl.SequenceObject" });
+                SequenceObjectType = AdditionalExportedTypes.Single(type => type.FullName == "Xpand.Persistent.BaseImpl.SequenceObject");
+            } catch (Exception e) {
+                Tracing.Tracer.LogError(e);
+            }
+
             application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
             application.SetupComplete +=
                 (sender, args) =>

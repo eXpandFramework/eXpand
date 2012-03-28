@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Attributes;
@@ -8,8 +9,8 @@ using Xpand.ExpressApp.Logic.Conditional.Security;
 namespace Xpand.ExpressApp.Logic.Conditional.Logic {
     public abstract class ConditionalLogicRuleViewController<TConditionalLogicRule> :
         LogicRuleViewController<TConditionalLogicRule> where TConditionalLogicRule : IConditionalLogicRule {
-        protected override LogicRuleInfo<TConditionalLogicRule> CalculateLogicRuleInfo(object targetObject, TConditionalLogicRule logicRule) {
-            LogicRuleInfo<TConditionalLogicRule> calculateLogicRuleInfo = base.CalculateLogicRuleInfo(targetObject, logicRule);
+        protected override LogicRuleInfo<TConditionalLogicRule> CalculateLogicRuleInfo(object targetObject, TConditionalLogicRule logicRule, ActionBase action) {
+            LogicRuleInfo<TConditionalLogicRule> calculateLogicRuleInfo = base.CalculateLogicRuleInfo(targetObject, logicRule, action);
             ConditionalLogicRuleManager<TConditionalLogicRule>.CalculateLogicRuleInfo(calculateLogicRuleInfo);
             return calculateLogicRuleInfo;
         }

@@ -19,15 +19,15 @@ namespace Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired {
         }
 
         protected override Type RuleType {
-            get { return typeof (RuleRequiredForAtLeast1Property); }
+            get { return typeof(RuleRequiredForAtLeast1Property); }
         }
 
         protected override Type PropertiesType {
-            get { return typeof (RuleRequiredForAtLeast1PropertyProperties); }
+            get { return typeof(RuleRequiredForAtLeast1PropertyProperties); }
         }
 
         public new RuleRequiredForAtLeast1PropertyProperties Properties {
-            get { return (RuleRequiredForAtLeast1PropertyProperties) base.Properties; }
+            get { return (RuleRequiredForAtLeast1PropertyProperties)base.Properties; }
         }
         #region IRuleRequiredForAtLeast1PropertyProperties Members
         public string MessageTemplateMustNotBeEmpty {
@@ -45,5 +45,5 @@ namespace Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired {
             set { Properties.Delimiters = value; }
         }
         #endregion
-                                                            }
+    }
 }

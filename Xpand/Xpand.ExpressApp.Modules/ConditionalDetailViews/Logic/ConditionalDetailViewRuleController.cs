@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Templates;
 using Xpand.ExpressApp.ConditionalDetailViews.Model;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.Conditional.Logic;
@@ -80,36 +78,16 @@ namespace Xpand.ExpressApp.ConditionalDetailViews.Logic {
         protected override void OnDeactivated() {
             base.OnDeactivated();
             if (View is XpandListView)
-                Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem += OnCustomProcessSelectedItem;
+                Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem -= OnCustomProcessSelectedItem;
             foreach (var defaultValuePair in defaultValuesRulesStorage) {
                 defaultValuePair.Key.View = defaultValuePair.Value;
             }
         }
-        protected override void Dispose(bool disposing) {
-            if (disposing)
-                Frame.TemplateChanged -= FrameOnTemplateChanged;
-            base.Dispose(disposing);
-        }
         protected override IModelLogic GetModelLogic() {
             return ((IModelApplicationConditionalDetailView)Application.Model).ConditionalDetailView;
         }
-        protected override void OnFrameAssigned() {
-            base.OnFrameAssigned();
-            Frame.TemplateChanged += FrameOnTemplateChanged;
-        }
-        void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
-            var supportViewChanged = (Frame.Template) as ISupportViewChanged;
-            if (supportViewChanged != null)
-                supportViewChanged.ViewChanged += (o, args) => {
-                    Active[ActiveObjectTypeHasRules] = LogicRuleManager<IConditionalDetailViewRule>.HasRules(args.View);
-                    if (Active) {
-                        args.View.SetModel(_detailView);
-                    }
-                };
-        }
 
         readonly Dictionary<IConditionalDetailViewRule, IModelView> defaultValuesRulesStorage = new Dictionary<IConditionalDetailViewRule, IModelView>();
-        IModelDetailView _detailView;
 
         public override void ExecuteRule(LogicRuleInfo<IConditionalDetailViewRule> info, ExecutionContext executionContext) {
             if (info.Active && !info.InvertingCustomization) {
@@ -121,10 +99,8 @@ namespace Xpand.ExpressApp.ConditionalDetailViews.Logic {
                     if (!defaultValuesRulesStorage.ContainsKey(info.Rule))
                         defaultValuesRulesStorage.Add(info.Rule, info.Rule.View);
                     info.Rule.View = info.Rule.DetailView;
-                } else if (executionContext == ExecutionContext.ViewShowing) {
+                } else if (executionContext == ExecutionContext.ViewShowing || info.Action == Frame.GetController<NewObjectViewController>().NewObjectAction) {
                     info.View.SetModel(info.Rule.DetailView);
-                } else if (executionContext == ExecutionContext.ViewChanged) {
-                    _detailView = info.Rule.DetailView;
                 }
             } else if (info.InvertingCustomization) {
                 if (executionContext == ExecutionContext.CurrentObjectChanged) {

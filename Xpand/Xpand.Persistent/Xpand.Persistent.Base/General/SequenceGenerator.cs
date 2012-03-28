@@ -57,6 +57,20 @@ namespace Xpand.Persistent.Base.General {
             _explicitUnitOfWork.CommitChanges();
         }
 
+        public static void SetNextSequence(ITypeInfo typeInfo, long nextId) {
+            SetNextSequence(typeInfo, null, nextId);
+        }
+
+        public static void SetNextSequence(ITypeInfo typeInfo, string prefix, long nextId) {
+            if (_sequenceGenerator == null)
+                _sequenceGenerator = new SequenceGenerator();
+            var objectByKey = _sequenceGenerator._explicitUnitOfWork.GetObjectByKey(_sequenceObjectType, prefix + typeInfo.FullName, true);
+            _sequenceGenerator._sequence = objectByKey != null ? (ISequenceObject)objectByKey : CreateSequenceObject(prefix + typeInfo.FullName, _sequenceGenerator._explicitUnitOfWork);
+            _sequenceGenerator._sequence.NextSequence = nextId;
+            _sequenceGenerator._explicitUnitOfWork.FlushChanges();
+            _sequenceGenerator.Accept();
+        }
+
         public long GetNextSequence(ITypeInfo typeInfo, string prefix) {
             if (typeInfo == null)
                 throw new ArgumentNullException("typeInfo");

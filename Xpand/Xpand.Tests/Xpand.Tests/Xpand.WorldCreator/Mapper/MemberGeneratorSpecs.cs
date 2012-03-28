@@ -157,7 +157,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         Establish context = () => {
             _refMemberGeneratorHelper = new RefMemberGeneratorHelper(ObjectSpace);
             DBTable refDbTable = _refMemberGeneratorHelper.RefDbTable;
-            refDbTable.ForeignKeys.Add(new DBForeignKey(refDbTable.PrimaryKey.Columns, "Oid", new StringCollection { "Oid" }));
+            refDbTable.ForeignKeys.Add(new DBForeignKey(refDbTable.PrimaryKey.Columns, "Oid2", new StringCollection { "Oid2" }));
             _refMemberGeneratorHelper.DbTable.ForeignKeys.Add(new DBForeignKey(_refMemberGeneratorHelper.DbTable.PrimaryKey.Columns, refDbTable.Name, new StringCollection { "Oid" }));
         };
 

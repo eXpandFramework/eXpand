@@ -287,7 +287,7 @@
     <Compile Include="JobScheduler\CreateEmailTemplateController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ListViewControl\ConditionalDetailViews\AttributeRegistrator.cs" />
+    <Compile Include="DetailViewControl\ConditionalDetailViews\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\DetailView\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\FullTextForMemoFields\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\ListView\AttributeRegistrator.cs" />
@@ -296,6 +296,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="LowLevelFilterDataStore\DisableFiltersNodeUpdater.cs" />
+    <Compile Include="MessageBox\AttributeRegistrator.cs" />
+    <Compile Include="MessageBox\ShowMessageBoxController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MessageBox\ShowMessageBoxObject.cs" />
     <Compile Include="Miscellaneous\ExceptionHandling\AttributeRegistrator.cs">
     </Compile>
     <Compile Include="Miscellaneous\ExceptionHandling\ExceptionHandlingObject.cs" />
@@ -478,7 +483,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Functional Tests\Sample.ets" />
-    <EmbeddedResource Include="ListViewControl\ConditionalDetailViews\MDO_ConditionalDetailViews.xafml">
+    <EmbeddedResource Include="DetailViewControl\ConditionalDetailViews\MDO_ConditionalDetailViews.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WorldCreator\NorthWind\MDO_NorthWind.xafml">
@@ -563,6 +568,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Miscellaneous\ToolTip\MDO_Tooltip.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageBox\MDO_MessageBox.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="ModelArtifact\ConditionalForeignKeyKViolation\MDO_ConditionalForeignKeyViolation.xafml">

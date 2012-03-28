@@ -8,6 +8,16 @@ using Xpand.ExpressApp.Logic.Model;
 namespace Xpand.ExpressApp.Logic.DomainLogic {
     [DomainLogic(typeof(IModelLogicRule))]
     public class ModelLogicRuleDomainLogic {
+        public static List<string> Get_ActionExecutionContexts(IModelLogicRule modelLogicRule) {
+            var contexts = ((IModelLogic)modelLogicRule.Parent.Parent).ActionExecutionContextGroup;
+            return contexts.Select(groupContext => groupContext.Id).ToList();
+        }
+
+        public static bool Get_GroupContext(IModelLogicRule modelLogicRule) {
+            return !string.IsNullOrEmpty(modelLogicRule.ExecutionContextGroup) ||
+                   !string.IsNullOrEmpty(modelLogicRule.ActionExecutionContextGroup);
+        }
+
         public static List<string> Get_ExecutionContexts(IModelLogicRule modelLogicRule) {
             var contexts = ((IModelLogic)modelLogicRule.Parent.Parent).ExecutionContextsGroup;
             return contexts.Select(groupContext => groupContext.Id).ToList();

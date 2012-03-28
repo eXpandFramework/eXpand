@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.Xpo.DB;
+using DevExpress.Xpo.DB.Helpers;
 
 namespace Xpand.Xpo.ConnectionProviders {
     public class MSSqlConnectionProvider : DevExpress.Xpo.DB.MSSqlConnectionProvider {
@@ -17,6 +18,72 @@ namespace Xpand.Xpo.ConnectionProviders {
         public MSSqlConnectionProvider(IDbConnection connection, AutoCreateOption autoCreateOption)
             : base(connection, autoCreateOption) {
         }
+        public override void GetTableSchema(DBTable table, bool checkIndexes, bool checkForeignKeys) {
+            base.GetTableSchema(table, checkIndexes, checkForeignKeys);
+            table.Columns.Clear();
+            GetColumns(table);
+        }
+        void GetColumns(DBTable table) {
+            string schema = ComposeSafeSchemaName(table.Name);
+            Query query = schema == string.Empty ? new Query("select COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = @p1",
+                                    new QueryParameterCollection(new OperandValue(ComposeSafeTableName(table.Name))), new[] { "@p1" })
+                              : new Query("select COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = @p1 and TABLE_SCHEMA = @p2",
+                                    new QueryParameterCollection(new OperandValue(ComposeSafeTableName(table.Name)), new OperandValue(schema)), new[] { "@p1", "@p2" });
+            foreach (SelectStatementResultRow row in SelectData(query).Rows) {
+                int size = row.Values[2] != DBNull.Value ? ((IConvertible)row.Values[2]).ToInt32(CultureInfo.InvariantCulture) : 0;
+                DBColumnType type = GetTypeFromString((string)row.Values[1], size);
+                table.AddColumn(new DBColumn((string)row.Values[0], false, String.Empty, type == DBColumnType.String ? size : 0, type));
+            }
+        }
+
+        DBColumnType GetTypeFromString(string typeName, int length) {
+            switch (typeName) {
+                case "int":
+                    return DBColumnType.Int32;
+                case "image":
+                case "varbinary":
+                    return DBColumnType.ByteArray;
+                case "nchar":
+                case "char":
+                    if (length == 1)
+                        return DBColumnType.Char;
+                    return DBColumnType.String;
+                case "varchar":
+                case "nvarchar":
+                case "xml":
+                case "ntext":
+                case "text":
+                    return DBColumnType.String;
+                case "bit":
+                    return DBColumnType.Boolean;
+                case "tinyint":
+                    return DBColumnType.Byte;
+                case "smallint":
+                    return DBColumnType.Int16;
+                case "bigint":
+                    return DBColumnType.Int64;
+                case "numeric":
+                case "decimal":
+                    return DBColumnType.Decimal;
+                case "money":
+                case "smallmoney":
+                    return DBColumnType.Decimal;
+                case "float":
+                    return DBColumnType.Double;
+                case "real":
+                    return DBColumnType.Single;
+                case "uniqueidentifier":
+                    return DBColumnType.Guid;
+                case "datetime":
+                case "timestamp":
+                case "datetime2":
+                case "smalldatetime":
+                case "date":
+                    return DBColumnType.DateTime;
+            }
+            return DBColumnType.Unknown;
+        }
+
         protected override UpdateSchemaResult ProcessUpdateSchema(bool skipIfFirstTableNotExists,
                                                                   params DBTable[] tables) {
             bool weStartedTran = false;

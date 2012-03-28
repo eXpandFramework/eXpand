@@ -160,6 +160,7 @@
     <Compile Include="ListEditors\XpandXafGridColumn.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ModelEditorViewController.cs" />
     <Compile Include="Model\ModelExtensions.cs" />
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor.cs" />
     <Compile Include="PropertyEditors\DurationPropertyEditor.cs" />
