@@ -16,6 +16,7 @@ namespace Xpand.Persistent.Base.PersistentMetaData {
         IFileData FileData { get; set; }
         int CompileOrder { get; set; }
         IList<IPersistentAssemblyAttributeInfo> Attributes { get; }
+        bool IsLegacy { get; set; }
     }
     public enum CodeDomProvider {
         CSharp,

@@ -63,6 +63,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
                 var persistentAssemblyDataStoreAttributeInfo =
                     _objectSpace.CreateWCObject<IPersistentAssemblyDataStoreAttribute>();
                 persistentAssemblyDataStoreAttributeInfo.ConnectionString = _logonObject.ConnectionString;
+                persistentAssemblyDataStoreAttributeInfo.IsLegacy = _persistentAssemblyInfo.IsLegacy;
                 persistentAssemblyDataStoreAttributeInfo.PersistentClassInfo = _persistentAssemblyInfo.PersistentClassInfos[0];
                 _persistentAssemblyInfo.Attributes.Add(persistentAssemblyDataStoreAttributeInfo);
             }
