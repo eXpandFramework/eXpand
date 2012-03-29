@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -54,11 +55,27 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             gridLookUpEdit1.Properties.View.OptionsBehavior.AutoPopulateColumns = true;
             gridLookUpEdit1.Properties.DataSource = MappableColumns;
             
-            var col = gridLookUpEdit2View.Columns.ColumnByFieldName("Mapped");
-            if (col != null) {
-                col.Visible = false;
-                col.FilterInfo =
-                    new ColumnFilterInfo(new BinaryOperator("Mapped", false));
+            //var col = gridLookUpEdit2View.Columns.ColumnByFieldName("Mapped");
+            //if (col != null) {
+            //    col.Visible = false;
+            //    col.FilterInfo =
+            //        new ColumnFilterInfo(new BinaryOperator("Mapped", false));
+                
+            //}
+
+            var mappablePropertyClassInfo
+                = objectSpace.Session.GetClassInfo(typeof (MappableProperty));
+            
+                
+            foreach (GridColumn column in gridLookUpEdit2View.Columns)
+            {
+
+                column.Caption = mappablePropertyClassInfo
+                                    .GetMember(column.FieldName).DisplayName;
+                if (column.FieldName == "Mapped")
+                {
+                    column.Visible = false;
+                }
             }
 
             //col = gridLookUpEdit2View.Columns.ColumnByFieldName("Oid");

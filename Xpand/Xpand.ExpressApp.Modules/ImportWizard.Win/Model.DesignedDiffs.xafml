@@ -25,4 +25,8 @@
       <LocalizationItem Name="Yes" Value="Yes" IsNewNode="True" />
     </LocalizationGroup>
   </Localization>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="11.2.10.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemModule" Version="11.2.10.0" IsNewNode="True" />
+  </SchemaModules>
 </Application>

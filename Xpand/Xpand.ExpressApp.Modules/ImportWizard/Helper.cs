@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -7,38 +8,48 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using Xpand.ExpressApp.ImportWizard.Properties;
 
-namespace Xpand.ExpressApp.ImportWizard {
-    public static class Helper {
+namespace Xpand.ExpressApp.ImportWizard
+{
+    public static class Helper
+    {
 
         /// <summary>
         /// Copied from DevExpress.ExpressApp.SystemModule.NewObjectViewController
         /// </summary>
         /// <param name="vc">ViewController</param>
-        public static CollectionSourceBase GetCurrentCollectionSource(this ViewController vc) {
+        public static CollectionSourceBase GetCurrentCollectionSource(this ViewController vc)
+        {
             PropertyCollectionSourceLink propertyCollectionSourceLink = null;
             CollectionSourceBase result = null;
             if (vc.View is ListView)
                 result = ((ListView)vc.View).CollectionSource;
-            else {
+            else
+            {
                 var linkToListViewController = vc.Frame.GetController<LinkToListViewController>();
                 var hasLink = (linkToListViewController != null) && (linkToListViewController.Link != null);
-                if (hasLink) {
+                if (hasLink)
+                {
                     if (linkToListViewController.Link.ListView != null)
                         result = linkToListViewController.Link.ListView.CollectionSource;
                     propertyCollectionSourceLink = linkToListViewController.Link.PropertyCollectionSourceLink;
                 }
             }
-            if (result == null) {
-                if (propertyCollectionSourceLink != null) {
-                    throw new NotImplementedException("Bad Extention method for ViewController. See TP.Shell.XAF.Module.Win.Extentions.GetCurrentCollectionSource for details. ");
+            if (result == null)
+            {
+                if (propertyCollectionSourceLink != null)
+                {
+                    throw new NotImplementedException(Resources.Helper_GetCurrentCollectionSource_Bad_Extention_method_for_ViewController__See_TP_Shell_XAF_Module_Win_Extentions_GetCurrentCollectionSource_for_details__);
                 }
             }
             return result;
         }
 
 
-        public static XPBaseObject GetXpObjectByKeyValue(ObjectSpace oSpace, string value, Type type) {
+        [Localizable(false)]
+        public static XPBaseObject GetXpObjectByKeyValue(ObjectSpace oSpace, string value, Type type)
+        {
             if (string.IsNullOrEmpty(value))
                 return null;
 
@@ -69,11 +80,12 @@ namespace Xpand.ExpressApp.ImportWizard {
 
             var nestedObjectSpace = oSpace.CreateNestedObjectSpace();
             item = (XPBaseObject)nestedObjectSpace.CreateObject(type);
-            item.ClassInfo.PersistentProperties.
-                OfType<XPMemberInfo>().
-                Where(p => p.Name == keyPropertyName).
-                FirstOrDefault().
-                SetValue(item, value);
+            var firstOrDefault = item.ClassInfo
+                                    .PersistentProperties
+                                    .OfType<XPMemberInfo>()
+                                    .FirstOrDefault(p => p.Name == keyPropertyName);
+            if (firstOrDefault != null)
+                firstOrDefault.SetValue(item, value);
 
             item.Save();
             nestedObjectSpace.CommitChanges();
@@ -83,7 +95,8 @@ namespace Xpand.ExpressApp.ImportWizard {
         }
 
 
-        public static XPBaseObject GetXpObjectByKeyValue(UnitOfWork uow, string value, Type type, string prop) {
+        public static XPBaseObject GetXpObjectByKeyValue(UnitOfWork uow, string value, Type type, string prop)
+        {
             if (string.IsNullOrEmpty(value))
                 return null;
 
@@ -101,11 +114,13 @@ namespace Xpand.ExpressApp.ImportWizard {
 
             //var nestedUow = uow.BeginNestedUnitOfWork();
             item = (XPBaseObject)ReflectionHelper.CreateObject(type, uow);
-            item.ClassInfo.PersistentProperties.
-                OfType<XPMemberInfo>().
-                Where(p => p.Name == prop).
-                FirstOrDefault().
-                SetValue(item, value);
+            var firstOrDefault = item.ClassInfo
+                                    .PersistentProperties
+                                    .OfType<XPMemberInfo>()
+                                    .FirstOrDefault(p => p.Name == prop);
+            if (firstOrDefault != null)
+                firstOrDefault.
+                    SetValue(item, value);
 
             item.Save();
             //uow.CommitChanges();

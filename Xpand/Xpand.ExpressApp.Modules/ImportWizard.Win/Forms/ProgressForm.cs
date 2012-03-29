@@ -17,21 +17,21 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Forms {
             InitializeComponent();
             Text = caption;
             progress.Properties.Maximum = recordCount;
-            _totalRecords = recordCount;
+            _TotalRecords = recordCount;
             _MessageTemplate = message;
 
         }
 
 
         private readonly string _MessageTemplate = string.Empty;
-        private readonly int _totalRecords;
-        private int _current;
+        private readonly int _TotalRecords;
+        private int _Current;
 
 
         private void SetLabelText() {
             labelControl1.Text = string.IsNullOrEmpty(_MessageTemplate) ?
                                     "" :
-                                    string.Format(_MessageTemplate, _current, _totalRecords);
+                                    string.Format(_MessageTemplate, _Current, _TotalRecords);
         }
 
         public override sealed string Text {
@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Forms {
         }
 
         public void DoProgress(int i) {
-            _current += i;
+            _Current += i;
             progress.Increment(i);
             SetLabelText();
         }
