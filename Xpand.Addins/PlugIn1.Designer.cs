@@ -1,3 +1,8 @@
+using System;
+using DevExpress.CodeRush.Core;
+using XpandAddIns.FormatOnSave;
+using DocumentEventArgs = XpandAddIns.FormatOnSave.DocumentEventArgs;
+
 namespace XpandAddIns
 {
     partial class PlugIn1 {
@@ -11,6 +16,64 @@ namespace XpandAddIns
             /// Required for Windows.Forms Class Composition Designer support
             /// </summary>
             InitializeComponent();
+        }
+        public override void InitializePlugIn() {
+            base.InitializePlugIn();
+            this._docEvents = new RunningDocumentTableEventProvider();
+            this._docEvents.Initialize();
+            this._docEvents.Saving += new EventHandler<DocumentEventArgs>(DocumentSaving);
+        }
+        private void DocumentSaving(object sender, DocumentEventArgs e) {
+            this.FormatDocument(e.Document);
+        }
+        /// <summary>
+        /// Formats a document.
+        /// </summary>
+        /// <param name="doc">The document to format.</param>
+        public void FormatDocument(Document doc) {
+            // If the user disabled the plugin, bail.
+            if (!Options.Storage.ReadBoolean(Options.GetPageName(), Options.FormatOnSave)) {
+                return;
+            }
+
+            // If the document isn't text or an enabled language, bail.
+            TextDocument textDoc = doc as TextDocument;
+            if (textDoc == null || !this.LanguageSelectedForFormatting(textDoc.Language)) {
+                return;
+            }
+
+            // You can only format the active document, so we have to temporarily
+            // activate each document that needs formatting.
+            Document active = CodeRush.Documents.Active;
+            if (textDoc != active) {
+                textDoc.Activate();
+            }
+            CodeRush.Documents.Format();
+            if (textDoc != active) {
+                active.Activate();
+            }
+        }
+        /// <summary>
+        /// Determines whether a document should be formatted based on the provided
+        /// language ID and the user's selected options.
+        /// </summary>
+        /// <param name="language">The language ID for the document in question.</param>
+        /// <returns>
+        /// <see langword="true" /> if the user elected to format documents of the
+        /// given language; <see langword="false" /> if not.
+        /// </returns>
+        public bool LanguageSelectedForFormatting(string language) {
+            if (String.IsNullOrEmpty(language)) {
+                return false;
+            }
+            switch (language) {
+               
+                case DevExpress.DXCore.Constants.Str.Language.CSharp:
+                case DevExpress.DXCore.Constants.Str.Language.VisualBasic:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         /// <summary>
@@ -31,15 +94,14 @@ namespace XpandAddIns
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlugIn1));
-            this.convertProject = new DevExpress.CodeRush.Core.Action(this.components);
-            this.collapseAllItemsInSolutionExplorer = new DevExpress.CodeRush.Core.Action(this.components);
-            this.exploreXafErrors = new DevExpress.CodeRush.Core.Action(this.components);
-            this.events = new DevExpress.DXCore.PlugInCore.DXCoreEvents(this.components);
-            this.dropDataBase = new DevExpress.CodeRush.Core.Action(this.components);
-            this.actionHint1 = new DevExpress.CodeRush.PlugInCore.ActionHint(this.components);
-            this.loadProjectFromReferenceItem = new DevExpress.CodeRush.Core.Action(this.components);
+            this.convertProject = new DevExpress.CodeRush.Core.Action();
+            this.collapseAllItemsInSolutionExplorer = new DevExpress.CodeRush.Core.Action();
+            this.exploreXafErrors = new DevExpress.CodeRush.Core.Action();
+            this.events = new DevExpress.DXCore.PlugInCore.DXCoreEvents();
+            this.dropDataBase = new DevExpress.CodeRush.Core.Action();
+            this.actionHint1 = new DevExpress.CodeRush.PlugInCore.ActionHint();
+            this.loadProjectFromReferenceItem = new DevExpress.CodeRush.Core.Action();
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).BeginInit();
@@ -85,7 +147,7 @@ namespace XpandAddIns
             // events
             // 
             this.events.ProjectBuildDone += new DevExpress.CodeRush.Core.BuildProjectDoneHandler(this.events_ProjectBuildDone);
-            this.events.DocumentSaved += new DevExpress.CodeRush.Core.DocumentEventHandler(this.events_DocumentSaved);
+            
             // 
             // dropDataBase
             // 

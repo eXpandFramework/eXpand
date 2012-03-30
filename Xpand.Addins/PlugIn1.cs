@@ -18,6 +18,7 @@ using DevExpress.DXCore.Controls.Xpo.DB.Exceptions;
 using EnvDTE;
 using XpandAddIns.Enums;
 using XpandAddIns.Extensions;
+using XpandAddIns.FormatOnSave;
 using Configuration = System.Configuration.Configuration;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
 using Process = System.Diagnostics.Process;
@@ -26,6 +27,8 @@ using Property = EnvDTE.Property;
 
 namespace XpandAddIns {
     public partial class PlugIn1 : StandardPlugIn {
+        RunningDocumentTableEventProvider _docEvents;
+
         private void convertProject_Execute(ExecuteEventArgs ea) {
             string path = Options.ReadString(Options.ProjectConverterPath);
             string token = Options.ReadString(Options.Token);
@@ -164,6 +167,7 @@ namespace XpandAddIns {
         }
 
         private void events_ProjectBuildDone(string project, string projectConfiguration, string platform, string solutionConfiguration, bool succeeded) {
+            
             if (succeeded) {
                 string gacUtilPath = Options.Storage.ReadString(Options.GetPageName(), Options.GacUtilPath);
                 if (File.Exists(gacUtilPath)) {
@@ -197,9 +201,8 @@ namespace XpandAddIns {
             };
         }
 
-        private void events_DocumentSaved(DocumentEventArgs ea) {
-            if (Options.Storage.ReadBoolean(Options.GetPageName(), Options.FormatOnSave))
-                CodeRush.Command.Execute("Edit.FormatDocument");
-        }
+
+
+
     }
 }
