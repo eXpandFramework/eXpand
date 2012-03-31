@@ -34,7 +34,6 @@ namespace FeatureCenter.Web.ApplicationCode {
         private Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule filterDataStoreModule1;
 
         private DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase scriptRecorderModuleBase1;
-        private Xpand.ExpressApp.WorldCreator.SqlDBMapper.WorldCreatorSqlDBMapperModule worldCreatorSqlDBMapperModule1;
         private Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule conditionalDetailViewModule1;
         private Xpand.ExpressApp.MemberLevelSecurity.MemberLevelSecurityModule memberLevelSecurityModule1;
         private Module.Web.FeatureCenterAspNetModule featureCenterAspNetModule1;
@@ -109,7 +108,6 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.filterDataStoreModule1 = new Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule();
 
             this.scriptRecorderModuleBase1 = new DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase();
-            this.worldCreatorSqlDBMapperModule1 = new Xpand.ExpressApp.WorldCreator.SqlDBMapper.WorldCreatorSqlDBMapperModule();
             this.conditionalDetailViewModule1 = new Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule();
             this.memberLevelSecurityModule1 = new Xpand.ExpressApp.MemberLevelSecurity.MemberLevelSecurityModule();
             this.featureCenterAspNetModule1 = new FeatureCenter.Module.Web.FeatureCenterAspNetModule();
@@ -185,7 +183,6 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.Modules.Add(this.filterDataStoreModule1);
 
             this.Modules.Add(this.scriptRecorderModuleBase1);
-            this.Modules.Add(this.worldCreatorSqlDBMapperModule1);
             this.Modules.Add(this.conditionalDetailViewModule1);
             this.Modules.Add(this.memberLevelSecurityModule1);
             this.Modules.Add(this.featureCenterModule1);
