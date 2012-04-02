@@ -54,7 +54,6 @@ namespace FeatureCenter.Module {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule));
             this.RequiredModuleTypes.Add(typeof(ScriptRecorderModuleBase));
-            this.RequiredModuleTypes.Add(typeof(WorldCreatorSqlDBMapperModule));
             this.RequiredModuleTypes.Add(typeof(WorldCreatorDBMapperModule));
             this.RequiredModuleTypes.Add(typeof(ConditionalDetailViewModule));
             this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityModule));

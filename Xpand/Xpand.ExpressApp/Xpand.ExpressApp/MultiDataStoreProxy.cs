@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
@@ -51,7 +52,7 @@ namespace Xpand.ExpressApp {
             if (insertStatement != null) {
                 modificationResult = ModifyXPObjectTable(dmlStatements, insertStatement, modificationResult);
             } else {
-                var key = _dataStoreManager.GetKey(dmlStatements[0].TableName);
+                var key = _dataStoreManager.GetKeyInfo(dmlStatements[0].TableName);
                 modificationResult = _dataStoreManager.SimpleDataLayers[key].ModifyData(dmlStatements);
             }
             if (modificationResult != null) return modificationResult;
@@ -60,14 +61,16 @@ namespace Xpand.ExpressApp {
 
         ModificationResult ModifyXPObjectTable(ModificationStatement[] dmlStatements, InsertStatement insertStatement, ModificationResult modificationResult) {
             foreach (var simpleDataLayer in _dataStoreManager.SimpleDataLayers) {
-                var dataLayer = simpleDataLayer.Value;
-                if (!TypeExists(dataLayer, insertStatement)) {
-                    if (!dataLayer.IsMainLayer) {
-                        _xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, _dataStoreManager.SimpleDataLayers[DataStoreManager.StrDefault]);
+                if (!simpleDataLayer.Value.IsLegacy) {
+                    var dataLayer = simpleDataLayer.Value;
+                    if (!TypeExists(dataLayer, insertStatement)) {
+                        if (!dataLayer.IsMainLayer) {
+                            _xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, _dataStoreManager.SimpleDataLayers[DataStoreManager.StrDefault]);
+                        }
+                        var modifyData = dataLayer.ModifyData(dmlStatements);
+                        if (modifyData.Identities.Count() > 0)
+                            modificationResult = modifyData;
                     }
-                    var modifyData = dataLayer.ModifyData(dmlStatements);
-                    if (modifyData.Identities.Count() > 0)
-                        modificationResult = modifyData;
                 }
             }
             return modificationResult;
@@ -91,7 +94,7 @@ namespace Xpand.ExpressApp {
             var resultSet = new List<SelectStatementResult>();
             List<SelectedData> selectedDatas = selects.Select(stm => {
                 OnDataStoreSelectData(new DataStoreSelectDataEventArgs(new[] { stm }));
-                var simpleDataLayer = _dataStoreManager.SimpleDataLayers[_dataStoreManager.GetKey(stm.TableName)];
+                var simpleDataLayer = _dataStoreManager.SimpleDataLayers[_dataStoreManager.GetKeyInfo(stm.TableName)];
                 return simpleDataLayer.SelectData(stm);
             }).ToList();
             foreach (SelectedData selectedData in selectedDatas.Where(
@@ -102,15 +105,17 @@ namespace Xpand.ExpressApp {
         }
 
         public override UpdateSchemaResult UpdateSchema(bool dontCreateIfFirstTableNotExist, params DBTable[] tables) {
-            foreach (KeyValuePair<IDataStore, List<DBTable>> dataStore in _dataStoreManager.GetDataStores(tables)) {
-                var store = dataStore.Key as ConnectionProviderSql;
+            foreach (KeyValuePair<IDataStore, DataStoreInfo> keyValuePair in _dataStoreManager.GetDataStores(tables)) {
+                var store = keyValuePair.Key as ConnectionProviderSql;
                 if (store != null) {
-                    List<DBTable> dbTables = dataStore.Value;
+                    var dataStoreInfo = keyValuePair.Value;
+                    List<DBTable> dbTables = dataStoreInfo.DbTables;
                     if (Connection == null)
                         throw new NullReferenceException();
-                    if (!IsMainLayer(store.Connection))
+                    if (!dataStoreInfo.IsLegacy && !IsMainLayer(store.Connection))
                         _xpoObjectHacker.EnsureIsNotIdentity(dbTables);
-                    store.UpdateSchema(false, dbTables.ToArray());
+                    if (!(dataStoreInfo.IsLegacy && dbTables.Count == 1 && dbTables[0].Name == typeof(XPObjectType).Name))
+                        store.UpdateSchema(false, dbTables.ToArray());
                     RunExtraUpdaters(tables, store, dontCreateIfFirstTableNotExist);
                 }
             }

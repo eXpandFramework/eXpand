@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             _objectSpace = ObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
         }
 
-        static IDataStoreSchemaExplorer GetDataStoreSchemaExplorer(IDataStoreSchemaExplorer dataStoreSchemaExplorer) {
+        static public IDataStoreSchemaExplorer GetDataStoreSchemaExplorer(IDataStoreSchemaExplorer dataStoreSchemaExplorer) {
             if (dataStoreSchemaExplorer is MSSqlConnectionProvider) {
                 var msSqlConnectionProvider = ((MSSqlConnectionProvider)dataStoreSchemaExplorer);
                 dataStoreSchemaExplorer = new Xpand.Xpo.ConnectionProviders.MSSqlConnectionProvider(msSqlConnectionProvider.Connection, msSqlConnectionProvider.AutoCreateOption);
@@ -63,6 +63,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
                 var persistentAssemblyDataStoreAttributeInfo =
                     _objectSpace.CreateWCObject<IPersistentAssemblyDataStoreAttribute>();
                 persistentAssemblyDataStoreAttributeInfo.ConnectionString = _logonObject.ConnectionString;
+                persistentAssemblyDataStoreAttributeInfo.IsLegacy = _persistentAssemblyInfo.IsLegacy;
                 persistentAssemblyDataStoreAttributeInfo.PersistentClassInfo = _persistentAssemblyInfo.PersistentClassInfos[0];
                 _persistentAssemblyInfo.Attributes.Add(persistentAssemblyDataStoreAttributeInfo);
             }
