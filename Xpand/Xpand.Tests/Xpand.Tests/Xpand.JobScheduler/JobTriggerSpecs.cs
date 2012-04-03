@@ -12,6 +12,8 @@ using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
 using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
+    
+	[Ignore]
     public class When_JobTrigger_is_linked_with_jobdetail : With_Job_Scheduler_XpandJobDetail_Application<When_JobTrigger_is_linked_with_jobdetail> {
         static IList<ITrigger> _triggersOfJob;
         static XpandSimpleTrigger _xpandSimpleTrigger;
