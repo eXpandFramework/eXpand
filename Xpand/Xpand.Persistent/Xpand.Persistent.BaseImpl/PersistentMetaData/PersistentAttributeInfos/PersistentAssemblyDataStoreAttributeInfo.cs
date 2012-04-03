@@ -15,18 +15,29 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         }
 
         public override AttributeInfoAttribute Create() {
-            var constructorInfo = typeof(DataStoreAttribute).GetConstructor(new[] { typeof(string), typeof(string) });
+            var constructorInfo = typeof(DataStoreAttribute).GetConstructor(new[] { typeof(string), typeof(string), typeof(bool) });
             string initializedArgumentValues = null;
             if (PersistentClassInfo.PersistentAssemblyInfo != null)
                 initializedArgumentValues = PersistentClassInfo.PersistentAssemblyInfo.Name + "." + PersistentClassInfo.Name;
             Guard.ArgumentNotNull(ConnectionString, "ConnectionString");
-            return new AttributeInfoAttribute(constructorInfo, _connectionString, initializedArgumentValues);
+            return new AttributeInfoAttribute(constructorInfo, _connectionString, initializedArgumentValues, IsLegacy);
         }
 
         IPersistentClassInfo IPersistentAssemblyDataStoreAttribute.PersistentClassInfo {
             get { return _persistentClassInfo; }
             set { PersistentClassInfo = value as PersistentClassInfo; }
         }
+
+        private bool _isLegacy;
+        public bool IsLegacy {
+            get {
+                return _isLegacy;
+            }
+            set {
+                SetPropertyValue("IsLegacy", ref _isLegacy, value);
+            }
+        }
+
         private string _connectionString;
         [Size(SizeAttribute.Unlimited)]
         public string ConnectionString {

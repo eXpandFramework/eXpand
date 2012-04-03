@@ -8,8 +8,16 @@ namespace Xpand.Persistent.Base.General {
             : base(nameSpaceType, dataStoreNameSuffix) {
         }
 
+        public DataStoreAttribute(Type nameSpaceType, string dataStoreNameSuffix, bool isLegacy)
+            : base(nameSpaceType, dataStoreNameSuffix, isLegacy) {
+        }
+
         public DataStoreAttribute(string connectionString, string nameSpaceType)
             : base(ReflectionHelper.FindType(nameSpaceType), null) {
+            _connectionString = connectionString;
+        }
+        public DataStoreAttribute(string connectionString, string nameSpaceType, bool isLegacy)
+            : base(ReflectionHelper.FindType(nameSpaceType), null, isLegacy) {
             _connectionString = connectionString;
         }
     }

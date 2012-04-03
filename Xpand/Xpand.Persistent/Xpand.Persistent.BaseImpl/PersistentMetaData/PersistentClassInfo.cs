@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -39,6 +40,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
         [TypeConverter(typeof(XpandLocalizedClassInfoTypeConverter))]
+        [Appearance("Disable_ClassInfo_BaseType_For_Legacy",AppearanceItemType.ViewItem,"PersistentAssemblyInfo.IsLegacy=true",Enabled = false)]
         public Type BaseType {
             get { return _baseType; }
             set {
@@ -51,6 +53,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         [Index(1)]
+        [Appearance("Disable_ClassInfo_BaseClasInfo_For_Legacy", AppearanceItemType.ViewItem, "PersistentAssemblyInfo.IsLegacy=true", Enabled = false)]
         public PersistentClassInfo BaseClassInfo {
             get { return _baseClassInfo; }
             set {

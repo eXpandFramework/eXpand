@@ -80,7 +80,6 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             IEnumerable<DBForeignKey> foreignPKeys = _dbTable.ForeignKeys.Where(key => _dbTable.PrimaryKey.Columns.Contains(dbColumn.Name) && key.PrimaryKeyTable != _dbTable.Name && key.Columns.Contains(dbColumn.Name));
             var keies = foreignPKeys.Select(key => new { FK = key, PrimaryTable = _classInfos[ClassGenerator.GetTableName(key.PrimaryKeyTable)].DbTable });
             return keies.Where(arg => arg.PrimaryTable.PrimaryKey.Columns.OfType<string>().All(s => arg.FK.PrimaryKeyTableKeyColumns.OfType<string>().Contains(s))).Any();
-            return (from key in keies let phColumns = key.FK.PrimaryKeyTableKeyColumns.OfType<string>() where phColumns.All(s => _dbTable.PrimaryKey.Columns.Contains(s)) select key).Any();
         }
 
         MemberGeneratorInfo CreateMember(DBColumn dbColumn, IPersistentClassInfo persistentClassInfo = null, TemplateType coreTemplateType = TemplateType.XPReadWritePropertyMember, TemplateType refTemplateType = TemplateType.XPReadWritePropertyMember) {

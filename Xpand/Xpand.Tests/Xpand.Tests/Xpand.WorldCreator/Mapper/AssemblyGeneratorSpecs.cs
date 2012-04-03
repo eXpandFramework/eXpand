@@ -11,6 +11,7 @@ using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
     public class When_mapping_a_schema : With_In_Memory_DataStore {
+        static AssemblyGenerator _assemblyGenerator;
         static MSSqlConnectionProvider _dataStoreSchemaExplorer;
         static List<IPersistentAttributeInfo> _memberPersistentAttributeInfos;
         static PersistentClassInfo _persistentClassInfo1;
@@ -61,9 +62,11 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             Isolate.WhenCalled(() => ((IPersistentMemberInfo)_persistentClassInfo2.OwnMembers[0]).TypeAttributes).WillReturn(_memberPersistentAttributeInfos);
             Isolate.WhenCalled(() => ((IPersistentMemberInfo)_persistentClassInfo2.OwnMembers[1]).TypeAttributes).WillReturn(_memberPersistentAttributeInfos);
             _logonObject = ObjectSpace.CreateObject<LogonObject>();
+            Isolate.WhenCalled(() => AssemblyGenerator.GetDataStoreSchemaExplorer(null)).WillReturn(_dataStoreSchemaExplorer);
+            _assemblyGenerator = new AssemblyGenerator(_logonObject, _persistentAssemblyInfo, new[] { "" });
         };
 
-        Because of = () => new AssemblyGenerator(_logonObject, _persistentAssemblyInfo,new[]{""}).Create();
+        Because of = () => _assemblyGenerator.Create();
 
         It should_generate_classes_for_all_tables = () => {
             _persistentClassInfos = _persistentAssemblyInfo.PersistentClassInfos;

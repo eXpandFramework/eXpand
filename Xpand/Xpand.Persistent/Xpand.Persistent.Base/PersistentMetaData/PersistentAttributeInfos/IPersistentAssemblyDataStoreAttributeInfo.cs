@@ -7,5 +7,6 @@ namespace Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos {
     public interface IPersistentAssemblyDataStoreAttribute : IPersistentAssemblyAttributeInfo {
         IPersistentClassInfo PersistentClassInfo { get; set; }
         string ConnectionString { get; set; }
+        bool IsLegacy { get; set; }
     }
 }

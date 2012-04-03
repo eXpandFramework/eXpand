@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -71,7 +72,16 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _name; }
             set { SetPropertyValue("Name", ref _name, value); }
         }
-
+        private bool _isLegacy;
+        [Appearance("IsLegacy_assembly", AppearanceItemType.ViewItem, "IsNewObject=false", Enabled = false)]
+        public bool IsLegacy {
+            get {
+                return _isLegacy;
+            }
+            set {
+                SetPropertyValue("IsLegacy", ref _isLegacy, value);
+            }
+        }
         [Index(1)]
         public int CompileOrder {
             get { return _compileOrder; }
