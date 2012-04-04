@@ -37,6 +37,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
 
+	[Ignore]
     public class When_2_jobtriggers_are_linked_with_jobdetail : With_Job_Scheduler_XpandJobDetail_Application<When_2_jobtriggers_are_linked_with_jobdetail> {
         Establish context = () => {
             var jobDetail = ObjectSpace.CreateObject<XpandJobDetail>();
