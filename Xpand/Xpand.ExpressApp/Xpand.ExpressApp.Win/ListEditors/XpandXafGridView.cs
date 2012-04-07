@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.DXErrorProvider;
 using DevExpress.XtraGrid.Columns;
@@ -48,6 +49,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         public Window Window { get; set; }
 
         public Frame MasterFrame { get; set; }
+        public IModelListView ListView { get; set; }
 
 
 
