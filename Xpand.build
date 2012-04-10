@@ -254,7 +254,7 @@
 		<Zip Files="@(_SourceFiles)" ZipFileName="$(InstallerFolder)\Source.zip" Flatten="false" />
 
 
-		<Exec Command="Resource\Tool\NSIS\makensis.exe Xpand.nsi %*" />
+		<Exec Command="Resource\Tool\NSIS\makensis.exe /DVERSION=$(Version) Xpand.nsi" />
 
 		<CreateItem Include="setup.exe" ><!--Exclude="$(XpandPath)\*.locked" -->
 			<Output ItemName="setupFiles" TaskParameter="Include"/>
