@@ -1,7 +1,8 @@
-using Xpand.ExpressApp.ImportWizard.Core;
 
-namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
-    partial class ExcelImportWizard {
+namespace Xpand.ExpressApp.ImportWizard.Win.Wizard
+{
+    partial class ExcelImportWizard
+    {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -11,8 +12,10 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
-            if (disposing && (components != null)) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -24,12 +27,14 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelImportWizard));
             DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            this.resourceManagerSetter1 = new Xpand.ExpressApp.ImportWizard.Win.Wizard.ResourceManagerSetter();
             this.WizardControl = new DevExpress.XtraWizard.WizardControl();
             this.welcomeWizardPage1 = new DevExpress.XtraWizard.WelcomeWizardPage();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
@@ -71,6 +76,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.importMapBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.importMapBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.mappingBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            resources = new DevExpress.ExpressApp.Win.Templates.XafComponentResourceManager(typeof(ExcelImportWizard));
             ((System.ComponentModel.ISupportInitialize)(this.WizardControl)).BeginInit();
             this.WizardControl.SuspendLayout();
             this.welcomeWizardPage1.SuspendLayout();
@@ -319,7 +325,6 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             this.repositoryItemGridLookUpEdit.Name = "repositoryItemGridLookUpEdit";
             this.repositoryItemGridLookUpEdit.ValidateOnEnterKey = true;
             this.repositoryItemGridLookUpEdit.View = this.repositoryItemGridLookUpEdit1View;
-            this.repositoryItemGridLookUpEdit.CloseUp += new DevExpress.XtraEditors.Controls.CloseUpEventHandler(this.repositoryItemGridLookUpEdit_CloseUp);
             this.repositoryItemGridLookUpEdit.Closed += new DevExpress.XtraEditors.Controls.ClosedEventHandler(this.repositoryItemGridLookUpEdit_Closed);
             this.repositoryItemGridLookUpEdit.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemGridLookUpEdit_ButtonClick);
             // 
@@ -494,6 +499,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
         #endregion
 
+        private ResourceManagerSetter resourceManagerSetter1;
         private DevExpress.XtraWizard.WizardControl WizardControl;
         private DevExpress.XtraWizard.WelcomeWizardPage welcomeWizardPage1;
         private DevExpress.XtraWizard.WizardPage wizardPage1;
@@ -535,5 +541,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         private DevExpress.XtraGrid.Columns.GridColumn NameColumn;
         private DevExpress.XtraGrid.Columns.GridColumn DisplayNameColumn;
         private DevExpress.XtraGrid.Columns.GridColumn Mapped;
+
+
     }
 }

@@ -188,15 +188,17 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
 
         [SuppressMessage("Microsoft.Performance", "CA1805:DoNotInitializeUnnecessarily")]
         public Signature(IEnumerable<DynamicProperty> properties) {
-            Properties = properties.ToArray();
             HashCode = 0;
+            if (properties == null) return;
+
+            Properties = properties.ToArray();
             foreach (var p in properties) {
                 HashCode ^= p.Name.GetHashCode() ^ p.Type.GetHashCode();
             }
         }
 
         public override bool Equals(object obj) {
-            return obj is Signature ? Equals((Signature)obj) : false;
+            return obj is Signature && Equals((Signature)obj);
         }
 
         public override int GetHashCode() {
