@@ -10,8 +10,6 @@ using System.Windows.Forms;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.DC.Xpo;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using DevExpress.XtraEditors;
@@ -40,40 +38,39 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
             ObjectSpace = objectSpace;
             CurrentCollectionSource = collectionSourceBase;
-            
+
             Type = typeInfo.Type;
-            
 
             InitializeComponent();
+
             ImportMapLookUp.Properties.DataSource = ImportMapsCollection.ToList();
-            
+
             //disable next, until file and other info is selected
+            welcomeWizardPage1.AllowNext = false;
             wizardPage1.AllowNext = false;
 
 
 
             gridLookUpEdit1.Properties.View.OptionsBehavior.AutoPopulateColumns = true;
             gridLookUpEdit1.Properties.DataSource = MappableColumns;
-            
+
             //var col = gridLookUpEdit2View.Columns.ColumnByFieldName("Mapped");
             //if (col != null) {
             //    col.Visible = false;
             //    col.FilterInfo =
             //        new ColumnFilterInfo(new BinaryOperator("Mapped", false));
-                
+
             //}
 
             var mappablePropertyClassInfo
-                = objectSpace.Session.GetClassInfo(typeof (MappableProperty));
-            
-                
-            foreach (GridColumn column in gridLookUpEdit2View.Columns)
-            {
+                = objectSpace.Session.GetClassInfo(typeof(MappableProperty));
+
+
+            foreach (GridColumn column in gridLookUpEdit2View.Columns) {
 
                 column.Caption = mappablePropertyClassInfo
                                     .GetMember(column.FieldName).DisplayName;
-                if (column.FieldName == "Mapped")
-                {
+                if (column.FieldName == "Mapped") {
                     column.Visible = false;
                 }
             }
@@ -82,25 +79,6 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             //if (col != null)
             //    col.Visible = false;
 
-            Localize();
-        }
-
-        void Localize() {
-            WizardControl.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Import data from Excel");
-            ImportButton.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Import Data");
-            wizardPage3.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "wizardpage3_text");
-            wizardPage2.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Save mapping ?");
-            radioGroup2.Properties.Items[0].Description = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Yes");
-            radioGroup2.Properties.Items[1].Description = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "No");
-            labelControl3.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Import map description");
-            ImportMapDescriptionEdit.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Enter description for custom import map...");
-            MappingRadioGroup.Properties.Items[0].Description = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Use existing column mapping");
-            MappingRadioGroup.Properties.Items[1].Description = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Create custom column mapping");
-            ImportMapLookUp.Properties.NullText =
-                CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Select existing column mapping...");
-            GuesMappingButton.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "GuestMappings");
-            ResetButton.Text = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Reset Mappings");
-            MapTo.Caption = CaptionHelper.GetLocalizedText(ImportWizardWindowsFormsModule.XpandImportWizardWin, "Map To...");
         }
 
 
@@ -242,7 +220,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
         private void InitWizPage1() {
             //MappeablePropertiesCollection.AddRange(MappableColumns.ToList());
-            
+
 
             repositoryItemGridLookUpEdit.DataSource = MappableColumns;//.ToList();
             repositoryItemGridLookUpEdit.DisplayMember = "Name";
@@ -299,22 +277,20 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
             //Enalbes next button if at leat one column is mapped
             if (table.Rows.OfType<DataRow>()
-                .Where(p =>
-                           {
-                               var lastOrDefault = p.ItemArray.LastOrDefault();
-                               return lastOrDefault != null && !string.IsNullOrEmpty(lastOrDefault.ToString());
-                           })
+                .Where(p => {
+                    var lastOrDefault = p.ItemArray.LastOrDefault();
+                    return lastOrDefault != null && !string.IsNullOrEmpty(lastOrDefault.ToString());
+                })
                 .GroupBy(p => p.ItemArray.LastOrDefault())
                 .Select(g => new { g.Key, count = g.Count() }).Any())
                 allowNext = true;
 
             //select all rows that are mapped
             var gridMappings = table.Rows.OfType<DataRow>()
-                .Where(p =>
-                           {
-                               var orDefault = p.ItemArray.LastOrDefault();
-                               return orDefault != null && !string.IsNullOrEmpty(orDefault.ToString());
-                           });
+                .Where(p => {
+                    var orDefault = p.ItemArray.LastOrDefault();
+                    return orDefault != null && !string.IsNullOrEmpty(orDefault.ToString());
+                });
 
             //synchronize clolumns mappings with Importmap object
             foreach (var gridMapping in gridMappings) {
@@ -326,8 +302,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                            };
                 mpng.Column = gridMapping.ItemArray.First().ToString();
                 var lastOrDefault = gridMapping.ItemArray.LastOrDefault();
-                if (lastOrDefault != null)
-                {
+                if (lastOrDefault != null) {
                     var mapedTo = lastOrDefault.ToString();
                     mpng.MapedTo = mapedTo;
                     var mappableProperty = MappableColumns.FirstOrDefault(p => p.Name == mapedTo);
@@ -873,7 +848,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                             }
 
                         } catch (Exception ee) {
-                            message = string.Format(Resources.ExcelImportWizard_ProccesExcellRows_Error_processing_record__0____1_, i-1, ee);
+                            message = string.Format(Resources.ExcelImportWizard_ProccesExcellRows_Error_processing_record__0____1_, i - 1, ee);
                             _BgWorker.ReportProgress(0, message);
                         }
 
@@ -884,7 +859,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                 }
 
                 objectSpace.CommitChanges();
-                message = string.Format(Resources.ExcelImportWizard_ProccesExcellRows_Importing_record__0__succesfull_, i-1);
+                message = string.Format(Resources.ExcelImportWizard_ProccesExcellRows_Importing_record__0__succesfull_, i - 1);
                 _BgWorker.ReportProgress(1, message);
                 Application.DoEvents();
             }
@@ -919,7 +894,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// <param name="e"></param>
         private void repositoryItemGridLookUpEdit_ButtonClick(object sender, ButtonPressedEventArgs e) {
             if (e.Button.Index != 1) return;
-            
+
             ((GridLookUpEdit)sender).EditValue = null;
             ((GridControl)((GridLookUpEdit)sender).Parent).MainView.PostEditor();
             ((GridControl)((GridLookUpEdit)sender).Parent).MainView.UpdateCurrentRow();
@@ -938,9 +913,8 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             mainView.UpdateCurrentRow();
         }
 
-        private void repositoryItemGridLookUpEdit_CloseUp(object sender, CloseUpEventArgs e) {
 
-        }
+
 
     }
 

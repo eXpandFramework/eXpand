@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="resourceManagerSetter1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 56</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="labelControl2.Location" type="System.Drawing.Point, System.Drawing">
     <value>344, 55</value>
@@ -135,7 +138,7 @@
     <value>labelControl2</value>
   </data>
   <data name="&gt;&gt;labelControl2.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;labelControl2.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -162,7 +165,7 @@
     <value>PrieviewRowCountSpinEdit</value>
   </data>
   <data name="&gt;&gt;PrieviewRowCountSpinEdit.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.SpinEdit, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.SpinEdit, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;PrieviewRowCountSpinEdit.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -189,7 +192,7 @@
     <value>HeaderRowSpinEdit</value>
   </data>
   <data name="&gt;&gt;HeaderRowSpinEdit.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.SpinEdit, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.SpinEdit, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;HeaderRowSpinEdit.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -203,7 +206,7 @@
   <data name="SheetSelectEdit.Location" type="System.Drawing.Point, System.Drawing">
     <value>21, 52</value>
   </data>
-  <assembly alias="DevExpress.Utils.v11.2" name="DevExpress.Utils.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+  <assembly alias="DevExpress.Utils.v11.2" name="DevExpress.Utils.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="SheetSelectEdit.Properties.Buttons" type="DevExpress.XtraEditors.Controls.ButtonPredefines, DevExpress.Utils.v11.2">
     <value>Combo</value>
   </data>
@@ -220,7 +223,7 @@
     <value>SheetSelectEdit</value>
   </data>
   <data name="&gt;&gt;SheetSelectEdit.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.LookUpEdit, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.LookUpEdit, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;SheetSelectEdit.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -247,7 +250,7 @@
     <value>HeaderRowCheck</value>
   </data>
   <data name="&gt;&gt;HeaderRowCheck.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.CheckEdit, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.CheckEdit, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;HeaderRowCheck.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -266,7 +269,7 @@
     <value>4, 84</value>
   </data>
   <data name="ExcelSheetPreviewGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>761, 310</value>
+    <value>762, 311</value>
   </data>
   <data name="ExcelSheetPreviewGrid.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -275,7 +278,7 @@
     <value>ExcelSheetPreviewGrid</value>
   </data>
   <data name="&gt;&gt;ExcelSheetPreviewGrid.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.GridControl, DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraGrid.GridControl, DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;ExcelSheetPreviewGrid.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -299,7 +302,7 @@
     <value>labelControl1</value>
   </data>
   <data name="&gt;&gt;labelControl1.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;labelControl1.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -326,7 +329,7 @@
     <value>FileSelectEdit</value>
   </data>
   <data name="&gt;&gt;FileSelectEdit.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.MRUEdit, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.MRUEdit, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;FileSelectEdit.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -339,7 +342,7 @@
 </value>
   </data>
   <data name="welcomeWizardPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 397</value>
+    <value>769, 398</value>
   </data>
   <data name="welcomeWizardPage1.Text" xml:space="preserve">
     <value>Please select excel file to import...</value>
@@ -348,7 +351,7 @@
     <value>welcomeWizardPage1</value>
   </data>
   <data name="&gt;&gt;welcomeWizardPage1.Type" xml:space="preserve">
-    <value>DevExpress.XtraWizard.WelcomeWizardPage, DevExpress.XtraWizard.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraWizard.WelcomeWizardPage, DevExpress.XtraWizard.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;welcomeWizardPage1.Parent" xml:space="preserve">
     <value>WizardControl</value>
@@ -372,7 +375,7 @@
     <value>ResetButton</value>
   </data>
   <data name="&gt;&gt;ResetButton.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.SimpleButton, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.SimpleButton, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;ResetButton.Parent" xml:space="preserve">
     <value>wizardPage1</value>
@@ -396,7 +399,7 @@
     <value>GuesMappingButton</value>
   </data>
   <data name="&gt;&gt;GuesMappingButton.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.SimpleButton, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.SimpleButton, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;GuesMappingButton.Parent" xml:space="preserve">
     <value>wizardPage1</value>
@@ -432,7 +435,7 @@
     <value>MappingRadioGroup</value>
   </data>
   <data name="&gt;&gt;MappingRadioGroup.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.RadioGroup, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.RadioGroup, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;MappingRadioGroup.Parent" xml:space="preserve">
     <value>wizardPage1</value>
@@ -464,7 +467,7 @@
   <data name="ImportMapLookUp.Properties.Columns5" type="System.Int32, mscorlib">
     <value>360</value>
   </data>
-  <assembly alias="DevExpress.Data.v11.2" name="DevExpress.Data.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+  <assembly alias="DevExpress.Data.v11.2" name="DevExpress.Data.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="ImportMapLookUp.Properties.Columns6" type="DevExpress.Utils.FormatType, DevExpress.Data.v11.2">
     <value>None</value>
   </data>
@@ -496,7 +499,7 @@
     <value>ImportMapLookUp</value>
   </data>
   <data name="&gt;&gt;ImportMapLookUp.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.LookUpEdit, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.LookUpEdit, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;ImportMapLookUp.Parent" xml:space="preserve">
     <value>wizardPage1</value>
@@ -513,7 +516,7 @@
   <data name="ColName.Caption" xml:space="preserve">
     <value>Column Name</value>
   </data>
-  <assembly alias="DevExpress.XtraGrid.v11.2" name="DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+  <assembly alias="DevExpress.XtraGrid.v11.2" name="DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="ColName.Fixed" type="DevExpress.XtraGrid.Columns.FixedStyle, DevExpress.XtraGrid.v11.2">
     <value>Left</value>
   </data>
@@ -584,7 +587,7 @@
     <value>2</value>
   </data>
   <data name="MappingGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 329</value>
+    <value>769, 330</value>
   </data>
   <data name="MappingGrid.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -593,7 +596,7 @@
     <value>MappingGrid</value>
   </data>
   <data name="&gt;&gt;MappingGrid.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.GridControl, DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraGrid.GridControl, DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;MappingGrid.Parent" xml:space="preserve">
     <value>wizardPage1</value>
@@ -602,7 +605,7 @@
     <value>4</value>
   </data>
   <data name="wizardPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 397</value>
+    <value>769, 398</value>
   </data>
   <data name="wizardPage1.Text" xml:space="preserve">
     <value>Map Excel columns to object Fields</value>
@@ -611,7 +614,7 @@
     <value>wizardPage1</value>
   </data>
   <data name="&gt;&gt;wizardPage1.Type" xml:space="preserve">
-    <value>DevExpress.XtraWizard.WizardPage, DevExpress.XtraWizard.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraWizard.WizardPage, DevExpress.XtraWizard.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;wizardPage1.Parent" xml:space="preserve">
     <value>WizardControl</value>
@@ -620,13 +623,13 @@
     <value>7</value>
   </data>
   <data name="completionWizardPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 397</value>
+    <value>769, 398</value>
   </data>
   <data name="&gt;&gt;completionWizardPage1.Name" xml:space="preserve">
     <value>completionWizardPage1</value>
   </data>
   <data name="&gt;&gt;completionWizardPage1.Type" xml:space="preserve">
-    <value>DevExpress.XtraWizard.CompletionWizardPage, DevExpress.XtraWizard.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraWizard.CompletionWizardPage, DevExpress.XtraWizard.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;completionWizardPage1.Parent" xml:space="preserve">
     <value>WizardControl</value>
@@ -650,7 +653,7 @@
     <value>SaveLabel</value>
   </data>
   <data name="&gt;&gt;SaveLabel.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;SaveLabel.Parent" xml:space="preserve">
     <value>wizardPage2</value>
@@ -668,7 +671,7 @@
     <value>True</value>
   </data>
   <data name="radioGroup2.Properties.Items1" xml:space="preserve">
-    <value>Yes1</value>
+    <value>Yes</value>
   </data>
   <data name="radioGroup2.Properties.Items2" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -686,7 +689,7 @@
     <value>radioGroup2</value>
   </data>
   <data name="&gt;&gt;radioGroup2.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.RadioGroup, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.RadioGroup, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;radioGroup2.Parent" xml:space="preserve">
     <value>wizardPage2</value>
@@ -710,7 +713,7 @@
     <value>labelControl3</value>
   </data>
   <data name="&gt;&gt;labelControl3.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;labelControl3.Parent" xml:space="preserve">
     <value>wizardPage2</value>
@@ -734,7 +737,7 @@
     <value>ImportMapDescriptionEdit</value>
   </data>
   <data name="&gt;&gt;ImportMapDescriptionEdit.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.TextEdit, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.TextEdit, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;ImportMapDescriptionEdit.Parent" xml:space="preserve">
     <value>wizardPage2</value>
@@ -743,7 +746,7 @@
     <value>3</value>
   </data>
   <data name="wizardPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 397</value>
+    <value>769, 398</value>
   </data>
   <data name="wizardPage2.Text" xml:space="preserve">
     <value>Save mapping ?</value>
@@ -752,7 +755,7 @@
     <value>wizardPage2</value>
   </data>
   <data name="&gt;&gt;wizardPage2.Type" xml:space="preserve">
-    <value>DevExpress.XtraWizard.WizardPage, DevExpress.XtraWizard.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraWizard.WizardPage, DevExpress.XtraWizard.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;wizardPage2.Parent" xml:space="preserve">
     <value>WizardControl</value>
@@ -767,7 +770,7 @@
     <value>0, 0</value>
   </data>
   <data name="ResultsMemoEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 285</value>
+    <value>769, 286</value>
   </data>
   <data name="ResultsMemoEdit.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -776,7 +779,7 @@
     <value>ResultsMemoEdit</value>
   </data>
   <data name="&gt;&gt;ResultsMemoEdit.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.MemoEdit, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.MemoEdit, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;ResultsMemoEdit.Parent" xml:space="preserve">
     <value>wizardPage3</value>
@@ -788,10 +791,10 @@
     <value>Bottom, Left, Right</value>
   </data>
   <data name="ImportButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>174, 291</value>
+    <value>174, 292</value>
   </data>
   <data name="ImportButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>425, 95</value>
+    <value>426, 95</value>
   </data>
   <data name="ImportButton.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -803,7 +806,7 @@
     <value>ImportButton</value>
   </data>
   <data name="&gt;&gt;ImportButton.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.SimpleButton, DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.SimpleButton, DevExpress.XtraEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;ImportButton.Parent" xml:space="preserve">
     <value>wizardPage3</value>
@@ -812,13 +815,13 @@
     <value>1</value>
   </data>
   <data name="wizardPage3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 397</value>
+    <value>769, 398</value>
   </data>
   <data name="&gt;&gt;wizardPage3.Name" xml:space="preserve">
     <value>wizardPage3</value>
   </data>
   <data name="&gt;&gt;wizardPage3.Type" xml:space="preserve">
-    <value>DevExpress.XtraWizard.WizardPage, DevExpress.XtraWizard.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraWizard.WizardPage, DevExpress.XtraWizard.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;wizardPage3.Parent" xml:space="preserve">
     <value>WizardControl</value>
@@ -833,7 +836,7 @@
     <value>0, 0</value>
   </data>
   <data name="WizardControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>828, 560</value>
+    <value>829, 560</value>
   </data>
   <data name="WizardControl.Text" xml:space="preserve">
     <value>Import Data from Excel</value>
@@ -842,7 +845,7 @@
     <value>WizardControl</value>
   </data>
   <data name="&gt;&gt;WizardControl.Type" xml:space="preserve">
-    <value>DevExpress.XtraWizard.WizardControl, DevExpress.XtraWizard.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraWizard.WizardControl, DevExpress.XtraWizard.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;WizardControl.Parent" xml:space="preserve">
     <value>$this</value>
@@ -866,7 +869,7 @@
     <value>gridLookUpEdit1</value>
   </data>
   <data name="&gt;&gt;gridLookUpEdit1.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.GridLookUpEdit, DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.GridLookUpEdit, DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <metadata name="importMapBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -887,7 +890,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>828, 560</value>
+    <value>829, 560</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1289,41 +1292,47 @@
   <data name="$this.Text" xml:space="preserve">
     <value>ExcelImportWizard</value>
   </data>
+  <data name="&gt;&gt;resourceManagerSetter1.Name" xml:space="preserve">
+    <value>resourceManagerSetter1</value>
+  </data>
+  <data name="&gt;&gt;resourceManagerSetter1.Type" xml:space="preserve">
+    <value>Xpand.ExpressApp.ImportWizard.Win.Wizard.ResourceManagerSetter, Xpand.ExpressApp.ImportWizard.Win, Version=11.2.11.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958</value>
+  </data>
   <data name="&gt;&gt;ExcelSheetPreviewGridView.Name" xml:space="preserve">
     <value>ExcelSheetPreviewGridView</value>
   </data>
   <data name="&gt;&gt;ExcelSheetPreviewGridView.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Views.Grid.GridView, DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraGrid.Views.Grid.GridView, DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;MappingBandedGridView.Name" xml:space="preserve">
     <value>MappingBandedGridView</value>
   </data>
   <data name="&gt;&gt;MappingBandedGridView.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Views.BandedGrid.BandedGridView, DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraGrid.Views.BandedGrid.BandedGridView, DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;ColName.Name" xml:space="preserve">
     <value>ColName</value>
   </data>
   <data name="&gt;&gt;ColName.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Views.BandedGrid.GridBand, DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraGrid.Views.BandedGrid.GridBand, DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;Values.Name" xml:space="preserve">
     <value>Values</value>
   </data>
   <data name="&gt;&gt;Values.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Views.BandedGrid.GridBand, DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraGrid.Views.BandedGrid.GridBand, DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;MapTo.Name" xml:space="preserve">
     <value>MapTo</value>
   </data>
   <data name="&gt;&gt;MapTo.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Views.BandedGrid.GridBand, DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraGrid.Views.BandedGrid.GridBand, DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;repositoryItemGridLookUpEdit.Name" xml:space="preserve">
     <value>repositoryItemGridLookUpEdit</value>
   </data>
   <data name="&gt;&gt;repositoryItemGridLookUpEdit.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit, DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit, DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;mappablePropertyBindingSource.Name" xml:space="preserve">
     <value>mappablePropertyBindingSource</value>
@@ -1335,31 +1344,31 @@
     <value>repositoryItemGridLookUpEdit1View</value>
   </data>
   <data name="&gt;&gt;repositoryItemGridLookUpEdit1View.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Views.Grid.GridView, DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraGrid.Views.Grid.GridView, DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;NameColumn.Name" xml:space="preserve">
     <value>NameColumn</value>
   </data>
   <data name="&gt;&gt;NameColumn.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Columns.GridColumn, DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraGrid.Columns.GridColumn, DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;DisplayNameColumn.Name" xml:space="preserve">
     <value>DisplayNameColumn</value>
   </data>
   <data name="&gt;&gt;DisplayNameColumn.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Columns.GridColumn, DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraGrid.Columns.GridColumn, DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;Mapped.Name" xml:space="preserve">
     <value>Mapped</value>
   </data>
   <data name="&gt;&gt;Mapped.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Columns.GridColumn, DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraGrid.Columns.GridColumn, DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;gridLookUpEdit2View.Name" xml:space="preserve">
     <value>gridLookUpEdit2View</value>
   </data>
   <data name="&gt;&gt;gridLookUpEdit2View.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Views.Grid.GridView, DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraGrid.Views.Grid.GridView, DevExpress.XtraGrid.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
   <data name="&gt;&gt;importMapBindingSource.Name" xml:space="preserve">
     <value>importMapBindingSource</value>
@@ -1383,6 +1392,6 @@
     <value>ExcelImportWizard</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.XtraForm, DevExpress.Utils.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+    <value>DevExpress.XtraEditors.XtraForm, DevExpress.Utils.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
 </root>
