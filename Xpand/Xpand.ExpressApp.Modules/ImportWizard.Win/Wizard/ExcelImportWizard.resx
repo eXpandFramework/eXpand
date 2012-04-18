@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="resourceManagerSetter1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 56</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="labelControl2.Location" type="System.Drawing.Point, System.Drawing">
     <value>344, 55</value>
@@ -266,7 +269,7 @@
     <value>4, 84</value>
   </data>
   <data name="ExcelSheetPreviewGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>761, 310</value>
+    <value>762, 311</value>
   </data>
   <data name="ExcelSheetPreviewGrid.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -339,7 +342,7 @@
 </value>
   </data>
   <data name="welcomeWizardPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 397</value>
+    <value>769, 398</value>
   </data>
   <data name="welcomeWizardPage1.Text" xml:space="preserve">
     <value>Please select excel file to import...</value>
@@ -584,7 +587,7 @@
     <value>2</value>
   </data>
   <data name="MappingGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 329</value>
+    <value>769, 330</value>
   </data>
   <data name="MappingGrid.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -602,7 +605,7 @@
     <value>4</value>
   </data>
   <data name="wizardPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 397</value>
+    <value>769, 398</value>
   </data>
   <data name="wizardPage1.Text" xml:space="preserve">
     <value>Map Excel columns to object Fields</value>
@@ -620,7 +623,7 @@
     <value>7</value>
   </data>
   <data name="completionWizardPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 397</value>
+    <value>769, 398</value>
   </data>
   <data name="&gt;&gt;completionWizardPage1.Name" xml:space="preserve">
     <value>completionWizardPage1</value>
@@ -668,7 +671,7 @@
     <value>True</value>
   </data>
   <data name="radioGroup2.Properties.Items1" xml:space="preserve">
-    <value>Yes1</value>
+    <value>Yes</value>
   </data>
   <data name="radioGroup2.Properties.Items2" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -743,7 +746,7 @@
     <value>3</value>
   </data>
   <data name="wizardPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 397</value>
+    <value>769, 398</value>
   </data>
   <data name="wizardPage2.Text" xml:space="preserve">
     <value>Save mapping ?</value>
@@ -767,7 +770,7 @@
     <value>0, 0</value>
   </data>
   <data name="ResultsMemoEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 285</value>
+    <value>769, 286</value>
   </data>
   <data name="ResultsMemoEdit.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -788,10 +791,10 @@
     <value>Bottom, Left, Right</value>
   </data>
   <data name="ImportButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>174, 291</value>
+    <value>174, 292</value>
   </data>
   <data name="ImportButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>425, 95</value>
+    <value>426, 95</value>
   </data>
   <data name="ImportButton.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -812,7 +815,7 @@
     <value>1</value>
   </data>
   <data name="wizardPage3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 397</value>
+    <value>769, 398</value>
   </data>
   <data name="&gt;&gt;wizardPage3.Name" xml:space="preserve">
     <value>wizardPage3</value>
@@ -833,7 +836,7 @@
     <value>0, 0</value>
   </data>
   <data name="WizardControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>828, 560</value>
+    <value>829, 560</value>
   </data>
   <data name="WizardControl.Text" xml:space="preserve">
     <value>Import Data from Excel</value>
@@ -887,7 +890,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>828, 560</value>
+    <value>829, 560</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1288,6 +1291,12 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>ExcelImportWizard</value>
+  </data>
+  <data name="&gt;&gt;resourceManagerSetter1.Name" xml:space="preserve">
+    <value>resourceManagerSetter1</value>
+  </data>
+  <data name="&gt;&gt;resourceManagerSetter1.Type" xml:space="preserve">
+    <value>Xpand.ExpressApp.ImportWizard.Win.Wizard.ResourceManagerSetter, Xpand.ExpressApp.ImportWizard.Win, Version=11.2.11.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958</value>
   </data>
   <data name="&gt;&gt;ExcelSheetPreviewGridView.Name" xml:space="preserve">
     <value>ExcelSheetPreviewGridView</value>
