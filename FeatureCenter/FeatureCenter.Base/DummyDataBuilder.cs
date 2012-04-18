@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
-using DevExpress.Xpo;
 using Xpand.Utils;
 
 namespace FeatureCenter.Base {
@@ -17,18 +14,14 @@ namespace FeatureCenter.Base {
         }
 
         public void CreateObjects() {
-            if (_objectSpace.FindObject<XPObjectType>(CriteriaOperator.Parse("TypeName=?", "F_records_done")) == null) {
-                foreach (var typeInfo in XafTypesInfo.Instance.PersistentTypes.Where(info => typeof(ICustomer).IsAssignableFrom(info.Type))) {
-                    if (!typeInfo.IsPersistent || _objectSpace.FindObject(typeInfo.Type, null) != null) continue;
-                    var dummyDataAttribute = typeInfo.FindAttribute<DummyDataAttribute>();
-                    if (dummyDataAttribute != null && dummyDataAttribute.Exclude) continue;
-                    CreateObjects(typeInfo);
+            foreach (var typeInfo in XafTypesInfo.Instance.PersistentTypes.Where(info => typeof(ICustomer).IsAssignableFrom(info.Type))) {
+                if (!typeInfo.IsPersistent || _objectSpace.FindObject(typeInfo.Type, null) != null) continue;
+                var dummyDataAttribute = typeInfo.FindAttribute<DummyDataAttribute>();
+                if (dummyDataAttribute != null && dummyDataAttribute.Exclude) continue;
+                CreateObjects(typeInfo);
 
-                }
-                var xpObjectType = _objectSpace.CreateObject<XPObjectType>();
-                xpObjectType.TypeName = "F_records_done";
-                _objectSpace.CommitChanges();
             }
+            _objectSpace.CommitChanges();
         }
 
         void CreateObjects(ITypeInfo typeInfo) {
