@@ -103,10 +103,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
 
         MemberGeneratorInfo CreateFkMember(DBColumn dbColumn, IPersistentClassInfo persistentClassInfo,
                                            TemplateType coreTemplateType, TemplateType refTemplateType) {
-            //            if (_dbTable.ForeignKeys.Where(key => key.Columns.Contains(dbColumn.Name)).Count() > 1)
-            //                Debug.Print("");
-
-            var foreignKey = _dbTable.ForeignKeys.Where(key => key.Columns.Contains(dbColumn.Name)).First(key => key.PrimaryKeyTable != "XPObjectType");
+            var foreignKey = _dbTable.ForeignKeys.Where(key => key.Columns.Contains(dbColumn.Name)).First(key => !Equals(key.PrimaryKeyTable, "XPObjectType"));
 
             var tableName = ClassGenerator.GetTableName(foreignKey.PrimaryKeyTable);
             if (_classInfos.ContainsKey(tableName)) {
@@ -115,8 +112,6 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
                                                             classGeneratorInfo.PersistentClassInfo, GetTemplateType(refTemplateType, classGeneratorInfo)), dbColumn);
             }
             return new MemberGeneratorInfo(CreatePersistentCoreTypeMemberInfo(dbColumn, persistentClassInfo, coreTemplateType), dbColumn);
-            //            }
-            //            return new MemberGeneratorInfo(null, null);
         }
 
 

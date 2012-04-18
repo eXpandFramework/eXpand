@@ -6,8 +6,7 @@ using DevExpress.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.MasterDetail.Logic;
 
 namespace Xpand.ExpressApp.MasterDetail.Win {
-    public class ModelDetailRelationCalculator
-    {
+    public class ModelDetailRelationCalculator {
         readonly IModelListView _modelListView;
         readonly XafGridView _xafGridView;
         readonly List<IMasterDetailRule> _masterDetailRules;
@@ -18,25 +17,23 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
             _masterDetailRules = masterDetailRules;
         }
 
-        
 
-        public  bool IsRelationSet( int rowHandle, int relationIndex)
-        {
+
+        public bool IsRelationSet(int rowHandle, int relationIndex) {
             string rName = _xafGridView.GetRelationName(rowHandle, relationIndex);
             return GetMasterDetailRule(rName) != null;
         }
 
         IMasterDetailRule GetMasterDetailRule(string rName) {
-            return _masterDetailRules.Where(rule => rule.CollectionMember.Name==rName).LastOrDefault();
+            return _masterDetailRules.Where(rule => rule.CollectionMember.Name == rName).LastOrDefault();
         }
 
-        public IModelListView GetChildModelListView(int rowHandle, int relationIndex)
-        {
+        public IModelListView GetChildModelListView(int rowHandle, int relationIndex) {
             var rName = _xafGridView.GetRelationName(rowHandle, relationIndex);
             return GetMasterDetailRule(rName).ChildListView;
         }
 
-        public string GetOwnerPropertyName(IModelListView childModelListView,int rowHandle, int relationIndex) {
+        public string GetOwnerPropertyName(IModelListView childModelListView, int rowHandle, int relationIndex) {
             var rName = _xafGridView.GetRelationName(rowHandle, relationIndex);
             IMemberInfo associatedMemberInfo = _modelListView.ModelClass.AllMembers.Where(member => member.MemberInfo.Name == rName).Single().MemberInfo.AssociatedMemberInfo;
             return associatedMemberInfo.Name;
@@ -44,7 +41,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
         }
 
         public IModelMember GetRelationModelMember(int rowHandle, int relationIndex) {
-            
+
             var relationName = _xafGridView.GetRelationName(rowHandle, relationIndex);
             return _modelListView.ModelClass.AllMembers.Where(member => member.Name == relationName).Single();
         }

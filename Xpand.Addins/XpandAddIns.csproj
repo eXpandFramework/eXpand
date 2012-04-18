@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>XpandAddIns</RootNamespace>
     <AssemblyName>XpandAddIns</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
@@ -34,6 +34,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -129,6 +130,10 @@
     <Compile Include="Extensions\DteExtensions.cs" />
     <Compile Include="Extensions\ElementExtensions.cs" />
     <Compile Include="Extensions\ProjectItemExtensions.cs" />
+    <Compile Include="FormatOnSave\RunningDocumentTableConnectionPoint.cs" />
+    <Compile Include="FormatOnSave\RunningDocumentTableEventProvider.cs" />
+    <Compile Include="FormatOnSave\DocumentEventArgs.cs" />
+    <Compile Include="FormatOnSave\DocumentLanguages.cs" />
     <Compile Include="ModelEditor\GridBinder.cs" />
     <Compile Include="ModelEditor\ModelEditorRunner.cs" />
     <Compile Include="Options.cs">

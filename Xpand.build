@@ -194,7 +194,7 @@
 		
 	<Target Name="Test" DependsOnTargets="Clean;Build;Copy" > 
 		<TypeMockStart/>
-		<Exec ContinueOnError="true" Command="Resource\Machine.Specifications\mspec-clr4.exe Build\Temp\Xpand.Tests.dll"/>
+		<Exec ContinueOnError="false" Command="Resource\Machine.Specifications\mspec-clr4.exe Build\Temp\Xpand.Tests.dll"/>
 		<TypeMockStop/>
 	</Target>
 
@@ -300,9 +300,6 @@
 		<Copy SourceFiles="Resource\Template\index.template" DestinationFolder="$(TempPath)" />
 		<TemplateFile Template="$(TempPath)\index.template" OutputFile="index.out" Tokens="@(AllTokens)" />
 		<Copy SourceFiles="$(TempPath)\index.out" DestinationFiles="$(DeploymentFolder)\index.htm" />
-		
-		
-		<CallTarget Targets="Twitter" Condition="$(TwitterConsumerKey)!=''"  />
 	</Target>
 	
 	<Target Name="Distrib" >

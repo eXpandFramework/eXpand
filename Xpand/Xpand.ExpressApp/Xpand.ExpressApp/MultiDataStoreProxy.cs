@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
@@ -109,12 +108,13 @@ namespace Xpand.ExpressApp {
                 var store = keyValuePair.Key as ConnectionProviderSql;
                 if (store != null) {
                     var dataStoreInfo = keyValuePair.Value;
-                    List<DBTable> dbTables = dataStoreInfo.DbTables;
+                    var storeInfo = dataStoreInfo;
+                    List<DBTable> dbTables = storeInfo.DbTables;
                     if (Connection == null)
                         throw new NullReferenceException();
-                    if (!dataStoreInfo.IsLegacy && !IsMainLayer(store.Connection))
+                    if (!storeInfo.IsLegacy && !IsMainLayer(store.Connection))
                         _xpoObjectHacker.EnsureIsNotIdentity(dbTables);
-                    if (!(dataStoreInfo.IsLegacy && dbTables.Count == 1 && dbTables[0].Name == typeof(XPObjectType).Name))
+                    if (!(storeInfo.IsLegacy && dbTables.Count == 1 && dbTables[0].Name == typeof(XPObjectType).Name))
                         store.UpdateSchema(false, dbTables.ToArray());
                     RunExtraUpdaters(tables, store, dontCreateIfFirstTableNotExist);
                 }

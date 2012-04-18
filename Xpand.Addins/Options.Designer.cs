@@ -247,8 +247,8 @@ namespace XpandAddIns
             // 
             // gacUtilPathButtonEdit
             // 
-            this.gacUtilPathButtonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.gacUtilPathButtonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gacUtilPathButtonEdit.Location = new System.Drawing.Point(82, 16);
             this.gacUtilPathButtonEdit.Name = "gacUtilPathButtonEdit";
             this.gacUtilPathButtonEdit.Properties.Buttons.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton[] {
@@ -275,8 +275,8 @@ namespace XpandAddIns
             // 
             // gacUtilRegexButtonEdit
             // 
-            this.gacUtilRegexButtonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.gacUtilRegexButtonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gacUtilRegexButtonEdit.Location = new System.Drawing.Point(82, 45);
             this.gacUtilRegexButtonEdit.Name = "gacUtilRegexButtonEdit";
             this.gacUtilRegexButtonEdit.Size = new System.Drawing.Size(411, 22);
