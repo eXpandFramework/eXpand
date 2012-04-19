@@ -107,7 +107,6 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
 
         public virtual bool IsMasterDetail {
             get {
-                return false;
                 return GridListEditor != null &&
                        Frame.GetController<MasterDetailRuleController>().MasterDetailRules.FirstOrDefault() != null;
             }
