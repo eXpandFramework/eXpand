@@ -12,7 +12,7 @@ namespace Xpand.ExpressApp.Workflow {
 
         public XpandWorkFlowModule() {
             InitializeComponent();
-            AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(GetType().Assembly));
+            AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(GetType().Assembly, IsExportedType));
         }
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             var declaredExportedTypes = base.GetDeclaredExportedTypes().ToList();
