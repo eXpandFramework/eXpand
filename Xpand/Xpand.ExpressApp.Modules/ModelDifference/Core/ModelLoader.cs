@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Reflection;
 using System.Web.Configuration;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
@@ -94,12 +93,10 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         TypesInfo GetTypesInfo() {
             var typesInfo = new TypesInfo();
+            typesInfo.AddEntityStore(new NonPersistentEntityStore(typesInfo));
             var xpoSource = new XpoTypeInfoSource(typesInfo);
-            typesInfo.Source = xpoSource;
-            typesInfo.AddSource(new ReflectionTypeInfoSource());
-            typesInfo.AddSource(xpoSource);
-            typesInfo.AddSource(new DynamicTypeInfoSource());
-            typesInfo.SetRedirectStrategy((@from, info) => xpoSource.GetFirstRegisteredTypeForEntity(from) ?? from);
+            typesInfo.Source=xpoSource;
+            typesInfo.AddEntityStore(xpoSource);
             XpandModuleBase.Dictiorary = xpoSource.XPDictionary;
             return typesInfo;
         }
@@ -115,9 +112,11 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         XafApplication _application;
         ITypesInfo _typesInfo;
         string _moduleName;
+        ApplicationModulesManager _modulesManager;
 
         ModelBuilder() {
         }
+
         private IEnumerable<string> GetAspects(string configFileName) {
             if (!string.IsNullOrEmpty(configFileName) && configFileName.EndsWith(".config")) {
                 var exeConfigurationFileMap = new ExeConfigurationFileMap { ExeConfigFilename = configFileName };
@@ -134,6 +133,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         public static ModelBuilder Create() {
             return new ModelBuilder();
         }
+
         string GetConfigPath() {
             string path = Path.Combine(_assembliesPath, _moduleName);
             string config = path + ".config";
@@ -141,6 +141,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 config = Path.Combine(_assembliesPath, "web.config");
             return config;
         }
+
         private string[] GetModulesFromConfig(XafApplication application) {
             Configuration config;
             if (application is IWinApplication) {
@@ -157,14 +158,13 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
             return null;
         }
+
         ModelApplicationBase BuildModel(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager) {
-            var modelsManager = new ApplicationModelsManager(applicationModulesManager.Modules, applicationModulesManager.ControllersManager, applicationModulesManager.DomainComponents, application.ResourcesExportedToModel, GetAspects(configFileName));
-            var assemblyFile = application.GetType().GetMethod("GetModelAssemblyFilePath", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(application, null) as string;
-            modelsManager.GetType().GetProperty("ModelAssemblyFile", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(modelsManager, assemblyFile, null);
-            var modelApplication = (ModelApplicationBase)modelsManager.CreateModel(modelsManager.CreateApplicationCreator(), null, false);
+            ModelApplicationBase modelApplication = ModelApplicationHelper.CreateModel(XpandModuleBase.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
+                                                                                       applicationModulesManager.ControllersManager, application.ResourcesExportedToModel, GetAspects(configFileName), null, null);
             var modelApplicationBase = modelApplication.CreatorInstance.CreateModelApplication();
             modelApplicationBase.Id = "After Setup";
-            modelApplication.AddLayer(modelApplicationBase);
+            ModelApplicationHelper.AddLayer(modelApplication, modelApplicationBase);
             return modelApplication;
         }
 
@@ -208,10 +208,12 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return this;
         }
 
-        public ModelApplicationBase Build() {
+        
+        public ModelApplicationBase Build(bool rebuild) {
             string config = GetConfigPath();
-            var modulesManager = CreateModulesManager(_application, config, _assembliesPath, _typesInfo);
-            return BuildModel(_application, config, modulesManager);
+            if (!rebuild)
+                _modulesManager = CreateModulesManager(_application, config, _assembliesPath, _typesInfo);
+            return BuildModel(_application, config, _modulesManager);
         }
 
         public ModelBuilder UsingTypesInfo(ITypesInfo typesInfo) {
@@ -226,28 +228,40 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
     }
     public class ModelLoader {
         readonly string _moduleName;
+        ITypesInfo _typesInfo;
+        XafApplication _xafApplication;
+        ModelBuilder _modelBuilder;
 
         public ModelLoader(string moduleName) {
             _moduleName = moduleName;
         }
 
+        public ModelApplicationBase ReCreate() {
+            return GetMasterModelCore(true);
+        }
         public ModelApplicationBase GetMasterModel(bool tryToUseCurrentTypesInfo) {
-            var typesInfo = TypesInfoBuilder.Create()
+            _typesInfo = TypesInfoBuilder.Create()
                 .FromModule(_moduleName)
                 .Build(tryToUseCurrentTypesInfo);
-            var xafApplication = ApplicationBuilder.Create().
-                UsingTypesInfo(s => typesInfo).
+            _xafApplication = ApplicationBuilder.Create().
+                UsingTypesInfo(s => _typesInfo).
                 FromModule(_moduleName).
                 Build();
+            return GetMasterModelCore(false);
+        }
+
+        ModelApplicationBase GetMasterModelCore(bool rebuild) {
             XpandModuleBase.DisposeManagers();
             ModelApplicationBase modelApplicationBase;
             try {
-                modelApplicationBase = ModelBuilder.Create()
-                    .UsingTypesInfo(typesInfo)
+                _modelBuilder =!rebuild? ModelBuilder.Create():_modelBuilder;
+                modelApplicationBase = _modelBuilder
+                    .UsingTypesInfo(_typesInfo)
                     .FromModule(_moduleName)
-                    .WithApplication(xafApplication)
-                    .Build();
-            } catch (CompilerErrorException e) {
+                    .WithApplication(_xafApplication)
+                    .Build(rebuild);
+            }
+            catch (CompilerErrorException e) {
                 Tracing.Tracer.LogSeparator("CompilerErrorException");
                 Tracing.Tracer.LogError(e);
                 Tracing.Tracer.LogValue("Source Code", e.SourceCode);

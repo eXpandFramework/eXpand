@@ -6,6 +6,8 @@ using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.ModelDifference {
     public abstract class ModelDifferenceBaseModule : XpandModuleBase {
+        XpoUserModelDictionaryDifferenceStore _userModelDictionaryDifferenceStore;
+
         protected abstract bool? ModelsLoaded { get; set; }
         public event EventHandler<CreateCustomModelDifferenceStoreEventArgs> CreateCustomModelDifferenceStore;
 
@@ -16,23 +18,36 @@ namespace Xpand.ExpressApp.ModelDifference {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (Application != null) {
-                Application.LoggingOn += (sender, args) => {
-                    if (ModelsLoaded.HasValue) {
-                        LoadModels(!ModelsLoaded.Value);
-                    }
-                    ModelsLoaded = true;
-                };
+                ((IXafApplication) Application).UserDifferencesLoaded+=OnUserDifferencesLoaded;
+                Application.CreateCustomUserModelDifferenceStore+=ApplicationOnCreateCustomUserModelDifferenceStore;
             }
         }
 
+        void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, DevExpress.ExpressApp.CreateCustomModelDifferenceStoreEventArgs createCustomModelDifferenceStoreEventArgs) {
+            createCustomModelDifferenceStoreEventArgs.Handled = true;
+            _userModelDictionaryDifferenceStore = new XpoUserModelDictionaryDifferenceStore(Application);
+            createCustomModelDifferenceStoreEventArgs.Store=_userModelDictionaryDifferenceStore;
+        }
 
+        void OnUserDifferencesLoaded(object sender, EventArgs eventArgs) {
+            LoadModels(!ModelsLoaded.HasValue || !ModelsLoaded.Value);
+        }
 
         public void LoadModels(bool loadResources) {
-            ((ModelApplicationBase)Application.Model).ReInitLayers();
+            var model = (ModelApplicationBase) Application.Model;
+            LoadApplicationModels(loadResources, model);
+            _userModelDictionaryDifferenceStore.Load();
+        }
+
+        void LoadApplicationModels(bool loadResources, ModelApplicationBase model) {
+            var userDiffLayer = model.LastLayer;
+            ModelApplicationHelper.RemoveLayer(model);
+//            ((ModelApplicationBase)Application.Model).ReInitLayers(); 
             var customModelDifferenceStoreEventArgs = new CreateCustomModelDifferenceStoreEventArgs();
             OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);
             if (!customModelDifferenceStoreEventArgs.Handled)
-                new XpoModelDictionaryDifferenceStore(Application, GetPath(), customModelDifferenceStoreEventArgs.ExtraDiffStores, loadResources).Load((ModelApplicationBase)Application.Model);
+                new XpoModelDictionaryDifferenceStore(Application, GetPath(),customModelDifferenceStoreEventArgs.ExtraDiffStores, loadResources).Load(model);
+            ModelApplicationHelper.AddLayer((ModelApplicationBase) Application.Model, userDiffLayer);
             RuntimeMemberBuilder.AddFields(Application.Model, Dictiorary);
         }
 

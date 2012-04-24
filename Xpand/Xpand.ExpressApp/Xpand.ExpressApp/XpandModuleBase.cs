@@ -52,26 +52,22 @@ namespace Xpand.ExpressApp {
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             if (IsLoadingExternalModel()) {
                 var declaredExportedTypes = new List<Type>();
-                var collectExportedTypesFromAssembly = CollectExportedTypesFromAssembly(GetType().Assembly);
+                var collectExportedTypesFromAssembly = CollectExportedTypesFromAssembly(GetType().Assembly).Where(IsExportedType);
                 foreach (var type in collectExportedTypesFromAssembly) {
                     var typeInfo = TypesInfo.FindTypeInfo(type);
-                    if (typeInfo.IsDomainComponent) {
-                        foreach (Type type1 in CollectRequiredTypes(typeInfo).Where(type2 => !declaredExportedTypes.Contains(type2))) {
+                    declaredExportedTypes.Add(type);
+                    foreach (Type type1 in CollectRequiredTypes(typeInfo)) {
+                        if (!declaredExportedTypes.Contains(type1)) 
                             declaredExportedTypes.Add(type1);
-                        }
                     }
                 }
-                return collectExportedTypesFromAssembly;
+                return declaredExportedTypes;
             }
             return base.GetDeclaredExportedTypes();
         }
 
         IEnumerable<Type> CollectRequiredTypes(ITypeInfo typeInfo) {
-            return (typeInfo.GetRequiredTypes(EntityFilterPredicate).Where(required => required.IsDomainComponent).Select(required => required.Type));
-        }
-
-        bool EntityFilterPredicate(ITypeInfo info) {
-            return info.IsDomainComponent;
+            return (typeInfo.GetRequiredTypes(info => IsExportedType(info.Type)).Select(required => required.Type));
         }
 
         bool IsLoadingExternalModel() {

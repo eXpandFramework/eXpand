@@ -4,8 +4,13 @@ using Xpand.ExpressApp.Security.Permissions;
 
 
 namespace Xpand.ExpressApp.ModelDifference.Security {
+    public interface IModelCombinePermission {
+        ApplicationModelCombineModifier Modifier { get; set; }
+        string Difference { get; set; }
+    }
+
     [NonPersistent]
-    public class ModelCombinePermission : PermissionBase {
+    public class ModelCombinePermission : PermissionBase, IModelCombinePermission {
         public ModelCombinePermission() {
         }
 

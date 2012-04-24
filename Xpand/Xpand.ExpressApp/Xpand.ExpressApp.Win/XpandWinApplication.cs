@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -22,9 +23,10 @@ using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.Win {
 
-    public class XpandWinApplication : WinApplication, ISupportModelsManager, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportLogonParameterStore, ISupportFullConnectionString {
+    public class XpandWinApplication : WinApplication, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportLogonParameterStore, ISupportFullConnectionString {
         static XpandWinApplication _application;
         DataCacheNode _cacheNode;
+        ApplicationModulesManager _applicationModulesManager;
 
 
         public XpandWinApplication() {
@@ -35,20 +37,35 @@ namespace Xpand.ExpressApp.Win {
             }
             DetailViewCreating += OnDetailViewCreating;
             ListViewCreating += OnListViewCreating;
-            ListViewCreated += OnListViewCreated;
             if (_application == null)
                 _application = this;
+        }
+
+
+        ApplicationModulesManager IXafApplication.ApplicationModulesManager {
+            get { return _applicationModulesManager; }
+        }
+        
+        public event EventHandler  UserDifferencesLoaded;
+
+        protected virtual void OnUserDifferencesLoaded(EventArgs e) {
+            EventHandler handler = UserDifferencesLoaded;
+            if (handler != null) handler(this, e);
+        }
+
+        protected override void LoadUserDifferences() {
+            base.LoadUserDifferences();
+            OnUserDifferencesLoaded(EventArgs.Empty);
         }
 
         protected override Form CreateModelEditorForm() {
             var controller = new ModelEditorViewController(Model, CreateUserModelDifferenceStore());
             ModelDifferenceStore modelDifferencesStore = CreateModelDifferenceStore();
             if (modelDifferencesStore != null) {
-                var modulesDiffStoreInfo = new List<ModuleDiffStoreInfo>
-                                           {new ModuleDiffStoreInfo(null, modelDifferencesStore, "Model")};
+                var modulesDiffStoreInfo = new List<ModuleDiffStoreInfo> { new ModuleDiffStoreInfo(null, modelDifferencesStore, "Model") };
                 controller.SetModuleDiffStore(modulesDiffStoreInfo);
             }
-            return new ModelEditorForm(controller,new SettingsStorageOnModel(((IModelApplicationModelEditor) Model).ModelEditorSettings));
+            return new ModelEditorForm(controller, new SettingsStorageOnModel(((IModelApplicationModelEditor)Model).ModelEditorSettings));
         }
 
         protected override ModuleTypeList GetDefaultModuleTypes() {
@@ -80,17 +97,11 @@ namespace Xpand.ExpressApp.Win {
         public event EventHandler<ViewShownEventArgs> AfterViewShown;
 
         public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
-        public event EventHandler<CustomCreateApplicationModulesManagerEventArgs> CustomCreateApplicationModulesManager;
 
-        protected void OnCustomCreateApplicationModulesManager(CustomCreateApplicationModulesManagerEventArgs e) {
-            EventHandler<CustomCreateApplicationModulesManagerEventArgs> handler = CustomCreateApplicationModulesManager;
-            if (handler != null) handler(this, e);
-        }
-        protected override ApplicationModulesManager CreateApplicationModulesManager(DevExpress.ExpressApp.Core.ControllersManager controllersManager) {
-            var applicationModulesManager = base.CreateApplicationModulesManager(controllersManager);
-            var customCreateApplicationModulesManagerEventArgs = new CustomCreateApplicationModulesManagerEventArgs(applicationModulesManager);
-            OnCustomCreateApplicationModulesManager(customCreateApplicationModulesManagerEventArgs);
-            return customCreateApplicationModulesManagerEventArgs.Handled ? customCreateApplicationModulesManagerEventArgs.ApplicationModulesManager : applicationModulesManager;
+
+        protected override ApplicationModulesManager CreateApplicationModulesManager(ControllersManager controllersManager) {
+            _applicationModulesManager = base.CreateApplicationModulesManager(controllersManager);
+            return _applicationModulesManager;
         }
         public event CancelEventHandler ConfirmationRequired;
 
@@ -148,22 +159,23 @@ namespace Xpand.ExpressApp.Win {
             args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.Obj, args.ObjectSpace, args.IsRoot);
         }
 
-        public ApplicationModelsManager ModelsManager {
-            get { return modelsManager; }
-        }
 
         public override IModelTemplate GetTemplateCustomizationModel(IFrameTemplate template) {
-            var list = new List<ModelApplicationBase>();
-            while (((ModelApplicationBase)Model).LastLayer.Id != "UserDiff" && ((ModelApplicationBase)Model).LastLayer.Id != AfterSetupLayerId) {
-                var modelApplicationBase = ((ModelApplicationBase)Model).LastLayer;
-                list.Add(modelApplicationBase);
-                ((ModelApplicationBase)Model).RemoveLayer(modelApplicationBase);
+            var applicationBase = ((ModelApplicationBase) Model);
+            if (applicationBase.Id == "Application") {
+                var list = new List<ModelApplicationBase>();
+                while (applicationBase.LastLayer.Id != "UserDiff" && applicationBase.LastLayer.Id != AfterSetupLayerId) {
+                    var modelApplicationBase = applicationBase.LastLayer;
+                    list.Add(modelApplicationBase);
+                    ModelApplicationHelper.RemoveLayer(modelApplicationBase);
+                }
+                var modelTemplate = base.GetTemplateCustomizationModel(template);
+                foreach (var modelApplicationBase in list) {
+                    ModelApplicationHelper.AddLayer((ModelApplicationBase)Model, modelApplicationBase);
+                }
+                return modelTemplate;
             }
-            var modelTemplate = base.GetTemplateCustomizationModel(template);
-            foreach (var modelApplicationBase in list) {
-                ((ModelApplicationBase)Model).AddLayer(modelApplicationBase);
-            }
-            return modelTemplate;
+            return base.GetTemplateCustomizationModel(template);
         }
 
         protected override ListEditor CreateListEditorCore(IModelListView modelListView, CollectionSourceBase collectionSource) {
@@ -173,10 +185,6 @@ namespace Xpand.ExpressApp.Win {
         }
 
 
-        void OnListViewCreated(object sender, ListViewCreatedEventArgs listViewCreatedEventArgs) {
-
-        }
-
         public static void HandleException(Exception exception, XpandWinApplication xpandWinApplication) {
             xpandWinApplication.HandleException(exception);
         }
@@ -184,8 +192,6 @@ namespace Xpand.ExpressApp.Win {
         public XpandWinApplication(IContainer container) {
             container.Add(this);
         }
-
-
 
         IDataStore IXafApplication.GetDataStore(IDataStore dataStore) {
             if ((ConfigurationManager.AppSettings["DataCache"] + "").Contains("Client")) {
@@ -203,15 +209,4 @@ namespace Xpand.ExpressApp.Win {
         }
     }
 
-    public class CustomCreateApplicationModulesManagerEventArgs : HandledEventArgs {
-        readonly ApplicationModulesManager _applicationModulesManager;
-
-        public CustomCreateApplicationModulesManagerEventArgs(ApplicationModulesManager applicationModulesManager) {
-            _applicationModulesManager = applicationModulesManager;
-        }
-
-        public ApplicationModulesManager ApplicationModulesManager {
-            get { return _applicationModulesManager; }
-        }
-    }
 }

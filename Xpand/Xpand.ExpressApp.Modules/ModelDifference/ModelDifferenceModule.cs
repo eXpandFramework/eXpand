@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Builders;
-using Xpand.ExpressApp.ModelDifference.DictionaryStores;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
 using Xpand.ExpressApp.SystemModule;
@@ -16,7 +15,7 @@ using Xpand.ExpressApp.SystemModule;
 namespace Xpand.ExpressApp.ModelDifference {
     [ToolboxItem(false)]
     public sealed class ModelDifferenceModule : XpandModuleBase {
-        XpoUserModelDictionaryDifferenceStore _xpoUserModelDictionaryDifferenceStore;
+        
 
         public ModelDifferenceModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
@@ -28,8 +27,8 @@ namespace Xpand.ExpressApp.ModelDifference {
             base.CustomizeTypesInfo(typesInfo);
 
             if (RuntimeMode) {
-                if (Application.Security is ISecurityComplex)
-                    RoleDifferenceObjectBuilder.CreateDynamicRoleMember((ISecurityComplex)Application.Security);
+                var securityComplex = Application.Security as ISecurityComplex;
+                if (securityComplex != null) RoleDifferenceObjectBuilder.CreateDynamicRoleMember(securityComplex);
 
                 UserDifferenceObjectBuilder.CreateDynamicUserMember(Application.Security.UserType);
             } else {
@@ -43,13 +42,13 @@ namespace Xpand.ExpressApp.ModelDifference {
             base.Setup(application);
             if (application != null && !DesignMode) {
                 application.SetupComplete += ApplicationOnSetupComplete;
-                application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;
             }
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            if (SecuritySystem.Instance is SecurityStrategy) {
-                ((SecurityStrategy)SecuritySystem.Instance).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
+            var securityStrategy = SecuritySystem.Instance as SecurityStrategy;
+            if (securityStrategy != null) {
+                (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
             }
         }
 
@@ -57,11 +56,6 @@ namespace Xpand.ExpressApp.ModelDifference {
             customizeRequestProcessorsEventArgs.Processors.Add(new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(ModelCombineRequestProcessor), new ModelCombineRequestProcessor(customizeRequestProcessorsEventArgs.Permissions)));
         }
 
-        void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, DevExpress.ExpressApp.CreateCustomModelDifferenceStoreEventArgs args) {
-            args.Handled = true;
-            _xpoUserModelDictionaryDifferenceStore = _xpoUserModelDictionaryDifferenceStore ?? new XpoUserModelDictionaryDifferenceStore(Application);
-            args.Store = _xpoUserModelDictionaryDifferenceStore;
-        }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);

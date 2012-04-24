@@ -5,7 +5,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Permissions;
 
 namespace Xpand.ExpressApp.ModelDifference.Security.Improved {
-    public class ModelCombineOperationPermissionData : XpandPermissionData {
+    public class ModelCombineOperationPermissionData : XpandPermissionData, IModelCombinePermission {
 
         private ApplicationModelCombineModifier modifier = ApplicationModelCombineModifier.Allow;
 
@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.ModelDifference.Security.Improved {
         }
 
         public override IList<IOperationPermission> GetPermissions() {
-            return new IOperationPermission[] { new ModelCombinePermission(modifier,Difference) };
+            return new IOperationPermission[] { new ModelCombOperationinePermission(modifier,Difference) };
         }
         protected override string GetPermissionInfoCaption() {
             var enumDescriptor = new EnumDescriptor(typeof(ApplicationModelCombineModifier));

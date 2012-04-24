@@ -37,6 +37,8 @@ namespace Xpand.ExpressApp {
     internal interface IXafApplication {
         IDataStore GetDataStore(IDataStore dataStore);
         string RaiseEstablishingConnection();
+        ApplicationModulesManager ApplicationModulesManager { get; }
+        event EventHandler UserDifferencesLoaded;
     }
 
     internal interface ISupportFullConnectionString {
@@ -48,9 +50,6 @@ namespace Xpand.ExpressApp {
         void WriteLastLogonParameters(DetailView view, object logonObject);
     }
 
-    internal interface ISupportModelsManager {
-        ApplicationModelsManager ModelsManager { get; }
-    }
 
     internal interface ISupportConfirmationRequired {
         event CancelEventHandler ConfirmationRequired;

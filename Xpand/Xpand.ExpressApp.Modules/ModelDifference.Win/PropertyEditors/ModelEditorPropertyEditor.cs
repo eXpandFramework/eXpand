@@ -18,11 +18,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
     [PropertyEditor(typeof(ModelApplicationBase))]
     public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexPropertyEditor {
         #region Members
-
-
-
-
-        private ModelEditorViewController _controller;
+        private ModelEditorViewController _modelEditorViewController;
         ModelLoader _modelLoader;
         ModelApplicationBase _masterModel;
         ModelApplicationBase _currentObjectModel;
@@ -53,12 +49,12 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         }
 
 
-        public ModelEditorViewController ModelEditorViewController {
+        public ModelEditorViewController ModelEditorViewModelEditorViewController {
             get {
-                if (_controller == null)
+                if (_modelEditorViewController == null)
                     CreateModelEditorController();
 
-                return _controller;
+                return _modelEditorViewController;
             }
         }
 
@@ -103,20 +99,20 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         }
 
         private void DisposeController() {
-            if (_controller != null) {
-                _controller.CurrentAspectChanged -= ControllerOnCurrentAspectChanged;
-                _controller.SaveAction.ExecuteCompleted -= SaveActionOnExecuteCompleted;
-                _controller.Modifying -= Model_Modifying;
-                _controller.ChangeAspectAction.ExecuteCompleted -= ChangeAspectActionOnExecuteCompleted;
-                _controller.SaveSettings();
-                _controller = null;
+            if (_modelEditorViewController != null) {
+                _modelEditorViewController.CurrentAspectChanged -= ModelEditorViewControllerOnCurrentAspectChanged;
+                _modelEditorViewController.SaveAction.ExecuteCompleted -= SaveActionOnExecuteCompleted;
+                _modelEditorViewController.Modifying -= Model_Modifying;
+                _modelEditorViewController.ChangeAspectAction.ExecuteCompleted -= ChangeAspectActionOnExecuteCompleted;
+                _modelEditorViewController.SaveSettings();
+                _modelEditorViewController = null;
             }
         }
 
         void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
-            new ModelValidator().ValidateNode(_currentObjectModel);
-            if (ModelEditorViewController.SaveAction.Enabled)
-                ModelEditorViewController.SaveAction.DoExecute();
+            new ModelValidator(new FastModelEditorHelper()).ValidateNode(_currentObjectModel);
+            if (ModelEditorViewModelEditorViewController.SaveAction.Enabled)
+                ModelEditorViewModelEditorViewController.SaveAction.DoExecute();
             CurrentObject.CreateAspectsCore(_currentObjectModel);
         }
 
@@ -151,38 +147,41 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
 
         private void CreateModelEditorController(string aspect) {
             var allLayers = CurrentObject.GetAllLayers(_masterModel).ToList();
-            _currentObjectModel = allLayers.Where(@base => @base.Id == CurrentObject.Name).Single();
-            foreach (var layer in allLayers)
-                _masterModel.RemoveLayer(layer);
-
-            _masterModel.AddLayers(allLayers.ToArray());
+            _currentObjectModel = allLayers.Single(@base => @base.Id == CurrentObject.Name);
+            _masterModel=_modelLoader.ReCreate();
+//            foreach (var layer in allLayers)
+//                ModelApplicationHelper.RemoveLayer(layer);
+            foreach (var layer in allLayers) {
+                ModelApplicationHelper.AddLayer(_masterModel, layer);
+            }
+            
             RuntimeMemberBuilder.AddFields((IModelApplication)_masterModel, XpandModuleBase.Dictiorary);
 
             DisposeController();
 
-            _controller = new ModelEditorViewController((IModelApplication)_masterModel, null);
-            _controller.SetControl(Control);
-            _controller.LoadSettings();
+            _modelEditorViewController = new ModelEditorViewController((IModelApplication)_masterModel, null);
+            _modelEditorViewController.SetControl(Control);
+            _modelEditorViewController.LoadSettings();
 
             if (aspect != CaptionHelper.DefaultLanguage)
                 _masterModel.CurrentAspectProvider.CurrentAspect = aspect;
 
-            _controller.CurrentAspectChanged += ControllerOnCurrentAspectChanged;
-            _controller.SaveAction.ExecuteCompleted += SaveActionOnExecuteCompleted;
-            _controller.Modifying += Model_Modifying;
-            _controller.ChangeAspectAction.ExecuteCompleted += ChangeAspectActionOnExecuteCompleted;
+            _modelEditorViewController.CurrentAspectChanged += ModelEditorViewControllerOnCurrentAspectChanged;
+            _modelEditorViewController.SaveAction.ExecuteCompleted += SaveActionOnExecuteCompleted;
+            _modelEditorViewController.Modifying += Model_Modifying;
+            _modelEditorViewController.ChangeAspectAction.ExecuteCompleted += ChangeAspectActionOnExecuteCompleted;
         }
 
         void SaveActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
             _objectSpace.CommitChanges();
         }
 
-        void ControllerOnCurrentAspectChanged(object sender, EventArgs eventArgs) {
+        void ModelEditorViewControllerOnCurrentAspectChanged(object sender, EventArgs eventArgs) {
             var modelDifferenceObject = ((ModelDifferenceObject)View.CurrentObject);
-            if (modelDifferenceObject.AspectObjects.Where(o => o.Name == ModelEditorViewController.CurrentAspect).FirstOrDefault() == null) {
-                modelDifferenceObject.Model.AddAspect(ModelEditorViewController.CurrentAspect);
+            if (modelDifferenceObject.AspectObjects.FirstOrDefault(o => o.Name == ModelEditorViewModelEditorViewController.CurrentAspect) == null) {
+                modelDifferenceObject.Model.AddAspect(ModelEditorViewModelEditorViewController.CurrentAspect);
                 var aspectObject = _objectSpace.CreateObject<AspectObject>();
-                aspectObject.Name = ModelEditorViewController.CurrentAspect;
+                aspectObject.Name = ModelEditorViewModelEditorViewController.CurrentAspect;
                 modelDifferenceObject.AspectObjects.Add(aspectObject);
             }
         }

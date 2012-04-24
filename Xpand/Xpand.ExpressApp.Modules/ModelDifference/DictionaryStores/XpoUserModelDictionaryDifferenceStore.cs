@@ -95,13 +95,17 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         private IEnumerable<string> GetNames() {
             return ((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem()
-                       ? ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions().OfType<Security.Improved.ModelCombinePermission>().Select(permission => permission.Difference)
+                       ? ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions().OfType<ModelCombOperationinePermission>().Select(permission => permission.Difference)
                        : ((IUser)SecuritySystem.CurrentUser).Permissions.OfType<ModelCombinePermission>().Select(permission => permission.Difference);
         }
 
-        public override void Load(ModelApplicationBase model) {
+        public void Load() {
+            var model = (ModelApplicationBase)Application.Model;
+            var userDiff = model.LastLayer;
+            ModelApplicationHelper.RemoveLayer(model);
             foreach (var roleModel in GetActiveRoleDifferenceObjects())
-                roleModel.GetModel(Application.Model as ModelApplicationBase);
+                roleModel.GetModel(model);
+            ModelApplicationHelper.AddLayer(model, userDiff);
 
             var modelDifferenceObjects = GetActiveDifferenceObjects().ToList();
             if (!modelDifferenceObjects.Any()) {
@@ -109,8 +113,11 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                 return;
             }
 
-            CombineWithActiveDifferenceObjects(model, modelDifferenceObjects);
-            RuntimeMemberBuilder.AddFields(Application.Model, XpandModuleBase.Dictiorary);
+            CombineWithActiveDifferenceObjects(model.LastLayer, modelDifferenceObjects);
+            RuntimeMemberBuilder.AddFields((IModelApplication)model, XpandModuleBase.Dictiorary);
+        }
+        public override void Load(ModelApplicationBase model) {
+            
         }
 
     }

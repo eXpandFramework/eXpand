@@ -59,7 +59,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         bool GetttingNonAppModels(IEnumerable<ModelDifferenceObject> differenceObjects) {
-            return differenceObjects.Where(o => o is UserModelDifferenceObject || o is RoleModelDifferenceObject).Count() > 0;
+            return differenceObjects.Any(o => o is UserModelDifferenceObject || o is RoleModelDifferenceObject);
         }
         [ImmediatePostData]
         [VisibleInListView(false)]
@@ -182,7 +182,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         AspectObject GetActiveAspect(string preferredAspect) {
-            return AspectObjects.Where(o => o.Name == preferredAspect).SingleOrDefault();
+            return AspectObjects.SingleOrDefault(o => o.Name == preferredAspect);
         }
         #endregion
         protected override void OnSaving() {
@@ -216,7 +216,12 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             var applicationBase = GetModel(master);
             new ModelXmlReader().ReadFromModel(applicationBase, model);
             CreateAspectsCore(model);
-            if (applicationBase != null) master.RemoveLayer(applicationBase);
+            if (applicationBase != null) {
+                var lastLayer = master.LastLayer;
+                ModelApplicationHelper.RemoveLayer(master);
+                ModelApplicationHelper.RemoveLayer(master);
+                ModelApplicationHelper.AddLayer(master,lastLayer);
+            }
         }
 
         public void CreateAspects(ModelApplicationBase model) {
@@ -248,7 +253,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         AspectObject GetActiveAspect(ModelApplicationBase modelApplicationBase) {
-            return AspectObjects.Where(o => o.Name == GetAspectName(modelApplicationBase.CurrentAspect)).FirstOrDefault();
+            return AspectObjects.FirstOrDefault(o => o.Name == GetAspectName(modelApplicationBase.CurrentAspect));
         }
 
         long ISupportSequenceObject.Sequence {

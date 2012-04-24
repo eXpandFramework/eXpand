@@ -186,9 +186,6 @@
     <Compile Include="XpandWebApplication.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandWebApplication.designer.cs">
-      <DependentUpon>XpandWebApplication.cs</DependentUpon>
-    </Compile>
     <Compile Include="XpandWebWindow.cs" />
   </ItemGroup>
   <ItemGroup>

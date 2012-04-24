@@ -5,6 +5,7 @@ using System.Web.Configuration;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
@@ -13,16 +14,6 @@ using Xpand.ExpressApp.Core;
 
 
 namespace Xpand.ExpressApp.ModelDifference.Core {
-
-    public class XpoTypeInfoSource : DevExpress.ExpressApp.DC.Xpo.XpoTypeInfoSource {
-        public XpoTypeInfoSource(TypesInfo typesInfo)
-            : base(typesInfo) {
-        }
-
-        public new Type GetFirstRegisteredTypeForEntity(Type from) {
-            return base.GetFirstRegisteredTypeForEntity(from);
-        }
-    }
     [Obsolete("User ModelLoader", true)]
     public class ModelApplicationBuilder {
         readonly string _executableName;
@@ -69,12 +60,10 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         TypesInfo GetTypesInfo() {
             var typesInfo = new TypesInfo();
-            typesInfo.AddSource(new ReflectionTypeInfoSource());
+            typesInfo.AddEntityStore(new NonPersistentEntityStore(typesInfo));
             var xpoSource = new XpoTypeInfoSource(typesInfo);
-            typesInfo.Source = xpoSource;
-            typesInfo.AddSource(xpoSource);
-            typesInfo.AddSource(new DynamicTypeInfoSource());
-            typesInfo.SetRedirectStrategy((@from, info) => xpoSource.GetFirstRegisteredTypeForEntity(from) ?? from);
+            typesInfo.AddEntityStore(xpoSource);
+            XpandModuleBase.Dictiorary = xpoSource.XPDictionary;
             return typesInfo;
         }
 
@@ -96,14 +85,11 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         ApplicationModulesManager GetModulesManager(TypesInfo typesInfo, XafApplication application) {
             var modulesManager = CreateApplicationModulesManager(application, string.Empty,
                                                                  AppDomain.CurrentDomain.SetupInformation.ApplicationBase, typesInfo);
-            try
-            {
+            try {
                 XpandModuleBase.Dictiorary = typesInfo.Source.XPDictionary;
                 XpandModuleBase.TypesInfo = typesInfo;
                 modulesManager.Load(typesInfo);
-            }
-            finally
-            {
+            } finally {
                 XpandModuleBase.Dictiorary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
                 XpandModuleBase.TypesInfo = XafTypesInfo.Instance;
             }

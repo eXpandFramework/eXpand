@@ -5,7 +5,7 @@ namespace Xpand.ExpressApp.ModelDifference.Security.Improved {
     [Serializable]
     public class ModelCombinePermissionRequest : DevExpress.ExpressApp.Security.OperationPermissionRequestBase {
         public ModelCombinePermissionRequest(ApplicationModelCombineModifier modifier)
-            : base(ModelCombinePermission.OperationName) {
+            : base(ModelCombOperationinePermission.OperationName) {
             Modifier = modifier;
         }
 

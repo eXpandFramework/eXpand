@@ -74,17 +74,18 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelDifferenceObjectInfos(ModelApplicationBase model) {
             Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos = GetLoadedModelApplications(model);
+            return !loadedModelDifferenceObjectInfos.Any() ? CreateNew(model) : loadedModelDifferenceObjectInfos;
+        }
 
-            if (!loadedModelDifferenceObjectInfos.Any()) {
-                var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo>();
-                var application = model.CreatorInstance.CreateModelApplication();
-                application.Id = Application.Title;
-                model.AddLayerBeforeLast(application);
-                var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(application.Id, Application);
-                modelDifferenceObjectInfos.Add(application.Id, new ModelDifferenceObjectInfo(modelDifferenceObject, application));
-                loadedModelDifferenceObjectInfos = modelDifferenceObjectInfos;
-            }
-            return loadedModelDifferenceObjectInfos;
+        Dictionary<string, ModelDifferenceObjectInfo> CreateNew(ModelApplicationBase model) {
+            var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo>();
+            var application = model.CreatorInstance.CreateModelApplication();
+            application.Id = Application.Title;
+            model.AddLayerBeforeLast(application);
+            var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(application.Id,Application);
+            var modelDifferenceObjectInfo = new ModelDifferenceObjectInfo(modelDifferenceObject, application);
+            modelDifferenceObjectInfos.Add(application.Id, modelDifferenceObjectInfo);
+            return modelDifferenceObjectInfos;
         }
 
 

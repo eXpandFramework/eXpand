@@ -47,7 +47,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         void HideMainBarActions(DetailView xpandDetailView) {
             var modelEditorPropertyEditors = xpandDetailView.GetItems<ModelEditorPropertyEditor>();
             if (modelEditorPropertyEditors.Count > 0) {
-                var modelEditorViewController = modelEditorPropertyEditors[0].ModelEditorViewController;
+                var modelEditorViewController = modelEditorPropertyEditors[0].ModelEditorViewModelEditorViewController;
                 FieldInfo fieldInfo = modelEditorViewController.GetType().GetField("mainBarActions", BindingFlags.Instance | BindingFlags.NonPublic);
                 if (fieldInfo != null) {
                     var actions = (Dictionary<ActionBase, string>)fieldInfo.GetValue(modelEditorViewController);
@@ -77,7 +77,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         private void SetTemplate() {
             var modelEditorPropertyEditors = View.GetItems<ModelEditorPropertyEditor>();
             if (modelEditorPropertyEditors.Count > 0) {
-                var modelEditorViewController = modelEditorPropertyEditors[0].ModelEditorViewController;
+                var modelEditorViewController = modelEditorPropertyEditors[0].ModelEditorViewModelEditorViewController;
                 var caption = Guid.NewGuid().ToString();
                 modelEditorViewController.SaveAction.Caption = caption;
                 modelEditorViewController.SetTemplate(Frame.Template);

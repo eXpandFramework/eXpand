@@ -8,14 +8,14 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.ModelDifference.Security.Controllers {
-    public class PopulateDifferenceObjectsController : PopulateController<ModelCombinePermission> {
+    public class PopulateDifferenceObjectsController : PopulateController<IModelCombinePermission> {
         protected override string GetPredefinedValues(IModelMember wrapper) {
             IQueryable<string> queryable = new XPQuery<ModelDifferenceObject>(((XPObjectSpace)ObjectSpace).Session).Select(o => o.Name);
             string ret = Enumerable.Aggregate(queryable, "", (current, s) => current + (s + ";"));
             return ret.TrimEnd(';');
         }
 
-        protected override Expression<Func<ModelCombinePermission, object>> GetPropertyName() {
+        protected override Expression<Func<IModelCombinePermission, object>> GetPropertyName() {
             return x => x.Difference;
         }
     }

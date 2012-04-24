@@ -9,7 +9,7 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.ModelDifference.Core {
-    
+
     public class ModelApplicationLoader {
         readonly XafApplication _application;
 
@@ -26,14 +26,14 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 GetModelUnSafe(modelApplicationBase, modelDifferenceObject);
                 AddLayers(modelApplicationBases);
             }
-        
+
         }
 
         void GetModelUnSafe(ModelApplicationBase modelApplicationBase, ModelDifferenceObject modelDifferenceObject) {
             var afterSetupLayer = GetAfterSetupLayer(modelApplicationBase);
-            modelApplicationBase.AddLayer(afterSetupLayer);
+            ModelApplicationHelper.AddLayer(modelApplicationBase, afterSetupLayer);
             modelDifferenceObject.GetModel(modelApplicationBase);
-            modelApplicationBase.RemoveLayer(afterSetupLayer);
+            ModelApplicationHelper.RemoveLayer(afterSetupLayer);
         }
 
         ModelApplicationBase GetAfterSetupLayer(ModelApplicationBase modelApplicationBase) {
@@ -46,7 +46,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         void AddLayers(IEnumerable<ModelApplicationBase> modelApplicationBases) {
             var applicationBase = ((ModelApplicationBase)_application.Model);
             foreach (ModelApplicationBase modelApplicationBase in modelApplicationBases) {
-                applicationBase.AddLayer(modelApplicationBase);
+                ModelApplicationHelper.AddLayer(applicationBase, modelApplicationBase);
             }
         }
 
@@ -55,7 +55,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             while (modelApplicationBase.LastLayer.Id != "Unchanged Master Part") {
                 if (!(strings.Contains(modelApplicationBase.LastLayer.Id)))
                     modelApplicationBases.Add(modelApplicationBase.LastLayer);
-                modelApplicationBase.RemoveLayer(modelApplicationBase.LastLayer);
+                ModelApplicationHelper.RemoveLayer(modelApplicationBase.LastLayer);
             }
             return modelApplicationBases;
         }

@@ -31,9 +31,9 @@ namespace Xpand.ExpressApp.SystemModule {
             if (name != null) {
                 var model = ((ModelApplicationBase)Application.Model);
                 var lastLayer = model.LastLayer;
-                model.RemoveLayer(lastLayer);
+                ModelApplicationHelper.RemoveLayer(lastLayer);
                 PopulateCore(collect, name);
-                model.AddLayer(lastLayer);
+                ModelApplicationHelper.AddLayer(lastLayer,model );
             }
         }
 

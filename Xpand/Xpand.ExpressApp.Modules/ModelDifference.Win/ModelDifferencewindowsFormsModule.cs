@@ -32,12 +32,12 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
             var modelApplicationBase = ((ModelApplicationBase)((XafApplication)sender).Model);
             var lastLayer = modelApplicationBase.LastLayer;
             while (lastLayer.Id != "Unchanged Master Part") {
-                modelApplicationBase.RemoveLayer(lastLayer);
+                ModelApplicationHelper.RemoveLayer(modelApplicationBase);
                 lastLayer = modelApplicationBase.LastLayer;
             }
             var afterSetupLayer = modelApplicationBase.CreatorInstance.CreateModelApplication();
             afterSetupLayer.Id = "After Setup";
-            modelApplicationBase.AddLayer(afterSetupLayer);
+            ModelApplicationHelper.AddLayer(modelApplicationBase, afterSetupLayer);
         }
 
         public override string GetPath() {
