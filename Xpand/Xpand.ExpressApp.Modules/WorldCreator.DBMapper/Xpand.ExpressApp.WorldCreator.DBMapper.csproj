@@ -64,9 +64,6 @@
     <Reference Include="DevExpress.ExpressApp.CloneObject.v12.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v12.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
