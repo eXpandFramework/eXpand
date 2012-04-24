@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.Observers;
@@ -70,7 +71,7 @@ namespace Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
         }
 
         internal static PersistentAssemblyBuilder BuildAssembly(string name) {
-            var objectSpace = new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            var objectSpace = new XPObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
             return BuildAssembly(objectSpace, name);
         }
 

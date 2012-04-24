@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
         void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
             var persistentAssemblyInfo = (IPersistentAssemblyInfo)View.CurrentObject;
             ObjectSpace.CommitChanges();
-            var objectSpace = new ObjectSpace(new UnitOfWork(((ObjectSpace)ObjectSpace).Session.DataLayer), XafTypesInfo.Instance);
+            var objectSpace = new ObjectSpace(XafTypesInfo.Instance, XafTypesInfo.XpoTypeInfoSource, () => new UnitOfWork(((ObjectSpace)ObjectSpace).Session.DataLayer));
             CreateMappedAssemblyInfo(objectSpace, persistentAssemblyInfo, (ISqlMapperInfo)simpleActionExecuteEventArgs.CurrentObject);
             ObjectSpace.Refresh();
             ObjectSpace.SetModified(View.CurrentObject);

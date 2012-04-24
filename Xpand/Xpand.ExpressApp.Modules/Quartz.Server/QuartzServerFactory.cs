@@ -3,6 +3,7 @@ using System.Configuration;
 using System.IO;
 using Common.Logging;
 using DevExpress.ExpressApp;
+using Xpand.ExpressApp;
 using Xpand.ExpressApp.ModelDifference.Core;
 
 namespace Xpand.Quartz.Server {
@@ -40,8 +41,8 @@ namespace Xpand.Quartz.Server {
                 .Build();
             xafApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             xafApplication.Setup();
-            var objectSpaceProvider = ((ObjectSpaceProvider) xafApplication.ObjectSpaceProvider);
-            if (objectSpaceProvider.WorkingDataLayer==null) {
+            var objectSpaceProvider = ((IXpandObjectSpaceProvider)xafApplication.ObjectSpaceProvider);
+            if (objectSpaceProvider.WorkingDataLayer == null) {
                 using (objectSpaceProvider.CreateObjectSpace()) {
                 }
             }
