@@ -335,7 +335,6 @@
     <Content Include="Images\UnSelectedRight.gif" />
     <Content Include="Login.aspx" />
     <Content Include="MoveFooter.js" />
-    <Content Include="NestedFrameControl.ascx" />
     <Content Include="SessionKeepAliveReconnect.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -358,9 +357,6 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="NestedFrameControl.ascx.designer.cs">
-      <DependentUpon>NestedFrameControl.ascx</DependentUpon>
-    </Compile>
     <Compile Include="ApplicationCode\WebApplication.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -374,10 +370,6 @@
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="NestedFrameControl.ascx.cs">
-      <DependentUpon>NestedFrameControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
