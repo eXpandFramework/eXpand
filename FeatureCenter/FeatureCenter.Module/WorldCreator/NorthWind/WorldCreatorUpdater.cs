@@ -15,15 +15,14 @@ namespace FeatureCenter.Module.WorldCreator.NorthWind {
         }
         public override void Update() {
             if (Session.FindObject<PersistentAssemblyInfo>(info => info.Name == NorthWind) != null) return;
-            using (var unitOfWork = new UnitOfWork(Session.DataLayer)) {
-                var manifestResourceStream = GetType().Assembly.GetManifestResourceStream(GetType(), NorthWind + ".xml");
-                if (manifestResourceStream != null) {
-                    string connectionString = ConfigurationManager.ConnectionStrings["NorthWind"].ConnectionString;
-                    var readToEnd = new StreamReader(manifestResourceStream).ReadToEnd().Replace(@"XpoProvider=MSSqlServer;data source=.\SQLEXPRESS;integrated security=SSPI;initial catalog=Northwind", connectionString);
-                    new ImportEngine().ImportObjects(readToEnd, new ObjectSpace(unitOfWork));
-                }
 
+            var manifestResourceStream = GetType().Assembly.GetManifestResourceStream(GetType(), NorthWind + ".xml");
+            if (manifestResourceStream != null) {
+                string connectionString = ConfigurationManager.ConnectionStrings["NorthWind"].ConnectionString;
+                var readToEnd = new StreamReader(manifestResourceStream).ReadToEnd().Replace(@"XpoProvider=MSSqlServer;data source=.\SQLEXPRESS;integrated security=SSPI;initial catalog=Northwind", connectionString);
+                new ImportEngine().ImportObjects(readToEnd, new ObjectSpace(XafTypesInfo.Instance, XafTypesInfo.XpoTypeInfoSource, () => new UnitOfWork(Session.DataLayer)));
             }
+
         }
     }
 }

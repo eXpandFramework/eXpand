@@ -1,6 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Attributes;
@@ -8,12 +9,15 @@ using Xpand.Persistent.Base.General;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp {
+    public delegate XpandUnitOfWork CreateUnitOfWorkHandler();
 
     public class XpandObjectSpace : ObjectSpace, IXpandObjectSpace {
         public Func<object, object> GetObjectAction;
-        public XpandObjectSpace(UnitOfWork unitOfWork, ITypesInfo typesInfo)
-            : base(unitOfWork, typesInfo) {
+
+        public XpandObjectSpace(ITypesInfo typesInfo, XpoTypeInfoSource xpoTypeInfoSource, CreateUnitOfWorkHandler createUnitOfWorkDelegate)
+            : base(typesInfo, xpoTypeInfoSource, createUnitOfWorkDelegate.Invoke) {
         }
+
         public override object GetObject(object objectFromDifferentObjectSpace) {
             return GetObjectAction != null ? GetObjectAction.Invoke(objectFromDifferentObjectSpace) : base.GetObject(objectFromDifferentObjectSpace);
         }
@@ -50,18 +54,18 @@ namespace Xpand.ExpressApp {
                 return;
             base.SetModified(obj, args);
         }
-        public new Action<ResolveSessionEventArgs> AsyncServerModeSourceDismissSession {
-            get { return base.AsyncServerModeSourceDismissSession; }
-            set { base.AsyncServerModeSourceDismissSession = value; }
-        }
-        public new Action<ResolveSessionEventArgs> AsyncServerModeSourceResolveSession {
-            get { return base.AsyncServerModeSourceResolveSession; }
-            set { base.AsyncServerModeSourceResolveSession = value; }
-        }
+        //        public new Action<ResolveSessionEventArgs> AsyncServerModeSourceDismissSession {
+        //            get { return base.AsyncServerModeSourceDismissSession; }
+        //            set { base.AsyncServerModeSourceDismissSession = value; }
+        //        }
+        //        public new Action<ResolveSessionEventArgs> AsyncServerModeSourceResolveSession {
+        //            get { return base.AsyncServerModeSourceResolveSession; }
+        //            set { base.AsyncServerModeSourceResolveSession = value; }
+        //        }
 
-        protected override UnitOfWork CreateUnitOfWork(IDataLayer dataLayer) {
-            return new XpandUnitOfWork(dataLayer);
-        }
+        //        protected override UnitOfWork CreateUnitOfWork(IDataLayer dataLayer) {
+        //            return new XpandUnitOfWork(dataLayer);
+        //        }
     }
 
     public class NestedXpandObjectSpace : NestedObjectSpace {

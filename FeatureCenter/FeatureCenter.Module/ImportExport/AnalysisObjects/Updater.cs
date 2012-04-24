@@ -23,12 +23,10 @@ namespace FeatureCenter.Module.ImportExport.AnalysisObjects {
             var session = ((ObjectSpace)ObjectSpace).Session;
             if (session.FindObject<Analysis>(analysis => analysis.Name == "Controlling Grid Settings") == null) {
                 var importEngine = new ImportEngine();
-                using (var unitOfWork = new UnitOfWork(session.DataLayer)) {
-                    Stream stream = GetType().Assembly.GetManifestResourceStream(GetType(), "AnalysisObjects.xml");
-                    importEngine.ImportObjects(stream, new ObjectSpace(unitOfWork));
-                    stream = GetType().Assembly.GetManifestResourceStream(GetType(), "AnalysisObjectsConfiguration.xml");
-                    importEngine.ImportObjects(stream, new ObjectSpace(unitOfWork));
-                }
+                Stream stream = GetType().Assembly.GetManifestResourceStream(GetType(), "AnalysisObjects.xml");
+                importEngine.ImportObjects(stream, new ObjectSpace(XafTypesInfo.Instance, XafTypesInfo.XpoTypeInfoSource, () => new UnitOfWork(session.DataLayer)));
+                stream = GetType().Assembly.GetManifestResourceStream(GetType(), "AnalysisObjectsConfiguration.xml");
+                importEngine.ImportObjects(stream, new ObjectSpace(XafTypesInfo.Instance, XafTypesInfo.XpoTypeInfoSource, () => new UnitOfWork(session.DataLayer)));
             }
         }
     }

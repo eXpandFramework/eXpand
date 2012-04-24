@@ -71,8 +71,7 @@ namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
         }
 
         public IPersistentAssemblyInfo Build(string customer, string order, string orderLine, string masterDetailDynamicAssembly) {
-            var unitOfWork = new UnitOfWork(_session.DataLayer);
-            var objectSpace = new ObjectSpace(unitOfWork, XafTypesInfo.Instance);
+            var objectSpace = new ObjectSpace(XafTypesInfo.Instance, XafTypesInfo.XpoTypeInfoSource, () => new UnitOfWork(_session.DataLayer));
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(objectSpace, masterDetailDynamicAssembly);
             IClassInfoHandler classInfoHandler = persistentAssemblyBuilder.CreateClasses(GetClassNames(customer, order, orderLine));
             classInfoHandler.CreateTemplateInfos(persistentClassInfo => GetTemplateInfos(persistentClassInfo, customer, order));

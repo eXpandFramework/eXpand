@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp {
-    public class XpandObjectSpaceProvider : ObjectSpaceProvider, IXpandObjectSpaceProvider {
+    public class XpandObjectSpaceProvider : XPObjectSpaceProvider, IXpandObjectSpaceProvider {
+        IDataLayer _dataLayer;
 
 
-        public IXpoDataStoreProxy DataStoreProvider { get; set; }
+
+        public new IXpoDataStoreProxy DataStoreProvider { get; set; }
 
         public XpandObjectSpaceProvider(IXpoDataStoreProxy provider)
             : base(provider) {
@@ -18,44 +20,35 @@ namespace Xpand.ExpressApp {
         }
 
 
-        protected override IObjectSpace CreateObjectSpaceCore(UnitOfWork unitOfWork, ITypesInfo typesInfo) {
-            var objectSpace = new XpandObjectSpace(new XpandUnitOfWork(unitOfWork.DataLayer), typesInfo) {
-                AsyncServerModeSourceResolveSession = AsyncServerModeSourceResolveSession,
-                AsyncServerModeSourceDismissSession = AsyncServerModeSourceDismissSession
-            };
-            return objectSpace;
+        public new IDataLayer WorkingDataLayer {
+            get { return _dataLayer; }
+        }
+
+
+        protected override IObjectSpace CreateObjectSpaceCore() {
+            IDisposable[] disposableObjects;
+            IDataStore dataStore = DataStoreProvider.CreateWorkingStore(out disposableObjects);
+            return new XpandObjectSpace(TypesInfo, XpoTypeInfoSource, () => CreateUnitOfWork(dataStore, disposableObjects));
         }
 
         IObjectSpace IObjectSpaceProvider.CreateUpdatingObjectSpace(Boolean allowUpdateSchema) {
             return CreateObjectSpace();
         }
 
-        private void AsyncServerModeSourceResolveSession(ResolveSessionEventArgs args) {
-            IDisposable[] disposableObjects;
-            IDataStore dataStore = DataStoreProvider.CreateWorkingStore(out disposableObjects);
-            args.Session = CreateUnitOfWork(dataStore, disposableObjects);
-        }
-
-        private void AsyncServerModeSourceDismissSession(ResolveSessionEventArgs args) {
-            var toDispose = args.Session as IDisposable;
-            if (toDispose != null) {
-                toDispose.Dispose();
-            }
-        }
         public event EventHandler<CreatingWorkingDataLayerArgs> CreatingWorkingDataLayer;
 
         protected void OnCreatingWorkingDataLayer(CreatingWorkingDataLayerArgs e) {
             EventHandler<CreatingWorkingDataLayerArgs> handler = CreatingWorkingDataLayer;
             if (handler != null) handler(this, e);
         }
-
-        protected override IDataLayer CreateWorkingDataLayer(IDataStore workingDataStore) {
-            var creatingWorkingDataLayerArgs = new CreatingWorkingDataLayerArgs(workingDataStore);
+        protected override IDataLayer CreateDataLayer(IDataStore dataStore) {
+            var creatingWorkingDataLayerArgs = new CreatingWorkingDataLayerArgs(dataStore);
             OnCreatingWorkingDataLayer(creatingWorkingDataLayerArgs);
-            return creatingWorkingDataLayerArgs.DataLayer ?? base.CreateWorkingDataLayer(workingDataStore);
+            _dataLayer = creatingWorkingDataLayerArgs.DataLayer ?? base.CreateDataLayer(dataStore);
+            return _dataLayer;
         }
 
-        private UnitOfWork CreateUnitOfWork(IDataStore dataStore, IEnumerable<IDisposable> disposableObjects) {
+        private XpandUnitOfWork CreateUnitOfWork(IDataStore dataStore, IEnumerable<IDisposable> disposableObjects) {
             var disposableObjectsList = new List<IDisposable>();
             if (disposableObjects != null) {
                 disposableObjectsList.AddRange(disposableObjects);

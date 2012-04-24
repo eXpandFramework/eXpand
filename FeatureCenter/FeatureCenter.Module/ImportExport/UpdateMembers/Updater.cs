@@ -8,9 +8,10 @@ using Xpand.Persistent.BaseImpl.ImportExport;
 using Xpand.Xpo;
 
 namespace FeatureCenter.Module.ImportExport.UpdateMembers {
-    public class Updater:FCUpdater {
+    public class Updater : FCUpdater {
 
-        public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater) : base(objectSpace, currentDBVersion, updater) {
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater)
+            : base(objectSpace, currentDBVersion, updater) {
         }
 
 
@@ -19,9 +20,9 @@ namespace FeatureCenter.Module.ImportExport.UpdateMembers {
             var session = ((ObjectSpace)ObjectSpace).Session;
             if (session.FindObject<SerializationConfigurationGroup>(configuration => configuration.Name == "Update Members") == null) {
                 Stream stream = GetType().Assembly.GetManifestResourceStream(GetType(), "UpdateMembersGroup.xml");
-                using (var unitOfWork = new UnitOfWork(session.DataLayer)) {
-                    new ImportEngine().ImportObjects(stream, new ObjectSpace(unitOfWork));
-                }
+
+                new ImportEngine().ImportObjects(stream, new ObjectSpace(XafTypesInfo.Instance, XafTypesInfo.XpoTypeInfoSource, () => new UnitOfWork(session.DataLayer)));
+
             }
         }
     }
