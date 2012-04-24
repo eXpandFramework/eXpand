@@ -8,15 +8,18 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             var template = Frame.Template as IBarManagerHolder;
-            if (template != null && template.BarManager != null && ((IModelViewHideViewToolBar)View.Model).HideToolBar.HasValue)
-                SetToolbarVisibility(template, !((IModelViewHideViewToolBar)View.Model).HideToolBar.Value);
+            if (template != null && template.BarManager != null && ((IModelViewHideViewToolBar)View.Model).HideToolBar.HasValue) {
+                var hideToolBar = ((IModelViewHideViewToolBar)View.Model).HideToolBar;
+                SetToolbarVisibility(template, hideToolBar != null && !hideToolBar.Value);
+            }
         }
         protected override void OnDeactivated() {
             base.OnDeactivated();
             var template = Frame.Template as IBarManagerHolder;
-            if (template != null && template.BarManager != null && ((IModelViewHideViewToolBar)View.Model).HideToolBar.HasValue)
-                SetToolbarVisibility(template, ((IModelViewHideViewToolBar)View.Model).HideToolBar.Value);
-
+            if (template != null && template.BarManager != null && ((IModelViewHideViewToolBar)View.Model).HideToolBar.HasValue) {
+                var hideToolBar = ((IModelViewHideViewToolBar)View.Model).HideToolBar;
+                SetToolbarVisibility(template, hideToolBar != null && hideToolBar.Value);
+            }
         }
         void SetToolbarVisibility(IBarManagerHolder template, bool visible) {
             foreach (Bar bar in template.BarManager.Bars) {
@@ -27,7 +30,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             }
 
             if (template is ISupportActionsToolbarVisibility)
-                ((ISupportActionsToolbarVisibility)template).ActionsToolbarVisibility = visible ? ActionsToolbarVisibility.Show : ActionsToolbarVisibility.Hide;
+                ((ISupportActionsToolbarVisibility)template).SetVisible(visible);
         }
     }
 }
