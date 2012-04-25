@@ -47,8 +47,7 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            var businessClassesList = GetAdditionalClasses(moduleManager);
-            WCTypesInfo.Instance.Register(businessClassesList);
+            WCTypesInfo.Instance.Register(GetAdditionalClasses(moduleManager));
             if (Application == null || GetPath() == null)
                 return;
             Application.SettingUp += ApplicationOnSettingUp;
@@ -69,12 +68,9 @@ namespace Xpand.ExpressApp.WorldCreator {
                 }
             }
 
-
             Application.SetupComplete += ApplicationOnSetupComplete;
 
         }
-
-
 
         void RunUpdaters(Session session) {
             foreach (WorldCreatorUpdater worldCreatorUpdater in GetWorldCreatorUpdaters(session)) {
@@ -101,12 +97,11 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         IEnumerable<WorldCreatorUpdater> GetWorldCreatorUpdaters(Session session) {
-            return XafTypesInfo.Instance.FindTypeInfo(typeof(WorldCreatorUpdater)).Descendants.Select(
-                typeInfo => (WorldCreatorUpdater)ReflectionHelper.CreateObject(typeInfo.Type, session));
+            return XafTypesInfo.Instance.FindTypeInfo(typeof(WorldCreatorUpdater)).Descendants.Select(typeInfo => (WorldCreatorUpdater)ReflectionHelper.CreateObject(typeInfo.Type, session));
         }
 
         ReflectionDictionary GetReflectionDictionary() {
-            BusinessClassesList externalModelBusinessClassesList = GetAdditionalClasses(Application.Modules);
+            var externalModelBusinessClassesList = GetAdditionalClasses(Application.Modules);
             Type persistentAssemblyInfoType = externalModelBusinessClassesList.Where(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1)).FirstOrDefault();
             if (persistentAssemblyInfoType == null)
                 throw new ArgumentNullException("Add a business object that implements " +
@@ -153,7 +148,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                     assembly => assembly.GetTypes().Where(type => typeof(IXPSimpleObject).IsAssignableFrom(type)));
             var sqlDataStore = XpoDefault.GetConnectionProvider(FullConnectionString, AutoCreateOption.DatabaseAndSchema) as ISqlDataStore;
             if (sqlDataStore != null) {
-                IDbCommand dbCommand =sqlDataStore.CreateCommand();
+                IDbCommand dbCommand = sqlDataStore.CreateCommand();
                 new XpoObjectMerger().MergeTypes(unitOfWork, persistentTypes.ToList(), dbCommand);
             }
         }

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -15,6 +17,9 @@ using DevExpress.Xpo.Metadata;
 namespace Xpand.ExpressApp {
     [ToolboxItem(false)]
     public class XpandModuleBase : ModuleBase {
+        static List<object> _storeManagers;
+        public static XPDictionary Dictiorary { get; set; }
+        public static ITypesInfo TypesInfo { get; set; }
         public static string ManifestModuleName;
         static readonly object _lockObject = new object();
         static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
@@ -23,79 +28,78 @@ namespace Xpand.ExpressApp {
         private readonly Boolean isModuleBase;
 
         public XpandModuleBase() {
-
             isModuleBase = (GetType() == typeof(ModuleBase));
             if (isModuleBase) return;
+        }
+
+        static XpandModuleBase() {
+            Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
+            TypesInfo = XafTypesInfo.Instance;
+            LoadBaseImplAssembly();
+        }
+
+        static void LoadBaseImplAssembly() {
+            var assemblyString = "Xpand.Persistent.BaseImpl, Version=*, Culture=neutral, PublicKeyToken=*";
+            var baseImplName = ConfigurationManager.AppSettings["Baseimpl"];
+            if (!String.IsNullOrEmpty(baseImplName)) {
+                assemblyString = baseImplName;
+            }
+            _baseImplAssembly = Assembly.Load(assemblyString);
+            if (_baseImplAssembly == null)
+                throw new NullReferenceException(
+                    "BaseImpl not found please reference it in your front end project and set its Copy Local=true");
         }
 
         protected bool RuntimeMode {
             get {
                 return Application != null && Application.Title != "devenv";
-                //                return Application != null && Application.Security != null;
             }
         }
-
-        [Obsolete("Use the \'GetDeclaredExportedTypes()\' method instead.")]
-        protected override BusinessClassesList GetBusinessClassesCore() {
+        protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             if (IsLoadingExternalModel()) {
-                var resultBusinessClasses = new ExternalModelBusinessClassesList();
-                resultBusinessClasses.AddRange(DeclaredBusinessClasses, false, RequiredTypeEntry.ReasonDeclaredInModule);
-                return resultBusinessClasses;
+                var declaredExportedTypes = new List<Type>();
+                var collectExportedTypesFromAssembly = CollectExportedTypesFromAssembly(GetType().Assembly);
+                foreach (var type in collectExportedTypesFromAssembly) {
+                    var typeInfo = TypesInfo.FindTypeInfo(type);
+                    if (typeInfo.IsDomainComponent) {
+                        foreach (Type type1 in CollectRequiredTypes(typeInfo).Where(type2 => !declaredExportedTypes.Contains(type2))) {
+                            declaredExportedTypes.Add(type1);
+                        }
+                    }
+                }
+                return collectExportedTypesFromAssembly;
             }
-            return base.GetBusinessClassesCore();
+            return base.GetDeclaredExportedTypes();
+        }
+
+        IEnumerable<Type> CollectRequiredTypes(ITypeInfo typeInfo) {
+            return (typeInfo.GetRequiredTypes(EntityFilterPredicate).Where(required => required.IsDomainComponent).Select(required => required.Type));
+        }
+
+        bool EntityFilterPredicate(ITypeInfo info) {
+            return info.IsDomainComponent;
         }
 
         bool IsLoadingExternalModel() {
             return TypesInfo != XafTypesInfo.Instance;
         }
 
-        class ExternalModelBusinessClassesList : BusinessClassesList {
-            private bool EntityFilterPredicate(ITypeInfo info) {
-                return info.IsDomainComponent;
-            }
-
-            private IEnumerable<Type> CollectRequiredTypes(ITypeInfo typeInfo) {
-                return (from required in typeInfo.GetRequiredTypes(EntityFilterPredicate) where required.IsDomainComponent select required.Type).ToList();
-            }
-
-            protected override void InsertItem(int index, Type item) {
-                ITypeInfo typeInfo = TypesInfo.FindTypeInfo(item);
-                if (!Items.Contains(item) && typeInfo.IsDomainComponent) {
-                    base.InsertItem(index, item);
-                    foreach (Type type in CollectRequiredTypes(typeInfo).Where(type => !Items.Contains(type))) {
-                        Items.Add(type);
-                    }
-                }
-            }
-        }
         public Assembly BaseImplAssembly {
-            get {
-                if (_baseImplAssembly == null) {
-                    var assemblyString = "Xpand.Persistent.BaseImpl, Version=*, Culture=neutral, PublicKeyToken=*";
-                    var baseImplName = ConfigurationManager.AppSettings["Baseimpl"];
-                    if (!String.IsNullOrEmpty(baseImplName)) {
-                        assemblyString = baseImplName;
-                    }
-                    _baseImplAssembly = Assembly.Load(assemblyString);
-                    if (_baseImplAssembly == null)
-                        throw new NullReferenceException("BaseImpl not found please reference it in your front end project and set its Copy Local=true");
-                }
-                return _baseImplAssembly;
-            }
+            get { return _baseImplAssembly; }
         }
-        private List<Type> declaredBusinessClasses;
-        [Obsolete("Use the \'GetDeclaredExportedTypes()\' method instead.")]
-        protected override List<Type> DeclaredBusinessClasses {
-            get {
-                if (declaredBusinessClasses == null) {
-                    declaredBusinessClasses = new List<Type>();
-                    if (!isModuleBase && AutomaticCollectDomainComponents) {
-                        declaredBusinessClasses.AddRange(CollectExportedTypesFromAssembly(GetType().Assembly));
-                    }
-                }
-                return declaredBusinessClasses;
-            }
-        }
+//        private List<Type> declaredBusinessClasses;
+//        [Obsolete("Use the \'GetDeclaredExportedTypes()\' method instead.")]
+//        protected override List<Type> DeclaredBusinessClasses {
+//            get {
+//                if (declaredBusinessClasses == null) {
+//                    declaredBusinessClasses = new List<Type>();
+//                    if (!isModuleBase && AutomaticCollectDomainComponents) {
+//                        declaredBusinessClasses.AddRange(CollectExportedTypesFromAssembly(GetType().Assembly));
+//                    }
+//                }
+//                return declaredBusinessClasses;
+//            }
+//        }
 
         public static IEnumerable<Type> CollectExportedTypesFromAssembly(Assembly assembly) {
             var typesList = new ExportedTypeCollection();
@@ -154,34 +158,11 @@ namespace Xpand.ExpressApp {
             }
         }
 
-
-        static List<object> _storeManagers;
-
-
-        static XpandModuleBase() {
-            Dictiorary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
-            TypesInfo = XafTypesInfo.Instance;
-        }
-
-
-
-        public static XPDictionary Dictiorary { get; set; }
-
-        public static ITypesInfo TypesInfo { get; set; }
-
-        public BusinessClassesList GetAdditionalClasses(ApplicationModulesManager manager) {
+        public IList<Type> GetAdditionalClasses(ApplicationModulesManager manager) {
             return GetAdditionalClasses(manager.Modules);
         }
-        public BusinessClassesList GetAdditionalClasses(ModuleList moduleList) {
-#pragma warning disable 612,618
-            var businessClassesList = new BusinessClassesList(moduleList.SelectMany(@base => @base.AdditionalBusinessClasses));
-            businessClassesList.AddRange(
-                moduleList.SelectMany(moduleBase => moduleBase.BusinessClassAssemblies.GetBusinessClasses()));
-#pragma warning restore 612,618
-
-            businessClassesList.AddRange(moduleList.SelectMany(@base => @base.AdditionalExportedTypes));
-
-            return businessClassesList;
+        public IList<Type> GetAdditionalClasses(ModuleList moduleList) {
+            return new List<Type>(moduleList.SelectMany(@base => @base.AdditionalExportedTypes));
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
