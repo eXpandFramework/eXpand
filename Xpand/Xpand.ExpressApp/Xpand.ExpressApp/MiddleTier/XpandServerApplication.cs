@@ -25,5 +25,10 @@ namespace Xpand.ExpressApp.MiddleTier {
         ApplicationModulesManager IXafApplication.ApplicationModulesManager {
             get { return _applicationModulesManager; }
         }
+
+        protected virtual void OnUserDifferencesLoaded(EventArgs e) {
+            EventHandler handler = UserDifferencesLoaded;
+            if (handler != null) handler(this, e);
+        }
     }
 }

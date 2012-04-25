@@ -2,14 +2,18 @@ using DevExpress.ExpressApp.Security;
 
 namespace Xpand.ExpressApp.StateMachine.Security.Improved {
     public class StateMachineTransitionRequestProcessor : PermissionRequestProcessorBase<StateMachineTransitionOperationRequest> {
-        protected override bool IsRequestFit(StateMachineTransitionOperationRequest permissionRequest, OperationPermissionBase permission, IRequestSecurityStrategy securityInstance) {
-            if (permission is StateMachineTransitionPermission) {
-                return permissionRequest.Modifier == ((StateMachineTransitionPermission)permission).Modifier &&
-                       permissionRequest.StateCaption == ((StateMachineTransitionPermission)permission).StateCaption &&
-                       permissionRequest.StateMachineName == ((StateMachineTransitionPermission)permission).StateMachineName;
-            }
-            return false;
+        readonly IPermissionDictionary _permissions;
+
+        public StateMachineTransitionRequestProcessor(IPermissionDictionary permissions) {
+            _permissions = permissions;
         }
 
+
+        public override bool IsGranted(StateMachineTransitionOperationRequest permissionRequest) {
+            var permission = _permissions.FindFirst<StateMachineTransitionPermission>();
+            return permissionRequest.Modifier == permission.Modifier &&
+                       permissionRequest.StateCaption == permission.StateCaption &&
+                       permissionRequest.StateMachineName == permission.StateMachineName;
+        }
     }
 }

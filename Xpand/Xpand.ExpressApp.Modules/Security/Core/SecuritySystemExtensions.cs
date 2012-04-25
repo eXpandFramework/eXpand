@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.Security.Core {
         }
         public static List<IOperationPermission> GetPermissions(this ISecurityUserWithRoles securityUserWithRoles) {
             var permissions = new List<IOperationPermission>();
-            foreach (ISecurityRole securityRole in securityUserWithRoles.Roles) {
+            foreach (IOperationPermissionsProvider securityRole in securityUserWithRoles.Roles) {
                 IList<IOperationPermission> operationPermissions = securityRole.GetPermissions();
                 permissions.AddRange(operationPermissions);
             }

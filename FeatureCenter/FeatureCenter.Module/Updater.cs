@@ -44,7 +44,7 @@ namespace FeatureCenter.Module {
             if (workflowServiceUser == null) {
                 CriteriaOperator criteriaOperator = CriteriaOperator.Parse("Name=?", SecurityStrategy.AdministratorRoleName);
                 CreateworkflowServiceUser(ObjectSpace.FindObject<Role>(criteriaOperator));
-                CreateworkflowServiceUser(ObjectSpace.FindObject<SecurityRole>(criteriaOperator));
+//                CreateworkflowServiceUser(ObjectSpace.FindObject<SecurityRole>(criteriaOperator));
                 ObjectSpace.CommitChanges();
 
 

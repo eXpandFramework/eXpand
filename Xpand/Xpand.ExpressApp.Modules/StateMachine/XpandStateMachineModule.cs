@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
@@ -21,7 +22,12 @@ namespace Xpand.ExpressApp.StateMachine {
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             if (SecuritySystem.Instance is SecurityStrategy)
-                ((SecurityStrategy)SecuritySystem.Instance).RequestProcessors.Register(new StateMachineTransitionRequestProcessor());
+                ((SecurityStrategy)SecuritySystem.Instance).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
         }
+
+        void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {
+            customizeRequestProcessorsEventArgs.Processors.Add(new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(StateMachineTransitionRequestProcessor), new StateMachineTransitionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions)));
+        }
+
     }
 }

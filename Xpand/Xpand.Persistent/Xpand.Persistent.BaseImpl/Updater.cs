@@ -41,8 +41,9 @@ namespace Xpand.Persistent.BaseImpl {
 
         protected virtual bool InitializeSecurity() {
             if (IsNewSecuritySystem) {
-                var anonymousRole = (ISecurityRole)EnsureRoleExists(SecurityStrategy.AnonymousUserName, GetPermissions);
-                EnsureAnonymousUser(anonymousRole);
+                throw new NotImplementedException();
+                //                var anonymousRole = (ISecurityRole)EnsureRoleExists(SecurityStrategy.AnonymousUserName, GetPermissions);
+                EnsureAnonymousUser(null);
             }
             var admins = EnsureRoleExists(SecurityStrategy.AdministratorRoleName, GetPermissions);
             EnsureUserExists(Admin, "Administrator", admins);
@@ -56,15 +57,16 @@ namespace Xpand.Persistent.BaseImpl {
         }
 
         public virtual void EnsureAnonymousUser(ISecurityRole anonymousRole) {
-            var anonymousUser = (ISecurityUser)ObjectSpace.FindObject(UserType, new BinaryOperator("UserName", SecurityStrategy.AnonymousUserName));
-            if (anonymousUser == null) {
-                anonymousUser = (ISecurityUser)ObjectSpace.CreateObject(UserType);
-                var baseObject = ((XPBaseObject)anonymousUser);
-                baseObject.SetMemberValue("UserName", SecurityStrategy.AnonymousUserName);
-                anonymousUser.IsActive = true;
-                ((IAuthenticationStandardUser)anonymousUser).SetPassword("");
-                ((XPBaseCollection)baseObject.GetMemberValue("Roles")).BaseAdd(anonymousRole);
-            }
+            throw new NotImplementedException();
+            //            var anonymousUser = (ISecurityUser)ObjectSpace.FindObject(UserType, new BinaryOperator("UserName", SecurityStrategy.AnonymousUserName));
+            //            if (anonymousUser == null) {
+            //                anonymousUser = (ISecurityUser)ObjectSpace.CreateObject(UserType);
+            //                var baseObject = ((XPBaseObject)anonymousUser);
+            //                baseObject.SetMemberValue("UserName", SecurityStrategy.AnonymousUserName);
+            //                anonymousUser.IsActive = true;
+            //                ((IAuthenticationStandardUser)anonymousUser).SetPassword("");
+            //                ((XPBaseCollection)baseObject.GetMemberValue("Roles")).BaseAdd(anonymousRole);
+            //            }
         }
 
 
@@ -82,7 +84,8 @@ namespace Xpand.Persistent.BaseImpl {
                 typeInfo.FindMember("UserName").SetValue(user, userName);
                 var memberInfo = typeInfo.FindMember("FirstName");
                 if (memberInfo != null) memberInfo.SetValue(user, userName);
-                user.Roles.Add((IRole)role);
+                ((XPBaseCollection)typeInfo.FindMember("Roles").GetValue(user)).BaseAdd(role);
+                //                user.Roles.Add((IRole)role);
             }
             return user;
         }
@@ -94,7 +97,7 @@ namespace Xpand.Persistent.BaseImpl {
                 securityUser = (ISecurityUser)ObjectSpace.CreateObject(UserType);
                 var baseObject = ((XPBaseObject)securityUser);
                 baseObject.SetMemberValue("UserName", userName);
-                securityUser.IsActive = true;
+                baseObject.SetMemberValue("IsActive", true);
                 ((IAuthenticationStandardUser)securityUser).SetPassword("");
                 ((XPBaseCollection)baseObject.GetMemberValue("Roles")).BaseAdd(strategyRole);
             }
@@ -123,7 +126,8 @@ namespace Xpand.Persistent.BaseImpl {
                 descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Navigate);
                 ((ISupportUpdate)securityRole).EndUpdate();
                 permissions.Add(modelPermission);
-            } else if (securityRole.Name == SecurityStrategy.AnonymousUserName) {
+            } else if (securityRole.Name == "Anonymous") {
+                throw new NotImplementedException();
                 securityRole.GrantPermissionsForModelDifferenceObjects();
             }
             return permissions;

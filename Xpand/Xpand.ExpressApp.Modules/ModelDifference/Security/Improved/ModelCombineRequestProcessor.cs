@@ -2,11 +2,16 @@ using DevExpress.ExpressApp.Security;
 
 namespace Xpand.ExpressApp.ModelDifference.Security.Improved {
     public class ModelCombineRequestProcessor : PermissionRequestProcessorBase<ModelCombinePermissionRequest> {
-        protected override bool IsRequestFit(ModelCombinePermissionRequest permissionRequest, OperationPermissionBase permission, IRequestSecurityStrategy securityInstance) {
-            if (permission is ModelCombinePermission) {
-                return  permissionRequest.Modifier == ((ModelCombinePermission)permission).Modifier;
-            }
-            return false;
+        readonly IPermissionDictionary _permissions;
+
+        public ModelCombineRequestProcessor(IPermissionDictionary permissions) {
+            _permissions = permissions;
         }
+
+        public override bool IsGranted(ModelCombinePermissionRequest permissionRequest) {
+            var modelCombinePermission = _permissions.FindFirst<ModelCombinePermission>();
+            return permissionRequest.Modifier == modelCombinePermission.Modifier;
+        }
+
     }
 }

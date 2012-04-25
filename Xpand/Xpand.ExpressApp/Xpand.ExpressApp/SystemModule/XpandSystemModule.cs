@@ -5,9 +5,9 @@ using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -88,7 +88,7 @@ namespace Xpand.ExpressApp.SystemModule {
             try {
                 if (SequenceObjectType == null)
                     throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
-                if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is MiddleTierClientObjectSpaceProvider)) {
+                if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is DataServerObjectSpaceProvider)) {
                     var connectionString = ((IXafApplication)Application).RaiseEstablishingConnection();
                     SequenceGenerator.Initialize(connectionString, SequenceObjectType);
                 }

@@ -1362,7 +1362,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             column.ApplyModel(columnInfo);
             if (memberInfo != null) {
                 if (repositoryFactory != null) {
-                    bool isGranted = DataManipulationRight.CanRead(ObjectType, columnInfo.PropertyName, null, collectionSource);
+                    bool isGranted = DataManipulationRight.CanRead(ObjectType, columnInfo.PropertyName, null, collectionSource, collectionSource.ObjectSpace);
                     RepositoryItem repositoryItem = null;
                     repositoryItem = repositoryFactory.CreateRepositoryItem(!isGranted, columnInfo, ObjectType);
                     if (repositoryItem != null) {
@@ -1445,7 +1445,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             return (object[])selectedObjects.ToArray(typeof(object));
         }
         protected override bool HasProtectedContent(string propertyName) {
-            return !(ObjectTypeInfo.FindMember(propertyName) == null || DataManipulationRight.CanRead(ObjectType, propertyName, null, collectionSource));
+            return !(ObjectTypeInfo.FindMember(propertyName) == null || DataManipulationRight.CanRead(ObjectType, propertyName, null, collectionSource,collectionSource.ObjectSpace));
         }
         public IPrintable GetPrintable() {
             return grid;

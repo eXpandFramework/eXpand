@@ -1,6 +1,6 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
@@ -22,7 +22,6 @@ namespace Xpand.ExpressApp.ModelDifference {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(ExpressApp.Security.XpandSecurityModule));
-            //            AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(ModelDifferenceObject))));
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
@@ -44,15 +43,18 @@ namespace Xpand.ExpressApp.ModelDifference {
             base.Setup(application);
             if (application != null && !DesignMode) {
                 application.SetupComplete += ApplicationOnSetupComplete;
-                if (!(application is ISupportModelsManager))
-                    throw new NotImplementedException("Implement " + typeof(ISupportModelsManager).FullName + " at your " + Application.GetType().FullName + " or derive from XpandWinApplication or XpandWebApplication");
                 application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;
             }
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            if (SecuritySystem.Instance is SecurityStrategy)
-                ((SecurityStrategy)SecuritySystem.Instance).RequestProcessors.Register(new ModelCombineRequestProcessor());
+            if (SecuritySystem.Instance is SecurityStrategy) {
+                ((SecurityStrategy)SecuritySystem.Instance).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
+            }
+        }
+
+        void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {
+            customizeRequestProcessorsEventArgs.Processors.Add(new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(ModelCombineRequestProcessor), new ModelCombineRequestProcessor(customizeRequestProcessorsEventArgs.Permissions)));
         }
 
         void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, DevExpress.ExpressApp.CreateCustomModelDifferenceStoreEventArgs args) {

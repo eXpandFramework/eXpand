@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
         }
 
         bool CanNotRead(string propertyName, object currentObject) {
-            bool content = !(View.ObjectTypeInfo.FindMember(propertyName) == null || DataManipulationRight.CanRead(View.ObjectTypeInfo.Type, propertyName, null, View.CollectionSource));
+            bool content = !(View.ObjectTypeInfo.FindMember(propertyName) == null || DataManipulationRight.CanRead(View.ObjectTypeInfo.Type, propertyName, null, View.CollectionSource, View.ObjectSpace));
             var fit = ((MemberLevelObjectAccessComparer)ObjectAccessComparerBase.CurrentComparer).Fit(currentObject, View.ObjectTypeInfo.FindMember(propertyName), MemberOperation.Read);
             return content && fit;
         }
@@ -59,7 +59,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
         }
 
         bool CanNotWrite(string fieldName, object baseObject) {
-            return !(View.ObjectTypeInfo.FindMember(fieldName) == null || DataManipulationRight.CanEdit(View.ObjectTypeInfo.Type, fieldName, baseObject, null));
+            return !(View.ObjectTypeInfo.FindMember(fieldName) == null || DataManipulationRight.CanEdit(View.ObjectTypeInfo.Type, fieldName, baseObject, null, View.ObjectSpace));
         }
     }
 }
