@@ -14,10 +14,10 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Logic {
     }
 
     public class AdditionalViewControlsRuleViewController : AdditionalViewControlsProvider.Logic.AdditionalViewControlsRuleViewController {
-        
+
         protected override void AddControl(object control, object controls, LogicRuleInfo<IAdditionalViewControlsRule> info) {
             base.AddControl(control, controls, info);
-            if (info.Rule.Position!=Position.DetailViewItem) {
+            if (info.Rule.Position != Position.DetailViewItem) {
                 var supportAdditionalViewControls = Frame.Template as ISupportAdditionalViewControls;
                 if (supportAdditionalViewControls != null) {
                     var asPxCallbackPanel = supportAdditionalViewControls.TopPanel;
@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Logic {
         }
 
         void OnItemCreated(object sender, ItemCreatedEventArgs itemCreatedEventArgs) {
-            FillInfoToLayoutMap(itemCreatedEventArgs.DetailViewItem, itemCreatedEventArgs.ModelLayoutElement, itemCreatedEventArgs.DetailViewItem);
+            FillInfoToLayoutMap(itemCreatedEventArgs.ViewItem, itemCreatedEventArgs.ModelLayoutElement, itemCreatedEventArgs.ViewItem);
         }
 
 
