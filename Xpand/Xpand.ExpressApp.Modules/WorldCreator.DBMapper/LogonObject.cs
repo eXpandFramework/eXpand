@@ -47,7 +47,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         IEnumerable<DataTable> GetStorageTables() {
             var dataStoreSchemaExplorer = (IDataStoreSchemaExplorer)XpoDefault.GetConnectionProvider(ConnectionString, AutoCreateOption.None);
             var systemTalbes = new List<string> { "sysdiagrams", "xpobjecttype" };
-            return dataStoreSchemaExplorer.GetStorageTablesList().Where(s => !systemTalbes.Contains(s.ToLower())).Select(s => new DataTable(Session) { Name = s });
+            return dataStoreSchemaExplorer.GetStorageTablesList(false).Where(s => !systemTalbes.Contains(s.ToLower())).Select(s => new DataTable(Session) { Name = s });
         }
 
         [Size(255)]
@@ -62,7 +62,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
 
         public XPCollection<DataTable> DataTables {
             get {
-                
+
                 return _dataTables;
             }
         }
@@ -81,6 +81,6 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
                 SetPropertyValue("Name", ref _name, value);
             }
         }
-        
+
     }
 }

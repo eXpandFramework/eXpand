@@ -1,5 +1,5 @@
-﻿using DevExpress.ExpressApp.Core;
-using DevExpress.ExpressApp.Editors;
+﻿using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base.General;
 using Xpand.ExpressApp.TreeListEditors.Win.Core;
 
@@ -8,7 +8,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.ListEditors {
     public class XpandTreeListEditor : DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditor, ITreeListEditor {
 
 
-        public XpandTreeListEditor(DevExpress.ExpressApp.Model.IModelListView model)
+        public XpandTreeListEditor(IModelListView model)
             : base(model) {
         }
 
