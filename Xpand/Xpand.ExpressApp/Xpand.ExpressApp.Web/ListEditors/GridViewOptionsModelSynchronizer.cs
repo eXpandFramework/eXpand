@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.Web.ListEditors
             bool? enableCallBacks = ((IModelListViewMainViewOptions)Model).GridViewOptions.EnableCallBacks;
             if (enableCallBacks.HasValue)
                 gridView.EnableCallBacks = enableCallBacks.Value;
-            if (gridView.Settings.ShowStatusBar==GridViewStatusBarMode.Visible)
+            if (gridView.Settings.ShowStatusBar!=GridViewStatusBarMode.Visible)
                 gridView.Templates.StatusBar = null;
         }
     }
