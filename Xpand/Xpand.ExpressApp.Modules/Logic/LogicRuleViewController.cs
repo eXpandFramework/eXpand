@@ -121,9 +121,12 @@ namespace Xpand.ExpressApp.Logic {
 
         void ApplicationOnViewCreating(object sender, ViewCreatingEventArgs viewCreatingEventArgs) {
             if (Application != null) {
-                var typeInfo = Application.Model.Views.Single(modelView => modelView.Id == viewCreatingEventArgs.ViewID).AsObjectView.ModelClass.TypeInfo;
-                Active[ActiveObjectTypeHasRules] = LogicRuleManager<TModelLogicRule>.HasRules(typeInfo);
-                ForceExecution(Active[ActiveObjectTypeHasRules], null, false, ExecutionContext.ViewCreating);
+                var modelObjectView = Application.Model.Views.Single(modelView => modelView.Id == viewCreatingEventArgs.ViewID).AsObjectView;
+                if (modelObjectView!= null) {
+                    var typeInfo = modelObjectView.ModelClass.TypeInfo;
+                    Active[ActiveObjectTypeHasRules] = LogicRuleManager<TModelLogicRule>.HasRules(typeInfo);
+                    ForceExecution(Active[ActiveObjectTypeHasRules], null, false, ExecutionContext.ViewCreating);
+                }
             }
         }
 
