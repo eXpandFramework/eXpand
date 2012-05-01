@@ -65,14 +65,16 @@ namespace Xpand.ExpressApp.ConditionalActionState.Logic {
         }
 
         IEnumerable<ActionBase> GetActions(IActionStateRule rule) {
-            IEnumerable<ActionBase> actionBases =
-                Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions);
-            if (!string.IsNullOrEmpty(rule.Module)) {
+            IEnumerable<ActionBase> actionBases = Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions);
+            if (!string.IsNullOrEmpty(rule.Module))
                 return GetModuleActions(rule, actionBases);
-            }
-            ActionBase actionBase =
-                actionBases.Where(@base => @base.Id == rule.ActionId).Select(@base => @base).Single();
-            return new List<ActionBase> { actionBase };
+
+            var result = new List<ActionBase>();
+            ActionBase actionBase = actionBases.Where(@base => @base.Id == rule.ActionId).Select(@base => @base).SingleOrDefault();
+            if (actionBase != null)
+                result.Add(actionBase);
+
+            return result;
         }
 
         IEnumerable<ActionBase> GetModuleActions(IActionStateRule rule, IEnumerable<ActionBase> actionBases) {
