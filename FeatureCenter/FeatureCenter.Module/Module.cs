@@ -8,7 +8,6 @@ using DevExpress.Persistent.BaseImpl;
 using FeatureCenter.Module.ListViewControl.PropertyPathFilters;
 using FeatureCenter.Module.LowLevelFilterDataStore;
 using FeatureCenter.Module.WorldCreator;
-using FeatureCenter.Module.WorldCreator.DynamicAssemblyCalculatedField;
 using FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail;
 using Xpand.ExpressApp;
 using Xpand.ExpressApp.Attributes;
@@ -33,8 +32,6 @@ namespace FeatureCenter.Module {
 
         void ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs createCustomModelDifferenceStoreEventArgs) {
             createCustomModelDifferenceStoreEventArgs.AddExtraDiffStore(new ExistentAssemblyMasterDetailModelStore());
-
-            createCustomModelDifferenceStoreEventArgs.AddExtraDiffStore(new WCCalculatedFieldModelStore());
         }
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);

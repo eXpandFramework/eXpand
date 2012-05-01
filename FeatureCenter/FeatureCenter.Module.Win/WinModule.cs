@@ -9,6 +9,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication;
 using FeatureCenter.Module.Win.LowLevelFilterDataStore;
+using FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyCalculatedField;
 using FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
@@ -66,6 +67,8 @@ namespace FeatureCenter.Module.Win {
         }
 
         void ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs e) {
+
+            e.AddExtraDiffStore(new WCCalculatedFieldModelStore());
             e.AddExtraDiffStore(new WC3LevelMasterDetailModelStore());
             SkinFilterProvider skinFilterProvider = FilterProviderManager.Providers.OfType<SkinFilterProvider>().FirstOrDefault();
             if (skinFilterProvider != null)

@@ -401,9 +401,6 @@
     <Compile Include="WorldCreator\ModelSystemTablesUpdater.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\WorldCreatorUpdater.cs" />
-    <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\AttributeRegistrator.cs" />
-    <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\Updater.cs" />
-    <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\WCCalculatedFieldModelStore.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyRuntimeCalculatedField\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyRuntimeCalculatedField\WorldCreatorUpdater.cs" />
     <Compile Include="WorldCreator\NorthWind\AttributeRegistrator.cs" />
@@ -549,9 +546,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WorldCreator\ExistentAssemblyRuntimeCalculatedField\MDO_ExistentAssemblyRuntimeCalculatedField.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WorldCreator\DynamicAssemblyCalculatedField\WCCalculatedField.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="RuntimeFields\OrphanedCollectionFromModel\MDO_OrphanedCollectionFromModel.xafml">

@@ -17,11 +17,11 @@ namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
         }
 
         public override void Update() {
-            if (Session.FindObject<PersistentAssemblyInfo>(info => info.Name == Module.WorldCreator.DynamicAssemblyCalculatedField.AttributeRegistrator.MasterDetailDynamicAssembly) == null) {
-                IPersistentAssemblyInfo persistentAssemblyInfo =new DynamicAssemblyBuilder(Session).Build(Module.WorldCreator.DynamicAssemblyCalculatedField.AttributeRegistrator.DMDCustomer, DMDOrder,
-                        DMDOrderLine,Module.WorldCreator.DynamicAssemblyCalculatedField.AttributeRegistrator.MasterDetailDynamicAssembly);
+            if (Session.FindObject<PersistentAssemblyInfo>(info => info.Name == DynamicAssemblyCalculatedField.AttributeRegistrator.MasterDetailDynamicAssembly) == null) {
+                IPersistentAssemblyInfo persistentAssemblyInfo =new DynamicAssemblyBuilder(Session).Build(DynamicAssemblyCalculatedField.AttributeRegistrator.DMDCustomer, DMDOrder,
+                        DMDOrderLine,DynamicAssemblyCalculatedField.AttributeRegistrator.MasterDetailDynamicAssembly);
                 IPersistentClassInfo persistentClassInfo =
-                    persistentAssemblyInfo.PersistentClassInfos.Where(info =>info.Name == Module.WorldCreator.DynamicAssemblyCalculatedField.AttributeRegistrator.DMDCustomer).Single();
+                    persistentAssemblyInfo.PersistentClassInfos.Where(info =>info.Name == DynamicAssemblyCalculatedField.AttributeRegistrator.DMDCustomer).Single();
                 var persistentCoreTypeMemberInfo = new PersistentCoreTypeMemberInfo(persistentClassInfo.Session);
                 persistentCoreTypeMemberInfo.TypeAttributes.Add(new PersistentVisibleInDetailViewAttribute(persistentCoreTypeMemberInfo.Session));
                 persistentCoreTypeMemberInfo.TypeAttributes.Add(new PersistentVisibleInListViewAttribute(persistentCoreTypeMemberInfo.Session));

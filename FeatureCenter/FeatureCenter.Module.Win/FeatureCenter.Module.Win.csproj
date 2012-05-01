@@ -470,6 +470,9 @@
     <Compile Include="ControllingXtraGrid\XtraGridViewOptions\AttributeRegistrator.cs" />
     <Compile Include="Wizard\AttributeRegistrator.cs" />
     <Compile Include="Wizard\WizardCustomer.cs" />
+    <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\AttributeRegistrator.cs" />
+    <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\Updater.cs" />
+    <Compile Include="WorldCreator\DynamicAssemblyCalculatedField\WCCalculatedFieldModelStore.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\DynamicAssemblyBuilder.cs" />
     <Compile Include="WorldCreator\DynamicAssemblyMasterDetail\Updater.cs" />
@@ -679,6 +682,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ListViewControl\LayoutViewGridListEditor\MDO_LayoutViewGridListEditor.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WorldCreator\DynamicAssemblyCalculatedField\WCCalculatedField.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
