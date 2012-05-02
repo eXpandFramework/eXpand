@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
@@ -24,6 +26,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelRootNavigationItems, IModelRootNavigationItemsAutoSelectedGroupItem>();
         }
+
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (Application != null)
@@ -37,11 +40,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
                 };
         }
-
-        //        protected override List<Type> DeclaredBusinessClasses {
-        //            get {
-        //                return new List<Type>();
-        //            }
-        //        }
+        protected override IEnumerable<Type> GetDeclaredExportedTypes() {
+            return new List<Type>();
+        }
     }
 }
