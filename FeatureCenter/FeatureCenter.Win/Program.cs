@@ -13,6 +13,7 @@ using DevExpress.ExpressApp.Workflow.Versioning;
 using DevExpress.ExpressApp.Workflow.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
+using Xpand.ExpressApp;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Workflow;
 
@@ -40,7 +41,7 @@ namespace FeatureCenter.Win {
 #endif
 
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
-                winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                (winApplication).ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
             try {
 

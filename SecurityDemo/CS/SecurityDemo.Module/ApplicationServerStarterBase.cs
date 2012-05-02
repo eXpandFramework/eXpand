@@ -43,7 +43,7 @@ namespace SecurityDemo.Module {
             //#endregion
 
             serverApplication.Security = new SecurityStrategyComplex(typeof(SecurityDemoUser), typeof(SecurityRole), authentication);
-            ((ISupportFullConnectionString) serverApplication).ConnectionString = serverConnectionString;
+            ( serverApplication).ConnectionString = serverConnectionString;
             serverApplication.Setup();
             serverApplication.DatabaseUpdateMode=DatabaseUpdateMode.UpdateDatabaseAlways;
             serverApplication.CheckCompatibility();

@@ -42,8 +42,7 @@ namespace SecurityDemo.Win {
                 starter.Start();
 
                 new MiddleTierClientApplicationConfigurator(application);
-			    ((ISupportFullConnectionString) application).ConnectionString =
-			        ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+			    
 				application.Setup();
 				application.Start();
 			}

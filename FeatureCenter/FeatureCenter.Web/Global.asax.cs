@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Web;
 using DevExpress.ExpressApp.Web;
 using FeatureCenter.Web.ApplicationCode;
+using Xpand.ExpressApp;
 
 namespace FeatureCenter.Web {
     public class Global : System.Web.HttpApplication {
@@ -26,7 +27,7 @@ namespace FeatureCenter.Web {
 			}
 #endif
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
-                WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                ( WebApplication.Instance).ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
