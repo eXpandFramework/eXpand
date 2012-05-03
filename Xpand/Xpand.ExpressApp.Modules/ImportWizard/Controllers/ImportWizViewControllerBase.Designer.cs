@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.ImportWizard.Controllers
             this.ImportAction.Caption = "Import from...";
             this.ImportAction.Category = "Export";
             this.ImportAction.ConfirmationMessage = null;
-            this.ImportAction.Id = "bfaafc5a-b1e9-4fd2-aec5-849cd2dc5b08";
+            this.ImportAction.Id = "ImportWizardWinActionId";
             this.ImportAction.ImageName = "Import";
             this.ImportAction.Shortcut = null;
             this.ImportAction.Tag = null;
